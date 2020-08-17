@@ -1,0 +1,11 @@
+{
+  "name":{
+	"en":"Central Corridor",
+	"fr":"Couloir Central",
+	"en":"PlaceHolder"
+  },
+  "id":25,
+  "objects":[],
+  "equipment":[],
+  "doors":[1,2,7,24]
+}

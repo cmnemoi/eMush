@@ -1,0 +1,10 @@
+{
+  "name":{
+	"en":"Nexus",
+	"fr":"Nexus",
+	"es":"PlaceHolder"   },
+  "id":4,
+  "objects":[],
+  "equipment":["nerons_core","bios_terminal"],
+  "doors":[26]
+}

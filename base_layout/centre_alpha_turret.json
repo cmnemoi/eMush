@@ -1,0 +1,11 @@
+{
+  "name":{
+	"en":"Centre Alpha Turret",
+	"fr":"Tourelle Alpha Centre",
+	"es":"PlaceHolder"
+  },
+  "id":11,
+  "objects":[],
+  "equipment":["turret_command"],
+  "doors":[1,31]
+}

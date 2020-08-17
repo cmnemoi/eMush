@@ -1,0 +1,11 @@
+{
+  "name":{
+	"en":"Hydroponic Garden",
+	"fr":"Jardin Hydroponique",
+	"es":"PlaceHolder"
+  },
+  "id":8,
+  "objects":[2,"banana_tree", "hydropot"],
+  "equipment":[],
+  "doors":[24,31]
+}

@@ -30,7 +30,8 @@ deseases_list=['Migraine','GastroEntérite','Verdoiement','Morsure Noire','Caren
 ###############################################################################
 
 
-all_lists=[char_list,item_list,equ_list,skills_list,hunter_list]
+all_lists=[char_list,item_list,equ_list,skills_list,hunter_list,
+           injuries_list,disorders_list,deseases_list]
 replace_lists=['$char','$item','$equipment','$skill','$hunter',
                '$injurie','$disorder','$desease']
 

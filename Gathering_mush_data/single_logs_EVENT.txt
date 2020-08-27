@@ -1,0 +1,80 @@
+EV:AC_DAUNT,*$char* attrape *$char* dans un coin et se mets à lui hurler dessus...
+EV:AC_GEN_METAL_FAILED,Vous retournez toutes ces piles de machins inutiles mais rien à faire, rien de vraiment intéressant...
+EV:AC_LAY_DOWN,*$char* s'allonge... Ça fait du bien de s'arrêter. Allez direction le pays des rêves !
+EV:AC_MASS_GGEDON,*$char* se raidit soudain... On dirait que des filaments jaunes pourries tortillonant s'échappe de sa combinaison pour pénétrer la coque...
+EV:AC_MASS_GGEDON_TGT,Vous vous sentez mal, une sensation étrange, comme ci tout était couvert de pourriture...votre estomac chavire...vous vous sentez très faible...bluuurrrpp.
+EV:AC_NERON_DEPRESS,*$char* a l'air en grand discussion avec...NERON. Mais que peuvent-ils bien se dire ces deux-là ?
+EV:AC_PUTSCHED,*$char* entre en grande discussion avec NERON. Qui sait ce qu'ils peuvent bien se dire…
+EV:AC_PUT_THROUGHT_DOOR,*$char* a fichu *$char* à la porte. Du balai !
+EV:AC_RETR_COFFEE,*$char* amorce la machine. Et dans un grand fracas, la mécanique se lance, les rouages crissent et les arômes embaument la pièce. Ça sent les matins chaleureux sur une terrasse de Vénus. Café !
+EV:AC_SLIME_TRAP,L'espace d'un instant, *$char* met une tape affectueuse à *$char* mais on...dirait qu'une fumée putride est sorti de ses doigts !
+EV:AC_WAKE_UP,*$char* se lève doucement...
+EV:ADM_MISSION_ACCEPTED,NOPRINT
+EV:APRONED,C'est dégoûtant... Heureusement que vous aviez votre *$item*...
+EV:ATCHOUM,Atchoum !
+EV:CAT_FLED,Le chat était dans la pièce, vous n'avez pas pu vous empêcher de fuir...
+EV:CHARACTER_COOKED,*$char* s'est cuisiné un petit quelque chose pour plus tard.
+EV:CHARACTER_DEFROSTED,*$char* s'est passé quelque chose au micro-onde.
+EV:CHARACTER_GAGGED,*$char* a bâillonné *$char*.
+EV:COMPUTE_EDEN_SUCCESS,*$char* se prend la tête mais rien n'y fait, aucun moyen de trianguler les données...Soudain une secousse fait tomber une carte mère sur le sommet du crâne et son regard s'illumine ! Il fallait penser autrement ! *$char* découvre les coordonnées du système des Edénistes.
+EV:COMPUTE_FAILED,Vous vous prenez la tête mais rien n'y fait, aucun moyen de trianguler les données...
+EV:COM_ENHANCED,Vous n'avez pas réussi à établir une communication avec le système solaire Sol, mais vous avez *amélioré la qualité du signal*. Vous aurez le droit à un nouvel essai demain.
+EV:COM_ESTABLISHED,Vous avez réussi à établir une communication entre le Daedalus et le système solaire Sol !
+EV:CREATE_SPORE,*$char* s'extirpe un spore. C'est vraiment répugnant. Et l'odeur...
+EV:CUDDLE_OTHER,*$char* réconforte *$char*, ça ira mieux demain tu verras...
+EV:DIRTED,C'est dégoûtant... Vous vous êtes sali.
+EV:DISASSEMBLE_FAILED,Ce machin n'est pas si mal foutu que ça... vous n'arrivez pas à le démonter...
+EV:DISEASED,Vous ne vous sentez pas très très bien... Chaud... Froid... Chaud... Froid... Vous devriez voir un docteur. Vous avez contracté une maladie physique : $desease.
+EV:DISEASE_BY_ALIEN_TRAV,Votre avez attrapé une maladie pendant votre séjour ($desease).
+EV:DISEASE_BY_SEX,Vous vous sentez bizarre...l'émotion...ou bien... Votre partenaire vous a transmis une maladie ($desease).
+EV:DYNARCADE_LOOSE,Oh purée encore perdu, spa vrai qu' cette machine diabolique a failli vous tuer en plus !
+EV:DYNARCADE_WIN,OH OUIIIII. *$char* a vaincu Xatator le boss du NIVEAUUUUU 10 !
+EV:EAT_DRUG,*$char* s'envoie un cachet.
+EV:EV_ABNEGATION,Votre compétence *$skill* a porté ses fruits, vous n'êtes pas mort...
+EV:EV_APERO,L'amélioration du compt...de la cuisine a porté ses toa...fruits. Vous gagnez 1 xp supplémentaire.
+EV:EV_APERO_VOMIT,*$char* vous a vomit dessus, c'est dégoûtant...Vous êtes tout *sale* maintenant.
+EV:EV_BECOME_PARIA,Vous êtes le Paria.
+EV:EV_CEASE_FIRE,*$char* impose un cessez le feu dans la pièce. Quelle autorité !
+EV:EV_CHECK_AMMO_SING,Votre appareil ne dispose plus que de quoi faire feu une fois...ça tombe mal...
+EV:EV_CHECK_AMMO_ZERO,Clic...Clic...Votre appareil n'a plus de munitions.
+EV:EV_DONE_IT,*$char* et *$char* éteignent la lumière et des bruits étranges se produisent...Quelques minutes plus tard, ils rallument. Ils ont un air satisfait.
+EV:EV_END_CEASE_FIRE,*$char* a quitté la pièce. Fin du cessez-le-feu.
+EV:EV_END_CEASE_FIRE_2,Plus personne ne prend *$char* au serieux finalement.. Fin du cessez-le-feu.
+EV:EV_GERMAPHOBIC,Vous vous sentez sale, ça vous déprime...
+EV:EV_LOST_IMMUNITY,Vous avez perdu votre immunité contre le Mush.
+EV:EV_NO_LONGER_PARIA,Votre persécuteur est mort, vous n'êtes plus le Paria.
+EV:EV_PREGNANT,Vous avez gagné *8 Triomphe* car vous attendez un heureux évènement !
+EV:EV_REINFORCE_FAILED,Vous vous reculez fièrement et... patatra... bon...tant pis... Votre tentative de blindage a échoué.
+EV:EV_TACTICS_SUCCESS,Votre compétence $skill a porté ses fruits, vous avez perdu une partie de vos aggresseurs dans un bras de nébuleuse...
+EV:EXTRACTED_SPORE,Vous utilisez votre extracteur sur ce vilain furoncle. Le bruit fait un peu peur et le sang aussi...Tiens qu'est ce que c'est que ça ?
+EV:EXTRACTOR_SPORE_FAILED,Vous utilisez votre extracteur sur ce vilain furoncle. Le bruit fait un peu peur et le sang aussi... Heureusement vous n'aviez aucun spore à récupérer
+EV:EXTRACT_CAPSULE,*$char* a extrait une Capsule du Fuel du réservoir.
+EV:EXTREME_HUNGER,Vous avez faim. Si vous n'y remédiez pas, votre santé va se détériorer à chaque changement de cycle.
+EV:FINE_OBSERVER,*$char* a remarqué quelque chose d'intéressant...
+EV:FIRE_CLEARED,*$char* a éteint l'incendie !
+EV:FIRE_CLEAR_MISSED,Vous n'avez pas réussi à éteindre l'incendie...
+EV:GLOMERON_SAFE,Vous entamez une détection des traces Mush... Niveau pré-fongique nul.
+EV:GUARDING,*$char* prend un air ennuyeux et se met à garder la pièce...
+EV:HACK_FAILED,Impossible de craquer ce système...
+EV:HACK_SUCCESS,Vous rentrez dans le système !
+EV:HANDGUN_ABSORBED,*$char* a fait feu sur *$char* mais ça n'a pas traversé les protections.
+EV:HEAL_DIS_INSUFFICIENT,*$char* a progressé sur les soins de la maladie de *$char* mais il faudra continuer le traitement.
+EV:HEAL_DIS_SUCCESS,*$char* a réussi a soigner *$char* de sa maladie ($desease).
+EV:HERO_DISPENSER,*$char* enclenche le dispensaire avec une étrange lueur dans les yeux.
+EV:HERO_EXPE,Vous venez de terminer une expédition ! Vous pouvez retrouver son déroulement ICI.
+EV:HERO_LOST_DEPRESSED,Vous vous sentez seul et abandonné... Personne ne pense donc à vous là-haut ?
+EV:HERO_MUTATED,*$char* se recroqueville. Il semble souffrir, ses cris résonnent, il vomit une bile immonde qui fait fondre ses vêtements...Quelle horreur ! Il a complètement changé de forme !
+EV:HERO_PARASITED,*$char* a fini son voyage et fait maintenant parti du Mush.
+EV:HERO_READING,*$char* se plonge dans un document avec un air intrigué...
+EV:HERO_REFUEL,*$char* a inséré un *$item* dans le *Réservoir*.
+EV:HERO_SCREWED_TALKY,*$char* s'approche de *$char* et semble glisser un truc visqueux dans son *Talky*...
+EV:HERO_UNSOCIABLE,Ces importuns vous importunent au plus haut point, les voir s'affairer à de si inutiles besognes vous rend pessimiste pour l'avenir de l'Humanité...
+EV:HUNTER_DEAD,Un *$hunter* a été abattu.
+EV:KNIFE_ABSORBED,*$char* tente une attaque avec son arme blanche sur *$char* mais frappe sur ses protections.
+EV:KNIFE_KILLED,*$char* expire sous la lame de *$char*.
+EV:KNIFE_MISSED,*$char* dégaine sa lame et tente de frapper *$char* mais rate sa cible.
+EV:LAND_EVENT,L'atterrissage de *$char* est si mauvais qu'il a endommagé son appareil.
+EV:LEAVED_MUSH,Vous vomissez. Vous vous sentez étrange. Comme si on vous coupait de vos sensations, comme si vous n'étiez plus rien. Vous vous sentez seul. Vous retrouvez l'angoisse de la fin qui viendra, vous retrouvez l'émotion de la peur. Vous ne faites plus partie du Mush...
+EV:LIQ_MAP_HELP,La carte liquide a bien aidé *$char*.
+EV:LOG_ANXIETY_ATTACK,Vous ressentez des frissons, l'espoir vous quitte, vous vous demandez ce que vous faites ici et quand cet enfer va s'arrêter...Vous êtes victime d'une Crise de $skill.
+EV:LOG_INSTALL_SUCCESS,*$char* installe sa petite *Camera* avec application.

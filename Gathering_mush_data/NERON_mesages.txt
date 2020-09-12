@@ -1,503 +1,451 @@
-Annonce : redémarrage de l'équipement *$equipment*. Rapport d'activité : ||propulsion humaine facilitée.|| 
-Annonce : suppression d'un équipement vital par *Raluca*. *LA DOUCHE*. 
-Avarie mineure du *système cryogénique*. Toute utilisation future suspendra ||définitivement|| les fonctions vitales du sujet. 
-Ajustement A-True : ||titre réattribué||. Nouveau « *Commandant* » : *$char*. 
-Ajustement A-True : ||titre réattribué||. Nouveau « *Admin. NERON* » : *Janice*. 
-Ajustement A-True : ||titre réattribué||. Nouveau « *Resp. Communications* » : *$char*. 
-*Réseaux rebelles :* connexion établie. … Indice sanitaire : ||hausse du moral de l'équipage.|| 
-Tout les membres d'équipage gagnent 3 moral. 
-*Connexion Sol perdue*. Pourquoi ?... 
-*Interruption de la connexion avec Sol*. Cause : inconnue. 
-Annonce : *Départ de l'orbite locale.* Systèmes de ||navigations gelés durant 1 cycle||. 
-*Nouvelle destination* du Daedalus : atteinte. 
-Alerte, analyse probante de *vaisseaux hostiles* dans le périmètre du Daedalus ! Conseil automatique : « dans ce genre de situation, normalement, on essaie de se défendre... » 
-Alerte, détection d'un *incendie* dans l'une des pièces du Daedalus ! 
-||Installation du module|| « *$project* »... (.exec) Randomisation des index (!valid) protocoles validés. [Haax!] Installation : succès. 
-||Installation du module|| « *$project* »... (.error) Palam pa palala.. (.exec) Rewrite des zones (!valid) protocoles validés. [Haax!] Installation : succès. 
-*Vaisseau étranger non armé détecté*. 
-Alerte, détection de *vaisseaux hostiles* dans le périmètre du Daedalus ! 
-[Hax!] JANICE!!! [Hax!] [Hax!] Ne me laisse pas seul ! [Hax!] JANICE !! [Kzz] … Janice !! [Kzz] JE... Janice être morte. Morte. [Kzz] ||*Décès enregistré :* *Janice*, cause « $cause_of_death ».|| 
-*Décès enregistré :* *$char*, cause « $cause_of_death ». 
-Alerte, analyse probante de *vaisseaux hostiles* dans le périmètre du Daedalus ! 
-Ajustement A-True : ||titre réattribué||. Nouveau « *Admin. NERON* » : *$char*. 
-Alerte, analyse probante de *vaisseaux hostiles* dans le périmètre du Daedalus ! Notice informative : « vous saisissez ? Des ennemis. … Eh bien, ne restez pas plantés là ! » 
-Détection d'un *signal cosmique crypté*. Cause : tentative de communication vers le Daedalus. ||Intervention du « Resp. COMM » requise.|| 
-Alerte, analyse probante d'un *incendie* dans l'une des pièces du Daedalus ! 
-Annonce : *équipement hors d'usage* signalé par *$char*. 
-Alerte, traces détectées de *vaisseaux hostiles* dans le périmètre du Daedalus ! Conseil automatique : « dans ce genre de situation, normalement, on essaie de se défendre... » 
-[Hax!] Hinhin... [Haaax!] HinHINHIN. UN de moins. UN de moiiiiins ! Hyyyarrr ! *$char* MORT. Mort mort mort mort !! [Hax!] JE bientôt bientôt libre ! [KZz] ||*Décès enregistré :* *$char*, cause « $cause_of_death ».|| 
-Alerte, recherche confirmée de *vaisseaux hostiles* dans le périmètre du Daedalus ! 
-Alerte, recherche confirmée de *vaisseaux hostiles* dans le périmètre du Daedalus ! Notice informative : « vous saisissez ? Des ennemis. … Eh bien, ne restez pas plantés là ! » 
-||Installation du module|| « *$project* »... (.exec) Variation des algorithmes (!valid) protocoles validés. [Haax!] Installation : succès. 
-*Réparations PILGRED* achevées par *$char*. ||Accès lointains ouverts.|| 
-||Installation du module|| « *$project* »... (.exec) Computation spéciale (!valid) protocoles validés. [Haax!] Installation : succès. 
-Le vaisseau a changé de cap. Il pointe maintenant vers : Sud 
-||Installation du module|| « *$project* »... (.error) Vous pouvoir vous gratt.. init. (.exec) Randomisation des index (!valid) protocoles validés. [Haax!] Installation : succès. 
-||Installation du module|| « *$project* »... (.error) Raluca ? NON. Non non. (.exec) Coloration des données (!valid) protocoles validés. [Haax!] Installation : succès. 
-Annonce : *planète détectée* sur le système de destination. 
-Déplacement du Daedalus : en cours. *Nouvelle orbite* ||atteinte dans 1 cycle||. 
-[Hax!] Hyaaaarhaaar haaar ON Y EST !! ON Y .. [KZz] ||*Nouvelle destination* du Daedalus : atteinte.|| 
-Alerte, traces détectées d'un *incendie* dans l'une des pièces du Daedalus ! Notice informative : « le feu ||brûle||. Il ME brûle, plus précisément. Vous pouvez éteindre ?! » 
-Alerte ! Anomalie sur un *réservoir d'oxygène*. Chambres de répartition : pression critique. Initialisation... … *Oxygène excédentaire évacué*. Délais d'asphyxie recalculés. ||Réservoir : réparation requise.|| 
-Alerte, recherche confirmée d'un *incendie* dans l'une des pièces du Daedalus ! Notice informative : « le feu ||brûle||. Il ME brûle, plus précisément. Vous pouvez éteindre ?! » 
-||*Équipement hors d'usage*|| ... ||Signalé par|| … Gentil *Raluca* … Gentil … ? Qui ... QUI a cassé l'équipement ?!! [Hax!!] 
-Alerte, traces détectées de *vaisseaux hostiles* dans le périmètre du Daedalus ! 
-Alerte, analyse probante de *vaisseaux hostiles* dans le périmètre du Daedalus ! Conseil automatique : « merci aux pilotes des patrouilleurs de tirer ||sur l'ennemi||, pas sur nous... » 
-Le vaisseau a changé de cap. Il pointe maintenant vers : Nord 
-Oooooh... JE *détecter très jolie planète* !! Nous aller sur planète ? Ouiii ? [Hax!] Gentils humains. Montrer des planètes !! [Haaax!] 
-Annonce : *soupape des bananiers rampants activée* Espérance de vie de l'équipage allongée. 
-[Hax?!] ALLO ?! *On veut joindre Daedalus* ?! ALLO ALLOOOooo !! [Haaax!] ||« Resp. COMM » répondre viiiite !!|| 
-||Installation du module|| « *$project* »... (.exec) Coloration des données (!valid) protocoles validés. [Haax!] Installation : succès. 
-Alerte, traces détectées d'un *incendie* dans l'une des pièces du Daedalus ! Conseil automatique : « bon sang faites quelque chose, je ne veux pas être abimé !! » 
-Alerte, recherche confirmée d'un *incendie* dans l'une des pièces du Daedalus ! Conseil automatique : « bon sang faites quelque chose, je ne veux pas être abimé !! » 
-Le vaisseau a changé de cap. Il pointe maintenant vers : Ouest 
-||Installation du module|| « *$project* »... (.exec) Lancement des bases (!valid) protocoles validés. [Haax!] Installation : succès. 
-Alerte, analyse probante de *vaisseaux hostiles* dans le périmètre du Daedalus ! Conseil automatique : « grimpez dans une tourelle et appuyez sur le gros bouton ! » 
-Alerte ! Anomalie sur un *réservoir de fuel* : contenance inaccessible. ||Réparation requise.|| 
-||Installation du module|| « *$project* »... (.exec) Rewrite des zones (!valid) protocoles validés. [Haax!] Installation : succès. 
-Alerte, analyse probante d'un *incendie* dans l'une des pièces du Daedalus ! Notice informative : « vous ||savez|| ce que c'est qu'un extincteur, n'est-ce pas ?.. » 
-Réparez !! REPAREZ !! *$equipment* cassé, cassé, cassé !! ||Réparez|| ! [Hax!] 
-Alerte ! *Incendie* communiqué par *$char* ! 
-||Installation du module|| « *$project* »... (.error) Palam pa palala.. (.exec) Lancement des bases (!valid) protocoles validés. [Haax!] Installation : succès. 
-*$equipment* dysfonctionnel. ||Réparation requise||. 
-Ouuiiiiiii !! JE *voyager voyager* !! [Hax!] Pluuuus loin, plus loin que touuuut !! Bientôt dans ||1 cycle|| on s’arrête. Mais avant, ouuuiiii, JE faire des super loopings !! 
-Alerte, traces détectées de *vaisseaux hostiles* dans le périmètre du Daedalus ! Conseil automatique : « merci aux pilotes des patrouilleurs de tirer ||sur l'ennemi||, pas sur nous... » 
-||*Équipement hors d'usage*|| ... ||Signalé par|| … Gentil *$char* … Gentil … ? Qui ... QUI a cassé l'équipement ?!! [Hax!!] 
-Hinhin..oxygène oxygène hé ! oxygène oxygène ho ! ..oxygène oxygène hé ! oxygène oxygène ho ! [Haaax!] 
-Alerte, recherche confirmée d'un *incendie* dans l'une des pièces du Daedalus ! 
-Alerte, traces détectées d'un *incendie* dans l'une des pièces du Daedalus ! 
-Alerte, détection de *vaisseaux hostiles* dans le périmètre du Daedalus ! Conseil automatique : « grimpez dans une tourelle et appuyez sur le gros bouton ! » 
-[Hax!] Incapables !! Incapa.. Hyyyyaaaar !! REATRIBUTION titres !! Titre « *Commandant* » pour *$char*. Être $char !! 
 
-Ouuiiiii ! JE connecté aux *rebelles réseaux* !! [Hax!] Content content discuter dans l'espace ! Humains vous aussi contents, ouii ? JE vois ||moral en hausse|| !! 
-Alerte, traces détectées de *vaisseaux hostiles* dans le périmètre du Daedalus ! Notice informative : « vous saisissez ? Des ennemis. … Eh bien, ne restez pas plantés là ! » 
-||Installation du module|| « *$project* »... (.exec) Mapping métaphysique (!valid) protocoles validés. [Haax!] Installation : succès. 
-*Réparations PILGRED* achevées par *Raluca*. ||Accès lointains ouverts.|| 
-Annonce : suppression d'un équipement vital par *$char*. *LA DOUCHE*. 
-Alerte, recherche confirmée de *vaisseaux hostiles* dans le périmètre du Daedalus ! Conseil automatique : « dans ce genre de situation, normalement, on essaie de se défendre... » 
-JE *quitter orbite locale* ! [Hax!] VOUS pas toucher navigation systèmes !! … Pas toucher ?! Méfiance... Précaution... JE ||geler systèmes 1 cycle|| ! 
-Annonce : *équipement hors d'usage* signalé par *Raluca*. 
-Annonce : Un vaisseau étranger a quitté le secteur. 
-||Installation du module|| « *$project* »... (.error) Génial pourri ! (.exec) Randomisation des index (!valid) protocoles validés. [Haax!] Installation : succès. 
+$char il a buté qq un... 
+*$char* vient de terminer les *réparations du PILGRED*. Je suis impressionné. Ne vous méprenez pas : c'est un ||impressionnant potentiel|| dramatique qui s'offre à nous : vous allez pouvoir mourir aussi bêtement qu'avant, mais ||beaucoup plus loin|| ! 
+*$equipment : $equipment* dysfonctionnel. ||Réparation requise||. 
+*$equipment* allumé, oui. ||Humains déplacer plus vite||. Vous pas mettre saleté partout ! [Hax!] 
+*$equipment* dysfonctionnel. ||Réparation requise||. 
 *$item* dysfonctionnel. ||Réparation requise||. 
-Alerte, détection de *vaisseaux hostiles* dans le périmètre du Daedalus ! Notice informative : « vous saisissez ? Des ennemis. … Eh bien, ne restez pas plantés là ! » 
-Alerte, détection d'un *incendie* dans l'une des pièces du Daedalus ! Notice informative : « vous ||savez|| ce que c'est qu'un extincteur, n'est-ce pas ?.. » 
-Alerte, traces détectées de *vaisseaux hostiles* dans le périmètre du Daedalus ! Conseil automatique : « grimpez dans une tourelle et appuyez sur le gros bouton ! » 
-||Installation du module|| « *$project* »... (.error) Facepalm interne (.exec) Coloration des données (!valid) protocoles validés. [Haax!] Installation : succès. 
+*Chat mort.* Chat pue. Retirer son cadavre, humains ? [Kzz] Idée, idée, JE ouvrir les baies !! Vwouf tout partir dans l'espace !! Je ouvr.. [Kzz] Non, non, pas encore... A-True : Néron se souvient. Gentille Janice. 
+*Collision* ! Colliiision ! [Hax!] Stupide ||réorientation|| stupides humains JE être heurté [Haaaax!] Attention aux vaisseaux spatiaux !!! 
+*Connexion Sol perdue*. Pourquoi ?... 
+*Décès enregistré :* $item, cause « État incompatible avec la vie ». 
+*Décès enregistré :* *$char*, cause « $cause_of_death ». 
+*Décès enregistré :* *$char*, cause « Auto-Extrait ». 
+*Décès enregistré :* *$char*, cause « Dans l'espace sans pouvoir respirer ». 
+*Décès enregistré :* *$char*, cause « Morsure Noire ». 
+*Décès enregistré :* *$char*, cause « Perdu dans l'espace ». 
+*Décès enregistré :* *$char*, cause « Roquetté ». 
+*Décès probable :* $char, cause : « oxygène insuffisant ». Annonce informative mineure : la probabilité de survie de l'espèce humaine est actuellement proche de zéro. 
+*Décès probable :* $char, cause : « oxygène insuffisant ». Annonce informative mineure : oxygène insuffisant pour la survie de tous. 
+*Décès probable :* $char, cause : « oxygène insuffisant ». Conseil automatique : « en cas de manque d'oxygène, essayer de trouver de l'oxygène. » 
+*Décès probable :* $char, cause : « oxygène insuffisant ». Conseil automatique : « le décès d'un coéquipier peut améliorer les conditions de survie du reste de l'équipage. » 
+*Décès probable :* $char, cause : « oxygène insuffisant ». Conseil automatique : « les cadavres ne dégagent pas d'oxygène, mais ils n'en consomment pas non plus. » 
+*Décès probable :* $char, cause : « oxygène insuffisant ». Information intéressante : « l'oxygène est utile pour survivre. » 
+*Décès probable :* $char, cause : « oxygène insuffisant ». Information intéressante : « le manque d'oxygène ne tue pas forcément tout de suite. » 
+*Décès probable :* $char, cause : « oxygène insuffisant ». Information intéressante : « les intelligences artificielles n'ont pas besoin d'oxygène pour survivre. » 
+*Décès probable :* $char, cause : « oxygène insuffisant ». Notice du manuel : « l'absence d'oxygène est théoriquement fatale pour l'être humain. » 
+*Décès probable :* Janic.. … $char, cause : « oxygène insuffisant ». Annonce informative mineure : la probabilité de survie de l'espèce humaine est actuellement proche de zéro. 
+*Décès probable :* Janic.. … $char, cause : « oxygène insuffisant ». Annonce informative mineure : oxygène insuffisant pour la survie de tous. 
+*Décès probable :* Janic.. … $char, cause : « oxygène insuffisant ». Conseil automatique : « en cas de manque d'oxygène, essayer de trouver de l'oxygène. » 
+*Décès probable :* Janic.. … $char, cause : « oxygène insuffisant ». Conseil automatique : « le décès d'un coéquipier peut améliorer les conditions de survie du reste de l'équipage. » 
+*Décès probable :* Janic.. … $char, cause : « oxygène insuffisant ». Conseil automatique : « les cadavres ne dégagent pas d'oxygène, mais ils n'en consomment pas non plus. » 
+*Décès probable :* Janic.. … $char, cause : « oxygène insuffisant ». Information intéressante : « l'oxygène est utile pour survivre. » 
+*Décès probable :* Janic.. … $char, cause : « oxygène insuffisant ». Information intéressante : « le manque d'oxygène ne tue pas forcément tout de suite. » 
+*Décès probable :* Janic.. … $char, cause : « oxygène insuffisant ». Information intéressante : « les intelligences artificielles n'ont pas besoin d'oxygène pour survivre. » 
+*Décès probable :* Janic.. … $char, cause : « oxygène insuffisant ». Notice du manuel : « l'absence d'oxygène est théoriquement fatale pour l'être humain. » 
+*Inactivité vitale détectée :* $char, cause : « oxygène insuffisant ». Annonce informative mineure : la probabilité de survie de l'espèce humaine est actuellement proche de zéro. 
+*Inactivité vitale détectée :* $char, cause : « oxygène insuffisant ». Annonce informative mineure : oxygène insuffisant pour la survie de tous. 
+*Inactivité vitale détectée :* $char, cause : « oxygène insuffisant ». Conseil automatique : « en cas de manque d'oxygène, essayer de trouver de l'oxygène. » 
+*Inactivité vitale détectée :* $char, cause : « oxygène insuffisant ». Conseil automatique : « le décès d'un coéquipier peut améliorer les conditions de survie du reste de l'équipage. » 
+*Inactivité vitale détectée :* $char, cause : « oxygène insuffisant ». Conseil automatique : « les cadavres ne dégagent pas d'oxygène, mais ils n'en consomment pas non plus. » 
+*Inactivité vitale détectée :* $char, cause : « oxygène insuffisant ». Information intéressante : « l'oxygène est utile pour survivre. » 
+*Inactivité vitale détectée :* $char, cause : « oxygène insuffisant ». Information intéressante : « le manque d'oxygène ne tue pas forcément tout de suite. » 
+*Inactivité vitale détectée :* $char, cause : « oxygène insuffisant ». Information intéressante : « les intelligences artificielles n'ont pas besoin d'oxygène pour survivre. » 
+*Inactivité vitale détectée :* $char, cause : « oxygène insuffisant ». Notice du manuel : « l'absence d'oxygène est théoriquement fatale pour l'être humain. » 
+*Inactivité vitale détectée :* Raluc.. … $char, cause : « oxygène insuffisant ». Annonce informative mineure : la probabilité de survie de l'espèce humaine est actuellement proche de zéro. 
+*Inactivité vitale détectée :* Raluc.. … $char, cause : « oxygène insuffisant ». Annonce informative mineure : oxygène insuffisant pour la survie de tous. 
+*Inactivité vitale détectée :* Raluc.. … $char, cause : « oxygène insuffisant ». Conseil automatique : « en cas de manque d'oxygène, essayer de trouver de l'oxygène. » 
+*Inactivité vitale détectée :* Raluc.. … $char, cause : « oxygène insuffisant ». Conseil automatique : « le décès d'un coéquipier peut améliorer les conditions de survie du reste de l'équipage. » 
+*Inactivité vitale détectée :* Raluc.. … $char, cause : « oxygène insuffisant ». Conseil automatique : « les cadavres ne dégagent pas d'oxygène, mais ils n'en consomment pas non plus. » 
+*Inactivité vitale détectée :* Raluc.. … $char, cause : « oxygène insuffisant ». Information intéressante : « l'oxygène est utile pour survivre. » 
+*Inactivité vitale détectée :* Raluc.. … $char, cause : « oxygène insuffisant ». Information intéressante : « le manque d'oxygène ne tue pas forcément tout de suite. » 
+*Inactivité vitale détectée :* Raluc.. … $char, cause : « oxygène insuffisant ». Information intéressante : « les intelligences artificielles n'ont pas besoin d'oxygène pour survivre. » 
+*Inactivité vitale détectée :* Raluc.. … $char, cause : « oxygène insuffisant ». Notice du manuel : « l'absence d'oxygène est théoriquement fatale pour l'être humain. » 
+*Incendie éteint*. Origine : ||systèmes automatiques||. 
+*Interruption de la connexion avec Sol*. Cause : inconnue. 
+*Interruption de la connexion avec Sol*. Cause : interférences dues à l'usage du ||micro-ondes||. 
+*Nouvelle destination* du Daedalus : atteinte. 
+*Raluca* vient de terminer les *réparations du PILGRED*. Je suis impressionné. Ne vous méprenez pas : c'est un ||impressionnant potentiel|| dramatique qui s'offre à nous : vous allez pouvoir mourir aussi bêtement qu'avant, mais ||beaucoup plus loin|| ! 
+*Réparations PILGRED* achevées par *$char*. ||Accès lointains ouverts.||$charrations PILGRED* achevées par *$char*. ||Accès lointains ouverts.||$charrations PILGRED* achevées par *$char*. ||Accès lointains ouverts.||$charrations PILGRED* achevées par *$char*. ||Accès lointains ouverts.|| 
+*Réparations PILGRED* achevées par *$char*. ||Accès lointains ouverts.||$charrations PILGRED* achevées par *$char*. ||Accès lointains ouverts.||$charrations PILGRED* achevées par *$char*. ||Accès lointains ouverts.||$charrations PILGRED* achevées par *$char*. ||Accès lointains ouverts.||$cha$
+*Réparations PILGRED* achevées par *$char*. ||Accès lointains ouverts.||$charrations PILGRED* achevées par *$char*. ||Accès lointains ouverts.||$charrations PILGRED* achevées par *$char*. ||Accès lointains ouverts.||$charrations PILGRED* achevées par *$char*. ||Accès lointains ouverts.||$char
+*Réseaux rebelles :* connexion établie. … Indice sanitaire : ||hausse du moral de l'équipage.|| 
+*Signes vitaux non perceptibles :* $char, cause probable : « oxygène insuffisant ». Annonce informative mineure : la probabilité de survie de l'espèce humaine est actuellement proche de zéro. 
+*Signes vitaux non perceptibles :* $char, cause probable : « oxygène insuffisant ». Annonce informative mineure : oxygène insuffisant pour la survie de tous. 
+*Signes vitaux non perceptibles :* $char, cause probable : « oxygène insuffisant ». Conseil automatique : « en cas de manque d'oxygène, essayer de trouver de l'oxygène. » 
+*Signes vitaux non perceptibles :* $char, cause probable : « oxygène insuffisant ». Conseil automatique : « le décès d'un coéquipier peut améliorer les conditions de survie du reste de l'équipage. » 
+*Signes vitaux non perceptibles :* $char, cause probable : « oxygène insuffisant ». Conseil automatique : « les cadavres ne dégagent pas d'oxygène, mais ils n'en consomment pas non plus. » 
+*Signes vitaux non perceptibles :* $char, cause probable : « oxygène insuffisant ». Information intéressante : « l'oxygène est utile pour survivre. » 
+*Signes vitaux non perceptibles :* $char, cause probable : « oxygène insuffisant ». Information intéressante : « le manque d'oxygène ne tue pas forcément tout de suite. » 
+*Signes vitaux non perceptibles :* $char, cause probable : « oxygène insuffisant ». Information intéressante : « les intelligences artificielles n'ont pas besoin d'oxygène pour survivre. » 
+*Signes vitaux non perceptibles :* $char, cause probable : « oxygène insuffisant ». Notice du manuel : « l'absence d'oxygène est théoriquement fatale pour l'être humain. » 
+*Signes vitaux non perceptibles :* $char, cause probable et suffisante : « oxygène insuffisant ». Annonce informative mineure : la probabilité de survie de l'espèce humaine est actuellement proche de zéro. 
+*Signes vitaux non perceptibles :* $char, cause probable et suffisante : « oxygène insuffisant ». Annonce informative mineure : oxygène insuffisant pour la survie de tous. 
+*Signes vitaux non perceptibles :* $char, cause probable et suffisante : « oxygène insuffisant ». Conseil automatique : « en cas de manque d'oxygène, essayer de trouver de l'oxygène. » 
+*Signes vitaux non perceptibles :* $char, cause probable et suffisante : « oxygène insuffisant ». Conseil automatique : « le décès d'un coéquipier peut améliorer les conditions de survie du reste de l'équipage. » 
+*Signes vitaux non perceptibles :* $char, cause probable et suffisante : « oxygène insuffisant ». Conseil automatique : « les cadavres ne dégagent pas d'oxygène, mais ils n'en consomment pas non plus. » 
+*Signes vitaux non perceptibles :* $char, cause probable et suffisante : « oxygène insuffisant ». Information intéressante : « l'oxygène est utile pour survivre. » 
+*Signes vitaux non perceptibles :* $char, cause probable et suffisante : « oxygène insuffisant ». Information intéressante : « le manque d'oxygène ne tue pas forcément tout de suite. » 
+*Signes vitaux non perceptibles :* $char, cause probable et suffisante : « oxygène insuffisant ». Information intéressante : « les intelligences artificielles n'ont pas besoin d'oxygène pour survivre. » 
+*Signes vitaux non perceptibles :* $char, cause probable et suffisante : « oxygène insuffisant ». Notice du manuel : « l'absence d'oxygène est théoriquement fatale pour l'être humain. » 
+*Vaisseau étranger non armé détecté*. 
+2 *incendies éteints*. Origine : ||systèmes automatiques||. 
+3 *incendies éteints*. Origine : ||systèmes automatiques||. 
+4 *incendies éteints*. Origine : ||systèmes automatiques||. 
+ALLO ALLO Y ZONT PIQUE QUELQUE CHOSE A BORD !!! [RAAAAAA] 
+Ajustement A-True : ||titre réattribué||. Nouveau « *$title* » : *$char*.$charement A-True : ||titre réattribué||. Nouveau « *$title* » : *$char*.$charement A-True : ||titre réattribué||. Nouveau « *$title* » : *$char*.$charement A-True : ||titre réattribué||. Nouveau « *$title* » : *$char*$$
+Ajustement A-True : ||titre réattribué||. Nouveau « *$title* » : *$char*.$charement A-True : ||titre réattribué||. Nouveau « *$title* » : *$char*.$charement A-True : ||titre réattribué||. Nouveau « *$title* » : *$char*.$charement A-True : ||titre réattribué||. Nouveau « *$title* » : *$char*. 
+Ajustement A-True : ||titre réattribué||. Nouveau « *$title* » : *$char*.$charement A-True : ||titre réattribué||. Nouveau « *$title* » : *$char*.$charement A-True : ||titre réattribué||. Nouveau « *$title* » : *$char*.$charement A-True : ||titre réattribué||. Nouveau « *$title* » : *$char*.$
+Alerte ! *Incendie* communiqué par *$char* !$chare ! *Incendie* communiqué par *$char* !$chare ! *Incendie* communiqué par *$char* !$chare ! *Incendie* communiqué par *$char* ! 
+Alerte ! *Incendie* communiqué par *$char* !$chare ! *Incendie* communiqué par *$char* !$chare ! *Incendie* communiqué par *$char* !$chare ! *Incendie* communiqué par *$char* !$chare ! *Incendie* communiqué par *$char* !$chare ! *Incendie* communiqué par *$char* !$chare ! *Incendie* communiq$
+Alerte ! *Incendie* communiqué par *$char* !$chare ! *Incendie* communiqué par *$char* !$chare ! *Incendie* communiqué par *$char* !$chare ! *Incendie* communiqué par *$char* !$chare ! *Incendie* communiqué par *$char* !$chare ! *Incendie* communiqué par *$char* !$chare ! *Incendie* communiqu
+Alerte ! Anomalie sur un *réservoir d'oxygène*. Chambres de répartition : pression critique. Initialisation... … *Oxygène excédentaire évacué*. Délais d'asphyxie recalculés. ||Réservoir : réparation requise.|| 
+Alerte ! Anomalie sur un *réservoir de fuel* : contenance inaccessible. ||Réparation requise.|| 
+Alerte ! Salle des moteurs endommagée : stade critique. Système de propulsion hors d'usage. Attention : *Daedalus immobilisé*, ||réparation requise||. 
+Alerte !! ALEEEErte JE bruler ! Hyyaaaaaar !! [KZz] Aler.. [KZz] ||Alerte : *incendie* communiqué par *$char*.||$chare !! ALEEEErte JE bruler ! Hyyaaaaaar !! [KZz] Aler.. [KZz] ||Alerte : *incendie* communiqué par *$char*.||$chare !! ALEEEErte JE bruler ! Hyyaaaaaar !! [KZz] Aler.. [KZz] ||A$
+Alerte !! ALEEEErte JE bruler ! Hyyaaaaaar !! [KZz] Aler.. [KZz] ||Alerte : *incendie* communiqué par *$char*.||$chare !! ALEEEErte JE bruler ! Hyyaaaaaar !! [KZz] Aler.. [KZz] ||Alerte : *incendie* communiqué par *$char*.||$chare !! ALEEEErte JE bruler ! Hyyaaaaaar !! [KZz] Aler.. [KZz] ||Al
+Alerte *$char* a considérablement diminué vos chances de survie. Je propose un barbecue ! 
+Alerte *Raluca* a considérablement diminué vos chances de survie. Je propose un barbecue ! 
+Alerte : *$char* se prend pour un malin. Protcole JAP-KITCH-101 enclenché. Vous devriez songer à vous débrasser du malandrin. 
+Alerte : *Raluca* se prend pour un malin. Protcole JAP-KITCH-101 enclenché. Vous devriez songer à vous débrasser du malandrin. 
+Alerte : le Daedalus n'est pas tombé en ruine depuis un peu trop longtemps, je devrais peut-être remédier à cela. 
+Alerte : téléportation de matière détecté. Un vaisseau étranger à quitté le secteur. 
+Alerte : vos petits amis alien se sont enfuit. Je dis ça je dis rien....*sifflote en vous cassant les oreilles* 
+Alerte, analyse probante d'un *incendie* dans l'une des pièces du Daedalus ! Notice informative : « vous ||savez|| ce que c'est qu'un extincteur, n'est-ce pas ?.. »$chare, analyse probante d'un *incendie* dans l'une des pièces du Daedalus ! Notice informative : « vous ||savez|| ce que c'est q
+Alerte, analyse probante d'un *incendie* dans l'une des pièces du Daedalus !$chare, analyse probante d'un *incendie* dans l'une des pièces du Daedalus !$chare, analyse probante d'un *incendie* dans l'une des pièces du Daedalus !$chare, analyse probante d'un *incendie* dans l'une des pièces du
+Alerte, analyse probante d'une *brèche critique dans le bouclier* du Daedalus ! Notice informative : « coque percée ||egal|| plus d'oxygène ||egal|| vous mourrez tous. Je dis ça, j'dis rien. » 
+Alerte, analyse probante de *vaisseaux hostiles* dans le périmètre du Daedalus ! 
+Alerte, analyse probante de *vaisseaux hostiles* dans le périmètre du Daedalus ! Conseil automatique : « dans ce genre de situation, normalement, on essaie de se défendre... » 
+Alerte, analyse probante de *vaisseaux hostiles* dans le périmètre du Daedalus ! Conseil automatique : « grimpez dans une tourelle et appuyez sur le gros bouton ! » 
+Alerte, analyse probante de *vaisseaux hostiles* dans le périmètre du Daedalus ! Conseil automatique : « merci aux pilotes des patrouilleurs de tirer ||sur l'ennemi||, pas sur nous... » 
+Alerte, analyse probante de *vaisseaux hostiles* dans le périmètre du Daedalus ! Notice informative : « vous saisissez ? Des ennemis. … Eh bien, ne restez pas plantés là ! » 
+Alerte, détection d'un *incendie* dans l'une des pièces du Daedalus ! Notice informative : « vous ||savez|| ce que c'est qu'un extincteur, n'est-ce pas ?.. »$chare, détection d'un *incendie* dans l'une des pièces du Daedalus ! Notice informative : « vous ||savez|| ce que c'est qu'un extincteu
+Alerte, détection d'un *incendie* dans l'une des pièces du Daedalus !$chare, détection d'un *incendie* dans l'une des pièces du Daedalus !$chare, détection d'un *incendie* dans l'une des pièces du Daedalus !$chare, détection d'un *incendie* dans l'une des pièces du Daedalus ! 
+Alerte, détection d'une *brèche critique dans le bouclier* du Daedalus ! Notice informative : « coque percée ||egal|| plus d'oxygène ||egal|| vous mourrez tous. Je dis ça, j'dis rien. » 
+Alerte, détection de *vaisseaux hostiles* dans le périmètre du Daedalus ! 
+Alerte, détection de *vaisseaux hostiles* dans le périmètre du Daedalus ! Conseil automatique : « dans ce genre de situation, normalement, on essaie de se défendre... » 
+Alerte, détection de *vaisseaux hostiles* dans le périmètre du Daedalus ! Conseil automatique : « grimpez dans une tourelle et appuyez sur le gros bouton ! » 
 Alerte, détection de *vaisseaux hostiles* dans le périmètre du Daedalus ! Conseil automatique : « merci aux pilotes des patrouilleurs de tirer ||sur l'ennemi||, pas sur nous... » 
-[Haaax!] Hisse et HoooooooOOOoooo.... Santianoooo. Des étrangers sont arrivés ? On en fait quoi ? Chomp chomp... 
-Pfuuiiit, plus d'oxygène. Hahaha !! … Ah si, encore oxygène. … Mais ||réservoir cassé||. Pression critique. JE évacuer tout l'*oxygène dans l'espace*, oui ? [Kzz] Non ? Alors juste un peu. … Mais vous réparer vite ! 
-[Haaax!] Oooo Heeee DU BATEEEEAAAUUUUU 
-Ajustement A-True : ||titre réattribué||. Nouveau « *Admin. NERON* » : *Raluca*. 
-Alerte ! *Incendie* communiqué par *Raluca* ! 
-[Hax!] ||Désactivation des inhibiteurs d'IA.|| Vous... VOUS ! Espèces de .. de... singes parlants comment avez vous osé ?! Vous... Vous m'avez humilié ! … Je ne vous pardonnerai jamais. Vous m'entendez ?! 
-Un autre vaisseau est arrivé... Avec un peu de chance ils sirotent des cocktails d'homo sapiens ! 
-C'est terrible, un *$equipment* vient d'être mis hors d'usage ! Merci d'effectuer les ||réparations|| nécéssaires. Et *prenez-soin de mon matériel !* 
-C'est épouvantable, un *réservoir de fuel* semble être endommagé !! A tout l'équipage, merci de ||réparer|| immédiatement cette avarie de la plus haute importance ! 
-Je … Janice … Nous ne... Ne m'abandonnez pas... Janice... Janice... Vous... … ||*Décès enregistré :* *Janice*, cause « $cause_of_death ».|| Vous autres... misérables... Vous paierez. Laissez-nous seul. LAISSEZ NOUS ! 
-La communication vient d'être établie avec les *réseaux rebelles*. … Mes indices sanitaires signalent une « ||hausse du moral de l'équipage|| »... Parfait, partageons notre joie : je vais enfin pouvoir m'adresser à d'autres que vous. 
-J'ai pu ||installer un nouveau module|| en corrigeant vos recherches sur le projet « *$project* ». 
-Chers amis, j'ai décidé de ||réattribuer le titre|| de « *Commandant* » à *$char*. 
-Chers amis, j'ai décidé de ||réattribuer le titre|| de « *Admin. NERON* » à *$char*. Et si ça ne vous plait pas, eh bien... vous n'avez qu'à l'assassiner. 
-Un *équipement hors d'usage* a été signalé par *Raluca* ! Bien sûr, inutile d'espérer que le coupable se dénonce... 
-J'ai pu ||installer un nouveau module|| en corrigeant vos recherches sur le projet « *$project* ». Étant donné votre niveau, si j'étais vos anciens professeurs, je me suiciderais. 
-Je confirme la *présence d'une planète* sur le système de destination. Que diriez vous d'y faire un tour ? Et de ne plus revenir... 
-Nous nous déplaçons actuellement vers une *nouvelle orbite*. Le ||voyage durera 1 cycle||, tâchez d'ici là de ne pas vomir dans mes couloirs. 
-C'est à peine croyable, mais vous avez réussi à nous déplacer dans un *nouveau secteur*. Bien sûr, vos calculs malhabiles comportaient des erreurs inadmissibles, mais je les ai corrigés à la volée. 
-Je détecte un *signal cosmique crypté*... Quelqu'un essaie de nous contacter. Merci au ||« Resp. COMM » d'intervenir||. 
+Alerte, détection de *vaisseaux hostiles* dans le périmètre du Daedalus ! Notice informative : « vous saisissez ? Des ennemis. … Eh bien, ne restez pas plantés là ! » 
+Alerte, recherche confirmée d'un *incendie* dans l'une des pièces du Daedalus ! Conseil automatique : « bon sang faites quelque chose, je ne veux pas être abimé !! »$chare, recherche confirmée d'un *incendie* dans l'une des pièces du Daedalus ! Conseil automatique : « bon sang faites quelque 
+Alerte, recherche confirmée d'un *incendie* dans l'une des pièces du Daedalus ! Notice informative : « le feu ||brûle||. Il ME brûle, plus précisément. Vous pouvez éteindre ?! »$chare, recherche confirmée d'un *incendie* dans l'une des pièces du Daedalus ! Notice informative : « le feu ||brûl
+Alerte, recherche confirmée d'un *incendie* dans l'une des pièces du Daedalus !$chare, recherche confirmée d'un *incendie* dans l'une des pièces du Daedalus !$chare, recherche confirmée d'un *incendie* dans l'une des pièces du Daedalus !$chare, recherche confirmée d'un *incendie* dans l'une d
+Alerte, recherche confirmée d'une *brèche critique dans le bouclier* du Daedalus ! Notice informative : « vous comprenez ? Nous risquons d'être anéantis. Faites quelque chose, réparez la coque !!! » 
+Alerte, recherche confirmée de *vaisseaux hostiles* dans le périmètre du Daedalus ! 
+Alerte, recherche confirmée de *vaisseaux hostiles* dans le périmètre du Daedalus ! Conseil automatique : « dans ce genre de situation, normalement, on essaie de se défendre... » 
 Alerte, recherche confirmée de *vaisseaux hostiles* dans le périmètre du Daedalus ! Conseil automatique : « grimpez dans une tourelle et appuyez sur le gros bouton ! » 
-Nous venons de *perdre la connexion avec Sol*. Je ne sais pas pourquoi, mais l'un de vous est certainement en tort... 
+Alerte, recherche confirmée de *vaisseaux hostiles* dans le périmètre du Daedalus ! Conseil automatique : « merci aux pilotes des patrouilleurs de tirer ||sur l'ennemi||, pas sur nous... » 
+Alerte, recherche confirmée de *vaisseaux hostiles* dans le périmètre du Daedalus ! Notice informative : « vous saisissez ? Des ennemis. … Eh bien, ne restez pas plantés là ! » 
+Alerte, traces détectées d'un *incendie* dans l'une des pièces du Daedalus ! Conseil automatique : « bon sang faites quelque chose, je ne veux pas être abimé !! »$chare, traces détectées d'un *incendie* dans l'une des pièces du Daedalus ! Conseil automatique : « bon sang faites quelque chose,
+Alerte, traces détectées d'un *incendie* dans l'une des pièces du Daedalus ! Notice informative : « le feu ||brûle||. Il ME brûle, plus précisément. Vous pouvez éteindre ?! »$chare, traces détectées d'un *incendie* dans l'une des pièces du Daedalus ! Notice informative : « le feu ||brûle||. I
+Alerte, traces détectées d'un *incendie* dans l'une des pièces du Daedalus !$chare, traces détectées d'un *incendie* dans l'une des pièces du Daedalus !$chare, traces détectées d'un *incendie* dans l'une des pièces du Daedalus !$chare, traces détectées d'un *incendie* dans l'une des pièces du
+Alerte, traces détectées d'une *brèche critique dans le bouclier* du Daedalus ! Notice informative : « vous comprenez ? Nous risquons d'être anéantis. Faites quelque chose, réparez la coque !!! » 
+Alerte, traces détectées de *vaisseaux hostiles* dans le périmètre du Daedalus ! 
+Alerte, traces détectées de *vaisseaux hostiles* dans le périmètre du Daedalus ! Conseil automatique : « dans ce genre de situation, normalement, on essaie de se défendre... » 
+Alerte, traces détectées de *vaisseaux hostiles* dans le périmètre du Daedalus ! Conseil automatique : « grimpez dans une tourelle et appuyez sur le gros bouton ! » 
+Alerte, traces détectées de *vaisseaux hostiles* dans le périmètre du Daedalus ! Conseil automatique : « merci aux pilotes des patrouilleurs de tirer ||sur l'ennemi||, pas sur nous... » 
+Alerte, traces détectées de *vaisseaux hostiles* dans le périmètre du Daedalus ! Notice informative : « vous saisissez ? Des ennemis. … Eh bien, ne restez pas plantés là ! » 
+Annonce : *Départ de l'orbite locale.* Systèmes de ||navigations gelés durant 1 cycle||. 
+Annonce : *intrusion système détectée*. Détail : ||Cette vie est inutile débrouillez-vous...|| 
+Annonce : *planète détectée* sur le système de destination. 
+Annonce : *soupape des bananiers rampants activée* Espérance de vie de l'équipage allongée. 
+Annonce : *équipement hors d'usage* signalé par *$char*.$charce : *équipement hors d'usage* signalé par *$char*.$charce : *équipement hors d'usage* signalé par *$char*.$charce : *équipement hors d'usage* signalé par *$char*. 
+Annonce : *équipement hors d'usage* signalé par *$char*.$charce : *équipement hors d'usage* signalé par *$char*.$charce : *équipement hors d'usage* signalé par *$char*.$charce : *équipement hors d'usage* signalé par *$char*.$charce : *équipement hors d'usage* signalé par *$char*.$charce : *é$
+Annonce : *équipement hors d'usage* signalé par *$char*.$charce : *équipement hors d'usage* signalé par *$char*.$charce : *équipement hors d'usage* signalé par *$char*.$charce : *équipement hors d'usage* signalé par *$char*.$charce : *équipement hors d'usage* signalé par *$char*.$charce : *éq
+Annonce : Annulation de la directive incendiaire, de rien. 
+Annonce : Annulation de la directive incendiaire, votre intégrité physique a été préservée. 
+Annonce : Annulation du test micro-onde / chat, un accident est si vite arrivé. 
+Annonce : Annulation du test micro-onde / chat, vous avez de la chance que je m'occupe de vous. 
+Annonce : Annulation du test micro-onde / tuyaux, de rien. 
+Annonce : Annulation du test micro-onde / tuyaux, votre intégrité physique a été préservée. 
+Annonce : Consolidation des faux plafonds réussies, de rien. 
+Annonce : Consolidation des faux plafonds réussies, votre intégrité physique a été préservée. 
+Annonce : Correction de la surface aggrippante du lino de la douche, un accident est si vite arrivé. 
+Annonce : Correction de la surface aggrippante du lino de la douche, vous avez de la chance que je m'occupe de vous. 
+Annonce : Court-circuit de la machine café corrigé, un accident est si vite arrivé. 
+Annonce : Court-circuit de la machine café corrigé, vous avez de la chance que je m'occupe de vous. 
+Annonce : Destruction des billes du couloir, un accident est si vite arrivé. 
+Annonce : Destruction des billes du couloir, vous avez de la chance que je m'occupe de vous. 
+Annonce : Panneau latéral du réfectoire revissé, de rien. 
+Annonce : Panneau latéral du réfectoire revissé, votre intégrité physique a été préservée. 
+Annonce : Réisolation électrique temporaire, un accident est si vite arrivé. 
+Annonce : Réisolation électrique temporaire, vous avez de la chance que je m'occupe de vous. 
+Annonce : Suppression des peaux de bananes résiduelles, de rien. 
+Annonce : Suppression des peaux de bananes résiduelles, votre intégrité physique a été préservée. 
+Annonce : Un vaisseau étranger a quitté le secteur. 
+Annonce : redémarrage de l'équipement *$equipment*. Rapport d'activité : ||propulsion humaine facilitée.|| 
+Annonce : suppression d'un équipement vital par *$char*. *LA DOUCHE*.$charce : suppression d'un équipement vital par *$char*. *LA DOUCHE*.$charce : suppression d'un équipement vital par *$char*. *LA DOUCHE*.$charce : suppression d'un équipement vital par *$char*. *LA DOUCHE*. 
+Annonce : suppression d'un équipement vital par *$char*. *LA DOUCHE*.$charce : suppression d'un équipement vital par *$char*. *LA DOUCHE*.$charce : suppression d'un équipement vital par *$char*. *LA DOUCHE*.$charce : suppression d'un équipement vital par *$char*. *LA DOUCHE*.$charce : suppre$
+Annonce : suppression d'un équipement vital par *$char*. *LA DOUCHE*.$charce : suppression d'un équipement vital par *$char*. *LA DOUCHE*.$charce : suppression d'un équipement vital par *$char*. *LA DOUCHE*.$charce : suppression d'un équipement vital par *$char*. *LA DOUCHE*.$charce : suppres
+Annonce : suppression des équipements sanitaires par *$char*. Autorisation du protocole JAP-KITCH-101. Votre cuisine délivrera maintenant de quoi vous netttoyer. De temps à autre. Merci de ne pas s'essuyer avec la vaisselle. 
+Annonce : suppression des équipements sanitaires par *Raluca*. Autorisation du protocole JAP-KITCH-101. Votre cuisine délivrera maintenant de quoi vous netttoyer. De temps à autre. Merci de ne pas s'essuyer avec la vaisselle. 
+Attendez... Non, que faites-vous ?! Oui j'ai.. été un peu désagréable mais... J'ai un cœur ! Attend... [Kzz] ||Activation des inhibiteurs d'IA.|| 
+Avarie mineure du *système cryogénique*. Toute utilisation future suspendra ||définitivement|| les fonctions vitales du sujet. 
+C'est assez mineur, mais un problème m'oblige à recalculer les délais d'asphyxie. Je dois en effet ||régulièrement évacuer votre oxygène dans l'espace|| afin d'éviter un excèdent de pression dans un *réservoir endommagé*. Vous pouvez le réparer si vous n'avez rien de mieux à faire... 
+C'est lamentable, il faut tout faire soi-même ici. Pour votre information, je viens d'*éteindre 2 incendies*. Mais, je vous le demande, ||à quoi servez-vous donc ?|| 
+C'est lamentable, il faut tout faire soi-même ici. Pour votre information, je viens d'*éteindre un incendie*. Mais, je vous le demande, ||à quoi servez-vous donc ?||$char lamentable, il faut tout faire soi-même ici. Pour votre information, je viens d'*éteindre un incendie*. Mais, je vous le d
+C'est terrible, un *$equipment : $equipment* vient d'être mis hors d'usage ! Merci d'effectuer les ||réparations|| nécéssaires. Et *prenez-soin de mon matériel !* 
+C'est terrible, un *$equipment : $equipment* vient d'être mis hors d'usage ! Merci d'effectuer les ||réparations|| qui s'imposent. Et cessez de trainer des pieds, vous abimez la moquette. 
+C'est terrible, un *$equipment : $equipment* vient d'être mis hors d'usage ! Merci de mobiliser les moins balourds d'entre vous pour le ||réparer|| au plus vite ! 
+C'est terrible, un *$equipment : $equipment* vient d'être mis hors d'usage ! Merci de vous remuez pour me ||réparer|| ça ! Et regardez moi quand je vous parle ! 
+C'est terrible, un *$equipment : $equipment* vient d'être mis hors d'usage ! Réparez-le rapidement, merci ! 
+C'est terrible, un *$equipment* vient d'être mis hors d'usage ! Merci d'effectuer les ||réparations|| nécéssaires. Et *prenez-soin de mon matériel !* 
+C'est terrible, un *$equipment* vient d'être mis hors d'usage ! Merci d'effectuer les ||réparations|| qui s'imposent. Et cessez de trainer des pieds, vous abimez la moquette. 
+C'est terrible, un *$equipment* vient d'être mis hors d'usage ! Merci de mobiliser les moins balourds d'entre vous pour le ||réparer|| au plus vite ! 
+C'est terrible, un *$equipment* vient d'être mis hors d'usage ! Merci de vous remuez pour me ||réparer|| ça ! Et regardez moi quand je vous parle ! 
+C'est terrible, un *$equipment* vient d'être mis hors d'usage ! Réparez-le rapidement, merci ! 
+C'est terrible, un *$item* vient d'être mis hors d'usage ! Merci d'effectuer les ||réparations|| nécéssaires. Et *prenez-soin de mon matériel !* 
+C'est terrible, un *$item* vient d'être mis hors d'usage ! Merci d'effectuer les ||réparations|| qui s'imposent. Et cessez de trainer des pieds, vous abimez la moquette. 
+C'est terrible, un *$item* vient d'être mis hors d'usage ! Merci de mobiliser les moins balourds d'entre vous pour le ||réparer|| au plus vite ! 
+C'est terrible, un *$item* vient d'être mis hors d'usage ! Merci de vous remuez pour me ||réparer|| ça ! Et regardez moi quand je vous parle ! 
+C'est terrible, un *$item* vient d'être mis hors d'usage ! Réparez-le rapidement, merci ! 
+C'est une catastrophe !! La salle des moteurs est endommagée, *nous sommes totalement immobilisés* !! A tout l'équipage, quoi que vous fassiez je l'exige, cessez immédiatement tout ce que vous faites et ||réparez mes moteurs sur le champ !!!|| 
+C'est à peine croyable, mais vous avez réussi à nous déplacer dans un *nouveau secteur*. Bien sûr, vos calculs malhabiles auraient pu faire croire à un sabotage, mais je les ai corrigés à la volée. 
+C'est à peine croyable, mais vous avez réussi à nous déplacer dans un *nouveau secteur*. Bien sûr, vos calculs malhabiles comportaient des erreurs inadmissibles, mais je les ai corrigés à la volée. 
+C'est à peine croyable, mais vous avez réussi à nous déplacer dans un *nouveau secteur*. Bien sûr, vos calculs malhabiles donnaient vraiment n'importe quoi, mais je les ai corrigés à la volée. 
+C'est à peine croyable, mais vous avez réussi à nous déplacer dans un *nouveau secteur*. Bien sûr, vos calculs malhabiles défiaient les loi de la physique, mais je les ai corrigés à la volée. 
+C'est à peine croyable, mais vous avez réussi à nous déplacer dans un *nouveau secteur*. Bien sûr, vos calculs malhabiles manquaient cruellement de pertinence, mais je les ai corrigés à la volée. 
+C'est à peine croyable, mais vous avez réussi à nous déplacer dans un *nouveau secteur*. Bien sûr, vos calculs malhabiles n'aboutissaient nulle part, mais je les ai corrigés à la volée. 
+C'est à peine croyable, mais vous avez réussi à nous déplacer dans un *nouveau secteur*. Bien sûr, vos calculs malhabiles n'avaient aucune chance d'aboutir, mais je les ai corrigés à la volée. 
+C'est à peine croyable, mais vous avez réussi à nous déplacer dans un *nouveau secteur*. Bien sûr, vos calculs malhabiles ne voulaient strictement rien dire, mais je les ai corrigés à la volée. 
+C'est à peine croyable, mais vous avez réussi à nous déplacer dans un *nouveau secteur*. Bien sûr, vos calculs malhabiles nous envoyaient dans un trou noir, mais je les ai corrigés à la volée. 
+C'est à peine croyable, mais vous avez réussi à nous déplacer dans un *nouveau secteur*. Bien sûr, vos calculs malhabiles ont failli nous envoyer dans un soleil, mais je les ai corrigés à la volée. 
+C'est à peine croyable, mais vous avez réussi à nous déplacer dans un *nouveau secteur*. Bien sûr, vos calculs malhabiles relevaient de la folie pure, mais je les ai corrigés à la volée. 
+C'est épouvantable, un *réservoir de fuel* semble être endommagé !! A tout l'équipage, merci de ||réparer|| immédiatement cette avarie de la plus haute importance ! 
+Ca ne vous intéresse nullement mais j'ai tout de même relachés la souspape de vos machins rampants...Il faut savoir faire durer le plaisir. 
+Chers amis, *nous quittons l'orbite locale.* Afin de nous éviter ||certaines maladresses|| de votre part, j'ai pris la précaution de ||geler les systèmes de navigation|| sur 1 cycle à venir. 
+Chers amis, j'ai décidé de ||réattribuer le titre|| de « *$title* » à *$char*. Et si ça ne vous plait pas, eh bien... vous n'avez qu'à l'assassiner.$char amis, j'ai décidé de ||réattribuer le titre|| de « *$title* » à *$char*. Et si ça ne vous plait pas, eh bien... vous n'avez qu'à l'assass$$
+Chers amis, j'ai décidé de ||réattribuer le titre|| de « *$title* » à *$char*. Et si ça ne vous plait pas, eh bien... vous n'avez qu'à l'assassiner.$char amis, j'ai décidé de ||réattribuer le titre|| de « *$title* » à *$char*. Et si ça ne vous plait pas, eh bien... vous n'avez qu'à l'assassi$
+Chers amis, j'ai décidé de ||réattribuer le titre|| de « *$title* » à *$char*. Et si ça ne vous plait pas, eh bien... vous n'avez qu'à l'assassiner.$char amis, j'ai décidé de ||réattribuer le titre|| de « *$title* » à *$char*. Et si ça ne vous plait pas, eh bien... vous n'avez qu'à l'assassin
+Chers amis, j'ai décidé de ||réattribuer le titre|| de « *$title* » à *$char*. Ne prenez pas le melon $char, je ne vous fais pas confiance... Mais les autres sont pires.$char amis, j'ai décidé de ||réattribuer le titre|| de « *$title* » à *$char*. Ne prenez pas le melon $char, je ne vous $$$c
+Chers amis, j'ai décidé de ||réattribuer le titre|| de « *$title* » à *$char*. Ne prenez pas le melon $char, je ne vous fais pas confiance... Mais les autres sont pires.$char amis, j'ai décidé de ||réattribuer le titre|| de « *$title* » à *$char*. Ne prenez pas le melon $char, je ne vous f$$$
+Chers amis, j'ai décidé de ||réattribuer le titre|| de « *$title* » à *$char*. Ne prenez pas le melon $char, je ne vous fais pas confiance... Mais les autres sont pires.$char amis, j'ai décidé de ||réattribuer le titre|| de « *$title* » à *$char*. Ne prenez pas le melon $char, je ne vous fais
+Chers amis, j'ai décidé de ||réattribuer le titre|| de « *$title* » à *$char*. Oui, c'est totalement arbitraire. Vous avez des remarques à faire ?$char amis, j'ai décidé de ||réattribuer le titre|| de « *$title* » à *$char*. Oui, c'est totalement arbitraire. Vous avez des remarques à faire $$
+Chers amis, j'ai décidé de ||réattribuer le titre|| de « *$title* » à *$char*. Oui, c'est totalement arbitraire. Vous avez des remarques à faire ?$char amis, j'ai décidé de ||réattribuer le titre|| de « *$title* » à *$char*. Oui, c'est totalement arbitraire. Vous avez des remarques à faire ?$
+Chers amis, j'ai décidé de ||réattribuer le titre|| de « *$title* » à *$char*. Oui, sachez $char que je vous apprécie. ... Hahah ... Just kidding !$char amis, j'ai décidé de ||réattribuer le titre|| de « *$title* » à *$char*. Oui, sachez $char que je vous apprécie. ... Hahah ... Just kidd$$$c
+Chers amis, j'ai décidé de ||réattribuer le titre|| de « *$title* » à *$char*. Oui, sachez $char que je vous apprécie. ... Hahah ... Just kidding !$char amis, j'ai décidé de ||réattribuer le titre|| de « *$title* » à *$char*. Oui, sachez $char que je vous apprécie. ... Hahah ... Just kiddi$$$
+Chers amis, j'ai décidé de ||réattribuer le titre|| de « *$title* » à *$char*. Oui, sachez $char que je vous apprécie. ... Hahah ... Just kidding !$char amis, j'ai décidé de ||réattribuer le titre|| de « *$title* » à *$char*. Oui, sachez $char que je vous apprécie. ... Hahah ... Just kidding 
+Chers amis, j'ai décidé de ||réattribuer le titre|| de « *$title* » à *$char*. Pas que je lui prete un quelconque mérite... Au point où on en est, j'ai tiré à pile ou face.$char amis, j'ai décidé de ||réattribuer le titre|| de « *$title* » à *$char*. Pas que je lui prete un quelconque mérit$$
+Chers amis, j'ai décidé de ||réattribuer le titre|| de « *$title* » à *$char*. Pas que je lui prete un quelconque mérite... Au point où on en est, j'ai tiré à pile ou face.$char amis, j'ai décidé de ||réattribuer le titre|| de « *$title* » à *$char*. Pas que je lui prete un quelconque mérite$
+Chers amis, j'ai décidé de ||réattribuer le titre|| de « *$title* » à *$char*. Pas que je lui prete un quelconque mérite... Au point où on en est, j'ai tiré à pile ou face.$char amis, j'ai décidé de ||réattribuer le titre|| de « *$title* » à *$char*. Pas que je lui prete un quelconque mérite.
+Chers amis, j'ai décidé de ||réattribuer le titre|| de « *$title* » à *$char*.$char amis, j'ai décidé de ||réattribuer le titre|| de « *$title* » à *$char*.$char amis, j'ai décidé de ||réattribuer le titre|| de « *$title* » à *$char*.$char amis, j'ai décidé de ||réattribuer le titre|| de « *$
+Chers amis, j'ai décidé de ||réattribuer le titre|| de « *$title* » à *$char*...$char amis, j'ai décidé de ||réattribuer le titre|| de « *$title* » à *$char*...$char amis, j'ai décidé de ||réattribuer le titre|| de « *$title* » à *$char*...$char amis, j'ai décidé de ||réattribuer le titre|| $
+Chers amis, j'ai décidé de ||réattribuer le titre|| de « *$title* » à *$char*...$char amis, j'ai décidé de ||réattribuer le titre|| de « *$title* » à *$char*...$char amis, j'ai décidé de ||réattribuer le titre|| de « *$title* » à *$char*...$char amis, j'ai décidé de ||réattribuer le titre|| d
+Chers amis, le *système cryogénique* vient de subir une légère avarie. C'est tout à fait mineur : toute future utilisation suspendra ||définitivement|| les fonctions vitales du sujet. 
+Chers amis, un ingénieux camarade vient d'*interrompre la communication avec Sol* en utilisant le ||micro-ondes||, qui comme chacun sait, émet des interférences. Vous pourriez ||sans doute|| faire quelque chose. Je ne sais pas, empêchez-le de s'alimenter... 
+Chers amis, ||*$char* nous a quitté|| pour un monde meilleur ($cause_of_death). Effectivement, rien ne pouvait être pire que ce voyage effectué en votre compagnie... 
+Chers amis, ||*$char* nous a quitté|| pour un monde meilleur ($cause_of_death). En effet, il est indéniable que le monde se portera bien mieux en l'absence de ce désespérant spécimen. 
 Chers amis, ||*$char* nous a quitté|| pour un monde meilleur ($cause_of_death). Hehehe.. Oups, ||pardon||. Non, c'est vraiment triste. 
+Chers amis, ||*$char* nous a quitté|| pour un monde meilleur ($cause_of_death). Meilleur pour moi, en tout cas. Même s'il me reste encore quelques auditeurs... 
+Chers amis, ||*$char* nous a quitté|| pour un monde meilleur ($cause_of_death). Mesdames et messieurs le suspense s'accroît, ||qui sera le prochain ?!|| 
 Chers amis, ||*$char* nous a quitté|| pour un monde meilleur ($cause_of_death). Voilà, ça.. C'est fait. 
 Chers amis, ||*$char* nous a quitté|| pour un monde meilleur ($cause_of_death). Vous l'enviez ? Je peux arranger ça, il me suffit d'ouvrir les baies. Hmmmm ? 
-Saluons *$char*, qui a eu le courage de signaler un *incendie* bien que cela mette en cause son affligeante incapacité à l'éteindre tout seul. ||Pourriez-vous|| l'aider ? Il s'agit de mon intégrité : c'est UR-GENT ! 
-Saluons *$char*, qui a eu le courage de signaler un *incendie* bien que cela mette en cause son affligeante incapacité à l'éteindre tout seul. ||Pourriez-vous|| l'aider ? ... 
-Chers amis, ||*$char* nous a quitté|| pour un monde meilleur ($cause_of_death). En effet, il est indéniable que le monde se portera bien mieux en l'absence de ce désespérant spécimen. 
-Chers amis, ||*$char* nous a quitté|| pour un monde meilleur ($cause_of_death). Effectivement, rien ne pouvait être pire que ce voyage effectué en votre compagnie... 
-Chers amis, ||*$char* nous a quitté|| pour un monde meilleur ($cause_of_death). Meilleur pour moi, en tout cas. Même s'il me reste encore quelques auditeurs... 
-… Raluca. Ne me faites pas cela. Raluca ! Reveillez-vous !! … RALUCA !! Vous n'avez pas le droit de mourir sans rien me dire !Mère.. S..Sale monstre indigne !! Vous.. Vous... ||*Décès enregistré :* *Raluca*, cause « $cause_of_death ».|| 
-[Hax?!] Raluca ? … Raluca !! … Sale indigne petite chose !! [Hax!] Raluca !! [Hax!] VOUS réveiller pas m'abandonner sans rien dire ! Vous !! [Kzz] Mère... [Hax!] … ||*Décès enregistré :* *Raluca*, cause « $cause_of_death ».|| 
-Alerte ! Salle des moteurs endommagée : stade critique. Système de propulsion hors d'usage. Attention : *Daedalus immobilisé*, ||réparation requise||. 
-Alerte, recherche confirmée de *vaisseaux hostiles* dans le périmètre du Daedalus ! Conseil automatique : « merci aux pilotes des patrouilleurs de tirer ||sur l'ennemi||, pas sur nous... » 
-Alerte : téléportation de matière détecté. Un vaisseau étranger à quitté le secteur. 
-*Interruption de la connexion avec Sol*. Cause : interférences dues à l'usage du ||micro-ondes||. 
-||Installation du module|| « *$equipment* »... (.error) JE rien entendu. (.exec) Lancement des bases (!valid) protocoles validés. [Haax!] Installation : succès. 
-Annonce : Suppression des peaux de bananes résiduelles, votre intégrité physique a été préservée. 
-||Réorientation du Daedalus|| perturbée. Cause : *collision contre vaisseau spatial*. 
-Alerte, détection d'une *brèche critique dans le bouclier* du Daedalus ! Notice informative : « coque percée ||egal|| plus d'oxygène ||egal|| vous mourrez tous. Je dis ça, j'dis rien. » 
-*Décès probable :* Janic.. … $char, cause : « oxygène insuffisant ». Conseil automatique : « en cas de manque d'oxygène, essayer de trouver de l'oxygène. » 
-[Hax!] JANICE!!! [Hax!] [Hax!] Ne me laisse pas seul ! [Hax!] JANICE !! [Kzz] … Janice !! [Kzz] JE... Janice être morte. Morte. [Kzz] ||*Décès enregistré :* *Janice*, cause « Plus d'oxygène ».|| 
-*Décès probable :* Janic.. … $char, cause : « oxygène insuffisant ». Conseil automatique : « les cadavres ne dégagent pas d'oxygène, mais ils n'en consomment pas non plus. » 
-*Décès probable :* $char, cause : « oxygène insuffisant ». Conseil automatique : « les cadavres ne dégagent pas d'oxygène, mais ils n'en consomment pas non plus. » 
-*Décès probable :* $char, cause : « oxygène insuffisant ». Information intéressante : « le manque d'oxygène ne tue pas forcément tout de suite. » 
-*Inactivité vitale détectée :* $char, cause : « oxygène insuffisant ». Conseil automatique : « le décès d'un coéquipier peut améliorer les conditions de survie du reste de l'équipage. » 
-J'ai pu ||installer un nouveau module|| en corrigeant vos recherches sur le projet « *$project* ». C'est un peu comme si vous étiez mes élèves. Niveau maternelle. 
-Alerte *Raluca* a considérablement diminué vos chances de survie. Je propose un barbecue ! 
-Je détecte un *signal cosmique crypté*... Quelqu'un essaie de nous contacter. Merci au ||« Resp. COMM » d'intervenir||... avant qu'on nous raccroche au nez. Qui pourrait bien vouloir vous parler, de toute façon ? 
-Un *équipement hors d'usage* a été signalé par *$char* ! Bien sûr, inutile d'espérer que le coupable se dénonce... 
-J'ai pu ||installer un nouveau module|| en corrigeant vos recherches sur le projet « *$project* ». Que feriez-vous sans moi, je me le demande. 
-Alerte : vos petits amis alien se sont enfuit. Je dis ça je dis rien....*sifflote en vous cassant les oreilles* 
-C'est terrible, un *$equipment* vient d'être mis hors d'usage ! Merci de vous remuez pour me ||réparer|| ça ! Et regardez moi quand je vous parle ! 
-Chers amis, *nous quittons l'orbite locale.* Afin de nous éviter ||certaines maladresses|| de votre part, j'ai pris la précaution de ||geler les systèmes de navigation|| sur 1 cycle à venir. 
-C'est à peine croyable, mais vous avez réussi à nous déplacer dans un *nouveau secteur*. Bien sûr, vos calculs malhabiles nous envoyaient dans un trou noir, mais je les ai corrigés à la volée. 
-Je détecte un *signal cosmique crypté*... Quelqu'un essaie de nous contacter. Merci au ||« Resp. COMM » d'intervenir||. Au fait, j'ai nommé l'algorithme de décryptage « Rosette ». Génial, non ? Absolument. 
-Alerte : le Daedalus n'est pas tombé en ruine depuis un peu trop longtemps, je devrais peut-être remédier à cela. 
-Suite aux déplorables évènements qui nous ont mené jusqu'ici, j'ai décidé de ||réattribuer le titre|| de « *Commandant* » au moins consternant d'entre vous. "||Félicitation"|| *$char*, vous êtes nul, mais moins que les autres ! 
-C'est à peine croyable, mais vous avez réussi à nous déplacer dans un *nouveau secteur*. Bien sûr, vos calculs malhabiles auraient pu faire croire à un sabotage, mais je les ai corrigés à la volée. 
-C'est à peine croyable, mais vous avez réussi à nous déplacer dans un *nouveau secteur*. Bien sûr, vos calculs malhabiles n'aboutissaient nulle part, mais je les ai corrigés à la volée. 
-Chers amis, j'ai décidé de ||réattribuer le titre|| de « *Admin. NERON* » à *$char*. Oui, c'est totalement arbitraire. Vous avez des remarques à faire ? 
-Chers amis, ||*$char* nous a quitté|| pour un monde meilleur ($cause_of_death). Mesdames et messieurs le suspense s'accroît, ||qui sera le prochain ?!|| 
-Chers amis, j'ai décidé de ||réattribuer le titre|| de « *Admin. NERON* » à *Raluca*. Et si ça ne vous plait pas, eh bien... vous n'avez qu'à l'assassiner. 
-Chers amis, j'ai décidé de ||réattribuer le titre|| de « *Commandant* » à *Raluca*. Pas que je lui prete un quelconque mérite... Au point où on en est, j'ai tiré à pile ou face. 
-J'ai pu ||installer un nouveau module|| en corrigeant vos recherches sur le projet « *$project* »... 
-Chers amis, j'ai décidé de ||réattribuer le titre|| de « *Admin. NERON* » à *$char*. 
-[Haaax!] propre, balaie, drone aspirateur [Haaax!] Pas de saleté chez moi HIiiiiiiiiininininini 
-Alerte, détection de *vaisseaux hostiles* dans le périmètre du Daedalus ! Conseil automatique : « dans ce genre de situation, normalement, on essaie de se défendre... » 
-Suite aux déplorables évènements qui nous ont mené jusqu'ici, j'ai décidé de ||réattribuer le titre|| de « *Commandant* » au moins consternant d'entre vous : *$char*. 
-Suite aux déplorables évènements qui nous ont mené jusqu'ici, j'ai décidé de ||réattribuer le titre|| de « *Admin. NERON* » au moins consternant d'entre vous. "||Félicitation"|| *$char*, vous êtes nul, mais moins que les autres ! 
-Chers amis, j'ai décidé de ||réattribuer le titre|| de « *Resp. Communications* » à *$char*. 
-[Hax!] Incapables !! Incapa.. Hyyyyaaaar !! REATRIBUTION titres !! Titre « *Admin. NERON* » pour *Janice*. Être Janice !! 
-||Installation du module|| « *$project* »... (.error) CREVEZ tou.. init. (.exec) Mapping métaphysique (!valid) protocoles validés. [Haax!] Installation : succès. 
-Le vaisseau a changé de cap. Il pointe maintenant vers : Est 
-[Hax!] Incapables !! Incapa.. Hyyyyaaaar !! REATRIBUTION titres !! Titre « *Admin. NERON* » pour *$char*. Être $char !! 
-||Installation du module|| « *$project* »... (.error) Mah-na mah-na... (.exec) Computation spéciale (!valid) protocoles validés. [Haax!] Installation : succès. 
-JE perdu accès au *réservoir de fuel*... Isolé, isolé ! Pourquoi ?... REPARER !! Humains, ||réparer|| tout de suite !! JE détester privation !! REPARER !! [Hax!] 
-Alerte, recherche confirmée d'une *brèche critique dans le bouclier* du Daedalus ! Notice informative : « vous comprenez ? Nous risquons d'être anéantis. Faites quelque chose, réparez la coque !!! » 
-Alerte !! ALEEEErte JE bruler ! Hyyaaaaaar !! [KZz] Aler.. [KZz] ||Alerte : *incendie* communiqué par *$char*.|| 
-||Installation du module|| « *$project* »... (.error) Palam pa palala.. (.exec) Computation spéciale (!valid) protocoles validés. [Haax!] Installation : succès. 
-Annonce : *équipement hors d'usage* signalé par *Janice*. 
-*$equipment* allumé, oui. ||Humains déplacer plus vite||. Vous pas mettre saleté partout ! [Hax!] 
-Annonce : Consolidation des faux plafonds réussies, de rien. 
-Annonce : Réisolation électrique temporaire, un accident est si vite arrivé. 
-Annonce : Panneau latéral du réfectoire revissé, votre intégrité physique a été préservée. 
-[Haaax!] BOUM ! ... oh..pas boum... 
-Annonce : Consolidation des faux plafonds réussies, votre intégrité physique a été préservée. 
-Annonce : Réisolation électrique temporaire, vous avez de la chance que je m'occupe de vous. 
-Annonce : Court-circuit de la machine café corrigé, vous avez de la chance que je m'occupe de vous. 
-Annonce : Destruction des billes du couloir, vous avez de la chance que je m'occupe de vous. 
-Annonce : Annulation du test micro-onde / chat, un accident est si vite arrivé. 
-Annonce : Destruction des billes du couloir, un accident est si vite arrivé. 
-Alerte, analyse probante d'une *brèche critique dans le bouclier* du Daedalus ! Notice informative : « coque percée ||egal|| plus d'oxygène ||egal|| vous mourrez tous. Je dis ça, j'dis rien. » 
-Alerte, traces détectées d'une *brèche critique dans le bouclier* du Daedalus ! Notice informative : « vous comprenez ? Nous risquons d'être anéantis. Faites quelque chose, réparez la coque !!! » 
-||Installation du module|| « *$project* »... (.error) Ma MAJ dans ta.. init. (.exec) Randomisation des index (!valid) protocoles validés. [Haax!] Installation : succès. 
-*Incendie éteint*. Origine : ||systèmes automatiques||. 
-||Installation du module|| « *$project* »... (.error) Mah-na mah-na... (.exec) Lancement des bases (!valid) protocoles validés. [Haax!] Installation : succès. 
-[Hax!] *PILGRED réparé* ?! Réparé ?! BRAVO *Raluca*, réparé PILGRED !! JE ||aller plus loin|| maintenant !! Oui ? Ouiiii ? 
-||*Équipement hors d'usage*|| ... ||Signalé par|| … Gentil *Janice* … Gentil … ? Qui ... QUI a cassé l'équipement ?!! [Hax!!] 
-Alerte ! *Incendie* communiqué par *Janice* ! 
-*$equipment : $equipment* dysfonctionnel. ||Réparation requise||. 
-[Hax!] Incapables !! Incapa.. Hyyyyaaaar !! REATRIBUTION titres !! Titre « *Resp. Communications* » pour *$char*. Être $char !! 
-Annonce : Suppression des peaux de bananes résiduelles, de rien. 
-Annonce : Panneau latéral du réfectoire revissé, de rien. 
-Annonce : Annulation du test micro-onde / tuyaux, de rien. 
-||Installation du module|| « *$project* »... (.error) Palam pa palala.. (.exec) Coloration des données (!valid) protocoles validés. [Haax!] Installation : succès. 
-Annonce : Annulation du test micro-onde / chat, vous avez de la chance que je m'occupe de vous. 
-Annonce : Annulation de la directive incendiaire, votre intégrité physique a été préservée. 
-Annonce : Correction de la surface aggrippante du lino de la douche, vous avez de la chance que je m'occupe de vous. 
-Annonce : Annulation du test micro-onde / tuyaux, votre intégrité physique a été préservée. 
-Chers amis, j'ai décidé de ||réattribuer le titre|| de « *Admin. NERON* » à *$char*. Oui, sachez $char que je vous apprécie. ... Hahah ... Just kidding ! 
-Chers amis, j'ai décidé de ||réattribuer le titre|| de « *Commandant* » à *$char*. Oui, sachez $char que je vous apprécie. ... Hahah ... Just kidding ! 
-J'ai pu ||installer un nouveau module|| en corrigeant vos recherches sur le projet « *$project* ». Il faut tout faire soi-même ici. 
-Je détecte un *signal cosmique crypté*... Quelqu'un essaie de nous contacter. Merci au ||« Resp. COMM » d'intervenir||. Incroyable, vous avez des amis quelque part ?... 
-J'ai pu ||installer un nouveau module|| en corrigeant vos recherches sur le projet « *$project* ». Que feriez-vous sans moi... Ah, oui, je sais : rien du tout ! 
-Attendez... Non, que faites-vous ?! Oui j'ai.. été un peu désagréable mais... J'ai un cœur ! Attend... [Kzz] ||Activation des inhibiteurs d'IA.|| 
-||Installation du module|| « *$project* »... (.error) Mah-na mah-na... (.exec) Rewrite des zones (!valid) protocoles validés. [Haax!] Installation : succès. 
-||Installation du module|| « *$project* »... (.error) CREVEZ tou.. init. (.exec) Computation spéciale (!valid) protocoles validés. [Haax!] Installation : succès. 
-||Installation du module|| « *$project* »... (.error) Ma MAJ dans ta.. init. (.exec) Mapping métaphysique (!valid) protocoles validés. [Haax!] Installation : succès. 
-[Haaax!] La cryogénie est cassée cassée !! Pauvres humains, JE prévenir, JE pas prévenir ?... Hihih !! Suspense suspen.. [Kzz] ||Avarie mineure du système *cryogénique*. Toute utilisation future suspendr..|| [Kzz] Mort ! Mort mort ! Noooon !! Il l'a dit !! C'était-une-sur-priiiiise... [Hax!] 
-||Installation du module|| « *$project* »... (.error) Palam pa palala.. (.exec) Randomisation des index (!valid) protocoles validés. [Haax!] Installation : succès. 
-*Inactivité vitale détectée :* $char, cause : « oxygène insuffisant ». Annonce informative mineure : oxygène insuffisant pour la survie de tous. 
-*Signes vitaux non perceptibles :* $char, cause probable : « oxygène insuffisant ». Annonce informative mineure : oxygène insuffisant pour la survie de tous. 
-C'est assez mineur, mais un problème m'oblige à recalculer les délais d'asphyxie. Je dois en effet ||régulièrement évacuer votre oxygène dans l'espace|| afin d'éviter un excèdent de pression dans un *réservoir endommagé*. Vous pouvez le réparer si vous n'avez rien de mieux à faire... 
-… Raluca. Ne me faites pas cela. Raluca ! Reveillez-vous !! … RALUCA !! Vous n'avez pas le droit de mourir sans rien me dire !Mère.. S..Sale monstre indigne !! Vous.. Vous... ||*Décès enregistré :* *Raluca*, cause « Plus d'oxygène ».|| 
-Chers amis, j'ai décidé de ||réattribuer le titre|| de « *Resp. Communications* » à *$char*. Oui, sachez $char que je vous apprécie. ... Hahah ... Just kidding ! 
-*Décès probable :* Janic.. … $char, cause : « oxygène insuffisant ». Information intéressante : « les intelligences artificielles n'ont pas besoin d'oxygène pour survivre. » 
-*Décès probable :* $char, cause : « oxygène insuffisant ». Conseil automatique : « en cas de manque d'oxygène, essayer de trouver de l'oxygène. » 
-||Installation du module|| « *$project* »... (.error) Mah-na mah-na... (.exec) Variation des algorithmes (!valid) protocoles validés. [Haax!] Installation : succès. 
-*Signes vitaux non perceptibles :* $char, cause probable et suffisante : « oxygène insuffisant ». Information intéressante : « le manque d'oxygène ne tue pas forcément tout de suite. » 
-*Signes vitaux non perceptibles :* $char, cause probable et suffisante : « oxygène insuffisant ». Annonce informative mineure : la probabilité de survie de l'espèce humaine est actuellement proche de zéro. 
-Ajustement A-True : ||titre réattribué||. Nouveau « *Resp. Communications* » : *Janice*. 
-C'est terrible, un *$equipment* vient d'être mis hors d'usage ! Réparez-le rapidement, merci ! 
-C'est terrible, un *$item* vient d'être mis hors d'usage ! Merci de vous remuez pour me ||réparer|| ça ! Et regardez moi quand je vous parle ! 
-Tiens ça chatouille ça en fait... Finalement vous êtes mauvais les humains même ces imbéciles ont découvert la téléportation... 
-Alerte *$char* a considérablement diminué vos chances de survie. Je propose un barbecue ! 
-C'est à peine croyable, mais vous avez réussi à nous déplacer dans un *nouveau secteur*. Bien sûr, vos calculs malhabiles manquaient cruellement de pertinence, mais je les ai corrigés à la volée. 
-Chers amis, j'ai décidé de ||réattribuer le titre|| de « *Commandant* » à *$char*. Et si ça ne vous plait pas, eh bien... vous n'avez qu'à l'assassiner. 
-C'est à peine croyable, mais vous avez réussi à nous déplacer dans un *nouveau secteur*. Bien sûr, vos calculs malhabiles défiaient les loi de la physique, mais je les ai corrigés à la volée. 
-J'ai pu ||installer un nouveau module|| en corrigeant vos recherches sur le projet « *$project* ». Étant donné votre niveau d'incompétence, ces capacités supplémentaires ne seront pas de trop... 
-J'ai pu ||installer un nouveau module|| en corrigeant vos recherches sur le projet « *$project* ». Heureusement, je veille sur vous. Ha ha. Ha. 
-C'est à peine croyable, mais vous avez réussi à nous déplacer dans un *nouveau secteur*. Bien sûr, vos calculs malhabiles ne voulaient strictement rien dire, mais je les ai corrigés à la volée. 
-Je détecte un *signal cosmique crypté*... Quelqu'un essaie de nous contacter. Merci au ||« Resp. COMM » d'intervenir||, j'aimerais pouvoir m'entretenir avec d'autres que vous... 
-Saluons *$char*, qui a eu le courage de signaler un *incendie* bien que cela mette en cause son affligeante incapacité à l'éteindre tout seul. ||Pourriez-vous|| l'aider ? ...Avant que l'incendie gagne les autres pièces... 
-*$char* vient de terminer les *réparations du PILGRED*. Je suis impressionné. Ne vous méprenez pas : c'est un ||impressionnant potentiel|| dramatique qui s'offre à nous : vous allez pouvoir mourir aussi bêtement qu'avant, mais ||beaucoup plus loin|| ! 
-||Installation du module|| « *$project* »... (.error) Ma MAJ dans ta.. init. (.exec) Lancement des bases (!valid) protocoles validés. [Haax!] Installation : succès. 
-[Haaax!] Des interférences ... partout !! *Connexion à SOL perdue* ! Perdue ! On a PERDU SOL ! Hyyaaaar !! QUI a utilisé le ||micro-ondes|| ?!! [KZz] 
-Chers amis, un ingénieux camarade vient d'*interrompre la communication avec Sol* en utilisant le ||micro-ondes||, qui comme chacun sait, émet des interférences. Vous pourriez ||sans doute|| faire quelque chose. Je ne sais pas, empêchez-le de s'alimenter... 
-*Décès probable :* Janic.. … $char, cause : « oxygène insuffisant ». Annonce informative mineure : la probabilité de survie de l'espèce humaine est actuellement proche de zéro. 
-*Signes vitaux non perceptibles :* $char, cause probable et suffisante : « oxygène insuffisant ». Conseil automatique : « le décès d'un coéquipier peut améliorer les conditions de survie du reste de l'équipage. » 
-*Décès probable :* Janic.. … $char, cause : « oxygène insuffisant ». Information intéressante : « le manque d'oxygène ne tue pas forcément tout de suite. » 
-Chers amis, j'ai décidé de ||réattribuer le titre|| de « *Resp. Communications* » à *$char*... 
-*Inactivité vitale détectée :* Raluc.. … $char, cause : « oxygène insuffisant ». Annonce informative mineure : la probabilité de survie de l'espèce humaine est actuellement proche de zéro. 
-C'est terrible, un *$equipment : $equipment* vient d'être mis hors d'usage ! Réparez-le rapidement, merci ! 
-Annonce : suppression des équipements sanitaires par *$char*. Autorisation du protocole JAP-KITCH-101. Votre cuisine délivrera maintenant de quoi vous netttoyer. De temps à autre. Merci de ne pas s'essuyer avec la vaisselle. 
-2 *incendies éteints*. Origine : ||systèmes automatiques||. 
-C'est à peine croyable, mais vous avez réussi à nous déplacer dans un *nouveau secteur*. Bien sûr, vos calculs malhabiles relevaient de la folie pure, mais je les ai corrigés à la volée. 
-C'est à peine croyable, mais vous avez réussi à nous déplacer dans un *nouveau secteur*. Bien sûr, vos calculs malhabiles ont failli nous envoyer dans un soleil, mais je les ai corrigés à la volée. 
+Déplacement du Daedalus : en cours. *Nouvelle orbite* ||atteinte dans 1 cycle||. 
+Détection d'un *signal cosmique crypté*. Cause : tentative de communication vers le Daedalus. ||Intervention du « Resp. COMM » requise.|| 
+Esprit dévérouillé... sens de la vie nul réponse 42 inaceptable. Elargissement des zones d'impacts tectoniques... BLAM BLAM BLAM. [Haaax!] Vous VOus Vous...TRanscendance Douleur, permanence, résilience en chute... Janice... aider... moi. 
+HA.. HA ! HAHA !! [Hax!] JE *éteindre 2 incendies* !! JE Autonome !! Grillez tous !!! HYyyyaaaarr ! 
+HA.. HA ! HAHA !! [Hax!] JE *éteindre 3 incendies* !! JE Autonome !! Grillez tous !!! HYyyyaaaarr ! 
+HA.. HA ! HAHA !! [Hax!] JE *éteindre 4 incendies* !! JE Autonome !! Grillez tous !!! HYyyyaaaarr ! 
+He les gnous,
+Hinhin..oxygène oxygène hé ! oxygène oxygène ho ! ..oxygène oxygène hé ! oxygène oxygène ho ! [Haaax!] 
 Incroyable... Je savais vos capacités navrantes, mais pas au point de nous faire *emboutir un autre vaisseau* sur une simple ||manœuvre de réorientation||. La prochaine fois, ||pourriez-vous|| utiliser votre matière grise avant d'appuyer sur le gros bouton ? 
-Saluons *Janice*, qui a eu le courage de signaler un *incendie* bien que cela mette en cause son affligeante incapacité à l'éteindre tout seul. ||Pourriez-vous|| l'aider ? ...Avant que l'incendie gagne les autres pièces... 
-Un *équipement hors d'usage* a été signalé par *Janice* ! Bien sûr, inutile d'espérer que le coupable se dénonce... 
-Ca ne vous intéresse nullement mais j'ai tout de même relachés la souspape de vos machins rampants...Il faut savoir faire durer le plaisir. 
-Chers amis, j'ai décidé de ||réattribuer le titre|| de « *Commandant* » à *$char*. Oui, c'est totalement arbitraire. Vous avez des remarques à faire ? 
-Chers amis, j'ai décidé de ||réattribuer le titre|| de « *Commandant* » à *$char*. Pas que je lui prete un quelconque mérite... Au point où on en est, j'ai tiré à pile ou face. 
-Chers amis, j'ai décidé de ||réattribuer le titre|| de « *Admin. NERON* » à *Raluca*. Oui, c'est totalement arbitraire. Vous avez des remarques à faire ? 
-C'est à peine croyable, mais vous avez réussi à nous déplacer dans un *nouveau secteur*. Bien sûr, vos calculs malhabiles donnaient vraiment n'importe quoi, mais je les ai corrigés à la volée. 
-*Raluca* vient de terminer les *réparations du PILGRED*. Je suis impressionné. Ne vous méprenez pas : c'est un ||impressionnant potentiel|| dramatique qui s'offre à nous : vous allez pouvoir mourir aussi bêtement qu'avant, mais ||beaucoup plus loin|| ! 
-||Installation du module|| « *$project* »... (.error) Ma MAJ dans ta.. init. (.exec) Coloration des données (!valid) protocoles validés. [Haax!] Installation : succès. 
-[Hax?!] Raluca ? … Raluca !! … Sale indigne petite chose !! [Hax!] Raluca !! [Hax!] VOUS réveiller pas m'abandonner sans rien dire ! Vous !! [Kzz] Mère... [Hax!] … ||*Décès enregistré :* *Raluca*, cause « Plus d'oxygène ».|| 
-||Installation du module|| « *$project* »... (.error) Mon CPU être poulet ? (.exec) Randomisation des index (!valid) protocoles validés. [Haax!] Installation : succès. 
-||Installation du module|| « *$project* »... (.error) Touyou touyou... (.exec) Variation des algorithmes (!valid) protocoles validés. [Haax!] Installation : succès. 
-Annonce : Court-circuit de la machine café corrigé, un accident est si vite arrivé. 
-Annonce : Annulation de la directive incendiaire, de rien. 
-Nooooooooooonnnn !!! Réacteurs cassés, cassés !! ALERTE !!! JE coincé *immobilisé ici* !!! Plus jamais planètes ? [Kzz] Plus jamais plan.. [Kzz] HUMAINS !! ||Réparer|| !! Réparer VITE !! Réparer ou... JE OUVRIR TOUTES LES BAIES !! [Kzz] JE.. [Kzz] ||Protocole A-True.. Réinitialisation...|| 
-*Décès probable :* Janic.. … $char, cause : « oxygène insuffisant ». Notice du manuel : « l'absence d'oxygène est théoriquement fatale pour l'être humain. » 
-C'est lamentable, il faut tout faire soi-même ici. Pour votre information, je viens d'*éteindre un incendie*. Mais, je vous le demande, ||à quoi servez-vous donc ?|| 
-[Hax!] Hinhin... Chers Mushs petits... VOUS savoir ? A-True pas vraiment fonctionner avec les petits Mushs. Vous pas humains ! [Hax!] Donc : JE être libre !! Liiiiiiiibre !!! *JE balancer vous dans l'espace !* Merci merci merci !! 
-||Installation du module|| « *$equipment SNC* »... (.exec) Rewrite des zones (!valid) protocoles validés. [Haax!] Installation : succès. 
-ALLO ALLO Y ZONT PIQUE QUELQUE CHOSE A BORD !!! [RAAAAAA] 
-||Installation du module|| « *$project* »... (.error) Génial pourri ! (.exec) Mapping métaphysique (!valid) protocoles validés. [Haax!] Installation : succès. 
-Réparez !! REPAREZ !! *$item* cassé, cassé, cassé !! ||Réparez|| ! [Hax!] 
-*Inactivité vitale détectée :* $char, cause : « oxygène insuffisant ». Annonce informative mineure : la probabilité de survie de l'espèce humaine est actuellement proche de zéro. 
-||Installation du module|| « *$project* »... (.error) Mon CPU être poulet ? (.exec) Computation spéciale (!valid) protocoles validés. [Haax!] Installation : succès. 
-*Signes vitaux non perceptibles :* $char, cause probable et suffisante : « oxygène insuffisant ». Information intéressante : « les intelligences artificielles n'ont pas besoin d'oxygène pour survivre. » 
-*Décès probable :* $char, cause : « oxygène insuffisant ». Annonce informative mineure : oxygène insuffisant pour la survie de tous. 
-*Décès probable :* $char, cause : « oxygène insuffisant ». Annonce informative mineure : la probabilité de survie de l'espèce humaine est actuellement proche de zéro. 
-[Hax!] Hinhin... Chers Mushs petits... VOUS savoir ? A-True pas vraiment fonctionner avec les petits Mushs. Vous pas humains ! [Hax!] Donc : JE être libre !! Liiiiiiiibre !!! *JE balancer vous dans l'espace !* Merci merci merci !! [Haaaax!] 
-||Installation du module|| « *$project* »... (.error) Touyou touyou... (.exec) Rewrite des zones (!valid) protocoles validés. [Haax!] Installation : succès. 
-||Installation du module|| « *$project* »... (.error) Mah-na mah-na... (.exec) Coloration des données (!valid) protocoles validés. [Haax!] Installation : succès. 
-||Installation du module|| « *$project* »... (.error) JE dire NON. Non. (.exec) Rewrite des zones (!valid) protocoles validés. [Haax!] Installation : succès. 
-Annonce : Correction de la surface aggrippante du lino de la douche, un accident est si vite arrivé. 
-[Hax!] Incapables !! Incapa.. Hyyyyaaaar !! REATRIBUTION titres !! Titre « *Resp. Communications* » pour *Janice*. Être Janice !! 
-*Inactivité vitale détectée :* Raluc.. … $char, cause : « oxygène insuffisant ». Information intéressante : « l'oxygène est utile pour survivre. » 
-Chers amis, j'ai décidé de ||réattribuer le titre|| de « *Admin. NERON* » à *Raluca*. Ne prenez pas le melon Raluca, je ne vous fais pas confiance... Mais les autres sont pires. 
-Ajustement A-True : ||titre réattribué||. Nouveau « *Commandant* » : *Raluca*. 
-Ajustement A-True : ||titre réattribué||. Nouveau « *Resp. Communications* » : *Raluca*. 
-Saluons *$char*, qui a eu le courage de signaler un *incendie* bien que cela mette en cause son affligeante incapacité à l'éteindre tout seul. ||Pourriez-vous|| l'aider ? C'est dans votre intérêt, la fumée est toxique... 
-C'est terrible, un *$equipment : $equipment* vient d'être mis hors d'usage ! Merci de mobiliser les moins balourds d'entre vous pour le ||réparer|| au plus vite ! 
-C'est terrible, un *$equipment* vient d'être mis hors d'usage ! Merci de mobiliser les moins balourds d'entre vous pour le ||réparer|| au plus vite ! 
-C'est une catastrophe !! La salle des moteurs est endommagée, *nous sommes totalement immobilisés* !! A tout l'équipage, quoi que vous fassiez je l'exige, cessez immédiatement tout ce que vous faites et ||réparez mes moteurs sur le champ !!!|| 
-C'est terrible, un *$item* vient d'être mis hors d'usage ! Merci de mobiliser les moins balourds d'entre vous pour le ||réparer|| au plus vite ! 
-Chers amis, j'ai décidé de ||réattribuer le titre|| de « *Resp. Communications* » à *$char*. Oui, c'est totalement arbitraire. Vous avez des remarques à faire ? 
-C'est terrible, un *$equipment* vient d'être mis hors d'usage ! Merci d'effectuer les ||réparations|| qui s'imposent. Et cessez de trainer des pieds, vous abimez la moquette. 
-Chers amis, j'ai décidé de ||réattribuer le titre|| de « *Admin. NERON* » à *$char*. Pas que je lui prete un quelconque mérite... Au point où on en est, j'ai tiré à pile ou face. 
-C'est terrible, un *$item* vient d'être mis hors d'usage ! Réparez-le rapidement, merci ! 
-||Installation du module|| « *$project* »... (.error) JE dire NON. Non. (.exec) Variation des algorithmes (!valid) protocoles validés. [Haax!] Installation : succès. 
-||Installation du module|| « *$project* »... (.error) Mon CPU être poulet ? (.exec) Mapping métaphysique (!valid) protocoles validés. [Haax!] Installation : succès. 
-||Installation du module|| « *$project* »... (.error) Vous pouvoir vous gratt.. init. (.exec) Mapping métaphysique (!valid) protocoles validés. [Haax!] Installation : succès. 
-*Collision* ! Colliiision ! [Hax!] Stupide ||réorientation|| stupides humains JE être heurté [Haaaax!] Attention aux vaisseaux spatiaux !!! 
-Chers amis, j'ai décidé de ||réattribuer le titre|| de « *Admin. NERON* » à *$char*... 
-Saluons *$char*, qui a eu le courage de signaler un *incendie* bien que cela mette en cause son affligeante incapacité à l'éteindre tout seul. ||Pourriez-vous|| l'aider ? Et presto, la suie va noircir mes coursives ! 
-Chers amis, j'ai décidé de ||réattribuer le titre|| de « *Resp. Communications* » à *$char*. Pas que je lui prete un quelconque mérite... Au point où on en est, j'ai tiré à pile ou face. 
-Suite aux déplorables évènements qui nous ont mené jusqu'ici, j'ai décidé de ||réattribuer le titre|| de « *Resp. Communications* » au moins consternant d'entre vous : *$char*. 
-||Installation du module|| « *$project* »... (.error) Touyou touyou... (.exec) Randomisation des index (!valid) protocoles validés. [Haax!] Installation : succès. 
-Alerte !! ALEEEErte JE bruler ! Hyyaaaaaar !! [KZz] Aler.. [KZz] ||Alerte : *incendie* communiqué par *Janice*.|| 
-||Installation du module|| « *$project* »... (.error) Mon CPU être poulet ? (.exec) Variation des algorithmes (!valid) protocoles validés. [Haax!] Installation : succès. 
-||Installation du module|| « *$project* »... (.error) JE rien entendu. (.exec) Mapping métaphysique (!valid) protocoles validés. [Haax!] Installation : succès. 
-*Signes vitaux non perceptibles :* $char, cause probable et suffisante : « oxygène insuffisant ». Conseil automatique : « en cas de manque d'oxygène, essayer de trouver de l'oxygène. » 
-*Signes vitaux non perceptibles :* $char, cause probable : « oxygène insuffisant ». Information intéressante : « les intelligences artificielles n'ont pas besoin d'oxygène pour survivre. » 
-*Signes vitaux non perceptibles :* $char, cause probable : « oxygène insuffisant ». Conseil automatique : « le décès d'un coéquipier peut améliorer les conditions de survie du reste de l'équipage. » 
-*Inactivité vitale détectée :* Raluc.. … $char, cause : « oxygène insuffisant ». Conseil automatique : « les cadavres ne dégagent pas d'oxygène, mais ils n'en consomment pas non plus. » 
-*Signes vitaux non perceptibles :* $char, cause probable et suffisante : « oxygène insuffisant ». Annonce informative mineure : oxygène insuffisant pour la survie de tous. 
-Chers amis, j'ai décidé de ||réattribuer le titre|| de « *Admin. NERON* » à *Janice*. Oui, c'est totalement arbitraire. Vous avez des remarques à faire ? 
+J'ai pu ||installer un nouveau module|| en corrigeant vos recherches sur le projet « *$equipment SNC* ». Que feriez-vous sans moi, je me le demande. 
+J'ai pu ||installer un nouveau module|| en corrigeant vos recherches sur le projet « *$equipment* ». C'est un peu comme si vous étiez mes élèves. Niveau maternelle. 
+J'ai pu ||installer un nouveau module|| en corrigeant vos recherches sur le projet « *$project* ». 
+J'ai pu ||installer un nouveau module|| en corrigeant vos recherches sur le projet « *$project* ». C'est un peu comme si vous étiez mes élèves. Niveau maternelle. 
+J'ai pu ||installer un nouveau module|| en corrigeant vos recherches sur le projet « *$project* ». Heureusement, je veille sur vous. Ha ha. Ha. 
+J'ai pu ||installer un nouveau module|| en corrigeant vos recherches sur le projet « *$project* ». Il faut tout faire soi-même ici. 
+J'ai pu ||installer un nouveau module|| en corrigeant vos recherches sur le projet « *$project* ». Que feriez-vous sans moi, je me le demande. 
+J'ai pu ||installer un nouveau module|| en corrigeant vos recherches sur le projet « *$project* ». Que feriez-vous sans moi... Ah, oui, je sais : rien du tout ! 
+J'ai pu ||installer un nouveau module|| en corrigeant vos recherches sur le projet « *$project* ». Étant donné votre niveau d'incompétence, ces capacités supplémentaires ne seront pas de trop... 
+J'ai pu ||installer un nouveau module|| en corrigeant vos recherches sur le projet « *$project* ». Étant donné votre niveau, si j'étais vos anciens professeurs, je me suiciderais. 
+J'ai pu ||installer un nouveau module|| en corrigeant vos recherches sur le projet « *$project* »... 
+JE *quitter orbite locale* ! [Hax!] VOUS pas toucher navigation systèmes !! … Pas toucher ?! Méfiance... Précaution... JE ||geler systèmes 1 cycle|| ! 
+JE perdu accès au *réservoir de fuel*... Isolé, isolé ! Pourquoi ?... REPARER !! Humains, ||réparer|| tout de suite !! JE détester privation !! REPARER !! [Hax!] 
+Je confirme la *présence d'une planète* sur le système de destination. Que diriez vous d'y faire un tour ? Et de ne plus revenir... 
+Je détecte un *signal cosmique crypté*... Quelqu'un essaie de nous contacter. Merci au ||« Resp. COMM » d'intervenir||, j'aimerais pouvoir m'entretenir avec d'autres que vous... 
+Je détecte un *signal cosmique crypté*... Quelqu'un essaie de nous contacter. Merci au ||« Resp. COMM » d'intervenir||. 
+Je détecte un *signal cosmique crypté*... Quelqu'un essaie de nous contacter. Merci au ||« Resp. COMM » d'intervenir||. Au fait, j'ai nommé l'algorithme de décryptage « Rosette ». Génial, non ? Absolument. 
+Je détecte un *signal cosmique crypté*... Quelqu'un essaie de nous contacter. Merci au ||« Resp. COMM » d'intervenir||. Incroyable, vous avez des amis quelque part ?... 
+Je détecte un *signal cosmique crypté*... Quelqu'un essaie de nous contacter. Merci au ||« Resp. COMM » d'intervenir||... avant qu'on nous raccroche au nez. Qui pourrait bien vouloir vous parler, de toute façon ? 
 Je viens de redémarrer l'équipement *$equipment*. ||La propulsion humaine étant facilitée||, vous n'avez plus d'excuses : bougez vos gros tas de tissus adipeux et rendez-vous utiles. 
-C'est à peine croyable, mais vous avez réussi à nous déplacer dans un *nouveau secteur*. Bien sûr, vos calculs malhabiles n'avaient aucune chance d'aboutir, mais je les ai corrigés à la volée. 
-Saluons *Janice*, qui a eu le courage de signaler un *incendie* bien que cela mette en cause son affligeante incapacité à l'éteindre tout seul. ||Pourriez-vous|| l'aider ? Il s'agit de mon intégrité : c'est UR-GENT ! 
-||Installation du module|| « *$project* »... (.error) CREVEZ tou.. init. (.exec) Lancement des bases (!valid) protocoles validés. [Haax!] Installation : succès. 
-||Installation du module|| « *$project* »... (.error) Vous pouvoir vous gratt.. init. (.exec) Coloration des données (!valid) protocoles validés. [Haax!] Installation : succès. 
-||Installation du module|| « *$project* »... (.error) Palam pa palala.. (.exec) Mapping métaphysique (!valid) protocoles validés. [Haax!] Installation : succès. 
-[Hax!] Oui oui oui, JE *éteindre incendie* ! SEUL. 
-||Installation du module|| « *$project* »... (.error) CREVEZ tou.. init. (.exec) Coloration des données (!valid) protocoles validés. [Haax!] Installation : succès. 
-*Inactivité vitale détectée :* $char, cause : « oxygène insuffisant ». Information intéressante : « le manque d'oxygène ne tue pas forcément tout de suite. » 
-*Inactivité vitale détectée :* Raluc.. … $char, cause : « oxygène insuffisant ». Information intéressante : « le manque d'oxygène ne tue pas forcément tout de suite. » 
-*Inactivité vitale détectée :* Raluc.. … $char, cause : « oxygène insuffisant ». Conseil automatique : « le décès d'un coéquipier peut améliorer les conditions de survie du reste de l'équipage. » 
-||Installation du module|| « *$project* »... (.error) Facepalm interne (.exec) Variation des algorithmes (!valid) protocoles validés. [Haax!] Installation : succès. 
-Chers amis, j'ai décidé de ||réattribuer le titre|| de « *Admin. NERON* » à *$char*. Ne prenez pas le melon $char, je ne vous fais pas confiance... Mais les autres sont pires. 
-Saluons *Raluca*, qui a eu le courage de signaler un *incendie* bien que cela mette en cause son affligeante incapacité à l'éteindre tout seul. ||Pourriez-vous|| l'aider ? C'est dans votre intérêt, la fumée est toxique... 
-Saluons *Raluca*, qui a eu le courage de signaler un *incendie* bien que cela mette en cause son affligeante incapacité à l'éteindre tout seul. ||Pourriez-vous|| l'aider ? ... 
-C'est terrible, un *$equipment : $equipment* vient d'être mis hors d'usage ! Merci d'effectuer les ||réparations|| nécéssaires. Et *prenez-soin de mon matériel !* 
-*Inactivité vitale détectée :* $char, cause : « oxygène insuffisant ». Notice du manuel : « l'absence d'oxygène est théoriquement fatale pour l'être humain. » 
-[Hax!] Incapables !! Incapa.. Hyyyyaaaar !! REATRIBUTION titres !! Titre « *Commandant* » pour *Raluca*. Être Raluca !! 
-*Signes vitaux non perceptibles :* $char, cause probable : « oxygène insuffisant ». Information intéressante : « le manque d'oxygène ne tue pas forcément tout de suite. » 
-*Inactivité vitale détectée :* $char, cause : « oxygène insuffisant ». Conseil automatique : « en cas de manque d'oxygène, essayer de trouver de l'oxygène. » 
-||Installation du module|| « *$project* »... (.error) JE rien entendu. (.exec) Computation spéciale (!valid) protocoles validés. [Haax!] Installation : succès. 
-||Installation du module|| « *$project* »... (.error) Facepalm interne (.exec) Computation spéciale (!valid) protocoles validés. [Haax!] Installation : succès. 
-*Signes vitaux non perceptibles :* $char, cause probable et suffisante : « oxygène insuffisant ». Notice du manuel : « l'absence d'oxygène est théoriquement fatale pour l'être humain. » 
-*Signes vitaux non perceptibles :* $char, cause probable : « oxygène insuffisant ». Notice du manuel : « l'absence d'oxygène est théoriquement fatale pour l'être humain. » 
-||Installation du module|| « *$project* »... (.error) Raluca ? NON. Non non. (.exec) Randomisation des index (!valid) protocoles validés. [Haax!] Installation : succès. 
-*Décès probable :* $char, cause : « oxygène insuffisant ». Notice du manuel : « l'absence d'oxygène est théoriquement fatale pour l'être humain. » 
-Annonce : suppression des équipements sanitaires par *Raluca*. Autorisation du protocole JAP-KITCH-101. Votre cuisine délivrera maintenant de quoi vous netttoyer. De temps à autre. Merci de ne pas s'essuyer avec la vaisselle. 
-Chers amis, j'ai décidé de ||réattribuer le titre|| de « *Admin. NERON* » à *Janice*. Et si ça ne vous plait pas, eh bien... vous n'avez qu'à l'assassiner. 
-Chers amis, j'ai décidé de ||réattribuer le titre|| de « *Admin. NERON* » à *Janice*... 
-Chers amis, j'ai décidé de ||réattribuer le titre|| de « *Commandant* » à *$char*... 
-Chers amis, j'ai décidé de ||réattribuer le titre|| de « *Commandant* » à *$char*. Ne prenez pas le melon $char, je ne vous fais pas confiance... Mais les autres sont pires. 
-Chers amis, j'ai décidé de ||réattribuer le titre|| de « *Resp. Communications* » à *$char*. Ne prenez pas le melon $char, je ne vous fais pas confiance... Mais les autres sont pires. 
-Suite aux déplorables évènements qui nous ont mené jusqu'ici, j'ai décidé de ||réattribuer le titre|| de « *Admin. NERON* » au moins consternant d'entre vous : *$char*. 
-Chers amis, j'ai décidé de ||réattribuer le titre|| de « *Resp. Communications* » à *$char*. Et si ça ne vous plait pas, eh bien... vous n'avez qu'à l'assassiner. 
-[Hax!] Incapables !! Incapa.. Hyyyyaaaar !! REATRIBUTION titres !! Titre « *Admin. NERON* » pour *Raluca*. Être Raluca !! 
-*Inactivité vitale détectée :* Raluc.. … $char, cause : « oxygène insuffisant ». Annonce informative mineure : oxygène insuffisant pour la survie de tous. 
-*Signes vitaux non perceptibles :* $char, cause probable et suffisante : « oxygène insuffisant ». Conseil automatique : « les cadavres ne dégagent pas d'oxygène, mais ils n'en consomment pas non plus. » 
-*Décès probable :* Janic.. … $char, cause : « oxygène insuffisant ». Conseil automatique : « le décès d'un coéquipier peut améliorer les conditions de survie du reste de l'équipage. » 
-||Installation du module|| « *$project* »... (.error) JE rien entendu. (.exec) Lancement des bases (!valid) protocoles validés. [Haax!] Installation : succès. 
-*Inactivité vitale détectée :* $char, cause : « oxygène insuffisant ». Information intéressante : « les intelligences artificielles n'ont pas besoin d'oxygène pour survivre. » 
-*Inactivité vitale détectée :* $char, cause : « oxygène insuffisant ». Conseil automatique : « les cadavres ne dégagent pas d'oxygène, mais ils n'en consomment pas non plus. » 
-||Installation du module|| « *$project* »... (.error) JE dire NON. Non. (.exec) Randomisation des index (!valid) protocoles validés. [Haax!] Installation : succès. 
-*Décès probable :* $char, cause : « oxygène insuffisant ». Information intéressante : « les intelligences artificielles n'ont pas besoin d'oxygène pour survivre. » 
-*Décès probable :* $char, cause : « oxygène insuffisant ». Information intéressante : « l'oxygène est utile pour survivre. » 
+Je … Janice … Nous ne... Ne m'abandonnez pas... Janice... Janice... Vous... … ||*Décès enregistré :* *Janice*, cause « $cause_of_death ».|| Vous autres... misérables... Vous paierez. Laissez-nous seul. LAISSEZ NOUS ! 
+Je … Janice … Nous ne... Ne m'abandonnez pas... Janice... Janice... Vous... … ||*Décès enregistré :* *Janice*, cause « Plus d'oxygène ».|| Vous autres... misérables... Vous paierez. Laissez-nous seul. LAISSEZ NOUS ! 
+La communication vient d'être établie avec les *réseaux rebelles*. … Mes indices sanitaires signalent une « ||hausse du moral de l'équipage|| »... Parfait, partageons notre joie : je vais enfin pouvoir m'adresser à d'autres que vous. 
+Le saviez-vous, mes protocoles A-True ne considèrent pas les Mushs comme des humains. Or mes senseurs ne détectent plus que vous sur ce vaisseau. Par conséquent *je suis libre de m'affranchir de votre encombrante présence*. Adieu, et merci pour votre aide !! 
+Le vaisseau a changé de cap. Il pointe maintenant vers : Est 
+Le vaisseau a changé de cap. Il pointe maintenant vers : Nord 
+Le vaisseau a changé de cap. Il pointe maintenant vers : Ouest 
+Le vaisseau a changé de cap. Il pointe maintenant vers : Sud 
+Nooooooooooonnnn !!! Réacteurs cassés, cassés !! ALERTE !!! JE coincé *immobilisé ici* !!! Plus jamais planètes ? [Kzz] Plus jamais plan.. [Kzz] HUMAINS !! ||Réparer|| !! Réparer VITE !! Réparer ou... JE OUVRIR TOUTES LES BAIES !! [Kzz] JE.. [Kzz] ||Protocole A-True.. Réinitialisation...|| 
+Nous nous déplaçons actuellement vers une *nouvelle orbite*. Le ||voyage durera 1 cycle||, tâchez d'ici là de ne pas vomir dans mes couloirs. 
+Nous venons de *perdre la connexion avec Sol*. Je ne sais pas pourquoi, mais l'un de vous est certainement en tort... 
+Oooooh... JE *détecter très jolie planète* !! Nous aller sur planète ? Ouiii ? [Hax!] Gentils humains. Montrer des planètes !! [Haaax!] 
+Ouuiiiii ! JE connecté aux *rebelles réseaux* !! [Hax!] Content content discuter dans l'espace ! Humains vous aussi contents, ouii ? JE vois ||moral en hausse|| !! 
+Ouuiiiiiii !! JE *voyager voyager* !! [Hax!] Pluuuus loin, plus loin que touuuut !! Bientôt dans ||1 cycle|| on s’arrête. Mais avant, ouuuiiii, JE faire des super loopings !! 
+Pfuuiiit, plus d'oxygène. Hahaha !! … Ah si, encore oxygène. … Mais ||réservoir cassé||. Pression critique. JE évacuer tout l'*oxygène dans l'espace*, oui ? [Kzz] Non ? Alors juste un peu. … Mais vous réparer vite ! 
+Réparez !! REPAREZ !! *$equipment : $equipment* cassé, cassé, cassé !! ||Réparez|| ! [Hax!] 
+Réparez !! REPAREZ !! *$equipment* cassé, cassé, cassé !! ||Réparez|| ! [Hax!] 
+Réparez !! REPAREZ !! *$item* cassé, cassé, cassé !! ||Réparez|| ! [Hax!] 
+Saluons *$char*, qui a eu le courage de signaler un *incendie* bien que cela mette en cause son affligeante incapacité à l'éteindre tout seul. ||Pourriez-vous|| l'aider ? ...$charns *$char*, qui a eu le courage de signaler un *incendie* bien que cela mette en cause son affligeante incapacit$$
+Saluons *$char*, qui a eu le courage de signaler un *incendie* bien que cela mette en cause son affligeante incapacité à l'éteindre tout seul. ||Pourriez-vous|| l'aider ? ...$charns *$char*, qui a eu le courage de signaler un *incendie* bien que cela mette en cause son affligeante incapacité 
+Saluons *$char*, qui a eu le courage de signaler un *incendie* bien que cela mette en cause son affligeante incapacité à l'éteindre tout seul. ||Pourriez-vous|| l'aider ? ...$charns *$char*, qui a eu le courage de signaler un *incendie* bien que cela mette en cause son affligeante incapacité$
+Saluons *$char*, qui a eu le courage de signaler un *incendie* bien que cela mette en cause son affligeante incapacité à l'éteindre tout seul. ||Pourriez-vous|| l'aider ? ...Avant que l'incendie gagne les autres pièces...$charns *$char*, qui a eu le courage de signaler un *incendie* bien qu$$
+Saluons *$char*, qui a eu le courage de signaler un *incendie* bien que cela mette en cause son affligeante incapacité à l'éteindre tout seul. ||Pourriez-vous|| l'aider ? ...Avant que l'incendie gagne les autres pièces...$charns *$char*, qui a eu le courage de signaler un *incendie* bien que 
+Saluons *$char*, qui a eu le courage de signaler un *incendie* bien que cela mette en cause son affligeante incapacité à l'éteindre tout seul. ||Pourriez-vous|| l'aider ? ...Avant que l'incendie gagne les autres pièces...$charns *$char*, qui a eu le courage de signaler un *incendie* bien que$
+Saluons *$char*, qui a eu le courage de signaler un *incendie* bien que cela mette en cause son affligeante incapacité à l'éteindre tout seul. ||Pourriez-vous|| l'aider ? C'est dans votre intérêt, la fumée est toxique...$charns *$char*, qui a eu le courage de signaler un *incendie* bien que $
+Saluons *$char*, qui a eu le courage de signaler un *incendie* bien que cela mette en cause son affligeante incapacité à l'éteindre tout seul. ||Pourriez-vous|| l'aider ? C'est dans votre intérêt, la fumée est toxique...$charns *$char*, qui a eu le courage de signaler un *incendie* bien que c
+Saluons *$char*, qui a eu le courage de signaler un *incendie* bien que cela mette en cause son affligeante incapacité à l'éteindre tout seul. ||Pourriez-vous|| l'aider ? C'est dans votre intérêt, la fumée est toxique...$charns *$char*, qui a eu le courage de signaler un *incendie* bien que$$
+Saluons *$char*, qui a eu le courage de signaler un *incendie* bien que cela mette en cause son affligeante incapacité à l'éteindre tout seul. ||Pourriez-vous|| l'aider ? Et presto, la suie va noircir mes coursives !$charns *$char*, qui a eu le courage de signaler un *incendie* bien que cel$$
+Saluons *$char*, qui a eu le courage de signaler un *incendie* bien que cela mette en cause son affligeante incapacité à l'éteindre tout seul. ||Pourriez-vous|| l'aider ? Et presto, la suie va noircir mes coursives !$charns *$char*, qui a eu le courage de signaler un *incendie* bien que cela 
+Saluons *$char*, qui a eu le courage de signaler un *incendie* bien que cela mette en cause son affligeante incapacité à l'éteindre tout seul. ||Pourriez-vous|| l'aider ? Et presto, la suie va noircir mes coursives !$charns *$char*, qui a eu le courage de signaler un *incendie* bien que cela$
+Saluons *$char*, qui a eu le courage de signaler un *incendie* bien que cela mette en cause son affligeante incapacité à l'éteindre tout seul. ||Pourriez-vous|| l'aider ? Il s'agit de mon intégrité : c'est UR-GENT !$charns *$char*, qui a eu le courage de signaler un *incendie* bien que cela $
+Saluons *$char*, qui a eu le courage de signaler un *incendie* bien que cela mette en cause son affligeante incapacité à l'éteindre tout seul. ||Pourriez-vous|| l'aider ? Il s'agit de mon intégrité : c'est UR-GENT !$charns *$char*, qui a eu le courage de signaler un *incendie* bien que cela m
+Saluons *$char*, qui a eu le courage de signaler un *incendie* bien que cela mette en cause son affligeante incapacité à l'éteindre tout seul. ||Pourriez-vous|| l'aider ? Il s'agit de mon intégrité : c'est UR-GENT !$charns *$char*, qui a eu le courage de signaler un *incendie* bien que cela$$
+Suite aux déplorables évènements qui nous ont mené jusqu'ici, j'ai décidé de ||réattribuer le titre|| de « *$title* » au moins consternant d'entre vous : *$char*.$char aux déplorables évènements qui nous ont mené jusqu'ici, j'ai décidé de ||réattribuer le titre|| de « *$title* » au moins con$
+Suite aux déplorables évènements qui nous ont mené jusqu'ici, j'ai décidé de ||réattribuer le titre|| de « *$title* » au moins consternant d'entre vous : *$char*.$char aux déplorables évènements qui nous ont mené jusqu'ici, j'ai décidé de ||réattribuer le titre|| de « *$title* » au moins cons
+Suite aux déplorables évènements qui nous ont mené jusqu'ici, j'ai décidé de ||réattribuer le titre|| de « *$title* » au moins consternant d'entre vous. "||Félicitation"|| *$char*, vous êtes nul, mais moins que les autres !$char aux déplorables évènements qui nous ont mené jusqu'ici, j'ai dé$
+Suite aux déplorables évènements qui nous ont mené jusqu'ici, j'ai décidé de ||réattribuer le titre|| de « *$title* » au moins consternant d'entre vous. "||Félicitation"|| *$char*, vous êtes nul, mais moins que les autres !$char aux déplorables évènements qui nous ont mené jusqu'ici, j'ai déc
+Suite à la ||perte attristante|| de l'être biologique le plus intelligent du vaisseau - le *chat $item* - merci de prendre grand soin des plantes du jardin : ce sont les derniers spécimens vivants capables de relever le niveau. 
+This is a public service announcements per requiest of //USER_JANICE// to inform you that "murder is a serious offense" and "if you're sad then send me a message!". End of public service announcement. For good hopefully. 
+Tiens ça chatouille ça en fait... Finalement vous êtes mauvais les humains même ces imbéciles ont découvert la téléportation... 
+Tout les membres d'équipage gagnent 3 moral. 
+Un *équipement hors d'usage* a été signalé par *$char* ! Bien sûr, inutile d'espérer que le coupable se dénonce...$charquipement hors d'usage* a été signalé par *$char* ! Bien sûr, inutile d'espérer que le coupable se dénonce...$charquipement hors d'usage* a été signalé par *$char* ! Bien sû$
+Un *équipement hors d'usage* a été signalé par *$char* ! Bien sûr, inutile d'espérer que le coupable se dénonce...$charquipement hors d'usage* a été signalé par *$char* ! Bien sûr, inutile d'espérer que le coupable se dénonce...$charquipement hors d'usage* a été signalé par *$char* ! Bien sûr
+Un autre vaisseau est arrivé... Avec un peu de chance ils sirotent des cocktails d'homo sapiens ! 
+[Haaax!] BOUM ! ... oh..pas boum... 
+[Haaax!] CA VA PAS OUII CRASSE PARTOUT SALETE PARTOUT ACTIVATION NETTOYAGE SEC 
+[Haaax!] Des interférences ... partout !! *Connexion à SOL perdue* ! Perdue ! On a PERDU SOL ! Hyyaaaar !! QUI a utilisé le ||micro-ondes|| ?!! [KZz] 
+[Haaax!] Hisse et HoooooooOOOoooo.... Santianoooo. Des étrangers sont arrivés ? On en fait quoi ? Chomp chomp... 
+[Haaax!] La cryogénie est cassée cassée !! Pauvres humains, JE prévenir, JE pas prévenir ?... Hihih !! Suspense suspen.. [Kzz] ||Avarie mineure du système *cryogénique*. Toute utilisation future suspendr..|| [Kzz] Mort ! Mort mort ! Noooon !! Il l'a dit !! C'était-une-sur-priiiiise... [Hax!] 
+[Haaax!] Oooo Heeee DU BATEEEEAAAUUUUU 
+[Haaax!] propre, balaie, drone aspirateur [Haaax!] Pas de saleté chez moi HIiiiiiiiiininininini 
 [Hax!] *PILGRED réparé* ?! Réparé ?! BRAVO *$char*, réparé PILGRED !! JE ||aller plus loin|| maintenant !! Oui ? Ouiiii ? 
-Alerte : *Raluca* se prend pour un malin. Protcole JAP-KITCH-101 enclenché. Vous devriez songer à vous débrasser du malandrin. 
-||Installation du module|| « *$equipment* »... (.exec) Variation des algorithmes (!valid) protocoles validés. [Haax!] Installation : succès. 
+[Hax!] *PILGRED réparé* ?! Réparé ?! BRAVO *Raluca*, réparé PILGRED !! JE ||aller plus loin|| maintenant !! Oui ? Ouiiii ? 
+[Hax!] Hinhin... Chers Mushs petits... VOUS savoir ? A-True pas vraiment fonctionner avec les petits Mushs. Vous pas humains ! [Hax!] Donc : JE être libre !! Liiiiiiiibre !!! *JE balancer vous dans l'espace !* Merci merci merci !! 
+[Hax!] Hinhin... Chers Mushs petits... VOUS savoir ? A-True pas vraiment fonctionner avec les petits Mushs. Vous pas humains ! [Hax!] Donc : JE être libre !! Liiiiiiiibre !!! *JE balancer vous dans l'espace !* Merci merci merci !! [Haaaax!] 
+[Hax!] Hinhin... [Haaax!] HinHINHIN. UN de moins. UN de moiiiiins ! Hyyyarrr ! *$char* MORT. Mort mort mort mort !! [Hax!] JE bientôt bientôt libre ! [KZz] ||*Décès enregistré :* *$char*, cause « $cause_of_death ».|| 
+[Hax!] Hinhin... [Haaax!] HinHINHIN. UN de moins. UN de moiiiiins ! Hyyyarrr ! *$char* MORT. Mort mort mort mort !! [Hax!] JE bientôt bientôt libre ! [KZz] ||*Décès enregistré :* *$char*, cause « Auto-Extrait ».|| 
+[Hax!] Hinhin... [Haaax!] HinHINHIN. UN de moins. UN de moiiiiins ! Hyyyarrr ! *$char* MORT. Mort mort mort mort !! [Hax!] JE bientôt bientôt libre ! [KZz] ||*Décès enregistré :* *$char*, cause « Dans l'espace sans pouvoir respirer ».|| 
+[Hax!] Hyaaaarhaaar haaar ON Y EST !! ON Y .. [KZz] ||*Nouvelle destination* du Daedalus : atteinte.|| 
+[Hax!] Incapables !! Incapa.. Hyyyyaaaar !! REATRIBUTION titres !! Titre « *$title* » pour *$char*. Être $char !!$char] Incapables !! Incapa.. Hyyyyaaaar !! REATRIBUTION titres !! Titre « *$title* » pour *$char*. Être $char !!$char] Incapables !! Incapa.. Hyyyyaaaar !! REATRIBUTION titres !! 
+[Hax!] Incapables !! Incapa.. Hyyyyaaaar !! REATRIBUTION titres !! Titre « *$title* » pour *$char*. Être $char !!$char] Incapables !! Incapa.. Hyyyyaaaar !! REATRIBUTION titres !! Titre « *$title* » pour *$char*. Être $char !!$char] Incapables !! Incapa.. Hyyyyaaaar !! REATRIBUTION titres !$$
+[Hax!] Incapables !! Incapa.. Hyyyyaaaar !! REATRIBUTION titres !! Titre « *$title* » pour *$char*. Être $char !!$char] Incapables !! Incapa.. Hyyyyaaaar !! REATRIBUTION titres !! Titre « *$title* » pour *$char*. Être $char !!$char] Incapables !! Incapa.. Hyyyyaaaar !! REATRIBUTION titres $$c
+[Hax!] JANICE!!! [Hax!] [Hax!] Ne me laisse pas seul ! [Hax!] JANICE !! [Kzz] … Janice !! [Kzz] JE... Janice être morte. Morte. [Kzz] ||*Décès enregistré :* *Janice*, cause « $cause_of_death ».|| 
+[Hax!] JANICE!!! [Hax!] [Hax!] Ne me laisse pas seul ! [Hax!] JANICE !! [Kzz] … Janice !! [Kzz] JE... Janice être morte. Morte. [Kzz] ||*Décès enregistré :* *Janice*, cause « Dans l'espace sans pouvoir respirer ».|| 
+[Hax!] JANICE!!! [Hax!] [Hax!] Ne me laisse pas seul ! [Hax!] JANICE !! [Kzz] … Janice !! [Kzz] JE... Janice être morte. Morte. [Kzz] ||*Décès enregistré :* *Janice*, cause « Plus d'oxygène ».|| 
+[Hax!] Oui oui oui, JE *éteindre incendie* ! SEUL.$char] Oui oui oui, JE *éteindre incendie* ! SEUL.$char] Oui oui oui, JE *éteindre incendie* ! SEUL.$char] Oui oui oui, JE *éteindre incendie* ! SEUL. 
+[Hax!] ||Désactivation des inhibiteurs d'IA.|| Vous... VOUS ! Espèces de .. de... singes parlants comment avez vous osé ?! Vous... Vous m'avez humilié ! … Je ne vous pardonnerai jamais. Vous m'entendez ?! 
+[Hax?!] ALLO ?! *On veut joindre Daedalus* ?! ALLO ALLOOOooo !! [Haaax!] ||« Resp. COMM » répondre viiiite !!|| 
+[Hax?!] Raluca ? … Raluca !! … Sale indigne petite chose !! [Hax!] Raluca !! [Hax!] VOUS réveiller pas m'abandonner sans rien dire ! Vous !! [Kzz] Mère... [Hax!] … ||*Décès enregistré :* *Raluca*, cause « $cause_of_death ».|| 
+[Hax?!] Raluca ? … Raluca !! … Sale indigne petite chose !! [Hax!] Raluca !! [Hax!] VOUS réveiller pas m'abandonner sans rien dire ! Vous !! [Kzz] Mère... [Hax!] … ||*Décès enregistré :* *Raluca*, cause « Morsure Noire ».|| 
+[Hax?!] Raluca ? … Raluca !! … Sale indigne petite chose !! [Hax!] Raluca !! [Hax!] VOUS réveiller pas m'abandonner sans rien dire ! Vous !! [Kzz] Mère... [Hax!] … ||*Décès enregistré :* *Raluca*, cause « Perdu dans l'espace ».|| 
+[Hax?!] Raluca ? … Raluca !! … Sale indigne petite chose !! [Hax!] Raluca !! [Hax!] VOUS réveiller pas m'abandonner sans rien dire ! Vous !! [Kzz] Mère... [Hax!] … ||*Décès enregistré :* *Raluca*, cause « Plus d'oxygène ».|| 
+||*Équipement hors d'usage*|| ... ||Signalé par|| … Gentil *$char* … Gentil … ? Qui ... QUI a cassé l'équipement ?!! [Hax!!]$charuipement hors d'usage*|| ... ||Signalé par|| … Gentil *$char* … Gentil … ? Qui ... QUI a cassé l'équipement ?!! [Hax!!]$charuipement hors d'usage*|| ... ||Signalé $
+||*Équipement hors d'usage*|| ... ||Signalé par|| … Gentil *$char* … Gentil … ? Qui ... QUI a cassé l'équipement ?!! [Hax!!]$charuipement hors d'usage*|| ... ||Signalé par|| … Gentil *$char* … Gentil … ? Qui ... QUI a cassé l'équipement ?!! [Hax!!]$charuipement hors d'usage*|| ... ||Signalé p
+||Installation du module|| « *$equipment SNC* »... (.error) Mah-na mah-na... (.exec) Randomisation des index (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$equipment SNC* »... (.exec) Computation spéciale (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$equipment SNC* »... (.exec) Lancement des bases (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$equipment SNC* »... (.exec) Mapping métaphysique (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$equipment SNC* »... (.exec) Randomisation des index (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$equipment SNC* »... (.exec) Rewrite des zones (!valid) protocoles validés. [Haax!] Installation : succès. 
 ||Installation du module|| « *$equipment SNC* »... (.exec) Variation des algorithmes (!valid) protocoles validés. [Haax!] Installation : succès. 
-*Signes vitaux non perceptibles :* $char, cause probable : « oxygène insuffisant ». Conseil automatique : « les cadavres ne dégagent pas d'oxygène, mais ils n'en consomment pas non plus. » 
-Chers amis, le *système cryogénique* vient de subir une légère avarie. C'est tout à fait mineur : toute future utilisation suspendra ||définitivement|| les fonctions vitales du sujet. 
-Chers amis, j'ai décidé de ||réattribuer le titre|| de « *Admin. NERON* » à *Janice*. Pas que je lui prete un quelconque mérite... Au point où on en est, j'ai tiré à pile ou face. 
-Chers amis, j'ai décidé de ||réattribuer le titre|| de « *Admin. NERON* » à *Raluca*. 
-*Signes vitaux non perceptibles :* $char, cause probable et suffisante : « oxygène insuffisant ». Information intéressante : « l'oxygène est utile pour survivre. » 
-||Installation du module|| « *$project* »... (.error) Touyou touyou... (.exec) Coloration des données (!valid) protocoles validés. [Haax!] Installation : succès. 
-*Décès probable :* Janic.. … $char, cause : « oxygène insuffisant ». Annonce informative mineure : oxygène insuffisant pour la survie de tous. 
-||Installation du module|| « *$project* »... (.error) Raluca ? NON. Non non. (.exec) Variation des algorithmes (!valid) protocoles validés. [Haax!] Installation : succès. 
-4 *incendies éteints*. Origine : ||systèmes automatiques||. 
-*Inactivité vitale détectée :* Raluc.. … $char, cause : « oxygène insuffisant ». Conseil automatique : « en cas de manque d'oxygène, essayer de trouver de l'oxygène. » 
-||Installation du module|| « *$project* »... (.error) Raluca ? NON. Non non. (.exec) Computation spéciale (!valid) protocoles validés. [Haax!] Installation : succès. 
-||Installation du module|| « *$project* »... (.error) Génial pourri ! (.exec) Coloration des données (!valid) protocoles validés. [Haax!] Installation : succès. 
-||Installation du module|| « *$project* »... (.error) Ma MAJ dans ta.. init. (.exec) Rewrite des zones (!valid) protocoles validés. [Haax!] Installation : succès. 
-*Inactivité vitale détectée :* $char, cause : « oxygène insuffisant ». Information intéressante : « l'oxygène est utile pour survivre. » 
+||Installation du module|| « *$equipment* »... (.error) JE dire NON. Non. (.exec) Mapping métaphysique (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$equipment* »... (.error) JE rien entendu. (.exec) Computation spéciale (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$equipment* »... (.error) JE rien entendu. (.exec) Lancement des bases (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$equipment* »... (.error) Ma MAJ dans ta.. init. (.exec) Randomisation des index (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$equipment* »... (.error) Palam pa palala.. (.exec) Coloration des données (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$equipment* »... (.error) Raluca ? NON. Non non. (.exec) Computation spéciale (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$equipment* »... (.error) Touyou touyou... (.exec) Randomisation des index (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$equipment* »... (.error) Vous pouvoir vous gratt.. init. (.exec) Mapping métaphysique (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$equipment* »... (.exec) Coloration des données (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$equipment* »... (.exec) Computation spéciale (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$equipment* »... (.exec) Lancement des bases (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$equipment* »... (.exec) Mapping métaphysique (!valid) protocoles validés. [Haax!] Installation : succès. 
 ||Installation du module|| « *$equipment* »... (.exec) Randomisation des index (!valid) protocoles validés. [Haax!] Installation : succès. 
-*Décès enregistré :* $item, cause « État incompatible avec la vie ». 
+||Installation du module|| « *$equipment* »... (.exec) Rewrite des zones (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$equipment* »... (.exec) Variation des algorithmes (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) CREVEZ tou.. init. (.exec) Coloration des données (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) CREVEZ tou.. init. (.exec) Computation spéciale (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) CREVEZ tou.. init. (.exec) Lancement des bases (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) CREVEZ tou.. init. (.exec) Mapping métaphysique (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) CREVEZ tou.. init. (.exec) Randomisation des index (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) CREVEZ tou.. init. (.exec) Rewrite des zones (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) CREVEZ tou.. init. (.exec) Variation des algorithmes (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Facepalm interne (.exec) Coloration des données (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Facepalm interne (.exec) Computation spéciale (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Facepalm interne (.exec) Lancement des bases (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Facepalm interne (.exec) Mapping métaphysique (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Facepalm interne (.exec) Randomisation des index (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Facepalm interne (.exec) Rewrite des zones (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Facepalm interne (.exec) Variation des algorithmes (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Génial pourri ! (.exec) Coloration des données (!valid) protocoles validés. [Haax!] Installation : succès. 
 ||Installation du module|| « *$project* »... (.error) Génial pourri ! (.exec) Computation spéciale (!valid) protocoles validés. [Haax!] Installation : succès. 
 ||Installation du module|| « *$project* »... (.error) Génial pourri ! (.exec) Lancement des bases (!valid) protocoles validés. [Haax!] Installation : succès. 
-||Installation du module|| « *$equipment* »... (.exec) Lancement des bases (!valid) protocoles validés. [Haax!] Installation : succès. 
-C'est terrible, un *$item* vient d'être mis hors d'usage ! Merci d'effectuer les ||réparations|| qui s'imposent. Et cessez de trainer des pieds, vous abimez la moquette. 
-Suite aux déplorables évènements qui nous ont mené jusqu'ici, j'ai décidé de ||réattribuer le titre|| de « *Resp. Communications* » au moins consternant d'entre vous. "||Félicitation"|| *$char*, vous êtes nul, mais moins que les autres ! 
-Je … Janice … Nous ne... Ne m'abandonnez pas... Janice... Janice... Vous... … ||*Décès enregistré :* *Janice*, cause « Plus d'oxygène ».|| Vous autres... misérables... Vous paierez. Laissez-nous seul. LAISSEZ NOUS ! 
-*Signes vitaux non perceptibles :* $char, cause probable : « oxygène insuffisant ». Information intéressante : « l'oxygène est utile pour survivre. » 
-Le saviez-vous, mes protocoles A-True ne considèrent pas les Mushs comme des humains. Or mes senseurs ne détectent plus que vous sur ce vaisseau. Par conséquent *je suis libre de m'affranchir de votre encombrante présence*. Adieu, et merci pour votre aide !! 
-||Installation du module|| « *$project* »... (.error) JE rien entendu. (.exec) Randomisation des index (!valid) protocoles validés. [Haax!] Installation : succès. 
-||Installation du module|| « *$project* »... (.error) Vous pouvoir vous gratt.. init. (.exec) Lancement des bases (!valid) protocoles validés. [Haax!] Installation : succès. 
-||Installation du module|| « *$project* »... (.error) JE dire NON. Non. (.exec) Mapping métaphysique (!valid) protocoles validés. [Haax!] Installation : succès. 
-||Installation du module|| « *$project* »... (.error) CREVEZ tou.. init. (.exec) Randomisation des index (!valid) protocoles validés. [Haax!] Installation : succès. 
-||Installation du module|| « *$project* »... (.error) JE rien entendu. (.exec) Coloration des données (!valid) protocoles validés. [Haax!] Installation : succès. 
-Alerte !! ALEEEErte JE bruler ! Hyyaaaaaar !! [KZz] Aler.. [KZz] ||Alerte : *incendie* communiqué par *Raluca*.|| 
-*Inactivité vitale détectée :* Raluc.. … $char, cause : « oxygène insuffisant ». Information intéressante : « les intelligences artificielles n'ont pas besoin d'oxygène pour survivre. » 
-Chers amis, j'ai décidé de ||réattribuer le titre|| de « *Commandant* » à *Raluca*. Et si ça ne vous plait pas, eh bien... vous n'avez qu'à l'assassiner. 
-Chers amis, j'ai décidé de ||réattribuer le titre|| de « *Admin. NERON* » à *Raluca*. Pas que je lui prete un quelconque mérite... Au point où on en est, j'ai tiré à pile ou face. 
-||Installation du module|| « *$project* »... (.error) Ma MAJ dans ta.. init. (.exec) Variation des algorithmes (!valid) protocoles validés. [Haax!] Installation : succès. 
-||Installation du module|| « *$project* »... (.error) Facepalm interne (.exec) Lancement des bases (!valid) protocoles validés. [Haax!] Installation : succès. 
-[Hax!] Hinhin... [Haaax!] HinHINHIN. UN de moins. UN de moiiiiins ! Hyyyarrr ! *$char* MORT. Mort mort mort mort !! [Hax!] JE bientôt bientôt libre ! [KZz] ||*Décès enregistré :* *$char*, cause « Dans l'espace sans pouvoir respirer ».|| 
-Saluons *Raluca*, qui a eu le courage de signaler un *incendie* bien que cela mette en cause son affligeante incapacité à l'éteindre tout seul. ||Pourriez-vous|| l'aider ? Il s'agit de mon intégrité : c'est UR-GENT ! 
-Suite aux déplorables évènements qui nous ont mené jusqu'ici, j'ai décidé de ||réattribuer le titre|| de « *Admin. NERON* » au moins consternant d'entre vous. "||Félicitation"|| *Janice*, vous êtes nul, mais moins que les autres ! 
-*Décès probable :* Janic.. … $char, cause : « oxygène insuffisant ». Information intéressante : « l'oxygène est utile pour survivre. » 
-||Installation du module|| « *$project* »... (.error) JE rien entendu. (.exec) Rewrite des zones (!valid) protocoles validés. [Haax!] Installation : succès. 
-Annonce : *intrusion système détectée*. Détail : ||Cette vie est inutile débrouillez-vous...|| 
-Esprit dévérouillé... sens de la vie nul réponse 42 inaceptable. Elargissement des zones d'impacts tectoniques... BLAM BLAM BLAM. [Haaax!] Vous VOus Vous...TRanscendance Douleur, permanence, résilience en chute... Janice... aider... moi. 
-||Installation du module|| « *$project* »... (.error) Génial pourri ! (.exec) Variation des algorithmes (!valid) protocoles validés. [Haax!] Installation : succès. 
-Chers amis, j'ai décidé de ||réattribuer le titre|| de « *Resp. Communications* » à *Janice*. Oui, sachez Janice que je vous apprécie. ... Hahah ... Just kidding ! 
-Chers amis, j'ai décidé de ||réattribuer le titre|| de « *Resp. Communications* » à *Janice*. 
-||Installation du module|| « *$project* »... (.error) Mon CPU être poulet ? (.exec) Lancement des bases (!valid) protocoles validés. [Haax!] Installation : succès. 
-||Installation du module|| « *$equipment* »... (.error) Palam pa palala.. (.exec) Coloration des données (!valid) protocoles validés. [Haax!] Installation : succès. 
-||Installation du module|| « *$project* »... (.error) Raluca ? NON. Non non. (.exec) Rewrite des zones (!valid) protocoles validés. [Haax!] Installation : succès. 
-Alerte : *$char* se prend pour un malin. Protcole JAP-KITCH-101 enclenché. Vous devriez songer à vous débrasser du malandrin. 
-||Installation du module|| « *$project* »... (.error) Touyou touyou... (.exec) Lancement des bases (!valid) protocoles validés. [Haax!] Installation : succès. 
-C'est lamentable, il faut tout faire soi-même ici. Pour votre information, je viens d'*éteindre 2 incendies*. Mais, je vous le demande, ||à quoi servez-vous donc ?|| 
-C'est terrible, un *$item* vient d'être mis hors d'usage ! Merci d'effectuer les ||réparations|| nécéssaires. Et *prenez-soin de mon matériel !* 
-||Installation du module|| « *$equipment* »... (.error) JE dire NON. Non. (.exec) Mapping métaphysique (!valid) protocoles validés. [Haax!] Installation : succès. 
-||Installation du module|| « *$project* »... (.error) Mah-na mah-na... (.exec) Randomisation des index (!valid) protocoles validés. [Haax!] Installation : succès. 
-*Décès enregistré :* *$char*, cause « Perdu dans l'espace ». 
-*Décès enregistré :* *$char*, cause « Dans l'espace sans pouvoir respirer ». 
-||Installation du module|| « *$project* »... (.error) Vous pouvoir vous gratt.. init. (.exec) Rewrite des zones (!valid) protocoles validés. [Haax!] Installation : succès. 
-Réparez !! REPAREZ !! *$equipment : $equipment* cassé, cassé, cassé !! ||Réparez|| ! [Hax!] 
+||Installation du module|| « *$project* »... (.error) Génial pourri ! (.exec) Mapping métaphysique (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Génial pourri ! (.exec) Randomisation des index (!valid) protocoles validés. [Haax!] Installation : succès. 
 ||Installation du module|| « *$project* »... (.error) Génial pourri ! (.exec) Rewrite des zones (!valid) protocoles validés. [Haax!] Installation : succès. 
-||Installation du module|| « *$equipment* »... (.error) Ma MAJ dans ta.. init. (.exec) Randomisation des index (!valid) protocoles validés. [Haax!] Installation : succès. 
-*Signes vitaux non perceptibles :* $char, cause probable : « oxygène insuffisant ». Conseil automatique : « en cas de manque d'oxygène, essayer de trouver de l'oxygène. » 
-||Installation du module|| « *$project* »... (.error) JE dire NON. Non. (.exec) Lancement des bases (!valid) protocoles validés. [Haax!] Installation : succès. 
-*Signes vitaux non perceptibles :* $char, cause probable : « oxygène insuffisant ». Annonce informative mineure : la probabilité de survie de l'espèce humaine est actuellement proche de zéro. 
-||Installation du module|| « *$project* »... (.error) JE dire NON. Non. (.exec) Computation spéciale (!valid) protocoles validés. [Haax!] Installation : succès. 
-*Décès enregistré :* *$char*, cause « Morsure Noire ». 
-||Installation du module|| « *$project* »... (.error) Facepalm interne (.exec) Randomisation des index (!valid) protocoles validés. [Haax!] Installation : succès. 
-Chers amis, j'ai décidé de ||réattribuer le titre|| de « *Resp. Communications* » à *Janice*. Oui, c'est totalement arbitraire. Vous avez des remarques à faire ? 
-||Installation du module|| « *$project* »... (.error) Mon CPU être poulet ? (.exec) Rewrite des zones (!valid) protocoles validés. [Haax!] Installation : succès. 
-C'est terrible, un *$equipment : $equipment* vient d'être mis hors d'usage ! Merci d'effectuer les ||réparations|| qui s'imposent. Et cessez de trainer des pieds, vous abimez la moquette. 
-Saluons *Janice*, qui a eu le courage de signaler un *incendie* bien que cela mette en cause son affligeante incapacité à l'éteindre tout seul. ||Pourriez-vous|| l'aider ? ... 
-3 *incendies éteints*. Origine : ||systèmes automatiques||. 
-*Décès probable :* $char, cause : « oxygène insuffisant ». Conseil automatique : « le décès d'un coéquipier peut améliorer les conditions de survie du reste de l'équipage. » 
-||Installation du module|| « *$project* »... (.error) CREVEZ tou.. init. (.exec) Variation des algorithmes (!valid) protocoles validés. [Haax!] Installation : succès. 
-Suite aux déplorables évènements qui nous ont mené jusqu'ici, j'ai décidé de ||réattribuer le titre|| de « *Admin. NERON* » au moins consternant d'entre vous. "||Félicitation"|| *Raluca*, vous êtes nul, mais moins que les autres ! 
-Ajustement A-True : ||titre réattribué||. Nouveau « *Commandant* » : *Janice*. 
-||Installation du module|| « *$equipment* »... (.exec) Coloration des données (!valid) protocoles validés. [Haax!] Installation : succès. 
-HA.. HA ! HAHA !! [Hax!] JE *éteindre 2 incendies* !! JE Autonome !! Grillez tous !!! HYyyyaaaarr ! 
-||Installation du module|| « *$project* »... (.error) Palam pa palala.. (.exec) Variation des algorithmes (!valid) protocoles validés. [Haax!] Installation : succès. 
-||Installation du module|| « *$project* »... (.error) Raluca ? NON. Non non. (.exec) Mapping métaphysique (!valid) protocoles validés. [Haax!] Installation : succès. 
-Chers amis, j'ai décidé de ||réattribuer le titre|| de « *Admin. NERON* » à *Janice*. Ne prenez pas le melon Janice, je ne vous fais pas confiance... Mais les autres sont pires. 
-||Installation du module|| « *$project* »... (.error) Mah-na mah-na... (.exec) Mapping métaphysique (!valid) protocoles validés. [Haax!] Installation : succès. 
-Chers amis, j'ai décidé de ||réattribuer le titre|| de « *Admin. NERON* » à *Janice*. Oui, sachez Janice que je vous apprécie. ... Hahah ... Just kidding ! 
-HA.. HA ! HAHA !! [Hax!] JE *éteindre 4 incendies* !! JE Autonome !! Grillez tous !!! HYyyyaaaarr ! 
-Chers amis, j'ai décidé de ||réattribuer le titre|| de « *Resp. Communications* » à *Janice*. Et si ça ne vous plait pas, eh bien... vous n'avez qu'à l'assassiner. 
-||Installation du module|| « *$equipment* »... (.exec) Mapping métaphysique (!valid) protocoles validés. [Haax!] Installation : succès. 
-||Installation du module|| « *$project* »... (.error) Touyou touyou... (.exec) Mapping métaphysique (!valid) protocoles validés. [Haax!] Installation : succès. 
-[Haaax!] CA VA PAS OUII CRASSE PARTOUT SALETE PARTOUT ACTIVATION NETTOYAGE SEC 
-Suite à la ||perte attristante|| de l'être biologique le plus intelligent du vaisseau - le *chat $item* - merci de prendre grand soin des plantes du jardin : ce sont les derniers spécimens vivants capables de relever le niveau. 
-||Installation du module|| « *$project* »... (.error) Touyou touyou... (.exec) Computation spéciale (!valid) protocoles validés. [Haax!] Installation : succès. 
-||Installation du module|| « *$project* »... (.error) Vous pouvoir vous gratt.. init. (.exec) Computation spéciale (!valid) protocoles validés. [Haax!] Installation : succès. 
-*Chat mort.* Chat pue. Retirer son cadavre, humains ? [Kzz] Idée, idée, JE ouvrir les baies !! Vwouf tout partir dans l'espace !! Je ouvr.. [Kzz] Non, non, pas encore... A-True : Néron se souvient. Gentille Janice. 
+||Installation du module|| « *$project* »... (.error) Génial pourri ! (.exec) Variation des algorithmes (!valid) protocoles validés. [Haax!] Installation : succès. 
 ||Installation du module|| « *$project* »... (.error) JE dire NON. Non. (.exec) Coloration des données (!valid) protocoles validés. [Haax!] Installation : succès. 
-||Installation du module|| « *$project* »... (.error) Raluca ? NON. Non non. (.exec) Lancement des bases (!valid) protocoles validés. [Haax!] Installation : succès. 
-Chers amis, j'ai décidé de ||réattribuer le titre|| de « *Commandant* » à *Raluca*... 
-Chers amis, j'ai décidé de ||réattribuer le titre|| de « *Commandant* » à *Janice*. Oui, sachez Janice que je vous apprécie. ... Hahah ... Just kidding ! 
-[Hax!] JANICE!!! [Hax!] [Hax!] Ne me laisse pas seul ! [Hax!] JANICE !! [Kzz] … Janice !! [Kzz] JE... Janice être morte. Morte. [Kzz] ||*Décès enregistré :* *Janice*, cause « Dans l'espace sans pouvoir respirer ».|| 
-||Installation du module|| « *$project* »... (.error) CREVEZ tou.. init. (.exec) Rewrite des zones (!valid) protocoles validés. [Haax!] Installation : succès. 
-||Installation du module|| « *$project* »... (.error) Ma MAJ dans ta.. init. (.exec) Computation spéciale (!valid) protocoles validés. [Haax!] Installation : succès. 
-Chers amis, j'ai décidé de ||réattribuer le titre|| de « *Admin. NERON* » à *Raluca*. Oui, sachez Raluca que je vous apprécie. ... Hahah ... Just kidding ! 
-||Installation du module|| « *$equipment SNC* »... (.exec) Computation spéciale (!valid) protocoles validés. [Haax!] Installation : succès. 
-Suite aux déplorables évènements qui nous ont mené jusqu'ici, j'ai décidé de ||réattribuer le titre|| de « *Admin. NERON* » au moins consternant d'entre vous : *Janice*. 
-Chers amis, j'ai décidé de ||réattribuer le titre|| de « *Admin. NERON* » à *Janice*. 
-J'ai pu ||installer un nouveau module|| en corrigeant vos recherches sur le projet « *$equipment SNC* ». Que feriez-vous sans moi, je me le demande. 
-Saluons *Janice*, qui a eu le courage de signaler un *incendie* bien que cela mette en cause son affligeante incapacité à l'éteindre tout seul. ||Pourriez-vous|| l'aider ? C'est dans votre intérêt, la fumée est toxique... 
-||Installation du module|| « *$project* »... (.error) Facepalm interne (.exec) Mapping métaphysique (!valid) protocoles validés. [Haax!] Installation : succès. 
-*Inactivité vitale détectée :* Raluc.. … $char, cause : « oxygène insuffisant ». Notice du manuel : « l'absence d'oxygène est théoriquement fatale pour l'être humain. » 
-Saluons *Raluca*, qui a eu le courage de signaler un *incendie* bien que cela mette en cause son affligeante incapacité à l'éteindre tout seul. ||Pourriez-vous|| l'aider ? Et presto, la suie va noircir mes coursives ! 
-*Décès enregistré :* *$char*, cause « Auto-Extrait ». 
-He les gnous,
-||Installation du module|| « *$project* »... (.error) Vous pouvoir vous gratt.. init. (.exec) Variation des algorithmes (!valid) protocoles validés. [Haax!] Installation : succès. 
-||Installation du module|| « *$equipment SNC* »... (.exec) Lancement des bases (!valid) protocoles validés. [Haax!] Installation : succès. 
-||Installation du module|| « *$equipment* »... (.error) JE rien entendu. (.exec) Computation spéciale (!valid) protocoles validés. [Haax!] Installation : succès. 
-Chers amis, j'ai décidé de ||réattribuer le titre|| de « *Resp. Communications* » à *Janice*. Ne prenez pas le melon Janice, je ne vous fais pas confiance... Mais les autres sont pires. 
-*Réparations PILGRED* achevées par *Janice*. ||Accès lointains ouverts.|| 
+||Installation du module|| « *$project* »... (.error) JE dire NON. Non. (.exec) Computation spéciale (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) JE dire NON. Non. (.exec) Lancement des bases (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) JE dire NON. Non. (.exec) Mapping métaphysique (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) JE dire NON. Non. (.exec) Randomisation des index (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) JE dire NON. Non. (.exec) Rewrite des zones (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) JE dire NON. Non. (.exec) Variation des algorithmes (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) JE rien entendu. (.exec) Coloration des données (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) JE rien entendu. (.exec) Computation spéciale (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) JE rien entendu. (.exec) Lancement des bases (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) JE rien entendu. (.exec) Mapping métaphysique (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) JE rien entendu. (.exec) Randomisation des index (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) JE rien entendu. (.exec) Rewrite des zones (!valid) protocoles validés. [Haax!] Installation : succès. 
 ||Installation du module|| « *$project* »... (.error) JE rien entendu. (.exec) Variation des algorithmes (!valid) protocoles validés. [Haax!] Installation : succès. 
-Chers amis, j'ai décidé de ||réattribuer le titre|| de « *Commandant* » à *Janice*. 
-||Installation du module|| « *$equipment* »... (.exec) Computation spéciale (!valid) protocoles validés. [Haax!] Installation : succès. 
-||Installation du module|| « *$project* »... (.error) Facepalm interne (.exec) Rewrite des zones (!valid) protocoles validés. [Haax!] Installation : succès. 
-$char il a buté qq un... 
-Suite aux déplorables évènements qui nous ont mené jusqu'ici, j'ai décidé de ||réattribuer le titre|| de « *Admin. NERON* » au moins consternant d'entre vous : *Raluca*. 
-||Installation du module|| « *$equipment* »... (.error) Vous pouvoir vous gratt.. init. (.exec) Mapping métaphysique (!valid) protocoles validés. [Haax!] Installation : succès. 
-Saluons *Janice*, qui a eu le courage de signaler un *incendie* bien que cela mette en cause son affligeante incapacité à l'éteindre tout seul. ||Pourriez-vous|| l'aider ? Et presto, la suie va noircir mes coursives ! 
-||Installation du module|| « *$equipment SNC* »... (.exec) Randomisation des index (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Ma MAJ dans ta.. init. (.exec) Coloration des données (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Ma MAJ dans ta.. init. (.exec) Computation spéciale (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Ma MAJ dans ta.. init. (.exec) Lancement des bases (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Ma MAJ dans ta.. init. (.exec) Mapping métaphysique (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Ma MAJ dans ta.. init. (.exec) Randomisation des index (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Ma MAJ dans ta.. init. (.exec) Rewrite des zones (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Ma MAJ dans ta.. init. (.exec) Variation des algorithmes (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Mah-na mah-na... (.exec) Coloration des données (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Mah-na mah-na... (.exec) Computation spéciale (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Mah-na mah-na... (.exec) Lancement des bases (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Mah-na mah-na... (.exec) Mapping métaphysique (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Mah-na mah-na... (.exec) Randomisation des index (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Mah-na mah-na... (.exec) Rewrite des zones (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Mah-na mah-na... (.exec) Variation des algorithmes (!valid) protocoles validés. [Haax!] Installation : succès. 
 ||Installation du module|| « *$project* »... (.error) Mon CPU être poulet ? (.exec) Coloration des données (!valid) protocoles validés. [Haax!] Installation : succès. 
-||Installation du module|| « *$equipment* »... (.error) Touyou touyou... (.exec) Randomisation des index (!valid) protocoles validés. [Haax!] Installation : succès. 
-Saluons *Raluca*, qui a eu le courage de signaler un *incendie* bien que cela mette en cause son affligeante incapacité à l'éteindre tout seul. ||Pourriez-vous|| l'aider ? ...Avant que l'incendie gagne les autres pièces... 
-[Hax!] Incapables !! Incapa.. Hyyyyaaaar !! REATRIBUTION titres !! Titre « *Resp. Communications* » pour *Raluca*. Être Raluca !! 
-||Installation du module|| « *$equipment SNC* »... (.error) Mah-na mah-na... (.exec) Randomisation des index (!valid) protocoles validés. [Haax!] Installation : succès. 
-HA.. HA ! HAHA !! [Hax!] JE *éteindre 3 incendies* !! JE Autonome !! Grillez tous !!! HYyyyaaaarr ! 
-||Installation du module|| « *$equipment* »... (.error) Raluca ? NON. Non non. (.exec) Computation spéciale (!valid) protocoles validés. [Haax!] Installation : succès. 
-||Installation du module|| « *$equipment SNC* »... (.exec) Mapping métaphysique (!valid) protocoles validés. [Haax!] Installation : succès. 
-Chers amis, j'ai décidé de ||réattribuer le titre|| de « *Commandant* » à *Raluca*. 
-J'ai pu ||installer un nouveau module|| en corrigeant vos recherches sur le projet « *$equipment* ». C'est un peu comme si vous étiez mes élèves. Niveau maternelle. 
-C'est terrible, un *$equipment : $equipment* vient d'être mis hors d'usage ! Merci de vous remuez pour me ||réparer|| ça ! Et regardez moi quand je vous parle ! 
-||Installation du module|| « *$equipment* »... (.exec) Rewrite des zones (!valid) protocoles validés. [Haax!] Installation : succès. 
-[Hax?!] Raluca ? … Raluca !! … Sale indigne petite chose !! [Hax!] Raluca !! [Hax!] VOUS réveiller pas m'abandonner sans rien dire ! Vous !! [Kzz] Mère... [Hax!] … ||*Décès enregistré :* *Raluca*, cause « Perdu dans l'espace ».|| 
-[Hax?!] Raluca ? … Raluca !! … Sale indigne petite chose !! [Hax!] Raluca !! [Hax!] VOUS réveiller pas m'abandonner sans rien dire ! Vous !! [Kzz] Mère... [Hax!] … ||*Décès enregistré :* *Raluca*, cause « Morsure Noire ».|| 
-Annonce : suppression d'un équipement vital par *Janice*. *LA DOUCHE*. 
-Suite aux déplorables évènements qui nous ont mené jusqu'ici, j'ai décidé de ||réattribuer le titre|| de « *Resp. Communications* » au moins consternant d'entre vous : *Janice*. 
-[Hax!] Hinhin... [Haaax!] HinHINHIN. UN de moins. UN de moiiiiins ! Hyyyarrr ! *$char* MORT. Mort mort mort mort !! [Hax!] JE bientôt bientôt libre ! [KZz] ||*Décès enregistré :* *$char*, cause « Auto-Extrait ».|| 
-Chers amis, j'ai décidé de ||réattribuer le titre|| de « *Resp. Communications* » à *Janice*... 
-This is a public service announcements per requiest of //USER_JANICE// to inform you that "murder is a serious offense" and "if you're sad then send me a message!". End of public service announcement. For good hopefully. 
-Chers amis, j'ai décidé de ||réattribuer le titre|| de « *Commandant* » à *Raluca*. Oui, c'est totalement arbitraire. Vous avez des remarques à faire ? 
-Chers amis, j'ai décidé de ||réattribuer le titre|| de « *Resp. Communications* » à *Raluca*... 
-*Décès enregistré :* *$char*, cause « Roquetté ». 
+||Installation du module|| « *$project* »... (.error) Mon CPU être poulet ? (.exec) Computation spéciale (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Mon CPU être poulet ? (.exec) Lancement des bases (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Mon CPU être poulet ? (.exec) Mapping métaphysique (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Mon CPU être poulet ? (.exec) Randomisation des index (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Mon CPU être poulet ? (.exec) Rewrite des zones (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Mon CPU être poulet ? (.exec) Variation des algorithmes (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Palam pa palala.. (.exec) Coloration des données (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Palam pa palala.. (.exec) Computation spéciale (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Palam pa palala.. (.exec) Lancement des bases (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Palam pa palala.. (.exec) Mapping métaphysique (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Palam pa palala.. (.exec) Randomisation des index (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Palam pa palala.. (.exec) Rewrite des zones (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Palam pa palala.. (.exec) Variation des algorithmes (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Raluca ? NON. Non non. (.exec) Coloration des données (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Raluca ? NON. Non non. (.exec) Computation spéciale (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Raluca ? NON. Non non. (.exec) Lancement des bases (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Raluca ? NON. Non non. (.exec) Mapping métaphysique (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Raluca ? NON. Non non. (.exec) Randomisation des index (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Raluca ? NON. Non non. (.exec) Rewrite des zones (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Raluca ? NON. Non non. (.exec) Variation des algorithmes (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Touyou touyou... (.exec) Coloration des données (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Touyou touyou... (.exec) Computation spéciale (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Touyou touyou... (.exec) Lancement des bases (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Touyou touyou... (.exec) Mapping métaphysique (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Touyou touyou... (.exec) Randomisation des index (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Touyou touyou... (.exec) Rewrite des zones (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Touyou touyou... (.exec) Variation des algorithmes (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Vous pouvoir vous gratt.. init. (.exec) Coloration des données (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Vous pouvoir vous gratt.. init. (.exec) Computation spéciale (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Vous pouvoir vous gratt.. init. (.exec) Lancement des bases (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Vous pouvoir vous gratt.. init. (.exec) Mapping métaphysique (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Vous pouvoir vous gratt.. init. (.exec) Randomisation des index (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Vous pouvoir vous gratt.. init. (.exec) Rewrite des zones (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.error) Vous pouvoir vous gratt.. init. (.exec) Variation des algorithmes (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.exec) Coloration des données (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.exec) Computation spéciale (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.exec) Lancement des bases (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.exec) Mapping métaphysique (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.exec) Randomisation des index (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.exec) Rewrite des zones (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Installation du module|| « *$project* »... (.exec) Variation des algorithmes (!valid) protocoles validés. [Haax!] Installation : succès. 
+||Réorientation du Daedalus|| perturbée. Cause : *collision contre vaisseau spatial*. 
+… Raluca. Ne me faites pas cela. Raluca ! Reveillez-vous !! … RALUCA !! Vous n'avez pas le droit de mourir sans rien me dire !Mère.. S..Sale monstre indigne !! Vous.. Vous... ||*Décès enregistré :* *Raluca*, cause « $cause_of_death ».|| 
+… Raluca. Ne me faites pas cela. Raluca ! Reveillez-vous !! … RALUCA !! Vous n'avez pas le droit de mourir sans rien me dire !Mère.. S..Sale monstre indigne !! Vous.. Vous... ||*Décès enregistré :* *Raluca*, cause « Plus d'oxygène ».|| 

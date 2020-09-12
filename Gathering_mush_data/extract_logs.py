@@ -87,34 +87,50 @@ for i_ship in os.listdir(folder):
                             
                             for i_char in char_list:
                                 while(i_char+'*' in log_text_temp 
-                                      or i_char+' ' in log_text_temp 
+                                  or i_char+' ' in log_text_temp 
+                                  or i_char+'.' in log_text_temp
+                                  or i_char+')' in log_text_temp
+                                  or i_char+'s' in log_text_temp
+                                  or i_char+',' in log_text_temp
+                                  or i_char+ "\xa0" in log_text_temp
+                                  or i_char+',' in log_text_temp):
+                                    
+                                    if (i_char+'*' in log_text_temp
+                                      or i_char+' ' in log_text_temp
                                       or i_char+'.' in log_text_temp
                                       or i_char+')' in log_text_temp
                                       or i_char+'s' in log_text_temp
-                                      or i_char+',' in log_text_temp):  
-                                    if (i_char+'*' in log_text_temp
-                                        or i_char+' ' in log_text_temp
-                                        or i_char+'.' in log_text_temp
-                                        or i_char+')' in log_text_temp
-                                        or i_char+'s' in log_text_temp
-                                        or i_char+',' in log_text_temp):
+                                      or i_char+',' in log_text_temp
+                                      or i_char+"\xa0" in log_text_temp
+                                      or i_char+',' in log_text_temp):
                                         start_replace=log_text_temp.find(i_char)
                                         end_replace  = start_replace + len(i_char)
                                         log_text_temp = log_text_temp[:start_replace]+new_string+log_text_temp[end_replace:]
                                         
-                                        
-                                        
-                        
-                                #Remoove pronouns
-                                if 'une ' + new_string in log_text_temp:
-                                    log_text_temp=
-                                if 'la ' + new_string in log_text_temp:
                                     
                                 
-                                
-                                        
-                                        
-                                        
+                        ### remove log of torture and chit chat and premonition
+                        if ev_name_i==any(['EV:TORTURE', 'EV:CHITCHAT']):
+                            end=(log_text_temp.find('Ses dernières actions sont')+ 
+                                             len('Ses dernières actions sont'))
+                            log_text_temp=log_text_temp[:end]+"$list_actions."
+                            
+                        if ev_name_i==('EV:PREMONITION'):
+                            end=(log_text_temp.find('Sa dernière action est')+ 
+                                             len('Sa dernière action est'))
+                            log_text_temp=log_text_temp[:end]+"$last_action."
+                            
+                            
+                        #### Remove planet names
+                        if ev_name=='EV:ANALYSE_DONE':
+                            log_text_temp = "*$char* a effectué une analyse de $planet_name."
+                        #### Remove robots names
+                        if ev_name=='EV:AC_UP_DRONE':
+                            log_text_temp = "*$char* s'acharne un peu sur ce pauvre *$drone_name*. Mais c'est pour son bien. *$drone_name* reçoit l'amélioration *drone_upgrade*."
+                        
+                        
+                        
+                        
                         log_text_i=log_text_temp
                         
                         
@@ -122,6 +138,16 @@ for i_ship in os.listdir(folder):
                             log_text.append(str(log_text_i))
                             ev_name.append(str(ev_name_i))
                     
+
+
+# for i in range(0, np.size(np.unique(ev_name))):
+#     indexes= np.where(ev_name==np.unique(ev_name)[i])
+#     if np.size(indexes)>1:
+#         #Remoove pronouns
+#         if 'une ' + new_string in log_text_temp:
+#             log_text_temp=
+#         if 'la ' + new_string in log_text_temp:
+
 
 
 ev_name=np.array(ev_name)  

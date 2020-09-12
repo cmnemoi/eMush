@@ -27,17 +27,18 @@ hunter_list=["Hunter", "Trax","Transport","Arack","Astéroïde","D1000"]
 injuries_list=['Absence de bras', 'Articulation du bras fort morte','Balle en ballade', 'Bras brulés','Brulure au 3ème degré sur 90%','Brulûre au 3ème degré sur 50%', "Cerveau à l'air libre",'Doigt cassé', 'Doigt manquant', 'Epaule brisée','Epaule froissée', 'Epaule pulvérisée', "Foie hors d'état",'Hemorragie critique', 'Hémorragie', 'Jambe cassée.','Jambes inutilisables', 'Langue cisailée', 'Main brûlée','Main en charpie', 'Nez explosé', 'Oreille incapacités','Oreille interne déréglé.', 'Oreille pulvérisée','Pied cassé.', 'Pied en bouillie.', 'Poumon à trou','Trauma crânien', 'côtes pétée']
 disorders_list=['Vertige chronique.','Dépression','Migraine chronique','Agoraphobie','Crabisme','Crise Paranoïaque’,’Episodes psychotiques','Phobie des armes','Dépression','Coprolalie','Episodes psychotiques','Phobie des armes','Ailurophobie','Agoraphobie','Spleen','Vertige chronique.','Crabisme','Crise $skill','Migraine chronique','Spleen','Coprolalie','Ailurophobie']
 deseases_list=['Migraine','GastroEntérite','Verdoiement','Morsure Noire','Carence en vitamines','Variole','Eruption cutanée','Reflux Gastriques','Intoxication Alimentaire','Nausée légère','Citrouillite','Grippe','Rhume','Vers Solitaire','Acouphènes Extrême','Rage Spatiale','Infection aïgue','Infection fongique','Tempête sinusale','Rubeole','Syphilis','Allergie au chat','Allergie au mush','Oedeme de Quincke']
+titles_list=["Commandant", "Admin. NERON","Resp. Communications"]
 project_list=['Hydropots supplémentaires','Bouclier plasma',"Détecteurs d'incendie",'Démantèlement','Rafistolage Général','Coursives blindées','Propulseurs antigrav','Acceleration du processeur','Canon blaster','Isolateur Phonique','Réducteur de trainée','Conduite Oxygénées','Lampes a chaleur','Propulseur de décollage','Drone supplémentaire','Visée Heuristique','Distributeur pneumatique','Lavabo opportun','Détecteurs de pistons défectueux','Thalasso','Protocole ACTOPI','Tas de débris','Filet magnetique','Détecteur à ondes de probabilité','Toréfacteur a fission','Reservoir de Teslatron','Arroseurs automatiques','Agrandissement de la cale','Terminaux auxiliaires','Portail de décollage extra-large','Couveuse hydroponique','Pulsateur inversé','Chauffage au sol','Nano Coccinnelles','Rapatriement magnetique','Radar à ondes spatiales',"Détecteur d'anomalie",'Participation de NERON','Cuisine SNC','Jukebox']
 list_of_death=['Assassiné','Daedalus détruit','Plaque de métal','Famine','Dépression fatale','Décapité','Blessures...','Saigné','Abandonné','Aventurier perdu','Combat spatial','Brûlé','Mis en quarantaine par NERON','Aventurier pas assez combatif','Circonstances funestes','Assassinés par NERON','Septicémie','Electrocuté','Aventurier malchanceux','Allergie','Aventurier Trop curieux']
 ####################################é###########################################
 
 
 all_lists=[char_list,item_list,equ_list,skills_list,hunter_list,
-           injuries_list,disorders_list,deseases_list,
+           injuries_list,disorders_list,deseases_list, titles_list,
            project_list,
            list_of_death]
 replace_lists=['$char','$item','$equipment','$skill','$hunter',
-               '$injurie','$disorder','$desease',
+               '$injurie','$disorder','$desease',"$title",
                "$project",
                "$cause_of_death"]
 
@@ -80,7 +81,7 @@ for i_ship in os.listdir(folder):
                      
                     
                         #now let's remoove the names
-                        for i_list in [0,1,2,8,9]:
+                        for i_list in [0,1,2,8,9,10]:
                             char_list=all_lists[i_list]
                             new_string=replace_lists[i_list]
                             
@@ -109,13 +110,34 @@ for i_ship in os.listdir(folder):
                 log_file.close()    
 
 
-ev_name=np.array(ev_name)  
+
+for i in ev_name:
+    if ("||réattribuer le titre||" in i or
+        "||titre réattribué||" in i    or
+        "||Accès lointains ouverts.||" in i or
+        "ncendie*" in i or
+        "équipement hors d'usage" in i or
+        "suppression d'un équipement vital" in i) and (
+        'Raluca' in i or 'Janice' in i):
+                
+                start=i.find('Raluca')
+                i= i[:start]+ "$char"+ i[start+6:]
+                
+                
+                start=i.find('Janice')
+                i= i[:start]+ "$char"+ i[start+6:]
+                
+                
+
+
+
+ev_name=np.array(np.unique(ev_name))
 
 
 ###### save a file
 save_file= '/Users/sylvain/eMush_project/Gathering_mush_data/NERON_mesages.txt'
 
-saving_file = open(save_file, 'r')
+saving_file = open(save_file, 'w')
 for i in ev_name:
     saving_file.write(i + '\n')
     

@@ -9,6 +9,8 @@ Created on Sat Sep 12 09:23:17 2020
 
 import numpy as np
 import os
+from numpy import genfromtxt
+
 
 
 ###############################################################################
@@ -111,22 +113,25 @@ for i_ship in os.listdir(folder):
 
 
 
-for i in ev_name:
-    if ("||réattribuer le titre||" in i or
-        "||titre réattribué||" in i    or
-        "||Accès lointains ouverts.||" in i or
-        "ncendie*" in i or
-        "équipement hors d'usage" in i or
-        "suppression d'un équipement vital" in i) and (
-        'Raluca' in i or 'Janice' in i):
+for i in range(0,len(ev_name)):
+    text_i=ev_name[i]
+    if ("réattribuer le titre" in text_i or
+        "titre réattribué" in text_i    or
+        "Accès lointains ouverts" in text_i or
+        "REATRIBUTION titres" in text_i or
+        "ncendie*" in text_i or
+        "équipement hors d'usage" in text_i or
+        "suppression d'un équipement vital" in text_i) and (
+        'Raluca' in text_i or 'Janice' in text_i):
                 
-                start=i.find('Raluca')
-                i= i[:start]+ "$char"+ i[start+6:]
+                start=text_i.find('Raluca')
+                text_i= text_i[:start]+ "$char"+ text_i[start+6:]
                 
                 
-                start=i.find('Janice')
-                i= i[:start]+ "$char"+ i[start+6:]
+                start=text_i.find('Janice')
+                text_i= text_i[:start]+ "$char"+ text_i[start+6:]
                 
+                ev_name[i]=text_i
                 
 
 

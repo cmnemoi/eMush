@@ -1,9 +1,9 @@
 // jshint esversion: 6
 
 let http = require('http');
-let dae = require('./class_daedalus');
+let dae = require('./src/class_daedalus');
 let fs = require('fs');
-let gf = require('./getfile');
+let gf = require('./src/getfile');
 
 
 let ship = dae.CreateShip("base_layout");

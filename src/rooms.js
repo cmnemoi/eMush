@@ -7,7 +7,7 @@ let items = require('./items');
 let doors = require('./doors');
 let lang = require('./setlang');
 let fs = require('fs');
-let gf = require('./getFile');
+let gf = require('./getfile');
 
 
 exports.c = function (name, id)

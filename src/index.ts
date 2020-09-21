@@ -1,19 +1,10 @@
-import express from "express";
-import dotenv from "dotenv";
+import 'awilix';
+import * as dotenv from 'dotenv';
 
-// initialize configuration
 dotenv.config();
 
-const app = express();
-const port = process.env.SERVER_PORT;
+import app from "./app";
 
-// define a route handler for the default home page
-app.get( "/", ( req, res ) => {
-    res.send( "Hello world!" );
-} );
+const PORT = process.env.SERVER_PORT;
 
-// start the Express server
-app.listen( port, () => {
-    // tslint:disable-next-line:no-console
-    console.log( `server started at http://localhost:${ port }` );
-} );
+app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`));

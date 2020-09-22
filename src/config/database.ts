@@ -1,6 +1,5 @@
 import { Sequelize } from "sequelize";
 
-console.log('database : ' + process.env.SERVER_PORT)
 // @ts-ignore
 export const database = new Sequelize({
     dialect: "mariadb",

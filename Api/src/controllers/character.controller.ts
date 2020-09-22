@@ -1,21 +1,21 @@
-import { Request, Response } from "express";
-import {Character} from "../models/character.model";
-import CharacterService from "../services/character.service";
+import {Request, Response} from 'express';
+import {Error} from 'sequelize/types';
+import {Character} from '../models/character.model';
+import CharacterService from '../services/character.service';
 
 export class CharacterController {
-
     public fetch(req: Request, res: Response) {
         const identifier = req.params.id;
 
         CharacterService.find(identifier)
-            .then((character: Character) => {
+            .then((character: Character | null) => {
                 if (character === null) {
                     return res.status(404).json();
                 }
                 return res.json(character);
             })
             .catch((err: Error) => {
-                return res.status(500).json(err)
+                return res.status(500).json(err);
             });
     }
 
@@ -25,7 +25,7 @@ export class CharacterController {
                 return res.json(characters);
             })
             .catch((err: Error) => {
-                return res.status(500).json(err)
+                return res.status(500).json(err);
             });
     }
 
@@ -36,7 +36,7 @@ export class CharacterController {
                 return res.json(character);
             })
             .catch((err: Error) => {
-                return res.status(500).json(err)
+                return res.status(500).json(err);
             });
     }
 
@@ -45,7 +45,7 @@ export class CharacterController {
         const name = req.body.name;
 
         CharacterService.find(identifier)
-            .then((character: Character) => {
+            .then((character: Character | null) => {
                 if (character === null) {
                     return res.status(404).json();
                 }
@@ -55,17 +55,17 @@ export class CharacterController {
                         return res.json(characterModel);
                     })
                     .catch((err: Error) => {
-                        return res.status(500).json(err)
+                        return res.status(500).json(err);
                     });
+                return;
             })
             .catch((err: Error) => {
-                return res.status(500).json(err)
+                return res.status(500).json(err);
             });
     }
 
     public patch(req: Request, res: Response) {
         res.status(501).send('Method not implemented!');
-
     }
     public delete(req: Request, res: Response) {
         res.status(501).send('Method not implemented!');

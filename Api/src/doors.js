@@ -1,32 +1,26 @@
-"use strict";
+'use strict';
 // jshint node: true
 // jshint esversion: 6
 
-let log = require('./roomlogs');
+const log = require('./roomlogs');
 
 //This constructor creates a door between two rooms
 
-
-exports.c = function (room1, room2, breaking)
-{
-    let id1 = room1.id;
-    let id2 = room2.id;
+exports.c = function (room1, room2, breaking) {
+    // const id1 = room1.id;
+    // const id2 = room2.id;
 
     // First we create the door.
-    let door = {
+    const door = {
         destination: room2,
-        breakChance: (breaking ? breaking : 0),
+        breakChance: breaking ? breaking : 0,
         broken: false,
-        move: function (character)
-        {
-            if (!this.broken && character.mp >= 1 + character.mpCost)
-            {
+        move: function (character) {
+            if (!this.broken && character.mp >= 1 + character.mpCost) {
                 let i = 0;
                 // note : ici 1 devra être remplacé par le coût du déplacement
-                for (i = 0 ; character.location.crew[i] != character; i++)
-                {
-                    if (!character.location.crew[i])
-                    {
+                for (i = 0; character.location.crew[i] !== character; i++) {
+                    if (!character.location.crew[i]) {
                         return false; // error
                     }
                 }
@@ -39,32 +33,28 @@ exports.c = function (room1, room2, breaking)
                 character.gainMp(-1);
 
                 // Move logs shall be generated here
-                log.act("MOVE", character);
+                log.act('MOVE', character);
             }
 
             return true;
-        }
+        },
     };
 
     //Then we look for a corresponding door in room2 that has no link.
     //If such a door exists, the two doors will be linked.
     let x;
     let exists = false;
-    for (x of room2.doors)
-    {
-        if (x.destination === room1 && !x.linked)
-        {
+    for (x of room2.doors) {
+        if (x.destination === room1 && !x.linked) {
             exists = true;
             break;
         }
     }
 
-    if (exists)
-    {
+    if (exists) {
         x.linked = door;
         door.linked = x;
         x.breakChance = 0;
-
     } // Two linked doors break down together; they're the same door.
     // They're also repaired together.
     // An unlinked door is effectively a one-way door.
@@ -72,21 +62,16 @@ exports.c = function (room1, room2, breaking)
     return door;
 };
 
-
-exports.break = function (door)
-{
+exports.break = function (door) {
     door.broken = true;
-    if (door.linked)
-    {
+    if (door.linked) {
         door.linked.broken = true;
     }
 };
 
-exports.repair = function (door)
-{
+exports.repair = function (door) {
     door.broken = false;
-    if (door.linked)
-    {
+    if (door.linked) {
         door.linked.broken = false;
     }
 };

@@ -1,25 +1,22 @@
 {
+  "extends": "./node_modules/gts/tsconfig-google.json",
   "compilerOptions": {
     "module": "commonjs",
     "esModuleInterop": true,
     "target": "es6",
+    "lib": ["es2020", "dom"],
     "noImplicitAny": true,
     "moduleResolution": "node",
     "sourceMap": true,
-    "outDir": "dist",
-    "baseUrl": "..",
-    "paths": {
-      "*": [
-        "node_modules/*"
-      ]
-    }
+    "outDir": "build",
+    "baseUrl": ".."
   },
   "include": [
     "./src/**/*.ts"
   ],
   "exclude": [
-    "./tests/",
-    "./node_modules/",
-    "./dist/"
+    "tests",
+    "node_modules",
+    "dist"
   ]
 }

@@ -1,12 +1,13 @@
 import chai from 'chai';
+import {describe, it} from 'mocha';
 import chaiHttp from 'chai-http';
-import app from '../../src/app'
+import app from '../../src/app';
 
 chai.use(chaiHttp);
-var expect = chai.expect;
+const expect = chai.expect;
 
 describe('/GET characters', () => {
-    it('it should GET all the characters', (done) => {
+    it('it should GET all the characters', done => {
         chai.request(app)
             .get('/characters')
             .end((err, res) => {

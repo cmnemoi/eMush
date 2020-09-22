@@ -1,11 +1,10 @@
-import { CharacterController } from "../controllers/character.controller";
-import express from "express";
+import {CharacterController} from '../controllers/character.controller';
+import express from 'express';
 
 const route = '/characters';
 
 export class Routes {
-
-    private characterController: CharacterController  = new CharacterController();
+    private characterController: CharacterController = new CharacterController();
 
     public routes(app: express.Application): void {
         app.route(route).get(this.characterController.fetchAll);

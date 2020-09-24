@@ -1,7 +1,7 @@
 import {Model, DataTypes} from 'sequelize';
 import {database} from '../config/database';
 
-export class Character extends Model {
+export class Room extends Model {
     private id!: number;
 
     get getId(): number {
@@ -9,22 +9,19 @@ export class Character extends Model {
     }
 }
 
-Character.init(
+Room.init(
     {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
         },
-        name: {
-            type: DataTypes.STRING(32),
-        },
     },
     {
-        tableName: 'character',
-        timestamps: false,
+        tableName: 'room',
+        timestamps: true,
         sequelize: database, // this bit is important
     }
 );
 
-Character.sync().then(() => console.log('Character table created'));
+Room.sync().then(() => console.log('Room table created'));

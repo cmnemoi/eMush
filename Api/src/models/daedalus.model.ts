@@ -1,7 +1,7 @@
 import {Model, DataTypes} from 'sequelize';
 import {database} from '../config/database';
 
-export class Character extends Model {
+export class Daedalus extends Model {
     private id!: number;
 
     get getId(): number {
@@ -9,22 +9,19 @@ export class Character extends Model {
     }
 }
 
-Character.init(
+Daedalus.init(
     {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
         },
-        name: {
-            type: DataTypes.STRING(32),
-        },
     },
     {
-        tableName: 'character',
-        timestamps: false,
+        tableName: 'daedalus',
+        timestamps: true,
         sequelize: database, // this bit is important
     }
 );
 
-Character.sync().then(() => console.log('Character table created'));
+Daedalus.sync().then(() => console.log('Daedalus table created'));

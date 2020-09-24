@@ -1,17 +1,18 @@
-import {CharacterController} from '../controllers/character.controller';
 import express from 'express';
+import {PlayerController} from '../controllers/player.controller';
 
-const route = '/characters';
+const PLAYER_ROUTE = '/players';
 
 export class Routes {
-    private characterController: CharacterController = new CharacterController();
+    private playerController: PlayerController = new PlayerController();
 
     public routes(app: express.Application): void {
-        app.route(route).get(this.characterController.fetchAll);
-        app.route(route + '/:id').get(this.characterController.fetch);
-        app.route(route).post(this.characterController.post);
-        app.route(route + '/:id').put(this.characterController.put);
-        app.route(route + '/:id').patch(this.characterController.patch);
-        app.route(route + '/:id').delete(this.characterController.delete);
+        // Player
+        app.route(PLAYER_ROUTE).get(this.playerController.fetchAll);
+        app.route(PLAYER_ROUTE + '/:id').get(this.playerController.fetch);
+        app.route(PLAYER_ROUTE).post(this.playerController.post);
+        app.route(PLAYER_ROUTE + '/:id').put(this.playerController.put);
+        app.route(PLAYER_ROUTE + '/:id').patch(this.playerController.patch);
+        app.route(PLAYER_ROUTE + '/:id').delete(this.playerController.delete);
     }
 }

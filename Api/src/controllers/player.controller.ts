@@ -33,22 +33,24 @@ export class PlayerController {
 
     public post(req: Request, res: Response) {
         const character = req.body.character;
-
+        console.log(req.body.daedalus);
         DaedalusService.find(req.body.daedalus).then(
             (daedalus: Daedalus | null) => {
-                if (daedalus !== null) {
-                    PlayerService.initPlayer(daedalus, character)
-                        .then((player: Player) => {
-                            return res.status(201).json(player);
-                        })
-                        .catch((err: Error) => {
-                            return res.status(500).json(err);
-                        });
+                if (daedalus === null) {
+                    return res.status(422).json('Invalid Daedalus identifier provided : ' + req.body.daedalus);
                 }
 
-                return res.status(422);
+                return  PlayerService.initPlayer(daedalus, character)
+                    .then((player: Player) => {
+                        return res.status(201).json(player);
+                    })
+                    .catch((err: Error) => {
+                        return res.status(500).json(err);
+                    });
             }
-        );
+        ).catch((err: Error) => {
+            return res.status(500).json(err);
+        });
     }
 
     public put(req: Request, res: Response) {

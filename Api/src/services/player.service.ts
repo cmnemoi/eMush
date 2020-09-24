@@ -16,14 +16,18 @@ export default class PlayerService {
         return player.save();
     }
 
-    public static initPlayer(
+    public static async initPlayer(
         daedalus: Daedalus,
         character: string
     ): Promise<Player> {
-        const player = new Player();
+        const player = Player.build({}, {
+            include: [{model: Daedalus, as: 'daedalus'}]
+        });
+
+        const room = Room.create({});
         player.daedalus = daedalus;
         player.character = character;
-        player.room = new Room(); // daedalus.getRoom('laboratory');
+        player.room = await room; // daedalus.getRoom('laboratory');
         player.skills = [];
         player.statuses = [];
         player.items = [];
@@ -31,6 +35,7 @@ export default class PlayerService {
         player.moralPoint = 10;
         player.actionPoint = 10;
         player.movementPoint = 10;
+        player.satiety = 10;
         player.isDirty = false;
         player.isMush = false;
 

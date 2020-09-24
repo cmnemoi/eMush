@@ -9,9 +9,9 @@ export class Player extends Model {
     private _character!: string;
     private _daedalus!: Daedalus;
     private _room!: Room;
-    private _skills!: string[];
-    private _items!: string[];
-    private _statuses!: string[];
+    private _skills!: string;
+    private _items!: string;
+    private _statuses!: string;
     private _healthPoint!: number;
     private _moralPoint!: number;
     private _actionPoint!: number;
@@ -53,6 +53,7 @@ export class Player extends Model {
     }
 
     set daedalus(value: Daedalus) {
+        this.setDataValue('daedalus', value);
         this._daedalus = value;
     }
 
@@ -61,31 +62,32 @@ export class Player extends Model {
     }
 
     set room(value: Room) {
+        this.setDataValue('room', value);
         this._room = value;
     }
 
     get skills(): string[] {
-        return this._skills;
+        return JSON.parse(this._skills);
     }
 
     set skills(value: string[]) {
-        this._skills = value;
+        this._skills = JSON.stringify(value);
     }
 
     get items(): string[] {
-        return this._items;
+        return JSON.parse(this._items);
     }
 
     set items(value: string[]) {
-        this._items = value;
+        this._items = JSON.stringify(value);
     }
 
     get statuses(): string[] {
-        return this._statuses;
+        return JSON.parse(this._statuses);
     }
 
     set statuses(value: string[]) {
-        this._statuses = value;
+        this._statuses = JSON.stringify(value);
     }
 
     get healthPoint(): number {
@@ -156,23 +158,7 @@ Player.init(
             type: DataTypes.INTEGER,
         },
         character: {
-            type: DataTypes.INTEGER,
-        },
-        daedalus: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            references: {
-                model: Daedalus,
-                key: 'id',
-            },
-        },
-        room: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            references: {
-                model: Room,
-                key: 'id',
-            },
+            type: DataTypes.STRING,
         },
         skills: {
             type: DataTypes.JSON,
@@ -220,6 +206,14 @@ Player.init(
         sequelize: database, // this bit is important
     }
 );
+Player.belongsTo(Daedalus, {
+    foreignKey: 'daedalus_id',
+    as: 'daedalus'
+});
+Player.belongsTo(Room, {
+    foreignKey: 'room_id',
+    as: 'room'
+});
 
 Player.sync()
     .then(() => console.log('Player table created'))

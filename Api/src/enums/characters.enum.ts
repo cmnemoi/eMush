@@ -1,4 +1,4 @@
-enum Character {
+export enum Character {
     ANDIE = 'andie',
     DEREK = 'derek',
     ELEESHA = 'eleesha',

@@ -5,7 +5,6 @@ import DaedalusService from '../services/daedalus.service';
 export const POST_PLAYER = 'postPlayer';
 
 export function validate(method: string): ValidationChain[] {
-    console.log('validator');
     switch (method) {
         case POST_PLAYER: {
             return [

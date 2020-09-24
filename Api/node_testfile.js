@@ -1,12 +1,9 @@
 // jshint esversion: 6
 
-let http = require('http');
-let dae = require('./class_daedalus');
-let fs = require('fs');
-let gf = require('./getfile');
+const http = require('http');
+const dae = require('./src/class_daedalus');
 
-
-let ship = dae.CreateShip("base_layout");
+const ship = dae.CreateShip('base_layout');
 
 /*
 
@@ -40,9 +37,8 @@ for (let p of ship.crew)
 
 //ship.kill(ship.crew[0], "Administrator");
 
-http.createServer(function (req, res)
-{
-    res.writeHead(200, { 'Content-Type': 'text/html' });
+http.createServer((req, res) => {
+    res.writeHead(200, {'Content-Type': 'text/html'});
     res.write('<br>' + req.url + '<br>');
 
     /*
@@ -53,7 +49,6 @@ http.createServer(function (req, res)
     */
     dae.ShipShowFullStatus(ship, res);
     console.log(ship);
-
 
     res.end();
 }).listen(8080);

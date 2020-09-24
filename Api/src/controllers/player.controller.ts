@@ -4,6 +4,7 @@ import {Player} from '../models/player.model';
 import PlayerService from '../services/player.service';
 import DaedalusService from '../services/daedalus.service';
 import {Daedalus} from '../models/daedalus.model';
+import {validationResult} from "express-validator";
 
 export class PlayerController {
     public fetch(req: Request, res: Response) {
@@ -33,7 +34,15 @@ export class PlayerController {
 
     public post(req: Request, res: Response) {
         const character = req.body.character;
-        console.log(req.body.daedalus);
+
+        const errors = validationResult(req); // Finds the validation errors in this request and wraps them in an object with handy functions
+
+        if (!errors.isEmpty()) {
+            console.log(errors)
+            res.status(422).json({ errors: errors.array() });
+            return;
+        }
+
         DaedalusService.find(req.body.daedalus).then(
             (daedalus: Daedalus | null) => {
                 if (daedalus === null) {

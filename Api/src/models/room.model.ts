@@ -1,7 +1,5 @@
 import {Model, DataTypes} from 'sequelize';
 import {database} from '../config/database';
-import {Player} from "./player.model";
-import {Daedalus} from "./daedalus.model";
 
 export class Room extends Model {
     private id!: number;

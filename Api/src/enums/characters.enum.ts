@@ -39,4 +39,5 @@ export function getAllCharacter(): string[] {
         Character.TERRENCE,
         Character.CHAO,
         Character.CHUN,
-    ]}
+    ];
+}

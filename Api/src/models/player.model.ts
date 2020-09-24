@@ -208,11 +208,11 @@ Player.init(
 );
 Player.belongsTo(Daedalus, {
     foreignKey: 'daedalus_id',
-    as: 'daedalus'
+    as: 'daedalus',
 });
 Player.belongsTo(Room, {
     foreignKey: 'room_id',
-    as: 'room'
+    as: 'room',
 });
 
 Player.sync()

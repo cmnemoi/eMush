@@ -11,7 +11,10 @@ export class Routes {
         // Player
         app.route(PLAYER_ROUTE).get(this.playerController.fetchAll);
         app.route(PLAYER_ROUTE + '/:id').get(this.playerController.fetch);
-        app.route(PLAYER_ROUTE).post(validate(POST_PLAYER),this.playerController.post);
+        app.route(PLAYER_ROUTE).post(
+            validate(POST_PLAYER),
+            this.playerController.post
+        );
         app.route(PLAYER_ROUTE + '/:id').put(this.playerController.put);
         app.route(PLAYER_ROUTE + '/:id').patch(this.playerController.patch);
         app.route(PLAYER_ROUTE + '/:id').delete(this.playerController.delete);

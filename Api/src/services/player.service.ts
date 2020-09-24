@@ -20,9 +20,12 @@ export default class PlayerService {
         daedalus: Daedalus,
         character: string
     ): Promise<Player> {
-        const player = Player.build({}, {
-            include: [{model: Daedalus, as: 'daedalus'}]
-        });
+        const player = Player.build(
+            {},
+            {
+                include: [{model: Daedalus, as: 'daedalus'}],
+            }
+        );
 
         const room = Room.create({});
         player.daedalus = daedalus;

@@ -4,6 +4,7 @@ import chaiHttp from 'chai-http';
 import app from '../../src/app';
 import {Daedalus} from '../../src/models/daedalus.model';
 import {Character} from '../../src/enums/characters.enum';
+import DaedalusService from '../../src/services/daedalus.service';
 
 chai.use(chaiHttp);
 const expect = chai.expect;
@@ -12,14 +13,14 @@ describe('/POST player', () => {
     let daedalus: Daedalus;
 
     before(async () => {
-        await Daedalus.create().then(value => (daedalus = value));
+        await DaedalusService.initDaedalus().then(value => (daedalus = value));
     });
 
     it('it should create a new user player in an existing daedalus', done => {
         chai.request(app)
             .post('/players')
             .send({
-                daedalus: daedalus.getId,
+                daedalus: daedalus.id,
                 character: Character.IAN,
             })
             .end((err, res) => {
@@ -33,7 +34,7 @@ describe('/POST player', () => {
         chai.request(app)
             .post('/players')
             .send({
-                daedalus: daedalus.getId,
+                daedalus: daedalus.id,
             })
             .end((err, res) => {
                 expect(res).to.have.status(422);
@@ -49,7 +50,7 @@ describe('/POST player', () => {
         chai.request(app)
             .post('/players')
             .send({
-                daedalus: daedalus.getId,
+                daedalus: daedalus.id,
                 character: 'unknown',
             })
             .end((err, res) => {

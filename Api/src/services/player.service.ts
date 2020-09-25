@@ -2,6 +2,7 @@ import {Player} from '../models/player.model';
 import {Identifier} from 'sequelize';
 import {Daedalus} from '../models/daedalus.model';
 import {Room} from '../models/room.model';
+import {RoomEnum} from '../enums/room.enum';
 
 export default class PlayerService {
     public static findAll(): Promise<Player[]> {
@@ -27,10 +28,13 @@ export default class PlayerService {
             }
         );
 
-        const room = Room.create({});
+        const room = daedalus.getRoom(RoomEnum.LABORATORY);
+        if (room instanceof Room) {
+            player.room = room;
+        }
+
         player.daedalus = daedalus;
         player.character = character;
-        player.room = await room; // daedalus.getRoom('laboratory');
         player.skills = [];
         player.statuses = [];
         player.items = [];

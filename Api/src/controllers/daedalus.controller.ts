@@ -1,21 +1,19 @@
 import {Request, Response} from 'express';
 import {Error} from 'sequelize/types';
-import {Player} from '../models/player.model';
-import PlayerService from '../services/player.service';
+import {validationResult} from 'express-validator';
 import DaedalusService from '../services/daedalus.service';
 import {Daedalus} from '../models/daedalus.model';
-import {validationResult} from 'express-validator';
 
-export class PlayerController {
+export class DaedalusController {
     public fetch(req: Request, res: Response) {
         const identifier = req.params.id;
 
-        PlayerService.find(identifier)
-            .then((player: Player | null) => {
-                if (player === null) {
+        DaedalusService.find(identifier)
+            .then((daedalus: Daedalus | null) => {
+                if (daedalus === null) {
                     return res.status(404).json();
                 }
-                return res.json(player);
+                return res.json(daedalus);
             })
             .catch((err: Error) => {
                 return res.status(500).json(err);
@@ -23,9 +21,9 @@ export class PlayerController {
     }
 
     public fetchAll(req: Request, res: Response) {
-        PlayerService.findAll()
-            .then((players: Player[]) => {
-                return res.json(players);
+        DaedalusService.findAll()
+            .then((daedaluss: Daedalus[]) => {
+                return res.json(daedaluss);
             })
             .catch((err: Error) => {
                 return res.status(500).json(err);
@@ -33,33 +31,15 @@ export class PlayerController {
     }
 
     public post(req: Request, res: Response) {
-        const character = req.body.character;
-
         const errors = validationResult(req); // Finds the validation errors in this request and wraps them in an object with handy functions
 
         if (!errors.isEmpty()) {
             res.status(422).json({errors: errors.array()});
             return;
         }
-
-        DaedalusService.find(req.body.daedalus)
-            .then((daedalus: Daedalus | null) => {
-                if (daedalus === null) {
-                    return res
-                        .status(422)
-                        .json(
-                            'Invalid Daedalus identifier provided : ' +
-                                req.body.daedalus
-                        );
-                }
-
-                return PlayerService.initPlayer(daedalus, character)
-                    .then((player: Player) => {
-                        return res.status(201).json(player);
-                    })
-                    .catch((err: Error) => {
-                        return res.status(500).json(err);
-                    });
+        DaedalusService.initDaedalus()
+            .then((daedalus: Daedalus) => {
+                return res.status(201).json(daedalus);
             })
             .catch((err: Error) => {
                 return res.status(500).json(err);
@@ -70,15 +50,15 @@ export class PlayerController {
         const identifier = req.params.id;
         const name = req.body.name;
 
-        PlayerService.find(identifier)
-            .then((player: Player | null) => {
-                if (player === null) {
+        DaedalusService.find(identifier)
+            .then((daedalus: Daedalus | null) => {
+                if (daedalus === null) {
                     return res.status(404).json();
                 }
-                player.setDataValue('name', name);
-                PlayerService.save(player)
-                    .then((playerModel: Player) => {
-                        return res.json(playerModel);
+                daedalus.setDataValue('name', name);
+                DaedalusService.save(daedalus)
+                    .then((daedalusModel: Daedalus) => {
+                        return res.json(daedalusModel);
                     })
                     .catch((err: Error) => {
                         return res.status(500).json(err);

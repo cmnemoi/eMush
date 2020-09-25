@@ -1,11 +1,14 @@
 import express from 'express';
 import {PlayerController} from '../controllers/player.controller';
 import {validate, POST_PLAYER} from '../controllers/player.validator';
+import {DaedalusController} from '../controllers/daedalus.controller';
 
 export const PLAYER_ROUTE = '/players';
+export const DAEDALUS_ROUTE = '/daedalus';
 
 export class Routes {
     private playerController: PlayerController = new PlayerController();
+    private daedalusController: DaedalusController = new DaedalusController();
 
     public routes(app: express.Application): void {
         // Player
@@ -18,5 +21,15 @@ export class Routes {
         app.route(PLAYER_ROUTE + '/:id').put(this.playerController.put);
         app.route(PLAYER_ROUTE + '/:id').patch(this.playerController.patch);
         app.route(PLAYER_ROUTE + '/:id').delete(this.playerController.delete);
+
+        // Daedalus
+        app.route(DAEDALUS_ROUTE).get(this.daedalusController.fetchAll);
+        app.route(DAEDALUS_ROUTE + '/:id').get(this.daedalusController.fetch);
+        app.route(DAEDALUS_ROUTE).post(this.daedalusController.post);
+        app.route(DAEDALUS_ROUTE + '/:id').put(this.daedalusController.put);
+        app.route(DAEDALUS_ROUTE + '/:id').patch(this.daedalusController.patch);
+        app.route(DAEDALUS_ROUTE + '/:id').delete(
+            this.daedalusController.delete
+        );
     }
 }

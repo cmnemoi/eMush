@@ -4,7 +4,7 @@ import {Room} from './room.model';
 import {Daedalus} from './daedalus.model';
 
 export class Player extends Model {
-    private _id!: number;
+    readonly _id!: number;
     private _user!: string;
     private _character!: string;
     private _daedalus!: Daedalus;
@@ -19,18 +19,6 @@ export class Player extends Model {
     private _satiety!: number;
     private _isMush!: boolean;
     private _isDirty!: boolean;
-
-    get getId(): number {
-        return this._id;
-    }
-
-    get id(): number {
-        return this._id;
-    }
-
-    set id(value: number) {
-        this._id = value;
-    }
 
     get user(): string {
         return this._user;
@@ -206,15 +194,3 @@ Player.init(
         sequelize: database, // this bit is important
     }
 );
-Player.belongsTo(Daedalus, {
-    foreignKey: 'daedalus_id',
-    as: 'daedalus',
-});
-Player.belongsTo(Room, {
-    foreignKey: 'room_id',
-    as: 'room',
-});
-
-Player.sync()
-    .then(() => console.log('Player table created'))
-    .catch(err => console.error(err));

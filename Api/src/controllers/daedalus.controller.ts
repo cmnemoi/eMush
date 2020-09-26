@@ -3,7 +3,6 @@ import {Error} from 'sequelize/types';
 import {validationResult} from 'express-validator';
 import DaedalusService from '../services/daedalus.service';
 import {Daedalus} from '../models/daedalus.model';
-import eventManager from "../config/event.manager";
 
 export class DaedalusController {
     public fetch(req: Request, res: Response) {

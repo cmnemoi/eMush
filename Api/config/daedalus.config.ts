@@ -1,4 +1,4 @@
-import {RoomEnum} from '../enums/room.enum';
+import {RoomEnum} from '../src/enums/room.enum';
 
 export default {
     initOxygen: 10,

@@ -2,7 +2,7 @@ import {Player} from '../models/player.model';
 import RoomLogService from '../services/roomLog.service';
 import {RoomLog} from '../models/roomLog.model';
 import eventManager from '../config/event.manager';
-import GameConfig from '../config/game.config';
+import GameConfig from '../../config/game.config';
 import {DaedalusEvent} from './daedalus.event';
 
 export enum PlayerEvent {

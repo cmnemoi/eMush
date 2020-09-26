@@ -1,13 +1,13 @@
 import {Daedalus} from '../models/daedalus.model';
 import {Identifier} from 'sequelize';
-import DaedalusConfig from '../config/daedalus.config';
-import GameConfig from '../config/game.config';
+import DaedalusConfig from '../../config/daedalus.config';
+import GameConfig from '../../config/game.config';
 import {Room} from '../models/room.model';
 import {Player} from '../models/player.model';
-import moment from "moment";
-import {Moment} from "moment-timezone";
-import eventManager from "../config/event.manager";
-import {DaedalusEvent} from "../events/daedalus.event";
+import moment from 'moment';
+import {Moment} from 'moment-timezone';
+import eventManager from '../config/event.manager';
+import {DaedalusEvent} from '../events/daedalus.event';
 
 export default class DaedalusService {
     public static findAll(): Promise<Daedalus[]> {
@@ -66,8 +66,11 @@ export default class DaedalusService {
         const currentDate = moment();
         const lastUpdate = moment(daedalus.updatedAt.toUTCString());
 
-        const cycleElapsed = DaedalusService.getNumberOfCycleElapsed(lastUpdate, currentDate);
-        console.log(daedalus.players)
+        const cycleElapsed = DaedalusService.getNumberOfCycleElapsed(
+            lastUpdate,
+            currentDate
+        );
+        console.log(daedalus.players);
         for (let i = 0; i < cycleElapsed; i++) {
             eventManager.emit(DaedalusEvent.DAEDALUS_NEW_CYCLE, daedalus);
         }
@@ -76,7 +79,11 @@ export default class DaedalusService {
     }
 
     private static getCycleFromDate(date: Moment): number {
-        return Math.floor(date.tz(GameConfig.timeZone).hours() / GameConfig.cycleLength) + 1;
+        return (
+            Math.floor(
+                date.tz(GameConfig.timeZone).hours() / GameConfig.cycleLength
+            ) + 1
+        );
     }
 
     private static getNumberOfCycleElapsed(start: Moment, end: Moment): number {
@@ -91,10 +98,12 @@ export default class DaedalusService {
             lastYearNumberOfDay = start.isLeapYear() ? 366 : 365;
         }
 
-        const dayDifference = end.tz(GameConfig.timeZone).dayOfYear() + lastYearNumberOfDay - start.tz(GameConfig.timeZone).dayOfYear();
+        const dayDifference =
+            end.tz(GameConfig.timeZone).dayOfYear() +
+            lastYearNumberOfDay -
+            start.tz(GameConfig.timeZone).dayOfYear();
         const numberCyclePerDay = 24 / GameConfig.cycleLength;
 
-        return endCycle + (dayDifference * numberCyclePerDay) - startCycle
-
+        return endCycle + dayDifference * numberCyclePerDay - startCycle;
     }
 }

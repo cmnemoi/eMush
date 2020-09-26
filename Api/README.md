@@ -1,11 +1,11 @@
-#Environement: 
+# Environement: 
 Require Node v14
 
 copy .env.dist to .env
 
 Adjust the database configuration (if required)
 
-#Using the database
+# Using the database
 
 With docker:
 ```
@@ -16,6 +16,12 @@ docker run --name mush_mariaDb -p 3306:3306 -e MYSQL_ROOT_PASSWORD=password -e M
 
 ```
 npm run dev
+```
+
+#### Updating the database
+Caution, it will drop the database
+```
+npm run update_database
 ```
 
 # Test environement

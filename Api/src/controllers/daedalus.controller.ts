@@ -1,18 +1,19 @@
 import {Request, Response} from 'express';
 import {Error} from 'sequelize/types';
-import {Character} from '../models/character.model';
-import CharacterService from '../services/character.service';
+import {validationResult} from 'express-validator';
+import DaedalusService from '../services/daedalus.service';
+import {Daedalus} from '../models/daedalus.model';
 
-export class CharacterController {
+export class DaedalusController {
     public fetch(req: Request, res: Response) {
         const identifier = req.params.id;
 
-        CharacterService.find(identifier)
-            .then((character: Character | null) => {
-                if (character === null) {
+        DaedalusService.find(identifier)
+            .then((daedalus: Daedalus | null) => {
+                if (daedalus === null) {
                     return res.status(404).json();
                 }
-                return res.json(character);
+                return res.json(daedalus);
             })
             .catch((err: Error) => {
                 return res.status(500).json(err);
@@ -20,9 +21,9 @@ export class CharacterController {
     }
 
     public fetchAll(req: Request, res: Response) {
-        CharacterService.findAll()
-            .then((characters: Character[]) => {
-                return res.json(characters);
+        DaedalusService.findAll()
+            .then((daedaluss: Daedalus[]) => {
+                return res.json(daedaluss);
             })
             .catch((err: Error) => {
                 return res.status(500).json(err);
@@ -30,10 +31,15 @@ export class CharacterController {
     }
 
     public post(req: Request, res: Response) {
-        const name = req.body.name;
-        CharacterService.save(Character.build({name}))
-            .then((character: Character) => {
-                return res.json(character);
+        const errors = validationResult(req); // Finds the validation errors in this request and wraps them in an object with handy functions
+
+        if (!errors.isEmpty()) {
+            res.status(422).json({errors: errors.array()});
+            return;
+        }
+        DaedalusService.initDaedalus()
+            .then((daedalus: Daedalus) => {
+                return res.status(201).json(daedalus);
             })
             .catch((err: Error) => {
                 return res.status(500).json(err);
@@ -44,15 +50,15 @@ export class CharacterController {
         const identifier = req.params.id;
         const name = req.body.name;
 
-        CharacterService.find(identifier)
-            .then((character: Character | null) => {
-                if (character === null) {
+        DaedalusService.find(identifier)
+            .then((daedalus: Daedalus | null) => {
+                if (daedalus === null) {
                     return res.status(404).json();
                 }
-                character.setDataValue('name', name);
-                CharacterService.save(character)
-                    .then((characterModel: Character) => {
-                        return res.json(characterModel);
+                daedalus.setDataValue('name', name);
+                DaedalusService.save(daedalus)
+                    .then((daedalusModel: Daedalus) => {
+                        return res.json(daedalusModel);
                     })
                     .catch((err: Error) => {
                         return res.status(500).json(err);

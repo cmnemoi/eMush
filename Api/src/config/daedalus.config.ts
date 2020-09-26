@@ -1,7 +1,6 @@
 import {RoomEnum} from '../enums/room.enum';
 
 export default {
-    maxPlayer: 16,
     initOxygen: 10,
     initFuel: 10,
     initHull: 100,

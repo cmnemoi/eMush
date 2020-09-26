@@ -2,7 +2,7 @@
   "name": "mush",
   "version": "1.0.0",
   "description": "This is a temporary repository for the Mush remake project, until it can get forked to the main ET repository.",
-  "main": "build/app.js",
+  "main": "build/src/app.js",
   "scripts": {
     "lint": "tslint -c tslint.json -p tsconfig.json --fix",
     "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
@@ -42,7 +42,8 @@
     "mariadb": "^2.4.2",
     "moment": "^2.29.0",
     "moment-timezone": "^0.5.31",
-    "sequelize": "^6.3.5"
+    "sequelize": "^6.3.5",
+    "winston": "^3.3.3"
   },
   "devDependencies": {
     "@types/chai": "^4.2.12",

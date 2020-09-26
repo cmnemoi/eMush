@@ -3,6 +3,7 @@ import {Error} from 'sequelize/types';
 import {validationResult} from 'express-validator';
 import DaedalusService from '../services/daedalus.service';
 import {Daedalus} from '../models/daedalus.model';
+import {logger} from '../config/logger';
 
 export class DaedalusController {
     public fetch(req: Request, res: Response) {
@@ -19,6 +20,7 @@ export class DaedalusController {
                 return res.json(daedalus);
             })
             .catch((err: Error) => {
+                logger.error(err.message);
                 return res.status(500).json(err);
             });
     }
@@ -29,6 +31,7 @@ export class DaedalusController {
                 return res.json(daedaluss);
             })
             .catch((err: Error) => {
+                logger.error(err.message);
                 return res.status(500).json(err);
             });
     }
@@ -45,6 +48,7 @@ export class DaedalusController {
                 return res.status(201).json(daedalus);
             })
             .catch((err: Error) => {
+                logger.error(err.message);
                 return res.status(500).json(err);
             });
     }
@@ -64,6 +68,7 @@ export class DaedalusController {
                         return res.json(daedalusModel);
                     })
                     .catch((err: Error) => {
+                        logger.error(err.message);
                         return res.status(500).json(err);
                     });
                 return;

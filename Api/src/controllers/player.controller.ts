@@ -5,6 +5,7 @@ import PlayerService from '../services/player.service';
 import DaedalusService from '../services/daedalus.service';
 import {Daedalus} from '../models/daedalus.model';
 import {validationResult} from 'express-validator';
+import {logger} from '../config/logger';
 
 export class PlayerController {
     public fetch(req: Request, res: Response) {
@@ -58,10 +59,12 @@ export class PlayerController {
                         return res.status(201).json(player);
                     })
                     .catch((err: Error) => {
+                        logger.error(err.message);
                         return res.status(500).json(err);
                     });
             })
             .catch((err: Error) => {
+                logger.error(err.message);
                 return res.status(500).json(err);
             });
     }
@@ -81,11 +84,13 @@ export class PlayerController {
                         return res.json(playerModel);
                     })
                     .catch((err: Error) => {
+                        logger.error(err.message);
                         return res.status(500).json(err);
                     });
                 return;
             })
             .catch((err: Error) => {
+                logger.error(err.message);
                 return res.status(500).json(err);
             });
     }

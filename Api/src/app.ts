@@ -3,6 +3,7 @@ import express from 'express';
 import * as bodyParser from 'body-parser';
 import {Routes} from './config/routes';
 import dbInit from './config/database.init';
+import {logger} from './config/logger';
 
 const PORT = process.env.SERVER_PORT;
 
@@ -24,5 +25,5 @@ class App {
 }
 
 export default new App().app.listen(PORT, () =>
-    console.log(`Example app listening on port ${PORT}!`)
+    logger.info(`Application listening on port ${PORT}!`)
 );

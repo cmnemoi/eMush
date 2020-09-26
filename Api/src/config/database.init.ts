@@ -1,9 +1,11 @@
 import {Player} from '../models/player.model';
 import {Room} from '../models/room.model';
 import {Daedalus} from '../models/daedalus.model';
+import {RoomLog} from '../models/roomLog.model';
 
 export default async (forceInit = false) => {
     if (forceInit) {
+        RoomLog.drop();
         Player.drop();
         Room.drop();
         Daedalus.drop();
@@ -39,6 +41,9 @@ export default async (forceInit = false) => {
         as: 'room',
     });
 
+    await RoomLog.sync({force: forceInit}).then(() =>
+        console.log('Daedalus table created')
+    );
     await Daedalus.sync({force: forceInit}).then(() =>
         console.log('Daedalus table created')
     );

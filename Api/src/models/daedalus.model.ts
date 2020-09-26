@@ -22,6 +22,10 @@ export class Daedalus extends Model {
         this._players = value;
     }
 
+    getPlayersAlive(): Player[] {
+        return this.players.filter((player: Player) => player.healthPoint > 0);
+    }
+
     get rooms(): Room[] {
         return this._rooms;
     }

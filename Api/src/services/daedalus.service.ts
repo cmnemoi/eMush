@@ -2,6 +2,7 @@ import {Daedalus} from '../models/daedalus.model';
 import {Identifier} from 'sequelize';
 import DaedalusConfig from '../config/daedalus.config';
 import {Room} from '../models/room.model';
+import {Player} from '../models/player.model';
 
 export default class DaedalusService {
     public static findAll(): Promise<Daedalus[]> {
@@ -14,6 +15,10 @@ export default class DaedalusService {
                 {
                     model: Room,
                     as: 'rooms',
+                },
+                {
+                    model: Player,
+                    as: 'players',
                 },
             ],
         });
@@ -38,13 +43,6 @@ export default class DaedalusService {
         daedalus.shield = DaedalusConfig.initShield;
 
         const rooms: Room[] = [];
-
-        DaedalusConfig.rooms.forEach(roomConfig => {
-            const room = Room.build();
-            room.name = roomConfig.name;
-            rooms.push(room);
-            room.save();
-        });
 
         await Promise.all(
             DaedalusConfig.rooms.map(async roomConfig => {

@@ -14,8 +14,9 @@ export enum DaedalusEvent {
 const newCycle = (daedalus: Daedalus) => {
     const nbCycle = 24 / GameConfig.cycleLength;
 
-    if (daedalus.cycle > nbCycle) {
+    if (daedalus.cycle >= nbCycle) {
         daedalus.cycle = 1;
+        eventManager.emit(DaedalusEvent.DAEDALUS_NEW_DAY, daedalus)
     } else {
         daedalus.cycle++;
     }

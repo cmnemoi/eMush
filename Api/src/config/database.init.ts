@@ -12,7 +12,7 @@ export default async (forceInit = false) => {
     }
 
     Daedalus.hasMany(Player, {
-        foreignKey: 'player_id',
+        foreignKey: 'daedalus_id',
         as: 'players',
     });
 

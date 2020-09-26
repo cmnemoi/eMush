@@ -13,6 +13,9 @@ export class DaedalusController {
                 if (daedalus === null) {
                     return res.status(404).json();
                 }
+
+                DaedalusService.handleCycleChange(daedalus);
+
                 return res.json(daedalus);
             })
             .catch((err: Error) => {

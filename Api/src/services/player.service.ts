@@ -28,7 +28,7 @@ export default class PlayerService {
             {
                 include: [
                     {model: Daedalus, as: 'daedalus'},
-                    {model: Room, as: 'room'}
+                    {model: Room, as: 'room'},
                 ],
             }
         );

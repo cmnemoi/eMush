@@ -13,6 +13,7 @@ export class Daedalus extends Model {
     private _day!: number;
     private _cycle!: number;
     private _shield!: number; // The Plasma Shield is -2 when inactive, -1 when broken, 0 and up when active
+    private _updatedAt!: Date;
 
     get players(): Player[] {
         return this._players;
@@ -85,6 +86,14 @@ export class Daedalus extends Model {
 
     set shield(value: number) {
         this._shield = value;
+    }
+
+    get updatedAt(): Date {
+        return this._updatedAt;
+    }
+
+    set updatedAt(value: Date) {
+        this._updatedAt = value;
     }
 }
 

@@ -12,6 +12,15 @@ With docker:
 docker run --name mush_mariaDb -p 3306:3306 -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=mush -d mariadb
 ```
 
+run migrations: 
+```
+npx typeorm migration:run
+```
+generate migration:
+```
+npx typeorm migration:generate -n init
+```
+
 # Run dev environement
 
 ```

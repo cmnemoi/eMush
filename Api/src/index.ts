@@ -3,7 +3,6 @@ import express from 'express';
 import * as bodyParser from 'body-parser';
 import {Routes} from './config/routes';
 import {logger} from './config/logger';
-import 'reflect-metadata';
 
 const PORT = process.env.SERVER_PORT;
 

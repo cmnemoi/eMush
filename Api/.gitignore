@@ -4,3 +4,9 @@ node_modules/
 build/
 tmp/
 temp/
+logs/
+
+.env
+.env.*
+!.env.dist
+

@@ -36,6 +36,12 @@ export default class PlayerService {
         const room = daedalus.getRoom(RoomEnum.LABORATORY);
         if (room instanceof Room) {
             player.room = room;
+        } else {
+            throw new Error(
+                RoomEnum.LABORATORY +
+                    ' does not exist on Daedalus : ' +
+                    daedalus.id
+            );
         }
 
         player.daedalus = daedalus;

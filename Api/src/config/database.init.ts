@@ -2,13 +2,14 @@ import {Player} from '../models/player.model';
 import {Room} from '../models/room.model';
 import {Daedalus} from '../models/daedalus.model';
 import {RoomLog} from '../models/roomLog.model';
+import {logger} from './logger';
 
 export default async (forceInit = false) => {
     if (forceInit) {
-        RoomLog.drop();
-        Player.drop();
-        Room.drop();
-        Daedalus.drop();
+        RoomLog.drop().then(() => logger.info('RoomLog table dropped'));
+        Player.drop().then(() => logger.info('Player table dropped'));
+        Room.drop().then(() => logger.info('Room table dropped'));
+        Daedalus.drop().then(() => logger.info('Daedalus table dropped'));
     }
 
     Daedalus.hasMany(Player, {
@@ -42,15 +43,15 @@ export default async (forceInit = false) => {
     });
 
     await RoomLog.sync({force: forceInit}).then(() =>
-        console.log('Daedalus table created')
+        logger.info('Daedalus table created')
     );
     await Daedalus.sync({force: forceInit}).then(() =>
-        console.log('Daedalus table created')
+        logger.info('Daedalus table created')
     );
     await Room.sync({force: forceInit}).then(() =>
-        console.log('Room table created')
+        logger.info('Room table created')
     );
     await Player.sync({force: forceInit})
-        .then(() => console.log('Player table created'))
-        .catch(err => console.error(err));
+        .then(() => logger.info('Player table created'))
+        .catch(err => logger.error(err));
 };

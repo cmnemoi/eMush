@@ -1,45 +1,28 @@
 import {Daedalus} from '../models/daedalus.model';
-import {Identifier} from 'sequelize';
 import DaedalusConfig from '../../config/daedalus.config';
 import GameConfig from '../../config/game.config';
 import {Room} from '../models/room.model';
-import {Player} from '../models/player.model';
-import moment from 'moment';
-import {Moment} from 'moment-timezone';
+import moment, {Moment} from 'moment-timezone';
 import eventManager from '../config/event.manager';
 import {DaedalusEvent} from '../events/daedalus.event';
+import DaedalusRepository from "../repository/daedalus.repository";
+import RoomRepository from "../repository/room.repository";
 
 export default class DaedalusService {
     public static findAll(): Promise<Daedalus[]> {
-        return Daedalus.findAll<Daedalus>({});
+        return DaedalusRepository.findAll();
     }
 
-    public static find(id: Identifier): Promise<Daedalus | null> {
-        return Daedalus.findByPk<Daedalus>(id, {
-            include: [
-                {
-                    model: Room,
-                    as: 'rooms',
-                },
-                {
-                    model: Player,
-                    as: 'players',
-                },
-            ],
-        });
+    public static find(id: number): Promise<Daedalus | null> {
+        return DaedalusRepository.find(id);
     }
 
     public static save(daedalus: Daedalus): Promise<Daedalus> {
-        return daedalus.save();
+        return DaedalusRepository.save(daedalus);
     }
 
     public static async initDaedalus(): Promise<Daedalus> {
-        const daedalus = Daedalus.build(
-            {},
-            {
-                include: [{model: Room, as: 'rooms'}],
-            }
-        );
+        const daedalus = new Daedalus();
         daedalus.cycle = DaedalusService.getCycleFromDate(moment());
         daedalus.day = 1;
         daedalus.oxygen = DaedalusConfig.initOxygen;
@@ -51,15 +34,17 @@ export default class DaedalusService {
 
         await Promise.all(
             DaedalusConfig.rooms.map(async roomConfig => {
-                const room = Room.build();
+                const room = new Room();
                 room.name = roomConfig.name;
+                room.statuses = [];
+                await RoomRepository.save(room);
                 rooms.push(room);
             })
         );
 
         daedalus.rooms = rooms;
 
-        return daedalus.save();
+        return DaedalusRepository.save(daedalus);
     }
 
     public static handleCycleChange(daedalus: Daedalus): boolean {
@@ -70,7 +55,7 @@ export default class DaedalusService {
             lastUpdate,
             currentDate
         );
-        console.log(daedalus.players);
+
         for (let i = 0; i < cycleElapsed; i++) {
             eventManager.emit(DaedalusEvent.DAEDALUS_NEW_CYCLE, daedalus);
         }
@@ -89,8 +74,6 @@ export default class DaedalusService {
     private static getNumberOfCycleElapsed(start: Moment, end: Moment): number {
         const startCycle = DaedalusService.getCycleFromDate(start);
         const endCycle = DaedalusService.getCycleFromDate(end);
-        console.log(end.format());
-        console.log(endCycle);
 
         let lastYearNumberOfDay = 0;
         // If not the same year, add the numbers of days in the previous year

@@ -1,14 +1,25 @@
-import {Options, Sequelize} from 'sequelize';
-import {logger} from './logger';
+import "reflect-metadata";
+import {createConnection} from "typeorm";
+import {Daedalus} from "../models/daedalus.model";
+import {Room} from "../models/room.model";
+import {RoomLog} from "../models/roomLog.model";
+import {Player} from "../models/player.model";
 
-const config: Options = {
-    dialect: 'mariadb' as 'mariadb',
-    username: process.env.DB_USER ?? '',
-    password: process.env.DB_PASSWORD ?? '',
-    host: process.env.DB_HOST,
+const connection = createConnection({
+    type: "mysql" || '',
+    host: process.env.DB_HOST || '',
     port: Number(process.env.DB_PORT),
-    database: process.env.DB_NAME ?? '',
-    logging: sql => logger.info(sql),
-};
+    username: process.env.DB_USER || '',
+    password: process.env.DB_PASSWORD || '',
+    database: process.env.DB_NAME || '',
+    entities: [Daedalus, Room, RoomLog, Player],
+    synchronize: true,
+    logging: false,
+    migrationsTableName: "migrations",
+    migrations: [process.cwd() + '/build/src/migration/*.js'],
+    cli: {
+        "migrationsDir": "migration"
+    }
+})
 
-export const database = new Sequelize(config);
+export default connection;

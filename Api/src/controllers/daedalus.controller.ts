@@ -1,5 +1,4 @@
 import {Request, Response} from 'express';
-import {Error} from 'sequelize/types';
 import {validationResult} from 'express-validator';
 import DaedalusService from '../services/daedalus.service';
 import {Daedalus} from '../models/daedalus.model';
@@ -7,7 +6,7 @@ import {logger} from '../config/logger';
 
 export class DaedalusController {
     public fetch(req: Request, res: Response) {
-        const identifier = req.params.id;
+        const identifier = Number(req.params.id);
 
         DaedalusService.find(identifier)
             .then((daedalus: Daedalus | null) => {
@@ -54,28 +53,7 @@ export class DaedalusController {
     }
 
     public put(req: Request, res: Response) {
-        const identifier = req.params.id;
-        const name = req.body.name;
-
-        DaedalusService.find(identifier)
-            .then((daedalus: Daedalus | null) => {
-                if (daedalus === null) {
-                    return res.status(404).json();
-                }
-                daedalus.setDataValue('name', name);
-                DaedalusService.save(daedalus)
-                    .then((daedalusModel: Daedalus) => {
-                        return res.json(daedalusModel);
-                    })
-                    .catch((err: Error) => {
-                        logger.error(err.message);
-                        return res.status(500).json(err);
-                    });
-                return;
-            })
-            .catch((err: Error) => {
-                return res.status(500).json(err);
-            });
+        res.status(501).send('Method not implemented!');
     }
 
     public patch(req: Request, res: Response) {

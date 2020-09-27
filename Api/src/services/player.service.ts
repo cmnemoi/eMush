@@ -1,37 +1,29 @@
 import {Player} from '../models/player.model';
-import {Identifier} from 'sequelize';
 import {Daedalus} from '../models/daedalus.model';
 import {Room} from '../models/room.model';
 import {RoomEnum} from '../enums/room.enum';
 import eventManager from '../config/event.manager';
 import {PlayerEvent} from '../events/player.event';
+import PlayerRepository from "../repository/player.repository";
 
 export default class PlayerService {
     public static findAll(): Promise<Player[]> {
-        return Player.findAll<Player>({});
+        return PlayerRepository.findAll();
     }
 
-    public static find(name: Identifier): Promise<Player | null> {
-        return Player.findByPk<Player>(name);
+    public static find(id: number): Promise<Player | null> {
+        return PlayerRepository.find(id);
     }
 
     public static save(player: Player): Promise<Player> {
-        return player.save();
+        return PlayerRepository.save(player);
     }
 
     public static async initPlayer(
         daedalus: Daedalus,
         character: string
     ): Promise<Player> {
-        const player = Player.build(
-            {},
-            {
-                include: [
-                    {model: Daedalus, as: 'daedalus'},
-                    {model: Room, as: 'room'},
-                ],
-            }
-        );
+        const player = new Player();
 
         const room = daedalus.getRoom(RoomEnum.LABORATORY);
         if (room instanceof Room) {
@@ -44,6 +36,7 @@ export default class PlayerService {
             );
         }
 
+        player.user = 'TODO';
         player.daedalus = daedalus;
         player.character = character;
         player.skills = [];
@@ -59,6 +52,6 @@ export default class PlayerService {
 
         eventManager.emit(PlayerEvent.PLAYER_AWAKEN, player);
 
-        return player.save();
+        return PlayerRepository.save(player);
     }
 }

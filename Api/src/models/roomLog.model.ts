@@ -1,59 +1,14 @@
-import {Model, DataTypes} from 'sequelize';
-import {database} from '../config/database';
+import {Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn} from "typeorm";
 
-export class RoomLog extends Model {
+@Entity()
+export class RoomLog {
+    @PrimaryGeneratedColumn()
     readonly id!: number;
-    private _roomId!: number;
-    private _log!: string;
-    private _createdAt!: Date;
-
-    get roomId(): number {
-        return this._roomId;
-    }
-
-    set roomId(value: number) {
-        this._roomId = value;
-    }
-
-    get log(): string {
-        return this._log;
-    }
-
-    set log(value: string) {
-        this._log = value;
-    }
-
-    get createdAt(): Date {
-        return this._createdAt;
-    }
-
-    set createdAt(value: Date) {
-        this._createdAt = value;
-    }
+    @Column()
+    public roomId!: number;
+    @Column()
+    public log!: string;
+    @CreateDateColumn()
+    public createdAt!: Date;
 }
 
-RoomLog.init(
-    {
-        id: {
-            type: DataTypes.INTEGER,
-            primaryKey: true,
-            autoIncrement: true,
-        },
-        roomId: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-        },
-        log: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        createdAt: {
-            type: DataTypes.DATE,
-            allowNull: false,
-        },
-    },
-    {
-        tableName: 'room_log',
-        sequelize: database, // this bit is important
-    }
-);

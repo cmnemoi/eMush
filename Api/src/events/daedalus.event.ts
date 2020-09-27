@@ -3,6 +3,7 @@ import eventManager from '../config/event.manager';
 import GameConfig from '../../config/game.config';
 import {Player} from '../models/player.model';
 import {PlayerEvent} from './player.event';
+import DaedalusService from "../services/daedalus.service";
 
 export enum DaedalusEvent {
     DAEDALUS_START = 'daedalus_start',
@@ -27,7 +28,7 @@ const newCycle = (daedalus: Daedalus) => {
             eventManager.emit(PlayerEvent.PLAYER_NEW_CYCLE, player)
         );
 
-    daedalus.save();
+    DaedalusService.save(daedalus);
 };
 
 const newDay = (daedalus: Daedalus) => {
@@ -39,7 +40,7 @@ const newDay = (daedalus: Daedalus) => {
             eventManager.emit(PlayerEvent.PLAYER_NEW_DAY, player)
         );
 
-    daedalus.save();
+    DaedalusService.save(daedalus);
 };
 
 eventManager.on(DaedalusEvent.DAEDALUS_NEW_CYCLE, newCycle);

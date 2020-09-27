@@ -1,16 +1,16 @@
 import {Room} from '../models/room.model';
-import {Identifier} from 'sequelize';
+import RoomRepository from "../repository/room.repository";
 
 export default class RoomService {
     public static findAll(): Promise<Room[]> {
-        return Room.findAll<Room>({});
+        return RoomRepository.findAll();
     }
 
-    public static find(name: Identifier): Promise<Room | null> {
-        return Room.findByPk<Room>(name);
+    public static find(id: number): Promise<Room | null> {
+        return RoomRepository.find(id);
     }
 
-    public static save(character: Room): Promise<Room> {
-        return character.save();
+    public static save(room: Room): Promise<Room> {
+        return RoomRepository.save(room);
     }
 }

@@ -1,5 +1,4 @@
 import {Request, Response} from 'express';
-import {Error} from 'sequelize/types';
 import {Player} from '../models/player.model';
 import PlayerService from '../services/player.service';
 import DaedalusService from '../services/daedalus.service';
@@ -9,7 +8,7 @@ import {logger} from '../config/logger';
 
 export class PlayerController {
     public fetch(req: Request, res: Response) {
-        const identifier = req.params.id;
+        const identifier = Number(req.params.id);
 
         PlayerService.find(identifier)
             .then((player: Player | null) => {
@@ -70,29 +69,7 @@ export class PlayerController {
     }
 
     public put(req: Request, res: Response) {
-        const identifier = req.params.id;
-        const name = req.body.name;
-
-        PlayerService.find(identifier)
-            .then((player: Player | null) => {
-                if (player === null) {
-                    return res.status(404).json();
-                }
-                player.setDataValue('name', name);
-                PlayerService.save(player)
-                    .then((playerModel: Player) => {
-                        return res.json(playerModel);
-                    })
-                    .catch((err: Error) => {
-                        logger.error(err.message);
-                        return res.status(500).json(err);
-                    });
-                return;
-            })
-            .catch((err: Error) => {
-                logger.error(err.message);
-                return res.status(500).json(err);
-            });
+        res.status(501).send('Method not implemented!');
     }
 
     public patch(req: Request, res: Response) {

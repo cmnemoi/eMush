@@ -4,19 +4,22 @@
     "module": "commonjs",
     "esModuleInterop": true,
     "target": "es6",
-    "lib": ["es2020", "dom"],
+    "lib": ["es2018", "dom"],
     "noImplicitAny": true,
     "moduleResolution": "node",
     "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "outDir": "build",
     "baseUrl": ".."
   },
   "include": [
-    "./src/**/*.ts"
+    "./src/**/*.ts",
+    "./migration/**/*.ts"
   ],
   "exclude": [
     "tests",
-    "node_modules",
+    "node_modules/*",
     "dist"
   ]
 }

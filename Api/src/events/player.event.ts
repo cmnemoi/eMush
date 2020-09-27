@@ -4,6 +4,7 @@ import {RoomLog} from '../models/roomLog.model';
 import eventManager from '../config/event.manager';
 import GameConfig from '../../config/game.config';
 import {DaedalusEvent} from './daedalus.event';
+import PlayerService from "../services/player.service";
 
 export enum PlayerEvent {
     PLAYER_AWAKEN = 'player_awaken',
@@ -13,7 +14,7 @@ export enum PlayerEvent {
 }
 
 const playerAwaken = (player: Player) => {
-    const roomLog = RoomLog.build();
+    const roomLog = new RoomLog();
     roomLog.roomId = player.room.id;
     roomLog.createdAt = new Date();
     roomLog.log = 'player awaken';
@@ -25,7 +26,7 @@ const playerAwaken = (player: Player) => {
 };
 
 const playerDie = (player: Player) => {
-    const roomLog = RoomLog.build();
+    const roomLog = new RoomLog();
     roomLog.roomId = player.room.id;
     roomLog.createdAt = new Date();
     roomLog.log = 'player die';
@@ -40,13 +41,13 @@ const playerNewCycle = (player: Player) => {
     player.moralPoint--;
     player.satiety--;
 
-    player.save();
+    PlayerService.save(player);
 };
 
 const playerNewDay = (player: Player) => {
     player.healthPoint++;
 
-    player.save();
+    PlayerService.save(player);
 };
 
 eventManager.on(PlayerEvent.PLAYER_AWAKEN, playerAwaken);

@@ -1,47 +1,29 @@
-import {Model, DataTypes} from 'sequelize';
-import {database} from '../config/database';
+import {
+    Column,
+    CreateDateColumn,
+    Entity,
+    ManyToOne,
+    OneToMany,
+    PrimaryGeneratedColumn,
+    UpdateDateColumn
+} from "typeorm";
+import {Daedalus} from "./daedalus.model";
+import {Player} from "./player.model";
 
-export class Room extends Model {
+@Entity()
+export class Room {
+    @PrimaryGeneratedColumn()
     readonly id!: number;
-    private _name!: string;
-    private _statuses!: string;
-
-    get name(): string {
-        return this._name;
-    }
-
-    set name(value: string) {
-        this._name = value;
-    }
-
-    get statuses(): string[] {
-        return JSON.parse(this._statuses);
-    }
-
-    set statuses(value: string[]) {
-        this._statuses = JSON.stringify(value);
-    }
+    @Column()
+    public name!: string;
+    @ManyToOne(type => Daedalus, daedalus => daedalus.rooms)
+    public daedalus!: Daedalus;
+    @OneToMany(type => Player, player => player.room)
+    public players!: Player[];
+    @Column("simple-array")
+    public statuses!: string[];
+    @CreateDateColumn()
+    public createdAt!: Date;
+    @UpdateDateColumn()
+    public updatedAt!: Date;
 }
-
-Room.init(
-    {
-        id: {
-            type: DataTypes.INTEGER,
-            primaryKey: true,
-            autoIncrement: true,
-        },
-        name: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        statuses: {
-            type: DataTypes.JSON,
-            allowNull: true,
-        },
-    },
-    {
-        tableName: 'room',
-        timestamps: true,
-        sequelize: database, // this bit is important
-    }
-);

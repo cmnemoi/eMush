@@ -1,9 +1,12 @@
-dist/
+.idea/
+.vscode/
+node_modules/
+build/
+tmp/
+temp/
 logs/
-node_modules
+
 .env
 .env.*
 !.env.dist
 
-#IDE
-.idea

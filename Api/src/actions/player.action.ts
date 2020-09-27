@@ -3,6 +3,8 @@ import {Player} from '../models/player.model';
 import eventManager from '../config/event.manager';
 import {PlayerEvent} from '../events/player.event';
 import {RoomLog} from '../models/roomLog.model';
+import PlayerService from "../services/player.service";
+import RoomLogService from "../services/roomLog.service";
 
 export class HitAction implements Action {
     public emitter!: Player;
@@ -12,10 +14,10 @@ export class HitAction implements Action {
         return this.emitter.room === this.receiver.room;
     }
 
-    //@ TODO really calculate the action
+    // @TODO really calculate the action
     execute(): void {
         this.receiver.healthPoint--;
-        this.receiver.save();
+        PlayerService.save(this.receiver);
 
         this.createLog();
 
@@ -25,10 +27,11 @@ export class HitAction implements Action {
     }
 
     createLog(): Promise<RoomLog> {
-        return RoomLog.create({
-            roomId: this.emitter.room.id,
-            createdAt: new Date(),
-            log: 'player hitted another player', // 0TODO
-        });
+        const roomLog = new RoomLog();
+        roomLog.roomId = this.emitter.room.id;
+        roomLog.log = 'player hit another player';
+        roomLog.createdAt = new Date();
+
+        return RoomLogService.save(roomLog);
     }
 }

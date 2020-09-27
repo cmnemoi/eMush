@@ -2,17 +2,15 @@ import './config/environment.init'; // Needs to be imported first, contains envi
 import express from 'express';
 import * as bodyParser from 'body-parser';
 import {Routes} from './config/routes';
-import dbInit from './config/database.init';
 import {logger} from './config/logger';
 
 const PORT = process.env.SERVER_PORT;
 
-class App {
+class Index {
     public app: express.Application;
     public routePrv: Routes = new Routes();
 
     constructor() {
-        dbInit();
         this.app = express();
         this.config();
         this.routePrv.routes(this.app);
@@ -24,6 +22,6 @@ class App {
     }
 }
 
-export default new App().app.listen(PORT, () =>
+export default new Index().app.listen(PORT, () =>
     logger.info(`Application listening on port ${PORT}!`)
 );

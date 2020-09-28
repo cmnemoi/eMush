@@ -5,8 +5,8 @@ import {Room} from '../models/room.model';
 import moment, {Moment} from 'moment-timezone';
 import eventManager from '../config/event.manager';
 import {DaedalusEvent} from '../events/daedalus.event';
-import DaedalusRepository from "../repository/daedalus.repository";
-import RoomRepository from "../repository/room.repository";
+import DaedalusRepository from '../repository/daedalus.repository';
+import RoomRepository from '../repository/room.repository';
 
 export default class DaedalusService {
     public static findAll(): Promise<Daedalus[]> {

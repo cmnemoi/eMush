@@ -3,8 +3,8 @@ import {Player} from '../models/player.model';
 import eventManager from '../config/event.manager';
 import {PlayerEvent} from '../events/player.event';
 import {RoomLog} from '../models/roomLog.model';
-import PlayerService from "../services/player.service";
-import RoomLogService from "../services/roomLog.service";
+import PlayerService from '../services/player.service';
+import RoomLogService from '../services/roomLog.service';
 
 export class HitAction implements Action {
     public emitter!: Player;

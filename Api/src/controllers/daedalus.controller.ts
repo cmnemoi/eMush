@@ -5,37 +5,38 @@ import {Daedalus} from '../models/daedalus.model';
 import {logger} from '../config/logger';
 
 export class DaedalusController {
-    public fetch(req: Request, res: Response) {
+    public fetch(req: Request, res: Response): void {
         const identifier = Number(req.params.id);
 
         DaedalusService.find(identifier)
             .then((daedalus: Daedalus | null) => {
                 if (daedalus === null) {
-                    return res.status(404).json();
+                    res.status(404).json();
+                    return;
                 }
 
                 DaedalusService.handleCycleChange(daedalus);
 
-                return res.json(daedalus);
+                res.json(daedalus);
             })
             .catch((err: Error) => {
                 logger.error(err.message);
-                return res.status(500).json(err);
+                res.status(500).json(err);
             });
     }
 
-    public fetchAll(req: Request, res: Response) {
+    public fetchAll(req: Request, res: Response): void {
         DaedalusService.findAll()
             .then((daedaluss: Daedalus[]) => {
-                return res.json(daedaluss);
+                res.json(daedaluss);
             })
             .catch((err: Error) => {
                 logger.error(err.message);
-                return res.status(500).json(err);
+                res.status(500).json(err);
             });
     }
 
-    public post(req: Request, res: Response) {
+    public post(req: Request, res: Response): void {
         const errors = validationResult(req); // Finds the validation errors in this request and wraps them in an object with handy functions
 
         if (!errors.isEmpty()) {
@@ -44,22 +45,23 @@ export class DaedalusController {
         }
         DaedalusService.initDaedalus()
             .then((daedalus: Daedalus) => {
-                return res.status(201).json(daedalus);
+                res.status(201).json(daedalus);
             })
             .catch((err: Error) => {
                 logger.error(err.message);
-                return res.status(500).json(err);
+                res.status(500).json(err);
             });
     }
 
-    public put(req: Request, res: Response) {
+    public put(req: Request, res: Response): void {
         res.status(501).send('Method not implemented!');
     }
 
-    public patch(req: Request, res: Response) {
+    public patch(req: Request, res: Response): void {
         res.status(501).send('Method not implemented!');
     }
-    public delete(req: Request, res: Response) {
+
+    public delete(req: Request, res: Response): void {
         res.status(501).send('Method not implemented!');
     }
 }

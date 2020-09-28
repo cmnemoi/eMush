@@ -5,10 +5,10 @@ import {
     ManyToOne,
     OneToMany,
     PrimaryGeneratedColumn,
-    UpdateDateColumn
-} from "typeorm";
-import {Daedalus} from "./daedalus.model";
-import {Player} from "./player.model";
+    UpdateDateColumn,
+} from 'typeorm';
+import {Daedalus} from './daedalus.model';
+import {Player} from './player.model';
 
 @Entity()
 export class Room {
@@ -20,7 +20,7 @@ export class Room {
     public daedalus!: Daedalus;
     @OneToMany(type => Player, player => player.room)
     public players!: Player[];
-    @Column("simple-array")
+    @Column('simple-array')
     public statuses!: string[];
     @CreateDateColumn()
     public createdAt!: Date;

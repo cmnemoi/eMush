@@ -1,13 +1,13 @@
-import "reflect-metadata";
-import {createConnection} from "typeorm";
-import {Daedalus} from "../models/daedalus.model";
-import {Room} from "../models/room.model";
-import {RoomLog} from "../models/roomLog.model";
-import {Player} from "../models/player.model";
-import {ConnectionOptions} from "typeorm/connection/ConnectionOptions";
+import 'reflect-metadata';
+import {createConnection} from 'typeorm';
+import {Daedalus} from '../models/daedalus.model';
+import {Room} from '../models/room.model';
+import {RoomLog} from '../models/roomLog.model';
+import {Player} from '../models/player.model';
+import {ConnectionOptions} from 'typeorm/connection/ConnectionOptions';
 
-const dbConfig : ConnectionOptions = {
-    type: "mysql" || '',
+const dbConfig: ConnectionOptions = {
+    type: 'mysql' || '',
     host: process.env.DB_HOST || '',
     port: Number(process.env.DB_PORT),
     username: process.env.DB_USER || '',
@@ -16,11 +16,11 @@ const dbConfig : ConnectionOptions = {
     entities: [Daedalus, Room, RoomLog, Player],
     synchronize: process.env.NODE_ENV === 'test',
     logging: false,
-    migrationsTableName: "migrations",
+    migrationsTableName: 'migrations',
     migrations: [process.cwd() + '/build/src/migration/*.js'],
     cli: {
-        "migrationsDir": "migration"
-    }
+        migrationsDir: 'migration',
+    },
 };
 
 export default createConnection(dbConfig);

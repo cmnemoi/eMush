@@ -20,9 +20,11 @@ const loggerConfig = createLogger({
 });
 
 if (process.env.NODE_ENV !== 'production') {
-    loggerConfig.add(new transports.Console({
-        format: format.simple(),
-    }));
+    loggerConfig.add(
+        new transports.Console({
+            format: format.simple(),
+        })
+    );
 }
 
 export const logger = loggerConfig;

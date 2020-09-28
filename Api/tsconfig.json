@@ -14,6 +14,7 @@
     "baseUrl": ".."
   },
   "include": [
+    "./config/**/*.ts",
     "./src/**/*.ts",
     "./migration/**/*.ts"
   ],

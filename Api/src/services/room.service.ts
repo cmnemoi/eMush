@@ -1,5 +1,5 @@
 import {Room} from '../models/room.model';
-import RoomRepository from "../repository/room.repository";
+import RoomRepository from '../repository/room.repository';
 
 export default class RoomService {
     public static findAll(): Promise<Room[]> {

@@ -1,5 +1,5 @@
 import {RoomLog} from '../models/roomLog.model';
-import RoomLogRepository from "../repository/roomLog.repository";
+import RoomLogRepository from '../repository/roomLog.repository';
 
 export default class RoomLogService {
     public static findAll(): Promise<RoomLog[]> {

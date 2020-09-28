@@ -3,7 +3,7 @@ import eventManager from '../config/event.manager';
 import GameConfig from '../../config/game.config';
 import {Player} from '../models/player.model';
 import {PlayerEvent} from './player.event';
-import DaedalusService from "../services/daedalus.service";
+import DaedalusService from '../services/daedalus.service';
 
 export enum DaedalusEvent {
     DAEDALUS_START = 'daedalus_start',

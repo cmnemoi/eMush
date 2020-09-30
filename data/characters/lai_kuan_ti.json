@@ -27,12 +27,12 @@
   "short" : {
 	"en" : "Grand Architect of the Daedalus. His knowledge of the ship is unmatched",
 	"fr" : "Grand architecte du Daedalus",
-	"es" : ""
+	"es" : "Ingeniero creador del Daedalus, hombre clave en la misión"
   },
   "intro" : {
 	"en" : "An astrophysicist and the ship's designer, Lai knows it like the back of his hand and has privileged access to NERON. If a Nexus project is underway, you can be sure Lai is involved.",
 	"fr" : "Lai est le concepteur du vaisseau. Il en connaît tous les coins et recoins et a une relation privilégié avec NERON.",
-	"es" : ""
+	"es" : "Hombre clave por ser el creador de la nave. Conoce todos sus rincones y tiene acceso directo a NERON, la inteligencia artificial a bordo."
   },
   "presentation" : {
 	"en" : "",

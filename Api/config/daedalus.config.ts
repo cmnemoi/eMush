@@ -10,10 +10,12 @@ export default {
     rooms: [
         {
             name: RoomEnum.BRIDGE,
-            equipments: [
+            doors: [
                 Door.BRIDGE_FRONT_ALPHA_TURRET,
                 Door.BRIDGE_FRONT_BRAVO_TURRET,
                 Door.FRONT_CORRIDOR_BRIDGE,
+            ],
+            equipments: [
                 Equipment.COMMAND_TERMINAL,
                 Equipment.COMMUNICATION_CENTER,
                 Equipment.ASTRO_TERMINAL,
@@ -22,13 +24,14 @@ export default {
         },
         {
             name: RoomEnum.ALPHA_BAY,
-            equipments: [
+            doors: [
                 Door.ALPHA_BAY_ALPHA_DORM,
                 Door.ALPHA_BAY_CENTER_ALPHA_STORAGE,
                 Door.ALPHA_BAY_CENTRAL_ALPHA_TURRET,
                 Door.ALPHA_BAY_CENTRAL_CORRIDOR,
-                Door.ALPHA_BAY_REAR_CORRIDOR,
                 Door.ALPHA_BAY_ALPHA_BAY_2,
+            ],
+            equipments: [
                 Equipment.PATROL_SHIP_ALPHA_JUJUBE,
                 Equipment.PATROL_SHIP_ALPHA_LONGANE,
                 Equipment.PATROL_SHIP_ALPHA_TAMARIN,
@@ -37,12 +40,15 @@ export default {
         },
         {
             name: RoomEnum.BRAVO_BAY,
-            equipments: [
+            doors: [
                 Door.BRAVO_BAY_BRAVO_DORM,
                 Door.BRAVO_BAY_CENTER_BRAVO_STORAGE,
                 Door.BRAVO_BAY_CENTRAL_BRAVO_TURRET,
                 Door.BRAVO_BAY_CENTRAL_CORRIDOR,
                 Door.BRAVO_BAY_REAR_CORRIDOR,
+            ],
+            equipments: [
+
                 Equipment.PATROL_SHIP_BRAVO_EPICURE,
                 Equipment.PATROL_SHIP_BRAVO_PLANTON,
                 Equipment.PATROL_SHIP_BRAVO_SOCRATE,
@@ -51,11 +57,13 @@ export default {
         },
         {
             name: RoomEnum.ALPHA_BAY_2,
-            equipments: [
+            doors: [
                 Door.ALPHA_BAY_ALPHA_BAY_2,
                 Door.ENGINE_ROOM_BAY_ALPHA_2,
                 Door.REAR_CORRIDOR_BAY_ALPHA_2,
                 Door.REAR_ALPHA_TURRET_BAY_ALPHA_2,
+            ],
+            equipments: [
                 Equipment.PATROL_SHIP_ALPHA_2_wallis,
                 Equipment.PASIPHAE,
             ],
@@ -63,8 +71,10 @@ export default {
         },
         {
             name: RoomEnum.NEXUS,
-            equipments: [
+            doors: [
                 Door.REAR_CORRIDOR_NEXUS,
+            ],
+            equipments: [
                 Equipment.HEART_OF_NERON,
                 Equipment.BIOS_TERMINAL,
             ],
@@ -72,10 +82,12 @@ export default {
         },
         {
             name: RoomEnum.MEDLAB,
-            equipments: [
+            doors: [
                 Door.MEDLAB_CENTRAL_BRAVO_TURRET,
                 Door.MEDLAB_LABORATORY,
                 Door.FRONT_CORRIDOR_MEDLAB,
+            ],
+            equipments: [
                 Equipment.SURGICAL_PLOT,
                 Equipment.BED,
             ],
@@ -83,9 +95,11 @@ export default {
         },
         {
             name: RoomEnum.LABORATORY,
-            equipments: [
+            doors: [
                 Door.FRONT_CORRIDOR_LABORATORY,
                 Door.MEDLAB_LABORATORY,
+            ],
+            equipments: [
                 Equipment.CRYO_MODULE,
                 Equipment.GRAVITY_SIMULATOR,
                 Equipment.RESEARCH_LABORATORY,
@@ -94,8 +108,10 @@ export default {
         },
         {
             name: RoomEnum.REFECTORY,
-            equipments: [
+            doors: [
                 Door.REFECTORY_CENTRAL_CORRIDOR,
+            ],
+            equipments: [
                 Equipment.COFFEE_MACHINE,
                 Equipment.KITCHEN,
             ],
@@ -103,18 +119,21 @@ export default {
         },
         {
             name: RoomEnum.HYDROPONIC_GARDEN,
-            equipments: [Door.FRONT_CORRIDOR_GARDEN, Door.FRONT_STORAGE_GARDEN],
+            doors: [Door.FRONT_CORRIDOR_GARDEN, Door.FRONT_STORAGE_GARDEN],
+            equipments: [],
             items: [],
         },
         {
             name: RoomEnum.ENGINE_ROOM,
-            equipments: [
+            doors: [
                 Door.ENGINE_ROOM_BAY_ALPHA_2,
                 Door.ENGINE_ROOM_BAY_ICARUS,
                 Door.ENGINE_ROOM_REAR_ALPHA_STORAGE,
                 Door.ENGINE_ROOM_REAR_BRAVO_STORAGE,
                 Door.ENGINE_ROOM_REAR_ALPHA_TURRET,
                 Door.ENGINE_ROOM_REAR_BRAVO_TURRET,
+            ],
+            equipments: [
                 Equipment.ANTENNA,
                 Equipment.COMBUSTION_CHAMBER,
                 Equipment.PILGRED,
@@ -127,61 +146,73 @@ export default {
         },
         {
             name: RoomEnum.FRONT_ALPHA_TURRET,
-            equipments: [
+            doors: [
                 Door.BRIDGE_FRONT_ALPHA_TURRET,
                 Door.FRONT_CORRIDOR_FRONT_ALPHA_TURRET,
+            ],
+            equipments: [
                 Equipment.SHOOTING_STATION,
             ],
             items: [],
         },
         {
             name: RoomEnum.CENTRE_ALPHA_TURRET,
-            equipments: [
+            doors: [
                 Door.FRONT_STORAGE_CENTRAL_ALPHA_TURRET,
                 Door.ALPHA_BAY_CENTRAL_ALPHA_TURRET,
+            ],
+            equipments: [
                 Equipment.SHOOTING_STATION,
             ],
             items: [],
         },
         {
             name: RoomEnum.REAR_ALPHA_TURRET,
-            equipments: [
+            doors: [
                 Door.REAR_ALPHA_TURRET_BAY_ALPHA_2,
                 Door.ENGINE_ROOM_REAR_ALPHA_TURRET,
+            ],
+            equipments: [
                 Equipment.SHOOTING_STATION,
             ],
             items: [],
         },
         {
             name: RoomEnum.FRONT_BRAVO_TURRET,
-            equipments: [
+            doors: [
                 Door.BRIDGE_FRONT_BRAVO_TURRET,
                 Door.FRONT_CORRIDOR_FRONT_BRAVO_TURRET,
+            ],
+            equipments: [
                 Equipment.SHOOTING_STATION,
             ],
             items: [],
         },
         {
             name: RoomEnum.CENTRE_BRAVO_TURRET,
-            equipments: [
+            doors: [
                 Door.MEDLAB_CENTRAL_BRAVO_TURRET,
                 Door.BRAVO_BAY_CENTRAL_BRAVO_TURRET,
+            ],
+            equipments: [
                 Equipment.SHOOTING_STATION,
             ],
             items: [],
         },
         {
             name: RoomEnum.REAR_BRAVO_TURRET,
-            equipments: [
+            doors: [
                 Door.REAR_BRAVO_TURRET_BAY_ICARUS,
                 Door.ENGINE_ROOM_REAR_BRAVO_TURRET,
+            ],
+            equipments: [
                 Equipment.SHOOTING_STATION,
             ],
             items: [],
         },
         {
             name: RoomEnum.FRONT_CORRIDOR,
-            equipments: [
+            doors: [
                 Door.FRONT_CORRIDOR_FRONT_ALPHA_TURRET,
                 Door.FRONT_CORRIDOR_FRONT_BRAVO_TURRET,
                 Door.FRONT_CORRIDOR_BRIDGE,
@@ -191,21 +222,23 @@ export default {
                 Door.FRONT_CORRIDOR_MEDLAB,
                 Door.FRONT_CORRIDOR_CENTRAL_CORRIDOR,
             ],
+            equipments: [],
             items: [],
         },
         {
             name: RoomEnum.CENTRAL_CORRIDOR,
-            equipments: [
+            doors: [
                 Door.REFECTORY_CENTRAL_CORRIDOR,
                 Door.FRONT_CORRIDOR_CENTRAL_CORRIDOR,
                 Door.ALPHA_BAY_CENTRAL_CORRIDOR,
                 Door.BRAVO_BAY_CENTRAL_CORRIDOR,
             ],
+            equipments: [],
             items: [],
         },
         {
             name: RoomEnum.REAR_CORRIDOR,
-            equipments: [
+            doors: [
                 Door.REAR_CORRIDOR_NEXUS,
                 Door.REAR_CORRIDOR_BAY_ALPHA_2,
                 Door.REAR_CORRIDOR_ALPHA_DORM,
@@ -213,24 +246,30 @@ export default {
                 Door.REAR_CORRIDOR_BAY_ICARUS,
                 Door.REAR_CORRIDOR_REAR_ALPHA_STORAGE,
                 Door.REAR_CORRIDOR_REAR_BRAVO_STORAGE,
+                Door.BRAVO_BAY_REAR_CORRIDOR
             ],
+            equipments: [],
             items: [],
         },
         {
             name: RoomEnum.ICARUS_BAY,
-            equipments: [],
-            items: [
+            doors: [
                 Door.REAR_CORRIDOR_BAY_ICARUS,
                 Door.REAR_BRAVO_TURRET_BAY_ICARUS,
                 Door.ENGINE_ROOM_BAY_ICARUS,
+            ],
+            equipments: [
                 Equipment.ICARUS,
             ],
+            items: [],
         },
         {
             name: RoomEnum.ALPHA_DORM,
-            equipments: [
+            doors: [
                 Door.ALPHA_BAY_ALPHA_DORM,
                 Door.REAR_CORRIDOR_ALPHA_DORM,
+            ],
+            equipments: [
                 Equipment.BED,
                 Equipment.BED,
                 Equipment.BED,
@@ -240,9 +279,11 @@ export default {
         },
         {
             name: RoomEnum.BRAVO_DORM,
-            equipments: [
+            doors: [
                 Door.BRAVO_BAY_BRAVO_DORM,
                 Door.REAR_CORRIDOR_BRAVO_DORM,
+            ],
+            equipments: [
                 Equipment.BED,
                 Equipment.BED,
                 Equipment.BED,
@@ -252,59 +293,71 @@ export default {
         },
         {
             name: RoomEnum.FRONT_STORAGE,
-            equipments: [
+            doors: [
                 Door.FRONT_STORAGE_CENTRAL_ALPHA_TURRET,
                 Door.FRONT_STORAGE_GARDEN,
                 Door.FRONT_CORRIDOR_FRONT_STORAGE,
             ],
+            equipments: [],
             items: [],
         },
         {
             name: RoomEnum.CENTER_ALPHA_STORAGE,
-            equipments: [
+            doors: [
                 Door.ALPHA_BAY_CENTER_ALPHA_STORAGE,
+            ],
+            equipments: [
                 Equipment.OXYGEN_TANK,
             ],
             items: [],
         },
         {
             name: RoomEnum.REAR_ALPHA_STORAGE,
-            equipments: [
+            doors: [
                 Door.REAR_CORRIDOR_REAR_ALPHA_STORAGE,
                 Door.ENGINE_ROOM_REAR_ALPHA_STORAGE,
+            ],
+            equipments: [
                 Equipment.FUEL_TANK,
             ],
             items: [],
         },
         {
             name: RoomEnum.CENTER_BRAVO_STORAGE,
-            equipments: [
+            doors: [
                 Door.BRAVO_BAY_CENTER_BRAVO_STORAGE,
+            ],
+            equipments: [
                 Equipment.OXYGEN_TANK,
             ],
             items: [],
         },
         {
             name: RoomEnum.REAR_BRAVO_STORAGE,
-            equipments: [
+            doors: [
                 Door.REAR_CORRIDOR_REAR_BRAVO_STORAGE,
                 Door.ENGINE_ROOM_REAR_BRAVO_STORAGE,
+            ],
+            equipments: [
                 Equipment.FUEL_TANK,
             ],
             items: [],
         },
         {
             name: RoomEnum.PLANET,
+            doors: [],
             equipments: [],
             items: [],
         },
         {
             name: RoomEnum.SPACE,
+            doors: [],
             equipments: [],
             items: [],
         },
         {
             name: RoomEnum.GREAT_BEYOND,
+            doors: [],
             equipments: [],
             items: [],
         },

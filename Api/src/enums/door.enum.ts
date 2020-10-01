@@ -17,7 +17,6 @@ export enum Door {
     ALPHA_BAY_CENTRAL_CORRIDOR = 'alpnha_bay_central_corridor',
     ALPHA_BAY_CENTER_ALPHA_STORAGE = 'alpha_bay_center_alpha_storage',
     ALPHA_BAY_ALPHA_DORM = 'alpha_bay_alpha_dorm',
-    ALPHA_BAY_REAR_CORRIDOR = 'alpha_bay_rear_corridor',
     ALPHA_BAY_ALPHA_BAY_2 = 'alpha_bay_alpha_bay_2',
     BRAVO_BAY_CENTRAL_BRAVO_TURRET = 'bravo_bay_central_bravo_turret',
     BRAVO_BAY_CENTRAL_CORRIDOR = 'bravo_bay_central_corridor',

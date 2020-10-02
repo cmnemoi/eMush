@@ -1,7 +1,14 @@
 import {Room} from './room.model';
 import {Daedalus} from './daedalus.model';
 
-import {Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, UpdateDateColumn} from "typeorm";
+import {
+    Entity,
+    PrimaryGeneratedColumn,
+    Column,
+    ManyToOne,
+    CreateDateColumn,
+    UpdateDateColumn,
+} from 'typeorm';
 
 @Entity()
 export class Player {
@@ -15,11 +22,11 @@ export class Player {
     public daedalus!: Daedalus;
     @ManyToOne(type => Room, room => room.players)
     public room!: Room;
-    @Column("simple-array")
+    @Column('simple-array')
     public skills!: string[];
-    @Column("simple-array")
+    @Column('simple-array')
     public items!: string[];
-    @Column("simple-array")
+    @Column('simple-array')
     public statuses!: string[];
     @Column()
     public healthPoint!: number;

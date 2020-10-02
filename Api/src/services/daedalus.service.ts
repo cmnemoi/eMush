@@ -5,8 +5,9 @@ import {Room} from '../models/room.model';
 import moment, {Moment} from 'moment-timezone';
 import eventManager from '../config/event.manager';
 import {DaedalusEvent} from '../events/daedalus.event';
-import DaedalusRepository from "../repository/daedalus.repository";
-import RoomRepository from "../repository/room.repository";
+import DaedalusRepository from '../repository/daedalus.repository';
+import RoomRepository from '../repository/room.repository';
+import RoomService from "./room.service";
 
 export default class DaedalusService {
     public static findAll(): Promise<Daedalus[]> {
@@ -32,15 +33,12 @@ export default class DaedalusService {
 
         const rooms: Room[] = [];
 
-        await Promise.all(
-            DaedalusConfig.rooms.map(async roomConfig => {
-                const room = new Room();
-                room.name = roomConfig.name;
-                room.statuses = [];
-                await RoomRepository.save(room);
-                rooms.push(room);
-            })
-        );
+        await DaedalusRepository.save(daedalus)
+
+        for (const roomConfig of DaedalusConfig.rooms) {
+            const room = await RoomService.initRoom(roomConfig, daedalus);
+            rooms.push(room);
+        }
 
         daedalus.rooms = rooms;
 

@@ -1,6 +1,13 @@
 import {Player} from './player.model';
 import {Room} from './room.model';
-import {Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn} from "typeorm";
+import {
+    Column,
+    CreateDateColumn,
+    Entity,
+    OneToMany,
+    PrimaryGeneratedColumn,
+    UpdateDateColumn,
+} from 'typeorm';
 
 @Entity()
 export class Daedalus {
@@ -31,7 +38,10 @@ export class Daedalus {
         return this.players.filter((player: Player) => player.healthPoint > 0);
     }
 
-    getRoom(roomName: string) {
-        return this.rooms.find((element: Room) => element.name === roomName);
+    getRoom(roomName: string): Room | null {
+        const room = this.rooms.find(
+            (element: Room) => element.name === roomName
+        );
+        return typeof room === 'undefined' ? null : room;
     }
 }

@@ -1,14 +1,15 @@
 import {
     Column,
     CreateDateColumn,
-    Entity,
+    Entity, JoinTable, ManyToMany,
     ManyToOne,
     OneToMany,
     PrimaryGeneratedColumn,
-    UpdateDateColumn
-} from "typeorm";
-import {Daedalus} from "./daedalus.model";
-import {Player} from "./player.model";
+    UpdateDateColumn,
+} from 'typeorm';
+import {Daedalus} from './daedalus.model';
+import {Player} from './player.model';
+import {Door} from "./door.model";
 
 @Entity()
 export class Room {
@@ -20,7 +21,10 @@ export class Room {
     public daedalus!: Daedalus;
     @OneToMany(type => Player, player => player.room)
     public players!: Player[];
-    @Column("simple-array")
+    @ManyToMany(type => Door, door => door.rooms)
+    @JoinTable()
+    public doors!: Door[];
+    @Column('simple-array')
     public statuses!: string[];
     @CreateDateColumn()
     public createdAt!: Date;

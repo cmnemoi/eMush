@@ -4,7 +4,7 @@ import {Room} from '../models/room.model';
 import {RoomEnum} from '../enums/room.enum';
 import eventManager from '../config/event.manager';
 import {PlayerEvent} from '../events/player.event';
-import PlayerRepository from "../repository/player.repository";
+import PlayerRepository from '../repository/player.repository';
 
 export default class PlayerService {
     public static findAll(): Promise<Player[]> {

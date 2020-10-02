@@ -4,7 +4,7 @@ import {RoomLog} from '../models/roomLog.model';
 import eventManager from '../config/event.manager';
 import GameConfig from '../../config/game.config';
 import {DaedalusEvent} from './daedalus.event';
-import PlayerService from "../services/player.service";
+import PlayerService from '../services/player.service';
 
 export enum PlayerEvent {
     PLAYER_AWAKEN = 'player_awaken',

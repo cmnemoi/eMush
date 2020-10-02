@@ -20,9 +20,41 @@ const loggerConfig = createLogger({
 });
 
 if (process.env.NODE_ENV !== 'production') {
-    loggerConfig.add(new transports.Console({
-        format: format.simple(),
-    }));
+    loggerConfig.add(
+        new transports.Console({
+            format: format.simple(),
+        })
+    );
 }
 
 export const logger = loggerConfig;
+
+import { Logger, QueryRunner } from "typeorm";
+
+export class TypeOrmLogger implements Logger {
+
+    log(level: "log" | "info" | "warn", message: any, queryRunner?: QueryRunner): any {
+        logger.log({level, message})
+    }
+
+    logMigration(message: string, queryRunner?: QueryRunner): any {
+        logger.info(message)
+    }
+
+    logQuery(query: string, parameters?: any[], queryRunner?: QueryRunner): any {
+        logger.info(query)
+        logger.info(parameters)
+    }
+
+    logQueryError(error: string, query: string, parameters?: any[], queryRunner?: QueryRunner): any {
+        logger.error(error, query)
+    }
+
+    logQuerySlow(time: number, query: string, parameters?: any[], queryRunner?: QueryRunner): any {
+        logger.warning(query, time.toString(), parameters)
+    }
+
+    logSchemaBuild(message: string, queryRunner?: QueryRunner): any {
+        logger.info(message)
+    }
+}

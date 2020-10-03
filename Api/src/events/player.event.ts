@@ -5,6 +5,7 @@ import eventManager from '../config/event.manager';
 import GameConfig from '../../config/game.config';
 import {DaedalusEvent} from './daedalus.event';
 import PlayerService from '../services/player.service';
+import {StatusEnum} from "../enums/status.enum";
 
 export enum PlayerEvent {
     PLAYER_AWAKEN = 'player_awaken',
@@ -28,6 +29,8 @@ const playerDie = (player: Player) => {
 const playerNewCycle = (player: Player) => {
     player.moralPoint--;
     player.satiety--;
+    player.actionPoint++;
+    player.movementPoint++;
 
     PlayerService.save(player);
 };

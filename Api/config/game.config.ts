@@ -5,8 +5,12 @@ export default {
     timeZone: 'Europe/Paris',
     language: 'en',
     initHealthPoint: 10,
+    maxHealthPoint: 16,
     initMoralPoint: 10,
+    maxMoralPoint: 16,
     initSatiety: 0,
     initActionPoint: 10,
+    maxActionPoint: 10,
     initMovementPoint: 10,
+    maxMovementPoint: 10,
 };

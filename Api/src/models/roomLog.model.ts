@@ -18,7 +18,7 @@ export class RoomLog {
     @Column()
     public visibility!: VisibilityEnum;
     @Column()
-    public message!: LogEnum;
+    public message!: string;
     @CreateDateColumn()
     public createdAt!: Date;
 }

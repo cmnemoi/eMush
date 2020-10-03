@@ -7,8 +7,9 @@ import {
     Column,
     ManyToOne,
     CreateDateColumn,
-    UpdateDateColumn,
+    UpdateDateColumn, OneToMany,
 } from 'typeorm';
+import {Item} from "./item.model";
 
 @Entity()
 export class Player {
@@ -24,8 +25,8 @@ export class Player {
     public room!: Room;
     @Column('simple-array')
     public skills!: string[];
-    @Column('simple-array')
-    public items!: string[];
+    @OneToMany(type => Item, item => item.player)
+    public items!: Item[];
     @Column('simple-array')
     public statuses!: string[];
     @Column()
@@ -46,4 +47,8 @@ export class Player {
     public createdAt!: Date;
     @UpdateDateColumn()
     public updatedAt!: Date;
+
+    public setDirty() {
+        this.isDirty = true;
+    }
 }

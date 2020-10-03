@@ -7,9 +7,11 @@ import {
     Column,
     ManyToOne,
     CreateDateColumn,
-    UpdateDateColumn, OneToMany,
+    UpdateDateColumn,
+    OneToMany,
 } from 'typeorm';
-import {Item} from "./item.model";
+import {Item} from './item.model';
+import {StatusEnum} from '../enums/status.enum';
 
 @Entity()
 export class Player {
@@ -28,7 +30,7 @@ export class Player {
     @OneToMany(type => Item, item => item.player)
     public items!: Item[];
     @Column('simple-array')
-    public statuses!: string[];
+    public statuses!: StatusEnum[];
     @Column()
     public healthPoint!: number;
     @Column()
@@ -48,7 +50,7 @@ export class Player {
     @UpdateDateColumn()
     public updatedAt!: Date;
 
-    public setDirty() {
+    public setDirty(): void {
         this.isDirty = true;
     }
 }

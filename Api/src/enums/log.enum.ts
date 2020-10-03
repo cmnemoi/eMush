@@ -50,5 +50,4 @@ export enum EatLogEnum {
     EAT_5_3_0 = 'eat_5_3_0', // $hero s'est mangé son petit repas.
     EAT_5_3_1 = 'eat_5_3_1', // $hero s'est mangé son petit repas, gurps.
     EAT_5_3_2 = 'eat_5_3_2', // $hero s'est mangé son petit repas, merci.
-
 }

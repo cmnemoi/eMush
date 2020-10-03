@@ -1,3 +1,3 @@
-export enum ItemTypeEnum{
-    RATION= "ration",
-};
+export enum ItemTypeEnum {
+    RATION = 'ration',
+}

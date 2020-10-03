@@ -3,7 +3,10 @@ import RoomRepository from '../repository/room.repository';
 import {Door} from '../models/door.model';
 import DoorRepository from '../repository/door.repository';
 import {Daedalus} from '../models/daedalus.model';
-import DaedalusConfig from '../../config/daedalus.config';
+import {Item} from '../models/item.model';
+import ItemRepository from '../repository/item.repository';
+import {logger} from '../config/logger';
+import ItemsConfig from '../../config/item.config';
 
 export default class RoomService {
     public static findAll(): Promise<Room[]> {
@@ -26,6 +29,7 @@ export default class RoomService {
         room.name = roomConfig.name;
         room.statuses = [];
         room.doors = [];
+        room.items = [];
         room.daedalus = daedalus;
         await RoomRepository.save(room);
         for (const doorName of roomConfig.doors) {
@@ -39,6 +43,35 @@ export default class RoomService {
             room.doors.push(door);
             await RoomRepository.save(room);
         }
+        for (const itemName of roomConfig.items) {
+            const itemConfig = ItemsConfig.find(
+                itemSearch => itemSearch.name === itemName
+            );
+
+            if (typeof itemConfig === 'undefined') {
+                logger.error(
+                    itemName + ' does not exist or is not configurated'
+                );
+                throw new Error(
+                    itemName + ' does not exist or is not configurated'
+                );
+            }
+
+            const item = new Item();
+            item.name = itemConfig.name;
+            item.type = itemConfig.type;
+            item.isHeavy = itemConfig.isHeavy;
+            item.isDismantable = itemConfig.isDismantable;
+            item.isStackable = itemConfig.isStackable;
+            item.isHideable = itemConfig.isHideable;
+            item.isMoveable = itemConfig.isMoveable;
+            item.isFireDestroyable = itemConfig.isFireDestroyable;
+            item.isFireBreakable = itemConfig.isFireBreakable;
+
+            room.items.push(item);
+            await ItemRepository.save(item);
+        }
+        await RoomRepository.save(room);
 
         return room;
     }

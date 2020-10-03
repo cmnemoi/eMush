@@ -1,22 +1,22 @@
 import {MoveAction} from './move.action';
 import {Action} from './action';
-import {ActionsEnum} from "../enums/actions.enum";
-import {EatAction} from "./eat.action";
+import {ActionsEnum} from '../enums/actions.enum';
+import {EatAction} from './eat.action';
 
-interface ActionClass{
-    name: ActionsEnum,
-    class: string
+interface ActionClass {
+    name: ActionsEnum;
+    class: string;
 }
 
 const listActionsNameToClass: ActionClass[] = [
     {
         name: ActionsEnum.MOVE,
-        class: "MoveAction"
+        class: 'MoveAction',
     },
     {
         name: ActionsEnum.EAT,
-        class: "EatAction"
-    }
+        class: 'EatAction',
+    },
 ];
 const actions = {
     MoveAction,
@@ -24,10 +24,11 @@ const actions = {
 };
 
 export function getActionClass(action: ActionsEnum): string | null {
-    const actionObject = listActionsNameToClass.find(value => value.name === action)
+    const actionObject = listActionsNameToClass.find(
+        value => value.name === action
+    );
 
-    return (typeof actionObject === "undefined") ? null : actionObject.class;
-
+    return typeof actionObject === 'undefined' ? null : actionObject.class;
 }
 
 export function createInstance(actionClass: string, ...args: any[]): Action {

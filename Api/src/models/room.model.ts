@@ -12,7 +12,7 @@ import {
 import {Daedalus} from './daedalus.model';
 import {Player} from './player.model';
 import {Door} from './door.model';
-import {Item} from "./item.model";
+import {Item} from './item.model';
 
 @Entity()
 export class Room {

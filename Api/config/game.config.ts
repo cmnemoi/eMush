@@ -10,7 +10,7 @@ export default {
     maxMoralPoint: 16,
     initSatiety: 0,
     initActionPoint: 10,
-    maxActionPoint: 10,
+    maxActionPoint: 16,
     initMovementPoint: 10,
-    maxMovementPoint: 10,
+    maxMovementPoint: 16,
 };

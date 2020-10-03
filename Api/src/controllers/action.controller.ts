@@ -24,7 +24,7 @@ export class ActionController {
                     });
                     return;
                 }
-                console.log(actionClassName)
+
                 const action: Action = createInstance(actionClassName, player);
 
                 action.loadParams(req.body.params).then((isLoaded: boolean) => {

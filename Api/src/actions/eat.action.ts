@@ -4,14 +4,16 @@ import {RoomLog} from '../models/roomLog.model';
 import {VisibilityEnum} from '../enums/visibility.enum';
 import {EatLogEnum} from '../enums/log.enum';
 import RoomLogRepository from '../repository/roomLog.repository';
-import ItemRepository from "../repository/item.repository";
-import {Item} from "../models/item.model";
-import {ItemTypeEnum} from "../enums/itemType.enum";
-import {StatusEnum} from "../enums/status.enum";
-import GameConfig from "../../config/game.config"
-import {ActionResult} from "../enums/actionResult.enum";
-import PlayerRepository from "../repository/player.repository";
-import RandomService from "../services/random.service";
+import ItemRepository from '../repository/item.repository';
+import {Item} from '../models/item.model';
+import {ItemTypeEnum} from '../enums/itemType.enum';
+import {StatusEnum} from '../enums/status.enum';
+import GameConfig from '../../config/game.config';
+import ItemsConfig from '../../config/item.config';
+import {ActionResult} from '../enums/actionResult.enum';
+import PlayerRepository from '../repository/player.repository';
+import RandomService from '../services/random.service';
+import {logger} from '../config/logger';
 
 export class EatAction extends Action {
     public player!: Player;
@@ -41,32 +43,83 @@ export class EatAction extends Action {
 
     canExecute(): boolean {
         return (
-            (this.player.room.items.some(item => item.id === this.food.id) || this.player.items.some(item => item.id === this.food.id)) &&
+            (this.player.room.items.some(item => item.id === this.food.id) ||
+                this.player.items.some(item => item.id === this.food.id)) &&
             !this.player.statuses.includes(StatusEnum.FULL_STOMACH)
         );
     }
 
     createLog(): void {
-        const eqtLog = new RoomLog();
-        eqtLog.roomId = this.player.room.id;
-        eqtLog.playerId = this.player.id;
-        eqtLog.visibility = VisibilityEnum.SECRET;
-        eqtLog.message = EatLogEnum.EAT_1;
+        const eatLog = new RoomLog();
+        eatLog.roomId = this.player.room.id;
+        eatLog.playerId = this.player.id;
+        eatLog.visibility = VisibilityEnum.SECRET;
+        eatLog.message = EatLogEnum.EAT_1;
 
-        RoomLogRepository.save(eqtLog);
+        RoomLogRepository.save(eatLog);
     }
 
     async apply(): Promise<string> {
-        switch (this.food.name) {
-            case ItemTypeEnum.RATION: // TODO checkhow to make this value configurable
-                this.player.actionPoint = Math.min(this.player.actionPoint + 4, GameConfig.maxActionPoint);
-                this.player.movementPoint = Math.max(this.player.actionPoint - 1, 0);
-                this.player.satiety = 4;
-                this.player.statuses.push(StatusEnum.FULL_STOMACH);
-                break;
+        const itemConfig = ItemsConfig.find(
+            item => item.name === this.food.name
+        );
+
+        if (
+            typeof itemConfig === 'undefined' ||
+            typeof itemConfig.effects === 'undefined'
+        ) {
+            logger.error(
+                this.food.name +
+                    ' does not exist or is not configurated, item id: ' +
+                    this.food.id
+            );
+            throw new Error(
+                this.food.name +
+                    ' does not exist or is not configurated, item id: ' +
+                    this.food.id
+            );
         }
 
-        if (RandomService.random() < 20) { // @TODO: how do we handle dirty ? (event?)
+        this.player.actionPoint = Math.max(
+            Math.min(
+                this.player.actionPoint + itemConfig.effects.actionPoint,
+                GameConfig.maxActionPoint
+            ),
+            0
+        );
+        this.player.movementPoint = Math.max(
+            Math.min(
+                this.player.movementPoint + itemConfig.effects.movementPoint,
+                GameConfig.maxMovementPoint
+            ),
+            0
+        );
+        this.player.healthPoint = Math.max(
+            Math.min(
+                this.player.healthPoint + itemConfig.effects.healthPoint,
+                GameConfig.maxHealthPoint
+            ),
+            0
+        );
+        this.player.moralPoint = Math.max(
+            Math.min(
+                this.player.moralPoint + itemConfig.effects.moralPoint,
+                GameConfig.maxMoralPoint
+            ),
+            0
+        );
+        this.player.satiety = itemConfig.effects.satiety;
+        if (this.player.satiety >= 3) {
+            this.player.statuses.push(StatusEnum.FULL_STOMACH);
+        }
+
+        const index = this.player.statuses.indexOf(StatusEnum.STARVING);
+        if (index > -1) {
+            this.player.statuses.splice(index, 1);
+        }
+
+        if (RandomService.random() < 20) {
+            // @TODO: how do we handle dirty ? (event?)
             this.player.setDirty();
         }
 

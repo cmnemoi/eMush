@@ -1,6 +1,7 @@
 import {RoomEnum} from '../src/enums/room.enum';
 import {DoorEnum} from '../src/enums/door.enum';
 import {EquipmentEnum} from '../src/enums/equipment.enum';
+import {ItemsEnum} from '../src/enums/items.enum';
 
 export default {
     initOxygen: 10,
@@ -104,7 +105,40 @@ export default {
             name: RoomEnum.REFECTORY,
             doors: [DoorEnum.REFECTORY_CENTRAL_CORRIDOR],
             equipments: [EquipmentEnum.COFFEE_MACHINE, EquipmentEnum.KITCHEN],
-            items: [],
+            items: [
+                ItemsEnum.STANDARD_RATION,
+                ItemsEnum.STANDARD_RATION,
+                ItemsEnum.STANDARD_RATION,
+                ItemsEnum.STANDARD_RATION,
+                ItemsEnum.STANDARD_RATION,
+                ItemsEnum.STANDARD_RATION,
+                ItemsEnum.STANDARD_RATION,
+                ItemsEnum.STANDARD_RATION,
+                ItemsEnum.STANDARD_RATION,
+                ItemsEnum.STANDARD_RATION,
+                ItemsEnum.STANDARD_RATION,
+                ItemsEnum.STANDARD_RATION,
+                ItemsEnum.STANDARD_RATION,
+                ItemsEnum.STANDARD_RATION,
+                ItemsEnum.STANDARD_RATION,
+                ItemsEnum.STANDARD_RATION,
+                ItemsEnum.STANDARD_RATION,
+                ItemsEnum.STANDARD_RATION,
+                ItemsEnum.STANDARD_RATION,
+                ItemsEnum.STANDARD_RATION,
+                ItemsEnum.STANDARD_RATION,
+                ItemsEnum.STANDARD_RATION,
+                ItemsEnum.STANDARD_RATION,
+                ItemsEnum.STANDARD_RATION,
+                ItemsEnum.STANDARD_RATION,
+                ItemsEnum.STANDARD_RATION,
+                ItemsEnum.STANDARD_RATION,
+                ItemsEnum.STANDARD_RATION,
+                ItemsEnum.STANDARD_RATION,
+                ItemsEnum.STANDARD_RATION,
+                ItemsEnum.STANDARD_RATION,
+                ItemsEnum.STANDARD_RATION,
+            ],
         },
         {
             name: RoomEnum.HYDROPONIC_GARDEN,

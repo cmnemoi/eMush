@@ -1,11 +1,9 @@
 import {Player} from '../models/player.model';
-import RoomLogService from '../services/roomLog.service';
-import {RoomLog} from '../models/roomLog.model';
 import eventManager from '../config/event.manager';
 import GameConfig from '../../config/game.config';
 import {DaedalusEvent} from './daedalus.event';
 import PlayerService from '../services/player.service';
-import {StatusEnum} from "../enums/status.enum";
+import {StatusEnum} from '../enums/status.enum';
 
 export enum PlayerEvent {
     PLAYER_AWAKEN = 'player_awaken',
@@ -26,11 +24,31 @@ const playerDie = (player: Player) => {
     }
 };
 
+// @TODO: handle logs
 const playerNewCycle = (player: Player) => {
     player.moralPoint--;
     player.satiety--;
     player.actionPoint++;
     player.movementPoint++;
+
+    for (const status of player.statuses) {
+        switch (status) {
+            case StatusEnum.STARVING: {
+                player.healthPoint--;
+                break;
+            }
+            case StatusEnum.FULL_STOMACH: {
+                if (player.satiety < 3) {
+                    const indexFullStocmach = player.statuses.indexOf(
+                        StatusEnum.FULL_STOMACH
+                    );
+                    if (indexFullStocmach > -1) {
+                        player.statuses.splice(indexFullStocmach, 1);
+                    }
+                }
+            }
+        }
+    }
 
     PlayerService.save(player);
 };

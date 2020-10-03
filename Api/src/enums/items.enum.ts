@@ -1,3 +1,3 @@
 export enum ItemsEnum {
-    STANDARD_RATION = "standard_ration",
+    STANDARD_RATION = 'standard_ration',
 }

@@ -5,8 +5,8 @@ import {Room} from '../models/room.model';
 import {RoomLog} from '../models/roomLog.model';
 import {Player} from '../models/player.model';
 import {ConnectionOptions} from 'typeorm/connection/ConnectionOptions';
-import {Door} from "../models/door.model";
-import {TypeOrmLogger} from "./logger";
+import {Door} from '../models/door.model';
+import {TypeOrmLogger} from './logger';
 
 const dbConfig: ConnectionOptions = {
     type: 'mysql' || '',

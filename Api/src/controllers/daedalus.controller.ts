@@ -45,7 +45,7 @@ export class DaedalusController {
         }
         DaedalusService.initDaedalus()
             .then((daedalus: Daedalus) => {
-                res.status(201).json({id : daedalus.id});
+                res.status(201).json({id: daedalus.id});
             })
             .catch((err: Error) => {
                 logger.error(err.message);

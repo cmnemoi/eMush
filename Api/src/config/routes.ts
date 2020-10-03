@@ -2,13 +2,16 @@ import express from 'express';
 import {PlayerController} from '../controllers/player.controller';
 import {validate, POST_PLAYER} from '../controllers/player.validator';
 import {DaedalusController} from '../controllers/daedalus.controller';
+import {ActionController} from '../controllers/action.controller';
 
 export const PLAYER_ROUTE = '/players';
 export const DAEDALUS_ROUTE = '/daedalus';
+export const ACTION_ROUTE = '/action';
 
 export class Routes {
     private playerController: PlayerController = new PlayerController();
     private daedalusController: DaedalusController = new DaedalusController();
+    private actionController: ActionController = new ActionController();
 
     public routes(app: express.Application): void {
         // Player
@@ -31,5 +34,7 @@ export class Routes {
         app.route(DAEDALUS_ROUTE + '/:id').delete(
             this.daedalusController.delete
         );
+        // Action
+        app.route(ACTION_ROUTE).post(this.actionController.post);
     }
 }

@@ -1,4 +1,4 @@
-export enum Door {
+export enum DoorEnum {
     BRIDGE_FRONT_ALPHA_TURRET = 'bridge_front_alpha_turret',
     BRIDGE_FRONT_BRAVO_TURRET = 'bridge_front_bravo_turret',
     FRONT_CORRIDOR_FRONT_ALPHA_TURRET = 'front_corridor_front_alpha_turret',

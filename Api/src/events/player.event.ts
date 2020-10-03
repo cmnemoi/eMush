@@ -14,24 +14,12 @@ export enum PlayerEvent {
 }
 
 const playerAwaken = (player: Player) => {
-    const roomLog = new RoomLog();
-    roomLog.roomId = player.room.id;
-    roomLog.createdAt = new Date();
-    roomLog.log = 'player awaken';
-    RoomLogService.save(roomLog);
-
     if (player.daedalus.players.length === GameConfig.maxPlayer) {
         eventManager.emit(DaedalusEvent.DAEDALUS_START, player.daedalus);
     }
 };
 
 const playerDie = (player: Player) => {
-    const roomLog = new RoomLog();
-    roomLog.roomId = player.room.id;
-    roomLog.createdAt = new Date();
-    roomLog.log = 'player die';
-    RoomLogService.save(roomLog);
-
     if (player.daedalus.getPlayersAlive().length === 0) {
         eventManager.emit(DaedalusEvent.DAEDALUS_END, player.daedalus);
     }

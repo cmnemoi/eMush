@@ -1,7 +1,9 @@
 import {
     Column,
     CreateDateColumn,
-    Entity, JoinTable, ManyToMany,
+    Entity,
+    JoinTable,
+    ManyToMany,
     ManyToOne,
     OneToMany,
     PrimaryGeneratedColumn,
@@ -9,7 +11,7 @@ import {
 } from 'typeorm';
 import {Daedalus} from './daedalus.model';
 import {Player} from './player.model';
-import {Door} from "./door.model";
+import {Door} from './door.model';
 
 @Entity()
 export class Room {

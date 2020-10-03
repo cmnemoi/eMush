@@ -13,7 +13,7 @@ export default class PlayerRepository {
         return database.then(async connection => {
             const playerRepository = connection.getRepository(Player);
             return playerRepository
-                .findOne(id)
+                .findOne(id, {relations: ['room', 'room.doors']})
                 .then((result: Player | undefined) => {
                     return typeof result === 'undefined' ? null : result;
                 });

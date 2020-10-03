@@ -7,7 +7,7 @@ import eventManager from '../config/event.manager';
 import {DaedalusEvent} from '../events/daedalus.event';
 import DaedalusRepository from '../repository/daedalus.repository';
 import RoomRepository from '../repository/room.repository';
-import RoomService from "./room.service";
+import RoomService from './room.service';
 
 export default class DaedalusService {
     public static findAll(): Promise<Daedalus[]> {
@@ -33,7 +33,7 @@ export default class DaedalusService {
 
         const rooms: Room[] = [];
 
-        await DaedalusRepository.save(daedalus)
+        await DaedalusRepository.save(daedalus);
 
         for (const roomConfig of DaedalusConfig.rooms) {
             const room = await RoomService.initRoom(roomConfig, daedalus);

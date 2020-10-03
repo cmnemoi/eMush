@@ -1,6 +1,5 @@
 import {RoomLog} from '../models/roomLog.model';
 import database from '../config/database';
-import {Room} from '../models/room.model';
 
 export default class RoomLogRepository {
     public static findAll(): Promise<RoomLog[]> {

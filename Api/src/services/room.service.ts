@@ -1,9 +1,9 @@
 import {Room} from '../models/room.model';
 import RoomRepository from '../repository/room.repository';
-import {Door} from "../models/door.model";
-import DoorRepository from "../repository/door.repository";
-import {Daedalus} from "../models/daedalus.model";
-import DaedalusConfig from "../../config/daedalus.config";
+import {Door} from '../models/door.model';
+import DoorRepository from '../repository/door.repository';
+import {Daedalus} from '../models/daedalus.model';
+import DaedalusConfig from '../../config/daedalus.config';
 
 export default class RoomService {
     public static findAll(): Promise<Room[]> {
@@ -18,7 +18,10 @@ export default class RoomService {
         return RoomRepository.save(room);
     }
 
-    public static async initRoom(roomConfig: any, daedalus: Daedalus): Promise<Room> {
+    public static async initRoom(
+        roomConfig: any,
+        daedalus: Daedalus
+    ): Promise<Room> {
         const room = new Room();
         room.name = roomConfig.name;
         room.statuses = [];

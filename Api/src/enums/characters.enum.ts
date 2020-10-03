@@ -1,4 +1,4 @@
-export enum Character {
+export enum CharactersEnum {
     ANDIE = 'andie',
     DEREK = 'derek',
     ELEESHA = 'eleesha',
@@ -21,23 +21,23 @@ export enum Character {
 
 export function getAllCharacter(): string[] {
     return [
-        Character.ANDIE,
-        Character.DEREK,
-        Character.ELEESHA,
-        Character.FINOLA,
-        Character.FRIEDA,
-        Character.GIOELE,
-        Character.IAN,
-        Character.JANICE,
-        Character.HUA,
-        Character.KIM_JUN_SU,
-        Character.KUAN_TI,
-        Character.PAOLA,
-        Character.RALUCA,
-        Character.ROLAND,
-        Character.STEPHEN,
-        Character.TERRENCE,
-        Character.CHAO,
-        Character.CHUN,
+        CharactersEnum.ANDIE,
+        CharactersEnum.DEREK,
+        CharactersEnum.ELEESHA,
+        CharactersEnum.FINOLA,
+        CharactersEnum.FRIEDA,
+        CharactersEnum.GIOELE,
+        CharactersEnum.IAN,
+        CharactersEnum.JANICE,
+        CharactersEnum.HUA,
+        CharactersEnum.KIM_JUN_SU,
+        CharactersEnum.KUAN_TI,
+        CharactersEnum.PAOLA,
+        CharactersEnum.RALUCA,
+        CharactersEnum.ROLAND,
+        CharactersEnum.STEPHEN,
+        CharactersEnum.TERRENCE,
+        CharactersEnum.CHAO,
+        CharactersEnum.CHUN,
     ];
 }

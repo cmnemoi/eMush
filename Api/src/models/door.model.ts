@@ -1,7 +1,9 @@
 import {
     Column,
     CreateDateColumn,
-    Entity, JoinTable, ManyToMany,
+    Entity,
+    JoinTable,
+    ManyToMany,
     ManyToOne,
     OneToMany,
     PrimaryGeneratedColumn,
@@ -9,7 +11,8 @@ import {
 } from 'typeorm';
 import {Daedalus} from './daedalus.model';
 import {Player} from './player.model';
-import {Room} from "./room.model";
+import {Room} from './room.model';
+import {StatusEnum} from '../enums/status.enum';
 
 @Entity()
 export class Door {
@@ -21,4 +24,8 @@ export class Door {
     public statuses!: string[];
     @ManyToMany(type => Room, room => room.doors)
     public rooms!: Room[];
+
+    public isBroken(): boolean {
+        return this.statuses.includes(StatusEnum.BROKEN);
+    }
 }

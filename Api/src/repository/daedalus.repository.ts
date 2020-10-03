@@ -1,6 +1,5 @@
 import {Daedalus} from '../models/daedalus.model';
 import database from '../config/database';
-import {Player} from '../models/player.model';
 
 export default class DaedalusRepository {
     public static findAll(): Promise<Daedalus[]> {

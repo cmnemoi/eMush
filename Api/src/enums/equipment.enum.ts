@@ -1,4 +1,4 @@
-export enum Equipment {
+export enum EquipmentEnum {
     PATROL_SHIP_ALPHA_LONGANE = 'patrol_ship_alpha_longane',
     PATROL_SHIP_ALPHA_JUJUBE = 'patrol_ship_alpha_jujube',
     PATROL_SHIP_ALPHA_TAMARIN = 'patrol_ship_alpha_tamarin',

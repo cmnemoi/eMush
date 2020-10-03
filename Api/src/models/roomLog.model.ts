@@ -3,8 +3,9 @@ import {
     CreateDateColumn,
     Entity,
     PrimaryGeneratedColumn,
-    UpdateDateColumn,
 } from 'typeorm';
+import {VisibilityEnum} from '../enums/visibility.enum';
+import {LogEnum} from '../enums/log.enum';
 
 @Entity()
 export class RoomLog {
@@ -13,7 +14,11 @@ export class RoomLog {
     @Column()
     public roomId!: number;
     @Column()
-    public log!: string;
+    public playerId!: number;
+    @Column()
+    public visibility!: VisibilityEnum;
+    @Column()
+    public message!: LogEnum;
     @CreateDateColumn()
     public createdAt!: Date;
 }

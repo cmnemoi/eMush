@@ -1,6 +1,6 @@
 import {Room} from '../models/room.model';
 import database from '../config/database';
-import {Player} from '../models/player.model';
+import {FindOneOptions} from 'typeorm/find-options/FindOneOptions';
 
 export default class RoomRepository {
     public static findAll(): Promise<Room[]> {
@@ -10,11 +10,14 @@ export default class RoomRepository {
         });
     }
 
-    public static find(id: number): Promise<Room | null> {
+    public static find(
+        id: number,
+        options: FindOneOptions<Room> = {}
+    ): Promise<Room | null> {
         return database.then(async connection => {
             const roomRepository = connection.getRepository(Room);
             return roomRepository
-                .findOne(id)
+                .findOne(id, options)
                 .then((result: Room | undefined) => {
                     return typeof result === 'undefined' ? null : result;
                 });

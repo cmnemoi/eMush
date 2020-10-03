@@ -5,6 +5,9 @@ import {RoomEnum} from '../enums/room.enum';
 import eventManager from '../config/event.manager';
 import {PlayerEvent} from '../events/player.event';
 import PlayerRepository from '../repository/player.repository';
+import GameConfig from '../../config/game.config';
+import CharacterConfig from '../../config/character.config';
+import {logger} from '../config/logger';
 
 export default class PlayerService {
     public static findAll(): Promise<Player[]> {
@@ -35,20 +38,30 @@ export default class PlayerService {
                     daedalus.id
             );
         }
-
         player.user = 'TODO';
         player.daedalus = daedalus;
         player.character = character;
         player.skills = [];
         player.statuses = [];
         player.items = [];
-        player.healthPoint = 10;
-        player.moralPoint = 10;
-        player.actionPoint = 10;
-        player.movementPoint = 10;
-        player.satiety = 10;
+        player.healthPoint = GameConfig.initHealthPoint;
+        player.moralPoint = GameConfig.initMoralPoint;
+        player.actionPoint = GameConfig.initActionPoint;
+        player.movementPoint = GameConfig.initMovementPoint;
+        player.satiety = GameConfig.initSatiety;
         player.isDirty = false;
         player.isMush = false;
+
+        const characterConfig = CharacterConfig.find(
+            characterConfigs => characterConfigs.name === character
+        );
+        if (typeof characterConfig !== 'undefined') {
+            if (typeof characterConfig.statuses !== 'undefined') {
+                player.statuses = characterConfig.statuses;
+            }
+        } else {
+            logger.error('Cannot load config for character: ' + character);
+        }
 
         eventManager.emit(PlayerEvent.PLAYER_AWAKEN, player);
 

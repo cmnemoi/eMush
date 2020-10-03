@@ -6,7 +6,6 @@ import moment, {Moment} from 'moment-timezone';
 import eventManager from '../config/event.manager';
 import {DaedalusEvent} from '../events/daedalus.event';
 import DaedalusRepository from '../repository/daedalus.repository';
-import RoomRepository from '../repository/room.repository';
 import RoomService from './room.service';
 
 export default class DaedalusService {

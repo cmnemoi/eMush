@@ -13,6 +13,7 @@ import {Daedalus} from './daedalus.model';
 import {Player} from './player.model';
 import {Room} from './room.model';
 import {StatusEnum} from '../enums/status.enum';
+import {StateEnum} from '../enums/state.enum';
 
 @Entity()
 export class Door {
@@ -26,6 +27,6 @@ export class Door {
     public rooms!: Room[];
 
     public isBroken(): boolean {
-        return this.statuses.includes(StatusEnum.BROKEN);
+        return this.statuses.includes(StateEnum.BROKEN);
     }
 }

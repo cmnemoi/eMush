@@ -29,12 +29,12 @@ const playerDie = (player: Player) => {
 };
 
 // @TODO: handle logs time to match the cycle change instead of the current date
-const playerNewCycle = (player: Player) => {
+const playerNewCycle = (player: Player, date: Date) => {
     player.satiety--;
     player.actionPoint++;
-    RoomLogService.createLog(LogEnum.GAIN_ACTION_POINT, {number: 1}, player.room, player, VisibilityEnum.PRIVATE)
+    RoomLogService.createLog(LogEnum.GAIN_ACTION_POINT, {number: 1}, player.room, player, VisibilityEnum.PRIVATE, date)
     player.movementPoint++;
-    RoomLogService.createLog(LogEnum.GAIN_MOVEMENT_POINT, {number: 1}, player.room, player, VisibilityEnum.PRIVATE)
+    RoomLogService.createLog(LogEnum.GAIN_MOVEMENT_POINT, {number: 1}, player.room, player, VisibilityEnum.PRIVATE, date)
 
     for (const status of player.statuses) {
         switch (status) {
@@ -61,12 +61,12 @@ const playerNewCycle = (player: Player) => {
     PlayerService.save(player);
 };
 
-const playerNewDay = (player: Player) => {
+const playerNewDay = (player: Player, date: Date) => {
     player.moralPoint--;
-    RoomLogService.createLog(LogEnum.GAIN_ACTION_POINT, {number: 1}, player.room, player, VisibilityEnum.PRIVATE)
-    RoomLogService.createLog(LogEnum.NEW_DAY, {}, player.room, player, VisibilityEnum.PRIVATE)
+    RoomLogService.createLog(LogEnum.GAIN_ACTION_POINT, {number: 1}, player.room, player, VisibilityEnum.PRIVATE, date)
+    RoomLogService.createLog(LogEnum.NEW_DAY, {}, player.room, player, VisibilityEnum.PRIVATE, date)
     player.healthPoint++;
-    RoomLogService.createLog(LogEnum.GAIN_ACTION_POINT, {number: 1}, player.room, player, VisibilityEnum.PRIVATE)
+    RoomLogService.createLog(LogEnum.GAIN_ACTION_POINT, {number: 1}, player.room, player, VisibilityEnum.PRIVATE, date)
 
     PlayerService.save(player);
 };

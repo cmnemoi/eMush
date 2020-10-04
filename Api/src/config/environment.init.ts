@@ -1,5 +1,6 @@
 import * as dotenv from 'dotenv';
 import * as fs from 'fs';
+import {logger} from './logger';
 
 // If test environment and .env.test exit; load this file
 if (process.env.NODE_ENV === 'test') {
@@ -10,7 +11,7 @@ if (process.env.NODE_ENV === 'test') {
             dotenv.config();
         }
     } catch (err) {
-        console.error(err);
+        logger.error(err);
     }
 } else {
     dotenv.config();

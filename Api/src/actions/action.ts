@@ -1,8 +1,9 @@
 import {ActionResult} from '../enums/actionResult.enum';
+import {ActionInterface} from './action.interface';
 
 export abstract class Action {
     public abstract async loadParams(params: any): Promise<boolean>;
-    protected abstract canExecute(): boolean;
+    public abstract canExecute(): boolean;
     protected abstract async apply(): Promise<string>;
     protected abstract createLog(actionResult: string): void;
 

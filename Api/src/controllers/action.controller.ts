@@ -18,7 +18,7 @@ export class ActionController {
             (player: Player | null) => {
                 const actionClassName = getActionClass(req.body.action);
 
-                if (typeof actionClassName === 'undefined') {
+                if (actionClassName === null) {
                     res.status(422).json({
                         error: 'invalid action provided',
                     });

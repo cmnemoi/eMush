@@ -6,7 +6,7 @@ import {RoomLog} from '../models/roomLog.model';
 import {Player} from '../models/player.model';
 import {ConnectionOptions} from 'typeorm/connection/ConnectionOptions';
 import {Door} from '../models/door.model';
-import {TypeOrmLogger} from './logger';
+import {Item} from '../models/item.model';
 
 const dbConfig: ConnectionOptions = {
     type: 'mysql' || '',
@@ -15,7 +15,7 @@ const dbConfig: ConnectionOptions = {
     username: process.env.DB_USER || '',
     password: process.env.DB_PASSWORD || '',
     database: process.env.DB_NAME || '',
-    entities: [Daedalus, Room, RoomLog, Player, Door],
+    entities: [Daedalus, Room, RoomLog, Player, Door, Item],
     synchronize: process.env.NODE_ENV === 'test',
     logging: false,
     migrationsTableName: 'migrations',

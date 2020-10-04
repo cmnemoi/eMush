@@ -4,6 +4,9 @@ import GameConfig from '../../config/game.config';
 import {DaedalusEvent} from './daedalus.event';
 import PlayerService from '../services/player.service';
 import {StatusEnum} from '../enums/status.enum';
+import RoomLogService from "../services/roomLog.service";
+import {LogEnum} from "../enums/log.enum";
+import {VisibilityEnum} from "../enums/visibility.enum";
 
 export enum PlayerEvent {
     PLAYER_AWAKEN = 'player_awaken',
@@ -13,6 +16,7 @@ export enum PlayerEvent {
 }
 
 const playerAwaken = (player: Player) => {
+    RoomLogService.createLog(LogEnum.AWAKEN, {character: player.character}, player.room, player, VisibilityEnum.PRIVATE)
     if (player.daedalus.players.length === GameConfig.maxPlayer) {
         eventManager.emit(DaedalusEvent.DAEDALUS_START, player.daedalus);
     }
@@ -24,12 +28,13 @@ const playerDie = (player: Player) => {
     }
 };
 
-// @TODO: handle logs
+// @TODO: handle logs time to match the cycle change instead of the current date
 const playerNewCycle = (player: Player) => {
-    player.moralPoint--;
     player.satiety--;
     player.actionPoint++;
+    RoomLogService.createLog(LogEnum.GAIN_ACTION_POINT, {number: 1}, player.room, player, VisibilityEnum.PRIVATE)
     player.movementPoint++;
+    RoomLogService.createLog(LogEnum.GAIN_MOVEMENT_POINT, {number: 1}, player.room, player, VisibilityEnum.PRIVATE)
 
     for (const status of player.statuses) {
         switch (status) {
@@ -39,12 +44,15 @@ const playerNewCycle = (player: Player) => {
             }
             case StatusEnum.FULL_STOMACH: {
                 if (player.satiety < 3) {
-                    const indexFullStocmach = player.statuses.indexOf(
+                    const indexFullStomach = player.statuses.indexOf(
                         StatusEnum.FULL_STOMACH
                     );
-                    if (indexFullStocmach > -1) {
-                        player.statuses.splice(indexFullStocmach, 1);
+                    if (indexFullStomach > -1) {
+                        player.statuses.splice(indexFullStomach, 1);
                     }
+                }
+                if (player.satiety <= -24 && !player.isStarving()) {
+                    player.statuses.push(StatusEnum.STARVING);
                 }
             }
         }
@@ -54,7 +62,11 @@ const playerNewCycle = (player: Player) => {
 };
 
 const playerNewDay = (player: Player) => {
+    player.moralPoint--;
+    RoomLogService.createLog(LogEnum.GAIN_ACTION_POINT, {number: 1}, player.room, player, VisibilityEnum.PRIVATE)
+    RoomLogService.createLog(LogEnum.NEW_DAY, {}, player.room, player, VisibilityEnum.PRIVATE)
     player.healthPoint++;
+    RoomLogService.createLog(LogEnum.GAIN_ACTION_POINT, {number: 1}, player.room, player, VisibilityEnum.PRIVATE)
 
     PlayerService.save(player);
 };

@@ -1,9 +1,7 @@
 import {Action} from './action';
 import {Player} from '../models/player.model';
-import {RoomLog} from '../models/roomLog.model';
 import {VisibilityEnum} from '../enums/visibility.enum';
-import {EatLogEnum} from '../enums/log.enum';
-import RoomLogRepository from '../repository/roomLog.repository';
+import {LogEnum} from '../enums/log.enum';
 import ItemRepository from '../repository/item.repository';
 import {Item} from '../models/item.model';
 import {ItemTypeEnum} from '../enums/itemType.enum';
@@ -14,6 +12,7 @@ import {ActionResult} from '../enums/actionResult.enum';
 import PlayerRepository from '../repository/player.repository';
 import RandomService from '../services/random.service';
 import {logger} from '../config/logger';
+import RoomLogService from "../services/roomLog.service";
 
 export class EatAction extends Action {
     public player!: Player;
@@ -50,13 +49,8 @@ export class EatAction extends Action {
     }
 
     createLog(): void {
-        const eatLog = new RoomLog();
-        eatLog.roomId = this.player.room.id;
-        eatLog.playerId = this.player.id;
-        eatLog.visibility = VisibilityEnum.SECRET;
-        eatLog.message = EatLogEnum.EAT_1;
-
-        RoomLogRepository.save(eatLog);
+        // 0FIXME how do we handle secret discovered visibility
+        RoomLogService.createLog(LogEnum.EAT, {character: this.player.character}, this.player.room, this.player, VisibilityEnum.SECRET)
     }
 
     async apply(): Promise<string> {

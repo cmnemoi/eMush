@@ -3,7 +3,7 @@ export default {
     nbMush: 2,
     cycleLength: 3, // Has to be a divider of 24
     timeZone: 'Europe/Paris',
-    language: 'en',
+    language: 'fr',
     initHealthPoint: 10,
     maxHealthPoint: 16,
     initMoralPoint: 10,

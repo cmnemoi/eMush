@@ -7,6 +7,8 @@ import {DaedalusEvent} from '../events/daedalus.event';
 import DaedalusRepository from '../repository/daedalus.repository';
 import RoomService from './room.service';
 import {DateTime} from 'luxon';
+import ItemService from "./item.service";
+import RandomService from "./random.service";
 
 export default class DaedalusService {
     public static findAll(): Promise<Daedalus[]> {
@@ -40,6 +42,23 @@ export default class DaedalusService {
         }
 
         daedalus.rooms = rooms;
+
+        const numberOfRoomPossible = DaedalusConfig.randomItemPlace.places.length;
+        for (const randomItemPlace of DaedalusConfig.randomItemPlace.items) {
+            const selectedRoomName = DaedalusConfig.randomItemPlace.places[RandomService.random(numberOfRoomPossible)];
+            const selectedRoom = daedalus.rooms.find(room => room.name === selectedRoomName)
+
+            if (typeof selectedRoom === "undefined") {
+                throw new Error(
+                    selectedRoomName +
+                    ' does not exist in the daedalus id: ' +
+                    daedalus.id
+                );
+
+            }
+
+            await ItemService.createItem(randomItemPlace, selectedRoom);
+        }
 
         return DaedalusRepository.save(daedalus);
     }

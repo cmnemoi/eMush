@@ -105,4 +105,22 @@ export default {
             weighting: 1,
         },
     ],
+    [LogEnum.SOILED]: [
+        {
+            message: 'Salissure logs : TODO',
+            weighting: 1,
+        },
+    ],
+    [LogEnum.SOIL_PREVENTED]: [
+        {
+            message: 'C\'est dégoûtant... Heureusement que vous aviez votre **Tablier intachable**...',
+            weighting: 1,
+        },
+    ],
+    [LogEnum.SOIL_PREVENTED_OCD]: [
+        {
+            message: 'OCD soil prevented log: TODO',
+            weighting: 1,
+        },
+    ],
 };

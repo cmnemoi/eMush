@@ -9,6 +9,8 @@ import {VisibilityEnum} from '../enums/visibility.enum';
 import {LogEnum} from '../enums/log.enum';
 import RoomLogRepository from '../repository/roomLog.repository';
 import DoorRepository from '../repository/door.repository';
+import RoomLogService from "../services/roomLog.service";
+import {logger} from "../config/logger";
 
 export class MoveAction extends Action {
     public player!: Player;
@@ -43,26 +45,18 @@ export class MoveAction extends Action {
     }
 
     createLog(): void {
-        const logExit = new RoomLog();
+
         const oldRoom = this.door.rooms.find(
             (room: Room) => room.id !== this.player.room.id
         );
-        if (typeof oldRoom !== 'undefined') {
-            logExit.roomId = oldRoom.id;
+
+        if (typeof oldRoom === 'undefined') {
+            logger.error("Could not find previous room")
+            return;
         }
-        logExit.playerId = this.player.id;
-        logExit.visibility = VisibilityEnum.PUBLIC;
-        logExit.message = LogEnum.EXIT_ROOM;
 
-        RoomLogRepository.save(logExit);
-
-        const logEnter = new RoomLog();
-        logEnter.roomId = this.player.room.id;
-        logEnter.playerId = this.player.id;
-        logEnter.visibility = VisibilityEnum.PUBLIC;
-        logEnter.message = LogEnum.ENTER_ROOM;
-
-        RoomLogRepository.save(logEnter);
+        RoomLogService.createLog(LogEnum.EXIT_ROOM, {character: this.player.character}, oldRoom, this.player, VisibilityEnum.PUBLIC)
+        RoomLogService.createLog(LogEnum.ENTER_ROOM, {character: this.player.character}, this.player.room, this.player, VisibilityEnum.PUBLIC)
     }
 
     async apply(): Promise<string> {

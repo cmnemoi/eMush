@@ -2,16 +2,17 @@ import {Room} from './room.model';
 import {Daedalus} from './daedalus.model';
 
 import {
-    Entity,
-    PrimaryGeneratedColumn,
     Column,
-    ManyToOne,
     CreateDateColumn,
-    UpdateDateColumn,
+    Entity,
+    ManyToOne,
     OneToMany,
+    PrimaryGeneratedColumn,
+    UpdateDateColumn,
 } from 'typeorm';
 import {Item} from './item.model';
 import {StatusEnum} from '../enums/status.enum';
+import {CharactersEnum} from "../enums/characters.enum";
 
 @Entity()
 export class Player {
@@ -20,7 +21,7 @@ export class Player {
     @Column()
     public user!: string;
     @Column()
-    public character!: string;
+    public character!: CharactersEnum;
     @ManyToOne(type => Daedalus, daedalus => daedalus.players)
     public daedalus!: Daedalus;
     @ManyToOne(type => Room, room => room.players)
@@ -52,5 +53,8 @@ export class Player {
 
     public setDirty(): void {
         this.isDirty = true;
+    }
+    public isStarving(): boolean {
+        return this.statuses.includes(StatusEnum.STARVING);
     }
 }

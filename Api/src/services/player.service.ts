@@ -8,6 +8,7 @@ import PlayerRepository from '../repository/player.repository';
 import GameConfig from '../../config/game.config';
 import CharacterConfig from '../../config/character.config';
 import {logger} from '../config/logger';
+import {CharactersEnum} from "../enums/characters.enum";
 
 export default class PlayerService {
     public static findAll(): Promise<Player[]> {
@@ -24,7 +25,7 @@ export default class PlayerService {
 
     public static async initPlayer(
         daedalus: Daedalus,
-        character: string
+        character: CharactersEnum
     ): Promise<Player> {
         const player = new Player();
 
@@ -63,8 +64,9 @@ export default class PlayerService {
             logger.error('Cannot load config for character: ' + character);
         }
 
+        await PlayerRepository.save(player);
         eventManager.emit(PlayerEvent.PLAYER_AWAKEN, player);
 
-        return PlayerRepository.save(player);
+        return player;
     }
 }

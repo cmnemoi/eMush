@@ -2,11 +2,11 @@ import {Daedalus} from '../models/daedalus.model';
 import DaedalusConfig from '../../config/daedalus.config';
 import GameConfig from '../../config/game.config';
 import {Room} from '../models/room.model';
-import moment, {Moment} from 'moment-timezone';
 import eventManager from '../config/event.manager';
 import {DaedalusEvent} from '../events/daedalus.event';
 import DaedalusRepository from '../repository/daedalus.repository';
 import RoomService from './room.service';
+import { DateTime } from "luxon";
 
 export default class DaedalusService {
     public static findAll(): Promise<Daedalus[]> {
@@ -23,7 +23,7 @@ export default class DaedalusService {
 
     public static async initDaedalus(): Promise<Daedalus> {
         const daedalus = new Daedalus();
-        daedalus.cycle = DaedalusService.getCycleFromDate(moment());
+        daedalus.cycle = DaedalusService.getCycleFromDate(DateTime.utc());
         daedalus.day = 1;
         daedalus.oxygen = DaedalusConfig.initOxygen;
         daedalus.fuel = DaedalusConfig.initFuel;
@@ -45,8 +45,17 @@ export default class DaedalusService {
     }
 
     public static handleCycleChange(daedalus: Daedalus): boolean {
-        const currentDate = moment();
-        const lastUpdate = moment(daedalus.updatedAt.toUTCString());
+        const currentDate = DateTime.utc();
+        const lastUpdate = DateTime.fromMillis(daedalus.updatedAt.getTime());
+        const currentCycle = daedalus.cycle;
+        const currentCycleStartedAt = DateTime.fromMillis(daedalus.updatedAt.getTime())
+            .setZone(GameConfig.timeZone)
+            .set({hour: (currentCycle-1) * GameConfig.cycleLength})
+            .set({minute: 0})
+            .set({second: 0})
+            .set({millisecond: 0})
+            .setZone('UTC')
+        ;
 
         const cycleElapsed = DaedalusService.getNumberOfCycleElapsed(
             lastUpdate,
@@ -54,34 +63,36 @@ export default class DaedalusService {
         );
 
         for (let i = 0; i < cycleElapsed; i++) {
-            eventManager.emit(DaedalusEvent.DAEDALUS_NEW_CYCLE, daedalus);
+            eventManager.emit(DaedalusEvent.DAEDALUS_NEW_CYCLE, daedalus, currentCycleStartedAt.plus({hours: (i + 1) * GameConfig.cycleLength}).toJSDate());
         }
 
         return cycleElapsed !== 0;
     }
 
-    private static getCycleFromDate(date: Moment): number {
+    private static getCycleFromDate(date: DateTime): number {
         return (
             Math.floor(
-                date.tz(GameConfig.timeZone).hours() / GameConfig.cycleLength
+                date.setZone(GameConfig.timeZone).hour / GameConfig.cycleLength
             ) + 1
         );
     }
 
-    private static getNumberOfCycleElapsed(start: Moment, end: Moment): number {
+    private static getNumberOfCycleElapsed(start: DateTime, end: DateTime): number {
         const startCycle = DaedalusService.getCycleFromDate(start);
         const endCycle = DaedalusService.getCycleFromDate(end);
+        end.setZone(GameConfig.timeZone);
+        start.setZone(GameConfig.timeZone);
 
-        let lastYearNumberOfDay = 0;
-        // If not the same year, add the numbers of days in the previous year
-        if (!end.isSame(start, 'year')) {
-            lastYearNumberOfDay = start.isLeapYear() ? 366 : 365;
+        let dayDifference = 0;
+        // We assume the inactivity is not more than a month
+        if (end.month !== start.month) {
+            dayDifference = (start.daysInMonth - start.day) + end.day;
+        } else {
+            dayDifference = end.day - start.day;
         }
 
-        const dayDifference =
-            end.tz(GameConfig.timeZone).dayOfYear() +
-            lastYearNumberOfDay -
-            start.tz(GameConfig.timeZone).dayOfYear();
+
+
         const numberCyclePerDay = 24 / GameConfig.cycleLength;
 
         return endCycle + dayDifference * numberCyclePerDay - startCycle;

@@ -12,12 +12,12 @@ export enum DaedalusEvent {
     DAEDALUS_NEW_DAY = 'daedalus_new_DAY',
 }
 
-const newCycle = (daedalus: Daedalus) => {
+const newCycle = (daedalus: Daedalus, date: Date) => {
     const nbCycle = 24 / GameConfig.cycleLength;
 
     if (daedalus.cycle >= nbCycle) {
         daedalus.cycle = 1;
-        eventManager.emit(DaedalusEvent.DAEDALUS_NEW_DAY, daedalus);
+        eventManager.emit(DaedalusEvent.DAEDALUS_NEW_DAY, daedalus, date);
     } else {
         daedalus.cycle++;
     }
@@ -25,19 +25,19 @@ const newCycle = (daedalus: Daedalus) => {
     daedalus
         .getPlayersAlive()
         .forEach((player: Player) =>
-            eventManager.emit(PlayerEvent.PLAYER_NEW_CYCLE, player)
+            eventManager.emit(PlayerEvent.PLAYER_NEW_CYCLE, player, date)
         );
 
     DaedalusService.save(daedalus);
 };
 
-const newDay = (daedalus: Daedalus) => {
+const newDay = (daedalus: Daedalus, date: Date) => {
     daedalus.day++;
 
     daedalus
         .getPlayersAlive()
         .forEach((player: Player) =>
-            eventManager.emit(PlayerEvent.PLAYER_NEW_DAY, player)
+            eventManager.emit(PlayerEvent.PLAYER_NEW_DAY, player, date)
         );
 
     DaedalusService.save(daedalus);

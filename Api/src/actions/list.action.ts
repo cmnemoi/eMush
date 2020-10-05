@@ -2,6 +2,8 @@ import {MoveAction} from './move.action';
 import {Action} from './action';
 import {ActionsEnum} from '../enums/actions.enum';
 import {EatAction} from './eat.action';
+import {TakeAction} from './take.action';
+import {DropAction} from './drop.action';
 
 interface ActionClass {
     name: ActionsEnum;
@@ -17,10 +19,20 @@ const listActionsNameToClass: ActionClass[] = [
         name: ActionsEnum.EAT,
         class: 'EatAction',
     },
+    {
+        name: ActionsEnum.TAKE,
+        class: 'TakeAction',
+    },
+    {
+        name: ActionsEnum.DROP,
+        class: 'DropAction',
+    },
 ];
 const actions = {
     MoveAction,
     EatAction,
+    TakeAction,
+    DropAction,
 };
 
 export function getActionClass(action: ActionsEnum): string | null {

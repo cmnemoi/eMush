@@ -13,7 +13,7 @@ export default class DaedalusRepository {
         return database.then(async connection => {
             const daedalusRepository = connection.getRepository(Daedalus);
             return daedalusRepository
-                .findOne(id, {relations: ['rooms', 'players', "players.room"]})
+                .findOne(id, {relations: ['rooms', 'players', 'players.room']})
                 .then((result: Daedalus | undefined) => {
                     return typeof result === 'undefined' ? null : result;
                 });

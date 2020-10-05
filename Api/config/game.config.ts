@@ -13,4 +13,5 @@ export default {
     maxActionPoint: 16,
     initMovementPoint: 10,
     maxMovementPoint: 16,
+    maxItemInInventory: 3,
 };

@@ -9,21 +9,22 @@ import {
 import {Player} from './player.model';
 import {Room} from './room.model';
 import {ItemTypeEnum} from '../enums/itemType.enum';
+import {ItemsEnum} from '../enums/items.enum';
 
 @Entity()
 export class Item {
     @PrimaryGeneratedColumn()
     readonly id!: number;
     @Column()
-    public name!: string;
+    public name!: ItemsEnum;
     @Column()
     public type!: ItemTypeEnum;
     @Column('simple-array')
     public statuses: string[] = [];
     @ManyToOne(type => Room, room => room.items)
-    public room!: Room;
+    public room!: Room | null;
     @ManyToOne(type => Player, player => player.items)
-    public player!: Player;
+    public player!: Player | null;
     @Column()
     public isDismantable!: boolean;
     @Column()

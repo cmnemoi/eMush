@@ -2,6 +2,8 @@ export enum LogEnum {
     EXIT_ROOM = 'exit_room',
     ENTER_ROOM = 'enter_room',
     EAT = 'eat',
+    TAKE = 'take',
+    DROP = 'drop',
     AWAKEN = 'awaken',
     NEW_DAY = 'new_day',
     GAIN_ACTION_POINT = 'gain_action_point',

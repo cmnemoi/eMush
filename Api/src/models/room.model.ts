@@ -13,6 +13,7 @@ import {Daedalus} from './daedalus.model';
 import {Player} from './player.model';
 import {Door} from './door.model';
 import {Item} from './item.model';
+import * as _ from 'lodash';
 
 @Entity()
 export class Room {
@@ -35,4 +36,22 @@ export class Room {
     public createdAt!: Date;
     @UpdateDateColumn()
     public updatedAt!: Date;
+
+    public addItem(item: Item): Room {
+        this.items.push(item);
+        item.room = this;
+
+        return this;
+    }
+
+    public removeItem(item: Item): Room {
+        _.remove(this.items, (arrayItem: Item) => arrayItem.id === item.id);
+        item.room = null;
+
+        return this;
+    }
+
+    public hasItem(item: Item): boolean {
+        return this.items.some((arrayItem: Item) => item.id === arrayItem.id);
+    }
 }

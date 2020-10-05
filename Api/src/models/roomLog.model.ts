@@ -5,7 +5,6 @@ import {
     PrimaryGeneratedColumn,
 } from 'typeorm';
 import {VisibilityEnum} from '../enums/visibility.enum';
-import {LogEnum} from '../enums/log.enum';
 
 @Entity()
 export class RoomLog {

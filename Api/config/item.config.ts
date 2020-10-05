@@ -1,10 +1,6 @@
-import {CharactersEnum} from '../src/enums/characters.enum';
-import {SkillsEnum} from '../src/enums/skills.enum';
-import {StatusEnum} from '../src/enums/status.enum';
 import {ItemsEnum} from '../src/enums/items.enum';
 import {ActionsEnum} from '../src/enums/actions.enum';
 import {ItemTypeEnum} from '../src/enums/itemType.enum';
-import {Column} from 'typeorm';
 
 export default [
     {

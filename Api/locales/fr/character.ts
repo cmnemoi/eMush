@@ -1,76 +1,76 @@
-import {CharactersEnum} from "../../src/enums/characters.enum";
+import {CharactersEnum} from '../../src/enums/characters.enum';
 
 export default {
     [CharactersEnum.ANDIE]: {
-        name: "Andie",
-        description: "",
+        name: 'Andie',
+        description: '',
     },
     [CharactersEnum.CHAO]: {
-        name: "Chao",
-        description: "",
+        name: 'Chao',
+        description: '',
     },
     [CharactersEnum.CHUN]: {
-        name: "Chun",
-        description: "",
+        name: 'Chun',
+        description: '',
     },
     [CharactersEnum.DEREK]: {
-        name: "Derek",
-        description: "",
+        name: 'Derek',
+        description: '',
     },
     [CharactersEnum.ELEESHA]: {
-        name: "Eleesha",
-        description: "",
+        name: 'Eleesha',
+        description: '',
     },
     [CharactersEnum.FINOLA]: {
-        name: "Finola",
-        description: "",
+        name: 'Finola',
+        description: '',
     },
     [CharactersEnum.FRIEDA]: {
-        name: "Frieda",
-        description: "",
+        name: 'Frieda',
+        description: '',
     },
     [CharactersEnum.GIOELE]: {
-        name: "Gioele",
-        description: "",
+        name: 'Gioele',
+        description: '',
     },
     [CharactersEnum.HUA]: {
-        name: "Hua",
-        description: "",
+        name: 'Hua',
+        description: '',
     },
     [CharactersEnum.IAN]: {
-        name: "Ian",
-        description: "",
+        name: 'Ian',
+        description: '',
     },
     [CharactersEnum.JANICE]: {
-        name: "Janice",
-        description: "",
+        name: 'Janice',
+        description: '',
     },
     [CharactersEnum.KIM_JUN_SU]: {
-        name: "Kim Jun Su",
-        description: "",
+        name: 'Kim Jun Su',
+        description: '',
     },
     [CharactersEnum.KUAN_TI]: {
-        name: "Kuan Ti",
-        description: "",
+        name: 'Kuan Ti',
+        description: '',
     },
     [CharactersEnum.PAOLA]: {
-        name: "Paola",
-        description: "",
+        name: 'Paola',
+        description: '',
     },
     [CharactersEnum.RALUCA]: {
-        name: "Raluca",
-        description: "",
+        name: 'Raluca',
+        description: '',
     },
     [CharactersEnum.ROLAND]: {
-        name: "Roland",
-        description: "",
+        name: 'Roland',
+        description: '',
     },
     [CharactersEnum.STEPHEN]: {
-        name: "Stephen",
-        description: "",
+        name: 'Stephen',
+        description: '',
     },
     [CharactersEnum.TERRENCE]: {
-        name: "Terrence",
-        description: "",
+        name: 'Terrence',
+        description: '',
     },
 };

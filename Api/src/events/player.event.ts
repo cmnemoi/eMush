@@ -4,9 +4,9 @@ import GameConfig from '../../config/game.config';
 import {DaedalusEvent} from './daedalus.event';
 import PlayerService from '../services/player.service';
 import {StatusEnum} from '../enums/status.enum';
-import RoomLogService from "../services/roomLog.service";
-import {LogEnum} from "../enums/log.enum";
-import {VisibilityEnum} from "../enums/visibility.enum";
+import RoomLogService from '../services/roomLog.service';
+import {LogEnum} from '../enums/log.enum';
+import {VisibilityEnum} from '../enums/visibility.enum';
 
 export enum PlayerEvent {
     PLAYER_AWAKEN = 'player_awaken',
@@ -16,7 +16,13 @@ export enum PlayerEvent {
 }
 
 const playerAwaken = (player: Player) => {
-    RoomLogService.createLog(LogEnum.AWAKEN, {character: player.character}, player.room, player, VisibilityEnum.PRIVATE)
+    RoomLogService.createLog(
+        LogEnum.AWAKEN,
+        {character: player.character},
+        player.room,
+        player,
+        VisibilityEnum.PRIVATE
+    );
     if (player.daedalus.players.length === GameConfig.maxPlayer) {
         eventManager.emit(DaedalusEvent.DAEDALUS_START, player.daedalus);
     }
@@ -32,9 +38,23 @@ const playerDie = (player: Player) => {
 const playerNewCycle = (player: Player, date: Date) => {
     player.satiety--;
     player.actionPoint++;
-    RoomLogService.createLog(LogEnum.GAIN_ACTION_POINT, {number: 1}, player.room, player, VisibilityEnum.PRIVATE, date)
+    RoomLogService.createLog(
+        LogEnum.GAIN_ACTION_POINT,
+        {number: 1},
+        player.room,
+        player,
+        VisibilityEnum.PRIVATE,
+        date
+    );
     player.movementPoint++;
-    RoomLogService.createLog(LogEnum.GAIN_MOVEMENT_POINT, {number: 1}, player.room, player, VisibilityEnum.PRIVATE, date)
+    RoomLogService.createLog(
+        LogEnum.GAIN_MOVEMENT_POINT,
+        {number: 1},
+        player.room,
+        player,
+        VisibilityEnum.PRIVATE,
+        date
+    );
 
     for (const status of player.statuses) {
         switch (status) {
@@ -63,10 +83,31 @@ const playerNewCycle = (player: Player, date: Date) => {
 
 const playerNewDay = (player: Player, date: Date) => {
     player.moralPoint--;
-    RoomLogService.createLog(LogEnum.GAIN_ACTION_POINT, {number: 1}, player.room, player, VisibilityEnum.PRIVATE, date)
-    RoomLogService.createLog(LogEnum.NEW_DAY, {}, player.room, player, VisibilityEnum.PRIVATE, date)
+    RoomLogService.createLog(
+        LogEnum.GAIN_ACTION_POINT,
+        {number: 1},
+        player.room,
+        player,
+        VisibilityEnum.PRIVATE,
+        date
+    );
+    RoomLogService.createLog(
+        LogEnum.NEW_DAY,
+        {},
+        player.room,
+        player,
+        VisibilityEnum.PRIVATE,
+        date
+    );
     player.healthPoint++;
-    RoomLogService.createLog(LogEnum.GAIN_ACTION_POINT, {number: 1}, player.room, player, VisibilityEnum.PRIVATE, date)
+    RoomLogService.createLog(
+        LogEnum.GAIN_ACTION_POINT,
+        {number: 1},
+        player.room,
+        player,
+        VisibilityEnum.PRIVATE,
+        date
+    );
 
     PlayerService.save(player);
 };

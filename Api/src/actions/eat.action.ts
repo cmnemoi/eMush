@@ -1,4 +1,4 @@
-import {Action} from './action';
+import {Action, ActionParameters} from './action';
 import {Player} from '../models/player.model';
 import {VisibilityEnum} from '../enums/visibility.enum';
 import {LogEnum} from '../enums/log.enum';
@@ -12,7 +12,7 @@ import {ActionResult} from '../enums/actionResult.enum';
 import PlayerRepository from '../repository/player.repository';
 import RandomService from '../services/random.service';
 import {logger} from '../config/logger';
-import RoomLogService from "../services/roomLog.service";
+import RoomLogService from '../services/roomLog.service';
 
 export class EatAction extends Action {
     public player!: Player;
@@ -23,7 +23,7 @@ export class EatAction extends Action {
         this.player = player;
     }
 
-    async loadParams(params: any): Promise<boolean> {
+    async loadParams(params: ActionParameters): Promise<boolean> {
         if (typeof params.item === 'undefined') {
             return false;
         }
@@ -50,7 +50,13 @@ export class EatAction extends Action {
 
     createLog(): void {
         // 0FIXME how do we handle secret discovered visibility
-        RoomLogService.createLog(LogEnum.EAT, {character: this.player.character}, this.player.room, this.player, VisibilityEnum.SECRET)
+        RoomLogService.createLog(
+            LogEnum.EAT,
+            {character: this.player.character},
+            this.player.room,
+            this.player,
+            VisibilityEnum.SECRET
+        );
     }
 
     async apply(): Promise<string> {
@@ -106,11 +112,8 @@ export class EatAction extends Action {
         if (this.player.satiety >= 3) {
             this.player.statuses.push(StatusEnum.FULL_STOMACH);
         }
-
-        const index = this.player.statuses.indexOf(StatusEnum.STARVING);
-        if (index > -1) {
-            this.player.statuses.splice(index, 1);
-        }
+        // Remove starving status anyway
+        this.player.removeStatus(StatusEnum.STARVING);
 
         if (RandomService.random() < 20) {
             // @TODO: how do we handle dirty ? (event?)

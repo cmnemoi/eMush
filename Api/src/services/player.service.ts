@@ -8,7 +8,7 @@ import PlayerRepository from '../repository/player.repository';
 import GameConfig from '../../config/game.config';
 import CharacterConfig from '../../config/character.config';
 import {logger} from '../config/logger';
-import {CharactersEnum} from "../enums/characters.enum";
+import {CharactersEnum} from '../enums/characters.enum';
 
 export default class PlayerService {
     public static findAll(): Promise<Player[]> {

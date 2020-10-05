@@ -12,7 +12,9 @@ import {
 } from 'typeorm';
 import {Item} from './item.model';
 import {StatusEnum} from '../enums/status.enum';
-import {CharactersEnum} from "../enums/characters.enum";
+import {CharactersEnum} from '../enums/characters.enum';
+import {SkillsEnum} from '../enums/skills.enum';
+import * as _ from 'lodash';
 
 @Entity()
 export class Player {
@@ -56,5 +58,44 @@ export class Player {
     }
     public isStarving(): boolean {
         return this.statuses.includes(StatusEnum.STARVING);
+    }
+    public canTakeHeavyItems(): boolean {
+        return this.skills.includes(SkillsEnum.SOLID);
+    }
+    public addStatus(status: StatusEnum): Player {
+        this.statuses.push(status);
+
+        return this;
+    }
+
+    public removeStatus(status: StatusEnum): Player {
+        _.remove(
+            this.statuses,
+            (arrayStatus: StatusEnum) => arrayStatus === status
+        );
+
+        return this;
+    }
+
+    public hasStatus(status: StatusEnum): boolean {
+        return this.statuses.includes(status);
+    }
+
+    public addItem(item: Item): Player {
+        this.items.push(item);
+        item.player = this;
+
+        return this;
+    }
+
+    public removeItem(item: Item): Player {
+        _.remove(this.items, (arrayItem: Item) => arrayItem.id === item.id);
+        item.player = null;
+
+        return this;
+    }
+
+    public hasItem(item: Item): boolean {
+        return this.items.some((arrayItem: Item) => item.id === arrayItem.id);
     }
 }

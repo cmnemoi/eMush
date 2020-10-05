@@ -14,6 +14,9 @@ export class ActionController {
             res.status(422).json({errors: errors.array()});
             return;
         }
+
+        console.log(req.user)
+
         PlayerRepository.find(Number(req.body.player)).then(
             (player: Player | null) => {
                 const actionClassName = getActionClass(req.body.action);

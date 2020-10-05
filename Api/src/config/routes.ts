@@ -3,6 +3,9 @@ import {PlayerController} from '../controllers/player.controller';
 import {validate, POST_PLAYER} from '../controllers/player.validator';
 import {DaedalusController} from '../controllers/daedalus.controller';
 import {ActionController} from '../controllers/action.controller';
+import {login} from "../security/security";
+import passport from "passport";
+import jwt from 'jsonwebtoken';
 
 export const PLAYER_ROUTE = '/players';
 export const DAEDALUS_ROUTE = '/daedalus';
@@ -35,6 +38,11 @@ export class Routes {
             this.daedalusController.delete
         );
         // Action
-        app.route(ACTION_ROUTE).post(this.actionController.post);
+        app.route(ACTION_ROUTE).post(passport.authenticate('jwt', { session: false }), this.actionController.post);
+
+        app.post(
+            '/login',
+            login
+        );
     }
 }

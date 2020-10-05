@@ -15,6 +15,7 @@ import {StatusEnum} from '../enums/status.enum';
 import {CharactersEnum} from '../enums/characters.enum';
 import {SkillsEnum} from '../enums/skills.enum';
 import * as _ from 'lodash';
+import {ItemsEnum} from "../enums/items.enum";
 
 @Entity()
 export class Player {
@@ -81,6 +82,16 @@ export class Player {
         return this.statuses.includes(status);
     }
 
+    public addSkill(skill: SkillsEnum): Player {
+        this.skills.push(skill);
+
+        return this;
+    }
+
+    public hasSkill(skill: SkillsEnum): boolean {
+        return this.skills.includes(skill);
+    }
+
     public addItem(item: Item): Player {
         this.items.push(item);
         item.player = this;
@@ -97,5 +108,9 @@ export class Player {
 
     public hasItem(item: Item): boolean {
         return this.items.some((arrayItem: Item) => item.id === arrayItem.id);
+    }
+
+    public hasItemName(itemName: ItemsEnum): boolean {
+        return this.items.some((arrayItem: Item) => itemName === arrayItem.name);
     }
 }

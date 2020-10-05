@@ -11,5 +11,6 @@ export enum StatusEnum {
     STARVING = 'starving',
     DEMORALIZED = 'demoralized',
     SUICIDAL = 'suicidal',
-    BURDENED = 'BURDENED',
+    BURDENED = 'burdened',
+    DIRTY = 'dirty',
 }

@@ -8,6 +8,18 @@ export default {
     initFuel: 10,
     initHull: 100,
     initShield: -2,
+    randomItemPlace: {
+        places: [
+            RoomEnum.FRONT_STORAGE,
+            RoomEnum.CENTER_ALPHA_STORAGE,
+            RoomEnum.CENTER_BRAVO_STORAGE,
+            RoomEnum.REAR_ALPHA_STORAGE,
+            RoomEnum.REAR_BRAVO_STORAGE,
+        ],
+        items: [
+            ItemsEnum.STAINPROOF_APRON
+        ],
+    },
     rooms: [
         {
             name: RoomEnum.BRIDGE,

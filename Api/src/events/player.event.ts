@@ -7,12 +7,15 @@ import {StatusEnum} from '../enums/status.enum';
 import RoomLogService from '../services/roomLog.service';
 import {LogEnum} from '../enums/log.enum';
 import {VisibilityEnum} from '../enums/visibility.enum';
+import {ItemsEnum} from "../enums/items.enum";
+import {SkillsEnum} from "../enums/skills.enum";
 
 export enum PlayerEvent {
     PLAYER_AWAKEN = 'player_awaken',
     PLAYER_DIE = 'player_die',
     PLAYER_NEW_CYCLE = 'player_new_cycle',
     PLAYER_NEW_DAY = 'player_new_day',
+    PLAYER_SOILED = 'player_soiled',
 }
 
 const playerAwaken = (player: Player) => {
@@ -34,7 +37,6 @@ const playerDie = (player: Player) => {
     }
 };
 
-// @TODO: handle logs time to match the cycle change instead of the current date
 const playerNewCycle = (player: Player, date: Date) => {
     player.satiety--;
     player.actionPoint++;
@@ -112,7 +114,38 @@ const playerNewDay = (player: Player, date: Date) => {
     PlayerService.save(player);
 };
 
+const playerDirty = (player: Player) => {
+    if (player.hasItemName(ItemsEnum.STAINPROOF_APRON)) {
+        RoomLogService.createLog(
+            LogEnum.SOIL_PREVENTED,
+            {},
+            player.room,
+            player,
+            VisibilityEnum.PRIVATE,
+        );
+    } else if (player.hasSkill(SkillsEnum.OCD)) {
+        RoomLogService.createLog(
+            LogEnum.SOIL_PREVENTED_OCD,
+            {},
+            player.room,
+            player,
+            VisibilityEnum.PRIVATE,
+        );
+    } else {
+        RoomLogService.createLog(
+            LogEnum.SOILED,
+            {},
+            player.room,
+            player,
+            VisibilityEnum.PRIVATE,
+        );
+        player.addStatus(StatusEnum.DIRTY);
+    }
+    PlayerService.save(player);
+};
+
 eventManager.on(PlayerEvent.PLAYER_AWAKEN, playerAwaken);
 eventManager.on(PlayerEvent.PLAYER_DIE, playerDie);
 eventManager.on(PlayerEvent.PLAYER_NEW_CYCLE, playerNewCycle);
 eventManager.on(PlayerEvent.PLAYER_NEW_DAY, playerNewDay);
+eventManager.on(PlayerEvent.PLAYER_SOILED, playerDirty);

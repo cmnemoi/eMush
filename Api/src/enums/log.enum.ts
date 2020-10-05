@@ -14,4 +14,7 @@ export enum LogEnum {
     LOSS_HEALTH_POINT = 'loss_health_point',
     GAIN_MORAL_POINT = 'gain_moral_point',
     LOSS_MORAL_POINT = 'loss_moral_point',
+    SOILED = 'soiled',
+    SOIL_PREVENTED = 'soil_prevented',
+    SOIL_PREVENTED_OCD = 'soil_prevented_ocd',
 }

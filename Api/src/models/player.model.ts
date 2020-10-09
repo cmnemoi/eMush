@@ -15,14 +15,18 @@ import {StatusEnum} from '../enums/status.enum';
 import {CharactersEnum} from '../enums/characters.enum';
 import {SkillsEnum} from '../enums/skills.enum';
 import * as _ from 'lodash';
-import {ItemsEnum} from "../enums/items.enum";
+import {ItemsEnum} from '../enums/items.enum';
+import {User} from './user.model';
+import {GameStatusEnum} from '../enums/gameStatus.enum';
 
 @Entity()
 export class Player {
     @PrimaryGeneratedColumn()
     readonly id!: number;
+    @ManyToOne(type => User, user => user.games)
+    public user!: User;
     @Column()
-    public user!: string;
+    public gameStatus!: GameStatusEnum;
     @Column()
     public character!: CharactersEnum;
     @ManyToOne(type => Daedalus, daedalus => daedalus.players)
@@ -111,6 +115,8 @@ export class Player {
     }
 
     public hasItemName(itemName: ItemsEnum): boolean {
-        return this.items.some((arrayItem: Item) => itemName === arrayItem.name);
+        return this.items.some(
+            (arrayItem: Item) => itemName === arrayItem.name
+        );
     }
 }

@@ -1,13 +1,11 @@
 import {Action, ActionParameters} from './action';
 import {Player} from '../models/player.model';
-import {RoomLog} from '../models/roomLog.model';
 import PlayerService from '../services/player.service';
 import {ActionResult} from '../enums/actionResult.enum';
 import {Door} from '../models/door.model';
 import {Room} from '../models/room.model';
 import {VisibilityEnum} from '../enums/visibility.enum';
 import {LogEnum} from '../enums/log.enum';
-import RoomLogRepository from '../repository/roomLog.repository';
 import DoorRepository from '../repository/door.repository';
 import RoomLogService from '../services/roomLog.service';
 import {logger} from '../config/logger';

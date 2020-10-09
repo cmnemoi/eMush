@@ -1,9 +1,9 @@
 import {Room} from '../models/room.model';
-import {Item} from "../models/item.model";
-import ItemsConfig from "../../config/item.config";
-import {logger} from "../config/logger";
-import ItemRepository from "../repository/item.repository";
-import {ItemsEnum} from "../enums/items.enum";
+import {Item} from '../models/item.model';
+import ItemsConfig from '../../config/item.config';
+import {logger} from '../config/logger';
+import ItemRepository from '../repository/item.repository';
+import {ItemsEnum} from '../enums/items.enum';
 
 export default class ItemService {
     public static createItem(itemName: ItemsEnum, room: Room): Promise<Item> {
@@ -12,9 +12,7 @@ export default class ItemService {
         );
 
         if (typeof itemConfig === 'undefined') {
-            logger.error(
-                itemName + ' does not exist or is not configurated'
-            );
+            logger.error(itemName + ' does not exist or is not configurated');
             throw new Error(
                 itemName + ' does not exist or is not configurated'
             );

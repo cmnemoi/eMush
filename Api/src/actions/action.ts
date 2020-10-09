@@ -1,7 +1,4 @@
 import {ActionResult} from '../enums/actionResult.enum';
-import {CharactersEnum} from '../enums/characters.enum';
-import {RoomEnum} from '../enums/room.enum';
-import {ItemsEnum} from '../enums/items.enum';
 
 export interface ActionParameters {
     room?: number | null;

@@ -3,7 +3,22 @@ import {DoorEnum} from '../src/enums/door.enum';
 import {EquipmentEnum} from '../src/enums/equipment.enum';
 import {ItemsEnum} from '../src/enums/items.enum';
 
-export default {
+export interface RoomConfig {
+    name: string;
+    doors: DoorEnum[];
+    equipments: EquipmentEnum[];
+    items: ItemsEnum[];
+}
+export interface DaedalusConfig {
+    initOxygen: number;
+    initFuel: number;
+    initHull: number;
+    initShield: number;
+    randomItemPlace: {places: RoomEnum[]; items: ItemsEnum[]};
+    rooms: RoomConfig[];
+}
+
+const Daedalus: DaedalusConfig = {
     initOxygen: 10,
     initFuel: 10,
     initHull: 100,
@@ -16,9 +31,7 @@ export default {
             RoomEnum.REAR_ALPHA_STORAGE,
             RoomEnum.REAR_BRAVO_STORAGE,
         ],
-        items: [
-            ItemsEnum.STAINPROOF_APRON
-        ],
+        items: [ItemsEnum.STAINPROOF_APRON],
     },
     rooms: [
         {
@@ -375,3 +388,5 @@ export default {
         },
     ],
 };
+
+export default Daedalus;

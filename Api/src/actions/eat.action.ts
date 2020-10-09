@@ -7,14 +7,14 @@ import {Item} from '../models/item.model';
 import {ItemTypeEnum} from '../enums/itemType.enum';
 import {StatusEnum} from '../enums/status.enum';
 import GameConfig from '../../config/game.config';
-import ItemsConfig, {FoodEffects} from '../../config/item.config';
+import ItemsConfig from '../../config/item.config';
 import {ActionResult} from '../enums/actionResult.enum';
 import PlayerRepository from '../repository/player.repository';
 import RandomService from '../services/random.service';
 import {logger} from '../config/logger';
 import RoomLogService from '../services/roomLog.service';
-import eventManager from "../config/event.manager";
-import {PlayerEvent} from "../events/player.event";
+import eventManager from '../config/event.manager';
+import {PlayerEvent} from '../events/player.event';
 
 export class EatAction extends Action {
     public player!: Player;
@@ -72,13 +72,13 @@ export class EatAction extends Action {
         ) {
             logger.error(
                 this.food.name +
-                ' does not exist or is not configurated, item id: ' +
-                this.food.id
+                    ' does not exist or is not configurated, item id: ' +
+                    this.food.id
             );
             throw new Error(
                 this.food.name +
-                ' does not exist or is not configurated, item id: ' +
-                this.food.id
+                    ' does not exist or is not configurated, item id: ' +
+                    this.food.id
             );
         }
         this.player.actionPoint = Math.max(
@@ -116,8 +116,9 @@ export class EatAction extends Action {
         // Remove starving status anyway
         this.player.removeStatus(StatusEnum.STARVING);
 
-        if (RandomService.random(100) < 50) { // 50% chance of soil
-            eventManager.emit(PlayerEvent.PLAYER_SOILED, this.player)
+        if (RandomService.random(100) < 50) {
+            // 50% chance of soil
+            eventManager.emit(PlayerEvent.PLAYER_SOILED, this.player);
         }
 
         ItemRepository.remove(this.food);

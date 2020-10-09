@@ -1,4 +1,13 @@
-import {Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn} from "typeorm";
+import {
+    Column,
+    CreateDateColumn,
+    Entity,
+    OneToMany,
+    PrimaryGeneratedColumn,
+    UpdateDateColumn,
+} from 'typeorm';
+import {Player} from './player.model';
+import {Item} from './item.model';
 
 @Entity()
 export class User {
@@ -8,7 +17,8 @@ export class User {
     public userId!: string;
     @Column()
     public username!: string;
-    public email!: string | null;
+    @OneToMany(type => Player, player => player.user)
+    public games!: Player[];
     @CreateDateColumn()
     public createdAt!: Date;
     @UpdateDateColumn()

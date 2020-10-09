@@ -43,6 +43,7 @@ export function getActionClass(action: ActionsEnum): string | null {
     return typeof actionObject === 'undefined' ? null : actionObject.class;
 }
 
+/* eslint-disable  @typescript-eslint/no-explicit-any */
 export function createInstance(actionClass: string, ...args: any[]): Action {
     return new (actions as any)[actionClass](...args);
 }

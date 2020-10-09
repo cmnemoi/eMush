@@ -7,8 +7,8 @@ import {StatusEnum} from '../enums/status.enum';
 import RoomLogService from '../services/roomLog.service';
 import {LogEnum} from '../enums/log.enum';
 import {VisibilityEnum} from '../enums/visibility.enum';
-import {ItemsEnum} from "../enums/items.enum";
-import {SkillsEnum} from "../enums/skills.enum";
+import {ItemsEnum} from '../enums/items.enum';
+import {SkillsEnum} from '../enums/skills.enum';
 
 export enum PlayerEvent {
     PLAYER_AWAKEN = 'player_awaken',
@@ -121,7 +121,7 @@ const playerDirty = (player: Player) => {
             {},
             player.room,
             player,
-            VisibilityEnum.PRIVATE,
+            VisibilityEnum.PRIVATE
         );
     } else if (player.hasSkill(SkillsEnum.OCD)) {
         RoomLogService.createLog(
@@ -129,7 +129,7 @@ const playerDirty = (player: Player) => {
             {},
             player.room,
             player,
-            VisibilityEnum.PRIVATE,
+            VisibilityEnum.PRIVATE
         );
     } else {
         RoomLogService.createLog(
@@ -137,7 +137,7 @@ const playerDirty = (player: Player) => {
             {},
             player.room,
             player,
-            VisibilityEnum.PRIVATE,
+            VisibilityEnum.PRIVATE
         );
         player.addStatus(StatusEnum.DIRTY);
     }

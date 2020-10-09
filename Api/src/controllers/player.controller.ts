@@ -5,6 +5,7 @@ import DaedalusService from '../services/daedalus.service';
 import {Daedalus} from '../models/daedalus.model';
 import {validationResult} from 'express-validator';
 import {logger} from '../config/logger';
+import {User} from '../models/user.model';
 
 export class PlayerController {
     public fetch(req: Request, res: Response): void {
@@ -33,7 +34,13 @@ export class PlayerController {
     }
 
     public post(req: Request, res: Response): void {
+        const user = req.user;
         const character = req.body.character;
+
+        if (!(user instanceof User)) {
+            res.status(422).json({errors: 'user not found'});
+            return;
+        }
 
         const errors = validationResult(req); // Finds the validation errors in this request and wraps them in an object with handy functions
 
@@ -42,19 +49,32 @@ export class PlayerController {
             return;
         }
 
-        DaedalusService.find(req.body.daedalus)
-            .then((daedalus: Daedalus | null) => {
-                if (daedalus === null) {
-                    res.status(422).json(
-                        'Invalid Daedalus identifier provided : ' +
-                            req.body.daedalus
-                    );
+        PlayerService.findCurrentPlayer(user)
+            .then((userPlayer: Player | null) => {
+                if (userPlayer !== null) {
+                    // @FIXME:  do that in validation
+                    res.status(422).json('User is already in a game');
                     return;
                 }
+                DaedalusService.find(req.body.daedalus)
+                    .then((daedalus: Daedalus | null) => {
+                        if (daedalus === null) {
+                            // @FIXME:  do that in validation
+                            res.status(422).json(
+                                'Invalid Daedalus identifier provided : ' +
+                                    req.body.daedalus
+                            );
+                            return;
+                        }
 
-                PlayerService.initPlayer(daedalus, character)
-                    .then((player: Player) => {
-                        res.status(201).json(player);
+                        PlayerService.initPlayer(user, daedalus, character)
+                            .then((player: Player) => {
+                                res.status(201).json(player);
+                            })
+                            .catch((err: Error) => {
+                                logger.error(err.message);
+                                res.status(500).json(err);
+                            });
                     })
                     .catch((err: Error) => {
                         logger.error(err.message);

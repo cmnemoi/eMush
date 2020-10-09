@@ -9,6 +9,8 @@ import GameConfig from '../../config/game.config';
 import CharacterConfig from '../../config/character.config';
 import {logger} from '../config/logger';
 import {CharactersEnum} from '../enums/characters.enum';
+import {User} from '../models/user.model';
+import {GameStatusEnum} from '../enums/gameStatus.enum';
 
 export default class PlayerService {
     public static findAll(): Promise<Player[]> {
@@ -23,7 +25,15 @@ export default class PlayerService {
         return PlayerRepository.save(player);
     }
 
+    public static findCurrentPlayer(user: User): Promise<Player | null> {
+        return PlayerRepository.findOneByCriteria(
+            {user, gameStatus: GameStatusEnum.CURRENT},
+            {}
+        );
+    }
+
     public static async initPlayer(
+        user: User,
         daedalus: Daedalus,
         character: CharactersEnum
     ): Promise<Player> {
@@ -39,7 +49,8 @@ export default class PlayerService {
                     daedalus.id
             );
         }
-        player.user = 'TODO';
+        player.user = user;
+        player.gameStatus = GameStatusEnum.CURRENT;
         player.daedalus = daedalus;
         player.character = character;
         player.skills = [];

@@ -113,7 +113,8 @@ export default {
     ],
     [LogEnum.SOIL_PREVENTED]: [
         {
-            message: 'C\'est dégoûtant... Heureusement que vous aviez votre **Tablier intachable**...',
+            message:
+                "C'est dégoûtant... Heureusement que vous aviez votre **Tablier intachable**...",
             weighting: 1,
         },
     ],

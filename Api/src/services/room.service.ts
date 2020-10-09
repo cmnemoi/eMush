@@ -3,7 +3,8 @@ import RoomRepository from '../repository/room.repository';
 import {Door} from '../models/door.model';
 import DoorRepository from '../repository/door.repository';
 import {Daedalus} from '../models/daedalus.model';
-import ItemService from "./item.service";
+import ItemService from './item.service';
+import {RoomConfig} from '../../config/daedalus.config';
 
 export default class RoomService {
     public static findAll(): Promise<Room[]> {
@@ -19,7 +20,7 @@ export default class RoomService {
     }
 
     public static async initRoom(
-        roomConfig: any,
+        roomConfig: RoomConfig,
         daedalus: Daedalus
     ): Promise<Room> {
         const room = new Room();

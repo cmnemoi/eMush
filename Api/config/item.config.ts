@@ -3,27 +3,27 @@ import {ActionsEnum} from '../src/enums/actions.enum';
 import {ItemTypeEnum} from '../src/enums/itemType.enum';
 
 export interface FoodEffects {
-    actionPoint: number,
-    movementPoint: number,
-    healthPoint: number,
-    moralPoint: number,
-    satiety: number,
+    actionPoint: number;
+    movementPoint: number;
+    healthPoint: number;
+    moralPoint: number;
+    satiety: number;
 }
 export interface ItemConfig {
-    name: ItemsEnum,
-    type: ItemTypeEnum,
-    actions: ActionsEnum[],
-    effects?: FoodEffects | undefined,
-    isHeavy: boolean,
-    isDismantable: boolean,
-    isStackable: boolean,
-    isHideable: boolean,
-    isMoveable: boolean,
-    isFireDestroyable: boolean,
-    isFireBreakable: boolean,
+    name: ItemsEnum;
+    type: ItemTypeEnum;
+    actions: ActionsEnum[];
+    effects?: FoodEffects | undefined;
+    isHeavy: boolean;
+    isDismantable: boolean;
+    isStackable: boolean;
+    isHideable: boolean;
+    isMoveable: boolean;
+    isFireDestroyable: boolean;
+    isFireBreakable: boolean;
 }
 
-const itemsConfig : ItemConfig[]  = [
+const itemsConfig: ItemConfig[] = [
     {
         name: ItemsEnum.STANDARD_RATION,
         type: ItemTypeEnum.RATION,

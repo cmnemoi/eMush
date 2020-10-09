@@ -31,47 +31,30 @@ export const logger = loggerConfig;
 
 import {Logger, QueryRunner} from 'typeorm';
 
+/* eslint-disable  @typescript-eslint/no-explicit-any */
 export class TypeOrmLogger implements Logger {
-    log(
-        level: 'log' | 'info' | 'warn',
-        message: any,
-        queryRunner?: QueryRunner
-    ): any {
+    log(level: 'log' | 'info' | 'warn', message: string): any {
         logger.log({level, message});
     }
 
-    logMigration(message: string, queryRunner?: QueryRunner): any {
+    logMigration(message: string): any {
         logger.info(message);
     }
 
-    logQuery(
-        query: string,
-        parameters?: any[],
-        queryRunner?: QueryRunner
-    ): any {
+    logQuery(query: string, parameters?: any[]): any {
         logger.info(query);
         logger.info(parameters);
     }
 
-    logQueryError(
-        error: string,
-        query: string,
-        parameters?: any[],
-        queryRunner?: QueryRunner
-    ): any {
+    logQueryError(error: string, query: string): any {
         logger.error(error, query);
     }
 
-    logQuerySlow(
-        time: number,
-        query: string,
-        parameters?: any[],
-        queryRunner?: QueryRunner
-    ): any {
+    logQuerySlow(time: number, query: string, parameters?: any[]): any {
         logger.warning(query, time.toString(), parameters);
     }
 
-    logSchemaBuild(message: string, queryRunner?: QueryRunner): any {
+    logSchemaBuild(message: string): any {
         logger.info(message);
     }
 }

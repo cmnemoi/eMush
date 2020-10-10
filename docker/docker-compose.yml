@@ -1,0 +1,33 @@
+version: '3'
+services:
+  mush-api:
+    build: Api
+    container_name: mush_api
+    working_dir: /home/node/app
+    ports:
+      - 8080:8080
+    volumes:
+      - ../Api:/home/node/app
+      - .bashrc:/root/.bashrc
+    networks:
+      - backend
+    depends_on:
+      - mush-database
+
+  #Database container
+  mush-database:
+    image: mariadb
+    container_name: mush_database
+    ports:
+      - "3306:3306"
+    networks:
+      - backend
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: mush
+      MYSQL_USER: mysql
+      MYSQL_PASSWORD: password
+
+networks:
+  backend:
+    driver: bridge

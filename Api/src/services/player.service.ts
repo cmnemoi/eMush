@@ -28,7 +28,7 @@ export default class PlayerService {
     public static findCurrentPlayer(user: User): Promise<Player | null> {
         return PlayerRepository.findOneByCriteria(
             {user, gameStatus: GameStatusEnum.CURRENT},
-            {}
+            {relations: ['room', 'room.doors', 'items', 'room.items']}
         );
     }
 

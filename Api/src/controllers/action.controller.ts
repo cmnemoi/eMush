@@ -1,7 +1,6 @@
 import {Request, Response} from 'express';
 import {validationResult} from 'express-validator';
 import {Action} from '../actions/action';
-import PlayerRepository from '../repository/player.repository';
 import {createInstance, getActionClass} from '../actions/list.action';
 import {Player} from '../models/player.model';
 import {logger} from '../config/logger';

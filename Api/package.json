@@ -12,7 +12,7 @@
       "test": "export NODE_ENV=test && env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha -r ts-node/register 'tests/**/*.ts'",
       "linter-check": "gts check",
       "linter-fix": "gts fix",
-      "generate_migration": "typeorm migration:generate -n migration",
+      "generate-migration": "typeorm migration:generate -n migration",
       "run-migration": "typeorm migration:run"
    },
    "repository": {

@@ -3,6 +3,8 @@ import express from 'express';
 import * as bodyParser from 'body-parser';
 import {Routes} from './config/routes';
 import {logger} from './config/logger';
+import swaggerUi from 'swagger-ui-express';
+import swaggerDocument from './config/swagger';
 
 const PORT = process.env.SERVER_PORT;
 
@@ -19,6 +21,17 @@ class Index {
     private config(): void {
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({extended: false}));
+        if (process.env.NODE_ENV === 'development') {
+            this.configDev();
+        }
+    }
+
+    private configDev(): void {
+        this.app.use(
+            '/swagger',
+            swaggerUi.serve,
+            swaggerUi.setup(swaggerDocument)
+        );
     }
 }
 

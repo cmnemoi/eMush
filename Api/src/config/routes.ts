@@ -6,9 +6,10 @@ import {ActionController} from '../controllers/action.controller';
 import {login} from '../security/security';
 import passport from 'passport';
 
-export const PLAYER_ROUTE = '/players';
-export const DAEDALUS_ROUTE = '/daedalus';
-export const ACTION_ROUTE = '/action';
+const BASE_URL = '/api/v1';
+export const PLAYER_ROUTE = BASE_URL + '/players';
+export const DAEDALUS_ROUTE = BASE_URL + '/daedalus';
+export const ACTION_ROUTE = BASE_URL + '/action';
 
 export class Routes {
     private playerController: PlayerController = new PlayerController();
@@ -74,6 +75,6 @@ export class Routes {
             this.actionController.post
         );
 
-        app.post('/login', login);
+        app.post(BASE_URL + '/login', login);
     }
 }

@@ -4,19 +4,16 @@
    "description": "This is a temporary repository for the Mush remake project, until it can get forked to the main ET repository.",
    "main": "build/src/index.js",
    "scripts": {
-      "lint": "tslint -c tslint.json -p tsconfig.json --fix",
-      "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
+      "compile": "tsc",
       "prestart": "npm run compile",
       "start": "ts-node src/index.ts",
       "dev": "nodemon --watch src -e ts,ejs --exec npm run start",
+      "pretest": "npm run compile && export NODE_ENV=test",
       "test": "export NODE_ENV=test && env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha -r ts-node/register 'tests/**/*.ts'",
-      "check": "gts check",
-      "clean": "gts clean",
-      "compile": "tsc",
-      "fix": "gts fix",
-      "prepare": "npm run compile",
-      "pretest": "npm run compile && export NODE_ENV=test && npx ts-node src/command/update.database.ts",
-      "posttest": "npm run check"
+      "linter-check": "gts check",
+      "linter-fix": "gts fix",
+      "generate-migration": "typeorm migration:generate -n migration",
+      "run-migration": "typeorm migration:run"
    },
    "repository": {
       "type": "git",

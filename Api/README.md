@@ -1,39 +1,76 @@
-# Environement: 
-Require Node v14
+# Mush Api
 
-copy .env.dist to .env
+A REST Api that manage the Mush game. Creating new Daedalus and manage the players actions
 
-Adjust the database configuration (if required)
+## Getting Started
 
-# Using the database
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+See endpoints for information on the different endpoints available.
 
-With docker:
+### Prerequisites
+
+To have a working devlopment environment you will need to install:
+* [Docker](https://docs.docker.com/get-docker/) 
+* [Docker-compose](https://docs.docker.com/compose/install/) 
+
+Optional:
+* [Postman](https://docs.docker.com/get-docker/) - Postman requests are exported in this file : mush.postman_collection.json
+
+### Installing
+
+To have a working dev environment, follow the following steps
+
+Clone the project
 ```
-docker run --name mush_mariaDb -p 3306:3306 -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=mush -d mariadb
+git clone git@gitlab.com:eternal-twin/mush.git
+```
+Go to the Api directory:
+```
+cd mush/Api
+```
+Checkout to develop:
+```
+git checkout develop
+```
+copy the .env.dist file (and change environment variables if required):
+```
+cp .env.dist .env
+```
+Build the docker containers:
+```
+make build
+Or 
+docker-compose -f docker/docker-compose.yml build
+```
+Start the docker container
+```
+make docker-watch (make docker-start if you don't mind the compilation outputs)
+Or 
+docker exec -it mush_api bash
+```
+Compile the Api
+```
+npm run compile
+```
+Run the migrations
+```
+npm run run-migration
+```
+If everything went well you should be able to access: http://localhost:8080/swagger/
+
+## Running the tests
+If you need you can create a .env.test for specific variable environment for test purpose (having a test database for instance)
+Run the tests
+```
+npm run test
 ```
 
-run migrations: 
-```
-npx typeorm migration:run
-```
-generate migration:
-```
-npx typeorm migration:generate -n init
-```
+## Endpoints
+A swagger is available that list all the available endpoints and their specifications [Swagger](http://localhost:8080/swagger/) 
+To authenticate, at the moment, use the login endpoint and set the access_token returned in the swagger header to use the other endpoints
 
-# Run dev environement
+## Contributing
 
-```
-npm run dev
-```
+Please read [CONTRIBUTING.md](./docs/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
-#### Updating the database
-Caution, it will drop the database
-```
-npm run update_database
-```
-
-# Test environement
-
-You can set up tests environment variable in .env.test (if this file doesn't exist .env will be used)
-Creating a test database is highly recommended to have a proper database dedicated to tests
+Please read [ARCHITECTURE.md](./docs/ARCHITECTURE.md) for details on the architecture

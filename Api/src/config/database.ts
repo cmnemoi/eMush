@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import {createConnection, DefaultNamingStrategy} from 'typeorm';
+import {createConnection} from 'typeorm';
 import {Daedalus} from '../models/daedalus.model';
 import {Room} from '../models/room.model';
 import {RoomLog} from '../models/roomLog.model';
@@ -8,7 +8,6 @@ import {ConnectionOptions} from 'typeorm/connection/ConnectionOptions';
 import {Door} from '../models/door.model';
 import {Item} from '../models/item.model';
 import {User} from '../models/user.model';
-import {snakeCase} from "typeorm/util/StringUtils";
 
 const dbConfig: ConnectionOptions = {
     type: 'mysql' || '',
@@ -22,7 +21,6 @@ const dbConfig: ConnectionOptions = {
     logging: false,
     migrationsTableName: 'migrations',
     migrations: [process.cwd() + '/build/src/migration/*.js'],
-    namingStrategy: new DefaultNamingStrategy(),
     cli: {
         migrationsDir: 'migration',
     },

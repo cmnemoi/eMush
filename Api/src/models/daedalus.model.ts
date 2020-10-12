@@ -24,7 +24,7 @@ export class Daedalus {
     @Column({name: 'hull'})
     public hull!: number;
     @Column({name: 'day'})
-    public day!: number; //@ FIXME is this column useful, day = floor(cycle/(24/GameConfig.cycleLength) + 1);
+    public day!: number; // @FIXME is this column useful, day = floor(cycle/(24/GameConfig.cycleLength) + 1);
     @Column({name: 'cycle'})
     public cycle!: number;
     @Column({name: 'shield'})

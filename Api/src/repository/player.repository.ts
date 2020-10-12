@@ -7,7 +7,9 @@ export default class PlayerRepository {
     public static findAll(): Promise<Player[]> {
         return database.then(async connection => {
             const playerRepository = connection.getRepository(Player);
-            return playerRepository.find();
+            return playerRepository.find({
+                relations: ['user', 'daedalus', 'items', 'room'],
+            });
         });
     }
 
@@ -16,7 +18,16 @@ export default class PlayerRepository {
             const playerRepository = connection.getRepository(Player);
             return playerRepository
                 .findOne(id, {
-                    relations: ['daedalus', 'daedalus.players', 'user', 'room', 'room.doors', 'items', 'room.items', "items.player"],
+                    relations: [
+                        'daedalus',
+                        'daedalus.players',
+                        'user',
+                        'room',
+                        'room.doors',
+                        'items',
+                        'room.items',
+                        'items.player',
+                    ],
                 })
                 .then((result: Player | undefined) => {
                     return typeof result === 'undefined' ? null : result;

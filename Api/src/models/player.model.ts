@@ -1,10 +1,10 @@
 import {Room} from './room.model';
 import {Daedalus} from './daedalus.model';
-
 import {
     Column,
     CreateDateColumn,
-    Entity, JoinColumn,
+    Entity,
+    JoinColumn,
     ManyToOne,
     OneToMany,
     PrimaryGeneratedColumn,

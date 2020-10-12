@@ -5,7 +5,7 @@ export default class DaedalusRepository {
     public static findAll(): Promise<Daedalus[]> {
         return database.then(async connection => {
             const daedalusRepository = connection.getRepository(Daedalus);
-            return daedalusRepository.find();
+            return daedalusRepository.find({relations: ['rooms', 'players']});
         });
     }
 

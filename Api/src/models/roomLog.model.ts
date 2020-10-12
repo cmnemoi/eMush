@@ -10,14 +10,14 @@ import {VisibilityEnum} from '../enums/visibility.enum';
 export class RoomLog {
     @PrimaryGeneratedColumn()
     readonly id!: number;
-    @Column()
+    @Column({name: 'room_id'})
     public roomId!: number;
-    @Column()
+    @Column({name: 'player_id'})
     public playerId!: number;
-    @Column()
+    @Column({name: 'visibility'})
     public visibility!: VisibilityEnum;
-    @Column()
+    @Column({name: 'message'})
     public message!: string;
-    @CreateDateColumn()
+    @CreateDateColumn({name: 'created_at'})
     public createdAt!: Date;
 }

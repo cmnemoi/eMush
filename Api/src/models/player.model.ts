@@ -4,7 +4,7 @@ import {Daedalus} from './daedalus.model';
 import {
     Column,
     CreateDateColumn,
-    Entity,
+    Entity, JoinColumn,
     ManyToOne,
     OneToMany,
     PrimaryGeneratedColumn,
@@ -25,45 +25,53 @@ export class Player {
     readonly id!: number;
     @ManyToOne(type => User, user => user.games)
     public user!: User;
-    @Column()
+    @Column({name: 'game_status'})
     public gameStatus!: GameStatusEnum;
-    @Column()
+    @Column({name: 'character'})
     public character!: CharactersEnum;
     @ManyToOne(type => Daedalus, daedalus => daedalus.players)
+    @JoinColumn({name: 'daedalus_id'})
     public daedalus!: Daedalus;
     @ManyToOne(type => Room, room => room.players)
+    @JoinColumn({name: 'room_id'})
     public room!: Room;
-    @Column('simple-array')
+    @Column('simple-array', {name: 'skills'})
     public skills!: string[];
     @OneToMany(type => Item, item => item.player)
     public items!: Item[];
-    @Column('simple-array')
+    @Column('simple-array', {name: 'statuses'})
     public statuses!: StatusEnum[];
-    @Column()
+    @Column({name: 'health_point'})
     public healthPoint!: number;
-    @Column()
+    @Column({name: 'moral_point'})
     public moralPoint!: number;
-    @Column()
+    @Column({name: 'action_point'})
     public actionPoint!: number;
-    @Column()
+    @Column({name: 'movement_point'})
     public movementPoint!: number;
-    @Column()
+    @Column({name: 'satiety'})
     public satiety!: number;
-    @Column()
-    public isMush!: boolean;
-    @Column()
-    public isDirty!: boolean;
-    @CreateDateColumn()
+    @Column({name: 'mush'})
+    public mush!: boolean;
+    @CreateDateColumn({name: 'created_at'})
     public createdAt!: Date;
-    @UpdateDateColumn()
+    @UpdateDateColumn({name: 'updated_at'})
     public updatedAt!: Date;
 
-    public setDirty(): void {
-        this.isDirty = true;
-    }
     public isStarving(): boolean {
         return this.statuses.includes(StatusEnum.STARVING);
     }
+
+    // @TODO: proper definition of is mush, a status or a field?
+    public isMush(): boolean {
+        return this.mush;
+    }
+
+    // @TODO: proper definition of dead, with a kind of status, or a new field?
+    public isDead(): boolean {
+        return this.healthPoint === 0;
+    }
+
     public canTakeHeavyItems(): boolean {
         return this.skills.includes(SkillsEnum.SOLID);
     }

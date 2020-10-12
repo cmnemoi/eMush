@@ -25,7 +25,7 @@ export default class ItemService {
         item.isDismantable = itemConfig.isDismantable;
         item.isStackable = itemConfig.isStackable;
         item.isHideable = itemConfig.isHideable;
-        item.isMoveable = itemConfig.isMoveable;
+        item.isMovable = itemConfig.isMoveable;
         item.isFireDestroyable = itemConfig.isFireDestroyable;
         item.isFireBreakable = itemConfig.isFireBreakable;
         item.room = room;

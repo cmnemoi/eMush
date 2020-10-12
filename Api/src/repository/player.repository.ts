@@ -16,7 +16,7 @@ export default class PlayerRepository {
             const playerRepository = connection.getRepository(Player);
             return playerRepository
                 .findOne(id, {
-                    relations: ['room', 'room.doors', 'items', 'room.items'],
+                    relations: ['daedalus', 'daedalus.players', 'user', 'room', 'room.doors', 'items', 'room.items', "items.player"],
                 })
                 .then((result: Player | undefined) => {
                     return typeof result === 'undefined' ? null : result;

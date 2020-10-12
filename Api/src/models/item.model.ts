@@ -1,7 +1,7 @@
 import {
     Column,
     CreateDateColumn,
-    Entity,
+    Entity, JoinColumn,
     ManyToOne,
     PrimaryGeneratedColumn,
     UpdateDateColumn,
@@ -15,35 +15,38 @@ import {ItemsEnum} from '../enums/items.enum';
 export class Item {
     @PrimaryGeneratedColumn()
     readonly id!: number;
-    @Column()
+    @Column({name: 'name'})
     public name!: ItemsEnum;
-    @Column()
+    @Column({name: 'type'})
     public type!: ItemTypeEnum;
-    @Column('simple-array')
+    @Column('simple-array', {name: 'statuses'})
     public statuses: string[] = [];
     @ManyToOne(type => Room, room => room.items)
+    @JoinColumn({name: 'room_id'})
     public room!: Room | null;
     @ManyToOne(type => Player, player => player.items)
+    @JoinColumn({name: 'player_id'})
     public player!: Player | null;
-    @Column()
+    @Column({name: 'is_dismantable'})
     public isDismantable!: boolean;
-    @Column()
+    @Column({name: 'is_heavy'})
     public isHeavy!: boolean;
     @ManyToOne(type => Player)
+    @JoinColumn({name: 'personal_id'})
     public personal!: Player;
-    @Column()
+    @Column({name: 'is_stackable'})
     public isStackable!: boolean;
-    @Column()
+    @Column({name: 'is_hideable'})
     public isHideable!: boolean;
-    @Column()
-    public isMoveable!: boolean;
-    @Column()
+    @Column({name: 'is_movable'})
+    public isMovable!: boolean;
+    @Column({name: 'is_fire_destroyable'})
     public isFireDestroyable!: boolean;
-    @Column()
+    @Column({name: 'is_fire_breakable'})
     public isFireBreakable!: boolean;
-    @CreateDateColumn()
+    @CreateDateColumn({name: 'created_at'})
     public createdAt!: Date;
-    @UpdateDateColumn()
+    @UpdateDateColumn({name: 'updated_at'})
     public updatedAt!: Date;
 
     isPersonal(): boolean {

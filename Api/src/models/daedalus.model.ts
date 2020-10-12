@@ -17,21 +17,21 @@ export class Daedalus {
     public players!: Player[];
     @OneToMany(type => Room, room => room.daedalus)
     public rooms!: Room[];
-    @Column()
+    @Column({name: 'oxygen'})
     public oxygen!: number;
-    @Column()
+    @Column({name: 'fuel'})
     public fuel!: number;
-    @Column()
+    @Column({name: 'hull'})
     public hull!: number;
-    @Column()
-    public day!: number;
-    @Column()
+    @Column({name: 'day'})
+    public day!: number; //@ FIXME is this column useful, day = floor(cycle/(24/GameConfig.cycleLength) + 1);
+    @Column({name: 'cycle'})
     public cycle!: number;
-    @Column()
+    @Column({name: 'shield'})
     public shield!: number; // The Plasma Shield is -2 when inactive, -1 when broken, 0 and up when active
-    @CreateDateColumn()
+    @CreateDateColumn({name: 'created_at'})
     public createdAt!: Date;
-    @UpdateDateColumn()
+    @UpdateDateColumn({name: 'updated_at'})
     public updatedAt!: Date;
 
     getPlayersAlive(): Player[] {

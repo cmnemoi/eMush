@@ -14,7 +14,7 @@ To have a working devlopment environment you will need to install:
 * [Docker-compose](https://docs.docker.com/compose/install/) 
 
 Optional:
-* [Postman](https://docs.docker.com/get-docker/) - Postman requests are exported in this file : mush.postman_collection.json
+* [Postman](https://www.postman.com/) - Postman requests are exported in this file : mush.postman_collection.json
 
 ### Installing
 

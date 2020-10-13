@@ -1,3 +1,5 @@
+import {ActionsEnum} from "../enums/actions.enum";
+
 export default {
     openapi: '3.0.0',
     info: {
@@ -12,8 +14,8 @@ export default {
     ],
     tags: [
         {
-            name: 'Actions',
-            description: 'Api to make actions',
+            name: 'User',
+            description: 'Api to get user information',
         },
         {
             name: 'Player',
@@ -23,40 +25,91 @@ export default {
             name: 'Daedalus',
             description: 'Api to manipulate a Daedalus',
         },
+        {
+            name: 'Actions',
+            description: 'Api to make actions',
+        },
     ],
     paths: {
-        '/action': {
+        '/login': {
             post: {
-                tags: ['Actions'],
-                security: [{bearer: []}],
-                summary: 'Create a new action',
+                tags: ['User'],
+                summary: 'Logs user into the system',
                 requestBody: {
                     required: true,
                     content: {
                         'application/json': {
                             schema: {
                                 type: 'object',
-                                required: ['action'],
+                                required: ['username'],
                                 properties: {
-                                    action: {
+                                    username: {
                                         type: 'string',
-                                    },
-                                    params: {
-                                        type: 'object',
-                                        properties: {
-                                            item: {
-                                                type: 'string',
-                                            },
-                                            door: {
-                                                type: 'string',
-                                            },
-                                        },
                                     },
                                 },
                             },
                         },
                     },
                 },
+                responses: {
+                    '200': {
+                        description: 'successful operation',
+                        schema: {
+                            type: 'string',
+                        },
+                        headers: {
+                            'X-Rate-Limit': {
+                                type: 'integer',
+                                format: 'int32',
+                                description:
+                                    'calls per hour allowed by the user',
+                            },
+                            'X-Expires-After': {
+                                type: 'string',
+                                format: 'date-time',
+                                description: 'date in UTC when token expires',
+                            },
+                        },
+                    },
+                    '400': {
+                        description: 'Invalid username/password supplied',
+                    },
+                },
+            },
+        },
+        '/user/:id': {
+            post: {
+                tags: ['User'],
+                security: [{bearer: []}],
+                summary: 'Get the user',
+                parameters: [
+                    {
+                        in: 'path',
+                        name: 'id',
+                        required: true,
+                        schema: {
+                            type: 'integer',
+                        },
+                    },
+                ],
+                responses: {
+                    '200': {
+                        description: 'Action has been performed',
+                    },
+                    '401': {
+                        $ref: '#/components/responses/UnauthorizedError',
+                    },
+                    '422': {
+                        description: 'Invalid parameters',
+                    },
+                },
+            },
+        },
+        '/user/me': {
+            post: {
+                tags: ['User'],
+                security: [{bearer: []}],
+                summary: 'Get the user',
                 responses: {
                     '200': {
                         description: 'Action has been performed',
@@ -158,6 +211,22 @@ export default {
             },
         },
         '/daedalus': {
+            get: {
+                tags: ['Daedalus'],
+                security: [{bearer: []}],
+                summary: 'List the Daedalus',
+                responses: {
+                    '200': {
+                        description: 'Action has been performed',
+                    },
+                    '401': {
+                        $ref: '#/components/responses/UnauthorizedError',
+                    },
+                    '422': {
+                        description: 'Invalid parameters',
+                    },
+                },
+            },
             post: {
                 tags: ['Daedalus'],
                 security: [{bearer: []}],
@@ -175,20 +244,34 @@ export default {
                 },
             },
         },
-        '/login': {
+        '/action': {
             post: {
-                tags: ['user'],
-                summary: 'Logs user into the system',
+                tags: ['Actions'],
+                security: [{bearer: []}],
+                summary: 'Create a new action',
                 requestBody: {
                     required: true,
                     content: {
                         'application/json': {
                             schema: {
                                 type: 'object',
-                                required: ['username'],
+                                required: ['action'],
                                 properties: {
-                                    username: {
+                                    action: {
                                         type: 'string',
+                                        description: "Available actions are " + [ActionsEnum.MOVE, ActionsEnum.EAT, ActionsEnum.TAKE, ActionsEnum.DROP],
+                                    },
+                                    params: {
+                                        type: 'object',
+                                        description: "properties depends on the target, e.g. door when action is "+ActionsEnum.MOVE+", item when action is " + ActionsEnum.TAKE,
+                                        properties: {
+                                            item: {
+                                                type: 'string',
+                                            },
+                                            door: {
+                                                type: 'string',
+                                            },
+                                        },
                                     },
                                 },
                             },
@@ -197,26 +280,13 @@ export default {
                 },
                 responses: {
                     '200': {
-                        description: 'successful operation',
-                        schema: {
-                            type: 'string',
-                        },
-                        headers: {
-                            'X-Rate-Limit': {
-                                type: 'integer',
-                                format: 'int32',
-                                description:
-                                    'calls per hour allowed by the user',
-                            },
-                            'X-Expires-After': {
-                                type: 'string',
-                                format: 'date-time',
-                                description: 'date in UTC when token expires',
-                            },
-                        },
+                        description: 'Action has been performed',
                     },
-                    '400': {
-                        description: 'Invalid username/password supplied',
+                    '401': {
+                        $ref: '#/components/responses/UnauthorizedError',
+                    },
+                    '422': {
+                        description: 'Invalid parameters',
                     },
                 },
             },

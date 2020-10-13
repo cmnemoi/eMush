@@ -61,8 +61,7 @@ export default class PlayerService {
         player.actionPoint = GameConfig.initActionPoint;
         player.movementPoint = GameConfig.initMovementPoint;
         player.satiety = GameConfig.initSatiety;
-        player.isDirty = false;
-        player.isMush = false;
+        player.mush = false;
 
         const characterConfig = CharacterConfig.find(
             characterConfigs => characterConfigs.name === character

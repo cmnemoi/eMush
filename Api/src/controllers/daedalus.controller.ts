@@ -3,10 +3,18 @@ import {validationResult} from 'express-validator';
 import DaedalusService from '../services/daedalus.service';
 import {Daedalus} from '../models/daedalus.model';
 import {logger} from '../config/logger';
+import {daedalusSerializer} from "../serializer/daedalus.serializer";
+import {User} from "../models/user.model";
 
 export class DaedalusController {
     public fetch(req: Request, res: Response): void {
+        const user = req.user;
         const identifier = Number(req.params.id);
+
+        if (!(user instanceof User)) {
+            res.status(403).json({errors: 'user not found'});
+            return;
+        }
 
         DaedalusService.find(identifier)
             .then((daedalus: Daedalus | null) => {
@@ -17,7 +25,7 @@ export class DaedalusController {
 
                 DaedalusService.handleCycleChange(daedalus);
 
-                res.json(daedalus);
+                res.json(daedalusSerializer(daedalus, user));
             })
             .catch((err: Error) => {
                 logger.error(err.message);
@@ -26,9 +34,19 @@ export class DaedalusController {
     }
 
     public fetchAll(req: Request, res: Response): void {
+        const user = req.user;
+
+        if (!(user instanceof User)) {
+            res.status(403).json({errors: 'user not found'});
+            return;
+        }
         DaedalusService.findAll()
             .then((daedaluss: Daedalus[]) => {
-                res.json(daedaluss);
+                res.json(
+                    daedaluss.map((daedalus: Daedalus) =>
+                        daedalusSerializer(daedalus, user)
+                    )
+                );
             })
             .catch((err: Error) => {
                 logger.error(err.message);
@@ -38,6 +56,12 @@ export class DaedalusController {
 
     public post(req: Request, res: Response): void {
         const errors = validationResult(req); // Finds the validation errors in this request and wraps them in an object with handy functions
+        const user = req.user;
+
+        if (!(user instanceof User)) {
+            res.status(403).json({errors: 'user not found'});
+            return;
+        }
 
         if (!errors.isEmpty()) {
             res.status(422).json({errors: errors.array()});
@@ -45,7 +69,7 @@ export class DaedalusController {
         }
         DaedalusService.initDaedalus()
             .then((daedalus: Daedalus) => {
-                res.status(201).json({id: daedalus.id});
+                res.json(daedalusSerializer(daedalus, user));
             })
             .catch((err: Error) => {
                 logger.error(err.message);

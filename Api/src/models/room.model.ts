@@ -1,7 +1,7 @@
 import {
     Column,
     CreateDateColumn,
-    Entity,
+    Entity, JoinColumn,
     JoinTable,
     ManyToMany,
     ManyToOne,
@@ -19,9 +19,10 @@ import * as _ from 'lodash';
 export class Room {
     @PrimaryGeneratedColumn()
     readonly id!: number;
-    @Column()
+    @Column({name: 'name'})
     public name!: string;
     @ManyToOne(type => Daedalus, daedalus => daedalus.rooms)
+    @JoinColumn({name: 'daedalus_id'})
     public daedalus!: Daedalus;
     @OneToMany(type => Player, player => player.room)
     public players!: Player[];
@@ -30,11 +31,11 @@ export class Room {
     @ManyToMany(type => Door, door => door.rooms)
     @JoinTable()
     public doors!: Door[];
-    @Column('simple-array')
+    @Column('simple-array', {name: 'statuses'})
     public statuses!: string[];
-    @CreateDateColumn()
+    @CreateDateColumn({name: 'created_at'})
     public createdAt!: Date;
-    @UpdateDateColumn()
+    @UpdateDateColumn({name: 'updated_at'})
     public updatedAt!: Date;
 
     public addItem(item: Item): Room {

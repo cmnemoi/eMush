@@ -13,14 +13,14 @@ import {Item} from './item.model';
 export class User {
     @PrimaryGeneratedColumn()
     readonly id!: number;
-    @Column()
+    @Column({name: 'user_id'})
     public userId!: string;
-    @Column()
+    @Column({name: 'username'})
     public username!: string;
     @OneToMany(type => Player, player => player.user)
     public games!: Player[];
-    @CreateDateColumn()
+    @CreateDateColumn({name: 'created_at'})
     public createdAt!: Date;
-    @UpdateDateColumn()
+    @UpdateDateColumn({name: 'updated_at'})
     public updatedAt!: Date;
 }

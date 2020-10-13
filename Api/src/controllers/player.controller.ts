@@ -6,17 +6,26 @@ import {Daedalus} from '../models/daedalus.model';
 import {validationResult} from 'express-validator';
 import {logger} from '../config/logger';
 import {User} from '../models/user.model';
+import {playerSerializer} from '../serializer/player.serializer';
 
 export class PlayerController {
     public fetch(req: Request, res: Response): void {
+        const user = req.user;
         const identifier = Number(req.params.id);
+
+        if (!(user instanceof User)) {
+            res.status(403).json({errors: 'user not found'});
+            return;
+        }
 
         PlayerService.find(identifier)
             .then((player: Player | null) => {
-                if (player === null) {
-                    res.status(404).json();
+                if (player instanceof Player) {
+                    res.json(playerSerializer(player, user));
+                    return;
                 }
-                res.json(player);
+
+                res.status(404).json();
             })
             .catch((err: Error) => {
                 res.status(500).json(err);
@@ -24,9 +33,19 @@ export class PlayerController {
     }
 
     public fetchAll(req: Request, res: Response): void {
+        const user = req.user;
+        if (!(user instanceof User)) {
+            res.status(403).json({errors: 'user not found'});
+            return;
+        }
+
         PlayerService.findAll()
             .then((players: Player[]) => {
-                res.json(players);
+                res.json(
+                    players.map((player: Player) =>
+                        playerSerializer(player, user)
+                    )
+                );
             })
             .catch((err: Error) => {
                 res.status(500).json(err);

@@ -27,6 +27,7 @@ export default class DaedalusService {
         const daedalus = new Daedalus();
         daedalus.cycle = DaedalusService.getCycleFromDate(DateTime.utc());
         daedalus.day = 1;
+        daedalus.players = [];
         daedalus.oxygen = DaedalusConfig.initOxygen;
         daedalus.fuel = DaedalusConfig.initFuel;
         daedalus.hull = DaedalusConfig.initHull;

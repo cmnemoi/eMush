@@ -37,7 +37,7 @@ export class TakeAction extends Action {
         return (
             this.player.room.hasItem(this.item) &&
             this.player.items.length < GameConfig.maxItemInInventory &&
-            this.item.isMoveable
+            this.item.isMovable
         );
     }
 

@@ -1,7 +1,7 @@
 import {Request, Response} from 'express';
 import {User} from '../models/user.model';
-import UserRepository from "../repository/user.repository";
-import {userSerializer} from "../serializer/user.serializer";
+import UserRepository from '../repository/user.repository';
+import {userSerializer} from '../serializer/user.serializer';
 
 export class UserController {
     public fetch(req: Request, res: Response): void {

@@ -3,8 +3,8 @@ import {validationResult} from 'express-validator';
 import DaedalusService from '../services/daedalus.service';
 import {Daedalus} from '../models/daedalus.model';
 import {logger} from '../config/logger';
-import {daedalusSerializer} from "../serializer/daedalus.serializer";
-import {User} from "../models/user.model";
+import {daedalusSerializer} from '../serializer/daedalus.serializer';
+import {User} from '../models/user.model';
 
 export class DaedalusController {
     public fetch(req: Request, res: Response): void {

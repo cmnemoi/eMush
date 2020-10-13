@@ -1,4 +1,4 @@
-import {ActionsEnum} from "../enums/actions.enum";
+import {ActionsEnum} from '../enums/actions.enum';
 
 export default {
     openapi: '3.0.0',
@@ -259,11 +259,22 @@ export default {
                                 properties: {
                                     action: {
                                         type: 'string',
-                                        description: "Available actions are " + [ActionsEnum.MOVE, ActionsEnum.EAT, ActionsEnum.TAKE, ActionsEnum.DROP],
+                                        description:
+                                            'Available actions are ' +
+                                            [
+                                                ActionsEnum.MOVE,
+                                                ActionsEnum.EAT,
+                                                ActionsEnum.TAKE,
+                                                ActionsEnum.DROP,
+                                            ],
                                     },
                                     params: {
                                         type: 'object',
-                                        description: "properties depends on the target, e.g. door when action is "+ActionsEnum.MOVE+", item when action is " + ActionsEnum.TAKE,
+                                        description:
+                                            'properties depends on the target, e.g. door when action is ' +
+                                            ActionsEnum.MOVE +
+                                            ', item when action is ' +
+                                            ActionsEnum.TAKE,
                                         properties: {
                                             item: {
                                                 type: 'string',

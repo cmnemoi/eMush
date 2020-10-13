@@ -5,7 +5,7 @@ import {DaedalusController} from '../controllers/daedalus.controller';
 import {ActionController} from '../controllers/action.controller';
 import {login} from '../security/security';
 import passport from 'passport';
-import {UserController} from "../controllers/user.controller";
+import {UserController} from '../controllers/user.controller';
 
 const BASE_URL = '/api/v1';
 export const PLAYER_ROUTE = BASE_URL + '/player';
@@ -78,11 +78,11 @@ export class Routes {
             this.actionController.post
         );
 
-        app.route(USER_ROUTE+ '/me').get(
+        app.route(USER_ROUTE + '/me').get(
             passport.authenticate('jwt', {session: false}),
             this.userController.me
         );
-        app.route(USER_ROUTE+ '/:id').get(
+        app.route(USER_ROUTE + '/:id').get(
             passport.authenticate('jwt', {session: false}),
             this.userController.fetch
         );

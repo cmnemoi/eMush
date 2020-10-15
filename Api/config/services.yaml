@@ -1,0 +1,30 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+
+imports:
+    - { resource: ../src/Daedalus/config/services.yaml }
+    - { resource: ../src/Game/config/services.yaml }
+    - { resource: ../src/Item/config/services.yaml }
+    - { resource: ../src/Player/config/services.yaml }
+    - { resource: ../src/Room/config/services.yaml }
+    - { resource: ../src/RoomLog/config/services.yaml }
+    - { resource: ../src/User/config/services.yaml }
+    - { resource: ../src/Action/config/services.yaml }
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+
+    gedmo.listener.timestampable:
+        class: Gedmo\Timestampable\TimestampableListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+        calls:
+            - [ setAnnotationReader, [ '@annotation_reader' ] ]

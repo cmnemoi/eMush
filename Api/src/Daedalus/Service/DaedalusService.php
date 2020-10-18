@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mush\DAaedalus\Entity\Collection\DaedalusCollection;
 use Mush\Daedalus\Criteria\DaedalusCriteria;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Daedalus\Repository\DaedalusRepository;
 use Mush\Game\Service\CycleServiceInterface;
@@ -25,24 +26,27 @@ class DaedalusService implements DaedalusServiceInterface
 
     private CycleServiceInterface $cycleService;
 
-    private DaedalusConfigServiceInterface $daedalusConfigService;
+    private DaedalusConfig $daedalusConfig;
 
     /**
      * DaedalusService constructor.
      * @param EntityManagerInterface $entityManager
+     * @param EventDispatcherInterface $eventDispatcher
      * @param DaedalusRepository $repository
      * @param RoomServiceInterface $roomService
      * @param CycleServiceInterface $cycleService
      * @param DaedalusConfigServiceInterface $daedalusConfigService
      */
-    public function __construct(EntityManagerInterface $entityManager, DaedalusRepository $repository, RoomServiceInterface $roomService, CycleServiceInterface $cycleService, DaedalusConfigServiceInterface $daedalusConfigService)
+    public function __construct(EntityManagerInterface $entityManager, EventDispatcherInterface $eventDispatcher, DaedalusRepository $repository, RoomServiceInterface $roomService, CycleServiceInterface $cycleService, DaedalusConfigServiceInterface $daedalusConfigService)
     {
         $this->entityManager = $entityManager;
+        $this->eventDispatcher = $eventDispatcher;
         $this->repository = $repository;
         $this->roomService = $roomService;
         $this->cycleService = $cycleService;
-        $this->daedalusConfigService = $daedalusConfigService;
+        $this->daedalusConfig = $daedalusConfigService->getConfig();
     }
+
 
     public function persist(Daedalus $daedalus): Daedalus
     {
@@ -67,20 +71,19 @@ class DaedalusService implements DaedalusServiceInterface
     {
         $daedalus = new Daedalus();
 
-        $daedalusConfig = $this->daedalusConfigService->getConfig();
 
         $daedalus
             ->setCycle($this->cycleService->getCycleFromDate(new \DateTime()))
-            ->setOxygen($daedalusConfig->getInitOxygen())
-            ->setFuel($daedalusConfig->getInitFuel())
-            ->setHull($daedalusConfig->getInitHull())
-            ->setShield($daedalusConfig->getInitShield())
+            ->setOxygen($this->daedalusConfig->getInitOxygen())
+            ->setFuel($this->daedalusConfig->getInitFuel())
+            ->setHull($this->daedalusConfig->getInitHull())
+            ->setShield($this->daedalusConfig->getInitShield())
         ;
 
         $this->persist($daedalus);
 
         /** @var RoomConfig $roomconfig */
-        foreach ($daedalusConfig->getRooms() as $roomconfig) {
+        foreach ($this->daedalusConfig->getRooms() as $roomconfig) {
             $room = $this->roomService->createRoom($roomconfig, $daedalus);
             $daedalus->addRoom($room);
         }

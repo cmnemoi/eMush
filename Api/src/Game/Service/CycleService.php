@@ -25,11 +25,14 @@ class CycleService implements CycleServiceInterface
     }
 
 
-    public function handleCycleChange(Daedalus $daedalus): bool {
+    public function handleCycleChange(Daedalus $daedalus): int {
         $currentDate = new \DateTime();
         $lastUpdate = $daedalus->getUpdatedAt();
         $currentCycle = $daedalus->getCycle() % $this->gameConfig->getNumberOfCyclePerDay();
-        $currentCycleStartedAt = $lastUpdate->setTimezone(new \DateTimeZone($this->gameConfig->getTimeZone()))->setTime(($currentCycle - 1) * $this->gameConfig->getCycleLength(),0,0,0);
+        $currentCycleStartedAt = clone $lastUpdate;
+        $currentCycleStartedAt = $currentCycleStartedAt
+            ->setTimezone(new \DateTimeZone($this->gameConfig->getTimeZone()))
+            ->setTime(($currentCycle - 1) * $this->gameConfig->getCycleLength(),0,0,0);
 
         $cycleElapsed = $this->getNumberOfCycleElapsed($lastUpdate, $currentDate);
 
@@ -39,7 +42,7 @@ class CycleService implements CycleServiceInterface
             $this->eventDispatcher->dispatch($cycleEvent,CycleEvent::NEW_CYCLE);
         }
 
-        return $currentCycle !== 0;
+        return $cycleElapsed;
     }
 
     public function getCycleFromDate(DateTime $date): int {
@@ -55,12 +58,12 @@ class CycleService implements CycleServiceInterface
         $end->setTimezone(new \DateTimeZone($this->gameConfig->getTimeZone()));
         $start->setTimezone(new \DateTimeZone($this->gameConfig->getTimeZone()));
 
-        $dayDifference = 0;
         // We assume the inactivity is not more than a month
-        if (date('n',$end) !== date('n',$start)) {
-            $dayDifference = date('t', $start) - date('j', $start) + date('j', $end);
+        if ($end->format('n') !== $start->format('n')) {
+
+            $dayDifference = $start->format('t') - $start->format('j') + $end->format('j');
         } else {
-            $dayDifference = date('j', $endCycle)- date('j', $start);
+            $dayDifference = $end->format('j') - $start->format('j');
         }
 
         return $endCycle + $dayDifference * $this->gameConfig->getNumberOfCyclePerDay() - $startCycle;

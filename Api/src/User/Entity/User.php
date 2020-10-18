@@ -35,7 +35,7 @@ class User implements UserInterface
      */
     private string $username;
 
-    private Player $currentGame;
+    private ?Player $currentGame;
 
     public function getId(): int
     {
@@ -89,7 +89,7 @@ class User implements UserInterface
         return $this->currentGame;
     }
 
-    public function setCurrentGame(Player $currentGame): User
+    public function setCurrentGame(?Player $currentGame): User
     {
         $this->currentGame = $currentGame;
         return $this;

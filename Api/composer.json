@@ -25,6 +25,9 @@
         "twig/twig": "^2.12|^3.0"
     },
     "require-dev": {
+        "mockery/mockery": "^1.4",
+        "phpunit/phpunit": "^9.4",
+        "symfony/phpunit-bridge": "^5.1"
     },
     "config": {
         "optimize-autoloader": true,
@@ -34,11 +37,13 @@
         "sort-packages": true
     },
     "autoload": {
+        "classmap": ["src/"],
         "psr-4": {
             "Mush\\": "src/"
         }
     },
     "autoload-dev": {
+        "classmap": ["tests/"],
         "psr-4": {
             "Mush\\Tests\\": "tests/"
         }

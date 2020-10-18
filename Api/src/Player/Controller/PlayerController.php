@@ -52,6 +52,8 @@ class PlayerController extends AbstractFOSRestController
         $daedalus = $this->daedalusService->findById($request->get('daedalus'));
         $character = $request->get('character');
 
+        $usser = $this->getUser();
+
         if (!$daedalus) {
             $this->handleView($this->view('Missing daedalus', 422));
         }

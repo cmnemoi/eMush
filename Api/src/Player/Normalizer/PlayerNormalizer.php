@@ -3,13 +3,29 @@
 namespace Mush\Player\Normalizer;
 
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Normalizer\DaedalusNormalizer;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\User\Entity\User;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 
 class PlayerNormalizer implements ContextAwareNormalizerInterface
 {
+    private DaedalusNormalizer $daedalusNormalizer;
+    private TokenStorageInterface $tokenStorage;
+
+    /**
+     * PlayerNormalizer constructor.
+     * @param DaedalusNormalizer $daedalusNormalizer
+     * @param TokenStorageInterface $tokenStorage
+     */
+    public function __construct(DaedalusNormalizer $daedalusNormalizer, TokenStorageInterface $tokenStorage)
+    {
+        $this->daedalusNormalizer = $daedalusNormalizer;
+        $this->tokenStorage = $tokenStorage;
+    }
 
     public function supportsNormalization($data, string $format = null, array $context = [])
     {
@@ -24,18 +40,30 @@ class PlayerNormalizer implements ContextAwareNormalizerInterface
      */
     public function normalize($player, string $format = null, array $context = [])
     {
-            return [
-                'id' => $player->getId(),
-                'character' => $player->getPerson(),
-                'gameStatus' => $player->getGameStatus(),
+        $playerPersonalInfo = [];
+        if ($this->getUser()->getCurrentGame() === $player) {
+            $playerPersonalInfo = [
                 'actionPoint' => $player->getActionPoint(),
                 'movementPoint' => $player->getMovementPoint(),
                 'healthPoint' => $player->getHealthPoint(),
                 'moralPoint' => $player->getMoralPoint(),
-                'statuses' => $player->getStatuses(),
-                'skills' => $player->getSkills(),
                 'createdAt' => $player->getCreatedAt(),
                 'updatedAt' => $player->getUpdatedAt()
             ];
+        }
+
+        return array_merge([
+            'id' => $player->getId(),
+            'daedalus' => $this->daedalusNormalizer->normalize($player->getDaedalus()),
+            'character' => $player->getPerson(),
+            'gameStatus' => $player->getGameStatus(),
+            'statuses' => $player->getStatuses(),
+            'skills' => $player->getSkills(),
+        ], $playerPersonalInfo);
+    }
+
+    private function getUser(): User
+    {
+        return $this->tokenStorage->getToken()->getUser();
     }
 }

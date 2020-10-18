@@ -1,33 +1,69 @@
 version: '3'
+
 services:
-  mush-api:
-    build: Api
-    container_name: mush_api
-    working_dir: /home/node/app
+  mush_apache:
+    build: Api/apache
+    container_name: mush_apache
     ports:
-      - 8080:8080
+      - 8080:80
+      - 8443:8443
     volumes:
-      - ../Api:/home/node/app
-      - .bashrc:/root/.bashrc
+      - ./Api/config/vhosts:/etc/apache2/sites-enabled
+      - ../Api:/www
     networks:
-      - backend
+      - mush_network
     depends_on:
-      - mush-database
+      - mush_php
+
+  mush_php:
+    build: Api/php
+    container_name: mush_php
+    environment:
+      - PHP_IDE_CONFIG=serverName=mush
+    volumes:
+      - ../Api:/www
+    networks:
+      - mush_network
+    links:
+      - mush_database
 
   #Database container
-  mush-database:
-    image: mariadb
+  mush_database:
+    image: mysql:8.0.15
     container_name: mush_database
+    command: mysqld --default-authentication-plugin=mysql_native_password
     ports:
       - "3306:3306"
     networks:
-      - backend
+      - mush_network
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: mush
       MYSQL_USER: mysql
       MYSQL_PASSWORD: password
 
+  mush_front:
+    container_name: front_mush
+    build:
+      context: ./App
+      dockerfile: Dockerfile
+      args:
+        - YOUR_APP_WEB_HTTP_PORT=8080
+    ports:
+      - "80:8080"
+      - "8000:8000"  # only needed if using vue-cli UI
+    volumes:
+      - ../App:/www
+    stdin_open: true
+    tty: true
+    environment:
+      # https://cli.vuejs.org/guide/mode-and-env.html#modes
+      # development is used by vue-cli-service serve
+      - NODE_ENV=development
+      # one way for hot reloading ... see above for details
+      - CHOKIDAR_USEPOLLING=true
+      - CHOKIDAR_INTERVAL=100
+      - YOUR_APP_WEB_HTTP_PORT=8080
 networks:
-  backend:
+  mush_network:
     driver: bridge

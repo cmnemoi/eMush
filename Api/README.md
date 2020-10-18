@@ -1,76 +1,106 @@
-# Mush Api
+# Architecture (Outdated, to be updated for Symfony)
 
-A REST Api that manage the Mush game. Creating new Daedalus and manage the players actions
+## Directory Tree:
+  
+    |-- build/              --> Compiled Js (not commited)
+    |-- config/             --> Game configs
+    |-- docs/               --> Documentation (Readme)
+    |-- locales/            --> Translations
+    |-- logs/               --> Logs generated (not commited)
+    |-- migration/          --> Migrations
+    |-- node_modules/       --> A black hole (not commited)
+    |-- src/            
+        |-- actions/        --> All the implementation of an action
+        |-- config/         --> Devlopement config (database, routes, etc..)
+        |-- controllers/    --> controllers
+        |-- enums/          --> All the enums
+        |-- events/         --> The event handlers
+        |-- models/         --> Entities, the core entities
+        |-- repository/     --> The layer between the ORM and the application
+        |-- security/       --> Authentification handling
+        |-- services/       --> Business logic
+        |-- index.ts        --> entrypoint
+    |-- tests/              --> Test directory
+    |-- .env                --> environment variables
+    |-- package.json        --> dependencies
 
-## Getting Started
+## Core concepts:
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
-See endpoints for information on the different endpoints available.
+### Actions vs Events
 
-### Prerequisites
+The difference between an action and an event (from a development perspective) is an Action is what a User want to do. An event is something that can be the result of an action,or the change of cycle.
+Obvious example:
+- Action:
+    - Move: The player use a door
+    - Shoot a hunter
+- Event:
+    - The cycle change
+    - A player die
+    
+ For instance a player can make the action 'hit' on an other player, this will trigger the event 'player die'.  
+ Less obvious example:   
+    A player make the action eat, that trigger the event 'become Dirty'  
+There are several grey area still:   
+     Player make the action 'repare' on a door, should the repared door trigger the event repared?
 
-To have a working devlopment environment you will need to install:
-* [Docker](https://docs.docker.com/get-docker/) 
-* [Docker-compose](https://docs.docker.com/compose/install/) 
+#### Action
 
-Optional:
-* [Postman](https://docs.docker.com/get-docker/) - Postman requests are exported in this file : mush.postman_collection.json
+Create a new Action:
+- Create a class that extends [src/actions/action.ts](../src/actions/action.ts) abstract class: implement the abstract methods
+- Register this action in the [src/enums/actions.enums.ts](../src/enums/actions.enum.ts)
+- Add the new Class in the [src/actions/list.actions.ts](../src/actions/list.action.ts)
+#### Event
+Trigger an event:
+```
+eventManager.emit(EventName, ...parameters)
+```
+Implement the action handler in events/
 
-### Installing
-
-To have a working dev environment, follow the following steps
-
-Clone the project
+## New Models
+To create a new Model (persisted):
+- Add you model class in src/models
+- register you model in [src/config/database.ts](../src/config/database.ts)
+- Create the migration run in the container:  
 ```
-git clone git@gitlab.com:eternal-twin/mush.git
+npm run generate-migration
 ```
-Go to the Api directory:
+To apply the migration:
 ```
-cd mush/Api
-```
-Checkout to develop:
-```
-git checkout develop
-```
-copy the .env.dist file (and change environment variables if required):
-```
-cp .env.dist .env
-```
-Build the docker containers:
-```
-make build
-Or 
-docker-compose -f docker/docker-compose.yml build
-```
-Start the docker container
-```
-make docker-watch (make docker-start if you don't mind the compilation outputs)
-Or 
-docker exec -it mush_api bash
-```
-Compile the Api
-```
-npm run compile
-```
-Run the migrations
-```
-npm run run-migration
-```
-If everything went well you should be able to access: http://localhost:8080/swagger/
-
-## Running the tests
-If you need you can create a .env.test for specific variable environment for test purpose (having a test database for instance)
-Run the tests
-```
-npm run test
+npm run compile && npm run run-migration
 ```
 
-## Endpoints
-A swagger is available that list all the available endpoints and their specifications [Swagger](http://localhost:8080/swagger/) 
-To authenticate, at the moment, use the login endpoint and set the access_token returned in the swagger header to use the other endpoints
+## RoomLogs
+When an action or an event is performed, a roomLog should be created  
+In order to add a roomLog, use the RoomLogService::createLog method
+```
+RoomLogService.createLog(LogEnum.EAT,{character: this.player.character},this.player.room,this.player,VisibilityEnum.SECRET);
+```
+To crate a new Log: 
+- Add the log to the [log.enum.ts](../src/enums/log.enum.ts)  
+- Add the log in the [locales](../locales/fr/logs.ts)
 
-## Contributing
+## Random value
+Whenever you need to generate a random value, use the [RandomService](../src/services/random.service.ts)
+```
+public static random(nbValuePossible = 100): number {
+```
 
-Please read [CONTRIBUTING.md](./docs/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+## Tests
+Please create a test for every new created functionality  
+The test folder is a mirror of the src directory
 
-Please read [ARCHITECTURE.md](./docs/ARCHITECTURE.md) for details on the architecture
+## Main dependencies
+
+[Express4](https://expressjs.com/) Fast, unopinionated, minimalist web framework for Node.js 
+
+[TypeScript](https://www.typescriptlang.org/) extends JavaScript by adding types.
+
+[TypeORM](https://typeorm.io/#/) is an ORM that can run in NodeJS, Browser, Cordova, PhoneGap, Ionic, React Native, NativeScript, Expo, and Electron platforms and can be used with TypeScript and JavaScript (ES5, ES6, ES7, ES8)
+
+[Passport](http://www.passportjs.org/) Simple, unobtrusive authentication for Node.js
+
+[winston](https://github.com/winstonjs/winston) A logger for just about everything.
+
+[Mocha](https://mochajs.org/) is a feature-rich JavaScript test framework running on Node.js and in the browser, making asynchronous testing simple and fung.
+
+[Chai](https://www.chaijs.com/) is a BDD / TDD assertion library for node and the browser that can be delightfully paired with any javascript testing framework.

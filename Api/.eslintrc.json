@@ -1,9 +1,0 @@
-{
-  "extends": [
-    "./node_modules/gts"
-  ],
-  "ignorePatterns": ["build/"],
-  "rules": {
-    "@typescript-eslint/no-unused-vars": "off" // @TODO: check why it doesn't work
-  }
-}

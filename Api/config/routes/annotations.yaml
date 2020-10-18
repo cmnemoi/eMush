@@ -1,0 +1,23 @@
+daedalus:
+    resource: ../../src/Daedalus/Controller/
+    type: annotation
+    prefix: /api/v1
+player:
+    resource: ../../src/Player/Controller/
+    type: annotation
+    prefix: /api/v1
+user:
+    resource: ../../src/User/Controller/
+    type: annotation
+    prefix: /api/v1
+action:
+    resource: ../../src/Action/Controller/
+    type: annotation
+    prefix: /api/v1
+
+api_login_check:
+    path: /api/login_check
+
+kernel:
+    resource: ../../src/Kernel.php
+    type: annotation

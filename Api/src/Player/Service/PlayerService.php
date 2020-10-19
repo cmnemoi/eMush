@@ -30,7 +30,7 @@ class PlayerService implements PlayerServiceInterface
 
     private CharacterConfigCollection $charactersConfig;
 
-    private ?User $user = null;
+    private TokenStorageInterface $tokenStorage;
 
     /**
      * PlayerService constructor.
@@ -39,6 +39,7 @@ class PlayerService implements PlayerServiceInterface
      * @param PlayerRepository $repository
      * @param GameConfigServiceInterface $gameConfigService
      * @param CharacterConfigServiceInterface $characterConfigsService
+     * @param TokenStorageInterface $tokenStorage
      */
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -53,9 +54,7 @@ class PlayerService implements PlayerServiceInterface
         $this->repository = $repository;
         $this->gameConfig = $gameConfigService->getConfig();
         $this->charactersConfig = $characterConfigsService->getConfigs();
-        if ($tokenStorage->getToken()) {
-            $this->user = $tokenStorage->getToken()->getUser();
-        }
+        $this->tokenStorage = $tokenStorage;
     }
 
 
@@ -82,7 +81,7 @@ class PlayerService implements PlayerServiceInterface
         $player = new Player();
 
         $player
-            ->setUser($this->user)
+            ->setUser($this->tokenStorage->getToken()->getUser())
             ->setGameStatus(GameStatusEnum::CURRENT)
             ->setDaedalus($daedalus)
             ->setRoom($daedalus->getRooms()->filter(fn(Room $room) => $room->getName() === RoomEnum::LABORATORY)->first())

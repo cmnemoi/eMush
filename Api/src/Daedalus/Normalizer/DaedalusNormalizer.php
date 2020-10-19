@@ -32,7 +32,7 @@ class DaedalusNormalizer implements ContextAwareNormalizerInterface
     {
             return [
                 'id' => $daedalus->getId(),
-                'cycle' => ($daedalus->getCycle() % $this->gameConfig->getNumberOfCyclePerDay()) + 1,
+                'cycle' => ($daedalus->getCycle()-1 % $this->gameConfig->getNumberOfCyclePerDay())+1,
                 'day' => floor($daedalus->getCycle() / $this->gameConfig->getNumberOfCyclePerDay()),
                 'oxygen' => $daedalus->getOxygen(),
                 'fuel' => $daedalus->getFuel(),

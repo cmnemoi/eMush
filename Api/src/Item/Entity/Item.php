@@ -11,8 +11,13 @@ use Mush\Room\Entity\Room;
 /**
  * Class Item
  * @package Mush\Entity
- *
- * @ORM\Entity(repositoryClass="Mush\Item\Repository\ItemRepository")
+ * @ORM\Entity
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorColumn(name="type", type="string")
+ * @ORM\DiscriminatorMap({
+ *     "fruit" = "Fruit",
+ *     "plant" = "Plant"
+ * })
  */
 class Item
 {

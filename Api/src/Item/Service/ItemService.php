@@ -3,6 +3,7 @@
 namespace Mush\Item\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Mush\Game\Service\RandomServiceInterface;
 use Mush\Item\Entity\Item;
 use Mush\Item\Entity\ItemConfig;
 use Mush\Item\Repository\ItemRepository;
@@ -10,19 +11,20 @@ use Mush\Item\Repository\ItemRepository;
 class ItemService implements ItemServiceInterface
 {
     private EntityManagerInterface $entityManager;
-
     private ItemRepository $repository;
-
     private ItemConfigServiceInterface $itemsConfig;
+    private RandomServiceInterface $randomService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         ItemRepository $repository,
-        ItemConfigServiceInterface $itemsConfig
+        ItemConfigServiceInterface $itemsConfig,
+        RandomServiceInterface $randomService
     ) {
         $this->entityManager = $entityManager;
         $this->repository = $repository;
         $this->itemsConfig = $itemsConfig;
+        $this->randomService = $randomService;
     }
 
     public function persist(Item $item): Item
@@ -63,4 +65,6 @@ class ItemService implements ItemServiceInterface
 
         return $this->persist($item);
     }
+
+
 }

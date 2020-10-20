@@ -16,17 +16,17 @@ use Mush\Room\Entity\Room;
  */
 class Plant extends Item
 {
-    private GamePlant $gameFruit;
+    private GamePlant $gamePlant;
     private int $load;
 
-    public function getGameFruit(): GamePlant
+    public function getGamePlant(): GamePlant
     {
-        return $this->gameFruit;
+        return $this->gamePlant;
     }
 
-    public function setGameFruit(GamePlant $gameFruit): Plant
+    public function setGamePlant(GamePlant $gamePlant): Plant
     {
-        $this->gameFruit = $gameFruit;
+        $this->gamePlant = $gamePlant;
         return $this;
     }
 

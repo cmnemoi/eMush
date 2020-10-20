@@ -10,8 +10,15 @@ use Mush\Daedalus\Service\DaedalusConfigServiceInterface;
 use Mush\Daedalus\Service\DaedalusService;
 use Mush\Game\Service\CycleServiceInterface;
 use \Mockery;
+use Mush\Item\Entity\GameFruit;
+use Mush\Item\Entity\GamePlant;
+use Mush\Item\Enum\GameFruitEnum;
+use Mush\Item\Enum\GamePlantEnum;
+use Mush\Item\Service\GameFruitServiceInterface;
+use Mush\Item\Service\ItemServiceInterface;
 use Mush\Room\Entity\Room;
 use Mush\Room\Entity\RoomConfig;
+use Mush\Room\Enum\RoomEnum;
 use Mush\Room\Service\RoomServiceInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -28,6 +35,10 @@ class DaedalusServiceTest extends TestCase
     private RoomServiceInterface $roomService;
     /** @var CycleServiceInterface | Mockery\Mock */
     private CycleServiceInterface $cycleService;
+    /** @var ItemServiceInterface | Mockery\Mock */
+    private ItemServiceInterface $itemService;
+    /** @var GameFruitServiceInterface | Mockery\Mock */
+    private GameFruitServiceInterface $gameFruitService;
     private DaedalusConfig $daedalusConfig;
     private DaedalusService $service;
 
@@ -41,6 +52,8 @@ class DaedalusServiceTest extends TestCase
         $this->repository = Mockery::mock(DaedalusRepository::class);
         $this->roomService = Mockery::mock(RoomServiceInterface::class);
         $this->cycleService = Mockery::mock(CycleServiceInterface::class);
+        $this->itemService = Mockery::mock(ItemServiceInterface::class);
+        $this->gameFruitService = Mockery::mock(GameFruitServiceInterface::class);
         $daedalusConfig = Mockery::mock(DaedalusConfigServiceInterface::class);
         $this->daedalusConfig = new DaedalusConfig();
         $daedalusConfig->shouldReceive('getConfig')->andReturn($this->daedalusConfig)->once();
@@ -51,6 +64,8 @@ class DaedalusServiceTest extends TestCase
             $this->repository,
             $this->roomService,
             $this->cycleService,
+            $this->itemService,
+            $this->gameFruitService,
             $daedalusConfig
         );
     }
@@ -67,9 +82,11 @@ class DaedalusServiceTest extends TestCase
             ->setRooms([$roomConfig])
         ;
 
+        $room = new Room();
+        $room->setName(RoomEnum::LABORATORY);
         $this->roomService
             ->shouldReceive('createRoom')
-            ->andReturn(new Room())
+            ->andReturn($room)
             ->once()
         ;
 
@@ -92,6 +109,28 @@ class DaedalusServiceTest extends TestCase
             ->shouldReceive('flush')
             ->twice()
         ;
+
+
+        $this->itemService
+            ->shouldReceive('persist')
+            ->once()
+        ;
+        $banana = new GameFruit();
+        $bananaTree = new GamePlant();
+        $bananaTree
+            ->setName(GamePlantEnum::BANANA_TREE)
+        ;
+        $banana
+            ->setGamePlant($bananaTree)
+            ->setName(GameFruitEnum::BANANA)
+        ;
+
+        $this->gameFruitService
+            ->shouldReceive('createBanana')
+            ->andReturn($banana)
+            ->once()
+        ;
+
 
         $daedalus = $this->service->createDaedalus();
 

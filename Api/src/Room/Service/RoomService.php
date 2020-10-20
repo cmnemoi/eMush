@@ -9,6 +9,7 @@ use Mush\Item\Service\ItemServiceInterface;
 use Mush\Room\Entity\Door;
 use Mush\Room\Entity\Room;
 use Mush\Room\Entity\RoomConfig;
+use Mush\Room\Enum\RoomEnum;
 use Mush\Room\Repository\RoomRepository;
 
 

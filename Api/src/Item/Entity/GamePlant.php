@@ -19,9 +19,9 @@ class GamePlant
     private int $id;
 
     /**
-     * @ORM\OneToOne() (targetEntity="Mush\Item\Entity\GameFruit")
+     * @ORM\OneToOne(targetEntity="Mush\Item\Entity\GameFruit", inversedBy="gamePlant")
      */
-    private GameFruit $gameFruit;
+    private ?GameFruit $gameFruit = null;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=false)
@@ -43,7 +43,7 @@ class GamePlant
         return $this->id;
     }
 
-    public function getGameFruit(): GameFruit
+    public function getGameFruit(): ?GameFruit
     {
         return $this->gameFruit;
     }
@@ -51,6 +51,11 @@ class GamePlant
     public function setGameFruit(GameFruit $gameFruit): GamePlant
     {
         $this->gameFruit = $gameFruit;
+
+        if ($gameFruit->getGamePlant() !== $this) {
+            $gameFruit->setGamePlant($this);
+        }
+
         return $this;
     }
 

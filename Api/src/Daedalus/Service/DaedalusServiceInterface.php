@@ -3,7 +3,7 @@
 namespace Mush\Daedalus\Service;
 
 use Mush\DAaedalus\Entity\Collection\DaedalusCollection;
-use Mush\Daedalus\Criteria\DaedalusCriteria;
+use Mush\Daedalus\Entity\Criteria\DaedalusCriteria;
 use Mush\Daedalus\Entity\Daedalus;
 
 interface DaedalusServiceInterface

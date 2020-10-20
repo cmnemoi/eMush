@@ -7,26 +7,22 @@ use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Game\Event\CycleEvent;
 use Mush\Game\Event\DayEvent;
-use Mush\Item\Service\GameFruitServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class DaedalusSubscriber implements EventSubscriberInterface
 {
     private DaedalusServiceInterface $daedalusService;
-    private GameFruitServiceInterface $gameFruitService;
     private EventDispatcherInterface $eventDispatcher;
 
     /**
      * DaedalusSubscriber constructor.
      * @param DaedalusServiceInterface $daedalusService
-     * @param GameFruitServiceInterface $gameFruitService
      * @param EventDispatcherInterface $eventDispatcher
      */
-    public function __construct(DaedalusServiceInterface $daedalusService, GameFruitServiceInterface $gameFruitService, EventDispatcherInterface $eventDispatcher)
+    public function __construct(DaedalusServiceInterface $daedalusService, EventDispatcherInterface $eventDispatcher)
     {
         $this->daedalusService = $daedalusService;
-        $this->gameFruitService = $gameFruitService;
         $this->eventDispatcher = $eventDispatcher;
     }
 
@@ -44,8 +40,6 @@ class DaedalusSubscriber implements EventSubscriberInterface
     public function onDaedalusNew(DaedalusEvent $event)
     {
         $daedalus = $event->getDaedalus();
-
-        $this->gameFruitService->createBanana($daedalus);
     }
 
     public function onDaedalusEnd(DaedalusEvent $event)

@@ -15,6 +15,7 @@ use Mush\Room\Entity\Room;
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="type", type="string")
  * @ORM\DiscriminatorMap({
+ *     "item" = "Item",
  *     "fruit" = "Fruit",
  *     "plant" = "Plant"
  * })
@@ -50,9 +51,6 @@ class Item
      */
     private string $name;
 
-    /**
-     * @ORM\Column(type="string", nullable=false)
-     */
     private string $type;
 
     /**

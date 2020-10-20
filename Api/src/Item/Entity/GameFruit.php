@@ -24,9 +24,9 @@ class GameFruit
     private Daedalus $daedalus;
 
     /**
-     * @ORM\OneToOne() (targetEntity="Mush\Item\Entity\GamePlant", cascade={"ALL"}, orphanRemoval=true)
+     * @ORM\OneToOne(targetEntity="Mush\Item\Entity\GamePlant", cascade={"ALL"}, orphanRemoval=true, inversedBy="gameFruit")
      */
-    private GamePlant $gamePlant;
+    private ?GamePlant $gamePlant = null;
 
     /**
      * @ORM\Column(type="string", nullable=false)
@@ -156,7 +156,7 @@ class GameFruit
         return $this;
     }
 
-    public function getGamePlant(): GamePlant
+    public function getGamePlant(): ?GamePlant
     {
         return $this->gamePlant;
     }
@@ -164,6 +164,9 @@ class GameFruit
     public function setGamePlant(GamePlant $gamePlant): GameFruit
     {
         $this->gamePlant = $gamePlant;
+        if ($gamePlant->getGameFruit() !== $this) {
+            $gamePlant->setGameFruit($this);
+        }
         return $this;
     }
 }

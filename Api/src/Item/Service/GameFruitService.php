@@ -44,6 +44,11 @@ class GameFruitService implements GameFruitServiceInterface
         return $gameFruit;
     }
 
+    /**
+     * Create bananas with hardcoded values
+     * @param Daedalus $daedalus
+     * @return GameFruit
+     */
     public function createBanana(Daedalus $daedalus): GameFruit
     {
         $bananaTree = new GamePlant();
@@ -97,6 +102,11 @@ class GameFruitService implements GameFruitServiceInterface
         return $fruit;
     }
 
+    /**
+     * Find a fruit name that have not already been created for this Daedalus
+     * @param Daedalus $daedalus
+     * @return string
+     */
     private function getNewFruitName(Daedalus $daedalus): string
     {
         $fruits = GameFruitEnum::getAll();

@@ -4,6 +4,7 @@
 namespace Mush\RoomLog\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
 
@@ -15,6 +16,8 @@ use Mush\Room\Entity\Room;
  */
 class RoomLog
 {
+    use TimestampableEntity;
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer", length=255, nullable=false)
@@ -40,6 +43,11 @@ class RoomLog
      * @ORM\Column(type="string", length=255, nullable=false)
      */
     private string $log;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=false)
+     */
+    private \DateTime $date;
 
     /**
      * @ORM\Column(type="array", length=255, nullable=false)
@@ -92,6 +100,17 @@ class RoomLog
     public function setLog(string $log): RoomLog
     {
         $this->log = $log;
+        return $this;
+    }
+
+    public function getDate(): \DateTime
+    {
+        return $this->date;
+    }
+
+    public function setDate(\DateTime $date): RoomLog
+    {
+        $this->date = $date;
         return $this;
     }
 

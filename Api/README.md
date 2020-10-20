@@ -1,30 +1,90 @@
-# Architecture (Outdated, to be updated for Symfony)
+# Architecture 
 
 ## Directory Tree:
-  
-    |-- build/              --> Compiled Js (not commited)
-    |-- config/             --> Game configs
-    |-- docs/               --> Documentation (Readme)
-    |-- locales/            --> Translations
-    |-- logs/               --> Logs generated (not commited)
-    |-- migration/          --> Migrations
-    |-- node_modules/       --> A black hole (not commited)
+    |-- bin/                      
+    |-- config/       
+    |-- migrations/          
+    |-- public/           
     |-- src/            
-        |-- actions/        --> All the implementation of an action
-        |-- config/         --> Devlopement config (database, routes, etc..)
-        |-- controllers/    --> controllers
-        |-- enums/          --> All the enums
-        |-- events/         --> The event handlers
-        |-- models/         --> Entities, the core entities
-        |-- repository/     --> The layer between the ORM and the application
-        |-- security/       --> Authentification handling
-        |-- services/       --> Business logic
-        |-- index.ts        --> entrypoint
+        |-- Action/
+        |-- Daedalus/
+            |-- config
+            |-- Controller
+            |-- Entity
+            |-- Event
+            |-- Normalizer
+            |-- Repository
+            |-- Service
+            |-- Validator
+        |-- Game/
+        |-- Item/
+        |-- Player/
+        |-- Room/
+        |-- RoomLog/       
+        |-- User/
+
     |-- tests/              --> Test directory
     |-- .env                --> environment variables
-    |-- package.json        --> dependencies
+    |-- composer.json        --> dependencies
 
-## Core concepts:
+## Repositories
+
+### bin/
+Symfony/php commands, you can run for instance
+```
+bin/console
+bin/phpunit
+```
+### config/
+core config files, you will find every dependencies configuration, the routes definition, database configuration, etc...
+### migrations/
+doctrine migrations, basically all the sql request to set-up and update the database
+documentation: https://symfony.com/doc/master/bundles/DoctrineMigrationsBundle/index.html
+### public/
+entry point of Symfony, that are the public files and asset that apache can access to  
+It is very unlikely that you need to modify something there
+### src/
+In previous versions of Symfony that would have been bundles
+Each folder manage a part, the Game folder is for all the services/entities that are sharad across each
+module/folder.
+Daedalus folder manage the Daedalus, Player folder manage the Player (etc...)  
+#### config
+Config for the module/folder
+#### Controller
+Responsible for declaring the routes (with annotations), it receives the request and send the response
+There should be no logic inside the controller except calling some services and verify the request
+#### Entity
+The class that holds the data, some of them are stored in database
+#### Event
+Event declaration and event listener/suscriber
+#### Normalizer
+Normalize the data returned by the controller, basically it transforms an object into an array
+This normalization is where we decide which part of the object are retured or not
+#### Repository
+The interface between the database and the entities, they are tightly coupled to the ORM (doctrine)
+If you have some complexe SQL query to do it is the place to do them
+#### Service
+There you will find the business logic, you call the Repository to retrieve the data in database
+And apply the transformation you need.
+#### Validator
+There you valid the data you receive in the request, are all the required fields there? Do the character exist?
+
+### How do that works?
+
+Let's take the example of a new player is created:
+  1. The client send a POST request to /players
+  2. The **validator** (in src/Player/Validator) verify that there is a daedalus and a character in the request
+They also verify that the character and daedalus exist, the daedalus is not already full, etc...
+  If everything is fine then:  
+  3. The **controller** (in src/Player/Controller) receive the request, it might check that the user is authorized to access this daedalus, then it will call
+a **service** (in src/Player/Service) to create the Player with the argument passed in the request.
+  4. The **Service** will perform the creation of the Player, call another **Service** to get the Game and Character configs, and the Random service to perform random stuff
+It might also trigger some **events**, like a new Character is created, this event might trigger the **Event** Daedalus is complete, etc...
+This **event** will also use the **service** to create a new room log for player awaken  
+To finish that, once the **entity** player created, the service will use the **Repository** to save this Player in the database annd returning this Player entity
+  5. Once the **service** has finished performing the creating of the character, ot returns an entity **Player**, then the **Controller** will return this Player as response to the request
+  6. While creating the Response the **Normalizer** will normalize the Player **entity** into an array, and won't return the satiety for instance as it is an hidden property 
+  7. Then the client should have his response
 
 ### Actions vs Events
 
@@ -46,61 +106,17 @@ There are several grey area still:
 #### Action
 
 Create a new Action:
-- Create a class that extends [src/actions/action.ts](../src/actions/action.ts) abstract class: implement the abstract methods
-- Register this action in the [src/enums/actions.enums.ts](../src/enums/actions.enum.ts)
-- Add the new Class in the [src/actions/list.actions.ts](../src/actions/list.action.ts)
-#### Event
-Trigger an event:
-```
-eventManager.emit(EventName, ...parameters)
-```
-Implement the action handler in events/
-
-## New Models
-To create a new Model (persisted):
-- Add you model class in src/models
-- register you model in [src/config/database.ts](../src/config/database.ts)
-- Create the migration run in the container:  
-```
-npm run generate-migration
-```
-To apply the migration:
-```
-npm run compile && npm run run-migration
-```
+- Create a class that extends [src/Action/Actions/Action.php](./src/Action/Actions/Action.php) abstract class: implement the abstract methods
+- Register this action in the [src/Action/Enum/ActionEnum.php](./src/Action/Enum/ActionEnum.php)
+- Add the new Class in the [src/Action/config/actions.yaml](./src/Action/config/actions.yaml)
 
 ## RoomLogs
-When an action or an event is performed, a roomLog should be created  
+When an action, or an event is being performed, a roomLog should be created  
 In order to add a roomLog, use the RoomLogService::createLog method
 ```
-RoomLogService.createLog(LogEnum.EAT,{character: this.player.character},this.player.room,this.player,VisibilityEnum.SECRET);
-```
-To crate a new Log: 
-- Add the log to the [log.enum.ts](../src/enums/log.enum.ts)  
-- Add the log in the [locales](../locales/fr/logs.ts)
-
-## Random value
-Whenever you need to generate a random value, use the [RandomService](../src/services/random.service.ts)
-```
-public static random(nbValuePossible = 100): number {
+public function createLog(string $logKey, Player $player, Room $room, string $visibility, RoomLogParameter $roomLogParameter): RoomLog;
 ```
 
-## Tests
-Please create a test for every new created functionality  
+## Tests PhpUnit
 The test folder is a mirror of the src directory
-
-## Main dependencies
-
-[Express4](https://expressjs.com/) Fast, unopinionated, minimalist web framework for Node.js 
-
-[TypeScript](https://www.typescriptlang.org/) extends JavaScript by adding types.
-
-[TypeORM](https://typeorm.io/#/) is an ORM that can run in NodeJS, Browser, Cordova, PhoneGap, Ionic, React Native, NativeScript, Expo, and Electron platforms and can be used with TypeScript and JavaScript (ES5, ES6, ES7, ES8)
-
-[Passport](http://www.passportjs.org/) Simple, unobtrusive authentication for Node.js
-
-[winston](https://github.com/winstonjs/winston) A logger for just about everything.
-
-[Mocha](https://mochajs.org/) is a feature-rich JavaScript test framework running on Node.js and in the browser, making asynchronous testing simple and fung.
-
-[Chai](https://www.chaijs.com/) is a BDD / TDD assertion library for node and the browser that can be delightfully paired with any javascript testing framework.
+You can Mock classes/services with [Mockery](https://github.com/mockery/mockery)

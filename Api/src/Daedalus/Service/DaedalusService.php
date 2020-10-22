@@ -10,31 +10,21 @@ use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Daedalus\Repository\DaedalusRepository;
 use Mush\Game\Service\CycleServiceInterface;
-use Mush\Item\Entity\Plant;
 use Mush\Item\Service\GameFruitServiceInterface;
 use Mush\Item\Service\ItemServiceInterface;
-use Mush\Room\Entity\Room;
 use Mush\Room\Entity\RoomConfig;
-use Mush\Room\Enum\RoomEnum;
 use Mush\Room\Service\RoomServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class DaedalusService implements DaedalusServiceInterface
 {
     private EntityManagerInterface $entityManager;
-
     private EventDispatcherInterface $eventDispatcher;
-
     private DaedalusRepository $repository;
-
     private RoomServiceInterface $roomService;
-
     private CycleServiceInterface $cycleService;
-
     private ItemServiceInterface $itemService;
-
     private GameFruitServiceInterface $gameFruitService;
-
     private DaedalusConfig $daedalusConfig;
 
     /**
@@ -93,46 +83,13 @@ class DaedalusService implements DaedalusServiceInterface
 
         $this->persist($daedalus);
 
+        $this->gameFruitService->initGameFruits($daedalus);
+
         /** @var RoomConfig $roomconfig */
         foreach ($this->daedalusConfig->getRooms() as $roomconfig) {
             $room = $this->roomService->createRoom($roomconfig, $daedalus);
             $daedalus->addRoom($room);
         }
-
-        //@TODO: where should we do that
-        $banana = $this->gameFruitService->createBanana($daedalus);
-
-        $bananaTree = new Plant();
-        $bananaTree
-            ->setName($banana->getGamePlant()->getName())
-            ->setGamePlant($banana->getGamePlant())
-            ->setStatuses([])
-            ->setRoom($daedalus->getRooms()->filter(fn(Room $room) => $room->getName() === RoomEnum::LABORATORY)->first())
-            ->setIsMovable(true)
-            ->setIsFireBreakable(true)
-            ->setIsFireDestroyable(true)
-            ->setIsHideable(true)
-            ->setIsStackable(false)
-            ->setIsHeavy(false)
-            ->setIsDismantable(false)
-        ;
-        $bananaTree2 = new Plant();
-        $bananaTree2
-            ->setName($banana->getGamePlant()->getName())
-            ->setGamePlant($banana->getGamePlant())
-            ->setStatuses([])
-            ->setRoom($daedalus->getRooms()->filter(fn(Room $room) => $room->getName() === RoomEnum::LABORATORY)->first())
-            ->setIsMovable(true)
-            ->setIsFireBreakable(true)
-            ->setIsFireDestroyable(true)
-            ->setIsHideable(true)
-            ->setIsStackable(false)
-            ->setIsHeavy(false)
-            ->setIsDismantable(false)
-        ;
-
-        $this->itemService->persist($bananaTree);
-        $this->itemService->persist($bananaTree2);
 
         $daedalusEvent = new DaedalusEvent($daedalus);
         $this->eventDispatcher->dispatch($daedalusEvent, DaedalusEvent::NEW_DAEDALUS);

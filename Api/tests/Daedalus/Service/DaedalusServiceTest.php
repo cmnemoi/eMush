@@ -126,7 +126,7 @@ class DaedalusServiceTest extends TestCase
         ;
 
         $this->gameFruitService
-            ->shouldReceive('createBanana')
+            ->shouldReceive('initGameFruits')
             ->andReturn($banana)
             ->once()
         ;

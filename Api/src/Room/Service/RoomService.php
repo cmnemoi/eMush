@@ -3,29 +3,35 @@
 namespace Mush\Room\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\EntityRepository;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Item\Enum\GamePlantEnum;
+use Mush\Item\Service\FruitServiceInterface;
 use Mush\Item\Service\ItemServiceInterface;
 use Mush\Room\Entity\Door;
 use Mush\Room\Entity\Room;
 use Mush\Room\Entity\RoomConfig;
-use Mush\Room\Enum\RoomEnum;
 use Mush\Room\Repository\RoomRepository;
-
 
 class RoomService implements RoomServiceInterface
 {
     private EntityManagerInterface $entityManager;
-
     private RoomRepository $repository;
-
     private ItemServiceInterface $itemService;
+    private FruitServiceInterface $fruitService;
 
-    public function __construct(EntityManagerInterface $entityManager, RoomRepository $repository, ItemServiceInterface $itemService)
+    /**
+     * RoomService constructor.
+     * @param EntityManagerInterface $entityManager
+     * @param RoomRepository $repository
+     * @param ItemServiceInterface $itemService
+     * @param FruitServiceInterface $fruitService
+     */
+    public function __construct(EntityManagerInterface $entityManager, RoomRepository $repository, ItemServiceInterface $itemService, FruitServiceInterface $fruitService)
     {
         $this->entityManager = $entityManager;
         $this->repository = $repository;
         $this->itemService = $itemService;
+        $this->fruitService = $fruitService;
     }
 
     public function persist(Room $room): Room
@@ -64,7 +70,12 @@ class RoomService implements RoomServiceInterface
         }
 
         foreach ($roomConfig->getItems() as $itemName) {
-            $item = $this->itemService->createItem($itemName);
+            if (in_array($itemName, GamePlantEnum::getAll())) {
+                $item = $this->fruitService->createPlantFromName($itemName, $daedalus);
+                $item->setStatuses([]);
+            } else {
+                $item = $this->itemService->createItem($itemName);
+            }
             $room->addItem($item);
         }
 

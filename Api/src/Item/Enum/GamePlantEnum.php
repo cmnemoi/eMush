@@ -38,4 +38,9 @@ class GamePlantEnum
             self::ASPERAGUNK
         ];
     }
+
+    public static function getGameFruit(string $plantName): string
+    {
+        return array_flip(GameFruitEnum::getGamePlants())[$plantName];
+    }
 }

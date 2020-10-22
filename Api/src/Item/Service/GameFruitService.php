@@ -11,15 +11,17 @@ use Mush\Item\Entity\GameFruit;
 use Mush\Item\Entity\GamePlant;
 use Mush\Item\Enum\GameFruitEnum;
 use Mush\Item\Repository\GameFruitRepository;
+use Mush\Item\Repository\GamePlantRepository;
 
 class GameFruitService implements GameFruitServiceInterface
 {
     private RandomServiceInterface  $randomService;
     private EntityManagerInterface  $entityManager;
-    private GameFruitRepository  $repository;
+    private GameFruitRepository  $gameFruitRepository;
+    private GamePlantRepository  $gamePlantRepository;
 
-    const MIN_MATURATION_TIME = 8;
-    const MAX_MATURATION_TIME = 36;
+    const MIN_MATURATION_TIME = 1;
+    const MAX_MATURATION_TIME = 48;
     const FRUIT_CURES = [];
     const FRUIT_DISEASES = [];
 
@@ -27,13 +29,15 @@ class GameFruitService implements GameFruitServiceInterface
      * GameFruitService constructor.
      * @param RandomServiceInterface $randomService
      * @param EntityManagerInterface $entityManager
-     * @param GameFruitRepository $repository
+     * @param GameFruitRepository $gameFruitRepository
+     * @param GamePlantRepository $gamePlantRepository
      */
-    public function __construct(RandomServiceInterface $randomService, EntityManagerInterface $entityManager, GameFruitRepository $repository)
+    public function __construct(RandomServiceInterface $randomService, EntityManagerInterface $entityManager, GameFruitRepository $gameFruitRepository, GamePlantRepository $gamePlantRepository)
     {
         $this->randomService = $randomService;
         $this->entityManager = $entityManager;
-        $this->repository = $repository;
+        $this->gameFruitRepository = $gameFruitRepository;
+        $this->gamePlantRepository = $gamePlantRepository;
     }
 
     public function persist(GameFruit $gameFruit): GameFruit
@@ -44,12 +48,15 @@ class GameFruitService implements GameFruitServiceInterface
         return $gameFruit;
     }
 
+    public function findOneGamePlantByName(string $name, Daedalus $daedalus): ?GamePlant
+    {
+        return $this->gamePlantRepository->findOneByName($name, $daedalus);
+    }
+
     /**
-     * Create bananas with hardcoded values
-     * @param Daedalus $daedalus
-     * @return GameFruit
+     * Create default game fruits
      */
-    public function createBanana(Daedalus $daedalus): GameFruit
+    public function initGameFruits(Daedalus $daedalus)
     {
         $bananaTree = new GamePlant();
         $bananaTree
@@ -70,13 +77,11 @@ class GameFruitService implements GameFruitServiceInterface
             ->setCures([])
         ;
 
-        return $this->persist($banana);
+        $this->persist($banana);
     }
 
-    public function createFruit(Daedalus $daedalus): GameFruit
+    public function createFruit(string $fruitName, Daedalus $daedalus): GameFruit
     {
-        $fruitName = $this->getNewFruitName($daedalus);
-
         $plant = new GamePlant();
         $plant
             ->setName(GameFruitEnum::getGamePlant($fruitName))
@@ -100,22 +105,5 @@ class GameFruitService implements GameFruitServiceInterface
         $this->persist($fruit);
 
         return $fruit;
-    }
-
-    /**
-     * Find a fruit name that have not already been created for this Daedalus
-     * @param Daedalus $daedalus
-     * @return string
-     */
-    private function getNewFruitName(Daedalus $daedalus): string
-    {
-        $fruits = GameFruitEnum::getAll();
-        $daedalusFruits = $this->repository->findBy(['daedalus' => $daedalus]);
-
-        $fruitsAvailable = array_filter($fruits,
-            fn(string $currentFruitName) => (!current(array_filter($daedalusFruits, fn(GameFruit $element) => $element->getName() === $currentFruitName)))
-        );
-
-        return $fruitsAvailable[$this->randomService->random(0, count($fruitsAvailable) - 1)];
     }
 }

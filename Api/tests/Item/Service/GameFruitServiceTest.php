@@ -10,6 +10,7 @@ use Mush\Item\Entity\GameFruit;
 use Mush\Item\Enum\GameFruitEnum;
 use Mush\Item\Enum\GamePlantEnum;
 use Mush\Item\Repository\GameFruitRepository;
+use Mush\Item\Repository\GamePlantRepository;
 use Mush\Item\Service\GameFruitService;
 use PHPUnit\Framework\TestCase;
 
@@ -20,7 +21,8 @@ class GameFruitServiceTest extends TestCase
     /** @var EntityManagerInterface | Mockery\Mock */
     private EntityManagerInterface $entityManager;
     /** @var GameFruitRepository | Mockery\Mock */
-    private GameFruitRepository $repository;
+    private GameFruitRepository $gameFruitRepository;
+    private GamePlantRepository $gamePlantRepository;
     private GameFruitService $service;
 
     /**
@@ -29,20 +31,35 @@ class GameFruitServiceTest extends TestCase
     public function before()
     {
         $this->entityManager = Mockery::mock(EntityManagerInterface::class);
-        $this->repository = Mockery::mock(GameFruitRepository::class);
+        $this->gamePlantRepository = Mockery::mock(GamePlantRepository::class);
+        $this->gameFruitRepository = Mockery::mock(GameFruitRepository::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
 
         $this->service = new GameFruitService(
             $this->randomService,
             $this->entityManager,
-            $this->repository
+            $this->gameFruitRepository,
+            $this->gamePlantRepository
         );
     }
 
-    public function testCreateBanana()
+    public function testInitGameFruit()
     {
+        $daedalus = new Daedalus();
+
         $this->entityManager
             ->shouldReceive('persist')
+            ->withArgs(fn(GameFruit $gameFruit) => (
+                $gameFruit->getName() === GameFruitEnum::BANANA &&
+                $gameFruit->getDaedalus() === $daedalus &&
+                $gameFruit->getHealthPoint() === 1 &&
+                $gameFruit->getMoralPoint() === 1 &&
+                $gameFruit->getActionPoint() === 1 &&
+                $gameFruit->getSatiety() === 1 &&
+                $gameFruit->getGamePlant()->getName() === GamePlantEnum::BANANA_TREE &&
+                $gameFruit->getGamePlant()->getMaturationTime() === 36 &&
+                $gameFruit->getGamePlant()->getOxygen() === 1
+            ))
             ->once()
         ;
         $this->entityManager
@@ -50,19 +67,10 @@ class GameFruitServiceTest extends TestCase
             ->once()
         ;
 
-        $daedalus = new Daedalus();
+        $this->service->initGameFruits($daedalus);
 
-        $banana = $this->service->createBanana($daedalus);
-
-        $this->assertInstanceOf(GameFruit::class, $banana);
-        $this->assertEquals(GameFruitEnum::BANANA, $banana->getName());
-        $this->assertEquals($daedalus, $banana->getDaedalus());
-        $this->assertEquals(1, $banana->getActionPoint());
-        $this->assertEquals(1, $banana->getMoralPoint());
-        $this->assertEquals(1, $banana->getHealthPoint());
-        $this->assertEquals(GamePlantEnum::BANANA_TREE, $banana->getGamePlant()->getName());
-        $this->assertEquals(1, $banana->getGamePlant()->getOxygen());
-        $this->assertEquals(36, $banana->getGamePlant()->getMaturationTime());
+        //Required otherwise considerated as flacky test
+        $this->assertTrue(true);
     }
 
     public function testCreateFruit()
@@ -85,7 +93,7 @@ class GameFruitServiceTest extends TestCase
         $fruit = new GameFruit();
         $fruit->setName(GameFruitEnum::BANANA);
 
-        $this->repository
+        $this->gameFruitRepository
             ->shouldReceive('findBy')
             ->andReturn([$fruit])
             ->once()
@@ -93,15 +101,15 @@ class GameFruitServiceTest extends TestCase
 
         $daedalus = new Daedalus();
 
-        $gameFruit = $this->service->createFruit($daedalus);
+        $gameFruit = $this->service->createFruit(GameFruitEnum::BOTTINE ,$daedalus);
 
         $this->assertInstanceOf(GameFruit::class, $gameFruit);
-        $this->assertEquals(GameFruitEnum::getAll()[1], $gameFruit->getName());
+        $this->assertEquals(GameFruitEnum::BOTTINE, $gameFruit->getName());
         $this->assertEquals($daedalus, $gameFruit->getDaedalus());
         $this->assertEquals(1, $gameFruit->getActionPoint());
         $this->assertEquals(1, $gameFruit->getMoralPoint());
         $this->assertEquals(0, $gameFruit->getHealthPoint());
-        $this->assertEquals(GamePlantEnum::getAll()[1], $gameFruit->getGamePlant()->getName());
+        $this->assertEquals(GameFruitEnum::getGamePlant(GameFruitEnum::BOTTINE), $gameFruit->getGamePlant()->getName());
         $this->assertEquals(1, $gameFruit->getGamePlant()->getOxygen());
         $this->assertEquals(1, $gameFruit->getGamePlant()->getMaturationTime());
     }

@@ -39,7 +39,7 @@ class Item
     /**
      * @ORM\ManyToOne (targetEntity="Mush\Room\Entity\Room", inversedBy="items")
      */
-    private ?Room $room;
+    private ?Room $room = null;
 
     /**
      * @ORM\ManyToOne (targetEntity="Mush\Player\Entity\Player", inversedBy="items")
@@ -104,6 +104,24 @@ class Item
         return $this;
     }
 
+    public function addStatus(string $status): Item
+    {
+        $this->statuses[] = $status;
+
+        return $this;
+    }
+
+    public function removeStatus(string $status): Item
+    {
+        $this->statuses = array_diff( $this->getStatuses(), [$status] );
+        return $this;
+    }
+
+    public function hasStatus(string $status): bool
+    {
+        return in_array($status, $this->getStatuses());
+    }
+
     public function getRoom(): Room
     {
         return $this->room;
@@ -111,7 +129,11 @@ class Item
 
     public function setRoom(?Room $room): Item
     {
-        $this->room = $room;
+        if ($this->room !== $room) {
+            $this->room = $room;
+            $this->room->addItem($this);
+        }
+
         return $this;
     }
 
@@ -123,6 +145,9 @@ class Item
     public function setPlayer(?Player $player): Item
     {
         $this->player = $player;
+
+        $this->player->addItem($this);
+
         return $this;
     }
 

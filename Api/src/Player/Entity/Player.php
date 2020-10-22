@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Item\Entity\Item;
 use Mush\Room\Entity\Room;
 use Mush\User\Entity\User;
 
@@ -166,6 +167,16 @@ class Player
     public function setItems(Collection $items): Player
     {
         $this->items = $items;
+        return $this;
+    }
+
+    public function addItem(Item $item): Player
+    {
+        if (!$this->getItems()->contains($item)) {
+            $this->addItem($item);
+            $item->setPlayer($this);
+            $item->setRoom(null);
+        }
         return $this;
     }
 

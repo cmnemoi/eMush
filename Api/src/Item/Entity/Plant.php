@@ -40,4 +40,9 @@ class Plant extends Item
         $this->load = $load;
         return $this;
     }
+
+    public function isMature(): bool
+    {
+        return $this->gamePlant->getMaturationTime() <= $this->getLoad();
+    }
 }

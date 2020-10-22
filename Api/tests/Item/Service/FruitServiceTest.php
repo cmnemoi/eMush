@@ -2,10 +2,8 @@
 
 namespace Mush\Test\Item\Service;
 
-use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use \Mockery;
-use Mush\Game\Service\RandomServiceInterface;
 use Mush\Item\Entity\Fruit;
 use Mush\Item\Entity\GameFruit;
 use Mush\Item\Entity\GamePlant;
@@ -13,10 +11,7 @@ use Mush\Item\Entity\Plant;
 use Mush\Item\Enum\GameFruitEnum;
 use Mush\Item\Enum\GamePlantEnum;
 use Mush\Item\Enum\PlantStatusEnum;
-use Mush\Item\Repository\GameFruitRepository;
-use Mush\Item\Repository\GamePlantRepository;
 use Mush\Item\Service\FruitService;
-use Mush\Item\Service\GameFruitService;
 use Mush\Item\Service\GameFruitServiceInterface;
 use Mush\Item\Service\ItemServiceInterface;
 use PHPUnit\Framework\TestCase;

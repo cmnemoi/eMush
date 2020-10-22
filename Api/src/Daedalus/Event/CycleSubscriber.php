@@ -1,16 +1,13 @@
 <?php
 
+namespace Mush\Daedalus\Event;
 
-namespace Mush\Player\Event;
-
-use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Game\Event\CycleEvent;
-use Mush\Game\Event\DayEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class DaedalusSubscriber implements EventSubscriberInterface
+class CycleSubscriber implements EventSubscriberInterface
 {
     private DaedalusServiceInterface $daedalusService;
     private EventDispatcherInterface $eventDispatcher;
@@ -29,26 +26,26 @@ class DaedalusSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            DaedalusEvent::NEW_DAEDALUS => 'onDaedalusNew',
-            DaedalusEvent::END_DAEDALUS => 'onDaedalusEnd',
-            DaedalusEvent::FULL_DAEDALUS => 'onDaedalusFull',
+            CycleEvent::NEW_CYCLE => 'onNewCycle',
         ];
     }
 
-    public function onDaedalusNew(DaedalusEvent $event)
+    public function onNewCycle(CycleEvent $event)
     {
-        $daedalus = $event->getDaedalus();
-    }
+        if (!($daedalus = $event->getDaedalus())) {
+            return;
+        }
 
-    public function onDaedalusEnd(DaedalusEvent $event)
-    {
-        $daedalus = $event->getDaedalus();
-        // @TODO: create logs
-    }
+        foreach ($daedalus->getPlayers() as $player) {
+            $newPlayerCycle = new CycleEvent($event->getTime());
+            $newPlayerCycle->setPlayer($player);
+            $this->eventDispatcher->dispatch($newPlayerCycle, CycleEvent::NEW_CYCLE);
+        }
 
-    public function onDaedalusFull(DaedalusEvent $event)
-    {
-        $daedalus = $event->getDaedalus();
-        // @TODO: create logs
+        foreach ($daedalus->getRooms() as $room) {
+            $newRoomCycle = new CycleEvent($event->getTime());
+            $newRoomCycle->setRoom($room);
+            $this->eventDispatcher->dispatch($newRoomCycle, CycleEvent::NEW_CYCLE);
+        }
     }
 }

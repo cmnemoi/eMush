@@ -13,13 +13,13 @@ class AbstractTimeEvent extends Event
 {
     protected \DateTime $time;
 
-    protected Player $player;
+    protected ?Player $player = null;
 
-    protected Daedalus $daedalus;
+    protected ?Daedalus $daedalus = null;
 
-    protected Room $room;
+    protected ?Room $room = null;
 
-    protected Item $item;
+    protected ?Item $item = null;
 
     public function __construct(\DateTime $time)
     {
@@ -55,7 +55,7 @@ class AbstractTimeEvent extends Event
         return $this;
     }
 
-    public function getRoom(): Room
+    public function getRoom(): ?Room
     {
         return $this->room;
     }
@@ -67,7 +67,7 @@ class AbstractTimeEvent extends Event
         return $this;
     }
 
-    public function getItem(): Item
+    public function getItem(): ?Item
     {
         return $this->item;
     }

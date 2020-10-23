@@ -5,6 +5,8 @@ namespace Mush\Player\Controller;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
+use Mush\Game\CycleHandler\CycleHandlerInterface;
+use Mush\Game\Service\CycleServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,16 +22,22 @@ class PlayerController extends AbstractFOSRestController
 {
     private PlayerServiceInterface $playerService;
     private DaedalusServiceInterface $daedalusService;
+    private CycleServiceInterface $cycleService;
 
     /**
      * PlayerController constructor.
      * @param PlayerServiceInterface $playerService
      * @param DaedalusServiceInterface $daedalusService
+     * @param CycleServiceInterface $cycleService
      */
-    public function __construct(PlayerServiceInterface $playerService, DaedalusServiceInterface $daedalusService)
-    {
+    public function __construct(
+        PlayerServiceInterface $playerService,
+        DaedalusServiceInterface $daedalusService,
+        CycleServiceInterface $cycleService
+    ) {
         $this->playerService = $playerService;
         $this->daedalusService = $daedalusService;
+        $this->cycleService = $cycleService;
     }
 
     /**
@@ -38,6 +46,8 @@ class PlayerController extends AbstractFOSRestController
     public function getPlayerAction(Request $request): Response
     {
         $player = $this->playerService->findById($request->get('id'));
+
+        $this->cycleService->handleCycleChange($player->getDaedalus());
 
         $view = $this->view($player, 200);
 

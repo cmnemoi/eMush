@@ -16,8 +16,15 @@ use Mush\Room\Entity\Room;
  */
 class Plant extends Item
 {
+    /**
+     * @ORM\OneToOne(targetEntity="Mush\Item\Entity\GamePlant")
+     */
     private GamePlant $gamePlant;
-    private int $load;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private int $charge = 0;
 
     public function getGamePlant(): GamePlant
     {
@@ -30,19 +37,19 @@ class Plant extends Item
         return $this;
     }
 
-    public function getLoad(): int
+    public function getCharge(): int
     {
-        return $this->load;
+        return $this->charge;
     }
 
-    public function setLoad(int $load): Plant
+    public function setCharge(int $charge): Plant
     {
-        $this->load = $load;
+        $this->charge = $charge;
         return $this;
     }
 
     public function isMature(): bool
     {
-        return $this->gamePlant->getMaturationTime() <= $this->getLoad();
+        return $this->gamePlant->getMaturationTime() <= $this->getCharge();
     }
 }

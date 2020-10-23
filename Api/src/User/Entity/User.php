@@ -35,6 +35,9 @@ class User implements UserInterface
      */
     private string $username;
 
+    /**
+     * @ORM\OneToOne (targetEntity="Mush\Player\Entity\Player")
+     */
     private ?Player $currentGame;
 
     public function getId(): int

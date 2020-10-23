@@ -44,7 +44,7 @@ class Item
     /**
      * @ORM\ManyToOne (targetEntity="Mush\Player\Entity\Player", inversedBy="items")
      */
-    private ?Player $player;
+    private ?Player $player = null;
 
     /**
      * @ORM\Column(type="string", nullable=false)
@@ -122,7 +122,7 @@ class Item
         return in_array($status, $this->getStatuses());
     }
 
-    public function getRoom(): Room
+    public function getRoom(): ?Room
     {
         return $this->room;
     }
@@ -140,7 +140,7 @@ class Item
         return $this;
     }
 
-    public function getPlayer(): Player
+    public function getPlayer(): ?Player
     {
         return $this->player;
     }

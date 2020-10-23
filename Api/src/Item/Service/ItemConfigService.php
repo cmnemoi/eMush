@@ -9,7 +9,7 @@ class ItemConfigService implements ItemConfigServiceInterface
 {
     public function getConfigs(): ItemConfigCollection
     {
-        $itemsConfig = \ItemConfig;
+        $itemsConfig = \ITEMCONFIG;
         $configs = new ItemConfigCollection();
 
         foreach ($itemsConfig as $itemConfig) {

@@ -3,7 +3,6 @@
 
 namespace Mush\Room\Entity;
 
-
 class RoomConfig
 {
     private string $name;

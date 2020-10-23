@@ -6,7 +6,7 @@ use Mush\Item\Enum\ItemEnum;
 use Mush\Room\Enum\DoorEnum;
 use Mush\Room\Enum\RoomEnum;
 
-const DaedalusConfig = [
+const DAEDALUS_CONFIG = [
     'initOxygen' => 10,
     'initFuel'=> 10,
     'initHull'=> 100,
@@ -77,7 +77,7 @@ const DaedalusConfig = [
                 DoorEnum::REAR_ALPHA_TURRET_BAY_ALPHA_2,
             ],
             'equipments'=> [
-                EquipmentEnum::PATROL_SHIP_ALPHA_2_wallis,
+                EquipmentEnum::PATROL_SHIP_ALPHA_2_WALLIS,
                 EquipmentEnum::PASIPHAE,
             ],
             'items'=> [],

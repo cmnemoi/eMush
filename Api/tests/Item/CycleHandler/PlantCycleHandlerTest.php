@@ -148,5 +148,4 @@ class PlantCycleHandlerTest extends TestCase
         $this->assertNotContains($plant, $room->getItems());
         $this->assertEquals(30, $daedalus->getOxygen());
     }
-
 }

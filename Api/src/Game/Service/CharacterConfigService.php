@@ -9,7 +9,7 @@ class CharacterConfigService implements CharacterConfigServiceInterface
 {
     public function getConfigs(): CharacterConfigCollection
     {
-        $characters = CharacterConfigs;
+        $characters = CHARACTER_CONFIGS;
         $configCollection = new CharacterConfigCollection();
 
         foreach ($characters as $character) {

@@ -44,7 +44,8 @@ class RoomLogParameter
         return $this;
     }
 
-    public function toArray() {
+    public function toArray()
+    {
         return [
             'player' => $this->getTarget()->getPerson() ?? null,
             'item' => $this->getItem()->getName() ?? null,

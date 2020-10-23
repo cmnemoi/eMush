@@ -6,5 +6,4 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 class DaedalusCollection extends ArrayCollection
 {
-
 }

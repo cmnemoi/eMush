@@ -29,7 +29,6 @@ class CycleServiceTest extends TestCase
         $gameConfigService->shouldReceive('getConfig')->andReturn($this->gameConfig)->once();
 
         $this->service = new CycleService($gameConfigService, $this->eventDispatcher);
-
     }
 
     public function testGetCycleTimezone()
@@ -85,5 +84,4 @@ class CycleServiceTest extends TestCase
         $this->gameConfig->setCycleLength(12);
         $this->assertEquals(2, $this->service->handleCycleChange($daedalus));
     }
-
 }

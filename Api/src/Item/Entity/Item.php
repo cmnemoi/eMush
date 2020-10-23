@@ -113,7 +113,7 @@ class Item
 
     public function removeStatus(string $status): Item
     {
-        $this->statuses = array_diff( $this->getStatuses(), [$status] );
+        $this->statuses = array_diff($this->getStatuses(), [$status]);
         return $this;
     }
 

@@ -48,6 +48,4 @@ class RoomLogService implements RoomLogServiceInterface
 
         return $this->persist($roomLog);
     }
-
-
 }

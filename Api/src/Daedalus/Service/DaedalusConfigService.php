@@ -9,7 +9,7 @@ class DaedalusConfigService implements DaedalusConfigServiceInterface
 {
     public function getConfig(): DaedalusConfig
     {
-        $gameConfig = \DaedalusConfig;
+        $gameConfig = \DAEDALUS_CONFIG;
         $config = new DaedalusConfig();
         $config
             ->setInitOxygen($gameConfig['initOxygen'])

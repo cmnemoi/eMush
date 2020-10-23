@@ -15,5 +15,4 @@ interface PlayerServiceInterface
     public function createPlayer(Daedalus $daedalus, string $character): Player;
 
     public function findUserCurrentGame(User $user): ?Player;
-
 }

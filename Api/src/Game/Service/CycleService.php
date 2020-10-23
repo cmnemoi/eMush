@@ -18,40 +18,47 @@ class CycleService implements CycleServiceInterface
      * @param GameConfigServiceInterface $gameConfigService
      * @param EventDispatcherInterface $eventDispatcher
      */
-    public function __construct(GameConfigServiceInterface $gameConfigService, EventDispatcherInterface $eventDispatcher)
-    {
+    public function __construct(
+        GameConfigServiceInterface $gameConfigService,
+        EventDispatcherInterface $eventDispatcher
+    ) {
         $this->gameConfig = $gameConfigService->getConfig();
         $this->eventDispatcher = $eventDispatcher;
     }
 
 
-    public function handleCycleChange(Daedalus $daedalus): int {
+    public function handleCycleChange(Daedalus $daedalus): int
+    {
         $currentDate = new \DateTime();
         $lastUpdate = $daedalus->getUpdatedAt();
         $currentCycle = $daedalus->getCycle() % $this->gameConfig->getNumberOfCyclePerDay();
         $currentCycleStartedAt = clone $lastUpdate;
         $currentCycleStartedAt = $currentCycleStartedAt
             ->setTimezone(new \DateTimeZone($this->gameConfig->getTimeZone()))
-            ->setTime(($currentCycle - 1) * $this->gameConfig->getCycleLength(),0,0,0);
+            ->setTime(($currentCycle - 1) * $this->gameConfig->getCycleLength(), 0, 0, 0)
+        ;
 
         $cycleElapsed = $this->getNumberOfCycleElapsed($lastUpdate, $currentDate);
 
         for ($i = 0; $i < $cycleElapsed; $i++) {
             $cycleEvent = new CycleEvent($currentCycleStartedAt);
             $cycleEvent->setDaedalus($daedalus);
-            $this->eventDispatcher->dispatch($cycleEvent,CycleEvent::NEW_CYCLE);
+            $this->eventDispatcher->dispatch($cycleEvent, CycleEvent::NEW_CYCLE);
         }
 
         return $cycleElapsed;
     }
 
-    public function getCycleFromDate(DateTime $date): int {
+    public function getCycleFromDate(DateTime $date): int
+    {
+        $hour = $date->setTimezone(new \DateTimeZone($this->gameConfig->getTimeZone()))->format('H');
         return floor(
-             $date->setTimezone(new \DateTimeZone($this->gameConfig->getTimeZone()))->format('H') / $this->gameConfig->getCycleLength() + 1
+            $hour / $this->gameConfig->getCycleLength() + 1
         );
     }
 
-    private function getNumberOfCycleElapsed(DateTime $start, DateTime $end): int {
+    private function getNumberOfCycleElapsed(DateTime $start, DateTime $end): int
+    {
         $startCycle = $this->getCycleFromDate($start);
         $endCycle = $this->getCycleFromDate($end);
 
@@ -60,7 +67,6 @@ class CycleService implements CycleServiceInterface
 
         // We assume the inactivity is not more than a month
         if ($end->format('n') !== $start->format('n')) {
-
             $dayDifference = $start->format('t') - $start->format('j') + $end->format('j');
         } else {
             $dayDifference = $end->format('j') - $start->format('j');

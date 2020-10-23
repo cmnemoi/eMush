@@ -9,7 +9,13 @@ use Mush\RoomLog\Entity\RoomLogParameter;
 
 interface RoomLogServiceInterface
 {
-    public function createLog(string $logKey, Player $player, Room $room, string $visibility, RoomLogParameter $roomLogParameter): RoomLog;
+    public function createLog(
+        string $logKey,
+        Player $player,
+        Room $room,
+        string $visibility,
+        RoomLogParameter $roomLogParameter
+    ): RoomLog;
 
     public function persist(RoomLog $roomLog): RoomLog;
 

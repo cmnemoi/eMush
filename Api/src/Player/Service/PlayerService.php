@@ -84,7 +84,11 @@ class PlayerService implements PlayerServiceInterface
             ->setUser($this->tokenStorage->getToken()->getUser())
             ->setGameStatus(GameStatusEnum::CURRENT)
             ->setDaedalus($daedalus)
-            ->setRoom($daedalus->getRooms()->filter(fn(Room $room) => $room->getName() === RoomEnum::LABORATORY)->first())
+            ->setRoom(
+                $daedalus->getRooms()
+                    ->filter(fn (Room $room) => $room->getName() === RoomEnum::LABORATORY)
+                    ->first()
+            )
             ->setPerson($character)
             ->setSkills([])
             ->setHealthPoint($this->gameConfig->getInitHealthPoint())

@@ -38,8 +38,16 @@ class DaedalusService implements DaedalusServiceInterface
      * @param GameFruitServiceInterface $gameFruitService
      * @param DaedalusConfigServiceInterface $daedalusConfigService
      */
-    public function __construct(EntityManagerInterface $entityManager, EventDispatcherInterface $eventDispatcher, DaedalusRepository $repository, RoomServiceInterface $roomService, CycleServiceInterface $cycleService, ItemServiceInterface $itemService, GameFruitServiceInterface $gameFruitService, DaedalusConfigServiceInterface $daedalusConfigService)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        EventDispatcherInterface $eventDispatcher,
+        DaedalusRepository $repository,
+        RoomServiceInterface $roomService,
+        CycleServiceInterface $cycleService,
+        ItemServiceInterface $itemService,
+        GameFruitServiceInterface $gameFruitService,
+        DaedalusConfigServiceInterface $daedalusConfigService
+    ) {
         $this->entityManager = $entityManager;
         $this->eventDispatcher = $eventDispatcher;
         $this->repository = $repository;

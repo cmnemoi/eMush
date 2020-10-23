@@ -3,7 +3,6 @@
 
 namespace Mush\Item\CycleHandler;
 
-
 use Mush\Game\CycleHandler\CycleHandlerInterface;
 use Mush\Item\Entity\Fruit;
 

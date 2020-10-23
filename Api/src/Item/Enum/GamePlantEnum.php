@@ -3,7 +3,6 @@
 
 namespace Mush\Item\Enum;
 
-
 class GamePlantEnum
 {
     public const BANANA_TREE = 'banana_tree';

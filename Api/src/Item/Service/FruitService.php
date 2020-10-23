@@ -61,7 +61,8 @@ class FruitService implements FruitServiceInterface
             ->setIsStackable(false)
             ->setIsHeavy(false)
             ->setIsDismantable(false)
-            ->setLoad(0);;
+            ->setLoad(0);
+        ;
 
         $this->itemService->persist($plant);
 

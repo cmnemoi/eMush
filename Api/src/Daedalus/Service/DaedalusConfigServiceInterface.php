@@ -3,7 +3,6 @@
 
 namespace Mush\Daedalus\Service;
 
-
 use Mush\Daedalus\Entity\DaedalusConfig;
 
 interface DaedalusConfigServiceInterface

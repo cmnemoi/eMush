@@ -26,8 +26,12 @@ class RoomService implements RoomServiceInterface
      * @param ItemServiceInterface $itemService
      * @param FruitServiceInterface $fruitService
      */
-    public function __construct(EntityManagerInterface $entityManager, RoomRepository $repository, ItemServiceInterface $itemService, FruitServiceInterface $fruitService)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        RoomRepository $repository,
+        ItemServiceInterface $itemService,
+        FruitServiceInterface $fruitService
+    ) {
         $this->entityManager = $entityManager;
         $this->repository = $repository;
         $this->itemService = $itemService;
@@ -57,10 +61,15 @@ class RoomService implements RoomServiceInterface
         foreach ($roomConfig->getDoors() as $doorName) {
             if ($roomDoor = $daedalus->getRooms()->filter(
                 function (Room $room) use ($doorName) {
-                    return $room->getDoors()->exists(function ($key, Door $door) use ($doorName) {return ($door->getName() === $doorName);});
-                })->first()
+                    return $room->getDoors()->exists(function ($key, Door $door) use ($doorName) {
+                        return ($door->getName() === $doorName);
+                    });
+                }
+            )->first()
             ) {
-                $door = $roomDoor->getDoors()->filter(function (Door $door) use ($doorName) {return ($door->getName() === $doorName);})->first();
+                $door = $roomDoor->getDoors()->filter(function (Door $door) use ($doorName) {
+                    return ($door->getName() === $doorName);
+                })->first();
             } else {
                 $door = new Door();
                 $door->setName($doorName);

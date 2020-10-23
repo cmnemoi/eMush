@@ -61,10 +61,16 @@ $ openssl pkey -in config/jwt/private.pem -out config/jwt/public.pem -pubout
 ```
 Use mush as passphrase or update the .env with your passphrase
 
+Install the vendor
+```
+composer install
+```
+
 Run the migrations
 ```
-doctrine:migrations:migrate
+bin/console doctrine:migrations:migrate
 ```
+
 If everything went well you should be able to access: 
   - Swagger : http://localhost:8080/swagger/
   - Front end : http://localhost

@@ -137,6 +137,16 @@ class Room
         return $this;
     }
 
+    public function removeItem(Item $item): Room
+    {
+        if ($this->items->contains($item)) {
+            $this->items->removeElement($item);
+            $item->setRoom(null);
+        }
+
+        return $this;
+    }
+
     public function getDoors(): Collection
     {
         return $this->doors;

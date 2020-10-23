@@ -129,10 +129,13 @@ class Item
 
     public function setRoom(?Room $room): Item
     {
-        if ($this->room !== $room) {
-            $this->room = $room;
-            $this->room->addItem($this);
+        if ($room === null) {
+            $this->room->removeItem($this);
+        } elseif ($this->room !== $room) {
+            $room->addItem($this);
         }
+
+        $this->room = $room;
 
         return $this;
     }

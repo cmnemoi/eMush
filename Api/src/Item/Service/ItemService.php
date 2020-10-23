@@ -35,6 +35,12 @@ class ItemService implements ItemServiceInterface
         return $item;
     }
 
+    public function delete(Item $item): void
+    {
+        $this->entityManager->remove($item);
+        $this->entityManager->flush();
+    }
+
     public function findById(int $id): ?Item
     {
         return $this->repository->find($id);

@@ -3,7 +3,6 @@
 
 namespace Mush\Item\Service;
 
-
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Item\Entity\GameFruit;
 use Mush\Item\Entity\GamePlant;

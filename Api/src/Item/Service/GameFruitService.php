@@ -3,7 +3,6 @@
 
 namespace Mush\Item\Service;
 
-
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Service\RandomServiceInterface;
@@ -32,8 +31,12 @@ class GameFruitService implements GameFruitServiceInterface
      * @param GameFruitRepository $gameFruitRepository
      * @param GamePlantRepository $gamePlantRepository
      */
-    public function __construct(RandomServiceInterface $randomService, EntityManagerInterface $entityManager, GameFruitRepository $gameFruitRepository, GamePlantRepository $gamePlantRepository)
-    {
+    public function __construct(
+        RandomServiceInterface $randomService,
+        EntityManagerInterface $entityManager,
+        GameFruitRepository $gameFruitRepository,
+        GamePlantRepository $gamePlantRepository
+    ) {
         $this->randomService = $randomService;
         $this->entityManager = $entityManager;
         $this->gameFruitRepository = $gameFruitRepository;

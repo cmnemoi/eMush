@@ -9,9 +9,9 @@ use Mush\Player\Entity\Player;
 
 abstract class Action
 {
-    public abstract function loadParameters(Player $player, ActionParameters $actionParameters);
-    protected abstract function apply(): ActionResult;
-    protected abstract function createLog(ActionResult $actionResult): void;
+    abstract public function loadParameters(Player $player, ActionParameters $actionParameters);
+    abstract protected function apply(): ActionResult;
+    abstract protected function createLog(ActionResult $actionResult): void;
 
     public function execute(): ActionResult
     {

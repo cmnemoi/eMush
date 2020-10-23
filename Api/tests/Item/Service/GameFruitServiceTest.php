@@ -49,7 +49,7 @@ class GameFruitServiceTest extends TestCase
 
         $this->entityManager
             ->shouldReceive('persist')
-            ->withArgs(fn(GameFruit $gameFruit) => (
+            ->withArgs(fn (GameFruit $gameFruit) => (
                 $gameFruit->getName() === GameFruitEnum::BANANA &&
                 $gameFruit->getDaedalus() === $daedalus &&
                 $gameFruit->getHealthPoint() === 1 &&
@@ -101,7 +101,7 @@ class GameFruitServiceTest extends TestCase
 
         $daedalus = new Daedalus();
 
-        $gameFruit = $this->service->createFruit(GameFruitEnum::BOTTINE ,$daedalus);
+        $gameFruit = $this->service->createFruit(GameFruitEnum::BOTTINE, $daedalus);
 
         $this->assertInstanceOf(GameFruit::class, $gameFruit);
         $this->assertEquals(GameFruitEnum::BOTTINE, $gameFruit->getName());
@@ -113,5 +113,4 @@ class GameFruitServiceTest extends TestCase
         $this->assertEquals(1, $gameFruit->getGamePlant()->getOxygen());
         $this->assertEquals(1, $gameFruit->getGamePlant()->getMaturationTime());
     }
-
 }

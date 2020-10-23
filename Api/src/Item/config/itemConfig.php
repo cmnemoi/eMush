@@ -3,7 +3,7 @@
 use Mush\Item\Enum\ItemEnum;
 use Mush\Item\Enum\ItemTypeEnum;
 
-const ItemConfig = [
+const ITEMCONFIG = [
     [
         'name'=> ItemEnum::STANDARD_RATION,
         'type'=> ItemTypeEnum::RATION,

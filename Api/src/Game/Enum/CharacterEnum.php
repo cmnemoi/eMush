@@ -4,7 +4,7 @@ namespace Mush\Game\Enum;
 
 class CharacterEnum
 {
-public const ANDIE = 'andie';
+    public const ANDIE = 'andie';
     public const DEREK = 'derek';
     public const ELEESHA = 'eleesha';
     public const FINOLA = 'finola';

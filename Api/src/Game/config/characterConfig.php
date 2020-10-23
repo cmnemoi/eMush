@@ -4,7 +4,7 @@ use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\StatusEnum;
 
-const CharacterConfigs = [
+const CHARACTER_CONFIGS = [
     [
         'name'=>CharacterEnum::ANDIE,
         'statuses'=>[],

@@ -3,7 +3,6 @@
 
 namespace Mush\Item\Entity;
 
-
 use Doctrine\ORM\Mapping as ORM;
 
 /**

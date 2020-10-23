@@ -41,12 +41,12 @@ class Move extends Action
     {
         if ($this->player->getMovementPoint() > 0) {
             $this->player->setMovementPoint($this->player->getMovementPoint() - 1);
-        }elseif($this->player->getActionPoint() > 0) {
+        } elseif ($this->player->getActionPoint() > 0) {
             $this->player->setActionPoint($this->player->getActionPoint() - 1);
             $this->player->setMovementPoint(2);
         }
 
-        $newRoom = $this->door->getRooms()->filter(fn(Room $room) => $room !== $this->player->getRoom())->first();
+        $newRoom = $this->door->getRooms()->filter(fn (Room $room) => $room !== $this->player->getRoom())->first();
 
         $this->player->setRoom($newRoom);
 
@@ -59,6 +59,4 @@ class Move extends Action
     {
         // TODO: Implement createLog() method.
     }
-
-
 }

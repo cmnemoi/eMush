@@ -52,7 +52,9 @@ class ItemService implements ItemServiceInterface
         /** @var ItemConfig $itemConfig */
         $itemConfig = $this->itemsConfig
             ->getConfigs()
-            ->filter(function (ItemConfig $itemConfig) use ($itemName) {return $itemName === $itemConfig->getName();})
+            ->filter(function (ItemConfig $itemConfig) use ($itemName) {
+                return $itemName === $itemConfig->getName();
+            })
             ->first()
         ;
 
@@ -71,6 +73,4 @@ class ItemService implements ItemServiceInterface
 
         return $this->persist($item);
     }
-
-
 }

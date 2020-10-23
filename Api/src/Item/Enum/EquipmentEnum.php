@@ -4,13 +4,13 @@ namespace Mush\Item\Enum;
 
 class EquipmentEnum
 {
-public const PATROL_SHIP_ALPHA_LONGANE = 'patrol_ship_alpha_longane';
+    public const PATROL_SHIP_ALPHA_LONGANE = 'patrol_ship_alpha_longane';
     public const PATROL_SHIP_ALPHA_JUJUBE = 'patrol_ship_alpha_jujube';
     public const PATROL_SHIP_ALPHA_TAMARIN = 'patrol_ship_alpha_tamarin';
     public const PATROL_SHIP_BRAVO_SOCRATE = 'patrol_ship_alpha_socrate';
     public const PATROL_SHIP_BRAVO_EPICURE = 'patrol_ship_alpha_epicure';
     public const PATROL_SHIP_BRAVO_PLANTON = 'patrol_ship_alpha_planton';
-    public const PATROL_SHIP_ALPHA_2_wallis = 'patrol_ship_alpha_2_wallis';
+    public const PATROL_SHIP_ALPHA_2_WALLIS = 'patrol_ship_alpha_2_wallis';
     public const PASIPHAE = 'pasiphae';
     public const ICARUS = 'icarus';
     public const ANTENNA = 'antenna';

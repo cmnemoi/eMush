@@ -9,7 +9,7 @@ class GameConfigService implements GameConfigServiceInterface
 {
     public function getConfig(): GameConfig
     {
-        $gameConfig = \GameConfig;
+        $gameConfig = \GAME_CONFIG;
         $config = new GameConfig();
 
         $config

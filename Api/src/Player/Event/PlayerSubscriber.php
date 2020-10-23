@@ -3,7 +3,6 @@
 
 namespace Mush\Player\Event;
 
-
 use Mush\Game\Event\CycleEvent;
 use Mush\Game\Event\DayEvent;
 use Mush\Player\Service\PlayerServiceInterface;

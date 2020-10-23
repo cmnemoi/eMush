@@ -4,8 +4,8 @@ namespace Mush\Room\Enum;
 
 class DoorEnum
 {
-public const BRIDGE_FRONT_ALPHA_TURRET = 'bridge_front_alpha_turret';
-public const BRIDGE_FRONT_BRAVO_TURRET = 'bridge_front_bravo_turret';
+    public const BRIDGE_FRONT_ALPHA_TURRET = 'bridge_front_alpha_turret';
+    public const BRIDGE_FRONT_BRAVO_TURRET = 'bridge_front_bravo_turret';
     public const FRONT_CORRIDOR_FRONT_ALPHA_TURRET = 'front_corridor_front_alpha_turret';
     public const FRONT_CORRIDOR_FRONT_BRAVO_TURRET = 'front_corridor_front_beta_turret';
     public const FRONT_CORRIDOR_BRIDGE = 'front_corridor_bridge';

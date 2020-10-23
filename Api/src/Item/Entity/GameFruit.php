@@ -24,7 +24,12 @@ class GameFruit
     private Daedalus $daedalus;
 
     /**
-     * @ORM\OneToOne(targetEntity="Mush\Item\Entity\GamePlant", cascade={"ALL"}, orphanRemoval=true, inversedBy="gameFruit")
+     * @ORM\OneToOne(
+     *     targetEntity="Mush\Item\Entity\GamePlant",
+     *     cascade={"ALL"},
+     *     orphanRemoval=true,
+     *      inversedBy="gameFruit"
+     * )
      */
     private ?GamePlant $gamePlant = null;
 

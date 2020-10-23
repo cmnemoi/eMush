@@ -33,7 +33,11 @@ class ActionController extends AbstractFOSRestController
     public function createAction(Request $request): Response
     {
         try {
-            $result = $this->actionService->executeAction($this->getUser()->getCurrentGame(), $request->get('action'), $request->get('params'));
+            $result = $this->actionService->executeAction(
+                $this->getUser()->getCurrentGame(),
+                $request->get('action'),
+                $request->get('params')
+            );
         } catch (\InvalidArgumentException $exception) {
             return $this->handleView($this->view(['error' => $exception->getMessage()], 422));
         }

@@ -20,7 +20,7 @@ class PlantCycleHandler implements CycleHandlerInterface
     private FruitServiceInterface $fruitService;
     private GameConfig $gameConfig;
 
-    CONST DISEASE_PERCENTAGE = 3;
+    const DISEASE_PERCENTAGE = 3;
 
     public function __construct(
         ItemServiceInterface $itemService,
@@ -80,7 +80,6 @@ class PlantCycleHandler implements CycleHandlerInterface
         } else {  // If plant was not thirsty or dried become thirsty
             $plant->addStatus(PlantStatusEnum::THIRSTY);
         }
-
     }
 
     private function handleDriedPlant(Plant $plant)
@@ -109,7 +108,13 @@ class PlantCycleHandler implements CycleHandlerInterface
         //If plant is young, thirsty, dried or diseased, do not produce fruit
         if (array_intersect(
             $plant->getStatuses(),
-            [PlantStatusEnum::THIRSTY, PlantStatusEnum::DRIED, PlantStatusEnum::DISEASED, PlantStatusEnum::YOUNG])
+            [
+                PlantStatusEnum::THIRSTY,
+                PlantStatusEnum::DRIED,
+                PlantStatusEnum::DISEASED,
+                PlantStatusEnum::YOUNG
+            ]
+        )
         ) {
             return;
         }
@@ -133,7 +138,10 @@ class PlantCycleHandler implements CycleHandlerInterface
     private function addOxygen(Plant $plant)
     {
         //If plant is young, dried or diseased, do not produce oxygen
-        if (array_intersect($plant->getStatuses(), [PlantStatusEnum::DRIED, PlantStatusEnum::DISEASED, PlantStatusEnum::YOUNG])) {
+        if (array_intersect(
+            $plant->getStatuses(),
+            [PlantStatusEnum::DRIED, PlantStatusEnum::DISEASED, PlantStatusEnum::YOUNG]
+        )) {
             return;
         }
         // If plant is not in a room, it is in player inventory
@@ -144,6 +152,5 @@ class PlantCycleHandler implements CycleHandlerInterface
             $daedalus = $place->getDaedalus();
             $daedalus->setOxygen($daedalus->getOxygen() + $oxygen);
         }
-
     }
 }

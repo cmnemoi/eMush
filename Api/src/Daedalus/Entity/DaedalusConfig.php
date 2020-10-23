@@ -3,7 +3,6 @@
 
 namespace Mush\Daedalus\Entity;
 
-
 class DaedalusConfig
 {
     private int $initOxygen;

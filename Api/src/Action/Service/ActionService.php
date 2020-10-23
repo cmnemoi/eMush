@@ -34,13 +34,12 @@ class ActionService implements ActionServiceInterface
         PlayerServiceInterface $playerService,
         ItemServiceInterface $itemService,
         DoorServiceInterface $doorService
-    ){
+    ) {
         $this->actionsConfig = $actionsConfig;
         $this->container = $container;
         $this->playerService = $playerService;
         $this->itemService = $itemService;
         $this->doorService = $doorService;
-
     }
 
     private function getActionClass(Player $player, string $actionName, array $params): Action

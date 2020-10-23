@@ -53,7 +53,7 @@ class Drop extends Action
 
         // Remove BURDENED status if no other heavy item in the inventory
         if (in_array(StatusEnum::BURDENED, $this->player->getStatuses()) &&
-            $this->player->getItems()->exists(fn(Item $item) => $item->isHeavy())
+            $this->player->getItems()->exists(fn (Item $item) => $item->isHeavy())
         ) {
             $this->player->setStatuses(\array_diff($this->player->getStatuses(), [StatusEnum::BURDENED]));
         }
@@ -68,6 +68,4 @@ class Drop extends Action
     {
         // TODO: Implement createLog() method.
     }
-
-
 }

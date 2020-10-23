@@ -21,7 +21,7 @@ class GamePlantRepository extends ServiceEntityRepository
         $queryBuilder = $this->getEntityManager()->createQueryBuilder();
 
         $queryBuilder
-            ->select( 'game_plant')
+            ->select('game_plant')
             ->from(GamePlant::class, 'game_plant')
             ->leftJoin(GameFruit::class, 'game_fruit', Join::WITH, 'game_plant.gameFruit = game_fruit.id')
             ->where($queryBuilder->expr()->eq('game_fruit.daedalus', ':daedalus'))

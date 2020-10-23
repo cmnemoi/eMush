@@ -28,8 +28,11 @@ class Take extends Action
      * @param PlayerServiceInterface $playerService
      * @param GameConfigServiceInterface $gameConfigService
      */
-    public function __construct(ItemServiceInterface $itemService, PlayerServiceInterface $playerService, GameConfigServiceInterface $gameConfigService)
-    {
+    public function __construct(
+        ItemServiceInterface $itemService,
+        PlayerServiceInterface $playerService,
+        GameConfigServiceInterface $gameConfigService
+    ) {
         $this->itemService = $itemService;
         $this->playerService = $playerService;
         $this->gameConfig = $gameConfigService->getConfig();
@@ -58,8 +61,7 @@ class Take extends Action
         $this->item->setPlayer($this->player);
 
         // add BURDENED status if item is heavy and player hasn't SOLID skill
-        if (
-            $this->item->isHeavy() &&
+        if ($this->item->isHeavy() &&
             !in_array(SkillEnum::SOLID, $this->player->getSkills())
         ) {
             $this->player->getSkills()[] = StatusEnum::BURDENED;
@@ -75,6 +77,4 @@ class Take extends Action
     {
         // TODO: Implement createLog() method.
     }
-
-
 }

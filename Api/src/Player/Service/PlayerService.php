@@ -80,8 +80,11 @@ class PlayerService implements PlayerServiceInterface
     {
         $player = new Player();
 
+        /** @var User $user */
+        $user = $this->tokenStorage->getToken()->getUser();
+
         $player
-            ->setUser($this->tokenStorage->getToken()->getUser())
+            ->setUser($user)
             ->setGameStatus(GameStatusEnum::CURRENT)
             ->setDaedalus($daedalus)
             ->setRoom(
@@ -99,6 +102,7 @@ class PlayerService implements PlayerServiceInterface
             ->setStatuses($this->charactersConfig->getCharacter($character)->getStatuses())
         ;
 
+        $user->setCurrentGame($player);
         $playerEvent = new PlayerEvent($player);
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::NEW_PLAYER);
 

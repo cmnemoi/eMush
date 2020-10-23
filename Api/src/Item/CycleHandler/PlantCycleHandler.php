@@ -12,12 +12,16 @@ use Mush\Item\Enum\PlantStatusEnum;
 use Mush\Item\Service\FruitServiceInterface;
 use Mush\Item\Service\ItemServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Mush\RoomLog\Enum\PlantLogEnum;
 
 class PlantCycleHandler implements CycleHandlerInterface
 {
     private ItemServiceInterface $itemService;
     private RandomServiceInterface $randomService;
     private FruitServiceInterface $fruitService;
+    private RoomLogServiceInterface $roomLogService;
     private GameConfig $gameConfig;
 
     const DISEASE_PERCENTAGE = 3;
@@ -26,11 +30,13 @@ class PlantCycleHandler implements CycleHandlerInterface
         ItemServiceInterface $itemService,
         RandomServiceInterface $randomService,
         FruitServiceInterface $fruitService,
+        RoomLogServiceInterface $roomLogService,
         GameConfigServiceInterface $gameConfigService
     ) {
         $this->itemService = $itemService;
         $this->randomService = $randomService;
         $this->fruitService = $fruitService;
+        $this->roomLogService = $roomLogService;
         $this->gameConfig = $gameConfigService->getConfig();
     }
 
@@ -44,12 +50,19 @@ class PlantCycleHandler implements CycleHandlerInterface
             $plant->addStatus(PlantStatusEnum::DISEASED);
         }
 
-        if ($plant->getLoad() < $plant->getGamePlant()->getMaturationTime()) {
-            $plant->setLoad($plant->getLoad() + 1);
+        if ($plant->getCharge() < $plant->getGamePlant()->getMaturationTime()) {
+            $plant->setCharge($plant->getCharge() + 1);
 
             //If plant is mature
-            if ($plant->isMature()) {
+            if ($plant->isMature() && $plant->hasStatus(PlantStatusEnum::YOUNG)) {
                 $plant->removeStatus(PlantStatusEnum::YOUNG);
+                $this->roomLogService->createItemLog(
+                    PlantLogEnum::PLANT_MATURITY,
+                    $plant->getRoom() ?? $plant->getPlayer()->getRoom(),
+                    $plant,
+                    VisibilityEnum::PUBLIC,
+                    $dateTime
+                );
             }
         }
 
@@ -63,26 +76,26 @@ class PlantCycleHandler implements CycleHandlerInterface
         }
 
         $this->addOxygen($plant);
-        $this->addFruit($plant);
-        $this->handleStatus($plant);
+        $this->addFruit($plant, $dateTime);
+        $this->handleStatus($plant, $dateTime);
 
         $this->itemService->persist($plant);
     }
 
 
-    private function handleStatus(Plant $plant)
+    private function handleStatus(Plant $plant, \DateTime $dateTime)
     {
         if ($plant->hasStatus(PlantStatusEnum::THIRSTY)) { // If plant was thirsty, become dried
             $plant->removeStatus(PlantStatusEnum::THIRSTY);
             $plant->addStatus(PlantStatusEnum::DRIED);
         } elseif ($plant->hasStatus(PlantStatusEnum::DRIED)) {  // If plant was dried, become hydropot
-            $this->handleDriedPlant($plant);
+            $this->handleDriedPlant($plant, $dateTime);
         } else {  // If plant was not thirsty or dried become thirsty
             $plant->addStatus(PlantStatusEnum::THIRSTY);
         }
     }
 
-    private function handleDriedPlant(Plant $plant)
+    private function handleDriedPlant(Plant $plant, \DateTime $dateTime)
     {
         if ($plant->hasStatus(PlantStatusEnum::DRIED)) {
             // Create a new hydropot
@@ -90,20 +103,28 @@ class PlantCycleHandler implements CycleHandlerInterface
 
             // If plant is not in a room, it is in player inventory
             $place = $plant->getRoom() ? $plant->getRoom() : $plant->getPlayer();
+            $room = $place;
             if ($place instanceof Player) {
                 $plant->setPlayer(null);
                 $hydropot->setPlayer($place);
+                $room = $place->getRoom();
             } else {
                 $plant->setRoom(null);
                 $hydropot->setRoom($place);
             }
-
+            $this->roomLogService->createItemLog(
+                PlantLogEnum::PLANT_DEATH,
+                $room,
+                $plant,
+                VisibilityEnum::PUBLIC,
+                $dateTime
+            );
             $this->itemService->delete($plant);     // Remove plant
             $this->itemService->persist($hydropot); // Add hydropot
         }
     }
 
-    private function addFruit(Plant $plant)
+    private function addFruit(Plant $plant, \DateTime $dateTime)
     {
         //If plant is young, thirsty, dried or diseased, do not produce fruit
         if (array_intersect(
@@ -120,10 +141,12 @@ class PlantCycleHandler implements CycleHandlerInterface
         }
         // If plant is not in a room, it is in player inventory
         $place = $plant->getRoom() ? $plant->getRoom() : $plant->getPlayer();
+        $room = $place;
 
         // Create a new fruit
         $fruit = $this->fruitService->createFruit($plant->getGamePlant()->getGameFruit());
         if ($place instanceof Player) {
+            $room = $place->getRoom();
             if ($place->getItems() < $this->gameConfig->getMaxItemInInventory()) {
                 $fruit->setPlayer($place);
             } else {
@@ -132,6 +155,15 @@ class PlantCycleHandler implements CycleHandlerInterface
         } else {
             $fruit->setRoom($place);
         }
+
+        $this->roomLogService->createItemLog(
+            PlantLogEnum::PLANT_NEW_FRUIT,
+            $room,
+            $fruit,
+            VisibilityEnum::PUBLIC,
+            $dateTime
+        );
+
         $this->itemService->persist($fruit);
     }
 

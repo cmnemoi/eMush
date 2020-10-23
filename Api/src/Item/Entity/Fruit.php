@@ -16,6 +16,9 @@ use Mush\Room\Entity\Room;
  */
 class Fruit extends Item
 {
+    /**
+     * @ORM\OneToOne(targetEntity="Mush\Item\Entity\GameFruit")
+     */
     private GameFruit $gameFruit;
 
     public function getGameFruit(): GameFruit

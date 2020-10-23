@@ -1,6 +1,7 @@
+imports:
+  - { resource: ./cycleManager.yaml }
 
 services:
-
   _defaults:
     autowire: true      # Automatically injects dependencies in your services.
     autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
@@ -11,7 +12,20 @@ services:
     resource: '../'
     exclude:
       - '../DependencyInjection/'
+      - '../config/'
       - '../Entity/'
       - '../Enum/'
       - '../Kernel.php'
       - '../Tests/'
+
+  Mush\Item\CycleHandler\:
+    resource: '../CycleHandler/'
+    public: true
+
+  Mush\Item\Event\CycleSubscriber:
+    arguments:
+      - '%cycle_manager%'
+
+  Mush\Item\Event\DaySubscriber:
+      arguments:
+        - '%cycle_manager%'

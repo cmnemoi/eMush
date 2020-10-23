@@ -3,6 +3,7 @@
 namespace Mush\RoomLog\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Mush\Item\Entity\Item;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
 use Mush\RoomLog\Entity\RoomLog;
@@ -12,8 +13,13 @@ use Mush\RoomLog\Repository\RoomLogRepository;
 class RoomLogService implements RoomLogServiceInterface
 {
     private EntityManagerInterface $entityManager;
-
     private RoomLogRepository $repository;
+
+    public function __construct(EntityManagerInterface $entityManager, RoomLogRepository $repository)
+    {
+        $this->entityManager = $entityManager;
+        $this->repository = $repository;
+    }
 
     public function persist(RoomLog $roomLog): RoomLog
     {
@@ -28,14 +34,8 @@ class RoomLogService implements RoomLogServiceInterface
         return $this->repository->find($id);
     }
 
-    public function createLog(
-        string $logKey,
-        Player $player,
-        Room $room,
-        string $visibility,
-        RoomLogParameter $roomLogParameter,
-        \DateTime $date = null
-    ): RoomLog {
+    public function createPlayerLog(string $logKey, Room $room, Player $player, string $visibility, \DateTime $dateTime, ?RoomLogParameter $roomLogParameter = null): RoomLog
+    {
         $roomLog= new RoomLog();
         $roomLog
             ->setLog($logKey)
@@ -43,7 +43,36 @@ class RoomLogService implements RoomLogServiceInterface
             ->setRoom($room)
             ->setVisibility($visibility)
             ->setDate($date ?? new \DateTime('now'))
-            ->setParams($roomLogParameter->toArray())
+            ->setParams($roomLogParameter ? $roomLogParameter->toArray() : [])
+        ;
+
+        return $this->persist($roomLog);
+    }
+
+    public function createItemLog(string $logKey, Room $room, Item $player, string $visibility, \DateTime $dateTime, ?RoomLogParameter $roomLogParameter = null): RoomLog
+    {
+        $roomLog= new RoomLog();
+        $roomLog
+            ->setLog($logKey)
+            ->setItem($player)
+            ->setRoom($room)
+            ->setVisibility($visibility)
+            ->setDate($date ?? new \DateTime('now'))
+            ->setParams($roomLogParameter ? $roomLogParameter->toArray() : [])
+        ;
+
+        return $this->persist($roomLog);
+    }
+
+    public function createRoomLog(string $logKey, Room $room, string $visibility, \DateTime $dateTime, ?RoomLogParameter $roomLogParameter = null): RoomLog
+    {
+        $roomLog= new RoomLog();
+        $roomLog
+            ->setLog($logKey)
+            ->setRoom($room)
+            ->setVisibility($visibility)
+            ->setDate($date ?? new \DateTime('now'))
+            ->setParams($roomLogParameter ? $roomLogParameter->toArray() : [])
         ;
 
         return $this->persist($roomLog);

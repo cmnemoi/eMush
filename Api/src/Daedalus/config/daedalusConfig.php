@@ -1,6 +1,7 @@
 <?php
 
 use Mush\Item\Enum\EquipmentEnum;
+use Mush\Item\Enum\GamePlantEnum;
 use Mush\Item\Enum\ItemEnum;
 use Mush\Room\Enum\DoorEnum;
 use Mush\Room\Enum\RoomEnum;
@@ -111,7 +112,10 @@ const DaedalusConfig = [
                 EquipmentEnum::GRAVITY_SIMULATOR,
                 EquipmentEnum::RESEARCH_LABORATORY,
             ],
-            'items'=> [],
+            'items'=> [
+                GamePlantEnum::BANANA_TREE,
+                GamePlantEnum::BANANA_TREE,
+            ],
         ],
         [
             'name'=> RoomEnum::REFECTORY,

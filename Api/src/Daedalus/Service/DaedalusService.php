@@ -4,12 +4,14 @@ namespace Mush\Daedalus\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\DAaedalus\Entity\Collection\DaedalusCollection;
-use Mush\Daedalus\Criteria\DaedalusCriteria;
+use Mush\Daedalus\Entity\Criteria\DaedalusCriteria;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Daedalus\Repository\DaedalusRepository;
 use Mush\Game\Service\CycleServiceInterface;
+use Mush\Item\Service\GameFruitServiceInterface;
+use Mush\Item\Service\ItemServiceInterface;
 use Mush\Room\Entity\RoomConfig;
 use Mush\Room\Service\RoomServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -17,15 +19,12 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 class DaedalusService implements DaedalusServiceInterface
 {
     private EntityManagerInterface $entityManager;
-
     private EventDispatcherInterface $eventDispatcher;
-
     private DaedalusRepository $repository;
-
     private RoomServiceInterface $roomService;
-
     private CycleServiceInterface $cycleService;
-
+    private ItemServiceInterface $itemService;
+    private GameFruitServiceInterface $gameFruitService;
     private DaedalusConfig $daedalusConfig;
 
     /**
@@ -35,18 +34,21 @@ class DaedalusService implements DaedalusServiceInterface
      * @param DaedalusRepository $repository
      * @param RoomServiceInterface $roomService
      * @param CycleServiceInterface $cycleService
+     * @param ItemServiceInterface $itemService
+     * @param GameFruitServiceInterface $gameFruitService
      * @param DaedalusConfigServiceInterface $daedalusConfigService
      */
-    public function __construct(EntityManagerInterface $entityManager, EventDispatcherInterface $eventDispatcher, DaedalusRepository $repository, RoomServiceInterface $roomService, CycleServiceInterface $cycleService, DaedalusConfigServiceInterface $daedalusConfigService)
+    public function __construct(EntityManagerInterface $entityManager, EventDispatcherInterface $eventDispatcher, DaedalusRepository $repository, RoomServiceInterface $roomService, CycleServiceInterface $cycleService, ItemServiceInterface $itemService, GameFruitServiceInterface $gameFruitService, DaedalusConfigServiceInterface $daedalusConfigService)
     {
         $this->entityManager = $entityManager;
         $this->eventDispatcher = $eventDispatcher;
         $this->repository = $repository;
         $this->roomService = $roomService;
         $this->cycleService = $cycleService;
+        $this->itemService = $itemService;
+        $this->gameFruitService = $gameFruitService;
         $this->daedalusConfig = $daedalusConfigService->getConfig();
     }
-
 
     public function persist(Daedalus $daedalus): Daedalus
     {
@@ -71,7 +73,6 @@ class DaedalusService implements DaedalusServiceInterface
     {
         $daedalus = new Daedalus();
 
-
         $daedalus
             ->setCycle($this->cycleService->getCycleFromDate(new \DateTime()))
             ->setOxygen($this->daedalusConfig->getInitOxygen())
@@ -81,6 +82,8 @@ class DaedalusService implements DaedalusServiceInterface
         ;
 
         $this->persist($daedalus);
+
+        $this->gameFruitService->initGameFruits($daedalus);
 
         /** @var RoomConfig $roomconfig */
         foreach ($this->daedalusConfig->getRooms() as $roomconfig) {

@@ -4,8 +4,8 @@ namespace Mush\Game\Service;
 
 class RandomService implements RandomServiceInterface
 {
-    public static function random(int $nbValuePossible = 100): int
+    public function random(int $min, int $max): int
     {
-        return rand(0, $nbValuePossible);
+        return rand($min, $max);
     }
 }

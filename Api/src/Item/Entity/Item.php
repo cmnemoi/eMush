@@ -11,8 +11,14 @@ use Mush\Room\Entity\Room;
 /**
  * Class Item
  * @package Mush\Entity
- *
- * @ORM\Entity(repositoryClass="Mush\Item\Repository\ItemRepository")
+ * @ORM\Entity
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorColumn(name="type", type="string")
+ * @ORM\DiscriminatorMap({
+ *     "item" = "Item",
+ *     "fruit" = "Fruit",
+ *     "plant" = "Plant"
+ * })
  */
 class Item
 {
@@ -33,7 +39,7 @@ class Item
     /**
      * @ORM\ManyToOne (targetEntity="Mush\Room\Entity\Room", inversedBy="items")
      */
-    private ?Room $room;
+    private ?Room $room = null;
 
     /**
      * @ORM\ManyToOne (targetEntity="Mush\Player\Entity\Player", inversedBy="items")
@@ -45,9 +51,6 @@ class Item
      */
     private string $name;
 
-    /**
-     * @ORM\Column(type="string", nullable=false)
-     */
     private string $type;
 
     /**
@@ -101,6 +104,24 @@ class Item
         return $this;
     }
 
+    public function addStatus(string $status): Item
+    {
+        $this->statuses[] = $status;
+
+        return $this;
+    }
+
+    public function removeStatus(string $status): Item
+    {
+        $this->statuses = array_diff( $this->getStatuses(), [$status] );
+        return $this;
+    }
+
+    public function hasStatus(string $status): bool
+    {
+        return in_array($status, $this->getStatuses());
+    }
+
     public function getRoom(): Room
     {
         return $this->room;
@@ -108,7 +129,14 @@ class Item
 
     public function setRoom(?Room $room): Item
     {
+        if ($room === null) {
+            $this->room->removeItem($this);
+        } elseif ($this->room !== $room) {
+            $room->addItem($this);
+        }
+
         $this->room = $room;
+
         return $this;
     }
 
@@ -120,6 +148,9 @@ class Item
     public function setPlayer(?Player $player): Item
     {
         $this->player = $player;
+
+        $this->player->addItem($this);
+
         return $this;
     }
 

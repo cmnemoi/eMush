@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Item\Entity\Item;
+use Mush\Player\Entity\Player;
 
 /**
  * Class Room
@@ -106,6 +107,15 @@ class Room
         return $this;
     }
 
+    public function addPlayer(Player $player): Room
+    {
+        if (!$this->getPlayers()->contains($player)) {
+            $this->players->add($player);
+            $player->setRoom($this);
+        }
+        return $this;
+    }
+
     public function getItems(): Collection
     {
         return $this->items;
@@ -119,8 +129,20 @@ class Room
 
     public function addItem(Item $item): Room
     {
-        $this->items->add($item);
-        $item->setRoom($this);
+        if (!$this->items->contains($item)) {
+            $this->items->add($item);
+            $item->setRoom($this);
+        }
+
+        return $this;
+    }
+
+    public function removeItem(Item $item): Room
+    {
+        if ($this->items->contains($item)) {
+            $this->items->removeElement($item);
+            $item->setRoom(null);
+        }
 
         return $this;
     }

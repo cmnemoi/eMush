@@ -11,7 +11,7 @@ docker-stop:
 	docker-compose -f docker/docker-compose.yml stop
 
 bash-api:
-	docker exec -it mush_php bash
+	docker exec -udev -it mush_php bash
 
 bash-api-root:
 	docker exec -it mush_php bash

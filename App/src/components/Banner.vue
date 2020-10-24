@@ -18,7 +18,6 @@
 export default {
   name: 'Banner',
   props: {
-    msg: String
   }
 }
 </script>
@@ -40,7 +39,6 @@ export default {
 }
 
 .mainmenu > a {
-  font-family: "Segoe UI", "Lucida Grande", "Trebuchet MS", Arial, "lucida sans unicode", sans-serif;
   font-weight: normal;
   text-transform: capitalize;
   font-size: 11pt;

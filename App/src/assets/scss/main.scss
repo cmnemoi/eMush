@@ -1,0 +1,18 @@
+div {
+  display: flex;
+  flex-direction: column;
+}
+
+body, html, #app {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  font-family: "Segoe UI", "Lucida Grande", "Trebuchet MS", Arial, "lucida sans unicode", sans-serif;
+}
+
+ul, ol {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}

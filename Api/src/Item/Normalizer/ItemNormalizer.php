@@ -2,6 +2,7 @@
 
 namespace Mush\Item\Normalizer;
 
+use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Normalizer\DaedalusNormalizer;
 use Mush\Game\Entity\GameConfig;
@@ -28,10 +29,19 @@ class ItemNormalizer implements ContextAwareNormalizerInterface
      */
     public function normalize($item, string $format = null, array $context = [])
     {
+        $actions = [];
+
+        if ($item->getPlayer() === null) {
+            $actions[] = ActionEnum::TAKE;
+        } else {
+            $actions[] = ActionEnum::DROP;
+        }
+
         return [
             'id' => $item->getId(),
             'name' => $item->getName(),
             'statuses' => $item->getStatuses(),
+            'actions' => $actions
         ];
     }
 }

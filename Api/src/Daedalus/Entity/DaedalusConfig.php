@@ -3,19 +3,74 @@
 
 namespace Mush\Daedalus\Entity;
 
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
+use Mush\Game\Entity\GameConfig;
+
+/**
+ * Class DaedalusConfig
+ * @package Mush\Daedalus\Entity
+ * @ORM\Entity()
+ */
 class DaedalusConfig
 {
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer", length=255, nullable=false)
+     */
+    private int $id;
+
+    /**
+     * @ORM\OneToOne (targetEntity="Mush\Game\Entity\GameConfig")
+     */
+    private GameConfig $gameConfig;
+
+    /**
+     * @ORM\Column(type="integer", length=255, nullable=false)
+     */
     private int $initOxygen;
 
+    /**
+     * @ORM\Column(type="integer", length=255, nullable=false)
+     */
     private int $initFuel;
 
+    /**
+     * @ORM\Column(type="integer", length=255, nullable=false)
+     */
     private int $initHull;
 
+    /**
+     * @ORM\Column(type="integer", length=255, nullable=false)
+     */
     private int $initShield;
 
-    private array $randomItemPlace;
+    /**
+     * @ORM\OneToOne(targetEntity="Mush\Daedalus\Entity\RandomItemPlaces", cascade={"ALL"})
+     */
+    private ?RandomItemPlaces $randomItemPlace = null;
 
-    private array $rooms;
+    /**
+     * @ORM\OneToMany(targetEntity="Mush\Room\Entity\RoomConfig", mappedBy="daedalusConfig")
+     */
+    private Collection $roomConfigs;
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function getGameConfig(): GameConfig
+    {
+        return $this->gameConfig;
+    }
+
+    public function setGameConfig(GameConfig $gameConfig): DaedalusConfig
+    {
+        $this->gameConfig = $gameConfig;
+        return $this;
+    }
 
     public function getInitOxygen(): int
     {
@@ -61,25 +116,25 @@ class DaedalusConfig
         return $this;
     }
 
-    public function getRandomItemPlace(): array
+    public function getRandomItemPlace(): ?RandomItemPlaces
     {
         return $this->randomItemPlace;
     }
 
-    public function setRandomItemPlace(array $randomItemPlace): DaedalusConfig
+    public function setRandomItemPlace(RandomItemPlaces $randomItemPlace): DaedalusConfig
     {
         $this->randomItemPlace = $randomItemPlace;
         return $this;
     }
 
-    public function getRooms(): array
+    public function getRoomConfigs(): Collection
     {
-        return $this->rooms;
+        return $this->roomConfigs;
     }
 
-    public function setRooms(array $rooms): DaedalusConfig
+    public function setRoomConfigs(Collection $roomConfigs): DaedalusConfig
     {
-        $this->rooms = $rooms;
+        $this->roomConfigs = $roomConfigs;
         return $this;
     }
 }

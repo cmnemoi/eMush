@@ -15,7 +15,7 @@ use Mush\Item\Entity\GamePlant;
 use Mush\Item\Enum\GameFruitEnum;
 use Mush\Item\Enum\GamePlantEnum;
 use Mush\Item\Service\GameFruitServiceInterface;
-use Mush\Item\Service\ItemServiceInterface;
+use Mush\Item\Service\GameItemServiceInterface;
 use Mush\Room\Entity\Room;
 use Mush\Room\Entity\RoomConfig;
 use Mush\Room\Enum\RoomEnum;
@@ -35,8 +35,8 @@ class DaedalusServiceTest extends TestCase
     private RoomServiceInterface $roomService;
     /** @var CycleServiceInterface | Mockery\Mock */
     private CycleServiceInterface $cycleService;
-    /** @var ItemServiceInterface | Mockery\Mock */
-    private ItemServiceInterface $itemService;
+    /** @var GameItemServiceInterface | Mockery\Mock */
+    private GameItemServiceInterface $itemService;
     /** @var GameFruitServiceInterface | Mockery\Mock */
     private GameFruitServiceInterface $gameFruitService;
     private DaedalusConfig $daedalusConfig;
@@ -52,7 +52,7 @@ class DaedalusServiceTest extends TestCase
         $this->repository = Mockery::mock(DaedalusRepository::class);
         $this->roomService = Mockery::mock(RoomServiceInterface::class);
         $this->cycleService = Mockery::mock(CycleServiceInterface::class);
-        $this->itemService = Mockery::mock(ItemServiceInterface::class);
+        $this->itemService = Mockery::mock(GameItemServiceInterface::class);
         $this->gameFruitService = Mockery::mock(GameFruitServiceInterface::class);
         $daedalusConfig = Mockery::mock(DaedalusConfigServiceInterface::class);
         $this->daedalusConfig = new DaedalusConfig();

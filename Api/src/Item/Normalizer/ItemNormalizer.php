@@ -7,6 +7,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Normalizer\DaedalusNormalizer;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\GameConfigServiceInterface;
+use Mush\Item\Entity\GameItem;
 use Mush\Item\Entity\Item;
 use Mush\Player\Entity\Player;
 use Mush\Room\Normalizer\RoomNormalizer;
@@ -18,11 +19,11 @@ class ItemNormalizer implements ContextAwareNormalizerInterface
 {
     public function supportsNormalization($data, string $format = null, array $context = [])
     {
-        return $data instanceof Item;
+        return $data instanceof GameItem;
     }
 
     /**
-     * @param Item $item
+     * @param GameItem $item
      * @param string|null $format
      * @param array $context
      * @return array

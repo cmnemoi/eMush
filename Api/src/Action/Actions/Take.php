@@ -10,7 +10,7 @@ use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\StatusEnum;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Item\Entity\Item;
-use Mush\Item\Service\ItemServiceInterface;
+use Mush\Item\Service\GameItemServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 
@@ -18,18 +18,18 @@ class Take extends Action
 {
     private Player $player;
     private Item $item;
-    private ItemServiceInterface $itemService;
+    private GameItemServiceInterface $itemService;
     private PlayerServiceInterface $playerService;
     private GameConfig $gameConfig;
 
     /**
      * Take constructor.
-     * @param ItemServiceInterface $itemService
+     * @param GameItemServiceInterface $itemService
      * @param PlayerServiceInterface $playerService
      * @param GameConfigServiceInterface $gameConfigService
      */
     public function __construct(
-        ItemServiceInterface $itemService,
+        GameItemServiceInterface $itemService,
         PlayerServiceInterface $playerService,
         GameConfigServiceInterface $gameConfigService
     ) {

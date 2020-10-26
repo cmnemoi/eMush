@@ -15,7 +15,7 @@ use Mush\Game\Service\CycleService;
 use Mush\Game\Service\GameConfigServiceInterface;
 use \Mockery;
 use Mush\Item\Entity\Item;
-use Mush\Item\Service\ItemServiceInterface;
+use Mush\Item\Service\GameItemServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
@@ -24,8 +24,8 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class TakeActionTest extends TestCase
 {
-    /** @var ItemServiceInterface | Mockery\Mock */
-    private ItemServiceInterface $itemService;
+    /** @var GameItemServiceInterface | Mockery\Mock */
+    private GameItemServiceInterface $itemService;
     /** @var PlayerServiceInterface | Mockery\Mock */
     private PlayerServiceInterface $playerService;
     private GameConfig $gameConfig;
@@ -36,7 +36,7 @@ class TakeActionTest extends TestCase
      */
     public function before()
     {
-        $this->itemService = Mockery::mock(ItemServiceInterface::class);
+        $this->itemService = Mockery::mock(GameItemServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
         $gameConfigService = Mockery::mock(GameConfigServiceInterface::class);
         $this->gameConfig = new GameConfig();

@@ -1,29 +1,19 @@
 <?php
 
-
 namespace Mush\Item\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Mush\Player\Entity\Player;
-use Mush\Room\Entity\Room;
+use Mush\Game\Entity\GameConfig;
+use Mush\Room\Entity\RoomConfig;
 
 /**
- * Class Item
- * @package Mush\Entity
+ * Class ItemConfig
+ * @package Mush\Item\Entity
+ *
  * @ORM\Entity
- * @ORM\InheritanceType("SINGLE_TABLE")
- * @ORM\DiscriminatorColumn(name="type", type="string")
- * @ORM\DiscriminatorMap({
- *     "item" = "Item",
- *     "fruit" = "Fruit",
- *     "plant" = "Plant"
- * })
  */
 class Item
 {
-    use TimestampableEntity;
-
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -32,36 +22,34 @@ class Item
     private int $id;
 
     /**
-     * @ORM\Column(type="array", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Mush\Game\Entity\GameConfig", inversedBy="itemsConfig")
      */
-    private ?array $statuses = null;
-
-    /**
-     * @ORM\ManyToOne (targetEntity="Mush\Room\Entity\Room", inversedBy="items")
-     */
-    private ?Room $room = null;
-
-    /**
-     * @ORM\ManyToOne (targetEntity="Mush\Player\Entity\Player", inversedBy="items")
-     */
-    private ?Player $player = null;
+    private GameConfig $gameConfig;
 
     /**
      * @ORM\Column(type="string", nullable=false)
      */
     private string $name;
 
+    /**
+     * @ORM\Column(type="string", nullable=false)
+     */
     private string $type;
 
     /**
      * @ORM\Column(type="boolean", nullable=false)
      */
-    private bool $isDismantable;
+    private bool $isHeavy;
 
     /**
      * @ORM\Column(type="boolean", nullable=false)
      */
-    private bool $isHeavy;
+    private bool $isDropable;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=false)
+     */
+    private bool $isDismantable;
 
     /**
      * @ORM\Column(type="boolean", nullable=false)
@@ -114,68 +102,14 @@ class Item
         return $this->id;
     }
 
-    public function getStatuses(): ?array
+    public function getGameConfig(): GameConfig
     {
-        return $this->statuses;
+        return $this->gameConfig;
     }
 
-    public function setStatuses(array $statuses): Item
+    public function setGameConfig(GameConfig $gameConfig): Item
     {
-        $this->statuses = $statuses;
-        return $this;
-    }
-
-    public function addStatus(string $status): Item
-    {
-        $this->statuses[] = $status;
-
-        return $this;
-    }
-
-    public function removeStatus(string $status): Item
-    {
-        $this->statuses = array_diff($this->getStatuses(), [$status]);
-        return $this;
-    }
-
-    public function hasStatus(string $status): bool
-    {
-        return in_array($status, $this->getStatuses());
-    }
-
-    public function getRoom(): ?Room
-    {
-        return $this->room;
-    }
-
-    public function setRoom(?Room $room): Item
-    {
-        if ($room === null) {
-            $this->room->removeItem($this);
-        } elseif ($this->room !== $room) {
-            $room->addItem($this);
-        }
-
-        $this->room = $room;
-
-        return $this;
-    }
-
-    public function getPlayer(): ?Player
-    {
-        return $this->player;
-    }
-
-    public function setPlayer(?Player $player): Item
-    {
-        if ($player === null) {
-            $this->player->removeItem($this);
-        } elseif ($this->player !== $player) {
-            $player->addItem($this);
-        }
-
-        $this->player = $player;
-
+        $this->gameConfig = $gameConfig;
         return $this;
     }
 
@@ -201,17 +135,6 @@ class Item
         return $this;
     }
 
-    public function isDismantable(): bool
-    {
-        return $this->isDismantable;
-    }
-
-    public function setIsDismantable(bool $isDismantable): Item
-    {
-        $this->isDismantable = $isDismantable;
-        return $this;
-    }
-
     public function isHeavy(): bool
     {
         return $this->isHeavy;
@@ -220,6 +143,28 @@ class Item
     public function setIsHeavy(bool $isHeavy): Item
     {
         $this->isHeavy = $isHeavy;
+        return $this;
+    }
+
+    public function isDropable(): bool
+    {
+        return $this->isDropable;
+    }
+
+    public function setIsDropable(bool $isDropable): Item
+    {
+        $this->isDropable = $isDropable;
+        return $this;
+    }
+
+    public function isDismantable(): bool
+    {
+        return $this->isDismantable;
+    }
+
+    public function setIsDismantable(bool $isDismantable): Item
+    {
+        $this->isDismantable = $isDismantable;
         return $this;
     }
 

@@ -55,7 +55,7 @@ class Player
     private Room $room;
 
     /**
-     * @ORM\OneToMany(targetEntity="Mush\Item\Entity\Item", mappedBy="player")
+     * @ORM\OneToMany(targetEntity="Mush\Item\Entity\GameItem", mappedBy="player")
      */
     private Collection $items;
 

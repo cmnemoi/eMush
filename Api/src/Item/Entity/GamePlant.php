@@ -4,90 +4,52 @@
 namespace Mush\Item\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Mush\Player\Entity\Player;
+use Mush\Room\Entity\Room;
 
 /**
- * @ORM\Entity()
+ * Class Item
+ * @package Mush\Entity
+ *
+ * @ORM\Entity(repositoryClass="Mush\Item\Repository\GameItemRepository")
  */
-class GamePlant
+class GamePlant extends GameItem
 {
     /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer", length=255, nullable=false)
+     * @ORM\OneToOne(targetEntity="Mush\Item\Entity\Plant")
      */
-    private int $id;
+    private Plant $plant;
 
     /**
-     * @ORM\OneToOne(targetEntity="Mush\Item\Entity\GameFruit", inversedBy="gamePlant")
+     * @ORM\Column(type="integer")
      */
-    private ?GameFruit $gameFruit = null;
+    private int $charge = 0;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=false)
-     */
-    private string $name;
-
-    /**
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
-    private int $maturationTime;
-
-    /**
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
-    private int $oxygen;
-
-    public function getId(): int
+    public function getPlant(): Plant
     {
-        return $this->id;
+        return $this->plant;
     }
 
-    public function getGameFruit(): ?GameFruit
+    public function setPlant(Plant $plant): GamePlant
     {
-        return $this->gameFruit;
-    }
-
-    public function setGameFruit(GameFruit $gameFruit): GamePlant
-    {
-        $this->gameFruit = $gameFruit;
-
-        if ($gameFruit->getGamePlant() !== $this) {
-            $gameFruit->setGamePlant($this);
-        }
-
+        $this->plant = $plant;
         return $this;
     }
 
-    public function getName(): string
+    public function getCharge(): int
     {
-        return $this->name;
+        return $this->charge;
     }
 
-    public function setName(string $name): GamePlant
+    public function setCharge(int $charge): GamePlant
     {
-        $this->name = $name;
+        $this->charge = $charge;
         return $this;
     }
 
-    public function getMaturationTime(): int
+    public function isMature(): bool
     {
-        return $this->maturationTime;
-    }
-
-    public function setMaturationTime(int $maturationTime): GamePlant
-    {
-        $this->maturationTime = $maturationTime;
-        return $this;
-    }
-
-    public function getOxygen(): int
-    {
-        return $this->oxygen;
-    }
-
-    public function setOxygen(int $oxygen): GamePlant
-    {
-        $this->oxygen = $oxygen;
-        return $this;
+        return $this->plant->getMaturationTime() <= $this->getCharge();
     }
 }

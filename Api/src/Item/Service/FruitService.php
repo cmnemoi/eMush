@@ -12,15 +12,15 @@ use Mush\Item\Enum\PlantStatusEnum;
 
 class FruitService implements FruitServiceInterface
 {
-    private ItemServiceInterface $itemService;
+    private GameItemServiceInterface $itemService;
     private GameFruitServiceInterface $gameFruitService;
 
     /**
      * FruitService constructor.
-     * @param ItemServiceInterface $itemService
+     * @param GameItemServiceInterface $itemService
      * @param GameFruitServiceInterface $gameFruitService
      */
-    public function __construct(ItemServiceInterface $itemService, GameFruitServiceInterface $gameFruitService)
+    public function __construct(GameItemServiceInterface $itemService, GameFruitServiceInterface $gameFruitService)
     {
         $this->itemService = $itemService;
         $this->gameFruitService = $gameFruitService;
@@ -33,13 +33,6 @@ class FruitService implements FruitServiceInterface
             ->setName($gameFruit->getName())
             ->setGameFruit($gameFruit)
             ->setStatuses([])
-            ->setIsMovable(true)
-            ->setIsFireBreakable(true)
-            ->setIsFireDestroyable(true)
-            ->setIsHideable(true)
-            ->setIsStackable(false)
-            ->setIsHeavy(false)
-            ->setIsDismantable(false)
         ;
 
         $this->itemService->persist($fruit);
@@ -54,13 +47,6 @@ class FruitService implements FruitServiceInterface
             ->setName($gamePlant->getName())
             ->setGamePlant($gamePlant)
             ->setStatuses([PlantStatusEnum::YOUNG])
-            ->setIsMovable(true)
-            ->setIsFireBreakable(true)
-            ->setIsFireDestroyable(true)
-            ->setIsHideable(true)
-            ->setIsStackable(false)
-            ->setIsHeavy(false)
-            ->setIsDismantable(false)
             ->setCharge(0);
         ;
 

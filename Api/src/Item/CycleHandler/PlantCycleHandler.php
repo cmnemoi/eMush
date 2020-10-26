@@ -10,7 +10,7 @@ use Mush\Item\Entity\Plant;
 use Mush\Item\Enum\ItemEnum;
 use Mush\Item\Enum\PlantStatusEnum;
 use Mush\Item\Service\FruitServiceInterface;
-use Mush\Item\Service\ItemServiceInterface;
+use Mush\Item\Service\GameItemServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
@@ -18,7 +18,7 @@ use Mush\RoomLog\Enum\PlantLogEnum;
 
 class PlantCycleHandler implements CycleHandlerInterface
 {
-    private ItemServiceInterface $itemService;
+    private GameItemServiceInterface $itemService;
     private RandomServiceInterface $randomService;
     private FruitServiceInterface $fruitService;
     private RoomLogServiceInterface $roomLogService;
@@ -27,7 +27,7 @@ class PlantCycleHandler implements CycleHandlerInterface
     const DISEASE_PERCENTAGE = 3;
 
     public function __construct(
-        ItemServiceInterface $itemService,
+        GameItemServiceInterface $itemService,
         RandomServiceInterface $randomService,
         FruitServiceInterface $fruitService,
         RoomLogServiceInterface $roomLogService,

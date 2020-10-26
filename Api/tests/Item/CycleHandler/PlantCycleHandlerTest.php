@@ -15,7 +15,7 @@ use Mush\Item\Entity\Item;
 use Mush\Item\Entity\Plant;
 use Mush\Item\Enum\PlantStatusEnum;
 use Mush\Item\Service\FruitServiceInterface;
-use Mush\Item\Service\ItemServiceInterface;
+use Mush\Item\Service\GameItemServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
@@ -24,8 +24,8 @@ use \Mockery;
 
 class PlantCycleHandlerTest extends TestCase
 {
-    /** @var ItemServiceInterface | Mockery\Mock */
-    private ItemServiceInterface $itemService;
+    /** @var GameItemServiceInterface | Mockery\Mock */
+    private GameItemServiceInterface $itemService;
     /** @var RandomServiceInterface | Mockery\Mock */
     private RandomServiceInterface $randomService;
     /** @var FruitServiceInterface | Mockery\Mock */
@@ -42,7 +42,7 @@ class PlantCycleHandlerTest extends TestCase
      */
     public function before()
     {
-        $this->itemService = Mockery::mock(ItemServiceInterface::class);
+        $this->itemService = Mockery::mock(GameItemServiceInterface::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
         $this->fruitService = Mockery::mock(FruitServiceInterface::class);
         $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);

@@ -5,7 +5,7 @@ namespace Mush\Action\Service;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\Actions\Action;
 use Mush\Action\Entity\ActionParameters;
-use Mush\Item\Service\ItemServiceInterface;
+use Mush\Item\Service\GameItemServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Service\DoorServiceInterface;
@@ -17,7 +17,7 @@ class ActionService implements ActionServiceInterface
     private array $actionsConfig;
     private ContainerInterface $container;
     private PlayerServiceInterface $playerService;
-    private ItemServiceInterface $itemService;
+    private GameItemServiceInterface $itemService;
     private DoorServiceInterface $doorService;
 
     /**
@@ -25,14 +25,14 @@ class ActionService implements ActionServiceInterface
      * @param array $actionsConfig
      * @param ContainerInterface $container
      * @param PlayerServiceInterface $playerService
-     * @param ItemServiceInterface $itemService
+     * @param GameItemServiceInterface $itemService
      * @param DoorServiceInterface $doorService
      */
     public function __construct(
         array $actionsConfig,
         ContainerInterface $container,
         PlayerServiceInterface $playerService,
-        ItemServiceInterface $itemService,
+        GameItemServiceInterface $itemService,
         DoorServiceInterface $doorService
     ) {
         $this->actionsConfig = $actionsConfig;

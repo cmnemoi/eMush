@@ -13,15 +13,15 @@ use Mush\Item\Enum\GamePlantEnum;
 use Mush\Item\Enum\PlantStatusEnum;
 use Mush\Item\Service\FruitService;
 use Mush\Item\Service\GameFruitServiceInterface;
-use Mush\Item\Service\ItemServiceInterface;
+use Mush\Item\Service\GameItemServiceInterface;
 use PHPUnit\Framework\TestCase;
 
 class FruitServiceTest extends TestCase
 {
     /** @var GameFruitServiceInterface | Mockery\Mock */
     private GameFruitServiceInterface $gameFruitService;
-    /** @var ItemServiceInterface | Mockery\Mock */
-    private ItemServiceInterface $itemService;
+    /** @var GameItemServiceInterface | Mockery\Mock */
+    private GameItemServiceInterface $itemService;
 
     private FruitService $service;
 
@@ -30,7 +30,7 @@ class FruitServiceTest extends TestCase
      */
     public function before()
     {
-        $this->itemService = Mockery::mock(ItemServiceInterface::class);
+        $this->itemService = Mockery::mock(GameItemServiceInterface::class);
         $this->gameFruitService = Mockery::mock(GameFruitServiceInterface::class);
 
         $this->itemService->shouldReceive('persist');

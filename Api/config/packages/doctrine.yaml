@@ -10,6 +10,12 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
         auto_mapping: true
         mappings:
+            Game:
+                is_bundle: false
+                type: annotation
+                dir: '%kernel.project_dir%/src/Game/Entity'
+                prefix: 'Mush\Game\Entity'
+                alias: Game
             Daedalus:
                 is_bundle: false
                 type: annotation

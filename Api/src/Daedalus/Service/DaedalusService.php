@@ -9,9 +9,13 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Daedalus\Repository\DaedalusRepository;
+use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\CycleServiceInterface;
+use Mush\Game\Service\RandomServiceInterface;
+use Mush\Item\Entity\Item;
 use Mush\Item\Service\GameFruitServiceInterface;
-use Mush\Item\Service\ItemServiceInterface;
+use Mush\Item\Service\GameItemServiceInterface;
+use Mush\Room\Entity\Room;
 use Mush\Room\Entity\RoomConfig;
 use Mush\Room\Service\RoomServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -23,9 +27,9 @@ class DaedalusService implements DaedalusServiceInterface
     private DaedalusRepository $repository;
     private RoomServiceInterface $roomService;
     private CycleServiceInterface $cycleService;
-    private ItemServiceInterface $itemService;
+    private GameItemServiceInterface $itemService;
     private GameFruitServiceInterface $gameFruitService;
-    private DaedalusConfig $daedalusConfig;
+    private RandomServiceInterface $randomService;
 
     /**
      * DaedalusService constructor.
@@ -34,9 +38,9 @@ class DaedalusService implements DaedalusServiceInterface
      * @param DaedalusRepository $repository
      * @param RoomServiceInterface $roomService
      * @param CycleServiceInterface $cycleService
-     * @param ItemServiceInterface $itemService
+     * @param GameItemServiceInterface $itemService
      * @param GameFruitServiceInterface $gameFruitService
-     * @param DaedalusConfigServiceInterface $daedalusConfigService
+     * @param RandomServiceInterface $randomService
      */
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -44,9 +48,9 @@ class DaedalusService implements DaedalusServiceInterface
         DaedalusRepository $repository,
         RoomServiceInterface $roomService,
         CycleServiceInterface $cycleService,
-        ItemServiceInterface $itemService,
+        GameItemServiceInterface $itemService,
         GameFruitServiceInterface $gameFruitService,
-        DaedalusConfigServiceInterface $daedalusConfigService
+        RandomServiceInterface $randomService
     ) {
         $this->entityManager = $entityManager;
         $this->eventDispatcher = $eventDispatcher;
@@ -55,7 +59,7 @@ class DaedalusService implements DaedalusServiceInterface
         $this->cycleService = $cycleService;
         $this->itemService = $itemService;
         $this->gameFruitService = $gameFruitService;
-        $this->daedalusConfig = $daedalusConfigService->getConfig();
+        $this->randomService = $randomService;
     }
 
     public function persist(Daedalus $daedalus): Daedalus
@@ -77,26 +81,41 @@ class DaedalusService implements DaedalusServiceInterface
         return new DaedalusCollection();
     }
 
-    public function createDaedalus(): Daedalus
+    public function createDaedalus(GameConfig $gameConfig): Daedalus
     {
         $daedalus = new Daedalus();
 
+        $daedalusConfig = $gameConfig->getDaedalusConfig();
+
         $daedalus
+            ->setGameConfig($gameConfig)
             ->setCycle($this->cycleService->getCycleFromDate(new \DateTime()))
-            ->setOxygen($this->daedalusConfig->getInitOxygen())
-            ->setFuel($this->daedalusConfig->getInitFuel())
-            ->setHull($this->daedalusConfig->getInitHull())
-            ->setShield($this->daedalusConfig->getInitShield())
+            ->setOxygen($daedalusConfig->getInitOxygen())
+            ->setFuel($daedalusConfig->getInitFuel())
+            ->setHull($daedalusConfig->getInitHull())
+            ->setShield($daedalusConfig->getInitShield())
         ;
 
         $this->persist($daedalus);
 
-        $this->gameFruitService->initGameFruits($daedalus);
+//        $this->gameFruitService->initGameFruits($daedalus);
 
         /** @var RoomConfig $roomconfig */
-        foreach ($this->daedalusConfig->getRooms() as $roomconfig) {
+        foreach ($daedalusConfig->getRoomConfigs() as $roomconfig) {
             $room = $this->roomService->createRoom($roomconfig, $daedalus);
             $daedalus->addRoom($room);
+        }
+
+        $randomItemPlaces = $daedalusConfig->getRandomItemPlace();
+        if ($randomItemPlaces !== null) {
+            foreach ($randomItemPlaces->getItems() as $itemName) {
+                $item = $daedalus->getGameConfig()->getItemsConfig()->filter(fn(Item $item) => $item->getName() === $itemName)->first();
+                $item = $this->itemService->createGameItem($item);
+                $roomName = $randomItemPlaces->getPlaces()[$this->randomService->random(0, count($randomItemPlaces->getPlaces()) - 1)];
+                $room = $daedalus->getRooms()->filter(fn(Room $room) => $roomName === $room->getName())->first();
+                $item->setRoom($room);
+                $this->itemService->persist($item);
+            }
         }
 
         $daedalusEvent = new DaedalusEvent($daedalus);

@@ -19,7 +19,31 @@ const DAEDALUS_CONFIG = [
             RoomEnum::REAR_ALPHA_STORAGE,
             RoomEnum::REAR_BRAVO_STORAGE,
         ],
-        'items'=> [ItemEnum::STAINPROOF_APRON]
+        'items'=> [
+            ItemEnum::PLASTENITE_ARMOR,
+            ItemEnum::HACKER_KIT,
+            ItemEnum::BLOCK_OF_POST_IT,
+            ItemEnum::BLASTER,
+            ItemEnum::BLASTER,
+            ItemEnum::QUADRIMETRIC_COMPASS,
+            ItemEnum::CAMERA,
+            ItemEnum::CAMERA,
+            ItemEnum::CAMERA,
+            ItemEnum::ADJUSTABLE_WRENCH,
+            ItemEnum::ROPE,
+            ItemEnum::ROPE,
+            ItemEnum::KNIFE,
+            ItemEnum::EXTINGUISHER,
+            ItemEnum::EXTINGUISHER,
+            ItemEnum::DRILL,
+            ItemEnum::PROTECTIVE_GLOVES,
+            ItemEnum::GRENADE,
+            ItemEnum::HYDROPOT,
+            ItemEnum::HYDROPOT,
+            ItemEnum::DUCT_TAPE,
+            ItemEnum::SOAP,
+            ItemEnum::STAINPROOF_APRON,
+        ]
     ],
     'rooms'=> [
         [
@@ -34,7 +58,9 @@ const DAEDALUS_CONFIG = [
                 EquipmentEnum::COMMUNICATION_CENTER,
                 EquipmentEnum::ASTRO_TERMINAL,
             ],
-            'items'=> [],
+            'items'=> [
+                ItemEnum::TABULATRIX
+            ],
         ],
         [
             'name'=> RoomEnum::ALPHA_BAY,
@@ -113,8 +139,6 @@ const DAEDALUS_CONFIG = [
                 EquipmentEnum::RESEARCH_LABORATORY,
             ],
             'items'=> [
-                GamePlantEnum::BANANA_TREE,
-                GamePlantEnum::BANANA_TREE,
             ],
         ],
         [
@@ -122,6 +146,9 @@ const DAEDALUS_CONFIG = [
             'doors'=> [DoorEnum::REFECTORY_CENTRAL_CORRIDOR],
             'equipments'=> [EquipmentEnum::COFFEE_MACHINE, EquipmentEnum::KITCHEN],
             'items'=> [
+                ItemEnum::MAD_KUBE,
+                ItemEnum::MICROWAVE,
+                ItemEnum::SUPERFREEZER,
                 ItemEnum::STANDARD_RATION,
                 ItemEnum::STANDARD_RATION,
                 ItemEnum::STANDARD_RATION,
@@ -163,7 +190,11 @@ const DAEDALUS_CONFIG = [
                 DoorEnum::FRONT_STORAGE_GARDEN,
             ],
             'equipments'=> [],
-            'items'=> [],
+            'items'=> [
+                GamePlantEnum::BANANA_TREE,
+                GamePlantEnum::BANANA_TREE,
+                ItemEnum::HYDROPOT,
+            ],
         ],
         [
             'name'=> RoomEnum::ENGINE_ROOM,

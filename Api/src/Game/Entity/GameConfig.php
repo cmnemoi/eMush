@@ -2,23 +2,172 @@
 
 namespace Mush\Game\Entity;
 
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Mush\Daedalus\Entity\DaedalusConfig;
+use Mush\Game\Entity\Collection\CharacterConfigCollection;
+
+/**
+ * Class Daedalus
+ * @package Mush\Game\Entity
+ *
+ * @ORM\Entity(repositoryClass="Mush\Game\Repository\GameConfigRepository")
+ */
 class GameConfig
 {
+    use TimestampableEntity;
+
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer", length=255, nullable=false)
+     */
+    private int $id;
+
+    /**
+     * @ORM\OneToOne (targetEntity="Mush\Daedalus\Entity\DaedalusConfig", mappedBy="gameConfig")
+     */
+    private DaedalusConfig $daedalusConfig;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Mush\Game\Entity\CharacterConfig", mappedBy="gameConfig")
+     */
+    private Collection $charactersConfig;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Mush\Item\Entity\Item", mappedBy="gameConfig")
+     */
+    private Collection $itemsConfig;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=false)
+     */
+    private string $name;
+
+    /**
+     * @ORM\Column(type="integer", length=255, nullable=false)
+     */
     private int $maxPlayer;
+
+    /**
+     * @ORM\Column(type="integer", length=255, nullable=false)
+     */
     private int $nbMush;
+
+    /**
+     * @ORM\Column(type="integer", length=255, nullable=false)
+     */
     private int $cycleLength;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=false)
+     */
     private string $timeZone;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=false)
+     */
     private string $language;
+
+    /**
+     * @ORM\Column(type="integer", length=255, nullable=false)
+     */
     private int $initHealthPoint;
+
+    /**
+     * @ORM\Column(type="integer", length=255, nullable=false)
+     */
     private int $maxHealthPoint;
+
+    /**
+     * @ORM\Column(type="integer", length=255, nullable=false)
+     */
     private int $initMoralPoint;
+
+    /**
+     * @ORM\Column(type="integer", length=255, nullable=false)
+     */
     private int $maxMoralPoint;
+
+    /**
+     * @ORM\Column(type="integer", length=255, nullable=false)
+     */
     private int $initSatiety;
+
+    /**
+     * @ORM\Column(type="integer", length=255, nullable=false)
+     */
     private int $initActionPoint;
+
+    /**
+     * @ORM\Column(type="integer", length=255, nullable=false)
+     */
     private int $maxActionPoint;
+
+    /**
+     * @ORM\Column(type="integer", length=255, nullable=false)
+     */
     private int $initMovementPoint;
+
+    /**
+     * @ORM\Column(type="integer", length=255, nullable=false)
+     */
     private int $maxMovementPoint;
+
+    /**
+     * @ORM\Column(type="integer", length=255, nullable=false)
+     */
     private int $maxItemInInventory;
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function getDaedalusConfig(): DaedalusConfig
+    {
+        return $this->daedalusConfig;
+    }
+
+    public function setDaedalusConfig(DaedalusConfig $daedalusConfig): GameConfig
+    {
+        $this->daedalusConfig = $daedalusConfig;
+        return $this;
+    }
+
+    public function getCharactersConfig(): CharacterConfigCollection
+    {
+        return new CharacterConfigCollection($this->charactersConfig->toArray());
+    }
+
+    public function setCharactersConfig(Collection $charactersConfig): GameConfig
+    {
+        $this->charactersConfig = $charactersConfig;
+        return $this;
+    }
+
+    public function getItemsConfig(): Collection
+    {
+        return $this->itemsConfig;
+    }
+
+    public function setItemsConfig(Collection $itemsConfig): GameConfig
+    {
+        $this->itemsConfig = $itemsConfig;
+        return $this;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): GameConfig
+    {
+        $this->name = $name;
+        return $this;
+    }
 
     public function getMaxPlayer(): int
     {

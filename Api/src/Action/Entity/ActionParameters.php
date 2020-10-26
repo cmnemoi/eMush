@@ -2,7 +2,7 @@
 
 namespace Mush\Action\Entity;
 
-use Mush\Item\Entity\Item;
+use Mush\Item\Entity\GameItem;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Door;
 use Mush\Room\Entity\Room;
@@ -11,7 +11,7 @@ class ActionParameters
 {
     private ?Room $room = null;
     private ?Player $player = null;
-    private ?Item $item = null;
+    private ?GameItem $item = null;
     private ?Door $door = null;
 
     public function getRoom(): ?Room
@@ -36,12 +36,12 @@ class ActionParameters
         return $this;
     }
 
-    public function getItem(): ?Item
+    public function getItem(): ?GameItem
     {
         return $this->item;
     }
 
-    public function setItem(?Item $item): ActionParameters
+    public function setItem(?GameItem $item): ActionParameters
     {
         $this->item = $item;
         return $this;

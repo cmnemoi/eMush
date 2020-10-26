@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Mush\Game\Entity\GameConfig;
 use Mush\Room\Entity\Room;
 
 /**
@@ -30,6 +31,11 @@ class Daedalus
      * @ORM\OneToMany(targetEntity="Mush\Player\Entity\Player", mappedBy="daedalus")
      */
     private Collection $players;
+
+    /**
+     * @ORM\ManyToOne (targetEntity="Mush\Game\Entity\GameConfig")
+     */
+    private GameConfig $gameConfig;
 
     /**
      * @ORM\OneToMany(targetEntity="Mush\Room\Entity\Room", mappedBy="daedalus")
@@ -85,6 +91,17 @@ class Daedalus
     public function setPlayers(Collection $players): Daedalus
     {
         $this->players = $players;
+        return $this;
+    }
+
+    public function getGameConfig(): GameConfig
+    {
+        return $this->gameConfig;
+    }
+
+    public function setGameConfig(GameConfig $gameConfig): Daedalus
+    {
+        $this->gameConfig = $gameConfig;
         return $this;
     }
 

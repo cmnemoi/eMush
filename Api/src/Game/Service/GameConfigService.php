@@ -3,33 +3,24 @@
 namespace Mush\Game\Service;
 
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Repository\GameConfigRepository;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class GameConfigService implements GameConfigServiceInterface
 {
+    private GameConfigRepository $repository;
+
+    /**
+     * GameConfigService constructor.
+     * @param GameConfigRepository $repository
+     */
+    public function __construct(GameConfigRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
     public function getConfig(): GameConfig
     {
-        $gameConfig = \GAME_CONFIG;
-        $config = new GameConfig();
-
-        $config
-            ->setMaxPlayer($gameConfig['maxPlayer'])
-            ->setNbMush($gameConfig['nbMush'])
-            ->setCycleLength($gameConfig['cycleLength'])
-            ->setTimeZone($gameConfig['timeZone'])
-            ->setLanguage($gameConfig['language'])
-            ->setInitHealthPoint($gameConfig['initHealthPoint'])
-            ->setMaxHealthPoint($gameConfig['maxHealthPoint'])
-            ->setInitMoralPoint($gameConfig['initMoralPoint'])
-            ->setMaxMoralPoint($gameConfig['maxMoralPoint'])
-            ->setInitSatiety($gameConfig['initSatiety'])
-            ->setInitActionPoint($gameConfig['initActionPoint'])
-            ->setMaxActionPoint($gameConfig['maxActionPoint'])
-            ->setInitMovementPoint($gameConfig['initMovementPoint'])
-            ->setMaxMovementPoint($gameConfig['maxMovementPoint'])
-            ->setMaxItemInInventory($gameConfig['maxItemInInventory'])
-        ;
-
-        return $config;
+        return $this->repository->findOneByName('default');
     }
 }

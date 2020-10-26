@@ -104,6 +104,10 @@ class Item
      */
     private array $actions;
 
+    /**
+     * @ORM\Column(type="array", nullable=false)
+     */
+    private array $effects;
 
     public function getId(): int
     {
@@ -242,21 +246,34 @@ class Item
         return $this->isMovable;
     }
 
-    public function isMovable(): bool
-    {
-        return $this->isTakeable;
-    }
-
-    public function isMovable(): bool
-    {
-        return $this->isDropable;
-    }
-
     public function setIsMovable(bool $isMovable): Item
     {
         $this->isMovable = $isMovable;
         return $this;
     }
+
+    public function isTakeable(): bool
+    {
+        return $this->isTakeable;
+    }
+
+    public function setIsTakeable(bool $isTakeable): Item
+    {
+        $this->isTakeable = $isTakeable;
+        return $this;
+    }
+
+    public function isDropable(): bool
+    {
+        return $this->isDropable;
+    }
+
+    public function setIsDropable(bool $isDropable): Item
+    {
+        $this->isDropable = $isDropable;
+        return $this;
+    }
+
 
     public function isFireDestroyable(): bool
     {
@@ -291,22 +308,42 @@ class Item
         return $this;
     }
 
-    public function addActions(string $actions): Item
+    public function addAction(string $action, array $effect = []): Item
     {
-        $this->actions[] = $actions;
+        if (!$this->hasAction($action))
+        {
+            $this->actions[] = $actions;
+            if ($effect !== [])
+            {
+              $this->effects[$action] = $effect;
+            }
+        }
 
         return $this;
     }
 
-    public function removeActions(string $actions): Item
+    public function removeAction(string $action): Item
     {
-        $this->actions = array_diff($this->getActions(), [$actions]);
+        $this->actions = array_diff($this->getActions(), [$action]);
+        if (array_key_exists($this->effects, $action))
+        {
+          $this->effects = array_diff($this->getEffect(), $this->getEffect($action));
+        }
         return $this;
     }
 
-    public function hasActions(string $actions): bool
+    public function hasAction(string $actions): bool
     {
         return in_array($actions, $this->getActions());
+    }
+
+    public function getEffect(string $action): ?array
+    {
+      if (array_key_exists($this->effects, $action))
+      {
+        return $this->effects[$action];
+      }
+      else return null;
     }
 
 }

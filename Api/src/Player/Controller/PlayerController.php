@@ -47,6 +47,10 @@ class PlayerController extends AbstractFOSRestController
     {
         $player = $this->playerService->findById($request->get('id'));
 
+        if (!$player) {
+            return $this->handleView($this->view('Not found', 404));
+        }
+
         $this->cycleService->handleCycleChange($player->getDaedalus());
 
         $view = $this->view($player, 200);

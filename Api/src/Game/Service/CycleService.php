@@ -27,6 +27,11 @@ class CycleService implements CycleServiceInterface
     }
 
 
+    /**
+     * @Warning: To be reworked, doesn't work with hours changes
+     * @param Daedalus $daedalus
+     * @return int
+     */
     public function handleCycleChange(Daedalus $daedalus): int
     {
         $currentDate = new \DateTime();

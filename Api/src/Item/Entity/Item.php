@@ -34,7 +34,7 @@ class Item
     /**
      * @ORM\Column(type="array", nullable=false)
      */
-    private array $statuses;
+    private ?array $statuses = null;
 
     /**
      * @ORM\ManyToOne (targetEntity="Mush\Room\Entity\Room", inversedBy="items")
@@ -93,7 +93,7 @@ class Item
         return $this->id;
     }
 
-    public function getStatuses(): array
+    public function getStatuses(): ?array
     {
         return $this->statuses;
     }
@@ -147,9 +147,13 @@ class Item
 
     public function setPlayer(?Player $player): Item
     {
-        $this->player = $player;
+        if ($player === null) {
+            $this->player->removeItem($this);
+        } elseif ($this->player !== $player) {
+            $player->addItem($this);
+        }
 
-        $this->player->addItem($this);
+        $this->player = $player;
 
         return $this;
     }

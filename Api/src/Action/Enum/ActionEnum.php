@@ -8,4 +8,5 @@ class ActionEnum
     public const EAT = 'eat';
     public const TAKE = 'take';
     public const DROP = 'drop';
+    public const HIT = 'hit';
 }

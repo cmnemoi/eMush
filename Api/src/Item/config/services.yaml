@@ -12,7 +12,6 @@ services:
     resource: '../'
     exclude:
       - '../DependencyInjection/'
-      - '../config/'
       - '../Entity/'
       - '../Enum/'
       - '../Kernel.php'

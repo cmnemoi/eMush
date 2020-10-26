@@ -173,10 +173,21 @@ class Player
     public function addItem(Item $item): Player
     {
         if (!$this->getItems()->contains($item)) {
-            $this->addItem($item);
+            $this->getItems()->add($item);
             $item->setPlayer($this);
-            $item->setRoom(null);
         }
+
+        return $this;
+    }
+
+    public function removeItem(Item $item): Player
+    {
+        dump($this->items->contains($item));
+        if ($this->items->contains($item)) {
+            $this->items->removeElement($item);
+            $item->setPlayer(null);
+        }
+
         return $this;
     }
 

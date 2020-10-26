@@ -9,7 +9,7 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\StatusEnum;
 use Mush\Game\Service\GameConfigServiceInterface;
-use Mush\Item\Entity\Item;
+use Mush\Item\Entity\GameItem;
 use Mush\Item\Service\GameItemServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
@@ -17,7 +17,7 @@ use Mush\Player\Service\PlayerServiceInterface;
 class Take extends Action
 {
     private Player $player;
-    private Item $item;
+    private GameItem $item;
     private GameItemServiceInterface $itemService;
     private PlayerServiceInterface $playerService;
     private GameConfig $gameConfig;
@@ -51,8 +51,7 @@ class Take extends Action
     {
         return $this->player->getRoom()->getItems()->contains($this->item) &&
             $this->player->getItems()->count() < $this->gameConfig->getMaxItemInInventory() &&
-            $this->item->isTakeable()
-            ;
+            $this->item->getItem()->isMovable();
     }
 
     protected function apply(): ActionResult
@@ -61,7 +60,7 @@ class Take extends Action
         $this->item->setPlayer($this->player);
 
         // add BURDENED status if item is heavy and player hasn't SOLID skill
-        if ($this->item->isHeavy() &&
+        if ($this->item->getItem()->isHeavy() &&
             !in_array(SkillEnum::SOLID, $this->player->getSkills())
         ) {
             $this->player->getSkills()[] = StatusEnum::BURDENED;

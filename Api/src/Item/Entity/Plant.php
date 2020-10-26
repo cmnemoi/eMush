@@ -8,15 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity()
  */
-class Plant
+class Plant extends Item
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
-    private int $id;
-
     /**
      * @ORM\OneToOne(targetEntity="Mush\Item\Entity\Fruit", inversedBy=")
      */
@@ -37,11 +30,6 @@ class Plant
      */
     private int $oxygen;
 
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
     public function getFruit(): ?Fruit
     {
         return $this->fruit;
@@ -50,10 +38,6 @@ class Plant
     public function setFruit(Fruit $fruit): Plant
     {
         $this->fruit = $fruit;
-
-        if ($fruit->getPlant() !== $this) {
-            $fruit->setPlant($this);
-        }
 
         return $this;
     }

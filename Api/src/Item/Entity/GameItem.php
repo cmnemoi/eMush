@@ -12,13 +12,6 @@ use Mush\Room\Entity\Room;
  * Class Item
  * @package Mush\Entity
  * @ORM\Entity
- * @ORM\InheritanceType("SINGLE_TABLE")
- * @ORM\DiscriminatorColumn(name="type", type="string")
- * @ORM\DiscriminatorMap({
- *     "item" = "GameItem",
- *     "fruit" = "GameFruit",
- *     "plant" = "GamePlant"
- * })
  */
 class GameItem
 {
@@ -47,17 +40,21 @@ class GameItem
     private ?Player $player = null;
 
     /**
-     * @ORM\Column(type="string", nullable=false)
-     */
-    private string $name;
-
-    /**
      * @ORM\ManyToOne(targetEntity="Item")
      */
     private Item $item;
 
+    /**
+     * @ORM\Column(type="string", nullable=false)
+     */
+    private string $name;
 
     private string $type;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private int $charge = 0;
 
     public function getId(): int
     {
@@ -156,9 +153,14 @@ class GameItem
         return $this->type;
     }
 
-    public function setType(string $type): GameItem
+    public function getCharge(): int
     {
-        $this->type = $type;
+        return $this->charge;
+    }
+
+    public function setCharge(int $charge): GameItem
+    {
+        $this->charge = $charge;
         return $this;
     }
 }

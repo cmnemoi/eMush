@@ -6,24 +6,23 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Item\Entity\GameFruit;
-use Mush\Item\Entity\GamePlant;
+use Mush\Item\Entity\Plant;
 
-class GamePlantRepository extends ServiceEntityRepository
+class PlantRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, GamePlant::class);
+        parent::__construct($registry, Plant::class);
     }
 
-    public function findOneByName(string $name, Daedalus $daedalus): ?GamePlant
+    public function findOneByName(string $name, Daedalus $daedalus): ?Plant
     {
         $queryBuilder = $this->getEntityManager()->createQueryBuilder();
 
         $queryBuilder
             ->select('game_plant')
-            ->from(GamePlant::class, 'game_plant')
-            ->leftJoin(GameFruit::class, 'game_fruit', Join::WITH, 'game_plant.gameFruit = game_fruit.id')
+            ->from(Plant::class, 'game_plant')
+            ->leftJoin(Plant::class, 'game_fruit', Join::WITH, 'game_plant.gameFruit = game_fruit.id')
             ->where($queryBuilder->expr()->eq('game_fruit.daedalus', ':daedalus'))
             ->andWhere($queryBuilder->expr()->eq('game_plant.name', ':name'))
             ->setParameter('daedalus', $daedalus)

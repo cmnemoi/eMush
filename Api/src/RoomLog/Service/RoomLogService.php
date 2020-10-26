@@ -3,6 +3,7 @@
 namespace Mush\RoomLog\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Mush\Item\Entity\GameItem;
 use Mush\Item\Entity\Item;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
@@ -49,12 +50,12 @@ class RoomLogService implements RoomLogServiceInterface
         return $this->persist($roomLog);
     }
 
-    public function createItemLog(string $logKey, Room $room, Item $player, string $visibility, \DateTime $dateTime, ?RoomLogParameter $roomLogParameter = null): RoomLog
+    public function createItemLog(string $logKey, Room $room, GameItem $item, string $visibility, \DateTime $dateTime, ?RoomLogParameter $roomLogParameter = null): RoomLog
     {
         $roomLog= new RoomLog();
         $roomLog
             ->setLog($logKey)
-            ->setItem($player)
+            ->setItem($item)
             ->setRoom($room)
             ->setVisibility($visibility)
             ->setDate($date ?? new \DateTime('now'))

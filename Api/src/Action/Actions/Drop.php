@@ -6,6 +6,7 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Game\Enum\StatusEnum;
+use Mush\Item\Entity\GameItem;
 use Mush\Item\Entity\Item;
 use Mush\Item\Service\GameItemServiceInterface;
 use Mush\Player\Entity\Player;
@@ -14,7 +15,7 @@ use Mush\Player\Service\PlayerServiceInterface;
 class Drop extends Action
 {
     private Player $player;
-    private Item $item;
+    private GameItem $item;
     private GameItemServiceInterface $itemService;
     private PlayerServiceInterface $playerService;
 

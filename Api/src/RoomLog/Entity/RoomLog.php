@@ -89,12 +89,12 @@ class RoomLog
         return $this;
     }
 
-    public function getItem(): Item
+    public function getItem(): GameItem
     {
         return $this->item;
     }
 
-    public function setItem(Item $item): RoomLog
+    public function setItem(GameItem $item): RoomLog
     {
         $this->item = $item;
         return $this;

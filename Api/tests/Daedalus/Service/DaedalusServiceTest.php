@@ -2,19 +2,19 @@
 
 namespace Mush\Test\Daedalus\Service;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Repository\DaedalusRepository;
 use Mush\Daedalus\Service\DaedalusConfigServiceInterface;
 use Mush\Daedalus\Service\DaedalusService;
+use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\CycleServiceInterface;
 use \Mockery;
-use Mush\Item\Entity\GameFruit;
-use Mush\Item\Entity\GamePlant;
+use Mush\Game\Service\RandomServiceInterface;
 use Mush\Item\Enum\GameFruitEnum;
 use Mush\Item\Enum\GamePlantEnum;
-use Mush\Item\Service\GameFruitServiceInterface;
 use Mush\Item\Service\GameItemServiceInterface;
 use Mush\Room\Entity\Room;
 use Mush\Room\Entity\RoomConfig;
@@ -37,9 +37,8 @@ class DaedalusServiceTest extends TestCase
     private CycleServiceInterface $cycleService;
     /** @var GameItemServiceInterface | Mockery\Mock */
     private GameItemServiceInterface $itemService;
-    /** @var GameFruitServiceInterface | Mockery\Mock */
-    private GameFruitServiceInterface $gameFruitService;
-    private DaedalusConfig $daedalusConfig;
+    /** @var RandomServiceInterface | Mockery\Mock */
+    private RandomServiceInterface $randomService;
     private DaedalusService $service;
 
     /**
@@ -53,10 +52,7 @@ class DaedalusServiceTest extends TestCase
         $this->roomService = Mockery::mock(RoomServiceInterface::class);
         $this->cycleService = Mockery::mock(CycleServiceInterface::class);
         $this->itemService = Mockery::mock(GameItemServiceInterface::class);
-        $this->gameFruitService = Mockery::mock(GameFruitServiceInterface::class);
-        $daedalusConfig = Mockery::mock(DaedalusConfigServiceInterface::class);
-        $this->daedalusConfig = new DaedalusConfig();
-        $daedalusConfig->shouldReceive('getConfig')->andReturn($this->daedalusConfig)->once();
+        $this->randomService =  Mockery::mock(RandomServiceInterface::class);
 
         $this->service = new DaedalusService(
             $this->entityManager,
@@ -65,8 +61,7 @@ class DaedalusServiceTest extends TestCase
             $this->roomService,
             $this->cycleService,
             $this->itemService,
-            $this->gameFruitService,
-            $daedalusConfig
+            $this->randomService
         );
     }
 
@@ -74,13 +69,17 @@ class DaedalusServiceTest extends TestCase
     {
         $roomConfig = new RoomConfig();
 
-        $this->daedalusConfig
+        $gameConfig = new GameConfig();
+        $daedalusConfig = new DaedalusConfig();
+
+        $daedalusConfig
             ->setInitShield(1)
             ->setInitFuel(2)
             ->setInitOxygen(3)
             ->setInitHull(4)
-            ->setRooms([$roomConfig])
+            ->setRoomConfigs(new ArrayCollection([$roomConfig]))
         ;
+        $gameConfig->setDaedalusConfig($daedalusConfig);
 
         $room = new Room();
         $room->setName(RoomEnum::LABORATORY);
@@ -115,30 +114,14 @@ class DaedalusServiceTest extends TestCase
             ->shouldReceive('persist')
             ->once()
         ;
-        $banana = new GameFruit();
-        $bananaTree = new GamePlant();
-        $bananaTree
-            ->setName(GamePlantEnum::BANANA_TREE)
-        ;
-        $banana
-            ->setGamePlant($bananaTree)
-            ->setName(GameFruitEnum::BANANA)
-        ;
 
-        $this->gameFruitService
-            ->shouldReceive('initGameFruits')
-            ->andReturn($banana)
-            ->once()
-        ;
-
-
-        $daedalus = $this->service->createDaedalus();
+        $daedalus = $this->service->createDaedalus($gameConfig);
 
         $this->assertInstanceOf(Daedalus::class, $daedalus);
-        $this->assertEquals($this->daedalusConfig->getInitFuel(), $daedalus->getFuel());
-        $this->assertEquals($this->daedalusConfig->getInitOxygen(), $daedalus->getOxygen());
-        $this->assertEquals($this->daedalusConfig->getInitHull(), $daedalus->getHull());
-        $this->assertEquals($this->daedalusConfig->getInitShield(), $daedalus->getShield());
+        $this->assertEquals($daedalusConfig->getInitFuel(), $daedalus->getFuel());
+        $this->assertEquals($daedalusConfig->getInitOxygen(), $daedalus->getOxygen());
+        $this->assertEquals($daedalusConfig->getInitHull(), $daedalus->getHull());
+        $this->assertEquals($daedalusConfig->getInitShield(), $daedalus->getShield());
         $this->assertEquals(5, $daedalus->getCycle());
         $this->assertCount(1, $daedalus->getRooms());
         $this->assertCount(0, $daedalus->getPlayers());

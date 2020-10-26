@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Item\Entity\GameItem;
 use Mush\Item\Entity\Item;
 use Mush\Room\Entity\Room;
 use Mush\User\Entity\User;
@@ -170,7 +171,7 @@ class Player
         return $this;
     }
 
-    public function addItem(Item $item): Player
+    public function addItem(GameItem $item): Player
     {
         if (!$this->getItems()->contains($item)) {
             $this->getItems()->add($item);
@@ -180,9 +181,8 @@ class Player
         return $this;
     }
 
-    public function removeItem(Item $item): Player
+    public function removeItem(GameItem $item): Player
     {
-        dump($this->items->contains($item));
         if ($this->items->contains($item)) {
             $this->items->removeElement($item);
             $item->setPlayer(null);

@@ -4,15 +4,33 @@ namespace Mush\Item\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Game\Entity\GameConfig;
-use Mush\Room\Entity\RoomConfig;
 
 /**
  * Class ItemConfig
  * @package Mush\Item\Entity
  *
  * @ORM\Entity
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorColumn(name="type", type="string")
+ * @ORM\DiscriminatorMap({
+ *     "blue_print" = "BluePrint",
+ *     "book" = "Book",
+ *     "component" = "Component",
+ *     "document" = "Document",
+ *     "drug" = "Drug",
+ *     "entity" = "Entity",
+ *     "exploration" = "Exploration",
+ *     "fruit" = "Fruit",
+ *     "gear" = "Gear",
+ *     "instrument" = "Instrument",
+ *     "misc" = "Misc",
+ *     "plant" = "Plant",
+ *     "ration" = "Ration",
+ *     "tool" = "Tool",
+ *     "weapon" = "Weapon"
+ * })
  */
-class Item
+abstract class Item
 {
     /**
      * @ORM\Id
@@ -31,20 +49,12 @@ class Item
      */
     private string $name;
 
-    /**
-     * @ORM\Column(type="string", nullable=false)
-     */
     private string $type;
 
     /**
      * @ORM\Column(type="boolean", nullable=false)
      */
     private bool $isHeavy;
-
-    /**
-     * @ORM\Column(type="boolean", nullable=false)
-     */
-    private bool $isDropable;
 
     /**
      * @ORM\Column(type="boolean", nullable=false)
@@ -96,6 +106,17 @@ class Item
      * @ORM\Column(type="array", nullable=false)
      */
     private array $effects;
+
+    public function createGameItem(): GameItem
+    {
+        $gameItem = new GameItem();
+        $gameItem
+            ->setName($this->getName())
+            ->setItem($this)
+        ;
+
+        return $gameItem;
+    }
 
     public function getId(): int
     {
@@ -212,18 +233,6 @@ class Item
         return $this;
     }
 
-    public function isDropable(): bool
-    {
-        return $this->isDropable;
-    }
-
-    public function setIsDropable(bool $isDropable): Item
-    {
-        $this->isDropable = $isDropable;
-        return $this;
-    }
-
-
     public function isFireDestroyable(): bool
     {
         return $this->isFireDestroyable;
@@ -261,9 +270,8 @@ class Item
     {
         if (!$this->hasAction($action))
         {
-            $this->actions[] = $actions;
-            if ($effect !== [])
-            {
+            $this->actions[] = $action;
+            if ($effect !== []) {
               $this->effects[$action] = $effect;
             }
         }
@@ -286,13 +294,8 @@ class Item
         return in_array($actions, $this->getActions());
     }
 
-    public function getEffect(string $action): ?array
+    public function getEffect(string $action): array
     {
-      if (array_key_exists($this->effects, $action))
-      {
-        return $this->effects[$action];
-      }
-      else return null;
+        return $this->effects[$action] ?? [];
     }
-
 }

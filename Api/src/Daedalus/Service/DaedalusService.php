@@ -28,7 +28,6 @@ class DaedalusService implements DaedalusServiceInterface
     private RoomServiceInterface $roomService;
     private CycleServiceInterface $cycleService;
     private GameItemServiceInterface $itemService;
-    private GameFruitServiceInterface $gameFruitService;
     private RandomServiceInterface $randomService;
 
     /**
@@ -39,7 +38,6 @@ class DaedalusService implements DaedalusServiceInterface
      * @param RoomServiceInterface $roomService
      * @param CycleServiceInterface $cycleService
      * @param GameItemServiceInterface $itemService
-     * @param GameFruitServiceInterface $gameFruitService
      * @param RandomServiceInterface $randomService
      */
     public function __construct(
@@ -49,7 +47,6 @@ class DaedalusService implements DaedalusServiceInterface
         RoomServiceInterface $roomService,
         CycleServiceInterface $cycleService,
         GameItemServiceInterface $itemService,
-        GameFruitServiceInterface $gameFruitService,
         RandomServiceInterface $randomService
     ) {
         $this->entityManager = $entityManager;
@@ -58,7 +55,6 @@ class DaedalusService implements DaedalusServiceInterface
         $this->roomService = $roomService;
         $this->cycleService = $cycleService;
         $this->itemService = $itemService;
-        $this->gameFruitService = $gameFruitService;
         $this->randomService = $randomService;
     }
 
@@ -97,8 +93,6 @@ class DaedalusService implements DaedalusServiceInterface
         ;
 
         $this->persist($daedalus);
-
-//        $this->gameFruitService->initGameFruits($daedalus);
 
         /** @var RoomConfig $roomconfig */
         foreach ($daedalusConfig->getRoomConfigs() as $roomconfig) {

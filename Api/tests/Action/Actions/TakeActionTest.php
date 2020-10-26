@@ -14,7 +14,10 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\CycleService;
 use Mush\Game\Service\GameConfigServiceInterface;
 use \Mockery;
+use Mush\Item\Entity\Fruit;
+use Mush\Item\Entity\GameItem;
 use Mush\Item\Entity\Item;
+use Mush\Item\Entity\Tool;
 use Mush\Item\Service\GameItemServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
@@ -48,9 +51,14 @@ class TakeActionTest extends TestCase
     public function testExecute()
     {
         $room = new Room();
-        $item = new Item();
+        $item = new GameItem();
+        $tool = new Tool();
+        $item->setItem($tool);
         $item
             ->setRoom($room)
+        ;
+
+        $tool
             ->setIsMovable(true)
             ->setIsHeavy(false)
         ;

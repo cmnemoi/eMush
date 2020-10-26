@@ -54,17 +54,13 @@ class GameItemService implements GameItemServiceInterface
         return $this->createGameItem($item);
     }
 
-    public function createGameItem(Item $item): GameItem
+    public function createGameItem(Item $item, array $statuses = []): GameItem
     {
-        $gameItem = new GameItem();
+        $gameItem = $item->createGameItem();
         $gameItem
-            ->setName($item->getName())
-            ->setStatuses([])
-            ->setItem($item)
+            ->setStatuses($statuses)
         ;
 
         return $this->persist($gameItem);
     }
-
-
 }

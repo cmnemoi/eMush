@@ -7,7 +7,14 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
+use Mush\Item\Entity\Exploration;
+use Mush\Item\Entity\Gear;
+use Mush\Item\Entity\Instrument;
 use Mush\Item\Entity\Item;
+use Mush\Item\Entity\Misc;
+use Mush\Item\Entity\Ration;
+use Mush\Item\Entity\Tool;
+use Mush\Item\Entity\Weapon;
 use Mush\Item\Enum\ItemEnum;
 use Mush\Item\Enum\ItemTypeEnum;
 
@@ -18,11 +25,10 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
-        $apron = new Item();
+        $apron = new Gear();
         $apron
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::STAINPROOF_APRON)
-            ->setType(ItemTypeEnum::GEAR)
             ->setIsHeavy(false)
             ->setIsDismantable(false)
             ->setIsDropable(true)
@@ -34,11 +40,10 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($apron);
 
-        $plasteniteArmor = new Item();
+        $plasteniteArmor = new Gear();
         $plasteniteArmor
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::PLASTENITE_ARMOR)
-            ->setType(ItemTypeEnum::GEAR)
             ->setIsHeavy(false)
             ->setIsDismantable(false)
             ->setIsDropable(true)
@@ -50,11 +55,10 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($plasteniteArmor);
 
-        $hackerKit = new Item();
+        $hackerKit = new Tool();
         $hackerKit
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::HACKER_KIT)
-            ->setType(ItemTypeEnum::TOOL)
             ->setIsHeavy(false)
             ->setIsDismantable(false)
             ->setIsDropable(true)
@@ -67,7 +71,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($hackerKit);
 
-        $blockOfPostIt = new Item();
+        $blockOfPostIt = new Tool();
         $blockOfPostIt
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::BLOCK_OF_POST_IT)
@@ -84,11 +88,10 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($blockOfPostIt);
 
-        $blaster = new Item();
+        $blaster = new Weapon();
         $blaster
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::BLASTER)
-            ->setType(ItemTypeEnum::WEAPON)
             ->setIsHeavy(false)
             ->setIsDismantable(false)
             ->setIsDropable(true)
@@ -101,7 +104,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($blaster);
 
-        $compass = new Item();
+        $compass = new Exploration();
         $compass
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::QUADRIMETRIC_COMPASS)
@@ -118,11 +121,10 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($compass);
 
-        $camera = new Item();
+        $camera = new Instrument();
         $camera
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::CAMERA)
-            ->setType(ItemTypeEnum::INSTRUMENT)
             ->setIsHeavy(false)
             ->setIsDismantable(false)
             ->setIsDropable(false)
@@ -135,28 +137,10 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($camera);
 
-        $camera = new Item();
-        $camera
-            ->setGameConfig($gameConfig)
-            ->setName(ItemEnum::CAMERA)
-            ->setType(ItemTypeEnum::INSTRUMENT)
-            ->setIsHeavy(false)
-            ->setIsDismantable(false)
-            ->setIsDropable(false)
-            ->setIsStackable(false)
-            ->setIsHideable(false)
-            ->setIsMovable(true)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-
-        ;
-        $manager->persist($camera);
-
-        $wrench = new Item();
+        $wrench = new Gear();
         $wrench
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::ADJUSTABLE_WRENCH)
-            ->setType(ItemTypeEnum::GEAR)
             ->setIsHeavy(false)
             ->setIsDismantable(false)
             ->setIsDropable(false)
@@ -169,11 +153,10 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($wrench);
 
-        $rope = new Item();
+        $rope = new Exploration();
         $rope
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::ROPE)
-            ->setType(ItemTypeEnum::EXPLORATION)
             ->setIsHeavy(false)
             ->setIsDismantable(false)
             ->setIsDropable(false)
@@ -182,15 +165,13 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsMovable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-
         ;
         $manager->persist($rope);
 
-        $knife = new Item();
+        $knife = new Weapon();
         $knife
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::KNIFE)
-            ->setType(ItemTypeEnum::WEAPON)
             ->setIsHeavy(false)
             ->setIsDismantable(false)
             ->setIsDropable(false)
@@ -203,11 +184,10 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($knife);
 
-        $extinguisher = new Item();
+        $extinguisher = new Tool();
         $extinguisher
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::EXTINGUISHER)
-            ->setType(ItemTypeEnum::TOOL)
             ->setIsHeavy(false)
             ->setIsDismantable(false)
             ->setIsDropable(false)
@@ -220,11 +200,10 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($extinguisher);
 
-        $drill = new Item();
+        $drill = new Exploration();
         $drill
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::DRILL)
-            ->setType(ItemTypeEnum::EXPLORATION)
             ->setIsHeavy(false)
             ->setIsDismantable(false)
             ->setIsDropable(false)
@@ -237,11 +216,10 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($drill);
 
-        $gloves = new Item();
+        $gloves = new Gear();
         $gloves
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::PROTECTIVE_GLOVES)
-            ->setType(ItemTypeEnum::GEAR)
             ->setIsHeavy(false)
             ->setIsDismantable(false)->setIsDropable(false)
             ->setIsStackable(false)
@@ -253,11 +231,10 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($gloves);
 
-        $grenade = new Item();
+        $grenade = new Weapon();
         $grenade
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::GRENADE)
-            ->setType(ItemTypeEnum::WEAPON)
             ->setIsHeavy(false)
             ->setIsDismantable(false)
             ->setIsDropable(false)
@@ -270,11 +247,10 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($grenade);
 
-        $hydropot = new Item();
+        $hydropot = new Misc();
         $hydropot
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::HYDROPOT)
-            ->setType(ItemTypeEnum::MISC)
             ->setIsHeavy(false)
             ->setIsDismantable(false)
             ->setIsDropable(false)
@@ -287,11 +263,10 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($hydropot);
 
-        $ductTape = new Item();
+        $ductTape = new Tool();
         $ductTape
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::DUCT_TAPE)
-            ->setType(ItemTypeEnum::TOOL)
             ->setIsHeavy(false)
             ->setIsDismantable(false)
             ->setIsDropable(false)
@@ -304,11 +279,10 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($ductTape);
 
-        $soap = new Item();
+        $soap = new Gear();
         $soap
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::SOAP)
-            ->setType(ItemTypeEnum::GEAR)
             ->setIsHeavy(false)
             ->setIsDismantable(false)
             ->setIsDropable(false)
@@ -321,11 +295,10 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($soap);
 
-        $tabulatrix = new Item();
+        $tabulatrix = new Tool();
         $tabulatrix
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::TABULATRIX)
-            ->setType(ItemTypeEnum::TOOL)
             ->setIsHeavy(false)
             ->setIsDismantable(false)
             ->setIsDropable(false)
@@ -338,11 +311,10 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($tabulatrix);
 
-        $madKube = new Item();
+        $madKube = new Tool();
         $madKube
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::MAD_KUBE)
-            ->setType(ItemTypeEnum::TOOL)
             ->setIsHeavy(false)
             ->setIsDismantable(false)
             ->setIsDropable(false)
@@ -355,11 +327,10 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($madKube);
 
-        $microwave = new Item();
+        $microwave = new Tool();
         $microwave
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::MICROWAVE)
-            ->setType(ItemTypeEnum::TOOL)
             ->setIsHeavy(false)
             ->setIsDismantable(false)
             ->setIsDropable(false)
@@ -372,7 +343,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($microwave);
 
-        $superFreezer = new Item();
+        $superFreezer = new Tool();
         $superFreezer
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::SUPERFREEZER)
@@ -389,7 +360,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($superFreezer);
 
-        $standardRation = new Item();
+        $standardRation = new Ration();
         $standardRation
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::STANDARD_RATION)
@@ -402,6 +373,9 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsMovable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
+            ->setHealthPoint(0)
+            ->setActionPoint(4)
+            ->setMoralPoint(-1)
 
         ;
         $manager->persist($standardRation);

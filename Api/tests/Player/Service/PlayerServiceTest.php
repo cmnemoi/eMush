@@ -46,18 +46,15 @@ class PlayerServiceTest extends TestCase
         $this->repository = Mockery::mock(PlayerRepository::class);
         $this->tokenStorage = Mockery::mock(TokenStorageInterface::class);
         $gameConfigService = Mockery::mock(GameConfigServiceInterface::class);
-        $characterConfigsService = Mockery::mock(CharacterConfigServiceInterface::class);
         $this->gameConfig = new GameConfig();
         $this->charactersConfig = new CharacterConfigCollection();
         $gameConfigService->shouldReceive('getConfig')->andReturn($this->gameConfig)->once();
-        $characterConfigsService->shouldReceive('getConfigs')->andReturn($this->charactersConfig)->once();
 
         $this->service = new PlayerService(
             $this->entityManager,
             $this->eventDispatcher,
             $this->repository,
             $gameConfigService,
-            $characterConfigsService,
             $this->tokenStorage
         );
     }
@@ -111,6 +108,8 @@ class PlayerServiceTest extends TestCase
             ->setSkills(['some skills'])
         ;
         $this->charactersConfig->add($characterConfig);
+
+        $this->gameConfig->setCharactersConfig($this->charactersConfig);
 
         $player = $this->service->createPlayer($daedalus, 'character');
 

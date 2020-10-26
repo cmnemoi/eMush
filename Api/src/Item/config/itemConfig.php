@@ -2,6 +2,7 @@
 
 use Mush\Item\Enum\ItemEnum;
 use Mush\Item\Enum\ItemTypeEnum;
+use Mush\Action\Enum\ActionEnum;
 
 const ITEMCONFIG = [
     [
@@ -14,11 +15,14 @@ const ITEMCONFIG = [
             'moralPoint'=> -1,
             'satiety'=> 4,
         ],
+        'actions' => [ActionEnum::CONSUME],
         'isHeavy'=> false,
         'isDismantable'=> false,
         'isStackable'=> true,
         'isHideable'=> true,
         'isMoveable'=> true,
+        'isDropable'=> true,
+        'isTakeable'=> true,
         'isFireDestroyable'=> true,
         'isFireBreakable'=> false,
     ],
@@ -31,6 +35,8 @@ const ITEMCONFIG = [
         'isStackable'=> false,
         'isHideable'=> true,
         'isMoveable'=> true,
+        'isDropable'=> true,
+        'isTakeable'=> true,
         'isFireDestroyable'=> false,
         'isFireBreakable'=> true,
     ],

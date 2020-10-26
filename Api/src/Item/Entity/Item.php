@@ -81,12 +81,29 @@ class Item
     /**
      * @ORM\Column(type="boolean", nullable=false)
      */
+    private bool $isTakeable;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=false)
+     */
+     private bool $isDropable;
+
+     /**
+      * @ORM\Column(type="boolean", nullable=false)
+      */
+
     private bool $isFireDestroyable;
 
     /**
      * @ORM\Column(type="boolean", nullable=false)
      */
     private bool $isFireBreakable;
+
+    /**
+     * @ORM\Column(type="array", nullable=false)
+     */
+    private array $actions;
+
 
     public function getId(): int
     {
@@ -225,6 +242,16 @@ class Item
         return $this->isMovable;
     }
 
+    public function isMovable(): bool
+    {
+        return $this->isTakeable;
+    }
+
+    public function isMovable(): bool
+    {
+        return $this->isDropable;
+    }
+
     public function setIsMovable(bool $isMovable): Item
     {
         $this->isMovable = $isMovable;
@@ -252,4 +279,34 @@ class Item
         $this->isFireBreakable = $isFireBreakable;
         return $this;
     }
+
+    public function getActions(): array
+    {
+        return $this->actions;
+    }
+
+    public function setActions(array $actions): Item
+    {
+        $this->actions = $actions;
+        return $this;
+    }
+
+    public function addActions(string $actions): Item
+    {
+        $this->actions[] = $actions;
+
+        return $this;
+    }
+
+    public function removeActions(string $actions): Item
+    {
+        $this->actions = array_diff($this->getActions(), [$actions]);
+        return $this;
+    }
+
+    public function hasActions(string $actions): bool
+    {
+        return in_array($actions, $this->getActions());
+    }
+
 }

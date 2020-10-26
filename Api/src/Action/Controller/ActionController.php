@@ -2,6 +2,8 @@
 
 namespace Mush\Action\Controller;
 
+use Mush\Action\ActionResult\Error;
+use Mush\Action\ActionResult\Success;
 use Mush\Action\Service\ActionServiceInterface;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -42,7 +44,11 @@ class ActionController extends AbstractFOSRestController
             return $this->handleView($this->view(['error' => $exception->getMessage()], 422));
         }
 
-        $view = $this->view($result, 200);
+        if ($result instanceof Error) {
+            $view = $this->view($result->getMessage(), 422);
+        } else {
+            $view = $this->view(null, 200);
+        }
 
         return $this->handleView($view);
     }

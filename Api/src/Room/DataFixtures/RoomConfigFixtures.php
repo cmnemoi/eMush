@@ -3,7 +3,6 @@
 namespace Mush\Room\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Daedalus\DataFixtures\DaedalusConfigFixtures;
@@ -73,7 +72,7 @@ class RoomConfigFixtures extends Fixture implements DependentFixtureInterface
                 DoorEnum::REAR_ALPHA_TURRET_BAY_ALPHA_2,
             ])
         ;
-        $manager->persist($bravoBay);
+        $manager->persist($alphaBay2);
 
         $nexus = new RoomConfig();
         $nexus
@@ -193,7 +192,7 @@ class RoomConfigFixtures extends Fixture implements DependentFixtureInterface
                 DoorEnum::FRONT_CORRIDOR_FRONT_ALPHA_TURRET,
             ])
         ;
-        $manager->persist($engineRoom);
+        $manager->persist($frontAlphaTurret);
 
         $centerAlphaTurret = new RoomConfig();
         $centerAlphaTurret

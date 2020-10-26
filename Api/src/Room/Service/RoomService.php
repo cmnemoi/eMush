@@ -80,7 +80,11 @@ class RoomService implements RoomServiceInterface
         }
 
         foreach ($roomConfig->getItems() as $itemName) {
-            $item = $daedalus->getGameConfig()->getItemsConfig()->filter(fn(Item $item) => $item->getName() === $itemName)->first();
+            $item = $daedalus
+                ->getGameConfig()
+                ->getItemsConfig()
+                ->filter(fn(Item $item) => $item->getName() === $itemName)->first()
+            ;
             $gameItem = $this->itemService->createGameItem($item);
             $room->addItem($gameItem);
         }

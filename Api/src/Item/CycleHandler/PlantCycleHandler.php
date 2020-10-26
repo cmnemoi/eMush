@@ -56,7 +56,9 @@ class PlantCycleHandler implements CycleHandlerInterface
             $gamePlant->setCharge($gamePlant->getCharge() + 1);
 
             //If plant is mature
-            if ($gamePlant->getCharge() >= $plant->getMaturationTime() && $gamePlant->hasStatus(PlantStatusEnum::YOUNG)) {
+            if ($gamePlant->getCharge() >= $plant->getMaturationTime() &&
+                $gamePlant->hasStatus(PlantStatusEnum::YOUNG)
+            ) {
                 $gamePlant->removeStatus(PlantStatusEnum::YOUNG);
                 $this->roomLogService->createItemLog(
                     PlantLogEnum::PLANT_MATURITY,

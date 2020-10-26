@@ -4,6 +4,7 @@ namespace Mush\Game\Service;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\Item;
 
 
 class RandomService implements RandomServiceInterface
@@ -45,4 +46,19 @@ class RandomService implements RandomServiceInterface
     {
       return $this->getPlayerInShip($ship);
     }
+
+    public function getItemInRoom($room): Item
+    {
+      if (!($room instanceof Room))
+      {
+        return new Error('getItemInRoom: argument is not a room')
+      }
+      else if (!sizeof($room->getItems))
+      {
+        return new Error('getItemInRoom: room has no items')
+      }
+
+      return $room->getItems[rand(0, sizeof($ship->getItems) - 1)];
+    }
+
 }

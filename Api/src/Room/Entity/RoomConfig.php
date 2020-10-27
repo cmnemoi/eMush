@@ -3,15 +3,59 @@
 
 namespace Mush\Room\Entity;
 
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
+use Mush\Daedalus\Entity\DaedalusConfig;
+
+/**
+ * Class RoomConfig
+ * @package Mush\Room\Entity
+ * @ORM\Entity()
+ */
 class RoomConfig
 {
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer", length=255, nullable=false)
+     */
+    private int $id;
+
+    /**
+     * @ORM\ManyToOne (targetEntity="Mush\Daedalus\Entity\DaedalusConfig", inversedBy="roomConfigs")
+     */
+    private DaedalusConfig $daedalusConfig;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=false)
+     */
     private string $name;
 
-    private array $doors;
+    /**
+     * @ORM\Column(type="array", nullable=false)
+     */
+    private array $doors = [];
 
-    private array $equipments;
+    /**
+     * @ORM\Column(type="array", nullable=false)
+     */
+    private array $items = [];
 
-    private array $items;
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function getDaedalusConfig(): DaedalusConfig
+    {
+        return $this->daedalusConfig;
+    }
+
+    public function setDaedalusConfig(DaedalusConfig $daedalusConfig): RoomConfig
+    {
+        $this->daedalusConfig = $daedalusConfig;
+        return $this;
+    }
 
     public function getName(): string
     {
@@ -32,17 +76,6 @@ class RoomConfig
     public function setDoors(array $doors): RoomConfig
     {
         $this->doors = $doors;
-        return $this;
-    }
-
-    public function getEquipments(): array
-    {
-        return $this->equipments;
-    }
-
-    public function setEquipments(array $equipments): RoomConfig
-    {
-        $this->equipments = $equipments;
         return $this;
     }
 

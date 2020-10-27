@@ -29,8 +29,8 @@ class CycleSubscriber implements EventSubscriberInterface
         }
 
         foreach ($player->getItems() as $item) {
-            $itemNewCycle = new CycleEvent($event->getTime());
-            $itemNewCycle->setItem($item);
+            $itemNewCycle = new CycleEvent($player->getDaedalus(),  $event->getTime());
+            $itemNewCycle->setGameItem($item);
             $this->eventDispatcher->dispatch($itemNewCycle, CycleEvent::NEW_CYCLE);
         }
     }

@@ -1,29 +1,37 @@
 <?php
 
-
 namespace Mush\Item\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Mush\Player\Entity\Player;
-use Mush\Room\Entity\Room;
+use Mush\Game\Entity\GameConfig;
 
 /**
- * Class Item
- * @package Mush\Entity
+ * Class ItemConfig
+ * @package Mush\Item\Entity
+ *
  * @ORM\Entity
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="type", type="string")
  * @ORM\DiscriminatorMap({
- *     "item" = "Item",
- *     "fruit" = "Fruit",
- *     "plant" = "Plant"
+ *     "blue_print" = "Mush\Item\Entity\Items\BluePrint",
+ *     "book" = "Mush\Item\Entity\Items\Book",
+ *     "component" = "Mush\Item\Entity\Items\Component",
+ *     "document" = "Mush\Item\Entity\Items\Document",
+ *     "drug" = "Mush\Item\Entity\Items\Drug",
+ *     "entity" = "Mush\Item\Entity\Items\Entity",
+ *     "exploration" = "Mush\Item\Entity\Items\Exploration",
+ *     "fruit" = "Mush\Item\Entity\Items\Fruit",
+ *     "gear" = "Mush\Item\Entity\Items\Gear",
+ *     "instrument" = "Mush\Item\Entity\Items\Instrument",
+ *     "misc" = "Mush\Item\Entity\Items\Misc",
+ *     "plant" = "Mush\Item\Entity\Items\Plant",
+ *     "ration" = "Mush\Item\Entity\Items\Ration",
+ *     "tool" = "Mush\Item\Entity\Items\Tool",
+ *     "weapon" = "Mush\Item\Entity\Items\Weapon"
  * })
  */
-class Item
+abstract class Item
 {
-    use TimestampableEntity;
-
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -32,19 +40,9 @@ class Item
     private int $id;
 
     /**
-     * @ORM\Column(type="array", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Mush\Game\Entity\GameConfig", inversedBy="itemsConfig")
      */
-    private ?array $statuses = null;
-
-    /**
-     * @ORM\ManyToOne (targetEntity="Mush\Room\Entity\Room", inversedBy="items")
-     */
-    private ?Room $room = null;
-
-    /**
-     * @ORM\ManyToOne (targetEntity="Mush\Player\Entity\Player", inversedBy="items")
-     */
-    private ?Player $player = null;
+    private GameConfig $gameConfig;
 
     /**
      * @ORM\Column(type="string", nullable=false)
@@ -56,12 +54,22 @@ class Item
     /**
      * @ORM\Column(type="boolean", nullable=false)
      */
-    private bool $isDismantable;
+    private bool $isHeavy;
 
     /**
      * @ORM\Column(type="boolean", nullable=false)
      */
-    private bool $isHeavy;
+    private bool $isTakeable;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=false)
+     */
+    private bool $isDropable;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=false)
+     */
+    private bool $isDismantable;
 
     /**
      * @ORM\Column(type="boolean", nullable=false)
@@ -76,22 +84,6 @@ class Item
     /**
      * @ORM\Column(type="boolean", nullable=false)
      */
-    private bool $isMovable;
-
-    /**
-     * @ORM\Column(type="boolean", nullable=false)
-     */
-    private bool $isTakeable;
-
-    /**
-     * @ORM\Column(type="boolean", nullable=false)
-     */
-     private bool $isDropable;
-
-     /**
-      * @ORM\Column(type="boolean", nullable=false)
-      */
-
     private bool $isFireDestroyable;
 
     /**
@@ -102,80 +94,37 @@ class Item
     /**
      * @ORM\Column(type="array", nullable=false)
      */
-    private array $actions;
+    private array $actions = [];
 
     /**
      * @ORM\Column(type="array", nullable=false)
      */
-    private array $effects;
+    private array $effects = [];
+
+    public function createGameItem(): GameItem
+    {
+        $gameItem = new GameItem();
+        $gameItem
+            ->setName($this->getName())
+            ->setItem($this)
+        ;
+
+        return $gameItem;
+    }
 
     public function getId(): int
     {
         return $this->id;
     }
 
-    public function getStatuses(): ?array
+    public function getGameConfig(): GameConfig
     {
-        return $this->statuses;
+        return $this->gameConfig;
     }
 
-    public function setStatuses(array $statuses): Item
+    public function setGameConfig(GameConfig $gameConfig): Item
     {
-        $this->statuses = $statuses;
-        return $this;
-    }
-
-    public function addStatus(string $status): Item
-    {
-        $this->statuses[] = $status;
-
-        return $this;
-    }
-
-    public function removeStatus(string $status): Item
-    {
-        $this->statuses = array_diff($this->getStatuses(), [$status]);
-        return $this;
-    }
-
-    public function hasStatus(string $status): bool
-    {
-        return in_array($status, $this->getStatuses());
-    }
-
-    public function getRoom(): ?Room
-    {
-        return $this->room;
-    }
-
-    public function setRoom(?Room $room): Item
-    {
-        if ($room === null) {
-            $this->room->removeItem($this);
-        } elseif ($this->room !== $room) {
-            $room->addItem($this);
-        }
-
-        $this->room = $room;
-
-        return $this;
-    }
-
-    public function getPlayer(): ?Player
-    {
-        return $this->player;
-    }
-
-    public function setPlayer(?Player $player): Item
-    {
-        if ($player === null) {
-            $this->player->removeItem($this);
-        } elseif ($this->player !== $player) {
-            $player->addItem($this);
-        }
-
-        $this->player = $player;
-
+        $this->gameConfig = $gameConfig;
         return $this;
     }
 
@@ -195,23 +144,6 @@ class Item
         return $this->type;
     }
 
-    public function setType(string $type): Item
-    {
-        $this->type = $type;
-        return $this;
-    }
-
-    public function isDismantable(): bool
-    {
-        return $this->isDismantable;
-    }
-
-    public function setIsDismantable(bool $isDismantable): Item
-    {
-        $this->isDismantable = $isDismantable;
-        return $this;
-    }
-
     public function isHeavy(): bool
     {
         return $this->isHeavy;
@@ -220,39 +152,6 @@ class Item
     public function setIsHeavy(bool $isHeavy): Item
     {
         $this->isHeavy = $isHeavy;
-        return $this;
-    }
-
-    public function isStackable(): bool
-    {
-        return $this->isStackable;
-    }
-
-    public function setIsStackable(bool $isStackable): Item
-    {
-        $this->isStackable = $isStackable;
-        return $this;
-    }
-
-    public function isHideable(): bool
-    {
-        return $this->isHideable;
-    }
-
-    public function setIsHideable(bool $isHideable): Item
-    {
-        $this->isHideable = $isHideable;
-        return $this;
-    }
-
-    public function isMovable(): bool
-    {
-        return $this->isMovable;
-    }
-
-    public function setIsMovable(bool $isMovable): Item
-    {
-        $this->isMovable = $isMovable;
         return $this;
     }
 
@@ -278,6 +177,38 @@ class Item
         return $this;
     }
 
+    public function isDismantable(): bool
+    {
+        return $this->isDismantable;
+    }
+
+    public function setIsDismantable(bool $isDismantable): Item
+    {
+        $this->isDismantable = $isDismantable;
+        return $this;
+    }
+
+    public function isStackable(): bool
+    {
+        return $this->isStackable;
+    }
+
+    public function setIsStackable(bool $isStackable): Item
+    {
+        $this->isStackable = $isStackable;
+        return $this;
+    }
+
+    public function isHideable(): bool
+    {
+        return $this->isHideable;
+    }
+
+    public function setIsHideable(bool $isHideable): Item
+    {
+        $this->isHideable = $isHideable;
+        return $this;
+    }
 
     public function isFireDestroyable(): bool
     {
@@ -316,10 +247,9 @@ class Item
     {
         if (!$this->hasAction($action))
         {
-            $this->actions[] = $actions;
-            if ($effect !== [])
-            {
-              $this->effects[$action] = $effect;
+            $this->actions[] = $action;
+            if ($effect !== []) {
+                $this->effects[$action] = $effect;
             }
         }
 
@@ -329,25 +259,17 @@ class Item
     public function removeAction(string $action): Item
     {
         $this->actions = array_diff($this->getActions(), [$action]);
-        if (array_key_exists($this->effects, $action))
-        {
-          $this->effects = array_diff($this->getEffect(), $this->getEffect($action));
-        }
+        $this->effects = array_diff($this->effects, $this->getEffect($action));
         return $this;
     }
 
-    public function hasAction(string $actions): bool
+    public function hasAction(string $action): bool
     {
-        return in_array($actions, $this->getActions());
+        return in_array($action, $this->getActions());
     }
 
-    public function getEffect(string $action): ?array
+    public function getEffect(string $action): array
     {
-      if (array_key_exists($this->effects, $action))
-      {
-        return $this->effects[$action];
-      }
-      else return null;
+        return $this->effects[$action] ?? [];
     }
-
 }

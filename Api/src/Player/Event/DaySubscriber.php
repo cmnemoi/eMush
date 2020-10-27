@@ -29,8 +29,8 @@ class DaySubscriber implements EventSubscriberInterface
         }
 
         foreach ($player->getItems() as $item) {
-            $itemNewDay = new DayEvent($event->getTime());
-            $itemNewDay->setItem($item);
+            $itemNewDay = new DayEvent($player->getDaedalus(), $event->getTime());
+            $itemNewDay->setGameItem($item);
             $this->eventDispatcher->dispatch($itemNewDay, DayEvent::NEW_DAY);
         }
     }

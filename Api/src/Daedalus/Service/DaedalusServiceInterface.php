@@ -5,6 +5,7 @@ namespace Mush\Daedalus\Service;
 use Mush\DAaedalus\Entity\Collection\DaedalusCollection;
 use Mush\Daedalus\Entity\Criteria\DaedalusCriteria;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Game\Entity\GameConfig;
 
 interface DaedalusServiceInterface
 {
@@ -14,5 +15,5 @@ interface DaedalusServiceInterface
 
     public function findByCriteria(DaedalusCriteria $criteria): DaedalusCollection;
 
-    public function createDaedalus(): Daedalus;
+    public function createDaedalus(GameConfig $gameConfig): Daedalus;
 }

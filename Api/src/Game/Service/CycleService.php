@@ -46,8 +46,7 @@ class CycleService implements CycleServiceInterface
         $cycleElapsed = $this->getNumberOfCycleElapsed($lastUpdate, $currentDate);
 
         for ($i = 0; $i < $cycleElapsed; $i++) {
-            $cycleEvent = new CycleEvent($currentCycleStartedAt);
-            $cycleEvent->setDaedalus($daedalus);
+            $cycleEvent = new CycleEvent($daedalus, $currentCycleStartedAt);
             $this->eventDispatcher->dispatch($cycleEvent, CycleEvent::NEW_CYCLE);
         }
 

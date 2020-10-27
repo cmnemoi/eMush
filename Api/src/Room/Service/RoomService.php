@@ -4,9 +4,8 @@ namespace Mush\Room\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Item\Enum\GamePlantEnum;
-use Mush\Item\Service\FruitServiceInterface;
-use Mush\Item\Service\ItemServiceInterface;
+use Mush\Item\Entity\Item;
+use Mush\Item\Service\GameItemServiceInterface;
 use Mush\Room\Entity\Door;
 use Mush\Room\Entity\Room;
 use Mush\Room\Entity\RoomConfig;
@@ -16,26 +15,22 @@ class RoomService implements RoomServiceInterface
 {
     private EntityManagerInterface $entityManager;
     private RoomRepository $repository;
-    private ItemServiceInterface $itemService;
-    private FruitServiceInterface $fruitService;
+    private GameItemServiceInterface $itemService;
 
     /**
      * RoomService constructor.
      * @param EntityManagerInterface $entityManager
      * @param RoomRepository $repository
-     * @param ItemServiceInterface $itemService
-     * @param FruitServiceInterface $fruitService
+     * @param GameItemServiceInterface $itemService
      */
     public function __construct(
         EntityManagerInterface $entityManager,
         RoomRepository $repository,
-        ItemServiceInterface $itemService,
-        FruitServiceInterface $fruitService
+        GameItemServiceInterface $itemService
     ) {
         $this->entityManager = $entityManager;
         $this->repository = $repository;
         $this->itemService = $itemService;
-        $this->fruitService = $fruitService;
     }
 
     public function persist(Room $room): Room
@@ -58,8 +53,9 @@ class RoomService implements RoomServiceInterface
 
         $this->persist($room);
 
+        // @FIXME how to simplify that?
         foreach ($roomConfig->getDoors() as $doorName) {
-            if ($roomDoor = $daedalus->getRooms()->filter(
+            if ($roomDoor = $daedalus->getRooms()->filter( //If door already exist
                 function (Room $room) use ($doorName) {
                     return $room->getDoors()->exists(function ($key, Door $door) use ($doorName) {
                         return ($door->getName() === $doorName);
@@ -70,7 +66,7 @@ class RoomService implements RoomServiceInterface
                 $door = $roomDoor->getDoors()->filter(function (Door $door) use ($doorName) {
                     return ($door->getName() === $doorName);
                 })->first();
-            } else {
+            } else { //else create new door
                 $door = new Door();
                 $door->setName($doorName);
             }
@@ -79,13 +75,13 @@ class RoomService implements RoomServiceInterface
         }
 
         foreach ($roomConfig->getItems() as $itemName) {
-            if (in_array($itemName, GamePlantEnum::getAll())) {
-                $item = $this->fruitService->createPlantFromName($itemName, $daedalus);
-                $item->setStatuses([]);
-            } else {
-                $item = $this->itemService->createItem($itemName);
-            }
-            $room->addItem($item);
+            $item = $daedalus
+                ->getGameConfig()
+                ->getItemsConfig()
+                ->filter(fn(Item $item) => $item->getName() === $itemName)->first()
+            ;
+            $gameItem = $this->itemService->createGameItem($item);
+            $room->addItem($gameItem);
         }
 
         return $this->persist($room);

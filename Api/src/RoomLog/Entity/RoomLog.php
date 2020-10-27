@@ -5,6 +5,7 @@ namespace Mush\RoomLog\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Mush\Item\Entity\GameItem;
 use Mush\Item\Entity\Item;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
@@ -37,9 +38,9 @@ class RoomLog
     private Player $player;
 
     /**
-     * @ORM\ManyToOne (targetEntity="Mush\Item\Entity\Item")
+     * @ORM\ManyToOne (targetEntity="Mush\Item\Entity\GameItem")
      */
-    private Item $item;
+    private GameItem $item;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=false)
@@ -88,12 +89,12 @@ class RoomLog
         return $this;
     }
 
-    public function getItem(): Item
+    public function getItem(): GameItem
     {
         return $this->item;
     }
 
-    public function setItem(Item $item): RoomLog
+    public function setItem(GameItem $item): RoomLog
     {
         $this->item = $item;
         return $this;

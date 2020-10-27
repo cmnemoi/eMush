@@ -2,13 +2,57 @@
 
 namespace Mush\Game\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Class CharacterConfig
+ * @package Mush\Game\Entity
+ * @ORM\Entity()
+ */
 class CharacterConfig
 {
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer", length=255, nullable=false)
+     */
+    private int $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Mush\Game\Entity\GameConfig", inversedBy="charactersConfig")
+     */
+    private GameConfig $gameConfig;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=false)
+     */
     private string $name;
 
-    private array $statuses;
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private ?array $statuses = [];
 
+    /**
+     * @ORM\Column(type="array", nullable=false)
+     */
     private array $skills;
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function getGameConfig(): GameConfig
+    {
+        return $this->gameConfig;
+    }
+
+    public function setGameConfig(GameConfig $gameConfig): CharacterConfig
+    {
+        $this->gameConfig = $gameConfig;
+        return $this;
+    }
 
     public function getName(): string
     {
@@ -21,7 +65,7 @@ class CharacterConfig
         return $this;
     }
 
-    public function getStatuses(): array
+    public function getStatuses(): ?array
     {
         return $this->statuses;
     }

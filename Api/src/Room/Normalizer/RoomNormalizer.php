@@ -3,6 +3,7 @@
 namespace Mush\Room\Normalizer;
 
 use Mush\Action\Enum\ActionEnum;
+use Mush\Item\Entity\GameItem;
 use Mush\Item\Entity\Item;
 use Mush\Item\Normalizer\ItemNormalizer;
 use Mush\Player\Entity\Player;
@@ -54,7 +55,7 @@ class RoomNormalizer implements ContextAwareNormalizerInterface
             ];
         }
         $items = [];
-        /** @var Item $item */
+        /** @var GameItem $item */
         foreach ($room->getItems() as $item) {
             $items[] = $this->itemNormalizer->normalize($item);
         }

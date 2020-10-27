@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Item\Entity\GameItem;
 use Mush\Item\Entity\Item;
 use Mush\Room\Entity\Room;
 use Mush\User\Entity\User;
@@ -55,7 +56,7 @@ class Player
     private Room $room;
 
     /**
-     * @ORM\OneToMany(targetEntity="Mush\Item\Entity\Item", mappedBy="player")
+     * @ORM\OneToMany(targetEntity="Mush\Item\Entity\GameItem", mappedBy="player")
      */
     private Collection $items;
 
@@ -170,7 +171,7 @@ class Player
         return $this;
     }
 
-    public function addItem(Item $item): Player
+    public function addItem(GameItem $item): Player
     {
         if (!$this->getItems()->contains($item)) {
             $this->getItems()->add($item);
@@ -180,9 +181,8 @@ class Player
         return $this;
     }
 
-    public function removeItem(Item $item): Player
+    public function removeItem(GameItem $item): Player
     {
-        dump($this->items->contains($item));
         if ($this->items->contains($item)) {
             $this->items->removeElement($item);
             $item->setPlayer(null);
@@ -200,6 +200,11 @@ class Player
     {
         $this->statuses = $statuses;
         return $this;
+    }
+
+    public function hasStatus(string $status): bool
+    {
+        return in_array($status, $this->statuses);
     }
 
     public function getSkills(): ?array

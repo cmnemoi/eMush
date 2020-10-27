@@ -14,6 +14,7 @@ imports:
     - { resource: ../src/RoomLog/config/services.yaml }
     - { resource: ../src/User/config/services.yaml }
     - { resource: ../src/Action/config/services.yaml }
+    - { resource: ../src/StatusEffect/config/services.yaml }
 
 services:
     # default configuration for services in *this* file

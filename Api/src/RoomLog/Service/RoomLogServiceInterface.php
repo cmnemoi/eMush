@@ -2,7 +2,7 @@
 
 namespace Mush\RoomLog\Service;
 
-use Mush\Item\Entity\Item;
+use Mush\Item\Entity\GameItem;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
 use Mush\RoomLog\Entity\RoomLog;
@@ -22,7 +22,7 @@ interface RoomLogServiceInterface
     public function createItemLog(
         string $logKey,
         Room $room,
-        Item $player,
+        GameItem $item,
         string $visibility,
         \DateTime $dateTime,
         ?RoomLogParameter $roomLogParameter = null

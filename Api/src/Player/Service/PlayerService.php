@@ -28,8 +28,6 @@ class PlayerService implements PlayerServiceInterface
 
     private GameConfig $gameConfig;
 
-    private CharacterConfigCollection $charactersConfig;
-
     private TokenStorageInterface $tokenStorage;
 
     /**
@@ -38,7 +36,6 @@ class PlayerService implements PlayerServiceInterface
      * @param EventDispatcherInterface $eventDispatcher
      * @param PlayerRepository $repository
      * @param GameConfigServiceInterface $gameConfigService
-     * @param CharacterConfigServiceInterface $characterConfigsService
      * @param TokenStorageInterface $tokenStorage
      */
     public function __construct(
@@ -46,14 +43,12 @@ class PlayerService implements PlayerServiceInterface
         EventDispatcherInterface $eventDispatcher,
         PlayerRepository $repository,
         GameConfigServiceInterface $gameConfigService,
-        CharacterConfigServiceInterface $characterConfigsService,
         TokenStorageInterface $tokenStorage
     ) {
         $this->entityManager = $entityManager;
         $this->eventDispatcher = $eventDispatcher;
         $this->repository = $repository;
         $this->gameConfig = $gameConfigService->getConfig();
-        $this->charactersConfig = $characterConfigsService->getConfigs();
         $this->tokenStorage = $tokenStorage;
     }
 
@@ -83,6 +78,8 @@ class PlayerService implements PlayerServiceInterface
         /** @var User $user */
         $user = $this->tokenStorage->getToken()->getUser();
 
+        $characterConfig = $this->gameConfig->getCharactersConfig()->getCharacter($character);
+
         $player
             ->setUser($user)
             ->setGameStatus(GameStatusEnum::CURRENT)
@@ -99,7 +96,7 @@ class PlayerService implements PlayerServiceInterface
             ->setActionPoint($this->gameConfig->getInitActionPoint())
             ->setMovementPoint($this->gameConfig->getInitMovementPoint())
             ->setSatiety($this->gameConfig->getInitSatiety())
-            ->setStatuses($this->charactersConfig->getCharacter($character)->getStatuses())
+            ->setStatuses($characterConfig->getStatuses())
         ;
 
         $user->setCurrentGame($player);

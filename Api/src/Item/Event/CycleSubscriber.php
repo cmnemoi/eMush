@@ -37,7 +37,7 @@ class CycleSubscriber implements EventSubscriberInterface
 
     public function onNewCycle(CycleEvent $event)
     {
-        if (!($item = $event->getItem())) {
+        if (!($item = $event->getGameItem())) {
             return;
         }
 
@@ -45,7 +45,7 @@ class CycleSubscriber implements EventSubscriberInterface
             $serviceClass = $this->cyclesManagerConfig[get_class($item)];
             /** @var CycleHandlerInterface $service */
             $service = $this->container->get($serviceClass);
-            $service->handleNewCycle($item, $event->getTime());
+            $service->handleNewCycle($item, $event->getDaedalus(), $event->getTime());
         }
     }
 }

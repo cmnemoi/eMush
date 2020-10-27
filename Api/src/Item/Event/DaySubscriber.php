@@ -37,15 +37,15 @@ class DaySubscriber implements EventSubscriberInterface
 
     public function onNewDay(DayEvent $event)
     {
-        if (!($item = $event->getItem())) {
+        if (!($item = $event->getGameItem())) {
             return;
         }
 
-        if (isset($this->cyclesManagerConfig[get_class($item)])) {
-            $serviceClass = $this->cyclesManagerConfig[get_class($item)];
+        if (isset($this->cyclesManagerConfig[get_class($item->getItem())])) {
+            $serviceClass = $this->cyclesManagerConfig[get_class($item->getItem())];
             /** @var CycleHandlerInterface $service */
             $service = $this->container->get($serviceClass);
-            $service->handleNewDay($item, $event->getTime());
+            $service->handleNewDay($item, $event->getDaedalus(), $event->getTime());
         }
     }
 }

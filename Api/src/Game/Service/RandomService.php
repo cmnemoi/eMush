@@ -1,11 +1,13 @@
 <?php
 
 namespace Mush\Game\Service;
+
+use Error;
+use Mush\Item\Entity\GameItem;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\Item;
-
 
 class RandomService implements RandomServiceInterface
 {
@@ -14,51 +16,36 @@ class RandomService implements RandomServiceInterface
         return rand($min, $max);
     }
 
-    public function getPlayerInRoom($room): Player
+    public function getPlayerInRoom(Room $room): Player
     {
-      if (!($room instanceof Room))
-      {
-        return new Error('getPlayerInRoom: argument is not a room')
-      }
-      else if (!sizeof($room->getPlayers))
-      {
-        return new Error('getPlayerInRoom: room is empty')
+      if ($room->getPlayers()->isEmpty()) {
+          throw new Error('getPlayerInRoom: room is empty');
       }
 
-      return $room->getPlayers[rand(0, sizeof($room->getPlayers) - 1)];
+      return $room->getPlayers()->get($this->random(0, $room->getPlayers()->count() - 1));
     }
 
-    public function getPlayerInShip($ship): Player
+    public function getPlayerInShip(Daedalus $ship): Player
     {
-      if (!($ship instanceof Daedalus))
+      if($ship->getPlayers()->isEmpty())
       {
-        return new Error('getPlayerInShip: argument is not a ship')
-      }
-      else if (!sizeof($ship->getPlayers))
-      {
-        return new Error('getPlayerInShip: ship is empty')
+        throw new Error('getPlayerInShip: ship is empty');
       }
 
-      return $ship->getPlayers[rand(0, sizeof($ship->getPlayers) - 1)];
+      return $ship->getPlayers()->get($this->random(0, $ship->getPlayers()->count() - 1));
     }
 
-    public function getPlayerInDaedalus($ship): Player
+    public function getPlayerInDaedalus(Daedalus $ship): Player
     {
       return $this->getPlayerInShip($ship);
     }
 
-    public function getItemInRoom($room): Item
+    public function getItemInRoom(Room $room): GameItem
     {
-      if (!($room instanceof Room))
-      {
-        return new Error('getItemInRoom: argument is not a room')
+      if ($room->getItems()->isEmpty()) {
+        throw new Error('getItemInRoom: room has no items');
       }
-      else if (!sizeof($room->getItems))
-      {
-        return new Error('getItemInRoom: room has no items')
-      }
-
-      return $room->getItems[rand(0, sizeof($ship->getItems) - 1)];
+        return $room->getItems()->get($this->random(0, $room->getItems()->count() - 1));
     }
 
 }

@@ -4,7 +4,7 @@ use Mush\Item\Enum\ItemEnum;
 use Mush\Item\Enum\ItemTypeEnum;
 use Mush\Action\Enum\ActionEnum;
 
-const ITEMCONFIG = [
+const ITEM_CONFIG = [
     [
         'name'=> ItemEnum::STANDARD_RATION,
         'type'=> ItemTypeEnum::RATION,

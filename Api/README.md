@@ -110,6 +110,9 @@ Create a new Action:
 - Register this action in the [src/Action/Enum/ActionEnum.php](./src/Action/Enum/ActionEnum.php)
 - Add the new Class in the [src/Action/config/actions.yaml](./src/Action/config/actions.yaml)
 
+## [Items](./docs/Items.md)
+
+
 ## RoomLogs
 When an action, or an event is being performed, a roomLog should be created  
 In order to add a roomLog, use the RoomLogService::createLog method

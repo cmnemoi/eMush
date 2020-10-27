@@ -94,12 +94,12 @@ abstract class Item
     /**
      * @ORM\Column(type="array", nullable=false)
      */
-    private array $actions;
+    private array $actions = [];
 
     /**
      * @ORM\Column(type="array", nullable=false)
      */
-    private array $effects;
+    private array $effects = [];
 
     public function createGameItem(): GameItem
     {
@@ -259,16 +259,13 @@ abstract class Item
     public function removeAction(string $action): Item
     {
         $this->actions = array_diff($this->getActions(), [$action]);
-        if (array_key_exists($this->effects, $action))
-        {
-            $this->effects = array_diff($this->getEffect(), $this->getEffect($action));
-        }
+        $this->effects = array_diff($this->effects, $this->getEffect($action));
         return $this;
     }
 
-    public function hasAction(string $actions): bool
+    public function hasAction(string $action): bool
     {
-        return in_array($actions, $this->getActions());
+        return in_array($action, $this->getActions());
     }
 
     public function getEffect(string $action): array

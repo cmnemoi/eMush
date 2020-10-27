@@ -3,16 +3,6 @@
 namespace Mush\StatusEffect\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Mush\StatusEffect\Enum\StatusEffectTypeEnum;
-
-
-/**
- * Class StatusEffect
- * @package Mush\Entity
- *
- * @ORM\Entity(repositoryClass="Mush\StatusEffect\Repository\StatusEffectRepository")
- */
 
 /*
   Components are:
@@ -21,29 +11,29 @@ use Mush\StatusEffect\Enum\StatusEffectTypeEnum;
                   type
                   duration
 
-  Methods         getId, setId
+  Methods         getId
                   getName, setName
                   getType, setType
                   getDuration, setDuration
 */
 
-
+/**
+ * Class StatusEffect
+ * @package Mush\Entity
+ *
+ * @ORM\Entity(repositoryClass="Mush\StatusEffect\Repository\StatusEffectRepository")
+ */
 class StatusEffect
 {
-
-  /**
-   * @ORM\Id
-   * @ORM\GeneratedValue
-   * @ORM\Column(type="integer", length=255, nullable=false)
-   */
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer", length=255, nullable=false)
+     */
     private int $id;
     public function getId(): int
     {
-      return $this->id;
-    }
-    public function setId($newId): void
-    {
-      $this->id = $newId;
+        return $this->id;
     }
 
     /**
@@ -52,11 +42,12 @@ class StatusEffect
     private string $name;
     public function getName(): string
     {
-      return $this->name;
+        return $this->name;
     }
-    public function setName($newName): void
+    public function setName(string $newName): StatusEffect
     {
-      $this->name = $newName;
+        $this->name = $newName;
+        return $this;
     }
 
     /**
@@ -65,28 +56,29 @@ class StatusEffect
     private string $type;
     public function getType(): string
     {
-      return $this->id;
+        return $this->type;
     }
-    public function setType($newType): void
+    public function setType(string $newType): StatusEffect
     {
-      // TODO: safety: check whether type exists (is in StatusEffectTypeEnum)
-      //if ($newType instanceof StatusEffectTypeEnum)
-          $this->type = $newType;
+        // TODO: safety: check whether type exists (is in StatusEffectTypeEnum)
+        //if ($newType instanceof StatusEffectTypeEnum)
+        $this->type = $newType;
+
+        return $this;
     }
     /**
-     * @ORM\Column(type="int", nullable=false)
+     * @ORM\Column(type="integer", nullable=false)
      */
     private int $duration;
     // Duration is -1 for permanent effects
     public function getDuration(): int
     {
-      return $this->duration;
+        return $this->duration;
     }
-    public function setDuration($newId): int
+    public function setDuration(int $duration): StatusEffect
     {
-      $this->duration = $newId;
+        $this->duration = $duration;
+
+        return $this;
     }
-
-
-
 }

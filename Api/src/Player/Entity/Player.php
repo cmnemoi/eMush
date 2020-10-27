@@ -202,6 +202,11 @@ class Player
         return $this;
     }
 
+    public function hasStatus(string $status): bool
+    {
+        return in_array($status, $this->statuses);
+    }
+
     public function getSkills(): ?array
     {
         return $this->skills;

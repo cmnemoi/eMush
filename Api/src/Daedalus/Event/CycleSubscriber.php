@@ -41,27 +41,27 @@ class CycleSubscriber implements EventSubscriberInterface
 
     public function onNewCycle(CycleEvent $event)
     {
-        if (!($daedalus = $event->getDaedalus())) {
+        if ($event->getGameItem() || $event->getPlayer() || $event->getRoom()) {
             return;
         }
+        $daedalus = $event->getDaedalus();
 
         $daedalus->setCycle($daedalus->getCycle() + 1);
 
         //If first cycle, new day
-        if (($daedalus->getCycle() % (24 / $this->gameConfig->getCycleLength())) === 1) {
-            $dayEvent = new DayEvent($event->getTime());
-            $dayEvent->setDaedalus($daedalus);
+        if (($daedalus->getCycle() % (24 / $this->gameConfig->getCycleLength())) === 0) {
+            $dayEvent = new DayEvent($daedalus, $event->getTime());
             $this->eventDispatcher->dispatch($dayEvent, DayEvent::NEW_DAY);
         }
 
         foreach ($daedalus->getPlayers() as $player) {
-            $newPlayerCycle = new CycleEvent($event->getTime());
+            $newPlayerCycle = new CycleEvent($daedalus, $event->getTime());
             $newPlayerCycle->setPlayer($player);
             $this->eventDispatcher->dispatch($newPlayerCycle, CycleEvent::NEW_CYCLE);
         }
 
         foreach ($daedalus->getRooms() as $room) {
-            $newRoomCycle = new CycleEvent($event->getTime());
+            $newRoomCycle = new CycleEvent($daedalus, $event->getTime());
             $newRoomCycle->setRoom($room);
             $this->eventDispatcher->dispatch($newRoomCycle, CycleEvent::NEW_CYCLE);
         }

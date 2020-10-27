@@ -7,14 +7,17 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
-use Mush\Item\Entity\Exploration;
-use Mush\Item\Entity\Gear;
-use Mush\Item\Entity\Instrument;
-use Mush\Item\Entity\Item;
-use Mush\Item\Entity\Misc;
-use Mush\Item\Entity\Ration;
-use Mush\Item\Entity\Tool;
-use Mush\Item\Entity\Weapon;
+use Mush\Item\Entity\Items\Exploration;
+use Mush\Item\Entity\Items\Fruit;
+use Mush\Item\Entity\Items\Gear;
+use Mush\Item\Entity\Items\Instrument;
+use Mush\Item\Entity\Items\Misc;
+use Mush\Item\Entity\Items\Plant;
+use Mush\Item\Entity\Items\Ration;
+use Mush\Item\Entity\Items\Tool;
+use Mush\Item\Entity\Items\Weapon;
+use Mush\Item\Enum\GameFruitEnum;
+use Mush\Item\Enum\GamePlantEnum;
 use Mush\Item\Enum\ItemEnum;
 use Mush\Item\Enum\ItemTypeEnum;
 
@@ -31,10 +34,10 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ItemEnum::STAINPROOF_APRON)
             ->setIsHeavy(false)
             ->setIsDismantable(false)
+            ->setIsTakeable(true)
             ->setIsDropable(true)
             ->setIsStackable(false)
             ->setIsHideable(true)
-            ->setIsMovable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
         ;
@@ -46,10 +49,10 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ItemEnum::PLASTENITE_ARMOR)
             ->setIsHeavy(false)
             ->setIsDismantable(false)
+            ->setIsTakeable(true)
             ->setIsDropable(true)
             ->setIsStackable(false)
             ->setIsHideable(true)
-            ->setIsMovable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
         ;
@@ -61,13 +64,12 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ItemEnum::HACKER_KIT)
             ->setIsHeavy(false)
             ->setIsDismantable(false)
+            ->setIsTakeable(true)
             ->setIsDropable(true)
             ->setIsStackable(false)
             ->setIsHideable(true)
-            ->setIsMovable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
-
         ;
         $manager->persist($hackerKit);
 
@@ -75,13 +77,12 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         $blockOfPostIt
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::BLOCK_OF_POST_IT)
-            ->setType(ItemTypeEnum::TOOL)
             ->setIsHeavy(false)
             ->setIsDismantable(false)
+            ->setIsTakeable(true)
             ->setIsDropable(true)
             ->setIsStackable(false)
             ->setIsHideable(true)
-            ->setIsMovable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
 
@@ -94,10 +95,10 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ItemEnum::BLASTER)
             ->setIsHeavy(false)
             ->setIsDismantable(false)
+            ->setIsTakeable(true)
             ->setIsDropable(true)
             ->setIsStackable(false)
             ->setIsHideable(true)
-            ->setIsMovable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
 
@@ -108,13 +109,13 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         $compass
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::QUADRIMETRIC_COMPASS)
-            ->setType(ItemTypeEnum::EXPLORATION)
+
             ->setIsHeavy(false)
             ->setIsDismantable(false)
+            ->setIsTakeable(true)
             ->setIsDropable(true)
             ->setIsStackable(false)
             ->setIsHideable(true)
-            ->setIsMovable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
 
@@ -127,10 +128,10 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ItemEnum::CAMERA)
             ->setIsHeavy(false)
             ->setIsDismantable(false)
+            ->setIsTakeable(true)
             ->setIsDropable(false)
             ->setIsStackable(false)
             ->setIsHideable(false)
-            ->setIsMovable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
 
@@ -143,10 +144,10 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ItemEnum::ADJUSTABLE_WRENCH)
             ->setIsHeavy(false)
             ->setIsDismantable(false)
+            ->setIsTakeable(true)
             ->setIsDropable(false)
             ->setIsStackable(false)
             ->setIsHideable(false)
-            ->setIsMovable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
 
@@ -160,9 +161,9 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHeavy(false)
             ->setIsDismantable(false)
             ->setIsDropable(false)
+            ->setIsTakeable(true)
             ->setIsStackable(false)
             ->setIsHideable(false)
-            ->setIsMovable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
         ;
@@ -174,10 +175,10 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ItemEnum::KNIFE)
             ->setIsHeavy(false)
             ->setIsDismantable(false)
+            ->setIsTakeable(true)
             ->setIsDropable(false)
             ->setIsStackable(false)
             ->setIsHideable(false)
-            ->setIsMovable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
 
@@ -190,10 +191,10 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ItemEnum::EXTINGUISHER)
             ->setIsHeavy(false)
             ->setIsDismantable(false)
-            ->setIsDropable(false)
+            ->setIsTakeable(true)
+            ->setIsDropable(true)
             ->setIsStackable(false)
             ->setIsHideable(false)
-            ->setIsMovable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
 
@@ -206,10 +207,10 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ItemEnum::DRILL)
             ->setIsHeavy(false)
             ->setIsDismantable(false)
-            ->setIsDropable(false)
+            ->setIsTakeable(true)
+            ->setIsDropable(true)
             ->setIsStackable(false)
             ->setIsHideable(false)
-            ->setIsMovable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
 
@@ -221,10 +222,11 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::PROTECTIVE_GLOVES)
             ->setIsHeavy(false)
-            ->setIsDismantable(false)->setIsDropable(false)
+            ->setIsDismantable(false)
+            ->setIsTakeable(true)
+            ->setIsDropable(true)
             ->setIsStackable(false)
             ->setIsHideable(false)
-            ->setIsMovable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
 
@@ -237,10 +239,10 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ItemEnum::GRENADE)
             ->setIsHeavy(false)
             ->setIsDismantable(false)
-            ->setIsDropable(false)
+            ->setIsTakeable(true)
+            ->setIsDropable(true)
             ->setIsStackable(false)
             ->setIsHideable(false)
-            ->setIsMovable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
 
@@ -253,10 +255,10 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ItemEnum::HYDROPOT)
             ->setIsHeavy(false)
             ->setIsDismantable(false)
-            ->setIsDropable(false)
+            ->setIsTakeable(true)
+            ->setIsDropable(true)
             ->setIsStackable(false)
             ->setIsHideable(false)
-            ->setIsMovable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
 
@@ -269,10 +271,10 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ItemEnum::DUCT_TAPE)
             ->setIsHeavy(false)
             ->setIsDismantable(false)
-            ->setIsDropable(false)
+            ->setIsTakeable(true)
+            ->setIsDropable(true)
             ->setIsStackable(false)
             ->setIsHideable(false)
-            ->setIsMovable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
 
@@ -285,10 +287,10 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ItemEnum::SOAP)
             ->setIsHeavy(false)
             ->setIsDismantable(false)
-            ->setIsDropable(false)
+            ->setIsTakeable(true)
+            ->setIsDropable(true)
             ->setIsStackable(false)
             ->setIsHideable(false)
-            ->setIsMovable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
 
@@ -301,10 +303,10 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ItemEnum::TABULATRIX)
             ->setIsHeavy(false)
             ->setIsDismantable(false)
+            ->setIsTakeable(false)
             ->setIsDropable(false)
             ->setIsStackable(false)
             ->setIsHideable(false)
-            ->setIsMovable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
 
@@ -317,10 +319,10 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ItemEnum::MAD_KUBE)
             ->setIsHeavy(false)
             ->setIsDismantable(false)
-            ->setIsDropable(false)
+            ->setIsTakeable(true)
+            ->setIsDropable(true)
             ->setIsStackable(false)
             ->setIsHideable(false)
-            ->setIsMovable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
 
@@ -333,10 +335,10 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ItemEnum::MICROWAVE)
             ->setIsHeavy(false)
             ->setIsDismantable(false)
-            ->setIsDropable(false)
+            ->setIsTakeable(true)
+            ->setIsDropable(true)
             ->setIsStackable(false)
             ->setIsHideable(false)
-            ->setIsMovable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
 
@@ -347,13 +349,12 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         $superFreezer
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::SUPERFREEZER)
-            ->setType(ItemTypeEnum::TOOL)
             ->setIsHeavy(false)
+            ->setIsTakeable(true)
             ->setIsDismantable(false)
             ->setIsDropable(false)
             ->setIsStackable(false)
             ->setIsHideable(false)
-            ->setIsMovable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
 
@@ -364,46 +365,69 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         $standardRation
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::STANDARD_RATION)
-            ->setType(ItemTypeEnum::RATION)
             ->setIsHeavy(false)
             ->setIsDismantable(false)
+            ->setIsTakeable(true)
             ->setIsDropable(false)
             ->setIsStackable(false)
             ->setIsHideable(false)
-            ->setIsMovable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setHealthPoint(0)
-            ->setActionPoint(4)
-            ->setMoralPoint(-1)
-
+            ->setMaxActionPoint(4)
+            ->setMinActionPoint(4)
+            ->setMaxMovementPoint(0)
+            ->setMinMovementPoint(0)
+            ->setMaxHealthPoint(0)
+            ->setMinHealthPoint(0)
+            ->setMaxMoralPoint(-1)
+            ->setMinMoralPoint(-1)
         ;
         $manager->persist($standardRation);
 
-        $manager->flush();
+        $banana = new Fruit();
+        $banana
+            ->setGameConfig($gameConfig)
+            ->setName(GameFruitEnum::BANANA)
+            ->setIsHeavy(false)
+            ->setIsDismantable(false)
+            ->setIsTakeable(true)
+            ->setIsDropable(false)
+            ->setIsStackable(false)
+            ->setIsHideable(false)
+            ->setIsFireDestroyable(false)
+            ->setIsFireBreakable(false)
+            ->setMaxActionPoint(1)
+            ->setMinActionPoint(1)
+            ->setMaxMovementPoint(0)
+            ->setMinMovementPoint(0)
+            ->setMaxHealthPoint(1)
+            ->setMinHealthPoint(1)
+            ->setMaxMoralPoint(1)
+            ->setMinMoralPoint(1)
+        ;
+        $manager->persist($banana);
 
-        $this->addReference(ItemEnum::STAINPROOF_APRON, $apron);
-        $this->addReference(ItemEnum::PLASTENITE_ARMOR, $plasteniteArmor);
-        $this->addReference(ItemEnum::HACKER_KIT, $hackerKit);
-        $this->addReference(ItemEnum::BLOCK_OF_POST_IT, $blockOfPostIt);
-        $this->addReference(ItemEnum::BLASTER, $blaster);
-        $this->addReference(ItemEnum::QUADRIMETRIC_COMPASS, $compass);
-        $this->addReference(ItemEnum::CAMERA, $camera);
-        $this->addReference(ItemEnum::ADJUSTABLE_WRENCH, $wrench);
-        $this->addReference(ItemEnum::ROPE, $rope);
-        $this->addReference(ItemEnum::KNIFE, $knife);
-        $this->addReference(ItemEnum::DRILL, $drill);
-        $this->addReference(ItemEnum::EXTINGUISHER, $extinguisher);
-        $this->addReference(ItemEnum::PROTECTIVE_GLOVES, $gloves);
-        $this->addReference(ItemEnum::GRENADE, $grenade);
-        $this->addReference(ItemEnum::HYDROPOT, $hydropot);
-        $this->addReference(ItemEnum::DUCT_TAPE, $ductTape);
-        $this->addReference(ItemEnum::SOAP, $soap);
-        $this->addReference(ItemEnum::TABULATRIX, $tabulatrix);
-        $this->addReference(ItemEnum::MAD_KUBE, $madKube);
-        $this->addReference(ItemEnum::MICROWAVE, $microwave);
-        $this->addReference(ItemEnum::SUPERFREEZER, $superFreezer);
-        $this->addReference(ItemEnum::STANDARD_RATION, $standardRation);
+        $bananaTree = new Plant();
+        $bananaTree
+            ->setGameConfig($gameConfig)
+            ->setName(GamePlantEnum::BANANA_TREE)
+            ->setFruit($banana)
+            ->setIsHeavy(false)
+            ->setIsDismantable(false)
+            ->setIsTakeable(true)
+            ->setIsDropable(false)
+            ->setIsStackable(false)
+            ->setIsHideable(false)
+            ->setIsFireDestroyable(false)
+            ->setIsFireBreakable(false)
+            ->setMaxMaturationTime(36)
+            ->setMinMaturationTime(36)
+            ->setMaxOxygen(1)
+            ->setMinOxygen(1)
+        ;
+        $manager->persist($bananaTree);
+
+        $manager->flush();
     }
 
     public function getDependencies()

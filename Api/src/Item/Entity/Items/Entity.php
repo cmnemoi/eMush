@@ -1,9 +1,9 @@
 <?php
 
-
-namespace Mush\Item\Entity;
+namespace Mush\Item\Entity\Items;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Item\Entity\Item;
 
 /**
  * Class Item
@@ -11,6 +11,6 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Entity
  */
-class Component extends Item
+class Entity extends Item
 {
 }

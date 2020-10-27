@@ -32,18 +32,18 @@ class DaySubscriber implements EventSubscriberInterface
 
     public function onNewDay(DayEvent $event)
     {
-        if (!($daedalus = $event->getDaedalus())) {
+        if ($event->getGameItem() || $event->getPlayer() || $event->getRoom()) {
             return;
         }
-
+        $daedalus = $event->getDaedalus();
         foreach ($daedalus->getPlayers() as $player) {
-            $newPlayerDay = new DayEvent($event->getTime());
+            $newPlayerDay = new DayEvent($daedalus, $event->getTime());
             $newPlayerDay->setPlayer($player);
             $this->eventDispatcher->dispatch($newPlayerDay, DayEvent::NEW_DAY);
         }
 
         foreach ($daedalus->getRooms() as $room) {
-            $newRoomDay = new DayEvent($event->getTime());
+            $newRoomDay = new DayEvent($daedalus, $event->getTime());
             $newRoomDay->setRoom($room);
             $this->eventDispatcher->dispatch($newRoomDay, DayEvent::NEW_DAY);
         }

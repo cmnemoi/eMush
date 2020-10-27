@@ -49,8 +49,6 @@ class GameItem
      */
     private string $name;
 
-    private string $type;
-
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
@@ -146,11 +144,6 @@ class GameItem
     {
         $this->item = $item;
         return $this;
-    }
-
-    public function getType(): string
-    {
-        return $this->type;
     }
 
     public function getCharge(): int

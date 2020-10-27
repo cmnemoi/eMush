@@ -9,7 +9,6 @@ use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\RandomItemPlaces;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Item\Enum\ItemEnum;
-use Mush\Room\DataFixtures\RoomConfigFixtures;
 use Mush\Room\Enum\RoomEnum;
 
 class DaedalusConfigFixtures extends Fixture implements DependentFixtureInterface

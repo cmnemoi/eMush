@@ -22,7 +22,7 @@ class DaedalusConfig
     private int $id;
 
     /**
-     * @ORM\OneToOne (targetEntity="Mush\Game\Entity\GameConfig")
+     * @ORM\OneToOne (targetEntity="Mush\Game\Entity\GameConfig", inversedBy="daedalusConfig")
      */
     private GameConfig $gameConfig;
 

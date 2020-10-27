@@ -3,20 +3,21 @@
 
 namespace Mush\Item\CycleHandler;
 
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\CycleHandler\CycleHandlerInterface;
-use Mush\Item\Entity\Fruit;
 use Mush\Item\Entity\GameItem;
+use Mush\Item\Entity\Items\Fruit;
 
 class FruitCycleHandler implements CycleHandlerInterface
 {
-    public function handleNewCycle($fruit, \DateTime $dateTime)
+    public function handleNewCycle($fruit, Daedalus $daedalus,\DateTime $dateTime)
     {
         if (!$fruit instanceof GameItem || !$fruit->getItem() instanceof Fruit) {
             return;
         }
     }
 
-    public function handleNewDay($fruit, \DateTime $dateTime)
+    public function handleNewDay($fruit, Daedalus $daedalus, \DateTime $dateTime)
     {
         if (!$fruit instanceof GameItem || !$fruit->getItem() instanceof Fruit) {
             return;

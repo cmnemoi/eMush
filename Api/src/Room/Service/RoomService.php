@@ -5,7 +5,6 @@ namespace Mush\Room\Service;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Item\Entity\Item;
-use Mush\Item\Service\PlantServiceInterface;
 use Mush\Item\Service\GameItemServiceInterface;
 use Mush\Room\Entity\Door;
 use Mush\Room\Entity\Room;
@@ -17,25 +16,21 @@ class RoomService implements RoomServiceInterface
     private EntityManagerInterface $entityManager;
     private RoomRepository $repository;
     private GameItemServiceInterface $itemService;
-    private PlantServiceInterface $fruitService;
 
     /**
      * RoomService constructor.
      * @param EntityManagerInterface $entityManager
      * @param RoomRepository $repository
      * @param GameItemServiceInterface $itemService
-     * @param PlantServiceInterface $fruitService
      */
     public function __construct(
         EntityManagerInterface $entityManager,
         RoomRepository $repository,
-        GameItemServiceInterface $itemService,
-        PlantServiceInterface $fruitService
+        GameItemServiceInterface $itemService
     ) {
         $this->entityManager = $entityManager;
         $this->repository = $repository;
         $this->itemService = $itemService;
-        $this->fruitService = $fruitService;
     }
 
     public function persist(Room $room): Room

@@ -6,14 +6,13 @@ use Mush\Game\CycleHandler\CycleHandlerInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Item\Entity\Fruit;
 use Mush\Item\Entity\GameItem;
-use Mush\Item\Entity\GamePlant;
-use Mush\Item\Entity\Plant;
+use Mush\Item\Entity\Items\Plant;
+use Mush\Item\Entity\PlantEffect;
 use Mush\Item\Enum\ItemEnum;
 use Mush\Item\Enum\PlantStatusEnum;
-use Mush\Item\Service\GameFruitServiceInterface;
 use Mush\Item\Service\GameItemServiceInterface;
+use Mush\Item\Service\ItemEffectServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
@@ -25,6 +24,7 @@ class PlantCycleHandler implements CycleHandlerInterface
     private RandomServiceInterface $randomService;
     private RoomLogServiceInterface $roomLogService;
     private GameConfig $gameConfig;
+    private ItemEffectServiceInterface $itemEffectService;
 
     const DISEASE_PERCENTAGE = 3;
 
@@ -32,15 +32,17 @@ class PlantCycleHandler implements CycleHandlerInterface
         GameItemServiceInterface $itemService,
         RandomServiceInterface $randomService,
         RoomLogServiceInterface $roomLogService,
-        GameConfigServiceInterface $gameConfigService
+        GameConfigServiceInterface $gameConfigService,
+        ItemEffectServiceInterface $itemEffectService
     ) {
         $this->itemService = $itemService;
         $this->randomService = $randomService;
         $this->roomLogService = $roomLogService;
+        $this->itemEffectService = $itemEffectService;
         $this->gameConfig = $gameConfigService->getConfig();
     }
 
-    public function handleNewCycle($gamePlant, \DateTime $dateTime)
+    public function handleNewCycle($gamePlant, $daedalus, \DateTime $dateTime)
     {
         if (!$gamePlant instanceof GameItem || !$gamePlant->getItem() instanceof Plant) {
             return;
@@ -52,11 +54,13 @@ class PlantCycleHandler implements CycleHandlerInterface
             $gamePlant->addStatus(PlantStatusEnum::DISEASED);
         }
 
-        if ($gamePlant->getCharge() < $plant->getMaturationTime()) {
+        $plantEffect = $this->itemEffectService->getPlantEffect($plant, $daedalus);
+
+        if ($gamePlant->getCharge() < $plantEffect->getMaturationTime()) {
             $gamePlant->setCharge($gamePlant->getCharge() + 1);
 
             //If plant is mature
-            if ($gamePlant->getCharge() >= $plant->getMaturationTime() &&
+            if ($gamePlant->getCharge() >= $plantEffect->getMaturationTime() &&
                 $gamePlant->hasStatus(PlantStatusEnum::YOUNG)
             ) {
                 $gamePlant->removeStatus(PlantStatusEnum::YOUNG);
@@ -73,13 +77,15 @@ class PlantCycleHandler implements CycleHandlerInterface
         $this->itemService->persist($gamePlant);
     }
 
-    public function handleNewDay($gamePlant, \DateTime $dateTime)
+    public function handleNewDay($gamePlant, $daedalus, \DateTime $dateTime)
     {
         if (!$gamePlant instanceof GameItem || !$gamePlant->getItem() instanceof Plant) {
             return;
         }
 
-        $this->addOxygen($gamePlant);
+        $plantEffect = $this->itemEffectService->getPlantEffect($gamePlant->getItem(), $daedalus);
+
+        $this->addOxygen($gamePlant, $plantEffect);
         $this->addFruit($gamePlant, $dateTime);
         $this->handleStatus($gamePlant, $dateTime);
 
@@ -123,7 +129,7 @@ class PlantCycleHandler implements CycleHandlerInterface
                 VisibilityEnum::PUBLIC,
                 $dateTime
             );
-            $this->itemService->delete($gamePlant);     // Remove plant
+            $this->itemService->delete($gamePlant); // Remove plant
             $this->itemService->persist($hydropot); // Add hydropot
         }
     }
@@ -162,6 +168,8 @@ class PlantCycleHandler implements CycleHandlerInterface
             $gameFruit->setRoom($place);
         }
 
+        $this->itemService->persist($gameFruit);
+
         $this->roomLogService->createItemLog(
             PlantLogEnum::PLANT_NEW_FRUIT,
             $room,
@@ -169,11 +177,9 @@ class PlantCycleHandler implements CycleHandlerInterface
             VisibilityEnum::PUBLIC,
             $dateTime
         );
-
-        $this->itemService->persist($gameFruit);
     }
 
-    private function addOxygen(GameItem $gamePlant)
+    private function addOxygen(GameItem $gamePlant, PlantEffect $plantEffect)
     {
         //If plant is young, dried or diseased, do not produce oxygen
         if (array_intersect(
@@ -186,7 +192,7 @@ class PlantCycleHandler implements CycleHandlerInterface
         $place = $gamePlant->getRoom() ? $gamePlant->getRoom() : $gamePlant->getPlayer();
 
         //Add Oxygen
-        if (($oxygen = $gamePlant->getItem()->getOxygen())) {
+        if (($oxygen = $plantEffect->getOxygen())) {
             $daedalus = $place->getDaedalus();
             $daedalus->setOxygen($daedalus->getOxygen() + $oxygen);
         }

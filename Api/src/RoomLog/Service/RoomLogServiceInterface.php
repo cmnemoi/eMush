@@ -3,7 +3,6 @@
 namespace Mush\RoomLog\Service;
 
 use Mush\Item\Entity\GameItem;
-use Mush\Item\Entity\Item;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
 use Mush\RoomLog\Entity\RoomLog;

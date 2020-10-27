@@ -16,14 +16,12 @@ use Mush\Game\Service\GameConfigServiceInterface;
 use \Mockery;
 use Mush\Item\Entity\Fruit;
 use Mush\Item\Entity\GameItem;
-use Mush\Item\Entity\Item;
-use Mush\Item\Entity\Tool;
+use Mush\Item\Entity\Items\Tool;
 use Mush\Item\Service\GameItemServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class TakeActionTest extends TestCase
 {
@@ -59,7 +57,7 @@ class TakeActionTest extends TestCase
         ;
 
         $tool
-            ->setIsMovable(true)
+            ->setIsTakeable(true)
             ->setIsHeavy(false)
         ;
 

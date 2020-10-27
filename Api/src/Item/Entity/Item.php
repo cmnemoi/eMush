@@ -13,21 +13,21 @@ use Mush\Game\Entity\GameConfig;
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="type", type="string")
  * @ORM\DiscriminatorMap({
- *     "blue_print" = "BluePrint",
- *     "book" = "Book",
- *     "component" = "Component",
- *     "document" = "Document",
- *     "drug" = "Drug",
- *     "entity" = "Entity",
- *     "exploration" = "Exploration",
- *     "fruit" = "Fruit",
- *     "gear" = "Gear",
- *     "instrument" = "Instrument",
- *     "misc" = "Misc",
- *     "plant" = "Plant",
- *     "ration" = "Ration",
- *     "tool" = "Tool",
- *     "weapon" = "Weapon"
+ *     "blue_print" = "Mush\Item\Entity\Items\BluePrint",
+ *     "book" = "Mush\Item\Entity\Items\Book",
+ *     "component" = "Mush\Item\Entity\Items\Component",
+ *     "document" = "Mush\Item\Entity\Items\Document",
+ *     "drug" = "Mush\Item\Entity\Items\Drug",
+ *     "entity" = "Mush\Item\Entity\Items\Entity",
+ *     "exploration" = "Mush\Item\Entity\Items\Exploration",
+ *     "fruit" = "Mush\Item\Entity\Items\Fruit",
+ *     "gear" = "Mush\Item\Entity\Items\Gear",
+ *     "instrument" = "Mush\Item\Entity\Items\Instrument",
+ *     "misc" = "Mush\Item\Entity\Items\Misc",
+ *     "plant" = "Mush\Item\Entity\Items\Plant",
+ *     "ration" = "Mush\Item\Entity\Items\Ration",
+ *     "tool" = "Mush\Item\Entity\Items\Tool",
+ *     "weapon" = "Mush\Item\Entity\Items\Weapon"
  * })
  */
 abstract class Item
@@ -59,6 +59,16 @@ abstract class Item
     /**
      * @ORM\Column(type="boolean", nullable=false)
      */
+    private bool $isTakeable;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=false)
+     */
+    private bool $isDropable;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=false)
+     */
     private bool $isDismantable;
 
     /**
@@ -74,22 +84,6 @@ abstract class Item
     /**
      * @ORM\Column(type="boolean", nullable=false)
      */
-    private bool $isMovable;
-
-    /**
-     * @ORM\Column(type="boolean", nullable=false)
-     */
-    private bool $isTakeable;
-
-    /**
-     * @ORM\Column(type="boolean", nullable=false)
-     */
-     private bool $isDropable;
-
-     /**
-      * @ORM\Column(type="boolean", nullable=false)
-      */
-
     private bool $isFireDestroyable;
 
     /**
@@ -150,12 +144,6 @@ abstract class Item
         return $this->type;
     }
 
-    public function setType(string $type): Item
-    {
-        $this->type = $type;
-        return $this;
-    }
-
     public function isHeavy(): bool
     {
         return $this->isHeavy;
@@ -164,6 +152,17 @@ abstract class Item
     public function setIsHeavy(bool $isHeavy): Item
     {
         $this->isHeavy = $isHeavy;
+        return $this;
+    }
+
+    public function isTakeable(): bool
+    {
+        return $this->isTakeable;
+    }
+
+    public function setIsTakeable(bool $isTakeable): Item
+    {
+        $this->isTakeable = $isTakeable;
         return $this;
     }
 
@@ -211,28 +210,6 @@ abstract class Item
         return $this;
     }
 
-    public function isMovable(): bool
-    {
-        return $this->isMovable;
-    }
-
-    public function setIsMovable(bool $isMovable): Item
-    {
-        $this->isMovable = $isMovable;
-        return $this;
-    }
-
-    public function isTakeable(): bool
-    {
-        return $this->isTakeable;
-    }
-
-    public function setIsTakeable(bool $isTakeable): Item
-    {
-        $this->isTakeable = $isTakeable;
-        return $this;
-    }
-
     public function isFireDestroyable(): bool
     {
         return $this->isFireDestroyable;
@@ -272,7 +249,7 @@ abstract class Item
         {
             $this->actions[] = $action;
             if ($effect !== []) {
-              $this->effects[$action] = $effect;
+                $this->effects[$action] = $effect;
             }
         }
 
@@ -284,7 +261,7 @@ abstract class Item
         $this->actions = array_diff($this->getActions(), [$action]);
         if (array_key_exists($this->effects, $action))
         {
-          $this->effects = array_diff($this->getEffect(), $this->getEffect($action));
+            $this->effects = array_diff($this->getEffect(), $this->getEffect($action));
         }
         return $this;
     }

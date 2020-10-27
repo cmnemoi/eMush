@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Mush\Item\Entity;
+namespace Mush\Item\Entity\Items;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -11,7 +11,6 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Entity
  */
-class Fruit extends Ration
+class Weapon extends Tool
 {
-
 }

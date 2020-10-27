@@ -18,6 +18,10 @@ class ItemConfig
 
     private bool $isMovable;
 
+    private bool $isTakeable;
+
+    private bool $isDropable;
+
     private bool $isFireDestroyable;
 
     private bool $isFireBreakable;

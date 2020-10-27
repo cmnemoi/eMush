@@ -71,6 +71,11 @@ Run the migrations
 bin/console doctrine:migrations:migrate
 ```
 
+Add the fixtures
+```
+bin/console doctrine:fixtures:load
+```
+
 If everything went well you should be able to access: 
   - Swagger : http://localhost:8080/swagger/
   - Front end : http://localhost

@@ -4,6 +4,7 @@
 namespace Mush\Item\Entity\Items;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Item\Enum\ItemTypeEnum;
 
 /**
  * Class Item
@@ -13,6 +14,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Book extends Tool
 {
+    protected string $type = ItemTypeEnum::BOOK;
+
     protected array $actions = []; // @Todo: read action
 
     private string $skill;

@@ -2,35 +2,21 @@
 
 namespace Mush\Item\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Game\Entity\GameConfig;
+use Mush\Item\Entity\Items\Ration;
+use Mush\Item\Enum\ItemTypeEnum;
 
 /**
  * Class ItemConfig
  * @package Mush\Item\Entity
  *
  * @ORM\Entity
- * @ORM\InheritanceType("SINGLE_TABLE")
- * @ORM\DiscriminatorColumn(name="type", type="string")
- * @ORM\DiscriminatorMap({
- *     "blue_print" = "Mush\Item\Entity\Items\BluePrint",
- *     "book" = "Mush\Item\Entity\Items\Book",
- *     "component" = "Mush\Item\Entity\Items\Component",
- *     "document" = "Mush\Item\Entity\Items\Document",
- *     "drug" = "Mush\Item\Entity\Items\Drug",
- *     "entity" = "Mush\Item\Entity\Items\Entity",
- *     "exploration" = "Mush\Item\Entity\Items\Exploration",
- *     "fruit" = "Mush\Item\Entity\Items\Fruit",
- *     "gear" = "Mush\Item\Entity\Items\Gear",
- *     "instrument" = "Mush\Item\Entity\Items\Instrument",
- *     "misc" = "Mush\Item\Entity\Items\Misc",
- *     "plant" = "Mush\Item\Entity\Items\Plant",
- *     "ration" = "Mush\Item\Entity\Items\Ration",
- *     "tool" = "Mush\Item\Entity\Items\Tool",
- *     "weapon" = "Mush\Item\Entity\Items\Weapon"
- * })
  */
-abstract class Item
+class Item
 {
     /**
      * @ORM\Id
@@ -49,7 +35,10 @@ abstract class Item
      */
     private string $name;
 
-    private string $type;
+    /**
+     * @ORM\ManyToMany(targetEntity="Mush\Item\Entity\ItemType")
+     */
+    private Collection $types;
 
     /**
      * @ORM\Column(type="boolean", nullable=false)
@@ -91,15 +80,10 @@ abstract class Item
      */
     private bool $isFireBreakable;
 
-    /**
-     * @ORM\Column(type="array", nullable=false)
-     */
-    private array $actions = [];
-
-    /**
-     * @ORM\Column(type="array", nullable=false)
-     */
-    private array $effects = [];
+    public function __construct()
+    {
+        $this->types = new ArrayCollection();
+    }
 
     public function createGameItem(): GameItem
     {
@@ -139,9 +123,32 @@ abstract class Item
         return $this;
     }
 
-    public function getType(): string
+    public function getTypes(): Collection
     {
-        return $this->type;
+        return $this->types;
+    }
+
+    public function setTypes(Collection $types): Item
+    {
+        $this->types = $types;
+        return $this;
+    }
+
+    public function getItemType(string $type): ?ItemType
+    {
+        $itemTypes = $this->types->filter(fn(ItemType $itemType) => ($itemType->getType() === $type));
+        return $itemTypes->count() > 0 ? $itemTypes->first() : null;
+    }
+
+    public function getItemTypeByTypes(array $types): ?ItemType
+    {
+        $itemTypes = $this->types->filter(fn(ItemType $itemType) => (in_array($itemType->getType(), $types)));
+        return $itemTypes->count() > 0 ? $itemTypes->first() : null;
+    }
+
+    public function getRationsType(): ?Ration
+    {
+        return $this->getItemTypeByTypes([ItemTypeEnum::RATION, ItemTypeEnum::FRUIT, ItemTypeEnum::DRUG]);
     }
 
     public function isHeavy(): bool
@@ -234,42 +241,8 @@ abstract class Item
 
     public function getActions(): array
     {
-        return $this->actions;
-    }
-
-    public function setActions(array $actions): Item
-    {
-        $this->actions = $actions;
-        return $this;
-    }
-
-    public function addAction(string $action, array $effect = []): Item
-    {
-        if (!$this->hasAction($action))
-        {
-            $this->actions[] = $action;
-            if ($effect !== []) {
-                $this->effects[$action] = $effect;
-            }
-        }
-
-        return $this;
-    }
-
-    public function removeAction(string $action): Item
-    {
-        $this->actions = array_diff($this->getActions(), [$action]);
-        $this->effects = array_diff($this->effects, $this->getEffect($action));
-        return $this;
-    }
-
-    public function hasAction(string $action): bool
-    {
-        return in_array($action, $this->getActions());
-    }
-
-    public function getEffect(string $action): array
-    {
-        return $this->effects[$action] ?? [];
+        $typeActions = ActionEnum::getPermanentItemActions();
+        $this->getTypes()->forAll(fn(ItemType $itemType) => $typeActions[] = $itemType->getActions());
+        return $typeActions;
     }
 }

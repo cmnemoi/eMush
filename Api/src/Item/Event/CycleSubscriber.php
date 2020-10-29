@@ -41,11 +41,13 @@ class CycleSubscriber implements EventSubscriberInterface
             return;
         }
 
-        if (isset($this->cyclesManagerConfig[get_class($item)])) {
-            $serviceClass = $this->cyclesManagerConfig[get_class($item)];
-            /** @var CycleHandlerInterface $service */
-            $service = $this->container->get($serviceClass);
-            $service->handleNewCycle($item, $event->getDaedalus(), $event->getTime());
+        foreach ($item->getItem()->getTypes() as $itemType) {
+            if (isset($this->cyclesManagerConfig[get_class($itemType)])) {
+                $serviceClass = $this->cyclesManagerConfig[get_class($itemType)];
+                /** @var CycleHandlerInterface $service */
+                $service = $this->container->get($serviceClass);
+                $service->handleNewCycle($item, $event->getDaedalus(), $event->getTime());
+            }
         }
     }
 }

@@ -5,19 +5,27 @@ namespace Mush\Action\Actions;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Door;
 use Mush\Room\Entity\Room;
+use Mush\RoomLog\Enum\LogEnum;
+use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\RoomLog\Service\RoomLogServiceInterface;
 
 class Move extends Action
 {
     private Player $player;
     private Door $door;
+    private RoomLogServiceInterface $roomLogService;
     private PlayerServiceInterface $playerService;
 
-    public function __construct(PlayerServiceInterface $playerService)
-    {
+    public function __construct(
+        PlayerServiceInterface $playerService,
+        RoomLogServiceInterface $roomLogService
+    ) {
+        $this->roomLogService = $roomLogService;
         $this->playerService = $playerService;
     }
 
@@ -57,6 +65,19 @@ class Move extends Action
 
     protected function createLog(ActionResult $actionResult): void
     {
-        // TODO: Implement createLog() method.
+        $this->roomLogService->createPlayerLog(
+            LogEnum::ENTER_ROOM,
+            $this->player->getRoom(),
+            $this->player,
+            VisibilityEnum::PUBLIC,
+            new \DateTime('now')
+        );
+        $this->roomLogService->createPlayerLog(
+            LogEnum::EXIT_ROOM,
+            $this->door->getRooms()->filter(fn (Room $room) => $room !== $this->player->getRoom())->first(),
+            $this->player,
+            VisibilityEnum::PUBLIC,
+            new \DateTime('now')
+        );
     }
 }

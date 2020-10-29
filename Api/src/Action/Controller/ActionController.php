@@ -3,7 +3,6 @@
 namespace Mush\Action\Controller;
 
 use Mush\Action\ActionResult\Error;
-use Mush\Action\ActionResult\Success;
 use Mush\Action\Service\ActionServiceInterface;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;

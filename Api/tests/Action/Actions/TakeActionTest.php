@@ -16,15 +16,19 @@ use Mush\Game\Service\GameConfigServiceInterface;
 use \Mockery;
 use Mush\Item\Entity\Fruit;
 use Mush\Item\Entity\GameItem;
+use Mush\Item\Entity\Item;
 use Mush\Item\Entity\Items\Tool;
 use Mush\Item\Service\GameItemServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
+use Mush\RoomLog\Service\RoomLogServiceInterface;
 use PHPUnit\Framework\TestCase;
 
 class TakeActionTest extends TestCase
 {
+    /** @var RoomLogServiceInterface | Mockery\Mock */
+    private RoomLogServiceInterface $roomLogService;
     /** @var GameItemServiceInterface | Mockery\Mock */
     private GameItemServiceInterface $itemService;
     /** @var PlayerServiceInterface | Mockery\Mock */
@@ -37,36 +41,44 @@ class TakeActionTest extends TestCase
      */
     public function before()
     {
+        $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
         $this->itemService = Mockery::mock(GameItemServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
         $gameConfigService = Mockery::mock(GameConfigServiceInterface::class);
         $this->gameConfig = new GameConfig();
         $gameConfigService->shouldReceive('getConfig')->andReturn($this->gameConfig)->once();
 
-        $this->action = new Take($this->itemService, $this->playerService, $gameConfigService);
+        $this->action = new Take(
+            $this->roomLogService,
+            $this->itemService,
+            $this->playerService,
+            $gameConfigService
+        );
     }
 
     public function testExecute()
     {
         $room = new Room();
-        $item = new GameItem();
-        $tool = new Tool();
-        $item->setItem($tool);
-        $item
+        $gameItem = new GameItem();
+        $item = new Item();
+        $gameItem->setItem($item);
+        $gameItem
             ->setRoom($room)
         ;
 
-        $tool
+        $item
             ->setIsTakeable(true)
             ->setIsHeavy(false)
         ;
+
+        $this->roomLogService->shouldReceive('createItemLog')->once();
 
         $this->gameConfig->setMaxItemInInventory(3);
         $this->itemService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
 
         $actionParameter = new ActionParameters();
-        $actionParameter->setItem($item);
+        $actionParameter->setItem($gameItem);
         $player = new Player();
         $player->setRoom($room);
 

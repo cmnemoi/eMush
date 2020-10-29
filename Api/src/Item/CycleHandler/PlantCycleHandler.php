@@ -44,9 +44,14 @@ class PlantCycleHandler implements CycleHandlerInterface
 
     public function handleNewCycle($gamePlant, $daedalus, \DateTime $dateTime)
     {
-        if (!$gamePlant instanceof GameItem || !$gamePlant->getItem() instanceof Plant) {
+        if (!$gamePlant instanceof GameItem) {
             return;
         }
+        $plantType = $gamePlant->getItem()->getItemType(ItemEnum::PLANT);
+        if ($gamePlant === null || !$plantType instanceof Plant) {
+            return;
+        }
+
         /** @var Plant $plant */
         $plant = $gamePlant->getItem();
 
@@ -54,7 +59,7 @@ class PlantCycleHandler implements CycleHandlerInterface
             $gamePlant->addStatus(PlantStatusEnum::DISEASED);
         }
 
-        $plantEffect = $this->itemEffectService->getPlantEffect($plant, $daedalus);
+        $plantEffect = $this->itemEffectService->getPlantEffect($plantType, $daedalus);
 
         if ($gamePlant->getCharge() < $plantEffect->getMaturationTime()) {
             $gamePlant->setCharge($gamePlant->getCharge() + 1);
@@ -79,14 +84,18 @@ class PlantCycleHandler implements CycleHandlerInterface
 
     public function handleNewDay($gamePlant, $daedalus, \DateTime $dateTime)
     {
-        if (!$gamePlant instanceof GameItem || !$gamePlant->getItem() instanceof Plant) {
+        if (!$gamePlant instanceof GameItem) {
+            return;
+        }
+        $plantType = $gamePlant->getItem()->getItemType(ItemEnum::PLANT);
+        if ($gamePlant === null || !$plantType instanceof Plant) {
             return;
         }
 
-        $plantEffect = $this->itemEffectService->getPlantEffect($gamePlant->getItem(), $daedalus);
+        $plantEffect = $this->itemEffectService->getPlantEffect($plantType, $daedalus);
 
         $this->addOxygen($gamePlant, $plantEffect);
-        $this->addFruit($gamePlant, $dateTime);
+        $this->addFruit($gamePlant, $plantType, $dateTime);
         $this->handleStatus($gamePlant, $dateTime);
 
         $this->itemService->persist($gamePlant);
@@ -134,7 +143,7 @@ class PlantCycleHandler implements CycleHandlerInterface
         }
     }
 
-    private function addFruit(GameItem $gamePlant, \DateTime $dateTime)
+    private function addFruit(GameItem $gamePlant, Plant $plantType, \DateTime $dateTime)
     {
         //If plant is young, thirsty, dried or diseased, do not produce fruit
         if (array_intersect(
@@ -153,10 +162,8 @@ class PlantCycleHandler implements CycleHandlerInterface
         $place = $gamePlant->getRoom() ? $gamePlant->getRoom() : $gamePlant->getPlayer();
         $room = $place;
 
-        /** @var Plant $plant */
-        $plant = $gamePlant->getItem();
         // Create a new fruit
-        $gameFruit = $plant->getFruit()->createGameItem();
+        $gameFruit = $plantType->getFruit()->createGameItem();
         if ($place instanceof Player) {
             $room = $place->getRoom();
             if ($place->getItems() < $this->gameConfig->getMaxItemInInventory()) {

@@ -101,9 +101,16 @@ class DaedalusService implements DaedalusServiceInterface
         $randomItemPlaces = $daedalusConfig->getRandomItemPlace();
         if ($randomItemPlaces !== null) {
             foreach ($randomItemPlaces->getItems() as $itemName) {
-                $item = $daedalus->getGameConfig()->getItemsConfig()->filter(fn(Item $item) => $item->getName() === $itemName)->first();
+                $item = $daedalus
+                    ->getGameConfig()
+                    ->getItemsConfig()
+                    ->filter(fn(Item $item) => $item->getName() === $itemName)
+                    ->first()
+                ;
                 $item = $this->itemService->createGameItem($item);
-                $roomName = $randomItemPlaces->getPlaces()[$this->randomService->random(0, count($randomItemPlaces->getPlaces()) - 1)];
+                $roomName = $randomItemPlaces
+                    ->getPlaces()[$this->randomService->random(0, count($randomItemPlaces->getPlaces()) - 1)]
+                ;
                 $room = $daedalus->getRooms()->filter(fn(Room $room) => $roomName === $room->getName())->first();
                 $item->setRoom($room);
                 $this->itemService->persist($item);

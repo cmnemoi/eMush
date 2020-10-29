@@ -6,17 +6,21 @@ namespace Mush\Item\Entity\Items;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Item\Entity\GameItem;
 use Mush\Item\Entity\Item;
+use Mush\Item\Entity\ItemType;
+use Mush\Item\Enum\ItemTypeEnum;
 use Mush\Item\Enum\PlantStatusEnum;
 
 /**
  * @ORM\Entity()
  */
-class Plant extends Item
+class Plant extends ItemType
 {
+    protected string $type = ItemTypeEnum::PLANT;
+
     /**
-     * @ORM\OneToOne(targetEntity="Mush\Item\Entity\Items\Fruit", inversedBy=")
+     * @ORM\OneToOne(targetEntity="Mush\Item\Entity\Item", inversedBy=")
      */
-    private ?Fruit $fruit = null;
+    private ?Item $fruit = null;
 
     /**
      * @ORM\Column(type="integer", length=255, nullable=false)
@@ -38,20 +42,12 @@ class Plant extends Item
      */
     private int $maxOxygen;
 
-    public function createGameItem(): GameItem
-    {
-        $gamePlant = parent::createGameItem();
-        $gamePlant->setStatuses([PlantStatusEnum::YOUNG]); //New plants are always young
-
-        return $gamePlant;
-    }
-
-    public function getFruit(): ?Fruit
+    public function getFruit(): ?Item
     {
         return $this->fruit;
     }
 
-    public function setFruit(Fruit $fruit): Plant
+    public function setFruit(Item $fruit): Plant
     {
         $this->fruit = $fruit;
 

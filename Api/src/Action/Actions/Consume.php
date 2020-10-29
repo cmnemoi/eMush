@@ -6,30 +6,34 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Item\Entity\GameItem;
+use Mush\Item\Service\GameItemServiceInterface;
+use Mush\Item\Service\ItemEffectServiceInterface;
 use Mush\Player\Entity\Player;
-use Mush\Item\Service\ItemServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Action\Enum\ActionEnum;
+use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\RoomLog\Service\RoomLogServiceInterface;
 
-
-class Consume extends Action {
+class Consume extends Action
+{
 
     private Player $player;
     private GameItem $item;
-    private ItemServiceInterface $itemService;
+    private RoomLogServiceInterface $roomLogService;
+    private GameItemServiceInterface $gameItemService;
     private PlayerServiceInterface $playerService;
+    private ItemEffectServiceInterface $itemServiceEffect;
 
-    /**
-     * Take constructor.
-     * @param ItemServiceInterface $itemService
-     * @param PlayerServiceInterface $playerService
-     */
-
-
-    public function __construct(ItemServiceInterface $itemService, PlayerServiceInterface $playerService)
-    {
-        $this->itemService = $itemService;
+    public function __construct(
+        RoomLogServiceInterface $roomLogService,
+        GameItemServiceInterface $gameItemService,
+        PlayerServiceInterface $playerService,
+        ItemEffectServiceInterface $itemServiceEffect
+    ) {
+        $this->roomLogService = $roomLogService;
+        $this->gameItemService = $gameItemService;
         $this->playerService = $playerService;
+        $this->itemServiceEffect = $itemServiceEffect;
     }
 
     public function loadParameters(Player $player, ActionParameters $actionParameters)
@@ -48,23 +52,39 @@ class Consume extends Action {
             !$this->player->hasStatus('full'); // TODO: replace this with StatusEnum::full when it becomes available
     }
 
-    protected function apply(): ActionResult {
+    protected function apply(): ActionResult
+    {
+        $rationType = $this->item->getItem()->getRationsType();
 
-        // TODO: if charges remove a charge
+        if ($rationType === null) {
+            throw new \Exception('Cannot consume this item');
+        }
+
+        $itemEffect = $this->itemServiceEffect->getConsumableEffect($rationType, $this->player->getDaedalus());
+        $this->player
+            ->addActionPoint($itemEffect->getActionPoint())
+            ->addMovementPoint($itemEffect->getMovementPoint())
+            ->addHealthPoint($itemEffect->getHealthPoint())
+            ->addMoralPoint($itemEffect->getMoralPoint())
+        ;
+        $this->playerService->persist($this->player);
 
         // if no charges consume item
         $this->item->setPlayer(null);
         $this->item->setRoom(null);
-
-        // TODO: apply effects to player
-
+        $this->gameItemService->delete($this->item);
 
         return new Success();
     }
 
     protected function createLog(ActionResult $actionResult): void
     {
-        // TODO: Implement createLog() method.
+        $this->roomLogService->createItemLog(
+            ActionEnum::CONSUME,
+            $this->player->getRoom(),
+            $this->item,
+            VisibilityEnum::COVERT,
+            new \DateTime('now')
+        );
     }
 }
-?>

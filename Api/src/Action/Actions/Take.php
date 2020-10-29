@@ -5,6 +5,7 @@ namespace Mush\Action\Actions;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\StatusEnum;
@@ -13,26 +14,25 @@ use Mush\Item\Entity\GameItem;
 use Mush\Item\Service\GameItemServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\RoomLog\Service\RoomLogServiceInterface;
 
 class Take extends Action
 {
     private Player $player;
     private GameItem $item;
+    private RoomLogServiceInterface $roomLogService;
     private GameItemServiceInterface $itemService;
     private PlayerServiceInterface $playerService;
     private GameConfig $gameConfig;
 
-    /**
-     * Take constructor.
-     * @param GameItemServiceInterface $itemService
-     * @param PlayerServiceInterface $playerService
-     * @param GameConfigServiceInterface $gameConfigService
-     */
     public function __construct(
+        RoomLogServiceInterface $roomLogService,
         GameItemServiceInterface $itemService,
         PlayerServiceInterface $playerService,
         GameConfigServiceInterface $gameConfigService
     ) {
+        $this->roomLogService = $roomLogService;
         $this->itemService = $itemService;
         $this->playerService = $playerService;
         $this->gameConfig = $gameConfigService->getConfig();
@@ -75,6 +75,12 @@ class Take extends Action
 
     protected function createLog(ActionResult $actionResult): void
     {
-        // TODO: Implement createLog() method.
+        $this->roomLogService->createItemLog(
+            ActionEnum::TAKE,
+            $this->player->getRoom(),
+            $this->item,
+            VisibilityEnum::PUBLIC,
+            new \DateTime('now')
+        );
     }
 }

@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Class RandomItemPlaces
  * @package Mush\Daedalus\Entity
  * @ORM\Entity()
+ * @ORM\Table(name="config_random_item_place")
  */
 class RandomItemPlaces
 {

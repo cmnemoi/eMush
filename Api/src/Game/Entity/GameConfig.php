@@ -13,6 +13,7 @@ use Mush\Game\Entity\Collection\CharacterConfigCollection;
  * @package Mush\Game\Entity
  *
  * @ORM\Entity(repositoryClass="Mush\Game\Repository\GameConfigRepository")
+ * @ORM\Table(name="config_game")
  */
 class GameConfig
 {

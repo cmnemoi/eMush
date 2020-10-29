@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Class CharacterConfig
  * @package Mush\Game\Entity
  * @ORM\Entity()
+ * @ORM\Table(name="character_config")
  */
 class CharacterConfig
 {

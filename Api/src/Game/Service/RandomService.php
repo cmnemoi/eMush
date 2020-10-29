@@ -18,34 +18,32 @@ class RandomService implements RandomServiceInterface
 
     public function getPlayerInRoom(Room $room): Player
     {
-      if ($room->getPlayers()->isEmpty()) {
-          throw new Error('getPlayerInRoom: room is empty');
-      }
+        if ($room->getPlayers()->isEmpty()) {
+            throw new Error('getPlayerInRoom: room is empty');
+        }
 
-      return $room->getPlayers()->get($this->random(0, $room->getPlayers()->count() - 1));
+        return $room->getPlayers()->get($this->random(0, $room->getPlayers()->count() - 1));
     }
 
     public function getPlayerInShip(Daedalus $ship): Player
     {
-      if($ship->getPlayers()->isEmpty())
-      {
-        throw new Error('getPlayerInShip: ship is empty');
-      }
+        if ($ship->getPlayers()->isEmpty()) {
+            throw new Error('getPlayerInShip: ship is empty');
+        }
 
-      return $ship->getPlayers()->get($this->random(0, $ship->getPlayers()->count() - 1));
+        return $ship->getPlayers()->get($this->random(0, $ship->getPlayers()->count() - 1));
     }
 
     public function getPlayerInDaedalus(Daedalus $ship): Player
     {
-      return $this->getPlayerInShip($ship);
+        return $this->getPlayerInShip($ship);
     }
 
     public function getItemInRoom(Room $room): GameItem
     {
-      if ($room->getItems()->isEmpty()) {
-        throw new Error('getItemInRoom: room has no items');
-      }
+        if ($room->getItems()->isEmpty()) {
+            throw new Error('getItemInRoom: room has no items');
+        }
         return $room->getItems()->get($this->random(0, $room->getItems()->count() - 1));
     }
-
 }

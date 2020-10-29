@@ -11,6 +11,7 @@ use Mush\Game\Entity\GameConfig;
  * Class DaedalusConfig
  * @package Mush\Daedalus\Entity
  * @ORM\Entity()
+ * @ORM\Table(name="config_daedalus")
  */
 class DaedalusConfig
 {

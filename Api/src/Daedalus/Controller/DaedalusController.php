@@ -25,8 +25,10 @@ class DaedalusController extends AbstractFOSRestController
      * @param DaedalusServiceInterface $daedalusService
      * @param GameConfigServiceInterface $gameConfigService
      */
-    public function __construct(DaedalusServiceInterface $daedalusService, GameConfigServiceInterface $gameConfigService)
-    {
+    public function __construct(
+        DaedalusServiceInterface $daedalusService,
+        GameConfigServiceInterface $gameConfigService
+    ) {
         $this->daedalusService = $daedalusService;
         $this->gameConfigService = $gameConfigService;
     }

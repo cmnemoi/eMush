@@ -35,8 +35,14 @@ class RoomLogService implements RoomLogServiceInterface
         return $this->repository->find($id);
     }
 
-    public function createPlayerLog(string $logKey, Room $room, Player $player, string $visibility, \DateTime $dateTime, ?RoomLogParameter $roomLogParameter = null): RoomLog
-    {
+    public function createPlayerLog(
+        string $logKey,
+        Room $room,
+        Player $player,
+        string $visibility,
+        \DateTime $dateTime,
+        ?RoomLogParameter $roomLogParameter = null
+    ): RoomLog {
         $roomLog= new RoomLog();
         $roomLog
             ->setLog($logKey)
@@ -50,8 +56,14 @@ class RoomLogService implements RoomLogServiceInterface
         return $this->persist($roomLog);
     }
 
-    public function createItemLog(string $logKey, Room $room, GameItem $item, string $visibility, \DateTime $dateTime, ?RoomLogParameter $roomLogParameter = null): RoomLog
-    {
+    public function createItemLog(
+        string $logKey,
+        Room $room,
+        GameItem $item,
+        string $visibility,
+        \DateTime $dateTime,
+        ?RoomLogParameter $roomLogParameter = null
+    ): RoomLog {
         $roomLog= new RoomLog();
         $roomLog
             ->setLog($logKey)
@@ -65,8 +77,13 @@ class RoomLogService implements RoomLogServiceInterface
         return $this->persist($roomLog);
     }
 
-    public function createRoomLog(string $logKey, Room $room, string $visibility, \DateTime $dateTime, ?RoomLogParameter $roomLogParameter = null): RoomLog
-    {
+    public function createRoomLog(
+        string $logKey,
+        Room $room,
+        string $visibility,
+        \DateTime $dateTime,
+        ?RoomLogParameter $roomLogParameter = null
+    ): RoomLog {
         $roomLog= new RoomLog();
         $roomLog
             ->setLog($logKey)

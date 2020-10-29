@@ -4,14 +4,18 @@
 namespace Mush\Item\Entity\Items;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Item\Entity\Item;
+use Mush\Item\Entity\ItemType;
+use Mush\Item\Enum\ItemTypeEnum;
 
 /**
  * @ORM\Entity()
  */
-class Ration extends Item
+class Ration extends ItemType
 {
+    protected string $type = ItemTypeEnum::RATION;
+
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
@@ -67,15 +71,15 @@ class Ration extends Item
      */
     private array $diseases = [];
 
-    public function getDaedalus(): Daedalus
+    //Rations currently only have consume Action
+    public function setActions(array $actions): Weapon
     {
-        return $this->daedalus;
+        return $this;
     }
 
-    public function setDaedalus(Daedalus $daedalus): Ration
+    public function getActions(): array
     {
-        $this->daedalus = $daedalus;
-        return $this;
+        return [ActionEnum::CONSUME];
     }
 
     public function getMinActionPoint(): int

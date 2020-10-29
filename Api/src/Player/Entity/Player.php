@@ -229,6 +229,12 @@ class Player
         return $this;
     }
 
+    public function addHealthPoint(int $healthPoint): Player
+    {
+        $this->healthPoint += $healthPoint;
+        return $this;
+    }
+
     public function getMoralPoint(): int
     {
         return $this->moralPoint;
@@ -237,6 +243,12 @@ class Player
     public function setMoralPoint(int $moralPoint): Player
     {
         $this->moralPoint = $moralPoint;
+        return $this;
+    }
+
+    public function addMoralPoint(int $moralPoint): Player
+    {
+        $this->moralPoint += $moralPoint;
         return $this;
     }
 
@@ -251,6 +263,12 @@ class Player
         return $this;
     }
 
+    public function addActionPoint(int $actionPoint): Player
+    {
+        $this->actionPoint += $actionPoint;
+        return $this;
+    }
+
     public function getMovementPoint(): int
     {
         return $this->movementPoint;
@@ -259,6 +277,12 @@ class Player
     public function setMovementPoint(int $movementPoint): Player
     {
         $this->movementPoint = $movementPoint;
+        return $this;
+    }
+
+    public function addMovementPoint(int $movementPoint): Player
+    {
+        $this->movementPoint += $movementPoint;
         return $this;
     }
 

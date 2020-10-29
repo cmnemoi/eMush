@@ -5,27 +5,30 @@ namespace Mush\Action\Actions;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Game\Enum\StatusEnum;
 use Mush\Item\Entity\GameItem;
 use Mush\Item\Entity\Item;
 use Mush\Item\Service\GameItemServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\RoomLog\Service\RoomLogServiceInterface;
 
 class Drop extends Action
 {
     private Player $player;
     private GameItem $item;
+    private RoomLogServiceInterface $roomLogService;
     private GameItemServiceInterface $itemService;
     private PlayerServiceInterface $playerService;
 
-    /**
-     * Take constructor.
-     * @param GameItemServiceInterface $itemService
-     * @param PlayerServiceInterface $playerService
-     */
-    public function __construct(GameItemServiceInterface $itemService, PlayerServiceInterface $playerService)
-    {
+    public function __construct(
+        RoomLogServiceInterface $roomLogService,
+        GameItemServiceInterface $itemService,
+        PlayerServiceInterface $playerService
+    ) {
+        $this->roomLogService = $roomLogService;
         $this->itemService = $itemService;
         $this->playerService = $playerService;
     }
@@ -42,8 +45,8 @@ class Drop extends Action
     public function canExecute(): bool
     {
         return $this->player->getItems()->contains($this->item) &&
-        $this->item->isDropable()
-        ;
+            $this->item->getItem()->isDropable()
+            ;
     }
 
     protected function apply(): ActionResult
@@ -66,6 +69,12 @@ class Drop extends Action
 
     protected function createLog(ActionResult $actionResult): void
     {
-        // TODO: Implement createLog() method.
+        $this->roomLogService->createItemLog(
+            ActionEnum::DROP,
+            $this->player->getRoom(),
+            $this->item,
+            VisibilityEnum::PUBLIC,
+            new \DateTime('now')
+        );
     }
 }

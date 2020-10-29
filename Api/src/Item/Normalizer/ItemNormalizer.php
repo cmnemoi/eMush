@@ -3,16 +3,7 @@
 namespace Mush\Item\Normalizer;
 
 use Mush\Action\Enum\ActionEnum;
-use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Normalizer\DaedalusNormalizer;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Item\Entity\GameItem;
-use Mush\Item\Entity\Item;
-use Mush\Player\Entity\Player;
-use Mush\Room\Normalizer\RoomNormalizer;
-use Mush\User\Entity\User;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 
 class ItemNormalizer implements ContextAwareNormalizerInterface

@@ -2,13 +2,14 @@
 
 namespace Mush\Test\Item\CycleHandler;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Item\CycleHandler\PlantCycleHandler;
 use Mush\Item\Entity\GameItem;
-use Mush\Item\Entity\Items\Fruit;
+use Mush\Item\Entity\Item;
 use Mush\Item\Entity\Items\Plant;
 use Mush\Item\Entity\PlantEffect;
 use Mush\Item\Enum\PlantStatusEnum;
@@ -60,7 +61,10 @@ class PlantCycleHandlerTest extends TestCase
 
     public function testNewCycle()
     {
-        $plant = new Plant();
+        $plant = new Item();
+
+        $plantType = new Plant();
+        $plant->setTypes(new ArrayCollection([$plantType]));
 
         $this->roomLogService->shouldReceive('createItemLog');
         $this->itemService->shouldReceive('persist');
@@ -93,7 +97,7 @@ class PlantCycleHandlerTest extends TestCase
         ;
         $this->randomService->shouldReceive('random')->andReturn(1)->once(); //Plant should get disease
 
-        $this->plantCycleHandler->handleNewCycle($gamePlant,$daedalus, new \DateTime());
+        $this->plantCycleHandler->handleNewCycle($gamePlant, $daedalus, new \DateTime());
 
         $this->assertEquals(10, $gamePlant->getCharge());
         $this->assertNotContains(PlantStatusEnum::YOUNG, $gamePlant->getStatuses());
@@ -112,17 +116,21 @@ class PlantCycleHandlerTest extends TestCase
         $room->addPlayer($player);
         $room->setDaedalus($daedalus);
 
-        $newFruit  = new Fruit();
+        $newFruit  = new Item();
         $newFruit->setName('fruit name');
         $this->itemService->shouldReceive('persist');
         $this->roomLogService->shouldReceive('createItemLog');
         $this->itemService->shouldReceive('createGameItemFromName')->andReturn(new GameItem());
 
-        $plant = new Plant();
+        $plant = new Item();
         $plant
             ->setName('plant name')
-            ->setFruit($newFruit)
         ;
+        $plantType = new Plant();
+        $plantType->setFruit($newFruit);
+
+        $plant->setTypes(new ArrayCollection([$plantType]));
+
         $plantEffect = new PlantEffect();
         $plantEffect
             ->setMaturationTime(10)

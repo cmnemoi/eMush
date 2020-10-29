@@ -13,4 +13,10 @@ class ItemTypeEnum
     public const INSTRUMENT = 'instrument';
     public const FRUIT = 'fruit';
     public const PLANT = 'plant';
+    public const DRUG = 'drug';
+    public const BOOK = 'book';
+    public const BLUEPRINT = 'blueprint';
+    public const COMPONENT = 'component';
+    public const DOCUMENT = 'document';
+    public const ENTITY = 'entity';
 }

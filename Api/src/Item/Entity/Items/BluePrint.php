@@ -4,6 +4,7 @@
 namespace Mush\Item\Entity\Items;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Item\Enum\ItemTypeEnum;
 
 /**
  * Class Item
@@ -13,4 +14,5 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class BluePrint extends Tool
 {
+    protected string $type = ItemTypeEnum::BLUEPRINT;
 }

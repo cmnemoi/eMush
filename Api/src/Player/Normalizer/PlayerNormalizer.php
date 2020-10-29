@@ -6,6 +6,8 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Normalizer\DaedalusNormalizer;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\GameConfigServiceInterface;
+use Mush\Item\Entity\GameItem;
+use Mush\Item\Normalizer\ItemNormalizer;
 use Mush\Player\Entity\Player;
 use Mush\Room\Normalizer\RoomNormalizer;
 use Mush\User\Entity\User;
@@ -17,21 +19,18 @@ class PlayerNormalizer implements ContextAwareNormalizerInterface
     private DaedalusNormalizer $daedalusNormalizer;
     private RoomNormalizer $roomNormalizer;
     private TokenStorageInterface $tokenStorage;
+    private ItemNormalizer $itemNormalizer;
 
-    /**
-     * PlayerNormalizer constructor.
-     * @param DaedalusNormalizer $daedalusNormalizer
-     * @param RoomNormalizer $roomNormalizer
-     * @param TokenStorageInterface $tokenStorage
-     */
     public function __construct(
         DaedalusNormalizer $daedalusNormalizer,
         RoomNormalizer $roomNormalizer,
-        TokenStorageInterface $tokenStorage
+        TokenStorageInterface $tokenStorage,
+        ItemNormalizer $itemNormalizer
     ) {
         $this->daedalusNormalizer = $daedalusNormalizer;
         $this->roomNormalizer = $roomNormalizer;
         $this->tokenStorage = $tokenStorage;
+        $this->itemNormalizer = $itemNormalizer;
     }
 
     public function supportsNormalization($data, string $format = null, array $context = [])
@@ -49,7 +48,14 @@ class PlayerNormalizer implements ContextAwareNormalizerInterface
     {
         $playerPersonalInfo = [];
         if ($this->getUser()->getCurrentGame() === $player) {
+            $items = [];
+            /** @var GameItem $item */
+            foreach ($player->getItems() as $item) {
+                $items[] = $this->itemNormalizer->normalize($item);
+            }
+
             $playerPersonalInfo = [
+                'items' => $items,
                 'actionPoint' => $player->getActionPoint(),
                 'movementPoint' => $player->getMovementPoint(),
                 'healthPoint' => $player->getHealthPoint(),
@@ -61,11 +67,11 @@ class PlayerNormalizer implements ContextAwareNormalizerInterface
 
         return array_merge([
             'id' => $player->getId(),
-            'daedalus' => $this->daedalusNormalizer->normalize($player->getDaedalus()),
-            'room' => $this->roomNormalizer->normalize($player->getRoom()),
             'character' => $player->getPerson(),
             'gameStatus' => $player->getGameStatus(),
             'statuses' => $player->getStatuses(),
+            'daedalus' => $this->daedalusNormalizer->normalize($player->getDaedalus()),
+            'room' => $this->roomNormalizer->normalize($player->getRoom()),
             'skills' => $player->getSkills(),
         ], $playerPersonalInfo);
     }

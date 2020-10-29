@@ -20,7 +20,7 @@ class DaedalusConfigFixtures extends Fixture implements DependentFixtureInterfac
         $daedalusConfig = new DaedalusConfig();
 
         $daedalusConfig
-            ->setGameConfig($this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG),)
+            ->setGameConfig($this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG))
             ->setInitOxygen(10)
             ->setInitFuel(10)
             ->setInitHull(100)

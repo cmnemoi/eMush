@@ -4,7 +4,8 @@
 namespace Mush\Item\Entity\Items;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Item\Entity\Item;
+use Mush\Item\Entity\ItemType;
+use Mush\Item\Enum\ItemTypeEnum;
 
 /**
  * Class Item
@@ -12,25 +13,7 @@ use Mush\Item\Entity\Item;
  *
  * @ORM\Entity
  */
-class Tool extends Item
+class Tool extends ItemType
 {
-    protected array $actions;
-
-    /**
-     * @return array
-     */
-    public function getActions(): array
-    {
-        return $this->actions;
-    }
-
-    /**
-     * @param array $actions
-     * @return Tool
-     */
-    public function setActions(array $actions): Tool
-    {
-        $this->actions = $actions;
-        return $this;
-    }
+    protected string $type = ItemTypeEnum::TOOL;
 }

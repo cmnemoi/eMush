@@ -35,17 +35,39 @@ class ItemEffectService implements ItemEffectServiceInterface
 
     public function getConsumableEffect(Ration $ration, Daedalus $daedalus): ConsumableEffect
     {
-        $consumableEffect = $this->consumableEffectRepository->findOneBy(['ration' => $ration, 'daedalus' => $daedalus]);
+        $consumableEffect = $this->consumableEffectRepository
+            ->findOneBy(['ration' => $ration, 'daedalus' => $daedalus])
+        ;
 
         if ($consumableEffect === null) {
             $consumableEffect = new ConsumableEffect();
             $consumableEffect
                 ->setDaedalus($daedalus)
                 ->setRation($ration)
-                ->setHealthPoint($this->randomService->random($ration->getMinHealthPoint(), $ration->getMaxHealthPoint()))
-                ->setMoralPoint($this->randomService->random($ration->getMinMoralPoint(), $ration->getMaxMoralPoint()))
-                ->setActionPoint($this->randomService->random($ration->getMinActionPoint(), $ration->getMaxActionPoint()))
-                ->setMovementPoint($this->randomService->random($ration->getMinMovementPoint(), $ration->getMaxMovementPoint()))
+                ->setHealthPoint(
+                    $this->randomService->random(
+                        $ration->getMinHealthPoint(),
+                        $ration->getMaxHealthPoint()
+                    )
+                )
+                ->setMoralPoint(
+                    $this->randomService->random(
+                        $ration->getMinMoralPoint(),
+                        $ration->getMaxMoralPoint()
+                    )
+                )
+                ->setActionPoint(
+                    $this->randomService->random(
+                        $ration->getMinActionPoint(),
+                        $ration->getMaxActionPoint()
+                    )
+                )
+                ->setMovementPoint(
+                    $this->randomService->random(
+                        $ration->getMinMovementPoint(),
+                        $ration->getMaxMovementPoint()
+                    )
+                )
             ;
 
             $this->consumableEffectRepository->persist($consumableEffect);
@@ -56,14 +78,21 @@ class ItemEffectService implements ItemEffectServiceInterface
 
     public function getPlantEffect(Plant $plant, Daedalus $daedalus): PlantEffect
     {
-        $plantEffect = $this->plantEffectRepository->findOneBy(['plant' => $plant, 'daedalus' => $daedalus]);
+        $plantEffect = $this->plantEffectRepository
+            ->findOneBy(['plant' => $plant, 'daedalus' => $daedalus])
+        ;
 
         if ($plantEffect === null) {
             $plantEffect = new PlantEffect();
             $plantEffect
                 ->setDaedalus($daedalus)
                 ->setPlant($plant)
-                ->setMaturationTime($this->randomService->random($plant->getMinMaturationTime(), $plant->getMaxMaturationTime()))
+                ->setMaturationTime(
+                    $this->randomService->random(
+                        $plant->getMinMaturationTime(),
+                        $plant->getMaxMaturationTime()
+                    )
+                )
                 ->setOxygen($this->randomService->random($plant->getMinOxygen(), $plant->getMaxOxygen()))
             ;
 

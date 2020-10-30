@@ -1,5 +1,11 @@
 nelmio_api_doc:
     documentation:
+        components:
+            securitySchemes:
+                Bearer:
+                    type: http
+                    scheme: bearer
+                    bearerFormat: JWT
         info:
             title: eMush API
             description: This is the eMush Rest APi

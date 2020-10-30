@@ -8,8 +8,10 @@ use FOS\RestBundle\Controller\Annotations\Route;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Mush\User\Entity\User;
 use Mush\User\Service\UserServiceInterface;
+use Nelmio\ApiDocBundle\Annotation\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use OpenApi\Annotations as OA;
 
 /**
  * Class LoginController
@@ -34,6 +36,24 @@ class LoginController extends AbstractFOSRestController
     }
 
     /**
+     *
+     * Login
+     *
+     * @OA\RequestBody (
+     *      description="Input data format",
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *      @OA\Schema(
+     *              type="object",
+     *                 @OA\Property(
+     *                     property="username",
+     *                     description="The user username",
+     *                     type="string",
+     *                 ),
+     *             )
+     *         )
+     *     )
+     * @OA\Tag(name="Login")
      * @Post(name="username_login", path="/login")
      */
     public function loginAction(Request $request)

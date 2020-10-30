@@ -5,13 +5,13 @@ namespace Mush\Player\Controller;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
-use Mush\Game\CycleHandler\CycleHandlerInterface;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
+use Nelmio\ApiDocBundle\Annotation\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use OpenApi\Annotations as OA;
 
 /**
  * Class UsersController
@@ -41,6 +41,16 @@ class PlayerController extends AbstractFOSRestController
     }
 
     /**
+     * Display Player in-game information
+     *
+     * @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     description="The player id",
+     *     @OA\Schema(type="integer")
+     * )
+     * @OA\Tag(name="Player")
+     * @Security(name="Bearer")
      * @Rest\Get(path="/{id}")
      */
     public function getPlayerAction(Request $request): Response
@@ -59,6 +69,30 @@ class PlayerController extends AbstractFOSRestController
     }
 
     /**
+     * Create a player
+     *
+     * @OA\RequestBody (
+     *      description="Input data format",
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *      @OA\Schema(
+     *              type="object",
+     *                 @OA\Property(
+     *                     property="daedalus",
+     *                     description="The daedalus to add the player",
+     *                     type="integer",
+     *                 ),
+     *                 @OA\Property(
+     *                     property="character",
+     *                     description="The character selected",
+     *                     type="string"
+     *                 )
+     *             )
+     *             )
+     *         )
+     *     )
+     * @OA\Tag(name="Player")
+     * @Security(name="Bearer")
      * @Rest\Post(path="")
      */
     public function createPlayerAction(Request $request): Response

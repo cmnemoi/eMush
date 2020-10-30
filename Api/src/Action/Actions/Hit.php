@@ -28,8 +28,8 @@ class Hit extends Action
 
         $this->player  = $player;
         $this->target  = $target;
-	$this->cost_pa = 1
-	$this->chance_success = 50
+	$this->cost_pa = 1;
+	$this->chance_success = 50;
     }
 
     public function canExecute(): bool

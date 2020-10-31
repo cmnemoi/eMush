@@ -1,0 +1,6 @@
+parameters:
+  actions:
+    move: Mush\Action\Actions\Move
+    take: Mush\Action\Actions\Take
+    drop: Mush\Action\Actions\Drop
+    hit:  Mush\Action\Actions\Hit

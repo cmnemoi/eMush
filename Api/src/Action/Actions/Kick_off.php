@@ -44,18 +44,21 @@ class Hit extends Action
             
         $this->playerService->persist($this->player);
 
-	if (random(0, 1)< $this->chance_success){
+	if (random(0, 100)< $this->chance_success){
 		// TODO: add log
 	} else {
-		$this->damage = random(1, 4);
+		$this->damage = random(1, 3);
 
-		if (in_array(, $this->player->getSkills())){
+		if (in_array('solid', $this->player->getSkills())){
 			$this->damage=$this->damage+1;
 		}
-		if (in_array(, $this->target->getSkills())){
+		if (in_array('wrestler', $this->player->getSkills())){
+			$this->damage=$this->damage+2;
+		}
+		if (in_array('hard_boiled', $this->target->getSkills())){
 			$this->damage=$this->damage-1;
 		}
-		if (in_array(, $this->target->getItems())){
+		if($player->hasItemByName(ItemEnum::PLASTENITE_ARMOR)) {
 			$this->damage=$this->damage-1;
 		}
 		if ($this->damage<=0) {
@@ -63,7 +66,7 @@ class Hit extends Action
 		} elseif ($this->target->getHealthPoint()>damage) {
 			$this->target->setHealthPoint($this->target->getHealthPoint() - $this->damage);
             
-        		$this->playerService->persist($this->target);
+        	$this->playerService->persist($this->target);
 			
 		} else {
 			// TODO: kill the target

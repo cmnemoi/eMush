@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
+    <file id="actions.ext">
+        <unit id="move">
+            <segment id="name">
+                <source>move.name</source>
+                <target>Se déplacer</target>
+            </segment>
+            <segment id="description">
+                <source>move.description</source>
+                <target>Changez de pièce</target>
+            </segment>
+        </unit>
+        <unit id="take">
+            <segment id="name">
+                <source>take.name</source>
+                <target>Prendre</target>
+            </segment>
+            <segment id="description">
+                <source>take.description</source>
+                <target>Prends un objet dans la pièce courrante et le place dans votre inventaire</target>
+            </segment>
+        </unit>
+        <unit id="drop">
+            <segment id="name">
+                <source>drop.name</source>
+                <target>Lâcher</target>
+            </segment>
+            <segment id="description">
+                <source>drop.description</source>
+                <target>Pose un objet dans la pièce ou vous vous trouvez</target>
+            </segment>
+        </unit>
+
+    </file>
+</xliff>

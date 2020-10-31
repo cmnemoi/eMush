@@ -8,7 +8,10 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\SkillEnum;
+use Mush\Item\Entity\GameItem;
 use Mush\Item\Entity\Item;
+use Mush\Item\Entity\Items\Book;
 use Mush\Item\Entity\Items\Exploration;
 use Mush\Item\Entity\Items\Fruit;
 use Mush\Item\Entity\Items\Gear;
@@ -436,7 +439,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHeavy(false)
             ->setIsDismantable(false)
             ->setIsTakeable(true)
-            ->setIsDropable(false)
+            ->setIsDropable(true)
             ->setIsStackable(false)
             ->setIsHideable(false)
             ->setIsFireDestroyable(false)
@@ -445,6 +448,28 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($bananaTreeType);
         $manager->persist($bananaTree);
+
+        $apprentonPilotType = new Book();
+        $apprentonPilotType
+            ->setSkill(SkillEnum::PILOT)
+        ;
+
+        $apprentonPilot = new Item();
+        $apprentonPilot
+            ->setGameConfig($gameConfig)
+            ->setName(ItemEnum::APPRENTON_PILOT)
+            ->setIsHeavy(false)
+            ->setIsDismantable(false)
+            ->setIsTakeable(true)
+            ->setIsDropable(true)
+            ->setIsStackable(true)
+            ->setIsHideable(true)
+            ->setIsFireDestroyable(true)
+            ->setIsFireBreakable(false)
+            ->setTypes(new ArrayCollection([$apprentonPilotType]))
+        ;
+        $manager->persist($apprentonPilotType);
+        $manager->persist($apprentonPilot);
 
         $manager->flush();
     }

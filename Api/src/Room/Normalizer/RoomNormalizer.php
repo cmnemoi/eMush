@@ -9,15 +9,21 @@ use Mush\Item\Normalizer\ItemNormalizer;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Door;
 use Mush\Room\Entity\Room;
+use Mush\User\Entity\User;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 
 class RoomNormalizer implements ContextAwareNormalizerInterface
 {
     private ItemNormalizer $itemNormalizer;
+    private TokenStorageInterface $tokenStorage;
 
-    public function __construct(ItemNormalizer $itemNormalizer)
-    {
+    public function __construct(
+        ItemNormalizer $itemNormalizer,
+        TokenStorageInterface $tokenStorage
+    ) {
         $this->itemNormalizer = $itemNormalizer;
+        $this->tokenStorage = $tokenStorage;
     }
 
     public function supportsNormalization($data, string $format = null, array $context = [])
@@ -36,13 +42,16 @@ class RoomNormalizer implements ContextAwareNormalizerInterface
         $players = [];
         /** @var Player $player */
         foreach ($room->getPlayers() as $player) {
-            $players[] = [
-                'id' => $player->getId(),
-                'name' => $player->getPerson(),
-                'statuses' => $player->getStatuses(),
-                'skills' => $player->getSkills(),
-                'actions' => [ActionEnum::HIT]
-            ];
+            //Do not display user player in the room
+            if ($player !== $this->getUser()->getCurrentGame()) {
+                $players[] = [
+                    'id' => $player->getId(),
+                    'name' => $player->getPerson(),
+                    'statuses' => $player->getStatuses(),
+                    'skills' => $player->getSkills(),
+                    'actions' => [ActionEnum::HIT]
+                ];
+            }
         }
         $doors = [];
         /** @var Door $door */
@@ -70,5 +79,10 @@ class RoomNormalizer implements ContextAwareNormalizerInterface
             'createdAt' => $room->getCreatedAt(),
             'updatedAt' => $room->getUpdatedAt()
         ];
+    }
+
+    private function getUser(): User
+    {
+        return $this->tokenStorage->getToken()->getUser();
     }
 }

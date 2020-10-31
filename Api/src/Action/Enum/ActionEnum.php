@@ -14,6 +14,8 @@ class ActionEnum
     public const EXAMINE = 'examine';
     public const HIT = 'hit';
     public const REPAIR = 'repair';
+    public const READ_DOCUMENT = 'read_document';
+    public const READ_BOOK = 'read_book';
 
     // Mush-only actions
     public const EXTRACT_SPORE = 'extract_spore';

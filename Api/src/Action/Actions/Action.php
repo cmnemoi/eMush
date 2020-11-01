@@ -10,7 +10,9 @@ use Mush\Player\Entity\Player;
 abstract class Action
 {
     abstract public function loadParameters(Player $player, ActionParameters $actionParameters);
-    abstract protected function apply(): ActionResult;
+    abstract public function canExecute();
+    abstract protected function applyActionCost(): void;
+    abstract protected function applyEffects(): ActionResult;
     abstract protected function createLog(ActionResult $actionResult): void;
 
     public function execute(): ActionResult
@@ -19,7 +21,8 @@ abstract class Action
             return new Error('Cannot execute action');
         }
 
-        $result = $this->apply();
+        $this->applyActionCost();
+        $result = $this->applyEffects();
         $this->createLog($result);
 
         return $result;

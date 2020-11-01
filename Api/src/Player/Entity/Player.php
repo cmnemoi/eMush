@@ -160,6 +160,16 @@ class Player
         return $this;
     }
 
+    /**
+     * Return true if the item is reachable for the player i.e. in the inventory or the room
+     * @param GameItem $gameItem
+     * @return bool
+     */
+    public function canReachItem(GameItem $gameItem): bool
+    {
+        return $this->items->contains($gameItem) || $this->room->getItems()->contains($gameItem);
+    }
+
     public function getItems(): Collection
     {
         return $this->items;
@@ -205,6 +215,12 @@ class Player
     public function hasStatus(string $status): bool
     {
         return in_array($status, $this->statuses);
+    }
+
+    public function addSkill(string $skill): Player
+    {
+        $this->skills[] = $skill;
+        return $this;
     }
 
     public function getSkills(): ?array

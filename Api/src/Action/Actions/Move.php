@@ -45,15 +45,18 @@ class Move extends Action
             && $this->player->getRoom()->getDoors()->contains($this->door);
     }
 
-    protected function apply(): ActionResult
+    protected function applyActionCost(): void
     {
         if ($this->player->getMovementPoint() > 0) {
-            $this->player->setMovementPoint($this->player->getMovementPoint() - 1);
+            $this->player->addMovementPoint(-1);
         } elseif ($this->player->getActionPoint() > 0) {
-            $this->player->setActionPoint($this->player->getActionPoint() - 1);
-            $this->player->setMovementPoint(2);
+            $this->player->addActionPoint(-1);
+            $this->player->addMovementPoint(2);
         }
+    }
 
+    protected function applyEffects(): ActionResult
+    {
         $newRoom = $this->door->getRooms()->filter(fn (Room $room) => $room !== $this->player->getRoom())->first();
 
         $this->player->setRoom($newRoom);

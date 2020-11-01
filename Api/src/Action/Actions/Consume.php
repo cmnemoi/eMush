@@ -52,7 +52,12 @@ class Consume extends Action
             !$this->player->hasStatus('full'); // TODO: replace this with StatusEnum::full when it becomes available
     }
 
-    protected function apply(): ActionResult
+    protected function applyActionCost(): void
+    {
+        //No costs
+    }
+
+    protected function applyEffects(): ActionResult
     {
         $rationType = $this->item->getItem()->getRationsType();
 

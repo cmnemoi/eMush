@@ -55,7 +55,12 @@ class Take extends Action
             ;
     }
 
-    protected function apply(): ActionResult
+    protected function applyActionCost(): void
+    {
+        //No costs
+    }
+
+    protected function applyEffects(): ActionResult
     {
         $this->item->setRoom(null);
         $this->item->setPlayer($this->player);

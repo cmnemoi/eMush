@@ -34,4 +34,5 @@ class ItemEnum
     public const CHEESE_KNIFE = 'cheese_knife';
     public const PLASTIC_SCRAPS = 'plastic_scraps';
     public const METAL_SCRAPS = 'metal_scraps';
+    public const APPRENTON_PILOT = 'apprenton_pilot';
 }

@@ -101,6 +101,9 @@ class RoomConfigFixtures extends Fixture implements DependentFixtureInterface
         $laboratory
             ->setDaedalusConfig($this->getReference(DaedalusConfigFixtures::DEFAULT_DAEDALUS))
             ->setName(RoomEnum::LABORATORY)
+            ->setItems([
+                ItemEnum::APPRENTON_PILOT
+            ])
             ->setDoors([
                 DoorEnum::FRONT_CORRIDOR_LABORATORY,
                 DoorEnum::MEDLAB_LABORATORY,

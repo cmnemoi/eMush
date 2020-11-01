@@ -3,6 +3,7 @@
 
 namespace Mush\Item\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Player\Entity\Player;
@@ -59,6 +60,11 @@ class GameItem
         return $this->id;
     }
 
+    public function getActions(): Collection
+    {
+        return $this->item->getActions();
+    }
+
     public function getStatuses(): ?array
     {
         return $this->statuses;
@@ -113,7 +119,7 @@ class GameItem
 
     public function setPlayer(?Player $player): GameItem
     {
-        if ($player === null) {
+        if ($player === null && $this->player !== null) {
             $this->player->removeItem($this);
         } elseif ($this->player !== $player) {
             $player->addItem($this);

@@ -239,10 +239,15 @@ class Item
         return $this;
     }
 
-    public function getActions(): array
+
+    public function getActions(): Collection
     {
-        $typeActions = ActionEnum::getPermanentItemActions();
-        $this->getTypes()->forAll(fn(ItemType $itemType) => $typeActions[] = $itemType->getActions());
-        return $typeActions;
+        $actions = ActionEnum::getPermanentItemActions();
+
+        foreach ($this->getTypes() as $itemType) {
+            $actions = array_merge($actions, $itemType->getActions());
+        }
+
+        return new ArrayCollection($actions);
     }
 }

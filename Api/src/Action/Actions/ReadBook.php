@@ -6,17 +6,22 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\StatusEnum;
 use Mush\Item\Entity\GameItem;
-use Mush\Item\Entity\Item;
+use Mush\Item\Entity\Items\Book;
+use Mush\Item\Entity\ItemType;
+use Mush\Item\Enum\ItemTypeEnum;
 use Mush\Item\Service\GameItemServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 
-class Drop extends Action
+class ReadBook extends Action
 {
+    private int $costInActionPoint = 4;
+
     private Player $player;
     private GameItem $item;
     private RoomLogServiceInterface $roomLogService;
@@ -44,29 +49,29 @@ class Drop extends Action
 
     public function canExecute(): bool
     {
-        return $this->player->getItems()->contains($this->item) &&
-            $this->item->getItem()->isDropable()
+        return $this->item->getItem()->getItemType(ItemTypeEnum::BOOK) !== null &&
+            $this->player->canReachItem($this->item) &&
+            $this->player->getActionPoint() >= $this->costInActionPoint
             ;
     }
 
     protected function applyActionCost(): void
     {
-        //No costs
+        $this->player->addActionPoint($this->costInActionPoint * (-1));
     }
 
     protected function applyEffects(): ActionResult
     {
-        $this->item->setRoom($this->player->getRoom());
-        $this->item->setPlayer(null);
+        /** @var Book $bookType */
+        $bookType = $this->item->getItem()->getItemType(ItemTypeEnum::BOOK);
+        $this->player->addSkill($bookType->getSkill());
 
-        // Remove BURDENED status if no other heavy item in the inventory
-        if (in_array(StatusEnum::BURDENED, $this->player->getStatuses()) &&
-            $this->player->getItems()->exists(fn (Item $item) => $item->isHeavy())
-        ) {
-            $this->player->setStatuses(\array_diff($this->player->getStatuses(), [StatusEnum::BURDENED]));
-        }
+        $this->item
+            ->setRoom(null)
+            ->setPlayer(null)
+        ;
 
-        $this->itemService->persist($this->item);
+        $this->itemService->delete($this->item);
         $this->playerService->persist($this->player);
 
         return new Success();
@@ -74,10 +79,10 @@ class Drop extends Action
 
     protected function createLog(ActionResult $actionResult): void
     {
-        $this->roomLogService->createItemLog(
-            ActionEnum::DROP,
+        $this->roomLogService->createPlayerLog(
+            ActionEnum::READ_BOOK,
             $this->player->getRoom(),
-            $this->item,
+            $this->player,
             VisibilityEnum::PUBLIC,
             new \DateTime('now')
         );

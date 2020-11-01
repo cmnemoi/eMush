@@ -3,13 +3,14 @@
 namespace Mush\Action\Service;
 
 use Mush\Action\ActionResult\ActionResult;
+use Mush\Action\ActionResult\Error;
+use Mush\Action\ActionResult\Fail;
 use Mush\Action\Actions\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Item\Service\GameItemServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Service\DoorServiceInterface;
-use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ActionService implements ActionServiceInterface
@@ -42,22 +43,40 @@ class ActionService implements ActionServiceInterface
         $this->doorService = $doorService;
     }
 
-    private function getActionClass(Player $player, string $actionName, array $params): Action
-    {
-        $actionParams = $this->loadParameter($params);
-
-        /** @var Action $action */
-        $action = $this->container->get($this->actionsConfig[$actionName]);
-        $action->loadParameters($player, $actionParams);
-
-        return $action;
-    }
-
     public function executeAction(Player $player, string $actionName, array $params): ActionResult
     {
-        $action = $this->getActionClass($player, $actionName, $params);
+        $action = $this->getActionClass($actionName);
+
+        if ($action === null) {
+            return new Error('Action do not exist');
+        }
+
+        $actionParams = $this->loadParameter($params);
+        $action->loadParameters($player, $actionParams);
 
         return $action->execute();
+    }
+
+    public function canExecuteAction(Player $player, string $actionName, ActionParameters $params): bool
+    {
+        $action = $this->getActionClass($actionName);
+
+        if ($action === null) {
+            return false;
+        }
+
+        $action->loadParameters($player, $params);
+
+        return $action->canExecute();
+    }
+
+    private function getActionClass(string $actionName): ?Action
+    {
+        if (!isset($this->actionsConfig[$actionName])) {
+            return null;
+        }
+
+        return $this->container->get($this->actionsConfig[$actionName]);
     }
 
     private function loadParameter($parameter): ActionParameters

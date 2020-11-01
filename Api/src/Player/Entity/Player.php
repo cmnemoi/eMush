@@ -299,6 +299,11 @@ class Player
     public function addMovementPoint(int $movementPoint): Player
     {
         $this->movementPoint += $movementPoint;
+        if ($this->getMovementPoint() < 0) {
+            $this->addActionPoint(-1);
+            $this->addMovementPoint(3); //TODO improve conversion with disabled and scooter
+        }
+
         return $this;
     }
 

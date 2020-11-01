@@ -4,24 +4,16 @@
 namespace Mush\Test\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mush\Action\ActionResult\Error;
-use Mush\Action\ActionResult\Fail;
+use Mockery;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Action;
 use Mush\Action\Actions\ReadBook;
-use Mush\Action\Actions\Take;
 use Mush\Action\Entity\ActionParameters;
-use Mush\Daedalus\Entity\Daedalus;
-use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\SkillEnum;
-use Mush\Game\Service\CycleService;
-use Mush\Game\Service\GameConfigServiceInterface;
-use \Mockery;
 use Mush\Item\Entity\Fruit;
 use Mush\Item\Entity\GameItem;
 use Mush\Item\Entity\Item;
 use Mush\Item\Entity\Items\Book;
-use Mush\Item\Entity\Items\Tool;
 use Mush\Item\Service\GameItemServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
@@ -77,7 +69,9 @@ class ReadBookActionTest extends TestCase
         $actionParameter->setItem($gameItem);
         $player = new Player();
         $player
-            ->setActionPoint(4)
+            ->setActionPoint(10)
+            ->setMovementPoint(10)
+            ->setMoralPoint(10)
             ->setRoom($room)
         ;
 

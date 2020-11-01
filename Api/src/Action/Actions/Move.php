@@ -2,6 +2,7 @@
 
 namespace Mush\Action\Actions;
 
+use Mush\Action\Entity\ActionCost;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
@@ -16,8 +17,10 @@ use Mush\RoomLog\Service\RoomLogServiceInterface;
 
 class Move extends Action
 {
-    private Player $player;
+    protected const NAME = ActionEnum::MOVE;
+
     private Door $door;
+
     private RoomLogServiceInterface $roomLogService;
     private PlayerServiceInterface $playerService;
 
@@ -27,6 +30,8 @@ class Move extends Action
     ) {
         $this->roomLogService = $roomLogService;
         $this->playerService = $playerService;
+        $this->actionCost = new ActionCost();
+        $this->actionCost->setMovementPointCost(1);
     }
 
     public function loadParameters(Player $player, ActionParameters $actionParameters)
@@ -43,16 +48,6 @@ class Move extends Action
     {
         return ($this->player->getActionPoint() > 0 || $this->player->getMovementPoint() > 0)
             && $this->player->getRoom()->getDoors()->contains($this->door);
-    }
-
-    protected function applyActionCost(): void
-    {
-        if ($this->player->getMovementPoint() > 0) {
-            $this->player->addMovementPoint(-1);
-        } elseif ($this->player->getActionPoint() > 0) {
-            $this->player->addActionPoint(-1);
-            $this->player->addMovementPoint(2);
-        }
     }
 
     protected function applyEffects(): ActionResult
@@ -82,5 +77,10 @@ class Move extends Action
             VisibilityEnum::PUBLIC,
             new \DateTime('now')
         );
+    }
+
+    public function getActionName(): string
+    {
+        return self::NAME;
     }
 }

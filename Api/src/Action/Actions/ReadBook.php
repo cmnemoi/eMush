@@ -2,15 +2,13 @@
 
 namespace Mush\Action\Actions;
 
+use Mush\Action\Entity\ActionCost;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Game\Enum\SkillEnum;
-use Mush\Game\Enum\StatusEnum;
 use Mush\Item\Entity\GameItem;
 use Mush\Item\Entity\Items\Book;
-use Mush\Item\Entity\ItemType;
 use Mush\Item\Enum\ItemTypeEnum;
 use Mush\Item\Service\GameItemServiceInterface;
 use Mush\Player\Entity\Player;
@@ -20,10 +18,10 @@ use Mush\RoomLog\Service\RoomLogServiceInterface;
 
 class ReadBook extends Action
 {
-    private int $costInActionPoint = 4;
+    protected const NAME = ActionEnum::READ_BOOK;
 
-    private Player $player;
     private GameItem $item;
+
     private RoomLogServiceInterface $roomLogService;
     private GameItemServiceInterface $itemService;
     private PlayerServiceInterface $playerService;
@@ -36,6 +34,8 @@ class ReadBook extends Action
         $this->roomLogService = $roomLogService;
         $this->itemService = $itemService;
         $this->playerService = $playerService;
+        $this->actionCost = new ActionCost();
+        $this->actionCost->setActionPointCost(4);
     }
 
     public function loadParameters(Player $player, ActionParameters $actionParameters)
@@ -50,14 +50,8 @@ class ReadBook extends Action
     public function canExecute(): bool
     {
         return $this->item->getItem()->getItemType(ItemTypeEnum::BOOK) !== null &&
-            $this->player->canReachItem($this->item) &&
-            $this->player->getActionPoint() >= $this->costInActionPoint
+            $this->player->canReachItem($this->item)
             ;
-    }
-
-    protected function applyActionCost(): void
-    {
-        $this->player->addActionPoint($this->costInActionPoint * (-1));
     }
 
     protected function applyEffects(): ActionResult
@@ -86,5 +80,10 @@ class ReadBook extends Action
             VisibilityEnum::PUBLIC,
             new \DateTime('now')
         );
+    }
+
+    public function getActionName(): string
+    {
+        return self::NAME;
     }
 }

@@ -1,5 +1,3 @@
-imports:
-  - { resource: ./actions.yaml }
 
 services:
   _defaults:
@@ -24,8 +22,4 @@ services:
 
   Mush\Action\Actions\:
     resource: '../Actions/'
-    public: true
-
-  Mush\Action\Service\ActionService:
-    arguments:
-      - '%actions%'
+    tags: ['mush.action']

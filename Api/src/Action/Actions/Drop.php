@@ -2,6 +2,7 @@
 
 namespace Mush\Action\Actions;
 
+use Mush\Action\Entity\ActionCost;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
@@ -17,8 +18,10 @@ use Mush\RoomLog\Service\RoomLogServiceInterface;
 
 class Drop extends Action
 {
-    private Player $player;
+    const NAME = ActionEnum::DROP;
+
     private GameItem $item;
+
     private RoomLogServiceInterface $roomLogService;
     private GameItemServiceInterface $itemService;
     private PlayerServiceInterface $playerService;
@@ -31,6 +34,7 @@ class Drop extends Action
         $this->roomLogService = $roomLogService;
         $this->itemService = $itemService;
         $this->playerService = $playerService;
+        $this->actionCost = new ActionCost();
     }
 
     public function loadParameters(Player $player, ActionParameters $actionParameters)
@@ -47,11 +51,6 @@ class Drop extends Action
         return $this->player->getItems()->contains($this->item) &&
             $this->item->getItem()->isDropable()
             ;
-    }
-
-    protected function applyActionCost(): void
-    {
-        //No costs
     }
 
     protected function applyEffects(): ActionResult
@@ -81,5 +80,10 @@ class Drop extends Action
             VisibilityEnum::PUBLIC,
             new \DateTime('now')
         );
+    }
+
+    public function getActionName(): string
+    {
+        return self::NAME;
     }
 }

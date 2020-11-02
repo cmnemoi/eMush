@@ -80,7 +80,12 @@ class TakeActionTest extends TestCase
         $actionParameter = new ActionParameters();
         $actionParameter->setItem($gameItem);
         $player = new Player();
-        $player->setRoom($room);
+        $player
+            ->setActionPoint(10)
+            ->setMovementPoint(10)
+            ->setMoralPoint(10)
+            ->setRoom($room)
+        ;
 
         $this->action->loadParameters($player, $actionParameter);
 

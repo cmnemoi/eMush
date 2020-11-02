@@ -2,6 +2,7 @@
 
 namespace Mush\Action\Actions;
 
+use Mush\Action\Entity\ActionCost;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
@@ -19,8 +20,10 @@ use Mush\RoomLog\Service\RoomLogServiceInterface;
 
 class Take extends Action
 {
-    private Player $player;
+    protected const NAME = ActionEnum::TAKE;
+
     private GameItem $item;
+
     private RoomLogServiceInterface $roomLogService;
     private GameItemServiceInterface $itemService;
     private PlayerServiceInterface $playerService;
@@ -36,6 +39,7 @@ class Take extends Action
         $this->itemService = $itemService;
         $this->playerService = $playerService;
         $this->gameConfig = $gameConfigService->getConfig();
+        $this->actionCost = new ActionCost();
     }
 
     public function loadParameters(Player $player, ActionParameters $actionParameters)
@@ -53,11 +57,6 @@ class Take extends Action
             $this->player->getItems()->count() < $this->gameConfig->getMaxItemInInventory() &&
             $this->item->getItem()->isTakeable()
             ;
-    }
-
-    protected function applyActionCost(): void
-    {
-        //No costs
     }
 
     protected function applyEffects(): ActionResult
@@ -87,5 +86,10 @@ class Take extends Action
             VisibilityEnum::PUBLIC,
             new \DateTime('now')
         );
+    }
+
+    public function getActionName(): string
+    {
+        return self::NAME;
     }
 }

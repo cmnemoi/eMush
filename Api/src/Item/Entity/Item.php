@@ -250,4 +250,9 @@ class Item
 
         return new ArrayCollection($actions);
     }
+
+    public function hasAction(string $action): bool
+    {
+        return $this->getActions()->contains($action);
+    }
 }

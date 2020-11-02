@@ -4,48 +4,53 @@ namespace Mush\Action\Service;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Error;
-use Mush\Action\ActionResult\Fail;
 use Mush\Action\Actions\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Item\Service\GameItemServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Service\DoorServiceInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ActionService implements ActionServiceInterface
 {
-    private array $actionsConfig;
-    private ContainerInterface $container;
+    private array $actions = [];
     private PlayerServiceInterface $playerService;
     private GameItemServiceInterface $itemService;
     private DoorServiceInterface $doorService;
 
     /**
      * ActionService constructor.
-     * @param array $actionsConfig
-     * @param ContainerInterface $container
      * @param PlayerServiceInterface $playerService
      * @param GameItemServiceInterface $itemService
      * @param DoorServiceInterface $doorService
      */
     public function __construct(
-        array $actionsConfig,
-        ContainerInterface $container,
         PlayerServiceInterface $playerService,
         GameItemServiceInterface $itemService,
         DoorServiceInterface $doorService
     ) {
-        $this->actionsConfig = $actionsConfig;
-        $this->container = $container;
         $this->playerService = $playerService;
         $this->itemService = $itemService;
         $this->doorService = $doorService;
     }
 
+    public function addAction(Action $action)
+    {
+        $this->actions[$action->getActionName()] = $action;
+    }
+
+    public function getAction(string $actionName): ?Action
+    {
+        if (!isset($this->actions[$actionName])) {
+            return null;
+        }
+
+        return $this->actions[$actionName];
+    }
+
     public function executeAction(Player $player, string $actionName, array $params): ActionResult
     {
-        $action = $this->getActionClass($actionName);
+        $action = $this->getAction($actionName);
 
         if ($action === null) {
             return new Error('Action do not exist');
@@ -59,7 +64,7 @@ class ActionService implements ActionServiceInterface
 
     public function canExecuteAction(Player $player, string $actionName, ActionParameters $params): bool
     {
-        $action = $this->getActionClass($actionName);
+        $action = $this->getAction($actionName);
 
         if ($action === null) {
             return false;
@@ -68,15 +73,6 @@ class ActionService implements ActionServiceInterface
         $action->loadParameters($player, $params);
 
         return $action->canExecute();
-    }
-
-    private function getActionClass(string $actionName): ?Action
-    {
-        if (!isset($this->actionsConfig[$actionName])) {
-            return null;
-        }
-
-        return $this->container->get($this->actionsConfig[$actionName]);
     }
 
     private function loadParameter($parameter): ActionParameters

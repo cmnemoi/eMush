@@ -2,9 +2,11 @@
 
 namespace Mush\Action\Actions;
 
+use Mush\Action\Entity\ActionCost;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
+use Mush\Game\Enum\StatusEnum;
 use Mush\Item\Entity\GameItem;
 use Mush\Item\Service\GameItemServiceInterface;
 use Mush\Item\Service\ItemEffectServiceInterface;
@@ -16,9 +18,10 @@ use Mush\RoomLog\Service\RoomLogServiceInterface;
 
 class Consume extends Action
 {
+    protected const NAME = ActionEnum::CONSUME;
 
-    private Player $player;
     private GameItem $item;
+
     private RoomLogServiceInterface $roomLogService;
     private GameItemServiceInterface $gameItemService;
     private PlayerServiceInterface $playerService;
@@ -34,6 +37,7 @@ class Consume extends Action
         $this->gameItemService = $gameItemService;
         $this->playerService = $playerService;
         $this->itemServiceEffect = $itemServiceEffect;
+        $this->actionCost = new ActionCost();
     }
 
     public function loadParameters(Player $player, ActionParameters $actionParameters)
@@ -49,13 +53,9 @@ class Consume extends Action
     public function canExecute(): bool
     {
         return $this->item->getItem()->hasAction(ActionEnum::CONSUME) &&
-            !$this->player->hasStatus('full'); // TODO: replace this with StatusEnum::full when it becomes available
+            !$this->player->hasStatus(StatusEnum::FULL_STOMACH);
     }
 
-    protected function applyActionCost(): void
-    {
-        //No costs
-    }
 
     protected function applyEffects(): ActionResult
     {
@@ -91,5 +91,10 @@ class Consume extends Action
             VisibilityEnum::COVERT,
             new \DateTime('now')
         );
+    }
+
+    public function getActionName(): string
+    {
+        return self::NAME;
     }
 }

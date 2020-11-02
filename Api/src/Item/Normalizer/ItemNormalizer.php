@@ -2,6 +2,7 @@
 
 namespace Mush\Item\Normalizer;
 
+use Mush\Action\Actions\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Item\Entity\GameItem;
@@ -45,13 +46,22 @@ class ItemNormalizer implements ContextAwareNormalizerInterface
             ->setItem($item)
         ;
 
-        foreach ($item->getActions() as $action) {
-            if ($this->actionService->canExecuteAction($this->getUser()->getCurrentGame(), $action, $actionParameter))
-                $actions[] = [
-                    'key' => $action,
-                    'name' => $this->translator->trans("{$action}.name", [], 'actions'),
-                    'description' => $this->translator->trans("{$action}.description", [], 'actions')
-                ];
+
+        foreach ($item->getActions() as $actionName) {
+            $actionClass = $this->actionService->getAction($actionName);
+            if ($actionClass instanceof Action) {
+                $actionClass->loadParameters($this->getUser()->getCurrentGame(), $actionParameter);
+                if ($actionClass->canExecute()) {
+                    $actions[] = [
+                        'key' => $actionName,
+                        'name' => $this->translator->trans("{$actionName}.name", [], 'actions'),
+                        'description' => $this->translator->trans("{$actionName}.description", [], 'actions'),
+                        'actionPointCost' => $actionClass->getActionCost()->getActionPointCost(),
+                        'movementPointCost' => $actionClass->getActionCost()->getMovementPointCost(),
+                        'moralPointCost' => $actionClass->getActionCost()->getMoralPointCost()
+                    ];
+                }
+            }
         }
 
         return [

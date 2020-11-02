@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\StatusEffect\Event;
+namespace Mush\Status\Event;
 
 use Mush\Game\Event\DayEvent;
 use Mush\Room\Service\RoomServiceInterface;

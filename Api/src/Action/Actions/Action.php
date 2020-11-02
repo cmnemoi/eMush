@@ -59,6 +59,7 @@ abstract class Action
 
     public function getActionCost(): ActionCost
     {
+        $this->actionCost = $this->player->getAfflictions()->applyActionCostModificator($this->actionCost);
         return $this->actionCost;
     }
 }

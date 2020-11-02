@@ -8,8 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Item\Entity\GameItem;
-use Mush\Item\Entity\Item;
 use Mush\Room\Entity\Room;
+use Mush\Status\Entity\Collection\AfflictionCollection;
+use Mush\Status\Entity\Affliction;
 use Mush\User\Entity\User;
 
 /**
@@ -61,6 +62,11 @@ class Player
     private Collection $items;
 
     /**
+     * @ORM\OneToMany(targetEntity="Mush\Status\Entity\Affliction", mappedBy="player")
+     */
+    private Collection $afflictions;
+
+    /**
      * @ORM\Column(type="array", nullable=true)
      */
     private array $statuses;
@@ -98,6 +104,7 @@ class Player
     public function __construct()
     {
         $this->items = new ArrayCollection();
+        $this->afflictions = new ArrayCollection();
     }
 
     public function getId(): int
@@ -211,6 +218,37 @@ class Player
     public function hasItemByName(string $name): bool
     {
             return (! $this->getItems()->filter(fn(GameItem $gameItem) => $gameItem->getName() === $name)->isEmpty());
+    }
+
+    public function getAfflictions(): AfflictionCollection
+    {
+        return new AfflictionCollection($this->afflictions->toArray());
+    }
+
+    public function setAfflictions(Collection $afflictions): Player
+    {
+        $this->afflictions = $afflictions;
+        return $this;
+    }
+
+    public function addAffliction(Affliction $affliction): Player
+    {
+        if (!$this->getAfflictions()->contains($affliction)) {
+            $this->afflictions->add($affliction);
+            $affliction->setPlayer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAffliction(Affliction $affliction): Player
+    {
+        if ($this->afflictions->contains($affliction)) {
+            $this->afflictions->removeElement($affliction);
+            $affliction->setPlayer(null);
+        }
+
+        return $this;
     }
 
     public function getStatuses(): ?array

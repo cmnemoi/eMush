@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\StatusEffect\Enum;
+namespace Mush\Status\Enum;
 
 class StatusEffectEnum
 {

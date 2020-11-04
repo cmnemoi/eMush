@@ -202,9 +202,9 @@ class Player
     }
     
     public function hasItemByName(string $name): bool
-	{
-			return $this->getItems()->filter(fn(GameItem $gameItem) => $gameItem->getName() === $name)->isEmpty();
-	}
+    {
+            return $this->getItems()->filter(fn(GameItem $gameItem) => $gameItem->getName() === $name)->isEmpty();
+    }
 
     public function getStatuses(): ?array
     {

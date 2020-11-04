@@ -13,19 +13,19 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 
-
 class Hit extends Action
 {
-	protected const NAME = ActionEnum::HIT;
-	
-	
+    protected const NAME = ActionEnum::HIT;
+    
+    
     private PlayerServiceInterface $playerService;
     private RandomServiceInterface $randomService;
 
-    public function __construct(PlayerServiceInterface $playerService, 
-    														 RandomServiceInterface $randomService,
-    														 RoomLogServiceInterface $roomLogService)
-    {
+    public function __construct(
+        PlayerServiceInterface $playerService,
+        RandomServiceInterface $randomService,
+        RoomLogServiceInterface $roomLogService
+    ) {
         $this->playerService = $playerService;
         $this->randomService = $randomService;
         $this->actionCost = new ActionCost();
@@ -40,8 +40,8 @@ class Hit extends Action
 
         $this->player  = $player;
         $this->target  = $target;
-	     $this->chance_success = 50;
-	     $this->damage=0;
+         $this->chance_success = 50;
+         $this->damage=0;
     }
 
     public function canExecute(): bool
@@ -52,41 +52,39 @@ class Hit extends Action
 
     protected function applyEffects(): ActionResult
     {
-			if ($this->randomService->random(0, 100)< $this->chance_success){
-				// TODO: add log
-			} else {
-				$this->damage = $this->randomService->random(1, 3);
-		
-				if (in_array('solid', $this->player->getSkills())){
-					$this->damage=$this->damage+1;
-				}
-				if (in_array('wrestler', $this->player->getSkills())){
-					$this->damage=$this->damage+2;
-				}
-				if (in_array('hard_boiled', $this->target->getSkills())){
-					$this->damage=$this->damage-1;
-				}
-				if($this->target->hasItemByName('PLASTENITE_ARMOR')) {
-					$this->damage=$this->damage-1;
-				}
-				if ($this->damage<=0) {
-					// TODO:
-				} elseif ($this->target->getHealthPoint()>damage) {
-					$this->target->setHealthPoint($this->target->getHealthPoint() - $this->damage);
-		            
-		        	$this->playerService->persist($this->target);
-					
-				} else {
-					// TODO: kill the target
-				}
-			}
+        if ($this->randomService->random(0, 100)< $this->chance_success) {
+            // TODO: add log
+        } else {
+            $this->damage = $this->randomService->random(1, 3);
+        
+            if (in_array('solid', $this->player->getSkills())) {
+                $this->damage=$this->damage+1;
+            }
+            if (in_array('wrestler', $this->player->getSkills())) {
+                $this->damage=$this->damage+2;
+            }
+            if (in_array('hard_boiled', $this->target->getSkills())) {
+                $this->damage=$this->damage-1;
+            }
+            if ($this->target->hasItemByName('PLASTENITE_ARMOR')) {
+                $this->damage=$this->damage-1;
+            }
+            if ($this->damage<=0) {
+                // TODO:
+            } elseif ($this->target->getHealthPoint()>damage) {
+                $this->target->setHealthPoint($this->target->getHealthPoint() - $this->damage);
+                    
+                $this->playerService->persist($this->target);
+            } else {
+                // TODO: kill the target
+            }
+        }
         return new Success();
     }
 
     protected function createLog(ActionResult $actionResult): void
     {
         // TODO: Implement createLog() method.
-        
     }
 
 

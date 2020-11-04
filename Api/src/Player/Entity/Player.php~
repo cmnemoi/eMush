@@ -160,6 +160,16 @@ class Player
         return $this;
     }
 
+    /**
+     * Return true if the item is reachable for the player i.e. in the inventory or the room
+     * @param GameItem $gameItem
+     * @return bool
+     */
+    public function canReachItem(GameItem $gameItem): bool
+    {
+        return $this->items->contains($gameItem) || $this->room->getItems()->contains($gameItem);
+    }
+
     public function getItems(): Collection
     {
         return $this->items;
@@ -190,6 +200,11 @@ class Player
 
         return $this;
     }
+    
+    public function hasItemByName(string $name): bool
+	{
+			return $this->getItems()->filter(fn(GameItem $gameItem) => $gameItem->getName() === $name)->isEmpty();
+	}
 
     public function getStatuses(): ?array
     {
@@ -205,6 +220,12 @@ class Player
     public function hasStatus(string $status): bool
     {
         return in_array($status, $this->statuses);
+    }
+
+    public function addSkill(string $skill): Player
+    {
+        $this->skills[] = $skill;
+        return $this;
     }
 
     public function getSkills(): ?array
@@ -229,6 +250,12 @@ class Player
         return $this;
     }
 
+    public function addHealthPoint(int $healthPoint): Player
+    {
+        $this->healthPoint += $healthPoint;
+        return $this;
+    }
+
     public function getMoralPoint(): int
     {
         return $this->moralPoint;
@@ -237,6 +264,12 @@ class Player
     public function setMoralPoint(int $moralPoint): Player
     {
         $this->moralPoint = $moralPoint;
+        return $this;
+    }
+
+    public function addMoralPoint(int $moralPoint): Player
+    {
+        $this->moralPoint += $moralPoint;
         return $this;
     }
 
@@ -251,6 +284,12 @@ class Player
         return $this;
     }
 
+    public function addActionPoint(int $actionPoint): Player
+    {
+        $this->actionPoint += $actionPoint;
+        return $this;
+    }
+
     public function getMovementPoint(): int
     {
         return $this->movementPoint;
@@ -259,6 +298,17 @@ class Player
     public function setMovementPoint(int $movementPoint): Player
     {
         $this->movementPoint = $movementPoint;
+        return $this;
+    }
+
+    public function addMovementPoint(int $movementPoint): Player
+    {
+        $this->movementPoint += $movementPoint;
+        if ($this->getMovementPoint() < 0) {
+            $this->addActionPoint(-1);
+            $this->addMovementPoint(3); //TODO improve conversion with disabled and scooter
+        }
+
         return $this;
     }
 

@@ -57,16 +57,16 @@ class Hit extends Action
         } else {
             $this->damage = $this->randomService->random(1, 3);
         
-            if (in_array('solid', $this->player->getSkills())) {
+            if (in_array(SkillEnum::SOLID, $this->player->getSkills())) {
                 $this->damage=$this->damage+1;
             }
-            if (in_array('wrestler', $this->player->getSkills())) {
+            if (in_array(SkillEnum::WRESTLER, $this->player->getSkills())) {
                 $this->damage=$this->damage+2;
             }
-            if (in_array('hard_boiled', $this->target->getSkills())) {
+            if (in_array(SkillMushEnum::HARD_BOILED, $this->target->getSkills())) {
                 $this->damage=$this->damage-1;
             }
-            if ($this->target->hasItemByName('PLASTENITE_ARMOR')) {
+            if ($this->target->hasItemByName(ItemEnum::PLASTENITE_ARMOR)) {
                 $this->damage=$this->damage-1;
             }
             if ($this->damage<=0) {

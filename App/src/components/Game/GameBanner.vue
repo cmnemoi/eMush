@@ -2,6 +2,9 @@
   <div class="game-banner">
     <div class="character-banner">
       <div class="in-game-level"><span class="text-level">{{characterLevel}}</span></div>
+      <div class="in-game-level-progress">
+        <div></div>
+      </div>
       <div class="character-info">
         <span class="character-name">{{characterName}}</span>
         <div class="titles">
@@ -9,6 +12,7 @@
         </div>
       </div>
     </div>
+
     <div class="daedalus-banner">
 
       <div class="daedalus-alarms-new">

@@ -1,6 +1,13 @@
-@import "_normalize.css";
+@import "~@/assets/css/normalize.css";
 @import "background.scss";
 @import "gamevue.scss";
+
+@font-face {
+  font-family: 'Days-One';
+  font-style: normal;
+  font-weight: 500;
+  src: url('~@/assets/fonts/DaysOne-Regular.ttf') format('truetype');
+}
 
 html {
   box-sizing: border-box;
@@ -9,7 +16,6 @@ html {
 *, *:before, *:after {
   box-sizing: inherit;
 }
-
 
 
 div {
@@ -23,6 +29,10 @@ body, html, #app {
   width: 100%;
   height: 100%;
   font-family: "Segoe UI", "Lucida Grande", "Trebuchet MS", Arial, "lucida sans unicode", sans-serif;
+}
+
+#app {
+  display:block;
 }
 
 ul, ol {

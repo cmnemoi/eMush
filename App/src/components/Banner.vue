@@ -2,7 +2,7 @@
   <div class="banner">
     <div class="tid_shadow"></div>
     <div class="logo">
-      <a href="/" class="logo"><img src="@/assets/images/logo.png" alt=""></a>
+      <a href="/" class="logo"><img src="@/assets/images/logo_new.png" alt=""></a>
     </div>
     <div class="mainmenu">
       <a href="/#">Daedalus</a>

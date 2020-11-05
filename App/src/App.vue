@@ -20,12 +20,4 @@ export default {
 </script>
 
 <style>
-
-
-.main-container {
-  color : #fff;
-  flex-grow: 1;
-  height: 100%;
-  background : #0f0f43 url("~@/assets/images/bg.jpg") no-repeat center 23px;
-}
 </style>

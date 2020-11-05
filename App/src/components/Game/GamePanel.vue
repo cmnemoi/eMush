@@ -1,5 +1,5 @@
 <template>
-  <div class="game-container">
+  <div class="main">
       <div class="top-banner">
           <game-banner character-level="5" character-name="Jin Su"></game-banner>
       </div>
@@ -19,7 +19,7 @@ export default {
 </script>
 
 <style scoped>
-    .game-container {
+    /*.game-container {
       align-self: center;
       max-width: 1080px;
       padding-top: 50px;
@@ -49,5 +49,5 @@ export default {
       background-repeat: no-repeat;
       height: 61px;
       width: 100%;
-    }
+    }*/
 </style>

@@ -1,0 +1,111 @@
+.titles, .title, .game-banner, .daedalus-banner, .character-banner, .daedalus-players, .cycle-time {
+  flex-direction: row;
+  font-size: .93em;
+  letter-spacing: .03em;
+  font-variant: small-caps;
+}
+
+.game-banner {
+  align-items: baseline;
+}
+
+.daedalus-banner {
+  align-items: center;
+}
+
+.daedalus-banner > div {
+  margin: 0 .8em;
+  display:flex;
+  align-items: center;
+}
+
+.daedalus-alarms-new {
+  padding: 3px 6px 1px 6px;
+  max-height: 25px;
+  border: 1px solid red;
+  border-radius: 3px;
+  background: rgba(58,106,171,1);
+  box-shadow: 0 0 5px 1px inset rgba(28,29,56,1);
+
+  animation: alarms-border .85s ease-in-out infinite;
+
+  color: #ff4e64;
+  text-shadow: 0 0 2px rgba(0,0,0,1), 0 0 2px rgba(0,0,0,1); /* twice the same shadow */
+  font-weight: bold;
+}
+
+.daedalus-alarms-new li:not(:last-child) {
+  margin-right: 10px;
+}
+
+@keyframes alarms-border {
+  0%   {border: 1px solid #ff4e64 ;}
+  50%  {border: 1px solid rgba(58,106,171,1) ;}
+  100% {border: 1px solid #ff4e64 ;}
+}
+
+.daedalus-info li {
+  display: flex;
+  align-items: center;
+}
+.daedalus-info li:not(:last-child) {
+  padding-right: 1em;
+}
+
+.daedalus-info li img {
+  padding: 2px 0 0 4px;
+}
+
+.cycle-time img {
+  margin-right: .4em;
+}
+
+
+
+
+
+.title-img {
+  width: 16px;
+  height: 13px;
+  vertical-align: -3px;
+  margin-right: 4px;
+}
+.title-name {
+  font-size: 8pt;
+  font-variant: small-caps;
+  font-weight: bold;
+  white-space: nowrap;
+  color: #FFFFFF;
+  color: rgba(255,255,255,0.7);
+}
+
+.game-banner {
+  padding: 12px;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.text-level {
+  text-align: center;
+  width: 41px;
+  margin-top: 2px;
+}
+
+.in-game-level {
+  margin-right: 6px;
+  width: 52px;
+  height: 35px;
+  font-size: 17pt;
+  background: transparent url("~@/assets/images/level_ingame_on.png") no-repeat;
+}
+.character-info {
+  margin-left: 2px;
+}
+
+.character-name {
+  height: 18px;
+  font-size: 11pt;
+  text-transform: uppercase;
+  padding: 0;
+  font-weight: 700;
+}

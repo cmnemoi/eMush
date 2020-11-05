@@ -1,3 +1,17 @@
+@import "_normalize.css";
+@import "background.scss";
+@import "gamevue.scss";
+
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+
+
 div {
   display: flex;
   flex-direction: column;
@@ -6,6 +20,7 @@ div {
 body, html, #app {
   padding: 0;
   margin: 0;
+  width: 100%;
   height: 100%;
   font-family: "Segoe UI", "Lucida Grande", "Trebuchet MS", Arial, "lucida sans unicode", sans-serif;
 }

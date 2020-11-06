@@ -159,7 +159,7 @@ class PlantCycleHandler implements CycleHandlerInterface
             return;
         }
         // If plant is not in a room, it is in player inventory
-        $place = $gamePlant->getRoom() ? $gamePlant->getRoom() : $gamePlant->getPlayer();
+        $place = $gamePlant->getRoom() ?? $gamePlant->getPlayer();
         $room = $place;
 
         // Create a new fruit

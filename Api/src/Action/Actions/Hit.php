@@ -84,7 +84,13 @@ class Hit extends Action
 
     protected function createLog(ActionResult $actionResult): void
     {
-        // TODO: Implement createLog() method.
+        $this->roomLogService->createPlayerLog(
+            ActionEnum::HIT,
+            $this->player->getRoom(),
+            $this->player,
+            VisibilityEnum::PUBLIC,
+            new \DateTime('now')
+        );
     }
 
 

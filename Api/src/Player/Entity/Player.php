@@ -173,7 +173,8 @@ class Player
     
     public function getReachableItemByName(string $name): Collection
     {
-    	  return (foreach ($this->getItems()){$this->room->getItems()->add()})->filter(fn(GameItem $gameItem) => $gameItem->getName() === $name);
+          return (new ArrayCollection(array_merge($this->getItems()->toArray(), $this->getRoom->getItems()->toArray))
+          )->filter(fn(GameItem $gameItem) => $gameItem->getName() === $name);
     }
 
     public function getItems(): Collection

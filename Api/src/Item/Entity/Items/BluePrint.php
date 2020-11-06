@@ -22,7 +22,7 @@ class BluePrint extends Tool
     /**
      * @ORM\Column(type="string", nullable=false)
      */
-    private item $item=null;
+    private ?item $item=null;
     
     private ?array $ingredients=null;
 

@@ -49,17 +49,25 @@ class Build extends Action
 
     public function canExecute(): bool
     {
-    	$blueprintType = $this->item->getItem()->getItemType(ItemTypeEnum::BLUEPRINT); 	
-    	
-    	//TODO add conditions on the ingredients
-        return $this->item->getItem()->getItemType(ItemTypeEnum::>BLUEPRINT) !== null &&
-                   $this->player->canReachItem($this->item) &&
-                   foreach ($blueprintType->getIngredients() as $itemName => $number)
-		                 {if ($this->player->getReachableItemByName(string $itemname)->count() < $number)
-		                 {return false;
-                       }
-                    }
+        $blueprintType = $this->item->getItem()->getItemType(ItemTypeEnum::BLUEPRINT);
+            //Check that the item is a blueprint and is reachable
+        if ($this->item->getItem()->getItemType(ItemTypeEnum::BLUEPRINT) === null ||
+                               !$this->player->canReachItem($this->item)) {
+            return false;
+        }
+            //Check the availlability of the ingredients
+        foreach ($blueprintType->getIngredients() as $itemName => $number) {
+            if ($this->player->getReachableItemByName($itemName)->count() < $number) {
+                return false;
+            }
+        }
+            return true;
     }
+        
+        
+        
+        
+
 
     protected function applyEffects(): ActionResult
     {
@@ -70,37 +78,40 @@ class Build extends Action
         
         // add the item in the player inventory or in the room if the inventory is full
         $blueprintObject=$blueprintType->getItem()->createGameItem();
-        if($this->player->getItems()->count() < $this->gameConfig->getMaxItemInInventory()){
-        	   $$blueprintObject->setPlayer($this->player);
+        if ($this->player->getItems()->count() < $this->gameConfig->getMaxItemInInventory()) {
+               $blueprintObject->setPlayer($this->player);
         } else {
             $blueprintObject->setRoom($this->player->getRoom());
         }
         
-		  // remove the used ingredients starting from the player inventory
-        foreach ($blueprintType->getIngredients() as $itemName => $number)
-          {for($number)
-          {if($this->player->hasItemByName($itemName)){
-          	// @FIXME change to a random choice of the item
-          	$ingredient=$this->player->getItems()->filter(fn(GameItem $gameItem) => $gameItem->getName() === $itemName)->first()
-          	$this->player->removeItem($ingredient)
-          	$this->itemService->delete($ingredient);
-          } else{
-          	// @FIXME change to a random choice of the item
-          	$ingredient=$this->room->getItems()->filter(fn(GameItem $gameItem) => $gameItem->getName() === $itemName)->first()
-          	$ingredient->setRoom(null)
-          	$this->itemService->delete($ingredient);
-          }
-          }
+          // remove the used ingredients starting from the player inventory
+        foreach ($blueprintType->getIngredients() as $itemName => $number) {
+            for ($i = 0; $i < $number; $i++) {
+                if ($this->player->hasItemByName($itemName)) {
+                      // @FIXME change to a random choice of the item
+                      $ingredient=$this->player->getItems()
+                      ->filter(fn(GameItem $gameItem) => $gameItem->getName() === $itemName)->first();
+                      $this->player->removeItem($ingredient);
+                      $this->itemService->delete($ingredient);
+                } else {
+    // @FIXME change to a random choice of the item
+                    $ingredient=$this->room->getItems()
+                    ->filter(fn(GameItem $gameItem) => $gameItem->getName() === $itemName)->first();
+                    $ingredient->setRoom(null);
+                    $this->itemService->delete($ingredient);
+                }
+            }
         }
-		
-		// remove the blueprint
-		$this->item
-            ->setRoom(null)
-            ->setPlayer(null)
+        
+        // remove the blueprint
+        $this->item
+        ->setRoom(null)
+        ->setPlayer(null)
         ;
+        
         $this->itemService->delete($this->item);
-		
-		
+        
+        
         $this->playerService->persist($this->player);
 
         return new Success();

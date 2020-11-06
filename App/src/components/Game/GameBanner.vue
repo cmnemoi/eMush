@@ -1,7 +1,7 @@
 <template>
   <div class="game-banner">
     <div class="character-banner">
-      <div class="in-game-level"><span class="text-level">{{characterLevel}}</span></div>
+      <a class="in-game-level" href="#">{{characterLevel}}</a>
       <div class="in-game-level-progress">
         <div></div>
       </div>
@@ -15,7 +15,7 @@
 
     <div class="daedalus-banner">
 
-      <div class="daedalus-alarms-new">
+      <div class="daedalus-alarms">
         <ul>
           <li>Alertes :</li>
           <li><img src="@/assets/images/door.png"></li>

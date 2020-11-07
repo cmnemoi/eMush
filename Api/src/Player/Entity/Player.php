@@ -173,7 +173,7 @@ class Player
     
     public function getReachableItemByName(string $name): Collection
     {
-          return (new ArrayCollection(array_merge($this->getItems()->toArray(), $this->getRoom->getItems()->toArray))
+          return (new ArrayCollection(array_merge($this->getItems()->toArray(), $this->getRoom()->getItems()->toArray()))
           )->filter(fn(GameItem $gameItem) => $gameItem->getName() === $name);
     }
 
@@ -210,7 +210,7 @@ class Player
     
     public function hasItemByName(string $name): bool
     {
-            return $this->getItems()->filter(fn(GameItem $gameItem) => $gameItem->getName() === $name)->isEmpty();
+            return (! $this->getItems()->filter(fn(GameItem $gameItem) => $gameItem->getName() === $name)->isEmpty());
     }
 
     public function getStatuses(): ?array

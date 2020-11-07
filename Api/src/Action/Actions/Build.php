@@ -7,6 +7,8 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Game\Entity\GameConfig;
+use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Item\Entity\GameItem;
 use Mush\Item\Entity\Items\Blueprint;
 use Mush\Item\Enum\ItemTypeEnum;
@@ -25,15 +27,18 @@ class Build extends Action
     private RoomLogServiceInterface $roomLogService;
     private GameItemServiceInterface $itemService;
     private PlayerServiceInterface $playerService;
+    private GameConfig $gameConfig;
 
     public function __construct(
         RoomLogServiceInterface $roomLogService,
         GameItemServiceInterface $itemService,
-        PlayerServiceInterface $playerService
+        PlayerServiceInterface $playerService,
+        GameConfigServiceInterface $gameConfigService
     ) {
         $this->roomLogService = $roomLogService;
         $this->itemService = $itemService;
         $this->playerService = $playerService;
+        $this->gameConfig = $gameConfigService->getConfig();
         $this->actionCost = new ActionCost();
         $this->actionCost->setActionPointCost(3);
     }
@@ -84,6 +89,8 @@ class Build extends Action
             $blueprintObject->setRoom($this->player->getRoom());
         }
         
+        $this->itemService->persist($blueprintObject);
+                
           // remove the used ingredients starting from the player inventory
         foreach ($blueprintType->getIngredients() as $itemName => $number) {
             for ($i = 0; $i < $number; $i++) {
@@ -95,7 +102,7 @@ class Build extends Action
                       $this->itemService->delete($ingredient);
                 } else {
     // @FIXME change to a random choice of the item
-                    $ingredient=$this->room->getItems()
+                    $ingredient=$this->player->getRoom()->getItems()
                     ->filter(fn(GameItem $gameItem) => $gameItem->getName() === $itemName)->first();
                     $ingredient->setRoom(null);
                     $this->itemService->delete($ingredient);
@@ -113,6 +120,7 @@ class Build extends Action
         
         
         $this->playerService->persist($this->player);
+
 
         return new Success();
     }

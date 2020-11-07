@@ -26,6 +26,7 @@ class ActionEnum
     // Item-enabled actions
     public const ATTACK = 'attack';
     public const CONSUME = 'consume';
+    public const BUILD = 'build';
 
     // Skill-related actions (Humans)
     public const FIERY_SPEECH = 'fiery_speech';

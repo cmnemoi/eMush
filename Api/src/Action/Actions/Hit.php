@@ -52,8 +52,9 @@ class Hit extends Action
 
     protected function applyEffects(): ActionResult
     {
+    	 // @TODO: add knife case
         if ($this->randomService->random(0, 100)< $this->chance_success) {
-            // TODO: add log
+         
         } else {
             $this->damage = $this->randomService->random(1, 3);
         
@@ -76,7 +77,7 @@ class Hit extends Action
                     
                 $this->playerService->persist($this->target);
             } else {
-                // TODO: kill the target
+                // @TODO: kill the target
             }
         }
         return new Success();
@@ -84,7 +85,13 @@ class Hit extends Action
 
     protected function createLog(ActionResult $actionResult): void
     {
-        // TODO: Implement createLog() method.
+        $this->roomLogService->createPlayerLog(
+            ActionEnum::HIT,
+            $this->player->getRoom(),
+            $this->player,
+            VisibilityEnum::PUBLIC,
+            new \DateTime('now')
+        );
     }
 
 

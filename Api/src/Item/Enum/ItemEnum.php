@@ -35,4 +35,6 @@ class ItemEnum
     public const PLASTIC_SCRAPS = 'plastic_scraps';
     public const METAL_SCRAPS = 'metal_scraps';
     public const APPRENTON_PILOT = 'apprenton_pilot';
+    public const SNIPER_HELMET = 'sniper_helmet';
+    public const SNIPER_HELMET_BLUEPRINT = 'sniper_helmet_blueprint';
 }

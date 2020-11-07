@@ -12,6 +12,7 @@ use Mush\Game\Enum\SkillEnum;
 use Mush\Item\Entity\GameItem;
 use Mush\Item\Entity\Item;
 use Mush\Item\Entity\Items\Book;
+use Mush\Item\Entity\Items\Blueprint;
 use Mush\Item\Entity\Items\Exploration;
 use Mush\Item\Entity\Items\Fruit;
 use Mush\Item\Entity\Items\Gear;
@@ -307,11 +308,11 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ItemEnum::TABULATRIX)
             ->setIsHeavy(false)
             ->setIsDismantable(false)
-            ->setIsTakeable(false)
-            ->setIsDropable(false)
+            ->setIsTakeable(true)
+            ->setIsDropable(true)
             ->setIsStackable(false)
-            ->setIsHideable(false)
-            ->setIsFireDestroyable(false)
+            ->setIsHideable(true)
+            ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
 
         ;
@@ -364,6 +365,38 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
 
         ;
         $manager->persist($superFreezer);
+        
+        $plasticScraps = new Item();
+        $plasticScraps
+            ->setGameConfig($gameConfig)
+            ->setName(ItemEnum::PLASTIC_SCRAPS)
+            ->setIsHeavy(false)
+            ->setIsTakeable(true)
+            ->setIsDismantable(false)
+            ->setIsDropable(true)
+            ->setIsStackable(true)
+            ->setIsHideable(true)
+            ->setIsFireDestroyable(false)
+            ->setIsFireBreakable(false)
+
+        ;
+        $manager->persist($plasticScraps);
+
+        $metalScraps = new Item();
+        $metalScraps
+            ->setGameConfig($gameConfig)
+            ->setName(ItemEnum::METAL_SCRAPS)
+            ->setIsHeavy(false)
+            ->setIsTakeable(true)
+            ->setIsDismantable(false)
+            ->setIsDropable(true)
+            ->setIsStackable(true)
+            ->setIsHideable(true)
+            ->setIsFireDestroyable(false)
+            ->setIsFireBreakable(false)
+
+        ;
+        $manager->persist($metalScraps);
 
         $standardRationType = new Ration();
         $standardRationType
@@ -470,7 +503,45 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($apprentonPilotType);
         $manager->persist($apprentonPilot);
+        
+        $SniperHelmet = new Item();
+        $SniperHelmet
+            ->setGameConfig($gameConfig)
+            ->setName(ItemEnum::SNIPER_HELMET)
+            ->setIsHeavy(false)
+            ->setIsDismantable(false)
+            ->setIsTakeable(true)
+            ->setIsDropable(true)
+            ->setIsStackable(false)
+            ->setIsHideable(true)
+            ->setIsFireDestroyable(false)
+            ->setIsFireBreakable(true)
+        ;
+        $manager->persist($SniperHelmet);
+        
+        $blueprintSniperHelmetType = new Blueprint();
+        $blueprintSniperHelmetType
+            ->setItem($SniperHelmet)
+            ->setIngredients([ItemEnum::PLASTIC_SCRAPS =>1, ItemEnum::METAL_SCRAPS =>1])
+        ;
 
+        $blueprintSniperHelmet = new Item();
+        $blueprintSniperHelmet
+            ->setGameConfig($gameConfig)
+            ->setName(ItemEnum::SNIPER_HELMET_BLUEPRINT)
+            ->setIsHeavy(false)
+            ->setIsDismantable(false)
+            ->setIsTakeable(true)
+            ->setIsDropable(true)
+            ->setIsStackable(true)
+            ->setIsHideable(true)
+            ->setIsFireDestroyable(true)
+            ->setIsFireBreakable(false)
+            ->setTypes(new ArrayCollection([$blueprintSniperHelmetType]))
+        ;
+        $manager->persist($blueprintSniperHelmetType);
+        $manager->persist($blueprintSniperHelmet);
+        
         $manager->flush();
     }
 

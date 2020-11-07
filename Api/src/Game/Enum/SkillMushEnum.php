@@ -10,7 +10,7 @@ class SkillMushEnum
     public const    DEFACER =   'defacer';
     public const    DEMORALIZE  =   'demoralize';
     public const    DOORMAN =   'doorman';
-    public const    FERTILE =   'fertile'
+    public const    FERTILE =   'fertile';
     public const    FUNGAL_KITCHEN  =   'fungal_kitchen';
     public const    GREEN_JELLY =   'green_jelly';
     public const    HARD_BOILED =   'hard_boiled';

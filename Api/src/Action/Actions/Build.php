@@ -56,7 +56,7 @@ class Build extends Action
     {
         $blueprintType = $this->item->getItem()->getItemType(ItemTypeEnum::BLUEPRINT);
             //Check that the item is a blueprint and is reachable
-        if ($this->item->getItem()->getItemType(ItemTypeEnum::BLUEPRINT) === null ||
+        if ($blueprintType === null ||
                                !$this->player->canReachItem($this->item)) {
             return false;
         }
@@ -99,14 +99,13 @@ class Build extends Action
                       $ingredient=$this->player->getItems()
                       ->filter(fn(GameItem $gameItem) => $gameItem->getName() === $itemName)->first();
                       $this->player->removeItem($ingredient);
-                      $this->itemService->delete($ingredient);
                 } else {
     // @FIXME change to a random choice of the item
                     $ingredient=$this->player->getRoom()->getItems()
                     ->filter(fn(GameItem $gameItem) => $gameItem->getName() === $itemName)->first();
                     $ingredient->setRoom(null);
-                    $this->itemService->delete($ingredient);
                 }
+                $this->itemService->delete($ingredient);
             }
         }
         

@@ -17,6 +17,7 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Take extends Action
 {
@@ -30,16 +31,18 @@ class Take extends Action
     private GameConfig $gameConfig;
 
     public function __construct(
+        EventDispatcherInterface $eventDispatcher,
         RoomLogServiceInterface $roomLogService,
         GameItemServiceInterface $itemService,
         PlayerServiceInterface $playerService,
         GameConfigServiceInterface $gameConfigService
     ) {
+        parent::__construct($eventDispatcher);
+
         $this->roomLogService = $roomLogService;
         $this->itemService = $itemService;
         $this->playerService = $playerService;
         $this->gameConfig = $gameConfigService->getConfig();
-        $this->actionCost = new ActionCost();
     }
 
     public function loadParameters(Player $player, ActionParameters $actionParameters)

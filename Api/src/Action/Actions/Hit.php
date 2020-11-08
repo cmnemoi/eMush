@@ -12,6 +12,7 @@ use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Hit extends Action
 {
@@ -22,13 +23,15 @@ class Hit extends Action
     private RandomServiceInterface $randomService;
 
     public function __construct(
+        EventDispatcherInterface $eventDispatcher,
         PlayerServiceInterface $playerService,
-        RandomServiceInterface $randomService,
-        RoomLogServiceInterface $roomLogService
+        RandomServiceInterface $randomService
     ) {
+        parent::__construct($eventDispatcher);
+
         $this->playerService = $playerService;
         $this->randomService = $randomService;
-        $this->actionCost = new ActionCost();
+
         $this->actionCost->setActionPointCost(1);
     }
 

@@ -6,12 +6,23 @@ use Mush\Action\Entity\ActionCost;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Error;
 use Mush\Action\Entity\ActionParameters;
+use Mush\Action\Event\ActionEvent;
 use Mush\Player\Entity\Player;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 abstract class Action
 {
     protected ActionCost $actionCost;
     protected Player $player;
+
+    protected EventDispatcherInterface $eventManager;
+
+    public function __construct(EventDispatcherInterface $eventManager)
+    {
+        $this->eventManager = $eventManager;
+
+        $this->actionCost = new ActionCost();
+    }
 
     abstract public function loadParameters(Player $player, ActionParameters $actionParameters);
     abstract public function canExecute(): bool;
@@ -26,9 +37,15 @@ abstract class Action
             return new Error('Cannot execute action');
         }
 
+        $preActionEvent = new ActionEvent($this->getActionName(), $this->player);
+        $this->eventManager->dispatch($preActionEvent, ActionEvent::PRE_ACTION);
+
         $this->applyActionCost();
         $result = $this->applyEffects();
         $this->createLog($result);
+
+        $postActionEvent = new ActionEvent($this->getActionName(), $this->player);
+        $this->eventManager->dispatch($postActionEvent, ActionEvent::POST_ACTION);
 
         return $result;
     }

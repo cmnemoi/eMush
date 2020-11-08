@@ -15,6 +15,7 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ReadBook extends Action
 {
@@ -27,15 +28,18 @@ class ReadBook extends Action
     private PlayerServiceInterface $playerService;
 
     public function __construct(
+        EventDispatcherInterface $eventDispatcher,
         RoomLogServiceInterface $roomLogService,
         GameItemServiceInterface $itemService,
         PlayerServiceInterface $playerService
     ) {
+        parent::__construct($eventDispatcher);
+
         $this->roomLogService = $roomLogService;
         $this->itemService = $itemService;
         $this->playerService = $playerService;
-        $this->actionCost = new ActionCost();
-        $this->actionCost->setActionPointCost(4);
+
+        $this->actionCost->setActionPointCost(2);
     }
 
     public function loadParameters(Player $player, ActionParameters $actionParameters)

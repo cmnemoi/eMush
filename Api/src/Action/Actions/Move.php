@@ -14,6 +14,7 @@ use Mush\Room\Entity\Room;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Move extends Action
 {
@@ -25,12 +26,15 @@ class Move extends Action
     private PlayerServiceInterface $playerService;
 
     public function __construct(
+        EventDispatcherInterface $eventDispatcher,
         PlayerServiceInterface $playerService,
         RoomLogServiceInterface $roomLogService
     ) {
+        parent::__construct($eventDispatcher);
+
         $this->roomLogService = $roomLogService;
         $this->playerService = $playerService;
-        $this->actionCost = new ActionCost();
+
         $this->actionCost->setMovementPointCost(1);
     }
 

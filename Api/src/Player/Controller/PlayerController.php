@@ -4,14 +4,21 @@ namespace Mush\Player\Controller;
 
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use FOS\RestBundle\View\View;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Game\Service\CycleServiceInterface;
+use Mush\Game\Validator\ErrorHandlerTrait;
+use Mush\Player\Entity\Dto\PlayerRequest;
 use Mush\Player\Service\PlayerServiceInterface;
 use Nelmio\ApiDocBundle\Annotation\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use OpenApi\Annotations as OA;
+use Symfony\Component\Validator\ConstraintViolationList;
+use Symfony\Component\Validator\Validation;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * Class UsersController
@@ -20,24 +27,30 @@ use OpenApi\Annotations as OA;
  */
 class PlayerController extends AbstractFOSRestController
 {
+    use ErrorHandlerTrait;
+
     private PlayerServiceInterface $playerService;
     private DaedalusServiceInterface $daedalusService;
     private CycleServiceInterface $cycleService;
+    private ValidatorInterface $validator;
 
     /**
      * PlayerController constructor.
      * @param PlayerServiceInterface $playerService
      * @param DaedalusServiceInterface $daedalusService
      * @param CycleServiceInterface $cycleService
+     * @param ValidatorInterface $validator
      */
     public function __construct(
         PlayerServiceInterface $playerService,
         DaedalusServiceInterface $daedalusService,
-        CycleServiceInterface $cycleService
+        CycleServiceInterface $cycleService,
+        ValidatorInterface $validator
     ) {
         $this->playerService = $playerService;
         $this->daedalusService = $daedalusService;
         $this->cycleService = $cycleService;
+        $this->validator = $validator;
     }
 
     /**
@@ -93,21 +106,18 @@ class PlayerController extends AbstractFOSRestController
      *     )
      * @OA\Tag(name="Player")
      * @Security(name="Bearer")
+     * @ParamConverter("playerRequest", converter="PlayerRequestConverter")
      * @Rest\Post(path="")
+     * @Rest\View()
      */
-    public function createPlayerAction(Request $request): Response
+    public function createPlayerAction(PlayerRequest $playerRequest): View
     {
-        $daedalus = $this->daedalusService->findById($request->get('daedalus'));
-        $character = $request->get('character');
-
-        if (!$daedalus) {
-            $this->handleView($this->view('Missing daedalus', 422));
+        if (count($violations = $this->validator->validate($playerRequest))) {
+            return $this->view($violations, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        $player = $this->playerService->createPlayer($daedalus, $character);
+        $player = $this->playerService->createPlayer($playerRequest->getDaedalus(), $playerRequest->getCharacter());
 
-        $view = $this->view($player, 201);
-
-        return $this->handleView($view);
+        return $this->view($player, Response::HTTP_CREATED);
     }
 }

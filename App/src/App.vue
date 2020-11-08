@@ -1,19 +1,19 @@
 <template>
   <div class="main-container">
     <Banner></Banner>
-    <GamePanel></GamePanel>
+    <GamePage></GamePage>
   </div>
 </template>
 
 <script>
 
 import Banner from "@/components/Banner";
-import GamePanel from "@/components/Game/GamePanel";
+import GamePage from "@/components/Game/GamePage";
 
 export default {
   name: 'App',
   components: {
-    GamePanel,
+    GamePage,
     Banner
   }
 }

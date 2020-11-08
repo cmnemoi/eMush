@@ -130,6 +130,7 @@ export default {
 
 .char-panel {
   flex-direction: row;
+  margin-right: 12px;
 
   & .char-sheet {
     width: 176px;
@@ -333,6 +334,18 @@ export default {
             border-image-slice: 1;
             border-width: 1px;
             border-image-source: linear-gradient(0deg, rgba(13,44,115,1) 0%, rgba(89,164,216,1) 100%);
+            --bezel-size: 2px;
+            clip-path: polygon(
+              var(--bezel-size) 0,
+              calc(100% - var(--bezel-size)) 0,
+              100% var(--bezel-size),
+              100% calc(100% - var(--bezel-size)),
+              calc(100% - var(--bezel-size)) 100%,
+              var(--bezel-size) 100%,
+              0 calc(100% - var(--bezel-size)),
+              0 var(--bezel-size)
+            );
+            /* all border parameters allow for a gradient border, clip-path is a workaround to simulate border-radius */
             background: rgb(17,18,48);
             background: linear-gradient(0deg, rgba(17,18,48,1) 0%, rgba(53,56,152,1) 100%);
 

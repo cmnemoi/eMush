@@ -63,7 +63,7 @@
 
 <script>
 export default {
-  name: "GameBanner",
+  name: "BannerPanel",
   props: {
     characterLevel: Number,
     characterName: String
@@ -122,6 +122,7 @@ p, a, li, span {
     margin: auto;
     padding-right: 4px;
     font-family: Days-One;
+    font-weight: 700;
     color: white;
     text-decoration: none;
     text-shadow: 0 0 4px #15273C;
@@ -202,7 +203,7 @@ p, a, li, span {
   & .daedalus-alarms {
     padding: 3px 6px 1px 6px;
     max-height: 25px;
-    border: 1px solid red;
+    border: 1px solid #ff4e64;
     border-radius: 3px;
     background: rgba(58,106,171,1);
     box-shadow: 0 0 5px 1px inset rgba(28,29,56,1);
@@ -237,9 +238,9 @@ p, a, li, span {
 }
 
 @keyframes alarms-border-color {
-  0%   {border: 1px solid #ff4e64 ;}
-  50%  {border: 1px solid rgba(58,106,171,1) ;}
-  100% {border: 1px solid #ff4e64 ;}
+  0%   {border: 1px solid #ff4e64;}
+  50%  {border: 1px solid rgba(58,106,171,1);}
+  100% {border: 1px solid #ff4e64;}
 }
 
 </style>

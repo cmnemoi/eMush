@@ -5,8 +5,15 @@
 @font-face {
   font-family: 'Days-One';
   font-style: normal;
-  font-weight: 500;
+  font-weight: 700;
   src: url('~@/assets/fonts/DaysOne-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Pixel-Square';
+  font-style: normal;
+  font-weight: 700;
+  src: url('~@/assets/fonts/Pixel_Square.ttf') format('truetype');
 }
 
 html {

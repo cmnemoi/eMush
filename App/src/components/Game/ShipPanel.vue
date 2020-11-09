@@ -79,12 +79,20 @@ export default {
     height: 200px;
     background: #070724;
 
+    clip-path: polygon(
+      0 0,
+      calc(100% - var(--bezel-size)) 0,
+      100% var(--bezel-size),
+      100% 100%,
+      0 100%,
+    );
+
     transform: scale(.5);
     transform-origin: bottom left;
 
-    transition: transform .8s ease-out;
+    transition: transform .5s;
 
-    &:hover { transform: scale(1); }
+    &:hover { transform: scale(1); transition: transform .6s .2s; }
 
     & .map {
       width: 184px;
@@ -102,7 +110,7 @@ export default {
         height: 4px;
         background: #FF8888;
 
-        @for $i from 1 through 16 { // randomize crew position, for prototyping only
+        @for $i from 1 through 16 { // randomize crew position, for testing only
           &:nth-child(#{$i}) {
             left: random(156) + 10px;
             top: random(52) + 18px;

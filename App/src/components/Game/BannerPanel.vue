@@ -195,7 +195,7 @@ p, a, li, span {
   align-items: center;
 
   & > div {
-    margin: 0 .8em;
+    margin: 0 12px;
     display:flex;
     align-items: center;
   }

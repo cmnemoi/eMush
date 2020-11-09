@@ -2,7 +2,7 @@
   <div class="char-panel">
 
     <div class="char-sheet">
-      <img class="avatar" src="@/assets/images/char/stephen_seagull.jpg" alt="avatar">
+      <img class="avatar" src="@/assets/images/char/portrait/Kim_jin_su_portrait.jpg" alt="avatar">
 
       <ul class="statuses"></ul>
 
@@ -130,7 +130,6 @@ export default {
 
 .char-panel {
   flex-direction: row;
-  margin-right: 12px;
 
   & .char-sheet {
     width: 176px;

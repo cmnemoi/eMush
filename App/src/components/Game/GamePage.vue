@@ -6,6 +6,7 @@
       <div class="game-content">
         <CharPanel></CharPanel>
         <ShipPanel></ShipPanel>
+        <CommsPanel></CommsPanel>
       </div>
       <div class="bottom-banner"></div>
   </div>
@@ -15,12 +16,14 @@
 import BannerPanel from "@/components/Game/BannerPanel";
 import CharPanel from "@/components/Game/CharPanel";
 import ShipPanel from "@/components/Game/ShipPanel";
+import CommsPanel from "@/components/Game/CommsPanel";
 export default {
   name: 'GamePage',
   components: {
     BannerPanel,
     CharPanel,
-    ShipPanel
+    ShipPanel,
+    CommsPanel
   },
   props: {
   }

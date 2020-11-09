@@ -21,12 +21,11 @@ class ItemRepository extends ServiceEntityRepository
         $queryBuilder = $this->createQueryBuilder('item');
 
         $queryBuilder
-            ->from(Item::class, 'item')
-            ->leftJoin(GameConfig::class, 'gameConfig')
+            ->leftJoin(GameConfig::class, 'gameConfig', Join::WITH, 'gameConfig = item.gameConfig')
             ->leftJoin(
                 Daedalus::class,
                 'daedalus',
-                Join::ON,
+                Join::WITH,
                 $queryBuilder->expr()->andX(
                     $queryBuilder->expr()->eq('daedalus', ':daedalus'),
                     $queryBuilder->expr()->eq('daedalus.gameConfig', 'gameConfig.id')

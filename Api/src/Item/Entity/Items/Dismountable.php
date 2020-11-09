@@ -17,12 +17,12 @@ class Dismountable extends Tool
 {
     protected string $type = ItemTypeEnum::DISMOUNTABLE;
 
-    protected array $actions = [ActionEnum::DISMANTLE];
+    protected array $actions = [ActionEnum::DISASSEMBLE];
     
      /**
      * @ORM\Column(type="integer", length=255, nullable=false)
      */
-    private ?int $chancesSucces=null;
+    private ?int $chancesSuccess=null;
     
      /**
      * @ORM\Column(type="integer", length=255, nullable=false)
@@ -34,14 +34,36 @@ class Dismountable extends Tool
     
     
 
-    public function getSkill(): string
+    public function getChancesSuccess(): int
     {
-        return $this->skill;
+        return $this->chancesSuccess;
     }
 
-    public function setSkill(string $skill): Book
+    public function setChancesSuccess(int $chancesSuccess): Dismountable
     {
-        $this->skill = $skill;
+        $this->chancesSuccess = $chancesSuccess;
+        return $this;
+    }
+    
+    public function getActionCost(): int
+    {
+        return $this->actionCost;
+    }
+
+    public function setActionCost(int $actionCost): Dismountable
+    {
+        $this->actionCost = $actionCost;
+        return $this;
+    }
+    
+    public function getProducts(): array
+    {
+        return $this->products;
+    }
+
+    public function setProducts(array $products): Dismountable
+    {
+        $this->products = $products;
         return $this;
     }
 }

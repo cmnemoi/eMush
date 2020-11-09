@@ -20,3 +20,7 @@ services:
   Mush\Player\Controller\:
     resource: '../Controller/'
     tags: ['controller.service_arguments']
+
+  Mush\Player\ParamConverter\PlayerRequestConverter:
+    tags:
+      - { name: 'request.param_converter', converter: PlayerRequestConverter }

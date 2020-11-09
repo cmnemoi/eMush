@@ -52,9 +52,6 @@ class PlantCycleHandler implements CycleHandlerInterface
             return;
         }
 
-        /** @var Plant $plant */
-        $plant = $gamePlant->getItem();
-
         if ($this->randomService->random(1, 100) <= self::DISEASE_PERCENTAGE) {
             $gamePlant->addStatus(PlantStatusEnum::DISEASED);
         }

@@ -66,6 +66,17 @@ class PlayerService implements PlayerServiceInterface
         return $this->repository->find($id);
     }
 
+    public function findOneByCharacter(string $character, ?Daedalus $daedalus = null): ?Player
+    {
+        $params = ['person'=> $character];
+
+        if ($daedalus !== null) {
+            $params['daedalus'] = $daedalus;
+        }
+
+        return $this->repository->findOneBy($params);
+    }
+
     public function findUserCurrentGame(User $user): ?Player
     {
         return $this->repository->findOneBy(['user' => $user, 'gameStatus' => GameStatusEnum::CURRENT]);

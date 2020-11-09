@@ -6,3 +6,14 @@ fos_rest:
       - { path: '^/', prefer_extension: true, fallback_format: "html", priorities: [ 'html', '*/*' ] }
   body_listener:
     array_normalizer: fos_rest.normalizer.camel_keys
+  body_converter:
+    enabled: true
+    validate: true
+    validation_errors_argument: violations
+
+  view:
+    view_response_listener: true
+    formats:
+      rss: false
+      xml: false
+      json: true

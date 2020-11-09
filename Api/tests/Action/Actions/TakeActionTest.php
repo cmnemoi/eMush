@@ -61,6 +61,14 @@ class TakeActionTest extends TestCase
         );
     }
 
+    /**
+     * @after
+     */
+    public function after()
+    {
+        Mockery::close();
+    }
+
     public function testExecute()
     {
         $room = new Room();

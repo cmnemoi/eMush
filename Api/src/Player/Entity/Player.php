@@ -9,8 +9,8 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Item\Entity\GameItem;
 use Mush\Room\Entity\Room;
-use Mush\Status\Entity\Collection\AfflictionCollection;
-use Mush\Status\Entity\Affliction;
+use Mush\Status\Entity\Collection\MedicalConditionCollection;
+use Mush\Status\Entity\MedicalCondition;
 use Mush\User\Entity\User;
 
 /**
@@ -62,9 +62,9 @@ class Player
     private Collection $items;
 
     /**
-     * @ORM\OneToMany(targetEntity="Mush\Status\Entity\Affliction", mappedBy="player")
+     * @ORM\OneToMany(targetEntity="Mush\Status\Entity\MedicalCondition", mappedBy="player")
      */
-    private Collection $afflictions;
+    private Collection $medicalConditions;
 
     /**
      * @ORM\Column(type="array", nullable=true)
@@ -104,7 +104,7 @@ class Player
     public function __construct()
     {
         $this->items = new ArrayCollection();
-        $this->afflictions = new ArrayCollection();
+        $this->medicalConditions = new ArrayCollection();
     }
 
     public function getId(): int
@@ -220,32 +220,32 @@ class Player
             return (! $this->getItems()->filter(fn(GameItem $gameItem) => $gameItem->getName() === $name)->isEmpty());
     }
 
-    public function getAfflictions(): AfflictionCollection
+    public function getMedicalConditions(): MedicalConditionCollection
     {
-        return new AfflictionCollection($this->afflictions->toArray());
+        return new MedicalConditionCollection($this->medicalConditions->toArray());
     }
 
-    public function setAfflictions(Collection $afflictions): Player
+    public function setMedicalConditions(Collection $medicalConditions): Player
     {
-        $this->afflictions = $afflictions;
+        $this->medicalConditions = $medicalConditions;
         return $this;
     }
 
-    public function addAffliction(Affliction $affliction): Player
+    public function addMedicalCondition(MedicalCondition $medicalCondition): Player
     {
-        if (!$this->getAfflictions()->contains($affliction)) {
-            $this->afflictions->add($affliction);
-            $affliction->setPlayer($this);
+        if (!$this->getMedicalConditions()->contains($medicalCondition)) {
+            $this->medicalConditions->add($medicalCondition);
+            $medicalCondition->setPlayer($this);
         }
 
         return $this;
     }
 
-    public function removeAffliction(Affliction $affliction): Player
+    public function removeMedicalCondition(MedicalCondition $medicalCondition): Player
     {
-        if ($this->afflictions->contains($affliction)) {
-            $this->afflictions->removeElement($affliction);
-            $affliction->setPlayer(null);
+        if ($this->medicalConditions->contains($medicalCondition)) {
+            $this->medicalConditions->removeElement($medicalCondition);
+            $medicalCondition->setPlayer(null);
         }
 
         return $this;

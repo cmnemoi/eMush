@@ -7,7 +7,7 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
-use Mush\Status\Entity\AfflictionConfig;
+use Mush\Status\Entity\MedicalConditionConfig;
 use Mush\Status\Enum\InjuryEnum;
 use Mush\Status\Enum\StatusEffectTypeEnum;
 use Mush\Status\Enum\SymptomEnum;
@@ -19,7 +19,7 @@ class InjuryFixtures extends Fixture implements DependentFixtureInterface
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
-        $innerEarDamaged = new AfflictionConfig();
+        $innerEarDamaged = new MedicalConditionConfig();
         $innerEarDamaged
             ->setGameConfig($gameConfig)
             ->setName(InjuryEnum::INNER_EAR_DAMAGED)

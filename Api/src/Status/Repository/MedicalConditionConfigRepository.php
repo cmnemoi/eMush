@@ -4,12 +4,12 @@ namespace Mush\Status\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Mush\Status\Entity\AfflictionConfig;
+use Mush\Status\Entity\MedicalConditionConfig;
 
-class AfflictionConfigRepository extends ServiceEntityRepository
+class MedicalConditionConfigRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, AfflictionConfig::class);
+        parent::__construct($registry, MedicalConditionConfig::class);
     }
 }

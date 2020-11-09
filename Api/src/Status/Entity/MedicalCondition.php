@@ -3,7 +3,6 @@
 namespace Mush\Status\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Game\Entity\GameConfig;
 use Mush\Player\Entity\Player;
 
 /**
@@ -12,7 +11,7 @@ use Mush\Player\Entity\Player;
  *
  * @ORM\Entity()
  */
-class Affliction
+class MedicalCondition
 {
     /**
      * @ORM\Id
@@ -22,14 +21,14 @@ class Affliction
     private int $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Mush\Player\Entity\Player", inversedBy="afflictions")
+     * @ORM\ManyToOne(targetEntity="Mush\Player\Entity\Player", inversedBy="medicalConditions")
      */
     private Player $player;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Mush\Status\Entity\AfflictionConfig")
+     * @ORM\ManyToOne(targetEntity="Mush\Status\Entity\MedicalConditionConfig")
      */
-    private AfflictionConfig $afflictionConfig;
+    private MedicalConditionConfig $medicalConditionConfig;
 
     public function getId(): int
     {
@@ -41,20 +40,20 @@ class Affliction
         return $this->player;
     }
 
-    public function setPlayer(Player $player): Affliction
+    public function setPlayer(Player $player): MedicalCondition
     {
         $this->player = $player;
         return $this;
     }
 
-    public function getAfflictionConfig(): AfflictionConfig
+    public function getMedicalConditionConfig(): MedicalConditionConfig
     {
-        return $this->afflictionConfig;
+        return $this->medicalConditionConfig;
     }
 
-    public function setAfflictionConfig(AfflictionConfig $afflictionConfig): Affliction
+    public function setMedicalConditionConfig(MedicalConditionConfig $medicalConditionConfig): MedicalCondition
     {
-        $this->afflictionConfig = $afflictionConfig;
+        $this->medicalConditionConfig = $medicalConditionConfig;
         return $this;
     }
 }

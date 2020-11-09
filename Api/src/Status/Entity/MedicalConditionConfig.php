@@ -9,9 +9,9 @@ use Mush\Game\Entity\GameConfig;
  * Class Condition
  * @package Mush\Entity
  *
- * @ORM\Entity(repositoryClass="Mush\Status\Repository\AfflictionConfigRepository")
+ * @ORM\Entity(repositoryClass="Mush\Status\Repository\MedicalConditionConfigRepository")
  */
-class AfflictionConfig
+class MedicalConditionConfig
 {
     /**
      * @ORM\Id
@@ -95,7 +95,7 @@ class AfflictionConfig
     {
         return $this->name;
     }
-    public function setName(string $newName): AfflictionConfig
+    public function setName(string $newName): MedicalConditionConfig
     {
         $this->name = $newName;
         return $this;
@@ -106,7 +106,7 @@ class AfflictionConfig
         return $this->gameConfig;
     }
 
-    public function setGameConfig(GameConfig $gameConfig): AfflictionConfig
+    public function setGameConfig(GameConfig $gameConfig): MedicalCondition
     {
         $this->gameConfig = $gameConfig;
         return $this;
@@ -116,7 +116,7 @@ class AfflictionConfig
     {
         return $this->type;
     }
-    public function setType(string $newType): AfflictionConfig
+    public function setType(string $newType): MedicalConditionConfig
     {
         $this->type = $newType;
 
@@ -128,7 +128,7 @@ class AfflictionConfig
         return $this->duration;
     }
 
-    public function setDuration(int $duration): AfflictionConfig
+    public function setDuration(int $duration): MedicalConditionConfig
     {
         $this->duration = $duration;
 
@@ -140,7 +140,7 @@ class AfflictionConfig
         return $this->actionPointModifier;
     }
 
-    public function setActionPointModifier(int $actionPointModifier): AfflictionConfig
+    public function setActionPointModifier(int $actionPointModifier): MedicalConditionConfig
     {
         $this->actionPointModifier = $actionPointModifier;
         return $this;
@@ -151,7 +151,7 @@ class AfflictionConfig
         return $this->movementPointModifier;
     }
 
-    public function setMovementPointModifier(int $movementPointModifier): AfflictionConfig
+    public function setMovementPointModifier(int $movementPointModifier): MedicalConditionConfig
     {
         $this->movementPointModifier = $movementPointModifier;
         return $this;
@@ -162,7 +162,7 @@ class AfflictionConfig
         return $this->moralPointModifier;
     }
 
-    public function setMoralPointModifier(int $moralPointModifier): AfflictionConfig
+    public function setMoralPointModifier(int $moralPointModifier): MedicalConditionConfig
     {
         $this->moralPointModifier = $moralPointModifier;
         return $this;
@@ -173,7 +173,7 @@ class AfflictionConfig
         return $this->precisionModifier;
     }
 
-    public function setPrecisionModifier(int $precisionModifier): AfflictionConfig
+    public function setPrecisionModifier(int $precisionModifier): MedicalConditionConfig
     {
         $this->precisionModifier = $precisionModifier;
         return $this;
@@ -184,7 +184,7 @@ class AfflictionConfig
         return $this->maxActionPointModifier;
     }
 
-    public function setMaxActionPointModifier(int $maxActionPointModifier): AfflictionConfig
+    public function setMaxActionPointModifier(int $maxActionPointModifier): MedicalConditionConfig
     {
         $this->maxActionPointModifier = $maxActionPointModifier;
         return $this;
@@ -195,7 +195,7 @@ class AfflictionConfig
         return $this->maxMovementPointModifier;
     }
 
-    public function setMaxMovementPointModifier(int $maxMovementPointModifier): AfflictionConfig
+    public function setMaxMovementPointModifier(int $maxMovementPointModifier): MedicalConditionConfig
     {
         $this->maxMovementPointModifier = $maxMovementPointModifier;
         return $this;
@@ -206,7 +206,7 @@ class AfflictionConfig
         return $this->maxHealthPointModifier;
     }
 
-    public function setMaxHealthPointModifier(int $maxHealthPointModifier): AfflictionConfig
+    public function setMaxHealthPointModifier(int $maxHealthPointModifier): MedicalConditionConfig
     {
         $this->maxHealthPointModifier = $maxHealthPointModifier;
         return $this;
@@ -217,7 +217,7 @@ class AfflictionConfig
         return $this->maxMoralPointModifier;
     }
 
-    public function setMaxMoralPointModifier(int $maxMoralPointModifier): AfflictionConfig
+    public function setMaxMoralPointModifier(int $maxMoralPointModifier): MedicalConditionConfig
     {
         $this->maxMoralPointModifier = $maxMoralPointModifier;
         return $this;
@@ -228,7 +228,7 @@ class AfflictionConfig
         return $this->symptoms;
     }
 
-    public function setSymptoms(array $symptoms): AfflictionConfig
+    public function setSymptoms(array $symptoms): MedicalConditionConfig
     {
         $this->symptoms = $symptoms;
         return $this;

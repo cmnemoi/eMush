@@ -59,6 +59,15 @@ class PlantCycleHandlerTest extends TestCase
         );
     }
 
+
+    /**
+     * @after
+     */
+    public function after()
+    {
+        Mockery::close();
+    }
+
     public function testNewCycle()
     {
         $plant = new Item();
@@ -67,7 +76,7 @@ class PlantCycleHandlerTest extends TestCase
         $plant->setTypes(new ArrayCollection([$plantType]));
 
         $this->roomLogService->shouldReceive('createItemLog');
-        $this->itemService->shouldReceive('persist');
+        $this->itemService->shouldReceive('persist')->twice();
         $this->randomService->shouldReceive('random')->andReturn(100)->once(); //Plant should not get disease
 
         $daedalus = new Daedalus();

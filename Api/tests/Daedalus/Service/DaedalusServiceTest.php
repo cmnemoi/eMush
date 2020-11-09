@@ -62,6 +62,14 @@ class DaedalusServiceTest extends TestCase
         );
     }
 
+    /**
+     * @after
+     */
+    public function after()
+    {
+        Mockery::close();
+    }
+
     public function testCreateDaedalus()
     {
         $roomConfig = new RoomConfig();
@@ -106,10 +114,10 @@ class DaedalusServiceTest extends TestCase
             ->twice()
         ;
 
-
+        //There is no random itemPlace
         $this->itemService
             ->shouldReceive('persist')
-            ->once()
+            ->never()
         ;
 
         $daedalus = $this->service->createDaedalus($gameConfig);

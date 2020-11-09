@@ -6,6 +6,7 @@ namespace Mush\Player\Entity\Dto;
 use Mush\Daedalus\Entity\Daedalus;
 use Symfony\Component\Validator\Constraints as Assert;
 use Mush\Player\Validator\UniqueCharacter;
+use Mush\Daedalus\Validator\FullDaedalus;
 
 /**
  * Class PlayerRequest
@@ -20,6 +21,7 @@ class PlayerRequest
     private ?string $character = null;
     /**
      * @Assert\NotNull
+     * @FullDaedalus
      */
     private ?Daedalus $daedalus = null;
 

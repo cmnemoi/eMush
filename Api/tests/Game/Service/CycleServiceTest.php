@@ -31,6 +31,14 @@ class CycleServiceTest extends TestCase
         $this->service = new CycleService($gameConfigService, $this->eventDispatcher);
     }
 
+    /**
+     * @after
+     */
+    public function after()
+    {
+        Mockery::close();
+    }
+
     public function testGetCycleTimezone()
     {
         $timeZone = 'Europe/Paris';

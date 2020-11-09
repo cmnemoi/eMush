@@ -41,6 +41,14 @@ class ItemEffectServiceTest extends TestCase
         );
     }
 
+    /**
+     * @after
+     */
+    public function after()
+    {
+        Mockery::close();
+    }
+
     public function testGetConsumableEffect()
     {
         $daedalus = new Daedalus();

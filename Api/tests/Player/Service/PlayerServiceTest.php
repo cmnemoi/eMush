@@ -59,6 +59,14 @@ class PlayerServiceTest extends TestCase
         );
     }
 
+    /**
+     * @after
+     */
+    public function after()
+    {
+        Mockery::close();
+    }
+
     public function testCreateDaedalus()
     {
         $this->gameConfig
@@ -85,15 +93,15 @@ class PlayerServiceTest extends TestCase
         $this->tokenStorage
             ->shouldReceive('getToken')
             ->andReturn($token)
-            ->twice()
+            ->once()
         ;
         $this->entityManager
             ->shouldReceive('persist')
-            ->twice()
+            ->once()
         ;
         $this->entityManager
             ->shouldReceive('flush')
-            ->twice()
+            ->once()
         ;
 
         $daedalus = new Daedalus();

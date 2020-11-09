@@ -87,7 +87,7 @@ class User implements UserInterface
         return null;
     }
 
-    public function getCurrentGame(): Player
+    public function getCurrentGame(): ?Player
     {
         return $this->currentGame;
     }

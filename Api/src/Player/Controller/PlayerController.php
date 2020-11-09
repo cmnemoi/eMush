@@ -9,7 +9,9 @@ use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Validator\ErrorHandlerTrait;
 use Mush\Player\Entity\Dto\PlayerRequest;
+use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\Player\Voter\CharacterVoter;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
@@ -66,13 +68,9 @@ class PlayerController extends AbstractFOSRestController
      * @Security(name="Bearer")
      * @Rest\Get(path="/{id}")
      */
-    public function getPlayerAction(Request $request): Response
+    public function getPlayerAction(Player $player): Response
     {
-        $player = $this->playerService->findById($request->get('id'));
-
-        if (!$player) {
-            return $this->handleView($this->view('Not found', 404));
-        }
+        $this->denyAccessUnlessGranted(CharacterVoter::PLAYER_VIEW, $player);
 
         $this->cycleService->handleCycleChange($player->getDaedalus());
 
@@ -115,6 +113,8 @@ class PlayerController extends AbstractFOSRestController
         if (count($violations = $this->validator->validate($playerRequest))) {
             return $this->view($violations, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
+
+        $this->denyAccessUnlessGranted(CharacterVoter::PLAYER_CREATE);
 
         $player = $this->playerService->createPlayer($playerRequest->getDaedalus(), $playerRequest->getCharacter());
 

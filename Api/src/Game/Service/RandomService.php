@@ -16,6 +16,11 @@ class RandomService implements RandomServiceInterface
         return rand($min, $max);
     }
 
+    public function randomPercent(): int
+    {
+        return $this->random(1,100);
+    }
+
     public function getPlayerInRoom(Room $room): Player
     {
         if ($room->getPlayers()->isEmpty()) {

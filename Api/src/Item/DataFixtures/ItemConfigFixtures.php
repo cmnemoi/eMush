@@ -94,6 +94,11 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($blockOfPostIt);
 
+        $blasterConfig = new Weapon();
+        $blasterConfig
+            ->setMaxCharges(3)
+        ;
+
         $blaster = new Item();
         $blaster
             ->setGameConfig($gameConfig)
@@ -106,8 +111,9 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-
+            ->setTypes(new ArrayCollection([$blasterConfig]))
         ;
+        $manager->persist($blasterConfig);
         $manager->persist($blaster);
 
         $compass = new Item();
@@ -341,7 +347,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setActionCost(4)
             ->setChancesSuccess(25)
         ;
-        
+
         $microwave = new Item();
         $microwave
             ->setGameConfig($gameConfig)
@@ -359,7 +365,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($microwave);
         $manager->persist($kitchenToolsType);
-        
+
 
         $superFreezer = new Item();
         $superFreezer
@@ -377,7 +383,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
 
         ;
         $manager->persist($superFreezer);
-        
+
         $plasticScraps = new Item();
         $plasticScraps
             ->setGameConfig($gameConfig)
@@ -493,6 +499,13 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setSkill(SkillEnum::PILOT)
         ;
 
+        $dismantle = new Dismountable();
+        $dismantle
+            ->setActionCost(4)
+            ->setChancesSuccess(6)
+            ->setProducts([ItemEnum::METAL_SCRAPS])
+        ;
+
         $apprentonPilot = new Item();
         $apprentonPilot
             ->setGameConfig($gameConfig)
@@ -505,11 +518,12 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setTypes(new ArrayCollection([$apprentonPilotType]))
+            ->setTypes(new ArrayCollection([$apprentonPilotType, $dismantle]))
         ;
+        $manager->persist($dismantle);
         $manager->persist($apprentonPilotType);
         $manager->persist($apprentonPilot);
-        
+
         $SniperHelmet = new Item();
         $SniperHelmet
             ->setGameConfig($gameConfig)
@@ -524,7 +538,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireBreakable(true)
         ;
         $manager->persist($SniperHelmet);
-        
+
         $blueprintSniperHelmetType = new Blueprint();
         $blueprintSniperHelmetType
             ->setItem($SniperHelmet)
@@ -547,7 +561,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($blueprintSniperHelmetType);
         $manager->persist($blueprintSniperHelmet);
-        
         
         $drugType = new Drug();
         $drugType
@@ -588,9 +601,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($drugType);
         $manager->persist($bacta);
-        
-        
-        
+
         $manager->flush();
     }
 

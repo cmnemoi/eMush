@@ -107,7 +107,7 @@ class DaedalusService implements DaedalusServiceInterface
                     ->filter(fn(Item $item) => $item->getName() === $itemName)
                     ->first()
                 ;
-                $item = $this->itemService->createGameItem($item);
+                $item = $this->itemService->createGameItem($item, $daedalus);
                 $roomName = $randomItemPlaces
                     ->getPlaces()[$this->randomService->random(0, count($randomItemPlaces->getPlaces()) - 1)]
                 ;

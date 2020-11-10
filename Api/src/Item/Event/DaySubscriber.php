@@ -3,6 +3,7 @@
 namespace Mush\Item\Event;
 
 use Mush\Game\CycleHandler\CycleHandlerInterface;
+use Mush\Game\Event\CycleEvent;
 use Mush\Game\Event\DayEvent;
 use Mush\Room\Service\RoomServiceInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -39,6 +40,12 @@ class DaySubscriber implements EventSubscriberInterface
     {
         if (!($item = $event->getGameItem())) {
             return;
+        }
+
+        foreach ($item->getStatuses() as $status) {
+            $statusNewDay = new DayEvent($event->getDaedalus(), $event->getTime());
+            $statusNewDay->setStatus($status);
+            $this->eventDispatcher->dispatch($statusNewDay, DayEvent::NEW_DAY);
         }
 
         foreach ($item->getItem()->getTypes() as $itemType) {

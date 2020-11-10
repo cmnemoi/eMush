@@ -11,6 +11,7 @@ use Mush\Item\Entity\GameItem;
 use Mush\Room\Entity\Room;
 use Mush\Status\Entity\Collection\MedicalConditionCollection;
 use Mush\Status\Entity\MedicalCondition;
+use Mush\Status\Entity\Status;
 use Mush\User\Entity\User;
 
 /**
@@ -62,14 +63,9 @@ class Player
     private Collection $items;
 
     /**
-     * @ORM\OneToMany(targetEntity="Mush\Status\Entity\MedicalCondition", mappedBy="player")
+     * @ORM\OneToMany(targetEntity="Mush\Status\Entity\Status", mappedBy="player", cascade={"ALL"})
      */
-    private Collection $medicalConditions;
-
-    /**
-     * @ORM\Column(type="array", nullable=true)
-     */
-    private array $statuses;
+    private Collection $statuses;
 
     /**
      * @ORM\Column(type="array", nullable=true)
@@ -104,7 +100,7 @@ class Player
     public function __construct()
     {
         $this->items = new ArrayCollection();
-        $this->medicalConditions = new ArrayCollection();
+        $this->statuses = new ArrayCollection();
     }
 
     public function getId(): int
@@ -225,49 +221,38 @@ class Player
 
     public function getMedicalConditions(): MedicalConditionCollection
     {
-        return new MedicalConditionCollection($this->medicalConditions->toArray());
+        return new MedicalConditionCollection($this->statuses->filter(fn(Status $status) => ($status instanceof MedicalCondition))->toArray());
     }
 
-    public function setMedicalConditions(Collection $medicalConditions): Player
-    {
-        $this->medicalConditions = $medicalConditions;
-        return $this;
-    }
-
-    public function addMedicalCondition(MedicalCondition $medicalCondition): Player
-    {
-        if (!$this->getMedicalConditions()->contains($medicalCondition)) {
-            $this->medicalConditions->add($medicalCondition);
-            $medicalCondition->setPlayer($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMedicalCondition(MedicalCondition $medicalCondition): Player
-    {
-        if ($this->medicalConditions->contains($medicalCondition)) {
-            $this->medicalConditions->removeElement($medicalCondition);
-            $medicalCondition->setPlayer(null);
-        }
-
-        return $this;
-    }
-
-    public function getStatuses(): ?array
+    public function getStatuses(): Collection
     {
         return $this->statuses;
     }
 
-    public function setStatuses(array $statuses): Player
+    public function setStatuses(Collection $statuses): Player
     {
         $this->statuses = $statuses;
         return $this;
     }
 
-    public function hasStatus(string $status): bool
+    public function addStatus(Status $status): Player
     {
-        return in_array($status, $this->statuses);
+        if (!$this->getStatuses()->contains($status)) {
+            $this->statuses->add($status);
+            $status->setPlayer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStatus(Status $status): Player
+    {
+        if ($this->statuses->contains($status)) {
+            $this->statuses->removeElement($status);
+            $status->setPlayer(null);
+        }
+
+        return $this;
     }
 
     public function addSkill(string $skill): Player

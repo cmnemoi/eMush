@@ -46,6 +46,11 @@ abstract class ItemType
      */
     protected array $actions = [];
 
+    public function initItem(GameItem $gameItem): GameItem
+    {
+        return $gameItem;
+    }
+
     public function getId(): int
     {
         return $this->id;

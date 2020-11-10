@@ -32,7 +32,7 @@ class DaySubscriber implements EventSubscriberInterface
 
     public function onNewDay(DayEvent $event)
     {
-        if ($event->getGameItem() || $event->getPlayer() || $event->getRoom()) {
+        if ($event->getGameItem() || $event->getPlayer() || $event->getRoom() || $event->getStatus()) {
             return;
         }
         $daedalus = $event->getDaedalus();

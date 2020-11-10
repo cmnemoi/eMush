@@ -2,7 +2,6 @@
 
 namespace Mush\Action\Actions;
 
-use Mush\Action\Entity\ActionCost;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
@@ -24,19 +23,19 @@ class Drop extends Action
     private GameItem $item;
 
     private RoomLogServiceInterface $roomLogService;
-    private GameItemServiceInterface $itemService;
+    private GameItemServiceInterface $gameItemService;
     private PlayerServiceInterface $playerService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         RoomLogServiceInterface $roomLogService,
-        GameItemServiceInterface $itemService,
+        GameItemServiceInterface $gameItemService,
         PlayerServiceInterface $playerService
     ) {
         parent::__construct($eventDispatcher);
 
         $this->roomLogService = $roomLogService;
-        $this->itemService = $itemService;
+        $this->gameItemService = $gameItemService;
         $this->playerService = $playerService;
     }
 
@@ -68,7 +67,7 @@ class Drop extends Action
             $this->player->setStatuses(\array_diff($this->player->getStatuses(), [StatusEnum::BURDENED]));
         }
 
-        $this->itemService->persist($this->item);
+        $this->gameItemService->persist($this->item);
         $this->playerService->persist($this->player);
 
         return new Success();

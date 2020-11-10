@@ -41,6 +41,12 @@ class CycleSubscriber implements EventSubscriberInterface
             return;
         }
 
+        foreach ($item->getStatuses() as $status) {
+            $statusNewCycle = new CycleEvent($event->getDaedalus(), $event->getTime());
+            $statusNewCycle->setStatus($status);
+            $this->eventDispatcher->dispatch($statusNewCycle, CycleEvent::NEW_CYCLE);
+        }
+
         foreach ($item->getItem()->getTypes() as $itemType) {
             if (isset($this->cyclesManagerConfig[get_class($itemType)])) {
                 $serviceClass = $this->cyclesManagerConfig[get_class($itemType)];

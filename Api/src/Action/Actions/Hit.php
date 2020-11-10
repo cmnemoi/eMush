@@ -7,6 +7,9 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Game\Enum\SkillEnum;
+use Mush\Game\Enum\SkillMushEnum;
+use Mush\Item\Enum\ItemEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
@@ -17,20 +20,26 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 class Hit extends Action
 {
     protected const NAME = ActionEnum::HIT;
-    
-    
+
+    private Player $target;
+    private int $chanceSuccess;
+    private int $damage;
+
     private PlayerServiceInterface $playerService;
     private RandomServiceInterface $randomService;
+    private RoomLogServiceInterface $roomLogService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         PlayerServiceInterface $playerService,
-        RandomServiceInterface $randomService
+        RandomServiceInterface $randomService,
+        RoomLogServiceInterface $roomLogService
     ) {
         parent::__construct($eventDispatcher);
 
         $this->playerService = $playerService;
         $this->randomService = $randomService;
+        $this->roomLogService = $roomLogService;
 
         $this->actionCost->setActionPointCost(1);
     }
@@ -43,23 +52,23 @@ class Hit extends Action
 
         $this->player  = $player;
         $this->target  = $target;
-         $this->chance_success = 50;
-         $this->damage=0;
+        $this->chanceSuccess = 50;
+        $this->damage=0;
     }
 
     public function canExecute(): bool
     {
         return ($this->player->getRoom()===$this->target->getRoom() &&
-                    $this->player!==$this->target);
+            $this->player!==$this->target);
     }
 
     protected function applyEffects(): ActionResult
     {
-         // @TODO: add knife case
-        if ($this->randomService->random(0, 100)< $this->chance_success) {
+        // @TODO: add knife case
+        if ($this->randomService->random(0, 100)< $this->chanceSuccess) {
         } else {
             $this->damage = $this->randomService->random(1, 3);
-        
+
             if (in_array(SkillEnum::SOLID, $this->player->getSkills())) {
                 $this->damage=$this->damage+1;
             }
@@ -74,9 +83,9 @@ class Hit extends Action
             }
             if ($this->damage<=0) {
                 // TODO:
-            } elseif ($this->target->getHealthPoint()>damage) {
+            } elseif ($this->target->getHealthPoint()> $this->damage) {
                 $this->target->setHealthPoint($this->target->getHealthPoint() - $this->damage);
-                    
+
                 $this->playerService->persist($this->target);
             } else {
                 // @TODO: kill the target

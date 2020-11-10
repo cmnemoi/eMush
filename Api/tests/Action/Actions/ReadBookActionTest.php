@@ -20,6 +20,7 @@ use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ReadBookActionTest extends TestCase
 {
@@ -36,11 +37,15 @@ class ReadBookActionTest extends TestCase
      */
     public function before()
     {
+        $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
         $this->itemService = Mockery::mock(GameItemServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
 
+        $eventDispatcher->shouldReceive('dispatch');
+
         $this->action = new ReadBook(
+            $eventDispatcher,
             $this->roomLogService,
             $this->itemService,
             $this->playerService

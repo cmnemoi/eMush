@@ -11,40 +11,12 @@ use Mush\Player\Entity\Player;
  *
  * @ORM\Entity()
  */
-class MedicalCondition
+class MedicalCondition extends Status
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
-    private int $id;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Mush\Player\Entity\Player", inversedBy="medicalConditions")
-     */
-    private Player $player;
-
     /**
      * @ORM\ManyToOne(targetEntity="Mush\Status\Entity\MedicalConditionConfig")
      */
     private MedicalConditionConfig $medicalConditionConfig;
-
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    public function getPlayer(): Player
-    {
-        return $this->player;
-    }
-
-    public function setPlayer(Player $player): MedicalCondition
-    {
-        $this->player = $player;
-        return $this;
-    }
 
     public function getMedicalConditionConfig(): MedicalConditionConfig
     {

@@ -2,6 +2,7 @@
 
 namespace Mush\Player\Service;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\Collection\CharacterConfigCollection;
@@ -14,6 +15,8 @@ use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Repository\PlayerRepository;
 use Mush\Room\Entity\Room;
 use Mush\Room\Enum\RoomEnum;
+use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Status\Entity\Status;
 use Mush\User\Entity\User;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -91,6 +94,16 @@ class PlayerService implements PlayerServiceInterface
 
         $characterConfig = $this->gameConfig->getCharactersConfig()->getCharacter($character);
 
+        $statuses = new ArrayCollection();
+        foreach ($characterConfig->getStatuses() as $statusName) {
+            $status = new Status();
+            $status
+                ->setName($statusName)
+                ->setVisibility(VisibilityEnum::PUBLIC)
+            ;
+            $statuses->add($status);
+        }
+
         $player
             ->setUser($user)
             ->setGameStatus(GameStatusEnum::CURRENT)
@@ -107,7 +120,7 @@ class PlayerService implements PlayerServiceInterface
             ->setActionPoint($this->gameConfig->getInitActionPoint())
             ->setMovementPoint($this->gameConfig->getInitMovementPoint())
             ->setSatiety($this->gameConfig->getInitSatiety())
-            ->setStatuses($characterConfig->getStatuses())
+            ->setStatuses($statuses)
         ;
 
         $user->setCurrentGame($player);

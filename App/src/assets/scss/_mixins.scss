@@ -1,0 +1,20 @@
+/* MIXIN */
+
+
+/* Add a clip-path with bezel-cuts for each corners of the element, clockwise starting from top left */
+@mixin corner-bezel($topleft: 0, $topright: -1, $bottomright: -1, $bottomleft: -1) {
+  @if $topright    = -1 { $topright    : $topleft;     }
+  @if $bottomright = -1 { $bottomright : $topright;    }
+  @if $bottomleft  = -1 { $bottomleft  : $bottomright; }
+
+  clip-path: polygon(
+    $topleft 0,
+    calc(100% - #{$topright}) 0,
+    100% $topright,
+    100% calc(100% - #{$bottomright}),
+    calc(100% - #{$bottomright}) 100%,
+    $bottomleft 100%,
+    0 calc(100% - #{$bottomleft}),
+    0 $topleft
+  );
+}

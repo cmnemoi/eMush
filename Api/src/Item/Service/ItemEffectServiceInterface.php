@@ -13,4 +13,6 @@ interface ItemEffectServiceInterface
     public function getConsumableEffect(Ration $ration, Daedalus $daedalus): ConsumableEffect;
 
     public function getPlantEffect(Plant $plant, Daedalus $daedalus): PlantEffect;
+    
+    public function getDrugEffect(Drug $drug, Daedalus $daedalus): DrugEffect;
 }

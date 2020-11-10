@@ -16,6 +16,7 @@ use Mush\Item\Entity\Items\Fruit;
 use Mush\Item\Entity\Items\Plant;
 use Mush\Item\Entity\Items\Ration;
 use Mush\Item\Entity\Items\Tool;
+use Mush\Item\Entity\Items\Drug;
 use Mush\Item\Entity\Items\Weapon;
 use Mush\Item\Entity\Items\Dismountable;
 use Mush\Item\Enum\GameFruitEnum;
@@ -24,7 +25,6 @@ use Mush\Item\Enum\GameDrugEnum;
 use Mush\Item\Enum\ItemEnum;
 use Mush\Status\Enum\DiseaseEnum;
 use Mush\Status\Enum\DisorderEnum;
-
 
 class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -561,21 +561,21 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setSatiety(0)
             ->setMoralPoints([-2, 0, 1, 2, 3])
             ->setActionPoints([0, 1, 2, 3])
-            ->setMovementsPoints([0, 2, 4])
+            ->setMovementPoints([0, 2, 4])
             ->setCureDiseases([
-            GameDiseaseEnum::VITAMIN_DEFICIENCY,
-            GameDiseaseEnum::SYPHILIS,
-            GameDiseaseEnum::SKIN_INFLAMMATION,
-			    GameDiseaseEnum::GASTROENTERIS,
-				GameDiseaseEnum::FLU,
-				GameDiseaseEnum::SEPTIS,
-				GameDiseaseEnum::COLD,
-				GameDiseaseEnum::RUBELLA,
-				GameDiseaseEnum::SINUS_STORM,
-				GameDiseaseEnum::TAPEWORM,
-				GameDiseaseEnum::PARANOIA,
-				GameDiseaseEnum::DEPRESSION,
-				GameDiseaseEnum::CHRONIC_MIGRAINE])
+                DiseaseEnum::VITAMIN_DEFICIENCY,
+                DiseaseEnum::SYPHILIS,
+                DiseaseEnum::SKIN_INFLAMMATION,
+                DiseaseEnum::GASTROENTERIS,
+                DiseaseEnum::FLU,
+                DiseaseEnum::SEPTIS,
+                DiseaseEnum::COLD,
+                DiseaseEnum::RUBELLA,
+                DiseaseEnum::SINUS_STORM,
+                DiseaseEnum::TAPEWORM,
+                DisorderEnum::PARANOIA,
+                DisorderEnum::DEPRESSION,
+                DisorderEnum::CHRONIC_MIGRAINE])
             ->setMinCuredDiseases(1)
             ->setMaxCuredDiseases(4)
         ;

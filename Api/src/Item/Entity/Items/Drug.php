@@ -32,7 +32,7 @@ class Drug extends Ration
    
     /**
      * @ORM\Column(type="array", nullable=false)
-     */ 
+     */
     private array $cureDiseases = [];
     
     /**
@@ -113,7 +113,7 @@ class Drug extends Ration
         return $this;
     }
     
-     public function getMinCuredDiseases(): int
+    public function getMinCuredDiseases(): int
     {
         return $this->minCuredDiseases;
     }
@@ -124,5 +124,4 @@ class Drug extends Ration
 
         return $this;
     }
-    
 }

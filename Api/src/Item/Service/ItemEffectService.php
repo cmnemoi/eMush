@@ -114,14 +114,13 @@ class ItemEffectService implements ItemEffectServiceInterface
             $drugEffect
                 ->setDaedalus($daedalus)
                 ->setDrug($drug)
-                ->setMoralPoint($this->randomService->random( $drug->getMoralPoints()))
-                ->setActionPoint($this->randomService->random( $drug->getActionPoints()))
-                ->setMovementPoint($this->randomService->random( $drug->getMovementPoints()))
+                ->setMoralPoint($this->randomService->random($drug->getMoralPoints()))
+                ->setActionPoint($this->randomService->random($drug->getActionPoints()))
+                ->setMovementPoint($this->randomService->random($drug->getMovementPoints()))
                 ->setCures($this->randomService->getRandomElements(
-                $drug->getCureDiseases(), 
-                $this->randomService->random($drug->getMinCuredDiseases(), $drug->getMaxCuredDiseases()))
-                )
-            ;
+                    $drug->getCureDiseases(),
+                    $this->randomService->random($drug->getMinCuredDiseases(), $drug->getMaxCuredDiseases())
+                ));
 
             $this->ConsumableEffectRepository->persist($drugEffect);
         }

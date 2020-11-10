@@ -47,11 +47,11 @@ class RandomService implements RandomServiceInterface
         return $room->getItems()->get($this->random(0, $room->getItems()->count() - 1));
     }
     
-    public function getRandomElements(array $array, int $number=1): array
+    public function getRandomElements(array $array, int $number = 1): array
     {
         if (count($array) === 0) {
             throw new Error('getRandomElements: array is empty');
         }
         return $array[array_rand($array, $number)];
-        }
+    }
 }

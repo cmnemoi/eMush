@@ -3,7 +3,7 @@
 
 namespace Mush\Status\Enum;
 
-class DiseaseEnum
+class DisorderEnum
 {
     public const AGORAPHOBIA='agoraphobia';
     public const AILUROPHOBIA='ailurophobia';

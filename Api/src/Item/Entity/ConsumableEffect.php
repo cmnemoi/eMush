@@ -136,7 +136,7 @@ class ConsumableEffect
         return $this;
     }
     
-        public function getCures(): array
+    public function getCures(): array
     {
         return $this->cures;
     }
@@ -157,6 +157,4 @@ class ConsumableEffect
         $this->diseases = $diseases;
         return $this;
     }
-    
-    
 }

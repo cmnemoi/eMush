@@ -2,6 +2,7 @@
 
 use Mush\Item\Enum\EquipmentEnum;
 use Mush\Item\Enum\GamePlantEnum;
+use Mush\Item\Enum\GameDrugEnum;
 use Mush\Item\Enum\ItemEnum;
 use Mush\Room\Enum\DoorEnum;
 use Mush\Room\Enum\RoomEnum;
@@ -125,7 +126,12 @@ const DAEDALUS_CONFIG = [
                 DoorEnum::FRONT_CORRIDOR_MEDLAB,
             ],
             'equipments'=> [EquipmentEnum::SURGICAL_PLOT, EquipmentEnum::BED],
-            'items'=> [],
+            'items'=> [DrugEnum::BACTA,
+                             DrugEnum::BACTA,
+                             DrugEnum::BACTA,
+                             DrugEnum::BACTA,
+                             DrugEnum::BACTA,
+                             ],
         ],
         [
             'name'=> RoomEnum::LABORATORY,

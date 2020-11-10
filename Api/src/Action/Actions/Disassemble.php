@@ -62,8 +62,8 @@ class Disassemble extends Action
         $dismountableType = $this->item->getItem()->getItemType(ItemTypeEnum::DISMOUNTABLE);
         //Check that the item is reachable
         return ($dismountableType !== null ||
-                    $this->player->canReachItem($this->item));// ||
-                    //in_array(SkillEnum::TECHNICIAN, $this->player->getSkills()));
+                    $this->player->canReachItem($this->item) ||
+                    in_array(SkillEnum::TECHNICIAN, $this->player->getSkills()));
     }
         
         

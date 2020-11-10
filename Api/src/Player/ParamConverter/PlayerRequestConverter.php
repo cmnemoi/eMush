@@ -3,7 +3,6 @@
 
 namespace Mush\Player\ParamConverter;
 
-
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Player\Entity\Dto\PlayerRequest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;

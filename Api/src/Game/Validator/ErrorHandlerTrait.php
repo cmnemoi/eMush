@@ -3,7 +3,6 @@
 
 namespace Mush\Game\Validator;
 
-
 use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 

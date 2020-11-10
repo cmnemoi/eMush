@@ -49,8 +49,7 @@ class FullDaedalusTest extends TestCase
         $daedalus
             ->setPlayers(new ArrayCollection([
                     new Player(),
-                ])
-            );
+                ]));
 
         $gameConfig = new GameConfig();
         $gameConfig->setMaxPlayer(2);
@@ -71,8 +70,7 @@ class FullDaedalusTest extends TestCase
         $daedalus
             ->setPlayers(new ArrayCollection([
                     new Player(),
-                ])
-            );
+                ]));
 
         $gameConfig = new GameConfig();
         $gameConfig->setMaxPlayer(1);

@@ -3,7 +3,6 @@
 
 namespace Mush\Player\Voter;
 
-
 use Mush\Player\Entity\Player;
 use Mush\User\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;

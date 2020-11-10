@@ -17,6 +17,7 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Disassemble extends Action
 {
@@ -30,17 +31,18 @@ class Disassemble extends Action
     private GameConfig $gameConfig;
 
     public function __construct(
+        EventDispatcherInterface $eventDispatcher,
         RoomLogServiceInterface $roomLogService,
         GameItemServiceInterface $itemService,
         PlayerServiceInterface $playerService,
         GameConfigServiceInterface $gameConfigService
     ) {
+          parent::__construct($eventDispatcher);
+        
         $this->roomLogService = $roomLogService;
         $this->itemService = $itemService;
         $this->playerService = $playerService;
         $this->gameConfig = $gameConfigService->getConfig();
-        $this->actionCost = new ActionCost();
-        $this->actionCost->setActionPointCost(0);
     }
 
     public function loadParameters(Player $player, ActionParameters $actionParameters)
@@ -60,8 +62,8 @@ class Disassemble extends Action
         $dismountableType = $this->item->getItem()->getItemType(ItemTypeEnum::DISMOUNTABLE);
         //Check that the item is reachable
         return ($dismountableType !== null ||
-                    $this->player->canReachItem($this->item) ||
-                    in_array(SkillEnum::TECHNICIAN, $this->player->getSkills()));
+                    $this->player->canReachItem($this->item));// ||
+                    //in_array(SkillEnum::TECHNICIAN, $this->player->getSkills()));
     }
         
         

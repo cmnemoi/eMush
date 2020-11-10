@@ -14,6 +14,8 @@ class ActionEnum
     public const EXAMINE = 'examine';
     public const HIT = 'hit';
     public const REPAIR = 'repair';
+    public const READ_DOCUMENT = 'read_document';
+    public const READ_BOOK = 'read_book';
 
     // Mush-only actions
     public const EXTRACT_SPORE = 'extract_spore';
@@ -25,8 +27,6 @@ class ActionEnum
     public const ATTACK = 'attack';
     public const CONSUME = 'consume';
     public const BUILD = 'build';
-    public const READ_BOOK = 'read_book';
-    public const READ_DOCUMENT = 'read_document';
 
     // Skill-related actions (Humans)
     public const FIERY_SPEECH = 'fiery_speech';

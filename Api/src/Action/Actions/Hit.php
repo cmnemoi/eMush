@@ -52,9 +52,9 @@ class Hit extends Action
 
     protected function applyEffects(): ActionResult
     {
-    	 // @TODO: add knife case
+           // @TODO: add the chance to miss the action
+         // @TODO: add knife case
         if ($this->randomService->random(0, 100)< $this->chance_success) {
-         
         } else {
             $this->damage = $this->randomService->random(1, 3);
         

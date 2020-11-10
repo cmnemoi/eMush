@@ -4,8 +4,9 @@
 namespace Mush\Item\Entity\Items;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Action\Enum\ActionEnum;
+use Mush\Item\Entity\ItemType;
 use Mush\Item\Enum\ItemTypeEnum;
+use Mush\Action\Enum\ActionEnum;
 
 /**
  * Class Item
@@ -13,7 +14,7 @@ use Mush\Item\Enum\ItemTypeEnum;
  *
  * @ORM\Entity
  */
-class Dismountable extends Tool
+class Dismountable extends ItemType
 {
     protected string $type = ItemTypeEnum::DISMOUNTABLE;
 
@@ -29,7 +30,9 @@ class Dismountable extends Tool
      */
     private ?int $actionCost=null;
 
-        
+      /**
+     * @ORM\Column(type="array", nullable=false)
+     */
     private ?array $products=null;
     
     

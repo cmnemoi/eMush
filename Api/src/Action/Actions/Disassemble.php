@@ -10,7 +10,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Item\Entity\GameItem;
-use Mush\Item\Entity\Items\Blueprint;
+use Mush\Item\Entity\Items\Dismountable;
 use Mush\Item\Enum\ItemTypeEnum;
 use Mush\Item\Service\GameItemServiceInterface;
 use Mush\Player\Entity\Player;
@@ -18,7 +18,7 @@ use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 
-class Build extends Action
+class Disassemble extends Action
 {
     protected const NAME = ActionEnum::DISASSEMBLE;
 
@@ -51,18 +51,17 @@ class Build extends Action
         $this->player = $player;
         $this->item = $item;
         
-        $blueprintType = $this->item->getItem()->getItemType(ItemTypeEnum::BLUEPRINT);
-        $this->actionCost->setActionPointCost($blueprintType->getActionCost())
+        $dismountableType = $this->item->getItem()->getItemType(ItemTypeEnum::DISMOUNTABLE);
+        $this->actionCost->setActionPointCost($dismountableType->getActionCost());
     }
 
     public function canExecute(): bool
     {
         $dismountableType = $this->item->getItem()->getItemType(ItemTypeEnum::DISMOUNTABLE);
         //Check that the item is reachable
-        return ($dismountableType !== null || 
-                    $this->player->canReachItem($this->item) || 
-                    in_array(SkillEnum::TECHNICIAN, $this->player->getSkills()));
-         
+        return ($dismountableType !== null ||
+                    $this->player->canReachItem($this->item)); //||
+                    //in_array(SkillEnum::TECHNICIAN, $this->player->getSkills()));
     }
         
         
@@ -75,20 +74,23 @@ class Build extends Action
         /** @var Blueprint $blueprintType */
         $dismountableType = $this->item->getItem()->getItemType(ItemTypeEnum::DISMOUNTABLE);
         
-        // @TODO add the chance of success
+        
+        // @TODO add the chances of success
         
         // add the item produced by disassembling
-        $dismountableObject=$dismountableType->getItem()->createGameItem();
-        foreach($dismountableObject->getProducts() as $productString){
-        	 $productItem=$itemService->createGameItemFromName($productString)
-	        if ($this->player->getItems()->count() < $this->gameConfig->getMaxItemInInventory()) {
-	               $productItem->setPlayer($this->player);
-	        } else {
-	            $productItem->setRoom($this->player->getRoom());
-	        }
-	     }
+        foreach ($dismountableType->getProducts() as $productString => $number) {
+            for ($i = 0; $i < $number; $i++) {
+                $productItem=$this->itemService->createGameItemFromName($productString, $this->player->getDaedalus());
+                if ($this->player->getItems()->count() < $this->gameConfig->getMaxItemInInventory()) {
+                       $productItem->setPlayer($this->player);
+                } else {
+                    $productItem->setRoom($this->player->getRoom());
+                }
+                $this->itemService->persist($productItem);
+            }
+        }
         
-        $this->itemService->persist($productItem);
+        
                 
         
         

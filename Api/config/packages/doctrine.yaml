@@ -52,9 +52,9 @@ doctrine:
                 dir: '%kernel.project_dir%/src/RoomLog/Entity'
                 prefix: 'Mush\RoomLog\Entity'
                 alias: RoomLog
-            StatusEffect:
+            Status:
                 is_bundle: false
                 type: annotation
-                dir: '%kernel.project_dir%/src/StatusEffect/Entity'
-                prefix: 'Mush\StatusEffect\Entity'
-                alias: RoomLog
+                dir: '%kernel.project_dir%/src/Status/Entity'
+                prefix: 'Mush\Status\Entity'
+                alias: Status

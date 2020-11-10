@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\StatusEffect\Service;
+namespace Mush\Status\Service;
 
 use Mush\Item\Entity\Item;
 use Mush\Player\Entity\Player;

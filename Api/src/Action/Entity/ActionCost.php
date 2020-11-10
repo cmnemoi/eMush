@@ -32,6 +32,13 @@ class ActionCost
         return $this->actionPointCost;
     }
 
+    public function addActionPointCost(int $actionPoint): ActionCost
+    {
+         $this->actionPointCost += $actionPoint;
+
+         return $this;
+    }
+
     public function setActionPointCost(int $actionPointCost): ActionCost
     {
         $this->actionPointCost = $actionPointCost;
@@ -43,6 +50,13 @@ class ActionCost
         return $this->movementPointCost;
     }
 
+    public function addMovementPointCost(int $movementPoint): ActionCost
+    {
+        $this->movementPointCost += $movementPoint;
+
+        return $this;
+    }
+
     public function setMovementPointCost(int $movementPointCost): ActionCost
     {
         $this->movementPointCost = $movementPointCost;
@@ -52,6 +66,13 @@ class ActionCost
     public function getMoralPointCost(): ?int
     {
         return $this->moralPointCost;
+    }
+
+    public function addMoralPointPointCost(int $moralPointCost): ActionCost
+    {
+        $this->moralPointCost += $moralPointCost;
+
+        return $this;
     }
 
     public function setMoralPointCost(int $moralPointCost): ActionCost

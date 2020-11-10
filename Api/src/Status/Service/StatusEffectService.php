@@ -1,8 +1,8 @@
 <?php
 
-namespace Mush\StatusEffect\Service;
+namespace Mush\Status\Service;
 
 class StatusEffectService implements StatusEffectServiceInterface
 {
-    
+
 }

@@ -8,8 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Item\Entity\GameItem;
-use Mush\Item\Entity\Item;
 use Mush\Room\Entity\Room;
+use Mush\Status\Entity\Collection\MedicalConditionCollection;
+use Mush\Status\Entity\MedicalCondition;
 use Mush\User\Entity\User;
 
 /**
@@ -61,6 +62,11 @@ class Player
     private Collection $items;
 
     /**
+     * @ORM\OneToMany(targetEntity="Mush\Status\Entity\MedicalCondition", mappedBy="player")
+     */
+    private Collection $medicalConditions;
+
+    /**
      * @ORM\Column(type="array", nullable=true)
      */
     private array $statuses;
@@ -98,6 +104,7 @@ class Player
     public function __construct()
     {
         $this->items = new ArrayCollection();
+        $this->medicalConditions = new ArrayCollection();
     }
 
     public function getId(): int
@@ -211,6 +218,37 @@ class Player
     public function hasItemByName(string $name): bool
     {
             return (! $this->getItems()->filter(fn(GameItem $gameItem) => $gameItem->getName() === $name)->isEmpty());
+    }
+
+    public function getMedicalConditions(): MedicalConditionCollection
+    {
+        return new MedicalConditionCollection($this->medicalConditions->toArray());
+    }
+
+    public function setMedicalConditions(Collection $medicalConditions): Player
+    {
+        $this->medicalConditions = $medicalConditions;
+        return $this;
+    }
+
+    public function addMedicalCondition(MedicalCondition $medicalCondition): Player
+    {
+        if (!$this->getMedicalConditions()->contains($medicalCondition)) {
+            $this->medicalConditions->add($medicalCondition);
+            $medicalCondition->setPlayer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMedicalCondition(MedicalCondition $medicalCondition): Player
+    {
+        if ($this->medicalConditions->contains($medicalCondition)) {
+            $this->medicalConditions->removeElement($medicalCondition);
+            $medicalCondition->setPlayer(null);
+        }
+
+        return $this;
     }
 
     public function getStatuses(): ?array

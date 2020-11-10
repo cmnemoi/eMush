@@ -6,3 +6,10 @@ node_modules
 
 #IDE
 .idea
+
+
+# Ignore MacOS files
+# Folder view configuration files
+.DS_Store
+Desktop.ini
+*~

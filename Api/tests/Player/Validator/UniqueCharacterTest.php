@@ -3,7 +3,6 @@
 
 namespace Mush\Test\Player\Validator;
 
-
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Player\Entity\Dto\PlayerRequest;

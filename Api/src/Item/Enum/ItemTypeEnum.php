@@ -19,4 +19,5 @@ class ItemTypeEnum
     public const COMPONENT = 'component';
     public const DOCUMENT = 'document';
     public const ENTITY = 'entity';
+    public const DISMOUNTABLE = 'dismountable';
 }

@@ -106,7 +106,7 @@ class MedicalConditionConfig
         return $this->gameConfig;
     }
 
-    public function setGameConfig(GameConfig $gameConfig): MedicalCondition
+    public function setGameConfig(GameConfig $gameConfig): MedicalConditionConfig
     {
         $this->gameConfig = $gameConfig;
         return $this;

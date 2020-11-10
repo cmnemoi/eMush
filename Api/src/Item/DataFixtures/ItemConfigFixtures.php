@@ -15,6 +15,9 @@ use Mush\Item\Entity\Items\Blueprint;
 use Mush\Item\Entity\Items\Fruit;
 use Mush\Item\Entity\Items\Plant;
 use Mush\Item\Entity\Items\Ration;
+use Mush\Item\Entity\Items\Tool;
+use Mush\Item\Entity\Items\Weapon;
+use Mush\Item\Entity\Items\Dismountable;
 use Mush\Item\Enum\GameFruitEnum;
 use Mush\Item\Enum\GamePlantEnum;
 use Mush\Item\Enum\ItemEnum;
@@ -327,6 +330,14 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($madKube);
 
+
+        $kitchenToolsType = new Dismountable();
+        $kitchenToolsType
+            ->setProducts([ItemEnum::METAL_SCRAPS =>2])
+            ->setActionCost(4)
+            ->setChancesSuccess(25)
+        ;
+        
         $microwave = new Item();
         $microwave
             ->setGameConfig($gameConfig)
@@ -339,9 +350,12 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(false)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
+            ->setTypes(new ArrayCollection([$kitchenToolsType]))
 
         ;
         $manager->persist($microwave);
+        $manager->persist($kitchenToolsType);
+        
 
         $superFreezer = new Item();
         $superFreezer
@@ -355,6 +369,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(false)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
+            ->setTypes(new ArrayCollection([$kitchenToolsType]))
 
         ;
         $manager->persist($superFreezer);

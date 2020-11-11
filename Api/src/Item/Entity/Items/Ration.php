@@ -81,7 +81,7 @@ class Ration extends ItemType
     /**
      * @return array
      */
-   public function getActionPoints(): array
+    public function getActionPoints(): array
     {
         return $this->actionPoints;
     }
@@ -89,7 +89,7 @@ class Ration extends ItemType
     /**
      * @param array $ActionPoints
      * @return Ration
-     */   
+     */
     public function setActionPoints(array $actionPoints): Ration
     {
         $this->actionPoints = $actionPoints;
@@ -108,7 +108,7 @@ class Ration extends ItemType
     /**
      * @param array $MovementPoints
      * @return Ration
-     */    
+     */
     public function setMovementPoints(array $movementPoints): Ration
     {
         $this->movementPoints = $movementPoints;
@@ -119,7 +119,7 @@ class Ration extends ItemType
     /**
      * @return array
      */
-     public function getHealthPoints(): array
+    public function getHealthPoints(): array
     {
         return $this->healthPoints;
     }
@@ -138,7 +138,7 @@ class Ration extends ItemType
      /**
      * @return array
      */
-     public function getMoralPoints(): array
+    public function getMoralPoints(): array
     {
         return $this->moralPoints;
     }
@@ -188,7 +188,7 @@ class Ration extends ItemType
         return $this;
     }
     
-       public function getCuresNumber(): array
+    public function getCuresNumber(): array
     {
         return $this->curesNumber;
     }
@@ -200,7 +200,7 @@ class Ration extends ItemType
         return $this;
     }
     
-       public function getDiseasesNumber(): array
+    public function getDiseasesNumber(): array
     {
         return $this->diseasesNumber;
     }
@@ -211,5 +211,4 @@ class Ration extends ItemType
 
         return $this;
     }
-    
 }

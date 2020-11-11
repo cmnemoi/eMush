@@ -51,14 +51,11 @@ class ItemEffectService implements ItemEffectServiceInterface
                 ->setCures($this->randomService->getRandomElements(
                     $ration->getCures(),
                     current($this->randomService->getRandomElements($ration->getCuresNumber()))
-                    )
-                )
+                ))
                 ->setDiseases($this->randomService->getRandomElements(
                     $ration->getDiseases(),
                     current($this->randomService->getRandomElements($ration->getDiseasesNumber()))
-                    )
-                )
-            ;
+                ));
 
             $this->consumableEffectRepository->persist($consumableEffect);
         }

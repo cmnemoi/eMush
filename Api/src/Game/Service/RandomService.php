@@ -52,12 +52,12 @@ class RandomService implements RandomServiceInterface
         if (count($array) < $number) {
             throw new Error('getRandomElements: array is not large enough');
         }
-        if($number===0){
-        	return [];
-        } elseif($number>1){
-        	return array_rand(array_flip($array), $number);
-        } else{
-        	return array(array_rand(array_flip($array), $number));
+        if ($number===0) {
+            return [];
+        } elseif ($number>1) {
+            return array_rand(array_flip($array), $number);
+        } else {
+            return array(array_rand(array_flip($array), $number));
         }
     }
 }

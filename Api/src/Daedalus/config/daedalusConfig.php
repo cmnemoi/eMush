@@ -126,11 +126,7 @@ const DAEDALUS_CONFIG = [
                 DoorEnum::FRONT_CORRIDOR_MEDLAB,
             ],
             'equipments'=> [EquipmentEnum::SURGICAL_PLOT, EquipmentEnum::BED],
-            'items'=> [DrugEnum::BACTA,
-                             DrugEnum::BACTA,
-                             DrugEnum::BACTA,
-                             DrugEnum::BACTA,
-                             DrugEnum::BACTA,
+            'items'=> [
                              ],
         ],
         [

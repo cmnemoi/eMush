@@ -412,14 +412,10 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $standardRationType = new Ration();
         $standardRationType
-            ->setMaxActionPoint(4)
-            ->setMinActionPoint(4)
-            ->setMaxMovementPoint(0)
-            ->setMinMovementPoint(0)
-            ->setMaxHealthPoint(0)
-            ->setMinHealthPoint(0)
-            ->setMaxMoralPoint(-1)
-            ->setMinMoralPoint(-1)
+            ->setActionPoints([4])
+            ->setMovementPoints([0])
+            ->setHealthPoints([0])
+            ->setMoralPoints([-1])
             ->setSatiety(4)
         ;
 
@@ -442,14 +438,11 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $bananaType = new Fruit();
         $bananaType
-            ->setMaxActionPoint(1)
-            ->setMinActionPoint(1)
-            ->setMaxMovementPoint(0)
-            ->setMinMovementPoint(0)
-            ->setMaxHealthPoint(1)
-            ->setMinHealthPoint(1)
-            ->setMaxMoralPoint(1)
-            ->setMinMoralPoint(1)
+            ->setActionPoints([1])
+            ->setMovementPoints([0])
+            ->setHealthPoints([1])
+            ->setMoralPoints([1])
+
         ;
 
         $banana = new Item();
@@ -562,7 +555,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setMoralPoints([-2, 0, 1, 2, 3])
             ->setActionPoints([0, 1, 2, 3])
             ->setMovementPoints([0, 2, 4])
-            ->setCureDiseases([
+            ->setCures([
                 DiseaseEnum::VITAMIN_DEFICIENCY,
                 DiseaseEnum::SYPHILIS,
                 DiseaseEnum::SKIN_INFLAMMATION,
@@ -576,8 +569,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
                 DisorderEnum::PARANOIA,
                 DisorderEnum::DEPRESSION,
                 DisorderEnum::CHRONIC_MIGRAINE])
-            ->setMinCuredDiseases(1)
-            ->setMaxCuredDiseases(4)
+            ->setCuresNumber([1,2,3,4])
         ;
 
         $bacta = new Item();

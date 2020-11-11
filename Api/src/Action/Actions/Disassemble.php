@@ -70,15 +70,17 @@ class Disassemble extends Action
         $this->item = $item;
 
         $dismountableType = $this->item->getItem()->getItemType(ItemTypeEnum::DISMOUNTABLE);
-        $this->actionCost->setActionPointCost($dismountableType->getActionCost());
+        if ($dismountableType !== null) {
+            $this->actionCost->setActionPointCost($dismountableType->getActionCost());
+        }
     }
 
     public function canExecute(): bool
     {
         $dismountableType = $this->item->getItem()->getItemType(ItemTypeEnum::DISMOUNTABLE);
         //Check that the item is reachable
-        return true || null !== $dismountableType ||
-            $this->player->canReachItem($this->item) ||
+        return null !== $dismountableType &&
+            $this->player->canReachItem($this->item) &&
             in_array(SkillEnum::TECHNICIAN, $this->player->getSkills())
         ;
     }
@@ -106,7 +108,7 @@ class Disassemble extends Action
             $modificator
         );
 
-        $random = $this->randomService->random(0, 100);
+        $random = $this->randomService->randomPercent();
 
         if ($random <= $successChance) {
             $this->disasemble($dismountableType);

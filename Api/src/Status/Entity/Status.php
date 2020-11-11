@@ -14,6 +14,7 @@ use Mush\Player\Entity\Player;
  * @ORM\DiscriminatorColumn(name="type", type="string")
  * @ORM\DiscriminatorMap({
  *     "status" = "Mush\Status\Entity\Status",
+ *     "charge_status" = "Mush\Status\Entity\ChargeStatus",
  *     "attempt" = "Mush\Status\Entity\Attempt",
  *     "medical_condition" = "Mush\Status\Entity\MedicalCondition",
  * })
@@ -46,21 +47,6 @@ class Status
      * @ORM\ManyToOne(targetEntity="Mush\Item\Entity\GameItem", inversedBy="statuses")
      */
     protected ?GameItem $gameItem = null;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    protected ?int $charge = null;
-
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private ?string $strategy = null;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private ?int $threshold = null;
 
     public function getId(): int
     {
@@ -96,7 +82,7 @@ class Status
         return $this->player;
     }
 
-    public function setPlayer(Player $player): Status
+    public function setPlayer(?Player $player): Status
     {
         $this->player = $player;
 
@@ -111,49 +97,6 @@ class Status
     public function setGameItem(?GameItem $gameItem): Status
     {
         $this->gameItem = $gameItem;
-
-        return $this;
-    }
-
-    public function getCharge(): ?int
-    {
-        return $this->charge;
-    }
-
-    public function addCharge(int $charge): Status
-    {
-        $this->charge += $charge;
-
-        return $this;
-    }
-
-    public function setCharge(?int $charge): Status
-    {
-        $this->charge = $charge;
-
-        return $this;
-    }
-
-    public function getStrategy(): ?string
-    {
-        return $this->strategy;
-    }
-
-    public function setStrategy(?string $strategy): Status
-    {
-        $this->strategy = $strategy;
-
-        return $this;
-    }
-
-    public function getThreshold(): ?int
-    {
-        return $this->threshold;
-    }
-
-    public function setThreshold(?int $threshold): Status
-    {
-        $this->threshold = $threshold;
 
         return $this;
     }

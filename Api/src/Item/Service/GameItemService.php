@@ -15,6 +15,7 @@ use Mush\Item\Enum\ItemTypeEnum;
 use Mush\Item\Repository\GameItemRepository;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Status;
+use Mush\Status\Service\StatusServiceInterface;
 use Status\Enum\ChargeStrategyTypeEnum;
 
 class GameItemService implements GameItemServiceInterface
@@ -23,6 +24,7 @@ class GameItemService implements GameItemServiceInterface
     private GameItemRepository $repository;
     private ItemServiceInterface $itemService;
     private RandomServiceInterface $randomService;
+    private StatusServiceInterface $statusService;
     private ItemEffectServiceInterface $itemEffectService;
 
     public function __construct(
@@ -30,12 +32,14 @@ class GameItemService implements GameItemServiceInterface
         GameItemRepository $repository,
         ItemServiceInterface $itemService,
         RandomServiceInterface $randomService,
+        StatusServiceInterface $statusService,
         ItemEffectServiceInterface $itemEffectService
     ) {
         $this->entityManager = $entityManager;
         $this->repository = $repository;
         $this->itemService = $itemService;
         $this->randomService = $randomService;
+        $this->statusService = $statusService;
         $this->itemEffectService = $itemEffectService;
     }
 
@@ -86,15 +90,13 @@ class GameItemService implements GameItemServiceInterface
 
     private function initPlant(GameItem $gameItem, Plant $plant, Daedalus $daedalus): GameItem
     {
-        $plantStatus = new Status();
-        $plantStatus
-            ->setName(StatusEnum::CHARGE)
-            ->setStrategy(ChargeStrategyTypeEnum::PLANT)
-            ->setThreshold($this->itemEffectService->getPlantEffect($plant, $daedalus)->getMaturationTime())
-            ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setGameItem($gameItem)
-            ->setCharge(0)
-        ;
+        $plantStatus = $this->statusService->createChargeItemStatus(
+            StatusEnum::CHARGE,
+            $gameItem,
+            ChargeStrategyTypeEnum::PLANT,
+            0,
+            $this->itemEffectService->getPlantEffect($plant, $daedalus)->getMaturationTime()
+        );
 
         $gameItem->addStatus($plantStatus);
 
@@ -103,15 +105,13 @@ class GameItemService implements GameItemServiceInterface
 
     private function initWeapon(GameItem $gameItem, Weapon $weapon): GameItem
     {
-        $chargeStatus = new Status();
-        $chargeStatus
-            ->setName(StatusEnum::CHARGE)
-            ->setStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
-            ->setThreshold($weapon->getMaxCharges())
-            ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setGameItem($gameItem)
-            ->setCharge(0)
-        ;
+        $chargeStatus = $this->statusService->createChargeItemStatus(
+            StatusEnum::CHARGE,
+            $gameItem,
+            ChargeStrategyTypeEnum::CYCLE_INCREMENT,
+            0,
+            $weapon->getMaxCharges()
+        );
 
         $gameItem->addStatus($chargeStatus);
 

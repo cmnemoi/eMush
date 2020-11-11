@@ -6,6 +6,7 @@ use Mush\Item\Entity\GameItem;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Attempt;
+use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 
 class StatusService implements StatusServiceInterface
@@ -29,6 +30,26 @@ class StatusService implements StatusServiceInterface
             ->setName($statusName)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setGameItem($gameItem)
+        ;
+
+        return $status;
+    }
+
+    public function createChargeItemStatus(
+        string $statusName,
+        GameItem $gameItem,
+        string $strategy,
+        int $charge = 0,
+        int $threshold = null
+    ): ChargeStatus {
+        $status = new ChargeStatus();
+        $status
+            ->setName($statusName)
+            ->setStrategy($strategy)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setGameItem($gameItem)
+            ->setCharge($charge)
+            ->setThreshold($threshold)
         ;
 
         return $status;

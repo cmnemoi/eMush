@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Entity()
  */
-class MedicalCondition extends Status
+class MedicalCondition extends ChargeStatus
 {
     /**
      * @ORM\ManyToOne(targetEntity="Mush\Status\Entity\MedicalConditionConfig")

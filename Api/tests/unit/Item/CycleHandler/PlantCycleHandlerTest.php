@@ -20,6 +20,7 @@ use Mush\Item\Service\ItemEffectServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
@@ -88,7 +89,7 @@ class PlantCycleHandlerTest extends TestCase
         $status = new Status();
         $status->setName(PlantStatusEnum::YOUNG);
 
-        $chargeStatus = new Status();
+        $chargeStatus = new ChargeStatus();
         $chargeStatus->setName(StatusEnum::CHARGE);
         $chargeStatus->setCharge(1);
 
@@ -179,7 +180,7 @@ class PlantCycleHandlerTest extends TestCase
         ;
         $this->itemEffectService->shouldReceive('getPlantEffect')->andReturn($plantEffect);
 
-        $chargeStatus = new Status();
+        $chargeStatus = new ChargeStatus();
         $chargeStatus->setName(StatusEnum::CHARGE);
         $chargeStatus->setCharge(1);
 

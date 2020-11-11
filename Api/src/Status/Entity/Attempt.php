@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Entity()
  */
-class Attempt extends Status
+class Attempt extends ChargeStatus
 {
     /**
      * @ORM\Column(type="string", nullable=false)

@@ -70,7 +70,7 @@ class Player
     /**
      * @ORM\Column(type="array", nullable=true)
      */
-    private ?array $skills;
+    private array $skills = [];
 
     /**
      * @ORM\Column(type="integer", nullable=false)

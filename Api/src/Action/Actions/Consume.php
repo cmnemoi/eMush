@@ -62,6 +62,8 @@ class Consume extends Action
 
     protected function applyEffects(): ActionResult
     {
+    	
+    	// @TODO handle drug consume
         $rationType = $this->item->getItem()->getRationsType();
 
         if ($rationType === null) {

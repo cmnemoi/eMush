@@ -46,4 +46,18 @@ class RandomService implements RandomServiceInterface
         }
         return $room->getItems()->get($this->random(0, $room->getItems()->count() - 1));
     }
+    
+    public function getRandomElements(array $array, int $number = 1): array
+    {
+        if (count($array) < $number) {
+            throw new Error('getRandomElements: array is not large enough');
+        }
+        if($number===0){
+        	return [];
+        } elseif($number>1){
+        	return array_rand(array_flip($array), $number);
+        } else{
+        	return array(array_rand(array_flip($array), $number));
+        }
+    }
 }

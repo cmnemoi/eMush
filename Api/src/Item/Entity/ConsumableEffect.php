@@ -35,22 +35,35 @@ class ConsumableEffect
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private int $actionPoint;
+    private int $actionPoint=0;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private int $movementPoint;
+    private int $movementPoint=0;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private int $healthPoint;
+    private int $healthPoint=0;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private int $moralPoint;
+    private int $moralPoint=0;
+
+
+     /**
+     * @ORM\Column(type="array", nullable=false)
+     */
+    private array $cures = [];
+
+    /**
+     * @ORM\Column(type="array", nullable=false)
+     */
+    private array $diseases = [];
+    
+    
 
     public function getId(): int
     {
@@ -120,6 +133,28 @@ class ConsumableEffect
     public function setMoralPoint(int $moralPoint): ConsumableEffect
     {
         $this->moralPoint = $moralPoint;
+        return $this;
+    }
+    
+    public function getCures(): array
+    {
+        return $this->cures;
+    }
+
+    public function setCures(array $cures): ConsumableEffect
+    {
+        $this->cures = $cures;
+        return $this;
+    }
+
+    public function getDiseases(): array
+    {
+        return $this->diseases;
+    }
+
+    public function setDiseases(array $diseases): ConsumableEffect
+    {
+        $this->diseases = $diseases;
         return $this;
     }
 }

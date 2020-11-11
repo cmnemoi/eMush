@@ -16,11 +16,15 @@ use Mush\Item\Entity\Items\Fruit;
 use Mush\Item\Entity\Items\Plant;
 use Mush\Item\Entity\Items\Ration;
 use Mush\Item\Entity\Items\Tool;
+use Mush\Item\Entity\Items\Drug;
 use Mush\Item\Entity\Items\Weapon;
 use Mush\Item\Entity\Items\Dismountable;
 use Mush\Item\Enum\GameFruitEnum;
 use Mush\Item\Enum\GamePlantEnum;
+use Mush\Item\Enum\GameDrugEnum;
 use Mush\Item\Enum\ItemEnum;
+use Mush\Status\Enum\DiseaseEnum;
+use Mush\Status\Enum\DisorderEnum;
 
 class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -408,14 +412,11 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $standardRationType = new Ration();
         $standardRationType
-            ->setMaxActionPoint(4)
-            ->setMinActionPoint(4)
-            ->setMaxMovementPoint(0)
-            ->setMinMovementPoint(0)
-            ->setMaxHealthPoint(0)
-            ->setMinHealthPoint(0)
-            ->setMaxMoralPoint(-1)
-            ->setMinMoralPoint(-1)
+            ->setActionPoints([4])
+            ->setMovementPoints([0])
+            ->setHealthPoints([0])
+            ->setMoralPoints([-1])
+            ->setSatiety(4)
         ;
 
         $standardRation = new Item();
@@ -437,14 +438,11 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $bananaType = new Fruit();
         $bananaType
-            ->setMaxActionPoint(1)
-            ->setMinActionPoint(1)
-            ->setMaxMovementPoint(0)
-            ->setMinMovementPoint(0)
-            ->setMaxHealthPoint(1)
-            ->setMinHealthPoint(1)
-            ->setMaxMoralPoint(1)
-            ->setMinMoralPoint(1)
+            ->setActionPoints([1])
+            ->setMovementPoints([0])
+            ->setHealthPoints([1])
+            ->setMoralPoints([1])
+
         ;
 
         $banana = new Item();
@@ -549,6 +547,49 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($blueprintSniperHelmetType);
         $manager->persist($blueprintSniperHelmet);
+        
+        
+        $drugType = new Drug();
+        $drugType
+            ->setSatiety(0)
+            ->setMoralPoints([-2, 0, 1, 2, 3])
+            ->setActionPoints([0, 1, 2, 3])
+            ->setMovementPoints([0, 2, 4])
+            ->setCures([
+                DiseaseEnum::VITAMIN_DEFICIENCY,
+                DiseaseEnum::SYPHILIS,
+                DiseaseEnum::SKIN_INFLAMMATION,
+                DiseaseEnum::GASTROENTERIS,
+                DiseaseEnum::FLU,
+                DiseaseEnum::SEPTIS,
+                DiseaseEnum::COLD,
+                DiseaseEnum::RUBELLA,
+                DiseaseEnum::SINUS_STORM,
+                DiseaseEnum::TAPEWORM,
+                DisorderEnum::PARANOIA,
+                DisorderEnum::DEPRESSION,
+                DisorderEnum::CHRONIC_MIGRAINE])
+            ->setCuresNumber([1,2,3,4])
+        ;
+
+        $bacta = new Item();
+        $bacta
+            ->setGameConfig($gameConfig)
+            ->setName(GameDrugEnum::BACTA)
+            ->setIsHeavy(false)
+            ->setIsDismantable(false)
+            ->setIsTakeable(true)
+            ->setIsDropable(true)
+            ->setIsStackable(true)
+            ->setIsHideable(false)
+            ->setIsFireDestroyable(true)
+            ->setIsFireBreakable(false)
+            ->setTypes(new ArrayCollection([$drugType]))
+        ;
+        $manager->persist($drugType);
+        $manager->persist($bacta);
+        
+        
         
         $manager->flush();
     }

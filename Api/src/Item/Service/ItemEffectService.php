@@ -44,28 +44,18 @@ class ItemEffectService implements ItemEffectServiceInterface
             $consumableEffect
                 ->setDaedalus($daedalus)
                 ->setRation($ration)
-                ->setHealthPoint(
-                    $this->randomService->random(
-                        $ration->getMinHealthPoint(),
-                        $ration->getMaxHealthPoint()
+                ->setActionPoint(current($this->randomService->getRandomElements($ration->getActionPoints())))
+                ->setMovementPoint(current($this->randomService->getRandomElements($ration->getMovementPoints())))
+                ->setHealthPoint(current($this->randomService->getRandomElements($ration->getHealthPoints())))
+                ->setMoralPoint(current($this->randomService->getRandomElements($ration->getMoralPoints())))
+                ->setCures($this->randomService->getRandomElements(
+                    $ration->getCures(),
+                    current($this->randomService->getRandomElements($ration->getCuresNumber()))
                     )
                 )
-                ->setMoralPoint(
-                    $this->randomService->random(
-                        $ration->getMinMoralPoint(),
-                        $ration->getMaxMoralPoint()
-                    )
-                )
-                ->setActionPoint(
-                    $this->randomService->random(
-                        $ration->getMinActionPoint(),
-                        $ration->getMaxActionPoint()
-                    )
-                )
-                ->setMovementPoint(
-                    $this->randomService->random(
-                        $ration->getMinMovementPoint(),
-                        $ration->getMaxMovementPoint()
+                ->setDiseases($this->randomService->getRandomElements(
+                    $ration->getDiseases(),
+                    current($this->randomService->getRandomElements($ration->getDiseasesNumber()))
                     )
                 )
             ;

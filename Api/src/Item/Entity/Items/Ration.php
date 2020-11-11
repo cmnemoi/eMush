@@ -16,45 +16,27 @@ class Ration extends ItemType
 {
     protected string $type = ItemTypeEnum::RATION;
 
-    /**
-     * @ORM\Column(type="integer", nullable=false)
-     */
-    private int $minActionPoint;
 
-    /**
-     * @ORM\Column(type="integer", nullable=false)
-     */
-    private int $maxActionPoint;
 
-    /**
-     * @ORM\Column(type="integer", nullable=false)
+     /**
+     * @ORM\Column(type="array", nullable=false)
      */
-    private int $minMovementPoint;
-
+    private array $moralPoints = [0];
+    
     /**
-     * @ORM\Column(type="integer", nullable=false)
+     * @ORM\Column(type="array", nullable=false)
      */
-    private int $maxMovementPoint;
-
+    private array $actionPoints= [0];
+    
     /**
-     * @ORM\Column(type="integer", nullable=false)
+     * @ORM\Column(type="array", nullable=false)
      */
-    private int $minHealthPoint;
-
-    /**
-     * @ORM\Column(type="integer", nullable=false)
+    private array $movementPoints = [0];
+    
+   /**
+     * @ORM\Column(type="array", nullable=false)
      */
-    private int $maxHealthPoint;
-
-    /**
-     * @ORM\Column(type="string", nullable=false)
-     */
-    private int $minMoralPoint;
-
-    /**
-     * @ORM\Column(type="string", nullable=false)
-     */
-    private int $maxMoralPoint;
+    private array $healthPoints= [0];
 
     /**
      * @ORM\Column(type="integer", nullable=false)
@@ -70,112 +52,108 @@ class Ration extends ItemType
      * @ORM\Column(type="array", nullable=false)
      */
     private array $diseases = [];
+    
+     /**
+     * @ORM\Column(type="array", nullable=false)
+     */
+    private array $curesNumber = [0];
+
+    /**
+     * @ORM\Column(type="array", nullable=false)
+     */
+    private array $diseasesNumber = [0];
+    
 
     //Rations currently only have consume Action
-    public function setActions(array $actions): Weapon
+    public function setActions(array $actions): Ration
     {
         return $this;
     }
 
+    /**
+     * @return array
+     */
     public function getActions(): array
     {
         return [ActionEnum::CONSUME];
     }
-
-    public function getMinActionPoint(): int
-    {
-        return $this->minActionPoint;
-    }
-
-    public function setMinActionPoint(int $minActionPoint): Ration
-    {
-        $this->minActionPoint = $minActionPoint;
-        return $this;
-    }
-
-    public function getMaxActionPoint(): int
-    {
-        return $this->maxActionPoint;
-    }
-
-    public function setMaxActionPoint(int $maxActionPoint): Ration
-    {
-        $this->maxActionPoint = $maxActionPoint;
-        return $this;
-    }
-
-    public function getMinMovementPoint(): int
-    {
-        return $this->minMovementPoint;
-    }
-
-    public function setMinMovementPoint(int $minMovementPoint): Ration
-    {
-        $this->minMovementPoint = $minMovementPoint;
-        return $this;
-    }
-
-    public function getMaxMovementPoint(): int
-    {
-        return $this->maxMovementPoint;
-    }
-
-    public function setMaxMovementPoint(int $maxMovementPoint): Ration
-    {
-        $this->maxMovementPoint = $maxMovementPoint;
-        return $this;
-    }
-
+    
     /**
-     * @return int
+     * @return array
      */
-    public function getMinHealthPoint(): int
+   public function getActionPoints(): array
     {
-        return $this->minHealthPoint;
+        return $this->actionPoints;
     }
 
     /**
-     * @param int $minHealthPoint
+     * @param array $ActionPoints
+     * @return Ration
+     */   
+    public function setActionPoints(array $actionPoints): Ration
+    {
+        $this->actionPoints = $actionPoints;
+
+        return $this;
+    }
+    
+     /**
+     * @return array
+     */
+    public function getMovementPoints(): array
+    {
+        return $this->movementPoints;
+    }
+
+    /**
+     * @param array $MovementPoints
+     * @return Ration
+     */    
+    public function setMovementPoints(array $movementPoints): Ration
+    {
+        $this->movementPoints = $movementPoints;
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+     public function getHealthPoints(): array
+    {
+        return $this->healthPoints;
+    }
+    
+    /**
+     * @param array $HealthPoints
      * @return Ration
      */
-    public function setMinHealthPoint(int $minHealthPoint): Ration
+    public function setHealthPoints(array $healthPoints): Ration
     {
-        $this->minHealthPoint = $minHealthPoint;
+        $this->healthlPoints = $healthPoints;
+
         return $this;
     }
-
-    public function getMaxHealthPoint(): int
+    
+     /**
+     * @return array
+     */
+     public function getMoralPoints(): array
     {
-        return $this->maxHealthPoint;
+        return $this->moralPoints;
     }
-
-    public function setMaxHealthPoint(int $maxHealthPoint): Ration
+    
+    /**
+     * @param array $moralPoints
+     * @return Ration
+     */
+    public function setMoralPoints(array $moralPoints): Ration
     {
-        $this->maxHealthPoint = $maxHealthPoint;
+        $this->moralPoints = $moralPoints;
+
         return $this;
     }
-
-    public function getMinMoralPoint(): int
-    {
-        return $this->minMoralPoint;
-    }
-
-    public function setMinMoralPoint(int $minMoralPoint): Ration
-    {
-        $this->minMoralPoint = $minMoralPoint;
-        return $this;
-    }
-
-    public function getMaxMoralPoint(): int
-    {
-        return $this->maxMoralPoint;
-    }
-
-    public function setMaxMoralPoint(int $maxMoralPoint): Ration
-    {
-        $this->maxMoralPoint = $maxMoralPoint;
-        return $this;
-    }
+    
 
     public function getSatiety(): int
     {
@@ -209,4 +187,29 @@ class Ration extends ItemType
         $this->diseases = $diseases;
         return $this;
     }
+    
+       public function getCuresNumber(): array
+    {
+        return $this->curesNumber;
+    }
+    
+    public function setCuresNumber(array $curesNumber): Ration
+    {
+        $this->curesNumber = $curesNumber;
+
+        return $this;
+    }
+    
+       public function getDiseasesNumber(): array
+    {
+        return $this->diseasesNumber;
+    }
+    
+    public function setDiseasesNumber(array $diseasesNumber): Ration
+    {
+        $this->diseasesNumber = $diseasesNumber;
+
+        return $this;
+    }
+    
 }

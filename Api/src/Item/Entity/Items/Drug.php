@@ -14,4 +14,6 @@ use Mush\Item\Enum\ItemTypeEnum;
 class Drug extends Ration
 {
     protected string $type = ItemTypeEnum::DRUG;
+    
+    //@TODO more precision on the cure is needed (is the number of desease point remooved random)
 }

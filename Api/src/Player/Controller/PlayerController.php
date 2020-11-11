@@ -13,18 +13,15 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Player\Voter\CharacterVoter;
 use Nelmio\ApiDocBundle\Annotation\Security;
+use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use OpenApi\Annotations as OA;
-use Symfony\Component\Validator\ConstraintViolationList;
-use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
- * Class UsersController
- * @package Mush\Controller
+ * Class UsersController.
+ *
  * @Route(path="/player")
  */
 class PlayerController extends AbstractFOSRestController
@@ -38,10 +35,6 @@ class PlayerController extends AbstractFOSRestController
 
     /**
      * PlayerController constructor.
-     * @param PlayerServiceInterface $playerService
-     * @param DaedalusServiceInterface $daedalusService
-     * @param CycleServiceInterface $cycleService
-     * @param ValidatorInterface $validator
      */
     public function __construct(
         PlayerServiceInterface $playerService,
@@ -56,7 +49,7 @@ class PlayerController extends AbstractFOSRestController
     }
 
     /**
-     * Display Player in-game information
+     * Display Player in-game information.
      *
      * @OA\Parameter(
      *     name="id",
@@ -80,7 +73,7 @@ class PlayerController extends AbstractFOSRestController
     }
 
     /**
-     * Create a player
+     * Create a player.
      *
      * @OA\RequestBody (
      *      description="Input data format",

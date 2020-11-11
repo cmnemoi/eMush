@@ -43,7 +43,7 @@ class ReadBook extends Action
 
     public function loadParameters(Player $player, ActionParameters $actionParameters)
     {
-        if (! $item = $actionParameters->getItem()) {
+        if (!$item = $actionParameters->getItem()) {
             throw new \InvalidArgumentException('Invalid item parameter');
         }
         $this->player = $player;
@@ -52,14 +52,16 @@ class ReadBook extends Action
 
     public function canExecute(): bool
     {
-        return $this->item->getItem()->getItemType(ItemTypeEnum::BOOK) !== null &&
+        return null !== $this->item->getItem()->getItemType(ItemTypeEnum::BOOK) &&
             $this->player->canReachItem($this->item)
             ;
     }
 
     protected function applyEffects(): ActionResult
     {
-        /** @var Book $bookType */
+        /**
+         * @var Book $bookType
+         */
         $bookType = $this->item->getItem()->getItemType(ItemTypeEnum::BOOK);
         $this->player->addSkill($bookType->getSkill());
 

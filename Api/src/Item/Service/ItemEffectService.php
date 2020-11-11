@@ -19,9 +19,6 @@ class ItemEffectService implements ItemEffectServiceInterface
 
     /**
      * ItemEffectService constructor.
-     * @param ConsumableEffectRepository $consumableEffectRepository
-     * @param PlantEffectRepository $plantEffectRepository
-     * @param RandomServiceInterface $randomService
      */
     public function __construct(
         ConsumableEffectRepository $consumableEffectRepository,
@@ -39,7 +36,7 @@ class ItemEffectService implements ItemEffectServiceInterface
             ->findOneBy(['ration' => $ration, 'daedalus' => $daedalus])
         ;
 
-        if ($consumableEffect === null) {
+        if (null === $consumableEffect) {
             $consumableEffect = new ConsumableEffect();
             $consumableEffect
                 ->setDaedalus($daedalus)
@@ -69,7 +66,7 @@ class ItemEffectService implements ItemEffectServiceInterface
             ->findOneBy(['plant' => $plant, 'daedalus' => $daedalus])
         ;
 
-        if ($plantEffect === null) {
+        if (null === $plantEffect) {
             $plantEffect = new PlantEffect();
             $plantEffect
                 ->setDaedalus($daedalus)

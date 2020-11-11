@@ -28,7 +28,7 @@ class RoomConfigFixtures extends Fixture implements DependentFixtureInterface
                 DoorEnum::FRONT_CORRIDOR_BRIDGE,
             ])
             ->setItems([
-                ItemEnum::TABULATRIX
+                ItemEnum::TABULATRIX,
             ])
         ;
 
@@ -81,7 +81,7 @@ class RoomConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setDaedalusConfig($this->getReference(DaedalusConfigFixtures::DEFAULT_DAEDALUS))
             ->setName(RoomEnum::NEXUS)
             ->setDoors([
-                DoorEnum::REAR_CORRIDOR_NEXUS
+                DoorEnum::REAR_CORRIDOR_NEXUS,
             ])
         ;
         $manager->persist($nexus);
@@ -125,7 +125,7 @@ class RoomConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setDaedalusConfig($this->getReference(DaedalusConfigFixtures::DEFAULT_DAEDALUS))
             ->setName(RoomEnum::REFECTORY)
             ->setDoors([
-                DoorEnum::REFECTORY_CENTRAL_CORRIDOR
+                DoorEnum::REFECTORY_CENTRAL_CORRIDOR,
             ])
             ->setItems([
                 ItemEnum::MAD_KUBE,
@@ -362,7 +362,7 @@ class RoomConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setDaedalusConfig($this->getReference(DaedalusConfigFixtures::DEFAULT_DAEDALUS))
             ->setName(RoomEnum::CENTER_ALPHA_STORAGE)
             ->setDoors([
-                DoorEnum::ALPHA_BAY_CENTER_ALPHA_STORAGE
+                DoorEnum::ALPHA_BAY_CENTER_ALPHA_STORAGE,
             ])
         ;
         $manager->persist($centerAlphaStorage);
@@ -372,7 +372,7 @@ class RoomConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setDaedalusConfig($this->getReference(DaedalusConfigFixtures::DEFAULT_DAEDALUS))
             ->setName(RoomEnum::CENTER_BRAVO_STORAGE)
             ->setDoors([
-                DoorEnum::BRAVO_BAY_CENTER_BRAVO_STORAGE
+                DoorEnum::BRAVO_BAY_CENTER_BRAVO_STORAGE,
             ])
         ;
         $manager->persist($centreBravoStorage);
@@ -400,7 +400,6 @@ class RoomConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($rearBravoStorage);
 
         $manager->flush();
-
 
         $this->addReference(RoomEnum::BRIDGE, $bridge);
         $this->addReference(RoomEnum::ALPHA_BAY, $alphaBay);
@@ -435,7 +434,7 @@ class RoomConfigFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             ItemConfigFixtures::class,
-            DaedalusConfigFixtures::class
+            DaedalusConfigFixtures::class,
         ];
     }
 }

@@ -18,7 +18,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Drop extends Action
 {
-    const NAME = ActionEnum::DROP;
+    public const NAME = ActionEnum::DROP;
 
     private GameItem $item;
 
@@ -41,7 +41,7 @@ class Drop extends Action
 
     public function loadParameters(Player $player, ActionParameters $actionParameters)
     {
-        if (! $item = $actionParameters->getItem()) {
+        if (!$item = $actionParameters->getItem()) {
             throw new \InvalidArgumentException('Invalid item parameter');
         }
         $this->player = $player;
@@ -61,10 +61,11 @@ class Drop extends Action
         $this->item->setPlayer(null);
 
         // Remove BURDENED status if no other heavy item in the inventory
-        if (in_array(StatusEnum::BURDENED, $this->player->getStatuses()) &&
+        if (
+            ($burdened = $this->player->getStatusByName(StatusEnum::BURDENED)) &&
             $this->player->getItems()->exists(fn (Item $item) => $item->isHeavy())
         ) {
-            $this->player->setStatuses(\array_diff($this->player->getStatuses(), [StatusEnum::BURDENED]));
+            $this->player->removeStatus($burdened);
         }
 
         $this->gameItemService->persist($this->item);

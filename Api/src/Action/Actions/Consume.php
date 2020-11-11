@@ -5,13 +5,13 @@ namespace Mush\Action\Actions;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Game\Enum\StatusEnum;
 use Mush\Item\Entity\GameItem;
 use Mush\Item\Service\GameItemServiceInterface;
 use Mush\Item\Service\ItemEffectServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Action\Enum\ActionEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -44,20 +44,18 @@ class Consume extends Action
 
     public function loadParameters(Player $player, ActionParameters $actionParameters)
     {
-        if (! $item = $actionParameters->getItem()) {
+        if (!$item = $actionParameters->getItem()) {
             throw new \InvalidArgumentException('Invalid item parameter');
         }
         $this->player = $player;
         $this->item = $item;
     }
 
-
     public function canExecute(): bool
     {
         return $this->item->getItem()->hasAction(ActionEnum::CONSUME) &&
-            !$this->player->hasStatus(StatusEnum::FULL_STOMACH);
+            !$this->player->getStatusByName(StatusEnum::FULL_STOMACH);
     }
-
 
     protected function applyEffects(): ActionResult
     {
@@ -65,7 +63,7 @@ class Consume extends Action
         // @TODO handle drug consume
         $rationType = $this->item->getItem()->getRationsType();
 
-        if ($rationType === null) {
+        if (null === $rationType) {
             throw new \Exception('Cannot consume this item');
         }
 

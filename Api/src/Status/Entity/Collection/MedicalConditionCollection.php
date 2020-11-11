@@ -10,7 +10,9 @@ class MedicalConditionCollection extends ArrayCollection
 {
     public function applyActionCostModificator(ActionCost $actionCost): ActionCost
     {
-        /** @var MedicalCondition $medicalCondition */
+        /**
+         * @var MedicalCondition $medicalCondition
+         */
         foreach ($this->getIterator() as $medicalCondition) {
             $medicalConditionConfig = $medicalCondition->getMedicalConditionConfig();
             if ($actionCost->getMoralPointCost() > 0) {

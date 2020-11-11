@@ -7,8 +7,10 @@ use Status\Enum\ChargeStrategyTypeEnum;
 
 class CycleDecrease
 {
-    public function apply(Status $status) {
-        if ($status->getStrategy() !== ChargeStrategyTypeEnum::CYCLE_DECREMENT ||
+    public function apply(Status $status)
+    {
+        if (
+            ChargeStrategyTypeEnum::CYCLE_DECREMENT !== $status->getStrategy() ||
             $status->getCharge() <= $status->getThreshold()
         ) {
             return;

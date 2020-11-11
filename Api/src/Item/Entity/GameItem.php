@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Mush\Item\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -12,8 +11,8 @@ use Mush\Room\Entity\Room;
 use Mush\Status\Entity\Status;
 
 /**
- * Class Item
- * @package Mush\Entity
+ * Class Item.
+ *
  * @ORM\Entity
  */
 class GameItem
@@ -78,6 +77,7 @@ class GameItem
     public function setStatuses(Collection $statuses): GameItem
     {
         $this->statuses = $statuses;
+
         return $this;
     }
 
@@ -97,12 +97,14 @@ class GameItem
             $this->statuses->removeElement($status);
             $status->setGameItem(null);
         }
+
         return $this;
     }
 
     public function getStatusByName(string $name): ?Status
     {
-        $status = $this->statuses->filter(fn(Status $status) => ($status->getName() === $name))->first();
+        $status = $this->statuses->filter(fn (Status $status) => ($status->getName() === $name))->first();
+
         return $status ? $status : null;
     }
 
@@ -113,7 +115,7 @@ class GameItem
 
     public function setRoom(?Room $room): GameItem
     {
-        if ($room === null) {
+        if (null === $room) {
             $this->room->removeItem($this);
         } elseif ($this->room !== $room) {
             $room->addItem($this);
@@ -131,7 +133,7 @@ class GameItem
 
     public function setPlayer(?Player $player): GameItem
     {
-        if ($player === null && $this->player !== null) {
+        if (null === $player && null !== $this->player) {
             $this->player->removeItem($this);
         } elseif ($this->player !== $player) {
             $player->addItem($this);
@@ -150,6 +152,7 @@ class GameItem
     public function setName(string $name): GameItem
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -161,6 +164,7 @@ class GameItem
     public function setItem(Item $item): GameItem
     {
         $this->item = $item;
+
         return $this;
     }
 }

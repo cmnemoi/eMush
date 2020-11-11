@@ -36,7 +36,7 @@ class CycleSubscriber implements EventSubscriberInterface
                 break;
         }
 
-        if ($strategy !== null) {
+        if (null !== $strategy) {
             $strategy->apply($status);
         }
     }

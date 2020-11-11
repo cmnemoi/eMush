@@ -22,6 +22,7 @@ class ActionParameters
     public function setRoom(?Room $room): ActionParameters
     {
         $this->room = $room;
+
         return $this;
     }
 
@@ -33,6 +34,7 @@ class ActionParameters
     public function setPlayer(?Player $player): ActionParameters
     {
         $this->player = $player;
+
         return $this;
     }
 
@@ -44,6 +46,7 @@ class ActionParameters
     public function setItem(?GameItem $item): ActionParameters
     {
         $this->item = $item;
+
         return $this;
     }
 
@@ -55,6 +58,7 @@ class ActionParameters
     public function setDoor(?Door $door): ActionParameters
     {
         $this->door = $door;
+
         return $this;
     }
 }

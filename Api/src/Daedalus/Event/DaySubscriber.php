@@ -14,8 +14,6 @@ class DaySubscriber implements EventSubscriberInterface
 
     /**
      * DaedalusSubscriber constructor.
-     * @param DaedalusServiceInterface $daedalusService
-     * @param EventDispatcherInterface $eventDispatcher
      */
     public function __construct(DaedalusServiceInterface $daedalusService, EventDispatcherInterface $eventDispatcher)
     {

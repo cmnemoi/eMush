@@ -7,7 +7,6 @@ use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Service\SuccessRateService;
 use Mush\Action\Service\SuccessRateServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\SkillEnum;
@@ -15,7 +14,6 @@ use Mush\Game\Enum\StatusEnum;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Item\Entity\GameItem;
-use Mush\Item\Entity\Items\BluePrint;
 use Mush\Item\Entity\Items\Dismountable;
 use Mush\Item\Enum\ItemTypeEnum;
 use Mush\Item\Service\GameItemServiceInterface;
@@ -23,8 +21,8 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
-use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\Status;
+use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Disassemble extends Action
@@ -38,6 +36,7 @@ class Disassemble extends Action
     private PlayerServiceInterface $playerService;
     private RandomServiceInterface $randomService;
     private SuccessRateServiceInterface $successRateService;
+    private StatusServiceInterface $statusService;
     private GameConfig $gameConfig;
 
     public function __construct(
@@ -47,6 +46,7 @@ class Disassemble extends Action
         PlayerServiceInterface $playerService,
         RandomServiceInterface $randomService,
         SuccessRateServiceInterface $successRateService,
+        StatusServiceInterface $statusService,
         GameConfigServiceInterface $gameConfigService
     ) {
         parent::__construct($eventDispatcher);
@@ -56,12 +56,13 @@ class Disassemble extends Action
         $this->playerService = $playerService;
         $this->randomService = $randomService;
         $this->successRateService = $successRateService;
+        $this->statusService = $statusService;
         $this->gameConfig = $gameConfigService->getConfig();
     }
 
     public function loadParameters(Player $player, ActionParameters $actionParameters)
     {
-        if (! $item = $actionParameters->getItem()) {
+        if (!$item = $actionParameters->getItem()) {
             throw new \InvalidArgumentException('Invalid item parameter');
         }
 
@@ -76,10 +77,10 @@ class Disassemble extends Action
     {
         $dismountableType = $this->item->getItem()->getItemType(ItemTypeEnum::DISMOUNTABLE);
         //Check that the item is reachable
-        return (true || $dismountableType !== null ||
+        return true || null !== $dismountableType ||
             $this->player->canReachItem($this->item) ||
             in_array(SkillEnum::TECHNICIAN, $this->player->getSkills())
-        );
+        ;
     }
 
     protected function applyEffects(): ActionResult
@@ -89,7 +90,7 @@ class Disassemble extends Action
 
         $attempt = $this->player
             ->getStatuses()
-            ->filter(fn(Status $status) => $status->getName() === StatusEnum::ATTEMPT)
+            ->filter(fn (Status $status) => StatusEnum::ATTEMPT === $status->getName())
             ->first()
         ;
         $modificator = 0; //@TODO
@@ -105,7 +106,7 @@ class Disassemble extends Action
             $modificator
         );
 
-        $random = $this->randomService->random(0,100);
+        $random = $this->randomService->random(0, 100);
 
         if ($random <= $successChance) {
             $this->disasemble($dismountableType);
@@ -114,15 +115,13 @@ class Disassemble extends Action
         } else {
             $response = new Fail();
             if (!$attempt) {
-                $attempt = new Attempt();
+                $attempt = $this->statusService->createAttemptStatus(
+                    StatusEnum::ATTEMPT,
+                    self::NAME,
+                    $this->player
+                );
             }
-            $attempt
-                ->setName(StatusEnum::ATTEMPT)
-                ->setVisibility(VisibilityEnum::PRIVATE)
-                ->setAction(self::NAME)
-                ->addCharge(1)
-                ->setPlayer($this->player)
-            ;
+            $attempt->addCharge(1);
             $this->player->addStatus($attempt);
         }
 
@@ -135,8 +134,11 @@ class Disassemble extends Action
     {
         // add the item produced by disassembling
         foreach ($dismountableType->getProducts() as $productString => $number) {
-            for ($i = 0; $i < $number; $i++) {
-                $productItem=$this->gameItemService->createGameItemFromName($productString, $this->player->getDaedalus());
+            for ($i = 0; $i < $number; ++$i) {
+                $productItem = $this
+                    ->gameItemService
+                    ->createGameItemFromName($productString, $this->player->getDaedalus())
+                ;
                 if ($this->player->getItems()->count() < $this->gameConfig->getMaxItemInInventory()) {
                     $productItem->setPlayer($this->player);
                 } else {

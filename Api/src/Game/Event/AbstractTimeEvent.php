@@ -2,12 +2,12 @@
 
 namespace Mush\Game\Event;
 
-use Mush\Item\Entity\GameItem;
-use Mush\Status\Entity\Status;
-use Symfony\Contracts\EventDispatcher\Event;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Item\Entity\GameItem;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
+use Mush\Status\Entity\Status;
+use Symfony\Contracts\EventDispatcher\Event;
 
 class AbstractTimeEvent extends Event
 {
@@ -66,6 +66,7 @@ class AbstractTimeEvent extends Event
     public function setGameItem(?GameItem $gameItem): AbstractTimeEvent
     {
         $this->gameItem = $gameItem;
+
         return $this;
     }
 
@@ -77,6 +78,7 @@ class AbstractTimeEvent extends Event
     public function setStatus(?Status $status): AbstractTimeEvent
     {
         $this->status = $status;
+
         return $this;
     }
 }

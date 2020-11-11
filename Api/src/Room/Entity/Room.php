@@ -8,12 +8,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Item\Entity\GameItem;
-use Mush\Item\Entity\Item;
 use Mush\Player\Entity\Player;
 
 /**
- * Class Room
- * @package Mush\Entity
+ * Class Room.
  *
  * @ORM\Entity(repositoryClass="Mush\Room\Repository\RoomRepository")
  */
@@ -60,6 +58,7 @@ class Room
 
     /**
      * Room constructor.
+     *
      * @param int $id
      */
     public function __construct()
@@ -68,7 +67,6 @@ class Room
         $this->items = new ArrayCollection();
         $this->doors = new ArrayCollection();
     }
-
 
     public function getId(): int
     {
@@ -83,6 +81,7 @@ class Room
     public function setName(string $name): Room
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -94,6 +93,7 @@ class Room
     public function setDaedalus(Daedalus $daedalus): Room
     {
         $this->daedalus = $daedalus;
+
         return $this;
     }
 
@@ -105,6 +105,7 @@ class Room
     public function setPlayers(ArrayCollection $players): Room
     {
         $this->players = $players;
+
         return $this;
     }
 
@@ -114,6 +115,7 @@ class Room
             $this->players->add($player);
             $player->setRoom($this);
         }
+
         return $this;
     }
 
@@ -125,6 +127,7 @@ class Room
     public function setItems(ArrayCollection $items): Room
     {
         $this->items = $items;
+
         return $this;
     }
 
@@ -156,6 +159,7 @@ class Room
     public function setDoors(ArrayCollection $doors): Room
     {
         $this->doors = $doors;
+
         return $this;
     }
 
@@ -163,6 +167,7 @@ class Room
     {
         $this->doors->add($door);
         $door->addRoom($this);
+
         return $this;
     }
 
@@ -174,6 +179,7 @@ class Room
     public function setStatuses(array $statuses): Room
     {
         $this->statuses = $statuses;
+
         return $this;
     }
 }

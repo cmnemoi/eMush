@@ -47,7 +47,7 @@ class Build extends Action
 
     public function loadParameters(Player $player, ActionParameters $actionParameters)
     {
-        if (! $item = $actionParameters->getItem()) {
+        if (!$item = $actionParameters->getItem()) {
             throw new \InvalidArgumentException('Invalid item parameter');
         }
         $this->player = $player;
@@ -58,8 +58,10 @@ class Build extends Action
     {
         $blueprintType = $this->item->getItem()->getItemType(ItemTypeEnum::BLUEPRINT);
         //Check that the item is a blueprint and is reachable
-        if ($blueprintType === null ||
-            !$this->player->canReachItem($this->item)) {
+        if (
+            $blueprintType === null ||
+            !$this->player->canReachItem($this->item)
+        ) {
             return false;
         }
         //Check the availlability of the ingredients
@@ -68,6 +70,7 @@ class Build extends Action
                 return false;
             }
         }
+
         return true;
     }
 
@@ -75,8 +78,6 @@ class Build extends Action
     {
         /** @var Blueprint $blueprintType */
         $blueprintType = $this->item->getItem()->getItemType(ItemTypeEnum::BLUEPRINT);
-
-
 
         // add the item in the player inventory or in the room if the inventory is full
         $blueprintObject = $this->gameItemService->createGameItem(
@@ -94,16 +95,16 @@ class Build extends Action
 
         // remove the used ingredients starting from the player inventory
         foreach ($blueprintType->getIngredients() as $itemName => $number) {
-            for ($i = 0; $i < $number; $i++) {
+            for ($i = 0; $i < $number; ++$i) {
                 if ($this->player->hasItemByName($itemName)) {
                     // @FIXME change to a random choice of the item
-                    $ingredient=$this->player->getItems()
-                        ->filter(fn(GameItem $gameItem) => $gameItem->getName() === $itemName)->first();
+                    $ingredient = $this->player->getItems()
+                        ->filter(fn (GameItem $gameItem) => $gameItem->getName() === $itemName)->first();
                     $this->player->removeItem($ingredient);
                 } else {
                     // @FIXME change to a random choice of the item
-                    $ingredient=$this->player->getRoom()->getItems()
-                        ->filter(fn(GameItem $gameItem) => $gameItem->getName() === $itemName)->first();
+                    $ingredient = $this->player->getRoom()->getItems()
+                        ->filter(fn (GameItem $gameItem) => $gameItem->getName() === $itemName)->first();
                     $ingredient->setRoom(null);
                 }
                 $this->gameItemService->delete($ingredient);
@@ -118,9 +119,7 @@ class Build extends Action
 
         $this->gameItemService->delete($this->item);
 
-
         $this->playerService->persist($this->player);
-
 
         return new Success();
     }

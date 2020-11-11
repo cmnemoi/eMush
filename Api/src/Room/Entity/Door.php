@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Mush\Room\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -9,8 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
- * Class Door
- * @package Mush\Entity
+ * Class Door.
  *
  * @ORM\Entity()
  */
@@ -48,7 +46,6 @@ class Door
         $this->rooms = new ArrayCollection();
     }
 
-
     public function getId(): int
     {
         return $this->id;
@@ -62,6 +59,7 @@ class Door
     public function setName(string $name): Door
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -73,6 +71,7 @@ class Door
     public function setStatuses(array $statuses): Door
     {
         $this->statuses = $statuses;
+
         return $this;
     }
 
@@ -84,12 +83,14 @@ class Door
     public function setRooms(Collection $rooms): Door
     {
         $this->rooms = $rooms;
+
         return $this;
     }
 
     public function addRoom(Room $room): Door
     {
         $this->rooms->add($room);
+
         return $this;
     }
 }

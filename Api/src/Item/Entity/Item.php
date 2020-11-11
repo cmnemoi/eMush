@@ -11,8 +11,7 @@ use Mush\Item\Entity\Items\Ration;
 use Mush\Item\Enum\ItemTypeEnum;
 
 /**
- * Class ItemConfig
- * @package Mush\Item\Entity
+ * Class ItemConfig.
  *
  * @ORM\Entity
  */
@@ -109,6 +108,7 @@ class Item
     public function setGameConfig(GameConfig $gameConfig): Item
     {
         $this->gameConfig = $gameConfig;
+
         return $this;
     }
 
@@ -120,6 +120,7 @@ class Item
     public function setName(string $name): Item
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -131,18 +132,21 @@ class Item
     public function setTypes(Collection $types): Item
     {
         $this->types = $types;
+
         return $this;
     }
 
     public function getItemType(string $type): ?ItemType
     {
-        $itemTypes = $this->types->filter(fn(ItemType $itemType) => ($itemType->getType() === $type));
+        $itemTypes = $this->types->filter(fn (ItemType $itemType) => ($itemType->getType() === $type));
+
         return $itemTypes->count() > 0 ? $itemTypes->first() : null;
     }
 
     public function getItemTypeByTypes(array $types): ?ItemType
     {
-        $itemTypes = $this->types->filter(fn(ItemType $itemType) => (in_array($itemType->getType(), $types)));
+        $itemTypes = $this->types->filter(fn (ItemType $itemType) => (in_array($itemType->getType(), $types)));
+
         return $itemTypes->count() > 0 ? $itemTypes->first() : null;
     }
 
@@ -159,6 +163,7 @@ class Item
     public function setIsHeavy(bool $isHeavy): Item
     {
         $this->isHeavy = $isHeavy;
+
         return $this;
     }
 
@@ -170,6 +175,7 @@ class Item
     public function setIsTakeable(bool $isTakeable): Item
     {
         $this->isTakeable = $isTakeable;
+
         return $this;
     }
 
@@ -181,6 +187,7 @@ class Item
     public function setIsDropable(bool $isDropable): Item
     {
         $this->isDropable = $isDropable;
+
         return $this;
     }
 
@@ -192,6 +199,7 @@ class Item
     public function setIsDismantable(bool $isDismantable): Item
     {
         $this->isDismantable = $isDismantable;
+
         return $this;
     }
 
@@ -203,6 +211,7 @@ class Item
     public function setIsStackable(bool $isStackable): Item
     {
         $this->isStackable = $isStackable;
+
         return $this;
     }
 
@@ -214,6 +223,7 @@ class Item
     public function setIsHideable(bool $isHideable): Item
     {
         $this->isHideable = $isHideable;
+
         return $this;
     }
 
@@ -225,6 +235,7 @@ class Item
     public function setIsFireDestroyable(bool $isFireDestroyable): Item
     {
         $this->isFireDestroyable = $isFireDestroyable;
+
         return $this;
     }
 
@@ -236,9 +247,9 @@ class Item
     public function setIsFireBreakable(bool $isFireBreakable): Item
     {
         $this->isFireBreakable = $isFireBreakable;
+
         return $this;
     }
-
 
     public function getActions(): Collection
     {

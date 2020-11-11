@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Mush\Item\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -8,8 +7,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Item\Entity\Items\Ration;
 
 /**
- * Class ConsumableEffect
- * @package Mush\Item\Entity
+ * Class ConsumableEffect.
  *
  * @ORM\Entity
  */
@@ -78,6 +76,7 @@ class ConsumableEffect
     public function setDaedalus(Daedalus $daedalus): ConsumableEffect
     {
         $this->daedalus = $daedalus;
+
         return $this;
     }
 
@@ -89,6 +88,7 @@ class ConsumableEffect
     public function setRation(Ration $ration): ConsumableEffect
     {
         $this->ration = $ration;
+
         return $this;
     }
 
@@ -100,6 +100,7 @@ class ConsumableEffect
     public function setActionPoint(int $actionPoint): ConsumableEffect
     {
         $this->actionPoint = $actionPoint;
+
         return $this;
     }
 
@@ -111,6 +112,7 @@ class ConsumableEffect
     public function setMovementPoint(int $movementPoint): ConsumableEffect
     {
         $this->movementPoint = $movementPoint;
+
         return $this;
     }
 
@@ -122,6 +124,7 @@ class ConsumableEffect
     public function setHealthPoint(int $healthPoint): ConsumableEffect
     {
         $this->healthPoint = $healthPoint;
+
         return $this;
     }
 
@@ -133,6 +136,7 @@ class ConsumableEffect
     public function setMoralPoint(int $moralPoint): ConsumableEffect
     {
         $this->moralPoint = $moralPoint;
+
         return $this;
     }
     

@@ -3,11 +3,9 @@
 namespace Mush\Status\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Player\Entity\Player;
 
 /**
- * Class StatusEffect
- * @package Mush\Entity
+ * Class StatusEffect.
  *
  * @ORM\Entity()
  */
@@ -26,6 +24,7 @@ class MedicalCondition extends Status
     public function setMedicalConditionConfig(MedicalConditionConfig $medicalConditionConfig): MedicalCondition
     {
         $this->medicalConditionConfig = $medicalConditionConfig;
+
         return $this;
     }
 }

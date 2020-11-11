@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Mush\Test\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -10,7 +9,6 @@ use Mush\Action\Actions\Action;
 use Mush\Action\Actions\ReadBook;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Game\Enum\SkillEnum;
-use Mush\Item\Entity\Fruit;
 use Mush\Item\Entity\GameItem;
 use Mush\Item\Entity\Item;
 use Mush\Item\Entity\Items\Book;

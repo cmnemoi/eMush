@@ -10,24 +10,32 @@ use Mush\Status\Entity\Status;
 
 class StatusService implements StatusServiceInterface
 {
-    public function createCorePlayerStatus(string $statusName, Player $player) {
+    public function createCorePlayerStatus(string $statusName, Player $player): Status
+    {
         $status = new Status();
         $status
             ->setName($statusName)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setPlayer($player)
         ;
+
+        return $status;
     }
-    public function createCoreItemStatus(string $statusName, GameItem $gameItem) {
+
+    public function createCoreItemStatus(string $statusName, GameItem $gameItem): Status
+    {
         $status = new Status();
         $status
             ->setName($statusName)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setGameItem($gameItem)
         ;
+
+        return $status;
     }
 
-    public function createAttemptStatus(string $statusName, string $action, Player $player) {
+    public function createAttemptStatus(string $statusName, string $action, Player $player): Attempt
+    {
         $status = new Attempt();
         $status
             ->setName($statusName)
@@ -36,5 +44,7 @@ class StatusService implements StatusServiceInterface
             ->setAction($action)
             ->setCharge(0)
         ;
+
+        return $status;
     }
 }

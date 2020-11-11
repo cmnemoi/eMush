@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Mush\Item\Entity\Items;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -8,8 +7,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Item\Enum\ItemTypeEnum;
 
 /**
- * Class Item
- * @package Mush\Entity
+ * Class Item.
  *
  * @ORM\Entity
  */
@@ -41,6 +39,7 @@ class Weapon extends Tool
     public function setMaxCharges(int $maxCharges): Weapon
     {
         $this->maxCharges = $maxCharges;
+
         return $this;
     }
 }

@@ -39,7 +39,7 @@ class Move extends Action
 
     public function loadParameters(Player $player, ActionParameters $actionParameters)
     {
-        if (! ($door = $actionParameters->getDoor())) {
+        if (!($door = $actionParameters->getDoor())) {
             throw new \InvalidArgumentException('Invalid door parameter');
         }
 

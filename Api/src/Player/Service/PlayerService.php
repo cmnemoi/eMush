@@ -5,9 +5,7 @@ namespace Mush\Player\Service;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Game\Entity\Collection\CharacterConfigCollection;
 use Mush\Game\Entity\GameConfig;
-use Mush\Game\Service\CharacterConfigServiceInterface;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\GameStatusEnum;
@@ -35,11 +33,6 @@ class PlayerService implements PlayerServiceInterface
 
     /**
      * PlayerService constructor.
-     * @param EntityManagerInterface $entityManager
-     * @param EventDispatcherInterface $eventDispatcher
-     * @param PlayerRepository $repository
-     * @param GameConfigServiceInterface $gameConfigService
-     * @param TokenStorageInterface $tokenStorage
      */
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -54,7 +47,6 @@ class PlayerService implements PlayerServiceInterface
         $this->gameConfig = $gameConfigService->getConfig();
         $this->tokenStorage = $tokenStorage;
     }
-
 
     public function persist(Player $player): Player
     {
@@ -71,9 +63,9 @@ class PlayerService implements PlayerServiceInterface
 
     public function findOneByCharacter(string $character, ?Daedalus $daedalus = null): ?Player
     {
-        $params = ['person'=> $character];
+        $params = ['person' => $character];
 
-        if ($daedalus !== null) {
+        if (null !== $daedalus) {
             $params['daedalus'] = $daedalus;
         }
 
@@ -110,7 +102,7 @@ class PlayerService implements PlayerServiceInterface
             ->setDaedalus($daedalus)
             ->setRoom(
                 $daedalus->getRooms()
-                    ->filter(fn (Room $room) => $room->getName() === RoomEnum::LABORATORY)
+                    ->filter(fn (Room $room) => RoomEnum::LABORATORY === $room->getName())
                     ->first()
             )
             ->setPerson($character)

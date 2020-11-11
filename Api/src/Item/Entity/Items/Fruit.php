@@ -6,8 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Item\Enum\ItemTypeEnum;
 
 /**
- * Class Item
- * @package Mush\Entity
+ * Class Item.
  *
  * @ORM\Entity
  */

@@ -5,8 +5,7 @@ namespace Mush\Status\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class ChargeStrategy
- * @package Mush\Status\Entity
+ * Class ChargeStrategy.
  *
  * @ORM\Entity()
  */
@@ -32,6 +31,7 @@ class ChargeStrategy
     public function setType(?string $type): ChargeStrategy
     {
         $this->type = $type;
+
         return $this;
     }
 
@@ -43,6 +43,7 @@ class ChargeStrategy
     public function setThreshold(?int $threshold): ChargeStrategy
     {
         $this->threshold = $threshold;
+
         return $this;
     }
 }

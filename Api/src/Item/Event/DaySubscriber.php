@@ -3,7 +3,6 @@
 namespace Mush\Item\Event;
 
 use Mush\Game\CycleHandler\CycleHandlerInterface;
-use Mush\Game\Event\CycleEvent;
 use Mush\Game\Event\DayEvent;
 use Mush\Room\Service\RoomServiceInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;

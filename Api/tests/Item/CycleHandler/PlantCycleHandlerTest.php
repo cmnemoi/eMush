@@ -3,6 +3,7 @@
 namespace Mush\Test\Item\CycleHandler;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\StatusEnum;
@@ -14,15 +15,14 @@ use Mush\Item\Entity\Item;
 use Mush\Item\Entity\Items\Plant;
 use Mush\Item\Entity\PlantEffect;
 use Mush\Item\Enum\PlantStatusEnum;
-use Mush\Item\Service\ItemEffectServiceInterface;
 use Mush\Item\Service\GameItemServiceInterface;
+use Mush\Item\Service\ItemEffectServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\Status;
 use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
-use \Mockery;
 
 class PlantCycleHandlerTest extends TestCase
 {
@@ -65,7 +65,6 @@ class PlantCycleHandlerTest extends TestCase
             $this->itemEffectService
         );
     }
-
 
     /**
      * @after
@@ -112,13 +111,13 @@ class PlantCycleHandlerTest extends TestCase
         $this->assertFalse(
             $gamePlant
                 ->getStatuses()
-                ->filter(fn(Status $status) => $status->getName() === PlantStatusEnum::YOUNG)
+                ->filter(fn (Status $status) => PlantStatusEnum::YOUNG === $status->getName())
                 ->isEmpty()
         );
         $this->assertTrue(
             $gamePlant
                 ->getStatuses()
-                ->filter(fn(Status $status) => $status->getName() === PlantStatusEnum::DISEASED)
+                ->filter(fn (Status $status) => PlantStatusEnum::DISEASED === $status->getName())
                 ->isEmpty()
         );
 
@@ -134,13 +133,13 @@ class PlantCycleHandlerTest extends TestCase
         $this->assertTrue(
             $gamePlant
                 ->getStatuses()
-                ->filter(fn(Status $status) => $status->getName() === PlantStatusEnum::YOUNG)
+                ->filter(fn (Status $status) => PlantStatusEnum::YOUNG === $status->getName())
                 ->isEmpty()
         );
         $this->assertFalse(
             $gamePlant
                 ->getStatuses()
-                ->filter(fn(Status $status) => $status->getName() === PlantStatusEnum::DISEASED)
+                ->filter(fn (Status $status) => PlantStatusEnum::DISEASED === $status->getName())
                 ->isEmpty()
         );
     }
@@ -157,7 +156,7 @@ class PlantCycleHandlerTest extends TestCase
         $room->addPlayer($player);
         $room->setDaedalus($daedalus);
 
-        $newFruit  = new Item();
+        $newFruit = new Item();
         $newFruit->setName('fruit name');
         $this->itemService->shouldReceive('persist');
         $this->roomLogService->shouldReceive('createItemLog');
@@ -193,7 +192,12 @@ class PlantCycleHandlerTest extends TestCase
 
         $status = new Status();
         $status->setName(PlantStatusEnum::THIRSTY);
-        $this->statusService->shouldReceive('createCoreItemStatus')->with(PlantStatusEnum::THIRSTY, $gamePlant)->andReturn($status)->once();
+        $this->statusService
+            ->shouldReceive('createCoreItemStatus')
+            ->with(PlantStatusEnum::THIRSTY, $gamePlant)
+            ->andReturn($status)
+            ->once()
+        ;
 
         //Mature Plant, no problem
         $this->plantCycleHandler->handleNewDay($gamePlant, $daedalus, new \DateTime());
@@ -203,7 +207,11 @@ class PlantCycleHandlerTest extends TestCase
 
         $dried = new Status();
         $dried->setName(PlantStatusEnum::DRIED);
-        $this->statusService->shouldReceive('createCoreItemStatus')->with(PlantStatusEnum::DRIED, $gamePlant)->andReturn($dried)->once();
+        $this->statusService
+            ->shouldReceive('createCoreItemStatus')
+            ->with(PlantStatusEnum::DRIED, $gamePlant)->andReturn($dried)
+            ->once()
+        ;
 
         //Thirsty plant
         $this->plantCycleHandler->handleNewDay($gamePlant, $daedalus, new \DateTime());

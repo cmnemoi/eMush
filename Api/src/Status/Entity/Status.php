@@ -1,16 +1,13 @@
 <?php
 
-
 namespace Mush\Status\Entity;
-
 
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Item\Entity\GameItem;
 use Mush\Player\Entity\Player;
 
 /**
- * Class Status
- * @package Mush\Status\Entity
+ * Class Status.
  *
  * @ORM\Entity()
  * @ORM\InheritanceType("SINGLE_TABLE")
@@ -78,6 +75,7 @@ class Status
     public function setName(?string $name): Status
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -89,12 +87,10 @@ class Status
     public function setVisibility(?string $visibility): Status
     {
         $this->visibility = $visibility;
+
         return $this;
     }
 
-    /**
-     * @return Player
-     */
     public function getPlayer(): Player
     {
         return $this->player;
@@ -103,6 +99,7 @@ class Status
     public function setPlayer(Player $player): Status
     {
         $this->player = $player;
+
         return $this;
     }
 
@@ -114,6 +111,7 @@ class Status
     public function setGameItem(?GameItem $gameItem): Status
     {
         $this->gameItem = $gameItem;
+
         return $this;
     }
 
@@ -125,12 +123,14 @@ class Status
     public function addCharge(int $charge): Status
     {
         $this->charge += $charge;
+
         return $this;
     }
 
     public function setCharge(?int $charge): Status
     {
         $this->charge = $charge;
+
         return $this;
     }
 
@@ -142,6 +142,7 @@ class Status
     public function setStrategy(?string $strategy): Status
     {
         $this->strategy = $strategy;
+
         return $this;
     }
 
@@ -153,6 +154,7 @@ class Status
     public function setThreshold(?int $threshold): Status
     {
         $this->threshold = $threshold;
+
         return $this;
     }
 }

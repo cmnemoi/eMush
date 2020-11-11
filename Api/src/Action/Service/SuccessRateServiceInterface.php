@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Mush\Action\Service;
-
 
 interface SuccessRateServiceInterface
 {

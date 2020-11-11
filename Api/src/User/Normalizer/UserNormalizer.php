@@ -14,8 +14,7 @@ class UserNormalizer implements ContextAwareNormalizerInterface
 
     /**
      * @param User $user
-     * @param string|null $format
-     * @param array $context
+     *
      * @return array
      */
     public function normalize($user, string $format = null, array $context = [])

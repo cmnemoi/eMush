@@ -1,13 +1,12 @@
 <?php
 
-
 namespace Mush\Test\Game\Service;
 
+use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\CycleService;
 use Mush\Game\Service\GameConfigServiceInterface;
-use \Mockery;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 

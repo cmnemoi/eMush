@@ -16,7 +16,6 @@ class DaedalusNormalizer implements ContextAwareNormalizerInterface
         $this->gameConfig = $gameConfigService->getConfig();
     }
 
-
     public function supportsNormalization($data, string $format = null, array $context = [])
     {
         return $data instanceof Daedalus;
@@ -24,22 +23,21 @@ class DaedalusNormalizer implements ContextAwareNormalizerInterface
 
     /**
      * @param Daedalus $daedalus
-     * @param string|null $format
-     * @param array $context
+     *
      * @return array
      */
     public function normalize($daedalus, string $format = null, array $context = [])
     {
         return [
                 'id' => $daedalus->getId(),
-                'cycle' => (($daedalus->getCycle()-1) % $this->gameConfig->getNumberOfCyclePerDay()) + 1,
+                'cycle' => (($daedalus->getCycle() - 1) % $this->gameConfig->getNumberOfCyclePerDay()) + 1,
                 'day' => floor($daedalus->getCycle() / $this->gameConfig->getNumberOfCyclePerDay()) + 1,
                 'oxygen' => $daedalus->getOxygen(),
                 'fuel' => $daedalus->getFuel(),
                 'hull' => $daedalus->getHull(),
                 'shield' => $daedalus->getShield(),
                 'createdAt' => $daedalus->getCreatedAt(),
-                'updatedAt' => $daedalus->getUpdatedAt()
+                'updatedAt' => $daedalus->getUpdatedAt(),
             ];
     }
 }

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Status\Enum;
-
 
 class ChargeStrategyTypeEnum
 {
@@ -15,7 +13,7 @@ class ChargeStrategyTypeEnum
     public static function getDayStrategies()
     {
         return [
-            self::DAILY_USAGE
+            self::DAILY_USAGE,
         ];
     }
 

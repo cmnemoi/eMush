@@ -4,13 +4,13 @@ namespace Mush\Test\Daedalus\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
+use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Repository\DaedalusRepository;
 use Mush\Daedalus\Service\DaedalusService;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\CycleServiceInterface;
-use \Mockery;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Item\Service\GameItemServiceInterface;
 use Mush\Room\Entity\Room;
@@ -49,7 +49,7 @@ class DaedalusServiceTest extends TestCase
         $this->roomService = Mockery::mock(RoomServiceInterface::class);
         $this->cycleService = Mockery::mock(CycleServiceInterface::class);
         $this->itemService = Mockery::mock(GameItemServiceInterface::class);
-        $this->randomService =  Mockery::mock(RandomServiceInterface::class);
+        $this->randomService = Mockery::mock(RandomServiceInterface::class);
 
         $this->service = new DaedalusService(
             $this->entityManager,

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Mush\Test\Daedalus\Validator;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -10,9 +9,7 @@ use Mush\Daedalus\Validator\FullDaedalus;
 use Mush\Daedalus\Validator\FullDaedalusValidator;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\GameConfigService;
-use Mush\Player\Entity\Dto\PlayerRequest;
 use Mush\Player\Entity\Player;
-use Mush\Player\Validator\UniqueCharacter;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;

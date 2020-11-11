@@ -1,15 +1,13 @@
 <?php
 
-
 namespace Mush\Room\Entity;
 
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Daedalus\Entity\DaedalusConfig;
 
 /**
- * Class RoomConfig
- * @package Mush\Room\Entity
+ * Class RoomConfig.
+ *
  * @ORM\Entity()
  */
 class RoomConfig
@@ -54,6 +52,7 @@ class RoomConfig
     public function setDaedalusConfig(DaedalusConfig $daedalusConfig): RoomConfig
     {
         $this->daedalusConfig = $daedalusConfig;
+
         return $this;
     }
 
@@ -65,6 +64,7 @@ class RoomConfig
     public function setName(string $name): RoomConfig
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -76,6 +76,7 @@ class RoomConfig
     public function setDoors(array $doors): RoomConfig
     {
         $this->doors = $doors;
+
         return $this;
     }
 
@@ -87,6 +88,7 @@ class RoomConfig
     public function setItems(array $items): RoomConfig
     {
         $this->items = $items;
+
         return $this;
     }
 }

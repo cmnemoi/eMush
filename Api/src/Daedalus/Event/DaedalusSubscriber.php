@@ -1,12 +1,9 @@
 <?php
 
-
 namespace Mush\Player\Event;
 
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
-use Mush\Game\Event\CycleEvent;
-use Mush\Game\Event\DayEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -17,8 +14,6 @@ class DaedalusSubscriber implements EventSubscriberInterface
 
     /**
      * DaedalusSubscriber constructor.
-     * @param DaedalusServiceInterface $daedalusService
-     * @param EventDispatcherInterface $eventDispatcher
      */
     public function __construct(DaedalusServiceInterface $daedalusService, EventDispatcherInterface $eventDispatcher)
     {

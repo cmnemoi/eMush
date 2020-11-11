@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Mush\Game\Enum;
 
 class StatusEnum

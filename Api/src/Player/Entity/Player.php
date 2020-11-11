@@ -15,8 +15,7 @@ use Mush\Status\Entity\Status;
 use Mush\User\Entity\User;
 
 /**
- * Class Player
- * @package Mush\Entity
+ * Class Player.
  *
  * @ORM\Entity(repositoryClass="Mush\Player\Repository\PlayerRepository")
  */
@@ -42,7 +41,8 @@ class Player
     private string $gameStatus;
 
     /**
-     * Character is a reserved keyword for sql
+     * Character is a reserved keyword for sql.
+     *
      * @ORM\Column(type="string", nullable=false)
      */
     private string $person;
@@ -116,6 +116,7 @@ class Player
     public function setUser(User $user): Player
     {
         $this->user = $user;
+
         return $this;
     }
 
@@ -127,6 +128,7 @@ class Player
     public function setGameStatus(string $gameStatus): Player
     {
         $this->gameStatus = $gameStatus;
+
         return $this;
     }
 
@@ -138,6 +140,7 @@ class Player
     public function setPerson(string $person): Player
     {
         $this->person = $person;
+
         return $this;
     }
 
@@ -149,6 +152,7 @@ class Player
     public function setDaedalus(Daedalus $daedalus): Player
     {
         $this->daedalus = $daedalus;
+
         return $this;
     }
 
@@ -160,27 +164,25 @@ class Player
     public function setRoom(Room $room): Player
     {
         $this->room = $room;
+
         return $this;
     }
 
     /**
-     * Return true if the item is reachable for the player i.e. in the inventory or the room
-     * @param GameItem $gameItem
-     * @return bool
+     * Return true if the item is reachable for the player i.e. in the inventory or the room.
      */
     public function canReachItem(GameItem $gameItem): bool
     {
         return $this->items->contains($gameItem) || $this->room->getItems()->contains($gameItem);
     }
-    
-    
+
     public function getReachableItemByName(string $name): Collection
     {
-          return (new ArrayCollection(array_merge(
-              $this->getItems()->toArray(),
-              $this->getRoom()->getItems()->toArray()
-          ))
-          )->filter(fn(GameItem $gameItem) => $gameItem->getName() === $name);
+        return (new ArrayCollection(array_merge(
+            $this->getItems()->toArray(),
+            $this->getRoom()->getItems()->toArray()
+        ))
+          )->filter(fn (GameItem $gameItem) => $gameItem->getName() === $name);
     }
 
     public function getItems(): Collection
@@ -191,6 +193,7 @@ class Player
     public function setItems(Collection $items): Player
     {
         $this->items = $items;
+
         return $this;
     }
 
@@ -213,15 +216,17 @@ class Player
 
         return $this;
     }
-    
+
     public function hasItemByName(string $name): bool
     {
-            return (! $this->getItems()->filter(fn(GameItem $gameItem) => $gameItem->getName() === $name)->isEmpty());
+        return !$this->getItems()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $name)->isEmpty();
     }
 
     public function getMedicalConditions(): MedicalConditionCollection
     {
-        return new MedicalConditionCollection($this->statuses->filter(fn(Status $status) => ($status instanceof MedicalCondition))->toArray());
+        return new MedicalConditionCollection(
+            $this->statuses->filter(fn (Status $status) => ($status instanceof MedicalCondition))->toArray()
+        );
     }
 
     public function getStatuses(): Collection
@@ -229,9 +234,17 @@ class Player
         return $this->statuses;
     }
 
+    public function getStatusByName(string $name): ?Status
+    {
+        $status = $this->statuses->filter(fn (Status $status) => ($status->getName() === $name))->first();
+
+        return $status ? $status : null;
+    }
+
     public function setStatuses(Collection $statuses): Player
     {
         $this->statuses = $statuses;
+
         return $this;
     }
 
@@ -258,6 +271,7 @@ class Player
     public function addSkill(string $skill): Player
     {
         $this->skills[] = $skill;
+
         return $this;
     }
 
@@ -269,6 +283,7 @@ class Player
     public function setSkills(array $skills): Player
     {
         $this->skills = $skills;
+
         return $this;
     }
 
@@ -280,12 +295,14 @@ class Player
     public function setHealthPoint(int $healthPoint): Player
     {
         $this->healthPoint = $healthPoint;
+
         return $this;
     }
 
     public function addHealthPoint(int $healthPoint): Player
     {
         $this->healthPoint += $healthPoint;
+
         return $this;
     }
 
@@ -297,12 +314,14 @@ class Player
     public function setMoralPoint(int $moralPoint): Player
     {
         $this->moralPoint = $moralPoint;
+
         return $this;
     }
 
     public function addMoralPoint(int $moralPoint): Player
     {
         $this->moralPoint += $moralPoint;
+
         return $this;
     }
 
@@ -314,12 +333,14 @@ class Player
     public function setActionPoint(int $actionPoint): Player
     {
         $this->actionPoint = $actionPoint;
+
         return $this;
     }
 
     public function addActionPoint(int $actionPoint): Player
     {
         $this->actionPoint += $actionPoint;
+
         return $this;
     }
 
@@ -331,6 +352,7 @@ class Player
     public function setMovementPoint(int $movementPoint): Player
     {
         $this->movementPoint = $movementPoint;
+
         return $this;
     }
 
@@ -353,6 +375,7 @@ class Player
     public function setSatiety(int $satiety): Player
     {
         $this->satiety = $satiety;
+
         return $this;
     }
 }

@@ -8,9 +8,11 @@
     <arg name="colors"/>
     <arg name="extensions" value="php"/>
 
-    <rule ref="PSR2"/>
+    <rule ref="PSR12">
+        <exclude name="PSR12.Files.FileHeader" />
+        <exclude name="PSR12.Files.OpenTag" />
+    </rule>
 
     <file>src/</file>
     <file>tests/</file>
-
 </ruleset>

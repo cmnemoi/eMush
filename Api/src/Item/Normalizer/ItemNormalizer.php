@@ -34,8 +34,7 @@ class ItemNormalizer implements ContextAwareNormalizerInterface
 
     /**
      * @param GameItem $item
-     * @param string|null $format
-     * @param array $context
+     *
      * @return array
      */
     public function normalize($item, string $format = null, array $context = [])
@@ -45,7 +44,6 @@ class ItemNormalizer implements ContextAwareNormalizerInterface
         $actionParameter
             ->setItem($item)
         ;
-
 
         foreach ($item->getActions() as $actionName) {
             $actionClass = $this->actionService->getAction($actionName);
@@ -58,7 +56,7 @@ class ItemNormalizer implements ContextAwareNormalizerInterface
                         'description' => $this->translator->trans("{$actionName}.description", [], 'actions'),
                         'actionPointCost' => $actionClass->getActionCost()->getActionPointCost(),
                         'movementPointCost' => $actionClass->getActionCost()->getMovementPointCost(),
-                        'moralPointCost' => $actionClass->getActionCost()->getMoralPointCost()
+                        'moralPointCost' => $actionClass->getActionCost()->getMoralPointCost(),
                     ];
                 }
             }
@@ -68,10 +66,9 @@ class ItemNormalizer implements ContextAwareNormalizerInterface
             'id' => $item->getId(),
             'name' => $item->getName(),
             'statuses' => $item->getStatuses(),
-            'actions' => $actions
+            'actions' => $actions,
         ];
     }
-
 
     private function getUser(): User
     {

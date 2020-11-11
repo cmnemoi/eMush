@@ -2,19 +2,19 @@
 
 namespace Mush\Action\Controller;
 
-use Mush\Action\ActionResult\Error;
-use Mush\Action\Service\ActionServiceInterface;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use Mush\Action\ActionResult\Error;
+use Mush\Action\Service\ActionServiceInterface;
 use Nelmio\ApiDocBundle\Annotation\Security;
+use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use OpenApi\Annotations as OA;
 
 /**
- * Class UsersController
- * @package Mush\Controller
+ * Class UsersController.
+ *
  * @Route(path="/action")
  */
 class ActionController extends AbstractFOSRestController
@@ -23,7 +23,6 @@ class ActionController extends AbstractFOSRestController
 
     /**
      * ActionController constructor.
-     * @param ActionServiceInterface $actionService
      */
     public function __construct(ActionServiceInterface $actionService)
     {
@@ -31,7 +30,7 @@ class ActionController extends AbstractFOSRestController
     }
 
     /**
-     * Perform an action
+     * Perform an action.
      *
      * @OA\RequestBody (
      *      description="Input data format",
@@ -57,7 +56,7 @@ class ActionController extends AbstractFOSRestController
      *                          description="The door parameter",
      *                          type="integer",
      *                      ),
-      *                      @OA\Property(
+     *                      @OA\Property(
      *                          property="player",
      *                          description="The player parameter",
      *                          type="integer",

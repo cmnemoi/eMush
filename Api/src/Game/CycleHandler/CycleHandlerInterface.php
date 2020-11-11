@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Mush\Game\CycleHandler;
 
 use Mush\Daedalus\Entity\Daedalus;

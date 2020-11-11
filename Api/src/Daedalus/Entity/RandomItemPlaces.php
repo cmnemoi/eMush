@@ -1,13 +1,12 @@
 <?php
 
-
 namespace Mush\Daedalus\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class RandomItemPlaces
- * @package Mush\Daedalus\Entity
+ * Class RandomItemPlaces.
+ *
  * @ORM\Entity()
  * @ORM\Table(name="config_random_item_place")
  */
@@ -43,6 +42,7 @@ class RandomItemPlaces
     public function setPlaces(array $places): RandomItemPlaces
     {
         $this->places = $places;
+
         return $this;
     }
 
@@ -54,6 +54,7 @@ class RandomItemPlaces
     public function setItems(array $items): RandomItemPlaces
     {
         $this->items = $items;
+
         return $this;
     }
 }

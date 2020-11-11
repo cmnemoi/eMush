@@ -75,7 +75,7 @@ class DaedalusConfigFixtures extends Fixture implements DependentFixtureInterfac
     public function getDependencies()
     {
         return [
-            GameConfigFixtures::class
+            GameConfigFixtures::class,
         ];
     }
 }

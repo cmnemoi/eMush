@@ -18,9 +18,6 @@ class CycleSubscriber implements EventSubscriberInterface
 
     /**
      * DaedalusSubscriber constructor.
-     * @param DaedalusServiceInterface $daedalusService
-     * @param EventDispatcherInterface $eventDispatcher
-     * @param GameConfigServiceInterface $gameConfigService
      */
     public function __construct(
         DaedalusServiceInterface $daedalusService,

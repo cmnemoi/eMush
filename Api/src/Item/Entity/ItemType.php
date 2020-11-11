@@ -1,13 +1,12 @@
 <?php
 
-
 namespace Mush\Item\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class ItemType
- * @package Item\Entity
+ * Class ItemType.
+ *
  * @ORM\Entity
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="type", type="string")
@@ -56,26 +55,20 @@ abstract class ItemType
         return $this->id;
     }
 
-    public function getType():string
+    public function getType(): string
     {
         return $this->type;
     }
 
-    /**
-     * @return array
-     */
     public function getActions(): array
     {
         return $this->actions;
     }
 
-    /**
-     * @param array $actions
-     * @return ItemType
-     */
     public function setActions(array $actions): ItemType
     {
         $this->actions = $actions;
+
         return $this;
     }
 }

@@ -4,7 +4,6 @@ namespace Mush\RoomLog\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Item\Entity\GameItem;
-use Mush\Item\Entity\Item;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
 use Mush\RoomLog\Entity\RoomLog;
@@ -43,7 +42,7 @@ class RoomLogService implements RoomLogServiceInterface
         \DateTime $dateTime,
         ?RoomLogParameter $roomLogParameter = null
     ): RoomLog {
-        $roomLog= new RoomLog();
+        $roomLog = new RoomLog();
         $roomLog
             ->setLog($logKey)
             ->setPlayer($player)
@@ -64,7 +63,7 @@ class RoomLogService implements RoomLogServiceInterface
         \DateTime $dateTime,
         ?RoomLogParameter $roomLogParameter = null
     ): RoomLog {
-        $roomLog= new RoomLog();
+        $roomLog = new RoomLog();
         $roomLog
             ->setLog($logKey)
             ->setItem($item)
@@ -84,7 +83,7 @@ class RoomLogService implements RoomLogServiceInterface
         \DateTime $dateTime,
         ?RoomLogParameter $roomLogParameter = null
     ): RoomLog {
-        $roomLog= new RoomLog();
+        $roomLog = new RoomLog();
         $roomLog
             ->setLog($logKey)
             ->setRoom($room)

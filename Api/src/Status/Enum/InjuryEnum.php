@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Mush\Status\Enum;
 
 class InjuryEnum

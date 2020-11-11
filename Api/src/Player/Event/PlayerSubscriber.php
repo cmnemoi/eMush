@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Mush\Player\Event;
 
 use Mush\Game\Event\CycleEvent;

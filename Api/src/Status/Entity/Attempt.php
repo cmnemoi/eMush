@@ -5,8 +5,7 @@ namespace Mush\Status\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class Attempt
- * @package Status\Entity
+ * Class Attempt.
  *
  * @ORM\Entity()
  */
@@ -27,6 +26,7 @@ class Attempt extends Status
     public function setAction(?string $action): Attempt
     {
         $this->action = $action;
+
         return $this;
     }
 }

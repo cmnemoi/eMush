@@ -2,6 +2,7 @@
 
 namespace Mush\Test\Item\Service;
 
+use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Item\Entity\ConsumableEffect;
@@ -12,7 +13,6 @@ use Mush\Item\Repository\ConsumableEffectRepository;
 use Mush\Item\Repository\PlantEffectRepository;
 use Mush\Item\Service\ItemEffectService;
 use PHPUnit\Framework\TestCase;
-use \Mockery;
 
 class ItemEffectServiceTest extends TestCase
 {

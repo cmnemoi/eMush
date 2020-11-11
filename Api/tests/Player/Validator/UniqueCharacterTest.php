@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Mush\Test\Player\Validator;
 
 use Mockery;

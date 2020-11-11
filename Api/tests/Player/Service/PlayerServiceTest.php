@@ -3,11 +3,11 @@
 namespace Mush\Test\Player\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\Collection\CharacterConfigCollection;
 use Mush\Game\Entity\GameConfig;
-use Mush\Game\Service\CharacterConfigServiceInterface;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Repository\PlayerRepository;
@@ -17,10 +17,8 @@ use Mush\Room\Enum\RoomEnum;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use \Mockery;
 use Symfony\Component\Security\Core\Authentication\Token\AbstractToken;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 class PlayerServiceTest extends TestCase
 {

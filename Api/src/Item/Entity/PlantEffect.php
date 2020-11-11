@@ -7,8 +7,8 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Item\Entity\Items\Plant;
 
 /**
- * Class PlantEffect
- * @package Mush\Item\Entity
+ * Class PlantEffect.
+ *
  * @ORM\Entity
  */
 class PlantEffect
@@ -24,7 +24,6 @@ class PlantEffect
      * @ORM\ManyToOne(targetEntity="Mush\Daedalus\Entity\Daedalus")
      */
     private Daedalus $daedalus;
-
 
     /**
      * @ORM\ManyToOne(targetEntity="Mush\Item\Entity\Items\Plant")
@@ -54,6 +53,7 @@ class PlantEffect
     public function setDaedalus(Daedalus $daedalus): PlantEffect
     {
         $this->daedalus = $daedalus;
+
         return $this;
     }
 
@@ -65,6 +65,7 @@ class PlantEffect
     public function setPlant(Plant $plant): PlantEffect
     {
         $this->plant = $plant;
+
         return $this;
     }
 
@@ -76,6 +77,7 @@ class PlantEffect
     public function setMaturationTime(int $maturationTime): PlantEffect
     {
         $this->maturationTime = $maturationTime;
+
         return $this;
     }
 
@@ -87,6 +89,7 @@ class PlantEffect
     public function setOxygen(int $oxygen): PlantEffect
     {
         $this->oxygen = $oxygen;
+
         return $this;
     }
 }

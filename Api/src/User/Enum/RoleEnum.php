@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Mush\User\Enum;
 
 class RoleEnum

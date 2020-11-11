@@ -15,4 +15,5 @@ interface RandomServiceInterface
     public function getPlayerInShip(Daedalus $ship): Player;
     public function getPlayerInDaedalus(Daedalus $ship): Player;
     public function getItemInRoom(Room $room): GameItem;
+    public function getRandomElements(array $array, int $number = 1): array;
 }

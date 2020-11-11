@@ -108,10 +108,10 @@ class RoomConfigFixtures extends Fixture implements DependentFixtureInterface
                 ItemEnum::METAL_SCRAPS,
                 ItemEnum::PLASTIC_SCRAPS,
                 GameDrugEnum::BACTA,
-	              GameDrugEnum::BACTA,
-	              GameDrugEnum::BACTA,
-	              GameDrugEnum::BACTA,
-	              GameDrugEnum::BACTA
+                  GameDrugEnum::BACTA,
+                  GameDrugEnum::BACTA,
+                  GameDrugEnum::BACTA,
+                  GameDrugEnum::BACTA
             ])
             ->setDoors([
                 DoorEnum::FRONT_CORRIDOR_LABORATORY,

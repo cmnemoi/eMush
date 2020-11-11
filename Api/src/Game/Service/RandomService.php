@@ -57,7 +57,7 @@ class RandomService implements RandomServiceInterface
         } elseif ($number>1) {
             return array_rand(array_flip($array), $number);
         } else {
-            return array(array_rand(array_flip($array), $number));
+            return [array_rand(array_flip($array), $number)];
         }
     }
 }

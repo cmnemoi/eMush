@@ -4,7 +4,6 @@ namespace Mush\Room\Normalizer;
 
 use Mush\Action\Enum\ActionEnum;
 use Mush\Item\Entity\GameItem;
-use Mush\Item\Entity\Item;
 use Mush\Item\Normalizer\ItemNormalizer;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Door;
@@ -33,8 +32,7 @@ class RoomNormalizer implements ContextAwareNormalizerInterface
 
     /**
      * @param Room $room
-     * @param string|null $format
-     * @param array $context
+     *
      * @return array
      */
     public function normalize($room, string $format = null, array $context = [])
@@ -49,7 +47,7 @@ class RoomNormalizer implements ContextAwareNormalizerInterface
                     'name' => $player->getPerson(),
                     'statuses' => $player->getStatuses(),
                     'skills' => $player->getSkills(),
-                    'actions' => [ActionEnum::HIT]
+                    'actions' => [ActionEnum::HIT],
                 ];
             }
         }
@@ -59,8 +57,8 @@ class RoomNormalizer implements ContextAwareNormalizerInterface
             $doors[] = [
                 'id' => $door->getId(),
                 'name' => $door->getName(),
-                'direction' => $door->getRooms()->filter(fn(Room $doorRoom) => $doorRoom !== $room)->first()->getName(),
-                'actions' => [ActionEnum::MOVE]
+                'direction' => $door->getRooms()->filter(fn (Room $doorRoom) => $doorRoom !== $room)->first()->getName(),
+                'actions' => [ActionEnum::MOVE],
             ];
         }
         $items = [];
@@ -77,7 +75,7 @@ class RoomNormalizer implements ContextAwareNormalizerInterface
             'items' => $items,
             'equipments' => ['TODO'],
             'createdAt' => $room->getCreatedAt(),
-            'updatedAt' => $room->getUpdatedAt()
+            'updatedAt' => $room->getUpdatedAt(),
         ];
     }
 

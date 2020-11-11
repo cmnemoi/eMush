@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Mush\Daedalus\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -11,8 +10,7 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Room\Entity\Room;
 
 /**
- * Class Daedalus
- * @package Mush\Entity
+ * Class Daedalus.
  *
  * @ORM\Entity(repositoryClass="Mush\Daedalus\Repository\DaedalusRepository")
  */
@@ -69,6 +67,7 @@ class Daedalus
 
     /**
      * Daedalus constructor.
+     *
      * @param int $id
      */
     public function __construct()
@@ -76,7 +75,6 @@ class Daedalus
         $this->players = new ArrayCollection();
         $this->rooms = new ArrayCollection();
     }
-
 
     public function getId(): ?int
     {
@@ -91,6 +89,7 @@ class Daedalus
     public function setPlayers(Collection $players): Daedalus
     {
         $this->players = $players;
+
         return $this;
     }
 
@@ -102,6 +101,7 @@ class Daedalus
     public function setGameConfig(GameConfig $gameConfig): Daedalus
     {
         $this->gameConfig = $gameConfig;
+
         return $this;
     }
 
@@ -113,6 +113,7 @@ class Daedalus
     public function setRooms(Collection $rooms): Daedalus
     {
         $this->rooms = $rooms;
+
         return $this;
     }
 
@@ -132,6 +133,7 @@ class Daedalus
     public function setOxygen(int $oxygen): Daedalus
     {
         $this->oxygen = $oxygen;
+
         return $this;
     }
 
@@ -143,6 +145,7 @@ class Daedalus
     public function setFuel(int $fuel): Daedalus
     {
         $this->fuel = $fuel;
+
         return $this;
     }
 
@@ -154,6 +157,7 @@ class Daedalus
     public function setHull(int $hull): Daedalus
     {
         $this->hull = $hull;
+
         return $this;
     }
 
@@ -165,6 +169,7 @@ class Daedalus
     public function setCycle(int $cycle): Daedalus
     {
         $this->cycle = $cycle;
+
         return $this;
     }
 
@@ -176,6 +181,7 @@ class Daedalus
     public function setShield(int $shield): Daedalus
     {
         $this->shield = $shield;
+
         return $this;
     }
 }

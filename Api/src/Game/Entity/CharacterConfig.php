@@ -5,8 +5,8 @@ namespace Mush\Game\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class CharacterConfig
- * @package Mush\Game\Entity
+ * Class CharacterConfig.
+ *
  * @ORM\Entity()
  * @ORM\Table(name="character_config")
  */
@@ -52,6 +52,7 @@ class CharacterConfig
     public function setGameConfig(GameConfig $gameConfig): CharacterConfig
     {
         $this->gameConfig = $gameConfig;
+
         return $this;
     }
 
@@ -63,6 +64,7 @@ class CharacterConfig
     public function setName(string $name): CharacterConfig
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -74,6 +76,7 @@ class CharacterConfig
     public function setStatuses(array $statuses): CharacterConfig
     {
         $this->statuses = $statuses;
+
         return $this;
     }
 
@@ -85,6 +88,7 @@ class CharacterConfig
     public function setSkills(array $skills): CharacterConfig
     {
         $this->skills = $skills;
+
         return $this;
     }
 }

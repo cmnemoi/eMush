@@ -3,19 +3,17 @@
 namespace Mush\User\Controller;
 
 use FOS\RestBundle\Controller\AbstractFOSRestController;
-use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Route;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Mush\User\Service\UserServiceInterface;
 use Nelmio\ApiDocBundle\Annotation\Security;
-use Symfony\Component\HttpFoundation\Request;
 use OpenApi\Annotations as OA;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
- * Class LoginController
- * @package User\Controller
+ * Class LoginController.
  *
  * @Route("/user")
  */
@@ -26,8 +24,6 @@ class UserController extends AbstractFOSRestController
 
     /**
      * LoginController constructor.
-     * @param JWTTokenManagerInterface $jwtManager
-     * @param UserServiceInterface $userService
      */
     public function __construct(JWTTokenManagerInterface $jwtManager, UserServiceInterface $userService)
     {
@@ -36,8 +32,8 @@ class UserController extends AbstractFOSRestController
     }
 
     /**
+     * Get user information.
      *
-     * Get user information
      * @OA\Parameter(
      *     name="id",
      *     in="path",
@@ -53,7 +49,7 @@ class UserController extends AbstractFOSRestController
         $user = $this->getUser();
         if ($id = $request->get('id')) {
             $user = $this->userService->findById($id);
-            if ($user === null) {
+            if (null === $user) {
                 throw new NotFoundHttpException('User not found');
             }
         }

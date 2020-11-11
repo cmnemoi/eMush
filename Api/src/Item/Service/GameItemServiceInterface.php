@@ -16,5 +16,5 @@ interface GameItemServiceInterface
 
     public function createGameItemFromName(string $itemName, Daedalus $daedalus): GameItem;
 
-    public function createGameItem(Item $item): GameItem;
+    public function createGameItem(Item $item, Daedalus $daedalus): GameItem;
 }

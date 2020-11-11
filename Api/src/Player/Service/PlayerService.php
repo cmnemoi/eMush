@@ -2,11 +2,10 @@
 
 namespace Mush\Player\Service;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Game\Entity\Collection\CharacterConfigCollection;
 use Mush\Game\Entity\GameConfig;
-use Mush\Game\Service\CharacterConfigServiceInterface;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\GameStatusEnum;
@@ -14,6 +13,8 @@ use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Repository\PlayerRepository;
 use Mush\Room\Entity\Room;
 use Mush\Room\Enum\RoomEnum;
+use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Status\Entity\Status;
 use Mush\User\Entity\User;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -32,11 +33,6 @@ class PlayerService implements PlayerServiceInterface
 
     /**
      * PlayerService constructor.
-     * @param EntityManagerInterface $entityManager
-     * @param EventDispatcherInterface $eventDispatcher
-     * @param PlayerRepository $repository
-     * @param GameConfigServiceInterface $gameConfigService
-     * @param TokenStorageInterface $tokenStorage
      */
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -51,7 +47,6 @@ class PlayerService implements PlayerServiceInterface
         $this->gameConfig = $gameConfigService->getConfig();
         $this->tokenStorage = $tokenStorage;
     }
-
 
     public function persist(Player $player): Player
     {
@@ -68,9 +63,9 @@ class PlayerService implements PlayerServiceInterface
 
     public function findOneByCharacter(string $character, ?Daedalus $daedalus = null): ?Player
     {
-        $params = ['person'=> $character];
+        $params = ['person' => $character];
 
-        if ($daedalus !== null) {
+        if (null !== $daedalus) {
             $params['daedalus'] = $daedalus;
         }
 
@@ -91,13 +86,23 @@ class PlayerService implements PlayerServiceInterface
 
         $characterConfig = $this->gameConfig->getCharactersConfig()->getCharacter($character);
 
+        $statuses = new ArrayCollection();
+        foreach ($characterConfig->getStatuses() as $statusName) {
+            $status = new Status();
+            $status
+                ->setName($statusName)
+                ->setVisibility(VisibilityEnum::PUBLIC)
+            ;
+            $statuses->add($status);
+        }
+
         $player
             ->setUser($user)
             ->setGameStatus(GameStatusEnum::CURRENT)
             ->setDaedalus($daedalus)
             ->setRoom(
                 $daedalus->getRooms()
-                    ->filter(fn (Room $room) => $room->getName() === RoomEnum::LABORATORY)
+                    ->filter(fn (Room $room) => RoomEnum::LABORATORY === $room->getName())
                     ->first()
             )
             ->setPerson($character)
@@ -107,7 +112,7 @@ class PlayerService implements PlayerServiceInterface
             ->setActionPoint($this->gameConfig->getInitActionPoint())
             ->setMovementPoint($this->gameConfig->getInitMovementPoint())
             ->setSatiety($this->gameConfig->getInitSatiety())
-            ->setStatuses($characterConfig->getStatuses())
+            ->setStatuses($statuses)
         ;
 
         $user->setCurrentGame($player);

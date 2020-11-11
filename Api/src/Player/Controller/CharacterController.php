@@ -6,14 +6,14 @@ use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Mush\Game\Enum\CharacterEnum;
 use Nelmio\ApiDocBundle\Annotation\Security;
+use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use OpenApi\Annotations as OA;
 
 /**
- * Class UsersController
- * @package Mush\Controller
+ * Class UsersController.
+ *
  * @Route(path="/character")
  */
 class CharacterController extends AbstractFOSRestController
@@ -22,7 +22,6 @@ class CharacterController extends AbstractFOSRestController
 
     /**
      * CharacterController constructor.
-     * @param TranslatorInterface $translator
      */
     public function __construct(TranslatorInterface $translator)
     {
@@ -30,7 +29,8 @@ class CharacterController extends AbstractFOSRestController
     }
 
     /**
-     * Display the list of characters with their description
+     * Display the list of characters with their description.
+     *
      * @OA\Tag(name="Character")
      * @Security(name="Bearer")
      * @Rest\Get(path="")

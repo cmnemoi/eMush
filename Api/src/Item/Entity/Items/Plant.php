@@ -1,14 +1,11 @@
 <?php
 
-
 namespace Mush\Item\Entity\Items;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Item\Entity\GameItem;
 use Mush\Item\Entity\Item;
 use Mush\Item\Entity\ItemType;
 use Mush\Item\Enum\ItemTypeEnum;
-use Mush\Item\Enum\PlantStatusEnum;
 
 /**
  * @ORM\Entity()
@@ -62,6 +59,7 @@ class Plant extends ItemType
     public function setMaxMaturationTime(int $maxMaturationTime): Plant
     {
         $this->maxMaturationTime = $maxMaturationTime;
+
         return $this;
     }
 
@@ -73,6 +71,7 @@ class Plant extends ItemType
     public function setMinMaturationTime(int $minMaturationTime): Plant
     {
         $this->minMaturationTime = $minMaturationTime;
+
         return $this;
     }
 
@@ -84,6 +83,7 @@ class Plant extends ItemType
     public function setMinOxygen(int $minOxygen): Plant
     {
         $this->minOxygen = $minOxygen;
+
         return $this;
     }
 
@@ -95,6 +95,7 @@ class Plant extends ItemType
     public function setMaxOxygen(int $maxOxygen): Plant
     {
         $this->maxOxygen = $maxOxygen;
+
         return $this;
     }
 }

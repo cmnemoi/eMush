@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Mush\Player\Validator;
-
 
 use Mush\Player\Entity\Dto\PlayerRequest;
 use Mush\Player\Service\PlayerServiceInterface;
@@ -15,7 +13,6 @@ class UniqueCharacterValidator extends ConstraintValidator
 
     /**
      * UniqueCharacter constructor.
-     * @param PlayerServiceInterface $playerService
      */
     public function __construct(PlayerServiceInterface $playerService)
     {
@@ -29,7 +26,10 @@ class UniqueCharacterValidator extends ConstraintValidator
         }
 
         $daedalus = $value->getDaedalus();
-        if ($daedalus !== null && $this->playerService->findOneByCharacter($value->getCharacter(), ) !== null) {
+        if (
+            null !== $daedalus &&
+            null !== $this->playerService->findOneByCharacter($value->getCharacter(), $daedalus)
+        ) {
             $this->context
                 ->buildViolation($constraint->message)
                 ->setParameter('{{ value }}', $this->formatValue($value))

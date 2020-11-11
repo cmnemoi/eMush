@@ -8,14 +8,12 @@ use FOS\RestBundle\Controller\Annotations\Route;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Mush\User\Entity\User;
 use Mush\User\Service\UserServiceInterface;
-use Nelmio\ApiDocBundle\Annotation\Security;
+use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use OpenApi\Annotations as OA;
 
 /**
- * Class LoginController
- * @package User\Controller
+ * Class LoginController.
  *
  * @Route()
  */
@@ -26,8 +24,6 @@ class LoginController extends AbstractFOSRestController
 
     /**
      * LoginController constructor.
-     * @param JWTTokenManagerInterface $jwtManager
-     * @param UserServiceInterface $userService
      */
     public function __construct(JWTTokenManagerInterface $jwtManager, UserServiceInterface $userService)
     {
@@ -36,8 +32,7 @@ class LoginController extends AbstractFOSRestController
     }
 
     /**
-     *
-     * Login
+     * Login.
      *
      * @OA\RequestBody (
      *      description="Input data format",

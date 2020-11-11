@@ -2,7 +2,6 @@
 
 namespace Mush\Action\Actions;
 
-use Mush\Action\Entity\ActionCost;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
@@ -19,30 +18,30 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Drop extends Action
 {
-    const NAME = ActionEnum::DROP;
+    public const NAME = ActionEnum::DROP;
 
     private GameItem $item;
 
     private RoomLogServiceInterface $roomLogService;
-    private GameItemServiceInterface $itemService;
+    private GameItemServiceInterface $gameItemService;
     private PlayerServiceInterface $playerService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         RoomLogServiceInterface $roomLogService,
-        GameItemServiceInterface $itemService,
+        GameItemServiceInterface $gameItemService,
         PlayerServiceInterface $playerService
     ) {
         parent::__construct($eventDispatcher);
 
         $this->roomLogService = $roomLogService;
-        $this->itemService = $itemService;
+        $this->gameItemService = $gameItemService;
         $this->playerService = $playerService;
     }
 
     public function loadParameters(Player $player, ActionParameters $actionParameters)
     {
-        if (! $item = $actionParameters->getItem()) {
+        if (!$item = $actionParameters->getItem()) {
             throw new \InvalidArgumentException('Invalid item parameter');
         }
         $this->player = $player;
@@ -62,13 +61,14 @@ class Drop extends Action
         $this->item->setPlayer(null);
 
         // Remove BURDENED status if no other heavy item in the inventory
-        if (in_array(StatusEnum::BURDENED, $this->player->getStatuses()) &&
+        if (
+            ($burdened = $this->player->getStatusByName(StatusEnum::BURDENED)) &&
             $this->player->getItems()->exists(fn (Item $item) => $item->isHeavy())
         ) {
-            $this->player->setStatuses(\array_diff($this->player->getStatuses(), [StatusEnum::BURDENED]));
+            $this->player->removeStatus($burdened);
         }
 
-        $this->itemService->persist($this->item);
+        $this->gameItemService->persist($this->item);
         $this->playerService->persist($this->player);
 
         return new Success();

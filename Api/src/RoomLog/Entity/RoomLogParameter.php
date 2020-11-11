@@ -19,6 +19,7 @@ class RoomLogParameter
     public function setTarget(?Player $target): RoomLogParameter
     {
         $this->target = $target;
+
         return $this;
     }
 
@@ -30,6 +31,7 @@ class RoomLogParameter
     public function setItem(?Item $item): RoomLogParameter
     {
         $this->item = $item;
+
         return $this;
     }
 
@@ -41,6 +43,7 @@ class RoomLogParameter
     public function setNumber(?int $number): RoomLogParameter
     {
         $this->number = $number;
+
         return $this;
     }
 
@@ -49,7 +52,7 @@ class RoomLogParameter
         return [
             'player' => $this->getTarget()->getPerson() ?? null,
             'item' => $this->getItem()->getName() ?? null,
-            'number' => $this->getNumber()
+            'number' => $this->getNumber(),
         ];
     }
 }

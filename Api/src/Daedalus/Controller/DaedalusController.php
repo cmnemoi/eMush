@@ -7,14 +7,14 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Nelmio\ApiDocBundle\Annotation\Security;
+use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use OpenApi\Annotations as OA;
 
 /**
- * Class UsersController
- * @package Mush\Controller
+ * Class UsersController.
+ *
  * @Route(path="/daedalus")
  */
 class DaedalusController extends AbstractFOSRestController
@@ -24,8 +24,6 @@ class DaedalusController extends AbstractFOSRestController
 
     /**
      * DaedalusController constructor.
-     * @param DaedalusServiceInterface $daedalusService
-     * @param GameConfigServiceInterface $gameConfigService
      */
     public function __construct(
         DaedalusServiceInterface $daedalusService,
@@ -36,7 +34,7 @@ class DaedalusController extends AbstractFOSRestController
     }
 
     /**
-     * Display Daedalus informations
+     * Display Daedalus informations.
      *
      * @OA\Parameter(
      *     name="id",
@@ -58,7 +56,7 @@ class DaedalusController extends AbstractFOSRestController
     }
 
     /**
-     * Create a Daedalus
+     * Create a Daedalus.
      *
      * @OA\Tag(name="Daedalus")
      * @Security(name="Bearer")

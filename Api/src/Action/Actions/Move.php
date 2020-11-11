@@ -2,7 +2,6 @@
 
 namespace Mush\Action\Actions;
 
-use Mush\Action\Entity\ActionCost;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
@@ -40,7 +39,7 @@ class Move extends Action
 
     public function loadParameters(Player $player, ActionParameters $actionParameters)
     {
-        if (! ($door = $actionParameters->getDoor())) {
+        if (!($door = $actionParameters->getDoor())) {
             throw new \InvalidArgumentException('Invalid door parameter');
         }
 

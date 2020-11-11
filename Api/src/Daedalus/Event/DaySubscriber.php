@@ -14,8 +14,6 @@ class DaySubscriber implements EventSubscriberInterface
 
     /**
      * DaedalusSubscriber constructor.
-     * @param DaedalusServiceInterface $daedalusService
-     * @param EventDispatcherInterface $eventDispatcher
      */
     public function __construct(DaedalusServiceInterface $daedalusService, EventDispatcherInterface $eventDispatcher)
     {
@@ -32,7 +30,7 @@ class DaySubscriber implements EventSubscriberInterface
 
     public function onNewDay(DayEvent $event)
     {
-        if ($event->getGameItem() || $event->getPlayer() || $event->getRoom()) {
+        if ($event->getGameItem() || $event->getPlayer() || $event->getRoom() || $event->getStatus()) {
             return;
         }
         $daedalus = $event->getDaedalus();

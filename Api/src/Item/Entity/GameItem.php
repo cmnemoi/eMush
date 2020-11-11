@@ -1,17 +1,18 @@
 <?php
 
-
 namespace Mush\Item\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
+use Mush\Status\Entity\Status;
 
 /**
- * Class Item
- * @package Mush\Entity
+ * Class Item.
+ *
  * @ORM\Entity
  */
 class GameItem
@@ -26,9 +27,9 @@ class GameItem
     private int $id;
 
     /**
-     * @ORM\Column(type="array", nullable=false)
+     * @ORM\OneToMany(targetEntity="Mush\Status\Entity\Status", mappedBy="gameItem", cascade={"ALL"})
      */
-    private ?array $statuses = null;
+    private Collection $statuses;
 
     /**
      * @ORM\ManyToOne (targetEntity="Mush\Room\Entity\Room", inversedBy="items")
@@ -51,9 +52,12 @@ class GameItem
     private string $name;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * GameItem constructor.
      */
-    private int $charge = 0;
+    public function __construct()
+    {
+        $this->statuses = new ArrayCollection();
+    }
 
     public function getId(): int
     {
@@ -65,33 +69,43 @@ class GameItem
         return $this->item->getActions();
     }
 
-    public function getStatuses(): ?array
+    public function getStatuses(): ?Collection
     {
         return $this->statuses;
     }
 
-    public function setStatuses(array $statuses): GameItem
+    public function setStatuses(Collection $statuses): GameItem
     {
         $this->statuses = $statuses;
-        return $this;
-    }
-
-    public function addStatus(string $status): GameItem
-    {
-        $this->statuses[] = $status;
 
         return $this;
     }
 
-    public function removeStatus(string $status): GameItem
+    public function addStatus(Status $status): GameItem
     {
-        $this->statuses = array_diff($this->getStatuses(), [$status]);
+        if (!$this->statuses->contains($status)) {
+            $this->statuses->add($status);
+            $status->setGameItem($this);
+        }
+
         return $this;
     }
 
-    public function hasStatus(string $status): bool
+    public function removeStatus(Status $status): GameItem
     {
-        return in_array($status, $this->getStatuses());
+        if ($this->statuses->contains($status)) {
+            $this->statuses->removeElement($status);
+            $status->setGameItem(null);
+        }
+
+        return $this;
+    }
+
+    public function getStatusByName(string $name): ?Status
+    {
+        $status = $this->statuses->filter(fn (Status $status) => ($status->getName() === $name))->first();
+
+        return $status ? $status : null;
     }
 
     public function getRoom(): ?Room
@@ -101,7 +115,7 @@ class GameItem
 
     public function setRoom(?Room $room): GameItem
     {
-        if ($room === null) {
+        if (null === $room) {
             $this->room->removeItem($this);
         } elseif ($this->room !== $room) {
             $room->addItem($this);
@@ -119,7 +133,7 @@ class GameItem
 
     public function setPlayer(?Player $player): GameItem
     {
-        if ($player === null && $this->player !== null) {
+        if (null === $player && null !== $this->player) {
             $this->player->removeItem($this);
         } elseif ($this->player !== $player) {
             $player->addItem($this);
@@ -138,6 +152,7 @@ class GameItem
     public function setName(string $name): GameItem
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -149,17 +164,7 @@ class GameItem
     public function setItem(Item $item): GameItem
     {
         $this->item = $item;
-        return $this;
-    }
 
-    public function getCharge(): int
-    {
-        return $this->charge;
-    }
-
-    public function setCharge(int $charge): GameItem
-    {
-        $this->charge = $charge;
         return $this;
     }
 }

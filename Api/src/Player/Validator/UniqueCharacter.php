@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Mush\Player\Validator;
 
 use Symfony\Component\Validator\Constraint;

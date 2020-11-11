@@ -2,23 +2,21 @@
 
 namespace Mush\Game\Event;
 
-use Mush\Item\Entity\GameItem;
-use Symfony\Contracts\EventDispatcher\Event;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Item\Entity\GameItem;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
+use Mush\Status\Entity\Status;
+use Symfony\Contracts\EventDispatcher\Event;
 
 class AbstractTimeEvent extends Event
 {
     protected \DateTime $time;
-
     protected ?Player $player = null;
-
     protected ?Daedalus $daedalus = null;
-
     protected ?Room $room = null;
-
     protected ?GameItem $gameItem = null;
+    protected ?Status $status = null;
 
     public function __construct(Daedalus $daedalus, \DateTime $time)
     {
@@ -68,6 +66,19 @@ class AbstractTimeEvent extends Event
     public function setGameItem(?GameItem $gameItem): AbstractTimeEvent
     {
         $this->gameItem = $gameItem;
+
+        return $this;
+    }
+
+    public function getStatus(): ?Status
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?Status $status): AbstractTimeEvent
+    {
+        $this->status = $status;
+
         return $this;
     }
 }

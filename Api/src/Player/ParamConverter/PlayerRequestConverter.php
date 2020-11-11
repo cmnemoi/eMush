@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Mush\Player\ParamConverter;
 
 use Mush\Daedalus\Service\DaedalusServiceInterface;
@@ -40,6 +39,6 @@ class PlayerRequestConverter implements ParamConverterInterface
 
     public function supports(ParamConverter $configuration)
     {
-        return $configuration->getClass() === PlayerRequest::class;
+        return PlayerRequest::class === $configuration->getClass();
     }
 }

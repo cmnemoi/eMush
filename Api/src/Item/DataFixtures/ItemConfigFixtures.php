@@ -10,15 +10,15 @@ use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Item\Entity\Item;
-use Mush\Item\Entity\Items\Book;
 use Mush\Item\Entity\Items\Blueprint;
+use Mush\Item\Entity\Items\Book;
+use Mush\Item\Entity\Items\Dismountable;
 use Mush\Item\Entity\Items\Fruit;
 use Mush\Item\Entity\Items\Plant;
 use Mush\Item\Entity\Items\Ration;
 use Mush\Item\Entity\Items\Tool;
 use Mush\Item\Entity\Items\Drug;
 use Mush\Item\Entity\Items\Weapon;
-use Mush\Item\Entity\Items\Dismountable;
 use Mush\Item\Enum\GameFruitEnum;
 use Mush\Item\Enum\GamePlantEnum;
 use Mush\Item\Enum\GameDrugEnum;
@@ -94,6 +94,11 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($blockOfPostIt);
 
+        $blasterConfig = new Weapon();
+        $blasterConfig
+            ->setMaxCharges(3)
+        ;
+
         $blaster = new Item();
         $blaster
             ->setGameConfig($gameConfig)
@@ -106,8 +111,9 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-
+            ->setTypes(new ArrayCollection([$blasterConfig]))
         ;
+        $manager->persist($blasterConfig);
         $manager->persist($blaster);
 
         $compass = new Item();
@@ -334,14 +340,13 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($madKube);
 
-
         $kitchenToolsType = new Dismountable();
         $kitchenToolsType
-            ->setProducts([ItemEnum::METAL_SCRAPS =>2])
+            ->setProducts([ItemEnum::METAL_SCRAPS => 2])
             ->setActionCost(4)
             ->setChancesSuccess(25)
         ;
-        
+
         $microwave = new Item();
         $microwave
             ->setGameConfig($gameConfig)
@@ -359,7 +364,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($microwave);
         $manager->persist($kitchenToolsType);
-        
 
         $superFreezer = new Item();
         $superFreezer
@@ -377,7 +381,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
 
         ;
         $manager->persist($superFreezer);
-        
+
         $plasticScraps = new Item();
         $plasticScraps
             ->setGameConfig($gameConfig)
@@ -493,6 +497,13 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setSkill(SkillEnum::PILOT)
         ;
 
+        $dismantle = new Dismountable();
+        $dismantle
+            ->setActionCost(4)
+            ->setChancesSuccess(6)
+            ->setProducts([ItemEnum::METAL_SCRAPS])
+        ;
+
         $apprentonPilot = new Item();
         $apprentonPilot
             ->setGameConfig($gameConfig)
@@ -505,11 +516,12 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setTypes(new ArrayCollection([$apprentonPilotType]))
+            ->setTypes(new ArrayCollection([$apprentonPilotType, $dismantle]))
         ;
+        $manager->persist($dismantle);
         $manager->persist($apprentonPilotType);
         $manager->persist($apprentonPilot);
-        
+
         $SniperHelmet = new Item();
         $SniperHelmet
             ->setGameConfig($gameConfig)
@@ -524,11 +536,11 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireBreakable(true)
         ;
         $manager->persist($SniperHelmet);
-        
+
         $blueprintSniperHelmetType = new Blueprint();
         $blueprintSniperHelmetType
             ->setItem($SniperHelmet)
-            ->setIngredients([ItemEnum::PLASTIC_SCRAPS =>1, ItemEnum::METAL_SCRAPS =>1])
+            ->setIngredients([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::METAL_SCRAPS => 1])
         ;
 
         $blueprintSniperHelmet = new Item();
@@ -547,7 +559,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($blueprintSniperHelmetType);
         $manager->persist($blueprintSniperHelmet);
-        
         
         $drugType = new Drug();
         $drugType
@@ -588,16 +599,14 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($drugType);
         $manager->persist($bacta);
-        
-        
-        
+
         $manager->flush();
     }
 
     public function getDependencies()
     {
         return [
-            GameConfigFixtures::class
+            GameConfigFixtures::class,
         ];
     }
 }

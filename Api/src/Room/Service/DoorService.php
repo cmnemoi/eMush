@@ -14,8 +14,6 @@ class DoorService implements DoorServiceInterface
 
     /**
      * DoorService constructor.
-     * @param EntityManagerInterface $entityManager
-     * @param DoorRepository $repository
      */
     public function __construct(EntityManagerInterface $entityManager, DoorRepository $repository)
     {

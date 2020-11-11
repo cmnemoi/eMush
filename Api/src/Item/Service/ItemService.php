@@ -12,7 +12,6 @@ class ItemService implements ItemServiceInterface
 
     /**
      * ItemService constructor.
-     * @param ItemRepository $itemRepository
      */
     public function __construct(ItemRepository $itemRepository)
     {

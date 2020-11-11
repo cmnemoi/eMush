@@ -4,7 +4,6 @@ namespace Mush\Game\Service;
 
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Repository\GameConfigRepository;
-use Symfony\Component\Serializer\SerializerInterface;
 
 class GameConfigService implements GameConfigServiceInterface
 {
@@ -12,7 +11,6 @@ class GameConfigService implements GameConfigServiceInterface
 
     /**
      * GameConfigService constructor.
-     * @param GameConfigRepository $repository
      */
     public function __construct(GameConfigRepository $repository)
     {

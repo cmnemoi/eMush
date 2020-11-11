@@ -38,7 +38,7 @@ class InjuryFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies()
     {
         return [
-            GameConfigFixtures::class
+            GameConfigFixtures::class,
         ];
     }
 }

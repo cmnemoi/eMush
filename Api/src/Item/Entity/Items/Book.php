@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Mush\Item\Entity\Items;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -8,8 +7,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Item\Enum\ItemTypeEnum;
 
 /**
- * Class Item
- * @package Mush\Entity
+ * Class Item.
  *
  * @ORM\Entity
  */
@@ -32,6 +30,7 @@ class Book extends Tool
     public function setSkill(string $skill): Book
     {
         $this->skill = $skill;
+
         return $this;
     }
 }

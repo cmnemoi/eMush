@@ -308,7 +308,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
     public function getDependencies()
     {
         return [
-            DaedalusConfigFixtures::class
+            DaedalusConfigFixtures::class,
         ];
     }
 }

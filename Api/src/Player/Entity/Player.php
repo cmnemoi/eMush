@@ -11,11 +11,11 @@ use Mush\Item\Entity\GameItem;
 use Mush\Room\Entity\Room;
 use Mush\Status\Entity\Collection\MedicalConditionCollection;
 use Mush\Status\Entity\MedicalCondition;
+use Mush\Status\Entity\Status;
 use Mush\User\Entity\User;
 
 /**
- * Class Player
- * @package Mush\Entity
+ * Class Player.
  *
  * @ORM\Entity(repositoryClass="Mush\Player\Repository\PlayerRepository")
  */
@@ -41,7 +41,8 @@ class Player
     private string $gameStatus;
 
     /**
-     * Character is a reserved keyword for sql
+     * Character is a reserved keyword for sql.
+     *
      * @ORM\Column(type="string", nullable=false)
      */
     private string $person;
@@ -62,19 +63,14 @@ class Player
     private Collection $items;
 
     /**
-     * @ORM\OneToMany(targetEntity="Mush\Status\Entity\MedicalCondition", mappedBy="player")
+     * @ORM\OneToMany(targetEntity="Mush\Status\Entity\Status", mappedBy="player", cascade={"ALL"})
      */
-    private Collection $medicalConditions;
+    private Collection $statuses;
 
     /**
      * @ORM\Column(type="array", nullable=true)
      */
-    private array $statuses;
-
-    /**
-     * @ORM\Column(type="array", nullable=true)
-     */
-    private ?array $skills;
+    private array $skills = [];
 
     /**
      * @ORM\Column(type="integer", nullable=false)
@@ -104,7 +100,7 @@ class Player
     public function __construct()
     {
         $this->items = new ArrayCollection();
-        $this->medicalConditions = new ArrayCollection();
+        $this->statuses = new ArrayCollection();
     }
 
     public function getId(): int
@@ -120,6 +116,7 @@ class Player
     public function setUser(User $user): Player
     {
         $this->user = $user;
+
         return $this;
     }
 
@@ -131,6 +128,7 @@ class Player
     public function setGameStatus(string $gameStatus): Player
     {
         $this->gameStatus = $gameStatus;
+
         return $this;
     }
 
@@ -142,6 +140,7 @@ class Player
     public function setPerson(string $person): Player
     {
         $this->person = $person;
+
         return $this;
     }
 
@@ -153,6 +152,7 @@ class Player
     public function setDaedalus(Daedalus $daedalus): Player
     {
         $this->daedalus = $daedalus;
+
         return $this;
     }
 
@@ -164,27 +164,25 @@ class Player
     public function setRoom(Room $room): Player
     {
         $this->room = $room;
+
         return $this;
     }
 
     /**
-     * Return true if the item is reachable for the player i.e. in the inventory or the room
-     * @param GameItem $gameItem
-     * @return bool
+     * Return true if the item is reachable for the player i.e. in the inventory or the room.
      */
     public function canReachItem(GameItem $gameItem): bool
     {
         return $this->items->contains($gameItem) || $this->room->getItems()->contains($gameItem);
     }
-    
-    
+
     public function getReachableItemByName(string $name): Collection
     {
-          return (new ArrayCollection(array_merge(
-              $this->getItems()->toArray(),
-              $this->getRoom()->getItems()->toArray()
-          ))
-          )->filter(fn(GameItem $gameItem) => $gameItem->getName() === $name);
+        return (new ArrayCollection(array_merge(
+            $this->getItems()->toArray(),
+            $this->getRoom()->getItems()->toArray()
+        ))
+          )->filter(fn (GameItem $gameItem) => $gameItem->getName() === $name);
     }
 
     public function getItems(): Collection
@@ -195,6 +193,7 @@ class Player
     public function setItems(Collection $items): Player
     {
         $this->items = $items;
+
         return $this;
     }
 
@@ -217,62 +216,62 @@ class Player
 
         return $this;
     }
-    
+
     public function hasItemByName(string $name): bool
     {
-            return (! $this->getItems()->filter(fn(GameItem $gameItem) => $gameItem->getName() === $name)->isEmpty());
+        return !$this->getItems()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $name)->isEmpty();
     }
 
     public function getMedicalConditions(): MedicalConditionCollection
     {
-        return new MedicalConditionCollection($this->medicalConditions->toArray());
+        return new MedicalConditionCollection(
+            $this->statuses->filter(fn (Status $status) => ($status instanceof MedicalCondition))->toArray()
+        );
     }
 
-    public function setMedicalConditions(Collection $medicalConditions): Player
-    {
-        $this->medicalConditions = $medicalConditions;
-        return $this;
-    }
-
-    public function addMedicalCondition(MedicalCondition $medicalCondition): Player
-    {
-        if (!$this->getMedicalConditions()->contains($medicalCondition)) {
-            $this->medicalConditions->add($medicalCondition);
-            $medicalCondition->setPlayer($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMedicalCondition(MedicalCondition $medicalCondition): Player
-    {
-        if ($this->medicalConditions->contains($medicalCondition)) {
-            $this->medicalConditions->removeElement($medicalCondition);
-            $medicalCondition->setPlayer(null);
-        }
-
-        return $this;
-    }
-
-    public function getStatuses(): ?array
+    public function getStatuses(): Collection
     {
         return $this->statuses;
     }
 
-    public function setStatuses(array $statuses): Player
+    public function getStatusByName(string $name): ?Status
+    {
+        $status = $this->statuses->filter(fn (Status $status) => ($status->getName() === $name))->first();
+
+        return $status ? $status : null;
+    }
+
+    public function setStatuses(Collection $statuses): Player
     {
         $this->statuses = $statuses;
+
         return $this;
     }
 
-    public function hasStatus(string $status): bool
+    public function addStatus(Status $status): Player
     {
-        return in_array($status, $this->statuses);
+        if (!$this->getStatuses()->contains($status)) {
+            $this->statuses->add($status);
+            $status->setPlayer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStatus(Status $status): Player
+    {
+        if ($this->statuses->contains($status)) {
+            $this->statuses->removeElement($status);
+            $status->setPlayer(null);
+        }
+
+        return $this;
     }
 
     public function addSkill(string $skill): Player
     {
         $this->skills[] = $skill;
+
         return $this;
     }
 
@@ -284,6 +283,7 @@ class Player
     public function setSkills(array $skills): Player
     {
         $this->skills = $skills;
+
         return $this;
     }
 
@@ -295,12 +295,14 @@ class Player
     public function setHealthPoint(int $healthPoint): Player
     {
         $this->healthPoint = $healthPoint;
+
         return $this;
     }
 
     public function addHealthPoint(int $healthPoint): Player
     {
         $this->healthPoint += $healthPoint;
+
         return $this;
     }
 
@@ -312,12 +314,14 @@ class Player
     public function setMoralPoint(int $moralPoint): Player
     {
         $this->moralPoint = $moralPoint;
+
         return $this;
     }
 
     public function addMoralPoint(int $moralPoint): Player
     {
         $this->moralPoint += $moralPoint;
+
         return $this;
     }
 
@@ -329,12 +333,14 @@ class Player
     public function setActionPoint(int $actionPoint): Player
     {
         $this->actionPoint = $actionPoint;
+
         return $this;
     }
 
     public function addActionPoint(int $actionPoint): Player
     {
         $this->actionPoint += $actionPoint;
+
         return $this;
     }
 
@@ -346,6 +352,7 @@ class Player
     public function setMovementPoint(int $movementPoint): Player
     {
         $this->movementPoint = $movementPoint;
+
         return $this;
     }
 
@@ -368,6 +375,7 @@ class Player
     public function setSatiety(int $satiety): Player
     {
         $this->satiety = $satiety;
+
         return $this;
     }
 }

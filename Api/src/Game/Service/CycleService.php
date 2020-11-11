@@ -15,8 +15,6 @@ class CycleService implements CycleServiceInterface
 
     /**
      * CycleService constructor.
-     * @param GameConfigServiceInterface $gameConfigService
-     * @param EventDispatcherInterface $eventDispatcher
      */
     public function __construct(
         GameConfigServiceInterface $gameConfigService,
@@ -26,11 +24,8 @@ class CycleService implements CycleServiceInterface
         $this->eventDispatcher = $eventDispatcher;
     }
 
-
     /**
      * @Warning: To be reworked, doesn't work with hours changes
-     * @param Daedalus $daedalus
-     * @return int
      */
     public function handleCycleChange(Daedalus $daedalus): int
     {
@@ -45,7 +40,7 @@ class CycleService implements CycleServiceInterface
 
         $cycleElapsed = $this->getNumberOfCycleElapsed($lastUpdate, $currentDate);
 
-        for ($i = 0; $i < $cycleElapsed; $i++) {
+        for ($i = 0; $i < $cycleElapsed; ++$i) {
             $cycleEvent = new CycleEvent($daedalus, $currentCycleStartedAt);
             $this->eventDispatcher->dispatch($cycleEvent, CycleEvent::NEW_CYCLE);
         }
@@ -56,6 +51,7 @@ class CycleService implements CycleServiceInterface
     public function getCycleFromDate(DateTime $date): int
     {
         $hour = $date->setTimezone(new \DateTimeZone($this->gameConfig->getTimeZone()))->format('H');
+
         return floor(
             $hour / $this->gameConfig->getCycleLength() + 1
         );

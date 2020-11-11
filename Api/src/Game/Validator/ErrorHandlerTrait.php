@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Mush\Game\Validator;
 
 use Symfony\Component\Validator\ConstraintViolationInterface;

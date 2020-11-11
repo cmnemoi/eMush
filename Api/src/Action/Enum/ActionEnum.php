@@ -81,7 +81,7 @@ class ActionEnum
             self::DROP,
             self::HIDE,
             self::EXAMINE,
-            self::REPAIR
+            self::REPAIR,
         ];
     }
 }

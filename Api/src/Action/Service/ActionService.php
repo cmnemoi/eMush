@@ -20,9 +20,6 @@ class ActionService implements ActionServiceInterface
 
     /**
      * ActionService constructor.
-     * @param PlayerServiceInterface $playerService
-     * @param GameItemServiceInterface $itemService
-     * @param DoorServiceInterface $doorService
      */
     public function __construct(
         PlayerServiceInterface $playerService,
@@ -52,7 +49,7 @@ class ActionService implements ActionServiceInterface
     {
         $action = $this->getAction($actionName);
 
-        if ($action === null) {
+        if (null === $action) {
             return new Error('Action do not exist');
         }
 
@@ -66,7 +63,7 @@ class ActionService implements ActionServiceInterface
     {
         $action = $this->getAction($actionName);
 
-        if ($action === null) {
+        if (null === $action) {
             return false;
         }
 

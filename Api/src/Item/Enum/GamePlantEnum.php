@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Mush\Item\Enum;
 
 class GamePlantEnum
@@ -34,7 +33,7 @@ class GamePlantEnum
             self::GRAAPSHOOT,
             self::FIBONICCUS,
             self::MYCOPIA,
-            self::ASPERAGUNK
+            self::ASPERAGUNK,
         ];
     }
 

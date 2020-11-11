@@ -18,9 +18,6 @@ class CycleSubscriber implements EventSubscriberInterface
 
     /**
      * DaedalusSubscriber constructor.
-     * @param DaedalusServiceInterface $daedalusService
-     * @param EventDispatcherInterface $eventDispatcher
-     * @param GameConfigServiceInterface $gameConfigService
      */
     public function __construct(
         DaedalusServiceInterface $daedalusService,
@@ -41,7 +38,7 @@ class CycleSubscriber implements EventSubscriberInterface
 
     public function onNewCycle(CycleEvent $event)
     {
-        if ($event->getGameItem() || $event->getPlayer() || $event->getRoom()) {
+        if ($event->getGameItem() || $event->getPlayer() || $event->getRoom() || $event->getStatus()) {
             return;
         }
         $daedalus = $event->getDaedalus();

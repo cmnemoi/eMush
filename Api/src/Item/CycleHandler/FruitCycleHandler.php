@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Mush\Item\CycleHandler;
 
 use Mush\Daedalus\Entity\Daedalus;
@@ -17,7 +16,7 @@ class FruitCycleHandler implements CycleHandlerInterface
             return;
         }
         $fruitType = $fruit->getItem()->getItemType(ItemEnum::FRUIT);
-        if ($fruitType === null || !$fruitType instanceof Fruit) {
+        if (null === $fruitType || !$fruitType instanceof Fruit) {
             return;
         }
     }
@@ -28,7 +27,7 @@ class FruitCycleHandler implements CycleHandlerInterface
             return;
         }
         $fruitType = $fruit->getItem()->getItemType(ItemEnum::FRUIT);
-        if ($fruitType === null || !$fruitType instanceof Fruit) {
+        if (null === $fruitType || !$fruitType instanceof Fruit) {
             return;
         }
     }

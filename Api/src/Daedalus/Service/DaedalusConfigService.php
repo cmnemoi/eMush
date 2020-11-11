@@ -2,8 +2,8 @@
 
 namespace Mush\Daedalus\Service;
 
-use Mush\Daedalus\Entity\RandomItemPlaces;
 use Mush\Daedalus\Entity\DaedalusConfig;
+use Mush\Daedalus\Entity\RandomItemPlaces;
 use Mush\Room\Entity\RoomConfig;
 
 class DaedalusConfigService implements DaedalusConfigServiceInterface
@@ -38,7 +38,6 @@ class DaedalusConfigService implements DaedalusConfigServiceInterface
             ;
             $config->setRandomItemPlace($randomItemPlaces);
         }
-
 
         $config->setRooms($rooms);
 

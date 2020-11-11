@@ -7,8 +7,7 @@ use Mush\Item\Entity\ItemType;
 use Mush\Item\Enum\ItemTypeEnum;
 
 /**
- * Class Item
- * @package Mush\Entity
+ * Class Item.
  *
  * @ORM\Entity
  */

@@ -41,6 +41,12 @@ class DaySubscriber implements EventSubscriberInterface
             return;
         }
 
+        foreach ($item->getStatuses() as $status) {
+            $statusNewDay = new DayEvent($event->getDaedalus(), $event->getTime());
+            $statusNewDay->setStatus($status);
+            $this->eventDispatcher->dispatch($statusNewDay, DayEvent::NEW_DAY);
+        }
+
         foreach ($item->getItem()->getTypes() as $itemType) {
             if (isset($this->cyclesManagerConfig[get_class($itemType)])) {
                 $serviceClass = $this->cyclesManagerConfig[get_class($itemType)];

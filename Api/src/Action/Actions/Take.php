@@ -2,7 +2,6 @@
 
 namespace Mush\Action\Actions;
 
-use Mush\Action\Entity\ActionCost;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
@@ -47,7 +46,7 @@ class Take extends Action
 
     public function loadParameters(Player $player, ActionParameters $actionParameters)
     {
-        if (! $item = $actionParameters->getItem()) {
+        if (!$item = $actionParameters->getItem()) {
             throw new \InvalidArgumentException('Invalid item parameter');
         }
         $this->player = $player;
@@ -68,7 +67,8 @@ class Take extends Action
         $this->item->setPlayer($this->player);
 
         // add BURDENED status if item is heavy and player hasn't SOLID skill
-        if ($this->item->getItem()->isHeavy() &&
+        if (
+            $this->item->getItem()->isHeavy() &&
             !in_array(SkillEnum::SOLID, $this->player->getSkills())
         ) {
             $this->player->getSkills()[] = StatusEnum::BURDENED;

@@ -1,18 +1,15 @@
 <?php
 
-
 namespace Mush\RoomLog\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Item\Entity\GameItem;
-use Mush\Item\Entity\Item;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
 
 /**
- * Class RoomLog
- * @package Mush\Entity
+ * Class RoomLog.
  *
  * @ORM\Entity(repositoryClass="Mush\RoomLog\Repository\RoomLogRepository")
  */
@@ -75,6 +72,7 @@ class RoomLog
     public function setRoom(Room $room): RoomLog
     {
         $this->room = $room;
+
         return $this;
     }
 
@@ -86,6 +84,7 @@ class RoomLog
     public function setPlayer(Player $player): RoomLog
     {
         $this->player = $player;
+
         return $this;
     }
 
@@ -97,6 +96,7 @@ class RoomLog
     public function setItem(GameItem $item): RoomLog
     {
         $this->item = $item;
+
         return $this;
     }
 
@@ -108,6 +108,7 @@ class RoomLog
     public function setVisibility(string $visibility): RoomLog
     {
         $this->visibility = $visibility;
+
         return $this;
     }
 
@@ -119,6 +120,7 @@ class RoomLog
     public function setLog(string $log): RoomLog
     {
         $this->log = $log;
+
         return $this;
     }
 
@@ -130,6 +132,7 @@ class RoomLog
     public function setDate(\DateTime $date): RoomLog
     {
         $this->date = $date;
+
         return $this;
     }
 
@@ -141,6 +144,7 @@ class RoomLog
     public function setParams(array $params): RoomLog
     {
         $this->params = $params;
+
         return $this;
     }
 }

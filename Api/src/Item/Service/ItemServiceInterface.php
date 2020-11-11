@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Mush\Item\Service;
 
 use Mush\Daedalus\Entity\Daedalus;

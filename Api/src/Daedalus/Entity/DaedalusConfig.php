@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Mush\Daedalus\Entity;
 
 use Doctrine\Common\Collections\Collection;
@@ -8,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Game\Entity\GameConfig;
 
 /**
- * Class DaedalusConfig
- * @package Mush\Daedalus\Entity
+ * Class DaedalusConfig.
+ *
  * @ORM\Entity()
  * @ORM\Table(name="config_daedalus")
  */
@@ -70,6 +69,7 @@ class DaedalusConfig
     public function setGameConfig(GameConfig $gameConfig): DaedalusConfig
     {
         $this->gameConfig = $gameConfig;
+
         return $this;
     }
 
@@ -81,6 +81,7 @@ class DaedalusConfig
     public function setInitOxygen(int $initOxygen): DaedalusConfig
     {
         $this->initOxygen = $initOxygen;
+
         return $this;
     }
 
@@ -92,6 +93,7 @@ class DaedalusConfig
     public function setInitFuel(int $initFuel): DaedalusConfig
     {
         $this->initFuel = $initFuel;
+
         return $this;
     }
 
@@ -103,6 +105,7 @@ class DaedalusConfig
     public function setInitHull(int $initHull): DaedalusConfig
     {
         $this->initHull = $initHull;
+
         return $this;
     }
 
@@ -114,6 +117,7 @@ class DaedalusConfig
     public function setInitShield(int $initShield): DaedalusConfig
     {
         $this->initShield = $initShield;
+
         return $this;
     }
 
@@ -125,6 +129,7 @@ class DaedalusConfig
     public function setRandomItemPlace(RandomItemPlaces $randomItemPlace): DaedalusConfig
     {
         $this->randomItemPlace = $randomItemPlace;
+
         return $this;
     }
 
@@ -136,6 +141,7 @@ class DaedalusConfig
     public function setRoomConfigs(Collection $roomConfigs): DaedalusConfig
     {
         $this->roomConfigs = $roomConfigs;
+
         return $this;
     }
 }

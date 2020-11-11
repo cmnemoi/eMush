@@ -1,16 +1,15 @@
 <?php
 
-
 namespace Mush\Player\Entity\Dto;
 
 use Mush\Daedalus\Entity\Daedalus;
-use Symfony\Component\Validator\Constraints as Assert;
-use Mush\Player\Validator\UniqueCharacter;
 use Mush\Daedalus\Validator\FullDaedalus;
+use Mush\Player\Validator\UniqueCharacter;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class PlayerRequest
- * @package Mush\Player\Entity\Dto
+ * Class PlayerRequest.
+ *
  * @UniqueCharacter
  */
 class PlayerRequest
@@ -33,6 +32,7 @@ class PlayerRequest
     public function setCharacter(?string $character): PlayerRequest
     {
         $this->character = $character;
+
         return $this;
     }
 
@@ -44,6 +44,7 @@ class PlayerRequest
     public function setDaedalus(?Daedalus $daedalus): PlayerRequest
     {
         $this->daedalus = $daedalus;
+
         return $this;
     }
 }

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Mush\Player\Voter;
 
 use Mush\Player\Entity\Player;
@@ -21,7 +20,7 @@ class CharacterVoter extends Voter
         }
 
         // only vote on `Player` objects
-        if ($subject !== null && !$subject instanceof Player) {
+        if (null !== $subject && !$subject instanceof Player) {
             return false;
         }
 
@@ -49,11 +48,11 @@ class CharacterVoter extends Voter
 
     private function canViewPlayer(User $user, ?Player $player): bool
     {
-        return $player === null || $player->getUser() === $user;
+        return null === $player || $player->getUser() === $user;
     }
 
     private function canCreatePlayer(User $user): bool
     {
-        return $user->getCurrentGame() === null;
+        return null === $user->getCurrentGame();
     }
 }

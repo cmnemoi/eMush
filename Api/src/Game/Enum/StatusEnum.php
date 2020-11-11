@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Mush\Game\Enum;
 
 class StatusEnum
@@ -19,4 +18,7 @@ class StatusEnum
     public const SUICIDAL = 'suicidal';
     public const BURDENED = 'burdened';
     public const DIRTY = 'dirty';
+
+    public const CHARGE = 'charge';
+    public const ATTEMPT = 'attempt';
 }

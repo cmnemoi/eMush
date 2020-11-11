@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Mush\Item\Enum;
 
 class PlantStatusEnum

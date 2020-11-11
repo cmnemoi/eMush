@@ -2,10 +2,7 @@
 
 namespace Mush\Player\Normalizer;
 
-use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Normalizer\DaedalusNormalizer;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Item\Entity\GameItem;
 use Mush\Item\Normalizer\ItemNormalizer;
 use Mush\Player\Entity\Player;
@@ -40,8 +37,7 @@ class PlayerNormalizer implements ContextAwareNormalizerInterface
 
     /**
      * @param Player $player
-     * @param string|null $format
-     * @param array $context
+     *
      * @return array
      */
     public function normalize($player, string $format = null, array $context = [])
@@ -61,7 +57,7 @@ class PlayerNormalizer implements ContextAwareNormalizerInterface
                 'healthPoint' => $player->getHealthPoint(),
                 'moralPoint' => $player->getMoralPoint(),
                 'createdAt' => $player->getCreatedAt(),
-                'updatedAt' => $player->getUpdatedAt()
+                'updatedAt' => $player->getUpdatedAt(),
             ];
         }
 

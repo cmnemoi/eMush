@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Mush\Item\Enum;
 
 class GameFruitEnum
@@ -15,7 +14,7 @@ class GameFruitEnum
     public const FRAGILANE = 'fragilane';
     public const ANEMOLE = 'anemole';
     public const PENICRAFT = 'peniraft';
-    public const KUBINUS  = 'kubinus';
+    public const KUBINUS = 'kubinus';
     public const CALEBOOT = 'caleboot';
     public const FILANDRA = 'filandra';
 
@@ -34,7 +33,7 @@ class GameFruitEnum
             self::PENICRAFT,
             self::KUBINUS,
             self::CALEBOOT,
-            self::FILANDRA
+            self::FILANDRA,
         ];
     }
 
@@ -58,7 +57,7 @@ class GameFruitEnum
             self::PENICRAFT => GamePlantEnum::GRAAPSHOOT,
             self::KUBINUS => GamePlantEnum::FIBONICCUS,
             self::CALEBOOT => GamePlantEnum::MYCOPIA,
-            self::FILANDRA => GamePlantEnum::ASPERAGUNK
+            self::FILANDRA => GamePlantEnum::ASPERAGUNK,
         ];
     }
 }

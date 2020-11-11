@@ -3,17 +3,21 @@
 namespace Mush\Game\Service;
 
 use Error;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Item\Entity\GameItem;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
-use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Entity\Item;
 
 class RandomService implements RandomServiceInterface
 {
     public function random(int $min, int $max): int
     {
         return rand($min, $max);
+    }
+
+    public function randomPercent(): int
+    {
+        return $this->random(1, 100);
     }
 
     public function getPlayerInRoom(Room $room): Player
@@ -44,6 +48,7 @@ class RandomService implements RandomServiceInterface
         if ($room->getItems()->isEmpty()) {
             throw new Error('getItemInRoom: room has no items');
         }
+
         return $room->getItems()->get($this->random(0, $room->getItems()->count() - 1));
     }
     

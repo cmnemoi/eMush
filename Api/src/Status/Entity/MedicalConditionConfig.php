@@ -6,8 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Game\Entity\GameConfig;
 
 /**
- * Class Condition
- * @package Mush\Entity
+ * Class Condition.
  *
  * @ORM\Entity(repositoryClass="Mush\Status\Repository\MedicalConditionConfigRepository")
  */
@@ -95,9 +94,11 @@ class MedicalConditionConfig
     {
         return $this->name;
     }
+
     public function setName(string $newName): MedicalConditionConfig
     {
         $this->name = $newName;
+
         return $this;
     }
 
@@ -109,6 +110,7 @@ class MedicalConditionConfig
     public function setGameConfig(GameConfig $gameConfig): MedicalConditionConfig
     {
         $this->gameConfig = $gameConfig;
+
         return $this;
     }
 
@@ -116,6 +118,7 @@ class MedicalConditionConfig
     {
         return $this->type;
     }
+
     public function setType(string $newType): MedicalConditionConfig
     {
         $this->type = $newType;
@@ -143,6 +146,7 @@ class MedicalConditionConfig
     public function setActionPointModifier(int $actionPointModifier): MedicalConditionConfig
     {
         $this->actionPointModifier = $actionPointModifier;
+
         return $this;
     }
 
@@ -154,6 +158,7 @@ class MedicalConditionConfig
     public function setMovementPointModifier(int $movementPointModifier): MedicalConditionConfig
     {
         $this->movementPointModifier = $movementPointModifier;
+
         return $this;
     }
 
@@ -165,6 +170,7 @@ class MedicalConditionConfig
     public function setMoralPointModifier(int $moralPointModifier): MedicalConditionConfig
     {
         $this->moralPointModifier = $moralPointModifier;
+
         return $this;
     }
 
@@ -176,6 +182,7 @@ class MedicalConditionConfig
     public function setPrecisionModifier(int $precisionModifier): MedicalConditionConfig
     {
         $this->precisionModifier = $precisionModifier;
+
         return $this;
     }
 
@@ -187,6 +194,7 @@ class MedicalConditionConfig
     public function setMaxActionPointModifier(int $maxActionPointModifier): MedicalConditionConfig
     {
         $this->maxActionPointModifier = $maxActionPointModifier;
+
         return $this;
     }
 
@@ -198,6 +206,7 @@ class MedicalConditionConfig
     public function setMaxMovementPointModifier(int $maxMovementPointModifier): MedicalConditionConfig
     {
         $this->maxMovementPointModifier = $maxMovementPointModifier;
+
         return $this;
     }
 
@@ -209,6 +218,7 @@ class MedicalConditionConfig
     public function setMaxHealthPointModifier(int $maxHealthPointModifier): MedicalConditionConfig
     {
         $this->maxHealthPointModifier = $maxHealthPointModifier;
+
         return $this;
     }
 
@@ -220,6 +230,7 @@ class MedicalConditionConfig
     public function setMaxMoralPointModifier(int $maxMoralPointModifier): MedicalConditionConfig
     {
         $this->maxMoralPointModifier = $maxMoralPointModifier;
+
         return $this;
     }
 
@@ -231,6 +242,7 @@ class MedicalConditionConfig
     public function setSymptoms(array $symptoms): MedicalConditionConfig
     {
         $this->symptoms = $symptoms;
+
         return $this;
     }
 }

@@ -2,7 +2,6 @@
 
 namespace Mush\Action\Actions;
 
-use Mush\Action\Entity\ActionCost;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
@@ -44,7 +43,7 @@ class ReadBook extends Action
 
     public function loadParameters(Player $player, ActionParameters $actionParameters)
     {
-        if (! $item = $actionParameters->getItem()) {
+        if (!$item = $actionParameters->getItem()) {
             throw new \InvalidArgumentException('Invalid item parameter');
         }
         $this->player = $player;
@@ -53,14 +52,16 @@ class ReadBook extends Action
 
     public function canExecute(): bool
     {
-        return $this->item->getItem()->getItemType(ItemTypeEnum::BOOK) !== null &&
+        return null !== $this->item->getItem()->getItemType(ItemTypeEnum::BOOK) &&
             $this->player->canReachItem($this->item)
             ;
     }
 
     protected function applyEffects(): ActionResult
     {
-        /** @var Book $bookType */
+        /**
+         * @var Book $bookType
+         */
         $bookType = $this->item->getItem()->getItemType(ItemTypeEnum::BOOK);
         $this->player->addSkill($bookType->getSkill());
 

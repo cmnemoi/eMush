@@ -19,9 +19,6 @@ class RoomService implements RoomServiceInterface
 
     /**
      * RoomService constructor.
-     * @param EntityManagerInterface $entityManager
-     * @param RoomRepository $repository
-     * @param GameItemServiceInterface $itemService
      */
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -55,16 +52,17 @@ class RoomService implements RoomServiceInterface
 
         // @FIXME how to simplify that?
         foreach ($roomConfig->getDoors() as $doorName) {
-            if ($roomDoor = $daedalus->getRooms()->filter( //If door already exist
-                function (Room $room) use ($doorName) {
-                    return $room->getDoors()->exists(function ($key, Door $door) use ($doorName) {
-                        return ($door->getName() === $doorName);
-                    });
-                }
-            )->first()
+            if (
+                $roomDoor = $daedalus->getRooms()->filter( //If door already exist
+                    function (Room $room) use ($doorName) {
+                        return $room->getDoors()->exists(function ($key, Door $door) use ($doorName) {
+                            return $door->getName() === $doorName;
+                        });
+                    }
+                )->first()
             ) {
                 $door = $roomDoor->getDoors()->filter(function (Door $door) use ($doorName) {
-                    return ($door->getName() === $doorName);
+                    return $door->getName() === $doorName;
                 })->first();
             } else { //else create new door
                 $door = new Door();
@@ -78,9 +76,9 @@ class RoomService implements RoomServiceInterface
             $item = $daedalus
                 ->getGameConfig()
                 ->getItemsConfig()
-                ->filter(fn(Item $item) => $item->getName() === $itemName)->first()
+                ->filter(fn (Item $item) => $item->getName() === $itemName)->first()
             ;
-            $gameItem = $this->itemService->createGameItem($item);
+            $gameItem = $this->itemService->createGameItem($item, $daedalus);
             $room->addItem($gameItem);
         }
 

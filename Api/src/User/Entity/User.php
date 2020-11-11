@@ -9,8 +9,7 @@ use Mush\User\Enum\RoleEnum;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * Class User
- * @package Mush\Entity
+ * Class User.
  *
  * @ORM\Entity(repositoryClass="Mush\User\Repository\UserRepository")
  */
@@ -53,6 +52,7 @@ class User implements UserInterface
     public function setUserId(string $userId): User
     {
         $this->userId = $userId;
+
         return $this;
     }
 
@@ -64,6 +64,7 @@ class User implements UserInterface
     public function setUsername(string $username): User
     {
         $this->username = $username;
+
         return $this;
     }
 
@@ -95,6 +96,7 @@ class User implements UserInterface
     public function setCurrentGame(?Player $currentGame): User
     {
         $this->currentGame = $currentGame;
+
         return $this;
     }
 }

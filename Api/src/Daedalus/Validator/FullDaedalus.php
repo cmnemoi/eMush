@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Mush\Daedalus\Validator;
 
 use Symfony\Component\Validator\Constraint;

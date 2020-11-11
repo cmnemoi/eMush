@@ -9,8 +9,7 @@ use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Game\Entity\Collection\CharacterConfigCollection;
 
 /**
- * Class Daedalus
- * @package Mush\Game\Entity
+ * Class Daedalus.
  *
  * @ORM\Entity(repositoryClass="Mush\Game\Repository\GameConfigRepository")
  * @ORM\Table(name="config_game")
@@ -134,6 +133,7 @@ class GameConfig
     public function setDaedalusConfig(DaedalusConfig $daedalusConfig): GameConfig
     {
         $this->daedalusConfig = $daedalusConfig;
+
         return $this;
     }
 
@@ -145,6 +145,7 @@ class GameConfig
     public function setCharactersConfig(Collection $charactersConfig): GameConfig
     {
         $this->charactersConfig = $charactersConfig;
+
         return $this;
     }
 
@@ -156,6 +157,7 @@ class GameConfig
     public function setItemsConfig(Collection $itemsConfig): GameConfig
     {
         $this->itemsConfig = $itemsConfig;
+
         return $this;
     }
 
@@ -167,6 +169,7 @@ class GameConfig
     public function setName(string $name): GameConfig
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -178,6 +181,7 @@ class GameConfig
     public function setMaxPlayer(int $maxPlayer): GameConfig
     {
         $this->maxPlayer = $maxPlayer;
+
         return $this;
     }
 
@@ -189,6 +193,7 @@ class GameConfig
     public function setNbMush(int $nbMush): GameConfig
     {
         $this->nbMush = $nbMush;
+
         return $this;
     }
 
@@ -205,6 +210,7 @@ class GameConfig
     public function setCycleLength(int $cycleLength): GameConfig
     {
         $this->cycleLength = $cycleLength;
+
         return $this;
     }
 
@@ -216,6 +222,7 @@ class GameConfig
     public function setTimeZone(string $timeZone): GameConfig
     {
         $this->timeZone = $timeZone;
+
         return $this;
     }
 
@@ -227,6 +234,7 @@ class GameConfig
     public function setLanguage(string $language): GameConfig
     {
         $this->language = $language;
+
         return $this;
     }
 
@@ -238,6 +246,7 @@ class GameConfig
     public function setInitHealthPoint(int $initHealthPoint): GameConfig
     {
         $this->initHealthPoint = $initHealthPoint;
+
         return $this;
     }
 
@@ -249,6 +258,7 @@ class GameConfig
     public function setMaxHealthPoint(int $maxHealthPoint): GameConfig
     {
         $this->maxHealthPoint = $maxHealthPoint;
+
         return $this;
     }
 
@@ -260,6 +270,7 @@ class GameConfig
     public function setInitMoralPoint(int $initMoralPoint): GameConfig
     {
         $this->initMoralPoint = $initMoralPoint;
+
         return $this;
     }
 
@@ -271,6 +282,7 @@ class GameConfig
     public function setMaxMoralPoint(int $maxMoralPoint): GameConfig
     {
         $this->maxMoralPoint = $maxMoralPoint;
+
         return $this;
     }
 
@@ -282,6 +294,7 @@ class GameConfig
     public function setInitSatiety(int $initSatiety): GameConfig
     {
         $this->initSatiety = $initSatiety;
+
         return $this;
     }
 
@@ -293,6 +306,7 @@ class GameConfig
     public function setInitActionPoint(int $initActionPoint): GameConfig
     {
         $this->initActionPoint = $initActionPoint;
+
         return $this;
     }
 
@@ -304,6 +318,7 @@ class GameConfig
     public function setMaxActionPoint(int $maxActionPoint): GameConfig
     {
         $this->maxActionPoint = $maxActionPoint;
+
         return $this;
     }
 
@@ -315,6 +330,7 @@ class GameConfig
     public function setInitMovementPoint(int $initMovementPoint): GameConfig
     {
         $this->initMovementPoint = $initMovementPoint;
+
         return $this;
     }
 
@@ -326,6 +342,7 @@ class GameConfig
     public function setMaxMovementPoint(int $maxMovementPoint): GameConfig
     {
         $this->maxMovementPoint = $maxMovementPoint;
+
         return $this;
     }
 
@@ -337,6 +354,7 @@ class GameConfig
     public function setMaxItemInInventory(int $maxItemInInventory): GameConfig
     {
         $this->maxItemInInventory = $maxItemInInventory;
+
         return $this;
     }
 }

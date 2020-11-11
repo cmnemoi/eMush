@@ -2,7 +2,6 @@
 
 namespace Mush\Action\Actions;
 
-use Mush\Action\Entity\ActionCost;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
@@ -26,21 +25,21 @@ class Build extends Action
     private GameItem $item;
 
     private RoomLogServiceInterface $roomLogService;
-    private GameItemServiceInterface $itemService;
+    private GameItemServiceInterface $gameItemService;
     private PlayerServiceInterface $playerService;
     private GameConfig $gameConfig;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         RoomLogServiceInterface $roomLogService,
-        GameItemServiceInterface $itemService,
+        GameItemServiceInterface $gameItemService,
         PlayerServiceInterface $playerService,
         GameConfigServiceInterface $gameConfigService
     ) {
         parent::__construct($eventDispatcher);
 
         $this->roomLogService = $roomLogService;
-        $this->itemService = $itemService;
+        $this->gameItemService = $gameItemService;
         $this->playerService = $playerService;
         $this->gameConfig = $gameConfigService->getConfig();
         $this->actionCost->setActionPointCost(3);
@@ -48,7 +47,7 @@ class Build extends Action
 
     public function loadParameters(Player $player, ActionParameters $actionParameters)
     {
-        if (! $item = $actionParameters->getItem()) {
+        if (!$item = $actionParameters->getItem()) {
             throw new \InvalidArgumentException('Invalid item parameter');
         }
         $this->player = $player;
@@ -58,71 +57,69 @@ class Build extends Action
     public function canExecute(): bool
     {
         $blueprintType = $this->item->getItem()->getItemType(ItemTypeEnum::BLUEPRINT);
-            //Check that the item is a blueprint and is reachable
-        if ($blueprintType === null ||
-                               !$this->player->canReachItem($this->item)) {
+        //Check that the item is a blueprint and is reachable
+        if (
+            $blueprintType === null ||
+            !$this->player->canReachItem($this->item)
+        ) {
             return false;
         }
-            //Check the availlability of the ingredients
+        //Check the availlability of the ingredients
         foreach ($blueprintType->getIngredients() as $itemName => $number) {
             if ($this->player->getReachableItemByName($itemName)->count() < $number) {
                 return false;
             }
         }
-            return true;
-    }
-        
-        
-        
-        
 
+        return true;
+    }
 
     protected function applyEffects(): ActionResult
     {
         /** @var Blueprint $blueprintType */
         $blueprintType = $this->item->getItem()->getItemType(ItemTypeEnum::BLUEPRINT);
-        
 
-        
         // add the item in the player inventory or in the room if the inventory is full
-        $blueprintObject=$blueprintType->getItem()->createGameItem();
+        $blueprintObject = $this->gameItemService->createGameItem(
+            $blueprintType->getItem(),
+            $this->player->getDaedalus()
+        );
+
         if ($this->player->getItems()->count() < $this->gameConfig->getMaxItemInInventory()) {
-               $blueprintObject->setPlayer($this->player);
+            $blueprintObject->setPlayer($this->player);
         } else {
             $blueprintObject->setRoom($this->player->getRoom());
         }
-        
-        $this->itemService->persist($blueprintObject);
-                
-          // remove the used ingredients starting from the player inventory
+
+        $this->gameItemService->persist($blueprintObject);
+
+        // remove the used ingredients starting from the player inventory
         foreach ($blueprintType->getIngredients() as $itemName => $number) {
-            for ($i = 0; $i < $number; $i++) {
+            for ($i = 0; $i < $number; ++$i) {
                 if ($this->player->hasItemByName($itemName)) {
-                      // @FIXME change to a random choice of the item
-                      $ingredient=$this->player->getItems()
-                      ->filter(fn(GameItem $gameItem) => $gameItem->getName() === $itemName)->first();
-                      $this->player->removeItem($ingredient);
+                    // @FIXME change to a random choice of the item
+                    $ingredient = $this->player->getItems()
+                        ->filter(fn (GameItem $gameItem) => $gameItem->getName() === $itemName)->first();
+                    $this->player->removeItem($ingredient);
                 } else {
-    // @FIXME change to a random choice of the item
-                    $ingredient=$this->player->getRoom()->getItems()
-                    ->filter(fn(GameItem $gameItem) => $gameItem->getName() === $itemName)->first();
+                    // @FIXME change to a random choice of the item
+                    $ingredient = $this->player->getRoom()->getItems()
+                        ->filter(fn (GameItem $gameItem) => $gameItem->getName() === $itemName)->first();
                     $ingredient->setRoom(null);
                 }
-                $this->itemService->delete($ingredient);
+                $this->gameItemService->delete($ingredient);
             }
         }
-        
+
         // remove the blueprint
         $this->item
-        ->setRoom(null)
-        ->setPlayer(null)
+            ->setRoom(null)
+            ->setPlayer(null)
         ;
-        
-        $this->itemService->delete($this->item);
-        
-        
-        $this->playerService->persist($this->player);
 
+        $this->gameItemService->delete($this->item);
+
+        $this->playerService->persist($this->player);
 
         return new Success();
     }

@@ -3,7 +3,6 @@
 namespace Mush\User\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\EntityRepository;
 use Mush\User\Entity\User;
 use Mush\User\Repository\UserRepository;
 
@@ -15,8 +14,6 @@ class UserService implements UserServiceInterface
 
     /**
      * UserService constructor.
-     * @param EntityManagerInterface $entityManager
-     * @param UserRepository $repository
      */
     public function __construct(EntityManagerInterface $entityManager, UserRepository $repository)
     {

@@ -2,9 +2,9 @@
 
 namespace Mush\Action\Entity;
 
+use Mush\Item\Entity\Door;
 use Mush\Item\Entity\GameItem;
 use Mush\Player\Entity\Player;
-use Mush\Room\Entity\Door;
 use Mush\Room\Entity\Room;
 
 class ActionParameters

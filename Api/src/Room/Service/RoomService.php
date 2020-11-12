@@ -4,9 +4,9 @@ namespace Mush\Room\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Item\Entity\Door;
 use Mush\Item\Entity\Item;
 use Mush\Item\Service\GameItemServiceInterface;
-use Mush\Room\Entity\Door;
 use Mush\Room\Entity\Room;
 use Mush\Room\Entity\RoomConfig;
 use Mush\Room\Repository\RoomRepository;

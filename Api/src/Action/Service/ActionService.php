@@ -6,6 +6,7 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Error;
 use Mush\Action\Actions\Action;
 use Mush\Action\Entity\ActionParameters;
+use Mush\Item\Entity\Door;
 use Mush\Item\Service\GameItemServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
@@ -16,19 +17,16 @@ class ActionService implements ActionServiceInterface
     private array $actions = [];
     private PlayerServiceInterface $playerService;
     private GameItemServiceInterface $itemService;
-    private DoorServiceInterface $doorService;
 
     /**
      * ActionService constructor.
      */
     public function __construct(
         PlayerServiceInterface $playerService,
-        GameItemServiceInterface $itemService,
-        DoorServiceInterface $doorService
+        GameItemServiceInterface $itemService
     ) {
         $this->playerService = $playerService;
         $this->itemService = $itemService;
-        $this->doorService = $doorService;
     }
 
     public function addAction(Action $action)
@@ -77,8 +75,10 @@ class ActionService implements ActionServiceInterface
         $actionParams = new ActionParameters();
 
         if ($doorId = $parameter['door'] ?? null) {
-            $door = $this->doorService->findById($doorId);
-            $actionParams->setDoor($door);
+            $door = $this->itemService->findById($doorId);
+            if ($door instanceof Door) {
+                $actionParams->setDoor($door);
+            }
         }
         if ($itemId = $parameter['item'] ?? null) {
             $item = $this->itemService->findById($itemId);

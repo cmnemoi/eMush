@@ -5,6 +5,7 @@ namespace Mush\Item\Normalizer;
 use Mush\Action\Actions\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Item\Entity\Door;
 use Mush\Item\Entity\GameItem;
 use Mush\User\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -41,9 +42,15 @@ class ItemNormalizer implements ContextAwareNormalizerInterface
     {
         $actions = [];
         $actionParameter = new ActionParameters();
-        $actionParameter
-            ->setItem($item)
-        ;
+        if ($item instanceof Door) {
+            $actionParameter
+                ->setDoor($item)
+            ;
+        } else {
+            $actionParameter
+                ->setItem($item)
+            ;
+        }
 
         foreach ($item->getActions() as $actionName) {
             $actionClass = $this->actionService->getAction($actionName);

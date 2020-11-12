@@ -10,7 +10,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\SuccessRateServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\SkillEnum;
-use Mush\Status\Enum\StatusEnum;
+use Mush\Game\Enum\StatusEnum;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Item\Entity\GameItem;
@@ -21,14 +21,17 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Mush\Status\Entity\Attempt;
+use Mush\Status\Entity\Status;
+use Mush\Status\Entity\Statusable;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class Disassemble extends AttemptAction
+class Repair extends AttemptAction
 {
-    protected const NAME = ActionEnum::DISASSEMBLE;
+    protected const NAME = ActionEnum::REPAIR;
 
-    private GameItem $item;
+    private GameItem $gameItem;
 
     private RoomLogServiceInterface $roomLogService;
     private GameItemServiceInterface $gameItemService;
@@ -50,43 +53,40 @@ class Disassemble extends AttemptAction
         $this->roomLogService = $roomLogService;
         $this->gameItemService = $gameItemService;
         $this->playerService = $playerService;
+        $this->randomService = $randomService;
+        $this->successRateService = $successRateService;
         $this->gameConfig = $gameConfigService->getConfig();
+
+        $this->actionCost->setActionPointCost(1);
     }
 
     public function loadParameters(Player $player, ActionParameters $actionParameters)
     {
-        if (!$item = $actionParameters->getItem()) {
+        if (!($item = $actionParameters->getItem()) && !($item = $actionParameters->getDoor())) {
             throw new \InvalidArgumentException('Invalid item parameter');
         }
 
         $this->player = $player;
-        $this->item = $item;
-
-        $dismountableType = $this->item->getItem()->getItemType(ItemTypeEnum::DISMOUNTABLE);
-        if ($dismountableType !== null) {
-            $this->actionCost->setActionPointCost($dismountableType->getActionCost());
-        }
+        $this->gameItem = $item;
     }
 
     public function canExecute(): bool
     {
-        $dismountableType = $this->item->getItem()->getItemType(ItemTypeEnum::DISMOUNTABLE);
         //Check that the item is reachable
-        return null !== $dismountableType &&
-            $this->player->canReachItem($this->item) &&
-            in_array(SkillEnum::TECHNICIAN, $this->player->getSkills())
+        return $this->gameItem->isBroken() &&
+            $this->player->canReachItem($this->gameItem)
         ;
     }
 
     protected function applyEffects(): ActionResult
     {
         $modificator = 1; //@TODO: skills, wrench
-        $dismountableType = $this->item->getItem()->getItemType(ItemTypeEnum::DISMOUNTABLE);
 
-        $response = $this->makeAttempt($dismountableType->getChancesSuccess(), $modificator);
+        $response = $this->makeAttempt($this->gameItem->getBrokenRate(), $modificator);
 
         if ($response instanceof Success) {
-            $this->disasemble($dismountableType);
+            $this->gameItem->removeStatus($this->gameItem->getStatusByName(StatusEnum::BROKEN));
+            $this->gameItemService->persist($this->gameItem);
         }
 
         $this->playerService->persist($this->player);
@@ -94,37 +94,10 @@ class Disassemble extends AttemptAction
         return $response;
     }
 
-    private function disasemble(Dismountable $dismountableType)
-    {
-        // add the item produced by disassembling
-        foreach ($dismountableType->getProducts() as $productString => $number) {
-            for ($i = 0; $i < $number; ++$i) {
-                $productItem = $this
-                    ->gameItemService
-                    ->createGameItemFromName($productString, $this->player->getDaedalus())
-                ;
-                if ($this->player->getItems()->count() < $this->gameConfig->getMaxItemInInventory()) {
-                    $productItem->setPlayer($this->player);
-                } else {
-                    $productItem->setRoom($this->player->getRoom());
-                }
-                $this->gameItemService->persist($productItem);
-            }
-        }
-
-        // remove the dismanteled item
-        $this->item
-            ->setRoom(null)
-            ->setPlayer(null)
-        ;
-
-        $this->gameItemService->delete($this->item);
-    }
-
     protected function createLog(ActionResult $actionResult): void
     {
         $this->roomLogService->createPlayerLog(
-            ActionEnum::DISASSEMBLE,
+            ActionEnum::REPAIR,
             $this->player->getRoom(),
             $this->player,
             VisibilityEnum::PUBLIC,

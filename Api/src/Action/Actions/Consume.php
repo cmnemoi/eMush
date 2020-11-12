@@ -86,7 +86,7 @@ class Consume extends Action
 
 
         // If the ration is a drug player get Drug_Eaten status that prevent it from eating another drug this cycle.
-        if ($this->item->getItem()->getItemType(ItemTypeEnum::DRUG)) {
+        if ($rationType instanceof drug) {
               $drugEatenStatus = $this->statusService
               ->createChargePlayerStatus(PlayerStatusEnum::DRUG_EATEN, $this->player, ChargeStrategyTypeEnum::CYCLE_DECREMENT, 1, null, true);
               $drugEatenStatus->setVisibility(VisibilityEnum::HIDDEN);

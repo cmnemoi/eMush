@@ -6,12 +6,15 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Game\Enum\StatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Item\Entity\GameItem;
+use Mush\Item\Enum\ItemTypeEnum;
 use Mush\Item\Service\GameItemServiceInterface;
 use Mush\Item\Service\ItemEffectServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\Status\Enum\StatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -26,13 +29,15 @@ class Consume extends Action
     private GameItemServiceInterface $gameItemService;
     private PlayerServiceInterface $playerService;
     private ItemEffectServiceInterface $itemServiceEffect;
+    private StatusServiceInterface $statusService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         RoomLogServiceInterface $roomLogService,
         GameItemServiceInterface $gameItemService,
         PlayerServiceInterface $playerService,
-        ItemEffectServiceInterface $itemServiceEffect
+        ItemEffectServiceInterface $itemServiceEffect,
+        StatusServiceInterface $statusService
     ) {
         parent::__construct($eventDispatcher);
 
@@ -40,6 +45,7 @@ class Consume extends Action
         $this->gameItemService = $gameItemService;
         $this->playerService = $playerService;
         $this->itemServiceEffect = $itemServiceEffect;
+        $this->statusService = $statusService;
     }
 
     public function loadParameters(Player $player, ActionParameters $actionParameters)
@@ -53,14 +59,15 @@ class Consume extends Action
 
     public function canExecute(): bool
     {
-        return $this->item->getItem()->hasAction(ActionEnum::CONSUME) &&
-            !$this->player->getStatusByName(StatusEnum::FULL_STOMACH);
+        return !($this->item->getItem()->getItemType(ItemTypeEnum::DRUG) &&
+        $this->player->getStatusByName(PlayerStatusEnum::DRUG_EATEN)) &&
+        $this->item->getItem()->hasAction(ActionEnum::CONSUME) &&
+            !$this->player->getStatusByName(PlayerStatusEnum::FULL_STOMACH);
     }
 
     protected function applyEffects(): ActionResult
     {
-        
-        // @TODO handle drug consume
+
         $rationType = $this->item->getItem()->getRationsType();
 
         if (null === $rationType) {
@@ -74,6 +81,19 @@ class Consume extends Action
             ->addHealthPoint($itemEffect->getHealthPoint())
             ->addMoralPoint($itemEffect->getMoralPoint())
         ;
+
+
+
+        // If the ration is a drug player get Drug_Eaten status that prevent it from eating another drug this cycle.
+        if ($this->item->getItem()->getItemType(ItemTypeEnum::DRUG)) {
+              $drugEatenStatus = $this->statusService
+              ->createCorePlayerStatus(PlayerStatusEnum::DRUG_EATEN, $this->player);
+              $drugEatenStatus
+            ->setVisibility(VisibilityEnum::HIDDEN)
+            ->setAutoRemove('cycle')
+            ;
+        }
+
         $this->playerService->persist($this->player);
 
         // if no charges consume item

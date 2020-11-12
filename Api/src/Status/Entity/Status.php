@@ -39,6 +39,11 @@ class Status
     protected ?string $visibility = null;
 
     /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected ?string $autoRemove = 'permanent';
+
+    /**
      * @ORM\ManyToOne(targetEntity="Mush\Player\Entity\Player", inversedBy="statuses")
      */
     protected ?Player $player = null;
@@ -77,6 +82,18 @@ class Status
         return $this;
     }
 
+    public function getAutoRemove(): ?string
+    {
+        return $this->autoRemove;
+    }
+
+    public function setAutoRemove(?string $autoRemove): Status
+    {
+        $this->autoRemove = $autoRemove;
+
+        return $this;
+    }
+
     public function getPlayer(): Player
     {
         return $this->player;
@@ -84,6 +101,12 @@ class Status
 
     public function setPlayer(?Player $player): Status
     {
+        if (null === $player && null !== $this->player) {
+            $this->player->removeStatus($this);
+        } elseif ($this->player !== $player) {
+            $player->addStatus($this);
+        }
+
         $this->player = $player;
 
         return $this;
@@ -96,6 +119,12 @@ class Status
 
     public function setGameItem(?GameItem $gameItem): Status
     {
+        if (null === $gameItem && null !== $this->gameItem) {
+            $this->gameItem->removeStatus($this);
+        } elseif ($this->gameItem !== $gameItem) {
+            $gameItem->addStatus($this);
+        }
+
         $this->gameItem = $gameItem;
 
         return $this;

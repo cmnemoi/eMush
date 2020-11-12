@@ -10,7 +10,8 @@ use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\SkillEnum;
-use Mush\Game\Enum\StatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
+
 
 class CharacterConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -54,7 +55,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $chun
             ->setGameConfig($gameConfig)
             ->setName(CharacterEnum::CHUN)
-            ->setStatuses([StatusEnum::IMMUNIZED])
+            ->setStatuses([PlayerStatusEnum::IMMUNIZED])
             ->setSkills([
                 SkillEnum::LETHARGY,
                 SkillEnum::MANKINDS_ONLY_HOPE,
@@ -100,7 +101,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
 //        $finola
 //            ->setGameConfig($gameConfig)
 //            ->setName(CharacterEnum::FINOLA)
-//            ->setStatuses([StatusEnum::GERMAPHOBE])
+//            ->setStatuses([PlayerStatusEnum::GERMAPHOBE])
 //            ->setSkills([
 //                SkillEnum::BIOLOGIST,
 //                SkillEnum::DIPLOMAT,
@@ -163,7 +164,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $ian
             ->setGameConfig($gameConfig)
             ->setName(CharacterEnum::IAN)
-            ->setStatuses([StatusEnum::PACIFIST])
+            ->setStatuses([PlayerStatusEnum::PACIFIST])
             ->setSkills([
                 SkillEnum::BIOLOGIST,
                 SkillEnum::BOTANIST,
@@ -243,7 +244,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $raluca
             ->setGameConfig($gameConfig)
             ->setName(CharacterEnum::RALUCA)
-            ->setStatuses([StatusEnum::ANTISOCIAL])
+            ->setStatuses([PlayerStatusEnum::ANTISOCIAL])
             ->setSkills([
                 SkillEnum::DESIGNER,
                 SkillEnum::DETACHED_CREWMEMBER,
@@ -290,7 +291,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $terrence
             ->setGameConfig($gameConfig)
             ->setName(CharacterEnum::TERRENCE)
-            ->setStatuses([StatusEnum::DISABLED])
+            ->setStatuses([PlayerStatusEnum::DISABLED])
             ->setSkills([
                 SkillEnum::IT_EXPERT,
                 SkillEnum::METALWORKER,

@@ -20,21 +20,21 @@ class Ration extends ItemType
      * @ORM\Column(type="array", nullable=false)
      */
     private array $moralPoints = [0];
-    
+
     /**
      * @ORM\Column(type="array", nullable=false)
      */
-    private array $actionPoints= [0];
-    
+    private array $actionPoints = [0];
+
     /**
      * @ORM\Column(type="array", nullable=false)
      */
     private array $movementPoints = [0];
-    
+
    /**
      * @ORM\Column(type="array", nullable=false)
      */
-    private array $healthPoints= [0];
+    private array $healthPoints = [0];
 
     /**
      * @ORM\Column(type="integer", nullable=false)
@@ -50,7 +50,7 @@ class Ration extends ItemType
      * @ORM\Column(type="array", nullable=false)
      */
     private array $diseases = [];
-    
+
      /**
      * @ORM\Column(type="array", nullable=false)
      */
@@ -60,7 +60,7 @@ class Ration extends ItemType
      * @ORM\Column(type="array", nullable=false)
      */
     private array $diseasesNumber = [0];
-    
+
 
     //Rations currently only have consume Action
     public function setActions(array $actions): Ration
@@ -75,7 +75,7 @@ class Ration extends ItemType
     {
         return [ActionEnum::CONSUME];
     }
-    
+
     /**
      * @return array
      */
@@ -91,7 +91,7 @@ class Ration extends ItemType
 
         return $this;
     }
-    
+
      /**
      * @return array
      */
@@ -131,7 +131,7 @@ class Ration extends ItemType
 
         return $this;
     }
-    
+
 
     public function getSatiety(): int
     {
@@ -168,24 +168,24 @@ class Ration extends ItemType
 
         return $this;
     }
-    
+
     public function getCuresNumber(): array
     {
         return $this->curesNumber;
     }
-    
+
     public function setCuresNumber(array $curesNumber): Ration
     {
         $this->curesNumber = $curesNumber;
 
         return $this;
     }
-    
+
     public function getDiseasesNumber(): array
     {
         return $this->diseasesNumber;
     }
-    
+
     public function setDiseasesNumber(array $diseasesNumber): Ration
     {
         $this->diseasesNumber = $diseasesNumber;

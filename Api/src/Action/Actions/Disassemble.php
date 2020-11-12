@@ -10,7 +10,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\SuccessRateServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\SkillEnum;
-use Mush\Game\Enum\StatusEnum;
+use Mush\Status\Enum\StatusEnum;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Item\Entity\GameItem;

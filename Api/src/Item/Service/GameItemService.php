@@ -4,7 +4,8 @@ namespace Mush\Item\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Game\Enum\StatusEnum;
+use Mush\Status\Enum\StatusEnum;
+use Mush\Status\Enum\ItemStatusEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Item\Entity\GameItem;
 use Mush\Item\Entity\Item;
@@ -91,7 +92,7 @@ class GameItemService implements GameItemServiceInterface
     private function initPlant(GameItem $gameItem, Plant $plant, Daedalus $daedalus): GameItem
     {
         $plantStatus = $this->statusService->createChargeItemStatus(
-            StatusEnum::CHARGE,
+            ItemStatusEnum::PLANT_YOUNG,
             $gameItem,
             ChargeStrategyTypeEnum::PLANT,
             0,

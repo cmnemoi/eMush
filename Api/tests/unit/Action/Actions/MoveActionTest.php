@@ -7,18 +7,14 @@ use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Action;
 use Mush\Action\Actions\Move;
-use Mush\Action\Actions\Take;
 use Mush\Action\Entity\ActionParameters;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Service\GameConfigServiceInterface;
-use Mush\Item\Entity\GameItem;
-use Mush\Item\Entity\Item;
-use Mush\Item\Service\GameItemServiceInterface;
+use Mush\Item\Entity\Door;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Room\Entity\Door;
 use Mush\Room\Entity\Room;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Mush\Status\Entity\Status;
+use Mush\Status\Enum\ItemStatusEnum;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -56,6 +52,62 @@ class MoveActionTest extends TestCase
         Mockery::close();
     }
 
+    public function testCanExecute()
+    {
+        $roomStart = new Room();
+        $roomEnd = new Room();
+        $door = new Door();
+        $broken = new Status();
+        $broken
+            ->setName(ItemStatusEnum::BROKEN)
+        ;
+
+        $door
+            ->addRoom($roomStart)
+            ->addRoom($roomEnd)
+        ;
+
+        $roomStart->addDoor($door);
+        $roomEnd->addDoor($door);
+
+        $actionParameter = new ActionParameters();
+        $actionParameter->setDoor($door);
+        $player = new Player();
+        $player
+            ->setMoralPoint(10)
+            ->setRoom($roomStart)
+        ;
+
+        $this->action->loadParameters($player, $actionParameter);
+
+        //No movement point
+        $player
+            ->setActionPoint(0)
+            ->setMovementPoint(0)
+        ;
+        $result = $this->action->execute();
+
+        $this->assertInstanceOf(Error::class, $result);
+
+        //Door is broken
+        $player->setMovementPoint(1);
+        $door->addStatus($broken);
+
+        $result = $this->action->execute();
+
+        $this->assertInstanceOf(Error::class, $result);
+        $this->assertEquals($player->getMovementPoint(), 1);
+
+        //Player is in other room
+        $player
+            ->setRoom(new Room())
+            ->removeStatus($broken)
+        ;
+
+        $this->assertInstanceOf(Error::class, $result);
+        $this->assertEquals($player->getMovementPoint(), 1);
+    }
+
     public function testExecute()
     {
         $roomStart = new Room();
@@ -67,7 +119,6 @@ class MoveActionTest extends TestCase
         ;
         $roomStart->addDoor($door);
         $roomEnd->addDoor($door);
-
 
         $this->roomLogService->shouldReceive('createPlayerLog')->times(4);
         $this->playerService->shouldReceive('persist');

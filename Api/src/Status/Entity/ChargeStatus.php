@@ -1,13 +1,12 @@
 <?php
 
-
 namespace Mush\Status\Entity;
-
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class ChargeStatus
+ * Class ChargeStatus.
+ *
  * @ORM\Entity
  */
 class ChargeStatus extends Status
@@ -31,7 +30,6 @@ class ChargeStatus extends Status
      * @ORM\Column(type="boolean", nullable=false)
      */
     protected ?bool $autoRemove = false;
-
 
     public function getCharge(): ?int
     {

@@ -7,8 +7,8 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Daedalus\DataFixtures\DaedalusConfigFixtures;
 use Mush\Item\DataFixtures\ItemConfigFixtures;
-use Mush\Item\Enum\GamePlantEnum;
 use Mush\Item\Enum\GameDrugEnum;
+use Mush\Item\Enum\GamePlantEnum;
 use Mush\Item\Enum\ItemEnum;
 use Mush\Room\Entity\RoomConfig;
 use Mush\Room\Enum\DoorEnum;
@@ -111,7 +111,7 @@ class RoomConfigFixtures extends Fixture implements DependentFixtureInterface
                   GameDrugEnum::BACTA,
                   GameDrugEnum::BACTA,
                   GameDrugEnum::BACTA,
-                  GameDrugEnum::BACTA
+                  GameDrugEnum::BACTA,
             ])
             ->setDoors([
                 DoorEnum::FRONT_CORRIDOR_LABORATORY,

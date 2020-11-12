@@ -6,9 +6,9 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Item\Entity\Door;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Room\Entity\Door;
 use Mush\Room\Entity\Room;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -49,7 +49,7 @@ class Move extends Action
 
     public function canExecute(): bool
     {
-        return ($this->player->getActionPoint() > 0 || $this->player->getMovementPoint() > 0)
+        return !$this->door->isBroken()
             && $this->player->getRoom()->getDoors()->contains($this->door);
     }
 

@@ -3,10 +3,10 @@
 namespace Mush\Room\Normalizer;
 
 use Mush\Action\Enum\ActionEnum;
+use Mush\Item\Entity\Door;
 use Mush\Item\Entity\GameItem;
 use Mush\Item\Normalizer\ItemNormalizer;
 use Mush\Player\Entity\Player;
-use Mush\Room\Entity\Door;
 use Mush\Room\Entity\Room;
 use Mush\User\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -55,10 +55,12 @@ class RoomNormalizer implements ContextAwareNormalizerInterface
         /** @var Door $door */
         foreach ($room->getDoors() as $door) {
             $doors[] = [
-                'id' => $door->getId(),
-                'name' => $door->getName(),
-                'direction' => $door->getRooms()->filter(fn (Room $doorRoom) => $doorRoom !== $room)->first()->getName(),
-                'actions' => [ActionEnum::MOVE],
+                'id' => $this->itemNormalizer->normalize($door),
+                'direction' => $door
+                    ->getRooms()
+                    ->filter(fn (Room $doorRoom) => $doorRoom !== $room)
+                    ->first()
+                    ->getName(),
             ];
         }
         $items = [];

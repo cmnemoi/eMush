@@ -9,11 +9,18 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
 use Mush\Status\Entity\Status;
+use Mush\Status\Enum\ItemStatusEnum;
 
 /**
  * Class Item.
  *
  * @ORM\Entity
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorColumn(name="type", type="string")
+ * @ORM\DiscriminatorMap({
+ *     "game_item" = "Mush\Item\Entity\GameItem",
+ *     "door" = "Mush\Item\Entity\Door",
+ * })
  */
 class GameItem
 {
@@ -27,7 +34,12 @@ class GameItem
     private int $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="Mush\Status\Entity\Status", mappedBy="gameItem", cascade={"ALL"})
+     * @ORM\OneToMany(
+     *     targetEntity="Mush\Status\Entity\Status",
+     *     mappedBy="gameItem",
+     *     cascade={"ALL"},
+     *     orphanRemoval=true
+     *     )
      */
     private Collection $statuses;
 
@@ -69,7 +81,7 @@ class GameItem
         return $this->item->getActions();
     }
 
-    public function getStatuses(): ?Collection
+    public function getStatuses(): Collection
     {
         return $this->statuses;
     }
@@ -118,6 +130,9 @@ class GameItem
         if (null === $room) {
             $this->room->removeItem($this);
         } elseif ($this->room !== $room) {
+            if ($this->getRoom() !== null) {
+                $this->getRoom()->removeItem($this);
+            }
             $room->addItem($this);
         }
 
@@ -166,5 +181,18 @@ class GameItem
         $this->item = $item;
 
         return $this;
+    }
+
+    public function isBroken(): bool
+    {
+        return $this
+            ->getStatuses()
+            ->exists(fn (int $key, Status $status) => ($status->getName() === ItemStatusEnum::BROKEN))
+            ;
+    }
+
+    public function getBrokenRate(): int
+    {
+        return $this->getItem()->getBreakableRate();
     }
 }

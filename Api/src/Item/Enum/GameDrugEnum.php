@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Mush\Item\Enum;
 
 class GameDrugEnum
@@ -32,7 +31,7 @@ class GameDrugEnum
             self::SOMA,
             self::SPYCE,
             self::TWINOID,
-            self::XENOX
+            self::XENOX,
         ];
     }
 

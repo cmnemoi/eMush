@@ -6,7 +6,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\GameConfig;
-use Mush\Game\Enum\StatusEnum;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Item\CycleHandler\PlantCycleHandler;
@@ -14,7 +13,6 @@ use Mush\Item\Entity\GameItem;
 use Mush\Item\Entity\Item;
 use Mush\Item\Entity\Items\Plant;
 use Mush\Item\Entity\PlantEffect;
-use Mush\Item\Enum\PlantStatusEnum;
 use Mush\Item\Service\GameItemServiceInterface;
 use Mush\Item\Service\ItemEffectServiceInterface;
 use Mush\Player\Entity\Player;
@@ -22,6 +20,8 @@ use Mush\Room\Entity\Room;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
+use Mush\Status\Enum\ItemStatusEnum;
+use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -86,17 +86,13 @@ class PlantCycleHandlerTest extends TestCase
         $this->itemService->shouldReceive('persist')->twice();
         $this->randomService->shouldReceive('randomPercent')->andReturn(100, 1)->twice(); //Plant should not get disease
 
-        $status = new Status();
-        $status->setName(PlantStatusEnum::YOUNG);
-
         $chargeStatus = new ChargeStatus();
-        $chargeStatus->setName(StatusEnum::CHARGE);
+        $chargeStatus->setName(ItemStatusEnum::PLANT_YOUNG);
         $chargeStatus->setCharge(1);
 
         $daedalus = new Daedalus();
         $gamePlant = new GameItem();
         $gamePlant
-            ->addStatus($status)
             ->addStatus($chargeStatus)
             ->setItem($plant)
         ;
@@ -112,13 +108,13 @@ class PlantCycleHandlerTest extends TestCase
         $this->assertFalse(
             $gamePlant
                 ->getStatuses()
-                ->filter(fn (Status $status) => PlantStatusEnum::YOUNG === $status->getName())
+                ->filter(fn (Status $status) => ItemStatusEnum::PLANT_YOUNG === $status->getName())
                 ->isEmpty()
         );
         $this->assertTrue(
             $gamePlant
                 ->getStatuses()
-                ->filter(fn (Status $status) => PlantStatusEnum::DISEASED === $status->getName())
+                ->filter(fn (Status $status) => ItemStatusEnum::PLANT_DISEASED === $status->getName())
                 ->isEmpty()
         );
 
@@ -134,13 +130,13 @@ class PlantCycleHandlerTest extends TestCase
         $this->assertTrue(
             $gamePlant
                 ->getStatuses()
-                ->filter(fn (Status $status) => PlantStatusEnum::YOUNG === $status->getName())
+                ->filter(fn (Status $status) => ItemStatusEnum::PLANT_YOUNG === $status->getName())
                 ->isEmpty()
         );
         $this->assertFalse(
             $gamePlant
                 ->getStatuses()
-                ->filter(fn (Status $status) => PlantStatusEnum::DISEASED === $status->getName())
+                ->filter(fn (Status $status) => ItemStatusEnum::PLANT_DISEASED === $status->getName())
                 ->isEmpty()
         );
     }
@@ -192,10 +188,10 @@ class PlantCycleHandlerTest extends TestCase
         ;
 
         $status = new Status();
-        $status->setName(PlantStatusEnum::THIRSTY);
+        $status->setName(ItemStatusEnum::PLANT_THIRSTY);
         $this->statusService
             ->shouldReceive('createCoreItemStatus')
-            ->with(PlantStatusEnum::THIRSTY, $gamePlant)
+            ->with(ItemStatusEnum::PLANT_THIRSTY, $gamePlant)
             ->andReturn($status)
             ->once()
         ;
@@ -207,10 +203,10 @@ class PlantCycleHandlerTest extends TestCase
         $this->assertEquals(20, $daedalus->getOxygen());
 
         $dried = new Status();
-        $dried->setName(PlantStatusEnum::DRIED);
+        $dried->setName(ItemStatusEnum::PLANT_DRIED_OUT);
         $this->statusService
             ->shouldReceive('createCoreItemStatus')
-            ->with(PlantStatusEnum::DRIED, $gamePlant)->andReturn($dried)
+            ->with(ItemStatusEnum::PLANT_DRIED_OUT, $gamePlant)->andReturn($dried)
             ->once()
         ;
 

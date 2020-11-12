@@ -2,13 +2,12 @@
 
 namespace Mush\Test\Action\Actions;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Action;
-use Mush\Action\Actions\Disassemble;
+use Mush\Action\Actions\Repair;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Service\SuccessRateServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
@@ -18,20 +17,20 @@ use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Item\Entity\GameItem;
 use Mush\Item\Entity\Item;
-use Mush\Item\Entity\Items\Dismountable;
-use Mush\Item\Enum\ItemEnum;
 use Mush\Item\Service\GameItemServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\Attempt;
+use Mush\Status\Entity\Status;
+use Mush\Status\Enum\ItemStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class DisasembleActionTest extends TestCase
+class RepairActionTest extends TestCase
 {
     /** @var RoomLogServiceInterface | Mockery\Mock */
     private RoomLogServiceInterface $roomLogService;
@@ -66,7 +65,7 @@ class DisasembleActionTest extends TestCase
 
         $eventDispatcher->shouldReceive('dispatch');
 
-        $this->action = new Disassemble(
+        $this->action = new Repair(
             $eventDispatcher,
             $this->roomLogService,
             $this->itemService,
@@ -96,36 +95,27 @@ class DisasembleActionTest extends TestCase
             ->setRoom($room)
         ;
 
-        $dismountable = new Dismountable();
-        $dismountable
-            ->setChancesSuccess(10)
-            ->setActionCost(3)
-        ;
-
         $actionParameter = new ActionParameters();
         $actionParameter->setItem($gameItem);
         $player = $this->createPlayer(new Daedalus(), $room);
 
         $this->action->loadParameters($player, $actionParameter);
 
-        //Not dismantable
+        //Not broken
         $result = $this->action->execute();
         $this->assertInstanceOf(Error::class, $result);
 
-        //Not Technician
-        $player->setSkills([]);
-        $item
-            ->setTypes(new ArrayCollection([$dismountable]))
+        $broken = new Status();
+        $broken
+            ->setName(ItemStatusEnum::BROKEN)
         ;
-
-        $result = $this->action->execute();
-        $this->assertInstanceOf(Error::class, $result);
 
         //Not in the same room
-        $player
-            ->addSkill(SkillEnum::TECHNICIAN)
+        $gameItem
+            ->addStatus($broken)
             ->setRoom(new Room())
         ;
+
         $result = $this->action->execute();
         $this->assertInstanceOf(Error::class, $result);
     }
@@ -136,25 +126,23 @@ class DisasembleActionTest extends TestCase
         $room = new Room();
         $gameItem = new GameItem();
         $item = new Item();
-        $gameItem->setItem($item);
-        $gameItem
-            ->setRoom($room)
-        ;
-
-        $dismountable = new Dismountable();
-        $dismountable
-            ->setChancesSuccess(10)
-            ->setActionCost(3)
-            ->setProducts([ItemEnum::METAL_SCRAPS => 1])
-        ;
-
         $item
-            ->setTypes(new ArrayCollection([$dismountable]))
+            ->setBreakableRate(10)
+        ;
+
+        $broken = new Status();
+        $broken
+            ->setName(ItemStatusEnum::BROKEN)
+        ;
+
+        $gameItem
+            ->setItem($item)
+            ->setRoom($room)
+            ->addStatus($broken)
         ;
 
         $this->roomLogService->shouldReceive('createPlayerLog')->twice();
 
-        $this->gameConfig->setMaxItemInInventory(3);
         $this->itemService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
 
@@ -179,31 +167,22 @@ class DisasembleActionTest extends TestCase
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Fail::class, $result);
-        $this->assertCount(1, $room->getItems());
+        $this->assertCount(1, $room->getItems()->first()->getStatuses());
         $this->assertCount(1, $player->getStatuses());
         $this->assertEquals(1, $attempt->getCharge());
-        $this->assertEquals(7, $player->getActionPoint());
+        $this->assertEquals(9, $player->getActionPoint());
 
         $this->successRateService->shouldReceive('getSuccessRate')->andReturn(10)->once();
         $this->randomService->shouldReceive('randomPercent')->andReturn(1)->once();
-        $this->itemService->shouldReceive('delete');
-        $scrap = new GameItem();
-        $this->itemService
-            ->shouldReceive('createGameItemFromName')
-            ->with(ItemEnum::METAL_SCRAPS, $daedalus)
-            ->andReturn($scrap)
-            ->once()
-        ;
 
         //Success
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(0, $room->getItems());
-        $this->assertCount(1, $player->getItems());
-        $this->assertEquals($scrap, $player->getItems()->first());
+        $this->assertCount(1, $room->getItems());
+        $this->assertCount(0, $room->getItems()->first()->getStatuses());
         $this->assertCount(0, $player->getStatuses());
-        $this->assertEquals(4, $player->getActionPoint());
+        $this->assertEquals(8, $player->getActionPoint());
     }
 
     private function createPlayer(Daedalus $daedalus, Room $room): Player

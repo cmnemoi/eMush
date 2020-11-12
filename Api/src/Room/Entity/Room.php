@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Item\Entity\Door;
 use Mush\Item\Entity\GameItem;
 use Mush\Player\Entity\Player;
 
@@ -47,7 +48,7 @@ class Room
     private Collection $items;
 
     /**
-     * @ORM\ManyToMany (targetEntity="Door", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\ManyToMany (targetEntity="Mush\Item\Entity\Door", cascade={"persist"}, orphanRemoval=true)
      */
     private Collection $doors;
 

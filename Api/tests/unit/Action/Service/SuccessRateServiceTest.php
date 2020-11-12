@@ -1,6 +1,5 @@
 <?php
 
-
 namespace unit\Action\Service;
 
 use Mush\Action\Service\SuccessRateService;

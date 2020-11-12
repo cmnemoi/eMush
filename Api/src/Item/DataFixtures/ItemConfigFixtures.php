@@ -13,15 +13,14 @@ use Mush\Item\Entity\Item;
 use Mush\Item\Entity\Items\Blueprint;
 use Mush\Item\Entity\Items\Book;
 use Mush\Item\Entity\Items\Dismountable;
+use Mush\Item\Entity\Items\Drug;
 use Mush\Item\Entity\Items\Fruit;
 use Mush\Item\Entity\Items\Plant;
 use Mush\Item\Entity\Items\Ration;
-use Mush\Item\Entity\Items\Tool;
-use Mush\Item\Entity\Items\Drug;
 use Mush\Item\Entity\Items\Weapon;
+use Mush\Item\Enum\GameDrugEnum;
 use Mush\Item\Enum\GameFruitEnum;
 use Mush\Item\Enum\GamePlantEnum;
-use Mush\Item\Enum\GameDrugEnum;
 use Mush\Item\Enum\ItemEnum;
 use Mush\Status\Enum\DiseaseEnum;
 use Mush\Status\Enum\DisorderEnum;
@@ -38,7 +37,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::STAINPROOF_APRON)
             ->setIsHeavy(false)
-            ->setIsDismantable(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
             ->setIsStackable(false)
@@ -53,7 +51,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::PLASTENITE_ARMOR)
             ->setIsHeavy(false)
-            ->setIsDismantable(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
             ->setIsStackable(false)
@@ -68,7 +65,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::HACKER_KIT)
             ->setIsHeavy(false)
-            ->setIsDismantable(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
             ->setIsStackable(false)
@@ -83,7 +79,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::BLOCK_OF_POST_IT)
             ->setIsHeavy(false)
-            ->setIsDismantable(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
             ->setIsStackable(false)
@@ -104,7 +99,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::BLASTER)
             ->setIsHeavy(false)
-            ->setIsDismantable(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
             ->setIsStackable(false)
@@ -122,7 +116,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ItemEnum::QUADRIMETRIC_COMPASS)
 
             ->setIsHeavy(false)
-            ->setIsDismantable(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
             ->setIsStackable(false)
@@ -138,7 +131,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::CAMERA)
             ->setIsHeavy(false)
-            ->setIsDismantable(false)
             ->setIsTakeable(true)
             ->setIsDropable(false)
             ->setIsStackable(false)
@@ -154,7 +146,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::ADJUSTABLE_WRENCH)
             ->setIsHeavy(false)
-            ->setIsDismantable(false)
             ->setIsTakeable(true)
             ->setIsDropable(false)
             ->setIsStackable(false)
@@ -170,7 +161,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::ROPE)
             ->setIsHeavy(false)
-            ->setIsDismantable(false)
             ->setIsDropable(false)
             ->setIsTakeable(true)
             ->setIsStackable(false)
@@ -185,7 +175,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::KNIFE)
             ->setIsHeavy(false)
-            ->setIsDismantable(false)
             ->setIsTakeable(true)
             ->setIsDropable(false)
             ->setIsStackable(false)
@@ -201,7 +190,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::EXTINGUISHER)
             ->setIsHeavy(false)
-            ->setIsDismantable(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
             ->setIsStackable(false)
@@ -217,7 +205,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::DRILL)
             ->setIsHeavy(false)
-            ->setIsDismantable(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
             ->setIsStackable(false)
@@ -233,7 +220,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::PROTECTIVE_GLOVES)
             ->setIsHeavy(false)
-            ->setIsDismantable(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
             ->setIsStackable(false)
@@ -249,7 +235,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::GRENADE)
             ->setIsHeavy(false)
-            ->setIsDismantable(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
             ->setIsStackable(false)
@@ -265,7 +250,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::HYDROPOT)
             ->setIsHeavy(false)
-            ->setIsDismantable(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
             ->setIsStackable(false)
@@ -281,7 +265,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::DUCT_TAPE)
             ->setIsHeavy(false)
-            ->setIsDismantable(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
             ->setIsStackable(false)
@@ -297,7 +280,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::SOAP)
             ->setIsHeavy(false)
-            ->setIsDismantable(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
             ->setIsStackable(false)
@@ -313,7 +295,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::TABULATRIX)
             ->setIsHeavy(false)
-            ->setIsDismantable(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
             ->setIsStackable(false)
@@ -329,7 +310,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::MAD_KUBE)
             ->setIsHeavy(false)
-            ->setIsDismantable(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
             ->setIsStackable(false)
@@ -352,7 +332,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::MICROWAVE)
             ->setIsHeavy(false)
-            ->setIsDismantable(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
             ->setIsStackable(false)
@@ -371,7 +350,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ItemEnum::SUPERFREEZER)
             ->setIsHeavy(false)
             ->setIsTakeable(true)
-            ->setIsDismantable(false)
             ->setIsDropable(false)
             ->setIsStackable(false)
             ->setIsHideable(false)
@@ -388,7 +366,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ItemEnum::PLASTIC_SCRAPS)
             ->setIsHeavy(false)
             ->setIsTakeable(true)
-            ->setIsDismantable(false)
             ->setIsDropable(true)
             ->setIsStackable(true)
             ->setIsHideable(true)
@@ -404,7 +381,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ItemEnum::METAL_SCRAPS)
             ->setIsHeavy(false)
             ->setIsTakeable(true)
-            ->setIsDismantable(false)
             ->setIsDropable(true)
             ->setIsStackable(true)
             ->setIsHideable(true)
@@ -428,7 +404,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::STANDARD_RATION)
             ->setIsHeavy(false)
-            ->setIsDismantable(false)
             ->setIsTakeable(true)
             ->setIsDropable(false)
             ->setIsStackable(false)
@@ -454,7 +429,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setGameConfig($gameConfig)
             ->setName(GameFruitEnum::BANANA)
             ->setIsHeavy(false)
-            ->setIsDismantable(false)
             ->setIsTakeable(true)
             ->setIsDropable(false)
             ->setIsStackable(false)
@@ -480,7 +454,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setGameConfig($gameConfig)
             ->setName(GamePlantEnum::BANANA_TREE)
             ->setIsHeavy(false)
-            ->setIsDismantable(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
             ->setIsStackable(false)
@@ -509,7 +482,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::APPRENTON_PILOT)
             ->setIsHeavy(false)
-            ->setIsDismantable(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
             ->setIsStackable(true)
@@ -527,7 +499,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::SNIPER_HELMET)
             ->setIsHeavy(false)
-            ->setIsDismantable(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
             ->setIsStackable(false)
@@ -548,7 +519,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::SNIPER_HELMET_BLUEPRINT)
             ->setIsHeavy(false)
-            ->setIsDismantable(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
             ->setIsStackable(true)
@@ -579,8 +549,8 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
                 DiseaseEnum::TAPEWORM,
                 DisorderEnum::PARANOIA,
                 DisorderEnum::DEPRESSION,
-                DisorderEnum::CHRONIC_MIGRAINE])
-            ->setCuresNumber([1,2,3,4])
+                DisorderEnum::CHRONIC_MIGRAINE, ])
+            ->setCuresNumber([1, 2, 3, 4])
         ;
 
         $bacta = new Item();
@@ -588,7 +558,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setGameConfig($gameConfig)
             ->setName(GameDrugEnum::BACTA)
             ->setIsHeavy(false)
-            ->setIsDismantable(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
             ->setIsStackable(true)

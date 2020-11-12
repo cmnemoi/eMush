@@ -4,14 +4,12 @@ namespace Mush\Item\CycleHandler;
 
 use Mush\Game\CycleHandler\CycleHandlerInterface;
 use Mush\Game\Entity\GameConfig;
-use Mush\Status\Enum\StatusEnum;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Item\Entity\GameItem;
 use Mush\Item\Entity\Items\Plant;
 use Mush\Item\Entity\PlantEffect;
 use Mush\Item\Enum\ItemEnum;
-use Mush\Status\Enum\ItemStatusEnum;
 use Mush\Item\Service\GameItemServiceInterface;
 use Mush\Item\Service\ItemEffectServiceInterface;
 use Mush\Player\Entity\Player;
@@ -19,6 +17,7 @@ use Mush\RoomLog\Enum\PlantLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\Status;
+use Mush\Status\Enum\ItemStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
 class PlantCycleHandler implements CycleHandlerInterface
@@ -106,7 +105,7 @@ class PlantCycleHandler implements CycleHandlerInterface
             $plantStatus->filter(
                 fn (Status $status) => in_array(
                     $status->getName(),
-                    [ItemStatusEnum::PLANT_DRIED, ItemStatusEnum::PLANT_DISEASED, ItemStatusEnum::PLANT_YOUNG]
+                    [ItemStatusEnum::PLANT_DRIED_OUT, ItemStatusEnum::PLANT_DISEASED, ItemStatusEnum::PLANT_YOUNG]
                 )
             )->isEmpty()
         ) {
@@ -131,10 +130,10 @@ class PlantCycleHandler implements CycleHandlerInterface
         // If plant was thirsty, become dried
         if (($thirsty = $gamePlant->getStatusByName(ItemStatusEnum::PLANT_THIRSTY)) !== null) {
             $gamePlant->removeStatus($thirsty);
-            $driedStatus = $this->statusService->createCoreItemStatus(ItemStatusEnum::PLANT_DRIED, $gamePlant);
+            $driedStatus = $this->statusService->createCoreItemStatus(ItemStatusEnum::PLANT_DRIED_OUT, $gamePlant);
             $gamePlant->addStatus($driedStatus);
         // If plant was dried, become hydropot
-        } elseif ($gamePlant->getStatusByName(ItemStatusEnum::PLANT_DRIED) !== null) {
+        } elseif ($gamePlant->getStatusByName(ItemStatusEnum::PLANT_DRIED_OUT) !== null) {
             $this->handleDriedPlant($gamePlant, $dateTime);
         // If plant was not thirsty or dried become thirsty
         } else {
@@ -179,7 +178,7 @@ class PlantCycleHandler implements CycleHandlerInterface
                 fn (Status $status) => in_array(
                     $status->getName(),
                     [
-                        ItemStatusEnum::PLANT_DRIED,
+                        ItemStatusEnum::PLANT_DRIED_OUT,
                         ItemStatusEnum::PLANT_DISEASED,
                         ItemStatusEnum::PLANT_YOUNG,
                         ItemStatusEnum::PLANT_THIRSTY,

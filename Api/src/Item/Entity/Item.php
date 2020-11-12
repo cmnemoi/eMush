@@ -55,9 +55,9 @@ class Item
     private bool $isDropable;
 
     /**
-     * @ORM\Column(type="boolean", nullable=false)
+     * @ORM\Column(type="integer", nullable=false)
      */
-    private bool $isDismantable;
+    private int $breakableRate = 0;
 
     /**
      * @ORM\Column(type="boolean", nullable=false)
@@ -191,14 +191,14 @@ class Item
         return $this;
     }
 
-    public function isDismantable(): bool
+    public function getBreakableRate(): int
     {
-        return $this->isDismantable;
+        return $this->breakableRate;
     }
 
-    public function setIsDismantable(bool $isDismantable): Item
+    public function setBreakableRate(int $breakableRate): Item
     {
-        $this->isDismantable = $isDismantable;
+        $this->breakableRate = $breakableRate;
 
         return $this;
     }

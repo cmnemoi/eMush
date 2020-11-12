@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Item\Entity\Door;
 use Mush\Item\Entity\GameItem;
 use Mush\Room\Entity\Room;
 use Mush\Status\Entity\Collection\MedicalConditionCollection;
@@ -63,7 +64,7 @@ class Player
     private Collection $items;
 
     /**
-     * @ORM\OneToMany(targetEntity="Mush\Status\Entity\Status", mappedBy="player", cascade={"ALL"})
+     * @ORM\OneToMany(targetEntity="Mush\Status\Entity\Status", mappedBy="player", cascade={"ALL"}, orphanRemoval=true)
      */
     private Collection $statuses;
 
@@ -173,6 +174,13 @@ class Player
      */
     public function canReachItem(GameItem $gameItem): bool
     {
+        if (
+            $gameItem instanceof Door &&
+            $this->getRoom()->getDoors()->contains($gameItem)
+        ) {
+            return true;
+        }
+
         return $this->items->contains($gameItem) || $this->room->getItems()->contains($gameItem);
     }
 

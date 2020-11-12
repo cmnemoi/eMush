@@ -55,14 +55,10 @@ class ItemEffectServiceTest extends TestCase
         $ration = new Ration();
 
         $ration
-            ->setMinHealthPoint(0)
-            ->setMaxHealthPoint(10)
-            ->setMinMoralPoint(0)
-            ->setMaxMoralPoint(10)
-            ->setMinActionPoint(0)
-            ->setMaxActionPoint(10)
-            ->setMinMovementPoint(0)
-            ->setMaxMovementPoint(10)
+            ->setHealthPoints([0, 1, 2])
+            ->setMoralPoints([0, 1, 2])
+            ->setActionPoints([0, 1, 2])
+            ->setMovementPoints([0, 1, 2])
         ;
         $consumableEffectFromRepository = new ConsumableEffect();
         $this->consumableEffectRepository
@@ -87,18 +83,18 @@ class ItemEffectServiceTest extends TestCase
         ;
 
         $this->randomService
-            ->shouldReceive('random')
-            ->andReturn(7)
+            ->shouldReceive('getRandomElements')
+            ->andReturn([2])
         ;
         $consumableEffect = $this->service->getConsumableEffect($ration, $daedalus);
 
         $this->assertInstanceOf(ConsumableEffect::class, $consumableEffect);
         $this->assertEquals($daedalus, $consumableEffect->getDaedalus());
         $this->assertEquals($ration, $consumableEffect->getRation());
-        $this->assertEquals(7, $consumableEffect->getActionPoint());
-        $this->assertEquals(7, $consumableEffect->getMovementPoint());
-        $this->assertEquals(7, $consumableEffect->getHealthPoint());
-        $this->assertEquals(7, $consumableEffect->getMoralPoint());
+        $this->assertEquals(2, $consumableEffect->getActionPoint());
+        $this->assertEquals(2, $consumableEffect->getMovementPoint());
+        $this->assertEquals(2, $consumableEffect->getHealthPoint());
+        $this->assertEquals(2, $consumableEffect->getMoralPoint());
     }
 
     public function testGetPlantEffect()

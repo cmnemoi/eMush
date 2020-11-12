@@ -50,16 +50,7 @@ export default {
     width: 100%;
     height: 100%;
     background: transparentize(#C2F3FC, .6);
-
-    --bezel-size: 6.5px;
-    clip-path: polygon(
-      var(--bezel-size) 0,
-      calc(100% - var(--bezel-size)) 0,
-      100% var(--bezel-size),
-      100% 100%,
-      0 100%,
-      0 var(--bezel-size)
-    );
+    @include corner-bezel(6.5px, 6.5px, 0px);
   }
 
   & .room {
@@ -78,14 +69,7 @@ export default {
     width: 240px;
     height: 200px;
     background: #070724;
-
-    clip-path: polygon(
-      0 0,
-      calc(100% - var(--bezel-size)) 0,
-      100% var(--bezel-size),
-      100% 100%,
-      0 100%,
-    );
+    @include corner-bezel(0px, 18px, 0px);
 
     transform: scale(.5);
     transform-origin: bottom left;

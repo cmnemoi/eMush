@@ -19,7 +19,12 @@
         <div class="main-message">
           <img src="@/assets/images/char/body/jin_su.png">
           <p><span class="author">Jin Su :</span>It would be nice to set up BIOS. Any IT Expert up to it?</p>
-          <span class="timestamp">moments ago</span>
+          <ul class="reacts">
+            <li><a href="#">Reply</a></li>
+            <li><a href="#">Favorite</a></li>
+            <li><a href="#">!!</a></li>
+            <li class="timestamp">moments ago</li>
+          </ul>
           
         </div>
         <div>
@@ -32,7 +37,12 @@
             <strong>Inhibit DMZ-CorePeace</strong> : Yes<br />
             <em>Find us an O2 planet!</em>
           </p>
-          <span class="timestamp">moments ago</span>
+          <ul class="reacts">
+            <li><a href="#">Reply</a></li>
+            <li><a href="#">Favorite</a></li>
+            <li><a href="#">!!</a></li>
+            <li class="timestamp">moments ago</li>
+          </ul>
           
         </div>
       </div>
@@ -41,44 +51,88 @@
         <div class="main-message neron new">
           <img src="@/assets/images/comms/neron_chat.png">
           <p><span class="author">NERON :</span><strong>Gravity Simulator</strong> engaged, nice. <em>Move Humans more fastly</em>. You not get dirt everywhere! [Hax!]</p>
-          <span class="timestamp">25min</span>
+          <ul class="reacts">
+            <li><a href="#">Reply</a></li>
+            <li><a href="#">Favorite</a></li>
+            <li><a href="#">!!</a></li>
+            <li class="timestamp">25min</li>
+          </ul>
         
         </div>
         <div class="new">
           <p><img src="@/assets/images/char/head/hua.png"><span class="author">Hua :</span>Dirty dismantling the shower.</p>
-          <span class="timestamp">~1h</span>
+          <ul class="reacts">
+            <li><a href="#">Reply</a></li>
+            <li><a href="#">Favorite</a></li>
+            <li><a href="#">!!</a></li>
+            <li class="timestamp">~1h</li>
+          </ul>
         </div>
         <div class="new">
           <p><img src="@/assets/images/char/head/paola.png"><span class="author">Paola :</span>Thanks Hua, got my sofa ready on the bridge now :)</p>
-          <span class="timestamp">~1h</span>
-        </div>
+          <ul class="reacts">
+            <li><a href="#">Reply</a></li>
+            <li><a href="#">Favorite</a></li>
+            <li><a href="#">!!</a></li>
+            <li class="timestamp">~1h</li>
+          </ul>        </div>
       </div>
 
       <div class="unit">
         <div class="main-message new">
           <img src="@/assets/images/char/body/ian.png">
           <p><span class="author">Ian :</span><strong><em>Piloting</em></strong></p>
-          <span class="timestamp">~5d</span>
+          <ul class="reacts">
+            <li><a href="#">Reply</a></li>
+            <li><a href="#">Favorite</a></li>
+            <li><a href="#">!!</a></li>
+            <li class="timestamp">~5d</li>
+          </ul>
         </div>
         <div>
           <p><img src="@/assets/images/char/head/jin_su.png"><span class="author">Jin Su :</span>So far eight hunters shot total (3 + 5), no scrap collected yet.</p>
-          <span class="timestamp">~3d</span>
+          <ul class="reacts">
+            <li><a href="#">Reply</a></li>
+            <li><a href="#">Favorite</a></li>
+            <li><a href="#">!!</a></li>
+            <li class="timestamp">~3d</li>
+          </ul>
         </div>
         <div>
           <p><img src="@/assets/images/char/head/ian.png"><span class="author">Ian :</span>Excellent sir, I can see why they have you training the new pilots :P</p>
-          <span class="timestamp">~3d</span>
+          <ul class="reacts">
+            <li><a href="#">Reply</a></li>
+            <li><a href="#">Favorite</a></li>
+            <li><a href="#">!!</a></li>
+            <li class="timestamp">~3d</li>
+          </ul>
         </div>
         <div>
           <p><img src="@/assets/images/char/head/jin_su.png"><span class="author">Jin Su :</span>Kind of you to say so, yet I sadly can't agree. In fact I find our hull's exellency wanting. It shall be restored once we collected scrap and built the oscilloscope.</p>
-          <span class="timestamp">~1d</span>
+          <ul class="reacts">
+            <li><a href="#">Reply</a></li>
+            <li><a href="#">Favorite</a></li>
+            <li><a href="#">!!</a></li>
+            <li class="timestamp">~1d</li>
+          </ul>
         </div>
         <div>
           <p><img src="@/assets/images/char/head/jin_su.png"><span class="author">Jin Su :</span>Scrap collected, still a bit left.</p>
-          <span class="timestamp">~1d</span>
+          <ul class="reacts">
+            <li><a href="#">Reply</a></li>
+            <li><a href="#">Favorite</a></li>
+            <li><a href="#">!!</a></li>
+            <li class="timestamp">~1d</li>
+          </ul>
         </div>
         <div>
           <p><img src="@/assets/images/char/head/paola.png"><span class="author">Paola :</span>This topic is discriminating, I vote for a new one simply labeled "hunters" or "attackers"</p>
-          <span class="timestamp">~1d</span>
+          <ul class="reacts">
+            <li><a href="#">Reply</a></li>
+            <li><a href="#">Favorite</a></li>
+            <li><a href="#">!!</a></li>
+            <li class="timestamp">~1d</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -166,10 +220,10 @@ export default {
     & textarea {
       position: sticky;
       resize: vertical;
-      min-height: 29px;
-      margin: 7px 7px 4px 7px;
-      padding: 3px 5px;
-      font-style: italic;
+      min-height: 28px;
+      max-height: 80%;
+      margin: 6px 6px 4px 6px;
+      padding: 5px;
       opacity: .85;
 
       box-shadow: 0px 1px 0px white;
@@ -177,9 +231,6 @@ export default {
       border-radius: 3px;
 
       &:active, &:focus {
-        min-height: 48px;
-        max-height: 80%;
-        font-style: initial;
         opacity: 1;
       }
     }
@@ -188,6 +239,7 @@ export default {
       overflow: auto;
       padding: 7px;
       color: #090a61;
+      border-top: 1px solid #aad4e5;
 
       & .unit {
         display: block;
@@ -196,6 +248,9 @@ export default {
         border-bottom: 1px solid rgb(170, 212, 229);
 
         & div {
+          $react-transition-time: .4s;
+          $react-transition-delay: .8s;
+
           position: relative;
           display: block;
           clear: both;
@@ -217,15 +272,45 @@ export default {
             & em {color: #cf1830;}
           }
 
-          & .timestamp {
+          & .reacts {
             position: absolute;
             z-index: 2;
-            right: 5px;
-            bottom: 5px;
+            right: 0;
+            bottom: 0;
+            border-radius: 2px;
             font-size: .85em;
             font-style: italic;
             opacity: .5;
             float: right;
+            background: transparentize(white, 1);
+            transition: all ($react-transition-time / 2);
+
+            & li {
+              padding: 1px 3px;
+              transition: all ($react-transition-time / 2);
+              &:not(.timestamp) { visibility: none; opacity: 0; }
+            }
+
+            & a {
+              color: inherit;
+              text-decoration: none;
+              font-weight: 700;
+              &:hover, &:focus { text-decoration: underline; }
+            }
+          }
+
+          &:hover .reacts, &:focus .reacts {
+            opacity: 1;
+            bottom: -8px;
+            background: white;
+            transition: all $react-transition-time $react-transition-delay;
+
+            & li {
+              visibility: visible;
+              opacity: 1;
+              transition:
+                visibility 0s $react-transition-delay, opacity $react-transition-time $react-transition-delay;
+            }
           }
 
           &.new:not(.neron) p, &.new.neron {
@@ -234,9 +319,9 @@ export default {
             &::after {
               content:"";
               position: absolute;
-              top: 7px;
+              top: 0;
+              bottom: 0;  
               left: -6px;
-              height: 11px;
               width: 11px;
               background: transparent url('~@/assets/images/comms/thinklinked.png') center no-repeat;
             }
@@ -262,7 +347,6 @@ export default {
 
             &.new p {
               &::before { border-right-color: #EA9104 }
-              &::after { top: 22px; }
             }
           }
 
@@ -277,12 +361,9 @@ export default {
               font-variant: small-caps;
               color: inherit;
               background: transparent;
-              & .author{ color: inherit; }
+              & .author { color: inherit; }
               &::before { content: none; }
-              &::after { top: 8px;}
             }
-
-            &::after { top: 12px !important; }
           }
 
           &:not(.main-message) {
@@ -349,5 +430,19 @@ export default {
       }
     }
   }
+
+/* SCROLLBAR STYLING */
+
+  & .chatbox, {
+    --scrollbarBG: white;
+    --thumbBG: #090a61;
+
+    scrollbar-width: thin;
+    scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+    &::-webkit-scrollbar { width: 6px; }
+    &::-webkit-scrollbar-track { background: var(--scrollbarBG); }
+    &::-webkit-scrollbar-thumb { background-color: var(--thumbBG); }
+  }
 }
+
 </style>

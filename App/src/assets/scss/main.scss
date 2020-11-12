@@ -1,6 +1,43 @@
 @import "~@/assets/css/normalize.css";
 @import "background.scss";
-@import "gamevue.scss";
+
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 200;
+  src: url('~@/assets/fonts/lato/Lato-Light.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-weight: 200;
+  src: url('~@/assets/fonts/lato/Lato-LightItalic.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  src: url('~@/assets/fonts/lato/Lato-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-weight: 400;
+  src: url('~@/assets/fonts/lato/Lato-Italic.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 700;
+  src: url('~@/assets/fonts/lato/Lato-Black.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-weight: 700;
+  src: url('~@/assets/fonts/lato/Lato-BlackItalic.ttf') format('truetype');
+}
+
 
 @font-face {
   font-family: 'Days-One';

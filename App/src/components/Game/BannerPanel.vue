@@ -96,36 +96,17 @@ p, a, li, span {
   flex-direction: row;
 
   & .in-game-level {
-
-    --bezel-size: 11.5px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @include button-style(1.4em);
+    @include corner-bezel(12px, 0px);
 
     width: 52px;
     height: 35px;
-    font-size: 17pt;
     border: 1px solid rgba(4,21,156,1);
     border-radius: 4px;
-    background: rgb(0,60,195);
-    background: linear-gradient(0deg, rgba(0,60,195,1) 2%, rgba(0,116,223,1) 6%, rgba(0,116,223,1) 46%, rgba(0,142,229,1) 54%, rgba(0,142,229,1) 94%, rgba(73,156,229,1) 96%);
-
-    clip-path: polygon(
-      var(--bezel-size) 0,
-      100% 0,
-      100% 100%,
-      0 100%,
-      0 var(--bezel-size)
-    );
 
     margin: auto;
     padding-right: 4px;
     font-family: Days-One;
-    font-weight: 700;
-    color: white;
-    text-decoration: none;
-    text-shadow: 0 0 4px #15273C;
   }
 
   & .in-game-level-progress {

@@ -58,7 +58,7 @@
           <li><a href="#">Lâcher</a></li>
           <li><a href="#">Examiner</a></li>
           <li><a href="#">1 <img src="@/assets/images/pa.png" alt="ap"> Caresser</a></li>
-          <li class="crossed"><a href="#">1 <img src="@/assets/images/pa.png" alt="ap"> Câlin infectieux</a></li>
+          <li ><a class="crossed" href="#">1 <img src="@/assets/images/pa.png" alt="ap"> Câlin infectieux</a></li>
         </ul>
       </div>
     </div>
@@ -233,39 +233,9 @@ export default {
         flex-direction: column;
 
         & li a {
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-          justify-content: center;
+          @include button-style();
           min-height: 19px;
           width: auto;
-          margin: 1px;
-          padding-bottom: 2px;
-          border-radius: 1px;
-          color: white ;
-          font-size: .83em;
-          font-weight: 700;
-          letter-spacing: .03em;
-          text-decoration: none;
-          font-variant: small-caps;
-          text-align: center;
-          text-shadow: 0 0 4px #15273C, 0 0 4px #15273C;
-          box-shadow: 0 0 0 1px rgba(12,18,137,1);
-          background: #003cc3;
-          background: linear-gradient(0deg, #003cc3 2%, #0074df 6%, #0074df 46%, #008ee5 54%, #008ee5 94%, #499ce5 96%);
-
-          & img {
-            padding: 0 .3em;
-          }
-
-          &:hover{
-            background: #003cc3;
-            background: linear-gradient(0deg, #0061D5 2%, #00A0E9 6%, #00A0E9 46%, #00B3ED 54%, #00B3ED 94%, #40B5EC 96%);
-          }
-        }
-        & li.crossed a {
-          opacity: .5;
-          text-decoration: line-through;
         }
       }
     }
@@ -317,36 +287,13 @@ export default {
         flex-direction: row;
 
         & > div {
-          border-radius: 3px;
-          background: rgb(17,18,48);
-          background: linear-gradient(0deg, rgba(17,18,48,1) 0%, rgba(53,56,152,1) 100%);
 
           & ul {
-            $border: 1px;
             display: block;
             flex-direction: column;
             align-items: center;
-            margin: 1px;
-            padding: 1px;
-            border-radius: 2px;
-            border: 1px solid;
-            border-image-slice: 1;
-            border-width: 1px;
-            border-image-source: linear-gradient(0deg, rgba(13,44,115,1) 0%, rgba(89,164,216,1) 100%);
-            --bezel-size: 2px;
-            clip-path: polygon(
-              var(--bezel-size) 0,
-              calc(100% - var(--bezel-size)) 0,
-              100% var(--bezel-size),
-              100% calc(100% - var(--bezel-size)),
-              calc(100% - var(--bezel-size)) 100%,
-              var(--bezel-size) 100%,
-              0 calc(100% - var(--bezel-size)),
-              0 var(--bezel-size)
-            );
-            /* all border parameters allow for a gradient border, clip-path is a workaround to simulate border-radius */
-            background: rgb(17,18,48);
-            background: linear-gradient(0deg, rgba(17,18,48,1) 0%, rgba(53,56,152,1) 100%);
+            border: 3px solid transparent;
+            border-image: url('~@/assets/images/actionpoints_bg.svg') 40% stretch;
 
             & li {
               width: 5px;

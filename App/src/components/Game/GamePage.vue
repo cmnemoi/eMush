@@ -8,6 +8,7 @@
         <ShipPanel></ShipPanel>
         <CommsPanel></CommsPanel>
       </div>
+      <ProjectsPanel></ProjectsPanel>
       <div class="bottom-banner"></div>
   </div>
 </template>
@@ -16,14 +17,16 @@
 import BannerPanel from "@/components/Game/BannerPanel";
 import CharPanel from "@/components/Game/CharPanel";
 import ShipPanel from "@/components/Game/ShipPanel";
-import CommsPanel from "@/components/Game/CommsPanel";
+import CommsPanel from "@/components/Game/CommsPanel_proto1";
+import ProjectsPanel from "@/components/Game/ProjectsPanel";
 export default {
   name: 'GamePage',
   components: {
     BannerPanel,
     CharPanel,
     ShipPanel,
-    CommsPanel
+    CommsPanel,
+    ProjectsPanel
   },
   props: {
   }

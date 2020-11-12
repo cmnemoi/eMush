@@ -1,11 +1,13 @@
 /* MIXIN */
 
 
-/* Add a clip-path with bezel-cuts for each corners of the element, clockwise starting from top left */
-@mixin corner-bezel($topleft: 0, $topright: -1, $bottomright: -1, $bottomleft: -1) {
-  @if $topright    = -1 { $topright    : $topleft;     }
-  @if $bottomright = -1 { $bottomright : $topright;    }
-  @if $bottomleft  = -1 { $bottomleft  : $bottomright; }
+/* Add a clip-path with bezel-cuts for each corners of the element.
+Corners values stand clockwise starting from top left. Always specify units (default is px).
+Missing values in @include will inherit previous corner value. */
+@mixin corner-bezel($topleft: 0px, $topright: -1, $bottomright: -1, $bottomleft: -1) {
+  @if $topright    == -1 { $topright    : $topleft;     }
+  @if $bottomright == -1 { $bottomright : $topright;    }
+  @if $bottomleft  == -1 { $bottomleft  : $bottomright; }
 
   clip-path: polygon(
     $topleft 0,
@@ -17,4 +19,57 @@
     0 calc(100% - #{$bottomleft}),
     0 $topleft
   );
+}
+
+
+
+@mixin button-style ($font-size: .83em, $font-weight: 700, $font-variant: small-caps) {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 1px;
+  padding-bottom: 2px;
+  border-radius: 1px;
+
+  color: white;
+  font-size: $font-size;
+  font-weight: $font-weight;
+  font-variant: $font-variant;
+  letter-spacing: .03em;
+  text-decoration: none;
+  text-align: center;
+  text-shadow: 0 0 4px rgb(21, 39, 60), 0 0 4px rgb(21, 39, 60);
+
+  box-shadow: 0 0 0 1px rgba(12,18,137,1);
+  background: rgb(0, 60, 195);
+  background: linear-gradient(0deg, 
+    rgb(0,  60,  195) 2%, 
+    rgb(0,  116, 223) 6%, 
+    rgb(0,  116, 224) 46%, 
+    rgb(0,  142, 229) 54%, 
+    rgb(0,  142, 229) 94%, 
+    rgb(73, 156, 229) 96%
+  );
+
+  &:hover, &:focus {
+    background: rgb(0, 60, 195);
+    background: linear-gradient(0deg, 
+      rgb(0,  97,  213) 2%, 
+      rgb(0,  160, 233) 6%, 
+      rgb(0,  160, 233) 46%, 
+      rgb(0,  179, 237) 54%, 
+      rgb(0,  179, 237) 94%, 
+      rgb(64, 181, 236) 96%
+    );
+  }
+
+  & img {
+    padding: 0 .3em;
+  }
+
+  &.crossed {
+    opacity: .5;
+    text-decoration: line-through;
+  }
 }

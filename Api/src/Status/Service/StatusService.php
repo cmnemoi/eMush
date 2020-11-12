@@ -40,7 +40,8 @@ class StatusService implements StatusServiceInterface
         GameItem $gameItem,
         string $strategy,
         int $charge = 0,
-        int $threshold = null
+        int $threshold = null,
+        bool $autoRemove = false
     ): ChargeStatus {
         $status = new ChargeStatus();
         $status
@@ -50,6 +51,29 @@ class StatusService implements StatusServiceInterface
             ->setGameItem($gameItem)
             ->setCharge($charge)
             ->setThreshold($threshold)
+            ->setAutoRemove($autoRemove)
+        ;
+
+        return $status;
+    }
+
+    public function createChargePlayerStatus(
+        string $statusName,
+        Player $player,
+        string $strategy,
+        int $charge = 0,
+        int $threshold = null,
+        bool $autoRemove = false
+    ): ChargeStatus {
+        $status = new ChargeStatus();
+        $status
+            ->setName($statusName)
+            ->setStrategy($strategy)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setPlayer($player)
+            ->setCharge($charge)
+            ->setThreshold($threshold)
+            ->setAutoRemove($autoRemove)
         ;
 
         return $status;

@@ -559,7 +559,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($blueprintSniperHelmetType);
         $manager->persist($blueprintSniperHelmet);
-        
+
         $drugType = new Drug();
         $drugType
             ->setSatiety(0)

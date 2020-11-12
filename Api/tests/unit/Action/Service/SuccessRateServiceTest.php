@@ -36,15 +36,15 @@ class SuccessRateServiceTest extends TestCase
 
         //Modificator with 3 adjustable wrench
         $this->assertEquals(37, $service->getSuccessRate(25, 0, $keyModificator));
-        $this->assertEquals(56, $service->getSuccessRate(25, 0, $keyModificator**2));
-        $this->assertEquals(84, $service->getSuccessRate(25, 0, $keyModificator**3));
+        $this->assertEquals(56, $service->getSuccessRate(25, 0, $keyModificator ** 2));
+        $this->assertEquals(84, $service->getSuccessRate(25, 0, $keyModificator ** 3));
 
         //Technician Modificator with 3 adjustable wrench
 
         $this->assertEquals(30, $service->getSuccessRate(25, 0, 1, $expert));
         $this->assertEquals(55, $service->getSuccessRate(25, 0, $technician, $expert));
-        $this->assertEquals(42, $service->getSuccessRate(25, 0, $keyModificator**1, $expert));
-        $this->assertEquals(61, $service->getSuccessRate(25, 0, $keyModificator**2, $expert));
-        $this->assertEquals(89, $service->getSuccessRate(25, 0, $keyModificator**3, $expert));
+        $this->assertEquals(42, $service->getSuccessRate(25, 0, $keyModificator ** 1, $expert));
+        $this->assertEquals(61, $service->getSuccessRate(25, 0, $keyModificator ** 2, $expert));
+        $this->assertEquals(89, $service->getSuccessRate(25, 0, $keyModificator ** 3, $expert));
     }
 }

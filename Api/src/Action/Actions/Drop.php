@@ -6,7 +6,7 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Game\Enum\StatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Item\Entity\GameItem;
 use Mush\Item\Entity\Item;
 use Mush\Item\Service\GameItemServiceInterface;
@@ -62,7 +62,7 @@ class Drop extends Action
 
         // Remove BURDENED status if no other heavy item in the inventory
         if (
-            ($burdened = $this->player->getStatusByName(StatusEnum::BURDENED)) &&
+            ($burdened = $this->player->getStatusByName(PlayerStatusEnum::BURDENED)) &&
             $this->player->getItems()->exists(fn (Item $item) => $item->isHeavy())
         ) {
             $this->player->removeStatus($burdened);

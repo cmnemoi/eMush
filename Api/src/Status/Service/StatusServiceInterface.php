@@ -19,7 +19,17 @@ interface StatusServiceInterface
         GameItem $gameItem,
         string $strategy,
         int $charge = 0,
-        int $threshold = null
+        int $threshold = null,
+        bool $autoRemove = false
+    ): ChargeStatus;
+
+    public function createChargePlayerStatus(
+        string $statusName,
+        Player $player,
+        string $strategy,
+        int $charge = 0,
+        int $threshold = null,
+        bool $autoRemove = false
     ): ChargeStatus;
 
     public function createAttemptStatus(string $statusName, string $action, Player $player): Attempt;

@@ -84,6 +84,12 @@ class Status
 
     public function setPlayer(?Player $player): Status
     {
+        if (null === $player && null !== $this->player) {
+            $this->player->removeStatus($this);
+        } elseif ($this->player !== $player) {
+            $player->addStatus($this);
+        }
+
         $this->player = $player;
 
         return $this;
@@ -96,6 +102,12 @@ class Status
 
     public function setGameItem(?GameItem $gameItem): Status
     {
+        if (null === $gameItem && null !== $this->gameItem) {
+            $this->gameItem->removeStatus($this);
+        } elseif ($this->gameItem !== $gameItem) {
+            $gameItem->addStatus($this);
+        }
+
         $this->gameItem = $gameItem;
 
         return $this;

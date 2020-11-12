@@ -4,14 +4,14 @@ namespace Mush\Item\CycleHandler;
 
 use Mush\Game\CycleHandler\CycleHandlerInterface;
 use Mush\Game\Entity\GameConfig;
-use Mush\Game\Enum\StatusEnum;
+use Mush\Status\Enum\StatusEnum;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Item\Entity\GameItem;
 use Mush\Item\Entity\Items\Plant;
 use Mush\Item\Entity\PlantEffect;
 use Mush\Item\Enum\ItemEnum;
-use Mush\Item\Enum\PlantStatusEnum;
+use Mush\Status\Enum\ItemStatusEnum;
 use Mush\Item\Service\GameItemServiceInterface;
 use Mush\Item\Service\ItemEffectServiceInterface;
 use Mush\Player\Entity\Player;
@@ -61,7 +61,7 @@ class PlantCycleHandler implements CycleHandlerInterface
         if ($this->randomService->randomPercent() <= self::DISEASE_PERCENTAGE) {
             $diseased = new Status();
             $diseased
-                ->setName(PlantStatusEnum::DISEASED)
+                ->setName(ItemStatusEnum::PLANT_DISEASED)
                 ->setVisibility(VisibilityEnum::PUBLIC)
                 ->setGameItem($gamePlant)
             ;
@@ -70,12 +70,9 @@ class PlantCycleHandler implements CycleHandlerInterface
 
         $plantEffect = $this->itemEffectService->getPlantEffect($plantType, $daedalus);
 
-        $plantChargeStatus = $gamePlant->getStatusByName(StatusEnum::CHARGE);
-
         if (
-            ($youngStatus = $gamePlant->getStatusByName(PlantStatusEnum::YOUNG)) &&
-            null !== $plantChargeStatus &&
-            $plantChargeStatus->getCharge() >= $plantEffect->getMaturationTime()
+            ($youngStatus = $gamePlant->getStatusByName(ItemStatusEnum::PLANT_YOUNG)) &&
+            $youngStatus->getCharge() >= $plantEffect->getMaturationTime()
         ) {
             $gamePlant->removeStatus($youngStatus);
             $this->roomLogService->createItemLog(
@@ -109,7 +106,7 @@ class PlantCycleHandler implements CycleHandlerInterface
             $plantStatus->filter(
                 fn (Status $status) => in_array(
                     $status->getName(),
-                    [PlantStatusEnum::DRIED, PlantStatusEnum::DISEASED, PlantStatusEnum::YOUNG]
+                    [ItemStatusEnum::PLANT_DRIED, ItemStatusEnum::PLANT_DISEASED, ItemStatusEnum::PLANT_YOUNG]
                 )
             )->isEmpty()
         ) {
@@ -117,7 +114,7 @@ class PlantCycleHandler implements CycleHandlerInterface
             if (
                 $plantStatus->filter(fn (Status $status) => in_array(
                     $status->getName(),
-                    [PlantStatusEnum::THIRSTY]
+                    [ItemStatusEnum::PLANT_THIRSTY]
                 ))->isEmpty()
             ) {
                 $this->addFruit($gamePlant, $plantType, $dateTime);
@@ -132,16 +129,16 @@ class PlantCycleHandler implements CycleHandlerInterface
     private function handleStatus(GameItem $gamePlant, \DateTime $dateTime)
     {
         // If plant was thirsty, become dried
-        if (($thirsty = $gamePlant->getStatusByName(PlantStatusEnum::THIRSTY)) !== null) {
+        if (($thirsty = $gamePlant->getStatusByName(ItemStatusEnum::PLANT_THIRSTY)) !== null) {
             $gamePlant->removeStatus($thirsty);
-            $driedStatus = $this->statusService->createCoreItemStatus(PlantStatusEnum::DRIED, $gamePlant);
+            $driedStatus = $this->statusService->createCoreItemStatus(ItemStatusEnum::PLANT_DRIED, $gamePlant);
             $gamePlant->addStatus($driedStatus);
         // If plant was dried, become hydropot
-        } elseif ($gamePlant->getStatusByName(PlantStatusEnum::DRIED) !== null) {
+        } elseif ($gamePlant->getStatusByName(ItemStatusEnum::PLANT_DRIED) !== null) {
             $this->handleDriedPlant($gamePlant, $dateTime);
         // If plant was not thirsty or dried become thirsty
         } else {
-            $thirstyStatus = $this->statusService->createCoreItemStatus(PlantStatusEnum::THIRSTY, $gamePlant);
+            $thirstyStatus = $this->statusService->createCoreItemStatus(ItemStatusEnum::PLANT_THIRSTY, $gamePlant);
             $gamePlant->addStatus($thirstyStatus);
         }
     }
@@ -182,10 +179,10 @@ class PlantCycleHandler implements CycleHandlerInterface
                 fn (Status $status) => in_array(
                     $status->getName(),
                     [
-                        PlantStatusEnum::DRIED,
-                        PlantStatusEnum::DISEASED,
-                        PlantStatusEnum::YOUNG,
-                        PlantStatusEnum::THIRSTY,
+                        ItemStatusEnum::PLANT_DRIED,
+                        ItemStatusEnum::PLANT_DISEASED,
+                        ItemStatusEnum::PLANT_YOUNG,
+                        ItemStatusEnum::PLANT_THIRSTY,
                     ]
                 )
             )

@@ -27,6 +27,12 @@ class ChargeStatus extends Status
      */
     private ?int $threshold = null;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=false)
+     */
+    protected ?bool $autoRemove = false;
+
+
     public function getCharge(): ?int
     {
         return $this->charge;
@@ -66,6 +72,18 @@ class ChargeStatus extends Status
     public function setThreshold(?int $threshold): Status
     {
         $this->threshold = $threshold;
+
+        return $this;
+    }
+
+    public function getAutoRemove(): ?bool
+    {
+        return $this->autoRemove;
+    }
+
+    public function setAutoRemove(?bool $autoRemove): Status
+    {
+        $this->autoRemove = $autoRemove;
 
         return $this;
     }

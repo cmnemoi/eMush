@@ -8,7 +8,7 @@ use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\SkillEnum;
-use Mush\Game\Enum\StatusEnum;
+use Mush\Satus\Enum\PlayerStatusEnum;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Item\Entity\GameItem;
 use Mush\Item\Service\GameItemServiceInterface;
@@ -71,7 +71,7 @@ class Take extends Action
             $this->item->getItem()->isHeavy() &&
             !in_array(SkillEnum::SOLID, $this->player->getSkills())
         ) {
-            $this->player->getSkills()[] = StatusEnum::BURDENED;
+            $this->player->getSkills()[] = PlayerStatusEnum::BURDENED;
         }
 
         $this->itemService->persist($this->item);

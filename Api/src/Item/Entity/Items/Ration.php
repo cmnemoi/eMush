@@ -29,7 +29,7 @@ class Ration extends ItemType
      */
     private array $movementPoints = [0];
 
-   /**
+    /**
      * @ORM\Column(type="array", nullable=false)
      */
     private array $healthPoints = [0];
@@ -49,7 +49,7 @@ class Ration extends ItemType
      */
     private array $diseases = [];
 
-     /**
+    /**
      * @ORM\Column(type="array", nullable=false)
      */
     private array $curesNumber = [0];

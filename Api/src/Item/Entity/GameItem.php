@@ -6,10 +6,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Mush\Game\Enum\StatusEnum;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
 use Mush\Status\Entity\Status;
+use Mush\Status\Enum\ItemStatusEnum;
 
 /**
  * Class Item.
@@ -187,7 +187,7 @@ class GameItem
     {
         return $this
             ->getStatuses()
-            ->exists(fn (int $key, Status $status) => ($status->getName() === StatusEnum::BROKEN))
+            ->exists(fn (int $key, Status $status) => ($status->getName() === ItemStatusEnum::BROKEN))
             ;
     }
 

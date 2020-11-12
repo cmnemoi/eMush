@@ -8,7 +8,6 @@ use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\SuccessRateServiceInterface;
 use Mush\Game\Entity\GameConfig;
-use Mush\Game\Enum\StatusEnum;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Item\Entity\GameItem;
@@ -17,6 +16,7 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Mush\Status\Enum\ItemStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -78,7 +78,7 @@ class Repair extends AttemptAction
         $response = $this->makeAttempt($this->gameItem->getBrokenRate(), $modificator);
 
         if ($response instanceof Success) {
-            $this->gameItem->removeStatus($this->gameItem->getStatusByName(StatusEnum::BROKEN));
+            $this->gameItem->removeStatus($this->gameItem->getStatusByName(ItemStatusEnum::BROKEN));
             $this->gameItemService->persist($this->gameItem);
         }
 

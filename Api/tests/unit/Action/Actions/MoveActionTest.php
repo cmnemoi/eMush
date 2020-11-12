@@ -8,13 +8,13 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Action;
 use Mush\Action\Actions\Move;
 use Mush\Action\Entity\ActionParameters;
-use Mush\Game\Enum\StatusEnum;
 use Mush\Item\Entity\Door;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\Status;
+use Mush\Status\Enum\ItemStatusEnum;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -59,7 +59,7 @@ class MoveActionTest extends TestCase
         $door = new Door();
         $broken = new Status();
         $broken
-            ->setName(StatusEnum::BROKEN)
+            ->setName(ItemStatusEnum::BROKEN)
         ;
 
         $door

@@ -31,7 +31,6 @@ class ChargeStatus extends Status
      */
     protected ?bool $autoRemove = false;
 
-
     public function getCharge(): ?int
     {
         return $this->charge;

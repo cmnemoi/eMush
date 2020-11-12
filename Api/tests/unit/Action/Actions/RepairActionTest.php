@@ -13,7 +13,6 @@ use Mush\Action\Service\SuccessRateServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\SkillEnum;
-use Mush\Game\Enum\StatusEnum;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Item\Entity\GameItem;
@@ -25,6 +24,8 @@ use Mush\Room\Entity\Room;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\Status;
+use Mush\Status\Enum\ItemStatusEnum;
+use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -106,7 +107,7 @@ class RepairActionTest extends TestCase
 
         $broken = new Status();
         $broken
-            ->setName(StatusEnum::BROKEN)
+            ->setName(ItemStatusEnum::BROKEN)
         ;
 
         //Not in the same room
@@ -131,7 +132,7 @@ class RepairActionTest extends TestCase
 
         $broken = new Status();
         $broken
-            ->setName(StatusEnum::BROKEN)
+            ->setName(ItemStatusEnum::BROKEN)
         ;
 
         $gameItem

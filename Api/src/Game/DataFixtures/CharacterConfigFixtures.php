@@ -12,7 +12,6 @@ use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 
-
 class CharacterConfigFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)

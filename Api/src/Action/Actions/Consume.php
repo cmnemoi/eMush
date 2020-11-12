@@ -6,18 +6,18 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Item\Entity\GameItem;
+use Mush\Item\Entity\Items\Drug;
 use Mush\Item\Enum\ItemTypeEnum;
 use Mush\Item\Service\GameItemServiceInterface;
 use Mush\Item\Service\ItemEffectServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Status\Enum\StatusEnum;
-use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
+use Status\Enum\ChargeStrategyTypeEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Consume extends Action
@@ -61,8 +61,8 @@ class Consume extends Action
     public function canExecute(): bool
     {
         return !($this->item->getItem()->getItemType(ItemTypeEnum::DRUG) &&
-        $this->player->getStatusByName(PlayerStatusEnum::DRUG_EATEN)) &&
-        $this->item->getItem()->hasAction(ActionEnum::CONSUME) &&
+                $this->player->getStatusByName(PlayerStatusEnum::DRUG_EATEN)) &&
+            $this->item->getItem()->hasAction(ActionEnum::CONSUME) &&
             !$this->player->getStatusByName(PlayerStatusEnum::FULL_STOMACH);
     }
 
@@ -82,13 +82,18 @@ class Consume extends Action
             ->addMoralPoint($itemEffect->getMoralPoint())
         ;
 
-
-
         // If the ration is a drug player get Drug_Eaten status that prevent it from eating another drug this cycle.
-        if ($rationType instanceof drug) {
-              $drugEatenStatus = $this->statusService
-              ->createChargePlayerStatus(PlayerStatusEnum::DRUG_EATEN, $this->player, ChargeStrategyTypeEnum::CYCLE_DECREMENT, 1, null, true);
-              $drugEatenStatus->setVisibility(VisibilityEnum::HIDDEN);
+        if ($rationType instanceof Drug) {
+            $drugEatenStatus = $this->statusService
+                ->createChargePlayerStatus(
+                    PlayerStatusEnum::DRUG_EATEN,
+                    $this->player,
+                    ChargeStrategyTypeEnum::CYCLE_DECREMENT,
+                    1,
+                    null,
+                    true
+                );
+            $drugEatenStatus->setVisibility(VisibilityEnum::HIDDEN);
         }
 
         $this->playerService->persist($this->player);

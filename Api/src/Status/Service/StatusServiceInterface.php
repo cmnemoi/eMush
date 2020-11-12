@@ -23,7 +23,7 @@ interface StatusServiceInterface
         bool $autoRemove = false
     ): ChargeStatus;
 
-    public function createChargeItemStatus(
+    public function createChargePlayerStatus(
         string $statusName,
         Player $player,
         string $strategy,

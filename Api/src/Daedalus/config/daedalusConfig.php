@@ -2,7 +2,6 @@
 
 use Mush\Item\Enum\EquipmentEnum;
 use Mush\Item\Enum\GamePlantEnum;
-use Mush\Item\Enum\GameDrugEnum;
 use Mush\Item\Enum\ItemEnum;
 use Mush\Room\Enum\DoorEnum;
 use Mush\Room\Enum\RoomEnum;

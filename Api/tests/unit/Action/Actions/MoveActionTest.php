@@ -7,17 +7,11 @@ use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Action;
 use Mush\Action\Actions\Move;
-use Mush\Action\Actions\Take;
 use Mush\Action\Entity\ActionParameters;
-use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\StatusEnum;
-use Mush\Game\Service\GameConfigServiceInterface;
-use Mush\Item\Entity\GameItem;
-use Mush\Item\Entity\Item;
-use Mush\Item\Service\GameItemServiceInterface;
+use Mush\Item\Entity\Door;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Item\Entity\Door;
 use Mush\Room\Entity\Room;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\Status;
@@ -114,7 +108,6 @@ class MoveActionTest extends TestCase
         $this->assertEquals($player->getMovementPoint(), 1);
     }
 
-
     public function testExecute()
     {
         $roomStart = new Room();
@@ -126,7 +119,6 @@ class MoveActionTest extends TestCase
         ;
         $roomStart->addDoor($door);
         $roomEnd->addDoor($door);
-
 
         $this->roomLogService->shouldReceive('createPlayerLog')->times(4);
         $this->playerService->shouldReceive('persist');

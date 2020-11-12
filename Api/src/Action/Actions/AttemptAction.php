@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Mush\Action\Actions;
-
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Fail;
@@ -25,7 +23,7 @@ abstract class AttemptAction extends Action
         RandomServiceInterface $randomService,
         SuccessRateServiceInterface $successRateService,
         EventDispatcherInterface $eventManager,
-        StatusServiceInterface  $statusService
+        StatusServiceInterface $statusService
     ) {
         $this->randomService = $randomService;
         $this->successRateService = $successRateService;

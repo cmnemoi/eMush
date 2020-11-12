@@ -50,8 +50,7 @@ class ConsumableEffect
      */
     private int $moralPoint = 0;
 
-
-     /**
+    /**
      * @ORM\Column(type="array", nullable=false)
      */
     private array $cures = [];
@@ -60,8 +59,6 @@ class ConsumableEffect
      * @ORM\Column(type="array", nullable=false)
      */
     private array $diseases = [];
-
-
 
     public function getId(): int
     {
@@ -148,6 +145,7 @@ class ConsumableEffect
     public function setCures(array $cures): ConsumableEffect
     {
         $this->cures = $cures;
+
         return $this;
     }
 
@@ -159,6 +157,7 @@ class ConsumableEffect
     public function setDiseases(array $diseases): ConsumableEffect
     {
         $this->diseases = $diseases;
+
         return $this;
     }
 }

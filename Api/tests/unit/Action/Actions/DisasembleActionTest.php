@@ -9,7 +9,6 @@ use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Action;
 use Mush\Action\Actions\Disassemble;
-use Mush\Action\Actions\Take;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Service\SuccessRateServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;

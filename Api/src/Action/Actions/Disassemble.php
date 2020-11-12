@@ -3,14 +3,12 @@
 namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
-use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\SuccessRateServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\SkillEnum;
-use Mush\Status\Enum\StatusEnum;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Item\Entity\GameItem;

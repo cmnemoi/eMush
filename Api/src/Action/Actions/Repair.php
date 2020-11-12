@@ -3,27 +3,20 @@
 namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
-use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\SuccessRateServiceInterface;
 use Mush\Game\Entity\GameConfig;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\StatusEnum;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Item\Entity\GameItem;
-use Mush\Item\Entity\Items\Dismountable;
-use Mush\Item\Enum\ItemTypeEnum;
 use Mush\Item\Service\GameItemServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
-use Mush\Status\Entity\Attempt;
-use Mush\Status\Entity\Status;
-use Mush\Status\Entity\Statusable;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 

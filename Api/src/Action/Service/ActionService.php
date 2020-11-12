@@ -10,7 +10,6 @@ use Mush\Item\Entity\Door;
 use Mush\Item\Service\GameItemServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Room\Service\DoorServiceInterface;
 
 class ActionService implements ActionServiceInterface
 {

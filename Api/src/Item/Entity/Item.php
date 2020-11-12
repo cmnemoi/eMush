@@ -199,6 +199,7 @@ class Item
     public function setBreakableRate(int $breakableRate): Item
     {
         $this->breakableRate = $breakableRate;
+
         return $this;
     }
 

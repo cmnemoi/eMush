@@ -185,7 +185,10 @@ class GameItem
 
     public function isBroken(): bool
     {
-        return $this->getStatuses()->exists(fn(int $key, Status $status) => ($status->getName() === StatusEnum::BROKEN));
+        return $this
+            ->getStatuses()
+            ->exists(fn (int $key, Status $status) => ($status->getName() === StatusEnum::BROKEN))
+            ;
     }
 
     public function getBrokenRate(): int

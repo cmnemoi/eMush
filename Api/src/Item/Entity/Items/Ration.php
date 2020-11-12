@@ -14,9 +14,7 @@ class Ration extends ItemType
 {
     protected string $type = ItemTypeEnum::RATION;
 
-
-
-     /**
+    /**
      * @ORM\Column(type="array", nullable=false)
      */
     private array $moralPoints = [0];
@@ -61,29 +59,21 @@ class Ration extends ItemType
      */
     private array $diseasesNumber = [0];
 
-
     //Rations currently only have consume Action
     public function setActions(array $actions): Ration
     {
         return $this;
     }
 
-    /**
-     * @return array
-     */
     public function getActions(): array
     {
         return [ActionEnum::CONSUME];
     }
 
-    /**
-     * @return array
-     */
     public function getActionPoints(): array
     {
         return $this->actionPoints;
     }
-
 
     public function setActionPoints(array $actionPoints): Ration
     {
@@ -92,14 +82,10 @@ class Ration extends ItemType
         return $this;
     }
 
-     /**
-     * @return array
-     */
     public function getMovementPoints(): array
     {
         return $this->movementPoints;
     }
-
 
     public function setMovementPoints(array $movementPoints): Ration
     {
@@ -131,7 +117,6 @@ class Ration extends ItemType
 
         return $this;
     }
-
 
     public function getSatiety(): int
     {

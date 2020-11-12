@@ -22,6 +22,7 @@ class Door extends GameItem
 
     /**
      * Door constructor.
+     *
      * @param Collection $rooms
      */
     public function __construct()
@@ -30,7 +31,6 @@ class Door extends GameItem
 
         parent::__construct();
     }
-
 
     public function getActions(): Collection
     {

@@ -68,7 +68,6 @@ class Consume extends Action
 
     protected function applyEffects(): ActionResult
     {
-
         $rationType = $this->item->getItem()->getRationsType();
 
         if (null === $rationType) {

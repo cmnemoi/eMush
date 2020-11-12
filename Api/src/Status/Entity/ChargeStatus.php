@@ -1,13 +1,12 @@
 <?php
 
-
 namespace Mush\Status\Entity;
-
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class ChargeStatus
+ * Class ChargeStatus.
+ *
  * @ORM\Entity
  */
 class ChargeStatus extends Status

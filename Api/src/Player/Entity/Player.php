@@ -174,7 +174,8 @@ class Player
      */
     public function canReachItem(GameItem $gameItem): bool
     {
-        if ($gameItem instanceof Door &&
+        if (
+            $gameItem instanceof Door &&
             $this->getRoom()->getDoors()->contains($gameItem)
         ) {
             return true;

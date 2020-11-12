@@ -71,16 +71,16 @@ class Hit extends AttemptAction
             $damage = $this->randomService->random(1, 3);
 
             if (in_array(SkillEnum::SOLID, $this->player->getSkills())) {
-                $damage++;
+                ++$damage;
             }
             if (in_array(SkillEnum::WRESTLER, $this->player->getSkills())) {
                 $damage += 2;
             }
             if (in_array(SkillMushEnum::HARD_BOILED, $this->target->getSkills())) {
-                $damage--;
+                --$damage;
             }
             if ($this->target->hasItemByName(ItemEnum::PLASTENITE_ARMOR)) {
-                $damage--;
+                --$damage;
             }
             if ($damage <= 0) {
                 // TODO:

@@ -55,10 +55,10 @@ class ItemEffectServiceTest extends TestCase
         $ration = new Ration();
 
         $ration
-            ->setHealthPoints([0,1,2])
-            ->setMoralPoints([0,1,2])
-            ->setActionPoints([0,1,2])
-            ->setMovementPoints([0,1,2])
+            ->setHealthPoints([0, 1, 2])
+            ->setMoralPoints([0, 1, 2])
+            ->setActionPoints([0, 1, 2])
+            ->setMovementPoints([0, 1, 2])
         ;
         $consumableEffectFromRepository = new ConsumableEffect();
         $this->consumableEffectRepository

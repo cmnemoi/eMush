@@ -13,15 +13,14 @@ use Mush\Item\Entity\Item;
 use Mush\Item\Entity\Items\Blueprint;
 use Mush\Item\Entity\Items\Book;
 use Mush\Item\Entity\Items\Dismountable;
+use Mush\Item\Entity\Items\Drug;
 use Mush\Item\Entity\Items\Fruit;
 use Mush\Item\Entity\Items\Plant;
 use Mush\Item\Entity\Items\Ration;
-use Mush\Item\Entity\Items\Tool;
-use Mush\Item\Entity\Items\Drug;
 use Mush\Item\Entity\Items\Weapon;
+use Mush\Item\Enum\GameDrugEnum;
 use Mush\Item\Enum\GameFruitEnum;
 use Mush\Item\Enum\GamePlantEnum;
-use Mush\Item\Enum\GameDrugEnum;
 use Mush\Item\Enum\ItemEnum;
 use Mush\Status\Enum\DiseaseEnum;
 use Mush\Status\Enum\DisorderEnum;
@@ -550,8 +549,8 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
                 DiseaseEnum::TAPEWORM,
                 DisorderEnum::PARANOIA,
                 DisorderEnum::DEPRESSION,
-                DisorderEnum::CHRONIC_MIGRAINE])
-            ->setCuresNumber([1,2,3,4])
+                DisorderEnum::CHRONIC_MIGRAINE, ])
+            ->setCuresNumber([1, 2, 3, 4])
         ;
 
         $bacta = new Item();

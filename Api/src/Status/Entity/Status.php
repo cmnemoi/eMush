@@ -39,11 +39,6 @@ class Status
     protected ?string $visibility = null;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
-     */
-    protected ?string $autoRemove = 'permanent';
-
-    /**
      * @ORM\ManyToOne(targetEntity="Mush\Player\Entity\Player", inversedBy="statuses")
      */
     protected ?Player $player = null;
@@ -78,18 +73,6 @@ class Status
     public function setVisibility(?string $visibility): Status
     {
         $this->visibility = $visibility;
-
-        return $this;
-    }
-
-    public function getAutoRemove(): ?string
-    {
-        return $this->autoRemove;
-    }
-
-    public function setAutoRemove(?string $autoRemove): Status
-    {
-        $this->autoRemove = $autoRemove;
 
         return $this;
     }

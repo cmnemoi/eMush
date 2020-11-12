@@ -15,6 +15,7 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -87,11 +88,8 @@ class Consume extends Action
         // If the ration is a drug player get Drug_Eaten status that prevent it from eating another drug this cycle.
         if ($this->item->getItem()->getItemType(ItemTypeEnum::DRUG)) {
               $drugEatenStatus = $this->statusService
-              ->createCorePlayerStatus(PlayerStatusEnum::DRUG_EATEN, $this->player);
-              $drugEatenStatus
-            ->setVisibility(VisibilityEnum::HIDDEN)
-            ->setAutoRemove('cycle')
-            ;
+              ->createChargePlayerStatus(PlayerStatusEnum::DRUG_EATEN, $this->player, ChargeStrategyTypeEnum::CYCLE_DECREMENT, 1, null, true);
+              $drugEatenStatus->setVisibility(VisibilityEnum::HIDDEN);
         }
 
         $this->playerService->persist($this->player);

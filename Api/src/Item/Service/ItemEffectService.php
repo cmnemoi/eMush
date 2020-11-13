@@ -38,6 +38,10 @@ class ItemEffectService implements ItemEffectServiceInterface
 
         if (null === $consumableEffect) {
             $consumableEffect = new ConsumableEffect();
+            
+            
+
+            
             $consumableEffect
                 ->setDaedalus($daedalus)
                 ->setRation($ration)
@@ -45,14 +49,33 @@ class ItemEffectService implements ItemEffectServiceInterface
                 ->setMovementPoint(current($this->randomService->getRandomElements($ration->getMovementPoints())))
                 ->setHealthPoint(current($this->randomService->getRandomElements($ration->getHealthPoints())))
                 ->setMoralPoint(current($this->randomService->getRandomElements($ration->getMoralPoints())))
-                ->setCures($this->randomService->getRandomElements(
-                    $ration->getCures(),
-                    current($this->randomService->getRandomElements($ration->getCuresNumber()))
-                ))
-                ->setDiseases($this->randomService->getRandomElements(
-                    $ration->getDiseases(),
-                    current($this->randomService->getRandomElements($ration->getDiseasesNumber()))
-                ));
+                
+               // if the ration is a fruit 0 to 4 effects shoulb be dispatched among diseases, cures and extraEffects
+                if($ration instanceof fruit && $ration->getEffectsNumber()->count()>0){                   
+                   $picked_effects=$this->randomService->getRandomElements(
+	                   array_merge($ration->getCures(), $ration->getDiseases(), $ration->getExtraEffects()),
+	                   current($this->randomService->getRandomElements($ration->getEffectsNumber()))
+	                   );
+                   $consumableEffect
+                   	->setCures(array_intersect($picked_effects, $ration->getCures())
+                   	->setDiseases(array_intersect($picked_effects, $ration->getDiseases())
+                   	->setExtraEffects(array_intersect($picked_effects, $ration->getExtraEffects());
+                	
+                }else{
+                	$consumableEffect
+		                ->setCures($this->randomService->getRandomElements(
+			                $ration->getCures(),
+			                current($this->randomService->getRandomElements($ration->getCuresNumber()))
+		                ))
+		                ->setDiseases($this->randomService->getRandomElements(
+			                $ration->getDiseases(), 
+			                current($this->randomService->getRandomElements($ration->getDiseasesNumber()))
+		                ))
+		                ->setExtraEffects($this->randomService->getRandomElements(
+			                $ration->getExtraEffects(),
+			                current($this->randomService->getRandomElements($ration->getExtraEffectsNumber()))
+		                ));
+	             }
 
             $this->consumableEffectRepository->persist($consumableEffect);
         }

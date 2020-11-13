@@ -60,6 +60,11 @@ class ConsumableEffect
      */
     private array $diseases = [];
 
+    /**
+     * @ORM\Column(type="array", nullable=false)
+     */
+    private array $extraEffects = [];
+
     public function getId(): int
     {
         return $this->id;
@@ -157,6 +162,18 @@ class ConsumableEffect
     public function setDiseases(array $diseases): ConsumableEffect
     {
         $this->diseases = $diseases;
+
+        return $this;
+    }
+    
+     public function getExtraEffects(): array
+    {
+        return $this->specialEffect;
+    }
+
+    public function setExtraEffects(array $specialEffect): ConsumableEffect
+    {
+        $this->specialEffect = $specialEffect;
 
         return $this;
     }

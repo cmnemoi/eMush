@@ -9,17 +9,11 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\SkillEnum;
-use Mush\Item\Entity\Item;
-use Mush\Item\Entity\Items\Blueprint;
-use Mush\Item\Entity\Items\Book;
-use Mush\Item\Entity\Items\Dismountable;
 use Mush\Item\Entity\Items\Fruit;
 use Mush\Item\Entity\Items\Plant;
-use Mush\Item\Entity\Items\Weapon;
 use Mush\Item\Enum\GameFruitEnum;
 use Mush\Item\Enum\GamePlantEnum;
-use Mush\Item\Enum\GameDrugEnum;
-use Mush\Item\Enum\ItemEnum;
+use Mush\Action\Enum\SpecialEffectEnum;
 use Mush\Status\Enum\DiseaseEnum;
 use Mush\Status\Enum\DisorderEnum;
 
@@ -46,7 +40,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setGameConfig($gameConfig)
             ->setName(GameFruitEnum::BANANA)
             ->setIsHeavy(false)
-            ->setIsDismantable(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
             ->setIsStackable(true)
@@ -72,7 +65,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setGameConfig($gameConfig)
             ->setName(GamePlantEnum::BANANA_TREE)
             ->setIsHeavy(false)
-            ->setIsDismantable(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
             ->setIsStackable(false)
@@ -100,6 +92,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             GamePlantEnum::FILANDRA => GameFruitEnum::ASPERAGUNK
             ]
         
+        // @TODO change the structure to include the number of cycle before the disease start
         $alienFruitType = new Fruit();
 	        $alienFruitType
 	            ->setActionPoints([1,2,3])
@@ -158,7 +151,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setGameConfig($gameConfig)
             ->setName($fruitName)
             ->setIsHeavy(false)
-            ->setIsDismantable(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
             ->setIsStackable(true)
@@ -183,7 +175,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setGameConfig($gameConfig)
             ->setName($plantName)
             ->setIsHeavy(false)
-            ->setIsDismantable(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
             ->setIsStackable(false)
@@ -211,7 +202,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setGameConfig($gameConfig)
             ->setName(GameFruitEnum::JUNKIN)
             ->setIsHeavy(false)
-            ->setIsDismantable(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
             ->setIsStackable(true)
@@ -237,7 +227,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setGameConfig($gameConfig)
             ->setName(GamePlantEnum::BUMPJUNKIN)
             ->setIsHeavy(false)
-            ->setIsDismantable(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
             ->setIsStackable(false)
@@ -249,10 +238,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($bumpjunkinType);
         $manager->persist($bumpjunkin);
         
-        
-        
-
-
 
         $manager->flush();
     }

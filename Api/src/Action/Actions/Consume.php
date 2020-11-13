@@ -74,6 +74,7 @@ class Consume extends Action
             throw new \Exception('Cannot consume this item');
         }
 
+         // @TODO add disease, cures and extra effects
         $itemEffect = $this->itemServiceEffect->getConsumableEffect($rationType, $this->player->getDaedalus());
         $this->player
             ->addActionPoint($itemEffect->getActionPoint())

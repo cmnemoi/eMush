@@ -37,7 +37,7 @@ class Ration extends ItemType
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
-    private int $satiety = 1;
+    protected int $satiety = 1;
 
     /**
      * @ORM\Column(type="array", nullable=false)
@@ -70,6 +70,11 @@ class Ration extends ItemType
      * @ORM\Column(type="array", nullable=false)
      */
     private array $extraEffectsNumber = [0];
+
+    /**
+     * @ORM\Column(type="boolean", nullable=false)
+     */
+    protected bool $isPerishable = true;
 
 
     //Rations currently only have consume Action
@@ -212,6 +217,18 @@ class Ration extends ItemType
     public function setExtraEffectsNumber(array $extraEffectsNumber): Ration
     {
         $this->extraEffectsNumber = $extraEffectsNumber;
+
+        return $this;
+    }
+    
+    public function getIsPerishable(): bool
+    {
+        return $this->isPerishable;
+    }
+
+    public function setIsPerishable(bool $isPerishable): Ration
+    {
+        $this->isPerishable = $isPerishable;
 
         return $this;
     }

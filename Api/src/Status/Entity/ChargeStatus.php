@@ -29,7 +29,7 @@ class ChargeStatus extends Status
     /**
      * @ORM\Column(type="boolean", nullable=false)
      */
-    protected ?bool $autoRemove = false;
+    private ?bool $autoRemove = false;
 
     public function getCharge(): ?int
     {

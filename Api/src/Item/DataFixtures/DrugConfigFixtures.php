@@ -10,6 +10,7 @@ use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Item\Entity\Items\Drug;
+use Mush\Item\Entity\Items\Ration;
 use Mush\Item\Enum\GameDrugEnum;
 
 
@@ -23,7 +24,6 @@ class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $drugType = new Drug();
         $drugType
-            ->setSatiety(0)
             ->setMoralPoints([-2, 0, 1, 2, 3])
             ->setActionPoints([0, 1, 2, 3])
             ->setMovementPoints([0, 2, 4])
@@ -46,10 +46,10 @@ class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
         foreach(GameDrugEnum->getAll() as $drugName){
 
 
-	        $drugName = new Item();
-	        $drugName
+	        $drug = new Item();
+	        $drug
 	            ->setGameConfig($gameConfig)
-	            ->setName(GameDrugEnum::BACTA)
+	            ->setName($drugName)
 	            ->setIsHeavy(false)
 	            ->setIsTakeable(true)
 	            ->setIsDropable(true)
@@ -59,7 +59,7 @@ class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
 	            ->setIsFireBreakable(false)
 	            ->setTypes(new ArrayCollection([$drugType]))
 	        ;
-	        $manager->persist($drugName);
+	        $manager->persist($drug);
 	     }
 	     $manager->persist($drugType);
 

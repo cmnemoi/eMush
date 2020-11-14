@@ -4,9 +4,6 @@ namespace Mush\RoomLog\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Mush\Item\Entity\GameItem;
-use Mush\Player\Entity\Player;
-use Mush\Room\Entity\Room;
 
 /**
  * @ORM\Entity()
@@ -43,7 +40,6 @@ class Target
         return $this->id;
     }
 
-
     public function getName(): string
     {
         return $this->name;
@@ -52,6 +48,7 @@ class Target
     public function setName(string $name): Target
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -63,6 +60,7 @@ class Target
     public function setType(string $type): Target
     {
         $this->type = $type;
+
         return $this;
     }
 }

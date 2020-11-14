@@ -47,8 +47,6 @@ class UserController extends AbstractFOSRestController
      */
     public function loginAction(Request $request)
     {
-        $this->denyAccessUnlessGranted(UserVoter::USER_IN_GAME);
-
         $user = $this->getUser();
         if ($id = $request->get('id')) {
             $user = $this->userService->findById($id);

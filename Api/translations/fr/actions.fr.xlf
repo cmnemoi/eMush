@@ -34,6 +34,10 @@
                 <source>drop.description</source>
                 <target>Pose un objet dans la pièce ou vous vous trouvez</target>
             </segment>
+            <segment id="description_no">
+                <source>drop.description.no</source>
+                <target>Cette piège ne dispose pas d'étagère...</target>
+            </segment>
         </unit>
         <unit id="build">
             <segment id="build">

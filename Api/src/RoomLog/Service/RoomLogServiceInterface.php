@@ -36,5 +36,6 @@ interface RoomLogServiceInterface
     public function persist(RoomLog $roomLog): RoomLog;
 
     public function findById(int $id): ?RoomLog;
+
     public function getRoomLog(Player $player): array;
 }

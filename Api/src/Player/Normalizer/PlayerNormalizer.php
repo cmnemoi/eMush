@@ -67,7 +67,7 @@ class PlayerNormalizer implements ContextAwareNormalizerInterface
 
         return array_merge([
             'id' => $player->getId(),
-            'character' => $this->translator->trans($player->getPerson().'.name', [], 'characters'),
+            'character' => $this->translator->trans($player->getPerson() . '.name', [], 'characters'),
             'gameStatus' => $player->getGameStatus(),
             'statuses' => $player->getStatuses(),
             'daedalus' => $this->daedalusNormalizer->normalize($player->getDaedalus()),

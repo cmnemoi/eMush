@@ -4,7 +4,6 @@ namespace Mush\RoomLog\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Mush\Item\Entity\GameItem;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
 
@@ -101,6 +100,7 @@ class RoomLog
     public function setTarget(?Target $target): RoomLog
     {
         $this->target = $target;
+
         return $this;
     }
 
@@ -112,6 +112,7 @@ class RoomLog
     public function setVisibility(string $visibility): RoomLog
     {
         $this->visibility = $visibility;
+
         return $this;
     }
 
@@ -123,6 +124,7 @@ class RoomLog
     public function setLog(string $log): RoomLog
     {
         $this->log = $log;
+
         return $this;
     }
 
@@ -134,6 +136,7 @@ class RoomLog
     public function setDate(\DateTime $date): RoomLog
     {
         $this->date = $date;
+
         return $this;
     }
 
@@ -145,6 +148,7 @@ class RoomLog
     public function setDay(int $day): RoomLog
     {
         $this->day = $day;
+
         return $this;
     }
 
@@ -156,6 +160,7 @@ class RoomLog
     public function setCycle(int $cycle): RoomLog
     {
         $this->cycle = $cycle;
+
         return $this;
     }
 }

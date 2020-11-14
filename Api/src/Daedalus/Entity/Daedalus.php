@@ -186,6 +186,7 @@ class Daedalus
     public function setDay(int $day): Daedalus
     {
         $this->day = $day;
+
         return $this;
     }
 

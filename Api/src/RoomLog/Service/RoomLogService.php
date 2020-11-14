@@ -8,7 +8,6 @@ use Mush\Item\Entity\GameItem;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
 use Mush\RoomLog\Entity\RoomLog;
-use Mush\RoomLog\Entity\RoomLogParameter;
 use Mush\RoomLog\Entity\Target;
 use Mush\RoomLog\Repository\RoomLogRepository;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -116,16 +115,16 @@ class RoomLogService implements RoomLogServiceInterface
             $params = [];
             if ($roomLog->getPlayer()) {
                 $characterKey = $roomLog->getPlayer()->getPerson();
-                $characterName = $this->translator->trans($characterKey.'.name', [], 'characters');
-                $logKey .= '.character.'.(CharacterEnum::isMale($characterKey)?'male':'female');
+                $characterName = $this->translator->trans($characterKey . '.name', [], 'characters');
+                $logKey .= '.character.' . (CharacterEnum::isMale($characterKey) ? 'male' : 'female');
                 $params['player'] = $characterName;
             }
 
             if ($target = $roomLog->getTarget()) {
-                $targetName = $this->translator->trans($target->getName().'.short_name', [], $target->getType());
-                $targetGenre = $this->translator->trans($target->getName().'.genre', [], $target->getType());
+                $targetName = $this->translator->trans($target->getName() . '.short_name', [], $target->getType());
+                $targetGenre = $this->translator->trans($target->getName() . '.genre', [], $target->getType());
 
-                $logKey .= '.target.'.$targetGenre;
+                $logKey .= '.target.' . $targetGenre;
                 $params['target'] = $targetName;
             }
 
@@ -141,6 +140,4 @@ class RoomLogService implements RoomLogServiceInterface
 
         return $logs;
     }
-
-
 }

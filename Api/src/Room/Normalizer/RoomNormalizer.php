@@ -48,7 +48,7 @@ class RoomNormalizer implements ContextAwareNormalizerInterface
             if ($player !== $this->getUser()->getCurrentGame()) {
                 $players[] = [
                     'id' => $player->getId(),
-                    'name' => $this->translator->trans($player->getPerson().'.name', [], 'characters'),
+                    'name' => $this->translator->trans($player->getPerson() . '.name', [], 'characters'),
                     'statuses' => $player->getStatuses(),
                     'skills' => $player->getSkills(),
                     'actions' => [ActionEnum::HIT],
@@ -75,7 +75,7 @@ class RoomNormalizer implements ContextAwareNormalizerInterface
 
         return [
             'id' => $room->getId(),
-            'name' => $this->translator->trans($room->getName().'.name', [], 'rooms'),
+            'name' => $this->translator->trans($room->getName() . '.name', [], 'rooms'),
             'doors' => $doors,
             'players' => $players,
             'items' => $items,

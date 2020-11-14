@@ -3,29 +3,31 @@
   <div class="tabs-container">
     <ul class="tabs">
       <li>
-        <span class="title">Tips</span>
         <img src="@/assets/images/comms/tip.png">
+        <span class="title">Tips</span>
       </li>
       <li>
-        <span class="title">Room events</span>
         <img src="@/assets/images/comms/local.png">
+        <span class="title">Room events</span>
       </li>
       <li class="active">
-        <span class="title">Discussion</span>
         <img src="@/assets/images/comms/wall.png">
         <span class="notifier">192</span>
+        <span class="title">Discussion</span>
       </li>
       <li>
+        <img src="@/assets/images/comms/fav.png">
+        <span class="notifier">14</span>
         <span class="title">Favorites</span>
-        <img src="@/assets/images/comms/fav.png"><span class="notifier">14</span>
       </li>
       <li>
+        <img src="@/assets/images/comms/mush.png">
+        <span class="notifier">1</span>
         <span class="title">Mush discussion</span>
-        <img src="@/assets/images/comms/mush.png"><span class="notifier">1</span>
       </li>
       <li>
-        <span class="title">Private #1</span>
         <img src="@/assets/images/comms/private.png">
+        <span class="title">Private #1</span>
       </li>
       <li>
         <img src="@/assets/images/comms/newtab.png">
@@ -177,92 +179,83 @@ export default {
   height: 460px;
 
   & .tabs-container {
+    position: relative;
     align-items: flex-start;
     justify-content: space-between;
-    border-top-left-radius: 4px;
-    background: rgba(54, 76, 148, 0.35);
-    padding: 3px 1px 3px 3px;
+    min-width: 34px;
 
     & .tabs {
+      position: absolute;
       display: flex;
       flex-direction: column;
-      
+      width: 34px;
+      min-height: 100%;
+      padding: 2px;
+      background: #74CBF3;
+      z-index: 2;
 
-      & li{
+      transition: width .2s 0s;
+
+      &:hover { width: 210px; transition: width .2s .6s; }
+      &:hover .notifier:before { opacity: 0; transition: opacity .2s .6s; }
+
+      & li {
         position: relative;
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-start;
         cursor: pointer;
-        width: 28px;
+        min-width: 28px;
         min-height: 28px;
         margin: 1px;
+        padding-right: 8px;
+        border-radius: 2px;
+        background: rgba(54, 76, 148, .5);
+        @include corner-bezel(6.5px, 0px);
 
-        & *{ z-index: 2; } /* prevent background being ontop elements */
-
-        &:before {
-          content: "";
-          position: absolute;
-          z-index: 1;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          border-radius: 2px;
-          background: rgba(54, 76, 148, 1);
-          @include corner-bezel(7.5px, 0px);
-        }
-
-        & img {
-
-          margin: 4px;
-        }
+        & img { margin: 6px; }
 
         & .title {
-          display: none;
-          position: absolute;
-          left: 30px;
-          max-width: 400px;
-          padding: 3px 12px 6px 12px;
-          margin: 2px;
-          text-align: right;
           font-size: .85em;
           font-weight: 700;
           font-variant: small-caps;
+          letter-spacing: .025em;
           white-space: nowrap;
-          border-radius: 3px;
-          background: rgba(9, 10, 97, .80);
-          @include corner-bezel(0px, 7.5px, 0px);
+          text-shadow: 0 0 3px  rgba(54, 76, 148, 1), 0 0 3px  rgba(54, 76, 148, 1);
+          margin: 3px;
         }
 
         & .notifier {
-          /* position: absolute; */
-          bottom: 2px;
-          left: 18px;
-          min-width: 100%;
-          max-width: 2.4em;
-          overflow:hidden;
           text-align: center;
           font-size: .65em;
-          padding: 0 0;
-          border-radius: 2px;
+          padding: 2px 4px;
+          margin: 0 3px;
+          border-radius: 12px;
           font-weight: 700;
           background: #cf1830;
-          border: 1px solid rgba(255, 255, 255, .25)
+          border: 2px solid rgba(255, 255, 255, .3);
+
+          &:before {
+            content:"";
+            position: absolute;
+            bottom: 2px;
+            right: 2px;
+            width: 10px;
+            height: 10px;
+            border-radius: 12px;
+            background: #cf1830;
+            border: 2px solid rgba(255, 255, 255, .4);
+            transition: opacity .2s 0s;
+          }
         }
 
+        &:hover, &:active {
+          background: rgba(54, 76, 148, 1);
+        }
+
+        &.active { background: rgba(54, 76, 148, 1); }
         &:last-child { opacity: .3; }
-        &.active:before { background: #74CBF3; }
-        
-
-        &:hover, &:focus {
-          opacity: 1;
-
-          &:not(:last-child):before { background: #74CBF3; }
-          & .title { display: initial; }
-          & .notifier { opacity: 1; }
-        }
       }
     }
   }

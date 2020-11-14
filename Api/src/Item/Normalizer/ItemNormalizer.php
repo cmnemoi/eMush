@@ -71,7 +71,8 @@ class ItemNormalizer implements ContextAwareNormalizerInterface
 
         return [
             'id' => $item->getId(),
-            'name' => $item->getName(),
+            'name' => $this->translator->trans("{$item->getName()}.name", [], 'items'),
+            'description' => $this->translator->trans("{$item->getName()}.description", [], 'items'),
             'statuses' => $item->getStatuses(),
             'actions' => $actions,
         ];

@@ -6,6 +6,7 @@ use Mush\Game\Event\CycleEvent;
 use Mush\Status\ChargeStrategies\CycleDecrease;
 use Mush\Status\ChargeStrategies\CycleIncrease;
 use Mush\Status\ChargeStrategies\PlantStrategy;
+use Mush\Status\Entity\ChargeStatus;
 use Status\Enum\ChargeStrategyTypeEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -24,16 +25,18 @@ class CycleSubscriber implements EventSubscriberInterface
             return;
         }
         $strategy = null;
-        switch ($status->getStrategy()) {
-            case ChargeStrategyTypeEnum::CYCLE_INCREMENT:
-                $strategy = new CycleIncrease();
-                break;
-            case ChargeStrategyTypeEnum::CYCLE_DECREMENT:
-                $strategy = new CycleDecrease();
-                break;
-            case ChargeStrategyTypeEnum::PLANT:
-                $strategy = new PlantStrategy();
-                break;
+        if ($status instanceof ChargeStatus) {
+            switch ($status->getStrategy()) {
+                case ChargeStrategyTypeEnum::CYCLE_INCREMENT:
+                    $strategy = new CycleIncrease();
+                    break;
+                case ChargeStrategyTypeEnum::CYCLE_DECREMENT:
+                    $strategy = new CycleDecrease();
+                    break;
+                case ChargeStrategyTypeEnum::PLANT:
+                    $strategy = new PlantStrategy();
+                    break;
+            }
         }
 
         if (null !== $strategy) {

@@ -32,12 +32,12 @@ class RoomLog
     /**
      * @ORM\ManyToOne (targetEntity="Mush\Player\Entity\Player")
      */
-    private Player $player;
+    private ?Player $player;
 
     /**
-     * @ORM\ManyToOne (targetEntity="Mush\Item\Entity\GameItem")
+     * @ORM\OneToOne  (targetEntity="Mush\RoomLog\Entity\Target", cascade={"All"}, orphanRemoval=true)
      */
-    private GameItem $item;
+    private ?Target $target;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=false)
@@ -55,9 +55,14 @@ class RoomLog
     private \DateTime $date;
 
     /**
-     * @ORM\Column(type="array", length=255, nullable=false)
+     * @ORM\Column(type="integer", nullable=false)
      */
-    private array $params;
+    private int $day;
+
+    /**
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    private int $cycle;
 
     public function getId(): int
     {
@@ -76,7 +81,7 @@ class RoomLog
         return $this;
     }
 
-    public function getPlayer(): Player
+    public function getPlayer(): ?Player
     {
         return $this->player;
     }
@@ -88,15 +93,14 @@ class RoomLog
         return $this;
     }
 
-    public function getItem(): GameItem
+    public function getTarget(): ?Target
     {
-        return $this->item;
+        return $this->target;
     }
 
-    public function setItem(GameItem $item): RoomLog
+    public function setTarget(?Target $target): RoomLog
     {
-        $this->item = $item;
-
+        $this->target = $target;
         return $this;
     }
 
@@ -108,7 +112,6 @@ class RoomLog
     public function setVisibility(string $visibility): RoomLog
     {
         $this->visibility = $visibility;
-
         return $this;
     }
 
@@ -120,7 +123,6 @@ class RoomLog
     public function setLog(string $log): RoomLog
     {
         $this->log = $log;
-
         return $this;
     }
 
@@ -132,19 +134,28 @@ class RoomLog
     public function setDate(\DateTime $date): RoomLog
     {
         $this->date = $date;
-
         return $this;
     }
 
-    public function getParams(): array
+    public function getDay(): int
     {
-        return $this->params;
+        return $this->day;
     }
 
-    public function setParams(array $params): RoomLog
+    public function setDay(int $day): RoomLog
     {
-        $this->params = $params;
+        $this->day = $day;
+        return $this;
+    }
 
+    public function getCycle(): int
+    {
+        return $this->cycle;
+    }
+
+    public function setCycle(int $cycle): RoomLog
+    {
+        $this->cycle = $cycle;
         return $this;
     }
 }

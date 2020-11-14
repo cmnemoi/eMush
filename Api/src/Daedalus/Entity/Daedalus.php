@@ -58,7 +58,12 @@ class Daedalus
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
-    private int $cycle;
+    private int $day = 1;
+
+    /**
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    private int $cycle = 1;
 
     /**
      * @ORM\Column(type="integer", nullable=false)
@@ -170,6 +175,17 @@ class Daedalus
     {
         $this->cycle = $cycle;
 
+        return $this;
+    }
+
+    public function getDay(): int
+    {
+        return $this->day;
+    }
+
+    public function setDay(int $day): Daedalus
+    {
+        $this->day = $day;
         return $this;
     }
 

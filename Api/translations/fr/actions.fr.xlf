@@ -20,6 +20,10 @@
                 <source>take.description</source>
                 <target>Prends un objet dans la pièce courrante et le place dans votre inventaire</target>
             </segment>
+            <segment id="description_no">
+                <source>take.description.no</source>
+                <target>Votre inventaire est plein, faites de la place !</target>
+            </segment>
         </unit>
         <unit id="drop">
             <segment id="name">
@@ -29,6 +33,20 @@
             <segment id="description">
                 <source>drop.description</source>
                 <target>Pose un objet dans la pièce ou vous vous trouvez</target>
+            </segment>
+        </unit>
+        <unit id="build">
+            <segment id="build">
+                <source>build.name</source>
+                <target>Assembler</target>
+            </segment>
+            <segment id="description">
+                <source>build.description</source>
+                <target>Assemble un objet à partir d'autres objets.</target>
+            </segment>
+            <segment id="description_no">
+                <source>build.description.no</source>
+                <target>Il vous manque des objets pour réaliser ce plan.</target>
             </segment>
         </unit>
 

@@ -1,16 +1,36 @@
 <template>
 <div class="comms-panel">
-  <div class="top-banner">
+  <div class="tabs-container">
     <ul class="tabs">
-      <li><img src="@/assets/images/comms/tip.png"></li>
-      <li><img src="@/assets/images/comms/local.png"></li>
-      <li class="active"><img src="@/assets/images/comms/wall.png"><span>>20</span></li>
-      <li><img src="@/assets/images/comms/fav.png"><span>14</span></li>
-      <li><img src="@/assets/images/comms/mush.png"><span>1</span></li>
-      <li><img src="@/assets/images/comms/private.png"></li>
-      <li><img src="@/assets/images/comms/newtab.png"></li>
+      <li>
+        <span class="title">Tips</span>
+        <img src="@/assets/images/comms/tip.png">
+      </li>
+      <li>
+        <span class="title">Room events</span>
+        <img src="@/assets/images/comms/local.png">
+      </li>
+      <li class="active">
+        <span class="title">Discussion</span>
+        <img src="@/assets/images/comms/wall.png">
+        <span class="notifier">192</span>
+      </li>
+      <li>
+        <span class="title">Favorites</span>
+        <img src="@/assets/images/comms/fav.png"><span class="notifier">14</span>
+      </li>
+      <li>
+        <span class="title">Mush discussion</span>
+        <img src="@/assets/images/comms/mush.png"><span class="notifier">1</span>
+      </li>
+      <li>
+        <span class="title">Private #1</span>
+        <img src="@/assets/images/comms/private.png">
+      </li>
+      <li>
+        <img src="@/assets/images/comms/newtab.png">
+      </li>
     </ul>
-    <div class="cycle-time"><img src="@/assets/images/comms/calendar.png"><span>Jour 4 - Cycle 3</span></div>
   </div>
   <div class="chatbox-container">
     <textarea class="chat-input" placeholder="Type your message here!"></textarea>
@@ -151,49 +171,97 @@ export default {
 <style lang="scss" scoped>
 
 .comms-panel {
+  flex-direction: row;
   position: relative;
   width: 404px;
   height: 460px;
 
-  & .top-banner {
-    margin-bottom: -1px;
-    flex-direction: row;
+  & .tabs-container {
     align-items: flex-start;
-    justify-content: space-between;    
+    justify-content: space-between;
+    border-top-left-radius: 4px;
+    background: rgba(54, 76, 148, 0.35);
+    padding: 3px 1px 3px 3px;
 
     & .tabs {
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       
 
       & li{
         position: relative;
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
-        overflow: visible;
-        width: 31px;
-        height: 25px;
-        margin-right: 4px;
-        background: #213578;
-        @include corner-bezel(4.5px, 4.5px, 0px);
+        cursor: pointer;
+        width: 28px;
+        min-height: 28px;
+        margin: 1px;
 
-        &:last-child {
-          opacity: .3;
-          background: none !important;
-        }
+        & *{ z-index: 2; } /* prevent background being ontop elements */
 
-        &.active, &:hover, &:focus {
-          background: rgba(194, 243, 252, 1);
-          opacity: 1;
-        }
-
-        & span {
+        &:before {
+          content: "";
           position: absolute;
-          top: -6px;
-          right: 3px;
+          z-index: 1;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          border-radius: 2px;
+          background: rgba(54, 76, 148, 1);
+          @include corner-bezel(7.5px, 0px);
+        }
+
+        & img {
+
+          margin: 4px;
+        }
+
+        & .title {
+          display: none;
+          position: absolute;
+          left: 30px;
+          max-width: 400px;
+          padding: 3px 12px 6px 12px;
+          margin: 2px;
+          text-align: right;
           font-size: .85em;
-          text-shadow: 0 0 2px black, 0 0 2px black, 0 0 2px black;
+          font-weight: 700;
+          font-variant: small-caps;
+          white-space: nowrap;
+          border-radius: 3px;
+          background: rgba(9, 10, 97, .80);
+          @include corner-bezel(0px, 7.5px, 0px);
+        }
+
+        & .notifier {
+          /* position: absolute; */
+          bottom: 2px;
+          left: 18px;
+          min-width: 100%;
+          max-width: 2.4em;
+          overflow:hidden;
+          text-align: center;
+          font-size: .65em;
+          padding: 0 0;
+          border-radius: 2px;
+          font-weight: 700;
+          background: #cf1830;
+          border: 1px solid rgba(255, 255, 255, .25)
+        }
+
+        &:last-child { opacity: .3; }
+        &.active:before { background: #74CBF3; }
+        
+
+        &:hover, &:focus {
+          opacity: 1;
+
+          &:not(:last-child):before { background: #74CBF3; }
+          & .title { display: initial; }
+          & .notifier { opacity: 1; }
         }
       }
     }
@@ -211,7 +279,7 @@ export default {
   
   & .chatbox-container {
     position: relative;
-    height: 435px;
+    height: 460px;
     font-size: .8em;
     line-height: initial;
     background: rgba(194, 243, 252, 1);

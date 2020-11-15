@@ -63,6 +63,11 @@ class RoomLog
      */
     private int $cycle;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private ?int $quantity = null;
+
     public function getId(): int
     {
         return $this->id;
@@ -85,7 +90,7 @@ class RoomLog
         return $this->player;
     }
 
-    public function setPlayer(Player $player): RoomLog
+    public function setPlayer(?Player $player): RoomLog
     {
         $this->player = $player;
 
@@ -160,6 +165,18 @@ class RoomLog
     public function setCycle(int $cycle): RoomLog
     {
         $this->cycle = $cycle;
+
+        return $this;
+    }
+
+    public function getQuantity(): ?int
+    {
+        return $this->quantity;
+    }
+
+    public function setQuantity(int $quantity): RoomLog
+    {
+        $this->quantity = $quantity;
 
         return $this;
     }

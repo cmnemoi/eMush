@@ -161,6 +161,7 @@ class PlantCycleHandler implements CycleHandlerInterface
         $this->roomLogService->createItemLog(
             PlantLogEnum::PLANT_DEATH,
             $room,
+            null,
             $gamePlant,
             VisibilityEnum::PUBLIC,
             $dateTime

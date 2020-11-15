@@ -29,18 +29,22 @@ class CycleService implements CycleServiceInterface
      */
     public function handleCycleChange(Daedalus $daedalus): int
     {
+        $cycleLength = $this->gameConfig->getCycleLength();
         $currentDate = new \DateTime();
         $lastUpdate = $daedalus->getUpdatedAt();
-        $currentCycle = $daedalus->getCycle() % $this->gameConfig->getNumberOfCyclePerDay();
+        $currentCycle = $daedalus->getCycle();
         $currentCycleStartedAt = clone $lastUpdate;
         $currentCycleStartedAt = $currentCycleStartedAt
             ->setTimezone(new \DateTimeZone($this->gameConfig->getTimeZone()))
-            ->setTime(($currentCycle - 1) * $this->gameConfig->getCycleLength(), 0, 0, 0)
+            ->setTime(($currentCycle - 1) * $cycleLength, 0, 0, 0)
+            ->setTimezone(new \DateTimeZone('UTC'))
         ;
 
         $cycleElapsed = $this->getNumberOfCycleElapsed($lastUpdate, $currentDate);
 
+        $cycleInterval = new \DateInterval('PT' . $cycleLength . 'H');
         for ($i = 0; $i < $cycleElapsed; ++$i) {
+            $currentCycleStartedAt->add($cycleInterval);
             $cycleEvent = new CycleEvent($daedalus, $currentCycleStartedAt);
             $this->eventDispatcher->dispatch($cycleEvent, CycleEvent::NEW_CYCLE);
         }

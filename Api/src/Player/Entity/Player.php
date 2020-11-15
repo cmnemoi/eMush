@@ -49,19 +49,19 @@ class Player
     private string $person;
 
     /**
-     * @ORM\Column(type="string", nullable=false)
+     * @ORM\Column(type="string", nullable=true)
      */
-    private string $endStatus;
+    private ?string $endStatus = null;
 
     /**
      * @ORM\ManyToOne (targetEntity="Mush\Daedalus\Entity\Daedalus", inversedBy="players")
      */
-    private Daedalus $daedalus;
+    private ?Daedalus $daedalus = null;
 
     /**
      * @ORM\ManyToOne (targetEntity="Mush\Room\Entity\Room", inversedBy="players")
      */
-    private Room $room;
+    private ?Room $room = null;
 
     /**
      * @ORM\OneToMany(targetEntity="Mush\Item\Entity\GameItem", mappedBy="player")
@@ -167,26 +167,49 @@ class Player
         return $this;
     }
 
-    public function getDaedalus(): Daedalus
+    public function getDaedalus(): ?Daedalus
     {
         return $this->daedalus;
     }
 
     public function setDaedalus(Daedalus $daedalus): Player
     {
-        $this->daedalus = $daedalus;
+        if ($daedalus !== $this->daedalus) {
+            $oldDaedalus = $this->getDaedalus();
+
+            $this->daedalus = $daedalus;
+
+            if ($daedalus !== null) {
+                $daedalus->addPlayer($this);
+            }
+
+            if ($oldDaedalus !== null) {
+                $oldDaedalus->removePlayer($this);
+            }
+        }
 
         return $this;
     }
 
-    public function getRoom(): Room
+    public function getRoom(): ?Room
     {
         return $this->room;
     }
 
-    public function setRoom(Room $room): Player
+    public function setRoom(?Room $room): Player
     {
-        $this->room = $room;
+        if ($room !== $this->room) {
+            $oldRoom = $this->room;
+            $this->room = $room;
+
+            if ($room !== null) {
+                $room->addPlayer($this);
+            }
+
+            if ($oldRoom !== null) {
+                $oldRoom->removePlayer($this);
+            }
+        }
 
         return $this;
     }
@@ -230,6 +253,10 @@ class Player
     public function addItem(GameItem $item): Player
     {
         if (!$this->getItems()->contains($item)) {
+            if ($item->getPlayer() !== $this) {
+                $item->setPlayer(null);
+            }
+
             $this->getItems()->add($item);
             $item->setPlayer($this);
         }
@@ -281,7 +308,12 @@ class Player
     public function addStatus(Status $status): Player
     {
         if (!$this->getStatuses()->contains($status)) {
+            if ($status->getPlayer() !== $this) {
+                $status->setPlayer(null);
+            }
+
             $this->statuses->add($status);
+
             $status->setPlayer($this);
         }
 

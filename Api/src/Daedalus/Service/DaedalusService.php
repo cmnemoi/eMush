@@ -49,6 +49,9 @@ class DaedalusService implements DaedalusServiceInterface
         $this->randomService = $randomService;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function persist(Daedalus $daedalus): Daedalus
     {
         $this->entityManager->persist($daedalus);
@@ -57,12 +60,17 @@ class DaedalusService implements DaedalusServiceInterface
         return $daedalus;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function findById(int $id): ?Daedalus
     {
         return $this->repository->find($id);
     }
 
-    // @TODO
+    /**
+     * @codeCoverageIgnore
+     */
     public function findByCriteria(DaedalusCriteria $criteria): DaedalusCollection
     {
         return new DaedalusCollection();

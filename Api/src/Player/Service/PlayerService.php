@@ -119,6 +119,8 @@ class PlayerService implements PlayerServiceInterface
             ->setStatuses($statuses)
         ;
 
+        $this->persist($player);
+
         $user->setCurrentGame($player);
         $playerEvent = new PlayerEvent($player);
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::NEW_PLAYER);
@@ -128,7 +130,7 @@ class PlayerService implements PlayerServiceInterface
             $this->eventDispatcher->dispatch($fullDaedalusEvent, DaedalusEvent::FULL_DAEDALUS);
         }
 
-        return $this->persist($player);
+        return $player;
     }
 
     public function handleNewCycle(Player $player, \DateTime $date): Player

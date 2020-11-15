@@ -7,11 +7,14 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
+use Mush\Daedalus\Entity\RandomItemPlaces;
 use Mush\Daedalus\Repository\DaedalusRepository;
 use Mush\Daedalus\Service\DaedalusService;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Item\Entity\GameItem;
+use Mush\Item\Entity\Item;
 use Mush\Item\Service\GameItemServiceInterface;
 use Mush\Room\Entity\Room;
 use Mush\Room\Entity\RoomConfig;
@@ -77,20 +80,41 @@ class DaedalusServiceTest extends TestCase
         $gameConfig = new GameConfig();
         $daedalusConfig = new DaedalusConfig();
 
+
+        $item = new Item();
+        $item->setName('item');
+
+
+        $randomItem = new RandomItemPlaces();
+        $randomItem
+            ->setItems([$item->getName()])
+            ->setPlaces([RoomEnum::LABORATORY])
+        ;
+
         $daedalusConfig
             ->setInitShield(1)
             ->setInitFuel(2)
             ->setInitOxygen(3)
             ->setInitHull(4)
             ->setRoomConfigs(new ArrayCollection([$roomConfig]))
+            ->setRandomItemPlace($randomItem)
         ;
-        $gameConfig->setDaedalusConfig($daedalusConfig);
+        $gameConfig
+            ->setDaedalusConfig($daedalusConfig)
+            ->setItemsConfig(new ArrayCollection([$item]))
+        ;
 
         $room = new Room();
         $room->setName(RoomEnum::LABORATORY);
         $this->roomService
             ->shouldReceive('createRoom')
             ->andReturn($room)
+            ->once()
+        ;
+
+        $this->randomService
+            ->shouldReceive('random')
+            ->andReturn(0)
             ->once()
         ;
 
@@ -114,10 +138,14 @@ class DaedalusServiceTest extends TestCase
             ->twice()
         ;
 
-        //There is no random itemPlace
+        $this->itemService
+            ->shouldReceive('createGameItem')
+            ->andReturn(new GameItem())
+            ->once()
+        ;
         $this->itemService
             ->shouldReceive('persist')
-            ->never()
+            ->once()
         ;
 
         $daedalus = $this->service->createDaedalus($gameConfig);

@@ -21,7 +21,7 @@ class Drug extends Ration
      /**
      * @ORM\Column(type="array", nullable=false)
      */
-    private array $effectsNumber = [0];
+    private array $effectsNumber = [];
     
     
     //@TODO more precision on the cure is needed (is the number of desease point remooved random)

@@ -17,22 +17,22 @@ class Ration extends ItemType
     /**
      * @ORM\Column(type="array", nullable=false)
      */
-    private array $moralPoints = [0];
+    private array $moralPoints = [0 =>1];
 
     /**
      * @ORM\Column(type="array", nullable=false)
      */
-    private array $actionPoints = [0];
+    private array $actionPoints = [0 =>1];
 
     /**
      * @ORM\Column(type="array", nullable=false)
      */
-    private array $movementPoints = [0];
+    private array $movementPoints = [0 =>1];
 
     /**
      * @ORM\Column(type="array", nullable=false)
      */
-    private array $healthPoints = [0];
+    private array $healthPoints = [0 =>1];
 
     /**
      * @ORM\Column(type="integer", nullable=false)

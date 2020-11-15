@@ -95,53 +95,51 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         // @TODO change the structure to include the number of cycle before the disease start
         $alienFruitType = new Fruit();
 	        $alienFruitType
-	            ->setActionPoints([1,2,3])
+	            ->setActionPoints([1=>90 , 2=>9 , 3=>1])
 	            ->setMovementPoints([0])
 	            ->setHealthPoints([0])
-	            ->setMoralPoints([0,1])
-	            ->setCures([
-		                DiseaseEnum::ACID_REFLUX,
-		                DiseaseEnum::BLACK_BITE,
-		                DiseaseEnum::COLD,
-		                DiseaseEnum::FLU,
-		                DiseaseEnum::FUNGIC_INFECTION,
-		                DiseaseEnum::GASTROENTERITIS,
-		                DiseaseEnum::MIGRAINE,
-		                DiseaseEnum::RUBELLA,
-		                DiseaseEnum::SINUS_STORM,
-		                DiseaseEnum::SPACE_RABIES,
-		                DiseaseEnum::SYPHILIS,
-		                DiseaseEnum::TAPEWORM,
-		                DiseaseEnum::VITAMIN_DEFICIENCY,
-		                DisorderEnum::CHRONIC_MIGRAINE,
-		                DisorderEnum::CHRONIC_VERTIGO,
-		                DisorderEnum::COPROLALIA,
-		                DisorderEnum::DEPRESSION,
-		                DisorderEnum::PSYCHOTIC_EPISODES,
-		                DisorderEnum::VERTIGO])
-		         ->setDiseasesChances([
-		                DiseaseEnum::ACID_REFLUX,
-		                DiseaseEnum::EXTREME_TINNITUS,
-		                DiseaseEnum::FLU,
-		                DiseaseEnum::FOOD_POISONING,
-		                DiseaseEnum::FUNGIC_INFECTION,
-		                DiseaseEnum::MIGRAINE,
-		                DiseaseEnum::MUSH_ALLERGY,
-		                DiseaseEnum::REJUVENATION,
-		                DiseaseEnum::RUBELLA,
-		                DiseaseEnum::SINUS_STORM,
-		                DiseaseEnum::SKIN_INFLAMMATION,
-		                DiseaseEnum::SLIGHT_NAUSEA,
-		                DiseaseEnum::SMALLPOX,
-		                DiseaseEnum::SPACE_RABIES,
-		                DiseaseEnum::TAPEWORM,
-		                DisorderEnum::AGORAPHOBIA,
-		                DisorderEnum::CHRONIC_MIGRAINE,
-		                DisorderEnum::CRABISM,
-		                DisorderEnum::PSYCHOTIC_EPISODES,
-		                DisorderEnum::VERTIGO])
-		         ->setMinDelay([0,1,2,3,4])
-		         ->setEffectsNumber([0,1,2,3,4])
+	            ->setMoralPoints([0=>30,1=>70])
+		         ->setDiseasesNames([
+		                DiseaseEnum::CAT_ALLERGY => 1,
+							DiseaseEnum::MUSH_ALLERGY => 1,
+							DiseaseEnum::SEPSIS => 1,
+							DiseaseEnum::SLIGHT_NAUSEA => 1,
+							DiseaseEnum::SMALLPOX => 1,
+							DiseaseEnum::SYPHILIS => 1,
+							DisorderEnum::AILUROPHOBIA => 1,
+							DisorderEnum::COPROLALIA => 1,
+							DisorderEnum::SPLEEN => 1,
+							DisorderEnum::WEAPON_PHOBIA => 1,
+							DisorderEnum::CHRONIC_VERTIGO => 1,
+							DisorderEnum::PARANOIA => 1,
+							DiseaseEnum::ACID_REFLUX => 2,
+							DiseaseEnum::SKIN_INFLAMMATION => 2,
+							DisorderEnum::AGORAPHOBIA => 2,
+							DisorderEnum::CHRONIC_MIGRAINE => 2,
+							DisorderEnum::VERTIGO => 2,
+							DisorderEnum::DEPRESSION => 2,
+							DisorderEnum::PSYCOTIC_EPISODE => 2,
+							DisorderEnum::CRABISM => 4,
+							DiseaseEnum::BLACK_BITE => 4,
+							DiseaseEnum::COLD => 4,
+							DiseaseEnum::EXTREME_TINNITUS => 4,
+							DiseaseEnum::FOOD_POISONING => 4,
+							DiseaseEnum::FUNGIC_INFECTION => 4,
+							DiseaseEnum::REJUVENATION => 4,
+							DiseaseEnum::RUBELLA => 4,
+							DiseaseEnum::SINUS_STORM => 4,
+							DiseaseEnum::SPACE_RABIES => 4,
+							DiseaseEnum::VITAMIN_DEFICIENCY => 4,
+							DiseaseEnum::FLU => 8,
+							DiseaseEnum::GASTROENTERIS => 8,
+							DisorderEnum::MIGRAINE => 8,
+							DiseaseEnum::TAPEWORM => 8])
+				   ->setDiseaseChances([100 => 64, 25 => 1, 30 => 2,35=> 3,40=> 4,45=> 5,
+				                                       50=> 6, 55=> 5,60=> 4,65=> 3,70=> 2, 65 => 1])
+		         ->setDiseaseDelayMin([0 => 1,1 => 1,2 =>1 ,3 => 1,4 => 1,5 =>1 ,
+		                                              6 =>1 ,7 => 1,8 => 1,9 => 1,10 => 1, 11 => 1])
+		         ->setDiseaseDelayLengh([0 => 1,1 => 1,2 =>1 ,3 => 1,4 => 1,5 =>1 ,6 =>1 ,7 => 1,8 => 1])
+		         ->setEffectsNumber([0 => 35, 1 => 40 , 2 => 15, 3 => 9,4 => 1])
 		         ->setExtraEffect([ExtraEffectEnum::EXTRA_PA_GAIN=> 50])
 	        ;
 	        $manager->persist($alienFruitType);

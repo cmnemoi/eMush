@@ -68,6 +68,7 @@ class RandomService implements RandomServiceInterface
     }
     
     // This function takes an array [element => proba%] as input and send back an array
+    // Instead of proba relative ponderation also work
     public function getSingleRandomElementFromProbaArray(array $array): array
     {
     	if (count($array) ===0) {
@@ -80,14 +81,8 @@ class RandomService implements RandomServiceInterface
     		$array[$event]= $cumuProba;
     	};
     	
-    	//renorm the proba
-    	if (count($cumuProba) <>100) {
-    		foreach($array as $event => $proba){
-    		$array[$event]= $proba/$cumuProba*100;
-    	   };		
-       }
-    	
-       $pickedElement=array_filter($cures, function($n){return $n >= $this->randomPercent();});
+    	$probaLim=$this->random(1,$cumuProba);
+       $pickedElement=array_filter($cures, function($n) use($probaLim) {return $n >= $probaLim});
        return [key(pickedElement)];
     }
     

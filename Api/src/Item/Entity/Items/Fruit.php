@@ -33,12 +33,12 @@ class Fruit extends Ration
     /**
      * @ORM\Column(type="array", nullable=false)
      */
-    private array $diseaseEffectDelayMin = [];
+    private array $diseaseDelayMin = [];
     
     /**
      * @ORM\Column(type="array", nullable=false)
      */
-    private array $diseaseEffectDelayLengh = [];
+    private array $diseaseDelayLengh = [];
     
     
     public function getEffectsNumber(): array
@@ -77,26 +77,26 @@ class Fruit extends Ration
         return $this;
     }
     
-         public function getDiseaseEffectDelayMin(): array
+         public function getDiseaseDelayMin(): array
     {
-        return $this->diseasesName;
+        return $this->diseasesDelayMin;
     }
 
-    public function setDiseasesName(array $diseaseEffectDelayMin): Fruit
+    public function setDiseasesName(array $diseaseDelayMin): Fruit
     {
-        $this->diseaseEffectDelayMin = $diseaseEffectDelayMin;
+        $this->diseaseDelayMin = $diseaseDelayMin;
 
         return $this;
     }
     
-         public function getDiseaseEffectDelayLengh(): array
+         public function getDiseaseDelayLengh(): array
     {
-        return $this->diseaseEffectDelayLengh;
+        return $this->diseaseDelayLengh;
     }
 
-    public function setDiseaseEffectDelayLengh(array $diseaseEffectDelayLengh): Fruit
+    public function setDiseaseDelayLengh(array $diseaseDelayLengh): Fruit
     {
-        $this->diseaseEffectDelayLengh = $diseaseEffectDelayLengh;
+        $this->diseaseDelayLengh = $diseaseDelayLengh;
 
         return $this;
     }

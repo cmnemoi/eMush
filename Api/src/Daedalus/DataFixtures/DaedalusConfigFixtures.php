@@ -11,6 +11,10 @@ use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Item\Enum\ItemEnum;
 use Mush\Room\Enum\RoomEnum;
 
+/**
+ * Class DaedalusConfigFixtures
+ * @codeCoverageIgnore
+ */
 class DaedalusConfigFixtures extends Fixture implements DependentFixtureInterface
 {
     public const DEFAULT_DAEDALUS = 'default.daedalus';

@@ -95,8 +95,13 @@ class GameItem
 
     public function addStatus(Status $status): GameItem
     {
-        if (!$this->statuses->contains($status)) {
+        if (!$this->getStatuses()->contains($status)) {
+            if ($status->getGameItem() !== $this) {
+                $status->setGameItem(null);
+            }
+
             $this->statuses->add($status);
+
             $status->setGameItem($this);
         }
 
@@ -148,6 +153,20 @@ class GameItem
 
     public function setPlayer(?Player $player): GameItem
     {
+        if ($player !== $this->getPlayer()) {
+            $oldPlayer = $this->getPlayer();
+
+            $this->player = $player;
+
+            if ($player !== null) {
+                $player->addItem($this);
+            }
+
+            if ($oldPlayer !== null) {
+                $oldPlayer->removeItem($this);
+            }
+        }
+
         if (null === $player && null !== $this->player) {
             $this->player->removeItem($this);
         } elseif ($this->player !== $player) {

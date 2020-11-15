@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Game\Entity\GameConfig;
+use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
 
 /**
@@ -98,6 +99,31 @@ class Daedalus
         return $this;
     }
 
+    public function addPlayer(Player $player): Daedalus
+    {
+        if (!$this->getPlayers()->contains($player)) {
+            if ($player->getDaedalus() !== $this) {
+                $player->setDaedalus(null);
+            }
+
+            $this->players->add($player);
+
+            $player->setDaedalus($this);
+        }
+
+        return $this;
+    }
+
+    public function removePlayer(Player $player): Daedalus
+    {
+        $this->players->removeElement($player);
+        if ($player->getDaedalus() === $this) {
+            $player->setDaedalus(null);
+        }
+
+        return $this;
+    }
+
     public function getGameConfig(): GameConfig
     {
         return $this->gameConfig;
@@ -124,9 +150,25 @@ class Daedalus
 
     public function addRoom(Room $room): Daedalus
     {
-        $this->rooms->add($room);
-        $room->setDaedalus($this);
+        if (!$this->getRooms()->contains($room)) {
+            if ($room->getDaedalus() !== $this) {
+                $room->setDaedalus(null);
+            }
 
+            $this->rooms->add($room);
+
+            $room->setDaedalus($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRoom(Room $room): Daedalus
+    {
+        $this->rooms->removeElement($room);
+        if ($room->getDaedalus() === $this) {
+            $room->setDaedalus(null);
+        }
         return $this;
     }
 

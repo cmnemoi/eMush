@@ -77,16 +77,6 @@
                 <target>Vous avez gagné quantity :pm:</target>
             </segment>
         </unit>
-        <unit id="gain_experience">
-            <segment>
-                <source>gain_experience.character.male</source>
-                <target>Vous avez gagné quantity :xp:</target>
-            </segment>
-            <segment>
-                <source>gain_experience.character.female</source>
-                <target>Vous avez gagné quantity :xp:</target>
-            </segment>
-        </unit>
         <unit id="gain_health_point">
             <segment>
                 <source>gain_health_point.character.male</source>

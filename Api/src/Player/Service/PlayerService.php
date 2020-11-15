@@ -137,7 +137,6 @@ class PlayerService implements PlayerServiceInterface
         $player->addMovementPoint(1);
         $player->addTriumph(1);
         $player->addSatiety(-1);
-        $player->getUser()->addExperience(2);
 
         $this->roomLogService->createQuantityLog(
             LogEnum::GAIN_ACTION_POINT,
@@ -161,14 +160,6 @@ class PlayerService implements PlayerServiceInterface
             $player,
             VisibilityEnum::PRIVATE,
             1,
-            $date
-        );
-        $this->roomLogService->createQuantityLog(
-            LogEnum::GAIN_EXPERIENCE,
-            $player->getRoom(),
-            $player,
-            VisibilityEnum::PRIVATE,
-            2,
             $date
         );
 

@@ -39,6 +39,11 @@ class User implements UserInterface
      */
     private ?Player $currentGame;
 
+    /**
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    private int $experience = 0;
+
     public function getId(): int
     {
         return $this->id;
@@ -96,6 +101,25 @@ class User implements UserInterface
     public function setCurrentGame(?Player $currentGame): User
     {
         $this->currentGame = $currentGame;
+
+        return $this;
+    }
+
+    public function getExperience(): int
+    {
+        return $this->experience;
+    }
+
+    public function setExperience(int $experience): User
+    {
+        $this->experience = $experience;
+
+        return $this;
+    }
+
+    public function addExperience(int $experience): User
+    {
+        $this->experience += $experience;
 
         return $this;
     }

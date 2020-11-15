@@ -16,5 +16,9 @@ interface PlayerServiceInterface
 
     public function createPlayer(Daedalus $daedalus, string $character): Player;
 
+    public function handleNewCycle(Player $player, \DateTime $date): Player;
+
+    public function handleNewDay(Player $player, \DateTime $date): Player;
+
     public function findUserCurrentGame(User $user): ?Player;
 }

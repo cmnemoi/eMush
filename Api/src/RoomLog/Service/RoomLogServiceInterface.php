@@ -17,10 +17,19 @@ interface RoomLogServiceInterface
         \DateTime $dateTime = null
     ): RoomLog;
 
-    public function createItemLog(
+    public function createQuantityLog(
         string $logKey,
         Room $room,
         Player $player,
+        string $visibility,
+        int $quantity,
+        \DateTime $dateTime = null
+    ): RoomLog;
+
+    public function createItemLog(
+        string $logKey,
+        Room $room,
+        ?Player $player,
         GameItem $item,
         string $visibility,
         \DateTime $dateTime = null

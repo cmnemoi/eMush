@@ -42,13 +42,13 @@ class CycleSubscriber implements EventSubscriberInterface
             return;
         }
         $daedalus = $event->getDaedalus();
-
+        $newDay = false;
         $daedalus->setCycle($daedalus->getCycle() + 1);
 
-        //If first cycle, new day
-        if (($daedalus->getCycle() % (24 / $this->gameConfig->getCycleLength())) === 0) {
-            $dayEvent = new DayEvent($daedalus, $event->getTime());
-            $this->eventDispatcher->dispatch($dayEvent, DayEvent::NEW_DAY);
+        if ($daedalus->getCycle() === ((24 / $this->gameConfig->getCycleLength()) + 1)) {
+            $newDay = true;
+            $daedalus->setCycle(1);
+            $daedalus->setDay($daedalus->getDay() + 1);
         }
 
         foreach ($daedalus->getPlayers() as $player) {
@@ -61,6 +61,11 @@ class CycleSubscriber implements EventSubscriberInterface
             $newRoomCycle = new CycleEvent($daedalus, $event->getTime());
             $newRoomCycle->setRoom($room);
             $this->eventDispatcher->dispatch($newRoomCycle, CycleEvent::NEW_CYCLE);
+        }
+
+        if ($newDay) {
+            $dayEvent = new DayEvent($daedalus, $event->getTime());
+            $this->eventDispatcher->dispatch($dayEvent, DayEvent::NEW_DAY);
         }
 
         $this->daedalusService->persist($daedalus);

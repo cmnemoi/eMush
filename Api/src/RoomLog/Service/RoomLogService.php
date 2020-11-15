@@ -62,10 +62,33 @@ class RoomLogService implements RoomLogServiceInterface
         return $this->persist($roomLog);
     }
 
-    public function createItemLog(
+    public function createQuantityLog(
         string $logKey,
         Room $room,
         Player $player,
+        string $visibility,
+        int $quantity,
+        \DateTime $dateTime = null
+    ): RoomLog {
+        $roomLog = new RoomLog();
+        $roomLog
+            ->setLog($logKey)
+            ->setPlayer($player)
+            ->setRoom($room)
+            ->setVisibility($visibility)
+            ->setQuantity($quantity)
+            ->setDate($dateTime ?? new \DateTime('now'))
+            ->setCycle($room->getDaedalus()->getCycle())
+            ->setDay($room->getDaedalus()->getDay())
+        ;
+
+        return $this->persist($roomLog);
+    }
+
+    public function createItemLog(
+        string $logKey,
+        Room $room,
+        ?Player $player,
         GameItem $item,
         string $visibility,
         \DateTime $dateTime = null
@@ -126,6 +149,10 @@ class RoomLogService implements RoomLogServiceInterface
 
                 $logKey .= '.target.' . $targetGenre;
                 $params['target'] = $targetName;
+            }
+
+            if ($roomLog->getQuantity() !== null) {
+                $params['quantity'] = $roomLog->getQuantity();
             }
 
             $logs[$roomLog->getDay()][$roomLog->getCycle()][] = [

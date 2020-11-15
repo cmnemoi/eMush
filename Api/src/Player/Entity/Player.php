@@ -49,6 +49,11 @@ class Player
     private string $person;
 
     /**
+     * @ORM\Column(type="string", nullable=false)
+     */
+    private string $endStatus;
+
+    /**
      * @ORM\ManyToOne (targetEntity="Mush\Daedalus\Entity\Daedalus", inversedBy="players")
      */
     private Daedalus $daedalus;
@@ -92,6 +97,11 @@ class Player
      * @ORM\Column(type="integer", nullable=false)
      */
     private int $movementPoint;
+
+    /**
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    private int $triumph = 0;
 
     /**
      * @ORM\Column(type="integer", nullable=false)
@@ -141,6 +151,18 @@ class Player
     public function setPerson(string $person): Player
     {
         $this->person = $person;
+
+        return $this;
+    }
+
+    public function getEndStatus(): string
+    {
+        return $this->endStatus;
+    }
+
+    public function setEndStatus(string $endStatus): Player
+    {
+        $this->endStatus = $endStatus;
 
         return $this;
     }
@@ -375,6 +397,25 @@ class Player
         return $this;
     }
 
+    public function getTriumph(): int
+    {
+        return $this->triumph;
+    }
+
+    public function setTriumph(int $triumph): Player
+    {
+        $this->triumph = $triumph;
+
+        return $this;
+    }
+
+    public function addTriumph(int $triumph): Player
+    {
+        $this->triumph += $triumph;
+
+        return $this;
+    }
+
     public function getSatiety(): int
     {
         return $this->satiety;
@@ -383,6 +424,13 @@ class Player
     public function setSatiety(int $satiety): Player
     {
         $this->satiety = $satiety;
+
+        return $this;
+    }
+
+    public function addSatiety(int $satiety): Player
+    {
+        $this->satiety += $satiety;
 
         return $this;
     }

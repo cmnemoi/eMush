@@ -5,6 +5,7 @@ namespace Mush\Player\Service;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Player\Entity\Player;
@@ -13,7 +14,9 @@ use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Repository\PlayerRepository;
 use Mush\Room\Entity\Room;
 use Mush\Room\Enum\RoomEnum;
+use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\Status;
 use Mush\User\Entity\User;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -29,21 +32,22 @@ class PlayerService implements PlayerServiceInterface
 
     private GameConfig $gameConfig;
 
+    private RoomLogServiceInterface $roomLogService;
+
     private TokenStorageInterface $tokenStorage;
 
-    /**
-     * PlayerService constructor.
-     */
     public function __construct(
         EntityManagerInterface $entityManager,
         EventDispatcherInterface $eventDispatcher,
         PlayerRepository $repository,
+        RoomLogServiceInterface $roomLogService,
         GameConfigServiceInterface $gameConfigService,
         TokenStorageInterface $tokenStorage
     ) {
         $this->entityManager = $entityManager;
         $this->eventDispatcher = $eventDispatcher;
         $this->repository = $repository;
+        $this->roomLogService = $roomLogService;
         $this->gameConfig = $gameConfigService->getConfig();
         $this->tokenStorage = $tokenStorage;
     }
@@ -118,6 +122,71 @@ class PlayerService implements PlayerServiceInterface
         $user->setCurrentGame($player);
         $playerEvent = new PlayerEvent($player);
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::NEW_PLAYER);
+
+        if ($daedalus->getPlayers()->count() === $this->gameConfig->getMaxPlayer()) {
+            $fullDaedalusEvent = new DaedalusEvent($daedalus);
+            $this->eventDispatcher->dispatch($fullDaedalusEvent, DaedalusEvent::FULL_DAEDALUS);
+        }
+
+        return $this->persist($player);
+    }
+
+    public function handleNewCycle(Player $player, \DateTime $date): Player
+    {
+        $player->addActionPoint(1);
+        $player->addMovementPoint(1);
+        $player->addTriumph(1);
+        $player->addSatiety(-1);
+
+        $this->roomLogService->createQuantityLog(
+            LogEnum::GAIN_ACTION_POINT,
+            $player->getRoom(),
+            $player,
+            VisibilityEnum::PRIVATE,
+            1,
+            $date
+        );
+        $this->roomLogService->createQuantityLog(
+            LogEnum::GAIN_MOVEMENT_POINT,
+            $player->getRoom(),
+            $player,
+            VisibilityEnum::PRIVATE,
+            1,
+            $date
+        );
+        $this->roomLogService->createQuantityLog(
+            LogEnum::GAIN_TRIUMPH,
+            $player->getRoom(),
+            $player,
+            VisibilityEnum::PRIVATE,
+            1,
+            $date
+        );
+
+        return $this->persist($player);
+    }
+
+    public function handleNewDay(Player $player, \DateTime $date): Player
+    {
+        $player->addHealthPoint(1);
+        $player->addMoralPoint(-2);
+
+        $this->roomLogService->createQuantityLog(
+            LogEnum::GAIN_HEALTH_POINT,
+            $player->getRoom(),
+            $player,
+            VisibilityEnum::PRIVATE,
+            1,
+            $date
+        );
+        $this->roomLogService->createQuantityLog(
+            LogEnum::LOSS_MORAL_POINT,
+            $player->getRoom(),
+            $player,
+            VisibilityEnum::PRIVATE,
+            2,
+            $date
+        );
 
         return $this->persist($player);
     }

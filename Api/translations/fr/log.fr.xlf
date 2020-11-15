@@ -57,5 +57,45 @@
                 <target>player a laché une target.</target>
             </segment>
         </unit>
+        <unit id="gain_action_point">
+            <segment>
+                <source>gain_action_point.character.male</source>
+                <target>Vous avez gagné quantity :pa:</target>
+            </segment>
+            <segment>
+                <source>gain_action_point.character.female</source>
+                <target>Vous avez gagné quantity :pa:</target>
+            </segment>
+        </unit>
+        <unit id="gain_movement_point">
+            <segment>
+                <source>gain_movement_point.character.male</source>
+                <target>Vous avez gagné quantity :pm:</target>
+            </segment>
+            <segment>
+                <source>gain_movement_point.character.female</source>
+                <target>Vous avez gagné quantity :pm:</target>
+            </segment>
+        </unit>
+        <unit id="gain_health_point">
+            <segment>
+                <source>gain_health_point.character.male</source>
+                <target>Vous avez gagné quantity :hp:</target>
+            </segment>
+            <segment>
+                <source>gain_health_point.character.female</source>
+                <target>Vous avez gagné quantity :hp:</target>
+            </segment>
+        </unit>
+        <unit id="gain_triumph">
+            <segment>
+                <source>gain_triumph.character.male</source>
+                <target>Cette action remplit les objectifs personnels de votre personnage. Vous gagnez quantity Triomphe.</target>
+            </segment>
+            <segment>
+                <source>gain_triumph.character.female</source>
+                <target>Cette action remplit les objectifs personnels de votre personnage. Vous gagnez quantity Triomphe.</target>
+            </segment>
+        </unit>
     </file>
 </xliff>

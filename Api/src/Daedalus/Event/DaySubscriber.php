@@ -35,9 +35,6 @@ class DaySubscriber implements EventSubscriberInterface
         }
         $daedalus = $event->getDaedalus();
 
-        $daedalus->setDay($daedalus->getDay() + 1);
-        $daedalus->setCycle(1);
-
         foreach ($daedalus->getPlayers() as $player) {
             $newPlayerDay = new DayEvent($daedalus, $event->getTime());
             $newPlayerDay->setPlayer($player);

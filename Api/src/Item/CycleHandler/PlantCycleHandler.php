@@ -77,6 +77,7 @@ class PlantCycleHandler implements CycleHandlerInterface
             $this->roomLogService->createItemLog(
                 PlantLogEnum::PLANT_MATURITY,
                 $gamePlant->getRoom() ?? $gamePlant->getPlayer()->getRoom(),
+                null,
                 $gamePlant,
                 VisibilityEnum::PUBLIC,
                 $dateTime
@@ -213,6 +214,7 @@ class PlantCycleHandler implements CycleHandlerInterface
         $this->roomLogService->createItemLog(
             PlantLogEnum::PLANT_NEW_FRUIT,
             $room,
+            null,
             $gameFruit,
             VisibilityEnum::PUBLIC,
             $dateTime

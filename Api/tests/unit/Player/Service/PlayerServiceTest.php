@@ -14,6 +14,7 @@ use Mush\Player\Repository\PlayerRepository;
 use Mush\Player\Service\PlayerService;
 use Mush\Room\Entity\Room;
 use Mush\Room\Enum\RoomEnum;
+use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -28,6 +29,8 @@ class PlayerServiceTest extends TestCase
     private EntityManagerInterface $entityManager;
     /** @var PlayerRepository | Mockery\Mock */
     private PlayerRepository $repository;
+    /** @var RoomLogServiceInterface | Mockery\Mock */
+    private RoomLogServiceInterface $roomLogService;
     /** @var TokenStorageInterface | Mockery\Mock */
     private TokenStorageInterface $tokenStorage;
     private GameConfig $gameConfig;
@@ -43,6 +46,7 @@ class PlayerServiceTest extends TestCase
         $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $this->repository = Mockery::mock(PlayerRepository::class);
         $this->tokenStorage = Mockery::mock(TokenStorageInterface::class);
+        $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
         $gameConfigService = Mockery::mock(GameConfigServiceInterface::class);
         $this->gameConfig = new GameConfig();
         $this->charactersConfig = new CharacterConfigCollection();
@@ -52,6 +56,7 @@ class PlayerServiceTest extends TestCase
             $this->entityManager,
             $this->eventDispatcher,
             $this->repository,
+            $this->roomLogService,
             $gameConfigService,
             $this->tokenStorage
         );
@@ -115,7 +120,10 @@ class PlayerServiceTest extends TestCase
         ;
         $this->charactersConfig->add($characterConfig);
 
-        $this->gameConfig->setCharactersConfig($this->charactersConfig);
+        $this->gameConfig
+            ->setMaxPlayer(3)
+            ->setCharactersConfig($this->charactersConfig)
+        ;
 
         $player = $this->service->createPlayer($daedalus, 'character');
 

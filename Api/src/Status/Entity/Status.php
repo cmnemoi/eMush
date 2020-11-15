@@ -77,20 +77,25 @@ class Status
         return $this;
     }
 
-    public function getPlayer(): Player
+    public function getPlayer(): ?Player
     {
         return $this->player;
     }
 
     public function setPlayer(?Player $player): Status
     {
-        if (null === $player && null !== $this->player) {
-            $this->player->removeStatus($this);
-        } elseif ($this->player !== $player) {
-            $player->addStatus($this);
-        }
+        if ($player !== $this->player) {
+            $oldPlayer = $this->getPlayer();
 
-        $this->player = $player;
+            $this->player = $player;
+
+            if ($player !== null) {
+                $player->addStatus($this);
+            }
+            if ($oldPlayer !== null) {
+                $oldPlayer->removeStatus($this);
+            }
+        }
 
         return $this;
     }
@@ -102,13 +107,18 @@ class Status
 
     public function setGameItem(?GameItem $gameItem): Status
     {
-        if (null === $gameItem && null !== $this->gameItem) {
-            $this->gameItem->removeStatus($this);
-        } elseif ($this->gameItem !== $gameItem) {
-            $gameItem->addStatus($this);
-        }
+        if ($gameItem !== $this->gameItem) {
+            $oldItem = $this->getGameItem();
 
-        $this->gameItem = $gameItem;
+            $this->gameItem = $gameItem;
+
+            if ($gameItem !== null) {
+                $gameItem->addStatus($this);
+            }
+            if ($oldItem!== null) {
+                $oldItem->removeStatus($this);
+            }
+        }
 
         return $this;
     }

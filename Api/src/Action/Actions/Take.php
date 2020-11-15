@@ -15,7 +15,7 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
-use Mush\Satus\Enum\PlayerStatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Take extends Action
@@ -85,6 +85,7 @@ class Take extends Action
         $this->roomLogService->createItemLog(
             ActionEnum::TAKE,
             $this->player->getRoom(),
+            $this->player,
             $this->item,
             VisibilityEnum::PUBLIC,
             new \DateTime('now')

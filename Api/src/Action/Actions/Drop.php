@@ -79,6 +79,7 @@ class Drop extends Action
         $this->roomLogService->createItemLog(
             ActionEnum::DROP,
             $this->player->getRoom(),
+            $this->player,
             $this->item,
             VisibilityEnum::PUBLIC,
             new \DateTime('now')

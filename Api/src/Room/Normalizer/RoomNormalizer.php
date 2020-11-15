@@ -11,17 +11,21 @@ use Mush\Room\Entity\Room;
 use Mush\User\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RoomNormalizer implements ContextAwareNormalizerInterface
 {
     private ItemNormalizer $itemNormalizer;
+    private TranslatorInterface $translator;
     private TokenStorageInterface $tokenStorage;
 
     public function __construct(
         ItemNormalizer $itemNormalizer,
+        TranslatorInterface $translator,
         TokenStorageInterface $tokenStorage
     ) {
         $this->itemNormalizer = $itemNormalizer;
+        $this->translator = $translator;
         $this->tokenStorage = $tokenStorage;
     }
 
@@ -44,7 +48,7 @@ class RoomNormalizer implements ContextAwareNormalizerInterface
             if ($player !== $this->getUser()->getCurrentGame()) {
                 $players[] = [
                     'id' => $player->getId(),
-                    'name' => $player->getPerson(),
+                    'name' => $this->translator->trans($player->getPerson() . '.name', [], 'characters'),
                     'statuses' => $player->getStatuses(),
                     'skills' => $player->getSkills(),
                     'actions' => [ActionEnum::HIT],
@@ -71,7 +75,7 @@ class RoomNormalizer implements ContextAwareNormalizerInterface
 
         return [
             'id' => $room->getId(),
-            'name' => $room->getName(),
+            'name' => $this->translator->trans($room->getName() . '.name', [], 'rooms'),
             'doors' => $doors,
             'players' => $players,
             'items' => $items,

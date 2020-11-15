@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
+    <file id="actions.ext">
+        <unit id="enter_room">
+            <segment id="enter_room">
+                <source>enter_room.character.male</source>
+                <target>player est entré.</target>
+            </segment>
+            <segment>
+                <source>enter_room.character.female</source>
+                <target>player est entrée.</target>
+            </segment>
+        </unit>
+        <unit id="exit_room">
+            <segment id="exit_room">
+                <source>exit.character.male</source>
+                <target>player est sorti.</target>
+            </segment>
+            <segment>
+                <source>exit.character.female</source>
+                <target>player est sortie.</target>
+            </segment>
+        </unit>
+        <unit id="take">
+            <segment id="take">
+                <source>take.character.male.target.male</source>
+                <target>player a pris un target.</target>
+            </segment>
+            <segment id="take">
+                <source>take.character.male.target.female</source>
+                <target>player a pris une target.</target>
+            </segment>
+            <segment id="take">
+                <source>take.character.female.target.male</source>
+                <target>player a pris un target.</target>
+            </segment>
+            <segment id="take">
+                <source>take.character.female.target.female</source>
+                <target>player a pris une target.</target>
+            </segment>
+        </unit>
+        <unit id="drop">
+            <segment id="drop">
+                <source>drop.character.male.target.male</source>
+                <target>player a laché un target.</target>
+            </segment>
+            <segment id="drop">
+                <source>drop.character.male.target.female</source>
+                <target>player a laché une target.</target>
+            </segment>
+            <segment id="drop">
+                <source>drop.character.female.target.male</source>
+                <target>player a laché un target.</target>
+            </segment>
+            <segment id="drop">
+                <source>drop.character.female.target.female</source>
+                <target>player a laché une target.</target>
+            </segment>
+        </unit>
+    </file>
+</xliff>

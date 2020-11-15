@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
+    <file id="items.ext">
+        <unit id="apprenton_pilot">
+            <segment id="name">
+                <source>apprenton_pilot.name</source>
+                <target>Apprenton Pilote</target>
+            </segment>
+            <segment id="short_name">
+                <source>apprenton_pilot.short_name</source>
+                <target>Apprenton</target>
+            </segment>
+            <segment id="genre">
+                <source>apprenton_pilot.genre</source>
+                <target>male</target>
+            </segment>
+        </unit>
+        <unit id="sniper_helmet_blueprint">
+            <segment id="name">
+                <source>sniper_helmet_blueprint.name</source>
+                <target>plan du casque de visée</target>
+            </segment>
+            <segment id="short_name">
+                <source>sniper_helmet_blueprint.short_name</source>
+                <target>Plan</target>
+            </segment>
+            <segment id="description">
+                <source>sniper_helmet_blueprint.description</source>
+                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
+Ce plan nécessite :
+1 x Débris Métallique
+1 x Débris Plastique
+                </target>
+            </segment>
+            <segment id="examine">
+                <source>sniper_helmet_blueprint.examine</source>
+                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
+Ce plan nécessite :
+1 x Débris Métallique
+1 x Débris Plastique
+Les plans de construction bleus sont une bénédiction pour les équipiers en mal de jeux de construction.</target>
+            </segment>
+
+            <segment id="genre">
+                <source>sniper_helmet_blueprint.genre</source>
+                <target>male</target>
+            </segment>
+        </unit>
+    </file>
+</xliff>

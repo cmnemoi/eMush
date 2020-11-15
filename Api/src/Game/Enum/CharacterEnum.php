@@ -44,4 +44,18 @@ class CharacterEnum
             self::CHUN,
         ];
     }
+
+    public static function isMale(string $character)
+    {
+        return in_array($character, [
+            self::TERRENCE,
+            self::DEREK,
+            self::GIOELE,
+            self::IAN,
+            self::KIM_JUN_SU,
+            self::KUAN_TI,
+            self::ROLAND,
+            self::STEPHEN,
+        ]);
+    }
 }

@@ -3,22 +3,29 @@
 namespace Mush\RoomLog\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Item\Entity\GameItem;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
 use Mush\RoomLog\Entity\RoomLog;
-use Mush\RoomLog\Entity\RoomLogParameter;
+use Mush\RoomLog\Entity\Target;
 use Mush\RoomLog\Repository\RoomLogRepository;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RoomLogService implements RoomLogServiceInterface
 {
     private EntityManagerInterface $entityManager;
     private RoomLogRepository $repository;
+    private TranslatorInterface $translator;
 
-    public function __construct(EntityManagerInterface $entityManager, RoomLogRepository $repository)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        RoomLogRepository $repository,
+        TranslatorInterface $translator
+    ) {
         $this->entityManager = $entityManager;
         $this->repository = $repository;
+        $this->translator = $translator;
     }
 
     public function persist(RoomLog $roomLog): RoomLog
@@ -39,8 +46,7 @@ class RoomLogService implements RoomLogServiceInterface
         Room $room,
         Player $player,
         string $visibility,
-        \DateTime $dateTime,
-        ?RoomLogParameter $roomLogParameter = null
+        \DateTime $dateTime = null
     ): RoomLog {
         $roomLog = new RoomLog();
         $roomLog
@@ -48,8 +54,9 @@ class RoomLogService implements RoomLogServiceInterface
             ->setPlayer($player)
             ->setRoom($room)
             ->setVisibility($visibility)
-            ->setDate($date ?? new \DateTime('now'))
-            ->setParams($roomLogParameter ? $roomLogParameter->toArray() : [])
+            ->setDate($dateTime ?? new \DateTime('now'))
+            ->setCycle($room->getDaedalus()->getCycle())
+            ->setDay($room->getDaedalus()->getDay())
         ;
 
         return $this->persist($roomLog);
@@ -58,19 +65,21 @@ class RoomLogService implements RoomLogServiceInterface
     public function createItemLog(
         string $logKey,
         Room $room,
+        Player $player,
         GameItem $item,
         string $visibility,
-        \DateTime $dateTime,
-        ?RoomLogParameter $roomLogParameter = null
+        \DateTime $dateTime = null
     ): RoomLog {
         $roomLog = new RoomLog();
         $roomLog
             ->setLog($logKey)
-            ->setItem($item)
+            ->setTarget(new Target($item->getName(), 'items'))
+            ->setPlayer($player)
             ->setRoom($room)
             ->setVisibility($visibility)
-            ->setDate($date ?? new \DateTime('now'))
-            ->setParams($roomLogParameter ? $roomLogParameter->toArray() : [])
+            ->setDate($dateTime ?? new \DateTime('now'))
+            ->setCycle($room->getDaedalus()->getCycle())
+            ->setDay($room->getDaedalus()->getDay())
         ;
 
         return $this->persist($roomLog);
@@ -80,18 +89,55 @@ class RoomLogService implements RoomLogServiceInterface
         string $logKey,
         Room $room,
         string $visibility,
-        \DateTime $dateTime,
-        ?RoomLogParameter $roomLogParameter = null
+        \DateTime $dateTime = null
     ): RoomLog {
         $roomLog = new RoomLog();
         $roomLog
             ->setLog($logKey)
             ->setRoom($room)
             ->setVisibility($visibility)
-            ->setDate($date ?? new \DateTime('now'))
-            ->setParams($roomLogParameter ? $roomLogParameter->toArray() : [])
+            ->setDate($dateTime ?? new \DateTime('now'))
+            ->setCycle($room->getDaedalus()->getCycle())
+            ->setDay($room->getDaedalus()->getDay())
         ;
 
         return $this->persist($roomLog);
+    }
+
+    public function getRoomLog(Player $player): array
+    {
+        $roomLogs = $this->repository->getPlayerRoomLog($player);
+
+        $logs = [];
+        /** @var RoomLog $roomLog */
+        foreach ($roomLogs as $roomLog) {
+            $logKey = $roomLog->getLog();
+            $params = [];
+            if ($roomLog->getPlayer()) {
+                $characterKey = $roomLog->getPlayer()->getPerson();
+                $characterName = $this->translator->trans($characterKey . '.name', [], 'characters');
+                $logKey .= '.character.' . (CharacterEnum::isMale($characterKey) ? 'male' : 'female');
+                $params['player'] = $characterName;
+            }
+
+            if ($target = $roomLog->getTarget()) {
+                $targetName = $this->translator->trans($target->getName() . '.short_name', [], $target->getType());
+                $targetGenre = $this->translator->trans($target->getName() . '.genre', [], $target->getType());
+
+                $logKey .= '.target.' . $targetGenre;
+                $params['target'] = $targetName;
+            }
+
+            $logs[$roomLog->getDay()][$roomLog->getCycle()][] = [
+                'log' => $this->translator->trans(
+                    $logKey,
+                    $params,
+                    'log'
+                ),
+                'date' => $roomLog->getDate(),
+            ];
+        }
+
+        return $logs;
     }
 }

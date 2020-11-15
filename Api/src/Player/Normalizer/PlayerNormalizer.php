@@ -10,22 +10,26 @@ use Mush\Room\Normalizer\RoomNormalizer;
 use Mush\User\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class PlayerNormalizer implements ContextAwareNormalizerInterface
 {
     private DaedalusNormalizer $daedalusNormalizer;
     private RoomNormalizer $roomNormalizer;
+    private TranslatorInterface $translator;
     private TokenStorageInterface $tokenStorage;
     private ItemNormalizer $itemNormalizer;
 
     public function __construct(
         DaedalusNormalizer $daedalusNormalizer,
         RoomNormalizer $roomNormalizer,
+        TranslatorInterface $translator,
         TokenStorageInterface $tokenStorage,
         ItemNormalizer $itemNormalizer
     ) {
         $this->daedalusNormalizer = $daedalusNormalizer;
         $this->roomNormalizer = $roomNormalizer;
+        $this->translator = $translator;
         $this->tokenStorage = $tokenStorage;
         $this->itemNormalizer = $itemNormalizer;
     }
@@ -63,7 +67,7 @@ class PlayerNormalizer implements ContextAwareNormalizerInterface
 
         return array_merge([
             'id' => $player->getId(),
-            'character' => $player->getPerson(),
+            'character' => $this->translator->trans($player->getPerson() . '.name', [], 'characters'),
             'gameStatus' => $player->getGameStatus(),
             'statuses' => $player->getStatuses(),
             'daedalus' => $this->daedalusNormalizer->normalize($player->getDaedalus()),

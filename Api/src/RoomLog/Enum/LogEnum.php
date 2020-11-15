@@ -4,7 +4,6 @@ namespace Mush\RoomLog\Enum;
 
 class LogEnum
 {
-    public const GAIN_EXPERIENCE = 'gain_experience';
     public const GAIN_TRIUMPH = 'gain_triumph';
     public const EXIT_ROOM = 'exit_room';
     public const ENTER_ROOM = 'enter_room';

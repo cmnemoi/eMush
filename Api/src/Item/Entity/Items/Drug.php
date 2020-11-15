@@ -18,5 +18,24 @@ class Drug extends Ration
     
     protected int $satiety = 0;
     
+     /**
+     * @ORM\Column(type="array", nullable=false)
+     */
+    private array $effectsNumber = [0];
+    
+    
     //@TODO more precision on the cure is needed (is the number of desease point remooved random)
+    
+    
+    public function getEffectsNumber(): array
+    {
+        return $this->effectsNumber;
+    }
+
+    public function setEffectsNumber(array $effectsNumber): Fruit
+    {
+        $this->effectsNumber = $effectsNumber;
+
+        return $this;
+    }
 }

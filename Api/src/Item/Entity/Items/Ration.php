@@ -43,33 +43,26 @@ class Ration extends ItemType
      * @ORM\Column(type="array", nullable=false)
      */
     private array $cures = [];
-
-	/**
-     * @ORM\Column(type="array", nullable=false)
-     */
-    private array $curesNumber = [0];
-    
     
     /**
      * @ORM\Column(type="array", nullable=false)
      */
-    private array $diseases = [];
-
+    private array $diseasesChances = [];
+    
+     /**
+     * @ORM\Column(type="array", nullable=false)
+     */
+    private array $diseasesDelayMin = [];
+    
     /**
      * @ORM\Column(type="array", nullable=false)
      */
-    private array $diseasesNumber = [0];
-    
+    private array $diseasesDelayLengh = [];
     
      /**
      * @ORM\Column(type="array", nullable=false)
      */
     private array $extraEffects = [];
-
-    /**
-     * @ORM\Column(type="array", nullable=false)
-     */
-    private array $extraEffectsNumber = [0];
 
     /**
      * @ORM\Column(type="boolean", nullable=false)
@@ -159,18 +152,6 @@ class Ration extends ItemType
 
         return $this;
     }
-    
-    public function getCuresNumber(): array
-    {
-        return $this->curesNumber;
-    }
-
-    public function setCuresNumber(array $curesNumber): Ration
-    {
-        $this->curesNumber = $curesNumber;
-
-        return $this;
-    }
 
     public function getDiseases(): array
     {
@@ -183,19 +164,6 @@ class Ration extends ItemType
 
         return $this;
     }
-
-    public function getDiseasesNumber(): array
-    {
-        return $this->diseasesNumber;
-    }
-
-    public function setDiseasesNumber(array $diseasesNumber): Ration
-    {
-        $this->diseasesNumber = $diseasesNumber;
-
-        return $this;
-    }
-    
     
     public function getExtraEffects(): array
     {
@@ -205,18 +173,6 @@ class Ration extends ItemType
     public function setExtraEffects(array $extraEffects): Ration
     {
         $this->extraEffects = $extraEffects;
-
-        return $this;
-    }
-
-    public function getExtraEffectsNumber(): array
-    {
-        return $this->extraEffectsNumber;
-    }
-
-    public function setExtraEffectsNumber(array $extraEffectsNumber): Ration
-    {
-        $this->extraEffectsNumber = $extraEffectsNumber;
 
         return $this;
     }

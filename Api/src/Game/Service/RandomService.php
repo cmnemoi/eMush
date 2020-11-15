@@ -57,12 +57,51 @@ class RandomService implements RandomServiceInterface
         if (count($array) < $number) {
             throw new Error('getRandomElements: array is not large enough');
         }
+        $randomKeys=array_rand(($array), $number)
         if ($number === 0) {
             return [];
         } elseif ($number > 1) {
-            return array_rand(array_flip($array), $number);
+            return array_diff_key($array, array_flip($randomKeys));
         } else {
-            return [array_rand(array_flip($array), $number)];
+            return [$randomKeys => $array[$randomKeys]];
         }
+    }
+    
+    // This function takes an array [element => proba%] as input and send back an array
+    public function getSingleRandomElementFromProbaArray(array $array): array
+    {
+    	if (count($array) ===0) {
+            throw new Error('getRandomElements: array is not large enough');
+      }
+    	//first create a cumulative form of the array
+    	$cumuProba = 0;
+    	foreach($array as $event => $proba){
+    		$cumuProba = $cumuProba + $proba;
+    		$array[$event]= $cumuProba;
+    	};
+    	
+    	//renorm the proba
+    	if (count($cumuProba) <>100) {
+    		foreach($array as $event => $proba){
+    		$array[$event]= $proba/$cumuProba*100;
+    	   };		
+       }
+    	
+       $pickedElement=array_filter($cures, function($n){return $n >= $this->randomPercent();});
+       return [key(pickedElement)];
+    }
+    
+      // This function takes an array [element => proba%] as input and send back an array
+      public function getRandomElementsFromProbaArray(array $array, int $number): array
+      {
+	    	if (count($array) < $number) {
+	            throw new Error('getRandomElements: array is not large enough');
+	      }
+	      $randomElements=[]
+	    	for($i = 0; $i < $number; ++$i) {
+	    	   $randomElements[$i]=$this->getSingleRandomElementFromProbaArray(
+	    	                                                array_diff_key($array, array_flip($randomElements)));
+	      }
+	      return $randomElements;
     }
 }

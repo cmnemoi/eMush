@@ -28,20 +28,20 @@ class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setActionPoints([0, 1, 2, 3])
             ->setMovementPoints([0, 2, 4])
             ->setCures([
-                DiseaseEnum::VITAMIN_DEFICIENCY,
-                DiseaseEnum::SYPHILIS,
-                DiseaseEnum::SKIN_INFLAMMATION,
-                DiseaseEnum::GASTROENTERIS,
-                DiseaseEnum::FLU,
-                DiseaseEnum::SEPTIS,
-                DiseaseEnum::COLD,
-                DiseaseEnum::RUBELLA,
-                DiseaseEnum::SINUS_STORM,
-                DiseaseEnum::TAPEWORM,
-                DisorderEnum::PARANOIA,
-                DisorderEnum::DEPRESSION,
-                DisorderEnum::CHRONIC_MIGRAINE])
-            ->setCuresNumber([1,2,3,4])
+                DiseaseEnum::VITAMIN_DEFICIENCY => 100,
+                DiseaseEnum::SYPHILIS => 100,
+                DiseaseEnum::SKIN_INFLAMMATION => 100,
+                DiseaseEnum::GASTROENTERIS => 100,
+                DiseaseEnum::FLU => 100,
+                DiseaseEnum::SEPTIS => 100,
+                DiseaseEnum::COLD => 100,
+                DiseaseEnum::RUBELLA => 100,
+                DiseaseEnum::SINUS_STORM => 100,
+                DiseaseEnum::TAPEWORM => 100,
+                DisorderEnum::PARANOIA => 100,
+                DisorderEnum::DEPRESSION => 100,
+                DisorderEnum::CHRONIC_MIGRAINE => 100])
+            ->setEffectsNumber([1,2,3,4])
         ;
         foreach(GameDrugEnum->getAll() as $drugName){
 

@@ -41,7 +41,7 @@ class ItemEffectService implements ItemEffectServiceInterface
             
             
 
-            
+            // @TODO Add better statistics (non equiprobable number of effect for exemple)
             $consumableEffect
                 ->setDaedalus($daedalus)
                 ->setRation($ration)
@@ -50,31 +50,53 @@ class ItemEffectService implements ItemEffectServiceInterface
                 ->setHealthPoint(current($this->randomService->getRandomElements($ration->getHealthPoints())))
                 ->setMoralPoint(current($this->randomService->getRandomElements($ration->getMoralPoints())))
                 
-               // if the ration is a fruit 0 to 4 effects shoulb be dispatched among diseases, cures and extraEffects
-                if($ration instanceof fruit && $ration->getEffectsNumber()->count()>0){                   
+
+                if($ration instanceof fruit && $ration->getEffectsNumber()->count()>0){    
+                    // if the ration is a fruit 0 to 4 effects should be dispatched among diseases, cures and extraEffects       
+                   $effectsNumber=current($this->randomService->getRandomElements($ration->getEffectsNumber()));
+                          
+                   $diseaseNumberPossible=count($ration->getDiseasesName());
+                   $extraEffectNumberPossible=count($ration->getExtraEffects());
                    $picked_effects=$this->randomService->getRandomElements(
-	                   array_merge($ration->getCures(), $ration->getDiseases(), $ration->getExtraEffects()),
-	                   current($this->randomService->getRandomElements($ration->getEffectsNumber()))
+	                   range(1, count($diseaseNumberPossible*2+$extraEffectNumberPossible,
+	                   $effectsNumber
 	                   );
+	                   
+	                   
+	                $cures=[]
+	                $DiseasesChances=[]
+	                $DiseasesDelayMin=[]
+	                $DiseasesDelayLengh=[]
+                   // @TODO implement the different proba for different diseases
+                   foreach($picked_effects as $effectId){
+                   	if($picked_effects<=$diseaseNumberPossible){
+                   		$cures=
+                   		
+                   	} elseif($picked_effects>=$diseaseNumberPossible+$extraEffectNumberPossible){
+                   		
+                   	}else{
+	                	
+		                };
+		          
                    $consumableEffect
-                   	->setCures(array_intersect($picked_effects, $ration->getCures())
-                   	->setDiseases(array_intersect($picked_effects, $ration->getDiseases())
-                   	->setExtraEffects(array_intersect($picked_effects, $ration->getExtraEffects());
+                   	->setCures()
+                   	->setDiseasesChances()
+                   	->setDiseasesDelayMin()
+                   	->setDiseasesDelayLengh()
+                   	->setExtraEffects();
                 	
-                }else{
+                }elseif($ration instanceof drug  && $ration->getEffectsNumber()->count()>0) {
+                    // if the ration is a drug 1 to 4 diseases are cured
+                    $curesNumber=current($this->randomService->getRandomElements($ration->getEffectsNumber()));
+                    $consumableEffect
+		                ->setCures($this->randomService->getRandomElements($ration->getCures(),$curesNumber));
+                }else{                	
                 	$consumableEffect
-		                ->setCures($this->randomService->getRandomElements(
-			                $ration->getCures(),
-			                current($this->randomService->getRandomElements($ration->getCuresNumber()))
-		                ))
-		                ->setDiseases($this->randomService->getRandomElements(
-			                $ration->getDiseases(), 
-			                current($this->randomService->getRandomElements($ration->getDiseasesNumber()))
-		                ))
-		                ->setExtraEffects($this->randomService->getRandomElements(
-			                $ration->getExtraEffects(),
-			                current($this->randomService->getRandomElements($ration->getExtraEffectsNumber()))
-		                ));
+		                ->setCures($ration->getCures())
+		                ->setDiseasesChances($ration->getDiseasesChances())
+		                ->setDiseasesDelayMin($ration->getDiseasesDelayMin())
+		                ->setDiseasesDelayLengh($ration->getDiseasesDelayMin()+$ration->getDiseasesDelayLengh())
+		                ->setExtraEffects($ration->getExtraEffects());
 	             }
 
             $this->consumableEffectRepository->persist($consumableEffect);
@@ -88,7 +110,8 @@ class ItemEffectService implements ItemEffectServiceInterface
         $plantEffect = $this->plantEffectRepository
             ->findOneBy(['plant' => $plant, 'daedalus' => $daedalus])
         ;
-
+        
+        // @TODO The number of maturation cycle possible is not discrete + non equiprobable
         if (null === $plantEffect) {
             $plantEffect = new PlantEffect();
             $plantEffect

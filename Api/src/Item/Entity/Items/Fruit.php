@@ -22,8 +22,23 @@ class Fruit extends Ration
     /**
      * @ORM\Column(type="array", nullable=false)
      */
-    private array $extraEffect = [];
+    private array $diseasesName = [];
+    // @TODO include the probability of each disease (probably as value of the array)
     
+    /**
+     * @ORM\Column(type="array", nullable=false)
+     */
+    private array $diseaseEffectChance = [];
+    
+    /**
+     * @ORM\Column(type="array", nullable=false)
+     */
+    private array $diseaseEffectDelayMin = [];
+    
+    /**
+     * @ORM\Column(type="array", nullable=false)
+     */
+    private array $diseaseEffectDelayLengh = [];
     
     
     public function getEffectsNumber(): array
@@ -38,14 +53,53 @@ class Fruit extends Ration
         return $this;
     }
     
-    public function getExtraEffect(): array
+     public function getDiseasesName(): array
     {
-        return $this->extraEffect;
+        return $this->diseasesName;
     }
 
-    public function setExtraEffect(array $extraEffect): Fruit
+    public function setDiseasesName(array $diseasesName): Fruit
     {
-        $this->extraEffect = $extraEffect;
+        $this->diseasesName = $diseasesName;
 
         return $this;
+    }
+    
+         public function getDiseaseEffectChance(): array
+    {
+        return $this->diseaseEffectChance;
+    }
+
+    public function setDiseaseEffectChance(array $diseaseEffectChance): Fruit
+    {
+        $this->diseaseEffectChance = $diseaseEffectChance;
+
+        return $this;
+    }
+    
+         public function getDiseaseEffectDelayMin(): array
+    {
+        return $this->diseasesName;
+    }
+
+    public function setDiseasesName(array $diseaseEffectDelayMin): Fruit
+    {
+        $this->diseaseEffectDelayMin = $diseaseEffectDelayMin;
+
+        return $this;
+    }
+    
+         public function getDiseaseEffectDelayLengh(): array
+    {
+        return $this->diseaseEffectDelayLengh;
+    }
+
+    public function setDiseaseEffectDelayLengh(array $diseaseEffectDelayLengh): Fruit
+    {
+        $this->diseaseEffectDelayLengh = $diseaseEffectDelayLengh;
+
+        return $this;
+    }
+    
+
 }

@@ -58,7 +58,17 @@ class ConsumableEffect
     /**
      * @ORM\Column(type="array", nullable=false)
      */
-    private array $diseases = [];
+    private array $diseasesChance = [];
+    
+    /**
+     * @ORM\Column(type="array", nullable=false)
+     */
+    private array $diseasesDelayMin = [];
+    
+    /**
+     * @ORM\Column(type="array", nullable=false)
+     */
+    private array $diseasesDelayLengh = [];
 
     /**
      * @ORM\Column(type="array", nullable=false)
@@ -154,14 +164,39 @@ class ConsumableEffect
         return $this;
     }
 
-    public function getDiseases(): array
+    public function getDiseasesChance(): array
     {
-        return $this->diseases;
+        return $this->diseasesChance;
     }
 
-    public function setDiseases(array $diseases): ConsumableEffect
+    public function setDiseasesChance(array $diseasesChance): ConsumableEffect
     {
-        $this->diseases = $diseases;
+        $this->diseasesChance = $diseasesChance;
+
+        return $this;
+    }
+    
+    
+    public function getDiseasesDelayMin(): array
+    {
+        return $this->diseasesDelayMin;
+    }
+
+    public function setDiseasesDelayMin(array $diseasesDelayMin): ConsumableEffect
+    {
+        $this->diseasesDelayMin = $diseasesDelayMin;
+
+        return $this;
+    }
+    
+     public function getDiseasesDelayLengh(): array
+    {
+        return $this->diseasesDelayLengh;
+    }
+
+    public function setDiseasesDelayLengh(array $diseasesDelayLengh): ConsumableEffect
+    {
+        $this->diseasesDelayLengh = $diseasesDelayLengh;
 
         return $this;
     }

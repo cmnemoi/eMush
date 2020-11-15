@@ -119,7 +119,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
 		                DisorderEnum::DEPRESSION,
 		                DisorderEnum::PSYCHOTIC_EPISODES,
 		                DisorderEnum::VERTIGO])
-		         ->setDiseases([
+		         ->setDiseasesChances([
 		                DiseaseEnum::ACID_REFLUX,
 		                DiseaseEnum::EXTREME_TINNITUS,
 		                DiseaseEnum::FLU,
@@ -140,6 +140,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
 		                DisorderEnum::CRABISM,
 		                DisorderEnum::PSYCHOTIC_EPISODES,
 		                DisorderEnum::VERTIGO])
+		         ->setMinDelay([0,1,2,3,4])
 		         ->setEffectsNumber([0,1,2,3,4])
 		         ->setExtraEffect([ExtraEffectEnum::EXTRA_PA_GAIN=> 50])
 	        ;

@@ -38,67 +38,72 @@ class ItemEffectService implements ItemEffectServiceInterface
 
         if (null === $consumableEffect) {
             $consumableEffect = new ConsumableEffect();
-            
-            
+
+
             $consumableEffect
                 ->setDaedalus($daedalus)
                 ->setRation($ration)
                 ->setActionPoint(current($this->randomService->getSingleRandomElementFromProbaArray($ration->getActionPoints())))
                 ->setMovementPoint(current($this->randomService->getSingleRandomElementFromProbaArray($ration->getMovementPoints())))
                 ->setHealthPoint(current($this->randomService->getSingleRandomElementFromProbaArray($ration->getHealthPoints())))
-                ->setMoralPoint(current($this->randomService->getSingleRandomElementFromProbaArray($ration->getMoralPoints())))
-                
+                ->setMoralPoint(current($this->randomService->getSingleRandomElementFromProbaArray($ration->getMoralPoints())));
 
-                if($ration instanceof fruit && $ration->getEffectsNumber()->count()>0){    
-                    // if the ration is a fruit 0 to 4 effects should be dispatched among diseases, cures and extraEffects       
-                   $effectsNumber=current($this->randomService->getSingleRandomElementFromProbaArray(
-                                                                   $ration->getEffectsNumber()));
-                          
-                   $diseaseNumberPossible=count($ration->getDiseasesName());
-                   $extraEffectNumberPossible=count($ration->getExtraEffects());
-                   $pickedEffects=$this->randomService->getRandomElements(
-	                   range(1, $diseaseNumberPossible*2+$extraEffectNumberPossible,
-	                   $effectsNumber);
-	                   
-	                   
-	                $cures=[]
-	                $diseasesChances=[]
-	                $diseasesDelayMin=[]
-	                $diseasesDelayLengh=[]
-	                $extraEffects=[]
 
-                   foreach($pickedEffects as $effect){
-                   	if($pickedEffects<=$diseaseNumberPossible){
-                   		$cures[reset($this->randomService-> getSingleRandomElementFromProbaArray($ration->getDiseasesNames()))
-                   		        ]=$this->randomService->getSingleRandomElementFromProbaArray($ration->getDiseaseEffectChance());
-                   	} elseif($pickedEffects>=$diseaseNumberPossible+$extraEffectNumberPossible){
-                   		$pickedDiseases= reset($this->randomService-> getSingleRandomElementFromProbaArray($ration->getDiseasesNames()
-                   		$diseasesChances[$pickedDiseases]=$this->randomService->getSingleRandomElementFromProbaArray($ration->getDiseaseEffectChance());
-                   		$diseasesDelayMin[$pickedDiseases]=$this->randomService->getSingleRandomElementFromProbaArray($ration->getDiseaseDelayMin());
-                   		$diseasesDelayLengh[$pickedDiseases]=$this->randomService->getSingleRandomElementFromProbaArray($ration->getDiseaseDelayLengh());
-                   	}else{
-	                	   $extraEffects=[$this->randomService->getSingleRandomElementFromProbaArray($ration->getExtraEffects())];
-		                };
-                   $consumableEffect
-                   	->setCures($cures)
-                   	->setDiseasesChances($pickedDiseases)
-                   	->setDiseasesDelayMin($diseasesDelayMin)
-                   	->setDiseasesDelayLengh($diseasesDelayLengh)
-                   	->setExtraEffects($extraEffects);
-                	
-                }elseif($ration instanceof drug  && $ration->getEffectsNumber()->count()>0) {
-                    // if the ration is a drug 1 to 4 diseases are cured
-                    $curesNumber=current($this->randomService->getSingleRandomElementFromProbaArray($ration->getEffectsNumber()));
-                    $consumableEffect
-		                ->setCures($this->randomService->getRandomElements($ration->getCures(),$curesNumber));
-                }else{                	
-                	$consumableEffect
-		                ->setCures($ration->getCures())
-		                ->setDiseasesChances($ration->getDiseasesChances())
-		                ->setDiseasesDelayMin($ration->getDiseasesDelayMin())
-		                ->setDiseasesDelayLengh($ration->getDiseasesDelayMin()+$ration->getDiseasesDelayLengh())
-		                ->setExtraEffects($ration->getExtraEffects());
-	             }
+            if ($ration instanceof fruit && $ration->getPlantEffectsNumber()->count() > 0) {
+                // if the ration is a fruit 0 to 4 effects should be dispatched among diseases, cures and extraEffects
+                $effectsNumber = current($this->randomService->getSingleRandomElementFromProbaArray(
+                    $ration->getEffectsNumber()
+                ));
+
+                $diseaseNumberPossible = count($ration->getDiseasesName());
+                $extraEffectNumberPossible = count($ration->getExtraEffects());
+                $pickedEffects = $this->randomService->getRandomElements(
+                    range(
+                        1,
+                        $diseaseNumberPossible * 2 + $extraEffectNumberPossible,
+                        $effectsNumber
+                    )
+                );
+
+
+                $cures = [];
+                $diseasesChances = [];
+                $diseasesDelayMin = [];
+                $diseasesDelayLengh = [];
+                $extraEffects = [];
+
+                foreach ($pickedEffects as $effect) {
+                    if ($pickedEffects <= $diseaseNumberPossible) {
+                         $cures[reset($this->randomService-> getSingleRandomElementFromProbaArray($ration->getDiseasesNames()))
+                               ] = $this->randomService->getSingleRandomElementFromProbaArray($ration->getDiseaseEffectChance());
+                    } elseif ($pickedEffects >= $diseaseNumberPossible + $extraEffectNumberPossible) {
+                        $pickedDiseases = reset($this->randomService-> getSingleRandomElementFromProbaArray($ration->getDiseasesNames()));
+                        $diseasesChances[$pickedDiseases] = $this->randomService->getSingleRandomElementFromProbaArray($ration->getDiseaseEffectChance());
+                        $diseasesDelayMin[$pickedDiseases] = $this->randomService->getSingleRandomElementFromProbaArray($ration->getDiseaseDelayMin());
+                        $diseasesDelayLengh[$pickedDiseases] = $this->randomService->getSingleRandomElementFromProbaArray($ration->getDiseaseDelayLengh());
+                    } else {
+                        $extraEffects = $this->randomService->getSingleRandomElementFromProbaArray($ration->getExtraEffects());
+                    };
+                };
+                $consumableEffect
+                ->setCures($cures)
+                ->setDiseasesChances($pickedDiseases)
+                ->setDiseasesDelayMin($diseasesDelayMin)
+                ->setDiseasesDelayLengh($diseasesDelayLengh)
+                ->setExtraEffects($extraEffects);
+            } elseif ($ration instanceof drug  && $ration->getDrugEffectsNumber()->count() > 0) {
+                // if the ration is a drug 1 to 4 diseases are cured
+                $curesNumber = current($this->randomService->getSingleRandomElementFromProbaArray($ration->getEffectsNumber()));
+                $consumableEffect
+                    ->setCures($this->randomService->getRandomElements($ration->getCures(), $curesNumber));
+            } else {
+                $consumableEffect
+                    ->setCures($ration->getCures())
+                    ->setDiseasesChances($ration->getDiseasesChances())
+                    ->setDiseasesDelayMin($ration->getDiseasesDelayMin())
+                    ->setDiseasesDelayLengh($ration->getDiseasesDelayMin() + $ration->getDiseasesDelayLengh())
+                    ->setExtraEffects($ration->getExtraEffects());
+            }
 
             $this->consumableEffectRepository->persist($consumableEffect);
         }
@@ -111,18 +116,16 @@ class ItemEffectService implements ItemEffectServiceInterface
         $plantEffect = $this->plantEffectRepository
             ->findOneBy(['plant' => $plant, 'daedalus' => $daedalus])
         ;
-        
-        // @TODO The number of maturation cycle possible is not discrete + non equiprobable
+
         if (null === $plantEffect) {
             $plantEffect = new PlantEffect();
             $plantEffect
                 ->setDaedalus($daedalus)
                 ->setPlant($plant)
                 ->setMaturationTime(
-                    $this->randomService->random(
-                        $plant->getMinMaturationTime(),
-                        $plant->getMaxMaturationTime()
-                    )
+                    reset($this->randomService->getSingleRandomElementFromProbaArray(
+                        $plant->getMaturationTime(),
+                    ))
                 )
                 ->setOxygen($this->randomService->random($plant->getMinOxygen(), $plant->getMaxOxygen()))
             ;

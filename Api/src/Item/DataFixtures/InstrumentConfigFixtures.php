@@ -26,7 +26,7 @@ use Mush\Item\Enum\ItemEnum;
 use Mush\Status\Enum\DiseaseEnum;
 use Mush\Status\Enum\DisorderEnum;
 
-class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
+class InstrumentConfigFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {

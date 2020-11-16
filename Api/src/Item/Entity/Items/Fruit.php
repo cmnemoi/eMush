@@ -13,47 +13,46 @@ use Mush\Item\Enum\ItemTypeEnum;
 class Fruit extends Ration
 {
     protected string $type = ItemTypeEnum::FRUIT;
-    
+
      /**
      * @ORM\Column(type="array", nullable=false)
      */
-    private array $effectsNumber = [0];
-    
+    private array $plantEffectsNumber = [0];
+
     /**
      * @ORM\Column(type="array", nullable=false)
      */
     private array $diseasesName = [];
-    // @TODO include the probability of each disease (probably as value of the array)
-    
+
     /**
      * @ORM\Column(type="array", nullable=false)
      */
     private array $diseaseEffectChance = [];
-    
+
     /**
      * @ORM\Column(type="array", nullable=false)
      */
     private array $diseaseDelayMin = [];
-    
+
     /**
      * @ORM\Column(type="array", nullable=false)
      */
     private array $diseaseDelayLengh = [];
-    
-    
-    public function getEffectsNumber(): array
+
+
+    public function getPlantEffectsNumber(): array
     {
-        return $this->effectsNumber;
+        return $this->plantEffectsNumber;
     }
 
-    public function setEffectsNumber(array $effectsNumber): Fruit
+    public function setPlantEffectsNumber(array $plantEffectsNumber): Fruit
     {
-        $this->effectsNumber = $effectsNumber;
+        $this->plantEffectsNumber = $plantEffectsNumber;
 
         return $this;
     }
-    
-     public function getDiseasesName(): array
+
+    public function getDiseasesName(): array
     {
         return $this->diseasesName;
     }
@@ -64,8 +63,8 @@ class Fruit extends Ration
 
         return $this;
     }
-    
-         public function getDiseaseEffectChance(): array
+
+    public function getDiseaseEffectChance(): array
     {
         return $this->diseaseEffectChance;
     }
@@ -76,20 +75,20 @@ class Fruit extends Ration
 
         return $this;
     }
-    
-         public function getDiseaseDelayMin(): array
+
+    public function getDiseaseDelayMin(): array
     {
         return $this->diseasesDelayMin;
     }
 
-    public function setDiseasesName(array $diseaseDelayMin): Fruit
+    public function setDiseasesDelayMin(array $diseaseDelayMin): Fruit
     {
         $this->diseaseDelayMin = $diseaseDelayMin;
 
         return $this;
     }
-    
-         public function getDiseaseDelayLengh(): array
+
+    public function getDiseaseDelayLengh(): array
     {
         return $this->diseaseDelayLengh;
     }
@@ -100,6 +99,4 @@ class Fruit extends Ration
 
         return $this;
     }
-    
-
 }

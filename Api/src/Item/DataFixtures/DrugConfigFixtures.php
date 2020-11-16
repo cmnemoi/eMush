@@ -24,8 +24,8 @@ class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $drugType = new Drug();
         $drugType
-            ->setMoralPoints([ 0 => 97,-2 => 1, 1 =>1 1, 3 => 1])
-            ->setActionPoints([0 => 98, 1 => 1, 3=> 1])
+            ->setMoralPoints([ 0 => 97,-2 => 1, 1 => 1, 3 => 1])
+            ->setActionPoints([0 => 98, 1 => 1, 3 => 1])
             ->setMovementPoints([0 => 98, 2 => 1, 4 => 1])
             ->setCures([
                 DiseaseEnum::VITAMIN_DEFICIENCY => 100,
@@ -41,27 +41,26 @@ class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
                 DisorderEnum::PARANOIA => 100,
                 DisorderEnum::DEPRESSION => 100,
                 DisorderEnum::CHRONIC_MIGRAINE => 100])
-            ->setEffectsNumber([1 => 60 ,2=>30 ,3=> 8 ,4=> 1])
+            ->setDrugEffectsNumber([1 => 60 ,2 => 30 ,3 => 8 ,4 => 1])
         ;
-        foreach(GameDrugEnum->getAll() as $drugName){
 
-
-	        $drug = new Item();
-	        $drug
-	            ->setGameConfig($gameConfig)
-	            ->setName($drugName)
-	            ->setIsHeavy(false)
-	            ->setIsTakeable(true)
-	            ->setIsDropable(true)
-	            ->setIsStackable(true)
-	            ->setIsHideable(true)
-	            ->setIsFireDestroyable(true)
-	            ->setIsFireBreakable(false)
-	            ->setTypes(new ArrayCollection([$drugType]))
-	        ;
-	        $manager->persist($drug);
-	     }
-	     $manager->persist($drugType);
+        foreach ($this->GameDrugEnum->getAll() as $drugName) {
+            $drug = new Item();
+            $drug
+                ->setGameConfig($gameConfig)
+                ->setName($drugName)
+                ->setIsHeavy(false)
+                ->setIsTakeable(true)
+                ->setIsDropable(true)
+                ->setIsStackable(true)
+                ->setIsHideable(true)
+                ->setIsFireDestroyable(true)
+                ->setIsFireBreakable(false)
+                ->setTypes(new ArrayCollection([$drugType]))
+            ;
+            $manager->persist($drug);
+        }
+         $manager->persist($drugType);
 
         $manager->flush();
     }

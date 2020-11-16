@@ -17,22 +17,22 @@ class Ration extends ItemType
     /**
      * @ORM\Column(type="array", nullable=false)
      */
-    private array $moralPoints = [0 =>1];
+    private array $moralPoints = [0 => 1];
 
     /**
      * @ORM\Column(type="array", nullable=false)
      */
-    private array $actionPoints = [0 =>1];
+    private array $actionPoints = [0 => 1];
 
     /**
      * @ORM\Column(type="array", nullable=false)
      */
-    private array $movementPoints = [0 =>1];
+    private array $movementPoints = [0 => 1];
 
     /**
      * @ORM\Column(type="array", nullable=false)
      */
-    private array $healthPoints = [0 =>1];
+    private array $healthPoints = [0 => 1];
 
     /**
      * @ORM\Column(type="integer", nullable=false)
@@ -43,22 +43,22 @@ class Ration extends ItemType
      * @ORM\Column(type="array", nullable=false)
      */
     private array $cures = [];
-    
+
     /**
      * @ORM\Column(type="array", nullable=false)
      */
     private array $diseasesChances = [];
-    
+
      /**
      * @ORM\Column(type="array", nullable=false)
      */
     private array $diseasesDelayMin = [];
-    
+
     /**
      * @ORM\Column(type="array", nullable=false)
      */
     private array $diseasesDelayLengh = [];
-    
+
      /**
      * @ORM\Column(type="array", nullable=false)
      */
@@ -164,7 +164,7 @@ class Ration extends ItemType
 
         return $this;
     }
-    
+
     public function getExtraEffects(): array
     {
         return $this->extraEffects;
@@ -176,7 +176,7 @@ class Ration extends ItemType
 
         return $this;
     }
-    
+
     public function getIsPerishable(): bool
     {
         return $this->isPerishable;

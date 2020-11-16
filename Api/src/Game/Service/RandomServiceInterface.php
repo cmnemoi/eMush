@@ -22,8 +22,8 @@ interface RandomServiceInterface
     public function getItemInRoom(Room $room): GameItem;
 
     public function getRandomElements(array $array, int $number = 1): array;
-    
-    public function getSingleRandomElementFromProbaArray(array $array): array
-    
-    public function getRandomElementsFromProbaArray(array $array, int $number): array
+
+    public function getSingleRandomElementFromProbaArray(array $array): array;
+
+    public function getRandomElementsFromProbaArray(array $array, int $number): array;
 }

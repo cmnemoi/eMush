@@ -17,7 +17,7 @@ class GamePlantEnum
     public const FIBONICCUS = 'Fiboniccus';
     public const MYCOPIA = 'mycopia';
     public const ASPERAGUNK = 'asperagunk';
-    public const BUMPJUNKIN ='bumpjunkin';
+    public const BUMPJUNKIN = 'bumpjunkin';
 
     public static function getAll()
     {

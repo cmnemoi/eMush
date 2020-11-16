@@ -7,6 +7,10 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Daedalus\DataFixtures\DaedalusConfigFixtures;
 use Mush\Item\DataFixtures\ItemConfigFixtures;
+use Mush\Item\DataFixtures\DrugConfigFixtures;
+use Mush\Item\DataFixtures\RationConfigFixtures;
+use Mush\Item\DataFixtures\FruitPlantConfigFixtures;
+use Mush\Item\DataFixtures\BookConfigFixtures;
 use Mush\Item\Enum\GameDrugEnum;
 use Mush\Item\Enum\GamePlantEnum;
 use Mush\Item\Enum\ItemEnum;
@@ -434,6 +438,10 @@ class RoomConfigFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             ItemConfigFixtures::class,
+            RationConfigFixtures::class,
+            DrugConfigFixtures::class,
+            FruitPlantConfigFixtures::class,
+            BookConfigFixtures::class,
             DaedalusConfigFixtures::class,
         ];
     }

@@ -59,12 +59,12 @@ class ConsumableEffect
      * @ORM\Column(type="array", nullable=false)
      */
     private array $diseasesChance = [];
-    
+
     /**
      * @ORM\Column(type="array", nullable=false)
      */
     private array $diseasesDelayMin = [];
-    
+
     /**
      * @ORM\Column(type="array", nullable=false)
      */
@@ -175,8 +175,8 @@ class ConsumableEffect
 
         return $this;
     }
-    
-    
+
+
     public function getDiseasesDelayMin(): array
     {
         return $this->diseasesDelayMin;
@@ -188,8 +188,8 @@ class ConsumableEffect
 
         return $this;
     }
-    
-     public function getDiseasesDelayLengh(): array
+
+    public function getDiseasesDelayLengh(): array
     {
         return $this->diseasesDelayLengh;
     }
@@ -200,8 +200,8 @@ class ConsumableEffect
 
         return $this;
     }
-    
-     public function getExtraEffects(): array
+
+    public function getExtraEffects(): array
     {
         return $this->specialEffect;
     }

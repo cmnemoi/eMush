@@ -19,15 +19,10 @@ class Plant extends ItemType
      */
     private ?Item $fruit = null;
 
-    /**
-     * @ORM\Column(type="integer", length=255, nullable=false)
+     /**
+     * @ORM\Column(type="array", nullable=false)
      */
-    private int $maxMaturationTime;
-
-    /**
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
-    private int $minMaturationTime;
+    private array $maturationTime = [];
 
     /**
      * @ORM\Column(type="integer", length=255, nullable=false)
@@ -51,26 +46,14 @@ class Plant extends ItemType
         return $this;
     }
 
-    public function getMaxMaturationTime(): int
+    public function getMaturationTime(): array
     {
-        return $this->maxMaturationTime;
+        return $this->maturationTime;
     }
 
-    public function setMaxMaturationTime(int $maxMaturationTime): Plant
+    public function setMaturationTime(array $maturationTime): Plant
     {
-        $this->maxMaturationTime = $maxMaturationTime;
-
-        return $this;
-    }
-
-    public function getMinMaturationTime(): int
-    {
-        return $this->minMaturationTime;
-    }
-
-    public function setMinMaturationTime(int $minMaturationTime): Plant
-    {
-        $this->minMaturationTime = $minMaturationTime;
+        $this->maturationTime = $maturationTime;
 
         return $this;
     }

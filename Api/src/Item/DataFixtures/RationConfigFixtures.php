@@ -14,20 +14,20 @@ use Mush\Status\Enum\DiseaseEnum;
 use Mush\Status\Enum\DisorderEnum;
 use Mush\Action\Enum\SpecialEffectEnum;
 
-class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
+class RationConfigFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
-        
+
 
         $standardRationType = new Ration();
         $standardRationType
-            ->setActionPoints([4 =>1])
-            ->setMovementPoints([0 =>1])
-            ->setHealthPoints([0 =>1])
-            ->setMoralPoints([-1 =>1])
+            ->setActionPoints([4 => 1])
+            ->setMovementPoints([0 => 1])
+            ->setHealthPoints([0 => 1])
+            ->setMoralPoints([-1 => 1])
             ->setSatiety(4)
         ;
 
@@ -46,13 +46,13 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($standardRationType);
         $manager->persist($standardRation);
-        
+
         $coockedRationType = new Ration();
         $coockedRationType
-            ->setActionPoints([4 =>1])
-            ->setMovementPoints([0 =>1])
-            ->setHealthPoints([0 =>1])
-            ->setMoralPoints([0 =>1])
+            ->setActionPoints([4 => 1])
+            ->setMovementPoints([0 => 1])
+            ->setHealthPoints([0 => 1])
+            ->setMoralPoints([0 => 1])
             ->setSatiety(4)
         ;
 
@@ -71,13 +71,13 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($coockedRationType);
         $manager->persist($coockedRation);
-        
+
         $alienSteackType = new Ration();
         $alienSteackType
-            ->setActionPoints([4 =>1])
-            ->setMovementPoints([0 =>1])
-            ->setHealthPoints([0 =>1])
-            ->setMoralPoints([-1 =>1])
+            ->setActionPoints([4 => 1])
+            ->setMovementPoints([0 => 1])
+            ->setHealthPoints([0 => 1])
+            ->setMoralPoints([-1 => 1])
             ->setSatiety(4)
             ->setDiseasesChances([
                 DiseaseEnum::ACID_REFLUX => 50,
@@ -106,9 +106,9 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($alienSteackType);
         $manager->persist($alienSteack);
-        
-        
-        
+
+
+
         $coffeType = new Ration();
         $coffeType
             ->setActionPoints([2 => 1])
@@ -160,8 +160,8 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($anabolicType);
         $manager->persist($anabolic);
-        
-        
+
+
         $lombrickBarType = new Ration();
         $lombrickBarType
             ->setActionPoints([8 => 1])
@@ -187,7 +187,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($lombrickBarType);
         $manager->persist($lombrickBar);
-        
+
         $organicWasteType = new Ration();
         $organicWasteType
             ->setActionPoints([6 => 1])
@@ -212,8 +212,8 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($organicWasteType);
         $manager->persist($organicWaste);
-        
-        
+
+
         $proactivePuffedRiceType = new Ration();
         $proactivePuffedRiceType
             ->setActionPoints([10 => 1])
@@ -240,8 +240,8 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($proactivePuffedRiceType);
         $manager->persist($proactivePuffedRice);
-        
-			
+
+
         $spacePotatoType = new Ration();
         $spacePotatoType
             ->setActionPoints([8 => 1])

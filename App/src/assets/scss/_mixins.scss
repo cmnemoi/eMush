@@ -2,7 +2,7 @@
 
 
 /* Add a clip-path with bezel-cuts for each corners of the element.
-Corners values stand clockwise starting from top left. Always specify units (default is px).
+Corners values stand clockwise starting from top left. Always specify units (even if 0).
 Missing values in @include will inherit previous corner value. */
 @mixin corner-bezel($topleft: 0px, $topright: -1, $bottomright: -1, $bottomleft: -1) {
   @if $topright    == -1 { $topright    : $topleft;     }
@@ -22,14 +22,16 @@ Missing values in @include will inherit previous corner value. */
 }
 
 
-
+/* Style an element to make it a button, inlcuding hover effect.
+Editabe values stand for font-size, font-weight, and font-variant. Keep empty for default styles.
+Adding the class ".crossed" to the element will strike-through it. */
 @mixin button-style ($font-size: .83em, $font-weight: 700, $font-variant: small-caps) {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   margin: 1px;
-  padding-bottom: 2px;
+  padding: 0 4px 2px 4px;
   border-radius: 1px;
 
   color: white;
@@ -63,13 +65,27 @@ Missing values in @include will inherit previous corner value. */
       rgb(64, 181, 236) 96%
     );
   }
+  & img { padding: 0 .3em; }
+  &.crossed { opacity: .5; text-decoration: line-through; }
+}
 
-  & img {
-    padding: 0 .3em;
+
+@mixin inventory-slot($width: 54px, $height: 54px) {
+  width: $width;
+  height: $height;
+  min-width: $width; /*needed for flexbox*/
+  min-height: $height;
+  margin: 1px;
+  border: 1px solid #4077b5;
+  border-radius: 3px;
+  background: #3a6aab;
+  box-shadow: 0 0 8px 2px inset #113880;
+
+  &:hover, &:focus {
+    border: 1px solid #fff;
   }
 
-  &.crossed {
-    opacity: .5;
-    text-decoration: line-through;
-  }
+  &:active {
+    border: 1px solid #99ff99;
+    box-shadow: 0 0 0 2px inset #99ff99, 0 0 8px 2px inset #113880; }
 }

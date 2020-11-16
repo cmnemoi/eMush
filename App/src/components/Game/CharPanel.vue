@@ -208,13 +208,7 @@ export default {
       flex-direction: row;
 
       & li {
-        width: 54px;
-        height: 54px;
-        margin-right: 1px;
-        border: 1px solid #4077b5;
-        border-radius: 3px;
-        background: rgba(58,106,171,1);
-        box-shadow: 0 0 8px 2px inset rgba(17,56,128,1);
+        @include inventory-slot();
       }
     }
 

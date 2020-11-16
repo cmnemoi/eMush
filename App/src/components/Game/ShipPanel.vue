@@ -25,13 +25,18 @@
       </ul>
     </div>
   </div>
+  <RoomInventoryPanel></RoomInventoryPanel>
 </div>
 
 </template>
 
 <script>
+import RoomInventoryPanel from "@/components/Game/RoomInventoryPanel";
 export default {
   name: "ShipPanel",
+  components: {
+    RoomInventoryPanel
+  },
   props: {
   }
 }
@@ -49,7 +54,7 @@ export default {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: transparentize(#C2F3FC, .6);
+    background: transparentize(#09092d, .25);
     @include corner-bezel(6.5px, 6.5px, 0px);
   }
 

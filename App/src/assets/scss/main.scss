@@ -1,43 +1,6 @@
 @import "~@/assets/css/normalize.css";
 @import "background.scss";
 
-@font-face {
-  font-family: 'Lato';
-  font-style: normal;
-  font-weight: 200;
-  src: url('~@/assets/fonts/lato/Lato-Light.ttf') format('truetype');
-}
-@font-face {
-  font-family: 'Lato';
-  font-style: italic;
-  font-weight: 200;
-  src: url('~@/assets/fonts/lato/Lato-LightItalic.ttf') format('truetype');
-}
-@font-face {
-  font-family: 'Lato';
-  font-style: normal;
-  font-weight: 400;
-  src: url('~@/assets/fonts/lato/Lato-Regular.ttf') format('truetype');
-}
-@font-face {
-  font-family: 'Lato';
-  font-style: italic;
-  font-weight: 400;
-  src: url('~@/assets/fonts/lato/Lato-Italic.ttf') format('truetype');
-}
-@font-face {
-  font-family: 'Lato';
-  font-style: normal;
-  font-weight: 700;
-  src: url('~@/assets/fonts/lato/Lato-Black.ttf') format('truetype');
-}
-@font-face {
-  font-family: 'Lato';
-  font-style: italic;
-  font-weight: 700;
-  src: url('~@/assets/fonts/lato/Lato-BlackItalic.ttf') format('truetype');
-}
-
 
 @font-face {
   font-family: 'Days-One';
@@ -61,7 +24,6 @@ html {
   box-sizing: inherit;
 }
 
-
 div {
   display: flex;
   flex-direction: column;
@@ -84,4 +46,40 @@ ul, ol {
   margin: 0;
   padding: 0;
   display: flex;
+}
+
+* .popup {
+  display: none; /* WIP */
+  z-index: 20;
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  width: 260px;
+  min-height: 40px;
+  padding: 6px;
+  border: 2px solid #3965FB;
+  border-radius: 2px;
+  background: rgba(35, 37, 100, .9);
+  box-shadow: 0 0 8px 1px inset #3965FB;
+
+  & h3 {
+    margin: 0;
+    margin-bottom: 3px;
+    padding: 0;
+    font-size: .9rem;
+    font-weight: 700;
+    font-variant: small-caps;
+    color: white;
+  }
+
+  & p {
+    margin: 0;
+    padding: 0;
+    font-size: .8rem;
+    line-height: 1.1rem;
+    font-weight: 400;
+    font-variant: initial;
+    color: white;
+  }
+
 }

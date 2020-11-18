@@ -9,6 +9,8 @@ use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\RandomItemPlaces;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Item\Enum\ItemEnum;
+use Mush\Item\Enum\GearItemEnum;
+use Mush\Item\Enum\ToolItemEnum;
 use Mush\Room\Enum\RoomEnum;
 
 /**
@@ -34,29 +36,29 @@ class DaedalusConfigFixtures extends Fixture implements DependentFixtureInterfac
         $randomItemPlaces = new RandomItemPlaces();
         $randomItemPlaces
             ->setItems([
-                ItemEnum::PLASTENITE_ARMOR,
-                ItemEnum::HACKER_KIT,
-                ItemEnum::BLOCK_OF_POST_IT,
+                GearItemEnum::PLASTENITE_ARMOR,
+                ToolItemEnum::HACKER_KIT,
+                ToolItemEnum::BLOCK_OF_POST_IT,
                 ItemEnum::BLASTER,
                 ItemEnum::BLASTER,
                 ItemEnum::QUADRIMETRIC_COMPASS,
                 ItemEnum::CAMERA,
                 ItemEnum::CAMERA,
                 ItemEnum::CAMERA,
-                ItemEnum::ADJUSTABLE_WRENCH,
+                GearItemEnum::ADJUSTABLE_WRENCH,
                 ItemEnum::ROPE,
                 ItemEnum::ROPE,
                 ItemEnum::KNIFE,
-                ItemEnum::EXTINGUISHER,
-                ItemEnum::EXTINGUISHER,
+                ToolItemEnum::EXTINGUISHER,
+                ToolItemEnum::EXTINGUISHER,
                 ItemEnum::DRILL,
-                ItemEnum::PROTECTIVE_GLOVES,
+                GearItemEnum::PROTECTIVE_GLOVES,
                 ItemEnum::GRENADE,
-                ItemEnum::HYDROPOT,
-                ItemEnum::HYDROPOT,
-                ItemEnum::DUCT_TAPE,
-                ItemEnum::SOAP,
-                ItemEnum::STAINPROOF_APRON,
+                ToolItemEnum::HYDROPOT,
+                ToolItemEnum::HYDROPOT,
+                ToolItemEnum::DUCT_TAPE,
+                GearItemEnum::SOAP,
+                GearItemEnum::STAINPROOF_APRON,
             ])
             ->setPlaces([
                 RoomEnum::FRONT_STORAGE,

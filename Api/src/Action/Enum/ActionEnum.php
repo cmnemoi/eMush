@@ -27,6 +27,20 @@ class ActionEnum
     public const ATTACK = 'attack';
     public const CONSUME = 'consume';
     public const BUILD = 'build';
+    public const WATER_PLANT = 'water_plant';
+    public const TREAT_PLANT = 'treat_plant';
+    public const PLANT_IT = 'plant_it';
+    public const HYBRIDIZE = 'hybridize';
+    public const HACK = 'hack';
+    public const EXTINGUISH = 'extinguish';
+    public const GAG = 'gag';
+    public const HYPERFREEZE = 'hyperfreeze';
+    public const EXPRESS_COOK = 'express_cook';
+    public const STRENGTHEN = 'strengthen';
+    public const WRITE = 'write';
+    public const PUBLIC_BROADCAST = 'public_broadcast';
+    public const HEAL = 'heal';
+    public const USE_BANDAGE = 'use_bandage';
 
     // Skill-related actions (Humans)
     public const FIERY_SPEECH = 'fiery_speech';
@@ -40,7 +54,7 @@ class ActionEnum
     public const DISASSEMBLE = 'disassemble';
     public const REINFORCE = 'reinforce'; // /!\ This is preventing disassembly, not reinforcing the hull!
     public const PREMONOTION = 'premonition';
-    public const EXTINGUISH = 'hand_extinguish';
+    public const HAND_EXTINGUISH = 'hand_extinguish';
     public const CEASE_FIRE = 'cease_fire';
     public const CEASEFIRE = 'ceasefire';
     public const TORTURE = 'torture';

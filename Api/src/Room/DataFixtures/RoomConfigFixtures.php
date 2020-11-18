@@ -11,9 +11,17 @@ use Mush\Item\DataFixtures\DrugConfigFixtures;
 use Mush\Item\DataFixtures\RationConfigFixtures;
 use Mush\Item\DataFixtures\FruitPlantConfigFixtures;
 use Mush\Item\DataFixtures\BookConfigFixtures;
+use Mush\Item\DataFixtures\WeaponConfigFixtures;
+use Mush\Item\DataFixtures\ToolConfigFixtures;
+use Mush\Item\DataFixtures\ExplorationConfigFixtures;
+use Mush\Item\DataFixtures\GearConfigFixtures;
+use Mush\Item\DataFixtures\BlueprintConfigFixtures;
 use Mush\Item\Enum\GameDrugEnum;
 use Mush\Item\Enum\GamePlantEnum;
 use Mush\Item\Enum\ItemEnum;
+use Mush\Item\Enum\GearItemEnum;
+use Mush\Item\Enum\ToolItemEnum;
+use Mush\Item\Enum\GameRationEnum;
 use Mush\Room\Entity\RoomConfig;
 use Mush\Room\Enum\DoorEnum;
 use Mush\Room\Enum\RoomEnum;
@@ -107,15 +115,15 @@ class RoomConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setDaedalusConfig($this->getReference(DaedalusConfigFixtures::DEFAULT_DAEDALUS))
             ->setName(RoomEnum::LABORATORY)
             ->setItems([
-                ItemEnum::APPRENTON_PILOT,
-                ItemEnum::SNIPER_HELMET_BLUEPRINT,
+                ItemEnum::APPRENTON . '_' . SkillEnum::PILOT,
+                GearItemEnum::SNIPER_HELMET . '_' . ItemEnum::BLUEPRINT,
                 ItemEnum::METAL_SCRAPS,
                 ItemEnum::PLASTIC_SCRAPS,
                 GameDrugEnum::BACTA,
-                  GameDrugEnum::BACTA,
-                  GameDrugEnum::BACTA,
-                  GameDrugEnum::BACTA,
-                  GameDrugEnum::BACTA,
+                GameDrugEnum::BACTA,
+                GameDrugEnum::BACTA,
+                GameDrugEnum::BACTA,
+                GameDrugEnum::BACTA,
             ])
             ->setDoors([
                 DoorEnum::FRONT_CORRIDOR_LABORATORY,
@@ -132,41 +140,41 @@ class RoomConfigFixtures extends Fixture implements DependentFixtureInterface
                 DoorEnum::REFECTORY_CENTRAL_CORRIDOR,
             ])
             ->setItems([
-                ItemEnum::MAD_KUBE,
-                ItemEnum::MICROWAVE,
-                ItemEnum::SUPERFREEZER,
-                ItemEnum::STANDARD_RATION,
-                ItemEnum::STANDARD_RATION,
-                ItemEnum::STANDARD_RATION,
-                ItemEnum::STANDARD_RATION,
-                ItemEnum::STANDARD_RATION,
-                ItemEnum::STANDARD_RATION,
-                ItemEnum::STANDARD_RATION,
-                ItemEnum::STANDARD_RATION,
-                ItemEnum::STANDARD_RATION,
-                ItemEnum::STANDARD_RATION,
-                ItemEnum::STANDARD_RATION,
-                ItemEnum::STANDARD_RATION,
-                ItemEnum::STANDARD_RATION,
-                ItemEnum::STANDARD_RATION,
-                ItemEnum::STANDARD_RATION,
-                ItemEnum::STANDARD_RATION,
-                ItemEnum::STANDARD_RATION,
-                ItemEnum::STANDARD_RATION,
-                ItemEnum::STANDARD_RATION,
-                ItemEnum::STANDARD_RATION,
-                ItemEnum::STANDARD_RATION,
-                ItemEnum::STANDARD_RATION,
-                ItemEnum::STANDARD_RATION,
-                ItemEnum::STANDARD_RATION,
-                ItemEnum::STANDARD_RATION,
-                ItemEnum::STANDARD_RATION,
-                ItemEnum::STANDARD_RATION,
-                ItemEnum::STANDARD_RATION,
-                ItemEnum::STANDARD_RATION,
-                ItemEnum::STANDARD_RATION,
-                ItemEnum::STANDARD_RATION,
-                ItemEnum::STANDARD_RATION,
+                ToolItemEnum::MAD_KUBE,
+                ToolItemEnum::MICROWAVE,
+                ToolItemEnum::SUPERFREEZER,
+                GameRationEnum::STANDARD_RATION,
+                GameRationEnum::STANDARD_RATION,
+                GameRationEnum::STANDARD_RATION,
+                GameRationEnum::STANDARD_RATION,
+                GameRationEnum::STANDARD_RATION,
+                GameRationEnum::STANDARD_RATION,
+                GameRationEnum::STANDARD_RATION,
+                GameRationEnum::STANDARD_RATION,
+                GameRationEnum::STANDARD_RATION,
+                GameRationEnum::STANDARD_RATION,
+                GameRationEnum::STANDARD_RATION,
+                GameRationEnum::STANDARD_RATION,
+                GameRationEnum::STANDARD_RATION,
+                GameRationEnum::STANDARD_RATION,
+                GameRationEnum::STANDARD_RATION,
+                GameRationEnum::STANDARD_RATION,
+                GameRationEnum::STANDARD_RATION,
+                GameRationEnum::STANDARD_RATION,
+                GameRationEnum::STANDARD_RATION,
+                GameRationEnum::STANDARD_RATION,
+                GameRationEnum::STANDARD_RATION,
+                GameRationEnum::STANDARD_RATION,
+                GameRationEnum::STANDARD_RATION,
+                GameRationEnum::STANDARD_RATION,
+                GameRationEnum::STANDARD_RATION,
+                GameRationEnum::STANDARD_RATION,
+                GameRationEnum::STANDARD_RATION,
+                GameRationEnum::STANDARD_RATION,
+                GameRationEnum::STANDARD_RATION,
+                GameRationEnum::STANDARD_RATION,
+                GameRationEnum::STANDARD_RATION,
+                GameRationEnum::STANDARD_RATION,
             ])
         ;
         $manager->persist($refectory);
@@ -180,7 +188,7 @@ class RoomConfigFixtures extends Fixture implements DependentFixtureInterface
                 DoorEnum::FRONT_STORAGE_GARDEN,
             ])
             ->setItems([
-                ItemEnum::HYDROPOT,
+                ToolItemEnum::HYDROPOT,
                 GamePlantEnum::BANANA_TREE,
                 GamePlantEnum::BANANA_TREE,
             ])
@@ -442,6 +450,11 @@ class RoomConfigFixtures extends Fixture implements DependentFixtureInterface
             DrugConfigFixtures::class,
             FruitPlantConfigFixtures::class,
             BookConfigFixtures::class,
+            BlueprintConfigFixtures::class,
+            ExplorationConfigFixtures::class,
+            ToolConfigFixtures::class,
+            GearConfigFixtures::class,
+            WeaponConfigFixtures::class,
             DaedalusConfigFixtures::class,
         ];
     }

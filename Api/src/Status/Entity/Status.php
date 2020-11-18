@@ -115,7 +115,7 @@ class Status
             if ($gameItem !== null) {
                 $gameItem->addStatus($this);
             }
-            if ($oldItem!== null) {
+            if ($oldItem !== null) {
                 $oldItem->removeStatus($this);
             }
         }

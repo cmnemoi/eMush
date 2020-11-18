@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Item\Entity\Item;
 use Mush\Item\Entity\ItemType;
 use Mush\Item\Enum\ItemTypeEnum;
+use Mush\Action\Enum\ActionEnum;
 
 /**
  * @ORM\Entity()
@@ -13,6 +14,8 @@ use Mush\Item\Enum\ItemTypeEnum;
 class Plant extends ItemType
 {
     protected string $type = ItemTypeEnum::PLANT;
+
+    protected array $actions = [ActionEnum::WATER_PLANT, ActionEnum::TREAT_PLANT];
 
     /**
      * @ORM\OneToOne(targetEntity="Mush\Item\Entity\Item", inversedBy=")

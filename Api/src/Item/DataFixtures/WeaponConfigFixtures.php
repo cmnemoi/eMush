@@ -33,572 +33,244 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
-        $apron = new Item();
-        $apron
-            ->setGameConfig($gameConfig)
-            ->setName(ItemEnum::STAINPROOF_APRON)
-            ->setIsHeavy(false)
-            ->setIsDismantable(false)
-            ->setIsTakeable(true)
-            ->setIsDropable(true)
-            ->setIsStackable(false)
-            ->setIsHideable(true)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(true)
+        $dismountableType1 = new Dismountable();
+        $dismountableType1
+            ->setProducts([ItemEnum::METAL_SCRAPS => 1])
+            ->setActionCost(3)
+            ->setChancesSuccess(25)
         ;
-        $manager->persist($apron);
 
-        $plasteniteArmor = new Item();
-        $plasteniteArmor
-            ->setGameConfig($gameConfig)
-            ->setName(ItemEnum::PLASTENITE_ARMOR)
-            ->setIsHeavy(false)
-            ->setIsDismantable(false)
-            ->setIsTakeable(true)
-            ->setIsDropable(true)
-            ->setIsStackable(false)
-            ->setIsHideable(true)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(true)
+         // @TODO more details are needed on the output of each weapon
+        $blasterType = new Weapon();
+        $blasterType
+            ->setBaseAccuracy(50)
+            ->setBaseDamageRange([2 => 5])
+            ->setBaseInjuryNumber([0 => 1])
+            ->setExpeditionBonus(1)
+            ->setCriticalSucessEvents([])
+            ->setCriticalSucessEvents([])
         ;
-        $manager->persist($plasteniteArmor);
 
-        $hackerKit = new Item();
-        $hackerKit
-            ->setGameConfig($gameConfig)
-            ->setName(ItemEnum::HACKER_KIT)
-            ->setIsHeavy(false)
-            ->setIsDismantable(false)
-            ->setIsTakeable(true)
-            ->setIsDropable(true)
-            ->setIsStackable(false)
-            ->setIsHideable(true)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(true)
-        ;
-        $manager->persist($hackerKit);
-
-        $blockOfPostIt = new Item();
-        $blockOfPostIt
-            ->setGameConfig($gameConfig)
-            ->setName(ItemEnum::BLOCK_OF_POST_IT)
-            ->setIsHeavy(false)
-            ->setIsDismantable(false)
-            ->setIsTakeable(true)
-            ->setIsDropable(true)
-            ->setIsStackable(false)
-            ->setIsHideable(true)
-            ->setIsFireDestroyable(true)
-            ->setIsFireBreakable(false)
-
-        ;
-        $manager->persist($blockOfPostIt);
-
-        $blasterConfig = new Weapon();
-        $blasterConfig
-            ->setMaxCharges(3)
-        ;
 
         $blaster = new Item();
         $blaster
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::BLASTER)
             ->setIsHeavy(false)
-            ->setIsDismantable(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
-            ->setIsStackable(false)
+            ->setIsStackable(true)
             ->setIsHideable(true)
             ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-            ->setTypes(new ArrayCollection([$blasterConfig]))
+            ->setIsFireBreakable(true)
+            ->setBreakableRate(25)
+            ->setTypes(new ArrayCollection([$dismountableType1, $blasterType]))
         ;
-        $manager->persist($blasterConfig);
+        $manager->persist($dismountableType1);
+        $manager->persist($blasterType);
         $manager->persist($blaster);
 
-        $compass = new Item();
-        $compass
-            ->setGameConfig($gameConfig)
-            ->setName(ItemEnum::QUADRIMETRIC_COMPASS)
 
-            ->setIsHeavy(false)
-            ->setIsDismantable(false)
-            ->setIsTakeable(true)
-            ->setIsDropable(true)
-            ->setIsStackable(false)
-            ->setIsHideable(true)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
 
+        $knifeType = new Weapon();
+        $knifeType
+            ->setBaseAccuracy(50)
+            ->setBaseDamageRange([1 => 5])
+            ->setBaseInjuryNumber([0 => 1])
+            ->setExpeditionBonus(1)
+            ->setCriticalSucessEvents([])
+            ->setCriticalSucessEvents([])
         ;
-        $manager->persist($compass);
-
-        $camera = new Item();
-        $camera
-            ->setGameConfig($gameConfig)
-            ->setName(ItemEnum::CAMERA)
-            ->setIsHeavy(false)
-            ->setIsDismantable(false)
-            ->setIsTakeable(true)
-            ->setIsDropable(false)
-            ->setIsStackable(false)
-            ->setIsHideable(false)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-
-        ;
-        $manager->persist($camera);
-
-        $wrench = new Item();
-        $wrench
-            ->setGameConfig($gameConfig)
-            ->setName(ItemEnum::ADJUSTABLE_WRENCH)
-            ->setIsHeavy(false)
-            ->setIsDismantable(false)
-            ->setIsTakeable(true)
-            ->setIsDropable(false)
-            ->setIsStackable(false)
-            ->setIsHideable(false)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-
-        ;
-        $manager->persist($wrench);
-
-        $rope = new Item();
-        $rope
-            ->setGameConfig($gameConfig)
-            ->setName(ItemEnum::ROPE)
-            ->setIsHeavy(false)
-            ->setIsDismantable(false)
-            ->setIsDropable(false)
-            ->setIsTakeable(true)
-            ->setIsStackable(false)
-            ->setIsHideable(false)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-        ;
-        $manager->persist($rope);
 
         $knife = new Item();
         $knife
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::KNIFE)
             ->setIsHeavy(false)
-            ->setIsDismantable(false)
             ->setIsTakeable(true)
-            ->setIsDropable(false)
-            ->setIsStackable(false)
-            ->setIsHideable(false)
+            ->setIsDropable(true)
+            ->setIsStackable(true)
+            ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
+            ->setBreakableRate(25)
+            ->setTypes(new ArrayCollection([$dismountableType1, $knifeType]))
 
         ;
         $manager->persist($knife);
+        $manager->persist($knifeType);
 
-        $extinguisher = new Item();
-        $extinguisher
-            ->setGameConfig($gameConfig)
-            ->setName(ItemEnum::EXTINGUISHER)
-            ->setIsHeavy(false)
-            ->setIsDismantable(false)
-            ->setIsTakeable(true)
-            ->setIsDropable(true)
-            ->setIsStackable(false)
-            ->setIsHideable(false)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
 
-        ;
-        $manager->persist($extinguisher);
 
-        $drill = new Item();
-        $drill
-            ->setGameConfig($gameConfig)
-            ->setName(ItemEnum::DRILL)
-            ->setIsHeavy(false)
-            ->setIsDismantable(false)
-            ->setIsTakeable(true)
-            ->setIsDropable(true)
-            ->setIsStackable(false)
-            ->setIsHideable(false)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-
-        ;
-        $manager->persist($drill);
-
-        $gloves = new Item();
-        $gloves
-            ->setGameConfig($gameConfig)
-            ->setName(ItemEnum::PROTECTIVE_GLOVES)
-            ->setIsHeavy(false)
-            ->setIsDismantable(false)
-            ->setIsTakeable(true)
-            ->setIsDropable(true)
-            ->setIsStackable(false)
-            ->setIsHideable(false)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-
-        ;
-        $manager->persist($gloves);
+        $grenadeType = new Weapon();
+        $grenadeType
+            ->setBaseAccuracy(100)
+            ->setBaseDamageRange([0 => 10])
+            ->setBaseInjuryNumber([0 => 1])
+            ->setExpeditionBonus(3)
+            ->setCriticalSucessEvents([])
+            ->setCriticalSucessEvents([])
+            ;
 
         $grenade = new Item();
         $grenade
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::GRENADE)
             ->setIsHeavy(false)
-            ->setIsDismantable(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
-            ->setIsStackable(false)
-            ->setIsHideable(false)
+            ->setIsStackable(true)
+            ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
+            ->setTypes(new ArrayCollection([$grenadeType]))
 
         ;
         $manager->persist($grenade);
+        $manager->persist($grenadeType);
 
-        $hydropot = new Item();
-        $hydropot
+
+        $dismountableType2 = new Dismountable();
+        $dismountableType2
+            ->setProducts([ItemEnum::METAL_SCRAPS => 1])
+            ->setActionCost(3)
+            ->setChancesSuccess(12)
+        ;
+
+        $natamyType = new Weapon();
+        $natamyType
+            ->setBaseAccuracy(50)
+            ->setBaseDamageRange([2 => 12])
+            ->setBaseInjuryNumber([1 => 3])
+            ->setExpeditionBonus(1)
+            ->setCriticalSucessEvents([])
+            ->setCriticalSucessEvents([])
+        ;
+
+        $natamy = new Item();
+        $natamy
             ->setGameConfig($gameConfig)
-            ->setName(ItemEnum::HYDROPOT)
+            ->setName(ItemEnum::NATAMY)
             ->setIsHeavy(false)
-            ->setIsDismantable(false)
-            ->setIsTakeable(true)
-            ->setIsDropable(true)
-            ->setIsStackable(false)
-            ->setIsHideable(false)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-
-        ;
-        $manager->persist($hydropot);
-
-        $ductTape = new Item();
-        $ductTape
-            ->setGameConfig($gameConfig)
-            ->setName(ItemEnum::DUCT_TAPE)
-            ->setIsHeavy(false)
-            ->setIsDismantable(false)
-            ->setIsTakeable(true)
-            ->setIsDropable(true)
-            ->setIsStackable(false)
-            ->setIsHideable(false)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-
-        ;
-        $manager->persist($ductTape);
-
-        $soap = new Item();
-        $soap
-            ->setGameConfig($gameConfig)
-            ->setName(ItemEnum::SOAP)
-            ->setIsHeavy(false)
-            ->setIsDismantable(false)
-            ->setIsTakeable(true)
-            ->setIsDropable(true)
-            ->setIsStackable(false)
-            ->setIsHideable(false)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-
-        ;
-        $manager->persist($soap);
-
-        $tabulatrix = new Item();
-        $tabulatrix
-            ->setGameConfig($gameConfig)
-            ->setName(ItemEnum::TABULATRIX)
-            ->setIsHeavy(false)
-            ->setIsDismantable(false)
-            ->setIsTakeable(true)
-            ->setIsDropable(true)
-            ->setIsStackable(false)
-            ->setIsHideable(true)
-            ->setIsFireDestroyable(true)
-            ->setIsFireBreakable(false)
-
-        ;
-        $manager->persist($tabulatrix);
-
-        $madKube = new Item();
-        $madKube
-            ->setGameConfig($gameConfig)
-            ->setName(ItemEnum::MAD_KUBE)
-            ->setIsHeavy(false)
-            ->setIsDismantable(false)
-            ->setIsTakeable(true)
-            ->setIsDropable(true)
-            ->setIsStackable(false)
-            ->setIsHideable(false)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-
-        ;
-        $manager->persist($madKube);
-
-        $kitchenToolsType = new Dismountable();
-        $kitchenToolsType
-            ->setProducts([ItemEnum::METAL_SCRAPS => 2])
-            ->setActionCost(4)
-            ->setChancesSuccess(25)
-        ;
-
-        $microwave = new Item();
-        $microwave
-            ->setGameConfig($gameConfig)
-            ->setName(ItemEnum::MICROWAVE)
-            ->setIsHeavy(false)
-            ->setIsDismantable(false)
-            ->setIsTakeable(true)
-            ->setIsDropable(true)
-            ->setIsStackable(false)
-            ->setIsHideable(false)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-            ->setTypes(new ArrayCollection([$kitchenToolsType]))
-
-        ;
-        $manager->persist($microwave);
-        $manager->persist($kitchenToolsType);
-
-        $superFreezer = new Item();
-        $superFreezer
-            ->setGameConfig($gameConfig)
-            ->setName(ItemEnum::SUPERFREEZER)
-            ->setIsHeavy(false)
-            ->setIsTakeable(true)
-            ->setIsDismantable(false)
-            ->setIsDropable(false)
-            ->setIsStackable(false)
-            ->setIsHideable(false)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-            ->setTypes(new ArrayCollection([$kitchenToolsType]))
-
-        ;
-        $manager->persist($superFreezer);
-
-        $plasticScraps = new Item();
-        $plasticScraps
-            ->setGameConfig($gameConfig)
-            ->setName(ItemEnum::PLASTIC_SCRAPS)
-            ->setIsHeavy(false)
-            ->setIsTakeable(true)
-            ->setIsDismantable(false)
-            ->setIsDropable(true)
-            ->setIsStackable(true)
-            ->setIsHideable(true)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-
-        ;
-        $manager->persist($plasticScraps);
-
-        $metalScraps = new Item();
-        $metalScraps
-            ->setGameConfig($gameConfig)
-            ->setName(ItemEnum::METAL_SCRAPS)
-            ->setIsHeavy(false)
-            ->setIsTakeable(true)
-            ->setIsDismantable(false)
-            ->setIsDropable(true)
-            ->setIsStackable(true)
-            ->setIsHideable(true)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-
-        ;
-        $manager->persist($metalScraps);
-
-        $standardRationType = new Ration();
-        $standardRationType
-            ->setActionPoints([4])
-            ->setMovementPoints([0])
-            ->setHealthPoints([0])
-            ->setMoralPoints([-1])
-            ->setSatiety(4)
-        ;
-
-        $standardRation = new Item();
-        $standardRation
-            ->setGameConfig($gameConfig)
-            ->setName(ItemEnum::STANDARD_RATION)
-            ->setIsHeavy(false)
-            ->setIsDismantable(false)
-            ->setIsTakeable(true)
-            ->setIsDropable(false)
-            ->setIsStackable(false)
-            ->setIsHideable(false)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-            ->setTypes(new ArrayCollection([$standardRationType]))
-        ;
-        $manager->persist($standardRationType);
-        $manager->persist($standardRation);
-
-        $bananaType = new Fruit();
-        $bananaType
-            ->setActionPoints([1])
-            ->setMovementPoints([0])
-            ->setHealthPoints([1])
-            ->setMoralPoints([1])
-
-        ;
-
-        $banana = new Item();
-        $banana
-            ->setGameConfig($gameConfig)
-            ->setName(GameFruitEnum::BANANA)
-            ->setIsHeavy(false)
-            ->setIsDismantable(false)
-            ->setIsTakeable(true)
-            ->setIsDropable(false)
-            ->setIsStackable(false)
-            ->setIsHideable(false)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-            ->setTypes(new ArrayCollection([$bananaType]))
-        ;
-        $manager->persist($bananaType);
-        $manager->persist($banana);
-
-        $bananaTreeType = new Plant();
-        $bananaTreeType
-            ->setFruit($banana)
-            ->setMaxMaturationTime(36)
-            ->setMinMaturationTime(36)
-            ->setMaxOxygen(1)
-            ->setMinOxygen(1)
-        ;
-
-        $bananaTree = new Item();
-        $bananaTree
-            ->setGameConfig($gameConfig)
-            ->setName(GamePlantEnum::BANANA_TREE)
-            ->setIsHeavy(false)
-            ->setIsDismantable(false)
-            ->setIsTakeable(true)
-            ->setIsDropable(true)
-            ->setIsStackable(false)
-            ->setIsHideable(false)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-            ->setTypes(new ArrayCollection([$bananaTreeType]))
-        ;
-        $manager->persist($bananaTreeType);
-        $manager->persist($bananaTree);
-
-        $apprentonPilotType = new Book();
-        $apprentonPilotType
-            ->setSkill(SkillEnum::PILOT)
-        ;
-
-        $dismantle = new Dismountable();
-        $dismantle
-            ->setActionCost(4)
-            ->setChancesSuccess(6)
-            ->setProducts([ItemEnum::METAL_SCRAPS])
-        ;
-
-        $apprentonPilot = new Item();
-        $apprentonPilot
-            ->setGameConfig($gameConfig)
-            ->setName(ItemEnum::APPRENTON_PILOT)
-            ->setIsHeavy(false)
-            ->setIsDismantable(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
             ->setIsStackable(true)
-            ->setIsHideable(true)
-            ->setIsFireDestroyable(true)
-            ->setIsFireBreakable(false)
-            ->setTypes(new ArrayCollection([$apprentonPilotType, $dismantle]))
-        ;
-        $manager->persist($dismantle);
-        $manager->persist($apprentonPilotType);
-        $manager->persist($apprentonPilot);
-
-        $SniperHelmet = new Item();
-        $SniperHelmet
-            ->setGameConfig($gameConfig)
-            ->setName(ItemEnum::SNIPER_HELMET)
-            ->setIsHeavy(false)
-            ->setIsDismantable(false)
-            ->setIsTakeable(true)
-            ->setIsDropable(true)
-            ->setIsStackable(false)
             ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
+            ->setBreakableRate(12)
+            ->setTypes(new ArrayCollection([$dismountableType2, $natamyType]))
         ;
-        $manager->persist($SniperHelmet);
+        $manager->persist($natamy);
+        $manager->persist($natamyType);
 
-        $blueprintSniperHelmetType = new Blueprint();
-        $blueprintSniperHelmetType
-            ->setItem($SniperHelmet)
-            ->setIngredients([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::METAL_SCRAPS => 1])
+
+        $dismountableType3 = new Dismountable();
+        $dismountableType3
+            ->setProducts([ItemEnum::METAL_SCRAPS => 1])
+            ->setActionCost(4)
+            ->setChancesSuccess(12)
         ;
 
-        $blueprintSniperHelmet = new Item();
-        $blueprintSniperHelmet
+        $oldFaithfulType = new Weapon();
+        $oldFaithfulType
+            ->setBaseAccuracy(50)
+            ->setBaseDamageRange([2 => 3])
+            ->setBaseInjuryNumber([0 => 3])
+            ->setExpeditionBonus(2)
+            ->setCriticalSucessEvents([])
+            ->setCriticalSucessEvents([])
+        ;
+
+        $oldFaithful = new Item();
+        $oldFaithful
             ->setGameConfig($gameConfig)
-            ->setName(ItemEnum::SNIPER_HELMET_BLUEPRINT)
-            ->setIsHeavy(false)
-            ->setIsDismantable(false)
+            ->setName(ItemEnum::OLD_FAITHFUL)
+            ->setIsHeavy(true)
             ->setIsTakeable(true)
             ->setIsDropable(true)
             ->setIsStackable(true)
             ->setIsHideable(true)
-            ->setIsFireDestroyable(true)
-            ->setIsFireBreakable(false)
-            ->setTypes(new ArrayCollection([$blueprintSniperHelmetType]))
-        ;
-        $manager->persist($blueprintSniperHelmetType);
-        $manager->persist($blueprintSniperHelmet);
+            ->setIsFireDestroyable(false)
+            ->setIsFireBreakable(true)
+            ->setBreakableRate(12)
+            ->setTypes(new ArrayCollection([$dismountableType3, $oldFaithfulType]))
 
-        $drugType = new Drug();
-        $drugType
-            ->setSatiety(0)
-            ->setMoralPoints([-2, 0, 1, 2, 3])
-            ->setActionPoints([0, 1, 2, 3])
-            ->setMovementPoints([0, 2, 4])
-            ->setCures([
-                DiseaseEnum::VITAMIN_DEFICIENCY,
-                DiseaseEnum::SYPHILIS,
-                DiseaseEnum::SKIN_INFLAMMATION,
-                DiseaseEnum::GASTROENTERIS,
-                DiseaseEnum::FLU,
-                DiseaseEnum::SEPTIS,
-                DiseaseEnum::COLD,
-                DiseaseEnum::RUBELLA,
-                DiseaseEnum::SINUS_STORM,
-                DiseaseEnum::TAPEWORM,
-                DisorderEnum::PARANOIA,
-                DisorderEnum::DEPRESSION,
-                DisorderEnum::CHRONIC_MIGRAINE])
-            ->setCuresNumber([1,2,3,4])
+        ;
+        $manager->persist($oldFaithful);
+        $manager->persist($oldFaithfulType);
+
+
+        $dismountableType4 = new Dismountable();
+        $dismountableType4
+            ->setProducts([ItemEnum::METAL_SCRAPS => 1, ItemEnum::THICK_TUBE => 1])
+            ->setActionCost(3)
+            ->setChancesSuccess(12)
         ;
 
-        $bacta = new Item();
-        $bacta
+        $lizaroJungleType = new Weapon();
+        $lizaroJungleType
+            ->setBaseAccuracy(99)
+            ->setBaseDamageRange([3 => 5])
+            ->setBaseInjuryNumber([1 => 2])
+            ->setExpeditionBonus(1)
+            ->setCriticalSucessEvents([])
+            ->setCriticalSucessEvents([])
+        ;
+
+        $lizaroJungle = new Item();
+        $lizaroJungle
             ->setGameConfig($gameConfig)
-            ->setName(GameDrugEnum::BACTA)
+            ->setName(ItemEnum::LIZARO_JUNGLE)
             ->setIsHeavy(false)
-            ->setIsDismantable(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
             ->setIsStackable(true)
-            ->setIsHideable(false)
-            ->setIsFireDestroyable(true)
-            ->setIsFireBreakable(false)
-            ->setTypes(new ArrayCollection([$drugType]))
+            ->setIsHideable(true)
+            ->setIsFireDestroyable(false)
+            ->setIsFireBreakable(true)
+            ->setBreakableRate(12)
+            ->setTypes(new ArrayCollection([$dismountableType4, $lizaroJungleType]))
+
         ;
-        $manager->persist($drugType);
-        $manager->persist($bacta);
+        $manager->persist($lizaroJungle);
+        $manager->persist($lizaroJungleType);
+
+
+        $rocketLauncherType = new Weapon();
+        $rocketLauncherType
+            ->setBaseAccuracy(50)
+            ->setBaseDamageRange([0 => 8])
+            ->setBaseInjuryNumber([0 => 2])
+            ->setExpeditionBonus(3)
+            ->setCriticalSucessEvents([])
+            ->setCriticalSucessEvents([])
+        ;
+
+        $rocketLauncher = new Item();
+        $rocketLauncher
+            ->setGameConfig($gameConfig)
+            ->setName(ItemEnum::ROCKET_LAUNCHER)
+            ->setIsHeavy(false)
+            ->setIsTakeable(true)
+            ->setIsDropable(true)
+            ->setIsStackable(true)
+            ->setIsHideable(true)
+            ->setIsFireDestroyable(false)
+            ->setIsFireBreakable(true)
+            ->setBreakableRate(12)
+            ->setTypes(new ArrayCollection([$dismountableType2, $rocketLauncherType]))
+
+        ;
+        $manager->persist($rocketLauncher);
+        $manager->persist($rocketLauncherType);
+
+
+        $this->addReference(self::GRENADE, $grenade);
+        $this->addReference(self::OLD_FAITHFUL, $oldFaithful);
+        $this->addReference(self::LIZARO_JUNGLE, $lizaroJungle);
+        $this->addReference(self::ROCKET_LAUNCHER, $rocketLauncher);
+
 
         $manager->flush();
     }

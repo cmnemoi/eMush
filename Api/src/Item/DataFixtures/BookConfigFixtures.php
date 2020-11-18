@@ -44,10 +44,10 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
                   ->setSkill($skillName)
               ;
 
-              $apprentonPilot = new Item();
-              $apprentonPilot
+              $apprenton = new Item();
+              $apprenton
                   ->setGameConfig($gameConfig)
-                  ->setName(ItemEnum::APPRENTON . $skillName)
+                  ->setName(ItemEnum::APPRENTON.'_'.$skillName)
                   ->setIsHeavy(false)
                   ->setIsDismantable(false)
                   ->setIsTakeable(true)

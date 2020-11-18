@@ -4,6 +4,7 @@ namespace Mush\Item\Entity\Items;
 
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Item\Enum\ItemTypeEnum;
+use Mush\Action\Enum\ActionEnum;
 
 /**
  * Class Item.
@@ -14,6 +15,7 @@ class Fruit extends Ration
 {
     protected string $type = ItemTypeEnum::FRUIT;
 
+    protected array $actions = [ActionEnum::HYBRIDIZE];
      /**
      * @ORM\Column(type="array", nullable=false)
      */

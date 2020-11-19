@@ -17,27 +17,27 @@ class Ration extends ItemType
     /**
      * @ORM\Column(type="array", nullable=false)
      */
-    private array $moralPoints = [0];
+    private array $moralPoints = [0 => 1];
 
     /**
      * @ORM\Column(type="array", nullable=false)
      */
-    private array $actionPoints = [0];
+    private array $actionPoints = [0 => 1];
 
     /**
      * @ORM\Column(type="array", nullable=false)
      */
-    private array $movementPoints = [0];
+    private array $movementPoints = [0 => 1];
 
     /**
      * @ORM\Column(type="array", nullable=false)
      */
-    private array $healthPoints = [0];
+    private array $healthPoints = [0 => 1];
 
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
-    private int $satiety = 1;
+    protected int $satiety = 1;
 
     /**
      * @ORM\Column(type="array", nullable=false)
@@ -47,17 +47,28 @@ class Ration extends ItemType
     /**
      * @ORM\Column(type="array", nullable=false)
      */
-    private array $diseases = [];
+    private array $diseasesChances = [];
+
+     /**
+     * @ORM\Column(type="array", nullable=false)
+     */
+    private array $diseasesDelayMin = [];
 
     /**
      * @ORM\Column(type="array", nullable=false)
      */
-    private array $curesNumber = [0];
+    private array $diseasesDelayLengh = [];
 
-    /**
+     /**
      * @ORM\Column(type="array", nullable=false)
      */
-    private array $diseasesNumber = [0];
+    private array $extraEffects = [];
+
+    /**
+     * @ORM\Column(type="boolean", nullable=false)
+     */
+    protected bool $isPerishable = true;
+
 
     //Rations currently only have consume Action
     public function setActions(array $actions): Ration
@@ -142,38 +153,62 @@ class Ration extends ItemType
         return $this;
     }
 
-    public function getDiseases(): array
+    public function getDiseasesChances(): array
     {
-        return $this->diseases;
+        return $this->diseasesChances;
     }
 
-    public function setDiseases(array $diseases): Ration
+    public function setDiseasesChances(array $diseasesChances): Ration
     {
-        $this->diseases = $diseases;
+        $this->diseasesChances = $diseasesChances;
 
         return $this;
     }
 
-    public function getCuresNumber(): array
+    public function getDiseasesDelayMin(): array
     {
-        return $this->curesNumber;
+        return $this->diseasesDelayMin;
     }
 
-    public function setCuresNumber(array $curesNumber): Ration
+    public function setDiseasesDelayMin(array $diseasesDelayMin): Ration
     {
-        $this->curesNumber = $curesNumber;
+        $this->diseasesDelayMin = $diseasesDelayMin;
 
         return $this;
     }
 
-    public function getDiseasesNumber(): array
+    public function getDiseasesDelayLengh(): array
     {
-        return $this->diseasesNumber;
+        return $this->diseasesDelayLengh;
     }
 
-    public function setDiseasesNumber(array $diseasesNumber): Ration
+    public function setDiseasesDelayLengh(array $diseasesDelayLengh): Ration
     {
-        $this->diseasesNumber = $diseasesNumber;
+        $this->diseasesDelayLengh = $diseasesDelayLengh;
+
+        return $this;
+    }
+
+    public function getExtraEffects(): array
+    {
+        return $this->extraEffects;
+    }
+
+    public function setExtraEffects(array $extraEffects): Ration
+    {
+        $this->extraEffects = $extraEffects;
+
+        return $this;
+    }
+
+    public function getIsPerishable(): bool
+    {
+        return $this->isPerishable;
+    }
+
+    public function setIsPerishable(bool $isPerishable): Ration
+    {
+        $this->isPerishable = $isPerishable;
 
         return $this;
     }

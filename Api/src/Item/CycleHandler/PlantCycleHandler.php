@@ -64,7 +64,6 @@ class PlantCycleHandler implements CycleHandlerInterface
                 ->setVisibility(VisibilityEnum::PUBLIC)
                 ->setGameItem($gamePlant)
             ;
-            $gamePlant->addStatus($diseased);
         }
 
         $plantEffect = $this->itemEffectService->getPlantEffect($plantType, $daedalus);
@@ -132,14 +131,12 @@ class PlantCycleHandler implements CycleHandlerInterface
         if (($thirsty = $gamePlant->getStatusByName(ItemStatusEnum::PLANT_THIRSTY)) !== null) {
             $gamePlant->removeStatus($thirsty);
             $driedStatus = $this->statusService->createCoreItemStatus(ItemStatusEnum::PLANT_DRIED_OUT, $gamePlant);
-            $gamePlant->addStatus($driedStatus);
         // If plant was dried, become hydropot
         } elseif ($gamePlant->getStatusByName(ItemStatusEnum::PLANT_DRIED_OUT) !== null) {
             $this->handleDriedPlant($gamePlant, $dateTime);
         // If plant was not thirsty or dried become thirsty
         } else {
             $thirstyStatus = $this->statusService->createCoreItemStatus(ItemStatusEnum::PLANT_THIRSTY, $gamePlant);
-            $gamePlant->addStatus($thirstyStatus);
         }
     }
 

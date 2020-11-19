@@ -16,29 +16,108 @@ class Weapon extends Tool
     protected string $type = ItemTypeEnum::WEAPON;
 
     /**
-     * @ORM\Column(type="string", nullable=false)
+     * @ORM\Column(type="integer", length=255, nullable=false)
      */
-    public int $maxCharges = 0;
+    private int $baseAccuracy = 0;
 
-    //Weapons currently have default attack Action
-    public function setActions(array $actions): Weapon
+    /**
+     * @ORM\Column(type="array", nullable=false)
+     */
+    private array $baseDamageRange = [0 => 0];
+
+     /**
+     * @ORM\Column(type="array", nullable=false)
+     */
+    private array $baseInjuryNumber = [0 => 0];
+
+    /**
+     * @ORM\Column(type="integer", length=255, nullable=false)
+     */
+    private int $expeditionBonus = 0;
+
+      /**
+     * @ORM\Column(type="array", nullable=false)
+     */
+    private array $criticalSucessEvents = [];
+
+    /**
+     * @ORM\Column(type="array", nullable=false)
+     */
+    private array $criticalFailEvents = [];
+
+
+    protected array $actions = [ActionEnum::ATTACK];
+
+
+
+    public function getBaseAccuracy(): int
     {
+        return $this->baseAccuracy;
+    }
+
+    public function setBaseAccuracy(int $baseAccuracy): Weapon
+    {
+        $this->baseAccuracy = $baseAccuracy;
+
         return $this;
     }
 
-    public function getActions(): array
+    public function getBaseDamageRange(): array
     {
-        return [ActionEnum::ATTACK];
+        return $this->baseDamageRange;
     }
 
-    public function getMaxCharges(): int
+    public function setBaseDamageRange(array $baseDamageRange): Weapon
     {
-        return $this->maxCharges;
+        $this->baseDamageRange = $baseDamageRange;
+
+        return $this;
     }
 
-    public function setMaxCharges(int $maxCharges): Weapon
+    public function getBaseInjuryNumber(): array
     {
-        $this->maxCharges = $maxCharges;
+        return $this->baseInjuryNumber;
+    }
+
+    public function setBaseInjuryNumber(array $baseInjuryNumber): Weapon
+    {
+        $this->baseInjuryNumber = $baseInjuryNumber;
+
+        return $this;
+    }
+
+    public function getExpeditionBonus(): int
+    {
+        return $this->expeditionBonus;
+    }
+
+    public function setExpeditionBonus(int $expeditionBonus): Weapon
+    {
+        $this->expeditionBonus = $expeditionBonus;
+
+        return $this;
+    }
+
+    public function getCriticalSucessEvents(): array
+    {
+        return $this->criticalSucessEvents;
+    }
+
+    public function setCriticalSucessEvents(array $criticalSucessEvents): Weapon
+    {
+        $this->criticalSucessEvents = $criticalSucessEvents;
+
+        return $this;
+    }
+
+    public function getCriticalFailEvents(): array
+    {
+        return $this->baseDamageRange;
+    }
+
+    public function setCriticalFailEvents(array $criticalFailEvents): Weapon
+    {
+        $this->criticalFailEvents = $criticalFailEvents;
 
         return $this;
     }

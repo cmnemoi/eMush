@@ -17,7 +17,7 @@ use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
-use Status\Enum\ChargeStrategyTypeEnum;
+use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Consume extends Action
@@ -74,6 +74,7 @@ class Consume extends Action
             throw new \Exception('Cannot consume this item');
         }
 
+         // @TODO add disease, cures and extra effects
         $itemEffect = $this->itemServiceEffect->getConsumableEffect($rationType, $this->player->getDaedalus());
         $this->player
             ->addActionPoint($itemEffect->getActionPoint())

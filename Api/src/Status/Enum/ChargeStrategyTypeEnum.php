@@ -1,6 +1,6 @@
 <?php
 
-namespace Status\Enum;
+namespace Mush\Status\Enum;
 
 class ChargeStrategyTypeEnum
 {

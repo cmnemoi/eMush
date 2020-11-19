@@ -17,6 +17,7 @@ class GameFruitEnum
     public const KUBINUS = 'kubinus';
     public const CALEBOOT = 'caleboot';
     public const FILANDRA = 'filandra';
+    public const JUNKIN = 'junkin';
 
     public static function getAll()
     {
@@ -34,6 +35,7 @@ class GameFruitEnum
             self::KUBINUS,
             self::CALEBOOT,
             self::FILANDRA,
+            self::JUNKIN,
         ];
     }
 

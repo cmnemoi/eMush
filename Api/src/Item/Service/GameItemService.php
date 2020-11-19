@@ -15,7 +15,7 @@ use Mush\Item\Repository\GameItemRepository;
 use Mush\Status\Enum\ItemStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
-use Status\Enum\ChargeStrategyTypeEnum;
+use Mush\Status\Enum\ChargeStrategyTypeEnum;
 
 class GameItemService implements GameItemServiceInterface
 {
@@ -78,8 +78,8 @@ class GameItemService implements GameItemServiceInterface
                 case ItemTypeEnum::PLANT:
                     $this->initPlant($gameItem, $type, $daedalus);
                     break;
-                case ItemTypeEnum::WEAPON:
-                    $this->initWeapon($gameItem, $type);
+                case ItemTypeEnum::CHARGED:
+                    $this->initCharged($gameItem, $type);
                     break;
             }
         }
@@ -87,6 +87,7 @@ class GameItemService implements GameItemServiceInterface
         return $this->persist($gameItem);
     }
 
+     // @TODO maybe remove those init functions to directly include them in createGameItem
     private function initPlant(GameItem $gameItem, Plant $plant, Daedalus $daedalus): GameItem
     {
         $plantStatus = $this->statusService->createChargeItemStatus(
@@ -97,22 +98,18 @@ class GameItemService implements GameItemServiceInterface
             $this->itemEffectService->getPlantEffect($plant, $daedalus)->getMaturationTime()
         );
 
-        $gameItem->addStatus($plantStatus);
-
         return $gameItem;
     }
 
-    private function initWeapon(GameItem $gameItem, Weapon $weapon): GameItem
+    private function initCharged(GameItem $gameItem, Charged $charged): GameItem
     {
         $chargeStatus = $this->statusService->createChargeItemStatus(
             StatusEnum::CHARGE,
             $gameItem,
-            ChargeStrategyTypeEnum::CYCLE_INCREMENT,
-            0,
-            $weapon->getMaxCharges()
+            $charged->getChargeStrategy(),
+            $charged->getStartCharge(),
+            $charged->getMaxCharge()
         );
-
-        $gameItem->addStatus($chargeStatus);
 
         return $gameItem;
     }

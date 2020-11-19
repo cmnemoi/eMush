@@ -19,7 +19,7 @@ class DiseaseEnum
     public const QUINCKS_OEDEMA = 'quincks_oedema';
     public const REJUVENATION = 'rejuvenation';
     public const RUBELLA = 'rubella';
-    public const SEPTIS = 'sepsis';
+    public const SEPSIS = 'sepsis';
     public const SINUS_STORM = 'sinus_storm';
     public const SKIN_INFLAMMATION = 'skin_inflammation';
     public const SLIGHT_NAUSEA = 'slight_nausea';

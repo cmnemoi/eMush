@@ -26,7 +26,8 @@ use Doctrine\ORM\Mapping as ORM;
  *     "ration" = "Mush\Item\Entity\Items\Ration",
  *     "tool" = "Mush\Item\Entity\Items\Tool",
  *     "weapon" = "Mush\Item\Entity\Items\Weapon",
- *     "dismountable" = "Mush\Item\Entity\Items\Dismountable"
+ *     "dismountable" = "Mush\Item\Entity\Items\Dismountable",
+ *     "charged" = "Mush\Item\Entity\Items\Charged"
  * })
  */
 abstract class ItemType

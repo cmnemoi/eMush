@@ -3,7 +3,7 @@
 namespace Mush\Status\ChargeStrategies;
 
 use Mush\Status\Entity\Status;
-use Status\Enum\ChargeStrategyTypeEnum;
+use Mush\Status\Enum\ChargeStrategyTypeEnum;
 
 class CycleDecrease
 {

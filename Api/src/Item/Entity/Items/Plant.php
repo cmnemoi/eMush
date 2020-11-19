@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Item\Entity\Item;
 use Mush\Item\Entity\ItemType;
 use Mush\Item\Enum\ItemTypeEnum;
+use Mush\Action\Enum\ActionEnum;
 
 /**
  * @ORM\Entity()
@@ -14,20 +15,17 @@ class Plant extends ItemType
 {
     protected string $type = ItemTypeEnum::PLANT;
 
+    protected array $actions = [ActionEnum::WATER_PLANT, ActionEnum::TREAT_PLANT, ActionEnum::HYBRIDIZE];
+
     /**
      * @ORM\OneToOne(targetEntity="Mush\Item\Entity\Item", inversedBy=")
      */
     private ?Item $fruit = null;
 
-    /**
-     * @ORM\Column(type="integer", length=255, nullable=false)
+     /**
+     * @ORM\Column(type="array", nullable=false)
      */
-    private int $maxMaturationTime;
-
-    /**
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
-    private int $minMaturationTime;
+    private array $maturationTime = [];
 
     /**
      * @ORM\Column(type="integer", length=255, nullable=false)
@@ -51,26 +49,14 @@ class Plant extends ItemType
         return $this;
     }
 
-    public function getMaxMaturationTime(): int
+    public function getMaturationTime(): array
     {
-        return $this->maxMaturationTime;
+        return $this->maturationTime;
     }
 
-    public function setMaxMaturationTime(int $maxMaturationTime): Plant
+    public function setMaturationTime(array $maturationTime): Plant
     {
-        $this->maxMaturationTime = $maxMaturationTime;
-
-        return $this;
-    }
-
-    public function getMinMaturationTime(): int
-    {
-        return $this->minMaturationTime;
-    }
-
-    public function setMinMaturationTime(int $minMaturationTime): Plant
-    {
-        $this->minMaturationTime = $minMaturationTime;
+        $this->maturationTime = $maturationTime;
 
         return $this;
     }

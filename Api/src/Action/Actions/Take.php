@@ -17,6 +17,7 @@ use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Mush\Status\Service\StatusServiceInterface;
 
 class Take extends Action
 {
@@ -28,13 +29,15 @@ class Take extends Action
     private GameItemServiceInterface $itemService;
     private PlayerServiceInterface $playerService;
     private GameConfig $gameConfig;
+    private StatusServiceInterface $statusService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         RoomLogServiceInterface $roomLogService,
         GameItemServiceInterface $itemService,
         PlayerServiceInterface $playerService,
-        GameConfigServiceInterface $gameConfigService
+        GameConfigServiceInterface $gameConfigService,
+        StatusServiceInterface $statusService
     ) {
         parent::__construct($eventDispatcher);
 
@@ -42,6 +45,7 @@ class Take extends Action
         $this->itemService = $itemService;
         $this->playerService = $playerService;
         $this->gameConfig = $gameConfigService->getConfig();
+        $this->statusService = $statusService;
     }
 
     public function loadParameters(Player $player, ActionParameters $actionParameters)
@@ -66,12 +70,9 @@ class Take extends Action
         $this->item->setRoom(null);
         $this->item->setPlayer($this->player);
 
-        // add BURDENED status if item is heavy and player hasn't SOLID skill
-        if (
-            $this->item->getItem()->isHeavy() &&
-            !in_array(SkillEnum::SOLID, $this->player->getSkills())
-        ) {
-            $this->player->getSkills()[] = PlayerStatusEnum::BURDENED;
+        // add BURDENED status if item is heavy
+        if ($this->item->getItem()->isHeavy()) {
+               $burdenedStatus = $this->statusService->createCorePlayerStatus(PlayerStatusEnum::BURDENED, $this->player);
         }
 
         $this->itemService->persist($this->item);

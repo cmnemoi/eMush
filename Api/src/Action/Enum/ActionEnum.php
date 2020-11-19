@@ -14,8 +14,7 @@ class ActionEnum
     public const EXAMINE = 'examine';
     public const HIT = 'hit';
     public const REPAIR = 'repair';
-    public const READ_DOCUMENT = 'read_document';
-    public const READ_BOOK = 'read_book';
+
 
     // Mush-only actions
     public const EXTRACT_SPORE = 'extract_spore';
@@ -24,9 +23,31 @@ class ActionEnum
     public const GO_BERSERK = 'go_berserk';
 
     // Item-enabled actions
+    public const READ_DOCUMENT = 'read_document';
+    public const READ_BOOK = 'read_book';
+    public const SHRED = 'shred';
     public const ATTACK = 'attack';
     public const CONSUME = 'consume';
     public const BUILD = 'build';
+    public const WATER_PLANT = 'water_plant';
+    public const TREAT_PLANT = 'treat_plant';
+    public const PLANT_IT = 'plant_it';
+    public const HYBRIDIZE = 'hybridize';
+    public const HACK = 'hack';
+    public const EXTINGUISH = 'extinguish';
+    public const GAG = 'gag';
+    public const HYPERFREEZE = 'hyperfreeze';
+    public const EXPRESS_COOK = 'express_cook';
+    public const STRENGTHEN = 'strengthen';
+    public const WRITE = 'write';
+    public const PUBLIC_BROADCAST = 'public_broadcast';
+    public const HEAL = 'heal';
+    public const ULTRAHEAL = 'ultraheal';
+    public const CURE = 'cure';
+    public const USE_BANDAGE = 'use_bandage';
+    public const TRY_THE_KUBE = 'try_the_kube';
+    public const OPEN = 'open';
+
 
     // Skill-related actions (Humans)
     public const FIERY_SPEECH = 'fiery_speech';
@@ -40,7 +61,7 @@ class ActionEnum
     public const DISASSEMBLE = 'disassemble';
     public const REINFORCE = 'reinforce'; // /!\ This is preventing disassembly, not reinforcing the hull!
     public const PREMONOTION = 'premonition';
-    public const EXTINGUISH = 'hand_extinguish';
+    public const HAND_EXTINGUISH = 'hand_extinguish';
     public const CEASE_FIRE = 'cease_fire';
     public const CEASEFIRE = 'ceasefire';
     public const TORTURE = 'torture';

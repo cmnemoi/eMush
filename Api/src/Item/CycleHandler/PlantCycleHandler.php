@@ -190,7 +190,7 @@ class PlantCycleHandler implements CycleHandlerInterface
         }
         // If plant is not in a room, it is in player inventory
         $place = $gamePlant->getRoom() ?? $gamePlant->getPlayer();
-        $room = $place;
+
 
         // Create a new fruit
         $gameFruit = $this->gameItemService->createGameItem($plantType->getFruit(), $place->getDaedalus());
@@ -200,6 +200,7 @@ class PlantCycleHandler implements CycleHandlerInterface
             if ($place->getItems() < $this->gameConfig->getMaxItemInInventory()) {
                 $gameFruit->setPlayer($place);
             } else {
+                    $room = $place;
                 $gameFruit->setRoom($place->getRoom());
             }
         } else {

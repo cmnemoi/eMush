@@ -29,6 +29,7 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
 
         $bananaType = new Fruit();
         $bananaType
+            ->setPlantName(GamePlantEnum::BANANA_TREE)
             ->setActionPoints([1])
             ->setMovementPoints([0])
             ->setHealthPoints([1])
@@ -53,6 +54,7 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
         $manager->persist($banana);
 
         $bananaTreeType = new Plant();
+         //  possibilities are stored as key, array value represent the probability to get the key value
         $bananaTreeType
             ->setFruit($banana)
             ->setMaturationTime([36 => 1])
@@ -92,9 +94,11 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
             GameFruitEnum::FILANDRA => GamePlantEnum::ASPERAGUNK
             ];
 
-        // @TODO change the structure to include the number of cycle before the disease start
-        $alienFruitType = new Fruit();
+
+        foreach ($alienFruitPlant as $fruitName => $plantName) {
+            $alienFruitType = new Fruit();
             $alienFruitType
+                ->setPlantName($plantName)
                 ->setActionPoints([1 => 90 , 2 => 9 , 3 => 1])
                 ->setMoralPoints([0 => 30,1 => 70])
                  ->setDiseasesName([
@@ -142,7 +146,7 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
             ;
             $manager->persist($alienFruitType);
 
-        foreach ($alienFruitPlant as $fruitName => $plantName) {
+
             $alienFruit = new Item();
             $alienFruit
             ->setGameConfig($gameConfig)
@@ -186,6 +190,7 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
 
         $junkinType = new Fruit();
         $junkinType
+            ->setPlantName(GamePlantEnum::BUMPJUNKIN)
             ->setActionPoints([3])
             ->setMovementPoints([0])
             ->setHealthPoints([1])

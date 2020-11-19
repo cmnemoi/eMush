@@ -189,7 +189,7 @@ class RoomConfigFixtures extends Fixture implements DependentFixtureInterface
                 DoorEnum::FRONT_STORAGE_GARDEN,
             ])
             ->setItems([
-                ToolItemEnum::HYDROPOT,
+                ItemEnum::HYDROPOT,
                 GamePlantEnum::BANANA_TREE,
                 GamePlantEnum::BANANA_TREE,
             ])

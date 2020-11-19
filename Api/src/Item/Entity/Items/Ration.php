@@ -18,6 +18,7 @@ class Ration extends ItemType
      * @ORM\Column(type="array", nullable=false)
      */
     private array $moralPoints = [0 => 1];
+   //  possibilities are stored as key, array value represent the probability to get the key value
 
     /**
      * @ORM\Column(type="array", nullable=false)

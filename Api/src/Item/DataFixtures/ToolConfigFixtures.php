@@ -378,27 +378,6 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($metalScrapsType);
 
 
-        $hydropotType  = new Tool();
-        $hydropotType ->setActions([ActionEnum::PLANT_IT])
-        ;
-
-        $hydropot = new Item();
-        $hydropot
-            ->setGameConfig($gameConfig)
-            ->setName(ToolItemEnum::HYDROPOT)
-            ->setIsHeavy(false)
-            ->setIsTakeable(true)
-            ->setIsDropable(true)
-            ->setIsStackable(true)
-            ->setIsHideable(true)
-            ->setIsFireDestroyable(true)
-            ->setIsFireBreakable(false)
-            ->setTypes(new ArrayCollection([$hydropotType]))
-        ;
-        $manager->persist($hydropot);
-        $manager->persist($hydropotType);
-
-
         $this->addReference(ToolItemEnum::EXTINGUISHER, $extinguisher);
 
         $manager->flush();

@@ -17,6 +17,5 @@ class ToolItemEnum
     public const MEDIKIT = 'medikit';
     public const RETRO_FUNGAL_SERUM = 'retro_fungal_serum';
     public const SPORE_SUCKER = 'spore_sucker';
-    public const HYDROPOT = 'hydropot';
     public const SPACE_CAPSULE = 'space_capsule';
 }

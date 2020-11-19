@@ -51,7 +51,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(25)
-            ->setTypes([$dismountableType1])
+            ->setTypes(new ArrayCollection([$dismountableType1]))
         ;
         $manager->persist($camera);
         $manager->persist($dismountableType1);
@@ -69,7 +69,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setBreakableRate(25)
-            ->setTypes([$dismountableType1])
+            ->setTypes(new ArrayCollection([$dismountableType1]))
         ;
         $manager->persist($mycoAlarm);
 
@@ -92,7 +92,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(12)
-            ->setTypes([$dismountableType2])
+            ->setTypes(new ArrayCollection([$dismountableType2]))
         ;
         $manager->persist($tabulatrix);
         $manager->persist($dismountableType2);
@@ -145,7 +145,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setTypes([$dismountableType3])
+            ->setTypes(new ArrayCollection([$dismountableType3]))
         ;
         $manager->persist($thickTube);
         $manager->persist($dismountableType3);
@@ -169,7 +169,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setBreakableRate(25)
-            ->setTypes([$dismountableType4])
+            ->setTypes(new ArrayCollection([$dismountableType4]))
         ;
         $manager->persist($mushDisk);
         $manager->persist($dismountableType4);

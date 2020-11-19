@@ -82,10 +82,10 @@ class RandomService implements RandomServiceInterface
         };
 
         $probaLim = $this->random(1, $cumuProba);
-        $pickedElement = array_filter($cures, function ($n) use ($probaLim) {
+        $pickedElement = array_filter($array, function ($n) use ($probaLim) {
             return $n >= $probaLim;
         });
-        return [key(pickedElement)];
+        return [key($pickedElement)];
     }
 
       // This function takes an array [element => proba%] as input and send back an array

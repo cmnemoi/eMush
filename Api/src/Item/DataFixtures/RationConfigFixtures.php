@@ -9,10 +9,11 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Item\Entity\Items\Ration;
+use Mush\Item\Entity\Item;
 use Mush\Item\Enum\GameRationEnum;
 use Mush\Status\Enum\DiseaseEnum;
 use Mush\Status\Enum\DisorderEnum;
-use Mush\Action\Enum\SpecialEffectEnum;
+use Mush\Action\Enum\ExtraEffectEnum;
 
 class RationConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -34,7 +35,7 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
         $standardRation = new Item();
         $standardRation
             ->setGameConfig($gameConfig)
-            ->setName(ItemEnum::STANDARD_RATION)
+            ->setName(GameRationEnum::STANDARD_RATION)
             ->setIsHeavy(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
@@ -47,8 +48,8 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($standardRationType);
         $manager->persist($standardRation);
 
-        $coockedRationType = new Ration();
-        $coockedRationType
+        $cookedRationType = new Ration();
+        $cookedRationType
             ->setActionPoints([4 => 1])
             ->setMovementPoints([0 => 1])
             ->setHealthPoints([0 => 1])
@@ -57,9 +58,9 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
 
         $cookedRation = new Item();
-        $coockedRation
+        $cookedRation
             ->setGameConfig($gameConfig)
-            ->setName(ItemEnum::COOCKED_RATION)
+            ->setName(GameRationEnum::COOKED_RATION)
             ->setIsHeavy(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
@@ -69,8 +70,8 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireBreakable(false)
             ->setTypes(new ArrayCollection([$cookedRationType]))
         ;
-        $manager->persist($coockedRationType);
-        $manager->persist($coockedRation);
+        $manager->persist($cookedRationType);
+        $manager->persist($cookedRation);
 
         $alienSteackType = new Ration();
         $alienSteackType
@@ -94,7 +95,7 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
         $alienSteack = new Item();
         $alienSteack
             ->setGameConfig($gameConfig)
-            ->setName(ItemEnum::ALIEN_STEAK)
+            ->setName(GameRationEnum::ALIEN_STEAK)
             ->setIsHeavy(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
@@ -109,8 +110,8 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
 
 
 
-        $coffeType = new Ration();
-        $coffeType
+        $coffeeType = new Ration();
+        $coffeeType
             ->setActionPoints([2 => 1])
             ->setMovementPoints([0 => 1])
             ->setHealthPoints([0 => 1])
@@ -118,10 +119,10 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setSatiety(0)
         ;
 
-        $coffe = new Item();
-        $coffe
+        $coffee = new Item();
+        $coffee
             ->setGameConfig($gameConfig)
-            ->setName(ItemEnum::COFFE)
+            ->setName(GameRationEnum::COFFEE)
             ->setIsHeavy(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
@@ -129,10 +130,10 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setTypes(new ArrayCollection([$coffeType]))
+            ->setTypes(new ArrayCollection([$coffeeType]))
         ;
-        $manager->persist($coffeType);
-        $manager->persist($coffeRation);
+        $manager->persist($coffeeType);
+        $manager->persist($coffee);
 
 
         $anabolicType = new Ration();
@@ -148,7 +149,7 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
         $anabolic = new Item();
         $anabolic
             ->setGameConfig($gameConfig)
-            ->setName(ItemEnum::ANABOLIC)
+            ->setName(GameRationEnum::ANABOLIC)
             ->setIsHeavy(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
@@ -175,7 +176,7 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
         $lombrickBar = new Item();
         $lombrickBar
             ->setGameConfig($gameConfig)
-            ->setName(ItemEnum::LOMBRICK_BAR)
+            ->setName(GameRationEnum::LOMBRICK_BAR)
             ->setIsHeavy(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
@@ -200,7 +201,7 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
         $organicWaste = new Item();
         $organicWaste
             ->setGameConfig($gameConfig)
-            ->setName(ItemEnum::ORGANIC_WASTE)
+            ->setName(GameRationEnum::ORGANIC_WASTE)
             ->setIsHeavy(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
@@ -228,7 +229,7 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
         $proactivePuffedRice = new Item();
         $proactivePuffedRice
             ->setGameConfig($gameConfig)
-            ->setName(ItemEnum::PROACTIVE_PUFFED_RICE)
+            ->setName(GameRationEnum::PROACTIVE_PUFFED_RICE)
             ->setIsHeavy(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
@@ -255,7 +256,7 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
         $spacePotato = new Item();
         $spacePotato
             ->setGameConfig($gameConfig)
-            ->setName(ItemEnum::SPACE_POTATO)
+            ->setName(GameRationEnum::SPACE_POTATO)
             ->setIsHeavy(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
@@ -283,7 +284,7 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
         $supervitaminBar = new Item();
         $supervitaminBar
             ->setGameConfig($gameConfig)
-            ->setName(ItemEnum::SUPERVITAMIN_BAR)
+            ->setName(GameRationEnum::SUPERVITAMIN_BAR)
             ->setIsHeavy(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)

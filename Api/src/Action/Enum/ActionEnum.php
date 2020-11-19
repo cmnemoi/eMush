@@ -40,7 +40,11 @@ class ActionEnum
     public const WRITE = 'write';
     public const PUBLIC_BROADCAST = 'public_broadcast';
     public const HEAL = 'heal';
+    public const ULTRAHEAL = 'ultraheal';
+    public const CURE = 'cure';
     public const USE_BANDAGE = 'use_bandage';
+    public const TRY_THE_KUBE = 'try_the_kube';
+    public const OPEN = 'open';
 
     // Skill-related actions (Humans)
     public const FIERY_SPEECH = 'fiery_speech';

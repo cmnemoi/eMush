@@ -15,7 +15,7 @@ class Plant extends ItemType
 {
     protected string $type = ItemTypeEnum::PLANT;
 
-    protected array $actions = [ActionEnum::WATER_PLANT, ActionEnum::TREAT_PLANT];
+    protected array $actions = [ActionEnum::WATER_PLANT, ActionEnum::TREAT_PLANT, ActionEnum::HYBRIDIZE];
 
     /**
      * @ORM\OneToOne(targetEntity="Mush\Item\Entity\Item", inversedBy=")

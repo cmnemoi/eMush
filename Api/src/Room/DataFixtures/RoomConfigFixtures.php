@@ -22,6 +22,7 @@ use Mush\Item\Enum\ItemEnum;
 use Mush\Item\Enum\GearItemEnum;
 use Mush\Item\Enum\ToolItemEnum;
 use Mush\Item\Enum\GameRationEnum;
+use Mush\Game\Enum\SkillEnum;
 use Mush\Room\Entity\RoomConfig;
 use Mush\Room\Enum\DoorEnum;
 use Mush\Room\Enum\RoomEnum;

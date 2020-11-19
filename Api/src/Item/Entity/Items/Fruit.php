@@ -15,11 +15,10 @@ class Fruit extends Ration
 {
     protected string $type = ItemTypeEnum::FRUIT;
 
-    protected array $actions = [ActionEnum::HYBRIDIZE];
      /**
      * @ORM\Column(type="array", nullable=false)
      */
-    private array $plantEffectsNumber = [0];
+    private array $fruitEffectsNumber = [0];
 
     /**
      * @ORM\Column(type="array", nullable=false)
@@ -29,27 +28,27 @@ class Fruit extends Ration
     /**
      * @ORM\Column(type="array", nullable=false)
      */
-    private array $diseaseEffectChance = [];
+    private array $diseasesEffectChance = [];
 
     /**
      * @ORM\Column(type="array", nullable=false)
      */
-    private array $diseaseDelayMin = [];
+    private array $diseasesEffectDelayMin = [];
 
     /**
      * @ORM\Column(type="array", nullable=false)
      */
-    private array $diseaseDelayLengh = [];
+    private array $diseasesEffectDelayLengh = [];
 
 
-    public function getPlantEffectsNumber(): array
+    public function getFruitEffectsNumber(): array
     {
-        return $this->plantEffectsNumber;
+        return $this->fruitEffectsNumber;
     }
 
-    public function setPlantEffectsNumber(array $plantEffectsNumber): Fruit
+    public function setFruitEffectsNumber(array $fruitEffectsNumber): Fruit
     {
-        $this->plantEffectsNumber = $plantEffectsNumber;
+        $this->fruitEffectsNumber = $fruitEffectsNumber;
 
         return $this;
     }
@@ -66,38 +65,38 @@ class Fruit extends Ration
         return $this;
     }
 
-    public function getDiseaseEffectChance(): array
+    public function getDiseasesEffectChance(): array
     {
-        return $this->diseaseEffectChance;
+        return $this->diseasesEffectChance;
     }
 
-    public function setDiseaseEffectChance(array $diseaseEffectChance): Fruit
+    public function setDiseasesEffectChance(array $diseasesEffectChance): Fruit
     {
-        $this->diseaseEffectChance = $diseaseEffectChance;
+        $this->diseasesEffectChance = $diseasesEffectChance;
 
         return $this;
     }
 
-    public function getDiseaseDelayMin(): array
+    public function getDiseasesEffectDelayMin(): array
     {
-        return $this->diseasesDelayMin;
+        return $this->diseasesEffectDelayMin;
     }
 
-    public function setDiseasesDelayMin(array $diseaseDelayMin): Fruit
+    public function setDiseasesEffectDelayMin(array $diseasesEffectDelayMin): Fruit
     {
-        $this->diseaseDelayMin = $diseaseDelayMin;
+        $this->diseasesEffectDelayMin = $diseasesEffectDelayMin;
 
         return $this;
     }
 
-    public function getDiseaseDelayLengh(): array
+    public function getDiseasesEffectDelayLengh(): array
     {
-        return $this->diseaseDelayLengh;
+        return $this->diseasesEffectDelayLengh;
     }
 
-    public function setDiseaseDelayLengh(array $diseaseDelayLengh): Fruit
+    public function setDiseasesEffectDelayLengh(array $diseasesEffectDelayLengh): Fruit
     {
-        $this->diseaseDelayLengh = $diseaseDelayLengh;
+        $this->diseasesEffectDelayLengh = $diseasesEffectDelayLengh;
 
         return $this;
     }

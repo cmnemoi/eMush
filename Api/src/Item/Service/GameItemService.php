@@ -109,7 +109,7 @@ class GameItemService implements GameItemServiceInterface
             $gameItem,
             ChargeStrategyTypeEnum::CYCLE_INCREMENT,
             0,
-            $weapon->getMaxCharges()
+            5
         );
 
         $gameItem->addStatus($chargeStatus);

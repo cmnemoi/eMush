@@ -2,7 +2,7 @@
 
 namespace Mush\Item\Enum;
 
-class RationItemEnum
+class GameRationEnum
 {
     public const LOMBRICK_BAR = 'lombrick_bar';
     public const ORGANIC_WASTE = 'organic_waste';

@@ -24,7 +24,7 @@ class Drug extends Ration
     private array $drugEffectsNumber = [];
 
 
-    //@TODO more precision on the cure is needed (is the number of desease point remooved random)
+    //@TODO more precision on the cure is needed (is the number of disease point remooved random)
 
 
     public function getDrugEffectsNumber(): array
@@ -32,7 +32,7 @@ class Drug extends Ration
         return $this->drugEffectsNumber;
     }
 
-    public function setDrugEffectsNumber(array $drugEffectsNumber): Fruit
+    public function setDrugEffectsNumber(array $drugEffectsNumber): Drug
     {
         $this->drugEffectsNumber = $drugEffectsNumber;
 

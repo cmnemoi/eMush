@@ -74,6 +74,18 @@ class Weapon extends Tool
         return $this;
     }
 
+    public function getBaseInjuryNumber(): array
+    {
+        return $this->baseInjuryNumber;
+    }
+
+    public function setBaseInjuryNumber(array $baseInjuryNumber): Weapon
+    {
+        $this->baseInjuryNumber = $baseInjuryNumber;
+
+        return $this;
+    }
+
     public function getExpeditionBonus(): int
     {
         return $this->expeditionBonus;

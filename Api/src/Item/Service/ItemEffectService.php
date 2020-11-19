@@ -74,10 +74,10 @@ class ItemEffectService implements ItemEffectServiceInterface
 
                 foreach ($pickedEffects as $effect) {
                     if ($pickedEffects <= $diseaseNumberPossible) {
-                         $cures[reset($this->randomService-> getSingleRandomElementFromProbaArray($ration->getDiseasesNames()))
+                         $cures[current($this->randomService-> getSingleRandomElementFromProbaArray($ration->getDiseasesNames()))
                                ] = $this->randomService->getSingleRandomElementFromProbaArray($ration->getDiseaseEffectChance());
                     } elseif ($pickedEffects >= $diseaseNumberPossible + $extraEffectNumberPossible) {
-                        $pickedDiseases = reset($this->randomService-> getSingleRandomElementFromProbaArray($ration->getDiseasesNames()));
+                        $pickedDiseases = current($this->randomService-> getSingleRandomElementFromProbaArray($ration->getDiseasesNames()));
                         $diseasesChances[$pickedDiseases] = $this->randomService->getSingleRandomElementFromProbaArray($ration->getDiseaseEffectChance());
                         $diseasesDelayMin[$pickedDiseases] = $this->randomService->getSingleRandomElementFromProbaArray($ration->getDiseaseDelayMin());
                         $diseasesDelayLengh[$pickedDiseases] = $this->randomService->getSingleRandomElementFromProbaArray($ration->getDiseaseDelayLengh());
@@ -123,7 +123,7 @@ class ItemEffectService implements ItemEffectServiceInterface
                 ->setDaedalus($daedalus)
                 ->setPlant($plant)
                 ->setMaturationTime(
-                    reset($this->randomService->getSingleRandomElementFromProbaArray(
+                    current($this->randomService->getSingleRandomElementFromProbaArray(
                         $plant->getMaturationTime(),
                     ))
                 )

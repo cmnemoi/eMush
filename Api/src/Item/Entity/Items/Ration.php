@@ -153,14 +153,38 @@ class Ration extends ItemType
         return $this;
     }
 
-    public function getDiseases(): array
+    public function getDiseasesChances(): array
     {
-        return $this->diseases;
+        return $this->diseasesChances;
     }
 
-    public function setDiseases(array $diseases): Ration
+    public function setDiseasesChances(array $diseasesChances): Ration
     {
-        $this->diseases = $diseases;
+        $this->diseasesChances = $diseasesChances;
+
+        return $this;
+    }
+
+    public function getDiseasesDelayMin(): array
+    {
+        return $this->diseasesDelayMin;
+    }
+
+    public function setDiseasesDelayMin(array $diseasesDelayMin): Ration
+    {
+        $this->diseasesDelayMin = $diseasesDelayMin;
+
+        return $this;
+    }
+
+    public function getDiseasesDelayLengh(): array
+    {
+        return $this->diseasesDelayLengh;
+    }
+
+    public function setDiseasesDelayLengh(array $diseasesDelayLengh): Ration
+    {
+        $this->diseasesDelayLengh = $diseasesDelayLengh;
 
         return $this;
     }

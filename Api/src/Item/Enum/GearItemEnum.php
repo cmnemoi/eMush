@@ -8,11 +8,11 @@ class GearItemEnum
     public const ALIEN_BOTTLE_OPENER = 'alien_bottle_opener';
     public const ANTI_GRAV_SCOOTER = 'anti_grav_scooter';
     public const ROLLING_BOULDER = 'rolling_boulder';
-    public const LENSES = 'lenses';
+    public const NCC_LENS = 'ncc_lenses';
     public const OSCILLOSCOPE = 'oscilloscope';
     public const PLASTENITE_ARMOR = 'plastenite_armor';
     public const PROTECTIVE_GLOVES = 'protective_gloves';
-    public const SNIPERS_HELMET = 'snipers_helmet';
+    public const SNIPER_HELMET = 'sniper_helmet';
     public const SPACESUIT = 'spacesuit';
     public const STAINPROOF_APRON = 'stainproof_apron';
     public const SOAP = 'soap';

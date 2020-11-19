@@ -18,6 +18,8 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
         //First Mage Books
         $skillsArray = [SkillEnum::ASTROPHYSICIST,
@@ -47,9 +49,8 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
               $apprenton = new Item();
               $apprenton
                   ->setGameConfig($gameConfig)
-                  ->setName(ItemEnum::APPRENTON.'_'.$skillName)
+                  ->setName(ItemEnum::APPRENTON . '_' . $skillName)
                   ->setIsHeavy(false)
-                  ->setIsDismantable(false)
                   ->setIsTakeable(true)
                   ->setIsDropable(true)
                   ->setIsStackable(true)

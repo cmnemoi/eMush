@@ -23,6 +23,7 @@ use Mush\Item\Enum\GameFruitEnum;
 use Mush\Item\Enum\GamePlantEnum;
 use Mush\Item\Enum\GameDrugEnum;
 use Mush\Item\Enum\ItemEnum;
+use Mush\Item\Enum\GearItemEnum;
 use Mush\Status\Enum\DiseaseEnum;
 use Mush\Status\Enum\DisorderEnum;
 
@@ -36,7 +37,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $apron = new Item();
         $apron
             ->setGameConfig($gameConfig)
-            ->setName(ItemEnum::STAINPROOF_APRON)
+            ->setName(GearItemEnum::STAINPROOF_APRON)
             ->setIsHeavy(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
@@ -67,10 +68,10 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(12)
-            ->setTypes([$dismountableType])
+            ->setTypes(new ArrayCollection([$dismountableType]))
         ;
         $manager->persist($plasteniteArmor);
-        $manager->persist($dismountableType1);
+        $manager->persist($dismountableType);
 
 
         $wrench = new Item();
@@ -141,7 +142,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(99)
-            ->setTypes([$dismountableType])
+            ->setTypes(new ArrayCollection([$dismountableType]))
         ;
         $manager->persist($sniperHelmet);
         $manager->persist($dismountableType);
@@ -181,7 +182,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(6)
-            ->setTypes([$dismountableType])
+            ->setTypes(new ArrayCollection([$dismountableType]))
         ;
         $manager->persist($antiGravScooter);
         $manager->persist($dismountableType);
@@ -205,7 +206,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $lenses = new Item();
         $lenses
             ->setGameConfig($gameConfig)
-            ->setName(GearItemEnum::NCC_LENSES)
+            ->setName(GearItemEnum::NCC_LENS)
             ->setIsHeavy(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
@@ -251,7 +252,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(6)
-            ->setTypes([$dismountableType])
+            ->setTypes(new ArrayCollection([$dismountableType]))
         ;
         $manager->persist($spacesuit);
         $manager->persist($dismountableType);
@@ -314,8 +315,8 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($liquidMap);
 
 
-        $this->addReference(self::OSCILLOSCOPE, $oscilloscope);
-        $this->addReference(self::SNIPER_HELMET, $sniperHelmet);
+        $this->addReference(GearItemEnum::OSCILLOSCOPE, $oscilloscope);
+        $this->addReference(GearItemEnum::SNIPER_HELMET, $sniperHelmet);
 
 
         $manager->flush();

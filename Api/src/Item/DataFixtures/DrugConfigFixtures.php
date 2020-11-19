@@ -9,9 +9,12 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\SkillEnum;
+use Mush\Item\Entity\Item;
 use Mush\Item\Entity\Items\Drug;
 use Mush\Item\Entity\Items\Ration;
 use Mush\Item\Enum\GameDrugEnum;
+use Mush\Status\Enum\DiseaseEnum;
+use Mush\Status\Enum\DisorderEnum;
 
 
 class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
@@ -33,7 +36,7 @@ class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
                 DiseaseEnum::SKIN_INFLAMMATION => 100,
                 DiseaseEnum::GASTROENTERIS => 100,
                 DiseaseEnum::FLU => 100,
-                DiseaseEnum::SEPTIS => 100,
+                DiseaseEnum::SEPSIS => 100,
                 DiseaseEnum::COLD => 100,
                 DiseaseEnum::RUBELLA => 100,
                 DiseaseEnum::SINUS_STORM => 100,
@@ -44,7 +47,7 @@ class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setDrugEffectsNumber([1 => 60 ,2 => 30 ,3 => 8 ,4 => 1])
         ;
 
-        foreach ($this->GameDrugEnum->getAll() as $drugName) {
+        foreach (GameDrugEnum::getAll() as $drugName) {
             $drug = new Item();
             $drug
                 ->setGameConfig($gameConfig)

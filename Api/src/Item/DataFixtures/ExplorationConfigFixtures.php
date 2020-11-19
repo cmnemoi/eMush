@@ -83,9 +83,10 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setBreakableRate(50)
-            ->setTypes([$dismountableType])
+            ->setTypes(new ArrayCollection([$dismountableType]))
         ;
         $manager->persist($drill);
+        $manager->persist($dismountableType);
 
         $babelModule = new Item();
         $babelModule
@@ -129,7 +130,7 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(25)
-            ->setTypes([$dismountableType])
+            ->setTypes(new ArrayCollection([$dismountableType]))
         ;
         $manager->persist($thermosensor);
 
@@ -150,12 +151,12 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
 
 
         $manager->flush();
-        
-        
-        $this->addReference(self::ECHOLOCATOR, $echolocator);
-        $this->addReference(self::WHITE_FLAG, $whiteFlag);
-        $this->addReference(self::THERMOSENSOR, $thermosensor);
-        $this->addReference(self::BABEL_MODULE, $babelModule);
+
+
+        $this->addReference(ItemEnum::ECHOLOCATOR, $echolocator);
+        $this->addReference(ItemEnum::WHITE_FLAG, $whiteFlag);
+        $this->addReference(ItemEnum::THERMOSENSOR, $thermosensor);
+        $this->addReference(ItemEnum::BABEL_MODULE, $babelModule);
     }
 
     public function getDependencies()

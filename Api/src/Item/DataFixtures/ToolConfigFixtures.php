@@ -9,6 +9,7 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\SkillEnum;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Item\Entity\Item;
 use Mush\Item\Entity\Items\Blueprint;
 use Mush\Item\Entity\Items\Book;
@@ -23,6 +24,7 @@ use Mush\Item\Enum\GameFruitEnum;
 use Mush\Item\Enum\GamePlantEnum;
 use Mush\Item\Enum\GameDrugEnum;
 use Mush\Item\Enum\ItemEnum;
+use Mush\Item\Enum\ToolItemEnum;
 use Mush\Status\Enum\DiseaseEnum;
 use Mush\Status\Enum\DisorderEnum;
 
@@ -50,7 +52,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(6)
-            ->setTypes([$hackerKitType])
+            ->setTypes(new ArrayCollection([$hackerKitType]))
         ;
         $manager->persist($hackerKit);
         $manager->persist($hackerKitType);
@@ -70,15 +72,15 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setTypes([$blockOfPostItType])
+            ->setTypes(new ArrayCollection([$blockOfPostItType]))
 
         ;
         $manager->persist($blockOfPostIt);
         $manager->persist($blockOfPostItType);
 
 
-        $metalScrapProductType = new Dismountable();
-        $metalScrapProductType
+        $dismountableType = new Dismountable();
+        $dismountableType
             ->setProducts([ItemEnum::METAL_SCRAPS => 1])
             ->setActionCost(3)
             ->setChancesSuccess(25)
@@ -99,11 +101,11 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setBreakableRate(25)
-            ->setTypes([$extinguisherType, $metalScrapProductType])
+            ->setTypes(new ArrayCollection([$extinguisherType, $dismountableType]))
         ;
         $manager->persist($extinguisher);
         $manager->persist($extinguisherType);
-        $manager->persist($metalScrapProductType);
+        $manager->persist($dismountableType);
 
 
         $ductTapeType = new Tool();
@@ -120,7 +122,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setTypes([$ductTapeType])
+            ->setTypes(new ArrayCollection([$ductTapeType]))
 
         ;
         $manager->persist($ductTape);
@@ -141,7 +143,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setTypes([$madKubeType])
+            ->setTypes(new ArrayCollection([$madKubeType]))
 
         ;
         $manager->persist($madKube);
@@ -381,9 +383,10 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setTypes(new ArrayCollection([$hydropotType]))
         ;
         $manager->persist($hydropot);
+        $manager->persist($hydropotType);
 
 
-        $this->addReference(self::EXTINGUISHER, $extinguisher);
+        $this->addReference(ToolItemEnum::EXTINGUISHER, $extinguisher);
 
         $manager->flush();
     }

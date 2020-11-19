@@ -150,7 +150,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         $natamy = new Item();
         $natamy
             ->setGameConfig($gameConfig)
-            ->setName(ItemEnum::NATAMY)
+            ->setName(ItemEnum::NATAMY_RIFLE)
             ->setIsHeavy(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
@@ -163,6 +163,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($natamy);
         $manager->persist($natamyType);
+        $manager->persist($dismountableType2);
 
 
         $dismountableType3 = new Dismountable();
@@ -199,6 +200,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($oldFaithful);
         $manager->persist($oldFaithfulType);
+        $manager->persist($dismountableType3);
 
 
         $dismountableType4 = new Dismountable();
@@ -235,6 +237,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($lizaroJungle);
         $manager->persist($lizaroJungleType);
+        $manager->persist($dismountableType4);
 
 
         $rocketLauncherType = new Weapon();
@@ -266,10 +269,10 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($rocketLauncherType);
 
 
-        $this->addReference(self::GRENADE, $grenade);
-        $this->addReference(self::OLD_FAITHFUL, $oldFaithful);
-        $this->addReference(self::LIZARO_JUNGLE, $lizaroJungle);
-        $this->addReference(self::ROCKET_LAUNCHER, $rocketLauncher);
+        $this->addReference(ItemEnum::GRENADE, $grenade);
+        $this->addReference(ItemEnum::OLD_FAITHFUL, $oldFaithful);
+        $this->addReference(ItemEnum::LIZARO_JUNGLE, $lizaroJungle);
+        $this->addReference(ItemEnum::ROCKET_LAUNCHER, $rocketLauncher);
 
 
         $manager->flush();

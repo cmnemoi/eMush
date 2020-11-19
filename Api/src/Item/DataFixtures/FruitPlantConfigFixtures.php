@@ -9,13 +9,14 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\SkillEnum;
+use Mush\Item\Entity\Item;
 use Mush\Item\Entity\Items\Fruit;
 use Mush\Item\Entity\Items\Plant;
 use Mush\Item\Enum\GameFruitEnum;
 use Mush\Item\Enum\GamePlantEnum;
-use Mush\Action\Enum\SpecialEffectEnum;
 use Mush\Status\Enum\DiseaseEnum;
 use Mush\Status\Enum\DisorderEnum;
+use Mush\Action\Enum\ExtraEffectEnum;
 
 class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -77,18 +78,18 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
 
 
         $alienFruitPlant = [
-            GamePlantEnum::CREEPNUT => GameFruitEnum::CREEPIST,
-            GamePlantEnum::MEZTINE => GameFruitEnum::CACTAX,
-            GamePlantEnum::GUNTIFLOP => GameFruitEnum::BIFFLON,
-            GamePlantEnum::PLOSHMINA => GameFruitEnum::PULMMINAGRO,
-            GamePlantEnum::PRECATI => GameFruitEnum::PRECATUS,
-            GamePlantEnum::BOTTINE => GameFruitEnum::BUTTALIEN,
-            GamePlantEnum::FRAGILANE => GameFruitEnum::PLATACIA,
-            GamePlantEnum::ANEMOLE => GameFruitEnum::TUBILISCUS,
-            GamePlantEnum::PENICRAFT => GameFruitEnum::GRAAPSHOOT,
-            GamePlantEnum::KUBINUS => GameFruitEnum::FIBONICCUS,
-            GamePlantEnum::CALEBOOT => GameFruitEnum::MYCOPIA,
-            GamePlantEnum::FILANDRA => GameFruitEnum::ASPERAGUNK
+            GameFruitEnum::CREEPNUT => GamePlantEnum::CREEPIST,
+            GameFruitEnum::MEZTINE => GamePlantEnum::CACTAX,
+            GameFruitEnum::GUNTIFLOP => GamePlantEnum::BIFFLON,
+            GameFruitEnum::PLOSHMINA => GamePlantEnum::PULMMINAGRO,
+            GameFruitEnum::PRECATI => GamePlantEnum::PRECATUS,
+            GameFruitEnum::BOTTINE => GamePlantEnum::BUTTALIEN,
+            GameFruitEnum::FRAGILANE => GamePlantEnum::PLATACIA,
+            GameFruitEnum::ANEMOLE => GamePlantEnum::TUBILISCUS,
+            GameFruitEnum::PENICRAFT => GamePlantEnum::GRAAPSHOOT,
+            GameFruitEnum::KUBINUS => GamePlantEnum::FIBONICCUS,
+            GameFruitEnum::CALEBOOT => GamePlantEnum::MYCOPIA,
+            GameFruitEnum::FILANDRA => GamePlantEnum::ASPERAGUNK
             ];
 
         // @TODO change the structure to include the number of cycle before the disease start
@@ -96,7 +97,7 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
             $alienFruitType
                 ->setActionPoints([1 => 90 , 2 => 9 , 3 => 1])
                 ->setMoralPoints([0 => 30,1 => 70])
-                 ->setDiseasesNames([
+                 ->setDiseasesName([
                         DiseaseEnum::CAT_ALLERGY => 1,
                             DiseaseEnum::MUSH_ALLERGY => 1,
                             DiseaseEnum::SEPSIS => 1,
@@ -129,15 +130,15 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
                             DiseaseEnum::VITAMIN_DEFICIENCY => 4,
                             DiseaseEnum::FLU => 8,
                             DiseaseEnum::GASTROENTERIS => 8,
-                            DisorderEnum::MIGRAINE => 8,
+                            DiseaseEnum::MIGRAINE => 8,
                             DiseaseEnum::TAPEWORM => 8])
-                   ->setDiseaseChances([100 => 64, 25 => 1, 30 => 2,35 => 3,40 => 4,45 => 5,
+                 ->setDiseasesEffectChance([100 => 64, 25 => 1, 30 => 2,35 => 3,40 => 4,45 => 5,
                                                        50 => 6, 55 => 5,60 => 4,65 => 3,70 => 2, 65 => 1])
-                 ->setDiseaseDelayMin([0 => 1,1 => 1,2 => 1 ,3 => 1,4 => 1,5 => 1 ,
+                 ->setDiseasesEffectDelayMin([0 => 1,1 => 1,2 => 1 ,3 => 1,4 => 1,5 => 1 ,
                                                       6 => 1 ,7 => 1,8 => 1,9 => 1,10 => 1, 11 => 1])
-                 ->setDiseaseDelayLengh([0 => 1,1 => 1,2 => 1 ,3 => 1,4 => 1,5 => 1 ,6 => 1 ,7 => 1,8 => 1])
-                 ->setPlantEffectsNumber([0 => 35, 1 => 40 , 2 => 15, 3 => 9,4 => 1])
-                 ->setExtraEffect([ExtraEffectEnum::EXTRA_PA_GAIN => 50])
+                 ->setDiseasesEffectDelayLengh([0 => 1,1 => 1,2 => 1 ,3 => 1,4 => 1,5 => 1 ,6 => 1 ,7 => 1,8 => 1])
+                 ->setFruitEffectsNumber([0 => 35, 1 => 40 , 2 => 15, 3 => 9,4 => 1])
+                 ->setExtraEffects([ExtraEffectEnum::EXTRA_PA_GAIN => 50])
             ;
             $manager->persist($alienFruitType);
 
@@ -165,7 +166,7 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
                 ->setMinOxygen(1)
             ;
 
-             $alienPlant = new Item();
+            $alienPlant = new Item();
             $alienPlant
             ->setGameConfig($gameConfig)
             ->setName($plantName)
@@ -194,6 +195,7 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
             ->setDiseasesDelayLengh([DiseaseEnum::JUNKBUMPKINITIS =>  0])
         ;
 
+        $junkin = new Item();
         $junkin
             ->setGameConfig($gameConfig)
             ->setName(GameFruitEnum::JUNKIN)
@@ -212,13 +214,13 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
         $bumpjunkinType = new Plant();
         $bumpjunkinType
             ->setFruit($junkin)
-            ->setMaxMaturationTime([8 => 1])
+            ->setMaturationTime([8 => 1])
             ->setMaxOxygen(1)
             ->setMinOxygen(1)
         ;
 
-        $bananaTree = new Item();
-        $bananaTree
+        $bumpjunkin = new Item();
+        $bumpjunkin
             ->setGameConfig($gameConfig)
             ->setName(GamePlantEnum::BUMPJUNKIN)
             ->setIsHeavy(false)

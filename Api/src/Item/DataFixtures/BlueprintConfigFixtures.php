@@ -28,17 +28,17 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
 
 
 
-        $echolocator = $this->getReference(ExplorationConfigFixtures::ECHOLOCATOR);
-        $whiteFlag = $this->getReference(ExplorationConfigFixtures::WHITE_FLAG);
-        $thermosensor = $this->getReference(ExplorationConfigFixtures::THERMOSENSOR);
-        $babelModule = $this->getReference(ExplorationConfigFixtures::BABEL_MODULE);
-        $grenade = $this->getReference(WeaponConfigFixtures::GRENADE);
-        $oldFaithful = $this->getReference(WeaponConfigFixtures::OLD_FAITHFUL);
-        $lizaroJungle = $this->getReference(WeaponConfigFixtures::LIZARO_JUNGLE);
-        $rocketLauncher = $this->getReference(WeaponConfigFixtures::ROCKET_LAUNCHER);
-        $extinguisher = $this->getReference(ToolConfigFixtures::EXTINGUISHER);
-        $oscilloscope = $this->getReference(GearConfigFixtures::OSCILLOSCOPE);
-        $sniperHelmet = $this->getReference(GearConfigFixtures::SNIPER_HELMET);
+        $echolocator = $this->getReference(ItemEnum::ECHOLOCATOR);
+        $whiteFlag = $this->getReference(ItemEnum::WHITE_FLAG);
+        $thermosensor = $this->getReference(ItemEnum::THERMOSENSOR);
+        $babelModule = $this->getReference(ItemEnum::BABEL_MODULE);
+        $grenade = $this->getReference(ItemEnum::GRENADE);
+        $oldFaithful = $this->getReference(ItemEnum::OLD_FAITHFUL);
+        $lizaroJungle = $this->getReference(ItemEnum::LIZARO_JUNGLE);
+        $rocketLauncher = $this->getReference(ItemEnum::ROCKET_LAUNCHER);
+        $extinguisher = $this->getReference(ToolItemEnum::EXTINGUISHER);
+        $oscilloscope = $this->getReference(GearItemEnum::OSCILLOSCOPE);
+        $sniperHelmet = $this->getReference(GearItemEnum::SNIPER_HELMET);
 
       //@TODO add support_drone and swedish_sofa
 
@@ -52,7 +52,7 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
         $blueprintEcholocator = new Item();
         $blueprintEcholocator
             ->setGameConfig($gameConfig)
-            ->setName(ItemEnum::ECHOLOCATOR.'_'.ItemEnum::BLUEPRINT)
+            ->setName(ItemEnum::ECHOLOCATOR . '_' . ItemEnum::BLUEPRINT)
             ->setIsHeavy(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
@@ -69,13 +69,13 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
         $blueprintWhiteFlagType = new Blueprint();
         $blueprintWhiteFlagType
             ->setItem($whiteFlag)
-            ->setIngredients([ItemEnum::SOAP => 1, ItemEnum::OLD_T_SHIRT => 1])
+            ->setIngredients([GearItemEnum::SOAP => 1, ItemEnum::OLD_T_SHIRT => 1])
         ;
 
         $blueprintWhiteFlag = new Item();
         $blueprintWhiteFlag
             ->setGameConfig($gameConfig)
-            ->setName(ItemEnum::WHITE_FLAG.'_'.ItemEnum::BLUEPRINT)
+            ->setName(ItemEnum::WHITE_FLAG . '_' . ItemEnum::BLUEPRINT)
             ->setIsHeavy(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
@@ -98,7 +98,7 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
         $blueprintThermosensor = new Item();
         $blueprintThermosensor
             ->setGameConfig($gameConfig)
-            ->setName(ItemEnum::THERMOSENSOR.'_'.ItemEnum::BLUEPRINT)
+            ->setName(ItemEnum::THERMOSENSOR . '_' . ItemEnum::BLUEPRINT)
             ->setIsHeavy(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
@@ -112,7 +112,7 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($blueprintThermosensor);
 
 
-        $blueprintBabelModuleYype = new Blueprint();
+        $blueprintBabelModuleType = new Blueprint();
         $blueprintBabelModuleType
             ->setItem($babelModule)
             ->setIngredients([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::METAL_SCRAPS => 1])
@@ -121,7 +121,7 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
         $blueprintBabelModule = new Item();
         $blueprintBabelModule
             ->setGameConfig($gameConfig)
-            ->setName(ItemEnum::BABEL_MODULE.'_'.ItemEnum::BLUEPRINT)
+            ->setName(ItemEnum::BABEL_MODULE . '_' . ItemEnum::BLUEPRINT)
             ->setIsHeavy(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
@@ -145,7 +145,7 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
         $blueprintGrenade = new Item();
         $blueprintGrenade
             ->setGameConfig($gameConfig)
-            ->setName(ItemEnum::GRENADE.'_'.ItemEnum::BLUEPRINT)
+            ->setName(ItemEnum::GRENADE . '_' . ItemEnum::BLUEPRINT)
             ->setIsHeavy(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
@@ -168,7 +168,7 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
         $blueprintOldFaithful = new Item();
         $blueprintOldFaithful
             ->setGameConfig($gameConfig)
-            ->setName(ItemEnum::OLD_FAITHFUL.'_'.ItemEnum::BLUEPRINT)
+            ->setName(ItemEnum::OLD_FAITHFUL . '_' . ItemEnum::BLUEPRINT)
             ->setIsHeavy(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
@@ -190,7 +190,7 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
         $blueprintLizaroJungle = new Item();
         $blueprintLizaroJungle
             ->setGameConfig($gameConfig)
-            ->setName(ItemEnum::LIZARO_JUNGLE.'_'.ItemEnum::BLUEPRINT)
+            ->setName(ItemEnum::LIZARO_JUNGLE . '_' . ItemEnum::BLUEPRINT)
             ->setIsHeavy(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
@@ -212,7 +212,7 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
         $blueprintRocketLauncher = new Item();
         $blueprintRocketLauncher
             ->setGameConfig($gameConfig)
-            ->setName(ItemEnum::ROCKET_LAUNCHER.'_'.ItemEnum::BLUEPRINT)
+            ->setName(ItemEnum::ROCKET_LAUNCHER . '_' . ItemEnum::BLUEPRINT)
             ->setIsHeavy(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
@@ -235,7 +235,7 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
         $blueprintExtinguisher = new Item();
         $blueprintExtinguisher
             ->setGameConfig($gameConfig)
-            ->setName(ToolItemEnum::EXTINGUISHER.'_'.ItemEnum::BLUEPRINT)
+            ->setName(ToolItemEnum::EXTINGUISHER . '_' . ItemEnum::BLUEPRINT)
             ->setIsHeavy(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
@@ -257,7 +257,7 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
         $blueprintOscilloscope = new Item();
         $blueprintOscilloscope
             ->setGameConfig($gameConfig)
-            ->setName(GearItemEnum::OSCILLOSCOPE.'_'.ItemEnum::BLUEPRINT)
+            ->setName(GearItemEnum::OSCILLOSCOPE . '_' . ItemEnum::BLUEPRINT)
             ->setIsHeavy(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
@@ -280,7 +280,7 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
         $blueprintSniperHelmet = new Item();
         $blueprintSniperHelmet
             ->setGameConfig($gameConfig)
-            ->setName(GearItemEnum::SNIPER_HELMET.'_'.ItemEnum::BLUEPRINT)
+            ->setName(GearItemEnum::SNIPER_HELMET . '_' . ItemEnum::BLUEPRINT)
             ->setIsHeavy(false)
             ->setIsTakeable(true)
             ->setIsDropable(true)
@@ -297,7 +297,7 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $manager->flush();
     }
-    
+
     public function getDependencies()
     {
         return [

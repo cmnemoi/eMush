@@ -14,8 +14,7 @@ class ActionEnum
     public const EXAMINE = 'examine';
     public const HIT = 'hit';
     public const REPAIR = 'repair';
-    public const READ_DOCUMENT = 'read_document';
-    public const READ_BOOK = 'read_book';
+
 
     // Mush-only actions
     public const EXTRACT_SPORE = 'extract_spore';
@@ -24,6 +23,9 @@ class ActionEnum
     public const GO_BERSERK = 'go_berserk';
 
     // Item-enabled actions
+    public const READ_DOCUMENT = 'read_document';
+    public const READ_BOOK = 'read_book';
+    public const SHRED = 'shred';
     public const ATTACK = 'attack';
     public const CONSUME = 'consume';
     public const BUILD = 'build';
@@ -45,6 +47,7 @@ class ActionEnum
     public const USE_BANDAGE = 'use_bandage';
     public const TRY_THE_KUBE = 'try_the_kube';
     public const OPEN = 'open';
+
 
     // Skill-related actions (Humans)
     public const FIERY_SPEECH = 'fiery_speech';

@@ -20,6 +20,7 @@ use Mush\Item\Entity\Items\Ration;
 use Mush\Item\Entity\Items\Tool;
 use Mush\Item\Entity\Items\Drug;
 use Mush\Item\Entity\Items\Weapon;
+use Mush\Item\Entity\Items\Charged;
 use Mush\Item\Enum\GameFruitEnum;
 use Mush\Item\Enum\GamePlantEnum;
 use Mush\Item\Enum\GameDrugEnum;
@@ -27,6 +28,7 @@ use Mush\Item\Enum\ItemEnum;
 use Mush\Item\Enum\ToolItemEnum;
 use Mush\Status\Enum\DiseaseEnum;
 use Mush\Status\Enum\DisorderEnum;
+use Mush\Status\Enum\ChargeStrategyTypeEnum;
 
 class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -156,7 +158,15 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setActionCost(4)
             ->setChancesSuccess(25)
         ;
-
+        
+        $chargedType = new Charged();
+        $chargedType
+            ->setMaxCharge(4)
+            ->setStartCharge(0)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
+            ->setIsVisible(true)
+        ;
+        
         $microwaveType = new Tool();
         $microwaveType->setActions([ActionEnum::EXPRESS_COOK]);
 
@@ -172,12 +182,13 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(50)
-            ->setTypes(new ArrayCollection([$kitchenToolsType, $microwaveType]))
+            ->setTypes(new ArrayCollection([$kitchenToolsType, $microwaveType, $chargedType]))
 
         ;
         $manager->persist($microwave);
         $manager->persist($microwaveType);
         $manager->persist($kitchenToolsType);
+        $manager->persist($chargedType);
 
 
         $superFreezerType  = new Tool();
@@ -216,6 +227,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(3)
+            ->setIsAlienArtifact(true)
             ->setTypes(new ArrayCollection([$alienHolographicTVType]))
             ;
         $manager->persist($alienHolographicTV);
@@ -275,6 +287,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
+            ->setIsAlienArtifact(true)
             ->setTypes(new ArrayCollection([$jarOfAlienOilType]))
             ;
 

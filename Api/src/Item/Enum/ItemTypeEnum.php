@@ -20,4 +20,5 @@ class ItemTypeEnum
     public const DOCUMENT = 'document';
     public const ENTITY = 'entity';
     public const DISMOUNTABLE = 'dismountable';
+    public const CHARGED = 'charged';
 }

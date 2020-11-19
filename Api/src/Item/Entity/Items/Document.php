@@ -14,6 +14,8 @@ class Document extends Tool
 {
     protected string $type = ItemTypeEnum::DOCUMENT;
 
+    protected array $actions = [ActionEnum::READ_DOCUMENT];
+    
      /**
      * @ORM\Column(type="string", nullable=false)
      */
@@ -23,7 +25,8 @@ class Document extends Tool
      * @ORM\Column(type="boolean", nullable=false)
      */
     private bool $isTranslated = false;
-
+    
+    
 
     public function getContent(): string
     {

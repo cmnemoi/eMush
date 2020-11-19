@@ -19,6 +19,7 @@ use Mush\Item\Entity\Items\Ration;
 use Mush\Item\Entity\Items\Tool;
 use Mush\Item\Entity\Items\Drug;
 use Mush\Item\Entity\Items\Weapon;
+use Mush\Item\Entity\Items\Charged;
 use Mush\Item\Enum\GameFruitEnum;
 use Mush\Item\Enum\GamePlantEnum;
 use Mush\Item\Enum\GameDrugEnum;
@@ -26,6 +27,7 @@ use Mush\Item\Enum\ItemEnum;
 use Mush\Item\Enum\GearItemEnum;
 use Mush\Status\Enum\DiseaseEnum;
 use Mush\Status\Enum\DisorderEnum;
+use Mush\Status\Enum\ChargeStrategyTypeEnum;
 
 class GearConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -159,6 +161,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
+            ->setIsAlienArtifact(true)
         ;
         $manager->persist($alienBottleOpener);
 
@@ -170,6 +173,14 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setChancesSuccess(25)
         ;
 
+        $chargedType = new Charged();
+        $chargedType
+            ->setMaxCharge(8)
+            ->setStartCharge(2)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
+            ->setIsVisible(true)
+        ;
+        
         $antiGravScooter = new Item();
         $antiGravScooter
             ->setGameConfig($gameConfig)
@@ -182,10 +193,12 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(6)
-            ->setTypes(new ArrayCollection([$dismountableType]))
+            ->setTypes(new ArrayCollection([$dismountableType, $chargedType]))
         ;
         $manager->persist($antiGravScooter);
         $manager->persist($dismountableType);
+        $manager->persist($chargedType);
+        
 
 
         $rollingBoulder = new Item();
@@ -199,6 +212,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
+            ->setIsAlienArtifact(true)
         ;
         $manager->persist($rollingBoulder);
 
@@ -282,6 +296,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
+            ->setIsAlienArtifact(true)
         ;
         $manager->persist($printedCircuitJelly);
 
@@ -296,6 +311,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
+            ->setIsAlienArtifact(true)
         ;
         $manager->persist($invertebrateShell);
 
@@ -311,6 +327,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(1)
+            ->setIsAlienArtifact(true)
         ;
         $manager->persist($liquidMap);
 

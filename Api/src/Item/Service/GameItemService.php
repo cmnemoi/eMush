@@ -78,8 +78,8 @@ class GameItemService implements GameItemServiceInterface
                 case ItemTypeEnum::PLANT:
                     $this->initPlant($gameItem, $type, $daedalus);
                     break;
-                case ItemTypeEnum::WEAPON:
-                    $this->initWeapon($gameItem, $type);
+                case ItemTypeEnum::CHARGED:
+                    $this->initCharged($gameItem, $type);
                     break;
             }
         }
@@ -102,14 +102,14 @@ class GameItemService implements GameItemServiceInterface
         return $gameItem;
     }
 
-    private function initWeapon(GameItem $gameItem, Weapon $weapon): GameItem
+    private function initCharged(GameItem $gameItem, Charged $charged): GameItem
     {
         $chargeStatus = $this->statusService->createChargeItemStatus(
             StatusEnum::CHARGE,
             $gameItem,
-            ChargeStrategyTypeEnum::CYCLE_INCREMENT,
-            0,
-            5
+            $charged->getChargeStrategy(),
+            $charged->getStartCharge(),
+            $charged->getMaxCharge()
         );
 
         $gameItem->addStatus($chargeStatus);

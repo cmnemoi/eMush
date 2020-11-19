@@ -201,6 +201,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
+            ->setIsAlienArtifact(true)
         ;
         $manager->persist($starmapFragment);
 
@@ -215,6 +216,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
+            ->setIsAlienArtifact(true)
         ;
         $manager->persist($waterStick);
 

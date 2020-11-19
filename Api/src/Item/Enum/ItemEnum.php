@@ -36,4 +36,8 @@ class ItemEnum
     public const FUEL_CAPSULE = 'fuel_capsule';
     public const APPRENTON = 'apprenton';
     public const BLUEPRINT = 'blueprint';
+    public const DOCUMENT = 'document';
+    public const COMMANDERS_MANUAL = 'commanders_manual'
+    public const MUSH_RESEARCH_REVIEW = 'mush_research_review'
+    public const POST_IT = 'post_it'
 }

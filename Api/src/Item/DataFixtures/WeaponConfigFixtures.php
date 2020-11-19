@@ -19,12 +19,15 @@ use Mush\Item\Entity\Items\Ration;
 use Mush\Item\Entity\Items\Tool;
 use Mush\Item\Entity\Items\Drug;
 use Mush\Item\Entity\Items\Weapon;
+use Mush\Item\Entity\Items\Charged;
 use Mush\Item\Enum\GameFruitEnum;
 use Mush\Item\Enum\GamePlantEnum;
 use Mush\Item\Enum\GameDrugEnum;
 use Mush\Item\Enum\ItemEnum;
 use Mush\Status\Enum\DiseaseEnum;
 use Mush\Status\Enum\DisorderEnum;
+use Mush\Status\Enum\ChargeStrategyTypeEnum;
+
 
 class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -38,6 +41,14 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setProducts([ItemEnum::METAL_SCRAPS => 1])
             ->setActionCost(3)
             ->setChancesSuccess(25)
+        ;
+
+        $chargedType = new Charged();
+        $chargedType
+            ->setMaxCharge(3)
+            ->setStartCharge(1)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
+            ->setIsVisible(true)
         ;
 
          // @TODO more details are needed on the output of each weapon
@@ -64,9 +75,10 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(25)
-            ->setTypes(new ArrayCollection([$dismountableType1, $blasterType]))
+            ->setTypes(new ArrayCollection([$dismountableType1, $blasterType,$chargedType]))
         ;
         $manager->persist($dismountableType1);
+        $manager->persist($chargedType);
         $manager->persist($blasterType);
         $manager->persist($blaster);
 
@@ -159,7 +171,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(12)
-            ->setTypes(new ArrayCollection([$dismountableType2, $natamyType]))
+            ->setTypes(new ArrayCollection([$dismountableType2, $natamyType, $chargedType]))
         ;
         $manager->persist($natamy);
         $manager->persist($natamyType);
@@ -182,7 +194,15 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setCriticalSucessEvents([])
             ->setCriticalSucessEvents([])
         ;
-
+        
+        $chargedType = new Charged();
+        $chargedType
+            ->setMaxCharge(12)
+            ->setStartCharge(12)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
+            ->setIsVisible(true)
+        ;
+        
         $oldFaithful = new Item();
         $oldFaithful
             ->setGameConfig($gameConfig)
@@ -195,12 +215,13 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(12)
-            ->setTypes(new ArrayCollection([$dismountableType3, $oldFaithfulType]))
+            ->setTypes(new ArrayCollection([$dismountableType3, $oldFaithfulType, $chargedType]))
 
         ;
         $manager->persist($oldFaithful);
         $manager->persist($oldFaithfulType);
         $manager->persist($dismountableType3);
+        $manager->persist($chargedType);
 
 
         $dismountableType4 = new Dismountable();
@@ -208,6 +229,14 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setProducts([ItemEnum::METAL_SCRAPS => 1, ItemEnum::THICK_TUBE => 1])
             ->setActionCost(3)
             ->setChancesSuccess(12)
+        ;
+        
+        $chargedType = new Charged();
+        $chargedType
+            ->setMaxCharge(1)
+            ->setStartCharge(1)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
+            ->setIsVisible(true)
         ;
 
         $lizaroJungleType = new Weapon();
@@ -232,12 +261,13 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(12)
-            ->setTypes(new ArrayCollection([$dismountableType4, $lizaroJungleType]))
+            ->setTypes(new ArrayCollection([$dismountableType4, $lizaroJungleType, $chargedType]))
 
         ;
         $manager->persist($lizaroJungle);
         $manager->persist($lizaroJungleType);
         $manager->persist($dismountableType4);
+        $manager->persist($chargedType);
 
 
         $rocketLauncherType = new Weapon();
@@ -262,7 +292,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(12)
-            ->setTypes(new ArrayCollection([$dismountableType2, $rocketLauncherType]))
+            ->setTypes(new ArrayCollection([$dismountableType2, $rocketLauncherType, $chargedType]))
 
         ;
         $manager->persist($rocketLauncher);

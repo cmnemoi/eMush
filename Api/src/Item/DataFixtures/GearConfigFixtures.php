@@ -180,7 +180,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
             ->setIsVisible(true)
         ;
-        
+
         $antiGravScooter = new Item();
         $antiGravScooter
             ->setGameConfig($gameConfig)
@@ -198,7 +198,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($antiGravScooter);
         $manager->persist($dismountableType);
         $manager->persist($chargedType);
-        
+
 
 
         $rollingBoulder = new Item();

@@ -194,7 +194,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setCriticalSucessEvents([])
             ->setCriticalSucessEvents([])
         ;
-        
+
         $chargedType = new Charged();
         $chargedType
             ->setMaxCharge(12)
@@ -202,7 +202,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
             ->setIsVisible(true)
         ;
-        
+
         $oldFaithful = new Item();
         $oldFaithful
             ->setGameConfig($gameConfig)
@@ -230,7 +230,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setActionCost(3)
             ->setChancesSuccess(12)
         ;
-        
+
         $chargedType = new Charged();
         $chargedType
             ->setMaxCharge(1)

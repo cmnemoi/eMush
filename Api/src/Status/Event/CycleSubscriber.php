@@ -7,7 +7,7 @@ use Mush\Status\ChargeStrategies\CycleDecrease;
 use Mush\Status\ChargeStrategies\CycleIncrease;
 use Mush\Status\ChargeStrategies\PlantStrategy;
 use Mush\Status\Entity\ChargeStatus;
-use Status\Enum\ChargeStrategyTypeEnum;
+use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class CycleSubscriber implements EventSubscriberInterface

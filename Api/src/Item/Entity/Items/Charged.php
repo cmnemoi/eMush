@@ -14,29 +14,29 @@ use Mush\Item\Enum\ItemTypeEnum;
 class Charged extends ItemType
 {
     protected string $type = ItemTypeEnum::CHARGED;
-    
+
      /**
      * @ORM\Column(type="integer", length=255, nullable=false)
      */
     private int $maxCharge = 0;
-    
+
     /**
      * @ORM\Column(type="integer", length=255, nullable=false)
      */
     private int $startCharge = 0;
-    
+
      /**
      * @ORM\Column(type="string", nullable=false)
      */
     private string $chargeStrategy;
-    
+
      /**
      * @ORM\Column(type="boolean", nullable=false)
      */
-    private bool $isVisible=true;
-    
-    
-    
+    private bool $isVisible = true;
+
+
+
     public function getMaxCharge(): int
     {
         return $this->maxCharge;
@@ -48,7 +48,7 @@ class Charged extends ItemType
 
         return $this;
     }
-    
+
     public function getStartCharge(): int
     {
         return $this->startCharge;
@@ -60,7 +60,7 @@ class Charged extends ItemType
 
         return $this;
     }
-    
+
 
     public function getChargeStrategy(): string
     {
@@ -69,11 +69,11 @@ class Charged extends ItemType
 
     public function setChargeStrategy(string $chargeStrategy): Charged
     {
-        $this->chargeStrategy= $chargeStrategy;
+        $this->chargeStrategy = $chargeStrategy;
 
         return $this;
     }
-    
+
     public function getIsVisible(): bool
     {
         return $this->isVisible;
@@ -85,5 +85,4 @@ class Charged extends ItemType
 
         return $this;
     }
-    
 }

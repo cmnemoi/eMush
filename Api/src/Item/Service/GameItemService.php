@@ -15,7 +15,7 @@ use Mush\Item\Repository\GameItemRepository;
 use Mush\Status\Enum\ItemStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
-use Status\Enum\ChargeStrategyTypeEnum;
+use Mush\Status\Enum\ChargeStrategyTypeEnum;
 
 class GameItemService implements GameItemServiceInterface
 {
@@ -87,6 +87,7 @@ class GameItemService implements GameItemServiceInterface
         return $this->persist($gameItem);
     }
 
+     // @TODO maybe remove those init functions to directly include them in createGameItem
     private function initPlant(GameItem $gameItem, Plant $plant, Daedalus $daedalus): GameItem
     {
         $plantStatus = $this->statusService->createChargeItemStatus(
@@ -96,8 +97,6 @@ class GameItemService implements GameItemServiceInterface
             0,
             $this->itemEffectService->getPlantEffect($plant, $daedalus)->getMaturationTime()
         );
-
-        $gameItem->addStatus($plantStatus);
 
         return $gameItem;
     }
@@ -111,8 +110,6 @@ class GameItemService implements GameItemServiceInterface
             $charged->getStartCharge(),
             $charged->getMaxCharge()
         );
-
-        $gameItem->addStatus($chargeStatus);
 
         return $gameItem;
     }

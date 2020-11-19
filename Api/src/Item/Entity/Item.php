@@ -78,11 +78,11 @@ class Item
      * @ORM\Column(type="boolean", nullable=false)
      */
     private bool $isFireBreakable;
-    
+
      /**
      * @ORM\Column(type="boolean", nullable=false)
      */
-    private bool $isAlienArtifact=false;
+    private bool $isAlienArtifact = false;
 
 
     public function __construct()
@@ -256,8 +256,8 @@ class Item
 
         return $this;
     }
-    
-    public function setIsAlienArtifact(): bool
+
+    public function isAlienArtifact(): bool
     {
         return $this->isAlienArtifact;
     }

@@ -4,6 +4,7 @@ namespace Mush\Item\Entity\Items;
 
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Item\Enum\ItemTypeEnum;
+use Mush\Action\Enum\ActionEnum;
 
 /**
  * Class Item.
@@ -15,7 +16,7 @@ class Document extends Tool
     protected string $type = ItemTypeEnum::DOCUMENT;
 
     protected array $actions = [ActionEnum::READ_DOCUMENT];
-    
+
      /**
      * @ORM\Column(type="string", nullable=false)
      */
@@ -25,15 +26,15 @@ class Document extends Tool
      * @ORM\Column(type="boolean", nullable=false)
      */
     private bool $isTranslated = false;
-    
-    
+
+
 
     public function getContent(): string
     {
         return $this->content;
     }
 
-    public function setContent(string $content): Blueprint
+    public function setContent(string $content): Document
     {
         $this->content = $content;
 
@@ -45,7 +46,7 @@ class Document extends Tool
         return $this->isTranslated;
     }
 
-    public function setIsTranslated(bool $isTranslated): Blueprint
+    public function setIsTranslated(bool $isTranslated): Document
     {
         $this->isTranslated = $isTranslated;
 

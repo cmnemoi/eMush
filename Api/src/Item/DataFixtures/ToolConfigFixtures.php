@@ -27,8 +27,8 @@ use Mush\Item\Enum\GameDrugEnum;
 use Mush\Item\Enum\ItemEnum;
 use Mush\Item\Enum\ToolItemEnum;
 use Mush\Status\Enum\DiseaseEnum;
-use Mush\Status\Enum\DisorderEnum;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
+use Mush\Status\Enum\DisorderEnum;
 
 class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -158,7 +158,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setActionCost(4)
             ->setChancesSuccess(25)
         ;
-        
+
         $chargedType = new Charged();
         $chargedType
             ->setMaxCharge(4)
@@ -166,7 +166,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
             ->setIsVisible(true)
         ;
-        
+
         $microwaveType = new Tool();
         $microwaveType->setActions([ActionEnum::EXPRESS_COOK]);
 

@@ -63,8 +63,8 @@ class TreatPlant extends Action
     public function canExecute(): bool
     {
         return ($this->player->canReachItem($this->item) &&
-                    $this->item->getItem()->getItemType(ItemTypeEnum::PLANT)
-                    $this->item->getStatusByName()->count(ItemStatusEnum::PLANT_DISEASED)>0)
+                    $this->item->getItem()->getItemType(ItemTypeEnum::PLANT) &&
+                    $this->item->getStatusByName(ItemStatusEnum::PLANT_DISEASED)->count()>0)
                     ;
     }
 

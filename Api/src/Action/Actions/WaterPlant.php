@@ -64,8 +64,8 @@ class WaterPlant extends Action
     {
         return ($this->player->canReachItem($this->item) &&
                     $this->item->getItem()->getItemType(ItemTypeEnum::PLANT) &&
-                    ($this->item->getStatusByName()->count(ItemStatusEnum::PLANT_THIRSTY) > 0 ||
-                    $this->item->getStatusByName()->count(ItemStatusEnum::PLANT_DRIED_OUT) > 0 ))
+                    ($this->item->getStatusByName(ItemStatusEnum::PLANT_THIRSTY)->count() > 0 ||
+                    $this->item->getStatusByName(ItemStatusEnum::PLANT_DRIED_OUT)->count() > 0 ))
                     ;
     }
 

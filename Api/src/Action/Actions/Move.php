@@ -49,6 +49,7 @@ class Move extends Action
 
     public function canExecute(): bool
     {
+    	  dump($this->door);die();
         return !$this->door->isBroken()
             && $this->player->getRoom()->getDoors()->contains($this->door);
     }
@@ -56,7 +57,6 @@ class Move extends Action
     protected function applyEffects(): ActionResult
     {
         $newRoom = $this->door->getRooms()->filter(fn (Room $room) => $room !== $this->player->getRoom())->first();
-
         $this->player->setRoom($newRoom);
 
         $this->playerService->persist($this->player);

@@ -6,77 +6,81 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Service\SuccessRateServiceInterface;
 use Mush\Game\Entity\GameConfig;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Service\GameConfigServiceInterface;
+use Mush\Game\Service\RandomServiceInterface;
 use Mush\Item\Entity\GameItem;
 use Mush\Item\Service\GameItemServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
-use Mush\Status\Enum\PlayerStatusEnum;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Mush\Status\Enum\ItemStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
+use Mush\Status\Entity\Status;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class Take extends Action
+class Hide extends Action
 {
-    protected const NAME = ActionEnum::TAKE;
+    protected const NAME = ActionEnum::HIDE;
 
-    private GameItem $item;
+    private GameItem $gameItem;
 
     private RoomLogServiceInterface $roomLogService;
-    private GameItemServiceInterface $itemService;
+    private GameItemServiceInterface $gameItemService;
     private PlayerServiceInterface $playerService;
     private GameConfig $gameConfig;
-    private StatusServiceInterface $statusService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         RoomLogServiceInterface $roomLogService,
-        GameItemServiceInterface $itemService,
+        GameItemServiceInterface $gameItemService,
         PlayerServiceInterface $playerService,
-        GameConfigServiceInterface $gameConfigService,
-        StatusServiceInterface $statusService
+        StatusServiceInterface $statusService,
+        GameConfigServiceInterface $gameConfigService
     ) {
         parent::__construct($eventDispatcher);
 
+        $this->StatusServiceInterface = $statusService;
         $this->roomLogService = $roomLogService;
-        $this->itemService = $itemService;
+        $this->gameItemService = $gameItemService;
         $this->playerService = $playerService;
         $this->gameConfig = $gameConfigService->getConfig();
-        $this->statusService = $statusService;
+
+        $this->actionCost->setActionPointCost(1);
     }
 
     public function loadParameters(Player $player, ActionParameters $actionParameters)
     {
-        if (!$item = $actionParameters->getItem()) {
+        if (!($item = $actionParameters->getItem())) {
             throw new \InvalidArgumentException('Invalid item parameter');
         }
+
         $this->player = $player;
-        $this->item = $item;
+        $this->gameItem = $item;
     }
 
     public function canExecute(): bool
     {
-        return $this->player->getRoom()->getItems()->contains($this->item) &&
-            $this->player->getItems()->count() < $this->gameConfig->getMaxItemInInventory() &&
-            $this->item->getItem()->isTakeable() &&
-            $this->player->canReachItem($this->gameItem)
-            ;
+        //Check that the item is reachable
+        return $this->gameItem->getStatusByName(ItemStatusEnum::HIDDEN) === null &&
+             $this->gameItem->getItem()->isHideable() &&
+             $this->player->canReachItem($this->gameItem)
+        ;
     }
 
     protected function applyEffects(): ActionResult
     {
-        $this->item->setRoom(null);
-        $this->item->setPlayer($this->player);
+        $hiddenStatus = new Status();
+        $hiddenStatus
+            ->setName(ItemStatusEnum::HIDDEN)
+            ->setVisibility(VisibilityEnum::PRIVATE)
+            ->setPlayer($this->player)
+            ->setGameItem($this->gameItem)
+        ;
 
-        // add BURDENED status if item is heavy
-        if ($this->item->getItem()->isHeavy()) {
-               $burdenedStatus = $this->statusService->createCorePlayerStatus(PlayerStatusEnum::BURDENED, $this->player);
-        }
-
-        $this->itemService->persist($this->item);
+        $this->gameItemService->persist($this->gameItem);
         $this->playerService->persist($this->player);
 
         return new Success();
@@ -84,12 +88,11 @@ class Take extends Action
 
     protected function createLog(ActionResult $actionResult): void
     {
-        $this->roomLogService->createItemLog(
-            ActionEnum::TAKE,
+        $this->roomLogService->createPlayerLog(
+            ActionEnum::HIDE,
             $this->player->getRoom(),
             $this->player,
-            $this->item,
-            VisibilityEnum::PUBLIC,
+            VisibilityEnum::COVERT,
             new \DateTime('now')
         );
     }

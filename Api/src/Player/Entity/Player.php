@@ -14,6 +14,7 @@ use Mush\Status\Entity\Collection\MedicalConditionCollection;
 use Mush\Status\Entity\MedicalCondition;
 use Mush\Status\Entity\Status;
 use Mush\User\Entity\User;
+use Mush\Status\Enum\ItemStatusEnum;
 
 /**
  * Class Player.
@@ -225,8 +226,11 @@ class Player
         ) {
             return true;
         }
-
-        return $this->items->contains($gameItem) || $this->room->getItems()->contains($gameItem);
+        if ($gameItem->getStatusByName(ItemStatusEnum::HIDDEN) !== null) {
+             return $gameItem->getStatusByName(ItemStatusEnum::HIDDEN)->getPlayer() === $this;
+        } else {
+                return $this->items->contains($gameItem) || $this->getRoom()->getItems()->contains($gameItem);
+        }
     }
 
     public function getReachableItemByName(string $name): Collection
@@ -235,7 +239,10 @@ class Player
             $this->getItems()->toArray(),
             $this->getRoom()->getItems()->toArray()
         ))
-          )->filter(fn (GameItem $gameItem) => $gameItem->getName() === $name);
+          )->filter(fn (GameItem $gameItem) => (
+          $gameItem->getName() === $name &&
+          ($gameItem->getStatusByName(ItemStatusEnum::HIDDEN) === null ||
+           $gameItem->getStatusByName(ItemStatusEnum::HIDDEN)->getPlayer() === $this)));
     }
 
     public function getItems(): Collection

@@ -18,6 +18,7 @@ use Mush\Item\DataFixtures\GearConfigFixtures;
 use Mush\Item\DataFixtures\BlueprintConfigFixtures;
 use Mush\Item\Enum\GameDrugEnum;
 use Mush\Item\Enum\GamePlantEnum;
+use Mush\Item\Enum\GameFruitEnum;
 use Mush\Item\Enum\ItemEnum;
 use Mush\Item\Enum\GearItemEnum;
 use Mush\Item\Enum\ToolItemEnum;
@@ -125,6 +126,7 @@ class RoomConfigFixtures extends Fixture implements DependentFixtureInterface
                 GameDrugEnum::BACTA,
                 GameDrugEnum::BACTA,
                 GameDrugEnum::BACTA,
+                GameFruitEnum::CREEPNUT,
             ])
             ->setDoors([
                 DoorEnum::FRONT_CORRIDOR_LABORATORY,
@@ -189,7 +191,7 @@ class RoomConfigFixtures extends Fixture implements DependentFixtureInterface
                 DoorEnum::FRONT_STORAGE_GARDEN,
             ])
             ->setItems([
-                ToolItemEnum::HYDROPOT,
+                ItemEnum::HYDROPOT,
                 GamePlantEnum::BANANA_TREE,
                 GamePlantEnum::BANANA_TREE,
             ])

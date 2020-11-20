@@ -26,6 +26,7 @@ class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
 
 
         $drugType = new Drug();
+        //  possibilities are stored as key, array value represent the probability to get the key value
         $drugType
             ->setMoralPoints([ 0 => 97,-2 => 1, 1 => 1, 3 => 1])
             ->setActionPoints([0 => 98, 1 => 1, 3 => 1])

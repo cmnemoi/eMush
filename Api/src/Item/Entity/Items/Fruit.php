@@ -15,6 +15,14 @@ class Fruit extends Ration
 {
     protected string $type = ItemTypeEnum::FRUIT;
 
+    protected array $actions = [ActionEnum::PLANT_IT];
+
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private ?string $plantName = null;
+
      /**
      * @ORM\Column(type="array", nullable=false)
      */
@@ -40,6 +48,18 @@ class Fruit extends Ration
      */
     private array $diseasesEffectDelayLengh = [];
 
+
+    public function getPlantName(): string
+    {
+        return $this->plantName;
+    }
+
+    public function setPlantName(string $plantName): Fruit
+    {
+        $this->plantName = $plantName;
+
+        return $this;
+    }
 
     public function getFruitEffectsNumber(): array
     {

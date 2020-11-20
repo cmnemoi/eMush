@@ -40,4 +40,5 @@ class ItemEnum
     public const COMMANDERS_MANUAL = 'commanders_manual';
     public const MUSH_RESEARCH_REVIEW = 'mush_research_review';
     public const POST_IT = 'post_it';
+    public const HYDROPOT = 'hydropot';
 }

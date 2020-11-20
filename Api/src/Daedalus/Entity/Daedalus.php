@@ -169,6 +169,7 @@ class Daedalus
         if ($room->getDaedalus() === $this) {
             $room->setDaedalus(null);
         }
+
         return $this;
     }
 

@@ -10,6 +10,7 @@ use Mush\Item\Entity\GameItem;
 use Mush\Item\Entity\Items\Plant;
 use Mush\Item\Entity\PlantEffect;
 use Mush\Item\Enum\ItemEnum;
+use Mush\Item\Enum\ItemTypeEnum;
 use Mush\Item\Service\GameItemServiceInterface;
 use Mush\Item\Service\ItemEffectServiceInterface;
 use Mush\Player\Entity\Player;
@@ -52,7 +53,7 @@ class PlantCycleHandler implements CycleHandlerInterface
         if (!$gamePlant instanceof GameItem) {
             return;
         }
-        $plantType = $gamePlant->getItem()->getItemType(ItemEnum::PLANT);
+        $plantType = $gamePlant->getItem()->getItemType(ItemTypeEnum::PLANT);
         if (null === $gamePlant || !$plantType instanceof Plant) {
             return;
         }
@@ -91,7 +92,7 @@ class PlantCycleHandler implements CycleHandlerInterface
         if (!$gamePlant instanceof GameItem) {
             return;
         }
-        $plantType = $gamePlant->getItem()->getItemType(ItemEnum::PLANT);
+        $plantType = $gamePlant->getItem()->getItemType(ItemTypeEnum::PLANT);
         if (null === $gamePlant || !$plantType instanceof Plant) {
             return;
         }
@@ -131,12 +132,14 @@ class PlantCycleHandler implements CycleHandlerInterface
         if (($thirsty = $gamePlant->getStatusByName(ItemStatusEnum::PLANT_THIRSTY)) !== null) {
             $gamePlant->removeStatus($thirsty);
             $driedStatus = $this->statusService->createCoreItemStatus(ItemStatusEnum::PLANT_DRIED_OUT, $gamePlant);
+            $gamePlant->addStatus($driedStatus);
         // If plant was dried, become hydropot
         } elseif ($gamePlant->getStatusByName(ItemStatusEnum::PLANT_DRIED_OUT) !== null) {
             $this->handleDriedPlant($gamePlant, $dateTime);
         // If plant was not thirsty or dried become thirsty
         } else {
             $thirstyStatus = $this->statusService->createCoreItemStatus(ItemStatusEnum::PLANT_THIRSTY, $gamePlant);
+            $gamePlant->addStatus($thirstyStatus);
         }
     }
 
@@ -191,7 +194,6 @@ class PlantCycleHandler implements CycleHandlerInterface
         // If plant is not in a room, it is in player inventory
         $place = $gamePlant->getRoom() ?? $gamePlant->getPlayer();
 
-
         // Create a new fruit
         $gameFruit = $this->gameItemService->createGameItem($plantType->getFruit(), $place->getDaedalus());
 
@@ -200,10 +202,10 @@ class PlantCycleHandler implements CycleHandlerInterface
             if ($place->getItems() < $this->gameConfig->getMaxItemInInventory()) {
                 $gameFruit->setPlayer($place);
             } else {
-                    $room = $place;
                 $gameFruit->setRoom($place->getRoom());
             }
         } else {
+            $room = $place;
             $gameFruit->setRoom($place);
         }
 

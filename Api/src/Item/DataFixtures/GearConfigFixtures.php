@@ -8,25 +8,11 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Item\Entity\Item;
-use Mush\Item\Entity\Items\Blueprint;
-use Mush\Item\Entity\Items\Book;
-use Mush\Item\Entity\Items\Dismountable;
-use Mush\Item\Entity\Items\Fruit;
-use Mush\Item\Entity\Items\Plant;
-use Mush\Item\Entity\Items\Ration;
-use Mush\Item\Entity\Items\Tool;
-use Mush\Item\Entity\Items\Drug;
-use Mush\Item\Entity\Items\Weapon;
 use Mush\Item\Entity\Items\Charged;
-use Mush\Item\Enum\GameFruitEnum;
-use Mush\Item\Enum\GamePlantEnum;
-use Mush\Item\Enum\GameDrugEnum;
-use Mush\Item\Enum\ItemEnum;
+use Mush\Item\Entity\Items\Dismountable;
 use Mush\Item\Enum\GearItemEnum;
-use Mush\Status\Enum\DiseaseEnum;
-use Mush\Status\Enum\DisorderEnum;
+use Mush\Item\Enum\ItemEnum;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 
 class GearConfigFixtures extends Fixture implements DependentFixtureInterface
@@ -75,7 +61,6 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($plasteniteArmor);
         $manager->persist($dismountableType);
 
-
         $wrench = new Item();
         $wrench
             ->setGameConfig($gameConfig)
@@ -90,7 +75,6 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
 
         ;
         $manager->persist($wrench);
-
 
         $gloves = new Item();
         $gloves
@@ -108,7 +92,6 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($gloves);
 
-
         $soap = new Item();
         $soap
             ->setGameConfig($gameConfig)
@@ -123,7 +106,6 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
 
         ;
         $manager->persist($soap);
-
 
         $dismountableType = new Dismountable();
         $dismountableType
@@ -149,7 +131,6 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($sniperHelmet);
         $manager->persist($dismountableType);
 
-
         $alienBottleOpener = new Item();
         $alienBottleOpener
             ->setGameConfig($gameConfig)
@@ -164,7 +145,6 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsAlienArtifact(true)
         ;
         $manager->persist($alienBottleOpener);
-
 
         $dismountableType = new Dismountable();
         $dismountableType
@@ -199,8 +179,6 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($dismountableType);
         $manager->persist($chargedType);
 
-
-
         $rollingBoulder = new Item();
         $rollingBoulder
             ->setGameConfig($gameConfig)
@@ -215,7 +193,6 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsAlienArtifact(true)
         ;
         $manager->persist($rollingBoulder);
-
 
         $lenses = new Item();
         $lenses
@@ -246,7 +223,6 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setBreakableRate(99)
         ;
         $manager->persist($oscilloscope);
-
 
         $dismountableType
             ->setProducts([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::METAL_SCRAPS => 1])
@@ -331,10 +307,8 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($liquidMap);
 
-
         $this->addReference(GearItemEnum::OSCILLOSCOPE, $oscilloscope);
         $this->addReference(GearItemEnum::SNIPER_HELMET, $sniperHelmet);
-
 
         $manager->flush();
     }

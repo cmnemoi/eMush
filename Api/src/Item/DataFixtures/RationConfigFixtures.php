@@ -6,14 +6,13 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Mush\Action\Enum\ExtraEffectEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
-use Mush\Item\Entity\Items\Ration;
 use Mush\Item\Entity\Item;
+use Mush\Item\Entity\Items\Ration;
 use Mush\Item\Enum\GameRationEnum;
 use Mush\Status\Enum\DiseaseEnum;
-use Mush\Status\Enum\DisorderEnum;
-use Mush\Action\Enum\ExtraEffectEnum;
 
 class RationConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -21,7 +20,6 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
-
 
         $standardRationType = new Ration();
         $standardRationType
@@ -82,13 +80,13 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setSatiety(4)
             ->setDiseasesChances([
                 DiseaseEnum::ACID_REFLUX => 50,
-                DiseaseEnum::TAPEWORM => 25])
+                DiseaseEnum::TAPEWORM => 25, ])
             ->setDiseasesDelayMin([
                 DiseaseEnum::ACID_REFLUX => 4,
-                DiseaseEnum::TAPEWORM => 4])
+                DiseaseEnum::TAPEWORM => 4, ])
              ->setDiseasesDelayLengh([
                 DiseaseEnum::ACID_REFLUX => 4,
-                DiseaseEnum::TAPEWORM => 4])
+                DiseaseEnum::TAPEWORM => 4, ])
 
         ;
 
@@ -107,8 +105,6 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($alienSteackType);
         $manager->persist($alienSteack);
-
-
 
         $coffeeType = new Ration();
         $coffeeType
@@ -135,7 +131,6 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($coffeeType);
         $manager->persist($coffee);
 
-
         $anabolicType = new Ration();
         $anabolicType
             ->setActionPoints([0 => 1])
@@ -161,7 +156,6 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($anabolicType);
         $manager->persist($anabolic);
-
 
         $lombrickBarType = new Ration();
         $lombrickBarType
@@ -214,7 +208,6 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($organicWasteType);
         $manager->persist($organicWaste);
 
-
         $proactivePuffedRiceType = new Ration();
         $proactivePuffedRiceType
             ->setActionPoints([10 => 1])
@@ -241,7 +234,6 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($proactivePuffedRiceType);
         $manager->persist($proactivePuffedRice);
-
 
         $spacePotatoType = new Ration();
         $spacePotatoType

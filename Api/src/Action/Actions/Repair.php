@@ -22,7 +22,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Repair extends AttemptAction
 {
-    protected const NAME = ActionEnum::REPAIR;
+    protected string $name = ActionEnum::REPAIR;
 
     private GameItem $gameItem;
 
@@ -89,17 +89,13 @@ class Repair extends AttemptAction
 
     protected function createLog(ActionResult $actionResult): void
     {
-        $this->roomLogService->createPlayerLog(
+        $this->roomLogService->createItemLog(
             ActionEnum::REPAIR,
             $this->player->getRoom(),
             $this->player,
+            $this->gameItem,
             VisibilityEnum::PUBLIC,
             new \DateTime('now')
         );
-    }
-
-    public function getActionName(): string
-    {
-        return self::NAME;
     }
 }

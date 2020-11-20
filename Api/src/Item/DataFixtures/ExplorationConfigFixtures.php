@@ -8,23 +8,9 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Item\Entity\Item;
-use Mush\Item\Entity\Items\Blueprint;
-use Mush\Item\Entity\Items\Book;
 use Mush\Item\Entity\Items\Dismountable;
-use Mush\Item\Entity\Items\Fruit;
-use Mush\Item\Entity\Items\Plant;
-use Mush\Item\Entity\Items\Ration;
-use Mush\Item\Entity\Items\Tool;
-use Mush\Item\Entity\Items\Drug;
-use Mush\Item\Entity\Items\Weapon;
-use Mush\Item\Enum\GameFruitEnum;
-use Mush\Item\Enum\GamePlantEnum;
-use Mush\Item\Enum\GameDrugEnum;
 use Mush\Item\Enum\ItemEnum;
-use Mush\Status\Enum\DiseaseEnum;
-use Mush\Status\Enum\DisorderEnum;
 
 class ExplorationConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -32,7 +18,6 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
-
 
         $compass = new Item();
         $compass
@@ -48,7 +33,6 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
 
         ;
         $manager->persist($compass);
-
 
         $rope = new Item();
         $rope
@@ -102,7 +86,6 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
         ;
         $manager->persist($babelModule);
 
-
         $echolocator = new Item();
         $echolocator
             ->setGameConfig($gameConfig)
@@ -116,7 +99,6 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
             ->setIsFireBreakable(false)
         ;
         $manager->persist($echolocator);
-
 
         $thermosensor = new Item();
         $thermosensor
@@ -134,7 +116,6 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
         ;
         $manager->persist($thermosensor);
 
-
         $whiteFlag = new Item();
         $whiteFlag
             ->setGameConfig($gameConfig)
@@ -149,9 +130,7 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
         ;
         $manager->persist($whiteFlag);
 
-
         $manager->flush();
-
 
         $this->addReference(ItemEnum::ECHOLOCATOR, $echolocator);
         $this->addReference(ItemEnum::WHITE_FLAG, $whiteFlag);

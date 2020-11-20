@@ -23,7 +23,7 @@ interface RandomServiceInterface
 
     public function getRandomElements(array $array, int $number = 1): array;
 
-    public function getSingleRandomElementFromProbaArray(array $array): array;
+    public function getSingleRandomElementFromProbaArray(array $array): string;
 
     public function getRandomElementsFromProbaArray(array $array, int $number): array;
 }

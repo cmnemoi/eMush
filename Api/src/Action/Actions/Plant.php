@@ -7,7 +7,7 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Item\Entity\GameItem;
-use Mush\Item\Entity\Items\Drug;
+use Mush\Item\Enum\ItemEnum;
 use Mush\Item\Enum\ItemTypeEnum;
 use Mush\Item\Service\GameItemServiceInterface;
 use Mush\Item\Service\ItemEffectServiceInterface;
@@ -15,14 +15,12 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
-use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
-use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Plant extends Action
 {
-    protected const NAME = ActionEnum::PLANT_IT;
+    protected string $name = ActionEnum::PLANT_IT;
 
     private GameItem $item;
 
@@ -62,19 +60,18 @@ class Plant extends Action
 
     public function canExecute(): bool
     {
-        return ($this->player->getReachableItemByName(ItemEnum::HYDROPOT)->count() > 0 &&
+        return $this->player->getReachableItemByName(ItemEnum::HYDROPOT)->count() > 0 &&
                     $this->player->canReachItem($this->item) &&
-                    $this->item->getItem()->getItemType(ItemTypeEnum::FRUIT))
+                    $this->item->getItem()->getItemType(ItemTypeEnum::FRUIT)
                     ;
     }
 
-
     protected function applyEffects(): ActionResult
     {
-         $fruitType = $this->item->getItem()->getItemType(ItemTypeEnum::FRUIT);
+        $fruitType = $this->item->getItem()->getItemType(ItemTypeEnum::FRUIT);
 
-         $hydropot = $this->player->getReachableItemByName(ItemEnum::HYDROPOT)->first();
-         $place = $hydropot->getRoom() ?? $hydropot->getPlayer();
+        $hydropot = $this->player->getReachableItemByName(ItemEnum::HYDROPOT)->first();
+        $place = $hydropot->getRoom() ?? $hydropot->getPlayer();
 
         $plantItem = $this->gameItemService
                     ->createGameItemFromName($fruitType->getPlantName(), $this->player->getDaedalus());
@@ -101,14 +98,10 @@ class Plant extends Action
         $this->roomLogService->createItemLog(
             ActionEnum::PLANT_IT,
             $this->player->getRoom(),
+            $this->player,
             $this->item,
             VisibilityEnum::PUBLIC,
             new \DateTime('now')
         );
-    }
-
-    public function getActionName(): string
-    {
-        return self::NAME;
     }
 }

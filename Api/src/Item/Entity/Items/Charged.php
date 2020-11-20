@@ -15,7 +15,7 @@ class Charged extends ItemType
 {
     protected string $type = ItemTypeEnum::CHARGED;
 
-     /**
+    /**
      * @ORM\Column(type="integer", length=255, nullable=false)
      */
     private int $maxCharge = 0;
@@ -25,17 +25,15 @@ class Charged extends ItemType
      */
     private int $startCharge = 0;
 
-     /**
+    /**
      * @ORM\Column(type="string", nullable=false)
      */
     private string $chargeStrategy;
 
-     /**
+    /**
      * @ORM\Column(type="boolean", nullable=false)
      */
     private bool $isVisible = true;
-
-
 
     public function getMaxCharge(): int
     {
@@ -60,7 +58,6 @@ class Charged extends ItemType
 
         return $this;
     }
-
 
     public function getChargeStrategy(): string
     {

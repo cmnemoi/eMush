@@ -8,13 +8,14 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\RandomItemPlaces;
 use Mush\Game\DataFixtures\GameConfigFixtures;
-use Mush\Item\Enum\ItemEnum;
 use Mush\Item\Enum\GearItemEnum;
+use Mush\Item\Enum\ItemEnum;
 use Mush\Item\Enum\ToolItemEnum;
 use Mush\Room\Enum\RoomEnum;
 
 /**
- * Class DaedalusConfigFixtures
+ * Class DaedalusConfigFixtures.
+ *
  * @codeCoverageIgnore
  */
 class DaedalusConfigFixtures extends Fixture implements DependentFixtureInterface

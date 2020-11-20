@@ -10,7 +10,7 @@ use Mush\Action\Service\SuccessRateServiceInterface;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\SkillMushEnum;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Item\Enum\ItemEnum;
+use Mush\Item\Enum\GearItemEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Service\PlayerServiceInterface;
@@ -21,7 +21,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Hit extends AttemptAction
 {
-    protected const NAME = ActionEnum::HIT;
+    protected string $name = ActionEnum::HIT;
 
     private Player $target;
 
@@ -79,7 +79,7 @@ class Hit extends AttemptAction
             if (in_array(SkillMushEnum::HARD_BOILED, $this->target->getSkills())) {
                 --$damage;
             }
-            if ($this->target->hasItemByName(ItemEnum::PLASTENITE_ARMOR)) {
+            if ($this->target->hasItemByName(GearItemEnum::PLASTENITE_ARMOR)) {
                 --$damage;
             }
             if ($damage <= 0) {
@@ -109,10 +109,5 @@ class Hit extends AttemptAction
             VisibilityEnum::PUBLIC,
             new \DateTime('now')
         );
-    }
-
-    public function getActionName(): string
-    {
-        return self::NAME;
     }
 }

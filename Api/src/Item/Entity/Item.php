@@ -79,11 +79,10 @@ class Item
      */
     private bool $isFireBreakable;
 
-     /**
+    /**
      * @ORM\Column(type="boolean", nullable=false)
      */
     private bool $isAlienArtifact = false;
-
 
     public function __construct()
     {

@@ -132,16 +132,19 @@ class GameItem
 
     public function setRoom(?Room $room): GameItem
     {
-        if (null === $room) {
-            $this->room->removeItem($this);
-        } elseif ($this->room !== $room) {
-            if ($this->getRoom() !== null) {
-                $this->getRoom()->removeItem($this);
-            }
-            $room->addItem($this);
-        }
+        if ($room !== $this->room) {
+            $oldRoom = $this->getRoom();
+            $this->room = $room;
 
-        $this->room = $room;
+            if ($room !== null) {
+                $room->addItem($this);
+            }
+
+            if ($oldRoom !== null) {
+                $oldRoom->removeItem($this);
+                $this->room = $room;
+            }
+        }
 
         return $this;
     }

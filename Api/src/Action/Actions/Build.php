@@ -20,7 +20,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Build extends Action
 {
-    protected const NAME = ActionEnum::BUILD;
+    protected string $name = ActionEnum::BUILD;
 
     private GameItem $item;
 
@@ -133,10 +133,5 @@ class Build extends Action
             VisibilityEnum::PUBLIC,
             new \DateTime('now')
         );
-    }
-
-    public function getActionName(): string
-    {
-        return self::NAME;
     }
 }

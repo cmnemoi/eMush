@@ -176,7 +176,6 @@ class ConsumableEffect
         return $this;
     }
 
-
     public function getDiseasesDelayMin(): array
     {
         return $this->diseasesDelayMin;

@@ -18,7 +18,7 @@ class Ration extends ItemType
      * @ORM\Column(type="array", nullable=false)
      */
     private array $moralPoints = [0 => 1];
-   //  possibilities are stored as key, array value represent the probability to get the key value
+    //  possibilities are stored as key, array value represent the probability to get the key value
 
     /**
      * @ORM\Column(type="array", nullable=false)
@@ -50,7 +50,7 @@ class Ration extends ItemType
      */
     private array $diseasesChances = [];
 
-     /**
+    /**
      * @ORM\Column(type="array", nullable=false)
      */
     private array $diseasesDelayMin = [];
@@ -60,7 +60,7 @@ class Ration extends ItemType
      */
     private array $diseasesDelayLengh = [];
 
-     /**
+    /**
      * @ORM\Column(type="array", nullable=false)
      */
     private array $extraEffects = [];
@@ -69,7 +69,6 @@ class Ration extends ItemType
      * @ORM\Column(type="boolean", nullable=false)
      */
     protected bool $isPerishable = true;
-
 
     //Rations currently only have consume Action
     public function setActions(array $actions): Ration

@@ -83,8 +83,9 @@ class ItemEffectServiceTest extends TestCase
         ;
 
         $this->randomService
-            ->shouldReceive('getRandomElements')
-            ->andReturn([2])
+            ->shouldReceive('getSingleRandomElementFromProbaArray')
+            ->andReturn(2)
+            ->times(4)
         ;
         $consumableEffect = $this->service->getConsumableEffect($ration, $daedalus);
 
@@ -105,8 +106,7 @@ class ItemEffectServiceTest extends TestCase
         $plant
             ->setMinOxygen(0)
             ->setMaxOxygen(10)
-            ->setMinMaturationTime(0)
-            ->setMaxMaturationTime(10)
+            ->setMaturationTime([10 => 1])
         ;
         $plantEffectFromRepository = new PlantEffect();
         $this->plantEffectRepository
@@ -133,6 +133,12 @@ class ItemEffectServiceTest extends TestCase
         $this->randomService
             ->shouldReceive('random')
             ->andReturn(8)
+            ->once()
+        ;
+        $this->randomService
+            ->shouldReceive('getSingleRandomElementFromProbaArray')
+            ->andReturn(8)
+            ->once()
         ;
         $plantEffect = $this->service->getPlantEffect($plant, $daedalus);
 

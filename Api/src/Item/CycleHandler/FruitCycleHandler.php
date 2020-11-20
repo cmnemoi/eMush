@@ -6,7 +6,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\CycleHandler\CycleHandlerInterface;
 use Mush\Item\Entity\GameItem;
 use Mush\Item\Entity\Items\Fruit;
-use Mush\Item\Enum\ItemEnum;
+use Mush\Item\Enum\ItemTypeEnum;
 
 class FruitCycleHandler implements CycleHandlerInterface
 {

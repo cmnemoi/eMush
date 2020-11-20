@@ -8,14 +8,11 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Item\Entity\Item;
 use Mush\Item\Entity\Items\Drug;
-use Mush\Item\Entity\Items\Ration;
 use Mush\Item\Enum\GameDrugEnum;
 use Mush\Status\Enum\DiseaseEnum;
 use Mush\Status\Enum\DisorderEnum;
-
 
 class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -24,11 +21,10 @@ class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
-
         $drugType = new Drug();
         //  possibilities are stored as key, array value represent the probability to get the key value
         $drugType
-            ->setMoralPoints([ 0 => 97,-2 => 1, 1 => 1, 3 => 1])
+            ->setMoralPoints([0 => 97, -2 => 1, 1 => 1, 3 => 1])
             ->setActionPoints([0 => 98, 1 => 1, 3 => 1])
             ->setMovementPoints([0 => 98, 2 => 1, 4 => 1])
             ->setCures([
@@ -44,8 +40,8 @@ class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
                 DiseaseEnum::TAPEWORM => 100,
                 DisorderEnum::PARANOIA => 100,
                 DisorderEnum::DEPRESSION => 100,
-                DisorderEnum::CHRONIC_MIGRAINE => 100])
-            ->setDrugEffectsNumber([1 => 60 ,2 => 30 ,3 => 8 ,4 => 1])
+                DisorderEnum::CHRONIC_MIGRAINE => 100, ])
+            ->setDrugEffectsNumber([1 => 60, 2 => 30, 3 => 8, 4 => 1])
         ;
 
         foreach (GameDrugEnum::getAll() as $drugName) {
@@ -64,7 +60,7 @@ class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
             ;
             $manager->persist($drug);
         }
-         $manager->persist($drugType);
+        $manager->persist($drugType);
 
         $manager->flush();
     }

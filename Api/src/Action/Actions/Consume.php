@@ -15,14 +15,14 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
-use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Consume extends Action
 {
-    protected const NAME = ActionEnum::CONSUME;
+    protected string $name = ActionEnum::CONSUME;
 
     private GameItem $item;
 
@@ -74,7 +74,7 @@ class Consume extends Action
             throw new \Exception('Cannot consume this item');
         }
 
-         // @TODO add disease, cures and extra effects
+        // @TODO add disease, cures and extra effects
         $itemEffect = $this->itemServiceEffect->getConsumableEffect($rationType, $this->player->getDaedalus());
         $this->player
             ->addActionPoint($itemEffect->getActionPoint())
@@ -112,14 +112,10 @@ class Consume extends Action
         $this->roomLogService->createItemLog(
             ActionEnum::CONSUME,
             $this->player->getRoom(),
+            $this->player,
             $this->item,
             VisibilityEnum::COVERT,
             new \DateTime('now')
         );
-    }
-
-    public function getActionName(): string
-    {
-        return self::NAME;
     }
 }

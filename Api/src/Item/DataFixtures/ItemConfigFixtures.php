@@ -8,22 +8,9 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Item\Entity\Item;
-use Mush\Item\Entity\Items\Blueprint;
-use Mush\Item\Entity\Items\Book;
 use Mush\Item\Entity\Items\Dismountable;
-use Mush\Item\Entity\Items\Drug;
-use Mush\Item\Entity\Items\Fruit;
-use Mush\Item\Entity\Items\Plant;
-use Mush\Item\Entity\Items\Ration;
-use Mush\Item\Entity\Items\Weapon;
-use Mush\Item\Enum\GameDrugEnum;
-use Mush\Item\Enum\GameFruitEnum;
-use Mush\Item\Enum\GamePlantEnum;
 use Mush\Item\Enum\ItemEnum;
-use Mush\Status\Enum\DiseaseEnum;
-use Mush\Status\Enum\DisorderEnum;
 
 class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -56,7 +43,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($camera);
         $manager->persist($dismountableType1);
 
-
         $mycoAlarm = new Item();
         $mycoAlarm
             ->setGameConfig($gameConfig)
@@ -72,7 +58,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setTypes(new ArrayCollection([$dismountableType1]))
         ;
         $manager->persist($mycoAlarm);
-
 
         $dismountableType2 = new Dismountable();
         $dismountableType2
@@ -126,7 +111,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($oldTShirt);
 
-
         $dismountableType3 = new Dismountable();
         $dismountableType3
             ->setProducts([ItemEnum::METAL_SCRAPS => 1])
@@ -174,7 +158,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($mushDisk);
         $manager->persist($dismountableType4);
 
-
         $mushSample = new Item();
         $mushSample
             ->setGameConfig($gameConfig)
@@ -188,7 +171,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireBreakable(false)
         ;
         $manager->persist($mushSample);
-
 
         $starmapFragment = new Item();
         $starmapFragment
@@ -233,7 +215,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireBreakable(false)
         ;
         $manager->persist($hydropot);
-
 
         //@TODO add drones, cat, coffee thermos, lunchbox, survival kit, oxygen capsule, fuel capsule
         $manager->flush();

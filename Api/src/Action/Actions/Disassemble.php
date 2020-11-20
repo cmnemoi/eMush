@@ -24,7 +24,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Disassemble extends AttemptAction
 {
-    protected const NAME = ActionEnum::DISASSEMBLE;
+    protected string $name = ActionEnum::DISASSEMBLE;
 
     private GameItem $item;
 
@@ -128,10 +128,5 @@ class Disassemble extends AttemptAction
             VisibilityEnum::PUBLIC,
             new \DateTime('now')
         );
-    }
-
-    public function getActionName(): string
-    {
-        return self::NAME;
     }
 }

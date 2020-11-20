@@ -18,7 +18,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ReadBook extends Action
 {
-    protected const NAME = ActionEnum::READ_BOOK;
+    protected string $name = ActionEnum::READ_BOOK;
 
     private GameItem $item;
 
@@ -78,17 +78,13 @@ class ReadBook extends Action
 
     protected function createLog(ActionResult $actionResult): void
     {
-        $this->roomLogService->createPlayerLog(
+        $this->roomLogService->createItemLog(
             ActionEnum::READ_BOOK,
             $this->player->getRoom(),
             $this->player,
+            $this->item,
             VisibilityEnum::PUBLIC,
             new \DateTime('now')
         );
-    }
-
-    public function getActionName(): string
-    {
-        return self::NAME;
     }
 }

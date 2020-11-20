@@ -3,8 +3,8 @@
 namespace Mush\Item\Entity\Items;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Item\Enum\ItemTypeEnum;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Item\Enum\ItemTypeEnum;
 
 /**
  * Class Item.
@@ -17,17 +17,15 @@ class Document extends Tool
 
     protected array $actions = [ActionEnum::READ_DOCUMENT];
 
-     /**
+    /**
      * @ORM\Column(type="string", nullable=false)
      */
     private string $content;
 
-     /**
+    /**
      * @ORM\Column(type="boolean", nullable=false)
      */
     private bool $isTranslated = false;
-
-
 
     public function getContent(): string
     {

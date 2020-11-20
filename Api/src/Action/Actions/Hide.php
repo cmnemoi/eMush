@@ -18,6 +18,7 @@ use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\ItemStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
+use Mush\Status\Entity\Status;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Hide extends Action
@@ -63,8 +64,8 @@ class Hide extends Action
     public function canExecute(): bool
     {
         //Check that the item is reachable
-        return $this->gameItem->getStatusByName(ItemStatusEnum::HIDDEN)->count()===0 &&
-             $this->gameItem->isHideable() &&
+        return $this->gameItem->getStatusByName(ItemStatusEnum::HIDDEN)===null &&
+             $this->gameItem->getItem()->isHideable() &&
              $this->player->canReachItem($this->gameItem)
         ;
     }
@@ -76,10 +77,10 @@ class Hide extends Action
             ->setName(ItemStatusEnum::HIDDEN)
             ->setVisibility(VisibilityEnum::PRIVATE)
             ->setPlayer($this->player)
-            ->setItem($this->gameItem)
+            ->setGameItem($this->gameItem)
         ;
         
-        $this->itemService->persist($this->gameItem);
+        $this->gameItemService->persist($this->gameItem);
         $this->playerService->persist($this->player);
 
         return new Success();

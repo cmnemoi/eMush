@@ -14,6 +14,7 @@ use Mush\Status\Entity\Collection\MedicalConditionCollection;
 use Mush\Status\Entity\MedicalCondition;
 use Mush\Status\Entity\Status;
 use Mush\User\Entity\User;
+use Mush\Status\Enum\ItemStatusEnum;
 
 /**
  * Class Player.
@@ -225,13 +226,11 @@ class Player
         ) {
             return true;
         }
-        if ($gameItem->getStatusByName(ItemStatusEnum::HIDDEN)->count()>0 &&
-             $gameItem->getStatusByName(ItemStatusEnum::HIDDEN)->getPlayer()!==$this
-        ) {
-             return false;
+        if ($gameItem->getStatusByName(ItemStatusEnum::HIDDEN)!==null) {
+             return $gameItem->getStatusByName(ItemStatusEnum::HIDDEN)->getPlayer()===$this;
              
         } else {
-                return $this->getItems->contains($gameItem);
+                return $this->items->contains($gameItem) || $this->getRoom()->getItems()->contains($gameItem);
         }
     }
 
@@ -243,7 +242,7 @@ class Player
         ))
           )->filter(fn (GameItem $gameItem) => (
           $gameItem->getName() === $name &&
-          ($gameItem->getStatusByName(ItemStatusEnum::HIDDEN)->count()===0 ||
+          ($gameItem->getStatusByName(ItemStatusEnum::HIDDEN)===null ||
            $gameItem->getStatusByName(ItemStatusEnum::HIDDEN)->getPlayer()===$this)));
     }
 

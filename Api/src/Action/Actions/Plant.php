@@ -20,7 +20,7 @@ use Mush\Status\Service\StatusServiceInterface;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class PlantIt extends Action
+class Plant extends Action
 {
     protected const NAME = ActionEnum::PLANT_IT;
 
@@ -73,7 +73,7 @@ class PlantIt extends Action
     {
          $fruitType = $this->item->getItem()->getItemType(ItemTypeEnum::FRUIT);
 
-         $hydropot = current($this->player->getReachableItemByName(ItemEnum::HYDROPOT));
+         $hydropot = $this->player->getReachableItemByName(ItemEnum::HYDROPOT)->first();
          $place = $hydropot->getRoom() ?? $hydropot->getPlayer();
 
         $plantItem = $this->gameItemService

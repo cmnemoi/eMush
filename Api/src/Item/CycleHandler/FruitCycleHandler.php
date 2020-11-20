@@ -15,7 +15,7 @@ class FruitCycleHandler implements CycleHandlerInterface
         if (!$fruit instanceof GameItem) {
             return;
         }
-        $fruitType = $fruit->getItem()->getItemType(ItemEnum::FRUIT);
+        $fruitType = $fruit->getItem()->getItemType(ItemTypeEnum::FRUIT);
         if (null === $fruitType || !$fruitType instanceof Fruit) {
             return;
         }
@@ -26,7 +26,7 @@ class FruitCycleHandler implements CycleHandlerInterface
         if (!$fruit instanceof GameItem) {
             return;
         }
-        $fruitType = $fruit->getItem()->getItemType(ItemEnum::FRUIT);
+        $fruitType = $fruit->getItem()->getItemType(ItemTypeEnum::FRUIT);
         if (null === $fruitType || !$fruitType instanceof Fruit) {
             return;
         }

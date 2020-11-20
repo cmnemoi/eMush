@@ -62,25 +62,18 @@ class Search extends Action
 
     protected function applyEffects(): ActionResult
     {
-          $hiddenItems = $this->player->getRoom()->getItems()->getByStatusName(ItemStatusEnum::HIDDEN)
+         $hiddenItems = $this->player->getRoom()->getItems()->getByStatusName(ItemStatusEnum::HIDDEN);
         if (!$hiddenItems->isEmpty()) {
               $foundItem = $hiddenItems->first();
 
-                $hiddenStatus = $foundItem->getStatusByName(ItemStatusEnum::HIDDEN);
+               $hiddenStatus = $foundItem->getStatusByName(ItemStatusEnum::HIDDEN);
 
               $foundItem->removeStatus($hiddenStatus);
               $hiddenBy = $hiddenStatus->getPlayer();
               $hiddenBy->removeStatus($hiddenStatus);
 
-              $foundItem->setRoom(null);
-
-            if ($this->player->getItems()->count() < $this->gameConfig->getMaxItemInInventory()) {
-                 $foundItem->setPlayer($this->player);
-            } else {
-                    $foundItem->setPlayer($this->player->getRoom());
-            }
+              
               $this->itemService->persist($foundItem);
-              $this->playerService->persist($this->player);
               $this->playerService->persist($hiddenBy);
 
               return new Success();

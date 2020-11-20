@@ -226,9 +226,8 @@ class Player
         ) {
             return true;
         }
-        if ($gameItem->getStatusByName(ItemStatusEnum::HIDDEN)!==null) {
-             return $gameItem->getStatusByName(ItemStatusEnum::HIDDEN)->getPlayer()===$this;
-             
+        if ($gameItem->getStatusByName(ItemStatusEnum::HIDDEN) !== null) {
+             return $gameItem->getStatusByName(ItemStatusEnum::HIDDEN)->getPlayer() === $this;
         } else {
                 return $this->items->contains($gameItem) || $this->getRoom()->getItems()->contains($gameItem);
         }
@@ -242,8 +241,8 @@ class Player
         ))
           )->filter(fn (GameItem $gameItem) => (
           $gameItem->getName() === $name &&
-          ($gameItem->getStatusByName(ItemStatusEnum::HIDDEN)===null ||
-           $gameItem->getStatusByName(ItemStatusEnum::HIDDEN)->getPlayer()===$this)));
+          ($gameItem->getStatusByName(ItemStatusEnum::HIDDEN) === null ||
+           $gameItem->getStatusByName(ItemStatusEnum::HIDDEN)->getPlayer() === $this)));
     }
 
     public function getItems(): Collection

@@ -41,7 +41,7 @@ class Search extends Action
     ) {
         parent::__construct($eventDispatcher);
 
-        $this->StatusServiceInterface =$statusService;
+        $this->StatusServiceInterface = $statusService;
         $this->roomLogService = $roomLogService;
         $this->gameItemService = $gameItemService;
         $this->playerService = $playerService;
@@ -62,25 +62,31 @@ class Search extends Action
 
     protected function applyEffects(): ActionResult
     {
-    	  if($this->player->getRoom()->getItems()->hasStatusByName(ItemStatusEnum::HIDDEN)->count()>0){
-    	      $foundItem=$this->player->getRoom()->getItems()->hasStatusByName(ItemStatusEnum::HIDDEN)->first();
-    	  }
-    	  
-    	  $hiddenStatus=$foundItem->getStatusByName(ItemStatusEnum::HIDDEN);
-    	  
+          $hiddenItems = $this->player->getRoom()->getItems()->getByStatusName(ItemStatusEnum::HIDDEN)
+        if (!$hiddenItems->isEmpty()) {
+              $foundItem = $hiddenItems->first();
 
-        $foundItem->removeStatus($hiddenStatus);
-        $hiddenBy=$hiddenStatus->getPlayer();
-        $hiddenBy->removeStatus($hiddenStatus);
-        
-        $foundItem->setRoom(null);
-        $foundItem->setPlayer($this->player);
-    	  
-        $this->itemService->persist($foundItem);
-        $this->playerService->persist($this->player);
-        $this->playerService->persist($hiddenBy);
-        
-        return new Success();
+                $hiddenStatus = $foundItem->getStatusByName(ItemStatusEnum::HIDDEN);
+
+              $foundItem->removeStatus($hiddenStatus);
+              $hiddenBy = $hiddenStatus->getPlayer();
+              $hiddenBy->removeStatus($hiddenStatus);
+
+              $foundItem->setRoom(null);
+
+            if ($this->player->getItems()->count() < $this->gameConfig->getMaxItemInInventory()) {
+                 $foundItem->setPlayer($this->player);
+            } else {
+                    $foundItem->setPlayer($this->player->getRoom());
+            }
+              $this->itemService->persist($foundItem);
+              $this->playerService->persist($this->player);
+              $this->playerService->persist($hiddenBy);
+
+              return new Success();
+        } else {
+               return new Fail();
+        }
     }
 
     protected function createLog(ActionResult $actionResult): void

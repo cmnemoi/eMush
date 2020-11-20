@@ -42,7 +42,7 @@ class Hide extends Action
     ) {
         parent::__construct($eventDispatcher);
 
-        $this->StatusServiceInterface =$statusService;
+        $this->StatusServiceInterface = $statusService;
         $this->roomLogService = $roomLogService;
         $this->gameItemService = $gameItemService;
         $this->playerService = $playerService;
@@ -64,7 +64,7 @@ class Hide extends Action
     public function canExecute(): bool
     {
         //Check that the item is reachable
-        return $this->gameItem->getStatusByName(ItemStatusEnum::HIDDEN)===null &&
+        return $this->gameItem->getStatusByName(ItemStatusEnum::HIDDEN) === null &&
              $this->gameItem->getItem()->isHideable() &&
              $this->player->canReachItem($this->gameItem)
         ;
@@ -72,14 +72,14 @@ class Hide extends Action
 
     protected function applyEffects(): ActionResult
     {
-       $hiddenStatus = new Status();
-       $hiddenStatus
+        $hiddenStatus = new Status();
+        $hiddenStatus
             ->setName(ItemStatusEnum::HIDDEN)
             ->setVisibility(VisibilityEnum::PRIVATE)
             ->setPlayer($this->player)
             ->setGameItem($this->gameItem)
         ;
-        
+
         $this->gameItemService->persist($this->gameItem);
         $this->playerService->persist($this->player);
 

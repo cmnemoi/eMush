@@ -46,12 +46,22 @@ class Door extends GameItem
     {
         $this->rooms = $rooms;
 
+        foreach ($rooms as $room) {
+            if (!$room->getDoors()->contains($this)) {
+                  $room->addDoor($this);
+            }
+        }
+
         return $this;
     }
 
     public function addRoom(Room $room): Door
     {
         $this->rooms->add($room);
+
+        if (!$room->getDoors()->contains($this)) {
+            $room->addDoor($this);
+        }
 
         return $this;
     }

@@ -186,6 +186,11 @@ class Room
     public function setDoors(ArrayCollection $doors): Room
     {
         $this->doors = $doors;
+        foreach ($doors as $door) {
+            if (!$door->getRooms()->contains($this)) {
+                $door->addRoom($this);
+            }
+        }
 
         return $this;
     }
@@ -193,7 +198,9 @@ class Room
     public function addDoor(Door $door): Room
     {
         $this->doors->add($door);
-        $door->addRoom($this);
+        if (!$door->getRooms()->contains($this)) {
+              $door->addRoom($this);
+        }
 
         return $this;
     }

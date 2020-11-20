@@ -225,8 +225,14 @@ class Player
         ) {
             return true;
         }
-
-        return $this->items->contains($gameItem) || $this->room->getItems()->contains($gameItem);
+        if ($gameItem->getStatusByName(ItemStatusEnum::HIDDEN)->count()>0 &&
+             $gameItem->getStatusByName(ItemStatusEnum::HIDDEN)->getPlayer()!==$this
+        ) {
+             return false;
+             
+        } else {
+                return $this->getItems->contains($gameItem);
+        }
     }
 
     public function getReachableItemByName(string $name): Collection
@@ -235,7 +241,10 @@ class Player
             $this->getItems()->toArray(),
             $this->getRoom()->getItems()->toArray()
         ))
-          )->filter(fn (GameItem $gameItem) => $gameItem->getName() === $name);
+          )->filter(fn (GameItem $gameItem) => (
+          $gameItem->getName() === $name &&
+          ($gameItem->getStatusByName(ItemStatusEnum::HIDDEN)->count()===0 ||
+           $gameItem->getStatusByName(ItemStatusEnum::HIDDEN)->getPlayer()===$this)));
     }
 
     public function getItems(): Collection

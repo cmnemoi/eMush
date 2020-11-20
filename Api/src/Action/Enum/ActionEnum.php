@@ -5,7 +5,7 @@ namespace Mush\Action\Enum;
 class ActionEnum
 {
     // Not yet an exhaustive list
-
+    
     // Permanent Item actions
     public const MOVE = 'move';
     public const TAKE = 'take';
@@ -14,6 +14,7 @@ class ActionEnum
     public const EXAMINE = 'examine';
     public const HIT = 'hit';
     public const REPAIR = 'repair';
+    public const SEARCH = 'search';
 
 
     // Mush-only actions

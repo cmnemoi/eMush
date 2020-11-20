@@ -8,6 +8,7 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\Item\Entity\GameItem;
 use Mush\Item\Entity\Item;
 use Mush\Item\Entity\Items\Plant;
+use Mush\Item\Entity\Items\Charged;
 use Mush\Item\Entity\Items\Weapon;
 use Mush\Item\Entity\ItemType;
 use Mush\Item\Enum\ItemTypeEnum;

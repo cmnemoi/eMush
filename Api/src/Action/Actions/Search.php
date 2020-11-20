@@ -20,9 +20,9 @@ use Mush\Status\Enum\ItemStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class Hide extends Action
+class Search extends Action
 {
-    protected const NAME = ActionEnum::HIDE;
+    protected const NAME = ActionEnum::SEARCH;
 
     private GameItem $gameItem;
 
@@ -52,36 +52,34 @@ class Hide extends Action
 
     public function loadParameters(Player $player, ActionParameters $actionParameters)
     {
-        if (!($item = $actionParameters->getItem())) {
-            throw new \InvalidArgumentException('Invalid item parameter');
-        }
-
         $this->player = $player;
-        $this->gameItem = $item;
     }
 
     public function canExecute(): bool
     {
-        //Check that the item is reachable
-        return $this->gameItem->getStatusByName(ItemStatusEnum::HIDDEN)->count()===0 &&
-             $this->gameItem->isHideable() &&
-             $this->player->canReachItem($this->gameItem)
-        ;
+        return true;
     }
 
     protected function applyEffects(): ActionResult
     {
-       $hiddenStatus = new Status();
-       $hiddenStatus
-            ->setName(ItemStatusEnum::HIDDEN)
-            ->setVisibility(VisibilityEnum::PRIVATE)
-            ->setPlayer($this->player)
-            ->setItem($this->gameItem)
-        ;
-        
-        $this->itemService->persist($this->gameItem);
-        $this->playerService->persist($this->player);
+    	  if($this->player->getRoom()->getItems()->hasStatusByName(ItemStatusEnum::HIDDEN)->count()>0){
+    	      $foundItem=$this->player->getRoom()->getItems()->hasStatusByName(ItemStatusEnum::HIDDEN)->first();
+    	  }
+    	  
+    	  $hiddenStatus=$foundItem->getStatusByName(ItemStatusEnum::HIDDEN);
+    	  
 
+        $foundItem->removeStatus($hiddenStatus);
+        $hiddenBy=$hiddenStatus->getPlayer();
+        $hiddenBy->removeStatus($hiddenStatus);
+        
+        $foundItem->setRoom(null);
+        $foundItem->setPlayer($this->player);
+    	  
+        $this->itemService->persist($foundItem);
+        $this->playerService->persist($this->player);
+        $this->playerService->persist($hiddenBy);
+        
         return new Success();
     }
 

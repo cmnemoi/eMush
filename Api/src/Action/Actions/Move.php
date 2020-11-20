@@ -49,13 +49,13 @@ class Move extends Action
 
     public function canExecute(): bool
     {
-    	  dump($this->door);die();
         return !$this->door->isBroken()
             && $this->player->getRoom()->getDoors()->contains($this->door);
     }
 
     protected function applyEffects(): ActionResult
     {
+        dump( $this->door);die();
         $newRoom = $this->door->getRooms()->filter(fn (Room $room) => $room !== $this->player->getRoom())->first();
         $this->player->setRoom($newRoom);
 
@@ -75,6 +75,7 @@ class Move extends Action
         );
         $this->roomLogService->createPlayerLog(
             LogEnum::EXIT_ROOM,
+            
             $this->door->getRooms()->filter(fn (Room $room) => $room !== $this->player->getRoom())->first(),
             $this->player,
             VisibilityEnum::PUBLIC,

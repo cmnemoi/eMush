@@ -47,7 +47,7 @@ class TreatPlant extends Action
         $this->playerService = $playerService;
         $this->itemServiceEffect = $itemServiceEffect;
         $this->statusService = $statusService;
-        
+
         $this->actionCost->setActionPointCost(2);
     }
 
@@ -64,17 +64,17 @@ class TreatPlant extends Action
     {
         return ($this->player->canReachItem($this->item) &&
                     $this->item->getItem()->getItemType(ItemTypeEnum::PLANT) &&
-                    $this->item->getStatusByName(ItemStatusEnum::PLANT_DISEASED)->count()>0)
+                    $this->item->getStatusByName(ItemStatusEnum::PLANT_DISEASED)->count() > 0)
                     ;
     }
 
 
     protected function applyEffects(): ActionResult
     {
-    	 
-    	 $this->item->removeStatus($this->item->getStatusByName(ItemStatusEnum::PLANT_DISEASED));
-    	 
-    	 $this->gameItemService->persist($this->item);
+
+         $this->item->removeStatus($this->item->getStatusByName(ItemStatusEnum::PLANT_DISEASED));
+
+         $this->gameItemService->persist($this->item);
         return new Success();
     }
 

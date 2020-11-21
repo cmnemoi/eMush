@@ -1,0 +1,99 @@
+/* MIXIN */
+
+
+/* Add a clip-path with bezel-cuts for each corners of the element.
+Corners values stand clockwise starting from top left. Always specify units (even if 0).
+Missing values in @include will inherit previous corner value. */
+@mixin corner-bezel($topleft: 0px, $topright: -1, $bottomright: -1, $bottomleft: -1) {
+  @if $topright    == -1 { $topright    : $topleft;     }
+  @if $bottomright == -1 { $bottomright : $topright;    }
+  @if $bottomleft  == -1 { $bottomleft  : $bottomright; }
+
+  clip-path: polygon(
+    $topleft 0,
+    calc(100% - #{$topright}) 0,
+    100% $topright,
+    100% calc(100% - #{$bottomright}),
+    calc(100% - #{$bottomright}) 100%,
+    $bottomleft 100%,
+    0 calc(100% - #{$bottomleft}),
+    0 $topleft
+  );
+}
+
+
+/* Style an element to make it a button, inlcuding hover effect.
+Editabe values stand for font-size, font-weight, and font-variant. Keep empty for default styles.
+Adding the class ".crossed" to the element will strike-through it. */
+@mixin button-style ($font-size: .83em, $font-weight: 700, $font-variant: small-caps) {
+  $color: rgb(0, 116, 223);
+  $hover-color: rgb(0, 160, 233);
+  $border-color: rgb(12,18,13);
+  $text-shadow-color: rgb(21, 39, 60);
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 1px;
+  padding: 0 4px 2px 4px;
+  border-radius: 1px;
+
+  color: white;
+  font-size: $font-size;
+  font-weight: $font-weight;
+  font-variant: $font-variant;
+  letter-spacing: .03em;
+  text-decoration: none;
+  text-align: center;
+  text-shadow: 0 0 4px $text-shadow-color, 0 0 4px $text-shadow-color;
+
+  box-shadow: 0 0 0 1px $border-color;
+  background: $color;
+  background: linear-gradient(0deg, 
+    darken(adjust-hue($color, 13), 5.49) 2%, 
+    $color 6%, 
+    $color 46%, 
+    lighten(adjust-hue($color, -6), 1.18) 54%, 
+    lighten(adjust-hue($color, -6), 1.18) 94%, 
+    lighten(desaturate($color, 25.00), 15.49) 96%
+  );
+
+  &:hover, &:focus {
+    background: $hover-color;
+    background: linear-gradient(0deg, 
+      darken(adjust-hue($hover-color, 14), 3.92) 2%, 
+      $hover-color 6%, 
+      $hover-color 46%, 
+      lighten(adjust-hue($hover-color, -4), 0.78) 54%, 
+      lighten(adjust-hue($hover-color, -4), 0.78) 94%, 
+      lighten(desaturate($hover-color, 18.10), 13.14) 96%
+    );
+  }
+  & img { padding: 0 .3em; }
+  &.crossed { opacity: .5; text-decoration: line-through; }
+}
+
+
+@mixin inventory-slot($width: 54px, $height: 54px) {
+  $box-shadow: 0 0 8px 2px inset rgb(17, 56, 128);
+  $active-color: rgb(153, 255, 153);
+
+  width: $width;
+  height: $height;
+  min-width: $width; /*needed for flexbox*/
+  min-height: $height;
+  margin: 1px;
+  border: 1px solid rgb(64, 119, 181);
+  border-radius: 3px;
+  background: rgb(58, 106, 171);
+  box-shadow: $box-shadow;
+
+  &:hover, &:focus {
+    border: 1px solid white;
+  }
+
+  &:active {
+    border: 1px solid $active-color;
+    box-shadow: 0 0 0 2px inset $active-color, $box-shadow; }
+}

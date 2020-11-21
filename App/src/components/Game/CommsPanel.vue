@@ -121,25 +121,35 @@ export default {
         width: 31px;
         height: 25px;
         margin-right: 4px;
-        background: #213578;
-        @include corner-bezel(4.5px, 4.5px, 0px);
+        & * { z-index: 2; }
+
+        &::after {
+          content: "";
+          z-index: 1;
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          background: #213578;
+          @include corner-bezel(4.5px, 4.5px, 0px);
+        }
 
         &:last-child {
           opacity: .3;
-          background: none !important;
+          &::after { background: none !important; }
         }
 
         &.active, &:hover, &:focus {
-          background: rgba(194, 243, 252, 1);
           opacity: 1;
+          &::after { background: rgba(194, 243, 252, 1); }
         }
 
         & span {
           position: absolute;
           top: -6px;
           right: 3px;
-          font-size: .85em;
-          text-shadow: 0 0 2px black, 0 0 2px black, 0 0 2px black;
+          font-size: .82em;
+          font-weight: 600;
+          text-shadow: 0 0 3px black, 0 0 3px black, 0 0 3px black;
         }
       }
     }
@@ -157,6 +167,7 @@ export default {
   
   & .chatbox-container {
     position: relative;
+    z-index: 2;
     height: 435px;
     font-size: .8em;
     line-height: initial;
@@ -349,5 +360,19 @@ export default {
       }
     }
   }
+
+/* SCROLLBAR STYLING */
+
+  & .chatbox, {
+    --scrollbarBG: white;
+    --thumbBG: #090a61;
+
+    scrollbar-width: thin;
+    scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+    &::-webkit-scrollbar { width: 6px; }
+    &::-webkit-scrollbar-track { background: var(--scrollbarBG); }
+    &::-webkit-scrollbar-thumb { background-color: var(--thumbBG); }
+  }
 }
+
 </style>

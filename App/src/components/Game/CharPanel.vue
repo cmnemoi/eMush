@@ -2,49 +2,23 @@
   <div class="char-panel">
 
     <div class="char-sheet">
-      <img class="avatar" src="@/assets/images/char/portrait/Kim_jin_su_portrait.jpg" alt="avatar">
+      <img class="avatar" :src="characterPortrait" alt="avatar">
 
       <ul class="statuses"></ul>
 
       <div class="health-points">
         <div class="life">
-          <p><img src="@/assets/images/lp.png" alt="lp">12</p>
+          <p><img src="@/assets/images/lp.png" alt="lp">{{player.healthPoint}}</p>
           <ul>
-            <li class="full"></li>
-            <li class="full"></li>
-            <li class="full"></li>
-            <li class="full"></li>
-            <li class="full"></li>
-            <li class="full"></li>
-            <li class="full"></li>
-            <li class="full"></li>
-            <li class="full"></li>
-            <li class="full"></li>
-            <li class="full"></li>
-            <li class="full"></li>
-            <li class="empty"></li>
-            <li class="empty"></li>
+            <li v-for="n in 14" v-bind:key="n" v-bind:class="isFull(n, player.healthPoint)"></li>
           </ul>
             
         </div>
         <div class="morale">
-          <p><img src="@/assets/images/moral.png" alt="mp">4</p>
+          <p><img src="@/assets/images/moral.png" alt="mp">{{player.moralPoint}}</p>
           <ul>
-            <li class="full"></li>
-            <li class="full"></li>
-            <li class="full"></li>
-            <li class="full"></li>
-            <li class="empty"></li>
-            <li class="empty"></li>
-            <li class="empty"></li>
-            <li class="empty"></li>
-            <li class="empty"></li>
-            <li class="empty"></li>
-            <li class="empty"></li>
-            <li class="empty"></li>
-            <li class="empty"></li>
-            <li class="empty"></li>
-          </ul>          
+            <li v-for="n in 14" v-bind:key="n" v-bind:class="isFull(n, player.moralPoint)"></li>
+          </ul>
         </div>
       </div>
       <ul class="inventory">
@@ -76,34 +50,12 @@
         <div class="action-points">
           <div class="actions">
             <ul>
-              <li class="full"></li>
-              <li class="full"></li>
-              <li class="full"></li>
-              <li class="full"></li>
-              <li class="empty"></li>
-              <li class="empty"></li>
-              <li class="empty"></li>
-              <li class="empty"></li>
-              <li class="empty"></li>
-              <li class="empty"></li>
-              <li class="empty"></li>
-              <li class="empty"></li>
+              <li v-for="n in 14" v-bind:key="n" v-bind:class="isFull(n, player.actionPoint)"></li>
             </ul>
           </div>
           <div class="movements">
             <ul>
-              <li class="full"></li>
-              <li class="full"></li>
-              <li class="full"></li>
-              <li class="full"></li>
-              <li class="full"></li>
-              <li class="full"></li>
-              <li class="full"></li>
-              <li class="full"></li>
-              <li class="full"></li>
-              <li class="empty"></li>
-              <li class="empty"></li>
-              <li class="empty"></li>
+              <li v-for="n in 14" v-bind:key="n" v-bind:class="isFull(n, player.movementPoint)"></li>
             </ul>
           </div>
         </div>
@@ -112,14 +64,30 @@
         </ul>
       </div>
     </div>
-
   </div>
 </template>
 
 <script>
+import {Player} from "@/entities/Player";
+import {characterEnum} from '@/enums/character';
+
 export default {
   name: "CharPanel",
   props: {
+    player: Player
+  },
+  computed: {
+    characterPortrait: function() {
+      return characterEnum[this.player.character_key].portrait;
+    }
+  },
+  methods: {
+    isFull: function (value, threshold) {
+      return {
+        "full": value <= threshold,
+        'empty': value > threshold
+      }
+    }
   }
 }
 </script>

@@ -60,6 +60,7 @@ class PlayerNormalizer implements ContextAwareNormalizerInterface
                 'movementPoint' => $player->getMovementPoint(),
                 'healthPoint' => $player->getHealthPoint(),
                 'moralPoint' => $player->getMoralPoint(),
+                'triumph' => $player->getTriumph(),
                 'createdAt' => $player->getCreatedAt(),
                 'updatedAt' => $player->getUpdatedAt(),
             ];
@@ -67,7 +68,10 @@ class PlayerNormalizer implements ContextAwareNormalizerInterface
 
         return array_merge([
             'id' => $player->getId(),
-            'character' => $this->translator->trans($player->getPerson() . '.name', [], 'characters'),
+            'character' => [
+                'key' => $player->getPerson(),
+                'value' => $this->translator->trans($player->getPerson() . '.name', [], 'characters')
+            ],
             'gameStatus' => $player->getGameStatus(),
             'statuses' => $player->getStatuses(),
             'daedalus' => $this->daedalusNormalizer->normalize($player->getDaedalus()),

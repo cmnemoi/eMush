@@ -61,6 +61,23 @@ class CycleService implements CycleServiceInterface
         );
     }
 
+    public function getDateStartNextCycle(Daedalus $daedalus): \DateTime
+    {
+        $currentCycle = $daedalus->getCycle();
+        $currentCycleStartedAt = clone $daedalus->getUpdatedAt();
+        $cycleLength = $this->gameConfig->getCycleLength();
+
+        $cycleInterval = new \DateInterval('PT' . $cycleLength . 'H');
+
+        return $currentCycleStartedAt
+            ->setTimezone(new \DateTimeZone($this->gameConfig->getTimeZone()))
+            ->setTime(($currentCycle - 1) * $this->gameConfig->getCycleLength(), 0, 0, 0)
+            ->setTimezone(new \DateTimeZone('UTC'))
+            ->add($cycleInterval)
+        ;
+    }
+
+
     private function getNumberOfCycleElapsed(DateTime $start, DateTime $end): int
     {
         $startCycle = $this->getCycleFromDate($start);

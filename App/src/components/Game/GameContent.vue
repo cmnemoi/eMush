@@ -1,11 +1,11 @@
 <template>
-  <div class="main">
+  <div class="main" v-if="player !== null">
     <ExplorationPanel style="display: none;"></ExplorationPanel>
     <div class="top-banner">
-        <BannerPanel character-level="5" character-name="Jin Su"></BannerPanel>
+      <BannerPanel :player="player" :daedalus="player.daedalus"></BannerPanel>
     </div>
     <div class="game-content">
-      <CharPanel></CharPanel>
+      <CharPanel :player="player"></CharPanel>
       <ShipPanel></ShipPanel>
       <CommsPanel></CommsPanel>
     </div>
@@ -21,8 +21,11 @@ import CharPanel from "@/components/Game/CharPanel";
 import ShipPanel from "@/components/Game/ShipPanel";
 import CommsPanel from "@/components/Game/CommsPanel";
 import ProjectsPanel from "@/components/Game/ProjectsPanel";
+import ApiService from "@/services/api.service";
+import {Player} from "@/entities/Player";
+
 export default {
-  name: 'GamePage',
+  name: 'GameContent',
   components: {
     ExplorationPanel,
     BannerPanel,
@@ -32,6 +35,23 @@ export default {
     ProjectsPanel
   },
   props: {
+    playerId: Number,
+  },
+  data() {
+    return {
+      player: null,
+    };
+  },
+  beforeMount() {
+    ApiService.get(process.env.VUE_APP_API_URL + 'player/' + this.playerId)
+        .then((result) => {
+          if (result.data) {
+            this.player = (new Player()).load(result.data);
+          }
+        })
+    .catch((error) => {
+      console.error(error)
+    })
   }
 }
 </script>

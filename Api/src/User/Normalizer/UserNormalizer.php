@@ -23,7 +23,7 @@ class UserNormalizer implements ContextAwareNormalizerInterface
             'id' => $user->getId(),
             'userId' => $user->getUserId(),
             'username' => $user->getUsername(),
-            'currentPlayer' => $user->getCurrentGame() ? $user->getCurrentGame()->getId() : null,
+            'currentGame' => $user->getCurrentGame() ? $user->getCurrentGame()->getId() : null,
             'createdAt' => $user->getCreatedAt(),
             'updatedAt' => $user->getUpdatedAt(),
         ];

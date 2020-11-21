@@ -18,7 +18,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Drop extends Action
 {
-    public const NAME = ActionEnum::DROP;
+    protected string $name = ActionEnum::DROP;
 
     private GameItem $item;
 
@@ -84,10 +84,5 @@ class Drop extends Action
             VisibilityEnum::PUBLIC,
             new \DateTime('now')
         );
-    }
-
-    public function getActionName(): string
-    {
-        return self::NAME;
     }
 }

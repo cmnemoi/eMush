@@ -103,6 +103,7 @@ class Room
 
             if ($oldDaedalus !== null) {
                 $oldDaedalus->removeRoom($this);
+                $this->daedalus = $daedalus;
             }
         }
 
@@ -199,7 +200,7 @@ class Room
     {
         $this->doors->add($door);
         if (!$door->getRooms()->contains($this)) {
-              $door->addRoom($this);
+            $door->addRoom($this);
         }
 
         return $this;

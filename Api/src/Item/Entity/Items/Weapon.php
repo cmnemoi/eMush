@@ -25,7 +25,7 @@ class Weapon extends Tool
      */
     private array $baseDamageRange = [0 => 0];
 
-     /**
+    /**
      * @ORM\Column(type="array", nullable=false)
      */
     private array $baseInjuryNumber = [0 => 0];
@@ -35,7 +35,7 @@ class Weapon extends Tool
      */
     private int $expeditionBonus = 0;
 
-      /**
+    /**
      * @ORM\Column(type="array", nullable=false)
      */
     private array $criticalSucessEvents = [];
@@ -45,10 +45,7 @@ class Weapon extends Tool
      */
     private array $criticalFailEvents = [];
 
-
     protected array $actions = [ActionEnum::ATTACK];
-
-
 
     public function getBaseAccuracy(): int
     {

@@ -69,7 +69,7 @@ class RandomService implements RandomServiceInterface
 
     // This function takes an array [element => proba%] as input and send back an array
     // Instead of proba relative ponderation also work
-    public function getSingleRandomElementFromProbaArray(array $array): array
+    public function getSingleRandomElementFromProbaArray(array $array): string
     {
         if (count($array) === 0) {
             throw new Error('getRandomElements: array is not large enough');
@@ -79,27 +79,29 @@ class RandomService implements RandomServiceInterface
         foreach ($array as $event => $proba) {
             $cumuProba = $cumuProba + $proba;
             $array[$event] = $cumuProba;
-        };
+        }
 
         $probaLim = $this->random(1, $cumuProba);
         $pickedElement = array_filter($array, function ($n) use ($probaLim) {
             return $n >= $probaLim;
         });
-        return [key($pickedElement)];
+
+        return key($pickedElement);
     }
 
-      // This function takes an array [element => proba%] as input and send back an array
+    // This function takes an array [element => proba%] as input and send back an array
     public function getRandomElementsFromProbaArray(array $array, int $number): array
     {
         if (count($array) < $number) {
             throw new Error('getRandomElements: array is not large enough');
         }
-          $randomElements = [];
+        $randomElements = [];
         for ($i = 0; $i < $number; ++$i) {
             $randomElements[$i] = $this->getSingleRandomElementFromProbaArray(
                 array_diff_key($array, array_flip($randomElements))
             );
         }
-          return $randomElements;
+
+        return $randomElements;
     }
 }

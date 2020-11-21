@@ -8,26 +8,12 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Item\Entity\Item;
-use Mush\Item\Entity\Items\Blueprint;
-use Mush\Item\Entity\Items\Book;
-use Mush\Item\Entity\Items\Dismountable;
-use Mush\Item\Entity\Items\Fruit;
-use Mush\Item\Entity\Items\Plant;
-use Mush\Item\Entity\Items\Ration;
-use Mush\Item\Entity\Items\Tool;
-use Mush\Item\Entity\Items\Drug;
-use Mush\Item\Entity\Items\Weapon;
 use Mush\Item\Entity\Items\Charged;
-use Mush\Item\Enum\GameFruitEnum;
-use Mush\Item\Enum\GamePlantEnum;
-use Mush\Item\Enum\GameDrugEnum;
+use Mush\Item\Entity\Items\Dismountable;
+use Mush\Item\Entity\Items\Weapon;
 use Mush\Item\Enum\ItemEnum;
-use Mush\Status\Enum\DiseaseEnum;
-use Mush\Status\Enum\DisorderEnum;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
-
 
 class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -51,7 +37,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsVisible(true)
         ;
 
-         // @TODO more details are needed on the output of each weapon
+        // @TODO more details are needed on the output of each weapon
         $blasterType = new Weapon();
         $blasterType
             ->setBaseAccuracy(50)
@@ -61,7 +47,6 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setCriticalSucessEvents([])
             ->setCriticalSucessEvents([])
         ;
-
 
         $blaster = new Item();
         $blaster
@@ -75,14 +60,12 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(25)
-            ->setTypes(new ArrayCollection([$dismountableType1, $blasterType,$chargedType]))
+            ->setTypes(new ArrayCollection([$dismountableType1, $blasterType, $chargedType]))
         ;
         $manager->persist($dismountableType1);
         $manager->persist($chargedType);
         $manager->persist($blasterType);
         $manager->persist($blaster);
-
-
 
         $knifeType = new Weapon();
         $knifeType
@@ -112,8 +95,6 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($knife);
         $manager->persist($knifeType);
 
-
-
         $grenadeType = new Weapon();
         $grenadeType
             ->setBaseAccuracy(100)
@@ -140,7 +121,6 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($grenade);
         $manager->persist($grenadeType);
-
 
         $dismountableType2 = new Dismountable();
         $dismountableType2
@@ -176,7 +156,6 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($natamy);
         $manager->persist($natamyType);
         $manager->persist($dismountableType2);
-
 
         $dismountableType3 = new Dismountable();
         $dismountableType3
@@ -223,7 +202,6 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($dismountableType3);
         $manager->persist($chargedType);
 
-
         $dismountableType4 = new Dismountable();
         $dismountableType4
             ->setProducts([ItemEnum::METAL_SCRAPS => 1, ItemEnum::THICK_TUBE => 1])
@@ -269,7 +247,6 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($dismountableType4);
         $manager->persist($chargedType);
 
-
         $rocketLauncherType = new Weapon();
         $rocketLauncherType
             ->setBaseAccuracy(50)
@@ -298,12 +275,10 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($rocketLauncher);
         $manager->persist($rocketLauncherType);
 
-
         $this->addReference(ItemEnum::GRENADE, $grenade);
         $this->addReference(ItemEnum::OLD_FAITHFUL, $oldFaithful);
         $this->addReference(ItemEnum::LIZARO_JUNGLE, $lizaroJungle);
         $this->addReference(ItemEnum::ROCKET_LAUNCHER, $rocketLauncher);
-
 
         $manager->flush();
     }

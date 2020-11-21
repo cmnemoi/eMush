@@ -7,16 +7,15 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Item\Entity\GameItem;
 use Mush\Item\Entity\Item;
-use Mush\Item\Entity\Items\Plant;
 use Mush\Item\Entity\Items\Charged;
-use Mush\Item\Entity\Items\Weapon;
+use Mush\Item\Entity\Items\Plant;
 use Mush\Item\Entity\ItemType;
 use Mush\Item\Enum\ItemTypeEnum;
 use Mush\Item\Repository\GameItemRepository;
+use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\ItemStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
-use Mush\Status\Enum\ChargeStrategyTypeEnum;
 
 class GameItemService implements GameItemServiceInterface
 {
@@ -88,7 +87,7 @@ class GameItemService implements GameItemServiceInterface
         return $this->persist($gameItem);
     }
 
-     // @TODO maybe remove those init functions to directly include them in createGameItem
+    // @TODO maybe remove those init functions to directly include them in createGameItem
     private function initPlant(GameItem $gameItem, Plant $plant, Daedalus $daedalus): GameItem
     {
         $plantStatus = $this->statusService->createChargeItemStatus(

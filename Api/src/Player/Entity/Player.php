@@ -13,8 +13,8 @@ use Mush\Room\Entity\Room;
 use Mush\Status\Entity\Collection\MedicalConditionCollection;
 use Mush\Status\Entity\MedicalCondition;
 use Mush\Status\Entity\Status;
-use Mush\User\Entity\User;
 use Mush\Status\Enum\ItemStatusEnum;
+use Mush\User\Entity\User;
 
 /**
  * Class Player.
@@ -186,6 +186,7 @@ class Player
 
             if ($oldDaedalus !== null) {
                 $oldDaedalus->removePlayer($this);
+                $this->daedalus = $daedalus;
             }
         }
 
@@ -209,6 +210,7 @@ class Player
 
             if ($oldRoom !== null) {
                 $oldRoom->removePlayer($this);
+                $this->room = $room;
             }
         }
 
@@ -227,9 +229,9 @@ class Player
             return true;
         }
         if ($gameItem->getStatusByName(ItemStatusEnum::HIDDEN) !== null) {
-             return $gameItem->getStatusByName(ItemStatusEnum::HIDDEN)->getPlayer() === $this;
+            return $gameItem->getStatusByName(ItemStatusEnum::HIDDEN)->getPlayer() === $this;
         } else {
-                return $this->items->contains($gameItem) || $this->getRoom()->getItems()->contains($gameItem);
+            return $this->items->contains($gameItem) || $this->getRoom()->getItems()->contains($gameItem);
         }
     }
 

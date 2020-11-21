@@ -6,29 +6,16 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
-use Mush\Game\Enum\SkillEnum;
-use Mush\Action\Enum\ActionEnum;
 use Mush\Item\Entity\Item;
-use Mush\Item\Entity\Items\Blueprint;
-use Mush\Item\Entity\Items\Book;
-use Mush\Item\Entity\Items\Dismountable;
-use Mush\Item\Entity\Items\Fruit;
-use Mush\Item\Entity\Items\Plant;
-use Mush\Item\Entity\Items\Ration;
-use Mush\Item\Entity\Items\Tool;
-use Mush\Item\Entity\Items\Drug;
-use Mush\Item\Entity\Items\Weapon;
 use Mush\Item\Entity\Items\Charged;
-use Mush\Item\Enum\GameFruitEnum;
-use Mush\Item\Enum\GamePlantEnum;
-use Mush\Item\Enum\GameDrugEnum;
+use Mush\Item\Entity\Items\Dismountable;
+use Mush\Item\Entity\Items\Tool;
 use Mush\Item\Enum\ItemEnum;
 use Mush\Item\Enum\ToolItemEnum;
-use Mush\Status\Enum\DiseaseEnum;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
-use Mush\Status\Enum\DisorderEnum;
 
 class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -36,8 +23,6 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
-
-
 
         $hackerKitType = new Tool();
         $hackerKitType->setActions([ActionEnum::HACK]);
@@ -59,7 +44,6 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($hackerKit);
         $manager->persist($hackerKitType);
 
-
         $blockOfPostItType = new Tool();
         $blockOfPostItType->setActions([ActionEnum::WRITE]);
 
@@ -79,7 +63,6 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($blockOfPostIt);
         $manager->persist($blockOfPostItType);
-
 
         $dismountableType = new Dismountable();
         $dismountableType
@@ -109,7 +92,6 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($extinguisherType);
         $manager->persist($dismountableType);
 
-
         $ductTapeType = new Tool();
         $ductTapeType->setActions([ActionEnum::GAG]);
 
@@ -130,7 +112,6 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($ductTape);
         $manager->persist($ductTapeType);
 
-
         $madKubeType = new Tool();
         $madKubeType->setActions([ActionEnum::TRY_THE_KUBE]);
 
@@ -150,7 +131,6 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($madKube);
         $manager->persist($madKubeType);
-
 
         $kitchenToolsType = new Dismountable();
         $kitchenToolsType
@@ -190,9 +170,8 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($kitchenToolsType);
         $manager->persist($chargedType);
 
-
-        $superFreezerType  = new Tool();
-        $superFreezerType ->setActions([ActionEnum::HYPERFREEZE]);
+        $superFreezerType = new Tool();
+        $superFreezerType->setActions([ActionEnum::HYPERFREEZE]);
 
         $superFreezer = new Item();
         $superFreezer
@@ -211,9 +190,8 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($superFreezer);
         $manager->persist($superFreezerType);
 
-
         $alienHolographicTVType = new Tool();
-        $alienHolographicTVType ->setActions([ActionEnum::PUBLIC_BROADCAST]);
+        $alienHolographicTVType->setActions([ActionEnum::PUBLIC_BROADCAST]);
 
         $alienHolographicTV = new Item();
         $alienHolographicTV
@@ -232,7 +210,6 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ;
         $manager->persist($alienHolographicTV);
         $manager->persist($alienHolographicTVType);
-
 
         $medikitType = new Tool();
         $medikitType->setActions([ActionEnum::HEAL]);
@@ -253,12 +230,11 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($medikit);
         $manager->persist($medikitType);
 
-
         $sporeSuckerType = new Tool();
-        $sporeSuckerType ->setActions([ActionEnum::EXTRACT_SPORE]);
+        $sporeSuckerType->setActions([ActionEnum::EXTRACT_SPORE]);
 
-        $sporeSucker  = new Item();
-        $sporeSucker ->setGameConfig($gameConfig)
+        $sporeSucker = new Item();
+        $sporeSucker->setGameConfig($gameConfig)
             ->setName(ToolItemEnum::SPORE_SUCKER)
             ->setIsHeavy(false)
             ->setIsTakeable(true)
@@ -273,12 +249,11 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($sporeSucker);
         $manager->persist($sporeSuckerType);
 
-
         $jarOfAlienOilType = new Tool();
-        $jarOfAlienOilType ->setActions([ActionEnum::ULTRAHEAL]);
+        $jarOfAlienOilType->setActions([ActionEnum::ULTRAHEAL]);
 
-        $jarOfAlienOil  = new Item();
-        $jarOfAlienOil ->setGameConfig($gameConfig)
+        $jarOfAlienOil = new Item();
+        $jarOfAlienOil->setGameConfig($gameConfig)
             ->setName(ToolItemEnum::JAR_OF_ALIEN_OIL)
             ->setIsHeavy(false)
             ->setIsTakeable(true)
@@ -293,7 +268,6 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->persist($jarOfAlienOil);
         $manager->persist($jarOfAlienOilType);
-
 
         $bandageType = new Tool();
         $bandageType->setActions([ActionEnum::USE_BANDAGE]);
@@ -314,9 +288,8 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($bandage);
         $manager->persist($bandageType);
 
-
         $retroFungalSerumType = new Tool();
-        $retroFungalSerumType ->setActions([ActionEnum::CURE]);
+        $retroFungalSerumType->setActions([ActionEnum::CURE]);
 
         $retroFungalSerum = new Item();
         $retroFungalSerum->setGameConfig($gameConfig)
@@ -333,7 +306,6 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->persist($retroFungalSerum);
         $manager->persist($retroFungalSerumType);
-
 
         $spaceCapsuleType = new Tool();
         $spaceCapsuleType->setActions([ActionEnum::OPEN]);
@@ -354,10 +326,8 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($spaceCapsule);
         $manager->persist($spaceCapsuleType);
 
-
-
-        $metalScrapsType  = new Tool();
-        $metalScrapsType ->setActions([ActionEnum::STRENGTHEN])
+        $metalScrapsType = new Tool();
+        $metalScrapsType->setActions([ActionEnum::STRENGTHEN])
         ;
 
         $metalScraps = new Item();
@@ -376,7 +346,6 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($metalScraps);
         $manager->persist($metalScrapsType);
-
 
         $this->addReference(ToolItemEnum::EXTINGUISHER, $extinguisher);
 

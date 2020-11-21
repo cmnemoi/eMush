@@ -115,6 +115,7 @@ class RepairActionTest extends TestCase
             ->addStatus($broken)
             ->setRoom(new Room())
         ;
+        $room->removeItem($gameItem);
 
         $result = $this->action->execute();
         $this->assertInstanceOf(Error::class, $result);
@@ -141,7 +142,7 @@ class RepairActionTest extends TestCase
             ->addStatus($broken)
         ;
 
-        $this->roomLogService->shouldReceive('createPlayerLog')->twice();
+        $this->roomLogService->shouldReceive('createItemLog')->twice();
 
         $this->itemService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');

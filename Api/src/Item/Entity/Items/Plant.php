@@ -3,10 +3,10 @@
 namespace Mush\Item\Entity\Items;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Item\Entity\Item;
 use Mush\Item\Entity\ItemType;
 use Mush\Item\Enum\ItemTypeEnum;
-use Mush\Action\Enum\ActionEnum;
 
 /**
  * @ORM\Entity()
@@ -22,7 +22,7 @@ class Plant extends ItemType
      */
     private ?Item $fruit = null;
 
-     /**
+    /**
      * @ORM\Column(type="array", nullable=false)
      */
     private array $maturationTime = [];

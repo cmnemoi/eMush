@@ -71,7 +71,7 @@ class ReadBookActionTest extends TestCase
             ->setRoom($room)
         ;
 
-        $this->roomLogService->shouldReceive('createPlayerLog')->once();
+        $this->roomLogService->shouldReceive('createItemLog')->once();
 
         $this->itemService->shouldReceive('delete');
         $this->playerService->shouldReceive('persist');

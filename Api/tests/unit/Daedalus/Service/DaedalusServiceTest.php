@@ -80,10 +80,8 @@ class DaedalusServiceTest extends TestCase
         $gameConfig = new GameConfig();
         $daedalusConfig = new DaedalusConfig();
 
-
         $item = new Item();
         $item->setName('item');
-
 
         $randomItem = new RandomItemPlaces();
         $randomItem

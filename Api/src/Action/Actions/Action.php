@@ -15,6 +15,8 @@ abstract class Action
     protected ActionCost $actionCost;
     protected Player $player;
 
+    protected string $name;
+
     protected EventDispatcherInterface $eventManager;
 
     public function __construct(EventDispatcherInterface $eventManager)
@@ -27,8 +29,6 @@ abstract class Action
     abstract public function loadParameters(Player $player, ActionParameters $actionParameters);
 
     abstract public function canExecute(): bool;
-
-    abstract public function getActionName(): string;
 
     abstract protected function applyEffects(): ActionResult;
 
@@ -65,5 +65,10 @@ abstract class Action
         $this->actionCost = $this->player->getMedicalConditions()->applyActionCostModificator($this->actionCost);
 
         return $this->actionCost;
+    }
+
+    public function getActionName(): string
+    {
+        return $this->name;
     }
 }

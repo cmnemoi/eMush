@@ -6,15 +6,15 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Item\Entity\Item;
 use Mush\Item\Entity\Items\Book;
 use Mush\Item\Entity\Items\Document;
-use Mush\Item\Enum\ItemEnum;
-use Mush\Action\Enum\ActionEnum;
 use Mush\Item\Enum\DocumentContentEnum;
+use Mush\Item\Enum\ItemEnum;
 
 class BookConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -43,13 +43,13 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
                                         ];
 
         foreach ($skillsArray as $skillName) {
-              $apprentonType = new Book();
-              $apprentonType
+            $apprentonType = new Book();
+            $apprentonType
                   ->setSkill($skillName)
               ;
 
-              $apprenton = new Item();
-              $apprenton
+            $apprenton = new Item();
+            $apprenton
                   ->setGameConfig($gameConfig)
                   ->setName(ItemEnum::APPRENTON . '_' . $skillName)
                   ->setIsHeavy(false)
@@ -62,11 +62,11 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
                   ->setTypes(new ArrayCollection([$apprentonType]))
               ;
 
-              $manager->persist($apprentonType);
-              $manager->persist($apprenton);
+            $manager->persist($apprentonType);
+            $manager->persist($apprenton);
         }
 
-     //Then Documents
+        //Then Documents
         $documentType = new Document();
         $documentType
            ->setIsTranslated(true)
@@ -96,8 +96,8 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
                ->setContent(DocumentContentEnum::COMMANDERS_MANUAL)
                ;
 
-         $commandersManual = new Item();
-         $commandersManual
+        $commandersManual = new Item();
+        $commandersManual
                 ->setGameConfig($gameConfig)
                 ->setName(ItemEnum::COMMANDERS_MANUAL)
                 ->setIsHeavy(false)
@@ -110,17 +110,17 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
                 ->setTypes(new ArrayCollection([$commandersManualType]))
             ;
 
-            $manager->persist($commandersManualType);
-            $manager->persist($commandersManual);
+        $manager->persist($commandersManualType);
+        $manager->persist($commandersManual);
 
-             $mushResearchType = new Document();
+        $mushResearchType = new Document();
         $mushResearchType
                ->setIsTranslated(true)
                ->setContent(DocumentContentEnum::MUSH_RESEARCH_REVIEW)
                ;
 
-         $mushResearch = new Item();
-         $mushResearch
+        $mushResearch = new Item();
+        $mushResearch
                 ->setGameConfig($gameConfig)
                 ->setName(ItemEnum::MUSH_RESEARCH_REVIEW)
                 ->setIsHeavy(false)
@@ -133,18 +133,17 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
                 ->setTypes(new ArrayCollection([$mushResearchType]))
             ;
 
-            $manager->persist($mushResearchType);
-            $manager->persist($mushResearch);
+        $manager->persist($mushResearchType);
+        $manager->persist($mushResearch);
 
-
-              $postItType = new Document();
+        $postItType = new Document();
         $postItType
                ->setIsTranslated(false)
                ->setActions([ActionEnum::SHRED])
                ;
 
-         $postIt = new Item();
-         $postIt
+        $postIt = new Item();
+        $postIt
                 ->setGameConfig($gameConfig)
                 ->setName(ItemEnum::POST_IT)
                 ->setIsHeavy(false)
@@ -157,9 +156,8 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
                 ->setTypes(new ArrayCollection([$postItType]))
             ;
 
-            $manager->persist($postItType);
-            $manager->persist($postIt);
-
+        $manager->persist($postItType);
+        $manager->persist($postIt);
 
         $manager->flush();
     }

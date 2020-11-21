@@ -16,7 +16,6 @@ class ActionEnum
     public const REPAIR = 'repair';
     public const SEARCH = 'search';
 
-
     // Mush-only actions
     public const EXTRACT_SPORE = 'extract_spore';
     public const INFECT = 'infect';
@@ -48,7 +47,6 @@ class ActionEnum
     public const USE_BANDAGE = 'use_bandage';
     public const TRY_THE_KUBE = 'try_the_kube';
     public const OPEN = 'open';
-
 
     // Skill-related actions (Humans)
     public const FIERY_SPEECH = 'fiery_speech';

@@ -6,24 +6,22 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Service\SuccessRateServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\GameConfigServiceInterface;
-use Mush\Game\Service\RandomServiceInterface;
 use Mush\Item\Entity\GameItem;
 use Mush\Item\Service\GameItemServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Mush\Status\Entity\Status;
 use Mush\Status\Enum\ItemStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
-use Mush\Status\Entity\Status;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Hide extends Action
 {
-    protected const NAME = ActionEnum::HIDE;
+    protected string $name = ActionEnum::HIDE;
 
     private GameItem $gameItem;
 
@@ -88,17 +86,13 @@ class Hide extends Action
 
     protected function createLog(ActionResult $actionResult): void
     {
-        $this->roomLogService->createPlayerLog(
+        $this->roomLogService->createItemLog(
             ActionEnum::HIDE,
             $this->player->getRoom(),
             $this->player,
+            $this->gameItem,
             VisibilityEnum::COVERT,
             new \DateTime('now')
         );
-    }
-
-    public function getActionName(): string
-    {
-        return self::NAME;
     }
 }

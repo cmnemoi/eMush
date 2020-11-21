@@ -7,7 +7,6 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Game\Entity\GameConfig;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Item\Entity\GameItem;
 use Mush\Item\Service\GameItemServiceInterface;
@@ -16,14 +15,14 @@ use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Status\Service\StatusServiceInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Take extends Action
 {
-    protected const NAME = ActionEnum::TAKE;
+    protected string $name = ActionEnum::TAKE;
 
-    private GameItem $item;
+    private GameItem $gameItem;
 
     private RoomLogServiceInterface $roomLogService;
     private GameItemServiceInterface $itemService;
@@ -54,29 +53,29 @@ class Take extends Action
             throw new \InvalidArgumentException('Invalid item parameter');
         }
         $this->player = $player;
-        $this->item = $item;
+        $this->gameItem = $item;
     }
 
     public function canExecute(): bool
     {
-        return $this->player->getRoom()->getItems()->contains($this->item) &&
+        return $this->player->getRoom()->getItems()->contains($this->gameItem) &&
             $this->player->getItems()->count() < $this->gameConfig->getMaxItemInInventory() &&
-            $this->item->getItem()->isTakeable() &&
+            $this->gameItem->getItem()->isTakeable() &&
             $this->player->canReachItem($this->gameItem)
             ;
     }
 
     protected function applyEffects(): ActionResult
     {
-        $this->item->setRoom(null);
-        $this->item->setPlayer($this->player);
+        $this->gameItem->setRoom(null);
+        $this->gameItem->setPlayer($this->player);
 
         // add BURDENED status if item is heavy
-        if ($this->item->getItem()->isHeavy()) {
-               $burdenedStatus = $this->statusService->createCorePlayerStatus(PlayerStatusEnum::BURDENED, $this->player);
+        if ($this->gameItem->getItem()->isHeavy()) {
+            $this->statusService->createCorePlayerStatus(PlayerStatusEnum::BURDENED, $this->player);
         }
 
-        $this->itemService->persist($this->item);
+        $this->itemService->persist($this->gameItem);
         $this->playerService->persist($this->player);
 
         return new Success();
@@ -88,14 +87,9 @@ class Take extends Action
             ActionEnum::TAKE,
             $this->player->getRoom(),
             $this->player,
-            $this->item,
+            $this->gameItem,
             VisibilityEnum::PUBLIC,
             new \DateTime('now')
         );
-    }
-
-    public function getActionName(): string
-    {
-        return self::NAME;
     }
 }

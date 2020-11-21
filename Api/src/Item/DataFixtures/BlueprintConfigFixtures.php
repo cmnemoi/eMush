@@ -8,16 +8,12 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Item\Entity\Item;
 use Mush\Item\Entity\Items\Blueprint;
+use Mush\Item\Enum\GearItemEnum;
 use Mush\Item\Enum\ItemEnum;
 use Mush\Item\Enum\ToolItemEnum;
-use Mush\Item\Enum\GearItemEnum;
-use Mush\Item\DataFixtures\ExplorationConfigFixtures;
-use Mush\Item\DataFixtures\WeaponsConfigFixtures;
-use Mush\Item\DataFixtures\ToolConfigFixtures;
-use Mush\Item\DataFixtures\GearConfigFixtures;
+
 
 class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -25,8 +21,6 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
-
-
 
         $echolocator = $this->getReference(ItemEnum::ECHOLOCATOR);
         $whiteFlag = $this->getReference(ItemEnum::WHITE_FLAG);
@@ -40,8 +34,7 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
         $oscilloscope = $this->getReference(GearItemEnum::OSCILLOSCOPE);
         $sniperHelmet = $this->getReference(GearItemEnum::SNIPER_HELMET);
 
-      //@TODO add support_drone and swedish_sofa
-
+        //@TODO add support_drone and swedish_sofa
 
         $blueprintEcholocatorType = new Blueprint();
         $blueprintEcholocatorType
@@ -65,7 +58,6 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($blueprintEcholocatorType);
         $manager->persist($blueprintEcholocator);
 
-
         $blueprintWhiteFlagType = new Blueprint();
         $blueprintWhiteFlagType
             ->setItem($whiteFlag)
@@ -87,7 +79,6 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
         ;
         $manager->persist($blueprintWhiteFlagType);
         $manager->persist($blueprintWhiteFlag);
-
 
         $blueprintThermosensorType = new Blueprint();
         $blueprintThermosensorType
@@ -111,7 +102,6 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($blueprintThermosensorType);
         $manager->persist($blueprintThermosensor);
 
-
         $blueprintBabelModuleType = new Blueprint();
         $blueprintBabelModuleType
             ->setItem($babelModule)
@@ -134,8 +124,6 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($blueprintBabelModuleType);
         $manager->persist($blueprintBabelModule);
 
-
-
         $blueprintGrenadeType = new Blueprint();
         $blueprintGrenadeType
             ->setItem($grenade)
@@ -157,7 +145,6 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
         ;
         $manager->persist($blueprintGrenadeType);
         $manager->persist($blueprintGrenade);
-
 
         $blueprintOldFaithfulType = new Blueprint();
         $blueprintOldFaithfulType
@@ -225,7 +212,6 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($blueprintRocketLauncherType);
         $manager->persist($blueprintRocketLauncher);
 
-
         $blueprintExtinguisherType = new Blueprint();
         $blueprintExtinguisherType
             ->setItem($extinguisher)
@@ -270,7 +256,6 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($blueprintOscilloscopeType);
         $manager->persist($blueprintOscilloscope);
 
-
         $blueprintSniperHelmetType = new Blueprint();
         $blueprintSniperHelmetType
             ->setItem($sniperHelmet)
@@ -292,8 +277,6 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
         ;
         $manager->persist($blueprintSniperHelmetType);
         $manager->persist($blueprintSniperHelmet);
-
-
 
         $manager->flush();
     }

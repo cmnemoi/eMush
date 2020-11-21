@@ -17,7 +17,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Move extends Action
 {
-    protected const NAME = ActionEnum::MOVE;
+    protected string $name = ActionEnum::MOVE;
 
     private Door $door;
 
@@ -55,7 +55,6 @@ class Move extends Action
 
     protected function applyEffects(): ActionResult
     {
-        dump( $this->door);die();
         $newRoom = $this->door->getRooms()->filter(fn (Room $room) => $room !== $this->player->getRoom())->first();
         $this->player->setRoom($newRoom);
 
@@ -75,16 +74,10 @@ class Move extends Action
         );
         $this->roomLogService->createPlayerLog(
             LogEnum::EXIT_ROOM,
-            
             $this->door->getRooms()->filter(fn (Room $room) => $room !== $this->player->getRoom())->first(),
             $this->player,
             VisibilityEnum::PUBLIC,
             new \DateTime('now')
         );
-    }
-
-    public function getActionName(): string
-    {
-        return self::NAME;
     }
 }

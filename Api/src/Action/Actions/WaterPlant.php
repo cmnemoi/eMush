@@ -7,7 +7,6 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Item\Entity\GameItem;
-use Mush\Item\Entity\Items\Drug;
 use Mush\Item\Enum\ItemTypeEnum;
 use Mush\Item\Service\GameItemServiceInterface;
 use Mush\Item\Service\ItemEffectServiceInterface;
@@ -15,14 +14,13 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
-use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Enum\ItemStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
-use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class WaterPlant extends Action
 {
-    protected const NAME = ActionEnum::WATER_PLANT;
+    protected string $name = ActionEnum::WATER_PLANT;
 
     private GameItem $item;
 
@@ -62,22 +60,22 @@ class WaterPlant extends Action
 
     public function canExecute(): bool
     {
-        return ($this->player->canReachItem($this->item) &&
-                    $this->item->getItem()->getItemType(ItemTypeEnum::PLANT) &&
-                    ($this->item->getStatusByName(ItemStatusEnum::PLANT_THIRSTY)->count() > 0 ||
-                    $this->item->getStatusByName(ItemStatusEnum::PLANT_DRIED_OUT)->count() > 0 ))
-                    ;
+        return $this->player->canReachItem($this->item) &&
+            $this->item->getItem()->getItemType(ItemTypeEnum::PLANT) &&
+            ($this->item->getStatusByName(ItemStatusEnum::PLANT_THIRSTY) ||
+                $this->item->getStatusByName(ItemStatusEnum::PLANT_DRIED_OUT))
+            ;
     }
-
 
     protected function applyEffects(): ActionResult
     {
-         $status = ($this->item->getStatusByName(ItemStatusEnum::PLANT_THIRSTY)
-                     ?? $this->item->getStatusByName(ItemStatusEnum::PLANT_DRIED_OUT));
+        $status = ($this->item->getStatusByName(ItemStatusEnum::PLANT_THIRSTY)
+            ?? $this->item->getStatusByName(ItemStatusEnum::PLANT_DRIED_OUT));
 
-         $this->item->removeStatus($status);
+        $this->item->removeStatus($status);
 
-         $this->gameItemService->persist($this->item);
+        $this->gameItemService->persist($this->item);
+
         return new Success();
     }
 
@@ -86,14 +84,10 @@ class WaterPlant extends Action
         $this->roomLogService->createItemLog(
             ActionEnum::WATER_PLANT,
             $this->player->getRoom(),
+            $this->player,
             $this->item,
             VisibilityEnum::PUBLIC,
             new \DateTime('now')
         );
-    }
-
-    public function getActionName(): string
-    {
-        return self::NAME;
     }
 }

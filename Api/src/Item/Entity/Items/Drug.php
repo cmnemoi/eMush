@@ -18,14 +18,12 @@ class Drug extends Ration
 
     protected int $satiety = 0;
 
-     /**
+    /**
      * @ORM\Column(type="array", nullable=false)
      */
     private array $drugEffectsNumber = [];
 
-
     //@TODO more precision on the cure is needed (is the number of disease point remooved random)
-
 
     public function getDrugEffectsNumber(): array
     {

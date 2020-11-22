@@ -109,8 +109,9 @@ class ItemEffectService implements ItemEffectServiceInterface
 	                };
 	             }
 	             
+	             //@TODO fruit have only 1 possible extra effect. If we change the, this part needs to be changed
 	             if($extraEffectNumber>0){
-                    $extraEffects = $this->randomService->getRandomElementsFromProbaArray($ration->getExtraEffects(),$extraEffectNumber);
+                    $extraEffects = $ration->getExtraEffects();
                 }
 
                 $consumableEffect
@@ -121,10 +122,10 @@ class ItemEffectService implements ItemEffectServiceInterface
                     ->setExtraEffects($extraEffects);
                     
             } elseif ($ration instanceof Drug && count($ration->getDrugEffectsNumber()) > 0) {
-                // if the ration is a drug 1 to 4 diseases are cured
+                // if the ration is a drug 1 to 4 diseases are cured with 100% chances
                 $curesNumber = $this->randomService->getSingleRandomElementFromProbaArray($ration->getDrugEffectsNumber());
                 $consumableEffect
-                    ->setCures($this->randomService->getRandomElements($ration->getCures(), $curesNumber));
+                    ->setCures(array_fill_keys($this->randomService->getRandomElements($ration->getCures(), $curesNumber)),100);
             } else {
                 $consumableEffect
                     ->setCures($ration->getCures())

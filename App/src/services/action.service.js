@@ -7,11 +7,21 @@ const ActionService = {
      * @param item
      * @param action
      */
-    executeItemAction(item, action) {
+    executeItemAction: (item, action) => {
         const data = {
             "action": action.key,
             "params" : {
                 "item": item.id
+            }
+        };
+        return ApiService.post(ACTION_ENDPOINT, data);
+    },
+
+    executeDoorAction: (door, action) => {
+        const data = {
+            "action": action.key,
+            "params" : {
+                "door": door.id
             }
         };
         return ApiService.post(ACTION_ENDPOINT, data);

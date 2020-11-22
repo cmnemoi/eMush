@@ -12,7 +12,6 @@ const PlayerService = {
         const playerData = await ApiService.get(ACTION_ENDPOINT + '/' + playerId)
 
         let player = null;
-
         if (playerData.data) {
             player = (new Player()).load(playerData.data);
         }

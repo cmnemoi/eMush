@@ -1,21 +1,20 @@
-export class Action {
+import {Action} from "@/entities/Action";
+
+export class Door {
     constructor() {
         this.id = null;
         this.key = null;
         this.name = null;
-        this.description = null;
-        this.actionPointCost = null;
-        this.movementPointCost = null;
+        this.actions = [];
     }
     load = function(object) {
         if (typeof object !== "undefined") {
             this.id = object.id;
             this.key = object.key;
             this.name = object.name;
-            this.description = object.description;
-            this.actionPointCost = object.actionPointCost;
-            this.movementPointCost = object.movementPointCost;
-
+            object.actions.forEach((actionObject) => {
+                this.actions.push((new Action).load(actionObject));
+            })
         }
         return this;
     }

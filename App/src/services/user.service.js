@@ -41,7 +41,7 @@ const UserService = {
 
             return response.data.token
         } catch (error) {
-            console.log(error.response)
+            console.error(error.response)
             // eslint-disable-next-line no-console
             throw new AuthenticationError(error.response.status, error.response.data.detail)
         }

@@ -19,7 +19,7 @@ export class Room {
                 this.items.push(item);
             })
         }
-        console.log(this)
+
         return this;
     }
     jsonEncode = function() {

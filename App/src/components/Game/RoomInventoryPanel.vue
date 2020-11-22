@@ -1,17 +1,15 @@
 <template>
 <div class="inventory-container">
   <div class="inventory">
-    <ul>
-      <li v-for="(item) in items" class="slot" v-bind:key="item.id" @click="selectItem(item)">
-        <img :src="itemImage(item)">
-      </li>
-    </ul>
+    <inventory :items="items" :min-slot="8" v-on:select="selectItem"></inventory>
   </div>
-  <p class="item-name">{{ selectedItem.name }}</p>
+  <p class="item-name" v-if="selectedItem !== null">
+    {{ selectedItem.name }}
+  </p>
   <div class="item-actions">
-    <ul>
+    <ul v-if="selectedItem !== null">
       <li v-for="(action,key) in selectedItem.actions" v-bind:key="key">
-        <a href="#">
+        <a href="#" @click="executeAction(action)">
         <span v-if="action.actionPointCost > 0">{{action.actionPointCost}}<img src="@/assets/images/pa.png" alt="ap"></span>{{action.name}}
         </a>
       </li>
@@ -22,10 +20,13 @@
 </template>
 
 <script>
-import {itemEnum} from "@/enums/item";
+import Inventory from "@/components/Game/Inventory";
+import ActionService from "@/services/action.service";
+import {mapActions} from "vuex";
 
 export default {
   name: "RoomInventoryPanel",
+  components: {Inventory},
   props: {
     items: Array
   },
@@ -34,17 +35,16 @@ export default {
         selectedItem: null
       }
   },
-  beforeMount() {
-    this.selectedItem = this.items[0]
-    console.log(this.items)
-  },
   methods: {
-    itemImage: function(item) {
-      return itemEnum[item.key] ? itemEnum[item.key].image : '';
-    },
     selectItem: function(item) {
       this.selectedItem = item;
-    }
+    },
+    executeAction: function(action) {
+      ActionService.executeItemAction(this.selectedItem, action).then(() => this.reloadPlayer());
+    },
+    ...mapActions('player', [
+      'reloadPlayer',
+    ]),
   }
 }
 </script>
@@ -65,15 +65,8 @@ export default {
   }
 
   & .inventory ul {
-    display: flex;
-    flex-direction: row;
     overflow-x: scroll;
     margin: 0 16px 8px 16px;
-  
-    & li {
-      @include inventory-slot();
-      margin-bottom: 5px;
-    }
   }
   
   & .item-name {

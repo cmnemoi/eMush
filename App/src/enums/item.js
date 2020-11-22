@@ -4,6 +4,7 @@ const METAL_SCRAP = "metal_scraps";
 const BACTA = "bacta";
 const CREEPNUT = "creepnut";
 const SNIPER_HELMET_BLUEPRINT = "sniper_helmet_blueprint";
+const APPRENTON_PILOTE = "apprenton_pilot";
 
 
 export const itemEnum = {
@@ -15,6 +16,9 @@ export const itemEnum = {
     },
     [PLASTIC_SCRAP]: {
         'image': require('@/assets/images/items/plastic_scraps.jpg')
+    },
+    [APPRENTON_PILOTE]: {
+        'image': require('@/assets/images/items/book.jpg')
     },
     [BACTA]: {
         'image': require('@/assets/images/items/drug_8.jpg')

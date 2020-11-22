@@ -50,7 +50,6 @@ export default {
               if (success) {
                 this.userInfo();
               }  else {
-                console.log(success)
                 this.loginError = 'login.invalid'
               }
               this.submitted = false;

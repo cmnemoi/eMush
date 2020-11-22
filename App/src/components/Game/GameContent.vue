@@ -1,13 +1,13 @@
 <template>
-  <div class="main" v-if="player !== null">
+  <div class="main" v-if="getPlayer !== null && !loading">
     <ExplorationPanel style="display: none;"></ExplorationPanel>
     <div class="top-banner">
-      <BannerPanel :player="player" :daedalus="player.daedalus"></BannerPanel>
+      <BannerPanel :player="getPlayer" :daedalus="getPlayer.daedalus"></BannerPanel>
     </div>
     <div class="game-content">
-      <CharPanel :player="player"></CharPanel>
-      <ShipPanel :room="player.room"></ShipPanel>
-      <CommsPanel :day="player.daedalus.day" :cycle="player.daedalus.cycle"></CommsPanel>
+      <CharPanel :player="getPlayer"></CharPanel>
+      <ShipPanel :room="getPlayer.room"></ShipPanel>
+      <CommsPanel :day="getPlayer.daedalus.day" :cycle="getPlayer.daedalus.cycle"></CommsPanel>
     </div>
     <ProjectsPanel></ProjectsPanel>
     <div class="bottom-banner"></div>
@@ -21,8 +21,7 @@ import CharPanel from "@/components/Game/CharPanel";
 import ShipPanel from "@/components/Game/ShipPanel";
 import CommsPanel from "@/components/Game/CommsPanel";
 import ProjectsPanel from "@/components/Game/ProjectsPanel";
-import ApiService from "@/services/api.service";
-import {Player} from "@/entities/Player";
+import {mapActions, mapGetters} from "vuex";
 
 export default {
   name: 'GameContent',
@@ -37,21 +36,19 @@ export default {
   props: {
     playerId: Number,
   },
-  data() {
-    return {
-      player: null,
-    };
+  computed: {
+    ...mapGetters('player', [
+      'getPlayer',
+      'loading',
+    ])
+  },
+  methods: {
+    ...mapActions('player', [
+      'loadPlayer',
+    ]),
   },
   beforeMount() {
-    ApiService.get(process.env.VUE_APP_API_URL + 'player/' + this.playerId)
-        .then((result) => {
-          if (result.data) {
-            this.player = (new Player()).load(result.data);
-          }
-        })
-    .catch((error) => {
-      console.error(error)
-    })
+      this.loadPlayer({playerId: this.playerId});
   }
 }
 </script>

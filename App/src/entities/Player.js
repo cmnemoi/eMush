@@ -1,5 +1,6 @@
 import {Daedalus} from "@/entities/Daedalus";
 import {Room} from "@/entities/Room";
+import {Item} from "@/entities/Item";
 
 export class Player {
     constructor() {
@@ -13,6 +14,7 @@ export class Player {
         this.triumph = null;
         this.gameStatus = null;
         this.daedalus = null;
+        this.items = [];
         this.room = null;
     }
     load = function(object) {
@@ -28,6 +30,10 @@ export class Player {
             this.gameStatus = object.gameStatus;
             this.daedalus = (new Daedalus()).load(object.daedalus)
             this.room = (new Room()).load(object.room)
+            object.items.forEach((itemObject) => {
+                let item = (new Item).load(itemObject)
+                this.items.push(item);
+            })
         }
         return this;
     }

@@ -13,9 +13,9 @@ const JIN_SU = "jin_su";
 const KUAN_TI = "kuan_ti";
 const PAOLA = "paola";
 const RALUCA = "raluca";
-// const ROLAND = "roland";
-// const STEPHEN = "stephen";
-// const TERRENCE = "terrence";
+const ROLAND = "roland";
+const STEPHEN = "stephen";
+const TERRENCE = "terrence";
 
 
 export const characterEnum = {
@@ -63,5 +63,14 @@ export const characterEnum = {
     },
     [RALUCA]: {
         'portrait': require('@/assets/images/char/portrait/Raluca_tomescu_portrait.jpg')
+    },
+    [ROLAND]: {
+        'portrait': require('@/assets/images/char/portrait/Roland_zuccali_portrait.jpg')
+    },
+    [STEPHEN]: {
+        'portrait': require('@/assets/images/char/portrait/Stephen_seagull_portrait.jpg')
+    },
+    [TERRENCE]: {
+        'portrait': require('@/assets/images/char/portrait/Terrence_archer_portrait.jpg')
     },
 }

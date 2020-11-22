@@ -6,8 +6,8 @@
     </div>
     <div class="game-content">
       <CharPanel :player="player"></CharPanel>
-      <ShipPanel></ShipPanel>
-      <CommsPanel></CommsPanel>
+      <ShipPanel :room="player.room"></ShipPanel>
+      <CommsPanel :day="player.daedalus.day" :cycle="player.daedalus.cycle"></CommsPanel>
     </div>
     <ProjectsPanel></ProjectsPanel>
     <div class="bottom-banner"></div>

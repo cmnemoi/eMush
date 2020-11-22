@@ -75,6 +75,7 @@ class RoomNormalizer implements ContextAwareNormalizerInterface
 
         return [
             'id' => $room->getId(),
+            'key' => $room->getName(),
             'name' => $this->translator->trans($room->getName() . '.name', [], 'rooms'),
             'doors' => $doors,
             'players' => $players,

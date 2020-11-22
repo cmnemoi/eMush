@@ -2,29 +2,19 @@
 <div class="inventory-container">
   <div class="inventory">
     <ul>
-      <li class="empty"></li>
-      <li class="empty"></li>
-      <li class="empty"></li>
-      <li class="empty"></li>
-      <li class="empty"></li>
-      <li class="empty"></li>
-      <li class="empty"></li>
-      <li class="empty"></li>
-      <li class="empty"></li>
-      <li class="empty"></li>
-      <li class="empty"></li>
-      <li class="empty"></li>
-      <li class="empty"></li>
+      <li v-for="(item) in items" class="slot" v-bind:key="item.id" @click="selectItem(item)">
+        <img :src="itemImage(item)">
+      </li>
     </ul>
   </div>
-  <p class="item-name">Bananier</p>
+  <p class="item-name">{{ selectedItem.name }}</p>
   <div class="item-actions">
     <ul>
-      <li><a href="#">Examiner</a></li>
-      <li><a href="#">Prendre</a></li>
-      <li><a href="#">1 <img src="@/assets/images/pa.png" alt="ap"> Arroser</a></li>
-      <li><a href="#">1 <img src="@/assets/images/pa.png" alt="ap"> Cacher</a></li>
-      <li><a class="crossed" href="#">2 <img src="@/assets/images/pa.png" alt="ap"> Traiter</a></li>
+      <li v-for="(action,key) in selectedItem.actions" v-bind:key="key">
+        <a href="#">
+        <span v-if="action.actionPointCost > 0">{{action.actionPointCost}}<img src="@/assets/images/pa.png" alt="ap"></span>{{action.name}}
+        </a>
+      </li>
     </ul>
   </div>
 </div>
@@ -32,14 +22,38 @@
 </template>
 
 <script>
+import {itemEnum} from "@/enums/item";
+
 export default {
   name: "RoomInventoryPanel",
   props: {
+    items: Array
+  },
+  data: () => {
+      return {
+        selectedItem: null
+      }
+  },
+  beforeMount() {
+    this.selectedItem = this.items[0]
+    console.log(this.items)
+  },
+  methods: {
+    itemImage: function(item) {
+      return itemEnum[item.key] ? itemEnum[item.key].image : '';
+    },
+    selectItem: function(item) {
+      this.selectedItem = item;
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+  .slot {
+    padding: 1px;
+  }
+
 .inventory-container {
   z-index: 5;
   position: absolute;

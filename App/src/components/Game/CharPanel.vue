@@ -78,7 +78,7 @@ export default {
   },
   computed: {
     characterPortrait: function() {
-      return characterEnum[this.player.character_key].portrait;
+      return characterEnum[this.player.characterKey].portrait;
     }
   },
   methods: {

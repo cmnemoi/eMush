@@ -1,10 +1,11 @@
 import {Daedalus} from "@/entities/Daedalus";
+import {Room} from "@/entities/Room";
 
 export class Player {
     constructor() {
         this.id = null;
-        this.character_key = null;
-        this.character_value = null;
+        this.characterKey = null;
+        this.characterValue = null;
         this.actionPoint = null;
         this.movementPoint = null;
         this.healthPoint = null;
@@ -12,12 +13,13 @@ export class Player {
         this.triumph = null;
         this.gameStatus = null;
         this.daedalus = null;
+        this.room = null;
     }
     load = function(object) {
         if (typeof object !== "undefined") {
             this.id = object.id;
-            this.character_key = object.character['key'];
-            this.character_value = object.character['value'];
+            this.characterKey = object.character['key'];
+            this.characterValue = object.character['value'];
             this.actionPoint = object.actionPoint;
             this.movementPoint = object.movementPoint;
             this.healthPoint = object.healthPoint;
@@ -25,6 +27,7 @@ export class Player {
             this.triumph = object.triumph;
             this.gameStatus = object.gameStatus;
             this.daedalus = (new Daedalus()).load(object.daedalus)
+            this.room = (new Room()).load(object.room)
         }
         return this;
     }

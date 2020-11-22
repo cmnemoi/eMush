@@ -1,7 +1,7 @@
 <template>
 <div class="ship-panel">
   <div class="ship-view"></div> <!-- PLACEHOLDER -->
-  <p class="room">Laboratory</p>
+  <p class="room">{{ room.name }}</p>
   <div class="map-container">
     <div class="map">
       <img src="@/assets/images/shipmap.svg">
@@ -25,19 +25,23 @@
       </ul>
     </div>
   </div>
-  <RoomInventoryPanel></RoomInventoryPanel>
+  <RoomInventoryPanel :items="room.items"></RoomInventoryPanel>
 </div>
 
 </template>
 
 <script>
 import RoomInventoryPanel from "@/components/Game/RoomInventoryPanel";
+import {Room} from "@/entities/Room";
 export default {
   name: "ShipPanel",
   components: {
     RoomInventoryPanel
   },
   props: {
+    room: Room
+  },
+  beforeMount() {
   }
 }
 </script>

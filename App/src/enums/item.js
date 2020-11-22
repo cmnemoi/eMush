@@ -4,6 +4,7 @@ const METAL_SCRAP = "metal_scraps";
 const BACTA = "bacta";
 const CREEPNUT = "creepnut";
 const SNIPER_HELMET_BLUEPRINT = "sniper_helmet_blueprint";
+const SNIPER_HELMET = "sniper_helmet";
 const APPRENTON_PILOTE = "apprenton_pilot";
 
 
@@ -28,5 +29,8 @@ export const itemEnum = {
     },
     [SNIPER_HELMET_BLUEPRINT]: {
         'image': require('@/assets/images/items/blueprint.jpg')
+    },
+    [SNIPER_HELMET]: {
+        'image': require('@/assets/images/items/aiming_helmet.jpg')
     },
 }

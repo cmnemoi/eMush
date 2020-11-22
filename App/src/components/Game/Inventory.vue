@@ -24,7 +24,7 @@ export default {
   },
   methods: {
     itemImage: function(item) {
-      return itemEnum[item.key] ? itemEnum[item.key].image : '';
+      return itemEnum[item.key] ? itemEnum[item.key].image : require('@/assets/images/items/todo.jpg');
     },
   }
 }

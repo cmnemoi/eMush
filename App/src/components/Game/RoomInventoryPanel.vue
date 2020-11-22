@@ -1,7 +1,7 @@
 <template>
 <div class="inventory-container">
   <div class="inventory">
-    <inventory :items="items" :min-slot="8" v-on:select="selectItem"></inventory>
+    <inventory :items="items" :min-slot="7" v-on:select="selectItem"></inventory>
   </div>
   <p class="item-name" v-if="selectedItem !== null">
     {{ selectedItem.name }}

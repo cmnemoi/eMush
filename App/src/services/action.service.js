@@ -4,7 +4,6 @@ const ACTION_ENDPOINT = process.env.VUE_APP_API_URL+'action'
 
 const ActionService = {
     /**
-     *
      * @param item
      * @param action
      */
@@ -15,11 +14,7 @@ const ActionService = {
                 "item": item.id
             }
         };
-        return ApiService.post(ACTION_ENDPOINT, data)
-            .then((response) => {
-                console.log(response)
-            });
-
+        return ApiService.post(ACTION_ENDPOINT, data);
     }
 }
 export default ActionService

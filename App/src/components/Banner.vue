@@ -6,21 +6,50 @@
     </div>
     <div class="mainmenu">
       <a href="/#">Daedalus</a>
-      <a href="/#">Mon Compte</a>
-      <a href="/#">Castings</a>
-      <a href="/#">Classement</a>
-      <a href="/#">Forum</a>
+      <a href="#login-modal">Login</a>
+      <Login></Login>
+      <a href="/#">Logout</a>
+      <!--
+        <a class="unavailable" href="/#">Mon Compte</a>
+        <a class="unavailable" href="/#">Castings</a>
+        <a class="unavailable" href="/#">Classement</a>
+        <a class="unavailable" href="/#">Forum</a>
+      -->
     </div>
   </div>
 </template>
 
 <script>
+import Login from "@/components/Login";
+
 export default {
   name: 'Banner',
+  components: {
+    Login
+  },
   props: {
   }
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+
+.mainmenu > a {
+
+  margin: 0 20px;
+  padding: 5px 10px;
+  color: white;
+  
+  &:hover, &:active {
+    color: #dffaff;
+    text-shadow: 0 0px 1px rgb(255,255,255), 0 0px 1px rgb(255,255,255);
+  }
+}
+
+
+.unavailable {
+  text-decoration: line-through;
+  opacity: .6;
+}
+
 </style>

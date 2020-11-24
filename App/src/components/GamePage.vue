@@ -4,7 +4,7 @@
       <GameContent :player-id="getUserInfo.currentGame"></GameContent>
     </div>
     <div v-else>
-      TODO: select character
+      <CharSelection></CharSelection>
     </div>
   </div>
   <div v-else>
@@ -18,10 +18,14 @@
 <script>
 import {mapActions, mapGetters} from "vuex";
 import GameContent from "@/components/Game/GameContent";
+import CharSelection from "@/components/CharSelection";
 
 export default {
   name: "GamePage",
-  components: {GameContent},
+  components: {
+    GameContent,
+    CharSelection
+  },
   data() {
     return {
       email: "",

@@ -91,7 +91,7 @@ class Consume extends Action
                     $this->player,
                     ChargeStrategyTypeEnum::CYCLE_DECREMENT,
                     1,
-                    null,
+                    0,
                     true
                 );
             $drugEatenStatus->setVisibility(VisibilityEnum::HIDDEN);

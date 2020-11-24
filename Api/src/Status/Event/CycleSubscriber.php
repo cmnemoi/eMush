@@ -3,15 +3,25 @@
 namespace Mush\Status\Event;
 
 use Mush\Game\Event\CycleEvent;
-use Mush\Status\ChargeStrategies\CycleDecrease;
-use Mush\Status\ChargeStrategies\CycleIncrease;
-use Mush\Status\ChargeStrategies\PlantStrategy;
 use Mush\Status\Entity\ChargeStatus;
-use Mush\Status\Enum\ChargeStrategyTypeEnum;
+use Mush\Status\Service\ChargeStrategyServiceInterface;
+use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class CycleSubscriber implements EventSubscriberInterface
 {
+    private ChargeStrategyServiceInterface $chargeStrategyService;
+
+    private StatusServiceInterface $statusService;
+
+    public function __construct(
+        ChargeStrategyServiceInterface $chargeStrategy,
+        StatusServiceInterface $statusService
+    ) {
+        $this->chargeStrategyService = $chargeStrategy;
+        $this->statusService = $statusService;
+    }
+
     public static function getSubscribedEvents()
     {
         return [
@@ -26,21 +36,9 @@ class CycleSubscriber implements EventSubscriberInterface
         }
         $strategy = null;
         if ($status instanceof ChargeStatus) {
-            switch ($status->getStrategy()) {
-                case ChargeStrategyTypeEnum::CYCLE_INCREMENT:
-                    $strategy = new CycleIncrease();
-                    break;
-                case ChargeStrategyTypeEnum::CYCLE_DECREMENT:
-                    $strategy = new CycleDecrease();
-                    break;
-                case ChargeStrategyTypeEnum::PLANT:
-                    $strategy = new PlantStrategy();
-                    break;
+            if ($strategy = $this->chargeStrategyService->getStrategy($status->getStrategy())) {
+                $strategy->execute($status);
             }
-        }
-
-        if (null !== $strategy) {
-            $strategy->apply($status);
         }
     }
 }

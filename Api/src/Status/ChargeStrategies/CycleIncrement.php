@@ -6,9 +6,9 @@ use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
-class PlantStrategy extends AbstractChargeStrategy
+class CycleIncrement extends AbstractChargeStrategy
 {
-    protected string $name = ChargeStrategyTypeEnum::PLANT;
+    protected string $name = ChargeStrategyTypeEnum::CYCLE_INCREMENT;
 
     public function __construct(StatusServiceInterface $statusService)
     {
@@ -20,8 +20,6 @@ class PlantStrategy extends AbstractChargeStrategy
         if ($status->getCharge() >= $status->getThreshold()) {
             return;
         }
-
-        //@TODO: Handle garden
         $status->addCharge(1);
     }
 }

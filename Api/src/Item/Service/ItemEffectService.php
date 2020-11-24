@@ -60,9 +60,9 @@ class ItemEffectService implements ItemEffectServiceInterface
 
             if ($ration instanceof Fruit && count($ration->getFruitEffectsNumber()) > 0) {
                   // if the ration is a fruit 0 to 4 effects should be dispatched among diseases, cures and extraEffects
-                $effectsNumber = current($this->randomService->getSingleRandomElementFromProbaArray(
-                    $ration->getEffectsNumber()
-                ));
+                $effectsNumber = $this->randomService->getSingleRandomElementFromProbaArray(
+                    $ration->getFruitEffectsNumber()
+                );
 
                 $diseaseNumberPossible = count($ration->getDiseasesName());
                 $extraEffectNumberPossible = count($ration->getExtraEffects());
@@ -77,18 +77,20 @@ class ItemEffectService implements ItemEffectServiceInterface
                 );
                 
                 //Get the number of cures, disease and special effect from the id
-                $curesNumber   =$pickedEffects->filter(fn (int $idEffect) => $idEffect<=$diseaseNumberPossible)->count();
-                $extraEffectNumber=$pickedEffects->filter(fn (int $idEffect) => $idEffect>2*$diseaseNumberPossible)->count();
-                $diseaseNumber=$diseaseNumberPossible * 2 + $extraEffectNumberPossible-$curesNumber-$extraEffectNumber;
+                $curesNumber   =count(array_filter($pickedEffects,function($idEffect) use ($diseaseNumberPossible)
+                                                            {return ($idEffect <=$diseaseNumberPossible);}));
+                $extraEffectNumber=count(array_filter($pickedEffects, function($idEffect) use ($diseaseNumberPossible) 
+                                                            {return ($idEffect >2*$diseaseNumberPossible);}));
+                $diseasesNumber=$diseaseNumberPossible * 2 + $extraEffectNumberPossible-$curesNumber-$extraEffectNumber;
 
 
                 if($curesNumber>0){
 		                //Get the names of cures among the list possible
 		                //For the cures append the name of the disease as key and the probability to cure as value (randomly picked)
-		                $curesNames = $this->randomService->getRandomElementsFromProbaArray($ration->getDiseasesNames(),$curesNumber);
-		                $cures=[]
+		                $curesNames = $this->randomService->getRandomElementsFromProbaArray($ration->getDiseasesName(),$curesNumber);
+		                $cures=[];
 		                foreach ($curesNames as $cureName) {
-		                	$cures[$cureName]=$this->randomService->getSingleRandomElementFromProbaArray($ration->getDiseaseEffectChance());
+		                	$cures[$cureName]=$this->randomService->getSingleRandomElementFromProbaArray($ration->getDiseasesEffectChance());
 		                };
                 }
                 
@@ -98,14 +100,14 @@ class ItemEffectService implements ItemEffectServiceInterface
 	                //For the diseases append the name of the disease as key and the probability to get sick as value in $diseasesChances
 	                //append the name of the disease as key and the minimum delay before effect in $diseasesDelayMin
 	                //append the name of the disease as key and the range of delay before effect in $diseasesDelayLengh
-	                $diseasesNames = $this->randomService->getRandomElementsFromProbaArray($ration->getDiseasesNames(),$diseasesNumber);
+	                $diseasesNames = $this->randomService->getRandomElementsFromProbaArray($ration->getDiseasesName(),$diseasesNumber);
 	                $diseasesChances = [];
 	                $diseasesDelayMin = [];
 	                $diseasesDelayLengh = [];
 	                foreach ($diseasesNames as $diseaseName) {
-	                	$diseasesChances[$diseaseName]=$this->randomService->getSingleRandomElementFromProbaArray($ration->getDiseaseEffectChance());
-	                	$diseasesDelayMin[$diseaseName] = $this->randomService->getSingleRandomElementFromProbaArray($ration->getDiseaseDelayMin());
-	                   $diseasesDelayLengh[$diseaseName] = $this->randomService->getSingleRandomElementFromProbaArray($ration->getDiseaseDelayLengh());
+	                	$diseasesChances[$diseaseName]=$this->randomService->getSingleRandomElementFromProbaArray($ration->getDiseasesEffectChance());
+	                	$diseasesDelayMin[$diseaseName] = $this->randomService->getSingleRandomElementFromProbaArray($ration->getDiseasesDelayMin());
+	                   $diseasesDelayLengh[$diseaseName] = $this->randomService->getSingleRandomElementFromProbaArray($ration->getDiseasesDelayLengh());
 	                };
 	             }
 	             
@@ -116,7 +118,7 @@ class ItemEffectService implements ItemEffectServiceInterface
 
                 $consumableEffect
                     ->setCures($cures)
-                    ->setDiseasesChance($pickedDiseases)
+                    ->setDiseasesChance($diseasesChances)
                     ->setDiseasesDelayMin($diseasesDelayMin)
                     ->setDiseasesDelayLengh($diseasesDelayLengh)
                     ->setExtraEffects($extraEffects);
@@ -125,7 +127,7 @@ class ItemEffectService implements ItemEffectServiceInterface
                 // if the ration is a drug 1 to 4 diseases are cured with 100% chances
                 $curesNumber = $this->randomService->getSingleRandomElementFromProbaArray($ration->getDrugEffectsNumber());
                 $consumableEffect
-                    ->setCures(array_fill_keys($this->randomService->getRandomElements($ration->getCures(), $curesNumber)),100);
+                    ->setCures(array_fill_keys($this->randomService->getRandomElements($ration->getCures(), $curesNumber), 100));
             } else {
                 $consumableEffect
                     ->setCures($ration->getCures())

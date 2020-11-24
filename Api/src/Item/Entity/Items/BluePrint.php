@@ -12,7 +12,7 @@ use Mush\Item\Enum\ItemTypeEnum;
  *
  * @ORM\Entity
  */
-class BluePrint extends Tool
+class Blueprint extends Tool
 {
     protected string $type = ItemTypeEnum::BLUEPRINT;
 

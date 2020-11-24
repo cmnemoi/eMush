@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="type", type="string")
  * @ORM\DiscriminatorMap({
- *     "blue_print" = "Mush\Item\Entity\Items\BluePrint",
+ *     "blue_print" = "Mush\Item\Entity\Items\Blueprint",
  *     "book" = "Mush\Item\Entity\Items\Book",
  *     "component" = "Mush\Item\Entity\Items\Component",
  *     "document" = "Mush\Item\Entity\Items\Document",

@@ -8,6 +8,7 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\Item\Entity\ConsumableEffect;
 use Mush\Item\Entity\Items\Plant;
 use Mush\Item\Entity\Items\Ration;
+use Mush\Item\Entity\Items\Drug;
 use Mush\Item\Entity\Items\Fruit;
 use Mush\Item\Entity\PlantEffect;
 use Mush\Item\Repository\ConsumableEffectRepository;
@@ -102,7 +103,6 @@ class ItemEffectServiceTest extends TestCase
         $this->assertEquals(2, $consumableEffect->getMovementPoint());
         $this->assertEquals(2, $consumableEffect->getHealthPoint());
         $this->assertEquals(2, $consumableEffect->getMoralPoint());
-    }
     
 
         //test fruit 
@@ -134,9 +134,14 @@ class ItemEffectServiceTest extends TestCase
             ->times(12)
         ;
         $this->randomService
+            ->shouldReceive('getRandomElements')
+            ->andReturn([1,3,4,5])
+            ->once()
+        ;
+        $this->randomService
             ->shouldReceive('getRandomElementsFromProbaArray')
-            ->andReturn([1,3,4,5],['disease1'],['disease1','disease2'])
-            ->times(3)
+            ->andReturn(['disease1'],['disease1','disease2'])
+            ->times(2)
         ;
         $consumableEffect = $this->service->getConsumableEffect($fruit, $daedalus);
 
@@ -181,9 +186,9 @@ class ItemEffectServiceTest extends TestCase
             ->times(5)
         ;
         $this->randomService
-            ->shouldReceive('getRandomElementsFromProbaArray')
+            ->shouldReceive('getRandomElements')
             ->andReturn(['disease1','disease2'])
-            ->times(1)
+            ->once()
         ;
         $consumableEffect = $this->service->getConsumableEffect($drug, $daedalus);
         

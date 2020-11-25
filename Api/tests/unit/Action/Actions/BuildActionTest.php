@@ -165,8 +165,7 @@ class BuildActionTest extends TestCase
         
         
         
-        $this->itemService->shouldReceive('persist');
-        $this->playerService->shouldReceive('persist');
+
 
         $actionParameter = new ActionParameters();
         $actionParameter->setItem($gameItem);

@@ -2,14 +2,18 @@
 
 namespace Mush\Test\Action\Actions;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 use Mockery;
 use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Action;
-use Mush\Action\Actions\Build;
+use Mush\Action\Actions\Transplant;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Item\Entity\GameItem;
 use Mush\Item\Entity\Item;
+use Mush\Daedalus\Entity\Daedalus;
+use Mush\Item\Enum\ItemEnum;
 use Mush\Item\Entity\Items\Plant;
 use Mush\Item\Entity\Items\Fruit;
 use Mush\Item\Service\GameItemServiceInterface;
@@ -42,7 +46,7 @@ class PlantActionTest extends TestCase
 
         $eventDispatcher->shouldReceive('dispatch');
 
-        $this->action = new Build(
+        $this->action = new Transplant(
             $eventDispatcher,
             $this->roomLogService,
             $this->itemService,
@@ -62,17 +66,19 @@ class PlantActionTest extends TestCase
     public function testCannotExecute()
     {
         $room = new Room();
-        $gamItem = new GameItem();
+        $gameItem = new GameItem();
         $item = new Item();
         $gameItem
                     ->setItem($item)
-                    ->setRoom($room);
+                    ->setRoom($room)
+                    ->setName('toto');;
+        
         
         $fruit = new Fruit();
-        $fruit->setPlantName('plant');
+        $fruit->setPlantName('banana_tree');
         
 
-        $plant = new Plant();
+        $plant = new Item();
         $plant->setName('plant');
         
         
@@ -82,7 +88,7 @@ class PlantActionTest extends TestCase
         $gameHydropot
                     ->setItem($hydropot)
                     ->setRoom($room)
-                    ->setName(ItemEnum::HYDROPOT);     
+                    ->setName(ItemEnum::HYDROPOT);
         
         
         $actionParameter = new ActionParameters();
@@ -96,22 +102,13 @@ class PlantActionTest extends TestCase
         $result = $this->action->execute();
         $this->assertInstanceOf(Error::class, $result);   
         
-        $item->setTypes(new ArrayCollection([$blueprint]));
+        $item->setTypes(new ArrayCollection([$fruit]));
         
-        //Ingredient in another room
-        $gameIngredient->setRoom(new Room());
+        //Hydropot in another room
+        $gameHydropot->setRoom(new Room());
         
         $result = $this->action->execute();
         $this->assertInstanceOf(Error::class, $result);
-        
-        //Not enough of a given ingredient
-         $gameIngredient->setRoom($room);
-         $blueprint 
-               ->setIngredients('metal_scraps' => 2)
-         $item->setTypes(new ArrayCollection([$blueprint]));
-         
-         $result = $this->action->execute();
-         $this->assertInstanceOf(Error::class, $result);
     }    
     
     public function testExecute()
@@ -120,45 +117,54 @@ class PlantActionTest extends TestCase
         $gameItem = new GameItem();
         $item = new Item();
         $gameItem
-	        ->setItem($blueprint)
-           ->setRoom($room)
-        ;
-        
-        $product = new Item();
+                    ->setItem($item)
+                    ->setRoom($room)
+                    ->setName('toto');
         
         
-        $blueprint = new Blueprint();
-        $blueprint 
-               ->setIngredients('metal_scraps' => 1)
-               ->setItem($product);
-        $item->setTypes(new ArrayCollection([$blueprint]));
+        $fruit = new Fruit();
+        $fruit->setPlantName('banana_tree');
+        
+        $item->setTypes(new ArrayCollection([$fruit]));
         
 
-        $gameIngredient = new GameItem();
-        $ingredient = new Item();
-        $gameIngredient->setItem($gameIngredient);
-        $ingredient->setName('metal_scraps');
-        $gameIngredient->setRoom($room);
+        $plant = new Item();
+        $plant->setName('banana_tree');
+        $gamePlant = new GameItem();
+        $gamePlant->setItem($plant);     
         
         
+        $gameHydropot = new GameItem();
+        $hydropot = new Item();
+        $hydropot->setName(ItemEnum::HYDROPOT);
+        $gameHydropot
+                    ->setItem($hydropot)
+                    ->setRoom($room)
+                    ->setName(ItemEnum::HYDROPOT);
+                    
         
-        $this->roomLogService->shouldReceive('createItemLog')->once();
-        $this->itemService->shouldReceive('persist');
-        $this->playerService->shouldReceive('persist');
+        
 
         $actionParameter = new ActionParameters();
         $actionParameter->setItem($gameItem);
         $player = new Player();
         $player = $this->createPlayer(new Daedalus(), $room);
-
+        
+        $this->roomLogService->shouldReceive('createItemLog')->once();
+        $this->itemService->shouldReceive('persist');
+        $this->playerService->shouldReceive('persist');
+        
+        $this->itemService->shouldReceive('createGameItemFromName')->andReturn($gamePlant)->once();
+        $this->itemService->shouldReceive('delete');
+        
 
         $this->action->loadParameters($player, $actionParameter);
 
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
-        $this->assertEmpty($player->getRoom()->getItems());
-        $this->assertEquals($player->getItems()->first()->getItem(),$product);
+        $this->assertEmpty($player->getItems());
+        $this->assertEquals($player->getRoom()->getItems()->first()->getItem(),$plant);
 
     }
     
@@ -169,7 +175,6 @@ class PlantActionTest extends TestCase
             ->setActionPoint(10)
             ->setMovementPoint(10)
             ->setMoralPoint(10)
-            ->addSkill(SkillEnum::TECHNICIAN)
             ->setDaedalus($daedalus)
             ->setRoom($room)
         ;

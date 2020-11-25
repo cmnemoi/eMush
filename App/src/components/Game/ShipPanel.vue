@@ -2,15 +2,17 @@
   <div class="ship-panel">
     <p class="room">{{ room.name }}</p>
     <div class="ship-view">
-      <div class="door" v-for="door in room.doors" v-bind:key="door.id">
-        <p>{{ door.name }} :</p>
-        <ul>
-          <li v-for="(action,key) in door.actions" v-bind:key="key">
-            <a href="#" @click="executeAction(door, action)">
-              <span v-if="action.actionPointCost > 0">{{action.actionMovementPointCost}}<img src="@/assets/images/pm.png" alt="mp"></span>{{action.name}}
-            </a>
-          </li>
-        </ul>
+      <div class="textual">
+        <div class="door" v-for="door in room.doors" v-bind:key="door.id">
+          <p>{{ door.name }} :</p>
+          <ul>
+            <li v-for="(action,key) in door.actions" v-bind:key="key">
+              <a href="#" @click="executeAction(door, action)">
+                <span v-if="action.actionPointCost > 0">{{action.actionMovementPointCost}}<img src="@/assets/images/pm.png" alt="mp"></span>{{action.name}}
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div> <!-- PLACEHOLDER -->
     <div class="map-container">
@@ -77,7 +79,7 @@ export default {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: transparentize(#09092d, .25);
+    background: #09092d url("~@/assets/images/shipview/background.png") center repeat;
     @include corner-bezel(6.5px, 6.5px, 0px);
   }
 
@@ -138,6 +140,27 @@ export default {
           animation: self-position-color 1.1s infinite;
         }
       }
+    }
+  }
+}
+
+/* PROVISIONAL SHIP INTERACTIONS */
+
+.textual {
+  padding: 18px 12px 188px 12px;
+  font-size: .83em;
+
+  p {
+    margin: 12px 0 4px 0;
+    font-weight: 700;
+  }
+
+  ul {
+    flex-wrap: wrap;
+
+    li a {
+      @include button-style();
+      padding: 1px 6px 3px 6px;
     }
   }
 }

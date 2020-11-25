@@ -80,7 +80,7 @@ export default {
 
   & .item-actions {
     position: relative;
-    min-height: 108px;
+    //min-height: 108px;
     background: #222a6b;
 
     &::before {

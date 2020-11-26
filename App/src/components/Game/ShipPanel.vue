@@ -4,7 +4,7 @@
     <div class="ship-view">
       <div class="textual">
         <div class="door" v-for="door in room.doors" v-bind:key="door.id">
-          <p>{{ door.name }} :</p>
+          <p>{{ door.direction }} :</p>
           <ul>
             <li v-for="(action,key) in door.actions" v-bind:key="key">
               <a href="#" @click="executeAction(door, action)">

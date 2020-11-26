@@ -6,12 +6,14 @@ export class Door {
         this.key = null;
         this.name = null;
         this.actions = [];
+        this.direction = null;
     }
     load = function(object) {
         if (typeof object !== "undefined") {
             this.id = object.id;
             this.key = object.key;
             this.name = object.name;
+            this.direction = object.direction;
             object.actions.forEach((actionObject) => {
                 this.actions.push((new Action).load(actionObject));
             })

@@ -6,9 +6,7 @@
     </div>
     <div class="mainmenu">
       <a href="/#">Daedalus</a>
-      <a href="#login-modal">Login</a>
       <Login></Login>
-      <a href="/#">Logout</a>
       <!--
         <a class="unavailable" href="/#">Mon Compte</a>
         <a class="unavailable" href="/#">Castings</a>
@@ -27,19 +25,16 @@ export default {
   components: {
     Login
   },
-  props: {
-  }
 }
 </script>
 
 <style lang="scss" scoped>
 
 .mainmenu > a {
-
   margin: 0 20px;
   padding: 5px 10px;
   color: white;
-  
+
   &:hover, &:active {
     color: #dffaff;
     text-shadow: 0 0px 1px rgb(255,255,255), 0 0px 1px rgb(255,255,255);

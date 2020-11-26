@@ -58,14 +58,14 @@ class RoomNormalizer implements ContextAwareNormalizerInterface
         $doors = [];
         /** @var Door $door */
         foreach ($room->getDoors() as $door) {
-            $doors[] = [
-                'id' => $this->itemNormalizer->normalize($door),
-                'direction' => $door
+            $doors[] = array_merge(
+                $this->itemNormalizer->normalize($door),
+                ['direction' => $door
                     ->getRooms()
                     ->filter(fn (Room $doorRoom) => $doorRoom !== $room)
                     ->first()
-                    ->getName(),
-            ];
+                    ->getName()]
+            );
         }
         $items = [];
         /** @var GameItem $item */
@@ -75,6 +75,7 @@ class RoomNormalizer implements ContextAwareNormalizerInterface
 
         return [
             'id' => $room->getId(),
+            'key' => $room->getName(),
             'name' => $this->translator->trans($room->getName() . '.name', [], 'rooms'),
             'doors' => $doors,
             'players' => $players,

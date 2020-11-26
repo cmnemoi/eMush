@@ -1,13 +1,13 @@
 <template>
-  <div class="main">
+  <div class="main" v-if="getPlayer !== null && !loading">
     <ExplorationPanel style="display: none;"></ExplorationPanel>
     <div class="top-banner">
-        <BannerPanel character-level="5" character-name="Jin Su"></BannerPanel>
+      <BannerPanel :player="getPlayer" :daedalus="getPlayer.daedalus"></BannerPanel>
     </div>
     <div class="game-content">
-      <CharPanel></CharPanel>
-      <ShipPanel></ShipPanel>
-      <CommsPanel></CommsPanel>
+      <CharPanel :player="getPlayer"></CharPanel>
+      <ShipPanel :room="getPlayer.room"></ShipPanel>
+      <CommsPanel :day="getPlayer.daedalus.day" :cycle="getPlayer.daedalus.cycle"></CommsPanel>
     </div>
     <ProjectsPanel></ProjectsPanel>
     <div class="bottom-banner"></div>
@@ -21,8 +21,10 @@ import CharPanel from "@/components/Game/CharPanel";
 import ShipPanel from "@/components/Game/ShipPanel";
 import CommsPanel from "@/components/Game/CommsPanel";
 import ProjectsPanel from "@/components/Game/ProjectsPanel";
+import {mapActions, mapGetters} from "vuex";
+
 export default {
-  name: 'GamePage',
+  name: 'GameContent',
   components: {
     ExplorationPanel,
     BannerPanel,
@@ -32,6 +34,21 @@ export default {
     ProjectsPanel
   },
   props: {
+    playerId: Number,
+  },
+  computed: {
+    ...mapGetters('player', [
+      'getPlayer',
+      'loading',
+    ])
+  },
+  methods: {
+    ...mapActions('player', [
+      'loadPlayer',
+    ]),
+  },
+  beforeMount() {
+      this.loadPlayer({playerId: this.playerId});
   }
 }
 </script>

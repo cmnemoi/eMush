@@ -1,43 +1,68 @@
 <template>
-<div class="ship-panel">
-  <div class="ship-view"></div> <!-- PLACEHOLDER -->
-  <p class="room">Laboratory</p>
-  <div class="map-container">
-    <div class="map">
-      <img src="@/assets/images/shipmap.svg">
-      <ul class="crew-position">
-        <li class="self"></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-      </ul>
+  <div class="ship-panel">
+    <p class="room">{{ room.name }}</p>
+    <div class="ship-view">
+      <div class="textual">
+        <div class="door" v-for="door in room.doors" v-bind:key="door.id">
+          <p>{{ door.direction }} :</p>
+          <ul>
+            <li v-for="(action,key) in door.actions" v-bind:key="key">
+              <a href="#" @click="executeAction(door, action)">
+                <span v-if="action.actionPointCost > 0">{{action.actionMovementPointCost}}<img src="@/assets/images/pm.png" alt="mp"></span>{{action.name}}
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div> <!-- PLACEHOLDER -->
+    <div class="map-container">
+      <div class="map">
+        <img src="@/assets/images/shipmap.svg">
+        <ul class="crew-position">
+          <li class="self"></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </div>
     </div>
+    <RoomInventoryPanel :items="room.items"></RoomInventoryPanel>
   </div>
-  <RoomInventoryPanel></RoomInventoryPanel>
-</div>
 
 </template>
 
 <script>
 import RoomInventoryPanel from "@/components/Game/RoomInventoryPanel";
+import {Room} from "@/entities/Room";
+import ActionService from "@/services/action.service";
+import {mapActions} from "vuex";
 export default {
   name: "ShipPanel",
   components: {
     RoomInventoryPanel
   },
   props: {
+    room: Room
+  },
+  methods: {
+    executeAction: function (door, action) {
+      ActionService.executeDoorAction(door, action).then(() => this.reloadPlayer());
+    },
+    ...mapActions('player', [
+      'reloadPlayer',
+    ]),
   }
 }
 </script>
@@ -45,16 +70,16 @@ export default {
 <style lang="scss" scoped>
 
 .ship-panel {
-    position: relative;
-    flex-direction: row;
-    width: 424px;
-    height: 460px;
+  position: relative;
+  flex-direction: row;
+  width: 424px;
+  height: 460px;
 
   & .ship-view {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: transparentize(#09092d, .25);
+    background: #09092d url("~@/assets/images/shipview/background.png") center repeat;
     @include corner-bezel(6.5px, 6.5px, 0px);
   }
 
@@ -115,6 +140,27 @@ export default {
           animation: self-position-color 1.1s infinite;
         }
       }
+    }
+  }
+}
+
+/* PROVISIONAL SHIP INTERACTIONS */
+
+.textual {
+  padding: 18px 12px 188px 12px;
+  font-size: .83em;
+
+  p {
+    margin: 12px 0 4px 0;
+    font-weight: 700;
+  }
+
+  ul {
+    flex-wrap: wrap;
+
+    li a {
+      @include button-style();
+      padding: 1px 6px 3px 6px;
     }
   }
 }

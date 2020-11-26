@@ -78,8 +78,8 @@ They also verify that the character and daedalus exist, the daedalus is not alre
   If everything is fine then:  
   3. The **controller** (in src/Player/Controller) receive the request, it might check that the user is authorized to access this daedalus, then it will call
 a **service** (in src/Player/Service) to create the Player with the argument passed in the request.
-  4. The **Service** will perform the creation of the Player, call another **Service** to get the Game and Character configs, and the Random service to perform random stuff
-It might also trigger some **events**, like a new Character is created, this event might trigger the **Event** Daedalus is complete, etc...
+  4. The **Service** will perform the creation of the Player, call another **Service** to get the Game and Player configs, and the Random service to perform random stuff
+It might also trigger some **events**, like a new Player is created, this event might trigger the **Event** Daedalus is complete, etc...
 This **event** will also use the **service** to create a new room log for player awaken  
 To finish that, once the **entity** player created, the service will use the **Repository** to save this Player in the database annd returning this Player entity
   5. Once the **service** has finished performing the creating of the character, ot returns an entity **Player**, then the **Controller** will return this Player as response to the request

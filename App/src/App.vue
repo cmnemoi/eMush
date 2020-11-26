@@ -8,7 +8,7 @@
 <script>
 
 import Banner from "@/components/Banner";
-import GamePage from "@/components/Game/GamePage";
+import GamePage from "@/components/GamePage";
 
 export default {
   name: 'App',

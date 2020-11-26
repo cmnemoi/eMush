@@ -4,15 +4,20 @@ namespace Mush\Daedalus\Normalizer;
 
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 
 class DaedalusNormalizer implements ContextAwareNormalizerInterface
 {
+    private CycleServiceInterface $cycleService;
     private GameConfig $gameConfig;
 
-    public function __construct(GameConfigServiceInterface $gameConfigService)
-    {
+    public function __construct(
+        CycleServiceInterface $cycleService,
+        GameConfigServiceInterface $gameConfigService
+    ) {
+        $this->cycleService = $cycleService;
         $this->gameConfig = $gameConfigService->getConfig();
     }
 
@@ -36,6 +41,7 @@ class DaedalusNormalizer implements ContextAwareNormalizerInterface
                 'fuel' => $daedalus->getFuel(),
                 'hull' => $daedalus->getHull(),
                 'shield' => $daedalus->getShield(),
+                'nextCycle' => $this->cycleService->getDateStartNextCycle($daedalus)->format(\DateTime::ATOM),
                 'createdAt' => $daedalus->getCreatedAt(),
                 'updatedAt' => $daedalus->getUpdatedAt(),
             ];

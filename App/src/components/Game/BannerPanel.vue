@@ -1,12 +1,12 @@
 <template>
   <div class="game-banner">
     <div class="character-banner">
-      <a class="in-game-level" href="#">{{characterLevel}}</a>
+      <a class="in-game-level" href="#"></a>
       <div class="in-game-level-progress">
         <div></div>
       </div>
       <div class="character-info">
-        <span class="character-name">{{characterName}}</span>
+        <span class="character-name">{{player.characterValue}}</span>
         <div class="titles">
           <div class="title"><img class="title-img" src="@/assets/images/title_01.png"><span class="title-name">Commandant</span></div>
         </div>
@@ -27,10 +27,10 @@
 
       <div class="daedalus-info">
         <ul>
-          <li>25<img src="@/assets/images/o2.png"></li>
-          <li>9<img src="@/assets/images/fuel.png"></li>
-          <li>90<img src="@/assets/images/shield.png"></li>
-          <li>125<img src="@/assets/images/triumph.png"></li>
+          <li>{{ daedalus.oxygen }}<img src="@/assets/images/o2.png"></li>
+          <li>{{ daedalus.fuel }}<img src="@/assets/images/fuel.png"></li>
+          <li>{{ daedalus.hull }}<img src="@/assets/images/shield.png"></li>
+          <li>{{ player.triumph }}<img src="@/assets/images/triumph.png"></li>
         </ul>
       </div>
       <div class="daedalus-players"><span class="popup"><h3>Next cycle</h3><p>Your unbreakable watch tells you the time remaining until the next <strong>Cycle</strong>. At the changeover you earn some precious <img src="@/assets/images/pa.png" alt="Action Points"/> <img src="@/assets/images/pm.png" alt="Movement Points"/> depending on your health and hunger level.</p></span>
@@ -55,19 +55,36 @@
       </div>
       <div class="cycle-time">
         <img class="casio-img" src="@/assets/images/casio.png">
-        <span class="cycle-time-left">2h08m05s</span>
+        <countdown-timer :end-date="daedalus.nextCycle">
+          <template v-slot:default="slotProps">
+            <div class="flex-row">
+              <span v-show="slotProps.hour > 0" class="cycle-time-left">{{slotProps.hour}}h</span>
+              <span class="cycle-time-left">{{slotProps.min}}m</span>
+              <span class="cycle-time-left">{{slotProps.sec}}s</span>
+            </div>
+          </template>
+        </countdown-timer>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import {Daedalus} from "@/entities/Daedalus";
+import {Player} from "@/entities/Player";
+import CountdownTimer from "@/components/Utils/CountdownTimer";
+
 export default {
   name: "BannerPanel",
+  components: {CountdownTimer},
   props: {
-    characterLevel: Number,
-    characterName: String
-  }
+    player: Player,
+    daedalus: Daedalus,
+  },
+  data: function () {
+    return {
+    }
+  },
 }
 </script>
 
@@ -75,7 +92,6 @@ export default {
 
 .titles, .title, .game-banner, .daedalus-banner, .character-banner, .daedalus-players, .cycle-time {
   flex-direction: row;
-
 }
 
 p, a, li, span {
@@ -88,7 +104,7 @@ p, a, li, span {
   margin-bottom: 8px;
   flex-direction: row;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
 }
 
 .character-banner {
@@ -137,7 +153,7 @@ p, a, li, span {
       bottom: 2px;
       width: 9px;
       height: 11px;
-      background : transparent url('~@/assets/images/levelup_arrow_ingame.png') no-repeat center; 
+      background : transparent url('~@/assets/images/levelup_arrow_ingame.png') no-repeat center;
     }
   }
 
@@ -203,8 +219,8 @@ p, a, li, span {
   & .daedalus-info li {
     display: flex;
     align-items: center;
-  
-      &:not(:last-child) {
+
+    &:not(:last-child) {
       padding-right: 1em;
     }
 

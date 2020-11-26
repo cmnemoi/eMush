@@ -10,7 +10,7 @@
       <li><img src="@/assets/images/comms/private.png"></li>
       <li><img src="@/assets/images/comms/newtab.png"></li>
     </ul>
-    <div class="cycle-time"><img src="@/assets/images/comms/calendar.png"><span>Jour 4 - Cycle 3</span></div>
+    <div class="cycle-time"><img src="@/assets/images/comms/calendar.png"><span>Jour {{ day }} - Cycle {{ cycle }}</span></div>
   </div>
   <div class="chatbox-container">
     <textarea class="chat-input" placeholder="Type your message here!"></textarea>
@@ -90,6 +90,8 @@
 export default {
   name: "CommsPanel",
   props: {
+    day: Number,
+    cycle: Number
   }
 }
 </script>

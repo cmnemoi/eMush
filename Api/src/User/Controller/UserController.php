@@ -15,7 +15,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 /**
  * Class LoginController.
  *
- * @Route("/user")
+ * @Route("/users")
  */
 class UserController extends AbstractFOSRestController
 {
@@ -41,10 +41,10 @@ class UserController extends AbstractFOSRestController
      *     @OA\Schema(type="integer")
      * )
      * @OA\Tag(name="user")
-     * @Get(name="user_info", path="/{id}")
+     * @Get(name="user_info", path="/{id?}")
      * @Security(name="Bearer")
      */
-    public function loginAction(Request $request)
+    public function getUserAction(Request $request)
     {
         $user = $this->getUser();
         if ($id = $request->get('id')) {

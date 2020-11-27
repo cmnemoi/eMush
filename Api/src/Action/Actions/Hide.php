@@ -28,23 +28,18 @@ class Hide extends Action
     private RoomLogServiceInterface $roomLogService;
     private GameItemServiceInterface $gameItemService;
     private PlayerServiceInterface $playerService;
-    private GameConfig $gameConfig;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         RoomLogServiceInterface $roomLogService,
         GameItemServiceInterface $gameItemService,
-        PlayerServiceInterface $playerService,
-        StatusServiceInterface $statusService,
-        GameConfigServiceInterface $gameConfigService
+        PlayerServiceInterface $playerService
     ) {
         parent::__construct($eventDispatcher);
 
-        $this->StatusServiceInterface = $statusService;
         $this->roomLogService = $roomLogService;
         $this->gameItemService = $gameItemService;
         $this->playerService = $playerService;
-        $this->gameConfig = $gameConfigService->getConfig();
 
         $this->actionCost->setActionPointCost(1);
     }
@@ -77,6 +72,11 @@ class Hide extends Action
             ->setPlayer($this->player)
             ->setGameItem($this->gameItem)
         ;
+
+        if ($this->gameItem->getPlayer()){
+            $this->gameItem->setPlayer(null);
+            $this->gameItem->setRoom($this->player->getRoom());
+        }
 
         $this->gameItemService->persist($this->gameItem);
         $this->playerService->persist($this->player);

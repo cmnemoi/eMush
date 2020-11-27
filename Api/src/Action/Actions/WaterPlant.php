@@ -27,7 +27,6 @@ class WaterPlant extends Action
     private RoomLogServiceInterface $roomLogService;
     private GameItemServiceInterface $gameItemService;
     private PlayerServiceInterface $playerService;
-    private ItemEffectServiceInterface $itemServiceEffect;
     private StatusServiceInterface $statusService;
 
     public function __construct(
@@ -35,7 +34,6 @@ class WaterPlant extends Action
         RoomLogServiceInterface $roomLogService,
         GameItemServiceInterface $gameItemService,
         PlayerServiceInterface $playerService,
-        ItemEffectServiceInterface $itemServiceEffect,
         StatusServiceInterface $statusService
     ) {
         parent::__construct($eventDispatcher);
@@ -43,7 +41,6 @@ class WaterPlant extends Action
         $this->roomLogService = $roomLogService;
         $this->gameItemService = $gameItemService;
         $this->playerService = $playerService;
-        $this->itemServiceEffect = $itemServiceEffect;
         $this->statusService = $statusService;
 
         $this->actionCost->setActionPointCost(1);

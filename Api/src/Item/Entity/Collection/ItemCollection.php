@@ -4,7 +4,7 @@ namespace Mush\Item\Entity\Collection;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
-class ItemConfigCollection extends ArrayCollection
+class ItemCollection extends ArrayCollection
 {
     public function getByStatusName(string $statusName): Collection
     {

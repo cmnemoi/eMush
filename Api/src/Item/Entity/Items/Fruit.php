@@ -15,7 +15,7 @@ class Fruit extends Ration
 {
     protected string $type = ItemTypeEnum::FRUIT;
 
-    protected array $actions = [ActionEnum::PLANT_IT];
+    protected array $actions = [ActionEnum::TRANSPLANT];
 
     /**
      * @ORM\Column(type="string", nullable=true)

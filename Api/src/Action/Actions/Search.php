@@ -10,6 +10,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Item\Entity\GameItem;
+use Mush\Item\Entity\Collection\ItemConfigCollection;
 use Mush\Item\Service\GameItemServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
@@ -27,21 +28,18 @@ class Search extends Action
     private RoomLogServiceInterface $roomLogService;
     private GameItemServiceInterface $gameItemService;
     private PlayerServiceInterface $playerService;
-    private GameConfig $gameConfig;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         RoomLogServiceInterface $roomLogService,
         GameItemServiceInterface $gameItemService,
-        PlayerServiceInterface $playerService,
-        GameConfigServiceInterface $gameConfigService
+        PlayerServiceInterface $playerService
     ) {
         parent::__construct($eventDispatcher);
 
         $this->roomLogService = $roomLogService;
         $this->gameItemService = $gameItemService;
         $this->playerService = $playerService;
-        $this->gameConfig = $gameConfigService->getConfig();
 
         $this->actionCost->setActionPointCost(1);
     }
@@ -58,14 +56,19 @@ class Search extends Action
 
     protected function applyEffects(): ActionResult
     {
-        $hiddenItems = $this->player->getRoom()->getItems()->getByStatusName(ItemStatusEnum::HIDDEN);
+        $hiddenItems = $this->player->getRoom()->getItems()->filter(fn (GameItem $gameItem) => $gameItem->getStatusByName(ItemStatusEnum::HIDDEN));
         if (!$hiddenItems->isEmpty()) {
             $this->itemFound = $hiddenItems->first();
 
             $hiddenStatus = $this->itemFound->getStatusByName(ItemStatusEnum::HIDDEN);
 
+            $hiddenBy=$hiddenStatus->getPlayer();
             $this->itemFound->removeStatus($hiddenStatus);
 
+            $hiddenBy->removeStatus($hiddenStatus);
+
+
+            $this->playerService->persist($hiddenBy);
             $this->gameItemService->persist($this->itemFound);
 
             return new Success();

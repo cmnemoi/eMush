@@ -35,7 +35,6 @@ class TreatPlant extends Action
         RoomLogServiceInterface $roomLogService,
         GameItemServiceInterface $gameItemService,
         PlayerServiceInterface $playerService,
-        ItemEffectServiceInterface $itemServiceEffect,
         StatusServiceInterface $statusService
     ) {
         parent::__construct($eventDispatcher);
@@ -43,7 +42,6 @@ class TreatPlant extends Action
         $this->roomLogService = $roomLogService;
         $this->gameItemService = $gameItemService;
         $this->playerService = $playerService;
-        $this->itemServiceEffect = $itemServiceEffect;
         $this->statusService = $statusService;
 
         $this->actionCost->setActionPointCost(2);
@@ -62,7 +60,7 @@ class TreatPlant extends Action
     {
         return $this->player->canReachItem($this->item) &&
                     $this->item->getItem()->getItemType(ItemTypeEnum::PLANT) &&
-                    $this->item->getStatusByName(ItemStatusEnum::PLANT_DISEASED)->count() > 0
+                    $this->item->getStatusByName(ItemStatusEnum::PLANT_DISEASED)
                     ;
     }
 

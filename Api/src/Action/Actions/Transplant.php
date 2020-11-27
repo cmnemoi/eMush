@@ -10,7 +10,6 @@ use Mush\Item\Entity\GameItem;
 use Mush\Item\Enum\ItemEnum;
 use Mush\Item\Enum\ItemTypeEnum;
 use Mush\Item\Service\GameItemServiceInterface;
-use Mush\Item\Service\ItemEffectServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -18,34 +17,27 @@ use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class Plant extends Action
+class Transplant extends Action
 {
-    protected string $name = ActionEnum::PLANT_IT;
+    protected string $name = ActionEnum::TRANSPLANT;
 
     private GameItem $item;
 
     private RoomLogServiceInterface $roomLogService;
     private GameItemServiceInterface $gameItemService;
     private PlayerServiceInterface $playerService;
-    private ItemEffectServiceInterface $itemServiceEffect;
-    private StatusServiceInterface $statusService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         RoomLogServiceInterface $roomLogService,
         GameItemServiceInterface $gameItemService,
-        PlayerServiceInterface $playerService,
-        ItemEffectServiceInterface $itemServiceEffect,
-        StatusServiceInterface $statusService
+        PlayerServiceInterface $playerService
     ) {
         parent::__construct($eventDispatcher);
-
+        
         $this->roomLogService = $roomLogService;
         $this->gameItemService = $gameItemService;
         $this->playerService = $playerService;
-        $this->itemServiceEffect = $itemServiceEffect;
-        $this->statusService = $statusService;
-
         $this->actionCost->setActionPointCost(1);
     }
 
@@ -96,7 +88,7 @@ class Plant extends Action
     protected function createLog(ActionResult $actionResult): void
     {
         $this->roomLogService->createItemLog(
-            ActionEnum::PLANT_IT,
+            ActionEnum::TRANSPLANT,
             $this->player->getRoom(),
             $this->player,
             $this->item,

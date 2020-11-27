@@ -41,9 +41,10 @@ cp ./App/.env.dist ./App/.env
 ```
 Build the docker containers:
 ```
-make build
+make install
 Or 
 docker-compose -f docker/docker-compose.yml build
+docker-compose -f docker/docker-compose.yml run -u node mush_front npm install && docker-compose -f docker/docker-compose.yml run -u dev mush_php composer install
 ```
 Start the docker container
 ```
@@ -61,14 +62,10 @@ $ openssl pkey -in config/jwt/private.pem -out config/jwt/public.pem -pubout
 ```
 Use mush as passphrase or update the .env with your passphrase
 
-Install the vendor
+Run the migrations (temporary just update the database)
 ```
-composer install
-```
-
-Run the migrations
-```
-bin/console doctrine:migrations:migrate
+#bin/console doctrine:migrations:migrate
+bin/console doctrine:schema:update --force
 ```
 
 Add the fixtures

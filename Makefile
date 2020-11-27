@@ -1,3 +1,6 @@
+install: build
+	docker-compose -f docker/docker-compose.yml run -u node mush_front npm install && \
+	docker-compose -f docker/docker-compose.yml run -u dev mush_php composer install
 build:
 	docker-compose -f docker/docker-compose.yml build
 

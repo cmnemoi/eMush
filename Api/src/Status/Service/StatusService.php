@@ -2,6 +2,7 @@
 
 namespace Mush\Status\Service;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Mush\Item\Entity\GameItem;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -11,6 +12,13 @@ use Mush\Status\Entity\Status;
 
 class StatusService implements StatusServiceInterface
 {
+    private EntityManagerInterface $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
     public function createCorePlayerStatus(string $statusName, Player $player): Status
     {
         $status = new Status();
@@ -91,5 +99,20 @@ class StatusService implements StatusServiceInterface
         ;
 
         return $status;
+    }
+
+    public function persist(Status $status): Status
+    {
+        $this->entityManager->persist($status);
+        $this->entityManager->flush();
+
+        return $status;
+    }
+
+    public function delete(Status $status): bool
+    {
+        $this->entityManager->remove($status);
+
+        return true;
     }
 }

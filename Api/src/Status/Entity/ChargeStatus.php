@@ -29,7 +29,7 @@ class ChargeStatus extends Status
     /**
      * @ORM\Column(type="boolean", nullable=false)
      */
-    private ?bool $autoRemove = false;
+    private bool $autoRemove = false;
 
     public function getCharge(): ?int
     {
@@ -74,12 +74,12 @@ class ChargeStatus extends Status
         return $this;
     }
 
-    public function getAutoRemove(): ?bool
+    public function isAutoRemove(): bool
     {
         return $this->autoRemove;
     }
 
-    public function setAutoRemove(?bool $autoRemove): Status
+    public function setAutoRemove(bool $autoRemove): ChargeStatus
     {
         $this->autoRemove = $autoRemove;
 

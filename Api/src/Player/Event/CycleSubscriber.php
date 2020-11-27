@@ -33,6 +33,12 @@ class CycleSubscriber implements EventSubscriberInterface
 
         $this->playerService->handleNewCycle($player, $event->getTime());
 
+        foreach ($player->getStatuses() as $status) {
+            $statusNewCycle = new CycleEvent($event->getDaedalus(), $event->getTime());
+            $statusNewCycle->setStatus($status);
+            $this->eventDispatcher->dispatch($statusNewCycle, CycleEvent::NEW_CYCLE);
+        }
+
         foreach ($player->getItems() as $item) {
             $itemNewCycle = new CycleEvent($player->getDaedalus(), $event->getTime());
             $itemNewCycle->setGameItem($item);

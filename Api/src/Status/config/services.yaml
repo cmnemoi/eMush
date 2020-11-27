@@ -14,3 +14,7 @@ services:
       - '../Entity/'
       - '../Kernel.php'
       - '../Tests/'
+
+  Mush\Status\ChargeStrategies\:
+    resource: '../ChargeStrategies/'
+    tags: ['mush.charge_strategy']

@@ -33,4 +33,8 @@ interface StatusServiceInterface
     ): ChargeStatus;
 
     public function createAttemptStatus(string $statusName, string $action, Player $player): Attempt;
+
+    public function persist(Status $status): Status;
+
+    public function delete(Status $status): bool;
 }

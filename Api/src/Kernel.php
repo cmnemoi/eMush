@@ -3,6 +3,7 @@
 namespace Mush;
 
 use Mush\Action\DependencyInjection\ActionPass;
+use Mush\Status\DependencyInjection\ChargeStrategyPass;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
@@ -42,5 +43,6 @@ class Kernel extends BaseKernel
     {
         parent::build($container);
         $container->addCompilerPass(new ActionPass());
+        $container->addCompilerPass(new ChargeStrategyPass());
     }
 }

@@ -3,10 +3,13 @@
 namespace Mush\Test\Daedalus\Normalizer;
 
 use Mockery;
+use DateTime;
+
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Normalizer\DaedalusNormalizer;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\GameConfigService;
+use Mush\Game\Service\CycleServiceInterface;
 use PHPUnit\Framework\TestCase;
 
 class DaedalusNormalizerTest extends TestCase
@@ -14,6 +17,9 @@ class DaedalusNormalizerTest extends TestCase
     private DaedalusNormalizer $normalizer;
     /** @var GameConfigService | Mockery\Mock */
     private GameConfig $gameConfig;
+    /** @var CycleServiceInterface | Mockery\Mock */
+    private CycleService $cycleService;
+
 
     /**
      * @before
@@ -21,11 +27,12 @@ class DaedalusNormalizerTest extends TestCase
     public function before()
     {
         $gameConfigService = Mockery::mock(GameConfigService::class);
+        $cycleService = Mockery::mock(CycleServiceInterface::class);
 
         $this->gameConfig = new GameConfig();
 
         $gameConfigService->shouldReceive('getConfig')->andReturn($this->gameConfig)->once();
-        $this->normalizer = new DaedalusNormalizer($gameConfigService);
+        $this->normalizer = new DaedalusNormalizer($cycleService, $gameConfigService);
     }
 
     /**
@@ -50,6 +57,8 @@ class DaedalusNormalizerTest extends TestCase
             ->setFuel(24)
             ->setShield(100)
         ;
+
+        $this->cycleService->souldReceive('getDateStartNextCycle')->andReturn(date('2020-11-27 12:0:0'))->once();
 
         $data = $this->normalizer->normalize($daedalus);
 

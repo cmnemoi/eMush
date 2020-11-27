@@ -2,6 +2,8 @@
 
 namespace Mush\Status\Service;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Item\Entity\GameItem;
 use Mush\Player\Entity\Player;
@@ -114,5 +116,23 @@ class StatusService implements StatusServiceInterface
         $this->entityManager->remove($status);
 
         return true;
+    }
+
+    public function getMostRecent(string $statusName, ArrayCollection $items): gameItem
+    {
+        $pickedItems=$items->getItems()->filter(fn (GameItem $gameItem) => $gameItem->getStatusByName($statusName));
+        if(count($pickedItems)<=0){
+            throw new Error('no such status in item collection');
+        }else{
+            $pickedItem=$pickedItems->first();
+            if(count($pickedItems)>1){
+                foreach($pickedItems) as $item){
+                    if($pickedItem->getStatusByName($statusName)->getCreatedAt()<$item->getStatusByName($statusName)->getCreatedAt()){
+                        $pickedItem=$item
+                    }
+                 }
+            }
+            return $pickedItem;
+        }
     }
 }

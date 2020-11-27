@@ -14,7 +14,6 @@ use Mush\Item\Enum\GearItemEnum;
 use Mush\Item\Enum\ItemEnum;
 use Mush\Item\Enum\ToolItemEnum;
 
-
 class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)

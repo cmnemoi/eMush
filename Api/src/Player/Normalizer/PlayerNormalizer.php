@@ -70,7 +70,7 @@ class PlayerNormalizer implements ContextAwareNormalizerInterface
             'id' => $player->getId(),
             'character' => [
                 'key' => $player->getPerson(),
-                'value' => $this->translator->trans($player->getPerson() . '.name', [], 'characters')
+                'value' => $this->translator->trans($player->getPerson() . '.name', [], 'characters'),
             ],
             'gameStatus' => $player->getGameStatus(),
             'statuses' => $player->getStatuses(),

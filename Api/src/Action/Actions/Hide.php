@@ -6,8 +6,6 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Item\Entity\GameItem;
 use Mush\Item\Service\GameItemServiceInterface;
 use Mush\Player\Entity\Player;
@@ -16,7 +14,6 @@ use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\ItemStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Hide extends Action
@@ -73,7 +70,7 @@ class Hide extends Action
             ->setGameItem($this->gameItem)
         ;
 
-        if ($this->gameItem->getPlayer()){
+        if ($this->gameItem->getPlayer()) {
             $this->gameItem->setPlayer(null);
             $this->gameItem->setRoom($this->player->getRoom());
         }

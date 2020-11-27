@@ -14,7 +14,6 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
-use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Transplant extends Action
@@ -34,7 +33,7 @@ class Transplant extends Action
         PlayerServiceInterface $playerService
     ) {
         parent::__construct($eventDispatcher);
-        
+
         $this->roomLogService = $roomLogService;
         $this->gameItemService = $gameItemService;
         $this->playerService = $playerService;

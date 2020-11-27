@@ -6,10 +6,10 @@
         "version": "1.11.99"
     },
     "composer/semver": {
-        "version": "3.2.2"
+        "version": "3.2.4"
     },
     "composer/xdebug-handler": {
-        "version": "1.4.4"
+        "version": "1.4.5"
     },
     "doctrine/annotations": {
         "version": "1.0",
@@ -98,9 +98,6 @@
     },
     "doctrine/persistence": {
         "version": "2.0.0"
-    },
-    "doctrine/reflection": {
-        "version": "1.2.1"
     },
     "doctrine/sql-formatter": {
         "version": "1.1.1"

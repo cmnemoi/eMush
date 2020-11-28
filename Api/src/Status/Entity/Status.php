@@ -3,6 +3,7 @@
 namespace Mush\Status\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Item\Entity\GameItem;
 use Mush\Player\Entity\Player;
 
@@ -21,6 +22,9 @@ use Mush\Player\Entity\Player;
  */
 class Status
 {
+
+    use TimestampableEntity;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue

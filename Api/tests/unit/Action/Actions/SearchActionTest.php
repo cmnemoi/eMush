@@ -44,8 +44,6 @@ class SearchActionTest extends TestCase
     private PlayerServiceInterface $playerService;
     /** @var SuccessRateServiceInterface | Mockery\Mock */
     private SuccessRateServiceInterface $successRateService;
-    /** @var RandomServiceInterface | Mockery\Mock */
-    private RandomServiceInterface $randomService;
     /** @var StatusServiceInterface | Mockery\Mock */
     private StatusServiceInterface $statusService;
     private Action $action;
@@ -59,6 +57,7 @@ class SearchActionTest extends TestCase
         $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
         $this->itemService = Mockery::mock(GameItemServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
+        $this->statusService = Mockery::mock(StatusServiceInterface::class);
         $eventDispatcher->shouldReceive('dispatch');
 
         $this->action = new Search(
@@ -66,6 +65,7 @@ class SearchActionTest extends TestCase
             $this->roomLogService,
             $this->itemService,
             $this->playerService,
+            $this->statusService,
         );
     }
 
@@ -132,9 +132,11 @@ class SearchActionTest extends TestCase
         $this->action->loadParameters($player, $actionParameter);
 
 
+        $this->statusService->shouldReceive('getMostRecent')->andReturn($gameItem)->once();
         $this->roomLogService->shouldReceive('createItemLog')->once();
         $this->itemService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
+
 
 
         $result = $this->action->execute();
@@ -190,6 +192,7 @@ class SearchActionTest extends TestCase
         $this->action->loadParameters($player, $actionParameter);
 
 
+        $this->statusService->shouldReceive('getMostRecent')->andReturn($gameItem)->once();
         $this->roomLogService->shouldReceive('createItemLog')->once();
         $this->itemService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');

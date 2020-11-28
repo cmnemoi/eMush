@@ -2,6 +2,9 @@
 
 namespace Mush\Status\Service;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
+
 use Mush\Item\Entity\GameItem;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\Attempt;
@@ -37,4 +40,6 @@ interface StatusServiceInterface
     public function persist(Status $status): Status;
 
     public function delete(Status $status): bool;
+
+    public function getMostRecent(string $statusName, ArrayCollection $items): gameItem;
 }

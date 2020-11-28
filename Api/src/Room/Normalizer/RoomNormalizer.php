@@ -64,7 +64,7 @@ class RoomNormalizer implements ContextAwareNormalizerInterface
                     ->getRooms()
                     ->filter(fn (Room $doorRoom) => $doorRoom !== $room)
                     ->first()
-                    ->getName()]
+                    ->getName(), ]
             );
         }
         $items = [];

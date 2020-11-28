@@ -6,10 +6,10 @@ use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Item\Entity\ConsumableEffect;
-use Mush\Item\Entity\Items\Plant;
-use Mush\Item\Entity\Items\Ration;
 use Mush\Item\Entity\Items\Drug;
 use Mush\Item\Entity\Items\Fruit;
+use Mush\Item\Entity\Items\Plant;
+use Mush\Item\Entity\Items\Ration;
 use Mush\Item\Entity\PlantEffect;
 use Mush\Item\Repository\ConsumableEffectRepository;
 use Mush\Item\Repository\PlantEffectRepository;
@@ -57,11 +57,11 @@ class ItemEffectServiceTest extends TestCase
         $ration = new Ration();
 
         $ration
-            ->setHealthPoints([0 => 1, 1=> 1, 2=> 1])
-            ->setMoralPoints([0=> 5, 1 => 1, 2 => 1])
-            ->setActionPoints([0=> 1, 1=> 0])
-            ->setMovementPoints([1=> 1])
-            ->setMovementPoints([1=> 1])
+            ->setHealthPoints([0 => 1, 1 => 1, 2 => 1])
+            ->setMoralPoints([0 => 5, 1 => 1, 2 => 1])
+            ->setActionPoints([0 => 1, 1 => 0])
+            ->setMovementPoints([1 => 1])
+            ->setMovementPoints([1 => 1])
             ->setDiseasesChances(['disease' => 55])
             ->setDiseasesDelayMin(['disease' => 0])
             ->setDiseasesDelayLengh(['disease' => 0])
@@ -103,22 +103,21 @@ class ItemEffectServiceTest extends TestCase
         $this->assertEquals(2, $consumableEffect->getMovementPoint());
         $this->assertEquals(2, $consumableEffect->getHealthPoint());
         $this->assertEquals(2, $consumableEffect->getMoralPoint());
-    
 
-        //test fruit 
+        //test fruit
         $fruit = new Fruit();
 
         $fruit
             ->setDiseasesEffectChance([100 => 64, 25 => 1])
             ->setDiseasesName([
                         'disease1' => 1,
-                        'disease2' => 6])
+                        'disease2' => 6, ])
             ->setDiseasesEffectDelayMin([0 => 1, 5 => 1])
             ->setDiseasesEffectDelayLengh([7 => 1])
             ->setFruitEffectsNumber([0 => 35, 1 => 40, 2 => 15])
             ->setExtraEffects(['extraActionPoint' => 50])
         ;
-        
+
         $this->consumableEffectRepository
             ->shouldReceive('findOneBy')
             ->andReturn(null)
@@ -130,17 +129,17 @@ class ItemEffectServiceTest extends TestCase
         ;
         $this->randomService
             ->shouldReceive('getSingleRandomElementFromProbaArray')
-            ->andReturn(0,0,0,0,4,50,50,2,4,50,2,4)
+            ->andReturn(0, 0, 0, 0, 4, 50, 50, 2, 4, 50, 2, 4)
             ->times(12)
         ;
         $this->randomService
             ->shouldReceive('getRandomElements')
-            ->andReturn([1,3,4,5])
+            ->andReturn([1, 3, 4, 5])
             ->once()
         ;
         $this->randomService
             ->shouldReceive('getRandomElementsFromProbaArray')
-            ->andReturn(['disease1'],['disease1','disease2'])
+            ->andReturn(['disease1'], ['disease1', 'disease2'])
             ->times(2)
         ;
         $consumableEffect = $this->service->getConsumableEffect($fruit, $daedalus);
@@ -152,14 +151,12 @@ class ItemEffectServiceTest extends TestCase
         $this->assertEquals(0, $consumableEffect->getMovementPoint());
         $this->assertEquals(0, $consumableEffect->getHealthPoint());
         $this->assertEquals(0, $consumableEffect->getMoralPoint());
-        $this->assertEquals(['disease1'=>50], $consumableEffect->getCures());
-        $this->assertEquals(['disease1'=>50, 'disease2'=>50], $consumableEffect->getDiseasesChance());
-        $this->assertEquals(['disease1'=>2, 'disease2'=>2], $consumableEffect->getDiseasesDelayMin());
-        $this->assertEquals(['disease1'=>4, 'disease2'=>4], $consumableEffect->getDiseasesDelayLengh());
+        $this->assertEquals(['disease1' => 50], $consumableEffect->getCures());
+        $this->assertEquals(['disease1' => 50, 'disease2' => 50], $consumableEffect->getDiseasesChance());
+        $this->assertEquals(['disease1' => 2, 'disease2' => 2], $consumableEffect->getDiseasesDelayMin());
+        $this->assertEquals(['disease1' => 4, 'disease2' => 4], $consumableEffect->getDiseasesDelayLengh());
         $this->assertEquals(['extraActionPoint' => 50], $consumableEffect->getExtraEffects());
-        
-        
-        
+
         //test drugs
         $drug = new Drug();
         $drug->setMoralPoints([0 => 97, -2 => 1, 1 => 1])
@@ -168,7 +165,7 @@ class ItemEffectServiceTest extends TestCase
             ->setCures([
                 'disease1' => 100,
                 'disease2' => 100,
-                'disease3' => 100])
+                'disease3' => 100, ])
             ->setDrugEffectsNumber([1 => 60, 2 => 30, 3 => 8])
         ;
         $this->consumableEffectRepository
@@ -182,16 +179,16 @@ class ItemEffectServiceTest extends TestCase
         ;
         $this->randomService
             ->shouldReceive('getSingleRandomElementFromProbaArray')
-            ->andReturn(0,0,0,0,2)
+            ->andReturn(0, 0, 0, 0, 2)
             ->times(5)
         ;
         $this->randomService
             ->shouldReceive('getRandomElements')
-            ->andReturn(['disease1','disease2'])
+            ->andReturn(['disease1', 'disease2'])
             ->once()
         ;
         $consumableEffect = $this->service->getConsumableEffect($drug, $daedalus);
-        
+
         $this->assertInstanceOf(ConsumableEffect::class, $consumableEffect);
         $this->assertEquals($daedalus, $consumableEffect->getDaedalus());
         $this->assertEquals($drug, $consumableEffect->getRation());
@@ -199,10 +196,8 @@ class ItemEffectServiceTest extends TestCase
         $this->assertEquals(0, $consumableEffect->getMovementPoint());
         $this->assertEquals(0, $consumableEffect->getHealthPoint());
         $this->assertEquals(0, $consumableEffect->getMoralPoint());
-        $this->assertEquals(['disease1'=>100, 'disease2'=>100], $consumableEffect->getCures());
+        $this->assertEquals(['disease1' => 100, 'disease2' => 100], $consumableEffect->getCures());
     }
-    
-    
 
     public function testGetPlantEffect()
     {

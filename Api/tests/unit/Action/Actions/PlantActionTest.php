@@ -3,19 +3,17 @@
 namespace Mush\Test\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
-
 use Mockery;
 use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Action;
 use Mush\Action\Actions\Transplant;
 use Mush\Action\Entity\ActionParameters;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Item\Entity\GameItem;
 use Mush\Item\Entity\Item;
-use Mush\Daedalus\Entity\Daedalus;
-use Mush\Item\Enum\ItemEnum;
-use Mush\Item\Entity\Items\Plant;
 use Mush\Item\Entity\Items\Fruit;
+use Mush\Item\Enum\ItemEnum;
 use Mush\Item\Service\GameItemServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
@@ -62,7 +60,6 @@ class PlantActionTest extends TestCase
         Mockery::close();
     }
 
-
     public function testCannotExecute()
     {
         $room = new Room();
@@ -71,17 +68,14 @@ class PlantActionTest extends TestCase
         $gameItem
                     ->setItem($item)
                     ->setRoom($room)
-                    ->setName('toto');;
-        
-        
+                    ->setName('toto');
+
         $fruit = new Fruit();
         $fruit->setPlantName('banana_tree');
-        
 
         $plant = new Item();
         $plant->setName('plant');
-        
-        
+
         $gameHydropot = new GameItem();
         $hydropot = new Item();
         $hydropot->setName(ItemEnum::HYDROPOT);
@@ -89,28 +83,26 @@ class PlantActionTest extends TestCase
                     ->setItem($hydropot)
                     ->setRoom($room)
                     ->setName(ItemEnum::HYDROPOT);
-        
-        
+
         $actionParameter = new ActionParameters();
         $actionParameter->setItem($gameItem);
         $player = $this->createPlayer(new Daedalus(), $room);
 
         $this->action->loadParameters($player, $actionParameter);
-        
-        
+
         //Not a blueprint
         $result = $this->action->execute();
-        $this->assertInstanceOf(Error::class, $result);   
-        
+        $this->assertInstanceOf(Error::class, $result);
+
         $item->setTypes(new ArrayCollection([$fruit]));
-        
+
         //Hydropot in another room
         $gameHydropot->setRoom(new Room());
-        
+
         $result = $this->action->execute();
         $this->assertInstanceOf(Error::class, $result);
-    }    
-    
+    }
+
     public function testExecute()
     {
         $room = new Room();
@@ -120,20 +112,17 @@ class PlantActionTest extends TestCase
                     ->setItem($item)
                     ->setRoom($room)
                     ->setName('toto');
-        
-        
+
         $fruit = new Fruit();
         $fruit->setPlantName('banana_tree');
-        
+
         $item->setTypes(new ArrayCollection([$fruit]));
-        
 
         $plant = new Item();
         $plant->setName('banana_tree');
         $gamePlant = new GameItem();
-        $gamePlant->setItem($plant);     
-        
-        
+        $gamePlant->setItem($plant);
+
         $gameHydropot = new GameItem();
         $hydropot = new Item();
         $hydropot->setName(ItemEnum::HYDROPOT);
@@ -141,22 +130,18 @@ class PlantActionTest extends TestCase
                     ->setItem($hydropot)
                     ->setRoom($room)
                     ->setName(ItemEnum::HYDROPOT);
-                    
-        
-        
 
         $actionParameter = new ActionParameters();
         $actionParameter->setItem($gameItem);
         $player = new Player();
         $player = $this->createPlayer(new Daedalus(), $room);
-        
+
         $this->roomLogService->shouldReceive('createItemLog')->once();
         $this->itemService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
-        
+
         $this->itemService->shouldReceive('createGameItemFromName')->andReturn($gamePlant)->once();
         $this->itemService->shouldReceive('delete');
-        
 
         $this->action->loadParameters($player, $actionParameter);
 
@@ -164,10 +149,9 @@ class PlantActionTest extends TestCase
 
         $this->assertInstanceOf(Success::class, $result);
         $this->assertEmpty($player->getItems());
-        $this->assertEquals($player->getRoom()->getItems()->first()->getItem(),$plant);
-
+        $this->assertEquals($player->getRoom()->getItems()->first()->getItem(), $plant);
     }
-    
+
     private function createPlayer(Daedalus $daedalus, Room $room): Player
     {
         $player = new Player();
@@ -178,7 +162,7 @@ class PlantActionTest extends TestCase
             ->setDaedalus($daedalus)
             ->setRoom($room)
         ;
+
         return $player;
     }
-    
 }

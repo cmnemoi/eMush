@@ -11,7 +11,6 @@ use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Player\Entity\Player;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -93,15 +92,15 @@ class DaedalusController extends AbstractFOSRestController
             throw new NotFoundHttpException();
         }
 
-        $currentCharacters = array_map(fn(Player $player) => ($player->getPerson()), $daedalus->getPlayers()->toArray());
+        $currentCharacters = array_map(fn (Player $player) => ($player->getPerson()), $daedalus->getPlayers()->toArray());
 
-        $availableCharacters = array_filter(CharacterEnum::getAll(), fn($character) => (!in_array($character, $currentCharacters)));
+        $availableCharacters = array_filter(CharacterEnum::getAll(), fn ($character) => (!in_array($character, $currentCharacters)));
 
         $characters = [];
         foreach ($availableCharacters as $character) {
             $characters[] = [
                 'key' => $character,
-                'name' => $this->translator->trans($character.'.name', [], 'characters'),
+                'name' => $this->translator->trans($character . '.name', [], 'characters'),
             ];
         }
 

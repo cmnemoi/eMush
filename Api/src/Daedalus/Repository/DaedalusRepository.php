@@ -6,7 +6,6 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\GameConfig;
-use function Doctrine\ORM\QueryBuilder;
 
 class DaedalusRepository extends ServiceEntityRepository
 {

@@ -81,7 +81,6 @@ class DaedalusService implements DaedalusServiceInterface
         return $this->repository->findAvailableDaedalus();
     }
 
-
     public function createDaedalus(GameConfig $gameConfig): Daedalus
     {
         $daedalus = new Daedalus();

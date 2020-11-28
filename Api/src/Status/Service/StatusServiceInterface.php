@@ -3,8 +3,6 @@
 namespace Mush\Status\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
-
-
 use Mush\Item\Entity\GameItem;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\Attempt;

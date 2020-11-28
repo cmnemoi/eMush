@@ -6,9 +6,8 @@ use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
-use Mush\Game\Enum\CharacterEnum;
+use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Service\GameConfigServiceInterface;
-use Mush\Player\Entity\Player;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Response;
@@ -92,15 +91,13 @@ class DaedalusController extends AbstractFOSRestController
             throw new NotFoundHttpException();
         }
 
-        $currentCharacters = array_map(fn (Player $player) => ($player->getPerson()), $daedalus->getPlayers()->toArray());
-
-        $availableCharacters = array_filter(CharacterEnum::getAll(), fn ($character) => (!in_array($character, $currentCharacters)));
-
+        $availableCharacters = $this->daedalusService->findAvailableCharacterForDaedalus($daedalus);
         $characters = [];
+        /** @var CharacterConfig $character */
         foreach ($availableCharacters as $character) {
             $characters[] = [
-                'key' => $character,
-                'name' => $this->translator->trans($character . '.name', [], 'characters'),
+                'key' => $character->getName(),
+                'name' => $this->translator->trans($character->getName() . '.name', [], 'characters'),
             ];
         }
 

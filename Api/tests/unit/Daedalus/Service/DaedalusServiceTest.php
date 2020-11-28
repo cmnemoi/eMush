@@ -10,12 +10,14 @@ use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\RandomItemPlaces;
 use Mush\Daedalus\Repository\DaedalusRepository;
 use Mush\Daedalus\Service\DaedalusService;
+use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Item\Entity\GameItem;
 use Mush\Item\Entity\Item;
 use Mush\Item\Service\GameItemServiceInterface;
+use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
 use Mush\Room\Entity\RoomConfig;
 use Mush\Room\Enum\RoomEnum;
@@ -156,5 +158,33 @@ class DaedalusServiceTest extends TestCase
         $this->assertEquals(5, $daedalus->getCycle());
         $this->assertCount(1, $daedalus->getRooms());
         $this->assertCount(0, $daedalus->getPlayers());
+    }
+
+    public function testFindAvailableCharacterForDaedalus()
+    {
+        $daedalus = new Daedalus();
+        $gameConfig = new GameConfig();
+
+        $daedalus->setGameConfig($gameConfig);
+
+        $characterConfigCollection = new ArrayCollection();
+        $gameConfig->setCharactersConfig($characterConfigCollection);
+
+        $characterConfig = new CharacterConfig();
+        $characterConfig->setName('character_1');
+        $characterConfigCollection->add($characterConfig);
+
+        $result = $this->service->findAvailableCharacterForDaedalus($daedalus);
+
+        $this->assertCount(1, $result);
+        $this->assertEquals($characterConfig, $result->first());
+
+        $player = new Player();
+        $player->setPerson($characterConfig->getName());
+        $daedalus->addPlayer($player);
+
+        $result = $this->service->findAvailableCharacterForDaedalus($daedalus);
+
+        $this->assertCount(0, $result);
     }
 }

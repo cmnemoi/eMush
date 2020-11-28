@@ -20,14 +20,15 @@ class DaedalusRepository extends ServiceEntityRepository
 
         $daedalusConfig = $this->createQueryBuilder('daedalusConfig');
         $daedalusConfig
-            ->select('config.maxPlayer')
+            ->select('count(characterConfig.id)')
             ->from(GameConfig::class, 'config')
+            ->leftJoin('config.charactersConfig', 'characterConfig')
             ->where($qb->expr()->eq('config.id', 'daedalus.gameConfig'))
         ;
+
         $qb
             ->select('daedalus')
             ->leftJoin('daedalus.players', 'player')
-            ->leftJoin('daedalus.gameConfig', 'gameConfig')
             ->groupBy('daedalus')
             ->having('count(player.id) < (' . $daedalusConfig->getDQL() . ')')
             ->setMaxResults(1)

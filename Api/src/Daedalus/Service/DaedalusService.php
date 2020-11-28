@@ -2,17 +2,20 @@
 
 namespace Mush\Daedalus\Service;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\DAaedalus\Entity\Collection\DaedalusCollection;
 use Mush\Daedalus\Entity\Criteria\DaedalusCriteria;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Daedalus\Repository\DaedalusRepository;
+use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Item\Entity\Item;
 use Mush\Item\Service\GameItemServiceInterface;
+use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
 use Mush\Room\Entity\RoomConfig;
 use Mush\Room\Service\RoomServiceInterface;
@@ -28,9 +31,6 @@ class DaedalusService implements DaedalusServiceInterface
     private GameItemServiceInterface $itemService;
     private RandomServiceInterface $randomService;
 
-    /**
-     * DaedalusService constructor.
-     */
     public function __construct(
         EntityManagerInterface $entityManager,
         EventDispatcherInterface $eventDispatcher,
@@ -78,7 +78,15 @@ class DaedalusService implements DaedalusServiceInterface
 
     public function findAvailableDaedalus(): ?Daedalus
     {
-        return $this->repository->findAvailableDaedalus();
+        return  $this->repository->findAvailableDaedalus();
+    }
+
+    public function findAvailableCharacterForDaedalus(Daedalus $daedalus): Collection
+    {
+        return $daedalus->getGameConfig()->getCharactersConfig()->filter(
+            fn (CharacterConfig $characterConfig) => !$daedalus->getPlayers()->exists(
+                fn (int $key, Player $player) => ($player->getPerson() === $characterConfig->getName()))
+        );
     }
 
     public function createDaedalus(GameConfig $gameConfig): Daedalus

@@ -2,6 +2,7 @@
 
 namespace Mush\Daedalus\Service;
 
+use Doctrine\Common\Collections\Collection;
 use Mush\DAaedalus\Entity\Collection\DaedalusCollection;
 use Mush\Daedalus\Entity\Criteria\DaedalusCriteria;
 use Mush\Daedalus\Entity\Daedalus;
@@ -14,6 +15,8 @@ interface DaedalusServiceInterface
     public function findById(int $id): ?Daedalus;
 
     public function findByCriteria(DaedalusCriteria $criteria): DaedalusCollection;
+
+    public function findAvailableCharacterForDaedalus(Daedalus $daedalus): Collection;
 
     public function findAvailableDaedalus(): ?Daedalus;
 

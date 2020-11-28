@@ -126,11 +126,11 @@ class StatusService implements StatusServiceInterface
         }else{
             $pickedItem=$pickedItems->first();
             if(count($pickedItems)>1){
-                foreach($pickedItems) as $item){
+                foreach($pickedItems as $item){
                     if($pickedItem->getStatusByName($statusName)->getCreatedAt()<$item->getStatusByName($statusName)->getCreatedAt()){
-                        $pickedItem=$item
+                        $pickedItem=$item;
                     }
-                 }
+                 };
             }
             return $pickedItem;
         }

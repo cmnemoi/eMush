@@ -3,7 +3,7 @@
 namespace Mush\Status\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation\Timestampable as Gedmo;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Item\Entity\GameItem;
 use Mush\Player\Entity\Player;
 
@@ -22,21 +22,15 @@ use Mush\Player\Entity\Player;
  */
 class Status
 {
+
+    use TimestampableEntity;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer", length=255, nullable=false)
      */
     protected int $id;
-
-
-    /**
-     * @var date $createdAt
-     *
-     * @ODM\Date
-     * @Gedmo\Timestampable(on="create")
-     */
-    private $createdAt;
 
     /**
      * @ORM\Column(type="string", nullable=false)
@@ -61,11 +55,6 @@ class Status
     public function getId(): int
     {
         return $this->id;
-    }
-
-    public function getCreatedAt(): date
-    {
-        return $this->createdAt;
     }
 
     public function getName(): ?string

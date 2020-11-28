@@ -2,86 +2,55 @@
   <div class="main">
     <h1>Select a character</h1>
     <ul class="char-selection">
-      <li><a href="/#">
-        <div><img src="@/assets/images/char/body/jin_su.png"></div>
-        <span>Jin Su</span>
-      </a></li>
-      <li><a href="/#">
-        <div><img src="@/assets/images/char/body/frieda.png"></div>
-        <span>Frieda</span>
-      </a></li>
-      <li><a href="/#">
-        <div><img src="@/assets/images/char/body/kuan_ti.png"></div>
-        <span>Kuan Ti</span>
-      </a></li>
-      <li><a href="/#">
-        <div><img src="@/assets/images/char/body/janice.png"></div>
-        <span>Janice</span>
-      </a></li>
-      <li><a href="/#">
-        <div><img src="@/assets/images/char/body/roland.png"></div>
-        <span>Roland</span>
-      </a></li>
-      <li><a href="/#">
-        <div><img src="@/assets/images/char/body/hua.png"></div>
-        <span>Hua</span>
-      </a></li>
-      <li><a href="/#">
-        <div><img src="@/assets/images/char/body/paola.png"></div>
-        <span>paola</span>
-      </a></li>
-      <li><a href="/#">
-        <div><img src="@/assets/images/char/body/chao.png"></div>
-        <span>Chao</span>
-      </a></li>
-      <li><a href="/#">
-        <div><img src="@/assets/images/char/body/finola.png"></div>
-        <span>Finola</span>
-      </a></li>
-      <li><a href="/#">
-        <div><img src="@/assets/images/char/body/stephen.png"></div>
-        <span>Stephen</span>
-      </a></li>
-      <li><a href="/#">
-        <div><img src="@/assets/images/char/body/ian.png"></div>
-        <span>Ian</span>
-      </a></li>
-      <li><a href="/#">
-        <div><img src="@/assets/images/char/body/chun.png"></div>
-        <span>Chun</span>
-      </a></li>
-      <li><a href="/#">
-        <div><img src="@/assets/images/char/body/raluca.png"></div>
-        <span>Raluca</span>
-      </a></li>
-      <li><a href="/#">
-        <div><img src="@/assets/images/char/body/gioele.png"></div>
-        <span>Gioele</span>
-      </a></li>
-      <li><a href="/#">
-        <div><img src="@/assets/images/char/body/eleesha.png"></div>
-        <span>Eleesha</span>
-      </a></li>
-      <li><a href="/#">
-        <div><img src="@/assets/images/char/body/terrence.png"></div>
-        <span>Terrence</span>
-      </a></li>
-      <li><a href="/#">
-        <div><img src="@/assets/images/char/body/derek.png"></div>
-        <span>Derek</span>
-      </a></li>
-      <li><a href="/#">
-        <div><img src="@/assets/images/char/body/andie.png"></div>
-        <span>Andie</span>
-      </a></li>
+      <li v-for="(character, key) in characters" v-bind:key="key">
+        <a href="/#" @click="selectCharacter(character)">
+          <div><img :src=characterBody(character)></div>
+          <span>{{ character.name }}</span>
+        </a>
+      </li>
     </ul>
   </div>
 </template>
 
 <script>
+import ApiService from "@/services/api.service";
+import {characterEnum} from "@/enums/character";
+import PlayerService from "@/services/player.service";
+
 export default {
   name: 'CharSelection',
   props: {
+  },
+  data: () => {
+    return {
+      loading: false,
+      daedalusId: null,
+      characters: []
+    }
+  },
+  methods: {
+    characterBody: function(character) {
+      return characterEnum[character.key] ? characterEnum[character.key].body : require('@/assets/images/items/todo.jpg');
+    },
+    selectCharacter: function(character) {
+      PlayerService.selectCharacter(this.daedalusId, character.key)
+          .then(() => {
+            this.loading = false
+          })
+          .catch((error) => {
+            console.error(error);
+            this.loading = false;
+          })
+    },
+  },
+  beforeMount() {
+    this.loading = true;
+    ApiService.get('daedalus/available-characters')
+        .then((response) => {
+          this.daedalusId = response.data.daedalus;
+          this.characters = response.data.characters;
+          this.loading = false;
+        })
   }
 }
 </script>

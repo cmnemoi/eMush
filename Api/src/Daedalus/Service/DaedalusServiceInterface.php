@@ -15,5 +15,7 @@ interface DaedalusServiceInterface
 
     public function findByCriteria(DaedalusCriteria $criteria): DaedalusCollection;
 
+    public function findAvailableDaedalus(): ?Daedalus;
+
     public function createDaedalus(GameConfig $gameConfig): Daedalus;
 }

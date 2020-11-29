@@ -51,7 +51,7 @@ class Transplant extends Action
 
     public function canExecute(): bool
     {
-        return $this->player->getReachableItemByName(ItemEnum::HYDROPOT)->count() > 0 &&
+        return $this->player->getReachableItemsByName(ItemEnum::HYDROPOT)->count() > 0 &&
                     $this->player->canReachItem($this->item) &&
                     $this->item->getItem()->getItemType(ItemTypeEnum::FRUIT)
                     ;
@@ -61,7 +61,7 @@ class Transplant extends Action
     {
         $fruitType = $this->item->getItem()->getItemType(ItemTypeEnum::FRUIT);
 
-        $hydropot = $this->player->getReachableItemByName(ItemEnum::HYDROPOT)->first();
+        $hydropot = $this->player->getReachableItemsByName(ItemEnum::HYDROPOT)->first();
         $place = $hydropot->getRoom() ?? $hydropot->getPlayer();
 
         $plantItem = $this->gameItemService

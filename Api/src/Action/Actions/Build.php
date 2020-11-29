@@ -22,7 +22,7 @@ class Build extends Action
 {
     protected string $name = ActionEnum::BUILD;
 
-    private GameItem $item;
+    private GameItem $gameItem;
 
     private RoomLogServiceInterface $roomLogService;
     private GameItemServiceInterface $gameItemService;
@@ -66,7 +66,7 @@ class Build extends Action
         }
         //Check the availlability of the ingredients
         foreach ($blueprintType->getIngredients() as $itemName => $number) {
-            if ($this->player->getReachableItemByName($itemName)->count() < $number) {
+            if ($this->player->getReachableItemsByName($itemName)->count() < $number) {
                 return false;
             }
         }

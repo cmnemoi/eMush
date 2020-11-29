@@ -28,7 +28,7 @@ class Antisocial extends AbstractCycleHandler
 
         $player = $status->getPlayer();
 
-        if ($player->getRoom()->getPlayers()->count() > 2) {
+        if ($player->getRoom()->getPlayers()->count() > 1) {
             $playerEvent = new PlayerEvent($player, $dateTime);
             $actionModifier = new ActionModifier();
             $actionModifier->setMoralPointModifier(-1);

@@ -62,19 +62,21 @@ class Hyperfreeze extends Action
 
     public function canExecute(): bool
     {
-        return $this->gameItem->getItem()->getItemType(ItemTypeEnum::RATION) &&
-               $this->gameItem->getItem()->getItemType(ItemTypeEnum::RATION)->getIsPerishable() &&
-               $this->player->canReachItem($this->gameItem) &&
-               !$this->gameItemService
-                ->getOperationalItemByName(ToolItemEnum::SUPERFREEZER, $this->player, ReachEnum::SHELVE_NOT_HIDDEN)->isEmpty() &&
-             !$this->gameItem->getStatusByName(ItemStatusEnum::FROZEN)
-        ;
+        $rationType = $this->gameItem->getItem()->getItemType(ItemTypeEnum::RATION);
+
+        return $rationType &&
+            $rationType->isPerishable() &&
+            $this->player->canReachItem($this->gameItem) &&
+            !$this->gameItemService
+                ->getOperationalItemsByName(ToolItemEnum::SUPERFREEZER, $this->player, ReachEnum::SHELVE_NOT_HIDDEN)->isEmpty() &&
+            !$this->gameItem->getStatusByName(ItemStatusEnum::FROZEN)
+            ;
     }
 
     protected function applyEffects(): ActionResult
     {
         if ($this->gameItem->getItem()->getName() === GameRationEnum::COOKED_RATION ||
-           $this->gameItem->getItem()->getName() === GameRationEnum::ALIEN_STEAK) {
+            $this->gameItem->getItem()->getName() === GameRationEnum::ALIEN_STEAK) {
             $newItem = $this->gameItemService->createGameItemFromName(GameRationEnum::STANDARD_RATION, $this->player->getDaedalus());
             if ($this->player->getItems()->count() < $this->gameConfig->getMaxItemInInventory()) {
                 $newItem->setPlayer($this->player);
@@ -96,9 +98,9 @@ class Hyperfreeze extends Action
         } else {
             $frozenStatus = new Status();
             $frozenStatus
-                 ->setName(ItemStatusEnum::FROZEN)
-                 ->setVisibility(VisibilityEnum::PUBLIC)
-                 ->setGameItem($this->gameItem);
+                ->setName(ItemStatusEnum::FROZEN)
+                ->setVisibility(VisibilityEnum::PUBLIC)
+                ->setGameItem($this->gameItem);
 
             $this->gameItem->addStatus($frozenStatus);
             $this->gameItemService->persist($this->gameItem);

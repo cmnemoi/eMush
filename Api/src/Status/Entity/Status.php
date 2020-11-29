@@ -4,7 +4,7 @@ namespace Mush\Status\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Mush\Item\Entity\ConsumableModifier;
+use Mush\Item\Entity\ConsumableEffect;
 use Mush\Item\Entity\GameItem;
 use Mush\Player\Entity\Player;
 
@@ -53,9 +53,9 @@ class Status
     protected ?GameItem $gameItem = null;
 
     /**
-     * @ORM\OneToOne(targetEntity="Mush\Item\Entity\ConsumableModifier", cascade={"ALL"}, orphanRemoval=true)
+     * @ORM\OneToOne(targetEntity="Mush\Item\Entity\ConsumableEffect", cascade={"ALL"}, orphanRemoval=true)
      */
-    protected ?ConsumableModifier $consumableModifier = null;
+    protected ?ConsumableEffect $consumableModifier = null;
 
     public function getId(): int
     {

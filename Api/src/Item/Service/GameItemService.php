@@ -2,10 +2,9 @@
 
 namespace Mush\Item\Service;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Game\Service\RandomServiceInterface;
 use Mush\Item\Entity\GameItem;
 use Mush\Item\Entity\Item;
 use Mush\Item\Entity\Items\Charged;
@@ -24,7 +23,6 @@ class GameItemService implements GameItemServiceInterface
     private EntityManagerInterface $entityManager;
     private GameItemRepository $repository;
     private ItemServiceInterface $itemService;
-    private RandomServiceInterface $randomService;
     private StatusServiceInterface $statusService;
     private ItemEffectServiceInterface $itemEffectService;
 
@@ -32,14 +30,12 @@ class GameItemService implements GameItemServiceInterface
         EntityManagerInterface $entityManager,
         GameItemRepository $repository,
         ItemServiceInterface $itemService,
-        RandomServiceInterface $randomService,
         StatusServiceInterface $statusService,
         ItemEffectServiceInterface $itemEffectService
     ) {
         $this->entityManager = $entityManager;
         $this->repository = $repository;
         $this->itemService = $itemService;
-        $this->randomService = $randomService;
         $this->statusService = $statusService;
         $this->itemEffectService = $itemEffectService;
     }
@@ -117,18 +113,20 @@ class GameItemService implements GameItemServiceInterface
     }
 
     //Implement accessibility to item (for tool and gear)
-    public function getOperationalItemByName(string $itemName, Player $player, string $reach): ArrayCollection
+    public function getOperationalItemsByName(string $itemName, Player $player, string $reach): Collection
     {
         //reach can be set to inventory, shelve, shelve only or any room of the Daedalus
-        return $reachableItems=$player->getReachableItemByName($itemName, $reach)->filter(isOperational($gameItem));
+        return $reachableItems = $player
+            ->getReachableItemsByName($itemName, $reach)
+            ->filter(fn (GameItem $gameItem) => $this->isOperational($gameItem))
+            ;
     }
-
-
 
     public function isOperational(GameItem $gameItem): bool
     {
         return !($gameItem->getStatusByName(ItemStatusEnum::BROKEN) ||
-               ($gameItem->getStatusByName(ItemStatusEnum::CHARGE) &&
-                $gameItem->getStatusByName(ItemStatusEnum::CHARGE)->getCharge() > 0));
+            (($chargedType = $gameItem->getStatusByName(ItemTypeEnum::CHARGED)) &&
+                $chargedType->getCharge() > 0)
+        );
     }
 }

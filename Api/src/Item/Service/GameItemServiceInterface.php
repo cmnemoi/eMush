@@ -2,7 +2,7 @@
 
 namespace Mush\Item\Service;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Item\Entity\GameItem;
 use Mush\Item\Entity\Item;
@@ -20,7 +20,7 @@ interface GameItemServiceInterface
 
     public function createGameItem(Item $item, Daedalus $daedalus): GameItem;
 
-    public function getOperationalItemByName(string $itemName, Player $player, string $reach): ArrayCollection;
+    public function getOperationalItemsByName(string $itemName, Player $player, string $reach): Collection;
 
     public function isOperational(GameItem $gameItem): bool;
 }

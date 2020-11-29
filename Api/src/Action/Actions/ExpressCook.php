@@ -9,8 +9,8 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Item\Entity\GameItem;
-use Mush\Item\Enum\ReachEnum;
 use Mush\Item\Enum\GameRationEnum;
+use Mush\Item\Enum\ReachEnum;
 use Mush\Item\Enum\ToolItemEnum;
 use Mush\Item\Service\GameItemServiceInterface;
 use Mush\Player\Entity\Player;
@@ -64,11 +64,11 @@ class ExpressCook extends Action
 
     public function canExecute(): bool
     {
-        return ($this->gameItem->getItem()->getName()===GameRationEnum::STANDARD_RATION ||
+        return ($this->gameItem->getItem()->getName() === GameRationEnum::STANDARD_RATION ||
              $this->gameItem->getStatusByName(ItemStatusEnum::FROZEN)) &&
              $this->player->canReachItem($this->gameItem) &&
              !$this->gameItemService
-                    ->getOperationalItemByName(ToolItemEnum::MICROWAVE, $this->player, ReachEnum::SHELVE_NOT_HIDDEN)->isEmpty()
+                    ->getOperationalItemsByName(ToolItemEnum::MICROWAVE, $this->player, ReachEnum::SHELVE_NOT_HIDDEN)->isEmpty()
         ;
     }
 
@@ -100,7 +100,7 @@ class ExpressCook extends Action
             $this->gameItemService->persist($this->gameItem);
         }
 
-        $microwave = $this->gameItemService->getOperationalItemByName(
+        $microwave = $this->gameItemService->getOperationalItemsByName(
              ToolItemEnum::MICROWAVE,
              $this->player,
              ReachEnum::SHELVE_NOT_HIDDEN

@@ -37,11 +37,13 @@ class RationCycleHandler extends AbstractCycleHandler
         if (!$gameRation instanceof GameItem) {
             return;
         }
-        $rationType = $gameRation->getItem()->getItemType(ItemTypeEnum::RATION);
+        $rationType = $gameRation->getItem()->getRationsType();
+
         if (null === $rationType || !$rationType instanceof Ration) {
             return;
         }
 
+        //@TODO destroy perishable item accroding to NERON BIOS
         $this->handleStatus($gameRation, $rationType);
 
         $this->gameItemService->persist($gameRation);
@@ -52,21 +54,24 @@ class RationCycleHandler extends AbstractCycleHandler
         //If ration is not perishable or frozen oe decomposing do nothing
         if (!$ration->isPerishable() ||
             $gameRation->getStatuses()->exists(
-                fn (Status $status) => (
+                fn (int $key, Status $status) => (
                 in_array($status->getName(), [ItemStatusEnum::DECOMPOSING, ItemStatusEnum::FROZEN]))
             )
         ) {
             return;
         }
 
-        if ($gameRation->getStatusByName(ItemStatusEnum::UNSTABLE)) {
+        if ($currentStatus = $gameRation->getStatusByName(ItemStatusEnum::UNSTABLE)) {
+            $gameRation->removeStatus($currentStatus);
             $nextStatus = ItemStatusEnum::HAZARDOUS;
-        } elseif ($gameRation->getStatusByName(ItemStatusEnum::HAZARDOUS)) {
+        } elseif ($currentStatus = $gameRation->getStatusByName(ItemStatusEnum::HAZARDOUS)) {
+            $gameRation->removeStatus($currentStatus);
             $nextStatus = ItemStatusEnum::DECOMPOSING;
         } else {
             $nextStatus = ItemStatusEnum::UNSTABLE;
         }
 
-        $this->statusService->createCoreItemStatus($nextStatus, $gameRation, VisibilityEnum::HIDDEN);
+        $status = $this->statusService->createCoreItemStatus($nextStatus, $gameRation, VisibilityEnum::HIDDEN);
+        $gameRation->addStatus($status);
     }
 }

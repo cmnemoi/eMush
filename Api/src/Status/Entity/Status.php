@@ -22,7 +22,6 @@ use Mush\Player\Entity\Player;
  */
 class Status
 {
-
     use TimestampableEntity;
 
     /**

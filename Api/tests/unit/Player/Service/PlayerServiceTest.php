@@ -119,9 +119,10 @@ class PlayerServiceTest extends TestCase
             ->setSkills(['some skills'])
         ;
         $this->charactersConfig->add($characterConfig);
+        $this->charactersConfig->add($characterConfig);
+        $this->charactersConfig->add($characterConfig);
 
         $this->gameConfig
-            ->setMaxPlayer(3)
             ->setCharactersConfig($this->charactersConfig)
         ;
 

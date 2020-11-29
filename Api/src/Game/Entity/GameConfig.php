@@ -48,11 +48,6 @@ class GameConfig
     /**
      * @ORM\Column(type="integer", length=255, nullable=false)
      */
-    private int $maxPlayer;
-
-    /**
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
     private int $nbMush;
 
     /**
@@ -175,14 +170,7 @@ class GameConfig
 
     public function getMaxPlayer(): int
     {
-        return $this->maxPlayer;
-    }
-
-    public function setMaxPlayer(int $maxPlayer): GameConfig
-    {
-        $this->maxPlayer = $maxPlayer;
-
-        return $this;
+        return $this->charactersConfig->count();
     }
 
     public function getNbMush(): int

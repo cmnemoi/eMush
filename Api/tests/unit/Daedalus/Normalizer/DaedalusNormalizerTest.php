@@ -18,7 +18,6 @@ class DaedalusNormalizerTest extends TestCase
     /** @var GameConfig */
     private GameConfig $gameConfig;
 
-
     /**
      * @before
      */

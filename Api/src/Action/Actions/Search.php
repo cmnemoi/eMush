@@ -11,10 +11,10 @@ use Mush\Item\Entity\GameItem;
 use Mush\Item\Service\GameItemServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\ItemStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Search extends Action
@@ -27,7 +27,6 @@ class Search extends Action
     private GameItemServiceInterface $gameItemService;
     private PlayerServiceInterface $playerService;
     private StatusServiceInterface $statusService;
-
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,

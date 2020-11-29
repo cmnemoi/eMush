@@ -1,4 +1,0 @@
-parameters:
-  cycle_manager:
-    Mush\Item\Entity\Items\Fruit: Mush\Item\CycleHandler\FruitCycleHandler
-    Mush\Item\Entity\Items\Plant: Mush\Item\CycleHandler\PlantCycleHandler

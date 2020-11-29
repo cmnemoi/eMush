@@ -15,8 +15,8 @@ class ItemStatusEnum
     public const DECOMPOSING = 'decomposing';
     public const FROZEN = 'frozen';
     public const CONTAMINATED = 'contaminated';
-    public const PLANT_YOUNG = 'plant_Young';
-    public const PLANT_THIRSTY = 'plant_Thirsty';
-    public const PLANT_DRIED_OUT = 'plant_Dried_Out';
-    public const PLANT_DISEASED = 'plant_Diseased';
+    public const PLANT_YOUNG = 'plant_young';
+    public const PLANT_THIRSTY = 'plant_thirsty';
+    public const PLANT_DRIED_OUT = 'plant_dried_Out';
+    public const PLANT_DISEASED = 'plant_diseased';
 }

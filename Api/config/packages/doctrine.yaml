@@ -58,3 +58,9 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Status/Entity'
                 prefix: 'Mush\Status\Entity'
                 alias: Status
+            Action:
+                is_bundle: false
+                type: annotation
+                dir: '%kernel.project_dir%/src/Action/Entity'
+                prefix: 'Mush\Action\Entity'
+                alias: Action

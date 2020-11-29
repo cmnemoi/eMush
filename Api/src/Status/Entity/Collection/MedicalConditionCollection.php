@@ -14,13 +14,13 @@ class MedicalConditionCollection extends ArrayCollection
          * @var MedicalCondition $medicalCondition
          */
         foreach ($this->getIterator() as $medicalCondition) {
-            $medicalConditionConfig = $medicalCondition->getMedicalConditionConfig();
+            $modifier = $medicalCondition->getMedicalConditionConfig()->getActionModifier();
             if ($actionCost->getMoralPointCost() > 0) {
-                $actionCost->addMoralPointPointCost($medicalConditionConfig->getMoralPointModifier());
+                $actionCost->addMoralPointPointCost($modifier->getMoralPointModifier());
             } elseif ($actionCost->getMovementPointCost() > 0) {
-                $actionCost->addMovementPointCost($medicalConditionConfig->getMovementPointModifier());
-            } else { //If the action do not require moral or movement point then it will require action point
-                $actionCost->addActionPointCost($medicalConditionConfig->getActionPointModifier());
+                $actionCost->addMovementPointCost($modifier->getMovementPointModifier());
+            } elseif ($modifier->getMoralPointModifier() > 0) {
+                $actionCost->addActionPointCost($modifier->getActionPointModifier());
             }
         }
 

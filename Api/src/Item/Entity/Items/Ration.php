@@ -201,7 +201,7 @@ class Ration extends ItemType
         return $this;
     }
 
-    public function getIsPerishable(): bool
+    public function isPerishable(): bool
     {
         return $this->isPerishable;
     }

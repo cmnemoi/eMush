@@ -18,3 +18,7 @@ services:
   Mush\Status\ChargeStrategies\:
     resource: '../ChargeStrategies/'
     tags: ['mush.charge_strategy']
+
+  Mush\Status\CycleHandler\:
+    resource: '../CycleHandler/'
+    tags: ['mush.status.cycle_handler']

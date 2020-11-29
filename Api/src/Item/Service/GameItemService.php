@@ -95,7 +95,7 @@ class GameItemService implements GameItemServiceInterface
         $plantStatus = $this->statusService->createChargeItemStatus(
             ItemStatusEnum::PLANT_YOUNG,
             $gameItem,
-            ChargeStrategyTypeEnum::PLANT,
+            ChargeStrategyTypeEnum::GROWING_PLANT,
             0,
             $this->itemEffectService->getPlantEffect($plant, $daedalus)->getMaturationTime()
         );

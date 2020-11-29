@@ -1,6 +1,3 @@
-imports:
-  - { resource: ./cycleManager.yaml }
-
 services:
   _defaults:
     autowire: true      # Automatically injects dependencies in your services.
@@ -19,12 +16,4 @@ services:
 
   Mush\Item\CycleHandler\:
     resource: '../CycleHandler/'
-    public: true
-
-  Mush\Item\Event\CycleSubscriber:
-    arguments:
-      - '%cycle_manager%'
-
-  Mush\Item\Event\DaySubscriber:
-      arguments:
-        - '%cycle_manager%'
+    tags: ['mush.item.cycle_handler']

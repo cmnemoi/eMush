@@ -16,7 +16,6 @@ class GameConfigFixtures extends Fixture
 
         $gameConfig
             ->setName('default')
-            ->setMaxPlayer(16)
             ->setNbMush(2)
             ->setCycleLength(3)
             ->setTimeZone('Europe/Paris')

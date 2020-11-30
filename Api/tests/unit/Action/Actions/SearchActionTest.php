@@ -68,7 +68,6 @@ class SearchActionTest extends TestCase
 
     public function testExecute()
     {
-        $daedalus = new Daedalus();
         $room = new Room();
 
         $player = $this->createPlayer(new Daedalus(), $room);

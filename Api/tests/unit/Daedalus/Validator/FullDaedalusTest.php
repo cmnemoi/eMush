@@ -7,6 +7,7 @@ use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Validator\FullDaedalus;
 use Mush\Daedalus\Validator\FullDaedalusValidator;
+use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\GameConfigService;
 use Mush\Player\Entity\Player;
@@ -49,7 +50,7 @@ class FullDaedalusTest extends TestCase
                 ]));
 
         $gameConfig = new GameConfig();
-        $gameConfig->setMaxPlayer(2);
+        $gameConfig->setCharactersConfig(new ArrayCollection([new CharacterConfig(), new CharacterConfig()]));
 
         $this->gameConfigService->shouldReceive('getConfig')->andReturn($gameConfig);
 
@@ -70,7 +71,7 @@ class FullDaedalusTest extends TestCase
                 ]));
 
         $gameConfig = new GameConfig();
-        $gameConfig->setMaxPlayer(1);
+        $gameConfig->setCharactersConfig(new ArrayCollection([new CharacterConfig()]));
 
         $this->gameConfigService->shouldReceive('getConfig')->andReturn($gameConfig);
 

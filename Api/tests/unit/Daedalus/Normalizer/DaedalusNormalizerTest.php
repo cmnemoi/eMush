@@ -13,10 +13,10 @@ use PHPUnit\Framework\TestCase;
 class DaedalusNormalizerTest extends TestCase
 {
     private DaedalusNormalizer $normalizer;
-    /** @var GameConfigService | Mockery\Mock */
-    private GameConfig $gameConfig;
     /** @var CycleServiceInterface | Mockery\Mock */
-    private CycleService $cycleService;
+    private CycleServiceInterface $cycleService;
+    /** @var GameConfig */
+    private GameConfig $gameConfig;
 
     /**
      * @before
@@ -24,12 +24,13 @@ class DaedalusNormalizerTest extends TestCase
     public function before()
     {
         $gameConfigService = Mockery::mock(GameConfigService::class);
-        $cycleService = Mockery::mock(CycleServiceInterface::class);
+        $this->cycleService = Mockery::mock(CycleServiceInterface::class);
 
         $this->gameConfig = new GameConfig();
 
         $gameConfigService->shouldReceive('getConfig')->andReturn($this->gameConfig)->once();
-        $this->normalizer = new DaedalusNormalizer($cycleService, $gameConfigService);
+
+        $this->normalizer = new DaedalusNormalizer($this->cycleService, $gameConfigService);
     }
 
     /**
@@ -42,6 +43,8 @@ class DaedalusNormalizerTest extends TestCase
 
     public function testNormalizer()
     {
+        $nextCycle = new \DateTime();
+        $this->cycleService->shouldReceive('getDateStartNextCycle')->andReturn($nextCycle);
         $daedalus = Mockery::mock(Daedalus::class);
         $daedalus->shouldReceive('getId')->andReturn(2);
         $daedalus->makePartial();
@@ -55,8 +58,6 @@ class DaedalusNormalizerTest extends TestCase
             ->setShield(100)
         ;
 
-        $this->cycleService->souldReceive('getDateStartNextCycle')->andReturn(date('2020-11-27 12:0:0'))->once();
-
         $data = $this->normalizer->normalize($daedalus);
 
         $expected = [
@@ -69,6 +70,7 @@ class DaedalusNormalizerTest extends TestCase
             'shield' => 100,
             'createdAt' => $daedalus->getCreatedAt(),
             'updatedAt' => $daedalus->getUpdatedAt(),
+            'nextCycle' => $nextCycle->format(\DateTime::ATOM),
         ];
 
         $this->assertIsArray($data);

@@ -17,8 +17,11 @@ const getters = {
 };
 
 const actions = {
+    async storePlayer({ commit }, {player}) {
+        console.log(player)
+        commit('loadSuccess', player)
+    },
     async loadPlayer({ commit }, {playerId}) {
-
         commit('loadRequest');
 
         try {
@@ -34,7 +37,6 @@ const actions = {
             return false
         }
     },
-
     async reloadPlayer({ commit, state }) {
         commit('reloadRequest');
         try {

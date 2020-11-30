@@ -35,10 +35,46 @@
                 </target>
             </segment>
         </unit>
+        <unit id="Derek">
+            <segment id="name">
+                <source>derek.name</source>
+                <target>Derek</target>
+            </segment>
+            <segment id="fullname">
+                <source>derek.fullname</source>
+                <target>Derek Hogan</target>
+            </segment>
+            <segment id="age">
+                <source>derek.age</source>
+                <target>à peine plus de 39 ans</target>
+            </segment>
+            <segment id="employment">
+                <source>derek.employment</source>
+                <target>Ex-sergent de la FDS</target>
+            </segment>
+            <segment id="abstract">
+                <source>derek.abstract</source>
+                <target>Derek Hogan est assigné à la sécurité du Daedalus. Robuste et sûr de lui, il sera un atout conséquent pour la réussite de cette mission extrême. Son passé est une succession d'évènements plus incroyables les uns que les autres. Derek a tout connu, les champs de bataille sur Sol, les missions suicides de Tau-Ceti... Pourtant il recherche toujours l'âme soeur. Depuis le départ précipité de son foyer, Derek a voué son existence à la gent féminine, qui lui rend bien mal.</target>
+            </segment>
+            <segment id="biography">
+                <source>derek.biography</source>
+                <target>
+- 3109 : Naissance sur Terre.
+- 3121 : Derek se coupe pour la première fois en voulant raser son duvet naissant, il en garde la cicatrice depuis et jurera à qui veut l'entendre qu'il ramène cette blessure des champs de bataille de Tau-Ceti.
+- 3139 : Derek s'engage à la FDS (Féderation de Defense du sytème Sol) après avoir reçu un prospectus de propagande. Sa mère lui interdit de partir du domicile, Derek décide de couper les ponts, désormais il vole en solo.
+- 3145 : Derek gravit petit à petit les échelons, entrainé durant son enfance à être le larbin de service, il ne tarde pas à se faire remarquer par sa hiérarchie. Il est envoyé sur Sol et participe à la grande bataille. Eclaireur sur le terrain, il surprendra sa hiérarchie en prenant à lui seul une base avancée ennemie. De son propre aveu, il n'aurait pas vu la tour de communication avant de se crasher dessus... Récompensé pour sa bravoure sur le champ de bataille, Derek se voit promu sergent.
+- 3146 : Après quelques missions de peu d'envergure, Derek est muté sur Xyloph-17 pour superviser l'expédition Magellan, il doit rapporter les moindres faits et gestes des scientifiques oeuvrant sur l'orbite de Jupiter. Il rencontre Chao Wang, mais n'entretient aucun rapport avec, lui préférant la compagnie des passagères de Xyloph-17. Pauvre Derek, ses rapports de piètre qualité et le contact de plus en plus problématique avec le personnel féminin de la station lui valent un retour sur le terrain.
+- 3151 : Derek exécute de petites missions et réussi toujours à les mener à bien. Ses collègues se plaindront souvent de ses prises de décisions lamentables, mais reconnaîtront que le bonhomme a de la chance. Il parvient avec une petite escouade à secourir Wang Chao précédemment envoyé sur Encelade. Dans les hautes sphères de la FDS, certains voient en lui une étoile montante, d'autres craignent ses méthodes trop hasardeuses. Hélas, ces derniers sont plus nombreux et mieux gradés, il se retrouve donc sergent instructeur dans une des nombreuses écoles affiliées à la FDS.
+- 3151 : Devant les résultats catastrophiques des étudiants placés sous la responsabilité du sergent instructeur Hogan, celui-ci doit revenir sur le terrain.
+- 3153 : Le commandant Jin-su prend Derek sous son aile et ne tarde pas à lui confier une mission officieuse d'extraction. Il se retrouve malheureusement dans l'incapacité de désamorcer le système de sécurité du domicile de la scientifique Finola Keagan. Celle-ci, ayant laissé un objet trop extrême dans son coffre, provoque la perte de connaissance du sergent. Son binôme dans cette mission, Chao Wang, meurt, poursuivi par une meute de vigiles quadrupèdes. Ce dernier aurait eu mal aux fesses avant de succomber de ses blessures.
+- 3154 : Derek parvient à monter à bord du Daedalus en compagnie de 15 autres membres de l'équipage. Plus jamais il ne sera trimballé par la FDS !
+                </target>
+            </segment>
+        </unit>
         <unit id="Eleesha">
             <segment id="name">
                 <source>eleesha.name</source>
-                <target>Andie</target>
+                <target>Eleesha</target>
             </segment>
             <segment id="fullname">
                 <source>eleesha.fullname</source>

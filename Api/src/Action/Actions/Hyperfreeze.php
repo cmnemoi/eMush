@@ -96,7 +96,7 @@ class Hyperfreeze extends Action
         } else {
             $frozenStatus = new Status();
             $frozenStatus
-                 ->setName(ItemStatusEnum::HIDDEN)
+                 ->setName(ItemStatusEnum::FROZEN)
                  ->setVisibility(VisibilityEnum::PUBLIC)
                  ->setGameItem($this->gameItem);
 

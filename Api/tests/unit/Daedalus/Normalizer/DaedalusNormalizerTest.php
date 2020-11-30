@@ -3,13 +3,11 @@
 namespace Mush\Test\Daedalus\Normalizer;
 
 use Mockery;
-use DateTime;
-
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Normalizer\DaedalusNormalizer;
 use Mush\Game\Entity\GameConfig;
-use Mush\Game\Service\GameConfigService;
 use Mush\Game\Service\CycleServiceInterface;
+use Mush\Game\Service\GameConfigService;
 use PHPUnit\Framework\TestCase;
 
 class DaedalusNormalizerTest extends TestCase
@@ -19,7 +17,6 @@ class DaedalusNormalizerTest extends TestCase
     private GameConfig $gameConfig;
     /** @var CycleServiceInterface | Mockery\Mock */
     private CycleService $cycleService;
-
 
     /**
      * @before

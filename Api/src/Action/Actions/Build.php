@@ -51,16 +51,16 @@ class Build extends Action
             throw new \InvalidArgumentException('Invalid item parameter');
         }
         $this->player = $player;
-        $this->item = $item;
+        $this->gameItem = $item;
     }
 
     public function canExecute(): bool
     {
-        $blueprintType = $this->item->getItem()->getItemType(ItemTypeEnum::BLUEPRINT);
+        $blueprintType = $this->gameItem->getItem()->getItemType(ItemTypeEnum::BLUEPRINT);
         //Check that the item is a blueprint and is reachable
         if (
             $blueprintType === null ||
-            !$this->player->canReachItem($this->item)
+            !$this->player->canReachItem($this->gameItem)
         ) {
             return false;
         }
@@ -77,7 +77,7 @@ class Build extends Action
     protected function applyEffects(): ActionResult
     {
         /** @var Blueprint $blueprintType */
-        $blueprintType = $this->item->getItem()->getItemType(ItemTypeEnum::BLUEPRINT);
+        $blueprintType = $this->gameItem->getItem()->getItemType(ItemTypeEnum::BLUEPRINT);
 
         // add the item in the player inventory or in the room if the inventory is full
         $blueprintObject = $this->gameItemService->createGameItem(
@@ -112,12 +112,12 @@ class Build extends Action
         }
 
         // remove the blueprint
-        $this->item
+        $this->gameItem
             ->setRoom(null)
             ->setPlayer(null)
         ;
 
-        $this->gameItemService->delete($this->item);
+        $this->gameItemService->delete($this->gameItem);
 
         $this->playerService->persist($this->player);
 

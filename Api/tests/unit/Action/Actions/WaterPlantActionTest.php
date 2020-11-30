@@ -2,12 +2,9 @@
 
 namespace Mush\Test\Action\Actions;
 
-
 use Doctrine\Common\Collections\ArrayCollection;
-
 use Mockery;
 use Mush\Action\ActionResult\Error;
-use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Action;
 use Mush\Action\Actions\WaterPlant;
@@ -15,7 +12,6 @@ use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Service\SuccessRateServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\GameConfig;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Item\Entity\GameItem;
@@ -26,10 +22,8 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
-use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\ItemStatusEnum;
-use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -95,8 +89,6 @@ class WaterPlantActionTest extends TestCase
 
         $plant = new Plant();
 
-
-
         $thirsty = new Status();
         $thirsty
             ->setName(ItemStatusEnum::PLANT_THIRSTY)
@@ -108,7 +100,6 @@ class WaterPlantActionTest extends TestCase
         $actionParameter = new ActionParameters();
         $actionParameter->setItem($gameItem);
         $this->action->loadParameters($player, $actionParameter);
-
 
         //Not a plant
         $result = $this->action->execute();
@@ -137,7 +128,6 @@ class WaterPlantActionTest extends TestCase
         $plant = new Plant();
         $item->setTypes(new ArrayCollection([$plant]));
 
-
         $thirsty = new Status();
         $thirsty
             ->setName(ItemStatusEnum::PLANT_THIRSTY)
@@ -145,17 +135,14 @@ class WaterPlantActionTest extends TestCase
 
         $gameItem->addStatus($thirsty);
 
-
         $player = $this->createPlayer(new Daedalus(), $room);
         $actionParameter = new ActionParameters();
         $actionParameter->setItem($gameItem);
         $this->action->loadParameters($player, $actionParameter);
 
-
         $this->roomLogService->shouldReceive('createItemLog')->once();
         $this->itemService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
-
 
         $result = $this->action->execute();
 
@@ -165,7 +152,6 @@ class WaterPlantActionTest extends TestCase
         $this->assertCount(0, $player->getStatuses());
         $this->assertEquals(9, $player->getActionPoint());
 
-
         $driedOut = new Status();
         $driedOut
             ->setName(ItemStatusEnum::PLANT_DRIED_OUT)
@@ -173,7 +159,6 @@ class WaterPlantActionTest extends TestCase
 
         $gameItem->removeStatus($thirsty);
         $gameItem->addStatus($driedOut);
-
 
         $this->roomLogService->shouldReceive('createItemLog')->once();
         $this->itemService->shouldReceive('persist');
@@ -185,8 +170,6 @@ class WaterPlantActionTest extends TestCase
         $this->assertCount(1, $room->getItems());
         $this->assertCount(0, $room->getItems()->first()->getStatuses());
         $this->assertCount(0, $player->getStatuses());
-
-
     }
 
     private function createPlayer(Daedalus $daedalus, Room $room): Player

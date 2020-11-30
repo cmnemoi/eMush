@@ -2,6 +2,7 @@
 
 namespace Mush\Item\Service;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Service\RandomServiceInterface;
@@ -12,6 +13,7 @@ use Mush\Item\Entity\Items\Plant;
 use Mush\Item\Entity\ItemType;
 use Mush\Item\Enum\ItemTypeEnum;
 use Mush\Item\Repository\GameItemRepository;
+use Mush\Player\Entity\Player;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\ItemStatusEnum;
 use Mush\Status\Enum\StatusEnum;
@@ -112,5 +114,54 @@ class GameItemService implements GameItemServiceInterface
         );
 
         return $gameItem;
+    }
+
+    //Implement accessibility to item (for tool and gear)
+    public function canUseItemByName(string $itemName, Player $player, Daedalus $daedalus, string $reach): ArrayCollection
+    {
+        $availableItems = new ArrayCollection();
+        //reach can be set to inventory, shelve, shelve only or any room of the Daedalus
+        if ($reach === ReachEnum::INVENTORY) {
+            if ($player->hasItemByName($itemName)) {
+                foreach ($player->getItems()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $itemName) as $gameItem) {
+                    if (isOperational($gameItem)) {
+                        $availableItems->add($gameItem);
+                    }
+                }
+            }
+        } elseif ($reach === ReachEnum::SHELVE_NOT_HIDDEN) {
+            if ($player->canReachItem($itemName)) {
+                foreach ($player->getReachableItemByName(itemName) as $gameItem) {
+                    if (isOperational($gameItem)) {
+                        $availableItems->add($gameItem);
+                    }
+                }
+            }
+        } elseif ($reach === ReachEnum::SHELVE) {
+            if (!$player->getRoom()->getItems()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $itemName)->isEmpty()) {
+                foreach ($player->getRoom()->getItems()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $itemName) as $gameItem) {
+                    if (isOperational($gameItem)) {
+                        $availableItems->add($gameItem);
+                    }
+                }
+            }
+        } else {
+            if (!$daedalus->getRoomByName($reach)->getItems()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $itemName)->isEmpty()) {
+                foreach ($daedalus->getRoomByName($reach)->getItems()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $itemName) as $gameItem) {
+                    if (isOperational($gameItem)) {
+                        $availableItems->add($gameItem);
+                    }
+                }
+            }
+        }
+
+        return $availableItems;
+    }
+
+    public function isOperational(GameItem $gameItem): bool
+    {
+        return !($gameItem->getStatusByName(ItemStatusEnum::BROKEN) ||
+               ($gameItem->getStatusByName(ItemStatusEnum::CHARGE) &&
+                $gameItem->getStatusByName(ItemStatusEnum::CHARGE)->getCharge() > 0));
     }
 }

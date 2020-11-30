@@ -7,17 +7,14 @@ use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Item\Entity\GameItem;
-use Mush\Item\Entity\Collection\ItemConfigCollection;
 use Mush\Item\Service\GameItemServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\ItemStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Search extends Action
@@ -30,7 +27,6 @@ class Search extends Action
     private GameItemServiceInterface $gameItemService;
     private PlayerServiceInterface $playerService;
     private StatusServiceInterface $statusService;
-
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
@@ -67,11 +63,10 @@ class Search extends Action
 
             $hiddenStatus = $this->itemFound->getStatusByName(ItemStatusEnum::HIDDEN);
 
-            $hiddenBy=$hiddenStatus->getPlayer();
+            $hiddenBy = $hiddenStatus->getPlayer();
             $this->itemFound->removeStatus($hiddenStatus);
 
             $hiddenBy->removeStatus($hiddenStatus);
-
 
             $this->playerService->persist($hiddenBy);
             $this->gameItemService->persist($this->itemFound);

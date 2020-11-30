@@ -141,6 +141,11 @@ class Daedalus
         return $this->rooms;
     }
 
+    public function getRoomByName(string $name): Room
+    {
+        return $this->getRooms()->filter(fn (Room $room) => $room->getName() === $name);
+    }
+
     public function setRooms(Collection $rooms): Daedalus
     {
         $this->rooms = $rooms;

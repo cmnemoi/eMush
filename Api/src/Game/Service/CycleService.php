@@ -77,7 +77,6 @@ class CycleService implements CycleServiceInterface
         ;
     }
 
-
     private function getNumberOfCycleElapsed(DateTime $start, DateTime $end): int
     {
         $startCycle = $this->getCycleFromDate($start);

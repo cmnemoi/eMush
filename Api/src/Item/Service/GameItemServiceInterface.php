@@ -20,7 +20,7 @@ interface GameItemServiceInterface
 
     public function createGameItem(Item $item, Daedalus $daedalus): GameItem;
 
-    public function canUseItemByName(string $itemName, Player $player, Daedalus $daedalus, string $reach): ArrayCollection;
+    public function getOperationalItemByName(string $itemName, Player $player, string $reach): ArrayCollection;
 
     public function isOperational(GameItem $gameItem): bool;
 }

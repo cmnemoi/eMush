@@ -117,46 +117,13 @@ class GameItemService implements GameItemServiceInterface
     }
 
     //Implement accessibility to item (for tool and gear)
-    public function canUseItemByName(string $itemName, Player $player, Daedalus $daedalus, string $reach): ArrayCollection
+    public function getOperationalItemByName(string $itemName, Player $player, string $reach): ArrayCollection
     {
-        $availableItems = new ArrayCollection();
         //reach can be set to inventory, shelve, shelve only or any room of the Daedalus
-        if ($reach === ReachEnum::INVENTORY) {
-            if ($player->hasItemByName($itemName)) {
-                foreach ($player->getItems()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $itemName) as $gameItem) {
-                    if (isOperational($gameItem)) {
-                        $availableItems->add($gameItem);
-                    }
-                }
-            }
-        } elseif ($reach === ReachEnum::SHELVE_NOT_HIDDEN) {
-            if ($player->canReachItem($itemName)) {
-                foreach ($player->getReachableItemByName(itemName) as $gameItem) {
-                    if (isOperational($gameItem)) {
-                        $availableItems->add($gameItem);
-                    }
-                }
-            }
-        } elseif ($reach === ReachEnum::SHELVE) {
-            if (!$player->getRoom()->getItems()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $itemName)->isEmpty()) {
-                foreach ($player->getRoom()->getItems()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $itemName) as $gameItem) {
-                    if (isOperational($gameItem)) {
-                        $availableItems->add($gameItem);
-                    }
-                }
-            }
-        } else {
-            if (!$daedalus->getRoomByName($reach)->getItems()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $itemName)->isEmpty()) {
-                foreach ($daedalus->getRoomByName($reach)->getItems()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $itemName) as $gameItem) {
-                    if (isOperational($gameItem)) {
-                        $availableItems->add($gameItem);
-                    }
-                }
-            }
-        }
-
-        return $availableItems;
+        return $reachableItems=$player->getReachableItemByName($itemName, $reach)->filter(isOperational($gameItem));
     }
+
+
 
     public function isOperational(GameItem $gameItem): bool
     {

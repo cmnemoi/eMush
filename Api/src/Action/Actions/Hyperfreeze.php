@@ -66,7 +66,7 @@ class Hyperfreeze extends Action
                $this->gameItem->getItem()->getItemType(ItemTypeEnum::RATION)->getIsPerishable() &&
                $this->player->canReachItem($this->gameItem) &&
                !$this->gameItemService
-                ->canUseItemByName(ToolItemEnum::SUPERFREEZER, $this->player, $this->player->getDaedalus(), ReachEnum::SHELVE_NOT_HIDDEN)->isEmpty() &&
+                ->getOperationalItemByName(ToolItemEnum::SUPERFREEZER, $this->player, ReachEnum::SHELVE_NOT_HIDDEN)->isEmpty() &&
              !$this->gameItem->getStatusByName(ItemStatusEnum::FROZEN)
         ;
     }

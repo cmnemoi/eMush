@@ -68,7 +68,7 @@ class ExpressCook extends Action
              $this->gameItem->getStatusByName(ItemStatusEnum::FROZEN)) &&
              $this->player->canReachItem($this->gameItem) &&
              !$this->gameItemService
-                    ->canUseItemByName(ToolItemEnum::MICROWAVE, $this->player, $this->player->getDaedalus(), ReachEnum::SHELVE_NOT_HIDDEN)->isEmpty()
+                    ->getOperationalItemByName(ToolItemEnum::MICROWAVE, $this->player, ReachEnum::SHELVE_NOT_HIDDEN)->isEmpty()
         ;
     }
 
@@ -100,13 +100,12 @@ class ExpressCook extends Action
             $this->gameItemService->persist($this->gameItem);
         }
 
-        $microwave = $this->gameItemService->canUseItemByName(
+        $microwave = $this->gameItemService->getOperationalItemByName(
              ToolItemEnum::MICROWAVE,
              $this->player,
-             $this->player->getDaedalus(),
              ReachEnum::SHELVE_NOT_HIDDEN
              )->first();
-        $microwave->getStatusByName(ItemStatusEnum::CHARGES)->setCharge($microwave->getStatusByName(ItemStatusEnum::CHARGES)->getCharge() - 1);
+        $microwave->getStatusByName(ItemStatusEnum::CHARGES)->addCharge(-1);
 
         //@TODO add effect on the link with sol
 

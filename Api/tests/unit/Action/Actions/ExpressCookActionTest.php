@@ -128,7 +128,7 @@ class ExpressCookActionTest extends TestCase
 
         $gameMicrowave->setRoom(null);
         //No microwave in the room
-        $this->gameItemService->shouldReceive('canUseItemByName')->andReturn(new ArrayCollection([]))->once();
+        $this->gameItemService->shouldReceive('getOperationalItemByName')->andReturn(new ArrayCollection([]))->once();
         $result = $this->action->execute();
         $this->assertInstanceOf(Error::class, $result);
     }
@@ -179,7 +179,7 @@ class ExpressCookActionTest extends TestCase
 
 
 
-        $this->gameItemService->shouldReceive('canUseItemByName')->andReturn(new ArrayCollection([$gameMicrowave]))->twice();
+        $this->gameItemService->shouldReceive('getOperationalItemByName')->andReturn(new ArrayCollection([$gameMicrowave]))->twice();
         $this->roomLogService->shouldReceive('createItemLog')->once();
         $this->gameItemService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
@@ -245,7 +245,7 @@ class ExpressCookActionTest extends TestCase
         ;
 
         $this->gameItemService->shouldReceive('delete');
-        $this->gameItemService->shouldReceive('canUseItemByName')->andReturn(new ArrayCollection([$gameMicrowave]))->twice();
+        $this->gameItemService->shouldReceive('getOperationalItemByName')->andReturn(new ArrayCollection([$gameMicrowave]))->twice();
         $this->gameItemService->shouldReceive('createGameItemFromName')->andReturn($gameCookedRation)->once();
         $this->roomLogService->shouldReceive('createItemLog')->once();
         $this->gameItemService->shouldReceive('persist');

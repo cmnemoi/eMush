@@ -123,3 +123,9 @@ public function createLog(string $logKey, Player $player, Room $room, string $vi
 ## Tests PhpUnit
 The test folder is a mirror of the src directory
 You can Mock classes/services with [Mockery](https://github.com/mockery/mockery)
+
+You can run a unit test with
+```
+php bin/phpunit
+```
+

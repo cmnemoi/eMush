@@ -2,6 +2,7 @@
 
 namespace Mush\Item\Service;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Service\RandomServiceInterface;
@@ -12,6 +13,7 @@ use Mush\Item\Entity\Items\Plant;
 use Mush\Item\Entity\ItemType;
 use Mush\Item\Enum\ItemTypeEnum;
 use Mush\Item\Repository\GameItemRepository;
+use Mush\Player\Entity\Player;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\ItemStatusEnum;
 use Mush\Status\Enum\StatusEnum;
@@ -112,5 +114,21 @@ class GameItemService implements GameItemServiceInterface
         );
 
         return $gameItem;
+    }
+
+    //Implement accessibility to item (for tool and gear)
+    public function getOperationalItemByName(string $itemName, Player $player, string $reach): ArrayCollection
+    {
+        //reach can be set to inventory, shelve, shelve only or any room of the Daedalus
+        return $reachableItems=$player->getReachableItemByName($itemName, $reach)->filter(isOperational($gameItem));
+    }
+
+
+
+    public function isOperational(GameItem $gameItem): bool
+    {
+        return !($gameItem->getStatusByName(ItemStatusEnum::BROKEN) ||
+               ($gameItem->getStatusByName(ItemStatusEnum::CHARGE) &&
+                $gameItem->getStatusByName(ItemStatusEnum::CHARGE)->getCharge() > 0));
     }
 }

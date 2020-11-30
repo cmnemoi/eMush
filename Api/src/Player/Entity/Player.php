@@ -174,7 +174,7 @@ class Player
         return $this->daedalus;
     }
 
-    public function setDaedalus(Daedalus $daedalus): Player
+    public function setDaedalus(?Daedalus $daedalus): Player
     {
         if ($daedalus !== $this->daedalus) {
             $oldDaedalus = $this->getDaedalus();

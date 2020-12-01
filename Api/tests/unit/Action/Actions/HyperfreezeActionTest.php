@@ -69,7 +69,6 @@ class HyperfreezeActionTest extends TestCase
 
     public function testCannotExecute()
     {
-        $daedalus = new Daedalus();
         $room = new Room();
 
         $gameRation = new GameItem();
@@ -110,7 +109,7 @@ class HyperfreezeActionTest extends TestCase
         $rationType->setIsPerishable(true);
         $gameSuperfreezer->setRoom(null);
         //No superfreezer in the room
-        $this->gameItemService->shouldReceive('getOperationalItemByName')->andReturn(new ArrayCollection([]))->once();
+        $this->gameItemService->shouldReceive('getOperationalItemsByName')->andReturn(new ArrayCollection([]))->once();
         $result = $this->action->execute();
         $this->assertInstanceOf(Error::class, $result);
     }
@@ -152,7 +151,7 @@ class HyperfreezeActionTest extends TestCase
         $actionParameter->setItem($gameRation);
         $this->action->loadParameters($player, $actionParameter);
 
-        $this->gameItemService->shouldReceive('getOperationalItemByName')->andReturn(new ArrayCollection([$gameSuperfreezer]))->once();
+        $this->gameItemService->shouldReceive('getOperationalItemsByName')->andReturn(new ArrayCollection([$gameSuperfreezer]))->once();
         $this->roomLogService->shouldReceive('createItemLog')->once();
         $this->gameItemService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
@@ -211,7 +210,7 @@ class HyperfreezeActionTest extends TestCase
         ;
 
         $this->gameItemService->shouldReceive('delete');
-        $this->gameItemService->shouldReceive('getOperationalItemByName')->andReturn(new ArrayCollection([$gameSuperfreezer]))->once();
+        $this->gameItemService->shouldReceive('getOperationalItemsByName')->andReturn(new ArrayCollection([$gameSuperfreezer]))->once();
         $this->gameItemService->shouldReceive('createGameItemFromName')->andReturn($gameStandardRation)->once();
         $this->roomLogService->shouldReceive('createItemLog')->once();
         $this->gameItemService->shouldReceive('persist');

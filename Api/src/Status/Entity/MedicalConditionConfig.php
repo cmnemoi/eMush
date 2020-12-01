@@ -4,6 +4,8 @@ namespace Mush\Status\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Game\Entity\GameConfig;
+use Mush\Player\Entity\ActionModifier;
+use Mush\Player\Entity\PlayerModifier;
 
 /**
  * Class Condition.
@@ -41,44 +43,14 @@ class MedicalConditionConfig
     private int $duration;
 
     /**
-     * @ORM\Column(type="integer", nullable=false)
+     * @ORM\OneToOne (targetEntity="Mush\Player\Entity\ActionModifier", cascade={"ALL"}, orphanRemoval=true)
      */
-    private int $actionPointModifier = 0;
+    private ?ActionModifier $actionModifier = null;
 
     /**
-     * @ORM\Column(type="integer", nullable=false)
+     * @ORM\OneToOne (targetEntity="Mush\Player\Entity\PlayerModifier", cascade={"ALL"}, orphanRemoval=true)
      */
-    private int $movementPointModifier = 0;
-
-    /**
-     * @ORM\Column(type="integer", nullable=false)
-     */
-    private int $moralPointModifier = 0;
-
-    /**
-     * @ORM\Column(type="integer", nullable=false)
-     */
-    private int $precisionModifier = 0;
-
-    /**
-     * @ORM\Column(type="integer", nullable=false)
-     */
-    private int $maxActionPointModifier = 0;
-
-    /**
-     * @ORM\Column(type="integer", nullable=false)
-     */
-    private int $maxMovementPointModifier = 0;
-
-    /**
-     * @ORM\Column(type="integer", nullable=false)
-     */
-    private int $maxHealthPointModifier = 0;
-
-    /**
-     * @ORM\Column(type="integer", nullable=false)
-     */
-    private int $maxMoralPointModifier = 0;
+    private ?PlayerModifier $playerModifier = null;
 
     /**
      * @ORM\Column(type="array", nullable=false)
@@ -138,98 +110,26 @@ class MedicalConditionConfig
         return $this;
     }
 
-    public function getActionPointModifier(): int
+    public function getActionModifier(): ?ActionModifier
     {
-        return $this->actionPointModifier;
+        return $this->actionModifier;
     }
 
-    public function setActionPointModifier(int $actionPointModifier): MedicalConditionConfig
+    public function setActionModifier(?ActionModifier $actionModifier): MedicalConditionConfig
     {
-        $this->actionPointModifier = $actionPointModifier;
+        $this->actionModifier = $actionModifier;
 
         return $this;
     }
 
-    public function getMovementPointModifier(): int
+    public function getPlayerModifier(): ?PlayerModifier
     {
-        return $this->movementPointModifier;
+        return $this->playerModifier;
     }
 
-    public function setMovementPointModifier(int $movementPointModifier): MedicalConditionConfig
+    public function setPlayerModifier(?PlayerModifier $playerModifier): MedicalConditionConfig
     {
-        $this->movementPointModifier = $movementPointModifier;
-
-        return $this;
-    }
-
-    public function getMoralPointModifier(): int
-    {
-        return $this->moralPointModifier;
-    }
-
-    public function setMoralPointModifier(int $moralPointModifier): MedicalConditionConfig
-    {
-        $this->moralPointModifier = $moralPointModifier;
-
-        return $this;
-    }
-
-    public function getPrecisionModifier(): int
-    {
-        return $this->precisionModifier;
-    }
-
-    public function setPrecisionModifier(int $precisionModifier): MedicalConditionConfig
-    {
-        $this->precisionModifier = $precisionModifier;
-
-        return $this;
-    }
-
-    public function getMaxActionPointModifier(): int
-    {
-        return $this->maxActionPointModifier;
-    }
-
-    public function setMaxActionPointModifier(int $maxActionPointModifier): MedicalConditionConfig
-    {
-        $this->maxActionPointModifier = $maxActionPointModifier;
-
-        return $this;
-    }
-
-    public function getMaxMovementPointModifier(): int
-    {
-        return $this->maxMovementPointModifier;
-    }
-
-    public function setMaxMovementPointModifier(int $maxMovementPointModifier): MedicalConditionConfig
-    {
-        $this->maxMovementPointModifier = $maxMovementPointModifier;
-
-        return $this;
-    }
-
-    public function getMaxHealthPointModifier(): int
-    {
-        return $this->maxHealthPointModifier;
-    }
-
-    public function setMaxHealthPointModifier(int $maxHealthPointModifier): MedicalConditionConfig
-    {
-        $this->maxHealthPointModifier = $maxHealthPointModifier;
-
-        return $this;
-    }
-
-    public function getMaxMoralPointModifier(): int
-    {
-        return $this->maxMoralPointModifier;
-    }
-
-    public function setMaxMoralPointModifier(int $maxMoralPointModifier): MedicalConditionConfig
-    {
-        $this->maxMoralPointModifier = $maxMoralPointModifier;
+        $this->playerModifier = $playerModifier;
 
         return $this;
     }

@@ -8,7 +8,7 @@ use Mush\Status\Service\StatusServiceInterface;
 
 class PlantStrategy extends AbstractChargeStrategy
 {
-    protected string $name = ChargeStrategyTypeEnum::PLANT;
+    protected string $name = ChargeStrategyTypeEnum::GROWING_PLANT;
 
     public function __construct(StatusServiceInterface $statusService)
     {

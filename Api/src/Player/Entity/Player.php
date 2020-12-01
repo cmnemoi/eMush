@@ -236,7 +236,7 @@ class Player
         }
     }
 
-    public function getReachableItemByName(string $name, string $reach=ReachEnum::SHELVE_NOT_HIDDEN): ?Collection
+    public function getReachableItemsByName(string $name, string $reach = ReachEnum::SHELVE_NOT_HIDDEN): ?Collection
     {
         //reach can be set to inventory, shelve, shelve only or any room of the Daedalus
         if ($reach === ReachEnum::INVENTORY) {
@@ -259,10 +259,9 @@ class Player
         } else {
             return $this->getDaedalus()->getRoomByName($reach)->getItems()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $itemName);
         }
-    return null;
+
+        return null;
     }
-
-
 
     public function getItems(): Collection
     {

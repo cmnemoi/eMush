@@ -32,12 +32,12 @@ class StatusService implements StatusServiceInterface
         return $status;
     }
 
-    public function createCoreItemStatus(string $statusName, GameItem $gameItem): Status
+    public function createCoreItemStatus(string $statusName, GameItem $gameItem, string $visibilty = VisibilityEnum::PUBLIC): Status
     {
         $status = new Status();
         $status
             ->setName($statusName)
-            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setVisibility($visibilty)
             ->setGameItem($gameItem)
         ;
 

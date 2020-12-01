@@ -2,7 +2,7 @@
 
 namespace Mush\Item\CycleHandler;
 
-use Mush\Game\CycleHandler\CycleHandlerInterface;
+use Mush\Game\CycleHandler\AbstractCycleHandler;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
@@ -21,8 +21,10 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Enum\ItemStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
-class PlantCycleHandler implements CycleHandlerInterface
+class PlantCycleHandler extends AbstractCycleHandler
 {
+    protected string $name = ItemTypeEnum::PLANT;
+
     private GameItemServiceInterface $gameItemService;
     private RandomServiceInterface $randomService;
     private RoomLogServiceInterface $roomLogService;

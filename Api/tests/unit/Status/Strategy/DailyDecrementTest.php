@@ -79,7 +79,7 @@ class DailyDecrementTest extends TestCase
         $status
             ->setCharge(10)
             ->setThreshold(0)
-            ->setStrategy(ChargeStrategyTypeEnum::PLANT)
+            ->setStrategy(ChargeStrategyTypeEnum::DAILY_DECREMENT)
         ;
 
         return $status;

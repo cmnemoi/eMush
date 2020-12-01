@@ -9,11 +9,9 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Action;
 use Mush\Action\Actions\ExpressCook;
 use Mush\Action\Entity\ActionParameters;
-use Mush\Action\Service\SuccessRateServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\GameConfigServiceInterface;
-use Mush\Game\Service\RandomServiceInterface;
 use Mush\Item\Entity\GameItem;
 use Mush\Item\Entity\Item;
 use Mush\Item\Entity\Items\Ration;
@@ -24,10 +22,10 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\ItemStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -96,7 +94,7 @@ class ExpressCookActionTest extends TestCase
              ->setCharge(3);
 
         $gameMicrowave = new GameItem();
-        $microwave= new Item();
+        $microwave = new Item();
         $microwave->setName(ToolItemEnum::MICROWAVE);
         $gameMicrowave
             ->setItem($microwave)
@@ -107,19 +105,15 @@ class ExpressCookActionTest extends TestCase
 
         $chargeStatus->setGameItem($gameMicrowave);
 
-
-        
-
         $player = $this->createPlayer(new Daedalus(), $room);
         $actionParameter = new ActionParameters();
         $actionParameter->setItem($gameRation);
         $this->action->loadParameters($player, $actionParameter);
 
-
         //not possible to cook (not frozen nor standard ration)
         $result = $this->action->execute();
         $this->assertInstanceOf(Error::class, $result);
- 
+
         $frozenStatus = new Status();
         $frozenStatus
              ->setName(ItemStatusEnum::FROZEN)
@@ -128,7 +122,7 @@ class ExpressCookActionTest extends TestCase
 
         $gameMicrowave->setRoom(null);
         //No microwave in the room
-        $this->gameItemService->shouldReceive('getOperationalItemByName')->andReturn(new ArrayCollection([]))->once();
+        $this->gameItemService->shouldReceive('getOperationalItemsByName')->andReturn(new ArrayCollection([]))->once();
         $result = $this->action->execute();
         $this->assertInstanceOf(Error::class, $result);
     }
@@ -162,7 +156,7 @@ class ExpressCookActionTest extends TestCase
              ->setCharge(3);
 
         $gameMicrowave = new GameItem();
-        $microwave= new Item();
+        $microwave = new Item();
         $microwave->setName(ToolItemEnum::MICROWAVE);
         $gameMicrowave
             ->setItem($microwave)
@@ -177,9 +171,7 @@ class ExpressCookActionTest extends TestCase
         $actionParameter->setItem($gameRation);
         $this->action->loadParameters($player, $actionParameter);
 
-
-
-        $this->gameItemService->shouldReceive('getOperationalItemByName')->andReturn(new ArrayCollection([$gameMicrowave]))->twice();
+        $this->gameItemService->shouldReceive('getOperationalItemsByName')->andReturn(new ArrayCollection([$gameMicrowave]))->twice();
         $this->roomLogService->shouldReceive('createItemLog')->once();
         $this->gameItemService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
@@ -215,7 +207,7 @@ class ExpressCookActionTest extends TestCase
              ->setCharge(3);
 
         $gameMicrowave = new GameItem();
-        $microwave= new Item();
+        $microwave = new Item();
         $microwave->setName(ToolItemEnum::MICROWAVE);
         $gameMicrowave
             ->setItem($microwave)
@@ -224,8 +216,6 @@ class ExpressCookActionTest extends TestCase
             ->addStatus($chargeStatus)
         ;
         $chargeStatus->setGameItem($gameMicrowave);
-
-        
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
@@ -245,7 +235,7 @@ class ExpressCookActionTest extends TestCase
         ;
 
         $this->gameItemService->shouldReceive('delete');
-        $this->gameItemService->shouldReceive('getOperationalItemByName')->andReturn(new ArrayCollection([$gameMicrowave]))->twice();
+        $this->gameItemService->shouldReceive('getOperationalItemsByName')->andReturn(new ArrayCollection([$gameMicrowave]))->twice();
         $this->gameItemService->shouldReceive('createGameItemFromName')->andReturn($gameCookedRation)->once();
         $this->roomLogService->shouldReceive('createItemLog')->once();
         $this->gameItemService->shouldReceive('persist');

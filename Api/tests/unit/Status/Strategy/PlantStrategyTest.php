@@ -65,7 +65,7 @@ class PlantStrategyTest extends TestCase
         $status
             ->setCharge(0)
             ->setThreshold(10)
-            ->setStrategy(ChargeStrategyTypeEnum::PLANT)
+            ->setStrategy(ChargeStrategyTypeEnum::GROWING_PLANT)
         ;
 
         return $status;

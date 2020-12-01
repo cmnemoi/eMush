@@ -2,10 +2,9 @@
 
 namespace Mush\Item\Event;
 
-use Mush\Game\CycleHandler\CycleHandlerInterface;
 use Mush\Game\Event\DayEvent;
+use Mush\Item\Service\ItemCycleHandlerServiceInterface;
 use Mush\Room\Service\RoomServiceInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -13,19 +12,16 @@ class DaySubscriber implements EventSubscriberInterface
 {
     private RoomServiceInterface $roomService;
     private EventDispatcherInterface $eventDispatcher;
-    private ContainerInterface $container;
-    private array $cyclesManagerConfig;
+    private ItemCycleHandlerServiceInterface $itemCycleHandler;
 
     public function __construct(
-        array $cyclesManagerConfig,
         RoomServiceInterface $roomService,
-        EventDispatcherInterface $eventDispatcher,
-        ContainerInterface $container
+        ItemCycleHandlerServiceInterface $itemCycleHandler,
+        EventDispatcherInterface $eventDispatcher
     ) {
-        $this->cyclesManagerConfig = $cyclesManagerConfig;
         $this->roomService = $roomService;
         $this->eventDispatcher = $eventDispatcher;
-        $this->container = $container;
+        $this->itemCycleHandler = $itemCycleHandler;
     }
 
     public static function getSubscribedEvents()
@@ -48,11 +44,8 @@ class DaySubscriber implements EventSubscriberInterface
         }
 
         foreach ($item->getItem()->getTypes() as $itemType) {
-            if (isset($this->cyclesManagerConfig[get_class($itemType)])) {
-                $serviceClass = $this->cyclesManagerConfig[get_class($itemType)];
-                /** @var CycleHandlerInterface $service */
-                $service = $this->container->get($serviceClass);
-                $service->handleNewDay($item, $event->getDaedalus(), $event->getTime());
+            if ($cycleHandler = $this->itemCycleHandler->getItemCycleHandler($itemType)) {
+                $cycleHandler->handleNewCycle($item, $event->getDaedalus(), $event->getTime());
             }
         }
     }

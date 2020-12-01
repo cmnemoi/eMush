@@ -28,6 +28,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         return [
             PlayerEvent::NEW_PLAYER => 'onNewPlayer',
             PlayerEvent::DEATH_PLAYER => 'onDeathPlayer',
+            PlayerEvent::MODIFIER_PLAYER => 'onModifierPlayer',
         ];
     }
 
@@ -70,5 +71,29 @@ class PlayerSubscriber implements EventSubscriberInterface
             $player,
             VisibilityEnum::PUBLIC
         );
+    }
+
+    public function onModifierPlayer(PlayerEvent $playerEvent)
+    {
+        $player = $playerEvent->getPlayer();
+        $playerModifier = $playerEvent->getActionModifier();
+
+        if ($playerModifier->getActionPointModifier()) {
+            $player->addActionPoint($playerModifier->getActionPointModifier());
+        }
+
+        if ($playerModifier->getMovementPointModifier()) {
+            $player->addMovementPoint($playerModifier->getMovementPointModifier());
+        }
+
+        if ($playerModifier->getHealthPointModifier()) {
+            $player->addHealthPoint($playerModifier->getHealthPointModifier());
+        }
+
+        if ($playerModifier->getMoralPointModifier()) {
+            $player->addMoralPoint($playerModifier->getMoralPointModifier());
+        }
+
+        $this->playerService->persist($player);
     }
 }

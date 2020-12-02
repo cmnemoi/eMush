@@ -88,6 +88,10 @@ class ActionService implements ActionServiceInterface
             $actionParams->setPlayer($player);
         }
 
+        if ($parameter['message']!==null) {
+            $actionParams->setMessage($message);
+        }
+
         return $actionParams;
     }
 }

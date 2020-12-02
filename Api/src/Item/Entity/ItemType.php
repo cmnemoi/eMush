@@ -72,4 +72,11 @@ abstract class ItemType
 
         return $this;
     }
+
+    public function addAction(string $action): ItemType
+    {
+        $this->getActions->add($action);
+
+        return $this;
+    }
 }

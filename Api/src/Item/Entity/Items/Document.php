@@ -15,7 +15,7 @@ class Document extends Tool
 {
     protected string $type = ItemTypeEnum::DOCUMENT;
 
-    protected array $actions = [ActionEnum::READ_DOCUMENT];
+    protected array $actions = [ActionEnum::READ_DOCUMENT, ActionEnum::SHRED];
 
     /**
      * @ORM\Column(type="string", nullable=false)
@@ -26,6 +26,12 @@ class Document extends Tool
      * @ORM\Column(type="boolean", nullable=false)
      */
     private bool $isTranslated = false;
+
+
+    /**
+     * @ORM\Column(type="boolean", nullable=false)
+     */
+    private bool $canShred = false;
 
     public function getContent(): string
     {
@@ -39,7 +45,7 @@ class Document extends Tool
         return $this;
     }
 
-    public function getIsTranslated(): bool
+    public function IsTranslated(): bool
     {
         return $this->isTranslated;
     }
@@ -50,4 +56,17 @@ class Document extends Tool
 
         return $this;
     }
+
+    public function canShred(): bool
+    {
+        return $this->canShred;
+    }
+
+    public function setCanShred(bool $canShred): Document
+    {
+        $this->canShred = $canShred;
+
+        return $this;
+    }
+
 }

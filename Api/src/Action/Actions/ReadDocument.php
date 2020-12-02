@@ -16,9 +16,9 @@ use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class ReadBook extends Action
+class ReadDocument extends Action
 {
-    protected string $name = ActionEnum::READ_BOOK;
+    protected string $name = ActionEnum::READ_DOCUMENT;
 
     private GameItem $item;
 
@@ -35,10 +35,7 @@ class ReadBook extends Action
         parent::__construct($eventDispatcher);
 
         $this->roomLogService = $roomLogService;
-        $this->itemService = $itemService;
-        $this->playerService = $playerService;
-
-        $this->actionCost->setActionPointCost(2);
+        $this->actionCost->setActionPointCost(0);
     }
 
     public function loadParameters(Player $player, ActionParameters $actionParameters)
@@ -52,39 +49,24 @@ class ReadBook extends Action
 
     public function canExecute(): bool
     {
-        //@TODO add conditions player already have the skill and player already read a book
-        return null !== $this->item->getItem()->getItemType(ItemTypeEnum::BOOK) &&
+        return null !== $this->item->getItem()->getItemType(ItemTypeEnum::DOCUMENT) &&
             $this->player->canReachItem($this->item)
             ;
     }
 
     protected function applyEffects(): ActionResult
     {
-        /**
-         * @var Book $bookType
-         */
-        $bookType = $this->item->getItem()->getItemType(ItemTypeEnum::BOOK);
-        $this->player->addSkill($bookType->getSkill());
-
-        $this->item
-            ->setRoom(null)
-            ->setPlayer(null)
-        ;
-
-        $this->itemService->delete($this->item);
-        $this->playerService->persist($this->player);
-
         return new Success();
     }
 
     protected function createLog(ActionResult $actionResult): void
     {
-        $this->roomLogService->createItemLog(
-            ActionEnum::READ_BOOK,
+        $this->roomLogService->createPlayerLog(
+            ActionEnum::READ_DOCUMENT,
             $this->player->getRoom(),
             $this->player,
             $this->item,
-            VisibilityEnum::PUBLIC,
+            VisibilityEnum::PRIVATE,
             new \DateTime('now')
         );
     }

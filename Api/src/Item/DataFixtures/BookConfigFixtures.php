@@ -70,7 +70,7 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
         $documentType = new Document();
         $documentType
            ->setIsTranslated(true)
-           ->setActions([ActionEnum::SHRED])
+           ->canShred(true)
            ;
 
         $document = new Item();
@@ -139,7 +139,7 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
         $postItType = new Document();
         $postItType
                ->setIsTranslated(false)
-               ->setActions([ActionEnum::SHRED])
+               ->canShred(true)
                ;
 
         $postIt = new Item();

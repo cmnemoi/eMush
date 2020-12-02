@@ -19,4 +19,5 @@ class ItemStatusEnum
     public const PLANT_THIRSTY = 'plant_thirsty';
     public const PLANT_DRIED_OUT = 'plant_dried_Out';
     public const PLANT_DISEASED = 'plant_diseased';
+    public const DOCUMENT_CONTENT = 'document_content';
 }

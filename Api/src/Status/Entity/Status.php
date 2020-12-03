@@ -4,8 +4,8 @@ namespace Mush\Status\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Mush\Item\Entity\ConsumableEffect;
-use Mush\Item\Entity\GameItem;
+use Mush\Equipment\Entity\ConsumableEffect;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
 
 /**
@@ -49,12 +49,12 @@ class Status
     protected ?Player $player = null;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Mush\Item\Entity\GameItem", inversedBy="statuses")
+     * @ORM\ManyToOne(targetEntity="Mush\Equipment\Entity\GameEquipment", inversedBy="statuses")
      */
-    protected ?GameItem $gameItem = null;
+    protected ?GameEquipment $gameEquipment = null;
 
     /**
-     * @ORM\OneToOne(targetEntity="Mush\Item\Entity\ConsumableEffect", cascade={"ALL"}, orphanRemoval=true)
+     * @ORM\OneToOne(targetEntity="Mush\Equipment\Entity\ConsumableEffect", cascade={"ALL"}, orphanRemoval=true)
      */
     protected ?ConsumableEffect $consumableModifier = null;
 
@@ -110,23 +110,23 @@ class Status
         return $this;
     }
 
-    public function getGameItem(): ?GameItem
+    public function getGameEquipment(): ?GameEquipment
     {
-        return $this->gameItem;
+        return $this->gameEquipment;
     }
 
-    public function setGameItem(?GameItem $gameItem): Status
+    public function setGameEquipment(?GameEquipment $gameEquipment): Status
     {
-        if ($gameItem !== $this->gameItem) {
-            $oldItem = $this->getGameItem();
+        if ($gameEquipment !== $this->gameEquipment) {
+            $oldEquipment = $this->getGameEquipment();
 
-            $this->gameItem = $gameItem;
+            $this->gameEquipment = $gameEquipment;
 
-            if ($gameItem !== null) {
-                $gameItem->addStatus($this);
+            if ($gameEquipment !== null) {
+                $gameEquipment->addStatus($this);
             }
-            if ($oldItem !== null) {
-                $oldItem->removeStatus($this);
+            if ($oldEquipment !== null) {
+                $oldEquipment->removeStatus($this);
             }
         }
 

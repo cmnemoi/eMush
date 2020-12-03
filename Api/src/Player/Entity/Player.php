@@ -7,14 +7,15 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Item\Entity\Door;
-use Mush\Item\Entity\GameItem;
-use Mush\Item\Enum\ReachEnum;
+use Mush\Equipment\Entity\Door;
+use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\ReachEnum;
 use Mush\Room\Entity\Room;
 use Mush\Status\Entity\Collection\MedicalConditionCollection;
 use Mush\Status\Entity\MedicalCondition;
 use Mush\Status\Entity\Status;
-use Mush\Status\Enum\ItemStatusEnum;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\User\Entity\User;
 
 /**
@@ -66,7 +67,7 @@ class Player
     private ?Room $room = null;
 
     /**
-     * @ORM\OneToMany(targetEntity="Mush\Item\Entity\GameItem", mappedBy="player")
+     * @ORM\OneToMany(targetEntity="Mush\Equipment\Entity\GameItem", mappedBy="player")
      */
     private Collection $items;
 
@@ -221,43 +222,43 @@ class Player
     /**
      * Return true if the item is reachable for the player i.e. in the inventory or the room.
      */
-    public function canReachItem(GameItem $gameItem): bool
+    public function canReachEquipment(GameEquipment $gameEquipment): bool
     {
         if (
-            $gameItem instanceof Door &&
-            $this->getRoom()->getDoors()->contains($gameItem)
+            $gameEquipment instanceof Door &&
+            $this->getRoom()->getDoors()->contains($gameEquipment)
         ) {
             return true;
         }
-        if ($gameItem->getStatusByName(ItemStatusEnum::HIDDEN) !== null) {
-            return $gameItem->getStatusByName(ItemStatusEnum::HIDDEN)->getPlayer() === $this;
+        if ($gameEquipment->getStatusByName(EquipmentStatusEnum::HIDDEN) !== null) {
+            return $gameEquipment->getStatusByName(EquipmentStatusEnum::HIDDEN)->getPlayer() === $this;
         } else {
-            return $this->items->contains($gameItem) || $this->getRoom()->getItems()->contains($gameItem);
+            return $this->items->contains($gameEquipment) || $this->getRoom()->getEquipments()->contains($gameEquipment);
         }
     }
 
-    public function getReachableItemsByName(string $name, string $reach = ReachEnum::SHELVE_NOT_HIDDEN): ?Collection
+    public function getReachableEquipmentsByName(string $name, string $reach = ReachEnum::SHELVE_NOT_HIDDEN): ?Collection
     {
         //reach can be set to inventory, shelve, shelve only or any room of the Daedalus
         if ($reach === ReachEnum::INVENTORY) {
-            return $this->getItems()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $itemName);
+            return $this->getItems()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $name);
         } elseif ($reach === ReachEnum::SHELVE_NOT_HIDDEN) {
             return (new ArrayCollection(array_merge(
                 $this->getItems()->toArray(),
-                $this->getRoom()->getItems()->toArray()
+                $this->getRoom()->getEquipments()->toArray()
             ))
               )->filter(fn (GameItem $gameItem) => (
               $gameItem->getName() === $name &&
-              ($gameItem->getStatusByName(ItemStatusEnum::HIDDEN) === null ||
-               $gameItem->getStatusByName(ItemStatusEnum::HIDDEN)->getPlayer() === $this)));
+              ($gameItem->getStatusByName(EquipmentStatusEnum::HIDDEN) === null ||
+               $gameItem->getStatusByName(EquipmentStatusEnum::HIDDEN)->getPlayer() === $this)));
         } elseif ($reach === ReachEnum::SHELVE) {
             return (new ArrayCollection(array_merge(
                 $this->getItems()->toArray(),
-                $this->getRoom()->getItems()->toArray()
+                $this->getRoom()->getEquipments()->toArray()
             ))
-              )->filter(fn (GameItem $gameItem) => ($gameItem->getName() === $name));
+              )->filter(fn (GameEquipment $equipment) => ($equipment->getName() === $name));
         } else {
-            return $this->getDaedalus()->getRoomByName($reach)->getItems()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $itemName);
+            return $this->getDaedalus()->getRoomByName($reach)->getEquipments()->filter(fn (GameEquipment $equipment) => $equipment->getName() === $name);
         }
 
         return null;

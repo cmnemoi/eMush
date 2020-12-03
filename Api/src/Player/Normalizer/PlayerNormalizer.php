@@ -3,8 +3,8 @@
 namespace Mush\Player\Normalizer;
 
 use Mush\Daedalus\Normalizer\DaedalusNormalizer;
-use Mush\Item\Entity\GameItem;
-use Mush\Item\Normalizer\ItemNormalizer;
+use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Normalizer\EquipmentNormalizer;
 use Mush\Player\Entity\Player;
 use Mush\Room\Normalizer\RoomNormalizer;
 use Mush\User\Entity\User;
@@ -18,20 +18,20 @@ class PlayerNormalizer implements ContextAwareNormalizerInterface
     private RoomNormalizer $roomNormalizer;
     private TranslatorInterface $translator;
     private TokenStorageInterface $tokenStorage;
-    private ItemNormalizer $itemNormalizer;
+    private EquipmentNormalizer $equipmentNormalizer;
 
     public function __construct(
         DaedalusNormalizer $daedalusNormalizer,
         RoomNormalizer $roomNormalizer,
         TranslatorInterface $translator,
         TokenStorageInterface $tokenStorage,
-        ItemNormalizer $itemNormalizer
+        EquipmentNormalizer $equipmentNormalizer
     ) {
         $this->daedalusNormalizer = $daedalusNormalizer;
         $this->roomNormalizer = $roomNormalizer;
         $this->translator = $translator;
         $this->tokenStorage = $tokenStorage;
-        $this->itemNormalizer = $itemNormalizer;
+        $this->equipmentNormalizer = $equipmentNormalizer;
     }
 
     public function supportsNormalization($data, string $format = null, array $context = [])
@@ -51,7 +51,7 @@ class PlayerNormalizer implements ContextAwareNormalizerInterface
             $items = [];
             /** @var GameItem $item */
             foreach ($player->getItems() as $item) {
-                $items[] = $this->itemNormalizer->normalize($item);
+                $items[] = $this->equipmentNormalizer->normalize($item);
             }
 
             $playerPersonalInfo = [

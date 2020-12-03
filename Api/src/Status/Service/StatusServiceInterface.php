@@ -3,7 +3,7 @@
 namespace Mush\Status\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mush\Item\Entity\GameItem;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Attempt;
@@ -14,11 +14,11 @@ interface StatusServiceInterface
 {
     public function createCorePlayerStatus(string $statusName, Player $player): Status;
 
-    public function createCoreItemStatus(string $statusName, GameItem $gameItem, string $visibilty = VisibilityEnum::PUBLIC): Status;
+    public function createCoreEquipmentStatus(string $statusName, GameEquipment $gameEquipment, string $visibilty = VisibilityEnum::PUBLIC): Status;
 
-    public function createChargeItemStatus(
+    public function createChargeEquipmentStatus(
         string $statusName,
-        GameItem $gameItem,
+        GameEquipment $gameEquipment,
         string $strategy,
         int $charge = 0,
         int $threshold = null,
@@ -40,5 +40,5 @@ interface StatusServiceInterface
 
     public function delete(Status $status): bool;
 
-    public function getMostRecent(string $statusName, ArrayCollection $items): gameItem;
+    public function getMostRecent(string $statusName, ArrayCollection $equipments): GameEquipment;
 }

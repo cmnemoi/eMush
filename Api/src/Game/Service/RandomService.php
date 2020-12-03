@@ -4,7 +4,8 @@ namespace Mush\Game\Service;
 
 use Error;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Item\Entity\GameItem;
+use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
 
@@ -45,11 +46,12 @@ class RandomService implements RandomServiceInterface
 
     public function getItemInRoom(Room $room): GameItem
     {
-        if ($room->getItems()->isEmpty()) {
+        if ($room->getEquipments()->isEmpty()) {
             throw new Error('getItemInRoom: room has no items');
         }
 
-        return $room->getItems()->get($this->random(0, $room->getItems()->count() - 1));
+        return $room->getEquipments()->filter(fn (GameEquipment $equipment) => $equipment instanceof GameItem)
+             ->get($this->random(0, $room->getEquipments()->count() - 1));
     }
 
     public function getRandomElements(array $array, int $number = 1): array

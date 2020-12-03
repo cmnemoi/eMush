@@ -3,9 +3,9 @@
 namespace Mush\Room\Normalizer;
 
 use Mush\Action\Enum\ActionEnum;
-use Mush\Item\Entity\Door;
-use Mush\Item\Entity\GameItem;
-use Mush\Item\Normalizer\ItemNormalizer;
+use Mush\Equipment\Entity\Door;
+use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Normalizer\EquipmentNormalizer;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
 use Mush\User\Entity\User;
@@ -15,16 +15,16 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RoomNormalizer implements ContextAwareNormalizerInterface
 {
-    private ItemNormalizer $itemNormalizer;
+    private EquipmentNormalizer $equipmentNormalizer;
     private TranslatorInterface $translator;
     private TokenStorageInterface $tokenStorage;
 
     public function __construct(
-        ItemNormalizer $itemNormalizer,
+        EquipmentNormalizer $equipmentNormalizer,
         TranslatorInterface $translator,
         TokenStorageInterface $tokenStorage
     ) {
-        $this->itemNormalizer = $itemNormalizer;
+        $this->equipmentNormalizer = $equipmentNormalizer;
         $this->translator = $translator;
         $this->tokenStorage = $tokenStorage;
     }
@@ -59,7 +59,7 @@ class RoomNormalizer implements ContextAwareNormalizerInterface
         /** @var Door $door */
         foreach ($room->getDoors() as $door) {
             $doors[] = array_merge(
-                $this->itemNormalizer->normalize($door),
+                $this->equipmentNormalizer->normalize($door),
                 ['direction' => $door
                     ->getRooms()
                     ->filter(fn (Room $doorRoom) => $doorRoom !== $room)
@@ -67,10 +67,16 @@ class RoomNormalizer implements ContextAwareNormalizerInterface
                     ->getName(), ]
             );
         }
+
+        $equipments = [];
         $items = [];
-        /** @var GameItem $item */
-        foreach ($room->getItems() as $item) {
-            $items[] = $this->itemNormalizer->normalize($item);
+        /** @var GameEquipments $equipments */
+        foreach ($room->getEquipments() as $equipment) {
+            if ($equipment instanceof GameItem){
+                $items[] = $this->EquipmentNormalizer->normalize($equipment);
+            }else{
+                $equipments[] = $this->EquipmentNormalizer->normalize($equipment);
+            }
         }
 
         return [
@@ -80,7 +86,7 @@ class RoomNormalizer implements ContextAwareNormalizerInterface
             'doors' => $doors,
             'players' => $players,
             'items' => $items,
-            'equipments' => ['TODO'],
+            'equipments' => $equipments,
             'createdAt' => $room->getCreatedAt(),
             'updatedAt' => $room->getUpdatedAt(),
         ];

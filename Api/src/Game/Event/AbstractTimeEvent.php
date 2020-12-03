@@ -3,7 +3,7 @@
 namespace Mush\Game\Event;
 
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Item\Entity\GameItem;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
 use Mush\Status\Entity\Status;
@@ -15,7 +15,7 @@ class AbstractTimeEvent extends Event
     protected ?Player $player = null;
     protected ?Daedalus $daedalus = null;
     protected ?Room $room = null;
-    protected ?GameItem $gameItem = null;
+    protected ?GameEquipment $gameEquipment = null;
     protected ?Status $status = null;
 
     public function __construct(Daedalus $daedalus, \DateTime $time)
@@ -58,14 +58,14 @@ class AbstractTimeEvent extends Event
         return $this;
     }
 
-    public function getGameItem(): ?GameItem
+    public function getGameEquipment(): ?GameEquipment
     {
-        return $this->gameItem;
+        return $this->gameEquipment;
     }
 
-    public function setGameItem(?GameItem $gameItem): AbstractTimeEvent
+    public function setGameEquipment(?GameEquipment $gameEquipment): AbstractTimeEvent
     {
-        $this->gameItem = $gameItem;
+        $this->gameEquipment = $gameEquipment;
 
         return $this;
     }

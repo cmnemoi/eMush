@@ -2,6 +2,7 @@
 
 namespace Mush\Player\Event;
 
+use Mush\Player\Entity\ActionModifier;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Service\PlayerServiceInterface;
@@ -9,17 +10,21 @@ use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class PlayerSubscriber implements EventSubscriberInterface
 {
     private PlayerServiceInterface $playerService;
+    private EventDispatcherInterface $eventDispatcher;
     private RoomLogServiceInterface $roomLogService;
 
     public function __construct(
         PlayerServiceInterface $playerService,
+        EventDispatcherInterface $eventDispatcher,
         RoomLogServiceInterface $roomLogService
     ) {
         $this->playerService = $playerService;
+        $this->eventDispatcher = $eventDispatcher;
         $this->roomLogService = $roomLogService;
     }
 
@@ -49,17 +54,12 @@ class PlayerSubscriber implements EventSubscriberInterface
 
         if ($player->getEndStatus() !== EndCauseEnum::DEPRESSION) {
             /** @var Player $daedalusPlayer */
-            foreach ($player->getDaedalus()->getPlayers() as $daedalusPlayer) {
+            foreach ($player->getDaedalus()->getPlayers()->getPlayerAlive() as $daedalusPlayer) {
                 if ($daedalusPlayer !== $player) {
-                    $daedalusPlayer->addMoralPoint(-1);
-                    $this->roomLogService->createQuantityLog(
-                        LogEnum::LOSS_MORAL_POINT,
-                        $daedalusPlayer->getRoom(),
-                        $daedalusPlayer,
-                        VisibilityEnum::PRIVATE,
-                        1
-                    );
-                    $this->playerService->persist($daedalusPlayer);
+                    $actionModifier = new ActionModifier();
+                    $actionModifier->setMoralPointModifier(-1);
+                    $playerEvent = new PlayerEvent($daedalusPlayer, $event->getTime());
+                    $playerEvent->setActionModifier($actionModifier);
                 }
             }
         }
@@ -78,20 +78,10 @@ class PlayerSubscriber implements EventSubscriberInterface
         $player = $playerEvent->getPlayer();
         $playerModifier = $playerEvent->getActionModifier();
 
-        if ($playerModifier->getActionPointModifier()) {
-            $player->addActionPoint($playerModifier->getActionPointModifier());
-        }
+        $this->playerService->handlePlayerModifier($player, $playerModifier, $playerEvent->getTime());
 
-        if ($playerModifier->getMovementPointModifier()) {
-            $player->addMovementPoint($playerModifier->getMovementPointModifier());
-        }
-
-        if ($playerModifier->getHealthPointModifier()) {
-            $player->addHealthPoint($playerModifier->getHealthPointModifier());
-        }
-
-        if ($playerModifier->getMoralPointModifier()) {
-            $player->addMoralPoint($playerModifier->getMoralPointModifier());
+        if ($player->getHealthPoint() === 0) {
+            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
         }
 
         $this->playerService->persist($player);

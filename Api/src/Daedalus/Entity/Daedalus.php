@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Game\Entity\GameConfig;
+use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
 
@@ -87,9 +88,9 @@ class Daedalus
         return $this->id;
     }
 
-    public function getPlayers(): Collection
+    public function getPlayers(): PlayerCollection
     {
-        return $this->players;
+        return new PlayerCollection($this->players->toArray());
     }
 
     public function setPlayers(Collection $players): Daedalus

@@ -19,9 +19,6 @@ class ItemEffectService implements ItemEffectServiceInterface
     private PlantEffectRepository $plantEffectRepository;
     private RandomServiceInterface $randomService;
 
-    /**
-     * ItemEffectService constructor.
-     */
     public function __construct(
         ConsumableEffectRepository $consumableEffectRepository,
         PlantEffectRepository $plantEffectRepository,
@@ -120,7 +117,7 @@ class ItemEffectService implements ItemEffectServiceInterface
                     ->setCures($cures)
                     ->setDiseasesChance($diseasesChances)
                     ->setDiseasesDelayMin($diseasesDelayMin)
-                    ->setDiseasesDelayLengh($diseasesDelayLengh)
+                    ->setDiseasesDelayLength($diseasesDelayLengh)
                     ->setExtraEffects($extraEffects);
             } elseif ($ration instanceof Drug && count($ration->getDrugEffectsNumber()) > 0) {
                 // if the ration is a drug 1 to 4 diseases are cured with 100% chances
@@ -132,7 +129,7 @@ class ItemEffectService implements ItemEffectServiceInterface
                     ->setCures($ration->getCures())
                     ->setDiseasesChance($ration->getDiseasesChances())
                     ->setDiseasesDelayMin($ration->getDiseasesDelayMin())
-                    ->setDiseasesDelayLengh($ration->getDiseasesDelayMin() + $ration->getDiseasesDelayLengh())
+                    ->setDiseasesDelayLength($ration->getDiseasesDelayMin() + $ration->getDiseasesDelayLengh())
                     ->setExtraEffects($ration->getExtraEffects());
             }
 

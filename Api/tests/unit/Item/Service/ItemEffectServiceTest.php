@@ -154,7 +154,7 @@ class ItemEffectServiceTest extends TestCase
         $this->assertEquals(['disease1' => 50], $consumableEffect->getCures());
         $this->assertEquals(['disease1' => 50, 'disease2' => 50], $consumableEffect->getDiseasesChance());
         $this->assertEquals(['disease1' => 2, 'disease2' => 2], $consumableEffect->getDiseasesDelayMin());
-        $this->assertEquals(['disease1' => 4, 'disease2' => 4], $consumableEffect->getDiseasesDelayLengh());
+        $this->assertEquals(['disease1' => 4, 'disease2' => 4], $consumableEffect->getDiseasesDelayLength());
         $this->assertEquals(['extraActionPoint' => 50], $consumableEffect->getExtraEffects());
 
         //test drugs

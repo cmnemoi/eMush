@@ -8,6 +8,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\GameConfigServiceInterface;
+use Mush\Player\Entity\ActionModifier;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\GameStatusEnum;
 use Mush\Player\Event\PlayerEvent;
@@ -133,63 +134,117 @@ class PlayerService implements PlayerServiceInterface
         return $player;
     }
 
-    public function handleNewCycle(Player $player, \DateTime $date): Player
+    public function handleNewCycle(Player $player, \DateTime $time): Player
     {
-        $player->addActionPoint(1);
-        $player->addMovementPoint(1);
+        if ($player->getMoralPoint() === 0) {
+            $playerEvent = new PlayerEvent($player, $time);
+            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
+            return $player;
+        }
+
+        $actionModifier = new ActionModifier();
+        $actionModifier
+            ->setActionPointModifier(1)
+            ->setMovementPointModifier(1)
+        ;
+
+        $playerEvent = new PlayerEvent($player, $time);
+        $playerEvent->setActionModifier($actionModifier);
+        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
+
         $player->addTriumph(1);
         $player->addSatiety(-1);
 
-        $this->roomLogService->createQuantityLog(
-            LogEnum::GAIN_ACTION_POINT,
-            $player->getRoom(),
-            $player,
-            VisibilityEnum::PRIVATE,
-            1,
-            $date
-        );
-        $this->roomLogService->createQuantityLog(
-            LogEnum::GAIN_MOVEMENT_POINT,
-            $player->getRoom(),
-            $player,
-            VisibilityEnum::PRIVATE,
-            1,
-            $date
-        );
         $this->roomLogService->createQuantityLog(
             LogEnum::GAIN_TRIUMPH,
             $player->getRoom(),
             $player,
             VisibilityEnum::PRIVATE,
             1,
-            $date
+            $time
         );
 
         return $this->persist($player);
     }
 
-    public function handleNewDay(Player $player, \DateTime $date): Player
+    public function handleNewDay(Player $player, \DateTime $time): Player
     {
-        $player->addHealthPoint(1);
-        $player->addMoralPoint(-2);
+        $actionModifier = new ActionModifier();
+        $actionModifier
+            ->setHealthPointModifier(1)
+            ->setMoralPointModifier(-2) //@TODO check for last hope
+        ;
 
-        $this->roomLogService->createQuantityLog(
-            LogEnum::GAIN_HEALTH_POINT,
-            $player->getRoom(),
-            $player,
-            VisibilityEnum::PRIVATE,
-            1,
-            $date
-        );
-        $this->roomLogService->createQuantityLog(
-            LogEnum::LOSS_MORAL_POINT,
-            $player->getRoom(),
-            $player,
-            VisibilityEnum::PRIVATE,
-            2,
-            $date
-        );
+        $playerEvent = new PlayerEvent($player, $time);
+        $playerEvent->setActionModifier($actionModifier);
+        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
 
         return $this->persist($player);
+    }
+
+    public function handlePlayerModifier(Player $player, ActionModifier $actionModifier, \DateTime $time = null): Player
+    {
+        if ($actionModifier->getActionPointModifier() !== 0) {
+            $playerNewActionPoint = $player->getActionPoint() + $actionModifier->getActionPointModifier();
+            $playerNewActionPoint = $this->getValueInInterval($playerNewActionPoint, 0, $this->gameConfig->getMaxActionPoint());
+            $player->setActionPoint($playerNewActionPoint);
+            $this->roomLogService->createQuantityLog(
+                $actionModifier->getActionPointModifier() > 0 ? LogEnum::GAIN_ACTION_POINT : LogEnum::LOSS_ACTION_POINT,
+                $player->getRoom(),
+                $player,
+                VisibilityEnum::PRIVATE,
+                $actionModifier->getActionPointModifier(),
+                $time ?? new \DateTime('now')
+            );
+        }
+
+        if ($actionModifier->getMovementPointModifier()) {
+            $playerNewMovementPoint = $player->getMovementPoint() + $actionModifier->getMovementPointModifier();
+            $playerNewMovementPoint = $this->getValueInInterval($playerNewMovementPoint, 0, $this->gameConfig->getMaxMovementPoint());
+            $player->setMovementPoint($playerNewMovementPoint);
+            $this->roomLogService->createQuantityLog(
+                $actionModifier->getMovementPointModifier() > 0 ? LogEnum::GAIN_MOVEMENT_POINT : LogEnum::LOSS_MOVEMENT_POINT,
+                $player->getRoom(),
+                $player,
+                VisibilityEnum::PRIVATE,
+                $actionModifier->getMovementPointModifier(),
+                $time ?? new \DateTime('now')
+            );
+        }
+
+        if ($actionModifier->getHealthPointModifier()) {
+            $playerNewHealthPoint = $player->getHealthPoint() + $actionModifier->getHealthPointModifier();
+            $playerNewHealthPoint = $this->getValueInInterval($playerNewHealthPoint, 0, $this->gameConfig->getMaxHealthPoint());
+            $player->setHealthPoint($playerNewHealthPoint);
+            $this->roomLogService->createQuantityLog(
+                $actionModifier->getHealthPointModifier() > 0 ? LogEnum::GAIN_HEALTH_POINT : LogEnum::LOSS_HEALTH_POINT,
+                $player->getRoom(),
+                $player,
+                VisibilityEnum::PRIVATE,
+                $actionModifier->getHealthPointModifier(),
+                $time ?? new \DateTime('now')
+            );
+        }
+
+        if ($actionModifier->getMoralPointModifier()) {
+            $playerNewMoralPoint = $player->getMoralPoint() + $actionModifier->getMoralPointModifier();
+            $playerNewMoralPoint = $this->getValueInInterval($playerNewMoralPoint, 0, $this->gameConfig->getMaxMoralPoint());
+            $player->setMoralPoint($playerNewMoralPoint);
+            $this->roomLogService->createQuantityLog(
+                $actionModifier->getMoralPointModifier() > 0 ? LogEnum::GAIN_MORAL_POINT : LogEnum::LOSS_MORAL_POINT,
+                $player->getRoom(),
+                $player,
+                VisibilityEnum::PRIVATE,
+                $actionModifier->getMoralPointModifier(),
+                $time ?? new \DateTime('now')
+            );
+        }
+
+        return $player;
+    }
+
+    private function getValueInInterval(int $value, int $min, int $max) : int
+    {
+        return max(0, min($max, $value));
     }
 }

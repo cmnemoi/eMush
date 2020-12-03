@@ -11,7 +11,9 @@ use Mush\Item\Entity\Items\Drug;
 use Mush\Item\Enum\ItemTypeEnum;
 use Mush\Item\Service\GameItemServiceInterface;
 use Mush\Item\Service\ItemEffectServiceInterface;
+use Mush\Player\Entity\ActionModifier;
 use Mush\Player\Entity\Player;
+use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
@@ -76,12 +78,18 @@ class Consume extends Action
 
         // @TODO add disease, cures and extra effects
         $itemEffect = $this->itemServiceEffect->getConsumableEffect($rationType, $this->player->getDaedalus());
-        $this->player
-            ->addActionPoint($itemEffect->getActionPoint())
-            ->addMovementPoint($itemEffect->getMovementPoint())
-            ->addHealthPoint($itemEffect->getHealthPoint())
-            ->addMoralPoint($itemEffect->getMoralPoint())
+
+        $actionModifier = new ActionModifier();
+        $actionModifier
+            ->setActionPointModifier($itemEffect->getActionPoint())
+            ->setMovementPointModifier($itemEffect->getMovementPoint())
+            ->setHealthPointModifier($itemEffect->getHealthPoint())
+            ->setMoralPointModifier($itemEffect->getMoralPoint())
         ;
+
+        $playerEvent = new PlayerEvent($this->player);
+        $playerEvent->setActionModifier($actionModifier);
+        $this->eventManager->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
 
         // If the ration is a drug player get Drug_Eaten status that prevent it from eating another drug this cycle.
         if ($rationType instanceof Drug) {

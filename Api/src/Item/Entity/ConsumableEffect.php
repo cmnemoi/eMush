@@ -68,7 +68,7 @@ class ConsumableEffect
     /**
      * @ORM\Column(type="array", nullable=false)
      */
-    private array $diseasesDelayLengh = [];
+    private array $diseasesDelayLength = [];
 
     /**
      * @ORM\Column(type="array", nullable=false)
@@ -188,26 +188,26 @@ class ConsumableEffect
         return $this;
     }
 
-    public function getDiseasesDelayLengh(): array
+    public function getDiseasesDelayLength(): array
     {
-        return $this->diseasesDelayLengh;
+        return $this->diseasesDelayLength;
     }
 
-    public function setDiseasesDelayLengh(array $diseasesDelayLengh): ConsumableEffect
+    public function setDiseasesDelayLength(array $diseasesDelayLength): ConsumableEffect
     {
-        $this->diseasesDelayLengh = $diseasesDelayLengh;
+        $this->diseasesDelayLength = $diseasesDelayLength;
 
         return $this;
     }
 
     public function getExtraEffects(): array
     {
-        return $this->specialEffect;
+        return $this->extraEffects;
     }
 
     public function setExtraEffects(array $specialEffect): ConsumableEffect
     {
-        $this->specialEffect = $specialEffect;
+        $this->extraEffects = $specialEffect;
 
         return $this;
     }

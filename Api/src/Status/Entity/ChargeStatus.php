@@ -36,14 +36,14 @@ class ChargeStatus extends Status
         return $this->charge;
     }
 
-    public function addCharge(int $charge): Status
+    public function addCharge(int $charge): ChargeStatus
     {
         $this->charge += $charge;
 
         return $this;
     }
 
-    public function setCharge(?int $charge): Status
+    public function setCharge(?int $charge): ChargeStatus
     {
         $this->charge = $charge;
 
@@ -55,7 +55,7 @@ class ChargeStatus extends Status
         return $this->strategy;
     }
 
-    public function setStrategy(?string $strategy): Status
+    public function setStrategy(?string $strategy): ChargeStatus
     {
         $this->strategy = $strategy;
 
@@ -67,7 +67,7 @@ class ChargeStatus extends Status
         return $this->threshold;
     }
 
-    public function setThreshold(?int $threshold): Status
+    public function setThreshold(?int $threshold): ChargeStatus
     {
         $this->threshold = $threshold;
 

@@ -31,10 +31,10 @@ class DaySubscriber implements EventSubscriberInterface
             return;
         }
 
-        foreach ($room->getItems() as $item) {
-            $itemNewDay = new DayEvent($room->getDaedalus(), $event->getTime());
-            $itemNewDay->setGameItem($item);
-            $this->eventDispatcher->dispatch($itemNewDay, DayEvent::NEW_DAY);
+        foreach ($room->getEquipments() as $equipment) {
+            $equipmentNewDay = new DayEvent($room->getDaedalus(), $event->getTime());
+            $equipmentNewDay->setGameEquipment($equipment);
+            $this->eventDispatcher->dispatch($equipmentNewDay, DayEvent::NEW_DAY);
         }
     }
 }

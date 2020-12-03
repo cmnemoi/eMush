@@ -104,4 +104,12 @@ class ActionEnum
             self::REPAIR,
         ];
     }
+
+    public static function getPermanentEquipmentActions(): array
+    {
+        return [
+            self::EXAMINE,
+            self::REPAIR,
+        ];
+    }
 }

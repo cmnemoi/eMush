@@ -7,8 +7,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Item\Entity\Door;
-use Mush\Item\Entity\GameItem;
+use Mush\Equipment\Entity\Door;
+use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
 
 /**
@@ -43,14 +44,14 @@ class Room
     private Collection $players;
 
     /**
-     * @ORM\OneToMany(targetEntity="Mush\Item\Entity\GameItem", mappedBy="room")
-     */
-    private Collection $items;
-
-    /**
-     * @ORM\ManyToMany (targetEntity="Mush\Item\Entity\Door", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\ManyToMany (targetEntity="Mush\Equipment\Entity\Door", cascade={"persist"}, orphanRemoval=true)
      */
     private Collection $doors;
+
+    /**
+     * @ORM\ManyToMany (targetEntity="Mush\Equipment\Entity\GameEquipment", cascade={"persist"}, orphanRemoval=true)
+     */
+    private Collection $equipments;
 
     /**
      * @ORM\Column(type="array", nullable=true)
@@ -65,8 +66,9 @@ class Room
     public function __construct()
     {
         $this->players = new ArrayCollection();
-        $this->items = new ArrayCollection();
+        $this->equipments = new ArrayCollection();
         $this->doors = new ArrayCollection();
+        $this->statuses = new ArrayCollection();
     }
 
     public function getId(): int
@@ -147,33 +149,32 @@ class Room
         return $this;
     }
 
-    public function getItems(): Collection
+    public function getEquipments(): Collection
     {
-        return $this->items;
+        return $this->equipments;
     }
 
-    public function setItems(ArrayCollection $items): Room
+    public function setEquipments(ArrayCollection $equipments): Room
     {
-        $this->items = $items;
+        $this->equipments = $equipments;
 
         return $this;
     }
 
-    public function addItem(GameItem $item): Room
+    public function addEquipment(GameEquipment $equipment): Room
     {
-        if (!$this->items->contains($item)) {
-            $this->items->add($item);
-            $item->setRoom($this);
+        if (!$this->equipments->contains($equipment)) {
+            $this->equipments->add($equipment);
+            $equipment->setRoom($this);
         }
-
         return $this;
     }
 
-    public function removeItem(GameItem $item): Room
+    public function removeEquipment(GameEquipment $equipment): Room
     {
-        if ($this->items->contains($item)) {
-            $this->items->removeElement($item);
-            $item->setRoom(null);
+        if ($this->equipments->contains($equipment)) {
+            $this->equipments->removeElement($equipment);
+            $equipment->setRoom(null);
         }
 
         return $this;

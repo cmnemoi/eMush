@@ -82,16 +82,10 @@ export default {
 
 <style lang="scss" scoped>
 
-#discussion-input:checked ~ .tabs-content #discussion-tab {
-  display: flex;
-  visibility: visible;
-}
-
 #discussion-tab {
   position: relative;
   z-index: 2;
   height: 435px;
-  font-size: .8em;
   line-height: initial;
   background: rgba(194, 243, 252, 1);
   @include corner-bezel(0px, 6.5px, 0px);

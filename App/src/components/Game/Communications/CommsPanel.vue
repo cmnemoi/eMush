@@ -5,9 +5,9 @@
   <input type="radio" id="room-events-input" name="comms_tabs">
   <input type="radio" id="discussion-input" name="comms_tabs" checked>
 
-  <label for="tips-input"><img src="@/assets/images/comms/tip.png"></label>
-  <label for="room-events-input"><img src="@/assets/images/comms/local.png"></label>
-  <label for="discussion-input"><img src="@/assets/images/comms/wall.png"></label>
+  <label id="tips-label" for="tips-input"><img src="@/assets/images/comms/tip.png"></label>
+  <label id="room-events-label" for="room-events-input"><img src="@/assets/images/comms/local.png"></label>
+  <label id="discussion-label" for="discussion-input"><img src="@/assets/images/comms/wall.png"></label>
 
   <div class="cycle-time"><img src="@/assets/images/comms/calendar.png"><span>Jour {{ day }} - Cycle {{ cycle }}</span></div>
 
@@ -39,6 +39,20 @@ export default {
 
 <style lang="scss" scoped>
 
+#tips-input:checked ~ .tabs-content #tips-tab,
+#room-events-input:checked ~ .tabs-content #room-events-tab,
+#discussion-input:checked ~ .tabs-content #discussion-tab {
+  display: flex;
+  visibility: visible;
+}
+
+#tips-input:checked ~ #tips-label,
+#room-events-input:checked ~ #room-events-label,
+#discussion-input:checked ~ #discussion-label {
+  opacity: 1;
+  &::after { background: rgba(194, 243, 252, 1); }
+}
+
 .comms-panel {
   position: relative;
   display: block;
@@ -50,7 +64,10 @@ export default {
     left: -100vw;
   }
   
-  & .tabs-content { min-width: 100%; }
+  & .tabs-content {
+    min-width: 100%;
+    font-size: .8em;
+  }
   
 
   & label {

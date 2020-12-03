@@ -1,74 +1,94 @@
 <template>
 <div class="chatbox-container" id="room-events-tab">
-  <textarea class="chat-input" placeholder="Type your message here!"></textarea>
-  <div class="chatbox">
-    <div class="unit">
-      <div class="main-message">
-        <img src="@/assets/images/char/body/jin_su.png">
-        <p><span class="author">Jin Su :</span>It would be nice to set up BIOS. Any IT Expert up to it?</p>
-        <span class="timestamp">moments ago</span>
-        
-      </div>
-      <div>
-        <p><img src="@/assets/images/char/head/jin_su.png"><span class="author">Jin Su :</span><strong><em>Share BIOS parameters</em></strong><br />
-          <strong>Foodstuff Destruction</strong> : No<br />
-          <strong>CPU Priority</strong> : Astronavigation<br />
-          <strong>Crew lock</strong> : Piloting<br />
-          <strong>Vocoder Announcements</strong> : Unauthorized<br />
-          <strong>Report Deaths</strong> : Yes<br />
-          <strong>Inhibit DMZ-CorePeace</strong> : Yes<br />
-          <em>Find us an O2 planet!</em>
-        </p>
-        <span class="timestamp">moments ago</span>
-        
-      </div>
-    </div>
 
-    <div class="unit">
-      <div class="main-message neron new">
-        <img src="@/assets/images/comms/neron_chat.png">
-        <p><span class="author">NERON :</span><strong>Gravity Simulator</strong> engaged, nice. <em>Move Humans more fastly</em>. You not get dirt everywhere! [Hax!]</p>
-        <span class="timestamp">25min</span>
-      
-      </div>
-      <div class="new">
-        <p><img src="@/assets/images/char/head/hua.png"><span class="author">Hua :</span>Dirty dismantling the shower.</p>
-        <span class="timestamp">~1h</span>
-      </div>
-      <div class="new">
-        <p><img src="@/assets/images/char/head/paola.png"><span class="author">Paola :</span>Thanks Hua, got my sofa ready on the bridge now :)</p>
-        <span class="timestamp">~1h</span>
-      </div>
+  <div class="unit">
+    <div class="cycle-banner">
+      <span>Jour 1 Cycle 6</span>
     </div>
-
-    <div class="unit">
-      <div class="main-message new">
-        <img src="@/assets/images/char/body/ian.png">
-        <p><span class="author">Ian :</span><strong><em>Piloting</em></strong></p>
-        <span class="timestamp">~5d</span>
-      </div>
-      <div>
-        <p><img src="@/assets/images/char/head/jin_su.png"><span class="author">Jin Su :</span>So far eight hunters shot total (3 + 5), no scrap collected yet.</p>
-        <span class="timestamp">~3d</span>
-      </div>
-      <div>
-        <p><img src="@/assets/images/char/head/ian.png"><span class="author">Ian :</span>Excellent sir, I can see why they have you training the new pilots :P</p>
-        <span class="timestamp">~3d</span>
-      </div>
-      <div>
-        <p><img src="@/assets/images/char/head/jin_su.png"><span class="author">Jin Su :</span>Kind of you to say so, yet I sadly can't agree. In fact I find our hull's exellency wanting. It shall be restored once we collected scrap and built the oscilloscope.</p>
-        <span class="timestamp">~1d</span>
-      </div>
-      <div>
-        <p><img src="@/assets/images/char/head/jin_su.png"><span class="author">Jin Su :</span>Scrap collected, still a bit left.</p>
-        <span class="timestamp">~1d</span>
-      </div>
-      <div>
-        <p><img src="@/assets/images/char/head/paola.png"><span class="author">Paola :</span>This topic is discriminating, I vote for a new one simply labeled "hunters" or "attackers"</p>
-        <span class="timestamp">~1d</span>
-      </div>
-    </div>
+    <ul class="cycle-events">
+      <li class="personnal">
+        <p><img src="@/assets/images/triumph.png" alt="triumph"> Cette action remplit les objectifs personnels de votre personnage. Vous gagnez <strong>1 Triomphe</strong>.</p>
+        <span class="timestamp">moments ago</span>
+      </li>
+      <li class="personnal">
+        <p>Vous avez gagné 2 <img src="@/assets/images/xp.png" alt="xp">.</p>
+        <span class="timestamp">moments ago</span>
+      </li>
+      <li class="personnal">
+        <p>Vous avez gagné 1 <img src="@/assets/images/pm.png" alt="pm">.</p>
+        <span class="timestamp">moments ago</span>
+      </li>
+      <li class="personnal">
+        <p>Vous avez gagné 1 <img src="@/assets/images/pa.png" alt="pa">.</p>
+        <span class="timestamp">moments ago</span>
+      </li>
+    </ul>
   </div>
+
+  <div class="unit">
+    <div class="cycle-banner">
+      <span>Jour 1 Cycle 5</span>
+    </div>
+    <ul class="cycle-events">
+      <li class="discrete spotted">
+        <p><strong>Janice</strong> souffle sur <strong>Stephen</strong> un nuage étrange...</p>
+        <span class="timestamp">24min</span>
+      </li>
+      <li class="discrete">
+        <p><strong>Janice</strong> souffle sur <strong>Stephen</strong> un nuage étrange...</p>
+        <span class="timestamp">26min</span>
+      </li>
+      <li class="covert">
+        <p><strong>Janice</strong> souffle sur <strong>Stephen</strong> un nuage étrange...</p>
+        <span class="timestamp">29min</span>
+      </li>
+      <li>
+        <p><strong>Derek</strong> s'allonge... Ça fait du bien de s'arrêter. Allez direction le pays des rêves !</p>
+        <span class="timestamp">36min</span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="unit">
+    <div class="cycle-banner">
+      <span>Jour 1 Cycle 4</span>
+    </div>
+    <ul class="cycle-events">
+      <li>
+        <p><strong>Stephen</strong> s'est éveillé de son si doux sommeil.</p>
+        <span class="timestamp">~1h</span>
+      </li>
+      <li>
+        <p><strong>Roland</strong> est sorti.</p>
+        <span class="timestamp">~1h</span>
+      </li>
+      <li>
+        <p><strong>Ian</strong> a lâché un <strong>Bananier</strong>.</p>
+        <span class="timestamp">~1h</span>
+      </li>
+      <li>
+        <p><strong>Ian</strong> a lâché un <strong>Bananier</strong>.</p>
+        <span class="timestamp">~4h</span>
+      </li>
+      <li>
+        <p><strong>Ian</strong> est entré.</p>
+        <span class="timestamp">~4h</span>
+      </li>
+      <li>
+        <p><strong>Ian</strong> est sorti.</p>
+        <span class="timestamp">~4h</span>
+      </li>
+      <li>
+        <p><strong>Ian</strong> a lâché une <strong>HydroPot</strong>.</p>
+        <span class="timestamp">~5h</span>
+      </li>
+      <li>
+        <p><strong>Jin Su</strong> s'est éveillé de son si doux sommeil.</p>
+        <span class="timestamp">~5h</span>
+      </li>
+    </ul>
+  </div>
+
 </div>
 </template>
 
@@ -89,206 +109,115 @@ export default {
 
 #room-events-tab {
   position: relative;
+  overflow: auto;
   z-index: 2;
   height: 435px;
-  font-size: .8em;
+  padding: 4px 0;
   line-height: initial;
   background: rgba(194, 243, 252, 1);
+  color: #090a61;
   @include corner-bezel(0px, 6.5px, 0px);
 
   display: none;
   visibility: hidden;
 
-  & textarea {
-    position: sticky;
-    resize: vertical;
-    min-height: 29px;
-    margin: 7px 7px 4px 7px;
-    padding: 3px 5px;
-    font-style: italic;
-    opacity: .85;
+  & .unit {
+    display: block;
+    padding: 1px 6px;
 
-    box-shadow: 0px 1px 0px white;
-    border: 1px solid #aad4e5;
-    border-radius: 3px;
-
-    &:active, &:focus {
-      min-height: 48px;
-      max-height: 80%;
-      font-style: initial;
-      opacity: 1;
+    & .cycle-banner {
+      min-height: 24px;
+      justify-content: center;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: .03em;
+      background: #A6EEFB;
     }
-  }
 
-  & .chatbox {
-    overflow: auto;
-    padding: 7px;
-    color: #090a61;
+    & ul {
+      flex-direction: column;
 
-    & .unit {
-      display: block;
-      align-items: flex-end;
-      padding: 5px 0;
-      border-bottom: 1px solid rgb(170, 212, 229);
-
-      & div {
+      & li {
         position: relative;
-        display: block;
-        clear: both;
+        padding: 4px 5px;
+        margin: 1px 0;
+        border-bottom: 1px solid rgb(170, 212, 229);
 
-        & p:not(.timestamp) {
-          position:relative;
-          margin: 3px 0;
-          padding: 4px 6px;
-          border-radius: 3px;
-          background: white;
-
-          & .author {
-            color: #2081e2;
-            font-weight: 700;
-            font-variant: small-caps;
-            padding-right: .25em; 
-          }
-
-          & em {color: #cf1830;}
-        }
-
-        & .timestamp {
-          position: absolute;
-          z-index: 2;
-          right: 5px;
-          bottom: 5px;
-          font-size: .85em;
+        &.personnal {
+          color: #98388A;
           font-style: italic;
-          opacity: .5;
-          float: right;
         }
 
-        &.new:not(.neron) p, &.new.neron {
-          border-left: 2px solid #EA9104;
-
-          &::after {
-            content:"";
-            position: absolute;
-            top: 7px;
-            left: -6px;
-            height: 11px;
-            width: 11px;
-            background: transparent url('~@/assets/images/comms/thinklinked.png') center no-repeat;
+        &.covert, &.discrete {
+          border-radius: 3px;
+          background: #88def8;
+          font-style: italic;
+          border: none;
+          
+          &.spotted {
+            background: #e29ec3;
+            border: 1px solid #ff3f58;
+            font-style: normal;
           }
         }
 
-        &.main-message {
-          & img { margin: 2px; float: left; }
-
-          & p { margin-left: 36px; min-height: 52px; }
-
-          & p::before { /* bubble triangle*/
-            $size: 8px;
-            content:"";
-            position: absolute;
-            top: 4px;
-            left: -$size;
-            width: 0px;
-            height: 0px;
-            border-top: $size solid transparent;
-            border-bottom: $size solid transparent;
-            border-right: $size solid white;
-          }
-
-          &.new p {
-            &::before { border-right-color: #EA9104 }
-            &::after { top: 22px; }
-          }
-        }
-
-        &.neron {
-          padding: 2px 4px;
-          border-radius: 4px;
-          background: #74CBF3;
-
-          & p {
-            min-height: 36px;
-            padding: 0 0 0 8px;
-            font-variant: small-caps;
-            color: inherit;
-            background: transparent;
-            & .author{ color: inherit; }
-            &::before { content: none; }
-            &::after { top: 8px;}
-          }
-
-          &::after { top: 12px !important; }
-        }
-
-        &:not(.main-message) {
-          margin-left: 50px;
-          & img { margin-right: 3px; }
-          & p { margin-top: 12px; }
-
-          & p::before { /* bubble triangle*/
-            $size: 8px;
-            content:"";
-            position: absolute;
-            top: -$size;
-            left: 4px ;
-            width: 0px;
-            height: 0px;
-            border-left: $size solid transparent;
-            border-right: $size solid transparent;
-            border-bottom: $size solid white;
-          }
-
-/* MESSAGES LINKTREE */
-
-          &::before {
-            --border-radius: 5px;
+        &.personnal, &.covert, &.discrete, &.spotted {
+          & .timestamp:before {
             content: "";
-            position: absolute;
-            top: calc( -12px - var(--border-radius) );
-            left: -36px;
-            width: calc( 28px + var(--border-radius) );
-            height: calc( 26px + var(--border-radius) );
-            border-left: 1px solid #aad4e5;
-            border-bottom: 1px solid #aad4e5;
-            border-radius: var(--border-radius);
-
-            clip-path: polygon(
-              0 var(--border-radius),
-              calc(100% - var(--border-radius)) var(--border-radius),
-              calc(100% - var(--border-radius)) 100%,
-              0 100%
-            );
+            display: inline-block;
+            margin-right: 4px;
+            vertical-align: middle;
           }
+        }
 
-          &:not(:last-child)::after {
-            --border-radius: 5px;
-            content: "";
-            position: absolute;
-            top: 13px;
-            left: -36px;
-            width: calc( 28px + var(--border-radius) );
-            bottom: calc( -4px - var(--border-radius) );
-            border-left: 1px solid #aad4e5;
-            border-top: 1px solid #aad4e5;
-            border-radius: var(--border-radius);
+        &.personnal .timestamp:before {
+          width: 16px;
+          height: 16px;
+          background: url('~@/assets/images/comms/personnal.png') center no-repeat;
+        }
 
-            clip-path: polygon(
-              0 0,
-              calc(100% - var(--border-radius)) 0,
-              calc(100% - var(--border-radius)) calc(100% - var(--border-radius)),
-              0 calc(100% - var(--border-radius))
-            );
-          }
+        &.covert .timestamp:before {
+          width: 16px;
+          height: 16px;
+          background: url('~@/assets/images/comms/covert.png') center no-repeat;
+        }
+
+        &.discrete .timestamp:before {
+          width: 16px;
+          height: 15px;
+          background: url('~@/assets/images/comms/discrete.png') center no-repeat;
+        }
+
+        &.spotted .timestamp:before {
+          width: 20px;
+          height: 16px;
+          background: url('~@/assets/images/comms/spotted.png') center no-repeat;
         }
       }
+
+      & p {
+        margin: 0;
+        font-size: .95em;
+        & img { vertical-align: middle; }
+        }
+    }
+
+    & .timestamp {
+      position: absolute;
+      z-index: 2;
+      right: 5px;
+      bottom: 5px;
+      font-size: .85em;
+      font-style: italic;
+      opacity: .5;
+      float: right;
     }
   }
 }
 
 /* SCROLLBAR STYLING */
 
-.chatbox, {
+.chatbox-container, {
   --scrollbarBG: white;
   --thumbBG: #090a61;
 

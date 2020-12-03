@@ -19,12 +19,9 @@ class EquipmentEffectService implements EquipmentEffectServiceInterface
     private PlantEffectRepository $plantEffectRepository;
     private RandomServiceInterface $randomService;
 
-<<<<<<< refs/remotes/origin/develop:Api/src/Item/Service/ItemEffectService.php
-=======
     /**
      * EquipmentEffectService constructor.
      */
->>>>>>> Changed theb orgaisation to add equipment:Api/src/Equipment/Service/EquipmentEffectService.php
     public function __construct(
         ConsumableEffectRepository $consumableEffectRepository,
         PlantEffectRepository $plantEffectRepository,
@@ -123,7 +120,7 @@ class EquipmentEffectService implements EquipmentEffectServiceInterface
                     ->setCures($cures)
                     ->setDiseasesChance($diseasesChances)
                     ->setDiseasesDelayMin($diseasesDelayMin)
-                    ->setDiseasesDelayLength($diseasesDelayLengh)
+                    ->setDiseasesDelayLengh($diseasesDelayLengh)
                     ->setExtraEffects($extraEffects);
             } elseif ($ration instanceof Drug && count($ration->getDrugEffectsNumber()) > 0) {
                 // if the ration is a drug 1 to 4 diseases are cured with 100% chances
@@ -135,7 +132,7 @@ class EquipmentEffectService implements EquipmentEffectServiceInterface
                     ->setCures($ration->getCures())
                     ->setDiseasesChance($ration->getDiseasesChances())
                     ->setDiseasesDelayMin($ration->getDiseasesDelayMin())
-                    ->setDiseasesDelayLength($ration->getDiseasesDelayMin() + $ration->getDiseasesDelayLengh())
+                    ->setDiseasesDelayLengh($ration->getDiseasesDelayMin() + $ration->getDiseasesDelayLengh())
                     ->setExtraEffects($ration->getExtraEffects());
             }
 

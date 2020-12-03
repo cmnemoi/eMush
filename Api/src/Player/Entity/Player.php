@@ -10,6 +10,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Item\Entity\Door;
 use Mush\Item\Entity\GameItem;
 use Mush\Item\Enum\ReachEnum;
+use Mush\Player\Enum\GameStatusEnum;
 use Mush\Room\Entity\Room;
 use Mush\Status\Entity\Collection\MedicalConditionCollection;
 use Mush\Status\Entity\MedicalCondition;
@@ -145,6 +146,11 @@ class Player
         return $this;
     }
 
+    public function isAlive(): bool
+    {
+        return $this->gameStatus === GameStatusEnum::CURRENT;
+    }
+
     public function getPerson(): string
     {
         return $this->person;
@@ -236,7 +242,7 @@ class Player
         }
     }
 
-    public function getReachableItemsByName(string $name, string $reach = ReachEnum::SHELVE_NOT_HIDDEN): ?Collection
+    public function getReachableItemsByName(string $itemName, string $reach = ReachEnum::SHELVE_NOT_HIDDEN): ?Collection
     {
         //reach can be set to inventory, shelve, shelve only or any room of the Daedalus
         if ($reach === ReachEnum::INVENTORY) {
@@ -247,7 +253,7 @@ class Player
                 $this->getRoom()->getItems()->toArray()
             ))
               )->filter(fn (GameItem $gameItem) => (
-              $gameItem->getName() === $name &&
+              $gameItem->getName() === $itemName &&
               ($gameItem->getStatusByName(ItemStatusEnum::HIDDEN) === null ||
                $gameItem->getStatusByName(ItemStatusEnum::HIDDEN)->getPlayer() === $this)));
         } elseif ($reach === ReachEnum::SHELVE) {
@@ -255,7 +261,7 @@ class Player
                 $this->getItems()->toArray(),
                 $this->getRoom()->getItems()->toArray()
             ))
-              )->filter(fn (GameItem $gameItem) => ($gameItem->getName() === $name));
+              )->filter(fn (GameItem $gameItem) => ($gameItem->getName() === $itemName));
         } else {
             return $this->getDaedalus()->getRoomByName($reach)->getItems()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $itemName);
         }

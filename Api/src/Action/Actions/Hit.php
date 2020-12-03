@@ -11,6 +11,7 @@ use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\SkillMushEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Item\Enum\GearItemEnum;
+use Mush\Player\Entity\ActionModifier;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Service\PlayerServiceInterface;
@@ -85,13 +86,12 @@ class Hit extends AttemptAction
             if ($damage <= 0) {
                 // TODO:
             } elseif ($this->target->getHealthPoint() > $damage) {
-                $this->target->addHealthPoint((-1) * $damage);
+                $actionModifier = new ActionModifier();
+                $actionModifier->setHealthPointModifier($damage);
 
-                //Player is dead
-                if ($this->target->getHealthPoint() < 0) {
-                    $playerEvent = new PlayerEvent($this->target);
-                    $this->eventManager->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
-                }
+                $playerEvent = new PlayerEvent($this->player);
+                $playerEvent->setActionModifier($actionModifier);
+                $this->eventManager->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
 
                 $this->playerService->persist($this->target);
             }

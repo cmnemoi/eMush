@@ -252,10 +252,10 @@ class Player
                 $this->getItems()->toArray(),
                 $this->getRoom()->getEquipments()->toArray()
             ))
-              )->filter(fn (GameItem $gameItem) => (
-              $gameItem->getName() === $name &&
-              ($gameItem->getStatusByName(EquipmentStatusEnum::HIDDEN) === null ||
-               $gameItem->getStatusByName(EquipmentStatusEnum::HIDDEN)->getPlayer() === $this)));
+              )->filter(fn (GameItem $gameEquipment) => (
+              $gameEquipment->getName() === $name &&
+              ($gameEquipment->getStatusByName(EquipmentStatusEnum::HIDDEN) === null ||
+               $gameEquipment->getStatusByName(EquipmentStatusEnum::HIDDEN)->getPlayer() === $this)));
         } elseif ($reach === ReachEnum::SHELVE) {
             return (new ArrayCollection(array_merge(
                 $this->getItems()->toArray(),

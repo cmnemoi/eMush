@@ -26,7 +26,7 @@ class ConsumableEffect
     private Daedalus $daedalus;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Mush\Item\Entity\Items\Ration")
+     * @ORM\ManyToOne(targetEntity="Mush\Equipment\Entity\Equipments\Ration")
      */
     private Ration $ration;
 
@@ -68,7 +68,7 @@ class ConsumableEffect
     /**
      * @ORM\Column(type="array", nullable=false)
      */
-    private array $diseasesDelayLengh = [];
+    private array $diseasesDelayLength = [];
 
     /**
      * @ORM\Column(type="array", nullable=false)
@@ -188,26 +188,26 @@ class ConsumableEffect
         return $this;
     }
 
-    public function getDiseasesDelayLengh(): array
+    public function getDiseasesDelayLength(): array
     {
-        return $this->diseasesDelayLengh;
+        return $this->diseasesDelayLength;
     }
 
-    public function setDiseasesDelayLengh(array $diseasesDelayLengh): ConsumableEffect
+    public function setDiseasesDelayLength(array $diseasesDelayLength): ConsumableEffect
     {
-        $this->diseasesDelayLengh = $diseasesDelayLengh;
+        $this->diseasesDelayLength = $diseasesDelayLength;
 
         return $this;
     }
 
     public function getExtraEffects(): array
     {
-        return $this->extraEffect;
+        return $this->extraEffects;
     }
 
-    public function setExtraEffects(array $extraEffect): ConsumableEffect
+    public function setExtraEffects(array $extraEffects): ConsumableEffect
     {
-        $this->extraEffect = $extraEffect;
+        $this->extraEffect = $extraEffects;
 
         return $this;
     }

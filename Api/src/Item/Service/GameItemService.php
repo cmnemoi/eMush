@@ -8,11 +8,15 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Item\Entity\GameItem;
 use Mush\Item\Entity\Item;
 use Mush\Item\Entity\Items\Charged;
+use Mush\Item\Entity\Items\Document;
 use Mush\Item\Entity\Items\Plant;
 use Mush\Item\Entity\ItemType;
 use Mush\Item\Enum\ItemTypeEnum;
 use Mush\Item\Repository\GameItemRepository;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Status\Entity\ContentStatus;
+use Mush\Status\Entity\Status;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\ItemStatusEnum;
 use Mush\Status\Enum\StatusEnum;
@@ -79,7 +83,7 @@ class GameItemService implements GameItemServiceInterface
                 case ItemTypeEnum::CHARGED:
                     $this->initCharged($gameItem, $type);
                     break;
-                case ItemTypeEnum::DOCUMENT && $type->getContent():
+                case ItemTypeEnum::DOCUMENT:
                     $this->initDocument($gameItem, $type);
                     break;
             }
@@ -91,7 +95,7 @@ class GameItemService implements GameItemServiceInterface
     // @TODO maybe remove those init functions to directly include them in createGameItem
     private function initPlant(GameItem $gameItem, Plant $plant, Daedalus $daedalus): GameItem
     {
-        $plantStatus = $this->statusService->createChargeItemStatus(
+        $this->statusService->createChargeItemStatus(
             ItemStatusEnum::PLANT_YOUNG,
             $gameItem,
             ChargeStrategyTypeEnum::GROWING_PLANT,
@@ -104,7 +108,7 @@ class GameItemService implements GameItemServiceInterface
 
     private function initCharged(GameItem $gameItem, Charged $charged): GameItem
     {
-        $chargeStatus = $this->statusService->createChargeItemStatus(
+        $this->statusService->createChargeItemStatus(
             StatusEnum::CHARGE,
             $gameItem,
             $charged->getChargeStrategy(),
@@ -117,12 +121,15 @@ class GameItemService implements GameItemServiceInterface
 
     private function initDocument(GameItem $gameItem, Document $document): GameItem
     {
-        $contentStatus
-            ->setName(ItemStatusEnum::DOCUMENT_CONTENT)
-            ->setVisibility(VisibilityEnum::PRIVATE)
-            ->setGameItem($this->gameItem)
-            ->setContent($document->getContent())
-        ;
+        if ($document->getContent()) {
+            $contentStatus = new ContentStatus();
+            $contentStatus
+                ->setName(ItemStatusEnum::DOCUMENT_CONTENT)
+                ->setVisibility(VisibilityEnum::PRIVATE)
+                ->setGameItem($gameItem)
+                ->setContent($document->getContent())
+            ;
+        }
 
         return $gameItem;
     }

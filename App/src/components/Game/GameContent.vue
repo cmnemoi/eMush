@@ -19,7 +19,7 @@ import ExplorationPanel from "@/components/Game/ExplorationPanel";
 import BannerPanel from "@/components/Game/BannerPanel";
 import CharPanel from "@/components/Game/CharPanel";
 import ShipPanel from "@/components/Game/ShipPanel";
-import CommsPanel from "@/components/Game/CommsPanel";
+import CommsPanel from "@/components/Game/Communications/CommsPanel";
 import ProjectsPanel from "@/components/Game/ProjectsPanel";
 import {mapActions, mapGetters} from "vuex";
 

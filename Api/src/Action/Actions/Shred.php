@@ -7,7 +7,8 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Item\Entity\GameItem;
-use Mush\Item\Entity\Items\Book;
+use Mush\Item\Entity\Items\Document;
+use Mush\Item\Entity\ItemType;
 use Mush\Item\Enum\ItemTypeEnum;
 use Mush\Item\Service\GameItemServiceInterface;
 use Mush\Player\Entity\Player;
@@ -16,9 +17,9 @@ use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class ReadBook extends Action
+class Shred extends Action
 {
-    protected string $name = ActionEnum::READ_BOOK;
+    protected string $name = ActionEnum::SHRED;
 
     private GameItem $item;
 
@@ -38,7 +39,7 @@ class ReadBook extends Action
         $this->itemService = $itemService;
         $this->playerService = $playerService;
 
-        $this->actionCost->setActionPointCost(2);
+        $this->actionCost->setActionPointCost(0);
     }
 
     public function loadParameters(Player $player, ActionParameters $actionParameters)
@@ -52,20 +53,14 @@ class ReadBook extends Action
 
     public function canExecute(): bool
     {
-        //@TODO add conditions player already have the skill and player already read a book
-        return null !== $this->item->getItem()->getItemType(ItemTypeEnum::BOOK) &&
-            $this->player->canReachItem($this->item)
-            ;
+        return null !== $this->item->getItem()->getItemType(ItemTypeEnum::DOCUMENT) &&
+               $this->item->getItem()->getItemType(ItemTypeEnum::DOCUMENT)->canShred() &&
+               $this->player->canReachItem($this->item)
+               ;
     }
 
     protected function applyEffects(): ActionResult
     {
-        /**
-         * @var Book $bookType
-         */
-        $bookType = $this->item->getItem()->getItemType(ItemTypeEnum::BOOK);
-        $this->player->addSkill($bookType->getSkill());
-
         $this->item
             ->setRoom(null)
             ->setPlayer(null)
@@ -80,7 +75,7 @@ class ReadBook extends Action
     protected function createLog(ActionResult $actionResult): void
     {
         $this->roomLogService->createItemLog(
-            ActionEnum::READ_BOOK,
+            ActionEnum::SHRED,
             $this->player->getRoom(),
             $this->player,
             $this->item,

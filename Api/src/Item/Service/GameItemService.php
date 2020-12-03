@@ -79,6 +79,9 @@ class GameItemService implements GameItemServiceInterface
                 case ItemTypeEnum::CHARGED:
                     $this->initCharged($gameItem, $type);
                     break;
+                case ItemTypeEnum::DOCUMENT && $type->getContent():
+                    $this->initDocument($gameItem, $type);
+                    break;
             }
         }
 
@@ -111,6 +114,19 @@ class GameItemService implements GameItemServiceInterface
 
         return $gameItem;
     }
+
+    private function initDocument(GameItem $gameItem, Document $document): GameItem
+    {
+        $contentStatus
+            ->setName(ItemStatusEnum::DOCUMENT_CONTENT)
+            ->setVisibility(VisibilityEnum::PRIVATE)
+            ->setGameItem($this->gameItem)
+            ->setContent($document->getContent())
+        ;
+
+        return $gameItem;
+    }
+
 
     //Implement accessibility to item (for tool and gear)
     public function getOperationalItemsByName(string $itemName, Player $player, string $reach): Collection

@@ -13,7 +13,7 @@ class ActionParameters
     private ?Player $player = null;
     private ?GameItem $item = null;
     private ?Door $door = null;
-    private ?String $message = null;
+    private ?string $message = null;
 
     public function getRoom(): ?Room
     {
@@ -63,7 +63,7 @@ class ActionParameters
         return $this;
     }
 
-    public function getMessage(): ?String
+    public function getMessage(): ?string
     {
         return $this->message;
     }

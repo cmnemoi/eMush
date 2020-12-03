@@ -45,7 +45,7 @@ class Document extends Tool
         return $this;
     }
 
-    public function IsTranslated(): bool
+    public function isTranslated(): bool
     {
         return $this->isTranslated;
     }

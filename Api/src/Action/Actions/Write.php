@@ -74,7 +74,7 @@ class Write extends Action
         $contentStatus = new ContentStatus();
         $contentStatus
             ->setName(ItemStatusEnum::DOCUMENT_CONTENT)
-            ->setVisibility(VisibilityEnum::PRIVATE)
+            ->setVisibility(VisibilityEnum::HIDDEN)
             ->setGameItem($newGameItem)
             ->setContent($this->message)
         ;

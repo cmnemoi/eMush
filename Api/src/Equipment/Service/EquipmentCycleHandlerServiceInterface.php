@@ -3,9 +3,9 @@
 namespace Mush\Equipment\Service;
 
 use Mush\Game\CycleHandler\AbstractCycleHandler;
-use Mush\Item\Entity\ItemType;
+use Mush\Equipment\Entity\EquipmentMechanic;
 
-interface ItemCycleHandlerServiceInterface
+interface EquipmentCycleHandlerServiceInterface
 {
-    public function getItemCycleHandler(ItemType $itemType): ?AbstractCycleHandler;
+    public function getEquipmentCycleHandler(EquipmentMechanic $mechanic): ?AbstractCycleHandler;
 }

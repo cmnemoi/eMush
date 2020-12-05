@@ -61,7 +61,7 @@ class Ration extends EquipmentMechanic
     /**
      * @ORM\Column(type="array", nullable=false)
      */
-    private array $diseasesDelayLengh = [];
+    private array $diseasesDelayLength = [];
 
     /**
      * @ORM\Column(type="array", nullable=false)
@@ -180,14 +180,14 @@ class Ration extends EquipmentMechanic
         return $this;
     }
 
-    public function getDiseasesDelayLengh(): array
+    public function getDiseasesDelayLength(): array
     {
-        return $this->diseasesDelayLengh;
+        return $this->diseasesDelayLength;
     }
 
-    public function setDiseasesDelayLengh(array $diseasesDelayLengh): Ration
+    public function setDiseasesDelayLength(array $diseasesDelayLength): Ration
     {
-        $this->diseasesDelayLengh = $diseasesDelayLengh;
+        $this->diseasesDelayLength = $diseasesDelayLength;
 
         return $this;
     }

@@ -13,8 +13,8 @@ use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Item\Entity\Item;
-use Mush\Item\Service\GameItemServiceInterface;
+use Mush\Equipment\Entity\ItemConfig;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
 use Mush\Room\Entity\RoomConfig;
@@ -28,7 +28,7 @@ class DaedalusService implements DaedalusServiceInterface
     private DaedalusRepository $repository;
     private RoomServiceInterface $roomService;
     private CycleServiceInterface $cycleService;
-    private GameItemServiceInterface $itemService;
+    private GameEquipmentServiceInterface $equipmentService;
     private RandomServiceInterface $randomService;
 
     public function __construct(
@@ -37,7 +37,7 @@ class DaedalusService implements DaedalusServiceInterface
         DaedalusRepository $repository,
         RoomServiceInterface $roomService,
         CycleServiceInterface $cycleService,
-        GameItemServiceInterface $itemService,
+        GameEquipmentServiceInterface $equipmentService,
         RandomServiceInterface $randomService
     ) {
         $this->entityManager = $entityManager;
@@ -45,7 +45,7 @@ class DaedalusService implements DaedalusServiceInterface
         $this->repository = $repository;
         $this->roomService = $roomService;
         $this->cycleService = $cycleService;
-        $this->itemService = $itemService;
+        $this->equipmentService = $equipmentService;
         $this->randomService = $randomService;
     }
 
@@ -118,7 +118,7 @@ class DaedalusService implements DaedalusServiceInterface
                 $item = $daedalus
                     ->getGameConfig()
                     ->getItemsConfig()
-                    ->filter(fn (Item $item) => $item->getName() === $itemName)
+                    ->filter(fn (ItemConfig $item) => $item->getName() === $itemName)
                     ->first()
                 ;
                 $item = $this->itemService->createGameItem($item, $daedalus);

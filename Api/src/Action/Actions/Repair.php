@@ -10,13 +10,13 @@ use Mush\Action\Service\SuccessRateServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Item\Entity\GameItem;
-use Mush\Item\Service\GameItemServiceInterface;
+use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
-use Mush\Status\Enum\ItemStatusEnum;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -24,50 +24,48 @@ class Repair extends AttemptAction
 {
     protected string $name = ActionEnum::REPAIR;
 
-    private GameItem $gameItem;
+    private GameEquipment $gameEquipment;
 
     private RoomLogServiceInterface $roomLogService;
-    private GameItemServiceInterface $gameItemService;
+    private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
-    private GameConfig $gameConfig;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         RoomLogServiceInterface $roomLogService,
-        GameItemServiceInterface $gameItemService,
+        GameEquipmentServiceInterface $gameEquipmentService,
         PlayerServiceInterface $playerService,
         RandomServiceInterface $randomService,
         SuccessRateServiceInterface $successRateService,
-        StatusServiceInterface $statusService,
-        GameConfigServiceInterface $gameConfigService
+        StatusServiceInterface $statusService
     ) {
         parent::__construct($randomService, $successRateService, $eventDispatcher, $statusService);
 
         $this->roomLogService = $roomLogService;
-        $this->gameItemService = $gameItemService;
+        $this->gameEquipmentService = $gameEquipmentService;
         $this->playerService = $playerService;
         $this->randomService = $randomService;
         $this->successRateService = $successRateService;
-        $this->gameConfig = $gameConfigService->getConfig();
-
         $this->actionCost->setActionPointCost(1);
     }
 
     public function loadParameters(Player $player, ActionParameters $actionParameters)
     {
-        if (!($item = $actionParameters->getItem()) && !($item = $actionParameters->getDoor())) {
-            throw new \InvalidArgumentException('Invalid item parameter');
+        if (!($equipment = $actionParameters->getItem()) && 
+            !($equipment = $actionParameters->getDoor()) &&
+            !($equipment = $actionParameters->getEquipment())) {
+            throw new \InvalidArgumentException('Invalid equipment parameter');
         }
 
         $this->player = $player;
-        $this->gameItem = $item;
+        $this->gameEquipment = $equipment;
     }
 
     public function canExecute(): bool
     {
-        //Check that the item is reachable
-        return $this->gameItem->isBroken() &&
-            $this->player->canReachItem($this->gameItem)
+        //Check that the equipment is reachable
+        return $this->gameEquipment->isBroken() &&
+            $this->player->canReachEquipment($this->gameEquipment)
         ;
     }
 
@@ -75,11 +73,11 @@ class Repair extends AttemptAction
     {
         $modificator = 1; //@TODO: skills, wrench
 
-        $response = $this->makeAttempt($this->gameItem->getBrokenRate(), $modificator);
+        $response = $this->makeAttempt($this->gameEquipment->getBrokenRate(), $modificator);
 
         if ($response instanceof Success) {
-            $this->gameItem->removeStatus($this->gameItem->getStatusByName(ItemStatusEnum::BROKEN));
-            $this->gameItemService->persist($this->gameItem);
+            $this->gameEquipment->removeStatus($this->gameEquipment->getStatusByName(EquipmentStatusEnum::BROKEN));
+            $this->gameEquipmentService->persist($this->gameEquipment);
         }
 
         $this->playerService->persist($this->player);

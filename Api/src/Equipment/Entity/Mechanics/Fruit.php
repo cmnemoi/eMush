@@ -45,7 +45,7 @@ class Fruit extends Ration
     /**
      * @ORM\Column(type="array", nullable=false)
      */
-    private array $diseasesEffectDelayLengh = [];
+    private array $diseasesEffectDelayLength = [];
 
     public function getPlantName(): string
     {
@@ -107,14 +107,14 @@ class Fruit extends Ration
         return $this;
     }
 
-    public function getDiseasesEffectDelayLengh(): array
+    public function getDiseasesEffectDelayLength(): array
     {
-        return $this->diseasesEffectDelayLengh;
+        return $this->diseasesEffectDelayLength;
     }
 
-    public function setDiseasesEffectDelayLengh(array $diseasesEffectDelayLengh): Fruit
+    public function setDiseasesEffectDelayLength(array $diseasesEffectDelayLength): Fruit
     {
-        $this->diseasesEffectDelayLengh = $diseasesEffectDelayLengh;
+        $this->diseasesEffectDelayLength = $diseasesEffectDelayLength;
 
         return $this;
     }

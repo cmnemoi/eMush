@@ -6,11 +6,11 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Item\Entity\GameItem;
-use Mush\Item\Entity\Items\Drug;
-use Mush\Item\Enum\ItemTypeEnum;
-use Mush\Item\Service\GameItemServiceInterface;
-use Mush\Item\Service\ItemEffectServiceInterface;
+use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Mechanics\Drug;
+use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Player\Entity\ActionModifier;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;
@@ -26,65 +26,68 @@ class Consume extends Action
 {
     protected string $name = ActionEnum::CONSUME;
 
-    private GameItem $item;
+    private GameEquipment $gameEquipment;
 
     private RoomLogServiceInterface $roomLogService;
-    private GameItemServiceInterface $gameItemService;
+    private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
-    private ItemEffectServiceInterface $itemServiceEffect;
+    private EquipmentEffectServiceInterface $equipmentServiceEffect;
     private StatusServiceInterface $statusService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         RoomLogServiceInterface $roomLogService,
-        GameItemServiceInterface $gameItemService,
+        GameEquipmentServiceInterface $gameEquipmentService,
         PlayerServiceInterface $playerService,
-        ItemEffectServiceInterface $itemServiceEffect,
+        EquipmentEffectServiceInterface $equipmentServiceEffect,
         StatusServiceInterface $statusService
     ) {
         parent::__construct($eventDispatcher);
 
         $this->roomLogService = $roomLogService;
-        $this->gameItemService = $gameItemService;
+        $this->gameEquipmentService = $gameEquipmentService;
         $this->playerService = $playerService;
-        $this->itemServiceEffect = $itemServiceEffect;
+        $this->equipmentServiceEffect = $equipmentServiceEffect;
         $this->statusService = $statusService;
     }
 
     public function loadParameters(Player $player, ActionParameters $actionParameters)
     {
-        if (!$item = $actionParameters->getItem()) {
-            throw new \InvalidArgumentException('Invalid item parameter');
+        if (!($equipment = $actionParameters->getItem()) && 
+            !($equipment = $actionParameters->getEquipment())) {
+            throw new \InvalidArgumentException('Invalid equipment parameter');
         }
+
         $this->player = $player;
-        $this->item = $item;
+        $this->gameEquipment = $equipment;
     }
 
     public function canExecute(): bool
     {
-        return !($this->item->getItem()->getItemType(ItemTypeEnum::DRUG) &&
+        return !($this->equipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::DRUG) &&
+                $this->player->canReachEquipment($this->gameEquipment) &&
                 $this->player->getStatusByName(PlayerStatusEnum::DRUG_EATEN)) &&
-            $this->item->getItem()->hasAction(ActionEnum::CONSUME) &&
-            !$this->player->getStatusByName(PlayerStatusEnum::FULL_STOMACH);
+                $this->equipment->getEquipment()->hasAction(ActionEnum::CONSUME) &&
+                !$this->player->getStatusByName(PlayerStatusEnum::FULL_STOMACH);
     }
 
     protected function applyEffects(): ActionResult
     {
-        $rationType = $this->item->getItem()->getRationsType();
+        $rationType = $this->gameEquipment->getEquipment()->getRationsMechanic();
 
         if (null === $rationType) {
-            throw new \Exception('Cannot consume this item');
+            throw new \Exception('Cannot consume this equipment');
         }
 
         // @TODO add disease, cures and extra effects
-        $itemEffect = $this->itemServiceEffect->getConsumableEffect($rationType, $this->player->getDaedalus());
+        $equipmentEffect = $this->equipmentServiceEffect->getConsumableEffect($rationType, $this->player->getDaedalus());
 
         $actionModifier = new ActionModifier();
         $actionModifier
-            ->setActionPointModifier($itemEffect->getActionPoint())
-            ->setMovementPointModifier($itemEffect->getMovementPoint())
-            ->setHealthPointModifier($itemEffect->getHealthPoint())
-            ->setMoralPointModifier($itemEffect->getMoralPoint())
+            ->setActionPointModifier($equipmentEffect->getActionPoint())
+            ->setMovementPointModifier($equipmentEffect->getMovementPoint())
+            ->setHealthPointModifier($equipmentEffect->getHealthPoint())
+            ->setMoralPointModifier($equipmentEffect->getMoralPoint())
         ;
 
         $playerEvent = new PlayerEvent($this->player);
@@ -107,10 +110,8 @@ class Consume extends Action
 
         $this->playerService->persist($this->player);
 
-        // if no charges consume item
-        $this->item->setPlayer(null);
-        $this->item->setRoom(null);
-        $this->gameItemService->delete($this->item);
+        // if no charges consume equipment
+        $this->gameEquipmentService->delete($this->equipment);
 
         return new Success();
     }

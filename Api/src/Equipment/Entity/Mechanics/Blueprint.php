@@ -30,7 +30,7 @@ class Blueprint extends Tool
 
     public function getEquipment(): EquipmentConfig
     {
-        return $this->item;
+        return $this->equipment;
     }
 
     public function setEquipment(EquipmentConfig $equipment): Blueprint

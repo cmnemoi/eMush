@@ -120,11 +120,11 @@ class EquipmentConfig
         return $this;
     }
 
-    public function getMechanicsByName(string $mechanic): ?EquipmentMechanic
+    public function getMechanicByName(string $mechanic): ?EquipmentMechanic
     {
         $equipmentMechanics = $this->mechanics->filter(fn (EquipmentMechanic $equipmentMechanic) => ($equipmentMechanic->getMechanic() === $mechanic));
 
-        return $equipmentMechanics->count() > 0 ? $mechanics->first() : null;
+        return $equipmentMechanics->count() > 0 ? $equipmentMechanics->first() : null;
     }
 
     public function getMechanicByMechanics(array $mechanics): ?EquipmentMechanic

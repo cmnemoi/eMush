@@ -8,9 +8,9 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\RandomItemPlaces;
 use Mush\Game\DataFixtures\GameConfigFixtures;
-use Mush\Item\Enum\GearItemEnum;
-use Mush\Item\Enum\ItemEnum;
-use Mush\Item\Enum\ToolItemEnum;
+use Mush\Equipment\Enum\GearItemEnum;
+use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Room\Enum\RoomEnum;
 
 /**

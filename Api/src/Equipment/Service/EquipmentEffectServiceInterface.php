@@ -1,14 +1,14 @@
 <?php
 
-namespace Mush\Item\Service;
+namespace Mush\Equipment\Service;
 
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Item\Entity\ConsumableEffect;
-use Mush\Item\Entity\Items\Plant;
-use Mush\Item\Entity\Items\Ration;
-use Mush\Item\Entity\PlantEffect;
+use Mush\Equipment\Entity\ConsumableEffect;
+use Mush\Equipment\Entity\Mechanics\Plant;
+use Mush\Equipment\Entity\Mechanics\Ration;
+use Mush\Equipment\Entity\PlantEffect;
 
-interface ItemEffectServiceInterface
+interface EquipmentEffectServiceInterface
 {
     public function getConsumableEffect(Ration $ration, Daedalus $daedalus): ConsumableEffect;
 

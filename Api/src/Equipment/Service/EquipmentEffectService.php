@@ -103,11 +103,11 @@ class EquipmentEffectService implements EquipmentEffectServiceInterface
                     $diseasesNames = $this->randomService->getRandomElementsFromProbaArray($ration->getDiseasesName(), $diseasesNumber);
                     $diseasesChances = [];
                     $diseasesDelayMin = [];
-                    $diseasesDelayLengh = [];
+                    $diseasesDelayLength = [];
                     foreach ($diseasesNames as $diseaseName) {
                         $diseasesChances[$diseaseName] = $this->randomService->getSingleRandomElementFromProbaArray($ration->getDiseasesEffectChance());
                         $diseasesDelayMin[$diseaseName] = $this->randomService->getSingleRandomElementFromProbaArray($ration->getDiseasesDelayMin());
-                        $diseasesDelayLengh[$diseaseName] = $this->randomService->getSingleRandomElementFromProbaArray($ration->getDiseasesDelayLengh());
+                        $diseasesDelayLength[$diseaseName] = $this->randomService->getSingleRandomElementFromProbaArray($ration->getDiseasesDelayLength());
                     }
                 }
 
@@ -120,7 +120,7 @@ class EquipmentEffectService implements EquipmentEffectServiceInterface
                     ->setCures($cures)
                     ->setDiseasesChance($diseasesChances)
                     ->setDiseasesDelayMin($diseasesDelayMin)
-                    ->setDiseasesDelayLengh($diseasesDelayLengh)
+                    ->setDiseasesDelayLength($diseasesDelayLength)
                     ->setExtraEffects($extraEffects);
             } elseif ($ration instanceof Drug && count($ration->getDrugEffectsNumber()) > 0) {
                 // if the ration is a drug 1 to 4 diseases are cured with 100% chances
@@ -132,7 +132,7 @@ class EquipmentEffectService implements EquipmentEffectServiceInterface
                     ->setCures($ration->getCures())
                     ->setDiseasesChance($ration->getDiseasesChances())
                     ->setDiseasesDelayMin($ration->getDiseasesDelayMin())
-                    ->setDiseasesDelayLengh($ration->getDiseasesDelayMin() + $ration->getDiseasesDelayLengh())
+                    ->setDiseasesDelayLength($ration->getDiseasesDelayMin() + $ration->getDiseasesDelayLength())
                     ->setExtraEffects($ration->getExtraEffects());
             }
 

@@ -8,10 +8,11 @@ use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\GameConfigServiceInterface;
-use Mush\Item\Entity\GameItem;
-use Mush\Item\Entity\Items\Blueprint;
-use Mush\Item\Enum\ItemTypeEnum;
-use Mush\Item\Service\GameItemServiceInterface;
+use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Mechanics\Blueprint;
+use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -22,24 +23,24 @@ class Build extends Action
 {
     protected string $name = ActionEnum::BUILD;
 
-    private GameItem $gameItem;
+    private GameEquipment $gameEquipment;
 
     private RoomLogServiceInterface $roomLogService;
-    private GameItemServiceInterface $gameItemService;
+    private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
     private GameConfig $gameConfig;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         RoomLogServiceInterface $roomLogService,
-        GameItemServiceInterface $gameItemService,
+        GameEquipmentServiceInterface $gameEquipmentService,
         PlayerServiceInterface $playerService,
         GameConfigServiceInterface $gameConfigService
     ) {
         parent::__construct($eventDispatcher);
 
         $this->roomLogService = $roomLogService;
-        $this->gameItemService = $gameItemService;
+        $this->gameEquipmentService = $gameEquipmentService;
         $this->playerService = $playerService;
         $this->gameConfig = $gameConfigService->getConfig();
         $this->actionCost->setActionPointCost(3);
@@ -47,26 +48,28 @@ class Build extends Action
 
     public function loadParameters(Player $player, ActionParameters $actionParameters)
     {
-        if (!$item = $actionParameters->getItem()) {
-            throw new \InvalidArgumentException('Invalid item parameter');
+        if (!($equipment = $actionParameters->getItem()) && 
+            !($equipment = $actionParameters->getEquipment())) {
+            throw new \InvalidArgumentException('Invalid equipment parameter');
         }
+
         $this->player = $player;
-        $this->gameItem = $item;
+        $this->gameEquipment = $equipment;
     }
 
     public function canExecute(): bool
     {
-        $blueprintType = $this->gameItem->getItem()->getItemType(ItemTypeEnum::BLUEPRINT);
-        //Check that the item is a blueprint and is reachable
+        $blueprintType = $this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT);
+        //Check that the equipment is a blueprint and is reachable
         if (
             $blueprintType === null ||
-            !$this->player->canReachItem($this->gameItem)
+            !$this->player->canReachEquipment($this->gameEquipment)
         ) {
             return false;
         }
         //Check the availlability of the ingredients
-        foreach ($blueprintType->getIngredients() as $itemName => $number) {
-            if ($this->player->getReachableItemsByName($itemName)->count() < $number) {
+        foreach ($blueprintType->getIngredients() as $name => $number) {
+            if ($this->player->getReachableEquipmentsByName($name)->count() < $number) {
                 return false;
             }
         }
@@ -77,47 +80,48 @@ class Build extends Action
     protected function applyEffects(): ActionResult
     {
         /** @var Blueprint $blueprintType */
-        $blueprintType = $this->gameItem->getItem()->getItemType(ItemTypeEnum::BLUEPRINT);
+        $blueprintMechanic = $this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT);
 
-        // add the item in the player inventory or in the room if the inventory is full
-        $blueprintObject = $this->gameItemService->createGameItem(
-            $blueprintType->getItem(),
+        // add the equipment in the player inventory or in the room if the inventory is full
+        $blueprintEquipment = $this->gameEquipmentService->createGameEquipment(
+            $blueprintMechanic->getEquipment(),
             $this->player->getDaedalus()
         );
 
-        if ($this->player->getItems()->count() < $this->gameConfig->getMaxItemInInventory()) {
-            $blueprintObject->setPlayer($this->player);
+        if ($this->player->getItems()->count() < $this->gameConfig->getMaxItemInInventory() &&
+                 $blueprintEquipment instanceof GameItem
+            ){
+            $blueprintEquipment->setPlayer($this->player);
         } else {
-            $blueprintObject->setRoom($this->player->getRoom());
+            $blueprintEquipment>setRoom($this->player->getRoom());
         }
 
-        $this->gameItemService->persist($blueprintObject);
+        $this->gameEquipmentService->persist($blueprintEquipment);
 
         // remove the used ingredients starting from the player inventory
-        foreach ($blueprintType->getIngredients() as $itemName => $number) {
+        foreach ($blueprintType->getIngredients() as $name => $number) {
             for ($i = 0; $i < $number; ++$i) {
-                if ($this->player->hasItemByName($itemName)) {
+                if ($this->player->hasItemByName($name)) {
                     // @FIXME change to a random choice of the item
                     $ingredient = $this->player->getItems()
-                        ->filter(fn (GameItem $gameItem) => $gameItem->getName() === $itemName)->first();
+                        ->filter(fn (GameItem $gameItem) => $gameItem->getName() === $name)->first();
                     $this->player->removeItem($ingredient);
                 } else {
-                    // @FIXME change to a random choice of the item
-                    $ingredient = $this->player->getRoom()->getItems()
-                        ->filter(fn (GameItem $gameItem) => $gameItem->getName() === $itemName)->first();
+                    // @FIXME change to a random choice of the equipment
+                    $ingredient = $this->player->getRoom()->getEquipments()
+                        ->filter(fn (GameEquipment $gameEquipment) => $gameEquipment>getName() === $name)->first();
                     $ingredient->setRoom(null);
                 }
-                $this->gameItemService->delete($ingredient);
+                $this->gameEquipmentService->delete($ingredient);
             }
         }
 
         // remove the blueprint
-        $this->gameItem
+        $this->gameEquipment
             ->setRoom(null)
-            ->setPlayer(null)
         ;
 
-        $this->gameItemService->delete($this->gameItem);
+        $this->gameEquipmentService->delete($this->gameEquipment);
 
         $this->playerService->persist($this->player);
 

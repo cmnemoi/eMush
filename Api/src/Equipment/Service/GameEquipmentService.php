@@ -18,6 +18,8 @@ use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Entity\ContentStatus;
 use Mush\Status\Service\StatusServiceInterface;
+use Mush\RoomLog\Enum\VisibilityEnum;
+
 
 class GameEquipmentService implements GameEquipmentServiceInterface
 {

@@ -85,7 +85,8 @@ export default {
 #discussion-tab {
   position: relative;
   z-index: 2;
-  height: 435px;
+  height: 436px;
+  margin-top: -1px;
   line-height: initial;
   background: rgba(194, 243, 252, 1);
   @include corner-bezel(0px, 6.5px, 0px);

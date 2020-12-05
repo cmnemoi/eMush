@@ -12,6 +12,7 @@
   <div class="cycle-time"><img src="@/assets/images/comms/calendar.png"><span>Jour {{ day }} - Cycle {{ cycle }}</span></div>
 
   <div class="tabs-content">
+    <TipsTab></TipsTab>
     <RoomEventsTab></RoomEventsTab>
     <DiscussionTab></DiscussionTab>
   </div>
@@ -20,13 +21,15 @@
 </template>
 
 <script>
-import DiscussionTab from "@/components/Game/Communications/DiscussionTab";
+import TipsTab from "@/components/Game/Communications/TipsTab";
 import RoomEventsTab from "@/components/Game/Communications/RoomEventsTab";
+import DiscussionTab from "@/components/Game/Communications/DiscussionTab";
 
 
 export default {
   name: "CommsPanel",
   components: {
+    TipsTab,
     DiscussionTab,
     RoomEventsTab
   },

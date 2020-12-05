@@ -102,16 +102,12 @@ export default {
 
 <style lang="scss" scoped>
 
-#room-events-input:checked ~ .tabs-content #room-events-tab {
-  display: flex;
-  visibility: visible;
-}
-
 #room-events-tab {
   position: relative;
   overflow: auto;
   z-index: 2;
-  height: 435px;
+  height: 436px;
+  margin-top: -1px;
   padding: 4px 0;
   line-height: initial;
   background: rgba(194, 243, 252, 1);

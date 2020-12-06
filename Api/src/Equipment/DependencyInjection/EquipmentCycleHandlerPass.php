@@ -1,20 +1,20 @@
 <?php
 
-namespace Mush\Item\DependencyInjection;
+namespace Mush\Equipment\DependencyInjection;
 
-use Mush\Item\Service\ItemCycleHandlerService;
+use Mush\Equipment\Service\EquipmentCycleHandlerService;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
-class ItemCycleHandlerPass implements CompilerPassInterface
+class EquipmentCycleHandlerPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container)
     {
         // Find the definition of our context service
-        $actionService = $container->findDefinition(ItemCycleHandlerService::class);
+        $actionService = $container->findDefinition(EquipmentCycleHandlerService::class);
 
-        foreach ($container->findTaggedServiceIds('mush.item.cycle_handler') as $id => $tags) {
+        foreach ($container->findTaggedServiceIds('mush.equipment.cycle_handler') as $id => $tags) {
             $actionService->addMethodCall(
                 'addStrategy',
                 [new Reference($id)]

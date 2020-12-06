@@ -5,15 +5,15 @@ namespace Mush\Test\Item\Service;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Item\Entity\ConsumableEffect;
-use Mush\Item\Entity\Items\Drug;
-use Mush\Item\Entity\Items\Fruit;
-use Mush\Item\Entity\Items\Plant;
-use Mush\Item\Entity\Items\Ration;
-use Mush\Item\Entity\PlantEffect;
-use Mush\Item\Repository\ConsumableEffectRepository;
-use Mush\Item\Repository\PlantEffectRepository;
-use Mush\Item\Service\ItemEffectService;
+use Mush\Equipment\Entity\ConsumableEffect;
+use Mush\Equipment\Entity\Items\Drug;
+use Mush\Equipment\Entity\Items\Fruit;
+use Mush\Equipment\Entity\Items\Plant;
+use Mush\Equipment\Entity\Items\Ration;
+use Mush\Equipment\Entity\PlantEffect;
+use Mush\Equipment\Repository\ConsumableEffectRepository;
+use Mush\Equipment\Repository\PlantEffectRepository;
+use Mush\Equipment\Service\ItemEffectService;
 use PHPUnit\Framework\TestCase;
 
 class ItemEffectServiceTest extends TestCase

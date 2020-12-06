@@ -6,14 +6,14 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Item\Entity\GameItem;
-use Mush\Item\Service\GameItemServiceInterface;
+use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\Status;
-use Mush\Status\Enum\ItemStatusEnum;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Hide extends Action
@@ -23,19 +23,19 @@ class Hide extends Action
     private GameItem $gameItem;
 
     private RoomLogServiceInterface $roomLogService;
-    private GameItemServiceInterface $gameItemService;
+    private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         RoomLogServiceInterface $roomLogService,
-        GameItemServiceInterface $gameItemService,
+        GameEquipmentServiceInterface $gameEquipmentService,
         PlayerServiceInterface $playerService
     ) {
         parent::__construct($eventDispatcher);
 
         $this->roomLogService = $roomLogService;
-        $this->gameItemService = $gameItemService;
+        $this->gameEquipmentService = $gameEquipmentService;
         $this->playerService = $playerService;
 
         $this->actionCost->setActionPointCost(1);
@@ -54,9 +54,9 @@ class Hide extends Action
     public function canExecute(): bool
     {
         //Check that the item is reachable
-        return $this->gameItem->getStatusByName(ItemStatusEnum::HIDDEN) === null &&
-             $this->gameItem->getItem()->isHideable() &&
-             $this->player->canReachItem($this->gameItem)
+        return $this->gameItem->getStatusByName(EquipmentStatusEnum::HIDDEN) === null &&
+             $this->gameItem->getEquipment()->isHideable() &&
+             $this->player->canReachEquipment($this->gameItem)
         ;
     }
 
@@ -64,10 +64,10 @@ class Hide extends Action
     {
         $hiddenStatus = new Status();
         $hiddenStatus
-            ->setName(ItemStatusEnum::HIDDEN)
+            ->setName(EquipmentStatusEnum::HIDDEN)
             ->setVisibility(VisibilityEnum::PRIVATE)
             ->setPlayer($this->player)
-            ->setGameItem($this->gameItem)
+            ->setGameEquipment($this->gameItem)
         ;
 
         if ($this->gameItem->getPlayer()) {
@@ -75,7 +75,7 @@ class Hide extends Action
             $this->gameItem->setRoom($this->player->getRoom());
         }
 
-        $this->gameItemService->persist($this->gameItem);
+        $this->gameEquipmentService->persist($this->gameItem);
         $this->playerService->persist($this->player);
 
         return new Success();
@@ -83,7 +83,7 @@ class Hide extends Action
 
     protected function createLog(ActionResult $actionResult): void
     {
-        $this->roomLogService->createItemLog(
+        $this->roomLogService->createEquipmentLog(
             ActionEnum::HIDE,
             $this->player->getRoom(),
             $this->player,

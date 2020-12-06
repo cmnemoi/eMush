@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Item\DataFixtures;
+namespace Mush\Equipment\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -9,9 +9,9 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Enum\ExtraEffectEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
-use Mush\Item\Entity\Item;
-use Mush\Item\Entity\Items\Ration;
-use Mush\Item\Enum\GameRationEnum;
+use Mush\Equipment\Entity\ItemConfig;
+use Mush\Equipment\Entity\Mechanics\Ration;
+use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Status\Enum\DiseaseEnum;
 
 class RationConfigFixtures extends Fixture implements DependentFixtureInterface
@@ -30,7 +30,7 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setSatiety(4)
         ;
 
-        $standardRation = new Item();
+        $standardRation = new ItemConfig();
         $standardRation
             ->setGameConfig($gameConfig)
             ->setName(GameRationEnum::STANDARD_RATION)
@@ -41,7 +41,7 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setTypes(new ArrayCollection([$standardRationType]))
+            ->setMechanics(new ArrayCollection([$standardRationType]))
         ;
         $manager->persist($standardRationType);
         $manager->persist($standardRation);
@@ -55,7 +55,7 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setSatiety(4)
         ;
 
-        $cookedRation = new Item();
+        $cookedRation = new ItemConfig();
         $cookedRation
             ->setGameConfig($gameConfig)
             ->setName(GameRationEnum::COOKED_RATION)
@@ -66,7 +66,7 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setTypes(new ArrayCollection([$cookedRationType]))
+            ->setMechanics(new ArrayCollection([$cookedRationType]))
         ;
         $manager->persist($cookedRationType);
         $manager->persist($cookedRation);
@@ -84,13 +84,13 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setDiseasesDelayMin([
                 DiseaseEnum::ACID_REFLUX => 4,
                 DiseaseEnum::TAPEWORM => 4, ])
-             ->setDiseasesDelayLengh([
+             ->setDiseasesDelayLength([
                 DiseaseEnum::ACID_REFLUX => 4,
                 DiseaseEnum::TAPEWORM => 4, ])
 
         ;
 
-        $alienSteack = new Item();
+        $alienSteack = new ItemConfig();
         $alienSteack
             ->setGameConfig($gameConfig)
             ->setName(GameRationEnum::ALIEN_STEAK)
@@ -101,7 +101,7 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setTypes(new ArrayCollection([$alienSteackType]))
+            ->setMechanics(new ArrayCollection([$alienSteackType]))
         ;
         $manager->persist($alienSteackType);
         $manager->persist($alienSteack);
@@ -115,7 +115,7 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setSatiety(0)
         ;
 
-        $coffee = new Item();
+        $coffee = new ItemConfig();
         $coffee
             ->setGameConfig($gameConfig)
             ->setName(GameRationEnum::COFFEE)
@@ -126,7 +126,7 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setTypes(new ArrayCollection([$coffeeType]))
+            ->setMechanics(new ArrayCollection([$coffeeType]))
         ;
         $manager->persist($coffeeType);
         $manager->persist($coffee);
@@ -141,7 +141,7 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsPerishable(false)
         ;
 
-        $anabolic = new Item();
+        $anabolic = new ItemConfig();
         $anabolic
             ->setGameConfig($gameConfig)
             ->setName(GameRationEnum::ANABOLIC)
@@ -152,7 +152,7 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setTypes(new ArrayCollection([$anabolicType]))
+            ->setMechanics(new ArrayCollection([$anabolicType]))
         ;
         $manager->persist($anabolicType);
         $manager->persist($anabolic);
@@ -167,7 +167,7 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsPerishable(false)
         ;
 
-        $lombrickBar = new Item();
+        $lombrickBar = new ItemConfig();
         $lombrickBar
             ->setGameConfig($gameConfig)
             ->setName(GameRationEnum::LOMBRICK_BAR)
@@ -178,7 +178,7 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setTypes(new ArrayCollection([$lombrickBarType]))
+            ->setMechanics(new ArrayCollection([$lombrickBarType]))
         ;
         $manager->persist($lombrickBarType);
         $manager->persist($lombrickBar);
@@ -192,7 +192,7 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setSatiety(16)
         ;
 
-        $organicWaste = new Item();
+        $organicWaste = new ItemConfig();
         $organicWaste
             ->setGameConfig($gameConfig)
             ->setName(GameRationEnum::ORGANIC_WASTE)
@@ -203,7 +203,7 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setTypes(new ArrayCollection([$organicWasteType]))
+            ->setMechanics(new ArrayCollection([$organicWasteType]))
         ;
         $manager->persist($organicWasteType);
         $manager->persist($organicWaste);
@@ -219,7 +219,7 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setExtraEffects([ExtraEffectEnum::BREAK_DOOR => 55])
         ;
 
-        $proactivePuffedRice = new Item();
+        $proactivePuffedRice = new ItemConfig();
         $proactivePuffedRice
             ->setGameConfig($gameConfig)
             ->setName(GameRationEnum::PROACTIVE_PUFFED_RICE)
@@ -230,7 +230,7 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setTypes(new ArrayCollection([$proactivePuffedRiceType]))
+            ->setMechanics(new ArrayCollection([$proactivePuffedRiceType]))
         ;
         $manager->persist($proactivePuffedRiceType);
         $manager->persist($proactivePuffedRice);
@@ -245,7 +245,7 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsPerishable(false)
         ;
 
-        $spacePotato = new Item();
+        $spacePotato = new ItemConfig();
         $spacePotato
             ->setGameConfig($gameConfig)
             ->setName(GameRationEnum::SPACE_POTATO)
@@ -256,7 +256,7 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setTypes(new ArrayCollection([$spacePotatoType]))
+            ->setMechanics(new ArrayCollection([$spacePotatoType]))
         ;
         $manager->persist($spacePotatoType);
         $manager->persist($spacePotato);
@@ -270,10 +270,10 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setSatiety(6)
             ->setDiseasesChances([DiseaseEnum::SLIGHT_NAUSEA => 55])
             ->setDiseasesDelayMin([DiseaseEnum::SLIGHT_NAUSEA => 0])
-            ->setDiseasesDelayLengh([DiseaseEnum::SLIGHT_NAUSEA => 0])
+            ->setDiseasesDelayLength([DiseaseEnum::SLIGHT_NAUSEA => 0])
         ;
 
-        $supervitaminBar = new Item();
+        $supervitaminBar = new ItemConfig();
         $supervitaminBar
             ->setGameConfig($gameConfig)
             ->setName(GameRationEnum::SUPERVITAMIN_BAR)
@@ -284,7 +284,7 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setTypes(new ArrayCollection([$supervitaminBarType]))
+            ->setMechanics(new ArrayCollection([$supervitaminBarType]))
         ;
         $manager->persist($supervitaminBarType);
         $manager->persist($supervitaminBar);

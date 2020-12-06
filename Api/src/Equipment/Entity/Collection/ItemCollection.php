@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Item\Entity\Collection;
+namespace Mush\Equipment\Entity\Collection;
 
 use Doctrine\Common\Collections\ArrayCollection;
 

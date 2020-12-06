@@ -19,7 +19,7 @@ class Blueprint extends Tool
     protected array $actions = [ActionEnum::BUILD];
 
     /**
-     * @ORM\OneToOne(targetEntity="Mush\Equipment\Entity\Equipment", inversedBy=")
+     * @ORM\OneToOne(targetEntity="Mush\Equipment\Entity\EquipmentConfig", inversedBy=")
      */
     private ?EquipmentConfig $equipment = null;
 

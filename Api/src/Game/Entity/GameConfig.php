@@ -36,9 +36,9 @@ class GameConfig
     private Collection $charactersConfig;
 
     /**
-     * @ORM\OneToMany(targetEntity="Mush\Item\Entity\Item", mappedBy="gameConfig")
+     * @ORM\OneToMany(targetEntity="Mush\Equipment\Entity\EquipmentConfig", mappedBy="gameConfig")
      */
-    private Collection $itemsConfig;
+    private Collection $equipmentsConfig;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=false)
@@ -144,14 +144,14 @@ class GameConfig
         return $this;
     }
 
-    public function getItemsConfig(): Collection
+    public function getEquipmentsConfig(): Collection
     {
-        return $this->itemsConfig;
+        return $this->equipmentsConfig;
     }
 
-    public function setItemsConfig(Collection $itemsConfig): GameConfig
+    public function setEquipmentsConfig(Collection $equipmentsConfig): GameConfig
     {
-        $this->itemsConfig = $itemsConfig;
+        $this->equipmentsConfig = $equipmentsConfig;
 
         return $this;
     }

@@ -87,11 +87,11 @@ class Repair extends AttemptAction
 
     protected function createLog(ActionResult $actionResult): void
     {
-        $this->roomLogService->createItemLog(
+        $this->roomLogService->createEquipmentLog(
             ActionEnum::REPAIR,
             $this->player->getRoom(),
             $this->player,
-            $this->gameItem,
+            $this->gameEquipment,
             VisibilityEnum::PUBLIC,
             new \DateTime('now')
         );

@@ -3,7 +3,7 @@
 namespace Mush;
 
 use Mush\Action\DependencyInjection\ActionPass;
-use Mush\Item\DependencyInjection\ItemCycleHandlerPass;
+use Mush\Equipment\DependencyInjection\EquipmentCycleHandlerPass;
 use Mush\Status\DependencyInjection\ChargeStrategyPass;
 use Mush\Status\DependencyInjection\StatusCycleHandlerPass;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
@@ -47,6 +47,6 @@ class Kernel extends BaseKernel
         $container->addCompilerPass(new ActionPass());
         $container->addCompilerPass(new ChargeStrategyPass());
         $container->addCompilerPass(new StatusCycleHandlerPass());
-        $container->addCompilerPass(new ItemCycleHandlerPass());
+        $container->addCompilerPass(new EquipmentCycleHandlerPass());
     }
 }

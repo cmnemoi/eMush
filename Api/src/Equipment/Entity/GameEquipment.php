@@ -19,13 +19,13 @@ use Mush\Status\Enum\EquipmentStatusEnum;
  * @ORM\DiscriminatorMap({
  *     "game_equipment" = "Mush\Equipment\Entity\GameEquipment",
  *     "door" = "Mush\Equipment\Entity\Door",
- *     "game_item" = "Mush\Equipment\Entity\GameItem",
+ *     "game_item" = "Mush\Equipment\Entity\GameItem"
  * })
  */
 class GameEquipment
 {
     use TimestampableEntity;
-
+    
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -49,7 +49,7 @@ class GameEquipment
     private ?Room $room = null;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Item")
+     * @ORM\ManyToOne(targetEntity="EquipmentConfig")
      */
     private EquipmentConfig $equipment;
 
@@ -73,7 +73,7 @@ class GameEquipment
 
     public function getActions(): Collection
     {
-        return $this->item->getActions();
+        return $this->equipment->getActions();
     }
 
     public function getStatuses(): Collection

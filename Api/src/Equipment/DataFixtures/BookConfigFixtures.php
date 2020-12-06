@@ -1,20 +1,19 @@
 <?php
 
-namespace Mush\Item\DataFixtures;
+namespace Mush\Equipment\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use Mush\Action\Enum\ActionEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\SkillEnum;
-use Mush\Item\Entity\Item;
-use Mush\Item\Entity\Items\Book;
-use Mush\Item\Entity\Items\Document;
-use Mush\Item\Enum\DocumentContentEnum;
-use Mush\Item\Enum\ItemEnum;
+use Mush\Equipment\Entity\ItemConfig;
+use Mush\Equipment\Entity\Mechanics\Book;
+use Mush\Equipment\Entity\Mechanics\Document;
+use Mush\Equipment\Enum\DocumentContentEnum;
+use Mush\Equipment\Enum\ItemEnum;
 
 class BookConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -48,7 +47,7 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
                   ->setSkill($skillName)
               ;
 
-            $apprenton = new Item();
+            $apprenton = new ItemConfig();
             $apprenton
                   ->setGameConfig($gameConfig)
                   ->setName(ItemEnum::APPRENTON . '_' . $skillName)
@@ -59,7 +58,7 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
                   ->setIsHideable(true)
                   ->setIsFireDestroyable(true)
                   ->setIsFireBreakable(false)
-                  ->setTypes(new ArrayCollection([$apprentonType]))
+                  ->setMechanics(new ArrayCollection([$apprentonType]))
               ;
 
             $manager->persist($apprentonType);
@@ -73,7 +72,7 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
            ->canShred(true)
            ;
 
-        $document = new Item();
+        $document = new ItemConfig();
         $document
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::DOCUMENT)
@@ -84,7 +83,7 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setTypes(new ArrayCollection([$documentType]))
+            ->setMechanics(new ArrayCollection([$documentType]))
         ;
 
         $manager->persist($documentType);
@@ -96,7 +95,7 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
                ->setContent(DocumentContentEnum::COMMANDERS_MANUAL)
                ;
 
-        $commandersManual = new Item();
+        $commandersManual = new ItemConfig();
         $commandersManual
                 ->setGameConfig($gameConfig)
                 ->setName(ItemEnum::COMMANDERS_MANUAL)
@@ -107,7 +106,7 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
                 ->setIsHideable(true)
                 ->setIsFireDestroyable(true)
                 ->setIsFireBreakable(false)
-                ->setTypes(new ArrayCollection([$commandersManualType]))
+                ->setMechanics(new ArrayCollection([$commandersManualType]))
             ;
 
         $manager->persist($commandersManualType);
@@ -119,7 +118,7 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
                ->setContent(DocumentContentEnum::MUSH_RESEARCH_REVIEW)
                ;
 
-        $mushResearch = new Item();
+        $mushResearch = new ItemConfig();
         $mushResearch
                 ->setGameConfig($gameConfig)
                 ->setName(ItemEnum::MUSH_RESEARCH_REVIEW)
@@ -130,7 +129,7 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
                 ->setIsHideable(true)
                 ->setIsFireDestroyable(true)
                 ->setIsFireBreakable(false)
-                ->setTypes(new ArrayCollection([$mushResearchType]))
+                ->setMechanics(new ArrayCollection([$mushResearchType]))
             ;
 
         $manager->persist($mushResearchType);
@@ -142,7 +141,7 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
                ->canShred(true)
                ;
 
-        $postIt = new Item();
+        $postIt = new ItemConfig();
         $postIt
                 ->setGameConfig($gameConfig)
                 ->setName(ItemEnum::POST_IT)
@@ -153,7 +152,7 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
                 ->setIsHideable(true)
                 ->setIsFireDestroyable(true)
                 ->setIsFireBreakable(false)
-                ->setTypes(new ArrayCollection([$postItType]))
+                ->setMechanics(new ArrayCollection([$postItType]))
             ;
 
         $manager->persist($postItType);

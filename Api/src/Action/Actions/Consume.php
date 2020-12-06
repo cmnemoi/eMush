@@ -118,11 +118,11 @@ class Consume extends Action
 
     protected function createLog(ActionResult $actionResult): void
     {
-        $this->roomLogService->createItemLog(
+        $this->roomLogService->createEquipmentLog(
             ActionEnum::CONSUME,
             $this->player->getRoom(),
             $this->player,
-            $this->item,
+            $this->gameEquipment,
             VisibilityEnum::COVERT,
             new \DateTime('now')
         );

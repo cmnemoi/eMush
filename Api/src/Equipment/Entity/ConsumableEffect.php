@@ -26,7 +26,7 @@ class ConsumableEffect
     private Daedalus $daedalus;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Mush\Equipment\Entity\Equipments\Ration")
+     * @ORM\ManyToOne(targetEntity="Mush\Equipment\Entity\Mechanics\Ration")
      */
     private Ration $ration;
 

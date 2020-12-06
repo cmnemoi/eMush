@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Item\DataFixtures;
+namespace Mush\Equipment\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -8,11 +8,11 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
-use Mush\Item\Entity\Item;
-use Mush\Item\Entity\Items\Charged;
-use Mush\Item\Entity\Items\Dismountable;
-use Mush\Item\Enum\GearItemEnum;
-use Mush\Item\Enum\ItemEnum;
+use Mush\Equipment\Entity\ItemConfig;
+use Mush\Equipment\Entity\Mechanics\Charged;
+use Mush\Equipment\Entity\Mechanics\Dismountable;
+use Mush\Equipment\Enum\GearItemEnum;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 
 class GearConfigFixtures extends Fixture implements DependentFixtureInterface
@@ -22,7 +22,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
-        $apron = new Item();
+        $apron = new ItemConfig();
         $apron
             ->setGameConfig($gameConfig)
             ->setName(GearItemEnum::STAINPROOF_APRON)
@@ -44,7 +44,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setChancesSuccess(12)
         ;
 
-        $plasteniteArmor = new Item();
+        $plasteniteArmor = new ItemConfig();
         $plasteniteArmor
             ->setGameConfig($gameConfig)
             ->setName(GearItemEnum::PLASTENITE_ARMOR)
@@ -56,12 +56,12 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(12)
-            ->setTypes(new ArrayCollection([$dismountableType]))
+            ->setMechanics(new ArrayCollection([$dismountableType]))
         ;
         $manager->persist($plasteniteArmor);
         $manager->persist($dismountableType);
 
-        $wrench = new Item();
+        $wrench = new ItemConfig();
         $wrench
             ->setGameConfig($gameConfig)
             ->setName(GearItemEnum::ADJUSTABLE_WRENCH)
@@ -76,7 +76,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($wrench);
 
-        $gloves = new Item();
+        $gloves = new ItemConfig();
         $gloves
             ->setGameConfig($gameConfig)
             ->setName(GearItemEnum::PROTECTIVE_GLOVES)
@@ -92,7 +92,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($gloves);
 
-        $soap = new Item();
+        $soap = new ItemConfig();
         $soap
             ->setGameConfig($gameConfig)
             ->setName(GearItemEnum::SOAP)
@@ -114,7 +114,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setChancesSuccess(99)
         ;
 
-        $sniperHelmet = new Item();
+        $sniperHelmet = new ItemConfig();
         $sniperHelmet
             ->setGameConfig($gameConfig)
             ->setName(GearItemEnum::SNIPER_HELMET)
@@ -126,12 +126,12 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(99)
-            ->setTypes(new ArrayCollection([$dismountableType]))
+            ->setMechanics(new ArrayCollection([$dismountableType]))
         ;
         $manager->persist($sniperHelmet);
         $manager->persist($dismountableType);
 
-        $alienBottleOpener = new Item();
+        $alienBottleOpener = new ItemConfig();
         $alienBottleOpener
             ->setGameConfig($gameConfig)
             ->setName(GearItemEnum::ALIEN_BOTTLE_OPENER)
@@ -161,7 +161,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsVisible(true)
         ;
 
-        $antiGravScooter = new Item();
+        $antiGravScooter = new ItemConfig();
         $antiGravScooter
             ->setGameConfig($gameConfig)
             ->setName(GearItemEnum::ANTI_GRAV_SCOOTER)
@@ -173,13 +173,13 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(6)
-            ->setTypes(new ArrayCollection([$dismountableType, $chargedType]))
+            ->setMechanics(new ArrayCollection([$dismountableType, $chargedType]))
         ;
         $manager->persist($antiGravScooter);
         $manager->persist($dismountableType);
         $manager->persist($chargedType);
 
-        $rollingBoulder = new Item();
+        $rollingBoulder = new ItemConfig();
         $rollingBoulder
             ->setGameConfig($gameConfig)
             ->setName(GearItemEnum::ROLLING_BOULDER)
@@ -194,7 +194,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($rollingBoulder);
 
-        $lenses = new Item();
+        $lenses = new ItemConfig();
         $lenses
             ->setGameConfig($gameConfig)
             ->setName(GearItemEnum::NCC_LENS)
@@ -209,7 +209,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($lenses);
 
-        $oscilloscope = new Item();
+        $oscilloscope = new ItemConfig();
         $oscilloscope
             ->setGameConfig($gameConfig)
             ->setName(GearItemEnum::OSCILLOSCOPE)
@@ -230,7 +230,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setChancesSuccess(6)
         ;
 
-        $spacesuit = new Item();
+        $spacesuit = new ItemConfig();
         $spacesuit
             ->setGameConfig($gameConfig)
             ->setName(GearItemEnum::SPACESUIT)
@@ -242,12 +242,12 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(6)
-            ->setTypes(new ArrayCollection([$dismountableType]))
+            ->setMechanics(new ArrayCollection([$dismountableType]))
         ;
         $manager->persist($spacesuit);
         $manager->persist($dismountableType);
 
-        $superSoaper = new Item();
+        $superSoaper = new ItemConfig();
         $superSoaper
             ->setGameConfig($gameConfig)
             ->setName(GearItemEnum::SUPER_SOAPER)
@@ -261,7 +261,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($superSoaper);
 
-        $printedCircuitJelly = new Item();
+        $printedCircuitJelly = new ItemConfig();
         $printedCircuitJelly
             ->setGameConfig($gameConfig)
             ->setName(GearItemEnum::PRINTED_CIRCUIT_JELLY)
@@ -276,7 +276,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($printedCircuitJelly);
 
-        $invertebrateShell = new Item();
+        $invertebrateShell = new ItemConfig();
         $invertebrateShell
             ->setGameConfig($gameConfig)
             ->setName(GearItemEnum::INVERTEBRATE_SHELL)
@@ -291,7 +291,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($invertebrateShell);
 
-        $liquidMap = new Item();
+        $liquidMap = new ItemConfig();
         $liquidMap
             ->setGameConfig($gameConfig)
             ->setName(GearItemEnum::MAGELLAN_LIQUID_MAP)

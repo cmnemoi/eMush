@@ -12,10 +12,10 @@ use Mush\Action\Entity\ActionParameters;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\GameConfigServiceInterface;
-use Mush\Item\Entity\GameItem;
-use Mush\Item\Entity\Item;
-use Mush\Item\Entity\Items\Blueprint;
-use Mush\Item\Service\GameItemServiceInterface;
+use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\EquipmentConfig;
+use Mush\Equipment\Entity\Mechanics\Blueprint;
+use Mush\IEquipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
@@ -27,8 +27,8 @@ class BuildActionTest extends TestCase
 {
     /** @var RoomLogServiceInterface | Mockery\Mock */
     private RoomLogServiceInterface $roomLogService;
-    /** @var GameItemServiceInterface | Mockery\Mock */
-    private GameItemServiceInterface $itemService;
+    /** @var GameEquipmentServiceInterface | Mockery\Mock */
+    private GameEquipmentServiceInterface $gameEquipmentService;
     /** @var PlayerServiceInterface | Mockery\Mock */
     private PlayerServiceInterface $playerService;
 
@@ -42,7 +42,7 @@ class BuildActionTest extends TestCase
     {
         $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
-        $this->itemService = Mockery::mock(GameItemServiceInterface::class);
+        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
         $gameConfigService = Mockery::mock(GameConfigServiceInterface::class);
         $this->gameConfig = new GameConfig();
@@ -53,7 +53,7 @@ class BuildActionTest extends TestCase
         $this->action = new Build(
             $eventDispatcher,
             $this->roomLogService,
-            $this->itemService,
+            $this->gameEquipmentService,
             $this->playerService,
             $gameConfigService
         );
@@ -70,20 +70,20 @@ class BuildActionTest extends TestCase
     public function testCannotExecute()
     {
         $room = new Room();
-        $gameItem = new GameItem();
-        $item = new Item();
-        $item->setName('blueprint');
-        $gameItem
-                    ->setItem($item)
+        $gameEquipment = new GameEquipment();
+        $equipment = new EquipmentConfig();
+        $equipment->setName('blueprint');
+        $gameEquipment
+                    ->setEquipment($equipment)
                     ->setRoom($room)
                     ->setName('blueprint');
 
-        $product = new Item();
+        $product = new ItemConfig();
 
         $blueprint = new Blueprint();
         $blueprint
                ->setIngredients(['metal_scraps' => 1])
-               ->setItem($product);
+               ->setEquipment($product);
 
         $gameIngredient = new GameItem();
         $ingredient = new Item();
@@ -94,7 +94,7 @@ class BuildActionTest extends TestCase
                  ->setName('metal_scraps');
 
         $actionParameter = new ActionParameters();
-        $actionParameter->setItem($gameItem);
+        $actionParameter->setEquipment($gameEquipment);
         $player = $this->createPlayer(new Daedalus(), $room);
 
         $this->action->loadParameters($player, $actionParameter);
@@ -103,7 +103,7 @@ class BuildActionTest extends TestCase
         $result = $this->action->execute();
         $this->assertInstanceOf(Error::class, $result);
 
-        $item->setTypes(new ArrayCollection([$blueprint]));
+        $equipment->setTypes(new ArrayCollection([$blueprint]));
 
         //Ingredient in another room
         $gameIngredient->setRoom(new Room());
@@ -115,7 +115,7 @@ class BuildActionTest extends TestCase
         $gameIngredient->setRoom($room);
         $blueprint
                ->setIngredients(['metal_scraps' => 2]);
-        $item->setTypes(new ArrayCollection([$blueprint]));
+        $equipment->setTypes(new ArrayCollection([$blueprint]));
 
         $result = $this->action->execute();
         $this->assertInstanceOf(Error::class, $result);

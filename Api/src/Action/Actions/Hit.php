@@ -10,7 +10,7 @@ use Mush\Action\Service\SuccessRateServiceInterface;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\SkillMushEnum;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Item\Enum\GearItemEnum;
+use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Player\Entity\ActionModifier;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;

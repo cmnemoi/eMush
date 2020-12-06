@@ -31,8 +31,8 @@ doctrine:
             Item:
                 is_bundle: false
                 type: annotation
-                dir: '%kernel.project_dir%/src/Item/Entity'
-                prefix: 'Mush\Item\Entity'
+                dir: '%kernel.project_dir%/src/Equipment/Entity'
+                prefix: 'Mush\Equipment\Entity'
                 alias: Item
             User:
                 is_bundle: false

@@ -71,7 +71,12 @@ class GameEquipmentService implements GameEquipmentServiceInterface
 
     public function createGameEquipment(EquipmentConfig $equipment, Daedalus $daedalus): GameEquipment
     {
-        $gameEquipment = $equipment->createGameEquipment();
+        if ($equipment instanceof ItemConfig){
+            $gameEquipment = $equipment->createGameItem();
+        }else{
+            $gameEquipment = $equipment->createGameEquipment();
+        }
+             
 
         /** @var EquipmentMechanic $mechanic */
         foreach ($equipment->getMechanics() as $mechanic) {

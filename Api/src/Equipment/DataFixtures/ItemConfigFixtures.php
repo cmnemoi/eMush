@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Item\DataFixtures;
+namespace Mush\Equipment\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -8,9 +8,9 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
-use Mush\Item\Entity\Item;
-use Mush\Item\Entity\Items\Dismountable;
-use Mush\Item\Enum\ItemEnum;
+use Mush\Equipment\Entity\ItemConfig;
+use Mush\Equipment\Entity\Mechanics\Dismountable;
+use Mush\Equipment\Enum\ItemEnum;
 
 class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -26,7 +26,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setChancesSuccess(25)
         ;
 
-        $camera = new Item();
+        $camera = new ItemConfig();
         $camera
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::CAMERA)
@@ -38,12 +38,12 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(25)
-            ->setTypes(new ArrayCollection([$dismountableType1]))
+            ->setMechanics(new ArrayCollection([$dismountableType1]))
         ;
         $manager->persist($camera);
         $manager->persist($dismountableType1);
 
-        $mycoAlarm = new Item();
+        $mycoAlarm = new ItemConfig();
         $mycoAlarm
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::MYCO_ALARM)
@@ -55,7 +55,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setBreakableRate(25)
-            ->setTypes(new ArrayCollection([$dismountableType1]))
+            ->setMechanics(new ArrayCollection([$dismountableType1]))
         ;
         $manager->persist($mycoAlarm);
 
@@ -65,7 +65,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setActionCost(3)
             ->setChancesSuccess(12)
         ;
-        $tabulatrix = new Item();
+        $tabulatrix = new ItemConfig();
         $tabulatrix
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::TABULATRIX)
@@ -77,12 +77,12 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(12)
-            ->setTypes(new ArrayCollection([$dismountableType2]))
+            ->setMechanics(new ArrayCollection([$dismountableType2]))
         ;
         $manager->persist($tabulatrix);
         $manager->persist($dismountableType2);
 
-        $plasticScraps = new Item();
+        $plasticScraps = new ItemConfig();
         $plasticScraps
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::PLASTIC_SCRAPS)
@@ -97,7 +97,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($plasticScraps);
 
-        $oldTShirt = new Item();
+        $oldTShirt = new ItemConfig();
         $oldTShirt
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::OLD_T_SHIRT)
@@ -118,7 +118,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setChancesSuccess(50)
         ;
 
-        $thickTube = new Item();
+        $thickTube = new ItemConfig();
         $thickTube
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::THICK_TUBE)
@@ -129,7 +129,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setTypes(new ArrayCollection([$dismountableType3]))
+            ->setMechanics(new ArrayCollection([$dismountableType3]))
         ;
         $manager->persist($thickTube);
         $manager->persist($dismountableType3);
@@ -141,7 +141,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setChancesSuccess(50)
         ;
 
-        $mushDisk = new Item();
+        $mushDisk = new ItemConfig();
         $mushDisk
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::MUSH_GENOME_DISK)
@@ -153,12 +153,12 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setBreakableRate(25)
-            ->setTypes(new ArrayCollection([$dismountableType4]))
+            ->setMechanics(new ArrayCollection([$dismountableType4]))
         ;
         $manager->persist($mushDisk);
         $manager->persist($dismountableType4);
 
-        $mushSample = new Item();
+        $mushSample = new ItemConfig();
         $mushSample
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::MUSH_SAMPLE)
@@ -172,7 +172,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($mushSample);
 
-        $starmapFragment = new Item();
+        $starmapFragment = new ItemConfig();
         $starmapFragment
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::STARMAP_FRAGMENT)
@@ -187,7 +187,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($starmapFragment);
 
-        $waterStick = new Item();
+        $waterStick = new ItemConfig();
         $waterStick
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::WATER_STICK)
@@ -202,7 +202,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($waterStick);
 
-        $hydropot = new Item();
+        $hydropot = new ItemConfig();
         $hydropot
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::HYDROPOT)

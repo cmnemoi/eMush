@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Item\DataFixtures;
+namespace Mush\Equipment\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -8,9 +8,9 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
-use Mush\Item\Entity\Item;
-use Mush\Item\Entity\Items\Drug;
-use Mush\Item\Enum\GameDrugEnum;
+use Mush\Equipment\Entity\ItemConfig;
+use Mush\Equipment\Entity\Mechanics\Drug;
+use Mush\Equipment\Enum\GameDrugEnum;
 use Mush\Status\Enum\DiseaseEnum;
 use Mush\Status\Enum\DisorderEnum;
 
@@ -45,7 +45,7 @@ class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
 
         foreach (GameDrugEnum::getAll() as $drugName) {
-            $drug = new Item();
+            $drug = new ItemConfig();
             $drug
                 ->setGameConfig($gameConfig)
                 ->setName($drugName)
@@ -56,7 +56,7 @@ class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
                 ->setIsHideable(true)
                 ->setIsFireDestroyable(true)
                 ->setIsFireBreakable(false)
-                ->setTypes(new ArrayCollection([$drugType]))
+                ->setMechanics(new ArrayCollection([$drugType]))
             ;
             $manager->persist($drug);
         }

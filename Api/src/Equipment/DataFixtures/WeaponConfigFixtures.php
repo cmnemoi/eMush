@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Item\DataFixtures;
+namespace Mush\Equipment\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -8,11 +8,11 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
-use Mush\Item\Entity\Item;
-use Mush\Item\Entity\Items\Charged;
-use Mush\Item\Entity\Items\Dismountable;
-use Mush\Item\Entity\Items\Weapon;
-use Mush\Item\Enum\ItemEnum;
+use Mush\Equipment\Entity\ItemConfig;
+use Mush\Equipment\Entity\Mechanics\Charged;
+use Mush\Equipment\Entity\Mechanics\Dismountable;
+use Mush\Equipment\Entity\Mechanics\Weapon;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 
 class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
@@ -48,7 +48,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setCriticalSucessEvents([])
         ;
 
-        $blaster = new Item();
+        $blaster = new ItemConfig();
         $blaster
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::BLASTER)
@@ -60,7 +60,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(25)
-            ->setTypes(new ArrayCollection([$dismountableType1, $blasterType, $chargedType]))
+            ->setMechanics(new ArrayCollection([$dismountableType1, $blasterType, $chargedType]))
         ;
         $manager->persist($dismountableType1);
         $manager->persist($chargedType);
@@ -77,7 +77,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setCriticalSucessEvents([])
         ;
 
-        $knife = new Item();
+        $knife = new ItemConfig();
         $knife
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::KNIFE)
@@ -89,7 +89,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setBreakableRate(25)
-            ->setTypes(new ArrayCollection([$dismountableType1, $knifeType]))
+            ->setMechanics(new ArrayCollection([$dismountableType1, $knifeType]))
 
         ;
         $manager->persist($knife);
@@ -105,7 +105,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setCriticalSucessEvents([])
             ;
 
-        $grenade = new Item();
+        $grenade = new ItemConfig();
         $grenade
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::GRENADE)
@@ -116,7 +116,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setTypes(new ArrayCollection([$grenadeType]))
+            ->setMechanics(new ArrayCollection([$grenadeType]))
 
         ;
         $manager->persist($grenade);
@@ -139,7 +139,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setCriticalSucessEvents([])
         ;
 
-        $natamy = new Item();
+        $natamy = new ItemConfig();
         $natamy
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::NATAMY_RIFLE)
@@ -151,7 +151,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(12)
-            ->setTypes(new ArrayCollection([$dismountableType2, $natamyType, $chargedType]))
+            ->setMechanics(new ArrayCollection([$dismountableType2, $natamyType, $chargedType]))
         ;
         $manager->persist($natamy);
         $manager->persist($natamyType);
@@ -182,7 +182,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsVisible(true)
         ;
 
-        $oldFaithful = new Item();
+        $oldFaithful = new ItemConfig();
         $oldFaithful
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::OLD_FAITHFUL)
@@ -194,7 +194,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(12)
-            ->setTypes(new ArrayCollection([$dismountableType3, $oldFaithfulType, $chargedType]))
+            ->setMechanics(new ArrayCollection([$dismountableType3, $oldFaithfulType, $chargedType]))
 
         ;
         $manager->persist($oldFaithful);
@@ -227,7 +227,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setCriticalSucessEvents([])
         ;
 
-        $lizaroJungle = new Item();
+        $lizaroJungle = new ItemConfig();
         $lizaroJungle
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::LIZARO_JUNGLE)
@@ -239,7 +239,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(12)
-            ->setTypes(new ArrayCollection([$dismountableType4, $lizaroJungleType, $chargedType]))
+            ->setMechanics(new ArrayCollection([$dismountableType4, $lizaroJungleType, $chargedType]))
 
         ;
         $manager->persist($lizaroJungle);
@@ -257,7 +257,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setCriticalSucessEvents([])
         ;
 
-        $rocketLauncher = new Item();
+        $rocketLauncher = new ItemConfig();
         $rocketLauncher
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::ROCKET_LAUNCHER)
@@ -269,7 +269,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(12)
-            ->setTypes(new ArrayCollection([$dismountableType2, $rocketLauncherType, $chargedType]))
+            ->setMechanics(new ArrayCollection([$dismountableType2, $rocketLauncherType, $chargedType]))
 
         ;
         $manager->persist($rocketLauncher);

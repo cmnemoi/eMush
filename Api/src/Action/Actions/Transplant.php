@@ -6,10 +6,10 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Item\Entity\GameItem;
-use Mush\Item\Enum\ItemEnum;
-use Mush\Item\Enum\ItemTypeEnum;
-use Mush\Item\Service\GameItemServiceInterface;
+use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -20,77 +20,76 @@ class Transplant extends Action
 {
     protected string $name = ActionEnum::TRANSPLANT;
 
-    private GameItem $item;
+    private GameEquipment $gameEquipment;
 
     private RoomLogServiceInterface $roomLogService;
-    private GameItemServiceInterface $gameItemService;
+    private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         RoomLogServiceInterface $roomLogService,
-        GameItemServiceInterface $gameItemService,
+        GameEquipmentServiceInterface $gameEquipmentService,
         PlayerServiceInterface $playerService
     ) {
         parent::__construct($eventDispatcher);
 
         $this->roomLogService = $roomLogService;
-        $this->gameItemService = $gameItemService;
+        $this->gameEquipmentService = $gameEquipmentService;
         $this->playerService = $playerService;
         $this->actionCost->setActionPointCost(1);
     }
 
     public function loadParameters(Player $player, ActionParameters $actionParameters)
     {
-        if (!$item = $actionParameters->getItem()) {
-            throw new \InvalidArgumentException('Invalid item parameter');
+        if (!($equipment = $actionParameters->getItem()) && 
+            !($equipment = $actionParameters->getEquipment())) {
+            throw new \InvalidArgumentException('Invalid equipment parameter');
         }
+
         $this->player = $player;
-        $this->item = $item;
+        $this->gameEquipment = $equipment;
     }
 
     public function canExecute(): bool
     {
-        return $this->player->getReachableItemsByName(ItemEnum::HYDROPOT)->count() > 0 &&
-                    $this->player->canReachItem($this->item) &&
-                    $this->item->getItem()->getItemType(ItemTypeEnum::FRUIT)
+        return $this->player->getReachableEquipmentsByName(ItemEnum::HYDROPOT)->count() > 0 &&
+                    $this->player->canReachEquipment($this->gameEquipment) &&
+                    $this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::FRUIT)
                     ;
     }
 
     protected function applyEffects(): ActionResult
     {
-        $fruitType = $this->item->getItem()->getItemType(ItemTypeEnum::FRUIT);
+        $fruitType = $this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::FRUIT);
 
-        $hydropot = $this->player->getReachableItemsByName(ItemEnum::HYDROPOT)->first();
+        $hydropot = $this->player->getReachableEquipmentsByName(ItemEnum::HYDROPOT)->first();
         $place = $hydropot->getRoom() ?? $hydropot->getPlayer();
 
-        $plantItem = $this->gameItemService
-                    ->createGameItemFromName($fruitType->getPlantName(), $this->player->getDaedalus());
+        $plantEquipment = $this->gameEquipmentService
+                    ->createGameEquipmentFromName($fruitType->getPlantName(), $this->player->getDaedalus());
 
-        if ($place instanceof Player) {
-            $plantItem->setPlayer($place);
+        if ($place instanceof Player && $plantEquipment instanceof GameEquipment) {
+            $plantEquipment->setPlayer($place);
         } else {
-            $plantItem->setRoom($place);
+            $plantEquipment->setRoom($place);
         }
 
-        $hydropot->setRoom(null)->setPlayer(null);
-        $this->gameItemService->delete($hydropot);
+        $this->gameEquipmentService->delete($hydropot);
+        $this->gameEquipmentService->delete($this->gameEquipment);
 
-        $this->item->setRoom(null)->setPlayer(null);
-        $this->gameItemService->delete($this->item);
-
-        $this->gameItemService->persist($plantItem);
+        $this->gameEquipmentService->persist($plantEquipment);
 
         return new Success();
     }
 
     protected function createLog(ActionResult $actionResult): void
     {
-        $this->roomLogService->createItemLog(
+        $this->roomLogService->createEquipmentLog(
             ActionEnum::TRANSPLANT,
             $this->player->getRoom(),
             $this->player,
-            $this->item,
+            $this->gameEquipment,
             VisibilityEnum::PUBLIC,
             new \DateTime('now')
         );

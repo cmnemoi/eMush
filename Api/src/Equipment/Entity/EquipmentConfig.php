@@ -14,6 +14,12 @@ use Mush\Equipment\Enum\EquipmentMechanicEnum;
  * Class EquipmentConfig.
  *
  * @ORM\Entity
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorColumn(name="type", type="string")
+ * @ORM\DiscriminatorMap({
+ *     "equipment_config" = "Mush\Equipment\Entity\EquipmentConfig",
+ *     "item_config" = "Mush\Equipment\Entity\ItemConfig"
+ * })
  */
 class EquipmentConfig
 {
@@ -21,15 +27,11 @@ class EquipmentConfig
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer", length=255, nullable=false)
-     * @ORM\DiscriminatorMap({
-     *     "equipment_config" = "Mush\Equipment\Entity\EquipmentConfig",
-     *     "item_config" = "Mush\Equipment\Entity\ItemConfig",
-     * })
      */
     private int $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Mush\Game\Entity\GameConfig", inversedBy="itemsConfig")
+     * @ORM\ManyToOne(targetEntity="Mush\Game\Entity\GameConfig", inversedBy="equipmentsConfig")
      */
     private GameConfig $gameConfig;
 

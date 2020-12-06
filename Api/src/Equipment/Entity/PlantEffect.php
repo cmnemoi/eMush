@@ -26,7 +26,7 @@ class PlantEffect
     private Daedalus $daedalus;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Mush\Item\Entity\Items\Plant")
+     * @ORM\ManyToOne(targetEntity="Mush\Equipment\Entity\Mechanics\Plant")
      */
     private Plant $plant;
 

@@ -41,6 +41,17 @@ class ItemConfig extends EquipmentConfig
     private bool $isHideable;
 
 
+    public function createGameItem(): GameItem
+    {
+        $gameItem = new GameItem();
+        $gameItem
+            ->setName($this->getName())
+            ->setEquipment($this)
+        ;
+
+        return $gameItem;
+    }
+
     public function isHeavy(): bool
     {
         return $this->isHeavy;

@@ -6,10 +6,10 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Item\Entity\GameItem;
-use Mush\Item\Entity\Items\Book;
-use Mush\Item\Enum\ItemTypeEnum;
-use Mush\Item\Service\GameItemServiceInterface;
+use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Mechanics\Book;
+use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -20,16 +20,16 @@ class ReadDocument extends Action
 {
     protected string $name = ActionEnum::READ_DOCUMENT;
 
-    private GameItem $item;
+    private GameEquipment $gameEquipment;
 
     private RoomLogServiceInterface $roomLogService;
-    private GameItemServiceInterface $itemService;
+    private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         RoomLogServiceInterface $roomLogService,
-        GameItemServiceInterface $itemService,
+        GameEquipmentServiceInterface $gameEquipmentService,
         PlayerServiceInterface $playerService
     ) {
         parent::__construct($eventDispatcher);
@@ -40,17 +40,19 @@ class ReadDocument extends Action
 
     public function loadParameters(Player $player, ActionParameters $actionParameters)
     {
-        if (!$item = $actionParameters->getItem()) {
-            throw new \InvalidArgumentException('Invalid item parameter');
+        if (!($equipment = $actionParameters->getItem()) && 
+            !($equipment = $actionParameters->getEquipment())) {
+            throw new \InvalidArgumentException('Invalid equipment parameter');
         }
+
         $this->player = $player;
-        $this->item = $item;
+        $this->gameEquipment = $equipment;
     }
 
     public function canExecute(): bool
     {
-        return null !== $this->item->getItem()->getItemType(ItemTypeEnum::DOCUMENT) &&
-            $this->player->canReachItem($this->item)
+        return null !== $this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::DOCUMENT) &&
+            $this->player->canReachEquipment($this->gameEquipment)
             ;
     }
 
@@ -61,11 +63,11 @@ class ReadDocument extends Action
 
     protected function createLog(ActionResult $actionResult): void
     {
-        $this->roomLogService->createPlayerLog(
+        $this->roomLogService->createEquipmentLog(
             ActionEnum::READ_DOCUMENT,
             $this->player->getRoom(),
             $this->player,
-            $this->item,
+            $this->gameEquipment,
             VisibilityEnum::PRIVATE,
             new \DateTime('now')
         );

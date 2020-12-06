@@ -6,10 +6,10 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Item\Entity\GameItem;
-use Mush\Item\Enum\ToolItemEnum;
-use Mush\Item\Enum\ItemEnum;
-use Mush\Item\Service\GameItemServiceInterface;
+use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\ToolItemEnum;
+use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -17,17 +17,15 @@ use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Status\Entity\ContentStatus;
-use Mush\Status\Enum\ItemStatusEnum;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Write extends Action
 {
     protected string $name = ActionEnum::WRITE;
 
-    private GameItem $gameItem;
-
     private RoomLogServiceInterface $roomLogService;
-    private GameItemServiceInterface $gameItemService;
+    private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
     private GameConfig $gameConfig;
 
@@ -35,14 +33,14 @@ class Write extends Action
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         RoomLogServiceInterface $roomLogService,
-        GameItemServiceInterface $gameItemService,
+        GameEquipmentServiceInterface $gameEquipmentService,
         PlayerServiceInterface $playerService,
         GameConfigServiceInterface $gameConfigService
     ) {
         parent::__construct($eventDispatcher);
 
         $this->roomLogService = $roomLogService;
-        $this->gameItemService = $gameItemService;
+        $this->gameEquipmentService = $gameEquipmentService;
         $this->playerService = $playerService;
         $this->gameConfig = $gameConfigService->getConfig();
 
@@ -51,31 +49,29 @@ class Write extends Action
 
     public function loadParameters(Player $player, ActionParameters $actionParameters)
     {
-        if (!($item = $actionParameters->getItem())) {
-            throw new \InvalidArgumentException('Invalid item parameter');
+        if (!($message = $actionParameters->getMessage())) {
+            throw new \InvalidArgumentException('Invalid message parameter');
         }
 
         $this->player = $player;
-        $this->gameItem = $item;
-        $this->message = $actionParameters->getMessage();
-
+        $this->message = $message;
         $this->actionCost->setActionPointCost(0);
     }
 
     public function canExecute(): bool
     {
-        //Check that the item is reachable
-        return !$this->player->getReachableItemsByName(ToolItemEnum::BLOCK_OF_POST_IT)->isEmpty();
+        //Check that the block of post-it is reachable
+        return !$this->player->getReachableEquipmentsByName(ToolItemEnum::BLOCK_OF_POST_IT)->isEmpty();
     }
 
     protected function applyEffects(): ActionResult
     {
-        $newGameItem = $this->gameItemService->createGameItemFromName(ItemEnum::POST_IT, $this->player->getDaedalus());
+        $newGameItem = $this->gameEquipmentService->createGameEquipmentFromName(ItemEnum::POST_IT, $this->player->getDaedalus());
         $contentStatus = new ContentStatus();
         $contentStatus
-            ->setName(ItemStatusEnum::DOCUMENT_CONTENT)
+            ->setName(EquipmentStatusEnum::DOCUMENT_CONTENT)
             ->setVisibility(VisibilityEnum::HIDDEN)
-            ->setGameItem($newGameItem)
+            ->setGameEquipment($newGameItem)
             ->setContent($this->message)
         ;
         $newGameItem->addStatus($contentStatus);
@@ -83,10 +79,10 @@ class Write extends Action
         if ($this->player->getItems()->count() < $this->gameConfig->getMaxItemInInventory()) {
             $newGameItem->setPlayer($this->player);
         } else {
-            $newGameItem->setPlayer($this->player->getRoom());
+            $newGameItem->setRoom($this->player->getRoom());
         }
 
-        $this->gameItemService->persist($newGameItem);
+        $this->gameEquipmentService->persist($newGameItem);
         $this->playerService->persist($this->player);
 
         return new Success();
@@ -94,11 +90,10 @@ class Write extends Action
 
     protected function createLog(ActionResult $actionResult): void
     {
-        $this->roomLogService->createItemLog(
+        $this->roomLogService->createPlayerLog(
             ActionEnum::WRITE,
             $this->player->getRoom(),
             $this->player,
-            $this->gameItem,
             VisibilityEnum::PUBLIC,
             new \DateTime('now')
         );

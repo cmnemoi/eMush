@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Item\DataFixtures;
+namespace Mush\Equipment\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -8,9 +8,9 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
-use Mush\Item\Entity\Item;
-use Mush\Item\Entity\Items\Dismountable;
-use Mush\Item\Enum\ItemEnum;
+use Mush\Equipment\Entity\ItemConfig;
+use Mush\Equipment\Entity\Mechanics\Dismountable;
+use Mush\Equipment\Enum\ItemEnum;
 
 class ExplorationConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -19,7 +19,7 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
-        $compass = new Item();
+        $compass = new ItemConfig();
         $compass
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::QUADRIMETRIC_COMPASS)
@@ -34,7 +34,7 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
         ;
         $manager->persist($compass);
 
-        $rope = new Item();
+        $rope = new ItemConfig();
         $rope
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::ROPE)
@@ -55,7 +55,7 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
             ->setChancesSuccess(50)
         ;
 
-        $drill = new Item();
+        $drill = new ItemConfig();
         $drill
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::DRILL)
@@ -67,12 +67,12 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setBreakableRate(50)
-            ->setTypes(new ArrayCollection([$dismountableType]))
+            ->setMechanics(new ArrayCollection([$dismountableType]))
         ;
         $manager->persist($drill);
         $manager->persist($dismountableType);
 
-        $babelModule = new Item();
+        $babelModule = new ItemConfig();
         $babelModule
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::BABEL_MODULE)
@@ -86,7 +86,7 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
         ;
         $manager->persist($babelModule);
 
-        $echolocator = new Item();
+        $echolocator = new ItemConfig();
         $echolocator
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::ECHOLOCATOR)
@@ -100,7 +100,7 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
         ;
         $manager->persist($echolocator);
 
-        $thermosensor = new Item();
+        $thermosensor = new ItemConfig();
         $thermosensor
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::THERMOSENSOR)
@@ -112,11 +112,11 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(25)
-            ->setTypes(new ArrayCollection([$dismountableType]))
+            ->setMechanics(new ArrayCollection([$dismountableType]))
         ;
         $manager->persist($thermosensor);
 
-        $whiteFlag = new Item();
+        $whiteFlag = new ItemConfig();
         $whiteFlag
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::WHITE_FLAG)

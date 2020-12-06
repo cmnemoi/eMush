@@ -21,9 +21,9 @@ class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
-        $drugType = new Drug();
+        $drugMechanic = new Drug();
         //  possibilities are stored as key, array value represent the probability to get the key value
-        $drugType
+        $drugMechanic
             ->setMoralPoints([0 => 97, -2 => 1, 1 => 1, 3 => 1])
             ->setActionPoints([0 => 98, 1 => 1, 3 => 1])
             ->setMovementPoints([0 => 98, 2 => 1, 4 => 1])
@@ -56,11 +56,11 @@ class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
                 ->setIsHideable(true)
                 ->setIsFireDestroyable(true)
                 ->setIsFireBreakable(false)
-                ->setMechanics(new ArrayCollection([$drugType]))
+                ->setMechanics(new ArrayCollection([$drugMechanic]))
             ;
             $manager->persist($drug);
         }
-        $manager->persist($drugType);
+        $manager->persist($drugMechanic);
 
         $manager->flush();
     }

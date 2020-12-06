@@ -48,8 +48,8 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
         ;
         $manager->persist($rope);
 
-        $dismountableType = new Dismountable();
-        $dismountableType
+        $dismountableMechanic = new Dismountable();
+        $dismountableMechanic
             ->setProducts([ItemEnum::METAL_SCRAPS => 1])
             ->setActionCost(3)
             ->setChancesSuccess(50)
@@ -67,10 +67,10 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setBreakableRate(50)
-            ->setMechanics(new ArrayCollection([$dismountableType]))
+            ->setMechanics(new ArrayCollection([$dismountableMechanic]))
         ;
         $manager->persist($drill);
-        $manager->persist($dismountableType);
+        $manager->persist($dismountableMechanic);
 
         $babelModule = new ItemConfig();
         $babelModule
@@ -112,7 +112,7 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(25)
-            ->setMechanics(new ArrayCollection([$dismountableType]))
+            ->setMechanics(new ArrayCollection([$dismountableMechanic]))
         ;
         $manager->persist($thermosensor);
 

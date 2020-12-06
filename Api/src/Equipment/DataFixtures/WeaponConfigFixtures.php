@@ -22,15 +22,15 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
-        $dismountableType1 = new Dismountable();
-        $dismountableType1
+        $dismountableMechanic1 = new Dismountable();
+        $dismountableMechanic1
             ->setProducts([ItemEnum::METAL_SCRAPS => 1])
             ->setActionCost(3)
             ->setChancesSuccess(25)
         ;
 
-        $chargedType = new Charged();
-        $chargedType
+        $chargedMechanic = new Charged();
+        $chargedMechanic
             ->setMaxCharge(3)
             ->setStartCharge(1)
             ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
@@ -38,8 +38,8 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
 
         // @TODO more details are needed on the output of each weapon
-        $blasterType = new Weapon();
-        $blasterType
+        $blasterMechanic = new Weapon();
+        $blasterMechanic
             ->setBaseAccuracy(50)
             ->setBaseDamageRange([2 => 5])
             ->setBaseInjuryNumber([0 => 1])
@@ -60,15 +60,15 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(25)
-            ->setMechanics(new ArrayCollection([$dismountableType1, $blasterType, $chargedType]))
+            ->setMechanics(new ArrayCollection([$dismountableMechanic1, $blasterMechanic, $chargedMechanic]))
         ;
-        $manager->persist($dismountableType1);
-        $manager->persist($chargedType);
-        $manager->persist($blasterType);
+        $manager->persist($dismountableMechanic1);
+        $manager->persist($chargedMechanic);
+        $manager->persist($blasterMechanic);
         $manager->persist($blaster);
 
-        $knifeType = new Weapon();
-        $knifeType
+        $knifeMechanic = new Weapon();
+        $knifeMechanic
             ->setBaseAccuracy(50)
             ->setBaseDamageRange([1 => 5])
             ->setBaseInjuryNumber([0 => 1])
@@ -89,14 +89,14 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setBreakableRate(25)
-            ->setMechanics(new ArrayCollection([$dismountableType1, $knifeType]))
+            ->setMechanics(new ArrayCollection([$dismountableMechanic1, $knifeMechanic]))
 
         ;
         $manager->persist($knife);
-        $manager->persist($knifeType);
+        $manager->persist($knifeMechanic);
 
-        $grenadeType = new Weapon();
-        $grenadeType
+        $grenadeMechanic = new Weapon();
+        $grenadeMechanic
             ->setBaseAccuracy(100)
             ->setBaseDamageRange([0 => 10])
             ->setBaseInjuryNumber([0 => 1])
@@ -116,21 +116,21 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$grenadeType]))
+            ->setMechanics(new ArrayCollection([$grenadeMechanic]))
 
         ;
         $manager->persist($grenade);
-        $manager->persist($grenadeType);
+        $manager->persist($grenadeMechanic);
 
-        $dismountableType2 = new Dismountable();
-        $dismountableType2
+        $dismountableMechanic2 = new Dismountable();
+        $dismountableMechanic2
             ->setProducts([ItemEnum::METAL_SCRAPS => 1])
             ->setActionCost(3)
             ->setChancesSuccess(12)
         ;
 
-        $natamyType = new Weapon();
-        $natamyType
+        $natamyMechanic = new Weapon();
+        $natamyMechanic
             ->setBaseAccuracy(50)
             ->setBaseDamageRange([2 => 12])
             ->setBaseInjuryNumber([1 => 3])
@@ -151,21 +151,21 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(12)
-            ->setMechanics(new ArrayCollection([$dismountableType2, $natamyType, $chargedType]))
+            ->setMechanics(new ArrayCollection([$dismountableMechanic2, $natamyMechanic, $chargedMechanic]))
         ;
         $manager->persist($natamy);
-        $manager->persist($natamyType);
-        $manager->persist($dismountableType2);
+        $manager->persist($natamyMechanic);
+        $manager->persist($dismountableMechanic2);
 
-        $dismountableType3 = new Dismountable();
-        $dismountableType3
+        $dismountableMechanic3 = new Dismountable();
+        $dismountableMechanic3
             ->setProducts([ItemEnum::METAL_SCRAPS => 1])
             ->setActionCost(4)
             ->setChancesSuccess(12)
         ;
 
-        $oldFaithfulType = new Weapon();
-        $oldFaithfulType
+        $oldFaithfulMechanic = new Weapon();
+        $oldFaithfulMechanic
             ->setBaseAccuracy(50)
             ->setBaseDamageRange([2 => 3])
             ->setBaseInjuryNumber([0 => 3])
@@ -174,8 +174,8 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setCriticalSucessEvents([])
         ;
 
-        $chargedType = new Charged();
-        $chargedType
+        $chargedMechanic = new Charged();
+        $chargedMechanic
             ->setMaxCharge(12)
             ->setStartCharge(12)
             ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
@@ -194,31 +194,31 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(12)
-            ->setMechanics(new ArrayCollection([$dismountableType3, $oldFaithfulType, $chargedType]))
+            ->setMechanics(new ArrayCollection([$dismountableMechanic3, $oldFaithfulMechanic, $chargedMechanic]))
 
         ;
         $manager->persist($oldFaithful);
-        $manager->persist($oldFaithfulType);
-        $manager->persist($dismountableType3);
-        $manager->persist($chargedType);
+        $manager->persist($oldFaithfulMechanic);
+        $manager->persist($dismountableMechanic3);
+        $manager->persist($chargedMechanic);
 
-        $dismountableType4 = new Dismountable();
-        $dismountableType4
+        $dismountableMechanic4 = new Dismountable();
+        $dismountableMechanic4
             ->setProducts([ItemEnum::METAL_SCRAPS => 1, ItemEnum::THICK_TUBE => 1])
             ->setActionCost(3)
             ->setChancesSuccess(12)
         ;
 
-        $chargedType = new Charged();
-        $chargedType
+        $chargedMechanic = new Charged();
+        $chargedMechanic
             ->setMaxCharge(1)
             ->setStartCharge(1)
             ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
             ->setIsVisible(true)
         ;
 
-        $lizaroJungleType = new Weapon();
-        $lizaroJungleType
+        $lizaroJungleMechanic = new Weapon();
+        $lizaroJungleMechanic
             ->setBaseAccuracy(99)
             ->setBaseDamageRange([3 => 5])
             ->setBaseInjuryNumber([1 => 2])
@@ -239,16 +239,16 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(12)
-            ->setMechanics(new ArrayCollection([$dismountableType4, $lizaroJungleType, $chargedType]))
+            ->setMechanics(new ArrayCollection([$dismountableMechanic4, $lizaroJungleMechanic, $chargedMechanic]))
 
         ;
         $manager->persist($lizaroJungle);
-        $manager->persist($lizaroJungleType);
-        $manager->persist($dismountableType4);
-        $manager->persist($chargedType);
+        $manager->persist($lizaroJungleMechanic);
+        $manager->persist($dismountableMechanic4);
+        $manager->persist($chargedMechanic);
 
-        $rocketLauncherType = new Weapon();
-        $rocketLauncherType
+        $rocketLauncherMechanic = new Weapon();
+        $rocketLauncherMechanic
             ->setBaseAccuracy(50)
             ->setBaseDamageRange([0 => 8])
             ->setBaseInjuryNumber([0 => 2])
@@ -269,11 +269,11 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(12)
-            ->setMechanics(new ArrayCollection([$dismountableType2, $rocketLauncherType, $chargedType]))
+            ->setMechanics(new ArrayCollection([$dismountableMechanic2, $rocketLauncherMechanic, $chargedMechanic]))
 
         ;
         $manager->persist($rocketLauncher);
-        $manager->persist($rocketLauncherType);
+        $manager->persist($rocketLauncherMechanic);
 
         $this->addReference(ItemEnum::GRENADE, $grenade);
         $this->addReference(ItemEnum::OLD_FAITHFUL, $oldFaithful);

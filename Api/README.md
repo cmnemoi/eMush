@@ -17,7 +17,7 @@
             |-- Service
             |-- Validator
         |-- Game/
-        |-- Item/
+        |-- Equipment/
         |-- Player/
         |-- Room/
         |-- RoomLog/       

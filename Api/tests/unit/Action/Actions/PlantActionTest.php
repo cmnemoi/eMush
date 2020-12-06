@@ -11,10 +11,10 @@ use Mush\Action\Actions\Transplant;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\Item;
-use Mush\Equipment\Entity\Items\Fruit;
+use Mush\Equipment\Entity\ItemConfig;
+use Mush\Equipment\Entity\Equipments\Fruit;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Equipment\Service\GameItemServiceInterface;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
@@ -26,8 +26,8 @@ class PlantActionTest extends TestCase
 {
     /** @var RoomLogServiceInterface | Mockery\Mock */
     private RoomLogServiceInterface $roomLogService;
-    /** @var GameItemServiceInterface | Mockery\Mock */
-    private GameItemServiceInterface $itemService;
+    /** @var GameEquipmentServiceInterface | Mockery\Mock */
+    private GameEquipmentServiceInterface $gameEquipmentService;
     /** @var PlayerServiceInterface | Mockery\Mock */
     private PlayerServiceInterface $playerService;
     private Action $action;
@@ -39,7 +39,7 @@ class PlantActionTest extends TestCase
     {
         $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
-        $this->itemService = Mockery::mock(GameItemServiceInterface::class);
+        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
 
         $eventDispatcher->shouldReceive('dispatch');
@@ -47,7 +47,7 @@ class PlantActionTest extends TestCase
         $this->action = new Transplant(
             $eventDispatcher,
             $this->roomLogService,
-            $this->itemService,
+            $this->gameEquipmentService,
             $this->playerService
         );
     }
@@ -64,23 +64,23 @@ class PlantActionTest extends TestCase
     {
         $room = new Room();
         $gameItem = new GameItem();
-        $item = new Item();
+        $item = new ItemConfig();
         $gameItem
-                    ->setItem($item)
+                    ->setEquipment($item)
                     ->setRoom($room)
                     ->setName('toto');
 
         $fruit = new Fruit();
         $fruit->setPlantName('banana_tree');
 
-        $plant = new Item();
+        $plant = new ItemConfig();
         $plant->setName('plant');
 
         $gameHydropot = new GameItem();
-        $hydropot = new Item();
+        $hydropot = new ItemConfig();
         $hydropot->setName(ItemEnum::HYDROPOT);
         $gameHydropot
-                    ->setItem($hydropot)
+                    ->setEquipment($hydropot)
                     ->setRoom($room)
                     ->setName(ItemEnum::HYDROPOT);
 
@@ -107,9 +107,9 @@ class PlantActionTest extends TestCase
     {
         $room = new Room();
         $gameItem = new GameItem();
-        $item = new Item();
+        $item = new ItemConfig();
         $gameItem
-                    ->setItem($item)
+                    ->setEquipment($item)
                     ->setRoom($room)
                     ->setName('toto');
 
@@ -118,16 +118,16 @@ class PlantActionTest extends TestCase
 
         $item->setTypes(new ArrayCollection([$fruit]));
 
-        $plant = new Item();
+        $plant = new ItemConfig();
         $plant->setName('banana_tree');
         $gamePlant = new GameItem();
-        $gamePlant->setItem($plant);
+        $gamePlant->setEquipment($plant);
 
         $gameHydropot = new GameItem();
-        $hydropot = new Item();
+        $hydropot = new ItemConfig();
         $hydropot->setName(ItemEnum::HYDROPOT);
         $gameHydropot
-                    ->setItem($hydropot)
+                    ->setEquipment($hydropot)
                     ->setRoom($room)
                     ->setName(ItemEnum::HYDROPOT);
 
@@ -136,12 +136,12 @@ class PlantActionTest extends TestCase
         $player = new Player();
         $player = $this->createPlayer(new Daedalus(), $room);
 
-        $this->roomLogService->shouldReceive('createItemLog')->once();
-        $this->itemService->shouldReceive('persist');
+        $this->roomLogService->shouldReceive('createEquipmentLog')->once();
+        $this->gameEquipmentService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
 
-        $this->itemService->shouldReceive('createGameItemFromName')->andReturn($gamePlant)->once();
-        $this->itemService->shouldReceive('delete');
+        $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->andReturn($gamePlant)->once();
+        $this->gameEquipmentService->shouldReceive('delete');
 
         $this->action->loadParameters($player, $actionParameter);
 
@@ -149,7 +149,7 @@ class PlantActionTest extends TestCase
 
         $this->assertInstanceOf(Success::class, $result);
         $this->assertEmpty($player->getItems());
-        $this->assertEquals($player->getRoom()->getItems()->first()->getItem(), $plant);
+        $this->assertEquals($player->getRoom()->getEquipments()->first()->getEquipment(), $plant);
     }
 
     private function createPlayer(Daedalus $daedalus, Room $room): Player

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Test\Item\CycleHandler;
+namespace Mush\Test\Equipment\CycleHandler;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
@@ -10,11 +10,11 @@ use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Equipment\CycleHandler\PlantCycleHandler;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\Item;
-use Mush\Equipment\Entity\Items\Plant;
+use Mush\Equipment\Entity\ItemConfig;
+use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Entity\PlantEffect;
-use Mush\Equipment\Service\GameItemServiceInterface;
-use Mush\Equipment\Service\ItemEffectServiceInterface;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
@@ -27,16 +27,16 @@ use PHPUnit\Framework\TestCase;
 
 class PlantCycleHandlerTest extends TestCase
 {
-    /** @var GameItemServiceInterface | Mockery\Mock */
-    private GameItemServiceInterface $itemService;
+    /** @var GameEquipmentServiceInterface | Mockery\Mock */
+    private GameEquipmentServiceInterface $gameEquipmentService;
     /** @var RandomServiceInterface | Mockery\Mock */
     private RandomServiceInterface $randomService;
     /** @var RoomLogServiceInterface | Mockery\Mock */
     private RoomLogServiceInterface $roomLogService;
     /** @var StatusServiceInterface | Mockery\Mock */
     private StatusServiceInterface $statusService;
-    /** @var ItemEffectServiceInterface | Mockery\Mock */
-    private ItemEffectServiceInterface $itemEffectService;
+    /** @var EquipmentEffectServiceInterface | Mockery\Mock */
+    private EquipmentEffectServiceInterface $equipmentEffectService;
     /** @var GameConfig */
     private GameConfig $gameConfig;
 
@@ -47,10 +47,10 @@ class PlantCycleHandlerTest extends TestCase
      */
     public function before()
     {
-        $this->itemService = Mockery::mock(GameItemServiceInterface::class);
+        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
         $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
-        $this->itemEffectService = Mockery::mock(ItemEffectServiceInterface::class);
+        $this->equipmentEffectService = Mockery::mock(EquipmentEffectServiceInterface::class);
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
         $this->gameConfig = new GameConfig();
 
@@ -58,12 +58,12 @@ class PlantCycleHandlerTest extends TestCase
         $gameConfigService->shouldReceive('getConfig')->andReturn($this->gameConfig);
 
         $this->plantCycleHandler = new PlantCycleHandler(
-            $this->itemService,
+            $this->gameEquipmentService,
             $this->randomService,
             $this->roomLogService,
             $gameConfigService,
             $this->statusService,
-            $this->itemEffectService
+            $this->equipmentEffectService
         );
     }
 
@@ -77,51 +77,51 @@ class PlantCycleHandlerTest extends TestCase
 
     public function testNewCycle()
     {
-        $plant = new Item();
+        $plant = new ItemConfig();
 
         $plantType = new Plant();
-        $plant->setTypes(new ArrayCollection([$plantType]));
+        $plant->setMechanics(new ArrayCollection([$plantType]));
 
-        $this->roomLogService->shouldReceive('createItemLog');
-        $this->itemService->shouldReceive('persist')->twice();
+        $this->roomLogService->shouldReceive('createEquipmentLog');
+        $this->gameEquipmentService->shouldReceive('persist')->twice();
         $this->randomService->shouldReceive('randomPercent')->andReturn(100, 1)->twice(); //Plant should not get disease
 
         $chargeStatus = new ChargeStatus();
-        $chargeStatus->setName(ItemStatusEnum::PLANT_YOUNG);
+        $chargeStatus->setName(EquipmentStatusEnum::PLANT_YOUNG);
         $chargeStatus->setCharge(1);
 
         $daedalus = new Daedalus();
         $gamePlant = new GameItem();
         $gamePlant
             ->addStatus($chargeStatus)
-            ->setItem($plant)
+            ->setEquipment($plant)
         ;
         $plantEffect = new PlantEffect();
         $plantEffect
             ->setMaturationTime(10)
             ->setOxygen(10)
         ;
-        $this->itemEffectService->shouldReceive('getPlantEffect')->andReturn($plantEffect);
+        $this->equipmentEffectService->shouldReceive('getPlantEffect')->andReturn($plantEffect);
 
         $this->plantCycleHandler->handleNewCycle($gamePlant, $daedalus, new \DateTime());
 
         $this->assertFalse(
             $gamePlant
                 ->getStatuses()
-                ->filter(fn (Status $status) => ItemStatusEnum::PLANT_YOUNG === $status->getName())
+                ->filter(fn (Status $status) => EquipmentStatusEnum::PLANT_YOUNG === $status->getName())
                 ->isEmpty()
         );
         $this->assertTrue(
             $gamePlant
                 ->getStatuses()
-                ->filter(fn (Status $status) => ItemStatusEnum::PLANT_DISEASED === $status->getName())
+                ->filter(fn (Status $status) => EquipmentStatusEnum::PLANT_DISEASED === $status->getName())
                 ->isEmpty()
         );
 
         $chargeStatus->setCharge(10);
 
         $gamePlant
-            ->setItem($plant)
+            ->setEquipment($plant)
             ->setRoom(new Room())
         ;
 
@@ -130,13 +130,13 @@ class PlantCycleHandlerTest extends TestCase
         $this->assertTrue(
             $gamePlant
                 ->getStatuses()
-                ->filter(fn (Status $status) => ItemStatusEnum::PLANT_YOUNG === $status->getName())
+                ->filter(fn (Status $status) => EquipmentStatusEnum::PLANT_YOUNG === $status->getName())
                 ->isEmpty()
         );
         $this->assertFalse(
             $gamePlant
                 ->getStatuses()
-                ->filter(fn (Status $status) => ItemStatusEnum::PLANT_DISEASED === $status->getName())
+                ->filter(fn (Status $status) => EquipmentStatusEnum::PLANT_DISEASED === $status->getName())
                 ->isEmpty()
         );
     }
@@ -153,28 +153,28 @@ class PlantCycleHandlerTest extends TestCase
         $room->addPlayer($player);
         $room->setDaedalus($daedalus);
 
-        $newFruit = new Item();
+        $newFruit = new ItemConfig();
         $newFruit->setName('fruit name');
-        $this->itemService->shouldReceive('persist');
-        $this->roomLogService->shouldReceive('createItemLog');
-        $this->itemService->shouldReceive('createGameItemFromName')->andReturn(new GameItem());
-        $this->itemService->shouldReceive('createGameItem')->andReturn(new GameItem());
+        $this->gameEquipmentService->shouldReceive('persist');
+        $this->roomLogService->shouldReceive('createEquipmentLog');
+        $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->andReturn(new GameItem());
+        $this->gameEquipmentService->shouldReceive('createGameEquipment')->andReturn(new GameItem());
 
-        $plant = new Item();
+        $plant = new ItemConfig();
         $plant
             ->setName('plant name')
         ;
         $plantType = new Plant();
         $plantType->setFruit($newFruit);
 
-        $plant->setTypes(new ArrayCollection([$plantType]));
+        $plant->setMechanics(new ArrayCollection([$plantType]));
 
         $plantEffect = new PlantEffect();
         $plantEffect
             ->setMaturationTime(10)
             ->setOxygen(10)
         ;
-        $this->itemEffectService->shouldReceive('getPlantEffect')->andReturn($plantEffect);
+        $this->equipmentEffectService->shouldReceive('getPlantEffect')->andReturn($plantEffect);
 
         $chargeStatus = new ChargeStatus();
         $chargeStatus->setName(StatusEnum::CHARGE);
@@ -183,15 +183,15 @@ class PlantCycleHandlerTest extends TestCase
         $gamePlant = new GameItem();
         $gamePlant
             ->addStatus($chargeStatus)
-            ->setItem($plant)
+            ->setEquipment($plant)
             ->setRoom($room)
         ;
 
         $status = new Status();
-        $status->setName(ItemStatusEnum::PLANT_THIRSTY);
+        $status->setName(EquipmentStatusEnum::PLANT_THIRSTY);
         $this->statusService
-            ->shouldReceive('createCoreItemStatus')
-            ->with(ItemStatusEnum::PLANT_THIRSTY, $gamePlant)
+            ->shouldReceive('createCoreEquipmentStatus')
+            ->with(EquipmentStatusEnum::PLANT_THIRSTY, $gamePlant)
             ->andReturn($status)
             ->once()
         ;
@@ -199,31 +199,31 @@ class PlantCycleHandlerTest extends TestCase
         //Mature Plant, no problem
         $this->plantCycleHandler->handleNewDay($gamePlant, $daedalus, new \DateTime());
 
-        $this->assertCount(2, $room->getItems());
+        $this->assertCount(2, $room->getEquipments());
         $this->assertEquals(20, $daedalus->getOxygen());
 
         $dried = new Status();
-        $dried->setName(ItemStatusEnum::PLANT_DRIED_OUT);
+        $dried->setName(EquipmentStatusEnum::PLANT_DRIED_OUT);
         $this->statusService
-            ->shouldReceive('createCoreItemStatus')
-            ->with(ItemStatusEnum::PLANT_DRIED_OUT, $gamePlant)->andReturn($dried)
+            ->shouldReceive('createCoreEquipmentStatus')
+            ->with(EquipmentStatusEnum::PLANT_DRIED_OUT, $gamePlant)->andReturn($dried)
             ->once()
         ;
 
         //Thirsty plant
         $this->plantCycleHandler->handleNewDay($gamePlant, $daedalus, new \DateTime());
 
-        $this->assertCount(2, $room->getItems());
+        $this->assertCount(2, $room->getEquipments());
         $this->assertEquals(30, $daedalus->getOxygen());
 
-        $this->itemService->shouldReceive('createItem')->andReturn(new GameItem());
-        $this->itemService->shouldReceive('delete');
+        $this->gameEquipmentService->shouldReceive('createEquipment')->andReturn(new GameItem());
+        $this->gameEquipmentService->shouldReceive('delete');
 
         //Dried out plant
         $this->plantCycleHandler->handleNewDay($gamePlant, $daedalus, new \DateTime());
 
-        $this->assertCount(2, $room->getItems());
-        $this->assertNotContains($plant, $room->getItems());
+        $this->assertCount(2, $room->getEquipments());
+        $this->assertNotContains($plant, $room->getEquipments());
         $this->assertEquals(30, $daedalus->getOxygen());
     }
 }

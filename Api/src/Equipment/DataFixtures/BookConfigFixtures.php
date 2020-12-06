@@ -42,8 +42,8 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
                                         ];
 
         foreach ($skillsArray as $skillName) {
-            $apprentonType = new Book();
-            $apprentonType
+            $apprentonMechanic = new Book();
+            $apprentonMechanic
                   ->setSkill($skillName)
               ;
 
@@ -58,16 +58,16 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
                   ->setIsHideable(true)
                   ->setIsFireDestroyable(true)
                   ->setIsFireBreakable(false)
-                  ->setMechanics(new ArrayCollection([$apprentonType]))
+                  ->setMechanics(new ArrayCollection([$apprentonMechanic]))
               ;
 
-            $manager->persist($apprentonType);
+            $manager->persist($apprentonMechanic);
             $manager->persist($apprenton);
         }
 
         //Then Documents
-        $documentType = new Document();
-        $documentType
+        $documentMechanic = new Document();
+        $documentMechanic
            ->setIsTranslated(true)
            ->canShred(true)
            ;
@@ -83,14 +83,14 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$documentType]))
+            ->setMechanics(new ArrayCollection([$documentMechanic]))
         ;
 
-        $manager->persist($documentType);
+        $manager->persist($documentMechanic);
         $manager->persist($document);
 
-        $commandersManualType = new Document();
-        $commandersManualType
+        $commandersManualMechanic = new Document();
+        $commandersManualMechanic
                ->setIsTranslated(true)
                ->setContent(DocumentContentEnum::COMMANDERS_MANUAL)
                ;
@@ -106,14 +106,14 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
                 ->setIsHideable(true)
                 ->setIsFireDestroyable(true)
                 ->setIsFireBreakable(false)
-                ->setMechanics(new ArrayCollection([$commandersManualType]))
+                ->setMechanics(new ArrayCollection([$commandersManualMechanic]))
             ;
 
-        $manager->persist($commandersManualType);
+        $manager->persist($commandersManualMechanic);
         $manager->persist($commandersManual);
 
-        $mushResearchType = new Document();
-        $mushResearchType
+        $mushResearchMechanic = new Document();
+        $mushResearchMechanic
                ->setIsTranslated(true)
                ->setContent(DocumentContentEnum::MUSH_RESEARCH_REVIEW)
                ;
@@ -129,14 +129,14 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
                 ->setIsHideable(true)
                 ->setIsFireDestroyable(true)
                 ->setIsFireBreakable(false)
-                ->setMechanics(new ArrayCollection([$mushResearchType]))
+                ->setMechanics(new ArrayCollection([$mushResearchMechanic]))
             ;
 
-        $manager->persist($mushResearchType);
+        $manager->persist($mushResearchMechanic);
         $manager->persist($mushResearch);
 
-        $postItType = new Document();
-        $postItType
+        $postItMechanic = new Document();
+        $postItMechanic
                ->setIsTranslated(false)
                ->canShred(true)
                ;
@@ -152,10 +152,10 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
                 ->setIsHideable(true)
                 ->setIsFireDestroyable(true)
                 ->setIsFireBreakable(false)
-                ->setMechanics(new ArrayCollection([$postItType]))
+                ->setMechanics(new ArrayCollection([$postItMechanic]))
             ;
 
-        $manager->persist($postItType);
+        $manager->persist($postItMechanic);
         $manager->persist($postIt);
 
         $manager->flush();

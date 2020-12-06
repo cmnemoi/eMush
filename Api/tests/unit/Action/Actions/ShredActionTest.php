@@ -11,9 +11,9 @@ use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\Item;
-use Mush\Equipment\Entity\Items\Document;
-use Mush\Equipment\Service\GameItemServiceInterface;
+use Mush\Equipment\Entity\ItemConfig;
+use Mush\Equipment\Entity\Mechanics\Document;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
@@ -25,8 +25,8 @@ class ShredActionTest extends TestCase
 {
     /** @var RoomLogServiceInterface | Mockery\Mock */
     private RoomLogServiceInterface $roomLogService;
-    /** @var GameItemServiceInterface | Mockery\Mock */
-    private GameItemServiceInterface $itemService;
+    /** @var GameEquipmentServiceInterface | Mockery\Mock */
+    private GameEquipmentServiceInterface $gameEquipmentService;
     /** @var PlayerServiceInterface | Mockery\Mock */
     private PlayerServiceInterface $playerService;
     private Action $action;
@@ -38,7 +38,7 @@ class ShredActionTest extends TestCase
     {
         $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
-        $this->itemService = Mockery::mock(GameItemServiceInterface::class);
+        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
 
         $eventDispatcher->shouldReceive('dispatch');
@@ -46,7 +46,7 @@ class ShredActionTest extends TestCase
         $this->action = new Shred(
             $eventDispatcher,
             $this->roomLogService,
-            $this->itemService,
+            $this->gameEquipmentService,
             $this->playerService
         );
     }
@@ -63,18 +63,18 @@ class ShredActionTest extends TestCase
     {
         $room = new Room();
         $gameItem = new GameItem();
-        $item = new Item();
+        $item = new ItemConfig();
         $document = new Document();
         $document->setCanShred(true);
-        $item->setTypes(new ArrayCollection([$document]));
+        $item->setMechanics(new ArrayCollection([$document]));
         $gameItem
-            ->setItem($item)
+            ->setEquipment($item)
             ->setRoom($room)
         ;
 
-        $this->roomLogService->shouldReceive('createItemLog')->once();
+        $this->roomLogService->shouldReceive('createEquipmentLog')->once();
 
-        $this->itemService->shouldReceive('delete');
+        $this->gameEquipmentService->shouldReceive('delete');
         $this->playerService->shouldReceive('persist');
 
         $actionParameter = new ActionParameters();
@@ -92,7 +92,7 @@ class ShredActionTest extends TestCase
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
-        $this->assertEmpty($room->getItems());
+        $this->assertEmpty($room->getEquipments());
         $this->assertEmpty($player->getItems());
     }
 }

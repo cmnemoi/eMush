@@ -35,8 +35,8 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         //@TODO add support_drone and swedish_sofa
 
-        $blueprintEcholocatorType = new Blueprint();
-        $blueprintEcholocatorType
+        $blueprintEcholocatorMechanic = new Blueprint();
+        $blueprintEcholocatorMechanic
             ->setEquipment($echolocator)
             ->setIngredients([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::METAL_SCRAPS => 1])
         ;
@@ -52,13 +52,13 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$blueprintEcholocatorType]))
+            ->setMechanics(new ArrayCollection([$blueprintEcholocatorMechanic]))
         ;
-        $manager->persist($blueprintEcholocatorType);
+        $manager->persist($blueprintEcholocatorMechanic);
         $manager->persist($blueprintEcholocator);
 
-        $blueprintWhiteFlagType = new Blueprint();
-        $blueprintWhiteFlagType
+        $blueprintWhiteFlagMechanic = new Blueprint();
+        $blueprintWhiteFlagMechanic
             ->setEquipment($whiteFlag)
             ->setIngredients([GearItemEnum::SOAP => 1, ItemEnum::OLD_T_SHIRT => 1])
         ;
@@ -74,13 +74,13 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$blueprintWhiteFlagType]))
+            ->setMechanics(new ArrayCollection([$blueprintWhiteFlagMechanic]))
         ;
-        $manager->persist($blueprintWhiteFlagType);
+        $manager->persist($blueprintWhiteFlagMechanic);
         $manager->persist($blueprintWhiteFlag);
 
-        $blueprintThermosensorType = new Blueprint();
-        $blueprintThermosensorType
+        $blueprintThermosensorMechanic = new Blueprint();
+        $blueprintThermosensorMechanic
             ->setEquipment($thermosensor)
             ->setIngredients([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::METAL_SCRAPS => 1])
         ;
@@ -96,13 +96,13 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$blueprintThermosensorType]))
+            ->setMechanics(new ArrayCollection([$blueprintThermosensorMechanic]))
         ;
-        $manager->persist($blueprintThermosensorType);
+        $manager->persist($blueprintThermosensorMechanic);
         $manager->persist($blueprintThermosensor);
 
-        $blueprintBabelModuleType = new Blueprint();
-        $blueprintBabelModuleType
+        $blueprintBabelModuleMechanic = new Blueprint();
+        $blueprintBabelModuleMechanic
             ->setEquipment($babelModule)
             ->setIngredients([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::METAL_SCRAPS => 1])
         ;
@@ -118,13 +118,13 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$blueprintBabelModuleType]))
+            ->setMechanics(new ArrayCollection([$blueprintBabelModuleMechanic]))
         ;
-        $manager->persist($blueprintBabelModuleType);
+        $manager->persist($blueprintBabelModuleMechanic);
         $manager->persist($blueprintBabelModule);
 
-        $blueprintGrenadeType = new Blueprint();
-        $blueprintGrenadeType
+        $blueprintGrenadeMechanic = new Blueprint();
+        $blueprintGrenadeMechanic
             ->setEquipment($grenade)
             ->setIngredients([ItemEnum::OXYGEN_CAPSULE => 1, ItemEnum::FUEL_CAPSULE => 1])
         ;
@@ -140,13 +140,13 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$blueprintGrenadeType]))
+            ->setMechanics(new ArrayCollection([$blueprintGrenadeMechanic]))
         ;
-        $manager->persist($blueprintGrenadeType);
+        $manager->persist($blueprintGrenadeMechanic);
         $manager->persist($blueprintGrenade);
 
-        $blueprintOldFaithfulType = new Blueprint();
-        $blueprintOldFaithfulType
+        $blueprintOldFaithfulMechanic = new Blueprint();
+        $blueprintOldFaithfulMechanic
             ->setEquipment($oldFaithful)
             ->setIngredients([ItemEnum::METAL_SCRAPS => 4])
         ;
@@ -162,13 +162,13 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$blueprintOldFaithfulType]))
+            ->setMechanics(new ArrayCollection([$blueprintOldFaithfulMechanic]))
         ;
-        $manager->persist($blueprintOldFaithfulType);
+        $manager->persist($blueprintOldFaithfulMechanic);
         $manager->persist($blueprintOldFaithful);
 
-        $blueprintLizaroJungleType = new Blueprint();
-        $blueprintLizaroJungleType
+        $blueprintLizaroJungleMechanic = new Blueprint();
+        $blueprintLizaroJungleMechanic
             ->setEquipment($lizaroJungle)
             ->setIngredients([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::METAL_SCRAPS => 2])
         ;
@@ -184,13 +184,13 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$blueprintLizaroJungleType]))
+            ->setMechanics(new ArrayCollection([$blueprintLizaroJungleMechanic]))
         ;
-        $manager->persist($blueprintLizaroJungleType);
+        $manager->persist($blueprintLizaroJungleMechanic);
         $manager->persist($blueprintLizaroJungle);
 
-        $blueprintRocketLauncherType = new Blueprint();
-        $blueprintRocketLauncherType
+        $blueprintRocketLauncherMechanic = new Blueprint();
+        $blueprintRocketLauncherMechanic
             ->setEquipment($rocketLauncher)
             ->setIngredients([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::METAL_SCRAPS => 1, ItemEnum::THICK_TUBE => 1])
         ;
@@ -206,13 +206,13 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$blueprintRocketLauncherType]))
+            ->setMechanics(new ArrayCollection([$blueprintRocketLauncherMechanic]))
         ;
-        $manager->persist($blueprintRocketLauncherType);
+        $manager->persist($blueprintRocketLauncherMechanic);
         $manager->persist($blueprintRocketLauncher);
 
-        $blueprintExtinguisherType = new Blueprint();
-        $blueprintExtinguisherType
+        $blueprintExtinguisherMechanic = new Blueprint();
+        $blueprintExtinguisherMechanic
             ->setEquipment($extinguisher)
             ->setIngredients([ItemEnum::OXYGEN_CAPSULE => 1, ItemEnum::METAL_SCRAPS => 1])
         ;
@@ -228,13 +228,13 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$blueprintExtinguisherType]))
+            ->setMechanics(new ArrayCollection([$blueprintExtinguisherMechanic]))
         ;
-        $manager->persist($blueprintExtinguisherType);
+        $manager->persist($blueprintExtinguisherMechanic);
         $manager->persist($blueprintExtinguisher);
 
-        $blueprintOscilloscopeType = new Blueprint();
-        $blueprintOscilloscopeType
+        $blueprintOscilloscopeMechanic = new Blueprint();
+        $blueprintOscilloscopeMechanic
             ->setEquipment($oscilloscope)
             ->setIngredients([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::METAL_SCRAPS => 1])
         ;
@@ -250,13 +250,13 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$blueprintOscilloscopeType]))
+            ->setMechanics(new ArrayCollection([$blueprintOscilloscopeMechanic]))
         ;
-        $manager->persist($blueprintOscilloscopeType);
+        $manager->persist($blueprintOscilloscopeMechanic);
         $manager->persist($blueprintOscilloscope);
 
-        $blueprintSniperHelmetType = new Blueprint();
-        $blueprintSniperHelmetType
+        $blueprintSniperHelmetMechanic = new Blueprint();
+        $blueprintSniperHelmetMechanic
             ->setEquipment($sniperHelmet)
             ->setIngredients([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::METAL_SCRAPS => 1])
         ;
@@ -272,9 +272,9 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$blueprintSniperHelmetType]))
+            ->setMechanics(new ArrayCollection([$blueprintSniperHelmetMechanic]))
         ;
-        $manager->persist($blueprintSniperHelmetType);
+        $manager->persist($blueprintSniperHelmetMechanic);
         $manager->persist($blueprintSniperHelmet);
 
         $manager->flush();

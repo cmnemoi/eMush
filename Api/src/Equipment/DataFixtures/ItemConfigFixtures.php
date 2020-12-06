@@ -19,8 +19,8 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
-        $dismountableType1 = new Dismountable();
-        $dismountableType1
+        $dismountableMechanic1 = new Dismountable();
+        $dismountableMechanic1
             ->setProducts([ItemEnum::METAL_SCRAPS => 1])
             ->setActionCost(3)
             ->setChancesSuccess(25)
@@ -38,10 +38,10 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(25)
-            ->setMechanics(new ArrayCollection([$dismountableType1]))
+            ->setMechanics(new ArrayCollection([$dismountableMechanic1]))
         ;
         $manager->persist($camera);
-        $manager->persist($dismountableType1);
+        $manager->persist($dismountableMechanic1);
 
         $mycoAlarm = new ItemConfig();
         $mycoAlarm
@@ -55,12 +55,12 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setBreakableRate(25)
-            ->setMechanics(new ArrayCollection([$dismountableType1]))
+            ->setMechanics(new ArrayCollection([$dismountableMechanic1]))
         ;
         $manager->persist($mycoAlarm);
 
-        $dismountableType2 = new Dismountable();
-        $dismountableType2
+        $dismountableMechanic2 = new Dismountable();
+        $dismountableMechanic2
             ->setProducts([ItemEnum::METAL_SCRAPS => 1])
             ->setActionCost(3)
             ->setChancesSuccess(12)
@@ -77,10 +77,10 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(12)
-            ->setMechanics(new ArrayCollection([$dismountableType2]))
+            ->setMechanics(new ArrayCollection([$dismountableMechanic2]))
         ;
         $manager->persist($tabulatrix);
-        $manager->persist($dismountableType2);
+        $manager->persist($dismountableMechanic2);
 
         $plasticScraps = new ItemConfig();
         $plasticScraps
@@ -111,8 +111,8 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($oldTShirt);
 
-        $dismountableType3 = new Dismountable();
-        $dismountableType3
+        $dismountableMechanic3 = new Dismountable();
+        $dismountableMechanic3
             ->setProducts([ItemEnum::METAL_SCRAPS => 1])
             ->setActionCost(3)
             ->setChancesSuccess(50)
@@ -129,13 +129,13 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$dismountableType3]))
+            ->setMechanics(new ArrayCollection([$dismountableMechanic3]))
         ;
         $manager->persist($thickTube);
-        $manager->persist($dismountableType3);
+        $manager->persist($dismountableMechanic3);
 
-        $dismountableType4 = new Dismountable();
-        $dismountableType4
+        $dismountableMechanic4 = new Dismountable();
+        $dismountableMechanic4
             ->setProducts([ItemEnum::PLASTIC_SCRAPS => 1])
             ->setActionCost(3)
             ->setChancesSuccess(50)
@@ -153,10 +153,10 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setBreakableRate(25)
-            ->setMechanics(new ArrayCollection([$dismountableType4]))
+            ->setMechanics(new ArrayCollection([$dismountableMechanic4]))
         ;
         $manager->persist($mushDisk);
-        $manager->persist($dismountableType4);
+        $manager->persist($dismountableMechanic4);
 
         $mushSample = new ItemConfig();
         $mushSample

@@ -1,22 +1,22 @@
 <?php
 
-namespace Mush\Test\Item\Service;
+namespace Mush\Test\Equipment\Service;
 
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Equipment\Entity\ConsumableEffect;
-use Mush\Equipment\Entity\Items\Drug;
-use Mush\Equipment\Entity\Items\Fruit;
-use Mush\Equipment\Entity\Items\Plant;
-use Mush\Equipment\Entity\Items\Ration;
+use Mush\Equipment\Entity\Mechanics\Drug;
+use Mush\Equipment\Entity\Mechanics\Fruit;
+use Mush\Equipment\Entity\Mechanics\Plant;
+use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Equipment\Entity\PlantEffect;
 use Mush\Equipment\Repository\ConsumableEffectRepository;
 use Mush\Equipment\Repository\PlantEffectRepository;
-use Mush\Equipment\Service\ItemEffectService;
+use Mush\Equipment\Service\EquipmentEffectService;
 use PHPUnit\Framework\TestCase;
 
-class ItemEffectServiceTest extends TestCase
+class EquipmentEffectServiceTest extends TestCase
 {
     /** @var ConsumableEffectRepository | Mockery\Mock */
     private ConsumableEffectRepository $consumableEffectRepository;
@@ -25,7 +25,7 @@ class ItemEffectServiceTest extends TestCase
     /** @var RandomServiceInterface | Mockery\Mock */
     private RandomServiceInterface $randomService;
 
-    private ItemEffectService $service;
+    private EquipmentEffectService $service;
 
     /**
      * @before
@@ -36,7 +36,7 @@ class ItemEffectServiceTest extends TestCase
         $this->plantEffectRepository = Mockery::mock(PlantEffectRepository::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
 
-        $this->service = new ItemEffectService(
+        $this->service = new EquipmentEffectService(
             $this->consumableEffectRepository,
             $this->plantEffectRepository,
             $this->randomService
@@ -64,7 +64,7 @@ class ItemEffectServiceTest extends TestCase
             ->setMovementPoints([1 => 1])
             ->setDiseasesChances(['disease' => 55])
             ->setDiseasesDelayMin(['disease' => 0])
-            ->setDiseasesDelayLengh(['disease' => 0])
+            ->setDiseasesDelayLength(['disease' => 0])
             ->setExtraEffects(['break_door' => 55])
         ;
         $consumableEffectFromRepository = new ConsumableEffect();
@@ -113,7 +113,7 @@ class ItemEffectServiceTest extends TestCase
                         'disease1' => 1,
                         'disease2' => 6, ])
             ->setDiseasesEffectDelayMin([0 => 1, 5 => 1])
-            ->setDiseasesEffectDelayLengh([7 => 1])
+            ->setDiseasesEffectDelayLength([7 => 1])
             ->setFruitEffectsNumber([0 => 35, 1 => 40, 2 => 15])
             ->setExtraEffects(['extraActionPoint' => 50])
         ;

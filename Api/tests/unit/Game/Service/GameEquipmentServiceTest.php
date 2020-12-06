@@ -5,35 +5,35 @@ namespace Mush\Test\Game\Service;
 use Doctrine\ORM\EntityManagerInterface;
 use Mockery;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\Item;
+use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Repository\GameItemRepository;
-use Mush\Equipment\Service\GameItemService;
-use Mush\Equipment\Service\GameItemServiceInterface;
-use Mush\Equipment\Service\ItemEffectService;
-use Mush\Equipment\Service\ItemEffectServiceInterface;
+use Mush\Equipment\Service\GameEquipmentService;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Service\EquipmentEffectService;
+use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Equipment\Service\ItemServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
 use Mush\Status\Entity\Status;
-use Mush\Status\Enum\ItemStatusEnum;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
 
-class GameItemServiceTest extends TestCase
+class GameEquipmentServiceTest extends TestCase
 {
     /** @var EntityManagerInterface | Mockery\Mock */
     private EntityManagerInterface $entityManager;
     /** @var GameItemRepository | Mockery\Mock */
     private GameItemRepository $repository;
-    /** @var ItemServiceInterface | Mockery\Mock */
-    private ItemServiceInterface $itemService;
+    /** @var EquipmentServiceInterface | Mockery\Mock */
+    private EquipmentServiceInterface $equipmentService;
     /** @var StatusServiceInterface | Mockery\Mock */
     private StatusServiceInterface $statusService;
-    /** @var ItemEffectServiceInterface | Mockery\Mock */
-    private ItemEffectServiceInterface $itemEffectService;
-    private GameItemServiceInterface $service;
+    /** @var EquipmentEffectServiceInterface | Mockery\Mock */
+    private EquipmentEffectServiceInterface $equipmentEffectService;
+    private GameEquipmentServiceInterface $service;
 
     /**
      * @before
@@ -42,16 +42,16 @@ class GameItemServiceTest extends TestCase
     {
         $this->entityManager = Mockery::mock(EntityManagerInterface::class);
         $this->repository = Mockery::mock(GameItemRepository::class);
-        $this->itemService = Mockery::mock(ItemServiceInterface::class);
+        $this->equipmentService = Mockery::mock(EquipmentServiceInterface::class);
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
-        $this->itemEffectService = Mockery::mock(ItemEffectService::class);
+        $this->equipmentEffectService = Mockery::mock(EquipmentEffectService::class);
 
-        $this->service = new GameItemService(
+        $this->service = new GameEquipmentService(
             $this->entityManager,
             $this->repository,
-            $this->itemService,
+            $this->equipmentService,
             $this->statusService,
-            $this->itemEffectService
+            $this->equipmentEffectService
         );
     }
 
@@ -63,9 +63,9 @@ class GameItemServiceTest extends TestCase
         Mockery::close();
     }
 
-    public function testGetOperationalItemByName()
+    public function testGetOperationalEquipmentByName()
     {
-        $item = new Item();
+        $item = new ItemConfig();
         $item->setName(ItemEnum::METAL_SCRAPS);
 
         $room = new Room();
@@ -75,32 +75,32 @@ class GameItemServiceTest extends TestCase
         $gameItem = new GameItem();
         $gameItem
             ->setName(ItemEnum::METAL_SCRAPS)
-            ->setItem($item)
+            ->setEquipment($item)
         ;
 
         $room
-            ->addItem($gameItem)
+            ->addEquipment($gameItem)
             ->addPlayer($player)
         ;
 
-        $items = $this->service->getOperationalItemsByName(ItemEnum::PLASTIC_SCRAPS, $player, ReachEnum::SHELVE);
+        $items = $this->service->getOperationalEquipmentsByName(ItemEnum::PLASTIC_SCRAPS, $player, ReachEnum::SHELVE);
 
         $this->assertEmpty($items);
 
-        $items = $this->service->getOperationalItemsByName(ItemEnum::PLASTIC_SCRAPS, $player, ReachEnum::INVENTORY);
+        $items = $this->service->getOperationalEquipmentsByName(ItemEnum::PLASTIC_SCRAPS, $player, ReachEnum::INVENTORY);
 
         $this->assertEmpty($items);
 
-        $items = $this->service->getOperationalItemsByName(ItemEnum::METAL_SCRAPS, $player, ReachEnum::SHELVE);
+        $items = $this->service->getOperationalEquipmentsByName(ItemEnum::METAL_SCRAPS, $player, ReachEnum::SHELVE);
 
         $this->assertNotEmpty($items);
 
         $broken = new Status();
         $broken
-            ->setName(ItemStatusEnum::BROKEN)
+            ->setName(EquipmentStatusEnum::BROKEN)
         ;
         $gameItem->addStatus($broken);
-        $items = $this->service->getOperationalItemsByName(ItemEnum::METAL_SCRAPS, $player, ReachEnum::SHELVE);
+        $items = $this->service->getOperationalEquipmentsByName(ItemEnum::METAL_SCRAPS, $player, ReachEnum::SHELVE);
 
         $this->assertEmpty($items);
     }

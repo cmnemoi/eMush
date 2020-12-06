@@ -24,8 +24,8 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
-        $hackerKitType = new Tool();
-        $hackerKitType->setActions([ActionEnum::HACK]);
+        $hackerKitMechanic = new Tool();
+        $hackerKitMechanic->setActions([ActionEnum::HACK]);
 
         $hackerKit = new ItemConfig();
         $hackerKit
@@ -39,13 +39,13 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(6)
-            ->setMechanics(new ArrayCollection([$hackerKitType]))
+            ->setMechanics(new ArrayCollection([$hackerKitMechanic]))
         ;
         $manager->persist($hackerKit);
-        $manager->persist($hackerKitType);
+        $manager->persist($hackerKitMechanic);
 
-        $blockOfPostItType = new Tool();
-        $blockOfPostItType->setActions([ActionEnum::WRITE]);
+        $blockOfPostItMechanic = new Tool();
+        $blockOfPostItMechanic->setActions([ActionEnum::WRITE]);
 
         $blockOfPostIt = new ItemConfig();
         $blockOfPostIt
@@ -58,21 +58,21 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$blockOfPostItType]))
+            ->setMechanics(new ArrayCollection([$blockOfPostItMechanic]))
 
         ;
         $manager->persist($blockOfPostIt);
-        $manager->persist($blockOfPostItType);
+        $manager->persist($blockOfPostItMechanic);
 
-        $dismountableType = new Dismountable();
-        $dismountableType
+        $dismountableMechanic = new Dismountable();
+        $dismountableMechanic
             ->setProducts([ItemEnum::METAL_SCRAPS => 1])
             ->setActionCost(3)
             ->setChancesSuccess(25)
         ;
 
-        $extinguisherType = new Tool();
-        $extinguisherType->setActions([ActionEnum::EXTINGUISH]);
+        $extinguisherMechanic = new Tool();
+        $extinguisherMechanic->setActions([ActionEnum::EXTINGUISH]);
 
         $extinguisher = new ItemConfig();
         $extinguisher
@@ -86,14 +86,14 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setBreakableRate(25)
-            ->setMechanics(new ArrayCollection([$extinguisherType, $dismountableType]))
+            ->setMechanics(new ArrayCollection([$extinguisherMechanic, $dismountableMechanic]))
         ;
         $manager->persist($extinguisher);
-        $manager->persist($extinguisherType);
-        $manager->persist($dismountableType);
+        $manager->persist($extinguisherMechanic);
+        $manager->persist($dismountableMechanic);
 
-        $ductTapeType = new Tool();
-        $ductTapeType->setActions([ActionEnum::GAG]);
+        $ductTapeMechanic = new Tool();
+        $ductTapeMechanic->setActions([ActionEnum::GAG]);
 
         $ductTape = new ItemConfig();
         $ductTape
@@ -106,14 +106,14 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$ductTapeType]))
+            ->setMechanics(new ArrayCollection([$ductTapeMechanic]))
 
         ;
         $manager->persist($ductTape);
-        $manager->persist($ductTapeType);
+        $manager->persist($ductTapeMechanic);
 
-        $madKubeType = new Tool();
-        $madKubeType->setActions([ActionEnum::TRY_THE_KUBE]);
+        $madKubeMechanic = new Tool();
+        $madKubeMechanic->setActions([ActionEnum::TRY_THE_KUBE]);
 
         $madKube = new ItemConfig();
         $madKube
@@ -126,29 +126,29 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$madKubeType]))
+            ->setMechanics(new ArrayCollection([$madKubeMechanic]))
 
         ;
         $manager->persist($madKube);
-        $manager->persist($madKubeType);
+        $manager->persist($madKubeMechanic);
 
-        $kitchenToolsType = new Dismountable();
-        $kitchenToolsType
+        $kitchenToolsMechanic = new Dismountable();
+        $kitchenToolsMechanic
             ->setProducts([ItemEnum::METAL_SCRAPS => 2])
             ->setActionCost(4)
             ->setChancesSuccess(25)
         ;
 
-        $chargedType = new Charged();
-        $chargedType
+        $chargedMechanic = new Charged();
+        $chargedMechanic
             ->setMaxCharge(4)
             ->setStartCharge(0)
             ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
             ->setIsVisible(true)
         ;
 
-        $microwaveType = new Tool();
-        $microwaveType->setActions([ActionEnum::EXPRESS_COOK]);
+        $microwaveMechanic = new Tool();
+        $microwaveMechanic->setActions([ActionEnum::EXPRESS_COOK]);
 
         $microwave = new ItemConfig();
         $microwave
@@ -162,16 +162,16 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(50)
-            ->setMechanics(new ArrayCollection([$kitchenToolsType, $microwaveType, $chargedType]))
+            ->setMechanics(new ArrayCollection([$kitchenToolsMechanic, $microwaveMechanic, $chargedMechanic]))
 
         ;
         $manager->persist($microwave);
-        $manager->persist($microwaveType);
-        $manager->persist($kitchenToolsType);
-        $manager->persist($chargedType);
+        $manager->persist($microwaveMechanic);
+        $manager->persist($kitchenToolsMechanic);
+        $manager->persist($chargedMechanic);
 
-        $superFreezerType = new Tool();
-        $superFreezerType->setActions([ActionEnum::HYPERFREEZE]);
+        $superFreezerMechanic = new Tool();
+        $superFreezerMechanic->setActions([ActionEnum::HYPERFREEZE]);
 
         $superFreezer = new ItemConfig();
         $superFreezer
@@ -185,13 +185,13 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(25)
-            ->setMechanics(new ArrayCollection([$kitchenToolsType, $superFreezerType]))
+            ->setMechanics(new ArrayCollection([$kitchenToolsMechanic, $superFreezerMechanic]))
         ;
         $manager->persist($superFreezer);
-        $manager->persist($superFreezerType);
+        $manager->persist($superFreezerMechanic);
 
-        $alienHolographicTVType = new Tool();
-        $alienHolographicTVType->setActions([ActionEnum::PUBLIC_BROADCAST]);
+        $alienHolographicTVMechanic = new Tool();
+        $alienHolographicTVMechanic->setActions([ActionEnum::PUBLIC_BROADCAST]);
 
         $alienHolographicTV = new ItemConfig();
         $alienHolographicTV
@@ -206,13 +206,13 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireBreakable(true)
             ->setBreakableRate(3)
             ->setIsAlienArtifact(true)
-            ->setMechanics(new ArrayCollection([$alienHolographicTVType]))
+            ->setMechanics(new ArrayCollection([$alienHolographicTVMechanic]))
             ;
         $manager->persist($alienHolographicTV);
-        $manager->persist($alienHolographicTVType);
+        $manager->persist($alienHolographicTVMechanic);
 
-        $medikitType = new Tool();
-        $medikitType->setActions([ActionEnum::HEAL]);
+        $medikitMechanic = new Tool();
+        $medikitMechanic->setActions([ActionEnum::HEAL]);
 
         $medikit = new ItemConfig();
         $medikit
@@ -225,13 +225,13 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$medikitType]))
+            ->setMechanics(new ArrayCollection([$medikitMechanic]))
             ;
         $manager->persist($medikit);
-        $manager->persist($medikitType);
+        $manager->persist($medikitMechanic);
 
-        $sporeSuckerType = new Tool();
-        $sporeSuckerType->setActions([ActionEnum::EXTRACT_SPORE]);
+        $sporeSuckerMechanic = new Tool();
+        $sporeSuckerMechanic->setActions([ActionEnum::EXTRACT_SPORE]);
 
         $sporeSucker = new ItemConfig();
         $sporeSucker->setGameConfig($gameConfig)
@@ -244,13 +244,13 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setBreakableRate(18)
-            ->setMechanics(new ArrayCollection([$sporeSuckerType]))
+            ->setMechanics(new ArrayCollection([$sporeSuckerMechanic]))
             ;
         $manager->persist($sporeSucker);
-        $manager->persist($sporeSuckerType);
+        $manager->persist($sporeSuckerMechanic);
 
-        $jarOfAlienOilType = new Tool();
-        $jarOfAlienOilType->setActions([ActionEnum::ULTRAHEAL]);
+        $jarOfAlienOilMechanic = new Tool();
+        $jarOfAlienOilMechanic->setActions([ActionEnum::ULTRAHEAL]);
 
         $jarOfAlienOil = new ItemConfig();
         $jarOfAlienOil->setGameConfig($gameConfig)
@@ -263,14 +263,14 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setIsAlienArtifact(true)
-            ->setMechanics(new ArrayCollection([$jarOfAlienOilType]))
+            ->setMechanics(new ArrayCollection([$jarOfAlienOilMechanic]))
             ;
 
         $manager->persist($jarOfAlienOil);
-        $manager->persist($jarOfAlienOilType);
+        $manager->persist($jarOfAlienOilMechanic);
 
-        $bandageType = new Tool();
-        $bandageType->setActions([ActionEnum::USE_BANDAGE]);
+        $bandageMechanic = new Tool();
+        $bandageMechanic->setActions([ActionEnum::USE_BANDAGE]);
 
         $bandage = new ItemConfig();
         $bandage->setGameConfig($gameConfig)
@@ -282,14 +282,14 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
-            ->setMechanics(new ArrayCollection([$bandageType]))
+            ->setMechanics(new ArrayCollection([$bandageMechanic]))
             ;
 
         $manager->persist($bandage);
-        $manager->persist($bandageType);
+        $manager->persist($bandageMechanic);
 
-        $retroFungalSerumType = new Tool();
-        $retroFungalSerumType->setActions([ActionEnum::CURE]);
+        $retroFungalSerumMechanic = new Tool();
+        $retroFungalSerumMechanic->setActions([ActionEnum::CURE]);
 
         $retroFungalSerum = new ItemConfig();
         $retroFungalSerum->setGameConfig($gameConfig)
@@ -301,14 +301,14 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$retroFungalSerumType]))
+            ->setMechanics(new ArrayCollection([$retroFungalSerumMechanic]))
             ;
 
         $manager->persist($retroFungalSerum);
-        $manager->persist($retroFungalSerumType);
+        $manager->persist($retroFungalSerumMechanic);
 
-        $spaceCapsuleType = new Tool();
-        $spaceCapsuleType->setActions([ActionEnum::OPEN]);
+        $spaceCapsuleMechanic = new Tool();
+        $spaceCapsuleMechanic->setActions([ActionEnum::OPEN]);
 
         $spaceCapsule = new ItemConfig();
         $spaceCapsule->setGameConfig($gameConfig)
@@ -320,14 +320,14 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$spaceCapsuleType]))
+            ->setMechanics(new ArrayCollection([$spaceCapsuleMechanic]))
             ;
 
         $manager->persist($spaceCapsule);
-        $manager->persist($spaceCapsuleType);
+        $manager->persist($spaceCapsuleMechanic);
 
-        $metalScrapsType = new Tool();
-        $metalScrapsType->setActions([ActionEnum::STRENGTHEN])
+        $metalScrapsMechanic = new Tool();
+        $metalScrapsMechanic->setActions([ActionEnum::STRENGTHEN])
         ;
 
         $metalScraps = new ItemConfig();
@@ -341,11 +341,11 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$metalScrapsType]))
+            ->setMechanics(new ArrayCollection([$metalScrapsMechanic]))
 
         ;
         $manager->persist($metalScraps);
-        $manager->persist($metalScrapsType);
+        $manager->persist($metalScrapsMechanic);
 
         $this->addReference(ToolItemEnum::EXTINGUISHER, $extinguisher);
 

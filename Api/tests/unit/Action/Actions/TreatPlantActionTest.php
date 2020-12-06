@@ -15,15 +15,15 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\Item;
-use Mush\Equipment\Entity\Items\Plant;
-use Mush\Equipment\Service\GameItemServiceInterface;
+use Mush\Equipment\Entity\ItemConfig;
+use Mush\Equipment\Entity\Mechanics\Plant;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\Status;
-use Mush\Status\Enum\ItemStatusEnum;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -32,8 +32,8 @@ class TreatPlantActionTest extends TestCase
 {
     /** @var RoomLogServiceInterface | Mockery\Mock */
     private RoomLogServiceInterface $roomLogService;
-    /** @var GameItemServiceInterface | Mockery\Mock */
-    private GameItemServiceInterface $itemService;
+    /** @var GameEquipmentServiceInterface | Mockery\Mock */
+    private GameEquipmentServiceInterface $gameEquipmentService;
     /** @var PlayerServiceInterface | Mockery\Mock */
     private PlayerServiceInterface $playerService;
     /** @var SuccessRateServiceInterface | Mockery\Mock */
@@ -51,7 +51,7 @@ class TreatPlantActionTest extends TestCase
     {
         $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
-        $this->itemService = Mockery::mock(GameItemServiceInterface::class);
+        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
         $gameConfigService = Mockery::mock(GameConfigServiceInterface::class);
@@ -61,7 +61,7 @@ class TreatPlantActionTest extends TestCase
         $this->action = new TreatPlant(
             $eventDispatcher,
             $this->roomLogService,
-            $this->itemService,
+            $this->gameEquipmentService,
             $this->playerService,
             $this->statusService
         );
@@ -81,9 +81,9 @@ class TreatPlantActionTest extends TestCase
         $room = new Room();
 
         $gameItem = new GameItem();
-        $item = new Item();
+        $item = new ItemConfig();
         $gameItem
-            ->setItem($item)
+            ->setEquipment($item)
             ->setRoom($room)
         ;
 
@@ -91,7 +91,7 @@ class TreatPlantActionTest extends TestCase
 
         $diseased = new Status();
         $diseased
-            ->setName(ItemStatusEnum::PLANT_DISEASED)
+            ->setName(EquipmentStatusEnum::PLANT_DISEASED)
         ;
 
         $gameItem->addStatus($diseased);
@@ -105,7 +105,7 @@ class TreatPlantActionTest extends TestCase
         $result = $this->action->execute();
         $this->assertInstanceOf(Error::class, $result);
 
-        $item->setTypes(new ArrayCollection([$plant]));
+        $item->setMechanics(new ArrayCollection([$plant]));
 
         //Not thirsty
         $gameItem->removeStatus($diseased);
@@ -119,18 +119,18 @@ class TreatPlantActionTest extends TestCase
         $room = new Room();
 
         $gameItem = new GameItem();
-        $item = new Item();
+        $item = new ItemConfig();
         $gameItem
-              ->setItem($item)
+              ->setEquipment($item)
               ->setRoom($room)
         ;
 
         $plant = new Plant();
-        $item->setTypes(new ArrayCollection([$plant]));
+        $item->setMechanics(new ArrayCollection([$plant]));
 
         $diseased = new Status();
         $diseased
-            ->setName(ItemStatusEnum::PLANT_DISEASED)
+            ->setName(EquipmentStatusEnum::PLANT_DISEASED)
         ;
 
         $gameItem->addStatus($diseased);
@@ -140,15 +140,15 @@ class TreatPlantActionTest extends TestCase
         $actionParameter->setItem($gameItem);
         $this->action->loadParameters($player, $actionParameter);
 
-        $this->roomLogService->shouldReceive('createItemLog')->once();
+        $this->roomLogService->shouldReceive('createEquipmentLog')->once();
         $this->itemService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
 
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(1, $room->getItems());
-        $this->assertCount(0, $room->getItems()->first()->getStatuses());
+        $this->assertCount(1, $room->getEquipments());
+        $this->assertCount(0, $room->getEquipments()->first()->getStatuses());
         $this->assertCount(0, $player->getStatuses());
         $this->assertEquals(8, $player->getActionPoint());
     }

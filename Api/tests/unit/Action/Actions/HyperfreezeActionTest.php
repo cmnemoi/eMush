@@ -13,11 +13,11 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\Item;
-use Mush\Equipment\Entity\Items\Ration;
+use Mush\Equipment\Entity\ItemConfig;
+use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
-use Mush\Equipment\Service\GameItemServiceInterface;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
@@ -29,8 +29,8 @@ class HyperfreezeActionTest extends TestCase
 {
     /** @var RoomLogServiceInterface | Mockery\Mock */
     private RoomLogServiceInterface $roomLogService;
-    /** @var GameItemServiceInterface | Mockery\Mock */
-    private GameItemServiceInterface $gameItemService;
+    /** @var GameEquipmentServiceInterface | Mockery\Mock */
+    private GameEquipmentServiceInterface $gameEquipmentService;
     /** @var PlayerServiceInterface | Mockery\Mock */
     private PlayerServiceInterface $playerService;
     private Action $action;
@@ -42,7 +42,7 @@ class HyperfreezeActionTest extends TestCase
     {
         $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
-        $this->gameItemService = Mockery::mock(GameItemServiceInterface::class);
+        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
         $eventDispatcher->shouldReceive('dispatch');
 
@@ -53,7 +53,7 @@ class HyperfreezeActionTest extends TestCase
         $this->action = new Hyperfreeze(
             $eventDispatcher,
             $this->roomLogService,
-            $this->gameItemService,
+            $this->gameEquipmentService,
             $this->playerService,
             $gameConfigService,
         );
@@ -72,19 +72,19 @@ class HyperfreezeActionTest extends TestCase
         $room = new Room();
 
         $gameRation = new GameItem();
-        $ration = new Item();
+        $ration = new ItemConfig();
         $ration->setName('ration');
         $gameRation
-            ->setItem($ration)
+            ->setEquipment($ration)
             ->setRoom($room)
             ->setName('ration')
         ;
 
         $gameSuperfreezer = new GameItem();
-        $superfreezer = new Item();
+        $superfreezer = new ItemConfig();
         $superfreezer->setName(ToolItemEnum::SUPERFREEZER);
         $gameSuperfreezer
-            ->setItem($superfreezer)
+            ->setEquipment($superfreezer)
             ->setName(ToolItemEnum::SUPERFREEZER)
             ->setRoom($room)
         ;
@@ -109,7 +109,7 @@ class HyperfreezeActionTest extends TestCase
         $rationType->setIsPerishable(true);
         $gameSuperfreezer->setRoom(null);
         //No superfreezer in the room
-        $this->gameItemService->shouldReceive('getOperationalItemsByName')->andReturn(new ArrayCollection([]))->once();
+        $this->gameEquipmentService->shouldReceive('getOperationalEquipmentsByName')->andReturn(new ArrayCollection([]))->once();
         $result = $this->action->execute();
         $this->assertInstanceOf(Error::class, $result);
     }
@@ -126,22 +126,22 @@ class HyperfreezeActionTest extends TestCase
         $rationType->setIsPerishable(true);
 
         $gameRation = new GameItem();
-        $ration = new Item();
+        $ration = new ItemConfig();
         $ration
              ->setTypes(new ArrayCollection([$rationType]))
              ->setName('fruit')
          ;
         $gameRation
-            ->setItem($ration)
+            ->setEquipment($ration)
             ->setRoom($room)
             ->setName('fruit')
         ;
 
         $gameSuperfreezer = new GameItem();
-        $superfreezer = new Item();
+        $superfreezer = new ItemConfig();
         $superfreezer->setName(ToolItemEnum::SUPERFREEZER);
         $gameSuperfreezer
-            ->setItem($superfreezer)
+            ->setEquipment($superfreezer)
             ->setName(ToolItemEnum::SUPERFREEZER)
             ->setRoom($room)
         ;
@@ -151,17 +151,17 @@ class HyperfreezeActionTest extends TestCase
         $actionParameter->setItem($gameRation);
         $this->action->loadParameters($player, $actionParameter);
 
-        $this->gameItemService->shouldReceive('getOperationalItemsByName')->andReturn(new ArrayCollection([$gameSuperfreezer]))->once();
-        $this->roomLogService->shouldReceive('createItemLog')->once();
-        $this->gameItemService->shouldReceive('persist');
+        $this->gameEquipmentService->shouldReceive('getOperationalEquipmentsByName')->andReturn(new ArrayCollection([$gameSuperfreezer]))->once();
+        $this->roomLogService->shouldReceive('createEquipmentLog')->once();
+        $this->gameEquipmentService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(2, $room->getItems());
+        $this->assertCount(2, $room->getEquipments());
         $this->assertCount(0, $player->getItems());
-        $this->assertCount(1, $room->getItems()->first()->getStatuses());
-        $this->assertEquals($gameRation->getName(), $room->getItems()->first()->getName());
+        $this->assertCount(1, $room->getEquipments()->first()->getStatuses());
+        $this->assertEquals($gameRation->getName(), $room->getEquipments()->first()->getName());
         $this->assertCount(0, $player->getStatuses());
         $this->assertEquals(9, $player->getActionPoint());
 
@@ -175,22 +175,22 @@ class HyperfreezeActionTest extends TestCase
         $rationType->setIsPerishable(true);
 
         $gameRation = new GameItem();
-        $ration = new Item();
+        $ration = new ItemConfig();
         $ration
              ->setTypes(new ArrayCollection([$rationType]))
              ->setName(GameRationEnum::ALIEN_STEAK)
          ;
         $gameRation
-            ->setItem($ration)
+            ->setEquipment($ration)
             ->setRoom($room)
             ->setName(GameRationEnum::ALIEN_STEAK)
         ;
 
         $gameSuperfreezer = new GameItem();
-        $superfreezer = new Item();
+        $superfreezer = new ItemConfig();
         $superfreezer->setName(ToolItemEnum::SUPERFREEZER);
         $gameSuperfreezer
-            ->setItem($superfreezer)
+            ->setEquipment($superfreezer)
             ->setName(ToolItemEnum::SUPERFREEZER)
             ->setRoom($room)
         ;
@@ -200,28 +200,28 @@ class HyperfreezeActionTest extends TestCase
         $this->action->loadParameters($player, $actionParameter);
 
         $gameStandardRation = new GameItem();
-        $standardRation = new Item();
+        $standardRation = new ItemConfig();
         $standardRation
              ->setName(GameRationEnum::STANDARD_RATION)
          ;
         $gameStandardRation
-            ->setItem($standardRation)
+            ->setEquipment($standardRation)
             ->setName(GameRationEnum::STANDARD_RATION)
         ;
 
-        $this->gameItemService->shouldReceive('delete');
-        $this->gameItemService->shouldReceive('getOperationalItemsByName')->andReturn(new ArrayCollection([$gameSuperfreezer]))->once();
-        $this->gameItemService->shouldReceive('createGameItemFromName')->andReturn($gameStandardRation)->once();
-        $this->roomLogService->shouldReceive('createItemLog')->once();
-        $this->gameItemService->shouldReceive('persist');
+        $this->gameEquipmentService->shouldReceive('delete');
+        $this->gameEquipmentService->shouldReceive('getOperationalEquipmentsByName')->andReturn(new ArrayCollection([$gameSuperfreezer]))->once();
+        $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->andReturn($gameStandardRation)->once();
+        $this->roomLogService->shouldReceive('createEquipmentLog')->once();
+        $this->gameEquipmentService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(1, $room->getItems());
+        $this->assertCount(1, $room->getEquipments());
         $this->assertCount(1, $player->getItems());
         $this->assertCount(0, $player->getItems()->first()->getStatuses());
-        $this->assertCount(0, $room->getItems()->first()->getStatuses());
+        $this->assertCount(0, $room->getEquipments()->first()->getStatuses());
         $this->assertCount(0, $player->getStatuses());
         $this->assertEquals(9, $player->getActionPoint());
         $this->assertEquals($gameStandardRation, $player->getItems()->first());

@@ -21,8 +21,8 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
-        $standardRationType = new Ration();
-        $standardRationType
+        $standardRationMechanic = new Ration();
+        $standardRationMechanic
             ->setActionPoints([4 => 1])
             ->setMovementPoints([0 => 1])
             ->setHealthPoints([0 => 1])
@@ -41,13 +41,13 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$standardRationType]))
+            ->setMechanics(new ArrayCollection([$standardRationMechanic]))
         ;
-        $manager->persist($standardRationType);
+        $manager->persist($standardRationMechanic);
         $manager->persist($standardRation);
 
-        $cookedRationType = new Ration();
-        $cookedRationType
+        $cookedRationMechanic = new Ration();
+        $cookedRationMechanic
             ->setActionPoints([4 => 1])
             ->setMovementPoints([0 => 1])
             ->setHealthPoints([0 => 1])
@@ -66,13 +66,13 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$cookedRationType]))
+            ->setMechanics(new ArrayCollection([$cookedRationMechanic]))
         ;
-        $manager->persist($cookedRationType);
+        $manager->persist($cookedRationMechanic);
         $manager->persist($cookedRation);
 
-        $alienSteackType = new Ration();
-        $alienSteackType
+        $alienSteackMechanic = new Ration();
+        $alienSteackMechanic
             ->setActionPoints([4 => 1])
             ->setMovementPoints([0 => 1])
             ->setHealthPoints([0 => 1])
@@ -101,13 +101,13 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$alienSteackType]))
+            ->setMechanics(new ArrayCollection([$alienSteackMechanic]))
         ;
-        $manager->persist($alienSteackType);
+        $manager->persist($alienSteackMechanic);
         $manager->persist($alienSteack);
 
-        $coffeeType = new Ration();
-        $coffeeType
+        $coffeeMechanic = new Ration();
+        $coffeeMechanic
             ->setActionPoints([2 => 1])
             ->setMovementPoints([0 => 1])
             ->setHealthPoints([0 => 1])
@@ -126,13 +126,13 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$coffeeType]))
+            ->setMechanics(new ArrayCollection([$coffeeMechanic]))
         ;
-        $manager->persist($coffeeType);
+        $manager->persist($coffeeMechanic);
         $manager->persist($coffee);
 
-        $anabolicType = new Ration();
-        $anabolicType
+        $anabolicMechanic = new Ration();
+        $anabolicMechanic
             ->setActionPoints([0 => 1])
             ->setMovementPoints([8 => 1])
             ->setHealthPoints([0 => 1])
@@ -152,13 +152,13 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$anabolicType]))
+            ->setMechanics(new ArrayCollection([$anabolicMechanic]))
         ;
-        $manager->persist($anabolicType);
+        $manager->persist($anabolicMechanic);
         $manager->persist($anabolic);
 
-        $lombrickBarType = new Ration();
-        $lombrickBarType
+        $lombrickBarMechanic = new Ration();
+        $lombrickBarMechanic
             ->setActionPoints([8 => 1])
             ->setMovementPoints([0 => 1])
             ->setHealthPoints([0 => 1])
@@ -178,13 +178,13 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$lombrickBarType]))
+            ->setMechanics(new ArrayCollection([$lombrickBarMechanic]))
         ;
-        $manager->persist($lombrickBarType);
+        $manager->persist($lombrickBarMechanic);
         $manager->persist($lombrickBar);
 
-        $organicWasteType = new Ration();
-        $organicWasteType
+        $organicWasteMechanic = new Ration();
+        $organicWasteMechanic
             ->setActionPoints([6 => 1])
             ->setMovementPoints([0 => 1])
             ->setHealthPoints([0 => 1])
@@ -203,13 +203,13 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$organicWasteType]))
+            ->setMechanics(new ArrayCollection([$organicWasteMechanic]))
         ;
-        $manager->persist($organicWasteType);
+        $manager->persist($organicWasteMechanic);
         $manager->persist($organicWaste);
 
-        $proactivePuffedRiceType = new Ration();
-        $proactivePuffedRiceType
+        $proactivePuffedRiceMechanic = new Ration();
+        $proactivePuffedRiceMechanic
             ->setActionPoints([10 => 1])
             ->setMovementPoints([0 => 1])
             ->setHealthPoints([0 => 1])
@@ -230,13 +230,13 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$proactivePuffedRiceType]))
+            ->setMechanics(new ArrayCollection([$proactivePuffedRiceMechanic]))
         ;
-        $manager->persist($proactivePuffedRiceType);
+        $manager->persist($proactivePuffedRiceMechanic);
         $manager->persist($proactivePuffedRice);
 
-        $spacePotatoType = new Ration();
-        $spacePotatoType
+        $spacePotatoMechanic = new Ration();
+        $spacePotatoMechanic
             ->setActionPoints([8 => 1])
             ->setMovementPoints([0 => 1])
             ->setHealthPoints([0 => 1])
@@ -256,13 +256,13 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$spacePotatoType]))
+            ->setMechanics(new ArrayCollection([$spacePotatoMechanic]))
         ;
-        $manager->persist($spacePotatoType);
+        $manager->persist($spacePotatoMechanic);
         $manager->persist($spacePotato);
 
-        $supervitaminBarType = new Ration();
-        $supervitaminBarType
+        $supervitaminBarMechanic = new Ration();
+        $supervitaminBarMechanic
             ->setActionPoints([8 => 1])
             ->setMovementPoints([4 => 1])
             ->setHealthPoints([0 => 1])
@@ -284,9 +284,9 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$supervitaminBarType]))
+            ->setMechanics(new ArrayCollection([$supervitaminBarMechanic]))
         ;
-        $manager->persist($supervitaminBarType);
+        $manager->persist($supervitaminBarMechanic);
         $manager->persist($supervitaminBar);
 
         $manager->flush();

@@ -1,24 +1,24 @@
 <?php
 
-namespace Mush\Test\Item\CycleHandler;
+namespace Mush\Test\Equipment\CycleHandler;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\CycleHandler\RationCycleHandler;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\Item;
-use Mush\Equipment\Entity\Items\Fruit;
-use Mush\Equipment\Service\GameItemServiceInterface;
+use Mush\Equipment\Entity\ItemConfig;
+use Mush\Equipment\Entity\Mechanics\Fruit;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Status\Entity\Status;
-use Mush\Status\Enum\ItemStatusEnum;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
 
 class RationCycleHandlerTest extends TestCase
 {
-    /** @var GameItemServiceInterface | Mockery\Mock */
-    private GameItemServiceInterface $itemService;
+    /** @var GameEquipmentServiceInterface | Mockery\Mock */
+    private GameEquipmentServiceInterface $gameEquipmentService;
     /** @var StatusServiceInterface | Mockery\Mock */
     private StatusServiceInterface $statusService;
 
@@ -29,11 +29,11 @@ class RationCycleHandlerTest extends TestCase
      */
     public function before()
     {
-        $this->itemService = Mockery::mock(GameItemServiceInterface::class);
+        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
 
         $this->rationCycleHandler = new RationCycleHandler(
-            $this->itemService,
+            $this->gameEquipmentService,
             $this->statusService
         );
     }
@@ -48,26 +48,26 @@ class RationCycleHandlerTest extends TestCase
 
     public function testNewDay()
     {
-        $fruit = new Item();
+        $fruit = new ItemConfig();
 
         $fruitType = new Fruit();
-        $fruit->setTypes(new ArrayCollection([$fruitType]));
+        $fruit->setMechanics(new ArrayCollection([$fruitType]));
 
         $daedalus = new Daedalus();
         $gameFruit = new GameItem();
         $gameFruit
-            ->setItem($fruit)
+            ->setEquipment($fruit)
         ;
 
         $unstable = new Status();
-        $unstable->setName(ItemStatusEnum::UNSTABLE);
+        $unstable->setName(EquipmentStatusEnum::UNSTABLE);
         $hazardous = new Status();
-        $hazardous->setName(ItemStatusEnum::HAZARDOUS);
+        $hazardous->setName(EquipmentStatusEnum::HAZARDOUS);
         $decomposing = new Status();
-        $decomposing->setName(ItemStatusEnum::DECOMPOSING);
+        $decomposing->setName(EquipmentStatusEnum::DECOMPOSING);
 
-        $this->itemService->shouldReceive('persist')->once();
-        $this->statusService->shouldReceive('createCoreItemStatus')->andReturn($unstable)->once();
+        $this->gameEquipmentService->shouldReceive('persist')->once();
+        $this->statusService->shouldReceive('createCoreEquipmentStatus')->andReturn($unstable)->once();
 
         $this->rationCycleHandler->handleNewDay($gameFruit, $daedalus, new \DateTime());
 
@@ -75,8 +75,8 @@ class RationCycleHandlerTest extends TestCase
         $this->assertNotContains($hazardous, $gameFruit->getStatuses());
         $this->assertNotContains($decomposing, $gameFruit->getStatuses());
 
-        $this->itemService->shouldReceive('persist')->once();
-        $this->statusService->shouldReceive('createCoreItemStatus')->andReturn($hazardous)->once();
+        $this->gameEquipmentService->shouldReceive('persist')->once();
+        $this->statusService->shouldReceive('createCoreEquipmentStatus')->andReturn($hazardous)->once();
 
         $this->rationCycleHandler->handleNewDay($gameFruit, $daedalus, new \DateTime());
 
@@ -84,8 +84,8 @@ class RationCycleHandlerTest extends TestCase
         $this->assertContains($hazardous, $gameFruit->getStatuses());
         $this->assertNotContains($decomposing, $gameFruit->getStatuses());
 
-        $this->itemService->shouldReceive('persist')->once();
-        $this->statusService->shouldReceive('createCoreItemStatus')->andReturn($decomposing)->once();
+        $this->gameEquipmentService->shouldReceive('persist')->once();
+        $this->statusService->shouldReceive('createCoreEquipmentStatus')->andReturn($decomposing)->once();
 
         $this->rationCycleHandler->handleNewDay($gameFruit, $daedalus, new \DateTime());
 

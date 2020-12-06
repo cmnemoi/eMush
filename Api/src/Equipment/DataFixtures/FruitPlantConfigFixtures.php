@@ -24,8 +24,8 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
-        $bananaType = new Fruit();
-        $bananaType
+        $bananaMechanic = new Fruit();
+        $bananaMechanic
             ->setPlantName(GamePlantEnum::BANANA_TREE)
             ->setActionPoints([1])
             ->setMovementPoints([0])
@@ -45,14 +45,14 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$bananaType]))
+            ->setMechanics(new ArrayCollection([$bananaMechanic]))
         ;
-        $manager->persist($bananaType);
+        $manager->persist($bananaMechanic);
         $manager->persist($banana);
 
-        $bananaTreeType = new Plant();
+        $bananaTreeMechanic = new Plant();
         //  possibilities are stored as key, array value represent the probability to get the key value
-        $bananaTreeType
+        $bananaTreeMechanic
             ->setFruit($banana)
             ->setMaturationTime([36 => 1])
             ->setMaxOxygen(1)
@@ -70,9 +70,9 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$bananaTreeType]))
+            ->setMechanics(new ArrayCollection([$bananaTreeMechanic]))
         ;
-        $manager->persist($bananaTreeType);
+        $manager->persist($bananaTreeMechanic);
         $manager->persist($bananaTree);
 
         $alienFruitPlant = [
@@ -91,8 +91,8 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
             ];
 
         foreach ($alienFruitPlant as $fruitName => $plantName) {
-            $alienFruitType = new Fruit();
-            $alienFruitType
+            $alienFruitMechanic = new Fruit();
+            $alienFruitMechanic
                 ->setPlantName($plantName)
                 ->setActionPoints([1 => 90, 2 => 9, 3 => 1])
                 ->setMoralPoints([0 => 30, 1 => 70])
@@ -139,7 +139,7 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
                  ->setFruitEffectsNumber([0 => 35, 1 => 40, 2 => 15, 3 => 9, 4 => 1])
                  ->setExtraEffects([ExtraEffectEnum::EXTRA_PA_GAIN => 50])
             ;
-            $manager->persist($alienFruitType);
+            $manager->persist($alienFruitMechanic);
 
             $alienFruit = new ItemConfig();
             $alienFruit
@@ -152,12 +152,12 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$alienFruitType]))
+            ->setMechanics(new ArrayCollection([$alienFruitMechanic]))
             ;
             $manager->persist($alienFruit);
 
-            $alienPlantType = new Plant();
-            $alienPlantType
+            $alienPlantMechanic = new Plant();
+            $alienPlantMechanic
                 ->setFruit($alienFruit)
                 ->setMaturationTime([2 => 7, 4 => 7, 8 => 24, 12 => 14, 16 => 7, 24 => 7, 48 => 7])
                 ->setMaxOxygen(1)
@@ -175,14 +175,14 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$alienPlantType]))
+            ->setMechanics(new ArrayCollection([$alienPlantMechanic]))
             ;
-            $manager->persist($alienPlantType);
+            $manager->persist($alienPlantMechanic);
             $manager->persist($alienPlant);
         }
 
-        $junkinType = new Fruit();
-        $junkinType
+        $junkinMechanic = new Fruit();
+        $junkinMechanic
             ->setPlantName(GamePlantEnum::BUMPJUNKIN)
             ->setActionPoints([3])
             ->setMovementPoints([0])
@@ -204,13 +204,13 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$junkinType]))
+            ->setMechanics(new ArrayCollection([$junkinMechanic]))
         ;
-        $manager->persist($junkinType);
+        $manager->persist($junkinMechanic);
         $manager->persist($junkin);
 
-        $bumpjunkinType = new Plant();
-        $bumpjunkinType
+        $bumpjunkinMechanic = new Plant();
+        $bumpjunkinMechanic
             ->setFruit($junkin)
             ->setMaturationTime([8 => 1])
             ->setMaxOxygen(1)
@@ -228,9 +228,9 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$bumpjunkinType]))
+            ->setMechanics(new ArrayCollection([$bumpjunkinMechanic]))
         ;
-        $manager->persist($bumpjunkinType);
+        $manager->persist($bumpjunkinMechanic);
         $manager->persist($bumpjunkin);
 
         $manager->flush();

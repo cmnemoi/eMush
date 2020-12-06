@@ -12,9 +12,9 @@ use Mush\Action\Service\SuccessRateServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\Item;
+use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Enum\ToolItemEnum;
-use Mush\Equipment\Service\GameItemServiceInterface;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Player\Entity\Player;
@@ -29,8 +29,8 @@ class WriteActionTest extends TestCase
 {
     /** @var RoomLogServiceInterface | Mockery\Mock */
     private RoomLogServiceInterface $roomLogService;
-    /** @var GameItemServiceInterface | Mockery\Mock */
-    private GameItemServiceInterface $itemService;
+    /** @var GameEquipmentServiceInterface | Mockery\Mock */
+    private GameEquipmentServiceInterface $gameEquipmentService;
     /** @var PlayerServiceInterface | Mockery\Mock */
     private PlayerServiceInterface $playerService;
     /** @var SuccessRateServiceInterface | Mockery\Mock */
@@ -48,7 +48,7 @@ class WriteActionTest extends TestCase
     {
         $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
-        $this->gameItemService = Mockery::mock(GameItemServiceInterface::class);
+        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
         $gameConfigService = Mockery::mock(GameConfigServiceInterface::class);
         $this->gameConfig = new GameConfig();
@@ -58,7 +58,7 @@ class WriteActionTest extends TestCase
         $this->action = new Write(
             $eventDispatcher,
             $this->roomLogService,
-            $this->gameItemService,
+            $this->gameEquipmentService,
             $this->playerService,
             $gameConfigService,
         );
@@ -80,12 +80,12 @@ class WriteActionTest extends TestCase
         $player = $this->createPlayer(new Daedalus(), $room);
 
         $gameItem = new GameItem();
-        $item = new Item();
+        $item = new ItemConfig();
         $item
             ->setName(ToolItemEnum::BLOCK_OF_POST_IT)
         ;
         $gameItem
-            ->setItem($item)
+            ->setEquipment($item)
             ->setRoom($room)
             ->setName(ToolItemEnum::BLOCK_OF_POST_IT)
         ;
@@ -99,19 +99,19 @@ class WriteActionTest extends TestCase
         $this->action->loadParameters($player, $actionParameter);
 
 
-        $postIt = new Item();
+        $postIt = new ItemConfig();
         $gamePostIt = new GameItem();
-        $gamePostIt->setItem($postIt);
+        $gamePostIt->setEquipment($postIt);
 
-        $this->gameItemService->shouldReceive('createGameItemFromName')->andReturn($gamePostIt)->once();
-        $this->roomLogService->shouldReceive('createItemLog')->once();
+        $this->gameItemService->shouldReceive('createGameEquipmentFromName')->andReturn($gamePostIt)->once();
+        $this->roomLogService->shouldReceive('createEquipmentLog')->once();
         $this->gameItemService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
 
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(1, $room->getItems());
+        $this->assertCount(1, $room->getEquipments());
         $this->assertCount(1, $player->getItems());
         $this->assertCount(1, $player->getItems()->first()->getStatuses());
         $this->assertEquals('Hello world', $player->getItems()->first()->getStatuses()->first()->getContent());

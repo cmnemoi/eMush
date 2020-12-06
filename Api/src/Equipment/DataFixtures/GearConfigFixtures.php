@@ -37,8 +37,8 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($apron);
 
-        $dismountableType = new Dismountable();
-        $dismountableType
+        $dismountableMechanic = new Dismountable();
+        $dismountableMechanic
             ->setProducts([ItemEnum::PLASTIC_SCRAPS => 1])
             ->setActionCost(3)
             ->setChancesSuccess(12)
@@ -56,10 +56,10 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(12)
-            ->setMechanics(new ArrayCollection([$dismountableType]))
+            ->setMechanics(new ArrayCollection([$dismountableMechanic]))
         ;
         $manager->persist($plasteniteArmor);
-        $manager->persist($dismountableType);
+        $manager->persist($dismountableMechanic);
 
         $wrench = new ItemConfig();
         $wrench
@@ -107,8 +107,8 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($soap);
 
-        $dismountableType = new Dismountable();
-        $dismountableType
+        $dismountableMechanic = new Dismountable();
+        $dismountableMechanic
             ->setProducts([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::METAL_SCRAPS => 1])
             ->setActionCost(3)
             ->setChancesSuccess(99)
@@ -126,10 +126,10 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(99)
-            ->setMechanics(new ArrayCollection([$dismountableType]))
+            ->setMechanics(new ArrayCollection([$dismountableMechanic]))
         ;
         $manager->persist($sniperHelmet);
-        $manager->persist($dismountableType);
+        $manager->persist($dismountableMechanic);
 
         $alienBottleOpener = new ItemConfig();
         $alienBottleOpener
@@ -146,15 +146,15 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($alienBottleOpener);
 
-        $dismountableType = new Dismountable();
-        $dismountableType
+        $dismountableMechanic = new Dismountable();
+        $dismountableMechanic
             ->setProducts([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::METAL_SCRAPS => 2])
             ->setActionCost(3)
             ->setChancesSuccess(25)
         ;
 
-        $chargedType = new Charged();
-        $chargedType
+        $chargedMechanic = new Charged();
+        $chargedMechanic
             ->setMaxCharge(8)
             ->setStartCharge(2)
             ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
@@ -173,11 +173,11 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(6)
-            ->setMechanics(new ArrayCollection([$dismountableType, $chargedType]))
+            ->setMechanics(new ArrayCollection([$dismountableMechanic, $chargedMechanic]))
         ;
         $manager->persist($antiGravScooter);
-        $manager->persist($dismountableType);
-        $manager->persist($chargedType);
+        $manager->persist($dismountableMechanic);
+        $manager->persist($chargedMechanic);
 
         $rollingBoulder = new ItemConfig();
         $rollingBoulder
@@ -224,7 +224,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($oscilloscope);
 
-        $dismountableType
+        $dismountableMechanic
             ->setProducts([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::METAL_SCRAPS => 1])
             ->setActionCost(3)
             ->setChancesSuccess(6)
@@ -242,10 +242,10 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(6)
-            ->setMechanics(new ArrayCollection([$dismountableType]))
+            ->setMechanics(new ArrayCollection([$dismountableMechanic]))
         ;
         $manager->persist($spacesuit);
-        $manager->persist($dismountableType);
+        $manager->persist($dismountableMechanic);
 
         $superSoaper = new ItemConfig();
         $superSoaper

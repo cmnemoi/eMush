@@ -13,9 +13,11 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\EquipmentConfig;
+use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Blueprint;
-use Mush\IEquipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
@@ -86,10 +88,10 @@ class BuildActionTest extends TestCase
                ->setEquipment($product);
 
         $gameIngredient = new GameItem();
-        $ingredient = new Item();
+        $ingredient = new ItemConfig();
         $ingredient->setName('metal_scraps');
         $gameIngredient
-                 ->setItem($ingredient)
+                 ->setEquipment($ingredient)
                  ->setRoom($room)
                  ->setName('metal_scraps');
 
@@ -103,7 +105,7 @@ class BuildActionTest extends TestCase
         $result = $this->action->execute();
         $this->assertInstanceOf(Error::class, $result);
 
-        $equipment->setTypes(new ArrayCollection([$blueprint]));
+        $equipment->setMechanics(new ArrayCollection([$blueprint]));
 
         //Ingredient in another room
         $gameIngredient->setRoom(new Room());
@@ -115,7 +117,7 @@ class BuildActionTest extends TestCase
         $gameIngredient->setRoom($room);
         $blueprint
                ->setIngredients(['metal_scraps' => 2]);
-        $equipment->setTypes(new ArrayCollection([$blueprint]));
+        $equipment->setMechanics(new ArrayCollection([$blueprint]));
 
         $result = $this->action->execute();
         $this->assertInstanceOf(Error::class, $result);
@@ -125,32 +127,32 @@ class BuildActionTest extends TestCase
     {
         $room = new Room();
         $gameItem = new GameItem();
-        $item = new Item();
+        $item = new ItemConfig();
         $item->setName('blueprint');
         $gameItem
-            ->setItem($item)
-           ->setRoom($room)
-           ->setName('blueprint')
+            ->setEquipment($item)
+            ->setRoom($room)
+            ->setName('blueprint')
         ;
 
-        $product = new Item();
+        $product = new ItemConfig();
         $product->setName('product');
         $gameProduct = new GameItem();
         $gameProduct
-               ->setItem($product)
+               ->setEquipment($product)
                ->setName('product');
 
         $blueprint = new Blueprint();
         $blueprint
                ->setIngredients(['metal_scraps' => 1])
-               ->setItem($product);
-        $item->setTypes(new ArrayCollection([$blueprint]));
+               ->setEquipment($product);
+        $item->setMechanics(new ArrayCollection([$blueprint]));
 
         $gameIngredient = new GameItem();
-        $ingredient = new Item();
+        $ingredient = new ItemConfig();
         $ingredient->setName('metal_scraps');
         $gameIngredient
-                ->setItem($ingredient)
+                ->setEquipment($ingredient)
                 ->setRoom($room)
                 ->setName('metal_scraps');
 
@@ -162,18 +164,18 @@ class BuildActionTest extends TestCase
         $this->action->loadParameters($player, $actionParameter);
 
         $this->gameConfig->setMaxItemInInventory(3);
-        $this->itemService->shouldReceive('persist');
+        $this->gameEquipmentService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
 
-        $this->itemService->shouldReceive('createGameItem')->andReturn($gameProduct)->once();
-        $this->itemService->shouldReceive('delete');
+        $this->gameEquipmentService->shouldReceive('createGameEquipment')->andReturn($gameProduct)->once();
+        $this->gameEquipmentService->shouldReceive('delete');
         $this->roomLogService->shouldReceive('createPlayerLog')->once();
 
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
-        $this->assertEmpty($player->getRoom()->getItems());
-        $this->assertEquals($player->getItems()->first()->getItem(), $product);
+        $this->assertEmpty($player->getRoom()->getEquipments());
+        $this->assertEquals($player->getItems()->first()->getEquipment(), $product);
     }
 
     private function createPlayer(Daedalus $daedalus, Room $room): Player

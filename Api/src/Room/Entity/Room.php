@@ -67,7 +67,7 @@ class Room
         $this->players = new ArrayCollection();
         $this->equipments = new ArrayCollection();
         $this->doors = new ArrayCollection();
-        $this->statuses = new ArrayCollection();
+        $this->statuses = [];
     }
 
     public function getId(): int

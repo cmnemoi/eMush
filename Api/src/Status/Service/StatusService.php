@@ -4,7 +4,7 @@ namespace Mush\Status\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
-use Mush\Item\Entity\GameItem;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Attempt;
@@ -32,21 +32,21 @@ class StatusService implements StatusServiceInterface
         return $status;
     }
 
-    public function createCoreItemStatus(string $statusName, GameItem $gameItem, string $visibilty = VisibilityEnum::PUBLIC): Status
+    public function createCoreEquipmentStatus(string $statusName, GameEquipment $gameEquipment, string $visibilty = VisibilityEnum::PUBLIC): Status
     {
         $status = new Status();
         $status
             ->setName($statusName)
             ->setVisibility($visibilty)
-            ->setGameItem($gameItem)
+            ->setGameEquipment($gameEquipment)
         ;
 
         return $status;
     }
 
-    public function createChargeItemStatus(
+    public function createChargeEquipmentStatus(
         string $statusName,
-        GameItem $gameItem,
+        GameEquipment $gameEquipment,
         string $strategy,
         int $charge = 0,
         int $threshold = null,
@@ -57,7 +57,7 @@ class StatusService implements StatusServiceInterface
             ->setName($statusName)
             ->setStrategy($strategy)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setGameItem($gameItem)
+            ->setGameEquipment($gameEquipment)
             ->setCharge($charge)
             ->setThreshold($threshold)
             ->setAutoRemove($autoRemove)
@@ -117,22 +117,22 @@ class StatusService implements StatusServiceInterface
         return true;
     }
 
-    public function getMostRecent(string $statusName, ArrayCollection $items): gameItem
+    public function getMostRecent(string $statusName, ArrayCollection $equipments): gameEquipment
     {
-        $pickedItems = $items->getItems()->filter(fn (GameItem $gameItem) => $gameItem->getStatusByName($statusName));
-        if (count($pickedItems) <= 0) {
+        $pickedEquipments = $equipments->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getStatusByName($statusName));
+        if (count($pickedEquipments) <= 0) {
             throw new Error('no such status in item collection');
         } else {
-            $pickedItem = $pickedItems->first();
-            if (count($pickedItems) > 1) {
-                foreach ($pickedItems as $item) {
-                    if ($pickedItem->getStatusByName($statusName)->getCreatedAt() < $item->getStatusByName($statusName)->getCreatedAt()) {
-                        $pickedItem = $item;
+            $pickedEquipment = $pickedEquipments->first();
+            if (count($pickedEquipments) > 1) {
+                foreach ($pickedEquipments as $equipment) {
+                    if ($pickedEquipment->getStatusByName($statusName)->getCreatedAt() < $equipment->getStatusByName($statusName)->getCreatedAt()) {
+                        $pickedEquipment = $equipment;
                     }
                 }
             }
 
-            return $pickedItem;
+            return $pickedEquipment;
         }
     }
 }

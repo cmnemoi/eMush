@@ -3,7 +3,7 @@
 namespace Mush\Game\Service;
 
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Item\Entity\GameItem;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
 

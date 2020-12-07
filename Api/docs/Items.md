@@ -1,13 +1,20 @@
-#Items
+#Equipments
 
 #Data model: ![alt text](./items.vpd.png)
 
-## GameItem
-Is the occurence of an item in a Daedalus,  this entity will hold the actual item informations (statuses, room, player etc...)
+## GameEquipment
+Is the occurence of an equipment in a Daedalus,  this entity will hold the actual equipment informations (statuses, room, etc...)
 
-## Item
-Is an abstract class holding all the default information of an Item (isTakeable, isDropable, etc...)  
-The Item is unique accross a GameConfig
+## EquipmentConfig
+Is an abstract class holding all the default information of an Equipment (breakableRate, isAlienArtifact, isFirebreakable etc...)  
+The Equipment is unique accross a GameConfig
+
+## ItemConfig and GameItem
+Refine the Equipment classes in order to add specificities of the Items (isHideable, isDropable, etc...) 
+
+## EquipmentMechanic
+Describe the gameplay mechanisms of each equipment (plant, ration, tool...)
+
 
 ## Ration (parent of Drug and Fruit)
 

@@ -16,7 +16,6 @@ class ContentStatus extends Status
      */
     private ?string $content = null;
 
-    
     public function getContent(): ?string
     {
         return $this->content;

@@ -7,13 +7,14 @@ use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Item\Entity\GameItem;
-use Mush\Item\Service\GameItemServiceInterface;
+use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
-use Mush\Status\Enum\ItemStatusEnum;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -24,21 +25,21 @@ class Search extends Action
     private ?GameItem $itemFound = null;
 
     private RoomLogServiceInterface $roomLogService;
-    private GameItemServiceInterface $gameItemService;
+    private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
     private StatusServiceInterface $statusService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         RoomLogServiceInterface $roomLogService,
-        GameItemServiceInterface $gameItemService,
+        GameEquipmentServiceInterface $gameEquipmentService,
         PlayerServiceInterface $playerService,
         StatusServiceInterface $statusService
     ) {
         parent::__construct($eventDispatcher);
 
         $this->roomLogService = $roomLogService;
-        $this->gameItemService = $gameItemService;
+        $this->gameEquipmentService = $gameEquipmentService;
         $this->playerService = $playerService;
         $this->statusService = $statusService;
 
@@ -52,16 +53,17 @@ class Search extends Action
 
     public function canExecute(): bool
     {
+        //@TODO add condition on the room
         return true;
     }
 
     protected function applyEffects(): ActionResult
     {
-        $hiddenItems = $this->player->getRoom()->getItems()->filter(fn (GameItem $gameItem) => $gameItem->getStatusByName(ItemStatusEnum::HIDDEN));
+        $hiddenItems = $this->player->getRoom()->getEquipments()->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getStatusByName(EquipmentStatusEnum::HIDDEN));
         if (!$hiddenItems->isEmpty()) {
-            $this->itemFound = $this->statusService->getMostRecent(ItemStatusEnum::HIDDEN, $hiddenItems);
+            $this->itemFound = $this->statusService->getMostRecent(EquipmentStatusEnum::HIDDEN, $hiddenItems);
 
-            $hiddenStatus = $this->itemFound->getStatusByName(ItemStatusEnum::HIDDEN);
+            $hiddenStatus = $this->itemFound->getStatusByName(EquipmentStatusEnum::HIDDEN);
 
             $hiddenBy = $hiddenStatus->getPlayer();
             $this->itemFound->removeStatus($hiddenStatus);
@@ -69,7 +71,7 @@ class Search extends Action
             $hiddenBy->removeStatus($hiddenStatus);
 
             $this->playerService->persist($hiddenBy);
-            $this->gameItemService->persist($this->itemFound);
+            $this->gameEquipmentService->persist($this->itemFound);
 
             return new Success();
         } else {
@@ -80,7 +82,7 @@ class Search extends Action
     protected function createLog(ActionResult $actionResult): void
     {
         if ($actionResult instanceof Success) {
-            $this->roomLogService->createItemLog(
+            $this->roomLogService->createEquipmentLog(
                 ActionEnum::SEARCH,
                 $this->player->getRoom(),
                 $this->player,

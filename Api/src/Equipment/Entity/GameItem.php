@@ -1,0 +1,51 @@
+<?php
+
+namespace Mush\Equipment\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Mush\Player\Entity\Player;
+
+/**
+ * Class GameItem.
+ *
+ * @ORM\Entity
+ */
+class GameItem extends GameEquipment
+{
+    /**
+     * @ORM\ManyToOne (targetEntity="Mush\Player\Entity\Player", inversedBy="items")
+     */
+    private ?Player $player = null;
+
+    public function getPlayer(): ?Player
+    {
+        return $this->player;
+    }
+
+    public function setPlayer(?Player $player): GameItem
+    {
+        if ($player !== $this->getPlayer()) {
+            $oldPlayer = $this->getPlayer();
+
+            $this->player = $player;
+
+            if ($player !== null) {
+                $player->addItem($this);
+            }
+
+            if ($oldPlayer !== null) {
+                $oldPlayer->removeItem($this);
+            }
+        }
+
+        if (null === $player && null !== $this->player) {
+            $this->player->removeItem($this);
+        } elseif ($this->player !== $player) {
+            $player->addItem($this);
+        }
+
+        $this->player = $player;
+
+        return $this;
+    }
+}

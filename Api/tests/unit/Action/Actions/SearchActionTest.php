@@ -10,15 +10,15 @@ use Mush\Action\Actions\Search;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Service\SuccessRateServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Item\Entity\GameItem;
-use Mush\Item\Entity\Item;
-use Mush\Item\Service\GameItemServiceInterface;
+use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\ItemConfig;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\Status;
-use Mush\Status\Enum\ItemStatusEnum;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -27,8 +27,8 @@ class SearchActionTest extends TestCase
 {
     /** @var RoomLogServiceInterface | Mockery\Mock */
     private RoomLogServiceInterface $roomLogService;
-    /** @var GameItemServiceInterface | Mockery\Mock */
-    private GameItemServiceInterface $itemService;
+    /** @var GameEquipmentServiceInterface | Mockery\Mock */
+    private GameEquipmentServiceInterface $gameEquipmentService;
     /** @var PlayerServiceInterface | Mockery\Mock */
     private PlayerServiceInterface $playerService;
     /** @var SuccessRateServiceInterface | Mockery\Mock */
@@ -44,7 +44,7 @@ class SearchActionTest extends TestCase
     {
         $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
-        $this->itemService = Mockery::mock(GameItemServiceInterface::class);
+        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
         $eventDispatcher->shouldReceive('dispatch');
@@ -52,7 +52,7 @@ class SearchActionTest extends TestCase
         $this->action = new Search(
             $eventDispatcher,
             $this->roomLogService,
-            $this->itemService,
+            $this->gameEquipmentService,
             $this->playerService,
             $this->statusService,
         );
@@ -81,9 +81,9 @@ class SearchActionTest extends TestCase
 
         //No hidden item in the room
         $gameItem = new GameItem();
-        $item = new Item();
+        $item = new ItemConfig();
         $gameItem
-            ->setItem($item)
+            ->setEquipment($item)
             ->setRoom($room)
         ;
 
@@ -94,18 +94,18 @@ class SearchActionTest extends TestCase
         //Success find
         $room = new Room();
         $gameItem = new GameItem();
-        $item = new Item();
+        $item = new ItemConfig();
         $gameItem
-            ->setItem($item)
+            ->setEquipment($item)
             ->setRoom($room)
         ;
 
         $hidden = new Status();
         $hiddenBy = $this->createPlayer(new Daedalus(), new Room());
         $hidden
-            ->setName(ItemStatusEnum::HIDDEN)
+            ->setName(EquipmentStatusEnum::HIDDEN)
             ->setPlayer($hiddenBy)
-            ->setGameItem($gameItem)
+            ->setGameEquipment($gameItem)
         ;
         $gameItem->addStatus($hidden);
         $hiddenBy->addStatus($hidden);
@@ -115,15 +115,15 @@ class SearchActionTest extends TestCase
         $this->action->loadParameters($player, $actionParameter);
 
         $this->statusService->shouldReceive('getMostRecent')->andReturn($gameItem)->once();
-        $this->roomLogService->shouldReceive('createItemLog')->once();
-        $this->itemService->shouldReceive('persist');
+        $this->roomLogService->shouldReceive('createEquipmentLog')->once();
+        $this->gameEquipmentService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
 
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(1, $room->getItems());
-        $this->assertCount(0, $room->getItems()->first()->getStatuses());
+        $this->assertCount(1, $room->getEquipments());
+        $this->assertCount(0, $room->getEquipments()->first()->getStatuses());
         $this->assertCount(0, $player->getStatuses());
         $this->assertEquals(9, $player->getActionPoint());
         $this->assertCount(0, $hiddenBy->getStatuses());
@@ -131,33 +131,33 @@ class SearchActionTest extends TestCase
         //2 hidden items
         $room = new Room();
         $gameItem = new GameItem();
-        $item = new Item();
+        $item = new ItemConfig();
         $gameItem
-            ->setItem($item)
+            ->setEquipment($item)
             ->setRoom($room)
         ;
 
         $hiddenBy = $this->createPlayer(new Daedalus(), new Room());
         $hidden = new Status();
         $hidden
-            ->setName(ItemStatusEnum::HIDDEN)
+            ->setName(EquipmentStatusEnum::HIDDEN)
             ->setPlayer($hiddenBy)
-            ->setGameItem($gameItem)
+            ->setGameEquipment($gameItem)
         ;
         $gameItem->addStatus($hidden);
         $hiddenBy->addStatus($hidden);
 
         $gameItem2 = new GameItem();
         $gameItem2
-            ->setItem($item)
+            ->setEquipment($item)
             ->setRoom($room)
         ;
 
         $hidden2 = new Status();
         $hidden2
-            ->setName(ItemStatusEnum::HIDDEN)
+            ->setName(EquipmentStatusEnum::HIDDEN)
             ->setPlayer($hiddenBy)
-            ->setGameItem($gameItem2)
+            ->setGameEquipment($gameItem2)
         ;
         $gameItem2->addStatus($hidden2);
         $hiddenBy->addStatus($hidden2);
@@ -167,16 +167,16 @@ class SearchActionTest extends TestCase
         $this->action->loadParameters($player, $actionParameter);
 
         $this->statusService->shouldReceive('getMostRecent')->andReturn($gameItem)->once();
-        $this->roomLogService->shouldReceive('createItemLog')->once();
-        $this->itemService->shouldReceive('persist');
+        $this->roomLogService->shouldReceive('createEquipmentLog')->once();
+        $this->gameEquipmentService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
 
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(2, $room->getItems());
-        $this->assertCount(0, $room->getItems()->first()->getStatuses());
-        $this->assertCount(1, $room->getItems()->last()->getStatuses());
+        $this->assertCount(2, $room->getEquipments());
+        $this->assertCount(0, $room->getEquipments()->first()->getStatuses());
+        $this->assertCount(1, $room->getEquipments()->last()->getStatuses());
         $this->assertEquals($hidden2, $hiddenBy->getStatuses()->first());
     }
 

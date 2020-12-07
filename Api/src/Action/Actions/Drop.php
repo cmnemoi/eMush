@@ -6,9 +6,9 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Item\Entity\GameItem;
-use Mush\Item\Entity\Item;
-use Mush\Item\Service\GameItemServiceInterface;
+use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\ItemConfig;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -20,22 +20,22 @@ class Drop extends Action
 {
     protected string $name = ActionEnum::DROP;
 
-    private GameItem $item;
+    private GameItem $gameItem;
 
     private RoomLogServiceInterface $roomLogService;
-    private GameItemServiceInterface $gameItemService;
+    private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         RoomLogServiceInterface $roomLogService,
-        GameItemServiceInterface $gameItemService,
+        GameEquipmentServiceInterface $gameEquipmentService,
         PlayerServiceInterface $playerService
     ) {
         parent::__construct($eventDispatcher);
 
         $this->roomLogService = $roomLogService;
-        $this->gameItemService = $gameItemService;
+        $this->gameEquipmentService = $gameEquipmentService;
         $this->playerService = $playerService;
     }
 
@@ -45,30 +45,30 @@ class Drop extends Action
             throw new \InvalidArgumentException('Invalid item parameter');
         }
         $this->player = $player;
-        $this->item = $item;
+        $this->gameItem = $item;
     }
 
     public function canExecute(): bool
     {
-        return $this->player->getItems()->contains($this->item) &&
-            $this->item->getItem()->isDropable()
+        return $this->player->getItems()->contains($this->gameItem) &&
+            $this->gameItem->getEquipment()->isDropable()
             ;
     }
 
     protected function applyEffects(): ActionResult
     {
-        $this->item->setRoom($this->player->getRoom());
-        $this->item->setPlayer(null);
+        $this->gameItem->setRoom($this->player->getRoom());
+        $this->gameItem->setPlayer(null);
 
         // Remove BURDENED status if no other heavy item in the inventory
         if (
             ($burdened = $this->player->getStatusByName(PlayerStatusEnum::BURDENED)) &&
-            $this->player->getItems()->exists(fn (Item $item) => $item->isHeavy())
+            $this->player->getItems()->exists(fn (ItemConfig $item) => $item->isHeavy())
         ) {
             $this->player->removeStatus($burdened);
         }
 
-        $this->gameItemService->persist($this->item);
+        $this->gameEquipmentService->persist($this->gameItem);
         $this->playerService->persist($this->player);
 
         return new Success();
@@ -76,11 +76,11 @@ class Drop extends Action
 
     protected function createLog(ActionResult $actionResult): void
     {
-        $this->roomLogService->createItemLog(
+        $this->roomLogService->createEquipmentLog(
             ActionEnum::DROP,
             $this->player->getRoom(),
             $this->player,
-            $this->item,
+            $this->gameItem,
             VisibilityEnum::PUBLIC,
             new \DateTime('now')
         );

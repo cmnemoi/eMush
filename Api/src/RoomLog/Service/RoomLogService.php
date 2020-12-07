@@ -3,8 +3,8 @@
 namespace Mush\RoomLog\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Enum\CharacterEnum;
-use Mush\Item\Entity\GameItem;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
 use Mush\RoomLog\Entity\RoomLog;
@@ -85,18 +85,18 @@ class RoomLogService implements RoomLogServiceInterface
         return $this->persist($roomLog);
     }
 
-    public function createItemLog(
+    public function createEquipmentLog(
         string $logKey,
         Room $room,
         ?Player $player,
-        GameItem $item,
+        GameEquipment $equipment,
         string $visibility,
         \DateTime $dateTime = null
     ): RoomLog {
         $roomLog = new RoomLog();
         $roomLog
             ->setLog($logKey)
-            ->setTarget(new Target($item->getName(), 'items'))
+            ->setTarget(new Target($equipment->getName(), 'equipments'))
             ->setPlayer($player)
             ->setRoom($room)
             ->setVisibility($visibility)

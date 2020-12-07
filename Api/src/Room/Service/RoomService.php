@@ -4,9 +4,9 @@ namespace Mush\Room\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Item\Entity\Door;
-use Mush\Item\Entity\Item;
-use Mush\Item\Service\GameItemServiceInterface;
+use Mush\Equipment\Entity\Door;
+use Mush\Equipment\Entity\ItemConfig;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Room\Entity\Room;
 use Mush\Room\Entity\RoomConfig;
 use Mush\Room\Repository\RoomRepository;
@@ -15,7 +15,7 @@ class RoomService implements RoomServiceInterface
 {
     private EntityManagerInterface $entityManager;
     private RoomRepository $repository;
-    private GameItemServiceInterface $itemService;
+    private GameEquipmentServiceInterface $equipmentService;
 
     /**
      * RoomService constructor.
@@ -23,11 +23,11 @@ class RoomService implements RoomServiceInterface
     public function __construct(
         EntityManagerInterface $entityManager,
         RoomRepository $repository,
-        GameItemServiceInterface $itemService
+        GameEquipmentServiceInterface $equipmentService
     ) {
         $this->entityManager = $entityManager;
         $this->repository = $repository;
-        $this->itemService = $itemService;
+        $this->equipmentService = $equipmentService;
     }
 
     public function persist(Room $room): Room
@@ -75,11 +75,11 @@ class RoomService implements RoomServiceInterface
         foreach ($roomConfig->getItems() as $itemName) {
             $item = $daedalus
                 ->getGameConfig()
-                ->getItemsConfig()
-                ->filter(fn (Item $item) => $item->getName() === $itemName)->first()
+                ->getEquipmentsConfig()
+                ->filter(fn (ItemConfig $item) => $item->getName() === $itemName)->first()
             ;
-            $gameItem = $this->itemService->createGameItem($item, $daedalus);
-            $room->addItem($gameItem);
+            $gameItem = $this->equipmentService->createGameEquipment($item, $daedalus);
+            $room->addEquipment($gameItem);
         }
 
         return $this->persist($room);

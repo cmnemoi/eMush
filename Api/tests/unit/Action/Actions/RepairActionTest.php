@@ -11,20 +11,19 @@ use Mush\Action\Actions\Repair;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Service\SuccessRateServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\ItemConfig;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\SkillEnum;
-use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Item\Entity\GameItem;
-use Mush\Item\Entity\Item;
-use Mush\Item\Service\GameItemServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\Status;
-use Mush\Status\Enum\ItemStatusEnum;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
@@ -34,8 +33,8 @@ class RepairActionTest extends TestCase
 {
     /** @var RoomLogServiceInterface | Mockery\Mock */
     private RoomLogServiceInterface $roomLogService;
-    /** @var GameItemServiceInterface | Mockery\Mock */
-    private GameItemServiceInterface $itemService;
+    /** @var GameEquipmentServiceInterface | Mockery\Mock */
+    private GameEquipmentServiceInterface $gameEquipmentService;
     /** @var PlayerServiceInterface | Mockery\Mock */
     private PlayerServiceInterface $playerService;
     /** @var SuccessRateServiceInterface | Mockery\Mock */
@@ -54,26 +53,22 @@ class RepairActionTest extends TestCase
     {
         $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
-        $this->itemService = Mockery::mock(GameItemServiceInterface::class);
+        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
         $this->successRateService = Mockery::mock(SuccessRateServiceInterface::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
-        $gameConfigService = Mockery::mock(GameConfigServiceInterface::class);
-        $this->gameConfig = new GameConfig();
-        $gameConfigService->shouldReceive('getConfig')->andReturn($this->gameConfig)->once();
 
         $eventDispatcher->shouldReceive('dispatch');
 
         $this->action = new Repair(
             $eventDispatcher,
             $this->roomLogService,
-            $this->itemService,
+            $this->gameEquipmentService,
             $this->playerService,
             $this->randomService,
             $this->successRateService,
             $this->statusService,
-            $gameConfigService
         );
     }
 
@@ -89,8 +84,8 @@ class RepairActionTest extends TestCase
     {
         $room = new Room();
         $gameItem = new GameItem();
-        $item = new Item();
-        $gameItem->setItem($item);
+        $item = new ItemConfig();
+        $gameItem->setEquipment($item);
         $gameItem
             ->setRoom($room)
         ;
@@ -107,7 +102,7 @@ class RepairActionTest extends TestCase
 
         $broken = new Status();
         $broken
-            ->setName(ItemStatusEnum::BROKEN)
+            ->setName(EquipmentStatusEnum::BROKEN)
         ;
 
         //Not in the same room
@@ -115,7 +110,7 @@ class RepairActionTest extends TestCase
             ->addStatus($broken)
             ->setRoom(new Room())
         ;
-        $room->removeItem($gameItem);
+        $room->removeEquipment($gameItem);
 
         $result = $this->action->execute();
         $this->assertInstanceOf(Error::class, $result);
@@ -126,25 +121,25 @@ class RepairActionTest extends TestCase
         $daedalus = new Daedalus();
         $room = new Room();
         $gameItem = new GameItem();
-        $item = new Item();
+        $item = new ItemConfig();
         $item
             ->setBreakableRate(10)
         ;
 
         $broken = new Status();
         $broken
-            ->setName(ItemStatusEnum::BROKEN)
+            ->setName(EquipmentStatusEnum::BROKEN)
         ;
 
         $gameItem
-            ->setItem($item)
+            ->setEquipment($item)
             ->setRoom($room)
             ->addStatus($broken)
         ;
 
-        $this->roomLogService->shouldReceive('createItemLog')->twice();
+        $this->roomLogService->shouldReceive('createEquipmentLog')->twice();
 
-        $this->itemService->shouldReceive('persist');
+        $this->gameEquipmentService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
 
         $attempt = new Attempt();
@@ -168,7 +163,7 @@ class RepairActionTest extends TestCase
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Fail::class, $result);
-        $this->assertCount(1, $room->getItems()->first()->getStatuses());
+        $this->assertCount(1, $room->getEquipments()->first()->getStatuses());
         $this->assertCount(1, $player->getStatuses());
         $this->assertEquals(1, $attempt->getCharge());
         $this->assertEquals(9, $player->getActionPoint());
@@ -180,8 +175,8 @@ class RepairActionTest extends TestCase
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(1, $room->getItems());
-        $this->assertCount(0, $room->getItems()->first()->getStatuses());
+        $this->assertCount(1, $room->getEquipments());
+        $this->assertCount(0, $room->getEquipments()->first()->getStatuses());
         $this->assertCount(0, $player->getStatuses());
         $this->assertEquals(8, $player->getActionPoint());
     }

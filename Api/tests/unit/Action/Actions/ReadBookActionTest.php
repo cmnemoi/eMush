@@ -8,11 +8,11 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Action;
 use Mush\Action\Actions\ReadBook;
 use Mush\Action\Entity\ActionParameters;
+use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\ItemConfig;
+use Mush\Equipment\Entity\Mechanics\Book;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\SkillEnum;
-use Mush\Item\Entity\GameItem;
-use Mush\Item\Entity\Item;
-use Mush\Item\Entity\Items\Book;
-use Mush\Item\Service\GameItemServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
@@ -24,8 +24,8 @@ class ReadBookActionTest extends TestCase
 {
     /** @var RoomLogServiceInterface | Mockery\Mock */
     private RoomLogServiceInterface $roomLogService;
-    /** @var GameItemServiceInterface | Mockery\Mock */
-    private GameItemServiceInterface $itemService;
+    /** @var GameEquipmentServiceInterface | Mockery\Mock */
+    private GameEquipmentServiceInterface $gameEquipmentService;
     /** @var PlayerServiceInterface | Mockery\Mock */
     private PlayerServiceInterface $playerService;
     private Action $action;
@@ -37,7 +37,7 @@ class ReadBookActionTest extends TestCase
     {
         $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
-        $this->itemService = Mockery::mock(GameItemServiceInterface::class);
+        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
 
         $eventDispatcher->shouldReceive('dispatch');
@@ -45,7 +45,7 @@ class ReadBookActionTest extends TestCase
         $this->action = new ReadBook(
             $eventDispatcher,
             $this->roomLogService,
-            $this->itemService,
+            $this->gameEquipmentService,
             $this->playerService
         );
     }
@@ -62,18 +62,18 @@ class ReadBookActionTest extends TestCase
     {
         $room = new Room();
         $gameItem = new GameItem();
-        $item = new Item();
+        $item = new ItemConfig();
         $book = new Book();
         $book->setSkill(SkillEnum::PILOT);
-        $item->setTypes(new ArrayCollection([$book]));
+        $item->setMechanics(new ArrayCollection([$book]));
         $gameItem
-            ->setItem($item)
+            ->setEquipment($item)
             ->setRoom($room)
         ;
 
-        $this->roomLogService->shouldReceive('createItemLog')->once();
+        $this->roomLogService->shouldReceive('createEquipmentLog')->once();
 
-        $this->itemService->shouldReceive('delete');
+        $this->gameEquipmentService->shouldReceive('delete');
         $this->playerService->shouldReceive('persist');
 
         $actionParameter = new ActionParameters();
@@ -91,7 +91,7 @@ class ReadBookActionTest extends TestCase
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
-        $this->assertEmpty($room->getItems());
+        $this->assertEmpty($room->getEquipments());
         $this->assertEmpty($player->getItems());
         $this->assertContains(SkillEnum::PILOT, $player->getSkills());
     }

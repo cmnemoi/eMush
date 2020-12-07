@@ -220,7 +220,6 @@ class Player
                 $this->room = $room;
             }
         }
-
         return $this;
     }
 

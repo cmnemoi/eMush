@@ -86,8 +86,10 @@ class GameEquipmentService implements GameEquipmentServiceInterface
                 case EquipmentMechanicEnum::CHARGED:
                     $this->initCharged($gameEquipment, $mechanic);
                     break;
-                case EquipmentMechanicEnum::DOCUMENT && $mechanic->getContent():
-                    $this->initDocument($gameEquipment, $mechanic);
+                case EquipmentMechanicEnum::DOCUMENT:
+                    if ($mechanic->getContent()){
+                         $this->initDocument($gameEquipment, $mechanic);
+                    }
                     break;
             }
         }

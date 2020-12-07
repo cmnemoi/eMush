@@ -73,7 +73,7 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface
             'id' => $equipment->getId(),
             'key' => $equipment->getName(),
             'name' => $this->translator->trans($equipment->getName() . '.name', [], 'equipments'),
-            'description' => $this->translator->trans("{$equipment->getName()}.description", [], 'equipmentss'),
+            'description' => $this->translator->trans("{$equipment->getName()}.description", [], 'equipments'),
             'statuses' => $equipment->getStatuses(),
             'actions' => $actions,
         ];

@@ -75,7 +75,7 @@ class RoomService implements RoomServiceInterface
         foreach ($roomConfig->getItems() as $itemName) {
             $item = $daedalus
                 ->getGameConfig()
-                ->getItemsConfig()
+                ->getEquipmentsConfig()
                 ->filter(fn (ItemConfig $item) => $item->getName() === $itemName)->first()
             ;
             $gameItem = $this->equipmentService->createGameEquipment($item, $daedalus);

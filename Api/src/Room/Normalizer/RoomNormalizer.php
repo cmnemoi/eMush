@@ -70,12 +70,12 @@ class RoomNormalizer implements ContextAwareNormalizerInterface
 
         $equipments = [];
         $items = [];
-        /** @var GameEquipments $equipments */
+        /** @var GameEquipment $equipment */
         foreach ($room->getEquipments() as $equipment) {
             if ($equipment instanceof GameItem) {
-                $items[] = $this->EquipmentNormalizer->normalize($equipment);
+                $items[] = $this->equipmentNormalizer->normalize($equipment);
             } else {
-                $equipments[] = $this->EquipmentNormalizer->normalize($equipment);
+                $items[] = $this->equipmentNormalizer->normalize($equipment);
             }
         }
 

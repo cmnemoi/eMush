@@ -207,7 +207,7 @@ class ConsumableEffect
 
     public function setExtraEffects(array $extraEffects): ConsumableEffect
     {
-        $this->extraEffect = $extraEffects;
+        $this->extraEffects = $extraEffects;
 
         return $this;
     }

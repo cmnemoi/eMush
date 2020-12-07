@@ -102,7 +102,7 @@ class HideActionTest extends TestCase
         $player = $this->createPlayer(new Daedalus(), $room);
 
         $gameItem = new GameItem();
-        $item = new Item();
+        $item = new ItemConfig();
         $item->setIsHideable(true);
         $gameItem
             ->setEquipment($item)

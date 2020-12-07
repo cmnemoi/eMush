@@ -50,8 +50,7 @@ class Take extends Action
 
     public function loadParameters(Player $player, ActionParameters $actionParameters)
     {
-        if (!($equipment = $actionParameters->getItem()) && 
-            !($equipment = $actionParameters->getEquipment())) {
+        if (!($item = $actionParameters->getItem())) {
             throw new \InvalidArgumentException('Invalid equipment parameter');
         }
 
@@ -61,7 +60,7 @@ class Take extends Action
 
     public function canExecute(): bool
     {
-        return $this->player->canReachEquipment($this->gameItem) &&
+        return $this->player->getRoom()->getEquipments()->contains($this->gameItem) &&
             $this->player->getItems()->count() < $this->gameConfig->getMaxItemInInventory() &&
             $this->gameItem->getEquipment()->isTakeable()
             ;
@@ -77,7 +76,7 @@ class Take extends Action
             $this->statusService->createCorePlayerStatus(PlayerStatusEnum::BURDENED, $this->player);
         }
 
-        $this->gameEquipmentService->persist($this->gameEquipment);
+        $this->gameEquipmentService->persist($this->gameItem);
         $this->playerService->persist($this->player);
 
         return new Success();

@@ -12,7 +12,7 @@ use Mush\Action\Entity\ActionParameters;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
-use Mush\Equipment\Entity\Equipments\Fruit;
+use Mush\Equipment\Entity\Mechanics\Fruit;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
@@ -94,7 +94,7 @@ class PlantActionTest extends TestCase
         $result = $this->action->execute();
         $this->assertInstanceOf(Error::class, $result);
 
-        $item->setTypes(new ArrayCollection([$fruit]));
+        $item->setMechanics(new ArrayCollection([$fruit]));
 
         //Hydropot in another room
         $gameHydropot->setRoom(new Room());
@@ -116,7 +116,7 @@ class PlantActionTest extends TestCase
         $fruit = new Fruit();
         $fruit->setPlantName('banana_tree');
 
-        $item->setTypes(new ArrayCollection([$fruit]));
+        $item->setMechanics(new ArrayCollection([$fruit]));
 
         $plant = new ItemConfig();
         $plant->setName('banana_tree');

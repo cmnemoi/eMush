@@ -65,7 +65,7 @@ class ReadBookActionTest extends TestCase
         $item = new ItemConfig();
         $book = new Book();
         $book->setSkill(SkillEnum::PILOT);
-        $item->setTypes(new ArrayCollection([$book]));
+        $item->setMechanics(new ArrayCollection([$book]));
         $gameItem
             ->setEquipment($item)
             ->setRoom($room)

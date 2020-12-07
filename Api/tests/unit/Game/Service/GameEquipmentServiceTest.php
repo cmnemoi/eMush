@@ -27,8 +27,8 @@ class GameEquipmentServiceTest extends TestCase
     private EntityManagerInterface $entityManager;
     /** @var GameItemRepository | Mockery\Mock */
     private GameItemRepository $repository;
-    /** @var EquipmentServiceInterface | Mockery\Mock */
-    private EquipmentServiceInterface $equipmentService;
+    /** @var ItemServiceInterface | Mockery\Mock */
+    private ItemServiceInterface $itemService;
     /** @var StatusServiceInterface | Mockery\Mock */
     private StatusServiceInterface $statusService;
     /** @var EquipmentEffectServiceInterface | Mockery\Mock */

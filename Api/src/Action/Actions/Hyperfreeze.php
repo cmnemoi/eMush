@@ -91,7 +91,8 @@ class Hyperfreeze extends Action
                 $status->setGameEquipment($newItem);
                 $this->statusService->persist($status);
             }
-
+            
+            $this->gameEquipment->removeLocation();
             $this->gameEquipmentService->delete($this->gameEquipment);
             $this->gameEquipmentService->persist($newItem);
         } else {

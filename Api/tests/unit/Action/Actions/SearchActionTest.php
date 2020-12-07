@@ -131,7 +131,7 @@ class SearchActionTest extends TestCase
         //2 hidden items
         $room = new Room();
         $gameItem = new GameItem();
-        $item = new Item();
+        $item = new ItemConfig();
         $gameItem
             ->setEquipment($item)
             ->setRoom($room)

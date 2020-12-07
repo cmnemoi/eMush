@@ -252,7 +252,7 @@ class Player
                 $this->getItems()->toArray(),
                 $this->getRoom()->getEquipments()->toArray()
             ))
-              )->filter(fn (GameItem $gameEquipment) => (
+              )->filter(fn (GameEquipment $gameEquipment) => (
               $gameEquipment->getName() === $name &&
               ($gameEquipment->getStatusByName(EquipmentStatusEnum::HIDDEN) === null ||
                $gameEquipment->getStatusByName(EquipmentStatusEnum::HIDDEN)->getPlayer() === $this)));

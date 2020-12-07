@@ -75,6 +75,8 @@ class Transplant extends Action
             $plantEquipment->setRoom($place);
         }
 
+        $hydropot->removeLocation();
+        $this->gameEquipment->removeLocation();
         $this->gameEquipmentService->delete($hydropot);
         $this->gameEquipmentService->delete($this->gameEquipment);
 

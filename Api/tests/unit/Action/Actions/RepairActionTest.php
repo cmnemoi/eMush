@@ -59,10 +59,7 @@ class RepairActionTest extends TestCase
         $this->successRateService = Mockery::mock(SuccessRateServiceInterface::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
-        $gameConfigService = Mockery::mock(GameConfigServiceInterface::class);
-        $this->gameConfig = new GameConfig();
-        $gameConfigService->shouldReceive('getConfig')->andReturn($this->gameConfig)->once();
-
+       
         $eventDispatcher->shouldReceive('dispatch');
 
         $this->action = new Repair(
@@ -73,7 +70,6 @@ class RepairActionTest extends TestCase
             $this->randomService,
             $this->successRateService,
             $this->statusService,
-            $gameConfigService
         );
     }
 

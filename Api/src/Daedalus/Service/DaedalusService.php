@@ -28,7 +28,7 @@ class DaedalusService implements DaedalusServiceInterface
     private DaedalusRepository $repository;
     private RoomServiceInterface $roomService;
     private CycleServiceInterface $cycleService;
-    private GameEquipmentServiceInterface $equipmentService;
+    private GameEquipmentServiceInterface $gameEquipmentService;
     private RandomServiceInterface $randomService;
 
     public function __construct(
@@ -37,7 +37,7 @@ class DaedalusService implements DaedalusServiceInterface
         DaedalusRepository $repository,
         RoomServiceInterface $roomService,
         CycleServiceInterface $cycleService,
-        GameEquipmentServiceInterface $equipmentService,
+        GameEquipmentServiceInterface $gameEquipmentService,
         RandomServiceInterface $randomService
     ) {
         $this->entityManager = $entityManager;
@@ -45,7 +45,7 @@ class DaedalusService implements DaedalusServiceInterface
         $this->repository = $repository;
         $this->roomService = $roomService;
         $this->cycleService = $cycleService;
-        $this->equipmentService = $equipmentService;
+        $this->gameEquipmentService = $gameEquipmentService;
         $this->randomService = $randomService;
     }
 
@@ -117,17 +117,17 @@ class DaedalusService implements DaedalusServiceInterface
             foreach ($randomItemPlaces->getItems() as $itemName) {
                 $item = $daedalus
                     ->getGameConfig()
-                    ->getItemsConfig()
+                    ->getEquipmentsConfig()
                     ->filter(fn (ItemConfig $item) => $item->getName() === $itemName)
                     ->first()
                 ;
-                $item = $this->itemService->createGameItem($item, $daedalus);
+                $item = $this->gameEquipmentService->createGameEquipment($item, $daedalus);
                 $roomName = $randomItemPlaces
                     ->getPlaces()[$this->randomService->random(0, count($randomItemPlaces->getPlaces()) - 1)]
                 ;
                 $room = $daedalus->getRooms()->filter(fn (Room $room) => $roomName === $room->getName())->first();
                 $item->setRoom($room);
-                $this->itemService->persist($item);
+                $this->gameEquipmentService->persist($item);
             }
         }
 

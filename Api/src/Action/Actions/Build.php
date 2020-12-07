@@ -59,16 +59,16 @@ class Build extends Action
 
     public function canExecute(): bool
     {
-        $blueprintType = $this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT);
+        $blueprintMechanic = $this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT);
         //Check that the equipment is a blueprint and is reachable
         if (
-            $blueprintType === null ||
+            $blueprintMechanic === null ||
             !$this->player->canReachEquipment($this->gameEquipment)
         ) {
             return false;
         }
         //Check the availlability of the ingredients
-        foreach ($blueprintType->getIngredients() as $name => $number) {
+        foreach ($blueprintMechanic->getIngredients() as $name => $number) {
             if ($this->player->getReachableEquipmentsByName($name)->count() < $number) {
                 return false;
             }
@@ -79,7 +79,7 @@ class Build extends Action
 
     protected function applyEffects(): ActionResult
     {
-        /** @var Blueprint $blueprintType */
+        /** @var Blueprint $blueprintMechanic */
         $blueprintMechanic = $this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT);
 
         // add the equipment in the player inventory or in the room if the inventory is full
@@ -99,7 +99,7 @@ class Build extends Action
         $this->gameEquipmentService->persist($blueprintEquipment);
 
         // remove the used ingredients starting from the player inventory
-        foreach ($blueprintType->getIngredients() as $name => $number) {
+        foreach ($blueprintMechanic->getIngredients() as $name => $number) {
             for ($i = 0; $i < $number; ++$i) {
                 if ($this->player->hasItemByName($name)) {
                     // @FIXME change to a random choice of the item
@@ -109,9 +109,11 @@ class Build extends Action
                 } else {
                     // @FIXME change to a random choice of the equipment
                     $ingredient = $this->player->getRoom()->getEquipments()
-                        ->filter(fn (GameEquipment $gameEquipment) => $gameEquipment>getName() === $name)->first();
+                        ->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $name)->first();
                     $ingredient->setRoom(null);
                 }
+                
+                $ingredient->removeLocation();
                 $this->gameEquipmentService->delete($ingredient);
             }
         }
@@ -121,6 +123,7 @@ class Build extends Action
             ->setRoom(null)
         ;
 
+        $this->gameEquipment->removeLocation();
         $this->gameEquipmentService->delete($this->gameEquipment);
 
         $this->playerService->persist($this->player);

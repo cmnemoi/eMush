@@ -100,7 +100,7 @@ class HyperfreezeActionTest extends TestCase
 
         $rationType = new Ration();
         $rationType->setIsPerishable(false);
-        $ration->setTypes(new ArrayCollection([$rationType]));
+        $ration->setMechanics(new ArrayCollection([$rationType]));
 
         //not perishable
         $result = $this->action->execute();
@@ -128,7 +128,7 @@ class HyperfreezeActionTest extends TestCase
         $gameRation = new GameItem();
         $ration = new ItemConfig();
         $ration
-             ->setTypes(new ArrayCollection([$rationType]))
+             ->setMechanics(new ArrayCollection([$rationType]))
              ->setName('fruit')
          ;
         $gameRation
@@ -177,7 +177,7 @@ class HyperfreezeActionTest extends TestCase
         $gameRation = new GameItem();
         $ration = new ItemConfig();
         $ration
-             ->setTypes(new ArrayCollection([$rationType]))
+             ->setMechanics(new ArrayCollection([$rationType]))
              ->setName(GameRationEnum::ALIEN_STEAK)
          ;
         $gameRation

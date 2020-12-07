@@ -50,8 +50,8 @@ class Drop extends Action
 
     public function canExecute(): bool
     {
-        return $this->player->getItems()->contains($this->item) &&
-            $this->item->getEquipment()->isDropable()
+        return $this->player->getItems()->contains($this->gameItem) &&
+            $this->gameItem->getEquipment()->isDropable()
             ;
     }
 

@@ -103,9 +103,9 @@ class WriteActionTest extends TestCase
         $gamePostIt = new GameItem();
         $gamePostIt->setEquipment($postIt);
 
-        $this->gameItemService->shouldReceive('createGameEquipmentFromName')->andReturn($gamePostIt)->once();
-        $this->roomLogService->shouldReceive('createEquipmentLog')->once();
-        $this->gameItemService->shouldReceive('persist');
+        $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->andReturn($gamePostIt)->once();
+        $this->roomLogService->shouldReceive('createPlayerLog')->once();
+        $this->gameEquipmentService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
 
         $result = $this->action->execute();

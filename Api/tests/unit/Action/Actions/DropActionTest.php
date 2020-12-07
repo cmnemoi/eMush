@@ -10,7 +10,7 @@ use Mush\Action\Actions\Drop;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
-use Mush\Equipment\Service\GameItemServiceInterface;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
@@ -68,7 +68,7 @@ class DropActionTest extends TestCase
             ->setIsHeavy(false)
         ;
 
-        $this->roomLogService->shouldReceive('createItemLog')->once();
+        $this->roomLogService->shouldReceive('createEquipmentLog')->once();
         $this->gameEquipmentService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
 

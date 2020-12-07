@@ -63,6 +63,7 @@ class Shred extends Action
 
     protected function applyEffects(): ActionResult
     {
+        $this->gameEquipment->removeLocation();
         $this->gameEquipmentService->delete($this->gameEquipment);
         $this->playerService->persist($this->player);
 

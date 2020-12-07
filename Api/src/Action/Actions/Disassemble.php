@@ -113,8 +113,9 @@ class Disassemble extends AttemptAction
             }
         }
 
-        // remove the dismanteled item
-        $this->gameEquipmentService->delete($this->equipment);
+        // remove the dismanteled equipment
+        $this->gameEquipment->removeLocation();
+        $this->gameEquipmentService->delete($this->gameEquipment);
     }
 
     protected function createLog(ActionResult $actionResult): void

@@ -68,6 +68,7 @@ class ReadBook extends Action
         $bookType = $this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BOOK);
         $this->player->addSkill($bookType->getSkill());
 
+        $this->gameEquipment->removeLocation();
         $this->gameEquipmentService->delete($this->gameEquipment);
         $this->playerService->persist($this->player);
 

@@ -141,7 +141,7 @@ class TreatPlantActionTest extends TestCase
         $this->action->loadParameters($player, $actionParameter);
 
         $this->roomLogService->shouldReceive('createEquipmentLog')->once();
-        $this->itemService->shouldReceive('persist');
+        $this->gameEquipmentService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
 
         $result = $this->action->execute();

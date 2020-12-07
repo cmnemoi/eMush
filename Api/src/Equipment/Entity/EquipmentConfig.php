@@ -67,7 +67,7 @@ class EquipmentConfig
 
     public function __construct()
     {
-        $this->types = new ArrayCollection();
+        $this->mechanics = new ArrayCollection();
     }
 
     public function createGameEquipment(): GameEquipment

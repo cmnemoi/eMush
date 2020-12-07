@@ -230,7 +230,7 @@ class ExpressCookActionTest extends TestCase
              ->setName(GameRationEnum::COOKED_RATION)
          ;
         $gameCookedRation
-            ->setItem($cookedRation)
+            ->setEquipment($cookedRation)
             ->setName(GameRationEnum::COOKED_RATION)
         ;
 

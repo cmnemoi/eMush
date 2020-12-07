@@ -9,6 +9,7 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Entity\PlantEffect;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
@@ -149,7 +150,7 @@ class PlantCycleHandler extends AbstractCycleHandler
         // If plant is not in a room, it is in player inventory
         $place = $gamePlant->getRoom() ? $gamePlant->getRoom() : $gamePlant->getPlayer();
         // Create a new hydropot
-        $hydropot = $this->gameEquipmentService->createGameEquipmentFromName(EquipmentEnum::HYDROPOT, $place->getDaedalus());
+        $hydropot = $this->gameEquipmentService->createGameEquipmentFromName(ItemEnum::HYDROPOT, $place->getDaedalus());
 
         $room = $place;
         if ($place instanceof Player) {
@@ -168,6 +169,8 @@ class PlantCycleHandler extends AbstractCycleHandler
             VisibilityEnum::PUBLIC,
             $dateTime
         );
+
+        $gamePlant->removeLocation();
         $this->gameEquipmentService->delete($gamePlant); // Remove plant
         $this->gameEquipmentService->persist($hydropot); // Add hydropot
     }

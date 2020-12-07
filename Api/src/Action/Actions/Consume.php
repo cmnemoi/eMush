@@ -64,7 +64,7 @@ class Consume extends Action
 
     public function canExecute(): bool
     {
-        return !($this->equipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::DRUG) &&
+        return !($this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::DRUG) &&
                 $this->player->canReachEquipment($this->gameEquipment) &&
                 $this->player->getStatusByName(PlayerStatusEnum::DRUG_EATEN)) &&
                 $this->equipment->getEquipment()->hasAction(ActionEnum::CONSUME) &&
@@ -111,7 +111,8 @@ class Consume extends Action
         $this->playerService->persist($this->player);
 
         // if no charges consume equipment
-        $this->gameEquipmentService->delete($this->equipment);
+        $this->gameEquipment->removeLocation();
+        $this->gameEquipmentService->delete($this->gameEquipment);
 
         return new Success();
     }

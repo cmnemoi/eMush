@@ -7,11 +7,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Enum\ExtraEffectEnum;
-use Mush\Game\DataFixtures\GameConfigFixtures;
-use Mush\Game\Entity\GameConfig;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Equipment\Enum\GameRationEnum;
+use Mush\Game\DataFixtures\GameConfigFixtures;
+use Mush\Game\Entity\GameConfig;
 use Mush\Status\Enum\DiseaseEnum;
 
 class RationConfigFixtures extends Fixture implements DependentFixtureInterface

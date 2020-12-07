@@ -166,6 +166,7 @@ class Room
             $this->equipments->add($equipment);
             $equipment->setRoom($this);
         }
+
         return $this;
     }
 

@@ -6,14 +6,14 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use Mush\Game\DataFixtures\GameConfigFixtures;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Book;
 use Mush\Equipment\Entity\Mechanics\Document;
 use Mush\Equipment\Enum\DocumentContentEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Game\DataFixtures\GameConfigFixtures;
+use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\SkillEnum;
 
 class BookConfigFixtures extends Fixture implements DependentFixtureInterface
 {

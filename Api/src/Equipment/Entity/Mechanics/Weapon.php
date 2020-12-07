@@ -6,10 +6,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 
-
 /**
  * Class Equipment.
- * 
+ *
  * @ORM\Entity()
  */
 class Weapon extends Tool

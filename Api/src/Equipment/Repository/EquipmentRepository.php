@@ -6,22 +6,22 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Game\Entity\GameConfig;
-use Mush\Equipment\Entity\ItemConfig;
 
-class ItemRepository extends ServiceEntityRepository
+class EquipmentRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Item::class);
+        parent::__construct($registry, EquipmentConfig::class);
     }
 
-    public function findByNameAndDaedalus(string $name, Daedalus $daedalus): ItemConfig
+    public function findByNameAndDaedalus(string $name, Daedalus $daedalus): EquipmentConfig
     {
-        $queryBuilder = $this->createQueryBuilder('item');
+        $queryBuilder = $this->createQueryBuilder('equipment');
 
         $queryBuilder
-            ->leftJoin(GameConfig::class, 'gameConfig', Join::WITH, 'gameConfig = item.gameConfig')
+            ->leftJoin(GameConfig::class, 'gameConfig', Join::WITH, 'gameConfig = equipment.gameConfig')
             ->leftJoin(
                 Daedalus::class,
                 'daedalus',
@@ -31,7 +31,7 @@ class ItemRepository extends ServiceEntityRepository
                     $queryBuilder->expr()->eq('daedalus.gameConfig', 'gameConfig.id')
                 )
             )
-            ->where($queryBuilder->expr()->eq('item.name', ':name'))
+            ->where($queryBuilder->expr()->eq('equipment.name', ':name'))
             ->setParameter(':daedalus', $daedalus)
             ->setParameter(':name', $name)
             ->setMaxResults(1)

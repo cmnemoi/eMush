@@ -4,8 +4,8 @@ namespace Mush\Equipment\Service;
 
 use Doctrine\Common\Collections\Collection;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\EquipmentConfig;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
 
 interface GameEquipmentServiceInterface

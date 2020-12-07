@@ -4,7 +4,6 @@ namespace Mush\Test\Equipment\Service;
 
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Game\Service\RandomServiceInterface;
 use Mush\Equipment\Entity\ConsumableEffect;
 use Mush\Equipment\Entity\Mechanics\Drug;
 use Mush\Equipment\Entity\Mechanics\Fruit;
@@ -14,6 +13,7 @@ use Mush\Equipment\Entity\PlantEffect;
 use Mush\Equipment\Repository\ConsumableEffectRepository;
 use Mush\Equipment\Repository\PlantEffectRepository;
 use Mush\Equipment\Service\EquipmentEffectService;
+use Mush\Game\Service\RandomServiceInterface;
 use PHPUnit\Framework\TestCase;
 
 class EquipmentEffectServiceTest extends TestCase

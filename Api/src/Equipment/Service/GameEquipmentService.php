@@ -5,40 +5,40 @@ namespace Mush\Equipment\Service;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\EquipmentConfig;
-use Mush\Equipment\Entity\Mechanics\Charged;
-use Mush\Equipment\Entity\Mechanics\Plant;
-use Mush\Equipment\Entity\Mechanics\Document;
 use Mush\Equipment\Entity\EquipmentMechanic;
+use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\ItemConfig;
+use Mush\Equipment\Entity\Mechanics\Charged;
+use Mush\Equipment\Entity\Mechanics\Document;
+use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
-use Mush\Equipment\Repository\GameItemRepository;
+use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Status\Entity\ContentStatus;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Entity\ContentStatus;
 use Mush\Status\Service\StatusServiceInterface;
-use Mush\RoomLog\Enum\VisibilityEnum;
-
 
 class GameEquipmentService implements GameEquipmentServiceInterface
 {
     private EntityManagerInterface $entityManager;
-    private GameItemRepository $repository;
-    private ItemServiceInterface $itemService;
+    private GameEquipmentRepository $repository;
+    private EquipmentServiceInterface $equipmentService;
     private StatusServiceInterface $statusService;
     private EquipmentEffectServiceInterface $EquipmentEffectService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        GameItemRepository $repository,
-        ItemServiceInterface $itemService,
+        GameEquipmentRepository $repository,
+        EquipmentServiceInterface $equipmentService,
         StatusServiceInterface $statusService,
         EquipmentEffectServiceInterface $EquipmentEffectService
     ) {
         $this->entityManager = $entityManager;
         $this->repository = $repository;
-        $this->itemService = $itemService;
+        $this->equipmentService = $equipmentService;
         $this->statusService = $statusService;
         $this->EquipmentEffectService = $EquipmentEffectService;
     }
@@ -71,12 +71,11 @@ class GameEquipmentService implements GameEquipmentServiceInterface
 
     public function createGameEquipment(EquipmentConfig $equipment, Daedalus $daedalus): GameEquipment
     {
-        if ($equipment instanceof ItemConfig){
+        if ($equipment instanceof ItemConfig) {
             $gameEquipment = $equipment->createGameItem();
-        }else{
+        } else {
             $gameEquipment = $equipment->createGameEquipment();
         }
-             
 
         /** @var EquipmentMechanic $mechanic */
         foreach ($equipment->getMechanics() as $mechanic) {
@@ -125,7 +124,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
 
     private function initDocument(GameEquipment $gameEquipment, Document $document): GameEquipment
     {
-        $contentStatus= new ContentStatus();
+        $contentStatus = new ContentStatus();
         $contentStatus
             ->setName(EquipmentStatusEnum::DOCUMENT_CONTENT)
             ->setVisibility(VisibilityEnum::HIDDEN)
@@ -135,7 +134,6 @@ class GameEquipmentService implements GameEquipmentServiceInterface
 
         return $gameEquipment;
     }
-
 
     //Implement accessibility to Equipment (for tool and gear)
     public function getOperationalEquipmentsByName(string $equipmentName, Player $player, string $reach): Collection

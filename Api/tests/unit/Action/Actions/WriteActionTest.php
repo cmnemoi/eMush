@@ -3,20 +3,19 @@
 namespace Mush\Test\Action\Actions;
 
 use Mockery;
-use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Action;
 use Mush\Action\Actions\Write;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Service\SuccessRateServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Game\Service\RandomServiceInterface;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Service\GameConfigServiceInterface;
+use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
@@ -90,14 +89,12 @@ class WriteActionTest extends TestCase
             ->setName(ToolItemEnum::BLOCK_OF_POST_IT)
         ;
 
-
         $this->gameConfig->setMaxItemInInventory(3);
 
         $actionParameter = new ActionParameters();
         $actionParameter->setItem($gameItem);
         $actionParameter->setMessage('Hello world');
         $this->action->loadParameters($player, $actionParameter);
-
 
         $postIt = new ItemConfig();
         $gamePostIt = new GameItem();

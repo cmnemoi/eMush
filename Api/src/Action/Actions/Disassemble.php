@@ -7,15 +7,15 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\SuccessRateServiceInterface;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Enum\SkillEnum;
-use Mush\Game\Service\GameConfigServiceInterface;
-use Mush\Game\Service\RandomServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Dismountable;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\SkillEnum;
+use Mush\Game\Service\GameConfigServiceInterface;
+use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -54,7 +54,7 @@ class Disassemble extends AttemptAction
 
     public function loadParameters(Player $player, ActionParameters $actionParameters)
     {
-        if (!($equipment = $actionParameters->getItem()) && 
+        if (!($equipment = $actionParameters->getItem()) &&
             !($equipment = $actionParameters->getEquipment())) {
             throw new \InvalidArgumentException('Invalid equipment parameter');
         }

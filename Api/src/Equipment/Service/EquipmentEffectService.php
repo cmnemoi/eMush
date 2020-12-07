@@ -3,7 +3,6 @@
 namespace Mush\Equipment\Service;
 
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Game\Service\RandomServiceInterface;
 use Mush\Equipment\Entity\ConsumableEffect;
 use Mush\Equipment\Entity\Mechanics\Drug;
 use Mush\Equipment\Entity\Mechanics\Fruit;
@@ -12,6 +11,7 @@ use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Equipment\Entity\PlantEffect;
 use Mush\Equipment\Repository\ConsumableEffectRepository;
 use Mush\Equipment\Repository\PlantEffectRepository;
+use Mush\Game\Service\RandomServiceInterface;
 
 class EquipmentEffectService implements EquipmentEffectServiceInterface
 {

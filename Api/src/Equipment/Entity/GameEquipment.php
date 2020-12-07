@@ -6,7 +6,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Mush\Equipment\Entity\GameItem;
 use Mush\Room\Entity\Room;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -26,7 +25,7 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 class GameEquipment
 {
     use TimestampableEntity;
-    
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -145,13 +144,13 @@ class GameEquipment
         return $this;
     }
 
-
     public function removeLocation(): GameEquipment
     {
         $this->setRoom(null);
-        if ($this instanceof GameItem){
+        if ($this instanceof GameItem) {
             $this->setPlayer(null);
         }
+
         return $this;
     }
 

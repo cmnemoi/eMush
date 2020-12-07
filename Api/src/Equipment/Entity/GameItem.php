@@ -5,7 +5,6 @@ namespace Mush\Equipment\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Player\Entity\Player;
 
-
 /**
  * Class GameItem.
  *
@@ -17,7 +16,6 @@ class GameItem extends GameEquipment
      * @ORM\ManyToOne (targetEntity="Mush\Player\Entity\Player", inversedBy="items")
      */
     private ?Player $player = null;
-
 
     public function getPlayer(): ?Player
     {
@@ -50,5 +48,4 @@ class GameItem extends GameEquipment
 
         return $this;
     }
-
 }

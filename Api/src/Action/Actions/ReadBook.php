@@ -43,7 +43,7 @@ class ReadBook extends Action
 
     public function loadParameters(Player $player, ActionParameters $actionParameters)
     {
-        if (!($equipment = $actionParameters->getItem()) && 
+        if (!($equipment = $actionParameters->getItem()) &&
             !($equipment = $actionParameters->getEquipment())) {
             throw new \InvalidArgumentException('Invalid equipment parameter');
         }

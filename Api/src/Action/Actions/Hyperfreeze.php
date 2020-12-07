@@ -6,15 +6,14 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Service\GameConfigServiceInterface;
-use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Entity\GameConfig;
+use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -53,7 +52,7 @@ class Hyperfreeze extends Action
 
     public function loadParameters(Player $player, ActionParameters $actionParameters)
     {
-        if (!($equipment = $actionParameters->getItem()) && 
+        if (!($equipment = $actionParameters->getItem()) &&
             !($equipment = $actionParameters->getEquipment())) {
             throw new \InvalidArgumentException('Invalid equipment parameter');
         }
@@ -91,7 +90,7 @@ class Hyperfreeze extends Action
                 $status->setGameEquipment($newItem);
                 $this->statusService->persist($status);
             }
-            
+
             $this->gameEquipment->removeLocation();
             $this->gameEquipmentService->delete($this->gameEquipment);
             $this->gameEquipmentService->persist($newItem);

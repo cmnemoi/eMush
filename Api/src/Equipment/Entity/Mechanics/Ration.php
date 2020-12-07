@@ -7,10 +7,9 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 
-
 /**
  * Class Equipment.
- * 
+ *
  * @ORM\Entity()
  */
 class Ration extends EquipmentMechanic

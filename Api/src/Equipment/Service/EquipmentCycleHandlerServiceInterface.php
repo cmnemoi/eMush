@@ -2,8 +2,8 @@
 
 namespace Mush\Equipment\Service;
 
-use Mush\Game\CycleHandler\AbstractCycleHandler;
 use Mush\Equipment\Entity\EquipmentMechanic;
+use Mush\Game\CycleHandler\AbstractCycleHandler;
 
 interface EquipmentCycleHandlerServiceInterface
 {

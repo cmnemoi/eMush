@@ -6,13 +6,13 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Blueprint;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Entity\GameConfig;
+use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -48,7 +48,7 @@ class Build extends Action
 
     public function loadParameters(Player $player, ActionParameters $actionParameters)
     {
-        if (!($equipment = $actionParameters->getItem()) && 
+        if (!($equipment = $actionParameters->getItem()) &&
             !($equipment = $actionParameters->getEquipment())) {
             throw new \InvalidArgumentException('Invalid equipment parameter');
         }
@@ -90,10 +90,10 @@ class Build extends Action
 
         if ($this->player->getItems()->count() < $this->gameConfig->getMaxItemInInventory() &&
                  $blueprintEquipment instanceof GameItem
-            ){
+            ) {
             $blueprintEquipment->setPlayer($this->player);
         } else {
-            $blueprintEquipment>setRoom($this->player->getRoom());
+            $blueprintEquipment > setRoom($this->player->getRoom());
         }
 
         $this->gameEquipmentService->persist($blueprintEquipment);
@@ -112,7 +112,7 @@ class Build extends Action
                         ->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $name)->first();
                     $ingredient->setRoom(null);
                 }
-                
+
                 $ingredient->removeLocation();
                 $this->gameEquipmentService->delete($ingredient);
             }

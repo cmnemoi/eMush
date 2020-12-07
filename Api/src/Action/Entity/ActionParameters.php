@@ -3,8 +3,8 @@
 namespace Mush\Action\Entity;
 
 use Mush\Equipment\Entity\Door;
-use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
 
@@ -82,7 +82,7 @@ class ActionParameters
         return $this->message;
     }
 
-    public function setMessage(?String $message): ActionParameters
+    public function setMessage(?string $message): ActionParameters
     {
         $this->message = $message;
 

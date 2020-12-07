@@ -3,11 +3,11 @@
 namespace Mush\Equipment\CycleHandler;
 
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Game\CycleHandler\AbstractCycleHandler;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\CycleHandler\AbstractCycleHandler;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;

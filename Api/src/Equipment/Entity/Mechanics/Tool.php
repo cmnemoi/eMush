@@ -8,7 +8,7 @@ use Mush\Equipment\Enum\EquipmentMechanicEnum;
 
 /**
  * Class Equipment.
- * 
+ *
  * @ORM\Entity()
  */
 class Tool extends EquipmentMechanic

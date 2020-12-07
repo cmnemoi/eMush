@@ -139,6 +139,7 @@ class PlayerService implements PlayerServiceInterface
         if ($player->getMoralPoint() === 0) {
             $playerEvent = new PlayerEvent($player, $time);
             $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
+
             return $player;
         }
 
@@ -243,7 +244,7 @@ class PlayerService implements PlayerServiceInterface
         return $player;
     }
 
-    private function getValueInInterval(int $value, int $min, int $max) : int
+    private function getValueInInterval(int $value, int $min, int $max): int
     {
         return max(0, min($max, $value));
     }

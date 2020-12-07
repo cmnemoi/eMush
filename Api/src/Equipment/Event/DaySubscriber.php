@@ -2,8 +2,8 @@
 
 namespace Mush\Equipment\Event;
 
-use Mush\Game\Event\DayEvent;
 use Mush\Equipment\Service\EquipmentCycleHandlerServiceInterface;
+use Mush\Game\Event\DayEvent;
 use Mush\Room\Service\RoomServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;

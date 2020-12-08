@@ -7,6 +7,7 @@ use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
 use Mush\User\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
@@ -45,6 +46,10 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface
         if ($equipment instanceof Door) {
             $actionParameter
                 ->setDoor($equipment)
+            ;
+        } elseif($equipment instanceof GameItem) {
+            $actionParameter
+                ->setItem($equipment)
             ;
         } else {
             $actionParameter

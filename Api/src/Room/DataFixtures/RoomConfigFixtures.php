@@ -16,12 +16,14 @@ use Mush\Equipment\DataFixtures\ItemConfigFixtures;
 use Mush\Equipment\DataFixtures\RationConfigFixtures;
 use Mush\Equipment\DataFixtures\ToolConfigFixtures;
 use Mush\Equipment\DataFixtures\WeaponConfigFixtures;
+use Mush\Equipment\DataFixtures\EquipmentConfigFixtures;
 use Mush\Equipment\Enum\GameDrugEnum;
 use Mush\Equipment\Enum\GameFruitEnum;
 use Mush\Equipment\Enum\GamePlantEnum;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Room\Entity\RoomConfig;
@@ -41,6 +43,11 @@ class RoomConfigFixtures extends Fixture implements DependentFixtureInterface
                 DoorEnum::BRIDGE_FRONT_BRAVO_TURRET,
                 DoorEnum::FRONT_CORRIDOR_BRIDGE,
             ])
+            ->setEquipments([
+                EquipmentEnum::COMMUNICATION_CENTER,
+                EquipmentEnum::ASTRO_TERMINAL,
+                EquipmentEnum::COMMAND_TERMINAL,
+            ])
             ->setItems([
                 ItemEnum::TABULATRIX,
             ])
@@ -59,6 +66,11 @@ class RoomConfigFixtures extends Fixture implements DependentFixtureInterface
                 DoorEnum::ALPHA_BAY_CENTRAL_CORRIDOR,
                 DoorEnum::ALPHA_BAY_ALPHA_BAY_2,
             ])
+            ->setEquipments([
+                EquipmentEnum::PATROL_SHIP,
+                EquipmentEnum::PATROL_SHIP,
+                EquipmentEnum::PATROL_SHIP,
+            ])
         ;
 
         $manager->persist($alphaBay);
@@ -74,6 +86,11 @@ class RoomConfigFixtures extends Fixture implements DependentFixtureInterface
                 DoorEnum::BRAVO_BAY_CENTRAL_CORRIDOR,
                 DoorEnum::BRAVO_BAY_REAR_CORRIDOR,
             ])
+            ->setEquipments([
+                EquipmentEnum::PATROL_SHIP,
+                EquipmentEnum::PATROL_SHIP,
+                EquipmentEnum::PATROL_SHIP,
+            ])
         ;
         $manager->persist($bravoBay);
 
@@ -87,6 +104,12 @@ class RoomConfigFixtures extends Fixture implements DependentFixtureInterface
                 DoorEnum::REAR_CORRIDOR_BAY_ALPHA_2,
                 DoorEnum::REAR_ALPHA_TURRET_BAY_ALPHA_2,
             ])
+            ->setEquipments([
+                EquipmentEnum::PATROL_SHIP,
+                EquipmentEnum::PASIPHAE,
+                EquipmentEnum::DYNARCADE,
+                EquipmentEnum::JUKEBOX,
+            ])
         ;
         $manager->persist($alphaBay2);
 
@@ -96,6 +119,11 @@ class RoomConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(RoomEnum::NEXUS)
             ->setDoors([
                 DoorEnum::REAR_CORRIDOR_NEXUS,
+            ])
+            ->setEquipments([
+                EquipmentEnum::NERON_CORE,
+                EquipmentEnum::BIOS_TERMINAL,
+                EquipmentEnum::CALCULATOR,
             ])
         ;
         $manager->persist($nexus);
@@ -108,6 +136,10 @@ class RoomConfigFixtures extends Fixture implements DependentFixtureInterface
                 DoorEnum::MEDLAB_CENTRAL_BRAVO_TURRET,
                 DoorEnum::MEDLAB_LABORATORY,
                 DoorEnum::FRONT_CORRIDOR_MEDLAB,
+            ])
+            ->setEquipments([
+                EquipmentEnum::SURGICAL_PLOT,
+                EquipmentEnum::NARCOTIC_DISTILLER,
             ])
         ;
         $manager->persist($medLab);
@@ -131,6 +163,11 @@ class RoomConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setDoors([
                 DoorEnum::FRONT_CORRIDOR_LABORATORY,
                 DoorEnum::MEDLAB_LABORATORY,
+            ])
+            ->setEquipments([
+                EquipmentEnum::RESEARCH_LABORATORY,
+                EquipmentEnum::CRYO_MODULE,
+                EquipmentEnum::MYCOSCAN,
             ])
         ;
         $manager->persist($laboratory);
@@ -179,6 +216,10 @@ class RoomConfigFixtures extends Fixture implements DependentFixtureInterface
                 GameRationEnum::STANDARD_RATION,
                 GameRationEnum::STANDARD_RATION,
             ])
+            ->setEquipments([
+                EquipmentEnum::KITCHEN,
+                EquipmentEnum::COFFEE_MACHINE,
+            ])
         ;
         $manager->persist($refectory);
 
@@ -210,6 +251,15 @@ class RoomConfigFixtures extends Fixture implements DependentFixtureInterface
                 DoorEnum::ENGINE_ROOM_REAR_ALPHA_TURRET,
                 DoorEnum::ENGINE_ROOM_REAR_BRAVO_TURRET,
             ])
+            ->setEquipments([
+                EquipmentEnum::ANTENNA,
+                EquipmentEnum::PLANET_SCANNER,
+                EquipmentEnum::PILGRED,
+                EquipmentEnum::REACTOR_LATERAL,
+                EquipmentEnum::REACTOR_LATERAL,
+                EquipmentEnum::EMERGENCY_REACTOR,
+                EquipmentEnum::COMBUSTION_CHAMBER,
+            ])
         ;
         $manager->persist($engineRoom);
 
@@ -220,6 +270,9 @@ class RoomConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setDoors([
                 DoorEnum::BRIDGE_FRONT_ALPHA_TURRET,
                 DoorEnum::FRONT_CORRIDOR_FRONT_ALPHA_TURRET,
+            ])
+            ->setEquipments([
+                EquipmentEnum::TURRET_COMMAND,
             ])
         ;
         $manager->persist($frontAlphaTurret);
@@ -232,6 +285,9 @@ class RoomConfigFixtures extends Fixture implements DependentFixtureInterface
                 DoorEnum::FRONT_STORAGE_CENTRAL_ALPHA_TURRET,
                 DoorEnum::ALPHA_BAY_CENTRAL_ALPHA_TURRET,
             ])
+            ->setEquipments([
+                EquipmentEnum::TURRET_COMMAND,
+            ])
         ;
         $manager->persist($centerAlphaTurret);
 
@@ -242,6 +298,9 @@ class RoomConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setDoors([
                 DoorEnum::REAR_ALPHA_TURRET_BAY_ALPHA_2,
                 DoorEnum::ENGINE_ROOM_REAR_ALPHA_TURRET,
+            ])
+            ->setEquipments([
+                EquipmentEnum::TURRET_COMMAND,
             ])
         ;
         $manager->persist($rearAlphaTurret);
@@ -254,6 +313,9 @@ class RoomConfigFixtures extends Fixture implements DependentFixtureInterface
                 DoorEnum::BRIDGE_FRONT_BRAVO_TURRET,
                 DoorEnum::FRONT_CORRIDOR_FRONT_BRAVO_TURRET,
             ])
+            ->setEquipments([
+                EquipmentEnum::TURRET_COMMAND,
+            ])
         ;
         $manager->persist($frontBravoTurret);
 
@@ -265,6 +327,9 @@ class RoomConfigFixtures extends Fixture implements DependentFixtureInterface
                 DoorEnum::MEDLAB_CENTRAL_BRAVO_TURRET,
                 DoorEnum::BRAVO_BAY_CENTRAL_BRAVO_TURRET,
             ])
+            ->setEquipments([
+                EquipmentEnum::TURRET_COMMAND,
+            ])
         ;
         $manager->persist($centreBravoTurret);
 
@@ -275,6 +340,9 @@ class RoomConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setDoors([
                 DoorEnum::REAR_BRAVO_TURRET_BAY_ICARUS,
                 DoorEnum::ENGINE_ROOM_REAR_BRAVO_TURRET,
+            ])
+            ->setEquipments([
+                EquipmentEnum::TURRET_COMMAND,
             ])
         ;
         $manager->persist($rearBravoTurret);
@@ -335,6 +403,9 @@ class RoomConfigFixtures extends Fixture implements DependentFixtureInterface
                 DoorEnum::REAR_BRAVO_TURRET_BAY_ICARUS,
                 DoorEnum::ENGINE_ROOM_BAY_ICARUS,
             ])
+            ->setEquipments([
+                EquipmentEnum::ICARUS,
+            ])
         ;
         $manager->persist($icarusBay);
 
@@ -346,6 +417,12 @@ class RoomConfigFixtures extends Fixture implements DependentFixtureInterface
                 DoorEnum::ALPHA_BAY_ALPHA_DORM,
                 DoorEnum::REAR_CORRIDOR_ALPHA_DORM,
             ])
+            ->setEquipments([
+                EquipmentEnum::BED,
+                EquipmentEnum::BED,
+                EquipmentEnum::BED,
+                EquipmentEnum::SHOWER,
+            ])
         ;
         $manager->persist($alphaDorm);
 
@@ -356,6 +433,12 @@ class RoomConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setDoors([
                 DoorEnum::BRAVO_BAY_BRAVO_DORM,
                 DoorEnum::REAR_CORRIDOR_BRAVO_DORM,
+            ])
+            ->setEquipments([
+                EquipmentEnum::BED,
+                EquipmentEnum::BED,
+                EquipmentEnum::BED,
+                EquipmentEnum::THALASSO,
             ])
         ;
         $manager->persist($bravoDorm);
@@ -379,6 +462,9 @@ class RoomConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setDoors([
                 DoorEnum::ALPHA_BAY_CENTER_ALPHA_STORAGE,
             ])
+            ->setEquipments([
+                EquipmentEnum::OXYGEN_TANK,
+            ])
         ;
         $manager->persist($centerAlphaStorage);
 
@@ -388,6 +474,9 @@ class RoomConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(RoomEnum::CENTER_BRAVO_STORAGE)
             ->setDoors([
                 DoorEnum::BRAVO_BAY_CENTER_BRAVO_STORAGE,
+            ])
+            ->setEquipments([
+                EquipmentEnum::OXYGEN_TANK,
             ])
         ;
         $manager->persist($centreBravoStorage);
@@ -400,6 +489,9 @@ class RoomConfigFixtures extends Fixture implements DependentFixtureInterface
                 DoorEnum::REAR_CORRIDOR_REAR_ALPHA_STORAGE,
                 DoorEnum::ENGINE_ROOM_REAR_ALPHA_STORAGE,
             ])
+            ->setEquipments([
+                EquipmentEnum::FUEL_TANK,
+            ])
         ;
         $manager->persist($rearAlphaStorage);
 
@@ -410,6 +502,9 @@ class RoomConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setDoors([
                 DoorEnum::REAR_CORRIDOR_REAR_BRAVO_STORAGE,
                 DoorEnum::ENGINE_ROOM_REAR_BRAVO_STORAGE,
+            ])
+            ->setEquipments([
+                EquipmentEnum::FUEL_TANK,
             ])
         ;
         $manager->persist($rearBravoStorage);
@@ -448,6 +543,7 @@ class RoomConfigFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies()
     {
         return [
+            EquipmentConfigFixtures::class,
             ItemConfigFixtures::class,
             RationConfigFixtures::class,
             DrugConfigFixtures::class,

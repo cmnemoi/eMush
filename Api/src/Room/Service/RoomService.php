@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\ItemConfig;
+use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Room\Entity\Room;
 use Mush\Room\Entity\RoomConfig;
@@ -76,10 +77,20 @@ class RoomService implements RoomServiceInterface
             $item = $daedalus
                 ->getGameConfig()
                 ->getEquipmentsConfig()
-                ->filter(fn (ItemConfig $item) => $item->getName() === $itemName)->first()
+                ->filter(fn (EquipmentConfig $item) => $item->getName() === $itemName)->first()
             ;
             $gameItem = $this->equipmentService->createGameEquipment($item, $daedalus);
             $room->addEquipment($gameItem);
+        }
+
+        foreach ($roomConfig->getEquipments() as $equipmentName) {
+            $equipment = $daedalus
+                ->getGameConfig()
+                ->getEquipmentsConfig()
+                ->filter(fn (EquipmentConfig $equipment) => $equipment->getName() === $equipmentName)->first()
+            ;
+            $gameEquipment = $this->equipmentService->createGameEquipment($equipment, $daedalus);
+            $room->addEquipment($gameEquipment);
         }
 
         return $this->persist($room);

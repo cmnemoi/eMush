@@ -9,7 +9,7 @@ use Mush\Status\Service\StatusServiceInterface;
 
 class DailyIncrement extends AbstractChargeStrategy
 {
-    protected string $name = ChargeStrategyTypeEnum::DAILY_DECREMENT;
+    protected string $name = ChargeStrategyTypeEnum::DAILY_INCREMENT;
 
     private CycleServiceInterface $cycleService;
 

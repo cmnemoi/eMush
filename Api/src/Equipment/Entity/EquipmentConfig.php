@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\Mechanics\Ration;
+use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Game\Entity\GameConfig;
 
@@ -193,7 +194,7 @@ class EquipmentConfig
     {
         $actions = ActionEnum::getPermanentEquipmentActions();
 
-        if ($this instanceof GameItem){
+        if ($this instanceof ItemConfig){
             $actions = array_merge($actions, ActionEnum::getPermanentItemActions());
         }
 

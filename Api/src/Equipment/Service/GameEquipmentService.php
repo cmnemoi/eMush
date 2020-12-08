@@ -149,8 +149,8 @@ class GameEquipmentService implements GameEquipmentServiceInterface
     public function isOperational(GameEquipment $gameEquipment): bool
     {
         return !($gameEquipment->getStatusByName(EquipmentStatusEnum::BROKEN) ||
-            (($chargedType = $gameEquipment->getStatusByName(EquipmentMechanicEnum::CHARGED)) &&
-                $chargedType->getCharge() > 0)
+            (($chargedStatus = $gameEquipment->getStatusByName(EquipmentStatusEnum::CHARGES)) &&
+                $chargedStatus->getCharge() > 0)
         );
     }
 }

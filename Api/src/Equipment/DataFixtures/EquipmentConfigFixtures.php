@@ -9,11 +9,13 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\Mechanics\Tool;
+use Mush\Equipment\Entity\Mechanics\Charged;
 use Mush\Equipment\Entity\Mechanics\Dismountable;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
+use Mush\Status\Enum\ChargeStrategyTypeEnum;
 
 class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -236,7 +238,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $chargedMechanic
             ->setMaxCharge(9)
             ->setStartCharge(0)
-            ->setChargeStrategy(null)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::NONE)
             ->setIsVisible(false)
         ;
         $combustionChamber = new EquipmentConfig();
@@ -277,7 +279,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $dailyChargeMechanic
             ->setMaxCharge(1)
             ->setStartCharge(1)
-            ->setChargeStrategy(ChargeStrategyTypeEnum::DAYLY_INCREMENT)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_INCREMENT)
             ->setIsVisible(false)
         ;
         $distillerMechanic = new Tool();

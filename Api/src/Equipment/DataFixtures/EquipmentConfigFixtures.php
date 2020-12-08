@@ -200,14 +200,23 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
 
         //@TODO ships
+        $patrolShipChargeMechanic = new Charged();
+        $patrolShipChargeMechanic
+            ->setMaxCharge(10)
+            ->setStartCharge(10)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
+            ->setIsVisible(true)
+        ;
         $patrolShip = new EquipmentConfig();
         $patrolShip
             ->setGameConfig($gameConfig)
             ->setName(EquipmentEnum::PATROL_SHIP)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
+            ->setMechanics(new ArrayCollection([$patrolShipChargeMechanic]))
         ;
         $manager->persist($patrolShip);
+        $manager->persist($patrolShipChargeMechanic);
 
         $pasiphae = new EquipmentConfig();
         $pasiphae
@@ -223,7 +232,13 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $combustionChamberMechanic = new Tool();
         $combustionChamberMechanic->setActions([ActionEnum::INJECT_FUEL_CHAMBER, ActionEnum::RETRIEVE_FUEL_CHAMBER]);
-
+        $chargedMechanic = new Charged();
+        $chargedMechanic
+            ->setMaxCharge(9)
+            ->setStartCharge(0)
+            ->setChargeStrategy(null)
+            ->setIsVisible(false)
+        ;
         $combustionChamber = new EquipmentConfig();
         $combustionChamber
             ->setGameConfig($gameConfig)
@@ -231,10 +246,11 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setBreakableRate(12)
-            ->setMechanics(new ArrayCollection([$combustionChamberMechanic]))
+            ->setMechanics(new ArrayCollection([$combustionChamberMechanic, $chargedMechanic]))
         ;
         $manager->persist($combustionChamber);
         $manager->persist($combustionChamberMechanic);
+        $manager->persist($chargedMechanic);
 
 
         $kitchenMechanic = new Tool();
@@ -257,6 +273,13 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setActionCost(3)
             ->setChancesSuccess(50)
         ;
+        $dailyChargeMechanic = new Charged();
+        $dailyChargeMechanic
+            ->setMaxCharge(1)
+            ->setStartCharge(1)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::DAYLY_INCREMENT)
+            ->setIsVisible(false)
+        ;
         $distillerMechanic = new Tool();
         $distillerMechanic->setActions([ActionEnum::DISPENSE]);
         $narcoticDistiller= new EquipmentConfig();
@@ -265,11 +288,12 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setName(EquipmentEnum::NARCOTIC_DISTILLER)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$distillerMechanic, $distillerDismountableMechanic]))
+            ->setMechanics(new ArrayCollection([$distillerMechanic, $distillerDismountableMechanic,$dailyChargeMechanic]))
         ;
         $manager->persist($narcoticDistiller);
         $manager->persist($distillerMechanic);
         $manager->persist($distillerDismountableMechanic);
+        $manager->persist($dailyChargeMechanic);
 
 
         $shower = new EquipmentConfig();
@@ -319,7 +343,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setBreakableRate(12)
-            ->setMechanics(new ArrayCollection([$coffeMachineMechanic]))
+            ->setMechanics(new ArrayCollection([$coffeMachineMechanic, $dailyChargeMechanic]))
         ;
         $manager->persist($coffeMachine);
         $manager->persist($coffeMachineMechanic);
@@ -351,6 +375,13 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($mycoscan);
         $manager->persist($mycoscanMechanic);
 
+        $turretChargeMechanic = new Charged();
+        $turretChargeMechanic
+            ->setMaxCharge(4)
+            ->setStartCharge(4)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
+            ->setIsVisible(true)
+        ;
         $turretCommandMechanic = new Tool();
         $turretCommandMechanic->setActions([ActionEnum::SHOOT_HUNTER]);
         $turretCommand= new EquipmentConfig();
@@ -360,10 +391,11 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setBreakableRate(12)
-            ->setMechanics(new ArrayCollection([$turretCommandMechanic]))
+            ->setMechanics(new ArrayCollection([$turretCommandMechanic, $turretChargeMechanic]))
         ;
         $manager->persist($turretCommand);
         $manager->persist($turretCommandMechanic);
+        $manager->persist($turretChargeMechanic);
 
         $surgicalPlotMechanic = new Tool();
         $surgicalPlotMechanic->setActions([ActionEnum::SELF_SURGERY, ActionEnum::SURGERY]);

@@ -25,7 +25,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
         $hackerKitMechanic = new Tool();
-        $hackerKitMechanic->setActions([ActionEnum::HACK]);
+        $hackerKitMechanic->setGrantActions([ActionEnum::HACK]);
 
         $hackerKit = new ItemConfig();
         $hackerKit
@@ -45,7 +45,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($hackerKitMechanic);
 
         $blockOfPostItMechanic = new Tool();
-        $blockOfPostItMechanic->setActions([ActionEnum::WRITE]);
+        $blockOfPostItMechanic->setGrantActions([ActionEnum::WRITE]);
 
         $blockOfPostIt = new ItemConfig();
         $blockOfPostIt
@@ -93,7 +93,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($dismountableMechanic);
 
         $ductTapeMechanic = new Tool();
-        $ductTapeMechanic->setActions([ActionEnum::GAG]);
+        $ductTapeMechanic->setGrantActions([ActionEnum::GAG]);
 
         $ductTape = new ItemConfig();
         $ductTape
@@ -147,7 +147,8 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsVisible(true)
         ;
         $microwaveMechanic = new Tool();
-        $microwaveMechanic->setActions([ActionEnum::EXPRESS_COOK]);
+        $microwaveMechanic->setGrantActions([ActionEnum::EXPRESS_COOK]);
+
         $microwave = new ItemConfig();
         $microwave
             ->setGameConfig($gameConfig)
@@ -169,7 +170,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($chargedMechanic);
 
         $superFreezerMechanic = new Tool();
-        $superFreezerMechanic->setActions([ActionEnum::HYPERFREEZE]);
+        $superFreezerMechanic->setGrantActions([ActionEnum::HYPERFREEZE]);
 
         $superFreezer = new ItemConfig();
         $superFreezer
@@ -210,7 +211,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($alienHolographicTVMechanic);
 
         $medikitMechanic = new Tool();
-        $medikitMechanic->setActions([ActionEnum::HEAL]);
+        $medikitMechanic->setGrantActions([ActionEnum::HEAL]);
 
         $medikit = new ItemConfig();
         $medikit
@@ -287,7 +288,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($bandageMechanic);
 
         $retroFungalSerumMechanic = new Tool();
-        $retroFungalSerumMechanic->setActions([ActionEnum::CURE]);
+        $retroFungalSerumMechanic->setGrantActions([ActionEnum::CURE]);
 
         $retroFungalSerum = new ItemConfig();
         $retroFungalSerum->setGameConfig($gameConfig)

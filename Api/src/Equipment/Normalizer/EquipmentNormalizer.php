@@ -7,6 +7,7 @@ use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Entity\GameItem;
 use Mush\User\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -57,6 +58,36 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface
             ;
         }
 
+
+        //Handle tools
+        if (!$equipment instanceof Door){
+            if ($equipment->getRoom()){
+                $place=$equipment->getRoom();
+            } else{
+                $place=$equipment->getPlayer()->getRoom();
+            }
+            $tools=$place->GetEquipments()
+                ->filter(fn (GameEquipment $gameEquipment) =>  $gameEquipment->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL));
+            foreach ($tools as $tool){
+                foreach($tool->getMechanicByName(EquipmentMechanicEnum::TOOL)->getGrantActions() as $actionClass){
+                    if ($actionClass instanceof Action) {
+                        if ($actionClass->canExecute()) {
+                            $actions[] = [
+                                'key' => $actionName,
+                                'name' => $this->translator->trans("{$actionName}.name", [], 'actions'),
+                                'description' => $this->translator->trans("{$actionName}.description", [], 'actions'),
+                                'actionPointCost' => $actionClass->getActionCost()->getActionPointCost(),
+                                'movementPointCost' => $actionClass->getActionCost()->getMovementPointCost(),
+                                'moralPointCost' => $actionClass->getActionCost()->getMoralPointCost(),
+                            ];
+                        }
+                    }
+                }
+            };
+        }
+        
+
+
         foreach ($equipment->getActions() as $actionName) {
             $actionClass = $this->actionService->getAction($actionName);
             if ($actionClass instanceof Action) {
@@ -73,6 +104,7 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface
                 }
             }
         }
+
 
         return [
             'id' => $equipment->getId(),

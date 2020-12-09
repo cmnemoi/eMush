@@ -45,7 +45,8 @@ class Weapon extends Tool
      */
     private array $criticalFailEvents = [];
 
-    protected array $actions = [ActionEnum::ATTACK];
+
+    protected array $grantActions = [ActionEnum::ATTACK];
 
     public function getBaseAccuracy(): int
     {
@@ -109,7 +110,7 @@ class Weapon extends Tool
 
     public function getCriticalFailEvents(): array
     {
-        return $this->baseDamageRange;
+        return $this->criticalFailEvents;
     }
 
     public function setCriticalFailEvents(array $criticalFailEvents): Weapon

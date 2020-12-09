@@ -48,27 +48,29 @@ class ItemPileNormalizer implements ContextAwareNormalizerInterface
         foreach($items as $item){
             $itemName=$item->getEquipment()->getName();
             $itemStatuses=$item->getStatuses();
-            
-            if ($item->getEquipment()->isStackable() &&
-                count(array_filter($piles, function ($pile) use ($itemName, $itemStatuses)
-                         {return $pile['key'] === $itemName && $this->compareStatusesForPiles($itemStatuses, $pile['statuses']);}))>0){
 
-                //@TODO mush player see contaminated rations in a different pile
-                //@TODO if ration is contaminated put it on top of the pile
+            if((!$item->GetStatusByName(EquipmentStatusEnum::HIDDEN) ||
+                    ($item->GetStatusByName(EquipmentStatusEnum::HIDDEN) &&
+                    $item->GetStatusByName(EquipmentStatusEnum::HIDDEN)->getPlayer()===$this->getUser()->getCurrentGame()))){
 
-                $pileKey=array_search(current(array_filter($piles, function ($pile) use ($itemName, $itemStatuses)
-                        {return $pile['key'] === $itemName && $this->compareStatusesForPiles($itemStatuses, $pile['statuses']);})), $piles);
-                
-                if (array_key_exists('number', $piles[$pileKey])){
-                    $piles[$pileKey]['number'] = $piles[$pileKey]['number']+1;
-                }else{
-                    $piles[$pileKey]['number'] = 2;
-                }
+                if ($item->getEquipment()->isStackable() &&
+                    count(array_filter($piles, function ($pile) use ($itemName, $itemStatuses)
+                            {return $pile['key'] === $itemName && $this->compareStatusesForPiles($itemStatuses, $pile['statuses']);}))>0){
 
-            } else{
-                if(!(!$item->GetStatusByName(EquipmentStatusEnum::HIDDEN) &&
-                    $item->GetStatusByName(EquipmentStatusEnum::HIDDEN)->getPlayer()!==$this->getUser()->getCurrentGame())){
-                    $piles[]=$this->equipmentNormalizer->normalize($item);
+                    //@TODO mush player see contaminated rations in a different pile
+                    //@TODO if ration is contaminated put it on top of the pile
+
+                    $pileKey=array_search(current(array_filter($piles, function ($pile) use ($itemName, $itemStatuses)
+                            {return $pile['key'] === $itemName && $this->compareStatusesForPiles($itemStatuses, $pile['statuses']);})), $piles);
+                    
+                    if (array_key_exists('number', $piles[$pileKey])){
+                        $piles[$pileKey]['number'] = $piles[$pileKey]['number']+1;
+                    }else{
+                        $piles[$pileKey]['number'] = 2;
+                    }
+
+                } else{
+                        $piles[]=$this->equipmentNormalizer->normalize($item);
                 }
             }
         };
@@ -81,26 +83,26 @@ class ItemPileNormalizer implements ContextAwareNormalizerInterface
         return $this->tokenStorage->getToken()->getUser();
     }
 
-    private function filterStatusesForPiles(Collection $statuses): Collection
-    {
-        return $statuses->filter(fn (Status $status) => 
-            ($status->getName===EquipmentStatusEnum::HIDDEN ||
-             $status->getName===EquipmentStatusEnum::BROKEN ||
-             $status->getName===EquipmentStatusEnum::UNSTABLE ||
-             $status->getName===EquipmentStatusEnum::HAZARDOUS ||
-             $status->getName===EquipmentStatusEnum::DECOMPOSING ||
-             $status->getName===EquipmentStatusEnum::FROZEN));
-    }
-
     private function compareStatusesForPiles(Collection $itemStatuses, Collection $pileStatuses): bool
     {
-        if ($itemStatuses->filter(fn (Status $status) => $status->getName===EquipmentStatusEnum::DOCUMENT_CONTENT)->isEmpty()){
-            return $this->filterStatusesForPiles($itemStatuses)->toArray()===$this->filterStatusesForPiles($pileStatuses)->toArray();
-        } else{
-            $itemContent=$itemStatuses->filter(fn (Status $status) => $status->getName===EquipmentStatusEnum::DOCUMENT_CONTENT)->first()->getContent();
-            $pileContent=$itemStatuses->filter(fn (Status $status) => $status->getName===EquipmentStatusEnum::DOCUMENT_CONTENT)->first()->getContent();
-            return $this->filterStatusesForPiles($itemStatuses)->toArray()===$this->filterStatusesForPiles($pileStatuses)->toArray() && $itemContent===$pileContent;
+        //if the item is a doc stack the one with the same content (ie same document_content status)
+        $statusName=EquipmentStatusEnum::DOCUMENT_CONTENT;
+        if (($itemStatuses->filter(fn (Status $status) => ($status->getName()===$statusName))->isEmpty()!==
+            $pileStatuses->filter(fn (Status $status) => ($status->getName()===$statusName))->isEmpty()) ||
+            (!$itemStatuses->filter(fn (Status $status) => ($status->getName()===$statusName))->isEmpty() &&
+            $itemStatuses->filter(fn (Status $status) => ($status->getName()===$statusName))->first()->getContent()!==
+            $pileStatuses->filter(fn (Status $status) => ($status->getName()===$statusName))->first()->getContent())){
+            return false;
         }
-            
+
+        // in other cases check that the status on the item are the same (ie same Name)
+        foreach(EquipmentStatusEnum::splitItemPileStatus() as $statusName){
+            if ($itemStatuses->filter(fn (Status $status) => ($status->getName()===$statusName))->isEmpty()!==
+                $pileStatuses->filter(fn (Status $status) => ($status->getName()===$statusName))->isEmpty()){
+                    return false;
+            }
+        }
+
+        return true;
     }
 }

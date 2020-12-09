@@ -30,6 +30,7 @@ class Coffee extends Action
     private RoomLogServiceInterface $roomLogService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
+    private StatusServiceInterface $statusService;
     private GameConfig $gameConfig;
 
     public function __construct(
@@ -37,6 +38,7 @@ class Coffee extends Action
         RoomLogServiceInterface $roomLogService,
         GameEquipmentServiceInterface $gameEquipmentService,
         PlayerServiceInterface $playerService,
+        StatusServiceInterface $statusService,
         GameConfigServiceInterface $gameConfigService
     ) {
         parent::__construct($eventDispatcher);
@@ -44,6 +46,7 @@ class Coffee extends Action
         $this->roomLogService = $roomLogService;
         $this->gameEquipmentService = $gameEquipmentService;
         $this->playerService = $playerService;
+        $this->statusService = $statusService;
         $this->gameConfig = $gameConfigService->getConfig();
 
         $this->actionCost->setActionPointCost(0);
@@ -78,6 +81,16 @@ class Coffee extends Action
         $this->gameEquipmentService->persist($newItem);
         
         $this->playerService->persist($this->player);
+
+        $chargeStatus = $this->gameEquipmentService->getOperationalEquipmentsByName(
+            EquipmentEnum::COFFEE_MACHINE,
+            $this->player,
+            ReachEnum::SHELVE
+            )->first()->getStatusByName(EquipmentStatusEnum::CHARGES);
+
+        $chargeStatus->addCharge(-1);
+
+        $this->statusService->persist($chargeStatus);
 
         return new Success();
     }

@@ -31,7 +31,7 @@ class ActionEnum
     public const BUILD = 'build';
     public const WATER_PLANT = 'water_plant';
     public const TREAT_PLANT = 'treat_plant';
-    public const TRANSPLANT = 'Transplant';
+    public const TRANSPLANT = 'transplant';
     public const HYBRIDIZE = 'hybridize';
     public const HACK = 'hack';
     public const EXTINGUISH = 'extinguish';

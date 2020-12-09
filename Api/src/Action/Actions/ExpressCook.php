@@ -99,16 +99,18 @@ class ExpressCook extends Action
             $this->gameEquipmentService->persist($this->gameEquipment);
         }
 
-        $microwave = $this->gameEquipmentService->getOperationalEquipmentsByName(
+        $chargeStatus = $this->gameEquipmentService->getOperationalEquipmentsByName(
              ToolItemEnum::MICROWAVE,
              $this->player,
              ReachEnum::SHELVE_NOT_HIDDEN
-             )->first();
-        $microwave->getStatusByName(EquipmentStatusEnum::CHARGES)->addCharge(-1);
+             )->first()->getStatusByName(EquipmentStatusEnum::CHARGES);
+
+        $chargeStatus->addCharge(-1);
+        
+        $this->statusService->persist($chargeStatus);
 
         //@TODO add effect on the link with sol
 
-        $this->statusService->persist($microwave->getStatusByName(EquipmentStatusEnum::CHARGES));
 
         $this->playerService->persist($this->player);
 

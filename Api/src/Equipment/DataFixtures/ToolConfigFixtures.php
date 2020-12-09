@@ -142,14 +142,12 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $chargedMechanic = new Charged();
         $chargedMechanic
             ->setMaxCharge(4)
-            ->setStartCharge(0)
+            ->setStartCharge(1)
             ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
             ->setIsVisible(true)
         ;
-
         $microwaveMechanic = new Tool();
         $microwaveMechanic->setActions([ActionEnum::EXPRESS_COOK]);
-
         $microwave = new ItemConfig();
         $microwave
             ->setGameConfig($gameConfig)

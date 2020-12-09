@@ -109,4 +109,10 @@ class ItemConfig extends EquipmentConfig
 
         return $this;
     }
+
+    public function getActions(): Collection
+    {
+        $actions = array_merge(ActionEnum::getPermanentItemActions(), parent::getActions()->toArray());
+        return new ArrayCollection($actions);
+    }
 }

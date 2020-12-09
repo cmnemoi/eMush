@@ -6,6 +6,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Normalizer\EquipmentNormalizer;
+use Mush\Equipment\Normalizer\ItemPileNormalizer;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
 use Mush\User\Entity\User;
@@ -16,15 +17,18 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class RoomNormalizer implements ContextAwareNormalizerInterface
 {
     private EquipmentNormalizer $equipmentNormalizer;
+    private itemPileNormalizer $itemPileNormalizer;
     private TranslatorInterface $translator;
     private TokenStorageInterface $tokenStorage;
 
     public function __construct(
         EquipmentNormalizer $equipmentNormalizer,
+        ItemPileNormalizer $itemPileNormalizer,
         TranslatorInterface $translator,
         TokenStorageInterface $tokenStorage
     ) {
         $this->equipmentNormalizer = $equipmentNormalizer;
+        $this->itemPileNormalizer = $itemPileNormalizer;
         $this->translator = $translator;
         $this->tokenStorage = $tokenStorage;
     }
@@ -68,16 +72,18 @@ class RoomNormalizer implements ContextAwareNormalizerInterface
             );
         }
 
+
         $equipments = [];
-        $items = [];
         /** @var GameEquipment $equipment */
         foreach ($room->getEquipments() as $equipment) {
-            if ($equipment instanceof GameItem) {
-                $items[] = $this->equipmentNormalizer->normalize($equipment);
-            } else {
+            if (!$equipment instanceof GameItem) {
                 $equipments[] = $this->equipmentNormalizer->normalize($equipment);
             }
         }
+
+        $items=$this->itemPileNormalizer->normalize($room->getEquipments());
+
+        
 
         return [
             'id' => $room->getId(),

@@ -231,9 +231,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
 
         //Tools
-
         $combustionChamberMechanic = new Tool();
-        $combustionChamberMechanic->setActions([ActionEnum::INJECT_FUEL_CHAMBER, ActionEnum::RETRIEVE_FUEL_CHAMBER]);
+        $combustionChamberMechanic->setGrantActions([ActionEnum::INJECT_FUEL_CHAMBER, ActionEnum::RETRIEVE_FUEL_CHAMBER]);
         $chargedMechanic = new Charged();
         $chargedMechanic
             ->setMaxCharge(9)
@@ -256,7 +255,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
 
         $kitchenMechanic = new Tool();
-        $kitchenMechanic->setActions([ActionEnum::COOK]);
+        $kitchenMechanic->setGrantActions([ActionEnum::COOK]);
         $kitchen = new EquipmentConfig();
         $kitchen
             ->setGameConfig($gameConfig)
@@ -400,7 +399,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($turretChargeMechanic);
 
         $surgicalPlotMechanic = new Tool();
-        $surgicalPlotMechanic->setActions([ActionEnum::SELF_SURGERY, ActionEnum::SURGERY]);
+        $surgicalPlotMechanic->setGrantActions([ActionEnum::SELF_SURGERY, ActionEnum::SURGERY]);
         $surgicalPlot= new EquipmentConfig();
         $surgicalPlot
             ->setGameConfig($gameConfig)
@@ -414,7 +413,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($surgicalPlotMechanic);
 
         $fuelTankMechanic = new Tool();
-        $fuelTankMechanic->setActions([ActionEnum::INJECT_FUEL, ActionEnum::RETRIEVE_FUEL]);
+        $fuelTankMechanic->setGrantActions([ActionEnum::INJECT_FUEL, ActionEnum::RETRIEVE_FUEL]);
         $fuelTank = new EquipmentConfig();
         $fuelTank
             ->setGameConfig($gameConfig)
@@ -428,7 +427,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($fuelTankMechanic);
 
         $oxygenTankMechanic = new Tool();
-        $oxygenTankMechanic->setActions([ActionEnum::INJECT_OXYGEN, ActionEnum::RETRIEVE_OXYGEN]);
+        $oxygenTankMechanic->setGrantActions([ActionEnum::INJECT_OXYGEN, ActionEnum::RETRIEVE_OXYGEN]);
         $oxygenTank = new EquipmentConfig();
         $oxygenTank
             ->setGameConfig($gameConfig)

@@ -48,9 +48,7 @@ class ItemPileNormalizer implements ContextAwareNormalizerInterface
         foreach($items as $item){
             $itemName=$item->getEquipment()->getName();
             $itemStatuses=$item->getStatuses();
-
-            //@TODO don't display hidden items by other players
-
+            
             if ($item->getEquipment()->isStackable() &&
                 count(array_filter($piles, function ($pile) use ($itemName, $itemStatuses)
                          {return $pile['key'] === $itemName && $this->compareStatusesForPiles($itemStatuses, $pile['statuses']);}))>0){
@@ -68,7 +66,10 @@ class ItemPileNormalizer implements ContextAwareNormalizerInterface
                 }
 
             } else{
-                $piles[]=$this->equipmentNormalizer->normalize($item);
+                if(!(!$item->GetStatusByName(EquipmentStatusEnum::HIDDEN) &&
+                    $item->GetStatusByName(EquipmentStatusEnum::HIDDEN)->getPlayer()!==$this->getUser()->getCurrentGame())){
+                    $piles[]=$this->equipmentNormalizer->normalize($item);
+                }
             }
         };
 

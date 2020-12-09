@@ -61,15 +61,14 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface
 
         //Handle tools
         if (!$equipment instanceof Door){
-            if ($equipment->getRoom()){
-                $place=$equipment->getRoom();
-            } else{
-                $place=$equipment->getPlayer()->getRoom();
-            }
+
+            $place= $equipment->getRoom() ?? $equipment->getPlayer()->getRoom();
             $tools=$place->GetEquipments()
                 ->filter(fn (GameEquipment $gameEquipment) =>  $gameEquipment->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL));
             foreach ($tools as $tool){
-                foreach($tool->getMechanicByName(EquipmentMechanicEnum::TOOL)->getGrantActions() as $actionClass){
+                foreach($tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getGrantActions() as $actionName){
+                    $actionClass = $this->actionService->getAction($actionName);
+                    $actionClass->loadParameters($this->getUser()->getCurrentGame(), $actionParameter);
                     if ($actionClass instanceof Action) {
                         if ($actionClass->canExecute()) {
                             $actions[] = [

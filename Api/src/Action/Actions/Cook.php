@@ -9,7 +9,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Equipment\Enum\ToolItemEnum;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\GameConfigServiceInterface;
@@ -21,9 +21,9 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class ExpressCook extends Action
+class Cook extends Action
 {
-    protected string $name = ActionEnum::EXPRESS_COOK;
+    protected string $name = ActionEnum::COOK;
 
     private GameEquipment $gameEquipment;
 
@@ -49,7 +49,7 @@ class ExpressCook extends Action
         $this->statusService = $statusService;
         $this->gameConfig = $gameConfigService->getConfig();
 
-        $this->actionCost->setActionPointCost(0);
+        $this->actionCost->setActionPointCost(1);
     }
 
     public function loadParameters(Player $player, ActionParameters $actionParameters)
@@ -69,7 +69,7 @@ class ExpressCook extends Action
              $this->gameEquipment->getStatusByName(EquipmentStatusEnum::FROZEN)) &&
              $this->player->canReachEquipment($this->gameEquipment) &&
              !$this->gameEquipmentService
-                    ->getOperationalEquipmentsByName(ToolItemEnum::MICROWAVE, $this->player, ReachEnum::SHELVE_NOT_HIDDEN)->isEmpty()
+                    ->getOperationalEquipmentsByName(EquipmentEnum::KITCHEN, $this->player, ReachEnum::SHELVE)->isEmpty()
         ;
     }
 
@@ -99,19 +99,6 @@ class ExpressCook extends Action
             $this->gameEquipmentService->persist($this->gameEquipment);
         }
 
-        $chargeStatus = $this->gameEquipmentService->getOperationalEquipmentsByName(
-             ToolItemEnum::MICROWAVE,
-             $this->player,
-             ReachEnum::SHELVE_NOT_HIDDEN
-             )->first()->getStatusByName(EquipmentStatusEnum::CHARGES);
-
-        $chargeStatus->addCharge(-1);
-        
-        $this->statusService->persist($chargeStatus);
-
-        //@TODO add effect on the link with sol
-
-
         $this->playerService->persist($this->player);
 
         return new Success();
@@ -120,7 +107,7 @@ class ExpressCook extends Action
     protected function createLog(ActionResult $actionResult): void
     {
         $this->roomLogService->createEquipmentLog(
-            ActionEnum::EXPRESS_COOK,
+            ActionEnum::COOK,
             $this->player->getRoom(),
             $this->player,
             $this->gameEquipment,

@@ -48,4 +48,11 @@ class GameItem extends GameEquipment
 
         return $this;
     }
+
+    public function removeLocation(): GameItem
+    {
+        $this->setRoom(null);
+        $this->setPlayer(null);
+        return $this;
+    }
 }

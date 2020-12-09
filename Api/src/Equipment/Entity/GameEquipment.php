@@ -147,10 +147,6 @@ class GameEquipment
     public function removeLocation(): GameEquipment
     {
         $this->setRoom(null);
-        if ($this instanceof GameItem) {
-            $this->setPlayer(null);
-        }
-
         return $this;
     }
 

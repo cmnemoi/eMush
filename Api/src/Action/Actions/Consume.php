@@ -67,7 +67,7 @@ class Consume extends Action
         return !($this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::DRUG) &&
                 $this->player->canReachEquipment($this->gameEquipment) &&
                 $this->player->getStatusByName(PlayerStatusEnum::DRUG_EATEN)) &&
-                $this->equipment->getEquipment()->hasAction(ActionEnum::CONSUME) &&
+                $this->gameEquipment->getEquipment()->hasAction(ActionEnum::CONSUME) &&
                 !$this->player->getStatusByName(PlayerStatusEnum::FULL_STOMACH);
     }
 

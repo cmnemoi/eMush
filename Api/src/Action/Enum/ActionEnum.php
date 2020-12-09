@@ -48,6 +48,28 @@ class ActionEnum
     public const TRY_THE_KUBE = 'try_the_kube';
     public const OPEN = 'open';
 
+    // Item-enabled actions
+    public const INJECT_FUEL = 'inject_fuel';
+    public const INJECT_FUEL_CHAMBER = 'inject_fuel_chamber';
+    public const INJECT_OXYGEN = 'inject_oxygen';
+    public const RETRIEVE_FUEL = 'retrieve_fuel';
+    public const RETRIEVE_FUEL_CHAMBER = 'retrieve_fuel_chamber';
+    public const RETRIEVE_OXYGEN = 'retrieve_oxygen';
+    public const COOK = 'cook';
+    public const COFFEE = 'coffee';
+    public const SELF_SURGERY = 'self_surgery';
+    public const CHECK_INFECTION = 'check_infection';
+    public const SHOWER = 'shower';
+    public const CHECK_ROSTER = 'check_roster';
+    public const PLAY_ARCADE = 'play_arcade';
+    public const LIE_DOWN = 'lie_down';
+    public const DISPENSE = 'dispense';
+    public const SHOOT_HUNTER = 'shoot_hunter';
+    public const ACCES_TERMINAL='acces_terminal';
+
+
+    
+
     // Skill-related actions (Humans)
     public const FIERY_SPEECH = 'fiery_speech';
     public const KIND_WORDS = 'kind_words';
@@ -100,8 +122,6 @@ class ActionEnum
             self::TAKE,
             self::DROP,
             self::HIDE,
-            self::EXAMINE,
-            self::REPAIR,
         ];
     }
 

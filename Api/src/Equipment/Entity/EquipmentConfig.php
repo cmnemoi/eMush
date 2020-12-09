@@ -193,6 +193,10 @@ class EquipmentConfig
     {
         $actions = ActionEnum::getPermanentEquipmentActions();
 
+        if ($this instanceof GameItem){
+            $actions = array_merge($actions, ActionEnum::getPermanentItemActions());
+        }
+
         foreach ($this->getMechanics() as $mechanic) {
             $actions = array_merge($actions, $mechanic->getActions());
         }

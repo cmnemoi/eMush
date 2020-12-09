@@ -9,7 +9,7 @@ use Mush\Daedalus\Entity\Criteria\DaedalusCriteria;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Daedalus\Repository\DaedalusRepository;
-use Mush\Equipment\Entity\ItemConfig;
+use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
@@ -118,7 +118,7 @@ class DaedalusService implements DaedalusServiceInterface
                 $item = $daedalus
                     ->getGameConfig()
                     ->getEquipmentsConfig()
-                    ->filter(fn (ItemConfig $item) => $item->getName() === $itemName)
+                    ->filter(fn (EquipmentConfig $item) => $item->getName() === $itemName)
                     ->first()
                 ;
                 $item = $this->gameEquipmentService->createGameEquipment($item, $daedalus);

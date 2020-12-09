@@ -75,7 +75,7 @@ class RoomNormalizer implements ContextAwareNormalizerInterface
             if ($equipment instanceof GameItem) {
                 $items[] = $this->equipmentNormalizer->normalize($equipment);
             } else {
-                $items[] = $this->equipmentNormalizer->normalize($equipment);
+                $equipments[] = $this->equipmentNormalizer->normalize($equipment);
             }
         }
 

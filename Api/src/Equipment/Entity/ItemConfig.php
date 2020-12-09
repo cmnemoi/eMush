@@ -109,15 +109,4 @@ class ItemConfig extends EquipmentConfig
 
         return $this;
     }
-
-    public function getActions(): Collection
-    {
-        $actions = ActionEnum::getPermanentItemActions();
-
-        foreach ($this->getMechanics() as $mechanic) {
-            $actions = array_merge($actions, $mechanic->getActions());
-        }
-
-        return new ArrayCollection($actions);
-    }
 }

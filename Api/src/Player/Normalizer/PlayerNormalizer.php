@@ -4,6 +4,7 @@ namespace Mush\Player\Normalizer;
 
 use Mush\Action\Actions\Action;
 use Mush\Action\Entity\ActionParameters;
+use Mush\Action\Service\ActionServiceInterface;
 use Mush\Daedalus\Normalizer\DaedalusNormalizer;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\GameEquipment;
@@ -14,6 +15,7 @@ use Mush\Action\Enum\ActionTargetEnum;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Player\Entity\Player;
 use Mush\Room\Normalizer\RoomNormalizer;
+use Mush\Action\Normalizer\ActionNormalizer;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\User\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -28,6 +30,8 @@ class PlayerNormalizer implements ContextAwareNormalizerInterface
     private TokenStorageInterface $tokenStorage;
     private EquipmentNormalizer $equipmentNormalizer;
     private StatusNormalizer $statusNormalizer;
+    private ActionNormalizer $actionNormalizer;
+    private ActionServiceInterface $actionService;
 
     public function __construct(
         DaedalusNormalizer $daedalusNormalizer,
@@ -35,7 +39,9 @@ class PlayerNormalizer implements ContextAwareNormalizerInterface
         TranslatorInterface $translator,
         TokenStorageInterface $tokenStorage,
         EquipmentNormalizer $equipmentNormalizer,
-        StatusNormalizer $statusNormalizer
+        StatusNormalizer $statusNormalizer,
+        ActionNormalizer $actionNormalizer,
+        ActionServiceInterface $actionService
     ) {
         $this->daedalusNormalizer = $daedalusNormalizer;
         $this->roomNormalizer = $roomNormalizer;
@@ -43,6 +49,8 @@ class PlayerNormalizer implements ContextAwareNormalizerInterface
         $this->tokenStorage = $tokenStorage;
         $this->equipmentNormalizer = $equipmentNormalizer;
         $this->statusNormalizer = $statusNormalizer;
+        $this->actionNormalizer = $actionNormalizer;
+        $this->actionService = $actionService;
     }
 
     public function supportsNormalization($data, string $format = null, array $context = [])
@@ -82,11 +90,28 @@ class PlayerNormalizer implements ContextAwareNormalizerInterface
         $actionParameter = new ActionParameters();
         $actionParameter->setPlayer($player);
 
+        $actions=[];
         if ($this->getUser()->getCurrentGame() === $player) {
-            $actions = ActionEnum::getPermanentSelfActions();
+            foreach (ActionEnum::getPermanentSelfActions() as $actionName){
+                $actionClass = $this->actionService->getAction($actionName);
+
+                if ($actionClass instanceof Action){
+                    $actionClass->loadParameters($this->getUser()->getCurrentGame(), $actionParameter);
+                    $normedAction=$this->actionNormalizer->normalize($actionClass);
+                    if(count($normedAction)>0){$actions[] = $normedAction;}
+                }
+            }
         }else{
-            $actions = ActionEnum::getPermanentPlayerActions();
+            foreach (ActionEnum::getPermanentPlayerActions() as $actionName){
+                $actionClass = $this->actionService->getAction($actionName);
+                if ($actionClass instanceof Action){
+                    $actionClass->loadParameters($this->getUser()->getCurrentGame(), $actionParameter);
+                    $normedAction=$this->actionNormalizer->normalize($actionClass);
+                    if(count($normedAction)>0){$actions[] = $normedAction;}
+                }
+            }
         }
+
         //Handle tools
         $tools=$this->getUser()->getCurrentGame()->getReachableTools()
             ->filter(fn (GameEquipment $gameEquipment) => 
@@ -106,18 +131,10 @@ class PlayerNormalizer implements ContextAwareNormalizerInterface
             }
             foreach($playerActions as $actionName){
                 $actionClass = $this->actionService->getAction($actionName);
-                $actionClass->loadParameters($this->getUser()->getCurrentGame(), $actionParameter);
-                if ($actionClass instanceof Action) {
-                    if ($actionClass->canExecute()) {
-                        $actions[] = [
-                            'key' => $actionName,
-                            'name' => $this->translator->trans("{$actionName}.name", [], 'actions'),
-                            'description' => $this->translator->trans("{$actionName}.description", [], 'actions'),
-                            'actionPointCost' => $actionClass->getActionCost()->getActionPointCost(),
-                            'movementPointCost' => $actionClass->getActionCost()->getMovementPointCost(),
-                            'moralPointCost' => $actionClass->getActionCost()->getMoralPointCost(),
-                        ];
-                    }
+                if ($actionClass instanceof Action){
+                    $actionClass->loadParameters($this->getUser()->getCurrentGame(), $actionParameter);
+                    $normedAction=$this->actionNormalizer->normalize($actionClass);
+                    if(count($normedAction)>0){$actions[] = $normedAction;}
                 }
             }
         };

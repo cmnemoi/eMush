@@ -145,6 +145,7 @@ class ActionEnum
             self::UNGAG,
             self::GET_UP,
             self::GUARD,
+            self::SEARCH,
         ];
     }
 

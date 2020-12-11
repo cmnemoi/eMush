@@ -11,6 +11,7 @@ use Mush\Game\Enum\SkillEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Status\Normalizer\StatusNormalizer;
+use Mush\Action\Normalizer\ActionNormalizer;
 use Mush\Equipment\Entity\GameItem;
 use Mush\User\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -25,17 +26,20 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface
     private ActionServiceInterface $actionService;
     private TokenStorageInterface $tokenStorage;
     private StatusNormalizer $statusNormalizer;
+    private ActionNormalizer $actionNormalizer;
 
     public function __construct(
         TranslatorInterface $translator,
         ActionServiceInterface $actionService,
         TokenStorageInterface $tokenStorage,
-        StatusNormalizer $statusNormalizer
+        StatusNormalizer $statusNormalizer,
+        ActionNormalizer $actionNormalizer
     ) {
         $this->translator = $translator;
         $this->actionService = $actionService;
         $this->tokenStorage = $tokenStorage;
         $this->statusNormalizer = $statusNormalizer;
+        $this->actionNormalizer = $actionNormalizer;
     }
 
     public function supportsNormalization($data, string $format = null, array $context = [])
@@ -79,18 +83,10 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface
                                 ->getActionsTarget()[$actionName]===ActionTargetEnum::EQUIPMENT);
             foreach($itemActions as $actionName){
                 $actionClass = $this->actionService->getAction($actionName);
-                $actionClass->loadParameters($this->getUser()->getCurrentGame(), $actionParameter);
-                if ($actionClass instanceof Action) {
-                    if ($actionClass->canExecute()) {
-                        $actions[] = [
-                            'key' => $actionName,
-                            'name' => $this->translator->trans("{$actionName}.name", [], 'actions'),
-                            'description' => $this->translator->trans("{$actionName}.description", [], 'actions'),
-                            'actionPointCost' => $actionClass->getActionCost()->getActionPointCost(),
-                            'movementPointCost' => $actionClass->getActionCost()->getMovementPointCost(),
-                            'moralPointCost' => $actionClass->getActionCost()->getMoralPointCost(),
-                        ];
-                    }
+                if ($actionClass instanceof Action){
+                    $actionClass->loadParameters($this->getUser()->getCurrentGame(), $actionParameter);
+                    $normedAction=$this->actionNormalizer->normalize($actionClass);
+                    if(count($normedAction)>0){$actions[] = $normedAction;}
                 }
             }
         };
@@ -100,18 +96,11 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface
 
         foreach ($equipment->getActions() as $actionName) {
             $actionClass = $this->actionService->getAction($actionName);
-            if ($actionClass instanceof Action) {
+            if ($actionClass instanceof Action){
                 $actionClass->loadParameters($this->getUser()->getCurrentGame(), $actionParameter);
-                if ($actionClass->canExecute()) {
-                    $actions[] = [
-                        'key' => $actionName,
-                        'name' => $this->translator->trans("{$actionName}.name", [], 'actions'),
-                        'description' => $this->translator->trans("{$actionName}.description", [], 'actions'),
-                        'actionPointCost' => $actionClass->getActionCost()->getActionPointCost(),
-                        'movementPointCost' => $actionClass->getActionCost()->getMovementPointCost(),
-                        'moralPointCost' => $actionClass->getActionCost()->getMoralPointCost(),
-                    ];
-                }
+
+                $normedAction=$this->actionNormalizer->normalize($actionClass);
+                if(count($normedAction)>0){$actions[] = $normedAction;}
             }
         }
 

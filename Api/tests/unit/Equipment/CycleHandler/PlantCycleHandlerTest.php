@@ -177,7 +177,7 @@ class PlantCycleHandlerTest extends TestCase
         $this->equipmentEffectService->shouldReceive('getPlantEffect')->andReturn($plantEffect);
 
         $chargeStatus = new ChargeStatus();
-        $chargeStatus->setName(StatusEnum::CHARGE);
+        $chargeStatus->setName(EquipmentStatusEnum::PLANT_YOUNG);
         $chargeStatus->setCharge(1);
 
         $gamePlant = new GameItem();

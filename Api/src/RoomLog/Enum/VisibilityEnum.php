@@ -10,4 +10,10 @@ class VisibilityEnum
     public const SECRET = 'secret'; // revealed by camera or someone
     public const MUSH = 'mush'; // logs in mush channel
     public const HIDDEN = 'hidden'; // internal status
+
+    //some status are applied on both player and equipment with different visibility on each hidden is default
+    public const EQUIPMENT_PRIVATE = 'equipment_private';
+    public const PLAYER_PUBLIC = 'player_public';
+
+    public const COOK_RESTRICTED = 'cook_restricted'; //perishable status only visible to cooks
 }

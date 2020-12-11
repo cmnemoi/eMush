@@ -45,7 +45,7 @@ class DaySubscriber implements EventSubscriberInterface
 
         foreach ($equipment->getEquipment()->getMechanics() as $mechanics) {
             if ($cycleHandler = $this->equipmentCycleHandler->getEquipmentCycleHandler($mechanics)) {
-                $cycleHandler->handleNewCycle($equipment, $event->getDaedalus(), $event->getTime());
+                $cycleHandler->handleNewDay($equipment, $event->getDaedalus(), $event->getTime());
             }
         }
     }

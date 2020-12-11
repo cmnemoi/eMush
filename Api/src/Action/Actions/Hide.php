@@ -65,7 +65,7 @@ class Hide extends Action
         $hiddenStatus = new Status();
         $hiddenStatus
             ->setName(EquipmentStatusEnum::HIDDEN)
-            ->setVisibility(VisibilityEnum::PRIVATE)
+            ->setVisibility(VisibilityEnum::EQUIPMENT_PRIVATE)
             ->setPlayer($this->player)
             ->setGameEquipment($this->gameItem)
         ;

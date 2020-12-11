@@ -5,6 +5,7 @@ namespace Mush\Equipment\Normalizer;
 use Doctrine\Common\Collections\Collection;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Service\GameEquipmentService;
 use Mush\Equipment\Normalizer\EquipmentNormalizer;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Status\Entity\Status;
@@ -18,13 +19,16 @@ class ItemPileNormalizer implements ContextAwareNormalizerInterface
 {
     private EquipmentNormalizer $equipmentNormalizer;
     private TokenStorageInterface $tokenStorage;
+    private GameEquipmentService $gameEquipmentService;
 
     public function __construct(
         EquipmentNormalizer $equipmentNormalizer,
-        TokenStorageInterface $tokenStorage
+        TokenStorageInterface $tokenStorage,
+        GameEquipmentService $gameEquipmentService
     ) {
         $this->equipmentNormalizer = $equipmentNormalizer;
         $this->tokenStorage = $tokenStorage;
+        $this->gameEquipmentService = $gameEquipmentService;
     }
 
     public function supportsNormalization($data, string $format = null, array $context = [])
@@ -55,13 +59,12 @@ class ItemPileNormalizer implements ContextAwareNormalizerInterface
 
                 if ($item->getEquipment()->isStackable() &&
                     count(array_filter($piles, function ($pile) use ($itemName, $itemStatuses)
-                            {return $pile['key'] === $itemName && $this->compareStatusesForPiles($itemStatuses, $pile['statuses']);}))>0){
+                            {return $pile['key'] === $itemName && $this->compareStatusesForPiles($itemStatuses, $pile['id']);}))>0){
 
-                    //@TODO mush player see contaminated rations in a different pile
-                    //@TODO if ration is contaminated put it on top of the pile
+                                //@TODO if ration is contaminated put it on top of the pile
 
                     $pileKey=array_search(current(array_filter($piles, function ($pile) use ($itemName, $itemStatuses)
-                            {return $pile['key'] === $itemName && $this->compareStatusesForPiles($itemStatuses, $pile['statuses']);})), $piles);
+                            {return $pile['key'] === $itemName && $this->compareStatusesForPiles($itemStatuses, $pile['id']);})), $piles);
                     
                     if (array_key_exists('number', $piles[$pileKey])){
                         $piles[$pileKey]['number'] = $piles[$pileKey]['number']+1;
@@ -83,8 +86,10 @@ class ItemPileNormalizer implements ContextAwareNormalizerInterface
         return $this->tokenStorage->getToken()->getUser();
     }
 
-    private function compareStatusesForPiles(Collection $itemStatuses, Collection $pileStatuses): bool
+    private function compareStatusesForPiles(Collection $itemStatuses, int $pileId): bool
     {
+        $pileStatuses=$this->gameEquipmentService->findById($pileId)->getStatuses();
+
         //if the item is a doc stack the one with the same content (ie same document_content status)
         $statusName=EquipmentStatusEnum::DOCUMENT_CONTENT;
         if (($itemStatuses->filter(fn (Status $status) => ($status->getName()===$statusName))->isEmpty()!==
@@ -102,6 +107,15 @@ class ItemPileNormalizer implements ContextAwareNormalizerInterface
                     return false;
             }
         }
+
+         //mush player see contaminated rations in a different pile
+         $statusName=EquipmentStatusEnum::CONTAMINATED;
+         if ($itemStatuses->filter(fn (Status $status) => ($status->getName()===$statusName))->isEmpty()===
+             $pileStatuses->filter(fn (Status $status) => ($status->getName()===$statusName))->isEmpty() &&
+             $this->getUser()->getCurrentGame()->isMush()){
+
+             return false;
+         }
 
         return true;
     }

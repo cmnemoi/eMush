@@ -10,12 +10,14 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Room\Entity\Room;
 use Mush\Status\Entity\Collection\MedicalConditionCollection;
 use Mush\Status\Entity\MedicalCondition;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
 
 /**
@@ -268,6 +270,14 @@ class Player
         return null;
     }
 
+    public function getReachableTools(): ?Collection
+    {
+        //reach can be set to inventory, shelve, shelve only or any room of the Daedalus
+        
+        return (new ArrayCollection(array_merge($this->getItems()->toArray(),$this->getRoom()->getEquipments()->toArray())
+            ))->filter(fn (GameEquipment $gameEquipment) => ($gameEquipment->getEquipment()->getMechanicbyName(EquipmentMechanicEnum::TOOL)));
+    }
+
     public function getItems(): Collection
     {
         return $this->items;
@@ -358,6 +368,14 @@ class Player
         }
 
         return $this;
+    }
+
+    public function isMush(): bool
+    {
+        return $this
+            ->getStatuses()
+            ->exists(fn (int $key, Status $status) => ($status->getName() === PlayerStatusEnum::MUSH))
+            ;
     }
 
     public function addSkill(string $skill): Player

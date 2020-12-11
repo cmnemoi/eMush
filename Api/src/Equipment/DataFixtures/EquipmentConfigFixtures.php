@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionTargetEnum;
 use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Entity\Mechanics\Charged;
@@ -232,7 +233,9 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         //Tools
         $combustionChamberMechanic = new Tool();
-        $combustionChamberMechanic->setGrantActions([ActionEnum::INJECT_FUEL_CHAMBER, ActionEnum::RETRIEVE_FUEL_CHAMBER]);
+        $combustionChamberMechanic->setActions([ActionEnum::RETRIEVE_FUEL_CHAMBER]);
+        $combustionChamberMechanic->setGrantActions([ActionEnum::INJECT_FUEL_CHAMBER]);
+        $combustionChamberMechanic->setActionsTarget([ActionEnum::INJECT_FUEL_CHAMBER => ActionTargetEnum::EQUIPMENT]);
         $chargedMechanic = new Charged();
         $chargedMechanic
             ->setMaxCharge(9)
@@ -256,6 +259,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $kitchenMechanic = new Tool();
         $kitchenMechanic->setGrantActions([ActionEnum::COOK]);
+        $kitchenMechanic->setActionsTarget([ActionEnum::COOK => ActionTargetEnum::EQUIPMENT]);
         $kitchen = new EquipmentConfig();
         $kitchen
             ->setGameConfig($gameConfig)
@@ -400,6 +404,10 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $surgicalPlotMechanic = new Tool();
         $surgicalPlotMechanic->setGrantActions([ActionEnum::SELF_SURGERY, ActionEnum::SURGERY]);
+        $surgicalPlotMechanic->setActionsTarget([
+            ActionEnum::SELF_SURGERY => ActionTargetEnum::SELF_PLAYER,
+            ActionEnum::SURGERY=> ActionTargetEnum::TARGET_PLAYER
+        ]);
         $surgicalPlot= new EquipmentConfig();
         $surgicalPlot
             ->setGameConfig($gameConfig)
@@ -413,7 +421,9 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($surgicalPlotMechanic);
 
         $fuelTankMechanic = new Tool();
-        $fuelTankMechanic->setGrantActions([ActionEnum::INJECT_FUEL, ActionEnum::RETRIEVE_FUEL]);
+        $fuelTankMechanic->setActions([ActionEnum::RETRIEVE_FUEL]);
+        $fuelTankMechanic->setGrantActions([ActionEnum::INJECT_FUEL]);
+        $fuelTankMechanic->setActionsTarget([ActionEnum::INJECT_FUEL => ActionTargetEnum::EQUIPMENT]);
         $fuelTank = new EquipmentConfig();
         $fuelTank
             ->setGameConfig($gameConfig)
@@ -427,7 +437,9 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($fuelTankMechanic);
 
         $oxygenTankMechanic = new Tool();
-        $oxygenTankMechanic->setGrantActions([ActionEnum::INJECT_OXYGEN, ActionEnum::RETRIEVE_OXYGEN]);
+        $oxygenTankMechanic->setActions([ActionEnum::RETRIEVE_OXYGEN]);
+        $oxygenTankMechanic->setGrantActions([ActionEnum::INJECT_OXYGEN]);
+        $oxygenTankMechanic->setActionsTarget([ActionEnum::INJECT_OXYGEN => ActionTargetEnum::EQUIPMENT]);
         $oxygenTank = new EquipmentConfig();
         $oxygenTank
             ->setGameConfig($gameConfig)

@@ -4,6 +4,7 @@ namespace Mush\Equipment\Entity\Mechanics;
 
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionTargetEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 
 /**
@@ -47,6 +48,7 @@ class Weapon extends Tool
 
 
     protected array $grantActions = [ActionEnum::ATTACK];
+    protected array $ActionsTarget = [ActionEnum::ATTACK => ActionTargetEnum::TARGET_PLAYER];
 
     public function getBaseAccuracy(): int
     {

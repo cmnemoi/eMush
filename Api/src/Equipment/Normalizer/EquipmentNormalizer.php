@@ -105,27 +105,9 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface
         }
 
         $statuses=[];
-        foreach($equipment->getStatuses() as $status){
-            switch($status->getVisibility()){
-                case VisibilityEnum::PUBLIC:
-                    $statuses[]=$this->statusNormalizer->normalize($status);
-                    break;
-                case VisibilityEnum::MUSH:
-                    if ($this->getUser()->getCurrentGame()->isMush()) {
-                        $statuses[]=$this->statusNormalizer->normalize($status);
-                    }
-                    break;
-                case VisibilityEnum::EQUIPMENT_PRIVATE:
-                    $statuses[]=$this->statusNormalizer->normalize($status);
-                    break;
-                case VisibilityEnum::COOK_RESTRICTED:
-                    dump($status->getName());
-                    $statuses[]=$this->statusNormalizer->normalize($status);
-                    if (in_array(SkillEnum::CHEF, $this->getUser()->getCurrentGame()->getSkills())) {
-                        $statuses[]=$this->statusNormalizer->normalize($status);
-                    }
-                    break;
-            }
+        foreach($equipment->getStatuses() as $status){ 
+            $normedStatus=$this->statusNormalizer->normalize($status, null, ['equipment' => $equipment]);
+            if(count($normedStatus)>0){$statuses[] = $normedStatus;}
         }
 
         return [

@@ -42,7 +42,6 @@ class DaedalusNormalizer implements ContextAwareNormalizerInterface
                 'hull' => $daedalus->getHull(),
                 'shield' => $daedalus->getShield(),
                 'nextCycle' => $this->cycleService->getDateStartNextCycle($daedalus)->format(\DateTime::ATOM),
-                'createdAt' => $daedalus->getCreatedAt(),
             ];
     }
 }

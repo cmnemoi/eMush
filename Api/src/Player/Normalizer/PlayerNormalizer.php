@@ -66,24 +66,9 @@ class PlayerNormalizer implements ContextAwareNormalizerInterface
     public function normalize($player, string $format = null, array $context = [])
     {
         $statuses=[];
-        foreach($player->getStatuses() as $status){
-            switch($status->getVisibility()){
-                case VisibilityEnum::PUBLIC:
-                    $statuses[]=$this->statusNormalizer->normalize($status);
-                    break;
-                case VisibilityEnum::PLAYER_PUBLIC:
-                    $statuses[]=$this->statusNormalizer->normalize($status);
-                case VisibilityEnum::PRIVATE:
-                    if ($this->getUser()->getCurrentGame() === $player) {
-                        $statuses[]=$this->statusNormalizer->normalize($status);
-                    }
-                    break;
-                case VisibilityEnum::MUSH:
-                    if ($this->getUser()->getCurrentGame()->isMush()) {
-                        $statuses[]=$this->statusNormalizer->normalize($status);
-                    }
-                    break;
-            }
+        foreach($player->getStatuses() as $status){ 
+            $normedStatus=$this->statusNormalizer->normalize($status, null, ['player' => $player]);
+            if(count($normedStatus)>0){$statuses[] = $normedStatus;}
         }
 
 

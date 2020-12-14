@@ -4,30 +4,42 @@ namespace Mush\Equipment\Normalizer;
 
 use Mush\Action\Actions\Action;
 use Mush\Action\Entity\ActionParameters;
+use Mush\Action\Enum\ActionTargetEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Equipment\Entity\Door;
+use Mush\Game\Enum\SkillEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Status\Normalizer\StatusNormalizer;
+use Mush\Action\Normalizer\ActionNormalizer;
 use Mush\Equipment\Entity\GameItem;
 use Mush\User\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Mush\RoomLog\Enum\VisibilityEnum;
+
 
 class EquipmentNormalizer implements ContextAwareNormalizerInterface
 {
     private TranslatorInterface $translator;
     private ActionServiceInterface $actionService;
     private TokenStorageInterface $tokenStorage;
+    private StatusNormalizer $statusNormalizer;
+    private ActionNormalizer $actionNormalizer;
 
     public function __construct(
         TranslatorInterface $translator,
         ActionServiceInterface $actionService,
-        TokenStorageInterface $tokenStorage
+        TokenStorageInterface $tokenStorage,
+        StatusNormalizer $statusNormalizer,
+        ActionNormalizer $actionNormalizer
     ) {
         $this->translator = $translator;
         $this->actionService = $actionService;
         $this->tokenStorage = $tokenStorage;
+        $this->statusNormalizer = $statusNormalizer;
+        $this->actionNormalizer = $actionNormalizer;
     }
 
     public function supportsNormalization($data, string $format = null, array $context = [])
@@ -60,57 +72,50 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface
 
 
         //Handle tools
-        if (!$equipment instanceof Door){
-
-            $place= $equipment->getRoom() ?? $equipment->getPlayer()->getRoom();
-            $tools=$place->GetEquipments()
-                ->filter(fn (GameEquipment $gameEquipment) =>  $gameEquipment->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL));
-            foreach ($tools as $tool){
-                foreach($tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getGrantActions() as $actionName){
-                    $actionClass = $this->actionService->getAction($actionName);
+        $tools=$this->getUser()->getCurrentGame()->getReachableTools()
+            ->filter(fn (GameEquipment $gameEquipment) => 
+                count($gameEquipment->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getGrantActions())>0);
+        
+        foreach ($tools as $tool){
+            $itemActions = $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getGrantActions()
+                                ->filter(fn (string $actionName) => 
+                                $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)
+                                ->getActionsTarget()[$actionName]===ActionTargetEnum::EQUIPMENT);
+            foreach($itemActions as $actionName){
+                $actionClass = $this->actionService->getAction($actionName);
+                if ($actionClass instanceof Action){
                     $actionClass->loadParameters($this->getUser()->getCurrentGame(), $actionParameter);
-                    if ($actionClass instanceof Action) {
-                        if ($actionClass->canExecute()) {
-                            $actions[] = [
-                                'key' => $actionName,
-                                'name' => $this->translator->trans("{$actionName}.name", [], 'actions'),
-                                'description' => $this->translator->trans("{$actionName}.description", [], 'actions'),
-                                'actionPointCost' => $actionClass->getActionCost()->getActionPointCost(),
-                                'movementPointCost' => $actionClass->getActionCost()->getMovementPointCost(),
-                                'moralPointCost' => $actionClass->getActionCost()->getMoralPointCost(),
-                            ];
-                        }
-                    }
+                    $normedAction=$this->actionNormalizer->normalize($actionClass);
+                    if(count($normedAction)>0){$actions[] = $normedAction;}
                 }
-            };
-        }
+            }
+        };
+        
         
 
 
         foreach ($equipment->getActions() as $actionName) {
             $actionClass = $this->actionService->getAction($actionName);
-            if ($actionClass instanceof Action) {
+            if ($actionClass instanceof Action){
                 $actionClass->loadParameters($this->getUser()->getCurrentGame(), $actionParameter);
-                if ($actionClass->canExecute()) {
-                    $actions[] = [
-                        'key' => $actionName,
-                        'name' => $this->translator->trans("{$actionName}.name", [], 'actions'),
-                        'description' => $this->translator->trans("{$actionName}.description", [], 'actions'),
-                        'actionPointCost' => $actionClass->getActionCost()->getActionPointCost(),
-                        'movementPointCost' => $actionClass->getActionCost()->getMovementPointCost(),
-                        'moralPointCost' => $actionClass->getActionCost()->getMoralPointCost(),
-                    ];
-                }
+
+                $normedAction=$this->actionNormalizer->normalize($actionClass);
+                if(count($normedAction)>0){$actions[] = $normedAction;}
             }
         }
 
+        $statuses=[];
+        foreach($equipment->getStatuses() as $status){ 
+            $normedStatus=$this->statusNormalizer->normalize($status, null, ['equipment' => $equipment]);
+            if(count($normedStatus)>0){$statuses[] = $normedStatus;}
+        }
 
         return [
             'id' => $equipment->getId(),
             'key' => $equipment->getName(),
             'name' => $this->translator->trans($equipment->getName() . '.name', [], 'equipments'),
             'description' => $this->translator->trans("{$equipment->getName()}.description", [], 'equipments'),
-            'statuses' => $equipment->getStatuses(),
+            'statuses' => $statuses,
             'actions' => $actions,
         ];
     }

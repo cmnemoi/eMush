@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionTargetEnum;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Charged;
 use Mush\Equipment\Entity\Mechanics\Dismountable;
@@ -26,6 +27,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $hackerKitMechanic = new Tool();
         $hackerKitMechanic->setGrantActions([ActionEnum::HACK]);
+        $hackerKitMechanic->setActionsTarget([ActionEnum::HACK => ActionTargetEnum::EQUIPMENT]);
 
         $hackerKit = new ItemConfig();
         $hackerKit
@@ -46,6 +48,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $blockOfPostItMechanic = new Tool();
         $blockOfPostItMechanic->setGrantActions([ActionEnum::WRITE]);
+        $blockOfPostItMechanic->setActionsTarget([ActionEnum::WRITE => ActionTargetEnum::SELF_PLAYER]);
 
         $blockOfPostIt = new ItemConfig();
         $blockOfPostIt
@@ -94,6 +97,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $ductTapeMechanic = new Tool();
         $ductTapeMechanic->setGrantActions([ActionEnum::GAG]);
+        $ductTapeMechanic->setActionsTarget([ActionEnum::GAG => ActionTargetEnum::TARGET_PLAYER]);
 
         $ductTape = new ItemConfig();
         $ductTape
@@ -148,6 +152,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $microwaveMechanic = new Tool();
         $microwaveMechanic->setGrantActions([ActionEnum::EXPRESS_COOK]);
+        $microwaveMechanic->setActionsTarget([ActionEnum::EXPRESS_COOK => ActionTargetEnum::EQUIPMENT]);
 
         $microwave = new ItemConfig();
         $microwave
@@ -171,6 +176,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $superFreezerMechanic = new Tool();
         $superFreezerMechanic->setGrantActions([ActionEnum::HYPERFREEZE]);
+        $superFreezerMechanic->setActionsTarget([ActionEnum::HYPERFREEZE => ActionTargetEnum::EQUIPMENT]);
 
         $superFreezer = new ItemConfig();
         $superFreezer
@@ -211,7 +217,8 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($alienHolographicTVMechanic);
 
         $medikitMechanic = new Tool();
-        $medikitMechanic->setGrantActions([ActionEnum::HEAL]);
+        $medikitMechanic->setGrantActions([ActionEnum::HEAL, ActionEnum::SELF_HEAL]);
+        $medikitMechanic->setActionsTarget([ActionEnum::HEAL => ActionTargetEnum::TARGET_PLAYER, ActionEnum::SELF_HEAL => ActionTargetEnum::SELF_PLAYER]);
 
         $medikit = new ItemConfig();
         $medikit
@@ -289,6 +296,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $retroFungalSerumMechanic = new Tool();
         $retroFungalSerumMechanic->setGrantActions([ActionEnum::CURE]);
+        $retroFungalSerumMechanic->setActionsTarget([ActionEnum::CURE => ActionTargetEnum::TARGET_PLAYER]);
 
         $retroFungalSerum = new ItemConfig();
         $retroFungalSerum->setGameConfig($gameConfig)

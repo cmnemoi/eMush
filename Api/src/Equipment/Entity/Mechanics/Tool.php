@@ -20,6 +20,12 @@ class Tool extends EquipmentMechanic
      */
     private array $grantActions = [];
 
+    /**
+     * @ORM\Column(type="array", nullable=false)
+     */
+    private array $actionsTarget = [];
+
+
     public function getGrantActions(): array
     {
         return $this->grantActions;
@@ -31,5 +37,19 @@ class Tool extends EquipmentMechanic
 
         return $this;
     }
+
+    public function getActionsTarget(): array
+    {
+        return $this->actionsTarget;
+    }
+
+    public function setActionsTarget(array $actionsTarget): Tool
+    {
+        $this->actionsTarget = $actionsTarget;
+
+        return $this;
+    }
+
+    //@TODO maybe create a reach property
 
 }

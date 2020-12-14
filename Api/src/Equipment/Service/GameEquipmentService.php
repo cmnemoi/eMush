@@ -77,6 +77,10 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             $gameEquipment = $equipment->createGameEquipment();
         }
 
+        if ($equipment->isAlienArtifact()){
+            $this->initAlienArtifact($gameEquipment);
+        }
+
         /** @var EquipmentMechanic $mechanic */
         foreach ($equipment->getMechanics() as $mechanic) {
             switch ($mechanic->getMechanic()) {
@@ -100,7 +104,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
     // @TODO maybe remove those init functions to directly include them in createGameEquipment
     private function initPlant(GameEquipment $gameEquipment, Plant $plant, Daedalus $daedalus): GameEquipment
     {
-        $plantStatus = $this->statusService->createChargeEquipmentStatus(
+        $this->statusService->createChargeEquipmentStatus(
             EquipmentStatusEnum::PLANT_YOUNG,
             $gameEquipment,
             ChargeStrategyTypeEnum::GROWING_PLANT,
@@ -113,7 +117,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
 
     private function initCharged(GameEquipment $gameEquipment, Charged $charged): GameEquipment
     {
-        $chargeStatus = $this->statusService->createChargeEquipmentStatus(
+        $this->statusService->createChargeEquipmentStatus(
             EquipmentStatusEnum::CHARGES,
             $gameEquipment,
             $charged->getChargeStrategy(),
@@ -133,6 +137,16 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             ->setGameEquipment($this->gameEquipment)
             ->setContent($document->getContent())
         ;
+
+        return $gameEquipment;
+    }
+
+    private function initAlienArtifact(GameEquipment $gameEquipment): GameEquipment
+    {
+        $this->statusService->createCoreEquipmentStatus(
+            EquipmentStatusEnum::ALIEN_ARTEFACT,
+            $gameEquipment
+        );
 
         return $gameEquipment;
     }

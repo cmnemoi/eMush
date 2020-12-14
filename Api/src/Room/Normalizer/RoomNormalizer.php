@@ -7,6 +7,7 @@ use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Normalizer\EquipmentNormalizer;
 use Mush\Equipment\Normalizer\ItemPileNormalizer;
+use Mush\Status\Normalizer\StatusNormalizer;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
 use Mush\User\Entity\User;
@@ -93,8 +94,6 @@ class RoomNormalizer implements ContextAwareNormalizerInterface
             'players' => $players,
             'items' => $items,
             'equipments' => $equipments,
-            'createdAt' => $room->getCreatedAt(),
-            'updatedAt' => $room->getUpdatedAt(),
         ];
     }
 

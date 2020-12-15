@@ -174,7 +174,7 @@ class RoomLog
         return $this->quantity;
     }
 
-    public function setQuantity(int $quantity): RoomLog
+    public function setQuantity(?int $quantity): RoomLog
     {
         $this->quantity = $quantity;
 

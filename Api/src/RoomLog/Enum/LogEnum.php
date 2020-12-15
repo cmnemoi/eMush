@@ -16,7 +16,7 @@ class LogEnum
     public const GAIN_ACTION_POINT = 'gain_action_point';
     public const LOSS_ACTION_POINT = 'loss_action_point';
     public const GAIN_MOVEMENT_POINT = 'gain_movement_point';
-    public const LOSS_MOVEMENT_POINT = 'loss_movementpoint';
+    public const LOSS_MOVEMENT_POINT = 'loss_movement_point';
     public const GAIN_HEALTH_POINT = 'gain_health_point';
     public const LOSS_HEALTH_POINT = 'loss_health_point';
     public const GAIN_MORAL_POINT = 'gain_moral_point';

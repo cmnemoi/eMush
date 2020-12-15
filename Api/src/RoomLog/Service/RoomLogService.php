@@ -5,25 +5,30 @@ namespace Mush\RoomLog\Service;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Enum\CharacterEnum;
+use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Entity\Target;
+use Mush\RoomLog\Enum\LogDeclinationEnum;
 use Mush\RoomLog\Repository\RoomLogRepository;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RoomLogService implements RoomLogServiceInterface
 {
     private EntityManagerInterface $entityManager;
+    private RandomServiceInterface $randomService;
     private RoomLogRepository $repository;
     private TranslatorInterface $translator;
 
     public function __construct(
         EntityManagerInterface $entityManager,
+        RandomServiceInterface $randomService,
         RoomLogRepository $repository,
         TranslatorInterface $translator
     ) {
         $this->entityManager = $entityManager;
+        $this->randomService = $randomService;
         $this->repository = $repository;
         $this->translator = $translator;
     }
@@ -41,6 +46,35 @@ class RoomLogService implements RoomLogServiceInterface
         return $this->repository->find($id);
     }
 
+    private function createLog(
+        string $logKey,
+        Room $room,
+        ?Player $player,
+        ?Target $target,
+        ?int $quantity,
+        string $visibility,
+        \DateTime $dateTime = null
+    ): RoomLog {
+        if ($declinations = LogDeclinationEnum::getDeclination($logKey)) {
+            $logKey = $this->randomService->getSingleRandomElementFromProbaArray($declinations);
+        }
+
+        $roomLog = new RoomLog();
+        $roomLog
+            ->setLog($logKey)
+            ->setPlayer($player)
+            ->setTarget($target)
+            ->setRoom($room)
+            ->setVisibility($visibility)
+            ->setDate($dateTime ?? new \DateTime('now'))
+            ->setQuantity($quantity)
+            ->setCycle($room->getDaedalus()->getCycle())
+            ->setDay($room->getDaedalus()->getDay())
+        ;
+
+        return $roomLog;
+    }
+
     public function createPlayerLog(
         string $logKey,
         Room $room,
@@ -48,18 +82,7 @@ class RoomLogService implements RoomLogServiceInterface
         string $visibility,
         \DateTime $dateTime = null
     ): RoomLog {
-        $roomLog = new RoomLog();
-        $roomLog
-            ->setLog($logKey)
-            ->setPlayer($player)
-            ->setRoom($room)
-            ->setVisibility($visibility)
-            ->setDate($dateTime ?? new \DateTime('now'))
-            ->setCycle($room->getDaedalus()->getCycle())
-            ->setDay($room->getDaedalus()->getDay())
-        ;
-
-        return $this->persist($roomLog);
+        return $this->persist($this->createLog($logKey, $room, $player, null, null, $visibility, $dateTime));
     }
 
     public function createQuantityLog(
@@ -70,42 +93,19 @@ class RoomLogService implements RoomLogServiceInterface
         int $quantity,
         \DateTime $dateTime = null
     ): RoomLog {
-        $roomLog = new RoomLog();
-        $roomLog
-            ->setLog($logKey)
-            ->setPlayer($player)
-            ->setRoom($room)
-            ->setVisibility($visibility)
-            ->setQuantity($quantity)
-            ->setDate($dateTime ?? new \DateTime('now'))
-            ->setCycle($room->getDaedalus()->getCycle())
-            ->setDay($room->getDaedalus()->getDay())
-        ;
-
-        return $this->persist($roomLog);
+        return $this->persist($this->createLog($logKey, $room, $player, null, $quantity, $visibility, $dateTime));
     }
 
     public function createEquipmentLog(
         string $logKey,
         Room $room,
         ?Player $player,
-        GameEquipment $equipment,
+        GameEquipment $gameEquipment,
         string $visibility,
         \DateTime $dateTime = null
     ): RoomLog {
-        $roomLog = new RoomLog();
-        $roomLog
-            ->setLog($logKey)
-            ->setTarget(new Target($equipment->getName(), 'equipments'))
-            ->setPlayer($player)
-            ->setRoom($room)
-            ->setVisibility($visibility)
-            ->setDate($dateTime ?? new \DateTime('now'))
-            ->setCycle($room->getDaedalus()->getCycle())
-            ->setDay($room->getDaedalus()->getDay())
-        ;
-
-        return $this->persist($roomLog);
+        $target = new Target($gameEquipment->getName(), 'equipments');
+        return $this->persist($this->createLog($logKey, $room, $player, $target, null, $visibility, $dateTime));
     }
 
     public function createRoomLog(
@@ -114,17 +114,7 @@ class RoomLogService implements RoomLogServiceInterface
         string $visibility,
         \DateTime $dateTime = null
     ): RoomLog {
-        $roomLog = new RoomLog();
-        $roomLog
-            ->setLog($logKey)
-            ->setRoom($room)
-            ->setVisibility($visibility)
-            ->setDate($dateTime ?? new \DateTime('now'))
-            ->setCycle($room->getDaedalus()->getCycle())
-            ->setDay($room->getDaedalus()->getDay())
-        ;
-
-        return $this->persist($roomLog);
+        return $this->persist($this->createLog($logKey, $room, null, null, null, $visibility, $dateTime));
     }
 
     public function getRoomLog(Player $player): array
@@ -161,10 +151,10 @@ class RoomLogService implements RoomLogServiceInterface
                     $params,
                     'log'
                 ),
+                'visibility' => $roomLog->getVisibility(),
                 'date' => $roomLog->getDate(),
             ];
         }
-
         return $logs;
     }
 }

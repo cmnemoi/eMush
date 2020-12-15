@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
-    <file id="items.ext">
+    <file id="equipements.ext">
         <unit id="apprenton_pilot">
             <segment id="name">
                 <source>apprenton_pilot.name</source>
@@ -43,6 +43,29 @@ Les plans de construction bleus sont une bénédiction pour les équipiers en ma
 
             <segment id="genre">
                 <source>sniper_helmet_blueprint.genre</source>
+                <target>male</target>
+            </segment>
+        </unit>
+        <unit id="sniper_helmet">
+            <segment id="name">
+                <source>sniper_helmet.name</source>
+                <target>Casque de visée</target>
+            </segment>
+            <segment id="short_name">
+                <source>sniper_helmet.short_name</source>
+                <target>Casque de visée</target>
+            </segment>
+            <segment id="description">
+                <source>sniper_helmet.description</source>
+                <target>TODO</target>
+            </segment>
+            <segment id="examine">
+                <source>sniper_helmet.examine</source>
+                <target>TODO</target>
+            </segment>
+
+            <segment id="genre">
+                <source>sniper_helmet.genre</source>
                 <target>male</target>
             </segment>
         </unit>

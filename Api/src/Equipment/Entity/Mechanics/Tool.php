@@ -2,6 +2,8 @@
 
 namespace Mush\Equipment\Entity\Mechanics;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
@@ -19,16 +21,15 @@ class Tool extends EquipmentMechanic
      * @ORM\Column(type="array", nullable=false)
      */
     private array $grantActions = [];
-
     /**
      * @ORM\Column(type="array", nullable=false)
      */
     private array $actionsTarget = [];
 
 
-    public function getGrantActions(): array
+    public function getGrantActions(): Collection
     {
-        return $this->grantActions;
+        return new ArrayCollection($this->grantActions);
     }
 
     public function setGrantActions(array $grantActions): Tool

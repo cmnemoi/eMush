@@ -13,7 +13,7 @@
 
   <div class="tabs-content">
     <TipsTab></TipsTab>
-    <RoomEventsTab></RoomEventsTab>
+    <RoomEventsTab :room="room"></RoomEventsTab>
     <DiscussionTab></DiscussionTab>
   </div>
 
@@ -24,6 +24,7 @@
 import TipsTab from "@/components/Game/Communications/TipsTab";
 import RoomEventsTab from "@/components/Game/Communications/RoomEventsTab";
 import DiscussionTab from "@/components/Game/Communications/DiscussionTab";
+import {Room} from "@/entities/Room";
 
 
 export default {
@@ -35,7 +36,8 @@ export default {
   },
   props: {
     day: Number,
-    cycle: Number
+    cycle: Number,
+    room: Room
   }
 }
 </script>

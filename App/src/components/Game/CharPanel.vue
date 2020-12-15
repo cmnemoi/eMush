@@ -4,7 +4,12 @@
     <div class="char-sheet">
       <img class="avatar" :src="characterPortrait" alt="avatar">
 
-      <ul class="statuses"></ul>
+      <ul class="status">
+        <li><img src="@/assets/images/status/belly_full.png"></li>
+        <li><img src="@/assets/images/status/heavy.png"></li>
+        <li><img src="@/assets/images/status/hurt.png"></li>
+        <li><img src="@/assets/images/status/noob.png"></li>
+      </ul>
 
       <div class="health-points">
         <div class="life">
@@ -124,6 +129,14 @@ export default {
     & .avatar {
       width: 166px;
       height: auto;
+    }
+
+    & .status {
+      position: absolute;
+      flex-flow: column wrap;
+      align-items: center;
+      margin: 2px;
+      & li { margin-bottom: 3px; }
     }
 
     & .health-points {

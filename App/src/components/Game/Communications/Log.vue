@@ -1,6 +1,6 @@
 <template>
   <div :class="'room-log ' + roomLog.visibility">
-    <p class="text-log" v-html="roomLog.message"></p>
+    <p class="text-log" v-html="format(roomLog.message)"></p>
     <span class="timestamp">{{ formatDate(roomLog.date, {local: "fr-FR"}) }}</span>
   </div>
 </template>
@@ -19,86 +19,96 @@ export default {
     formatDate: (date) => {
       return formatDistanceToNow(date, {locale : fr});
     },
+    format: function (value) {
+      // console.log(value)
+      if (!value) return ''
+      value = value.toString()
+      value = value.replaceAll(/\*\*(\w*)\*\*/g, '<strong>$1&nbsp;</strong>');
+      value = value.replaceAll(/:pa:/g, '<img src="'+require("@/assets/images/pa.png")+'" alt="pa">')
+      return value.replaceAll(/:pm:/g, '<img src="'+require("@/assets/images/pm.png")+'" alt="pm">')
+    }
   }
 }
-</script>
+</script>return
 
 <style lang="scss" scoped>
 .room-log {
-  flex-direction: row;
-  justify-content: space-between;
+  position: relative;
   padding: 4px 5px;
   margin: 1px 0;
   border-bottom: 1px solid rgb(170, 212, 229);
-  max-width: 100%;
-}
-.private {
-  color: #98388A;
-  font-style: italic;
-}
 
-.covert, .secret {
-  border-radius: 3px;
-  background: #88def8;
-  font-style: italic;
-  border: none;
+  &.private {
+    color: #98388A;
+    font-style: italic;
+  }
 
-  .spotted {
-    background: #e29ec3;
-    border: 1px solid #ff3f58;
-    font-style: normal;
+  &.covert, &.secret {
+    border-radius: 3px;
+    background: #88def8;
+    font-style: italic;
+    border: none;
+
+    &.spotted {
+      background: #e29ec3;
+      border: 1px solid #ff3f58;
+      font-style: normal;
+    }
+  }
+
+  &.personnal, &.covert, &.secret, &.spotted {
+    & .timestamp:before {
+      content: "";
+      display: inline-block;
+      margin-right: 4px;
+      vertical-align: middle;
+    }
+  }
+
+  &.personnal .timestamp:before {
+    width: 16px;
+    height: 16px;
+    background: url('~@/assets/images/comms/personnal.png') center no-repeat;
+  }
+
+  &.covert .timestamp:before {
+    width: 16px;
+    height: 16px;
+    background: url('~@/assets/images/comms/covert.png') center no-repeat;
+  }
+
+  &.secret .timestamp:before {
+    width: 16px;
+    height: 15px;
+    background: url('~@/assets/images/comms/discrete.png') center no-repeat;
+  }
+
+  &.spotted .timestamp:before {
+    width: 20px;
+    height: 16px;
+    background: url('~@/assets/images/comms/spotted.png') center no-repeat;
   }
 }
 
-.private, .covert, .secret, .spotted {
-  .timestamp:before {
-    content: "";
-    display: inline-block;
-    margin-right: 4px;
-    vertical-align: middle;
-  }
+p {
+  margin: 0;
+  font-size: .95em;
+  /deep/ img { vertical-align: middle; }
 }
 
-.private .timestamp:before {
-  width: 16px;
-  height: 16px;
-  background: url('~@/assets/images/comms/personnal.png') center no-repeat;
-}
 
-.covert .timestamp:before {
-  width: 16px;
-  height: 16px;
-  background: url('~@/assets/images/comms/covert.png') center no-repeat;
-}
-
-.secret .timestamp:before {
-  width: 16px;
-  height: 15px;
-  background: url('~@/assets/images/comms/discrete.png') center no-repeat;
-}
-
-.spotted .timestamp:before {
-  width: 20px;
-  height: 16px;
-  background: url('~@/assets/images/comms/spotted.png') center no-repeat;
-}
 .timestamp {
-  display: flex;
-  max-width: 20%;
+  position: absolute;
+  z-index: 2;
   right: 5px;
   bottom: 5px;
   font-size: .85em;
   font-style: italic;
   opacity: .5;
+  float: right;
 }
-.text-log {
-  display: flex;
-  max-width: 80%;
-}
-p {
-  margin: 0;
-  font-size: .95em;
-  img { vertical-align: middle; }
-}
+
+
+
 
 </style>

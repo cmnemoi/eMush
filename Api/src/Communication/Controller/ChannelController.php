@@ -7,6 +7,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Services\ChannelServiceInterface;
+use Mush\Communication\Services\MessageServiceInterface;
 use Mush\Communication\Specification\SpecificationInterface;
 use Mush\Communication\Voter\ChannelVoter;
 use Mush\Player\Service\PlayerServiceInterface;
@@ -25,21 +26,18 @@ class ChannelController extends AbstractFOSRestController
 {
     private SpecificationInterface $canCreateChannel;
     private ChannelServiceInterface $channelService;
+    private MessageServiceInterface $messageService;
     private PlayerServiceInterface $playerService;
 
-    /**
-     * ChannelController constructor.
-     * @param SpecificationInterface $canCreateChannel
-     * @param ChannelServiceInterface $channelService
-     * @param PlayerServiceInterface $playerService
-     */
     public function __construct(
         SpecificationInterface $canCreateChannel,
+        MessageServiceInterface $messageService,
         ChannelServiceInterface $channelService,
-        PlayerServiceInterface $playerService)
-    {
+        PlayerServiceInterface $playerService
+    ) {
         $this->canCreateChannel = $canCreateChannel;
         $this->channelService = $channelService;
+        $this->messageService = $messageService;
         $this->playerService = $playerService;
     }
 
@@ -141,5 +139,77 @@ class ChannelController extends AbstractFOSRestController
         $this->channelService->exitChannel($player, $channel);
 
         return $this->view(null, 200);
+    }
+
+    /**
+     * Create a message in the channel
+     * @OA\Tag(name="Channel")
+     *    @OA\RequestBody (
+     *      description="Input data format",
+     *      @OA\MediaType(
+     *          mediaType="application/json",
+     *          @OA\Schema(
+     *              type="object",
+     *              @OA\Property(
+     *                  type="integer",
+     *                  property="parent",
+     *                  description="The parent message"
+     *              ),
+     *              @OA\Property(
+     *                  type="string",
+     *                  property="message",
+     *                  description="The message"
+     *              )
+     *          )
+     *      )
+     *    )
+     * @Security(name="Bearer")
+     * @Rest\Post(path="/{channel}/message")
+     */
+    public function createMessageAction(Request $request, Channel $channel): View
+    {
+        $this->denyAccessUnlessGranted(ChannelVoter::VIEW, $channel);
+
+        $parent = $request->get('parent');
+        $message = $request->get('message');
+        $parentMessage= null;
+
+        if ($parent && !($parentMessage = $this->messageService->getMessageById($parent))) {
+             return $this->view(['error' => 'parentMessageNotFound'], 404);
+        }
+
+        if ($parentMessage && $parentMessage->getChannel() !== $channel) {
+            return $this->view(['error' => 'invalid parent message'], 422);
+        }
+
+        /** @var User $user */
+        $user = $this->getUser();
+        $player = $user->getCurrentGame();
+
+        $this->messageService->createPlayerMessage($player, $channel, $message, $parentMessage);
+        $messages = $this->messageService->getChannelMessages($player, $channel);
+
+        return $this->view($messages, 200);
+    }
+
+
+    /**
+     * Get channel messages
+     *
+     * @OA\Tag(name="Channel")
+     * @Security(name="Bearer")
+     * @Rest\GET (path="/{channel}/message")
+     */
+    public function getMessages(Request $request, Channel $channel): View
+    {
+        $this->denyAccessUnlessGranted(ChannelVoter::VIEW, $channel);
+
+        /** @var User $user */
+        $user = $this->getUser();
+        $player = $user->getCurrentGame();
+
+        $messages = $this->messageService->getChannelMessages($player, $channel);
+
+        return $this->view($messages, 200);
     }
 }

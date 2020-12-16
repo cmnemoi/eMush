@@ -18,6 +18,10 @@ room-log:
     resource: ../../src/RoomLog/Controller/
     type: annotation
     prefix: /api/v1
+communication:
+    resource: ../../src/Communication/Controller/
+    type: annotation
+    prefix: /api/v1
 
 api_login_check:
     path: /api/login_check

@@ -27,7 +27,7 @@ class MedicalConditionConfig
     private string $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Mush\Game\Entity\GameConfig", inversedBy="itemsConfig")
+     * @ORM\ManyToOne(targetEntity="Mush\Game\Entity\GameConfig")
      */
     private GameConfig $gameConfig;
 

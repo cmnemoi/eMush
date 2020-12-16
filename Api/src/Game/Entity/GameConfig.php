@@ -46,7 +46,7 @@ class GameConfig
     private string $name;
 
     /**
-     * @ORM\Column(type="integer", length=255, nullable=false)
+     * @ORM\Column(type="integer", nullable=false)
      */
     private int $nbMush;
 
@@ -64,6 +64,11 @@ class GameConfig
      * @ORM\Column(type="string", length=255, nullable=false)
      */
     private string $language;
+
+    /**
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    private int $maxNumberPrivateChannel;
 
     /**
      * @ORM\Column(type="integer", length=255, nullable=false)
@@ -211,6 +216,17 @@ class GameConfig
     {
         $this->timeZone = $timeZone;
 
+        return $this;
+    }
+
+    public function getMaxNumberPrivateChannel(): int
+    {
+        return $this->maxNumberPrivateChannel;
+    }
+
+    public function setMaxNumberPrivateChannel(int $maxNumberPrivateChannel): GameConfig
+    {
+        $this->maxNumberPrivateChannel = $maxNumberPrivateChannel;
         return $this;
     }
 

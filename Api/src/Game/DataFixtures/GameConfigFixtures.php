@@ -20,6 +20,7 @@ class GameConfigFixtures extends Fixture
             ->setCycleLength(3)
             ->setTimeZone('Europe/Paris')
             ->setLanguage('Fr-fr')
+            ->setMaxNumberPrivateChannel(3)
             ->setInitHealthPoint(10)
             ->setMaxHealthPoint(16)
             ->setInitMoralPoint(10)

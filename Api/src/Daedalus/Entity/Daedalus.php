@@ -73,6 +73,11 @@ class Daedalus
     private int $shield;
 
     /**
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    private int $spores=4;
+
+    /**
      * Daedalus constructor.
      *
      * @param int $id
@@ -247,6 +252,18 @@ class Daedalus
     public function setShield(int $shield): Daedalus
     {
         $this->shield = $shield;
+
+        return $this;
+    }
+
+    public function getSpores(): int
+    {
+        return $this->spores;
+    }
+
+    public function setSpores(int $spores): Daedalus
+    {
+        $this->spores = $spores;
 
         return $this;
     }

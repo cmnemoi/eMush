@@ -10,6 +10,8 @@ use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
+use Mush\Status\Enum\ChargeStrategyTypeEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 
 class StatusService implements StatusServiceInterface
 {
@@ -97,6 +99,35 @@ class StatusService implements StatusServiceInterface
             ->setPlayer($player)
             ->setAction($action)
             ->setCharge(0)
+        ;
+
+        return $status;
+    }
+
+    public function createMushStatus(Player $player): ChargeStatus
+    {
+        $status = new ChargeStatus();
+        $status
+            ->setName(PlayerStatusEnum::MUSH)
+            ->setVisibility(VisibilityEnum::MUSH)
+            ->setPlayer($player)
+            ->setCharge(1)
+            ->setThreshold(1)
+            ->setStrategy(ChargeStrategyTypeEnum::DAILY_RESET)
+        ;
+
+        return $status;
+    }
+
+    public function createSporeStatus(Player $player): ChargeStatus
+    {
+        $status = new ChargeStatus();
+        $status
+            ->setName(PlayerStatusEnum::SPORES)
+            ->setVisibility(VisibilityEnum::MUSH)
+            ->setPlayer($player)
+            ->setCharge(1)
+            ->setStrategy(ChargeStrategyTypeEnum::NONE)
         ;
 
         return $status;

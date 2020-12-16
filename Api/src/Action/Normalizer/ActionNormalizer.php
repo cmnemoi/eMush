@@ -29,7 +29,8 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
     public function normalize($action, string $format = null, array $context = [])
     {
         if ($action->canExecute()) {
-            $actionName=$action->getActionName();
+            $actionName = $action->getActionName();
+
             return [
                 'key' => $actionName,
                 'name' => $this->translator->trans("{$actionName}.name", [], 'actions'),
@@ -39,8 +40,7 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
                 'moralPointCost' => $action->getActionCost()->getMoralPointCost(),
             ];
         }
+
         return [];
     }
-
-
 }

@@ -5,7 +5,6 @@ namespace Mush\Room\Service;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
-use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Room\Entity\Room;

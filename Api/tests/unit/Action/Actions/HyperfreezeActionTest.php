@@ -117,7 +117,6 @@ class HyperfreezeActionTest extends TestCase
     public function testExecute()
     {
         //fruit
-        $daedalus = new Daedalus();
         $room = new Room();
 
         $player = $this->createPlayer(new Daedalus(), $room);
@@ -166,7 +165,6 @@ class HyperfreezeActionTest extends TestCase
         $this->assertEquals(9, $player->getActionPoint());
 
         //Alien Steak
-        $daedalus = new Daedalus();
         $room = new Room();
 
         $player = $this->createPlayer(new Daedalus(), $room);

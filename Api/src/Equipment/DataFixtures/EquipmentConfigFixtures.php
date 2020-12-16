@@ -9,9 +9,9 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTargetEnum;
 use Mush\Equipment\Entity\EquipmentConfig;
-use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Entity\Mechanics\Charged;
 use Mush\Equipment\Entity\Mechanics\Dismountable;
+use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
@@ -35,7 +35,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         ;
         $manager->persist($icarus);
 
-
         $comsCenter = new EquipmentConfig();
         $comsCenter
             ->setGameConfig($gameConfig)
@@ -45,7 +44,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setBreakableRate(6)
         ;
         $manager->persist($comsCenter);
-
 
         $neronCore = new EquipmentConfig();
         $neronCore
@@ -115,9 +113,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setBreakableRate(12)
         ;
         $manager->persist($commandTerminal);
-
-
-
 
         //@TODO gears
         $planetScanner = new EquipmentConfig();
@@ -200,8 +195,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($showerMechanic);
         $manager->persist($showerDismountableMechanic);
 
-
-
         //@TODO ships
         $patrolShipChargeMechanic = new Charged();
         $patrolShipChargeMechanic
@@ -230,7 +223,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         ;
         $manager->persist($pasiphae);
 
-
         //Tools
         $combustionChamberMechanic = new Tool();
         $combustionChamberMechanic->setActions([ActionEnum::RETRIEVE_FUEL_CHAMBER]);
@@ -255,7 +247,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($combustionChamber);
         $manager->persist($combustionChamberMechanic);
         $manager->persist($chargedMechanic);
-
 
         $kitchenMechanic = new Tool();
         $kitchenMechanic->setGrantActions([ActionEnum::COOK]);
@@ -287,19 +278,18 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         ;
         $distillerMechanic = new Tool();
         $distillerMechanic->setActions([ActionEnum::DISPENSE]);
-        $narcoticDistiller= new EquipmentConfig();
+        $narcoticDistiller = new EquipmentConfig();
         $narcoticDistiller
             ->setGameConfig($gameConfig)
             ->setName(EquipmentEnum::NARCOTIC_DISTILLER)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$distillerMechanic, $distillerDismountableMechanic,$dailyChargeMechanic]))
+            ->setMechanics(new ArrayCollection([$distillerMechanic, $distillerDismountableMechanic, $dailyChargeMechanic]))
         ;
         $manager->persist($narcoticDistiller);
         $manager->persist($distillerMechanic);
         $manager->persist($distillerDismountableMechanic);
         $manager->persist($dailyChargeMechanic);
-
 
         $shower = new EquipmentConfig();
         $shower
@@ -310,7 +300,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setMechanics(new ArrayCollection([$showerMechanic, $showerDismountableMechanic]))
         ;
         $manager->persist($shower);
-
 
         $dynarcadeMechanic = new Tool();
         $dynarcadeMechanic->setActions([ActionEnum::PLAY_ARCADE]);
@@ -389,7 +378,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         ;
         $turretCommandMechanic = new Tool();
         $turretCommandMechanic->setActions([ActionEnum::SHOOT_HUNTER]);
-        $turretCommand= new EquipmentConfig();
+        $turretCommand = new EquipmentConfig();
         $turretCommand
             ->setGameConfig($gameConfig)
             ->setName(EquipmentEnum::TURRET_COMMAND)
@@ -406,9 +395,9 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $surgicalPlotMechanic->setGrantActions([ActionEnum::SELF_SURGERY, ActionEnum::SURGERY]);
         $surgicalPlotMechanic->setActionsTarget([
             ActionEnum::SELF_SURGERY => ActionTargetEnum::SELF_PLAYER,
-            ActionEnum::SURGERY=> ActionTargetEnum::TARGET_PLAYER
+            ActionEnum::SURGERY => ActionTargetEnum::TARGET_PLAYER,
         ]);
-        $surgicalPlot= new EquipmentConfig();
+        $surgicalPlot = new EquipmentConfig();
         $surgicalPlot
             ->setGameConfig($gameConfig)
             ->setName(EquipmentEnum::SURGICAL_PLOT)
@@ -453,10 +442,10 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($oxygenTankMechanic);
 
         $manager->flush();
-     }
+    }
 
-     public function getDependencies()
-     {
+    public function getDependencies()
+    {
         return [
             GameConfigFixtures::class,
         ];

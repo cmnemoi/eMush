@@ -19,6 +19,7 @@ use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\Status;
+use Mush\Status\Services\StatusServiceInterface;
 use Mush\User\Entity\User;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -36,6 +37,7 @@ class PlayerService implements PlayerServiceInterface
     private RoomLogServiceInterface $roomLogService;
 
     private TokenStorageInterface $tokenStorage;
+
 
     public function __construct(
         EntityManagerInterface $entityManager,

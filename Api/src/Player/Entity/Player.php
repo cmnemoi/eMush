@@ -222,6 +222,7 @@ class Player
                 $this->room = $room;
             }
         }
+
         return $this;
     }
 
@@ -273,8 +274,8 @@ class Player
     public function getReachableTools(): ?Collection
     {
         //reach can be set to inventory, shelve, shelve only or any room of the Daedalus
-        
-        return (new ArrayCollection(array_merge($this->getItems()->toArray(),$this->getRoom()->getEquipments()->toArray())
+
+        return (new ArrayCollection(array_merge($this->getItems()->toArray(), $this->getRoom()->getEquipments()->toArray())
             ))->filter(fn (GameEquipment $gameEquipment) => ($gameEquipment->getEquipment()->getMechanicbyName(EquipmentMechanicEnum::TOOL)));
     }
 

@@ -73,7 +73,6 @@ class WriteActionTest extends TestCase
 
     public function testExecute()
     {
-        $daedalus = new Daedalus();
         $room = new Room();
 
         $player = $this->createPlayer(new Daedalus(), $room);
@@ -92,7 +91,6 @@ class WriteActionTest extends TestCase
         $this->gameConfig->setMaxItemInInventory(3);
 
         $actionParameter = new ActionParameters();
-        $actionParameter->setItem($gameItem);
         $actionParameter->setMessage('Hello world');
         $this->action->loadParameters($player, $actionParameter);
 

@@ -83,6 +83,7 @@ class Transplant extends Action
         $this->gameEquipmentService->persist($plantEquipment);
 
         $this->playerService->persist($this->player);
+
         return new Success();
     }
 

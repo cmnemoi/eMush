@@ -77,7 +77,6 @@ class TreatPlantActionTest extends TestCase
 
     public function testCannotExecute()
     {
-        $daedalus = new Daedalus();
         $room = new Room();
 
         $gameItem = new GameItem();
@@ -115,7 +114,6 @@ class TreatPlantActionTest extends TestCase
 
     public function testExecute()
     {
-        $daedalus = new Daedalus();
         $room = new Room();
 
         $gameItem = new GameItem();

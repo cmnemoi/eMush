@@ -106,11 +106,10 @@ class ExpressCook extends Action
              )->first()->getStatusByName(EquipmentStatusEnum::CHARGES);
 
         $chargeStatus->addCharge(-1);
-        
+
         $this->statusService->persist($chargeStatus);
 
         //@TODO add effect on the link with sol
-
 
         $this->playerService->persist($this->player);
 

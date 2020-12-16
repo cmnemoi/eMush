@@ -53,6 +53,7 @@ class GameItem extends GameEquipment
     {
         $this->setRoom(null);
         $this->setPlayer(null);
+
         return $this;
     }
 }

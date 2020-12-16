@@ -7,9 +7,9 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\GameConfigServiceInterface;
@@ -64,8 +64,8 @@ class Coffee extends Action
 
     public function canExecute(): bool
     {
-        return (!$this->gameEquipmentService
-                    ->getOperationalEquipmentsByName(EquipmentEnum::COFFEE_MACHINE, $this->player, ReachEnum::SHELVE)->isEmpty())
+        return !$this->gameEquipmentService
+                    ->getOperationalEquipmentsByName(EquipmentEnum::COFFEE_MACHINE, $this->player, ReachEnum::SHELVE)->isEmpty()
         ;
     }
 
@@ -79,7 +79,7 @@ class Coffee extends Action
         }
 
         $this->gameEquipmentService->persist($newItem);
-        
+
         $this->playerService->persist($this->player);
 
         $chargeStatus = $this->gameEquipmentService->getOperationalEquipmentsByName(

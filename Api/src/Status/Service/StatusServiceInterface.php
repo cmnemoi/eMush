@@ -36,6 +36,10 @@ interface StatusServiceInterface
 
     public function createAttemptStatus(string $statusName, string $action, Player $player): Attempt;
 
+    public function createMushStatus(Player $player): ChargeStatus;
+
+    public function createSporeStatus(Player $player): ChargeStatus;
+
     public function persist(Status $status): Status;
 
     public function delete(Status $status): bool;

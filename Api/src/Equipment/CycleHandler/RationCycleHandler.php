@@ -32,8 +32,10 @@ class RationCycleHandler extends AbstractCycleHandler
     {
     }
 
-    public function handleNewDay($gameRation, $daedalus, \DateTime $dateTime)
+    public function handleNewDay($object, $daedalus, \DateTime $dateTime)
     {
+        $gameRation = $object;
+
         if (!$gameRation instanceof GameEquipment) {
             return;
         }

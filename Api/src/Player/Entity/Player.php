@@ -12,6 +12,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ReachEnum;
+use Mush\Player\Enum\GameStatusEnum;
 use Mush\Room\Entity\Room;
 use Mush\Status\Entity\Collection\MedicalConditionCollection;
 use Mush\Status\Entity\MedicalCondition;

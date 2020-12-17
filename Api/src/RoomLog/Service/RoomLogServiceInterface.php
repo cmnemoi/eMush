@@ -30,7 +30,7 @@ interface RoomLogServiceInterface
         string $logKey,
         Room $room,
         ?Player $player,
-        GameEquipment $gameGameEquipment,
+        GameEquipment $gameEquipment,
         string $visibility,
         \DateTime $dateTime = null
     ): RoomLog;

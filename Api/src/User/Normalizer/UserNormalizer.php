@@ -13,19 +13,19 @@ class UserNormalizer implements ContextAwareNormalizerInterface
     }
 
     /**
-     * @param User $user
+     * @param User $object
      *
      * @return array
      */
-    public function normalize($user, string $format = null, array $context = [])
+    public function normalize($object, string $format = null, array $context = [])
     {
         return [
-            'id' => $user->getId(),
-            'userId' => $user->getUserId(),
-            'username' => $user->getUsername(),
-            'currentGame' => $user->getCurrentGame() ? $user->getCurrentGame()->getId() : null,
-            'createdAt' => $user->getCreatedAt(),
-            'updatedAt' => $user->getUpdatedAt(),
+            'id' => $object->getId(),
+            'userId' => $object->getUserId(),
+            'username' => $object->getUsername(),
+            'currentGame' => $object->getCurrentGame() ? $object->getCurrentGame()->getId() : null,
+            'createdAt' => $object->getCreatedAt(),
+            'updatedAt' => $object->getUpdatedAt(),
         ];
     }
 }

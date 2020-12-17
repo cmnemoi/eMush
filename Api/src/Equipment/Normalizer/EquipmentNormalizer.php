@@ -43,21 +43,21 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface
     }
 
     /**
-     * @param GameEquipment $equipment
+     * @param GameEquipment $object
      *
      * @return array
      */
-    public function normalize($equipment, string $format = null, array $context = [])
+    public function normalize($object, string $format = null, array $context = [])
     {
         $actions = [];
 
         $context = [];
-        if ($equipment instanceof Door) {
-            $context['door'] = $equipment;
-        } elseif ($equipment instanceof GameItem) {
-            $context['item'] = $equipment;
+        if ($object instanceof Door) {
+            $context['door'] = $object;
+        } elseif ($object instanceof GameItem) {
+            $context['item'] = $object;
         } else {
-            $context['equipment'] = $equipment;
+            $context['equipment'] = $object;
         }
 
         //@TODO this is awfully messy
@@ -66,11 +66,11 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface
             ->filter(fn (GameEquipment $gameEquipment) => count($gameEquipment->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getGrantActions()) > 0);
 
         foreach ($tools as $tool) {
-            if ($equipment instanceof Door) {
+            if ($object instanceof Door) {
                 $itemActions = $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getGrantActions()
                                     ->filter(fn (string $actionName) => $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)
                                     ->getActionsTarget()[$actionName] === ActionTargetEnum::DOOR);
-            } elseif ($equipment instanceof GameItem) {
+            } elseif ($object instanceof GameItem) {
                 $itemActions = $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getGrantActions()
                                     ->filter(fn (string $actionName) => $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)
                                     ->getActionsTarget()[$actionName] === ActionTargetEnum::ITEM ||
@@ -93,7 +93,7 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface
             }
         }
 
-        foreach ($equipment->getActions() as $actionName) {
+        foreach ($object->getActions() as $actionName) {
             $actionClass = $this->actionService->getAction($actionName);
             if ($actionClass) {
                 $normedAction = $this->actionNormalizer->normalize($actionClass, null, $context);
@@ -104,18 +104,18 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface
         }
 
         $statuses = [];
-        foreach ($equipment->getStatuses() as $status) {
-            $normedStatus = $this->statusNormalizer->normalize($status, null, ['equipment' => $equipment]);
+        foreach ($object->getStatuses() as $status) {
+            $normedStatus = $this->statusNormalizer->normalize($status, null, ['equipment' => $object]);
             if (count($normedStatus) > 0) {
                 $statuses[] = $normedStatus;
             }
         }
 
         return [
-            'id' => $equipment->getId(),
-            'key' => $equipment->getName(),
-            'name' => $this->translator->trans($equipment->getName() . '.name', [], 'equipments'),
-            'description' => $this->translator->trans("{$equipment->getName()}.description", [], 'equipments'),
+            'id' => $object->getId(),
+            'key' => $object->getName(),
+            'name' => $this->translator->trans($object->getName() . '.name', [], 'equipments'),
+            'description' => $this->translator->trans("{$object->getName()}.description", [], 'equipments'),
             'statuses' => $statuses,
             'actions' => $actions,
         ];

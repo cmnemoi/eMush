@@ -49,12 +49,13 @@ class PlayersNormalizer implements ContextAwareNormalizerInterface
     }
 
     /**
-     * @param Player $player
+     * @param Player $object
      *
      * @return array
      */
-    public function normalize($player, string $format = null, array $context = [])
+    public function normalize($object, string $format = null, array $context = [])
     {
+        $player = $object;
         $statuses = [];
         foreach ($player->getStatuses() as $status) {
             $normedStatus = $this->statusNormalizer->normalize($status, null, ['player' => $player]);

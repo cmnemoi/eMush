@@ -3,6 +3,7 @@
 namespace Mush\Room\Normalizer;
 
 use Mush\Equipment\Entity\Door;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Normalizer\EquipmentNormalizer;
 use Mush\Equipment\Normalizer\ItemPileNormalizer;
@@ -46,12 +47,13 @@ class RoomNormalizer implements ContextAwareNormalizerInterface
     }
 
     /**
-     * @param Room $room
+     * @param Room $object
      *
      * @return array
      */
-    public function normalize($room, string $format = null, array $context = [])
+    public function normalize($object, string $format = null, array $context = [])
     {
+        $room = $object;
         $players = [];
         /** @var Player $player */
         foreach ($room->getPlayers() as $player) {

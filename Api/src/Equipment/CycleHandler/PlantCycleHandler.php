@@ -50,13 +50,17 @@ class PlantCycleHandler extends AbstractCycleHandler
         $this->gameConfig = $gameConfigService->getConfig();
     }
 
-    public function handleNewCycle($gamePlant, $daedalus, \DateTime $dateTime)
+    public function handleNewCycle($object, $daedalus, \DateTime $dateTime)
     {
+        $gamePlant = $object;
+
         if (!$gamePlant instanceof GameEquipment) {
             return;
         }
+
         $plantType = $gamePlant->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PLANT);
-        if (null === $gamePlant || !$plantType instanceof Plant) {
+
+        if (!$plantType instanceof Plant) {
             return;
         }
 
@@ -71,8 +75,7 @@ class PlantCycleHandler extends AbstractCycleHandler
 
         $plantEffect = $this->equipmentEffectService->getPlantEffect($plantType, $daedalus);
 
-        if (
-            ($youngStatus = $gamePlant->getStatusByName(EquipmentStatusEnum::PLANT_YOUNG)) &&
+        if (($youngStatus = $gamePlant->getStatusByName(EquipmentStatusEnum::PLANT_YOUNG)) &&
             $youngStatus->getCharge() >= $plantEffect->getMaturationTime()
         ) {
             $gamePlant->removeStatus($youngStatus);
@@ -89,13 +92,17 @@ class PlantCycleHandler extends AbstractCycleHandler
         $this->gameEquipmentService->persist($gamePlant);
     }
 
-    public function handleNewDay($gamePlant, $daedalus, \DateTime $dateTime)
+    public function handleNewDay($object, $daedalus, \DateTime $dateTime)
     {
+        $gamePlant = $object;
+
         if (!$gamePlant instanceof GameEquipment) {
             return;
         }
+
         $plantType = $gamePlant->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PLANT);
-        if (null === $gamePlant || !$plantType instanceof Plant) {
+
+        if (!$plantType instanceof Plant) {
             return;
         }
 
@@ -104,20 +111,18 @@ class PlantCycleHandler extends AbstractCycleHandler
         $plantStatus = $gamePlant->getStatuses();
 
         //If plant is young, dried or diseased, do not produce oxygen
-        if (
-            $plantStatus->filter(
-                fn (Status $status) => in_array(
-                    $status->getName(),
-                    [EquipmentStatusEnum::PLANT_DRIED_OUT, EquipmentStatusEnum::PLANT_DISEASED, EquipmentStatusEnum::PLANT_YOUNG]
-                )
-            )->isEmpty()
+        if ($plantStatus->filter(
+            fn (Status $status) => in_array(
+                $status->getName(),
+                [EquipmentStatusEnum::PLANT_DRIED_OUT, EquipmentStatusEnum::PLANT_DISEASED, EquipmentStatusEnum::PLANT_YOUNG]
+            )
+        )->isEmpty()
         ) {
             $this->addOxygen($gamePlant, $plantEffect);
-            if (
-                $plantStatus->filter(fn (Status $status) => in_array(
-                    $status->getName(),
-                    [EquipmentStatusEnum::PLANT_THIRSTY]
-                ))->isEmpty()
+            if ($plantStatus->filter(fn (Status $status) => in_array(
+                $status->getName(),
+                [EquipmentStatusEnum::PLANT_THIRSTY]
+            ))->isEmpty()
             ) {
                 $this->addFruit($gamePlant, $plantType, $dateTime);
             }
@@ -178,8 +183,7 @@ class PlantCycleHandler extends AbstractCycleHandler
     private function addFruit(GameEquipment $gamePlant, Plant $plantType, \DateTime $dateTime)
     {
         //If plant is young, thirsty, dried or diseased, do not produce fruit
-        if (
-            !$gamePlant->getStatuses()
+        if (!$gamePlant->getStatuses()
             ->filter(
                 fn (Status $status) => in_array(
                     $status->getName(),

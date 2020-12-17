@@ -27,21 +27,21 @@ class DaedalusNormalizer implements ContextAwareNormalizerInterface
     }
 
     /**
-     * @param Daedalus $daedalus
+     * @param Daedalus $object
      *
      * @return array
      */
-    public function normalize($daedalus, string $format = null, array $context = [])
+    public function normalize($object, string $format = null, array $context = [])
     {
         return [
-                'id' => $daedalus->getId(),
-                'cycle' => $daedalus->getCycle(),
-                'day' => $daedalus->getDay(),
-                'oxygen' => $daedalus->getOxygen(),
-                'fuel' => $daedalus->getFuel(),
-                'hull' => $daedalus->getHull(),
-                'shield' => $daedalus->getShield(),
-                'nextCycle' => $this->cycleService->getDateStartNextCycle($daedalus)->format(\DateTime::ATOM),
+                'id' => $object->getId(),
+                'cycle' => $object->getCycle(),
+                'day' => $object->getDay(),
+                'oxygen' => $object->getOxygen(),
+                'fuel' => $object->getFuel(),
+                'hull' => $object->getHull(),
+                'shield' => $object->getShield(),
+                'nextCycle' => $this->cycleService->getDateStartNextCycle($object)->format(\DateTime::ATOM),
             ];
     }
 }

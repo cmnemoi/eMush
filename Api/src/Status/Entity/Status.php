@@ -56,7 +56,7 @@ class Status
     /**
      * @ORM\OneToOne(targetEntity="Mush\Equipment\Entity\ConsumableEffect", cascade={"ALL"}, orphanRemoval=true)
      */
-    protected ?ConsumableEffect $consumableModifier = null;
+    protected ?ConsumableEffect $consumableEffect = null;
 
     public function getId(): int
     {
@@ -133,14 +133,14 @@ class Status
         return $this;
     }
 
-    public function getConsumableModifier(): ?ConsumableModifier
+    public function getConsumableEffect(): ?ConsumableEffect
     {
-        return $this->consumableModifier;
+        return $this->consumableEffect;
     }
 
-    public function setConsumableModifier(?ConsumableModifier $consumableModifier): Status
+    public function setConsumableEffect(?ConsumableEffect $consumableEffect): Status
     {
-        $this->consumableModifier = $consumableModifier;
+        $this->consumableEffect = $consumableEffect;
 
         return $this;
     }

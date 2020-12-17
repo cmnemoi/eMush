@@ -33,12 +33,13 @@ class StatusNormalizer implements ContextAwareNormalizerInterface
     }
 
     /**
-     * @param Status $status
+     * @param Status $object
      *
      * @return array
      */
-    public function normalize($status, string $format = null, array $context = [])
+    public function normalize($object, string $format = null, array $context = [])
     {
+        $status = $object;
         $statusName = $status->getName();
         $visibility = $status->getVisibility();
 

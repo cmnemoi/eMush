@@ -16,13 +16,13 @@ class FullDaedalusValidator extends ConstraintValidator
         $this->gameConfigService = $gameConfigService;
     }
 
-    public function validate($daedalus, Constraint $constraint)
+    public function validate($value, Constraint $constraint)
     {
-        if (!$daedalus instanceof Daedalus) {
+        if (!$value instanceof Daedalus) {
             throw new \InvalidArgumentException();
         }
 
-        if ($daedalus->getPlayers()->count() >= $this->gameConfigService->getConfig()->getMaxPlayer()) {
+        if ($value->getPlayers()->count() >= $this->gameConfigService->getConfig()->getMaxPlayer()) {
             $this->context
                 ->buildViolation($constraint->message)
                 ->setCode(FullDaedalus::FULL_DAEDALUS_ERROR)

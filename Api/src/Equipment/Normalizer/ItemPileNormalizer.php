@@ -34,15 +34,15 @@ class ItemPileNormalizer implements ContextAwareNormalizerInterface
     }
 
     /**
-     * @param Collection $equipments
+     * @param Collection $object
      *
      * @return array
      */
-    public function normalize($equipments, string $format = null, array $context = [])
+    public function normalize($object, string $format = null, array $context = [])
     {
         $piles = [];
 
-        $items = $equipments->filter(fn (GameEquipment $equipment) => $equipment instanceof GameItem);
+        $items = $object->filter(fn (GameEquipment $equipment) => $equipment instanceof GameItem);
 
         foreach ($items as $item) {
             $itemName = $item->getEquipment()->getName();

@@ -32,11 +32,11 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
     }
 
     /**
-     * @param Action $action
+     * @param Action $object
      *
      * @return array
      */
-    public function normalize($action, string $format = null, array $context = [])
+    public function normalize($object, string $format = null, array $context = [])
     {
         $actionParameter = new ActionParameters();
         if (array_key_exists('player', $context)) {
@@ -52,18 +52,18 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
             $actionParameter->setEquipment($context['equipment']);
         }
 
-        $action->loadParameters($this->getUser()->getCurrentGame(), $actionParameter);
+        $object->loadParameters($this->getUser()->getCurrentGame(), $actionParameter);
 
-        if ($action->canExecute()) {
-            $actionName = $action->getActionName();
+        if ($object->canExecute()) {
+            $actionName = $object->getActionName();
 
             return [
                 'key' => $actionName,
                 'name' => $this->translator->trans("{$actionName}.name", [], 'actions'),
                 'description' => $this->translator->trans("{$actionName}.description", [], 'actions'),
-                'actionPointCost' => $action->getActionCost()->getActionPointCost(),
-                'movementPointCost' => $action->getActionCost()->getMovementPointCost(),
-                'moralPointCost' => $action->getActionCost()->getMoralPointCost(),
+                'actionPointCost' => $object->getActionCost()->getActionPointCost(),
+                'movementPointCost' => $object->getActionCost()->getMovementPointCost(),
+                'moralPointCost' => $object->getActionCost()->getMoralPointCost(),
             ];
         }
 

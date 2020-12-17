@@ -12,7 +12,7 @@ interface MessageServiceInterface
 {
     public function getMessageById(int $messageId): ?Message;
 
-    public function createPlayerMessage(Player $player, CreateMessage $parentMessage): Message;
+    public function createPlayerMessage(Player $player, CreateMessage $createMessage): Message;
 
     public function getChannelMessages(Player $player, Channel $channel): Collection;
 }

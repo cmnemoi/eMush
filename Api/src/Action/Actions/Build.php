@@ -93,7 +93,7 @@ class Build extends Action
             ) {
             $blueprintEquipment->setPlayer($this->player);
         } else {
-            $blueprintEquipment > setRoom($this->player->getRoom());
+            $blueprintEquipment->setRoom($this->player->getRoom());
         }
 
         $this->gameEquipmentService->persist($blueprintEquipment);

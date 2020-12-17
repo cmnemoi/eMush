@@ -34,9 +34,4 @@ class GameDrugEnum
             self::XENOX,
         ];
     }
-
-    public static function getGameDrug(string $drugName): string
-    {
-        return array_flip(GameDrugEnum::getGameDrug())[$drugName];
-    }
 }

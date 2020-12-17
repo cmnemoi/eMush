@@ -3,13 +3,13 @@
 namespace Mush\Daedalus\Event;
 
 use Mush\Daedalus\Service\DaedalusServiceInterface;
+use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Event\CycleEvent;
 use Mush\Game\Event\DayEvent;
 use Mush\Game\Service\GameConfigServiceInterface;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Equipment\Enum\EquipmentEnum;
-use Mush\Equipment\Entity\GameEquipment;
 use Mush\Room\Enum\RoomEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -78,18 +78,18 @@ class CycleSubscriber implements EventSubscriberInterface
         //Handle oxygen loss
         $this->daedalus->addOxygen(-1);
         if ($this->daedalus->getRoomByName(RoomEnum::CENTER_ALPHA_STORAGE)->getEquipment()->
-            filter(fn (GameEquipment $equipment) => $equipment->getEquipment()->getName()===EquipmentEnum::OXYGEN_TANK)
-            ->first()->isBroken()){
-                $this->daedalus->addOxygen(-1);
+            filter(fn (GameEquipment $equipment) => $equipment->getEquipment()->getName() === EquipmentEnum::OXYGEN_TANK)
+            ->first()->isBroken()) {
+            $this->daedalus->addOxygen(-1);
         }
         if ($this->daedalus->getRoomByName(RoomEnum::CENTER_BRAVO_STORAGE)->getEquipment()->
-            filter(fn (GameEquipment $equipment) => $equipment->getEquipment()->getName()===EquipmentEnum::OXYGEN_TANK)
-            ->first()->isBroken()){
-                $this->daedalus->addOxygen(-1);
+            filter(fn (GameEquipment $equipment) => $equipment->getEquipment()->getName() === EquipmentEnum::OXYGEN_TANK)
+            ->first()->isBroken()) {
+            $this->daedalus->addOxygen(-1);
         }
 
-        if($this->daedalus->getOxygen<0){
-            $this->daedalus->setOxygen=0;
+        if ($this->daedalus->getOxygen < 0) {
+            $this->daedalus->setOxygen = 0;
             //@TODO kill a random player
         }
 

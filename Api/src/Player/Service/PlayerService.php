@@ -42,7 +42,6 @@ class PlayerService implements PlayerServiceInterface
 
     private TokenStorageInterface $tokenStorage;
 
-
     public function __construct(
         EntityManagerInterface $entityManager,
         EventDispatcherInterface $eventDispatcher,
@@ -133,8 +132,6 @@ class PlayerService implements PlayerServiceInterface
         $user->setCurrentGame($player);
         $playerEvent = new PlayerEvent($player);
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::NEW_PLAYER);
-
-
 
         if ($daedalus->getPlayers()->count() === $this->gameConfig->getMaxPlayer()) {
             $fullDaedalusEvent = new DaedalusEvent($daedalus);

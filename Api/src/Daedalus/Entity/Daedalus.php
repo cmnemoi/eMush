@@ -223,7 +223,7 @@ class Daedalus
     public function addFuel(int $change): Daedalus
     {
         $this->fuel += $change;
-        
+
         return $this;
     }
 

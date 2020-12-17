@@ -6,7 +6,6 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
@@ -41,7 +40,8 @@ class ExtractSpore extends Action
 
     public function canExecute(): bool
     {
-        $sporeStatus=$this->player->getStatusByName(PlayerStatusEnum::SPORES);
+        $sporeStatus = $this->player->getStatusByName(PlayerStatusEnum::SPORES);
+
         return  $this->player->isMush() &&
                 (!$sporeStatus ||
                 $sporeStatus->getCharge() < 2) &&
@@ -50,7 +50,7 @@ class ExtractSpore extends Action
 
     protected function applyEffects(): ActionResult
     {
-        if ($sporeStatus=$this->player->getStatusByName(PlayerStatusEnum::SPORES)) {
+        if ($sporeStatus = $this->player->getStatusByName(PlayerStatusEnum::SPORES)) {
             $sporeStatus->addCharge(1);
         } else {
             $this->statusService->createSporeStatus($this->player);

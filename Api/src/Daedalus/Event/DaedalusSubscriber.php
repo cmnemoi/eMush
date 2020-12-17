@@ -3,14 +3,12 @@
 namespace Mush\Daedalus\Event;
 
 use Mush\Daedalus\Service\DaedalusServiceInterface;
-use Mush\Game\Enum\CharacterEnum;
+use Mush\Game\Entity\GameConfig;
+use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Player\Entity\Player;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Service\GameConfigServiceInterface;
 
 class DaedalusSubscriber implements EventSubscriberInterface
 {
@@ -64,9 +62,7 @@ class DaedalusSubscriber implements EventSubscriberInterface
 
         //@TODO give titles
 
-
         //Chose alpha Mushs
         $this->daedalusService->selectAlphaMush($daedalus);
-
     }
 }

@@ -3,34 +3,25 @@
 namespace Mush\Test\Action\Actions;
 
 use Mockery;
-use Mush\Action\ActionResult\Success;
 use Mush\Action\ActionResult\Error;
+use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Action;
 use Mush\Action\Actions\Infect;
 use Mush\Action\Entity\ActionParameters;
-use Mush\Action\Service\SuccessRateServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\ItemConfig;
-use Mush\Equipment\Enum\ToolItemEnum;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Service\GameConfigServiceInterface;
-use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
-use Mush\Status\Service\StatusServiceInterface;
-use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
+use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class InfectActionTest extends TestCase
 {
-
     /** @var RoomLogServiceInterface | Mockery\Mock */
     private RoomLogServiceInterface $roomLogService;
 
@@ -69,7 +60,6 @@ class InfectActionTest extends TestCase
         Mockery::close();
     }
 
-
     public function testCannotExecute()
     {
         $daedalus = new Daedalus();
@@ -80,7 +70,6 @@ class InfectActionTest extends TestCase
 
         $targetPlayer = $this->createPlayer($daedalus, $room);
 
-        
         $actionParameter = new ActionParameters();
         $actionParameter->setPlayer($targetPlayer);
 
@@ -96,11 +85,9 @@ class InfectActionTest extends TestCase
             ->setCharge(2)
             ->setName(PlayerStatusEnum::SPORES);
 
-
         //Player not mush
         $result = $this->action->execute();
         $this->assertInstanceOf(Error::class, $result);
-
 
         //player already daily infected
         $mushStatus->setPlayer($player);
@@ -129,7 +116,7 @@ class InfectActionTest extends TestCase
 
         $result = $this->action->execute();
         $this->assertInstanceOf(Error::class, $result);
-        
+
         //target player is immune
         $targetPlayer = $this->createPlayer($daedalus, $room);
         $immune = new Status();
@@ -138,10 +125,9 @@ class InfectActionTest extends TestCase
             ->setPlayer($targetPlayer);
 
         $actionParameter->setPlayer($targetPlayer);
-        
+
         $result = $this->action->execute();
         $this->assertInstanceOf(Error::class, $result);
-
     }
 
     public function testExecute()
@@ -154,7 +140,6 @@ class InfectActionTest extends TestCase
 
         $targetPlayer = $this->createPlayer($daedalus, $room);
 
-        
         $actionParameter = new ActionParameters();
         $actionParameter->setPlayer($targetPlayer);
 
@@ -169,7 +154,6 @@ class InfectActionTest extends TestCase
             ->setCharge(1)
             ->setName(PlayerStatusEnum::SPORES)
             ->setPlayer($player);
-
 
         $this->action->loadParameters($player, $actionParameter);
 

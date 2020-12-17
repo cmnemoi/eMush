@@ -42,7 +42,6 @@ class PlayerService implements PlayerServiceInterface
 
     private TokenStorageInterface $tokenStorage;
 
-
     public function __construct(
         EntityManagerInterface $entityManager,
         EventDispatcherInterface $eventDispatcher,
@@ -134,8 +133,6 @@ class PlayerService implements PlayerServiceInterface
         $playerEvent = new PlayerEvent($player);
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::NEW_PLAYER);
 
-
-
         if ($daedalus->getPlayers()->count() === $this->gameConfig->getMaxPlayer()) {
             $fullDaedalusEvent = new DaedalusEvent($daedalus);
             $this->eventDispatcher->dispatch($fullDaedalusEvent, DaedalusEvent::FULL_DAEDALUS);
@@ -164,10 +161,10 @@ class PlayerService implements PlayerServiceInterface
         $playerEvent->setActionModifier($actionModifier);
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
 
-        if($player->isMush()){
-            $triumphChange=-2;
-        }else{
-            $triumphChange=1;
+        if ($player->isMush()) {
+            $triumphChange = -2;
+        } else {
+            $triumphChange = 1;
         }
         $player->addTriumph($triumphChange);
         $this->roomLogService->createQuantityLog(
@@ -242,7 +239,7 @@ class PlayerService implements PlayerServiceInterface
         }
 
         if ($actionModifier->getMoralPointModifier()) {
-            if(!$player->isMush()){
+            if (!$player->isMush()) {
                 $playerNewMoralPoint = $player->getMoralPoint() + $actionModifier->getMoralPointModifier();
                 $playerNewMoralPoint = $this->getValueInInterval($playerNewMoralPoint, 0, $this->gameConfig->getMaxMoralPoint());
                 $player->setMoralPoint($playerNewMoralPoint);
@@ -250,13 +247,17 @@ class PlayerService implements PlayerServiceInterface
                 $demoralizedStatus = $player->getStatusByName(PlayerStatusEnum::DEMORALIZED);
                 $suicidalStatus = $player->getStatusByName(PlayerStatusEnum::SUICIDAL);
 
-                if ($player->getMoralPoint()<=1 && !$suicidalStatus){
+                if ($player->getMoralPoint() <= 1 && !$suicidalStatus) {
                     $this->statusService->createCorePlayerStatus(PlayerStatusEnum::SUICIDAL, $player);
-                }elseif($suicidalStatus){$player->removeStatus($suicidalStatus);}
+                } elseif ($suicidalStatus) {
+                    $player->removeStatus($suicidalStatus);
+                }
 
-                if($player->getMoralPoint()<=4 && $player->getMoralPoint()>1 && $demoralizedStatus){
+                if ($player->getMoralPoint() <= 4 && $player->getMoralPoint() > 1 && $demoralizedStatus) {
                     $this->statusService->createCorePlayerStatus(PlayerStatusEnum::DEMORALIZED, $player);
-                }elseif($demoralizedStatus){$player->removeStatus($demoralizedStatus);}
+                } elseif ($demoralizedStatus) {
+                    $player->removeStatus($demoralizedStatus);
+                }
 
                 $this->roomLogService->createQuantityLog(
                     $actionModifier->getMoralPointModifier() > 0 ? LogEnum::GAIN_MORAL_POINT : LogEnum::LOSS_MORAL_POINT,
@@ -270,26 +271,29 @@ class PlayerService implements PlayerServiceInterface
         }
 
         if ($actionModifier->getSatietyModifier()) {
-            if($actionModifier->getSatietyModifier()>=0 &&
-                    $player->getSatiety()<0){
+            if ($actionModifier->getSatietyModifier() >= 0 &&
+                    $player->getSatiety() < 0) {
                 $player->setSatiety($actionModifier->getSatietyModifier());
-            }else{
-                $player->setSatiety($player->getSatiety()+$actionModifier->getSatietyModifier());
+            } else {
+                $player->setSatiety($player->getSatiety() + $actionModifier->getSatietyModifier());
             }
 
-            $starvingStatus=$player->getStatusByName(PlayerStatusEnum::STARVING);
-            $fullStatus=$player->getStatusByName(PlayerStatusEnum::FULL_STOMACH);
+            $starvingStatus = $player->getStatusByName(PlayerStatusEnum::STARVING);
+            $fullStatus = $player->getStatusByName(PlayerStatusEnum::FULL_STOMACH);
 
-            if(!$player->isMush()){
-                if ($player->getSatiety()<-24 && !$starvingStatus && !$player->isMush()){
+            if (!$player->isMush()) {
+                if ($player->getSatiety() < -24 && !$starvingStatus && !$player->isMush()) {
                     $this->statusService->createCorePlayerStatus(PlayerStatusEnum::STARVING, $player);
-                }elseif($starvingStatus){$player->removeStatus($starvingStatus);}
-                
-                if($player->getSatiety()>3 && !$fullStatus && !$player->isMush()){
-                        $this->statusService->createCorePlayerStatus(PlayerStatusEnum::FULL_STOMACH, $player);
-                }elseif($fullStatus){$player->removeStatus($fullStatus);}
+                } elseif ($starvingStatus) {
+                    $player->removeStatus($starvingStatus);
+                }
 
-            }elseif($actionModifier->getSatietyModifier()>=0){
+                if ($player->getSatiety() > 3 && !$fullStatus && !$player->isMush()) {
+                    $this->statusService->createCorePlayerStatus(PlayerStatusEnum::FULL_STOMACH, $player);
+                } elseif ($fullStatus) {
+                    $player->removeStatus($fullStatus);
+                }
+            } elseif ($actionModifier->getSatietyModifier() >= 0) {
                 $this->statusService->createChargePlayerStatus(
                     PlayerStatusEnum::FULL_STOMACH,
                     $player,

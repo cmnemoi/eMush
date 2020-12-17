@@ -30,7 +30,7 @@ class ItemPileNormalizer implements ContextAwareNormalizerInterface
 
     public function supportsNormalization($data, string $format = null, array $context = [])
     {
-        return $data instanceof Collection;
+        return $data instanceof Collection && $data->first() instanceof GameEquipment; //@TODO corriger ca
     }
 
     /**

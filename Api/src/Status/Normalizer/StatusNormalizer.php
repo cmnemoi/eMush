@@ -5,10 +5,10 @@ namespace Mush\Status\Normalizer;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
-use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Entity\MedicalCondition;
 use Mush\Status\Entity\Status;
+use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
@@ -58,7 +58,7 @@ class StatusNormalizer implements ContextAwareNormalizerInterface
                 'description' => $this->translator->trans("{$statusName}.description", [], 'statusess'),
             ];
 
-            if ($statusName===PlayerStatusEnum::SPORES || $statusName===EquipmentStatusEnum::CHARGES) {
+            if ($statusName === PlayerStatusEnum::SPORES || $statusName === EquipmentStatusEnum::CHARGES) {
                 $normedStatus['charge'] = $status->getCharge();
             }
 

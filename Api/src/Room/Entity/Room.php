@@ -48,7 +48,7 @@ class Room
     private Collection $doors;
 
     /**
-     * @ORM\ManyToMany (targetEntity="Mush\Equipment\Entity\GameEquipment", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Mush\Equipment\Entity\GameEquipment", mappedBy="room", cascade={"persist"}, orphanRemoval=true)
      */
     private Collection $equipments;
 

@@ -105,6 +105,7 @@ class RoomLogService implements RoomLogServiceInterface
         \DateTime $dateTime = null
     ): RoomLog {
         $target = new Target($gameEquipment->getName(), 'equipments');
+
         return $this->persist($this->createLog($logKey, $room, $player, $target, null, $visibility, $dateTime));
     }
 
@@ -155,6 +156,7 @@ class RoomLogService implements RoomLogServiceInterface
                 'date' => $roomLog->getDate(),
             ];
         }
+
         return $logs;
     }
 }

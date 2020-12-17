@@ -2,8 +2,6 @@
 
 namespace Mush\Equipment\Normalizer;
 
-use Mush\Action\Actions\Action;
-use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionTargetEnum;
 use Mush\Action\Normalizer\ActionNormalizer;
 use Mush\Action\Service\ActionServiceInterface;
@@ -53,13 +51,13 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface
     {
         $actions = [];
 
-        $context=[];
+        $context = [];
         if ($equipment instanceof Door) {
-            $context['door']=$equipment;
+            $context['door'] = $equipment;
         } elseif ($equipment instanceof GameItem) {
-            $context['item']=$equipment;
+            $context['item'] = $equipment;
         } else {
-            $context['equipment']=$equipment;
+            $context['equipment'] = $equipment;
         }
 
         //@TODO this is awfully messy
@@ -72,32 +70,36 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface
                 $itemActions = $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getGrantActions()
                                     ->filter(fn (string $actionName) => $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)
                                     ->getActionsTarget()[$actionName] === ActionTargetEnum::DOOR);
-            }elseif ($equipment instanceof GameItem) {
+            } elseif ($equipment instanceof GameItem) {
                 $itemActions = $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getGrantActions()
                                     ->filter(fn (string $actionName) => $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)
                                     ->getActionsTarget()[$actionName] === ActionTargetEnum::ITEM ||
                                     $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)
                                     ->getActionsTarget()[$actionName] === ActionTargetEnum::EQUIPMENT);
-            }else{
+            } else {
                 $itemActions = $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getGrantActions()
                                     ->filter(fn (string $actionName) => $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)
                                     ->getActionsTarget()[$actionName] === ActionTargetEnum::EQUIPMENT);
             }
 
             foreach ($itemActions as $actionName) {
-                $actionClass = $this->actionService->getAction($actionName);              
-                if($actionClass){
+                $actionClass = $this->actionService->getAction($actionName);
+                if ($actionClass) {
                     $normedAction = $this->actionNormalizer->normalize($actionClass, null, $context);
-                    if (count($normedAction) > 0) {$actions[] = $normedAction;}
+                    if (count($normedAction) > 0) {
+                        $actions[] = $normedAction;
+                    }
                 }
             }
         }
 
         foreach ($equipment->getActions() as $actionName) {
-            $actionClass = $this->actionService->getAction($actionName);              
-            if($actionClass){
+            $actionClass = $this->actionService->getAction($actionName);
+            if ($actionClass) {
                 $normedAction = $this->actionNormalizer->normalize($actionClass, null, $context);
-                if (count($normedAction) > 0) {$actions[] = $normedAction;}
+                if (count($normedAction) > 0) {
+                    $actions[] = $normedAction;
+                }
             }
         }
 

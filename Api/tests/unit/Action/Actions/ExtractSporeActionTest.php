@@ -3,27 +3,18 @@
 namespace Mush\Test\Action\Actions;
 
 use Mockery;
-use Mush\Action\ActionResult\Success;
 use Mush\Action\ActionResult\Error;
+use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Action;
 use Mush\Action\Actions\ExtractSpore;
 use Mush\Action\Entity\ActionParameters;
-use Mush\Action\Service\SuccessRateServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\ItemConfig;
-use Mush\Equipment\Enum\ToolItemEnum;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Service\GameConfigServiceInterface;
-use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
-use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
-use Mush\Status\Service\StatusServiceInterface;
-use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -61,7 +52,6 @@ class ExtractSporeActionTest extends TestCase
         Mockery::close();
     }
 
-
     public function testCannotExecute()
     {
         $daedalus = new Daedalus();
@@ -71,7 +61,6 @@ class ExtractSporeActionTest extends TestCase
 
         $player = $this->createPlayer($daedalus, $room);
 
-        
         $actionParameter = new ActionParameters();
 
         $this->action->loadParameters($player, $actionParameter);
@@ -86,7 +75,6 @@ class ExtractSporeActionTest extends TestCase
             ->setCharge(2)
             ->setName(PlayerStatusEnum::SPORES);
 
-
         //Player not mush
         $result = $this->action->execute();
         $this->assertInstanceOf(Error::class, $result);
@@ -97,7 +85,6 @@ class ExtractSporeActionTest extends TestCase
 
         $result = $this->action->execute();
         $this->assertInstanceOf(Error::class, $result);
-        
 
         //No spores availlable
         $daedalus->setSpores(0);
@@ -106,7 +93,6 @@ class ExtractSporeActionTest extends TestCase
 
         $result = $this->action->execute();
         $this->assertInstanceOf(Error::class, $result);
-
     }
 
     public function testExecute()
@@ -118,13 +104,11 @@ class ExtractSporeActionTest extends TestCase
 
         $player = $this->createPlayer($daedalus, $room);
 
-
         $mushStatus = new ChargeStatus();
         $mushStatus
             ->setCharge(0)
             ->setName(PlayerStatusEnum::MUSH)
             ->setPlayer($player);
-        
 
         $sporeStatus = new ChargeStatus();
         $sporeStatus

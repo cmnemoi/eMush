@@ -54,7 +54,7 @@ class UserController extends AbstractFOSRestController
             }
         }
         if ($user !== $this->getUser()) {
-            return  $this->handleView($this->view(['error' => 'You cannot access this resource'], 403));
+            return $this->handleView($this->view(['error' => 'You cannot access this resource'], 403));
         }
 
         return $this->handleView($this->view($user));

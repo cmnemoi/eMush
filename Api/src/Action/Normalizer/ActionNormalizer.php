@@ -38,13 +38,19 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
      */
     public function normalize($action, string $format = null, array $context = [])
     {
-
         $actionParameter = new ActionParameters();
-        if(array_key_exists('player', $context)){$actionParameter->setPlayer($context['player']);}
-        if(array_key_exists('door', $context)){$actionParameter->setDoor($context['door']);}
-        if(array_key_exists('item', $context)){$actionParameter->setItem($context['item']);}
-        if(array_key_exists('equipment', $context)){$actionParameter->setEquipment($context['equipment']);}
-
+        if (array_key_exists('player', $context)) {
+            $actionParameter->setPlayer($context['player']);
+        }
+        if (array_key_exists('door', $context)) {
+            $actionParameter->setDoor($context['door']);
+        }
+        if (array_key_exists('item', $context)) {
+            $actionParameter->setItem($context['item']);
+        }
+        if (array_key_exists('equipment', $context)) {
+            $actionParameter->setEquipment($context['equipment']);
+        }
 
         $action->loadParameters($this->getUser()->getCurrentGame(), $actionParameter);
 

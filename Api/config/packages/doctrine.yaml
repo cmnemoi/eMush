@@ -64,3 +64,9 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Action/Entity'
                 prefix: 'Mush\Action\Entity'
                 alias: Action
+            Communication:
+                is_bundle: false
+                type: annotation
+                dir: '%kernel.project_dir%/src/Communication/Entity'
+                prefix: 'Mush\Communication\Entity'
+                alias: Communication

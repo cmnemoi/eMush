@@ -21,9 +21,9 @@ class ChannelService implements ChannelServiceInterface
         $this->channelRepository = $channelRepository;
     }
 
-    public function getPlayerChannels(Player $player): Collection
+    public function getPlayerChannels(Player $player, bool $privateOnly = false): Collection
     {
-        return $this->channelRepository->findByPlayer($player);
+        return $this->channelRepository->findByPlayer($player, $privateOnly);
     }
 
     public function createPublicChannel(Daedalus $daedalus): Channel

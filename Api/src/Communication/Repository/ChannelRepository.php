@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Persistence\ManagerRegistry;
 use Mush\Communication\Entity\Channel;
+use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Player\Entity\Player;
 
 class ChannelRepository extends ServiceEntityRepository
@@ -16,7 +17,7 @@ class ChannelRepository extends ServiceEntityRepository
         parent::__construct($registry, Channel::class);
     }
 
-    public function findByPlayer(Player $player): Collection
+    public function findByPlayer(Player $player, $privateOnly = false): Collection
     {
         $queryBuilder = $this->createQueryBuilder('channel');
         $queryBuilder
@@ -24,6 +25,13 @@ class ChannelRepository extends ServiceEntityRepository
             ->where($queryBuilder->expr()->eq('player', ':player'))
             ->setParameter('player', $player->getId())
         ;
+
+        if ($privateOnly) {
+            $queryBuilder
+                ->andWhere($queryBuilder->expr()->eq('channel.scope', ':private'))
+                ->setParameter('private', ChannelScopeEnum::PRIVATE)
+            ;
+        }
 
         return new ArrayCollection($queryBuilder->getQuery()->getResult());
     }

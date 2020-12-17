@@ -9,7 +9,7 @@ use Mush\Player\Entity\Player;
 
 interface ChannelServiceInterface
 {
-    public function getPlayerChannels(Player $player): Collection;
+    public function getPlayerChannels(Player $player, bool $privateOnly = false): Collection;
 
     public function createPublicChannel(Daedalus $daedalus): Channel;
 

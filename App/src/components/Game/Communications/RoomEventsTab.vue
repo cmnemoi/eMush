@@ -8,96 +8,7 @@
       <div class="cycle-events">
         <Log v-for="(roomLog, id) in cycleRoomLog.roomLogs" v-bind:key="id" :room-log="roomLog"></Log>
       </div>
-
     </div>
-    <div class="unit">
-      <div class="cycle-banner">
-        <span>Jour 1 Cycle 6</span>
-      </div>
-      <ul class="cycle-events">
-        <li class="personnal">
-          <p><img src="@/assets/images/triumph.png" alt="triumph"> Cette action remplit les objectifs personnels de votre personnage. Vous gagnez <strong>1 Triomphe</strong>.</p>
-          <span class="timestamp">moments ago</span>
-        </li>
-        <li class="personnal">
-          <p>Vous avez gagné 2 <img src="@/assets/images/xp.png" alt="xp">.</p>
-          <span class="timestamp">moments ago</span>
-        </li>
-        <li class="personnal">
-          <p>Vous avez gagné 1 <img src="@/assets/images/pm.png" alt="pm">.</p>
-          <span class="timestamp">moments ago</span>
-        </li>
-        <li class="personnal">
-          <p>Vous avez gagné 1 .</p>
-          <span class="timestamp">moments ago</span>
-        </li>
-      </ul>
-    </div>
-
-    <div class="unit">
-      <div class="cycle-banner">
-        <span>Jour 1 Cycle 5</span>
-      </div>
-      <ul class="cycle-events">
-        <li class="discrete spotted">
-          <p><strong>Janice</strong> souffle sur <strong>Stephen</strong> un nuage étrange...</p>
-          <span class="timestamp">24min</span>
-        </li>
-        <li class="discrete">
-          <p><strong>Janice</strong> souffle sur <strong>Stephen</strong> un nuage étrange...</p>
-          <span class="timestamp">26min</span>
-        </li>
-        <li class="covert">
-          <p><strong>Janice</strong> souffle sur <strong>Stephen</strong> un nuage étrange...</p>
-          <span class="timestamp">29min</span>
-        </li>
-        <li>
-          <p><strong>Derek</strong> s'allonge... Ça fait du bien de s'arrêter. Allez direction le pays des rêves !</p>
-          <span class="timestamp">36min</span>
-        </li>
-      </ul>
-    </div>
-
-    <div class="unit">
-      <div class="cycle-banner">
-        <span>Jour 1 Cycle 4</span>
-      </div>
-      <ul class="cycle-events">
-        <li>
-          <p><strong>Stephen</strong> s'est éveillé de son si doux sommeil.</p>
-          <span class="timestamp">~1h</span>
-        </li>
-        <li>
-          <p><strong>Roland</strong> est sorti.</p>
-          <span class="timestamp">~1h</span>
-        </li>
-        <li>
-          <p><strong>Ian</strong> a lâché un <strong>Bananier</strong>.</p>
-          <span class="timestamp">~1h</span>
-        </li>
-        <li>
-          <p><strong>Ian</strong> a lâché un <strong>Bananier</strong>.</p>
-          <span class="timestamp">~4h</span>
-        </li>
-        <li>
-          <p><strong>Ian</strong> est entré.</p>
-          <span class="timestamp">~4h</span>
-        </li>
-        <li>
-          <p><strong>Ian</strong> est sorti.</p>
-          <span class="timestamp">~4h</span>
-        </li>
-        <li>
-          <p><strong>Ian</strong> a lâché une <strong>HydroPot</strong>.</p>
-          <span class="timestamp">~5h</span>
-        </li>
-        <li>
-          <p><strong>Jin Su</strong> s'est éveillé de son si doux sommeil.</p>
-          <span class="timestamp">~5h</span>
-        </li>
-      </ul>
-    </div>
-
   </div>
 </template>
 
@@ -105,7 +16,7 @@
 import {Room} from "@/entities/Room";
 import ApiService from "@/services/api.service";
 import {RoomLog} from "@/entities/RoomLog";
-import Log from "@/components/Game/Communications/Log";
+import Log from "@/components/Game/Communications/Messages/Log";
 
 export default {
   name: "RoomEventsTab",
@@ -123,7 +34,6 @@ export default {
         .then(
             (result) => {
               if (result.data) {
-                console.log(result.data)
                 const days = result.data;
                 Object.keys(days).map((day) => {
                   Object.keys(days[day]).map((cycle) => {
@@ -160,9 +70,6 @@ export default {
   background: rgba(194, 243, 252, 1);
   color: #090a61;
   @include corner-bezel(0px, 6.5px, 0px);
-
-  display: none;
-  visibility: hidden;
 
   & .unit {
     display: block;

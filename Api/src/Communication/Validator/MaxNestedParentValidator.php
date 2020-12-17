@@ -11,6 +11,10 @@ class MaxNestedParentValidator extends ConstraintValidator
 {
     public function validate($value, Constraint $constraint)
     {
+        if ($value === null) {
+            return;
+        }
+
         if (!$value instanceof Message) {
             throw new UnexpectedValueException($value, Message::class);
         }

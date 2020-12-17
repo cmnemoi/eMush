@@ -7,6 +7,7 @@ use Mush\Communication\Services\MessageServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class MessageCreateParamConverter implements ParamConverterInterface
 {
@@ -23,8 +24,13 @@ class MessageCreateParamConverter implements ParamConverterInterface
         $parent = $request->get('parent');
 
         $messageCreate = new CreateMessage();
-
-        $parentMessage = $this->messageService->getMessageById($parent);
+        $parentMessage = null;
+        if ($parent) {
+            $parentMessage = $this->messageService->getMessageById($parent);
+            if ($parentMessage === null) {
+                throw new NotFoundHttpException('Parent message not found');
+            }
+        }
 
         $messageCreate
             ->setParent($parentMessage)

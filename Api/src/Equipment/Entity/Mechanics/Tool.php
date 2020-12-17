@@ -52,5 +52,4 @@ class Tool extends EquipmentMechanic
     }
 
     //@TODO maybe create a reach property
-
 }

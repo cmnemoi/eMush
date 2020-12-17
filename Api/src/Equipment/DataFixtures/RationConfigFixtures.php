@@ -28,7 +28,7 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setHealthPoints([0 => 1])
             ->setMoralPoints([-1 => 1])
             ->setSatiety(4)
-            ->setIsPerishable(False)
+            ->setIsPerishable(false)
         ;
 
         $standardRation = new ItemConfig();
@@ -191,7 +191,7 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setHealthPoints([0 => 1])
             ->setMoralPoints([-4 => 1])
             ->setSatiety(16)
-            ->setIsPerishable(False)
+            ->setIsPerishable(false)
         ;
 
         $organicWaste = new ItemConfig();
@@ -273,7 +273,7 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setDiseasesChances([DiseaseEnum::SLIGHT_NAUSEA => 55])
             ->setDiseasesDelayMin([DiseaseEnum::SLIGHT_NAUSEA => 0])
             ->setDiseasesDelayLength([DiseaseEnum::SLIGHT_NAUSEA => 0])
-            ->setIsPerishable(False)
+            ->setIsPerishable(false)
         ;
 
         $supervitaminBar = new ItemConfig();

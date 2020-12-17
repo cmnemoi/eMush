@@ -3,37 +3,35 @@
 namespace Mush\Test\Action\Actions;
 
 use Mockery;
-use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
+use Mush\Action\ActionResult\Error;
 use Mush\Action\Actions\Action;
-use Mush\Action\Actions\Hide;
+use Mush\Action\Actions\ExtractSpore;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Service\SuccessRateServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
+use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Entity\GameConfig;
+use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Service\StatusServiceInterface;
+use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Entity\ChargeStatus;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class HideActionTest extends TestCase
+class ExtractSporeActionTest extends TestCase
 {
     /** @var RoomLogServiceInterface | Mockery\Mock */
     private RoomLogServiceInterface $roomLogService;
-    /** @var GameEquipmentServiceInterface | Mockery\Mock */
-    private GameEquipmentServiceInterface $gameEquipmentService;
-    /** @var PlayerServiceInterface | Mockery\Mock */
-    private PlayerServiceInterface $playerService;
-    /** @var SuccessRateServiceInterface | Mockery\Mock */
-    private SuccessRateServiceInterface $successRateService;
-    /** @var RandomServiceInterface | Mockery\Mock */
-    private RandomServiceInterface $randomService;
+
     /** @var StatusServiceInterface | Mockery\Mock */
     private StatusServiceInterface $statusService;
     private Action $action;
@@ -45,15 +43,13 @@ class HideActionTest extends TestCase
     {
         $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
-        $this->playerService = Mockery::mock(PlayerServiceInterface::class);
+        $this->statusService = Mockery::mock(StatusServiceInterface::class);
         $eventDispatcher->shouldReceive('dispatch');
 
-        $this->action = new Hide(
+        $this->action = new ExtractSpore(
             $eventDispatcher,
             $this->roomLogService,
-            $this->gameEquipmentService,
-            $this->playerService,
+            $this->statusService,
         );
     }
 
@@ -65,64 +61,90 @@ class HideActionTest extends TestCase
         Mockery::close();
     }
 
+
     public function testCannotExecute()
     {
+        $daedalus = new Daedalus();
+        $daedalus->setSpores(1);
+
         $room = new Room();
 
-        $gameItem = new GameItem();
-        $item = new ItemConfig();
-        $item->setIsHideable(true);
-        $gameItem
-            ->setEquipment($item)
-        ;
+        $player = $this->createPlayer($daedalus, $room);
 
-        $player = $this->createPlayer(new Daedalus(), $room);
+        
         $actionParameter = new ActionParameters();
-        $actionParameter->setItem($gameItem);
+
         $this->action->loadParameters($player, $actionParameter);
 
-        //item is not in the room
+        $mushStatus = new ChargeStatus();
+        $mushStatus
+            ->setCharge(0)
+            ->setName(PlayerStatusEnum::MUSH);
+
+        $sporeStatus = new ChargeStatus();
+        $sporeStatus
+            ->setCharge(2)
+            ->setName(PlayerStatusEnum::SPORES);
+
+
+        //Player not mush
         $result = $this->action->execute();
         $this->assertInstanceOf(Error::class, $result);
 
-        //item is not hideable
-        $gameItem->setRoom($room);
-        $item->setIsHideable(false);
+        //player already max spores
+        $mushStatus->setPlayer($player);
+        $sporeStatus->setPlayer($player);
 
         $result = $this->action->execute();
         $this->assertInstanceOf(Error::class, $result);
+        
+
+        //No spores availlable
+        $daedalus->setSpores(0);
+        $sporeStatus
+            ->setCharge(1);
+
+        $result = $this->action->execute();
+        $this->assertInstanceOf(Error::class, $result);
+
     }
 
     public function testExecute()
     {
+        $daedalus = new Daedalus();
+        $daedalus->setSpores(1);
+
         $room = new Room();
 
-        $player = $this->createPlayer(new Daedalus(), $room);
+        $player = $this->createPlayer($daedalus, $room);
 
-        $gameItem = new GameItem();
-        $item = new ItemConfig();
-        $item->setIsHideable(true);
-        $gameItem
-            ->setEquipment($item)
+
+        $mushStatus = new ChargeStatus();
+        $mushStatus
+            ->setCharge(0)
+            ->setName(PlayerStatusEnum::MUSH)
+            ->setPlayer($player);
+        
+
+        $sporeStatus = new ChargeStatus();
+        $sporeStatus
+            ->setCharge(1)
             ->setPlayer($player)
-        ;
+            ->setName(PlayerStatusEnum::SPORES);
 
         $actionParameter = new ActionParameters();
-        $actionParameter->setItem($gameItem);
+
         $this->action->loadParameters($player, $actionParameter);
 
-        $this->roomLogService->shouldReceive('createEquipmentLog')->once();
-        $this->gameEquipmentService->shouldReceive('persist');
-        $this->playerService->shouldReceive('persist');
+        $this->roomLogService->shouldReceive('createPlayerLog')->once();
+        $this->statusService->shouldReceive('persist')->once();
 
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(1, $room->getEquipments());
-        $this->assertCount(0, $player->getItems());
-        $this->assertCount(1, $room->getEquipments()->first()->getStatuses());
-        $this->assertCount(1, $player->getStatuses());
-        $this->assertEquals(9, $player->getActionPoint());
+        $this->assertCount(2, $player->getStatuses());
+        $this->assertEquals(2, $player->getStatusByName(PlayerStatusEnum::SPORES)->getCharge());
+        $this->assertEquals(8, $player->getActionPoint());
     }
 
     private function createPlayer(Daedalus $daedalus, Room $room): Player

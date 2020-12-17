@@ -46,7 +46,6 @@ class Weapon extends Tool
      */
     private array $criticalFailEvents = [];
 
-
     protected array $grantActions = [ActionEnum::ATTACK];
     protected array $ActionsTarget = [ActionEnum::ATTACK => ActionTargetEnum::TARGET_PLAYER];
 

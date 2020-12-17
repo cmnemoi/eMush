@@ -77,7 +77,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             $gameEquipment = $equipment->createGameEquipment();
         }
 
-        if ($equipment->isAlienArtifact()){
+        if ($equipment->isAlienArtifact()) {
             $this->initAlienArtifact($gameEquipment);
         }
 
@@ -91,8 +91,8 @@ class GameEquipmentService implements GameEquipmentServiceInterface
                     $this->initCharged($gameEquipment, $mechanic);
                     break;
                 case EquipmentMechanicEnum::DOCUMENT:
-                    if ($mechanic->getContent()){
-                         $this->initDocument($gameEquipment, $mechanic);
+                    if ($mechanic->getContent()) {
+                        $this->initDocument($gameEquipment, $mechanic);
                     }
                     break;
             }
@@ -117,13 +117,18 @@ class GameEquipmentService implements GameEquipmentServiceInterface
 
     private function initCharged(GameEquipment $gameEquipment, Charged $charged): GameEquipment
     {
-        $this->statusService->createChargeEquipmentStatus(
+        
+        $chargeStatus=$this->statusService->createChargeEquipmentStatus(
             EquipmentStatusEnum::CHARGES,
             $gameEquipment,
             $charged->getChargeStrategy(),
             $charged->getStartCharge(),
             $charged->getMaxCharge()
         );
+
+        if (!$charged->isVisible()){
+            $chargeStatus->setVisibility(VisibilityEnum::HIDDEN);
+        }
 
         return $gameEquipment;
     }
@@ -162,7 +167,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
 
     public function isOperational(GameEquipment $gameEquipment): bool
     {
-        if ($chargedStatus = $gameEquipment->getStatusByName(EquipmentStatusEnum::CHARGES)){
+        if ($chargedStatus = $gameEquipment->getStatusByName(EquipmentStatusEnum::CHARGES)) {
             return !($gameEquipment->getStatusByName(EquipmentStatusEnum::BROKEN)) && $chargedStatus->getCharge() > 0;
         }
 

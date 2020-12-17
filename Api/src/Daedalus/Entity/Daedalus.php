@@ -73,6 +73,16 @@ class Daedalus
     private int $shield;
 
     /**
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    private int $spores;
+
+    /**
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    private int $dailySpores;
+
+    /**
      * Daedalus constructor.
      *
      * @param int $id
@@ -144,7 +154,7 @@ class Daedalus
 
     public function getRoomByName(string $name): Room
     {
-        return $this->getRooms()->filter(fn (Room $room) => $room->getName() === $name);
+        return $this->getRooms()->filter(fn (Room $room) => $room->getName() === $name)->first();
     }
 
     public function setRooms(Collection $rooms): Daedalus
@@ -191,6 +201,13 @@ class Daedalus
         return $this;
     }
 
+    public function addOxygen(int $change): Daedalus
+    {
+        $this->oxygen += $change;
+
+        return $this;
+    }
+
     public function getFuel(): int
     {
         return $this->fuel;
@@ -200,6 +217,13 @@ class Daedalus
     {
         $this->fuel = $fuel;
 
+        return $this;
+    }
+
+    public function addFuel(int $change): Daedalus
+    {
+        $this->fuel += $change;
+        
         return $this;
     }
 
@@ -247,6 +271,30 @@ class Daedalus
     public function setShield(int $shield): Daedalus
     {
         $this->shield = $shield;
+
+        return $this;
+    }
+
+    public function getSpores(): int
+    {
+        return $this->spores;
+    }
+
+    public function setSpores(int $spores): Daedalus
+    {
+        $this->spores = $spores;
+
+        return $this;
+    }
+
+    public function getDailySpores(): int
+    {
+        return $this->dailySpores;
+    }
+
+    public function setDailySpores(int $dailySpores): Daedalus
+    {
+        $this->dailySpores = $dailySpores;
 
         return $this;
     }

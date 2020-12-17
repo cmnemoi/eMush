@@ -2,15 +2,16 @@
 
 namespace Mush\Status\Normalizer;
 
-use Mush\Status\Entity\Status;
-use Mush\Player\Entity\Player;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Status\Entity\ChargeStatus;
-use Mush\Status\Entity\MedicalCondition;
+use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Entity\MedicalCondition;
+use Mush\Status\Entity\Status;
 use Mush\User\Entity\User;
-use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class StatusNormalizer implements ContextAwareNormalizerInterface
@@ -21,7 +22,6 @@ class StatusNormalizer implements ContextAwareNormalizerInterface
     public function __construct(
         TranslatorInterface $translator,
         TokenStorageInterface $tokenStorage
-
     ) {
         $this->translator = $translator;
         $this->tokenStorage = $tokenStorage;
@@ -39,35 +39,36 @@ class StatusNormalizer implements ContextAwareNormalizerInterface
      */
     public function normalize($status, string $format = null, array $context = [])
     {
-        $statusName=$status->getName();
-        $visibility=$status->getVisibility();
+        $statusName = $status->getName();
+        $visibility = $status->getVisibility();
 
-        if($visibility===VisibilityEnum::PUBLIC ||
-           ($visibility===VisibilityEnum::PLAYER_PUBLIC && 
+        if ($visibility === VisibilityEnum::PUBLIC ||
+           ($visibility === VisibilityEnum::PLAYER_PUBLIC &&
            array_key_exists('player', $context) && $context['player'] instanceof Player) ||
-           ((($visibility===VisibilityEnum::EQUIPMENT_PRIVATE &&
+           ((($visibility === VisibilityEnum::EQUIPMENT_PRIVATE &&
            array_key_exists('equipment', $context) && $context['equipment'] instanceof GameEquipment) ||
-           $visibility===VisibilityEnum::PRIVATE) && 
+           $visibility === VisibilityEnum::PRIVATE) &&
            $this->getUser()->getCurrentGame() === $status->getPlayer()) ||
-           ($visibility===VisibilityEnum::MUSH && 
+           ($visibility === VisibilityEnum::MUSH &&
            $this->getUser()->getCurrentGame()->isMush())
-           ){
-            $normedStatus=[
+           ) {
+            $normedStatus = [
                 'key' => $statusName,
                 'name' => $this->translator->trans($statusName . '.name', [], 'statuses'),
                 'description' => $this->translator->trans("{$statusName}.description", [], 'statusess'),
             ];
-    
-            if ($status instanceof ChargeStatus){
+
+            if ($statusName===PlayerStatusEnum::SPORES || $statusName===EquipmentStatusEnum::CHARGES) {
                 $normedStatus['charge'] = $status->getCharge();
             }
-    
-            if ($status instanceof MedicalCondition){
+
+            if ($status instanceof MedicalCondition) {
                 $normedStatus['effect'] = $this->translator->trans("{$statusName}.effect", [], 'statuses');
             }
-    
+
             return $normedStatus;
-           }
+        }
+
         return [];
     }
 

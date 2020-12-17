@@ -76,7 +76,6 @@ class ExpressCookActionTest extends TestCase
 
     public function testCannotExecute()
     {
-        $daedalus = new Daedalus();
         $room = new Room();
 
         $gameRation = new GameItem();
@@ -130,7 +129,6 @@ class ExpressCookActionTest extends TestCase
     public function testExecute()
     {
         //frozen fruit
-        $daedalus = new Daedalus();
         $room = new Room();
 
         $player = $this->createPlayer(new Daedalus(), $room);

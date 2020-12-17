@@ -1,24 +1,40 @@
 <?php
 
-namespace Mush\Player\Event;
+namespace Mush\Daedalus\Event;
 
-use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
+use Mush\Game\Enum\CharacterEnum;
+use Mush\Game\Service\RandomServiceInterface;
+use Mush\Player\Entity\Player;
+use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Mush\Game\Entity\GameConfig;
+use Mush\Game\Service\GameConfigServiceInterface;
 
 class DaedalusSubscriber implements EventSubscriberInterface
 {
     private DaedalusServiceInterface $daedalusService;
     private EventDispatcherInterface $eventDispatcher;
+    private RandomServiceInterface $randomService;
+    private StatusServiceInterface $statusService;
+    private GameConfig $gameConfig;
 
     /**
      * DaedalusSubscriber constructor.
      */
-    public function __construct(DaedalusServiceInterface $daedalusService, EventDispatcherInterface $eventDispatcher)
-    {
+    public function __construct(
+        DaedalusServiceInterface $daedalusService,
+        EventDispatcherInterface $eventDispatcher,
+        RandomServiceInterface $randomService,
+        StatusServiceInterface $statusService,
+        GameConfigServiceInterface $gameConfigService
+        ) {
         $this->daedalusService = $daedalusService;
         $this->eventDispatcher = $eventDispatcher;
+        $this->randomService = $randomService;
+        $this->statusService = $statusService;
+        $this->gameConfig = $gameConfigService->getConfig();
     }
 
     public static function getSubscribedEvents()
@@ -45,5 +61,12 @@ class DaedalusSubscriber implements EventSubscriberInterface
     {
         $daedalus = $event->getDaedalus();
         // @TODO: create logs
+
+        //@TODO give titles
+
+
+        //Chose alpha Mushs
+        $this->daedalusService->selectAlphaMush($daedalus);
+
     }
 }

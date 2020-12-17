@@ -65,17 +65,14 @@ class ActionEnum
     public const LIE_DOWN = 'lie_down';
     public const DISPENSE = 'dispense';
     public const SHOOT_HUNTER = 'shoot_hunter';
-    public const ACCES_TERMINAL='acces_terminal';
+    public const ACCES_TERMINAL = 'acces_terminal';
 
-
-    
     // Permanent Player Actions
     public const UNGAG = 'ungag';
     public const GET_UP = 'get_up';
     public const GUARD = 'guard';
     public const HIT = 'hit';
     public const WHISPER = 'whisper';
-
 
     // Skill-related actions (Humans)
     public const FIERY_SPEECH = 'fiery_speech';
@@ -146,6 +143,8 @@ class ActionEnum
             self::GET_UP,
             self::GUARD,
             self::SEARCH,
+            self::EXTRACT_SPORE,
+            self::GO_BERSERK,
         ];
     }
 
@@ -156,5 +155,4 @@ class ActionEnum
             self::WHISPER,
         ];
     }
-
 }

@@ -21,7 +21,6 @@ use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -182,7 +181,6 @@ class PlantCycleHandlerTest extends TestCase
 
         $gamePlant = new GameItem();
         $gamePlant
-            ->addStatus($chargeStatus)
             ->setEquipment($plant)
             ->setRoom($room)
         ;

@@ -10,12 +10,12 @@ use Mush\Action\Actions\Action;
 use Mush\Action\Actions\Cook;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\EquipmentConfig;
+use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
-use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\GameConfigServiceInterface;
@@ -23,7 +23,6 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
-use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -77,7 +76,6 @@ class CookActionTest extends TestCase
 
     public function testCannotExecute()
     {
-        $daedalus = new Daedalus();
         $room = new Room();
 
         $gameRation = new GameItem();
@@ -123,7 +121,6 @@ class CookActionTest extends TestCase
     public function testExecute()
     {
         //frozen fruit
-        $daedalus = new Daedalus();
         $room = new Room();
 
         $player = $this->createPlayer(new Daedalus(), $room);

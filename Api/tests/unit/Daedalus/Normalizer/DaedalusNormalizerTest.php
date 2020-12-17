@@ -68,8 +68,6 @@ class DaedalusNormalizerTest extends TestCase
             'fuel' => 24,
             'hull' => 100,
             'shield' => 100,
-            'createdAt' => $daedalus->getCreatedAt(),
-            'updatedAt' => $daedalus->getUpdatedAt(),
             'nextCycle' => $nextCycle->format(\DateTime::ATOM),
         ];
 

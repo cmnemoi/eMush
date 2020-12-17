@@ -12,6 +12,7 @@ use Mush\Daedalus\Repository\DaedalusRepository;
 use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\CharacterConfig;
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
@@ -102,6 +103,8 @@ class DaedalusService implements DaedalusServiceInterface
             ->setFuel($daedalusConfig->getInitFuel())
             ->setHull($daedalusConfig->getInitHull())
             ->setShield($daedalusConfig->getInitShield())
+            ->setSpores($daedalusConfig->getDailySporeNb())
+            ->setDailySpores($daedalusConfig->getDailySporeNb())
         ;
 
         $this->persist($daedalus);
@@ -135,5 +138,40 @@ class DaedalusService implements DaedalusServiceInterface
         $this->eventDispatcher->dispatch($daedalusEvent, DaedalusEvent::NEW_DAEDALUS);
 
         return $this->persist($daedalus);
+    }
+
+
+    public function selectAlphaMush(Daedalus $daedalus): Daedalus
+    {
+        $gameConfig=$daedalus->getGameConfig();
+
+        //Chose alpha Mushs
+        $chancesArray = [];
+
+        foreach ($gameConfig->getCharactersConfig() as $characterConfig) {
+            //@TODO lower $mushChance if user is a beginner
+            //@TODO (maybe add a "I want to be mush" setting to increase this proba)
+
+            $mushChance = 1;
+            if (in_array(PlayerStatusEnum::IMMUNIZED, $characterConfig->getStatuses())) {
+                $mushChance = 0;
+            }
+            $chancesArray[$characterConfig->getName()] = $mushChance;
+        }
+
+        $mushNumber = $this->gameConfig->getNbMush();
+         
+
+        $mushPlayerName = $this->randomService->getRandomElementsFromProbaArray($chancesArray, $mushNumber);
+        foreach ($mushPlayerName as $playerName) {
+            $mushPlayer = $daedalus->getPlayers()->filter(fn (Player $player) => $player->getPerson() === $playerName);
+
+            if (!$mushPlayer->isEmpty()){
+                $mushStatus=$this->statusService->createMushStatus($mushPlayer)->first());
+                $this->statusService->persist($mushStatus);
+            }
+        }
+
+        return $daedalus;
     }
 }

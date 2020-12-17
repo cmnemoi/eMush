@@ -71,7 +71,7 @@ class Charged extends EquipmentMechanic
         return $this;
     }
 
-    public function getIsVisible(): bool
+    public function isVisible(): bool
     {
         return $this->isVisible;
     }

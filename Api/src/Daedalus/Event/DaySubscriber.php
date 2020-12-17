@@ -46,5 +46,10 @@ class DaySubscriber implements EventSubscriberInterface
             $newRoomDay->setRoom($room);
             $this->eventDispatcher->dispatch($newRoomDay, DayEvent::NEW_DAY);
         }
+
+        //reset spore count
+        $daedalus->setSpores($daedalus->getDailySpores());
+
+        $this->daedalusService->persist($daedalus);
     }
 }

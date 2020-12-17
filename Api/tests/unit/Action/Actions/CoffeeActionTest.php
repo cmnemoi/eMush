@@ -10,12 +10,12 @@ use Mush\Action\Actions\Action;
 use Mush\Action\Actions\Coffee;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Enum\GameRationEnum;
+use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\GameConfigServiceInterface;
@@ -24,7 +24,6 @@ use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\ChargeStatus;
-use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
@@ -77,7 +76,6 @@ class CoffeeActionTest extends TestCase
 
     public function testCannotExecute()
     {
-        $daedalus = new Daedalus();
         $room = new Room();
 
         $chargeStatus = new ChargeStatus();
@@ -102,7 +100,6 @@ class CoffeeActionTest extends TestCase
         $actionParameter->setEquipment($gameCoffeeMachine);
         $this->action->loadParameters($player, $actionParameter);
 
-        
         //No microwave in the room
         $this->gameEquipmentService->shouldReceive('getOperationalEquipmentsByName')->andReturn(new ArrayCollection([]))->once();
         $result = $this->action->execute();
@@ -112,7 +109,6 @@ class CoffeeActionTest extends TestCase
     public function testExecute()
     {
         //Standard Ration
-        $daedalus = new Daedalus();
         $room = new Room();
 
         $chargeStatus = new ChargeStatus();
@@ -131,7 +127,6 @@ class CoffeeActionTest extends TestCase
         ;
 
         $chargeStatus->setGameEquipment($gameCoffeeMachine);
-
 
         $player = $this->createPlayer(new Daedalus(), $room);
 

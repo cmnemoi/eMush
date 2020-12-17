@@ -48,8 +48,7 @@ class DaySubscriber implements EventSubscriberInterface
         }
 
         //reset spore count
-        //@TODO handle research
-        $daedalus->setSpores(4);
+        $daedalus->setSpores($daedalus->getDailySpores());
 
         $this->daedalusService->persist($daedalus);
     }

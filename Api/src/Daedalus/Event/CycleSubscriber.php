@@ -89,7 +89,7 @@ class CycleSubscriber implements EventSubscriberInterface
         }
 
         if($this->daedalus->getOxygen<0){
-            $this->daedalus->setOxygen=0
+            $this->daedalus->setOxygen=0;
             //@TODO kill a random player
         }
 

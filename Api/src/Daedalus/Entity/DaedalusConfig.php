@@ -56,6 +56,11 @@ class DaedalusConfig
      */
     private Collection $roomConfigs;
 
+    /**
+     * @ORM\Column(type="integer", length=255, nullable=false)
+     */
+    private int $dailySporeNb;
+
     public function getId(): int
     {
         return $this->id;
@@ -141,6 +146,18 @@ class DaedalusConfig
     public function setRoomConfigs(Collection $roomConfigs): DaedalusConfig
     {
         $this->roomConfigs = $roomConfigs;
+
+        return $this;
+    }
+
+    public function getDailySporeNb(): int
+    {
+        return $this->dailySporeNb;
+    }
+
+    public function setDailySporeNb(int $dailySporeNb): DaedalusConfig
+    {
+        $this->dailySporeNb = $dailySporeNb;
 
         return $this;
     }

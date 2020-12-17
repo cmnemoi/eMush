@@ -66,27 +66,7 @@ class DaedalusSubscriber implements EventSubscriberInterface
 
 
         //Chose alpha Mushs
-        $chancesArray = [];
-        foreach ($daedalus->getPlayers() as $player) {
-            //@TODO lower $mushChance if user is a beginner
-            //@TODO (maybe add a "I want to be mush" setting to increase this proba)
-            $mushChance = 1;
+        $this->daedalusService->selectAlphaMush($daedalus);
 
-            if ($player->getPerson() === CharacterEnum::CHUN) {
-                $mushChance = 0;
-            }
-            $chancesArray[$player->getPerson()] = $mushChance;
-        }
-
-
-        $mushNumber = round($daedalus->getPlayers()->count() / $this->gameConfig->getMaxPlayer()  * $this->gameConfig->getNbMush());
-
-        $mushPlayerName = $this->randomService->getRandomElementsFromProbaArray($chancesArray, $mushNumber);
-
-        foreach ($mushPlayerName as $playerName) {
-            $mushPlayer = $daedalus->getPlayers()->filter(fn (Player $player) => $player->getPerson() === $playerName)->first();
-            $mushStatus=$this->statusService->createMushStatus($mushPlayer);
-            $this->statusService->persist($mushStatus);
-        }
     }
 }

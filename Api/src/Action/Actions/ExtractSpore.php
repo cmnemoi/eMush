@@ -41,23 +41,24 @@ class ExtractSpore extends Action
 
     public function canExecute(): bool
     {
+        $sporeStatus=$this->player->getStatusByName(PlayerStatusEnum::SPORES);
         return  $this->player->isMush() &&
-                (!$this->player->getStatusByName(PlayerStatusEnum::SPORES) ||
-                $this->player->getStatusByName(PlayerStatusEnum::SPORES)->getCharge() < 2) &&
+                (!$sporeStatus ||
+                $sporeStatus->getCharge() < 2) &&
                 $this->player->getDaedalus()->getSpores() > 0;
     }
 
     protected function applyEffects(): ActionResult
     {
-        if ($this->player->getStatusByName(PlayerStatusEnum::SPORES)) {
-            $this->player->getStatusByName(PlayerStatusEnum::SPORES)->addCharge(1);
+        if ($sporeStatus=$this->player->getStatusByName(PlayerStatusEnum::SPORES)) {
+            $sporeStatus->addCharge(1);
         } else {
             $this->statusService->createSporeStatus($this->player);
         }
 
         $this->player->getDaedalus()->setSpores($this->player->getDaedalus()->getSpores() - 1);
 
-        $this->statusService->persist($this->player->getStatusByName(PlayerStatusEnum::SPORES));
+        $this->statusService->persist($sporeStatus);
 
         return new Success();
     }

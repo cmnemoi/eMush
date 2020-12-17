@@ -143,30 +143,33 @@ class DaedalusService implements DaedalusServiceInterface
 
     public function selectAlphaMush(Daedalus $daedalus): Daedalus
     {
+        $gameConfig=$daedalus->getGameConfig();
+
         //Chose alpha Mushs
         $chancesArray = [];
 
-
-        foreach ($daedalus->getPlayers() as $player) {
+        foreach ($gameConfig->getCharactersConfig() as $characterConfig) {
             //@TODO lower $mushChance if user is a beginner
             //@TODO (maybe add a "I want to be mush" setting to increase this proba)
+
             $mushChance = 1;
-            if ($player->getPerson() === CharacterEnum::CHUN) {
+            if (in_array(PlayerStatusEnum::IMMUNIZED, $characterConfig->getStatuses())) {
                 $mushChance = 0;
             }
-            $chancesArray[$player->getPerson()] = $mushChance;
+            $chancesArray[$characterConfig->getName()] = $mushChance;
         }
-        $mushNumber = round($daedalus->getPlayers()->count() / $this->gameConfig->getMaxPlayer()  * $this->gameConfig->getNbMush());
+
+        $mushNumber = $this->gameConfig->getNbMush();
          
 
-
-        
-        
         $mushPlayerName = $this->randomService->getRandomElementsFromProbaArray($chancesArray, $mushNumber);
         foreach ($mushPlayerName as $playerName) {
-            $mushPlayer = $daedalus->getPlayers()->filter(fn (Player $player) => $player->getPerson() === $playerName)->first();
-            $mushStatus=$this->statusService->createMushStatus($mushPlayer);
-            $this->statusService->persist($mushStatus);
+            $mushPlayer = $daedalus->getPlayers()->filter(fn (Player $player) => $player->getPerson() === $playerName);
+
+            if (!$mushPlayer->isEmpty()){
+                $mushStatus=$this->statusService->createMushStatus($mushPlayer)->first());
+                $this->statusService->persist($mushStatus);
+            }
         }
 
         return $daedalus;

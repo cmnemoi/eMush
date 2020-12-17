@@ -115,8 +115,6 @@ class PlayerSubscriber implements EventSubscriberInterface
         $player->removeStatus($player->getStatusByName(PlayerStatusEnum::SPORES));
         $this->statusService->createMushStatus($player);
 
-        
-
         //@TODO add logs and welcome message
 
         $this->playerService->persist($player);

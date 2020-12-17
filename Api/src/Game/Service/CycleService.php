@@ -61,7 +61,7 @@ class CycleService implements CycleServiceInterface
         );
     }
 
-    public function getDateStartNextCycle(Daedalus $daedalus): \DateTime
+    public function getDateStartNextCycle(Daedalus $daedalus): DateTime
     {
         $currentCycle = $daedalus->getCycle();
         $currentCycleStartedAt = clone $daedalus->getUpdatedAt();

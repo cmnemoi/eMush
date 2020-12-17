@@ -36,7 +36,7 @@ class PlantCycleHandlerTest extends TestCase
     private StatusServiceInterface $statusService;
     /** @var EquipmentEffectServiceInterface | Mockery\Mock */
     private EquipmentEffectServiceInterface $equipmentEffectService;
-    /** @var GameConfig */
+
     private GameConfig $gameConfig;
 
     private PlantCycleHandler $plantCycleHandler;

@@ -9,6 +9,7 @@ use Mush\Equipment\Normalizer\ItemPileNormalizer;
 use Mush\Player\Entity\Player;
 use Mush\Player\Normalizer\PlayersNormalizer;
 use Mush\Room\Entity\Room;
+use Mush\Status\Normalizer\StatusNormalizer;
 use Mush\User\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;

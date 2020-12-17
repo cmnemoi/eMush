@@ -33,7 +33,8 @@ class PlayerNormalizer implements ContextAwareNormalizerInterface
 
     public function supportsNormalization($data, string $format = null, array $context = [])
     {
-        return $data instanceof Player;
+        //@ TODO : fix that
+        return $data instanceof Player && false;
     }
 
     /**

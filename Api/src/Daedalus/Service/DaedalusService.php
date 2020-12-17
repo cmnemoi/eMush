@@ -12,18 +12,16 @@ use Mush\Daedalus\Repository\DaedalusRepository;
 use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\CharacterConfig;
-use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Player\Event\PlayerEvent;
 use Mush\Room\Entity\Room;
 use Mush\Room\Entity\RoomConfig;
 use Mush\Room\Service\RoomServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Mush\Player\Event\PlayerEvent;
-
 
 class DaedalusService implements DaedalusServiceInterface
 {
@@ -82,7 +80,7 @@ class DaedalusService implements DaedalusServiceInterface
 
     public function findAvailableDaedalus(): ?Daedalus
     {
-        return  $this->repository->findAvailableDaedalus();
+        return $this->repository->findAvailableDaedalus();
     }
 
     public function findAvailableCharacterForDaedalus(Daedalus $daedalus): Collection
@@ -143,10 +141,9 @@ class DaedalusService implements DaedalusServiceInterface
         return $this->persist($daedalus);
     }
 
-
     public function selectAlphaMush(Daedalus $daedalus): Daedalus
     {
-        $gameConfig=$daedalus->getGameConfig();
+        $gameConfig = $daedalus->getGameConfig();
 
         //Chose alpha Mushs
         $chancesArray = [];
@@ -163,13 +160,12 @@ class DaedalusService implements DaedalusServiceInterface
         }
 
         $mushNumber = $this->gameConfig->getNbMush();
-         
 
         $mushPlayerName = $this->randomService->getRandomElementsFromProbaArray($chancesArray, $mushNumber);
         foreach ($mushPlayerName as $playerName) {
             $mushPlayer = $daedalus->getPlayers()->filter(fn (Player $player) => $player->getPerson() === $playerName);
 
-            if (!$mushPlayer->isEmpty()){
+            if (!$mushPlayer->isEmpty()) {
                 $playerEvent = new PlayerEvent($this->targetPlayer);
                 $this->eventManager->dispatch($playerEvent, PlayerEvent::CONVERSION_PLAYER);
             }

@@ -42,7 +42,7 @@ class ExtractSpore extends Action
     {
         $sporeStatus = $this->player->getStatusByName(PlayerStatusEnum::SPORES);
 
-        return  $this->player->isMush() &&
+        return $this->player->isMush() &&
                 (!$sporeStatus ||
                 $sporeStatus->getCharge() < 2) &&
                 $this->player->getDaedalus()->getSpores() > 0;

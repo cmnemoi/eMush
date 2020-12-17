@@ -1,6 +1,11 @@
 install: build
 	docker-compose -f docker/docker-compose.yml run -u node mush_front npm install && \
 	docker-compose -f docker/docker-compose.yml run -u dev mush_php composer install
+
+reset-dependencies:
+	docker-compose -f docker/docker-compose.yml run -u node mush_front "./reset.sh" && \
+	docker-compose -f docker/docker-compose.yml run -u dev mush_php "./reset.sh"
+
 build:
 	docker-compose -f docker/docker-compose.yml build
 

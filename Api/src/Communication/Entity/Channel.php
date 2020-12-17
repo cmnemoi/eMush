@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Communication\Enum\ChannelScopeEnum;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Player\Entity\Player;
 
 /**
@@ -30,6 +31,11 @@ class Channel
     private string $scope = ChannelScopeEnum::PUBLIC;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Mush\Daedalus\Entity\Daedalus")
+     */
+    private Daedalus $daedalus;
+
+    /**
      * @ORM\ManyToMany (targetEntity="Mush\Player\Entity\Player")
      */
     private Collection $participants;
@@ -50,6 +56,18 @@ class Channel
         return $this->id;
     }
 
+    public function getDaedalus(): Daedalus
+    {
+        return $this->daedalus;
+    }
+
+    public function setDaedalus(Daedalus $daedalus): Channel
+    {
+        $this->daedalus = $daedalus;
+
+        return $this;
+    }
+
     public function getScope(): string
     {
         return $this->scope;
@@ -58,6 +76,7 @@ class Channel
     public function setScope(string $scope): Channel
     {
         $this->scope = $scope;
+
         return $this;
     }
 
@@ -71,6 +90,7 @@ class Channel
         if (!$this->getParticipants()->contains($player)) {
             $this->participants->add($player);
         }
+
         return $this;
     }
 
@@ -79,6 +99,7 @@ class Channel
         if (!$this->getParticipants()->contains($player)) {
             $this->participants->removeElement($player);
         }
+
         return $this;
     }
 
@@ -90,6 +111,7 @@ class Channel
     public function setParticipants(Collection $participants): Channel
     {
         $this->participants = $participants;
+
         return $this;
     }
 
@@ -101,6 +123,7 @@ class Channel
     public function setMessages(Collection $messages): Channel
     {
         $this->messages = $messages;
+
         return $this;
     }
 }

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Mush\Communication\Voter;
-
 
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\Message;
@@ -49,7 +47,6 @@ class MessageVoter extends Voter
             case self::CREATE:
                 return $this->canCreate($channel, $player);
         }
-
 
         throw new \LogicException('This code should not be reached!');
     }

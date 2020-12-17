@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Communication\Entity\Channel;
+use Mush\Communication\Entity\Dto\CreateMessage;
 use Mush\Communication\Entity\Message;
 use Mush\Player\Entity\Player;
 
@@ -18,19 +19,19 @@ class MessageService implements MessageServiceInterface
         $this->entityManager = $entityManager;
     }
 
-    public function createPlayerMessage(Player $player, Channel $channel, string $messageContent, ?Message $parent = null): Message
+    public function createPlayerMessage(Player $player, CreateMessage $createMessage): Message
     {
         $message = new Message();
         $message
             ->setAuthor($player)
-            ->setChannel($channel)
-            ->setMessage($messageContent)
-            ->setParent($parent)
+            ->setChannel($createMessage->getChannel())
+            ->setMessage($createMessage->getMessage())
+            ->setParent($createMessage->getParent())
         ;
 
-        if ($parent !== null) {
-            $root = $parent;
-            $rootMessage = $parent;
+        if ($createMessage->getParent() !== null) {
+            $root = $createMessage->getParent();
+            $rootMessage = $createMessage->getParent();
             while ($rootMessage = $rootMessage->getParent()) {
                 $root = $rootMessage;
             }

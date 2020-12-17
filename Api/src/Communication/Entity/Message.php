@@ -6,7 +6,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Player\Entity\Player;
 
 /**
@@ -66,6 +65,7 @@ class Message
     public function setAuthor(?Player $author): Message
     {
         $this->author = $author;
+
         return $this;
     }
 
@@ -77,6 +77,7 @@ class Message
     public function setParent(?Message $parent): Message
     {
         $this->parent = $parent;
+
         return $this;
     }
 
@@ -88,6 +89,7 @@ class Message
     public function setMessage(string $message): Message
     {
         $this->message = $message;
+
         return $this;
     }
 
@@ -99,6 +101,7 @@ class Message
     public function setChannel(Channel $channel): Message
     {
         $this->channel = $channel;
+
         return $this;
     }
 
@@ -110,6 +113,7 @@ class Message
     public function setChild(Collection $child): Message
     {
         $this->child = $child;
+
         return $this;
     }
 }

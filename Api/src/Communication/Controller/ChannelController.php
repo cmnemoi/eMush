@@ -6,6 +6,7 @@ use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
 use Mush\Communication\Entity\Channel;
+use Mush\Communication\Entity\Dto\CreateMessage;
 use Mush\Communication\Services\ChannelServiceInterface;
 use Mush\Communication\Services\MessageServiceInterface;
 use Mush\Communication\Specification\SpecificationInterface;
@@ -14,8 +15,11 @@ use Mush\Player\Service\PlayerServiceInterface;
 use Mush\User\Entity\User;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * Class UsersController.
@@ -28,21 +32,24 @@ class ChannelController extends AbstractFOSRestController
     private ChannelServiceInterface $channelService;
     private MessageServiceInterface $messageService;
     private PlayerServiceInterface $playerService;
+    private ValidatorInterface $validator;
 
     public function __construct(
         SpecificationInterface $canCreateChannel,
-        MessageServiceInterface $messageService,
         ChannelServiceInterface $channelService,
-        PlayerServiceInterface $playerService
+        MessageServiceInterface $messageService,
+        PlayerServiceInterface $playerService,
+        ValidatorInterface $validator
     ) {
         $this->canCreateChannel = $canCreateChannel;
         $this->channelService = $channelService;
         $this->messageService = $messageService;
         $this->playerService = $playerService;
+        $this->validator = $validator;
     }
 
     /**
-     * Create a channel
+     * Create a channel.
      *
      * @OA\Tag(name="Channel")
      * @Security(name="Bearer")
@@ -63,7 +70,7 @@ class ChannelController extends AbstractFOSRestController
     }
 
     /**
-     * Get the channels
+     * Get the channels.
      *
      * @OA\Tag(name="Channel")
      * @Security(name="Bearer")
@@ -84,7 +91,8 @@ class ChannelController extends AbstractFOSRestController
     }
 
     /**
-     * Invite player to a channel
+     * Invite player to a channel.
+     *
      *    @OA\RequestBody (
      *      description="Input data format",
      *      @OA\MediaType(
@@ -123,7 +131,8 @@ class ChannelController extends AbstractFOSRestController
     }
 
     /**
-     * exit a channel
+     * exit a channel.
+     *
      * @OA\Tag(name="Channel")
      * @Security(name="Bearer")
      * @Rest\Post(path="/{channel}/exit")
@@ -142,7 +151,8 @@ class ChannelController extends AbstractFOSRestController
     }
 
     /**
-     * Create a message in the channel
+     * Create a message in the channel.
+     *
      * @OA\Tag(name="Channel")
      *    @OA\RequestBody (
      *      description="Input data format",
@@ -163,20 +173,21 @@ class ChannelController extends AbstractFOSRestController
      *          )
      *      )
      *    )
+     * @ParamConverter("messageCreate", converter="MessageCreateParamConverter")
      * @Security(name="Bearer")
      * @Rest\Post(path="/{channel}/message")
      */
-    public function createMessageAction(Request $request, Channel $channel): View
+    public function createMessageAction(CreateMessage $messageCreate, Channel $channel): View
     {
+        $messageCreate->setChannel($channel);
+
         $this->denyAccessUnlessGranted(ChannelVoter::VIEW, $channel);
 
-        $parent = $request->get('parent');
-        $message = $request->get('message');
-        $parentMessage= null;
-
-        if ($parent && !($parentMessage = $this->messageService->getMessageById($parent))) {
-             return $this->view(['error' => 'parentMessageNotFound'], 404);
+        if (count($violations = $this->validator->validate($messageCreate))) {
+            return $this->view($violations, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
+
+        $parentMessage = $messageCreate->getParent();
 
         if ($parentMessage && $parentMessage->getChannel() !== $channel) {
             return $this->view(['error' => 'invalid parent message'], 422);
@@ -186,15 +197,14 @@ class ChannelController extends AbstractFOSRestController
         $user = $this->getUser();
         $player = $user->getCurrentGame();
 
-        $this->messageService->createPlayerMessage($player, $channel, $message, $parentMessage);
+        $this->messageService->createPlayerMessage($player, $messageCreate);
         $messages = $this->messageService->getChannelMessages($player, $channel);
 
         return $this->view($messages, 200);
     }
 
-
     /**
-     * Get channel messages
+     * Get channel messages.
      *
      * @OA\Tag(name="Channel")
      * @Security(name="Bearer")

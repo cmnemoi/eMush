@@ -20,3 +20,7 @@ services:
   Mush\Communication\Controller\:
     resource: '../Controller/'
     tags: ['controller.service_arguments']
+
+  Mush\Communication\ParamConverter\MessageCreateParamConverter:
+    tags:
+      - { name: 'request.param_converter', converter: MessageCreateParamConverter }

@@ -227,6 +227,7 @@ class GameConfig
     public function setMaxNumberPrivateChannel(int $maxNumberPrivateChannel): GameConfig
     {
         $this->maxNumberPrivateChannel = $maxNumberPrivateChannel;
+
         return $this;
     }
 

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Mush\Communication\Voter;
-
 
 use Mush\Communication\Entity\Channel;
 use Mush\Player\Entity\Player;

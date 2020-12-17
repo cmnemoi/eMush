@@ -10,7 +10,6 @@ use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Normalizer\EquipmentNormalizer;
 use Mush\Equipment\Normalizer\ItemPileNormalizer;
-use Mush\Status\Normalizer\StatusNormalizer;
 use Mush\Player\Entity\Player;
 use Mush\Player\Normalizer\PlayersNormalizer;
 use Mush\Room\Entity\Room;

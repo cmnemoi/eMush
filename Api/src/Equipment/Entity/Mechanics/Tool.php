@@ -26,7 +26,6 @@ class Tool extends EquipmentMechanic
      */
     private array $actionsTarget = [];
 
-
     public function getGrantActions(): Collection
     {
         return new ArrayCollection($this->grantActions);

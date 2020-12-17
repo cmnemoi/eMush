@@ -1,13 +1,10 @@
 <?php
 
-
 namespace Mush\Communication\Specification;
-
 
 use Mush\Communication\Services\ChannelServiceInterface;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Player\Entity\Player;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class canCreateChannel implements SpecificationInterface
 {

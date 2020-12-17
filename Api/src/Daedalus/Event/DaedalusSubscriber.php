@@ -2,6 +2,7 @@
 
 namespace Mush\Daedalus\Event;
 
+use DateTime;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Service\RandomServiceInterface;
@@ -67,6 +68,8 @@ class DaedalusSubscriber implements EventSubscriberInterface
 
         //Chose alpha Mushs
         $this->daedalusService->selectAlphaMush($daedalus);
+
+        $daedalus->setFilledAt(new \DateTime());
 
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Mush\Status\Service;
 
+use Error;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Equipment\Entity\GameEquipment;

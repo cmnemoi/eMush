@@ -2,6 +2,7 @@
 
 namespace Mush\Player\Event;
 
+use DateTime;
 use Mush\Player\Entity\ActionModifier;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
@@ -115,7 +116,30 @@ class PlayerSubscriber implements EventSubscriberInterface
         $player->removeStatus($player->getStatusByName(PlayerStatusEnum::SPORES));
         $this->statusService->createMushStatus($player);
 
-        
+        $player->setMoralPoint($this->gameConfig->getMaxMoralPoint());
+
+        //Remove statuses
+        if($status=$player->getStatusByName(PlayerStatusEnum::STARVING)){
+            $player->removeStatus($status);
+        }
+        if($status=$player->getStatusByName(PlayerStatusEnum::SUICIDAL)){
+            $player->removeStatus($status);
+        }
+        if($status=$player->getStatusByName(PlayerStatusEnum::DEMORALIZED)){
+            $player->removeStatus($status);
+        }
+
+        $time=new \DateTime();
+        $triumph=120-2*$this->cycleService->getNumberOfCycleElapsed($player->getDaedalus()->getFilledAt(),$time);
+        $player->addTriumph($triumph);
+        $this->roomLogService->createQuantityLog(
+            LogEnum::GAIN_TRIUMPH,
+            $player->getRoom(),
+            $player,
+            VisibilityEnum::PRIVATE,
+            $triumph,
+            $time
+        );
 
         //@TODO add logs and welcome message
 

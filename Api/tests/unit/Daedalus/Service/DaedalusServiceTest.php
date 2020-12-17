@@ -96,6 +96,7 @@ class DaedalusServiceTest extends TestCase
             ->setInitFuel(2)
             ->setInitOxygen(3)
             ->setInitHull(4)
+            ->setDailySporeNb(4)
             ->setRoomConfigs(new ArrayCollection([$roomConfig]))
             ->setRandomItemPlace($randomItem)
         ;

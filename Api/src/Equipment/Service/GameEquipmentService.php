@@ -117,13 +117,18 @@ class GameEquipmentService implements GameEquipmentServiceInterface
 
     private function initCharged(GameEquipment $gameEquipment, Charged $charged): GameEquipment
     {
-        $this->statusService->createChargeEquipmentStatus(
+        
+        $chargeStatus=$this->statusService->createChargeEquipmentStatus(
             EquipmentStatusEnum::CHARGES,
             $gameEquipment,
             $charged->getChargeStrategy(),
             $charged->getStartCharge(),
             $charged->getMaxCharge()
         );
+
+        if (!$charged->isVisible()){
+            $chargeStatus->setVisibility(VisibilityEnum::HIDDEN);
+        }
 
         return $gameEquipment;
     }

@@ -56,6 +56,7 @@ class EquipmentEffectService implements EquipmentEffectServiceInterface
                 ->setMoralPoint(
                     $this->randomService->getSingleRandomElementFromProbaArray($ration->getMoralPoints())
                 )
+                ->setSatiety($ration->getSatiety())
             ;
 
             if ($ration instanceof Fruit && count($ration->getFruitEffectsNumber()) > 0) {

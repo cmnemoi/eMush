@@ -20,7 +20,10 @@ use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
 use Mush\Room\Entity\RoomConfig;
 use Mush\Room\Service\RoomServiceInterface;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Mush\Player\Event\PlayerEvent;
+
 
 class DaedalusService implements DaedalusServiceInterface
 {
@@ -167,8 +170,8 @@ class DaedalusService implements DaedalusServiceInterface
             $mushPlayer = $daedalus->getPlayers()->filter(fn (Player $player) => $player->getPerson() === $playerName);
 
             if (!$mushPlayer->isEmpty()){
-                $mushStatus=$this->statusService->createMushStatus($mushPlayer)->first());
-                $this->statusService->persist($mushStatus);
+                $playerEvent = new PlayerEvent($this->targetPlayer);
+                $this->eventManager->dispatch($playerEvent, PlayerEvent::CONVERSION_PLAYER);
             }
         }
 

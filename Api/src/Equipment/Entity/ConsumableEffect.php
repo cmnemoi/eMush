@@ -51,6 +51,11 @@ class ConsumableEffect
     private int $moralPoint = 0;
 
     /**
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    protected int $satiety = 0;
+
+    /**
      * @ORM\Column(type="array", nullable=false)
      */
     private array $cures = [];
@@ -148,6 +153,18 @@ class ConsumableEffect
     public function setMoralPoint(int $moralPoint): ConsumableEffect
     {
         $this->moralPoint = $moralPoint;
+
+        return $this;
+    }
+
+    public function getSatiety(): int
+    {
+        return $this->satiety;
+    }
+
+    public function setSatiety(int $satiety): ConsumableEffect
+    {
+        $this->satiety = $satiety;
 
         return $this;
     }

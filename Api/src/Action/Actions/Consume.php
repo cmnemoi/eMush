@@ -88,6 +88,7 @@ class Consume extends Action
             ->setMovementPointModifier($equipmentEffect->getMovementPoint())
             ->setHealthPointModifier($equipmentEffect->getHealthPoint())
             ->setMoralPointModifier($equipmentEffect->getMoralPoint())
+            ->setSatietyModifier($equipmentEffect->getSatiety())
         ;
 
         $playerEvent = new PlayerEvent($this->player);

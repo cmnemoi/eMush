@@ -39,6 +39,11 @@ class ActionModifier
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
+    private int $satietyModifier = 0;
+
+    /**
+     * @ORM\Column(type="integer", nullable=false)
+     */
     private int $precisionModifier = 0;
 
     public function getId(): int
@@ -90,6 +95,18 @@ class ActionModifier
     public function setMoralPointModifier(int $moralPointModifier): ActionModifier
     {
         $this->moralPointModifier = $moralPointModifier;
+
+        return $this;
+    }
+
+    public function getSatietyModifier(): int
+    {
+        return $this->satietyModifier;
+    }
+
+    public function setSatietyModifier(int $satietyModifier): ActionModifier
+    {
+        $this->satietyModifier = $satietyModifier;
 
         return $this;
     }

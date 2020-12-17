@@ -1,4 +1,10 @@
 {
+    "amphp/amp": {
+        "version": "v2.5.1"
+    },
+    "amphp/byte-stream": {
+        "version": "v1.8.0"
+    },
     "behat/transliterator": {
         "version": "v1.3.0"
     },
@@ -10,6 +16,9 @@
     },
     "composer/xdebug-handler": {
         "version": "1.4.5"
+    },
+    "dnoegel/php-xdg-base-dir": {
+        "version": "v0.1.1"
     },
     "doctrine/annotations": {
         "version": "1.0",
@@ -101,6 +110,12 @@
     },
     "doctrine/sql-formatter": {
         "version": "1.1.1"
+    },
+    "felixfbecker/advanced-json-rpc": {
+        "version": "v3.1.1"
+    },
+    "felixfbecker/language-server-protocol": {
+        "version": "v1.5.0"
     },
     "friendsofphp/php-cs-fixer": {
         "version": "2.2",
@@ -196,11 +211,17 @@
             "config/packages/nelmio_cors.yaml"
         ]
     },
+    "netresearch/jsonmapper": {
+        "version": "v2.1.0"
+    },
     "nikic/php-parser": {
         "version": "v4.10.2"
     },
     "ocramius/proxy-manager": {
         "version": "2.8.0"
+    },
+    "openlss/lib-array2xml": {
+        "version": "1.0.0"
     },
     "phar-io/manifest": {
         "version": "2.0.1"
@@ -611,11 +632,17 @@
     "twig/twig": {
         "version": "v3.0.5"
     },
+    "vimeo/psalm": {
+        "version": "4.3.1"
+    },
     "webimpress/safe-writer": {
         "version": "2.1.0"
     },
     "webmozart/assert": {
         "version": "1.9.1"
+    },
+    "webmozart/path-util": {
+        "version": "2.3.0"
     },
     "willdurand/jsonp-callback-validator": {
         "version": "v1.1.0"

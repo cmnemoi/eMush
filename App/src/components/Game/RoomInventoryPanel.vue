@@ -4,7 +4,7 @@
     <inventory :items="items" :min-slot="7" v-on:select="selectItem"></inventory>
   </div>
   <p class="item-name" v-if="selectedItem !== null">
-    {{ selectedItem.name }}
+    {{ selectedItem.name }}<img src="@/assets/images/status/heavy.png"><img src="@/assets/images/status/plant_thirsty.png"><img src="@/assets/images/status/charge.png">x4
   </p>
   <div class="item-actions">
     <ul v-if="selectedItem !== null">
@@ -76,6 +76,7 @@ export default {
     margin: 0;
     padding: 4px 0 6px 0;
     background: #09092d;
+    img { vertical-align: middle; margin-left: 2px; }
   }
 
   & .item-actions {

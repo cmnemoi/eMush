@@ -30,7 +30,7 @@
         <inventory :items="player.items" :min-slot="3" v-on:select="selectItem"></inventory>
       </div>
       <div class="interactions" v-if="selectedItem">
-        <p>{{ selectedItem.name }} :</p>
+        <p>{{ selectedItem.name }}<img src="@/assets/images/status/heavy.png"><img src="@/assets/images/status/plant_thirsty.png"><img src="@/assets/images/status/charge.png">x4 :</p>
         <ul>
           <li v-for="(action,key) in selectedItem.actions" v-bind:key="key">
             <a href="#" @click="executeAction(action)">
@@ -215,6 +215,7 @@ export default {
         font-size: .83em;
         letter-spacing: .03em;
         font-variant: small-caps;
+        img { vertical-align: middle; margin-left: 2px; }
       }
 
       & ul {

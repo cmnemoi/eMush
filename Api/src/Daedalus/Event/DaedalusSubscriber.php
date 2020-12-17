@@ -1,8 +1,7 @@
 <?php
 
-namespace Mush\Player\Event;
+namespace Mush\Daedalus\Event;
 
-use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Service\RandomServiceInterface;
@@ -10,6 +9,8 @@ use Mush\Player\Entity\Player;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Mush\Game\Entity\GameConfig;
+use Mush\Game\Service\GameConfigServiceInterface;
 
 class DaedalusSubscriber implements EventSubscriberInterface
 {
@@ -17,6 +18,7 @@ class DaedalusSubscriber implements EventSubscriberInterface
     private EventDispatcherInterface $eventDispatcher;
     private RandomServiceInterface $randomService;
     private StatusServiceInterface $statusService;
+    private GameConfig $gameConfig;
 
     /**
      * DaedalusSubscriber constructor.
@@ -25,12 +27,14 @@ class DaedalusSubscriber implements EventSubscriberInterface
         DaedalusServiceInterface $daedalusService,
         EventDispatcherInterface $eventDispatcher,
         RandomServiceInterface $randomService,
-        StatusServiceInterface $statusService
+        StatusServiceInterface $statusService,
+        GameConfigServiceInterface $gameConfigService
         ) {
         $this->daedalusService = $daedalusService;
         $this->eventDispatcher = $eventDispatcher;
         $this->randomService = $randomService;
         $this->statusService = $statusService;
+        $this->gameConfig = $gameConfigService->getConfig();
     }
 
     public static function getSubscribedEvents()
@@ -60,6 +64,7 @@ class DaedalusSubscriber implements EventSubscriberInterface
 
         //@TODO give titles
 
+
         //Chose alpha Mushs
         $chancesArray = [];
         foreach ($daedalus->getPlayers() as $player) {
@@ -67,21 +72,21 @@ class DaedalusSubscriber implements EventSubscriberInterface
             //@TODO (maybe add a "I want to be mush" setting to increase this proba)
             $mushChance = 1;
 
-            if ($player->getPerson() !== CharacterEnum::CHUN) {
+            if ($player->getPerson() === CharacterEnum::CHUN) {
                 $mushChance = 0;
             }
             $chancesArray[$player->getPerson()] = $mushChance;
         }
 
-        //@TODO better handle the initial number of mush (related to private games)
-        $mushNumberSetting = 2;
-        $mushNumber = round($daedalus->getPlayers()->count() / 16 * $mushNumberSetting);
+
+        $mushNumber = round($daedalus->getPlayers()->count() / $this->gameConfig->getMaxPlayer()  * $this->gameConfig->getNbMush());
 
         $mushPlayerName = $this->randomService->getRandomElementsFromProbaArray($chancesArray, $mushNumber);
 
         foreach ($mushPlayerName as $playerName) {
-            $player = $daedalus->getPlayers()->filter(fn (Player $player) => $player->getPerson() === $playerName)->first();
-            $this->statusService->createMushStatus($player);
+            $mushPlayer = $daedalus->getPlayers()->filter(fn (Player $player) => $player->getPerson() === $playerName)->first();
+            $mushStatus=$this->statusService->createMushStatus($mushPlayer);
+            $this->statusService->persist($mushStatus);
         }
     }
 }

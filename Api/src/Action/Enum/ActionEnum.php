@@ -143,6 +143,8 @@ class ActionEnum
             self::GET_UP,
             self::GUARD,
             self::SEARCH,
+            self::EXTRACT_SPORE,
+            self::GO_BERSERK,
         ];
     }
 

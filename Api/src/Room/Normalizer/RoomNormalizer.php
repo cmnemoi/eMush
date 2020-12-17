@@ -3,11 +3,16 @@
 namespace Mush\Room\Normalizer;
 
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Normalizer\ActionNormalizer;
+use Mush\Action\Actions\Action\Action;
+use Mush\Action\Entity\ActionParameters;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Normalizer\EquipmentNormalizer;
 use Mush\Equipment\Normalizer\ItemPileNormalizer;
+use Mush\Status\Normalizer\StatusNormalizer;
 use Mush\Player\Entity\Player;
+use Mush\Player\Normalizer\PlayersNormalizer;
 use Mush\Room\Entity\Room;
 use Mush\User\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -17,18 +22,24 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class RoomNormalizer implements ContextAwareNormalizerInterface
 {
     private EquipmentNormalizer $equipmentNormalizer;
-    private itemPileNormalizer $itemPileNormalizer;
+    private ItemPileNormalizer $itemPileNormalizer;
+    private StatusNormalizer $statusNormalizer;
+    private PlayersNormalizer $playersNormalizer;
     private TranslatorInterface $translator;
     private TokenStorageInterface $tokenStorage;
 
     public function __construct(
         EquipmentNormalizer $equipmentNormalizer,
         ItemPileNormalizer $itemPileNormalizer,
+        StatusNormalizer $statusNormalizer,
+        PlayersNormalizer $playersNormalizer,
         TranslatorInterface $translator,
         TokenStorageInterface $tokenStorage
     ) {
         $this->equipmentNormalizer = $equipmentNormalizer;
         $this->itemPileNormalizer = $itemPileNormalizer;
+        $this->statusNormalizer = $statusNormalizer;
+        $this->playersNormalizer = $playersNormalizer;
         $this->translator = $translator;
         $this->tokenStorage = $tokenStorage;
     }
@@ -50,15 +61,10 @@ class RoomNormalizer implements ContextAwareNormalizerInterface
         foreach ($room->getPlayers() as $player) {
             //Do not display user player in the room
             if ($player !== $this->getUser()->getCurrentGame()) {
-                $players[] = [
-                    'id' => $player->getId(),
-                    'name' => $this->translator->trans($player->getPerson() . '.name', [], 'characters'),
-                    'statuses' => $player->getStatuses(),
-                    'skills' => $player->getSkills(),
-                    'actions' => [ActionEnum::HIT],
-                ];
+                $players[] = $this->playersNormalizer->normalize($player);
             }
         }
+        
         $doors = [];
         /** @var Door $door */
         foreach ($room->getDoors() as $door) {

@@ -52,50 +52,52 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface
     public function normalize($equipment, string $format = null, array $context = [])
     {
         $actions = [];
-        $actionParameter = new ActionParameters();
+
+        $context=[];
         if ($equipment instanceof Door) {
-            $actionParameter
-                ->setDoor($equipment)
-            ;
+            $context['door']=$equipment;
         } elseif ($equipment instanceof GameItem) {
-            $actionParameter
-                ->setItem($equipment)
-            ;
+            $context['item']=$equipment;
         } else {
-            $actionParameter
-                ->setEquipment($equipment)
-            ;
+            $context['equipment']=$equipment;
         }
 
+        //@TODO this is awfully messy
         //Handle tools
         $tools = $this->getUser()->getCurrentGame()->getReachableTools()
             ->filter(fn (GameEquipment $gameEquipment) => count($gameEquipment->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getGrantActions()) > 0);
 
         foreach ($tools as $tool) {
-            $itemActions = $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getGrantActions()
-                                ->filter(fn (string $actionName) => $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)
-                                ->getActionsTarget()[$actionName] === ActionTargetEnum::EQUIPMENT);
+            if ($equipment instanceof Door) {
+                $itemActions = $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getGrantActions()
+                                    ->filter(fn (string $actionName) => $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)
+                                    ->getActionsTarget()[$actionName] === ActionTargetEnum::DOOR);
+            }elseif ($equipment instanceof GameItem) {
+                $itemActions = $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getGrantActions()
+                                    ->filter(fn (string $actionName) => $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)
+                                    ->getActionsTarget()[$actionName] === ActionTargetEnum::ITEM ||
+                                    $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)
+                                    ->getActionsTarget()[$actionName] === ActionTargetEnum::EQUIPMENT);
+            }else{
+                $itemActions = $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getGrantActions()
+                                    ->filter(fn (string $actionName) => $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)
+                                    ->getActionsTarget()[$actionName] === ActionTargetEnum::EQUIPMENT);
+            }
+
             foreach ($itemActions as $actionName) {
-                $actionClass = $this->actionService->getAction($actionName);
-                if ($actionClass instanceof Action) {
-                    $actionClass->loadParameters($this->getUser()->getCurrentGame(), $actionParameter);
-                    $normedAction = $this->actionNormalizer->normalize($actionClass);
-                    if (count($normedAction) > 0) {
-                        $actions[] = $normedAction;
-                    }
+                $actionClass = $this->actionService->getAction($actionName);              
+                if($actionClass){
+                    $normedAction = $this->actionNormalizer->normalize($actionClass, null, $context);
+                    if (count($normedAction) > 0) {$actions[] = $normedAction;}
                 }
             }
         }
 
         foreach ($equipment->getActions() as $actionName) {
-            $actionClass = $this->actionService->getAction($actionName);
-            if ($actionClass instanceof Action) {
-                $actionClass->loadParameters($this->getUser()->getCurrentGame(), $actionParameter);
-
-                $normedAction = $this->actionNormalizer->normalize($actionClass);
-                if (count($normedAction) > 0) {
-                    $actions[] = $normedAction;
-                }
+            $actionClass = $this->actionService->getAction($actionName);              
+            if($actionClass){
+                $normedAction = $this->actionNormalizer->normalize($actionClass, null, $context);
+                if (count($normedAction) > 0) {$actions[] = $normedAction;}
             }
         }
 

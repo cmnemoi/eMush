@@ -5,7 +5,8 @@ namespace Mush\Status\Normalizer;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
-use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Entity\MedicalCondition;
 use Mush\Status\Entity\Status;
 use Mush\User\Entity\User;
@@ -57,7 +58,7 @@ class StatusNormalizer implements ContextAwareNormalizerInterface
                 'description' => $this->translator->trans("{$statusName}.description", [], 'statusess'),
             ];
 
-            if ($status instanceof ChargeStatus) {
+            if ($statusName===PlayerStatusEnum::SPORES || $statusName===EquipmentStatusEnum::CHARGES) {
                 $normedStatus['charge'] = $status->getCharge();
             }
 

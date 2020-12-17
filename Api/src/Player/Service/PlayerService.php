@@ -128,6 +128,8 @@ class PlayerService implements PlayerServiceInterface
         $playerEvent = new PlayerEvent($player);
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::NEW_PLAYER);
 
+
+
         if ($daedalus->getPlayers()->count() === $this->gameConfig->getMaxPlayer()) {
             $fullDaedalusEvent = new DaedalusEvent($daedalus);
             $this->eventDispatcher->dispatch($fullDaedalusEvent, DaedalusEvent::FULL_DAEDALUS);

@@ -24,24 +24,20 @@ class Infect extends Action
     private Player $targetPlayer;
 
     private RoomLogServiceInterface $roomLogService;
-    private GameEquipmentServiceInterface $gameEquipmentService;
-    private PlayerServiceInterface $playerService;
-    private EquipmentEffectServiceInterface $EquipmentServiceEffect;
     private StatusServiceInterface $statusService;
+    private PlayerServiceInterface $playerService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         RoomLogServiceInterface $roomLogService,
-        GameEquipmentServiceInterface $gameEquipmentService,
-        PlayerServiceInterface $playerService,
-        StatusServiceInterface $statusService
+        StatusServiceInterface $statusService,
+        PlayerServiceInterface $playerService
     ) {
         parent::__construct($eventDispatcher);
 
         $this->roomLogService = $roomLogService;
-        $this->gameEquipmentService = $gameEquipmentService;
-        $this->playerService = $playerService;
         $this->statusService = $statusService;
+        $this->playerService = $playerService;
 
         $this->actionCost->setActionPointCost(1);
     }
@@ -62,7 +58,8 @@ class Infect extends Action
                $this->player->getStatusByName(PlayerStatusEnum::MUSH)->getCharge() > 0 &&
                $this->player->getStatusByName(PlayerStatusEnum::SPORES)->getCharge() > 0 &&
                !$this->targetPlayer->isMush() &&
-               !$this->targetPlayer->getStatusByName(PlayerStatusEnum::IMMUNIZED);
+               !$this->targetPlayer->getStatusByName(PlayerStatusEnum::IMMUNIZED) &&
+               $this->player->getRoom()===$this->targetPlayer->getRoom();
     }
 
     protected function applyEffects(): ActionResult
@@ -70,9 +67,19 @@ class Infect extends Action
         $playerEvent = new PlayerEvent($this->targetPlayer);
         $this->eventManager->dispatch($playerEvent, PlayerEvent::INFECTION_PLAYER);
 
-        $this->player->getStatusByName(PlayerStatusEnum::SPORES)->addCharge(-1);
-        $this->statusService->persist($this->player->getStatusByName(PlayerStatusEnum::SPORES));
+        $sporeStatus=$this->player->getStatusByName(PlayerStatusEnum::SPORES);
+        if ($sporeStatus->getCharge()===1){
+            $this->player->removeStatus($sporeStatus);
+            $this->playerService->persist($this->player);
+        }else{
+            $sporeStatus->addCharge(-1);
+            $this->statusService->persist($sporeStatus);
+        }
 
+        $mushStatus=$this->player->getStatusByName(PlayerStatusEnum::MUSH);
+        $mushStatus->addCharge(-1);
+        $this->statusService->persist($mushStatus);
+        
 
         return new Success();
     }

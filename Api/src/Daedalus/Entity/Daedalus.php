@@ -196,6 +196,13 @@ class Daedalus
         return $this;
     }
 
+    public function addOxygen(int $change): Daedalus
+    {
+        $this->oxygen = $this->oxygen + $change;
+
+        return $this;
+    }
+
     public function getFuel(): int
     {
         return $this->fuel;
@@ -205,6 +212,13 @@ class Daedalus
     {
         $this->fuel = $fuel;
 
+        return $this;
+    }
+
+    public function addFuel(int $change): Daedalus
+    {
+        $this->fuel = $this->fuel + $change;
+        
         return $this;
     }
 

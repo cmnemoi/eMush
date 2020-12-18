@@ -3,6 +3,7 @@
     <p class="room">{{ room.name }}</p>
     <div class="ship-view">
       <div class="textual">
+        <h1>Doors</h1>
         <div class="door" v-for="door in room.doors" v-bind:key="door.id">
           <p>{{ door.direction }} :</p>
           <ul>
@@ -13,6 +14,11 @@
             </li>
           </ul>
         </div>
+
+        <h1>Equipment</h1>
+
+        <h1>Players</h1>
+
       </div>
     </div> <!-- PLACEHOLDER -->
     <div class="map-container">
@@ -147,8 +153,16 @@ export default {
 /* PROVISIONAL SHIP INTERACTIONS */
 
 .textual {
+  overflow: auto;
   padding: 18px 12px 188px 12px;
   font-size: .83em;
+
+  h1, h2, h3 {
+    color: #cf1830;
+    font-size: 1.5em;
+    font-variant: small-caps;
+    margin: 12px 0 4px 0;
+  }
 
   p {
     margin: 12px 0 4px 0;

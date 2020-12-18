@@ -21,6 +21,9 @@ class ContentStatus extends Status
         return $this->content;
     }
 
+    /**
+     * @return static
+     */
     public function setContent(?string $content): ContentStatus
     {
         $this->content = $content;

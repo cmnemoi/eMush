@@ -91,6 +91,9 @@ class EquipmentConfig
         return $this->gameConfig;
     }
 
+    /**
+     * @return static
+     */
     public function setGameConfig(GameConfig $gameConfig): EquipmentConfig
     {
         $this->gameConfig = $gameConfig;
@@ -103,6 +106,9 @@ class EquipmentConfig
         return $this->name;
     }
 
+    /**
+     * @return static
+     */
     public function setName(string $name): EquipmentConfig
     {
         $this->name = $name;
@@ -115,6 +121,9 @@ class EquipmentConfig
         return $this->mechanics;
     }
 
+    /**
+     * @return static
+     */
     public function setMechanics(Collection $mechanics): EquipmentConfig
     {
         $this->mechanics = $mechanics;
@@ -146,6 +155,9 @@ class EquipmentConfig
         return $this->breakableRate;
     }
 
+    /**
+     * @return static
+     */
     public function setBreakableRate(int $breakableRate): EquipmentConfig
     {
         $this->breakableRate = $breakableRate;
@@ -158,6 +170,9 @@ class EquipmentConfig
         return $this->isFireDestroyable;
     }
 
+    /**
+     * @return static
+     */
     public function setIsFireDestroyable(bool $isFireDestroyable): EquipmentConfig
     {
         $this->isFireDestroyable = $isFireDestroyable;
@@ -170,6 +185,9 @@ class EquipmentConfig
         return $this->isFireBreakable;
     }
 
+    /**
+     * @return static
+     */
     public function setIsFireBreakable(bool $isFireBreakable): EquipmentConfig
     {
         $this->isFireBreakable = $isFireBreakable;
@@ -182,6 +200,9 @@ class EquipmentConfig
         return $this->isAlienArtifact;
     }
 
+    /**
+     * @return static
+     */
     public function setIsAlienArtifact(bool $isAlienArtifact): EquipmentConfig
     {
         $this->isAlienArtifact = $isAlienArtifact;

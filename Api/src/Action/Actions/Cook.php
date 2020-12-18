@@ -7,6 +7,7 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ReachEnum;
@@ -52,7 +53,7 @@ class Cook extends Action
         $this->actionCost->setActionPointCost(1);
     }
 
-    public function loadParameters(Player $player, ActionParameters $actionParameters)
+    public function loadParameters(Player $player, ActionParameters $actionParameters): void
     {
         if (!($equipment = $actionParameters->getItem()) &&
             !($equipment = $actionParameters->getEquipment())) {
@@ -76,7 +77,10 @@ class Cook extends Action
     protected function applyEffects(): ActionResult
     {
         if ($this->gameEquipment->getEquipment()->getName() === GameRationEnum::STANDARD_RATION) {
-            $newItem = $this->gameEquipmentService->createGameEquipmentFromName(GameRationEnum::COOKED_RATION, $this->player->getDaedalus());
+            /** @var GameItem $newItem */
+            $newItem = $this->gameEquipmentService
+                ->createGameEquipmentFromName(GameRationEnum::COOKED_RATION, $this->player->getDaedalus())
+            ;
             if ($this->player->getItems()->count() < $this->gameConfig->getMaxItemInInventory()) {
                 $newItem->setPlayer($this->player);
             } else {

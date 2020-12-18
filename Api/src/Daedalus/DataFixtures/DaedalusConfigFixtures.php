@@ -22,7 +22,7 @@ class DaedalusConfigFixtures extends Fixture implements DependentFixtureInterfac
 {
     public const DEFAULT_DAEDALUS = 'default.daedalus';
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $daedalusConfig = new DaedalusConfig();
 

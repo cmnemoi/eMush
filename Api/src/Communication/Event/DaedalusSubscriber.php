@@ -15,14 +15,14 @@ class DaedalusSubscriber implements EventSubscriberInterface
         $this->channelService = $channelService;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             DaedalusEvent::NEW_DAEDALUS => 'onDaedalusNew',
         ];
     }
 
-    public function onDaedalusNew(DaedalusEvent $event)
+    public function onDaedalusNew(DaedalusEvent $event): void
     {
         $daedalus = $event->getDaedalus();
 

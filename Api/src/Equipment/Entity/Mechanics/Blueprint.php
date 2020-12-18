@@ -28,11 +28,14 @@ class Blueprint extends Tool
      */
     private ?array $ingredients = null;
 
-    public function getEquipment(): EquipmentConfig
+    public function getEquipment(): ?EquipmentConfig
     {
         return $this->equipment;
     }
 
+    /**
+     * @return static
+     */
     public function setEquipment(EquipmentConfig $equipment): Blueprint
     {
         $this->equipment = $equipment;
@@ -40,11 +43,14 @@ class Blueprint extends Tool
         return $this;
     }
 
-    public function getIngredients(): array
+    public function getIngredients(): ?array
     {
         return $this->ingredients;
     }
 
+    /**
+     * @return static
+     */
     public function setIngredients(array $ingredients): Blueprint
     {
         $this->ingredients = $ingredients;

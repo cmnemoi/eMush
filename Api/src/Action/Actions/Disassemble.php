@@ -7,6 +7,7 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\SuccessRateServiceInterface;
+use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Dismountable;
@@ -52,7 +53,7 @@ class Disassemble extends AttemptAction
         $this->gameConfig = $gameConfigService->getConfig();
     }
 
-    public function loadParameters(Player $player, ActionParameters $actionParameters)
+    public function loadParameters(Player $player, ActionParameters $actionParameters): void
     {
         if (!($equipment = $actionParameters->getItem()) &&
             !($equipment = $actionParameters->getEquipment())) {
@@ -62,7 +63,12 @@ class Disassemble extends AttemptAction
         $this->player = $player;
         $this->gameEquipment = $equipment;
 
-        $dismountableType = $this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::DISMOUNTABLE);
+        /** @var Dismountable $dismountableType */
+        $dismountableType = $this->gameEquipment
+            ->getEquipment()
+            ->getMechanicByName(EquipmentMechanicEnum::DISMOUNTABLE)
+        ;
+
         if ($dismountableType !== null) {
             $this->actionCost->setActionPointCost($dismountableType->getActionCost());
         }
@@ -70,7 +76,11 @@ class Disassemble extends AttemptAction
 
     public function canExecute(): bool
     {
-        $dismountableType = $this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::DISMOUNTABLE);
+        $dismountableType = $this->gameEquipment
+            ->getEquipment()
+            ->getMechanicByName(EquipmentMechanicEnum::DISMOUNTABLE)
+        ;
+
         //Check that the item is reachable
         return null !== $dismountableType &&
             $this->player->canReachEquipment($this->gameEquipment) &&
@@ -81,7 +91,11 @@ class Disassemble extends AttemptAction
     protected function applyEffects(): ActionResult
     {
         $modificator = 1; //@TODO: skills, wrench
-        $dismountableType = $this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::DISMOUNTABLE);
+        /** @var Dismountable $dismountableType */
+        $dismountableType = $this->gameEquipment
+            ->getEquipment()
+            ->getMechanicByName(EquipmentMechanicEnum::DISMOUNTABLE)
+        ;
 
         $response = $this->makeAttempt($dismountableType->getChancesSuccess(), $modificator);
 
@@ -94,7 +108,7 @@ class Disassemble extends AttemptAction
         return $response;
     }
 
-    private function disasemble(Dismountable $dismountableType)
+    private function disasemble(Dismountable $dismountableType): void
     {
         // add the item produced by disassembling
         foreach ($dismountableType->getProducts() as $productString => $number) {

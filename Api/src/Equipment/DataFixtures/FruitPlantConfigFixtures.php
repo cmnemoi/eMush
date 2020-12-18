@@ -19,7 +19,7 @@ use Mush\Status\Enum\DisorderEnum;
 
 class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterface
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
@@ -237,7 +237,7 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
         $manager->flush();
     }
 
-    public function getDependencies()
+    public function getDependencies(): array
     {
         return [
             GameConfigFixtures::class,

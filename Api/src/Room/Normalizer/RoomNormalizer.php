@@ -97,7 +97,10 @@ class RoomNormalizer implements ContextAwareNormalizerInterface
         ];
     }
 
-    private function getUser(): User
+    /**
+     * @return \Stringable|\Symfony\Component\Security\Core\User\UserInterface|string
+     */
+    private function getUser()
     {
         return $this->tokenStorage->getToken()->getUser();
     }

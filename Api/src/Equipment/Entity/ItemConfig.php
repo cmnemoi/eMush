@@ -55,6 +55,9 @@ class ItemConfig extends EquipmentConfig
         return $this->isHeavy;
     }
 
+    /**
+     * @return static
+     */
     public function setIsHeavy(bool $isHeavy): ItemConfig
     {
         $this->isHeavy = $isHeavy;
@@ -67,6 +70,9 @@ class ItemConfig extends EquipmentConfig
         return $this->isTakeable;
     }
 
+    /**
+     * @return static
+     */
     public function setIsTakeable(bool $isTakeable): ItemConfig
     {
         $this->isTakeable = $isTakeable;
@@ -79,6 +85,9 @@ class ItemConfig extends EquipmentConfig
         return $this->isDropable;
     }
 
+    /**
+     * @return static
+     */
     public function setIsDropable(bool $isDropable): ItemConfig
     {
         $this->isDropable = $isDropable;
@@ -91,6 +100,9 @@ class ItemConfig extends EquipmentConfig
         return $this->isStackable;
     }
 
+    /**
+     * @return static
+     */
     public function setIsStackable(bool $isStackable): ItemConfig
     {
         $this->isStackable = $isStackable;
@@ -103,6 +115,9 @@ class ItemConfig extends EquipmentConfig
         return $this->isHideable;
     }
 
+    /**
+     * @return static
+     */
     public function setIsHideable(bool $isHideable): ItemConfig
     {
         $this->isHideable = $isHideable;

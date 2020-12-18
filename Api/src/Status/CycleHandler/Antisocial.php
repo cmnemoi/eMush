@@ -20,7 +20,7 @@ class Antisocial extends AbstractCycleHandler
         $this->eventDispatcher = $eventDispatcher;
     }
 
-    public function handleNewCycle($object, Daedalus $daedalus, \DateTime $dateTime)
+    public function handleNewCycle($object, Daedalus $daedalus, \DateTime $dateTime): void
     {
         if (!$object instanceof Status && $object->getName() !== PlayerStatusEnum::ANTISOCIAL) {
             return;
@@ -41,7 +41,7 @@ class Antisocial extends AbstractCycleHandler
         }
     }
 
-    public function handleNewDay($object, Daedalus $daedalus, \DateTime $dateTime)
+    public function handleNewDay($object, Daedalus $daedalus, \DateTime $dateTime): void
     {
     }
 }

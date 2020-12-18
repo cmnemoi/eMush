@@ -36,6 +36,9 @@ class ChargeStatus extends Status
         return $this->charge;
     }
 
+    /**
+     * @return static
+     */
     public function addCharge(int $charge): ChargeStatus
     {
         $this->charge += $charge;
@@ -43,6 +46,9 @@ class ChargeStatus extends Status
         return $this;
     }
 
+    /**
+     * @return static
+     */
     public function setCharge(?int $charge): ChargeStatus
     {
         $this->charge = $charge;
@@ -55,6 +61,9 @@ class ChargeStatus extends Status
         return $this->strategy;
     }
 
+    /**
+     * @return static
+     */
     public function setStrategy(?string $strategy): ChargeStatus
     {
         $this->strategy = $strategy;
@@ -67,6 +76,9 @@ class ChargeStatus extends Status
         return $this->threshold;
     }
 
+    /**
+     * @return static
+     */
     public function setThreshold(?int $threshold): ChargeStatus
     {
         $this->threshold = $threshold;
@@ -79,6 +91,9 @@ class ChargeStatus extends Status
         return $this->autoRemove;
     }
 
+    /**
+     * @return static
+     */
     public function setAutoRemove(bool $autoRemove): ChargeStatus
     {
         $this->autoRemove = $autoRemove;

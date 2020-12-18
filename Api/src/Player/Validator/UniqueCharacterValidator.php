@@ -11,23 +11,19 @@ class UniqueCharacterValidator extends ConstraintValidator
 {
     private PlayerServiceInterface $playerService;
 
-    /**
-     * UniqueCharacter constructor.
-     */
     public function __construct(PlayerServiceInterface $playerService)
     {
         $this->playerService = $playerService;
     }
 
-    public function validate($value, Constraint $constraint)
+    public function validate($value, Constraint $constraint): void
     {
         if (!$value instanceof PlayerRequest) {
             throw new \InvalidArgumentException();
         }
 
         $daedalus = $value->getDaedalus();
-        if (
-            null !== $daedalus &&
+        if (null !== $daedalus &&
             null !== $this->playerService->findOneByCharacter($value->getCharacter(), $daedalus)
         ) {
             $this->context

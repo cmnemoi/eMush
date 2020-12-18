@@ -44,10 +44,8 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface
 
     /**
      * @param GameEquipment $object
-     *
-     * @return array
      */
-    public function normalize($object, string $format = null, array $context = [])
+    public function normalize($object, string $format = null, array $context = []): array
     {
         $actions = [];
 
@@ -121,7 +119,10 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface
         ];
     }
 
-    private function getUser(): User
+    /**
+     * @return \Stringable|\Symfony\Component\Security\Core\User\UserInterface|string
+     */
+    private function getUser()
     {
         return $this->tokenStorage->getToken()->getUser();
     }

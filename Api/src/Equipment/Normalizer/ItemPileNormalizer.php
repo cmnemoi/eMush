@@ -35,10 +35,8 @@ class ItemPileNormalizer implements ContextAwareNormalizerInterface
 
     /**
      * @param Collection $object
-     *
-     * @return array
      */
-    public function normalize($object, string $format = null, array $context = [])
+    public function normalize($object, string $format = null, array $context = []): array
     {
         $piles = [];
 
@@ -75,7 +73,10 @@ class ItemPileNormalizer implements ContextAwareNormalizerInterface
         return $piles;
     }
 
-    private function getUser(): User
+    /**
+     * @return \Stringable|\Symfony\Component\Security\Core\User\UserInterface|string
+     */
+    private function getUser()
     {
         return $this->tokenStorage->getToken()->getUser();
     }

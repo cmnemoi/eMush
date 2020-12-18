@@ -17,7 +17,7 @@ class ChannelRepository extends ServiceEntityRepository
         parent::__construct($registry, Channel::class);
     }
 
-    public function findByPlayer(Player $player, $privateOnly = false): Collection
+    public function findByPlayer(Player $player, bool $privateOnly = false): Collection
     {
         $queryBuilder = $this->createQueryBuilder('channel');
         $queryBuilder

@@ -37,7 +37,7 @@ class Move extends Action
         $this->actionCost->setMovementPointCost(1);
     }
 
-    public function loadParameters(Player $player, ActionParameters $actionParameters)
+    public function loadParameters(Player $player, ActionParameters $actionParameters): void
     {
         if (!($door = $actionParameters->getDoor())) {
             throw new \InvalidArgumentException('Invalid door parameter');

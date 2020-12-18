@@ -61,6 +61,9 @@ class Channel
         return $this->daedalus;
     }
 
+    /**
+     * @return static
+     */
     public function setDaedalus(Daedalus $daedalus): Channel
     {
         $this->daedalus = $daedalus;
@@ -73,6 +76,9 @@ class Channel
         return $this->scope;
     }
 
+    /**
+     * @return static
+     */
     public function setScope(string $scope): Channel
     {
         $this->scope = $scope;
@@ -85,6 +91,9 @@ class Channel
         return ChannelScopeEnum::PUBLIC === $this->getScope();
     }
 
+    /**
+     * @return static
+     */
     public function addParticipant(Player $player): Channel
     {
         if (!$this->getParticipants()->contains($player)) {
@@ -108,6 +117,9 @@ class Channel
         return $this->participants;
     }
 
+    /**
+     * @return static
+     */
     public function setParticipants(Collection $participants): Channel
     {
         $this->participants = $participants;
@@ -120,6 +132,9 @@ class Channel
         return $this->messages;
     }
 
+    /**
+     * @return static
+     */
     public function setMessages(Collection $messages): Channel
     {
         $this->messages = $messages;

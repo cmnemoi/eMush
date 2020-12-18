@@ -46,7 +46,7 @@ class Hit extends AttemptAction
         $this->actionCost->setActionPointCost(1);
     }
 
-    public function loadParameters(Player $player, ActionParameters $actionParameters)
+    public function loadParameters(Player $player, ActionParameters $actionParameters): void
     {
         if (!($target = $actionParameters->getPlayer())) {
             throw new \InvalidArgumentException('Invalid target parameter');

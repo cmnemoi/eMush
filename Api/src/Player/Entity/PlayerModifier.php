@@ -46,6 +46,9 @@ class PlayerModifier
         return $this->maxActionPointModifier;
     }
 
+    /**
+     * @return static
+     */
     public function setMaxActionPointModifier(int $maxActionPointModifier): PlayerModifier
     {
         $this->maxActionPointModifier = $maxActionPointModifier;
@@ -58,6 +61,9 @@ class PlayerModifier
         return $this->maxMovementPointModifier;
     }
 
+    /**
+     * @return static
+     */
     public function setMaxMovementPointModifier(int $maxMovementPointModifier): PlayerModifier
     {
         $this->maxMovementPointModifier = $maxMovementPointModifier;
@@ -70,6 +76,9 @@ class PlayerModifier
         return $this->maxHealthPointModifier;
     }
 
+    /**
+     * @return static
+     */
     public function setMaxHealthPointModifier(int $maxHealthPointModifier): PlayerModifier
     {
         $this->maxHealthPointModifier = $maxHealthPointModifier;
@@ -82,6 +91,9 @@ class PlayerModifier
         return $this->maxMoralPointModifier;
     }
 
+    /**
+     * @return static
+     */
     public function setMaxMoralPointModifier(int $maxMoralPointModifier): PlayerModifier
     {
         $this->maxMoralPointModifier = $maxMoralPointModifier;

@@ -28,7 +28,7 @@ abstract class AbstractChargeStrategy
         return $status;
     }
 
-    abstract public function apply(ChargeStatus $status);
+    abstract public function apply(ChargeStatus $status): void;
 
     private function autoRemove(ChargeStatus $status): ?ChargeStatus
     {

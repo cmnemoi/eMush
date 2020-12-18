@@ -32,6 +32,9 @@ class CycleSubscriber implements EventSubscriberInterface
         ];
     }
 
+    /**
+     * @return void
+     */
     public function onNewCycle(CycleEvent $event)
     {
         if (!($status = $event->getStatus())) {

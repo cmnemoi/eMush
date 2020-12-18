@@ -49,6 +49,9 @@ class CharacterConfig
         return $this->gameConfig;
     }
 
+    /**
+     * @return static
+     */
     public function setGameConfig(GameConfig $gameConfig): CharacterConfig
     {
         $this->gameConfig = $gameConfig;
@@ -61,6 +64,9 @@ class CharacterConfig
         return $this->name;
     }
 
+    /**
+     * @return static
+     */
     public function setName(string $name): CharacterConfig
     {
         $this->name = $name;
@@ -73,6 +79,9 @@ class CharacterConfig
         return $this->statuses;
     }
 
+    /**
+     * @return static
+     */
     public function setStatuses(array $statuses): CharacterConfig
     {
         $this->statuses = $statuses;
@@ -85,6 +94,9 @@ class CharacterConfig
         return $this->skills;
     }
 
+    /**
+     * @return static
+     */
     public function setSkills(array $skills): CharacterConfig
     {
         $this->skills = $skills;

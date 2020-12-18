@@ -7,6 +7,7 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
@@ -52,7 +53,7 @@ class ExpressCook extends Action
         $this->actionCost->setActionPointCost(0);
     }
 
-    public function loadParameters(Player $player, ActionParameters $actionParameters)
+    public function loadParameters(Player $player, ActionParameters $actionParameters): void
     {
         if (!($equipment = $actionParameters->getItem()) &&
             !($equipment = $actionParameters->getEquipment())) {
@@ -66,16 +67,17 @@ class ExpressCook extends Action
     public function canExecute(): bool
     {
         return ($this->gameEquipment->getEquipment()->getName() === GameRationEnum::STANDARD_RATION ||
-             $this->gameEquipment->getStatusByName(EquipmentStatusEnum::FROZEN)) &&
-             $this->player->canReachEquipment($this->gameEquipment) &&
-             !$this->gameEquipmentService
-                    ->getOperationalEquipmentsByName(ToolItemEnum::MICROWAVE, $this->player, ReachEnum::SHELVE_NOT_HIDDEN)->isEmpty()
-        ;
+                $this->gameEquipment->getStatusByName(EquipmentStatusEnum::FROZEN)) &&
+            $this->player->canReachEquipment($this->gameEquipment) &&
+            !$this->gameEquipmentService
+                ->getOperationalEquipmentsByName(ToolItemEnum::MICROWAVE, $this->player, ReachEnum::SHELVE_NOT_HIDDEN)->isEmpty()
+            ;
     }
 
     protected function applyEffects(): ActionResult
     {
         if ($this->gameEquipment->getEquipment()->getName() === GameRationEnum::STANDARD_RATION) {
+            /** @var GameItem $newItem */
             $newItem = $this->gameEquipmentService->createGameEquipmentFromName(GameRationEnum::COOKED_RATION, $this->player->getDaedalus());
             if ($this->player->getItems()->count() < $this->gameConfig->getMaxItemInInventory()) {
                 $newItem->setPlayer($this->player);
@@ -100,10 +102,13 @@ class ExpressCook extends Action
         }
 
         $chargeStatus = $this->gameEquipmentService->getOperationalEquipmentsByName(
-             ToolItemEnum::MICROWAVE,
-             $this->player,
-             ReachEnum::SHELVE_NOT_HIDDEN
-             )->first()->getStatusByName(EquipmentStatusEnum::CHARGES);
+            ToolItemEnum::MICROWAVE,
+            $this->player,
+            ReachEnum::SHELVE_NOT_HIDDEN
+        )
+            ->first()
+            ->getStatusByName(EquipmentStatusEnum::CHARGES)
+        ;
 
         $chargeStatus->addCharge(-1);
 

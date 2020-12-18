@@ -9,7 +9,7 @@ use UnexpectedValueException;
 
 class MaxNestedParentValidator extends ConstraintValidator
 {
-    public function validate($value, Constraint $constraint)
+    public function validate($value, Constraint $constraint): void
     {
         if ($value === null) {
             return;

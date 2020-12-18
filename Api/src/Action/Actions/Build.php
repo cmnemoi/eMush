@@ -46,7 +46,7 @@ class Build extends Action
         $this->actionCost->setActionPointCost(3);
     }
 
-    public function loadParameters(Player $player, ActionParameters $actionParameters)
+    public function loadParameters(Player $player, ActionParameters $actionParameters): void
     {
         if (!($equipment = $actionParameters->getItem()) &&
             !($equipment = $actionParameters->getEquipment())) {
@@ -59,6 +59,7 @@ class Build extends Action
 
     public function canExecute(): bool
     {
+        /** @var Blueprint $blueprintMechanic */
         $blueprintMechanic = $this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT);
         //Check that the equipment is a blueprint and is reachable
         if (

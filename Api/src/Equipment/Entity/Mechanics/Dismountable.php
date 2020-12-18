@@ -33,11 +33,14 @@ class Dismountable extends EquipmentMechanic
      */
     private ?array $products = null;
 
-    public function getChancesSuccess(): int
+    public function getChancesSuccess(): ?int
     {
         return $this->chancesSuccess;
     }
 
+    /**
+     * @return static
+     */
     public function setChancesSuccess(int $chancesSuccess): Dismountable
     {
         $this->chancesSuccess = $chancesSuccess;
@@ -45,11 +48,14 @@ class Dismountable extends EquipmentMechanic
         return $this;
     }
 
-    public function getActionCost(): int
+    public function getActionCost(): ?int
     {
         return $this->actionCost;
     }
 
+    /**
+     * @return static
+     */
     public function setActionCost(int $actionCost): Dismountable
     {
         $this->actionCost = $actionCost;
@@ -57,11 +63,14 @@ class Dismountable extends EquipmentMechanic
         return $this;
     }
 
-    public function getProducts(): array
+    public function getProducts(): ?array
     {
         return $this->products;
     }
 
+    /**
+     * @return static
+     */
     public function setProducts(array $products): Dismountable
     {
         $this->products = $products;

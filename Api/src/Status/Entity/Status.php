@@ -68,6 +68,9 @@ class Status
         return $this->name;
     }
 
+    /**
+     * @return static
+     */
     public function setName(?string $name): Status
     {
         $this->name = $name;
@@ -80,6 +83,9 @@ class Status
         return $this->visibility;
     }
 
+    /**
+     * @return static
+     */
     public function setVisibility(?string $visibility): Status
     {
         $this->visibility = $visibility;
@@ -92,6 +98,9 @@ class Status
         return $this->player;
     }
 
+    /**
+     * @return static
+     */
     public function setPlayer(?Player $player): Status
     {
         if ($player !== $this->player) {
@@ -115,6 +124,9 @@ class Status
         return $this->gameEquipment;
     }
 
+    /**
+     * @return static
+     */
     public function setGameEquipment(?GameEquipment $gameEquipment): Status
     {
         if ($gameEquipment !== $this->gameEquipment) {
@@ -138,6 +150,9 @@ class Status
         return $this->consumableEffect;
     }
 
+    /**
+     * @return static
+     */
     public function setConsumableEffect(?ConsumableEffect $consumableEffect): Status
     {
         $this->consumableEffect = $consumableEffect;

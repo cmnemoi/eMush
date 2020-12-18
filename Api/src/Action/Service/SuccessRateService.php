@@ -12,7 +12,7 @@ class SuccessRateService implements SuccessRateServiceInterface
         float $relativeModificator,
         float $fixedModificator = 0
     ): int {
-        return min(
+        return (int) min(
             ($baseRate * (1.25) ** $numberOfAttempt) * $relativeModificator + $baseRate * $fixedModificator,
             self::MAX_PERCENT
         );

@@ -16,7 +16,7 @@ class FullDaedalusValidator extends ConstraintValidator
         $this->gameConfigService = $gameConfigService;
     }
 
-    public function validate($value, Constraint $constraint)
+    public function validate($value, Constraint $constraint): void
     {
         if (!$value instanceof Daedalus) {
             throw new \InvalidArgumentException();

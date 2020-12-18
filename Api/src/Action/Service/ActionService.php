@@ -18,9 +18,6 @@ class ActionService implements ActionServiceInterface
     private PlayerServiceInterface $playerService;
     private GameEquipmentServiceInterface $equipmentService;
 
-    /**
-     * ActionService constructor.
-     */
     public function __construct(
         PlayerServiceInterface $playerService,
         GameEquipmentServiceInterface $equipmentService
@@ -29,7 +26,7 @@ class ActionService implements ActionServiceInterface
         $this->equipmentService = $equipmentService;
     }
 
-    public function addAction(Action $action)
+    public function addAction(Action $action): void
     {
         $this->actions[$action->getActionName()] = $action;
     }
@@ -70,7 +67,7 @@ class ActionService implements ActionServiceInterface
         return $action->canExecute();
     }
 
-    private function loadParameter($parameter): ActionParameters
+    private function loadParameter(array $parameter): ActionParameters
     {
         $actionParams = new ActionParameters();
 

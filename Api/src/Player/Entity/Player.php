@@ -130,6 +130,9 @@ class Player
         return $this->user;
     }
 
+    /**
+     * @return static
+     */
     public function setUser(User $user): Player
     {
         $this->user = $user;
@@ -142,6 +145,9 @@ class Player
         return $this->gameStatus;
     }
 
+    /**
+     * @return static
+     */
     public function setGameStatus(string $gameStatus): Player
     {
         $this->gameStatus = $gameStatus;
@@ -159,6 +165,9 @@ class Player
         return $this->person;
     }
 
+    /**
+     * @return static
+     */
     public function setPerson(string $person): Player
     {
         $this->person = $person;
@@ -166,11 +175,14 @@ class Player
         return $this;
     }
 
-    public function getEndStatus(): string
+    public function getEndStatus(): ?string
     {
         return $this->endStatus;
     }
 
+    /**
+     * @return static
+     */
     public function setEndStatus(string $endStatus): Player
     {
         $this->endStatus = $endStatus;
@@ -183,6 +195,9 @@ class Player
         return $this->daedalus;
     }
 
+    /**
+     * @return static
+     */
     public function setDaedalus(?Daedalus $daedalus): Player
     {
         if ($daedalus !== $this->daedalus) {
@@ -208,6 +223,9 @@ class Player
         return $this->room;
     }
 
+    /**
+     * @return static
+     */
     public function setRoom(?Room $room): Player
     {
         if ($room !== $this->room) {
@@ -268,8 +286,6 @@ class Player
         } else {
             return $this->getDaedalus()->getRoomByName($reach)->getEquipments()->filter(fn (GameEquipment $equipment) => $equipment->getName() === $name);
         }
-
-        return null;
     }
 
     public function getReachableTools(): ?Collection
@@ -285,6 +301,9 @@ class Player
         return $this->items;
     }
 
+    /**
+     * @return static
+     */
     public function setItems(Collection $items): Player
     {
         $this->items = $items;
@@ -292,6 +311,9 @@ class Player
         return $this;
     }
 
+    /**
+     * @return static
+     */
     public function addItem(GameItem $item): Player
     {
         if (!$this->getItems()->contains($item)) {
@@ -306,6 +328,9 @@ class Player
         return $this;
     }
 
+    /**
+     * @return static
+     */
     public function removeItem(GameItem $item): Player
     {
         if ($this->items->contains($item)) {
@@ -340,6 +365,9 @@ class Player
         return $status ? $status : null;
     }
 
+    /**
+     * @return static
+     */
     public function setStatuses(Collection $statuses): Player
     {
         $this->statuses = $statuses;
@@ -347,6 +375,9 @@ class Player
         return $this;
     }
 
+    /**
+     * @return static
+     */
     public function addStatus(Status $status): Player
     {
         if (!$this->getStatuses()->contains($status)) {
@@ -362,6 +393,9 @@ class Player
         return $this;
     }
 
+    /**
+     * @return static
+     */
     public function removeStatus(Status $status): Player
     {
         if ($this->statuses->contains($status)) {
@@ -380,6 +414,9 @@ class Player
             ;
     }
 
+    /**
+     * @return static
+     */
     public function addSkill(string $skill): Player
     {
         $this->skills[] = $skill;
@@ -392,6 +429,9 @@ class Player
         return $this->skills;
     }
 
+    /**
+     * @return static
+     */
     public function setSkills(array $skills): Player
     {
         $this->skills = $skills;
@@ -404,6 +444,9 @@ class Player
         return $this->healthPoint;
     }
 
+    /**
+     * @return static
+     */
     public function setHealthPoint(int $healthPoint): Player
     {
         $this->healthPoint = $healthPoint;
@@ -411,6 +454,9 @@ class Player
         return $this;
     }
 
+    /**
+     * @return static
+     */
     public function addHealthPoint(int $healthPoint): Player
     {
         $this->healthPoint += $healthPoint;
@@ -423,6 +469,9 @@ class Player
         return $this->moralPoint;
     }
 
+    /**
+     * @return static
+     */
     public function setMoralPoint(int $moralPoint): Player
     {
         $this->moralPoint = $moralPoint;
@@ -430,6 +479,9 @@ class Player
         return $this;
     }
 
+    /**
+     * @return static
+     */
     public function addMoralPoint(int $moralPoint): Player
     {
         $this->moralPoint += $moralPoint;
@@ -442,6 +494,9 @@ class Player
         return $this->actionPoint;
     }
 
+    /**
+     * @return static
+     */
     public function setActionPoint(int $actionPoint): Player
     {
         $this->actionPoint = $actionPoint;
@@ -449,6 +504,9 @@ class Player
         return $this;
     }
 
+    /**
+     * @return static
+     */
     public function addActionPoint(int $actionPoint): Player
     {
         $this->actionPoint += $actionPoint;
@@ -461,6 +519,9 @@ class Player
         return $this->movementPoint;
     }
 
+    /**
+     * @return static
+     */
     public function setMovementPoint(int $movementPoint): Player
     {
         $this->movementPoint = $movementPoint;
@@ -468,6 +529,9 @@ class Player
         return $this;
     }
 
+    /**
+     * @return static
+     */
     public function addMovementPoint(int $movementPoint): Player
     {
         $this->movementPoint += $movementPoint;
@@ -484,6 +548,9 @@ class Player
         return $this->triumph;
     }
 
+    /**
+     * @return static
+     */
     public function setTriumph(int $triumph): Player
     {
         $this->triumph = $triumph;
@@ -491,6 +558,9 @@ class Player
         return $this;
     }
 
+    /**
+     * @return static
+     */
     public function addTriumph(int $triumph): Player
     {
         $this->triumph += $triumph;
@@ -503,6 +573,9 @@ class Player
         return $this->satiety;
     }
 
+    /**
+     * @return static
+     */
     public function setSatiety(int $satiety): Player
     {
         $this->satiety = $satiety;
@@ -510,6 +583,9 @@ class Player
         return $this;
     }
 
+    /**
+     * @return static
+     */
     public function addSatiety(int $satiety): Player
     {
         $this->satiety += $satiety;

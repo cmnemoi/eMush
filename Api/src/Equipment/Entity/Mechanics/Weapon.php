@@ -54,6 +54,9 @@ class Weapon extends Tool
         return $this->baseAccuracy;
     }
 
+    /**
+     * @return static
+     */
     public function setBaseAccuracy(int $baseAccuracy): Weapon
     {
         $this->baseAccuracy = $baseAccuracy;
@@ -66,6 +69,9 @@ class Weapon extends Tool
         return $this->baseDamageRange;
     }
 
+    /**
+     * @return static
+     */
     public function setBaseDamageRange(array $baseDamageRange): Weapon
     {
         $this->baseDamageRange = $baseDamageRange;
@@ -78,6 +84,9 @@ class Weapon extends Tool
         return $this->baseInjuryNumber;
     }
 
+    /**
+     * @return static
+     */
     public function setBaseInjuryNumber(array $baseInjuryNumber): Weapon
     {
         $this->baseInjuryNumber = $baseInjuryNumber;
@@ -90,6 +99,9 @@ class Weapon extends Tool
         return $this->expeditionBonus;
     }
 
+    /**
+     * @return static
+     */
     public function setExpeditionBonus(int $expeditionBonus): Weapon
     {
         $this->expeditionBonus = $expeditionBonus;
@@ -102,6 +114,9 @@ class Weapon extends Tool
         return $this->criticalSucessEvents;
     }
 
+    /**
+     * @return static
+     */
     public function setCriticalSucessEvents(array $criticalSucessEvents): Weapon
     {
         $this->criticalSucessEvents = $criticalSucessEvents;
@@ -114,6 +129,9 @@ class Weapon extends Tool
         return $this->criticalFailEvents;
     }
 
+    /**
+     * @return static
+     */
     public function setCriticalFailEvents(array $criticalFailEvents): Weapon
     {
         $this->criticalFailEvents = $criticalFailEvents;

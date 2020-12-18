@@ -20,16 +20,12 @@ class ReadDocument extends Action
     protected string $name = ActionEnum::READ_DOCUMENT;
 
     private GameEquipment $gameEquipment;
-
     private RoomLogServiceInterface $roomLogService;
-    private GameEquipmentServiceInterface $gameEquipmentService;
-    private PlayerServiceInterface $playerService;
+
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         RoomLogServiceInterface $roomLogService,
-        GameEquipmentServiceInterface $gameEquipmentService,
-        PlayerServiceInterface $playerService
     ) {
         parent::__construct($eventDispatcher);
 
@@ -37,7 +33,7 @@ class ReadDocument extends Action
         $this->actionCost->setActionPointCost(0);
     }
 
-    public function loadParameters(Player $player, ActionParameters $actionParameters)
+    public function loadParameters(Player $player, ActionParameters $actionParameters): void
     {
         if (!($equipment = $actionParameters->getItem()) &&
             !($equipment = $actionParameters->getEquipment())) {

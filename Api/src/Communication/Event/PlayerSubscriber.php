@@ -15,14 +15,14 @@ class PlayerSubscriber implements EventSubscriberInterface
         $this->channelService = $channelService;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             PlayerEvent::NEW_PLAYER => 'onNewPlayer',
         ];
     }
 
-    public function onNewPlayer(PlayerEvent $event)
+    public function onNewPlayer(PlayerEvent $event): void
     {
         $player = $event->getPlayer();
         $this->channelService->invitePlayerToPublicChannel($player);

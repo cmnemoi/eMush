@@ -22,6 +22,9 @@ class GameItem extends GameEquipment
         return $this->player;
     }
 
+    /**
+     * @return static
+     */
     public function setPlayer(?Player $player): GameItem
     {
         if ($player !== $this->getPlayer()) {
@@ -49,6 +52,9 @@ class GameItem extends GameEquipment
         return $this;
     }
 
+    /**
+     * @return static
+     */
     public function removeLocation(): GameItem
     {
         $this->setRoom(null);

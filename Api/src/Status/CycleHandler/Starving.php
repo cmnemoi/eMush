@@ -20,7 +20,7 @@ class Starving extends AbstractCycleHandler
         $this->eventDispatcher = $eventDispatcher;
     }
 
-    public function handleNewCycle($object, Daedalus $daedalus, \DateTime $dateTime)
+    public function handleNewCycle($object, Daedalus $daedalus, \DateTime $dateTime): void
     {
         if (!$object instanceof Status && $object->getName() !== PlayerStatusEnum::STARVING) {
             return;
@@ -39,7 +39,7 @@ class Starving extends AbstractCycleHandler
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
     }
 
-    public function handleNewDay($object, Daedalus $daedalus, \DateTime $dateTime)
+    public function handleNewDay($object, Daedalus $daedalus, \DateTime $dateTime): void
     {
     }
 }

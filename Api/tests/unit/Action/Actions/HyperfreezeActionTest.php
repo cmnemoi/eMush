@@ -22,6 +22,7 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -33,6 +34,10 @@ class HyperfreezeActionTest extends TestCase
     private GameEquipmentServiceInterface $gameEquipmentService;
     /** @var PlayerServiceInterface | Mockery\Mock */
     private PlayerServiceInterface $playerService;
+    /** @var StatusServiceInterface | Mockery\Mock */
+    private StatusServiceInterface $statusService;
+    private GameConfig $gameConfig;
+
     private Action $action;
 
     /**
@@ -44,6 +49,7 @@ class HyperfreezeActionTest extends TestCase
         $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
+        $this->statusService = Mockery::mock(StatusServiceInterface::class);
         $eventDispatcher->shouldReceive('dispatch');
 
         $gameConfigService = Mockery::mock(GameConfigServiceInterface::class);
@@ -55,6 +61,7 @@ class HyperfreezeActionTest extends TestCase
             $this->roomLogService,
             $this->gameEquipmentService,
             $this->playerService,
+            $this->statusService,
             $gameConfigService,
         );
     }

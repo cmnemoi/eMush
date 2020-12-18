@@ -40,6 +40,9 @@ class Charged extends EquipmentMechanic
         return $this->maxCharge;
     }
 
+    /**
+     * @return static
+     */
     public function setMaxCharge(int $maxCharge): Charged
     {
         $this->maxCharge = $maxCharge;
@@ -52,6 +55,9 @@ class Charged extends EquipmentMechanic
         return $this->startCharge;
     }
 
+    /**
+     * @return static
+     */
     public function setStartCharge(int $startCharge): Charged
     {
         $this->startCharge = $startCharge;
@@ -64,6 +70,9 @@ class Charged extends EquipmentMechanic
         return $this->chargeStrategy;
     }
 
+    /**
+     * @return static
+     */
     public function setChargeStrategy(string $chargeStrategy): Charged
     {
         $this->chargeStrategy = $chargeStrategy;
@@ -76,6 +85,9 @@ class Charged extends EquipmentMechanic
         return $this->isVisible;
     }
 
+    /**
+     * @return static
+     */
     public function setIsVisible(bool $isVisible): Charged
     {
         $this->isVisible = $isVisible;

@@ -50,6 +50,9 @@ class PlantEffect
         return $this->daedalus;
     }
 
+    /**
+     * @return static
+     */
     public function setDaedalus(Daedalus $daedalus): PlantEffect
     {
         $this->daedalus = $daedalus;
@@ -62,6 +65,9 @@ class PlantEffect
         return $this->plant;
     }
 
+    /**
+     * @return static
+     */
     public function setPlant(Plant $plant): PlantEffect
     {
         $this->plant = $plant;
@@ -74,6 +80,9 @@ class PlantEffect
         return $this->maturationTime;
     }
 
+    /**
+     * @return static
+     */
     public function setMaturationTime(int $maturationTime): PlantEffect
     {
         $this->maturationTime = $maturationTime;
@@ -86,6 +95,9 @@ class PlantEffect
         return $this->oxygen;
     }
 
+    /**
+     * @return static
+     */
     public function setOxygen(int $oxygen): PlantEffect
     {
         $this->oxygen = $oxygen;

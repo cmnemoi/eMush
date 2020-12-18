@@ -56,7 +56,7 @@ class CycleService implements CycleServiceInterface
     {
         $hour = $date->setTimezone(new \DateTimeZone($this->gameConfig->getTimeZone()))->format('H');
 
-        return floor(
+        return (int) floor(
             $hour / $this->gameConfig->getCycleLength() + 1
         );
     }
@@ -92,6 +92,6 @@ class CycleService implements CycleServiceInterface
             $dayDifference = $end->format('j') - $start->format('j');
         }
 
-        return $endCycle + $dayDifference * $this->gameConfig->getNumberOfCyclePerDay() - $startCycle;
+        return intval($endCycle + $dayDifference * $this->gameConfig->getNumberOfCyclePerDay() - $startCycle);
     }
 }

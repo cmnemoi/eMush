@@ -7,6 +7,7 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
@@ -41,7 +42,7 @@ class Hide extends Action
         $this->actionCost->setActionPointCost(1);
     }
 
-    public function loadParameters(Player $player, ActionParameters $actionParameters)
+    public function loadParameters(Player $player, ActionParameters $actionParameters): void
     {
         if (!($item = $actionParameters->getItem())) {
             throw new \InvalidArgumentException('Invalid item parameter');
@@ -53,11 +54,14 @@ class Hide extends Action
 
     public function canExecute(): bool
     {
+        /** @var ItemConfig $itemConfig */
+        $itemConfig = $this->gameItem->getEquipment();
+
         //Check that the item is reachable
         return $this->gameItem->getStatusByName(EquipmentStatusEnum::HIDDEN) === null &&
-             $this->gameItem->getEquipment()->isHideable() &&
-             $this->player->canReachEquipment($this->gameItem)
-        ;
+            $itemConfig->isHideable() &&
+            $this->player->canReachEquipment($this->gameItem)
+            ;
     }
 
     protected function applyEffects(): ActionResult

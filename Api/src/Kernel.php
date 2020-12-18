@@ -41,7 +41,7 @@ class Kernel extends BaseKernel
         }
     }
 
-    protected function build(ContainerBuilder $container)
+    protected function build(ContainerBuilder $container): void
     {
         parent::build($container);
         $container->addCompilerPass(new ActionPass());

@@ -3,6 +3,7 @@
 namespace Mush\Player\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusEvent;
@@ -98,15 +99,9 @@ class PlayerService implements PlayerServiceInterface
 
         $characterConfig = $this->gameConfig->getCharactersConfig()->getCharacter($character);
 
+        /** @var Collection<int, Status> $statuses */
         $statuses = new ArrayCollection();
-        foreach ($characterConfig->getStatuses() as $statusName) {
-            $status = new Status();
-            $status
-                ->setName($statusName)
-                ->setVisibility(VisibilityEnum::PUBLIC)
-            ;
-            $statuses->add($status);
-        }
+
 
         $player
             ->setUser($user)
@@ -124,8 +119,16 @@ class PlayerService implements PlayerServiceInterface
             ->setActionPoint($this->gameConfig->getInitActionPoint())
             ->setMovementPoint($this->gameConfig->getInitMovementPoint())
             ->setSatiety($this->gameConfig->getInitSatiety())
-            ->setStatuses($statuses)
         ;
+
+        foreach ($characterConfig->getStatuses() as $statusName) {
+            $status = new Status();
+            $status
+                ->setName($statusName)
+                ->setVisibility(VisibilityEnum::PUBLIC)
+            ;
+            $player->addStatus($status);
+        }
 
         $this->persist($player);
 

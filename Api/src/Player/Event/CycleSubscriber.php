@@ -18,14 +18,14 @@ class CycleSubscriber implements EventSubscriberInterface
         $this->playerService = $playerService;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             CycleEvent::NEW_CYCLE => 'onNewCycle',
         ];
     }
 
-    public function onNewCycle(CycleEvent $event)
+    public function onNewCycle(CycleEvent $event): void
     {
         if (!($player = $event->getPlayer())) {
             return;

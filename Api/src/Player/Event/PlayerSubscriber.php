@@ -9,7 +9,9 @@ use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -18,15 +20,18 @@ class PlayerSubscriber implements EventSubscriberInterface
     private PlayerServiceInterface $playerService;
     private EventDispatcherInterface $eventDispatcher;
     private RoomLogServiceInterface $roomLogService;
+    private StatusServiceInterface $statusService;
 
     public function __construct(
         PlayerServiceInterface $playerService,
         EventDispatcherInterface $eventDispatcher,
-        RoomLogServiceInterface $roomLogService
+        RoomLogServiceInterface $roomLogService,
+        StatusServiceInterface $statusService
     ) {
         $this->playerService = $playerService;
         $this->eventDispatcher = $eventDispatcher;
         $this->roomLogService = $roomLogService;
+        $this->statusService = $statusService;
     }
 
     public static function getSubscribedEvents()
@@ -40,7 +45,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onNewPlayer(PlayerEvent $event)
+    public function onNewPlayer(PlayerEvent $event): void
     {
         $player = $event->getPlayer();
         $this->roomLogService->createPlayerLog(
@@ -51,7 +56,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         );
     }
 
-    public function onDeathPlayer(PlayerEvent $event)
+    public function onDeathPlayer(PlayerEvent $event): void
     {
         $player = $event->getPlayer();
 
@@ -76,7 +81,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         );
     }
 
-    public function onModifierPlayer(PlayerEvent $playerEvent)
+    public function onModifierPlayer(PlayerEvent $playerEvent): void
     {
         $player = $playerEvent->getPlayer();
         $playerModifier = $playerEvent->getActionModifier();
@@ -90,25 +95,27 @@ class PlayerSubscriber implements EventSubscriberInterface
         $this->playerService->persist($player);
     }
 
-    public function onInfectionPlayer(PlayerEvent $playerEvent)
+    public function onInfectionPlayer(PlayerEvent $playerEvent): void
     {
         $player = $playerEvent->getPlayer();
 
-        if ($player->getStatusByName(PlayerStatusEnum::SPORES)) {
-            $player->getStatusByName(PlayerStatusEnum::SPORES)->addCharge(1);
+        /** @var ?ChargeStatus $playerSpores */
+        $playerSpores = $player->getStatusByName(PlayerStatusEnum::SPORES);
+        if ($playerSpores) {
+            $playerSpores->addCharge(1);
         } else {
-            $this->statusService->createSporeStatus($player);
+            $playerSpores = $this->statusService->createSporeStatus($player);
         }
 
         //@TODO implement research modifiers
-        if ($player->getStatusByName(PlayerStatusEnum::SPORES) >= 3) {
+        if ($playerSpores->getCharge() >= 3) {
             $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::CONVERSION_PLAYER);
         }
 
-        $this->statusService->persist($player->getStatusByName(PlayerStatusEnum::SPORES));
+        $this->statusService->persist($playerSpores);
     }
 
-    public function onConversionPlayer(PlayerEvent $playerEvent)
+    public function onConversionPlayer(PlayerEvent $playerEvent): void
     {
         $player = $playerEvent->getPlayer();
 

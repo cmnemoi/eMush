@@ -21,9 +21,6 @@ class CycleSubscriber implements EventSubscriberInterface
     private EventDispatcherInterface $eventDispatcher;
     private GameConfig $gameConfig;
 
-    /**
-     * DaedalusSubscriber constructor.
-     */
     public function __construct(
         DaedalusServiceInterface $daedalusService,
         GameEquipmentServiceInterface $gameEquipmentService,
@@ -36,14 +33,14 @@ class CycleSubscriber implements EventSubscriberInterface
         $this->gameConfig = $gameConfigService->getConfig();
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             CycleEvent::NEW_CYCLE => 'onNewCycle',
         ];
     }
 
-    public function onNewCycle(CycleEvent $event)
+    public function onNewCycle(CycleEvent $event): void
     {
         if ($event->getGameEquipment() || $event->getPlayer() || $event->getRoom() || $event->getStatus()) {
             return;
@@ -76,20 +73,28 @@ class CycleSubscriber implements EventSubscriberInterface
         }
 
         //Handle oxygen loss
-        $this->daedalus->addOxygen(-1);
-        if ($this->daedalus->getRoomByName(RoomEnum::CENTER_ALPHA_STORAGE)->getEquipment()->
-            filter(fn (GameEquipment $equipment) => $equipment->getEquipment()->getName() === EquipmentEnum::OXYGEN_TANK)
-            ->first()->isBroken()) {
-            $this->daedalus->addOxygen(-1);
+        $daedalus->addOxygen(-1);
+
+        if ($daedalus->getRoomByName(RoomEnum::CENTER_ALPHA_STORAGE)
+            ->getEquipments()
+            ->filter(fn (GameEquipment $equipment) => $equipment->getEquipment()->getName() === EquipmentEnum::OXYGEN_TANK)
+            ->first()
+            ->isBroken()
+        ) {
+            $daedalus->addOxygen(-1);
         }
-        if ($this->daedalus->getRoomByName(RoomEnum::CENTER_BRAVO_STORAGE)->getEquipment()->
-            filter(fn (GameEquipment $equipment) => $equipment->getEquipment()->getName() === EquipmentEnum::OXYGEN_TANK)
-            ->first()->isBroken()) {
-            $this->daedalus->addOxygen(-1);
+        if ($daedalus
+            ->getRoomByName(RoomEnum::CENTER_BRAVO_STORAGE)
+            ->getEquipments()
+            ->filter(fn (GameEquipment $equipment) => $equipment->getEquipment()->getName() === EquipmentEnum::OXYGEN_TANK)
+            ->first()
+            ->isBroken()
+        ) {
+            $daedalus->addOxygen(-1);
         }
 
-        if ($this->daedalus->getOxygen < 0) {
-            $this->daedalus->setOxygen = 0;
+        if ($daedalus->getOxygen() < 0) {
+            $daedalus->setOxygen(0);
             //@TODO kill a random player
         }
 

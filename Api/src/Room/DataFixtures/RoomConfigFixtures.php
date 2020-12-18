@@ -32,7 +32,7 @@ use Mush\Room\Enum\RoomEnum;
 
 class RoomConfigFixtures extends Fixture implements DependentFixtureInterface
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $bridge = new RoomConfig();
         $bridge
@@ -540,7 +540,7 @@ class RoomConfigFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(RoomEnum::REAR_BRAVO_STORAGE, $rearBravoStorage);
     }
 
-    public function getDependencies()
+    public function getDependencies(): array
     {
         return [
             EquipmentConfigFixtures::class,

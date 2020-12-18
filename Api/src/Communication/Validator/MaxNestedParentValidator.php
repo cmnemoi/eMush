@@ -17,8 +17,8 @@ class MaxNestedParentValidator extends ConstraintValidator
             return;
         }
 
-        if (!$constraint instanceof NotNull) {
-            throw new UnexpectedTypeException($constraint, __NAMESPACE__ . '\NotNull');
+        if (!$constraint instanceof MaxNestedParent) {
+            throw new UnexpectedTypeException($constraint, __NAMESPACE__ . '\MaxNestedParent');
         }
 
         if (!$value instanceof Message) {

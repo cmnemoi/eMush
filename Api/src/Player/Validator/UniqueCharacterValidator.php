@@ -24,8 +24,8 @@ class UniqueCharacterValidator extends ConstraintValidator
             throw new \InvalidArgumentException();
         }
 
-        if (!$constraint instanceof NotNull) {
-            throw new UnexpectedTypeException($constraint, __NAMESPACE__ . '\NotNull');
+        if (!$constraint instanceof UniqueCharacter) {
+            throw new UnexpectedTypeException($constraint, __NAMESPACE__ . '\UniqueCharacter');
         }
 
         $daedalus = $value->getDaedalus();

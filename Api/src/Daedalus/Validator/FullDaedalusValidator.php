@@ -24,8 +24,8 @@ class FullDaedalusValidator extends ConstraintValidator
             throw new \InvalidArgumentException();
         }
 
-        if (!$constraint instanceof NotNull) {
-            throw new UnexpectedTypeException($constraint, __NAMESPACE__ . '\NotNull');
+        if (!$constraint instanceof FullDaedalus) {
+            throw new UnexpectedTypeException($constraint, __NAMESPACE__ . '\FullDaedalus');
         }
 
         if ($value->getPlayers()->count() >= $this->gameConfigService->getConfig()->getMaxPlayer()) {

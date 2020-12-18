@@ -7,12 +7,14 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTargetEnum;
 use Mush\Action\Normalizer\ActionNormalizer;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Daedalus\Normalizer\DaedalusNormalizer;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Normalizer\EquipmentNormalizer;
 use Mush\Player\Entity\Player;
+use Mush\Room\Normalizer\RoomNormalizer;
 use Mush\Status\Normalizer\StatusNormalizer;
 use Mush\User\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -27,6 +29,8 @@ class PlayersNormalizer implements ContextAwareNormalizerInterface
     private StatusNormalizer $statusNormalizer;
     private ActionNormalizer $actionNormalizer;
     private ActionServiceInterface $actionService;
+    private DaedalusNormalizer $daedalusNormalizer;
+    private RoomNormalizer $roomNormalizer;
 
     public function __construct(
         TranslatorInterface $translator,
@@ -34,6 +38,8 @@ class PlayersNormalizer implements ContextAwareNormalizerInterface
         EquipmentNormalizer $equipmentNormalizer,
         StatusNormalizer $statusNormalizer,
         ActionNormalizer $actionNormalizer,
+        DaedalusNormalizer $daedalusNormalizer,
+        RoomNormalizer $roomNormalizer,
         ActionServiceInterface $actionService
     ) {
         $this->translator = $translator;
@@ -41,6 +47,8 @@ class PlayersNormalizer implements ContextAwareNormalizerInterface
         $this->equipmentNormalizer = $equipmentNormalizer;
         $this->statusNormalizer = $statusNormalizer;
         $this->actionNormalizer = $actionNormalizer;
+        $this->daedalusNormalizer = $daedalusNormalizer;
+        $this->roomNormalizer = $roomNormalizer;
         $this->actionService = $actionService;
     }
 
@@ -72,16 +80,6 @@ class PlayersNormalizer implements ContextAwareNormalizerInterface
                 $actionclass = $this->actionService->getAction($actionName);
                 if ($actionclass) {
                     $normedAction = $this->actionNormalizer->normalize($actionclass);
-                    if (count($normedAction) > 0) {
-                        $actions[] = $normedAction;
-                    }
-                }
-            }
-        } else {
-            foreach (ActionEnum::getPermanentPlayerActions() as $actionName) {
-                $actionclass = $this->actionService->getAction($actionName);
-                if ($actionclass) {
-                    $normedAction = $this->actionNormalizer->normalize($actionclass, null, ['player' => $player]);
                     if (count($normedAction) > 0) {
                         $actions[] = $normedAction;
                     }
@@ -149,6 +147,8 @@ class PlayersNormalizer implements ContextAwareNormalizerInterface
             'statuses' => $statuses,
             'skills' => $player->getSkills(),
             'actions' => $actions,
+            'daedalus' => $this->daedalusNormalizer->normalize($object->getDaedalus()),
+            'room' => $this->roomNormalizer->normalize($object->getRoom()),
         ], $playerPersonalInfo);
     }
 

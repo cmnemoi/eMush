@@ -151,20 +151,23 @@ class StatusService implements StatusServiceInterface
 
     public function getMostRecent(string $statusName, ArrayCollection $equipments): gameEquipment
     {
-        $pickedEquipments = $equipments->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getStatusByName($statusName));
-        if (count($pickedEquipments) <= 0) {
+        $pickedEquipments = $equipments
+            ->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getStatusByName($statusName))
+        ;
+        if ($pickedEquipments->isEmpty()) {
             throw new Error('no such status in item collection');
         } else {
+            /** @var GameEquipment $pickedEquipment */
             $pickedEquipment = $pickedEquipments->first();
-            if (count($pickedEquipments) > 1) {
+            if ($pickedEquipments->count() > 1) {
+                /** @var GameEquipment $equipment */
                 foreach ($pickedEquipments as $equipment) {
                     if ($pickedEquipment->getStatusByName($statusName)->getCreatedAt() < $equipment->getStatusByName($statusName)->getCreatedAt()) {
                         $pickedEquipment = $equipment;
                     }
                 }
             }
-
-            return $pickedEquipment;
         }
+        return $pickedEquipment;
     }
 }

@@ -22,7 +22,7 @@ class ChannelNormalizer implements ContextAwareNormalizerInterface
     }
 
     /**
-     * @param Channel $object
+     * @param mixed $object
      */
     public function normalize($object, string $format = null, array $context = []): array
     {

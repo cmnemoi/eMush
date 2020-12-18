@@ -41,17 +41,15 @@ class RoomNormalizer implements ContextAwareNormalizerInterface
         $this->tokenStorage = $tokenStorage;
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = [])
+    public function supportsNormalization($data, string $format = null, array $context = []): bool
     {
         return $data instanceof Room;
     }
 
     /**
-     * @param Room $object
-     *
-     * @return array
+     * @param mixed $object
      */
-    public function normalize($object, string $format = null, array $context = [])
+    public function normalize($object, string $format = null, array $context = []): array
     {
         $room = $object;
         $players = [];
@@ -97,11 +95,10 @@ class RoomNormalizer implements ContextAwareNormalizerInterface
         ];
     }
 
-    /**
-     * @return \Stringable|\Symfony\Component\Security\Core\User\UserInterface|string
-     */
-    private function getUser()
+    private function getUser(): User
     {
-        return $this->tokenStorage->getToken()->getUser();
+        /** @var User $user */
+        $user = $this->tokenStorage->getToken()->getUser();
+        return $user;
     }
 }

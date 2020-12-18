@@ -125,7 +125,7 @@ class Ration extends EquipmentMechanic
      */
     public function setHealthPoints(array $healthPoints): Ration
     {
-        $this->healthlPoints = $healthPoints;
+        $this->healthPoints = $healthPoints;
 
         return $this;
     }

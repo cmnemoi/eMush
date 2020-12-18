@@ -9,6 +9,7 @@ use Mush\Action\Normalizer\ActionNormalizer;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Normalizer\EquipmentNormalizer;
 use Mush\Player\Entity\Player;
@@ -43,17 +44,15 @@ class PlayersNormalizer implements ContextAwareNormalizerInterface
         $this->actionService = $actionService;
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = [])
+    public function supportsNormalization($data, string $format = null, array $context = []): bool
     {
         return $data instanceof Player;
     }
 
     /**
-     * @param Player $object
-     *
-     * @return array
+     * @param mixed $object
      */
-    public function normalize($object, string $format = null, array $context = [])
+    public function normalize($object, string $format = null, array $context = []): array
     {
         $player = $object;
         $statuses = [];
@@ -92,18 +91,23 @@ class PlayersNormalizer implements ContextAwareNormalizerInterface
 
         //Handle tools
         $tools = $this->getUser()->getCurrentGame()->getReachableTools()
-            ->filter(fn (GameEquipment $gameEquipment) => count($gameEquipment->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getGrantActions()) > 0);
+            ->filter(function (GameEquipment $gameEquipment) {
+                /** @var Tool $tool */
+                $tool = $gameEquipment->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL);
+                return !$tool->getGrantActions()->isEmpty();
+            })
+        ;
 
         foreach ($tools as $tool) {
             if ($this->getUser()->getCurrentGame() === $player) {
                 $playerActions = $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getGrantActions()
-                        ->filter(fn (string $actionName) => $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)
-                        ->getActionsTarget()[$actionName] === ActionTargetEnum::SELF_PLAYER);
+                    ->filter(fn (string $actionName) => $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)
+                            ->getActionsTarget()[$actionName] === ActionTargetEnum::SELF_PLAYER);
                 $context = [];
             } else {
                 $playerActions = $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getGrantActions()
-                        ->filter(fn (string $actionName) => $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)
-                        ->getActionsTarget()[$actionName] === ActionTargetEnum::TARGET_PLAYER);
+                    ->filter(fn (string $actionName) => $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)
+                            ->getActionsTarget()[$actionName] === ActionTargetEnum::TARGET_PLAYER);
                 $context = ['player' => $player];
             }
             foreach ($playerActions as $actionName) {
@@ -147,11 +151,10 @@ class PlayersNormalizer implements ContextAwareNormalizerInterface
         ], $playerPersonalInfo);
     }
 
-    /**
-     * @return \Stringable|\Symfony\Component\Security\Core\User\UserInterface|string
-     */
-    private function getUser()
+    private function getUser(): User
     {
-        return $this->tokenStorage->getToken()->getUser();
+        /** @var User $user */
+        $user = $this->tokenStorage->getToken()->getUser();
+        return $user;
     }
 }

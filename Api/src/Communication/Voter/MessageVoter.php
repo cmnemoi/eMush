@@ -30,6 +30,7 @@ class MessageVoter extends Voter
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token)
     {
+        /** @var User $user */
         $user = $token->getUser();
 
         //User must be logged in and have a current game

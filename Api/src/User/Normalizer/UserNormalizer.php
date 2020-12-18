@@ -7,17 +7,15 @@ use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 
 class UserNormalizer implements ContextAwareNormalizerInterface
 {
-    public function supportsNormalization($data, string $format = null, array $context = [])
+    public function supportsNormalization($data, string $format = null, array $context = []): bool
     {
         return $data instanceof User;
     }
 
     /**
-     * @param User $object
-     *
-     * @return array
+     * @param mixed $object
      */
-    public function normalize($object, string $format = null, array $context = [])
+    public function normalize($object, string $format = null, array $context = []): array
     {
         return [
             'id' => $object->getId(),

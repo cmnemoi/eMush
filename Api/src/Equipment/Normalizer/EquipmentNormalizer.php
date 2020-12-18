@@ -8,6 +8,7 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Status\Normalizer\StatusNormalizer;
 use Mush\User\Entity\User;
@@ -37,13 +38,13 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface
         $this->actionNormalizer = $actionNormalizer;
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = [])
+    public function supportsNormalization($data, string $format = null, array $context = []): bool
     {
         return $data instanceof GameEquipment;
     }
 
     /**
-     * @param GameEquipment $object
+     * @param mixed $object
      */
     public function normalize($object, string $format = null, array $context = []): array
     {
@@ -61,23 +62,30 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface
         //@TODO this is awfully messy
         //Handle tools
         $tools = $this->getUser()->getCurrentGame()->getReachableTools()
-            ->filter(fn (GameEquipment $gameEquipment) => count($gameEquipment->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getGrantActions()) > 0);
+            ->filter(
+                function (GameEquipment $gameEquipment) {
+                    /** @var Tool $tool */
+                    $tool = $gameEquipment->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL);
+                    !$tool->getGrantActions()->isEmpty();
+                }
+            )
+        ;
 
         foreach ($tools as $tool) {
             if ($object instanceof Door) {
                 $itemActions = $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getGrantActions()
-                                    ->filter(fn (string $actionName) => $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)
-                                    ->getActionsTarget()[$actionName] === ActionTargetEnum::DOOR);
+                    ->filter(fn (string $actionName) => $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)
+                            ->getActionsTarget()[$actionName] === ActionTargetEnum::DOOR);
             } elseif ($object instanceof GameItem) {
                 $itemActions = $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getGrantActions()
-                                    ->filter(fn (string $actionName) => $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)
-                                    ->getActionsTarget()[$actionName] === ActionTargetEnum::ITEM ||
-                                    $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)
-                                    ->getActionsTarget()[$actionName] === ActionTargetEnum::EQUIPMENT);
+                    ->filter(fn (string $actionName) => $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)
+                            ->getActionsTarget()[$actionName] === ActionTargetEnum::ITEM ||
+                        $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)
+                            ->getActionsTarget()[$actionName] === ActionTargetEnum::EQUIPMENT);
             } else {
                 $itemActions = $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getGrantActions()
-                                    ->filter(fn (string $actionName) => $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)
-                                    ->getActionsTarget()[$actionName] === ActionTargetEnum::EQUIPMENT);
+                    ->filter(fn (string $actionName) => $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)
+                            ->getActionsTarget()[$actionName] === ActionTargetEnum::EQUIPMENT);
             }
 
             foreach ($itemActions as $actionName) {
@@ -119,11 +127,10 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface
         ];
     }
 
-    /**
-     * @return \Stringable|\Symfony\Component\Security\Core\User\UserInterface|string
-     */
-    private function getUser()
+    private function getUser(): User
     {
-        return $this->tokenStorage->getToken()->getUser();
+        /** @var User $user */
+        $user = $this->tokenStorage->getToken()->getUser();
+        return $user;
     }
 }

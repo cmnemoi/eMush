@@ -31,18 +31,16 @@ class PlayerNormalizer implements ContextAwareNormalizerInterface
         $this->playersNormalizer = $playersNormalizer;
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = [])
+    public function supportsNormalization($data, string $format = null, array $context = []): bool
     {
         //@ TODO : fix that
         return $data instanceof Player && false;
     }
 
     /**
-     * @param Player $object
-     *
-     * @return array
+     * @param mixed $object
      */
-    public function normalize($object, string $format = null, array $context = [])
+    public function normalize($object, string $format = null, array $context = []): array
     {
         return [
             'gameStatus' => $object->getGameStatus(),

@@ -28,13 +28,13 @@ class ItemPileNormalizer implements ContextAwareNormalizerInterface
         $this->gameEquipmentService = $gameEquipmentService;
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = [])
+    public function supportsNormalization($data, string $format = null, array $context = []): bool
     {
         return $data instanceof Collection && $data->first() instanceof GameEquipment; //@TODO corriger ca
     }
 
     /**
-     * @param Collection $object
+     * @param mixed $object
      */
     public function normalize($object, string $format = null, array $context = []): array
     {
@@ -46,9 +46,8 @@ class ItemPileNormalizer implements ContextAwareNormalizerInterface
             $itemName = $item->getEquipment()->getName();
             $itemStatuses = $item->getStatuses();
 
-            if ((!$item->GetStatusByName(EquipmentStatusEnum::HIDDEN) ||
-                    ($item->GetStatusByName(EquipmentStatusEnum::HIDDEN) &&
-                    $item->GetStatusByName(EquipmentStatusEnum::HIDDEN)->getPlayer() === $this->getUser()->getCurrentGame()))) {
+            $hiddenStatus = $item->GetStatusByName(EquipmentStatusEnum::HIDDEN);
+            if (!$hiddenStatus ||($hiddenStatus->getPlayer() === $this->getUser()->getCurrentGame())) {
                 if ($item->getEquipment()->isStackable() &&
                     count(array_filter($piles, function ($pile) use ($itemName, $itemStatuses) {
                         return $pile['key'] === $itemName && $this->compareStatusesForPiles($itemStatuses, $pile['id']);
@@ -73,12 +72,11 @@ class ItemPileNormalizer implements ContextAwareNormalizerInterface
         return $piles;
     }
 
-    /**
-     * @return \Stringable|\Symfony\Component\Security\Core\User\UserInterface|string
-     */
-    private function getUser()
+    private function getUser(): User
     {
-        return $this->tokenStorage->getToken()->getUser();
+        /** @var User $user */
+        $user = $this->tokenStorage->getToken()->getUser();
+        return $user;
     }
 
     private function compareStatusesForPiles(Collection $itemStatuses, int $pileId): bool

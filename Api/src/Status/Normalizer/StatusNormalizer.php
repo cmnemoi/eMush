@@ -28,17 +28,15 @@ class StatusNormalizer implements ContextAwareNormalizerInterface
         $this->tokenStorage = $tokenStorage;
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = [])
+    public function supportsNormalization($data, string $format = null, array $context = []): bool
     {
         return $data instanceof Status;
     }
 
     /**
-     * @param Status $object
-     *
-     * @return array
+     * @param mixed $object
      */
-    public function normalize($object, string $format = null, array $context = [])
+    public function normalize($object, string $format = null, array $context = []): array
     {
         $status = $object;
         $statusName = $status->getName();

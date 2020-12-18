@@ -26,17 +26,15 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
         $this->tokenStorage = $tokenStorage;
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = [])
+    public function supportsNormalization($data, string $format = null, array $context = []): bool
     {
         return $data instanceof Action;
     }
 
     /**
-     * @param Action $object
-     *
-     * @return array
+     * @param mixed $object
      */
-    public function normalize($object, string $format = null, array $context = [])
+    public function normalize($object, string $format = null, array $context = []): array
     {
         $actionParameter = new ActionParameters();
         if (array_key_exists('player', $context)) {

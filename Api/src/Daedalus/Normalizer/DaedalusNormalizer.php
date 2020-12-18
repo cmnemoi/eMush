@@ -21,17 +21,15 @@ class DaedalusNormalizer implements ContextAwareNormalizerInterface
         $this->gameConfig = $gameConfigService->getConfig();
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = [])
+    public function supportsNormalization($data, string $format = null, array $context = []): bool
     {
         return $data instanceof Daedalus;
     }
 
     /**
-     * @param Daedalus $object
-     *
-     * @return array
+     * @param mixed $object
      */
-    public function normalize($object, string $format = null, array $context = [])
+    public function normalize($object, string $format = null, array $context = []): array
     {
         return [
                 'id' => $object->getId(),

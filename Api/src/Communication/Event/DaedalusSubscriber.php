@@ -26,8 +26,6 @@ class DaedalusSubscriber implements EventSubscriberInterface
     {
         $daedalus = $event->getDaedalus();
 
-        if ($daedalus !== null) {
-            $this->channelService->createPublicChannel($daedalus);
-        }
+        $this->channelService->createPublicChannel($daedalus);
     }
 }

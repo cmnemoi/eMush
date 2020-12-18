@@ -39,9 +39,10 @@ class RationCycleHandler extends AbstractCycleHandler
         if (!$gameRation instanceof GameEquipment) {
             return;
         }
+
         $rationType = $gameRation->getEquipment()->getRationsMechanic();
 
-        if (null === $rationType || !$rationType instanceof Ration) {
+        if (null === $rationType) {
             return;
         }
 

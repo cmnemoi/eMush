@@ -5,7 +5,9 @@ namespace Mush\Communication\Validator;
 use Mush\Communication\Entity\Dto\CreateMessage;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Component\Validator\ConstraintValidator;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use UnexpectedValueException;
 
 class MessageParentValidator extends ConstraintValidator
@@ -13,11 +15,15 @@ class MessageParentValidator extends ConstraintValidator
     public function validate($value, Constraint $constraint): void
     {
         if (!$value instanceof CreateMessage) {
-            throw new UnexpectedValueException($value, CreateMessage::class);
+            throw new UnexpectedValueException($value);
+        }
+
+        if (!$constraint instanceof NotNull) {
+            throw new UnexpectedTypeException($constraint, __NAMESPACE__.'\NotNull');
         }
 
         $channel = $value->getChannel();
-        if ($channel && $channel->getScope() !== ChannelScopeEnum::PUBLIC && $value->getParent()) {
+        if ($channel->getScope() !== ChannelScopeEnum::PUBLIC && $value->getParent()) {
             $this->context
                     ->buildViolation($constraint->message)
                     ->setCode(MessageParent::PARENT_CANNOT_BE_SET)

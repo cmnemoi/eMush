@@ -54,7 +54,7 @@ class CycleService implements CycleServiceInterface
 
     public function getCycleFromDate(DateTime $date): int
     {
-        $hour = $date->setTimezone(new \DateTimeZone($this->gameConfig->getTimeZone()))->format('H');
+        $hour = intval($date->setTimezone(new \DateTimeZone($this->gameConfig->getTimeZone()))->format('H'));
 
         return (int) floor(
             $hour / $this->gameConfig->getCycleLength() + 1
@@ -87,9 +87,9 @@ class CycleService implements CycleServiceInterface
 
         // We assume the inactivity is not more than a month
         if ($end->format('n') !== $start->format('n')) {
-            $dayDifference = $start->format('t') - $start->format('j') + $end->format('j');
+            $dayDifference = intval($start->format('t')) - intval($start->format('j')) + intval($end->format('j'));
         } else {
-            $dayDifference = $end->format('j') - $start->format('j');
+            $dayDifference = intval($end->format('j')) - intval($start->format('j'));
         }
 
         return intval($endCycle + $dayDifference * $this->gameConfig->getNumberOfCyclePerDay() - $startCycle);

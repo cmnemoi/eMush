@@ -5,7 +5,9 @@ namespace Mush\Player\Validator;
 use Mush\Player\Entity\Dto\PlayerRequest;
 use Mush\Player\Service\PlayerServiceInterface;
 use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Component\Validator\ConstraintValidator;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class UniqueCharacterValidator extends ConstraintValidator
 {
@@ -20,6 +22,10 @@ class UniqueCharacterValidator extends ConstraintValidator
     {
         if (!$value instanceof PlayerRequest) {
             throw new \InvalidArgumentException();
+        }
+
+        if (!$constraint instanceof NotNull) {
+            throw new UnexpectedTypeException($constraint, __NAMESPACE__.'\NotNull');
         }
 
         $daedalus = $value->getDaedalus();

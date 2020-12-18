@@ -5,7 +5,9 @@ namespace Mush\Daedalus\Validator;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Service\GameConfigService;
 use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Component\Validator\ConstraintValidator;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class FullDaedalusValidator extends ConstraintValidator
 {
@@ -20,6 +22,10 @@ class FullDaedalusValidator extends ConstraintValidator
     {
         if (!$value instanceof Daedalus) {
             throw new \InvalidArgumentException();
+        }
+
+        if (!$constraint instanceof NotNull) {
+            throw new UnexpectedTypeException($constraint, __NAMESPACE__.'\NotNull');
         }
 
         if ($value->getPlayers()->count() >= $this->gameConfigService->getConfig()->getMaxPlayer()) {

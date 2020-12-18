@@ -26,12 +26,10 @@ class EquipmentRepository extends ServiceEntityRepository
                 Daedalus::class,
                 'daedalus',
                 Join::WITH,
-                $queryBuilder->expr()->andX(
-                    $queryBuilder->expr()->eq('daedalus', ':daedalus'),
-                    $queryBuilder->expr()->eq('daedalus.gameConfig', 'gameConfig.id')
-                )
+                'daedalus.gameConfig = gameConfig.id'
             )
-            ->where($queryBuilder->expr()->eq('equipment.name', ':name'))
+            ->where($queryBuilder->expr()->eq('daedalus', ':daedalus'))
+            ->andWhere($queryBuilder->expr()->eq('equipment.name', ':name'))
             ->setParameter(':daedalus', $daedalus)
             ->setParameter(':name', $name)
             ->setMaxResults(1)

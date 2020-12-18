@@ -4,7 +4,9 @@ namespace Mush\Communication\Validator;
 
 use Mush\Communication\Entity\Message;
 use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Component\Validator\ConstraintValidator;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use UnexpectedValueException;
 
 class MaxNestedParentValidator extends ConstraintValidator
@@ -15,8 +17,12 @@ class MaxNestedParentValidator extends ConstraintValidator
             return;
         }
 
+        if (!$constraint instanceof NotNull) {
+            throw new UnexpectedTypeException($constraint, __NAMESPACE__.'\NotNull');
+        }
+
         if (!$value instanceof Message) {
-            throw new UnexpectedValueException($value, Message::class);
+            throw new UnexpectedValueException($value);
         }
 
         if ($value->getParent()) {

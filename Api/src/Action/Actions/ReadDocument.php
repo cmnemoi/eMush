@@ -25,7 +25,7 @@ class ReadDocument extends Action
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
-        RoomLogServiceInterface $roomLogService,
+        RoomLogServiceInterface $roomLogService
     ) {
         parent::__construct($eventDispatcher);
 

@@ -47,7 +47,7 @@ class ItemPileNormalizer implements ContextAwareNormalizerInterface
             $itemStatuses = $item->getStatuses();
 
             $hiddenStatus = $item->GetStatusByName(EquipmentStatusEnum::HIDDEN);
-            if (!$hiddenStatus ||($hiddenStatus->getPlayer() === $this->getUser()->getCurrentGame())) {
+            if (!$hiddenStatus || ($hiddenStatus->getPlayer() === $this->getUser()->getCurrentGame())) {
                 if ($item->getEquipment()->isStackable() &&
                     count(array_filter($piles, function ($pile) use ($itemName, $itemStatuses) {
                         return $pile['key'] === $itemName && $this->compareStatusesForPiles($itemStatuses, $pile['id']);
@@ -76,6 +76,7 @@ class ItemPileNormalizer implements ContextAwareNormalizerInterface
     {
         /** @var User $user */
         $user = $this->tokenStorage->getToken()->getUser();
+
         return $user;
     }
 

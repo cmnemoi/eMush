@@ -47,8 +47,6 @@ class UserController extends AbstractFOSRestController
      * @Get (name="user_info", path="/{id?}")
      *
      * @Security (name="Bearer")
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function getUserAction(Request $request): \Symfony\Component\HttpFoundation\Response
     {

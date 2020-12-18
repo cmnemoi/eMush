@@ -168,6 +168,7 @@ class StatusService implements StatusServiceInterface
                 }
             }
         }
+
         return $pickedEquipment;
     }
 }

@@ -19,7 +19,7 @@ class MessageParentValidator extends ConstraintValidator
         }
 
         if (!$constraint instanceof NotNull) {
-            throw new UnexpectedTypeException($constraint, __NAMESPACE__.'\NotNull');
+            throw new UnexpectedTypeException($constraint, __NAMESPACE__ . '\NotNull');
         }
 
         $channel = $value->getChannel();

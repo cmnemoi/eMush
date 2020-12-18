@@ -62,6 +62,7 @@ class Take extends Action
     {
         /** @var ItemConfig $item */
         $item = $this->gameItem->getEquipment();
+
         return $this->player->getRoom()->getEquipments()->contains($this->gameItem) &&
             $this->player->getItems()->count() < $this->gameConfig->getMaxItemInInventory() &&
             $item->isTakeable()

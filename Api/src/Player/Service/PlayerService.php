@@ -102,7 +102,6 @@ class PlayerService implements PlayerServiceInterface
         /** @var Collection<int, Status> $statuses */
         $statuses = new ArrayCollection();
 
-
         $player
             ->setUser($user)
             ->setGameStatus(GameStatusEnum::CURRENT)

@@ -63,8 +63,7 @@ class Search extends Action
             ->getRoom()
             ->getEquipments()
             ->filter(
-                fn (GameEquipment $gameEquipment) =>
-                ($gameEquipment->getStatusByName(EquipmentStatusEnum::HIDDEN) !== null)
+                fn (GameEquipment $gameEquipment) => ($gameEquipment->getStatusByName(EquipmentStatusEnum::HIDDEN) !== null)
             )
         ;
 

@@ -55,8 +55,6 @@ class LoginController extends AbstractFOSRestController
      * @OA\Tag (name="Login")
      *
      * @Post (name="username_login", path="/login")
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function loginAction(Request $request): \Symfony\Component\HttpFoundation\Response
     {

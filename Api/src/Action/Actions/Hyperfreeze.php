@@ -85,7 +85,6 @@ class Hyperfreeze extends Action
     {
         if ($this->gameEquipment->getEquipment()->getName() === GameRationEnum::COOKED_RATION ||
             $this->gameEquipment->getEquipment()->getName() === GameRationEnum::ALIEN_STEAK) {
-
             /** @var GameItem $newItem */
             $newItem = $this->gameEquipmentService
                 ->createGameEquipmentFromName(GameRationEnum::STANDARD_RATION, $this->player->getDaedalus())

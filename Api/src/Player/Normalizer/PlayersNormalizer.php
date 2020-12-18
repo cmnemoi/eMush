@@ -94,6 +94,7 @@ class PlayersNormalizer implements ContextAwareNormalizerInterface
             ->filter(function (GameEquipment $gameEquipment) {
                 /** @var Tool $tool */
                 $tool = $gameEquipment->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL);
+
                 return !$tool->getGrantActions()->isEmpty();
             })
         ;
@@ -155,6 +156,7 @@ class PlayersNormalizer implements ContextAwareNormalizerInterface
     {
         /** @var User $user */
         $user = $this->tokenStorage->getToken()->getUser();
+
         return $user;
     }
 }

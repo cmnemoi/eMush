@@ -17,7 +17,7 @@ class DaedalusSubscriber implements EventSubscriberInterface
     private RandomServiceInterface $randomService;
     private StatusServiceInterface $statusService;
     private GameConfig $gameConfig;
-    
+
     public function __construct(
         DaedalusServiceInterface $daedalusService,
         EventDispatcherInterface $eventDispatcher,

@@ -56,6 +56,7 @@ class Shred extends Action
     {
         /** @var ?Document $document */
         $document = $this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::DOCUMENT);
+
         return null !== $document &&
             $document->canShred() &&
             $this->player->canReachEquipment($this->gameEquipment)

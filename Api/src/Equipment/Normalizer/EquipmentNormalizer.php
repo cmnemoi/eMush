@@ -131,6 +131,7 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface
     {
         /** @var User $user */
         $user = $this->tokenStorage->getToken()->getUser();
+
         return $user;
     }
 }

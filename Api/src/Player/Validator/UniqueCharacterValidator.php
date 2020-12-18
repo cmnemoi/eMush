@@ -5,7 +5,6 @@ namespace Mush\Player\Validator;
 use Mush\Player\Entity\Dto\PlayerRequest;
 use Mush\Player\Service\PlayerServiceInterface;
 use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 

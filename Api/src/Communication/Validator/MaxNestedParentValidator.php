@@ -4,7 +4,6 @@ namespace Mush\Communication\Validator;
 
 use Mush\Communication\Entity\Message;
 use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use UnexpectedValueException;

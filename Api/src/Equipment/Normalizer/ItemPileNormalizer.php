@@ -11,19 +11,20 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\User\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 
-class ItemPileNormalizer implements ContextAwareNormalizerInterface
+class ItemPileNormalizer implements ContextAwareNormalizerInterface, NormalizerAwareInterface
 {
-    private EquipmentNormalizer $equipmentNormalizer;
+    use NormalizerAwareTrait;
+
     private TokenStorageInterface $tokenStorage;
     private GameEquipmentService $gameEquipmentService;
 
     public function __construct(
-        EquipmentNormalizer $equipmentNormalizer,
         TokenStorageInterface $tokenStorage,
         GameEquipmentService $gameEquipmentService
     ) {
-        $this->equipmentNormalizer = $equipmentNormalizer;
         $this->tokenStorage = $tokenStorage;
         $this->gameEquipmentService = $gameEquipmentService;
     }
@@ -64,7 +65,7 @@ class ItemPileNormalizer implements ContextAwareNormalizerInterface
                         $piles[$pileKey]['number'] = 2;
                     }
                 } else {
-                    $piles[] = $this->equipmentNormalizer->normalize($item);
+                    $piles[] = $this->normalizer->normalize($item);
                 }
             }
         }

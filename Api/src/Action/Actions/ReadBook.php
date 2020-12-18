@@ -41,7 +41,7 @@ class ReadBook extends Action
         $this->actionCost->setActionPointCost(2);
     }
 
-    public function loadParameters(Player $player, ActionParameters $actionParameters)
+    public function loadParameters(Player $player, ActionParameters $actionParameters): void
     {
         if (!($equipment = $actionParameters->getItem()) &&
             !($equipment = $actionParameters->getEquipment())) {

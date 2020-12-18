@@ -18,14 +18,14 @@ class DaySubscriber implements EventSubscriberInterface
         $this->playerService = $playerService;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             DayEvent::NEW_DAY => 'onNewDay',
         ];
     }
 
-    public function onNewDay(DayEvent $event)
+    public function onNewDay(DayEvent $event): void
     {
         if (!($player = $event->getPlayer())) {
             return;
@@ -35,7 +35,7 @@ class DaySubscriber implements EventSubscriberInterface
 
         foreach ($player->getItems() as $item) {
             $itemNewDay = new DayEvent($player->getDaedalus(), $event->getTime());
-            $itemNewDay->setGameItem($item);
+            $itemNewDay->setGameEquipment($item);
             $this->eventDispatcher->dispatch($itemNewDay, DayEvent::NEW_DAY);
         }
     }

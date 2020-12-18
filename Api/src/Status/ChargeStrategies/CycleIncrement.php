@@ -15,7 +15,7 @@ class CycleIncrement extends AbstractChargeStrategy
         parent::__construct($statusService);
     }
 
-    public function apply(ChargeStatus $status)
+    public function apply(ChargeStatus $status): void
     {
         if ($status->getCharge() >= $status->getThreshold()) {
             return;

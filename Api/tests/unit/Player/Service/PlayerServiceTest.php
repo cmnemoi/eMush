@@ -15,6 +15,7 @@ use Mush\Player\Service\PlayerService;
 use Mush\Room\Entity\Room;
 use Mush\Room\Enum\RoomEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -31,6 +32,8 @@ class PlayerServiceTest extends TestCase
     private PlayerRepository $repository;
     /** @var RoomLogServiceInterface | Mockery\Mock */
     private RoomLogServiceInterface $roomLogService;
+    /** @var StatusServiceInterface | Mockery\Mock */
+    private StatusServiceInterface $statusService;
     /** @var TokenStorageInterface | Mockery\Mock */
     private TokenStorageInterface $tokenStorage;
     private GameConfig $gameConfig;
@@ -45,6 +48,7 @@ class PlayerServiceTest extends TestCase
         $this->entityManager = Mockery::mock(EntityManagerInterface::class);
         $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $this->repository = Mockery::mock(PlayerRepository::class);
+        $this->statusService = Mockery::mock(StatusServiceInterface::class);
         $this->tokenStorage = Mockery::mock(TokenStorageInterface::class);
         $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
         $gameConfigService = Mockery::mock(GameConfigServiceInterface::class);
@@ -57,6 +61,7 @@ class PlayerServiceTest extends TestCase
             $this->eventDispatcher,
             $this->repository,
             $this->roomLogService,
+            $this->statusService,
             $gameConfigService,
             $this->tokenStorage
         );

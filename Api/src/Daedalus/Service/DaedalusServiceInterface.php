@@ -3,7 +3,7 @@
 namespace Mush\Daedalus\Service;
 
 use Doctrine\Common\Collections\Collection;
-use Mush\DAaedalus\Entity\Collection\DaedalusCollection;
+use Mush\Daedalus\Entity\Collection\DaedalusCollection;
 use Mush\Daedalus\Entity\Criteria\DaedalusCriteria;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\GameConfig;

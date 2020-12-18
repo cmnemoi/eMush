@@ -30,7 +30,7 @@ class PlayerEvent extends Event
         return $this->player;
     }
 
-    public function getTime()
+    public function getTime(): \DateTime
     {
         return $this->time;
     }

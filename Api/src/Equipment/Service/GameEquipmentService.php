@@ -16,6 +16,7 @@ use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\ContentStatus;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -91,7 +92,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
                     $this->initCharged($gameEquipment, $mechanic);
                     break;
                 case EquipmentMechanicEnum::DOCUMENT:
-                    if ($mechanic->getContent()) {
+                    if ($mechanic instanceof Document && $mechanic->getContent()) {
                         $this->initDocument($gameEquipment, $mechanic);
                     }
                     break;
@@ -138,7 +139,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         $contentStatus
             ->setName(EquipmentStatusEnum::DOCUMENT_CONTENT)
             ->setVisibility(VisibilityEnum::HIDDEN)
-            ->setGameEquipment($this->gameEquipment)
+            ->setGameEquipment($gameEquipment)
             ->setContent($document->getContent())
         ;
 
@@ -166,7 +167,9 @@ class GameEquipmentService implements GameEquipmentServiceInterface
 
     public function isOperational(GameEquipment $gameEquipment): bool
     {
-        if ($chargedStatus = $gameEquipment->getStatusByName(EquipmentStatusEnum::CHARGES)) {
+        /** @var ?ChargeStatus $chargedStatus */
+        $chargedStatus = $gameEquipment->getStatusByName(EquipmentStatusEnum::CHARGES);
+        if ($chargedStatus) {
             return !($gameEquipment->getStatusByName(EquipmentStatusEnum::BROKEN)) && $chargedStatus->getCharge() > 0;
         }
 

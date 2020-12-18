@@ -78,6 +78,9 @@ class RoomLog
         return $this->room;
     }
 
+    /**
+     * @return static
+     */
     public function setRoom(Room $room): RoomLog
     {
         $this->room = $room;
@@ -90,6 +93,9 @@ class RoomLog
         return $this->player;
     }
 
+    /**
+     * @return static
+     */
     public function setPlayer(?Player $player): RoomLog
     {
         $this->player = $player;
@@ -102,6 +108,9 @@ class RoomLog
         return $this->target;
     }
 
+    /**
+     * @return static
+     */
     public function setTarget(?Target $target): RoomLog
     {
         $this->target = $target;
@@ -114,6 +123,9 @@ class RoomLog
         return $this->visibility;
     }
 
+    /**
+     * @return static
+     */
     public function setVisibility(string $visibility): RoomLog
     {
         $this->visibility = $visibility;
@@ -126,6 +138,9 @@ class RoomLog
         return $this->log;
     }
 
+    /**
+     * @return static
+     */
     public function setLog(string $log): RoomLog
     {
         $this->log = $log;
@@ -138,6 +153,9 @@ class RoomLog
         return $this->date;
     }
 
+    /**
+     * @return static
+     */
     public function setDate(\DateTime $date): RoomLog
     {
         $this->date = $date;
@@ -150,6 +168,9 @@ class RoomLog
         return $this->day;
     }
 
+    /**
+     * @return static
+     */
     public function setDay(int $day): RoomLog
     {
         $this->day = $day;
@@ -162,6 +183,9 @@ class RoomLog
         return $this->cycle;
     }
 
+    /**
+     * @return static
+     */
     public function setCycle(int $cycle): RoomLog
     {
         $this->cycle = $cycle;
@@ -174,6 +198,9 @@ class RoomLog
         return $this->quantity;
     }
 
+    /**
+     * @return static
+     */
     public function setQuantity(?int $quantity): RoomLog
     {
         $this->quantity = $quantity;

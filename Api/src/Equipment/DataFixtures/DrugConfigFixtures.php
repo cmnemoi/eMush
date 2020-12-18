@@ -16,7 +16,7 @@ use Mush\Status\Enum\DisorderEnum;
 
 class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
@@ -65,7 +65,7 @@ class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->flush();
     }
 
-    public function getDependencies()
+    public function getDependencies(): array
     {
         return [
             GameConfigFixtures::class,

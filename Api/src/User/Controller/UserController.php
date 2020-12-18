@@ -34,17 +34,21 @@ class UserController extends AbstractFOSRestController
     /**
      * Get user information.
      *
-     * @OA\Parameter(
+     * @OA\Parameter (
      *     name="id",
      *     in="path",
      *     description="The user id",
-     *     @OA\Schema(type="integer")
+     *
+     * @OA\Schema (type="integer")
      * )
-     * @OA\Tag(name="user")
-     * @Get(name="user_info", path="/{id?}")
-     * @Security(name="Bearer")
+     *
+     * @OA\Tag (name="user")
+     *
+     * @Get (name="user_info", path="/{id?}")
+     *
+     * @Security (name="Bearer")
      */
-    public function getUserAction(Request $request)
+    public function getUserAction(Request $request): \Symfony\Component\HttpFoundation\Response
     {
         $user = $this->getUser();
         if ($id = $request->get('id')) {

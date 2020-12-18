@@ -62,6 +62,9 @@ class Message
         return $this->author;
     }
 
+    /**
+     * @return static
+     */
     public function setAuthor(?Player $author): Message
     {
         $this->author = $author;
@@ -74,6 +77,9 @@ class Message
         return $this->parent;
     }
 
+    /**
+     * @return static
+     */
     public function setParent(?Message $parent): Message
     {
         $this->parent = $parent;
@@ -86,6 +92,9 @@ class Message
         return $this->message;
     }
 
+    /**
+     * @return static
+     */
     public function setMessage(string $message): Message
     {
         $this->message = $message;
@@ -98,6 +107,9 @@ class Message
         return $this->channel;
     }
 
+    /**
+     * @return static
+     */
     public function setChannel(Channel $channel): Message
     {
         $this->channel = $channel;
@@ -110,6 +122,9 @@ class Message
         return $this->child;
     }
 
+    /**
+     * @return static
+     */
     public function setChild(Collection $child): Message
     {
         $this->child = $child;

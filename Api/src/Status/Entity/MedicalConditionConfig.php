@@ -67,6 +67,9 @@ class MedicalConditionConfig
         return $this->name;
     }
 
+    /**
+     * @return static
+     */
     public function setName(string $newName): MedicalConditionConfig
     {
         $this->name = $newName;
@@ -79,6 +82,9 @@ class MedicalConditionConfig
         return $this->gameConfig;
     }
 
+    /**
+     * @return static
+     */
     public function setGameConfig(GameConfig $gameConfig): MedicalConditionConfig
     {
         $this->gameConfig = $gameConfig;
@@ -91,6 +97,9 @@ class MedicalConditionConfig
         return $this->type;
     }
 
+    /**
+     * @return static
+     */
     public function setType(string $newType): MedicalConditionConfig
     {
         $this->type = $newType;
@@ -103,6 +112,9 @@ class MedicalConditionConfig
         return $this->duration;
     }
 
+    /**
+     * @return static
+     */
     public function setDuration(int $duration): MedicalConditionConfig
     {
         $this->duration = $duration;
@@ -115,6 +127,9 @@ class MedicalConditionConfig
         return $this->actionModifier;
     }
 
+    /**
+     * @return static
+     */
     public function setActionModifier(?ActionModifier $actionModifier): MedicalConditionConfig
     {
         $this->actionModifier = $actionModifier;
@@ -127,6 +142,9 @@ class MedicalConditionConfig
         return $this->playerModifier;
     }
 
+    /**
+     * @return static
+     */
     public function setPlayerModifier(?PlayerModifier $playerModifier): MedicalConditionConfig
     {
         $this->playerModifier = $playerModifier;
@@ -139,6 +157,9 @@ class MedicalConditionConfig
         return $this->symptoms;
     }
 
+    /**
+     * @return static
+     */
     public function setSymptoms(array $symptoms): MedicalConditionConfig
     {
         $this->symptoms = $symptoms;

@@ -24,14 +24,14 @@ class CycleSubscriber implements EventSubscriberInterface
         $this->equipmentCycleHandler = $equipmentCycleHandler;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             CycleEvent::NEW_CYCLE => 'onNewCycle',
         ];
     }
 
-    public function onNewCycle(CycleEvent $event)
+    public function onNewCycle(CycleEvent $event): void
     {
         if (!($equipment = $event->getGameEquipment())) {
             return;

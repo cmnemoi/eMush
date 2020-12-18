@@ -56,7 +56,7 @@ class Status
     /**
      * @ORM\OneToOne(targetEntity="Mush\Equipment\Entity\ConsumableEffect", cascade={"ALL"}, orphanRemoval=true)
      */
-    protected ?ConsumableEffect $consumableModifier = null;
+    protected ?ConsumableEffect $consumableEffect = null;
 
     public function getId(): int
     {
@@ -68,6 +68,9 @@ class Status
         return $this->name;
     }
 
+    /**
+     * @return static
+     */
     public function setName(?string $name): Status
     {
         $this->name = $name;
@@ -80,6 +83,9 @@ class Status
         return $this->visibility;
     }
 
+    /**
+     * @return static
+     */
     public function setVisibility(?string $visibility): Status
     {
         $this->visibility = $visibility;
@@ -92,6 +98,9 @@ class Status
         return $this->player;
     }
 
+    /**
+     * @return static
+     */
     public function setPlayer(?Player $player): Status
     {
         if ($player !== $this->player) {
@@ -115,6 +124,9 @@ class Status
         return $this->gameEquipment;
     }
 
+    /**
+     * @return static
+     */
     public function setGameEquipment(?GameEquipment $gameEquipment): Status
     {
         if ($gameEquipment !== $this->gameEquipment) {
@@ -133,14 +145,17 @@ class Status
         return $this;
     }
 
-    public function getConsumableModifier(): ?ConsumableModifier
+    public function getConsumableEffect(): ?ConsumableEffect
     {
-        return $this->consumableModifier;
+        return $this->consumableEffect;
     }
 
-    public function setConsumableModifier(?ConsumableModifier $consumableModifier): Status
+    /**
+     * @return static
+     */
+    public function setConsumableEffect(?ConsumableEffect $consumableEffect): Status
     {
-        $this->consumableModifier = $consumableModifier;
+        $this->consumableEffect = $consumableEffect;
 
         return $this;
     }

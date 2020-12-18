@@ -22,7 +22,7 @@ class DailyIncrement extends AbstractChargeStrategy
         parent::__construct($statusService);
     }
 
-    public function apply(ChargeStatus $status)
+    public function apply(ChargeStatus $status): void
     {
         //Only applied on cycle 1
         if (($this->cycleService->getCycleFromDate(new \DateTime('now')) !== 1) ||

@@ -6,6 +6,7 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -26,7 +27,9 @@ class Write extends Action
     private RoomLogServiceInterface $roomLogService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
+
     private GameConfig $gameConfig;
+    private string $message;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
@@ -45,7 +48,7 @@ class Write extends Action
         $this->actionCost->setActionPointCost(0);
     }
 
-    public function loadParameters(Player $player, ActionParameters $actionParameters)
+    public function loadParameters(Player $player, ActionParameters $actionParameters): void
     {
         if (!($message = $actionParameters->getMessage())) {
             throw new \InvalidArgumentException('Invalid message parameter');
@@ -64,7 +67,10 @@ class Write extends Action
 
     protected function applyEffects(): ActionResult
     {
-        $newGameItem = $this->gameEquipmentService->createGameEquipmentFromName(ItemEnum::POST_IT, $this->player->getDaedalus());
+        /** @var GameItem $newGameItem */
+        $newGameItem = $this->gameEquipmentService
+            ->createGameEquipmentFromName(ItemEnum::POST_IT, $this->player->getDaedalus())
+        ;
         $contentStatus = new ContentStatus();
         $contentStatus
             ->setName(EquipmentStatusEnum::DOCUMENT_CONTENT)

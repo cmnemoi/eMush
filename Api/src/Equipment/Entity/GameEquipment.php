@@ -81,6 +81,9 @@ class GameEquipment
         return $this->statuses;
     }
 
+    /**
+     * @return static
+     */
     public function setStatuses(Collection $statuses): GameEquipment
     {
         $this->statuses = $statuses;
@@ -88,6 +91,9 @@ class GameEquipment
         return $this;
     }
 
+    /**
+     * @return static
+     */
     public function addStatus(Status $status): GameEquipment
     {
         if (!$this->getStatuses()->contains($status)) {
@@ -103,6 +109,9 @@ class GameEquipment
         return $this;
     }
 
+    /**
+     * @return static
+     */
     public function removeStatus(Status $status): GameEquipment
     {
         if ($this->statuses->contains($status)) {
@@ -125,6 +134,9 @@ class GameEquipment
         return $this->room;
     }
 
+    /**
+     * @return static
+     */
     public function setRoom(?Room $room): GameEquipment
     {
         if ($room !== $this->room) {
@@ -144,6 +156,9 @@ class GameEquipment
         return $this;
     }
 
+    /**
+     * @return static
+     */
     public function removeLocation(): GameEquipment
     {
         $this->setRoom(null);
@@ -156,6 +171,9 @@ class GameEquipment
         return $this->name;
     }
 
+    /**
+     * @return static
+     */
     public function setName(string $name): GameEquipment
     {
         $this->name = $name;
@@ -168,6 +186,9 @@ class GameEquipment
         return $this->equipment;
     }
 
+    /**
+     * @return static
+     */
     public function setEquipment(EquipmentConfig $equipment): GameEquipment
     {
         $this->equipment = $equipment;

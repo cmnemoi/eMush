@@ -20,7 +20,7 @@ use Mush\Status\Enum\ChargeStrategyTypeEnum;
 
 class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterface
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
@@ -444,7 +444,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->flush();
     }
 
-    public function getDependencies()
+    public function getDependencies(): array
     {
         return [
             GameConfigFixtures::class,

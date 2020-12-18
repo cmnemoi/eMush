@@ -12,23 +12,20 @@ class DaySubscriber implements EventSubscriberInterface
     private DaedalusServiceInterface $daedalusService;
     private EventDispatcherInterface $eventDispatcher;
 
-    /**
-     * DaedalusSubscriber constructor.
-     */
     public function __construct(DaedalusServiceInterface $daedalusService, EventDispatcherInterface $eventDispatcher)
     {
         $this->daedalusService = $daedalusService;
         $this->eventDispatcher = $eventDispatcher;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             DayEvent::NEW_DAY => 'onNewDay',
         ];
     }
 
-    public function onNewDay(DayEvent $event)
+    public function onNewDay(DayEvent $event): void
     {
         if ($event->getGameEquipment() || $event->getPlayer() || $event->getRoom() || $event->getStatus()) {
             return;

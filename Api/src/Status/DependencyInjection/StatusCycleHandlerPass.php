@@ -9,7 +9,7 @@ use Symfony\Component\DependencyInjection\Reference;
 
 class StatusCycleHandlerPass implements CompilerPassInterface
 {
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         // Find the definition of our context service
         $actionService = $container->findDefinition(StatusCycleHandlerService::class);

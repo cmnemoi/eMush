@@ -20,11 +20,6 @@ class Door extends GameEquipment
      */
     private Collection $rooms;
 
-    /**
-     * Door constructor.
-     *
-     * @param Collection $rooms
-     */
     public function __construct()
     {
         $this->rooms = new ArrayCollection();
@@ -42,6 +37,9 @@ class Door extends GameEquipment
         return $this->rooms;
     }
 
+    /**
+     * @return static
+     */
     public function setRooms(Collection $rooms): Door
     {
         $this->rooms = $rooms;
@@ -55,6 +53,9 @@ class Door extends GameEquipment
         return $this;
     }
 
+    /**
+     * @return static
+     */
     public function addRoom(Room $room): Door
     {
         $this->rooms->add($room);

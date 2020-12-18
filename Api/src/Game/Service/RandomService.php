@@ -51,7 +51,7 @@ class RandomService implements RandomServiceInterface
         }
 
         return $room->getEquipments()->filter(fn (GameEquipment $equipment) => $equipment instanceof GameItem)
-             ->get($this->random(0, $room->getEquipments()->count() - 1));
+            ->get($this->random(0, $room->getEquipments()->count() - 1));
     }
 
     public function getRandomElements(array $array, int $number = 1): array
@@ -59,10 +59,8 @@ class RandomService implements RandomServiceInterface
         if (count($array) < $number) {
             throw new Error('getRandomElements: array is not large enough');
         }
-        $randomKeys = array_rand(($array), $number);
-        if ($number === 0) {
-            return [];
-        } elseif ($number > 1) {
+        $randomKeys = array_rand($array, $number);
+        if (is_array($randomKeys)) {
             return array_diff_key($array, array_flip($randomKeys));
         } else {
             return [$randomKeys => $array[$randomKeys]];

@@ -13,7 +13,7 @@ abstract class AbstractCycleHandler
         return $this->name;
     }
 
-    abstract public function handleNewCycle($object, Daedalus $daedalus, \DateTime $dateTime);
+    abstract public function handleNewCycle($object, Daedalus $daedalus, \DateTime $dateTime): void;
 
-    abstract public function handleNewDay($object, Daedalus $daedalus, \DateTime $dateTime);
+    abstract public function handleNewDay($object, Daedalus $daedalus, \DateTime $dateTime): void;
 }

@@ -64,6 +64,9 @@ abstract class EquipmentMechanic
         return $this->actions;
     }
 
+    /**
+     * @return static
+     */
     public function setActions(array $actions): EquipmentMechanic
     {
         $this->actions = $actions;
@@ -71,9 +74,12 @@ abstract class EquipmentMechanic
         return $this;
     }
 
+    /**
+     * @return static
+     */
     public function addAction(string $action): EquipmentMechanic
     {
-        $this->getActions->add($action);
+        $this->actions[] = $action;
 
         return $this;
     }

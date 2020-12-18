@@ -30,6 +30,9 @@ class Drug extends Ration
         return $this->drugEffectsNumber;
     }
 
+    /**
+     * @return static
+     */
     public function setDrugEffectsNumber(array $drugEffectsNumber): Drug
     {
         $this->drugEffectsNumber = $drugEffectsNumber;

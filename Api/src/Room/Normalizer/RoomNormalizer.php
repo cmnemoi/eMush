@@ -2,7 +2,11 @@
 
 namespace Mush\Room\Normalizer;
 
+use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Normalizer\ActionNormalizer;
+use Mush\Action\Service\ActionServiceInterface;
 use Mush\Equipment\Entity\Door;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Normalizer\EquipmentNormalizer;
 use Mush\Equipment\Normalizer\ItemPileNormalizer;
@@ -20,44 +24,62 @@ class RoomNormalizer implements ContextAwareNormalizerInterface
     private EquipmentNormalizer $equipmentNormalizer;
     private ItemPileNormalizer $itemPileNormalizer;
     private StatusNormalizer $statusNormalizer;
-    private PlayersNormalizer $playersNormalizer;
     private TranslatorInterface $translator;
+    private ActionServiceInterface $actionService;
+    private ActionNormalizer $actionNormalizer;
     private TokenStorageInterface $tokenStorage;
 
     public function __construct(
         EquipmentNormalizer $equipmentNormalizer,
         ItemPileNormalizer $itemPileNormalizer,
         StatusNormalizer $statusNormalizer,
-        PlayersNormalizer $playersNormalizer,
         TranslatorInterface $translator,
+        ActionServiceInterface $actionService,
+        ActionNormalizer $actionNormalizer,
         TokenStorageInterface $tokenStorage
     ) {
         $this->equipmentNormalizer = $equipmentNormalizer;
         $this->itemPileNormalizer = $itemPileNormalizer;
         $this->statusNormalizer = $statusNormalizer;
-        $this->playersNormalizer = $playersNormalizer;
         $this->translator = $translator;
+        $this->actionService = $actionService;
+        $this->actionNormalizer = $actionNormalizer;
         $this->tokenStorage = $tokenStorage;
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = [])
+    public function supportsNormalization($data, string $format = null, array $context = []): bool
     {
         return $data instanceof Room;
     }
 
     /**
-     * @param Room $room
-     *
-     * @return array
+     * @param mixed $object
      */
-    public function normalize($room, string $format = null, array $context = [])
+    public function normalize($object, string $format = null, array $context = []): array
     {
+        $room = $object;
         $players = [];
         /** @var Player $player */
         foreach ($room->getPlayers() as $player) {
             //Do not display user player in the room
             if ($player !== $this->getUser()->getCurrentGame()) {
-                $players[] = $this->playersNormalizer->normalize($player);
+                $actions = [];
+                foreach (ActionEnum::getPermanentPlayerActions() as $actionName) {
+                    $actionclass = $this->actionService->getAction($actionName);
+                    if ($actionclass) {
+                        $normedAction = $this->actionNormalizer->normalize($actionclass, null, ['player' => $player]);
+                        if (count($normedAction) > 0) {
+                            $actions[] = $normedAction;
+                        }
+                    }
+                }
+                $players[] = [
+                    'id' => $player->getId(),
+                    'name' => $this->translator->trans($player->getPerson() . '.name', [], 'characters'),
+                    'statuses' => $player->getStatuses(),
+                    'skills' => $player->getSkills(),
+                    'actions' => $actions,
+                ];
             }
         }
 
@@ -97,6 +119,9 @@ class RoomNormalizer implements ContextAwareNormalizerInterface
 
     private function getUser(): User
     {
-        return $this->tokenStorage->getToken()->getUser();
+        /** @var User $user */
+        $user = $this->tokenStorage->getToken()->getUser();
+
+        return $user;
     }
 }

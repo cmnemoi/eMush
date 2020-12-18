@@ -26,7 +26,7 @@ abstract class Action
         $this->actionCost = new ActionCost();
     }
 
-    abstract public function loadParameters(Player $player, ActionParameters $actionParameters);
+    abstract public function loadParameters(Player $player, ActionParameters $actionParameters): void;
 
     abstract public function canExecute(): bool;
 

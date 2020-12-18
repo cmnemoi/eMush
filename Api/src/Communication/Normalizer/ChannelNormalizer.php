@@ -22,13 +22,13 @@ class ChannelNormalizer implements ContextAwareNormalizerInterface
     }
 
     /**
-     * @param Channel $channel
+     * @param mixed $object
      */
-    public function normalize($channel, string $format = null, array $context = []): array
+    public function normalize($object, string $format = null, array $context = []): array
     {
         $participants = [];
         /** @var Player $participant */
-        foreach ($channel->getParticipants() as $participant) {
+        foreach ($object->getParticipants() as $participant) {
             $participants[] = [
                 'id' => $participant->getId(),
                 'character' => [
@@ -39,8 +39,8 @@ class ChannelNormalizer implements ContextAwareNormalizerInterface
         }
 
         return [
-            'id' => $channel->getId(),
-            'scope' => $channel->getScope(),
+            'id' => $object->getId(),
+            'scope' => $object->getScope(),
             'participants' => $participants,
         ];
     }

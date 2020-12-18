@@ -7,6 +7,7 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ReachEnum;
@@ -52,7 +53,7 @@ class Coffee extends Action
         $this->actionCost->setActionPointCost(0);
     }
 
-    public function loadParameters(Player $player, ActionParameters $actionParameters)
+    public function loadParameters(Player $player, ActionParameters $actionParameters): void
     {
         if (!($equipment = $actionParameters->getEquipment())) {
             throw new \InvalidArgumentException('Invalid equipment parameter');
@@ -71,7 +72,10 @@ class Coffee extends Action
 
     protected function applyEffects(): ActionResult
     {
-        $newItem = $this->gameEquipmentService->createGameEquipmentFromName(GameRationEnum::COFFEE, $this->player->getDaedalus());
+        /** @var GameItem $newItem */
+        $newItem = $this->gameEquipmentService
+            ->createGameEquipmentFromName(GameRationEnum::COFFEE, $this->player->getDaedalus())
+        ;
         if ($this->player->getItems()->count() < $this->gameConfig->getMaxItemInInventory()) {
             $newItem->setPlayer($this->player);
         } else {
@@ -86,7 +90,10 @@ class Coffee extends Action
             EquipmentEnum::COFFEE_MACHINE,
             $this->player,
             ReachEnum::SHELVE
-            )->first()->getStatusByName(EquipmentStatusEnum::CHARGES);
+        )
+            ->first()
+            ->getStatusByName(EquipmentStatusEnum::CHARGES)
+        ;
 
         $chargeStatus->addCharge(-1);
 

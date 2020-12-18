@@ -4,6 +4,7 @@ namespace Mush\Daedalus\Controller;
 
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use FOS\RestBundle\View\View;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Game\Entity\CharacterConfig;
@@ -79,11 +80,13 @@ class DaedalusController extends AbstractFOSRestController
     /**
      * Display available daedalus and characters.
      *
-     * @OA\Tag(name="Daedalus")
-     * @Security(name="Bearer")
-     * @Rest\Get(path="/available-characters")
+     * @OA\Tag (name="Daedalus")
+     *
+     * @Security (name="Bearer")
+     *
+     * @Rest\Get (path="/available-characters")
      */
-    public function getAvailableCharacter()
+    public function getAvailableCharacter(): View
     {
         $daedalus = $this->daedalusService->findAvailableDaedalus();
 

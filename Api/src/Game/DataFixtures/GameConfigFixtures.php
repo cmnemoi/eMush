@@ -10,7 +10,7 @@ class GameConfigFixtures extends Fixture
 {
     public const DEFAULT_GAME_CONFIG = 'default.game.config';
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $gameConfig = new GameConfig();
 

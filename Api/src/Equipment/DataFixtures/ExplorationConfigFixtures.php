@@ -14,7 +14,7 @@ use Mush\Game\Entity\GameConfig;
 
 class ExplorationConfigFixtures extends Fixture implements DependentFixtureInterface
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
@@ -138,7 +138,7 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
         $this->addReference(ItemEnum::BABEL_MODULE, $babelModule);
     }
 
-    public function getDependencies()
+    public function getDependencies(): array
     {
         return [
             GameConfigFixtures::class,

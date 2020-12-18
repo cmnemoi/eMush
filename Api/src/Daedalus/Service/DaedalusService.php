@@ -4,7 +4,7 @@ namespace Mush\Daedalus\Service;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
-use Mush\DAaedalus\Entity\Collection\DaedalusCollection;
+use Mush\Daedalus\Entity\Collection\DaedalusCollection;
 use Mush\Daedalus\Entity\Criteria\DaedalusCriteria;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusEvent;
@@ -159,15 +159,18 @@ class DaedalusService implements DaedalusServiceInterface
             $chancesArray[$characterConfig->getName()] = $mushChance;
         }
 
-        $mushNumber = $this->gameConfig->getNbMush();
+        $mushNumber = $gameConfig->getNbMush();
 
         $mushPlayerName = $this->randomService->getRandomElementsFromProbaArray($chancesArray, $mushNumber);
         foreach ($mushPlayerName as $playerName) {
-            $mushPlayer = $daedalus->getPlayers()->filter(fn (Player $player) => $player->getPerson() === $playerName);
+            $mushPlayer = $daedalus
+                ->getPlayers()
+                ->filter(fn (Player $player) => $player->getPerson() === $playerName)->first()
+            ;
 
             if (!$mushPlayer->isEmpty()) {
-                $playerEvent = new PlayerEvent($this->targetPlayer);
-                $this->eventManager->dispatch($playerEvent, PlayerEvent::CONVERSION_PLAYER);
+                $playerEvent = new PlayerEvent($mushPlayer);
+                $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::CONVERSION_PLAYER);
             }
         }
 

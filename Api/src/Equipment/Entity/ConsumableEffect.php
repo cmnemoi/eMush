@@ -90,6 +90,9 @@ class ConsumableEffect
         return $this->daedalus;
     }
 
+    /**
+     * @return static
+     */
     public function setDaedalus(Daedalus $daedalus): ConsumableEffect
     {
         $this->daedalus = $daedalus;
@@ -102,6 +105,9 @@ class ConsumableEffect
         return $this->ration;
     }
 
+    /**
+     * @return static
+     */
     public function setRation(Ration $ration): ConsumableEffect
     {
         $this->ration = $ration;
@@ -114,6 +120,9 @@ class ConsumableEffect
         return $this->actionPoint;
     }
 
+    /**
+     * @return static
+     */
     public function setActionPoint(int $actionPoint): ConsumableEffect
     {
         $this->actionPoint = $actionPoint;
@@ -126,6 +135,9 @@ class ConsumableEffect
         return $this->movementPoint;
     }
 
+    /**
+     * @return static
+     */
     public function setMovementPoint(int $movementPoint): ConsumableEffect
     {
         $this->movementPoint = $movementPoint;
@@ -138,6 +150,9 @@ class ConsumableEffect
         return $this->healthPoint;
     }
 
+    /**
+     * @return static
+     */
     public function setHealthPoint(int $healthPoint): ConsumableEffect
     {
         $this->healthPoint = $healthPoint;
@@ -150,6 +165,9 @@ class ConsumableEffect
         return $this->moralPoint;
     }
 
+    /**
+     * @return static
+     */
     public function setMoralPoint(int $moralPoint): ConsumableEffect
     {
         $this->moralPoint = $moralPoint;
@@ -162,6 +180,9 @@ class ConsumableEffect
         return $this->satiety;
     }
 
+    /**
+     * @return static
+     */
     public function setSatiety(int $satiety): ConsumableEffect
     {
         $this->satiety = $satiety;
@@ -174,6 +195,9 @@ class ConsumableEffect
         return $this->cures;
     }
 
+    /**
+     * @return static
+     */
     public function setCures(array $cures): ConsumableEffect
     {
         $this->cures = $cures;
@@ -186,6 +210,9 @@ class ConsumableEffect
         return $this->diseasesChance;
     }
 
+    /**
+     * @return static
+     */
     public function setDiseasesChance(array $diseasesChance): ConsumableEffect
     {
         $this->diseasesChance = $diseasesChance;
@@ -198,6 +225,9 @@ class ConsumableEffect
         return $this->diseasesDelayMin;
     }
 
+    /**
+     * @return static
+     */
     public function setDiseasesDelayMin(array $diseasesDelayMin): ConsumableEffect
     {
         $this->diseasesDelayMin = $diseasesDelayMin;
@@ -210,6 +240,9 @@ class ConsumableEffect
         return $this->diseasesDelayLength;
     }
 
+    /**
+     * @return static
+     */
     public function setDiseasesDelayLength(array $diseasesDelayLength): ConsumableEffect
     {
         $this->diseasesDelayLength = $diseasesDelayLength;
@@ -222,6 +255,9 @@ class ConsumableEffect
         return $this->extraEffects;
     }
 
+    /**
+     * @return static
+     */
     public function setExtraEffects(array $extraEffects): ConsumableEffect
     {
         $this->extraEffects = $extraEffects;

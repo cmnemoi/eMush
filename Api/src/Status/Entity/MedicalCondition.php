@@ -21,6 +21,9 @@ class MedicalCondition extends ChargeStatus
         return $this->medicalConditionConfig;
     }
 
+    /**
+     * @return static
+     */
     public function setMedicalConditionConfig(MedicalConditionConfig $medicalConditionConfig): MedicalCondition
     {
         $this->medicalConditionConfig = $medicalConditionConfig;

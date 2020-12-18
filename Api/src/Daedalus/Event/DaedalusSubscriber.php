@@ -18,16 +18,13 @@ class DaedalusSubscriber implements EventSubscriberInterface
     private StatusServiceInterface $statusService;
     private GameConfig $gameConfig;
 
-    /**
-     * DaedalusSubscriber constructor.
-     */
     public function __construct(
         DaedalusServiceInterface $daedalusService,
         EventDispatcherInterface $eventDispatcher,
         RandomServiceInterface $randomService,
         StatusServiceInterface $statusService,
         GameConfigServiceInterface $gameConfigService
-        ) {
+    ) {
         $this->daedalusService = $daedalusService;
         $this->eventDispatcher = $eventDispatcher;
         $this->randomService = $randomService;
@@ -35,7 +32,7 @@ class DaedalusSubscriber implements EventSubscriberInterface
         $this->gameConfig = $gameConfigService->getConfig();
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             DaedalusEvent::NEW_DAEDALUS => 'onDaedalusNew',
@@ -44,18 +41,18 @@ class DaedalusSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onDaedalusNew(DaedalusEvent $event)
+    public function onDaedalusNew(DaedalusEvent $event): void
     {
         $daedalus = $event->getDaedalus();
     }
 
-    public function onDaedalusEnd(DaedalusEvent $event)
+    public function onDaedalusEnd(DaedalusEvent $event): void
     {
         $daedalus = $event->getDaedalus();
         // @TODO: create logs
     }
 
-    public function onDaedalusFull(DaedalusEvent $event)
+    public function onDaedalusFull(DaedalusEvent $event): void
     {
         $daedalus = $event->getDaedalus();
         // @TODO: create logs

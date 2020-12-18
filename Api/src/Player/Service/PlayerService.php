@@ -3,6 +3,7 @@
 namespace Mush\Player\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusEvent;
@@ -98,15 +99,8 @@ class PlayerService implements PlayerServiceInterface
 
         $characterConfig = $this->gameConfig->getCharactersConfig()->getCharacter($character);
 
+        /** @var Collection<int, Status> $statuses */
         $statuses = new ArrayCollection();
-        foreach ($characterConfig->getStatuses() as $statusName) {
-            $status = new Status();
-            $status
-                ->setName($statusName)
-                ->setVisibility(VisibilityEnum::PUBLIC)
-            ;
-            $statuses->add($status);
-        }
 
         $player
             ->setUser($user)
@@ -124,8 +118,16 @@ class PlayerService implements PlayerServiceInterface
             ->setActionPoint($this->gameConfig->getInitActionPoint())
             ->setMovementPoint($this->gameConfig->getInitMovementPoint())
             ->setSatiety($this->gameConfig->getInitSatiety())
-            ->setStatuses($statuses)
         ;
+
+        foreach ($characterConfig->getStatuses() as $statusName) {
+            $status = new Status();
+            $status
+                ->setName($statusName)
+                ->setVisibility(VisibilityEnum::PUBLIC)
+            ;
+            $player->addStatus($status);
+        }
 
         $this->persist($player);
 
@@ -141,10 +143,10 @@ class PlayerService implements PlayerServiceInterface
         return $player;
     }
 
-    public function handleNewCycle(Player $player, \DateTime $time): Player
+    public function handleNewCycle(Player $player, \DateTime $date): Player
     {
         if ($player->getMoralPoint() === 0) {
-            $playerEvent = new PlayerEvent($player, $time);
+            $playerEvent = new PlayerEvent($player, $date);
             $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
 
             return $player;
@@ -157,7 +159,7 @@ class PlayerService implements PlayerServiceInterface
             ->setSatietyModifier(-1)
         ;
 
-        $playerEvent = new PlayerEvent($player, $time);
+        $playerEvent = new PlayerEvent($player, $date);
         $playerEvent->setActionModifier($actionModifier);
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
 
@@ -173,13 +175,13 @@ class PlayerService implements PlayerServiceInterface
             $player,
             VisibilityEnum::PRIVATE,
             $triumphChange,
-            $time
+            $date
         );
 
         return $this->persist($player);
     }
 
-    public function handleNewDay(Player $player, \DateTime $time): Player
+    public function handleNewDay(Player $player, \DateTime $date): Player
     {
         $actionModifier = new ActionModifier();
         $actionModifier
@@ -187,14 +189,14 @@ class PlayerService implements PlayerServiceInterface
             ->setMoralPointModifier(-2) //@TODO check for last hope
         ;
 
-        $playerEvent = new PlayerEvent($player, $time);
+        $playerEvent = new PlayerEvent($player, $date);
         $playerEvent->setActionModifier($actionModifier);
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
 
         return $this->persist($player);
     }
 
-    public function handlePlayerModifier(Player $player, ActionModifier $actionModifier, \DateTime $time = null): Player
+    public function handlePlayerModifier(Player $player, ActionModifier $actionModifier, \DateTime $date = null): Player
     {
         if ($actionModifier->getActionPointModifier() !== 0) {
             $playerNewActionPoint = $player->getActionPoint() + $actionModifier->getActionPointModifier();
@@ -206,7 +208,7 @@ class PlayerService implements PlayerServiceInterface
                 $player,
                 VisibilityEnum::PRIVATE,
                 $actionModifier->getActionPointModifier(),
-                $time ?? new \DateTime('now')
+                $date ?? new \DateTime('now')
             );
         }
 
@@ -220,7 +222,7 @@ class PlayerService implements PlayerServiceInterface
                 $player,
                 VisibilityEnum::PRIVATE,
                 $actionModifier->getMovementPointModifier(),
-                $time ?? new \DateTime('now')
+                $date ?? new \DateTime('now')
             );
         }
 
@@ -234,7 +236,7 @@ class PlayerService implements PlayerServiceInterface
                 $player,
                 VisibilityEnum::PRIVATE,
                 $actionModifier->getHealthPointModifier(),
-                $time ?? new \DateTime('now')
+                $date ?? new \DateTime('now')
             );
         }
 
@@ -265,7 +267,7 @@ class PlayerService implements PlayerServiceInterface
                     $player,
                     VisibilityEnum::PRIVATE,
                     $actionModifier->getMoralPointModifier(),
-                    $time ?? new \DateTime('now')
+                    $date ?? new \DateTime('now')
                 );
             }
         }

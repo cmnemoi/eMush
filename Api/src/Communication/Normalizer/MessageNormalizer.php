@@ -21,25 +21,25 @@ class MessageNormalizer implements ContextAwareNormalizerInterface
     }
 
     /**
-     * @param Message $message
+     * @param mixed $object
      */
-    public function normalize($message, string $format = null, array $context = []): array
+    public function normalize($object, string $format = null, array $context = []): array
     {
         $child = [];
 
         /** @var Message $children */
-        foreach ($message->getChild() as $children) {
+        foreach ($object->getChild() as $children) {
             $child[] = $this->normalize($children, $format, $context);
         }
 
         return [
-            'id' => $message->getId(),
+            'id' => $object->getId(),
             'character' => [
-                'key' => $message->getAuthor()->getPerson(),
-                'value' => $this->translator->trans($message->getAuthor()->getPerson() . '.name', [], 'characters'),
+                'key' => $object->getAuthor()->getPerson(),
+                'value' => $this->translator->trans($object->getAuthor()->getPerson() . '.name', [], 'characters'),
             ],
-            'message' => $message->getMessage(),
-            'createdAt' => $message->getCreatedAt()->format(\DateTime::ATOM),
+            'message' => $object->getMessage(),
+            'createdAt' => $object->getCreatedAt()->format(\DateTime::ATOM),
             'child' => $child,
         ];
     }

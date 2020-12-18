@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Daaedalus\Entity\Collection;
+namespace Mush\Daedalus\Entity\Collection;
 
 use Doctrine\Common\Collections\ArrayCollection;
 

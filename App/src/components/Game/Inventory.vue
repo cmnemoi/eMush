@@ -2,7 +2,7 @@
   <ul class="inventory">
     <li v-for="(item) in items" class="slot" v-bind:key="item.id" @click="$emit('select',item)">
       <img :src="itemImage(item)" :alt="item.name">
-      <span class="qty">12</span>
+      <span class="qty">{{ item.number }}</span>
     </li>
     <li v-for="n in emptySlots" class="empty" v-bind:key="n"></li>
   </ul>

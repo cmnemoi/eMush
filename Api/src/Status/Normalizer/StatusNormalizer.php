@@ -58,7 +58,7 @@ class StatusNormalizer implements ContextAwareNormalizerInterface
                 'description' => $this->translator->trans("{$statusName}.description", [], 'statusess'),
             ];
 
-            if ($status instanceof ChargeStatus && in_array($statusName, [PlayerStatusEnum::SPORES, EquipmentStatusEnum::CHARGES])) {
+            if ($status instanceof ChargeStatus) {
                 $normedStatus['charge'] = $status->getCharge();
             }
 

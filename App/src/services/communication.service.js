@@ -53,7 +53,7 @@ const CommunicationService = {
             'message': text,
             'parent': parentId
         })
-        console.log(messagesData)
+
         let messages = [];
         if (messagesData.data) {
             messagesData.data.forEach((data) => {

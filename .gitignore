@@ -31,3 +31,8 @@ node_modules/
 .pnp.*
 # We only use `yarn.lock` files, ensure npm's `package-lock.json` is not commited
 package-lock.json
+
+###############################################################################
+# Local configuration                                                         #
+###############################################################################
+etwin.toml

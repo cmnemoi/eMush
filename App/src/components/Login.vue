@@ -2,14 +2,18 @@
   <a href="#" @click="showLogin = true" v-if="!loggedIn">Login</a>
   <a href="/#" @click="logout" v-if="loggedIn">Logout</a>
   <div id="login-modal" class="modal-window" v-show="showLogin" >
-    <div>
-      <a href="#" title="Close" class="modal-close" @click="showLogin = false">Close</a>
-      <label for="login">
-        Login
-      </label>
-      <input id="login" type="text" placeholder="login" v-model="email"/>
-      <button type="submit" @click="handleSubmit">{{ ('form.submit') }}</button>
-    </div>
+<!--    <div>-->
+<!--      <a href="#" title="Close" class="modal-close" @click="showLogin = false">Close</a>-->
+<!--      <label for="login">-->
+<!--        Login-->
+<!--      </label>-->
+<!--      <input id="login" type="text" placeholder="login" v-model="email"/>-->
+<!--      <button type="submit" @click="handleSubmit">{{ ('form.submit') }}</button>-->
+<!--    </div>-->
+    <form method="POST" action="http://localhost:8080/api/v1/login/redirect">
+      <input type="hidden" name="frontend_uri" value="http://localhost" />
+      <input type="submit" value="Se connecter" />
+    </form>
   </div>
 </template>
 

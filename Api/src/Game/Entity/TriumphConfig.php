@@ -3,13 +3,13 @@
 namespace Mush\Game\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Daedalus\Entity\DaedalusConfig;
+
 
 /**
- * Class Daedalus.
+ * Class TriumphConfig.
  *
- * @ORM\Entity(repositoryClass="Mush\Game\Repository\TriumphConfigRepository")
- * @ORM\Table(name="config_game")
+ * @ORM\Entity()
+ * @ORM\Table(name="triumph_config")
  */
 class TriumphConfig
 {

@@ -12,7 +12,7 @@ use Mush\Game\Entity\TriumphConfig;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 
-class TriumphConfigFixtures extends Fixture implements DependentFixtureInterface
+class TriumphConfigFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {

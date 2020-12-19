@@ -26,6 +26,8 @@ services:
       - mush_network
     links:
       - mush_database
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
   #Database container
   mush_database:

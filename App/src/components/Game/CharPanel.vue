@@ -5,10 +5,7 @@
       <img class="avatar" :src="characterPortrait" alt="avatar">
 
       <ul class="status">
-        <li><img src="@/assets/images/status/belly_full.png"></li>
-        <li><img src="@/assets/images/status/heavy.png"></li>
-        <li><img src="@/assets/images/status/hurt.png"></li>
-        <li><img src="@/assets/images/status/noob.png"></li>
+        <li v-for="(status, id) in player.statuses" v-bind:key="id"><img :src="playerStatusIcon(status)"></li>
       </ul>
 
       <div class="health-points">
@@ -30,7 +27,12 @@
         <inventory :items="player.items" :min-slot="3" v-on:select="selectItem"></inventory>
       </div>
       <div class="interactions" v-if="selectedItem">
-        <p>{{ selectedItem.name }}<img src="@/assets/images/status/heavy.png"><img src="@/assets/images/status/plant_thirsty.png"><img src="@/assets/images/status/charge.png">x4 :</p>
+        <p>{{ selectedItem.name }}
+          <span v-for="(status, key) in selectedItem.statuses" v-bind:key="key">
+            <img :src="itemStatusIcon(status)">
+            <span v-if="status.charge > 0">x{{status.charge}}</span>
+          </span>
+        </p>
         <ul>
           <li v-for="(action,key) in selectedItem.actions" v-bind:key="key">
             <a href="#" @click="executeAction(action)">
@@ -77,6 +79,8 @@ import {characterEnum} from '@/enums/character';
 import Inventory from "@/components/Game/Inventory";
 import ActionService from "@/services/action.service";
 import {mapActions} from "vuex";
+import {statusPlayerEnum} from "@/enums/status.player.enum";
+import {statusItemEnum} from "@/enums/status.item.enum";
 
 export default {
   name: "CharPanel",
@@ -103,6 +107,14 @@ export default {
     },
     selectItem: function(item) {
       this.selectedItem = item;
+    },
+    playerStatusIcon: function(status) {
+      const statusImages = statusPlayerEnum[status.key];
+      return typeof statusImages !== 'undefined' ? statusImages.icon : null;
+    },
+    itemStatusIcon: function(status) {
+      const statusImages = statusItemEnum[status.key];
+      return typeof statusImages !== 'undefined' ? statusImages.icon : null;
     },
     executeAction: function (action) {
       ActionService.executeItemAction(this.selectedItem, action).then(() => this.reloadPlayer());

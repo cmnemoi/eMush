@@ -1,6 +1,8 @@
 import {Daedalus} from "@/entities/Daedalus";
 import {Room} from "@/entities/Room";
 import {Item} from "@/entities/Item";
+import {Status} from "@/entities/Status";
+import {Action} from "@/entities/Action";
 
 export class Player {
     constructor() {
@@ -15,6 +17,8 @@ export class Player {
         this.gameStatus = null;
         this.daedalus = null;
         this.items = [];
+        this.statuses = [];
+        this.actions = [];
         this.room = null;
     }
     load = function(object) {
@@ -34,6 +38,14 @@ export class Player {
                 let item = (new Item).load(itemObject)
                 this.items.push(item);
             })
+            object.actions.forEach((actionObject) => {
+                let action = (new Action()).load(actionObject)
+                this.actions.push(action);
+            })
+            object.statuses.forEach((statusObject) => {
+                let status = (new Status()).load(statusObject)
+                this.statuses.push(status);
+            })
         }
         return this;
     }
@@ -43,15 +55,7 @@ export class Player {
     decode = function(jsonString) {
         if (jsonString) {
             let object = JSON.parse(jsonString)
-            this.id = object.id;
-            this.name = object.name;
-            this.keyName = object.keyName;
-            this.actionPoint = object.actionPoint;
-            this.movementPoint = object.movementPoint;
-            this.healthPoint = object.healthPoint;
-            this.moralPoint = object.moralPoint;
-            this.triumph = object.triumph;
-            this.gameStatus = object.gameStatus;
+            this.load(object)
         }
 
         return this;

@@ -50,12 +50,8 @@ class Write extends Action
 
     public function loadParameters(Player $player, ActionParameters $actionParameters): void
     {
-        if (!($message = $actionParameters->getMessage())) {
-            throw new \InvalidArgumentException('Invalid message parameter');
-        }
-
         $this->player = $player;
-        $this->message = $message;
+        $this->message = $actionParameters->getMessage();
         $this->actionCost->setActionPointCost(0);
     }
 

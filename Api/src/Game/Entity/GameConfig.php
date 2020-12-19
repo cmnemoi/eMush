@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Game\Entity\Collection\CharacterConfigCollection;
+use Mush\Game\Entity\Collection\TriumphConfigCollection;
 
 /**
  * Class Daedalus.
@@ -39,6 +40,11 @@ class GameConfig
      * @ORM\OneToMany(targetEntity="Mush\Equipment\Entity\EquipmentConfig", mappedBy="gameConfig")
      */
     private Collection $equipmentsConfig;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Mush\Game\Entity\TriumphConfig", mappedBy="gameConfig")
+     */
+    private Collection $triumphConfig;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=false)
@@ -151,6 +157,18 @@ class GameConfig
     public function setCharactersConfig(Collection $charactersConfig): GameConfig
     {
         $this->charactersConfig = $charactersConfig;
+
+        return $this;
+    }
+
+    public function getTriumphConfig(): TriumphConfigCollection
+    {
+        return new TriumphConfigCollection($this->triumphConfig->toArray());
+    }
+
+    public function setTriumphConfig(Collection $triumphConfig): GameConfig
+    {
+        $this->triumphConfig = $triumphConfig;
 
         return $this;
     }

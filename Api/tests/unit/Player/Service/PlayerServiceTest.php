@@ -51,6 +51,7 @@ class PlayerServiceTest extends TestCase
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
         $this->tokenStorage = Mockery::mock(TokenStorageInterface::class);
         $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
+        $this->statusService = Mockery::mock(StatusServiceInterface::class);
         $gameConfigService = Mockery::mock(GameConfigServiceInterface::class);
         $this->gameConfig = new GameConfig();
         $this->charactersConfig = new CharacterConfigCollection();

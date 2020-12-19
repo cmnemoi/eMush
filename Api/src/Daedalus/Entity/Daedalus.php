@@ -2,6 +2,7 @@
 
 namespace Mush\Daedalus\Entity;
 
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -81,6 +82,12 @@ class Daedalus
      * @ORM\Column(type="integer", nullable=false)
      */
     private int $dailySpores;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=false)
+     */
+    private DateTime $filledAt;
+
 
     /**
      * Daedalus constructor.
@@ -346,6 +353,18 @@ class Daedalus
     public function setDailySpores(int $dailySpores): Daedalus
     {
         $this->dailySpores = $dailySpores;
+
+        return $this;
+    }
+
+    public function getFilledAt(): DateTime
+    {
+        return $this->filledAt;
+    }
+
+    public function setFilledAt(DateTime $filledAt): Daedalus
+    {
+        $this->filledAt = $filledAt;
 
         return $this;
     }

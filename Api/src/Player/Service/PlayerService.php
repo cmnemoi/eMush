@@ -23,6 +23,7 @@ use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\User\Entity\User;
+use Mush\Game\Enum\TriumphEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
@@ -165,9 +166,9 @@ class PlayerService implements PlayerServiceInterface
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
 
         if($player->isMush()){
-            $triumphChange=-2;
+            $triumphChange=$this->gameConfig->getTriumphConfig()->getTriumph(TriumphEnum::CYCLE_MUSH)->getTriumph();
         }else{
-            $triumphChange=1;
+            $triumphChange=$this->gameConfig->getTriumphConfig()->getTriumph(TriumphEnum::CYCLE_HUMAN)->getTriumph();
         }
         $player->addTriumph($triumphChange);
         $this->roomLogService->createQuantityLog(

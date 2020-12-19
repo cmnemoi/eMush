@@ -6,6 +6,9 @@ use DateTime;
 use Mush\Player\Entity\ActionModifier;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
+use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\TriumphEnum;
+use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -19,15 +22,19 @@ class PlayerSubscriber implements EventSubscriberInterface
     private PlayerServiceInterface $playerService;
     private EventDispatcherInterface $eventDispatcher;
     private RoomLogServiceInterface $roomLogService;
+    private GameConfig $gameConfig;
+
 
     public function __construct(
         PlayerServiceInterface $playerService,
         EventDispatcherInterface $eventDispatcher,
-        RoomLogServiceInterface $roomLogService
+        RoomLogServiceInterface $roomLogService,
+        GameConfigServiceInterface $gameConfigService
     ) {
         $this->playerService = $playerService;
         $this->eventDispatcher = $eventDispatcher;
         $this->roomLogService = $roomLogService;
+        $this->gameConfig = $gameConfigService->getConfig();
     }
 
     public static function getSubscribedEvents()
@@ -130,7 +137,10 @@ class PlayerSubscriber implements EventSubscriberInterface
         }
 
         $time=new \DateTime();
-        $triumph=120-2*$this->cycleService->getNumberOfCycleElapsed($player->getDaedalus()->getFilledAt(),$time);
+        $initialMushTriumph=$this->gameConfig->getTriumphConfig()->getTriumph(TriumphEnum::STARTING_MUSH)->getTriumph();
+        $triumphCycleLoss=$this->gameConfig->getTriumphConfig()->getTriumph(TriumphEnum::CYCLE_MUSH_LATE)->getTriumph();
+
+        $triumph=$initialMushTriumph+$triumphCycleLoss*$this->cycleService->getNumberOfCycleElapsed($player->getDaedalus()->getFilledAt(),$time);
         $player->addTriumph($triumph);
         $this->roomLogService->createQuantityLog(
             LogEnum::GAIN_TRIUMPH,

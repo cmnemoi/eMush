@@ -23,5 +23,5 @@ interface PlayerServiceInterface
 
     public function findUserCurrentGame(User $user): ?Player;
 
-    public function handlePlayerModifier(Player $player, ActionModifier $actionModifier, \DateTime $time = null): Player;
+    public function handlePlayerModifier(Player $player, ActionModifier $actionModifier, \DateTime $date = null): Player;
 }

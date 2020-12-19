@@ -7,6 +7,7 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\GameConfigServiceInterface;
@@ -47,7 +48,7 @@ class Take extends Action
         $this->statusService = $statusService;
     }
 
-    public function loadParameters(Player $player, ActionParameters $actionParameters)
+    public function loadParameters(Player $player, ActionParameters $actionParameters): void
     {
         if (!($item = $actionParameters->getItem())) {
             throw new \InvalidArgumentException('Invalid equipment parameter');
@@ -59,19 +60,25 @@ class Take extends Action
 
     public function canExecute(): bool
     {
+        /** @var ItemConfig $item */
+        $item = $this->gameItem->getEquipment();
+
         return $this->player->getRoom()->getEquipments()->contains($this->gameItem) &&
             $this->player->getItems()->count() < $this->gameConfig->getMaxItemInInventory() &&
-            $this->gameItem->getEquipment()->isTakeable()
+            $item->isTakeable()
             ;
     }
 
     protected function applyEffects(): ActionResult
     {
+        /** @var ItemConfig $item */
+        $item = $this->gameItem->getEquipment();
+
         $this->gameItem->setRoom(null);
         $this->gameItem->setPlayer($this->player);
 
         // add BURDENED status if item is heavy
-        if ($this->gameItem->getEquipment()->isHeavy()) {
+        if ($item->isHeavy()) {
             $this->statusService->createCorePlayerStatus(PlayerStatusEnum::BURDENED, $this->player);
         }
 

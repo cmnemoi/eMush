@@ -48,7 +48,7 @@ class Room
     private Collection $doors;
 
     /**
-     * @ORM\ManyToMany (targetEntity="Mush\Equipment\Entity\GameEquipment", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Mush\Equipment\Entity\GameEquipment", mappedBy="room", cascade={"persist"}, orphanRemoval=true)
      */
     private Collection $equipments;
 
@@ -80,6 +80,9 @@ class Room
         return $this->name;
     }
 
+    /**
+     * @return static
+     */
     public function setName(string $name): Room
     {
         $this->name = $name;
@@ -92,6 +95,9 @@ class Room
         return $this->daedalus;
     }
 
+    /**
+     * @return static
+     */
     public function setDaedalus(?Daedalus $daedalus): Room
     {
         if ($daedalus !== $this->daedalus) {
@@ -116,6 +122,9 @@ class Room
         return $this->players;
     }
 
+    /**
+     * @return static
+     */
     public function setPlayers(ArrayCollection $players): Room
     {
         $this->players = $players;
@@ -123,6 +132,9 @@ class Room
         return $this;
     }
 
+    /**
+     * @return static
+     */
     public function addPlayer(Player $player): Room
     {
         if (!$this->getPlayers()->contains($player)) {
@@ -138,6 +150,9 @@ class Room
         return $this;
     }
 
+    /**
+     * @return static
+     */
     public function removePlayer(Player $player): Room
     {
         $this->players->removeElement($player);
@@ -153,6 +168,9 @@ class Room
         return $this->equipments;
     }
 
+    /**
+     * @return static
+     */
     public function setEquipments(ArrayCollection $equipments): Room
     {
         $this->equipments = $equipments;
@@ -160,6 +178,9 @@ class Room
         return $this;
     }
 
+    /**
+     * @return static
+     */
     public function addEquipment(GameEquipment $equipment): Room
     {
         if (!$this->equipments->contains($equipment)) {
@@ -170,6 +191,9 @@ class Room
         return $this;
     }
 
+    /**
+     * @return static
+     */
     public function removeEquipment(GameEquipment $equipment): Room
     {
         if ($this->equipments->contains($equipment)) {
@@ -185,6 +209,9 @@ class Room
         return $this->doors;
     }
 
+    /**
+     * @return static
+     */
     public function setDoors(ArrayCollection $doors): Room
     {
         $this->doors = $doors;
@@ -197,6 +224,9 @@ class Room
         return $this;
     }
 
+    /**
+     * @return static
+     */
     public function addDoor(Door $door): Room
     {
         $this->doors->add($door);
@@ -212,6 +242,9 @@ class Room
         return $this->statuses;
     }
 
+    /**
+     * @return static
+     */
     public function setStatuses(array $statuses): Room
     {
         $this->statuses = $statuses;

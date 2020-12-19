@@ -12,6 +12,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * Class User.
  *
  * @ORM\Entity(repositoryClass="Mush\User\Repository\UserRepository")
+ * @ORM\Table(name="`user`")
  */
 class User implements UserInterface
 {

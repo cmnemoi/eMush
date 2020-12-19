@@ -52,7 +52,7 @@ class GameConfig
     private string $name;
 
     /**
-     * @ORM\Column(type="integer", length=255, nullable=false)
+     * @ORM\Column(type="integer", nullable=false)
      */
     private int $nbMush;
 
@@ -70,6 +70,11 @@ class GameConfig
      * @ORM\Column(type="string", length=255, nullable=false)
      */
     private string $language;
+
+    /**
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    private int $maxNumberPrivateChannel;
 
     /**
      * @ORM\Column(type="integer", length=255, nullable=false)
@@ -131,6 +136,9 @@ class GameConfig
         return $this->daedalusConfig;
     }
 
+    /**
+     * @return static
+     */
     public function setDaedalusConfig(DaedalusConfig $daedalusConfig): GameConfig
     {
         $this->daedalusConfig = $daedalusConfig;
@@ -143,6 +151,9 @@ class GameConfig
         return new CharacterConfigCollection($this->charactersConfig->toArray());
     }
 
+    /**
+     * @return static
+     */
     public function setCharactersConfig(Collection $charactersConfig): GameConfig
     {
         $this->charactersConfig = $charactersConfig;
@@ -167,6 +178,9 @@ class GameConfig
         return $this->equipmentsConfig;
     }
 
+    /**
+     * @return static
+     */
     public function setEquipmentsConfig(Collection $equipmentsConfig): GameConfig
     {
         $this->equipmentsConfig = $equipmentsConfig;
@@ -179,6 +193,9 @@ class GameConfig
         return $this->name;
     }
 
+    /**
+     * @return static
+     */
     public function setName(string $name): GameConfig
     {
         $this->name = $name;
@@ -196,6 +213,9 @@ class GameConfig
         return $this->nbMush;
     }
 
+    /**
+     * @return static
+     */
     public function setNbMush(int $nbMush): GameConfig
     {
         $this->nbMush = $nbMush;
@@ -208,11 +228,17 @@ class GameConfig
         return $this->cycleLength;
     }
 
-    public function getNumberOfCyclePerDay(): int
+    /**
+     * @return float|int
+     */
+    public function getNumberOfCyclePerDay()
     {
         return 24 / $this->getCycleLength();
     }
 
+    /**
+     * @return static
+     */
     public function setCycleLength(int $cycleLength): GameConfig
     {
         $this->cycleLength = $cycleLength;
@@ -225,9 +251,27 @@ class GameConfig
         return $this->timeZone;
     }
 
+    /**
+     * @return static
+     */
     public function setTimeZone(string $timeZone): GameConfig
     {
         $this->timeZone = $timeZone;
+
+        return $this;
+    }
+
+    public function getMaxNumberPrivateChannel(): int
+    {
+        return $this->maxNumberPrivateChannel;
+    }
+
+    /**
+     * @return static
+     */
+    public function setMaxNumberPrivateChannel(int $maxNumberPrivateChannel): GameConfig
+    {
+        $this->maxNumberPrivateChannel = $maxNumberPrivateChannel;
 
         return $this;
     }
@@ -237,6 +281,9 @@ class GameConfig
         return $this->language;
     }
 
+    /**
+     * @return static
+     */
     public function setLanguage(string $language): GameConfig
     {
         $this->language = $language;
@@ -249,6 +296,9 @@ class GameConfig
         return $this->initHealthPoint;
     }
 
+    /**
+     * @return static
+     */
     public function setInitHealthPoint(int $initHealthPoint): GameConfig
     {
         $this->initHealthPoint = $initHealthPoint;
@@ -261,6 +311,9 @@ class GameConfig
         return $this->maxHealthPoint;
     }
 
+    /**
+     * @return static
+     */
     public function setMaxHealthPoint(int $maxHealthPoint): GameConfig
     {
         $this->maxHealthPoint = $maxHealthPoint;
@@ -273,6 +326,9 @@ class GameConfig
         return $this->initMoralPoint;
     }
 
+    /**
+     * @return static
+     */
     public function setInitMoralPoint(int $initMoralPoint): GameConfig
     {
         $this->initMoralPoint = $initMoralPoint;
@@ -285,6 +341,9 @@ class GameConfig
         return $this->maxMoralPoint;
     }
 
+    /**
+     * @return static
+     */
     public function setMaxMoralPoint(int $maxMoralPoint): GameConfig
     {
         $this->maxMoralPoint = $maxMoralPoint;
@@ -297,6 +356,9 @@ class GameConfig
         return $this->initSatiety;
     }
 
+    /**
+     * @return static
+     */
     public function setInitSatiety(int $initSatiety): GameConfig
     {
         $this->initSatiety = $initSatiety;
@@ -309,6 +371,9 @@ class GameConfig
         return $this->initActionPoint;
     }
 
+    /**
+     * @return static
+     */
     public function setInitActionPoint(int $initActionPoint): GameConfig
     {
         $this->initActionPoint = $initActionPoint;
@@ -321,6 +386,9 @@ class GameConfig
         return $this->maxActionPoint;
     }
 
+    /**
+     * @return static
+     */
     public function setMaxActionPoint(int $maxActionPoint): GameConfig
     {
         $this->maxActionPoint = $maxActionPoint;
@@ -333,6 +401,9 @@ class GameConfig
         return $this->initMovementPoint;
     }
 
+    /**
+     * @return static
+     */
     public function setInitMovementPoint(int $initMovementPoint): GameConfig
     {
         $this->initMovementPoint = $initMovementPoint;
@@ -345,6 +416,9 @@ class GameConfig
         return $this->maxMovementPoint;
     }
 
+    /**
+     * @return static
+     */
     public function setMaxMovementPoint(int $maxMovementPoint): GameConfig
     {
         $this->maxMovementPoint = $maxMovementPoint;
@@ -357,6 +431,9 @@ class GameConfig
         return $this->maxItemInInventory;
     }
 
+    /**
+     * @return static
+     */
     public function setMaxItemInInventory(int $maxItemInInventory): GameConfig
     {
         $this->maxItemInInventory = $maxItemInInventory;

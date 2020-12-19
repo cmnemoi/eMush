@@ -5,8 +5,7 @@ namespace Mush\Status\Normalizer;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
-use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\MedicalCondition;
 use Mush\Status\Entity\Status;
 use Mush\User\Entity\User;
@@ -27,18 +26,17 @@ class StatusNormalizer implements ContextAwareNormalizerInterface
         $this->tokenStorage = $tokenStorage;
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = [])
+    public function supportsNormalization($data, string $format = null, array $context = []): bool
     {
         return $data instanceof Status;
     }
 
     /**
-     * @param Status $status
-     *
-     * @return array
+     * @param mixed $object
      */
-    public function normalize($status, string $format = null, array $context = [])
+    public function normalize($object, string $format = null, array $context = []): array
     {
+        $status = $object;
         $statusName = $status->getName();
         $visibility = $status->getVisibility();
 
@@ -58,7 +56,7 @@ class StatusNormalizer implements ContextAwareNormalizerInterface
                 'description' => $this->translator->trans("{$statusName}.description", [], 'statusess'),
             ];
 
-            if ($statusName===PlayerStatusEnum::SPORES || $statusName===EquipmentStatusEnum::CHARGES) {
+            if ($status instanceof ChargeStatus) {
                 $normedStatus['charge'] = $status->getCharge();
             }
 
@@ -74,6 +72,9 @@ class StatusNormalizer implements ContextAwareNormalizerInterface
 
     private function getUser(): User
     {
-        return $this->tokenStorage->getToken()->getUser();
+        /** @var User $user */
+        $user = $this->tokenStorage->getToken()->getUser();
+
+        return $user;
     }
 }

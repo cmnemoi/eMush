@@ -54,6 +54,9 @@ class RoomConfig
         return $this->daedalusConfig;
     }
 
+    /**
+     * @return static
+     */
     public function setDaedalusConfig(DaedalusConfig $daedalusConfig): RoomConfig
     {
         $this->daedalusConfig = $daedalusConfig;
@@ -66,6 +69,9 @@ class RoomConfig
         return $this->name;
     }
 
+    /**
+     * @return static
+     */
     public function setName(string $name): RoomConfig
     {
         $this->name = $name;
@@ -78,6 +84,9 @@ class RoomConfig
         return $this->doors;
     }
 
+    /**
+     * @return static
+     */
     public function setDoors(array $doors): RoomConfig
     {
         $this->doors = $doors;
@@ -90,6 +99,9 @@ class RoomConfig
         return $this->items;
     }
 
+    /**
+     * @return static
+     */
     public function setItems(array $items): RoomConfig
     {
         $this->items = $items;
@@ -102,6 +114,9 @@ class RoomConfig
         return $this->equipments;
     }
 
+    /**
+     * @return static
+     */
     public function setEquipments(array $equipments): RoomConfig
     {
         $this->equipments = $equipments;

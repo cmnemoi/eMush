@@ -37,6 +37,9 @@ class Document extends Tool
         return $this->content;
     }
 
+    /**
+     * @return static
+     */
     public function setContent(string $content): Document
     {
         $this->content = $content;
@@ -49,6 +52,9 @@ class Document extends Tool
         return $this->isTranslated;
     }
 
+    /**
+     * @return static
+     */
     public function setIsTranslated(bool $isTranslated): Document
     {
         $this->isTranslated = $isTranslated;
@@ -61,6 +67,9 @@ class Document extends Tool
         return $this->canShred;
     }
 
+    /**
+     * @return static
+     */
     public function setCanShred(bool $canShred): Document
     {
         $this->canShred = $canShred;

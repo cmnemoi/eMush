@@ -6,10 +6,10 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -34,15 +34,17 @@ class ExtractSpore extends Action
         $this->actionCost->setActionPointCost(2);
     }
 
-    public function loadParameters(Player $player, ActionParameters $actionParameters)
+    public function loadParameters(Player $player, ActionParameters $actionParameters): void
     {
         $this->player = $player;
     }
 
     public function canExecute(): bool
     {
-        $sporeStatus=$this->player->getStatusByName(PlayerStatusEnum::SPORES);
-        return  $this->player->isMush() &&
+        /** @var ?ChargeStatus $sporeStatus */
+        $sporeStatus = $this->player->getStatusByName(PlayerStatusEnum::SPORES);
+
+        return $this->player->isMush() &&
                 (!$sporeStatus ||
                 $sporeStatus->getCharge() < 2) &&
                 $this->player->getDaedalus()->getSpores() > 0;
@@ -50,7 +52,9 @@ class ExtractSpore extends Action
 
     protected function applyEffects(): ActionResult
     {
-        if ($sporeStatus=$this->player->getStatusByName(PlayerStatusEnum::SPORES)) {
+        /** @var ?ChargeStatus $sporeStatus */
+        $sporeStatus = $this->player->getStatusByName(PlayerStatusEnum::SPORES);
+        if ($sporeStatus) {
             $sporeStatus->addCharge(1);
         } else {
             $this->statusService->createSporeStatus($this->player);

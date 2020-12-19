@@ -39,6 +39,9 @@ class RandomItemPlaces
         return $this->places;
     }
 
+    /**
+     * @return static
+     */
     public function setPlaces(array $places): RandomItemPlaces
     {
         $this->places = $places;
@@ -51,6 +54,9 @@ class RandomItemPlaces
         return $this->items;
     }
 
+    /**
+     * @return static
+     */
     public function setItems(array $items): RandomItemPlaces
     {
         $this->items = $items;

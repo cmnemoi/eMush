@@ -44,6 +44,9 @@ class Plant extends EquipmentMechanic
         return $this->fruit;
     }
 
+    /**
+     * @return static
+     */
     public function setFruit(EquipmentConfig $fruit): Plant
     {
         $this->fruit = $fruit;
@@ -56,6 +59,9 @@ class Plant extends EquipmentMechanic
         return $this->maturationTime;
     }
 
+    /**
+     * @return static
+     */
     public function setMaturationTime(array $maturationTime): Plant
     {
         $this->maturationTime = $maturationTime;
@@ -68,6 +74,9 @@ class Plant extends EquipmentMechanic
         return $this->minOxygen;
     }
 
+    /**
+     * @return static
+     */
     public function setMinOxygen(int $minOxygen): Plant
     {
         $this->minOxygen = $minOxygen;
@@ -80,6 +89,9 @@ class Plant extends EquipmentMechanic
         return $this->maxOxygen;
     }
 
+    /**
+     * @return static
+     */
     public function setMaxOxygen(int $maxOxygen): Plant
     {
         $this->maxOxygen = $maxOxygen;

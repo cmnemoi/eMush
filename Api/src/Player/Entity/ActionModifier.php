@@ -56,6 +56,9 @@ class ActionModifier
         return $this->actionPointModifier;
     }
 
+    /**
+     * @return static
+     */
     public function setActionPointModifier(int $actionPointModifier): ActionModifier
     {
         $this->actionPointModifier = $actionPointModifier;
@@ -68,6 +71,9 @@ class ActionModifier
         return $this->movementPointModifier;
     }
 
+    /**
+     * @return static
+     */
     public function setMovementPointModifier(int $movementPointModifier): ActionModifier
     {
         $this->movementPointModifier = $movementPointModifier;
@@ -80,6 +86,9 @@ class ActionModifier
         return $this->healthPointModifier;
     }
 
+    /**
+     * @return static
+     */
     public function setHealthPointModifier(int $healthPointModifier): ActionModifier
     {
         $this->healthPointModifier = $healthPointModifier;
@@ -92,6 +101,9 @@ class ActionModifier
         return $this->moralPointModifier;
     }
 
+    /**
+     * @return static
+     */
     public function setMoralPointModifier(int $moralPointModifier): ActionModifier
     {
         $this->moralPointModifier = $moralPointModifier;
@@ -104,6 +116,9 @@ class ActionModifier
         return $this->satietyModifier;
     }
 
+    /**
+     * @return static
+     */
     public function setSatietyModifier(int $satietyModifier): ActionModifier
     {
         $this->satietyModifier = $satietyModifier;
@@ -116,6 +131,9 @@ class ActionModifier
         return $this->precisionModifier;
     }
 
+    /**
+     * @return static
+     */
     public function setPrecisionModifier(int $precisionModifier): ActionModifier
     {
         $this->precisionModifier = $precisionModifier;

@@ -45,25 +45,25 @@ class EquipmentEffectService implements EquipmentEffectServiceInterface
                 ->setDaedalus($daedalus)
                 ->setRation($ration)
                 ->setActionPoint(
-                    $this->randomService->getSingleRandomElementFromProbaArray($ration->getActionPoints())
+                    intval($this->randomService->getSingleRandomElementFromProbaArray($ration->getActionPoints()))
                 )
                 ->setMovementPoint(
-                    $this->randomService->getSingleRandomElementFromProbaArray($ration->getMovementPoints())
+                    intval($this->randomService->getSingleRandomElementFromProbaArray($ration->getMovementPoints()))
                 )
                 ->setHealthPoint(
-                    $this->randomService->getSingleRandomElementFromProbaArray($ration->getHealthPoints())
+                    intval($this->randomService->getSingleRandomElementFromProbaArray($ration->getHealthPoints()))
                 )
                 ->setMoralPoint(
-                    $this->randomService->getSingleRandomElementFromProbaArray($ration->getMoralPoints())
+                    intval($this->randomService->getSingleRandomElementFromProbaArray($ration->getMoralPoints()))
                 )
                 ->setSatiety($ration->getSatiety())
             ;
 
             if ($ration instanceof Fruit && count($ration->getFruitEffectsNumber()) > 0) {
                 // if the ration is a fruit 0 to 4 effects should be dispatched among diseases, cures and extraEffects
-                $effectsNumber = $this->randomService->getSingleRandomElementFromProbaArray(
+                $effectsNumber = intval($this->randomService->getSingleRandomElementFromProbaArray(
                     $ration->getFruitEffectsNumber()
-                );
+                ));
 
                 $diseaseNumberPossible = count($ration->getDiseasesName());
                 $extraEffectNumberPossible = count($ration->getExtraEffects());
@@ -125,7 +125,7 @@ class EquipmentEffectService implements EquipmentEffectServiceInterface
                     ->setExtraEffects($extraEffects);
             } elseif ($ration instanceof Drug && count($ration->getDrugEffectsNumber()) > 0) {
                 // if the ration is a drug 1 to 4 diseases are cured with 100% chances
-                $curesNumber = $this->randomService->getSingleRandomElementFromProbaArray($ration->getDrugEffectsNumber());
+                $curesNumber = intval($this->randomService->getSingleRandomElementFromProbaArray($ration->getDrugEffectsNumber()));
                 $consumableEffect
                     ->setCures(array_fill_keys($this->randomService->getRandomElements($ration->getCures(), $curesNumber), 100));
             } else {
@@ -155,9 +155,9 @@ class EquipmentEffectService implements EquipmentEffectServiceInterface
                 ->setDaedalus($daedalus)
                 ->setPlant($plant)
                 ->setMaturationTime(
-                    $this->randomService->getSingleRandomElementFromProbaArray(
+                    intval($this->randomService->getSingleRandomElementFromProbaArray(
                         $plant->getMaturationTime()
-                    )
+                    ))
                 )
                 ->setOxygen($this->randomService->random($plant->getMinOxygen(), $plant->getMaxOxygen()))
             ;

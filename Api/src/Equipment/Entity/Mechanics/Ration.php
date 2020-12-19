@@ -72,7 +72,9 @@ class Ration extends EquipmentMechanic
      */
     protected bool $isPerishable = true;
 
-    //Rations currently only have consume Action
+    /**
+     * @return static
+     */
     public function setActions(array $actions): Ration
     {
         return $this;
@@ -88,6 +90,9 @@ class Ration extends EquipmentMechanic
         return $this->actionPoints;
     }
 
+    /**
+     * @return static
+     */
     public function setActionPoints(array $actionPoints): Ration
     {
         $this->actionPoints = $actionPoints;
@@ -100,6 +105,9 @@ class Ration extends EquipmentMechanic
         return $this->movementPoints;
     }
 
+    /**
+     * @return static
+     */
     public function setMovementPoints(array $movementPoints): Ration
     {
         $this->movementPoints = $movementPoints;
@@ -112,9 +120,12 @@ class Ration extends EquipmentMechanic
         return $this->healthPoints;
     }
 
+    /**
+     * @return static
+     */
     public function setHealthPoints(array $healthPoints): Ration
     {
-        $this->healthlPoints = $healthPoints;
+        $this->healthPoints = $healthPoints;
 
         return $this;
     }
@@ -124,6 +135,9 @@ class Ration extends EquipmentMechanic
         return $this->moralPoints;
     }
 
+    /**
+     * @return static
+     */
     public function setMoralPoints(array $moralPoints): Ration
     {
         $this->moralPoints = $moralPoints;
@@ -136,6 +150,9 @@ class Ration extends EquipmentMechanic
         return $this->satiety;
     }
 
+    /**
+     * @return static
+     */
     public function setSatiety(int $satiety): Ration
     {
         $this->satiety = $satiety;
@@ -148,6 +165,9 @@ class Ration extends EquipmentMechanic
         return $this->cures;
     }
 
+    /**
+     * @return static
+     */
     public function setCures(array $cures): Ration
     {
         $this->cures = $cures;
@@ -160,6 +180,9 @@ class Ration extends EquipmentMechanic
         return $this->diseasesChances;
     }
 
+    /**
+     * @return static
+     */
     public function setDiseasesChances(array $diseasesChances): Ration
     {
         $this->diseasesChances = $diseasesChances;
@@ -172,6 +195,9 @@ class Ration extends EquipmentMechanic
         return $this->diseasesDelayMin;
     }
 
+    /**
+     * @return static
+     */
     public function setDiseasesDelayMin(array $diseasesDelayMin): Ration
     {
         $this->diseasesDelayMin = $diseasesDelayMin;
@@ -184,6 +210,9 @@ class Ration extends EquipmentMechanic
         return $this->diseasesDelayLength;
     }
 
+    /**
+     * @return static
+     */
     public function setDiseasesDelayLength(array $diseasesDelayLength): Ration
     {
         $this->diseasesDelayLength = $diseasesDelayLength;
@@ -196,6 +225,9 @@ class Ration extends EquipmentMechanic
         return $this->extraEffects;
     }
 
+    /**
+     * @return static
+     */
     public function setExtraEffects(array $extraEffects): Ration
     {
         $this->extraEffects = $extraEffects;
@@ -208,6 +240,9 @@ class Ration extends EquipmentMechanic
         return $this->isPerishable;
     }
 
+    /**
+     * @return static
+     */
     public function setIsPerishable(bool $isPerishable): Ration
     {
         $this->isPerishable = $isPerishable;

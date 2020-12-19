@@ -47,11 +47,14 @@ class Fruit extends Ration
      */
     private array $diseasesEffectDelayLength = [];
 
-    public function getPlantName(): string
+    public function getPlantName(): ?string
     {
         return $this->plantName;
     }
 
+    /**
+     * @return static
+     */
     public function setPlantName(string $plantName): Fruit
     {
         $this->plantName = $plantName;
@@ -64,6 +67,9 @@ class Fruit extends Ration
         return $this->fruitEffectsNumber;
     }
 
+    /**
+     * @return static
+     */
     public function setFruitEffectsNumber(array $fruitEffectsNumber): Fruit
     {
         $this->fruitEffectsNumber = $fruitEffectsNumber;
@@ -76,6 +82,9 @@ class Fruit extends Ration
         return $this->diseasesName;
     }
 
+    /**
+     * @return static
+     */
     public function setDiseasesName(array $diseasesName): Fruit
     {
         $this->diseasesName = $diseasesName;
@@ -88,6 +97,9 @@ class Fruit extends Ration
         return $this->diseasesEffectChance;
     }
 
+    /**
+     * @return static
+     */
     public function setDiseasesEffectChance(array $diseasesEffectChance): Fruit
     {
         $this->diseasesEffectChance = $diseasesEffectChance;
@@ -100,6 +112,9 @@ class Fruit extends Ration
         return $this->diseasesEffectDelayMin;
     }
 
+    /**
+     * @return static
+     */
     public function setDiseasesEffectDelayMin(array $diseasesEffectDelayMin): Fruit
     {
         $this->diseasesEffectDelayMin = $diseasesEffectDelayMin;
@@ -112,6 +127,9 @@ class Fruit extends Ration
         return $this->diseasesEffectDelayLength;
     }
 
+    /**
+     * @return static
+     */
     public function setDiseasesEffectDelayLength(array $diseasesEffectDelayLength): Fruit
     {
         $this->diseasesEffectDelayLength = $diseasesEffectDelayLength;

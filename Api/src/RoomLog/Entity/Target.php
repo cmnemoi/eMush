@@ -45,6 +45,9 @@ class Target
         return $this->name;
     }
 
+    /**
+     * @return static
+     */
     public function setName(string $name): Target
     {
         $this->name = $name;
@@ -57,6 +60,9 @@ class Target
         return $this->type;
     }
 
+    /**
+     * @return static
+     */
     public function setType(string $type): Target
     {
         $this->type = $type;

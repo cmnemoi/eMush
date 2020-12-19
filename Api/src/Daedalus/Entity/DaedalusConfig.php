@@ -59,7 +59,7 @@ class DaedalusConfig
     /**
      * @ORM\Column(type="integer", length=255, nullable=false)
      */
-    private int $dailySporeNb;
+    private int $dailySporeNb = 4;
 
     public function getId(): int
     {
@@ -71,6 +71,9 @@ class DaedalusConfig
         return $this->gameConfig;
     }
 
+    /**
+     * @return static
+     */
     public function setGameConfig(GameConfig $gameConfig): DaedalusConfig
     {
         $this->gameConfig = $gameConfig;
@@ -83,6 +86,9 @@ class DaedalusConfig
         return $this->initOxygen;
     }
 
+    /**
+     * @return static
+     */
     public function setInitOxygen(int $initOxygen): DaedalusConfig
     {
         $this->initOxygen = $initOxygen;
@@ -95,6 +101,9 @@ class DaedalusConfig
         return $this->initFuel;
     }
 
+    /**
+     * @return static
+     */
     public function setInitFuel(int $initFuel): DaedalusConfig
     {
         $this->initFuel = $initFuel;
@@ -107,6 +116,9 @@ class DaedalusConfig
         return $this->initHull;
     }
 
+    /**
+     * @return static
+     */
     public function setInitHull(int $initHull): DaedalusConfig
     {
         $this->initHull = $initHull;
@@ -119,6 +131,9 @@ class DaedalusConfig
         return $this->initShield;
     }
 
+    /**
+     * @return static
+     */
     public function setInitShield(int $initShield): DaedalusConfig
     {
         $this->initShield = $initShield;
@@ -131,6 +146,9 @@ class DaedalusConfig
         return $this->randomItemPlace;
     }
 
+    /**
+     * @return static
+     */
     public function setRandomItemPlace(RandomItemPlaces $randomItemPlace): DaedalusConfig
     {
         $this->randomItemPlace = $randomItemPlace;
@@ -143,6 +161,9 @@ class DaedalusConfig
         return $this->roomConfigs;
     }
 
+    /**
+     * @return static
+     */
     public function setRoomConfigs(Collection $roomConfigs): DaedalusConfig
     {
         $this->roomConfigs = $roomConfigs;
@@ -155,6 +176,9 @@ class DaedalusConfig
         return $this->dailySporeNb;
     }
 
+    /**
+     * @return static
+     */
     public function setDailySporeNb(int $dailySporeNb): DaedalusConfig
     {
         $this->dailySporeNb = $dailySporeNb;

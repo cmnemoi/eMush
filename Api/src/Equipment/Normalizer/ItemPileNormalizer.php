@@ -11,46 +11,44 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\User\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 
-class ItemPileNormalizer implements ContextAwareNormalizerInterface
+class ItemPileNormalizer implements ContextAwareNormalizerInterface, NormalizerAwareInterface
 {
-    private EquipmentNormalizer $equipmentNormalizer;
+    use NormalizerAwareTrait;
+
     private TokenStorageInterface $tokenStorage;
     private GameEquipmentService $gameEquipmentService;
 
     public function __construct(
-        EquipmentNormalizer $equipmentNormalizer,
         TokenStorageInterface $tokenStorage,
         GameEquipmentService $gameEquipmentService
     ) {
-        $this->equipmentNormalizer = $equipmentNormalizer;
         $this->tokenStorage = $tokenStorage;
         $this->gameEquipmentService = $gameEquipmentService;
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = [])
+    public function supportsNormalization($data, string $format = null, array $context = []): bool
     {
-        return $data instanceof Collection;
+        return $data instanceof Collection && $data->first() instanceof GameEquipment; //@TODO corriger ca
     }
 
     /**
-     * @param Collection $equipments
-     *
-     * @return array
+     * @param mixed $object
      */
-    public function normalize($equipments, string $format = null, array $context = [])
+    public function normalize($object, string $format = null, array $context = []): array
     {
         $piles = [];
 
-        $items = $equipments->filter(fn (GameEquipment $equipment) => $equipment instanceof GameItem);
+        $items = $object->filter(fn (GameEquipment $equipment) => $equipment instanceof GameItem);
 
         foreach ($items as $item) {
             $itemName = $item->getEquipment()->getName();
             $itemStatuses = $item->getStatuses();
 
-            if ((!$item->GetStatusByName(EquipmentStatusEnum::HIDDEN) ||
-                    ($item->GetStatusByName(EquipmentStatusEnum::HIDDEN) &&
-                    $item->GetStatusByName(EquipmentStatusEnum::HIDDEN)->getPlayer() === $this->getUser()->getCurrentGame()))) {
+            $hiddenStatus = $item->GetStatusByName(EquipmentStatusEnum::HIDDEN);
+            if (!$hiddenStatus || ($hiddenStatus->getPlayer() === $this->getUser()->getCurrentGame())) {
                 if ($item->getEquipment()->isStackable() &&
                     count(array_filter($piles, function ($pile) use ($itemName, $itemStatuses) {
                         return $pile['key'] === $itemName && $this->compareStatusesForPiles($itemStatuses, $pile['id']);
@@ -67,7 +65,7 @@ class ItemPileNormalizer implements ContextAwareNormalizerInterface
                         $piles[$pileKey]['number'] = 2;
                     }
                 } else {
-                    $piles[] = $this->equipmentNormalizer->normalize($item);
+                    $piles[] = $this->normalizer->normalize($item);
                 }
             }
         }
@@ -77,7 +75,10 @@ class ItemPileNormalizer implements ContextAwareNormalizerInterface
 
     private function getUser(): User
     {
-        return $this->tokenStorage->getToken()->getUser();
+        /** @var User $user */
+        $user = $this->tokenStorage->getToken()->getUser();
+
+        return $user;
     }
 
     private function compareStatusesForPiles(Collection $itemStatuses, int $pileId): bool

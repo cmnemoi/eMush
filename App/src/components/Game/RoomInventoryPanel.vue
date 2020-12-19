@@ -1,21 +1,25 @@
 <template>
-<div class="inventory-container">
-  <div class="inventory">
-    <inventory :items="items" :min-slot="7" v-on:select="selectItem"></inventory>
+  <div class="inventory-container">
+    <div class="inventory">
+      <inventory :items="items" :min-slot="7" v-on:select="selectItem"></inventory>
+    </div>
+    <p class="item-name" v-if="selectedItem !== null">
+      {{ selectedItem.name }}
+      <span v-for="(status, key) in selectedItem.statuses" v-bind:key="key">
+        <img :src="statusIcon(status)"><span v-if="status.charge > 0">x{{status.charge}}
+      </span>
+  </span>
+    </p>
+    <div class="item-actions">
+      <ul v-if="selectedItem !== null">
+        <li v-for="(action,key) in selectedItem.actions" v-bind:key="key">
+          <a href="#" @click="executeAction(action)">
+            <span v-if="action.actionPointCost > 0">{{action.actionPointCost}}<img src="@/assets/images/pa.png" alt="ap"></span>{{action.name}}
+          </a>
+        </li>
+      </ul>
+    </div>
   </div>
-  <p class="item-name" v-if="selectedItem !== null">
-    {{ selectedItem.name }}<img src="@/assets/images/status/heavy.png"><img src="@/assets/images/status/plant_thirsty.png"><img src="@/assets/images/status/charge.png">x4
-  </p>
-  <div class="item-actions">
-    <ul v-if="selectedItem !== null">
-      <li v-for="(action,key) in selectedItem.actions" v-bind:key="key">
-        <a href="#" @click="executeAction(action)">
-        <span v-if="action.actionPointCost > 0">{{action.actionPointCost}}<img src="@/assets/images/pa.png" alt="ap"></span>{{action.name}}
-        </a>
-      </li>
-    </ul>
-  </div>
-</div>
 
 </template>
 
@@ -23,6 +27,7 @@
 import Inventory from "@/components/Game/Inventory";
 import ActionService from "@/services/action.service";
 import {mapActions} from "vuex";
+import {statusItemEnum} from "@/enums/status.item.enum";
 
 export default {
   name: "RoomInventoryPanel",
@@ -31,13 +36,17 @@ export default {
     items: Array
   },
   data: () => {
-      return {
-        selectedItem: null
-      }
+    return {
+      selectedItem: null
+    }
   },
   methods: {
     selectItem: function(item) {
       this.selectedItem = item;
+    },
+    statusIcon: function(status) {
+      const statusImages = statusItemEnum[status.key];
+      return typeof statusImages !== 'undefined' ? statusImages.icon : null;
     },
     executeAction: function(action) {
       ActionService.executeItemAction(this.selectedItem, action).then(() => this.reloadPlayer());
@@ -50,9 +59,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .slot {
-    padding: 1px;
-  }
+.slot {
+  padding: 1px;
+}
 
 .inventory-container {
   z-index: 5;
@@ -68,7 +77,7 @@ export default {
     overflow-x: scroll;
     margin: 0 16px 8px 16px;
   }
-  
+
   & .item-name {
     text-align: center;
     font-size: .85em;
@@ -112,7 +121,7 @@ export default {
     }
   }
 
-/* SCROLLBAR STYLING */
+  /* SCROLLBAR STYLING */
 
   & .inventory ul, {
     --scrollbarBG: rgba(0, 0, 0, .4);

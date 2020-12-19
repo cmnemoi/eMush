@@ -6,6 +6,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Service\GameConfigService;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class FullDaedalusValidator extends ConstraintValidator
 {
@@ -16,13 +17,17 @@ class FullDaedalusValidator extends ConstraintValidator
         $this->gameConfigService = $gameConfigService;
     }
 
-    public function validate($daedalus, Constraint $constraint)
+    public function validate($value, Constraint $constraint): void
     {
-        if (!$daedalus instanceof Daedalus) {
+        if (!$value instanceof Daedalus) {
             throw new \InvalidArgumentException();
         }
 
-        if ($daedalus->getPlayers()->count() >= $this->gameConfigService->getConfig()->getMaxPlayer()) {
+        if (!$constraint instanceof FullDaedalus) {
+            throw new UnexpectedTypeException($constraint, __NAMESPACE__ . '\FullDaedalus');
+        }
+
+        if ($value->getPlayers()->count() >= $this->gameConfigService->getConfig()->getMaxPlayer()) {
             $this->context
                 ->buildViolation($constraint->message)
                 ->setCode(FullDaedalus::FULL_DAEDALUS_ERROR)

@@ -8,7 +8,7 @@ class ChargeStrategyService implements ChargeStrategyServiceInterface
 {
     private array $strategies = [];
 
-    public function addStrategy(AbstractChargeStrategy $strategy)
+    public function addStrategy(AbstractChargeStrategy $strategy): void
     {
         $this->strategies[$strategy->getName()] = $strategy;
     }

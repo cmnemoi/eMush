@@ -13,7 +13,7 @@ class GameConfigFixtures extends Fixture
 {
     public const DEFAULT_GAME_CONFIG = 'default.game.config';
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $gameConfig = new GameConfig();
 
@@ -23,6 +23,7 @@ class GameConfigFixtures extends Fixture
             ->setCycleLength(3)
             ->setTimeZone('Europe/Paris')
             ->setLanguage('Fr-fr')
+            ->setMaxNumberPrivateChannel(3)
             ->setInitHealthPoint(10)
             ->setMaxHealthPoint(16)
             ->setInitMoralPoint(10)

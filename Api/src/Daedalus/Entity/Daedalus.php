@@ -110,6 +110,9 @@ class Daedalus
         return new PlayerCollection($this->players->toArray());
     }
 
+    /**
+     * @return static
+     */
     public function setPlayers(Collection $players): Daedalus
     {
         $this->players = $players;
@@ -117,6 +120,9 @@ class Daedalus
         return $this;
     }
 
+    /**
+     * @return static
+     */
     public function addPlayer(Player $player): Daedalus
     {
         if (!$this->getPlayers()->contains($player)) {
@@ -132,6 +138,9 @@ class Daedalus
         return $this;
     }
 
+    /**
+     * @return static
+     */
     public function removePlayer(Player $player): Daedalus
     {
         $this->players->removeElement($player);
@@ -147,6 +156,9 @@ class Daedalus
         return $this->gameConfig;
     }
 
+    /**
+     * @return static
+     */
     public function setGameConfig(GameConfig $gameConfig): Daedalus
     {
         $this->gameConfig = $gameConfig;
@@ -164,6 +176,9 @@ class Daedalus
         return $this->getRooms()->filter(fn (Room $room) => $room->getName() === $name)->first();
     }
 
+    /**
+     * @return static
+     */
     public function setRooms(Collection $rooms): Daedalus
     {
         $this->rooms = $rooms;
@@ -171,6 +186,9 @@ class Daedalus
         return $this;
     }
 
+    /**
+     * @return static
+     */
     public function addRoom(Room $room): Daedalus
     {
         if (!$this->getRooms()->contains($room)) {
@@ -186,6 +204,9 @@ class Daedalus
         return $this;
     }
 
+    /**
+     * @return static
+     */
     public function removeRoom(Room $room): Daedalus
     {
         $this->rooms->removeElement($room);
@@ -201,6 +222,9 @@ class Daedalus
         return $this->oxygen;
     }
 
+    /**
+     * @return static
+     */
     public function setOxygen(int $oxygen): Daedalus
     {
         $this->oxygen = $oxygen;
@@ -208,6 +232,9 @@ class Daedalus
         return $this;
     }
 
+    /**
+     * @return static
+     */
     public function addOxygen(int $change): Daedalus
     {
         $this->oxygen += $change;
@@ -220,6 +247,9 @@ class Daedalus
         return $this->fuel;
     }
 
+    /**
+     * @return static
+     */
     public function setFuel(int $fuel): Daedalus
     {
         $this->fuel = $fuel;
@@ -227,10 +257,13 @@ class Daedalus
         return $this;
     }
 
+    /**
+     * @return static
+     */
     public function addFuel(int $change): Daedalus
     {
         $this->fuel += $change;
-        
+
         return $this;
     }
 
@@ -239,6 +272,9 @@ class Daedalus
         return $this->hull;
     }
 
+    /**
+     * @return static
+     */
     public function setHull(int $hull): Daedalus
     {
         $this->hull = $hull;
@@ -251,6 +287,9 @@ class Daedalus
         return $this->cycle;
     }
 
+    /**
+     * @return static
+     */
     public function setCycle(int $cycle): Daedalus
     {
         $this->cycle = $cycle;
@@ -263,6 +302,9 @@ class Daedalus
         return $this->day;
     }
 
+    /**
+     * @return static
+     */
     public function setDay(int $day): Daedalus
     {
         $this->day = $day;
@@ -275,6 +317,9 @@ class Daedalus
         return $this->shield;
     }
 
+    /**
+     * @return static
+     */
     public function setShield(int $shield): Daedalus
     {
         $this->shield = $shield;
@@ -287,6 +332,9 @@ class Daedalus
         return $this->spores;
     }
 
+    /**
+     * @return static
+     */
     public function setSpores(int $spores): Daedalus
     {
         $this->spores = $spores;
@@ -299,6 +347,9 @@ class Daedalus
         return $this->dailySpores;
     }
 
+    /**
+     * @return static
+     */
     public function setDailySpores(int $dailySpores): Daedalus
     {
         $this->dailySpores = $dailySpores;

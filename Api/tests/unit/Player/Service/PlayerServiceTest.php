@@ -48,6 +48,7 @@ class PlayerServiceTest extends TestCase
         $this->entityManager = Mockery::mock(EntityManagerInterface::class);
         $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $this->repository = Mockery::mock(PlayerRepository::class);
+        $this->statusService = Mockery::mock(StatusServiceInterface::class);
         $this->tokenStorage = Mockery::mock(TokenStorageInterface::class);
         $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
         $this->statusService = Mockery::mock(StatusServiceInterface::class);

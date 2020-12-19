@@ -7,6 +7,8 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ReachEnum;
@@ -20,6 +22,7 @@ use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Hyperfreeze extends Action
@@ -31,6 +34,7 @@ class Hyperfreeze extends Action
     private RoomLogServiceInterface $roomLogService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
+    private StatusServiceInterface $statusService;
     private GameConfig $gameConfig;
 
     public function __construct(
@@ -38,6 +42,7 @@ class Hyperfreeze extends Action
         RoomLogServiceInterface $roomLogService,
         GameEquipmentServiceInterface $gameEquipmentService,
         PlayerServiceInterface $playerService,
+        StatusServiceInterface $statusService,
         GameConfigServiceInterface $gameConfigService
     ) {
         parent::__construct($eventDispatcher);
@@ -45,12 +50,13 @@ class Hyperfreeze extends Action
         $this->roomLogService = $roomLogService;
         $this->gameEquipmentService = $gameEquipmentService;
         $this->playerService = $playerService;
+        $this->statusService = $statusService;
         $this->gameConfig = $gameConfigService->getConfig();
 
         $this->actionCost->setActionPointCost(1);
     }
 
-    public function loadParameters(Player $player, ActionParameters $actionParameters)
+    public function loadParameters(Player $player, ActionParameters $actionParameters): void
     {
         if (!($equipment = $actionParameters->getItem()) &&
             !($equipment = $actionParameters->getEquipment())) {
@@ -63,6 +69,7 @@ class Hyperfreeze extends Action
 
     public function canExecute(): bool
     {
+        /** @var Ration $rationType */
         $rationType = $this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::RATION);
 
         return $rationType &&
@@ -78,7 +85,10 @@ class Hyperfreeze extends Action
     {
         if ($this->gameEquipment->getEquipment()->getName() === GameRationEnum::COOKED_RATION ||
             $this->gameEquipment->getEquipment()->getName() === GameRationEnum::ALIEN_STEAK) {
-            $newItem = $this->gameEquipmentService->createGameEquipmentFromName(GameRationEnum::STANDARD_RATION, $this->player->getDaedalus());
+            /** @var GameItem $newItem */
+            $newItem = $this->gameEquipmentService
+                ->createGameEquipmentFromName(GameRationEnum::STANDARD_RATION, $this->player->getDaedalus())
+            ;
             if ($this->player->getItems()->count() < $this->gameConfig->getMaxItemInInventory()) {
                 $newItem->setPlayer($this->player);
             } else {

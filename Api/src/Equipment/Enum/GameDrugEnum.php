@@ -17,7 +17,12 @@ class GameDrugEnum
     public const TWINOID = 'twinoid';
     public const XENOX = 'xenox';
 
-    public static function getAll()
+    /**
+     * @return string[]
+     *
+     * @psalm-return array{0: string, 1: string, 2: string, 3: string, 4: string, 5: string, 6: string, 7: string, 8: string, 9: string, 10: string, 11: string}
+     */
+    public static function getAll(): array
     {
         return [
             self::BACTA,
@@ -33,10 +38,5 @@ class GameDrugEnum
             self::TWINOID,
             self::XENOX,
         ];
-    }
-
-    public static function getGameDrug(string $drugName): string
-    {
-        return array_flip(GameDrugEnum::getGameDrug())[$drugName];
     }
 }

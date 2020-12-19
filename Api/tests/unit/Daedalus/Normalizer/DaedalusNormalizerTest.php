@@ -15,7 +15,7 @@ class DaedalusNormalizerTest extends TestCase
     private DaedalusNormalizer $normalizer;
     /** @var CycleServiceInterface | Mockery\Mock */
     private CycleServiceInterface $cycleService;
-    /** @var GameConfig */
+
     private GameConfig $gameConfig;
 
     /**

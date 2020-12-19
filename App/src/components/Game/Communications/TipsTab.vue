@@ -25,8 +25,6 @@ export default {
   color: #090a61;
   @include corner-bezel(0px, 6.5px, 0px);
 
-  display: none;
-  visibility: hidden;
 }
 
 /* SCROLLBAR STYLING */

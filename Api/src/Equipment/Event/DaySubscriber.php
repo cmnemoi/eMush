@@ -24,14 +24,14 @@ class DaySubscriber implements EventSubscriberInterface
         $this->equipmentCycleHandler = $equipmentCycleHandler;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             DayEvent::NEW_DAY => 'onNewDay',
         ];
     }
 
-    public function onNewDay(DayEvent $event)
+    public function onNewDay(DayEvent $event): void
     {
         if (!($equipment = $event->getGameEquipment())) {
             return;

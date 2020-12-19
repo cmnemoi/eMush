@@ -7,6 +7,8 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Mechanics\Fruit;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -40,7 +42,7 @@ class Transplant extends Action
         $this->actionCost->setActionPointCost(1);
     }
 
-    public function loadParameters(Player $player, ActionParameters $actionParameters)
+    public function loadParameters(Player $player, ActionParameters $actionParameters): void
     {
         if (!($equipment = $actionParameters->getItem()) &&
             !($equipment = $actionParameters->getEquipment())) {
@@ -61,11 +63,13 @@ class Transplant extends Action
 
     protected function applyEffects(): ActionResult
     {
+        /** @var Fruit $fruitType */
         $fruitType = $this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::FRUIT);
 
         $hydropot = $this->player->getReachableEquipmentsByName(ItemEnum::HYDROPOT)->first();
         $place = $hydropot->getRoom() ?? $hydropot->getPlayer();
 
+        /** @var GameItem $plantEquipment */
         $plantEquipment = $this->gameEquipmentService
                     ->createGameEquipmentFromName($fruitType->getPlantName(), $this->player->getDaedalus());
 

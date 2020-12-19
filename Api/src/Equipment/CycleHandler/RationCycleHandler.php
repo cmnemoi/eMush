@@ -28,18 +28,21 @@ class RationCycleHandler extends AbstractCycleHandler
         $this->statusService = $statusService;
     }
 
-    public function handleNewCycle($object, Daedalus $daedalus, \DateTime $dateTime)
+    public function handleNewCycle($object, Daedalus $daedalus, \DateTime $dateTime): void
     {
     }
 
-    public function handleNewDay($gameRation, $daedalus, \DateTime $dateTime)
+    public function handleNewDay($object, $daedalus, \DateTime $dateTime): void
     {
+        $gameRation = $object;
+
         if (!$gameRation instanceof GameEquipment) {
             return;
         }
+
         $rationType = $gameRation->getEquipment()->getRationsMechanic();
 
-        if (null === $rationType || !$rationType instanceof Ration) {
+        if (null === $rationType) {
             return;
         }
 
@@ -49,7 +52,7 @@ class RationCycleHandler extends AbstractCycleHandler
         $this->gameEquipmentService->persist($gameRation);
     }
 
-    private function handleStatus(GameEquipment $gameRation, Ration $ration)
+    private function handleStatus(GameEquipment $gameRation, Ration $ration): void
     {
         //If ration is not perishable or frozen oe decomposing do nothing
         if (!$ration->isPerishable() ||

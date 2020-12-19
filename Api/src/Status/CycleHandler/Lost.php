@@ -20,13 +20,13 @@ class Lost extends AbstractCycleHandler
         $this->eventDispatcher = $eventDispatcher;
     }
 
-    public function handleNewCycle($status, Daedalus $daedalus, \DateTime $dateTime)
+    public function handleNewCycle($object, Daedalus $daedalus, \DateTime $dateTime): void
     {
-        if (!$status instanceof Status && $status->getName() !== PlayerStatusEnum::LOST) {
+        if (!$object instanceof Status && $object->getName() !== PlayerStatusEnum::LOST) {
             return;
         }
 
-        $player = $status->getPlayer();
+        $player = $object->getPlayer();
 
         $playerEvent = new PlayerEvent($player, $dateTime);
         $actionModifier = new ActionModifier();
@@ -39,7 +39,7 @@ class Lost extends AbstractCycleHandler
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
     }
 
-    public function handleNewDay($status, Daedalus $daedalus, \DateTime $dateTime)
+    public function handleNewDay($object, Daedalus $daedalus, \DateTime $dateTime): void
     {
     }
 }

@@ -7,6 +7,7 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Mechanics\Document;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
@@ -40,7 +41,7 @@ class Shred extends Action
         $this->actionCost->setActionPointCost(0);
     }
 
-    public function loadParameters(Player $player, ActionParameters $actionParameters)
+    public function loadParameters(Player $player, ActionParameters $actionParameters): void
     {
         if (!($equipment = $actionParameters->getItem()) &&
             !($equipment = $actionParameters->getEquipment())) {
@@ -53,10 +54,13 @@ class Shred extends Action
 
     public function canExecute(): bool
     {
-        return null !== $this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::DOCUMENT) &&
-               $this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::DOCUMENT)->canShred() &&
-               $this->player->canReachEquipment($this->gameEquipment)
-               ;
+        /** @var ?Document $document */
+        $document = $this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::DOCUMENT);
+
+        return null !== $document &&
+            $document->canShred() &&
+            $this->player->canReachEquipment($this->gameEquipment)
+            ;
     }
 
     protected function applyEffects(): ActionResult

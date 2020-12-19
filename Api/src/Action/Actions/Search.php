@@ -46,7 +46,7 @@ class Search extends Action
         $this->actionCost->setActionPointCost(1);
     }
 
-    public function loadParameters(Player $player, ActionParameters $actionParameters)
+    public function loadParameters(Player $player, ActionParameters $actionParameters): void
     {
         $this->player = $player;
     }
@@ -59,9 +59,18 @@ class Search extends Action
 
     protected function applyEffects(): ActionResult
     {
-        $hiddenItems = $this->player->getRoom()->getEquipments()->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getStatusByName(EquipmentStatusEnum::HIDDEN));
+        $hiddenItems = $this->player
+            ->getRoom()
+            ->getEquipments()
+            ->filter(
+                fn (GameEquipment $gameEquipment) => ($gameEquipment->getStatusByName(EquipmentStatusEnum::HIDDEN) !== null)
+            )
+        ;
+
         if (!$hiddenItems->isEmpty()) {
-            $this->itemFound = $this->statusService->getMostRecent(EquipmentStatusEnum::HIDDEN, $hiddenItems);
+            $this->itemFound = $this->statusService
+                ->getMostRecent(EquipmentStatusEnum::HIDDEN, $hiddenItems)
+            ;
 
             $hiddenStatus = $this->itemFound->getStatusByName(EquipmentStatusEnum::HIDDEN);
 

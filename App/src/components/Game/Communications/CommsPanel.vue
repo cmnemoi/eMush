@@ -1,23 +1,22 @@
 <template>
-<div class="comms-panel">
+  <div class="comms-panel">
+    <label v-for="(channel, id) in getChannels"
+           v-bind:key="id"
+           @click="changeChannel({channel: channel})"
+           :class="getCurrentChannel === channel ? 'checked' : ''"
+    >
+      <img :src="channelIcon(channel)">
+    </label>
+<!--    <label @click="createPrivateChannel">-->
+<!--      <img :src="require('@/assets/images/comms/newtab.png')">-->
+<!--    </label>-->
+    <div class="cycle-time"><img src="@/assets/images/comms/calendar.png"><span>Jour {{ day }} - Cycle {{ cycle }}</span></div>
 
-  <input type="radio" id="tips-input" name="comms_tabs">
-  <input type="radio" id="room-events-input" name="comms_tabs">
-  <input type="radio" id="discussion-input" name="comms_tabs" checked>
+    <div class="tabs-content">
+      <component v-bind:is="currentTabComponent(getCurrentChannel)" :channel="getCurrentChannel"></component>
+    </div>
 
-  <label id="tips-label" for="tips-input"><img src="@/assets/images/comms/tip.png"></label>
-  <label id="room-events-label" for="room-events-input"><img src="@/assets/images/comms/local.png"></label>
-  <label id="discussion-label" for="discussion-input"><img src="@/assets/images/comms/wall.png"></label>
-
-  <div class="cycle-time"><img src="@/assets/images/comms/calendar.png"><span>Jour {{ day }} - Cycle {{ cycle }}</span></div>
-
-  <div class="tabs-content">
-    <TipsTab></TipsTab>
-    <RoomEventsTab :room="room"></RoomEventsTab>
-    <DiscussionTab></DiscussionTab>
   </div>
-
-</div>
 </template>
 
 <script>
@@ -25,6 +24,9 @@ import TipsTab from "@/components/Game/Communications/TipsTab";
 import RoomEventsTab from "@/components/Game/Communications/RoomEventsTab";
 import DiscussionTab from "@/components/Game/Communications/DiscussionTab";
 import {Room} from "@/entities/Room";
+import {mapActions, mapGetters} from "vuex";
+import {PRIVATE, PUBLIC, ROOM_LOG, TIPS} from '@/enums/communication.enum';
+import {Channel} from "@/entities/Channel";
 
 
 export default {
@@ -38,6 +40,52 @@ export default {
     day: Number,
     cycle: Number,
     room: Room
+  },
+  computed: {
+    ...mapGetters('communication', [
+      'getCurrentChannel',
+      'getChannels',
+    ])
+  },
+  methods: {
+    ...mapActions('communication', [
+      'loadChannels',
+      'changeChannel',
+      'createPrivateChannel'
+    ]),
+    currentTabComponent: (channel) => {
+      if (channel instanceof Channel) {
+        switch (channel.scope) {
+          case TIPS:
+            return TipsTab;
+          case ROOM_LOG:
+            return RoomEventsTab;
+          case PUBLIC:
+          default:
+            return DiscussionTab;
+        }
+      }
+      return DiscussionTab;
+    },
+    channelIcon: (channel) => {
+      if (channel instanceof Channel) {
+        switch (channel.scope) {
+          case TIPS:
+            return require('@/assets/images/comms/tip.png');
+          case ROOM_LOG:
+            return require('@/assets/images/comms/local.png');
+          case PRIVATE:
+            return require('@/assets/images/comms/private.png');
+          case PUBLIC:
+          default:
+            return require('@/assets/images/comms/wall.png');
+        }
+      }
+      return DiscussionTab;
+    }
+  },
+  beforeMount() {
+    this.loadChannels();
   }
 }
 </script>
@@ -51,12 +99,7 @@ export default {
   visibility: visible;
 }
 
-#tips-input:checked ~ #tips-label,
-#room-events-input:checked ~ #room-events-label,
-#discussion-input:checked ~ #discussion-label {
-  opacity: 1;
-  &::after { background: rgba(194, 243, 252, 1); }
-}
+
 
 .comms-panel {
   position: relative;
@@ -64,16 +107,21 @@ export default {
   width: 404px;
   height: 460px;
 
+  & .checked {
+    opacity: 1;
+    &::after { background: rgba(194, 243, 252, 1); }
+  }
+
   & input {
     position: absolute;
     left: -100vw;
   }
-  
+
   & .tabs-content {
     min-width: 100%;
     font-size: .8em;
   }
-  
+
 
   & label {
     position: relative;
@@ -130,7 +178,7 @@ export default {
     & img { margin-right: 3px; }
   }
 
-/* SCROLLBAR STYLING */
+  /* SCROLLBAR STYLING */
 
   & .chatbox, {
     --scrollbarBG: white;

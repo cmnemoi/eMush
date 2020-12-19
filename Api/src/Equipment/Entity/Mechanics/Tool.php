@@ -26,12 +26,14 @@ class Tool extends EquipmentMechanic
      */
     private array $actionsTarget = [];
 
-
     public function getGrantActions(): Collection
     {
         return new ArrayCollection($this->grantActions);
     }
 
+    /**
+     * @return static
+     */
     public function setGrantActions(array $grantActions): Tool
     {
         $this->grantActions = $grantActions;
@@ -44,6 +46,9 @@ class Tool extends EquipmentMechanic
         return $this->actionsTarget;
     }
 
+    /**
+     * @return static
+     */
     public function setActionsTarget(array $actionsTarget): Tool
     {
         $this->actionsTarget = $actionsTarget;

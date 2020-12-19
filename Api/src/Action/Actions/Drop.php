@@ -39,7 +39,7 @@ class Drop extends Action
         $this->playerService = $playerService;
     }
 
-    public function loadParameters(Player $player, ActionParameters $actionParameters)
+    public function loadParameters(Player $player, ActionParameters $actionParameters): void
     {
         if (!$item = $actionParameters->getItem()) {
             throw new \InvalidArgumentException('Invalid item parameter');
@@ -50,8 +50,11 @@ class Drop extends Action
 
     public function canExecute(): bool
     {
+        $gameEquipment = $this->gameItem->getEquipment();
+
         return $this->player->getItems()->contains($this->gameItem) &&
-            $this->gameItem->getEquipment()->isDropable()
+            $gameEquipment instanceof ItemConfig &&
+            $gameEquipment->isDropable()
             ;
     }
 
@@ -61,9 +64,8 @@ class Drop extends Action
         $this->gameItem->setPlayer(null);
 
         // Remove BURDENED status if no other heavy item in the inventory
-        if (
-            ($burdened = $this->player->getStatusByName(PlayerStatusEnum::BURDENED)) &&
-            $this->player->getItems()->exists(fn (ItemConfig $item) => $item->isHeavy())
+        if (($burdened = $this->player->getStatusByName(PlayerStatusEnum::BURDENED)) &&
+            $this->player->getItems()->exists(fn ($key, ItemConfig $item) => $item->isHeavy())
         ) {
             $this->player->removeStatus($burdened);
         }

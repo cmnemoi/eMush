@@ -8,9 +8,7 @@ use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
-use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -20,16 +18,11 @@ class ReadDocument extends Action
     protected string $name = ActionEnum::READ_DOCUMENT;
 
     private GameEquipment $gameEquipment;
-
     private RoomLogServiceInterface $roomLogService;
-    private GameEquipmentServiceInterface $gameEquipmentService;
-    private PlayerServiceInterface $playerService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
-        RoomLogServiceInterface $roomLogService,
-        GameEquipmentServiceInterface $gameEquipmentService,
-        PlayerServiceInterface $playerService
+        RoomLogServiceInterface $roomLogService
     ) {
         parent::__construct($eventDispatcher);
 
@@ -37,7 +30,7 @@ class ReadDocument extends Action
         $this->actionCost->setActionPointCost(0);
     }
 
-    public function loadParameters(Player $player, ActionParameters $actionParameters)
+    public function loadParameters(Player $player, ActionParameters $actionParameters): void
     {
         if (!($equipment = $actionParameters->getItem()) &&
             !($equipment = $actionParameters->getEquipment())) {

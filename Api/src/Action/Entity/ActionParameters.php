@@ -15,7 +15,7 @@ class ActionParameters
     private ?GameEquipment $equipment = null;
     private ?GameItem $item = null;
     private ?Door $door = null;
-    private ?string $message = null;
+    private string $message = '';
 
     public function getRoom(): ?Room
     {
@@ -34,6 +34,9 @@ class ActionParameters
         return $this->player;
     }
 
+    /**
+     * @return static
+     */
     public function setPlayer(?Player $player): ActionParameters
     {
         $this->player = $player;
@@ -46,6 +49,9 @@ class ActionParameters
         return $this->equipment;
     }
 
+    /**
+     * @return static
+     */
     public function setEquipment(?GameEquipment $equipment): ActionParameters
     {
         $this->equipment = $equipment;
@@ -58,6 +64,9 @@ class ActionParameters
         return $this->item;
     }
 
+    /**
+     * @return static
+     */
     public function setItem(?GameItem $item): ActionParameters
     {
         $this->item = $item;
@@ -70,6 +79,9 @@ class ActionParameters
         return $this->door;
     }
 
+    /**
+     * @return static
+     */
     public function setDoor(?Door $door): ActionParameters
     {
         $this->door = $door;
@@ -77,12 +89,15 @@ class ActionParameters
         return $this;
     }
 
-    public function getMessage(): ?string
+    public function getMessage(): string
     {
         return $this->message;
     }
 
-    public function setMessage(?string $message): ActionParameters
+    /**
+     * @return static
+     */
+    public function setMessage(string $message): ActionParameters
     {
         $this->message = $message;
 

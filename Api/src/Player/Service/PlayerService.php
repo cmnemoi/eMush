@@ -3,6 +3,7 @@
 namespace Mush\Player\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusEvent;
@@ -42,7 +43,6 @@ class PlayerService implements PlayerServiceInterface
     private StatusServiceInterface $statusService;
 
     private TokenStorageInterface $tokenStorage;
-
 
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -100,15 +100,8 @@ class PlayerService implements PlayerServiceInterface
 
         $characterConfig = $this->gameConfig->getCharactersConfig()->getCharacter($character);
 
+        /** @var Collection<int, Status> $statuses */
         $statuses = new ArrayCollection();
-        foreach ($characterConfig->getStatuses() as $statusName) {
-            $status = new Status();
-            $status
-                ->setName($statusName)
-                ->setVisibility(VisibilityEnum::PUBLIC)
-            ;
-            $statuses->add($status);
-        }
 
         $player
             ->setUser($user)
@@ -126,16 +119,22 @@ class PlayerService implements PlayerServiceInterface
             ->setActionPoint($this->gameConfig->getInitActionPoint())
             ->setMovementPoint($this->gameConfig->getInitMovementPoint())
             ->setSatiety($this->gameConfig->getInitSatiety())
-            ->setStatuses($statuses)
         ;
+
+        foreach ($characterConfig->getStatuses() as $statusName) {
+            $status = new Status();
+            $status
+                ->setName($statusName)
+                ->setVisibility(VisibilityEnum::PUBLIC)
+            ;
+            $player->addStatus($status);
+        }
 
         $this->persist($player);
 
         $user->setCurrentGame($player);
         $playerEvent = new PlayerEvent($player);
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::NEW_PLAYER);
-
-
 
         if ($daedalus->getPlayers()->count() === $this->gameConfig->getMaxPlayer()) {
             $fullDaedalusEvent = new DaedalusEvent($daedalus);
@@ -145,10 +144,10 @@ class PlayerService implements PlayerServiceInterface
         return $player;
     }
 
-    public function handleNewCycle(Player $player, \DateTime $time): Player
+    public function handleNewCycle(Player $player, \DateTime $date): Player
     {
         if ($player->getMoralPoint() === 0) {
-            $playerEvent = new PlayerEvent($player, $time);
+            $playerEvent = new PlayerEvent($player, $date);
             $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
 
             return $player;
@@ -161,7 +160,7 @@ class PlayerService implements PlayerServiceInterface
             ->setSatietyModifier(-1)
         ;
 
-        $playerEvent = new PlayerEvent($player, $time);
+        $playerEvent = new PlayerEvent($player, $date);
         $playerEvent->setActionModifier($actionModifier);
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
 
@@ -177,13 +176,13 @@ class PlayerService implements PlayerServiceInterface
             $player,
             VisibilityEnum::PRIVATE,
             $triumphChange,
-            $time
+            $date
         );
 
         return $this->persist($player);
     }
 
-    public function handleNewDay(Player $player, \DateTime $time): Player
+    public function handleNewDay(Player $player, \DateTime $date): Player
     {
         $actionModifier = new ActionModifier();
         $actionModifier
@@ -191,14 +190,14 @@ class PlayerService implements PlayerServiceInterface
             ->setMoralPointModifier(-2) //@TODO check for last hope
         ;
 
-        $playerEvent = new PlayerEvent($player, $time);
+        $playerEvent = new PlayerEvent($player, $date);
         $playerEvent->setActionModifier($actionModifier);
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
 
         return $this->persist($player);
     }
 
-    public function handlePlayerModifier(Player $player, ActionModifier $actionModifier, \DateTime $time = null): Player
+    public function handlePlayerModifier(Player $player, ActionModifier $actionModifier, \DateTime $date = null): Player
     {
         if ($actionModifier->getActionPointModifier() !== 0) {
             $playerNewActionPoint = $player->getActionPoint() + $actionModifier->getActionPointModifier();
@@ -210,7 +209,7 @@ class PlayerService implements PlayerServiceInterface
                 $player,
                 VisibilityEnum::PRIVATE,
                 $actionModifier->getActionPointModifier(),
-                $time ?? new \DateTime('now')
+                $date ?? new \DateTime('now')
             );
         }
 
@@ -224,7 +223,7 @@ class PlayerService implements PlayerServiceInterface
                 $player,
                 VisibilityEnum::PRIVATE,
                 $actionModifier->getMovementPointModifier(),
-                $time ?? new \DateTime('now')
+                $date ?? new \DateTime('now')
             );
         }
 
@@ -238,12 +237,12 @@ class PlayerService implements PlayerServiceInterface
                 $player,
                 VisibilityEnum::PRIVATE,
                 $actionModifier->getHealthPointModifier(),
-                $time ?? new \DateTime('now')
+                $date ?? new \DateTime('now')
             );
         }
 
         if ($actionModifier->getMoralPointModifier()) {
-            if(!$player->isMush()){
+            if (!$player->isMush()) {
                 $playerNewMoralPoint = $player->getMoralPoint() + $actionModifier->getMoralPointModifier();
                 $playerNewMoralPoint = $this->getValueInInterval($playerNewMoralPoint, 0, $this->gameConfig->getMaxMoralPoint());
                 $player->setMoralPoint($playerNewMoralPoint);
@@ -251,13 +250,17 @@ class PlayerService implements PlayerServiceInterface
                 $demoralizedStatus = $player->getStatusByName(PlayerStatusEnum::DEMORALIZED);
                 $suicidalStatus = $player->getStatusByName(PlayerStatusEnum::SUICIDAL);
 
-                if ($player->getMoralPoint()<=1 && !$suicidalStatus){
+                if ($player->getMoralPoint() <= 1 && !$suicidalStatus) {
                     $this->statusService->createCorePlayerStatus(PlayerStatusEnum::SUICIDAL, $player);
-                }elseif($suicidalStatus){$player->removeStatus($suicidalStatus);}
+                } elseif ($suicidalStatus) {
+                    $player->removeStatus($suicidalStatus);
+                }
 
-                if($player->getMoralPoint()<=4 && $player->getMoralPoint()>1 && $demoralizedStatus){
+                if ($player->getMoralPoint() <= 4 && $player->getMoralPoint() > 1 && $demoralizedStatus) {
                     $this->statusService->createCorePlayerStatus(PlayerStatusEnum::DEMORALIZED, $player);
-                }elseif($demoralizedStatus){$player->removeStatus($demoralizedStatus);}
+                } elseif ($demoralizedStatus) {
+                    $player->removeStatus($demoralizedStatus);
+                }
 
                 $this->roomLogService->createQuantityLog(
                     $actionModifier->getMoralPointModifier() > 0 ? LogEnum::GAIN_MORAL_POINT : LogEnum::LOSS_MORAL_POINT,
@@ -265,32 +268,35 @@ class PlayerService implements PlayerServiceInterface
                     $player,
                     VisibilityEnum::PRIVATE,
                     $actionModifier->getMoralPointModifier(),
-                    $time ?? new \DateTime('now')
+                    $date ?? new \DateTime('now')
                 );
             }
         }
 
         if ($actionModifier->getSatietyModifier()) {
-            if($actionModifier->getSatietyModifier()>=0 &&
-                    $player->getSatiety()<0){
+            if ($actionModifier->getSatietyModifier() >= 0 &&
+                    $player->getSatiety() < 0) {
                 $player->setSatiety($actionModifier->getSatietyModifier());
-            }else{
-                $player->setSatiety($player->getSatiety()+$actionModifier->getSatietyModifier());
+            } else {
+                $player->setSatiety($player->getSatiety() + $actionModifier->getSatietyModifier());
             }
 
-            $starvingStatus=$player->getStatusByName(PlayerStatusEnum::STARVING);
-            $fullStatus=$player->getStatusByName(PlayerStatusEnum::FULL_STOMACH);
+            $starvingStatus = $player->getStatusByName(PlayerStatusEnum::STARVING);
+            $fullStatus = $player->getStatusByName(PlayerStatusEnum::FULL_STOMACH);
 
-            if(!$player->isMush()){
-                if ($player->getSatiety()<-24 && !$starvingStatus && !$player->isMush()){
+            if (!$player->isMush()) {
+                if ($player->getSatiety() < -24 && !$starvingStatus && !$player->isMush()) {
                     $this->statusService->createCorePlayerStatus(PlayerStatusEnum::STARVING, $player);
-                }elseif($starvingStatus){$player->removeStatus($starvingStatus);}
-                
-                if($player->getSatiety()>3 && !$fullStatus && !$player->isMush()){
-                        $this->statusService->createCorePlayerStatus(PlayerStatusEnum::FULL_STOMACH, $player);
-                }elseif($fullStatus){$player->removeStatus($fullStatus);}
+                } elseif ($starvingStatus) {
+                    $player->removeStatus($starvingStatus);
+                }
 
-            }elseif($actionModifier->getSatietyModifier()>=0){
+                if ($player->getSatiety() > 3 && !$fullStatus && !$player->isMush()) {
+                    $this->statusService->createCorePlayerStatus(PlayerStatusEnum::FULL_STOMACH, $player);
+                } elseif ($fullStatus) {
+                    $player->removeStatus($fullStatus);
+                }
+            } elseif ($actionModifier->getSatietyModifier() >= 0) {
                 $this->statusService->createChargePlayerStatus(
                     PlayerStatusEnum::FULL_STOMACH,
                     $player,

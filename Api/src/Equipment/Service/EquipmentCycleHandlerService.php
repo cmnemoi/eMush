@@ -9,7 +9,7 @@ class EquipmentCycleHandlerService implements EquipmentCycleHandlerServiceInterf
 {
     private array $strategies = [];
 
-    public function addStrategy(AbstractCycleHandler $cycleHandler)
+    public function addStrategy(AbstractCycleHandler $cycleHandler): void
     {
         $this->strategies[$cycleHandler->getName()] = $cycleHandler;
     }

@@ -2,79 +2,67 @@
 
 namespace Mush\Room\Normalizer;
 
-use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Normalizer\ActionNormalizer;
-use Mush\Action\Actions\Action\Action;
-use Mush\Action\Entity\ActionParameters;
+use Mush\Action\Service\ActionServiceInterface;
 use Mush\Equipment\Entity\Door;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Normalizer\EquipmentNormalizer;
-use Mush\Equipment\Normalizer\ItemPileNormalizer;
-use Mush\Status\Normalizer\StatusNormalizer;
 use Mush\Player\Entity\Player;
-use Mush\Player\Normalizer\PlayersNormalizer;
 use Mush\Room\Entity\Room;
 use Mush\User\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class RoomNormalizer implements ContextAwareNormalizerInterface
+class RoomNormalizer implements ContextAwareNormalizerInterface, NormalizerAwareInterface
 {
-    private EquipmentNormalizer $equipmentNormalizer;
-    private ItemPileNormalizer $itemPileNormalizer;
-    private StatusNormalizer $statusNormalizer;
-    private PlayersNormalizer $playersNormalizer;
+    use NormalizerAwareTrait;
+
     private TranslatorInterface $translator;
+    private ActionServiceInterface $actionService;
     private TokenStorageInterface $tokenStorage;
 
     public function __construct(
-        EquipmentNormalizer $equipmentNormalizer,
-        ItemPileNormalizer $itemPileNormalizer,
-        StatusNormalizer $statusNormalizer,
-        PlayersNormalizer $playersNormalizer,
         TranslatorInterface $translator,
+        ActionServiceInterface $actionService,
         TokenStorageInterface $tokenStorage
     ) {
-        $this->equipmentNormalizer = $equipmentNormalizer;
-        $this->itemPileNormalizer = $itemPileNormalizer;
-        $this->statusNormalizer = $statusNormalizer;
-        $this->playersNormalizer = $playersNormalizer;
         $this->translator = $translator;
+        $this->actionService = $actionService;
         $this->tokenStorage = $tokenStorage;
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = [])
+    public function supportsNormalization($data, string $format = null, array $context = []): bool
     {
         return $data instanceof Room;
     }
 
     /**
-     * @param Room $room
-     *
-     * @return array
+     * @param mixed $object
      */
-    public function normalize($room, string $format = null, array $context = [])
+    public function normalize($object, string $format = null, array $context = []): array
     {
+        $room = $object;
         $players = [];
         /** @var Player $player */
         foreach ($room->getPlayers() as $player) {
-            //Do not display user player in the room
-            if ($player !== $this->getUser()->getCurrentGame()) {
-                $players[] = $this->playersNormalizer->normalize($player);
+            if ($this->getUser()->getCurrentGame() !== $player) {
+                $players[] = $this->normalizer->normalize($player);
             }
         }
-        
+
         $doors = [];
         /** @var Door $door */
         foreach ($room->getDoors() as $door) {
             $doors[] = array_merge(
-                $this->equipmentNormalizer->normalize($door),
+                $this->normalizer->normalize($door),
                 ['direction' => $door
                     ->getRooms()
                     ->filter(fn (Room $doorRoom) => $doorRoom !== $room)
                     ->first()
-                    ->getName(), ]
+                    ->getName(),
+                ]
             );
         }
 
@@ -82,11 +70,11 @@ class RoomNormalizer implements ContextAwareNormalizerInterface
         /** @var GameEquipment $equipment */
         foreach ($room->getEquipments() as $equipment) {
             if (!$equipment instanceof GameItem) {
-                $equipments[] = $this->equipmentNormalizer->normalize($equipment);
+                $equipments[] = $this->normalizer->normalize($equipment);
             }
         }
 
-        $items = $this->itemPileNormalizer->normalize($room->getEquipments());
+        $items = $this->normalizer->normalize($room->getEquipments());
 
         return [
             'id' => $room->getId(),
@@ -101,6 +89,9 @@ class RoomNormalizer implements ContextAwareNormalizerInterface
 
     private function getUser(): User
     {
-        return $this->tokenStorage->getToken()->getUser();
+        /** @var User $user */
+        $user = $this->tokenStorage->getToken()->getUser();
+
+        return $user;
     }
 }

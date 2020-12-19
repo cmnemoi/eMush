@@ -4,14 +4,12 @@ namespace Mush\Daedalus\Event;
 
 use DateTime;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
-use Mush\Game\Enum\CharacterEnum;
+use Mush\Game\Entity\GameConfig;
+use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Player\Entity\Player;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Service\GameConfigServiceInterface;
 
 class DaedalusSubscriber implements EventSubscriberInterface
 {
@@ -21,16 +19,13 @@ class DaedalusSubscriber implements EventSubscriberInterface
     private StatusServiceInterface $statusService;
     private GameConfig $gameConfig;
 
-    /**
-     * DaedalusSubscriber constructor.
-     */
     public function __construct(
         DaedalusServiceInterface $daedalusService,
         EventDispatcherInterface $eventDispatcher,
         RandomServiceInterface $randomService,
         StatusServiceInterface $statusService,
         GameConfigServiceInterface $gameConfigService
-        ) {
+    ) {
         $this->daedalusService = $daedalusService;
         $this->eventDispatcher = $eventDispatcher;
         $this->randomService = $randomService;
@@ -38,7 +33,7 @@ class DaedalusSubscriber implements EventSubscriberInterface
         $this->gameConfig = $gameConfigService->getConfig();
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             DaedalusEvent::NEW_DAEDALUS => 'onDaedalusNew',
@@ -47,24 +42,23 @@ class DaedalusSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onDaedalusNew(DaedalusEvent $event)
+    public function onDaedalusNew(DaedalusEvent $event): void
     {
         $daedalus = $event->getDaedalus();
     }
 
-    public function onDaedalusEnd(DaedalusEvent $event)
+    public function onDaedalusEnd(DaedalusEvent $event): void
     {
         $daedalus = $event->getDaedalus();
         // @TODO: create logs
     }
 
-    public function onDaedalusFull(DaedalusEvent $event)
+    public function onDaedalusFull(DaedalusEvent $event): void
     {
         $daedalus = $event->getDaedalus();
         // @TODO: create logs
 
         //@TODO give titles
-
 
         //Chose alpha Mushs
         $this->daedalusService->selectAlphaMush($daedalus);

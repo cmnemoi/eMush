@@ -36,11 +36,14 @@ class LoginController extends AbstractFOSRestController
      *
      * @OA\RequestBody (
      *      description="Input data format",
-     *         @OA\MediaType(
+     *
+     * @OA\MediaType (
      *             mediaType="application/json",
-     *      @OA\Schema(
+     *
+     * @OA\Schema (
      *              type="object",
-     *                 @OA\Property(
+     *
+     * @OA\Property (
      *                     property="username",
      *                     description="The user username",
      *                     type="string",
@@ -48,10 +51,12 @@ class LoginController extends AbstractFOSRestController
      *             )
      *         )
      *     )
-     * @OA\Tag(name="Login")
-     * @Post(name="username_login", path="/login")
+     *
+     * @OA\Tag (name="Login")
+     *
+     * @Post (name="username_login", path="/login")
      */
-    public function loginAction(Request $request)
+    public function loginAction(Request $request): \Symfony\Component\HttpFoundation\Response
     {
         if (!($username = $request->get('username'))) {
             throw new AccessDeniedHttpException('Bad credentials.');

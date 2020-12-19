@@ -8,6 +8,7 @@ use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
+use Mush\Status\Enun\EquipmentStatusEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\GameConfigServiceInterface;
@@ -15,6 +16,7 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Mush\Status\Enum\EquipmentStatusEnum as EnumEquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -80,6 +82,11 @@ class Take extends Action
         // add BURDENED status if item is heavy
         if ($item->isHeavy()) {
             $this->statusService->createCorePlayerStatus(PlayerStatusEnum::BURDENED, $this->player);
+        }
+
+        if ($hiddenStatus=$this->gameItem->getStatusByName(EnumEquipmentStatusEnum::HIDDEN)) {
+            $this->gameItem->removeStatus($hiddenStatus);
+            $this->player->removeStatus($hiddenStatus);
         }
 
         $this->gameEquipmentService->persist($this->gameItem);

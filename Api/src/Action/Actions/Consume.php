@@ -83,13 +83,16 @@ class Consume extends Action
         $equipmentEffect = $this->equipmentServiceEffect->getConsumableEffect($rationType, $this->player->getDaedalus());
 
         $actionModifier = new ActionModifier();
-        $actionModifier
-            ->setActionPointModifier($equipmentEffect->getActionPoint())
-            ->setMovementPointModifier($equipmentEffect->getMovementPoint())
-            ->setHealthPointModifier($equipmentEffect->getHealthPoint())
-            ->setMoralPointModifier($equipmentEffect->getMoralPoint())
-            ->setSatietyModifier($equipmentEffect->getSatiety())
-        ;
+
+        if (!$this->player->isMush()){
+            $actionModifier
+                ->setActionPointModifier($equipmentEffect->getActionPoint())
+                ->setMovementPointModifier($equipmentEffect->getMovementPoint())
+                ->setHealthPointModifier($equipmentEffect->getHealthPoint())
+                ->setMoralPointModifier($equipmentEffect->getMoralPoint())
+            ;
+        }
+        $actionModifier->setSatietyModifier($equipmentEffect->getSatiety());
 
         $playerEvent = new PlayerEvent($this->player);
         $playerEvent->setActionModifier($actionModifier);

@@ -5,7 +5,6 @@ namespace Mush\Communication\Validator;
 use Mush\Communication\Entity\Dto\CreateMessage;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use UnexpectedValueException;

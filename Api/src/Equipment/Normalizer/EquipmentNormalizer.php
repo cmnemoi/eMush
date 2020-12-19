@@ -3,39 +3,35 @@
 namespace Mush\Equipment\Normalizer;
 
 use Mush\Action\Enum\ActionTargetEnum;
-use Mush\Action\Normalizer\ActionNormalizer;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
-use Mush\Status\Normalizer\StatusNormalizer;
 use Mush\User\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class EquipmentNormalizer implements ContextAwareNormalizerInterface
+class EquipmentNormalizer implements ContextAwareNormalizerInterface, NormalizerAwareInterface
 {
+    use NormalizerAwareTrait;
+
     private TranslatorInterface $translator;
     private ActionServiceInterface $actionService;
     private TokenStorageInterface $tokenStorage;
-    private StatusNormalizer $statusNormalizer;
-    private ActionNormalizer $actionNormalizer;
 
     public function __construct(
         TranslatorInterface $translator,
         ActionServiceInterface $actionService,
-        TokenStorageInterface $tokenStorage,
-        StatusNormalizer $statusNormalizer,
-        ActionNormalizer $actionNormalizer
+        TokenStorageInterface $tokenStorage
     ) {
         $this->translator = $translator;
         $this->actionService = $actionService;
         $this->tokenStorage = $tokenStorage;
-        $this->statusNormalizer = $statusNormalizer;
-        $this->actionNormalizer = $actionNormalizer;
     }
 
     public function supportsNormalization($data, string $format = null, array $context = []): bool
@@ -91,7 +87,7 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface
             foreach ($itemActions as $actionName) {
                 $actionClass = $this->actionService->getAction($actionName);
                 if ($actionClass) {
-                    $normedAction = $this->actionNormalizer->normalize($actionClass, null, $context);
+                    $normedAction = $this->normalizer->normalize($actionClass, null, $context);
                     if (count($normedAction) > 0) {
                         $actions[] = $normedAction;
                     }
@@ -102,7 +98,7 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface
         foreach ($object->getActions() as $actionName) {
             $actionClass = $this->actionService->getAction($actionName);
             if ($actionClass) {
-                $normedAction = $this->actionNormalizer->normalize($actionClass, null, $context);
+                $normedAction = $this->normalizer->normalize($actionClass, null, $context);
                 if (count($normedAction) > 0) {
                     $actions[] = $normedAction;
                 }
@@ -111,7 +107,7 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface
 
         $statuses = [];
         foreach ($object->getStatuses() as $status) {
-            $normedStatus = $this->statusNormalizer->normalize($status, null, ['equipment' => $object]);
+            $normedStatus = $this->normalizer->normalize($status, null, ['equipment' => $object]);
             if (count($normedStatus) > 0) {
                 $statuses[] = $normedStatus;
             }

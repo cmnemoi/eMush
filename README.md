@@ -44,7 +44,7 @@ Build the docker containers:
 make install
 Or 
 docker-compose -f docker/docker-compose.yml build
-docker-compose -f docker/docker-compose.yml run -u node mush_front npm install && docker-compose -f docker/docker-compose.yml run -u dev mush_php composer install
+docker-compose -f docker/docker-compose.yml run -u node mush_front yarn install && docker-compose -f docker/docker-compose.yml run -u dev mush_php composer install
 ```
 Start the docker container
 ```

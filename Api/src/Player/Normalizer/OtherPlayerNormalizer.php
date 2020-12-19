@@ -2,6 +2,7 @@
 
 namespace Mush\Player\Normalizer;
 
+use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTargetEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
@@ -60,7 +61,7 @@ class OtherPlayerNormalizer implements ContextAwareNormalizerInterface, Normaliz
             })
         ;
 
-        $actions = [];
+        $actions = ActionEnum::getPermanentPlayerActions();
         $playerActions = [];
 
         foreach ($tools as $tool) {

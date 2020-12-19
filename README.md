@@ -34,11 +34,24 @@ Checkout to develop:
 ```
 git checkout develop
 ```
-copy the .env.dist file (and change environment variables if required):
+
+Copy the .env.dist file (and change environment variables if required):
+
 ```
 cp ./Api/.env.dist ./Api/.env
 cp ./App/.env.dist ./App/.env
 ```
+
+Copy the Eternal-Twin config:
+```
+cp ./etwin.toml.example ./etwin.toml
+```
+
+Start Eternal-Twin:
+```
+yarn etwin
+```
+
 Build the docker containers:
 ```
 make install

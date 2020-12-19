@@ -29,18 +29,16 @@ services:
 
   #Database container
   mush_database:
-    image: mysql:8.0.15
+    image: postgres:13.1
     container_name: mush_database
-    command: mysqld --default-authentication-plugin=mysql_native_password
     ports:
-      - "3306:3306"
+      - "5432:5432"
     networks:
       - mush_network
     environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: mush
-      MYSQL_USER: mysql
-      MYSQL_PASSWORD: password
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mush
+      POSTGRES_USER: mysql
 
   mush_front:
     container_name: front_mush

@@ -47,12 +47,16 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
         $actions = [];
 
         $context = [];
+        $type = [];
         if ($object instanceof Door) {
             $context['door'] = $object;
+            $type = 'door';
         } elseif ($object instanceof GameItem) {
             $context['item'] = $object;
+            $type = 'items';
         } else {
             $context['equipment'] = $object;
+            $type = 'equipments';
         }
 
         //@TODO this is awfully messy
@@ -116,8 +120,8 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
         return [
             'id' => $object->getId(),
             'key' => $object->getName(),
-            'name' => $this->translator->trans($object->getName() . '.name', [], 'equipments'),
-            'description' => $this->translator->trans("{$object->getName()}.description", [], 'equipments'),
+            'name' => $this->translator->trans($object->getName() . '.name', [], $type),
+            'description' => $this->translator->trans("{$object->getName()}.description", [], $type),
             'statuses' => $statuses,
             'actions' => $actions,
         ];

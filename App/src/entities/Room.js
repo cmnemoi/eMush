@@ -1,6 +1,7 @@
 import {Item} from "@/entities/Item";
 import {Door} from "@/entities/Door";
 import {Player} from "@/entities/Player";
+import {Equipment} from "@/entities/Equipment";
 
 export class Room {
     constructor() {
@@ -31,7 +32,7 @@ export class Room {
             })
 
             object.equipments.forEach((equipmentObject) => {
-                let equipment = (new Item).load(equipmentObject)
+                let equipment = (new Equipment()).load(equipmentObject)
                 this.equipments.push(equipment);
             })
         }

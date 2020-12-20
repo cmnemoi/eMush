@@ -12,7 +12,6 @@ export class Status {
             this.key = object.key;
             this.name = object.name;
             this.charge = object.charge;
-            console.log(object)
         }
         return this;
     }

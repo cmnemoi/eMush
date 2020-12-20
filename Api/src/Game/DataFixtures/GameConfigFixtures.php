@@ -5,9 +5,6 @@ namespace Mush\Game\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Game\Entity\GameConfig;
-use Mush\Game\Entity\TriumphConfig;
-use Mush\Game\Entity\MushTriumphConfig;
-use Mush\Game\Entity\HumanTriumphConfig;
 
 class GameConfigFixtures extends Fixture
 {
@@ -35,7 +32,6 @@ class GameConfigFixtures extends Fixture
             ->setMaxMovementPoint(16)
             ->setMaxItemInInventory(3)
         ;
-
 
         $manager->persist($gameConfig);
 

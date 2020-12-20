@@ -54,7 +54,6 @@ class TriumphEnum
     public const MUSH_VACCINATED = 'mush_vaccinated';
     public const ALIEN_KILLED = 'alien_killed';
 
-
     public static function getMushTriumph()
     {
         return [
@@ -66,7 +65,7 @@ class TriumphEnum
             self::HUMANOCIDE,
             self::CHUN_DEAD,
             self::SOL_RETURN_MUSH,
-            self::EDEN_MUSH
+            self::EDEN_MUSH,
         ];
     }
 
@@ -126,7 +125,7 @@ class TriumphEnum
             self::EDEN_MUSH_INTRUDER,
             self::EDEN_BY_PREGNANT,
             self::EDEN_COMPUTED,
-            self::EDEN_MUSH
+            self::EDEN_MUSH,
         ];
     }
-}    
+}

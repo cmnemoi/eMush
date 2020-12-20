@@ -1,6 +1,5 @@
 <template>
   <div class="char-panel">
-
     <div class="char-sheet">
       <img class="avatar" :src="characterPortrait" alt="avatar">
 
@@ -26,16 +25,16 @@
       <div class="inventory">
         <inventory :items="player.items" :min-slot="3" v-on:select="selectItem"></inventory>
       </div>
-      <div class="interactions" v-if="selectedItem">
-        <p>{{ selectedItem.name }}
-          <span v-for="(status, key) in selectedItem.statuses" v-bind:key="key">
+      <div class="interactions" v-if="getTarget">
+        <p v-if="shouldDisplayItemInformation(getTarget)" >{{ getTarget.name }}
+          <span v-for="(status, key) in getTarget.statuses" v-bind:key="key">
             <img :src="itemStatusIcon(status)">
             <span v-if="status.charge > 0">x{{status.charge}}</span>
           </span>
         </p>
         <ul>
-          <li v-for="(action,key) in selectedItem.actions" v-bind:key="key">
-            <a href="#" @click="executeAction(action)">
+          <li v-for="(action,key) in getTarget.actions" v-bind:key="key">
+            <a href="#" @click="executeTargetAction(action)">
               <span v-if="action.actionPointCost > 0">{{action.actionPointCost}}<img src="@/assets/images/pa.png" alt="ap"></span>{{action.name}}
             </a>
           </li>
@@ -78,9 +77,10 @@ import {Player} from "@/entities/Player";
 import {characterEnum} from '@/enums/character';
 import Inventory from "@/components/Game/Inventory";
 import ActionService from "@/services/action.service";
-import {mapActions} from "vuex";
+import {mapActions, mapGetters} from "vuex";
 import {statusPlayerEnum} from "@/enums/status.player.enum";
 import {statusItemEnum} from "@/enums/status.item.enum";
+import {Item} from "@/entities/Item";
 
 export default {
   name: "CharPanel",
@@ -90,23 +90,26 @@ export default {
   },
   data: () => {
     return {
-      selectedItem: null
+      selectedItem: null,
     }
   },
   computed: {
     characterPortrait: function() {
       return characterEnum[this.player.characterKey].portrait;
-    }
+    },
+    ...mapGetters('player', [
+      'getTarget'
+    ])
   },
   methods: {
+    shouldDisplayItemInformation: function(target) {
+      return target instanceof Item;
+    },
     isFull: function (value, threshold) {
       return {
         "full": value <= threshold,
         'empty': value > threshold
       }
-    },
-    selectItem: function(item) {
-      this.selectedItem = item;
     },
     playerStatusIcon: function(status) {
       const statusImages = statusPlayerEnum[status.key];
@@ -116,11 +119,15 @@ export default {
       const statusImages = statusItemEnum[status.key];
       return typeof statusImages !== 'undefined' ? statusImages.icon : null;
     },
-    executeAction: function (action) {
-      ActionService.executeItemAction(this.selectedItem, action).then(() => this.reloadPlayer());
+    selectItem: function(item) {
+      this.selectTarget({target: item})
+    },
+    executeTargetAction: function (action) {
+      ActionService.executeTargetAction(this.getTarget, action).then(() => this.reloadPlayer());
     },
     ...mapActions('player', [
       'reloadPlayer',
+      'selectTarget',
     ]),
   }
 }

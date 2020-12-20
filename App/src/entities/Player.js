@@ -34,10 +34,12 @@ export class Player {
             this.gameStatus = object.gameStatus;
             this.daedalus = (new Daedalus()).load(object.daedalus)
             this.room = (new Room()).load(object.room)
-            object.items.forEach((itemObject) => {
-                let item = (new Item).load(itemObject)
-                this.items.push(item);
-            })
+            if (typeof object.items !== 'undefined') {
+                object.items.forEach((itemObject) => {
+                    let item = (new Item).load(itemObject)
+                    this.items.push(item);
+                })
+            }
             object.actions.forEach((actionObject) => {
                 let action = (new Action()).load(actionObject)
                 this.actions.push(action);

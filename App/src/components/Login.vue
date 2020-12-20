@@ -10,8 +10,8 @@
 <!--      <input id="login" type="text" placeholder="login" v-model="email"/>-->
 <!--      <button type="submit" @click="handleSubmit">{{ ('form.submit') }}</button>-->
 <!--    </div>-->
-    <form method="POST" action="http://localhost:8080/api/v1/login/redirect">
-      <input type="hidden" name="frontend_uri" value="http://localhost" />
+    <form method="POST" action="http://localhost:8080/api/v1/oauth/redirect">
+      <input type="hidden" name="redirect_uri" value="http://localhost/token" />
       <input type="submit" value="Se connecter" />
     </form>
   </div>

@@ -8,17 +8,18 @@ use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Controller\Annotations\Route;
 use FOS\RestBundle\View\View;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
-use Mush\User\Entity\User;
 use Mush\User\Service\LoginService;
 use Mush\User\Service\UserServiceInterface;
 use OpenApi\Annotations as OA;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 /**
  * Class LoginController.
  *
- * @Route()
+ * @Route(path="/oauth")
  */
 class LoginController extends AbstractFOSRestController
 {
@@ -60,48 +61,42 @@ class LoginController extends AbstractFOSRestController
      *
      * @OA\Tag (name="Login")
      *
-     * @Post (name="username_login", path="/login")
+     * @Post (name="username_login", path="/token")
      */
-    public function loginAction(Request $request): \Symfony\Component\HttpFoundation\Response
+    public function tokenAction(Request $request): \Symfony\Component\HttpFoundation\Response
     {
-        if (!($code = $request->get('code'))) {
-            throw new AccessDeniedHttpException('Bad credentials.');
-        }
-
-        $user = $this->loginService->login($code);
-
-        return $this->handleView($this->view(['token' => $user]));
+        $redirectUri = $request->get("redirect_uri");
+        $uri = $this->loginService->getAuthorizationUri('base', $redirectUri);
+        return $this->redirect($uri);
     }
     /**
-     * @Post(name="redirec_login", path="login/redirect")
+     * @Post(name="redirec_login", path="/redirect")
      */
-    public function redirectAction(Request $request): \Symfony\Component\HttpFoundation\Response
+    public function redirectAction(Request $request): Response
     {
-//        if (!($code = $request->get('code'))) {
-//            throw new AccessDeniedHttpException('Bad credentials.');
-//        }
-
-        $uri = $this->loginService->getAuthorizationUri('base', 'http://localhost');
-
-//        $user = $this->loginService->login($code);
-
+        $redirectUri = $request->get("redirect_uri");
+        $uri = $this->loginService->getAuthorizationUri('base', $redirectUri);
         return $this->redirect($uri);
     }
 
     /**
-     * @Get(name="callback", path="login/callback")
+     * @Get(name="callback", path="/callback")
      */
-    public function getCallback(Request $request): View
+    public function callbackAction(Request $request): RedirectResponse
     {
         $code = $request->get('code');
         $state = $request->get('state');
-        $uri = $this->loginService->login($code);
-        dump($uri);die();
-        return $this->redirect($state);
+        $user = $this->loginService->login($code);
+
+        $token = $this->jwtManager->create($user);
+
+        $parameters = http_build_query(['token' => $token]);
+
+        return $this->redirect($state.'?'.$parameters);
     }
 
     /**
-     * @Get(name="authorization_uri", path="login/authorization-uri")
+     * @Get(name="authorization_uri", path="authorization-uri")
      */
     public function getAuthorizationUriAction(Request $request): View
     {

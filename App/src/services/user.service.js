@@ -42,7 +42,7 @@ const UserService = {
             console.log( decodeURIComponent(redirectUri.toString()))
             global.window.location.replace(decodeURIComponent(redirectUri.toString()));
             // TokenService.saveToken(response.data.token);
-            // ApiService.setHeader();
+            ApiService.setHeader();
 
             ApiService.mount401Interceptor();
 

@@ -64,6 +64,21 @@ services:
       - CHOKIDAR_USEPOLLING=true
       - CHOKIDAR_INTERVAL=100
       - YOUR_APP_WEB_HTTP_PORT=8080
+
+  eternal_twin:
+    container_name: eternal_twin
+    build:
+      context: ./EternalTwin
+      dockerfile: Dockerfile
+    ports:
+      - "50320:50320"
+    volumes:
+      - ../EternalTwin:/www
+    networks:
+      - mush_network
+    stdin_open: true
+    tty: true
+
 networks:
   mush_network:
     driver: bridge

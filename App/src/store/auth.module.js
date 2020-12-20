@@ -1,5 +1,6 @@
 import { UserService, AuthenticationError } from '../services/user.service'
 import { TokenService } from '../services/storage.service'
+import ApiService from "@/services/api.service";
 
 
 const state =  {
@@ -43,6 +44,17 @@ const getters = {
 };
 
 const actions = {
+    async setToken({ commit }, {token}) {
+        TokenService.saveToken(token);
+        ApiService.setHeader();
+
+        ApiService.mount401Interceptor();
+
+        await UserService.userInfo();
+
+        commit('loginSuccess', token)
+    },
+
     async login({ commit }, {email}) {
         commit('loginRequest');
 

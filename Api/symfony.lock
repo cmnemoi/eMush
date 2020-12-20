@@ -8,6 +8,9 @@
     "behat/transliterator": {
         "version": "v1.3.0"
     },
+    "brick/math": {
+        "version": "0.9.1"
+    },
     "composer/package-versions-deprecated": {
         "version": "1.11.99"
     },
@@ -110,6 +113,9 @@
     },
     "doctrine/sql-formatter": {
         "version": "1.1.1"
+    },
+    "eternal-twin/etwin": {
+        "version": "0.3.2"
     },
     "eternal-twin/oauth-client": {
         "version": "0.1.1"
@@ -308,6 +314,12 @@
     },
     "ralouphie/getallheaders": {
         "version": "3.0.3"
+    },
+    "ramsey/collection": {
+        "version": "1.1.1"
+    },
+    "ramsey/uuid": {
+        "version": "4.1.1"
     },
     "sebastian/cli-parser": {
         "version": "1.0.1"

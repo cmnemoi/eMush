@@ -22,7 +22,7 @@ class TriumphConfig
     private int $id;
 
     /**
-     * @ORM\OneToOne (targetEntity="Mush\Game\Entity\GameConfig", mappedBy="TriumphConfig")
+     * @ORM\ManyToOne(targetEntity="Mush\Game\Entity\GameConfig", inversedBy="triumphConfig")
      */
     private GameConfig $gameConfig;
 

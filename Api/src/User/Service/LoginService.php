@@ -3,7 +3,6 @@
 namespace Mush\User\Service;
 
 use Etwin\Auth\AccessTokenAuthContext;
-use Etwin\Auth\UserAuthContext;
 use Etwin\Client\Auth;
 use Etwin\Client\HttpEtwinClient;
 use Etwin\OauthClient\RfcOauthClient;
@@ -35,7 +34,6 @@ class LoginService
             $clientSecret,
         );
     }
-
 
     public function login(string $code): User
     {

@@ -14,7 +14,6 @@ use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 /**
  * Class LoginController.
@@ -36,7 +35,6 @@ class LoginController extends AbstractFOSRestController
         $this->userService = $userService;
         $this->loginService = $loginService;
     }
-
 
     /**
      * Login.
@@ -63,19 +61,22 @@ class LoginController extends AbstractFOSRestController
      *
      * @Post (name="username_login", path="/token")
      */
-    public function tokenAction(Request $request): \Symfony\Component\HttpFoundation\Response
+    public function tokenAction(Request $request): Response
     {
-        $redirectUri = $request->get("redirect_uri");
+        $redirectUri = $request->get('redirect_uri');
         $uri = $this->loginService->getAuthorizationUri('base', $redirectUri);
+
         return $this->redirect($uri);
     }
+
     /**
      * @Post(name="redirec_login", path="/redirect")
      */
     public function redirectAction(Request $request): Response
     {
-        $redirectUri = $request->get("redirect_uri");
+        $redirectUri = $request->get('redirect_uri');
         $uri = $this->loginService->getAuthorizationUri('base', $redirectUri);
+
         return $this->redirect($uri);
     }
 
@@ -92,7 +93,7 @@ class LoginController extends AbstractFOSRestController
 
         $parameters = http_build_query(['token' => $token]);
 
-        return $this->redirect($state.'?'.$parameters);
+        return $this->redirect($state . '?' . $parameters);
     }
 
     /**

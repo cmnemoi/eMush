@@ -4,7 +4,6 @@ namespace Mush\Game\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-
 /**
  * Class TriumphConfig.
  *
@@ -13,7 +12,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class TriumphConfig
 {
-
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -39,14 +37,12 @@ class TriumphConfig
     /**
      * @ORM\Column(type="boolean", nullable=false)
      */
-    private bool $isAllCrew=false;
+    private bool $isAllCrew = false;
 
     /**
      * @ORM\Column(type="string", nullable=false)
      */
     private string $team;
-
-    
 
     public function getId(): int
     {
@@ -112,5 +108,4 @@ class TriumphConfig
 
         return $this;
     }
-    
 }

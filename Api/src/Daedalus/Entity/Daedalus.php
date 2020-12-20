@@ -88,7 +88,6 @@ class Daedalus
      */
     private DateTime $filledAt;
 
-
     /**
      * Daedalus constructor.
      *

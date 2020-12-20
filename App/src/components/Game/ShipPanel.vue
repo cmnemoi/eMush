@@ -1,5 +1,5 @@
 <template>
-  <div class="ship-panel">
+  <div class="ship-panel" @click="clickOnTarget(getPlayer, $event)">
     <p class="room">{{ room.name }}</p>
     <div class="ship-view">
       <div class="textual">
@@ -9,15 +9,20 @@
           <ul>
             <li v-for="(action,key) in door.actions" v-bind:key="key">
               <a href="#" @click="executeAction(door, action)">
-                <span v-if="action.actionPointCost > 0">{{action.actionMovementPointCost}}<img src="@/assets/images/pm.png" alt="mp"></span>{{action.name}}
+                <span v-if="action.movementPointCost > 0">{{action.movementPointCost}}<img src="@/assets/images/pm.png" alt="mp"></span>{{action.name}}
               </a>
             </li>
           </ul>
         </div>
 
         <h1>Equipment</h1>
-
+        <div v-for="(equipment,key) in room.equipments" v-bind:key="key">
+            <p @click="clickOnTarget(equipment, $event); $event.stopPropagation()">{{ equipment.name }}</p>
+        </div>
         <h1>Players</h1>
+        <div v-for="(player,key) in room.players" v-bind:key="key">
+          <p @click="clickOnTarget(player, $event)">{{player.characterValue}}</p>
+        </div>
 
       </div>
     </div> <!-- PLACEHOLDER -->
@@ -53,7 +58,8 @@
 import RoomInventoryPanel from "@/components/Game/RoomInventoryPanel";
 import {Room} from "@/entities/Room";
 import ActionService from "@/services/action.service";
-import {mapActions} from "vuex";
+import {mapActions, mapGetters} from "vuex";
+
 export default {
   name: "ShipPanel",
   components: {
@@ -62,12 +68,21 @@ export default {
   props: {
     room: Room
   },
+  computed: {
+    ...mapGetters('player', [
+        'getPlayer'
+    ])
+  },
   methods: {
     executeAction: function (door, action) {
       ActionService.executeDoorAction(door, action).then(() => this.reloadPlayer());
     },
+    clickOnTarget: function (target, event) {
+      this.selectTarget({target:target}); event.stopPropagation()
+    },
     ...mapActions('player', [
       'reloadPlayer',
+      'selectTarget',
     ]),
   }
 }

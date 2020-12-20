@@ -1,6 +1,5 @@
 <template>
   <div class="char-panel">
-
     <div class="char-sheet">
       <img class="avatar" :src="characterPortrait" alt="avatar">
 
@@ -36,6 +35,15 @@
         <ul>
           <li v-for="(action,key) in selectedItem.actions" v-bind:key="key">
             <a href="#" @click="executeAction(action)">
+              <span v-if="action.actionPointCost > 0">{{action.actionPointCost}}<img src="@/assets/images/pa.png" alt="ap"></span>{{action.name}}
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="interactions" v-else-if="getTarget">
+        <ul>
+          <li v-for="(action,key) in getTarget.actions" v-bind:key="key">
+            <a href="#" @click="executeTargetAction(action)">
               <span v-if="action.actionPointCost > 0">{{action.actionPointCost}}<img src="@/assets/images/pa.png" alt="ap"></span>{{action.name}}
             </a>
           </li>
@@ -78,7 +86,7 @@ import {Player} from "@/entities/Player";
 import {characterEnum} from '@/enums/character';
 import Inventory from "@/components/Game/Inventory";
 import ActionService from "@/services/action.service";
-import {mapActions} from "vuex";
+import {mapActions, mapGetters} from "vuex";
 import {statusPlayerEnum} from "@/enums/status.player.enum";
 import {statusItemEnum} from "@/enums/status.item.enum";
 
@@ -90,13 +98,16 @@ export default {
   },
   data: () => {
     return {
-      selectedItem: null
+      selectedItem: null,
     }
   },
   computed: {
     characterPortrait: function() {
       return characterEnum[this.player.characterKey].portrait;
-    }
+    },
+    ...mapGetters('player', [
+      'getTarget'
+    ])
   },
   methods: {
     isFull: function (value, threshold) {
@@ -115,6 +126,9 @@ export default {
     itemStatusIcon: function(status) {
       const statusImages = statusItemEnum[status.key];
       return typeof statusImages !== 'undefined' ? statusImages.icon : null;
+    },
+    executeTargetAction: function (action) {
+      ActionService.executeTargetAction(this.getTarget, action).then(() => this.reloadPlayer());
     },
     executeAction: function (action) {
       ActionService.executeItemAction(this.selectedItem, action).then(() => this.reloadPlayer());

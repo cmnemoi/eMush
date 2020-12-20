@@ -4,7 +4,8 @@ import {AuthenticationError} from "@/services/user.service";
 
 const state =  {
     loading: false,
-    player: null
+    player: null,
+    target: null
 };
 
 const getters = {
@@ -13,17 +14,21 @@ const getters = {
     },
     loading: (state) => {
         return state.loading
+    },
+    getTarget: (state) => {
+        return state.target
     }
 };
 
 const actions = {
+    async selectTarget({ commit }, {target}) {
+        commit('selectTarget', target)
+    },
     async storePlayer({ commit }, {player}) {
-        console.log(player)
         commit('loadSuccess', player)
     },
     async loadPlayer({ commit }, {playerId}) {
         commit('loadRequest');
-
         try {
             const player = await PlayerService.loadPlayer(playerId);
             commit('loadSuccess', player)
@@ -54,6 +59,9 @@ const actions = {
 };
 
 const mutations = {
+    selectTarget(state, target) {
+        state.target = target;
+    },
     loadRequest(state) {
         state.player = null;
         state.loading = true;
@@ -64,6 +72,7 @@ const mutations = {
     },
 
     loadSuccess(state, player) {
+        state.target = player;
         state.player = player;
         state.loading = false;
         },

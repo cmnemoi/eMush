@@ -17,6 +17,16 @@ const ActionService = {
         return ApiService.post(ACTION_ENDPOINT, data);
     },
 
+    executeTargetAction: (target, action) => {
+        const data = {
+            "action": action.key,
+            "params" : {
+                "player": target.id
+            }
+        };
+        return ApiService.post(ACTION_ENDPOINT, data);
+    },
+
     executeDoorAction: (door, action) => {
         const data = {
             "action": action.key,

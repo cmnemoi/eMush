@@ -42,7 +42,6 @@ class OtherPlayerNormalizer implements ContextAwareNormalizerInterface, Normaliz
     public function normalize($object, string $format = null, array $context = []): array
     {
         $player = $object;
-
         $statuses = [];
         foreach ($player->getStatuses() as $status) {
             $normedStatus = $this->normalizer->normalize($status, null, ['player' => $player]);
@@ -61,8 +60,8 @@ class OtherPlayerNormalizer implements ContextAwareNormalizerInterface, Normaliz
             })
         ;
 
-        $actions = ActionEnum::getPermanentPlayerActions();
-        $playerActions = [];
+        $playerActions = ActionEnum::getPermanentPlayerActions();
+        $actions = [];
 
         foreach ($tools as $tool) {
             $toolActions = $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getActionsTarget();

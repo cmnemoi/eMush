@@ -1373,25 +1373,25 @@ Répugnant... Vous devriez le brûler.</target>
 Avec quelques outils et de la patience, c'est fou ce à quoi l'on peut arriver.</target>
 			</segment>
         </unit>
-	   <unit id="scrap_metal">
+	   <unit id="metal_scraps">
             <segment id="name">
-                <source>scrap_metal.name</source>
+                <source>metal_scraps.name</source>
                 <target>Débris métallique</target>
             </segment>
             <segment id="short_name">
-                <source>scrap_metal.short_name</source>
+                <source>metal_scraps.short_name</source>
                 <target>Débris métallique</target>
             </segment>
             <segment id="genre">
-                <source>scrap_metal.genre</source>
+                <source>metal_scraps.genre</source>
                 <target>male</target>
             </segment>
             <segment id="description">
-                <source>scrap_metal.description</source>
+                <source>metal_scraps.description</source>
                 <target>Encore des débris sans intérêt.</target>
 				</segment>
             <segment id="examine">
-                <source>scrap_metal.examine</source>
+                <source>metal_scraps.examine</source>
                 <target>Des débris sans intérêt.
 Il est parfois surprenant de voir ce que certains savent faire avec quelques morceaux d'aluminium.</target>
 			</segment>

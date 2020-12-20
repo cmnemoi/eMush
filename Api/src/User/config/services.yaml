@@ -20,3 +20,6 @@ services:
   Mush\User\Controller\:
     resource: '../Controller/'
     tags: ['controller.service_arguments']
+
+  Mush\User\Service\LoginService:
+    arguments: ['%env(IDENTITY_SERVER_URI)%', '%env(OAUTH_AUTHORIZATION_URI)%', '%env(OAUTH_TOKEN_URI)%', '%env(OAUTH_CALLBACK)%', '%env(OAUTH_CLIENT_ID)%', '%env(OAUTH_SECRET_ID)%']

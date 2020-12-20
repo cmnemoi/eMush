@@ -5,10 +5,11 @@ security:
             entity:
                 class: Mush\User\Entity\User
     firewalls:
-        login:
-            pattern:  ^/api/v1/login
+        token:
+            pattern:  ^/api/v1/oauth
             stateless: true
             anonymous: true
+
         api:
             pattern:   ^/api
             stateless: true
@@ -16,5 +17,5 @@ security:
                 authenticators:
                     - lexik_jwt_authentication.jwt_token_authenticator
     access_control:
-        - { path: ^/api/v1/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/v1/oauth, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }

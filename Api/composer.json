@@ -9,6 +9,8 @@
         "doctrine/doctrine-bundle": "^2.2",
         "doctrine/doctrine-migrations-bundle": "^3.0",
         "doctrine/orm": "^2.7",
+        "eternal-twin/etwin": "^0.3.2",
+        "eternal-twin/oauth-client": "^0.1.1",
         "friendsofsymfony/rest-bundle": "^3.0",
         "gedmo/doctrine-extensions": "^3.0",
         "lexik/jwt-authentication-bundle": "^2.10",

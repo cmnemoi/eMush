@@ -2,7 +2,9 @@ import ApiService from './api.service'
 import { TokenService } from './storage.service'
 import {User} from "@/entities/User";
 
-const loginUrl = process.env.VUE_APP_API_URL + 'login';
+const authorizationUrl = process.env.VUE_APP_API_URL + 'login/authorization-uri';
+// const tokenUrl = process.env.VUE_APP_API_URL + 'login/token';
+
 class AuthenticationError extends Error {
     constructor(errorCode, message) {
         super();
@@ -25,14 +27,21 @@ const UserService = {
         loginData.append('username', email);
 
         const requestData = {
-            method: 'post',
-            url: loginUrl,
-            data: loginData,
+            method: 'get',
+            url: authorizationUrl,
         };
 
         try {
             const response = await ApiService.customRequest(requestData);
-            TokenService.saveToken(response.data.token);
+
+            console.log(response.data.authorization_uri)
+            const authorizationUri = response.data.authorization_uri;
+            const redirectUri = new URLSearchParams(authorizationUri);
+            redirectUri.set('redirect_uri', 'http://localhost/oauth/callback')
+            console.log(authorizationUri)
+            console.log( decodeURIComponent(redirectUri.toString()))
+            global.window.location.replace(decodeURIComponent(redirectUri.toString()));
+            // TokenService.saveToken(response.data.token);
             ApiService.setHeader();
 
             ApiService.mount401Interceptor();
@@ -41,7 +50,7 @@ const UserService = {
 
             return response.data.token
         } catch (error) {
-            console.error(error.response)
+            console.error(error)
             // eslint-disable-next-line no-console
             throw new AuthenticationError(error.response.status, error.response.data.detail)
         }
@@ -50,31 +59,31 @@ const UserService = {
     /**
      * Refresh the access token.
      **/
-    refreshToken: async function() {
-        const username = TokenService.getUserInfo().username;
-        let loginData = new FormData();
-        loginData.append("grant_type", 'password');
-        loginData.append('username', username);
-
-        const requestData = {
-            method: 'post',
-            url: loginUrl,
-            data: loginData,
-        };
-
-        try {
-            const response = await ApiService.customRequest(requestData);
-
-            TokenService.saveToken(response.data.token);
-            // Update the header in ApiService
-            ApiService.setHeader();
-
-            return response.data.token
-        } catch (error) {
-            throw new AuthenticationError(error.response.status, error.response.data.detail)
-        }
-
-    },
+    // refreshToken: async function() {
+    //     const username = TokenService.getUserInfo().username;
+    //     let loginData = new FormData();
+    //     loginData.append("grant_type", 'password');
+    //     loginData.append('username', username);
+    //
+    //     const requestData = {
+    //         method: 'post',
+    //         url: loginUrl,
+    //         data: loginData,
+    //     };
+    //
+    //     try {
+    //         const response = await ApiService.customRequest(requestData);
+    //
+    //         TokenService.saveToken(response.data.token);
+    //         // Update the header in ApiService
+    //         ApiService.setHeader();
+    //
+    //         return response.data.token
+    //     } catch (error) {
+    //         throw new AuthenticationError(error.response.status, error.response.data.detail)
+    //     }
+    //
+    // },
 
     userInfo: async function() {
         try {

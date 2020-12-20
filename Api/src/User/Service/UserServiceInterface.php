@@ -11,4 +11,6 @@ interface UserServiceInterface
     public function findById(int $id): ?User;
 
     public function findUserByUserId(string $userId): ?User;
+
+    public function createUser(string $userId, string $username): ?User;
 }

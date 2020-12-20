@@ -12,9 +12,6 @@ class UserService implements UserServiceInterface
 
     private UserRepository $repository;
 
-    /**
-     * UserService constructor.
-     */
     public function __construct(EntityManagerInterface $entityManager, UserRepository $repository)
     {
         $this->entityManager = $entityManager;
@@ -37,5 +34,18 @@ class UserService implements UserServiceInterface
     public function findUserByUserId(string $userId): ?User
     {
         return $this->repository->loadUserByUsername($userId);
+    }
+
+    public function createUser(string $userId, string $username): User
+    {
+        $user = new User();
+        $user
+            ->setUserId($userId)
+            ->setUsername($username)
+        ;
+
+        $this->persist($user);
+
+        return $user;
     }
 }

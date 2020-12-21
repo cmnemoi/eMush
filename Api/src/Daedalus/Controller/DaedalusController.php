@@ -91,7 +91,7 @@ class DaedalusController extends AbstractFOSRestController
         $daedalus = $this->daedalusService->findAvailableDaedalus();
 
         if ($daedalus === null) {
-            throw new NotFoundHttpException();
+            $daedalus = $this->daedalusService->createDaedalus($this->gameConfigService->getConfig());
         }
 
         $availableCharacters = $this->daedalusService->findAvailableCharacterForDaedalus($daedalus);

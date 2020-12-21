@@ -13,9 +13,6 @@ class CycleService implements CycleServiceInterface
     private GameConfig $gameConfig;
     private EventDispatcherInterface $eventDispatcher;
 
-    /**
-     * CycleService constructor.
-     */
     public function __construct(
         GameConfigServiceInterface $gameConfigService,
         EventDispatcherInterface $eventDispatcher

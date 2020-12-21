@@ -23,4 +23,6 @@ interface DaedalusServiceInterface
     public function createDaedalus(GameConfig $gameConfig): Daedalus;
 
     public function selectAlphaMush(Daedalus $daedalus): Daedalus;
+
+    public function getRandomAsphyxia(Daedalus $daedalus): Daedalus;
 }

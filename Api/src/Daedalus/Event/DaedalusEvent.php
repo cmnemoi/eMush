@@ -12,6 +12,8 @@ class DaedalusEvent extends Event
     public const FULL_DAEDALUS = 'full.daedalus';
 
     private Daedalus $daedalus;
+    private ?string $reason = null;
+
 
     public function __construct(Daedalus $daedalus)
     {
@@ -21,5 +23,17 @@ class DaedalusEvent extends Event
     public function getDaedalus(): Daedalus
     {
         return $this->daedalus;
+    }
+
+    public function getReason(): ?string
+    {
+        return $this->reason;
+    }
+
+    public function setReason(?string $reason): DaedalusEvent
+    {
+        $this->reason = $reason;
+
+        return $this;
     }
 }

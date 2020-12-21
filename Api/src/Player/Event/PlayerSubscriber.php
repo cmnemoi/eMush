@@ -99,18 +99,14 @@ class PlayerSubscriber implements EventSubscriberInterface
         //@TODO two steps death
         $player->setGameStatus(GameStatusEnum::FINISHED);
 
-        if ($player->getDaedalus->getPlayers()->count()===0){
+        if ($player->getDaedalus->getPlayers()->count()===0 &&
+            $reason!==EndCauseEnum::SOL_RETURN &&
+            $reason!==EndCauseEnum::EDEN &&
+            $reason!==EndCauseEnum::SUPER_NOVA &&
+            $reason!==EndCauseEnum::KILLED_BY_NERON){
             $endDaedalusEvent = new DaedalusEvent($player->getDaedalus());
 
-            if ($reason===EndCauseEnum::SOL_RETURN ||
-                $reason===EndCauseEnum::EDEN ||
-                $reason===EndCauseEnum::SUPER_NOVA ||
-                $reason===EndCauseEnum::KILLED_BY_NERON
-                ){
-                    $endDaedalusEvent->setReason($reason);
-            }else{
-                $endDaedalusEvent->setReason(EndCauseEnum::DAEDALUS_DESTROYED);
-            }
+            $endDaedalusEvent->setReason(EndCauseEnum::DAEDALUS_DESTROYED);
 
             $this->eventDispatcher->dispatch($endDaedalusEvent, DaedalusEvent::END_DAEDALUS);
         }

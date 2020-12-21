@@ -127,7 +127,7 @@ class Room
     /**
      * @return static
      */
-    public function setPlayers(PlayerCollection $players): Room
+    public function setPlayers(ArrayCollection $players): Room
     {
         $this->players = $players;
 

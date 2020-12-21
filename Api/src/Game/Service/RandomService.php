@@ -7,6 +7,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Room\Entity\Room;
 
 class RandomService implements RandomServiceInterface
@@ -21,27 +22,22 @@ class RandomService implements RandomServiceInterface
         return $this->random(1, 100);
     }
 
+    public function getRandomPlayer(PlayerCollection $players): Player
+    {
+        if ($players->isEmpty()) {
+            throw new Error('getRandomPlayer: collection is empty');
+        }
+        return $players->get($this->random(0, $players->count() - 1));
+    }
+
     public function getPlayerInRoom(Room $room): Player
     {
-        if ($room->getPlayers()->isEmpty()) {
-            throw new Error('getPlayerInRoom: room is empty');
-        }
-
-        return $room->getPlayers()->get($this->random(0, $room->getPlayers()->count() - 1));
+        return $this->getRandomPlayer($room->getPlayers());
     }
 
-    public function getPlayerInShip(Daedalus $ship): Player
+    public function getAlivePlayerInDaedalus(Daedalus $ship): Player
     {
-        if ($ship->getPlayers()->isEmpty()) {
-            throw new Error('getPlayerInShip: ship is empty');
-        }
-
-        return $ship->getPlayers()->get($this->random(0, $ship->getPlayers()->count() - 1));
-    }
-
-    public function getPlayerInDaedalus(Daedalus $ship): Player
-    {
-        return $this->getPlayerInShip($ship);
+        return $this->getRandomPlayer($ship->getPlayers()->getPlayerAlive());
     }
 
     public function getItemInRoom(Room $room): GameItem

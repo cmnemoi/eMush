@@ -100,9 +100,6 @@ class PlayerService implements PlayerServiceInterface
 
         $characterConfig = $this->gameConfig->getCharactersConfig()->getCharacter($character);
 
-        /** @var Collection<int, Status> $statuses */
-        $statuses = new ArrayCollection();
-
         $player
             ->setUser($user)
             ->setGameStatus(GameStatusEnum::CURRENT)

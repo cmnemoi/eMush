@@ -49,6 +49,11 @@ class DaedalusSubscriber implements EventSubscriberInterface
     public function onDaedalusEnd(DaedalusEvent $event): void
     {
         $daedalus = $event->getDaedalus();
+        $reason =$event->getReason();
+
+        $this->daedalusService->killRemainingPlayers($daedalus, $reason);
+
+
         // @TODO: create logs
     }
 

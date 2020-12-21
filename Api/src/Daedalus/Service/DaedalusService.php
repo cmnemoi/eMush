@@ -10,12 +10,15 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Daedalus\Repository\DaedalusRepository;
 use Mush\Equipment\Entity\EquipmentConfig;
+use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Room\Entity\Room;
 use Mush\Room\Entity\RoomConfig;
@@ -172,6 +175,48 @@ class DaedalusService implements DaedalusServiceInterface
                 $playerEvent = new PlayerEvent($mushPlayer);
                 $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::CONVERSION_PLAYER);
             }
+        }
+
+        return $daedalus;
+    }
+
+    public function getRandomAsphyxia(Daedalus $daedalus): Daedalus
+    {
+        $chancesArray = [];
+        foreach ($daedalus->getPlayers() as $player) {
+            if (!$player->getItems()->filter(fn (GameItem $item) => $item->getName()===ItemEnum::OXYGEN_CAPSULE)->isEmpty()){
+                $capsule=$player->getItems()->filter(fn (GameItem $item) => $item->getName()===ItemEnum::OXYGEN_CAPSULE)->first();
+                $capsule->removeLocation();
+                $this->gameEquipmentService->delete($capsule);
+            }else{
+                $chancesArray[$player->getPerson()]=1;
+            }
+        }
+
+        $playerName = $this->randomService->getSingleRandomElementFromProbaArray($chancesArray);
+
+        $player = $daedalus
+                ->getPlayers()
+                ->filter(fn (Player $player) => $player->getPerson() === $playerName)->first()
+            ;
+
+        $playerEvent = new PlayerEvent($player);
+        $playerEvent->setReason(EndCauseEnum::ASPHYXIA);
+        
+        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
+
+        return $daedalus;
+    }
+
+    public function killRemainingPlayers(Daedalus $daedalus, string $cause): Daedalus
+    {
+        $playerAliveNb = $daedalus->getPlayers()->getPlayerAlive()->count();
+        for ($i = 0; $i < $playerAliveNb; ++$i) {
+            $player=$this->randomService->getAlivePlayerInDaedalus($daedalus);
+
+            $playerEvent = new PlayerEvent($player);
+            $playerEvent->setReason($cause);
+            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
         }
 
         return $daedalus;

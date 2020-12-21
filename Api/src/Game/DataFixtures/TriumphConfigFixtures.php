@@ -3,13 +3,15 @@
 namespace Mush\Game\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Mush\Daedalus\DataFixtures\DaedalusConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\TriumphConfig;
 use Mush\Game\Enum\TriumphEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 
-class TriumphConfigFixtures extends Fixture
+class TriumphConfigFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
@@ -431,5 +433,12 @@ class TriumphConfigFixtures extends Fixture
         $manager->persist($allPregnant);
 
         $manager->flush();
+    }
+
+    public function getDependencies(): array
+    {
+        return [
+            DaedalusConfigFixtures::class,
+        ];
     }
 }

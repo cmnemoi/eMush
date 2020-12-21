@@ -40,7 +40,7 @@ abstract class Action
             return new Error('Cannot execute action');
         }
 
-        $preActionEvent = new ActionEvent($this->getActionName(), $this->player);
+        $preActionEvent = new ActionEvent($this->getActionName(), $this->player, $this->actionCost;
         $this->eventManager->dispatch($preActionEvent, ActionEvent::PRE_ACTION);
 
         $this->applyActionCost();

@@ -12,11 +12,13 @@ class ActionEvent extends Event
 
     private Player $player;
     private string $action;
+    private int $actionCost;
 
     public function __construct(string $action, Player $player)
     {
         $this->action = $action;
         $this->player = $player;
+        $this->actionCost=$actionCost;
     }
 
     public function getPlayer(): Player
@@ -27,5 +29,10 @@ class ActionEvent extends Event
     public function getAction(): string
     {
         return $this->action;
+    }
+
+    public function getActionCost(): int
+    {
+        return $this->actionCost;
     }
 }

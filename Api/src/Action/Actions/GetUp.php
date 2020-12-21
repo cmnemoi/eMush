@@ -39,7 +39,7 @@ class GetUp extends Action
         $this->statusService = $statusService;
         $this->playerService = $playerService;
 
-        $this->actionCost->setActionPointCost(1);
+        $this->actionCost->setActionPointCost(0);
     }
 
     public function loadParameters(Player $player, ActionParameters $actionParameters): void

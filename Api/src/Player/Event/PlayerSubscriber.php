@@ -9,6 +9,7 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\TriumphEnum;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Daedalus\Event\DaedalusEvent;
+use Mush\Player\Enum\GameStatusEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -87,7 +88,16 @@ class PlayerSubscriber implements EventSubscriberInterface
             VisibilityEnum::PUBLIC
         );
 
+        foreach ($player->getItems() as $item){
+            $item->setPlayer(null);
+            $item->setRoom($player->getRoom());
+        }
+        //@TODO in case of assasination chance of disorder for roommates
+
+
         $player->setRoom(null);
+        //@TODO two steps death
+        $player->setGameStatus(GameStatusEnum::FINISHED);
 
         if ($player->getDaedalus->getPlayers()->count()===0){
             $endDaedalusEvent = new DaedalusEvent($player->getDaedalus());

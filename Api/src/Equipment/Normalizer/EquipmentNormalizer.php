@@ -47,7 +47,7 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
         $actions = [];
 
         $context = [];
-        $type = [];
+
         if ($object instanceof Door) {
             $context['door'] = $object;
             $type = 'door';

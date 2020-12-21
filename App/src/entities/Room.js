@@ -1,5 +1,7 @@
 import {Item} from "@/entities/Item";
 import {Door} from "@/entities/Door";
+import {Player} from "@/entities/Player";
+import {Equipment} from "@/entities/Equipment";
 
 export class Room {
     constructor() {
@@ -8,6 +10,8 @@ export class Room {
         this.key = null;
         this.name = null;
         this.doors = [];
+        this.equipments = [];
+        this.players = [];
     }
     load = function(object) {
         if (typeof object !== "undefined") {
@@ -21,6 +25,15 @@ export class Room {
             object.doors.forEach((doorObject) => {
                 let door = (new Door).load(doorObject)
                 this.doors.push(door);
+            })
+            object.players.forEach((playerObject) => {
+                let player = (new Player).load(playerObject)
+                this.players.push(player);
+            })
+
+            object.equipments.forEach((equipmentObject) => {
+                let equipment = (new Equipment()).load(equipmentObject)
+                this.equipments.push(equipment);
             })
         }
         return this;

@@ -84,10 +84,9 @@ class Daedalus
     private int $dailySpores;
 
     /**
-     * @ORM\Column(type="datetime", nullable=false)
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private DateTime $filledAt;
-
 
     /**
      * Daedalus constructor.

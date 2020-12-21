@@ -2,7 +2,6 @@
 
 namespace Mush\Player\Event;
 
-use DateTime;
 use Mush\Player\Entity\ActionModifier;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
@@ -26,7 +25,6 @@ class PlayerSubscriber implements EventSubscriberInterface
     private EventDispatcherInterface $eventDispatcher;
     private RoomLogServiceInterface $roomLogService;
     private StatusServiceInterface $statusService;
-
 
     public function __construct(
         PlayerServiceInterface $playerService,

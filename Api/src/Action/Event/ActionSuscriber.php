@@ -53,7 +53,7 @@ class ActionSubscriber implements EventSubscriberInterface
             $lyingDownStatus->setPlayer(null)->setGameEquipment(null);
             $this->statusServive->persist($lyingDownStatus);
 
-            $actionCost=$actionCost+1;
+            $actionCost->setActionPointCost($actionCost->getActionPointCost()+1);
         }
     }
 

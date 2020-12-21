@@ -25,19 +25,16 @@ class LieDown extends Action
 
     private RoomLogServiceInterface $roomLogService;
     private StatusServiceInterface $statusService;
-    private PlayerServiceInterface $playerService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         RoomLogServiceInterface $roomLogService,
-        StatusServiceInterface $statusService,
-        PlayerServiceInterface $playerService
+        StatusServiceInterface $statusService
     ) {
         parent::__construct($eventDispatcher);
 
         $this->roomLogService = $roomLogService;
         $this->statusService = $statusService;
-        $this->playerService = $playerService;
 
         $this->actionCost->setActionPointCost(0);
     }
@@ -56,7 +53,7 @@ class LieDown extends Action
     {
 
 
-        return $this->gameEquipment->getEquipment->hasAction(ActionEnum::LIE_DOWN) &&
+        return $this->gameEquipment->getEquipment()->hasAction(ActionEnum::LIE_DOWN) &&
             !$this->gameEquipment->isbroken() &&
             !$this->gameEquipment->getStatusByName(PlayerStatusEnum::LYING_DOWN) &&
             !$this->player->getStatusByName(PlayerStatusEnum::LYING_DOWN) &&
@@ -72,6 +69,7 @@ class LieDown extends Action
             ->setPlayer($this->player)
             ->setGameEquipment($this->gameEquipment)
         ;
+        $this->statusService->persist($lyingDownStatus);
 
         return new Success();
     }

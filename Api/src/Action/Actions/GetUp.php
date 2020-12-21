@@ -21,24 +21,18 @@ class GetUp extends Action
 {
     protected string $name = ActionEnum::GET_UP;
 
-    private Player $targetPlayer;
-
     private RoomLogServiceInterface $roomLogService;
     private StatusServiceInterface $statusService;
-    private PlayerServiceInterface $playerService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         RoomLogServiceInterface $roomLogService,
-        StatusServiceInterface $statusService,
-        PlayerServiceInterface $playerService
+        StatusServiceInterface $statusService
     ) {
         parent::__construct($eventDispatcher);
 
         $this->roomLogService = $roomLogService;
         $this->statusService = $statusService;
-        $this->playerService = $playerService;
-
         $this->actionCost->setActionPointCost(0);
     }
 
@@ -49,7 +43,10 @@ class GetUp extends Action
 
     public function canExecute(): bool
     {
-        return true;
+        if($this->player->getStatusByName(PlayerStatusEnum::LYING_DOWN)){
+            return true;
+        }
+        return false;
     }
 
     protected function applyEffects(): ActionResult
@@ -58,7 +55,7 @@ class GetUp extends Action
 
         $lyingDownStatus->setPlayer(null)->setGameEquipment(null);
 
-        $this->statusServive->persist($lyingDownStatus);
+        $this->statusService->persist($lyingDownStatus);
 
         return new Success();
     }

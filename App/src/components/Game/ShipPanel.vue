@@ -169,7 +169,7 @@ export default {
 
 .textual {
   overflow: auto;
-  padding: 18px 12px 188px 12px;
+  padding: 18px 12px;
   font-size: .83em;
 
   h1, h2, h3 {
@@ -191,6 +191,10 @@ export default {
       @include button-style();
       padding: 1px 6px 3px 6px;
     }
+  }
+
+  & > *:last-child {
+    margin-bottom: 188px;
   }
 }
 

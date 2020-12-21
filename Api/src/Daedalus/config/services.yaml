@@ -20,3 +20,11 @@ services:
   Mush\Daedalus\Controller\:
     resource: '../Controller/'
     tags: ['controller.service_arguments']
+
+  Mush\Daedalus\Event\DaedalusPostLoadListener:
+    tags:
+      -
+        # these are the options required to define the entity listener
+        name: 'doctrine.orm.entity_listener'
+        event: 'postLoad'
+        entity: 'Mush\Daedalus\Entity\Daedalus'

@@ -84,7 +84,7 @@ class Consume extends Action
 
         $actionModifier = new ActionModifier();
 
-        if (!$this->player->isMush()){
+        if (!$this->player->isMush()) {
             $actionModifier
                 ->setActionPointModifier($equipmentEffect->getActionPoint())
                 ->setMovementPointModifier($equipmentEffect->getMovementPoint())

@@ -2,9 +2,11 @@
 
 namespace Mush\Player\Event;
 
+use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Player\Entity\ActionModifier;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
+use Mush\Player\Enum\GameStatusEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -59,6 +61,9 @@ class PlayerSubscriber implements EventSubscriberInterface
     public function onDeathPlayer(PlayerEvent $event): void
     {
         $player = $event->getPlayer();
+        $reason = $event->getReason();
+
+        $player->setEndStatus($reason);
 
         if ($player->getEndStatus() !== EndCauseEnum::DEPRESSION) {
             /** @var Player $daedalusPlayer */
@@ -79,6 +84,29 @@ class PlayerSubscriber implements EventSubscriberInterface
             $player,
             VisibilityEnum::PUBLIC
         );
+
+        foreach ($player->getItems() as $item) {
+            $item->setPlayer(null);
+            $item->setRoom($player->getRoom());
+        }
+        //@TODO in case of assasination chance of disorder for roommates
+
+        $player->setRoom(null);
+        //@TODO two steps death
+        $player->setGameStatus(GameStatusEnum::FINISHED);
+
+        if ($player->getDaedalus()->getPlayers()->isEmpty() &&
+            $reason !== EndCauseEnum::SOL_RETURN &&
+            $reason !== EndCauseEnum::EDEN &&
+            $reason !== EndCauseEnum::SUPER_NOVA &&
+            $reason !== EndCauseEnum::KILLED_BY_NERON
+        ) {
+            $endDaedalusEvent = new DaedalusEvent($player->getDaedalus());
+
+            $endDaedalusEvent->setReason(EndCauseEnum::DAEDALUS_DESTROYED);
+
+            $this->eventDispatcher->dispatch($endDaedalusEvent, DaedalusEvent::END_DAEDALUS);
+        }
     }
 
     public function onModifierPlayer(PlayerEvent $playerEvent): void
@@ -89,6 +117,10 @@ class PlayerSubscriber implements EventSubscriberInterface
         $this->playerService->handlePlayerModifier($player, $playerModifier, $playerEvent->getTime());
 
         if ($player->getHealthPoint() === 0) {
+            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
+        }
+        if ($player->getMoralPoint() === 0) {
+            $playerEvent->setReason(EndCauseEnum::DEPRESSION);
             $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
         }
 

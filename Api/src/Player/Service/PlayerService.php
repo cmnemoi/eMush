@@ -2,8 +2,6 @@
 
 namespace Mush\Player\Service;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusEvent;
@@ -99,9 +97,6 @@ class PlayerService implements PlayerServiceInterface
         $user = $this->tokenStorage->getToken()->getUser();
 
         $characterConfig = $this->gameConfig->getCharactersConfig()->getCharacter($character);
-
-        /** @var Collection<int, Status> $statuses */
-        $statuses = new ArrayCollection();
 
         $player
             ->setUser($user)

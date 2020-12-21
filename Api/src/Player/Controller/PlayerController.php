@@ -65,8 +65,6 @@ class PlayerController extends AbstractFOSRestController
     {
         $this->denyAccessUnlessGranted(CharacterVoter::PLAYER_VIEW, $player);
 
-        $this->cycleService->handleCycleChange($player->getDaedalus());
-
         $view = $this->view($player, 200);
 
         return $this->handleView($view);

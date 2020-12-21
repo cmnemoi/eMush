@@ -9,6 +9,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 
 /**
@@ -57,14 +58,9 @@ class Room
      */
     private array $statuses;
 
-    /**
-     * Room constructor.
-     *
-     * @param int $id
-     */
     public function __construct()
     {
-        $this->players = new ArrayCollection();
+        $this->players = new PlayerCollection();
         $this->equipments = new ArrayCollection();
         $this->doors = new ArrayCollection();
         $this->statuses = [];
@@ -117,8 +113,12 @@ class Room
         return $this;
     }
 
-    public function getPlayers(): Collection
+    public function getPlayers(): PlayerCollection
     {
+        if (!$this->players instanceof PlayerCollection) {
+            $this->players = new PlayerCollection($this->players->toArray());
+        }
+
         return $this->players;
     }
 

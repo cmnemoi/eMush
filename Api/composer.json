@@ -8,7 +8,7 @@
         "composer/package-versions-deprecated": "^1.11",
         "doctrine/doctrine-bundle": "^2.2",
         "doctrine/doctrine-migrations-bundle": "^3.0",
-        "doctrine/orm": "^2.7",
+        "doctrine/orm": "^2.8",
         "eternal-twin/etwin": "^0.3.2",
         "eternal-twin/oauth-client": "^0.1.1",
         "friendsofsymfony/rest-bundle": "^3.0",

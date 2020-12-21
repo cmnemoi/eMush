@@ -46,25 +46,17 @@ class ItemPileNormalizer implements ContextAwareNormalizerInterface, NormalizerA
         $items = $object->filter(fn (GameEquipment $equipment) => $equipment instanceof GameItem);
 
         foreach ($items as $item) {
-            $itemName = $item->getEquipment()->getName();
-            $itemStatuses = $item->getStatuses();
-
             $hiddenStatus = $item->GetStatusByName(EquipmentStatusEnum::HIDDEN);
             if (!$hiddenStatus || ($hiddenStatus->getPlayer() === $this->getPlayer())) {
+                //If item is stackable and there is already piles for this item
                 if ($item->getEquipment()->isStackable() &&
-                    count(array_filter($piles, function ($pile) use ($itemName, $itemStatuses) {
-                        return isset($pile['key']) && $pile['key'] === $itemName && $this->compareStatusesForPiles($itemStatuses, $pile['id']);
-                    })) > 0) {
+                    ($pileItemKey = $this->getPileItemKey($item, $piles, $items))
+                ) {
                     //@TODO if ration is contaminated put it on top of the pile
-
-                    $pileKey = array_search(current(array_filter($piles, function ($pile) use ($itemName, $itemStatuses) {
-                        return isset($pile['key']) && $pile['key'] === $itemName && $this->compareStatusesForPiles($itemStatuses, $pile['id']);
-                    })), $piles);
-
-                    if (isset($piles[$pileKey]) && array_key_exists('number', $piles[$pileKey])) {
-                        $piles[$pileKey]['number'] = $piles[$pileKey]['number'] + 1;
+                    if (isset($piles[$pileItemKey]['number'])) {
+                        $piles[$pileItemKey]['number'] = $piles[$pileItemKey]['number'] + 1;
                     } else {
-                        $piles[$pileKey]['number'] = 2;
+                        $piles[$pileItemKey]['number'] = 2;
                     }
                 } else {
                     $piles[] = $this->normalizer->normalize($item);
@@ -91,11 +83,28 @@ class ItemPileNormalizer implements ContextAwareNormalizerInterface, NormalizerA
         return $player;
     }
 
-    private function compareStatusesForPiles(Collection $itemStatuses, int $pileId): bool
+    private function getPileItemKey(GameEquipment $gameEquipment, array &$pile, Collection $gameEquipments): ?int
     {
-        if (!$pileTopEquipment = $this->gameEquipmentService->findById($pileId)) {
-            throw new \LogicException('Top element in pile should exist in database');
+        if (empty($pile)) {
+            return null;
         }
+
+        $pileItemKey = key(array_filter(
+            $pile,
+            fn ($pileItem) => (
+                $pileItem['key'] === $gameEquipment->getName() && $this->isSamePile($gameEquipment, $pileItem, $gameEquipments)
+            )
+        ));
+
+        return $pileItemKey ? $pileItemKey : null;
+    }
+
+    private function isSamePile(GameEquipment $gameEquipment, array $pile, Collection $items): bool
+    {
+        $itemStatuses = $gameEquipment->getStatuses();
+
+        /** @var GameEquipment $pileTopEquipment */
+        $pileTopEquipment = $items->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getId() === $pile['id'])->first();
 
         $pileStatuses = $pileTopEquipment->getStatuses();
 

@@ -6,6 +6,7 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Service\PlayerServiceInterface;
@@ -43,48 +44,21 @@ class GetUp extends Action
 
     public function loadParameters(Player $player, ActionParameters $actionParameters): void
     {
-        if (!($targetPlayer = $actionParameters->getPlayer())) {
-            throw new \InvalidArgumentException('Invalid player parameter');
-        }
-
         $this->player = $player;
-        $this->targetPlayer = $targetPlayer;
     }
 
     public function canExecute(): bool
     {
-        /** @var ChargeStatus $sporeStatus */
-        $sporeStatus = $this->player->getStatusByName(PlayerStatusEnum::SPORES);
-        /** @var ChargeStatus $mushStatus */
-        $mushStatus = $this->player->getStatusByName(PlayerStatusEnum::MUSH);
-
-        return $this->player->isMush() &&
-            $sporeStatus->getCharge() > 0 &&
-            $mushStatus->getCharge() > 0 &&
-            !$this->targetPlayer->isMush() &&
-            !$this->targetPlayer->getStatusByName(PlayerStatusEnum::IMMUNIZED) &&
-            $this->player->getRoom() === $this->targetPlayer->getRoom();
+        return true;
     }
 
     protected function applyEffects(): ActionResult
     {
-        $playerEvent = new PlayerEvent($this->targetPlayer);
-        $this->eventManager->dispatch($playerEvent, PlayerEvent::INFECTION_PLAYER);
+        $lyingDownStatus=$this->player->getStatusByName(PlayerStatusEnum::LYING_DOWN);
 
-        /** @var ChargeStatus $sporeStatus */
-        $sporeStatus = $this->player->getStatusByName(PlayerStatusEnum::SPORES);
-        if ($sporeStatus->getCharge() === 1) {
-            $this->player->removeStatus($sporeStatus);
-            $this->playerService->persist($this->player);
-        } else {
-            $sporeStatus->addCharge(-1);
-            $this->statusService->persist($sporeStatus);
-        }
+        $lyingDownStatus->setPlayer(null)->setGameEquipment(null);
 
-        /** @var ChargeStatus $mushStatus */
-        $mushStatus = $this->player->getStatusByName(PlayerStatusEnum::MUSH);
-        $mushStatus->addCharge(-1);
-        $this->statusService->persist($mushStatus);
+        $this->statusServive->persist($lyingDownStatus);
 
         return new Success();
     }
@@ -92,18 +66,10 @@ class GetUp extends Action
     protected function createLog(ActionResult $actionResult): void
     {
         $this->roomLogService->createPlayerLog(
-            ActionEnum::INFECT,
+            ActionEnum::GET_UP,
             $this->player->getRoom(),
             $this->player,
-            VisibilityEnum::MUSH,
-            new \DateTime('now')
-        );
-
-        $this->roomLogService->createPlayerLog(
-            ActionEnum::INFECT,
-            $this->player->getRoom(),
-            $this->player,
-            VisibilityEnum::SECRET,
+            VisibilityEnum::PUBLIC,
             new \DateTime('now')
         );
     }

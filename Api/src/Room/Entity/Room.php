@@ -10,6 +10,8 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\Collection\PlayerCollection;
+
 
 /**
  * Class Room.
@@ -117,7 +119,7 @@ class Room
         return $this;
     }
 
-    public function getPlayers(): Collection
+    public function getPlayers(): PlayerCollection
     {
         return $this->players;
     }
@@ -125,7 +127,7 @@ class Room
     /**
      * @return static
      */
-    public function setPlayers(ArrayCollection $players): Room
+    public function setPlayers(PlayerCollection $players): Room
     {
         $this->players = $players;
 

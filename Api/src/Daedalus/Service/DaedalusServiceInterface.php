@@ -25,4 +25,6 @@ interface DaedalusServiceInterface
     public function selectAlphaMush(Daedalus $daedalus): Daedalus;
 
     public function getRandomAsphyxia(Daedalus $daedalus): Daedalus;
+
+    public function killRemainingPlayers(Daedalus $daedalus, string $cause): Daedalus;
 }

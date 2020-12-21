@@ -212,7 +212,7 @@ class DaedalusService implements DaedalusServiceInterface
     {
         $playerAliveNb = $daedalus->getPlayers()->getPlayerAlive()->count();
         for ($i = 0; $i < $playerAliveNb; ++$i) {
-            $player=$this->randomService->getPlayerInDaedalus($daedalus);
+            $player=$this->randomService->getAlivePlayerInDaedalus($daedalus);
 
             $playerEvent = new PlayerEvent($player);
             $playerEvent->setReason($cause);

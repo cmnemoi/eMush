@@ -157,7 +157,7 @@ class Player
 
     public function isAlive(): bool
     {
-        return $this->gameStatus === GameStatusEnum::CURRENT;
+        return $this->gameStatus === GameStatusEnum::CURRENT || $this->getRoom();
     }
 
     public function getPerson(): string

@@ -87,6 +87,7 @@ class PlayerSubscriber implements EventSubscriberInterface
             VisibilityEnum::PUBLIC
         );
 
+        $player->setRoom(null);
 
         if ($player->getDaedalus->getPlayers()->count()===0){
             $endDaedalusEvent = new DaedalusEvent($player->getDaedalus());

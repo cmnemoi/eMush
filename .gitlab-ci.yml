@@ -1,0 +1,30 @@
+default:
+  image: php:7.4
+
+  before_script:
+    - php -v
+    - apt-get update -yqq
+    - apt-get install git zip -yqq zlib1g-dev
+    - cd Api
+    # Install composer
+    - curl -sS https://getcomposer.org/installer | php
+    # Install all project dependencies
+    - php composer.phar install
+
+  cache:
+    paths:
+      - "Api/vendor/"
+
+stages:
+  - test
+  - lint
+
+test:
+  stage: test
+  script:
+    - php bin/phpunit
+
+lint:
+  stage: lint
+  script:
+    - vendor/bin/php-cs-fixer fix --dry-run --diff

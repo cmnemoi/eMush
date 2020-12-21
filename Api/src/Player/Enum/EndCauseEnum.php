@@ -5,7 +5,7 @@ namespace Mush\Player\Enum;
 class EndCauseEnum
 {
     public const SOL_RETURN = 'sol_return';
-    public const EDEN= 'eden';
+    public const EDEN = 'eden';
     public const DAEDALUS_DESTROYED = 'daedalus_destroyed';
     public const KILLED_BY_NERON = 'killed_by_neron';
     public const SUPER_NOVA = 'super_nova';
@@ -37,4 +37,4 @@ class EndCauseEnum
     public const MANKAROG = 'mankarog';
 
     public const NO_INFIRMERY = 'no_infirmerie'; //cause of death lost in a bug
- }
+}

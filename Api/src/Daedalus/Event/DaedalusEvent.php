@@ -14,7 +14,6 @@ class DaedalusEvent extends Event
     private Daedalus $daedalus;
     private ?string $reason = null;
 
-
     public function __construct(Daedalus $daedalus)
     {
         $this->daedalus = $daedalus;

@@ -184,12 +184,12 @@ class DaedalusService implements DaedalusServiceInterface
     {
         $chancesArray = [];
         foreach ($daedalus->getPlayers() as $player) {
-            if (!$player->getItems()->filter(fn (GameItem $item) => $item->getName()===ItemEnum::OXYGEN_CAPSULE)->isEmpty()){
-                $capsule=$player->getItems()->filter(fn (GameItem $item) => $item->getName()===ItemEnum::OXYGEN_CAPSULE)->first();
+            if (!$player->getItems()->filter(fn (GameItem $item) => $item->getName() === ItemEnum::OXYGEN_CAPSULE)->isEmpty()) {
+                $capsule = $player->getItems()->filter(fn (GameItem $item) => $item->getName() === ItemEnum::OXYGEN_CAPSULE)->first();
                 $capsule->removeLocation();
                 $this->gameEquipmentService->delete($capsule);
-            }else{
-                $chancesArray[$player->getPerson()]=1;
+            } else {
+                $chancesArray[$player->getPerson()] = 1;
             }
         }
 
@@ -202,7 +202,7 @@ class DaedalusService implements DaedalusServiceInterface
 
         $playerEvent = new PlayerEvent($player);
         $playerEvent->setReason(EndCauseEnum::ASPHYXIA);
-        
+
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
 
         return $daedalus;
@@ -212,7 +212,7 @@ class DaedalusService implements DaedalusServiceInterface
     {
         $playerAliveNb = $daedalus->getPlayers()->getPlayerAlive()->count();
         for ($i = 0; $i < $playerAliveNb; ++$i) {
-            $player=$this->randomService->getAlivePlayerInDaedalus($daedalus);
+            $player = $this->randomService->getAlivePlayerInDaedalus($daedalus);
 
             $playerEvent = new PlayerEvent($player);
             $playerEvent->setReason($cause);

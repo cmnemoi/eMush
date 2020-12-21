@@ -6,8 +6,8 @@ use Error;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Player\Entity\Player;
 use Mush\Player\Entity\Collection\PlayerCollection;
+use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
 
 class RandomService implements RandomServiceInterface
@@ -27,6 +27,7 @@ class RandomService implements RandomServiceInterface
         if ($players->isEmpty()) {
             throw new Error('getRandomPlayer: collection is empty');
         }
+
         return $players->get($this->random(0, $players->count() - 1));
     }
 

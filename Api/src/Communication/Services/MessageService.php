@@ -29,9 +29,9 @@ class MessageService implements MessageServiceInterface
             ->setParent($createMessage->getParent())
         ;
 
-        if ($createMessage->getParent() !== null) {
-            $root = $createMessage->getParent();
-            $rootMessage = $createMessage->getParent();
+        $rootMessage = $createMessage->getParent();
+        if ($rootMessage) {
+            $root = $rootMessage;
             while ($rootMessage = $rootMessage->getParent()) {
                 $root = $rootMessage;
             }

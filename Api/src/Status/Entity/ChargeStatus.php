@@ -12,9 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
 class ChargeStatus extends Status
 {
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer", nullable=false)
      */
-    protected ?int $charge = null;
+    protected int $charge = 0;
 
     /**
      * @ORM\Column(type="string", nullable=true)
@@ -31,7 +31,7 @@ class ChargeStatus extends Status
      */
     private bool $autoRemove = false;
 
-    public function getCharge(): ?int
+    public function getCharge(): int
     {
         return $this->charge;
     }
@@ -49,7 +49,7 @@ class ChargeStatus extends Status
     /**
      * @return static
      */
-    public function setCharge(?int $charge): ChargeStatus
+    public function setCharge(int $charge): ChargeStatus
     {
         $this->charge = $charge;
 

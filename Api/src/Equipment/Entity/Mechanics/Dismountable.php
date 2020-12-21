@@ -19,21 +19,21 @@ class Dismountable extends EquipmentMechanic
     protected array $actions = [ActionEnum::DISASSEMBLE];
 
     /**
-     * @ORM\Column(type="integer", length=255, nullable=false)
+     * @ORM\Column(type="integer", nullable=false)
      */
-    private ?int $chancesSuccess = null;
+    private int $chancesSuccess = 0;
 
     /**
-     * @ORM\Column(type="integer", length=255, nullable=false)
+     * @ORM\Column(type="integer", nullable=false)
      */
-    private ?int $actionCost = null;
+    private int $actionCost = 0;
 
     /**
      * @ORM\Column(type="array", nullable=false)
      */
-    private ?array $products = null;
+    private array $products = [];
 
-    public function getChancesSuccess(): ?int
+    public function getChancesSuccess(): int
     {
         return $this->chancesSuccess;
     }
@@ -48,7 +48,7 @@ class Dismountable extends EquipmentMechanic
         return $this;
     }
 
-    public function getActionCost(): ?int
+    public function getActionCost(): int
     {
         return $this->actionCost;
     }
@@ -63,7 +63,7 @@ class Dismountable extends EquipmentMechanic
         return $this;
     }
 
-    public function getProducts(): ?array
+    public function getProducts(): array
     {
         return $this->products;
     }

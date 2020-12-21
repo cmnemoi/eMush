@@ -30,6 +30,6 @@ class DailyReset extends AbstractChargeStrategy
         ) {
             return;
         }
-        $status->setCharge($status->getThreshold());
+        $status->setCharge($status->getThreshold() ?? 0);
     }
 }

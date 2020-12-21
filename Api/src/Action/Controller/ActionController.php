@@ -6,11 +6,13 @@ use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Mush\Action\ActionResult\Error;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\User\Entity\User;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Class UsersController.
@@ -68,9 +70,16 @@ class ActionController extends AbstractFOSRestController
      */
     public function createAction(Request $request): Response
     {
+        /** @var User $user */
+        $user = $this->getUser();
+
+        if (!($currentPlayer = $user->getCurrentGame())) {
+            throw new AccessDeniedException('User must be in game for actions');
+        }
+
         try {
             $result = $this->actionService->executeAction(
-                $this->getUser()->getCurrentGame(),
+                $currentPlayer,
                 $request->get('action'),
                 $request->get('params')
             );

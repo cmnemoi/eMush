@@ -34,7 +34,7 @@ class MessageVoter extends Voter
         $user = $token->getUser();
 
         //User must be logged in and have a current game
-        if (!$user instanceof User && !($player = $user->getCurrentGame())) {
+        if (!$user instanceof User || !($player = $user->getCurrentGame())) {
             return false;
         }
 

@@ -68,19 +68,24 @@ class Search extends Action
         ;
 
         if (!$hiddenItems->isEmpty()) {
-            $this->itemFound = $this->statusService
+            /** @var GameItem $mostRecentHiddenItem */
+            $mostRecentHiddenItem = $this->statusService
                 ->getMostRecent(EquipmentStatusEnum::HIDDEN, $hiddenItems)
             ;
 
-            $hiddenStatus = $this->itemFound->getStatusByName(EquipmentStatusEnum::HIDDEN);
+            if (!($hiddenStatus = $mostRecentHiddenItem->getStatusByName(EquipmentStatusEnum::HIDDEN)) ||
+                !($hiddenBy = $hiddenStatus->getPlayer())
+            ) {
+                throw new \LogicException('invalid hidden status');
+            }
 
-            $hiddenBy = $hiddenStatus->getPlayer();
+            $this->itemFound = $mostRecentHiddenItem;
             $this->itemFound->removeStatus($hiddenStatus);
 
             $hiddenBy->removeStatus($hiddenStatus);
 
             $this->playerService->persist($hiddenBy);
-            $this->gameEquipmentService->persist($this->itemFound);
+            $this->gameEquipmentService->persist($mostRecentHiddenItem);
 
             return new Success();
         } else {
@@ -90,7 +95,7 @@ class Search extends Action
 
     protected function createLog(ActionResult $actionResult): void
     {
-        if ($actionResult instanceof Success) {
+        if ($actionResult instanceof Success && $this->itemFound !== null) {
             $this->roomLogService->createEquipmentLog(
                 ActionEnum::SEARCH,
                 $this->player->getRoom(),

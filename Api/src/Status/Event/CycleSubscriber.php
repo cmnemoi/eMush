@@ -41,8 +41,8 @@ class CycleSubscriber implements EventSubscriberInterface
             return;
         }
         $strategy = null;
-        if ($status instanceof ChargeStatus) {
-            if ($strategy = $this->chargeStrategyService->getStrategy($status->getStrategy())) {
+        if ($status instanceof ChargeStatus && ($strategyName = $status->getStrategy())) {
+            if ($strategy = $this->chargeStrategyService->getStrategy($strategyName)) {
                 $strategy->execute($status);
             }
         }

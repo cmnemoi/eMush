@@ -19,9 +19,6 @@ class EquipmentEffectService implements EquipmentEffectServiceInterface
     private PlantEffectRepository $plantEffectRepository;
     private RandomServiceInterface $randomService;
 
-    /**
-     * EquipmentEffectService constructor.
-     */
     public function __construct(
         ConsumableEffectRepository $consumableEffectRepository,
         PlantEffectRepository $plantEffectRepository,
@@ -86,11 +83,16 @@ class EquipmentEffectService implements EquipmentEffectServiceInterface
                 }));
                 $diseasesNumber = $diseaseNumberPossible * 2 + $extraEffectNumberPossible - $curesNumber - $extraEffectNumber;
 
+                $cures = [];
+                $diseasesChances = [];
+                $diseasesDelayMin = [];
+                $diseasesDelayLength = [];
+                $extraEffects = [];
+
                 if ($curesNumber > 0) {
                     //Get the names of cures among the list possible
                     //For the cures append the name of the disease as key and the probability to cure as value (randomly picked)
                     $curesNames = $this->randomService->getRandomElementsFromProbaArray($ration->getDiseasesName(), $curesNumber);
-                    $cures = [];
                     foreach ($curesNames as $cureName) {
                         $cures[$cureName] = $this->randomService->getSingleRandomElementFromProbaArray($ration->getDiseasesEffectChance());
                     }
@@ -102,9 +104,6 @@ class EquipmentEffectService implements EquipmentEffectServiceInterface
                     //append the name of the disease as key and the minimum delay before effect in $diseasesDelayMin
                     //append the name of the disease as key and the range of delay before effect in $diseasesDelayLengh
                     $diseasesNames = $this->randomService->getRandomElementsFromProbaArray($ration->getDiseasesName(), $diseasesNumber);
-                    $diseasesChances = [];
-                    $diseasesDelayMin = [];
-                    $diseasesDelayLength = [];
                     foreach ($diseasesNames as $diseaseName) {
                         $diseasesChances[$diseaseName] = $this->randomService->getSingleRandomElementFromProbaArray($ration->getDiseasesEffectChance());
                         $diseasesDelayMin[$diseaseName] = $this->randomService->getSingleRandomElementFromProbaArray($ration->getDiseasesDelayMin());

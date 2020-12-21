@@ -24,6 +24,7 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\User\Entity\User;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class PlayerService implements PlayerServiceInterface
@@ -93,10 +94,17 @@ class PlayerService implements PlayerServiceInterface
     {
         $player = new Player();
 
+        if (!$token = $this->tokenStorage->getToken()) {
+            throw new AccessDeniedException('User should be logged to access that');
+        }
+
         /** @var User $user */
-        $user = $this->tokenStorage->getToken()->getUser();
+        $user = $token->getUser();
 
         $characterConfig = $this->gameConfig->getCharactersConfig()->getCharacter($character);
+        if (!$characterConfig) {
+            throw new \LogicException('Character not available');
+        }
 
         $player
             ->setUser($user)
@@ -159,12 +167,21 @@ class PlayerService implements PlayerServiceInterface
         $playerEvent->setActionModifier($actionModifier);
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
 
-        if ($player->isMush()) {
-            $triumphChange = $this->gameConfig->getTriumphConfig()->getTriumph(TriumphEnum::CYCLE_MUSH)->getTriumph();
-        } else {
-            $triumphChange = $this->gameConfig->getTriumphConfig()->getTriumph(TriumphEnum::CYCLE_HUMAN)->getTriumph();
+        if ($player->isMush() &&
+            ($mushTriumph = $this->gameConfig->getTriumphConfig()->getTriumph(TriumphEnum::CYCLE_MUSH))
+        ) {
+            $triumphChange = $mushTriumph->getTriumph();
         }
+
+        $triumphChange = 0;
+        if (!$player->isMush() &&
+            ($humanTriumph = $this->gameConfig->getTriumphConfig()->getTriumph(TriumphEnum::CYCLE_HUMAN))
+        ) {
+            $triumphChange = $humanTriumph->getTriumph();
+        }
+
         $player->addTriumph($triumphChange);
+
         $this->roomLogService->createQuantityLog(
             LogEnum::GAIN_TRIUMPH,
             $player->getRoom(),
@@ -270,7 +287,7 @@ class PlayerService implements PlayerServiceInterface
 
         if ($actionModifier->getSatietyModifier()) {
             if ($actionModifier->getSatietyModifier() >= 0 &&
-                    $player->getSatiety() < 0) {
+                $player->getSatiety() < 0) {
                 $player->setSatiety($actionModifier->getSatietyModifier());
             } else {
                 $player->setSatiety($player->getSatiety() + $actionModifier->getSatietyModifier());

@@ -30,9 +30,11 @@ class CharacterConfig
     private string $name;
 
     /**
-     * @ORM\Column(type="array", nullable=true)
+     * @ORM\Column(type="array", nullable=false)
+     *
+     * @var array<int, string>
      */
-    private ?array $statuses = [];
+    private array $statuses = [];
 
     /**
      * @ORM\Column(type="array", nullable=false)
@@ -74,7 +76,7 @@ class CharacterConfig
         return $this;
     }
 
-    public function getStatuses(): ?array
+    public function getStatuses(): array
     {
         return $this->statuses;
     }

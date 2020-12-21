@@ -63,7 +63,9 @@ class PlayerSubscriber implements EventSubscriberInterface
         $player = $event->getPlayer();
         $reason = $event->getReason();
 
-        $player->setEndStatus($reason);
+        if ($reason) {
+            $player->setEndStatus($reason);
+        }
 
         if ($player->getEndStatus() !== EndCauseEnum::DEPRESSION) {
             /** @var Player $daedalusPlayer */
@@ -91,7 +93,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         }
         //@TODO in case of assasination chance of disorder for roommates
 
-        $player->setRoom(null);
+        $player->getRoom()->removePlayer($player);
         //@TODO two steps death
         $player->setGameStatus(GameStatusEnum::FINISHED);
 
@@ -113,6 +115,10 @@ class PlayerSubscriber implements EventSubscriberInterface
     {
         $player = $playerEvent->getPlayer();
         $playerModifier = $playerEvent->getActionModifier();
+
+        if ($playerModifier === null) {
+            return;
+        }
 
         $this->playerService->handlePlayerModifier($player, $playerModifier, $playerEvent->getTime());
 
@@ -151,9 +157,10 @@ class PlayerSubscriber implements EventSubscriberInterface
     {
         $player = $playerEvent->getPlayer();
 
-        $player->removeStatus($sporeStatus = $player->getStatusByName(PlayerStatusEnum::SPORES));
-        $this->statusService->delete($sporeStatus);
-
+        if ($sporeStatus = $player->getStatusByName(PlayerStatusEnum::SPORES)) {
+            $player->removeStatus($sporeStatus);
+            $this->statusService->delete($sporeStatus);
+        }
         $this->statusService->createMushStatus($player);
 
         //@TODO add logs and welcome message

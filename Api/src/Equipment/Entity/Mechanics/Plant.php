@@ -22,7 +22,7 @@ class Plant extends EquipmentMechanic
     /**
      * @ORM\OneToOne(targetEntity="Mush\Equipment\Entity\EquipmentConfig", inversedBy=")
      */
-    private ?EquipmentConfig $fruit = null;
+    private EquipmentConfig $fruit;
 
     /**
      * @ORM\Column(type="array", nullable=false)
@@ -39,7 +39,7 @@ class Plant extends EquipmentMechanic
      */
     private int $maxOxygen;
 
-    public function getFruit(): ?EquipmentConfig
+    public function getFruit(): EquipmentConfig
     {
         return $this->fruit;
     }

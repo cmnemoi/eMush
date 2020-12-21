@@ -94,9 +94,7 @@ class ExpressCook extends Action
             $this->gameEquipment->removeLocation();
             $this->gameEquipmentService->delete($this->gameEquipment);
             $this->gameEquipmentService->persist($newItem);
-        } else {
-            $frozenStatus = $this->gameEquipment->getStatusByName(EquipmentStatusEnum::FROZEN);
-
+        } elseif ($frozenStatus = $this->gameEquipment->getStatusByName(EquipmentStatusEnum::FROZEN)) {
             $this->gameEquipment->removeStatus($frozenStatus);
             $this->gameEquipmentService->persist($this->gameEquipment);
         }

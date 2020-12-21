@@ -9,6 +9,7 @@ use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\MedicalCondition;
 use Mush\Status\Entity\Status;
 use Mush\User\Entity\User;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -46,9 +47,9 @@ class StatusNormalizer implements ContextAwareNormalizerInterface
            ((($visibility === VisibilityEnum::EQUIPMENT_PRIVATE &&
            array_key_exists('equipment', $context) && $context['equipment'] instanceof GameEquipment) ||
            $visibility === VisibilityEnum::PRIVATE) &&
-           $this->getUser()->getCurrentGame() === $status->getPlayer()) ||
+           $this->getPlayer() === $status->getPlayer()) ||
            ($visibility === VisibilityEnum::MUSH &&
-           $this->getUser()->getCurrentGame()->isMush())
+           $this->getPlayer()->isMush())
            ) {
             $normedStatus = [
                 'key' => $statusName,
@@ -70,11 +71,19 @@ class StatusNormalizer implements ContextAwareNormalizerInterface
         return [];
     }
 
-    private function getUser(): User
+    private function getPlayer(): Player
     {
-        /** @var User $user */
-        $user = $this->tokenStorage->getToken()->getUser();
+        if (!$token = $this->tokenStorage->getToken()) {
+            throw new AccessDeniedException('User should be logged to access that');
+        }
 
-        return $user;
+        /** @var User $user */
+        $user = $token->getUser();
+
+        if (!$player = $user->getCurrentGame()) {
+            throw new AccessDeniedException('User should be in game to access that');
+        }
+
+        return $player;
     }
 }

@@ -36,7 +36,7 @@ class Room
     /**
      * @ORM\ManyToOne(targetEntity="Mush\Daedalus\Entity\Daedalus", inversedBy="rooms")
      */
-    private ?Daedalus $daedalus = null;
+    private Daedalus $daedalus;
 
     /**
      * @ORM\OneToMany(targetEntity="Mush\Player\Entity\Player", mappedBy="room")
@@ -86,7 +86,7 @@ class Room
         return $this;
     }
 
-    public function getDaedalus(): ?Daedalus
+    public function getDaedalus(): Daedalus
     {
         return $this->daedalus;
     }
@@ -94,21 +94,11 @@ class Room
     /**
      * @return static
      */
-    public function setDaedalus(?Daedalus $daedalus): Room
+    public function setDaedalus(Daedalus $daedalus): Room
     {
-        if ($daedalus !== $this->daedalus) {
-            $oldDaedalus = $this->daedalus;
-            $this->daedalus = $daedalus;
+        $this->daedalus = $daedalus;
 
-            if ($daedalus !== null) {
-                $daedalus->addRoom($this);
-            }
-
-            if ($oldDaedalus !== null) {
-                $oldDaedalus->removeRoom($this);
-                $this->daedalus = $daedalus;
-            }
-        }
+        $daedalus->addRoom($this);
 
         return $this;
     }
@@ -138,12 +128,7 @@ class Room
     public function addPlayer(Player $player): Room
     {
         if (!$this->getPlayers()->contains($player)) {
-            if ($player->getRoom() !== $this) {
-                $player->setRoom(null);
-            }
-
             $this->players->add($player);
-
             $player->setRoom($this);
         }
 
@@ -156,9 +141,6 @@ class Room
     public function removePlayer(Player $player): Room
     {
         $this->players->removeElement($player);
-        if ($player->getRoom() === $this) {
-            $player->setRoom(null);
-        }
 
         return $this;
     }

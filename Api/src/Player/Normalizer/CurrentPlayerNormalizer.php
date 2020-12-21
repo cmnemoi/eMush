@@ -11,6 +11,7 @@ use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Player\Entity\Player;
 use Mush\User\Entity\User;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
@@ -37,7 +38,7 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
 
     public function supportsNormalization($data, string $format = null, array $context = []): bool
     {
-        return $data instanceof Player && $data === $this->getUser()->getCurrentGame();
+        return $data instanceof Player && $data === $this->getPlayer();
     }
 
     public function normalize($object, string $format = null, array $context = []): array
@@ -53,13 +54,13 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
         $statuses = [];
         foreach ($player->getStatuses() as $status) {
             $normedStatus = $this->normalizer->normalize($status, null, ['player' => $player]);
-            if (count($normedStatus) > 0) {
+            if (is_array($normedStatus) && count($normedStatus) > 0) {
                 $statuses[] = $normedStatus;
             }
         }
 
         //Handle tools
-        $tools = $this->getUser()->getCurrentGame()->getReachableTools()
+        $tools = $this->getPlayer()->getReachableTools()
             ->filter(function (GameEquipment $gameEquipment) {
                 /** @var Tool $tool */
                 $tool = $gameEquipment->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL);
@@ -90,7 +91,7 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
             $actionClass = $this->actionService->getAction($actionName);
             if ($actionClass) {
                 $normedAction = $this->normalizer->normalize($actionClass);
-                if (count($normedAction) > 0) {
+                if (is_array($normedAction) && count($normedAction) > 0) {
                     $actions[] = $normedAction;
                 }
             }
@@ -116,11 +117,19 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
         ];
     }
 
-    private function getUser(): User
+    private function getPlayer(): Player
     {
-        /** @var User $user */
-        $user = $this->tokenStorage->getToken()->getUser();
+        if (!$token = $this->tokenStorage->getToken()) {
+            throw new AccessDeniedException('User should be logged to access that');
+        }
 
-        return $user;
+        /** @var User $user */
+        $user = $token->getUser();
+
+        if (!$player = $user->getCurrentGame()) {
+            throw new AccessDeniedException('User should be in game to access that');
+        }
+
+        return $player;
     }
 }

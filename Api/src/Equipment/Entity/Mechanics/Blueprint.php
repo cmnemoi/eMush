@@ -19,16 +19,18 @@ class Blueprint extends Tool
     protected array $actions = [ActionEnum::BUILD];
 
     /**
-     * @ORM\OneToOne(targetEntity="Mush\Equipment\Entity\EquipmentConfig", inversedBy=")
+     * @ORM\OneToOne(targetEntity="Mush\Equipment\Entity\EquipmentConfig")
      */
-    private ?EquipmentConfig $equipment = null;
+    private EquipmentConfig $equipment;
 
     /**
      * @ORM\Column(type="array", nullable=false)
+     *
+     * @var array<string, int>
      */
-    private ?array $ingredients = null;
+    private array $ingredients = [];
 
-    public function getEquipment(): ?EquipmentConfig
+    public function getEquipment(): EquipmentConfig
     {
         return $this->equipment;
     }
@@ -43,7 +45,7 @@ class Blueprint extends Tool
         return $this;
     }
 
-    public function getIngredients(): ?array
+    public function getIngredients(): array
     {
         return $this->ingredients;
     }

@@ -16,8 +16,6 @@ class Attempt extends ChargeStatus
      */
     private ?string $action = null;
 
-    protected ?int $charge = 0;
-
     public function getAction(): ?string
     {
         return $this->action;

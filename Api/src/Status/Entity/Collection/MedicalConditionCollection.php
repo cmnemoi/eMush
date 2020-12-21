@@ -15,12 +15,14 @@ class MedicalConditionCollection extends ArrayCollection
          */
         foreach ($this->getIterator() as $medicalCondition) {
             $modifier = $medicalCondition->getMedicalConditionConfig()->getActionModifier();
-            if ($actionCost->getMoralPointCost() > 0) {
-                $actionCost->addMoralPointPointCost($modifier->getMoralPointModifier());
-            } elseif ($actionCost->getMovementPointCost() > 0) {
-                $actionCost->addMovementPointCost($modifier->getMovementPointModifier());
-            } elseif ($modifier->getMoralPointModifier() > 0) {
-                $actionCost->addActionPointCost($modifier->getActionPointModifier());
+            if ($modifier) {
+                if ($actionCost->getMoralPointCost() > 0) {
+                    $actionCost->addMoralPointPointCost($modifier->getMoralPointModifier());
+                } elseif ($actionCost->getMovementPointCost() > 0) {
+                    $actionCost->addMovementPointCost($modifier->getMovementPointModifier());
+                } elseif ($actionCost->getMoralPointCost() > 0) {
+                    $actionCost->addActionPointCost($modifier->getActionPointModifier());
+                }
             }
         }
 

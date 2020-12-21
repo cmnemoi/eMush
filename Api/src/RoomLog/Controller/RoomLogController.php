@@ -6,9 +6,11 @@ use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Mush\User\Entity\User;
 use Mush\User\Voter\UserVoter;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -39,7 +41,14 @@ class RoomLogController extends AbstractFOSRestController
     {
         $this->denyAccessUnlessGranted(UserVoter::USER_IN_GAME);
 
-        $logs = $this->roomLogService->getRoomLog($this->getUser()->getCurrentGame());
+        /** @var User $user */
+        $user = $this->getUser();
+
+        if (!$player = $user->getCurrentGame()) {
+            throw new AccessDeniedException();
+        }
+
+        $logs = $this->roomLogService->getRoomLog($player);
 
         return $this->view($logs);
     }

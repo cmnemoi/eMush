@@ -19,6 +19,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
@@ -60,6 +61,10 @@ class ChannelController extends AbstractFOSRestController
         /** @var User $user */
         $user = $this->getUser();
         $player = $user->getCurrentGame();
+        if (!$player) {
+            throw new AccessDeniedException('User should be in game');
+        }
+
         if (!$this->canCreateChannel->isSatisfied($player)) {
             return $this->view(['error' => 'cannot create new channels'], 422);
         }
@@ -81,10 +86,9 @@ class ChannelController extends AbstractFOSRestController
         /** @var User $user */
         $user = $this->getUser();
         $player = $user->getCurrentGame();
-        if ($player === null) {
-            return $this->view(['error' => 'cannot view channels'], 422);
+        if (!$player) {
+            throw new AccessDeniedException('User should be in game');
         }
-
         $channels = $this->channelService->getPlayerChannels($player);
 
         return $this->view($channels, 200);
@@ -145,6 +149,10 @@ class ChannelController extends AbstractFOSRestController
         $user = $this->getUser();
         $player = $user->getCurrentGame();
 
+        if (!$player) {
+            throw new AccessDeniedException('User should be in game');
+        }
+
         $this->channelService->exitChannel($player, $channel);
 
         return $this->view(null, 200);
@@ -197,6 +205,10 @@ class ChannelController extends AbstractFOSRestController
         $user = $this->getUser();
         $player = $user->getCurrentGame();
 
+        if (!$player) {
+            throw new AccessDeniedException('User should be in game');
+        }
+
         $this->messageService->createPlayerMessage($player, $messageCreate);
         $messages = $this->messageService->getChannelMessages($player, $channel);
 
@@ -217,6 +229,10 @@ class ChannelController extends AbstractFOSRestController
         /** @var User $user */
         $user = $this->getUser();
         $player = $user->getCurrentGame();
+
+        if (!$player) {
+            throw new AccessDeniedException('User should be in game');
+        }
 
         $messages = $this->messageService->getChannelMessages($player, $channel);
 

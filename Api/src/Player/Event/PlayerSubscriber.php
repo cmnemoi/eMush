@@ -2,13 +2,10 @@
 
 namespace Mush\Player\Event;
 
+use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Player\Entity\ActionModifier;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Enum\TriumphEnum;
-use Mush\Game\Service\GameConfigServiceInterface;
-use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Player\Enum\GameStatusEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\LogEnum;
@@ -88,22 +85,22 @@ class PlayerSubscriber implements EventSubscriberInterface
             VisibilityEnum::PUBLIC
         );
 
-        foreach ($player->getItems() as $item){
+        foreach ($player->getItems() as $item) {
             $item->setPlayer(null);
             $item->setRoom($player->getRoom());
         }
         //@TODO in case of assasination chance of disorder for roommates
 
-
         $player->setRoom(null);
         //@TODO two steps death
         $player->setGameStatus(GameStatusEnum::FINISHED);
 
-        if ($player->getDaedalus->getPlayers()->count()===0 &&
-            $reason!==EndCauseEnum::SOL_RETURN &&
-            $reason!==EndCauseEnum::EDEN &&
-            $reason!==EndCauseEnum::SUPER_NOVA &&
-            $reason!==EndCauseEnum::KILLED_BY_NERON){
+        if ($player->getDaedalus()->getPlayers()->isEmpty() &&
+            $reason !== EndCauseEnum::SOL_RETURN &&
+            $reason !== EndCauseEnum::EDEN &&
+            $reason !== EndCauseEnum::SUPER_NOVA &&
+            $reason !== EndCauseEnum::KILLED_BY_NERON
+        ) {
             $endDaedalusEvent = new DaedalusEvent($player->getDaedalus());
 
             $endDaedalusEvent->setReason(EndCauseEnum::DAEDALUS_DESTROYED);

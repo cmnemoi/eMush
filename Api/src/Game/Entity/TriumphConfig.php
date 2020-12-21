@@ -32,7 +32,7 @@ class TriumphConfig
     /**
      * @ORM\Column(type="integer", length=255, nullable=false)
      */
-    private ?int $triumph;
+    private int $triumph = 0;
 
     /**
      * @ORM\Column(type="boolean", nullable=false)
@@ -78,7 +78,7 @@ class TriumphConfig
         return $this->triumph;
     }
 
-    public function setTriumph(string $triumph): TriumphConfig
+    public function setTriumph(int $triumph): TriumphConfig
     {
         $this->triumph = $triumph;
 
@@ -90,7 +90,7 @@ class TriumphConfig
         return $this->isAllCrew;
     }
 
-    public function setIsAllCrew(string $isAllCrew): TriumphConfig
+    public function setIsAllCrew(bool $isAllCrew): TriumphConfig
     {
         $this->isAllCrew = $isAllCrew;
 

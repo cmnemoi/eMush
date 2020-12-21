@@ -8,7 +8,6 @@ use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
-use Mush\Status\Enun\EquipmentStatusEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\GameConfigServiceInterface;
@@ -84,7 +83,7 @@ class Take extends Action
             $this->statusService->createCorePlayerStatus(PlayerStatusEnum::BURDENED, $this->player);
         }
 
-        if ($hiddenStatus=$this->gameItem->getStatusByName(EnumEquipmentStatusEnum::HIDDEN)) {
+        if ($hiddenStatus = $this->gameItem->getStatusByName(EnumEquipmentStatusEnum::HIDDEN)) {
             $this->gameItem->removeStatus($hiddenStatus);
             $this->player->removeStatus($hiddenStatus);
         }

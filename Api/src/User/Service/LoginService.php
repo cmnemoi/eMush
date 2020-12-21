@@ -49,23 +49,23 @@ class LoginService
         $apiClient = new HttpEtwinClient($this->etwinUri);
         $apiUser = $apiClient->getSelf(Auth::fromToken($accessToken->getAccessToken()));
 
-        if ($apiUser instanceof AccessTokenAuthContext) {
-            $userId = $apiUser->getUser()->getId()->getInner()->toString();
-            $user = $this->userService->findUserByUserId($userId);
-
-            if ($user === null) {
-                $username = $apiUser->getUser()->getDisplayName()->getCurrent()->getInner()->toString();
-                $user = $this->userService->createUser($userId, $username);
-            }
-        } else {
+        if (!$apiUser instanceof AccessTokenAuthContext) {
             throw new \LogicException('Auth context not supported');
+        }
+
+        $userId = $apiUser->getUser()->getId()->getInner()->toString();
+        $user = $this->userService->findUserByUserId($userId);
+
+        if ($user === null) {
+            $username = $apiUser->getUser()->getDisplayName()->getCurrent()->getInner()->toString();
+            $user = $this->userService->createUser($userId, $username);
         }
 
         return $user;
     }
 
-    public function getAuthorizationUri(string $scope, string $state): string
+    public function getAuthorizationUri(string $scope, ?string $state): string
     {
-        return $this->oauthClient->getAuthorizationUri($scope, $state);
+        return (string) $this->oauthClient->getAuthorizationUri($scope, $state ?? '');
     }
 }

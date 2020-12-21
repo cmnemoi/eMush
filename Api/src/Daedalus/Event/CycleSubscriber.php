@@ -10,9 +10,7 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Event\CycleEvent;
 use Mush\Game\Event\DayEvent;
 use Mush\Game\Service\GameConfigServiceInterface;
-use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum as EnumEndCauseEnum;
-use Mush\Player\Enun\EndCauseEnum;
 use Mush\Room\Enum\RoomEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -58,7 +56,9 @@ class CycleSubscriber implements EventSubscriberInterface
             $daedalus->setDay($daedalus->getDay() + 1);
         }
 
-        if ($daedalus->getPlayers()->getMushPlayer()->getPlayerAlive()->count()===$daedalus->getPlayers()->getPlayerAlive()){
+        if ($daedalus->getPlayers()->getHumanPlayer()->isEmpty() &&
+            !$daedalus->getPlayers()->getMushPlayer()->isEmpty()
+        ) {
             $endDaedalusEvent = new DaedalusEvent($daedalus);
             $endDaedalusEvent->setReason(EnumEndCauseEnum::KILLED_BY_NERON);
             $this->eventDispatcher->dispatch($endDaedalusEvent, DaedalusEvent::END_DAEDALUS);

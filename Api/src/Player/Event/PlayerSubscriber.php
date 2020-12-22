@@ -7,6 +7,7 @@ use Mush\Player\Entity\ActionModifier;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\GameStatusEnum;
+use Mush\Player\Service\ActionModifierServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -20,17 +21,20 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class PlayerSubscriber implements EventSubscriberInterface
 {
     private PlayerServiceInterface $playerService;
+    private ActionModifierServiceInterface $actionModifierService;
     private EventDispatcherInterface $eventDispatcher;
     private RoomLogServiceInterface $roomLogService;
     private StatusServiceInterface $statusService;
 
     public function __construct(
         PlayerServiceInterface $playerService,
+        ActionModifierServiceInterface $actionModifierService,
         EventDispatcherInterface $eventDispatcher,
         RoomLogServiceInterface $roomLogService,
         StatusServiceInterface $statusService
     ) {
         $this->playerService = $playerService;
+        $this->actionModifierService = $actionModifierService;
         $this->eventDispatcher = $eventDispatcher;
         $this->roomLogService = $roomLogService;
         $this->statusService = $statusService;
@@ -79,7 +83,15 @@ class PlayerSubscriber implements EventSubscriberInterface
             }
         }
 
-        $player = $event->getPlayer();
+        foreach ($player->getItems() as $item) {
+            $item->setPlayer(null);
+            $item->setRoom($player->getRoom());
+        }
+        //@TODO in case of assasination chance of disorder for roommates
+
+        //@TODO two steps death
+        $player->setGameStatus(GameStatusEnum::FINISHED);
+
         $this->roomLogService->createPlayerLog(
             LogEnum::DEATH,
             $player->getRoom(),
@@ -87,21 +99,8 @@ class PlayerSubscriber implements EventSubscriberInterface
             VisibilityEnum::PUBLIC
         );
 
-        foreach ($player->getItems() as $item) {
-            $item->setPlayer(null);
-            $item->setRoom($player->getRoom());
-        }
-        //@TODO in case of assasination chance of disorder for roommates
-
-        $player->getRoom()->removePlayer($player);
-        //@TODO two steps death
-        $player->setGameStatus(GameStatusEnum::FINISHED);
-
-        if ($player->getDaedalus()->getPlayers()->isEmpty() &&
-            $reason !== EndCauseEnum::SOL_RETURN &&
-            $reason !== EndCauseEnum::EDEN &&
-            $reason !== EndCauseEnum::SUPER_NOVA &&
-            $reason !== EndCauseEnum::KILLED_BY_NERON
+        if ($player->getDaedalus()->getPlayers()->getPlayerAlive()->isEmpty() &&
+            !in_array($reason, [EndCauseEnum::SOL_RETURN, EndCauseEnum::EDEN, EndCauseEnum::SUPER_NOVA, EndCauseEnum::KILLED_BY_NERON])
         ) {
             $endDaedalusEvent = new DaedalusEvent($player->getDaedalus());
 
@@ -120,7 +119,7 @@ class PlayerSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $this->playerService->handlePlayerModifier($player, $playerModifier, $playerEvent->getTime());
+        $this->actionModifierService->handlePlayerModifier($player, $playerModifier, $playerEvent->getTime());
 
         if ($player->getHealthPoint() === 0) {
             $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);

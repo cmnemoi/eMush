@@ -37,7 +37,7 @@ class OtherPlayerNormalizer implements ContextAwareNormalizerInterface, Normaliz
 
     public function supportsNormalization($data, string $format = null, array $context = []): bool
     {
-        return $data instanceof Player && $data !== $this->getPlayer();
+        return $data instanceof Player && $data !== $this->getUserPlayer();
     }
 
     public function normalize($object, string $format = null, array $context = []): array
@@ -45,14 +45,28 @@ class OtherPlayerNormalizer implements ContextAwareNormalizerInterface, Normaliz
         $player = $object;
         $statuses = [];
         foreach ($player->getStatuses() as $status) {
-            $normedStatus = $this->normalizer->normalize($status, null, ['player' => $player]);
+            $normedStatus = $this->normalizer->normalize($status, $format, ['player' => $player]);
             if (is_array($normedStatus) && count($normedStatus) > 0) {
                 $statuses[] = $normedStatus;
             }
         }
 
+        return [
+            'id' => $player->getId(),
+            'character' => [
+                'key' => $player->getPerson(),
+                'value' => $this->translator->trans($player->getPerson() . '.name', [], 'characters'),
+            ],
+            'statuses' => $statuses,
+            'skills' => $player->getSkills(),
+            'actions' => $this->getActions($player, $format),
+        ];
+    }
+
+    private function getActions(Player $player, string $format = null): array
+    {
         //Handle tools
-        $tools = $this->getPlayer()->getReachableTools()
+        $tools = $player->getReachableTools()
             ->filter(function (GameEquipment $gameEquipment) {
                 /** @var Tool $tool */
                 $tool = $gameEquipment->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL);
@@ -89,19 +103,10 @@ class OtherPlayerNormalizer implements ContextAwareNormalizerInterface, Normaliz
             }
         }
 
-        return [
-            'id' => $player->getId(),
-            'character' => [
-                'key' => $player->getPerson(),
-                'value' => $this->translator->trans($player->getPerson() . '.name', [], 'characters'),
-            ],
-            'statuses' => $statuses,
-            'skills' => $player->getSkills(),
-            'actions' => $actions,
-        ];
+        return $actions;
     }
 
-    private function getPlayer(): Player
+    private function getUserPlayer(): Player
     {
         if (!$token = $this->tokenStorage->getToken()) {
             throw new AccessDeniedException('User should be logged to access that');

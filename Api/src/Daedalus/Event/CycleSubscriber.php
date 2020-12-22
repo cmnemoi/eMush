@@ -2,6 +2,7 @@
 
 namespace Mush\Daedalus\Event;
 
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -47,40 +48,37 @@ class CycleSubscriber implements EventSubscriberInterface
             return;
         }
         $daedalus = $event->getDaedalus();
-        $newDay = false;
         $daedalus->setCycle($daedalus->getCycle() + 1);
 
-        if ($daedalus->getCycle() === ((24 / $this->gameConfig->getCycleLength()) + 1)) {
-            $newDay = true;
-            $daedalus->setCycle(1);
-            $daedalus->setDay($daedalus->getDay() + 1);
+        if ($this->handleDaedalusEnd($daedalus)) {
+            return; //@FIXME: should we continue cycle event if daedalus is destructed?
         }
 
+        $this->dispatchCycleChangeEvent($daedalus, $event->getTime());
+
+        $daedalus = $this->handleOxygen($daedalus);
+
+        //@TODO When everything is added check that everithing happens in the right order
+        $this->daedalusService->persist($daedalus);
+    }
+
+    private function handleDaedalusEnd(Daedalus $daedalus): bool
+    {
         if ($daedalus->getPlayers()->getHumanPlayer()->isEmpty() &&
             !$daedalus->getPlayers()->getMushPlayer()->isEmpty()
         ) {
             $endDaedalusEvent = new DaedalusEvent($daedalus);
             $endDaedalusEvent->setReason(EnumEndCauseEnum::KILLED_BY_NERON);
             $this->eventDispatcher->dispatch($endDaedalusEvent, DaedalusEvent::END_DAEDALUS);
+
+            return true;
         }
 
-        foreach ($daedalus->getPlayers() as $player) {
-            $newPlayerCycle = new CycleEvent($daedalus, $event->getTime());
-            $newPlayerCycle->setPlayer($player);
-            $this->eventDispatcher->dispatch($newPlayerCycle, CycleEvent::NEW_CYCLE);
-        }
+        return false;
+    }
 
-        foreach ($daedalus->getRooms() as $room) {
-            $newRoomCycle = new CycleEvent($daedalus, $event->getTime());
-            $newRoomCycle->setRoom($room);
-            $this->eventDispatcher->dispatch($newRoomCycle, CycleEvent::NEW_CYCLE);
-        }
-
-        if ($newDay) {
-            $dayEvent = new DayEvent($daedalus, $event->getTime());
-            $this->eventDispatcher->dispatch($dayEvent, DayEvent::NEW_DAY);
-        }
-
+    private function handleOxygen(Daedalus $daedalus): Daedalus
+    {
         //Handle oxygen loss
         $daedalus->addOxygen(-1);
 
@@ -107,7 +105,34 @@ class CycleSubscriber implements EventSubscriberInterface
             $this->daedalusService->getRandomAsphyxia($daedalus);
         }
 
-        //@TODO When everything is added check that everithing happens in the right order
-        $this->daedalusService->persist($daedalus);
+        return $daedalus;
+    }
+
+    private function dispatchCycleChangeEvent(Daedalus $daedalus, \DateTime $time): void
+    {
+        $newDay = false;
+
+        if ($daedalus->getCycle() === ((24 / $this->gameConfig->getCycleLength()) + 1)) {
+            $newDay = true;
+            $daedalus->setCycle(1);
+            $daedalus->setDay($daedalus->getDay() + 1);
+        }
+
+        foreach ($daedalus->getPlayers() as $player) {
+            $newPlayerCycle = new CycleEvent($daedalus, $time);
+            $newPlayerCycle->setPlayer($player);
+            $this->eventDispatcher->dispatch($newPlayerCycle, CycleEvent::NEW_CYCLE);
+        }
+
+        foreach ($daedalus->getRooms() as $room) {
+            $newRoomCycle = new CycleEvent($daedalus, $time);
+            $newRoomCycle->setRoom($room);
+            $this->eventDispatcher->dispatch($newRoomCycle, CycleEvent::NEW_CYCLE);
+        }
+
+        if ($newDay) {
+            $dayEvent = new DayEvent($daedalus, $time);
+            $this->eventDispatcher->dispatch($dayEvent, DayEvent::NEW_DAY);
+        }
     }
 }

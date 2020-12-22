@@ -8,13 +8,13 @@ use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Action;
 use Mush\Action\Actions\LieDown;
-use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Entity\ActionParameters;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\SuccessRateServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\Mechanics\Tool;
-use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
@@ -24,8 +24,8 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
-use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Entity\Status;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -76,13 +76,13 @@ class LieDownActionTest extends TestCase
 
     public function testCannotExecute()
     {
-        $daedalus=new Daedalus();
+        $daedalus = new Daedalus();
         $room = new Room();
 
         $player = $this->createPlayer($daedalus, $room);
 
         $gameEquipment = new GameEquipment();
-        $tool= new Tool();
+        $tool = new Tool();
         $tool->setActions([ActionEnum::LIE_DOWN]);
         $item = new EquipmentConfig();
         $item
@@ -96,12 +96,9 @@ class LieDownActionTest extends TestCase
             ->setName(EquipmentEnum::BED)
         ;
 
-        $status=new Status();
+        $status = new Status();
         $status
             ->setName(PlayerStatusEnum::LYING_DOWN);
-
-
-
 
         $actionParameter = new ActionParameters();
         $actionParameter->setEquipment($gameEquipment);
@@ -114,7 +111,6 @@ class LieDownActionTest extends TestCase
 
         $this->assertInstanceOf(Error::class, $result);
 
-
         //player already lying down
         $status->setGameEquipment(null);
         $status->setPlayer($player);
@@ -125,13 +121,13 @@ class LieDownActionTest extends TestCase
 
     public function testExecute()
     {
-        $daedalus=new Daedalus();
+        $daedalus = new Daedalus();
         $room = new Room();
 
         $player = $this->createPlayer($daedalus, $room);
 
         $gameEquipment = new GameEquipment();
-        $tool= new Tool();
+        $tool = new Tool();
         $tool->setActions([ActionEnum::LIE_DOWN]);
         $item = new EquipmentConfig();
         $item
@@ -145,12 +141,10 @@ class LieDownActionTest extends TestCase
             ->setName(EquipmentEnum::BED)
         ;
 
-
         $actionParameter = new ActionParameters();
         $actionParameter->setEquipment($gameEquipment);
 
         $this->action->loadParameters($player, $actionParameter);
-
 
         $this->statusService->shouldReceive('persist');
         $this->roomLogService->shouldReceive('createPlayerLog')->once();

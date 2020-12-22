@@ -10,8 +10,8 @@ use Mush\Action\Actions\GetUp;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Service\SuccessRateServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\EquipmentConfig;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
@@ -21,8 +21,8 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
-use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Entity\Status;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -73,7 +73,7 @@ class GetUpActionTest extends TestCase
 
     public function testCannotExecute()
     {
-        $daedalus=new Daedalus();
+        $daedalus = new Daedalus();
         $room = new Room();
 
         $player = $this->createPlayer($daedalus, $room);
@@ -90,12 +90,11 @@ class GetUpActionTest extends TestCase
             ->setName(EquipmentEnum::BED)
         ;
 
-        $status=new Status();
+        $status = new Status();
         $status
             ->setName(PlayerStatusEnum::LYING_DOWN)
             ->setPlayer($player2)
             ->setGameEquipment($gameItem);
-
 
         $this->gameConfig->setMaxItemInInventory(3);
 
@@ -125,12 +124,11 @@ class GetUpActionTest extends TestCase
             ->setName(EquipmentEnum::BED)
         ;
 
-        $status=new Status();
+        $status = new Status();
         $status
             ->setName(PlayerStatusEnum::LYING_DOWN)
             ->setPlayer($player)
             ->setGameEquipment($gameItem);
-
 
         $this->gameConfig->setMaxItemInInventory(3);
 

@@ -2,12 +2,10 @@
 
 namespace Mush\Action\Event;
 
-use Mush\Action\Actions\GetUp;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Player\Entity\ActionModifier;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -48,12 +46,12 @@ class ActionSubscriber implements EventSubscriberInterface
         $player = $event->getPlayer();
         $actionCost = $event->getActionCost();
 
-        if($player->getStatusByName(PlayerStatusEnum::LYING_DOWN)){
-            $lyingDownStatus=$player->getStatusByName(PlayerStatusEnum::LYING_DOWN);
+        if ($player->getStatusByName(PlayerStatusEnum::LYING_DOWN)) {
+            $lyingDownStatus = $player->getStatusByName(PlayerStatusEnum::LYING_DOWN);
             $lyingDownStatus->setPlayer(null)->setGameEquipment(null);
             $this->statusServive->persist($lyingDownStatus);
 
-            $actionCost->setActionPointCost($actionCost->getActionPointCost()+1);
+            $actionCost->setActionPointCost($actionCost->getActionPointCost() + 1);
         }
     }
 
@@ -62,6 +60,4 @@ class ActionSubscriber implements EventSubscriberInterface
         $daedalus = $event->getAction();
         // @TODO: create logs
     }
-
-
 }

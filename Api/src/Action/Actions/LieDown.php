@@ -8,8 +8,6 @@ use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
-use Mush\Player\Event\PlayerEvent;
-use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\Status;
@@ -51,8 +49,6 @@ class LieDown extends Action
 
     public function canExecute(): bool
     {
-
-
         return $this->gameEquipment->getEquipment()->hasAction(ActionEnum::LIE_DOWN) &&
             !$this->gameEquipment->isbroken() &&
             !$this->gameEquipment->getStatusByName(PlayerStatusEnum::LYING_DOWN) &&

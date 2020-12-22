@@ -6,13 +6,9 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
-use Mush\Player\Event\PlayerEvent;
-use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
-use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -43,15 +39,12 @@ class GetUp extends Action
 
     public function canExecute(): bool
     {
-        if($this->player->getStatusByName(PlayerStatusEnum::LYING_DOWN)){
-            return true;
-        }
-        return false;
+        return $this->player->getStatusByName(PlayerStatusEnum::LYING_DOWN) !== null;
     }
 
     protected function applyEffects(): ActionResult
     {
-        $lyingDownStatus=$this->player->getStatusByName(PlayerStatusEnum::LYING_DOWN);
+        $lyingDownStatus = $this->player->getStatusByName(PlayerStatusEnum::LYING_DOWN);
 
         $lyingDownStatus->setPlayer(null)->setGameEquipment(null);
 

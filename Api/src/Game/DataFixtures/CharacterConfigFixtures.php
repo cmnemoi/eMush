@@ -194,7 +194,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $jinSu = new CharacterConfig();
         $jinSu
             ->setGameConfig($gameConfig)
-            ->setName(CharacterEnum::KIM_JUN_SU)
+            ->setName(CharacterEnum::KIM_JIN_SU)
             ->setStatuses([])
             ->setSkills([
                 SkillEnum::COLD_BLOODED,

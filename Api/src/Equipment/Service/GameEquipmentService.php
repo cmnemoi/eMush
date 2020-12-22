@@ -85,8 +85,15 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             $this->initStatus($gameEquipment, EquipmentStatusEnum::HEAVY);
         }
 
+        $gameEquipment = $this->initMechanics($gameEquipment, $daedalus);
+
+        return $this->persist($gameEquipment);
+    }
+
+    private function initMechanics(GameEquipment $gameEquipment, Daedalus $daedalus): GameEquipment
+    {
         /** @var EquipmentMechanic $mechanic */
-        foreach ($equipment->getMechanics() as $mechanic) {
+        foreach ($gameEquipment->getEquipment()->getMechanics() as $mechanic) {
             switch ($mechanic->getMechanic()) {
                 case EquipmentMechanicEnum::PLANT:
                     $this->initPlant($gameEquipment, $mechanic, $daedalus);
@@ -102,7 +109,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             }
         }
 
-        return $this->persist($gameEquipment);
+        return $gameEquipment;
     }
 
     // @TODO maybe remove those init functions to directly include them in createGameEquipment

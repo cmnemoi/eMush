@@ -3,7 +3,6 @@
 namespace Mush\Player\Service;
 
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Player\Entity\ActionModifier;
 use Mush\Player\Entity\Player;
 use Mush\User\Entity\User;
 
@@ -22,6 +21,4 @@ interface PlayerServiceInterface
     public function handleNewDay(Player $player, \DateTime $date): Player;
 
     public function findUserCurrentGame(User $user): ?Player;
-
-    public function handlePlayerModifier(Player $player, ActionModifier $actionModifier, \DateTime $date = null): Player;
 }

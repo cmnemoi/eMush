@@ -39,18 +39,11 @@ class StatusNormalizer implements ContextAwareNormalizerInterface
     {
         $status = $object;
         $statusName = $status->getName();
-        $visibility = $status->getVisibility();
 
-        if ($visibility === VisibilityEnum::PUBLIC ||
-           ($visibility === VisibilityEnum::PLAYER_PUBLIC &&
-           array_key_exists('player', $context) && $context['player'] instanceof Player) ||
-           ((($visibility === VisibilityEnum::EQUIPMENT_PRIVATE &&
-           array_key_exists('equipment', $context) && $context['equipment'] instanceof GameEquipment) ||
-           $visibility === VisibilityEnum::PRIVATE) &&
-           $this->getPlayer() === $status->getPlayer()) ||
-           ($visibility === VisibilityEnum::MUSH &&
-           $this->getPlayer()->isMush())
-           ) {
+        if ($this->isVisibilityPublic($status, $context) ||
+            $this->isVisibilityPrivateForUser($status, $context) ||
+            ($status->getVisibility() === VisibilityEnum::MUSH && $this->getUserPlayer()->isMush())
+        ) {
             $normedStatus = [
                 'key' => $statusName,
                 'name' => $this->translator->trans($statusName . '.name', [], 'statuses'),
@@ -71,7 +64,30 @@ class StatusNormalizer implements ContextAwareNormalizerInterface
         return [];
     }
 
-    private function getPlayer(): Player
+    private function isVisibilityPublic(Status $status, array $context): bool
+    {
+        $visibility = $status->getVisibility();
+
+        $playerContext = array_key_exists('player', $context) && $context['player'] instanceof Player;
+
+        return $visibility === VisibilityEnum::PUBLIC ||
+            ($visibility === VisibilityEnum::PLAYER_PUBLIC && $playerContext)
+        ;
+    }
+
+    private function isVisibilityPrivateForUser(Status $status, array $context): bool
+    {
+        $visibility = $status->getVisibility();
+        $equipmentContext = isset($context['equipment']) && $context['equipment'] instanceof GameEquipment;
+
+        return $this->getUserPlayer() === $status->getPlayer() &&
+            ($visibility === VisibilityEnum::PRIVATE ||
+                ($visibility === VisibilityEnum::EQUIPMENT_PRIVATE && $equipmentContext)
+            )
+        ;
+    }
+
+    private function getUserPlayer(): Player
     {
         if (!$token = $this->tokenStorage->getToken()) {
             throw new AccessDeniedException('User should be logged to access that');

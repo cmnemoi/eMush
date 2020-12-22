@@ -79,7 +79,10 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         }
 
         if ($equipment->isAlienArtifact()) {
-            $this->initAlienArtifact($gameEquipment);
+            $this->initStatus($gameEquipment, EquipmentStatusEnum::ALIEN_ARTEFACT);
+        }
+        if ($equipment instanceof ItemConfig && $equipment->isHeavy()) {
+            $this->initStatus($gameEquipment, EquipmentStatusEnum::HEAVY);
         }
 
         /** @var EquipmentMechanic $mechanic */
@@ -146,10 +149,10 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         return $gameEquipment;
     }
 
-    private function initAlienArtifact(GameEquipment $gameEquipment): GameEquipment
+    private function initStatus(GameEquipment $gameEquipment, string $statusName): GameEquipment
     {
         $this->statusService->createCoreEquipmentStatus(
-            EquipmentStatusEnum::ALIEN_ARTEFACT,
+            $statusName,
             $gameEquipment
         );
 

@@ -167,13 +167,14 @@ class PlayerService implements PlayerServiceInterface
         $playerEvent->setActionModifier($actionModifier);
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
 
+        $triumphChange = 0;
+
         if ($player->isMush() &&
             ($mushTriumph = $this->gameConfig->getTriumphConfig()->getTriumph(TriumphEnum::CYCLE_MUSH))
         ) {
             $triumphChange = $mushTriumph->getTriumph();
         }
 
-        $triumphChange = 0;
         if (!$player->isMush() &&
             ($humanTriumph = $this->gameConfig->getTriumphConfig()->getTriumph(TriumphEnum::CYCLE_HUMAN))
         ) {

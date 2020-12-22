@@ -13,7 +13,7 @@ class CharacterEnum
     public const IAN = 'ian';
     public const JANICE = 'janice';
     public const HUA = 'hua';
-    public const KIM_JUN_SU = 'kim_jun_su';
+    public const KIM_JIN_SU = 'kim_jin_su';
     public const KUAN_TI = 'kuan_ti';
     public const PAOLA = 'paola';
     public const RALUCA = 'raluca';
@@ -39,7 +39,7 @@ class CharacterEnum
             self::IAN,
             self::JANICE,
             self::HUA,
-            self::KIM_JUN_SU,
+            self::KIM_JIN_SU,
             self::KUAN_TI,
             self::PAOLA,
             self::RALUCA,
@@ -57,7 +57,7 @@ class CharacterEnum
             self::DEREK,
             self::GIOELE,
             self::IAN,
-            self::KIM_JUN_SU,
+            self::KIM_JIN_SU,
             self::KUAN_TI,
             self::ROLAND,
             self::STEPHEN,

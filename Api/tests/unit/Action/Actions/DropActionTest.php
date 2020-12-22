@@ -15,6 +15,7 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -26,6 +27,8 @@ class DropActionTest extends TestCase
     private GameEquipmentServiceInterface $gameEquipmentService;
     /** @var PlayerServiceInterface | Mockery\Mock */
     private PlayerServiceInterface $playerService;
+    /** @var StatusServiceInterface | Mockery\Mock */
+    private StatusServiceInterface $statusService;
     private Action $action;
 
     /**
@@ -37,6 +40,7 @@ class DropActionTest extends TestCase
         $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
+        $this->statusService = Mockery::mock(StatusServiceInterface::class);
 
         $eventDispatcher->shouldReceive('dispatch');
 
@@ -44,7 +48,8 @@ class DropActionTest extends TestCase
             $eventDispatcher,
             $this->roomLogService,
             $this->gameEquipmentService,
-            $this->playerService
+            $this->playerService,
+            $this->statusService
         );
     }
 

@@ -46,10 +46,9 @@ class ActionSubscriber implements EventSubscriberInterface
         $player = $event->getPlayer();
         $actionCost = $event->getActionCost();
 
-        if ($player->getStatusByName(PlayerStatusEnum::LYING_DOWN)) {
-            $lyingDownStatus = $player->getStatusByName(PlayerStatusEnum::LYING_DOWN);
+        if ($lyingDownStatus = $player->getStatusByName(PlayerStatusEnum::LYING_DOWN)) {
             $lyingDownStatus->setPlayer(null)->setGameEquipment(null);
-            $this->statusServive->persist($lyingDownStatus);
+            $this->statusService->persist($lyingDownStatus);
 
             $actionCost->setActionPointCost($actionCost->getActionPointCost() + 1);
         }

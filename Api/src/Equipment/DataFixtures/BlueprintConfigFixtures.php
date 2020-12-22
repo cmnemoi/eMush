@@ -21,16 +21,27 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
+        /** @var ItemConfig $echolocator */
         $echolocator = $this->getReference(ItemEnum::ECHOLOCATOR);
+        /** @var ItemConfig $whiteFlag */
         $whiteFlag = $this->getReference(ItemEnum::WHITE_FLAG);
+        /** @var ItemConfig $thermosensor */
         $thermosensor = $this->getReference(ItemEnum::THERMOSENSOR);
+        /** @var ItemConfig $babelModule */
         $babelModule = $this->getReference(ItemEnum::BABEL_MODULE);
+        /** @var ItemConfig $grenade */
         $grenade = $this->getReference(ItemEnum::GRENADE);
+        /** @var ItemConfig $oldFaithful */
         $oldFaithful = $this->getReference(ItemEnum::OLD_FAITHFUL);
+        /** @var ItemConfig $lizaroJungle */
         $lizaroJungle = $this->getReference(ItemEnum::LIZARO_JUNGLE);
+        /** @var ItemConfig $rocketLauncher */
         $rocketLauncher = $this->getReference(ItemEnum::ROCKET_LAUNCHER);
+        /** @var ItemConfig $extinguisher */
         $extinguisher = $this->getReference(ToolItemEnum::EXTINGUISHER);
+        /** @var ItemConfig $oscilloscope */
         $oscilloscope = $this->getReference(GearItemEnum::OSCILLOSCOPE);
+        /** @var ItemConfig $sniperHelmet */
         $sniperHelmet = $this->getReference(GearItemEnum::SNIPER_HELMET);
 
         //@TODO add support_drone and swedish_sofa

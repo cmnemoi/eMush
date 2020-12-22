@@ -139,14 +139,12 @@ class MoveActionTest extends TestCase
 
         $this->assertInstanceOf(Success::class, $result);
         $this->assertEquals($player->getRoom(), $roomEnd);
-        $this->assertEmpty($roomStart->getPlayers());
         $this->assertEquals($player->getMovementPoint(), 9);
 
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
         $this->assertEquals($player->getRoom(), $roomStart);
-        $this->assertEmpty($roomEnd->getPlayers());
         $this->assertEquals($player->getMovementPoint(), 8);
     }
 }

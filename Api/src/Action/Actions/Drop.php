@@ -14,6 +14,7 @@ use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Drop extends Action
@@ -25,18 +26,21 @@ class Drop extends Action
     private RoomLogServiceInterface $roomLogService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
+    private StatusServiceInterface $statusService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         RoomLogServiceInterface $roomLogService,
         GameEquipmentServiceInterface $gameEquipmentService,
-        PlayerServiceInterface $playerService
+        PlayerServiceInterface $playerService,
+        StatusServiceInterface $statusService
     ) {
         parent::__construct($eventDispatcher);
 
         $this->roomLogService = $roomLogService;
         $this->gameEquipmentService = $gameEquipmentService;
         $this->playerService = $playerService;
+        $this->statusService = $statusService;
     }
 
     public function loadParameters(Player $player, ActionParameters $actionParameters): void
@@ -65,7 +69,12 @@ class Drop extends Action
 
         // Remove BURDENED status if no other heavy item in the inventory
         if (($burdened = $this->player->getStatusByName(PlayerStatusEnum::BURDENED)) &&
-            $this->player->getItems()->filter(fn (GameItem $item) => $item->getEquipment()->isHeavy())->isEmpty()
+            $this->player->getItems()->filter(function (GameItem $item) {
+                /** @var ItemConfig $itemConfig */
+                $itemConfig = $item->getEquipment();
+
+                return $itemConfig->isHeavy();
+            })->isEmpty()
         ) {
             $this->player->removeStatus($burdened);
             $this->statusService->delete($burdened);

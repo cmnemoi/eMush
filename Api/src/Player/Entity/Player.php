@@ -62,12 +62,12 @@ class Player
     /**
      * @ORM\ManyToOne (targetEntity="Mush\Daedalus\Entity\Daedalus", inversedBy="players")
      */
-    private ?Daedalus $daedalus = null;
+    private Daedalus $daedalus;
 
     /**
      * @ORM\ManyToOne (targetEntity="Mush\Room\Entity\Room", inversedBy="players")
      */
-    private ?Room $room = null;
+    private Room $room;
 
     /**
      * @ORM\OneToMany(targetEntity="Mush\Equipment\Entity\GameItem", mappedBy="player")
@@ -190,7 +190,7 @@ class Player
         return $this;
     }
 
-    public function getDaedalus(): ?Daedalus
+    public function getDaedalus(): Daedalus
     {
         return $this->daedalus;
     }
@@ -198,27 +198,16 @@ class Player
     /**
      * @return static
      */
-    public function setDaedalus(?Daedalus $daedalus): Player
+    public function setDaedalus(Daedalus $daedalus): Player
     {
-        if ($daedalus !== $this->daedalus) {
-            $oldDaedalus = $this->getDaedalus();
+        $this->daedalus = $daedalus;
 
-            $this->daedalus = $daedalus;
-
-            if ($daedalus !== null) {
-                $daedalus->addPlayer($this);
-            }
-
-            if ($oldDaedalus !== null) {
-                $oldDaedalus->removePlayer($this);
-                $this->daedalus = $daedalus;
-            }
-        }
+        $daedalus->addPlayer($this);
 
         return $this;
     }
 
-    public function getRoom(): ?Room
+    public function getRoom(): Room
     {
         return $this->room;
     }
@@ -226,21 +215,11 @@ class Player
     /**
      * @return static
      */
-    public function setRoom(?Room $room): Player
+    public function setRoom(Room $room): Player
     {
-        if ($room !== $this->room) {
-            $oldRoom = $this->room;
-            $this->room = $room;
+        $this->room = $room;
 
-            if ($room !== null) {
-                $room->addPlayer($this);
-            }
-
-            if ($oldRoom !== null) {
-                $oldRoom->removePlayer($this);
-                $this->room = $room;
-            }
-        }
+        $room->addPlayer($this);
 
         return $this;
     }
@@ -250,20 +229,19 @@ class Player
      */
     public function canReachEquipment(GameEquipment $gameEquipment): bool
     {
-        if (
-            $gameEquipment instanceof Door &&
+        if ($gameEquipment instanceof Door &&
             $this->getRoom()->getDoors()->contains($gameEquipment)
         ) {
             return true;
         }
-        if ($gameEquipment->getStatusByName(EquipmentStatusEnum::HIDDEN) !== null) {
-            return $gameEquipment->getStatusByName(EquipmentStatusEnum::HIDDEN)->getPlayer() === $this;
+        if ($hiddenStatus = $gameEquipment->getStatusByName(EquipmentStatusEnum::HIDDEN)) {
+            return $hiddenStatus->getPlayer() === $this;
         } else {
             return $this->items->contains($gameEquipment) || $this->getRoom()->getEquipments()->contains($gameEquipment);
         }
     }
 
-    public function getReachableEquipmentsByName(string $name, string $reach = ReachEnum::SHELVE_NOT_HIDDEN): ?Collection
+    public function getReachableEquipmentsByName(string $name, string $reach = ReachEnum::SHELVE_NOT_HIDDEN): Collection
     {
         //reach can be set to inventory, shelve, shelve only or any room of the Daedalus
         if ($reach === ReachEnum::INVENTORY) {
@@ -273,27 +251,31 @@ class Player
                 $this->getItems()->toArray(),
                 $this->getRoom()->getEquipments()->toArray()
             ))
-              )->filter(fn (GameEquipment $gameEquipment) => (
-              $gameEquipment->getName() === $name &&
-              ($gameEquipment->getStatusByName(EquipmentStatusEnum::HIDDEN) === null ||
-               $gameEquipment->getStatusByName(EquipmentStatusEnum::HIDDEN)->getPlayer() === $this)));
+            )->filter(fn (GameEquipment $gameEquipment) => (
+                $gameEquipment->getName() === $name &&
+                (($hiddenStatus = $gameEquipment->getStatusByName(EquipmentStatusEnum::HIDDEN)) === null ||
+                    $hiddenStatus->getPlayer() === $this)));
         } elseif ($reach === ReachEnum::SHELVE) {
             return (new ArrayCollection(array_merge(
                 $this->getItems()->toArray(),
                 $this->getRoom()->getEquipments()->toArray()
             ))
-              )->filter(fn (GameEquipment $equipment) => ($equipment->getName() === $name));
+            )->filter(fn (GameEquipment $equipment) => ($equipment->getName() === $name));
         } else {
-            return $this->getDaedalus()->getRoomByName($reach)->getEquipments()->filter(fn (GameEquipment $equipment) => $equipment->getName() === $name);
+            return $this->getDaedalus()
+                ->getRoomByName($reach)
+                ->getEquipments()
+                ->filter(fn (GameEquipment $equipment) => $equipment->getName() === $name)
+                ;
         }
     }
 
-    public function getReachableTools(): ?Collection
+    public function getReachableTools(): Collection
     {
         //reach can be set to inventory, shelve, shelve only or any room of the Daedalus
 
         return (new ArrayCollection(array_merge($this->getItems()->toArray(), $this->getRoom()->getEquipments()->toArray())
-            ))->filter(fn (GameEquipment $gameEquipment) => ($gameEquipment->getEquipment()->getMechanicbyName(EquipmentMechanicEnum::TOOL)));
+        ))->filter(fn (GameEquipment $gameEquipment) => ($gameEquipment->getEquipment()->getMechanicbyName(EquipmentMechanicEnum::TOOL)));
     }
 
     public function getItems(): Collection
@@ -424,7 +406,7 @@ class Player
         return $this;
     }
 
-    public function getSkills(): ?array
+    public function getSkills(): array
     {
         return $this->skills;
     }

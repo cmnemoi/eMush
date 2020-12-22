@@ -125,10 +125,6 @@ class Daedalus
     public function addPlayer(Player $player): Daedalus
     {
         if (!$this->getPlayers()->contains($player)) {
-            if ($player->getDaedalus() !== $this) {
-                $player->setDaedalus(null);
-            }
-
             $this->players->add($player);
 
             $player->setDaedalus($this);
@@ -143,9 +139,6 @@ class Daedalus
     public function removePlayer(Player $player): Daedalus
     {
         $this->players->removeElement($player);
-        if ($player->getDaedalus() === $this) {
-            $player->setDaedalus(null);
-        }
 
         return $this;
     }
@@ -191,10 +184,6 @@ class Daedalus
     public function addRoom(Room $room): Daedalus
     {
         if (!$this->getRooms()->contains($room)) {
-            if ($room->getDaedalus() !== $this) {
-                $room->setDaedalus(null);
-            }
-
             $this->rooms->add($room);
 
             $room->setDaedalus($this);
@@ -209,9 +198,6 @@ class Daedalus
     public function removeRoom(Room $room): Daedalus
     {
         $this->rooms->removeElement($room);
-        if ($room->getDaedalus() === $this) {
-            $room->setDaedalus(null);
-        }
 
         return $this;
     }

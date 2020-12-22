@@ -2,7 +2,7 @@
 
 namespace Mush\Status\Service;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -44,5 +44,5 @@ interface StatusServiceInterface
 
     public function delete(Status $status): bool;
 
-    public function getMostRecent(string $statusName, ArrayCollection $equipments): GameEquipment;
+    public function getMostRecent(string $statusName, Collection $equipments): GameEquipment;
 }

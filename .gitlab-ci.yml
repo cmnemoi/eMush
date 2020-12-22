@@ -28,3 +28,4 @@ lint:
   stage: lint
   script:
     - vendor/bin/php-cs-fixer fix --dry-run --diff
+    - vendor/bin/psalm

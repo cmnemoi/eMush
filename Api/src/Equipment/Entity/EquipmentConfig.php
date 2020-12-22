@@ -147,7 +147,13 @@ class EquipmentConfig
 
     public function getRationsMechanic(): ?Ration
     {
-        return $this->getMechanicByMechanics([EquipmentMechanicEnum::RATION, EquipmentMechanicEnum::FRUIT, EquipmentMechanicEnum::DRUG]);
+        $mechanic = $this->getMechanicByMechanics([EquipmentMechanicEnum::RATION, EquipmentMechanicEnum::FRUIT, EquipmentMechanicEnum::DRUG]);
+
+        if ($mechanic !== null && !$mechanic instanceof Ration) {
+            throw new \LogicException('This should be a ration');
+        }
+
+        return $mechanic;
     }
 
     public function getBreakableRate(): int

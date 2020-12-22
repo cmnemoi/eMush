@@ -129,8 +129,8 @@ class RoomLogService implements RoomLogServiceInterface
         foreach ($roomLogs as $roomLog) {
             $logKey = $roomLog->getLog();
             $params = [];
-            if ($roomLog->getPlayer()) {
-                $characterKey = $roomLog->getPlayer()->getPerson();
+            if ($player = $roomLog->getPlayer()) {
+                $characterKey = $player->getPerson();
                 $characterName = $this->translator->trans($characterKey . '.name', [], 'characters');
                 $logKey .= '.character.' . (CharacterEnum::isMale($characterKey) ? 'male' : 'female');
                 $params['player'] = $characterName;

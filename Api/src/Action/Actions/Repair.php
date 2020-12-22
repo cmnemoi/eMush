@@ -73,8 +73,10 @@ class Repair extends AttemptAction
 
         $response = $this->makeAttempt($this->gameEquipment->getBrokenRate(), $modificator);
 
-        if ($response instanceof Success) {
-            $this->gameEquipment->removeStatus($this->gameEquipment->getStatusByName(EquipmentStatusEnum::BROKEN));
+        if ($response instanceof Success &&
+            ($brokenStatus = $this->gameEquipment->getStatusByName(EquipmentStatusEnum::BROKEN))
+        ) {
+            $this->gameEquipment->removeStatus($brokenStatus);
             $this->gameEquipmentService->persist($this->gameEquipment);
         }
 

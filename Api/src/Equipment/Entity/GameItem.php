@@ -43,7 +43,9 @@ class GameItem extends GameEquipment
 
         if (null === $player && null !== $this->player) {
             $this->player->removeItem($this);
-        } elseif ($this->player !== $player) {
+        }
+
+        if ($player !== null && $this->player !== $player) {
             $player->addItem($this);
         }
 

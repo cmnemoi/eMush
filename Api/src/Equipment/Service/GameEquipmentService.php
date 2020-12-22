@@ -106,8 +106,12 @@ class GameEquipmentService implements GameEquipmentServiceInterface
     }
 
     // @TODO maybe remove those init functions to directly include them in createGameEquipment
-    private function initPlant(GameEquipment $gameEquipment, Plant $plant, Daedalus $daedalus): GameEquipment
+    private function initPlant(GameEquipment $gameEquipment, EquipmentMechanic $plant, Daedalus $daedalus): GameEquipment
     {
+        if (!$plant instanceof Plant) {
+            throw new \LogicException('Parameter is not a plant');
+        }
+
         $this->statusService->createChargeEquipmentStatus(
             EquipmentStatusEnum::PLANT_YOUNG,
             $gameEquipment,
@@ -119,8 +123,12 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         return $gameEquipment;
     }
 
-    private function initCharged(GameEquipment $gameEquipment, Charged $charged): GameEquipment
+    private function initCharged(GameEquipment $gameEquipment, $charged): GameEquipment
     {
+        if (!$charged instanceof Charged) {
+            throw new \LogicException('Parameter is not a charged mechanic');
+        }
+
         $chargeStatus = $this->statusService->createChargeEquipmentStatus(
             EquipmentStatusEnum::CHARGES,
             $gameEquipment,
@@ -136,8 +144,12 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         return $gameEquipment;
     }
 
-    private function initDocument(GameEquipment $gameEquipment, Document $document): GameEquipment
+    private function initDocument(GameEquipment $gameEquipment, $document): GameEquipment
     {
+        if (!$document instanceof Document) {
+            throw new \LogicException('Parameter is not a document');
+        }
+
         $contentStatus = new ContentStatus();
         $contentStatus
             ->setName(EquipmentStatusEnum::DOCUMENT_CONTENT)

@@ -67,11 +67,11 @@ class Cook extends Action
     public function canExecute(): bool
     {
         return ($this->gameEquipment->getEquipment()->getName() === GameRationEnum::STANDARD_RATION ||
-             $this->gameEquipment->getStatusByName(EquipmentStatusEnum::FROZEN)) &&
-             $this->player->canReachEquipment($this->gameEquipment) &&
-             !$this->gameEquipmentService
-                    ->getOperationalEquipmentsByName(EquipmentEnum::KITCHEN, $this->player, ReachEnum::SHELVE)->isEmpty()
-        ;
+                $this->gameEquipment->getStatusByName(EquipmentStatusEnum::FROZEN)) &&
+            $this->player->canReachEquipment($this->gameEquipment) &&
+            !$this->gameEquipmentService
+                ->getOperationalEquipmentsByName(EquipmentEnum::KITCHEN, $this->player, ReachEnum::SHELVE)->isEmpty()
+            ;
     }
 
     protected function applyEffects(): ActionResult
@@ -96,9 +96,7 @@ class Cook extends Action
             $this->gameEquipment->removeLocation();
             $this->gameEquipmentService->delete($this->gameEquipment);
             $this->gameEquipmentService->persist($newItem);
-        } else {
-            $frozenStatus = $this->gameEquipment->getStatusByName(EquipmentStatusEnum::FROZEN);
-
+        } elseif ($frozenStatus = $this->gameEquipment->getStatusByName(EquipmentStatusEnum::FROZEN)) {
             $this->gameEquipment->removeStatus($frozenStatus);
             $this->gameEquipmentService->persist($this->gameEquipment);
         }

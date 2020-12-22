@@ -44,11 +44,10 @@ class GetUp extends Action
 
     protected function applyEffects(): ActionResult
     {
-        $lyingDownStatus = $this->player->getStatusByName(PlayerStatusEnum::LYING_DOWN);
-
-        $lyingDownStatus->setPlayer(null)->setGameEquipment(null);
-
-        $this->statusService->delete($lyingDownStatus);
+        if ($lyingDownStatus = $this->player->getStatusByName(PlayerStatusEnum::LYING_DOWN)) {
+            $lyingDownStatus->setPlayer(null)->setGameEquipment(null);
+            $this->statusService->delete($lyingDownStatus);
+        }
 
         return new Success();
     }

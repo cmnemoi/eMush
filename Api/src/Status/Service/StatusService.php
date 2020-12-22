@@ -2,7 +2,7 @@
 
 namespace Mush\Status\Service;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Error;
 use Mush\Equipment\Entity\GameEquipment;
@@ -62,9 +62,12 @@ class StatusService implements StatusServiceInterface
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setGameEquipment($gameEquipment)
             ->setCharge($charge)
-            ->setThreshold($threshold)
             ->setAutoRemove($autoRemove)
         ;
+
+        if ($threshold) {
+            $status->setThreshold($threshold);
+        }
 
         return $status;
     }
@@ -84,9 +87,12 @@ class StatusService implements StatusServiceInterface
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setPlayer($player)
             ->setCharge($charge)
-            ->setThreshold($threshold)
             ->setAutoRemove($autoRemove)
         ;
+
+        if ($threshold) {
+            $status->setThreshold($threshold);
+        }
 
         return $status;
     }
@@ -149,10 +155,10 @@ class StatusService implements StatusServiceInterface
         return true;
     }
 
-    public function getMostRecent(string $statusName, ArrayCollection $equipments): gameEquipment
+    public function getMostRecent(string $statusName, Collection $equipments): gameEquipment
     {
         $pickedEquipments = $equipments
-            ->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getStatusByName($statusName))
+            ->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getStatusByName($statusName) !== null)
         ;
         if ($pickedEquipments->isEmpty()) {
             throw new Error('no such status in item collection');
@@ -162,7 +168,11 @@ class StatusService implements StatusServiceInterface
             if ($pickedEquipments->count() > 1) {
                 /** @var GameEquipment $equipment */
                 foreach ($pickedEquipments as $equipment) {
-                    if ($pickedEquipment->getStatusByName($statusName)->getCreatedAt() < $equipment->getStatusByName($statusName)->getCreatedAt()) {
+                    $pickedEquipmentsStatus = $pickedEquipment->getStatusByName($statusName);
+                    $equipmentsStatus = $equipment->getStatusByName($statusName);
+                    if ($pickedEquipmentsStatus &&
+                        $equipmentsStatus &&
+                        $pickedEquipmentsStatus->getCreatedAt() < $equipmentsStatus->getCreatedAt()) {
                         $pickedEquipment = $equipment;
                     }
                 }

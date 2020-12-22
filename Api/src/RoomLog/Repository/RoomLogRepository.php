@@ -15,6 +15,9 @@ class RoomLogRepository extends ServiceEntityRepository
         parent::__construct($registry, RoomLog::class);
     }
 
+    /**
+     * @psalm-suppress TooManyArguments
+     */
     public function getPlayerRoomLog(Player $player): array
     {
         $yesterday = new \DateTime('yesterday');

@@ -18,9 +18,9 @@ class Fruit extends Ration
     protected array $actions = [ActionEnum::TRANSPLANT];
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", nullable=false)
      */
-    private ?string $plantName = null;
+    private string $plantName;
 
     /**
      * @ORM\Column(type="array", nullable=false)
@@ -47,7 +47,7 @@ class Fruit extends Ration
      */
     private array $diseasesEffectDelayLength = [];
 
-    public function getPlantName(): ?string
+    public function getPlantName(): string
     {
         return $this->plantName;
     }

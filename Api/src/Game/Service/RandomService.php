@@ -53,7 +53,7 @@ class RandomService implements RandomServiceInterface
 
     public function getRandomElements(array $array, int $number = 1): array
     {
-        if (count($array) < $number) {
+        if (count($array) < $number || empty($array)) {
             throw new Error('getRandomElements: array is not large enough');
         }
         $randomKeys = array_rand($array, $number);

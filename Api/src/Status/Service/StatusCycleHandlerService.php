@@ -16,10 +16,10 @@ class StatusCycleHandlerService implements StatusCycleHandlerServiceInterface
 
     public function getStatusCycleHandler(Status $status): ?AbstractCycleHandler
     {
-        if (!isset($this->strategies[$status->getName()])) {
+        if (!($name = $status->getName()) || !isset($this->strategies[$status->getName()])) {
             return null;
         }
 
-        return $this->strategies[$status->getName()];
+        return $this->strategies[$name];
     }
 }

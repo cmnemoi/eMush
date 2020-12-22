@@ -6,6 +6,7 @@ use Mush\Action\Actions\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\User\Entity\User;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -70,8 +71,12 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
 
     private function getUser(): User
     {
+        if (!($token = $this->tokenStorage->getToken())) {
+            throw new AccessDeniedException('User should be logged');
+        }
+
         /** @var User $user */
-        $user = $this->tokenStorage->getToken()->getUser();
+        $user = $token->getUser();
 
         return $user;
     }

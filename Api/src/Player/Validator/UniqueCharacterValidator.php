@@ -28,8 +28,10 @@ class UniqueCharacterValidator extends ConstraintValidator
         }
 
         $daedalus = $value->getDaedalus();
-        if (null !== $daedalus &&
-            null !== $this->playerService->findOneByCharacter($value->getCharacter(), $daedalus)
+        $character = $value->getCharacter();
+        if ($daedalus !== null &&
+            $character !== null &&
+            $this->playerService->findOneByCharacter($character, $daedalus) !== null
         ) {
             $this->context
                 ->buildViolation($constraint->message)

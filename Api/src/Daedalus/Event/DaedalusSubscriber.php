@@ -51,6 +51,10 @@ class DaedalusSubscriber implements EventSubscriberInterface
         $daedalus = $event->getDaedalus();
         $reason = $event->getReason();
 
+        if (!$reason) {
+            throw new \LogicException('daedalus should end with a reason');
+        }
+
         $this->daedalusService->killRemainingPlayers($daedalus, $reason);
 
         // @TODO: create logs

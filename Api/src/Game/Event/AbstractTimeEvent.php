@@ -13,7 +13,7 @@ class AbstractTimeEvent extends Event
 {
     protected \DateTime $time;
     protected ?Player $player = null;
-    protected ?Daedalus $daedalus = null;
+    protected Daedalus $daedalus;
     protected ?Room $room = null;
     protected ?GameEquipment $gameEquipment = null;
     protected ?Status $status = null;
@@ -41,7 +41,7 @@ class AbstractTimeEvent extends Event
         return $this;
     }
 
-    public function getDaedalus(): ?Daedalus
+    public function getDaedalus(): Daedalus
     {
         return $this->daedalus;
     }

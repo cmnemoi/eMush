@@ -11,6 +11,7 @@ use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
+use Mush\Game\Entity\GameConfig;
 use Mush\Room\Enum\RoomEnum;
 
 /**
@@ -26,8 +27,11 @@ class DaedalusConfigFixtures extends Fixture implements DependentFixtureInterfac
     {
         $daedalusConfig = new DaedalusConfig();
 
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
+
         $daedalusConfig
-            ->setGameConfig($this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG))
+            ->setGameConfig($gameConfig)
             ->setInitOxygen(10)
             ->setInitFuel(10)
             ->setInitHull(100)

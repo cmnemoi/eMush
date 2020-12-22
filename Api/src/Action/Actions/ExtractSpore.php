@@ -56,13 +56,12 @@ class ExtractSpore extends Action
         $sporeStatus = $this->player->getStatusByName(PlayerStatusEnum::SPORES);
         if ($sporeStatus) {
             $sporeStatus->addCharge(1);
+            $this->statusService->persist($sporeStatus);
         } else {
             $this->statusService->createSporeStatus($this->player);
         }
 
         $this->player->getDaedalus()->setSpores($this->player->getDaedalus()->getSpores() - 1);
-
-        $this->statusService->persist($sporeStatus);
 
         return new Success();
     }

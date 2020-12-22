@@ -58,9 +58,10 @@ class TreatPlant extends Action
 
     protected function applyEffects(): ActionResult
     {
-        $this->gameEquipment->removeStatus($this->gameEquipment->getStatusByName(EquipmentStatusEnum::PLANT_DISEASED));
-
-        $this->gameEquipmentService->persist($this->gameEquipment);
+        if ($diseased = $this->gameEquipment->getStatusByName(EquipmentStatusEnum::PLANT_DISEASED)) {
+            $this->gameEquipment->removeStatus($diseased);
+            $this->gameEquipmentService->persist($this->gameEquipment);
+        }
 
         return new Success();
     }

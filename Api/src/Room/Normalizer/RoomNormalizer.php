@@ -9,6 +9,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
 use Mush\User\Entity\User;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
@@ -47,7 +48,7 @@ class RoomNormalizer implements ContextAwareNormalizerInterface, NormalizerAware
         $players = [];
         /** @var Player $player */
         foreach ($room->getPlayers() as $player) {
-            if ($this->getUser()->getCurrentGame() !== $player) {
+            if ($this->getPlayer() !== $player) {
                 $players[] = $this->normalizer->normalize($player);
             }
         }
@@ -55,15 +56,18 @@ class RoomNormalizer implements ContextAwareNormalizerInterface, NormalizerAware
         $doors = [];
         /** @var Door $door */
         foreach ($room->getDoors() as $door) {
-            $doors[] = array_merge(
-                $this->normalizer->normalize($door),
-                ['direction' => $door
-                    ->getRooms()
-                    ->filter(fn (Room $doorRoom) => $doorRoom !== $room)
-                    ->first()
-                    ->getName(),
-                ]
-            );
+            $normedDoor = $this->normalizer->normalize($door);
+            if (is_array($normedDoor)) {
+                $doors[] = array_merge(
+                    $normedDoor,
+                    ['direction' => $door
+                        ->getRooms()
+                        ->filter(fn (Room $doorRoom) => $doorRoom !== $room)
+                        ->first()
+                        ->getName(),
+                    ]
+                );
+            }
         }
 
         $equipments = [];
@@ -87,11 +91,19 @@ class RoomNormalizer implements ContextAwareNormalizerInterface, NormalizerAware
         ];
     }
 
-    private function getUser(): User
+    private function getPlayer(): Player
     {
-        /** @var User $user */
-        $user = $this->tokenStorage->getToken()->getUser();
+        if (!$token = $this->tokenStorage->getToken()) {
+            throw new AccessDeniedException('User should be logged to access that');
+        }
 
-        return $user;
+        /** @var User $user */
+        $user = $token->getUser();
+
+        if (!$player = $user->getCurrentGame()) {
+            throw new AccessDeniedException('User should be in game to access that');
+        }
+
+        return $player;
     }
 }

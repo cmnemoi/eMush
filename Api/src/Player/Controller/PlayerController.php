@@ -33,9 +33,6 @@ class PlayerController extends AbstractFOSRestController
     private CycleServiceInterface $cycleService;
     private ValidatorInterface $validator;
 
-    /**
-     * PlayerController constructor.
-     */
     public function __construct(
         PlayerServiceInterface $playerService,
         DaedalusServiceInterface $daedalusService,
@@ -107,7 +104,14 @@ class PlayerController extends AbstractFOSRestController
 
         $this->denyAccessUnlessGranted(CharacterVoter::PLAYER_CREATE);
 
-        $player = $this->playerService->createPlayer($playerRequest->getDaedalus(), $playerRequest->getCharacter());
+        $daedalus = $playerRequest->getDaedalus();
+        $character = $playerRequest->getCharacter();
+
+        if (!$daedalus || !$character) {
+            return $this->view(['invalid parameters'], 422);
+        }
+
+        $player = $this->playerService->createPlayer($daedalus, $character);
 
         return $this->view($player, Response::HTTP_CREATED);
     }

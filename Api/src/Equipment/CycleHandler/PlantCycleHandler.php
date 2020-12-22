@@ -15,6 +15,7 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Room\Entity\Room;
 use Mush\RoomLog\Enum\PlantLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
@@ -83,10 +84,12 @@ class PlantCycleHandler extends AbstractCycleHandler
         if ($youngStatus &&
             $youngStatus->getCharge() >= $plantEffect->getMaturationTime()
         ) {
+            $room = $this->getRoom($gamePlant);
+
             $gamePlant->removeStatus($youngStatus);
             $this->roomLogService->createEquipmentLog(
                 PlantLogEnum::PLANT_MATURITY,
-                $gamePlant->getRoom() ?? $gamePlant->getPlayer()->getRoom(),
+                $room,
                 null,
                 $gamePlant,
                 VisibilityEnum::PUBLIC,
@@ -166,20 +169,18 @@ class PlantCycleHandler extends AbstractCycleHandler
 
     private function handleDriedPlant(GameItem $gamePlant, \DateTime $dateTime): void
     {
-        // If plant is not in a room, it is in player inventory
-        $place = $gamePlant->getRoom() ? $gamePlant->getRoom() : $gamePlant->getPlayer();
+        $room = $this->getRoom($gamePlant);
+
         // Create a new hydropot
         /** @var GameItem $hydropot */
-        $hydropot = $this->gameEquipmentService->createGameEquipmentFromName(ItemEnum::HYDROPOT, $place->getDaedalus());
+        $hydropot = $this->gameEquipmentService->createGameEquipmentFromName(ItemEnum::HYDROPOT, $room->getDaedalus());
 
-        $room = $place;
-        if ($place instanceof Player) {
+        if ($player = $gamePlant->getPlayer()) {
             $gamePlant->setPlayer(null);
-            $hydropot->setPlayer($place);
-            $room = $place->getRoom();
+            $hydropot->setPlayer($player);
         } else {
             $gamePlant->setRoom(null);
-            $hydropot->setRoom($place);
+            $hydropot->setRoom($room);
         }
         $this->roomLogService->createEquipmentLog(
             PlantLogEnum::PLANT_DEATH,
@@ -215,21 +216,19 @@ class PlantCycleHandler extends AbstractCycleHandler
             return;
         }
         // If plant is not in a room, it is in player inventory
-        $place = $gamePlant->getRoom() ?? $gamePlant->getPlayer();
+        $room = $this->getRoom($gamePlant);
 
         /** @var GameItem $gameFruit */
-        $gameFruit = $this->gameEquipmentService->createGameEquipment($plantType->getFruit(), $place->getDaedalus());
+        $gameFruit = $this->gameEquipmentService->createGameEquipment($plantType->getFruit(), $room->getDaedalus());
 
-        if ($place instanceof Player) {
-            $room = $place->getRoom();
-            if ($place->getItems() < $this->gameConfig->getMaxItemInInventory()) {
-                $gameFruit->setPlayer($place);
+        if ($player = $gamePlant->getPlayer()) {
+            if ($player->getItems() < $this->gameConfig->getMaxItemInInventory()) {
+                $gameFruit->setPlayer($player);
             } else {
-                $gameFruit->setRoom($place->getRoom());
+                $gameFruit->setRoom($player->getRoom());
             }
         } else {
-            $room = $place;
-            $gameFruit->setRoom($place);
+            $gameFruit->setRoom($room);
         }
 
         $this->gameEquipmentService->persist($gameFruit);
@@ -246,13 +245,25 @@ class PlantCycleHandler extends AbstractCycleHandler
 
     private function addOxygen(GameItem $gamePlant, PlantEffect $plantEffect): void
     {
-        // If plant is not in a room, it is in player inventory
-        $place = $gamePlant->getRoom() ? $gamePlant->getRoom() : $gamePlant->getPlayer();
-
+        $daedalus = $this->getRoom($gamePlant)->getDaedalus();
         //Add Oxygen
         if (($oxygen = $plantEffect->getOxygen())) {
-            $daedalus = $place->getDaedalus();
             $daedalus->setOxygen($daedalus->getOxygen() + $oxygen);
         }
+    }
+
+    private function getRoom(GameItem $gamePlant): Room
+    {
+        if ($player = $gamePlant->getPlayer()) {
+            $room = $player->getRoom();
+        } else {
+            $room = $gamePlant->getRoom();
+        }
+
+        if ($room === null) {
+            throw new \LogicException('Cannot find room of game plant');
+        }
+
+        return $room;
     }
 }

@@ -65,7 +65,7 @@ class Drop extends Action
 
         // Remove BURDENED status if no other heavy item in the inventory
         if (($burdened = $this->player->getStatusByName(PlayerStatusEnum::BURDENED)) &&
-            $this->player->getItems()->exists(fn ($key, ItemConfig $item) => $item->isHeavy())
+            $this->player->getItems()->filter(fn (GameItem $item) => $item->getEquipment()->isHeavy())->isEmpty()
         ) {
             $this->player->removeStatus($burdened);
         }

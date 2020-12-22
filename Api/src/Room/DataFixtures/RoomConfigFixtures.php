@@ -514,6 +514,14 @@ class RoomConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($rearBravoStorage);
 
+        $greatBeyond = new RoomConfig();
+        $greatBeyond
+            ->setDaedalusConfig($daedalusConfig)
+            ->setName(RoomEnum::GREAT_BEYOND)
+        ;
+        $manager->persist($greatBeyond);
+
+
         $manager->flush();
 
         $this->addReference(RoomEnum::BRIDGE, $bridge);

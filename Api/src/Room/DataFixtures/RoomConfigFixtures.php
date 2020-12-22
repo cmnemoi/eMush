@@ -140,6 +140,7 @@ class RoomConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setEquipments([
                 EquipmentEnum::SURGICAL_PLOT,
                 EquipmentEnum::NARCOTIC_DISTILLER,
+                EquipmentEnum::BED,
             ])
         ;
         $manager->persist($medLab);

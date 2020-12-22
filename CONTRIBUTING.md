@@ -17,7 +17,13 @@ git checkout -b fix-some-fix
 ```
 2- Verify coding style before creating the merge request
 
-3- Issue a Merge Request describing summarizing what you have done, wait a moment (ideally 24h) or the approval of an other developper before merging
+3- Merge go through a pipeline that check unit test and syntax. Be sure to run folloing commands before merging:
+```
+vendor/bin/php-cs-fixer fix
+vendor/bin/psalm
+```
+
+4- Issue a Merge Request describing summarizing what you have done, wait a moment (ideally 24h) or the approval of an other developper before merging
 ## Code of Conduct
 
 ### Our Pledge

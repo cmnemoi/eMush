@@ -76,6 +76,8 @@ class Infect extends Action
         if ($sporeStatus->getCharge() === 1) {
             $this->player->removeStatus($sporeStatus);
             $this->playerService->persist($this->player);
+
+            $this->statusService->delete($sporeStatus);
         } else {
             $sporeStatus->addCharge(-1);
             $this->statusService->persist($sporeStatus);

@@ -65,6 +65,7 @@ class Coffee extends Action
 
     public function canExecute(): bool
     {
+        //@TODO maybe change this when tool will be properly implemented (if we want to have another equipment that do the same action)
         return !$this->gameEquipmentService
                     ->getOperationalEquipmentsByName(EquipmentEnum::COFFEE_MACHINE, $this->player, ReachEnum::SHELVE)->isEmpty()
         ;

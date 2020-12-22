@@ -68,6 +68,7 @@ class Drop extends Action
             $this->player->getItems()->filter(fn (GameItem $item) => $item->getEquipment()->isHeavy())->isEmpty()
         ) {
             $this->player->removeStatus($burdened);
+            $this->statusService->delete($burdened);
         }
 
         $this->gameEquipmentService->persist($this->gameItem);

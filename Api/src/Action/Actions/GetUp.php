@@ -48,7 +48,7 @@ class GetUp extends Action
 
         $lyingDownStatus->setPlayer(null)->setGameEquipment(null);
 
-        $this->statusService->persist($lyingDownStatus);
+        $this->statusService->delete($lyingDownStatus);
 
         return new Success();
     }

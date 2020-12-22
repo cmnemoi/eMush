@@ -136,7 +136,7 @@ class GetUpActionTest extends TestCase
 
         $this->action->loadParameters($player, $actionParameter);
 
-        $this->statusService->shouldReceive('persist');
+        $this->statusService->shouldReceive('delete');
         $this->roomLogService->shouldReceive('createPlayerLog')->once();
 
         $result = $this->action->execute();

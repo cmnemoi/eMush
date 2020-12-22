@@ -164,6 +164,7 @@ class InfectActionTest extends TestCase
         $this->roomLogService->shouldReceive('createPlayerLog')->twice();
         $this->playerService->shouldReceive('persist')->once();
         $this->statusService->shouldReceive('persist')->once();
+        $this->statusService->shouldReceive('delete')->once();
 
         $result = $this->action->execute();
 

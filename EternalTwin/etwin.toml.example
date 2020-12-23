@@ -7,7 +7,7 @@
 #   downside is that the data is lost when stopping the server. Recommended for development when
 #   working on the website interface or translations.
 # - "postgres": Store data in a Postgres database. This is the value used in production.
-api = "in-memory"
+api = "postgres"
 # Main secret key. This key is used to derive all the secrets used to protect the tokens generated
 # by the website and encrypted database columns.
 secret = "dev_secret"
@@ -25,11 +25,11 @@ host = "localhost"
 # Database service port
 port = 5432
 # Database name
-name = "etwindb"
+name = "eternal_twin"
 # Database user (role). In development, it is recommended to be a superuser to manage extensions.
-user = "etwin"
+user = "mysql"
 # Password for the database user.
-password = "dev"
+password = "password"
 
 # System Oauth clients configuration
 # You can define any number of OAuth clients using `[clients.<key>]` blocks (one block per client),

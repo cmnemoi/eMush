@@ -33,14 +33,16 @@ services:
   mush_database:
     image: postgres:13.1
     container_name: mush_database
+    volumes:
+      - ./Database:/docker-entrypoint-initdb.d
     ports:
       - "5432:5432"
     networks:
       - mush_network
     environment:
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: mush
       POSTGRES_USER: mysql
+      POSTGRES_MULTIPLE_DATABASES: mush,eternal_twin
 
   mush_front:
     container_name: front_mush

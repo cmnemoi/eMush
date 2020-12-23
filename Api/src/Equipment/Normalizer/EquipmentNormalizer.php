@@ -132,28 +132,23 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
                             $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getActionsTarget());
         }
 
-        return $this->filterToolActionByTarget($gameEquipment, $toolActions, $toolTargets);
+        return $this->filterToolActionByTarget($gameEquipment, $toolTargets);
     }
 
-    private function filterToolActionByTarget(GameEquipment $gameEquipment, array $toolActions, array $toolTargets): array
+    private function filterToolActionByTarget(GameEquipment $gameEquipment, $toolTargets): array
     {
-        $itemActions = [];
-        foreach ($toolActions as $actionName) {
-            if ($gameEquipment instanceof Door &&
-                        $toolTargets[$actionName] === ActionTargetEnum::DOOR) {
-                $itemActions[] = $actionName;
-            } elseif ($gameEquipment instanceof GameItem &&
-                            ($toolTargets[$actionName] === ActionTargetEnum::ITEM ||
-                            $toolTargets[$actionName] === ActionTargetEnum::EQUIPMENT)) {
-                $itemActions[] = $actionName;
-            } elseif ((!$gameEquipment instanceof Door &&
-                            !$gameEquipment instanceof GameItem) &&
-                            $toolTargets[$actionName] === ActionTargetEnum::EQUIPMENT) {
-                $itemActions[] = $actionName;
-            }
+        if ($gameEquipment instanceof Door) {
+            return array_keys(array_filter($toolTargets, function ($target) {return $target === ActionTargetEnum::DOOR; }));
+        } elseif ($gameEquipment instanceof GameItem) {
+            return array_keys(array_filter($toolTargets, function ($target) {
+                return $target === ActionTargetEnum::EQUIPMENT ||
+                        $target === ActionTargetEnum::ITEM;
+            }));
+        } else {
+            return array_keys(array_filter($toolTargets, function ($target) {
+                return $target === ActionTargetEnum::EQUIPMENT;
+            }));
         }
-
-        return $itemActions;
     }
 
     private function getPlayer(): Player

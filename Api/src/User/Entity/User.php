@@ -2,6 +2,7 @@
 
 namespace Mush\User\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Player\Entity\Player;
@@ -39,6 +40,16 @@ class User implements UserInterface
      * @ORM\OneToOne (targetEntity="Mush\Player\Entity\Player")
      */
     private ?Player $currentGame;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private ?string $nonceCode = null;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private ?DateTime $nonceExpiryDate = null;
 
     public function getId(): int
     {
@@ -97,6 +108,30 @@ class User implements UserInterface
     public function setCurrentGame(?Player $currentGame): User
     {
         $this->currentGame = $currentGame;
+
+        return $this;
+    }
+
+    public function getNonceCode(): ?string
+    {
+        return $this->nonceCode;
+    }
+
+    public function setNonceCode(?string $nonceCode): User
+    {
+        $this->nonceCode = $nonceCode;
+
+        return $this;
+    }
+
+    public function getNonceExpiryDate(): ?DateTime
+    {
+        return $this->nonceExpiryDate;
+    }
+
+    public function setNonceExpiryDate(?DateTime $nonceExpiryDate): User
+    {
+        $this->nonceExpiryDate = $nonceExpiryDate;
 
         return $this;
     }

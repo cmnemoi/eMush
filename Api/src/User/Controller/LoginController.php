@@ -14,11 +14,12 @@ use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 /**
  * Class LoginController.
  *
- * @Route(path="/oauth")
+ * @Route(path="")
  */
 class LoginController extends AbstractFOSRestController
 {
@@ -61,23 +62,19 @@ class LoginController extends AbstractFOSRestController
      *
      * @Post (name="username_login", path="/token")
      */
-    public function tokenAction(Request $request): Response
+    public function tokenAction(Request $request): View
     {
-        $redirectUri = $request->get('redirect_uri');
-        $uri = $this->loginService->getAuthorizationUri('base', $redirectUri);
+        $code = $request->get('code');
 
-        return $this->redirect($uri);
-    }
+        if (empty($code)) {
+            throw new UnauthorizedHttpException('Bad credentials');
+        }
 
-    /**
-     * @Post(name="redirec_login", path="/redirect")
-     */
-    public function redirectAction(Request $request): Response
-    {
-        $redirectUri = $request->get('redirect_uri');
-        $uri = $this->loginService->getAuthorizationUri('base', $redirectUri);
+        $user = $this->loginService->login($code);
 
-        return $this->redirect($uri);
+        $token = $this->jwtManager->create($user);
+
+        return $this->view(['token' => $token]);
     }
 
     /**
@@ -87,22 +84,26 @@ class LoginController extends AbstractFOSRestController
     {
         $code = $request->get('code');
         $state = $request->get('state');
-        $user = $this->loginService->login($code);
 
-        $token = $this->jwtManager->create($user);
-
-        $parameters = http_build_query(['token' => $token]);
+        $token = $this->loginService->verifyCode($code);
+        $parameters = http_build_query(['code' => $token]);
 
         return $this->redirect($state . '?' . $parameters);
     }
 
     /**
-     * @Get(name="authorization_uri", path="authorization-uri")
+     * @GET(name="redirect_login", path="/authorize")
      */
-    public function getAuthorizationUriAction(Request $request): View
+    public function redirectAction(Request $request): Response
     {
-        $uri = $this->loginService->getAuthorizationUri('base', '');
+        $redirectUri = $request->get('redirect_uri');
 
-        return $this->view(['authorization_uri' => $uri]);
+        if (!$redirectUri) {
+            throw new UnauthorizedHttpException('Bad credentials: missing redirect uri');
+        }
+
+        $uri = $this->loginService->getAuthorizationUri('base', $redirectUri);
+
+        return $this->redirect($uri);
     }
 }

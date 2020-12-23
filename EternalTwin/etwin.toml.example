@@ -76,6 +76,12 @@ app_uri = "http://mjrt.localhost"
 callback_uri = "http://mjrt.localhost/oauth/callback"
 secret = "dev_secret"
 
+[clients.emush]
+display_name = "eMush"
+app_uri = "http://localhost"
+callback_uri = "http://localhost:8080/api/v1/oauth/callback"
+secret = "dev_secret"
+
 # Twinoid authentication configuration
 [auth.twinoid]
 # Client ID provided by Twinoid

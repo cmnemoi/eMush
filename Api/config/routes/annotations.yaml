@@ -10,6 +10,10 @@ user:
     resource: ../../src/User/Controller/
     type: annotation
     prefix: /api/v1
+oauth:
+    resource: ../../src/User/Controller/LoginController.php
+    type: annotation
+    prefix: /oauth
 action:
     resource: ../../src/Action/Controller/
     type: annotation

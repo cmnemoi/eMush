@@ -10,12 +10,12 @@ export default {
   name: "Token",
   methods: {
     ...mapActions('auth', [
-      'setToken',
+      'login',
     ]),
   },
   beforeMount() {
     if (this.$route.query.token !== 'undefined') {
-      this.setToken({token: this.$route.query.token})
+      this.login({code: this.$route.query.code})
       router.push({ name: 'GamePage' })
     }
   }

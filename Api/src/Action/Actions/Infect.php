@@ -25,6 +25,7 @@ class Infect extends Action
     private RoomLogServiceInterface $roomLogService;
     private StatusServiceInterface $statusService;
     private PlayerServiceInterface $playerService;
+    private EventDispatcherInterface $eventDispatcher;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
@@ -32,7 +33,7 @@ class Infect extends Action
         StatusServiceInterface $statusService,
         PlayerServiceInterface $playerService
     ) {
-        parent::__construct($eventDispatcher);
+        parent::__construct($this->eventDispatcher = $eventDispatcher);
 
         $this->roomLogService = $roomLogService;
         $this->statusService = $statusService;
@@ -69,7 +70,7 @@ class Infect extends Action
     protected function applyEffects(): ActionResult
     {
         $playerEvent = new PlayerEvent($this->targetPlayer);
-        $this->eventManager->dispatch($playerEvent, PlayerEvent::INFECTION_PLAYER);
+        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::INFECTION_PLAYER);
 
         /** @var ChargeStatus $sporeStatus */
         $sporeStatus = $this->player->getStatusByName(PlayerStatusEnum::SPORES);

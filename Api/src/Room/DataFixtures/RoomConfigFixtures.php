@@ -521,7 +521,6 @@ class RoomConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($greatBeyond);
 
-
         $manager->flush();
 
         $this->addReference(RoomEnum::BRIDGE, $bridge);

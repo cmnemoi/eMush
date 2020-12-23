@@ -33,6 +33,7 @@ class Consume extends Action
     private PlayerServiceInterface $playerService;
     private EquipmentEffectServiceInterface $equipmentServiceEffect;
     private StatusServiceInterface $statusService;
+    private EventDispatcherInterface $eventDispatcher;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
@@ -42,7 +43,7 @@ class Consume extends Action
         EquipmentEffectServiceInterface $equipmentServiceEffect,
         StatusServiceInterface $statusService
     ) {
-        parent::__construct($eventDispatcher);
+        parent::__construct($this->$eventDispatcher = $eventDispatcher);
 
         $this->roomLogService = $roomLogService;
         $this->gameEquipmentService = $gameEquipmentService;
@@ -96,7 +97,7 @@ class Consume extends Action
 
         $playerEvent = new PlayerEvent($this->player);
         $playerEvent->setActionModifier($actionModifier);
-        $this->eventManager->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
+        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
 
         // If the ration is a drug player get Drug_Eaten status that prevent it from eating another drug this cycle.
         if ($rationType instanceof Drug) {

@@ -110,12 +110,13 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
     {
         //@TODO this is awfully messy
         //Handle tools
-        
+
         $tools = $this->getPlayer()->getReachableTools()
             ->filter(
                 function (GameEquipment $gameEquipment) {
                     /** @var Tool $tool */
                     $tool = $gameEquipment->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL);
+
                     return $tool && !$tool->getGrantActions()->isEmpty();
                 }
             )
@@ -123,13 +124,12 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
 
         $itemActions = [];
 
-
         foreach ($tools as $tool) {
-            $toolActions=$tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getGrantActions();
-            $toolTargets=$tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getActionsTarget();
+            $toolActions = $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getGrantActions();
+            $toolTargets = $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getActionsTarget();
 
-            foreach($toolActions as $actionName){
-                if ($gameEquipment instanceof Door && 
+            foreach ($toolActions as $actionName) {
+                if ($gameEquipment instanceof Door &&
                     $toolTargets[$actionName] === ActionTargetEnum::DOOR) {
                     $itemActions[] = $actionName;
                 } elseif ($gameEquipment instanceof GameItem &&
@@ -143,8 +143,6 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
                 }
             }
         }
-        
-        
 
         return $itemActions;
     }

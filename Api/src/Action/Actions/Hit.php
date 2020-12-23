@@ -28,6 +28,7 @@ class Hit extends AttemptAction
 
     private PlayerServiceInterface $playerService;
     private RoomLogServiceInterface $roomLogService;
+    private EventDispatcherInterface $eventDispatcher;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
@@ -39,6 +40,7 @@ class Hit extends AttemptAction
     ) {
         parent::__construct($randomService, $successRateService, $eventDispatcher, $statusService);
 
+        $this->eventDispatcher = $eventDispatcher;
         $this->playerService = $playerService;
         $this->randomService = $randomService;
         $this->roomLogService = $roomLogService;
@@ -91,7 +93,7 @@ class Hit extends AttemptAction
 
                 $playerEvent = new PlayerEvent($this->player);
                 $playerEvent->setActionModifier($actionModifier);
-                $this->eventManager->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
+                $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
 
                 $this->playerService->persist($this->target);
             }

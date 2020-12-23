@@ -98,9 +98,9 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
             $toolActions = $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getGrantActions();
             $toolTargets = $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getActionsTarget();
 
-            foreach($toolActions as $actionName){
-                if ($toolTargets[$actionName] === ActionTargetEnum::DOOR){
-                    $playerActions[]=$actionName;
+            foreach ($toolActions as $actionName) {
+                if ($toolTargets[$actionName] === ActionTargetEnum::DOOR) {
+                    $playerActions[] = $actionName;
                 }
             }
         }

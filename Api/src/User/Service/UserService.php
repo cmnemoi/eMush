@@ -36,6 +36,11 @@ class UserService implements UserServiceInterface
         return $this->repository->loadUserByUsername($userId);
     }
 
+    public function findUserByNonceCode(string $nonceCode): ?User
+    {
+        return $this->repository->findOneBy(['nonceCode' => $nonceCode]);
+    }
+
     public function createUser(string $userId, string $username): User
     {
         $user = new User();

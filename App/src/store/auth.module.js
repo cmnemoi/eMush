@@ -55,11 +55,15 @@ const actions = {
         commit('loginSuccess', token)
     },
 
-    async login({ commit }, {email}) {
+    redirect() {
+        UserService.redirect();
+    },
+
+    async login({ commit }, {code}) {
         commit('loginRequest');
 
         try {
-            const token = await UserService.login(email);
+            const token = await UserService.login(code);
             commit('loginSuccess', token)
 
             return true

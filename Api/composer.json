@@ -29,7 +29,8 @@
         "symfony/validator": "5.2.*",
         "symfony/yaml": "5.2.*",
         "twig/extra-bundle": "^3.1",
-        "twig/twig": "^3.1"
+        "twig/twig": "^3.1",
+        "ext-openssl": "*"
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.3",

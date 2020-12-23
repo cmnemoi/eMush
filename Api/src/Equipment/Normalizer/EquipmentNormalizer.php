@@ -127,7 +127,7 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
 
         foreach ($tools as $tool) {
             $toolActions = array_merge($toolActions,
-                            $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getGrantActions());
+                            $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getGrantActions()->toArray());
             $toolTargets = array_merge($toolTargets,
                             $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getActionsTarget());
         }

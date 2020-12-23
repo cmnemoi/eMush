@@ -2,12 +2,15 @@
 
 namespace Mush\Action\Event;
 
+use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
+use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -17,6 +20,7 @@ class ActionSubscriber implements EventSubscriberInterface
     private EventDispatcherInterface $eventDispatcher;
     private RandomServiceInterface $randomService;
     private StatusServiceInterface $statusService;
+    private RoomLogServiceInterface $roomLogService;
     private GameConfig $gameConfig;
 
     public function __construct(
@@ -24,12 +28,14 @@ class ActionSubscriber implements EventSubscriberInterface
         EventDispatcherInterface $eventDispatcher,
         RandomServiceInterface $randomService,
         StatusServiceInterface $statusService,
+        RoomLogServiceInterface $roomLogService,
         GameConfigServiceInterface $gameConfigService
     ) {
         $this->daedalusService = $daedalusService;
         $this->eventDispatcher = $eventDispatcher;
         $this->randomService = $randomService;
         $this->statusService = $statusService;
+        $this->roomLogService = $roomLogService;
         $this->gameConfig = $gameConfigService->getConfig();
     }
 
@@ -48,9 +54,16 @@ class ActionSubscriber implements EventSubscriberInterface
 
         if ($lyingDownStatus = $player->getStatusByName(PlayerStatusEnum::LYING_DOWN)) {
             $lyingDownStatus->setPlayer(null)->setGameEquipment(null);
-            $this->statusService->persist($lyingDownStatus);
+            $this->statusService->delete($lyingDownStatus);
 
-            $actionCost->setActionPointCost($actionCost->getActionPointCost() + 1);
+            //@TODO increase cost of action
+            $this->roomLogService->createPlayerLog(
+                ActionEnum::GET_UP,
+                $player->getRoom(),
+                $player,
+                VisibilityEnum::PUBLIC,
+                new \DateTime('now')
+            );
         }
     }
 

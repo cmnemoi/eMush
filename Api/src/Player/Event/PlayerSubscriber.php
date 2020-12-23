@@ -9,6 +9,7 @@ use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\GameStatusEnum;
 use Mush\Player\Service\ActionModifierServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\Room\Enum\RoomEnum;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
@@ -89,6 +90,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         }
         //@TODO in case of assasination chance of disorder for roommates
 
+        $player->setRoom($player->getDaedalus()->getRoomByName(RoomEnum::GREAT_BEYOND));
         //@TODO two steps death
         $player->setGameStatus(GameStatusEnum::FINISHED);
 

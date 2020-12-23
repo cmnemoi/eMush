@@ -25,7 +25,6 @@ class Infect extends Action
     private RoomLogServiceInterface $roomLogService;
     private StatusServiceInterface $statusService;
     private PlayerServiceInterface $playerService;
-    private EventDispatcherInterface $eventDispatcher;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
@@ -33,7 +32,7 @@ class Infect extends Action
         StatusServiceInterface $statusService,
         PlayerServiceInterface $playerService
     ) {
-        parent::__construct($this->eventDispatcher = $eventDispatcher);
+        parent::__construct($eventDispatcher);
 
         $this->roomLogService = $roomLogService;
         $this->statusService = $statusService;

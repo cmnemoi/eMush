@@ -122,25 +122,34 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
             )
         ;
 
-        $itemActions = [];
+        $toolActions = [];
+        $toolTargets = [];
 
         foreach ($tools as $tool) {
-            $toolActions = $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getGrantActions();
-            $toolTargets = $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getActionsTarget();
+            $toolActions = array_merge($toolActions,
+                            $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getGrantActions());
+            $toolTargets = array_merge($toolTargets,
+                            $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getActionsTarget());
+        }
 
-            foreach ($toolActions as $actionName) {
-                if ($gameEquipment instanceof Door &&
-                    $toolTargets[$actionName] === ActionTargetEnum::DOOR) {
-                    $itemActions[] = $actionName;
-                } elseif ($gameEquipment instanceof GameItem &&
-                        ($toolTargets[$actionName] === ActionTargetEnum::ITEM ||
-                         $toolTargets[$actionName] === ActionTargetEnum::EQUIPMENT)) {
-                    $itemActions[] = $actionName;
-                } elseif ((!$gameEquipment instanceof Door &&
-                           !$gameEquipment instanceof GameItem) &&
-                        $toolTargets[$actionName] === ActionTargetEnum::EQUIPMENT) {
-                    $itemActions[] = $actionName;
-                }
+        return $this->filterToolActionByTarget($gameEquipment, $toolActions, $toolTargets);
+    }
+
+    private function filterToolActionByTarget(GameEquipment $gameEquipment, array $toolActions, array $toolTargets): array
+    {
+        $itemActions = [];
+        foreach ($toolActions as $actionName) {
+            if ($gameEquipment instanceof Door &&
+                        $toolTargets[$actionName] === ActionTargetEnum::DOOR) {
+                $itemActions[] = $actionName;
+            } elseif ($gameEquipment instanceof GameItem &&
+                            ($toolTargets[$actionName] === ActionTargetEnum::ITEM ||
+                            $toolTargets[$actionName] === ActionTargetEnum::EQUIPMENT)) {
+                $itemActions[] = $actionName;
+            } elseif ((!$gameEquipment instanceof Door &&
+                            !$gameEquipment instanceof GameItem) &&
+                            $toolTargets[$actionName] === ActionTargetEnum::EQUIPMENT) {
+                $itemActions[] = $actionName;
             }
         }
 

@@ -33,7 +33,6 @@ class Consume extends Action
     private PlayerServiceInterface $playerService;
     private EquipmentEffectServiceInterface $equipmentServiceEffect;
     private StatusServiceInterface $statusService;
-    private EventDispatcherInterface $eventDispatcher;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
@@ -43,7 +42,7 @@ class Consume extends Action
         EquipmentEffectServiceInterface $equipmentServiceEffect,
         StatusServiceInterface $statusService
     ) {
-        parent::__construct($this->$eventDispatcher = $eventDispatcher);
+        parent::__construct($eventDispatcher);
 
         $this->roomLogService = $roomLogService;
         $this->gameEquipmentService = $gameEquipmentService;

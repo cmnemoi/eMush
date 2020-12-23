@@ -17,7 +17,7 @@ abstract class Action
 
     protected string $name;
 
-    private EventDispatcherInterface $eventDispatcher;
+    protected EventDispatcherInterface $eventDispatcher;
 
     public function __construct(EventDispatcherInterface $eventDispatcher)
     {

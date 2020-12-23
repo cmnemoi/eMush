@@ -132,11 +132,6 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
                             $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getActionsTarget());
         }
 
-        return $this->filterToolActionByTarget($gameEquipment, $toolTargets);
-    }
-
-    private function filterToolActionByTarget(GameEquipment $gameEquipment, $toolTargets): array
-    {
         if ($gameEquipment instanceof Door) {
             return array_keys(array_filter($toolTargets, function ($target) {return $target === ActionTargetEnum::DOOR; }));
         } elseif ($gameEquipment instanceof GameItem) {

@@ -79,17 +79,13 @@ class OtherPlayerNormalizer implements ContextAwareNormalizerInterface, Normaliz
         $actions = [];
 
         foreach ($tools as $tool) {
-            $toolActions = $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getActionsTarget();
+            $toolActions = $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getGrantActions();
+            $toolTargets = $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getActionsTarget();
 
-            $toolSelfActions = $tool->getEquipment()
-                ->getMechanicByName(EquipmentMechanicEnum::TOOL)
-                ->getGrantActions()
-                ->filter(
-                    fn (string $actionName) => $toolActions[$actionName] === ActionTargetEnum::TARGET_PLAYER
-                );
-
-            foreach ($toolSelfActions as $toolSelfAction) {
-                $playerActions[] = $toolSelfAction;
+            foreach($toolActions as $actionName){
+                if ($toolTargets[$actionName] === ActionTargetEnum::DOOR){
+                    $playerActions[]=$actionName;
+                }
             }
         }
 

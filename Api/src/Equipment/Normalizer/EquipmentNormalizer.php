@@ -110,35 +110,41 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
     {
         //@TODO this is awfully messy
         //Handle tools
+        
         $tools = $this->getPlayer()->getReachableTools()
             ->filter(
                 function (GameEquipment $gameEquipment) {
                     /** @var Tool $tool */
                     $tool = $gameEquipment->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL);
-                    !$tool->getGrantActions()->isEmpty();
+                    return $tool && !$tool->getGrantActions()->isEmpty();
                 }
             )
         ;
 
         $itemActions = [];
 
+
         foreach ($tools as $tool) {
-            if ($gameEquipment instanceof Door) {
-                $itemActions = $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getGrantActions()
-                    ->filter(fn (string $actionName) => $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)
-                            ->getActionsTarget()[$actionName] === ActionTargetEnum::DOOR);
-            } elseif ($gameEquipment instanceof GameItem) {
-                $itemActions = $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getGrantActions()
-                    ->filter(fn (string $actionName) => $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)
-                            ->getActionsTarget()[$actionName] === ActionTargetEnum::ITEM ||
-                        $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)
-                            ->getActionsTarget()[$actionName] === ActionTargetEnum::EQUIPMENT);
-            } else {
-                $itemActions = $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getGrantActions()
-                    ->filter(fn (string $actionName) => $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)
-                            ->getActionsTarget()[$actionName] === ActionTargetEnum::EQUIPMENT);
+            $toolActions=$tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getGrantActions();
+            $toolTargets=$tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getActionsTarget();
+
+            foreach($toolActions as $actionName){
+                if ($gameEquipment instanceof Door && 
+                    $toolTargets[$actionName] === ActionTargetEnum::DOOR) {
+                    $itemActions[] = $actionName;
+                } elseif ($gameEquipment instanceof GameItem &&
+                        ($toolTargets[$actionName] === ActionTargetEnum::ITEM ||
+                         $toolTargets[$actionName] === ActionTargetEnum::EQUIPMENT)) {
+                    $itemActions[] = $actionName;
+                } elseif ((!$gameEquipment instanceof Door &&
+                           !$gameEquipment instanceof GameItem) &&
+                        $toolTargets[$actionName] === ActionTargetEnum::EQUIPMENT) {
+                    $itemActions[] = $actionName;
+                }
             }
         }
+        
+        
 
         return $itemActions;
     }

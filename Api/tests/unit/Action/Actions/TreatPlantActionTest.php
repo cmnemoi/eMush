@@ -62,7 +62,6 @@ class TreatPlantActionTest extends TestCase
             $eventDispatcher,
             $this->roomLogService,
             $this->gameEquipmentService,
-            $this->playerService,
             $this->statusService
         );
     }
@@ -141,6 +140,7 @@ class TreatPlantActionTest extends TestCase
         $this->roomLogService->shouldReceive('createEquipmentLog')->once();
         $this->gameEquipmentService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
+        $this->statusService->shouldReceive('delete');
 
         $result = $this->action->execute();
 

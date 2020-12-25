@@ -112,7 +112,6 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         return $gameEquipment;
     }
 
-    // @TODO maybe remove those init functions to directly include them in createGameEquipment
     private function initPlant(GameEquipment $gameEquipment, EquipmentMechanic $plant, Daedalus $daedalus): GameEquipment
     {
         if (!$plant instanceof Plant) {

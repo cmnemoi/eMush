@@ -77,6 +77,7 @@ class Repair extends AttemptAction
             ($brokenStatus = $this->gameEquipment->getStatusByName(EquipmentStatusEnum::BROKEN))
         ) {
             $this->gameEquipment->removeStatus($brokenStatus);
+            $this->statusService->delete($brokenStatus);
             $this->gameEquipmentService->persist($this->gameEquipment);
         }
 

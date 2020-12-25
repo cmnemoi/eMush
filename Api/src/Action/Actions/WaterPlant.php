@@ -15,6 +15,7 @@ use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class WaterPlant extends Action
@@ -26,18 +27,21 @@ class WaterPlant extends Action
     private RoomLogServiceInterface $roomLogService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
+    private StatusServiceInterface $statusService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         RoomLogServiceInterface $roomLogService,
         GameEquipmentServiceInterface $gameEquipmentService,
-        PlayerServiceInterface $playerService
+        PlayerServiceInterface $playerService,
+        StatusServiceInterface $statusService
     ) {
         parent::__construct($eventDispatcher);
 
         $this->roomLogService = $roomLogService;
         $this->gameEquipmentService = $gameEquipmentService;
         $this->playerService = $playerService;
+        $this->statusService = $statusService;
 
         $this->actionCost->setActionPointCost(1);
     }
@@ -69,6 +73,7 @@ class WaterPlant extends Action
             ?? $this->gameEquipment->getStatusByName(EquipmentStatusEnum::PLANT_DRIED_OUT));
 
         $this->gameEquipment->removeStatus($status);
+        $this->statusService->delete($status);
 
         $this->gameEquipmentService->persist($this->gameEquipment);
 

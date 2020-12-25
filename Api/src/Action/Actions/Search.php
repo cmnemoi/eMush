@@ -85,6 +85,8 @@ class Search extends Action
             $hiddenBy->removeStatus($hiddenStatus);
 
             $this->playerService->persist($hiddenBy);
+
+            $this->statusService->delete($hiddenStatus);
             $this->gameEquipmentService->persist($mostRecentHiddenItem);
 
             return new Success();

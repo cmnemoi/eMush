@@ -156,9 +156,9 @@ class CookActionTest extends TestCase
 
         $this->gameEquipmentService->shouldReceive('getOperationalEquipmentsByName')->andReturn(new ArrayCollection([$gameKitchen]))->once();
         $this->roomLogService->shouldReceive('createEquipmentLog')->once();
-        $this->gameEquipmentService->shouldReceive('persist');
-        $this->playerService->shouldReceive('persist');
-        $this->statusService->shouldReceive('persist');
+        $this->gameEquipmentService->shouldReceive('persist')->once();
+        $this->playerService->shouldReceive('persist')->once();
+        $this->statusService->shouldReceive('delete')->once();
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);

@@ -141,6 +141,7 @@ class WaterPlantActionTest extends TestCase
         $this->roomLogService->shouldReceive('createEquipmentLog')->once();
         $this->gameEquipmentService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
+        $this->statusService->shouldReceive('delete');
 
         $result = $this->action->execute();
 
@@ -161,6 +162,7 @@ class WaterPlantActionTest extends TestCase
         $this->roomLogService->shouldReceive('createEquipmentLog')->once();
         $this->gameEquipmentService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
+        $this->statusService->shouldReceive('delete');
 
         $result = $this->action->execute();
 

@@ -96,7 +96,7 @@ class Consume extends Action
 
         $playerEvent = new PlayerEvent($this->player);
         $playerEvent->setActionModifier($actionModifier);
-        $this->eventManager->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
+        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
 
         // If the ration is a drug player get Drug_Eaten status that prevent it from eating another drug this cycle.
         if ($rationType instanceof Drug) {

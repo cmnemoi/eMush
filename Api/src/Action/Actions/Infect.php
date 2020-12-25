@@ -69,7 +69,7 @@ class Infect extends Action
     protected function applyEffects(): ActionResult
     {
         $playerEvent = new PlayerEvent($this->targetPlayer);
-        $this->eventManager->dispatch($playerEvent, PlayerEvent::INFECTION_PLAYER);
+        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::INFECTION_PLAYER);
 
         /** @var ChargeStatus $sporeStatus */
         $sporeStatus = $this->player->getStatusByName(PlayerStatusEnum::SPORES);

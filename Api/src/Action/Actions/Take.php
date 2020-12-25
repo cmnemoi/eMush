@@ -86,6 +86,7 @@ class Take extends Action
         if ($hiddenStatus = $this->gameItem->getStatusByName(EnumEquipmentStatusEnum::HIDDEN)) {
             $this->gameItem->removeStatus($hiddenStatus);
             $this->player->removeStatus($hiddenStatus);
+            $this->statusService->delete($hiddenStatus);
         }
 
         $this->gameEquipmentService->persist($this->gameItem);

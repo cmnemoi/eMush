@@ -17,11 +17,11 @@ abstract class Action
 
     protected string $name;
 
-    protected EventDispatcherInterface $eventManager;
+    protected EventDispatcherInterface $eventDispatcher;
 
-    public function __construct(EventDispatcherInterface $eventManager)
+    public function __construct(EventDispatcherInterface $eventDispatcher)
     {
-        $this->eventManager = $eventManager;
+        $this->eventDispatcher = $eventDispatcher;
 
         $this->actionCost = new ActionCost();
     }
@@ -41,14 +41,14 @@ abstract class Action
         }
 
         $preActionEvent = new ActionEvent($this->getActionName(), $this->player, $this->actionCost);
-        $this->eventManager->dispatch($preActionEvent, ActionEvent::PRE_ACTION);
+        $this->eventDispatcher->dispatch($preActionEvent, ActionEvent::PRE_ACTION);
 
         $this->applyActionCost();
         $result = $this->applyEffects();
         $this->createLog($result);
 
         $postActionEvent = new ActionEvent($this->getActionName(), $this->player, $this->actionCost);
-        $this->eventManager->dispatch($postActionEvent, ActionEvent::POST_ACTION);
+        $this->eventDispatcher->dispatch($postActionEvent, ActionEvent::POST_ACTION);
 
         return $result;
     }

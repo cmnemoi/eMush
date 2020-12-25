@@ -124,6 +124,7 @@ class PlantCycleHandlerTest extends TestCase
             ->setRoom(new Room())
         ;
 
+        $this->statusService->shouldReceive('delete')->once();
         $this->plantCycleHandler->handleNewCycle($gamePlant, $daedalus, new \DateTime());
 
         $this->assertTrue(
@@ -202,6 +203,7 @@ class PlantCycleHandlerTest extends TestCase
 
         $dried = new Status();
         $dried->setName(EquipmentStatusEnum::PLANT_DRIED_OUT);
+        $this->statusService->shouldReceive('delete')->once();
         $this->statusService
             ->shouldReceive('createCoreEquipmentStatus')
             ->with(EquipmentStatusEnum::PLANT_DRIED_OUT, $gamePlant)->andReturn($dried)

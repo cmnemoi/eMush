@@ -170,6 +170,7 @@ class RepairActionTest extends TestCase
 
         $this->successRateService->shouldReceive('getSuccessRate')->andReturn(10)->once();
         $this->randomService->shouldReceive('randomPercent')->andReturn(1)->once();
+        $this->statusService->shouldReceive('delete')->once();
 
         //Success
         $result = $this->action->execute();

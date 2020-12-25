@@ -87,6 +87,7 @@ class PlantCycleHandler extends AbstractCycleHandler
             $room = $this->getRoom($gamePlant);
 
             $gamePlant->removeStatus($youngStatus);
+            $this->statusService->delete($youngStatus);
             $this->roomLogService->createEquipmentLog(
                 PlantLogEnum::PLANT_MATURITY,
                 $room,
@@ -151,6 +152,7 @@ class PlantCycleHandler extends AbstractCycleHandler
         // If plant was thirsty, become dried
         if (($thirsty = $gamePlant->getStatusByName(EquipmentStatusEnum::PLANT_THIRSTY)) !== null) {
             $gamePlant->removeStatus($thirsty);
+            $this->statusService->delete($thirsty);
             $driedStatus = $this->statusService
                 ->createCoreEquipmentStatus(EquipmentStatusEnum::PLANT_DRIED_OUT, $gamePlant)
             ;

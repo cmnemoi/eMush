@@ -91,7 +91,7 @@ class Hit extends AttemptAction
 
                 $playerEvent = new PlayerEvent($this->player);
                 $playerEvent->setActionModifier($actionModifier);
-                $this->eventManager->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
+                $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
 
                 $this->playerService->persist($this->target);
             }

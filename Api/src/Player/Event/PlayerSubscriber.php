@@ -3,10 +3,10 @@
 namespace Mush\Player\Event;
 
 use Mush\Daedalus\Event\DaedalusEvent;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Entity\ActionModifier;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
-use Mush\Player\Enum\GameStatusEnum;
 use Mush\Player\Service\ActionModifierServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Enum\RoomEnum;
@@ -102,7 +102,8 @@ class PlayerSubscriber implements EventSubscriberInterface
         );
 
         if ($player->getDaedalus()->getPlayers()->getPlayerAlive()->isEmpty() &&
-            !in_array($reason, [EndCauseEnum::SOL_RETURN, EndCauseEnum::EDEN, EndCauseEnum::SUPER_NOVA, EndCauseEnum::KILLED_BY_NERON])
+            !in_array($reason, [EndCauseEnum::SOL_RETURN, EndCauseEnum::EDEN, EndCauseEnum::SUPER_NOVA, EndCauseEnum::KILLED_BY_NERON]) &&
+            $player->getDaedalus()->getFilledAt()
         ) {
             $endDaedalusEvent = new DaedalusEvent($player->getDaedalus());
 

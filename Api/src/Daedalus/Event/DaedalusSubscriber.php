@@ -4,6 +4,7 @@ namespace Mush\Daedalus\Event;
 
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Status\Service\StatusServiceInterface;
@@ -58,6 +59,9 @@ class DaedalusSubscriber implements EventSubscriberInterface
         $this->daedalusService->killRemainingPlayers($daedalus, $reason);
 
         // @TODO: create logs
+
+        $daedalus->setFinishedAt(new \DateTime());
+        $daedalus->setGameStatus(GameStatusEnum::FINISHED);
     }
 
     public function onDaedalusFull(DaedalusEvent $event): void
@@ -71,5 +75,6 @@ class DaedalusSubscriber implements EventSubscriberInterface
         $this->daedalusService->selectAlphaMush($daedalus);
 
         $daedalus->setFilledAt(new \DateTime());
+        $daedalus->setGameStatus(GameStatusEnum::CURRENT);
     }
 }

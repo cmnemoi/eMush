@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class FullDaedalusValidator extends ConstraintValidator
+class StartingDaedalusValidator extends ConstraintValidator
 {
     private GameConfigService $gameConfigService;
 
@@ -24,14 +24,14 @@ class FullDaedalusValidator extends ConstraintValidator
             throw new \InvalidArgumentException();
         }
 
-        if (!$constraint instanceof FullDaedalus) {
-            throw new UnexpectedTypeException($constraint, __NAMESPACE__ . '\FullDaedalus');
+        if (!$constraint instanceof StartingDaedalus) {
+            throw new UnexpectedTypeException($constraint, __NAMESPACE__ . '\StartingDaedalus');
         }
 
-        if ($value->getGameStatus() === GameStatusEnum::CURRENT) {
+        if ($value->getGameStatus() !== GameStatusEnum::STARTING) {
             $this->context
                 ->buildViolation($constraint->message)
-                ->setCode(FullDaedalus::FULL_DAEDALUS_ERROR)
+                ->setCode(StartingDaedalus::STARTING_DAEDALUS_ERROR)
                 ->addViolation()
             ;
         }

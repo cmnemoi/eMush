@@ -5,19 +5,20 @@ namespace Mush\Test\Daedalus\Validator;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Validator\FullDaedalus;
-use Mush\Daedalus\Validator\FullDaedalusValidator;
+use Mush\Daedalus\Validator\StartingDaedalus;
+use Mush\Daedalus\Validator\StartingDaedalusValidator;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\GameConfigService;
 use Mush\Player\Entity\Player;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
-class FullDaedalusTest extends TestCase
+class StartingDaedalusTest extends TestCase
 {
-    private FullDaedalusValidator $validator;
+    private StartingDaedalusValidator $validator;
     /** @var GameConfigService | Mockery\Mock */
     private GameConfigService $gameConfigService;
 
@@ -27,7 +28,7 @@ class FullDaedalusTest extends TestCase
     public function before()
     {
         $this->gameConfigService = Mockery::mock(GameConfigService::class);
-        $this->validator = new FullDaedalusValidator($this->gameConfigService);
+        $this->validator = new StartingDaedalusValidator($this->gameConfigService);
     }
 
     /**
@@ -40,7 +41,7 @@ class FullDaedalusTest extends TestCase
 
     public function testValid()
     {
-        $constraint = new FullDaedalus();
+        $constraint = new StartingDaedalus();
         $daedalus = new Daedalus();
         $this->initValidator();
 
@@ -52,8 +53,6 @@ class FullDaedalusTest extends TestCase
         $gameConfig = new GameConfig();
         $gameConfig->setCharactersConfig(new ArrayCollection([new CharacterConfig(), new CharacterConfig()]));
 
-        $this->gameConfigService->shouldReceive('getConfig')->andReturn($gameConfig);
-
         $this->validator->validate($daedalus, $constraint);
 
         $this->assertTrue(true);
@@ -61,19 +60,15 @@ class FullDaedalusTest extends TestCase
 
     public function testNotValid()
     {
-        $constraint = new FullDaedalus();
+        $constraint = new StartingDaedalus();
         $daedalus = new Daedalus();
-        $this->initValidator('This daedalus is full');
+        $this->initValidator('This daedalus cannot accept new players');
 
         $daedalus
-            ->setPlayers(new ArrayCollection([
-                    new Player(),
-                ]));
+            ->setGameStatus(GameStatusEnum::CURRENT);
 
         $gameConfig = new GameConfig();
         $gameConfig->setCharactersConfig(new ArrayCollection([new CharacterConfig()]));
-
-        $this->gameConfigService->shouldReceive('getConfig')->andReturn($gameConfig);
 
         $this->validator->validate($daedalus, $constraint);
 

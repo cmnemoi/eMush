@@ -7,8 +7,8 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
-use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -17,17 +17,14 @@ class GetUp extends Action
 {
     protected string $name = ActionEnum::GET_UP;
 
-    private RoomLogServiceInterface $roomLogService;
     private StatusServiceInterface $statusService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
-        RoomLogServiceInterface $roomLogService,
         StatusServiceInterface $statusService
     ) {
         parent::__construct($eventDispatcher);
 
-        $this->roomLogService = $roomLogService;
         $this->statusService = $statusService;
         $this->actionCost->setActionPointCost(0);
     }
@@ -49,17 +46,6 @@ class GetUp extends Action
             $this->statusService->delete($lyingDownStatus);
         }
 
-        return new Success();
-    }
-
-    protected function createLog(ActionResult $actionResult): void
-    {
-        $this->roomLogService->createPlayerLog(
-            ActionEnum::GET_UP,
-            $this->player->getRoom(),
-            $this->player,
-            VisibilityEnum::PUBLIC,
-            new \DateTime('now')
-        );
+        return new Success(ActionLogEnum::GET_UP, VisibilityEnum::PUBLIC);
     }
 }

@@ -2,6 +2,6 @@
 
 namespace Mush\Action\ActionResult;
 
-class Success implements ActionResult
+class Success extends ActionResult
 {
 }

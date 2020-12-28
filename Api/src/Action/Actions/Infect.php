@@ -9,6 +9,8 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\RoomLog\Entity\Target;
+use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\ChargeStatus;
@@ -88,7 +90,12 @@ class Infect extends Action
         $mushStatus->addCharge(-1);
         $this->statusService->persist($mushStatus);
 
-        return new Success();
+        $target = new Target($this->targetPlayer->getPerson(), 'character');
+
+        //@TODO: get ride of that
+        $this->createLog(new Success());
+
+        return new Success(ActionLogEnum::INFECT_SUCCESS, VisibilityEnum::SECRET, $target);
     }
 
     protected function createLog(ActionResult $actionResult): void
@@ -97,16 +104,7 @@ class Infect extends Action
             ActionEnum::INFECT,
             $this->player->getRoom(),
             $this->player,
-            VisibilityEnum::MUSH,
-            new \DateTime('now')
-        );
-
-        $this->roomLogService->createPlayerLog(
-            ActionEnum::INFECT,
-            $this->player->getRoom(),
-            $this->player,
-            VisibilityEnum::SECRET,
-            new \DateTime('now')
+            VisibilityEnum::MUSH
         );
     }
 }

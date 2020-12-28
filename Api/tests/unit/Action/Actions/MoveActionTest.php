@@ -120,7 +120,7 @@ class MoveActionTest extends TestCase
         $roomStart->addDoor($door);
         $roomEnd->addDoor($door);
 
-        $this->roomLogService->shouldReceive('createPlayerLog')->times(4);
+        $this->roomLogService->shouldReceive('createActionLog')->times(4);
         $this->playerService->shouldReceive('persist');
 
         $actionParameter = new ActionParameters();

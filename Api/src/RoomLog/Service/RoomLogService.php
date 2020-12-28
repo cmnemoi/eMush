@@ -54,6 +54,7 @@ class RoomLogService implements RoomLogServiceInterface
         ?Target $target,
         ?int $quantity,
         string $visibility,
+        string $type,
         \DateTime $dateTime = null
     ): RoomLog {
         if ($declinations = LogDeclinationEnum::getDeclination($logKey)) {
@@ -63,6 +64,7 @@ class RoomLogService implements RoomLogServiceInterface
         $roomLog = new RoomLog();
         $roomLog
             ->setLog($logKey)
+            ->setType($type)
             ->setPlayer($player)
             ->setTarget($target)
             ->setRoom($room)
@@ -76,6 +78,21 @@ class RoomLogService implements RoomLogServiceInterface
         return $roomLog;
     }
 
+    public function createActionLog(
+        string $logKey,
+        Room $room,
+        Player $player,
+        ?Target $target,
+        string $visibility,
+        \DateTime $dateTime = null
+    ): RoomLog {
+        $log = $this->createLog($logKey, $room, $player, $target, null, $visibility, 'actions_log');
+
+        $this->persist($log);
+
+        return $log;
+    }
+
     public function createPlayerLog(
         string $logKey,
         Room $room,
@@ -83,7 +100,9 @@ class RoomLogService implements RoomLogServiceInterface
         string $visibility,
         \DateTime $dateTime = null
     ): RoomLog {
-        return $this->persist($this->createLog($logKey, $room, $player, null, null, $visibility, $dateTime));
+        return $this->persist(
+            $this->createLog($logKey, $room, $player, null, null, $visibility, 'event_log', $dateTime)
+        );
     }
 
     public function createQuantityLog(
@@ -94,7 +113,9 @@ class RoomLogService implements RoomLogServiceInterface
         int $quantity,
         \DateTime $dateTime = null
     ): RoomLog {
-        return $this->persist($this->createLog($logKey, $room, $player, null, $quantity, $visibility, $dateTime));
+        return $this->persist(
+            $this->createLog($logKey, $room, $player, null, $quantity, $visibility, 'event_log', $dateTime)
+        );
     }
 
     public function createEquipmentLog(
@@ -108,7 +129,9 @@ class RoomLogService implements RoomLogServiceInterface
         $type = $gameEquipment instanceof GameItem ? 'items' : 'equipments';
         $target = new Target($gameEquipment->getName(), $type);
 
-        return $this->persist($this->createLog($logKey, $room, $player, $target, null, $visibility, $dateTime));
+        return $this->persist(
+            $this->createLog($logKey, $room, $player, $target, null, $visibility, 'event_log', $dateTime)
+        );
     }
 
     public function createRoomLog(
@@ -117,7 +140,9 @@ class RoomLogService implements RoomLogServiceInterface
         string $visibility,
         \DateTime $dateTime = null
     ): RoomLog {
-        return $this->persist($this->createLog($logKey, $room, null, null, null, $visibility, $dateTime));
+        return $this->persist(
+            $this->createLog($logKey, $room, null, null, null, $visibility, 'event_log', $dateTime)
+        );
     }
 
     public function getRoomLog(Player $player): array
@@ -152,7 +177,7 @@ class RoomLogService implements RoomLogServiceInterface
                 'log' => $this->translator->trans(
                     $logKey,
                     $params,
-                    'log'
+                    $roomLog->getType()
                 ),
                 'visibility' => $roomLog->getVisibility(),
                 'date' => $roomLog->getDate(),

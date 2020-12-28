@@ -11,8 +11,9 @@ use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\RoomLog\Entity\Target;
+use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
-use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -23,19 +24,16 @@ class Hide extends Action
 
     private GameItem $gameItem;
 
-    private RoomLogServiceInterface $roomLogService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
-        RoomLogServiceInterface $roomLogService,
         GameEquipmentServiceInterface $gameEquipmentService,
         PlayerServiceInterface $playerService
     ) {
         parent::__construct($eventDispatcher);
 
-        $this->roomLogService = $roomLogService;
         $this->gameEquipmentService = $gameEquipmentService;
         $this->playerService = $playerService;
 
@@ -82,18 +80,8 @@ class Hide extends Action
         $this->gameEquipmentService->persist($this->gameItem);
         $this->playerService->persist($this->player);
 
-        return new Success();
-    }
+        $target = new Target($this->gameItem->getName(), 'items');
 
-    protected function createLog(ActionResult $actionResult): void
-    {
-        $this->roomLogService->createEquipmentLog(
-            ActionEnum::HIDE,
-            $this->player->getRoom(),
-            $this->player,
-            $this->gameItem,
-            VisibilityEnum::COVERT,
-            new \DateTime('now')
-        );
+        return new Success(ActionLogEnum::HIDE_SUCCESS, VisibilityEnum::COVERT, $target);
     }
 }

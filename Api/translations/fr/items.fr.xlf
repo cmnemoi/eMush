@@ -3342,7 +3342,7 @@ Les plans de construction bleus sont une bénédiction pour les équipiers en ma
             </segment>
             <segment id="short_name">
                 <source>sniper_helmet_blueprint.short_name</source>
-                <target>Plan du casquede visée</target>
+                <target>Plan du casque de visée</target>
             </segment>
             <segment id="genre">
                 <source>sniper_helmet_blueprint.genre</source>

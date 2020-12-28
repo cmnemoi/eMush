@@ -16,14 +16,11 @@ use Mush\Game\Enum\SkillEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
-use Mush\RoomLog\Service\RoomLogServiceInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ReadBookActionTest extends TestCase
 {
-    /** @var RoomLogServiceInterface | Mockery\Mock */
-    private RoomLogServiceInterface $roomLogService;
     /** @var GameEquipmentServiceInterface | Mockery\Mock */
     private GameEquipmentServiceInterface $gameEquipmentService;
     /** @var PlayerServiceInterface | Mockery\Mock */
@@ -36,7 +33,6 @@ class ReadBookActionTest extends TestCase
     public function before()
     {
         $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
-        $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
 
@@ -44,7 +40,6 @@ class ReadBookActionTest extends TestCase
 
         $this->action = new ReadBook(
             $eventDispatcher,
-            $this->roomLogService,
             $this->gameEquipmentService,
             $this->playerService
         );
@@ -70,8 +65,6 @@ class ReadBookActionTest extends TestCase
             ->setEquipment($item)
             ->setRoom($room)
         ;
-
-        $this->roomLogService->shouldReceive('createEquipmentLog')->once();
 
         $this->gameEquipmentService->shouldReceive('delete');
         $this->playerService->shouldReceive('persist');

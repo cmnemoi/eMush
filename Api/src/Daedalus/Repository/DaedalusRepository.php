@@ -35,7 +35,7 @@ class DaedalusRepository extends ServiceEntityRepository
             ->groupBy('daedalus')
             ->having('count(player.id) < (' . $daedalusConfig->getDQL() . ')')
             ->setMaxResults(1)
-            ->setParameter('gameStatus', GameStatusEnum::STARTING) 
+            ->setParameter('gameStatus', GameStatusEnum::STARTING)
         ;
 
         return $qb->getQuery()->getOneOrNullResult();

@@ -103,7 +103,7 @@ class PlayerSubscriber implements EventSubscriberInterface
 
         if ($player->getDaedalus()->getPlayers()->getPlayerAlive()->isEmpty() &&
             !in_array($reason, [EndCauseEnum::SOL_RETURN, EndCauseEnum::EDEN, EndCauseEnum::SUPER_NOVA, EndCauseEnum::KILLED_BY_NERON]) &&
-            $player->getDaedalus()->getGameStatus()!==GameStatusEnum::STARTING
+            $player->getDaedalus()->getGameStatus() !== GameStatusEnum::STARTING
         ) {
             $endDaedalusEvent = new DaedalusEvent($player->getDaedalus());
 

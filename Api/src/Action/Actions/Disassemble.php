@@ -102,6 +102,9 @@ class Disassemble extends AttemptAction
             $this->disasemble($dismountableType);
         }
 
+        //@TODO use post event
+        $this->createLog($response);
+
         $this->playerService->persist($this->player);
 
         return $response;

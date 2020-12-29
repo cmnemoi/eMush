@@ -6,9 +6,19 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
 use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Entity\Target;
 
 interface RoomLogServiceInterface
 {
+    public function createActionLog(
+        string $logKey,
+        Room $room,
+        Player $player,
+        ?Target $target,
+        string $visibility,
+        \DateTime $dateTime = null
+    ): RoomLog;
+
     public function createPlayerLog(
         string $logKey,
         Room $room,

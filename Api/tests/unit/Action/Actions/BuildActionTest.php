@@ -21,14 +21,11 @@ use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
-use Mush\RoomLog\Service\RoomLogServiceInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class BuildActionTest extends TestCase
 {
-    /** @var RoomLogServiceInterface | Mockery\Mock */
-    private RoomLogServiceInterface $roomLogService;
     /** @var GameEquipmentServiceInterface | Mockery\Mock */
     private GameEquipmentServiceInterface $gameEquipmentService;
     /** @var PlayerServiceInterface | Mockery\Mock */
@@ -43,7 +40,6 @@ class BuildActionTest extends TestCase
     public function before()
     {
         $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
-        $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
         $gameConfigService = Mockery::mock(GameConfigServiceInterface::class);
@@ -54,7 +50,6 @@ class BuildActionTest extends TestCase
 
         $this->action = new Build(
             $eventDispatcher,
-            $this->roomLogService,
             $this->gameEquipmentService,
             $this->playerService,
             $gameConfigService
@@ -169,7 +164,6 @@ class BuildActionTest extends TestCase
 
         $this->gameEquipmentService->shouldReceive('createGameEquipment')->andReturn($gameProduct)->once();
         $this->gameEquipmentService->shouldReceive('delete');
-        $this->roomLogService->shouldReceive('createPlayerLog')->once();
 
         $result = $this->action->execute();
 

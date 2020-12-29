@@ -22,7 +22,6 @@ use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
-use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -31,8 +30,6 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class CoffeeActionTest extends TestCase
 {
-    /** @var RoomLogServiceInterface | Mockery\Mock */
-    private RoomLogServiceInterface $roomLogService;
     /** @var GameEquipmentServiceInterface | Mockery\Mock */
     private GameEquipmentServiceInterface $gameEquipmentService;
     /** @var PlayerServiceInterface | Mockery\Mock */
@@ -47,7 +44,6 @@ class CoffeeActionTest extends TestCase
     public function before()
     {
         $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
-        $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
         $eventDispatcher->shouldReceive('dispatch');
@@ -58,7 +54,6 @@ class CoffeeActionTest extends TestCase
 
         $this->action = new Coffee(
             $eventDispatcher,
-            $this->roomLogService,
             $this->gameEquipmentService,
             $this->playerService,
             $this->statusService,
@@ -147,7 +142,6 @@ class CoffeeActionTest extends TestCase
 
         $this->gameEquipmentService->shouldReceive('getOperationalEquipmentsByName')->andReturn(new ArrayCollection([$gameCoffeeMachine]))->twice();
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->andReturn($gameCoffee)->once();
-        $this->roomLogService->shouldReceive('createEquipmentLog')->once();
         $this->gameEquipmentService->shouldReceive('persist');
         $this->statusService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');

@@ -8,8 +8,8 @@ use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
-use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -21,17 +21,14 @@ class LieDown extends Action
 
     private GameEquipment $gameEquipment;
 
-    private RoomLogServiceInterface $roomLogService;
     private StatusServiceInterface $statusService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
-        RoomLogServiceInterface $roomLogService,
         StatusServiceInterface $statusService
     ) {
         parent::__construct($eventDispatcher);
 
-        $this->roomLogService = $roomLogService;
         $this->statusService = $statusService;
 
         $this->actionCost->setActionPointCost(0);
@@ -67,17 +64,6 @@ class LieDown extends Action
         ;
         $this->statusService->persist($lyingDownStatus);
 
-        return new Success();
-    }
-
-    protected function createLog(ActionResult $actionResult): void
-    {
-        $this->roomLogService->createPlayerLog(
-            ActionEnum::LIE_DOWN,
-            $this->player->getRoom(),
-            $this->player,
-            VisibilityEnum::PUBLIC,
-            new \DateTime('now')
-        );
+        return new Success(ActionLogEnum::LIE_DOWN, VisibilityEnum::PUBLIC);
     }
 }

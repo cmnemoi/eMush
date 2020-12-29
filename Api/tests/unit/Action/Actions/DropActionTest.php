@@ -14,15 +14,12 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
-use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class DropActionTest extends TestCase
 {
-    /** @var RoomLogServiceInterface | Mockery\Mock */
-    private RoomLogServiceInterface $roomLogService;
     /** @var GameEquipmentServiceInterface | Mockery\Mock */
     private GameEquipmentServiceInterface $gameEquipmentService;
     /** @var PlayerServiceInterface | Mockery\Mock */
@@ -37,7 +34,6 @@ class DropActionTest extends TestCase
     public function before()
     {
         $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
-        $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
@@ -46,7 +42,6 @@ class DropActionTest extends TestCase
 
         $this->action = new Drop(
             $eventDispatcher,
-            $this->roomLogService,
             $this->gameEquipmentService,
             $this->playerService,
             $this->statusService
@@ -69,11 +64,11 @@ class DropActionTest extends TestCase
         $gameItem->setEquipment($item);
 
         $item
+            ->setName('itemName')
             ->setIsDropable(true)
             ->setIsHeavy(false)
         ;
 
-        $this->roomLogService->shouldReceive('createEquipmentLog')->once();
         $this->gameEquipmentService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
 
@@ -87,6 +82,7 @@ class DropActionTest extends TestCase
             ->setRoom($room)
         ;
         $gameItem
+            ->setName('itemName')
             ->setPlayer($player)
         ;
         $this->action->loadParameters($player, $actionParameter);

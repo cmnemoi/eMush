@@ -49,6 +49,11 @@ class RoomLog
     private string $log;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=false)
+     */
+    private string $type;
+
+    /**
      * @ORM\Column(type="datetime", nullable=false)
      */
     private \DateTime $date;
@@ -144,6 +149,18 @@ class RoomLog
     public function setLog(string $log): RoomLog
     {
         $this->log = $log;
+
+        return $this;
+    }
+
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): RoomLog
+    {
+        $this->type = $type;
 
         return $this;
     }

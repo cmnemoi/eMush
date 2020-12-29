@@ -14,8 +14,9 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\RoomLog\Entity\Target;
+use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
-use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Transplant extends Action
@@ -24,19 +25,16 @@ class Transplant extends Action
 
     private GameEquipment $gameEquipment;
 
-    private RoomLogServiceInterface $roomLogService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
-        RoomLogServiceInterface $roomLogService,
         GameEquipmentServiceInterface $gameEquipmentService,
         PlayerServiceInterface $playerService
     ) {
         parent::__construct($eventDispatcher);
 
-        $this->roomLogService = $roomLogService;
         $this->gameEquipmentService = $gameEquipmentService;
         $this->playerService = $playerService;
         $this->actionCost->setActionPointCost(1);
@@ -63,6 +61,7 @@ class Transplant extends Action
 
     protected function applyEffects(): ActionResult
     {
+        //@TODO fail transplant
         /** @var Fruit $fruitType */
         $fruitType = $this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::FRUIT);
 
@@ -88,18 +87,9 @@ class Transplant extends Action
 
         $this->playerService->persist($this->player);
 
-        return new Success();
-    }
+        $type = $this->gameEquipment instanceof GameItem ? 'items' : 'equipments';
+        $target = new Target($this->gameEquipment->getName(), $type);
 
-    protected function createLog(ActionResult $actionResult): void
-    {
-        $this->roomLogService->createEquipmentLog(
-            ActionEnum::TRANSPLANT,
-            $this->player->getRoom(),
-            $this->player,
-            $this->gameEquipment,
-            VisibilityEnum::PUBLIC,
-            new \DateTime('now')
-        );
+        return new Success(ActionLogEnum::TRANSPLANT_SUCCESS, VisibilityEnum::PUBLIC, $target);
     }
 }

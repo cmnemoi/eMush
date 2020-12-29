@@ -157,11 +157,9 @@ class InfectActionTest extends TestCase
 
         $this->action->loadParameters($player, $actionParameter);
 
-        $actionParameter = new ActionParameters();
-
         $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $eventDispatcher->shouldReceive('dispatch');
-        $this->roomLogService->shouldReceive('createPlayerLog')->twice();
+        $this->roomLogService->shouldReceive('createPlayerLog')->once();
         $this->playerService->shouldReceive('persist')->once();
         $this->statusService->shouldReceive('persist')->once();
         $this->statusService->shouldReceive('delete')->once();
@@ -178,6 +176,7 @@ class InfectActionTest extends TestCase
     {
         $player = new Player();
         $player
+            ->setPerson('some person')
             ->setActionPoint(10)
             ->setMovementPoint(10)
             ->setMoralPoint(10)

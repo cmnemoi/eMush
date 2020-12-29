@@ -7,7 +7,6 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Action;
 use Mush\Action\Actions\Write;
 use Mush\Action\Entity\ActionParameters;
-use Mush\Action\Service\SuccessRateServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
@@ -15,30 +14,21 @@ use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\GameConfigServiceInterface;
-use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
-use Mush\RoomLog\Service\RoomLogServiceInterface;
-use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class WriteActionTest extends TestCase
 {
-    /** @var RoomLogServiceInterface | Mockery\Mock */
-    private RoomLogServiceInterface $roomLogService;
     /** @var GameEquipmentServiceInterface | Mockery\Mock */
     private GameEquipmentServiceInterface $gameEquipmentService;
     /** @var PlayerServiceInterface | Mockery\Mock */
     private PlayerServiceInterface $playerService;
-    /** @var SuccessRateServiceInterface | Mockery\Mock */
-    private SuccessRateServiceInterface $successRateService;
-    /** @var RandomServiceInterface | Mockery\Mock */
-    private RandomServiceInterface $randomService;
-    /** @var StatusServiceInterface | Mockery\Mock */
-    private StatusServiceInterface $statusService;
     private Action $action;
+
+    private GameConfig $gameConfig;
 
     /**
      * @before
@@ -46,7 +36,6 @@ class WriteActionTest extends TestCase
     public function before()
     {
         $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
-        $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
         $gameConfigService = Mockery::mock(GameConfigServiceInterface::class);
@@ -56,7 +45,6 @@ class WriteActionTest extends TestCase
 
         $this->action = new Write(
             $eventDispatcher,
-            $this->roomLogService,
             $this->gameEquipmentService,
             $this->playerService,
             $gameConfigService,
@@ -99,7 +87,6 @@ class WriteActionTest extends TestCase
         $gamePostIt->setEquipment($postIt);
 
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->andReturn($gamePostIt)->once();
-        $this->roomLogService->shouldReceive('createPlayerLog')->once();
         $this->gameEquipmentService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
 

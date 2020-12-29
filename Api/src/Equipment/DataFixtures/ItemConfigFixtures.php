@@ -216,7 +216,35 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($hydropot);
 
-        //@TODO add drones, cat, coffee thermos, lunchbox, survival kit, oxygen capsule, fuel capsule
+        $oxygenCapsule = new ItemConfig();
+        $oxygenCapsule
+            ->setGameConfig($gameConfig)
+            ->setName(ItemEnum::OXYGEN_CAPSULE)
+            ->setIsHeavy(false)
+            ->setIsTakeable(true)
+            ->setIsDropable(false)
+            ->setIsStackable(true)
+            ->setIsHideable(true)
+            ->setIsFireDestroyable(false)
+            ->setIsFireBreakable(false)
+        ;
+        $manager->persist($oxygenCapsule);
+
+        $fuelCapsule = new ItemConfig();
+        $fuelCapsule
+            ->setGameConfig($gameConfig)
+            ->setName(ItemEnum::FUEL_CAPSULE)
+            ->setIsHeavy(false)
+            ->setIsTakeable(true)
+            ->setIsDropable(false)
+            ->setIsStackable(true)
+            ->setIsHideable(true)
+            ->setIsFireDestroyable(false)
+            ->setIsFireBreakable(false)
+        ;
+        $manager->persist($fuelCapsule);
+
+        //@TODO add drones, cat, coffee thermos, lunchbox, survival kit
         $manager->flush();
     }
 

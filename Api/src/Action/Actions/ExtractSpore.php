@@ -63,6 +63,8 @@ class ExtractSpore extends Action
 
         $this->player->getDaedalus()->setSpores($this->player->getDaedalus()->getSpores() - 1);
 
+        $this->statusService->createCorePlayerStatus(PlayerStatusEnum::DIRTY, $this->player);
+
         return new Success();
     }
 

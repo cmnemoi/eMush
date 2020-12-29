@@ -16,45 +16,4 @@ use Mush\Equipment\Enum\EquipmentMechanicEnum;
 class Tool extends EquipmentMechanic
 {
     protected string $mechanic = EquipmentMechanicEnum::TOOL;
-
-    /**
-     * @ORM\Column(type="array", nullable=false)
-     */
-    private array $grantActions = [];
-    /**
-     * @ORM\Column(type="array", nullable=false)
-     */
-    private array $actionsTarget = [];
-
-    public function getGrantActions(): Collection
-    {
-        return new ArrayCollection($this->grantActions);
-    }
-
-    /**
-     * @return static
-     */
-    public function setGrantActions(array $grantActions): Tool
-    {
-        $this->grantActions = $grantActions;
-
-        return $this;
-    }
-
-    public function getActionsTarget(): array
-    {
-        return $this->actionsTarget;
-    }
-
-    /**
-     * @return static
-     */
-    public function setActionsTarget(array $actionsTarget): Tool
-    {
-        $this->actionsTarget = $actionsTarget;
-
-        return $this;
-    }
-
-    //@TODO maybe create a reach property
 }

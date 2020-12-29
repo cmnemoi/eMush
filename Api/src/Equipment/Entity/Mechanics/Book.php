@@ -15,8 +15,6 @@ class Book extends Tool
 {
     protected string $mechanic = EquipmentMechanicEnum::BOOK;
 
-    protected array $actions = [ActionEnum::READ_BOOK];
-
     /**
      * @ORM\Column(type="string", nullable=false)
      */

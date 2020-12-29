@@ -6,6 +6,8 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Mush\Action\DataFixtures\ActionsFixtures;
+use Mush\Action\Entity\Action;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Book;
 use Mush\Equipment\Entity\Mechanics\Document;
@@ -21,6 +23,15 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
+
+        /** @var Action $takeAction */
+        $takeAction = $this->getReference(ActionsFixtures::DEFAULT_TAKE);
+        /** @var Action $takeAction */
+        $dropAction = $this->getReference(ActionsFixtures::DEFAULT_DROP);
+        /** @var Action $readAction */
+        $readAction = $this->getReference(ActionsFixtures::READ_DEFAULT);
+
+        $actions = new ArrayCollection([$takeAction, $dropAction]);
 
         //First Mage Books
         $skillsArray = [SkillEnum::ASTROPHYSICIST,
@@ -45,6 +56,7 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
             $apprentonMechanic = new Book();
             $apprentonMechanic
                 ->setSkill($skillName)
+                ->addAction($readAction)
             ;
 
             $apprenton = new ItemConfig();
@@ -59,6 +71,7 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
                 ->setIsFireDestroyable(true)
                 ->setIsFireBreakable(false)
                 ->setMechanics(new ArrayCollection([$apprentonMechanic]))
+                ->setActions($actions)
             ;
 
             $manager->persist($apprentonMechanic);
@@ -70,6 +83,7 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
         $documentMechanic
             ->setIsTranslated(true)
             ->setCanShred(true)
+            ->addAction($readAction)
         ;
 
         $document = new ItemConfig();
@@ -84,6 +98,7 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics(new ArrayCollection([$documentMechanic]))
+            ->setActions($actions)
         ;
 
         $manager->persist($documentMechanic);
@@ -93,6 +108,7 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
         $commandersManualMechanic
             ->setIsTranslated(true)
             ->setContent(DocumentContentEnum::COMMANDERS_MANUAL)
+            ->addAction($readAction)
         ;
 
         $commandersManual = new ItemConfig();
@@ -107,6 +123,7 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics(new ArrayCollection([$commandersManualMechanic]))
+            ->setActions($actions)
         ;
 
         $manager->persist($commandersManualMechanic);
@@ -130,6 +147,7 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics(new ArrayCollection([$mushResearchMechanic]))
+            ->setActions($actions)
         ;
 
         $manager->persist($mushResearchMechanic);
@@ -139,6 +157,7 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
         $postItMechanic
             ->setIsTranslated(false)
             ->setCanShred(true)
+            ->addAction($readAction)
         ;
 
         $postIt = new ItemConfig();
@@ -153,6 +172,7 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics(new ArrayCollection([$postItMechanic]))
+            ->setActions($actions)
         ;
 
         $manager->persist($postItMechanic);
@@ -164,6 +184,7 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies(): array
     {
         return [
+            ActionsFixtures::class,
             GameConfigFixtures::class,
         ];
     }

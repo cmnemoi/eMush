@@ -6,8 +6,12 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Mush\Action\DataFixtures\ActionsFixtures;
+use Mush\Action\Entity\Action;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Dismountable;
+use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
@@ -18,6 +22,13 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
+
+        /** @var Action $takeAction */
+        $takeAction = $this->getReference(ActionsFixtures::DEFAULT_TAKE);
+        /** @var Action $takeAction */
+        $dropAction = $this->getReference(ActionsFixtures::DEFAULT_DROP);
+
+        $actions = new ArrayCollection([$takeAction, $dropAction]);
 
         $dismountableMechanic1 = new Dismountable();
         $dismountableMechanic1
@@ -39,6 +50,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireBreakable(true)
             ->setBreakableRate(25)
             ->setMechanics(new ArrayCollection([$dismountableMechanic1]))
+            ->setActions($actions)
         ;
         $manager->persist($camera);
         $manager->persist($dismountableMechanic1);
@@ -56,6 +68,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireBreakable(false)
             ->setBreakableRate(25)
             ->setMechanics(new ArrayCollection([$dismountableMechanic1]))
+            ->setActions($actions)
         ;
         $manager->persist($mycoAlarm);
 
@@ -78,9 +91,26 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireBreakable(true)
             ->setBreakableRate(12)
             ->setMechanics(new ArrayCollection([$dismountableMechanic2]))
+            ->setActions($actions)
         ;
         $manager->persist($tabulatrix);
         $manager->persist($dismountableMechanic2);
+
+        $metalScraps = new ItemConfig();
+        $metalScraps
+            ->setGameConfig($gameConfig)
+            ->setName(ItemEnum::METAL_SCRAPS)
+            ->setIsHeavy(false)
+            ->setIsTakeable(true)
+            ->setIsDropable(true)
+            ->setIsStackable(true)
+            ->setIsHideable(true)
+            ->setIsFireDestroyable(false)
+            ->setIsFireBreakable(false)
+            ->setActions($actions)
+        ;
+
+        $manager->persist($metalScraps);
 
         $plasticScraps = new ItemConfig();
         $plasticScraps
@@ -93,7 +123,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-
+            ->setActions($actions)
         ;
         $manager->persist($plasticScraps);
 
@@ -108,6 +138,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
+            ->setActions($actions)
         ;
         $manager->persist($oldTShirt);
 
@@ -130,6 +161,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics(new ArrayCollection([$dismountableMechanic3]))
+            ->setActions($actions)
         ;
         $manager->persist($thickTube);
         $manager->persist($dismountableMechanic3);
@@ -154,6 +186,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireBreakable(false)
             ->setBreakableRate(25)
             ->setMechanics(new ArrayCollection([$dismountableMechanic4]))
+            ->setActions($actions)
         ;
         $manager->persist($mushDisk);
         $manager->persist($dismountableMechanic4);
@@ -169,6 +202,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
+            ->setActions($actions)
         ;
         $manager->persist($mushSample);
 
@@ -184,6 +218,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setIsAlienArtifact(true)
+            ->setActions($actions)
         ;
         $manager->persist($starmapFragment);
 
@@ -199,6 +234,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setIsAlienArtifact(true)
+            ->setActions($actions)
         ;
         $manager->persist($waterStick);
 
@@ -213,6 +249,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
+            ->setActions($actions)
         ;
         $manager->persist($hydropot);
 
@@ -251,6 +288,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies(): array
     {
         return [
+            ActionsFixtures::class,
             GameConfigFixtures::class,
         ];
     }

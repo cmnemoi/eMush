@@ -127,6 +127,7 @@ class ItemConfig extends EquipmentConfig
 
     public function getActions(): Collection
     {
+        return parent::getActions();
         $actions = array_merge(ActionEnum::getPermanentItemActions(), parent::getActions()->toArray());
 
         return new ArrayCollection($actions);

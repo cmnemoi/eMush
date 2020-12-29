@@ -2,6 +2,7 @@
 
 namespace Mush\Equipment\Normalizer;
 
+use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionTargetEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Equipment\Entity\Door;
@@ -93,8 +94,9 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
             }
         }
 
-        foreach ($gameEquipment->getActions() as $actionName) {
-            $actionClass = $this->actionService->getAction($actionName);
+        /** @var Action $action */
+        foreach ($gameEquipment->getActions() as $action) {
+            $actionClass = $this->actionService->getAction($action->getName());
             if ($actionClass) {
                 $normedAction = $this->normalizer->normalize($actionClass, null, $context);
                 if (is_array($normedAction) && count($normedAction) > 0) {
@@ -127,9 +129,9 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
 
         foreach ($tools as $tool) {
             $toolActions = array_merge($toolActions,
-                            $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getGrantActions()->toArray());
+                $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getGrantActions()->toArray());
             $toolTargets = array_merge($toolTargets,
-                            $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getActionsTarget());
+                $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getActionsTarget());
         }
 
         if ($gameEquipment instanceof Door) {
@@ -137,7 +139,7 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
         } elseif ($gameEquipment instanceof GameItem) {
             return array_keys(array_filter($toolTargets, function ($target) {
                 return $target === ActionTargetEnum::EQUIPMENT ||
-                        $target === ActionTargetEnum::ITEM;
+                    $target === ActionTargetEnum::ITEM;
             }));
         } else {
             return array_keys(array_filter($toolTargets, function ($target) {

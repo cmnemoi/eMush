@@ -15,7 +15,7 @@ class CharacterConfig
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
-     * @ORM\Column(type="integer", length=255, nullable=false)
+     * @ORM\Column(type="integer", nullable=false)
      */
     private int $id;
 

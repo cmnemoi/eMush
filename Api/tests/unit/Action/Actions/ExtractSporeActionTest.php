@@ -11,7 +11,6 @@ use Mush\Action\Entity\ActionParameters;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
-use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -20,9 +19,6 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ExtractSporeActionTest extends TestCase
 {
-    /** @var RoomLogServiceInterface | Mockery\Mock */
-    private RoomLogServiceInterface $roomLogService;
-
     /** @var StatusServiceInterface | Mockery\Mock */
     private StatusServiceInterface $statusService;
     private Action $action;
@@ -33,13 +29,11 @@ class ExtractSporeActionTest extends TestCase
     public function before()
     {
         $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
-        $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
         $eventDispatcher->shouldReceive('dispatch');
 
         $this->action = new ExtractSpore(
             $eventDispatcher,
-            $this->roomLogService,
             $this->statusService,
         );
     }
@@ -120,7 +114,6 @@ class ExtractSporeActionTest extends TestCase
 
         $this->action->loadParameters($player, $actionParameter);
 
-        $this->roomLogService->shouldReceive('createPlayerLog')->once();
         $this->statusService->shouldReceive('persist')->once();
         $this->statusService->shouldReceive('createCorePlayerStatus')->once();
 

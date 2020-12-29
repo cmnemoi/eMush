@@ -10,7 +10,7 @@ use Mush\Equipment\Entity\Door;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
-use Mush\RoomLog\Enum\LogEnum;
+use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -60,22 +60,26 @@ class Move extends Action
 
         $this->playerService->persist($this->player);
 
+        $this->createLog();
+
         return new Success();
     }
 
-    protected function createLog(ActionResult $actionResult): void
+    protected function createLog(): void
     {
-        $this->roomLogService->createPlayerLog(
-            LogEnum::ENTER_ROOM,
+        $this->roomLogService->createActionLog(
+            ActionLogEnum::ENTER_ROOM,
             $this->player->getRoom(),
             $this->player,
+            null,
             VisibilityEnum::PUBLIC,
             new \DateTime('now')
         );
-        $this->roomLogService->createPlayerLog(
-            LogEnum::EXIT_ROOM,
+        $this->roomLogService->createActionLog(
+            ActionLogEnum::EXIT_ROOM,
             $this->door->getRooms()->filter(fn (Room $room) => $room !== $this->player->getRoom())->first(),
             $this->player,
+            null,
             VisibilityEnum::PUBLIC,
             new \DateTime('now')
         );

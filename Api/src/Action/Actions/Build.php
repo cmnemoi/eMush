@@ -15,8 +15,8 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
-use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Build extends Action
@@ -25,21 +25,18 @@ class Build extends Action
 
     private GameEquipment $gameEquipment;
 
-    private RoomLogServiceInterface $roomLogService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
     private GameConfig $gameConfig;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
-        RoomLogServiceInterface $roomLogService,
         GameEquipmentServiceInterface $gameEquipmentService,
         PlayerServiceInterface $playerService,
         GameConfigServiceInterface $gameConfigService
     ) {
         parent::__construct($eventDispatcher);
 
-        $this->roomLogService = $roomLogService;
         $this->gameEquipmentService = $gameEquipmentService;
         $this->playerService = $playerService;
         $this->gameConfig = $gameConfigService->getConfig();
@@ -129,17 +126,6 @@ class Build extends Action
 
         $this->playerService->persist($this->player);
 
-        return new Success();
-    }
-
-    protected function createLog(ActionResult $actionResult): void
-    {
-        $this->roomLogService->createPlayerLog(
-            ActionEnum::BUILD,
-            $this->player->getRoom(),
-            $this->player,
-            VisibilityEnum::PUBLIC,
-            new \DateTime('now')
-        );
+        return new Success(ActionLogEnum::BUILD_SUCCESS, VisibilityEnum::PUBLIC);
     }
 }

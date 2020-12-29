@@ -2,6 +2,7 @@
 
 namespace Mush\Action\Event;
 
+use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionCost;
 use Mush\Player\Entity\Player;
 use Symfony\Contracts\EventDispatcher\Event;
@@ -14,6 +15,7 @@ class ActionEvent extends Event
     private Player $player;
     private string $action;
     private ActionCost $actionCost;
+    private ?ActionResult $actionResult = null;
 
     public function __construct(string $action, Player $player, ActionCost $actionCost)
     {
@@ -35,5 +37,17 @@ class ActionEvent extends Event
     public function getActionCost(): ActionCost
     {
         return $this->actionCost;
+    }
+
+    public function getActionResult(): ?ActionResult
+    {
+        return $this->actionResult;
+    }
+
+    public function setActionResult(?ActionResult $actionResult): ActionEvent
+    {
+        $this->actionResult = $actionResult;
+
+        return $this;
     }
 }

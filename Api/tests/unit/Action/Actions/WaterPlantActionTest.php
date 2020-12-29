@@ -9,19 +9,14 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Action;
 use Mush\Action\Actions\WaterPlant;
 use Mush\Action\Entity\ActionParameters;
-use Mush\Action\Service\SuccessRateServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Service\GameConfigServiceInterface;
-use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
-use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -30,16 +25,10 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class WaterPlantActionTest extends TestCase
 {
-    /** @var RoomLogServiceInterface | Mockery\Mock */
-    private RoomLogServiceInterface $roomLogService;
     /** @var GameEquipmentServiceInterface | Mockery\Mock */
     private GameEquipmentServiceInterface $gameEquipmentService;
     /** @var PlayerServiceInterface | Mockery\Mock */
     private PlayerServiceInterface $playerService;
-    /** @var SuccessRateServiceInterface | Mockery\Mock */
-    private SuccessRateServiceInterface $successRateService;
-    /** @var RandomServiceInterface | Mockery\Mock */
-    private RandomServiceInterface $randomService;
     /** @var StatusServiceInterface | Mockery\Mock */
     private StatusServiceInterface $statusService;
     private Action $action;
@@ -50,17 +39,13 @@ class WaterPlantActionTest extends TestCase
     public function before()
     {
         $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
-        $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
-        $gameConfigService = Mockery::mock(GameConfigServiceInterface::class);
-        $this->gameConfig = new GameConfig();
         $eventDispatcher->shouldReceive('dispatch');
 
         $this->action = new WaterPlant(
             $eventDispatcher,
-            $this->roomLogService,
             $this->gameEquipmentService,
             $this->playerService,
             $this->statusService
@@ -138,7 +123,6 @@ class WaterPlantActionTest extends TestCase
         $actionParameter->setItem($gameItem);
         $this->action->loadParameters($player, $actionParameter);
 
-        $this->roomLogService->shouldReceive('createEquipmentLog')->once();
         $this->gameEquipmentService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
         $this->statusService->shouldReceive('delete');
@@ -159,7 +143,6 @@ class WaterPlantActionTest extends TestCase
         $gameItem->removeStatus($thirsty);
         $gameItem->addStatus($driedOut);
 
-        $this->roomLogService->shouldReceive('createEquipmentLog')->once();
         $this->gameEquipmentService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
         $this->statusService->shouldReceive('delete');

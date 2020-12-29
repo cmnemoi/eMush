@@ -14,8 +14,8 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
-use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\ContentStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -24,7 +24,6 @@ class Write extends Action
 {
     protected string $name = ActionEnum::WRITE;
 
-    private RoomLogServiceInterface $roomLogService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
 
@@ -33,14 +32,12 @@ class Write extends Action
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
-        RoomLogServiceInterface $roomLogService,
         GameEquipmentServiceInterface $gameEquipmentService,
         PlayerServiceInterface $playerService,
         GameConfigServiceInterface $gameConfigService
     ) {
         parent::__construct($eventDispatcher);
 
-        $this->roomLogService = $roomLogService;
         $this->gameEquipmentService = $gameEquipmentService;
         $this->playerService = $playerService;
         $this->gameConfig = $gameConfigService->getConfig();
@@ -85,17 +82,6 @@ class Write extends Action
         $this->gameEquipmentService->persist($newGameItem);
         $this->playerService->persist($this->player);
 
-        return new Success();
-    }
-
-    protected function createLog(ActionResult $actionResult): void
-    {
-        $this->roomLogService->createPlayerLog(
-            ActionEnum::WRITE,
-            $this->player->getRoom(),
-            $this->player,
-            VisibilityEnum::PUBLIC,
-            new \DateTime('now')
-        );
+        return new Success(ActionLogEnum::WRITE_SUCCESS, VisibilityEnum::PUBLIC);
     }
 }

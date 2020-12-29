@@ -16,8 +16,8 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
-use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -28,7 +28,6 @@ class Coffee extends Action
 
     private GameEquipment $gameEquipment;
 
-    private RoomLogServiceInterface $roomLogService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
     private StatusServiceInterface $statusService;
@@ -36,7 +35,6 @@ class Coffee extends Action
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
-        RoomLogServiceInterface $roomLogService,
         GameEquipmentServiceInterface $gameEquipmentService,
         PlayerServiceInterface $playerService,
         StatusServiceInterface $statusService,
@@ -44,7 +42,6 @@ class Coffee extends Action
     ) {
         parent::__construct($eventDispatcher);
 
-        $this->roomLogService = $roomLogService;
         $this->gameEquipmentService = $gameEquipmentService;
         $this->playerService = $playerService;
         $this->statusService = $statusService;
@@ -100,18 +97,6 @@ class Coffee extends Action
 
         $this->statusService->persist($chargeStatus);
 
-        return new Success();
-    }
-
-    protected function createLog(ActionResult $actionResult): void
-    {
-        $this->roomLogService->createEquipmentLog(
-            ActionEnum::COFFEE,
-            $this->player->getRoom(),
-            $this->player,
-            $this->gameEquipment,
-            VisibilityEnum::PUBLIC,
-            new \DateTime('now')
-        );
+        return new Success(ActionLogEnum::COFFEE_SUCCESS, VisibilityEnum::PUBLIC);
     }
 }

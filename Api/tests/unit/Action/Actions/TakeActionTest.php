@@ -16,15 +16,12 @@ use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
-use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class TakeActionTest extends TestCase
 {
-    /** @var RoomLogServiceInterface | Mockery\Mock */
-    private RoomLogServiceInterface $roomLogService;
     /** @var GameEquipmentServiceInterface | Mockery\Mock */
     private GameEquipmentServiceInterface $gameEquipmentService;
     /** @var PlayerServiceInterface | Mockery\Mock */
@@ -40,7 +37,6 @@ class TakeActionTest extends TestCase
     public function before()
     {
         $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
-        $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
@@ -52,7 +48,6 @@ class TakeActionTest extends TestCase
 
         $this->action = new Take(
             $eventDispatcher,
-            $this->roomLogService,
             $this->gameEquipmentService,
             $this->playerService,
             $gameConfigService,
@@ -75,6 +70,7 @@ class TakeActionTest extends TestCase
         $item = new ItemConfig();
         $gameItem->setEquipment($item);
         $gameItem
+            ->setName('itemName')
             ->setRoom($room)
         ;
 
@@ -82,8 +78,6 @@ class TakeActionTest extends TestCase
             ->setIsTakeable(true)
             ->setIsHeavy(false)
         ;
-
-        $this->roomLogService->shouldReceive('createEquipmentLog')->once();
 
         $this->gameConfig->setMaxItemInInventory(3);
         $this->gameEquipmentService->shouldReceive('persist');

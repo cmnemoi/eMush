@@ -22,7 +22,6 @@ use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
-use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -31,8 +30,6 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class CookActionTest extends TestCase
 {
-    /** @var RoomLogServiceInterface | Mockery\Mock */
-    private RoomLogServiceInterface $roomLogService;
     /** @var GameEquipmentServiceInterface | Mockery\Mock */
     private GameEquipmentServiceInterface $gameEquipmentService;
     /** @var PlayerServiceInterface | Mockery\Mock */
@@ -41,13 +38,14 @@ class CookActionTest extends TestCase
     private StatusServiceInterface $statusService;
     private Action $action;
 
+    private GameConfig $gameConfig;
+
     /**
      * @before
      */
     public function before()
     {
         $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
-        $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
         $eventDispatcher->shouldReceive('dispatch');
@@ -58,7 +56,6 @@ class CookActionTest extends TestCase
 
         $this->action = new Cook(
             $eventDispatcher,
-            $this->roomLogService,
             $this->gameEquipmentService,
             $this->playerService,
             $this->statusService,
@@ -155,7 +152,6 @@ class CookActionTest extends TestCase
         $this->action->loadParameters($player, $actionParameter);
 
         $this->gameEquipmentService->shouldReceive('getOperationalEquipmentsByName')->andReturn(new ArrayCollection([$gameKitchen]))->once();
-        $this->roomLogService->shouldReceive('createEquipmentLog')->once();
         $this->gameEquipmentService->shouldReceive('persist')->once();
         $this->playerService->shouldReceive('persist')->once();
         $this->statusService->shouldReceive('delete')->once();
@@ -210,7 +206,6 @@ class CookActionTest extends TestCase
         $this->gameEquipmentService->shouldReceive('delete');
         $this->gameEquipmentService->shouldReceive('getOperationalEquipmentsByName')->andReturn(new ArrayCollection([$gameKitchen]))->once();
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->andReturn($gameCookedRation)->once();
-        $this->roomLogService->shouldReceive('createEquipmentLog')->once();
         $this->gameEquipmentService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
         $result = $this->action->execute();

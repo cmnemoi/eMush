@@ -13,8 +13,9 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\RoomLog\Entity\Target;
+use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
-use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\EquipmentStatusEnum as EnumEquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -26,7 +27,6 @@ class Take extends Action
 
     private GameItem $gameItem;
 
-    private RoomLogServiceInterface $roomLogService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
     private GameConfig $gameConfig;
@@ -34,7 +34,6 @@ class Take extends Action
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
-        RoomLogServiceInterface $roomLogService,
         GameEquipmentServiceInterface $gameEquipmentService,
         PlayerServiceInterface $playerService,
         GameConfigServiceInterface $gameConfigService,
@@ -42,7 +41,6 @@ class Take extends Action
     ) {
         parent::__construct($eventDispatcher);
 
-        $this->roomLogService = $roomLogService;
         $this->gameEquipmentService = $gameEquipmentService;
         $this->playerService = $playerService;
         $this->gameConfig = $gameConfigService->getConfig();
@@ -92,18 +90,8 @@ class Take extends Action
         $this->gameEquipmentService->persist($this->gameItem);
         $this->playerService->persist($this->player);
 
-        return new Success();
-    }
+        $target = new Target($this->gameItem->getName(), 'items');
 
-    protected function createLog(ActionResult $actionResult): void
-    {
-        $this->roomLogService->createEquipmentLog(
-            ActionEnum::TAKE,
-            $this->player->getRoom(),
-            $this->player,
-            $this->gameItem,
-            VisibilityEnum::PUBLIC,
-            new \DateTime('now')
-        );
+        return new Success(ActionLogEnum::TAKE, VisibilityEnum::PUBLIC, $target);
     }
 }

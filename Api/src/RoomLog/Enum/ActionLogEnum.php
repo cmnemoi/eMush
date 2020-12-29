@@ -16,6 +16,8 @@ class ActionLogEnum
     public const HIT_SUCCESS = 'hit_success';
     public const HYPERFREEZE_SUCCESS = 'hyperfreeze_success';
     public const INFECT_SUCCESS = 'infect_success';
+    public const INSERT_OXYGEN = 'insert_oxygen';
+    public const RETRIEVE_OXYGEN = 'retrieve_oxygen';
     public const LIE_DOWN = 'lie_down';
     public const EXIT_ROOM = 'exit_room';
     public const ENTER_ROOM = 'enter_room';

@@ -13,6 +13,7 @@ use Mush\Equipment\Entity\Mechanics\Charged;
 use Mush\Equipment\Entity\Mechanics\Document;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -178,7 +179,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
     }
 
     //Implement accessibility to Equipment (for tool and gear)
-    public function getOperationalEquipmentsByName(string $equipmentName, Player $player, string $reach): Collection
+    public function getOperationalEquipmentsByName(string $equipmentName, Player $player, string $reach=ReachEnum::SHELVE_NOT_HIDDEN): Collection
     {
         //reach can be set to inventory, shelve, shelve only or any room of the Daedalus
         return $player->getReachableEquipmentsByName($equipmentName, $reach)

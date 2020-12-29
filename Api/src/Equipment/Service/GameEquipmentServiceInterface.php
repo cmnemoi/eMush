@@ -5,6 +5,7 @@ namespace Mush\Equipment\Service;
 use Doctrine\Common\Collections\Collection;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\EquipmentConfig;
+use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
 
@@ -20,7 +21,7 @@ interface GameEquipmentServiceInterface
 
     public function createGameEquipment(EquipmentConfig $equipment, Daedalus $daedalus): GameEquipment;
 
-    public function getOperationalEquipmentsByName(string $equipmentName, Player $player, string $reach): Collection;
+    public function getOperationalEquipmentsByName(string $equipmentName, Player $player, string $reach=ReachEnum::SHELVE_NOT_HIDDEN): Collection;
 
     public function isOperational(GameEquipment $equipment): bool;
 }

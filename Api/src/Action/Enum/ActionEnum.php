@@ -49,9 +49,9 @@ class ActionEnum
     public const OPEN = 'open';
 
     // Item-enabled actions
-    public const INJECT_FUEL = 'inject_fuel';
-    public const INJECT_FUEL_CHAMBER = 'inject_fuel_chamber';
-    public const INJECT_OXYGEN = 'inject_oxygen';
+    public const INSERT_FUEL = 'insert_fuel';
+    public const INSERT_FUEL_CHAMBER = 'insert_fuel_chamber';
+    public const INSERT_OXYGEN = 'insert_oxygen';
     public const RETRIEVE_FUEL = 'retrieve_fuel';
     public const RETRIEVE_FUEL_CHAMBER = 'retrieve_fuel_chamber';
     public const RETRIEVE_OXYGEN = 'retrieve_oxygen';

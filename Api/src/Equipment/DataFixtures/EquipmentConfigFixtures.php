@@ -227,7 +227,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $combustionChamberMechanic = new Tool();
         $combustionChamberMechanic->setActions([ActionEnum::RETRIEVE_FUEL_CHAMBER]);
         $combustionChamberMechanic->setGrantActions([ActionEnum::INSERT_FUEL_CHAMBER]);
-        $combustionChamberMechanic->setActionsTarget([ActionEnum::INSERT_FUEL_CHAMBER => ActionTargetEnum::EQUIPMENT]);
+        $combustionChamberMechanic->setActionsTarget([ActionEnum::INSERT_FUEL_CHAMBER => ActionTargetEnum::ITEM]);
         $chargedMechanic = new Charged();
         $chargedMechanic
             ->setMaxCharge(9)
@@ -412,7 +412,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $fuelTankMechanic = new Tool();
         $fuelTankMechanic->setActions([ActionEnum::RETRIEVE_FUEL]);
         $fuelTankMechanic->setGrantActions([ActionEnum::INSERT_FUEL]);
-        $fuelTankMechanic->setActionsTarget([ActionEnum::INSERT_FUEL => ActionTargetEnum::EQUIPMENT]);
+        $fuelTankMechanic->setActionsTarget([ActionEnum::INSERT_FUEL => ActionTargetEnum::ITEM]);
         $fuelTank = new EquipmentConfig();
         $fuelTank
             ->setGameConfig($gameConfig)
@@ -428,7 +428,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $oxygenTankMechanic = new Tool();
         $oxygenTankMechanic->setActions([ActionEnum::RETRIEVE_OXYGEN]);
         $oxygenTankMechanic->setGrantActions([ActionEnum::INSERT_OXYGEN]);
-        $oxygenTankMechanic->setActionsTarget([ActionEnum::INSERT_OXYGEN => ActionTargetEnum::EQUIPMENT]);
+        $oxygenTankMechanic->setActionsTarget([ActionEnum::INSERT_OXYGEN => ActionTargetEnum::ITEM]);
         $oxygenTank = new EquipmentConfig();
         $oxygenTank
             ->setGameConfig($gameConfig)

@@ -122,6 +122,7 @@ class ExtractSporeActionTest extends TestCase
 
         $this->roomLogService->shouldReceive('createPlayerLog')->once();
         $this->statusService->shouldReceive('persist')->once();
+        $this->statusService->shouldReceive('createCorePlayerStatus')->once();
 
         $result = $this->action->execute();
 

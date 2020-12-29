@@ -31,6 +31,8 @@ class GameConfigFixtures extends Fixture
             ->setInitMovementPoint(10)
             ->setMaxMovementPoint(16)
             ->setMaxItemInInventory(3)
+            ->setMaxOxygen(32)
+            ->setMaxFuel(32)
         ;
 
         $manager->persist($gameConfig);

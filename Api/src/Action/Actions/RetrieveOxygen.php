@@ -6,9 +6,8 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\ItemConfig;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -19,7 +18,6 @@ use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\Target;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
-use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -61,27 +59,28 @@ class RetrieveOxygen extends Action
 
     public function canExecute(): bool
     {
-        $equipmentConfig = $this->gameItem->getEquipment();
-
         return $this->player->canReachEquipment($this->gameEquipment) &&
-            $this->gameEquipment->getEquipment()->$equipmentConfig->getName()===EquipmentEnum::OXYGEN_TANK &&
+            $this->gameEquipment->getEquipment()->getName() === EquipmentEnum::OXYGEN_TANK &&
             $this->gameEquipmentService->isOperational($this->gameEquipment) &&
             $this->player->canReachEquipment($this->gameEquipment) &&
-            $this->player->getItems()->count() < $this->gameConfig->getMaxItemInInventory()
+            $this->player->getItems()->count() < $this->gameConfig->getMaxItemInInventory() &&
+            $this->player->getDaedalus()->getOxygen() > 0
             ;
     }
 
     protected function applyEffects(): ActionResult
     {
-        $gameItem=$this->gameEquipmentService->createGameEquipmentFromName(ItemEnum::OXYGEN_CAPSULE, $this->player->getDaedalus());
+        $gameItem = $this->gameEquipmentService->createGameEquipmentFromName(ItemEnum::OXYGEN_CAPSULE, $this->player->getDaedalus());
+
+        if (!$gameItem instanceof GameItem) {
+            throw new \LogicException('invalid GameItem');
+        }
 
         $gameItem->setPlayer($this->player);
 
-
         $this->gameEquipmentService->persist($gameItem);
-        
-        $this->player->getDaedalus()->addOxygen(-1);
 
+        $this->player->getDaedalus()->addOxygen(-1);
 
         $target = new Target($this->gameEquipment->getName(), 'items');
 

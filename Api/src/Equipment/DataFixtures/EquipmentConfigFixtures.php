@@ -226,8 +226,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         //Tools
         $combustionChamberMechanic = new Tool();
         $combustionChamberMechanic->setActions([ActionEnum::RETRIEVE_FUEL_CHAMBER]);
-        $combustionChamberMechanic->setGrantActions([ActionEnum::INJECT_FUEL_CHAMBER]);
-        $combustionChamberMechanic->setActionsTarget([ActionEnum::INJECT_FUEL_CHAMBER => ActionTargetEnum::EQUIPMENT]);
+        $combustionChamberMechanic->setGrantActions([ActionEnum::INSERT_FUEL_CHAMBER]);
+        $combustionChamberMechanic->setActionsTarget([ActionEnum::INSERT_FUEL_CHAMBER => ActionTargetEnum::EQUIPMENT]);
         $chargedMechanic = new Charged();
         $chargedMechanic
             ->setMaxCharge(9)
@@ -411,8 +411,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $fuelTankMechanic = new Tool();
         $fuelTankMechanic->setActions([ActionEnum::RETRIEVE_FUEL]);
-        $fuelTankMechanic->setGrantActions([ActionEnum::INJECT_FUEL]);
-        $fuelTankMechanic->setActionsTarget([ActionEnum::INJECT_FUEL => ActionTargetEnum::EQUIPMENT]);
+        $fuelTankMechanic->setGrantActions([ActionEnum::INSERT_FUEL]);
+        $fuelTankMechanic->setActionsTarget([ActionEnum::INSERT_FUEL => ActionTargetEnum::EQUIPMENT]);
         $fuelTank = new EquipmentConfig();
         $fuelTank
             ->setGameConfig($gameConfig)
@@ -427,8 +427,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $oxygenTankMechanic = new Tool();
         $oxygenTankMechanic->setActions([ActionEnum::RETRIEVE_OXYGEN]);
-        $oxygenTankMechanic->setGrantActions([ActionEnum::INJECT_OXYGEN]);
-        $oxygenTankMechanic->setActionsTarget([ActionEnum::INJECT_OXYGEN => ActionTargetEnum::EQUIPMENT]);
+        $oxygenTankMechanic->setGrantActions([ActionEnum::INSERT_OXYGEN]);
+        $oxygenTankMechanic->setActionsTarget([ActionEnum::INSERT_OXYGEN => ActionTargetEnum::EQUIPMENT]);
         $oxygenTank = new EquipmentConfig();
         $oxygenTank
             ->setGameConfig($gameConfig)

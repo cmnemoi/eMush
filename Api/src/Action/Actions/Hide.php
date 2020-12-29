@@ -11,7 +11,6 @@ use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\RoomLog\Entity\Target;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Status;
@@ -80,8 +79,6 @@ class Hide extends Action
         $this->gameEquipmentService->persist($this->gameItem);
         $this->playerService->persist($this->player);
 
-        $target = new Target($this->gameItem->getName(), 'items');
-
-        return new Success(ActionLogEnum::HIDE_SUCCESS, VisibilityEnum::COVERT, $target);
+        return new Success(ActionLogEnum::HIDE_SUCCESS, VisibilityEnum::COVERT);
     }
 }

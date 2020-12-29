@@ -179,7 +179,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
     }
 
     //Implement accessibility to Equipment (for tool and gear)
-    public function getOperationalEquipmentsByName(string $equipmentName, Player $player, string $reach=ReachEnum::SHELVE_NOT_HIDDEN): Collection
+    public function getOperationalEquipmentsByName(string $equipmentName, Player $player, string $reach = ReachEnum::SHELVE_NOT_HIDDEN): Collection
     {
         //reach can be set to inventory, shelve, shelve only or any room of the Daedalus
         return $player->getReachableEquipmentsByName($equipmentName, $reach)

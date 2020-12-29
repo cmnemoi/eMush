@@ -224,7 +224,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsTakeable(true)
             ->setIsDropable(false)
             ->setIsStackable(true)
-            ->setIsHideable(true)
+            ->setIsHideable(false)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
         ;
@@ -238,7 +238,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsTakeable(true)
             ->setIsDropable(false)
             ->setIsStackable(true)
-            ->setIsHideable(true)
+            ->setIsHideable(false)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
         ;

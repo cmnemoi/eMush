@@ -31,10 +31,11 @@ class DaedalusRepository extends ServiceEntityRepository
         $qb
             ->select('daedalus')
             ->leftJoin('daedalus.players', 'player')
-            ->andWhere($qb->expr()->eq('daedalus.gameStatus', GameStatusEnum::STARTING))
+            ->andWhere($qb->expr()->eq('daedalus.gameStatus', ':gameStatus'))
             ->groupBy('daedalus')
             ->having('count(player.id) < (' . $daedalusConfig->getDQL() . ')')
             ->setMaxResults(1)
+            ->setParameter('gameStatus', GameStatusEnum::STARTING) 
         ;
 
         return $qb->getQuery()->getOneOrNullResult();

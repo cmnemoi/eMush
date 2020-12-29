@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
@@ -37,6 +38,11 @@ class Daedalus
      * @ORM\ManyToOne (targetEntity="Mush\Game\Entity\GameConfig")
      */
     private GameConfig $gameConfig;
+
+    /**
+     * @ORM\Column(type="string", nullable=false)
+     */
+    private string $gameStatus = GameStatusEnum::STARTING;
 
     /**
      * @ORM\OneToMany(targetEntity="Mush\Room\Entity\Room", mappedBy="daedalus")
@@ -86,7 +92,12 @@ class Daedalus
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private DateTime $filledAt;
+    private ?DateTime $filledAt = null;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private ?DateTime $finishedAt = null;
 
     /**
      * Daedalus constructor.
@@ -154,6 +165,21 @@ class Daedalus
     public function setGameConfig(GameConfig $gameConfig): Daedalus
     {
         $this->gameConfig = $gameConfig;
+
+        return $this;
+    }
+
+    public function getGameStatus(): string
+    {
+        return $this->gameStatus;
+    }
+
+    /**
+     * @return static
+     */
+    public function setGameStatus(string $gameStatus): Daedalus
+    {
+        $this->gameStatus = $gameStatus;
 
         return $this;
     }
@@ -342,7 +368,7 @@ class Daedalus
         return $this;
     }
 
-    public function getFilledAt(): DateTime
+    public function getFilledAt(): ?DateTime
     {
         return $this->filledAt;
     }
@@ -350,6 +376,18 @@ class Daedalus
     public function setFilledAt(DateTime $filledAt): Daedalus
     {
         $this->filledAt = $filledAt;
+
+        return $this;
+    }
+
+    public function getFinishedAt(): ?DateTime
+    {
+        return $this->finishedAt;
+    }
+
+    public function setFinishedAt(DateTime $finishedAt): Daedalus
+    {
+        $this->finishedAt = $finishedAt;
 
         return $this;
     }

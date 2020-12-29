@@ -115,6 +115,7 @@ class ExtractSporeActionTest extends TestCase
         $this->action->loadParameters($player, $actionParameter);
 
         $this->statusService->shouldReceive('persist')->once();
+        $this->statusService->shouldReceive('createCorePlayerStatus')->once();
 
         $result = $this->action->execute();
 

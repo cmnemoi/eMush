@@ -8,6 +8,7 @@ use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
+use Mush\RoomLog\Entity\Target;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
@@ -78,6 +79,8 @@ class Hide extends Action
 
         $this->gameEquipmentService->persist($this->gameItem);
         $this->playerService->persist($this->player);
+
+        $target = new Target($this->gameItem->getName(), 'items');
 
         return new Success(ActionLogEnum::HIDE_SUCCESS, VisibilityEnum::COVERT);
     }

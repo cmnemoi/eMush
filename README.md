@@ -44,7 +44,7 @@ cp ./App/.env.dist ./App/.env
 
 Copy the Eternal-Twin config:
 ```
-cp ./etwin.toml.example ./etwin.toml
+cp ./EternalTwin/etwin.toml.example ./EternalTwin/etwin.toml
 ```
 
 Start Eternal-Twin:

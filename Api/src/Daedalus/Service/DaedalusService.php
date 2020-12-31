@@ -183,7 +183,7 @@ class DaedalusService implements DaedalusServiceInterface
     public function getRandomAsphyxia(Daedalus $daedalus): Daedalus
     {
         $chancesArray = [];
-        foreach ($daedalus->getPlayers() as $player) {
+        foreach ($daedalus->getPlayers()->getPlayerAlive() as $player) {
             if (!$player->getItems()->filter(fn (GameItem $item) => $item->getName() === ItemEnum::OXYGEN_CAPSULE)->isEmpty()) {
                 $capsule = $player->getItems()->filter(fn (GameItem $item) => $item->getName() === ItemEnum::OXYGEN_CAPSULE)->first();
                 $capsule->removeLocation();

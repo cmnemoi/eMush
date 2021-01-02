@@ -138,7 +138,7 @@
    position: relative;
    float: left;
    z-index: 2;
-   height: 650px;
+   height: 680px;
    }
    .box3top {
    vertical-align: top;
@@ -160,6 +160,7 @@
    .box3bg {
    background: transparent url("~@/assets/images/box3bg.png") repeat-y center top;
    width: 462px;
+   height:550px;
    margin: auto;
    z-index: 0;
    flex-grow: 1;

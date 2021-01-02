@@ -8,6 +8,7 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Action;
 use Mush\Action\Actions\Drop;
 use Mush\Action\Entity\ActionParameters;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -74,13 +75,9 @@ class DropActionTest extends TestCase
 
         $actionParameter = new ActionParameters();
         $actionParameter->setItem($gameItem);
-        $player = new Player();
-        $player
-            ->setActionPoint(10)
-            ->setMovementPoint(10)
-            ->setMoralPoint(10)
-            ->setRoom($room)
-        ;
+
+        $player = $this->createPlayer(new Daedalus(), $room);
+
         $gameItem
             ->setName('itemName')
             ->setPlayer($player)
@@ -98,5 +95,19 @@ class DropActionTest extends TestCase
         $this->assertInstanceOf(Error::class, $result);
         $this->assertEmpty($player->getItems());
         $this->assertCount(1, $room->getEquipments());
+    }
+
+    private function createPlayer(Daedalus $daedalus, Room $room): Player
+    {
+        $player = new Player();
+        $player
+            ->setActionPoint(10)
+            ->setMovementPoint(10)
+            ->setMoralPoint(10)
+            ->setDaedalus($daedalus)
+            ->setRoom($room)
+        ;
+
+        return $player;
     }
 }

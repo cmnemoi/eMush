@@ -22,7 +22,7 @@
             </segment>
             <segment id="description">
                 <source>coffee.description</source>
-                <target>TODO</target>
+                <target>Un bon café et ça repart !</target>
             </segment>
             <segment id="description_no">
                 <source>coffee.description.no</source>
@@ -36,7 +36,7 @@
             </segment>
             <segment id="description">
                 <source>consume.description</source>
-                <target>TODO</target>
+                <target>Dévorer une délicieuse denrée. En général, manger vous apportera des :pa::pm:. Les {i}rations cuisinées{\i} n'entamerons pas votre moral. Les autres nouritures peuvent réserver des surprises.</target>
             </segment>
             <segment id="description_no">
                 <source>consume.description.no</source>
@@ -50,7 +50,7 @@
             </segment>
             <segment id="description">
                 <source>cook.description</source>
-                <target>TODO</target>
+                <target>Assaisonner la chose pour en faire quelque chose qui ne provoque pas un renvoi instantané.</target>
             </segment>
             <segment id="description_no">
                 <source>cook.description.no</source>
@@ -64,7 +64,7 @@
             </segment>
             <segment id="description">
                 <source>disassemble.description</source>
-                <target>TODO</target>
+                <target>Permet de désassembler un objet pour récupérer tout ou partie des composants.</target>
             </segment>
             <segment id="description_no">
                 <source>disassemble.description.no</source>
@@ -92,7 +92,7 @@
             </segment>
             <segment id="description">
                 <source>express_cook.description</source>
-                <target>TODO</target>
+                <target>Dégrader suffisament la nouriture tout en la réchauffant pour rendre cela mangeable.</target>
             </segment>
             <segment id="description_no">
                 <source>express_cook.description.no</source>
@@ -106,7 +106,7 @@
             </segment>
             <segment id="description">
                 <source>extract_spore.description</source>
-                <target>TODO</target>
+                <target>Extirpez-vous un spore pour ensuite contaminer un coéquipier (avant de contaminer repérez les caméras).</target>
             </segment>
             <segment id="description_no">
                 <source>extract_spore.description.no</source>
@@ -120,7 +120,7 @@
             </segment>
             <segment id="description">
                 <source>get_up.description</source>
-                <target>TODO</target>
+                <target>Quitter ce petit nid douillet pour affronter le monde cruel.</target>
             </segment>
             <segment id="description_no">
                 <source>get_up.description.no</source>
@@ -134,7 +134,7 @@
             </segment>
             <segment id="description">
                 <source>hide.description</source>
-                <target>TODO</target>
+                <target>Cache un objet du regard de vos équipier dans la salle.</target>
             </segment>
             <segment id="description_no">
                 <source>hide.description.no</source>
@@ -162,7 +162,7 @@
             </segment>
             <segment id="description">
                 <source>hyperfreeze.description</source>
-                <target>TODO</target>
+                <target>Transforme une denrée perissable en une non-perissable.</target>
             </segment>
             <segment id="description_no">
                 <source>hyperfreeze.description.no</source>
@@ -176,7 +176,7 @@
             </segment>
             <segment id="description">
                 <source>infect.description</source>
-                <target>TODO</target>
+                <target>Poinçonner une personne avec un spore permets de l'Infecter. Pour cela, vous devez avoir des spores sur vous. Au bout de trois infections, le personnage aura achevé son voyage vers le Mush.</target>
             </segment>
             <segment id="description_no">
                 <source>infect.description.no</source>
@@ -190,7 +190,7 @@
             </segment>
             <segment id="description">
                 <source>lie_down.description</source>
-                <target>TODO</target>
+                <target>Pour vous détendre ou parler, rien de tel que de s'allonger un peu. S'allonger permet à chaque cycle passé de gagner 1 :pa: et 1 :pmo: si un psy est présent.</target>
             </segment>
             <segment id="description_no">
                 <source>lie_down.description.no</source>
@@ -214,7 +214,7 @@
             </segment>
             <segment id="description">
                 <source>read_book.description</source>
-                <target>TODO</target>
+                <target>La curiosité est certes un vilain défault mais bon... Un document, secret, inutile ou indispensable, qui sait ce qu'il contient...</target>
             </segment>
             <segment id="description_no">
                 <source>read_book.description.no</source>
@@ -228,7 +228,7 @@
             </segment>
             <segment id="description">
                 <source>read_document.description</source>
-                <target>TODO</target>
+                <target>La curiosité est certes un vilain défault mais bon... Un document, secret, inutile ou indispensable, qui sait ce qu'il contient...</target>
             </segment>
             <segment id="description_no">
                 <source>read_document.description.no</source>
@@ -242,7 +242,7 @@
             </segment>
             <segment id="description">
                 <source>repair.description</source>
-                <target>TODO</target>
+                <target>Un objet non équipement endommagé est remis en état.</target>
             </segment>
             <segment id="description_no">
                 <source>repair.description.no</source>
@@ -256,7 +256,7 @@
             </segment>
             <segment id="description">
                 <source>search.description</source>
-                <target>TODO</target>
+                <target>Permet de retrouver un objet caché à l'endroit où vous vous trouvez.</target>
             </segment>
             <segment id="description_no">
                 <source>search.description.no</source>
@@ -270,7 +270,7 @@
             </segment>
             <segment id="description">
                 <source>shred.description</source>
-                <target>TODO</target>
+                <target>Ces maudits papiers pullulent partout. Sus à l'envahisseur !</target>
             </segment>
             <segment id="description_no">
                 <source>shred.description.no</source>
@@ -294,11 +294,11 @@
         <unit id="transplant">
             <segment id="transplant">
                 <source>transplant.name</source>
-                <target>Greffer</target>
+                <target>Semer</target>
             </segment>
             <segment id="description">
                 <source>transplant.description</source>
-                <target>TODO</target>
+                <target>Sacrifie un fruit pour créer un nouveau plant.</target>
             </segment>
             <segment id="description_no">
                 <source>transplant.description.no</source>
@@ -312,7 +312,7 @@
             </segment>
             <segment id="description">
                 <source>treat_plant.description</source>
-                <target>TODO</target>
+                <target>Permet de soigner les maladies des plantes.</target>
             </segment>
             <segment id="description_no">
                 <source>treat_plant.description.no</source>
@@ -326,7 +326,7 @@
             </segment>
             <segment id="description">
                 <source>water_plant.description</source>
-                <target>TODO</target>
+                <target>Permet d'étancher la soif de vos plantations.</target>
             </segment>
             <segment id="description_no">
                 <source>water_plant.description.no</source>
@@ -340,10 +340,38 @@
             </segment>
             <segment id="description">
                 <source>write.description</source>
-                <target>TODO</target>
+                <target>Vous pouvez écrire un message que peut-être quelqu'un lira...</target>
             </segment>
             <segment id="description_no">
                 <source>write.description.no</source>
+                <target>TODO</target>
+            </segment>
+        </unit>
+        <unit id="insert_oxygen">
+            <segment id="insert_oxygen">
+                <source>write.name</source>
+                <target>Insérer</target>
+            </segment>
+            <segment id="description">
+                <source>write.description</source>
+                <target>Injecte l'Oxygène dans un Réservoir.</target>
+            </segment>
+            <segment id="description_no">
+                <source>write.description.no</source>
+                <target>TODO</target>
+            </segment>
+        </unit>
+        <unit id="retrieve_oxygen">
+            <segment id="retrieve_oxygen">
+                <source>retrieve_oxygen.name</source>
+                <target>Récupérer Capsule d'Oxygène</target>
+            </segment>
+            <segment id="description">
+                <source>retrieve_oxygen.description</source>
+                <target>Fantastique, le système d'Oxy Rev vous permet d'enlever de l'Oxygène des Réservoirs. Attention à bien fermer la vanne et à vous laver les mains.</target>
+            </segment>
+            <segment id="description_no">
+                <source>retrieve_oxygen.description.no</source>
                 <target>TODO</target>
             </segment>
         </unit>

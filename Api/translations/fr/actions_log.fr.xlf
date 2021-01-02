@@ -737,5 +737,97 @@
                 <target>TODO: write success.</target>
             </segment>
         </unit>
+        <unit id="insert_oxygen_success">
+            <segment id="insert_oxygen_success">
+                <source>insert_oxygen.character.male</source>
+                <target>Pscchhhh... Et hop, un peu d'oxygène en plus !</target>
+            </segment>
+            <segment id="insert_oxygen_success">
+                <source>insert_oxygen.character.female</source>
+                <target>Pscchhhh... Et hop, un peu d'oxygène en plus !</target>
+            </segment>
+        </unit>
+        <unit id="retrieve_oxygen_success">
+            <segment id="retrieve_oxygen_1">
+                <source>retrieve_oxygen_1.character.male</source>
+                <target>**player** enlève délicatement un peu d'oxygène du réservoir. Il a l'air louche.</target>
+            </segment>
+            <segment>
+                <source>retrieve_oxygen_1.character.female</source>
+                <target>**player** enlève délicatement un peu d'oxygène du réservoir. Elle a l'air louche.</target>
+            </segment>
+            <segment id="retrieve_oxygen_2">
+                <source>retrieve_oxygen_1.character.male</source>
+                <target>**player** enlève délicatement un peu d'oxygène du réservoir. Elle a l'air tout à fait serein.</target>
+            </segment>
+            <segment>
+                <source>retrieve_oxygen_1.character.female</source>
+                <target>**player** enlève délicatement un peu d'oxygène du réservoir. Il a l'air tout à fait serein.</target>
+            </segment>
+            <segment id="retrieve_oxygen_3">
+                <source>retrieve_oxygen_1.character.male</source>
+                <target>**player** enlève délicatement un peu d'oxygène du réservoir. Ce rictus est inquiétant.</target>
+            </segment>
+            <segment>
+                <source>retrieve_oxygen_1.character.female</source>
+                <target>**player** enlève délicatement un peu d'oxygène du réservoir. Ce rictus est inquiétant.</target>
+            </segment>
+            <segment id="retrieve_oxygen_4">
+                <source>retrieve_oxygen_1.character.male</source>
+                <target>**player** enlève délicatement un peu d'oxygène du réservoir. Etait-ce vraiment nécessaire ?</target>
+            </segment>
+            <segment>
+                <source>retrieve_oxygen_1.character.female</source>
+                <target>**player** enlève délicatement un peu d'oxygène du réservoir. Etait-ce vraiment nécessaire ?</target>
+            </segment>
+            <segment id="retrieve_oxygen_5">
+                <source>retrieve_oxygen_1.character.male</source>
+                <target>**player** enlève délicatement un peu d'oxygène du réservoir. Mais pourquoi ?</target>
+            </segment>
+            <segment>
+                <source>retrieve_oxygen_1.character.female</source>
+                <target>**player** enlève délicatement un peu d'oxygène du réservoir. Mais pourquoi ?</target>
+            </segment>
+            <segment id="retrieve_oxygen_6">
+                <source>retrieve_oxygen_1.character.male</source>
+                <target>**player** enlève délicatement un peu d'oxygène du réservoir. Sans doute pour faire une BA.</target>
+            </segment>
+            <segment>
+                <source>retrieve_oxygen_1.character.female</source>
+                <target>**player** enlève délicatement un peu d'oxygène du réservoir. Sans doute pour faire une BA.</target>
+            </segment>
+            <segment id="retrieve_oxygen_7">
+                <source>retrieve_oxygen_1.character.male</source>
+                <target>**player** enlève délicatement un peu d'oxygène du réservoir. Son but est sans doute louable.</target>
+            </segment>
+            <segment>
+                <source>retrieve_oxygen_1.character.female</source>
+                <target>**player** enlève délicatement un peu d'oxygène du réservoir. Son but est sans doute louable.</target>
+            </segment>
+            <segment id="retrieve_oxygen_8">
+                <source>retrieve_oxygen_1.character.male</source>
+                <target>**player** enlève délicatement un peu d'oxygène du réservoir. Son sourire vous rapelle quelque chose.</target>
+            </segment>
+            <segment>
+                <source>retrieve_oxygen_1.character.female</source>
+                <target>**player** enlève délicatement un peu d'oxygène du réservoir. Son sourire vous rapelle quelque chose.</target>
+            </segment>
+            <segment id="retrieve_oxygen_9">
+                <source>retrieve_oxygen_1.character.male</source>
+                <target>**player** enlève délicatement un peu d'oxygène du réservoir. Vous connaissez ce rire...</target>
+            </segment>
+            <segment>
+                <source>retrieve_oxygen_1.character.female</source>
+                <target>**player** enlève délicatement un peu d'oxygène du réservoir. Vous connaissez ce rire...</target>
+            </segment>
+            <segment id="retrieve_oxygen_10">
+                <source>retrieve_oxygen_1.character.male</source>
+                <target>**player** enlève délicatement un peu d'oxygène du réservoir. Vous devriez peut-être la surveiller de plus près.</target>
+            </segment>
+            <segment>
+                <source>retrieve_oxygen_1.character.female</source>
+                <target>**player** enlève délicatement un peu d'oxygène du réservoir. Vous devriez peut-être le surveiller de plus près.</target>
+            </segment>
+        </unit>
     </file>
 </xliff>

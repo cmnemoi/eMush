@@ -8,10 +8,12 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Action;
 use Mush\Action\Actions\Shred;
 use Mush\Action\Entity\ActionParameters;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Document;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
@@ -70,13 +72,7 @@ class ShredActionTest extends TestCase
 
         $actionParameter = new ActionParameters();
         $actionParameter->setItem($gameItem);
-        $player = new Player();
-        $player
-            ->setActionPoint(10)
-            ->setMovementPoint(10)
-            ->setMoralPoint(10)
-            ->setRoom($room)
-        ;
+        $player = $this->createPlayer(new Daedalus(), $room);
 
         $this->action->loadParameters($player, $actionParameter);
 
@@ -85,5 +81,20 @@ class ShredActionTest extends TestCase
         $this->assertInstanceOf(Success::class, $result);
         $this->assertEmpty($room->getEquipments());
         $this->assertEmpty($player->getItems());
+    }
+
+    private function createPlayer(Daedalus $daedalus, Room $room): Player
+    {
+        $player = new Player();
+        $player
+            ->setActionPoint(10)
+            ->setMovementPoint(10)
+            ->setMoralPoint(10)
+            ->setDaedalus($daedalus)
+            ->setRoom($room)
+            ->setGameStatus(GameStatusEnum::CURRENT)
+        ;
+
+        return $player;
     }
 }

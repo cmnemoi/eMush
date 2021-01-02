@@ -8,7 +8,9 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Action;
 use Mush\Action\Actions\Move;
 use Mush\Action\Entity\ActionParameters;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
@@ -125,13 +127,7 @@ class MoveActionTest extends TestCase
 
         $actionParameter = new ActionParameters();
         $actionParameter->setDoor($door);
-        $player = new Player();
-        $player
-            ->setActionPoint(10)
-            ->setMovementPoint(10)
-            ->setMoralPoint(10)
-            ->setRoom($roomStart)
-        ;
+        $player = $this->createPlayer(new Daedalus(), $roomStart);
 
         $this->action->loadParameters($player, $actionParameter);
 
@@ -146,5 +142,20 @@ class MoveActionTest extends TestCase
         $this->assertInstanceOf(Success::class, $result);
         $this->assertEquals($player->getRoom(), $roomStart);
         $this->assertEquals($player->getMovementPoint(), 8);
+    }
+
+    private function createPlayer(Daedalus $daedalus, Room $room): Player
+    {
+        $player = new Player();
+        $player
+            ->setActionPoint(10)
+            ->setMovementPoint(10)
+            ->setMoralPoint(10)
+            ->setDaedalus($daedalus)
+            ->setRoom($room)
+            ->setGameStatus(GameStatusEnum::CURRENT)
+        ;
+
+        return $player;
     }
 }

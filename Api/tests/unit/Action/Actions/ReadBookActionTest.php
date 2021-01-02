@@ -8,10 +8,12 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Action;
 use Mush\Action\Actions\ReadBook;
 use Mush\Action\Entity\ActionParameters;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Book;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
@@ -71,13 +73,8 @@ class ReadBookActionTest extends TestCase
 
         $actionParameter = new ActionParameters();
         $actionParameter->setItem($gameItem);
-        $player = new Player();
-        $player
-            ->setActionPoint(10)
-            ->setMovementPoint(10)
-            ->setMoralPoint(10)
-            ->setRoom($room)
-        ;
+
+        $player = $this->createPlayer(new Daedalus(), $room);
 
         $this->action->loadParameters($player, $actionParameter);
 
@@ -87,5 +84,20 @@ class ReadBookActionTest extends TestCase
         $this->assertEmpty($room->getEquipments());
         $this->assertEmpty($player->getItems());
         $this->assertContains(SkillEnum::PILOT, $player->getSkills());
+    }
+
+    private function createPlayer(Daedalus $daedalus, Room $room): Player
+    {
+        $player = new Player();
+        $player
+            ->setActionPoint(10)
+            ->setMovementPoint(10)
+            ->setMoralPoint(10)
+            ->setDaedalus($daedalus)
+            ->setRoom($room)
+            ->setGameStatus(GameStatusEnum::CURRENT)
+        ;
+
+        return $player;
     }
 }

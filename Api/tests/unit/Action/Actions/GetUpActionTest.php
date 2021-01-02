@@ -12,6 +12,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
 use Mush\Status\Entity\Status;
@@ -130,6 +131,7 @@ class GetUpActionTest extends TestCase
             ->setMoralPoint(10)
             ->setDaedalus($daedalus)
             ->setRoom($room)
+            ->setGameStatus(GameStatusEnum::CURRENT)
         ;
 
         return $player;

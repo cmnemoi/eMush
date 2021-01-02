@@ -34,7 +34,9 @@ abstract class Action
 
     public function execute(): ActionResult
     {
-        if (!$this->canExecute() || !$this->getActionCost()->canPlayerDoAction($this->player)) {
+        if (!$this->canExecute() ||
+            !$this->getActionCost()->canPlayerDoAction($this->player) ||
+            !$this->player->isAlive()) {
             return new Error('Cannot execute action');
         }
 

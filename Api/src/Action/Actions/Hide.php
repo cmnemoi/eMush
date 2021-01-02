@@ -82,6 +82,6 @@ class Hide extends Action
 
         $target = new Target($this->gameItem->getName(), 'items');
 
-        return new Success(ActionLogEnum::HIDE_SUCCESS, VisibilityEnum::COVERT);
+        return new Success(ActionLogEnum::HIDE_SUCCESS, VisibilityEnum::COVERT, $target);
     }
 }

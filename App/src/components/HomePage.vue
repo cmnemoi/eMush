@@ -18,7 +18,7 @@
                         Pour lier son compte Eternal-Twin à votre compte <a href="https://twinoid.com/">Twinoid</a>, vous devrez accepter l'application de <em>Demurgos</em> qui demande l'accès à toutes les données venant du site Twinoid. Cela permettra de garder l'ancienne progression de tous vos jeux.
                         Toutes les informations sont sur le site d'<a href="https://eternal-twin.net">Eternal-Twin</a>.
                         <br/><br/>
-                        <em>Pour ceux qui voudrez participer à l'Alpha.</em> Pas d'inquiétude ! Il y aura d'autres vaisseaux tests qui seront lancés ultérieurement.
+                        <em>Pour ceux qui voudraient participer à l'Alpha.</em> Pas d'inquiétude ! Il y aura d'autres vaisseaux tests qui seront lancés ultérieurement.
                         <br/><br/>
                      </p>
                   </div>

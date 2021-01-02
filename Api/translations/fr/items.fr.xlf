@@ -729,7 +729,30 @@ Lors des cycles pairs, vous gagnez 1 pm de plus lors des transferts.
 Les câlins de la bête sont littérallement insupportable, le pire ce sont les léchouilles...</target>
 			</segment>
         </unit>
-	   <unit id="lenses">
+        <unit id="sniper_helmet">
+            <segment id="name">
+                <source>sniper_helmet.name</source>
+                <target>Casque de visée</target>
+            </segment>
+            <segment id="short_name">
+                <source>sniper_helmet.short_name</source>
+                <target>Casque de visée</target>
+            </segment>
+            <segment id="genre">
+                <source>sniper_helmet.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>sniper_helmet.description</source>
+                <target>Si la force n'est pas avec vous, des facilités de visées peuvent toujours servir.</target>
+            </segment>
+            <segment id="examine">
+                <source>sniper_helmet.examine</source>
+                <target>Si la force n'est pas avec vous, des facilités de visées peuvent toujours servir.
+Le casque de visée est une aide précieuse par temps de brouillard, dans le noir, ou si vous ne savez pas vous servir d'une arme.</target>
+            </segment>
+        </unit>
+        <unit id="lenses">
             <segment id="name">
                 <source>lenses.name</source>
                 <target>Lentille NCC</target>

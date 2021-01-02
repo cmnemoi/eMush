@@ -44,10 +44,10 @@
 
     <div class="column">
       <ul class="skills">
-        <li><img src="@/assets/images/skills/cook.png" alt="cook"></li>
-        <li><img src="@/assets/images/skills/sturdy.png" alt="sturdy"></li>
-        <li><img src="@/assets/images/skills/opportunist.png" alt="opportunist"></li>
-        <li><img src="@/assets/images/skills/sturdy.png" alt="sturdy"></li>
+<!--        <li><img src="@/assets/images/skills/cook.png" alt="cook"></li>-->
+<!--        <li><img src="@/assets/images/skills/sturdy.png" alt="sturdy"></li>-->
+<!--        <li><img src="@/assets/images/skills/opportunist.png" alt="opportunist"></li>-->
+<!--        <li><img src="@/assets/images/skills/sturdy.png" alt="sturdy"></li>-->
       </ul>
 
       <div class="actions-sheet">
@@ -65,7 +65,7 @@
           </div>
         </div>
         <ul class="specials">
-          <li><img src="@/assets/images/pa_cook.png">x6</li>
+<!--          <li><img src="@/assets/images/pa_cook.png">x6</li>-->
         </ul>
       </div>
     </div>

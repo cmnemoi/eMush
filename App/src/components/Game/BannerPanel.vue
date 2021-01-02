@@ -7,9 +7,9 @@
       </div>
       <div class="character-info">
         <span class="character-name">{{player.characterValue}}</span>
-        <div class="titles">
-          <div class="title"><img class="title-img" src="@/assets/images/title_01.png"><span class="title-name">Commandant</span></div>
-        </div>
+<!--        <div class="titles">-->
+<!--          <div class="title"><img class="title-img" src="@/assets/images/title_01.png"><span class="title-name">Commandant</span></div>-->
+<!--        </div>-->
       </div>
     </div>
 
@@ -18,9 +18,9 @@
       <div class="daedalus-alarms">
         <ul>
           <li>Alertes :</li>
-          <li><img src="@/assets/images/door.png"></li>
-          <li><img src="@/assets/images/alert.png"></li>
-          <li><img src="@/assets/images/hunter.png"></li>
+<!--          <li><img src="@/assets/images/door.png"></li>-->
+<!--          <li><img src="@/assets/images/alert.png"></li>-->
+<!--          <li><img src="@/assets/images/hunter.png"></li>-->
         </ul>
       </div>
 

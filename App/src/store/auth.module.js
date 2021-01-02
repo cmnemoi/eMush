@@ -55,8 +55,9 @@ const actions = {
         commit('loginSuccess', token)
     },
 
-    redirect() {
-        UserService.redirect();
+    redirect({commit}, {passphrase}) {
+        commit('loginRedirect');
+        UserService.redirect(passphrase);
     },
 
     async login({ commit }, {code}) {
@@ -123,6 +124,9 @@ const actions = {
 };
 
 const mutations = {
+    loginRedirect(state) {
+        state.userInfo = null;
+    },
     userInfoRequest(state) {
         state.userInfo = null;
     },

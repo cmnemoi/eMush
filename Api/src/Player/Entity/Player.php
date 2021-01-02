@@ -114,6 +114,11 @@ class Player
      */
     private int $satiety;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Mush\Action\Entity\Action")
+     */
+    private Collection $actions;
+
     public function __construct()
     {
         $this->items = new ArrayCollection();
@@ -572,6 +577,20 @@ class Player
     {
         $this->satiety += $satiety;
 
+        return $this;
+    }
+
+    public function getActions(): Collection
+    {
+        return $this->actions;
+    }
+
+    /**
+     * @return static
+     */
+    public function setActions(Collection $actions): Player
+    {
+        $this->actions = $actions;
         return $this;
     }
 }

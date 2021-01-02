@@ -6,6 +6,8 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Mush\Action\DataFixtures\ActionsFixtures;
+use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTargetEnum;
 use Mush\Equipment\Entity\EquipmentConfig;
@@ -175,8 +177,11 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         ;
         $manager->persist($gravitySimulator);
 
+        /** @var Action $showerAction */
+        $showerAction = $this->getReference(ActionsFixtures::SHOWER_DEFAULT);
+
         $showerMechanic = new Tool();
-//        $showerMechanic->setActions([ActionEnum::SHOWER]);
+        $showerMechanic->addAction($showerAction);
         $showerDismountableMechanic = new Dismountable();
         $showerDismountableMechanic
             ->setProducts([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::THICK_TUBE => 1])
@@ -223,11 +228,15 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         ;
         $manager->persist($pasiphae);
 
+        /** @var Action $fuelInjectAction */
+        $fuelInjectAction = $this->getReference(ActionsFixtures::FUEL_INJECT);
+        /** @var Action $fuelRetrieveAction */
+        $fuelRetrieveAction = $this->getReference(ActionsFixtures::FUEL_RETRIEVE);
+
         //Tools
         $combustionChamberMechanic = new Tool();
-//        $combustionChamberMechanic->setActions([ActionEnum::RETRIEVE_FUEL_CHAMBER]);
-//        $combustionChamberMechanic->setGrantActions([ActionEnum::INJECT_FUEL_CHAMBER]);
-//        $combustionChamberMechanic->setActionsTarget([ActionEnum::INJECT_FUEL_CHAMBER => ActionTargetEnum::EQUIPMENT]);
+        $combustionChamberMechanic->addAction($fuelInjectAction);
+        $combustionChamberMechanic->addAction($fuelRetrieveAction);
         $chargedMechanic = new Charged();
         $chargedMechanic
             ->setMaxCharge(9)
@@ -248,9 +257,12 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($combustionChamberMechanic);
         $manager->persist($chargedMechanic);
 
+        /** @var Action $cookAction */
+        $cookAction = $this->getReference(ActionsFixtures::COOK_DEFAULT);
+
         $kitchenMechanic = new Tool();
-//        $kitchenMechanic->setGrantActions([ActionEnum::COOK]);
-//        $kitchenMechanic->setActionsTarget([ActionEnum::COOK => ActionTargetEnum::EQUIPMENT]);
+        $kitchenMechanic->addAction($cookAction);
+
         $kitchen = new EquipmentConfig();
         $kitchen
             ->setGameConfig($gameConfig)
@@ -277,7 +289,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsVisible(false)
         ;
         $distillerMechanic = new Tool();
-//        $distillerMechanic->setActions([ActionEnum::DISPENSE]);
+
         $narcoticDistiller = new EquipmentConfig();
         $narcoticDistiller
             ->setGameConfig($gameConfig)
@@ -302,7 +314,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($shower);
 
         $dynarcadeMechanic = new Tool();
-//        $dynarcadeMechanic->setActions([ActionEnum::PLAY_ARCADE]);
         $dynarcade = new EquipmentConfig();
         $dynarcade
             ->setGameConfig($gameConfig)
@@ -315,8 +326,11 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($dynarcade);
         $manager->persist($dynarcadeMechanic);
 
+        /** @var Action $lieDownAction */
+        $lieDownAction = $this->getReference(ActionsFixtures::LIE_DOWN);
+
         $bedMechanic = new Tool();
-//        $bedMechanic->setActions([ActionEnum::LIE_DOWN]);
+        $bedMechanic->addAction($lieDownAction);
         $bed = new EquipmentConfig();
         $bed
             ->setGameConfig($gameConfig)
@@ -328,8 +342,12 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($bed);
         $manager->persist($bedMechanic);
 
+        /** @var Action $coffeeAction */
+        $coffeeAction = $this->getReference(ActionsFixtures::COFFEE_DEFAULT);
+
         $coffeMachineMechanic = new Tool();
-//        $coffeMachineMechanic->setActions([ActionEnum::COFFEE]);
+        $coffeMachineMechanic->addAction($coffeeAction);
+
         $coffeMachine = new EquipmentConfig();
         $coffeMachine
             ->setGameConfig($gameConfig)
@@ -411,9 +429,9 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $fuelTankMechanic = new Tool();
 
-//        $fuelTankMechanic->setActions([ActionEnum::RETRIEVE_FUEL]);
-//        $fuelTankMechanic->setGrantActions([ActionEnum::INJECT_FUEL]);
-//        $fuelTankMechanic->setActionsTarget([ActionEnum::INJECT_FUEL => ActionTargetEnum::EQUIPMENT]);
+        $fuelTankMechanic->addAction($fuelInjectAction);
+        $fuelTankMechanic->addAction($fuelRetrieveAction);
+
         $fuelTank = new EquipmentConfig();
         $fuelTank
             ->setGameConfig($gameConfig)

@@ -120,6 +120,7 @@ class PlayerService implements PlayerServiceInterface
             ->setActionPoint($this->gameConfig->getInitActionPoint())
             ->setMovementPoint($this->gameConfig->getInitMovementPoint())
             ->setSatiety($this->gameConfig->getInitSatiety())
+            ->setSatiety($this->gameConfig->getInitSatiety())
         ;
 
         foreach ($characterConfig->getStatuses() as $statusName) {

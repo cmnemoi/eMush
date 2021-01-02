@@ -30,6 +30,11 @@ class ActionsFixtures extends Fixture
     public const WRITE_DEFAULT = 'write.default';
     public const GAG_DEFAULT = 'gag.default';
     public const HYPERFREEZ_DEFAULT = 'hyperfreez.default';
+    public const SHOWER_DEFAULT = 'shower.default';
+    public const FUEL_INJECT = 'fuel.inject';
+    public const FUEL_RETRIEVE = 'fuel.retrieve';
+    public const LIE_DOWN = 'lie.down';
+    public const COFFEE_DEFAULT = 'coffee.default';
 
     public function load(ObjectManager $manager): void
     {
@@ -227,6 +232,51 @@ class ActionsFixtures extends Fixture
 
         $manager->persist($gagAction);
 
+        $showerAction = new Action();
+        $showerAction
+            ->setName(ActionEnum::SHOWER)
+            ->setType([])
+            ->setScope(ActionScopeEnum::CURRENT)
+        ;
+
+        $manager->persist($showerAction);
+
+        $fuelInjectAction = new Action();
+        $fuelInjectAction
+            ->setName(ActionEnum::INJECT_FUEL)
+            ->setType([])
+            ->setScope(ActionScopeEnum::CURRENT)
+        ;
+
+        $manager->persist($fuelInjectAction);
+
+        $retrieveFuelAction = new Action();
+        $retrieveFuelAction
+            ->setName(ActionEnum::RETRIEVE_FUEL)
+            ->setType([])
+            ->setScope(ActionScopeEnum::CURRENT)
+        ;
+
+        $manager->persist($retrieveFuelAction);
+
+        $lieDownActon = new Action();
+        $lieDownActon
+            ->setName(ActionEnum::LIE_DOWN)
+            ->setType([])
+            ->setScope(ActionScopeEnum::CURRENT)
+        ;
+
+        $manager->persist($lieDownActon);
+
+        $coffeeAction = new Action();
+        $coffeeAction
+            ->setName(ActionEnum::COFFEE)
+            ->setType([])
+            ->setScope(ActionScopeEnum::CURRENT)
+        ;
+
+        $manager->persist($coffeeAction);
+
         $manager->flush();
 
         $this->addReference(self::DEFAULT_TAKE, $takeItemAction);
@@ -249,5 +299,10 @@ class ActionsFixtures extends Fixture
         $this->addReference(self::WRITE_DEFAULT, $writeAction);
         $this->addReference(self::HYPERFREEZ_DEFAULT, $hyperfreezAction);
         $this->addReference(self::GAG_DEFAULT, $gagAction);
+        $this->addReference(self::SHOWER_DEFAULT, $showerAction);
+        $this->addReference(self::FUEL_INJECT, $fuelInjectAction);
+        $this->addReference(self::FUEL_RETRIEVE, $retrieveFuelAction);
+        $this->addReference(self::LIE_DOWN, $lieDownActon);
+        $this->addReference(self::COFFEE_DEFAULT, $cookAction);
     }
 }

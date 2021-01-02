@@ -9,8 +9,8 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
-use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ReadDocument extends Action
@@ -18,15 +18,12 @@ class ReadDocument extends Action
     protected string $name = ActionEnum::READ_DOCUMENT;
 
     private GameEquipment $gameEquipment;
-    private RoomLogServiceInterface $roomLogService;
 
     public function __construct(
-        EventDispatcherInterface $eventDispatcher,
-        RoomLogServiceInterface $roomLogService
+        EventDispatcherInterface $eventDispatcher
     ) {
         parent::__construct($eventDispatcher);
 
-        $this->roomLogService = $roomLogService;
         $this->actionCost->setActionPointCost(0);
     }
 
@@ -50,18 +47,6 @@ class ReadDocument extends Action
 
     protected function applyEffects(): ActionResult
     {
-        return new Success();
-    }
-
-    protected function createLog(ActionResult $actionResult): void
-    {
-        $this->roomLogService->createEquipmentLog(
-            ActionEnum::READ_DOCUMENT,
-            $this->player->getRoom(),
-            $this->player,
-            $this->gameEquipment,
-            VisibilityEnum::PRIVATE,
-            new \DateTime('now')
-        );
+        return new Success(ActionLogEnum::READ_DOCUMENT, VisibilityEnum::PUBLIC);
     }
 }

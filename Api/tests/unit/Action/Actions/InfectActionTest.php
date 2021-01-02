@@ -9,6 +9,7 @@ use Mush\Action\Actions\Action;
 use Mush\Action\Actions\Infect;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
@@ -157,11 +158,9 @@ class InfectActionTest extends TestCase
 
         $this->action->loadParameters($player, $actionParameter);
 
-        $actionParameter = new ActionParameters();
-
         $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $eventDispatcher->shouldReceive('dispatch');
-        $this->roomLogService->shouldReceive('createPlayerLog')->twice();
+        $this->roomLogService->shouldReceive('createPlayerLog')->once();
         $this->playerService->shouldReceive('persist')->once();
         $this->statusService->shouldReceive('persist')->once();
         $this->statusService->shouldReceive('delete')->once();
@@ -178,11 +177,13 @@ class InfectActionTest extends TestCase
     {
         $player = new Player();
         $player
+            ->setPerson('some person')
             ->setActionPoint(10)
             ->setMovementPoint(10)
             ->setMoralPoint(10)
             ->setDaedalus($daedalus)
             ->setRoom($room)
+            ->setGameStatus(GameStatusEnum::CURRENT)
         ;
 
         return $player;

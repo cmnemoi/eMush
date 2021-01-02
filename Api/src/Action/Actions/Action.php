@@ -32,11 +32,11 @@ abstract class Action
 
     abstract protected function applyEffects(): ActionResult;
 
-    abstract protected function createLog(ActionResult $actionResult): void;
-
     public function execute(): ActionResult
     {
-        if (!$this->canExecute() || !$this->getActionCost()->canPlayerDoAction($this->player)) {
+        if (!$this->canExecute() ||
+            !$this->getActionCost()->canPlayerDoAction($this->player) ||
+            !$this->player->isAlive()) {
             return new Error('Cannot execute action');
         }
 
@@ -45,9 +45,9 @@ abstract class Action
 
         $this->applyActionCost();
         $result = $this->applyEffects();
-        $this->createLog($result);
 
         $postActionEvent = new ActionEvent($this->getActionName(), $this->player, $this->actionCost);
+        $postActionEvent->setActionResult($result);
         $this->eventDispatcher->dispatch($postActionEvent, ActionEvent::POST_ACTION);
 
         return $result;

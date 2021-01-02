@@ -2,6 +2,7 @@
 
 namespace Mush\Game\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
@@ -125,6 +126,23 @@ class GameConfig
      * @ORM\Column(type="integer", length=255, nullable=false)
      */
     private int $maxItemInInventory;
+
+    /**
+     * @ORM\Column(type="integer", length=255, nullable=false)
+     */
+    private int $maxOxygen;
+
+    /**
+     * @ORM\Column(type="integer", length=255, nullable=false)
+     */
+    private int $maxFuel;
+
+    public function __construct()
+    {
+        $this->charactersConfig = new ArrayCollection();
+        $this->equipmentsConfig = new ArrayCollection();
+        $this->triumphConfig = new ArrayCollection();
+    }
 
     public function getId(): int
     {
@@ -437,6 +455,36 @@ class GameConfig
     public function setMaxItemInInventory(int $maxItemInInventory): GameConfig
     {
         $this->maxItemInInventory = $maxItemInInventory;
+
+        return $this;
+    }
+
+    public function getMaxOxygen(): int
+    {
+        return $this->maxOxygen;
+    }
+
+    /**
+     * @return static
+     */
+    public function setMaxOxygen(int $maxOxygen): GameConfig
+    {
+        $this->maxOxygen = $maxOxygen;
+
+        return $this;
+    }
+
+    public function getMaxFuel(): int
+    {
+        return $this->maxFuel;
+    }
+
+    /**
+     * @return static
+     */
+    public function setMaxFuel(int $maxFuel): GameConfig
+    {
+        $this->maxFuel = $maxFuel;
 
         return $this;
     }

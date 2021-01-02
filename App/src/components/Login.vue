@@ -1,6 +1,18 @@
 <template>
-  <a href="/#" @click="logout" v-if="loggedIn">Logout</a>
-  <a href="/#" @click="redirect" v-if="!loggedIn">Login</a>
+  <div>
+    <a @click="showLogin = true" v-if="!loggedIn">Login</a>
+    <a  @click="logout" v-if="loggedIn">Logout</a>
+    <div id="login-modal" class="modal-window" v-show="showLogin" >
+      <div>
+        <a title="Close" class="modal-close">Close</a>
+        <span>Ceci est une alpha reservé aux testeurs</span>
+        <span>This is an alpha for tester only</span>
+        <label for="passphrase"><h1>Passphrase: </h1></label><input id="passphrase" type="text" v-model="passphrase"/>
+        <a href="#" title="Close" class="modal-close" @click="showLogin = false">Close</a>
+        <button type="submit" @click="handleSubmit">{{ ('form.submit') }}</button>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -11,7 +23,7 @@ export default {
   data() {
     return {
       showLogin: false,
-      email: "",
+      passphrase: "",
       loginError: null,
     };
   },
@@ -23,25 +35,14 @@ export default {
   methods: {
     ...mapActions('auth', [
       'redirect',
-      'logout',
-      'userInfo'
+      'logout'
     ]),
     handleSubmit() {
       // Perform a simple validation that email and password have been typed in
-      if (this.email !== '') {
+      if (this.passphrase !== '') {
         this.submitted = true;
-        this.login({email: this.email})
-            .then((success) => {
-              if (success) {
-                this.userInfo();
-              }  else {
-                this.loginError = 'login.invalid'
-              }
-              this.submitted = false;
-              this.email = null;
-              this.showLogin = false;
-            })
-        this.password = ""
+        this.redirect({passphrase: this.passphrase});
+        this.passphrase = ""
       }
     }
   }

@@ -1,28 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
     <file id="actions.ext">
-        <unit id="move">
-            <segment id="name">
-                <source>move.name</source>
-                <target>Se déplacer</target>
+        <unit id="build">
+            <segment id="build">
+                <source>build.name</source>
+                <target>Assembler</target>
             </segment>
             <segment id="description">
-                <source>move.description</source>
-                <target>Changez de pièce</target>
-            </segment>
-        </unit>
-        <unit id="take">
-            <segment id="name">
-                <source>take.name</source>
-                <target>Prendre</target>
-            </segment>
-            <segment id="description">
-                <source>take.description</source>
-                <target>Prends un objet dans la pièce courrante et le place dans votre inventaire</target>
+                <source>build.description</source>
+                <target>Assemble un objet à partir d'autres objets.</target>
             </segment>
             <segment id="description_no">
-                <source>take.description.no</source>
-                <target>Votre inventaire est plein, faites de la place !</target>
+                <source>build.description.no</source>
+                <target>Il vous manque des objets pour réaliser ce plan.</target>
+            </segment>
+        </unit>
+        <unit id="coffee">
+            <segment id="coffee">
+                <source>coffee.name</source>
+                <target>Café !</target>
+            </segment>
+            <segment id="description">
+                <source>coffee.description</source>
+                <target>Un bon café et ça repart !</target>
+            </segment>
+            <segment id="description_no">
+                <source>coffee.description.no</source>
+                <target>TODO</target>
+            </segment>
+        </unit>
+        <unit id="consume">
+            <segment id="consume">
+                <source>consume.name</source>
+                <target>Consommer</target>
+            </segment>
+            <segment id="description">
+                <source>consume.description</source>
+                <target>Dévorer une délicieuse denrée. En général, manger vous apportera des :pa::pm:. Les {i}rations cuisinées{\i} n'entamerons pas votre moral. Les autres nouritures peuvent réserver des surprises.</target>
+            </segment>
+            <segment id="description_no">
+                <source>consume.description.no</source>
+                <target>TODO</target>
+            </segment>
+        </unit>
+        <unit id="cook">
+            <segment id="cook">
+                <source>cook.name</source>
+                <target>Cuisiner</target>
+            </segment>
+            <segment id="description">
+                <source>cook.description</source>
+                <target>Assaisonner la chose pour en faire quelque chose qui ne provoque pas un renvoi instantané.</target>
+            </segment>
+            <segment id="description_no">
+                <source>cook.description.no</source>
+                <target>TODO</target>
+            </segment>
+        </unit>
+        <unit id="disassemble">
+            <segment id="disassemble">
+                <source>disassemble.name</source>
+                <target>Démonter</target>
+            </segment>
+            <segment id="description">
+                <source>disassemble.description</source>
+                <target>Permet de désassembler un objet pour récupérer tout ou partie des composants.</target>
+            </segment>
+            <segment id="description_no">
+                <source>disassemble.description.no</source>
+                <target>TODO</target>
             </segment>
         </unit>
         <unit id="drop">
@@ -39,20 +85,295 @@
                 <target>Cette piège ne dispose pas d'étagère...</target>
             </segment>
         </unit>
-        <unit id="build">
-            <segment id="build">
-                <source>build.name</source>
-                <target>Assembler</target>
+        <unit id="express_cook">
+            <segment id="express_cook">
+                <source>express_cook.name</source>
+                <target>Cuisine Express</target>
             </segment>
             <segment id="description">
-                <source>build.description</source>
-                <target>Assemble un objet à partir d'autres objets.</target>
+                <source>express_cook.description</source>
+                <target>Dégrader suffisament la nouriture tout en la réchauffant pour rendre cela mangeable.</target>
             </segment>
             <segment id="description_no">
-                <source>build.description.no</source>
-                <target>Il vous manque des objets pour réaliser ce plan.</target>
+                <source>express_cook.description.no</source>
+                <target>TODO</target>
             </segment>
         </unit>
-
+        <unit id="extract_spore">
+            <segment id="extract_spore">
+                <source>extract_spore.name</source>
+                <target>Extirper un spore</target>
+            </segment>
+            <segment id="description">
+                <source>extract_spore.description</source>
+                <target>Extirpez-vous un spore pour ensuite contaminer un coéquipier (avant de contaminer repérez les caméras).</target>
+            </segment>
+            <segment id="description_no">
+                <source>extract_spore.description.no</source>
+                <target>TODO</target>
+            </segment>
+        </unit>
+        <unit id="get_up">
+            <segment id="extract_spore">
+                <source>get_up.name</source>
+                <target>Se lever</target>
+            </segment>
+            <segment id="description">
+                <source>get_up.description</source>
+                <target>Quitter ce petit nid douillet pour affronter le monde cruel.</target>
+            </segment>
+            <segment id="description_no">
+                <source>get_up.description.no</source>
+                <target>TODO</target>
+            </segment>
+        </unit>
+        <unit id="hide">
+            <segment id="hide">
+                <source>hide.name</source>
+                <target>Cacher</target>
+            </segment>
+            <segment id="description">
+                <source>hide.description</source>
+                <target>Cache un objet du regard de vos équipier dans la salle.</target>
+            </segment>
+            <segment id="description_no">
+                <source>hide.description.no</source>
+                <target>TODO</target>
+            </segment>
+        </unit>
+        <unit id="hit">
+            <segment id="hit">
+                <source>hit.name</source>
+                <target>Attaquer</target>
+            </segment>
+            <segment id="description">
+                <source>hit.description</source>
+                <target>TODO</target>
+            </segment>
+            <segment id="description_no">
+                <source>hit.description.no</source>
+                <target>TODO</target>
+            </segment>
+        </unit>
+        <unit id="hyperfreeze">
+            <segment id="hyperfreeze">
+                <source>hyperfreeze.name</source>
+                <target>Hypergeler</target>
+            </segment>
+            <segment id="description">
+                <source>hyperfreeze.description</source>
+                <target>Transforme une denrée perissable en une non-perissable.</target>
+            </segment>
+            <segment id="description_no">
+                <source>hyperfreeze.description.no</source>
+                <target>TODO</target>
+            </segment>
+        </unit>
+        <unit id="infect">
+            <segment id="infect">
+                <source>infect.name</source>
+                <target>Poinçonner</target>
+            </segment>
+            <segment id="description">
+                <source>infect.description</source>
+                <target>Poinçonner une personne avec un spore permets de l'Infecter. Pour cela, vous devez avoir des spores sur vous. Au bout de trois infections, le personnage aura achevé son voyage vers le Mush.</target>
+            </segment>
+            <segment id="description_no">
+                <source>infect.description.no</source>
+                <target>TODO</target>
+            </segment>
+        </unit>
+        <unit id="lie_down">
+            <segment id="lie_down">
+                <source>lie_down.name</source>
+                <target>S'allonger</target>
+            </segment>
+            <segment id="description">
+                <source>lie_down.description</source>
+                <target>Pour vous détendre ou parler, rien de tel que de s'allonger un peu. S'allonger permet à chaque cycle passé de gagner 1 :pa: et 1 :pmo: si un psy est présent.</target>
+            </segment>
+            <segment id="description_no">
+                <source>lie_down.description.no</source>
+                <target>TODO</target>
+            </segment>
+        </unit>
+        <unit id="move">
+            <segment id="name">
+                <source>move.name</source>
+                <target>Se déplacer</target>
+            </segment>
+            <segment id="description">
+                <source>move.description</source>
+                <target>Changez de pièce</target>
+            </segment>
+        </unit>
+        <unit id="read_book">
+            <segment id="read_book">
+                <source>read_book.name</source>
+                <target>Consulter</target>
+            </segment>
+            <segment id="description">
+                <source>read_book.description</source>
+                <target>La curiosité est certes un vilain défault mais bon... Un document, secret, inutile ou indispensable, qui sait ce qu'il contient...</target>
+            </segment>
+            <segment id="description_no">
+                <source>read_book.description.no</source>
+                <target>TODO</target>
+            </segment>
+        </unit>
+        <unit id="read_document">
+            <segment id="read_document">
+                <source>read_document.name</source>
+                <target>Consulter</target>
+            </segment>
+            <segment id="description">
+                <source>read_document.description</source>
+                <target>La curiosité est certes un vilain défault mais bon... Un document, secret, inutile ou indispensable, qui sait ce qu'il contient...</target>
+            </segment>
+            <segment id="description_no">
+                <source>read_document.description.no</source>
+                <target>TODO</target>
+            </segment>
+        </unit>
+        <unit id="repair">
+            <segment id="repair">
+                <source>repair.name</source>
+                <target>Réparer</target>
+            </segment>
+            <segment id="description">
+                <source>repair.description</source>
+                <target>Un objet non équipement endommagé est remis en état.</target>
+            </segment>
+            <segment id="description_no">
+                <source>repair.description.no</source>
+                <target>TODO</target>
+            </segment>
+        </unit>
+        <unit id="search">
+            <segment id="search">
+                <source>search.name</source>
+                <target>Fouiller</target>
+            </segment>
+            <segment id="description">
+                <source>search.description</source>
+                <target>Permet de retrouver un objet caché à l'endroit où vous vous trouvez.</target>
+            </segment>
+            <segment id="description_no">
+                <source>search.description.no</source>
+                <target>TODO</target>
+            </segment>
+        </unit>
+        <unit id="shred">
+            <segment id="shred">
+                <source>shred.name</source>
+                <target>Déchirer</target>
+            </segment>
+            <segment id="description">
+                <source>shred.description</source>
+                <target>Ces maudits papiers pullulent partout. Sus à l'envahisseur !</target>
+            </segment>
+            <segment id="description_no">
+                <source>shred.description.no</source>
+                <target>TODO</target>
+            </segment>
+        </unit>
+        <unit id="take">
+            <segment id="name">
+                <source>take.name</source>
+                <target>Prendre</target>
+            </segment>
+            <segment id="description">
+                <source>take.description</source>
+                <target>Prends un objet dans la pièce courrante et le place dans votre inventaire</target>
+            </segment>
+            <segment id="description_no">
+                <source>take.description.no</source>
+                <target>Votre inventaire est plein, faites de la place !</target>
+            </segment>
+        </unit>
+        <unit id="transplant">
+            <segment id="transplant">
+                <source>transplant.name</source>
+                <target>Semer</target>
+            </segment>
+            <segment id="description">
+                <source>transplant.description</source>
+                <target>Sacrifie un fruit pour créer un nouveau plant.</target>
+            </segment>
+            <segment id="description_no">
+                <source>transplant.description.no</source>
+                <target>TODO</target>
+            </segment>
+        </unit>
+        <unit id="treat_plant">
+            <segment id="treat_plant">
+                <source>treat_plant.name</source>
+                <target>Traiter</target>
+            </segment>
+            <segment id="description">
+                <source>treat_plant.description</source>
+                <target>Permet de soigner les maladies des plantes.</target>
+            </segment>
+            <segment id="description_no">
+                <source>treat_plant.description.no</source>
+                <target>TODO</target>
+            </segment>
+        </unit>
+        <unit id="water_plant">
+            <segment id="water_plant">
+                <source>water_plant.name</source>
+                <target>Arroser</target>
+            </segment>
+            <segment id="description">
+                <source>water_plant.description</source>
+                <target>Permet d'étancher la soif de vos plantations.</target>
+            </segment>
+            <segment id="description_no">
+                <source>water_plant.description.no</source>
+                <target>TODO</target>
+            </segment>
+        </unit>
+        <unit id="write">
+            <segment id="write">
+                <source>write.name</source>
+                <target>Écrire</target>
+            </segment>
+            <segment id="description">
+                <source>write.description</source>
+                <target>Vous pouvez écrire un message que peut-être quelqu'un lira...</target>
+            </segment>
+            <segment id="description_no">
+                <source>write.description.no</source>
+                <target>TODO</target>
+            </segment>
+        </unit>
+        <unit id="insert_oxygen">
+            <segment id="insert_oxygen">
+                <source>write.name</source>
+                <target>Insérer</target>
+            </segment>
+            <segment id="description">
+                <source>write.description</source>
+                <target>Injecte l'Oxygène dans un Réservoir.</target>
+            </segment>
+            <segment id="description_no">
+                <source>write.description.no</source>
+                <target>TODO</target>
+            </segment>
+        </unit>
+        <unit id="retrieve_oxygen">
+            <segment id="retrieve_oxygen">
+                <source>retrieve_oxygen.name</source>
+                <target>Récupérer Capsule d'Oxygène</target>
+            </segment>
+            <segment id="description">
+                <source>retrieve_oxygen.description</source>
+                <target>Fantastique, le système d'Oxy Rev vous permet d'enlever de l'Oxygène des Réservoirs. Attention à bien fermer la vanne et à vous laver les mains.</target>
+            </segment>
+            <segment id="description_no">
+                <source>retrieve_oxygen.description.no</source>
+                <target>TODO</target>
+            </segment>
+        </unit>
     </file>
 </xliff>

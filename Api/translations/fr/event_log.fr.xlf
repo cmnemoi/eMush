@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
+    <file id="event_log.ext">
+        <unit id="awaken">
+            <segment>
+                <source>awaken.character.male</source>
+                <target>**player** semble émerger péniblement de son sommeil...</target>
+            </segment>
+            <segment>
+                <source>awaken.character.female</source>
+                <target>**player** semble émerger péniblement de son sommeil...</target>
+            </segment>
+        </unit>
+        <unit id="gain_action_point">
+            <segment>
+                <source>gain_action_point.character.male</source>
+                <target>Vous avez gagné quantity :pa:</target>
+            </segment>
+            <segment>
+                <source>gain_action_point.character.female</source>
+                <target>Vous avez gagné quantity :pa:</target>
+            </segment>
+        </unit>
+        <unit id="gain_movement_point">
+            <segment>
+                <source>gain_movement_point.character.male</source>
+                <target>Vous avez gagné quantity :pm:</target>
+            </segment>
+            <segment>
+                <source>gain_movement_point.character.female</source>
+                <target>Vous avez gagné quantity :pm:</target>
+            </segment>
+        </unit>
+        <unit id="gain_health_point">
+            <segment>
+                <source>gain_health_point.character.male</source>
+                <target>Vous avez gagné quantity :hp:</target>
+            </segment>
+            <segment>
+                <source>gain_health_point.character.female</source>
+                <target>Vous avez gagné quantity :hp:</target>
+            </segment>
+        </unit>
+        <unit id="gain_triumph">
+            <segment>
+                <source>gain_triumph.character.male</source>
+                <target>Cette action remplit les objectifs personnels de votre personnage. Vous gagnez quantity Triomphe.</target>
+            </segment>
+            <segment>
+                <source>gain_triumph.character.female</source>
+                <target>Cette action remplit les objectifs personnels de votre personnage. Vous gagnez quantity Triomphe.</target>
+            </segment>
+        </unit>
+    </file>
+</xliff>

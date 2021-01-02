@@ -1,15 +1,15 @@
 <template>
   <ul class="projects">
-    <li class="project"><span>Project</span><img src="@/assets/images/projects/equipment_sensor.png" alt="Equipment sensor"></li>
-    <li class="project"><span>Project</span><img src="@/assets/images/projects/fission_coffee_roaster.png" alt="Fission coffee roaster"></li>
-    <li class="project"><span>Project</span><img src="@/assets/images/projects/plasma_shield.png" alt="Plasma shield"></li>
-    <li class="project"><span>Project</span><img src="@/assets/images/projects/gold/thalasso.png" alt="Thalasso"></li>
-    <li class="research"><span>Research</span><img src="@/assets/images/researches/anti_mush_serum.png" alt="Anti-mush serum"></li>
-    <li class="research"><span>Res.</span><img src="@/assets/images/researches/drug_dispenser.png" alt="Drug dispenser"></li>
-    <li class="research"><span>Res.</span><img src="@/assets/images/researches/myco_alarm.png" alt="Myco-alarm"></li>
-    <li class="research"><span>Res.</span><img src="@/assets/images/researches/natamy_gun.png" alt="Natamy gun"></li>
-    <li class="research"><span>Res.</span><img src="@/assets/images/researches/ncc_lens.png" alt="NCC lens"></li>
-    <li class="research"><span>Res.</span><img src="@/assets/images/researches/mushicide_soap.png" alt="Mushicide soap"></li>
+<!--    <li class="project"><span>Project</span><img src="@/assets/images/projects/equipment_sensor.png" alt="Equipment sensor"></li>-->
+<!--    <li class="project"><span>Project</span><img src="@/assets/images/projects/fission_coffee_roaster.png" alt="Fission coffee roaster"></li>-->
+<!--    <li class="project"><span>Project</span><img src="@/assets/images/projects/plasma_shield.png" alt="Plasma shield"></li>-->
+<!--    <li class="project"><span>Project</span><img src="@/assets/images/projects/gold/thalasso.png" alt="Thalasso"></li>-->
+<!--    <li class="research"><span>Research</span><img src="@/assets/images/researches/anti_mush_serum.png" alt="Anti-mush serum"></li>-->
+<!--    <li class="research"><span>Res.</span><img src="@/assets/images/researches/drug_dispenser.png" alt="Drug dispenser"></li>-->
+<!--    <li class="research"><span>Res.</span><img src="@/assets/images/researches/myco_alarm.png" alt="Myco-alarm"></li>-->
+<!--    <li class="research"><span>Res.</span><img src="@/assets/images/researches/natamy_gun.png" alt="Natamy gun"></li>-->
+<!--    <li class="research"><span>Res.</span><img src="@/assets/images/researches/ncc_lens.png" alt="NCC lens"></li>-->
+<!--    <li class="research"><span>Res.</span><img src="@/assets/images/researches/mushicide_soap.png" alt="Mushicide soap"></li>-->
   </ul>
 </template>
 

@@ -27,10 +27,12 @@ class GameConfigFixtures extends Fixture
             ->setMaxMoralPoint(16)
             ->setInitSatiety(0)
             ->setInitActionPoint(10)
-            ->setMaxActionPoint(16)
+            ->setMaxActionPoint(12)
             ->setInitMovementPoint(10)
-            ->setMaxMovementPoint(16)
+            ->setMaxMovementPoint(12)
             ->setMaxItemInInventory(3)
+            ->setMaxOxygen(32)
+            ->setMaxFuel(32)
         ;
 
         $manager->persist($gameConfig);

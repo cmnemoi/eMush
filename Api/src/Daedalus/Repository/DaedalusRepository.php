@@ -6,6 +6,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\GameStatusEnum;
 
 class DaedalusRepository extends ServiceEntityRepository
 {
@@ -26,12 +27,15 @@ class DaedalusRepository extends ServiceEntityRepository
             ->where($qb->expr()->eq('config.id', 'daedalus.gameConfig'))
         ;
 
+        //@TODO do not display filled and finished Daedalus
         $qb
             ->select('daedalus')
             ->leftJoin('daedalus.players', 'player')
+            ->andWhere($qb->expr()->eq('daedalus.gameStatus', ':gameStatus'))
             ->groupBy('daedalus')
             ->having('count(player.id) < (' . $daedalusConfig->getDQL() . ')')
             ->setMaxResults(1)
+            ->setParameter('gameStatus', GameStatusEnum::STARTING)
         ;
 
         return $qb->getQuery()->getOneOrNullResult();

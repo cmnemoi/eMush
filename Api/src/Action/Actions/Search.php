@@ -12,8 +12,9 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\RoomLog\Entity\Target;
+use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
-use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -22,23 +23,18 @@ class Search extends Action
 {
     protected string $name = ActionEnum::SEARCH;
 
-    private ?GameItem $itemFound = null;
-
-    private RoomLogServiceInterface $roomLogService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
     private StatusServiceInterface $statusService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
-        RoomLogServiceInterface $roomLogService,
         GameEquipmentServiceInterface $gameEquipmentService,
         PlayerServiceInterface $playerService,
         StatusServiceInterface $statusService
     ) {
         parent::__construct($eventDispatcher);
 
-        $this->roomLogService = $roomLogService;
         $this->gameEquipmentService = $gameEquipmentService;
         $this->playerService = $playerService;
         $this->statusService = $statusService;
@@ -79,8 +75,8 @@ class Search extends Action
                 throw new \LogicException('invalid hidden status');
             }
 
-            $this->itemFound = $mostRecentHiddenItem;
-            $this->itemFound->removeStatus($hiddenStatus);
+            $itemFound = $mostRecentHiddenItem;
+            $itemFound->removeStatus($hiddenStatus);
 
             $hiddenBy->removeStatus($hiddenStatus);
 
@@ -89,31 +85,11 @@ class Search extends Action
             $this->statusService->delete($hiddenStatus);
             $this->gameEquipmentService->persist($mostRecentHiddenItem);
 
-            return new Success();
-        } else {
-            return new Fail();
-        }
-    }
+            $target = new Target($itemFound->getName(), 'items');
 
-    protected function createLog(ActionResult $actionResult): void
-    {
-        if ($actionResult instanceof Success && $this->itemFound !== null) {
-            $this->roomLogService->createEquipmentLog(
-                ActionEnum::SEARCH,
-                $this->player->getRoom(),
-                $this->player,
-                $this->itemFound,
-                VisibilityEnum::COVERT,
-                new \DateTime('now')
-            );
+            return new Success(ActionLogEnum::SEARCH_SUCCESS, VisibilityEnum::COVERT, $target);
         } else {
-            $this->roomLogService->createPlayerLog(
-                ActionEnum::SEARCH,
-                $this->player->getRoom(),
-                $this->player,
-                VisibilityEnum::COVERT,
-                new \DateTime('now')
-            );
+            return new Fail(ActionLogEnum::SEARCH_FAIL, VisibilityEnum::COVERT);
         }
     }
 }

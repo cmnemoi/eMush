@@ -12,6 +12,7 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -83,13 +84,16 @@ class Repair extends AttemptAction
 
         $this->playerService->persist($this->player);
 
+        //@TODO get ride of that
+        $this->createLog($response);
+
         return $response;
     }
 
     protected function createLog(ActionResult $actionResult): void
     {
         $this->roomLogService->createEquipmentLog(
-            ActionEnum::REPAIR,
+            ActionLogEnum::REPAIR_SUCCESS,
             $this->player->getRoom(),
             $this->player,
             $this->gameEquipment,

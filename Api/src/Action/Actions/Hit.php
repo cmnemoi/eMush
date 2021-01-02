@@ -15,8 +15,8 @@ use Mush\Player\Entity\ActionModifier;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
-use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -27,21 +27,18 @@ class Hit extends AttemptAction
     private Player $target;
 
     private PlayerServiceInterface $playerService;
-    private RoomLogServiceInterface $roomLogService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         PlayerServiceInterface $playerService,
         SuccessRateServiceInterface $successRateService,
         RandomServiceInterface $randomService,
-        StatusServiceInterface $statusService,
-        RoomLogServiceInterface $roomLogService
+        StatusServiceInterface $statusService
     ) {
         parent::__construct($randomService, $successRateService, $eventDispatcher, $statusService);
 
         $this->playerService = $playerService;
         $this->randomService = $randomService;
-        $this->roomLogService = $roomLogService;
 
         $this->actionCost->setActionPointCost(1);
     }
@@ -97,17 +94,6 @@ class Hit extends AttemptAction
             }
         }
 
-        return new Success();
-    }
-
-    protected function createLog(ActionResult $actionResult): void
-    {
-        $this->roomLogService->createPlayerLog(
-            ActionEnum::HIT,
-            $this->player->getRoom(),
-            $this->player,
-            VisibilityEnum::PUBLIC,
-            new \DateTime('now')
-        );
+        return new Success(ActionLogEnum::HIT_SUCCESS, VisibilityEnum::PUBLIC);
     }
 }

@@ -9,6 +9,7 @@ use Mush\Action\Actions\Action;
 use Mush\Action\Actions\Infect;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
@@ -182,6 +183,7 @@ class InfectActionTest extends TestCase
             ->setMoralPoint(10)
             ->setDaedalus($daedalus)
             ->setRoom($room)
+            ->setGameStatus(GameStatusEnum::CURRENT)
         ;
 
         return $player;

@@ -8,10 +8,12 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Action;
 use Mush\Action\Actions\Take;
 use Mush\Action\Entity\ActionParameters;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
@@ -85,13 +87,7 @@ class TakeActionTest extends TestCase
 
         $actionParameter = new ActionParameters();
         $actionParameter->setItem($gameItem);
-        $player = new Player();
-        $player
-            ->setActionPoint(10)
-            ->setMovementPoint(10)
-            ->setMoralPoint(10)
-            ->setRoom($room)
-        ;
+        $player = $this->createPlayer(new Daedalus(), $room);
 
         $this->action->loadParameters($player, $actionParameter);
 
@@ -106,5 +102,20 @@ class TakeActionTest extends TestCase
         $this->assertInstanceOf(Error::class, $result);
         $this->assertEmpty($room->getEquipments());
         $this->assertCount(1, $player->getItems());
+    }
+
+    private function createPlayer(Daedalus $daedalus, Room $room): Player
+    {
+        $player = new Player();
+        $player
+            ->setActionPoint(10)
+            ->setMovementPoint(10)
+            ->setMoralPoint(10)
+            ->setDaedalus($daedalus)
+            ->setRoom($room)
+            ->setGameStatus(GameStatusEnum::CURRENT)
+        ;
+
+        return $player;
     }
 }

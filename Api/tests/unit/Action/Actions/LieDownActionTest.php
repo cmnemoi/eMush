@@ -16,6 +16,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
 use Mush\Status\Entity\Status;
@@ -148,6 +149,7 @@ class LieDownActionTest extends TestCase
             ->setMoralPoint(10)
             ->setDaedalus($daedalus)
             ->setRoom($room)
+            ->setGameStatus(GameStatusEnum::CURRENT)
         ;
 
         return $player;

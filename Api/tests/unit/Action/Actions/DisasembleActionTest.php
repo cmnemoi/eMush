@@ -18,6 +18,7 @@ use Mush\Equipment\Entity\Mechanics\Dismountable;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
@@ -216,6 +217,7 @@ class DisasembleActionTest extends TestCase
             ->addSkill(SkillEnum::TECHNICIAN)
             ->setDaedalus($daedalus)
             ->setRoom($room)
+            ->setGameStatus(GameStatusEnum::CURRENT)
         ;
 
         return $player;

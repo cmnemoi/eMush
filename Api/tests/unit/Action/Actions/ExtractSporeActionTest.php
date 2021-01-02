@@ -9,6 +9,7 @@ use Mush\Action\Actions\Action;
 use Mush\Action\Actions\ExtractSpore;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
 use Mush\Status\Entity\ChargeStatus;
@@ -134,6 +135,7 @@ class ExtractSporeActionTest extends TestCase
             ->setMoralPoint(10)
             ->setDaedalus($daedalus)
             ->setRoom($room)
+            ->setGameStatus(GameStatusEnum::CURRENT)
         ;
 
         return $player;

@@ -8,7 +8,7 @@
     </div>
   </div>
   <div v-else>
-    @TODO: Main entrance page
+    <home-page></home-page>
   </div>
 </template>
 
@@ -16,10 +16,12 @@
 import GameContent from "@/components/Game/GameContent";
 import CharSelection from "@/components/CharSelection";
 import {mapGetters} from "vuex";
+import HomePage from "@/components/HomePage";
 
 export default {
   name: "GamePage",
   components: {
+    HomePage,
     GameContent,
     CharSelection
   },

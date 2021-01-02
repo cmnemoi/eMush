@@ -99,11 +99,6 @@ class Daedalus
      */
     private ?DateTime $finishedAt = null;
 
-    /**
-     * Daedalus constructor.
-     *
-     * @param int $id
-     */
     public function __construct()
     {
         $this->players = new ArrayCollection();

@@ -31,6 +31,9 @@ class DaedalusNormalizer implements ContextAwareNormalizerInterface
      */
     public function normalize($object, string $format = null, array $context = []): array
     {
+        /** @var Daedalus $daedalus */
+        $daedalus = $object;
+
         return [
                 'id' => $object->getId(),
                 'cycle' => $object->getCycle(),
@@ -40,6 +43,11 @@ class DaedalusNormalizer implements ContextAwareNormalizerInterface
                 'hull' => $object->getHull(),
                 'shield' => $object->getShield(),
                 'nextCycle' => $this->cycleService->getDateStartNextCycle($object)->format(\DateTime::ATOM),
+                'cryogenizedPlayers' => $this->gameConfig->getCharactersConfig()->count() - $daedalus->getPlayers()->count(),
+                'humanPlayerAlive' => $daedalus->getPlayers()->getHumanPlayer()->getPlayerAlive()->count(),
+                'humanPlayerDead' => $daedalus->getPlayers()->getHumanPlayer()->getPlayerDead()->count(),
+                'mushPlayerAlive' => $daedalus->getPlayers()->getMushPlayer()->getPlayerAlive()->count(),
+                'mushPlayerDead' => $daedalus->getPlayers()->getMushPlayer()->getPlayerDead()->count(),
             ];
     }
 }

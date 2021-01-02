@@ -12,6 +12,11 @@ class PlayerCollection extends ArrayCollection
         return $this->filter(fn (Player $player) => $player->isAlive());
     }
 
+    public function getPlayerDead(): PlayerCollection
+    {
+        return $this->filter(fn (Player $player) => !$player->isAlive());
+    }
+
     public function getMushPlayer(): PlayerCollection
     {
         return $this->filter(fn (Player $player) => $player->isMush());

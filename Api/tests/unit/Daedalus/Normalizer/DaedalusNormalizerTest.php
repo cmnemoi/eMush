@@ -2,6 +2,7 @@
 
 namespace Mush\Test\Daedalus\Normalizer;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Normalizer\DaedalusNormalizer;
@@ -48,6 +49,7 @@ class DaedalusNormalizerTest extends TestCase
         $daedalus = Mockery::mock(Daedalus::class);
         $daedalus->shouldReceive('getId')->andReturn(2);
         $daedalus->makePartial();
+        $daedalus->setPlayers(new ArrayCollection());
 
         $daedalus
             ->setCycle(4)
@@ -69,6 +71,11 @@ class DaedalusNormalizerTest extends TestCase
             'hull' => 100,
             'shield' => 100,
             'nextCycle' => $nextCycle->format(\DateTime::ATOM),
+            'cryogenizedPlayers' => 0,
+            'humanPlayerAlive' => 0,
+            'humanPlayerDead' => 0,
+            'mushPlayerAlive' => 0,
+            'mushPlayerDead' => 0,
         ];
 
         $this->assertIsArray($data);

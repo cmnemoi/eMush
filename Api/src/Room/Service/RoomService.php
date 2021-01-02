@@ -6,16 +6,20 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\EquipmentConfig;
+use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Room\Entity\Room;
 use Mush\Room\Entity\RoomConfig;
 use Mush\Room\Repository\RoomRepository;
+use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 
 class RoomService implements RoomServiceInterface
 {
     private EntityManagerInterface $entityManager;
     private RoomRepository $repository;
     private GameEquipmentServiceInterface $equipmentService;
+    private StatusServiceInterface $statusService;
 
     /**
      * RoomService constructor.
@@ -23,11 +27,13 @@ class RoomService implements RoomServiceInterface
     public function __construct(
         EntityManagerInterface $entityManager,
         RoomRepository $repository,
-        GameEquipmentServiceInterface $equipmentService
+        GameEquipmentServiceInterface $equipmentService,
+        StatusServiceInterface $statusService
     ) {
         $this->entityManager = $entityManager;
         $this->repository = $repository;
         $this->equipmentService = $equipmentService;
+        $this->statusService = $statusService;
     }
 
     public function persist(Room $room): Room
@@ -79,6 +85,14 @@ class RoomService implements RoomServiceInterface
                 ->filter(fn (EquipmentConfig $item) => $item->getName() === $itemName)->first()
             ;
             $gameItem = $this->equipmentService->createGameEquipment($item, $daedalus);
+
+            //@TODO better handle this
+            if ($item->getMechanicByName(EquipmentMechanicEnum::PLANT) &&
+                $youngStatus = $gameItem->getStatusByName(EquipmentStatusEnum::PLANT_YOUNG)) {
+                $youngStatus->setGameEquipment(null);
+                $this->statusService->delete($youngStatus);
+            }
+
             $room->addEquipment($gameItem);
         }
 

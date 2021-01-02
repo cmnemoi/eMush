@@ -2,6 +2,7 @@
 
 namespace Mush\Game\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
@@ -135,6 +136,13 @@ class GameConfig
      * @ORM\Column(type="integer", length=255, nullable=false)
      */
     private int $maxFuel;
+
+    public function __construct()
+    {
+        $this->charactersConfig = new ArrayCollection();
+        $this->equipmentsConfig = new ArrayCollection();
+        $this->triumphConfig = new ArrayCollection();
+    }
 
     public function getId(): int
     {

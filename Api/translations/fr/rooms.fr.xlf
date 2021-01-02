@@ -154,13 +154,13 @@
         <unit id="rear_alpha_storage">
             <segment id="name">
                 <source>rear_alpha_storage.name</source>
-                <target>Stockage Alpha Arriere</target>
+                <target>Stockage Alpha Arrière</target>
             </segment>
         </unit>
         <unit id="rear_bravo_storage">
             <segment id="name">
                 <source>rear_bravo_storage.name</source>
-                <target>Stockage Beta Arriere</target>
+                <target>Stockage Beta Arrière</target>
             </segment>
         </unit>
     </file>

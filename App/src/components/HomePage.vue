@@ -6,7 +6,7 @@
         <div class="box3content">
           <div class="pdesc">
             <p>
-              <em>eMush</em> n'est actuellement pas ouvert au public car the jeu n'est pas terminé et est infesté de <em>Mush !!!</em>
+              <em>eMush</em> n'est actuellement pas ouvert au public car le jeu n'est pas terminé et est infesté de <em>Mush !!!</em>
               <br/><br/>
               Si vous êtes intéressés par le projet, n'hésitez pas à nous rejoindre sur les <a href="https://discord.gg/ERc3svy">discord</a> & <a href="https://eternal-twin.net/forum">Forum</a> d'Eternal-Twin.
               Toutes les informations sont disponibles sur <a href="https://eternal-twin.net">Eternal-Twin</a>.
@@ -35,7 +35,7 @@
               <br/><br/>
               If you are interested in the project, feel free to join us on Eternal-Twin <a href="https://discord.gg/ERc3svy">discord</a> or <a href="https://eternal-twin.net/forum">Forum</a>. All the informations are on <a href="https://eternal-twin.net">Eternal-Twin</a>.
               <br/><br/>
-              Concerning the Alpha version, it will be launch the 3rd January 2021. A link will be available on <a href="https://eternal-twin.net/">Eternal-Twin</a> website & a code will be provide the launching day (Only to the player who take part of the Alpha Test ship. In Private or on <a href="https://discord.gg/ERc3svy">discord</a>.)
+              Concerning the Alpha version, it will be launch the 3rd January 2021. A link will be available on <a href="https://eternal-twin.net/">Eternal-Twin</a> website & a code will be provide the launching day (Only to the player who take part of the Alpha Test ship. In Private message or on <a href="https://discord.gg/ERc3svy">discord</a>.)
               To take part of this Alpha test ship, you will need an account on <a href="https://eternal-twin.net/">Eternal-Twin</a> website. You will need to connect you from your <a href="https://twinoid.com/">Twinoid</a> account. Hammerfest or Dino-Parc account work also.
               <br/><br/>
               With <a href="https://twinoid.com/">Twinoid</a>, to link your account to your <a href="https://eternal-twin.net/">Eternal-Twin</a> account, you will need to accept the <em>Demurgos</em> app who request access to all data coming from <a href="https://twinoid.com/">Twinoid</a>. It will allow to keep the progress of all your games.

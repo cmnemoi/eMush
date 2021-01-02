@@ -35,22 +35,11 @@
       </div>
       <div class="daedalus-players"><span class="popup"><h3>Next cycle</h3><p>Your unbreakable watch tells you the time remaining until the next <strong>Cycle</strong>. At the changeover you earn some precious <img src="@/assets/images/pa.png" alt="Action Points"/> <img src="@/assets/images/pm.png" alt="Movement Points"/> depending on your health and hunger level.</p></span>
         <ol>
-          <li><img src="@/assets/images/p_alive.png"></li>
-          <li><img src="@/assets/images/p_alive.png"></li>
-          <li><img src="@/assets/images/p_alive.png"></li>
-          <li><img src="@/assets/images/p_alive.png"></li>
-          <li><img src="@/assets/images/p_alive.png"></li>
-          <li><img src="@/assets/images/p_alive.png"></li>
-          <li><img src="@/assets/images/p_alive.png"></li>
-          <li><img src="@/assets/images/p_alive.png"></li>
-          <li><img src="@/assets/images/p_alive.png"></li>
-          <li><img src="@/assets/images/p_alive.png"></li>
-          <li><img src="@/assets/images/p_alive.png"></li>
-          <li><img src="@/assets/images/p_alive.png"></li>
-          <li><img src="@/assets/images/p_mush.png"></li>
-          <li><img src="@/assets/images/p_deadmush.png"></li>
-          <li><img src="@/assets/images/p_dead.png"></li>
-          <li><img src="@/assets/images/p_dead.png"></li>
+          <li v-for="(key) in daedalus.humanPlayerAlive" v-bind:key="key"><img src="@/assets/images/p_alive.png"></li>
+          <li v-for="(key) in daedalus.mushPlayerAlive" v-bind:key="key"><img src="@/assets/images/p_mush.png"></li>
+          <li v-for="(key) in daedalus.cryogenizedPlayers" v-bind:key="key"><img src="@/assets/images/p_cryo.png"></li>
+          <li v-for="(key) in daedalus.humanPlayerDead" v-bind:key="key"><img src="@/assets/images/p_dead.png"></li>
+          <li v-for="(key) in daedalus.mushPlayerDead" v-bind:key="key"><img src="@/assets/images/p_deadmush.png"></li>
         </ol>
       </div>
       <div class="cycle-time">

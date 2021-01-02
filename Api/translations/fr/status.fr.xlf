@@ -715,31 +715,31 @@
                 <target>TODO</target>
             </segment>
         </unit>
-        <unit id="3rd_degree_burns_over_50_of_your_body">
+        <unit id="burns_50_of_body">
             <segment id="name">
-                <source>3rd_degree_burns_over_50_of_your_body.name</source>
+                <source>burns_50_of_body.name</source>
                 <target>Brûlure au 3ème degré sur 50% </target>
             </segment>
             <segment id="description">
-                <source>3rd_degree_burns_over_50_of_your_body.description</source>
+                <source>burns_50_of_body.description</source>
                 <target>La partie avant de votre corps est brûlée, pas trop non plus mais tout de même. </target>
             </segment>
             <segment id="effect">
-                <source>3rd_degree_burns_over_50_of_your_body.examine</source>
+                <source>burns_50_of_body.examine</source>
                 <target>TODO</target>
             </segment>
         </unit>
-        <unit id="3rd_degree_burns_over_90_of_your_body">
+        <unit id="burns_90_of_body">
             <segment id="name">
-                <source>3rd_degree_burns_over_90_of_your_body.name</source>
+                <source>burns_90_of_body.name</source>
                 <target>Brulure au 3ème degré sur 90% </target>
             </segment>
             <segment id="description">
-                <source>3rd_degree_burns_over_90_of_your_body.description</source>
+                <source>burns_90_of_body.description</source>
                 <target>Votre corps est très gravement brulé et risque une septicémie. </target>
             </segment>
             <segment id="effect">
-                <source>3rd_degree_burns_over_90_of_your_body.examine</source>
+                <source>burns_90_of_body.examine</source>
                 <target>TODO</target>
             </segment>
         </unit>
@@ -799,17 +799,17 @@
                 <target>TODO</target>
             </segment>
         </unit>
-        <unit id="broken shoulder">
+        <unit id="broken_shoulder">
             <segment id="name">
-                <source>broken shoulder.name</source>
+                <source>broken_shoulder.name</source>
                 <target>Epaule brisée</target>
             </segment>
             <segment id="description">
-                <source>broken shoulder.description</source>
+                <source>broken_shoulder.description</source>
                 <target>Votre épaule a été brisée et démise. Impossible de porter des objets lourds...</target>
             </segment>
             <segment id="effect">
-                <source>broken shoulder.examine</source>
+                <source>broken_shoulder.examine</source>
                 <target>TODO</target>
             </segment>
         </unit>

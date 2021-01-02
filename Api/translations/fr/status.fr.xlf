@@ -379,17 +379,17 @@
                 <target>TODO</target>
             </segment>
         </unit>
-        <unit id="quinck's_oedema">
+        <unit id="quincks_oedema">
             <segment id="name">
-                <source>quinck's_oedema.name</source>
+                <source>quincks_oedema.name</source>
                 <target>Oedeme de Quincke</target>
             </segment>
             <segment id="description">
-                <source>quinck's_oedema.description</source>
+                <source>quincks_oedema.description</source>
                 <target></target>
             </segment>
             <segment id="effect">
-                <source>quinck's_oedema.examine</source>
+                <source>quincks_oedema.examine</source>
                 <target>TODO</target>
             </segment>
         </unit>

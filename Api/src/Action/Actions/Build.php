@@ -15,6 +15,7 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\RoomLog\Entity\Target;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -126,6 +127,8 @@ class Build extends Action
 
         $this->playerService->persist($this->player);
 
-        return new Success(ActionLogEnum::BUILD_SUCCESS, VisibilityEnum::PUBLIC);
+        $target = new Target($blueprintEquipment->getName(), 'items');
+
+        return new Success(ActionLogEnum::BUILD_SUCCESS, VisibilityEnum::PUBLIC, $target);
     }
 }

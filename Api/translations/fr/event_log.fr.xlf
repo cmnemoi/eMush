@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
     <file id="event_log.ext">
+        <unit id="awaken">
+            <segment>
+                <source>awaken.character.male</source>
+                <target>**player** semble émerger péniblement de son sommeil...</target>
+            </segment>
+            <segment>
+                <source>awaken.character.female</source>
+                <target>**player** semble émerger péniblement de son sommeil...</target>
+            </segment>
+        </unit>
         <unit id="gain_action_point">
             <segment>
                 <source>gain_action_point.character.male</source>

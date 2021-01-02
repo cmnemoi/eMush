@@ -3,11 +3,19 @@
     <file id="actions_log.ext">
         <unit id="build_success">
             <segment id="build_success">
-                <source>build_success.character.male</source>
+                <source>build_success.character.male.target.male</source>
                 <target>Vous avez assemblé un **target**.</target>
             </segment>
-            <segment>
-                <source>build_success.character.female</source>
+            <segment id="build_success">
+                <source>build_success.character.male.target.female</source>
+                <target>Vous avez assemblé un **target**.</target>
+            </segment>
+            <segment id="build_success">
+                <source>build_success.character.female.target.male</source>
+                <target>Vous avez assemblé un **target**.</target>
+            </segment>
+            <segment id="build_success">
+                <source>build_success.character.female.target.female</source>
                 <target>Vous avez assemblé un **target**.</target>
             </segment>
         </unit>

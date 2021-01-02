@@ -115,7 +115,7 @@
    .announce_gen{
 	min-width:500px;
 	width:1000px;
-	
+	margin: 0 auto;
    }
    .box3content em {
    color: #01c3df;
@@ -210,7 +210,7 @@
    textarea {
    border: 0px;
    padding: 0px;
-   margin: 0px;
+  
    padding: 0px;
    }
    .box3bottom {

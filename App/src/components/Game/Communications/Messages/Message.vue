@@ -45,7 +45,8 @@ export default {
     format: function (value) {
       if (!value) return ''
       value = value.toString()
-      value = value.replaceAll(/\*\*(\w*)\*\*/g, '<strong>$1&nbsp;</strong>');
+      value = value.replaceAll(/\*\*(.*)\*\*/g, '<strong>$1</strong>');
+      value = value.replaceAll(/\*(.*)\*/g, '<em>$1</em>');
       value = value.replaceAll(/:pa:/g, '<img src="'+require("@/assets/images/pa.png")+'" alt="pa">')
       return value.replaceAll(/:pm:/g, '<img src="'+require("@/assets/images/pm.png")+'" alt="pm">')
     }

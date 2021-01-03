@@ -2,12 +2,15 @@
 
 namespace Mush\Test\Action\Actions;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Actions\Drop;
+use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
@@ -62,12 +65,17 @@ class DropActionTest extends TestCase
     {
         $room = new Room();
         $gameItem = new GameItem();
+
+        $dropAction = new Action();
+        $dropAction->setName(ActionEnum::DROP);
+
         $item = new ItemConfig();
+        $item->setActions(new ArrayCollection([$dropAction]));
+
         $gameItem->setEquipment($item);
 
         $item
             ->setName('itemName')
-            ->setIsDropable(true)
             ->setIsHeavy(false)
         ;
 

@@ -2,12 +2,15 @@
 
 namespace Mush\Test\Action\Actions;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Actions\Take;
+use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
@@ -69,7 +72,13 @@ class TakeActionTest extends TestCase
     {
         $room = new Room();
         $gameItem = new GameItem();
+
+        $takeAction = new Action();
+        $takeAction->setName(ActionEnum::TAKE);
+
         $item = new ItemConfig();
+        $item->setActions(new ArrayCollection([$takeAction]));
+
         $gameItem->setEquipment($item);
         $gameItem
             ->setName('itemName')
@@ -77,7 +86,6 @@ class TakeActionTest extends TestCase
         ;
 
         $item
-            ->setIsTakeable(true)
             ->setIsHeavy(false)
         ;
 

@@ -6,7 +6,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionScopeEnum;
-use Mush\Action\Service\ActionServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Player\Entity\Player;
@@ -23,16 +22,13 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
     use NormalizerAwareTrait;
 
     private TokenStorageInterface $tokenStorage;
-    private ActionServiceInterface $actionService;
     private TranslatorInterface $translator;
 
     public function __construct(
         TokenStorageInterface $tokenStorage,
-        ActionServiceInterface $actionService,
         TranslatorInterface $translator
     ) {
         $this->tokenStorage = $tokenStorage;
-        $this->actionService = $actionService;
         $this->translator = $translator;
     }
 
@@ -100,12 +96,9 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
 
         /** @var Action $action */
         foreach ($contextualActions as $action) {
-            $actionClass = $this->actionService->getAction($action->getName());
-            if ($actionClass) {
-                $normedAction = $this->normalizer->normalize($actionClass);
-                if (is_array($normedAction) && count($normedAction) > 0) {
-                    $actions[] = $normedAction;
-                }
+            $normedAction = $this->normalizer->normalize($action);
+            if (is_array($normedAction) && count($normedAction) > 0) {
+                $actions[] = $normedAction;
             }
         }
 

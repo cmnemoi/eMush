@@ -18,7 +18,7 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class Infect extends Action
+class Infect extends AbstractAction
 {
     protected string $name = ActionEnum::INFECT;
 
@@ -90,7 +90,7 @@ class Infect extends Action
         $mushStatus->addCharge(-1);
         $this->statusService->persist($mushStatus);
 
-        $target = new Target($this->targetPlayer->getPerson(), 'character');
+        $target = new Target($this->targetPlayer->getCharacterConfig()->getName(), 'character');
 
         //@TODO: get ride of that
         $this->createLog(new Success());

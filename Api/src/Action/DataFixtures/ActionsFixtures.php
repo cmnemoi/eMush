@@ -7,9 +7,14 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Equipment\Entity\GameItem;
 
 class ActionsFixtures extends Fixture
 {
+    public const MOVE_DEFAULT = 'move.default';
+    public const SEARCH_DEFAULT = 'search.default';
+    public const HIT_DEFAULT = 'hit.default';
+    public const HIDE_DEFAULT = 'hide.default';
     public const DEFAULT_TAKE = 'default.take';
     public const DEFAULT_DROP = 'default.drop';
     public const DRUG_CONSUME = 'drug.consume';
@@ -38,6 +43,40 @@ class ActionsFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
+        $moveAction = new Action();
+        $moveAction
+            ->setName(ActionEnum::MOVE)
+            ->setType([])
+            ->setScope(ActionScopeEnum::CURRENT)
+            ->setInjuryRate(1)
+        ;
+        $manager->persist($moveAction);
+
+        $searchAction = new Action();
+        $searchAction
+            ->setName(ActionEnum::SEARCH)
+            ->setType([])
+            ->setScope(ActionScopeEnum::SELF)
+        ;
+        $manager->persist($searchAction);
+
+        $hitAction = new Action();
+        $hitAction
+            ->setName(ActionEnum::HIT)
+            ->setType([])
+            ->setScope(ActionScopeEnum::OTHER_PLAYER)
+            ->setInjuryRate(1)
+        ;
+        $manager->persist($hitAction);
+
+        $hideAction = new Action();
+        $hideAction
+            ->setName(ActionEnum::HIDE)
+            ->setScope(ActionScopeEnum::ROOM)
+            ->setTarget(GameItem::class)
+        ;
+        $manager->persist($hideAction);
+
         $takeItemAction = new Action();
         $takeItemAction
             ->setName(ActionEnum::TAKE)
@@ -163,8 +202,8 @@ class ActionsFixtures extends Fixture
         $expressCookAction = new Action();
         $expressCookAction
             ->setName(ActionEnum::EXPRESS_COOK)
-            ->setType([])
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setScope(ActionScopeEnum::ROOM)
+            ->setTarget(GameItem::class)
         ;
 
         $manager->persist($expressCookAction);
@@ -172,8 +211,8 @@ class ActionsFixtures extends Fixture
         $cookAction = new Action();
         $cookAction
             ->setName(ActionEnum::COOK)
-            ->setType([])
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setScope(ActionScopeEnum::ROOM)
+            ->setTarget(GameItem::class)
         ;
 
         $manager->persist($cookAction);
@@ -197,7 +236,7 @@ class ActionsFixtures extends Fixture
         $manager->persist($healAction);
 
         $ultraHealAction = new Action();
-        $healAction
+        $ultraHealAction
             ->setName(ActionEnum::ULTRAHEAL)
             ->setType([])
             ->setScope(ActionScopeEnum::SELF)
@@ -243,7 +282,7 @@ class ActionsFixtures extends Fixture
 
         $fuelInjectAction = new Action();
         $fuelInjectAction
-            ->setName(ActionEnum::INJECT_FUEL)
+            ->setName(ActionEnum::INSERT_FUEL)
             ->setType([])
             ->setScope(ActionScopeEnum::CURRENT)
         ;
@@ -279,6 +318,10 @@ class ActionsFixtures extends Fixture
 
         $manager->flush();
 
+        $this->addReference(self::MOVE_DEFAULT, $moveAction);
+        $this->addReference(self::SEARCH_DEFAULT, $searchAction);
+        $this->addReference(self::HIT_DEFAULT, $hitAction);
+        $this->addReference(self::HIDE_DEFAULT, $hideAction);
         $this->addReference(self::DEFAULT_TAKE, $takeItemAction);
         $this->addReference(self::DEFAULT_DROP, $dropItemAction);
         $this->addReference(self::RATION_CONSUME, $rationConsumeAction);
@@ -303,6 +346,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(self::FUEL_INJECT, $fuelInjectAction);
         $this->addReference(self::FUEL_RETRIEVE, $retrieveFuelAction);
         $this->addReference(self::LIE_DOWN, $lieDownActon);
-        $this->addReference(self::COFFEE_DEFAULT, $cookAction);
+        $this->addReference(self::COFFEE_DEFAULT, $coffeeAction);
     }
 }

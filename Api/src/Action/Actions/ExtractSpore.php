@@ -14,7 +14,7 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class ExtractSpore extends Action
+class ExtractSpore extends AbstractAction
 {
     protected string $name = ActionEnum::EXTRACT_SPORE;
 

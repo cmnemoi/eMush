@@ -20,7 +20,7 @@ use Mush\Status\Entity\ContentStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class Write extends Action
+class Write extends AbstractAction
 {
     protected string $name = ActionEnum::WRITE;
 

@@ -2,7 +2,7 @@
 
 namespace Mush\Action\Normalizer;
 
-use Mush\Action\Actions\Action;
+use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\User\Entity\User;
@@ -37,6 +37,12 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
      */
     public function normalize($object, string $format = null, array $context = []): array
     {
+
+        $actionClass = $this->actionService->getAction($object->getName());
+        if (!$actionClass) {
+            return [];
+        }
+
         $actionParameter = new ActionParameters();
         if (array_key_exists('player', $context)) {
             $actionParameter->setPlayer($context['player']);
@@ -51,18 +57,19 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
             $actionParameter->setEquipment($context['equipment']);
         }
 
-        $object->loadParameters($this->getUser()->getCurrentGame(), $actionParameter);
+        $actionClass->loadParameters($this->getUser()->getCurrentGame(), $actionParameter);
 
-        if ($object->canExecute()) {
-            $actionName = $object->getActionName();
+        if ($actionClass->canExecute()) {
+            $actionName = $object->getName();
 
             return [
+                'id' => $object->getId(),
                 'key' => $actionName,
                 'name' => $this->translator->trans("{$actionName}.name", [], 'actions'),
                 'description' => $this->translator->trans("{$actionName}.description", [], 'actions'),
-                'actionPointCost' => $object->getActionCost()->getActionPointCost(),
-                'movementPointCost' => $object->getActionCost()->getMovementPointCost(),
-                'moralPointCost' => $object->getActionCost()->getMoralPointCost(),
+                'actionPointCost' => $actionClass->getActionCost()->getActionPointCost(),
+                'movementPointCost' => $actionClass->getActionCost()->getMovementPointCost(),
+                'moralPointCost' => $actionClass->getActionCost()->getMoralPointCost(),
             ];
         }
 

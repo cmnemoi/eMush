@@ -6,7 +6,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Entity\Action;
-use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Game\Entity\GameConfig;
@@ -229,6 +228,7 @@ class EquipmentConfig
     public function setActions(Collection $actions): self
     {
         $this->actions = $actions;
+
         return $this;
     }
 
@@ -246,6 +246,6 @@ class EquipmentConfig
 
     public function hasAction(string $actionName): bool
     {
-        return $this->getActions()->exists(fn(int $id, Action $action) => $action->getName() === $actionName);
+        return $this->getActions()->exists(fn (int $id, Action $action) => $action->getName() === $actionName);
     }
 }

@@ -37,6 +37,19 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         ;
         $manager->persist($icarus);
 
+        $moveAction = $this->getReference(ActionsFixtures::MOVE_DEFAULT);
+
+        //@TODO terminals
+        $door = new EquipmentConfig();
+        $door
+            ->setGameConfig($gameConfig)
+            ->setName(EquipmentEnum::DOOR)
+            ->setIsFireDestroyable(false)
+            ->setIsFireBreakable(false)
+            ->setActions(new ArrayCollection([$moveAction]))
+        ;
+        $manager->persist($door);
+
         $comsCenter = new EquipmentConfig();
         $comsCenter
             ->setGameConfig($gameConfig)
@@ -469,6 +482,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
     {
         return [
             GameConfigFixtures::class,
+            ActionsFixtures::class,
         ];
     }
 }

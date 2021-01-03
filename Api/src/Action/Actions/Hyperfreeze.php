@@ -25,7 +25,7 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class Hyperfreeze extends Action
+class Hyperfreeze extends AbstractAction
 {
     protected string $name = ActionEnum::HYPERFREEZE;
 

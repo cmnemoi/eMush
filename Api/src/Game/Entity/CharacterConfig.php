@@ -2,6 +2,7 @@
 
 namespace Mush\Game\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -35,6 +36,11 @@ class CharacterConfig
      * @var array<int, string>
      */
     private array $statuses = [];
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Mush\Action\Entity\Action")
+     */
+    private Collection $actions;
 
     /**
      * @ORM\Column(type="array", nullable=false)
@@ -87,6 +93,18 @@ class CharacterConfig
     public function setStatuses(array $statuses): CharacterConfig
     {
         $this->statuses = $statuses;
+
+        return $this;
+    }
+
+    public function getActions(): Collection
+    {
+        return $this->actions;
+    }
+
+    public function setActions(Collection $actions): CharacterConfig
+    {
+        $this->actions = $actions;
 
         return $this;
     }

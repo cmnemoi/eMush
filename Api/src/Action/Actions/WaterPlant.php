@@ -18,7 +18,7 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class WaterPlant extends Action
+class WaterPlant extends AbstractAction
 {
     protected string $name = ActionEnum::WATER_PLANT;
 

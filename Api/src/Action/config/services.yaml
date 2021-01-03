@@ -23,3 +23,7 @@ services:
   Mush\Action\Actions\:
     resource: '../Actions/'
     tags: ['mush.action']
+
+  Mush\Action\ParamConverter\ActionRequestParamConverter:
+    tags:
+      - { name: 'request.param_converter', converter: ActionRequestParamConverter }

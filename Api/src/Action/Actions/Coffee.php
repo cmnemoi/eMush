@@ -22,7 +22,7 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class Coffee extends Action
+class Coffee extends AbstractAction
 {
     protected string $name = ActionEnum::COFFEE;
 

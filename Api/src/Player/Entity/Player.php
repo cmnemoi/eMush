@@ -12,6 +12,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ReachEnum;
+use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Room\Entity\Room;
 use Mush\Status\Entity\Collection\MedicalConditionCollection;
@@ -48,11 +49,9 @@ class Player
     private string $gameStatus;
 
     /**
-     * Character is a reserved keyword for sql.
-     *
-     * @ORM\Column(type="string", nullable=false)
+     * @ORM\ManyToOne (targetEntity="Mush\Game\Entity\CharacterConfig")
      */
-    private string $person;
+    private CharacterConfig $characterConfig;
 
     /**
      * @ORM\Column(type="string", nullable=true)
@@ -114,11 +113,6 @@ class Player
      */
     private int $satiety;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="Mush\Action\Entity\Action")
-     */
-    private Collection $actions;
-
     public function __construct()
     {
         $this->items = new ArrayCollection();
@@ -165,17 +159,17 @@ class Player
         return $this->gameStatus === GameStatusEnum::CURRENT;
     }
 
-    public function getPerson(): string
+    public function getCharacterConfig(): CharacterConfig
     {
-        return $this->person;
+        return $this->characterConfig;
     }
 
     /**
      * @return static
      */
-    public function setPerson(string $person): Player
+    public function setCharacterConfig(CharacterConfig $characterConfig): Player
     {
-        $this->person = $person;
+        $this->characterConfig = $characterConfig;
 
         return $this;
     }
@@ -278,7 +272,6 @@ class Player
     public function getReachableTools(): Collection
     {
         //reach can be set to inventory, shelve, shelve only or any room of the Daedalus
-
         return (new ArrayCollection(array_merge($this->getItems()->toArray(), $this->getRoom()->getEquipments()->toArray())
         ))->filter(fn (GameEquipment $gameEquipment) => ($gameEquipment->getEquipment()->getMechanicbyName(EquipmentMechanicEnum::TOOL)));
     }
@@ -577,20 +570,6 @@ class Player
     {
         $this->satiety += $satiety;
 
-        return $this;
-    }
-
-    public function getActions(): Collection
-    {
-        return $this->actions;
-    }
-
-    /**
-     * @return static
-     */
-    public function setActions(Collection $actions): Player
-    {
-        $this->actions = $actions;
         return $this;
     }
 }

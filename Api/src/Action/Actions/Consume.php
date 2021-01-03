@@ -22,7 +22,7 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class Consume extends Action
+class Consume extends AbstractAction
 {
     protected string $name = ActionEnum::CONSUME;
 

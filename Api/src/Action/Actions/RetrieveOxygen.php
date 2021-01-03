@@ -21,7 +21,7 @@ use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class RetrieveOxygen extends Action
+class RetrieveOxygen extends AbstractAction
 {
     protected string $name = ActionEnum::RETRIEVE_OXYGEN;
 

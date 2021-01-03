@@ -16,7 +16,7 @@ use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class Shred extends Action
+class Shred extends AbstractAction
 {
     protected string $name = ActionEnum::SHRED;
 

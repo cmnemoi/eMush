@@ -9,7 +9,6 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionTargetEnum;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Charged;
 use Mush\Equipment\Entity\Mechanics\Dismountable;
@@ -112,7 +111,6 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($extinguisherMechanic);
         $manager->persist($dismountableMechanic);
 
-
         /** @var Action $gagAction */
         $gagAction = $this->getReference(ActionsFixtures::GAG_DEFAULT);
 
@@ -136,7 +134,6 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->persist($ductTape);
         $manager->persist($ductTapeMechanic);
-
 
         /** @var Action $tryTheKubeAction */
         $tryTheKubeAction = $this->getReference(ActionsFixtures::TRY_KUBE);
@@ -203,7 +200,6 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($microwaveMechanic);
         $manager->persist($kitchenToolsMechanic);
         $manager->persist($chargedMechanic);
-
 
         /** @var Action $hyperfreezAction */
         $hyperfreezAction = $this->getReference(ActionsFixtures::HYPERFREEZ_DEFAULT);
@@ -304,7 +300,6 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($sporeSucker);
         $manager->persist($sporeSuckerMechanic);
 
-
         /** @var Action $ultraHealAction */
         $ultraHealAction = $this->getReference(ActionsFixtures::HEAL_ULTRA);
 
@@ -328,7 +323,6 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->persist($jarOfAlienOil);
         $manager->persist($jarOfAlienOilMechanic);
-
 
         /** @var Action $bandageAction */
         $bandageAction = $this->getReference(ActionsFixtures::BANDAGE_DEFAULT);
@@ -358,7 +352,6 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $retroFungalSerumMechanic = new Tool();
         $retroFungalSerumMechanic->addAction($serumAction);
-
 
         $retroFungalSerum = new ItemConfig();
         $retroFungalSerum->setGameConfig($gameConfig)

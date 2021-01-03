@@ -55,7 +55,6 @@ class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
             ->addAction($consumeDrugAction)
         ;
 
-
         foreach (GameDrugEnum::getAll() as $drugName) {
             $drug = new ItemConfig();
             $drug

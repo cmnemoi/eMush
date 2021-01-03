@@ -1,10 +1,7 @@
 <?php
 
-
 namespace Mush\Action\Entity;
 
-
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -30,9 +27,9 @@ class Action
     private array $type = [];
 
     /**
-     * @ORM\OneToMany (targetEntity="Mush\Action\Entity\TargetAction", mappedBy="action")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private Collection $targetsAction;
+    private ?string $target = null;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=false)
@@ -67,6 +64,7 @@ class Action
     public function setName(string $name): Action
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -78,17 +76,19 @@ class Action
     public function setType(array $type): Action
     {
         $this->type = $type;
+
         return $this;
     }
 
-    public function getTargetsAction(): Collection
+    public function getTarget(): ?string
     {
-        return $this->targetsAction;
+        return $this->target;
     }
 
-    public function setTargetsAction(Collection $targetsAction): Action
+    public function setTarget(?string $target): Action
     {
-        $this->targetsAction = $targetsAction;
+        $this->target = $target;
+
         return $this;
     }
 
@@ -100,6 +100,7 @@ class Action
     public function setScope(string $scope): Action
     {
         $this->scope = $scope;
+
         return $this;
     }
 
@@ -111,6 +112,7 @@ class Action
     public function setSuccessRate(int $successRate): Action
     {
         $this->successRate = $successRate;
+
         return $this;
     }
 
@@ -122,6 +124,7 @@ class Action
     public function setInjuryRate(int $injuryRate): Action
     {
         $this->injuryRate = $injuryRate;
+
         return $this;
     }
 
@@ -133,6 +136,7 @@ class Action
     public function setDirtyRate(int $dirtyRate): Action
     {
         $this->dirtyRate = $dirtyRate;
+
         return $this;
     }
 }

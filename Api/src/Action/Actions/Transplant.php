@@ -19,7 +19,7 @@ use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class Transplant extends Action
+class Transplant extends AbstractAction
 {
     protected string $name = ActionEnum::TRANSPLANT;
 

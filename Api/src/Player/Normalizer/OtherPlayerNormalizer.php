@@ -2,12 +2,12 @@
 
 namespace Mush\Player\Normalizer;
 
-use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionTargetEnum;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Mush\Action\Entity\Action;
+use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\Mechanics\Tool;
-use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Player\Entity\Player;
 use Mush\User\Entity\User;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
@@ -42,6 +42,7 @@ class OtherPlayerNormalizer implements ContextAwareNormalizerInterface, Normaliz
 
     public function normalize($object, string $format = null, array $context = []): array
     {
+        /** @var Player $player */
         $player = $object;
         $statuses = [];
         foreach ($player->getStatuses() as $status) {
@@ -51,11 +52,13 @@ class OtherPlayerNormalizer implements ContextAwareNormalizerInterface, Normaliz
             }
         }
 
+        $character = $player->getCharacterConfig()->getName();
+
         return [
             'id' => $player->getId(),
             'character' => [
-                'key' => $player->getPerson(),
-                'value' => $this->translator->trans($player->getPerson() . '.name', [], 'characters'),
+                'key' => $character,
+                'value' => $this->translator->trans($character . '.name', [], 'characters'),
             ],
             'statuses' => $statuses,
             'skills' => $player->getSkills(),
@@ -65,41 +68,49 @@ class OtherPlayerNormalizer implements ContextAwareNormalizerInterface, Normaliz
 
     private function getActions(Player $player, string $format = null): array
     {
-        //Handle tools
-        $tools = $player->getReachableTools()
-            ->filter(function (GameEquipment $gameEquipment) {
-                /** @var Tool $tool */
-                $tool = $gameEquipment->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL);
+        $contextualActions = $this->getContextActions($player);
 
-                return !$tool->getGrantActions()->isEmpty();
-            })
-        ;
-
-        $playerActions = ActionEnum::getPermanentPlayerActions();
         $actions = [];
 
-        foreach ($tools as $tool) {
-            $toolActions = $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getGrantActions();
-            $toolTargets = $tool->GetEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getActionsTarget();
-
-            foreach ($toolActions as $actionName) {
-                if ($toolTargets[$actionName] === ActionTargetEnum::DOOR) {
-                    $playerActions[] = $actionName;
-                }
-            }
-        }
-
-        foreach ($playerActions as $actionName) {
-            $actionClass = $this->actionService->getAction($actionName);
-            if ($actionClass) {
-                $normedAction = $this->normalizer->normalize($actionClass, $format, ['player' => $player]);
+        /** @var Action $action */
+        foreach ($player->getCharacterConfig()->getActions() as $action) {
+            if ($action->getScope() === ActionScopeEnum::OTHER_PLAYER) {
+                $normedAction = $this->normalizer->normalize($action, $format, ['player' => $player]);
                 if (is_array($normedAction) && count($normedAction) > 0) {
                     $actions[] = $normedAction;
                 }
             }
         }
 
+        /** @var Action $action */
+        foreach ($contextualActions as $action) {
+            $normedAction = $this->normalizer->normalize($action, $format, ['player' => $player]);
+            if (is_array($normedAction) && count($normedAction) > 0) {
+                $actions[] = $normedAction;
+            }
+        }
+
         return $actions;
+    }
+
+    private function getContextActions(Player $player): Collection
+    {
+        $reachableTools = $player->getReachableTools();
+
+        $scope = [ActionScopeEnum::OTHER_PLAYER];
+
+        $contextActions = new ArrayCollection();
+        /** @var GameEquipment $tool */
+        foreach ($reachableTools as $tool) {
+            $actions = $tool->getActions()->filter(fn (Action $action) => (
+            in_array($action->getScope(), $scope))
+            );
+            foreach ($actions as $action) {
+                $contextActions->add($action);
+            }
+        }
+
+        return $contextActions;
     }
 
     private function getUserPlayer(): Player

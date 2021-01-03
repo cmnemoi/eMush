@@ -74,13 +74,7 @@ class PlayerService implements PlayerServiceInterface
 
     public function findOneByCharacter(string $character, ?Daedalus $daedalus = null): ?Player
     {
-        $params = ['person' => $character];
-
-        if (null !== $daedalus) {
-            $params['daedalus'] = $daedalus;
-        }
-
-        return $this->repository->findOneBy($params);
+        return $this->repository->findOneByName($character);
     }
 
     public function findUserCurrentGame(User $user): ?Player
@@ -113,7 +107,7 @@ class PlayerService implements PlayerServiceInterface
                     ->filter(fn (Room $room) => RoomEnum::LABORATORY === $room->getName())
                     ->first()
             )
-            ->setPerson($character)
+            ->setCharacterConfig($characterConfig)
             ->setSkills([])
             ->setHealthPoint($this->gameConfig->getInitHealthPoint())
             ->setMoralPoint($this->gameConfig->getInitMoralPoint())

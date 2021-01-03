@@ -19,7 +19,7 @@ use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class InsertOxygen extends Action
+class InsertOxygen extends AbstractAction
 {
     protected string $name = ActionEnum::INSERT_OXYGEN;
 

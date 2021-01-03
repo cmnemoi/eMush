@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Mush\Action\Entity\Dto;
-
 
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -24,17 +22,19 @@ class ActionRequest
     public function setAction(int $action): ActionRequest
     {
         $this->action = $action;
+
         return $this;
     }
 
-    public function getParams(): array
+    public function getParams(): ?array
     {
         return $this->params;
     }
 
-    public function setParams(array $params): ActionRequest
+    public function setParams(?array $params): ActionRequest
     {
         $this->params = $params;
+
         return $this;
     }
 }

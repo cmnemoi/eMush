@@ -10,7 +10,6 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\Mechanics\Entity;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
@@ -47,7 +46,7 @@ class ActionService implements ActionServiceInterface
         return $this->actions[$actionName];
     }
 
-    public function executeAction(Player $player, int $actionId, array $params): ActionResult
+    public function executeAction(Player $player, int $actionId, ?array $params): ActionResult
     {
         /** @var Action $action */
         $action = $this->entityManager->getRepository(Action::class)->find($actionId);
@@ -62,7 +61,10 @@ class ActionService implements ActionServiceInterface
             return new Error('Action do not exist');
         }
 
-        $actionParams = $this->loadParameter($params);
+        $actionParams = new ActionParameters();
+        if ($params) {
+            $actionParams = $this->loadParameter($params);
+        }
         $actionService->loadParameters($player, $actionParams);
 
         return $actionService->execute();

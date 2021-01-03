@@ -13,5 +13,5 @@ interface ActionServiceInterface
 
     public function canExecuteAction(Player $player, string $actionName, ActionParameters $params): bool;
 
-    public function executeAction(Player $player, int $actionId, array $params): ActionResult;
+    public function executeAction(Player $player, int $actionId, ?array $params): ActionResult;
 }

@@ -5,7 +5,7 @@ namespace Mush\Test\Action\Actions;
 use Mockery;
 use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Actions\Action;
+use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Actions\RetrieveOxygen;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Daedalus\Entity\Daedalus;
@@ -35,7 +35,7 @@ class RetrieveOxygenTest extends TestCase
     /** @var StatusServiceInterface | Mockery\Mock */
     private StatusServiceInterface $statusService;
     private GameConfig $gameConfig;
-    private Action $action;
+    private AbstractAction $action;
 
     /**
      * @before

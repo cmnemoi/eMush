@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Actions\Action;
+use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Actions\InsertOxygen;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Daedalus\Entity\Daedalus;
@@ -36,7 +36,7 @@ class InsertOxygenTest extends TestCase
     /** @var StatusServiceInterface | Mockery\Mock */
     private StatusServiceInterface $statusService;
     private GameConfig $gameConfig;
-    private Action $action;
+    private AbstractAction $action;
 
     /**
      * @before

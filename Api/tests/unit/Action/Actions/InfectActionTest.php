@@ -5,10 +5,11 @@ namespace Mush\Test\Action\Actions;
 use Mockery;
 use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Actions\Action;
+use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Actions\Infect;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
@@ -32,7 +33,7 @@ class InfectActionTest extends TestCase
     /** @var PlayerServiceInterface | Mockery\Mock */
     private PlayerServiceInterface $playerService;
 
-    private Action $action;
+    private AbstractAction $action;
 
     /**
      * @before
@@ -175,9 +176,12 @@ class InfectActionTest extends TestCase
 
     private function createPlayer(Daedalus $daedalus, Room $room): Player
     {
+        $characterConfig = new CharacterConfig();
+        $characterConfig->setName('some name');
+
         $player = new Player();
         $player
-            ->setPerson('some person')
+            ->setCharacterConfig($characterConfig)
             ->setActionPoint(10)
             ->setMovementPoint(10)
             ->setMoralPoint(10)

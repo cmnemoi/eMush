@@ -181,7 +181,7 @@ class DaedalusServiceTest extends TestCase
         $this->assertEquals($characterConfig, $result->first());
 
         $player = new Player();
-        $player->setPerson($characterConfig->getName());
+        $player->setCharacterConfig($characterConfig);
         $daedalus->addPlayer($player);
 
         $result = $this->service->findAvailableCharacterForDaedalus($daedalus);

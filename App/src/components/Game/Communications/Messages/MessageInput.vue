@@ -1,5 +1,7 @@
 <template>
+<div>
   <textarea class="chat-input" placeholder="Type your message here!" v-model="text" @keyup.enter="sendNewMessage"></textarea>
+</div>
 </template>
 
 <script>
@@ -41,7 +43,7 @@ export default {
 <style lang="scss" scoped>
 textarea {
 
-  position: sticky;
+  position: relative;
   resize: vertical;
   min-height: 29px;
   margin: 7px 7px 4px 7px;
@@ -53,7 +55,7 @@ textarea {
   border: 1px solid #aad4e5;
   border-radius: 3px;
 
-  :active, :focus {
+  &:active, &:focus {
     min-height: 48px;
     max-height: 80%;
     font-style: initial;

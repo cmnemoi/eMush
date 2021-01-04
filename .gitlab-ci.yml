@@ -1,20 +1,28 @@
-default:
-  image: php:7.4
+image: php:7.4
 
-  before_script:
-    - php -v
-    - apt-get update -yqq
-    - apt-get install git zip -yqq zlib1g-dev
-    - cd Api
-    # Install composer
-    - curl -sS https://getcomposer.org/installer | php
-    # Install all project dependencies
-    - php composer.phar install
-    - cp .env.dist .env.test
+services:
+  - postgres:13.1-alpine
 
-  cache:
-    paths:
-      - "Api/vendor/"
+variables:
+  POSTGRES_DB: emush_test
+  POSTGRES_USER: runner
+  POSTGRES_PASSWORD: "password"
+
+before_script:
+  - php -v
+  - apt-get update -yqq
+  - apt-get install git zip -yqq zlib1g-dev libpq-dev
+  - docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql && docker-php-ext-install pdo pdo_pgsql pgsql
+  - cd Api
+  # Install composer
+  - curl -sS https://getcomposer.org/installer | php
+  # Install all project dependencies
+  - php composer.phar install
+  - cp .env.gitlab .env
+
+cache:
+  paths:
+    - "Api/vendor/"
 
 stages:
   - test
@@ -23,6 +31,8 @@ stages:
 test:
   stage: test
   script:
+    - bin/console doctrine:schema:update -f
+    - echo y | bin/console doctrine:fixture:load
     - php vendor/bin/codecept run
 
 lint:

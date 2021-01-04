@@ -7,7 +7,6 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Event\CycleEvent;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
-use Mush\Status\Entity\Status;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Event\CycleSubscriber;
 
@@ -38,7 +37,6 @@ class CycleEventTest extends \Codeception\Test\Unit
         $cycleEvent = new CycleEvent($daedalus, $time);
 
         $status = new ChargeStatus();
-
 
         $status
             ->setName('charged')

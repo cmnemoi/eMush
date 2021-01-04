@@ -22,7 +22,7 @@ stages:
 test:
   stage: test
   script:
-    - php bin/phpunit
+    - php vendor/bin/codecept run
 
 lint:
   stage: lint

@@ -22,16 +22,6 @@ class ItemConfig extends EquipmentConfig
     /**
      * @ORM\Column(type="boolean", nullable=false)
      */
-    private bool $isTakeable;
-
-    /**
-     * @ORM\Column(type="boolean", nullable=false)
-     */
-    private bool $isDropable;
-
-    /**
-     * @ORM\Column(type="boolean", nullable=false)
-     */
     private bool $isStackable;
 
     /**
@@ -61,36 +51,6 @@ class ItemConfig extends EquipmentConfig
     public function setIsHeavy(bool $isHeavy): ItemConfig
     {
         $this->isHeavy = $isHeavy;
-
-        return $this;
-    }
-
-    public function isTakeable(): bool
-    {
-        return $this->isTakeable;
-    }
-
-    /**
-     * @return static
-     */
-    public function setIsTakeable(bool $isTakeable): ItemConfig
-    {
-        $this->isTakeable = $isTakeable;
-
-        return $this;
-    }
-
-    public function isDropable(): bool
-    {
-        return $this->isDropable;
-    }
-
-    /**
-     * @return static
-     */
-    public function setIsDropable(bool $isDropable): ItemConfig
-    {
-        $this->isDropable = $isDropable;
 
         return $this;
     }

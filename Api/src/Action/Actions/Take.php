@@ -64,7 +64,7 @@ class Take extends AbstractAction
 
         return $this->player->getRoom()->getEquipments()->contains($this->gameItem) &&
             $this->player->getItems()->count() < $this->gameConfig->getMaxItemInInventory() &&
-            $item->isTakeable()
+            $item->hasAction(ActionEnum::TAKE)
             ;
     }
 

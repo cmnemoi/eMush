@@ -459,9 +459,13 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $oxygenTankMechanic = new Tool();
 
-//        $oxygenTankMechanic->setActions([ActionEnum::RETRIEVE_OXYGEN]);
-//        $oxygenTankMechanic->setGrantActions([ActionEnum::INJECT_OXYGEN]);
-//        $oxygenTankMechanic->setActionsTarget([ActionEnum::INJECT_OXYGEN => ActionTargetEnum::EQUIPMENT]);
+        /** @var Action $oxygenInjectAction */
+        $oxygenInjectAction = $this->getReference(ActionsFixtures::OXYGEN_INJECT);
+        /** @var Action $oxygenRetrieveAction */
+        $oxygenRetrieveAction = $this->getReference(ActionsFixtures::OXYGEN_INJECT);
+
+        $oxygenTankMechanic->addAction($oxygenInjectAction);
+        $oxygenTankMechanic->addAction($oxygenRetrieveAction);
 
         $oxygenTank = new EquipmentConfig();
         $oxygenTank

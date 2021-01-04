@@ -6,7 +6,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionScopeEnum;
-use Mush\Action\Service\ActionServiceInterface;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
@@ -24,16 +23,13 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
     use NormalizerAwareTrait;
 
     private TranslatorInterface $translator;
-    private ActionServiceInterface $actionService;
     private TokenStorageInterface $tokenStorage;
 
     public function __construct(
         TranslatorInterface $translator,
-        ActionServiceInterface $actionService,
         TokenStorageInterface $tokenStorage
     ) {
         $this->translator = $translator;
-        $this->actionService = $actionService;
         $this->tokenStorage = $tokenStorage;
     }
 

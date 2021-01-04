@@ -289,7 +289,8 @@ class ActionsFixtures extends Fixture
         $fuelInjectAction
             ->setName(ActionEnum::INSERT_FUEL)
             ->setType([])
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setScope(ActionScopeEnum::ROOM)
+            ->setTarget(GameItem::class)
         ;
 
         $manager->persist($fuelInjectAction);
@@ -307,7 +308,8 @@ class ActionsFixtures extends Fixture
         $oxygenInjectAction
             ->setName(ActionEnum::INSERT_OXYGEN)
             ->setType([])
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setScope(ActionScopeEnum::ROOM)
+            ->setTarget(GameItem::class)
         ;
 
         $manager->persist($oxygenInjectAction);
@@ -329,7 +331,6 @@ class ActionsFixtures extends Fixture
         ;
 
         $manager->persist($lieDownActon);
-
 
         $coffeeAction = new Action();
         $coffeeAction

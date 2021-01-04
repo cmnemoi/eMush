@@ -9,6 +9,7 @@ use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Actions\RetrieveOxygen;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
@@ -21,7 +22,6 @@ use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
-use Mush\Daedalus\Service\DaedalusServiceInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -55,7 +55,6 @@ class RetrieveOxygenTest extends TestCase
              $gameConfigService
          );
     }
-
 
     /**
      * @after

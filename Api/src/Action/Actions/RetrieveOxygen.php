@@ -18,7 +18,7 @@ use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\Target;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
-use Mush\Status\Service\StatusServiceInterface;
+use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class RetrieveOxygen extends AbstractAction
@@ -28,22 +28,19 @@ class RetrieveOxygen extends AbstractAction
     private GameEquipment $gameEquipment;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private PlayerServiceInterface $playerService;
-    private StatusServiceInterface $statusService;
+    private DaedalusServiceInterface $daedalusService;
     private GameConfig $gameConfig;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         GameEquipmentServiceInterface $gameEquipmentService,
-        PlayerServiceInterface $playerService,
-        StatusServiceInterface $statusService,
+        DaedalusServiceInterface $daedalusService,
         GameConfigServiceInterface $gameConfigService
     ) {
         parent::__construct($eventDispatcher);
 
         $this->gameEquipmentService = $gameEquipmentService;
-        $this->playerService = $playerService;
-        $this->statusService = $statusService;
+        $this->daedalusService = $daedalusService;
         $this->gameConfig = $gameConfigService->getConfig();
     }
 
@@ -80,7 +77,7 @@ class RetrieveOxygen extends AbstractAction
 
         $this->gameEquipmentService->persist($gameItem);
 
-        $this->player->getDaedalus()->addOxygen(-1);
+        $this->daedalusService->changeOxygenLevel($this->player->getDaedalus(), -1);
 
         $target = new Target($this->gameEquipment->getName(), 'items');
 

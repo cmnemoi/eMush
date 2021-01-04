@@ -16,7 +16,7 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
-use Mush\Status\Service\StatusServiceInterface;
+use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class InsertOxygen extends AbstractAction
@@ -26,22 +26,19 @@ class InsertOxygen extends AbstractAction
     private GameItem $gameItem;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private PlayerServiceInterface $playerService;
-    private StatusServiceInterface $statusService;
+    private DaedalusServiceInterface $daedalusService;
     private GameConfig $gameConfig;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         GameEquipmentServiceInterface $gameEquipmentService,
-        PlayerServiceInterface $playerService,
-        StatusServiceInterface $statusService,
+        DaedalusServiceInterface $daedalusService,
         GameConfigServiceInterface $gameConfigService
     ) {
         parent::__construct($eventDispatcher);
 
         $this->gameEquipmentService = $gameEquipmentService;
-        $this->playerService = $playerService;
-        $this->statusService = $statusService;
+        $this->daedalusService = $daedalusService;
         $this->gameConfig = $gameConfigService->getConfig();
     }
 
@@ -70,7 +67,7 @@ class InsertOxygen extends AbstractAction
 
         $this->gameEquipmentService->delete($this->gameItem);
 
-        $this->player->getDaedalus()->addOxygen(1);
+        $this->daedalusService->changeOxygenLevel($this->player->getDaedalus(), 1);
 
         return new Success(ActionLogEnum::INSERT_OXYGEN, VisibilityEnum::PUBLIC);
     }

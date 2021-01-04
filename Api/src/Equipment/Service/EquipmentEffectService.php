@@ -151,7 +151,6 @@ class EquipmentEffectService implements EquipmentEffectServiceInterface
             }
         }
 
-        
         if ($diseasesNumber > 0) {
             //Get the names of diseases among the list possible
             //For the diseases append the name of the disease as key and the probability to get sick as value in $diseasesChances

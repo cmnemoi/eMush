@@ -228,7 +228,6 @@ class PlantCycleHandler extends AbstractCycleHandler
         $gameFruit = $this->gameEquipmentService->createGameEquipment($plantType->getFruit(), $room->getDaedalus());
 
         $gameFruit->setRoom($room);
-        
 
         $this->gameEquipmentService->persist($gameFruit);
 

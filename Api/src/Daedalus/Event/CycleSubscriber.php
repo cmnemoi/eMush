@@ -80,7 +80,7 @@ class CycleSubscriber implements EventSubscriberInterface
     private function handleOxygen(Daedalus $daedalus): Daedalus
     {
         //Handle oxygen loss
-        $oxygenLoss=1;
+        $oxygenLoss = 1;
 
         if ($daedalus->getRoomByName(RoomEnum::CENTER_ALPHA_STORAGE)
             ->getEquipments()
@@ -88,7 +88,7 @@ class CycleSubscriber implements EventSubscriberInterface
             ->first()
             ->isBroken()
         ) {
-            $oxygenLoss=$oxygenLoss+1;
+            $oxygenLoss = $oxygenLoss + 1;
         }
         if ($daedalus
             ->getRoomByName(RoomEnum::CENTER_BRAVO_STORAGE)
@@ -97,7 +97,7 @@ class CycleSubscriber implements EventSubscriberInterface
             ->first()
             ->isBroken()
         ) {
-            $oxygenLoss=$oxygenLoss+1;
+            $oxygenLoss = $oxygenLoss + 1;
         }
 
         if ($daedalus->getOxygen() < $oxygenLoss) {

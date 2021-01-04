@@ -6,7 +6,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionScopeEnum;
-use Mush\Action\Service\ActionServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
 use Mush\User\Entity\User;
@@ -22,16 +21,13 @@ class OtherPlayerNormalizer implements ContextAwareNormalizerInterface, Normaliz
     use NormalizerAwareTrait;
 
     private TokenStorageInterface $tokenStorage;
-    private ActionServiceInterface $actionService;
     private TranslatorInterface $translator;
 
     public function __construct(
         TokenStorageInterface $tokenStorage,
-        ActionServiceInterface $actionService,
         TranslatorInterface $translator
     ) {
         $this->tokenStorage = $tokenStorage;
-        $this->actionService = $actionService;
         $this->translator = $translator;
     }
 

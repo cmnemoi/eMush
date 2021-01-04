@@ -12,8 +12,6 @@ use Mush\User\Entity\User;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -81,10 +79,6 @@ class ActionController extends AbstractFOSRestController
     {
         /** @var User $user */
         $user = $this->getUser();
-
-        if (count($violations = $this->validator->validate($actionRequest))) {
-            return $this->view($violations, Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
 
         if (!($currentPlayer = $user->getCurrentGame())) {
             throw new AccessDeniedException('User must be in game for actions');

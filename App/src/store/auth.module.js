@@ -66,6 +66,7 @@ const actions = {
         try {
             const token = await UserService.login(code);
             commit('loginSuccess', token)
+            await this.dispatch('auth/userInfo');
 
             return true
         } catch (e) {

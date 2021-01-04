@@ -38,6 +38,8 @@ class ActionsFixtures extends Fixture
     public const SHOWER_DEFAULT = 'shower.default';
     public const FUEL_INJECT = 'fuel.inject';
     public const FUEL_RETRIEVE = 'fuel.retrieve';
+    public const OXYGEN_INJECT = 'oxygen.inject';
+    public const OXYGEN_RETRIEVE = 'oxygen.retrieve';
     public const LIE_DOWN = 'lie.down';
     public const COFFEE_DEFAULT = 'coffee.default';
 
@@ -298,6 +300,24 @@ class ActionsFixtures extends Fixture
 
         $manager->persist($retrieveFuelAction);
 
+        $oxygenInjectAction = new Action();
+        $oxygenInjectAction
+            ->setName(ActionEnum::INSERT_OXYGEN)
+            ->setType([])
+            ->setScope(ActionScopeEnum::CURRENT)
+        ;
+
+        $manager->persist($oxygenInjectAction);
+
+        $retrieveOxygenAction = new Action();
+        $retrieveOxygenAction
+            ->setName(ActionEnum::RETRIEVE_OXYGEN)
+            ->setType([])
+            ->setScope(ActionScopeEnum::CURRENT)
+        ;
+
+        $manager->persist($retrieveOxygenAction);
+
         $lieDownActon = new Action();
         $lieDownActon
             ->setName(ActionEnum::LIE_DOWN)
@@ -345,6 +365,8 @@ class ActionsFixtures extends Fixture
         $this->addReference(self::SHOWER_DEFAULT, $showerAction);
         $this->addReference(self::FUEL_INJECT, $fuelInjectAction);
         $this->addReference(self::FUEL_RETRIEVE, $retrieveFuelAction);
+        $this->addReference(self::OXYGEN_INJECT, $oxygenInjectAction);
+        $this->addReference(self::OXYGEN_RETRIEVE, $retrieveOxygenAction);
         $this->addReference(self::LIE_DOWN, $lieDownActon);
         $this->addReference(self::COFFEE_DEFAULT, $coffeeAction);
     }

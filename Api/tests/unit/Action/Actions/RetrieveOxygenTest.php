@@ -114,7 +114,6 @@ class RetrieveOxygenTest extends TestCase
 
         $item
             ->setName(ItemEnum::OXYGEN_CAPSULE)
-            ->setIsDropable(false)
             ->setIsHeavy(false)
         ;
 

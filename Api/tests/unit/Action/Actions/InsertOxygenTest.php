@@ -75,7 +75,6 @@ class InsertOxygenTest extends TestCase
 
         $item
             ->setName(ItemEnum::OXYGEN_CAPSULE)
-            ->setIsDropable(false)
             ->setIsHeavy(false)
         ;
 
@@ -119,7 +118,6 @@ class InsertOxygenTest extends TestCase
 
         $item
             ->setName(ItemEnum::OXYGEN_CAPSULE)
-            ->setIsDropable(false)
             ->setIsHeavy(false)
         ;
 

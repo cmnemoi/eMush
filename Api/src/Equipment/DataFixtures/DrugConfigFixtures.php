@@ -61,8 +61,6 @@ class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
                 ->setGameConfig($gameConfig)
                 ->setName($drugName)
                 ->setIsHeavy(false)
-                ->setIsTakeable(true)
-                ->setIsDropable(true)
                 ->setIsStackable(true)
                 ->setIsHideable(true)
                 ->setIsFireDestroyable(true)

@@ -41,25 +41,27 @@ const ApiService = {
             },
             async (error) => {
                 if (error.request.status === 401) {
-                    if (error.config.url.includes('/oauth/v2/token')) {
-                        // Refresh token has failed. Logout the user
-                        await store.dispatch('auth/logout');
-                        throw error
-                    } else {
-                        // Refresh the access token
-                        try{
-                            await store.dispatch('auth/refreshToken');
-                            // Retry the original request
-                            return this.customRequest({
-                                method: error.config.method,
-                                url: error.config.url,
-                                data: error.config.data
-                            })
-                        } catch (e) {
-                            // Refresh has failed - reject the original request
-                            throw error
-                        }
-                    }
+                    //@TODO: use refresh token when available
+                    await store.dispatch('auth/logout');
+                    // if (error.config.url.includes('/oauth/v2/token')) {
+                    //     // Refresh token has failed. Logout the user
+                    //     await store.dispatch('auth/logout');
+                    //     throw error
+                    // } else {
+                    //     // Refresh the access token
+                    //     try{
+                    //         await store.dispatch('auth/refreshToken');
+                    //         // Retry the original request
+                    //         return this.customRequest({
+                    //             method: error.config.method,
+                    //             url: error.config.url,
+                    //             data: error.config.data
+                    //         })
+                    //     } catch (e) {
+                    //         // Refresh has failed - reject the original request
+                    //         throw error
+                    //     }
+                    // }
                 }
                 // If error was not 401 just reject as is
                 throw error

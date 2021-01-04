@@ -57,7 +57,7 @@ class Drop extends AbstractAction
 
         return $this->player->getItems()->contains($this->gameItem) &&
             $gameEquipment instanceof ItemConfig &&
-            $gameEquipment->isDropable()
+            $gameEquipment->hasAction(ActionEnum::DROP)
             ;
     }
 

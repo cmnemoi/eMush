@@ -36,8 +36,6 @@ const UserService = {
 
             ApiService.mount401Interceptor();
 
-            await this.userInfo();
-
             return response.data.token
         } catch (error) {
             console.error(error)

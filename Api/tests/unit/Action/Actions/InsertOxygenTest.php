@@ -21,9 +21,8 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Player\Entity\Player;
-use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
-use Mush\Status\Service\StatusServiceInterface;
+use Mush\Daedalus\Service\DaedalusServiceInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -31,10 +30,8 @@ class InsertOxygenTest extends TestCase
 {
     /** @var GameEquipmentServiceInterface | Mockery\Mock */
     private GameEquipmentServiceInterface $gameEquipmentService;
-    /** @var PlayerServiceInterface | Mockery\Mock */
-    private PlayerServiceInterface $playerService;
-    /** @var StatusServiceInterface | Mockery\Mock */
-    private StatusServiceInterface $statusService;
+    /** @var DaedalusServiceInterface | Mockery\Mock */
+    private DaedalusServiceInterface $daedalusService;
     private GameConfig $gameConfig;
     private AbstractAction $action;
 
@@ -45,8 +42,7 @@ class InsertOxygenTest extends TestCase
     {
         $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
-        $this->playerService = Mockery::mock(PlayerServiceInterface::class);
-        $this->statusService = Mockery::mock(StatusServiceInterface::class);
+        $this->daedalusService = Mockery::mock(DaedalusServiceInterface::class);
         $gameConfigService = Mockery::mock(GameConfigServiceInterface::class);
         $this->gameConfig = new GameConfig();
         $gameConfigService->shouldReceive('getConfig')->andReturn($this->gameConfig)->once();
@@ -56,8 +52,7 @@ class InsertOxygenTest extends TestCase
         $this->action = new InsertOxygen(
              $eventDispatcher,
              $this->gameEquipmentService,
-             $this->playerService,
-             $this->statusService,
+             $this->daedalusService,
              $gameConfigService
          );
     }
@@ -148,6 +143,7 @@ class InsertOxygenTest extends TestCase
 
         $this->gameEquipmentService->shouldReceive('delete');
         $this->gameEquipmentService->shouldReceive('getOperationalEquipmentsByName')->andReturn(new ArrayCollection([$gameTank]))->once();
+        $this->daedalusService->shouldReceive('changeOxygenLevel')->andReturn($daedalus);
 
         $actionParameter = new ActionParameters();
         $actionParameter->setItem($gameItem);
@@ -160,7 +156,6 @@ class InsertOxygenTest extends TestCase
         $this->assertEmpty($player->getItems());
         $this->assertCount(1, $room->getEquipments());
         $this->assertEquals(10, $player->getActionPoint());
-        $this->assertEquals(11, $daedalus->getOxygen());
     }
 
     private function createPlayer(Daedalus $daedalus, Room $room): Player

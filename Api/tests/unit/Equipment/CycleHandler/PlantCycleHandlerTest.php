@@ -5,6 +5,7 @@ namespace Mush\Test\Equipment\CycleHandler;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\CycleHandler\PlantCycleHandler;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
@@ -34,6 +35,8 @@ class PlantCycleHandlerTest extends TestCase
     private RoomLogServiceInterface $roomLogService;
     /** @var StatusServiceInterface | Mockery\Mock */
     private StatusServiceInterface $statusService;
+    /** @var DaedalusServiceInterface | Mockery\Mock */
+    private DaedalusServiceInterface $daedalusService;
     /** @var EquipmentEffectServiceInterface | Mockery\Mock */
     private EquipmentEffectServiceInterface $equipmentEffectService;
 
@@ -51,6 +54,7 @@ class PlantCycleHandlerTest extends TestCase
         $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
         $this->equipmentEffectService = Mockery::mock(EquipmentEffectServiceInterface::class);
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
+        $this->daedalusService = Mockery::mock(DaedalusServiceInterface::class);
         $this->gameConfig = new GameConfig();
 
         $gameConfigService = Mockery::mock(GameConfigServiceInterface::class);
@@ -62,6 +66,7 @@ class PlantCycleHandlerTest extends TestCase
             $this->roomLogService,
             $gameConfigService,
             $this->statusService,
+            $this->daedalusService,
             $this->equipmentEffectService
         );
     }
@@ -194,12 +199,12 @@ class PlantCycleHandlerTest extends TestCase
             ->andReturn($status)
             ->once()
         ;
+        $this->daedalusService->shouldReceive('changeOxygenLevel')->andReturn($daedalus)->once();
 
         //Mature Plant, no problem
         $this->plantCycleHandler->handleNewDay($gamePlant, $daedalus, new \DateTime());
 
         $this->assertCount(2, $room->getEquipments());
-        $this->assertEquals(20, $daedalus->getOxygen());
 
         $dried = new Status();
         $dried->setName(EquipmentStatusEnum::PLANT_DRIED_OUT);
@@ -210,11 +215,11 @@ class PlantCycleHandlerTest extends TestCase
             ->once()
         ;
 
+        $this->daedalusService->shouldReceive('changeOxygenLevel')->andReturn($daedalus)->once();
         //Thirsty plant
         $this->plantCycleHandler->handleNewDay($gamePlant, $daedalus, new \DateTime());
 
         $this->assertCount(2, $room->getEquipments());
-        $this->assertEquals(30, $daedalus->getOxygen());
 
         $this->gameEquipmentService->shouldReceive('createEquipment')->andReturn(new GameItem());
         $this->gameEquipmentService->shouldReceive('delete');
@@ -224,6 +229,5 @@ class PlantCycleHandlerTest extends TestCase
 
         $this->assertCount(2, $room->getEquipments());
         $this->assertNotContains($plant, $room->getEquipments());
-        $this->assertEquals(30, $daedalus->getOxygen());
     }
 }

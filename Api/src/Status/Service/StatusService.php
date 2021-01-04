@@ -151,6 +151,7 @@ class StatusService implements StatusServiceInterface
     public function delete(Status $status): bool
     {
         $this->entityManager->remove($status);
+        $this->entityManager->flush();
 
         return true;
     }

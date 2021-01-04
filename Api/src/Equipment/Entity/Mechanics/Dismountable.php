@@ -16,8 +16,6 @@ class Dismountable extends EquipmentMechanic
 {
     protected string $mechanic = EquipmentMechanicEnum::DISMOUNTABLE;
 
-    protected array $actions = [ActionEnum::DISASSEMBLE];
-
     /**
      * @ORM\Column(type="integer", nullable=false)
      */

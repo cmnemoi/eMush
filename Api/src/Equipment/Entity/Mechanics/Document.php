@@ -15,8 +15,6 @@ class Document extends Tool
 {
     protected string $mechanic = EquipmentMechanicEnum::DOCUMENT;
 
-    protected array $actions = [ActionEnum::READ_DOCUMENT, ActionEnum::SHRED];
-
     /**
      * @ORM\Column(type="string", nullable=false)
      */

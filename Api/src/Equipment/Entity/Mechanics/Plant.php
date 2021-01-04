@@ -17,8 +17,6 @@ class Plant extends EquipmentMechanic
 {
     protected string $mechanic = EquipmentMechanicEnum::PLANT;
 
-    protected array $actions = [ActionEnum::WATER_PLANT, ActionEnum::TREAT_PLANT, ActionEnum::HYBRIDIZE];
-
     /**
      * @ORM\OneToOne(targetEntity="Mush\Equipment\Entity\EquipmentConfig", inversedBy=")
      */

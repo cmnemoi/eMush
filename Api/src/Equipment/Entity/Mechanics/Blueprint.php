@@ -16,8 +16,6 @@ class Blueprint extends Tool
 {
     protected string $mechanic = EquipmentMechanicEnum::BLUEPRINT;
 
-    protected array $actions = [ActionEnum::BUILD];
-
     /**
      * @ORM\OneToOne(targetEntity="Mush\Equipment\Entity\EquipmentConfig")
      */

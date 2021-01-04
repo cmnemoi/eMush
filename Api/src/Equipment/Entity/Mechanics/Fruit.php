@@ -15,8 +15,6 @@ class Fruit extends Ration
 {
     protected string $mechanic = EquipmentMechanicEnum::FRUIT;
 
-    protected array $actions = [ActionEnum::TRANSPLANT];
-
     /**
      * @ORM\Column(type="string", nullable=false)
      */

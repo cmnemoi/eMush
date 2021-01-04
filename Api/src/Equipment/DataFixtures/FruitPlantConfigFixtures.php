@@ -32,8 +32,16 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
         $dropAction = $this->getReference(ActionsFixtures::DEFAULT_DROP);
         /** @var Action $consumeRationAction */
         $consumeRationAction = $this->getReference(ActionsFixtures::RATION_CONSUME);
+        /** @var Action $transplantAction */
+        $transplantAction = $this->getReference(ActionsFixtures::TRANSPLANT_DEFAULT);
+        /** @var Action $treatAction */
+        $treatAction = $this->getReference(ActionsFixtures::TREAT_PLANT);
+        /** @var Action $waterAction */
+        $waterAction = $this->getReference(ActionsFixtures::WATER_PLANT);
 
         $actions = new ArrayCollection([$takeAction, $dropAction]);
+        $plantActions = new ArrayCollection([$treatAction, $waterAction]);
+        $fruitActions = new ArrayCollection([$consumeRationAction, $transplantAction]);
 
         $bananaMechanic = new Fruit();
         $bananaMechanic
@@ -42,7 +50,7 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
             ->setMovementPoints([0])
             ->setHealthPoints([1 => 1])
             ->setMoralPoints([1 => 1])
-            ->addAction($consumeRationAction)
+            ->setActions($fruitActions)
         ;
 
         $banana = new ItemConfig();
@@ -67,7 +75,7 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
             ->setMaturationTime([36 => 1])
             ->setMaxOxygen(1)
             ->setMinOxygen(1)
-            ->addAction($consumeRationAction)
+            ->setActions($plantActions)
         ;
 
         $bananaTree = new ItemConfig();
@@ -149,7 +157,7 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
                 ->setDiseasesEffectDelayLength([0 => 1, 1 => 1, 2 => 1, 3 => 1, 4 => 1, 5 => 1, 6 => 1, 7 => 1, 8 => 1])
                 ->setFruitEffectsNumber([0 => 35, 1 => 40, 2 => 15, 3 => 9, 4 => 1])
                 ->setExtraEffects([ExtraEffectEnum::EXTRA_PA_GAIN => 50])
-                ->addAction($consumeRationAction)
+                ->setActions($fruitActions)
             ;
             $manager->persist($alienFruitMechanic);
 
@@ -173,7 +181,7 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
                 ->setMaturationTime([2 => 7, 4 => 7, 8 => 24, 12 => 14, 16 => 7, 24 => 7, 48 => 7])
                 ->setMaxOxygen(1)
                 ->setMinOxygen(1)
-                ->addAction($consumeRationAction)
+                ->setActions($plantActions)
             ;
 
             $alienPlant = new ItemConfig();
@@ -202,7 +210,7 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
             ->setDiseasesChances([DiseaseEnum::JUNKBUMPKINITIS => 100])
             ->setDiseasesDelayMin([DiseaseEnum::JUNKBUMPKINITIS => 0])
             ->setDiseasesDelayLength([DiseaseEnum::JUNKBUMPKINITIS => 0])
-            ->addAction($consumeRationAction)
+            ->setActions($fruitActions)
         ;
 
         $junkin = new ItemConfig();
@@ -226,7 +234,7 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
             ->setMaturationTime([8 => 1])
             ->setMaxOxygen(1)
             ->setMinOxygen(1)
-            ->addAction($consumeRationAction)
+            ->setActions($plantActions)
         ;
 
         $bumpjunkin = new ItemConfig();

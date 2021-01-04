@@ -227,7 +227,7 @@ class DaedalusService implements DaedalusServiceInterface
     public function changeOxygenLevel(Daedalus $daedalus, int $change): Daedalus
     {
         $maxOxygen = $daedalus->getGameConfig()->getMaxOxygen();
-        if (!($daedalus->getOxygen() + $change > $maxOxygen) && !($daedalus->getOxygen() + $change < 0)) {
+        if (!($newOxygenLevel = $daedalus->getOxygen() + $change > $maxOxygen) && !($newOxygenLevel < 0)) {
             $daedalus->addOxygen($change);
         }
 
@@ -237,7 +237,7 @@ class DaedalusService implements DaedalusServiceInterface
     public function changeFuelLevel(Daedalus $daedalus, int $change): Daedalus
     {
         $maxFuel = $daedalus->getGameConfig()->getMaxFuel();
-        if (!($daedalus->getFuel() + $change > $maxFuel) && !($daedalus->getFuel() + $change < 0)) {
+        if (!($newFuelLevel = $daedalus->getFuel() + $change > $maxFuel) && !($newFuelLevel < 0)) {
             $daedalus->addFuel($change);
         }
 

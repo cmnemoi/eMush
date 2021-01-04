@@ -133,7 +133,8 @@ class EquipmentEffectService implements EquipmentEffectServiceInterface
         $extraEffectNumber = count(array_filter($pickedEffects, function ($idEffect) use ($diseaseNumberPossible) {
             return $idEffect > 2 * $diseaseNumberPossible;
         }));
-        $diseasesNumber = $diseaseNumberPossible * 2 + $extraEffectNumberPossible - $curesNumber - $extraEffectNumber;
+
+        $diseasesNumber = $effectsNumber - $curesNumber - $extraEffectNumber;
 
         $cures = [];
         $diseasesChances = [];
@@ -150,6 +151,7 @@ class EquipmentEffectService implements EquipmentEffectServiceInterface
             }
         }
 
+        
         if ($diseasesNumber > 0) {
             //Get the names of diseases among the list possible
             //For the diseases append the name of the disease as key and the probability to get sick as value in $diseasesChances

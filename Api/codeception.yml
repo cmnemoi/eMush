@@ -14,3 +14,5 @@ params:
 
 coverage:
     enabled: true
+    include:
+        - src/*

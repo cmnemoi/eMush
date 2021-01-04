@@ -84,9 +84,9 @@ class Hit extends AttemptAction
                 // TODO:
             } elseif ($this->target->getHealthPoint() > $damage) {
                 $actionModifier = new ActionModifier();
-                $actionModifier->setHealthPointModifier($damage);
+                $actionModifier->setHealthPointModifier(-$damage);
 
-                $playerEvent = new PlayerEvent($this->player);
+                $playerEvent = new PlayerEvent($this->target);
                 $playerEvent->setActionModifier($actionModifier);
                 $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
 

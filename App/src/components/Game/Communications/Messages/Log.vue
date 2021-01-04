@@ -23,9 +23,9 @@ export default {
       // console.log(value)
       if (!value) return ''
       value = value.toString()
-      value = value.replaceAll(/\*\*(\w*)\*\*/g, '<strong>$1&nbsp;</strong>');
-      value = value.replaceAll(/:pa:/g, '<img src="'+require("@/assets/images/pa.png")+'" alt="pa">')
-      return value.replaceAll(/:pm:/g, '<img src="'+require("@/assets/images/pm.png")+'" alt="pm">')
+      value = value.replace(/\*\*(\w*)\*\*/g, '<strong>$1&nbsp;</strong>');
+      value = value.replace(/:pa:/g, '<img src="'+require("@/assets/images/pa.png")+'" alt="pa">')
+      return value.replace(/:pm:/g, '<img src="'+require("@/assets/images/pm.png")+'" alt="pm">')
     }
   }
 }

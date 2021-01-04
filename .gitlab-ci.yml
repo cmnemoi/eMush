@@ -34,7 +34,7 @@ api-test:
   script:
     - bin/console doctrine:schema:update -f
     - echo y | bin/console doctrine:fixture:load
-    - php vendor/bin/codecept run --xml --html --coverage
+    - XDEBUG_MODE=coverage php vendor/bin/codecept run --xml --html --coverage
   artifacts:
     when: always
     expire_in: 1 week

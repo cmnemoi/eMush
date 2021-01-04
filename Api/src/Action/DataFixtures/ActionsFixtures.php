@@ -42,6 +42,9 @@ class ActionsFixtures extends Fixture
     public const OXYGEN_RETRIEVE = 'oxygen.retrieve';
     public const LIE_DOWN = 'lie.down';
     public const COFFEE_DEFAULT = 'coffee.default';
+    public const TRANSPLANT_DEFAULT = 'transplant.default';
+    public const TREAT_PLANT = 'treat.plant';
+    public const WATER_PLANT = 'water.plant';
 
     public function load(ObjectManager $manager): void
     {
@@ -286,7 +289,8 @@ class ActionsFixtures extends Fixture
         $fuelInjectAction
             ->setName(ActionEnum::INSERT_FUEL)
             ->setType([])
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setScope(ActionScopeEnum::ROOM)
+            ->setTarget(GameItem::class)
         ;
 
         $manager->persist($fuelInjectAction);
@@ -304,7 +308,8 @@ class ActionsFixtures extends Fixture
         $oxygenInjectAction
             ->setName(ActionEnum::INSERT_OXYGEN)
             ->setType([])
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setScope(ActionScopeEnum::ROOM)
+            ->setTarget(GameItem::class)
         ;
 
         $manager->persist($oxygenInjectAction);
@@ -332,9 +337,39 @@ class ActionsFixtures extends Fixture
             ->setName(ActionEnum::COFFEE)
             ->setType([])
             ->setScope(ActionScopeEnum::CURRENT)
+            ->setDirtyRate(50)
         ;
 
         $manager->persist($coffeeAction);
+
+        $transplantAction = new Action();
+        $transplantAction
+            ->setName(ActionEnum::TRANSPLANT)
+            ->setType([])
+            ->setScope(ActionScopeEnum::CURRENT)
+        ;
+
+        $manager->persist($transplantAction);
+
+        $treatPlantAction = new Action();
+        $treatPlantAction
+            ->setName(ActionEnum::TREAT_PLANT)
+            ->setType([])
+            ->setScope(ActionScopeEnum::CURRENT)
+            ->setDirtyRate(50)
+        ;
+
+        $manager->persist($treatPlantAction);
+
+        $waterPlantAction = new Action();
+        $waterPlantAction
+            ->setName(ActionEnum::WATER_PLANT)
+            ->setType([])
+            ->setScope(ActionScopeEnum::CURRENT)
+            ->setDirtyRate(50)
+        ;
+
+        $manager->persist($waterPlantAction);
 
         $manager->flush();
 
@@ -369,5 +404,8 @@ class ActionsFixtures extends Fixture
         $this->addReference(self::OXYGEN_RETRIEVE, $retrieveOxygenAction);
         $this->addReference(self::LIE_DOWN, $lieDownActon);
         $this->addReference(self::COFFEE_DEFAULT, $coffeeAction);
+        $this->addReference(self::TRANSPLANT_DEFAULT, $transplantAction);
+        $this->addReference(self::TREAT_PLANT, $treatPlantAction);
+        $this->addReference(self::WATER_PLANT, $waterPlantAction);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Mush\Equipment\CycleHandler;
 
+use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Plant;
@@ -33,6 +34,7 @@ class PlantCycleHandler extends AbstractCycleHandler
     private RoomLogServiceInterface $roomLogService;
     private GameConfig $gameConfig;
     private StatusServiceInterface $statusService;
+    private DaedalusServiceInterface $daedalusService;
     private EquipmentEffectServiceInterface $equipmentEffectService;
 
     private const DISEASE_PERCENTAGE = 3;
@@ -43,6 +45,7 @@ class PlantCycleHandler extends AbstractCycleHandler
         RoomLogServiceInterface $roomLogService,
         GameConfigServiceInterface $gameConfigService,
         StatusServiceInterface $statusService,
+        DaedalusServiceInterface $daedalusService,
         EquipmentEffectServiceInterface $equipmentEffectService
     ) {
         $this->gameEquipmentService = $gameEquipmentService;
@@ -50,6 +53,7 @@ class PlantCycleHandler extends AbstractCycleHandler
         $this->roomLogService = $roomLogService;
         $this->equipmentEffectService = $equipmentEffectService;
         $this->statusService = $statusService;
+        $this->daedalusService = $daedalusService;
         $this->gameConfig = $gameConfigService->getConfig();
     }
 
@@ -250,7 +254,7 @@ class PlantCycleHandler extends AbstractCycleHandler
         $daedalus = $this->getRoom($gamePlant)->getDaedalus();
         //Add Oxygen
         if (($oxygen = $plantEffect->getOxygen())) {
-            $daedalus->setOxygen($daedalus->getOxygen() + $oxygen);
+            $this->daedalusService->changeOxygenLevel($daedalus, 1);
         }
     }
 

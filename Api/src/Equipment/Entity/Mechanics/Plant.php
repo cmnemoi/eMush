@@ -3,7 +3,6 @@
 namespace Mush\Equipment\Entity\Mechanics;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
@@ -16,8 +15,6 @@ use Mush\Equipment\Enum\EquipmentMechanicEnum;
 class Plant extends EquipmentMechanic
 {
     protected string $mechanic = EquipmentMechanicEnum::PLANT;
-
-    protected array $actions = [ActionEnum::WATER_PLANT, ActionEnum::TREAT_PLANT, ActionEnum::HYBRIDIZE];
 
     /**
      * @ORM\OneToOne(targetEntity="Mush\Equipment\Entity\EquipmentConfig", inversedBy=")

@@ -349,15 +349,15 @@
         </unit>
         <unit id="insert_oxygen">
             <segment id="insert_oxygen">
-                <source>write.name</source>
+                <source>insert_oxygen.name</source>
                 <target>Insérer</target>
             </segment>
             <segment id="description">
-                <source>write.description</source>
+                <source>insert_oxygen.description</source>
                 <target>Injecte l'Oxygène dans un Réservoir.</target>
             </segment>
             <segment id="description_no">
-                <source>write.description.no</source>
+                <source>insert_oxygen.description.no</source>
                 <target>TODO</target>
             </segment>
         </unit>

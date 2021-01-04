@@ -29,6 +29,7 @@ class Message
 
     /**
      * @ORM\OneToMany (targetEntity="Mush\Communication\Entity\Message", mappedBy="parent")
+     * @ORM\OrderBy({"createdAt" = "ASC"})
      */
     private Collection $child;
 

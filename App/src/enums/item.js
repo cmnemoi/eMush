@@ -2,6 +2,7 @@ const COFFEE = "coffee";
 const PLASTIC_SCRAP = "plastic_scraps";
 const METAL_SCRAP = "metal_scraps";
 const BACTA = "bacta";
+const CREEPNUT_TREE = "creepnut_tree";
 const CREEPNUT = "creepnut";
 const SNIPER_HELMET_BLUEPRINT = "sniper_helmet_blueprint";
 const SNIPER_HELMET = "sniper_helmet";
@@ -13,6 +14,7 @@ const MICROWAVE = "microwave";
 const SUPERFREEZER = "superfreezer";
 const HYDROPOT = "hydropot";
 const BANANA_TREE = "banana_tree";
+const BANANA = "banana";
 const PLASTENITE_ARMOR = "plastenite_armor";
 const CAMERA = "camera";
 const EXTINGUISHER = "extinguisher";
@@ -48,9 +50,6 @@ export const itemEnum = {
     [BACTA]: {
         'image': require('@/assets/images/items/drug_8.jpg')
     },
-    [CREEPNUT]: {
-        'image': require('@/assets/images/items/fruit01.jpg')
-    },
     [SNIPER_HELMET_BLUEPRINT]: {
         'image': require('@/assets/images/items/blueprint.jpg')
     },
@@ -76,7 +75,16 @@ export const itemEnum = {
         'image': require('@/assets/images/items/tree_pot.jpg')
     },
     [BANANA_TREE]: {
-        'image': require('@/assets/images/items/fruit_tree00.jpg')
+        'image': require('@/assets/images/items/plant/fruit_tree00.jpg')
+    },
+    [BANANA]: {
+        'image': require('@/assets/images/items/fruit/fruit00.jpg')
+    },
+    [CREEPNUT_TREE]: {
+        'image': require('@/assets/images/items/plant/fruit_tree01.jpg')
+    },
+    [CREEPNUT]: {
+        'image': require('@/assets/images/items/fruit/fruit01.jpg')
     },
     [PLASTENITE_ARMOR]: {
         'image': require('@/assets/images/items/plastenite_armor.jpg')

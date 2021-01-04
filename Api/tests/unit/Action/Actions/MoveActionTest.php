@@ -5,7 +5,7 @@ namespace Mush\Test\Action\Actions;
 use Mockery;
 use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Actions\Action;
+use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Actions\Move;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Daedalus\Entity\Daedalus;
@@ -26,7 +26,7 @@ class MoveActionTest extends TestCase
     private RoomLogServiceInterface $roomLogService;
     /** @var PlayerServiceInterface | Mockery\Mock */
     private PlayerServiceInterface $playerService;
-    private Action $action;
+    private AbstractAction $action;
 
     /**
      * @before

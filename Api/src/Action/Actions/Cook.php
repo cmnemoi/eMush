@@ -22,7 +22,7 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class Cook extends Action
+class Cook extends AbstractAction
 {
     protected string $name = ActionEnum::COOK;
 

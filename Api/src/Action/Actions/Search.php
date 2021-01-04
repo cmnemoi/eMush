@@ -19,7 +19,7 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class Search extends Action
+class Search extends AbstractAction
 {
     protected string $name = ActionEnum::SEARCH;
 

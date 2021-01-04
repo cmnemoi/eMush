@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Actions\Action;
+use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Actions\Transplant;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Daedalus\Entity\Daedalus;
@@ -28,7 +28,7 @@ class PlantActionTest extends TestCase
     private GameEquipmentServiceInterface $gameEquipmentService;
     /** @var PlayerServiceInterface | Mockery\Mock */
     private PlayerServiceInterface $playerService;
-    private Action $action;
+    private AbstractAction $action;
 
     /**
      * @before

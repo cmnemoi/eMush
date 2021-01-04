@@ -20,7 +20,7 @@ use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class Build extends Action
+class Build extends AbstractAction
 {
     protected string $name = ActionEnum::BUILD;
 

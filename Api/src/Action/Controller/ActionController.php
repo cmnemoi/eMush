@@ -4,15 +4,19 @@ namespace Mush\Action\Controller;
 
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use FOS\RestBundle\View\View;
 use Mush\Action\ActionResult\Error;
+use Mush\Action\Entity\Dto\ActionRequest;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\User\Entity\User;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * Class UsersController.
@@ -22,10 +26,14 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class ActionController extends AbstractFOSRestController
 {
     private ActionServiceInterface $actionService;
+    private ValidatorInterface $validator;
 
-    public function __construct(ActionServiceInterface $actionService)
-    {
+    public function __construct(
+        ActionServiceInterface $actionService,
+        ValidatorInterface $validator
+    ) {
         $this->actionService = $actionService;
+        $this->validator = $validator;
     }
 
     /**
@@ -39,7 +47,7 @@ class ActionController extends AbstractFOSRestController
      *              type="object",
      *                 @OA\Property(
      *                     property="action",
-     *                     description="The action name to perform",
+     *                     description="The action id to perform",
      *                     type="integer",
      *                 ),
      *                  @OA\Property(
@@ -66,12 +74,17 @@ class ActionController extends AbstractFOSRestController
      *     )
      * @OA\Tag(name="Action")
      * @Security(name="Bearer")
+     * @ParamConverter("actionRequest", converter="fos_rest.request_body")
      * @Rest\Post(path="")
      */
-    public function createAction(Request $request): Response
+    public function createAction(ActionRequest $actionRequest): View
     {
         /** @var User $user */
         $user = $this->getUser();
+
+        if (count($violations = $this->validator->validate($actionRequest))) {
+            return $this->view($violations, Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
 
         if (!($currentPlayer = $user->getCurrentGame())) {
             throw new AccessDeniedException('User must be in game for actions');
@@ -80,11 +93,11 @@ class ActionController extends AbstractFOSRestController
         try {
             $result = $this->actionService->executeAction(
                 $currentPlayer,
-                $request->get('action'),
-                $request->get('params')
+                $actionRequest->getAction(),
+                $actionRequest->getParams()
             );
         } catch (\InvalidArgumentException $exception) {
-            return $this->handleView($this->view(['error' => $exception->getMessage()], 422));
+            return $this->view($this->view(['error' => $exception->getMessage()], 422));
         }
 
         if ($result instanceof Error) {
@@ -93,6 +106,6 @@ class ActionController extends AbstractFOSRestController
             $view = $this->view(null, 200);
         }
 
-        return $this->handleView($view);
+        return $this->view($view);
     }
 }

@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Actions\Action;
+use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Actions\Build;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Daedalus\Entity\Daedalus;
@@ -33,7 +33,7 @@ class BuildActionTest extends TestCase
     private PlayerServiceInterface $playerService;
 
     private GameConfig $gameConfig;
-    private Action $action;
+    private AbstractAction $action;
 
     /**
      * @before

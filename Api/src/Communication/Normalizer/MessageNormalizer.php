@@ -31,12 +31,13 @@ class MessageNormalizer implements ContextAwareNormalizerInterface
         foreach ($object->getChild() as $children) {
             $child[] = $this->normalize($children, $format, $context);
         }
+        $character = $object->getAuthor()->getCharacterConfig()->getName();
 
         return [
             'id' => $object->getId(),
             'character' => [
-                'key' => $object->getAuthor()->getPerson(),
-                'value' => $this->translator->trans($object->getAuthor()->getPerson() . '.name', [], 'characters'),
+                'key' => $character,
+                'value' => $this->translator->trans($character . '.name', [], 'characters'),
             ],
             'message' => $object->getMessage(),
             'createdAt' => $object->getCreatedAt()->format(\DateTime::ATOM),

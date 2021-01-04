@@ -21,7 +21,7 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class Take extends Action
+class Take extends AbstractAction
 {
     protected string $name = ActionEnum::TAKE;
 

@@ -10,7 +10,7 @@ use Mush\Action\Event\ActionEvent;
 use Mush\Player\Entity\Player;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-abstract class Action
+abstract class AbstractAction
 {
     protected ActionCost $actionCost;
     protected Player $player;

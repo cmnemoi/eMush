@@ -5,7 +5,7 @@ namespace Mush\Equipment\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Entity\Action;
 use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Game\Entity\GameConfig;
@@ -65,9 +65,15 @@ class EquipmentConfig
      */
     private bool $isAlienArtifact = false;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Mush\Action\Entity\Action")
+     */
+    private Collection $actions;
+
     public function __construct()
     {
         $this->mechanics = new ArrayCollection();
+        $this->actions = new ArrayCollection();
     }
 
     public function createGameEquipment(): GameEquipment
@@ -216,19 +222,30 @@ class EquipmentConfig
         return $this;
     }
 
+    /**
+     * @return static
+     */
+    public function setActions(Collection $actions): self
+    {
+        $this->actions = $actions;
+
+        return $this;
+    }
+
     public function getActions(): Collection
     {
-        $actions = ActionEnum::getPermanentEquipmentActions();
+        $actions = $this->actions->toArray();
 
+        /** @var EquipmentMechanic $mechanic */
         foreach ($this->getMechanics() as $mechanic) {
-            $actions = array_merge($actions, $mechanic->getActions());
+            $actions = array_merge($actions, $mechanic->getActions()->toArray());
         }
 
         return new ArrayCollection($actions);
     }
 
-    public function hasAction(string $action): bool
+    public function hasAction(string $actionName): bool
     {
-        return $this->getActions()->contains($action);
+        return $this->getActions()->exists(fn (int $id, Action $action) => $action->getName() === $actionName);
     }
 }

@@ -29,7 +29,8 @@ class Door extends GameEquipment
 
     public function getActions(): Collection
     {
-        return new ArrayCollection([ActionEnum::MOVE, ActionEnum::REPAIR]);
+        return new ArrayCollection();
+//        return new ArrayCollection([ActionEnum::MOVE, ActionEnum::REPAIR]);
     }
 
     public function getRooms(): Collection

@@ -15,7 +15,7 @@ use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class Move extends Action
+class Move extends AbstractAction
 {
     protected string $name = ActionEnum::MOVE;
 

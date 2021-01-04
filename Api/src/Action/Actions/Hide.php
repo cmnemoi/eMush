@@ -18,7 +18,7 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class Hide extends Action
+class Hide extends AbstractAction
 {
     protected string $name = ActionEnum::HIDE;
 

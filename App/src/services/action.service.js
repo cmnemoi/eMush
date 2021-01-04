@@ -12,7 +12,7 @@ const ActionService = {
      */
     executeItemAction: (item, action) => {
         const data = {
-            "action": action.key,
+            "action": action.id,
             "params" : {
                 "item": item.id
             }
@@ -38,7 +38,7 @@ const ActionService = {
         }
 
         let data = {
-                "action": action.key,
+                "action": action.id,
                 "params": params
             }
         ;
@@ -48,7 +48,7 @@ const ActionService = {
 
     executeDoorAction: (door, action) => {
         const data = {
-            "action": action.key,
+            "action": action.id,
             "params" : {
                 "door": door.id
             }

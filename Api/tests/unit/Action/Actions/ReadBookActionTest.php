@@ -5,7 +5,7 @@ namespace Mush\Test\Action\Actions;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Actions\Action;
+use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Actions\ReadBook;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Daedalus\Entity\Daedalus;
@@ -27,7 +27,7 @@ class ReadBookActionTest extends TestCase
     private GameEquipmentServiceInterface $gameEquipmentService;
     /** @var PlayerServiceInterface | Mockery\Mock */
     private PlayerServiceInterface $playerService;
-    private Action $action;
+    private AbstractAction $action;
 
     /**
      * @before

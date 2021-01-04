@@ -13,7 +13,7 @@ use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class ReadDocument extends Action
+class ReadDocument extends AbstractAction
 {
     protected string $name = ActionEnum::READ_DOCUMENT;
 

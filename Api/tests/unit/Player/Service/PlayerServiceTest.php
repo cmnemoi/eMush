@@ -135,7 +135,7 @@ class PlayerServiceTest extends TestCase
         $player = $this->service->createPlayer($daedalus, 'character');
 
         $this->assertInstanceOf(Player::class, $player);
-        $this->assertEquals('character', $player->getPerson());
+        $this->assertEquals('character', $player->getCharacterConfig()->getName());
         $this->assertEquals($this->gameConfig->getInitActionPoint(), $player->getActionPoint());
         $this->assertEquals($this->gameConfig->getInitMovementPoint(), $player->getMovementPoint());
         $this->assertEquals($this->gameConfig->getInitHealthPoint(), $player->getHealthPoint());

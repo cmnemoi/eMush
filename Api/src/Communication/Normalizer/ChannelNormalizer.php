@@ -29,11 +29,12 @@ class ChannelNormalizer implements ContextAwareNormalizerInterface
         $participants = [];
         /** @var Player $participant */
         foreach ($object->getParticipants() as $participant) {
+            $character = $participant->getCharacterConfig()->getName();
             $participants[] = [
                 'id' => $participant->getId(),
                 'character' => [
-                    'key' => $participant->getPerson(),
-                    'value' => $this->translator->trans($participant->getPerson() . '.name', [], 'characters'),
+                    'key' => $character,
+                    'value' => $this->translator->trans($character . '.name', [], 'characters'),
                 ],
             ];
         }

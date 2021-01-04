@@ -6,8 +6,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Actions\Action;
+use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Actions\LieDown;
+use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
@@ -31,7 +32,7 @@ class LieDownActionTest extends TestCase
     private GameEquipmentServiceInterface $gameEquipmentService;
     /** @var StatusServiceInterface | Mockery\Mock */
     private StatusServiceInterface $statusService;
-    private Action $action;
+    private AbstractAction $action;
 
     /**
      * @before
@@ -66,7 +67,9 @@ class LieDownActionTest extends TestCase
 
         $gameEquipment = new GameEquipment();
         $tool = new Tool();
-        $tool->setActions([ActionEnum::LIE_DOWN]);
+        $lieDownAction = new Action();
+        $lieDownAction->setName(ActionEnum::LIE_DOWN);
+        $tool->setActions(new ArrayCollection([$lieDownAction]));
         $item = new EquipmentConfig();
         $item
             ->setName(EquipmentEnum::BED)
@@ -111,7 +114,9 @@ class LieDownActionTest extends TestCase
 
         $gameEquipment = new GameEquipment();
         $tool = new Tool();
-        $tool->setActions([ActionEnum::LIE_DOWN]);
+        $lieDownAction = new Action();
+        $lieDownAction->setName(ActionEnum::LIE_DOWN);
+        $tool->setActions(new ArrayCollection([$lieDownAction]));
         $item = new EquipmentConfig();
         $item
             ->setName(EquipmentEnum::BED)

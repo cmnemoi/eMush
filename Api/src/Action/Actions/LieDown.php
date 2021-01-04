@@ -15,7 +15,7 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class LieDown extends Action
+class LieDown extends AbstractAction
 {
     protected string $name = ActionEnum::LIE_DOWN;
 

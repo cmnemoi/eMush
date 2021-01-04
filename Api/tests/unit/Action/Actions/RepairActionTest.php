@@ -6,7 +6,7 @@ use Mockery;
 use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Actions\Action;
+use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Actions\Repair;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Service\SuccessRateServiceInterface;
@@ -43,7 +43,7 @@ class RepairActionTest extends TestCase
     private RandomServiceInterface $randomService;
     /** @var StatusServiceInterface | Mockery\Mock */
     private StatusServiceInterface $statusService;
-    private Action $action;
+    private AbstractAction $action;
 
     /**
      * @before

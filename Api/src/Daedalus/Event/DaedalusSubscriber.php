@@ -67,7 +67,8 @@ class DaedalusSubscriber implements EventSubscriberInterface
     public function onDaedalusFull(DaedalusEvent $event): void
     {
         $daedalus = $event->getDaedalus();
-        // @TODO: create logs
+        dump('yo');
+        //@TODO: create logs
 
         //@TODO give titles
 

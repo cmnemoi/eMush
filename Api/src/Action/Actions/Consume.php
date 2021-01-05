@@ -62,8 +62,8 @@ class Consume extends AbstractAction
     public function canExecute(): bool
     {
         return !($this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::DRUG) &&
-                $this->player->canReachEquipment($this->gameEquipment) &&
                 $this->player->getStatusByName(PlayerStatusEnum::DRUG_EATEN)) &&
+                $this->player->canReachEquipment($this->gameEquipment) &&
                 $this->gameEquipment->getEquipment()->hasAction(ActionEnum::CONSUME) &&
                 !$this->player->getStatusByName(PlayerStatusEnum::FULL_STOMACH);
     }

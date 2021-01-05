@@ -167,13 +167,13 @@ class DaedalusService implements DaedalusServiceInterface
 
         $mushPlayerName = $this->randomService->getRandomElementsFromProbaArray($chancesArray, $mushNumber);
         foreach ($mushPlayerName as $playerName) {
-            $mushPlayer = $daedalus
+            $mushPlayers = $daedalus
                 ->getPlayers()
-                ->filter(fn (Player $player) => $player->getCharacterConfig()->getName() === $playerName)->first()
+                ->filter(fn (Player $player) => $player->getCharacterConfig()->getName() === $playerName)
             ;
 
-            if (!$mushPlayer->isEmpty()) {
-                $playerEvent = new PlayerEvent($mushPlayer);
+            if (!$mushPlayers->isEmpty()) {
+                $playerEvent = new PlayerEvent($mushPlayers->first());
                 $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::CONVERSION_PLAYER);
             }
         }

@@ -38,9 +38,11 @@ class CycleSubscriber implements EventSubscriberInterface
         }
 
         foreach ($equipment->getStatuses() as $status) {
-            $statusNewCycle = new CycleEvent($event->getDaedalus(), $event->getTime());
-            $statusNewCycle->setStatus($status);
-            $this->eventDispatcher->dispatch($statusNewCycle, CycleEvent::NEW_CYCLE);
+            if ($status->getPlayer() === null) {
+                $statusNewCycle = new CycleEvent($event->getDaedalus(), $event->getTime());
+                $statusNewCycle->setStatus($status);
+                $this->eventDispatcher->dispatch($statusNewCycle, CycleEvent::NEW_CYCLE);
+            }
         }
 
         foreach ($equipment->getEquipment()->getMechanics() as $mechanic) {

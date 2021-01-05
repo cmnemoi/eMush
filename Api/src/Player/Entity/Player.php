@@ -86,22 +86,22 @@ class Player
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
-    private int $healthPoint;
+    private int $healthPoint = 0;
 
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
-    private int $moralPoint;
+    private int $moralPoint = 0;
 
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
-    private int $actionPoint;
+    private int $actionPoint = 0;
 
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
-    private int $movementPoint;
+    private int $movementPoint = 0;
 
     /**
      * @ORM\Column(type="integer", nullable=false)
@@ -111,7 +111,7 @@ class Player
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
-    private int $satiety;
+    private int $satiety = 0;
 
     public function __construct()
     {
@@ -261,12 +261,15 @@ class Player
             ))
             )->filter(fn (GameEquipment $equipment) => ($equipment->getName() === $name));
         } else {
-            return $this->getDaedalus()
-                ->getRoomByName($reach)
-                ->getEquipments()
-                ->filter(fn (GameEquipment $equipment) => $equipment->getName() === $name)
-                ;
+            if ($roomReached = $this->getDaedalus()->getRoomByName($reach)) {
+                return $roomReached
+                    ->getEquipments()
+                    ->filter(fn (GameEquipment $equipment) => $equipment->getName() === $name)
+                    ;
+            }
         }
+
+        return new ArrayCollection();
     }
 
     public function getReachableTools(): Collection

@@ -64,4 +64,4 @@ api-test-develop:
     reports:
       junit: Api/tests/_output/report.xml
   only:
-    - codeception
+    - develop

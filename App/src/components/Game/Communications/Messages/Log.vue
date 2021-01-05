@@ -1,5 +1,5 @@
 <template>
-  <div :class="'room-log ' + roomLog.visibility">
+  <div :class="'log ' + roomLog.visibility">
     <p class="text-log" v-html="format(roomLog.message)"></p>
     <span class="timestamp">{{ formatDate(roomLog.date, {local: "fr-FR"}) }}</span>
   </div>
@@ -32,7 +32,8 @@ export default {
 </script>return
 
 <style lang="scss" scoped>
-.room-log {
+
+.log {
   position: relative;
   padding: 4px 5px;
   margin: 1px 0;
@@ -55,6 +56,8 @@ export default {
       font-style: normal;
     }
   }
+
+  //Add corresponding icons next to the timestamp
 
   &.personnal, &.covert, &.secret, &.spotted {
     & .timestamp:before {
@@ -95,20 +98,5 @@ p {
   font-size: .95em;
   /deep/ img { vertical-align: middle; }
 }
-
-
-.timestamp {
-  position: absolute;
-  z-index: 2;
-  right: 5px;
-  bottom: 5px;
-  font-size: .85em;
-  font-style: italic;
-  opacity: .5;
-  float: right;
-}
-
-
-
 
 </style>

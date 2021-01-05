@@ -55,39 +55,11 @@ export default {
 <style lang="scss" scoped>
 
 #discussion-tab {
-  position: relative;
-  z-index: 2;
-  height: 436px;
-  margin-top: -1px;
-  line-height: initial;
-  background: rgba(194, 243, 252, 1);
-  @include corner-bezel(0px, 6.5px, 0px);
+  .unit {
+    border-bottom: 1px solid rgb(170, 212, 229);
 
-  & .chatbox {
-    overflow: auto;
-    padding: 7px;
-    color: #090a61;
-
-    & .unit {
-      display: block;
-      align-items: flex-end;
-      padding: 5px 0;
-      border-bottom: 1px solid rgb(170, 212, 229);
-    }
+    .chat-input { margin: 5px 0 2px 50px !important; padding: 0 !important; }
   }
-}
-
-/* SCROLLBAR STYLING */
-
-.chatbox, {
-  --scrollbarBG: white;
-  --thumbBG: #090a61;
-
-  scrollbar-width: thin;
-  scrollbar-color: var(--thumbBG) var(--scrollbarBG);
-  &::-webkit-scrollbar { width: 6px; }
-  &::-webkit-scrollbar-track { background: var(--scrollbarBG); }
-  &::-webkit-scrollbar-thumb { background-color: var(--thumbBG); }
 }
 
 </style>

@@ -1,14 +1,25 @@
 <template>
-  <div v-if="isRoot" class="main-message" @click="$emit('click')">
-    <img :src="characterPortrait">
+  <div v-if="isRoot" class="message main-message" @click="$emit('click')">
+    <div class="char-portrait">
+      <img :src="characterPortrait">
+    </div>
     <p>
       <span class="author">{{ message.character.name }} :</span><span v-html="format(message.message)"></span></p>
+    <div class="actions">
+      <a href="#"><img src="@/assets/images/comms/reply.png">Répondre</a>
+      <a href="#"><img src="@/assets/images/comms/fav.png">Favori</a>
+      <a href="#"><img src="@/assets/images/comms/alert.png">Plainte</a>
+    </div>
     <span class="timestamp">{{ formatDate(message.date, {local: "fr-FR"}) }}</span>
   </div>
-  <div v-if="!isRoot" class="child-message" @click="$emit('click')">
+  <div v-if="!isRoot" class="message child-message" @click="$emit('click')">
     <p>
       <img :src="characterPortrait">
       <span class="author">{{ message.character.name }} :</span><span v-html="format(message.message)"></span></p>
+    <div class="actions">
+      <a href="#"><img src="@/assets/images/comms/reply.png">Répondre</a>
+      <a href="#"><img src="@/assets/images/comms/alert.png">Plainte</a>
+    </div>
     <span class="timestamp">{{ formatDate(message.date, {local: "fr-FR"}) }}</span>
   </div>
 </template>
@@ -55,40 +66,40 @@ export default {
 </script>return
 
 <style lang="scss" scoped>
-div {
-  position: relative;
-  display: block;
-  clear: both;
 
-  & p:not(.timestamp) {
+.message {
+  position: relative;
+  align-items: flex-start;
+  flex-direction: row;
+
+  .char-portrait {
+    align-items: flex-start;
+    justify-content: flex-start;
+    min-width: 36px;
+    margin-top: 4px;
+    padding: 2px;
+  }
+
+  p:not(.timestamp) {
     position:relative;
+    flex: 1;
     margin: 3px 0;
     padding: 4px 6px;
     border-radius: 3px;
     background: white;
+    word-break: break-word;
 
-    & .author {
+    .author {
       color: #2081e2;
       font-weight: 700;
       font-variant: small-caps;
       padding-right: .25em;
     }
 
-    & em {color: #cf1830;}
+    /deep/ em {color: #cf1830;} //Makes italic text red
   }
 
-  & .timestamp {
-    position: absolute;
-    z-index: 2;
-    right: 5px;
-    bottom: 5px;
-    font-size: .85em;
-    font-style: italic;
-    opacity: .5;
-    float: right;
-  }
-
-  &.new:not(.neron) p, &.new.neron {
+  &.new p { //New messages styling
     border-left: 2px solid #EA9104;
 
     &::after {
@@ -103,11 +114,10 @@ div {
   }
 
   &.main-message {
-    & img { margin: 2px; float: left; }
 
-    & p { margin-left: 36px; min-height: 52px; }
+    p { min-height: 52px; }
 
-    & p::before { /* bubble triangle*/
+    p::before { //Bubble triangle*/
       $size: 8px;
       content:"";
       position: absolute;
@@ -128,10 +138,10 @@ div {
 
   &.child-message {
     margin-left: 50px;
-    & img { margin-right: 3px; }
-    & p { margin-top: 12px; }
+    img { margin-right: 3px; }
+    p { margin-top: 10px; }
 
-    p::before { /* bubble triangle*/
+    p::before { //Bubble triangle
       $size: 8px;
       content:"";
       position: absolute;
@@ -150,7 +160,7 @@ div {
       --border-radius: 5px;
       content: "";
       position: absolute;
-      top: calc( -12px - var(--border-radius) );
+      top: calc( 0px - var(--border-radius) );
       left: -36px;
       width: calc( 28px + var(--border-radius) );
       height: calc( 26px + var(--border-radius) );
@@ -170,7 +180,7 @@ div {
       --border-radius: 5px;
       content: "";
       position: absolute;
-      top: 13px;
+      top: 25px;
       left: -36px;
       width: calc( 28px + var(--border-radius) );
       bottom: calc( -4px - var(--border-radius) );
@@ -187,24 +197,43 @@ div {
     }
   }
 
-  &.neron {
-    padding: 2px 4px;
-    border-radius: 4px;
-    background: #74CBF3;
+  &.neron { //Neron messages styling
 
-    & p {
-      min-height: 36px;
-      padding: 0 0 0 8px;
-      font-variant: small-caps;
-      color: inherit;
-      background: transparent;
-      & .author{ color: inherit; }
-      &::before { content: none; }
-      &::after { top: 8px;}
+    .char-portrait {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 2;
+      margin: 4px 6px;
     }
 
-    &::after { top: 12px !important; }
+    p {
+      background: #74CBF3;
+      font-variant: small-caps;
+      
+      .author { color: inherit; }
+    }
+
+    &.main-message {
+      p { padding-left: 46px;
+        &::before { content: none; } //removes the bubble triangle
+      }
+    }
+
+    &.child-message p::before { border-color: #74CBF3; }
   }
 
+  .actions { //buttons styling
+    display: none;
+    position: absolute;
+    right: 3px;
+    top: 5px;
+    height: 14px;
+  }
 }
+
+.message:hover, .message:focus, .message:focus-within, .message:active {
+  .actions { display: flex; }
+}
+
 </style>

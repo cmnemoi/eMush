@@ -1,15 +1,20 @@
 <template>
-  <div class="comms-panel">
-    <label v-for="(channel, id) in getChannels"
-           v-bind:key="id"
-           @click="changeChannel({channel: channel})"
-           :class="getCurrentChannel === channel ? 'checked' : ''"
-    >
-      <img :src="channelIcon(channel)">
-    </label>
-<!--    <label @click="createPrivateChannel">-->
-<!--      <img :src="require('@/assets/images/comms/newtab.png')">-->
-<!--    </label>-->
+  <div id="comms-panel">
+    <ul class="tabs">
+      <li v-for="(channel, id) in getChannels"
+            v-bind:key="id"
+            @click="changeChannel({channel: channel})"
+            :class="getCurrentChannel === channel ? 'checked' : ''"
+      >
+        <img :src="channelIcon(channel)">
+      </li>
+      <li>
+        <img src="@/assets/images/comms/private.png">
+      </li>
+      <li class="newtab">
+        <img src="@/assets/images/comms/newtab.png">
+      </li>
+    </ul>
     <div class="cycle-time"><img src="@/assets/images/comms/calendar.png"><span>Jour {{ day }} - Cycle {{ cycle }}</span></div>
 
     <div class="tabs-content">
@@ -23,6 +28,7 @@
 import TipsTab from "@/components/Game/Communications/TipsTab";
 import RoomEventsTab from "@/components/Game/Communications/RoomEventsTab";
 import DiscussionTab from "@/components/Game/Communications/DiscussionTab";
+import PrivateDiscussionTab from "@/components/Game/Communications/PrivateDiscussionTab";
 import {Room} from "@/entities/Room";
 import {mapActions, mapGetters} from "vuex";
 import {PRIVATE, PUBLIC, ROOM_LOG, TIPS} from '@/enums/communication.enum';
@@ -34,6 +40,7 @@ export default {
   components: {
     TipsTab,
     DiscussionTab,
+    PrivateDiscussionTab,
     RoomEventsTab
   },
   props: {
@@ -60,6 +67,8 @@ export default {
             return TipsTab;
           case ROOM_LOG:
             return RoomEventsTab;
+          case PRIVATE:
+            return PrivateDiscussionTab;
           case PUBLIC:
           default:
             return DiscussionTab;
@@ -90,97 +99,74 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss"> //Not scoped to apply to children components
 
-#tips-input:checked ~ .tabs-content #tips-tab,
-#room-events-input:checked ~ .tabs-content #room-events-tab,
-#discussion-input:checked ~ .tabs-content #discussion-tab {
-  display: flex;
-  visibility: visible;
-}
+#comms-panel {
 
-
-
-.comms-panel {
-  position: relative;
-  display: block;
-  width: 404px;
-  height: 460px;
-
-  & .checked {
-    opacity: 1;
-    &::after { background: rgba(194, 243, 252, 1); }
-  }
-
-  & input {
-    position: absolute;
-    left: -100vw;
-  }
-
-  & .tabs-content {
+  .tabs-content {
     min-width: 100%;
     font-size: .8em;
   }
 
-
-  & label {
-    position: relative;
+  .chatbox-container {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: visible;
-    float: left;
-    cursor: pointer;
-    width: 31px;
-    min-height: 25px;
-    margin-right: 4px;
-    & * { z-index: 2; }
+    position: relative;
+    z-index: 2;
+    height: 436px;
+    margin-top: -1px;
+    color: #090a61;
+    line-height: initial;
+    background: rgba(194, 243, 252, 1);
+    @include corner-bezel(0px, 6.5px, 0px);
 
-    &::after {
-      content: "";
-      z-index: 1;
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: #213578;
-      @include corner-bezel(4.5px, 4.5px, 0px);
+    .chatbox {
+      overflow: auto;
+      padding: 7px;
+      color: #090a61;
     }
 
-    &:last-child {
-      opacity: .3;
-      &::after { background: none !important; }
+    .unit {
+      display: block;
+      padding: 5px 0;
     }
 
-    &.active, &:hover, &:focus {
-      opacity: 1;
-      &::after { background: rgba(194, 243, 252, 1); }
+      .actions {
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: stretch;
+
+      a {
+        @include button-style(.83em, 400, initial);
+        height: 100%;
+        margin-left: 3px;
+        img { padding: 0 .2em 0 0; }
+      }
     }
 
-    & span {
-      position: absolute;
-      top: -6px;
-      right: 3px;
-      font-size: .82em;
-      font-weight: 600;
-      text-shadow: 0 0 3px black, 0 0 3px black, 0 0 3px black;
+    .banner {
+      min-height: 24px;
+      justify-content: center;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: .03em;
+      background: #A6EEFB;
     }
   }
 
-  & .cycle-time {
-    flex-direction: row;
-    align-items: center;
-    margin: 0 12px;
-    min-height: 25px;
+  .timestamp {
+    position: absolute;
+    z-index: 2;
+    right: 5px;
+    bottom: 5px;
+    font-size: .85em;
+    font-style: italic;
+    opacity: .5;
     float: right;
-    font-size: .7em;
-    font-variant: small-caps;
-
-    & img { margin-right: 3px; }
   }
 
   /* SCROLLBAR STYLING */
 
-  & .chatbox, {
+  .chatbox, .chatbox-container {
     --scrollbarBG: white;
     --thumbBG: #090a61;
 
@@ -189,6 +175,80 @@ export default {
     &::-webkit-scrollbar { width: 6px; }
     &::-webkit-scrollbar-track { background: var(--scrollbarBG); }
     &::-webkit-scrollbar-thumb { background-color: var(--thumbBG); }
+  }
+}
+
+</style>
+
+<style lang="scss" scoped>
+
+#comms-panel {
+  position: relative;
+  display: block;
+  width: 404px;
+  height: 460px;
+
+  /* TABS STYLING */
+
+  ul.tabs {
+    float: left;
+
+    li {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: visible;
+      float: left;
+      cursor: pointer;
+      width: 31px;
+      min-height: 25px;
+      margin-right: 4px;
+      * { z-index: 2; }
+
+      &::after { //Background of the tab icons
+        content: "";
+        z-index: 1;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #213578;
+        @include corner-bezel(4.5px, 4.5px, 0px);
+      }
+
+      &.newtab {
+        opacity: .3;
+        &::after { background: none !important; }
+      }
+
+      &.checked, &.active, &:hover, &:focus {
+        opacity: 1;
+        &::after { background: rgba(194, 243, 252, 1); }
+      }
+
+      span { //New message notifier
+        position: absolute;
+        top: -6px;
+        right: 3px;
+        font-size: .82em;
+        font-weight: 600;
+        text-shadow: 0 0 3px black, 0 0 3px black, 0 0 3px black;
+      }
+    }
+  }
+
+/* TIMER STYLING */
+
+  .cycle-time {
+    flex-direction: row;
+    align-items: center;
+    margin: 0 12px;
+    min-height: 25px;
+    float: right;
+    font-size: .7em;
+    font-variant: small-caps;
+
+    img { margin-right: 3px; }
   }
 }
 

@@ -38,9 +38,11 @@ class DaySubscriber implements EventSubscriberInterface
         }
 
         foreach ($equipment->getStatuses() as $status) {
-            $statusNewDay = new DayEvent($event->getDaedalus(), $event->getTime());
-            $statusNewDay->setStatus($status);
-            $this->eventDispatcher->dispatch($statusNewDay, DayEvent::NEW_DAY);
+            if ($status->getPlayer() === null) {
+                $statusNewDay = new DayEvent($event->getDaedalus(), $event->getTime());
+                $statusNewDay->setStatus($status);
+                $this->eventDispatcher->dispatch($statusNewDay, DayEvent::NEW_DAY);
+            }
         }
 
         foreach ($equipment->getEquipment()->getMechanics() as $mechanics) {

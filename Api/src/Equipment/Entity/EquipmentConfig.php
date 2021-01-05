@@ -53,12 +53,12 @@ class EquipmentConfig
     /**
      * @ORM\Column(type="boolean", nullable=false)
      */
-    private bool $isFireDestroyable;
+    private bool $isFireDestroyable = false;
 
     /**
      * @ORM\Column(type="boolean", nullable=false)
      */
-    private bool $isFireBreakable;
+    private bool $isFireBreakable = false;
 
     /**
      * @ORM\Column(type="boolean", nullable=false)

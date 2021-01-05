@@ -210,4 +210,31 @@ class PlayerService implements PlayerServiceInterface
 
         return $this->persist($player);
     }
+
+    public function playerDeath(Player $player, ?string $reason): Player
+    {
+        if ($reason) {
+            $player->setEndStatus($reason);
+        }
+
+        foreach ($player->getItems() as $item) {
+            $item->setPlayer(null);
+            $item->setRoom($player->getRoom());
+        }
+        //@TODO in case of assasination chance of disorder for roommates
+        if ($grandBeyond = $player->getDaedalus()->getRoomByName(RoomEnum::GREAT_BEYOND)) {
+            $player->setRoom($grandBeyond);
+        }
+        //@TODO two steps death
+        $player->setGameStatus(GameStatusEnum::FINISHED);
+
+        $this->roomLogService->createPlayerLog(
+            LogEnum::DEATH,
+            $player->getRoom(),
+            $player,
+            VisibilityEnum::PUBLIC
+        );
+
+        return $player;
+    }
 }

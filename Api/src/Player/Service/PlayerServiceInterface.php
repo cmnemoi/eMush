@@ -21,4 +21,6 @@ interface PlayerServiceInterface
     public function handleNewDay(Player $player, \DateTime $date): Player;
 
     public function findUserCurrentGame(User $user): ?Player;
+
+    public function playerDeath(Player $player, ?string $reason): Player;
 }

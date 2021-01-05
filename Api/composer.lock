@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d081951119d72ebbed3efeb1e56d2c8a",
+    "content-hash": "85d7c4e5142e0567da4551db5f8e6449",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -8448,6 +8448,52 @@
             "time": "2020-10-21T16:48:15+00:00"
         },
         {
+            "name": "codeception/module-datafactory",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Codeception/module-datafactory.git",
+                "reference": "597c2f07a79ae878e14418e46d99ac1328566e0a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Codeception/module-datafactory/zipball/597c2f07a79ae878e14418e46d99ac1328566e0a",
+                "reference": "597c2f07a79ae878e14418e46d99ac1328566e0a",
+                "shasum": ""
+            },
+            "require": {
+                "codeception/codeception": "^4.0",
+                "league/factory-muffin": "^3.0",
+                "league/factory-muffin-faker": "^2.1",
+                "php": ">=5.6.0 <9.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Bodnarchuk"
+                }
+            ],
+            "description": "DataFactory module for Codeception",
+            "homepage": "http://codeception.com/",
+            "keywords": [
+                "codeception"
+            ],
+            "support": {
+                "issues": "https://github.com/Codeception/module-datafactory/issues",
+                "source": "https://github.com/Codeception/module-datafactory/tree/1.0.1"
+            },
+            "time": "2020-12-30T15:54:00+00:00"
+        },
+        {
             "name": "codeception/module-doctrine2",
             "version": "1.1.1",
             "source": {
@@ -8987,6 +9033,58 @@
             "time": "2020-11-14T09:36:49+00:00"
         },
         {
+            "name": "fakerphp/faker",
+            "version": "v1.13.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FakerPHP/Faker.git",
+                "reference": "ab3f5364d01f2c2c16113442fb987d26e4004913"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FakerPHP/Faker/zipball/ab3f5364d01f2c2c16113442fb987d26e4004913",
+                "reference": "ab3f5364d01f2c2c16113442fb987d26e4004913",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1 || ^8.0"
+            },
+            "conflict": {
+                "fzaninotto/faker": "*"
+            },
+            "require-dev": {
+                "bamarni/composer-bin-plugin": "^1.4.1",
+                "ext-intl": "*",
+                "phpunit/phpunit": "^7.5.20 || ^8.5.8 || ^9.4.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Faker\\": "src/Faker/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "François Zaninotto"
+                }
+            ],
+            "description": "Faker is a PHP library that generates fake data for you.",
+            "keywords": [
+                "data",
+                "faker",
+                "fixtures"
+            ],
+            "support": {
+                "issues": "https://github.com/FakerPHP/Faker/issues",
+                "source": "https://github.com/FakerPHP/Faker/tree/v1.13.0"
+            },
+            "time": "2020-12-18T16:50:48+00:00"
+        },
+        {
             "name": "felixfbecker/advanced-json-rpc",
             "version": "v3.1.1",
             "source": {
@@ -9241,6 +9339,149 @@
                 "source": "https://github.com/hamcrest/hamcrest-php/tree/v2.0.1"
             },
             "time": "2020-07-09T08:09:16+00:00"
+        },
+        {
+            "name": "league/factory-muffin",
+            "version": "v3.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/factory-muffin.git",
+                "reference": "62c8c31d47667523da14e83df36cc897d34173cd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thephpleague/factory-muffin/zipball/62c8c31d47667523da14e83df36cc897d34173cd",
+                "reference": "62c8c31d47667523da14e83df36cc897d34173cd",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "replace": {
+                "zizaco/factory-muff": "self.version"
+            },
+            "require-dev": {
+                "doctrine/orm": "^2.5",
+                "illuminate/database": "5.0.* || 5.1.* || 5.5.* || ^6.0",
+                "league/factory-muffin-faker": "^2.3",
+                "phpunit/phpunit": "^4.8.36 || ^5.7.27 || ^6.5.14 || ^7.5.20"
+            },
+            "suggest": {
+                "doctrine/orm": "Factory Muffin supports doctrine through the repository store.",
+                "illuminate/database": "Factory Muffin supports eloquent through the model store.",
+                "league/factory-muffin-faker": "Factory Muffin is very powerful together with faker."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "League\\FactoryMuffin\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Graham Campbell",
+                    "email": "graham@alt-three.com"
+                },
+                {
+                    "name": "Scott Robertson",
+                    "email": "scottymeuk@gmail.com"
+                }
+            ],
+            "description": "The goal of this package is to enable the rapid creation of objects for the purpose of testing.",
+            "homepage": "http://factory-muffin.thephpleague.com/",
+            "keywords": [
+                "factory",
+                "testing"
+            ],
+            "support": {
+                "issues": "https://github.com/thephpleague/factory-muffin/issues",
+                "source": "https://github.com/thephpleague/factory-muffin/tree/v3.3.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/GrahamCampbell",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/league/factory-muffin",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-12-13T18:38:47+00:00"
+        },
+        {
+            "name": "league/factory-muffin-faker",
+            "version": "v2.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/factory-muffin-faker.git",
+                "reference": "258068c840e8fdc45d1cb1636a0890e92f2e864a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thephpleague/factory-muffin-faker/zipball/258068c840e8fdc45d1cb1636a0890e92f2e864a",
+                "reference": "258068c840e8fdc45d1cb1636a0890e92f2e864a",
+                "shasum": ""
+            },
+            "require": {
+                "fakerphp/faker": "^1.9.1",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8.36 || ^5.7.27 || ^6.5.14 || ^7.5.20"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "League\\FactoryMuffin\\Faker\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Graham Campbell",
+                    "email": "graham@alt-three.com"
+                }
+            ],
+            "description": "The goal of this package is to wrap faker to make it super easy to use with factory muffin.",
+            "homepage": "http://factory-muffin.thephpleague.com/",
+            "keywords": [
+                "factory",
+                "faker",
+                "testing"
+            ],
+            "support": {
+                "issues": "https://github.com/thephpleague/factory-muffin-faker/issues",
+                "source": "https://github.com/thephpleague/factory-muffin-faker/tree/v2.3.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/GrahamCampbell",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/league/factory-muffin-faker",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-12-13T15:53:28+00:00"
         },
         {
             "name": "mockery/mockery",

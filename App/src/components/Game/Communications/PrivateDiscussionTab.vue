@@ -6,7 +6,7 @@
   </div>
   <div class="chatbox">
     <div class="actions">
-      <a href="#">Rafr.</a>
+      <a href="#"><img src="@/assets/images/comms/refresh.png">Rafr.</a>
       <a href="#"><img src="@/assets/images/comms/invite.png">Inviter</a>
       <a href="#"><img src="@/assets/images/comms/alert.png">Plainte</a>
       <a href="#"><img src="@/assets/images/comms/close.png">Quitter</a>
@@ -18,7 +18,7 @@
       <li><img src="@/assets/images/char/body/chun.png"></li>
     </ul>
     <div class="unit">
-      <div class="new">
+      <div class="message new">
         <div class="char-portrait">
           <img src="@/assets/images/char/body/ian.png">
         </div>
@@ -27,7 +27,7 @@
       </div>
     </div>
     <div class="unit">
-      <div class="new">
+      <div class="message new">
         <div class="char-portrait">
           <img src="@/assets/images/char/body/jin_su.png">
         </div>
@@ -36,7 +36,7 @@
       </div>
     </div>
     <div class="unit">
-      <div>
+      <div class="message">
         <div class="char-portrait">
           <img src="@/assets/images/char/body/ian.png">
         </div>
@@ -45,7 +45,7 @@
       </div>
     </div>
     <div class="unit">
-      <div>
+      <div class="message">
         <div class="char-portrait">
           <img src="@/assets/images/char/body/jin_su.png">
         </div>
@@ -54,7 +54,7 @@
       </div>
     </div>
     <div class="unit">
-      <div>
+      <div class="message">
         <div class="char-portrait">
           <img src="@/assets/images/char/body/jin_su.png">
         </div>
@@ -82,11 +82,10 @@ export default {
 
 <style lang="scss" scoped>
 
-/* ----- */
+/* --- PROVISIONAL UNTIL LINE 203 --- */
 
-.unit > div {
+.message {
   position: relative;
-  display: flex;
   align-items: flex-start;
   flex-direction: row;
 
@@ -151,8 +150,6 @@ export default {
   }
 }
 
-
-
 /* ----- */
 
 .chat-input {
@@ -203,7 +200,7 @@ export default {
   }
 }
 
-/* ----- */
+/* --- END OF PROVISIONAL --- */
 
 
 #private-discussion-tab {
@@ -225,6 +222,7 @@ export default {
 
   .participants {
     flex-direction: row;
+    margin: 8px 0;
 
     li { width: 28px; }
   }

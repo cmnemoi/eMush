@@ -86,10 +86,3 @@ ul, ol {
 .flex-row {
   flex-direction: row;
 }
-
-
-// NEEDED FOR USER CONTENT IN CHAT DUE TO SCOPE ISSUE OF THE STYLESHEETS IN VUEJS
-
-.chatbox p:not(.timestamp) {
-  em { color: #cf1830; }
-}

@@ -144,12 +144,22 @@ export default {
     }
 
     .banner {
-      min-height: 24px;
+      flex-direction: row;
+      align-items: center;
       justify-content: center;
-      text-align: center;
+      min-height: 24px;
+      border-radius: 3px;
       text-transform: uppercase;
       letter-spacing: .03em;
       background: #A6EEFB;
+
+      span {
+        flex: 1;
+        text-align: center;
+      }
+
+      img { vertical-align: middle; }
+      .expand { align-self: flex-start; }
     }
   }
 

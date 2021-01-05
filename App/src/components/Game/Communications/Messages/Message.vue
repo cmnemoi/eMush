@@ -77,7 +77,7 @@ export default {
     justify-content: flex-start;
     min-width: 36px;
     margin-top: 4px;
-    padding: 2px;
+    padding: 6px 2px;
   }
 
   p:not(.timestamp) {
@@ -89,14 +89,14 @@ export default {
     background: white;
     word-break: break-word;
 
+    /deep/ em { color: #cf1830; } //Makes italic text red
+
     .author {
       color: #2081e2;
       font-weight: 700;
       font-variant: small-caps;
       padding-right: .25em;
     }
-
-    /deep/ em {color: #cf1830;} //Makes italic text red
   }
 
   &.new p { //New messages styling
@@ -105,9 +105,10 @@ export default {
     &::after {
       content:"";
       position: absolute;
-      top: 7px;
+      top: 0;
+      bottom: 0;
       left: -6px;
-      height: 11px;
+      min-height: 11px;
       width: 11px;
       background: transparent url('~@/assets/images/comms/thinklinked.png') center no-repeat;
     }
@@ -130,10 +131,7 @@ export default {
       border-right: $size solid white;
     }
 
-    &.new p {
-      &::before { border-right-color: #EA9104 }
-      &::after { top: 22px; }
-    }
+    &.new p::before { border-right-color: #EA9104; }
   }
 
   &.child-message {
@@ -224,16 +222,23 @@ export default {
   }
 
   .actions { //buttons styling
-    display: none;
+    visibility: hidden;
+    opacity: 0;
     position: absolute;
     right: 3px;
-    top: 5px;
+    top: -3px;
     height: 14px;
+    transition: visibility 0s .15s, opacity .15s 0s, top .15s 0s;
   }
 }
 
 .message:hover, .message:focus, .message:focus-within, .message:active {
-  .actions { display: flex; }
+  .actions {
+    visibility: visible;
+    opacity: 1;
+    top: 5px;
+    transition: visibility 0s .5s, opacity .15s .5s, top .15s .5s;
+    }
 }
 
 </style>

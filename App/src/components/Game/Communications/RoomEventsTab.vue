@@ -3,6 +3,7 @@
 
     <div class="unit" v-for="(cycleRoomLog, id) in roomLogs.slice().reverse()" v-bind:key="id">
       <div class="banner cycle-banner">
+        <img class="expand" src="@/assets/images/comms/less.png">
         <span>Jour {{ cycleRoomLog.day }} Cycle {{cycleRoomLog.cycle}}</span>
       </div>
       <div class="cycle-events">
@@ -61,9 +62,9 @@ export default {
 
 #room-events-tab {
   overflow: auto;
-  padding: 4px 0;
+  padding: 7px;
 
-  .unit { padding: 1px 6px !important; }
+  .unit { padding: 1px 0 !important; }
 }
 
 </style>

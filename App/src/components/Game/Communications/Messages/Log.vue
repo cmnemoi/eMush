@@ -23,7 +23,8 @@ export default {
       // console.log(value)
       if (!value) return ''
       value = value.toString()
-      value = value.replaceAll(/\*\*(\w*)\*\*/g, '<strong>$1&nbsp;</strong>');
+      value = value.replaceAll(/\*\*(.*)\*\*/g, '<strong>$1</strong>');
+      value = value.replaceAll(/\*(.*)\*/g, '<em>$1</em>');
       value = value.replaceAll(/:pa:/g, '<img src="'+require("@/assets/images/pa.png")+'" alt="pa">')
       return value.replaceAll(/:pm:/g, '<img src="'+require("@/assets/images/pm.png")+'" alt="pm">')
     }
@@ -38,6 +39,24 @@ export default {
   padding: 4px 5px;
   margin: 1px 0;
   border-bottom: 1px solid rgb(170, 212, 229);
+
+  /deep/ p:not(.timestamp) em { color: #cf1830; }
+
+  &.new {
+    border-left: 2px solid #EA9104;
+    padding-left: 8px;
+
+    &::after {
+      content:"";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: -6px;
+      min-height: 11px;
+      width: 11px;
+      background: transparent url('~@/assets/images/comms/thinklinked.png') center no-repeat;
+    }
+  }
 
   &.private {
     color: #98388A;

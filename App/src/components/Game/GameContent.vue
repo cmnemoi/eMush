@@ -58,7 +58,8 @@ export default {
 .main {
     position: relative;
     min-height: 424px;
-    width: 1080px;
+    max-width: 1080px;
+    width: 100%;
     margin: 36px auto;
     padding: 12px 12px 42px 12px;
     z-index: 10;

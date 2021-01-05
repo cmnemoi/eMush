@@ -82,7 +82,6 @@ class Build extends AbstractAction
         /** @var Blueprint $blueprintMechanic */
         $blueprintMechanic = $this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT);
 
-
         // remove the used ingredients starting from the player inventory
         foreach ($blueprintMechanic->getIngredients() as $name => $number) {
             for ($i = 0; $i < $number; ++$i) {
@@ -121,7 +120,6 @@ class Build extends AbstractAction
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
         $this->gameEquipmentService->persist($blueprintEquipment);
-
 
         $this->playerService->persist($this->player);
 

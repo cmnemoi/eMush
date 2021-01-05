@@ -79,8 +79,7 @@ class Cook extends AbstractAction
             $newItem = $this->gameEquipmentService
                 ->createGameEquipmentFromName(GameRationEnum::COOKED_RATION, $this->player->getDaedalus())
             ;
-            
-            
+
             $equipmentEvent = new EquipmentEvent($newItem);
             $equipmentEvent->setPlayer($this->player);
             $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);

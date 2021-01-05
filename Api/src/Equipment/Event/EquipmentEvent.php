@@ -13,7 +13,6 @@ class EquipmentEvent extends Event
     private GameEquipment $equipment;
     private ?Player $player;
 
-
     public function __construct(GameEquipment $equipment)
     {
         $this->equipment = $equipment;
@@ -21,7 +20,7 @@ class EquipmentEvent extends Event
 
     public function getEquipment(): GameEquipment
     {
-        return $this->action;
+        return $this->equipment;
     }
 
     public function getPlayer(): ?Player
@@ -31,7 +30,8 @@ class EquipmentEvent extends Event
 
     public function setPlayer($player): EquipmentEvent
     {
-        $this->player=$player;
+        $this->player = $player;
+
         return $this;
     }
 }

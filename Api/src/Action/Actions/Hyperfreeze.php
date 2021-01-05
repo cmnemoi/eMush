@@ -89,7 +89,6 @@ class Hyperfreeze extends AbstractAction
             $equipmentEvent = new EquipmentEvent($newItem);
             $equipmentEvent->setPlayer($this->player);
             $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
-            
 
             foreach ($this->gameEquipment->getStatuses() as $status) {
                 $newItem->addStatus($status);

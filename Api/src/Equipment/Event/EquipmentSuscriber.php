@@ -4,6 +4,7 @@ namespace Mush\Equipment\Event;
 
 use Error;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\RoomLog\Enum\LogEnum;
@@ -13,13 +14,16 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class EquipmentSubscriber implements EventSubscriberInterface
 {
+    private GameEquipmentServiceInterface $gameEquipmentService;
     private RoomLogServiceInterface $roomLogService;
     private GameConfig $gameConfig;
 
     public function __construct(
+        GameEquipmentServiceInterface $gameEquipmentService,
         RoomLogServiceInterface $roomLogService,
         GameConfigServiceInterface $gameConfigService
     ) {
+        $this->gameEquipmentService = $gameEquipmentService;
         $this->roomLogService = $roomLogService;
         $this->gameConfig = $gameConfigService->getConfig();
     }
@@ -31,7 +35,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onItemCreated(EquipmentEvent $event): void
+    public function onEquipmentCreated(EquipmentEvent $event): void
     {
         if (!$player = $event->getPlayer()) {
             throw new Error('Player should be provided');
@@ -50,7 +54,10 @@ class EquipmentSubscriber implements EventSubscriberInterface
                 $player,
                 $equipment,
                 VisibilityEnum::PUBLIC,
+                $event->getTime()
             );
         }
+
+        $this->gameEquipmentService->persist($equipment);
     }
 }

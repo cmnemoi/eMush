@@ -12,15 +12,22 @@ class EquipmentEvent extends Event
 
     private GameEquipment $equipment;
     private ?Player $player;
+    private \DateTime $time;
 
-    public function __construct(GameEquipment $equipment)
+    public function __construct(GameEquipment $equipment, $time = null)
     {
+        $this->time = $time ?? new \DateTime();
         $this->equipment = $equipment;
     }
 
     public function getEquipment(): GameEquipment
     {
         return $this->equipment;
+    }
+
+    public function getTime(): \DateTime
+    {
+        return $this->time;
     }
 
     public function getPlayer(): ?Player

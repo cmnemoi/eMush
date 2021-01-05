@@ -142,6 +142,10 @@ class PlayerService implements PlayerServiceInterface
 
     public function handleNewCycle(Player $player, \DateTime $date): Player
     {
+        if (!$player->isAlive()) {
+            return $player;
+        }
+
         if ($player->getMoralPoint() === 0) {
             $playerEvent = new PlayerEvent($player, $date);
             $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
@@ -190,6 +194,10 @@ class PlayerService implements PlayerServiceInterface
 
     public function handleNewDay(Player $player, \DateTime $date): Player
     {
+        if (!$player->isAlive()) {
+            return $player;
+        }
+
         $actionModifier = new ActionModifier();
         $actionModifier
             ->setHealthPointModifier(1)

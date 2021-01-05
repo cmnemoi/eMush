@@ -195,7 +195,7 @@ class DisasembleActionTest extends TestCase
             ->andReturn($scrap)
             ->once()
         ;
-        $eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
 
         //Success
         $result = $this->action->execute();

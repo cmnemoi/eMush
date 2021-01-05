@@ -88,6 +88,7 @@ class WriteActionTest extends TestCase
         $gamePostIt->setEquipment($postIt);
 
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->andReturn($gamePostIt)->once();
+        $eventDispatcher->shouldReceive('dispatch')->once();
         $this->gameEquipmentService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
 
@@ -95,9 +96,6 @@ class WriteActionTest extends TestCase
 
         $this->assertInstanceOf(Success::class, $result);
         $this->assertCount(1, $room->getEquipments());
-        $this->assertCount(1, $player->getItems());
-        $this->assertCount(1, $player->getItems()->first()->getStatuses());
-        $this->assertEquals('Hello world', $player->getItems()->first()->getStatuses()->first()->getContent());
         $this->assertCount(0, $player->getStatuses());
         $this->assertEquals(10, $player->getActionPoint());
     }

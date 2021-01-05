@@ -164,13 +164,13 @@ class BuildActionTest extends TestCase
         $this->playerService->shouldReceive('persist');
 
         $this->gameEquipmentService->shouldReceive('createGameEquipment')->andReturn($gameProduct)->once();
+        $eventDispatcher->shouldReceive('dispatch')->once();
         $this->gameEquipmentService->shouldReceive('delete');
 
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
         $this->assertEmpty($player->getRoom()->getEquipments());
-        $this->assertEquals($player->getItems()->first()->getEquipment(), $product);
     }
 
     private function createPlayer(Daedalus $daedalus, Room $room): Player

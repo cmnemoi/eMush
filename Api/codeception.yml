@@ -14,3 +14,7 @@ params:
 
 coverage:
     enabled: true
+    include:
+        - src/*
+    exclude:
+        - src/*/DataFixtures/*

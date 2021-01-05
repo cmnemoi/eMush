@@ -58,7 +58,7 @@
             </segment>
             <segment>
                 <source>object_felt.character.female.target.male</source>
-                <target>>**player** a fait tomber un **target**.</target>
+                <target>**player** a fait tomber un **target**.</target>
             </segment>
             <segment>
                 <source>object_felt.character.male.target.female</source>
@@ -66,7 +66,7 @@
             </segment>
             <segment>
                 <source>object_felt.character.female.target.female</source>
-                <target>>**player** a fait tomber une **target**.</target>
+                <target>**player** a fait tomber une **target**.</target>
             </segment>
         </unit>
     </file>

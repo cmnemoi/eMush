@@ -37,7 +37,6 @@ class EquipmentSubscriber implements EventSubscriberInterface
 
     public function onEquipmentCreated(EquipmentEvent $event): void
     {
-        dump('yo');
         if (!$player = $event->getPlayer()) {
             throw new Error('Player should be provided');
         }

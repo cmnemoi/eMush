@@ -9,7 +9,6 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Ration;
-use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
@@ -66,11 +65,11 @@ class Hyperfreeze extends AbstractAction
 
     public function canExecute(): bool
     {
-        /** @var Ration $rationType */
-        $rationType = $this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::RATION);
+        /** @var Ration $rationMechanic */
+        $rationMechanic = $this->gameEquipment->getEquipment()->getRationsMechanic();
 
-        return $rationType &&
-            $rationType->isPerishable() &&
+        return $rationMechanic &&
+            $rationMechanic->isPerishable() &&
             $this->player->canReachEquipment($this->gameEquipment) &&
             !$this->gameEquipmentService
                 ->getOperationalEquipmentsByName(ToolItemEnum::SUPERFREEZER, $this->player, ReachEnum::SHELVE_NOT_HIDDEN)->isEmpty() &&

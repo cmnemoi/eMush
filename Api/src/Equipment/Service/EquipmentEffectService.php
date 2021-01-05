@@ -133,7 +133,8 @@ class EquipmentEffectService implements EquipmentEffectServiceInterface
         $extraEffectNumber = count(array_filter($pickedEffects, function ($idEffect) use ($diseaseNumberPossible) {
             return $idEffect > 2 * $diseaseNumberPossible;
         }));
-        $diseasesNumber = $diseaseNumberPossible * 2 + $extraEffectNumberPossible - $curesNumber - $extraEffectNumber;
+
+        $diseasesNumber = $effectsNumber - $curesNumber - $extraEffectNumber;
 
         $cures = [];
         $diseasesChances = [];

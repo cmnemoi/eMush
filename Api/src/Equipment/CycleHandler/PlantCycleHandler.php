@@ -227,15 +227,7 @@ class PlantCycleHandler extends AbstractCycleHandler
         /** @var GameItem $gameFruit */
         $gameFruit = $this->gameEquipmentService->createGameEquipment($plantType->getFruit(), $room->getDaedalus());
 
-        if ($player = $gamePlant->getPlayer()) {
-            if ($player->getItems() < $this->gameConfig->getMaxItemInInventory()) {
-                $gameFruit->setPlayer($player);
-            } else {
-                $gameFruit->setRoom($player->getRoom());
-            }
-        } else {
-            $gameFruit->setRoom($room);
-        }
+        $gameFruit->setRoom($room);
 
         $this->gameEquipmentService->persist($gameFruit);
 

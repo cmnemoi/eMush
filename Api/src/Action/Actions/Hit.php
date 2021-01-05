@@ -13,6 +13,7 @@ use Mush\Game\Enum\SkillMushEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\ActionModifier;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\ActionLogEnum;
@@ -82,12 +83,13 @@ class Hit extends AttemptAction
             }
             if ($damage <= 0) {
                 // TODO:
-            } elseif ($this->target->getHealthPoint() > $damage) {
+            } else {
                 $actionModifier = new ActionModifier();
-                $actionModifier->setHealthPointModifier($damage);
+                $actionModifier->setHealthPointModifier(-$damage);
 
-                $playerEvent = new PlayerEvent($this->player);
+                $playerEvent = new PlayerEvent($this->target);
                 $playerEvent->setActionModifier($actionModifier);
+                $playerEvent->setReason(EndCauseEnum::ASSASSINATED);
                 $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
 
                 $this->playerService->persist($this->target);

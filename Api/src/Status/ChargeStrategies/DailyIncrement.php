@@ -26,7 +26,7 @@ class DailyIncrement extends AbstractChargeStrategy
     {
         //Only applied on cycle 1
         if (($this->cycleService->getCycleFromDate(new \DateTime('now')) !== 1) ||
-            $status->getCharge() <= $status->getThreshold()
+            $status->getCharge() >= $status->getThreshold()
         ) {
             return;
         }

@@ -51,5 +51,23 @@
                 <target>Cette action remplit les objectifs personnels de votre personnage. Vous gagnez quantity Triomphe.</target>
             </segment>
         </unit>
+        <unit id="object_felt">
+            <segment>
+                <source>object_felt.character.male.target.male</source>
+                <target>**player** a fait tomber un **target**.</target>
+            </segment>
+            <segment>
+                <source>object_felt.character.female.target.male</source>
+                <target>>**player** a fait tomber un **target**.</target>
+            </segment>
+            <segment>
+                <source>object_felt.character.male.target.female</source>
+                <target>**player** a fait tomber une **target**.</target>
+            </segment>
+            <segment>
+                <source>object_felt.character.female.target.female</source>
+                <target>>**player** a fait tomber une **target**.</target>
+            </segment>
+        </unit>
     </file>
 </xliff>

@@ -11,6 +11,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Dismountable;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\SkillEnum;
@@ -119,12 +120,10 @@ class Disassemble extends AttemptAction
                     ->gameEquipmentService
                     ->createGameEquipmentFromName($productString, $this->player->getDaedalus())
                 ;
-                if ($this->player->getItems()->count() < $this->gameConfig->getMaxItemInInventory() &&
-                    $productEquipment instanceof GameItem) {
-                    $productEquipment->setPlayer($this->player);
-                } else {
-                    $productEquipment->setRoom($this->player->getRoom());
-                }
+                $equipmentEvent = new EquipmentEvent($productEquipment);
+                $equipmentEvent->setPlayer($this->player);
+                $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
+
                 $this->gameEquipmentService->persist($productEquipment);
             }
         }

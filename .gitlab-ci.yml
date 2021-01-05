@@ -8,6 +8,13 @@ variables:
   POSTGRES_USER: runner
   POSTGRES_PASSWORD: "password"
 
+cache:
+  paths:
+    - "Api/vendor/"
+
+stages:
+  - test
+
 before_script:
   - php -v
   - apt-get update -yqq
@@ -18,15 +25,6 @@ before_script:
   # Install all project dependencies
   - php composer.phar install
   - cp .env.gitlab .env
-
-cache:
-  paths:
-    - "Api/vendor/"
-
-stages:
-  - test
-  - lint
-  - coverage
 
 api-test:
   stage: test
@@ -40,7 +38,7 @@ api-test:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
 
 api-lint:
-  stage: lint
+  stage: test
   script:
     - ./linters.sh
   rules:

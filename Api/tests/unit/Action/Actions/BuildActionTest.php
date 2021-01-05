@@ -164,7 +164,9 @@ class BuildActionTest extends TestCase
         $this->playerService->shouldReceive('persist');
 
         $this->gameEquipmentService->shouldReceive('createGameEquipment')->andReturn($gameProduct)->once();
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+
+        $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
+        $eventDispatcher->shouldReceive('dispatch')->once();
         $this->gameEquipmentService->shouldReceive('delete');
 
         $result = $this->action->execute();

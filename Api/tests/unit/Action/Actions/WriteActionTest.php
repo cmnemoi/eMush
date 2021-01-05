@@ -88,7 +88,8 @@ class WriteActionTest extends TestCase
         $gamePostIt->setEquipment($postIt);
 
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->andReturn($gamePostIt)->once();
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
+        $eventDispatcher->shouldReceive('dispatch')->once();
         $this->gameEquipmentService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
 

@@ -56,7 +56,7 @@ class RetrieveOxygen extends AbstractAction
     public function canExecute(): bool
     {
         return $this->player->canReachEquipment($this->gameEquipment) &&
-            $this->gameEquipment->getEquipment()->getName() === EquipmentEnum::OXYGEN_TANK &&
+            $this->gameEquipment->getEquipment()->hasAction(ActionEnum::RETRIEVE_OXYGEN) &&
             $this->gameEquipmentService->isOperational($this->gameEquipment) &&
             $this->player->canReachEquipment($this->gameEquipment) &&
             $this->player->getItems()->count() < $this->gameConfig->getMaxItemInInventory() &&

@@ -6,15 +6,15 @@ const CHARGE = "charges";
 
 export const statusItemEnum = {
     [HEAVY]: {
-        'icon': require('@/assets/images/status/heavy.png'),
+        'icon': require('@/assets/images/status/heavy.png')
     },
     [HIDDEN]: {
-        'icon': require('@/assets/images/status/hidden.png'),
+        'icon': require('@/assets/images/status/hidden.png')
     },
     [PLANT_YOUNG]: {
-        'icon': require('@/assets/images/status/plant_youngling.png'),
+        'icon': require('@/assets/images/status/plant_youngling.png')
     },
     [CHARGE]: {
-        'icon': require('@/assets/images/status/charge.png'),
-    },
-}
+        'icon': require('@/assets/images/status/charge.png')
+    }
+};

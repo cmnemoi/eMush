@@ -20,7 +20,7 @@ export class Status {
     }
     decode = function(jsonString) {
         if (jsonString) {
-            let object = JSON.parse(jsonString)
+            let object = JSON.parse(jsonString);
             this.load(object);
         }
 

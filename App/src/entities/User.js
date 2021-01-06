@@ -17,7 +17,7 @@ export class User {
     }
     decode = function(jsonString) {
         if (jsonString) {
-            let object = JSON.parse(jsonString)
+            let object = JSON.parse(jsonString);
             this.id = object.id;
             this.username = object.username;
             this.currentGame = object.currentGame;

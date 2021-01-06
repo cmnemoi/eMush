@@ -136,5 +136,6 @@ export const itemEnum = {
     },
     [TABULATRIX]: {
         'image': require('@/assets/images/items/printer.jpg')
-    },
+    }
 }
+;

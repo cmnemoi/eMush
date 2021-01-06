@@ -24,7 +24,7 @@ export class Action {
     }
     decode = function(jsonString) {
         if (jsonString) {
-            let object = JSON.parse(jsonString)
+            let object = JSON.parse(jsonString);
             this.id = object.id;
             this.roomKey = object.roomKey;
             this.roomName = object.roomName;

@@ -13,36 +13,36 @@ const SUICIDAL = "suicidal";
 
 export const statusPlayerEnum = {
     [STARVING]: {
-        'icon': require('@/assets/images/status/starving.png'),
+        'icon': require('@/assets/images/status/starving.png')
     },
     [BURDENED]: {
-        'icon': require('@/assets/images/status/heavy.png'),
+        'icon': require('@/assets/images/status/heavy.png')
     },
     [DISABLED]: {
-        'icon': require('@/assets/images/status/disabled.png'),
+        'icon': require('@/assets/images/status/disabled.png')
     },
     [FULL_STOMACH]: {
-        'icon': require('@/assets/images/status/belly_full.png'),
+        'icon': require('@/assets/images/status/belly_full.png')
     },
     [IMMUNIZED]: {
-        'icon': require('@/assets/images/status/immune.png'),
+        'icon': require('@/assets/images/status/immune.png')
     },
     [LYING_DOWN]: {
-        'icon': require('@/assets/images/status/laid.png'),
+        'icon': require('@/assets/images/status/laid.png')
     },
     [DIRTY]: {
-        'icon': require('@/assets/images/status/stinky.png'),
+        'icon': require('@/assets/images/status/stinky.png')
     },
     [MUSH]: {
-        'icon': require('@/assets/images/status/mush.png'),
+        'icon': require('@/assets/images/status/mush.png')
     },
     [PACIFIST]: {
-        'icon': require('@/assets/images/status/pacifist.png'),
+        'icon': require('@/assets/images/status/pacifist.png')
     },
     [DEMORALIZED]: {
-        'icon': require('@/assets/images/status/demoralized.png'),
+        'icon': require('@/assets/images/status/demoralized.png')
     },
     [SUICIDAL]: {
-        'icon': require('@/assets/images/status/suicidal.png'),
-    },
-}
+        'icon': require('@/assets/images/status/suicidal.png')
+    }
+};

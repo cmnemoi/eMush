@@ -1,14 +1,14 @@
-import {AuthenticationError} from "@/services/user.service";
+import { AuthenticationError } from "@/services/user.service";
 import CommunicationService from "@/services/communication.service";
-import {Channel} from "@/entities/Channel";
-import {ROOM_LOG, TIPS} from "@/enums/communication.enum";
+import { Channel } from "@/entities/Channel";
+import { ROOM_LOG, TIPS } from "@/enums/communication.enum";
 
 
 const state =  {
     loading: false,
     currentChannel: null,
     channels: [],
-    messages: [],
+    messages: []
 };
 
 const getters = {
@@ -21,20 +21,20 @@ const getters = {
 
     },
     getChannels: (state) => {
-        return state.channels
+        return state.channels;
     },
     getMessages: (state) => {
-        return state.messages
+        return state.messages;
     },
     loading: (state) => {
-        return state.loading
+        return state.loading;
     }
 };
 
 const actions = {
-    async changeChannel({ commit }, {channel}) {
+    async changeChannel({ commit }, { channel }) {
         localStorage.setItem('currentChannel', channel.jsonEncode());
-        commit('changeChannel', channel)
+        commit('changeChannel', channel);
     },
     async loadChannels({ commit }) {
         commit('loadRequest');
@@ -49,52 +49,52 @@ const actions = {
 
             const tipsChannel = new Channel();
             tipsChannel.scope = TIPS;
-            channels.push(tipsChannel)
+            channels.push(tipsChannel);
 
             channels.reverse();
-            commit('loadSuccess', channels)
+            commit('loadSuccess', channels);
 
-            return true
+            return true;
         } catch (e) {
             if (e instanceof AuthenticationError) {
-                commit('loadError', {errorCode: e.errorCode, errorMessage: e.message})
+                commit('loadError', { errorCode: e.errorCode, errorMessage: e.message });
             }
 
-            return false
+            return false;
         }
     },
 
-    async loadMessages({ commit }, {channel}) {
+    async loadMessages({ commit }, { channel }) {
         commit('loadMessagesRequest');
 
         try {
             const messages = await CommunicationService.loadMessages(channel);
-            commit('loadMessagesSuccess', messages)
+            commit('loadMessagesSuccess', messages);
 
-            return true
+            return true;
         } catch (e) {
             if (e instanceof AuthenticationError) {
-                commit('loadMessagesError', {errorCode: e.errorCode, errorMessage: e.message})
+                commit('loadMessagesError', { errorCode: e.errorCode, errorMessage: e.message });
             }
 
-            return false
+            return false;
         }
     },
 
-    async sendMessage({ commit }, {channel, text, parent}) {
+    async sendMessage({ commit }, { channel, text, parent }) {
         commit('loadMessagesRequest');
 
         try {
             const messages = await CommunicationService.sendMessage(channel, text, parent);
-            commit('loadMessagesSuccess', messages)
+            commit('loadMessagesSuccess', messages);
 
-            return true
+            return true;
         } catch (e) {
             if (e instanceof AuthenticationError) {
-                commit('loadMessagesError', {errorCode: e.errorCode, errorMessage: e.message})
+                commit('loadMessagesError', { errorCode: e.errorCode, errorMessage: e.message });
             }
 
-            return false
+            return false;
         }
     },
 
@@ -111,20 +111,20 @@ const actions = {
 
             const tipsChannel = new Channel();
             tipsChannel.scope = TIPS;
-            channels.push(tipsChannel)
+            channels.push(tipsChannel);
 
             channels.reverse();
-            commit('createSuccess', channels)
+            commit('createSuccess', channels);
 
-            return true
+            return true;
         } catch (e) {
             if (e instanceof AuthenticationError) {
-                commit('createError', {errorCode: e.errorCode, errorMessage: e.message})
+                commit('createError', { errorCode: e.errorCode, errorMessage: e.message });
             }
 
-            return false
+            return false;
         }
-    },
+    }
 };
 
 const mutations = {
@@ -155,23 +155,23 @@ const mutations = {
         state.loading = false;
     },
 
-    loadError(state, {errorCode, errorMessage}) {
+    loadError(state, { errorCode, errorMessage }) {
         state.playerErrorCode = errorCode;
         state.playerError = errorMessage;
         state.loading = false;
     },
 
-    createError(state, {errorCode, errorMessage}) {
+    createError(state, { errorCode, errorMessage }) {
         state.playerErrorCode = errorCode;
         state.playerError = errorMessage;
         state.loading = false;
     },
 
-    loadMessagesError(state, {errorCode, errorMessage}) {
+    loadMessagesError(state, { errorCode, errorMessage }) {
         state.playerErrorCode = errorCode;
         state.playerError = errorMessage;
         state.loading = false;
-    },
+    }
 };
 
 export const communication = {

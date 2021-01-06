@@ -1,5 +1,5 @@
 import PlayerService from "@/services/player.service";
-import {AuthenticationError} from "@/services/user.service";
+import { AuthenticationError } from "@/services/user.service";
 
 
 const state =  {
@@ -10,52 +10,52 @@ const state =  {
 
 const getters = {
     getPlayer: (state) => {
-        return state.player
+        return state.player;
     },
     loading: (state) => {
-        return state.loading
+        return state.loading;
     },
     getTarget: (state) => {
-        return state.target
+        return state.target;
     }
 };
 
 const actions = {
-    async selectTarget({ commit }, {target}) {
-        commit('selectTarget', target)
+    async selectTarget({ commit }, { target }) {
+        commit('selectTarget', target);
     },
-    async storePlayer({ commit }, {player}) {
-        commit('loadSuccess', player)
+    async storePlayer({ commit }, { player }) {
+        commit('loadSuccess', player);
     },
-    async loadPlayer({ commit }, {playerId}) {
+    async loadPlayer({ commit }, { playerId }) {
         commit('loadRequest');
         try {
             const player = await PlayerService.loadPlayer(playerId);
-            commit('loadSuccess', player)
+            commit('loadSuccess', player);
 
-            return true
+            return true;
         } catch (e) {
             if (e instanceof AuthenticationError) {
-                commit('loadError', {errorCode: e.errorCode, errorMessage: e.message})
+                commit('loadError', { errorCode: e.errorCode, errorMessage: e.message });
             }
 
-            return false
+            return false;
         }
     },
     async reloadPlayer({ commit, state }) {
         commit('reloadRequest');
         try {
             const player = await PlayerService.loadPlayer(state.player.id);
-            commit('loadSuccess', player)
-            return true
+            commit('loadSuccess', player);
+            return true;
         } catch (e) {
             if (e instanceof AuthenticationError) {
-                commit('loadError', {errorCode: e.errorCode, errorMessage: e.message})
+                commit('loadError', { errorCode: e.errorCode, errorMessage: e.message });
             }
 
-            return false
+            return false;
         }
-    },
+    }
 };
 
 const mutations = {
@@ -75,12 +75,12 @@ const mutations = {
         state.target = player;
         state.player = player;
         state.loading = false;
-        },
-
-    loadError(state, {errorCode, errorMessage}) {
-        state.playerErrorCode = errorCode;
-        state.playerError = errorMessage
     },
+
+    loadError(state, { errorCode, errorMessage }) {
+        state.playerErrorCode = errorCode;
+        state.playerError = errorMessage;
+    }
 };
 
 export const player = {

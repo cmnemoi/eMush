@@ -1,6 +1,6 @@
-import ApiService from './api.service'
-import { TokenService } from './storage.service'
-import {User} from "@/entities/User";
+import ApiService from './api.service';
+import { TokenService } from './storage.service';
+import { User } from "@/entities/User";
 
 const authorizationUrl = process.env.VUE_APP_OAUTH_URL + '/authorize';
 const tokenUrl = process.env.VUE_APP_OAUTH_URL + '/token';
@@ -18,9 +18,9 @@ class AuthenticationError extends Error {
 const UserService = {
     redirect: async function(passphrase) {
         const redirectUri = new URLSearchParams();
-        console.log(passphrase)
-        redirectUri.set('redirect_uri', callBackUrl)
-        redirectUri.set('passphrase', passphrase)
+        console.log(passphrase);
+        redirectUri.set('redirect_uri', callBackUrl);
+        redirectUri.set('passphrase', passphrase);
         global.window.location.replace(decodeURIComponent(authorizationUrl + '?'+ redirectUri.toString()));
     },
 
@@ -36,11 +36,11 @@ const UserService = {
 
             ApiService.mount401Interceptor();
 
-            return response.data.token
+            return response.data.token;
         } catch (error) {
-            console.error(error)
+            console.error(error);
             // eslint-disable-next-line no-console
-            throw new AuthenticationError(error.response.status, error.response.data.detail)
+            throw new AuthenticationError(error.response.status, error.response.data.detail);
         }
     },
 
@@ -80,7 +80,7 @@ const UserService = {
                 header: {
                     'accept' : 'application/json'
                 }
-            }
+            };
             const response = await ApiService.get(process.env.VUE_APP_API_URL+'users', params);
             let user = new User();
             TokenService.saveUserInfo(user.load(response.data));
@@ -88,7 +88,7 @@ const UserService = {
             return user;
         } catch (error) {
             // eslint-disable-next-line no-console
-            throw new AuthenticationError(error.response.status, error.response.data.detail)
+            throw new AuthenticationError(error.response.status, error.response.data.detail);
         }
     },
 
@@ -105,10 +105,10 @@ const UserService = {
         ApiService.removeHeader();
 
         // NOTE: Again, we'll cover the 401 Interceptor a bit later.
-        ApiService.unmount401Interceptor()
+        ApiService.unmount401Interceptor();
     }
 };
 
-export default UserService
+export default UserService;
 
-export { UserService, AuthenticationError }
+export { UserService, AuthenticationError };

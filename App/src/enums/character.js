@@ -108,5 +108,6 @@ export const characterEnum = {
         'head': require('@/assets/images/char/head/terrence.png'),
         'body': require('@/assets/images/char/body/terrence.png'),
         'portrait': require('@/assets/images/char/portrait/Terrence_archer_portrait.jpg')
-    },
+    }
 }
+;

@@ -6,7 +6,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Actions\Take;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
@@ -16,16 +15,12 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
-use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\GameConfigServiceInterface;
-use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
 use Mush\Status\Service\StatusServiceInterface;
-use PHPUnit\Framework\TestCase;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class TakeActionTest extends TestCase
+class TakeActionTest extends AbstractActionTest
 {
     /** @var GameEquipmentServiceInterface | Mockery\Mock */
     private GameEquipmentServiceInterface $gameEquipmentService;
@@ -34,14 +29,16 @@ class TakeActionTest extends TestCase
     /** @var StatusServiceInterface | Mockery\Mock */
     private StatusServiceInterface $statusService;
     private GameConfig $gameConfig;
-    private AbstractAction $action;
 
     /**
      * @before
      */
     public function before()
     {
-        $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
+        parent::before();
+
+        $this->actionEntity = $this->createActionEntity(ActionEnum::TRANSPLANT);
+
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
@@ -49,10 +46,8 @@ class TakeActionTest extends TestCase
         $this->gameConfig = new GameConfig();
         $gameConfigService->shouldReceive('getConfig')->andReturn($this->gameConfig)->once();
 
-        $eventDispatcher->shouldReceive('dispatch');
-
         $this->action = new Take(
-            $eventDispatcher,
+            $this->eventDispatcher,
             $this->gameEquipmentService,
             $this->playerService,
             $gameConfigService,
@@ -97,7 +92,7 @@ class TakeActionTest extends TestCase
         $actionParameter->setItem($gameItem);
         $player = $this->createPlayer(new Daedalus(), $room);
 
-        $this->action->loadParameters($player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
         $result = $this->action->execute();
 
@@ -110,20 +105,5 @@ class TakeActionTest extends TestCase
         $this->assertInstanceOf(Error::class, $result);
         $this->assertEmpty($room->getEquipments());
         $this->assertCount(1, $player->getItems());
-    }
-
-    private function createPlayer(Daedalus $daedalus, Room $room): Player
-    {
-        $player = new Player();
-        $player
-            ->setActionPoint(10)
-            ->setMovementPoint(10)
-            ->setMoralPoint(10)
-            ->setDaedalus($daedalus)
-            ->setRoom($room)
-            ->setGameStatus(GameStatusEnum::CURRENT)
-        ;
-
-        return $player;
     }
 }

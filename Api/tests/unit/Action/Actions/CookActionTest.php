@@ -6,9 +6,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Actions\Cook;
 use Mush\Action\Entity\ActionParameters;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
@@ -18,18 +18,15 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
-use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\GameConfigServiceInterface;
-use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class CookActionTest extends TestCase
+class CookActionTest extends AbstractActionTest
 {
     /** @var GameEquipmentServiceInterface | Mockery\Mock */
     private GameEquipmentServiceInterface $gameEquipmentService;
@@ -37,7 +34,6 @@ class CookActionTest extends TestCase
     private PlayerServiceInterface $playerService;
     /** @var StatusServiceInterface | Mockery\Mock */
     private StatusServiceInterface $statusService;
-    private AbstractAction $action;
 
     private GameConfig $gameConfig;
 
@@ -46,17 +42,19 @@ class CookActionTest extends TestCase
      */
     public function before()
     {
-        $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
+        parent::before();
+
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
-        $eventDispatcher->shouldReceive('dispatch');
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
         $gameConfigService = Mockery::mock(GameConfigServiceInterface::class);
         $this->gameConfig = new GameConfig();
         $gameConfigService->shouldReceive('getConfig')->andReturn($this->gameConfig)->once();
 
+        $this->actionEntity = $this->createActionEntity(ActionEnum::COOK, 1);
+
         $this->action = new Cook(
-            $eventDispatcher,
+            $this->eventDispatcher,
             $this->gameEquipmentService,
             $this->playerService,
             $this->statusService,
@@ -97,7 +95,7 @@ class CookActionTest extends TestCase
         $player = $this->createPlayer(new Daedalus(), $room);
         $actionParameter = new ActionParameters();
         $actionParameter->setItem($gameRation);
-        $this->action->loadParameters($player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
         //not possible to cook (not frozen nor standard ration)
         $result = $this->action->execute();
@@ -150,7 +148,7 @@ class CookActionTest extends TestCase
         $this->gameConfig->setMaxItemInInventory(3);
         $actionParameter = new ActionParameters();
         $actionParameter->setItem($gameRation);
-        $this->action->loadParameters($player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
         $this->gameEquipmentService->shouldReceive('getOperationalEquipmentsByName')->andReturn(new ArrayCollection([$gameKitchen]))->once();
         $this->gameEquipmentService->shouldReceive('persist')->once();
@@ -192,7 +190,7 @@ class CookActionTest extends TestCase
         $this->gameConfig->setMaxItemInInventory(3);
         $actionParameter = new ActionParameters();
         $actionParameter->setItem($gameRation);
-        $this->action->loadParameters($player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
         $gameCookedRation = new GameItem();
         $cookedRation = new ItemConfig();
@@ -205,7 +203,11 @@ class CookActionTest extends TestCase
         ;
 
         $this->gameEquipmentService->shouldReceive('delete');
-        $this->gameEquipmentService->shouldReceive('getOperationalEquipmentsByName')->andReturn(new ArrayCollection([$gameKitchen]))->once();
+        $this->gameEquipmentService
+            ->shouldReceive('getOperationalEquipmentsByName')
+            ->andReturn(new ArrayCollection([$gameKitchen]))
+            ->once()
+        ;
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->andReturn($gameCookedRation)->once();
         $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $eventDispatcher->shouldReceive('dispatch');
@@ -218,20 +220,5 @@ class CookActionTest extends TestCase
         $this->assertCount(0, $room->getEquipments()->first()->getStatuses());
         $this->assertCount(0, $player->getStatuses());
         $this->assertEquals(9, $player->getActionPoint());
-    }
-
-    private function createPlayer(Daedalus $daedalus, Room $room): Player
-    {
-        $player = new Player();
-        $player
-            ->setActionPoint(10)
-            ->setMovementPoint(10)
-            ->setMoralPoint(10)
-            ->setDaedalus($daedalus)
-            ->setRoom($room)
-            ->setGameStatus(GameStatusEnum::CURRENT)
-        ;
-
-        return $player;
     }
 }

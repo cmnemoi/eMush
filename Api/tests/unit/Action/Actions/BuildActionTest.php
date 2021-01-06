@@ -9,6 +9,7 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Actions\Build;
 use Mush\Action\Entity\ActionParameters;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
@@ -17,40 +18,38 @@ use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Blueprint;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
-use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\GameConfigServiceInterface;
-use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class BuildActionTest extends TestCase
+class BuildActionTest extends AbstractActionTest
 {
     /** @var GameEquipmentServiceInterface | Mockery\Mock */
     private GameEquipmentServiceInterface $gameEquipmentService;
     /** @var PlayerServiceInterface | Mockery\Mock */
     private PlayerServiceInterface $playerService;
-
     private GameConfig $gameConfig;
-    private AbstractAction $action;
+
+    protected AbstractAction $action;
 
     /**
      * @before
      */
     public function before()
     {
-        $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
+        parent::before();
+
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
         $gameConfigService = Mockery::mock(GameConfigServiceInterface::class);
         $this->gameConfig = new GameConfig();
         $gameConfigService->shouldReceive('getConfig')->andReturn($this->gameConfig)->once();
 
-        $eventDispatcher->shouldReceive('dispatch');
+        $this->actionEntity = $this->createActionEntity(ActionEnum::BUILD);
 
         $this->action = new Build(
-            $eventDispatcher,
+            $this->eventDispatcher,
             $this->gameEquipmentService,
             $this->playerService,
             $gameConfigService
@@ -72,30 +71,30 @@ class BuildActionTest extends TestCase
         $equipment = new EquipmentConfig();
         $equipment->setName('blueprint');
         $gameEquipment
-                    ->setEquipment($equipment)
-                    ->setRoom($room)
-                    ->setName('blueprint');
+            ->setEquipment($equipment)
+            ->setRoom($room)
+            ->setName('blueprint');
 
         $product = new ItemConfig();
 
         $blueprint = new Blueprint();
         $blueprint
-               ->setIngredients(['metal_scraps' => 1])
-               ->setEquipment($product);
+            ->setIngredients(['metal_scraps' => 1])
+            ->setEquipment($product);
 
         $gameIngredient = new GameItem();
         $ingredient = new ItemConfig();
         $ingredient->setName('metal_scraps');
         $gameIngredient
-                 ->setEquipment($ingredient)
-                 ->setRoom($room)
-                 ->setName('metal_scraps');
+            ->setEquipment($ingredient)
+            ->setRoom($room)
+            ->setName('metal_scraps');
 
         $actionParameter = new ActionParameters();
         $actionParameter->setEquipment($gameEquipment);
         $player = $this->createPlayer(new Daedalus(), $room);
 
-        $this->action->loadParameters($player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
         //Not a blueprint
         $result = $this->action->execute();
@@ -112,7 +111,7 @@ class BuildActionTest extends TestCase
         //Not enough of a given ingredient
         $gameIngredient->setRoom($room);
         $blueprint
-               ->setIngredients(['metal_scraps' => 2]);
+            ->setIngredients(['metal_scraps' => 2]);
         $equipment->setMechanics(new ArrayCollection([$blueprint]));
 
         $result = $this->action->execute();
@@ -135,29 +134,29 @@ class BuildActionTest extends TestCase
         $product->setName('product');
         $gameProduct = new GameItem();
         $gameProduct
-               ->setEquipment($product)
-               ->setName('product');
+            ->setEquipment($product)
+            ->setName('product');
 
         $blueprint = new Blueprint();
         $blueprint
-               ->setIngredients(['metal_scraps' => 1])
-               ->setEquipment($product);
+            ->setIngredients(['metal_scraps' => 1])
+            ->setEquipment($product);
         $item->setMechanics(new ArrayCollection([$blueprint]));
 
         $gameIngredient = new GameItem();
         $ingredient = new ItemConfig();
         $ingredient->setName('metal_scraps');
         $gameIngredient
-                ->setEquipment($ingredient)
-                ->setRoom($room)
-                ->setName('metal_scraps');
+            ->setEquipment($ingredient)
+            ->setRoom($room)
+            ->setName('metal_scraps');
 
         $actionParameter = new ActionParameters();
         $actionParameter->setItem($gameItem);
-        $player = new Player();
+
         $player = $this->createPlayer(new Daedalus(), $room);
 
-        $this->action->loadParameters($player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
         $this->gameConfig->setMaxItemInInventory(3);
         $this->gameEquipmentService->shouldReceive('persist');
@@ -173,20 +172,5 @@ class BuildActionTest extends TestCase
 
         $this->assertInstanceOf(Success::class, $result);
         $this->assertEmpty($player->getRoom()->getEquipments());
-    }
-
-    private function createPlayer(Daedalus $daedalus, Room $room): Player
-    {
-        $player = new Player();
-        $player
-            ->setActionPoint(10)
-            ->setMovementPoint(10)
-            ->setMoralPoint(10)
-            ->setDaedalus($daedalus)
-            ->setRoom($room)
-            ->setGameStatus(GameStatusEnum::CURRENT)
-        ;
-
-        return $player;
     }
 }

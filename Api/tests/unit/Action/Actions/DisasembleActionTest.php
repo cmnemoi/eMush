@@ -196,7 +196,7 @@ class DisasembleActionTest extends TestCase
             ->once()
         ;
         $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
-        $eventDispatcher->shouldReceive('dispatch')->once();
+        $eventDispatcher->shouldReceive('dispatch');
 
         //Success
         $result = $this->action->execute();

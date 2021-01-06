@@ -144,7 +144,7 @@ class CoffeeActionTest extends TestCase
         $this->gameEquipmentService->shouldReceive('getOperationalEquipmentsByName')->andReturn(new ArrayCollection([$gameCoffeeMachine]))->twice();
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->andReturn($gameCoffee)->once();
         $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
-        $eventDispatcher->shouldReceive('dispatch')->once();
+        $eventDispatcher->shouldReceive('dispatch');
         $this->gameEquipmentService->shouldReceive('persist');
         $this->statusService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');

@@ -195,14 +195,14 @@ class DisasembleActionTest extends TestCase
             ->andReturn($scrap)
             ->once()
         ;
+        $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
+        $eventDispatcher->shouldReceive('dispatch');
 
         //Success
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
         $this->assertCount(0, $room->getEquipments());
-        $this->assertCount(1, $player->getItems());
-        $this->assertEquals($scrap, $player->getItems()->first());
         $this->assertCount(0, $player->getStatuses());
         $this->assertEquals(4, $player->getActionPoint());
     }

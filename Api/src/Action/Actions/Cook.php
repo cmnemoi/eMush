@@ -11,6 +11,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ReachEnum;
+use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\GameConfigServiceInterface;
@@ -78,11 +79,10 @@ class Cook extends AbstractAction
             $newItem = $this->gameEquipmentService
                 ->createGameEquipmentFromName(GameRationEnum::COOKED_RATION, $this->player->getDaedalus())
             ;
-            if ($this->player->getItems()->count() < $this->gameConfig->getMaxItemInInventory()) {
-                $newItem->setPlayer($this->player);
-            } else {
-                $newItem->setRoom($this->player->getRoom());
-            }
+
+            $equipmentEvent = new EquipmentEvent($newItem);
+            $equipmentEvent->setPlayer($this->player);
+            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
             foreach ($this->gameEquipment->getStatuses() as $status) {
                 $newItem->addStatus($status);

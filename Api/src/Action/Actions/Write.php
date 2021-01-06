@@ -9,6 +9,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
+use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\GameConfigServiceInterface;
@@ -73,11 +74,9 @@ class Write extends AbstractAction
         ;
         $newGameItem->addStatus($contentStatus);
 
-        if ($this->player->getItems()->count() < $this->gameConfig->getMaxItemInInventory()) {
-            $newGameItem->setPlayer($this->player);
-        } else {
-            $newGameItem->setRoom($this->player->getRoom());
-        }
+        $equipmentEvent = new EquipmentEvent($newGameItem);
+        $equipmentEvent->setPlayer($this->player);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
         $this->gameEquipmentService->persist($newGameItem);
         $this->playerService->persist($this->player);

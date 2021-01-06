@@ -80,7 +80,7 @@ class Shower extends AbstractAction
         }
 
         $this->playerService->persist($this->player);
-        
+
         //@TODO different log for mush and Humen
 
         return new Success(ActionLogEnum::SHOWER, VisibilityEnum::PRIVATE);

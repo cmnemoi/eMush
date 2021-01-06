@@ -6,11 +6,11 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Service\SuccessRateServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Action\Service\SuccessRateServiceInterface;
-use Mush\Player\Entity\Player;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -45,7 +45,7 @@ class Sabotage extends AttemptAction
         $this->playerService = $playerService;
         $this->randomService = $randomService;
         $this->successRateService = $successRateService;
-        $this->actionCost->setActionPointCost(1);
+        $this->actionCost->setActionPointCost(2);
     }
 
     public function loadParameters(Player $player, ActionParameters $actionParameters): void
@@ -63,7 +63,7 @@ class Sabotage extends AttemptAction
     {
         return $this->player->canReachEquipment($this->gameEquipment) &&
                !$this->gameEquipment->isBroken() &&
-               $this->gameEquipment->getBrokenRate()>0 &&
+               $this->gameEquipment->getBrokenRate() > 0 &&
                $this->player->isMush()
             ;
     }
@@ -74,9 +74,9 @@ class Sabotage extends AttemptAction
 
         $response = $this->makeAttempt($this->gameEquipment->getBrokenRate(), $modificator);
 
-        if ($response instanceof Success){
+        if ($response instanceof Success) {
             $this->statusService->createCoreEquipmentStatus(EquipmentStatusEnum::BROKEN, $this->gameEquipment);
-            $this->gameEquipmentService->persist($this->gameEquipment);            
+            $this->gameEquipmentService->persist($this->gameEquipment);
         }
 
         $this->playerService->persist($this->player);

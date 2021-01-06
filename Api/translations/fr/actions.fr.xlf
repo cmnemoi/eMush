@@ -292,7 +292,7 @@
             </segment>
         </unit>
         <unit id="transplant">
-            <segment id="transplant">
+            <segment id="name">
                 <source>transplant.name</source>
                 <target>Semer</target>
             </segment>
@@ -306,7 +306,7 @@
             </segment>
         </unit>
         <unit id="treat_plant">
-            <segment id="treat_plant">
+            <segment id="name">
                 <source>treat_plant.name</source>
                 <target>Traiter</target>
             </segment>
@@ -320,7 +320,7 @@
             </segment>
         </unit>
         <unit id="water_plant">
-            <segment id="water_plant">
+            <segment id="name">
                 <source>water_plant.name</source>
                 <target>Arroser</target>
             </segment>
@@ -334,7 +334,7 @@
             </segment>
         </unit>
         <unit id="write">
-            <segment id="write">
+            <segment id="name">
                 <source>write.name</source>
                 <target>Écrire</target>
             </segment>
@@ -348,7 +348,7 @@
             </segment>
         </unit>
         <unit id="insert_oxygen">
-            <segment id="insert_oxygen">
+            <segment id="name">
                 <source>insert_oxygen.name</source>
                 <target>Insérer</target>
             </segment>
@@ -362,7 +362,7 @@
             </segment>
         </unit>
         <unit id="retrieve_oxygen">
-            <segment id="retrieve_oxygen">
+            <segment id="name">
                 <source>retrieve_oxygen.name</source>
                 <target>Récupérer Capsule d'Oxygène</target>
             </segment>
@@ -372,6 +372,34 @@
             </segment>
             <segment id="description_no">
                 <source>retrieve_oxygen.description.no</source>
+                <target>TODO</target>
+            </segment>
+        </unit>
+        <unit id="sabotage">
+            <segment id="name">
+                <source>sabotage.name</source>
+                <target>Saboter</target>
+            </segment>
+            <segment id="description">
+                <source>sabotage.description</source>
+                <target>Casse l'équipement ciblé.</target>
+            </segment>
+            <segment id="description_no">
+                <source>sabotage.description.no</source>
+                <target>TODO</target>
+            </segment>
+        </unit>
+        <unit id="shower">
+            <segment id="name">
+                <source>shower.name</source>
+                <target>Se Laver</target>
+            </segment>
+            <segment id="description">
+                <source>shower.description</source>
+                <target>Quand la crasse se fait épaisse, quand la propreté cesse, quand les turpitudes des odeurs vous oppressent. Une solution. La douche.</target>
+            </segment>
+            <segment id="description_no">
+                <source>shower.description.no</source>
                 <target>TODO</target>
             </segment>
         </unit>

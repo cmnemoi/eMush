@@ -40,9 +40,14 @@ class ActionService implements ActionServiceInterface
     public function handleActionSideEffect(Action $action, Player $player, ?\DateTime $date = null): Player
     {
         $dirtyRate = $action->getDirtyRate();
+        $isSuperDirty = $dirtyRate > 100;
         if (!$player->hasStatus(PlayerStatusEnum::DIRTY) &&
-            $dirtyRate > 0 && $this->randomService->randomPercent() < $dirtyRate) {
-            if ($player->hasItemByName(GearItemEnum::STAINPROOF_APRON)) {
+            $dirtyRate > 0 &&
+            $this->randomService->randomPercent() < $dirtyRate
+        ) {
+            if (!$isSuperDirty &&
+                $player->hasItemByName(GearItemEnum::STAINPROOF_APRON)
+            ) {
                 $this->roomLogService->createPlayerLog(
                     LogEnum::SOIL_PREVENTED,
                     $player->getRoom(),

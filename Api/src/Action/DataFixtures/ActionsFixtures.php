@@ -441,6 +441,7 @@ class ActionsFixtures extends Fixture
             ->setType([])
             ->setScope(ActionScopeEnum::SELF)
             ->setActionCost($twoActionPointCost)
+            ->setDirtyRate(101)
         ;
 
         $manager->persist($extractSporeAction);

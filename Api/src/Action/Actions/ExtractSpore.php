@@ -51,8 +51,10 @@ class ExtractSpore extends AbstractAction
 
         $this->player->getDaedalus()->setSpores($this->player->getDaedalus()->getSpores() - 1);
 
-        $this->statusService->createCorePlayerStatus(PlayerStatusEnum::DIRTY, $this->player);
-
+        if (!$this->player->getStatusByName(PlayerStatusEnum::DIRTY)){
+            $this->statusService->createCorePlayerStatus(PlayerStatusEnum::DIRTY, $this->player);
+        }
+        
         return new Success(ActionLogEnum::EXTRACT_SPORE_SUCCESS, VisibilityEnum::COVERT);
     }
 }

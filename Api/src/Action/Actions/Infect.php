@@ -61,6 +61,7 @@ class Infect extends AbstractAction
         $mushStatus = $this->player->getStatusByName(PlayerStatusEnum::MUSH);
 
         return $this->player->isMush() &&
+            $sporeStatus &&
             $sporeStatus->getCharge() > 0 &&
             $mushStatus->getCharge() > 0 &&
             !$this->targetPlayer->isMush() &&

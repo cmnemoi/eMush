@@ -32,7 +32,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                                                $searchAction,
                                                $sabotageAction,
                                                $infectAction,
-                                               $extractSporeAction]);
+                                               $extractSporeAction, ]);
 
         $andie = new CharacterConfig();
         $andie

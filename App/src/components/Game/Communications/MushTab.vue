@@ -1,70 +1,50 @@
 <template>
-<div class="chatbox-container" id="private-discussion-tab">
+<div class="chatbox-container" id="mush-tab">
   <div class="chat-input">
     <textarea placeholder="Type your message here!" v-model="text" @keyup.enter="sendNewMessage"></textarea>
     <a class="submit" href="#"><img src="@/assets/images/comms/submit.gif" alt="submit"></a>
   </div>
   <div class="chatbox">
     <div class="actions">
-      <a href="#"><img src="@/assets/images/comms/refresh.png">Rafr.</a>
-      <a href="#"><img src="@/assets/images/comms/invite.png">Inviter</a>
+      <a href="#"><img src="@/assets/images/comms/refresh.gif">Rafr.</a>
       <a href="#"><img src="@/assets/images/comms/alert.png">Plainte</a>
-      <a href="#"><img src="@/assets/images/comms/close.png">Quitter</a>
     </div>
-    <ul class="participants">
-      <li><img src="@/assets/images/char/body/ian.png"></li>
-      <li><img src="@/assets/images/char/body/jin_su.png"></li>
-      <li><img src="@/assets/images/char/body/paola.png"></li>
-      <li><img src="@/assets/images/char/body/chun.png"></li>
-    </ul>
     <div class="unit">
+      <div class="banner cycle-banner">
+        <img class="expand" src="@/assets/images/comms/less.png">
+        <span>Jour 5 Cycle 6</span>
+      </div>
       <div class="message new">
         <div class="char-portrait">
           <img src="@/assets/images/char/body/ian.png">
         </div>
-        <p><span class="author">Ian :</span><strong><em>Piloting</em></strong></p>
+        <p><img src="@/assets/images/comms/talkie.png"> <span class="author">Ian :</span><strong><em>Piloting</em></strong></p>
         <span class="timestamp">~1d</span>
       </div>
     </div>
     <div class="unit">
+      <div class="banner cycle-banner">
+        <img class="expand" src="@/assets/images/comms/less.png">
+        <span>Jour 5 Cycle 5</span>
+      </div>
       <div class="message new">
         <div class="char-portrait">
           <img src="@/assets/images/char/body/jin_su.png">
         </div>
-        <p><span class="author">Jin Su :</span>So far eight hunters shot total (3 + 5), no scrap collected yet.</p>
+        <p><img src="@/assets/images/comms/talkie.png"> <span class="author">Jin Su :</span>So far eight hunters shot total (3 + 5), no scrap collected yet.</p>
         <span class="timestamp">~3d</span>
       </div>
-    </div>
-    <div class="unit">
       <div class="message">
         <div class="char-portrait">
           <img src="@/assets/images/char/body/ian.png">
         </div>
-        <p><span class="author">Ian :</span>Excellent sir, I can see why they have you training the new pilots :P</p>
+        <p><img src="@/assets/images/comms/talkie.png"> <span class="author">Ian :</span>Excellent sir, I can see why they have you training the new pilots :P</p>
         <span class="timestamp">~3d</span>
       </div>
-    </div>
-    <div class="unit">
-      <div class="message">
-        <div class="char-portrait">
-          <img src="@/assets/images/char/body/jin_su.png">
-        </div>
-        <p><span class="author">Jin Su :</span>Kind of you to say so, yet I sadly can't agree. In fact I find our hull's exellency wanting. It shall be restored once we collected scrap and built the oscilloscope.></p>
+      <div class="log">
+        <p class="text-log"><img src="@/assets/images/triumph.png"> Bienvenue parmi le Mush <strong>Ian</strong>. Vous avez été récompensé avec <strong>120 points de Triomphe</strong>.</p>
         <span class="timestamp">~5d</span>
       </div>
-    </div>
-    <div class="unit">
-      <div class="message">
-        <div class="char-portrait">
-          <img src="@/assets/images/char/body/jin_su.png">
-        </div>
-        <p><span class="author">Jin Su :</span>Wololo !</p>
-        <span class="timestamp">~6d</span>
-      </div>
-    </div>
-    <div class="log">
-      <p class="text-log"><strong>Jin Su</strong> a rejoint la discussion.</p>
-      <span class="timestamp">environ 2 heures</span>
     </div>
   </div>
 </div>
@@ -74,7 +54,7 @@
 
 
 export default {
-  name: "PrivateDiscussionTab",
+  name: "MushTab",
   props: {
   }
 }
@@ -82,7 +62,7 @@ export default {
 
 <style lang="scss" scoped>
 
-/* --- PROVISIONAL UNTIL LINE 203 --- */
+/* --- PROVISIONAL UNTIL LINE 185 --- */
 
 .message {
   position: relative;
@@ -203,9 +183,35 @@ export default {
 /* --- END OF PROVISIONAL --- */
 
 
-#private-discussion-tab {
+#mush-tab {
   .unit {
     padding: 5px 0;
+  }
+
+  .chat-input .submit { //change the submit button color
+    $color: #ff3867;
+    $hover-color: #fa6480;
+    background: $color;
+    background: linear-gradient(0deg, 
+      darken(adjust-hue($color, 13), 5.49) 2%, 
+      $color 6%, 
+      $color 46%, 
+      lighten(adjust-hue($color, -6), 3.5) 54%, 
+      lighten(adjust-hue($color, -6), 3.5) 94%, 
+      lighten(desaturate($color, 25.00), 15.49) 96%
+    );
+
+    &:hover, &:focus {
+      background: $hover-color;
+      background: linear-gradient(0deg, 
+        darken(adjust-hue($hover-color, 14), 3.92) 2%, 
+        $hover-color 6%, 
+        $hover-color 46%, 
+        lighten(adjust-hue($hover-color, -4), 1) 54%, 
+        lighten(adjust-hue($hover-color, -4), 1) 94%, 
+        lighten(desaturate($hover-color, 18.10), 13.14) 96%
+      );
+    }
   }
 
   .actions {
@@ -220,15 +226,13 @@ export default {
     }
   }
 
-  .participants {
-    flex-direction: row;
-    margin: 8px 0;
-
-    li { width: 28px; }
+  .banner {
+    margin-bottom: 6px;
+    background: #e7bacc !important;
   }
 }
 
-#private-discussion-tab .unit:nth-of-type(odd) > div {
+#mush-tab .unit > .message:nth-of-type(odd) {
   flex-direction: row-reverse;
 
   .char-portrait { align-items: flex-end; }

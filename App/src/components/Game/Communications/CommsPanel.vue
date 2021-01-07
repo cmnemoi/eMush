@@ -11,6 +11,13 @@
       <li>
         <img src="@/assets/images/comms/private.png">
       </li>
+      <li>
+        <img src="@/assets/images/comms/mush.png">
+      </li>
+      <li>
+        <img src="@/assets/images/comms/fav.png">
+        <span><!-- new messages notifier goes here --></span>
+      </li>
       <li class="newtab">
         <img src="@/assets/images/comms/newtab.png">
       </li>
@@ -27,8 +34,10 @@
 <script>
 import TipsTab from "@/components/Game/Communications/TipsTab";
 import RoomEventsTab from "@/components/Game/Communications/RoomEventsTab";
+import FavouritesTab from "@/components/Game/Communications/FavouritesTab";
 import DiscussionTab from "@/components/Game/Communications/DiscussionTab";
-import PrivateDiscussionTab from "@/components/Game/Communications/PrivateDiscussionTab";
+import PrivateTab from "@/components/Game/Communications/PrivateTab";
+import MushTab from "@/components/Game/Communications/MushTab";
 import {Room} from "@/entities/Room";
 import {mapActions, mapGetters} from "vuex";
 import {PRIVATE, PUBLIC, ROOM_LOG, TIPS} from '@/enums/communication.enum';
@@ -40,8 +49,10 @@ export default {
   components: {
     TipsTab,
     DiscussionTab,
-    PrivateDiscussionTab,
-    RoomEventsTab
+    FavouritesTab,
+    PrivateTab,
+    RoomEventsTab,
+    MushTab
   },
   props: {
     day: Number,
@@ -68,7 +79,7 @@ export default {
           case ROOM_LOG:
             return RoomEventsTab;
           case PRIVATE:
-            return PrivateDiscussionTab;
+            return PrivateTab;
           case PUBLIC:
           default:
             return DiscussionTab;
@@ -158,8 +169,12 @@ export default {
         text-align: center;
       }
 
+      .expand {
+        align-self: center;
+        padding: 2px;
+      }
+
       img { vertical-align: middle; }
-      .expand { align-self: flex-start; }
     }
   }
 

@@ -65,22 +65,9 @@ class ActionService implements ActionServiceInterface
         if ($params) {
             $actionParams = $this->loadParameter($params);
         }
-        $actionService->loadParameters($player, $actionParams);
+        $actionService->loadParameters($action, $player, $actionParams);
 
         return $actionService->execute();
-    }
-
-    public function canExecuteAction(Player $player, string $actionName, ActionParameters $params): bool
-    {
-        $action = $this->getAction($actionName);
-
-        if (null === $action) {
-            return false;
-        }
-
-        $action->loadParameters($player, $params);
-
-        return $action->canExecute();
     }
 
     private function loadParameter(array $parameter): ActionParameters

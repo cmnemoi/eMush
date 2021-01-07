@@ -6,25 +6,21 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Actions\WaterPlant;
 use Mush\Action\Entity\ActionParameters;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Enum\GameStatusEnum;
-use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
-use PHPUnit\Framework\TestCase;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class WaterPlantActionTest extends TestCase
+class WaterPlantActionTest extends AbstractActionTest
 {
     /** @var GameEquipmentServiceInterface | Mockery\Mock */
     private GameEquipmentServiceInterface $gameEquipmentService;
@@ -32,21 +28,22 @@ class WaterPlantActionTest extends TestCase
     private PlayerServiceInterface $playerService;
     /** @var StatusServiceInterface | Mockery\Mock */
     private StatusServiceInterface $statusService;
-    private AbstractAction $action;
 
     /**
      * @before
      */
     public function before()
     {
-        $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
+        parent::before();
+
+        $this->actionEntity = $this->createActionEntity(ActionEnum::WATER_PLANT, 1);
+
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
-        $eventDispatcher->shouldReceive('dispatch');
 
         $this->action = new WaterPlant(
-            $eventDispatcher,
+            $this->eventDispatcher,
             $this->gameEquipmentService,
             $this->playerService,
             $this->statusService
@@ -84,7 +81,7 @@ class WaterPlantActionTest extends TestCase
         $player = $this->createPlayer(new Daedalus(), $room);
         $actionParameter = new ActionParameters();
         $actionParameter->setItem($gameItem);
-        $this->action->loadParameters($player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
         //Not a plant
         $result = $this->action->execute();
@@ -122,7 +119,7 @@ class WaterPlantActionTest extends TestCase
         $player = $this->createPlayer(new Daedalus(), $room);
         $actionParameter = new ActionParameters();
         $actionParameter->setItem($gameItem);
-        $this->action->loadParameters($player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
         $this->gameEquipmentService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
@@ -154,20 +151,5 @@ class WaterPlantActionTest extends TestCase
         $this->assertCount(1, $room->getEquipments());
         $this->assertCount(0, $room->getEquipments()->first()->getStatuses());
         $this->assertCount(0, $player->getStatuses());
-    }
-
-    private function createPlayer(Daedalus $daedalus, Room $room): Player
-    {
-        $player = new Player();
-        $player
-            ->setActionPoint(10)
-            ->setMovementPoint(10)
-            ->setMoralPoint(10)
-            ->setDaedalus($daedalus)
-            ->setRoom($room)
-            ->setGameStatus(GameStatusEnum::CURRENT)
-        ;
-
-        return $player;
     }
 }

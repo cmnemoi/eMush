@@ -26,12 +26,13 @@ class ActionSubscriber implements EventSubscriberInterface
 
     public function onPreAction(ActionEvent $event): void
     {
+        $action = $event->getAction();
         $player = $event->getPlayer();
 
-        if ($event->getAction() !== $this->getUpAction->getActionName() &&
+        if ($action->getName() !== $this->getUpAction->getActionName() &&
             $lyingDownStatus = $player->getStatusByName(PlayerStatusEnum::LYING_DOWN)
         ) {
-            $this->getUpAction->loadParameters($player, new ActionParameters());
+            $this->getUpAction->loadParameters($action, $player, new ActionParameters());
             $this->getUpAction->execute();
         }
     }

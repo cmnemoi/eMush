@@ -5,6 +5,7 @@ namespace Mush\Action\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Equipment\Entity\GameItem;
@@ -52,13 +53,27 @@ class ActionsFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
+        $freeCost = $this->buildActionCost(0);
+        $oneActionPointCost = $this->buildActionCost(1);
+        $twoActionPointCost = $this->buildActionCost(2);
+        $threeActionPointCost = $this->buildActionCost(3);
+        $manager->persist($freeCost);
+        $manager->persist($oneActionPointCost);
+        $manager->persist($twoActionPointCost);
+        $manager->persist($threeActionPointCost);
+
         $moveAction = new Action();
+        $moveCost = $this->buildActionCost(0, 1);
+        $manager->persist($moveCost);
+
         $moveAction
             ->setName(ActionEnum::MOVE)
             ->setType([])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(1)
+            ->setActionCost($moveCost)
         ;
+        $manager->persist($moveCost);
         $manager->persist($moveAction);
 
         $searchAction = new Action();
@@ -66,6 +81,7 @@ class ActionsFixtures extends Fixture
             ->setName(ActionEnum::SEARCH)
             ->setType([])
             ->setScope(ActionScopeEnum::SELF)
+            ->setActionCost($oneActionPointCost)
         ;
         $manager->persist($searchAction);
 
@@ -75,6 +91,7 @@ class ActionsFixtures extends Fixture
             ->setType([])
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setInjuryRate(1)
+            ->setActionCost($oneActionPointCost)
         ;
         $manager->persist($hitAction);
 
@@ -83,6 +100,7 @@ class ActionsFixtures extends Fixture
             ->setName(ActionEnum::HIDE)
             ->setScope(ActionScopeEnum::ROOM)
             ->setTarget(GameItem::class)
+            ->setActionCost($oneActionPointCost)
         ;
         $manager->persist($hideAction);
 
@@ -92,6 +110,7 @@ class ActionsFixtures extends Fixture
             ->setType([])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(1)
+            ->setActionCost($freeCost)
         ;
 
         $manager->persist($takeItemAction);
@@ -102,6 +121,7 @@ class ActionsFixtures extends Fixture
             ->setType([])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(1)
+            ->setActionCost($freeCost)
         ;
 
         $manager->persist($dropItemAction);
@@ -113,6 +133,7 @@ class ActionsFixtures extends Fixture
             ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(0)
             ->setDirtyRate(50)
+            ->setActionCost($freeCost)
         ;
 
         $manager->persist($rationConsumeAction);
@@ -124,6 +145,7 @@ class ActionsFixtures extends Fixture
             ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(0)
             ->setDirtyRate(10)
+            ->setActionCost($freeCost)
         ;
 
         $manager->persist($drugConsumeAction);
@@ -135,6 +157,7 @@ class ActionsFixtures extends Fixture
             ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(25)
             ->setDirtyRate(50)
+            ->setActionCost($threeActionPointCost)
         ;
 
         $manager->persist($buildAction);
@@ -146,6 +169,7 @@ class ActionsFixtures extends Fixture
             ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(0)
             ->setDirtyRate(0)
+            ->setActionCost($freeCost)
         ;
 
         $manager->persist($readAction);
@@ -157,6 +181,7 @@ class ActionsFixtures extends Fixture
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setInjuryRate(0)
             ->setDirtyRate(0)
+            ->setActionCost($oneActionPointCost)
         ;
 
         $manager->persist($attackAction);
@@ -168,6 +193,7 @@ class ActionsFixtures extends Fixture
             ->setScope(ActionScopeEnum::SELF)
             ->setInjuryRate(0)
             ->setDirtyRate(25)
+            ->setActionCost($oneActionPointCost)
         ;
 
         $manager->persist($extinguishAction);
@@ -177,6 +203,7 @@ class ActionsFixtures extends Fixture
             ->setName(ActionEnum::TRY_THE_KUBE)
             ->setType([])
             ->setScope(ActionScopeEnum::CURRENT)
+            ->setActionCost($oneActionPointCost)
         ;
 
         $manager->persist($tryKubeAction);
@@ -186,6 +213,7 @@ class ActionsFixtures extends Fixture
             ->setName(ActionEnum::OPEN)
             ->setType([])
             ->setScope(ActionScopeEnum::CURRENT)
+            ->setActionCost($oneActionPointCost)
         ;
 
         $manager->persist($openSpaceCapsuleAction);
@@ -195,6 +223,7 @@ class ActionsFixtures extends Fixture
             ->setName(ActionEnum::CURE)
             ->setType([])
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
+            ->setActionCost($oneActionPointCost)
         ;
 
         $manager->persist($injectSerumAction);
@@ -204,6 +233,7 @@ class ActionsFixtures extends Fixture
             ->setName(ActionEnum::USE_BANDAGE)
             ->setType([])
             ->setScope(ActionScopeEnum::SELF)
+            ->setActionCost($oneActionPointCost)
         ;
 
         $manager->persist($bandageAction);
@@ -213,6 +243,7 @@ class ActionsFixtures extends Fixture
             ->setName(ActionEnum::EXPRESS_COOK)
             ->setScope(ActionScopeEnum::ROOM)
             ->setTarget(GameItem::class)
+            ->setActionCost($oneActionPointCost)
         ;
 
         $manager->persist($expressCookAction);
@@ -222,6 +253,7 @@ class ActionsFixtures extends Fixture
             ->setName(ActionEnum::COOK)
             ->setScope(ActionScopeEnum::ROOM)
             ->setTarget(GameItem::class)
+            ->setActionCost($freeCost)
         ;
 
         $manager->persist($cookAction);
@@ -231,6 +263,7 @@ class ActionsFixtures extends Fixture
             ->setName(ActionEnum::SELF_HEAL)
             ->setType([])
             ->setScope(ActionScopeEnum::SELF)
+            ->setActionCost($threeActionPointCost)
         ;
 
         $manager->persist($selfHealAction);
@@ -240,6 +273,7 @@ class ActionsFixtures extends Fixture
             ->setName(ActionEnum::HEAL)
             ->setType([])
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
+            ->setActionCost($twoActionPointCost)
         ;
 
         $manager->persist($healAction);
@@ -249,6 +283,7 @@ class ActionsFixtures extends Fixture
             ->setName(ActionEnum::ULTRAHEAL)
             ->setType([])
             ->setScope(ActionScopeEnum::SELF)
+            ->setActionCost($twoActionPointCost)
         ;
 
         $manager->persist($ultraHealAction);
@@ -258,6 +293,7 @@ class ActionsFixtures extends Fixture
             ->setName(ActionEnum::WRITE)
             ->setType([])
             ->setScope(ActionScopeEnum::CURRENT)
+            ->setActionCost($freeCost)
         ;
 
         $manager->persist($writeAction);
@@ -267,6 +303,7 @@ class ActionsFixtures extends Fixture
             ->setName(ActionEnum::HYPERFREEZE)
             ->setType([])
             ->setScope(ActionScopeEnum::CURRENT)
+            ->setActionCost($oneActionPointCost)
         ;
 
         $manager->persist($hyperfreezAction);
@@ -276,6 +313,7 @@ class ActionsFixtures extends Fixture
             ->setName(ActionEnum::GAG)
             ->setType([])
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
+            ->setActionCost($oneActionPointCost)
         ;
 
         $manager->persist($gagAction);
@@ -295,6 +333,7 @@ class ActionsFixtures extends Fixture
             ->setType([])
             ->setScope(ActionScopeEnum::ROOM)
             ->setTarget(GameItem::class)
+            ->setActionCost($freeCost)
         ;
 
         $manager->persist($fuelInjectAction);
@@ -304,6 +343,7 @@ class ActionsFixtures extends Fixture
             ->setName(ActionEnum::RETRIEVE_FUEL)
             ->setType([])
             ->setScope(ActionScopeEnum::CURRENT)
+            ->setActionCost($freeCost)
         ;
 
         $manager->persist($retrieveFuelAction);
@@ -314,6 +354,7 @@ class ActionsFixtures extends Fixture
             ->setType([])
             ->setScope(ActionScopeEnum::ROOM)
             ->setTarget(GameItem::class)
+            ->setActionCost($freeCost)
         ;
 
         $manager->persist($oxygenInjectAction);
@@ -323,6 +364,7 @@ class ActionsFixtures extends Fixture
             ->setName(ActionEnum::RETRIEVE_OXYGEN)
             ->setType([])
             ->setScope(ActionScopeEnum::CURRENT)
+            ->setActionCost($freeCost)
         ;
 
         $manager->persist($retrieveOxygenAction);
@@ -332,6 +374,7 @@ class ActionsFixtures extends Fixture
             ->setName(ActionEnum::LIE_DOWN)
             ->setType([])
             ->setScope(ActionScopeEnum::CURRENT)
+            ->setActionCost($freeCost)
         ;
 
         $manager->persist($lieDownActon);
@@ -342,6 +385,7 @@ class ActionsFixtures extends Fixture
             ->setType([])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(50)
+            ->setActionCost($freeCost)
         ;
 
         $manager->persist($coffeeAction);
@@ -351,6 +395,7 @@ class ActionsFixtures extends Fixture
             ->setName(ActionEnum::TRANSPLANT)
             ->setType([])
             ->setScope(ActionScopeEnum::CURRENT)
+            ->setActionCost($twoActionPointCost)
         ;
 
         $manager->persist($transplantAction);
@@ -361,6 +406,7 @@ class ActionsFixtures extends Fixture
             ->setType([])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(50)
+            ->setActionCost($twoActionPointCost)
         ;
 
         $manager->persist($treatPlantAction);
@@ -371,6 +417,7 @@ class ActionsFixtures extends Fixture
             ->setType([])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(50)
+            ->setActionCost($oneActionPointCost)
         ;
 
         $manager->persist($waterPlantAction);
@@ -443,5 +490,17 @@ class ActionsFixtures extends Fixture
         $this->addReference(self::SABOTAGE_DEFAULT, $sabotageAction);
         $this->addReference(self::EXTRACT_SPORE, $extractSporeAction);
         $this->addReference(self::INFECT_PLAYER, $infectAction);
+    }
+
+    private function buildActionCost(int $actionPoint, int $movementPoint = 0, int $moralPoint = 0): ActionCost
+    {
+        $actionCost = new ActionCost();
+        $actionCost
+            ->setActionPointCost($actionPoint)
+            ->setMovementPointCost($movementPoint)
+            ->setMoralPointCost($moralPoint)
+        ;
+
+        return $actionCost;
     }
 }

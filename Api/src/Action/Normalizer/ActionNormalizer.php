@@ -57,7 +57,7 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
             $actionParameter->setEquipment($context['equipment']);
         }
 
-        $actionClass->loadParameters($this->getCurrentPlayer(), $actionParameter);
+        $actionClass->loadParameters($object, $this->getCurrentPlayer(), $actionParameter);
 
         if ($actionClass->canExecute()) {
             $actionName = $object->getName();
@@ -67,9 +67,9 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
                 'key' => $actionName,
                 'name' => $this->translator->trans("{$actionName}.name", [], 'actions'),
                 'description' => $this->translator->trans("{$actionName}.description", [], 'actions'),
-                'actionPointCost' => $actionClass->getActionCost()->getActionPointCost(),
-                'movementPointCost' => $actionClass->getActionCost()->getMovementPointCost(),
-                'moralPointCost' => $actionClass->getActionCost()->getMoralPointCost(),
+                'actionPointCost' => $object->getActionCost()->getActionPointCost(),
+                'movementPointCost' => $object->getActionCost()->getMovementPointCost(),
+                'moralPointCost' => $object->getActionCost()->getMoralPointCost(),
             ];
         }
 

@@ -4,6 +4,7 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
+use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\SuccessRateServiceInterface;
@@ -52,14 +53,15 @@ class Disassemble extends AttemptAction
         $this->gameConfig = $gameConfigService->getConfig();
     }
 
-    public function loadParameters(Player $player, ActionParameters $actionParameters): void
+    public function loadParameters(Action $action, Player $player, ActionParameters $actionParameters): void
     {
+        parent::loadParameters($action, $player, $actionParameters);
+
         if (!($equipment = $actionParameters->getItem()) &&
             !($equipment = $actionParameters->getEquipment())) {
             throw new \InvalidArgumentException('Invalid equipment parameter');
         }
 
-        $this->player = $player;
         $this->gameEquipment = $equipment;
 
         /** @var Dismountable $dismountableType */
@@ -69,7 +71,7 @@ class Disassemble extends AttemptAction
         ;
 
         if ($dismountableType !== null) {
-            $this->actionCost->setActionPointCost($dismountableType->getActionCost());
+            $this->action->getActionCost()->setActionPointCost($dismountableType->getActionCost());
         }
     }
 

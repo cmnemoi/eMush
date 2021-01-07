@@ -4,6 +4,7 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
+use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Player\Entity\Player;
@@ -39,17 +40,16 @@ class Infect extends AbstractAction
         $this->roomLogService = $roomLogService;
         $this->statusService = $statusService;
         $this->playerService = $playerService;
-
-        $this->actionCost->setActionPointCost(1);
     }
 
-    public function loadParameters(Player $player, ActionParameters $actionParameters): void
+    public function loadParameters(Action $action, Player $player, ActionParameters $actionParameters): void
     {
+        parent::loadParameters($action, $player, $actionParameters);
+
         if (!($targetPlayer = $actionParameters->getPlayer())) {
             throw new \InvalidArgumentException('Invalid player parameter');
         }
 
-        $this->player = $player;
         $this->targetPlayer = $targetPlayer;
     }
 

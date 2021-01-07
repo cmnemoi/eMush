@@ -323,6 +323,7 @@ class ActionsFixtures extends Fixture
             ->setName(ActionEnum::SHOWER)
             ->setType([])
             ->setScope(ActionScopeEnum::CURRENT)
+            ->setActionCost($twoActionPointCost)
         ;
 
         $manager->persist($showerAction);
@@ -429,6 +430,7 @@ class ActionsFixtures extends Fixture
             ->setScope(ActionScopeEnum::ROOM)
             ->setDirtyRate(20)
             ->setInjuryRate(20)
+            ->setActionCost($twoActionPointCost)
         ;
 
         $manager->persist($sabotageAction);

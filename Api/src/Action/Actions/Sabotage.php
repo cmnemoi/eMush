@@ -53,7 +53,8 @@ class Sabotage extends AttemptAction
         parent::loadParameters($action, $player, $actionParameters);
 
         if (!($equipment = $actionParameters->getEquipment()) &&
-            !($equipment = $actionParameters->getItem())) {
+            !($equipment = $actionParameters->getItem()) &&
+            !($equipment = $actionParameters->getDoor())) {
             throw new \InvalidArgumentException('Invalid equipment parameter');
         }
 

@@ -4,7 +4,7 @@ namespace Mush\Action\Normalizer;
 
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
-use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Service\ActionStrategyServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\User\Entity\User;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
@@ -15,12 +15,12 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class ActionNormalizer implements ContextAwareNormalizerInterface
 {
     private TranslatorInterface $translator;
-    private ActionServiceInterface $actionService;
+    private ActionStrategyServiceInterface $actionService;
     private TokenStorageInterface $tokenStorage;
 
     public function __construct(
         TranslatorInterface $translator,
-        ActionServiceInterface $actionService,
+        ActionStrategyServiceInterface $actionService,
         TokenStorageInterface $tokenStorage
     ) {
         $this->translator = $translator;

@@ -7,7 +7,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
 use Mush\Action\ActionResult\Error;
 use Mush\Action\Entity\Dto\ActionRequest;
-use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Service\ActionStrategyServiceInterface;
 use Mush\User\Entity\User;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
@@ -23,11 +23,11 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 class ActionController extends AbstractFOSRestController
 {
-    private ActionServiceInterface $actionService;
+    private ActionStrategyServiceInterface $actionService;
     private ValidatorInterface $validator;
 
     public function __construct(
-        ActionServiceInterface $actionService,
+        ActionStrategyServiceInterface $actionService,
         ValidatorInterface $validator
     ) {
         $this->actionService = $actionService;

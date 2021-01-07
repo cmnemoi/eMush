@@ -41,6 +41,36 @@
                 <target>Vous avez gagné quantity :hp:</target>
             </segment>
         </unit>
+        <unit id="loss_health_point">
+            <segment>
+                <source>loss_health_point.character.male</source>
+                <target>Vous perdez quantity :hp:</target>
+            </segment>
+            <segment>
+                <source>loss_health_point.character.female</source>
+                <target>Vous perdez quantity :hp:</target>
+            </segment>
+        </unit>
+        <unit id="gain_moral_point">
+            <segment>
+                <source>gain_moral_point.character.male</source>
+                <target>Vous avez gagné quantity :pmo:</target>
+            </segment>
+            <segment>
+                <source>gain_moral_point.character.female</source>
+                <target>Vous avez gagné quantity :pmo:</target>
+            </segment>
+        </unit>
+        <unit id="loss_moral_point">
+            <segment>
+                <source>loss_moral_point.character.male</source>
+                <target>Vous perdez quantity :pmo:</target>
+            </segment>
+            <segment>
+                <source>loss_moral_point.character.female</source>
+                <target>Vous perdez quantity :pmo:</target>
+            </segment>
+        </unit>
         <unit id="gain_triumph">
             <segment>
                 <source>gain_triumph.character.male</source>
@@ -77,6 +107,36 @@
             <segment>
                 <source>oxy_low_use_capsule.character.female</source>
                 <target>Vous ne respirez plus... Vous vous étouffez... Mais heureusement cette **Capsule d'Oxygène** vous a sauvé la vie...</target>
+            </segment>
+        </unit>
+        <unit id="soiled">
+            <segment>
+                <source>soiled.character.male</source>
+                <target>C'est dégoûtant... Vous vous êtes sali.</target>
+            </segment>
+            <segment>
+                <source>soiled.character.female</source>
+                <target>C'est dégoûtant... Vous vous êtes sali.</target>
+            </segment>
+        </unit>
+        <unit id="soil_prevented">
+            <segment>
+                <source>soil_prevented.character.male</source>
+                <target>C'est dégoûtant... Heureusement que vous aviez votre **Tablier intachable**...</target>
+            </segment>
+            <segment>
+                <source>soil_prevented.character.female</source>
+                <target>C'est dégoûtant... Heureusement que vous aviez votre **Tablier intachable**...</target>
+            </segment>
+        </unit>
+        <unit id="clumsiness">
+            <segment>
+                <source>clumsiness.character.male</source>
+                <target>Ça ne devait pas se passer comme cela. Lors de votre action, vous vous êtes fait mal...</target>
+            </segment>
+            <segment>
+                <source>clumsiness.character.female</source>
+                <target>Ça ne devait pas se passer comme cela. Lors de votre action, vous vous êtes fait mal...</target>
             </segment>
         </unit>
     </file>

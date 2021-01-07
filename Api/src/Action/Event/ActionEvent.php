@@ -11,6 +11,7 @@ class ActionEvent extends Event
 {
     public const PRE_ACTION = 'pre.action';
     public const POST_ACTION = 'post.action';
+    public const RESULT_ACTION = 'result.action';
 
     private Player $player;
     private Action $action;

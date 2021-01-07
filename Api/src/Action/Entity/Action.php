@@ -51,6 +51,11 @@ class Action
      */
     private int $dirtyRate = 0;
 
+    /**
+     * @ORM\ManyToOne (targetEntity="Mush\Action\Entity\ActionCost")
+     */
+    private ActionCost $actionCost;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -136,6 +141,18 @@ class Action
     public function setDirtyRate(int $dirtyRate): Action
     {
         $this->dirtyRate = $dirtyRate;
+
+        return $this;
+    }
+
+    public function getActionCost(): ActionCost
+    {
+        return $this->actionCost;
+    }
+
+    public function setActionCost(ActionCost $actionCost): Action
+    {
+        $this->actionCost = $actionCost;
 
         return $this;
     }

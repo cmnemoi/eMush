@@ -5,39 +5,36 @@ namespace Mush\Test\Action\Actions;
 use Mockery;
 use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Actions\GetUp;
 use Mush\Action\Entity\ActionParameters;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
-use Mush\Game\Enum\GameStatusEnum;
-use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
-use PHPUnit\Framework\TestCase;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class GetUpActionTest extends TestCase
+class GetUpActionTest extends AbstractActionTest
 {
     /** @var StatusServiceInterface | Mockery\Mock */
     private StatusServiceInterface $statusService;
-    private AbstractAction $action;
 
     /**
      * @before
      */
     public function before()
     {
-        $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
+        parent::before();
+
+        $this->actionEntity = $this->createActionEntity(ActionEnum::GET_UP);
+
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
-        $eventDispatcher->shouldReceive('dispatch');
 
         $this->action = new GetUp(
-            $eventDispatcher,
+            $this->eventDispatcher,
             $this->statusService
         );
     }
@@ -77,7 +74,7 @@ class GetUpActionTest extends TestCase
 
         $actionParameter = new ActionParameters();
 
-        $this->action->loadParameters($player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
         $result = $this->action->execute();
 
@@ -109,7 +106,7 @@ class GetUpActionTest extends TestCase
 
         $actionParameter = new ActionParameters();
 
-        $this->action->loadParameters($player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
         $this->statusService->shouldReceive('delete');
 
@@ -120,20 +117,5 @@ class GetUpActionTest extends TestCase
         $this->assertCount(0, $player->getStatuses());
         $this->assertCount(0, $room->getEquipments()->first()->getStatuses());
         $this->assertEquals(10, $player->getActionPoint());
-    }
-
-    private function createPlayer(Daedalus $daedalus, Room $room): Player
-    {
-        $player = new Player();
-        $player
-            ->setActionPoint(10)
-            ->setMovementPoint(10)
-            ->setMoralPoint(10)
-            ->setDaedalus($daedalus)
-            ->setRoom($room)
-            ->setGameStatus(GameStatusEnum::CURRENT)
-        ;
-
-        return $player;
     }
 }

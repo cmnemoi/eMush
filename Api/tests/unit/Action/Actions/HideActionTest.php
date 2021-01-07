@@ -5,40 +5,37 @@ namespace Mush\Test\Action\Actions;
 use Mockery;
 use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Actions\Hide;
 use Mush\Action\Entity\ActionParameters;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Enum\GameStatusEnum;
-use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
-use PHPUnit\Framework\TestCase;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class HideActionTest extends TestCase
+class HideActionTest extends AbstractActionTest
 {
     /** @var GameEquipmentServiceInterface | Mockery\Mock */
     private GameEquipmentServiceInterface $gameEquipmentService;
     /** @var PlayerServiceInterface | Mockery\Mock */
     private PlayerServiceInterface $playerService;
-    private AbstractAction $action;
 
     /**
      * @before
      */
     public function before()
     {
-        $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
+        parent::before();
+
+        $this->actionEntity = $this->createActionEntity(ActionEnum::HIDE, 1);
+
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
-        $eventDispatcher->shouldReceive('dispatch');
 
         $this->action = new Hide(
-            $eventDispatcher,
+            $this->eventDispatcher,
             $this->gameEquipmentService,
             $this->playerService,
         );
@@ -66,7 +63,7 @@ class HideActionTest extends TestCase
         $player = $this->createPlayer(new Daedalus(), $room);
         $actionParameter = new ActionParameters();
         $actionParameter->setItem($gameItem);
-        $this->action->loadParameters($player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
         //item is not in the room
         $result = $this->action->execute();
@@ -97,7 +94,7 @@ class HideActionTest extends TestCase
 
         $actionParameter = new ActionParameters();
         $actionParameter->setItem($gameItem);
-        $this->action->loadParameters($player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
         $this->gameEquipmentService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
@@ -110,20 +107,5 @@ class HideActionTest extends TestCase
         $this->assertCount(1, $room->getEquipments()->first()->getStatuses());
         $this->assertCount(1, $player->getStatuses());
         $this->assertEquals(9, $player->getActionPoint());
-    }
-
-    private function createPlayer(Daedalus $daedalus, Room $room): Player
-    {
-        $player = new Player();
-        $player
-            ->setActionPoint(10)
-            ->setMovementPoint(10)
-            ->setMoralPoint(10)
-            ->setDaedalus($daedalus)
-            ->setRoom($room)
-            ->setGameStatus(GameStatusEnum::CURRENT)
-        ;
-
-        return $player;
     }
 }

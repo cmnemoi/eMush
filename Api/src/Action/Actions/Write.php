@@ -4,6 +4,7 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
+use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameItem;
@@ -42,15 +43,13 @@ class Write extends AbstractAction
         $this->gameEquipmentService = $gameEquipmentService;
         $this->playerService = $playerService;
         $this->gameConfig = $gameConfigService->getConfig();
-
-        $this->actionCost->setActionPointCost(0);
     }
 
-    public function loadParameters(Player $player, ActionParameters $actionParameters): void
+    public function loadParameters(Action $action, Player $player, ActionParameters $actionParameters): void
     {
-        $this->player = $player;
+        parent::loadParameters($action, $player, $actionParameters);
+
         $this->message = $actionParameters->getMessage();
-        $this->actionCost->setActionPointCost(0);
     }
 
     public function canExecute(): bool

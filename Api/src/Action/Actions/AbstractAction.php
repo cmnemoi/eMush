@@ -50,6 +50,10 @@ abstract class AbstractAction
 
         $postActionEvent = new ActionEvent($this->action, $this->player);
         $postActionEvent->setActionResult($result);
+        $this->eventDispatcher->dispatch($postActionEvent, ActionEvent::RESULT_ACTION);
+
+        $postActionEvent = new ActionEvent($this->action, $this->player);
+        $postActionEvent->setActionResult($result);
         $this->eventDispatcher->dispatch($postActionEvent, ActionEvent::POST_ACTION);
 
         return $result;

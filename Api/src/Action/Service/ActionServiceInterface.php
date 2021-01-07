@@ -2,13 +2,10 @@
 
 namespace Mush\Action\Service;
 
-use Mush\Action\ActionResult\ActionResult;
-use Mush\Action\Actions\AbstractAction;
+use Mush\Action\Entity\Action;
 use Mush\Player\Entity\Player;
 
 interface ActionServiceInterface
 {
-    public function getAction(string $actionName): ?AbstractAction;
-
-    public function executeAction(Player $player, int $actionId, ?array $params): ActionResult;
+    public function handleActionSideEffect(Action $action, Player $player, ?\DateTime $date): Player;
 }

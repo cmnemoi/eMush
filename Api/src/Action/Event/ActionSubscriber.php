@@ -4,16 +4,20 @@ namespace Mush\Action\Event;
 
 use Mush\Action\Actions\GetUp;
 use Mush\Action\Entity\ActionParameters;
+use Mush\Action\Service\ActionServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ActionSubscriber implements EventSubscriberInterface
 {
+    private ActionServiceInterface $actionService;
     private GetUp $getUpAction;
 
     public function __construct(
+        ActionServiceInterface $actionService,
         GetUp $getUp
     ) {
+        $this->actionService = $actionService;
         $this->getUpAction = $getUp;
     }
 
@@ -21,6 +25,7 @@ class ActionSubscriber implements EventSubscriberInterface
     {
         return [
             ActionEvent::PRE_ACTION => 'onPreAction',
+            ActionEvent::POST_ACTION => 'onPostAction',
         ];
     }
 
@@ -35,5 +40,13 @@ class ActionSubscriber implements EventSubscriberInterface
             $this->getUpAction->loadParameters($action, $player, new ActionParameters());
             $this->getUpAction->execute();
         }
+    }
+
+    public function onPostAction(ActionEvent $event): void
+    {
+        $action = $event->getAction();
+        $player = $event->getPlayer();
+
+        $this->actionService->handleActionSideEffect($action, $player, new \DateTime());
     }
 }

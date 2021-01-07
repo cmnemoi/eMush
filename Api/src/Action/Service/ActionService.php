@@ -2,103 +2,94 @@
 
 namespace Mush\Action\Service;
 
-use Doctrine\ORM\EntityManagerInterface;
-use Mush\Action\ActionResult\ActionResult;
-use Mush\Action\ActionResult\Error;
-use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionParameters;
-use Mush\Equipment\Entity\Door;
-use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Enum\GearItemEnum;
+use Mush\Game\Service\RandomServiceInterface;
+use Mush\Player\Entity\ActionModifier;
 use Mush\Player\Entity\Player;
-use Mush\Player\Service\PlayerServiceInterface;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Mush\Player\Enum\EndCauseEnum;
+use Mush\Player\Event\PlayerEvent;
+use Mush\RoomLog\Enum\LogEnum;
+use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class ActionService implements ActionServiceInterface
 {
-    private array $actions = [];
-    private PlayerServiceInterface $playerService;
-    private GameEquipmentServiceInterface $equipmentService;
-    private EntityManagerInterface $entityManager;
+    const ACTION_INJURY_MODIFIER = -2;
+
+    private EventDispatcherInterface $eventDispatcher;
+    private RandomServiceInterface $randomService;
+    private StatusServiceInterface $statusService;
+    private RoomLogServiceInterface $roomLogService;
 
     public function __construct(
-        PlayerServiceInterface $playerService,
-        GameEquipmentServiceInterface $equipmentService,
-        EntityManagerInterface $entityManager
+        EventDispatcherInterface $eventDispatcher,
+        RandomServiceInterface $randomService,
+        StatusServiceInterface $statusService,
+        RoomLogServiceInterface $roomLogService
     ) {
-        $this->playerService = $playerService;
-        $this->equipmentService = $equipmentService;
-        $this->entityManager = $entityManager;
+        $this->eventDispatcher = $eventDispatcher;
+        $this->randomService = $randomService;
+        $this->statusService = $statusService;
+        $this->roomLogService = $roomLogService;
     }
 
-    public function addAction(AbstractAction $action): void
+    public function handleActionSideEffect(Action $action, Player $player, ?\DateTime $date = null): Player
     {
-        $this->actions[$action->getActionName()] = $action;
-    }
-
-    public function getAction(string $actionName): ?AbstractAction
-    {
-        if (!isset($this->actions[$actionName])) {
-            return null;
-        }
-
-        return $this->actions[$actionName];
-    }
-
-    public function executeAction(Player $player, int $actionId, ?array $params): ActionResult
-    {
-        /** @var Action $action */
-        $action = $this->entityManager->getRepository(Action::class)->find($actionId);
-
-        if (!$action) {
-            throw new NotFoundHttpException('This action does not exist');
-        }
-
-        $actionService = $this->getAction($action->getName());
-
-        if (null === $actionService) {
-            return new Error('Action do not exist');
-        }
-
-        $actionParams = new ActionParameters();
-        if ($params) {
-            $actionParams = $this->loadParameter($params);
-        }
-        $actionService->loadParameters($action, $player, $actionParams);
-
-        return $actionService->execute();
-    }
-
-    private function loadParameter(array $parameter): ActionParameters
-    {
-        $actionParams = new ActionParameters();
-
-        if ($doorId = $parameter['door'] ?? null) {
-            $door = $this->equipmentService->findById($doorId);
-            if ($door instanceof Door) {
-                $actionParams->setDoor($door);
+        $dirtyRate = $action->getDirtyRate();
+        $isSuperDirty = $dirtyRate > 100;
+        if (!$player->hasStatus(PlayerStatusEnum::DIRTY) &&
+            $dirtyRate > 0 &&
+            $this->randomService->randomPercent() < $dirtyRate
+        ) {
+            if (!$isSuperDirty &&
+                $player->hasItemByName(GearItemEnum::STAINPROOF_APRON)
+            ) {
+                $this->roomLogService->createPlayerLog(
+                    LogEnum::SOIL_PREVENTED,
+                    $player->getRoom(),
+                    $player,
+                    VisibilityEnum::PRIVATE,
+                    $date
+                );
+            } else {
+                $dirtyStatus = $this->statusService->createCorePlayerStatus(PlayerStatusEnum::DIRTY, $player);
+                $player->addStatus($dirtyStatus);
+                $this->roomLogService->createPlayerLog(
+                    LogEnum::SOILED,
+                    $player->getRoom(),
+                    $player,
+                    VisibilityEnum::PRIVATE,
+                    $date
+                );
             }
         }
-        if ($itemId = $parameter['item'] ?? null) {
-            $item = $this->equipmentService->findById($itemId);
-            if ($item instanceof GameItem) {
-                $actionParams->setItem($item);
-            }
-        }
-        if ($equipmentId = $parameter['equipment'] ?? null) {
-            $equipment = $this->equipmentService->findById($equipmentId);
-            $actionParams->setEquipment($equipment);
-        }
-        if ($playerId = $parameter['player'] ?? null) {
-            $player = $this->playerService->findById($playerId);
-            $actionParams->setPlayer($player);
+
+        $injuryRate = $action->getInjuryRate();
+        if ($injuryRate > 0 && $this->randomService->randomPercent() < $injuryRate) {
+            $this->roomLogService->createPlayerLog(
+                LogEnum::CLUMSINESS,
+                $player->getRoom(),
+                $player,
+                VisibilityEnum::PRIVATE,
+                $date
+            );
+            $this->dispatchPlayerInjuryEvent($player, $date);
         }
 
-        if (($message = $parameter['message'] ?? null)) {
-            $actionParams->setMessage($message);
-        }
+        return $player;
+    }
 
-        return $actionParams;
+    private function dispatchPlayerInjuryEvent(Player $player, ?\DateTime $dateTime = null): void
+    {
+        $playerActionModifier = new ActionModifier();
+        $playerActionModifier->setHealthPointModifier(self::ACTION_INJURY_MODIFIER);
+        $playerEvent = new PlayerEvent($player, $dateTime);
+        $playerEvent->setActionModifier($playerActionModifier);
+        $playerEvent->setReason(EndCauseEnum::CLUMSINESS);
+        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
     }
 }

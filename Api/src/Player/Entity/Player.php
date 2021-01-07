@@ -389,6 +389,11 @@ class Player
         return $this;
     }
 
+    public function hasStatus(string $statusName): bool
+    {
+        return $this->statuses->exists(fn ($key, Status $status) => ($status->getName() === $statusName));
+    }
+
     public function isMush(): bool
     {
         return $this

@@ -50,7 +50,7 @@ class ActionModifierService implements ActionModifierServiceInterface
                 $player->getRoom(),
                 $player,
                 VisibilityEnum::PRIVATE,
-                $actionModifier->getActionPointModifier(),
+                abs($actionModifier->getActionPointModifier()),
                 $date
             );
         }
@@ -71,7 +71,7 @@ class ActionModifierService implements ActionModifierServiceInterface
                 $player->getRoom(),
                 $player,
                 VisibilityEnum::PRIVATE,
-                $actionModifier->getMovementPointModifier(),
+                abs($actionModifier->getMovementPointModifier()),
                 $date
             );
         }
@@ -92,7 +92,7 @@ class ActionModifierService implements ActionModifierServiceInterface
                 $player->getRoom(),
                 $player,
                 VisibilityEnum::PRIVATE,
-                $healthPoints,
+                abs($healthPoints),
                 $date
             );
         }
@@ -117,7 +117,7 @@ class ActionModifierService implements ActionModifierServiceInterface
                     $player->getRoom(),
                     $player,
                     VisibilityEnum::PRIVATE,
-                    $moralPoints,
+                    abs($moralPoints),
                     $date
                 );
             }

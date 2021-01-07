@@ -37,6 +37,7 @@ class RoomLogRepository extends ServiceEntityRepository
                 )
             ))
             ->orderBy('roomLog.date', 'desc')
+            ->addOrderBy('roomLog.id', 'desc')
             ->setParameter('room', $player->getRoom())
             ->setParameter('public', VisibilityEnum::PUBLIC)
             ->setParameter('privateArray', [VisibilityEnum::PRIVATE, VisibilityEnum::COVERT, VisibilityEnum::SECRET])

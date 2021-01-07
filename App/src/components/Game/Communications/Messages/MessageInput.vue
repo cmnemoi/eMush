@@ -1,8 +1,8 @@
 <template>
-<div class="chat-input">
+<form class="chat-input">
   <textarea placeholder="Type your message here!" v-model="text" @keyup.enter="sendNewMessage"></textarea>
   <a class="submit" href="#"><img src="@/assets/images/comms/submit.gif" alt="submit"></a>
-</div>
+</form>
 </template>
 
 <script>
@@ -44,6 +44,7 @@ export default {
 <style lang="scss" scoped>
 
 .chat-input {
+  display: flex;
   position: relative;
   flex-direction: row;
   padding: 7px 7px 4px 7px;

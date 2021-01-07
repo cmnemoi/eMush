@@ -2,11 +2,11 @@
   <div class="chatbox-container" id="discussion-tab">
     <MessageInput :channel="channel"></MessageInput>
     <div class="chatbox">
-      <div class="unit" v-for="(message, id) in channel.messages" v-bind:key="id">
+      <section class="unit" v-for="(message, id) in channel.messages" v-bind:key="id">
         <Message :message="message" :isRoot="true" @click="replyTo(message)"></Message>
         <Message v-for="(children, id) in message.child" :message="children" v-bind:key="id" @click="replyTo(message)"></Message>
         <MessageInput v-show="messageToReply === message" :channel="channel" :parent="message"></MessageInput>
-      </div>
+      </section>
     </div>
   </div>
 </template>

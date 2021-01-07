@@ -1,7 +1,7 @@
 <template>
   <div class="chatbox-container" id="room-events-tab">
 
-    <div class="unit" v-for="(cycleRoomLog, id) in roomLogs.slice().reverse()" v-bind:key="id">
+    <section class="unit" v-for="(cycleRoomLog, id) in roomLogs.slice().reverse()" v-bind:key="id">
       <div class="banner cycle-banner">
         <img class="expand" src="@/assets/images/comms/less.png">
         <span>Jour {{ cycleRoomLog.day }} Cycle {{cycleRoomLog.cycle}}</span>
@@ -9,7 +9,7 @@
       <div class="cycle-events">
         <Log v-for="(roomLog, id) in cycleRoomLog.roomLogs" v-bind:key="id" :room-log="roomLog"></Log>
       </div>
-    </div>
+    </section>
   </div>
 </template>
 

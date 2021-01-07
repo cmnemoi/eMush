@@ -1,14 +1,15 @@
 <template>
   <div class="chatbox-container" id="favourites-tab">
     <div class="chatbox">
-      <div class="unit">
+      <section class="unit">
         <div class="message main-message">
-        <div class="char-portrait">
-          <img src="@/assets/images/char/body/stephen.png">
-        </div>
+          <div class="char-portrait">
+            <img src="@/assets/images/char/body/stephen.png">
+          </div>
           <p><span class="author">Stephen :</span>Comrades. Today starts the revolution</p>
           <span class="timestamp">2 jours</span>
         </div>
+        <a href="#" class="chat-expand">Afficher les 18 réponses</a>
         <div class="message child-message">
           <p>
             <img src="@/assets/images/char/head/frieda.png">
@@ -23,7 +24,7 @@
           </p>
           <span class="timestamp">2 jours</span>
         </div>
-      </div>
+      </section>
     </div>
   </div>
 </template>

@@ -1,6 +1,6 @@
 <template>
 <div class="chatbox-container" id="tips-tab">
-  <div class="unit">
+  <section class="unit">
     <div class="banner"><span><img src="@/assets/images/comms/tip.png"> Conseils <img src="@/assets/images/comms/tip.png"></span></div>
     <div class="tip focus">
       <span class="title">Rétablir la communication</span>
@@ -10,9 +10,9 @@
       <span class="title">Avancer un projet</span>
       <p>Vivamus iaculis magna nec egestas venenatis. Curabitur sed aliquam ex, vel lobortis risus. Aenean consequat pulvinar metus quis accumsan. Duis dictum dictum neque at pharetra. Sed enim justo, porttitor vitae urna eu, rhoncus mattis felis. Nullam in felis quis mi faucibus consequat. Pellentesque congue sagittis libero sed porta. In vitae sagittis sapien. Suspendisse potenti. Duis dignissim eget lorem vel finibus.</p>
     </div>
-  </div>
+  </section>
 
-  <div class="unit">
+  <section class="unit">
     <div class="banner"><span><img src="@/assets/images/comms/star.png"> Annonce Générale <img src="@/assets/images/comms/star.png"></span></div>
     <div class="message">
       <div class="char-portrait">
@@ -22,9 +22,9 @@
       Ceci est une annonce générale !</p>
       <span class="timestamp">~1d</span>
     </div>
-  </div>
+  </section>
 
-  <div class="unit">
+  <section class="unit">
     <div class="banner"><span><img src="@/assets/images/comms/notebook.png"> Missions <img src="@/assets/images/comms/notebook.png"></span></div>
     <div class="message">
       <div class="char-portrait">
@@ -33,7 +33,7 @@
       <p><span class="author">Jin Su :</span>Mission pour rétablir les comms.</p>
       <span class="timestamp">~1d</span>
     </div>
-  </div>
+  </section>
 
 </div>
 </template>

@@ -17,7 +17,7 @@
       <li><img src="@/assets/images/char/body/paola.png"></li>
       <li><img src="@/assets/images/char/body/chun.png"></li>
     </ul>
-    <div class="unit">
+    <section class="unit">
       <div class="message new">
         <div class="char-portrait">
           <img src="@/assets/images/char/body/ian.png">
@@ -25,8 +25,6 @@
         <p><span class="author">Ian :</span><strong><em>Piloting</em></strong></p>
         <span class="timestamp">~1d</span>
       </div>
-    </div>
-    <div class="unit">
       <div class="message new">
         <div class="char-portrait">
           <img src="@/assets/images/char/body/jin_su.png">
@@ -34,8 +32,6 @@
         <p><span class="author">Jin Su :</span>So far eight hunters shot total (3 + 5), no scrap collected yet.</p>
         <span class="timestamp">~3d</span>
       </div>
-    </div>
-    <div class="unit">
       <div class="message">
         <div class="char-portrait">
           <img src="@/assets/images/char/body/ian.png">
@@ -43,8 +39,6 @@
         <p><span class="author">Ian :</span>Excellent sir, I can see why they have you training the new pilots :P</p>
         <span class="timestamp">~3d</span>
       </div>
-    </div>
-    <div class="unit">
       <div class="message">
         <div class="char-portrait">
           <img src="@/assets/images/char/body/jin_su.png">
@@ -52,8 +46,6 @@
         <p><span class="author">Jin Su :</span>Kind of you to say so, yet I sadly can't agree. In fact I find our hull's exellency wanting. It shall be restored once we collected scrap and built the oscilloscope.></p>
         <span class="timestamp">~5d</span>
       </div>
-    </div>
-    <div class="unit">
       <div class="message">
         <div class="char-portrait">
           <img src="@/assets/images/char/body/jin_su.png">
@@ -61,11 +53,11 @@
         <p><span class="author">Jin Su :</span>Wololo !</p>
         <span class="timestamp">~6d</span>
       </div>
-    </div>
-    <div class="log">
+    </section>
+    <section class="log">
       <p class="text-log"><strong>Jin Su</strong> a rejoint la discussion.</p>
       <span class="timestamp">environ 2 heures</span>
-    </div>
+    </section>
   </div>
 </div>
 </template>
@@ -228,7 +220,7 @@ export default {
   }
 }
 
-#private-discussion-tab .unit:nth-of-type(odd) > div {
+#private-discussion-tab .unit > .message:nth-of-type(odd) {
   flex-direction: row-reverse;
 
   .char-portrait { align-items: flex-end; }

@@ -8,7 +8,7 @@
       >
         <img :src="channelIcon(channel)">
       </li>
-      <li>
+      <li class="checked">
         <img src="@/assets/images/comms/private.png">
       </li>
       <li>
@@ -137,20 +137,32 @@ export default {
     }
 
     .unit {
-      display: block;
       padding: 5px 0;
     }
 
-      .actions {
-    flex-direction: row;
-    justify-content: flex-end;
-    align-items: stretch;
+    .actions {
+      flex-direction: row;
+      justify-content: flex-end;
+      align-items: stretch;
 
       a {
         @include button-style(.83em, 400, initial);
         height: 100%;
         margin-left: 3px;
         img { padding: 0 .2em 0 0; }
+      }
+    }
+
+    .chat-expand {
+      display: flex;
+      padding: 4px;
+      color: #67b000;
+      border-radius: 3px;
+      font-size: .8em;
+      text-decoration: underline;
+
+      &.active, &:hover, &:focus {
+        background: #A6EEFB;
       }
     }
 

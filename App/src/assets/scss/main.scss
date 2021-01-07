@@ -24,7 +24,7 @@ html {
   box-sizing: inherit;
 }
 
-div {
+div, nav, article, aside, figure, section {
   display: flex;
   flex-direction: column;
 }

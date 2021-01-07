@@ -9,7 +9,7 @@
       <a href="#"><img src="@/assets/images/comms/refresh.gif">Rafr.</a>
       <a href="#"><img src="@/assets/images/comms/alert.png">Plainte</a>
     </div>
-    <div class="unit">
+    <section class="unit">
       <div class="banner cycle-banner">
         <img class="expand" src="@/assets/images/comms/less.png">
         <span>Jour 5 Cycle 6</span>
@@ -21,8 +21,8 @@
         <p><img src="@/assets/images/comms/talkie.png"> <span class="author">Ian :</span><strong><em>Piloting</em></strong></p>
         <span class="timestamp">~1d</span>
       </div>
-    </div>
-    <div class="unit">
+    </section>
+    <section class="unit">
       <div class="banner cycle-banner">
         <img class="expand" src="@/assets/images/comms/less.png">
         <span>Jour 5 Cycle 5</span>
@@ -41,11 +41,11 @@
         <p><img src="@/assets/images/comms/talkie.png"> <span class="author">Ian :</span>Excellent sir, I can see why they have you training the new pilots :P</p>
         <span class="timestamp">~3d</span>
       </div>
-      <div class="log">
+      <section class="log">
         <p class="text-log"><img src="@/assets/images/triumph.png"> Bienvenue parmi le Mush <strong>Ian</strong>. Vous avez été récompensé avec <strong>120 points de Triomphe</strong>.</p>
         <span class="timestamp">~5d</span>
-      </div>
-    </div>
+      </section>
+    </section>
   </div>
 </div>
 </template>

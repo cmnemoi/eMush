@@ -174,7 +174,7 @@ export default {
       );
     }
 
-    &:not(:last-child)::after {
+    &:not(:last-of-type)::after {
       --border-radius: 5px;
       content: "";
       position: absolute;

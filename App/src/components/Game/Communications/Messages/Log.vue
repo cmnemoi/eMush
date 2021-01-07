@@ -1,8 +1,8 @@
 <template>
-  <div :class="'log ' + roomLog.visibility">
+  <section :class="'log ' + roomLog.visibility">
     <p class="text-log" v-html="format(roomLog.message)"></p>
     <span class="timestamp">{{ formatDate(roomLog.date, {local: "fr-FR"}) }}</span>
-  </div>
+  </section>
 </template>
 
 <script>

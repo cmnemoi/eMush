@@ -1,4 +1,4 @@
-import {Action} from "@/entities/Action";
+import { Action } from "@/entities/Action";
 
 export class Door {
     constructor() {
@@ -16,7 +16,7 @@ export class Door {
             this.direction = object.direction;
             object.actions.forEach((actionObject) => {
                 this.actions.push((new Action).load(actionObject));
-            })
+            });
         }
         return this;
     }
@@ -25,7 +25,7 @@ export class Door {
     }
     decode = function(jsonString) {
         if (jsonString) {
-            let object = JSON.parse(jsonString)
+            let object = JSON.parse(jsonString);
             this.id = object.id;
             this.roomKey = object.roomKey;
             this.roomName = object.roomName;

@@ -19,7 +19,7 @@ export class Channel {
     }
     decode = function(jsonString) {
         if (jsonString) {
-            let object = JSON.parse(jsonString)
+            let object = JSON.parse(jsonString);
             this.id = object.id;
             this.scope = object.scope;
             this.participants = object.participants;

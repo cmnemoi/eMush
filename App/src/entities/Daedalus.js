@@ -38,7 +38,7 @@ export class Daedalus {
     }
     decode = function(jsonString) {
         if (jsonString) {
-            let object = JSON.parse(jsonString)
+            let object = JSON.parse(jsonString);
             this.id = object.id;
             this.day = object.day;
             this.cycle = object.cycle;

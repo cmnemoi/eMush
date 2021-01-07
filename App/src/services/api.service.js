@@ -1,6 +1,6 @@
-import axios from 'axios'
-import { TokenService } from './storage.service'
-import store from '../store'
+import axios from 'axios';
+import { TokenService } from './storage.service';
+import store from '../store';
 
 const ApiService = {
 
@@ -11,33 +11,33 @@ const ApiService = {
     },
 
     setHeader() {
-        axios.defaults.headers.common["Authorization"] = `Bearer ${TokenService.getToken()}`
+        axios.defaults.headers.common["Authorization"] = `Bearer ${TokenService.getToken()}`;
     },
 
     removeHeader() {
-        axios.defaults.headers.common = {}
+        axios.defaults.headers.common = {};
     },
 
     get(resource, params) {
-        return axios.get(resource, params)
+        return axios.get(resource, params);
     },
 
     post(resource, data, options) {
-        return axios.post(resource, data, options)
+        return axios.post(resource, data, options);
     },
 
     put(resource, data) {
-        return axios.put(resource, data)
+        return axios.put(resource, data);
     },
 
     delete(resource) {
-        return axios.delete(resource)
+        return axios.delete(resource);
     },
 
     mount401Interceptor() {
         this._401interceptor = axios.interceptors.response.use(
             (response) => {
-                return response
+                return response;
             },
             async (error) => {
                 if (error.request.status === 401) {
@@ -64,14 +64,14 @@ const ApiService = {
                     // }
                 }
                 // If error was not 401 just reject as is
-                throw error
+                throw error;
             }
-        )
+        );
     },
 
     unmount401Interceptor() {
         // Eject the interceptor
-        axios.interceptors.response.eject(this._401interceptor)
+        axios.interceptors.response.eject(this._401interceptor);
     },
 
     /**
@@ -86,8 +86,8 @@ const ApiService = {
      *    - password
      **/
     customRequest(data) {
-        return axios(data)
+        return axios(data);
     }
 };
 
-export default ApiService
+export default ApiService;

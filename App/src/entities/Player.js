@@ -1,8 +1,8 @@
-import {Daedalus} from "@/entities/Daedalus";
-import {Room} from "@/entities/Room";
-import {Item} from "@/entities/Item";
-import {Status} from "@/entities/Status";
-import {Action} from "@/entities/Action";
+import { Daedalus } from "@/entities/Daedalus";
+import { Room } from "@/entities/Room";
+import { Item } from "@/entities/Item";
+import { Status } from "@/entities/Status";
+import { Action } from "@/entities/Action";
 
 export class Player {
     constructor() {
@@ -32,22 +32,22 @@ export class Player {
             this.moralPoint = object.moralPoint;
             this.triumph = object.triumph;
             this.gameStatus = object.gameStatus;
-            this.daedalus = (new Daedalus()).load(object.daedalus)
-            this.room = (new Room()).load(object.room)
+            this.daedalus = (new Daedalus()).load(object.daedalus);
+            this.room = (new Room()).load(object.room);
             if (typeof object.items !== 'undefined') {
                 object.items.forEach((itemObject) => {
-                    let item = (new Item).load(itemObject)
+                    let item = (new Item).load(itemObject);
                     this.items.push(item);
-                })
+                });
             }
             object.actions.forEach((actionObject) => {
-                let action = (new Action()).load(actionObject)
+                let action = (new Action()).load(actionObject);
                 this.actions.push(action);
-            })
+            });
             object.statuses.forEach((statusObject) => {
-                let status = (new Status()).load(statusObject)
+                let status = (new Status()).load(statusObject);
                 this.statuses.push(status);
-            })
+            });
         }
         return this;
     }
@@ -56,8 +56,8 @@ export class Player {
     }
     decode = function(jsonString) {
         if (jsonString) {
-            let object = JSON.parse(jsonString)
-            this.load(object)
+            let object = JSON.parse(jsonString);
+            this.load(object);
         }
 
         return this;

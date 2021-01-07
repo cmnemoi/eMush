@@ -1,5 +1,5 @@
-import { UserService, AuthenticationError } from '../services/user.service'
-import { TokenService } from '../services/storage.service'
+import { UserService, AuthenticationError } from '../services/user.service';
+import { TokenService } from '../services/storage.service';
 import ApiService from "@/services/api.service";
 
 
@@ -15,15 +15,15 @@ const state =  {
 
 const getters = {
     loggedIn: (state) => {
-        return state.accessToken ? true : false
+        return state.accessToken ? true : false;
     },
 
     authenticationErrorCode: (state) => {
-        return state.authenticationErrorCode
+        return state.authenticationErrorCode;
     },
 
     authenticationError: (state) => {
-        return state.authenticationError
+        return state.authenticationError;
     },
 
     getUserInfo: (state) => {
@@ -31,20 +31,20 @@ const getters = {
     },
 
     userInfoErrorCode: (state) => {
-        return state.userInfoErrorCode
+        return state.userInfoErrorCode;
     },
 
     userInfoError: (state) => {
-        return state.userInfoError
+        return state.userInfoError;
     },
 
     authenticating: (state) => {
-        return state.authenticating
+        return state.authenticating;
     }
 };
 
 const actions = {
-    async setToken({ commit }, {token}) {
+    async setToken({ commit }, { token }) {
         TokenService.saveToken(token);
         ApiService.setHeader();
 
@@ -52,29 +52,29 @@ const actions = {
 
         await UserService.userInfo();
 
-        commit('loginSuccess', token)
+        commit('loginSuccess', token);
     },
 
-    redirect({commit}, {passphrase}) {
+    redirect({ commit }, { passphrase }) {
         commit('loginRedirect');
         UserService.redirect(passphrase);
     },
 
-    async login({ commit }, {code}) {
+    async login({ commit }, { code }) {
         commit('loginRequest');
 
         try {
             const token = await UserService.login(code);
-            commit('loginSuccess', token)
+            commit('loginSuccess', token);
             await this.dispatch('auth/userInfo');
 
-            return true
+            return true;
         } catch (e) {
             if (e instanceof AuthenticationError) {
-                commit('loginError', {errorCode: e.errorCode, errorMessage: e.message})
+                commit('loginError', { errorCode: e.errorCode, errorMessage: e.message });
             }
 
-            return false
+            return false;
         }
     },
 
@@ -82,45 +82,45 @@ const actions = {
         // If this is the first time the refreshToken has been called, make a request
         // otherwise return the same promise to the caller
         if(!state.refreshTokenPromise) {
-            let p = UserService.refreshToken()
-            commit('refreshTokenPromise', p)
+            let p = UserService.refreshToken();
+            commit('refreshTokenPromise', p);
             // Wait for the UserService.refreshToken() to resolve. On success set the token and clear promise
             // Clear the promise on error as well.
             p.then(
                 response => {
-                    commit('refreshTokenPromise', null)
-                    commit('loginSuccess', response)
+                    commit('refreshTokenPromise', null);
+                    commit('loginSuccess', response);
                 },
                 () => {
-                    commit('refreshTokenPromise', null)
+                    commit('refreshTokenPromise', null);
                 }
-            )
+            );
         }
-        return state.refreshTokenPromise
+        return state.refreshTokenPromise;
     },
 
     async userInfo({ commit, state }) {
         if(state.accessToken) {
-            commit('userInfoRequest')
+            commit('userInfoRequest');
             try {
                 let userInfo = await UserService.userInfo();
-                commit('userInfoSuccess', userInfo)
+                commit('userInfoSuccess', userInfo);
 
-                return userInfo
+                return userInfo;
             } catch (e) {
                 if (e instanceof AuthenticationError) {
-                    commit('userInfoError', {errorCode: e.errorCode, errorMessage: e.message})
+                    commit('userInfoError', { errorCode: e.errorCode, errorMessage: e.message });
                 }
 
-                return null
+                return null;
             }
         }
         return null;
     },
 
     logout({ commit }) {
-        UserService.logout()
-        commit('logoutSuccess')
+        UserService.logout();
+        commit('logoutSuccess');
     }
 };
 
@@ -136,15 +136,15 @@ const mutations = {
         state.userInfo = userInfo;
     },
 
-    userInfoError(state, {errorCode, errorMessage}) {
+    userInfoError(state, { errorCode, errorMessage }) {
         state.userInfoErrorCode = errorCode;
-        state.userInfoError = errorMessage
+        state.userInfoError = errorMessage;
     },
 
     loginRequest(state) {
         state.authenticating = true;
         state.authenticationError = '';
-        state.authenticationErrorCode = 0
+        state.authenticationErrorCode = 0;
     },
 
     loginSuccess(state, accessToken) {
@@ -152,18 +152,18 @@ const mutations = {
         state.authenticating = false;
     },
 
-    loginError(state, {errorCode, errorMessage}) {
+    loginError(state, { errorCode, errorMessage }) {
         state.authenticating = false;
         state.authenticationErrorCode = errorCode;
-        state.authenticationError = errorMessage
+        state.authenticationError = errorMessage;
     },
 
     logoutSuccess(state) {
-        state.accessToken = ''
+        state.accessToken = '';
     },
 
     refreshTokenPromise(state, promise) {
-        state.refreshTokenPromise = promise
+        state.refreshTokenPromise = promise;
     }
 };
 

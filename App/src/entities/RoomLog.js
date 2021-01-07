@@ -17,7 +17,7 @@ export class RoomLog {
     }
     decode = function(jsonString) {
         if (jsonString) {
-            let object = JSON.parse(jsonString)
+            let object = JSON.parse(jsonString);
             this.message = object.key;
             this.visibility = object.visibility;
             this.date = new Date(object.date);

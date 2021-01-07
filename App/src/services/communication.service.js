@@ -1,43 +1,43 @@
 import ApiService from "@/services/api.service";
-import {Channel} from "@/entities/Channel";
-import {Message} from "@/entities/Message";
+import { Channel } from "@/entities/Channel";
+import { Message } from "@/entities/Message";
 
-const CHANNELS_ENDPOINT = process.env.VUE_APP_API_URL+'channel'
+const CHANNELS_ENDPOINT = process.env.VUE_APP_API_URL+'channel';
 
 const CommunicationService = {
 
     loadChannels: async() => {
-        const channelsData = await ApiService.get(CHANNELS_ENDPOINT)
+        const channelsData = await ApiService.get(CHANNELS_ENDPOINT);
 
         let channels = [];
         if (channelsData.data) {
             channelsData.data.forEach((data) => {
                 channels.push((new Channel()).load(data));
-            })
+            });
         }
         return channels;
     },
 
     createPrivateChannel: async () => {
-        const channelsData = await ApiService.post(CHANNELS_ENDPOINT)
+        const channelsData = await ApiService.post(CHANNELS_ENDPOINT);
 
         let channels = [];
         if (channelsData.data) {
             channelsData.data.forEach((data) => {
                 channels.push((new Channel()).load(data));
-            })
+            });
         }
         return channels;
     },
 
     loadMessages: async (channel) => {
-        const messagesData = await ApiService.get(CHANNELS_ENDPOINT + '/' + channel.id + '/message')
+        const messagesData = await ApiService.get(CHANNELS_ENDPOINT + '/' + channel.id + '/message');
 
         let messages = [];
         if (messagesData.data) {
             messagesData.data.forEach((data) => {
                 messages.push((new Message()).load(data));
-            })
+            });
         }
         return messages;
     },
@@ -52,15 +52,15 @@ const CommunicationService = {
         const messagesData = await ApiService.post(CHANNELS_ENDPOINT + '/' + channel.id + '/message', {
             'message': text,
             'parent': parentId
-        })
+        });
 
         let messages = [];
         if (messagesData.data) {
             messagesData.data.forEach((data) => {
                 messages.push((new Message()).load(data));
-            })
+            });
         }
         return messages;
     }
-}
-export default CommunicationService
+};
+export default CommunicationService;

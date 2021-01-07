@@ -2,6 +2,7 @@
     "extends": "stylelint-config-standard",
     "defaultSeverity": "warning",
     "rules": {
-        "indentation": 4
+        "indentation": 4,
+        "at-rule-no-unknown": null
     }
 }

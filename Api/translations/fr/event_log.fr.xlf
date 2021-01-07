@@ -72,11 +72,11 @@
         <unit id="oxy_low_use_capsule">
             <segment>
                 <source>oxy_low_use_capsule.character.male</source>
-                <target>Vous ne respirez plus... Vous vous étouffez... Mais heureusement cette {\b}Capsule d'Oxygène{b} vous a sauvé la vie...</target>
+                <target>Vous ne respirez plus... Vous vous étouffez... Mais heureusement cette **Capsule d'Oxygène** vous a sauvé la vie...</target>
             </segment>
             <segment>
                 <source>oxy_low_use_capsule.character.female</source>
-                <target>Vous ne respirez plus... Vous vous étouffez... Mais heureusement cette {\b}Capsule d'Oxygène{b} vous a sauvé la vie...</target>
+                <target>Vous ne respirez plus... Vous vous étouffez... Mais heureusement cette **Capsule d'Oxygène** vous a sauvé la vie...</target>
             </segment>
         </unit>
     </file>

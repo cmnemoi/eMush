@@ -19,4 +19,5 @@ class LogEnum
     public const SOILED = 'soiled';
     public const SOIL_PREVENTED = 'soil_prevented';
     public const SOIL_PREVENTED_OCD = 'soil_prevented_ocd';
+    public const OXY_LOW_USE_CAPSULE = 'oxy_low_use_capsule';
 }

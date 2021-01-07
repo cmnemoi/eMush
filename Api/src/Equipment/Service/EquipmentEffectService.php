@@ -117,56 +117,58 @@ class EquipmentEffectService implements EquipmentEffectServiceInterface
         $diseaseNumberPossible = count($fruit->getDiseasesName());
         $extraEffectNumberPossible = count($fruit->getExtraEffects());
 
-        // We chose 0 to 4 unique id for the effects
-        $pickedEffects = $this->randomService->getRandomElements(
-            range(
-                1,
-                $diseaseNumberPossible * 2 + $extraEffectNumberPossible,
-                $effectsNumber
-            )
-        );
-
-        //Get the number of cures, disease and special effect from the id
-        $curesNumber = count(array_filter($pickedEffects, function ($idEffect) use ($diseaseNumberPossible) {
-            return $idEffect <= $diseaseNumberPossible;
-        }));
-        $extraEffectNumber = count(array_filter($pickedEffects, function ($idEffect) use ($diseaseNumberPossible) {
-            return $idEffect > 2 * $diseaseNumberPossible;
-        }));
-
-        $diseasesNumber = $effectsNumber - $curesNumber - $extraEffectNumber;
-
         $cures = [];
         $diseasesChances = [];
         $diseasesDelayMin = [];
         $diseasesDelayLength = [];
         $extraEffects = [];
 
-        if ($curesNumber > 0) {
-            //Get the names of cures among the list possible
-            //For the cures append the name of the disease as key and the probability to cure as value (randomly picked)
-            $curesNames = $this->randomService->getRandomElementsFromProbaArray($fruit->getDiseasesName(), $curesNumber);
-            foreach ($curesNames as $cureName) {
-                $cures[$cureName] = $this->randomService->getSingleRandomElementFromProbaArray($fruit->getDiseasesEffectChance());
-            }
-        }
+        if ($effectsNumber > 0) {
+            // We chose 0 to 4 unique id for the effects
+            $pickedEffects = $this->randomService->getRandomElements(
+                range(
+                    1,
+                    $diseaseNumberPossible * 2 + $extraEffectNumberPossible,
+                    $effectsNumber
+                )
+            );
 
-        if ($diseasesNumber > 0) {
-            //Get the names of diseases among the list possible
-            //For the diseases append the name of the disease as key and the probability to get sick as value in $diseasesChances
-            //append the name of the disease as key and the minimum delay before effect in $diseasesDelayMin
-            //append the name of the disease as key and the range of delay before effect in $diseasesDelayLengh
-            $diseasesNames = $this->randomService->getRandomElementsFromProbaArray($fruit->getDiseasesName(), $diseasesNumber);
-            foreach ($diseasesNames as $diseaseName) {
-                $diseasesChances[$diseaseName] = $this->randomService->getSingleRandomElementFromProbaArray($fruit->getDiseasesEffectChance());
-                $diseasesDelayMin[$diseaseName] = $this->randomService->getSingleRandomElementFromProbaArray($fruit->getDiseasesDelayMin());
-                $diseasesDelayLength[$diseaseName] = $this->randomService->getSingleRandomElementFromProbaArray($fruit->getDiseasesDelayLength());
-            }
-        }
+            //Get the number of cures, disease and special effect from the id
+            $curesNumber = count(array_filter($pickedEffects, function ($idEffect) use ($diseaseNumberPossible) {
+                return $idEffect <= $diseaseNumberPossible;
+            }));
+            $extraEffectNumber = count(array_filter($pickedEffects, function ($idEffect) use ($diseaseNumberPossible) {
+                return $idEffect > 2 * $diseaseNumberPossible;
+            }));
 
-        //@TODO fruit have only 1 possible extra effect. If we change the, this part needs to be changed
-        if ($extraEffectNumber > 0) {
-            $extraEffects = $fruit->getExtraEffects();
+            $diseasesNumber = $effectsNumber - $curesNumber - $extraEffectNumber;
+
+            if ($curesNumber > 0) {
+                //Get the names of cures among the list possible
+                //For the cures append the name of the disease as key and the probability to cure as value (randomly picked)
+                $curesNames = $this->randomService->getRandomElementsFromProbaArray($fruit->getDiseasesName(), $curesNumber);
+                foreach ($curesNames as $cureName) {
+                    $cures[$cureName] = $this->randomService->getSingleRandomElementFromProbaArray($fruit->getDiseasesEffectChance());
+                }
+            }
+
+            if ($diseasesNumber > 0) {
+                //Get the names of diseases among the list possible
+                //For the diseases append the name of the disease as key and the probability to get sick as value in $diseasesChances
+                //append the name of the disease as key and the minimum delay before effect in $diseasesDelayMin
+                //append the name of the disease as key and the range of delay before effect in $diseasesDelayLengh
+                $diseasesNames = $this->randomService->getRandomElementsFromProbaArray($fruit->getDiseasesName(), $diseasesNumber);
+                foreach ($diseasesNames as $diseaseName) {
+                    $diseasesChances[$diseaseName] = $this->randomService->getSingleRandomElementFromProbaArray($fruit->getDiseasesEffectChance());
+                    $diseasesDelayMin[$diseaseName] = $this->randomService->getSingleRandomElementFromProbaArray($fruit->getDiseasesEffectDelayMin());
+                    $diseasesDelayLength[$diseaseName] = $this->randomService->getSingleRandomElementFromProbaArray($fruit->getDiseasesEffectDelayLength());
+                }
+            }
+
+            //@TODO fruit have only 1 possible extra effect. If we change the, this part needs to be changed
+            if ($extraEffectNumber > 0) {
+                $extraEffects = $fruit->getExtraEffects();
+            }
         }
 
         $consumableEffect

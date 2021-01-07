@@ -69,7 +69,7 @@ class RandomService implements RandomServiceInterface
     public function getSingleRandomElementFromProbaArray(array $array): string
     {
         if (count($array) === 0) {
-            throw new Error('getRandomElements: array is not large enough');
+            throw new Error('getSingleRandomElement: array is not large enough');
         }
         //first create a cumulative form of the array
         $cumuProba = 0;

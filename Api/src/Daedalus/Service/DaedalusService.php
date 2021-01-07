@@ -23,6 +23,9 @@ use Mush\Player\Event\PlayerEvent;
 use Mush\Room\Entity\Room;
 use Mush\Room\Entity\RoomConfig;
 use Mush\Room\Service\RoomServiceInterface;
+use Mush\RoomLog\Enum\LogEnum;
+use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -35,6 +38,7 @@ class DaedalusService implements DaedalusServiceInterface
     private CycleServiceInterface $cycleService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private RandomServiceInterface $randomService;
+    private RoomLogServiceInterface $roomLogService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -43,7 +47,8 @@ class DaedalusService implements DaedalusServiceInterface
         RoomServiceInterface $roomService,
         CycleServiceInterface $cycleService,
         GameEquipmentServiceInterface $gameEquipmentService,
-        RandomServiceInterface $randomService
+        RandomServiceInterface $randomService,
+        RoomLogServiceInterface $roomLogService
     ) {
         $this->entityManager = $entityManager;
         $this->eventDispatcher = $eventDispatcher;
@@ -52,6 +57,7 @@ class DaedalusService implements DaedalusServiceInterface
         $this->cycleService = $cycleService;
         $this->gameEquipmentService = $gameEquipmentService;
         $this->randomService = $randomService;
+        $this->roomLogService = $roomLogService;
     }
 
     /**
@@ -181,8 +187,9 @@ class DaedalusService implements DaedalusServiceInterface
         return $daedalus;
     }
 
-    public function getRandomAsphyxia(Daedalus $daedalus): Daedalus
+    public function getRandomAsphyxia(Daedalus $daedalus, \DateTime $date = null): Daedalus
     {
+        $date = $date ?? new \DateTime('now');
         $chancesArray = [];
         /** @var Player $player */
         foreach ($daedalus->getPlayers()->getPlayerAlive() as $player) {
@@ -190,6 +197,14 @@ class DaedalusService implements DaedalusServiceInterface
                 $capsule = $player->getItems()->filter(fn (GameItem $item) => $item->getName() === ItemEnum::OXYGEN_CAPSULE)->first();
                 $capsule->removeLocation();
                 $this->gameEquipmentService->delete($capsule);
+
+                $this->roomLogService->createPlayerLog(
+                    LogEnum::OXY_LOW_USE_CAPSULE,
+                    $player->getRoom(),
+                    $player,
+                    VisibilityEnum::PRIVATE,
+                    $date
+                );
             } else {
                 $chancesArray[$player->getCharacterConfig()->getName()] = 1;
             }

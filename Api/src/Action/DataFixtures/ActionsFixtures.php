@@ -440,6 +440,7 @@ class ActionsFixtures extends Fixture
             ->setName(ActionEnum::EXTRACT_SPORE)
             ->setType([])
             ->setScope(ActionScopeEnum::SELF)
+            ->setActionCost($twoActionPointCost)
         ;
 
         $manager->persist($extractSporeAction);
@@ -449,6 +450,7 @@ class ActionsFixtures extends Fixture
             ->setName(ActionEnum::INFECT)
             ->setType([])
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
+            ->setActionCost($oneActionPointCost)
         ;
 
         $manager->persist($infectAction);

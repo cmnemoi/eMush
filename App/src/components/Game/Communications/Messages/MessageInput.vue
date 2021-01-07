@@ -1,5 +1,8 @@
 <template>
-  <textarea class="chat-input" placeholder="Type your message here!" v-model="text" @keyup.enter="sendNewMessage"></textarea>
+<form class="chat-input">
+  <textarea placeholder="Type your message here!" v-model="text" @keyup.enter="sendNewMessage"></textarea>
+  <a class="submit" href="#"><img src="@/assets/images/comms/submit.gif" alt="submit"></a>
+</form>
 </template>
 
 <script>
@@ -39,25 +42,38 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-textarea {
 
-  position: sticky;
-  resize: vertical;
-  min-height: 29px;
-  margin: 7px 7px 4px 7px;
-  padding: 3px 5px;
-  font-style: italic;
-  opacity: .85;
+.chat-input {
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  padding: 7px 7px 4px 7px;
 
-  box-shadow: 0px 1px 0px white;
-  border: 1px solid #aad4e5;
-  border-radius: 3px;
+  a {
+    @include button-style();
+    width: 24px;
+    margin-left: 4px;
+  }
 
-  :active, :focus {
-    min-height: 48px;
-    max-height: 80%;
-    font-style: initial;
-    opacity: 1;
+  textarea {
+    position: relative;
+    flex: 1;
+    resize: vertical;
+    min-height: 29px;
+    padding: 3px 5px;
+    font-style: italic;
+    opacity: .85;
+
+    box-shadow: 0px 1px 0px white;
+    border: 1px solid #aad4e5;
+    border-radius: 3px;
+
+    &:active, &:focus {
+      min-height: 48px;
+      /*max-height: 80%;*/
+      font-style: initial;
+      opacity: 1;
+    }
   }
 }
 

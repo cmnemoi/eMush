@@ -1,71 +1,47 @@
 <template>
-  <div v-if="isRoot" class="message main-message" @click="$emit('click')">
-    <div class="char-portrait">
-      <img :src="characterPortrait">
+  <div class="chatbox-container" id="favourites-tab">
+    <div class="chatbox">
+      <section class="unit">
+        <div class="message main-message">
+          <div class="char-portrait">
+            <img src="@/assets/images/char/body/stephen.png">
+          </div>
+          <p><span class="author">Stephen :</span>Comrades. Today starts the revolution</p>
+          <span class="timestamp">2 jours</span>
+        </div>
+        <a href="#" class="chat-expand">Afficher les 18 réponses</a>
+        <div class="message child-message">
+          <p>
+            <img src="@/assets/images/char/head/frieda.png">
+            <span class="author">Frieda :</span>The ghost is ok with that. BoooOOOOooOOOooo.
+          </p>
+          <span class="timestamp">2 jours</span>
+        </div>
+        <div class="message child-message">
+          <p>
+            <img src="@/assets/images/char/head/jin_su.png">
+            <span class="author">Jin Su :</span>I, Leader of the Ship, must show my disagreement, you mustached crazy moron !
+          </p>
+          <span class="timestamp">2 jours</span>
+        </div>
+      </section>
     </div>
-    <p>
-      <span class="author">{{ message.character.name }} :</span><span v-html="format(message.message)"></span></p>
-    <div class="actions">
-      <a href="#"><img src="@/assets/images/comms/reply.png">Répondre</a>
-      <a href="#"><img src="@/assets/images/comms/fav.png">Favori</a>
-      <a href="#"><img src="@/assets/images/comms/alert.png">Plainte</a>
-    </div>
-    <span class="timestamp">{{ formatDate(message.date, {local: "fr-FR"}) }}</span>
-  </div>
-  <div v-if="!isRoot" class="message child-message" @click="$emit('click')">
-    <p>
-      <img :src="characterPortrait">
-      <span class="author">{{ message.character.name }} :</span><span v-html="format(message.message)"></span></p>
-    <div class="actions">
-      <a href="#"><img src="@/assets/images/comms/reply.png">Répondre</a>
-      <a href="#"><img src="@/assets/images/comms/alert.png">Plainte</a>
-    </div>
-    <span class="timestamp">{{ formatDate(message.date, {local: "fr-FR"}) }}</span>
   </div>
 </template>
 
 <script>
-import formatDistanceToNow from 'date-fns/formatDistanceToNow'
-import { fr } from 'date-fns/locale'
-import {Message} from "@/entities/Message";
-import {characterEnum} from "@/enums/character";
 
 export default {
-  name: "Message",
-  emits: {
-    // No validation
-    click: null,
-  },
-  props: {
-    message: Message,
-    isRoot: {
-      type: Boolean,
-      default: false
-    }
-  },
-  computed: {
-    characterPortrait: function() {
-      const images = characterEnum[this.message.character.key];
-      return this.isRoot ? images.body : images.head;
-    },
-  },
-  methods: {
-    formatDate: (date) => {
-      return formatDistanceToNow(date, {locale : fr});
-    },
-    format: function (value) {
-      if (!value) return ''
-      value = value.toString()
-      value = value.replaceAll(/\*\*(.*)\*\*/g, '<strong>$1</strong>');
-      value = value.replaceAll(/\*(.*)\*/g, '<em>$1</em>');
-      value = value.replaceAll(/:pa:/g, '<img src="'+require("@/assets/images/pa.png")+'" alt="pa">')
-      return value.replaceAll(/:pm:/g, '<img src="'+require("@/assets/images/pm.png")+'" alt="pm">')
-    }
+  name: "FavouritesTab",
+  components: {
   }
 }
-</script>return
+
+</script>
 
 <style lang="scss" scoped>
+
+/* --- PROVISIONAL UNTIL LINE 269 --- */
 
 .message {
   position: relative;
@@ -174,7 +150,7 @@ export default {
       );
     }
 
-    &:not(:last-of-type)::after {
+    &:not(:last-child)::after {
       --border-radius: 5px;
       content: "";
       position: absolute;
@@ -238,6 +214,65 @@ export default {
     opacity: 1;
     top: 5px;
     transition: visibility 0s .5s, opacity .15s .5s, top .15s .5s;
+  }
+}
+
+/* ----- */
+
+.chat-input {
+  position: relative;
+  flex-direction: row;
+  padding: 7px 7px 4px 7px;
+
+  a {
+    @include button-style();
+    width: 24px;
+    margin-left: 4px;
+  }
+
+  textarea {
+    position: relative;
+    flex: 1;
+    resize: vertical;
+    min-height: 29px;
+    padding: 3px 5px;
+    font-style: italic;
+    opacity: .85;
+
+    box-shadow: 0px 1px 0px white;
+    border: 1px solid #aad4e5;
+    border-radius: 3px;
+
+    &:active, &:focus {
+      min-height: 48px;
+      /*max-height: 80%;*/
+      font-style: initial;
+      opacity: 1;
+    }
+  }
+}
+
+/* ----- */
+
+.log {
+  position: relative;
+  padding: 4px 5px;
+  margin: 1px 0;
+  border-bottom: 1px solid rgb(170, 212, 229);
+
+  p {
+    margin: 0;
+    font-size: .95em;
+    /deep/ img { vertical-align: middle; }
+  }
+}
+
+/* --- END OF PROVISIONAL --- */
+
+
+#favourites-tab {
+  .unit {
+    border-bottom: 1px solid rgb(170, 212, 229);
   }
 }
 

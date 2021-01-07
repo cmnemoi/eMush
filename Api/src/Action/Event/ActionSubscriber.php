@@ -47,6 +47,6 @@ class ActionSubscriber implements EventSubscriberInterface
         $action = $event->getAction();
         $player = $event->getPlayer();
 
-        $this->actionService->handleActionEffect($action, $player, new \DateTime());
+        $this->actionService->handleActionSideEffect($action, $player, new \DateTime());
     }
 }

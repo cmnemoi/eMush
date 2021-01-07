@@ -47,7 +47,7 @@ class ActionServiceTest extends TestCase
         );
     }
 
-    public function testHandleActionEffectDirty()
+    public function testHandleActionSideEffectDirty()
     {
         $action = new Action();
         $room = new Room();
@@ -61,7 +61,7 @@ class ActionServiceTest extends TestCase
 
         $this->eventDispatcher->shouldReceive('dispatch')->never();
 
-        $player = $this->actionService->handleActionEffect($action, $player, new \DateTime());
+        $player = $this->actionService->handleActionSideEffect($action, $player, new \DateTime());
 
         $this->assertCount(0, $player->getStatuses());
 
@@ -71,12 +71,12 @@ class ActionServiceTest extends TestCase
         $this->roomLogService->shouldReceive('createPlayerLog')->once();
         $this->randomService->shouldReceive('randomPercent')->andReturn(10)->once();
         $this->statusServiceInterface->shouldReceive('createCorePlayerStatus')->andReturn(new Status())->once();
-        $player = $this->actionService->handleActionEffect($action, $player, new \DateTime());
+        $player = $this->actionService->handleActionSideEffect($action, $player, new \DateTime());
 
         $this->assertCount(1, $player->getStatuses());
     }
 
-    public function testHandleActionEffectInjury()
+    public function testHandleActionSideEffectInjury()
     {
         $action = new Action();
         $room = new Room();
@@ -90,7 +90,7 @@ class ActionServiceTest extends TestCase
 
         $this->eventDispatcher->shouldReceive('dispatch')->never();
 
-        $player = $this->actionService->handleActionEffect($action, $player, new \DateTime());
+        $player = $this->actionService->handleActionSideEffect($action, $player, new \DateTime());
 
         $this->assertCount(0, $player->getStatuses());
 
@@ -106,7 +106,7 @@ class ActionServiceTest extends TestCase
         $this->roomLogService->shouldReceive('createPlayerLog')->once();
         $this->randomService->shouldReceive('randomPercent')->andReturn(10)->once();
         $this->statusServiceInterface->shouldReceive('createCorePlayerStatus')->never();
-        $player = $this->actionService->handleActionEffect($action, $player, new \DateTime());
+        $player = $this->actionService->handleActionSideEffect($action, $player, new \DateTime());
 
         $this->assertCount(0, $player->getStatuses());
     }

@@ -7,5 +7,5 @@ use Mush\Player\Entity\Player;
 
 interface ActionServiceInterface
 {
-    public function handleActionEffect(Action $action, Player $player, ?\DateTime $date): Player;
+    public function handleActionSideEffect(Action $action, Player $player, ?\DateTime $date): Player;
 }

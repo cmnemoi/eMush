@@ -37,7 +37,7 @@ class ActionService implements ActionServiceInterface
         $this->roomLogService = $roomLogService;
     }
 
-    public function handleActionEffect(Action $action, Player $player, ?\DateTime $date = null): Player
+    public function handleActionSideEffect(Action $action, Player $player, ?\DateTime $date = null): Player
     {
         $dirtyRate = $action->getDirtyRate();
         if (!$player->hasStatus(PlayerStatusEnum::DIRTY) &&

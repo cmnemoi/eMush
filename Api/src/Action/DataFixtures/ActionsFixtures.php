@@ -47,6 +47,10 @@ class ActionsFixtures extends Fixture
     public const TREAT_PLANT = 'treat.plant';
     public const WATER_PLANT = 'water.plant';
 
+    public const SABOTAGE_DEFAULT = 'sabotage.default';
+    public const EXTRACT_SPORE = 'extract.spore';
+    public const INFECT_PLAYER = 'infect.player';
+
     public function load(ObjectManager $manager): void
     {
         $freeCost = $this->buildActionCost(0);
@@ -319,6 +323,7 @@ class ActionsFixtures extends Fixture
             ->setName(ActionEnum::SHOWER)
             ->setType([])
             ->setScope(ActionScopeEnum::CURRENT)
+            ->setActionCost($twoActionPointCost)
         ;
 
         $manager->persist($showerAction);
@@ -418,6 +423,38 @@ class ActionsFixtures extends Fixture
 
         $manager->persist($waterPlantAction);
 
+        $sabotageAction = new Action();
+        $sabotageAction
+            ->setName(ActionEnum::SABOTAGE)
+            ->setType([])
+            ->setScope(ActionScopeEnum::ROOM)
+            ->setDirtyRate(20)
+            ->setInjuryRate(20)
+            ->setActionCost($twoActionPointCost)
+        ;
+
+        $manager->persist($sabotageAction);
+
+        $extractSporeAction = new Action();
+        $extractSporeAction
+            ->setName(ActionEnum::EXTRACT_SPORE)
+            ->setType([])
+            ->setScope(ActionScopeEnum::SELF)
+            ->setActionCost($twoActionPointCost)
+        ;
+
+        $manager->persist($extractSporeAction);
+
+        $infectAction = new Action();
+        $infectAction
+            ->setName(ActionEnum::INFECT)
+            ->setType([])
+            ->setScope(ActionScopeEnum::OTHER_PLAYER)
+            ->setActionCost($oneActionPointCost)
+        ;
+
+        $manager->persist($infectAction);
+
         $manager->flush();
 
         $this->addReference(self::MOVE_DEFAULT, $moveAction);
@@ -454,6 +491,9 @@ class ActionsFixtures extends Fixture
         $this->addReference(self::TRANSPLANT_DEFAULT, $transplantAction);
         $this->addReference(self::TREAT_PLANT, $treatPlantAction);
         $this->addReference(self::WATER_PLANT, $waterPlantAction);
+        $this->addReference(self::SABOTAGE_DEFAULT, $sabotageAction);
+        $this->addReference(self::EXTRACT_SPORE, $extractSporeAction);
+        $this->addReference(self::INFECT_PLAYER, $infectAction);
     }
 
     private function buildActionCost(int $actionPoint, int $movementPoint = 0, int $moralPoint = 0): ActionCost

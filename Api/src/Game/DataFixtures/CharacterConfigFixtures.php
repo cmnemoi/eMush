@@ -24,7 +24,15 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $hitAction = $this->getReference(ActionsFixtures::HIT_DEFAULT);
         $hideAction = $this->getReference(ActionsFixtures::HIDE_DEFAULT);
         $searchAction = $this->getReference(ActionsFixtures::SEARCH_DEFAULT);
-        $defaultActions = new ArrayCollection([$hitAction, $hideAction, $searchAction]);
+        $sabotageAction = $this->getReference(ActionsFixtures::SABOTAGE_DEFAULT);
+        $extractSporeAction = $this->getReference(ActionsFixtures::EXTRACT_SPORE);
+        $infectAction = $this->getReference(ActionsFixtures::INFECT_PLAYER);
+        $defaultActions = new ArrayCollection([$hitAction,
+                                               $hideAction,
+                                               $searchAction,
+                                               $sabotageAction,
+                                               $infectAction,
+                                               $extractSporeAction, ]);
 
         $andie = new CharacterConfig();
         $andie

@@ -10,7 +10,6 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
@@ -58,7 +57,7 @@ class RetrieveOxygen extends AbstractAction
     public function canExecute(): bool
     {
         return $this->player->canReachEquipment($this->gameEquipment) &&
-            $this->gameEquipment->getEquipment()->getName() === EquipmentEnum::OXYGEN_TANK &&
+            $this->gameEquipment->getEquipment()->hasAction(ActionEnum::RETRIEVE_OXYGEN) &&
             $this->gameEquipmentService->isOperational($this->gameEquipment) &&
             $this->player->canReachEquipment($this->gameEquipment) &&
             $this->player->getItems()->count() < $this->gameConfig->getMaxItemInInventory() &&

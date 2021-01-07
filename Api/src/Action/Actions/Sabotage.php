@@ -20,9 +20,9 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class Repair extends AttemptAction
+class Sabotage extends AttemptAction
 {
-    protected string $name = ActionEnum::REPAIR;
+    protected string $name = ActionEnum::SABOTAGE;
 
     private GameEquipment $gameEquipment;
 
@@ -52,9 +52,9 @@ class Repair extends AttemptAction
     {
         parent::loadParameters($action, $player, $actionParameters);
 
-        if (!($equipment = $actionParameters->getItem()) &&
-            !($equipment = $actionParameters->getDoor()) &&
-            !($equipment = $actionParameters->getEquipment())) {
+        if (!($equipment = $actionParameters->getEquipment()) &&
+            !($equipment = $actionParameters->getItem()) &&
+            !($equipment = $actionParameters->getDoor())) {
             throw new \InvalidArgumentException('Invalid equipment parameter');
         }
 
@@ -63,10 +63,11 @@ class Repair extends AttemptAction
 
     public function canExecute(): bool
     {
-        //Check that the equipment is reachable
-        return $this->gameEquipment->isBroken() &&
-            $this->player->canReachEquipment($this->gameEquipment)
-        ;
+        return $this->player->canReachEquipment($this->gameEquipment) &&
+               !$this->gameEquipment->isBroken() &&
+               $this->gameEquipment->getBrokenRate() > 0 &&
+               $this->player->isMush()
+            ;
     }
 
     protected function applyEffects(): ActionResult
@@ -75,11 +76,8 @@ class Repair extends AttemptAction
 
         $response = $this->makeAttempt($this->gameEquipment->getBrokenRate(), $modificator);
 
-        if ($response instanceof Success &&
-            ($brokenStatus = $this->gameEquipment->getStatusByName(EquipmentStatusEnum::BROKEN))
-        ) {
-            $this->gameEquipment->removeStatus($brokenStatus);
-            $this->statusService->delete($brokenStatus);
+        if ($response instanceof Success) {
+            $this->statusService->createCoreEquipmentStatus(EquipmentStatusEnum::BROKEN, $this->gameEquipment);
             $this->gameEquipmentService->persist($this->gameEquipment);
         }
 
@@ -94,7 +92,7 @@ class Repair extends AttemptAction
     protected function createLog(ActionResult $actionResult): void
     {
         $this->roomLogService->createEquipmentLog(
-            ActionLogEnum::REPAIR_SUCCESS,
+            ActionLogEnum::SABOTAGE_SUCCESS,
             $this->player->getRoom(),
             $this->player,
             $this->gameEquipment,

@@ -2,10 +2,12 @@
 
 namespace Mush\Test\Action\Actions;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\RetrieveOxygen;
+use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
@@ -71,12 +73,14 @@ class RetrieveOxygenTest extends AbstractActionTest
         $this->gameConfig->setMaxOxygen(32);
         $this->gameConfig->setMaxItemInInventory(3);
 
+        $action = new Action();
+        $action->setName(ActionEnum::RETRIEVE_OXYGEN);
+
         $tank = new EquipmentConfig();
-        $tank->setName(EquipmentEnum::OXYGEN_TANK);
+        $tank->setActions(new ArrayCollection([$action]));
         $gameTank = new GameEquipment();
         $gameTank
             ->setEquipment($tank)
-            ->setName(EquipmentEnum::OXYGEN_TANK)
             ->setRoom($room)
             ;
 
@@ -121,8 +125,12 @@ class RetrieveOxygenTest extends AbstractActionTest
         $this->gameConfig->setMaxOxygen(32);
         $this->gameConfig->setMaxItemInInventory(3);
 
+        $action = new Action();
+        $action->setName(ActionEnum::RETRIEVE_OXYGEN);
+
         $tank = new EquipmentConfig();
-        $tank->setName(EquipmentEnum::OXYGEN_TANK);
+        $tank->setActions(new ArrayCollection([$action]));
+
         $gameTank = new GameEquipment();
         $gameTank
             ->setEquipment($tank)

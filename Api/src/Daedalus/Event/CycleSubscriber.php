@@ -101,7 +101,7 @@ class CycleSubscriber implements EventSubscriberInterface
             $oxygenLoss = $oxygenLoss + 1;
         }
 
-        if ($daedalus->getOxygen() < $oxygenLoss) {
+        if ($daedalus->getOxygen() <= $oxygenLoss) {
             $this->daedalusService->getRandomAsphyxia($daedalus);
         }
         $this->daedalusService->changeOxygenLevel($daedalus, -$oxygenLoss);

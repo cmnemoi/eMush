@@ -20,7 +20,7 @@ class RoomLogRepository extends ServiceEntityRepository
      */
     public function getPlayerRoomLog(Player $player): array
     {
-        $yesterday = new \DateTime('yesterday');
+        $yesterday = new \DateTime('1 day ago');
 
         $queryBuilder = $this->createQueryBuilder('roomLog');
 

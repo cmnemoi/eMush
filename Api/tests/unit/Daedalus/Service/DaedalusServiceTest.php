@@ -22,6 +22,7 @@ use Mush\Room\Entity\Room;
 use Mush\Room\Entity\RoomConfig;
 use Mush\Room\Enum\RoomEnum;
 use Mush\Room\Service\RoomServiceInterface;
+use Mush\RoomLog\Service\RoomLogServiceInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -55,6 +56,7 @@ class DaedalusServiceTest extends TestCase
         $this->cycleService = Mockery::mock(CycleServiceInterface::class);
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
+        $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
 
         $this->service = new DaedalusService(
             $this->entityManager,
@@ -63,7 +65,8 @@ class DaedalusServiceTest extends TestCase
             $this->roomService,
             $this->cycleService,
             $this->gameEquipmentService,
-            $this->randomService
+            $this->randomService,
+            $this->roomLogService
         );
     }
 

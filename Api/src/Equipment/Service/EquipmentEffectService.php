@@ -122,8 +122,8 @@ class EquipmentEffectService implements EquipmentEffectServiceInterface
         $diseasesDelayMin = [];
         $diseasesDelayLength = [];
         $extraEffects = [];
-        
-        if ($effectsNumber>0){
+
+        if ($effectsNumber > 0) {
             // We chose 0 to 4 unique id for the effects
             $pickedEffects = $this->randomService->getRandomElements(
                 range(

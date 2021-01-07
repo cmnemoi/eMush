@@ -5,6 +5,8 @@ namespace App\Tests\Helper\Factories;
 // here you can define custom actions
 // all public methods declared in helper class will be available in $I
 
+use Mush\Game\Entity\CharacterConfig;
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Entity\Player;
 
@@ -22,6 +24,9 @@ class PlayerFactory extends \Codeception\Module
             'movementPoint' => 10,
             'triumph' => 0,
             'satiety' => 0,
+        ]);
+        $factory->_define(CharacterConfig::class, [
+            'name' => CharacterEnum::GIOELE,
         ]);
     }
 }

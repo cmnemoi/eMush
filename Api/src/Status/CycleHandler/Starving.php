@@ -13,6 +13,7 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 class Starving extends AbstractCycleHandler
 {
     protected string $name = PlayerStatusEnum::STARVING;
+
     private EventDispatcherInterface $eventDispatcher;
 
     public function __construct(EventDispatcherInterface $eventDispatcher)

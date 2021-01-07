@@ -14,6 +14,9 @@ use Mush\Status\Service\StatusServiceInterface;
 
 class ActionModifierService implements ActionModifierServiceInterface
 {
+    const FULL_STOMACH_STATUS_THRESHOLD = 3;
+    const STARVING_STATUS_THRESHOLD = -24;
+
     private StatusServiceInterface $statusService;
     private RoomLogServiceInterface $roomLogService;
     private GameConfigServiceInterface $gameConfigService;
@@ -164,21 +167,8 @@ class ActionModifierService implements ActionModifierServiceInterface
 
     private function handleSatietyStatus(ActionModifier $actionModifier, Player $player): Player
     {
-        $starvingStatus = $player->getStatusByName(PlayerStatusEnum::STARVING);
-        $fullStatus = $player->getStatusByName(PlayerStatusEnum::FULL_STOMACH);
-
         if (!$player->isMush()) {
-            if ($player->getSatiety() < -24 && !$starvingStatus) {
-                $this->statusService->createCorePlayerStatus(PlayerStatusEnum::STARVING, $player);
-            } elseif ($starvingStatus) {
-                $player->removeStatus($starvingStatus);
-            }
-
-            if ($player->getSatiety() >= 3 && !$fullStatus) {
-                $this->statusService->createCorePlayerStatus(PlayerStatusEnum::FULL_STOMACH, $player);
-            } elseif ($fullStatus) {
-                $player->removeStatus($fullStatus);
-            }
+            $player = $this->handleHumanStatus($player);
         } elseif ($actionModifier->getSatietyModifier() >= 0) {
             $this->statusService->createChargePlayerStatus(
                 PlayerStatusEnum::FULL_STOMACH,
@@ -188,6 +178,26 @@ class ActionModifierService implements ActionModifierServiceInterface
                 0,
                 true
             );
+        }
+
+        return $player;
+    }
+
+    private function handleHumanStatus(Player $player): Player
+    {
+        $starvingStatus = $player->getStatusByName(PlayerStatusEnum::STARVING);
+        $fullStatus = $player->getStatusByName(PlayerStatusEnum::FULL_STOMACH);
+
+        if ($player->getSatiety() < self::STARVING_STATUS_THRESHOLD && !$starvingStatus) {
+            $this->statusService->createCorePlayerStatus(PlayerStatusEnum::STARVING, $player);
+        } elseif ($player->getSatiety() >= self::STARVING_STATUS_THRESHOLD && $starvingStatus) {
+            $player->removeStatus($starvingStatus);
+        }
+
+        if ($player->getSatiety() >= self::FULL_STOMACH_STATUS_THRESHOLD && !$fullStatus) {
+            $this->statusService->createCorePlayerStatus(PlayerStatusEnum::FULL_STOMACH, $player);
+        } elseif ($fullStatus) {
+            $player->removeStatus($fullStatus);
         }
 
         return $player;

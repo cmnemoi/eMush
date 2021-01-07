@@ -5,12 +5,10 @@ namespace Mush\Action\Actions;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\Target;
 use Mush\RoomLog\Enum\ActionLogEnum;
@@ -19,7 +17,7 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class Search extends Action
+class Search extends AbstractAction
 {
     protected string $name = ActionEnum::SEARCH;
 
@@ -38,13 +36,6 @@ class Search extends Action
         $this->gameEquipmentService = $gameEquipmentService;
         $this->playerService = $playerService;
         $this->statusService = $statusService;
-
-        $this->actionCost->setActionPointCost(1);
-    }
-
-    public function loadParameters(Player $player, ActionParameters $actionParameters): void
-    {
-        $this->player = $player;
     }
 
     public function canExecute(): bool

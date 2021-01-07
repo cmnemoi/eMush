@@ -5,42 +5,39 @@ namespace Mush\Test\Action\Actions;
 use Mockery;
 use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Actions\Action;
 use Mush\Action\Actions\Move;
 use Mush\Action\Entity\ActionParameters;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
-use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use PHPUnit\Framework\TestCase;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class MoveActionTest extends TestCase
+class MoveActionTest extends AbstractActionTest
 {
     /** @var RoomLogServiceInterface | Mockery\Mock */
     private RoomLogServiceInterface $roomLogService;
     /** @var PlayerServiceInterface | Mockery\Mock */
     private PlayerServiceInterface $playerService;
-    private Action $action;
 
     /**
      * @before
      */
     public function before()
     {
-        $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
+        parent::before();
+
+        $this->actionEntity = $this->createActionEntity(ActionEnum::MOVE, 0, 1);
+
         $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
 
-        $eventDispatcher->shouldReceive('dispatch');
-
         $this->action = new Move(
-            $eventDispatcher,
+            $this->eventDispatcher,
             $this->playerService,
             $this->roomLogService
         );
@@ -80,7 +77,7 @@ class MoveActionTest extends TestCase
             ->setRoom($roomStart)
         ;
 
-        $this->action->loadParameters($player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
         //No movement point
         $player
@@ -129,7 +126,7 @@ class MoveActionTest extends TestCase
         $actionParameter->setDoor($door);
         $player = $this->createPlayer(new Daedalus(), $roomStart);
 
-        $this->action->loadParameters($player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
         $result = $this->action->execute();
 
@@ -142,20 +139,5 @@ class MoveActionTest extends TestCase
         $this->assertInstanceOf(Success::class, $result);
         $this->assertEquals($player->getRoom(), $roomStart);
         $this->assertEquals($player->getMovementPoint(), 8);
-    }
-
-    private function createPlayer(Daedalus $daedalus, Room $room): Player
-    {
-        $player = new Player();
-        $player
-            ->setActionPoint(10)
-            ->setMovementPoint(10)
-            ->setMoralPoint(10)
-            ->setDaedalus($daedalus)
-            ->setRoom($room)
-            ->setGameStatus(GameStatusEnum::CURRENT)
-        ;
-
-        return $player;
     }
 }

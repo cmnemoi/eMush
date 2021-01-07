@@ -9,7 +9,6 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Service\ActionModifierServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Room\Enum\RoomEnum;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
@@ -68,9 +67,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         $player = $event->getPlayer();
         $reason = $event->getReason();
 
-        if ($reason) {
-            $player->setEndStatus($reason);
-        }
+        $this->playerService->playerDeath($player, $reason);
 
         if ($player->getEndStatus() !== EndCauseEnum::DEPRESSION) {
             /** @var Player $daedalusPlayer */
@@ -83,23 +80,6 @@ class PlayerSubscriber implements EventSubscriberInterface
                 }
             }
         }
-
-        foreach ($player->getItems() as $item) {
-            $item->setPlayer(null);
-            $item->setRoom($player->getRoom());
-        }
-        //@TODO in case of assasination chance of disorder for roommates
-
-        $player->setRoom($player->getDaedalus()->getRoomByName(RoomEnum::GREAT_BEYOND));
-        //@TODO two steps death
-        $player->setGameStatus(GameStatusEnum::FINISHED);
-
-        $this->roomLogService->createPlayerLog(
-            LogEnum::DEATH,
-            $player->getRoom(),
-            $player,
-            VisibilityEnum::PUBLIC
-        );
 
         if ($player->getDaedalus()->getPlayers()->getPlayerAlive()->isEmpty() &&
             !in_array($reason, [EndCauseEnum::SOL_RETURN, EndCauseEnum::EDEN, EndCauseEnum::SUPER_NOVA, EndCauseEnum::KILLED_BY_NERON]) &&

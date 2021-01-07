@@ -3,7 +3,7 @@
 namespace Mush\Action\Event;
 
 use Mush\Action\ActionResult\ActionResult;
-use Mush\Action\Entity\ActionCost;
+use Mush\Action\Entity\Action;
 use Mush\Player\Entity\Player;
 use Symfony\Contracts\EventDispatcher\Event;
 
@@ -13,15 +13,13 @@ class ActionEvent extends Event
     public const POST_ACTION = 'post.action';
 
     private Player $player;
-    private string $action;
-    private ActionCost $actionCost;
+    private Action $action;
     private ?ActionResult $actionResult = null;
 
-    public function __construct(string $action, Player $player, ActionCost $actionCost)
+    public function __construct(Action $action, Player $player)
     {
         $this->action = $action;
         $this->player = $player;
-        $this->actionCost = $actionCost;
     }
 
     public function getPlayer(): Player
@@ -29,14 +27,9 @@ class ActionEvent extends Event
         return $this->player;
     }
 
-    public function getAction(): string
+    public function getAction(): Action
     {
         return $this->action;
-    }
-
-    public function getActionCost(): ActionCost
-    {
-        return $this->actionCost;
     }
 
     public function getActionResult(): ?ActionResult

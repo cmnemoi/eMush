@@ -24,9 +24,11 @@ class ActionLogEnum
     public const READ_BOOK = 'read_book';
     public const READ_DOCUMENT = 'read_document';
     public const REPAIR_SUCCESS = 'repair_success';
+    public const SABOTAGE_SUCCESS = 'sabotage_success';
     public const SEARCH_SUCCESS = 'search_success';
     public const SEARCH_FAIL = 'search_fail';
     public const SHRED_SUCCESS = 'shred_success';
+    public const SHOWER = 'shower';
     public const TAKE = 'take';
     public const TRANSPLANT_SUCCESS = 'transplant_success';
     public const TRANSPLANT_FAIL = 'transplant_fail';

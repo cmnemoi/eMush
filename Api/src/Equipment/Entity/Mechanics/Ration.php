@@ -72,18 +72,18 @@ class Ration extends EquipmentMechanic
      */
     protected bool $isPerishable = true;
 
-    /**
-     * @return static
-     */
-    public function setActions(array $actions): Ration
-    {
-        return $this;
-    }
+//    /**
+//     * @return static
+//     */
+//    public function setActions(array $actions): Ration
+//    {
+//        return $this;
+//    }
 
-    public function getActions(): array
-    {
-        return [ActionEnum::CONSUME];
-    }
+//    public function getActions(): array
+//    {
+//        return [ActionEnum::CONSUME];
+//    }
 
     public function getActionPoints(): array
     {

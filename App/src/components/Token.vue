@@ -20,15 +20,16 @@ export default {
       'login',
     ]),
   },
-  beforeMount() {
+  async beforeMount() {
     if (typeof this.$route.query.code !== 'undefined') {
-      if (this.login({code: this.$route.query.code})) {
-        router.push({ name: 'GamePage' })
+      const logginSuccess = await this.login({code: this.$route.query.code});
+      if (logginSuccess) {
+        router.push({name: 'GamePage'})
       }
     }
 
     if (typeof this.$route.query.error !== 'undefined') {
-      this.errorMessage= this.$route.query.error;
+      this.errorMessage = this.$route.query.error;
     }
   }
 }

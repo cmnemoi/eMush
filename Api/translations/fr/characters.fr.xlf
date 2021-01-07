@@ -378,7 +378,7 @@
 		<unit id="kim_jin_su">
             <segment id="name">
                 <source>kim_jin_su.name</source>
-                <target>Kim</target>
+                <target>Jin-Su</target>
             </segment>
             <segment id="fullname">
                 <source>kim_jin_su.fullname</source>

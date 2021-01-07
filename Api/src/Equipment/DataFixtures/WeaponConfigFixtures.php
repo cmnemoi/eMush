@@ -6,6 +6,8 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Mush\Action\DataFixtures\ActionsFixtures;
+use Mush\Action\Entity\Action;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Charged;
 use Mush\Equipment\Entity\Mechanics\Dismountable;
@@ -21,6 +23,15 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
+
+        /** @var Action $takeAction */
+        $takeAction = $this->getReference(ActionsFixtures::DEFAULT_TAKE);
+        /** @var Action $takeAction */
+        $dropAction = $this->getReference(ActionsFixtures::DEFAULT_DROP);
+        /** @var Action $attackAction */
+        $attackAction = $this->getReference(ActionsFixtures::ATTACK_DEFAULT);
+
+        $actions = new ArrayCollection([$takeAction, $dropAction]);
 
         $dismountableMechanic1 = new Dismountable();
         $dismountableMechanic1
@@ -44,8 +55,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setBaseDamageRange([2 => 5])
             ->setBaseInjuryNumber([0 => 1])
             ->setExpeditionBonus(1)
-            ->setCriticalSucessEvents([])
-            ->setCriticalSucessEvents([])
+            ->addAction($attackAction)
         ;
 
         $blaster = new ItemConfig();
@@ -53,14 +63,13 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::BLASTER)
             ->setIsHeavy(false)
-            ->setIsTakeable(true)
-            ->setIsDropable(true)
             ->setIsStackable(true)
             ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(25)
             ->setMechanics(new ArrayCollection([$dismountableMechanic1, $blasterMechanic, $chargedMechanic]))
+            ->setActions($actions)
         ;
         $manager->persist($dismountableMechanic1);
         $manager->persist($chargedMechanic);
@@ -74,7 +83,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setBaseInjuryNumber([0 => 1])
             ->setExpeditionBonus(1)
             ->setCriticalSucessEvents([])
-            ->setCriticalSucessEvents([])
+            ->addAction($attackAction)
         ;
 
         $knife = new ItemConfig();
@@ -82,16 +91,15 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::KNIFE)
             ->setIsHeavy(false)
-            ->setIsTakeable(true)
-            ->setIsDropable(true)
             ->setIsStackable(true)
             ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setBreakableRate(25)
             ->setMechanics(new ArrayCollection([$dismountableMechanic1, $knifeMechanic]))
-
+            ->setActions($actions)
         ;
+
         $manager->persist($knife);
         $manager->persist($knifeMechanic);
 
@@ -101,24 +109,22 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setBaseDamageRange([0 => 10])
             ->setBaseInjuryNumber([0 => 1])
             ->setExpeditionBonus(3)
-            ->setCriticalSucessEvents([])
-            ->setCriticalSucessEvents([])
-            ;
+            ->addAction($attackAction)
+        ;
 
         $grenade = new ItemConfig();
         $grenade
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::GRENADE)
             ->setIsHeavy(false)
-            ->setIsTakeable(true)
-            ->setIsDropable(true)
             ->setIsStackable(true)
             ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setMechanics(new ArrayCollection([$grenadeMechanic]))
-
+            ->setActions($actions)
         ;
+
         $manager->persist($grenade);
         $manager->persist($grenadeMechanic);
 
@@ -135,8 +141,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setBaseDamageRange([2 => 12])
             ->setBaseInjuryNumber([1 => 3])
             ->setExpeditionBonus(1)
-            ->setCriticalSucessEvents([])
-            ->setCriticalSucessEvents([])
+            ->addAction($attackAction)
         ;
 
         $natamy = new ItemConfig();
@@ -144,15 +149,15 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::NATAMY_RIFLE)
             ->setIsHeavy(false)
-            ->setIsTakeable(true)
-            ->setIsDropable(true)
             ->setIsStackable(true)
             ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(12)
             ->setMechanics(new ArrayCollection([$dismountableMechanic2, $natamyMechanic, $chargedMechanic]))
+            ->setActions($actions)
         ;
+
         $manager->persist($natamy);
         $manager->persist($natamyMechanic);
         $manager->persist($dismountableMechanic2);
@@ -170,8 +175,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setBaseDamageRange([2 => 3])
             ->setBaseInjuryNumber([0 => 3])
             ->setExpeditionBonus(2)
-            ->setCriticalSucessEvents([])
-            ->setCriticalSucessEvents([])
+            ->addAction($attackAction)
         ;
 
         $chargedMechanic = new Charged();
@@ -187,16 +191,15 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::OLD_FAITHFUL)
             ->setIsHeavy(true)
-            ->setIsTakeable(true)
-            ->setIsDropable(true)
             ->setIsStackable(true)
             ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(12)
             ->setMechanics(new ArrayCollection([$dismountableMechanic3, $oldFaithfulMechanic, $chargedMechanic]))
-
+            ->setActions($actions)
         ;
+
         $manager->persist($oldFaithful);
         $manager->persist($oldFaithfulMechanic);
         $manager->persist($dismountableMechanic3);
@@ -223,8 +226,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setBaseDamageRange([3 => 5])
             ->setBaseInjuryNumber([1 => 2])
             ->setExpeditionBonus(1)
-            ->setCriticalSucessEvents([])
-            ->setCriticalSucessEvents([])
+            ->addAction($attackAction)
         ;
 
         $lizaroJungle = new ItemConfig();
@@ -232,16 +234,15 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::LIZARO_JUNGLE)
             ->setIsHeavy(false)
-            ->setIsTakeable(true)
-            ->setIsDropable(true)
             ->setIsStackable(true)
             ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(12)
             ->setMechanics(new ArrayCollection([$dismountableMechanic4, $lizaroJungleMechanic, $chargedMechanic]))
-
+            ->setActions($actions)
         ;
+
         $manager->persist($lizaroJungle);
         $manager->persist($lizaroJungleMechanic);
         $manager->persist($dismountableMechanic4);
@@ -253,8 +254,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setBaseDamageRange([0 => 8])
             ->setBaseInjuryNumber([0 => 2])
             ->setExpeditionBonus(3)
-            ->setCriticalSucessEvents([])
-            ->setCriticalSucessEvents([])
+            ->addAction($attackAction)
         ;
 
         $rocketLauncher = new ItemConfig();
@@ -262,16 +262,15 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::ROCKET_LAUNCHER)
             ->setIsHeavy(false)
-            ->setIsTakeable(true)
-            ->setIsDropable(true)
             ->setIsStackable(true)
             ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(12)
             ->setMechanics(new ArrayCollection([$dismountableMechanic2, $rocketLauncherMechanic, $chargedMechanic]))
-
+            ->setActions($actions)
         ;
+
         $manager->persist($rocketLauncher);
         $manager->persist($rocketLauncherMechanic);
 

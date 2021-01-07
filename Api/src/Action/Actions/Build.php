@@ -4,12 +4,14 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
+use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Blueprint;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\GameConfigServiceInterface;
@@ -20,7 +22,7 @@ use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class Build extends Action
+class Build extends AbstractAction
 {
     protected string $name = ActionEnum::BUILD;
 
@@ -41,17 +43,17 @@ class Build extends Action
         $this->gameEquipmentService = $gameEquipmentService;
         $this->playerService = $playerService;
         $this->gameConfig = $gameConfigService->getConfig();
-        $this->actionCost->setActionPointCost(3);
     }
 
-    public function loadParameters(Player $player, ActionParameters $actionParameters): void
+    public function loadParameters(Action $action, Player $player, ActionParameters $actionParameters): void
     {
+        parent::loadParameters($action, $player, $actionParameters);
+
         if (!($equipment = $actionParameters->getItem()) &&
             !($equipment = $actionParameters->getEquipment())) {
             throw new \InvalidArgumentException('Invalid equipment parameter');
         }
 
-        $this->player = $player;
         $this->gameEquipment = $equipment;
     }
 
@@ -81,22 +83,6 @@ class Build extends Action
         /** @var Blueprint $blueprintMechanic */
         $blueprintMechanic = $this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT);
 
-        // add the equipment in the player inventory or in the room if the inventory is full
-        $blueprintEquipment = $this->gameEquipmentService->createGameEquipment(
-            $blueprintMechanic->getEquipment(),
-            $this->player->getDaedalus()
-        );
-
-        if ($this->player->getItems()->count() < $this->gameConfig->getMaxItemInInventory() &&
-                 $blueprintEquipment instanceof GameItem
-            ) {
-            $blueprintEquipment->setPlayer($this->player);
-        } else {
-            $blueprintEquipment->setRoom($this->player->getRoom());
-        }
-
-        $this->gameEquipmentService->persist($blueprintEquipment);
-
         // remove the used ingredients starting from the player inventory
         foreach ($blueprintMechanic->getIngredients() as $name => $number) {
             for ($i = 0; $i < $number; ++$i) {
@@ -124,6 +110,17 @@ class Build extends Action
 
         $this->gameEquipment->removeLocation();
         $this->gameEquipmentService->delete($this->gameEquipment);
+
+        //create the equipment
+        $blueprintEquipment = $this->gameEquipmentService->createGameEquipment(
+            $blueprintMechanic->getEquipment(),
+            $this->player->getDaedalus()
+        );
+        $equipmentEvent = new EquipmentEvent($blueprintEquipment);
+        $equipmentEvent->setPlayer($this->player);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
+
+        $this->gameEquipmentService->persist($blueprintEquipment);
 
         $this->playerService->persist($this->player);
 

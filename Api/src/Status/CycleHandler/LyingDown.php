@@ -12,7 +12,7 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class LyingDown extends AbstractCycleHandler
 {
-    protected string $name = PlayerStatusEnum::ANTISOCIAL;
+    protected string $name = PlayerStatusEnum::LYING_DOWN;
     private EventDispatcherInterface $eventDispatcher;
 
     public function __construct(EventDispatcherInterface $eventDispatcher)

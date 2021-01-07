@@ -4,6 +4,7 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
+use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
@@ -22,7 +23,7 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class Consume extends Action
+class Consume extends AbstractAction
 {
     protected string $name = ActionEnum::CONSUME;
 
@@ -48,22 +49,23 @@ class Consume extends Action
         $this->statusService = $statusService;
     }
 
-    public function loadParameters(Player $player, ActionParameters $actionParameters): void
+    public function loadParameters(Action $action, Player $player, ActionParameters $actionParameters): void
     {
+        parent::loadParameters($action, $player, $actionParameters);
+
         if (!($equipment = $actionParameters->getItem()) &&
             !($equipment = $actionParameters->getEquipment())) {
             throw new \InvalidArgumentException('Invalid equipment parameter');
         }
 
-        $this->player = $player;
         $this->gameEquipment = $equipment;
     }
 
     public function canExecute(): bool
     {
         return !($this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::DRUG) &&
-                $this->player->canReachEquipment($this->gameEquipment) &&
                 $this->player->getStatusByName(PlayerStatusEnum::DRUG_EATEN)) &&
+                $this->player->canReachEquipment($this->gameEquipment) &&
                 $this->gameEquipment->getEquipment()->hasAction(ActionEnum::CONSUME) &&
                 !$this->player->getStatusByName(PlayerStatusEnum::FULL_STOMACH);
     }

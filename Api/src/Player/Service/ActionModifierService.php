@@ -83,16 +83,16 @@ class ActionModifierService implements ActionModifierServiceInterface
     {
         $gameConfig = $this->gameConfigService->getConfig();
 
-        if ($actionModifier->getHealthPointModifier()) {
-            $playerNewHealthPoint = $player->getHealthPoint() + $actionModifier->getHealthPointModifier();
+        if ($healthPoints = $actionModifier->getHealthPointModifier()) {
+            $playerNewHealthPoint = $player->getHealthPoint() + $healthPoints;
             $playerNewHealthPoint = $this->getValueInInterval($playerNewHealthPoint, 0, $gameConfig->getMaxHealthPoint());
             $player->setHealthPoint($playerNewHealthPoint);
             $this->roomLogService->createQuantityLog(
-                $actionModifier->getHealthPointModifier() > 0 ? LogEnum::GAIN_HEALTH_POINT : LogEnum::LOSS_HEALTH_POINT,
+                $healthPoints > 0 ? LogEnum::GAIN_HEALTH_POINT : LogEnum::LOSS_HEALTH_POINT,
                 $player->getRoom(),
                 $player,
                 VisibilityEnum::PRIVATE,
-                $actionModifier->getHealthPointModifier(),
+                $healthPoints,
                 $date
             );
         }
@@ -104,20 +104,20 @@ class ActionModifierService implements ActionModifierServiceInterface
     {
         $gameConfig = $this->gameConfigService->getConfig();
 
-        if ($actionModifier->getMoralPointModifier()) {
+        if ($moralPoints = $actionModifier->getMoralPointModifier()) {
             if (!$player->isMush()) {
-                $playerNewMoralPoint = $player->getMoralPoint() + $actionModifier->getMoralPointModifier();
+                $playerNewMoralPoint = $player->getMoralPoint() + $moralPoints;
                 $playerNewMoralPoint = $this->getValueInInterval($playerNewMoralPoint, 0, $gameConfig->getMaxMoralPoint());
                 $player->setMoralPoint($playerNewMoralPoint);
 
                 $player = $this->handleMoralStatus($player);
 
                 $this->roomLogService->createQuantityLog(
-                    $actionModifier->getMoralPointModifier() > 0 ? LogEnum::GAIN_MORAL_POINT : LogEnum::LOSS_MORAL_POINT,
+                    $moralPoints > 0 ? LogEnum::GAIN_MORAL_POINT : LogEnum::LOSS_MORAL_POINT,
                     $player->getRoom(),
                     $player,
                     VisibilityEnum::PRIVATE,
-                    $actionModifier->getMoralPointModifier(),
+                    $moralPoints,
                     $date
                 );
             }
@@ -174,7 +174,7 @@ class ActionModifierService implements ActionModifierServiceInterface
                 $player->removeStatus($starvingStatus);
             }
 
-            if ($player->getSatiety() > 3 && !$fullStatus) {
+            if ($player->getSatiety() >= 3 && !$fullStatus) {
                 $this->statusService->createCorePlayerStatus(PlayerStatusEnum::FULL_STOMACH, $player);
             } elseif ($fullStatus) {
                 $player->removeStatus($fullStatus);

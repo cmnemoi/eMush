@@ -80,30 +80,31 @@ class CycleSubscriber implements EventSubscriberInterface
     private function handleOxygen(Daedalus $daedalus): Daedalus
     {
         //Handle oxygen loss
-        $daedalus->addOxygen(-1);
-
-        if ($daedalus->getRoomByName(RoomEnum::CENTER_ALPHA_STORAGE)
-            ->getEquipments()
-            ->filter(fn (GameEquipment $equipment) => $equipment->getEquipment()->getName() === EquipmentEnum::OXYGEN_TANK)
-            ->first()
-            ->isBroken()
+        $oxygenLoss = 1;
+        //@TODO: We shouldn't assume the oxygen tank are in these storages
+        if (($alphaStorageRoom = $daedalus->getRoomByName(RoomEnum::CENTER_ALPHA_STORAGE)) &&
+            $alphaStorageRoom
+                ->getEquipments()
+                ->filter(fn (GameEquipment $equipment) => $equipment->getEquipment()->getName() === EquipmentEnum::OXYGEN_TANK)
+                ->first()
+                ->isBroken()
         ) {
-            $daedalus->addOxygen(-1);
+            $oxygenLoss = $oxygenLoss + 1;
         }
-        if ($daedalus
-            ->getRoomByName(RoomEnum::CENTER_BRAVO_STORAGE)
-            ->getEquipments()
-            ->filter(fn (GameEquipment $equipment) => $equipment->getEquipment()->getName() === EquipmentEnum::OXYGEN_TANK)
-            ->first()
-            ->isBroken()
+        if (($bravoStorageRoom = $daedalus->getRoomByName(RoomEnum::CENTER_BRAVO_STORAGE)) &&
+            $bravoStorageRoom
+                ->getEquipments()
+                ->filter(fn (GameEquipment $equipment) => $equipment->getEquipment()->getName() === EquipmentEnum::OXYGEN_TANK)
+                ->first()
+                ->isBroken()
         ) {
-            $daedalus->addOxygen(-1);
+            $oxygenLoss = $oxygenLoss + 1;
         }
 
-        if ($daedalus->getOxygen() < 0) {
-            $daedalus->setOxygen(0);
+        if ($daedalus->getOxygen() <= $oxygenLoss) {
             $this->daedalusService->getRandomAsphyxia($daedalus);
         }
+        $this->daedalusService->changeOxygenLevel($daedalus, -$oxygenLoss);
 
         return $daedalus;
     }

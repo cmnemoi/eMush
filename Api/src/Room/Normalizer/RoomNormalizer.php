@@ -2,7 +2,6 @@
 
 namespace Mush\Room\Normalizer;
 
-use Mush\Action\Service\ActionServiceInterface;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
@@ -21,16 +20,13 @@ class RoomNormalizer implements ContextAwareNormalizerInterface, NormalizerAware
     use NormalizerAwareTrait;
 
     private TranslatorInterface $translator;
-    private ActionServiceInterface $actionService;
     private TokenStorageInterface $tokenStorage;
 
     public function __construct(
         TranslatorInterface $translator,
-        ActionServiceInterface $actionService,
         TokenStorageInterface $tokenStorage
     ) {
         $this->translator = $translator;
-        $this->actionService = $actionService;
         $this->tokenStorage = $tokenStorage;
     }
 

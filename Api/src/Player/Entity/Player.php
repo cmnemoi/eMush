@@ -12,6 +12,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ReachEnum;
+use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Room\Entity\Room;
 use Mush\Status\Entity\Collection\MedicalConditionCollection;
@@ -48,11 +49,9 @@ class Player
     private string $gameStatus;
 
     /**
-     * Character is a reserved keyword for sql.
-     *
-     * @ORM\Column(type="string", nullable=false)
+     * @ORM\ManyToOne (targetEntity="Mush\Game\Entity\CharacterConfig")
      */
-    private string $person;
+    private CharacterConfig $characterConfig;
 
     /**
      * @ORM\Column(type="string", nullable=true)
@@ -87,22 +86,22 @@ class Player
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
-    private int $healthPoint;
+    private int $healthPoint = 0;
 
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
-    private int $moralPoint;
+    private int $moralPoint = 0;
 
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
-    private int $actionPoint;
+    private int $actionPoint = 0;
 
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
-    private int $movementPoint;
+    private int $movementPoint = 0;
 
     /**
      * @ORM\Column(type="integer", nullable=false)
@@ -112,7 +111,7 @@ class Player
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
-    private int $satiety;
+    private int $satiety = 0;
 
     public function __construct()
     {
@@ -160,17 +159,17 @@ class Player
         return $this->gameStatus === GameStatusEnum::CURRENT;
     }
 
-    public function getPerson(): string
+    public function getCharacterConfig(): CharacterConfig
     {
-        return $this->person;
+        return $this->characterConfig;
     }
 
     /**
      * @return static
      */
-    public function setPerson(string $person): Player
+    public function setCharacterConfig(CharacterConfig $characterConfig): Player
     {
-        $this->person = $person;
+        $this->characterConfig = $characterConfig;
 
         return $this;
     }
@@ -262,18 +261,20 @@ class Player
             ))
             )->filter(fn (GameEquipment $equipment) => ($equipment->getName() === $name));
         } else {
-            return $this->getDaedalus()
-                ->getRoomByName($reach)
-                ->getEquipments()
-                ->filter(fn (GameEquipment $equipment) => $equipment->getName() === $name)
-                ;
+            if ($roomReached = $this->getDaedalus()->getRoomByName($reach)) {
+                return $roomReached
+                    ->getEquipments()
+                    ->filter(fn (GameEquipment $equipment) => $equipment->getName() === $name)
+                    ;
+            }
         }
+
+        return new ArrayCollection();
     }
 
     public function getReachableTools(): Collection
     {
         //reach can be set to inventory, shelve, shelve only or any room of the Daedalus
-
         return (new ArrayCollection(array_merge($this->getItems()->toArray(), $this->getRoom()->getEquipments()->toArray())
         ))->filter(fn (GameEquipment $gameEquipment) => ($gameEquipment->getEquipment()->getMechanicbyName(EquipmentMechanicEnum::TOOL)));
     }

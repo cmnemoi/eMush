@@ -49,8 +49,8 @@ class MessageService implements MessageServiceInterface
     public function getChannelMessages(Player $player, Channel $channel): Collection
     {
         return new ArrayCollection($this->entityManager
-            ->getRepository(Message::class)->findBy(['channel' => $channel, 'parent' => null], ['updatedAt' => 'desc'])
-        );
+            ->getRepository(Message::class)
+            ->findBy(['channel' => $channel, 'parent' => null], ['updatedAt' => 'desc']));
     }
 
     public function getMessageById(int $messageId): ?Message

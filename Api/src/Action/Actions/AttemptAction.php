@@ -13,7 +13,7 @@ use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-abstract class AttemptAction extends Action
+abstract class AttemptAction extends AbstractAction
 {
     protected StatusServiceInterface $statusService;
     protected RandomServiceInterface $randomService;

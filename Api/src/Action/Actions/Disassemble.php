@@ -4,13 +4,14 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
+use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\SuccessRateServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Dismountable;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\SkillEnum;
@@ -52,14 +53,15 @@ class Disassemble extends AttemptAction
         $this->gameConfig = $gameConfigService->getConfig();
     }
 
-    public function loadParameters(Player $player, ActionParameters $actionParameters): void
+    public function loadParameters(Action $action, Player $player, ActionParameters $actionParameters): void
     {
+        parent::loadParameters($action, $player, $actionParameters);
+
         if (!($equipment = $actionParameters->getItem()) &&
             !($equipment = $actionParameters->getEquipment())) {
             throw new \InvalidArgumentException('Invalid equipment parameter');
         }
 
-        $this->player = $player;
         $this->gameEquipment = $equipment;
 
         /** @var Dismountable $dismountableType */
@@ -69,7 +71,7 @@ class Disassemble extends AttemptAction
         ;
 
         if ($dismountableType !== null) {
-            $this->actionCost->setActionPointCost($dismountableType->getActionCost());
+            $this->action->getActionCost()->setActionPointCost($dismountableType->getActionCost());
         }
     }
 
@@ -119,12 +121,10 @@ class Disassemble extends AttemptAction
                     ->gameEquipmentService
                     ->createGameEquipmentFromName($productString, $this->player->getDaedalus())
                 ;
-                if ($this->player->getItems()->count() < $this->gameConfig->getMaxItemInInventory() &&
-                    $productEquipment instanceof GameItem) {
-                    $productEquipment->setPlayer($this->player);
-                } else {
-                    $productEquipment->setRoom($this->player->getRoom());
-                }
+                $equipmentEvent = new EquipmentEvent($productEquipment);
+                $equipmentEvent->setPlayer($this->player);
+                $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
+
                 $this->gameEquipmentService->persist($productEquipment);
             }
         }

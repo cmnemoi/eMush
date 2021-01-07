@@ -7,9 +7,9 @@ use Mockery;
 use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Actions\Action;
 use Mush\Action\Actions\Disassemble;
 use Mush\Action\Entity\ActionParameters;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\SuccessRateServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameItem;
@@ -18,21 +18,18 @@ use Mush\Equipment\Entity\Mechanics\Dismountable;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
-use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class DisasembleActionTest extends TestCase
+class DisasembleActionTest extends AbstractActionTest
 {
     /** @var RoomLogServiceInterface | Mockery\Mock */
     private RoomLogServiceInterface $roomLogService;
@@ -47,14 +44,14 @@ class DisasembleActionTest extends TestCase
     /** @var StatusServiceInterface | Mockery\Mock */
     private StatusServiceInterface $statusService;
     private GameConfig $gameConfig;
-    private Action $action;
 
     /**
      * @before
      */
     public function before()
     {
-        $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
+        parent::before();
+
         $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
@@ -65,10 +62,10 @@ class DisasembleActionTest extends TestCase
         $this->gameConfig = new GameConfig();
         $gameConfigService->shouldReceive('getConfig')->andReturn($this->gameConfig)->once();
 
-        $eventDispatcher->shouldReceive('dispatch');
+        $this->actionEntity = $this->createActionEntity(ActionEnum::DISASSEMBLE, 3);
 
         $this->action = new Disassemble(
-            $eventDispatcher,
+            $this->eventDispatcher,
             $this->roomLogService,
             $this->gameEquipmentService,
             $this->playerService,
@@ -105,9 +102,9 @@ class DisasembleActionTest extends TestCase
 
         $actionParameter = new ActionParameters();
         $actionParameter->setItem($gameItem);
-        $player = $this->createPlayer(new Daedalus(), $room);
+        $player = $this->createPlayer(new Daedalus(), $room, [SkillEnum::TECHNICIAN]);
 
-        $this->action->loadParameters($player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
         //Not dismantable
         $result = $this->action->execute();
@@ -166,12 +163,12 @@ class DisasembleActionTest extends TestCase
         ;
         $this->statusService->shouldReceive('createAttemptStatus')->andReturn($attempt)->once();
 
-        $player = $this->createPlayer($daedalus, $room);
+        $player = $this->createPlayer($daedalus, $room, [SkillEnum::TECHNICIAN]);
 
         $actionParameter = new ActionParameters();
         $actionParameter->setItem($gameItem);
 
-        $this->action->loadParameters($player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
         $this->successRateService->shouldReceive('getSuccessRate')->andReturn(10)->once();
         $this->randomService->shouldReceive('randomPercent')->andReturn(100)->once();
@@ -195,31 +192,15 @@ class DisasembleActionTest extends TestCase
             ->andReturn($scrap)
             ->once()
         ;
+        $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
+        $eventDispatcher->shouldReceive('dispatch');
 
         //Success
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
         $this->assertCount(0, $room->getEquipments());
-        $this->assertCount(1, $player->getItems());
-        $this->assertEquals($scrap, $player->getItems()->first());
         $this->assertCount(0, $player->getStatuses());
         $this->assertEquals(4, $player->getActionPoint());
-    }
-
-    private function createPlayer(Daedalus $daedalus, Room $room): Player
-    {
-        $player = new Player();
-        $player
-            ->setActionPoint(10)
-            ->setMovementPoint(10)
-            ->setMoralPoint(10)
-            ->addSkill(SkillEnum::TECHNICIAN)
-            ->setDaedalus($daedalus)
-            ->setRoom($room)
-            ->setGameStatus(GameStatusEnum::CURRENT)
-        ;
-
-        return $player;
     }
 }

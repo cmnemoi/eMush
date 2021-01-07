@@ -4,6 +4,7 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
+use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
@@ -11,6 +12,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ReachEnum;
+use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\GameConfigServiceInterface;
@@ -22,7 +24,7 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class Cook extends Action
+class Cook extends AbstractAction
 {
     protected string $name = ActionEnum::COOK;
 
@@ -46,18 +48,17 @@ class Cook extends Action
         $this->playerService = $playerService;
         $this->statusService = $statusService;
         $this->gameConfig = $gameConfigService->getConfig();
-
-        $this->actionCost->setActionPointCost(1);
     }
 
-    public function loadParameters(Player $player, ActionParameters $actionParameters): void
+    public function loadParameters(Action $action, Player $player, ActionParameters $actionParameters): void
     {
+        parent::loadParameters($action, $player, $actionParameters);
+
         if (!($equipment = $actionParameters->getItem()) &&
             !($equipment = $actionParameters->getEquipment())) {
             throw new \InvalidArgumentException('Invalid equipment parameter');
         }
 
-        $this->player = $player;
         $this->gameEquipment = $equipment;
     }
 
@@ -78,11 +79,10 @@ class Cook extends Action
             $newItem = $this->gameEquipmentService
                 ->createGameEquipmentFromName(GameRationEnum::COOKED_RATION, $this->player->getDaedalus())
             ;
-            if ($this->player->getItems()->count() < $this->gameConfig->getMaxItemInInventory()) {
-                $newItem->setPlayer($this->player);
-            } else {
-                $newItem->setRoom($this->player->getRoom());
-            }
+
+            $equipmentEvent = new EquipmentEvent($newItem);
+            $equipmentEvent->setPlayer($this->player);
+            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
             foreach ($this->gameEquipment->getStatuses() as $status) {
                 $newItem->addStatus($status);

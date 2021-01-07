@@ -3,7 +3,6 @@
 namespace Mush\Equipment\Entity\Mechanics;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 
@@ -15,8 +14,6 @@ use Mush\Equipment\Enum\EquipmentMechanicEnum;
 class Blueprint extends Tool
 {
     protected string $mechanic = EquipmentMechanicEnum::BLUEPRINT;
-
-    protected array $actions = [ActionEnum::BUILD];
 
     /**
      * @ORM\OneToOne(targetEntity="Mush\Equipment\Entity\EquipmentConfig")

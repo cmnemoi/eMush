@@ -6,6 +6,8 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Mush\Action\DataFixtures\ActionsFixtures;
+use Mush\Action\Entity\Action;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Drug;
 use Mush\Equipment\Enum\GameDrugEnum;
@@ -20,6 +22,14 @@ class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
+        /** @var Action $takeAction */
+        $takeAction = $this->getReference(ActionsFixtures::DEFAULT_TAKE);
+        /** @var Action $takeAction */
+        $dropAction = $this->getReference(ActionsFixtures::DEFAULT_DROP);
+        /** @var Action $consumeDrugAction */
+        $consumeDrugAction = $this->getReference(ActionsFixtures::DRUG_CONSUME);
+
+        $actions = new ArrayCollection([$takeAction, $dropAction]);
 
         $drugMechanic = new Drug();
         //  possibilities are stored as key, array value represent the probability to get the key value
@@ -42,6 +52,7 @@ class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
                 DisorderEnum::DEPRESSION => 100,
                 DisorderEnum::CHRONIC_MIGRAINE => 100, ])
             ->setDrugEffectsNumber([1 => 60, 2 => 30, 3 => 8, 4 => 1])
+            ->addAction($consumeDrugAction)
         ;
 
         foreach (GameDrugEnum::getAll() as $drugName) {
@@ -50,13 +61,12 @@ class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
                 ->setGameConfig($gameConfig)
                 ->setName($drugName)
                 ->setIsHeavy(false)
-                ->setIsTakeable(true)
-                ->setIsDropable(true)
                 ->setIsStackable(true)
                 ->setIsHideable(true)
                 ->setIsFireDestroyable(true)
                 ->setIsFireBreakable(false)
                 ->setMechanics(new ArrayCollection([$drugMechanic]))
+                ->setActions($actions)
             ;
             $manager->persist($drug);
         }
@@ -69,6 +79,7 @@ class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             GameConfigFixtures::class,
+            ActionsFixtures::class,
         ];
     }
 }

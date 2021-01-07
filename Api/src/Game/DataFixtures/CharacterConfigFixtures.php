@@ -3,8 +3,10 @@
 namespace Mush\Game\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Daedalus\DataFixtures\DaedalusConfigFixtures;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
@@ -19,11 +21,25 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
+        $hitAction = $this->getReference(ActionsFixtures::HIT_DEFAULT);
+        $hideAction = $this->getReference(ActionsFixtures::HIDE_DEFAULT);
+        $searchAction = $this->getReference(ActionsFixtures::SEARCH_DEFAULT);
+        $sabotageAction = $this->getReference(ActionsFixtures::SABOTAGE_DEFAULT);
+        $extractSporeAction = $this->getReference(ActionsFixtures::EXTRACT_SPORE);
+        $infectAction = $this->getReference(ActionsFixtures::INFECT_PLAYER);
+        $defaultActions = new ArrayCollection([$hitAction,
+                                               $hideAction,
+                                               $searchAction,
+                                               $sabotageAction,
+                                               $infectAction,
+                                               $extractSporeAction, ]);
+
         $andie = new CharacterConfig();
         $andie
             ->setGameConfig($gameConfig)
             ->setName(CharacterEnum::ANDIE)
             ->setStatuses([])
+            ->setActions($defaultActions)
             ->setSkills([
                 SkillEnum::CONFIDENT,
                 SkillEnum::DEVOTION,
@@ -55,6 +71,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setGameConfig($gameConfig)
             ->setName(CharacterEnum::CHUN)
             ->setStatuses([PlayerStatusEnum::IMMUNIZED])
+            ->setActions($defaultActions)
             ->setSkills([
                 SkillEnum::LETHARGY,
                 SkillEnum::MANKINDS_ONLY_HOPE,
@@ -69,6 +86,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $derek
             ->setGameConfig($gameConfig)
             ->setName(CharacterEnum::DEREK)
+            ->setActions($defaultActions)
             ->setStatuses([])
             ->setSkills([
                 SkillEnum::FIREFIGHTER,
@@ -84,6 +102,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $eleesha
             ->setGameConfig($gameConfig)
             ->setName(CharacterEnum::ELEESHA)
+            ->setActions($defaultActions)
             ->setStatuses([])
             ->setSkills([
                 SkillEnum::DETERMINED,
@@ -115,6 +134,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $frieda
             ->setGameConfig($gameConfig)
             ->setName(CharacterEnum::FRIEDA)
+            ->setActions($defaultActions)
             ->setStatuses([])
             ->setSkills([
                 SkillEnum::ANTIQUE_PERFUME,
@@ -147,6 +167,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $hua
             ->setGameConfig($gameConfig)
             ->setName(CharacterEnum::HUA)
+            ->setActions($defaultActions)
             ->setStatuses([])
             ->setSkills([
                 SkillEnum::BOTANIST,
@@ -163,6 +184,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $ian
             ->setGameConfig($gameConfig)
             ->setName(CharacterEnum::IAN)
+            ->setActions($defaultActions)
             ->setStatuses([PlayerStatusEnum::PACIFIST])
             ->setSkills([
                 SkillEnum::BIOLOGIST,
@@ -179,6 +201,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $janice
             ->setGameConfig($gameConfig)
             ->setName(CharacterEnum::JANICE)
+            ->setActions($defaultActions)
             ->setStatuses([])
             ->setSkills([
                 SkillEnum::DIPLOMAT,
@@ -195,6 +218,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $jinSu
             ->setGameConfig($gameConfig)
             ->setName(CharacterEnum::KIM_JIN_SU)
+            ->setActions($defaultActions)
             ->setStatuses([])
             ->setSkills([
                 SkillEnum::COLD_BLOODED,
@@ -211,6 +235,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $kuanTi
             ->setGameConfig($gameConfig)
             ->setName(CharacterEnum::KUAN_TI)
+            ->setActions($defaultActions)
             ->setStatuses([])
             ->setSkills([
                     SkillEnum::ASTROPHYSICIST,
@@ -227,6 +252,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $paola
             ->setGameConfig($gameConfig)
             ->setName(CharacterEnum::PAOLA)
+            ->setActions($defaultActions)
             ->setStatuses([])
             ->setSkills([
                 SkillEnum::BIOLOGIST,
@@ -243,6 +269,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $raluca
             ->setGameConfig($gameConfig)
             ->setName(CharacterEnum::RALUCA)
+            ->setActions($defaultActions)
             ->setStatuses([PlayerStatusEnum::ANTISOCIAL])
             ->setSkills([
                 SkillEnum::DESIGNER,
@@ -258,6 +285,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $roland
             ->setGameConfig($gameConfig)
             ->setName(CharacterEnum::ROLAND)
+            ->setActions($defaultActions)
             ->setStatuses([])
             ->setSkills([
                 SkillEnum::CREATIVE,
@@ -274,6 +302,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $stephen
             ->setGameConfig($gameConfig)
             ->setName(CharacterEnum::STEPHEN)
+            ->setActions($defaultActions)
             ->setStatuses([])
             ->setSkills([
                 SkillEnum::APPRENTICE,
@@ -290,6 +319,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $terrence
             ->setGameConfig($gameConfig)
             ->setName(CharacterEnum::TERRENCE)
+            ->setActions($defaultActions)
             ->setStatuses([PlayerStatusEnum::DISABLED])
             ->setSkills([
                 SkillEnum::IT_EXPERT,
@@ -309,6 +339,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
     {
         return [
             DaedalusConfigFixtures::class,
+            ActionsFixtures::class,
         ];
     }
 }

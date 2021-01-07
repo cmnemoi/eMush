@@ -4,6 +4,7 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
+use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Player\Entity\Player;
@@ -18,7 +19,7 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class Infect extends Action
+class Infect extends AbstractAction
 {
     protected string $name = ActionEnum::INFECT;
 
@@ -39,17 +40,16 @@ class Infect extends Action
         $this->roomLogService = $roomLogService;
         $this->statusService = $statusService;
         $this->playerService = $playerService;
-
-        $this->actionCost->setActionPointCost(1);
     }
 
-    public function loadParameters(Player $player, ActionParameters $actionParameters): void
+    public function loadParameters(Action $action, Player $player, ActionParameters $actionParameters): void
     {
+        parent::loadParameters($action, $player, $actionParameters);
+
         if (!($targetPlayer = $actionParameters->getPlayer())) {
             throw new \InvalidArgumentException('Invalid player parameter');
         }
 
-        $this->player = $player;
         $this->targetPlayer = $targetPlayer;
     }
 
@@ -90,7 +90,7 @@ class Infect extends Action
         $mushStatus->addCharge(-1);
         $this->statusService->persist($mushStatus);
 
-        $target = new Target($this->targetPlayer->getPerson(), 'character');
+        $target = new Target($this->targetPlayer->getCharacterConfig()->getName(), 'character');
 
         //@TODO: get ride of that
         $this->createLog(new Success());

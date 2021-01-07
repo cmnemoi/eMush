@@ -55,12 +55,12 @@ class GameConfig
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
-    private int $nbMush;
+    private int $nbMush = 0;
 
     /**
      * @ORM\Column(type="integer", length=255, nullable=false)
      */
-    private int $cycleLength;
+    private int $cycleLength = 0;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=false)
@@ -75,67 +75,67 @@ class GameConfig
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
-    private int $maxNumberPrivateChannel;
+    private int $maxNumberPrivateChannel = 0;
 
     /**
      * @ORM\Column(type="integer", length=255, nullable=false)
      */
-    private int $initHealthPoint;
+    private int $initHealthPoint = 0;
 
     /**
      * @ORM\Column(type="integer", length=255, nullable=false)
      */
-    private int $maxHealthPoint;
+    private int $maxHealthPoint = 0;
 
     /**
      * @ORM\Column(type="integer", length=255, nullable=false)
      */
-    private int $initMoralPoint;
+    private int $initMoralPoint = 0;
 
     /**
      * @ORM\Column(type="integer", length=255, nullable=false)
      */
-    private int $maxMoralPoint;
+    private int $maxMoralPoint = 0;
 
     /**
      * @ORM\Column(type="integer", length=255, nullable=false)
      */
-    private int $initSatiety;
+    private int $initSatiety = 0;
 
     /**
      * @ORM\Column(type="integer", length=255, nullable=false)
      */
-    private int $initActionPoint;
+    private int $initActionPoint = 0;
 
     /**
      * @ORM\Column(type="integer", length=255, nullable=false)
      */
-    private int $maxActionPoint;
+    private int $maxActionPoint = 0;
 
     /**
      * @ORM\Column(type="integer", length=255, nullable=false)
      */
-    private int $initMovementPoint;
+    private int $initMovementPoint = 0;
 
     /**
      * @ORM\Column(type="integer", length=255, nullable=false)
      */
-    private int $maxMovementPoint;
+    private int $maxMovementPoint = 0;
 
     /**
      * @ORM\Column(type="integer", length=255, nullable=false)
      */
-    private int $maxItemInInventory;
+    private int $maxItemInInventory = 0;
 
     /**
      * @ORM\Column(type="integer", length=255, nullable=false)
      */
-    private int $maxOxygen;
+    private int $maxOxygen = 0;
 
     /**
      * @ORM\Column(type="integer", length=255, nullable=false)
      */
-    private int $maxFuel;
+    private int $maxFuel = 0;
 
     public function __construct()
     {

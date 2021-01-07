@@ -96,7 +96,7 @@ class ItemPileNormalizer implements ContextAwareNormalizerInterface, NormalizerA
             )
         ));
 
-        return $pileItemKey ? $pileItemKey : null;
+        return $pileItemKey;
     }
 
     private function isSamePile(GameEquipment $gameEquipment, array $pile, Collection $items): bool

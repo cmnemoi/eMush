@@ -15,5 +15,4 @@ Desktop.ini
 dist/
 node_modules
 .env
-.env.*
 !.env.dist

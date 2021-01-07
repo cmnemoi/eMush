@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\EquipmentConfig;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Room\Entity\Room;
@@ -56,23 +57,32 @@ class RoomService implements RoomServiceInterface
 
         $this->persist($room);
 
+        $doorConfig = $daedalus
+            ->getGameConfig()
+            ->getEquipmentsConfig()
+            ->filter(fn (EquipmentConfig $item) => $item->getName() === EquipmentEnum::DOOR)->first()
+        ;
+
         // @FIXME how to simplify that?
         foreach ($roomConfig->getDoors() as $doorName) {
             if (
-                $roomDoor = $daedalus->getRooms()->filter( //If door already exist
-                    function (Room $room) use ($doorName) {
-                        return $room->getDoors()->exists(function ($key, Door $door) use ($doorName) {
-                            return $door->getName() === $doorName;
-                        });
-                    }
-                )->first()
+            $roomDoor = $daedalus->getRooms()->filter( //If door already exist
+                function (Room $room) use ($doorName) {
+                    return $room->getDoors()->exists(function ($key, Door $door) use ($doorName) {
+                        return $door->getName() === $doorName;
+                    });
+                }
+            )->first()
             ) {
                 $door = $roomDoor->getDoors()->filter(function (Door $door) use ($doorName) {
                     return $door->getName() === $doorName;
                 })->first();
             } else { //else create new door
                 $door = new Door();
-                $door->setName($doorName);
+                $door
+                    ->setName($doorName)
+                    ->setEquipment($doorConfig)
+                ;
             }
 
             $room->addDoor($door);

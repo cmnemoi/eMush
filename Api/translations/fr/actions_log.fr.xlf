@@ -682,19 +682,19 @@
         <unit id="transplant_success">
             <segment id="transplant_success">
                 <source>transplant_success.character.male.target.male</source>
-                <target>Quel soulagement, **player** a réussi sa grèffe de **target**. Le petite plante se porte bien !</target>
+                <target>**player** entreprend de reproduire un plan de **target**. Félicitation ! Le jeune plant est en parfaite santé.</target>
             </segment>
             <segment id="transplant_success">
                 <source>transplant_success.character.male.target.female</source>
-                <target>Quel soulagement, **player** a réussi sa grèffe de **target**. Le petite plante se porte bien !</target>
+                <target>**player** entreprend de reproduire un plan de **target**. Félicitation ! Le jeune plant est en parfaite santé.</target>
             </segment>
             <segment id="transplant_success">
                 <source>transplant_success.character.female.target.male</source>
-                <target>Quel soulagement, **player** a réussi sa grèffe de **target**. Le petite plante se porte bien !</target>
+                <target>**player** entreprend de reproduire un plan de **target**. Félicitation ! Le jeune plant est en parfaite santé.</target>
             </segment>
             <segment id="transplant_success">
                 <source>transplant_success.character.female.target.female</source>
-                <target>Quel soulagement, **player** a réussi sa grèffe de **target**. Le petite plante se porte bien !</target>
+                <target>**player** entreprend de reproduire un plan de **target**. Félicitation ! Le jeune plant est en parfaite santé.</target>
             </segment>
         </unit>
         <unit id="transplant_fail">
@@ -837,5 +837,26 @@
                 <target>**player** enlève délicatement un peu d'oxygène du réservoir. Vous devriez peut-être le surveiller de plus près.</target>
             </segment>
         </unit>
+         <unit id="sabotage_success">
+            <segment id="sabotage_success">
+                <source>sabotage_success.character.male.target.male</source>
+                <target>Étrange, **player** s'affaire sur un **target** qui émet une petite fumée...</target>
+            </segment>
+            <segment id="sabotage_success">
+                <source>sabotage_success.character.female.target.male</source>
+                <target>Étrange, **player** s'affaire sur un **target** qui émet une petite fumée...</target>
+            </segment>
+            <segment id="sabotage_success">
+                <source>sabotage_success.character.male.target.female</source>
+                <target>Étrange, **player** s'affaire sur une **target** qui émet une petite fumée...</target>
+            </segment>
+            <segment id="sabotage_success">
+                <source>sabotage_success.character.female.target.female</source>
+                <target>Étrange, **player** s'affaire sur une **target** qui émet une petite fumée...</target>
+            </segment>
+        </unit>
+
     </file>
 </xliff>
+
+

@@ -155,7 +155,7 @@ class RoomLogService implements RoomLogServiceInterface
             $logKey = $roomLog->getLog();
             $params = [];
             if ($player = $roomLog->getPlayer()) {
-                $characterKey = $player->getPerson();
+                $characterKey = $player->getCharacterConfig()->getName();
                 $characterName = $this->translator->trans($characterKey . '.name', [], 'characters');
                 $logKey .= '.character.' . (CharacterEnum::isMale($characterKey) ? 'male' : 'female');
                 $params['player'] = $characterName;

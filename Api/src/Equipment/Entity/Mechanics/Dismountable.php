@@ -3,7 +3,6 @@
 namespace Mush\Equipment\Entity\Mechanics;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 
@@ -15,8 +14,6 @@ use Mush\Equipment\Enum\EquipmentMechanicEnum;
 class Dismountable extends EquipmentMechanic
 {
     protected string $mechanic = EquipmentMechanicEnum::DISMOUNTABLE;
-
-    protected array $actions = [ActionEnum::DISASSEMBLE];
 
     /**
      * @ORM\Column(type="integer", nullable=false)

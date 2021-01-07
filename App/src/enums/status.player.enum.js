@@ -16,7 +16,7 @@ export const statusPlayerEnum = {
         'icon': require('@/assets/images/status/starving.png'),
     },
     [BURDENED]: {
-        'icon': require('@/assets/images/status/starving.png'),//@TODO
+        'icon': require('@/assets/images/status/heavy.png'),
     },
     [DISABLED]: {
         'icon': require('@/assets/images/status/disabled.png'),
@@ -28,7 +28,7 @@ export const statusPlayerEnum = {
         'icon': require('@/assets/images/status/immune.png'),
     },
     [LYING_DOWN]: {
-        'icon': require('@/assets/images/status/sleepy.png'),
+        'icon': require('@/assets/images/status/laid.png'),
     },
     [DIRTY]: {
         'icon': require('@/assets/images/status/stinky.png'),

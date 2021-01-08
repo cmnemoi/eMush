@@ -10,7 +10,7 @@
                     <p>{{ door.direction }} :</p>
                     <ul>
                         <li v-for="(action,key) in door.actions" :key="key">
-                            <a href="#" @click="executeAction(door, action)">
+                            <a href="#" @click="executeDoorAction(door, action)">
                                 <span v-if="action.movementPointCost > 0">{{ action.movementPointCost }}<img src="@/assets/images/pm.png" alt="mp"></span>{{ action.name }}
                             </a>
                         </li>
@@ -82,15 +82,18 @@ export default {
         ])
     },
     methods: {
-        executeAction: function (door, action) {
-            ActionService.executeDoorAction(door, action).then(() => this.reloadPlayer());
+        async executeDoorAction(door, action) {
+            this.setLoading();
+            await ActionService.executeDoorAction(door, action);
+            await this.reloadPlayer();
         },
         clickOnTarget: function (target, event) {
             this.selectTarget({ target:target }); event.stopPropagation();
         },
         ...mapActions('player', [
             'reloadPlayer',
-            'selectTarget'
+            'selectTarget',
+            'setLoading'
         ])
     }
 };

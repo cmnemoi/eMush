@@ -28,7 +28,7 @@
         </div>
 
         <div class="tabs-content">
-            <component :is="currentTabComponent(getCurrentChannel)" :channel="getCurrentChannel" />
+            <component :is="currentTabComponent(getCurrentChannel)" v-if="! loading" :channel="getCurrentChannel" />
         </div>
     </div>
 </template>
@@ -65,6 +65,9 @@ export default {
         ...mapGetters('communication', [
             'getCurrentChannel',
             'getChannels'
+        ]),
+        ...mapGetters('player', [
+            'loading'
         ])
     },
     beforeMount() {

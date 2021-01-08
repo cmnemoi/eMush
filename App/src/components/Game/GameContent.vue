@@ -1,5 +1,5 @@
 <template>
-    <div v-if="getPlayer !== null && !loading" class="main">
+    <div v-if="getPlayer !== null" class="main">
         <ExplorationPanel style="display: none;" />
         <div class="top-banner">
             <BannerPanel :player="getPlayer" :daedalus="getPlayer.daedalus" />
@@ -38,8 +38,7 @@ export default {
     },
     computed: {
         ...mapGetters('player', [
-            'getPlayer',
-            'loading'
+            'getPlayer'
         ])
     },
     beforeMount() {

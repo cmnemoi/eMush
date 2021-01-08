@@ -26,7 +26,7 @@
             <div class="inventory">
                 <inventory :items="player.items" :min-slot="3" @select="selectItem" />
             </div>
-            <div v-if="getTarget" class="interactions">
+            <div v-if="! loading && getTarget" class="interactions">
                 <p v-if="shouldDisplayItemInformation(getTarget)">
                     {{ getTarget.name }}
                     <span v-for="(status, key) in getTarget.statuses" :key="key">
@@ -100,7 +100,8 @@ export default {
             return characterEnum[this.player.characterKey].portrait;
         },
         ...mapGetters('player', [
-            'getTarget'
+            'getTarget',
+            'loading'
         ])
     },
     methods: {

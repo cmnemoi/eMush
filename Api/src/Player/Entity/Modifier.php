@@ -22,9 +22,19 @@ class Modifier
     private int $delta = 0;
 
     /**
-     * @ORM\Column(type="target", nullable=false)
+     * @ORM\Column(type="string", nullable=false)
      */
     private string $target;
+
+    /**
+     * @ORM\Column(type="string", nullable=false)
+     */
+    private ?string $scope = null;
+
+    /**
+     * @ORM\Column(type="string", nullable=false)
+     */
+    private ?string $reach = null;
 
     public function getId(): int
     {
@@ -51,6 +61,30 @@ class Modifier
     public function setTarget(string $target): Modifier
     {
         $this->target = $target;
+
+        return $this;
+    }
+
+    public function getScope(): ?string
+    {
+        return $this->scope;
+    }
+
+    public function setScope(?string $scope): Modifier
+    {
+        $this->scope = $scope;
+
+        return $this;
+    }
+
+    public function getReach(): ?string
+    {
+        return $this->reach;
+    }
+
+    public function setReach(?string $reach): Modifier
+    {
+        $this->reach = $reach;
 
         return $this;
     }

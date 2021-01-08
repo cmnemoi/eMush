@@ -9,4 +9,6 @@ class ModifierTargetEnum
     public const HEAL_POINT = 'heal_point';
     public const MORAL_POINT = 'moral_point';
     public const SATIETY = 'satiety';
+
+    public const PERCENTAGE = 'percentage';
 }

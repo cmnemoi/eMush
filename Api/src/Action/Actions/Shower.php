@@ -74,7 +74,7 @@ class Shower extends AbstractAction
             $actionModifier = new Modifier();
             $actionModifier
                 ->setDelta(-3)
-                ->setTarget(ModifierTargetEnum::HEAL_POINT)
+                ->setTarget(ModifierTargetEnum::HEALTH_POINT)
             ;
             $playerEvent = new PlayerEvent($this->player);
             $playerEvent->setReason(EndCauseEnum::CLUMSINESS);

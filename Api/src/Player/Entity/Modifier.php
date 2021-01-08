@@ -17,9 +17,9 @@ class Modifier
     private int $id;
 
     /**
-     * @ORM\Column(type="integer", nullable=false)
+     * @ORM\Column(type="float", nullable=false)
      */
-    private int $delta = 0;
+    private float $delta = 0;
 
     /**
      * @ORM\Column(type="string", nullable=false)
@@ -41,12 +41,12 @@ class Modifier
         return $this->id;
     }
 
-    public function getDelta(): int
+    public function getDelta(): float
     {
         return $this->delta;
     }
 
-    public function setDelta(int $delta): Modifier
+    public function setDelta(float $delta): Modifier
     {
         $this->delta = $delta;
 

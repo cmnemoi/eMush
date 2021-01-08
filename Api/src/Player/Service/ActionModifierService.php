@@ -32,7 +32,7 @@ class ActionModifierService implements ActionModifierServiceInterface
     public function handlePlayerModifier(Player $player, Modifier $actionModifier, \DateTime $date = null): Player
     {
         $date = $date ?? new \DateTime('now');
-        $delta = $actionModifier->getDelta();
+        $delta = (int) $actionModifier->getDelta();
         switch ($actionModifier->getTarget()) {
             case ModifierTargetEnum::ACTION_POINT:
                 $player = $this->handleActionPointModifier($delta, $player, $date);
@@ -40,7 +40,7 @@ class ActionModifierService implements ActionModifierServiceInterface
             case ModifierTargetEnum::MOVEMENT_POINT:
                 $player = $this->handleMovementPointModifier($delta, $player, $date);
                 break;
-            case ModifierTargetEnum::HEAL_POINT:
+            case ModifierTargetEnum::HEALTH_POINT:
                 $player = $this->handleHealthPointModifier($delta, $player, $date);
                 break;
             case ModifierTargetEnum::MORAL_POINT:

@@ -5,9 +5,13 @@ namespace Mush\Action\Actions;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Error;
 use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionCost;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Event\ActionEvent;
+use Mush\Equipment\Entity\Mechanics\Gear;
+use Mush\Equipment\Enum\ReachEnum;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\ModifierTargetEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 abstract class AbstractAction
@@ -61,9 +65,31 @@ abstract class AbstractAction
 
     protected function applyActionCost(): Player
     {
-        $this->action->getActionCost()->applyCostToPlayer($this->player);
+        $this->getActionCost()->applyCostToPlayer($this->player);
 
         return $this->player;
+    }
+
+    public function getActionCost(): ActionCost
+    {
+        $actionCost = $this->action->getActionCost();
+
+        $gears = $this->player->getApplicableGears(
+            array_merge([$this->getActionName()], $this->action->getTypes()),
+            [ReachEnum::INVENTORY],
+            ModifierTargetEnum::ACTION_POINT
+        );
+
+        /** @var Gear $gear */
+        foreach ($gears as $gear) {
+            if ($actionCost->getActionPointCost() > 0 &&
+               $gear->getModifier()->getTarget() === ModifierTargetEnum::ACTION_POINT
+           ) {
+                $actionCost->addActionPointCost((int) $gear->getModifier()->getDelta());
+            }
+        }
+
+        return $actionCost;
     }
 
     public function getActionName(): string

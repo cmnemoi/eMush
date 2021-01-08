@@ -2,6 +2,7 @@
 
 namespace Mush\Action\Normalizer;
 
+use Mush\Action\Actions\AttemptAction;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Service\ActionStrategyServiceInterface;
@@ -61,15 +62,23 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
 
         if ($actionClass->canExecute()) {
             $actionName = $object->getName();
+            $actionCost = $actionClass->getActionCost();
+
+            $successRate = $object->getSuccessRate();
+
+            if ($actionClass instanceof AttemptAction) {
+                $successRate = $actionClass->getSuccessRate();
+            }
 
             return [
                 'id' => $object->getId(),
                 'key' => $actionName,
                 'name' => $this->translator->trans("{$actionName}.name", [], 'actions'),
                 'description' => $this->translator->trans("{$actionName}.description", [], 'actions'),
-                'actionPointCost' => $object->getActionCost()->getActionPointCost(),
-                'movementPointCost' => $object->getActionCost()->getMovementPointCost(),
-                'moralPointCost' => $object->getActionCost()->getMoralPointCost(),
+                'actionPointCost' => $actionCost->getActionPointCost(),
+                'movementPointCost' => $actionCost->getMovementPointCost(),
+                'moralPointCost' => $actionCost->getMoralPointCost(),
+                'successRate' => $successRate,
             ];
         }
 

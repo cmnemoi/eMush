@@ -24,7 +24,7 @@ class Action
     /**
      * @ORM\Column(type="array", nullable=false)
      */
-    private array $type = [];
+    private array $types = [];
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -73,14 +73,14 @@ class Action
         return $this;
     }
 
-    public function getType(): array
+    public function getTypes(): array
     {
-        return $this->type;
+        return $this->types;
     }
 
-    public function setType(array $type): Action
+    public function setTypes(array $types): Action
     {
-        $this->type = $type;
+        $this->types = $types;
 
         return $this;
     }

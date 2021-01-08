@@ -35,7 +35,7 @@ class Starving extends AbstractCycleHandler
         $healthModifier = new Modifier();
         $healthModifier
             ->setDelta(-1)
-            ->setTarget(ModifierTargetEnum::HEAL_POINT)
+            ->setTarget(ModifierTargetEnum::HEALTH_POINT)
         ;
 
         $playerEvent

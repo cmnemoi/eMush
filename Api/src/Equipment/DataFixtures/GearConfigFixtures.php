@@ -8,6 +8,7 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\Entity\Action;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Charged;
 use Mush\Equipment\Entity\Mechanics\Dismountable;
@@ -63,10 +64,11 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($apron);
 
         $dismountableMechanic = $this->createDismoutableMechanic([ItemEnum::PLASTIC_SCRAPS => 1], 3, 12);
+
         $plasteniteGear = $this->createGear(
-            ModifierTargetEnum::PERCENTAGE,
-            -100,
-            ModifierScopeEnum::EVENT_DIRTY,
+            ModifierTargetEnum::HEALTH_POINT,
+            -1,
+            ModifierScopeEnum::ACTION_ATTACK,
             ReachEnum::INVENTORY
         );
 
@@ -87,7 +89,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $wrenchGear = $this->createGear(
             ModifierTargetEnum::PERCENTAGE,
-            50,
+            1.5,
             ModifierScopeEnum::ACTION_TECHNICIAN,
             ReachEnum::INVENTORY
         );
@@ -106,7 +108,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($wrench);
 
         $glovesGear = $this->createGear(
-            ModifierTargetEnum::HEAL_POINT,
+            ModifierTargetEnum::HEALTH_POINT,
             -1,
             ModifierScopeEnum::EVENT_CLUMSINESS,
             ReachEnum::INVENTORY
@@ -130,7 +132,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $soapGear = $this->createGear(
             ModifierTargetEnum::ACTION_POINT,
             -1,
-            ModifierScopeEnum::ACTION_SHOWER,
+            ActionEnum::SHOWER,
             ReachEnum::INVENTORY
         );
 
@@ -177,7 +179,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $alienBottleOpenerGear = $this->createGear(
             ModifierTargetEnum::PERCENTAGE,
-            50,
+            1.5,
             ModifierScopeEnum::ACTION_TECHNICIAN,
             ReachEnum::INVENTORY
         );
@@ -270,8 +272,8 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $oscilloscopeGear = $this->createGear(
             ModifierTargetEnum::PERCENTAGE,
-            50,
-            ModifierScopeEnum::ACTION_REINFORCE,
+            1.5,
+            ActionEnum::REINFORCE,
             ReachEnum::INVENTORY
         );
 
@@ -387,7 +389,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         return $dismountableMechanic;
     }
 
-    private function createGear(string $target, int $delta, string $scope, string $reach): Gear
+    private function createGear(string $target, float $delta, string $scope, string $reach): Gear
     {
         $modifier = new Modifier();
         $modifier

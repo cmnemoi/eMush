@@ -91,16 +91,15 @@ class Disassemble extends AttemptAction
 
     protected function applyEffects(): ActionResult
     {
-        $modificator = 1; //@TODO: skills, wrench
-        /** @var Dismountable $dismountableType */
-        $dismountableType = $this->gameEquipment
-            ->getEquipment()
-            ->getMechanicByName(EquipmentMechanicEnum::DISMOUNTABLE)
-        ;
-
-        $response = $this->makeAttempt($dismountableType->getChancesSuccess(), $modificator);
+        $response = $this->makeAttempt();
 
         if ($response instanceof Success) {
+            /** @var Dismountable $dismountableType */
+            $dismountableType = $this->gameEquipment
+                ->getEquipment()
+                ->getMechanicByName(EquipmentMechanicEnum::DISMOUNTABLE)
+            ;
+
             $this->disasemble($dismountableType);
         }
 
@@ -143,5 +142,16 @@ class Disassemble extends AttemptAction
             VisibilityEnum::PUBLIC,
             new \DateTime('now')
         );
+    }
+
+    protected function getBaseRate(): int
+    {
+        /** @var Dismountable $dismountableType */
+        $dismountableType = $this->gameEquipment
+            ->getEquipment()
+            ->getMechanicByName(EquipmentMechanicEnum::DISMOUNTABLE)
+        ;
+
+        return $dismountableType->getChancesSuccess();
     }
 }

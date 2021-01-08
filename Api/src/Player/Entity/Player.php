@@ -10,13 +10,12 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Room\Entity\Room;
-use Mush\Status\Entity\Collection\MedicalConditionCollection;
-use Mush\Status\Entity\MedicalCondition;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -324,16 +323,31 @@ class Player
         return $this;
     }
 
+    public function getApplicableGears(array $scope, array $types, ?string $target = null): Collection
+    {
+        /** @var Collection $gears */
+        $gears = new ArrayCollection();
+        /** @var GameItem $item */
+        foreach ($this->getItems() as $item) {
+            /** @var Gear $gear */
+            $gear = $item->getEquipment()->getMechanicByName(EquipmentMechanicEnum::GEAR);
+
+            if ($gear &&
+                in_array($gear->getModifier()->getScope(), $scope) &&
+                ($target === null || $gear->getModifier()->getTarget() === $target) &&
+                (count($types) || in_array($gear->getModifier()->getTarget(), $types)) &&
+                in_array($gear->getModifier()->getReach(), [ReachEnum::INVENTORY])
+            ) {
+                $gears->add($gear);
+            }
+        }
+
+        return $gears;
+    }
+
     public function hasItemByName(string $name): bool
     {
         return !$this->getItems()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $name)->isEmpty();
-    }
-
-    public function getMedicalConditions(): MedicalConditionCollection
-    {
-        return new MedicalConditionCollection(
-            $this->statuses->filter(fn (Status $status) => ($status instanceof MedicalCondition))->toArray()
-        );
     }
 
     public function getStatuses(): Collection

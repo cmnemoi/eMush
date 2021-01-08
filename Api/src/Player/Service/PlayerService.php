@@ -218,7 +218,7 @@ class PlayerService implements PlayerServiceInterface
         $healthModifier = new Modifier();
         $healthModifier
             ->setDelta(1)
-            ->setTarget(ModifierTargetEnum::HEAL_POINT)
+            ->setTarget(ModifierTargetEnum::HEALTH_POINT)
         ;
         $playerEvent->setModifier($healthModifier);
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);

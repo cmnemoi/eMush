@@ -63,9 +63,7 @@ class Hit extends AttemptAction
 
     protected function applyEffects(): ActionResult
     {
-        $baseRate = 50;
-        $modificator = 1; //@TODO
-        $result = $this->makeAttempt($baseRate, $modificator);
+        $result = $this->makeAttempt();
 
         if ($result instanceof Success) {
             $damage = $this->randomService->random(1, 3);
@@ -88,7 +86,7 @@ class Hit extends AttemptAction
                 $actionModifier = new Modifier();
                 $actionModifier
                     ->setDelta(-$damage)
-                    ->setTarget(ModifierTargetEnum::HEAL_POINT)
+                    ->setTarget(ModifierTargetEnum::HEALTH_POINT)
                 ;
 
                 $playerEvent = new PlayerEvent($this->target);
@@ -101,5 +99,10 @@ class Hit extends AttemptAction
         }
 
         return new Success(ActionLogEnum::HIT_SUCCESS, VisibilityEnum::PUBLIC);
+    }
+
+    protected function getBaseRate(): int
+    {
+        return 50;
     }
 }

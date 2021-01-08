@@ -13,4 +13,6 @@ interface RoomServiceInterface
     public function findById(int $id): ?Room;
 
     public function createRoom(RoomConfig $roomConfig, Daedalus $daedalus): Room;
+
+    public function handleFire(Room $room): Room;
 }

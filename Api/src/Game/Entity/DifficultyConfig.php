@@ -2,19 +2,14 @@
 
 namespace Mush\Game\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Mush\Daedalus\Entity\DaedalusConfig;
-use Mush\Game\Entity\Collection\CharacterConfigCollection;
-use Mush\Game\Entity\Collection\TriumphConfigCollection;
 
 /**
- * Class Daedalus.
+ * Class DifficultyConfig.
  *
- * @ORM\Entity(repositoryClass="Mush\Game\Repository\GameConfigRepository")
- * @ORM\Table(name="config_game")
+ * @ORM\Entity()
+ * @ORM\Table(name="config_difficulty")
  */
 class DifficultyConfig
 {
@@ -35,24 +30,22 @@ class DifficultyConfig
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
-    private string $equipmentBreakRate;
+    private int $equipmentBreakRate;
 
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
-    private string $equipmentFireBreakRate;
+    private int $equipmentFireBreakRate;
 
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
-    private string $startingFireRate;
+    private int $startingFireRate;
 
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
-    private string $propagatingFireRate;
-
-
+    private int $propagatingFireRate;
 
     public function getId(): int
     {
@@ -73,7 +66,6 @@ class DifficultyConfig
 
         return $this;
     }
-
 
     public function getEquipmentBreakRate(): int
     {
@@ -134,5 +126,4 @@ class DifficultyConfig
 
         return $this;
     }
-
 }

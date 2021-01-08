@@ -57,7 +57,7 @@ class Status
     /**
      * @ORM\ManyToOne(targetEntity="Mush\Room\Entity\Room", inversedBy="statuses")
      */
-    protected ?GameEquipment $room = null;
+    protected ?Room $room = null;
 
     /**
      * @ORM\OneToOne(targetEntity="Mush\Equipment\Entity\ConsumableEffect", cascade={"ALL"}, orphanRemoval=true)
@@ -164,7 +164,7 @@ class Status
         if ($room !== $this->room) {
             $oldRoom = $this->getRoom();
 
-            $this->gameEquipment = $room;
+            $this->room = $room;
 
             if ($room !== null) {
                 $room->addStatus($this);

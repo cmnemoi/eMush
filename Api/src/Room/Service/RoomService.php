@@ -9,10 +9,17 @@ use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Entity\GameConfig;
+use Mush\Game\Service\GameConfigServiceInterface;
+use Mush\Game\Service\RandomServiceInterface;
 use Mush\Room\Entity\Room;
 use Mush\Room\Entity\RoomConfig;
 use Mush\Room\Repository\RoomRepository;
+use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
 class RoomService implements RoomServiceInterface
@@ -21,6 +28,8 @@ class RoomService implements RoomServiceInterface
     private RoomRepository $repository;
     private GameEquipmentServiceInterface $equipmentService;
     private StatusServiceInterface $statusService;
+    private RandomServiceInterface $randomService;
+    private GameConfig $gameConfig;
 
     /**
      * RoomService constructor.
@@ -29,12 +38,16 @@ class RoomService implements RoomServiceInterface
         EntityManagerInterface $entityManager,
         RoomRepository $repository,
         GameEquipmentServiceInterface $equipmentService,
-        StatusServiceInterface $statusService
+        StatusServiceInterface $statusService,
+        RandomServiceInterface $randomService,
+        GameConfigServiceInterface $gameConfigService
     ) {
         $this->entityManager = $entityManager;
         $this->repository = $repository;
         $this->equipmentService = $equipmentService;
         $this->statusService = $statusService;
+        $this->randomService = $randomService;
+        $this->gameConfig = $gameConfigService->getConfig();
     }
 
     public function persist(Room $room): Room
@@ -117,5 +130,62 @@ class RoomService implements RoomServiceInterface
         }
 
         return $this->persist($room);
+    }
+
+    public function handleFire(Room $room): Room
+    {
+        $fireStatus = $room->getStatusByName(StatusEnum::FIRE);
+        if (!$fireStatus instanceof ChargeStatus) {
+            throw new \LogicException('Parameter is not a document');
+        }
+
+        if ($fireStatus->getCharge() === 0) {
+            $this->propagateFire($room);
+        } elseif ($this->randomService->randomPercent() < $this->gameConfig->getDifficultyConfig()->getStartingFireRate()) {
+            $fireStatus = $this->startFire($room);
+
+            //primary fire deal damage on the first cycle
+            $fireStatus->setCharge(0);
+            $this->propagateFire($room);
+        }
+
+        return $room;
+    }
+
+    public function startFire(Room $room): ChargeStatus
+    {
+        if (!$room->hasStatus(StatusEnum::FIRE)) {
+            $fireStatus = $this->statusService->createChargeRoomStatus(StatusEnum::FIRE,
+                    $room,
+                    ChargeStrategyTypeEnum::CYCLE_DECREMENT,
+                    VisibilityEnum::PUBLIC,
+                    1);
+        } else {
+            $fireStatus = $room->getStatusByName(StatusEnum::FIRE);
+
+            if (!$fireStatus instanceof ChargeStatus) {
+                throw new \LogicException('Parameter is not a document');
+            }
+
+            $fireStatus->setCharge(0);
+        }
+
+        $this->persist($room);
+
+        return $fireStatus;
+    }
+
+    public function propagateFire(Room $room): Room
+    {
+        foreach ($room->getDoors() as $door) {
+            $adjacentRoom = $door->getOtherRoom($room);
+
+            if ($this->randomService->randomPercent() < $this->gameConfig->getDifficultyConfig()->getPropagatingFireRate()) {
+                $this->startFire($adjacentRoom);
+            }
+        }
+        $this->persist($room);
+
+        return $room;
     }
 }

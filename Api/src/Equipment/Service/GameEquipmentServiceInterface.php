@@ -24,4 +24,6 @@ interface GameEquipmentServiceInterface
     public function getOperationalEquipmentsByName(string $equipmentName, Player $player, string $reach = ReachEnum::SHELVE_NOT_HIDDEN): Collection;
 
     public function isOperational(GameEquipment $equipment): bool;
+
+    public function handleBreakCycle(GameEquipment $gameEquipment): void;
 }

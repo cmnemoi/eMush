@@ -8,11 +8,8 @@ use Mush\Daedalus\DataFixtures\DaedalusConfigFixtures;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 
-
 class DifficultyConfigFixtures extends Fixture
 {
-    public const DEFAULT_GAME_CONFIG = 'default.game.config';
-
     public function load(ObjectManager $manager): void
     {
         /** @var GameConfig $gameConfig */
@@ -36,7 +33,7 @@ class DifficultyConfigFixtures extends Fixture
     public function getDependencies(): array
     {
         return [
-            DaedalusConfigFixtures::class,
+            GameConfigFixtures::class,
         ];
     }
 }

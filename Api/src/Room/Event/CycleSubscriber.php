@@ -31,6 +31,15 @@ class CycleSubscriber implements EventSubscriberInterface
             return;
         }
 
+        foreach ($room->getStatuses() as $status) {
+            $statusNewCycle = new CycleEvent($event->getDaedalus(), $event->getTime());
+            $statusNewCycle->setStatus($status);
+            $this->eventDispatcher->dispatch($statusNewCycle, CycleEvent::NEW_CYCLE);
+        }
+
+        //start and propagate fires
+        $this->roomService->handleFire($room);
+
         foreach ($room->getEquipments() as $equipment) {
             $itemNewCycle = new CycleEvent($room->getDaedalus(), $event->getTime());
             $itemNewCycle->setGameEquipment($equipment);

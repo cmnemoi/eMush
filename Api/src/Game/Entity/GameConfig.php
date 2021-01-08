@@ -11,7 +11,7 @@ use Mush\Game\Entity\Collection\CharacterConfigCollection;
 use Mush\Game\Entity\Collection\TriumphConfigCollection;
 
 /**
- * Class Daedalus.
+ * Class GameConfig.
  *
  * @ORM\Entity(repositoryClass="Mush\Game\Repository\GameConfigRepository")
  * @ORM\Table(name="config_game")

@@ -10,7 +10,6 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\Door;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Room\Entity\Room;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
@@ -55,7 +54,7 @@ class Move extends AbstractAction
 
     protected function applyEffects(): ActionResult
     {
-        $newRoom = $this->door->getRooms()->filter(fn (Room $room) => $room !== $this->player->getRoom())->first();
+        $newRoom = $this->door->getOtherRoom($this->player->getRoom());
         $this->player->setRoom($newRoom);
 
         $this->playerService->persist($this->player);
@@ -77,7 +76,7 @@ class Move extends AbstractAction
         );
         $this->roomLogService->createActionLog(
             ActionLogEnum::EXIT_ROOM,
-            $this->door->getRooms()->filter(fn (Room $room) => $room !== $this->player->getRoom())->first(),
+            $this->door->getOtherRoom($this->player->getRoom()),
             $this->player,
             null,
             VisibilityEnum::PUBLIC,

@@ -64,7 +64,7 @@ class Room
         $this->players = new PlayerCollection();
         $this->equipments = new ArrayCollection();
         $this->doors = new ArrayCollection();
-        $this->statuses = [];
+        $this->statuses = new ArrayCollection();
     }
 
     public function getId(): int
@@ -235,19 +235,19 @@ class Room
         return $this;
     }
 
-       /**
+    /**
      * @return static
      */
     public function addStatus(Status $status): Room
     {
         if (!$this->getStatuses()->contains($status)) {
-            if ($status->getPlayer() !== $this) {
-                $status->setPlayer(null);
+            if ($status->getRoom() !== $this) {
+                $status->setRoom(null);
             }
 
             $this->statuses->add($status);
 
-            $status->setPlayer($this);
+            $status->setRoom($this);
         }
 
         return $this;
@@ -260,7 +260,7 @@ class Room
     {
         if ($this->statuses->contains($status)) {
             $this->statuses->removeElement($status);
-            $status->setPlayer(null);
+            $status->setRoom(null);
         }
 
         return $this;
@@ -269,5 +269,12 @@ class Room
     public function hasStatus(string $statusName): bool
     {
         return $this->statuses->exists(fn ($key, Status $status) => ($status->getName() === $statusName));
+    }
+
+    public function getStatusByName(string $statusName): ?Status
+    {
+        $status = $this->statuses->filter(fn (Status $status) => ($status->getName() === $statusName))->first();
+
+        return $status ? $status : null;
     }
 }

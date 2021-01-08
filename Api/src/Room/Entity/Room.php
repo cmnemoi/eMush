@@ -11,6 +11,7 @@ use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
+use Mush\Status\Entity\Status;
 
 /**
  * Class Room.
@@ -54,9 +55,9 @@ class Room
     private Collection $equipments;
 
     /**
-     * @ORM\Column(type="array", nullable=true)
+     * @ORM\OneToMany(targetEntity="Mush\Status\Entity\Status", mappedBy="room", cascade={"ALL"}, orphanRemoval=true)
      */
-    private array $statuses;
+    private Collection $statuses;
 
     public function __construct()
     {
@@ -219,7 +220,7 @@ class Room
         return $this;
     }
 
-    public function getStatuses(): array
+    public function getStatuses(): Collection
     {
         return $this->statuses;
     }
@@ -227,10 +228,46 @@ class Room
     /**
      * @return static
      */
-    public function setStatuses(array $statuses): Room
+    public function setStatuses(Collection $statuses): Room
     {
         $this->statuses = $statuses;
 
         return $this;
+    }
+
+       /**
+     * @return static
+     */
+    public function addStatus(Status $status): Room
+    {
+        if (!$this->getStatuses()->contains($status)) {
+            if ($status->getPlayer() !== $this) {
+                $status->setPlayer(null);
+            }
+
+            $this->statuses->add($status);
+
+            $status->setPlayer($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return static
+     */
+    public function removeStatus(Status $status): Room
+    {
+        if ($this->statuses->contains($status)) {
+            $this->statuses->removeElement($status);
+            $status->setPlayer(null);
+        }
+
+        return $this;
+    }
+
+    public function hasStatus(string $statusName): bool
+    {
+        return $this->statuses->exists(fn ($key, Status $status) => ($status->getName() === $statusName));
     }
 }

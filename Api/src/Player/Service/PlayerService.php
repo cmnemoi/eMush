@@ -9,8 +9,9 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\TriumphEnum;
 use Mush\Game\Service\GameConfigServiceInterface;
-use Mush\Player\Entity\ActionModifier;
+use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Repository\PlayerRepository;
 use Mush\Room\Entity\Room;
@@ -153,15 +154,29 @@ class PlayerService implements PlayerServiceInterface
             return $player;
         }
 
-        $actionModifier = new ActionModifier();
+        $actionModifier = new Modifier();
         $actionModifier
-            ->setActionPointModifier(1)
-            ->setMovementPointModifier(1)
-            ->setSatietyModifier(-1)
+            ->setDelta(1)
+            ->setTarget(ModifierTargetEnum::ACTION_POINT)
         ;
-
         $playerEvent = new PlayerEvent($player, $date);
-        $playerEvent->setActionModifier($actionModifier);
+        $playerEvent->setModifier($actionModifier);
+        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
+
+        $movementModifier = new Modifier();
+        $movementModifier
+            ->setDelta(1)
+            ->setTarget(ModifierTargetEnum::MOVEMENT_POINT)
+        ;
+        $playerEvent->setModifier($movementModifier);
+        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
+
+        $satietyModifier = new Modifier();
+        $satietyModifier
+            ->setDelta(-1)
+            ->setTarget(ModifierTargetEnum::SATIETY)
+        ;
+        $playerEvent->setModifier($satietyModifier);
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
 
         $triumphChange = 0;
@@ -198,14 +213,23 @@ class PlayerService implements PlayerServiceInterface
             return $player;
         }
 
-        $actionModifier = new ActionModifier();
-        $actionModifier
-            ->setHealthPointModifier(1)
-            ->setMoralPointModifier(-2) //@TODO check for last hope
+        $playerEvent = new PlayerEvent($player, $date);
+
+        $healthModifier = new Modifier();
+        $healthModifier
+            ->setDelta(1)
+            ->setTarget(ModifierTargetEnum::HEAL_POINT)
+        ;
+        $playerEvent->setModifier($healthModifier);
+        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
+
+        $moralModifier = new Modifier();
+        $moralModifier
+            ->setDelta(-2)
+            ->setTarget(ModifierTargetEnum::MORAL_POINT)
         ;
 
-        $playerEvent = new PlayerEvent($player, $date);
-        $playerEvent->setActionModifier($actionModifier);
+        $playerEvent->setModifier($moralModifier);
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
 
         return $this->persist($player);

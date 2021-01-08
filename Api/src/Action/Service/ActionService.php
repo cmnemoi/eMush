@@ -5,9 +5,10 @@ namespace Mush\Action\Service;
 use Mush\Action\Entity\Action;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Player\Entity\ActionModifier;
+use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
+use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -85,10 +86,14 @@ class ActionService implements ActionServiceInterface
 
     private function dispatchPlayerInjuryEvent(Player $player, ?\DateTime $dateTime = null): void
     {
-        $playerActionModifier = new ActionModifier();
-        $playerActionModifier->setHealthPointModifier(self::ACTION_INJURY_MODIFIER);
+        $modifier = new Modifier();
+        $modifier
+            ->setDelta(self::ACTION_INJURY_MODIFIER)
+            ->setTarget(ModifierTargetEnum::HEAL_POINT)
+        ;
+
         $playerEvent = new PlayerEvent($player, $dateTime);
-        $playerEvent->setActionModifier($playerActionModifier);
+        $playerEvent->setModifier($modifier);
         $playerEvent->setReason(EndCauseEnum::CLUMSINESS);
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
     }

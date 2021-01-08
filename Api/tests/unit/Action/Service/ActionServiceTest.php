@@ -99,7 +99,7 @@ class ActionServiceTest extends TestCase
         $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->withArgs(
-                fn (PlayerEvent $playerEvent, string $eventName) => ($playerEvent->getActionModifier()->getHealthPointModifier() === -2)
+                fn (PlayerEvent $playerEvent, string $eventName) => ($playerEvent->getModifier()->getDelta() === -2)
             )
             ->once()
         ;

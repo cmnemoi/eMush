@@ -4,7 +4,8 @@ namespace Mush\Status\CycleHandler;
 
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\CycleHandler\AbstractCycleHandler;
-use Mush\Player\Entity\ActionModifier;
+use Mush\Player\Entity\Modifier;
+use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -30,10 +31,15 @@ class Starving extends AbstractCycleHandler
         $player = $object->getPlayer();
 
         $playerEvent = new PlayerEvent($player, $dateTime);
-        $actionModifier = new ActionModifier();
-        $actionModifier->setHealthPointModifier(-1);
+
+        $healthModifier = new Modifier();
+        $healthModifier
+            ->setDelta(-1)
+            ->setTarget(ModifierTargetEnum::HEAL_POINT)
+        ;
+
         $playerEvent
-            ->setActionModifier($actionModifier)
+            ->setModifier($healthModifier)
             ->setReason(PlayerStatusEnum::STARVING)
         ;
 

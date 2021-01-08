@@ -9,9 +9,10 @@ use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Player\Entity\ActionModifier;
+use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
+use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\ActionLogEnum;
@@ -70,12 +71,14 @@ class Shower extends AbstractAction
         }
 
         if ($this->player->isMush()) {
-            $actionModifier = new ActionModifier();
-            $actionModifier->setHealthPointModifier(-3);
-
+            $actionModifier = new Modifier();
+            $actionModifier
+                ->setDelta(-3)
+                ->setTarget(ModifierTargetEnum::HEAL_POINT)
+            ;
             $playerEvent = new PlayerEvent($this->player);
             $playerEvent->setReason(EndCauseEnum::CLUMSINESS);
-            $playerEvent->setActionModifier($actionModifier);
+            $playerEvent->setModifier($actionModifier);
             $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
         }
 

@@ -3,8 +3,9 @@
 namespace Mush\Player\Service;
 
 use Mush\Game\Service\GameConfigServiceInterface;
-use Mush\Player\Entity\ActionModifier;
+use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
@@ -28,32 +29,45 @@ class ActionModifierService implements ActionModifierServiceInterface
         $this->gameConfigService = $gameConfigService;
     }
 
-    public function handlePlayerModifier(Player $player, ActionModifier $actionModifier, \DateTime $date = null): Player
+    public function handlePlayerModifier(Player $player, Modifier $actionModifier, \DateTime $date = null): Player
     {
         $date = $date ?? new \DateTime('now');
-        $player = $this->handleActionPointModifier($actionModifier, $player, $date);
-        $player = $this->handleMovementPointModifier($actionModifier, $player, $date);
-        $player = $this->handleHealthPointModifier($actionModifier, $player, $date);
-        $player = $this->handleMoralPointModifier($actionModifier, $player, $date);
-        $player = $this->handleSatietyModifier($actionModifier, $player);
+        $delta = $actionModifier->getDelta();
+        switch ($actionModifier->getTarget()) {
+            case ModifierTargetEnum::ACTION_POINT:
+                $player = $this->handleActionPointModifier($delta, $player, $date);
+                break;
+            case ModifierTargetEnum::MOVEMENT_POINT:
+                $player = $this->handleMovementPointModifier($delta, $player, $date);
+                break;
+            case ModifierTargetEnum::HEAL_POINT:
+                $player = $this->handleHealthPointModifier($delta, $player, $date);
+                break;
+            case ModifierTargetEnum::MORAL_POINT:
+                $player = $this->handleMoralPointModifier($delta, $player, $date);
+                break;
+            case ModifierTargetEnum::SATIETY:
+                $player = $this->handleSatietyModifier($delta, $player);
+                break;
+        }
 
         return $player;
     }
 
-    private function handleActionPointModifier(ActionModifier $actionModifier, Player $player, \DateTime $date): Player
+    private function handleActionPointModifier(int $actionModifier, Player $player, \DateTime $date): Player
     {
         $gameConfig = $this->gameConfigService->getConfig();
 
-        if ($actionModifier->getActionPointModifier() !== 0) {
-            $playerNewActionPoint = $player->getActionPoint() + $actionModifier->getActionPointModifier();
+        if ($actionModifier !== 0) {
+            $playerNewActionPoint = $player->getActionPoint() + $actionModifier;
             $playerNewActionPoint = $this->getValueInInterval($playerNewActionPoint, 0, $gameConfig->getMaxActionPoint());
             $player->setActionPoint($playerNewActionPoint);
             $this->roomLogService->createQuantityLog(
-                $actionModifier->getActionPointModifier() > 0 ? LogEnum::GAIN_ACTION_POINT : LogEnum::LOSS_ACTION_POINT,
+                $actionModifier > 0 ? LogEnum::GAIN_ACTION_POINT : LogEnum::LOSS_ACTION_POINT,
                 $player->getRoom(),
                 $player,
                 VisibilityEnum::PRIVATE,
-                abs($actionModifier->getActionPointModifier()),
+                abs($actionModifier),
                 $date
             );
         }
@@ -61,20 +75,20 @@ class ActionModifierService implements ActionModifierServiceInterface
         return $player;
     }
 
-    private function handleMovementPointModifier(ActionModifier $actionModifier, Player $player, \DateTime $date): Player
+    private function handleMovementPointModifier(int $movementModifier, Player $player, \DateTime $date): Player
     {
         $gameConfig = $this->gameConfigService->getConfig();
 
-        if ($actionModifier->getMovementPointModifier()) {
-            $playerNewMovementPoint = $player->getMovementPoint() + $actionModifier->getMovementPointModifier();
+        if ($movementModifier !== 0) {
+            $playerNewMovementPoint = $player->getMovementPoint() + $movementModifier;
             $playerNewMovementPoint = $this->getValueInInterval($playerNewMovementPoint, 0, $gameConfig->getMaxMovementPoint());
             $player->setMovementPoint($playerNewMovementPoint);
             $this->roomLogService->createQuantityLog(
-                $actionModifier->getMovementPointModifier() > 0 ? LogEnum::GAIN_MOVEMENT_POINT : LogEnum::LOSS_MOVEMENT_POINT,
+                $movementModifier > 0 ? LogEnum::GAIN_MOVEMENT_POINT : LogEnum::LOSS_MOVEMENT_POINT,
                 $player->getRoom(),
                 $player,
                 VisibilityEnum::PRIVATE,
-                abs($actionModifier->getMovementPointModifier()),
+                abs($movementModifier),
                 $date
             );
         }
@@ -82,20 +96,20 @@ class ActionModifierService implements ActionModifierServiceInterface
         return $player;
     }
 
-    private function handleHealthPointModifier(ActionModifier $actionModifier, Player $player, \DateTime $date): Player
+    private function handleHealthPointModifier(int $healthModifier, Player $player, \DateTime $date): Player
     {
         $gameConfig = $this->gameConfigService->getConfig();
 
-        if ($healthPoints = $actionModifier->getHealthPointModifier()) {
-            $playerNewHealthPoint = $player->getHealthPoint() + $healthPoints;
+        if ($healthModifier !== 0) {
+            $playerNewHealthPoint = $player->getHealthPoint() + $healthModifier;
             $playerNewHealthPoint = $this->getValueInInterval($playerNewHealthPoint, 0, $gameConfig->getMaxHealthPoint());
             $player->setHealthPoint($playerNewHealthPoint);
             $this->roomLogService->createQuantityLog(
-                $healthPoints > 0 ? LogEnum::GAIN_HEALTH_POINT : LogEnum::LOSS_HEALTH_POINT,
+                $healthModifier > 0 ? LogEnum::GAIN_HEALTH_POINT : LogEnum::LOSS_HEALTH_POINT,
                 $player->getRoom(),
                 $player,
                 VisibilityEnum::PRIVATE,
-                abs($healthPoints),
+                abs($healthModifier),
                 $date
             );
         }
@@ -103,24 +117,24 @@ class ActionModifierService implements ActionModifierServiceInterface
         return $player;
     }
 
-    private function handleMoralPointModifier(ActionModifier $actionModifier, Player $player, \DateTime $date): Player
+    private function handleMoralPointModifier(int $moralModifier, Player $player, \DateTime $date): Player
     {
         $gameConfig = $this->gameConfigService->getConfig();
 
-        if ($moralPoints = $actionModifier->getMoralPointModifier()) {
+        if ($moralModifier !== 0) {
             if (!$player->isMush()) {
-                $playerNewMoralPoint = $player->getMoralPoint() + $moralPoints;
+                $playerNewMoralPoint = $player->getMoralPoint() + $moralModifier;
                 $playerNewMoralPoint = $this->getValueInInterval($playerNewMoralPoint, 0, $gameConfig->getMaxMoralPoint());
                 $player->setMoralPoint($playerNewMoralPoint);
 
                 $player = $this->handleMoralStatus($player);
 
                 $this->roomLogService->createQuantityLog(
-                    $moralPoints > 0 ? LogEnum::GAIN_MORAL_POINT : LogEnum::LOSS_MORAL_POINT,
+                    $moralModifier > 0 ? LogEnum::GAIN_MORAL_POINT : LogEnum::LOSS_MORAL_POINT,
                     $player->getRoom(),
                     $player,
                     VisibilityEnum::PRIVATE,
-                    abs($moralPoints),
+                    abs($moralModifier),
                     $date
                 );
             }
@@ -149,27 +163,27 @@ class ActionModifierService implements ActionModifierServiceInterface
         return $player;
     }
 
-    private function handleSatietyModifier(ActionModifier $actionModifier, Player $player): Player
+    private function handleSatietyModifier(int $satietyModifier, Player $player): Player
     {
-        if ($actionModifier->getSatietyModifier()) {
-            if ($actionModifier->getSatietyModifier() >= 0 &&
+        if ($satietyModifier !== 0) {
+            if ($satietyModifier >= 0 &&
                 $player->getSatiety() < 0) {
-                $player->setSatiety($actionModifier->getSatietyModifier());
+                $player->setSatiety($satietyModifier);
             } else {
-                $player->setSatiety($player->getSatiety() + $actionModifier->getSatietyModifier());
+                $player->setSatiety($player->getSatiety() + $satietyModifier);
             }
 
-            $player = $this->handleSatietyStatus($actionModifier, $player);
+            $player = $this->handleSatietyStatus($satietyModifier, $player);
         }
 
         return $player;
     }
 
-    private function handleSatietyStatus(ActionModifier $actionModifier, Player $player): Player
+    private function handleSatietyStatus(int $satietyModifier, Player $player): Player
     {
         if (!$player->isMush()) {
             $player = $this->handleHumanStatus($player);
-        } elseif ($actionModifier->getSatietyModifier() >= 0) {
+        } elseif ($satietyModifier >= 0) {
             $this->statusService->createChargePlayerStatus(
                 PlayerStatusEnum::FULL_STOMACH,
                 $player,

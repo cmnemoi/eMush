@@ -4,7 +4,8 @@ namespace Mush\Status\CycleHandler;
 
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\CycleHandler\AbstractCycleHandler;
-use Mush\Player\Entity\ActionModifier;
+use Mush\Player\Entity\Modifier;
+use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -29,10 +30,14 @@ class Lost extends AbstractCycleHandler
         $player = $object->getPlayer();
 
         $playerEvent = new PlayerEvent($player, $dateTime);
-        $actionModifier = new ActionModifier();
-        $actionModifier->setActionPointModifier(1);
+        $moralModifier = new Modifier();
+        $moralModifier
+            ->setDelta(-1)
+            ->setTarget(ModifierTargetEnum::MORAL_POINT)
+        ;
+
         $playerEvent
-            ->setActionModifier($actionModifier)
+            ->setModifier($moralModifier)
             ->setReason(PlayerStatusEnum::LOST)
         ;
 

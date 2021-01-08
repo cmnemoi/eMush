@@ -57,12 +57,12 @@
                 <div class="action-points">
                     <div class="actions">
                         <ul>
-                            <li v-for="n in 14" :key="n" :class="isFull(n, player.actionPoint)" />
+                            <li v-for="n in 12" :key="n" :class="isFull(n, player.actionPoint)" />
                         </ul>
                     </div>
                     <div class="movements">
                         <ul>
-                            <li v-for="n in 14" :key="n" :class="isFull(n, player.movementPoint)" />
+                            <li v-for="n in 12" :key="n" :class="isFull(n, player.movementPoint)" />
                         </ul>
                     </div>
                 </div>

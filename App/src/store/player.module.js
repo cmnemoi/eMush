@@ -22,62 +22,44 @@ const getters = {
 
 const actions = {
     async selectTarget({ commit }, { target }) {
-        commit('selectTarget', target);
+        commit('setTarget', target);
     },
     async storePlayer({ commit }, { player }) {
-        commit('loadSuccess', player);
+        commit('updatePlayer', player);
     },
     async loadPlayer({ commit }, { playerId }) {
-        commit('loadRequest');
+        commit('setLoading', true);
         try {
             const player = await PlayerService.loadPlayer(playerId);
-            commit('loadSuccess', player);
+            commit('updatePlayer', player);
 
             return true;
         } catch (e) {
             if (e instanceof AuthenticationError) {
-                commit('loadError', { errorCode: e.errorCode, errorMessage: e.message });
+                commit('setError', { errorCode: e.errorCode, errorMessage: e.message });
             }
 
             return false;
         }
     },
-    async reloadPlayer({ commit, state }) {
-        commit('reloadRequest');
-        try {
-            const player = await PlayerService.loadPlayer(state.player.id);
-            commit('loadSuccess', player);
-            return true;
-        } catch (e) {
-            if (e instanceof AuthenticationError) {
-                commit('loadError', { errorCode: e.errorCode, errorMessage: e.message });
-            }
-
-            return false;
-        }
+    async reloadPlayer({ state, dispatch }) {
+        return dispatch("loadPlayer", { playerId: state.player.id });
     }
 };
 
 const mutations = {
-    selectTarget(state, target) {
+    setTarget(state, target) {
         state.target = target;
     },
-    loadRequest(state) {
-        state.player = null;
-        state.loading = true;
+    setLoading(state, newValue) {
+        state.loading = newValue;
     },
-
-    reloadRequest(state) {
-        state.loading = true;
-    },
-
-    loadSuccess(state, player) {
+    updatePlayer(state, player) {
         state.target = player;
         state.player = player;
         state.loading = false;
     },
-
-    loadError(state, { errorCode, errorMessage }) {
+    setError(state, { errorCode, errorMessage }) {
         state.playerErrorCode = errorCode;
         state.playerError = errorMessage;
     }

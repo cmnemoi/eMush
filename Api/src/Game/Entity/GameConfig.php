@@ -48,6 +48,11 @@ class GameConfig
     private Collection $triumphConfig;
 
     /**
+     * @ORM\OneToMany(targetEntity="Mush\Game\Entity\DifficultyConfig", mappedBy="gameConfig")
+     */
+    private DifficultyConfig $difficultyConfig;
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=false)
      */
     private string $name;
@@ -202,6 +207,21 @@ class GameConfig
     public function setEquipmentsConfig(Collection $equipmentsConfig): GameConfig
     {
         $this->equipmentsConfig = $equipmentsConfig;
+
+        return $this;
+    }
+
+    public function getDifficultyConfig(): DifficultyConfig
+    {
+        return $this->difficultyConfig;
+    }
+
+    /**
+     * @return static
+     */
+    public function setDifficultyConfig(DifficultyConfig $difficultyConfig): GameConfig
+    {
+        $this->difficultyConfig = $difficultyConfig;
 
         return $this;
     }

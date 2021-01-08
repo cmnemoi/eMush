@@ -68,7 +68,6 @@ class PlayerSubscriber implements EventSubscriberInterface
         $reason = $event->getReason();
 
         $this->playerService->playerDeath($player, $reason);
-
         if ($player->getEndStatus() !== EndCauseEnum::DEPRESSION) {
             /** @var Player $daedalusPlayer */
             foreach ($player->getDaedalus()->getPlayers()->getPlayerAlive() as $daedalusPlayer) {
@@ -77,6 +76,8 @@ class PlayerSubscriber implements EventSubscriberInterface
                     $actionModifier->setMoralPointModifier(-1);
                     $playerEvent = new PlayerEvent($daedalusPlayer, $event->getTime());
                     $playerEvent->setActionModifier($actionModifier);
+
+                    $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
                 }
             }
         }

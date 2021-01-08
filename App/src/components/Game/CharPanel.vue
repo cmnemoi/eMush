@@ -125,12 +125,15 @@ export default {
         selectItem: function(item) {
             this.selectTarget({ target: item });
         },
-        executeTargetAction: function (action) {
-            ActionService.executeTargetAction(this.getTarget, action).then(() => this.reloadPlayer());
+        async executeTargetAction(action) {
+            this.setLoading();
+            await ActionService.executeTargetAction(this.getTarget, action);
+            await this.reloadPlayer();
         },
         ...mapActions('player', [
             'reloadPlayer',
-            'selectTarget'
+            'selectTarget',
+            'setLoading'
         ])
     }
 };

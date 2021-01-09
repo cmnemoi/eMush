@@ -1,16 +1,16 @@
 <template>
     <div class="ship-panel" @click="clickOnTarget(getPlayer, $event)">
-        <p class="room">
+        <p v-if="! loading" class="room">
             {{ room.name }}
         </p>
-        <div class="ship-view">
+        <div v-if="! loading" class="ship-view">
             <div class="textual">
                 <h1>Doors</h1>
                 <div v-for="door in room.doors" :key="door.id" class="door">
                     <p>{{ door.direction }} :</p>
                     <ul>
                         <li v-for="(action,key) in door.actions" :key="key">
-                            <a href="#" @click="executeAction(door, action)">
+                            <a href="#" @click="executeDoorAction(door, action)">
                                 <span v-if="action.movementPointCost > 0">{{ action.movementPointCost }}<img src="@/assets/images/pm.png" alt="mp"></span>{{ action.name }}
                             </a>
                         </li>
@@ -31,7 +31,7 @@
                 </div>
             </div>
         </div> <!-- PLACEHOLDER -->
-        <div class="map-container">
+        <div v-if="! loading" class="map-container">
             <div class="map">
                 <img src="@/assets/images/shipmap.svg">
                 <ul class="crew-position">
@@ -54,7 +54,10 @@
                 </ul>
             </div>
         </div>
-        <RoomInventoryPanel :items="room.items" />
+        <RoomInventoryPanel v-if="! loading" :items="room.items" />
+        <p v-if="loading" class="loading">
+            Loading...
+        </p>
     </div>
 </template>
 
@@ -74,19 +77,23 @@ export default {
     },
     computed: {
         ...mapGetters('player', [
-            'getPlayer'
+            'getPlayer',
+            'loading'
         ])
     },
     methods: {
-        executeAction: function (door, action) {
-            ActionService.executeDoorAction(door, action).then(() => this.reloadPlayer());
+        async executeDoorAction(door, action) {
+            this.setLoading();
+            await ActionService.executeDoorAction(door, action);
+            await this.reloadPlayer();
         },
         clickOnTarget: function (target, event) {
             this.selectTarget({ target:target }); event.stopPropagation();
         },
         ...mapActions('player', [
             'reloadPlayer',
-            'selectTarget'
+            'selectTarget',
+            'setLoading'
         ])
     }
 };
@@ -99,12 +106,12 @@ export default {
     flex-direction: row;
     width: 424px;
     height: 460px;
+    background: #09092d url("~@/assets/images/shipview/background.png") center repeat;
 
     & .ship-view {
         position: absolute;
         width: 100%;
         height: 100%;
-        background: #09092d url("~@/assets/images/shipview/background.png") center repeat;
 
         @include corner-bezel(6.5px, 6.5px, 0);
     }

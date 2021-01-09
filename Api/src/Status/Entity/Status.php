@@ -7,6 +7,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Equipment\Entity\ConsumableEffect;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
+use Mush\Room\Entity\Room;
 
 /**
  * Class Status.
@@ -52,6 +53,11 @@ class Status
      * @ORM\ManyToOne(targetEntity="Mush\Equipment\Entity\GameEquipment", inversedBy="statuses")
      */
     protected ?GameEquipment $gameEquipment = null;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Mush\Room\Entity\Room", inversedBy="statuses")
+     */
+    protected ?Room $room = null;
 
     /**
      * @ORM\OneToOne(targetEntity="Mush\Equipment\Entity\ConsumableEffect", cascade={"ALL"}, orphanRemoval=true)
@@ -139,6 +145,32 @@ class Status
             }
             if ($oldEquipment !== null) {
                 $oldEquipment->removeStatus($this);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getRoom(): ?Room
+    {
+        return $this->room;
+    }
+
+    /**
+     * @return static
+     */
+    public function setRoom(?Room $room): Status
+    {
+        if ($room !== $this->room) {
+            $oldRoom = $this->getRoom();
+
+            $this->room = $room;
+
+            if ($room !== null) {
+                $room->addStatus($this);
+            }
+            if ($oldRoom !== null) {
+                $oldRoom->removeStatus($this);
             }
         }
 

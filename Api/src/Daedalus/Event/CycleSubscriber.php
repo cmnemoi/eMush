@@ -58,7 +58,7 @@ class CycleSubscriber implements EventSubscriberInterface
 
         $daedalus = $this->handleOxygen($daedalus);
 
-        //@TODO When everything is added check that everithing happens in the right order
+        //@TODO When everything is added check that everything happens in the right order
         $this->daedalusService->persist($daedalus);
     }
 

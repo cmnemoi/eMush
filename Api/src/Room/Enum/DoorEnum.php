@@ -44,4 +44,30 @@ class DoorEnum
     public const ENGINE_ROOM_REAR_BRAVO_TURRET = 'engine_room_rear_bravo_turret';
     public const REAR_ALPHA_TURRET_BAY_ALPHA_2 = 'rear_alpha_turret_bay_alpha_2';
     public const REAR_BRAVO_TURRET_BAY_ICARUS = 'rear_bravo_turret_bay_icarus';
+
+    public static function isUnbreakable(string $doorName): bool
+    {
+        return in_array($doorName, [
+            self::BRIDGE_FRONT_BRAVO_TURRET,
+            self::FRONT_CORRIDOR_FRONT_BRAVO_TURRET,
+            self::MEDLAB_LABORATORY,
+            self::FRONT_CORRIDOR_GARDEN,
+            self::FRONT_CORRIDOR_FRONT_STORAGE,
+            self::FRONT_STORAGE_CENTRAL_ALPHA_TURRET,
+            self::BRAVO_BAY_CENTRAL_BRAVO_TURRET,
+            self::REFECTORY_CENTRAL_CORRIDOR,
+            self::BRAVO_BAY_CENTER_BRAVO_STORAGE,
+            self::ALPHA_BAY_CENTER_ALPHA_STORAGE,
+            self::ALPHA_BAY_ALPHA_DORM,
+            self::REAR_CORRIDOR_ALPHA_DORM,
+            self::REAR_CORRIDOR_BRAVO_DORM,
+            self::REAR_CORRIDOR_NEXUS,
+            self::BRAVO_BAY_REAR_CORRIDOR,
+            self::REAR_BRAVO_TURRET_BAY_ICARUS,
+            self::ENGINE_ROOM_REAR_ALPHA_STORAGE,
+            self::ENGINE_ROOM_REAR_BRAVO_STORAGE,
+            self::ENGINE_ROOM_BAY_ALPHA_2,
+            self::ENGINE_ROOM_REAR_ALPHA_TURRET,
+        ]);
+    }
 }

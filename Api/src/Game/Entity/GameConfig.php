@@ -11,7 +11,7 @@ use Mush\Game\Entity\Collection\CharacterConfigCollection;
 use Mush\Game\Entity\Collection\TriumphConfigCollection;
 
 /**
- * Class Daedalus.
+ * Class GameConfig.
  *
  * @ORM\Entity(repositoryClass="Mush\Game\Repository\GameConfigRepository")
  * @ORM\Table(name="config_game")
@@ -46,6 +46,11 @@ class GameConfig
      * @ORM\OneToMany(targetEntity="Mush\Game\Entity\TriumphConfig", mappedBy="gameConfig")
      */
     private Collection $triumphConfig;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Mush\Game\Entity\DifficultyConfig", mappedBy="gameConfig")
+     */
+    private DifficultyConfig $difficultyConfig;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=false)
@@ -202,6 +207,21 @@ class GameConfig
     public function setEquipmentsConfig(Collection $equipmentsConfig): GameConfig
     {
         $this->equipmentsConfig = $equipmentsConfig;
+
+        return $this;
+    }
+
+    public function getDifficultyConfig(): DifficultyConfig
+    {
+        return $this->difficultyConfig;
+    }
+
+    /**
+     * @return static
+     */
+    public function setDifficultyConfig(DifficultyConfig $difficultyConfig): GameConfig
+    {
+        $this->difficultyConfig = $difficultyConfig;
 
         return $this;
     }

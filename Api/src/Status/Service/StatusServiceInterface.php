@@ -5,6 +5,7 @@ namespace Mush\Status\Service;
 use Doctrine\Common\Collections\Collection;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
+use Mush\Room\Entity\Room;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\ChargeStatus;
@@ -16,10 +17,13 @@ interface StatusServiceInterface
 
     public function createCoreEquipmentStatus(string $statusName, GameEquipment $gameEquipment, string $visibilty = VisibilityEnum::PUBLIC): Status;
 
+    public function createCoreRoomStatus(string $statusName, Room $room, string $visibilty = VisibilityEnum::PUBLIC): Status;
+
     public function createChargeEquipmentStatus(
         string $statusName,
         GameEquipment $gameEquipment,
         string $strategy,
+        string $visibilty = VisibilityEnum::PUBLIC,
         int $charge = 0,
         int $threshold = null,
         bool $autoRemove = false
@@ -29,6 +33,17 @@ interface StatusServiceInterface
         string $statusName,
         Player $player,
         string $strategy,
+        string $visibilty = VisibilityEnum::PUBLIC,
+        int $charge = 0,
+        int $threshold = null,
+        bool $autoRemove = false
+    ): ChargeStatus;
+
+    public function createChargeRoomStatus(
+        string $statusName,
+        Room $room,
+        string $strategy,
+        string $visibilty = VisibilityEnum::PUBLIC,
         int $charge = 0,
         int $threshold = null,
         bool $autoRemove = false

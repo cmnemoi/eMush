@@ -28,7 +28,7 @@ To have a working dev environment, follow the following steps
 
 Clone the project
 ```
-git clone git@gitlab.com:eternal-twin/mush.git
+git clone git@gitlab.com:eternal-twin/mush/mush.git
 ```
 Checkout to develop:
 ```
@@ -47,10 +47,6 @@ Copy the Eternal-Twin config:
 cp ./EternalTwin/etwin.toml.example ./EternalTwin/etwin.toml
 ```
 
-Start Eternal-Twin:
-```
-yarn etwin
-```
 
 Build the docker containers:
 ```

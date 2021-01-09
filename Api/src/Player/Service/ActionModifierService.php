@@ -188,6 +188,7 @@ class ActionModifierService implements ActionModifierServiceInterface
                 PlayerStatusEnum::FULL_STOMACH,
                 $player,
                 ChargeStrategyTypeEnum::CYCLE_DECREMENT,
+                VisibilityEnum::PUBLIC,
                 2,
                 0,
                 true

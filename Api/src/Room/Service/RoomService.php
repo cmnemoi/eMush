@@ -148,7 +148,6 @@ class RoomService implements RoomServiceInterface
             //primary fire deal damage on the first cycle
             $fireStatus->setCharge(0);
             $this->propagateFire($room);
-
         }
 
         return $room;

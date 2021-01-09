@@ -240,7 +240,6 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         if ($gameEquipment->getEquipment()->getBreakableRate() > 0 &&
             !$gameEquipment->getStatusByName(EquipmentStatusEnum::BROKEN) &&
             $this->randomService->isSuccessfull($this->gameConfig->getDifficultyConfig()->getEquipmentBreakRate())) {
-
             $this->statusService->createCoreEquipmentStatus(EquipmentStatusEnum::BROKEN, $gameEquipment);
         }
 

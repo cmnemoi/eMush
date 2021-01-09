@@ -71,9 +71,9 @@ abstract class AttemptAction extends AbstractAction
 
         $successChance = $this->getSuccessRate();
 
-        $random = $this->randomService->randomPercent();
+        $random = $this->randomService->isSuccessfull($successChance);
 
-        if ($random <= $successChance) {
+        if ($random) {
             $this->player->removeStatus($attempt);
             $response = new Success();
         } else {

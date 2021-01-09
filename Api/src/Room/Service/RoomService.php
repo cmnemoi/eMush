@@ -142,12 +142,13 @@ class RoomService implements RoomServiceInterface
 
         if ($fireStatus && $fireStatus->getCharge() === 0) {
             $this->propagateFire($room);
-        } elseif ($this->randomService->randomPercent() < $this->gameConfig->getDifficultyConfig()->getStartingFireRate()) {
+        } elseif ($this->randomService->isSuccessfull($this->gameConfig->getDifficultyConfig()->getStartingFireRate())) {
             $fireStatus = $this->startFire($room);
 
             //primary fire deal damage on the first cycle
             $fireStatus->setCharge(0);
             $this->propagateFire($room);
+
         }
 
         return $room;
@@ -165,7 +166,7 @@ class RoomService implements RoomServiceInterface
             $fireStatus = $room->getStatusByName(StatusEnum::FIRE);
 
             if (!$fireStatus instanceof ChargeStatus) {
-                throw new \LogicException('Parameter is not a document');
+                throw new \LogicException('Fire is not a charged Status');
             }
 
             $fireStatus->setCharge(0);
@@ -181,7 +182,7 @@ class RoomService implements RoomServiceInterface
         foreach ($room->getDoors() as $door) {
             $adjacentRoom = $door->getOtherRoom($room);
 
-            if ($this->randomService->randomPercent() < $this->gameConfig->getDifficultyConfig()->getPropagatingFireRate()) {
+            if ($this->randomService->isSuccessfull($this->gameConfig->getDifficultyConfig()->getPropagatingFireRate())) {
                 $this->startFire($adjacentRoom);
             }
         }

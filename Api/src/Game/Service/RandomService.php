@@ -22,6 +22,11 @@ class RandomService implements RandomServiceInterface
         return $this->random(1, 100);
     }
 
+    public function isSuccessfull(int $successRate): bool
+    {
+        return $this->randomPercent() <= $successRate;
+    }
+
     public function getRandomPlayer(PlayerCollection $players): Player
     {
         if ($players->isEmpty()) {

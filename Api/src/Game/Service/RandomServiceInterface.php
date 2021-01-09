@@ -14,6 +14,8 @@ interface RandomServiceInterface
 
     public function randomPercent(): int;
 
+    public function isSuccessfull(int $successRate): bool;
+
     public function getRandomPlayer(PlayerCollection $players): Player;
 
     public function getPlayerInRoom(Room $room): Player;

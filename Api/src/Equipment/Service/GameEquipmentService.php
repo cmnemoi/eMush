@@ -227,7 +227,8 @@ class GameEquipmentService implements GameEquipmentServiceInterface
     public function breakDoorCycle(GameEquipment $gameEquipment): void
     {
         if (!DoorEnum::isUnbreakable($gameEquipment->getName()) &&
-            $this->randomService->randomPercent() < $this->gameConfig->getDifficultyConfig()->getEquipmentBreakRate()) {
+            !$gameEquipment->getStatusByName(EquipmentStatusEnum::BROKEN) &&
+            $this->randomService->isSuccessfull($this->gameConfig->getDifficultyConfig()->getDoorBreakRate())) {
             $this->statusService->createCoreEquipmentStatus(EquipmentStatusEnum::BROKEN, $gameEquipment);
         }
 
@@ -236,7 +237,9 @@ class GameEquipmentService implements GameEquipmentServiceInterface
 
     public function breakEquipmentCycle(GameEquipment $gameEquipment): void
     {
-        if ($this->randomService->randomPercent() < $this->gameConfig->getDifficultyConfig()->getEquipmentBreakRate()) {
+        if ($gameEquipment->getEquipment()->getBreakableRate() > 0 &&
+            !$gameEquipment->getStatusByName(EquipmentStatusEnum::BROKEN) &&
+            $this->randomService->isSuccessfull($this->gameConfig->getDifficultyConfig()->getEquipmentBreakRate())) {
             $this->statusService->createCoreEquipmentStatus(EquipmentStatusEnum::BROKEN, $gameEquipment);
         }
 

@@ -3,15 +3,21 @@
 namespace functional\Action\Event;
 
 use App\Tests\FunctionalTester;
+use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Entity\Action;
 use Mush\Action\Event\ActionEvent;
 use Mush\Action\Event\ActionSubscriber;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
+use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\GearItemEnum;
+use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Entity\GameConfig;
+use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\ModifierScopeEnum;
+use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Room\Entity\Room;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -75,6 +81,21 @@ class ActionSubscriberCest
 
         /** @var ItemConfig $itemConfig */
         $itemConfig = $I->have(ItemConfig::class, ['name' => GearItemEnum::STAINPROOF_APRON]);
+
+        $gear = new Gear();
+        $modifier = new Modifier();
+        $modifier
+            ->setReach(ReachEnum::INVENTORY)
+            ->setDelta(-100)
+            ->setTarget(ModifierTargetEnum::PERCENTAGE)
+            ->setScope(ModifierScopeEnum::EVENT_DIRTY)
+        ;
+        $I->haveInRepository($modifier);
+        $gear->setModifier($modifier);
+        $itemConfig->setMechanics(new ArrayCollection([$gear]));
+        $I->haveInRepository($gear);
+        $I->haveInRepository($itemConfig);
+
         $gameItem = new GameItem();
         $gameItem
             ->setName($itemConfig->getName())

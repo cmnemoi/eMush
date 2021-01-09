@@ -71,9 +71,7 @@ class Repair extends AttemptAction
 
     protected function applyEffects(): ActionResult
     {
-        $modificator = 1; //@TODO: skills, wrench
-
-        $response = $this->makeAttempt($this->gameEquipment->getBrokenRate(), $modificator);
+        $response = $this->makeAttempt();
 
         if ($response instanceof Success &&
             ($brokenStatus = $this->gameEquipment->getStatusByName(EquipmentStatusEnum::BROKEN))
@@ -101,5 +99,10 @@ class Repair extends AttemptAction
             VisibilityEnum::PUBLIC,
             new \DateTime('now')
         );
+    }
+
+    protected function getBaseRate(): int
+    {
+        return $this->gameEquipment->getBrokenRate();
     }
 }

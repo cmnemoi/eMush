@@ -72,9 +72,7 @@ class Sabotage extends AttemptAction
 
     protected function applyEffects(): ActionResult
     {
-        $modificator = 1; //@TODO: skills, wrench
-
-        $response = $this->makeAttempt($this->gameEquipment->getBrokenRate(), $modificator);
+        $response = $this->makeAttempt();
 
         if ($response instanceof Success) {
             $this->statusService->createCoreEquipmentStatus(EquipmentStatusEnum::BROKEN, $this->gameEquipment);
@@ -99,5 +97,10 @@ class Sabotage extends AttemptAction
             VisibilityEnum::PUBLIC,
             new \DateTime('now')
         );
+    }
+
+    protected function getBaseRate(): int
+    {
+        return $this->gameEquipment->getBrokenRate();
     }
 }

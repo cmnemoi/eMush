@@ -47,6 +47,14 @@ class ActionServiceTest extends TestCase
         );
     }
 
+    /**
+     * @after
+     */
+    public function after()
+    {
+        Mockery::close();
+    }
+
     public function testHandleActionSideEffectDirty()
     {
         $action = new Action();
@@ -99,7 +107,7 @@ class ActionServiceTest extends TestCase
         $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->withArgs(
-                fn (PlayerEvent $playerEvent, string $eventName) => ($playerEvent->getActionModifier()->getHealthPointModifier() === -2)
+                fn (PlayerEvent $playerEvent, string $eventName) => ((int) $playerEvent->getModifier()->getDelta() === -2)
             )
             ->once()
         ;

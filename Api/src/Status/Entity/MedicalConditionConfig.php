@@ -4,8 +4,6 @@ namespace Mush\Status\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Game\Entity\GameConfig;
-use Mush\Player\Entity\ActionModifier;
-use Mush\Player\Entity\PlayerModifier;
 
 /**
  * Class Condition.
@@ -41,16 +39,6 @@ class MedicalConditionConfig
      * Duration is -1 for permanent effects
      */
     private int $duration;
-
-    /**
-     * @ORM\OneToOne (targetEntity="Mush\Player\Entity\ActionModifier", cascade={"ALL"}, orphanRemoval=true)
-     */
-    private ?ActionModifier $actionModifier = null;
-
-    /**
-     * @ORM\OneToOne (targetEntity="Mush\Player\Entity\PlayerModifier", cascade={"ALL"}, orphanRemoval=true)
-     */
-    private ?PlayerModifier $playerModifier = null;
 
     /**
      * @ORM\Column(type="array", nullable=false)
@@ -118,36 +106,6 @@ class MedicalConditionConfig
     public function setDuration(int $duration): MedicalConditionConfig
     {
         $this->duration = $duration;
-
-        return $this;
-    }
-
-    public function getActionModifier(): ?ActionModifier
-    {
-        return $this->actionModifier;
-    }
-
-    /**
-     * @return static
-     */
-    public function setActionModifier(?ActionModifier $actionModifier): MedicalConditionConfig
-    {
-        $this->actionModifier = $actionModifier;
-
-        return $this;
-    }
-
-    public function getPlayerModifier(): ?PlayerModifier
-    {
-        return $this->playerModifier;
-    }
-
-    /**
-     * @return static
-     */
-    public function setPlayerModifier(?PlayerModifier $playerModifier): MedicalConditionConfig
-    {
-        $this->playerModifier = $playerModifier;
 
         return $this;
     }

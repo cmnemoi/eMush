@@ -68,7 +68,6 @@ class ActionsFixtures extends Fixture
 
         $moveAction
             ->setName(ActionEnum::MOVE)
-            ->setType([])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(1)
             ->setActionCost($moveCost)
@@ -79,7 +78,6 @@ class ActionsFixtures extends Fixture
         $searchAction = new Action();
         $searchAction
             ->setName(ActionEnum::SEARCH)
-            ->setType([])
             ->setScope(ActionScopeEnum::SELF)
             ->setActionCost($oneActionPointCost)
         ;
@@ -88,7 +86,7 @@ class ActionsFixtures extends Fixture
         $hitAction = new Action();
         $hitAction
             ->setName(ActionEnum::HIT)
-            ->setType([])
+            ->setTypes([]) //@TODO
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setInjuryRate(1)
             ->setActionCost($oneActionPointCost)
@@ -107,7 +105,6 @@ class ActionsFixtures extends Fixture
         $takeItemAction = new Action();
         $takeItemAction
             ->setName(ActionEnum::TAKE)
-            ->setType([])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(1)
             ->setActionCost($freeCost)
@@ -118,7 +115,6 @@ class ActionsFixtures extends Fixture
         $dropItemAction = new Action();
         $dropItemAction
             ->setName(ActionEnum::DROP)
-            ->setType([])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(1)
             ->setActionCost($freeCost)
@@ -129,7 +125,6 @@ class ActionsFixtures extends Fixture
         $rationConsumeAction = new Action();
         $rationConsumeAction
             ->setName(ActionEnum::CONSUME)
-            ->setType([])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(0)
             ->setDirtyRate(50)
@@ -141,7 +136,6 @@ class ActionsFixtures extends Fixture
         $drugConsumeAction = new Action();
         $drugConsumeAction
             ->setName(ActionEnum::CONSUME)
-            ->setType([])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(0)
             ->setDirtyRate(10)
@@ -153,7 +147,6 @@ class ActionsFixtures extends Fixture
         $buildAction = new Action();
         $buildAction
             ->setName(ActionEnum::BUILD)
-            ->setType([])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(25)
             ->setDirtyRate(50)
@@ -165,7 +158,6 @@ class ActionsFixtures extends Fixture
         $readAction = new Action();
         $readAction
             ->setName(ActionEnum::READ_BOOK)
-            ->setType([])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(0)
             ->setDirtyRate(0)
@@ -177,7 +169,7 @@ class ActionsFixtures extends Fixture
         $attackAction = new Action();
         $attackAction
             ->setName(ActionEnum::ATTACK)
-            ->setType([])
+            ->setTypes([]) //@TODO
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setInjuryRate(0)
             ->setDirtyRate(0)
@@ -189,7 +181,6 @@ class ActionsFixtures extends Fixture
         $extinguishAction = new Action();
         $extinguishAction
             ->setName(ActionEnum::EXTINGUISH)
-            ->setType([])
             ->setScope(ActionScopeEnum::SELF)
             ->setInjuryRate(0)
             ->setDirtyRate(25)
@@ -201,7 +192,6 @@ class ActionsFixtures extends Fixture
         $tryKubeAction = new Action();
         $tryKubeAction
             ->setName(ActionEnum::TRY_THE_KUBE)
-            ->setType([])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost($oneActionPointCost)
         ;
@@ -211,7 +201,6 @@ class ActionsFixtures extends Fixture
         $openSpaceCapsuleAction = new Action();
         $openSpaceCapsuleAction
             ->setName(ActionEnum::OPEN)
-            ->setType([])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost($oneActionPointCost)
         ;
@@ -221,7 +210,6 @@ class ActionsFixtures extends Fixture
         $injectSerumAction = new Action();
         $injectSerumAction
             ->setName(ActionEnum::CURE)
-            ->setType([])
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setActionCost($oneActionPointCost)
         ;
@@ -231,7 +219,6 @@ class ActionsFixtures extends Fixture
         $bandageAction = new Action();
         $bandageAction
             ->setName(ActionEnum::USE_BANDAGE)
-            ->setType([])
             ->setScope(ActionScopeEnum::SELF)
             ->setActionCost($oneActionPointCost)
         ;
@@ -253,7 +240,8 @@ class ActionsFixtures extends Fixture
             ->setName(ActionEnum::COOK)
             ->setScope(ActionScopeEnum::ROOM)
             ->setTarget(GameItem::class)
-            ->setActionCost($freeCost)
+            ->setActionCost($oneActionPointCost)
+            ->setDirtyRate(50)
         ;
 
         $manager->persist($cookAction);
@@ -261,7 +249,6 @@ class ActionsFixtures extends Fixture
         $selfHealAction = new Action();
         $selfHealAction
             ->setName(ActionEnum::SELF_HEAL)
-            ->setType([])
             ->setScope(ActionScopeEnum::SELF)
             ->setActionCost($threeActionPointCost)
         ;
@@ -271,7 +258,6 @@ class ActionsFixtures extends Fixture
         $healAction = new Action();
         $healAction
             ->setName(ActionEnum::HEAL)
-            ->setType([])
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setActionCost($twoActionPointCost)
         ;
@@ -281,7 +267,6 @@ class ActionsFixtures extends Fixture
         $ultraHealAction = new Action();
         $ultraHealAction
             ->setName(ActionEnum::ULTRAHEAL)
-            ->setType([])
             ->setScope(ActionScopeEnum::SELF)
             ->setActionCost($twoActionPointCost)
         ;
@@ -291,7 +276,6 @@ class ActionsFixtures extends Fixture
         $writeAction = new Action();
         $writeAction
             ->setName(ActionEnum::WRITE)
-            ->setType([])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost($freeCost)
         ;
@@ -301,7 +285,6 @@ class ActionsFixtures extends Fixture
         $hyperfreezAction = new Action();
         $hyperfreezAction
             ->setName(ActionEnum::HYPERFREEZE)
-            ->setType([])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost($oneActionPointCost)
         ;
@@ -311,7 +294,6 @@ class ActionsFixtures extends Fixture
         $gagAction = new Action();
         $gagAction
             ->setName(ActionEnum::GAG)
-            ->setType([])
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setActionCost($oneActionPointCost)
         ;
@@ -321,7 +303,6 @@ class ActionsFixtures extends Fixture
         $showerAction = new Action();
         $showerAction
             ->setName(ActionEnum::SHOWER)
-            ->setType([])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost($twoActionPointCost)
         ;
@@ -331,7 +312,6 @@ class ActionsFixtures extends Fixture
         $fuelInjectAction = new Action();
         $fuelInjectAction
             ->setName(ActionEnum::INSERT_FUEL)
-            ->setType([])
             ->setScope(ActionScopeEnum::ROOM)
             ->setTarget(GameItem::class)
             ->setActionCost($freeCost)
@@ -342,7 +322,6 @@ class ActionsFixtures extends Fixture
         $retrieveFuelAction = new Action();
         $retrieveFuelAction
             ->setName(ActionEnum::RETRIEVE_FUEL)
-            ->setType([])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost($freeCost)
         ;
@@ -352,7 +331,6 @@ class ActionsFixtures extends Fixture
         $oxygenInjectAction = new Action();
         $oxygenInjectAction
             ->setName(ActionEnum::INSERT_OXYGEN)
-            ->setType([])
             ->setScope(ActionScopeEnum::ROOM)
             ->setTarget(GameItem::class)
             ->setActionCost($freeCost)
@@ -363,7 +341,6 @@ class ActionsFixtures extends Fixture
         $retrieveOxygenAction = new Action();
         $retrieveOxygenAction
             ->setName(ActionEnum::RETRIEVE_OXYGEN)
-            ->setType([])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost($freeCost)
         ;
@@ -373,7 +350,6 @@ class ActionsFixtures extends Fixture
         $lieDownActon = new Action();
         $lieDownActon
             ->setName(ActionEnum::LIE_DOWN)
-            ->setType([])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost($freeCost)
         ;
@@ -383,7 +359,6 @@ class ActionsFixtures extends Fixture
         $coffeeAction = new Action();
         $coffeeAction
             ->setName(ActionEnum::COFFEE)
-            ->setType([])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(50)
             ->setActionCost($freeCost)
@@ -394,7 +369,6 @@ class ActionsFixtures extends Fixture
         $transplantAction = new Action();
         $transplantAction
             ->setName(ActionEnum::TRANSPLANT)
-            ->setType([])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost($twoActionPointCost)
         ;
@@ -404,7 +378,6 @@ class ActionsFixtures extends Fixture
         $treatPlantAction = new Action();
         $treatPlantAction
             ->setName(ActionEnum::TREAT_PLANT)
-            ->setType([])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(50)
             ->setActionCost($twoActionPointCost)
@@ -415,7 +388,6 @@ class ActionsFixtures extends Fixture
         $waterPlantAction = new Action();
         $waterPlantAction
             ->setName(ActionEnum::WATER_PLANT)
-            ->setType([])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(50)
             ->setActionCost($oneActionPointCost)
@@ -426,7 +398,6 @@ class ActionsFixtures extends Fixture
         $sabotageAction = new Action();
         $sabotageAction
             ->setName(ActionEnum::SABOTAGE)
-            ->setType([])
             ->setScope(ActionScopeEnum::ROOM)
             ->setDirtyRate(20)
             ->setInjuryRate(20)
@@ -438,7 +409,6 @@ class ActionsFixtures extends Fixture
         $extractSporeAction = new Action();
         $extractSporeAction
             ->setName(ActionEnum::EXTRACT_SPORE)
-            ->setType([])
             ->setScope(ActionScopeEnum::SELF)
             ->setActionCost($twoActionPointCost)
             ->setDirtyRate(101)
@@ -449,7 +419,6 @@ class ActionsFixtures extends Fixture
         $infectAction = new Action();
         $infectAction
             ->setName(ActionEnum::INFECT)
-            ->setType([])
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setActionCost($oneActionPointCost)
         ;

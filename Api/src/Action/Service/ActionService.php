@@ -3,11 +3,14 @@
 namespace Mush\Action\Service;
 
 use Mush\Action\Entity\Action;
-use Mush\Equipment\Enum\GearItemEnum;
+use Mush\Equipment\Entity\Mechanics\Gear;
+use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Player\Entity\ActionModifier;
+use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
+use Mush\Player\Enum\ModifierScopeEnum;
+use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -43,11 +46,20 @@ class ActionService implements ActionServiceInterface
         $isSuperDirty = $dirtyRate > 100;
         if (!$player->hasStatus(PlayerStatusEnum::DIRTY) &&
             $dirtyRate > 0 &&
-            $this->randomService->randomPercent() < $dirtyRate
+            ($percent = $this->randomService->randomPercent()) < $dirtyRate
         ) {
-            if (!$isSuperDirty &&
-                $player->hasItemByName(GearItemEnum::STAINPROOF_APRON)
-            ) {
+            $gears = $player->getApplicableGears(
+                [ModifierScopeEnum::EVENT_DIRTY],
+                [ReachEnum::INVENTORY],
+                ModifierTargetEnum::PERCENTAGE
+            );
+
+            /** @var Gear $gear */
+            foreach ($gears as $gear) {
+                $dirtyRate += $gear->getModifier()->getDelta();
+            }
+
+            if (!$isSuperDirty && $percent >= $dirtyRate) {
                 $this->roomLogService->createPlayerLog(
                     LogEnum::SOIL_PREVENTED,
                     $player->getRoom(),
@@ -85,10 +97,26 @@ class ActionService implements ActionServiceInterface
 
     private function dispatchPlayerInjuryEvent(Player $player, ?\DateTime $dateTime = null): void
     {
-        $playerActionModifier = new ActionModifier();
-        $playerActionModifier->setHealthPointModifier(self::ACTION_INJURY_MODIFIER);
+        $gears = $player->getApplicableGears(
+            [ModifierScopeEnum::EVENT_CLUMSINESS],
+            [ReachEnum::INVENTORY],
+            ModifierTargetEnum::HEALTH_POINT
+        );
+
+        $defaultDelta = self::ACTION_INJURY_MODIFIER;
+        /** @var Gear $gear */
+        foreach ($gears as $gear) {
+            $defaultDelta -= $gear->getModifier()->getDelta();
+        }
+
+        $modifier = new Modifier();
+        $modifier
+            ->setDelta($defaultDelta)
+            ->setTarget(ModifierTargetEnum::HEALTH_POINT)
+        ;
+
         $playerEvent = new PlayerEvent($player, $dateTime);
-        $playerEvent->setActionModifier($playerActionModifier);
+        $playerEvent->setModifier($modifier);
         $playerEvent->setReason(EndCauseEnum::CLUMSINESS);
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
     }

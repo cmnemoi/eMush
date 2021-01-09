@@ -12,7 +12,7 @@ use Mush\Equipment\Entity\Mechanics\Drug;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Player\Entity\ActionModifier;
+use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Service\PlayerServiceInterface;
@@ -81,20 +81,21 @@ class Consume extends AbstractAction
         // @TODO add disease, cures and extra effects
         $equipmentEffect = $this->equipmentServiceEffect->getConsumableEffect($rationType, $this->player->getDaedalus());
 
-        $actionModifier = new ActionModifier();
+        $actionModifier = new Modifier();
 
         if (!$this->player->isMush()) {
-            $actionModifier
-                ->setActionPointModifier($equipmentEffect->getActionPoint())
-                ->setMovementPointModifier($equipmentEffect->getMovementPoint())
-                ->setHealthPointModifier($equipmentEffect->getHealthPoint())
-                ->setMoralPointModifier($equipmentEffect->getMoralPoint())
-            ;
+            //@TODO
+//            $actionModifier
+//                ->setActionPointModifier($equipmentEffect->getActionPoint())
+//                ->setMovementPointModifier($equipmentEffect->getMovementPoint())
+//                ->setHealthPointModifier($equipmentEffect->getHealthPoint())
+//                ->setMoralPointModifier($equipmentEffect->getMoralPoint())
+//            ;
         }
-        $actionModifier->setSatietyModifier($equipmentEffect->getSatiety());
+//        $actionModifier->setSatietyModifier($equipmentEffect->getSatiety());
 
         $playerEvent = new PlayerEvent($this->player);
-        $playerEvent->setActionModifier($actionModifier);
+        $playerEvent->setModifier($actionModifier);
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
 
         // If the ration is a drug player get Drug_Eaten status that prevent it from eating another drug this cycle.

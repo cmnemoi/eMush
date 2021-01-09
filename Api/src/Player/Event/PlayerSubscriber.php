@@ -4,9 +4,10 @@ namespace Mush\Player\Event;
 
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Game\Enum\GameStatusEnum;
-use Mush\Player\Entity\ActionModifier;
+use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
+use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Service\ActionModifierServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\LogEnum;
@@ -72,10 +73,13 @@ class PlayerSubscriber implements EventSubscriberInterface
             /** @var Player $daedalusPlayer */
             foreach ($player->getDaedalus()->getPlayers()->getPlayerAlive() as $daedalusPlayer) {
                 if ($daedalusPlayer !== $player) {
-                    $actionModifier = new ActionModifier();
-                    $actionModifier->setMoralPointModifier(-1);
+                    $actionModifier = new Modifier();
+                    $actionModifier
+                        ->setDelta(-1)
+                        ->setTarget(ModifierTargetEnum::MORAL_POINT)
+                    ;
                     $playerEvent = new PlayerEvent($daedalusPlayer, $event->getTime());
-                    $playerEvent->setActionModifier($actionModifier);
+                    $playerEvent->setModifier($actionModifier);
 
                     $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
                 }
@@ -97,7 +101,7 @@ class PlayerSubscriber implements EventSubscriberInterface
     public function onModifierPlayer(PlayerEvent $playerEvent): void
     {
         $player = $playerEvent->getPlayer();
-        $playerModifier = $playerEvent->getActionModifier();
+        $playerModifier = $playerEvent->getModifier();
 
         if ($playerModifier === null) {
             return;

@@ -12,9 +12,10 @@ use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\SkillMushEnum;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Player\Entity\ActionModifier;
+use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
+use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\ActionLogEnum;
@@ -62,9 +63,7 @@ class Hit extends AttemptAction
 
     protected function applyEffects(): ActionResult
     {
-        $baseRate = 50;
-        $modificator = 1; //@TODO
-        $result = $this->makeAttempt($baseRate, $modificator);
+        $result = $this->makeAttempt();
 
         if ($result instanceof Success) {
             $damage = $this->randomService->random(1, 3);
@@ -84,11 +83,14 @@ class Hit extends AttemptAction
             if ($damage <= 0) {
                 // TODO:
             } else {
-                $actionModifier = new ActionModifier();
-                $actionModifier->setHealthPointModifier(-$damage);
+                $actionModifier = new Modifier();
+                $actionModifier
+                    ->setDelta(-$damage)
+                    ->setTarget(ModifierTargetEnum::HEALTH_POINT)
+                ;
 
                 $playerEvent = new PlayerEvent($this->target);
-                $playerEvent->setActionModifier($actionModifier);
+                $playerEvent->setModifier($actionModifier);
                 $playerEvent->setReason(EndCauseEnum::ASSASSINATED);
                 $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
 
@@ -97,5 +99,10 @@ class Hit extends AttemptAction
         }
 
         return new Success(ActionLogEnum::HIT_SUCCESS, VisibilityEnum::PUBLIC);
+    }
+
+    protected function getBaseRate(): int
+    {
+        return 50;
     }
 }

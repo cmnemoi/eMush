@@ -162,7 +162,7 @@ class ExtinguishActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
         $this->successRateService->shouldReceive('getSuccessRate')->andReturn(10)->once();
-        $this->randomService->shouldReceive('randomPercent')->andReturn(100)->once();
+        $this->randomService->shouldReceive('isSuccessfull')->andReturn(false)->once();
 
         //Fail try
         $result = $this->action->execute();
@@ -175,7 +175,7 @@ class ExtinguishActionTest extends AbstractActionTest
         $this->assertEquals(9, $player->getActionPoint());
 
         $this->successRateService->shouldReceive('getSuccessRate')->andReturn(10)->once();
-        $this->randomService->shouldReceive('randomPercent')->andReturn(1)->once();
+        $this->randomService->shouldReceive('isSuccessfull')->andReturn(true)->once();
         $this->statusService->shouldReceive('delete')->once();
 
         //Success

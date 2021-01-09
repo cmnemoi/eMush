@@ -13,7 +13,7 @@
         <div class="item-actions">
             <ul v-if="selectedItem !== null">
                 <li v-for="(action,key) in selectedItem.actions" :key="key">
-                    <a href="#" @click="executeAction(action)">
+                    <a href="#" @click="executeItemAction(action)">
                         <span v-if="action.actionPointCost > 0">{{ action.actionPointCost }}<img src="@/assets/images/pa.png" alt="ap"></span>{{ action.name }}
                     </a>
                 </li>
@@ -47,11 +47,14 @@ export default {
             const statusImages = statusItemEnum[status.key];
             return typeof statusImages !== 'undefined' ? statusImages.icon : null;
         },
-        executeAction: function(action) {
-            ActionService.executeItemAction(this.selectedItem, action).then(() => this.reloadPlayer());
+        async executeItemAction(action) {
+            this.setLoading();
+            await ActionService.executeItemAction(this.selectedItem, action);
+            await this.reloadPlayer();
         },
         ...mapActions('player', [
-            'reloadPlayer'
+            'reloadPlayer',
+            'setLoading'
         ])
     }
 };

@@ -24,12 +24,12 @@
   "file" : "zhong_chun",
   "color" : "#DDD3CA",
   "short" : {
-	"en" : "",
+	"en" : "Everyone on board is important, but she is Humanity's last hope!",
 	"fr" : "Dernier espoir de l'Humanité",
-	"es" : ""
+	"es" : "Última esperanza para la humanidad"
   },
   "intro" : {
-	"en" : "",
+	"en" : "Our last hope. She must survive and make the journey to Eden. She inspires the crew to achieve more, and when misfortune befalls her comrades she is always there to patch them up.",
 	"fr" : "Notre dernier espoir. Elle doit survivre. Elle possède quelques compétences médicales qui pourront aider.",
 	"es" : "Nuestra última esperanza. Ella debe sobrevivir, pues posee el secreto para eliminar al Mush."
   },

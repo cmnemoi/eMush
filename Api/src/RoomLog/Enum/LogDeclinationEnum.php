@@ -9,7 +9,6 @@ class LogDeclinationEnum
     public const REPAIR_FAIL_P1 = 'repair_fail_part1';
     public const REPAIR_FAIL_P2 = 'repair_fail_part2';
 
-
     public static function getAllParts(): array
     {
         return [

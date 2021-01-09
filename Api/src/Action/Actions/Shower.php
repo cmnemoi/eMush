@@ -86,6 +86,6 @@ class Shower extends AbstractAction
 
         //@TODO different log for mush and Humen
 
-        return new Success(ActionLogEnum::SHOWER, VisibilityEnum::PRIVATE);
+        return new Success(ActionLogEnum::SHOWER_HUMAN, VisibilityEnum::PRIVATE);
     }
 }

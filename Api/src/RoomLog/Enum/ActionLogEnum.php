@@ -10,6 +10,7 @@ class ActionLogEnum
     public const COOK_SUCCESS = 'cook_success';
     public const DROP = 'drop';
     public const EXPRESS_COOK_SUCCESS = 'express_cook_success';
+    public const EXTINGUISH_SUCCESS = 'extinguish_success';
     public const EXTRACT_SPORE_SUCCESS = 'extract_spore_success';
     public const GET_UP = 'get_up';
     public const HIDE_SUCCESS = 'hide_success';

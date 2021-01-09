@@ -35,6 +35,11 @@ class DifficultyConfig
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
+    private int $doorBreakRate;
+
+    /**
+     * @ORM\Column(type="integer", nullable=false)
+     */
     private int $equipmentFireBreakRate;
 
     /**
@@ -78,6 +83,21 @@ class DifficultyConfig
     public function setEquipmentBreakRate(int $equipmentBreakRate): DifficultyConfig
     {
         $this->equipmentBreakRate = $equipmentBreakRate;
+
+        return $this;
+    }
+
+    public function getDoorBreakRate(): int
+    {
+        return $this->doorBreakRate;
+    }
+
+    /**
+     * @return static
+     */
+    public function setDoorBreakRate(int $doorBreakRate): DifficultyConfig
+    {
+        $this->doorBreakRate = $doorBreakRate;
 
         return $this;
     }

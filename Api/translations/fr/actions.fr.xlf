@@ -403,5 +403,19 @@
                 <target>TODO</target>
             </segment>
         </unit>
+        <unit id="extinguish">
+            <segment id="name">
+                <source>extinguish.name</source>
+                <target>Éteindre</target>
+            </segment>
+            <segment id="description">
+                <source>extinguish.description</source>
+                <target>Avec un peu d'adresse vous arriverez à vous débarasser du feu. Faites attention à ne pas vous brûler.</target>
+            </segment>
+            <segment id="description_no">
+                <source>extinguish.description.no</source>
+                <target>TODO</target>
+            </segment>
+        </unit>
     </file>
 </xliff>

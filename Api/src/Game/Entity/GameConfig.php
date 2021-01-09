@@ -48,7 +48,7 @@ class GameConfig
     private Collection $triumphConfig;
 
     /**
-     * @ORM\OneToMany(targetEntity="Mush\Game\Entity\DifficultyConfig", mappedBy="gameConfig")
+     * @ORM\OneToOne(targetEntity="Mush\Game\Entity\DifficultyConfig", mappedBy="gameConfig")
      */
     private DifficultyConfig $difficultyConfig;
 

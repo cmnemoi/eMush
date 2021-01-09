@@ -135,11 +135,12 @@ class RoomService implements RoomServiceInterface
     public function handleFire(Room $room): Room
     {
         $fireStatus = $room->getStatusByName(StatusEnum::FIRE);
-        if (!$fireStatus instanceof ChargeStatus) {
-            throw new \LogicException('Parameter is not a document');
+
+        if ($fireStatus && !$fireStatus instanceof ChargeStatus) {
+            throw new \LogicException('Fire is not a ChargedStatus');
         }
 
-        if ($fireStatus->getCharge() === 0) {
+        if ($fireStatus && $fireStatus->getCharge() === 0) {
             $this->propagateFire($room);
         } elseif ($this->randomService->randomPercent() < $this->gameConfig->getDifficultyConfig()->getStartingFireRate()) {
             $fireStatus = $this->startFire($room);

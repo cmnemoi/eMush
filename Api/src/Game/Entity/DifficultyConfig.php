@@ -23,7 +23,7 @@ class DifficultyConfig
     private int $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Mush\Game\Entity\GameConfig", inversedBy="difficultyConfig")
+     * @ORM\OneToOne(targetEntity="Mush\Game\Entity\GameConfig", inversedBy="difficultyConfig")
      */
     private GameConfig $gameConfig;
 

@@ -58,11 +58,13 @@
         <p v-if="loading" class="loading">
             Loading...
         </p>
+        <CrewmatePanel />
     </div>
 </template>
 
 <script>
 import RoomInventoryPanel from "@/components/Game/RoomInventoryPanel";
+import CrewmatePanel from "@/components/Game/CrewmatePanel";
 import { Room } from "@/entities/Room";
 import ActionService from "@/services/action.service";
 import { mapActions, mapGetters } from "vuex";
@@ -70,7 +72,8 @@ import { mapActions, mapGetters } from "vuex";
 export default {
     name: "ShipPanel",
     components: {
-        RoomInventoryPanel
+        RoomInventoryPanel,
+        CrewmatePanel
     },
     props: {
         room: Room

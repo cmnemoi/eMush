@@ -182,6 +182,7 @@ class ActionsFixtures extends Fixture
         $extinguishAction
             ->setName(ActionEnum::EXTINGUISH)
             ->setScope(ActionScopeEnum::SELF)
+            ->setSuccessRate(50)
             ->setInjuryRate(10)
             ->setDirtyRate(0)
             ->setActionCost($oneActionPointCost)

@@ -837,7 +837,7 @@
                 <target>**player** enlève délicatement un peu d'oxygène du réservoir. Vous devriez peut-être le surveiller de plus près.</target>
             </segment>
         </unit>
-         <unit id="sabotage_success">
+        <unit id="sabotage_success">
             <segment id="sabotage_success">
                 <source>sabotage_success.character.male.target.male</source>
                 <target>Étrange, **player** s'affaire sur un **target** qui émet une petite fumée...</target>
@@ -855,7 +855,16 @@
                 <target>Étrange, **player** s'affaire sur une **target** qui émet une petite fumée...</target>
             </segment>
         </unit>
-
+        <unit id="extinguish_success">
+            <segment id="extinguish_success">
+                <source>extinguish_success.character.male</source>
+                <target>Avec un peu d'adresse vous arriverez à vous débarasser du feu. Faites attention à ne pas vous brûler.</target>
+            </segment>
+            <segment id="extinguish_success">
+                <source>extinguish_success.character.female</source>
+                <target>Avec un peu d'adresse vous arriverez à vous débarasser du feu. Faites attention à ne pas vous brûler.</target>
+            </segment>
+        </unit>
     </file>
 </xliff>
 

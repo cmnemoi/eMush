@@ -84,8 +84,10 @@ class Disassemble extends AttemptAction
 
         //Check that the item is reachable
         return null !== $dismountableType &&
-            $this->player->canReachEquipment($this->gameEquipment) &&
-            in_array(SkillEnum::TECHNICIAN, $this->player->getSkills())
+            $this->player->canReachEquipment($this->gameEquipment)
+            //@TODO uncomment when skill are ready
+            //&&
+            //in_array(SkillEnum::TECHNICIAN, $this->player->getSkills())
         ;
     }
 

@@ -6,20 +6,26 @@ Corners values stand clockwise starting from top left. Always specify units (eve
 Missing values in @include will inherit previous corner value. */
 @mixin corner-bezel($topleft: 0, $topright: -1, $bottomright: -1, $bottomleft: -1) {
     @if $topright    == -1 { $topright    : $topleft; }
-
     @if $bottomright == -1 { $bottomright : $topright; }
-
     @if $bottomleft  == -1 { $bottomleft  : $bottomright; }
+
+    $calctopright    : 100% ;
+    $calcbottomright : 100% ;
+    $calcbottomleft  : 100% ;
+
+    @if $topright    != 0 { $calctopright    : calc(100% - #{$topright}  ) } ;
+    @if $bottomright != 0 { $calcbottomright : calc(100% - #{$bottomright}) } ;
+    @if $bottomleft  != 0 { $calcbottomleft  : calc(100% - #{$bottomleft} ) } ;
 
     clip-path:
         polygon(
             $topleft 0,
-            calc(100% - #{$topright}) 0,
+            $calctopright 0,
             100% $topright,
-            100% calc(100% - #{$bottomright}),
-            calc(100% - #{$bottomright}) 100%,
+            100% $calcbottomright,
+            $calcbottomright 100%,
             $bottomleft 100%,
-            0 calc(100% - #{$bottomleft}),
+            0 $calcbottomleft,
             0 $topleft
         );
 }

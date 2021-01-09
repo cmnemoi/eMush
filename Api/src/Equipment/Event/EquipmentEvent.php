@@ -9,6 +9,8 @@ use Symfony\Contracts\EventDispatcher\Event;
 class EquipmentEvent extends Event
 {
     public const EQUIPMENT_CREATED = 'equipment.created';
+    public const EQUIPMENT_BROKEN = 'equipment.broken';
+    public const EQUIPMENT_DESTROYED = 'equipment.destroyed';
 
     private GameEquipment $equipment;
     private ?Player $player;

@@ -14,5 +14,5 @@ interface RoomServiceInterface
 
     public function createRoom(RoomConfig $roomConfig, Daedalus $daedalus): Room;
 
-    public function handleFire(Room $room): Room;
+    public function handleCycleIncident(Room $room, \DateTime $date): Room;
 }

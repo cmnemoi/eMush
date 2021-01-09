@@ -14,6 +14,7 @@ use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Room\Entity\Room;
 use Mush\Room\Entity\RoomConfig;
+use Mush\Room\Enum\RoomEventEnum;
 use Mush\Room\Repository\RoomRepository;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
@@ -132,60 +133,67 @@ class RoomService implements RoomServiceInterface
         return $this->persist($room);
     }
 
-    public function handleFire(Room $room): Room
+
+
+
+    public function handleIncident(Room $room,  \DateTime $date): Room
+    {
+        //Tremors
+        if ($this->randomService->isSuccessfull($this->gameConfig->getDifficultyConfig()->getTremorRate())){
+            $roomEvent = new RoomEvent($room, $date);
+            $this->eventDispatcher->dispatch($roomEvent, RoomEvent::TREMOR);
+        }
+
+        //Electric Arcs
+        if ($this->randomService->isSuccessfull($this->gameConfig->getDifficultyConfig()->getElectricArcRate())){
+            $roomEvent = new RoomEvent($room, $date);
+            $this->eventDispatcher->dispatch($roomEvent, RoomEvent::TREMOR);
+        }
+        
+        //Fire
+        $this->handleFire($room, $date);
+
+        return $room;
+    }
+
+
+
+    public function handleFire(Room $room, \DateTime $date): Room
     {
         $fireStatus = $room->getStatusByName(StatusEnum::FIRE);
-
         if ($fireStatus && !$fireStatus instanceof ChargeStatus) {
             throw new \LogicException('Fire is not a ChargedStatus');
         }
 
         if ($fireStatus && $fireStatus->getCharge() === 0) {
-            $this->propagateFire($room);
-        } elseif ($this->randomService->isSuccessfull($this->gameConfig->getDifficultyConfig()->getStartingFireRate())) {
-            $fireStatus = $this->startFire($room);
+            //there is already a fire in the room
+            $roomEvent = new RoomEvent($room, $date);
+            $this->eventDispatcher->dispatch($roomEvent, RoomEvent::FIRE);
 
-            //primary fire deal damage on the first cycle
-            $fireStatus->setCharge(0);
-            $this->propagateFire($room);
+        //a secondary fire already started in this room this cycle OR no fire
+        } elseif ($this->randomService->isSuccessfull($this->gameConfig->getDifficultyConfig()->getStartingFireRate())) {
+            $roomEvent = new RoomEvent($room, $date);
+            $roomEvent->setReason(RoomEventEnum::CYCLE_FIRE);
+            $this->eventDispatcher->dispatch($roomEvent, RoomEvent::STARTING_FIRE);
+
+            $roomEvent = new RoomEvent($room, $date);
+            $this->eventDispatcher->dispatch($roomEvent, RoomEvent::FIRE);
         }
 
         return $room;
     }
 
-    public function startFire(Room $room): ChargeStatus
-    {
-        if (!$room->hasStatus(StatusEnum::FIRE)) {
-            $fireStatus = $this->statusService->createChargeRoomStatus(StatusEnum::FIRE,
-                    $room,
-                    ChargeStrategyTypeEnum::CYCLE_DECREMENT,
-                    VisibilityEnum::PUBLIC,
-                    1);
-        } else {
-            $fireStatus = $room->getStatusByName(StatusEnum::FIRE);
-
-            if (!$fireStatus instanceof ChargeStatus) {
-                throw new \LogicException('Fire is not a charged Status');
-            }
-
-            $fireStatus->setCharge(0);
-        }
-
-        $this->persist($room);
-
-        return $fireStatus;
-    }
-
-    public function propagateFire(Room $room): Room
+    public function propagateFire(Room $room, \DateTime $date): Room
     {
         foreach ($room->getDoors() as $door) {
             $adjacentRoom = $door->getOtherRoom($room);
 
             if ($this->randomService->isSuccessfull($this->gameConfig->getDifficultyConfig()->getPropagatingFireRate())) {
-                $this->startFire($adjacentRoom);
+                $roomEvent = new RoomEvent($adjacentRoom, $date);
+                $roomEvent->setReason(RoomEventEnum::PROPAGATING_FIRE);
+                $this->eventDispatcher->dispatch($roomEvent, RoomEvent::STARTING_FIRE);
             }
         }
-        $this->persist($room);
 
         return $room;
     }

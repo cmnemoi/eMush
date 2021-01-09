@@ -8,13 +8,13 @@
                 <h1>Doors</h1>
                 <div v-for="door in room.doors" :key="door.id" class="door">
                     <p>{{ door.direction }} :</p>
-                    <ul>
-                        <li v-for="(action,key) in door.actions" :key="key">
-                            <a href="#" @click="executeDoorAction(door, action)">
-                                <span v-if="action.movementPointCost > 0">{{ action.movementPointCost }}<img src="@/assets/images/pm.png" alt="mp"></span>{{ action.name }}
-                            </a>
-                        </li>
-                    </ul>
+                    <ActionButton
+                        v-for="(action, key) in door.actions"
+                        :key="key"
+                        class="door-action-button"
+                        :action="action"
+                        @click="executeDoorAction(door, action)"
+                    />
                 </div>
 
                 <h1>Equipment</h1>
@@ -63,6 +63,7 @@
 
 <script>
 import RoomInventoryPanel from "@/components/Game/RoomInventoryPanel";
+import ActionButton from "@/components/Utils/ActionButton";
 import { Room } from "@/entities/Room";
 import ActionService from "@/services/action.service";
 import { mapActions, mapGetters } from "vuex";
@@ -70,6 +71,7 @@ import { mapActions, mapGetters } from "vuex";
 export default {
     name: "ShipPanel",
     components: {
+        ActionButton,
         RoomInventoryPanel
     },
     props: {
@@ -200,18 +202,12 @@ export default {
         font-weight: 700;
     }
 
-    ul {
-        flex-wrap: wrap;
-
-        li a {
-            @include button-style();
-
-            padding: 1px 6px 3px 6px;
-        }
-    }
-
     & > *:last-child {
         margin-bottom: 188px;
+    }
+
+    .door-action-button {
+        max-width: 120px;
     }
 }
 

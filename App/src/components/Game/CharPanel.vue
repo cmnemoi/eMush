@@ -34,13 +34,12 @@
                         <span v-if="status.charge > 0">x{{ status.charge }}</span>
                     </span>
                 </p>
-                <ul>
-                    <li v-for="(action,key) in getTarget.actions" :key="key">
-                        <a href="#" @click="executeTargetAction(action)">
-                            <span v-if="action.actionPointCost > 0">{{ action.actionPointCost }}<img src="@/assets/images/pa.png" alt="ap"></span>{{ action.name }}
-                        </a>
-                    </li>
-                </ul>
+                <ActionButton
+                    v-for="(action, key) in getTarget.actions"
+                    :key="key"
+                    :action="action"
+                    @click="executeTargetAction(action)"
+                />
             </div>
         </div>
 
@@ -78,6 +77,7 @@
 import { Player } from "@/entities/Player";
 import { characterEnum } from '@/enums/character';
 import Inventory from "@/components/Game/Inventory";
+import ActionButton from "@/components/Utils/ActionButton";
 import ActionService from "@/services/action.service";
 import { mapActions, mapGetters } from "vuex";
 import { statusPlayerEnum } from "@/enums/status.player.enum";
@@ -86,7 +86,10 @@ import { Item } from "@/entities/Item";
 
 export default {
     name: "CharPanel",
-    components: { Inventory },
+    components: {
+        ActionButton,
+        Inventory
+    },
     props: {
         player: Player
     },
@@ -242,18 +245,6 @@ export default {
                 letter-spacing: 0.03em;
                 font-variant: small-caps;
                 img { vertical-align: middle; margin-left: 2px; }
-            }
-
-            & ul {
-                display: flex;
-                flex-direction: column;
-
-                & li a {
-                    @include button-style();
-
-                    min-height: 19px;
-                    width: auto;
-                }
             }
         }
     }

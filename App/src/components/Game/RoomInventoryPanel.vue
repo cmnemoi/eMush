@@ -10,27 +10,31 @@
                 </span>
             </span>
         </p>
-        <div class="item-actions">
-            <ul v-if="selectedItem !== null">
-                <li v-for="(action,key) in selectedItem.actions" :key="key">
-                    <a href="#" @click="executeAction(action)">
-                        <span v-if="action.actionPointCost > 0">{{ action.actionPointCost }}<img src="@/assets/images/pa.png" alt="ap"></span>{{ action.name }}
-                    </a>
-                </li>
-            </ul>
+        <div v-if="selectedItem !== null" class="item-actions">
+            <ActionButton
+                v-for="(action, key) in selectedItem.actions"
+                :key="key"
+                class="item-action-button"
+                :action="action"
+                @click="executeItemAction(action)"
+            />
         </div>
     </div>
 </template>
 
 <script>
 import Inventory from "@/components/Game/Inventory";
+import ActionButton from "@/components/Utils/ActionButton";
 import ActionService from "@/services/action.service";
 import { mapActions } from "vuex";
 import { statusItemEnum } from "@/enums/status.item.enum";
 
 export default {
     name: "RoomInventoryPanel",
-    components: { Inventory },
+    components: {
+        Inventory,
+        ActionButton
+    },
     props: {
         items: Array
     },
@@ -47,11 +51,14 @@ export default {
             const statusImages = statusItemEnum[status.key];
             return typeof statusImages !== 'undefined' ? statusImages.icon : null;
         },
-        executeAction: function(action) {
-            ActionService.executeItemAction(this.selectedItem, action).then(() => this.reloadPlayer());
+        async executeItemAction(action) {
+            this.setLoading();
+            await ActionService.executeItemAction(this.selectedItem, action);
+            await this.reloadPlayer();
         },
         ...mapActions('player', [
-            'reloadPlayer'
+            'reloadPlayer',
+            'setLoading'
         ])
     }
 };
@@ -93,8 +100,11 @@ export default {
 
     & .item-actions {
         position: relative;
-        //min-height: 108px;
         background: #222a6b;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin: 12px 4px;
 
         &::before {
             content: "";
@@ -108,20 +118,11 @@ export default {
             border-right: 8px solid transparent;
         }
 
-        & ul {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            margin: 12px 4px;
-
-            & li a {
-                @include button-style();
-
-                min-height: 19px;
-                min-width: 200px;
-                width: auto;
-                margin: 1px 4px;
-            }
+        & .item-action-button {
+            min-height: 19px;
+            min-width: 200px;
+            width: auto;
+            margin: 1px 4px;
         }
     }
 

@@ -6,6 +6,7 @@ export class Action {
         this.description = null;
         this.actionPointCost = null;
         this.movementPointCost = null;
+        this.successRate = null;
     }
     load = function(object) {
         if (typeof object !== "undefined") {
@@ -15,7 +16,7 @@ export class Action {
             this.description = object.description;
             this.actionPointCost = object.actionPointCost;
             this.movementPointCost = object.movementPointCost;
-
+            this.successRate = object.successRate;
         }
         return this;
     }

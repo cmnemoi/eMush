@@ -13,13 +13,15 @@ class EquipmentEvent extends Event
     public const EQUIPMENT_DESTROYED = 'equipment.destroyed';
 
     private GameEquipment $equipment;
+    private string $visibility;
     private ?Player $player;
     private \DateTime $time;
 
-    public function __construct(GameEquipment $equipment, $time = null)
+    public function __construct(GameEquipment $equipment, string $visibility, $time = null)
     {
         $this->time = $time ?? new \DateTime();
         $this->equipment = $equipment;
+        $this->visibility = $visibility;
     }
 
     public function getEquipment(): GameEquipment
@@ -42,5 +44,10 @@ class EquipmentEvent extends Event
         $this->player = $player;
 
         return $this;
+    }
+
+    public function getVisibility(): string
+    {
+        return $this->visibility;
     }
 }

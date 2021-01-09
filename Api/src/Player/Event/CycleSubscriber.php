@@ -45,6 +45,4 @@ class CycleSubscriber implements EventSubscriberInterface
             $this->eventDispatcher->dispatch($itemNewCycle, CycleEvent::NEW_CYCLE);
         }
     }
-
-
 }

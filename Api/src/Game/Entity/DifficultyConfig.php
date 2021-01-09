@@ -72,8 +72,6 @@ class DifficultyConfig
      */
     private int $panicCrisisRate;
 
-
-
     public function getId(): int
     {
         return $this->id;

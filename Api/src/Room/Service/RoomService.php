@@ -14,13 +14,8 @@ use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Room\Entity\Room;
 use Mush\Room\Entity\RoomConfig;
-use Mush\Room\Enum\RoomEventEnum;
 use Mush\Room\Repository\RoomRepository;
-use Mush\RoomLog\Enum\VisibilityEnum;
-use Mush\Status\Entity\ChargeStatus;
-use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
 class RoomService implements RoomServiceInterface
@@ -131,70 +126,5 @@ class RoomService implements RoomServiceInterface
         }
 
         return $this->persist($room);
-    }
-
-
-
-
-    public function handleIncident(Room $room,  \DateTime $date): Room
-    {
-        //Tremors
-        if ($this->randomService->isSuccessfull($this->gameConfig->getDifficultyConfig()->getTremorRate())){
-            $roomEvent = new RoomEvent($room, $date);
-            $this->eventDispatcher->dispatch($roomEvent, RoomEvent::TREMOR);
-        }
-
-        //Electric Arcs
-        if ($this->randomService->isSuccessfull($this->gameConfig->getDifficultyConfig()->getElectricArcRate())){
-            $roomEvent = new RoomEvent($room, $date);
-            $this->eventDispatcher->dispatch($roomEvent, RoomEvent::TREMOR);
-        }
-        
-        //Fire
-        $this->handleFire($room, $date);
-
-        return $room;
-    }
-
-
-
-    public function handleFire(Room $room, \DateTime $date): Room
-    {
-        $fireStatus = $room->getStatusByName(StatusEnum::FIRE);
-        if ($fireStatus && !$fireStatus instanceof ChargeStatus) {
-            throw new \LogicException('Fire is not a ChargedStatus');
-        }
-
-        if ($fireStatus && $fireStatus->getCharge() === 0) {
-            //there is already a fire in the room
-            $roomEvent = new RoomEvent($room, $date);
-            $this->eventDispatcher->dispatch($roomEvent, RoomEvent::FIRE);
-
-        //a secondary fire already started in this room this cycle OR no fire
-        } elseif ($this->randomService->isSuccessfull($this->gameConfig->getDifficultyConfig()->getStartingFireRate())) {
-            $roomEvent = new RoomEvent($room, $date);
-            $roomEvent->setReason(RoomEventEnum::CYCLE_FIRE);
-            $this->eventDispatcher->dispatch($roomEvent, RoomEvent::STARTING_FIRE);
-
-            $roomEvent = new RoomEvent($room, $date);
-            $this->eventDispatcher->dispatch($roomEvent, RoomEvent::FIRE);
-        }
-
-        return $room;
-    }
-
-    public function propagateFire(Room $room, \DateTime $date): Room
-    {
-        foreach ($room->getDoors() as $door) {
-            $adjacentRoom = $door->getOtherRoom($room);
-
-            if ($this->randomService->isSuccessfull($this->gameConfig->getDifficultyConfig()->getPropagatingFireRate())) {
-                $roomEvent = new RoomEvent($adjacentRoom, $date);
-                $roomEvent->setReason(RoomEventEnum::PROPAGATING_FIRE);
-                $this->eventDispatcher->dispatch($roomEvent, RoomEvent::STARTING_FIRE);
-            }
-        }
-
-        return $room;
     }
 }

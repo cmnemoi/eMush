@@ -116,7 +116,7 @@ class Build extends AbstractAction
             $blueprintMechanic->getEquipment(),
             $this->player->getDaedalus()
         );
-        $equipmentEvent = new EquipmentEvent($blueprintEquipment);
+        $equipmentEvent = new EquipmentEvent($blueprintEquipment, VisibilityEnum::HIDDEN);
         $equipmentEvent->setPlayer($this->player);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 

@@ -2,18 +2,17 @@
 
 
 /* Add a clip-path with bezel-cuts for each corners of the element.
-Corners values stand clockwise starting from top left. Always specify units (even if 0).
-Missing values in @include will inherit previous corner value. */
+Corners values stand clockwise starting from top left. Missing values in @include will inherit previous corner value. */
 @mixin corner-bezel($topleft: 0, $topright: -1, $bottomright: -1, $bottomleft: -1) {
-    @if $topright    == -1 { $topright    : $topleft; }
+    @if $topright    == -1 { $topright    : $topleft; } //repeat corner value if not specified
     @if $bottomright == -1 { $bottomright : $topright; }
     @if $bottomleft  == -1 { $bottomleft  : $bottomright; }
 
-    $calctopright    : 100% ;
+    $calctopright    : 100% ; //defines calculated values
     $calcbottomright : 100% ;
     $calcbottomleft  : 100% ;
 
-    @if $topright    != 0 { $calctopright    : calc(100% - #{$topright}  ) } ;
+    @if $topright    != 0 { $calctopright    : calc(100% - #{$topright}  ) } ; //translates calc values to (100% - n) if not 0
     @if $bottomright != 0 { $calcbottomright : calc(100% - #{$bottomright}) } ;
     @if $bottomleft  != 0 { $calcbottomleft  : calc(100% - #{$bottomleft} ) } ;
 

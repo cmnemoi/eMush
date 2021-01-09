@@ -1,0 +1,22 @@
+{
+  "name": "@eternal-twin/emush-monorepo",
+  "version": "0.0.1",
+  "licenses": [
+    {
+      "type": "AGPL-3.0-or-later",
+      "url": "https://spdx.org/licenses/AGPL-3.0-or-later.html"
+    }
+  ],
+  "private": true,
+  "scripts": {
+    "etwin": "etwin"
+  },
+  "devDependencies": {
+    "@eternal-twin/website": "^0.3.1"
+  },
+  "workspaces": {
+    "packages": [
+      "App"
+    ]
+  }
+}

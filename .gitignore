@@ -1,0 +1,18 @@
+
+#IDE
+.idea
+
+
+# Ignore MacOS files
+# Folder view configuration files
+.DS_Store
+Desktop.ini
+*~
+
+*.swp
+
+
+dist/
+node_modules
+.env
+!.env.dist

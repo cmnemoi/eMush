@@ -1,0 +1,72 @@
+doctrine:
+    dbal:
+        url: '%env(resolve:DATABASE_URL)%'
+
+        # IMPORTANT: You MUST configure your server version,
+        # either here or in the DATABASE_URL env var (see .env file)
+        #server_version: '5.7'
+    orm:
+        auto_generate_proxy_classes: true
+        naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+        auto_mapping: true
+        mappings:
+            Game:
+                is_bundle: false
+                type: annotation
+                dir: '%kernel.project_dir%/src/Game/Entity'
+                prefix: 'Mush\Game\Entity'
+                alias: Game
+            Daedalus:
+                is_bundle: false
+                type: annotation
+                dir: '%kernel.project_dir%/src/Daedalus/Entity'
+                prefix: 'Mush\Daedalus\Entity'
+                alias: Daedalus
+            Player:
+                is_bundle: false
+                type: annotation
+                dir: '%kernel.project_dir%/src/Player/Entity'
+                prefix: 'Mush\Player\Entity'
+                alias: Player
+            Item:
+                is_bundle: false
+                type: annotation
+                dir: '%kernel.project_dir%/src/Equipment/Entity'
+                prefix: 'Mush\Equipment\Entity'
+                alias: Item
+            User:
+                is_bundle: false
+                type: annotation
+                dir: '%kernel.project_dir%/src/User/Entity'
+                prefix: 'Mush\User\Entity'
+                alias: User
+            Room:
+                is_bundle: false
+                type: annotation
+                dir: '%kernel.project_dir%/src/Room/Entity'
+                prefix: 'Mush\Room\Entity'
+                alias: Room
+            RoomLog:
+                is_bundle: false
+                type: annotation
+                dir: '%kernel.project_dir%/src/RoomLog/Entity'
+                prefix: 'Mush\RoomLog\Entity'
+                alias: RoomLog
+            Status:
+                is_bundle: false
+                type: annotation
+                dir: '%kernel.project_dir%/src/Status/Entity'
+                prefix: 'Mush\Status\Entity'
+                alias: Status
+            Action:
+                is_bundle: false
+                type: annotation
+                dir: '%kernel.project_dir%/src/Action/Entity'
+                prefix: 'Mush\Action\Entity'
+                alias: Action
+            Communication:
+                is_bundle: false
+                type: annotation
+                dir: '%kernel.project_dir%/src/Communication/Entity'
+                prefix: 'Mush\Communication\Entity'
+                alias: Communication

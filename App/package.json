@@ -1,0 +1,40 @@
+{
+  "name": "mush-front",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "axios": "^0.21.0",
+    "core-js": "^3.8.1",
+    "date-fns": "^2.16.1",
+    "vue": "^3.0.4",
+    "vue-axios": "^3.2.0",
+    "vue-router": "^4.0.1",
+    "vuex": "^4.0.0-rc.2"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "@vue/compiler-sfc": "^3.0.4",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^7.3.0",
+    "node-sass": "^4.14.1",
+    "sass-loader": "^8.0.2",
+    "stylelint": "^13.8.0",
+    "stylelint-config-standard": "^20.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "installConfig": {
+    "hoistingLimits": "workspaces"
+  }
+}

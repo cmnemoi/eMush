@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
+    <file id="rooms.ext">
+        <unit id="bridge">
+            <segment id="name">
+                <source>bridge.name</source>
+                <target>Pont</target>
+            </segment>
+        </unit>
+        <unit id="alpha_bay">
+            <segment id="name">
+                <source>alpha_bay.name</source>
+                <target>Baie Alpha</target>
+            </segment>
+        </unit>
+        <unit id="bravo_bay">
+            <segment id="name">
+                <source>bravo_bay.name</source>
+                <target>Baie Beta</target>
+            </segment>
+        </unit>
+        <unit id="alpha_bay_2">
+            <segment id="name">
+                <source>alpha_bay_2.name</source>
+                <target>Baie Alpha 2</target>
+            </segment>
+        </unit>
+        <unit id="nexus">
+            <segment id="name">
+                <source>nexus.name</source>
+                <target>Nexus</target>
+            </segment>
+        </unit>
+        <unit id="medlab">
+            <segment id="name">
+                <source>medlab.name</source>
+                <target>Infirmerie</target>
+            </segment>
+        </unit>
+        <unit id="laboratory">
+            <segment id="name">
+                <source>laboratory.name</source>
+                <target>Laboratoire</target>
+            </segment>
+        </unit>
+        <unit id="refectory">
+            <segment id="name">
+                <source>refectory.name</source>
+                <target>Réfectoire</target>
+            </segment>
+        </unit>
+        <unit id="hydroponic_garden">
+            <segment id="name">
+                <source>hydroponic_garden.name</source>
+                <target>Jardin Hydroponique</target>
+            </segment>
+        </unit>
+        <unit id="engine_room">
+            <segment id="name">
+                <source>engine_room.name</source>
+                <target>Salle des moteurs</target>
+            </segment>
+        </unit>
+        <unit id="front_alpha_turret">
+            <segment id="name">
+                <source>front_alpha_turret.name</source>
+                <target>Tourelle Alpha Avant</target>
+            </segment>
+        </unit>
+        <unit id="centre_alpha_turret">
+            <segment id="name">
+                <source>centre_alpha_turret.name</source>
+                <target>Tourelle Alpha Centre</target>
+            </segment>
+        </unit>
+        <unit id="rear_alpha_turret">
+            <segment id="name">
+                <source>rear_alpha_turret.name</source>
+                <target>Tourelle Alpha Arrière</target>
+            </segment>
+        </unit>
+        <unit id="front_bravo_turret">
+            <segment id="name">
+                <source>front_bravo_turret.name</source>
+                <target>Tourelle Beta Avant</target>
+            </segment>
+        </unit>
+        <unit id="centre_bravo_turret">
+            <segment id="name">
+                <source>centre_bravo_turret.name</source>
+                <target>Tourelle Beta Centre</target>
+            </segment>
+        </unit>
+        <unit id="rear_bravo_turret">
+            <segment id="name">
+                <source>rear_bravo_turret.name</source>
+                <target>Tourelle Beta Arrière</target>
+            </segment>
+        </unit>
+        <unit id="front_corridor">
+            <segment id="name">
+                <source>front_corridor.name</source>
+                <target>Couloir Avant</target>
+            </segment>
+        </unit>
+        <unit id="central_corridor">
+            <segment id="name">
+                <source>central_corridor.name</source>
+                <target>Couloir Central</target>
+            </segment>
+        </unit>
+        <unit id="rear_corridor">
+            <segment id="name">
+                <source>rear_corridor.name</source>
+                <target>Couloir Arrière</target>
+            </segment>
+        </unit>
+        <unit id="icarus_bay">
+            <segment id="name">
+                <source>icarus_bay.name</source>
+                <target>Baie Icarus</target>
+            </segment>
+        </unit>
+        <unit id="alpha_dorm">
+            <segment id="name">
+                <source>alpha_dorm.name</source>
+                <target>Dortoir Alpha</target>
+            </segment>
+        </unit>
+        <unit id="bravo_dorm">
+            <segment id="name">
+                <source>bravo_dorm.name</source>
+                <target>Dortoir Beta</target>
+            </segment>
+        </unit>
+        <unit id="front_storage">
+            <segment id="name">
+                <source>front_storage.name</source>
+                <target>Stockage Avant</target>
+            </segment>
+        </unit>
+        <unit id="center_alpha_storage">
+            <segment id="name">
+                <source>center_alpha_storage.name</source>
+                <target>Stockage Alpha Centre</target>
+            </segment>
+        </unit>
+        <unit id="center_bravo_storage">
+            <segment id="name">
+                <source>center_bravo_storage.name</source>
+                <target>Stockage Beta Centre</target>
+            </segment>
+        </unit>
+        <unit id="rear_alpha_storage">
+            <segment id="name">
+                <source>rear_alpha_storage.name</source>
+                <target>Stockage Alpha Arrière</target>
+            </segment>
+        </unit>
+        <unit id="rear_bravo_storage">
+            <segment id="name">
+                <source>rear_bravo_storage.name</source>
+                <target>Stockage Beta Arrière</target>
+            </segment>
+        </unit>
+    </file>
+</xliff>

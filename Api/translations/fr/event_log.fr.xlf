@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
+    <file id="event_log.ext">
+        <unit id="awaken">
+            <segment>
+                <source>awaken.character.male</source>
+                <target>**player** semble émerger péniblement de son sommeil...</target>
+            </segment>
+            <segment>
+                <source>awaken.character.female</source>
+                <target>**player** semble émerger péniblement de son sommeil...</target>
+            </segment>
+        </unit>
+        <unit id="gain_action_point">
+            <segment>
+                <source>gain_action_point.character.male</source>
+                <target>Vous avez gagné quantity :pa:</target>
+            </segment>
+            <segment>
+                <source>gain_action_point.character.female</source>
+                <target>Vous avez gagné quantity :pa:</target>
+            </segment>
+        </unit>
+        <unit id="gain_movement_point">
+            <segment>
+                <source>gain_movement_point.character.male</source>
+                <target>Vous avez gagné quantity :pm:</target>
+            </segment>
+            <segment>
+                <source>gain_movement_point.character.female</source>
+                <target>Vous avez gagné quantity :pm:</target>
+            </segment>
+        </unit>
+        <unit id="gain_health_point">
+            <segment>
+                <source>gain_health_point.character.male</source>
+                <target>Vous avez gagné quantity :hp:</target>
+            </segment>
+            <segment>
+                <source>gain_health_point.character.female</source>
+                <target>Vous avez gagné quantity :hp:</target>
+            </segment>
+        </unit>
+        <unit id="loss_health_point">
+            <segment>
+                <source>loss_health_point.character.male</source>
+                <target>Vous perdez quantity :hp:</target>
+            </segment>
+            <segment>
+                <source>loss_health_point.character.female</source>
+                <target>Vous perdez quantity :hp:</target>
+            </segment>
+        </unit>
+        <unit id="gain_moral_point">
+            <segment>
+                <source>gain_moral_point.character.male</source>
+                <target>Vous avez gagné quantity :pmo:</target>
+            </segment>
+            <segment>
+                <source>gain_moral_point.character.female</source>
+                <target>Vous avez gagné quantity :pmo:</target>
+            </segment>
+        </unit>
+        <unit id="loss_moral_point">
+            <segment>
+                <source>loss_moral_point.character.male</source>
+                <target>Vous perdez quantity :pmo:</target>
+            </segment>
+            <segment>
+                <source>loss_moral_point.character.female</source>
+                <target>Vous perdez quantity :pmo:</target>
+            </segment>
+        </unit>
+        <unit id="gain_triumph">
+            <segment>
+                <source>gain_triumph.character.male</source>
+                <target>Cette action remplit les objectifs personnels de votre personnage. Vous gagnez quantity Triomphe.</target>
+            </segment>
+            <segment>
+                <source>gain_triumph.character.female</source>
+                <target>Cette action remplit les objectifs personnels de votre personnage. Vous gagnez quantity Triomphe.</target>
+            </segment>
+        </unit>
+        <unit id="object_felt">
+            <segment>
+                <source>object_felt.character.male.target.male</source>
+                <target>**player** a fait tomber un **target**.</target>
+            </segment>
+            <segment>
+                <source>object_felt.character.female.target.male</source>
+                <target>**player** a fait tomber un **target**.</target>
+            </segment>
+            <segment>
+                <source>object_felt.character.male.target.female</source>
+                <target>**player** a fait tomber une **target**.</target>
+            </segment>
+            <segment>
+                <source>object_felt.character.female.target.female</source>
+                <target>**player** a fait tomber une **target**.</target>
+            </segment>
+        </unit>
+        <unit id="oxy_low_use_capsule">
+            <segment>
+                <source>oxy_low_use_capsule.character.male</source>
+                <target>Vous ne respirez plus... Vous vous étouffez... Mais heureusement cette **Capsule d'Oxygène** vous a sauvé la vie...</target>
+            </segment>
+            <segment>
+                <source>oxy_low_use_capsule.character.female</source>
+                <target>Vous ne respirez plus... Vous vous étouffez... Mais heureusement cette **Capsule d'Oxygène** vous a sauvé la vie...</target>
+            </segment>
+        </unit>
+        <unit id="soiled">
+            <segment>
+                <source>soiled.character.male</source>
+                <target>C'est dégoûtant... Vous vous êtes sali.</target>
+            </segment>
+            <segment>
+                <source>soiled.character.female</source>
+                <target>C'est dégoûtant... Vous vous êtes sali.</target>
+            </segment>
+        </unit>
+        <unit id="soil_prevented">
+            <segment>
+                <source>soil_prevented.character.male</source>
+                <target>C'est dégoûtant... Heureusement que vous aviez votre **Tablier intachable**...</target>
+            </segment>
+            <segment>
+                <source>soil_prevented.character.female</source>
+                <target>C'est dégoûtant... Heureusement que vous aviez votre **Tablier intachable**...</target>
+            </segment>
+        </unit>
+        <unit id="clumsiness">
+            <segment>
+                <source>clumsiness.character.male</source>
+                <target>Ça ne devait pas se passer comme cela. Lors de votre action, vous vous êtes fait mal...</target>
+            </segment>
+            <segment>
+                <source>clumsiness.character.female</source>
+                <target>Ça ne devait pas se passer comme cela. Lors de votre action, vous vous êtes fait mal...</target>
+            </segment>
+        </unit>
+    </file>
+</xliff>
+

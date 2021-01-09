@@ -1,0 +1,84 @@
+version: '3'
+
+services:
+  mush_apache:
+    build: Api/apache
+    container_name: mush_apache
+    ports:
+      - 8080:80
+      - 8443:8443
+    volumes:
+      - ./Api/config/vhosts:/etc/apache2/sites-enabled
+      - ../Api:/www
+    networks:
+      - mush_network
+    depends_on:
+      - mush_php
+
+  mush_php:
+    build: Api/php
+    container_name: mush_php
+    environment:
+      - PHP_IDE_CONFIG=serverName=mush
+    volumes:
+      - ../Api:/www
+    networks:
+      - mush_network
+    links:
+      - mush_database
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  #Database container
+  mush_database:
+    image: postgres:13.1
+    container_name: mush_database
+    ports:
+      - "5432:5432"
+    networks:
+      - mush_network
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mush
+      POSTGRES_USER: mysql
+
+  mush_front:
+    container_name: front_mush
+    build:
+      context: ./App
+      dockerfile: Dockerfile
+      args:
+        - YOUR_APP_WEB_HTTP_PORT=8080
+    ports:
+      - "80:8080"
+      - "8000:8000"  # only needed if using vue-cli UI
+    volumes:
+      - ../App:/www
+    stdin_open: true
+    tty: true
+    environment:
+      # https://cli.vuejs.org/guide/mode-and-env.html#modes
+      # development is used by vue-cli-service serve
+      - NODE_ENV=development
+      # one way for hot reloading ... see above for details
+      - CHOKIDAR_USEPOLLING=true
+      - CHOKIDAR_INTERVAL=100
+      - YOUR_APP_WEB_HTTP_PORT=8080
+
+  eternal_twin:
+    container_name: eternal_twin
+    build:
+      context: ./EternalTwin
+      dockerfile: Dockerfile
+    ports:
+      - "50320:50320"
+    volumes:
+      - ../EternalTwin:/www
+    networks:
+      - mush_network
+    stdin_open: true
+    tty: true
+
+networks:
+  mush_network:
+    driver: bridge

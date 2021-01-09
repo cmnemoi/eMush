@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
+    <file id="characters.ext">
+        <unit id="Andie">
+            <segment id="name">
+                <source>andie.name</source>
+                <target>Andie</target>
+            </segment>
+            <segment id="fullname">
+                <source>andie.fullname</source>
+                <target>Andie Graham</target>
+            </segment>
+            <segment id="age">
+                <source>andie.age</source>
+                <target>24 years</target>
+            </segment>
+            <segment id="employment">
+                <source>andie.employment</source>
+                <target>SDF Sub-Lieutenant</target>
+            </segment>
+            <segment id="abstract">
+                <source>andie.abstract</source>
+                <target>Sub-Lieutenant Andie Graham is still not aware that the Daedalus has cut all ties with the SDF. Still operating under the illusion that he/she is on a federation-sanctioned mission, he/she is still working towards the mission objective. Upon discovering that their idol, Sgt Derek Hogan has joined the crew of the Daedalus, Andie applies for a position on board. Andie's unique skillset makes him/her invaluable in ensuring mission success. </target>
+            </segment>
+            <segment id="biography">
+                <source>andie.biography</source>
+                <target>
+- 3136 : Born somewhere on Earh.
+- 3136 : Abandoned by his/her parents just a few months after birth, Andie is taken into care by a SDF unit. Andie is immediately enrolled as an SDF pupil where it didn't take long for them to notice his/her innate talents. Andie is then transferred to an SDF controlled school for the gifted and joins the federal youth programme.
+- 3145 : He/She completed their studies brilliantly at the finest Federation University. Brainwashed fort he entire duration of his/her studies, Andie is an ardent believer and tows the federation line. In spite of his/her naivety, Andie is really popular and is a good friend. His/her angelic face makes it easy to get sympathy when required. His/her roommate Viktor Carlsson, sneaked into the university by his brother Nils, will pay the price for their friendship. Having told of his true mission during a conversation, Viktor finds himself arrested for conspiracy. Andie innocently thinks that he's just changed courses...
+- 3151 : Andie met sergeant instructor Derek Hogan. Presented as a national hero, Hogan spent the whole class recounting stories of his fantastic life. In this teacher, Andie found the father figure that had been missing in his/her life and began idolizing him. He/she believes all his stories unquestioningly and also begins to dream of travelling through space.
+- 3153 : Andie continues to study in order to become more useful to the federation. Andie produces three magnificent theses, in botany discussing the healing properties of the Tau-Ceti brachien root, biology, a study of social communication between polarized amoebas from the Aegean Sea, on the third planet of the Sol system, and finally in diplomacy with a report on mediation which, according to the jury, could have inspired the negotiators who failed to achieve peace when the Sol war threatened. He/she became the first triple laureate in the federation.
+- 3154 : Having completed studying, Andie decided to become a pilot, joined the aerial division and got his/her licence easily. Andie asked to be stationed on Xyloph-17 and it didn't take long for him/her to get noticed by Kim Jin Su. Derek didn't recognize Andie at all.
+- 3154 : Unaware of the stakes, or what was being orchestrated behind the scenes, and still thinking he/she was ardently serving the federation, Andie embarks aboard the Daedalus.
+                </target>
+            </segment>
+        </unit>
+    </file>
+</xliff>

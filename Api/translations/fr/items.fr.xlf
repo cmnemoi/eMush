@@ -1,0 +1,3944 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
+    <file id="items.ext">
+       <unit id="bacta">
+            <segment id="name">
+                <source>bacta.name</source>
+                <target>Bacta</target>
+            </segment>
+            <segment id="short_name">
+                <source>bacta.short_name</source>
+                <target>Bacta</target>
+            </segment>
+            <segment id="genre">
+                <source>bacta.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>bacta.description</source>
+                <target>On ne sait pas vraiment ce que c'est...
+Un seul moyen pour s'en assurer, l'avaler !</target>
+            </segment>
+            <segment id="examine">
+                <source>bacta.examine</source>
+                <target>Mangez-moi.</target>
+			</segment>
+        </unit>
+       <unit id="betapropyl">
+            <segment id="name">
+                <source>betapropyl.name</source>
+                <target>Betapropyl</target>
+            </segment>
+            <segment id="short_name">
+                <source>betapropyl.short_name</source>
+                <target>Betapropyl</target>
+            </segment>
+            <segment id="genre">
+                <source>betapropyl.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>betapropyl.description</source>
+                <target>On ne sait pas vraiment ce que c'est...
+Un seul moyen pour s'en assurer, l'avaler !</target>
+            </segment>
+            <segment id="examine">
+                <source>betapropyl.examine</source>
+                <target>Mangez-moi.</target>
+			</segment>
+        </unit>
+       <unit id="eufurylate">
+            <segment id="name">
+                <source>eufurylate.name</source>
+                <target>Eufurysant</target>
+            </segment>
+            <segment id="short_name">
+                <source>eufurylate.short_name</source>
+                <target>Eufurysant</target>
+            </segment>
+            <segment id="genre">
+                <source>eufurylate.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>eufurylate.description</source>
+                <target>On ne sait pas vraiment ce que c'est...
+Un seul moyen pour s'en assurer, l'avaler !</target>
+            </segment>
+            <segment id="examine">
+                <source>eufurylate.examine</source>
+                <target>Mangez-moi.</target>
+			</segment>
+        </unit>		
+       <unit id="newke">
+            <segment id="name">
+                <source>newke.name</source>
+                <target>Nuke</target>
+            </segment>
+            <segment id="short_name">
+                <source>newke.short_name</source>
+                <target>Nuke</target>
+            </segment>
+            <segment id="genre">
+                <source>newke.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>newke.description</source>
+                <target>On ne sait pas vraiment ce que c'est...
+Un seul moyen pour s'en assurer, l'avaler !</target>
+            </segment>
+            <segment id="examine">
+                <source>newke.examine</source>
+                <target>Mangez-moi.</target>
+			</segment>
+        </unit>
+	   <unit id="phuxx">
+            <segment id="name">
+                <source>phuxx.name</source>
+                <target>Phuxx</target>
+            </segment>
+            <segment id="short_name">
+                <source>phuxx.short_name</source>
+                <target>Phuxx</target>
+            </segment>
+            <segment id="genre">
+                <source>phuxx.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>phuxx.description</source>
+                <target>On ne sait pas vraiment ce que c'est...
+Un seul moyen pour s'en assurer, l'avaler !</target>
+            </segment>
+            <segment id="examine">
+                <source>phuxx.examine</source>
+                <target>Mangez-moi.</target>
+			</segment>
+        </unit>			
+	   <unit id="pinq">
+            <segment id="name">
+                <source>pinq.name</source>
+                <target>Ponay</target>
+            </segment>
+            <segment id="short_name">
+                <source>pinq.short_name</source>
+                <target>Ponay</target>
+            </segment>
+            <segment id="genre">
+                <source>pinq.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>pinq.description</source>
+                <target>On ne sait pas vraiment ce que c'est...
+Un seul moyen pour s'en assurer, l'avaler !</target>
+            </segment>
+            <segment id="examine">
+                <source>pinq.examine</source>
+                <target>Mangez-moi.</target>
+			</segment>
+        </unit>			
+	   <unit id="pymp">
+            <segment id="name">
+                <source>pymp.name</source>
+                <target>Pymp</target>
+            </segment>
+            <segment id="short_name">
+                <source>pymp.short_name</source>
+                <target>Pymp</target>
+            </segment>
+            <segment id="genre">
+                <source>pymp.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>pymp.description</source>
+                <target>On ne sait pas vraiment ce que c'est...
+Un seul moyen pour s'en assurer, l'avaler !</target>
+            </segment>
+            <segment id="examine">
+                <source>pymp.examine</source>
+                <target>Mangez-moi.</target>
+			</segment>
+        </unit>		
+	   <unit id="rosebud">
+            <segment id="name">
+                <source>rosebud.name</source>
+                <target>Rosebud</target>
+            </segment>
+            <segment id="short_name">
+                <source>rosebud.short_name</source>
+                <target>Rosebud</target>
+            </segment>
+            <segment id="genre">
+                <source>rosebud.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>rosebud.description</source>
+                <target>On ne sait pas vraiment ce que c'est...
+Un seul moyen pour s'en assurer, l'avaler !</target>
+            </segment>
+            <segment id="examine">
+                <source>rosebud.examine</source>
+                <target>Mangez-moi.</target>
+			</segment>
+        </unit>		
+	   <unit id="soma">
+            <segment id="name">
+                <source>soma.name</source>
+                <target>Soma</target>
+            </segment>
+            <segment id="short_name">
+                <source>soma.short_name</source>
+                <target>Soma</target>
+            </segment>
+            <segment id="genre">
+                <source>soma.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>soma.description</source>
+                <target>On ne sait pas vraiment ce que c'est...
+Un seul moyen pour s'en assurer, l'avaler !</target>
+            </segment>
+            <segment id="examine">
+                <source>soma.examine</source>
+                <target>Mangez-moi.</target>
+			</segment>
+        </unit>		
+	   <unit id="spyce">
+            <segment id="name">
+                <source>spyce.name</source>
+                <target>Épice</target>
+            </segment>
+            <segment id="short_name">
+                <source>spyce.short_name</source>
+                <target>Épice</target>
+            </segment>
+            <segment id="genre">
+                <source>spyce.genre</source>
+                <target>female</target>
+            </segment>
+            <segment id="description">
+                <source>spyce.description</source>
+                <target>On ne sait pas vraiment ce que c'est...
+Un seul moyen pour s'en assurer, l'avaler !</target>
+            </segment>
+            <segment id="examine">
+                <source>spyce.examine</source>
+                <target>Mangez-moi.</target>
+			</segment>
+        </unit>		
+	   <unit id="twinoid">
+            <segment id="name">
+                <source>twinoid.name</source>
+                <target>Twinoid</target>
+            </segment>
+            <segment id="short_name">
+                <source>twinoid.short_name</source>
+                <target>Twinoid</target>
+            </segment>
+            <segment id="genre">
+                <source>twinoid.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>twinoid.description</source>
+                <target>On ne sait pas vraiment ce que c'est...
+Un seul moyen pour s'en assurer, l'avaler !</target>
+            </segment>
+            <segment id="examine">
+                <source>twinoid.examine</source>
+                <target>Mangez-moi.</target>
+			</segment>
+        </unit>			
+	   <unit id="xenox">
+            <segment id="name">
+                <source>xenox.name</source>
+                <target>Xenox</target>
+            </segment>
+            <segment id="short_name">
+                <source>xenox.short_name</source>
+                <target>Xenox</target>
+            </segment>
+            <segment id="genre">
+                <source>xenox.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>xenox.description</source>
+                <target>On ne sait pas vraiment ce que c'est...
+Un seul moyen pour s'en assurer, l'avaler !</target>
+            </segment>
+            <segment id="examine">
+                <source>xenox.examine</source>
+                <target>Mangez-moi.</target>
+			</segment>
+        </unit>			
+	   <unit id="banana">
+            <segment id="name">
+                <source>banana.name</source>
+                <target>Banane</target>
+            </segment>
+            <segment id="short_name">
+                <source>banana.short_name</source>
+                <target>Banane</target>
+            </segment>
+            <segment id="genre">
+                <source>banana.genre</source>
+                <target>female</target>
+            </segment>
+            <segment id="description">
+                <source>banana.description</source>
+                <target>Une banane bien mûre, parfait en cas de petit creux.</target>
+            </segment>
+            <segment id="examine">
+                <source>banana.examine</source>
+                <target>Une banane bien mûre, parfait en cas de petit creux.</target>
+			</segment>
+        </unit>			
+	   <unit id="creepnut">
+            <segment id="name">
+                <source>creepnut.name</source>
+                <target>Lianube</target>
+            </segment>
+            <segment id="short_name">
+                <source>creepnut.short_name</source>
+                <target>Lianube</target>
+            </segment>
+            <segment id="genre">
+                <source>creepnut.genre</source>
+                <target>female</target>
+            </segment>
+            <segment id="description">
+                <source>creepnut.description</source>
+                <target>La Lianube est un fruit replet aux saveurs de calamar curry lait de coco...</target>
+            </segment>
+            <segment id="examine">
+                <source>creepnut.examine</source>
+                <target>La Lianube est un fruit replet aux saveurs de calamar curry lait de coco...</target>
+			</segment>
+        </unit>				
+	   <unit id="meztine">
+            <segment id="name">
+                <source>meztine.name</source>
+                <target>Balargine</target>
+            </segment>
+            <segment id="short_name">
+                <source>meztine.short_name</source>
+                <target>Balargine</target>
+            </segment>
+            <segment id="genre">
+                <source>meztine.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>meztine.description</source>
+                <target>La Balargine est un fruit délicat et sucré. Sa pulpe aux propriétés proches du collagène fait un tabac dans les régions riches du sud de la France.</target>
+            </segment>
+            <segment id="examine">
+                <source>meztine.examine</source>
+                <target>La Balargine est un fruit délicat et sucré. Sa pulpe aux propriétés proches du collagène fait un tabac dans les régions riches du sud de la France.</target>
+			</segment>
+        </unit>					
+	   <unit id="bifflon">
+            <segment id="name">
+                <source>bifflon.name</source>
+                <target>Bifalon</target>
+            </segment>
+            <segment id="short_name">
+                <source>bifflon.short_name</source>
+                <target>Bifalon</target>
+            </segment>
+            <segment id="genre">
+                <source>bifflon.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>bifflon.description</source>
+                <target>Une vraie curiosité de la nature, le Bifalon est un arbre qui parle... mais il passe son temps à réciter du Keats. Ce qui rend sa compagnie déprimante...</target>
+            </segment>
+            <segment id="examine">
+                <source>bifflon.examine</source>
+                <target>Une vraie curiosité de la nature, le Bifalon est un arbre qui parle... mais il passe son temps à réciter du Keats. Ce qui rend sa compagnie déprimante...</target>
+			</segment>
+        </unit>						
+	   <unit id="guntiflop">
+            <segment id="name">
+                <source>guntiflop.name</source>
+                <target>Goustiflon</target>
+            </segment>
+            <segment id="short_name">
+                <source>guntiflop.short_name</source>
+                <target>Goustiflon</target>
+            </segment>
+            <segment id="genre">
+                <source>guntiflop.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>guntiflop.description</source>
+                <target>Le Goustiflon est un fruit peu esthétique mais très sympathique.</target>
+            </segment>
+            <segment id="examine">
+                <source>guntiflop.examine</source>
+                <target>Le Goustiflon est un fruit peu esthétique mais très sympathique.</target>
+			</segment>
+        </unit>						
+	   <unit id="ploshmina">
+            <segment id="name">
+                <source>ploshmina.name</source>
+                <target>Toupimino</target>
+            </segment>
+            <segment id="short_name">
+                <source>ploshmina.short_name</source>
+                <target>Toupimino</target>
+            </segment>
+            <segment id="genre">
+                <source>ploshmina.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>ploshmina.description</source>
+                <target>Le Toupimino sert essentiellement de jouet pour les enfants car il est pénible à manger et fait un bruit rigolo quand il tourne.</target>
+            </segment>
+            <segment id="examine">
+                <source>ploshmina.examine</source>
+                <target>Le Toupimino sert essentiellement de jouet pour les enfants car il est pénible à manger et fait un bruit rigolo quand il tourne.</target>
+			</segment>
+        </unit>							
+	   <unit id="precati">
+            <segment id="name">
+                <source>precati.name</source>
+                <target>Precati</target>
+            </segment>
+            <segment id="short_name">
+                <source>precati.short_name</source>
+                <target>Precati</target>
+            </segment>
+            <segment id="genre">
+                <source>precati.genre</source>
+                <target>female</target>
+            </segment>
+            <segment id="description">
+                <source>precati.description</source>
+                <target>La Precati est une espèce de courge difficile à mâcher à cause de sa consistance élastique.</target>
+            </segment>
+            <segment id="examine">
+                <source>precati.examine</source>
+                <target>La Precati est une espèce de courge difficile à mâcher à cause de sa consistance élastique.</target>
+			</segment>
+        </unit>						
+	   <unit id="bottine">
+            <segment id="name">
+                <source>bottine.name</source>
+                <target>Bottine</target>
+            </segment>
+            <segment id="short_name">
+                <source>bottine.short_name</source>
+                <target>Bottine</target>
+            </segment>
+            <segment id="genre">
+                <source>bottine.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>bottine.description</source>
+                <target>Le fruit du Buitalien est très esthétique mais ses saveurs laissent à désirer.</target>
+            </segment>
+            <segment id="examine">
+                <source>bottine.examine</source>
+                <target>Le fruit du Buitalien est très esthétique mais ses saveurs laissent à désirer.</target>
+			</segment>
+        </unit>								
+	   <unit id="fragilane">
+            <segment id="name">
+                <source>fragilane.name</source>
+                <target>Fragilane</target>
+            </segment>
+            <segment id="short_name">
+                <source>fragilane.short_name</source>
+                <target>Fragilane</target>
+            </segment>
+            <segment id="genre">
+                <source>fragilane.genre</source>
+                <target>female</target>
+            </segment>
+            <segment id="description">
+                <source>fragilane.description</source>
+                <target>La fragilane est un petit fruit savoureux et peu nutritif.</target>
+            </segment>
+            <segment id="examine">
+                <source>fragilane.examine</source>
+                <target>La fragilane est un petit fruit savoureux et peu nutritif.</target>
+			</segment>
+        </unit>									
+	   <unit id="anemole">
+            <segment id="name">
+                <source>anemole.name</source>
+                <target>Anémole</target>
+            </segment>
+            <segment id="short_name">
+                <source>anemole.short_name</source>
+                <target>Anémole</target>
+            </segment>
+            <segment id="genre">
+                <source>anemole.genre</source>
+                <target>female</target>
+            </segment>
+            <segment id="description">
+                <source>anemole.description</source>
+                <target>L'anémole est un fruit frais qui peut servir de remplacement au beurre en cuisson.</target>
+            </segment>
+            <segment id="examine">
+                <source>anemole.examine</source>
+                <target>L'anémole est un fruit frais qui peut servir de remplacement au beurre en cuisson.</target>
+			</segment>
+        </unit>											
+	   <unit id="peniraft">
+            <segment id="name">
+                <source>peniraft.name</source>
+                <target>Pénicule</target>
+            </segment>
+            <segment id="short_name">
+                <source>peniraft.short_name</source>
+                <target>Pénicule</target>
+            </segment>
+            <segment id="genre">
+                <source>peniraft.genre</source>
+                <target>female</target>
+            </segment>
+            <segment id="description">
+                <source>peniraft.description</source>
+                <target>La Pénicule est un fruit très en vogue sur Venicia. Son intérêt culinaire assez moyen laisse quand même songeur sur les raisons de cette hype.</target>
+            </segment>
+            <segment id="examine">
+                <source>peniraft.examine</source>
+                <target>La Pénicule est un fruit très en vogue sur Venicia. Son intérêt culinaire assez moyen laisse quand même songeur sur les raisons de cette hype.</target>
+			</segment>
+        </unit>		
+	   <unit id="kubinus">
+            <segment id="name">
+                <source>kubinus.name</source>
+                <target>Kubinus</target>
+            </segment>
+            <segment id="short_name">
+                <source>kubinus.short_name</source>
+                <target>Kubinus</target>
+            </segment>
+            <segment id="genre">
+                <source>kubinus.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>kubinus.description</source>
+                <target>Le kubinus fait l'objet de l'adoration d'une secte de mathématicien tordus, fanatiques de formes parfaites et de saveurs carrés.</target>
+            </segment>
+            <segment id="examine">
+                <source>kubinus.examine</source>
+                <target>Le kubinus fait l'objet de l'adoration d'une secte de mathématicien tordus, fanatiques de formes parfaites et de saveurs carrés.</target>
+			</segment>
+        </unit>				
+	   <unit id="caleboot">
+            <segment id="name">
+                <source>caleboot.name</source>
+                <target>Calebotte</target>
+            </segment>
+            <segment id="short_name">
+                <source>caleboot.short_name</source>
+                <target>Calebotte</target>
+            </segment>
+            <segment id="genre">
+                <source>caleboot.genre</source>
+                <target>female</target>
+            </segment>
+            <segment id="description">
+                <source>caleboot.description</source>
+                <target>La Calebotte frappe tout de suite par ses arômes brutaux et ses parfums pêchus.</target>
+            </segment>
+            <segment id="examine">
+                <source>caleboot.examine</source>
+                <target>La Calebotte frappe tout de suite par ses arômes brutaux et ses parfums pêchus.</target>
+			</segment>
+        </unit>
+	   <unit id="tracker">
+            <segment id="name">
+                <source>tracker.name</source>
+                <target>Traqueur</target>
+            </segment>
+            <segment id="short_name">
+                <source>tracker.short_name</source>
+                <target>Traqueur</target>
+            </segment>
+            <segment id="genre">
+                <source>tracker.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>tracker.description</source>
+                <target></target>
+            </segment>
+            <segment id="examine">
+                <source>tracker.examine</source>
+                <target></target>
+			</segment>
+        </unit>
+	   <unit id="walkie_talkie">
+            <segment id="name">
+                <source>walkie_talkie.name</source>
+                <target>Talkie-walkie</target>
+            </segment>
+            <segment id="short_name">
+                <source>walkie_talkie.short_name</source>
+                <target>Talkie-walkie</target>
+            </segment>
+            <segment id="genre">
+                <source>walkie_talkie.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>walkie_talkie.description</source>
+                <target></target>
+            </segment>
+            <segment id="examine">
+                <source>walkie_talkie.examine</source>
+                <target></target>
+			</segment>
+        </unit>
+	   <unit id="itrakie">
+            <segment id="name">
+                <source>itrakie.name</source>
+                <target>iTrakie®©</target>
+            </segment>
+            <segment id="short_name">
+                <source>itrakie.short_name</source>
+                <target>iTrakie®©</target>
+            </segment>
+            <segment id="genre">
+                <source>itrakie.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>itrakie.description</source>
+                <target>L'iTrakie®© est ce qui se fait de mieux en matière de gadget numérique. Il est beau, élégant, sobre, il vibre et ne tombe presque jamais en panne.
+    Permet de communiquer à distance avec les autres équipier.
+    Permet d'avoir accès à la mini-carte augmentée du Daedalus</target>
+            </segment>
+            <segment id="examine">
+                <source>itrakie.examine</source>
+                <target>L'iTrakie®© est ce qui se fait de mieux en matière de gadget numérique. Il est beau, élégant, sobre, il vibre et ne tombe presque jamais en panne.
+    Permet de communiquer à distance avec les autres équipier.
+    Permet d'avoir accès à la mini-carte augmentée du Daedalus</target>
+			</segment>
+        </unit>
+	   <unit id="adjustable_wrench">
+            <segment id="name">
+                <source>adjustable_wrench.name</source>
+                <target>Clé à Molette</target>
+            </segment>
+            <segment id="short_name">
+                <source>adjustable_wrench.short_name</source>
+                <target>Clé à Molette</target>
+            </segment>
+            <segment id="genre">
+                <source>adjustable_wrench.genre</source>
+                <target>female</target>
+            </segment>
+            <segment id="description">
+                <source>adjustable_wrench.description</source>
+                <target>La meilleure amie du technicien. Augmente grandement vos compétences de réparation.</target>
+            </segment>
+            <segment id="examine">
+                <source>adjustable_wrench.examine</source>
+                <target>La meilleure amie du technicien. Augmente grandement vos compétences de réparation.
+Une clé à molette, peut servir pour faciliter la réparation des valves, tourelles, etc... Bref, tout ce qui se répare.</target>
+			</segment>
+        </unit>
+	   <unit id="alien_bottle_opener">
+            <segment id="name">
+                <source>alien_bottle_opener.name</source>
+                <target>Décapsuleur Alien</target>
+            </segment>
+            <segment id="short_name">
+                <source>alien_bottle_opener.short_name</source>
+                <target>Décapsuleur Alien</target>
+            </segment>
+            <segment id="genre">
+                <source>alien_bottle_opener.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>alien_bottle_opener.description</source>
+                <target>Initialement prévu pour les aliens amateurs de bière, cet ouvre bouteille dernier-cri rend des services inattendus pour réparer le Daedalus.
+Augmente les chances de réparation de 50%</target>
+            </segment>
+            <segment id="examine">
+                <source>alien_bottle_opener.examine</source>
+                <target>Initialement prévu pour les aliens amateurs de bière, cet ouvre bouteille dernier-cri rend des services inattendus pour réparer le Daedalus.
+Augmente les chances de réparation de 50%</target>
+			</segment>
+        </unit>
+	   <unit id="anti_grav_scooter">
+            <segment id="name">
+                <source>anti_grav_scooter.name</source>
+                <target>Trottinette anti-gravité</target>
+            </segment>
+            <segment id="short_name">
+                <source>anti_grav_scooter.short_name</source>
+                <target>Trottinette anti-gravité</target>
+            </segment>
+            <segment id="genre">
+                <source>anti_grav_scooter.genre</source>
+                <target>female</target>
+            </segment>
+            <segment id="description">
+                <source>anti_grav_scooter.description</source>
+                <target>La trottinette anti-gravité permet de se déplacer plus fréquemment.
+Ajoute 2 Points de Mouvement lors des transferts pa-pm (sauf si vous avez déjà la compétence Sprinter).</target>
+            </segment>
+            <segment id="examine">
+                <source>anti_grav_scooter.examine</source>
+                <target>La trottinette anti-gravité permet de se déplacer plus fréquemment.
+Ajoute 2 Points de Mouvement lors des transferts pa-pm (sauf si vous avez déjà la compétence Sprinter).</target>
+			</segment>
+        </unit>	
+	   <unit id="rolling_boulder">
+            <segment id="name">
+                <source>rolling_boulder.name</source>
+                <target>Monture rocheuse</target>
+            </segment>
+            <segment id="short_name">
+                <source>rolling_boulder.short_name</source>
+                <target>Monture rocheuse</target>
+            </segment>
+            <segment id="genre">
+                <source>rolling_boulder.genre</source>
+                <target>female</target>
+            </segment>
+            <segment id="description">
+                <source>rolling_boulder.description</source>
+                <target>Il secoue pas mal et fait beaucoup de bruit dans les coursives, mais il permet de se déplacer d'un bout à l'autre du Daedalus sans se fatiguer.
+Lors des cycles pairs, vous gagnez 1 pm de plus lors des transferts.</target>
+            </segment>
+            <segment id="examine">
+                <source>rolling_boulder.examine</source>
+                <target>Il secoue pas mal et fait beaucoup de bruit dans les coursives, mais il permet de se déplacer d'un bout à l'autre du Daedalus sans se fatiguer.
+Lors des cycles pairs, vous gagnez 1 pm de plus lors des transferts.
+Les câlins de la bête sont littérallement insupportable, le pire ce sont les léchouilles...</target>
+			</segment>
+        </unit>
+        <unit id="sniper_helmet">
+            <segment id="name">
+                <source>sniper_helmet.name</source>
+                <target>Casque de visée</target>
+            </segment>
+            <segment id="short_name">
+                <source>sniper_helmet.short_name</source>
+                <target>Casque de visée</target>
+            </segment>
+            <segment id="genre">
+                <source>sniper_helmet.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>sniper_helmet.description</source>
+                <target>Si la force n'est pas avec vous, des facilités de visées peuvent toujours servir.</target>
+            </segment>
+            <segment id="examine">
+                <source>sniper_helmet.examine</source>
+                <target>Si la force n'est pas avec vous, des facilités de visées peuvent toujours servir.
+Le casque de visée est une aide précieuse par temps de brouillard, dans le noir, ou si vous ne savez pas vous servir d'une arme.</target>
+            </segment>
+        </unit>
+        <unit id="lenses">
+            <segment id="name">
+                <source>lenses.name</source>
+                <target>Lentille NCC</target>
+            </segment>
+            <segment id="short_name">
+                <source>lenses.short_name</source>
+                <target>Lentille NCC</target>
+            </segment>
+            <segment id="genre">
+                <source>lenses.genre</source>
+                <target>female</target>
+            </segment>
+            <segment id="description">
+                <source>lenses.description</source>
+                <target>Les lentilles NCC améliorent votre vision
++10% à vos actions de Tir.</target>
+            </segment>
+            <segment id="examine">
+                <source>lenses.examine</source>
+                <target>Les lentilles NCC améliorent votre vision
++10% à vos actions de Tir.
+Ces lentilles ultra sophistiquées élaborées à partir d'une technologie féline feront de vous un bien meilleur prédateur.</target>
+			</segment>
+        </unit>
+	   <unit id="oscilloscope">
+            <segment id="name">
+                <source>oscilloscope.name</source>
+                <target>Vaguoscope</target>
+            </segment>
+            <segment id="short_name">
+                <source>oscilloscope.short_name</source>
+                <target>Vaguoscope</target>
+            </segment>
+            <segment id="genre">
+                <source>oscilloscope.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>oscilloscope.description</source>
+                <target>Un superbe vaguoscope dernière génération.
++100% de réussite aux actions de réparation des Patrouilleurs et de la coque du Daedalus</target>
+            </segment>
+            <segment id="examine">
+                <source>oscilloscope.examine</source>
+                <target>Un superbe vaguoscope dernière génération.
++100% de réussite aux actions de réparation des Patrouilleurs et de la coque du Daedalus
+Vous n'avez jamais vraiment compris l'utilité du vaguoscope mais de toute façon tout le monde s'en fiche... sauf les pilotes de Patrouilleurs.</target>
+			</segment>
+        </unit>
+	   <unit id="plastenite_armor">
+            <segment id="name">
+                <source>plastenite_armor.name</source>
+                <target>Armure de plastenite</target>
+            </segment>
+            <segment id="short_name">
+                <source>plastenite_armor.short_name</source>
+                <target>Armure de plastenite</target>
+            </segment>
+            <segment id="genre">
+                <source>plastenite_armor.genre</source>
+                <target>female</target>
+            </segment>
+            <segment id="description">
+                <source>plastenite_armor.description</source>
+                <target>Cette armure est conseillée pour partir en expédition.
+Absorbe 1 point de dégats de combat.</target>
+            </segment>
+            <segment id="examine">
+                <source>plastenite_armor.examine</source>
+                <target>Cette armure est conseillée pour partir en expédition.
+Absorbe 1 point de dégats de combat.
+L'armure de plastenite est faite en latex bio-sensibilisé et en matière ultra souple, ce qui la rend légère et agréable à porter, presque invisible. Certains la trouvent un peu efféminée en la comparant à des collants moulants. Gageons que le moulage du poitrail n'aide pas. En réalité, mieux vaut être ridicule que mort.</target>
+			</segment>
+        </unit>
+	   <unit id="protective_gloves">
+            <segment id="name">
+                <source>protective_gloves.name</source>
+                <target>Gants de protection</target>
+            </segment>
+            <segment id="short_name">
+                <source>protective_gloves.short_name</source>
+                <target>Gants de protection</target>
+            </segment>
+            <segment id="genre">
+                <source>protective_gloves.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>protective_gloves.description</source>
+                <target>Vos chances de blessure sont divisées par 5 lorsque vous effectuez des réparations</target>
+            </segment>
+            <segment id="examine">
+                <source>protective_gloves.examine</source>
+                <target>Vos chances de blessure sont divisées par 5 lorsque vous effectuez des réparations
+Perdre une main. C'est désagréable.</target>
+			</segment>
+        </unit>
+	   <unit id="snipers_helmet">
+            <segment id="name">
+                <source>snipers_helmet.name</source>
+                <target>Casque de Visée</target>
+            </segment>
+            <segment id="short_name">
+                <source>snipers_helmet.short_name</source>
+                <target>Casque de Visée</target>
+            </segment>
+            <segment id="genre">
+                <source>snipers_helmet.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>snipers_helmet.description</source>
+                <target>Si la force n'est pas avec vous, des facilités de visées peuvent toujours servir.</target>
+            </segment>
+            <segment id="examine">
+                <source>snipers_helmet.examine</source>
+                <target>Si la force n'est pas avec vous, des facilités de visées peuvent toujours servir.
+Le casque de visée est une aide précieuse par temps de brouillard, dans le noir, ou si vous ne savez pas vous servir d'une arme.</target>
+			</segment>
+        </unit>
+	   <unit id="spacesuit">
+            <segment id="name">
+                <source>spacesuit.name</source>
+                <target>Combinaison</target>
+            </segment>
+            <segment id="short_name">
+                <source>spacesuit.short_name</source>
+                <target>Combinaison</target>
+            </segment>
+            <segment id="genre">
+                <source>spacesuit.genre</source>
+                <target>female</target>
+            </segment>
+            <segment id="description">
+                <source>spacesuit.description</source>
+                <target>La combinaison spatiale permet d'explorer des planètes sans oxygène
+Permet de survivre après une éjection et de respirer sur les planètes non-respirables.</target>
+            </segment>
+            <segment id="examine">
+                <source>spacesuit.examine</source>
+                <target>La combinaison spatiale permet d'explorer des planètes sans oxygène
+Permet de survivre après une éjection et de respirer sur les planètes non-respirables.
+Le joueur peut sortir dans l'espace depuis une baie de lancement pour une mission de réparation externe. Le personnage peut également participer à une expédition sur une planète à l’atmosphère non-respirable.</target>
+			</segment>
+        </unit>
+	   <unit id="stainproof_apron">
+            <segment id="name">
+                <source>stainproof_apron.name</source>
+                <target>Tablier intachable</target>
+            </segment>
+            <segment id="short_name">
+                <source>stainproof_apron.short_name</source>
+                <target>Tablier intachable</target>
+            </segment>
+            <segment id="genre">
+                <source>stainproof_apron.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>stainproof_apron.description</source>
+                <target>Vous ne vous salissez jamais en effectuant des actions salissantes.</target>
+            </segment>
+            <segment id="examine">
+                <source>stainproof_apron.examine</source>
+                <target>Vous ne vous salissez jamais en effectuant des actions salissantes.
+Un vieux tablier fatigué avec écrit dessus : "Meilleur ingénieur de mon coeur". Nul ne sait qui a ramené ça mais il peut servir...</target>
+			</segment>
+        </unit>
+	   <unit id="soap">
+            <segment id="name">
+                <source>soap.name</source>
+                <target>Savon</target>
+            </segment>
+            <segment id="short_name">
+                <source>soap.short_name</source>
+                <target>Savon</target>
+            </segment>
+            <segment id="genre">
+                <source>soap.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>soap.description</source>
+                <target>Un vieux savon de Marseille à la lavande. Dans l'espace personne ne peux vous entendre doucher</target>
+            </segment>
+            <segment id="examine">
+                <source>soap.examine</source>
+                <target>Un vieux savon de Marseille à la lavande. Dans l'espace personne ne peux vous entendre doucher. L'action Se Laver coûte un PA de moins. Y en a certains qui devraient vraiment s'en servir.</target>
+			</segment>
+        </unit>
+	   <unit id="super_soaper">
+            <segment id="name">
+                <source>super_soaper.name</source>
+                <target>Super Savon</target>
+            </segment>
+            <segment id="short_name">
+                <source>super_soaper.short_name</source>
+                <target>Super Savon</target>
+            </segment>
+            <segment id="genre">
+                <source>super_soaper.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>super_soaper.description</source>
+                <target>Super Savon est un produit révolutionnaire indispensable dans la lutte anti-mush. L'action Se Laver coûte un PA de moins ET vous nettoie d'un spore !</target>
+            </segment>
+            <segment id="examine">
+                <source>super_soaper.examine</source>
+                <target>Super Savon est un produit révolutionnaire indispensable dans la lutte anti-mush.
+L'action Se Laver coûte un PA de moins ET vous nettoie d'un spore !
+L'avenir de l'Humanité sera propre ou ne sera pas.</target>
+			</segment>
+        </unit>
+	   <unit id="babel_module">
+            <segment id="name">
+                <source>babel_module.name</source>
+                <target>Module Babel</target>
+            </segment>
+            <segment id="short_name">
+                <source>babel_module.short_name</source>
+                <target>Module Babel</target>
+            </segment>
+            <segment id="genre">
+                <source>babel_module.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>babel_module.description</source>
+                <target>Un module de traduction universel.
+Expédition : Chance de gains d'Artefact dans un secteur "Vie Intelligente" x2</target>
+            </segment>
+            <segment id="examine">
+                <source>babel_module.examine</source>
+                <target>Un module de traduction universel.
+Expédition : Chance de gains d'Artefact dans un secteur "Vie Intelligente" x2
+Le module Babel a été mis au point il y a de nombreuses années par un pisciculteur. Celui-ci en avait assez de voir ses poissons rouges mourir trop rapidement et a donc décidé de financer un projet de recherche visant à pouvoir communiquer avec eux. Le module décrypte les émotions des ondes pre et para-consciente Alpha et Beta et les transforme en mots intelligibles... ou presque. Bien mal lui en a pris, car ses poissons étaient en fait juste trop idiots et n'avaient aucun espèce d’intellect. Par contre, lui permettant de communiquer avec toute sorte d'autres entités vivantes, il a réussi à gagner des millions en refourguant son invention aux propriétaires de chiens... Les chats ne daignant pas répondre aux humains. Avec les premiers contacts xenomorphes, il devint très riche et eu beaucoup d'enfants.</target>
+			</segment>
+        </unit>
+	   <unit id="drill">
+            <segment id="name">
+                <source>drill.name</source>
+                <target>Foreuse</target>
+            </segment>
+            <segment id="short_name">
+                <source>drill.short_name</source>
+                <target>Foreuse</target>
+            </segment>
+            <segment id="genre">
+                <source>drill.genre</source>
+                <target>female</target>
+            </segment>
+            <segment id="description">
+                <source>drill.description</source>
+                <target>La foreuse permet de récupérer des minéraux en mission.
+Expédition : Double les gains de l'évènement ""Hydrocarbure""
+La foreuse permet aux corps expéditionnaires de traverser certaines embûches un peu "dures" à contourner.</target>
+            </segment>
+            <segment id="examine">
+                <source>drill.examine</source>
+                <target>La foreuse permet de récupérer des minéraux en mission.
+Expédition : Double les gains de l'évènement "Hydrocarbure"
+La foreuse permet aux corps expéditionnaires de traverser certaines embûches un peu "dures" à contourner.</target>
+			</segment>
+        </unit>	
+	   <unit id="echolocator">
+            <segment id="name">
+                <source>echolocator.name</source>
+                <target>Écholocateur</target>
+            </segment>
+            <segment id="short_name">
+                <source>echolocator.short_name</source>
+                <target>Écholocateur</target>
+            </segment>
+            <segment id="genre">
+                <source>echolocator.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>echolocator.description</source>
+                <target>L'ÉchoLocateur est un outil pour missions expéditionnaires. Il permet de repérer des mouvements dans l’environnement immédiat du porteur.
+Expédition : Chance de parcourir une des sections restantes "Hydro-Carbure" x5</target>
+            </segment>
+            <segment id="examine">
+                <source>echolocator.examine</source>
+                <target>L'ÉchoLocateur est un outil pour missions expéditionnaires. Il permet de repérer des mouvements dans l’environnement immédiat du porteur.
+Expédition : Chance de parcourir une des sections restantes "Hydro-Carbure" x5
+L' ÉchoLocateur est un outils puissant pour les corps expéditionnaire en milieu hostile. Malheureusement, tout ce qui bouge n'est pas dangereux. Et vice-versa.</target>
+			</segment>
+        </unit>
+	   <unit id="quadrimetric_compass">
+            <segment id="name">
+                <source>quadrimetric_compass.name</source>
+                <target>Boussole Quadrimetric</target>
+            </segment>
+            <segment id="short_name">
+                <source>quadrimetric_compass.short_name</source>
+                <target>Boussole Quadrimetric</target>
+            </segment>
+            <segment id="genre">
+                <source>quadrimetric_compass.genre</source>
+                <target>female</target>
+            </segment>
+            <segment id="description">
+                <source>quadrimetric_compass.description</source>
+                <target>La boussole quadrimétrique sert surtout en mission.
+Expédition : Protège le groupe des évènements "Errance".
+Expédition : Vous protège des évènements "Perdu"</target>
+            </segment>
+            <segment id="examine">
+                <source>quadrimetric_compass.examine</source>
+                <target>La boussole quadrimétrique sert surtout en mission.
+Expédition : Protège le groupe des évènements ""Errance"".
+Expédition : Vous protège des évènements "Perdu"</target>
+			</segment>
+        </unit>
+	   <unit id="rope">
+            <segment id="name">
+                <source>rope.name</source>
+                <target>Corde</target>
+            </segment>
+            <segment id="short_name">
+                <source>rope.short_name</source>
+                <target>Corde</target>
+            </segment>
+            <segment id="genre">
+                <source>rope.genre</source>
+                <target>female</target>
+            </segment>
+            <segment id="description">
+                <source>rope.description</source>
+                <target>Permet de se sortir d'impasse en expédition.
+Expédition : Annule les dommages personnels qui peuvent vous arriver dans les secteurs "Sismique", "Grotte" et "Montagne", ne préserve pas des morts subites.</target>
+            </segment>
+            <segment id="examine">
+                <source>rope.examine</source>
+                <target>Permet de se sortir d'impasse en expédition.
+Expédition : Annule les dommages personnels qui peuvent vous arriver dans les secteurs ""Sismique"", "Grotte" et "Montagne", ne préserve pas des morts subites.
+Parmi les analyses probabilistes de ce qui serait sur le Daedalus, la Corde avait une chance nulle. Et pourtant.</target>
+			</segment>
+        </unit>
+	   <unit id="thermosensor">
+            <segment id="name">
+                <source>thermosensor.name</source>
+                <target>Thermosenseur</target>
+            </segment>
+            <segment id="short_name">
+                <source>thermosensor.short_name</source>
+                <target>Thermosenseur</target>
+            </segment>
+            <segment id="genre">
+                <source>thermosensor.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>thermosensor.description</source>
+                <target>Facilite l'exploration en indiquant les formes de chaleur proche.
+Expédition : Chance de parcourir une des sections restantes "Ruminant","Prédateur","Vie intelligente","Mankarog","Insecte" x5</target>
+            </segment>
+            <segment id="examine">
+                <source>thermosensor.examine</source>
+                <target>Facilite l'exploration en indiquant les formes de chaleur proche.
+Expédition : Chance de parcourir une des sections restantes "Ruminant","Prédateur","Vie intelligente","Mankarog","Insecte" x5</target>
+			</segment>
+        </unit>
+	   <unit id="white_flag">
+            <segment id="name">
+                <source>white_flag.name</source>
+                <target>Drapeau blanc</target>
+            </segment>
+            <segment id="short_name">
+                <source>white_flag.short_name</source>
+                <target>Drapeau blanc</target>
+            </segment>
+            <segment id="genre">
+                <source>white_flag.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>white_flag.description</source>
+                <target>Le drapeau blanc est un symbole universel de paix... ou presque.
+Expédition : Annule les chances de combat dans un secteur "Vie Intelligente"</target>
+            </segment>
+            <segment id="examine">
+                <source>white_flag.examine</source>
+                <target>Le drapeau blanc est un symbole universel de paix... ou presque.
+Expédition : Annule les chances de combat dans un secteur "Vie Intelligente"
+Le drapeau blanc a été institué symbole international des peuples en demande de pourparlers en 2030 par l'ONU, de fait sa signification est très répandu et c'est donc un bon moyen de dire "nous venons en paix". Suite à quelques soucis anecdotiques, rapports à des vrais faux drapeaux blancs qui auraient provoqué des meurtres de dignitaires, sa portée reste toutefois limité et la seule bonne foi d'un corps expéditionnaire ne suffira pas forcément à leur acquérir des facilités diplomatiques.</target>
+			</segment>
+        </unit>
+	   <unit id="alien_holographic_tv">
+            <segment id="name">
+                <source>alien_holographic_tv.name</source>
+                <target>Télé holographique alien</target>
+            </segment>
+            <segment id="short_name">
+                <source>alien_holographic_tv.short_name</source>
+                <target>Télé holographique alien</target>
+            </segment>
+            <segment id="genre">
+                <source>alien_holographic_tv.genre</source>
+                <target>female</target>
+            </segment>
+            <segment id="description">
+                <source>alien_holographic_tv.description</source>
+                <target>Ce petit module peut projeter des séries télévisées alien grandeur nature dans le refectoire ! De quoi remonter le moral de l'équipage.
+Unique : Permet de donner +3 :pmo: à chaque téléspectateur.</target>
+            </segment>
+            <segment id="examine">
+                <source>alien_holographic_tv.examine</source>
+                <target>Ce petit module peut projeter des séries télévisées alien grandeur nature dans le refectoire ! De quoi remonter le moral de l'équipage. Unique : Permet de donner +3 :pmo: à chaque téléspectateur. L'effet hypnotique de cet appareil vous fera oublier tout vos soucis. Et vos ennuis. Et... Vous vous appelez comment déjà ?</target>
+			</segment>
+        </unit>
+	   <unit id="block_of_post_it_notes">
+            <segment id="name">
+                <source>block_of_post_it_notes.name</source>
+                <target>Bloc de pense-bête(s)</target>
+            </segment>
+            <segment id="short_name">
+                <source>block_of_post_it_notes.short_name</source>
+                <target>Bloc de pense-bête(s)</target>
+            </segment>
+            <segment id="genre">
+                <source>block_of_post_it_notes.genre</source>
+                <target>female</target>
+            </segment>
+            <segment id="description">
+                <source>block_of_post_it_notes.description</source>
+                <target>Un bloc de ces affreux petit papiers...</target>
+            </segment>
+            <segment id="examine">
+                <source>block_of_post_it_notes.examine</source>
+                <target>Un bloc de ces affreux petits papiers...
+Il manque pas mal de feuilles mais il pourra encore vous servir quelque temps.</target>
+			</segment>
+        </unit>
+	   <unit id="duct_tape">
+            <segment id="name">
+                <source>duct_tape.name</source>
+                <target>Ruban adhésif</target>
+            </segment>
+            <segment id="short_name">
+                <source>duct_tape.short_name</source>
+                <target>Ruban adhésif</target>
+            </segment>
+            <segment id="genre">
+                <source>duct_tape.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>duct_tape.description</source>
+                <target>On ne sait jamais mais ça peut servir.</target>
+				</segment>
+            <segment id="examine">
+                <source>duct_tape.examine</source>
+                <target>On ne sait jamais mais ça peut servir.
+Le rouleau de ruban adhésif a de nombreux usages pas toujours avouables.</target>
+			</segment>
+        </unit>
+	   <unit id="extinguisher">
+            <segment id="name">
+                <source>extinguisher.name</source>
+                <target>Extincteur</target>
+            </segment>
+            <segment id="short_name">
+                <source>extinguisher.short_name</source>
+                <target>Extincteur</target>
+            </segment>
+            <segment id="genre">
+                <source>extinguisher.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>extinguisher.description</source>
+                <target>L'extincteur est le meilleur ami de la personne prisonnière des flammes.</target>
+				</segment>
+            <segment id="examine">
+                <source>extinguisher.examine</source>
+                <target>L'extincteur est le meilleur ami de la personne prisonnière des flammes.
+L'extincteur est un dispositif de sécurité de taille standard désigné pour pouvoir étouffer une éventuelle combustion.</target>
+			</segment>
+        </unit>
+	   <unit id="hacker_kit">
+            <segment id="name">
+                <source>hacker_kit.name</source>
+                <target>Bidouilleur</target>
+            </segment>
+            <segment id="short_name">
+                <source>hacker_kit.short_name</source>
+                <target>Bidouilleur</target>
+            </segment>
+            <segment id="genre">
+                <source>hacker_kit.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>hacker_kit.description</source>
+                <target>Le bidouilleur vous permet de débloquer l'accès d'un module protégé tel que le Terminal de Commandement ou le Bios de NERON</target>
+				</segment>
+            <segment id="examine">
+                <source>hacker_kit.examine</source>
+                <target>Le bidouilleur vous permet de débloquer l'accès d'un module protégé tel que le Terminal de Commandement ou le Bios de NERON
+Le bidouilleur est objet étrange, son utilité reste à prouver et à vrai dire peu savent vraiment à quoi il sert...</target>
+			</segment>
+        </unit>
+	   <unit id="mad_kube">
+            <segment id="name">
+                <source>mad_kube.name</source>
+                <target>MAD Kube</target>
+            </segment>
+            <segment id="short_name">
+                <source>mad_kube.short_name</source>
+                <target>MAD Kube</target>
+            </segment>
+            <segment id="genre">
+                <source>mad_kube.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>mad_kube.description</source>
+                <target>Les MAD Kubes sont une famille d'objets de torture de l'esprit.</target>
+				</segment>
+            <segment id="examine">
+                <source>mad_kube.examine</source>
+                <target>Les MAD Kubes sont une famille d'objets de torture de l'esprit.
+Le MAD Kube, prisé par tous. Bien peu arrivent à le résoudre en moins de 26 mouvements.</target>
+			</segment>
+        </unit>
+	   <unit id="microwave">
+            <segment id="name">
+                <source>microwave.name</source>
+                <target>Micro-onde</target>
+            </segment>
+            <segment id="short_name">
+                <source>microwave.short_name</source>
+                <target>Micro-onde</target>
+            </segment>
+            <segment id="genre">
+                <source>microwave.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>microwave.description</source>
+                <target>Le micro-onde permet de cuisiner rapidement et efficacement. Par contre, on est toujours pas sûr de son absence de nocivité.</target>
+				</segment>
+            <segment id="examine">
+                <source>microwave.examine</source>
+                <target>Le micro-onde permet de cuisiner rapidement et efficacement. Par contre, on est toujours pas sûr de son absence de nocivité.
+Outil moderne pour cuisiner rapidement les rations.</target>
+			</segment>
+        </unit>
+	   <unit id="superfreezer">
+            <segment id="name">
+                <source>superfreezer.name</source>
+                <target>Supergélateur</target>
+            </segment>
+            <segment id="short_name">
+                <source>superfreezer.short_name</source>
+                <target>Supergélateur</target>
+            </segment>
+            <segment id="genre">
+                <source>superfreezer.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>superfreezer.description</source>
+                <target>Le Supergélateur permet de stériliser et de repackager une ration cuisinée.</target>
+				</segment>
+            <segment id="examine">
+                <source>superfreezer.examine</source>
+                <target>Le Supergélateur permet de stériliser et de repackager une ration cuisinée.
+Outil moderne qui permet de conditionner de la nourriture.</target>
+			</segment>
+        </unit>
+	   <unit id="tabulatrix">
+            <segment id="name">
+                <source>tabulatrix.name</source>
+                <target>Tabulatrice</target>
+            </segment>
+            <segment id="short_name">
+                <source>tabulatrix.short_name</source>
+                <target>Tabulatrice</target>
+            </segment>
+            <segment id="genre">
+                <source>tabulatrix.genre</source>
+                <target>female</target>
+            </segment>
+            <segment id="description">
+                <source>tabulatrix.description</source>
+                <target>La tabulatrice permet à NERON de vous fournir des documents écrits.</target>
+				</segment>
+            <segment id="examine">
+                <source>tabulatrix.examine</source>
+                <target>La tabulatrice permet à NERON de vous fournir des documents écrits.
+Tout droit sortie des plus grandes imaginations de la science fiction, une machine qui imprime des symboles sur du papier toute seule avec seulement des cartes perforées en entrée. Certains signaux cryptés ne peuvent être décodés qu'au moyen de cet engin préhistorique.</target>
+			</segment>
+        </unit>
+	   <unit id="old_t_shirt">
+            <segment id="name">
+                <source>old_t_shirt.name</source>
+                <target>Vieux T-shirt</target>
+            </segment>
+            <segment id="short_name">
+                <source>old_t_shirt.short_name</source>
+                <target>Vieux T-shirt</target>
+            </segment>
+            <segment id="genre">
+                <source>old_t_shirt.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>old_t_shirt.description</source>
+                <target>Un vieux T-Shirt atrocement plein de crasse.</target>
+				</segment>
+            <segment id="examine">
+                <source>old_t_shirt.examine</source>
+                <target>Un vieux T-Shirt atrocement plein de crasse.
+Répugnant... Vous devriez le brûler.</target>
+			</segment>
+        </unit>
+	   <unit id="plastic_scraps">
+            <segment id="name">
+                <source>plastic_scraps.name</source>
+                <target>Débris plastique</target>
+            </segment>
+            <segment id="short_name">
+                <source>plastic_scraps.short_name</source>
+                <target>Débris plastique</target>
+            </segment>
+            <segment id="genre">
+                <source>plastic_scraps.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>plastic_scraps.description</source>
+                <target>Encore des débris sans intérêt.</target>
+				</segment>
+            <segment id="examine">
+                <source>plastic_scraps.examine</source>
+                <target>Encore des débris sans intérêt.
+Avec quelques outils et de la patience, c'est fou ce à quoi l'on peut arriver.</target>
+			</segment>
+        </unit>
+	   <unit id="metal_scraps">
+            <segment id="name">
+                <source>metal_scraps.name</source>
+                <target>Débris métallique</target>
+            </segment>
+            <segment id="short_name">
+                <source>metal_scraps.short_name</source>
+                <target>Débris métallique</target>
+            </segment>
+            <segment id="genre">
+                <source>metal_scraps.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>metal_scraps.description</source>
+                <target>Encore des débris sans intérêt.</target>
+				</segment>
+            <segment id="examine">
+                <source>metal_scraps.examine</source>
+                <target>Des débris sans intérêt.
+Il est parfois surprenant de voir ce que certains savent faire avec quelques morceaux d'aluminium.</target>
+			</segment>
+        </unit>
+	   <unit id="thick_tube">
+            <segment id="name">
+                <source>thick_tube.name</source>
+                <target>Tube épais</target>
+            </segment>
+            <segment id="short_name">
+                <source>thick_tube.short_name</source>
+                <target>Tube épais</target>
+            </segment>
+            <segment id="genre">
+                <source>thick_tube.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>thick_tube.description</source>
+                <target>Un tube creux et froid...</target>
+				</segment>
+            <segment id="examine">
+                <source>thick_tube.examine</source>
+                <target>Un tube creux et froid...
+Un tube épais... qu'est-ce que vous pourriez en faire...</target>
+			</segment>
+        </unit>
+	   <unit id="schrodinger">
+            <segment id="name">
+                <source>schrodinger.name</source>
+                <target>Schrödinger</target>
+            </segment>
+            <segment id="short_name">
+                <source>schrodinger.short_name</source>
+                <target>Schrödinger</target>
+            </segment>
+            <segment id="genre">
+                <source>schrodinger.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>schrodinger.description</source>
+                <target>Schrödinger est un chat un peu grincheux mais tout à fait soyeux.</target>
+				</segment>
+            <segment id="examine">
+                <source>schrodinger.examine</source>
+                <target>Schrödinger est un chat un peu grincheux mais tout à fait soyeux.
+"Un beau chat, fort doux et charmant. Quand il miaule, on l'entend à peine, Tant son timbre est tendre et discret." C'est le chat de Raluca.</target>
+			</segment>
+        </unit>
+	   <unit id="support_drone">
+            <segment id="name">
+                <source>support_drone.name</source>
+                <target>Drone de Soutien (ou Drone)</target>
+            </segment>
+            <segment id="short_name">
+                <source>support_drone.short_name</source>
+                <target>Drone de Soutien (ou Drone)</target>
+            </segment>
+            <segment id="genre">
+                <source>support_drone.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>support_drone.description</source>
+                <target>Le meilleur ami de l'homme du Daedalus. Ce drone pourra accomplir de nombreuses tâches à votre place.
+Le Drone effectue des actions similaires à celles des équipiers.
+Tente de réparer les équipements défectueux de la pièce avant de se déplacer.</target>
+				</segment>
+            <segment id="examine">
+                <source>support_drone.examine</source>
+                <target>Le meilleur ami de l'homme du Daedalus. Ce drone pourra accomplir de nombreuses tâches à votre place.
+Le Drone effectue des actions similaires à celles des équipiers.
+Tente de réparer les équipements défectueux de la pièce avant de se déplacer.
+Le drone de Soutien permet d'achever l'objectif de maintenance automatique de Magellan, grâce à son protocole Beta|-Slave ils peuvent quasiment remplacer un vrai être humain. Sauf pour le faire.</target>
+			</segment>
+        </unit>
+	   <unit id="jar_of_alien_oil">
+            <segment id="name">
+                <source>jar_of_alien_oil.name</source>
+                <target>Drone de Soutien (ou Drone)</target>
+            </segment>
+            <segment id="short_name">
+                <source>jar_of_alien_oil.short_name</source>
+                <target>Drone de Soutien (ou Drone)</target>
+            </segment>
+            <segment id="genre">
+                <source>jar_of_alien_oil.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>jar_of_alien_oil.description</source>
+                <target>Cette huile mi-ra-cu-leuse ne se contente pas de guérir vos blessures, elle peut également alimenter le réacteur du Daedalus !
+Guérit 100% des blessures.
+Peut être inséré dans un reservoir pour gagner 5 unités de fuel.</target>
+				</segment>
+            <segment id="examine">
+                <source>jar_of_alien_oil.examine</source>
+                <target>Cette huile mi-ra-cu-leuse ne se contente pas de guérir vos blessures, elle peut également alimenter le réacteur du Daedalus !
+Guérit 100% des blessures.
+Peut être inséré dans un reservoir pour gagner 5 unités de fuel.
+Ni vraiment fluide, ni vraiment solide, sa viscosité n'a d'égal que la puissance de son odeur.</target>
+			</segment>
+        </unit>
+	   <unit id="bandage">
+            <segment id="name">
+                <source>bandage.name</source>
+                <target>Bandage</target>
+            </segment>
+            <segment id="short_name">
+                <source>bandage.short_name</source>
+                <target>Bandage</target>
+            </segment>
+            <segment id="genre">
+                <source>bandage.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>bandage.description</source>
+                <target>Permet des soins d'urgence et un peu plus.</target>
+				</segment>
+            <segment id="examine">
+                <source>bandage.examine</source>
+                <target>Permet des soins d'urgence et un peu plus.
+Dans l'espace, la première sangsue spatiale venue peut faire de gros dégâts. Un petit bandage pour la route !</target>
+			</segment>
+        </unit>		
+	   <unit id="medikit">
+            <segment id="name">
+                <source>medikit.name</source>
+                <target>Médikit</target>
+            </segment>
+            <segment id="short_name">
+                <source>medikit.short_name</source>
+                <target>Médikit</target>
+            </segment>
+            <segment id="genre">
+                <source>medikit.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>medikit.description</source>
+                <target>Ce petit nécessaire de survie permet les actions de soin.</target>
+				</segment>
+            <segment id="examine">
+                <source>medikit.examine</source>
+                <target>Ce petit nécessaire de survie permet les actions de soin.
+Après les terribles guerres du Mush, il a été décidé par les états majors, de diminuer au possible l'exposition aux spores de Mush pour préserver les troupes. Les unités de combat sont donc systématiquement équipés en trousse de secours ultra complète, permettant à n'importe quel agent de la Fédération de soigner ses blessures superficielles.</target>
+			</segment>
+        </unit>
+	   <unit id="retro_fungal_serum">
+            <segment id="name">
+                <source>retro_fungal_serum.name</source>
+                <target>Sérum Rétro-Fongique</target>
+            </segment>
+            <segment id="short_name">
+                <source>retro_fungal_serum.short_name</source>
+                <target>Sérum Rétro-Fongique</target>
+            </segment>
+            <segment id="genre">
+                <source>retro_fungal_serum.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>retro_fungal_serum.description</source>
+                <target>Le sérum retro-fongique permet d'éradiquer la présence du Mush dans le système nerveux d'un vertébré.</target>
+				</segment>
+            <segment id="examine">
+                <source>retro_fungal_serum.examine</source>
+                <target>Le sérum retro-fongique permet d'éradiquer la présence du Mush dans le système nerveux d'un vertébré.
+Le sérum retro-fongique est conçu pour anéantir le mécanisme de parthénogenèse de la variété B du Mush, ainsi il donne une chance au corps de l'hôte d'enkyster les spores existants et ainsi éventuellement d'échapper à une contamination programmée.</target>
+			</segment>
+        </unit>
+	   <unit id="spore_sucker">
+            <segment id="name">
+                <source>spore_sucker.name</source>
+                <target>Suceur de Spore</target>
+            </segment>
+            <segment id="short_name">
+                <source>spore_sucker.short_name</source>
+                <target>Suceur de Spore</target>
+            </segment>
+            <segment id="genre">
+                <source>spore_sucker.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>spore_sucker.description</source>
+                <target>L'extracteur de Spore vous débarrassera des spores qui auraient commencé à vous contaminer.
+Attention ! Cette action va vous coûter 3 hp !</target>
+				</segment>
+            <segment id="examine">
+                <source>spore_sucker.examine</source>
+                <target>L'extracteur de Spore vous débarrassera des spores qui auraient commencé à vous contaminer.
+Attention ! Cette action va vous coûter 3 hp !
+Malgré son aspect, il ne fait presque aucun mal.</target>
+			</segment>
+        </unit>
+	   <unit id="printed_circuit_jelly">
+            <segment id="name">
+                <source>printed_circuit_jelly.name</source>
+                <target>Gelée à Circuits Imprimés</target>
+            </segment>
+            <segment id="short_name">
+                <source>printed_circuit_jelly.short_name</source>
+                <target>Gelée à Circuits Imprimés</target>
+            </segment>
+            <segment id="genre">
+                <source>printed_circuit_jelly.genre</source>
+                <target>female</target>
+            </segment>
+            <segment id="description">
+                <source>printed_circuit_jelly.description</source>
+                <target>Appliquée dans le Nexus sur les parties les plus intimes de NERON elle permettra d'accélérer de 3% les calculs du laboratoire. Tant qu'elle se trouve dans le Nexus, la Gelée augmente vos essais de recherche de 3%.</target>
+				</segment>
+            <segment id="examine">
+                <source>printed_circuit_jelly.examine</source>
+                <target>Appliquée dans le Nexus sur les parties les plus intimes de NERON elle permettra d'accélérer de 3% les calculs du laboratoire.
+Tant qu'elle se trouve dans le Nexus, la Gelée augmente vos essais de recherche de 3%.
+On aurrait pu s'en servir en cuisine mais le chef n'en voulait pas...</target>
+			</segment>
+        </unit>
+	   <unit id="invertebrate_shell">
+            <segment id="name">
+                <source>invertebrate_shell.name</source>
+                <target>Cartouche invertébrée</target>
+            </segment>
+            <segment id="short_name">
+                <source>invertebrate_shell.short_name</source>
+                <target>Cartouche invertébrée</target>
+            </segment>
+            <segment id="genre">
+                <source>invertebrate_shell.genre</source>
+                <target>female</target>
+            </segment>
+            <segment id="description">
+                <source>invertebrate_shell.description</source>
+                <target>Incroyable, ce paisible crustacé alien en forme de tube a exactement le même diamètre que les obus tesla des tourelles du Daedalus !
++100% aux dégats de la tourelles où il est placé. Si détruit provoque un incendie dans la pièce.</target>
+				</segment>
+            <segment id="examine">
+                <source>invertebrate_shell.examine</source>
+                <target>Incroyable, ce paisible crustacé alien en forme de tube a exactement le même diamètre que les obus tesla des tourelles du Daedalus !
++100% aux dégats de la tourelles où il est placé. Si détruit provoque un incendie dans la pièce.
+Il n'a pas l'air tout à fait mort.</target>
+			</segment>
+        </unit>
+	   <unit id="magellan_liquid_map">
+            <segment id="name">
+                <source>magellan_liquid_map.name</source>
+                <target>Carte Liquide de Magellan</target>
+            </segment>
+            <segment id="short_name">
+                <source>magellan_liquid_map.short_name</source>
+                <target>Carte Liquide de Magellan</target>
+            </segment>
+            <segment id="genre">
+                <source>magellan_liquid_map.genre</source>
+                <target>female</target>
+            </segment>
+            <segment id="description">
+                <source>magellan_liquid_map.description</source>
+                <target>Une très jolie carte en pot où l'on peut trouver des infos sur l'intégralité des planètes du nuage de Magellan.
+Tant qu'elle se trouve sur le Pont, la Carte Liquide vous révèle une ou deux sections des planètes détectés.</target>
+				</segment>
+            <segment id="examine">
+                <source>magellan_liquid_map.examine</source>
+                <target>Une très jolie carte en pot où l'on peut trouver des infos sur l'intégralité des planètes du nuage de Magellan.
+Tant qu'elle se trouve sur le Pont, la Carte Liquide vous révèle une ou deux sections des planètes détectés.
+Vous avez l'impression que cette chose essaie de vous parler. Vous devez sûrement rêver.</target>
+			</segment>
+        </unit>
+	   <unit id="camera">
+            <segment id="name">
+                <source>camera.name</source>
+                <target>Caméra</target>
+            </segment>
+            <segment id="short_name">
+                <source>camera.short_name</source>
+                <target>Caméra</target>
+            </segment>
+            <segment id="genre">
+                <source>camera.genre</source>
+                <target>female</target>
+            </segment>
+            <segment id="description">
+                <source>camera.description</source>
+                <target>La caméra est un outils de surveillance bien pratique pour --espionner-- surveiller votre prochain.
+En sa présence, les actions {b}discrètes{\b} et {b}furtives{\b} effectuées sont révélées.</target>
+				</segment>
+            <segment id="examine">
+                <source>camera.examine</source>
+                <target>La caméra est un outils de surveillance bien pratique pour --espionner-- surveiller votre prochain.
+En sa présence, les actions {b}discrètes{\b} et {b}furtives{\b} effectuées sont révélées.
+Lorsqu'une salle possède une caméra, tous les logs sont sauvegardés dans l'historique et apparaissent publiquement. La caméra repère également les actions discrètes et furtives effectuées. Elle ne fonctionne pas si elle est placée dans votre inventaire personnel.</target>
+			</segment>
+        </unit>
+	   <unit id="mush_genome_disk">
+            <segment id="name">
+                <source>mush_genome_disk.name</source>
+                <target>Disquette du Gênome Mush</target>
+            </segment>
+            <segment id="short_name">
+                <source>mush_genome_disk.short_name</source>
+                <target>Disquette du Gênome Mush</target>
+            </segment>
+            <segment id="genre">
+                <source>mush_genome_disk.genre</source>
+                <target>female</target>
+            </segment>
+            <segment id="description">
+                <source>mush_genome_disk.description</source>
+                <target>Le monde du Mush enfin percé à jour en seulement une disquette !</target>
+				</segment>
+            <segment id="examine">
+                <source>mush_genome_disk.examine</source>
+                <target>Le monde du Mush enfin percé à jour en seulement une disquette !
+Ce disque contient le génome du Mush décrypté. En soit il ne peut pas vous servir à grand chose, même pas comme arme.</target>
+			</segment>
+        </unit>
+	   <unit id="mush_sample">
+            <segment id="name">
+                <source>mush_sample.name</source>
+                <target>Souche de test Mush</target>
+            </segment>
+            <segment id="short_name">
+                <source>mush_sample.short_name</source>
+                <target>Souche de test Mush</target>
+            </segment>
+            <segment id="genre">
+                <source>mush_sample.genre</source>
+                <target>female</target>
+            </segment>
+            <segment id="description">
+                <source>mush_sample.description</source>
+                <target>Cet échantillon peut servir à faire progresser la science !</target>
+				</segment>
+            <segment id="examine">
+                <source>mush_sample.examine</source>
+                <target>Cet échantillon peut servir à faire progresser la science !
+Une dendrite de Mush adulte, c'est en faite une des terminaisons pseudo-nerveuse produite par le Mush au stade adulte. Elle conduit formidablement bien l'électricité et a un petit goût de noisette.</target>
+			</segment>
+        </unit>
+	   <unit id="myco_alarm">
+            <segment id="name">
+                <source>myco_alarm.name</source>
+                <target>Myco-Alarme</target>
+            </segment>
+            <segment id="short_name">
+                <source>myco_alarm.short_name</source>
+                <target>Myco-Alarme</target>
+            </segment>
+            <segment id="genre">
+                <source>myco_alarm.genre</source>
+                <target>female</target>
+            </segment>
+            <segment id="description">
+                <source>myco_alarm.description</source>
+                <target>La Myco-Alarme sonne quand un Mush entre en action.</target>
+				</segment>
+            <segment id="examine">
+                <source>myco_alarm.examine</source>
+                <target>La Myco-Alarme sonne quand un Mush entre en action.
+La Myco-Alarme détecte les fortes concentrations de mycotoxine. Si le Mush décide d'attaquer elle se mettra donc à sonner.</target>
+			</segment>
+        </unit>
+	   <unit id="starmap_fragment">
+            <segment id="name">
+                <source>starmap_fragment.name</source>
+                <target>Morceau de carte stellaire</target>
+            </segment>
+            <segment id="short_name">
+                <source>starmap_fragment.short_name</source>
+                <target>Morceau de carte stellaire</target>
+            </segment>
+            <segment id="genre">
+                <source>starmap_fragment.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>starmap_fragment.description</source>
+                <target>Un éclat de carte stellaire qui pourrait peut-être vous conduire vers un nouvel Eden.</target>
+				</segment>
+            <segment id="examine">
+                <source>starmap_fragment.examine</source>
+                <target>Un éclat de carte stellaire qui pourrait peut-être vous conduire vers un nouvel Eden.
+Les extra-terrestres qui ont laissé ça là devait s'en servir pour quelque chose... Peut-être qu'en les analysant vous pourrez en apprendre plus sur eux...</target>
+			</segment>
+        </unit>
+	   <unit id="water_stick">
+            <segment id="name">
+                <source>water_stick.name</source>
+                <target>Bâtonnet aqueux</target>
+            </segment>
+            <segment id="short_name">
+                <source>water_stick.short_name</source>
+                <target>Bâtonnet aqueux</target>
+            </segment>
+            <segment id="genre">
+                <source>water_stick.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>water_stick.description</source>
+                <target>Il permet de rester hydraté en toute circonstance, mais personne n'est décidé à rechercher où il doit être inséré pour cela.</target>
+				</segment>
+            <segment id="examine">
+                <source>water_stick.examine</source>
+                <target>Il permet de rester hydraté en toute circonstance, mais personne n'est décidé à rechercher où il doit être inséré pour cela.
+Quelle idée de rapporter cette chose à bord... Ca vous rappelle des souvenirs douteux de Venus...</target>
+			</segment>
+        </unit>
+	   <unit id="old_faithful">
+            <segment id="name">
+                <source>old_faithful.name</source>
+                <target>Sulfateuse</target>
+            </segment>
+            <segment id="short_name">
+                <source>old_faithful.short_name</source>
+                <target>Sulfateuse</target>
+            </segment>
+            <segment id="genre">
+                <source>old_faithful.genre</source>
+                <target>female</target>
+            </segment>
+            <segment id="description">
+                <source>old_faithful.description</source>
+                <target></target>
+				</segment>
+            <segment id="examine">
+                <source>old_faithful.examine</source>
+                <target></target>
+			</segment>
+        </unit>
+	   <unit id="lizaro_jungle">
+            <segment id="name">
+                <source>lizaro_jungle.name</source>
+                <target>Lizaro Jungle</target>
+            </segment>
+            <segment id="short_name">
+                <source>lizaro_jungle.short_name</source>
+                <target>Lizaro Jungle</target>
+            </segment>
+            <segment id="genre">
+                <source>lizaro_jungle.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>lizaro_jungle.description</source>
+                <target>Fusil de précision par excellence.
+Expédition : + 1 à la force de votre équipe en cas de combat.</target>
+				</segment>
+            <segment id="examine">
+                <source>lizaro_jungle.examine</source>
+                <target>Fusil de précision par excellence.
+Expédition : + 1 à la force de votre équipe en cas de combat.
+Depuis la nuit des temps, le tireur isolé et son arme sont une pierre angulaire des dispositifs armés. Le Fusil Lizaro Jungle a été créé pendant la sale Guerre par des factions rebelles, il est peu onéreux et marche dans toutes les situations qu'il vente ou qu'il neige. Son chargeur semi-automatique rend sa cadence mortelle. À manier avec précaution.</target>
+			</segment>
+        </unit>
+	   <unit id="knife">
+            <segment id="name">
+                <source>knife.name</source>
+                <target>Couteau</target>
+            </segment>
+            <segment id="short_name">
+                <source>knife.short_name</source>
+                <target>Couteau</target>
+            </segment>
+            <segment id="genre">
+                <source>knife.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>knife.description</source>
+                <target>Le couteau est une arme, certes un peu datée, mais qui a toujours ses amateurs.
+Expédition : + 1 à la force de votre équipe en cas de combat.</target>
+				</segment>
+            <segment id="examine">
+                <source>knife.examine</source>
+                <target>Le couteau est une arme, certes un peu datée, mais qui a toujours ses amateurs.
+Expédition : + 1 à la force de votre équipe en cas de combat.
+20 cm de bonheur pour psychopathe.</target>
+			</segment>
+        </unit>
+	   <unit id="blaster">
+            <segment id="name">
+                <source>blaster.name</source>
+                <target>Blaster</target>
+            </segment>
+            <segment id="short_name">
+                <source>blaster.short_name</source>
+                <target>Blaster</target>
+            </segment>
+            <segment id="genre">
+                <source>blaster.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>blaster.description</source>
+                <target>L'arme de base des forces de sécurité.
+Expédition : + 1 à la force de votre équipe en cas de combat.</target>
+				</segment>
+            <segment id="examine">
+                <source>blaster.examine</source>
+                <target>L'arme de base des forces de sécurité.
+Expédition : + 1 à la force de votre équipe en cas de combat.
+Arme à faisceau d'énergie dirigée. Dernière née de la gamme BrizHotFire. Permet de se défendre, sans effort et en toute élégance, de tout danger.</target>
+			</segment>
+        </unit>
+	   <unit id="natamy_rifle">
+            <segment id="name">
+                <source>natamy_rifle.name</source>
+                <target>Natamy (ou Fusil Natamy)</target>
+            </segment>
+            <segment id="short_name">
+                <source>natamy_rifle.short_name</source>
+                <target>Natamy (ou Fusil Natamy)</target>
+            </segment>
+            <segment id="genre">
+                <source>natamy_rifle.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>natamy_rifle.description</source>
+                <target>Le fusil Natamy est un fusil d'assaut anti-Mush
+Expédition : + 1 à la force de votre équipe en cas de combat.</target>
+				</segment>
+            <segment id="examine">
+                <source>natamy_rifle.examine</source>
+                <target>Le fusil Natamy est un fusil d'assaut anti-Mush
+Expédition : + 1 à la force de votre équipe en cas de combat.
+Le fusil bien particulier mis au point par l'équipage. Ses munitions au bicarbonate de sodium et à la retro-patuline ont des propriétés anti-fongiques.</target>
+			</segment>
+        </unit>
+	   <unit id="grenade">
+            <segment id="name">
+                <source>grenade.name</source>
+                <target>Grenade</target>
+            </segment>
+            <segment id="short_name">
+                <source>grenade.short_name</source>
+                <target>Grenade</target>
+            </segment>
+            <segment id="genre">
+                <source>grenade.genre</source>
+                <target>female</target>
+            </segment>
+            <segment id="description">
+                <source>grenade.description</source>
+                <target>La grenade est un explosif puissant qui vous sortira de bien des situations périlleuses en exploration.
+Expédition : +3 à la force de votre équipe en cas de combat.</target>
+				</segment>
+            <segment id="examine">
+                <source>grenade.examine</source>
+                <target>La grenade est un explosif puissant qui vous sortira de bien des situations périlleuses en exploration.
+Expédition : +3 à la force de votre équipe en cas de combat.
+Dessus est écrit: "Explosez votre potentiel".</target>
+			</segment>
+        </unit>
+	   <unit id="rocket_launcher">
+            <segment id="name">
+                <source>rocket_launcher.name</source>
+                <target>Lance-roquette</target>
+            </segment>
+            <segment id="short_name">
+                <source>rocket_launcher.short_name</source>
+                <target>Lance-roquette</target>
+            </segment>
+            <segment id="genre">
+                <source>rocket_launcher.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>rocket_launcher.description</source>
+                <target>Arme très sophistiquée pour personnes qui le sont moins.
+Expédition : + 3 à la force de votre équipe en cas de combat.</target>
+				</segment>
+            <segment id="examine">
+                <source>rocket_launcher.examine</source>
+                <target>Arme très sophistiquée pour personnes qui le sont moins.
+Expédition : + 3 à la force de votre équipe en cas de combat.
+Le Lance-Roquette fait partie de l'arsenal classique des corps expéditionnaires en milieux hostile. Sa technologie n'a pas changé depuis des centaines d'années. Il fait l’objet d'un culte un peu particulier, presque fétichiste de la part de celui qui le porte...</target>
+			</segment>
+        </unit>
+	   <unit id="survival_kit">
+            <segment id="name">
+                <source>survival_kit.name</source>
+                <target>Kit de survie</target>
+            </segment>
+            <segment id="short_name">
+                <source>survival_kit.short_name</source>
+                <target>Kit de survie</target>
+            </segment>
+            <segment id="genre">
+                <source>survival_kit.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>survival_kit.description</source>
+                <target>Contient des médicaments et des bandages.
+Contient $herog_numb x Bandages
+Contient $herog_numb x Médicaments</target>
+				</segment>
+            <segment id="examine">
+                <source>survival_kit.examine</source>
+                <target>Contient des médicaments et des bandages.
+Contient $herog_numb x Bandages
+Contient $herog_numb x Médicaments
+L'archétype de ces objets stellaires qui sont toujours rangés exactement là où il ne faut pas. Ou dans vos poches.</target>
+			</segment>
+        </unit>
+	   <unit id="fuel_capsule">
+            <segment id="name">
+                <source>fuel_capsule.name</source>
+                <target>Capsule de fuel</target>
+            </segment>
+            <segment id="short_name">
+                <source>fuel_capsule.short_name</source>
+                <target>Capsule de fuel</target>
+            </segment>
+            <segment id="genre">
+                <source>fuel_capsule.genre</source>
+                <target>female</target>
+            </segment>
+            <segment id="description">
+                <source>fuel_capsule.description</source>
+                <target>La capsule de fuel permet de déplacer du fuel depuis un réservoir vers les moteurs
+Contient 1 unité de Fuel.</target>
+				</segment>
+            <segment id="examine">
+                <source>fuel_capsule.examine</source>
+                <target>La capsule de fuel permet de déplacer du fuel depuis un réservoir vers les moteurs
+Contient 1 unité de Fuel.
+Permet de charger du carburant pour le déplacer dans le module de combustion.</target>
+			</segment>
+        </unit>
+	   <unit id="hydropot">
+            <segment id="name">
+                <source>hydropot.name</source>
+                <target>Hydropot</target>
+            </segment>
+            <segment id="short_name">
+                <source>hydropot.short_name</source>
+                <target>Hydropot</target>
+            </segment>
+            <segment id="genre">
+                <source>hydropot.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>hydropot.description</source>
+                <target>L'HydroPot permet de {b}semer un fruit{\b} et de développer ainsi le Jardin.</target>
+				</segment>
+            <segment id="examine">
+                <source>hydropot.examine</source>
+                <target>L'HydroPot permet de {b}semer un fruit{\b} et de développer ainsi le Jardin.
+Permet d'accueillir une plante du jardin hydroponique.</target>
+			</segment>
+        </unit>
+	   <unit id="lunchbox">
+            <segment id="name">
+                <source>lunchbox.name</source>
+                <target>Panier repas</target>
+            </segment>
+            <segment id="short_name">
+                <source>lunchbox.short_name</source>
+                <target>Panier repas</target>
+            </segment>
+            <segment id="genre">
+                <source>lunchbox.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>lunchbox.description</source>
+                <target>Oh des Rations ! Un petit plaisir à partager.
+Contient $herog_numb x Rations standards.</target>
+				</segment>
+            <segment id="examine">
+                <source>lunchbox.examine</source>
+                <target>Oh des Rations ! Un petit plaisir à partager.
+Contient $herog_numb x Rations standards.
+L'équivalent galactique de la soupe chaude quand le zéro absolu vous guette.</target>
+			</segment>
+        </unit>
+	   <unit id="oxygen_capsule">
+            <segment id="name">
+                <source>oxygen_capsule.name</source>
+                <target>Capsule d'oxygène</target>
+            </segment>
+            <segment id="short_name">
+                <source>oxygen_capsule.short_name</source>
+                <target>Capsule d'oxygène</target>
+            </segment>
+            <segment id="genre">
+                <source>oxygen_capsule.genre</source>
+                <target>female</target>
+            </segment>
+            <segment id="description">
+                <source>oxygen_capsule.description</source>
+                <target>La capsule d'oxygène renferme une unité standard d'oxygène. Elle peut-être remise dans le circuit via les Réservoirs dans les salles de stockage.</target>
+				</segment>
+            <segment id="examine">
+                <source>oxygen_capsule.examine</source>
+                <target>La capsule d'oxygène renferme une unité standard d'oxygène. Elle peut-être remise dans le circuit via les Réservoirs dans les salles de stockage.
+La capsule OxyTron de la société AirGaz Permet de déplacer de l'oxygène sous forme liquide. Par bonheur, la pellicule de protection est quasi inviolable.</target>
+			</segment>
+        </unit>
+	   <unit id="space_capsule">
+            <segment id="name">
+                <source>space_capsule.name</source>
+                <target>Capsule spatiale</target>
+            </segment>
+            <segment id="short_name">
+                <source>space_capsule.short_name</source>
+                <target>Capsule spatiale</target>
+            </segment>
+            <segment id="genre">
+                <source>space_capsule.genre</source>
+                <target>female</target>
+            </segment>
+            <segment id="description">
+                <source>space_capsule.description</source>
+                <target>La capsule spatiale renferme sûrement quelque chose dont vous avez extrêmement besoin. Et puis c'est tellement bonnnn...</target>
+				</segment>
+            <segment id="examine">
+                <source>space_capsule.examine</source>
+                <target>La capsule spatiale renferme sûrement quelque chose dont vous avez extrêmement besoin. Et puis c'est tellement bonnnn...
+Une capsule contient quelque chose. Vous ne pourrez savoir ce que c'est qu'en l'ouvrant. Etes-vous prêt pour la surprise ?</target>
+			</segment>
+        </unit>
+	   <unit id="swedish_sofa">
+            <segment id="name">
+                <source>swedish_sofa.name</source>
+                <target>Sofa suédois</target>
+            </segment>
+            <segment id="short_name">
+                <source>swedish_sofa.short_name</source>
+                <target>Sofa suédois</target>
+            </segment>
+            <segment id="genre">
+                <source>swedish_sofa.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>swedish_sofa.description</source>
+                <target>Un superbe sofa en cuir de Nubuk véritable, cousu main. Conçu en Suède mais fabriqué sur Encelade pour pas cher.</target>
+				</segment>
+            <segment id="examine">
+                <source>swedish_sofa.examine</source>
+                <target>Un superbe sofa en cuir de Nubuk véritable, cousu main. Conçu en Suède mais fabriqué sur Encelade pour pas cher.
+Qui eu crû que quelques coussins et une structure de contre-plaqué puissent autant détendre...</target>
+			</segment>
+        </unit>
+	   <unit id="thermos_of_coffee">
+            <segment id="name">
+                <source>thermos_of_coffee.name</source>
+                <target>Thermos de café</target>
+            </segment>
+            <segment id="short_name">
+                <source>thermos_of_coffee.short_name</source>
+                <target>Thermos de café</target>
+            </segment>
+            <segment id="genre">
+                <source>thermos_of_coffee.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>thermos_of_coffee.description</source>
+                <target>Rien de tel qu'un café chaud.
+Contient $herog_numb x Cafés.</target>
+				</segment>
+            <segment id="examine">
+                <source>thermos_of_coffee.examine</source>
+                <target>Rien de tel qu'un café chaud.
+Contient $herog_numb x Cafés.
+Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans soupe chaude ni brasero.</target>
+			</segment>
+        </unit>
+	   <unit id="banana_tree">
+            <segment id="name">
+                <source>banana_tree.name</source>
+                <target>Bananier</target>
+            </segment>
+            <segment id="short_name">
+                <source>banana_tree.short_name</source>
+                <target>Bananier</target>
+            </segment>
+            <segment id="genre">
+                <source>banana_tree.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>banana_tree.description</source>
+                <target>Le bananier est une sorte d'herbacée qui produit des fruits nourrissants et savoureux.</target>
+				</segment>
+            <segment id="examine">
+                <source>banana_tree.examine</source>
+                <target>Le bananier est une sorte d'herbacée qui produit des fruits nourrissants et savoureux.
+Permet d'accueillir une plante du jardin hydroponique.</target>
+			</segment>
+        </unit>
+	   <unit id="young_banana_tree">
+            <segment id="name">
+                <source>young_banana_tree.name</source>
+                <target>Jeune bananier</target>
+            </segment>
+            <segment id="short_name">
+                <source>young_banana_tree.short_name</source>
+                <target>Jeune bananier</target>
+            </segment>
+            <segment id="genre">
+                <source>young_banana_tree.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>young_banana_tree.description</source>
+                <target>Le bananier est une sorte d'herbacée qui produit des fruits nourrissants et savoureux.</target>
+				</segment>
+            <segment id="examine">
+                <source>young_banana_tree.examine</source>
+                <target>Le bananier est une sorte d'herbacée qui produit des fruits nourrissants et savoureux.
+Permet d'accueillir une plante du jardin hydroponique.</target>
+			</segment>
+        </unit>
+	   <unit id="creepist">
+            <segment id="name">
+                <source>creepist.name</source>
+                <target>Lianiste</target>
+            </segment>
+            <segment id="short_name">
+                <source>creepist.short_name</source>
+                <target>Lianiste</target>
+            </segment>
+            <segment id="genre">
+                <source>creepist.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>creepist.description</source>
+                <target>Le lianiste est un arbre curieusement tordu.</target>
+				</segment>
+            <segment id="examine">
+                <source>creepist.examine</source>
+                <target>Le lianiste est un arbre curieusement tordu.
+Permet d'accueuillir une plante du jardin hydroponique.</target>
+			</segment>
+        </unit>
+	   <unit id="young_creepist">
+            <segment id="name">
+                <source>young_creepist.name</source>
+                <target>Jeune lianiste</target>
+            </segment>
+            <segment id="short_name">
+                <source>young_creepist.short_name</source>
+                <target>Jeune lianiste</target>
+            </segment>
+            <segment id="genre">
+                <source>young_creepist.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>young_creepist.description</source>
+                <target>Le lianiste est un arbre curieusement tordu.</target>
+				</segment>
+            <segment id="examine">
+                <source>young_creepist.examine</source>
+                <target>Le lianiste est un arbre curieusement tordu.
+Permet d'accueuillir une plante du jardin hydroponique.</target>
+			</segment>
+        </unit>
+	   <unit id="cactax">
+            <segment id="name">
+                <source>cactax.name</source>
+                <target>Cactuor</target>
+            </segment>
+            <segment id="short_name">
+                <source>cactax.short_name</source>
+                <target>Jeune lianiste</target>
+            </segment>
+            <segment id="genre">
+                <source>cactax.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>cactax.description</source>
+                <target>Originaire des grands désert de Tantris, le cactuor est utilisé dans certains rites indigènes pour les cérémonies sa...</target>
+				</segment>
+            <segment id="examine">
+                <source>cactax.examine</source>
+                <target>Originaire des grands désert de Tantris, le cactuor est utilisé dans certains rites indigènes pour les cérémonies sa...
+Permet d'accueillir une plante du jardin hydroponique.</target>
+			</segment>
+        </unit>
+	   <unit id="young_cactax">
+            <segment id="name">
+                <source>young_cactax.name</source>
+                <target>Jeune cactuor</target>
+            </segment>
+            <segment id="short_name">
+                <source>young_cactax.short_name</source>
+                <target>Jeune cactuor</target>
+            </segment>
+            <segment id="genre">
+                <source>young_cactax.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>young_cactax.description</source>
+                <target>Originaire des grands désert de Tantris, le cactuor est utilisé dans certains rites indigènes pour les cérémonies sa...</target>
+				</segment>
+            <segment id="examine">
+                <source>young_cactax.examine</source>
+                <target>Originaire des grands désert de Tantris, le cactuor est utilisé dans certains rites indigènes pour les cérémonies sa...
+Permet d'accueillir une plante du jardin hydroponique.</target>
+			</segment>
+        </unit>
+	   <unit id="young_bifflon">
+            <segment id="name">
+                <source>young_bifflon.name</source>
+                <target>Jeune bifalon</target>
+            </segment>
+            <segment id="short_name">
+                <source>young_bifflon.short_name</source>
+                <target>Jeune bifalon</target>
+            </segment>
+            <segment id="genre">
+                <source>young_bifflon.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>young_bifflon.description</source>
+                <target>Une vraie curiosité de la nature, le Bifalon est un arbre qui parle... mais il passe son temps à réciter du Keats. Ce qui rend sa compagnie déprimante...</target>
+				</segment>
+            <segment id="examine">
+                <source>young_bifflon.examine</source>
+                <target>Une vraie curiosité de la nature, le Bifalon est un arbre qui parle... mais il passe son temps à réciter du Keats. Ce qui rend sa compagnie déprimante...
+Permet d'accueillir une plante du jardin hydroponique.</target>
+			</segment>
+        </unit>
+	   <unit id="pulminagro">
+            <segment id="name">
+                <source>pulminagro.name</source>
+                <target>Poulmino</target>
+            </segment>
+            <segment id="short_name">
+                <source>pulminagro.short_name</source>
+                <target>Poulmino</target>
+            </segment>
+            <segment id="genre">
+                <source>pulminagro.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>pulminagro.description</source>
+                <target>Le Poulmino est un arbre issu de croisement entre un palmier et une forme de Sphègne alien. Sa particularité est de pousser en milieux peu lumineux [...] </target>
+				</segment>
+            <segment id="examine">
+                <source>pulminagro.examine</source>
+                <target>Le Poulmino est un arbre issu de croisement entre un palmier et une forme de Sphègne alien. Sa particularité de pousser en milieux peu lumineux [...] 
+Permet d'accueillir une plante du jardin hydroponique.</target>
+			</segment>
+        </unit>
+	   <unit id="young_pulminagro">
+            <segment id="name">
+                <source>young_pulminagro.name</source>
+                <target>Jeune poulmino</target>
+            </segment>
+            <segment id="short_name">
+                <source>young_pulminagro.short_name</source>
+                <target>Jeune poulmino</target>
+            </segment>
+            <segment id="genre">
+                <source>young_pulminagro.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>young_pulminagro.description</source>
+                <target>Le Poulmino est un arbre issu de croisement entre un palmier et une forme de Sphègne alien. Sa particularité est de pousser en milieux peu lumineux [...] </target>
+				</segment>
+            <segment id="examine">
+                <source>young_pulminagro.examine</source>
+                <target>Le Poulmino est un arbre issu de croisement entre un palmier et une forme de Sphègne alien. Sa particularité de pousser en milieux peu lumineux [...] 
+Permet d'accueillir une plante du jardin hydroponique.</target>
+			</segment>
+        </unit>
+	   <unit id="precatus">
+            <segment id="name">
+                <source>precatus.name</source>
+                <target>Precatus</target>
+            </segment>
+            <segment id="short_name">
+                <source>precatus.short_name</source>
+                <target>Precatus</target>
+            </segment>
+            <segment id="genre">
+                <source>precatus.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>precatus.description</source>
+                <target>Cet arbre étrange produit une forme alien de gomme totalement inutile mais fort salissante...</target>
+				</segment>
+            <segment id="examine">
+                <source>precatus.examine</source>
+                <target>Cet arbre étrange produit une forme alien de gomme totalement inutile mais fort salissante...
+Permet d'accueillir une plante du jardin hydroponique.</target>
+			</segment>
+        </unit>
+	   <unit id="young_precatus">
+            <segment id="name">
+                <source>young_precatus.name</source>
+                <target>Jeune precatus</target>
+            </segment>
+            <segment id="short_name">
+                <source>young_precatus.short_name</source>
+                <target>Jeune precatus</target>
+            </segment>
+            <segment id="genre">
+                <source>young_precatus.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>young_precatus.description</source>
+                <target>Cet arbre étrange produit une forme alien de gomme totalement inutile mais fort salissante...</target>
+				</segment>
+            <segment id="examine">
+                <source>young_precatus.examine</source>
+                <target>Cet arbre étrange produit une forme alien de gomme totalement inutile mais fort salissante...
+Permet d'accueillir une plante du jardin hydroponique.</target>
+			</segment>
+        </unit>
+	   <unit id="buttalien">
+            <segment id="name">
+                <source>buttalien.name</source>
+                <target>Buitalien</target>
+            </segment>
+            <segment id="short_name">
+                <source>buttalien.short_name</source>
+                <target>Buitalien</target>
+            </segment>
+            <segment id="genre">
+                <source>buttalien.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>buttalien.description</source>
+                <target>Le Buitalien est un arbuste rigolo, ses fruits juteux reflètent la lumière étrangement.</target>
+				</segment>
+            <segment id="examine">
+                <source>buttalien.examine</source>
+                <target>Le Buitalien est un arbuste rigolo, ses fruits juteux reflète la lumière étrangement.
+Permet d'accueillir une plante du jardin hydroponique.</target>
+			</segment>
+        </unit>
+	   <unit id="young_buttalien">
+            <segment id="name">
+                <source>young_buttalien.name</source>
+                <target>Jeune buitalien</target>
+            </segment>
+            <segment id="short_name">
+                <source>young_buttalien.short_name</source>
+                <target>Jeune buitalien</target>
+            </segment>
+            <segment id="genre">
+                <source>young_buttalien.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>young_buttalien.description</source>
+                <target>Le Buitalien est un arbuste rigolo, ses fruits juteux reflètent la lumière étrangement.</target>
+				</segment>
+            <segment id="examine">
+                <source>young_buttalien.examine</source>
+                <target>Le Buitalien est un arbuste rigolo, ses fruits juteux reflète la lumière étrangement.
+Permet d'accueillir une plante du jardin hydroponique.</target>
+			</segment>
+        </unit>
+	   <unit id="young_buttalien">
+            <segment id="name">
+                <source>young_buttalien.name</source>
+                <target>Jeune buitalien</target>
+            </segment>
+            <segment id="short_name">
+                <source>young_buttalien.short_name</source>
+                <target>Jeune buitalien</target>
+            </segment>
+            <segment id="genre">
+                <source>young_buttalien.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>young_buttalien.description</source>
+                <target>Le Buitalien est un arbuste rigolo, ses fruits juteux reflètent la lumière étrangement.</target>
+				</segment>
+            <segment id="examine">
+                <source>young_buttalien.examine</source>
+                <target>Le Buitalien est un arbuste rigolo, ses fruits juteux reflète la lumière étrangement.
+Permet d'accueillir une plante du jardin hydroponique.</target>
+			</segment>
+        </unit>
+	   <unit id="platacia">
+            <segment id="name">
+                <source>platacia.name</source>
+                <target>Platacia</target>
+            </segment>
+            <segment id="short_name">
+                <source>platacia.short_name</source>
+                <target>Platacia</target>
+            </segment>
+            <segment id="genre">
+                <source>platacia.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>platacia.description</source>
+                <target>Le Platacia est un arbre de savane allergisant sans réel intérêt...</target>
+				</segment>
+            <segment id="examine">
+                <source>platacia.examine</source>
+                <target>Le Platacia est un arbre de savane allergisant sans réel intérêt...
+Permet d'accueillir une plante du jardin hydroponique.</target>
+			</segment>
+        </unit>
+	   <unit id="platayoung_plataciacia">
+            <segment id="name">
+                <source>young_platacia.name</source>
+                <target>Jeune platacia</target>
+            </segment>
+            <segment id="short_name">
+                <source>young_platacia.short_name</source>
+                <target>Jeune platacia</target>
+            </segment>
+            <segment id="genre">
+                <source>young_platacia.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>young_platacia.description</source>
+                <target>Le Platacia est un arbre de savane allergisant sans réel intérêt...</target>
+				</segment>
+            <segment id="examine">
+                <source>young_platacia.examine</source>
+                <target>Le Platacia est un arbre de savane allergisant sans réel intérêt...
+Permet d'accueillir une plante du jardin hydroponique.</target>
+			</segment>
+        </unit>
+	   <unit id="tubiliscus">
+            <segment id="name">
+                <source>tubiliscus.name</source>
+                <target>Tubiliscus</target>
+            </segment>
+            <segment id="short_name">
+                <source>tubiliscus.short_name</source>
+                <target>Tubiliscus</target>
+            </segment>
+            <segment id="genre">
+                <source>tubiliscus.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>tubiliscus.description</source>
+                <target>La dernière mode en matière arboricole sur Vénus est de posséder un Tubiliscus. Ses excroissances présentent des intérêts multiples et variés.</target>
+				</segment>
+            <segment id="examine">
+                <source>tubiliscus.examine</source>
+                <target>La dernière mode en matière arboricole sur Vénus est de posséder un Tubiliscus. Ses excroissances présentent des intérêts multiples et variés.
+Permet d'accueillir une plante du jardin hydroponique.</target>
+			</segment>
+        </unit>		   <unit id="young_tubiliscus">
+            <segment id="name">
+                <source>young_tubiliscus.name</source>
+                <target>Jeune tubiliscus</target>
+            </segment>
+            <segment id="short_name">
+                <source>young_tubiliscus.short_name</source>
+                <target>Jeune tubiliscus</target>
+            </segment>
+            <segment id="genre">
+                <source>young_tubiliscus.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>young_tubiliscus.description</source>
+                <target>La dernière mode en matière arboricole sur Vénus est de posséder un Tubiliscus. Ses excroissances présentent des intérêts multiples et variés.</target>
+				</segment>
+            <segment id="examine">
+                <source>young_tubiliscus.examine</source>
+                <target>La dernière mode en matière arboricole sur Vénus est de posséder un Tubiliscus. Ses excroissances présentent des intérêts multiples et variés.
+Permet d'accueillir une plante du jardin hydroponique.</target>
+			</segment>
+        </unit>
+	   <unit id="graapshoot">
+            <segment id="name">
+                <source>graapshoot.name</source>
+                <target>Peuplimoune</target>
+            </segment>
+            <segment id="short_name">
+                <source>graapshoot.short_name</source>
+                <target>Peuplimoune</target>
+            </segment>
+            <segment id="genre">
+                <source>graapshoot.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>graapshoot.description</source>
+                <target>Le Peuplimoune est un arbre design et élégant. Ses feuilles dégagent une odeur cuivrée.</target>
+				</segment>
+            <segment id="examine">
+                <source>graapshoot.examine</source>
+                <target>Le Peuplimoune est un arbre design et élégant. Ses feuilles dégagent une odeur cuivrée.
+Permet d'accueillir une plante du jardin hydroponique.</target>
+			</segment>
+        </unit>
+	   <unit id="young_graapshoot">
+            <segment id="name">
+                <source>young_graapshoot.name</source>
+                <target>Jeune peuplimoune</target>
+            </segment>
+            <segment id="short_name">
+                <source>young_graapshoot.short_name</source>
+                <target>Jeune peuplimoune</target>
+            </segment>
+            <segment id="genre">
+                <source>young_graapshoot.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>young_graapshoot.description</source>
+                <target>Le Peuplimoune est un arbre design et élégant. Ses feuilles dégagent une odeur cuivrée.</target>
+				</segment>
+            <segment id="examine">
+                <source>young_graapshoot.examine</source>
+                <target>Le Peuplimoune est un arbre design et élégant. Ses feuilles dégagent une odeur cuivrée.
+Permet d'accueillir une plante du jardin hydroponique.</target>
+			</segment>
+        </unit>
+	   <unit id="peniraft">
+            <segment id="name">
+                <source>peniraft.name</source>
+                <target>Pénicule</target>
+            </segment>
+            <segment id="short_name">
+                <source>peniraft.short_name</source>
+                <target>Pénicule</target>
+            </segment>
+            <segment id="genre">
+                <source>peniraft.genre</source>
+                <target>female</target>
+            </segment>
+            <segment id="description">
+                <source>peniraft.description</source>
+                <target>La Pénicule est un fruit très en vogue sur Venicia. Son intérêt culinaire assez moyen laisse quand même songeur sur les raisons de cette hype.</target>
+				</segment>
+            <segment id="examine">
+                <source>peniraft.examine</source>
+                <target>La Pénicule est un fruit très en vogue sur Venicia. Son intérêt culinaire assez moyen laisse quand même songeur sur les raisons de cette hype.</target>
+			</segment>
+        </unit>
+	   <unit id="fiboniccus">
+            <segment id="name">
+                <source>fiboniccus.name</source>
+                <target>Fiboniccus</target>
+            </segment>
+            <segment id="short_name">
+                <source>fiboniccus.short_name</source>
+                <target>Fiboniccus</target>
+            </segment>
+            <segment id="genre">
+                <source>fiboniccus.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>fiboniccus.description</source>
+                <target>Lointain ancêtre du Ficcus terrestre, le fiboniccus a longtemps été méconnu.Et pour cause, il ne poussait pas sur Terre...</target>
+				</segment>
+            <segment id="examine">
+                <source>fiboniccus.examine</source>
+                <target>Lointain ancêtre du Ficcus terrestre, le fiboniccus a longtemps été méconnu.Et pour cause, il ne poussait pas sur Terre...
+Permet d'accueillir une plante du jardin hydroponique.</target>
+			</segment>
+        </unit>
+	   <unit id="young_fiboniccus">
+            <segment id="name">
+                <source>young_fiboniccus.name</source>
+                <target>Jeune fiboniccus</target>
+            </segment>
+            <segment id="short_name">
+                <source>young_fiboniccus.short_name</source>
+                <target>Jeune fiboniccus</target>
+            </segment>
+            <segment id="genre">
+                <source>young_fiboniccus.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>young_fiboniccus.description</source>
+                <target>Lointain ancêtre du Ficcus terrestre, le fiboniccus a longtemps été méconnu.Et pour cause, il ne poussait pas sur Terre...</target>
+				</segment>
+            <segment id="examine">
+                <source>young_fiboniccus.examine</source>
+                <target>Lointain ancêtre du Ficcus terrestre, le fiboniccus a longtemps été méconnu.Et pour cause, il ne poussait pas sur Terre...
+Permet d'accueillir une plante du jardin hydroponique.</target>
+			</segment>
+        </unit>
+	   <unit id="mycopia">
+            <segment id="name">
+                <source>mycopia.name</source>
+                <target>Mycopia</target>
+            </segment>
+            <segment id="short_name">
+                <source>mycopia.short_name</source>
+                <target>Mycopia</target>
+            </segment>
+            <segment id="genre">
+                <source>mycopia.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>mycopia.description</source>
+                <target>Le mycopia a une forme intrigante, certaines de ses propriétés ne sont pas sans rappeler celle d'un Fungus célèbre.</target>
+				</segment>
+            <segment id="examine">
+                <source>mycopia.examine</source>
+                <target>Le mycopia a une forme intrigante, certaines de ses propriétés ne sont pas sans rappeler celle d'un Fungus célèbre.
+Permet d'accueillir une plante du jardin hydroponique.</target>
+			</segment>
+        </unit>
+	   <unit id="young_mycopia">
+            <segment id="name">
+                <source>young_mycopia.name</source>
+                <target>Jeune mycopia</target>
+            </segment>
+            <segment id="short_name">
+                <source>young_mycopia.short_name</source>
+                <target>Jeune mycopia</target>
+            </segment>
+            <segment id="genre">
+                <source>young_mycopia.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>young_mycopia.description</source>
+                <target>Le mycopia a une forme intrigante, certaines de ses propriétés ne sont pas sans rappeler celle d'un Fungus célèbre.</target>
+				</segment>
+            <segment id="examine">
+                <source>young_mycopia.examine</source>
+                <target>Le mycopia a une forme intrigante, certaines de ses propriétés ne sont pas sans rappeler celle d'un Fungus célèbre.
+Permet d'accueillir une plante du jardin hydroponique.</target>
+			</segment>
+        </unit>
+	   <unit id="asperagunk">
+            <segment id="name">
+                <source>asperagunk.name</source>
+                <target>Asperginulk</target>
+            </segment>
+            <segment id="short_name">
+                <source>asperagunk.short_name</source>
+                <target>Asperginulk</target>
+            </segment>
+            <segment id="genre">
+                <source>asperagunk.genre</source>
+                <target>female</target>
+            </segment>
+            <segment id="description">
+                <source>asperagunk.description</source>
+                <target>L'Asperginulk n'est pas sans rappeler l'Asparagus Terrien, à ceci près qu'il est géant.</target>
+				</segment>
+            <segment id="examine">
+                <source>asperagunk.examine</source>
+                <target>L'Asperginulk n'est pas sans rappeler l'Asparagus Terrien, à ceci près qu'il est géant.
+Permet d'accueillir une plante du jardin hydroponique.</target>
+			</segment>
+        </unit>
+	   <unit id="young_asperagunk">
+            <segment id="name">
+                <source>young_asperagunk.name</source>
+                <target>Jeune asperginulk</target>
+            </segment>
+            <segment id="short_name">
+                <source>young_asperagunk.short_name</source>
+                <target>Jeune asperginulk</target>
+            </segment>
+            <segment id="genre">
+                <source>young_asperagunk.genre</source>
+                <target>female</target>
+            </segment>
+            <segment id="description">
+                <source>young_asperagunk.description</source>
+                <target>L'Asperginulk n'est pas sans rappeler l'Asparagus Terrien, à ceci près qu'il est géant.</target>
+				</segment>
+            <segment id="examine">
+                <source>young_asperagunk.examine</source>
+                <target>L'Asperginulk n'est pas sans rappeler l'Asparagus Terrien, à ceci près qu'il est géant.
+Permet d'accueillir une plante du jardin hydroponique.</target>
+			</segment>
+        </unit>
+	   <unit id="filandra">
+            <segment id="name">
+                <source>filandra.name</source>
+                <target>Filandru</target>
+            </segment>
+            <segment id="short_name">
+                <source>filandra.short_name</source>
+                <target>Filandru</target>
+            </segment>
+            <segment id="genre">
+                <source>filandra.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>filandra.description</source>
+                <target>Le Filandru est le fruit le plus pénible à manger qui soit...</target>
+				</segment>
+            <segment id="examine">
+                <source>filandra.examine</source>
+                <target>Le Filandru est le fruit le plus pénible à manger qui soit...</target>
+			</segment>
+        </unit>
+	   <unit id="bumpjunkin">
+            <segment id="name">
+                <source>bumpjunkin.name</source>
+                <target>Cucurbitatrouille</target>
+            </segment>
+            <segment id="short_name">
+                <source>bumpjunkin.short_name</source>
+                <target>Cucurbitatrouille</target>
+            </segment>
+            <segment id="genre">
+                <source>bumpjunkin.genre</source>
+                <target>female</target>
+            </segment>
+            <segment id="description">
+                <source>bumpjunkin.description</source>
+                <target>La cucurbitatrouille est une plante d'origine extra-terrestre, des rumeurs la donnent originaire d'Amérique du Sud. C'est dire....</target>
+				</segment>
+            <segment id="examine">
+                <source>bumpjunkin.examine</source>
+                <target>La cucurbitatrouille est une plante d'origine extra-terrestre, des rumeurs la donnent originaire d'Amérique du Sud. C'est dire....
+Permet d'accueillir une plante du jardin hydroponique.</target>
+			</segment>
+        </unit>
+	   <unit id="young_bumpjunkin">
+            <segment id="name">
+                <source>young_bumpjunkin.name</source>
+                <target>Jeune cucurbitatrouille</target>
+            </segment>
+            <segment id="short_name">
+                <source>young_bumpjunkin.short_name</source>
+                <target>Jeune cucurbitatrouille</target>
+            </segment>
+            <segment id="genre">
+                <source>young_bumpjunkin.genre</source>
+                <target>female</target>
+            </segment>
+            <segment id="description">
+                <source>young_bumpjunkin.description</source>
+                <target>La cucurbitatrouille est une plante d'origine extra-terrestre, des rumeurs la donnent originaire d'Amérique du Sud. C'est dire....</target>
+				</segment>
+            <segment id="examine">
+                <source>young_bumpjunkin.examine</source>
+                <target>La cucurbitatrouille est une plante d'origine extra-terrestre, des rumeurs la donnent originaire d'Amérique du Sud. C'est dire....
+Permet d'accueillir une plante du jardin hydroponique.</target>
+			</segment>
+        </unit>
+	   <unit id="jumpkin">
+            <segment id="name">
+                <source>jumpkin.name</source>
+                <target>Citrouïd</target>
+            </segment>
+            <segment id="short_name">
+                <source>jumpkin.short_name</source>
+                <target>Citrouïd</target>
+            </segment>
+            <segment id="genre">
+                <source>jumpkin.genre</source>
+                <target>female</target>
+            </segment>
+            <segment id="description">
+                <source>jumpkin.description</source>
+                <target>La Citrouïd est un légume sans réel intérêt gustatif mais avec des propriétés tout à fait originales.</target>
+				</segment>
+            <segment id="examine">
+                <source>jumpkin.examine</source>
+                <target>La Citrouïd est un légume sans réel intérêt gustatif mais avec des propriétés tout à fait originales.</target>
+			</segment>
+        </unit>
+	   <unit id="lombrick_bar">
+            <segment id="name">
+                <source>lombrick_bar.name</source>
+                <target>Barre de lombrics</target>
+            </segment>
+            <segment id="short_name">
+                <source>lombrick_bar.short_name</source>
+                <target>Barre de lombrics</target>
+            </segment>
+            <segment id="genre">
+                <source>lombrick_bar.genre</source>
+                <target>female</target>
+            </segment>
+            <segment id="description">
+                <source>lombrick_bar.description</source>
+                <target>Un curieux mélange de chenilles et autres vers aglomérés dans une barre sous plastique. Glups...</target>
+				</segment>
+            <segment id="examine">
+                <source>lombrick_bar.examine</source>
+                <target>Un curieux mélange de chenilles et autres vers aglomérés dans une barre sous plastique. Glups...</target>
+			</segment>
+        </unit>		
+	   <unit id="organic_waste">
+            <segment id="name">
+                <source>organic_waste.name</source>
+                <target>Déchets organiques</target>
+            </segment>
+            <segment id="short_name">
+                <source>organic_waste.short_name</source>
+                <target>Déchets organiques</target>
+            </segment>
+            <segment id="genre">
+                <source>organic_waste.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>organic_waste.description</source>
+                <target>C'est dégoûtant, ça pue le xylophide crevé depuis 2 mois enterré dans une cuve de cheddar par une après-midi de décembre.</target>
+				</segment>
+            <segment id="examine">
+                <source>organic_waste.examine</source>
+                <target>C'est dégoûtant, ça pue le xylophide crevé depuis 2 mois, enterré dans une cuve de cheddar par une après-midi de décembre.</target>
+			</segment>
+        </unit>		
+	   <unit id="proactive_puffed_rice">
+            <segment id="name">
+                <source>proactive_puffed_rice.name</source>
+                <target>Riz soufflé proactif</target>
+            </segment>
+            <segment id="short_name">
+                <source>proactive_puffed_rice.short_name</source>
+                <target>Riz soufflé proactif</target>
+            </segment>
+            <segment id="genre">
+                <source>proactive_puffed_rice.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>proactive_puffed_rice.description</source>
+                <target>La plaie des mécaniciens. Ces grains de riz doivent être stockés dans un lieu hermetique, sinon ils s'échappent et partent se cacher dans les mécanismes des portes automatiques.</target>
+				</segment>
+            <segment id="examine">
+                <source>proactive_puffed_rice.examine</source>
+                <target>La plaie des mécaniciens. Ces grains de riz doivent être stockés dans un lieu hermetique, sinon ils s'échappent et partent se cacher dans les mécanismes des portes automatiques.
++10 :pa:
+Imperissable
++5 satiété
+55% de chances : endommage une porte du Daedalus</target>
+			</segment>
+        </unit>		
+	   <unit id="alien_steak">
+            <segment id="name">
+                <source>alien_steak.name</source>
+                <target>Steak alien</target>
+            </segment>
+            <segment id="short_name">
+                <source>alien_steak.short_name</source>
+                <target>Steak alien</target>
+            </segment>
+            <segment id="genre">
+                <source>alien_steak.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>alien_steak.description</source>
+                <target>Depuis notre arrivée dans le nuage de Magellan, on a jamais réussi à communiquer avec les formes de vies aliens autrement qu'en les consommant.</target>
+				</segment>
+            <segment id="examine">
+                <source>alien_steak.examine</source>
+                <target>Depuis notre arrivée dans le nuage de Magellan, on a jamais réussi à communiquer avec les formes de vies aliens autrement qu'en les consommant.</target>
+			</segment>
+        </unit>			
+	   <unit id="anabolic">
+            <segment id="name">
+                <source>anabolic.name</source>
+                <target>Anabolisant</target>
+            </segment>
+            <segment id="short_name">
+                <source>anabolic.short_name</source>
+                <target>Anabolisant</target>
+            </segment>
+            <segment id="genre">
+                <source>anabolic.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>anabolic.description</source>
+                <target>Ces petits cubes de testosterone frétillants doivent être consommés avec modération.</target>
+				</segment>
+            <segment id="examine">
+                <source>anabolic.examine</source>
+                <target>Ces petits cubes de testosterone frétillants doivent être consommés avec modération.</target>
+			</segment>
+        </unit>		
+	   <unit id="coffee">
+            <segment id="name">
+                <source>coffee.name</source>
+                <target>Café</target>
+            </segment>
+            <segment id="short_name">
+                <source>coffee.short_name</source>
+                <target>Café</target>
+            </segment>
+            <segment id="genre">
+                <source>coffee.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>coffee.description</source>
+                <target>C'est le carburant élémentaire pour tous les membres d'équipage.</target>
+				</segment>
+            <segment id="examine">
+                <source>coffee.examine</source>
+                <target>C'est le carburant élémentaire pour tous les membres d'équipage.</target>
+			</segment>
+        </unit>		
+	   <unit id="cooked_ration">
+            <segment id="name">
+                <source>cooked_ration.name</source>
+                <target>Ration cuisinée</target>
+            </segment>
+            <segment id="short_name">
+                <source>cooked_ration.short_name</source>
+                <target>Ration cuisinée</target>
+            </segment>
+            <segment id="genre">
+                <source>cooked_ration.genre</source>
+                <target>female</target>
+            </segment>
+            <segment id="description">
+                <source>cooked_ration.description</source>
+                <target>Mélasse protéinée chaude sculptée en forme de plat traditionnel terrien. Le goût est sensiblement le même mais avec un peu d'imagination, on peut faire des merveilles.</target>
+				</segment>
+            <segment id="examine">
+                <source>cooked_ration.examine</source>
+                <target>Mélasse protéinée chaude sculptée en forme de plat traditionnel terrien. Le goût est sensiblement le même mais avec un peu d'imagination, on peut faire des merveilles.</target>
+			</segment>
+        </unit>		
+	   <unit id="space_potato">
+            <segment id="name">
+                <source>space_potato.name</source>
+                <target>Patate spatiale</target>
+            </segment>
+            <segment id="short_name">
+                <source>space_potato.short_name</source>
+                <target>Patate spatiale</target>
+            </segment>
+            <segment id="genre">
+                <source>space_potato.genre</source>
+                <target>female</target>
+            </segment>
+            <segment id="description">
+                <source>space_potato.description</source>
+                <target>Haaa les frites de patates spatiales ! C'est bizarre les mecs adorent tous ce truc, mais les femmes de l'équipage leur ont interdit d'en manger dans le refectoire. Il parait que ça sent les chaussettes et que c'est vraiment bourratif...</target>
+				</segment>
+            <segment id="examine">
+                <source>space_potato.examine</source>
+                <target>Haaa les frites de patates spatiales ! C'est bizarre les mecs adorent tous ce truc, mais les femmes de l'équipage leur ont interdit d'en manger dans le refectoire. Il parait que ça sent les chaussettes et que c'est vraiment bourratif...</target>
+			</segment>
+        </unit>		
+	   <unit id="standard_ration">
+            <segment id="name">
+                <source>standard_ration.name</source>
+                <target>Ration standard</target>
+            </segment>
+            <segment id="short_name">
+                <source>standard_ration.short_name</source>
+                <target>Ration standard</target>
+            </segment>
+            <segment id="genre">
+                <source>standard_ration.genre</source>
+                <target>female</target>
+            </segment>
+            <segment id="description">
+                <source>standard_ration.description</source>
+                <target>Une portion de mélasse protéinée agglomérée dans une barquette spatiale longue-conservation. Ces rations sont étudiées pour être facile à digérer par voie traditionnelle mais peuvent également être injectées en intraveineuse.</target>
+				</segment>
+            <segment id="examine">
+                <source>standard_ration.examine</source>
+                <target>Une portion de mélasse protéinée agglomérée dans une barquette spatiale longue-conservation. Ces rations sont étudiées pour être facile à digérer par voie traditionnelle mais peuvent également être injectées en intraveineuse.</target>
+			</segment>
+        </unit>
+	   <unit id="supervitamin_bar">
+            <segment id="name">
+                <source>supervitamin_bar.name</source>
+                <target>Barre supravitaminée</target>
+            </segment>
+            <segment id="short_name">
+                <source>supervitamin_bar.short_name</source>
+                <target>Barre supravitaminée</target>
+            </segment>
+            <segment id="genre">
+                <source>supervitamin_bar.genre</source>
+                <target>female</target>
+            </segment>
+            <segment id="description">
+                <source>supervitamin_bar.description</source>
+                <target>Le produit spatial SNC le plus en vogue. Dans certaines tributs d'Amérique du Sud, il remplace avantageusement l'ayahuasca. Contient uniquement des choses mauvaises pour votre santé !</target>
+				</segment>
+            <segment id="examine">
+                <source>supervitamin_bar.examine</source>
+                <target>Le produit spatial SNC le plus en vogue. Dans certaines tributs d'Amérique du Sud, il remplace avantageusement l'ayahuasca. Contient uniquement des choses mauvaises pour votre santé !</target>
+			</segment>
+        </unit>	
+	   <unit id="babel_module_blueprint">
+            <segment id="name">
+                <source>babel_module_blueprint.name</source>
+                <target>Plan du module Babel</target>
+            </segment>
+            <segment id="short_name">
+                <source>babel_module_blueprint.short_name</source>
+                <target>Plan du module Babel</target>
+            </segment>
+            <segment id="genre">
+                <source>babel_module_blueprint.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>babel_module_blueprint.description</source>
+                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
+Ce plan nécessite :
+1 x Débris Métallique
+1 x Débris Plastique</target>
+				</segment>
+            <segment id="examine">
+                <source>babel_module_blueprint.examine</source>
+                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
+Ce plan nécessite :
+1 x Débris Métallique
+1 x Débris Plastique
+Les plans de construction bleus sont une bénédiction pour les équipiers en mal de jeux de construction.</target>
+			</segment>
+        </unit>	
+	   <unit id="echolocator_blueprint">
+            <segment id="name">
+                <source>echolocator_blueprint.name</source>
+                <target>Plan de l'écholocateur</target>
+            </segment>
+            <segment id="short_name">
+                <source>echolocator_blueprint.short_name</source>
+                <target>Plan de l'écholocateur</target>
+            </segment>
+            <segment id="genre">
+                <source>echolocator_blueprint.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>echolocator_blueprint.description</source>
+                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
+Ce plan nécessite :
+1 x Débris Métallique
+1 x Débris Plastique</target>
+				</segment>
+            <segment id="examine">
+                <source>echolocator_blueprint.examine</source>
+                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
+Ce plan nécessite :
+1 x Débris Métallique
+1 x Débris Plastique
+Les plans de construction bleus sont une bénédiction pour les équipiers en mal de jeux de construction.</target>
+			</segment>
+        </unit>	
+	   <unit id="extinguisher_blueprint">
+            <segment id="name">
+                <source>extinguisher_blueprint.name</source>
+                <target>Plan de l'extincteur</target>
+            </segment>
+            <segment id="short_name">
+                <source>extinguisher_blueprint.short_name</source>
+                <target>Plan de l'extincteur</target>
+            </segment>
+            <segment id="genre">
+                <source>extinguisher_blueprint.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>extinguisher_blueprint.description</source>
+                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
+Ce plan nécessite :
+1 x Débris Métallique
+1 x Capsule d'Oxygène</target>
+				</segment>
+            <segment id="examine">
+                <source>extinguisher_blueprint.examine</source>
+                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
+Ce plan nécessite :
+1 x Débris Métallique
+1 x Capsule d'Oxygène
+Les plans de construction bleus sont une bénédiction pour les équipiers en mal de jeux de construction.</target>
+			</segment>
+        </unit>		
+	   <unit id="grenade_blueprint">
+            <segment id="name">
+                <source>grenade_blueprint.name</source>
+                <target>Plan de la grenade</target>
+            </segment>
+            <segment id="short_name">
+                <source>grenade_blueprint.short_name</source>
+                <target>Plan de la grenade</target>
+            </segment>
+            <segment id="genre">
+                <source>grenade_blueprint.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>grenade_blueprint.description</source>
+                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
+Ce plan nécessite :
+1 x Capsule de Fuel
+1 x Capsule d'Oxygène</target>
+				</segment>
+            <segment id="examine">
+                <source>grenade_blueprint.examine</source>
+                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
+Ce plan nécessite :
+1 x Capsule de Fuel
+1 x Capsule d'Oxygène
+Les plans de construction bleus sont une bénédiction pour les équipiers en mal de jeux de construction.</target>
+			</segment>
+        </unit>	
+	   <unit id="lizaro_jungle_blueprint">
+            <segment id="name">
+                <source>lizaro_jungle_blueprint.name</source>
+                <target>Plan du Lizaro Jungle</target>
+            </segment>
+            <segment id="short_name">
+                <source>lizaro_jungle_blueprint.short_name</source>
+                <target>Plan du Lizaro Jungle</target>
+            </segment>
+            <segment id="genre">
+                <source>lizaro_jungle_blueprint.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>lizaro_jungle_blueprint.description</source>
+                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
+Ce plan nécessite :
+2 x Débris Métallique
+1 x Débris Plastique</target>
+				</segment>
+            <segment id="examine">
+                <source>lizaro_jungle_blueprint.examine</source>
+                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
+Ce plan nécessite :
+2 x Débris Métallique
+1 x Débris Plastique
+Les plans de construction bleus sont une bénédiction pour les équipiers en mal de jeux de construction.</target>
+			</segment>
+        </unit>	
+	   <unit id="old_faithful_blueprint">
+            <segment id="name">
+                <source>old_faithful_blueprint.name</source>
+                <target>Plan de la sulfateuse</target>
+            </segment>
+            <segment id="short_name">
+                <source>old_faithful_blueprint.short_name</source>
+                <target>Plan de la sulfateuse</target>
+            </segment>
+            <segment id="genre">
+                <source>old_faithful_blueprint.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>old_faithful_blueprint.description</source>
+                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
+Ce plan nécessite :
+4 x Débris Métallique</target>
+				</segment>
+            <segment id="examine">
+                <source>old_faithful_blueprint.examine</source>
+                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
+Ce plan nécessite :
+4 x Débris Métallique
+Les plans de construction bleus sont une bénédiction pour les équipiers en mal de jeux de construction.</target>
+			</segment>
+        </unit>	
+	   <unit id="rocket_launcher_blueprint">
+            <segment id="name">
+                <source>rocket_launcher_blueprint.name</source>
+                <target>Plan du lance-roquette</target>
+            </segment>
+            <segment id="short_name">
+                <source>rocket_launcher_blueprint.short_name</source>
+                <target>Plan du lance-roquette</target>
+            </segment>
+            <segment id="genre">
+                <source>rocket_launcher_blueprint.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>rocket_launcher_blueprint.description</source>
+                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
+Ce plan nécessite :
+1 x Tube Epais
+1 x Débris Métallique
+1 x Débris Plastique</target>
+				</segment>
+            <segment id="examine">
+                <source>rocket_launcher_blueprint.examine</source>
+                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
+Ce plan nécessite :
+1 x Tube Epais
+1 x Débris Métallique
+1 x Débris Plastique
+Les plans de construction bleus sont une bénédiction pour les équipiers en mal de jeux de construction.</target>
+			</segment>
+        </unit>	
+	   <unit id="oscilloscope_blueprint">
+            <segment id="name">
+                <source>oscilloscope_blueprint.name</source>
+                <target>Plan du vaguoscope</target>
+            </segment>
+            <segment id="short_name">
+                <source>oscilloscope_blueprint.short_name</source>
+                <target>Plan du vaguoscope</target>
+            </segment>
+            <segment id="genre">
+                <source>oscilloscope_blueprint.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>oscilloscope_blueprint.description</source>
+                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
+Ce plan nécessite :
+1 x Débris Métallique
+1 x Débris Plastique</target>
+				</segment>
+            <segment id="examine">
+                <source>oscilloscope_blueprint.examine</source>
+                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
+Ce plan nécessite :
+1 x Débris Métallique
+1 x Débris Plastique
+Les plans de construction bleus sont une bénédiction pour les équipiers en mal de jeux de construction.</target>
+			</segment>
+        </unit>	
+	   <unit id="sniper_helmet_blueprint">
+            <segment id="name">
+                <source>sniper_helmet_blueprint.name</source>
+                <target>Plan du casque de visée</target>
+            </segment>
+            <segment id="short_name">
+                <source>sniper_helmet_blueprint.short_name</source>
+                <target>Plan du casque de visée</target>
+            </segment>
+            <segment id="genre">
+                <source>sniper_helmet_blueprint.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>sniper_helmet_blueprint.description</source>
+                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
+Ce plan nécessite :
+1 x Débris Métallique
+1 x Débris Plastique</target>
+				</segment>
+            <segment id="examine">
+                <source>sniper_helmet_blueprint.examine</source>
+                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
+Ce plan nécessite :
+1 x Débris Métallique
+1 x Débris Plastique
+Les plans de construction bleus sont une bénédiction pour les équipiers en mal de jeux de construction.</target>
+			</segment>
+        </unit>	
+	   <unit id="support_drone_blueprint">
+            <segment id="name">
+                <source>support_drone_blueprint.name</source>
+                <target>Plan du drone de soutien</target>
+            </segment>
+            <segment id="short_name">
+                <source>support_drone_blueprint.short_name</source>
+                <target>Plan du drone de soutien</target>
+            </segment>
+            <segment id="genre">
+                <source>support_drone_blueprint.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>support_drone_blueprint.description</source>
+                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
+Ce plan nécessite :
+4 x Débris Métallique
+1 x Débris Plastique</target>
+				</segment>
+            <segment id="examine">
+                <source>support_drone_blueprint.examine</source>
+                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
+Ce plan nécessite :
+4 x Débris Métallique
+1 x Débris Plastique
+Les plans de construction bleus sont une bénédiction pour les équipiers en mal de jeux de construction.</target>
+			</segment>
+        </unit>	
+	   <unit id="swedish_sofa_blueprint">
+            <segment id="name">
+                <source>swedish_sofa_blueprint.name</source>
+                <target>Plan du sofa suédois</target>
+            </segment>
+            <segment id="short_name">
+                <source>swedish_sofa_blueprint.short_name</source>
+                <target>Plan du sofa suédois</target>
+            </segment>
+            <segment id="genre">
+                <source>swedish_sofa_blueprint.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>swedish_sofa_blueprint.description</source>
+                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
+Ce plan nécessite :
+1 x Tube Epais
+1 x Débris Métallique</target>
+				</segment>
+            <segment id="examine">
+                <source>swedish_sofa_blueprint.examine</source>
+                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
+Ce plan nécessite :
+1 x Tube Epais
+1 x Débris Métallique
+Les plans de construction bleus sont une bénédiction pour les équipiers en mal de jeux de construction.</target>
+			</segment>
+        </unit>	
+	   <unit id="thermosensor_blueprint">
+            <segment id="name">
+                <source>thermosensor_blueprint.name</source>
+                <target>Plan du thermosenseur</target>
+            </segment>
+            <segment id="short_name">
+                <source>thermosensor_blueprint.short_name</source>
+                <target>Plan du thermosenseur</target>
+            </segment>
+            <segment id="genre">
+                <source>thermosensor_blueprint.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>thermosensor_blueprint.description</source>
+                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
+Ce plan nécessite :
+1 x Débris Métallique
+1 x Débris Plastique</target>
+				</segment>
+            <segment id="examine">
+                <source>thermosensor_blueprint.examine</source>
+                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
+Ce plan nécessite :
+1 x Débris Métallique
+1 x Débris Plastique
+Les plans de construction bleus sont une bénédiction pour les équipiers en mal de jeux de construction.</target>
+			</segment>
+        </unit>	
+	   <unit id="white_flag_blueprint">
+            <segment id="name">
+                <source>white_flag_blueprint.name</source>
+                <target>Plan du drapeau blanc</target>
+            </segment>
+            <segment id="short_name">
+                <source>white_flag_blueprint.short_name</source>
+                <target>Plan du drapeau blanc</target>
+            </segment>
+            <segment id="genre">
+                <source>white_flag_blueprint.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>white_flag_blueprint.description</source>
+                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
+Ce plan nécessite :
+1 x Savon
+1 x Vieux T-Shirt</target>
+				</segment>
+            <segment id="examine">
+                <source>white_flag_blueprint.examine</source>
+                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
+Ce plan nécessite :
+1 x Savon
+1 x Vieux T-Shirt
+Les plans de construction bleus sont une bénédiction pour les équipiers en mal de jeux de construction.</target>
+			</segment>
+        </unit>	
+	   <unit id="apprenton_astrophysicist">
+            <segment id="name">
+                <source>apprenton_astrophysicist.name</source>
+                <target>Apprentron : Astrophysicien</target>
+            </segment>
+            <segment id="short_name">
+                <source>apprenton_astrophysicist.short_name</source>
+                <target>Apprentron : Astrophysicien</target>
+            </segment>
+            <segment id="genre">
+                <source>apprenton_astrophysicist.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>apprenton_astrophysicist.description</source>
+                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.</target>
+				</segment>
+            <segment id="examine">
+                <source>apprenton_astrophysicist.examine</source>
+                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.
+Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et encore...</target>
+			</segment>
+        </unit>	
+	   <unit id="apprenton_biologist">
+            <segment id="name">
+                <source>apprenton_biologist.name</source>
+                <target>Apprentron : Biologiste</target>
+            </segment>
+            <segment id="short_name">
+                <source>apprenton_biologist.short_name</source>
+                <target>Apprentron : Biologiste</target>
+            </segment>
+            <segment id="genre">
+                <source>apprenton_biologist.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>apprenton_biologist.description</source>
+                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.</target>
+				</segment>
+            <segment id="examine">
+                <source>apprenton_biologist.examine</source>
+                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.
+Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et encore...</target>
+			</segment>
+        </unit>	
+	   <unit id="apprenton_botanist">
+            <segment id="name">
+                <source>apprenton_botanist.name</source>
+                <target>Apprentron : Botaniste</target>
+            </segment>
+            <segment id="short_name">
+                <source>apprenton_botanist.short_name</source>
+                <target>Apprentron : Botaniste</target>
+            </segment>
+            <segment id="genre">
+                <source>apprenton_botanist.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>apprenton_botanist.description</source>
+                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.</target>
+				</segment>
+            <segment id="examine">
+                <source>apprenton_botanist.examine</source>
+                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.
+Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et encore...</target>
+			</segment>
+        </unit>	
+	   <unit id="apprenton_diplomat">
+            <segment id="name">
+                <source>apprenton_diplomat.name</source>
+                <target>Apprentron : Diplomate</target>
+            </segment>
+            <segment id="short_name">
+                <source>apprenton_diplomat.short_name</source>
+                <target>Apprentron : Diplomate</target>
+            </segment>
+            <segment id="genre">
+                <source>apprenton_diplomat.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>apprenton_diplomat.description</source>
+                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.</target>
+				</segment>
+            <segment id="examine">
+                <source>apprenton_diplomat.examine</source>
+                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.
+Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et encore...</target>
+			</segment>
+        </unit>	
+	   <unit id="apprenton_firefighter">
+            <segment id="name">
+                <source>apprenton_firefighter.name</source>
+                <target>Apprentron : Pompier</target>
+            </segment>
+            <segment id="short_name">
+                <source>apprenton_firefighter.short_name</source>
+                <target>Apprentron : Pompier</target>
+            </segment>
+            <segment id="genre">
+                <source>apprenton_firefighter.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>apprenton_firefighter.description</source>
+                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.</target>
+				</segment>
+            <segment id="examine">
+                <source>apprenton_firefighter.examine</source>
+                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.
+Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et encore...</target>
+			</segment>
+        </unit>	
+	   <unit id="apprenton_chef">
+            <segment id="name">
+                <source>apprenton_chef.name</source>
+                <target>Apprentron : Cuistot</target>
+            </segment>
+            <segment id="short_name">
+                <source>apprenton_chef.short_name</source>
+                <target>Apprentron : Cuistot</target>
+            </segment>
+            <segment id="genre">
+                <source>apprenton_chef.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>apprenton_chef.description</source>
+                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.</target>
+				</segment>
+            <segment id="examine">
+                <source>apprenton_chef.examine</source>
+                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.
+Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et encore...</target>
+			</segment>
+        </unit>	
+	   <unit id="apprenton_it_expert">
+            <segment id="name">
+                <source>apprenton_it_expert.name</source>
+                <target>Apprentron : Informaticien</target>
+            </segment>
+            <segment id="short_name">
+                <source>apprenton_it_expert.short_name</source>
+                <target>Apprentron : Informaticien</target>
+            </segment>
+            <segment id="genre">
+                <source>apprenton_it_expert.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>apprenton_it_expert.description</source>
+                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.</target>
+				</segment>
+            <segment id="examine">
+                <source>apprenton_it_expert.examine</source>
+                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.
+Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et encore...</target>
+			</segment>
+        </unit>	
+	   <unit id="apprenton_logistics_expert">
+            <segment id="name">
+                <source>apprenton_logistics_expert.name</source>
+                <target>Apprentron : Logistique</target>
+            </segment>
+            <segment id="short_name">
+                <source>apprenton_logistics_expert.short_name</source>
+                <target>Apprentron : Logistique</target>
+            </segment>
+            <segment id="genre">
+                <source>apprenton_logistics_expert.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>apprenton_logistics_expert.description</source>
+                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.</target>
+				</segment>
+            <segment id="examine">
+                <source>apprenton_logistics_expert.examine</source>
+                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.
+Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et encore...</target>
+			</segment>
+        </unit>	
+	   <unit id="apprenton_medic">
+            <segment id="name">
+                <source>apprenton_medic.name</source>
+                <target>Apprentron : Médecin</target>
+            </segment>
+            <segment id="short_name">
+                <source>apprenton_medic.short_name</source>
+                <target>Apprentron : Médecin</target>
+            </segment>
+            <segment id="genre">
+                <source>apprenton_medic.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>apprenton_medic.description</source>
+                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.</target>
+				</segment>
+            <segment id="examine">
+                <source>apprenton_medic.examine</source>
+                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.
+Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et encore...</target>
+			</segment>
+        </unit>	
+	   <unit id="apprenton_pilot">
+            <segment id="name">
+                <source>apprenton_pilot.name</source>
+                <target>Apprentron : Pilote</target>
+            </segment>
+            <segment id="short_name">
+                <source>apprenton_pilot.short_name</source>
+                <target>Apprentron : Pilote</target>
+            </segment>
+            <segment id="genre">
+                <source>apprenton_pilot.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>apprenton_pilot.description</source>
+                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.</target>
+				</segment>
+            <segment id="examine">
+                <source>apprenton_pilot.examine</source>
+                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.
+Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et encore...</target>
+			</segment>
+        </unit>	
+	   <unit id="apprenton_radio_expert">
+            <segment id="name">
+                <source>apprenton_radio_expert.name</source>
+                <target>Apprentron : Expert radio</target>
+            </segment>
+            <segment id="short_name">
+                <source>apprenton_radio_expert.short_name</source>
+                <target>Apprentron : Expert radio</target>
+            </segment>
+            <segment id="genre">
+                <source>apprenton_radio_expert.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>apprenton_radio_expert.description</source>
+                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.</target>
+				</segment>
+            <segment id="examine">
+                <source>apprenton_radio_expert.examine</source>
+                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.
+Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et encore...</target>
+			</segment>
+        </unit>	
+	   <unit id="apprenton_shooter">
+            <segment id="name">
+                <source>apprenton_shooter.name</source>
+                <target>Apprentron : Tireur</target>
+            </segment>
+            <segment id="short_name">
+                <source>apprenton_shooter.short_name</source>
+                <target>Apprentron : Tireur</target>
+            </segment>
+            <segment id="genre">
+                <source>apprenton_shooter.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>apprenton_shooter.description</source>
+                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.</target>
+				</segment>
+            <segment id="examine">
+                <source>apprenton_shooter.examine</source>
+                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.
+Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et encore...</target>
+			</segment>
+        </unit>	
+	   <unit id="apprenton_shrink">
+            <segment id="name">
+                <source>apprenton_shrink.name</source>
+                <target>Apprentron : Psy</target>
+            </segment>
+            <segment id="short_name">
+                <source>apprenton_shrink.short_name</source>
+                <target>Apprentron : Psy</target>
+            </segment>
+            <segment id="genre">
+                <source>apprenton_shrink.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>apprenton_shrink.description</source>
+                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.</target>
+				</segment>
+            <segment id="examine">
+                <source>apprenton_shrink.examine</source>
+                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.
+Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et encore...</target>
+			</segment>
+        </unit>	
+	   <unit id="apprenton_sprinter">
+            <segment id="name">
+                <source>apprenton_sprinter.name</source>
+                <target>Apprentron : Sprinter</target>
+            </segment>
+            <segment id="short_name">
+                <source>apprenton_sprinter.short_name</source>
+                <target>Apprentron : Sprinter</target>
+            </segment>
+            <segment id="genre">
+                <source>apprenton_sprinter.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>apprenton_sprinter.description</source>
+                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.</target>
+				</segment>
+            <segment id="examine">
+                <source>apprenton_sprinter.examine</source>
+                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.
+Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et encore...</target>
+			</segment>
+        </unit>	
+	   <unit id="apprenton_technician">
+            <segment id="name">
+                <source>apprenton_sprinter.name</source>
+                <target>Apprentron : Technicien</target>
+            </segment>
+            <segment id="short_name">
+                <source>apprenton_sprinter.short_name</source>
+                <target>Apprentron : Technicien</target>
+            </segment>
+            <segment id="genre">
+                <source>apprenton_sprinter.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>apprenton_sprinter.description</source>
+                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.</target>
+				</segment>
+            <segment id="examine">
+                <source>apprenton_sprinter.examine</source>
+                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.
+Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et encore...</target>
+			</segment>
+        </unit>	
+	   <unit id="document">
+            <segment id="name">
+                <source>document.name</source>
+                <target>Document</target>
+            </segment>
+            <segment id="short_name">
+                <source>document.short_name</source>
+                <target>Document</target>
+            </segment>
+            <segment id="genre">
+                <source>document.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>document.description</source>
+                <target>Les documents peuvent être lus. Qui sait ce que celui-ci peut contenir ?</target>
+				</segment>
+            <segment id="examine">
+                <source>document.examine</source>
+                <target>Les documents peuvent être lus. Qui sait ce que celui-ci peut contenir ?
+La curiosité est certes un vilain défaut mais bon... C'est un document, secret, inutile ou indispensable. Qui sait ce qu'il contient...</target>
+			</segment>
+        </unit>	
+	   <unit id="commanders_manual">
+            <segment id="name">
+                <source>commanders_manual.name</source>
+                <target>Manuel du commandant</target>
+            </segment>
+            <segment id="short_name">
+                <source>commanders_manual.short_name</source>
+                <target>Manuel du commandant</target>
+            </segment>
+            <segment id="genre">
+                <source>commanders_manual.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>commanders_manual.description</source>
+                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.</target>
+				</segment>
+            <segment id="examine">
+                <source>commanders_manual.examine</source>
+                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.
+Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et encore...</target>
+			</segment>
+        </unit>	
+	   <unit id="mush_research_review">
+            <segment id="name">
+                <source>mush_research_review.name</source>
+                <target>De la Recherche sur le Mush</target>
+            </segment>
+            <segment id="short_name">
+                <source>mush_research_review.short_name</source>
+                <target>De la Recherche sur le Mush</target>
+            </segment>
+            <segment id="genre">
+                <source>mush_research_review.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>mush_research_review.description</source>
+                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.</target>
+				</segment>
+            <segment id="examine">
+                <source>mush_research_review.examine</source>
+                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.
+Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et encore...</target>
+			</segment>
+        </unit>	
+	   <unit id="post_it">
+            <segment id="name">
+                <source>post_it.name</source>
+                <target>Pense-Bête</target>
+            </segment>
+            <segment id="short_name">
+                <source>post_it.short_name</source>
+                <target>Pense-Bête</target>
+            </segment>
+            <segment id="genre">
+                <source>post_it.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="description">
+                <source>post_it.description</source>
+                <target>Un pense-bête qui ne colle qu'à moitié...</target>
+				</segment>
+            <segment id="examine">
+                <source>post_it.examine</source>
+                <target>Un pense-bête qui ne colle qu'à moitié...
+Ces insupportables petits feuillets traînent partout... Et puis qui peut-en avoir réellement besoin?</target>
+			</segment>
+        </unit>	
+			</file>
+</xliff>

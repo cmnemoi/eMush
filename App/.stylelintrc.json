@@ -3,6 +3,7 @@
     "defaultSeverity": "warning",
     "rules": {
         "indentation": 4,
-        "at-rule-no-unknown": null
+        "at-rule-no-unknown": null,
+        "length-zero-no-unit": null
     }
 }

@@ -1,56 +1,68 @@
-image: php:7.4
+.php_template: &php_template
+  image: php:7.4
+  cache:
+    paths:
+      - "Api/vendor/"
+  before_script:
+    - php -v
+    - apt-get update -yqq
+    - apt-get install git zip -yqq zlib1g-dev libpq-dev
+    - cd Api
+    # Install composer
+    - curl -sS https://getcomposer.org/installer | php
+    # Install all project dependencies
+    - php composer.phar install
+    - cp .env.gitlab .env
 
-services:
-  - postgres:13.1-alpine
-
-variables:
-  POSTGRES_DB: emush_test
-  POSTGRES_USER: runner
-  POSTGRES_PASSWORD: "password"
-
-cache:
-  paths:
-    - "Api/vendor/"
-
-stages:
-  - test
-
-before_script:
-  - php -v
-  - apt-get update -yqq
-  - apt-get install git zip -yqq zlib1g-dev libpq-dev
-  - cd Api
-  # Install composer
-  - curl -sS https://getcomposer.org/installer | php
-  # Install all project dependencies
-  - php composer.phar install
-  - cp .env.gitlab .env
-
-api-test:
-  stage: test
-  script:
-    - pecl install xdebug && docker-php-ext-enable xdebug
+.php_with_db_template: &php_with_db_template
+  extends: .php_template
+  services:
+    - postgres:13.1-alpine
+  variables:
+    POSTGRES_DB: emush_test
+    POSTGRES_USER: runner
+    POSTGRES_PASSWORD: "password"
+  before_script:
+    - php -v
+    - apt-get update -yqq
+    - apt-get install git zip -yqq zlib1g-dev libpq-dev
+    - cd Api
+    # Install composer
+    - curl -sS https://getcomposer.org/installer | php
+    # Install all project dependencies
+    - php composer.phar install
+    - cp .env.gitlab .env
     - docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql && docker-php-ext-install pdo pdo_pgsql pgsql
     - bin/console doctrine:schema:update -f
     - echo y | bin/console doctrine:fixture:load
-    - php vendor/bin/codecept run --xml --html
+
+.node_template: &node_template
+  image: node:14
+  cache:
+    paths:
+      - node_modules/
+  before_script:
+    - cd App
+    - yarn install
+
+api-test:
+  <<: *php_with_db_template
+  script:
+    - php vendor/bin/codecept run
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
 
 api-lint:
-  stage: test
+  <<: *php_template
   script:
     - ./linters.sh
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
 
 api-test-develop:
-  stage: test
+  <<: *php_with_db_template
   script:
     - pecl install xdebug && docker-php-ext-enable xdebug
-    - docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql && docker-php-ext-install pdo pdo_pgsql pgsql
-    - bin/console doctrine:schema:update -f
-    - echo y | bin/console doctrine:fixture:load
     - XDEBUG_MODE=coverage php vendor/bin/codecept run --xml --html --coverage --coverage-html --no-colors
   coverage: '/^\s+Lines:\s+(\d+\.\d+)%/'
   artifacts:
@@ -63,3 +75,10 @@ api-test-develop:
       junit: Api/tests/_output/report.xml
   only:
     - develop
+
+front-lint:
+  <<: *node_template
+  script:
+    - yarn lint --no-fix
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'

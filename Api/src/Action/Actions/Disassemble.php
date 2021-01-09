@@ -9,12 +9,9 @@ use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\SuccessRateServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\Mechanics\Dismountable;
-use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
-use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
@@ -63,27 +60,12 @@ class Disassemble extends AttemptAction
         }
 
         $this->gameEquipment = $equipment;
-
-        /** @var Dismountable $dismountableType */
-        $dismountableType = $this->gameEquipment
-            ->getEquipment()
-            ->getMechanicByName(EquipmentMechanicEnum::DISMOUNTABLE)
-        ;
-
-        if ($dismountableType !== null) {
-            $this->action->getActionCost()->setActionPointCost($dismountableType->getActionCost());
-        }
     }
 
     public function canExecute(): bool
     {
-        $dismountableType = $this->gameEquipment
-            ->getEquipment()
-            ->getMechanicByName(EquipmentMechanicEnum::DISMOUNTABLE)
-        ;
-
         //Check that the item is reachable
-        return null !== $dismountableType &&
+        return $this->gameEquipment->getActions()->contains($this->action) &&
             $this->player->canReachEquipment($this->gameEquipment)
             //@TODO uncomment when skill are ready
             //&&
@@ -96,13 +78,7 @@ class Disassemble extends AttemptAction
         $response = $this->makeAttempt();
 
         if ($response instanceof Success) {
-            /** @var Dismountable $dismountableType */
-            $dismountableType = $this->gameEquipment
-                ->getEquipment()
-                ->getMechanicByName(EquipmentMechanicEnum::DISMOUNTABLE)
-            ;
-
-            $this->disasemble($dismountableType);
+            $this->disasemble();
         }
 
         //@TODO use post event
@@ -113,10 +89,10 @@ class Disassemble extends AttemptAction
         return $response;
     }
 
-    private function disasemble(Dismountable $dismountableType): void
+    private function disasemble(): void
     {
         // add the item produced by disassembling
-        foreach ($dismountableType->getProducts() as $productString => $number) {
+        foreach ($this->gameEquipment->getEquipment()->getDismountedProducts() as $productString => $number) {
             for ($i = 0; $i < $number; ++$i) {
                 $productEquipment = $this
                     ->gameEquipmentService
@@ -148,12 +124,6 @@ class Disassemble extends AttemptAction
 
     protected function getBaseRate(): int
     {
-        /** @var Dismountable $dismountableType */
-        $dismountableType = $this->gameEquipment
-            ->getEquipment()
-            ->getMechanicByName(EquipmentMechanicEnum::DISMOUNTABLE)
-        ;
-
-        return $dismountableType->getChancesSuccess();
+        return $this->action->getSuccessRate();
     }
 }

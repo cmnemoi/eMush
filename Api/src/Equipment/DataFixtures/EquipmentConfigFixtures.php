@@ -7,12 +7,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
+use Mush\Action\DataFixtures\TechnicianFixtures;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTargetEnum;
 use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\Mechanics\Charged;
-use Mush\Equipment\Entity\Mechanics\Dismountable;
 use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
@@ -195,23 +195,19 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $showerMechanic = new Tool();
         $showerMechanic->addAction($showerAction);
-        $showerDismountableMechanic = new Dismountable();
-        $showerDismountableMechanic
-            ->setProducts([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::THICK_TUBE => 1])
-            ->setActionCost(3)
-            ->setChancesSuccess(25)
-        ;
+
         $thalasso = new EquipmentConfig();
         $thalasso
             ->setGameConfig($gameConfig)
             ->setName(EquipmentEnum::THALASSO)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$showerMechanic, $showerDismountableMechanic]))
+            ->setMechanics(new ArrayCollection([$showerMechanic]))
+            ->setActions(new ArrayCollection([$this->getReference(TechnicianFixtures::DISMANTLE_3_25)]))
+            ->setDismountedProducts([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::THICK_TUBE => 1])
         ;
         $manager->persist($thalasso);
         $manager->persist($showerMechanic);
-        $manager->persist($showerDismountableMechanic);
 
         //@TODO ships
         $patrolShipChargeMechanic = new Charged();
@@ -288,12 +284,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($kitchen);
         $manager->persist($kitchenMechanic);
 
-        $distillerDismountableMechanic = new Dismountable();
-        $distillerDismountableMechanic
-            ->setProducts([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::METAL_SCRAPS => 2])
-            ->setActionCost(3)
-            ->setChancesSuccess(50)
-        ;
         $dailyChargeMechanic = new Charged();
         $dailyChargeMechanic
             ->setMaxCharge(1)
@@ -309,11 +299,13 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setName(EquipmentEnum::NARCOTIC_DISTILLER)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$distillerMechanic, $distillerDismountableMechanic, $dailyChargeMechanic]))
+            ->setMechanics(new ArrayCollection([$distillerMechanic, $dailyChargeMechanic]))
+            ->setActions(new ArrayCollection([$this->getReference(TechnicianFixtures::DISMANTLE_3_25)]))
+            ->setDismountedProducts([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::METAL_SCRAPS => 2])
         ;
+
         $manager->persist($narcoticDistiller);
         $manager->persist($distillerMechanic);
-        $manager->persist($distillerDismountableMechanic);
         $manager->persist($dailyChargeMechanic);
 
         $shower = new EquipmentConfig();
@@ -322,7 +314,9 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setName(EquipmentEnum::SHOWER)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$showerMechanic, $showerDismountableMechanic]))
+            ->setMechanics(new ArrayCollection([$showerMechanic]))
+            ->setActions(new ArrayCollection([$this->getReference(TechnicianFixtures::DISMANTLE_3_25)]))
+            ->setDismountedProducts([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::THICK_TUBE => 1])
         ;
         $manager->persist($shower);
 
@@ -487,6 +481,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         return [
             GameConfigFixtures::class,
             ActionsFixtures::class,
+            TechnicianFixtures::class,
         ];
     }
 }

@@ -66,6 +66,11 @@ class EquipmentConfig
     private bool $isAlienArtifact = false;
 
     /**
+     * @ORM\Column(type="array", nullable=false)
+     */
+    private array $dismountedProducts = [];
+
+    /**
      * @ORM\ManyToMany(targetEntity="Mush\Action\Entity\Action")
      */
     private Collection $actions;
@@ -247,5 +252,20 @@ class EquipmentConfig
     public function hasAction(string $actionName): bool
     {
         return $this->getActions()->exists(fn (int $id, Action $action) => $action->getName() === $actionName);
+    }
+
+    public function getDismountedProducts(): array
+    {
+        return $this->dismountedProducts;
+    }
+
+    /**
+     * @return static
+     */
+    public function setDismountedProducts(array $dismountedProducts): EquipmentConfig
+    {
+        $this->dismountedProducts = $dismountedProducts;
+
+        return $this;
     }
 }

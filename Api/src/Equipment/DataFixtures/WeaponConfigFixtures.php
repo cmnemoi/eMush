@@ -7,10 +7,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
+use Mush\Action\DataFixtures\TechnicianFixtures;
 use Mush\Action\Entity\Action;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Charged;
-use Mush\Equipment\Entity\Mechanics\Dismountable;
 use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
@@ -33,12 +33,8 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $actions = new ArrayCollection([$takeAction, $dropAction]);
 
-        $dismountableMechanic1 = new Dismountable();
-        $dismountableMechanic1
-            ->setProducts([ItemEnum::METAL_SCRAPS => 1])
-            ->setActionCost(3)
-            ->setChancesSuccess(25)
-        ;
+        $blasterActions = clone $actions;
+        $blasterActions->add($this->getReference(TechnicianFixtures::DISMANTLE_3_25));
 
         $chargedMechanic = new Charged();
         $chargedMechanic
@@ -68,10 +64,11 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(25)
-            ->setMechanics(new ArrayCollection([$dismountableMechanic1, $blasterMechanic, $chargedMechanic]))
-            ->setActions($actions)
+            ->setMechanics(new ArrayCollection([$blasterMechanic, $chargedMechanic]))
+            ->setActions($blasterActions)
+            ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
         ;
-        $manager->persist($dismountableMechanic1);
+
         $manager->persist($chargedMechanic);
         $manager->persist($blasterMechanic);
         $manager->persist($blaster);
@@ -86,6 +83,9 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->addAction($attackAction)
         ;
 
+        $knifeActions = clone $actions;
+        $knifeActions->add($this->getReference(TechnicianFixtures::DISMANTLE_3_25));
+
         $knife = new ItemConfig();
         $knife
             ->setGameConfig($gameConfig)
@@ -96,8 +96,9 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setBreakableRate(25)
-            ->setMechanics(new ArrayCollection([$dismountableMechanic1, $knifeMechanic]))
-            ->setActions($actions)
+            ->setMechanics(new ArrayCollection([$knifeMechanic]))
+            ->setActions($knifeActions)
+            ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
         ;
 
         $manager->persist($knife);
@@ -128,12 +129,8 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($grenade);
         $manager->persist($grenadeMechanic);
 
-        $dismountableMechanic2 = new Dismountable();
-        $dismountableMechanic2
-            ->setProducts([ItemEnum::METAL_SCRAPS => 1])
-            ->setActionCost(3)
-            ->setChancesSuccess(12)
-        ;
+        $natamyActions = clone $actions;
+        $natamyActions->add($this->getReference(TechnicianFixtures::DISMANTLE_3_12));
 
         $natamyMechanic = new Weapon();
         $natamyMechanic
@@ -154,20 +151,16 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(12)
-            ->setMechanics(new ArrayCollection([$dismountableMechanic2, $natamyMechanic, $chargedMechanic]))
-            ->setActions($actions)
+            ->setMechanics(new ArrayCollection([$natamyMechanic, $chargedMechanic]))
+            ->setActions($natamyActions)
+            ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
         ;
 
         $manager->persist($natamy);
         $manager->persist($natamyMechanic);
-        $manager->persist($dismountableMechanic2);
 
-        $dismountableMechanic3 = new Dismountable();
-        $dismountableMechanic3
-            ->setProducts([ItemEnum::METAL_SCRAPS => 1])
-            ->setActionCost(4)
-            ->setChancesSuccess(12)
-        ;
+        $oldFaithfulActions = clone $actions;
+        $oldFaithfulActions->add($this->getReference(TechnicianFixtures::DISMANTLE_4_12));
 
         $oldFaithfulMechanic = new Weapon();
         $oldFaithfulMechanic
@@ -196,21 +189,17 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(12)
-            ->setMechanics(new ArrayCollection([$dismountableMechanic3, $oldFaithfulMechanic, $chargedMechanic]))
-            ->setActions($actions)
+            ->setMechanics(new ArrayCollection([$oldFaithfulMechanic, $chargedMechanic]))
+            ->setActions($oldFaithfulActions)
+            ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
         ;
 
         $manager->persist($oldFaithful);
         $manager->persist($oldFaithfulMechanic);
-        $manager->persist($dismountableMechanic3);
         $manager->persist($chargedMechanic);
 
-        $dismountableMechanic4 = new Dismountable();
-        $dismountableMechanic4
-            ->setProducts([ItemEnum::METAL_SCRAPS => 1, ItemEnum::THICK_TUBE => 1])
-            ->setActionCost(3)
-            ->setChancesSuccess(12)
-        ;
+        $lizaroJungleActions = clone $actions;
+        $lizaroJungleActions->add($this->getReference(TechnicianFixtures::DISMANTLE_3_12));
 
         $chargedMechanic = new Charged();
         $chargedMechanic
@@ -239,13 +228,13 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(12)
-            ->setMechanics(new ArrayCollection([$dismountableMechanic4, $lizaroJungleMechanic, $chargedMechanic]))
-            ->setActions($actions)
+            ->setMechanics(new ArrayCollection([$lizaroJungleMechanic, $chargedMechanic]))
+            ->setActions($oldFaithfulActions)
+            ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
         ;
 
         $manager->persist($lizaroJungle);
         $manager->persist($lizaroJungleMechanic);
-        $manager->persist($dismountableMechanic4);
         $manager->persist($chargedMechanic);
 
         $rocketLauncherMechanic = new Weapon();
@@ -257,6 +246,9 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->addAction($attackAction)
         ;
 
+        $rocketLauncherActions = clone $actions;
+        $rocketLauncherActions->add($this->getReference(TechnicianFixtures::DISMANTLE_3_12));
+
         $rocketLauncher = new ItemConfig();
         $rocketLauncher
             ->setGameConfig($gameConfig)
@@ -267,8 +259,8 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(12)
-            ->setMechanics(new ArrayCollection([$dismountableMechanic2, $rocketLauncherMechanic, $chargedMechanic]))
-            ->setActions($actions)
+            ->setActions($rocketLauncherActions)
+            ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
         ;
 
         $manager->persist($rocketLauncher);

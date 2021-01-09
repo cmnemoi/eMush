@@ -60,7 +60,7 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
 
         $actionClass->loadParameters($object, $this->getCurrentPlayer(), $actionParameter);
 
-        if ($actionClass->canExecute()) {
+        if ($actionClass->getActionCost()->canPlayerDoAction($this->getCurrentPlayer()) && $actionClass->canExecute()) {
             $actionName = $object->getName();
             $actionCost = $actionClass->getActionCost();
 

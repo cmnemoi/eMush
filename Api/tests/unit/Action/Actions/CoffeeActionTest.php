@@ -19,7 +19,6 @@ use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\GameConfigServiceInterface;
-use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -30,8 +29,6 @@ class CoffeeActionTest extends AbstractActionTest
 {
     /** @var GameEquipmentServiceInterface | Mockery\Mock */
     private GameEquipmentServiceInterface $gameEquipmentService;
-    /** @var PlayerServiceInterface | Mockery\Mock */
-    private PlayerServiceInterface $playerService;
     /** @var StatusServiceInterface | Mockery\Mock */
     private StatusServiceInterface $statusService;
 
@@ -43,7 +40,6 @@ class CoffeeActionTest extends AbstractActionTest
         parent::before();
 
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
-        $this->playerService = Mockery::mock(PlayerServiceInterface::class);
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
         $gameConfigService = Mockery::mock(GameConfigServiceInterface::class);
 
@@ -55,7 +51,6 @@ class CoffeeActionTest extends AbstractActionTest
         $this->action = new Coffee(
             $this->eventDispatcher,
             $this->gameEquipmentService,
-            $this->playerService,
             $this->statusService,
             $gameConfigService,
         );
@@ -95,8 +90,7 @@ class CoffeeActionTest extends AbstractActionTest
         $actionParameter->setEquipment($gameCoffeeMachine);
         $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
-        //No microwave in the room
-        $this->gameEquipmentService->shouldReceive('getOperationalEquipmentsByName')->andReturn(new ArrayCollection([]))->once();
+        //No coffee Machine in the room
         $result = $this->action->execute();
         $this->assertInstanceOf(Error::class, $result);
     }
@@ -120,7 +114,7 @@ class CoffeeActionTest extends AbstractActionTest
             ->setRoom($room)
             ->addStatus($chargeStatus)
         ;
-
+        $coffeeMachine->setActions(new ArrayCollection([$this->actionEntity]));
         $chargeStatus->setGameEquipment($gameCoffeeMachine);
 
         $player = $this->createPlayer(new Daedalus(), $room);
@@ -139,13 +133,11 @@ class CoffeeActionTest extends AbstractActionTest
             ->setName(GameRationEnum::COFFEE)
         ;
 
-        $this->gameEquipmentService->shouldReceive('getOperationalEquipmentsByName')->andReturn(new ArrayCollection([$gameCoffeeMachine]))->twice();
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->andReturn($gameCoffee)->once();
         $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $eventDispatcher->shouldReceive('dispatch');
         $this->gameEquipmentService->shouldReceive('persist');
         $this->statusService->shouldReceive('persist');
-        $this->playerService->shouldReceive('persist');
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);

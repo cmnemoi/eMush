@@ -2,7 +2,7 @@
 
 namespace Mush\Room\Service;
 
-use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Room\Entity\Room;
@@ -15,7 +15,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 class RoomEventService implements RoomEventServiceInterface
 {
     private RandomServiceInterface $randomService;
-    private GameConfig $gameConfig;
+    private DifficultyConfig $difficultyConfig;
     private EventDispatcherInterface $eventDispatcher;
 
     /**
@@ -27,20 +27,20 @@ class RoomEventService implements RoomEventServiceInterface
         EventDispatcherInterface $eventDispatcher
     ) {
         $this->randomService = $randomService;
-        $this->gameConfig = $gameConfigService->getConfig();
+        $this->difficultyConfig = $gameConfigService->getDifficultyConfig();
         $this->eventDispatcher = $eventDispatcher;
     }
 
     public function handleIncident(Room $room, \DateTime $date): Room
     {
         //Tremors
-        if ($this->randomService->isSuccessfull($this->gameConfig->getDifficultyConfig()->getTremorRate())) {
+        if ($this->randomService->isSuccessfull($this->difficultyConfig->getTremorRate())) {
             $roomEvent = new RoomEvent($room, $date);
             $this->eventDispatcher->dispatch($roomEvent, RoomEvent::TREMOR);
         }
 
         //Electric Arcs
-        if ($this->randomService->isSuccessfull($this->gameConfig->getDifficultyConfig()->getElectricArcRate())) {
+        if ($this->randomService->isSuccessfull($this->difficultyConfig->getElectricArcRate())) {
             $roomEvent = new RoomEvent($room, $date);
             $this->eventDispatcher->dispatch($roomEvent, RoomEvent::TREMOR);
         }
@@ -64,7 +64,7 @@ class RoomEventService implements RoomEventServiceInterface
             $this->eventDispatcher->dispatch($roomEvent, RoomEvent::FIRE);
 
         //a secondary fire already started in this room this cycle OR no fire
-        } elseif ($this->randomService->isSuccessfull($this->gameConfig->getDifficultyConfig()->getStartingFireRate())) {
+        } elseif ($this->randomService->isSuccessfull($this->difficultyConfig->getStartingFireRate())) {
             $roomEvent = new RoomEvent($room, $date);
             $roomEvent->setReason(RoomEventEnum::CYCLE_FIRE);
             $this->eventDispatcher->dispatch($roomEvent, RoomEvent::STARTING_FIRE);
@@ -81,7 +81,7 @@ class RoomEventService implements RoomEventServiceInterface
         foreach ($room->getDoors() as $door) {
             $adjacentRoom = $door->getOtherRoom($room);
 
-            if ($this->randomService->isSuccessfull($this->gameConfig->getDifficultyConfig()->getPropagatingFireRate())) {
+            if ($this->randomService->isSuccessfull($this->difficultyConfig->getPropagatingFireRate())) {
                 $roomEvent = new RoomEvent($adjacentRoom, $date);
                 $roomEvent->setReason(RoomEventEnum::PROPAGATING_FIRE);
                 $this->eventDispatcher->dispatch($roomEvent, RoomEvent::STARTING_FIRE);

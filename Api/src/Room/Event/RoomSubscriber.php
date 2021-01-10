@@ -67,7 +67,7 @@ class RoomSubscriber implements EventSubscriberInterface
         foreach ($room->getPlayers() as $player) {
             $actionModifier = new Modifier();
             $actionModifier
-                ->setDelta($this->randomService->random(1, 3))
+                ->setDelta(-$this->randomService->random(1, 3))
                 ->setTarget(ModifierTargetEnum::HEALTH_POINT)
             ;
             $playerEvent = new PlayerEvent($player, $event->getTime());
@@ -90,7 +90,7 @@ class RoomSubscriber implements EventSubscriberInterface
         foreach ($room->getPlayers() as $player) {
             $actionModifier = new Modifier();
             $actionModifier
-                ->setDelta(3)
+                ->setDelta(-3)
                 ->setTarget(ModifierTargetEnum::HEALTH_POINT)
             ;
             $playerEvent = new PlayerEvent($player, $event->getTime());
@@ -136,7 +136,7 @@ class RoomSubscriber implements EventSubscriberInterface
         foreach ($room->getPlayers() as $player) {
             $actionModifier = new Modifier();
             $actionModifier
-                ->setDelta(2)
+                ->setDelta(-2)
                 ->setTarget(ModifierTargetEnum::HEALTH_POINT)
             ;
             $playerEvent = new PlayerEvent($player, $event->getTime());

@@ -2,9 +2,9 @@
     <div id="comms-panel">
         <ul class="tabs">
             <li
-                v-for="(channel, id) in getChannels"
+                v-for="(channel, id) in channels"
                 :key="id"
-                :class="getCurrentChannel === channel ? 'checked' : ''"
+                :class="currentChannel === channel ? 'checked' : ''"
                 @click="changeChannel({channel: channel})"
             >
                 <img :src="channelIcon(channel)">
@@ -28,7 +28,7 @@
         </div>
 
         <div class="tabs-content">
-            <component :is="currentTabComponent(getCurrentChannel)" v-if="! loading" :channel="getCurrentChannel" />
+            <component :is="currentTabComponent(currentChannel)" v-if="! loading" :channel="currentChannel" />
         </div>
     </div>
 </template>
@@ -41,7 +41,7 @@ import DiscussionTab from "@/components/Game/Communications/DiscussionTab";
 import PrivateTab from "@/components/Game/Communications/PrivateTab";
 import MushTab from "@/components/Game/Communications/MushTab";
 import { Room } from "@/entities/Room";
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters, mapState } from "vuex";
 import { PRIVATE, PUBLIC, ROOM_LOG, TIPS } from '@/enums/communication.enum';
 import { Channel } from "@/entities/Channel";
 
@@ -62,9 +62,11 @@ export default {
         room: Room
     },
     computed: {
+        ...mapState('communication', [
+            'channels'
+        ]),
         ...mapGetters('communication', [
-            'getCurrentChannel',
-            'getChannels'
+            'currentChannel'
         ]),
         ...mapGetters('player', [
             'loading'

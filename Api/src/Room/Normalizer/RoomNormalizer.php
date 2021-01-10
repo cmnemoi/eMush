@@ -7,6 +7,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
+use Mush\Status\Enum\StatusEnum;
 use Mush\User\Entity\User;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -80,6 +81,7 @@ class RoomNormalizer implements ContextAwareNormalizerInterface, NormalizerAware
             'id' => $room->getId(),
             'key' => $room->getName(),
             'name' => $this->translator->trans($room->getName() . '.name', [], 'rooms'),
+            'fire' => $room->getStatusByName(StatusEnum::FIRE) !== null,
             'doors' => $doors,
             'players' => $players,
             'items' => $items,

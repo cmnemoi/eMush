@@ -1,27 +1,19 @@
 <template>
     <div id="comms-panel">
         <ul class="tabs">
-            <li
+            <Tab
                 v-for="(channel, id) in channels"
                 :key="id"
-                :class="currentChannel === channel ? 'checked' : ''"
-                @click="changeChannel({channel: channel})"
-            >
-                <img :src="channelIcon(channel)">
-            </li>
-            <li class="checked">
-                <img src="@/assets/images/comms/private.png">
-            </li>
-            <li>
-                <img src="@/assets/images/comms/mush.png">
-            </li>
-            <li>
-                <img src="@/assets/images/comms/fav.png">
-                <span><!-- new messages notifier goes here --></span>
-            </li>
-            <li class="newtab">
-                <img src="@/assets/images/comms/newtab.png">
-            </li>
+                :type="channel.scope"
+                :selected="currentChannel === channel"
+                @select="changeChannel({ channel })"
+            />
+            <Tab
+                v-if="displayNewTab"
+                type="new"
+                class="new-tab"
+                @select="createPrivateChannel"
+            />
         </ul>
         <div class="cycle-time">
             <img src="@/assets/images/comms/calendar.png"><span>Jour {{ day }} - Cycle {{ cycle }}</span>
@@ -40,10 +32,14 @@ import FavouritesTab from "@/components/Game/Communications/FavouritesTab";
 import DiscussionTab from "@/components/Game/Communications/DiscussionTab";
 import PrivateTab from "@/components/Game/Communications/PrivateTab";
 import MushTab from "@/components/Game/Communications/MushTab";
+import Tab from "@/components/Game/Communications/Tab";
 import { Room } from "@/entities/Room";
 import { mapActions, mapGetters, mapState } from "vuex";
 import { PRIVATE, PUBLIC, ROOM_LOG, TIPS } from '@/enums/communication.enum';
 import { Channel } from "@/entities/Channel";
+
+
+const MAX_PRIVATE_TABS_NB = 3;
 
 
 export default {
@@ -54,7 +50,8 @@ export default {
         FavouritesTab,
         PrivateTab,
         RoomEventsTab,
-        MushTab
+        MushTab,
+        Tab
     },
     props: {
         day: Number,
@@ -70,7 +67,11 @@ export default {
         ]),
         ...mapGetters('player', [
             'loading'
-        ])
+        ]),
+        displayNewTab() {
+            if (! this.channels || ! this.channels.length) { return false; }
+            return this.channels.filter(channel => channel.scope === PRIVATE).length < MAX_PRIVATE_TABS_NB;
+        }
     },
     beforeMount() {
         this.loadChannels();
@@ -93,22 +94,6 @@ export default {
                 case PUBLIC:
                 default:
                     return DiscussionTab;
-                }
-            }
-            return DiscussionTab;
-        },
-        channelIcon: (channel) => {
-            if (channel instanceof Channel) {
-                switch (channel.scope) {
-                case TIPS:
-                    return require('@/assets/images/comms/tip.png');
-                case ROOM_LOG:
-                    return require('@/assets/images/comms/local.png');
-                case PRIVATE:
-                    return require('@/assets/images/comms/private.png');
-                case PUBLIC:
-                default:
-                    return require('@/assets/images/comms/wall.png');
                 }
             }
             return DiscussionTab;
@@ -236,55 +221,20 @@ export default {
     width: 404px;
     height: 460px;
 
-    /* TABS STYLING */
-
-    ul.tabs {
+    .tabs {
         float: left;
 
-        li {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: visible;
-            float: left;
-            cursor: pointer;
-            width: 31px;
-            min-height: 25px;
-            margin-right: 4px;
-            * { z-index: 2; }
+        .new-tab {
+            opacity: 0.3;
 
-            &::after { //Background of the tab icons
-                content: "";
-                z-index: 1;
-                position: absolute;
-                width: 100%;
-                height: 100%;
-                background: #213578;
-
-                @include corner-bezel(4.5px, 4.5px, 0);
+            &::after {
+                background: none;
             }
 
-            &.newtab {
-                opacity: 0.3;
-                &::after { background: none !important; }
-            }
-
-            &.checked,
             &.active,
             &:hover,
             &:focus {
                 opacity: 1;
-                &::after { background: rgba(194, 243, 252, 1); }
-            }
-
-            span { //New message notifier
-                position: absolute;
-                top: -6px;
-                right: 3px;
-                font-size: 0.82em;
-                font-weight: 600;
-                text-shadow: 0 0 3px black, 0 0 3px black, 0 0 3px black;
             }
         }
     }

@@ -628,36 +628,36 @@
             </segment>
         </unit>
         <unit id="shred_success">
-            <segment id="shred_1">
-                <source>shred_1.character.male</source>
+            <segment id="shred_v1">
+                <source>shred_v1.character.male</source>
                 <target>**player** déchire un petit bout de papier avec un air résolu.</target>
             </segment>
-            <segment id="shred_1">
-                <source>shred_1.character.female</source>
+            <segment id="shred_v1">
+                <source>shred_v1.character.female</source>
                 <target>**player** déchire un petit bout de papier avec un air résolu.</target>
             </segment>
-            <segment id="shred_2">
-                <source>shred_2.character.male</source>
+            <segment id="shred_v2">
+                <source>shred_v2.character.male</source>
                 <target>**player** déchire un petit bout de papier avec un air satisfait.</target>
             </segment>
-            <segment id="shred_2">
-                <source>shred_2.character.female</source>
+            <segment id="shred_v2">
+                <source>shred_v2.character.female</source>
                 <target>**player** déchire un petit bout de papier avec un air satisfait.</target>
             </segment>
-            <segment id="shred_3">
-                <source>shred_3.character.male</source>
+            <segment id="shred_v3">
+                <source>shred_v3.character.male</source>
                 <target>**player** déchire un petit bout de papier avec un air soucieux.</target>
             </segment>
-            <segment id="shred_3">
-                <source>shred_3.character.female</source>
+            <segment id="shred_v3">
+                <source>shred_v3.character.female</source>
                 <target>**player** déchire un petit bout de papier avec un air soucieux.</target>
             </segment>
-            <segment id="shred_4">
-                <source>shred_4.character.male</source>
+            <segment id="shred_v4">
+                <source>shred_v4.character.male</source>
                 <target>**player** déchire un petit bout de papier avec un air soulagé.</target>
             </segment>
-            <segment id="shred_4">
-                <source>shred_4.character.female</source>
+            <segment id="shred_v4">
+                <source>shred_v4.character.female</source>
                 <target>**player** déchire un petit bout de papier avec un air soulagé.</target>
             </segment>
         </unit>

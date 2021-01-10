@@ -1,23 +1,28 @@
 <template>
     <div class="inventory-container">
-        <div class="inventory">
-            <Inventory :items="items" :min-slot="7" @select="selectItem" />
-        </div>
-        <p v-if="selectedItem !== null" class="item-name">
-            {{ selectedItem.name }}
-            <span v-for="(status, key) in selectedItem.statuses" :key="key">
-                <img :src="statusIcon(status)"><span v-if="status.charge > 0">x{{ status.charge }}
+        <Inventory
+            class="inventory"
+            :items="items"
+            :min-slot="7"
+            @select="selectItem"
+        />
+        <div v-if="selectedItem" class="item-details">
+            <p class="item-name">
+                {{ selectedItem.name }}
+                <span v-for="(status, key) in selectedItem.statuses" :key="key">
+                    <img :src="statusIcon(status)">
+                    <span v-if="status.charge > 0">x{{ status.charge }}</span>
                 </span>
-            </span>
-        </p>
-        <div v-if="selectedItem !== null" class="item-actions">
-            <ActionButton
-                v-for="(action, key) in selectedItem.actions"
-                :key="key"
-                class="item-action-button"
-                :action="action"
-                @click="executeItemAction(action)"
-            />
+            </p>
+            <div class="item-actions">
+                <ActionButton
+                    v-for="(action, key) in selectedItem.actions"
+                    :key="key"
+                    class="item-action-button"
+                    :action="action"
+                    @click="executeItemAction(action)"
+                />
+            </div>
         </div>
     </div>
 </template>
@@ -70,23 +75,15 @@ export default {
     z-index: 5;
     position: absolute;
     bottom: 0;
-    width: 424px;
-
-    & .inventory {
-        overflow: hidden;
-    }
-
-    & .inventory ul {
-        overflow-x: scroll;
-        margin: 0 16px 8px 16px;
-    }
+    width: 100%;
+    padding-right: 16px; // for textual scrollbar
 
     & .item-name {
         text-align: center;
         font-size: 0.85em;
         font-variant: small-caps;
         margin: 0;
-        padding: 4px 0 6px 0;
+        padding: 8px 0;
         background: #09092d;
 
         img {
@@ -95,13 +92,17 @@ export default {
         }
     }
 
-    & .item-actions {
+    .item-actions {
         position: relative;
         background: #222a6b;
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-        margin: 12px 4px;
+        justify-content: space-between;
+        padding: 12px 8px;
+        min-height: 105px;
+        align-content: flex-start;
+        align-items: flex-start;
 
         &::before {
             content: "";
@@ -115,17 +116,18 @@ export default {
             border-right: 8px solid transparent;
         }
 
-        & .item-action-button {
-            min-height: 19px;
-            min-width: 200px;
-            width: auto;
-            margin: 1px 4px;
+        .item-action-button {
+            flex-basis: 48%;
+            margin: 0;
         }
     }
 
-    /* SCROLLBAR STYLING */
+    .inventory {
+        overflow: hidden;
+        overflow-x: scroll;
 
-    & .inventory ul {
+        /* SCROLLBAR STYLING */
+
         --scrollbarBG: rgba(0, 0, 0, 0.4);
         --thumbBG: rgba(0, 116, 223, 1);
         --border-radius: 4px;

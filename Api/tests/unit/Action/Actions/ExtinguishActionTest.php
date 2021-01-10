@@ -140,7 +140,6 @@ class ExtinguishActionTest extends AbstractActionTest
 
         $actionParameter = new ActionParameters();
         $actionParameter->setItem($gameItem);
-        $player = $this->createPlayer(new Daedalus(), $room);
 
         $this->roomLogService->shouldReceive('createActionLog')->twice();
 

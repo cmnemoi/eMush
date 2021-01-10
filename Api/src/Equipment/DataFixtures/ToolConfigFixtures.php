@@ -7,11 +7,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
+use Mush\Action\DataFixtures\TechnicianFixtures;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Charged;
-use Mush\Equipment\Entity\Mechanics\Dismountable;
 use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
@@ -74,12 +74,8 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($blockOfPostIt);
         $manager->persist($blockOfPostItMechanic);
 
-        $dismountableMechanic = new Dismountable();
-        $dismountableMechanic
-            ->setProducts([ItemEnum::METAL_SCRAPS => 1])
-            ->setActionCost(3)
-            ->setChancesSuccess(25)
-        ;
+        $extinguisherActions = clone $actions;
+        $extinguisherActions->add($this->getReference(TechnicianFixtures::DISMANTLE_3_25));
 
         /** @var Action $extinguishAction */
         $extinguishAction = $this->getReference(ActionsFixtures::EXTINGUISH_DEFAULT);
@@ -97,13 +93,13 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setBreakableRate(25)
-            ->setMechanics(new ArrayCollection([$extinguisherMechanic, $dismountableMechanic]))
-            ->setActions($actions)
+            ->setMechanics(new ArrayCollection([$extinguisherMechanic]))
+            ->setActions($extinguisherActions)
+            ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
         ;
 
         $manager->persist($extinguisher);
         $manager->persist($extinguisherMechanic);
-        $manager->persist($dismountableMechanic);
 
         /** @var Action $gagAction */
         $gagAction = $this->getReference(ActionsFixtures::GAG_DEFAULT);
@@ -149,12 +145,8 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($madKube);
         $manager->persist($madKubeMechanic);
 
-        $kitchenToolsMechanic = new Dismountable();
-        $kitchenToolsMechanic
-            ->setProducts([ItemEnum::METAL_SCRAPS => 2])
-            ->setActionCost(4)
-            ->setChancesSuccess(25)
-        ;
+        $microwaveActions = clone $actions;
+        $microwaveActions->add($this->getReference(TechnicianFixtures::DISMANTLE_4_25));
 
         $chargedMechanic = new Charged();
         $chargedMechanic
@@ -180,13 +172,13 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(50)
-            ->setMechanics(new ArrayCollection([$kitchenToolsMechanic, $microwaveMechanic, $chargedMechanic]))
-            ->setActions($actions)
+            ->setMechanics(new ArrayCollection([$microwaveMechanic, $chargedMechanic]))
+            ->setActions($microwaveActions)
+            ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 2])
         ;
 
         $manager->persist($microwave);
         $manager->persist($microwaveMechanic);
-        $manager->persist($kitchenToolsMechanic);
         $manager->persist($chargedMechanic);
 
         /** @var Action $hyperfreezAction */
@@ -205,8 +197,8 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(25)
-            ->setMechanics(new ArrayCollection([$kitchenToolsMechanic, $superFreezerMechanic]))
-            ->setActions($actions)
+            ->setMechanics(new ArrayCollection([$superFreezerMechanic]))
+            ->setActions($microwaveActions)
         ;
 
         $manager->persist($superFreezer);
@@ -374,6 +366,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             ActionsFixtures::class,
+            TechnicianFixtures::class,
             GameConfigFixtures::class,
         ];
     }

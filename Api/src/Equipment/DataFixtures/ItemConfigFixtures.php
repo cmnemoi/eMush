@@ -7,9 +7,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
+use Mush\Action\DataFixtures\TechnicianFixtures;
 use Mush\Action\Entity\Action;
 use Mush\Equipment\Entity\ItemConfig;
-use Mush\Equipment\Entity\Mechanics\Dismountable;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
@@ -28,13 +28,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $actions = new ArrayCollection([$takeAction, $dropAction]);
 
-        $dismountableMechanic1 = new Dismountable();
-        $dismountableMechanic1
-            ->setProducts([ItemEnum::METAL_SCRAPS => 1])
-            ->setActionCost(3)
-            ->setChancesSuccess(25)
-        ;
-
         $camera = new ItemConfig();
         $camera
             ->setGameConfig($gameConfig)
@@ -45,12 +38,14 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(25)
-            ->setMechanics(new ArrayCollection([$dismountableMechanic1]))
-            ->setActions(new ArrayCollection([$takeAction]))
+            ->setActions(new ArrayCollection([$takeAction, $this->getReference(TechnicianFixtures::DISMANTLE_3_25)]))
+            ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
         ;
 
         $manager->persist($camera);
-        $manager->persist($dismountableMechanic1);
+
+        $mycoAlarmeActions = clone $actions;
+        $mycoAlarmeActions->add($this->getReference(TechnicianFixtures::DISMANTLE_3_25));
 
         $mycoAlarm = new ItemConfig();
         $mycoAlarm
@@ -62,17 +57,14 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setBreakableRate(25)
-            ->setMechanics(new ArrayCollection([$dismountableMechanic1]))
-            ->setActions($actions)
+            ->setActions($mycoAlarmeActions)
+            ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
         ;
         $manager->persist($mycoAlarm);
 
-        $dismountableMechanic2 = new Dismountable();
-        $dismountableMechanic2
-            ->setProducts([ItemEnum::METAL_SCRAPS => 1])
-            ->setActionCost(3)
-            ->setChancesSuccess(12)
-        ;
+        $tabulatrixActions = clone $actions;
+        $tabulatrixActions->add($this->getReference(TechnicianFixtures::DISMANTLE_3_12));
+
         $tabulatrix = new ItemConfig();
         $tabulatrix
             ->setGameConfig($gameConfig)
@@ -83,11 +75,10 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(12)
-            ->setMechanics(new ArrayCollection([$dismountableMechanic2]))
-            ->setActions($actions)
+            ->setActions($tabulatrixActions)
+            ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
         ;
         $manager->persist($tabulatrix);
-        $manager->persist($dismountableMechanic2);
 
         $metalScraps = new ItemConfig();
         $metalScraps
@@ -129,12 +120,8 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($oldTShirt);
 
-        $dismountableMechanic3 = new Dismountable();
-        $dismountableMechanic3
-            ->setProducts([ItemEnum::METAL_SCRAPS => 1])
-            ->setActionCost(3)
-            ->setChancesSuccess(50)
-        ;
+        $thickTubeActions = clone $actions;
+        $thickTubeActions->add($this->getReference(TechnicianFixtures::DISMANTLE_3_50));
 
         $thickTube = new ItemConfig();
         $thickTube
@@ -145,18 +132,13 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$dismountableMechanic3]))
-            ->setActions($actions)
+            ->setActions($thickTubeActions)
+            ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
         ;
         $manager->persist($thickTube);
-        $manager->persist($dismountableMechanic3);
 
-        $dismountableMechanic4 = new Dismountable();
-        $dismountableMechanic4
-            ->setProducts([ItemEnum::PLASTIC_SCRAPS => 1])
-            ->setActionCost(3)
-            ->setChancesSuccess(50)
-        ;
+        $mushDiskActions = clone $actions;
+        $mushDiskActions->add($this->getReference(TechnicianFixtures::DISMANTLE_3_50));
 
         $mushDisk = new ItemConfig();
         $mushDisk
@@ -168,11 +150,10 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setBreakableRate(25)
-            ->setMechanics(new ArrayCollection([$dismountableMechanic4]))
-            ->setActions($actions)
+            ->setActions($mushDiskActions)
+            ->setDismountedProducts([ItemEnum::PLASTIC_SCRAPS => 1])
         ;
         $manager->persist($mushDisk);
-        $manager->persist($dismountableMechanic4);
 
         $mushSample = new ItemConfig();
         $mushSample
@@ -262,6 +243,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             ActionsFixtures::class,
+            TechnicianFixtures::class,
             GameConfigFixtures::class,
         ];
     }

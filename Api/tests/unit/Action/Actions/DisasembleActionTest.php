@@ -14,7 +14,6 @@ use Mush\Action\Service\SuccessRateServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
-use Mush\Equipment\Entity\Mechanics\Dismountable;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
@@ -94,12 +93,6 @@ class DisasembleActionTest extends AbstractActionTest
             ->setRoom($room)
         ;
 
-        $dismountable = new Dismountable();
-        $dismountable
-            ->setChancesSuccess(10)
-            ->setActionCost(3)
-        ;
-
         $actionParameter = new ActionParameters();
         $actionParameter->setItem($gameItem);
         $player = $this->createPlayer(new Daedalus(), $room, [SkillEnum::TECHNICIAN]);
@@ -140,15 +133,9 @@ class DisasembleActionTest extends AbstractActionTest
             ->setRoom($room)
         ;
 
-        $dismountable = new Dismountable();
-        $dismountable
-            ->setChancesSuccess(10)
-            ->setActionCost(3)
-            ->setProducts([ItemEnum::METAL_SCRAPS => 1])
-        ;
-
         $item
-            ->setMechanics(new ArrayCollection([$dismountable]))
+            ->setActions(new ArrayCollection([$this->actionEntity]))
+            ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
         ;
 
         $this->roomLogService->shouldReceive('createPlayerLog')->twice();

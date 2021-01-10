@@ -3,6 +3,7 @@
 namespace Mush\Action\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionCost;
@@ -10,7 +11,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Equipment\Entity\GameItem;
 
-class ActionsFixtures extends Fixture
+class ActionsFixtures extends Fixture implements DependentFixtureInterface
 {
     public const MOVE_DEFAULT = 'move.default';
     public const SEARCH_DEFAULT = 'search.default';
@@ -53,26 +54,24 @@ class ActionsFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        $freeCost = $this->buildActionCost(0);
-        $oneActionPointCost = $this->buildActionCost(1);
-        $twoActionPointCost = $this->buildActionCost(2);
-        $threeActionPointCost = $this->buildActionCost(3);
-        $manager->persist($freeCost);
-        $manager->persist($oneActionPointCost);
-        $manager->persist($twoActionPointCost);
-        $manager->persist($threeActionPointCost);
+        /** @var ActionCost $freeCost */
+        $freeCost = $this->getReference(ActionCostFixture::ACTION_COST_FREE);
+        /** @var ActionCost $oneActionPointCost */
+        $oneActionPointCost = $this->getReference(ActionCostFixture::ACTION_COST_ONE_ACTION);
+        /** @var ActionCost $twoActionPointCost */
+        $twoActionPointCost = $this->getReference(ActionCostFixture::ACTION_COST_TWO_ACTION);
+        /** @var ActionCost $threeActionPointCost */
+        $threeActionPointCost = $this->getReference(ActionCostFixture::ACTION_COST_THREE_ACTION);
+        /** @var ActionCost $oneMovementPointCost */
+        $oneMovementPointCost = $this->getReference(ActionCostFixture::ACTION_COST_ONE_MOVEMENT);
 
         $moveAction = new Action();
-        $moveCost = $this->buildActionCost(0, 1);
-        $manager->persist($moveCost);
-
         $moveAction
             ->setName(ActionEnum::MOVE)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(1)
-            ->setActionCost($moveCost)
+            ->setActionCost($oneMovementPointCost)
         ;
-        $manager->persist($moveCost);
         $manager->persist($moveAction);
 
         $searchAction = new Action();
@@ -467,15 +466,10 @@ class ActionsFixtures extends Fixture
         $this->addReference(self::INFECT_PLAYER, $infectAction);
     }
 
-    private function buildActionCost(int $actionPoint, int $movementPoint = 0, int $moralPoint = 0): ActionCost
+    public function getDependencies(): array
     {
-        $actionCost = new ActionCost();
-        $actionCost
-            ->setActionPointCost($actionPoint)
-            ->setMovementPointCost($movementPoint)
-            ->setMoralPointCost($moralPoint)
-        ;
-
-        return $actionCost;
+        return [
+            ActionCostFixture::class,
+        ];
     }
 }

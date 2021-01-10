@@ -64,8 +64,8 @@ class ReadBookActionTest extends AbstractActionTest
             ->setRoom($room)
         ;
 
-        $this->gameEquipmentService->shouldReceive('delete');
         $this->playerService->shouldReceive('persist');
+        $this->eventDispatcher->shouldReceive('dispatch');
 
         $actionParameter = new ActionParameters();
         $actionParameter->setItem($gameItem);
@@ -77,7 +77,6 @@ class ReadBookActionTest extends AbstractActionTest
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
-        $this->assertEmpty($room->getEquipments());
         $this->assertEmpty($player->getItems());
         $this->assertContains(SkillEnum::PILOT, $player->getSkills());
     }

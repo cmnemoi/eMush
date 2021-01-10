@@ -88,8 +88,9 @@ class ExpressCook extends AbstractAction
                 $this->statusService->persist($status);
             }
 
-            $this->gameEquipment->removeLocation();
-            $this->gameEquipmentService->delete($this->gameEquipment);
+            $equipmentEvent = new EquipmentEvent($this->gameEquipment, VisibilityEnum::HIDDEN);
+            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+
             $this->gameEquipmentService->persist($newItem);
         } elseif ($frozenStatus = $this->gameEquipment->getStatusByName(EquipmentStatusEnum::FROZEN)) {
             $this->gameEquipment->removeStatus($frozenStatus);

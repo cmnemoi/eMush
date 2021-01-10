@@ -83,6 +83,11 @@ class Build extends AbstractAction
         /** @var Blueprint $blueprintMechanic */
         $blueprintMechanic = $this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT);
 
+        $blueprintEquipment = $this->gameEquipmentService->createGameEquipment(
+            $blueprintMechanic->getEquipment(),
+            $this->player->getDaedalus()
+        );
+
         // remove the used ingredients starting from the player inventory
         foreach ($blueprintMechanic->getIngredients() as $name => $number) {
             for ($i = 0; $i < $number; ++$i) {
@@ -90,32 +95,21 @@ class Build extends AbstractAction
                     // @FIXME change to a random choice of the item
                     $ingredient = $this->player->getItems()
                         ->filter(fn (GameItem $gameItem) => $gameItem->getName() === $name)->first();
-                    $this->player->removeItem($ingredient);
                 } else {
                     // @FIXME change to a random choice of the equipment
                     $ingredient = $this->player->getRoom()->getEquipments()
                         ->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $name)->first();
-                    $ingredient->setRoom(null);
                 }
 
-                $ingredient->removeLocation();
-                $this->gameEquipmentService->delete($ingredient);
+                $equipmentEvent = new EquipmentEvent($ingredient, VisibilityEnum::HIDDEN);
+                $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
             }
         }
 
-        // remove the blueprint
-        $this->gameEquipment
-            ->setRoom(null)
-        ;
-
-        $this->gameEquipment->removeLocation();
-        $this->gameEquipmentService->delete($this->gameEquipment);
+        $equipmentEvent = new EquipmentEvent($this->gameEquipment, VisibilityEnum::HIDDEN);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         //create the equipment
-        $blueprintEquipment = $this->gameEquipmentService->createGameEquipment(
-            $blueprintMechanic->getEquipment(),
-            $this->player->getDaedalus()
-        );
         $equipmentEvent = new EquipmentEvent($blueprintEquipment, VisibilityEnum::HIDDEN);
         $equipmentEvent->setPlayer($this->player);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);

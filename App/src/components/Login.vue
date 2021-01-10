@@ -1,14 +1,14 @@
 <template>
     <div>
-        <a v-if="!loggedIn" @click="openPopup">Login</a>
-        <a v-if="loggedIn" @click="logout">Logout</a>
+        <a v-if="! loggedIn" class="login-button" @click="openPopup">Login</a>
+        <a v-if="loggedIn" class="logout-button" @click="logout">Logout</a>
         <PopUp :is-open="isPassphrasePopupOpen" @close="closePopup">
-            <span>Ceci est une alpha reservé aux testeurs</span>
-            <span>This is an alpha for tester only</span>
+            <span>Ceci est une alpha reservée aux testeurs</span>
+            <span>This is an alpha for testers only</span>
             <label for="passphrase" class="passphrase">Passphrase:</label>
             <input id="passphrase" v-model="passphrase" type="text">
-            <button type="submit" @click="handleSubmit">
-                {{ ('form.submit') }}
+            <button type="submit" @click="submitPassphrase">
+                Submit
             </button>
         </PopUp>
     </div>
@@ -40,14 +40,12 @@ export default {
             'redirect',
             'logout'
         ]),
-        handleSubmit() {
-            // Perform a simple validation that email and password have been typed in
-            if (this.passphrase !== '') {
-                this.submitted = true;
+        submitPassphrase() {
+            if (this.passphrase !== "") {
                 this.redirect({ passphrase: this.passphrase });
                 this.passphrase = "";
             }
-            this.isPassphrasePopupOpen = false;
+            this.closePopup();
         },
         openPopup() {
             this.isPassphrasePopupOpen = true;
@@ -60,7 +58,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-a {
+.login-button,
+.logout-button {
+    cursor: pointer;
     margin: 0 20px;
     padding: 5px 10px;
     color: white;
@@ -73,7 +73,7 @@ a {
 }
 
 .passphrase {
-    margin: 0 0 15px;
+    margin-top: 15px;
     font-size: 150%;
     font-variant: small-caps;
 }
@@ -95,6 +95,8 @@ input {
 }
 
 button {
+    cursor: pointer;
+
     @include button-style(1em);
 
     margin: 7px 0;

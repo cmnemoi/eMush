@@ -13,8 +13,9 @@ ApiService.init(process.env.VUE_APP_API_URL);
 if (TokenService.getToken()) {
     ApiService.setHeader();
 }
-// If 401 try to refresh token
-ApiService.mount401Interceptor();
+
+// If error, act accordingly (401 refreshes token, others raise error)
+ApiService.mountErrorInterceptor();
 
 
 const app = createApp(App);

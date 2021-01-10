@@ -4,7 +4,7 @@ import store from '../store';
 
 const ApiService = {
 
-    _401interceptor: null,
+    _errorInterceptor: null,
 
     init(baseURL) {
         axios.defaults.baseURL = baseURL;
@@ -34,8 +34,8 @@ const ApiService = {
         return axios.delete(resource);
     },
 
-    mount401Interceptor() {
-        this._401interceptor = axios.interceptors.response.use(
+    mountErrorInterceptor() {
+        this._errorInterceptor = axios.interceptors.response.use(
             (response) => {
                 return response;
             },
@@ -71,9 +71,9 @@ const ApiService = {
         );
     },
 
-    unmount401Interceptor() {
+    unmountErrorInterceptor() {
         // Eject the interceptor
-        axios.interceptors.response.eject(this._401interceptor);
+        axios.interceptors.response.eject(this._errorInterceptor);
     },
 
     /**

@@ -24,8 +24,6 @@ const actions = {
         TokenService.saveToken(token);
         ApiService.setHeader();
 
-        ApiService.mount401Interceptor();
-
         await UserService.userInfo();
 
         commit('setToken', token);

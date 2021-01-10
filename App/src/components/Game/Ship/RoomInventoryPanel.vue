@@ -1,7 +1,7 @@
 <template>
     <div class="inventory-container">
         <div class="inventory">
-            <inventory :items="items" :min-slot="7" @select="selectItem" />
+            <Inventory :items="items" :min-slot="7" @select="selectItem" />
         </div>
         <p v-if="selectedItem !== null" class="item-name">
             {{ selectedItem.name }}
@@ -65,9 +65,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.slot {
-    padding: 1px;
-}
 
 .inventory-container {
     z-index: 5;

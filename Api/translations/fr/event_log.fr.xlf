@@ -139,6 +139,92 @@
                 <target>Ça ne devait pas se passer comme cela. Lors de votre action, vous vous êtes fait mal...</target>
             </segment>
         </unit>
+        <unit id="metal_plate">
+            <segment>
+                <source>metal_plate.character.male</source>
+                <target>Un tremblement soudain projette une grosse plaque de métal sur **player**. Il est grièvement blessé !</target>
+            </segment>
+            <segment>
+                <source>metal_plate.character.female</source>
+                <target>Une secousse inattendue fait choir une grosse plaque de métal sur **player**. Elle est grièvement blessée !</target>
+            </segment>
+        </unit>
+        <unit id="tremor_gravity">
+            <segment>
+                <source>tremor_gravity.character.male</source>
+                <target>La salle est soudain prise de fortes secousses. Les membres d'équipage présents se retrouvent par terre et le plafond s'effondre par endroit. Quelle épave...</target>
+            </segment>
+            <segment>
+                <source>tremor_gravity.character.female</source>
+                <target>La salle est soudain prise de fortes secousses. Les membres d'équipage présents se retrouvent par terre et le plafond s'effondre par endroit. Quelle épave...</target>
+            </segment>
+        </unit>
+        <unit id="tremor_no_gravity">
+            <segment>
+                <source>tremor_no_gravity.character.male</source>
+                <target>La salle est soudain prise de fortes secousses. Les objets volent à travers la pièce et heurtent les membres d'équipage présents.</target>
+            </segment>
+            <segment>
+                <source>tremor_no_gravity.character.female</source>
+                <target>La salle est soudain prise de fortes secousses. Les objets volent à travers la pièce et heurtent les membres d'équipage présents.</target>
+            </segment>
+        </unit>
+        <unit id="electric_arc">
+            <segment>
+                <source>electric_arc.character.male</source>
+                <target>Un surcharge électrique brutale fait crépiter les équipements de la pièce, une gigantesque décharge traverse les équipiers !</target>
+            </segment>
+            <segment>
+                <source>electric_arc.character.female</source>
+                <target>Un surcharge électrique brutale fait crépiter les équipements de la pièce, une gigantesque décharge traverse les équipiers !</target>
+            </segment>
+        </unit>
+        <unit id="equipment_broken">
+            <segment>
+                <source>equipment_broken.character.male.target.male</source>
+                <target>Un **target** a été cassé !</target>
+            </segment>
+            <segment>
+                <source>equipment_broken.character.female.target.male</source>
+                <target>Un **target** a été cassé !</target>
+            </segment>
+            <segment>
+                <source>equipment_broken.character.male.target.female</source>
+                <target>Une **target** a été cassée !</target>
+            </segment>
+            <segment>
+                <source>equipment_broken.character.female.target.female</source>
+                <target>Une **target** a été cassée !</target>
+            </segment>
+        </unit>
+        <unit id="equipment_destroyed">
+            <segment>
+                <source>equipment_destroyed.character.male.target.male</source>
+                <target>Un **target** a été détruit !</target>
+            </segment>
+            <segment>
+                <source>equipment_destroyed.character.female.target.male</source>
+                <target>Un **target** a été détruit !</target>
+            </segment>
+            <segment>
+                <source>equipment_destroyed.character.male.target.female</source>
+                <target>Une **target** a été détruite !</target>
+            </segment>
+            <segment>
+                <source>equipment_destroyed.character.female.target.female</source>
+                <target>Une **target** a été détruite !</target>
+            </segment>
+        </unit>
+        <unit id="panic_crisis">
+            <segment>
+                <source>panic_crisis.character.male</source>
+                <target>Vous ressentez des frissons, l'espoir vous quitte, vous vous demandez ce que vous faites ici et quand cet enfer va s'arrêter... Vous êtes victime d'une Crise de Panique.</target>
+            </segment>
+            <segment>
+                <source>panic_crisis.character.female</source>
+                <target>Vous ressentez des frissons, l'espoir vous quitte, vous vous demandez ce que vous faites ici et quand cet enfer va s'arrêter... Vous êtes victime d'une Crise de Panique.</target>
+            </segment>
+        </unit>
     </file>
 </xliff>
 

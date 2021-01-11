@@ -86,7 +86,7 @@ class Hyperfreeze extends AbstractAction
             $newItem = $this->gameEquipmentService
                 ->createGameEquipmentFromName(GameRationEnum::STANDARD_RATION, $this->player->getDaedalus())
             ;
-            $equipmentEvent = new EquipmentEvent($newItem);
+            $equipmentEvent = new EquipmentEvent($newItem, VisibilityEnum::HIDDEN);
             $equipmentEvent->setPlayer($this->player);
             $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
@@ -96,8 +96,9 @@ class Hyperfreeze extends AbstractAction
                 $this->statusService->persist($status);
             }
 
-            $this->gameEquipment->removeLocation();
-            $this->gameEquipmentService->delete($this->gameEquipment);
+            $equipmentEvent = new EquipmentEvent($this->gameEquipment, VisibilityEnum::HIDDEN);
+            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+
             $this->gameEquipmentService->persist($newItem);
         } else {
             $frozenStatus = new Status();

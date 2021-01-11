@@ -7,9 +7,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
+use Mush\Action\DataFixtures\TechnicianFixtures;
 use Mush\Action\Entity\Action;
 use Mush\Equipment\Entity\ItemConfig;
-use Mush\Equipment\Entity\Mechanics\Dismountable;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
@@ -54,12 +54,8 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
         ;
         $manager->persist($rope);
 
-        $dismountableMechanic = new Dismountable();
-        $dismountableMechanic
-            ->setProducts([ItemEnum::METAL_SCRAPS => 1])
-            ->setActionCost(3)
-            ->setChancesSuccess(50)
-        ;
+        $drillActions = clone $actions;
+        $drillActions->add($this->getReference(TechnicianFixtures::DISMANTLE_3_50));
 
         $drill = new ItemConfig();
         $drill
@@ -71,11 +67,11 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setBreakableRate(50)
-            ->setMechanics(new ArrayCollection([$dismountableMechanic]))
             ->setActions($actions)
+            ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
         ;
+
         $manager->persist($drill);
-        $manager->persist($dismountableMechanic);
 
         $babelModule = new ItemConfig();
         $babelModule
@@ -113,8 +109,8 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(25)
-            ->setMechanics(new ArrayCollection([$dismountableMechanic]))
-            ->setActions($actions)
+            ->setActions($drillActions)
+            ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
         ;
         $manager->persist($thermosensor);
 

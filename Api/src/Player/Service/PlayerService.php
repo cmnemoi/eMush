@@ -5,12 +5,16 @@ namespace Mush\Player\Service;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusEvent;
+use Mush\Game\Entity\Collection\TriumphConfigCollection;
+use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\TriumphEnum;
 use Mush\Game\Service\GameConfigServiceInterface;
+use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Repository\PlayerRepository;
@@ -35,12 +39,16 @@ class PlayerService implements PlayerServiceInterface
     private PlayerRepository $repository;
 
     private GameConfig $gameConfig;
+    private DifficultyConfig $difficultyConfig;
+    private TriumphConfigCollection $triumphConfig;
 
     private RoomLogServiceInterface $roomLogService;
 
     private StatusServiceInterface $statusService;
 
     private TokenStorageInterface $tokenStorage;
+
+    private RandomServiceInterface $randomService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -49,7 +57,8 @@ class PlayerService implements PlayerServiceInterface
         RoomLogServiceInterface $roomLogService,
         StatusServiceInterface $statusService,
         GameConfigServiceInterface $gameConfigService,
-        TokenStorageInterface $tokenStorage
+        TokenStorageInterface $tokenStorage,
+        RandomServiceInterface $randomService
     ) {
         $this->entityManager = $entityManager;
         $this->eventDispatcher = $eventDispatcher;
@@ -57,7 +66,10 @@ class PlayerService implements PlayerServiceInterface
         $this->roomLogService = $roomLogService;
         $this->statusService = $statusService;
         $this->gameConfig = $gameConfigService->getConfig();
+        $this->difficultyConfig = $gameConfigService->getDifficultyConfig();
+        $this->triumphConfig = $gameConfigService->getTriumphConfig();
         $this->tokenStorage = $tokenStorage;
+        $this->randomService = $randomService;
     }
 
     public function persist(Player $player): Player
@@ -182,13 +194,13 @@ class PlayerService implements PlayerServiceInterface
         $triumphChange = 0;
 
         if ($player->isMush() &&
-            ($mushTriumph = $this->gameConfig->getTriumphConfig()->getTriumph(TriumphEnum::CYCLE_MUSH))
+            ($mushTriumph = $this->triumphConfig->getTriumph(TriumphEnum::CYCLE_MUSH))
         ) {
             $triumphChange = $mushTriumph->getTriumph();
         }
 
         if (!$player->isMush() &&
-            ($humanTriumph = $this->gameConfig->getTriumphConfig()->getTriumph(TriumphEnum::CYCLE_HUMAN))
+            ($humanTriumph = $this->triumphConfig->getTriumph(TriumphEnum::CYCLE_HUMAN))
         ) {
             $triumphChange = $humanTriumph->getTriumph();
         }
@@ -203,6 +215,20 @@ class PlayerService implements PlayerServiceInterface
             $triumphChange,
             $date
         );
+
+        //Metal Plates
+        if ($this->randomService->isSuccessfull($this->difficultyConfig->getMetalPlateRate())) {
+            $playerEvent = new PlayerEvent($player, $date);
+            $playerEvent->setReason(EndCauseEnum::METAL_PLATE);
+            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::METAL_PLATE);
+        }
+
+        //Panic Crisis
+        if ($this->randomService->isSuccessfull($this->difficultyConfig->getPanicCrisisRate())) {
+            $playerEvent = new PlayerEvent($player, $date);
+            $playerEvent->setReason(EndCauseEnum::DEPRESSION);
+            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::PANIC_CRISIS);
+        }
 
         return $this->persist($player);
     }

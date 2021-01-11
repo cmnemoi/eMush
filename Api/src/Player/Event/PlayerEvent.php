@@ -11,6 +11,8 @@ class PlayerEvent extends Event
     public const NEW_PLAYER = 'new.player';
     public const DEATH_PLAYER = 'death.player';
     public const MODIFIER_PLAYER = 'modifier.player';
+    public const METAL_PLATE = 'metal.plate';
+    public const PANIC_CRISIS = 'panic.crisis';
     public const INFECTION_PLAYER = 'infection.player';
     public const CONVERSION_PLAYER = 'conversion.player';
 

@@ -185,7 +185,7 @@ class SabotageActionTest extends AbstractActionTest
 
         $this->successRateService->shouldReceive('getSuccessRate')->andReturn(10)->once();
         $this->randomService->shouldReceive('isSuccessfull')->andReturn(true)->once();
-        $this->statusService->shouldReceive('createCoreEquipmentStatus')->once();
+        $this->eventDispatcher->shouldReceive('dispatch');
 
         //Success
         $result = $this->action->execute();

@@ -7,11 +7,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
+use Mush\Action\DataFixtures\TechnicianFixtures;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Charged;
-use Mush\Equipment\Entity\Mechanics\Dismountable;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
@@ -63,7 +63,8 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($apron);
 
-        $dismountableMechanic = $this->createDismoutableMechanic([ItemEnum::PLASTIC_SCRAPS => 1], 3, 12);
+        $plasteniteGearActions = clone $actions;
+        $plasteniteGearActions->add($this->getReference(TechnicianFixtures::DISMANTLE_3_12));
 
         $plasteniteGear = $this->createGear(
             ModifierTargetEnum::HEALTH_POINT,
@@ -82,8 +83,9 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(12)
-            ->setMechanics(new ArrayCollection([$dismountableMechanic, $plasteniteGear]))
-            ->setActions($actions)
+            ->setMechanics(new ArrayCollection([$plasteniteGear]))
+            ->setActions($plasteniteGearActions)
+            ->setDismountedProducts([ItemEnum::PLASTIC_SCRAPS => 1])
         ;
         $manager->persist($plasteniteArmor);
 
@@ -150,11 +152,9 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($soap);
 
-        $dismountableMechanic = $this->createDismoutableMechanic(
-            [ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::METAL_SCRAPS => 1],
-            3,
-            99
-        );
+        $sniperHelmetActions = clone $actions;
+        $sniperHelmetActions->add($this->getReference(TechnicianFixtures::DISMANTLE_3_12));
+
         $sniperHelmetGear = $this->createGear(
             ModifierTargetEnum::PERCENTAGE,
             10,
@@ -172,8 +172,9 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(99)
-            ->setMechanics(new ArrayCollection([$dismountableMechanic, $sniperHelmetGear]))
-            ->setActions($actions)
+            ->setMechanics(new ArrayCollection([$sniperHelmetGear]))
+            ->setActions($sniperHelmetActions)
+            ->setDismountedProducts([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::METAL_SCRAPS => 1])
         ;
         $manager->persist($sniperHelmet);
 
@@ -199,11 +200,9 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($alienBottleOpener);
 
-        $dismountableMechanic = $this->createDismoutableMechanic(
-            [ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::METAL_SCRAPS => 2],
-            3,
-            25
-        );
+        $antiGravScooterActions = clone $actions;
+        $antiGravScooterActions->add($this->getReference(TechnicianFixtures::DISMANTLE_3_25));
+
         $antiGravScooterGear = $this->createGear(
             ModifierTargetEnum::MOVEMENT_POINT,
             2,
@@ -229,8 +228,9 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(6)
-            ->setMechanics(new ArrayCollection([$dismountableMechanic, $chargedMechanic, $antiGravScooterGear]))
-            ->setActions($actions)
+            ->setMechanics(new ArrayCollection([$chargedMechanic, $antiGravScooterGear]))
+            ->setActions($antiGravScooterActions)
+            ->setDismountedProducts([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::METAL_SCRAPS => 2])
         ;
         $manager->persist($antiGravScooter);
         $manager->persist($chargedMechanic);
@@ -292,11 +292,8 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($oscilloscope);
 
-        $dismountableMechanic = $this->createDismoutableMechanic(
-            [ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::METAL_SCRAPS => 1],
-            3,
-            6
-        );
+        $spacesuitActions = clone $actions;
+        $spacesuitActions->add($this->getReference(TechnicianFixtures::DISMANTLE_3_12));
 
         $spacesuit = new ItemConfig();
         $spacesuit
@@ -308,8 +305,8 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(6)
-            ->setMechanics(new ArrayCollection([$dismountableMechanic]))
-            ->setActions($actions)
+            ->setActions($spacesuitActions)
+            ->setDismountedProducts([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::METAL_SCRAPS => 1])
         ;
         $manager->persist($spacesuit);
 
@@ -375,20 +372,6 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->flush();
     }
 
-    private function createDismoutableMechanic(array $products, int $actionCost, int $successRate): Dismountable
-    {
-        $dismountableMechanic = new Dismountable();
-        $dismountableMechanic
-            ->setProducts($products)
-            ->setActionCost($actionCost)
-            ->setChancesSuccess($successRate)
-        ;
-
-        $this->objectManager->persist($dismountableMechanic);
-
-        return $dismountableMechanic;
-    }
-
     private function createGear(string $target, float $delta, string $scope, string $reach): Gear
     {
         $modifier = new Modifier();
@@ -413,6 +396,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             ActionsFixtures::class,
+            TechnicianFixtures::class,
             GameConfigFixtures::class,
         ];
     }

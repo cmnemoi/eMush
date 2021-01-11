@@ -2,6 +2,8 @@
 
 namespace Mush\Game\Service;
 
+use Mush\Game\Entity\Collection\TriumphConfigCollection;
+use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Repository\GameConfigRepository;
 
@@ -20,5 +22,15 @@ class GameConfigService implements GameConfigServiceInterface
     public function getConfig(): GameConfig
     {
         return $this->repository->findOneByName('default');
+    }
+
+    public function getDifficultyConfig(): DifficultyConfig
+    {
+        return $this->getConfig()->getDifficultyConfig();
+    }
+
+    public function getTriumphConfig(): TriumphConfigCollection
+    {
+        return $this->getConfig()->getTriumphConfig();
     }
 }

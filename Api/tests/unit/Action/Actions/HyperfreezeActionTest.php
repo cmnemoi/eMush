@@ -206,7 +206,6 @@ class HyperfreezeActionTest extends AbstractActionTest
             ->setName(GameRationEnum::STANDARD_RATION)
         ;
 
-        $this->gameEquipmentService->shouldReceive('delete');
         $this->gameEquipmentService->shouldReceive('getOperationalEquipmentsByName')->andReturn(new ArrayCollection([$gameSuperfreezer]))->once();
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->andReturn($gameStandardRation)->once();
         $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
@@ -216,8 +215,8 @@ class HyperfreezeActionTest extends AbstractActionTest
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(1, $room->getEquipments());
-        $this->assertCount(0, $room->getEquipments()->first()->getStatuses());
+        $this->assertCount(2, $room->getEquipments());
+        $this->assertCount(0, $gameSuperfreezer->getStatuses());
         $this->assertCount(0, $player->getStatuses());
         $this->assertEquals(9, $player->getActionPoint());
     }

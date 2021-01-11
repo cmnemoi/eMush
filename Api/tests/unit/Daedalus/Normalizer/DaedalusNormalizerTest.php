@@ -10,6 +10,7 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\GameConfigService;
 use PHPUnit\Framework\TestCase;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DaedalusNormalizerTest extends TestCase
 {
@@ -19,6 +20,9 @@ class DaedalusNormalizerTest extends TestCase
 
     private GameConfig $gameConfig;
 
+    /** @var TranslatorInterface | Mockery\Mock */
+    private TranslatorInterface $translator;
+
     /**
      * @before
      */
@@ -26,12 +30,13 @@ class DaedalusNormalizerTest extends TestCase
     {
         $gameConfigService = Mockery::mock(GameConfigService::class);
         $this->cycleService = Mockery::mock(CycleServiceInterface::class);
+        $this->translator = Mockery::mock(TranslatorInterface::class);
 
         $this->gameConfig = new GameConfig();
 
         $gameConfigService->shouldReceive('getConfig')->andReturn($this->gameConfig)->once();
 
-        $this->normalizer = new DaedalusNormalizer($this->cycleService, $gameConfigService);
+        $this->normalizer = new DaedalusNormalizer($this->cycleService, $gameConfigService, $this->translator);
     }
 
     /**

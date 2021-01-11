@@ -3,22 +3,30 @@
 namespace Mush\Daedalus\Normalizer;
 
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Door;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\GameConfigServiceInterface;
+use Mush\Status\Enum\StatusEnum;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
+
 
 class DaedalusNormalizer implements ContextAwareNormalizerInterface
 {
     private CycleServiceInterface $cycleService;
     private GameConfig $gameConfig;
+    private TranslatorInterface $translator;
 
     public function __construct(
         CycleServiceInterface $cycleService,
-        GameConfigServiceInterface $gameConfigService
+        GameConfigServiceInterface $gameConfigService,
+        TranslatorInterface $translator
     ) {
         $this->cycleService = $cycleService;
         $this->gameConfig = $gameConfigService->getConfig();
+        $this->translator = $translator;
     }
 
     public function supportsNormalization($data, string $format = null, array $context = []): bool
@@ -53,8 +61,8 @@ class DaedalusNormalizer implements ContextAwareNormalizerInterface
 
     public function minimap($daedalus): array
     {
-        $minimap =[];
-        foreach($daedalus->getRoom() as $room){
+        $minimap = [];
+        foreach ($daedalus->getRoom() as $room) {
             $minimap[$room->getName()] = ['players' => $room->getPlayers()->count()];
 
             //@TODO add project fire detector, anomaly detector doors detectors and actopi protocol
@@ -67,59 +75,58 @@ class DaedalusNormalizer implements ContextAwareNormalizerInterface
     {
         $alerts = [];
 
-        $fire=0;
-        $brokenDoors=0;
-        $brokenEquipments=0;
+        $fire = 0;
+        $brokenDoors = 0;
+        $brokenEquipments = 0;
 
-        foreach($daedalus->getRoom() as $room){
-            if ($room->getStatusByName(StatusEnum::FIRE)){
-                $fire=$fire+1;
+        foreach ($daedalus->getRoom() as $room) {
+            if ($room->getStatusByName(StatusEnum::FIRE)) {
+                $fire = $fire + 1;
             }
-            $brokenDoors = $brokenDoors+$room->getEquipment()
+            $brokenDoors = $brokenDoors + $room->getEquipment()
                 ->filter(fn (GameEquipment $equipment) => $equipment instanceof Door && $equipment->isBroken())->count();
-            $brokenEquipments = $brokenEquipments+$room->getEquipment()
+            $brokenEquipments = $brokenEquipments + $room->getEquipment()
                 ->filter(fn (GameEquipment $equipment) => $equipment->isPureEquipment() && $equipment->isBroken())->count();
         }
 
-        if ($fire !==0){
-            $alert =[
-                "name" => $this->translator->trans('fire' . '.name', ['quantity' => $fire], 'alerts'),
-                "description" => $this->translator->trans('fire' . '.description', [], 'alerts'),
+        if ($fire !== 0) {
+            $alert = [
+                'name' => $this->translator->trans('fire' . '.name', ['quantity' => $fire], 'alerts'),
+                'description' => $this->translator->trans('fire' . '.description', [], 'alerts'),
             ];
             $alerts[] = $alert;
         }
-        if ($brokenDoors !==0){
-            $alert =[
-                "name" => $this->translator->trans('brokenDoors' . '.name', ['quantity' => $brokenDoors], 'alerts'),
-                "description" => $this->translator->trans('brokenDoors' . '.description', [], 'alerts'),
-            ];
-            $alerts[] = $alert;
-
-        }
-        if ($brokenEquipments !==0){
-            $alert =[
-                "name" => $this->translator->trans('brokenEquipments' . '.name', ['quantity' => $brokenEquipments], 'alerts'),
-                "description" => $this->translator->trans('brokenEquipments' . '.description', [], 'alerts'),
+        if ($brokenDoors !== 0) {
+            $alert = [
+                'name' => $this->translator->trans('brokenDoors' . '.name', ['quantity' => $brokenDoors], 'alerts'),
+                'description' => $this->translator->trans('brokenDoors' . '.description', [], 'alerts'),
             ];
             $alerts[] = $alert;
         }
-
-        if ($daedalus->getOxygen() < 8){
-            $alerts['oxygen'] = true;$alert =[
-                "name" => $this->translator->trans('oxygen' . '.name', [], 'alerts'),
-                "description" => $this->translator->trans('oxygen' . '.description', [], 'alerts'),
-            ];
-            $alerts[] = $alert;
-        if ($daedalus->getHull() <= 33){
-            $alert =[
-                "name" => $this->translator->trans('lowHull' . '.name', ['quantity' => $daedalus->getHull()], 'alerts'),
-                "description" => $this->translator->trans('lowHull' . '.description', [], 'alerts'),
+        if ($brokenEquipments !== 0) {
+            $alert = [
+                'name' => $this->translator->trans('brokenEquipments' . '.name', ['quantity' => $brokenEquipments], 'alerts'),
+                'description' => $this->translator->trans('brokenEquipments' . '.description', [], 'alerts'),
             ];
             $alerts[] = $alert;
         }
 
-        
+        if ($daedalus->getOxygen() < 8) {
+            $alerts['oxygen'] = true;
+            $alert = [
+                'name' => $this->translator->trans('oxygen' . '.name', [], 'alerts'),
+                'description' => $this->translator->trans('oxygen' . '.description', [], 'alerts'),
+            ];
+            $alerts[] = $alert;
+        }
+        if ($daedalus->getHull() <= 33) {
+            $alert = [
+                'name' => $this->translator->trans('lowHull' . '.name', ['quantity' => $daedalus->getHull()], 'alerts'),
+                'description' => $this->translator->trans('lowHull' . '.description', [], 'alerts'),
+            ];
+            $alerts[] = $alert;
+        }
+
         return $alerts;
-
     }
 }

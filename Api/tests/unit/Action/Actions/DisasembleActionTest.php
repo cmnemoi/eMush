@@ -172,7 +172,6 @@ class DisasembleActionTest extends AbstractActionTest
 
         $this->successRateService->shouldReceive('getSuccessRate')->andReturn(10)->once();
         $this->randomService->shouldReceive('isSuccessfull')->andReturn(true)->once();
-        $this->gameEquipmentService->shouldReceive('delete');
         $scrap = new GameItem();
         $this->gameEquipmentService
             ->shouldReceive('createGameEquipmentFromName')
@@ -187,7 +186,6 @@ class DisasembleActionTest extends AbstractActionTest
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(0, $room->getEquipments());
         $this->assertCount(0, $player->getStatuses());
         $this->assertEquals(4, $player->getActionPoint());
     }

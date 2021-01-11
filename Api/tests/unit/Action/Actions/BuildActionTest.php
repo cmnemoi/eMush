@@ -166,11 +166,9 @@ class BuildActionTest extends AbstractActionTest
 
         $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $eventDispatcher->shouldReceive('dispatch');
-        $this->gameEquipmentService->shouldReceive('delete');
 
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
-        $this->assertEmpty($player->getRoom()->getEquipments());
     }
 }

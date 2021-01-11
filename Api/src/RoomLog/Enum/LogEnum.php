@@ -21,4 +21,10 @@ class LogEnum
     public const SOIL_PREVENTED = 'soil_prevented';
     public const SOIL_PREVENTED_OCD = 'soil_prevented_ocd';
     public const OXY_LOW_USE_CAPSULE = 'oxy_low_use_capsule';
+    public const TREMOR = 'tremor';
+    public const ELECTRIC_ARC = 'electric_arc';
+    public const METAL_PLATE = 'metal_plate';
+    public const PANIC_CRISIS = 'panic_crisis';
+    public const EQUIPMENT_DESTROYED = 'equipment_crisis';
+    public const EQUIPMENT_BROKEN = 'equipment_crisis';
 }

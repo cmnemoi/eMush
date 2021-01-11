@@ -44,7 +44,7 @@ class CycleSubscriber implements EventSubscriberInterface
 
         //each equipment as a chance to break
         if (!$equipment instanceof GameItem) {
-            $this->gameEquipmentService->handleBreakCycle($equipment);
+            $this->gameEquipmentService->handleBreakCycle($equipment, $event->getTime());
         }
 
         foreach ($equipment->getStatuses() as $status) {

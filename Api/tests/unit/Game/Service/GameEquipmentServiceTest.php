@@ -23,6 +23,7 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class GameEquipmentServiceTest extends TestCase
 {
@@ -39,6 +40,8 @@ class GameEquipmentServiceTest extends TestCase
     private GameEquipmentServiceInterface $service;
     /** @var RandomServiceInterface | Mockery\Mock */
     private RandomServiceInterface $randomService;
+    /** @var EventDispatcherInterface | Mockery\Mock */
+    protected EventDispatcherInterface $eventDispatcher;
 
     private GameConfig $gameConfig;
 
@@ -59,6 +62,8 @@ class GameEquipmentServiceTest extends TestCase
         $gameConfigService = Mockery::mock(GameConfigServiceInterface::class);
         $gameConfigService->shouldReceive('getConfig')->andReturn($this->gameConfig);
 
+        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
+
         $this->service = new GameEquipmentService(
             $this->entityManager,
             $this->repository,
@@ -66,7 +71,8 @@ class GameEquipmentServiceTest extends TestCase
             $this->statusService,
             $this->equipmentEffectService,
             $this->randomService,
-            $gameConfigService
+            $gameConfigService,
+            $this->eventDispatcher
         );
     }
 

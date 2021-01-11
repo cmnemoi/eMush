@@ -19,11 +19,15 @@ class DifficultyConfigFixtures extends Fixture implements DependentFixtureInterf
 
         $difficultyConfig
             ->setGameConfig($gameConfig)
-            ->setEquipmentBreakRate(40)
+            ->setEquipmentBreakRate(30)
             ->setDoorBreakRate(40)
-            ->setEquipmentFireBreakRate(100)
-            ->setStartingFireRate(100)
-            ->setPropagatingFireRate(100)
+            ->setEquipmentFireBreakRate(40)
+            ->setStartingFireRate(10)
+            ->setPropagatingFireRate(50)
+            ->setTremorRate(5)
+            ->setMetalPlateRate(5)
+            ->setElectricArcRate(5)
+            ->setPanicCrisisRate(5)
         ;
 
         $manager->persist($difficultyConfig);

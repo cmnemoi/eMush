@@ -3,18 +3,18 @@
 namespace Mush\Room\Event;
 
 use Mush\Game\Event\CycleEvent;
-use Mush\Room\Service\RoomServiceInterface;
+use Mush\Room\Service\RoomEventServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class CycleSubscriber implements EventSubscriberInterface
 {
-    private RoomServiceInterface $roomService;
+    private RoomEventServiceInterface $roomEventService;
     private EventDispatcherInterface $eventDispatcher;
 
-    public function __construct(RoomServiceInterface $roomService, EventDispatcherInterface $eventDispatcher)
+    public function __construct(RoomEventServiceInterface $roomEventService, EventDispatcherInterface $eventDispatcher)
     {
-        $this->roomService = $roomService;
+        $this->roomEventService = $roomEventService;
         $this->eventDispatcher = $eventDispatcher;
     }
 
@@ -37,8 +37,8 @@ class CycleSubscriber implements EventSubscriberInterface
             $this->eventDispatcher->dispatch($statusNewCycle, CycleEvent::NEW_CYCLE);
         }
 
-        //start and propagate fires
-        $this->roomService->handleFire($room);
+        //handle events
+        $this->roomEventService->handleIncident($room, $event->getTime());
 
         foreach ($room->getEquipments() as $equipment) {
             $itemNewCycle = new CycleEvent($room->getDaedalus(), $event->getTime());

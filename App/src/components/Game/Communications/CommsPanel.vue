@@ -20,7 +20,7 @@
         </div>
 
         <div class="tabs-content">
-            <component :is="currentTabComponent(currentChannel)" v-if="! loading" :channel="currentChannel" />
+            <component :is="currentTabComponent" v-if="! loading" :channel="currentChannel" />
         </div>
     </div>
 </template>
@@ -71,20 +71,10 @@ export default {
         displayNewTab() {
             if (! this.channels || ! this.channels.length) { return false; }
             return this.channels.filter(channel => channel.scope === PRIVATE).length < MAX_PRIVATE_TABS_NB;
-        }
-    },
-    beforeMount() {
-        this.loadChannels();
-    },
-    methods: {
-        ...mapActions('communication', [
-            'loadChannels',
-            'changeChannel',
-            'createPrivateChannel'
-        ]),
-        currentTabComponent: (channel) => {
-            if (channel instanceof Channel) {
-                switch (channel.scope) {
+        },
+        currentTabComponent() {
+            if (this.currentChannel instanceof Channel) {
+                switch (this.currentChannel.scope) {
                 case TIPS:
                     return TipsTab;
                 case ROOM_LOG:
@@ -98,6 +88,16 @@ export default {
             }
             return DiscussionTab;
         }
+    },
+    beforeMount() {
+        this.loadChannels();
+    },
+    methods: {
+        ...mapActions('communication', [
+            'loadChannels',
+            'changeChannel',
+            'createPrivateChannel'
+        ])
     }
 };
 </script>

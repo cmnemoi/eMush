@@ -132,21 +132,6 @@ class RoomSubscriber implements EventSubscriberInterface
 
     public function onFire(RoomEvent $event): void
     {
-        $room = $event->getRoom();
-        foreach ($room->getPlayers() as $player) {
-            $actionModifier = new Modifier();
-            $actionModifier
-                ->setDelta(-2)
-                ->setTarget(ModifierTargetEnum::HEALTH_POINT)
-            ;
-            $playerEvent = new PlayerEvent($player, $event->getTime());
-            $playerEvent->setReason(EndCauseEnum::BURNT);
-            $playerEvent->setModifier($actionModifier);
-            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
-        }
-
-        foreach ($room->getEquipments() as $equipment) {
-            $this->gameEquipmentService->handleBreakFire($equipment, $event->getTime());
-        }
+        $this->roomEventService->fireDamage($event->getRoom(), $event->getTime());
     }
 }

@@ -24,6 +24,7 @@ class DifficultyConfigFixtures extends Fixture implements DependentFixtureInterf
             ->setEquipmentFireBreakRate(40)
             ->setStartingFireRate(10)
             ->setPropagatingFireRate(50)
+            ->setHullFireDamageRate(50)
             ->setTremorRate(5)
             ->setMetalPlateRate(5)
             ->setElectricArcRate(5)

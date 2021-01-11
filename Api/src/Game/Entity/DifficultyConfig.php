@@ -55,6 +55,11 @@ class DifficultyConfig
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
+    private int $hullFireDamageRate;
+
+    /**
+     * @ORM\Column(type="integer", nullable=false)
+     */
     private int $tremorRate;
 
     /**
@@ -163,6 +168,21 @@ class DifficultyConfig
     public function setPropagatingFireRate(int $propagatingFireRate): DifficultyConfig
     {
         $this->propagatingFireRate = $propagatingFireRate;
+
+        return $this;
+    }
+
+    public function getHullFireDamageRate(): int
+    {
+        return $this->hullFireDamageRate;
+    }
+
+    /**
+     * @return static
+     */
+    public function setHullFireDamageRate(int $hullFireDamageRate): DifficultyConfig
+    {
+        $this->hullFireDamageRate = $hullFireDamageRate;
 
         return $this;
     }

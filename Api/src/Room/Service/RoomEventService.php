@@ -106,9 +106,10 @@ class RoomEventService implements RoomEventServiceInterface
     public function fireDamage(Room $room, \DateTime $date): Room
     {
         foreach ($room->getPlayers() as $player) {
+            $damage = $this->randomService->getSingleRandomElementFromProbaArray($this->difficultyConfig->getFirePlayerDamage());
             $actionModifier = new Modifier();
             $actionModifier
-                ->setDelta(-2)
+                ->setDelta(-$damage)
                 ->setTarget(ModifierTargetEnum::HEALTH_POINT)
             ;
             $playerEvent = new PlayerEvent($player, $date);
@@ -122,7 +123,9 @@ class RoomEventService implements RoomEventServiceInterface
         }
 
         if ($this->randomService->isSuccessfull($this->difficultyConfig->getHullFireDamageRate())) {
-            $room->getDaedalus()->addHull(-$this->randomService->random(2, 3));
+            $damage = intval($this->randomService->getSingleRandomElementFromProbaArray($this->difficultyConfig->getFireHullDamage()));
+
+            $room->getDaedalus()->addHull(-$damage);
             $this->daedalusService->persist($room->getDaedalus());
         }
 

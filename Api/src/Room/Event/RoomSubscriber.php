@@ -5,7 +5,8 @@ namespace Mush\Room\Event;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Event\EquipmentEvent;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Entity\DifficultyConfig;
+use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Modifier;
 use Mush\Player\Enum\EndCauseEnum;
@@ -13,7 +14,6 @@ use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Room\Enum\RoomEventEnum;
 use Mush\Room\Service\RoomEventServiceInterface;
-use Mush\Room\Service\RoomServiceInterface;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
@@ -25,30 +25,27 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class RoomSubscriber implements EventSubscriberInterface
 {
-    private RoomServiceInterface $roomService;
     private RoomEventServiceInterface $roomEventService;
-    private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
     private RandomServiceInterface $randomService;
     private RoomLogServiceInterface $roomLogService;
+    private DifficultyConfig $difficultyConfig;
     private EventDispatcherInterface $eventDispatcher;
 
     public function __construct(
-        RoomServiceInterface $roomService,
         RoomEventServiceInterface $roomEventService,
-        GameEquipmentServiceInterface $gameEquipmentService,
         StatusServiceInterface $statusService,
         RandomServiceInterface $randomService,
         RoomLogServiceInterface $roomLogService,
-        EventDispatcherInterface $eventDispatcher)
+        EventDispatcherInterface $eventDispatcher,
+        GameConfigServiceInterface $gameConfigService)
     {
-        $this->roomService = $roomService;
         $this->roomEventService = $roomEventService;
-        $this->gameEquipmentService = $gameEquipmentService;
         $this->statusService = $statusService;
         $this->randomService = $randomService;
         $this->roomLogService = $roomLogService;
         $this->eventDispatcher = $eventDispatcher;
+        $this->difficultyConfig = $gameConfigService->getDifficultyConfig();
     }
 
     public static function getSubscribedEvents(): array
@@ -65,9 +62,10 @@ class RoomSubscriber implements EventSubscriberInterface
     {
         $room = $event->getRoom();
         foreach ($room->getPlayers() as $player) {
+            $damage = $this->randomService->getSingleRandomElementFromProbaArray($this->difficultyConfig->getTremorPlayerDamage());
             $actionModifier = new Modifier();
             $actionModifier
-                ->setDelta(-$this->randomService->random(1, 3))
+                ->setDelta(-$damage)
                 ->setTarget(ModifierTargetEnum::HEALTH_POINT)
             ;
             $playerEvent = new PlayerEvent($player, $event->getTime());
@@ -88,9 +86,10 @@ class RoomSubscriber implements EventSubscriberInterface
     {
         $room = $event->getRoom();
         foreach ($room->getPlayers() as $player) {
+            $damage = $this->randomService->getSingleRandomElementFromProbaArray($this->difficultyConfig->getElectricArcPlayerDamage());
             $actionModifier = new Modifier();
             $actionModifier
-                ->setDelta(-3)
+                ->setDelta(-$damage)
                 ->setTarget(ModifierTargetEnum::HEALTH_POINT)
             ;
             $playerEvent = new PlayerEvent($player, $event->getTime());

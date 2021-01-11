@@ -77,6 +77,36 @@ class DifficultyConfig
      */
     private int $panicCrisisRate;
 
+    /**
+     * @ORM\Column(type="array", nullable=false)
+     */
+    private array $firePlayerDamage;
+
+    /**
+     * @ORM\Column(type="array", nullable=false)
+     */
+    private array $fireHullDamage;
+
+    /**
+     * @ORM\Column(type="array", nullable=false)
+     */
+    private array $electricArcPlayerDamage;
+
+    /**
+     * @ORM\Column(type="array", nullable=false)
+     */
+    private array $tremorPlayerDamage;
+
+    /**
+     * @ORM\Column(type="array", nullable=false)
+     */
+    private array $metalPlatePlayerDamage;
+
+    /**
+     * @ORM\Column(type="array", nullable=false)
+     */
+    private array $panicCrisisPlayerDamage;
+
     public function getId(): int
     {
         return $this->id;
@@ -243,6 +273,96 @@ class DifficultyConfig
     public function setPanicCrisisRate(int $panicCrisisRate): DifficultyConfig
     {
         $this->panicCrisisRate = $panicCrisisRate;
+
+        return $this;
+    }
+
+    public function getFirePlayerDamage(): array
+    {
+        return $this->firePlayerDamage;
+    }
+
+    /**
+     * @return static
+     */
+    public function setFirePlayerDamage(array $firePlayerDamage): DifficultyConfig
+    {
+        $this->firePlayerDamage = $firePlayerDamage;
+
+        return $this;
+    }
+
+    public function getFireHullDamage(): array
+    {
+        return $this->fireHullDamage;
+    }
+
+    /**
+     * @return static
+     */
+    public function setFireHullDamage(array $fireHullDamage): DifficultyConfig
+    {
+        $this->fireHullDamage = $fireHullDamage;
+
+        return $this;
+    }
+
+    public function getElectricArcPlayerDamage(): array
+    {
+        return $this->electricArcPlayerDamage;
+    }
+
+    /**
+     * @return static
+     */
+    public function setElectricArcPlayerDamage(array $electricArcPlayerDamage): DifficultyConfig
+    {
+        $this->electricArcPlayerDamage = $electricArcPlayerDamage;
+
+        return $this;
+    }
+
+    public function getTremorPlayerDamage(): array
+    {
+        return $this->tremorPlayerDamage;
+    }
+
+    /**
+     * @return static
+     */
+    public function setTremorPlayerDamage(array $tremorPlayerDamage): DifficultyConfig
+    {
+        $this->tremorPlayerDamage = $tremorPlayerDamage;
+
+        return $this;
+    }
+
+    public function getMetalPlatePlayerDamage(): array
+    {
+        return $this->metalPlatePlayerDamage;
+    }
+
+    /**
+     * @return static
+     */
+    public function setMetalPlatePlayerDamage(array $metalPlatePlayerDamage): DifficultyConfig
+    {
+        $this->metalPlatePlayerDamage = $metalPlatePlayerDamage;
+
+        return $this;
+    }
+
+    public function getPanicCrisisPlayerDamage(): array
+    {
+        return $this->panicCrisisPlayerDamage;
+    }
+
+    /**
+     * @return static
+     */
+    public function setPanicCrisisPlayerDamage(array $panicCrisisPlayerDamage): DifficultyConfig
+    {
+        $this->panicCrisisPlayerDamage = $panicCrisisPlayerDamage;
 
         return $this;
     }

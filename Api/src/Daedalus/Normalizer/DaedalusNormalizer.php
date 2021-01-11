@@ -3,15 +3,15 @@
 namespace Mush\Daedalus\Normalizer;
 
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Daedalus\Enum\AlertEnum;
 use Mush\Equipment\Entity\Door;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Status\Enum\StatusEnum;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
-
 
 class DaedalusNormalizer implements ContextAwareNormalizerInterface
 {
@@ -71,7 +71,7 @@ class DaedalusNormalizer implements ContextAwareNormalizerInterface
         return $minimap;
     }
 
-    public function getAlerts($daedalus): array
+    public function getAlerts(Daedalus $daedalus): array
     {
         $alerts = [];
 
@@ -79,7 +79,7 @@ class DaedalusNormalizer implements ContextAwareNormalizerInterface
         $brokenDoors = 0;
         $brokenEquipments = 0;
 
-        foreach ($daedalus->getRoom() as $room) {
+        foreach ($daedalus->getRooms() as $room) {
             if ($room->getStatusByName(StatusEnum::FIRE)) {
                 $fire = $fire + 1;
             }
@@ -90,43 +90,51 @@ class DaedalusNormalizer implements ContextAwareNormalizerInterface
         }
 
         if ($fire !== 0) {
-            $alert = [
-                'name' => $this->translator->trans('fire' . '.name', ['quantity' => $fire], 'alerts'),
-                'description' => $this->translator->trans('fire' . '.description', [], 'alerts'),
-            ];
+            $alert = $this->translateAlert(AlertEnum::NUMBER_FIRE, $fire);
             $alerts[] = $alert;
         }
         if ($brokenDoors !== 0) {
-            $alert = [
-                'name' => $this->translator->trans('brokenDoors' . '.name', ['quantity' => $brokenDoors], 'alerts'),
-                'description' => $this->translator->trans('brokenDoors' . '.description', [], 'alerts'),
-            ];
+            $alert = $this->translateAlert(AlertEnum::BROKEN_DOORS, $brokenDoors);
             $alerts[] = $alert;
         }
         if ($brokenEquipments !== 0) {
-            $alert = [
-                'name' => $this->translator->trans('brokenEquipments' . '.name', ['quantity' => $brokenEquipments], 'alerts'),
-                'description' => $this->translator->trans('brokenEquipments' . '.description', [], 'alerts'),
-            ];
+            $alert = $this->translateAlert(AlertEnum::BROKEN_EQUIPMENTS, $brokenEquipments);
             $alerts[] = $alert;
         }
 
         if ($daedalus->getOxygen() < 8) {
-            $alerts['oxygen'] = true;
-            $alert = [
-                'name' => $this->translator->trans('oxygen' . '.name', [], 'alerts'),
-                'description' => $this->translator->trans('oxygen' . '.description', [], 'alerts'),
-            ];
+            $alert = $this->translateAlert(AlertEnum::LOW_OXYGEN);
             $alerts[] = $alert;
         }
         if ($daedalus->getHull() <= 33) {
-            $alert = [
-                'name' => $this->translator->trans('lowHull' . '.name', ['quantity' => $daedalus->getHull()], 'alerts'),
-                'description' => $this->translator->trans('lowHull' . '.description', [], 'alerts'),
-            ];
+            $alert = $this->translateAlert(AlertEnum::LOW_HULL, $daedalus->getHull());
             $alerts[] = $alert;
         }
 
         return $alerts;
+    }
+
+    public function translateAlert(string $key, ?int $quantity = null): array
+    {
+        if ($quantity !== null) {
+            if ($quantity > 1) {
+                $plural = '.plural';
+            } else {
+                $plural = '.single';
+            }
+            $alert = [
+                'key' => $key,
+                'name' => $this->translator->trans($key . '.name' . $plural, ['quantity' => $quantity], 'alerts'),
+                'description' => $this->translator->trans($key . '.description', [], 'alerts'),
+            ];
+        } else {
+            $alert = [
+                'key' => $key,
+                'name' => $this->translator->trans($key . '.name', [], 'alerts'),
+                'description' => $this->translator->trans($key . '.description', [], 'alerts'),
+            ];
+        }
+
+        return $alert;
     }
 }

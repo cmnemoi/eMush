@@ -132,7 +132,8 @@ class PlantActionTest extends AbstractActionTest
         $this->playerService->shouldReceive('persist');
 
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->andReturn($gamePlant)->once();
-        $this->gameEquipmentService->shouldReceive('delete');
+        $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
+        $eventDispatcher->shouldReceive('dispatch');
 
         $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
@@ -140,6 +141,6 @@ class PlantActionTest extends AbstractActionTest
 
         $this->assertInstanceOf(Success::class, $result);
         $this->assertEmpty($player->getItems());
-        $this->assertEquals($player->getRoom()->getEquipments()->first()->getEquipment(), $plant);
+        $this->assertContains($gamePlant, $player->getRoom()->getEquipments());
     }
 }

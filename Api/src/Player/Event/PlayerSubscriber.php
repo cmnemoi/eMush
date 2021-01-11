@@ -4,6 +4,7 @@ namespace Mush\Player\Event;
 
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Game\Enum\GameStatusEnum;
+use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
@@ -26,19 +27,22 @@ class PlayerSubscriber implements EventSubscriberInterface
     private EventDispatcherInterface $eventDispatcher;
     private RoomLogServiceInterface $roomLogService;
     private StatusServiceInterface $statusService;
+    private RandomServiceInterface $randomService;
 
     public function __construct(
         PlayerServiceInterface $playerService,
         ActionModifierServiceInterface $actionModifierService,
         EventDispatcherInterface $eventDispatcher,
         RoomLogServiceInterface $roomLogService,
-        StatusServiceInterface $statusService
+        StatusServiceInterface $statusService,
+        RandomServiceInterface $randomService
     ) {
         $this->playerService = $playerService;
         $this->actionModifierService = $actionModifierService;
         $this->eventDispatcher = $eventDispatcher;
         $this->roomLogService = $roomLogService;
         $this->statusService = $statusService;
+        $this->randomService = $randomService;
     }
 
     public static function getSubscribedEvents()
@@ -47,6 +51,8 @@ class PlayerSubscriber implements EventSubscriberInterface
             PlayerEvent::NEW_PLAYER => 'onNewPlayer',
             PlayerEvent::DEATH_PLAYER => 'onDeathPlayer',
             PlayerEvent::MODIFIER_PLAYER => 'onModifierPlayer',
+            PlayerEvent::METAL_PLATE => 'onMetalPlate',
+            PlayerEvent::PANIC_CRISIS => 'onPanicCrisis',
             PlayerEvent::INFECTION_PLAYER => 'onInfectionPlayer',
             PlayerEvent::CONVERSION_PLAYER => 'onConversionPlayer',
         ];
@@ -118,6 +124,60 @@ class PlayerSubscriber implements EventSubscriberInterface
         }
 
         $this->playerService->persist($player);
+    }
+
+    public function onMetalPlate(PlayerEvent $event): void
+    {
+        $player = $event->getPlayer();
+        $date = $event->getTime();
+
+        $actionModifier = new Modifier();
+        $actionModifier
+            ->setDelta(-$this->randomService->random(4, 6))
+            ->setTarget(ModifierTargetEnum::HEALTH_POINT)
+        ;
+
+        $playerEvent = new PlayerEvent($player, $date);
+        $playerEvent
+            ->setModifier($actionModifier)
+            ->setReason($event->getReason())
+        ;
+        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
+
+        $this->roomLogService->createPlayerLog(
+            LogEnum::METAL_PLATE,
+            $player->getRoom(),
+            $player,
+            VisibilityEnum::PUBLIC,
+            $date
+        );
+    }
+
+    public function onPanicCrisis(PlayerEvent $event): void
+    {
+        $player = $event->getPlayer();
+        $date = $event->getTime();
+
+        $actionModifier = new Modifier();
+        $actionModifier
+            ->setDelta(-3)
+            ->setTarget(ModifierTargetEnum::MORAL_POINT)
+        ;
+
+        $playerEvent = new PlayerEvent($player, $date);
+        $playerEvent
+            ->setModifier($actionModifier)
+            ->setReason($event->getReason())
+        ;
+        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
+
+        $this->roomLogService->createPlayerLog(
+            LogEnum::PANIC_CRISIS,
+            $player->getRoom(),
+            $player,
+            VisibilityEnum::PRIVATE,
+            $date
+        );
     }
 
     public function onInfectionPlayer(PlayerEvent $playerEvent): void

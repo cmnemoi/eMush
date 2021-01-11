@@ -9,6 +9,7 @@ use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\Collection\CharacterConfigCollection;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\GameConfigServiceInterface;
+use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Repository\PlayerRepository;
 use Mush\Player\Service\PlayerService;
@@ -36,6 +37,9 @@ class PlayerServiceTest extends TestCase
     private StatusServiceInterface $statusService;
     /** @var TokenStorageInterface | Mockery\Mock */
     private TokenStorageInterface $tokenStorage;
+    /** @var RandomServiceInterface | Mockery\Mock */
+    private RandomServiceInterface $randomService;
+
     private GameConfig $gameConfig;
     private CharacterConfigCollection $charactersConfig;
     private PlayerService $service;
@@ -54,8 +58,12 @@ class PlayerServiceTest extends TestCase
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
         $gameConfigService = Mockery::mock(GameConfigServiceInterface::class);
         $this->gameConfig = new GameConfig();
+
         $this->charactersConfig = new CharacterConfigCollection();
         $gameConfigService->shouldReceive('getConfig')->andReturn($this->gameConfig)->once();
+        $gameConfigService->shouldReceive('getDifficultyConfig')->once();
+        $gameConfigService->shouldReceive('getTriumphConfig')->once();
+        $this->randomService = Mockery::mock(RandomServiceInterface::class);
 
         $this->service = new PlayerService(
             $this->entityManager,
@@ -64,7 +72,8 @@ class PlayerServiceTest extends TestCase
             $this->roomLogService,
             $this->statusService,
             $gameConfigService,
-            $this->tokenStorage
+            $this->tokenStorage,
+            $this->randomService
         );
     }
 

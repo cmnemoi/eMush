@@ -10,20 +10,25 @@ use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class EquipmentSubscriber implements EventSubscriberInterface
 {
     private GameEquipmentServiceInterface $gameEquipmentService;
+    private StatusServiceInterface $statusService;
     private RoomLogServiceInterface $roomLogService;
     private GameConfig $gameConfig;
 
     public function __construct(
         GameEquipmentServiceInterface $gameEquipmentService,
+        StatusServiceInterface $statusService,
         RoomLogServiceInterface $roomLogService,
         GameConfigServiceInterface $gameConfigService
     ) {
         $this->gameEquipmentService = $gameEquipmentService;
+        $this->statusService = $statusService;
         $this->roomLogService = $roomLogService;
         $this->gameConfig = $gameConfigService->getConfig();
     }
@@ -32,6 +37,8 @@ class EquipmentSubscriber implements EventSubscriberInterface
     {
         return [
             EquipmentEvent::EQUIPMENT_CREATED => 'onEquipmentCreated',
+            EquipmentEvent::EQUIPMENT_BROKEN => 'onEquipmentBroken',
+            EquipmentEvent::EQUIPMENT_DESTROYED => 'onEquipmentDestroyed',
         ];
     }
 
@@ -59,5 +66,45 @@ class EquipmentSubscriber implements EventSubscriberInterface
         }
 
         $this->gameEquipmentService->persist($equipment);
+    }
+
+    public function onEquipmentBroken(EquipmentEvent $event): void
+    {
+        $equipment = $event->getEquipment();
+
+        $this->statusService->createCoreEquipmentStatus(EquipmentStatusEnum::BROKEN, $equipment);
+
+        $room = $equipment->getCurrentRoom();
+
+        $this->roomLogService->createEquipmentLog(
+            LogEnum::EQUIPMENT_BROKEN,
+            $room,
+            null,
+            $equipment,
+            $event->getVisibility(),
+            $event->getTime()
+        );
+
+        $this->gameEquipmentService->persist($equipment);
+    }
+
+    public function onEquipmentDestroyed(EquipmentEvent $event): void
+    {
+        $equipment = $event->getEquipment();
+
+        $equipment->removeLocation();
+
+        $this->gameEquipmentService->delete($equipment);
+
+        $room = $equipment->getCurrentRoom();
+
+        $this->roomLogService->createEquipmentLog(
+            LogEnum::EQUIPMENT_DESTROYED,
+            $room,
+            null,
+            $equipment,
+            $event->getVisibility(),
+            $event->getTime()
+        );
     }
 }

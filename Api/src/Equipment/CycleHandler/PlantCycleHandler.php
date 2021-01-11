@@ -88,7 +88,7 @@ class PlantCycleHandler extends AbstractCycleHandler
         if ($youngStatus &&
             $youngStatus->getCharge() >= $plantEffect->getMaturationTime()
         ) {
-            $room = $this->getRoom($gamePlant);
+            $room = $gamePlant->getCurrentRoom();
 
             $gamePlant->removeStatus($youngStatus);
             $this->statusService->delete($youngStatus);
@@ -175,7 +175,7 @@ class PlantCycleHandler extends AbstractCycleHandler
 
     private function handleDriedPlant(GameItem $gamePlant, \DateTime $dateTime): void
     {
-        $room = $this->getRoom($gamePlant);
+        $room = $gamePlant->getCurrentRoom();
 
         // Create a new hydropot
         /** @var GameItem $hydropot */
@@ -222,7 +222,7 @@ class PlantCycleHandler extends AbstractCycleHandler
             return;
         }
         // If plant is not in a room, it is in player inventory
-        $room = $this->getRoom($gamePlant);
+        $room = $gamePlant->getCurrentRoom();
 
         /** @var GameItem $gameFruit */
         $gameFruit = $this->gameEquipmentService->createGameEquipment($plantType->getFruit(), $room->getDaedalus());
@@ -243,25 +243,10 @@ class PlantCycleHandler extends AbstractCycleHandler
 
     private function addOxygen(GameItem $gamePlant, PlantEffect $plantEffect): void
     {
-        $daedalus = $this->getRoom($gamePlant)->getDaedalus();
+        $daedalus = $gamePlant->getCurrentRoom()->getDaedalus();
         //Add Oxygen
         if (($oxygen = $plantEffect->getOxygen())) {
             $this->daedalusService->changeOxygenLevel($daedalus, 1);
         }
-    }
-
-    private function getRoom(GameItem $gamePlant): Room
-    {
-        if ($player = $gamePlant->getPlayer()) {
-            $room = $player->getRoom();
-        } else {
-            $room = $gamePlant->getRoom();
-        }
-
-        if ($room === null) {
-            throw new \LogicException('Cannot find room of game plant');
-        }
-
-        return $room;
     }
 }

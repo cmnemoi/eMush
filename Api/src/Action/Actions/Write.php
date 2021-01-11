@@ -73,7 +73,7 @@ class Write extends AbstractAction
         ;
         $newGameItem->addStatus($contentStatus);
 
-        $equipmentEvent = new EquipmentEvent($newGameItem);
+        $equipmentEvent = new EquipmentEvent($newGameItem, VisibilityEnum::HIDDEN);
         $equipmentEvent->setPlayer($this->player);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 

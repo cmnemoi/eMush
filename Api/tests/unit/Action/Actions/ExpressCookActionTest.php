@@ -229,7 +229,6 @@ class ExpressCookActionTest extends AbstractActionTest
             ->setName(GameRationEnum::COOKED_RATION)
         ;
 
-        $this->gameEquipmentService->shouldReceive('delete');
         $this->gameEquipmentService->shouldReceive('getOperationalEquipmentsByName')->andReturn(new ArrayCollection([$gameMicrowave]))->twice();
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->andReturn($gameCookedRation)->once();
         $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
@@ -239,9 +238,9 @@ class ExpressCookActionTest extends AbstractActionTest
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(1, $room->getEquipments());
-        $this->assertCount(1, $room->getEquipments()->first()->getStatuses());
-        $this->assertEquals(2, $room->getEquipments()->first()->getStatuses()->first()->getCharge());
+        $this->assertCount(2, $room->getEquipments());
+        $this->assertCount(1, $gameMicrowave->getStatuses());
+        $this->assertEquals(2, $gameMicrowave->getStatuses()->first()->getCharge());
         $this->assertCount(0, $player->getStatuses());
         $this->assertEquals(10, $player->getActionPoint());
     }

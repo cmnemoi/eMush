@@ -161,6 +161,15 @@ class GameEquipment
         return $this;
     }
 
+    public function getCurrentRoom(): Room
+    {
+        if ($this->room === null) {
+            throw new \LogicException('Cannot find room of game equipment');
+        }
+
+        return $this->room;
+    }
+
     /**
      * @return static
      */

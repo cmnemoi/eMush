@@ -62,9 +62,11 @@ const ApiService = {
                     //         throw error
                     //     }
                     // }
+                } else {
+                    // If error was not 401, inform user with a pop-up before rejecting
+                    await store.dispatch('error/setError', error);
+                    throw error;
                 }
-                // If error was not 401 just reject as is
-                throw error;
             }
         );
     },

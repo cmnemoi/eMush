@@ -1,5 +1,5 @@
 <template>
-    <div v-show="isOpen" id="login-modal" class="modal-background">
+    <div v-if="isOpen" id="login-modal" class="modal-background">
         <div class="modal-box">
             <a class="modal-close" @click="close">Close</a>
             <slot />

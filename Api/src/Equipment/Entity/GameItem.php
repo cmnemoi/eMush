@@ -4,6 +4,7 @@ namespace Mush\Equipment\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Player\Entity\Player;
+use Mush\Room\Entity\Room;
 
 /**
  * Class GameItem.
@@ -63,5 +64,20 @@ class GameItem extends GameEquipment
         $this->setPlayer(null);
 
         return $this;
+    }
+
+    public function getCurrentRoom(): Room
+    {
+        if ($player = $this->getPlayer()) {
+            $room = $player->getRoom();
+        } else {
+            $room = $this->getRoom();
+        }
+
+        if ($room === null) {
+            throw new \LogicException('Cannot find room of game item');
+        }
+
+        return $room;
     }
 }

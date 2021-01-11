@@ -9,12 +9,14 @@ use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Charged;
 use Mush\Equipment\Entity\Mechanics\Document;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ReachEnum;
+use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\GameConfigServiceInterface;
@@ -27,6 +29,7 @@ use Mush\Status\Entity\ContentStatus;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class GameEquipmentService implements GameEquipmentServiceInterface
 {
@@ -37,6 +40,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
     private EquipmentEffectServiceInterface $equipmentEffectService;
     private RandomServiceInterface $randomService;
     private GameConfig $gameConfig;
+    private EventDispatcherInterface $eventDispatcher;
 
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -45,7 +49,8 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         StatusServiceInterface $statusService,
         EquipmentEffectServiceInterface $equipmentEffectService,
         RandomServiceInterface $randomService,
-        GameConfigServiceInterface $gameConfigService
+        GameConfigServiceInterface $gameConfigService,
+        EventDispatcherInterface $eventDispatcher
     ) {
         $this->entityManager = $entityManager;
         $this->repository = $repository;
@@ -54,6 +59,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         $this->equipmentEffectService = $equipmentEffectService;
         $this->randomService = $randomService;
         $this->gameConfig = $gameConfigService->getConfig();
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     public function persist(GameEquipment $equipment): GameEquipment
@@ -211,12 +217,21 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         return !($gameEquipment->getStatusByName(EquipmentStatusEnum::BROKEN));
     }
 
-    public function handleBreakCycle(GameEquipment $gameEquipment): void
+    public function handleBreakCycle(GameEquipment $gameEquipment, \DateTime $date): void
     {
-        if ($gameEquipment instanceof Door) {
-            $this->breakDoorCycle($gameEquipment);
-        } else {
-            $this->breakEquipmentCycle($gameEquipment);
+        if ($gameEquipment->getStatusByName(EquipmentStatusEnum::BROKEN) ||
+            $gameEquipment instanceof GameItem) {
+            return;
+        }
+
+        if (($gameEquipment instanceof Door &&
+            !DoorEnum::isUnbreakable($gameEquipment->getName()) &&
+            $this->randomService->isSuccessfull($this->gameConfig->getDifficultyConfig()->getDoorBreakRate())) ||
+            ($gameEquipment->getEquipment()->getBreakableRate() > 0 &&
+            $this->randomService->isSuccessfull($this->gameConfig->getDifficultyConfig()->getEquipmentBreakRate()))
+            ) {
+            $equipmentEvent = new EquipmentEvent($gameEquipment, VisibilityEnum::HIDDEN, $date);
+            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_BROKEN);
         }
 
         $this->persist($gameEquipment);
@@ -224,23 +239,26 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         return;
     }
 
-    public function breakDoorCycle(GameEquipment $gameEquipment): void
+    public function handleBreakFire(GameEquipment $gameEquipment, \DateTime $date): void
     {
-        if (!DoorEnum::isUnbreakable($gameEquipment->getName()) &&
-            !$gameEquipment->getStatusByName(EquipmentStatusEnum::BROKEN) &&
-            $this->randomService->isSuccessfull($this->gameConfig->getDifficultyConfig()->getDoorBreakRate())) {
-            $this->statusService->createCoreEquipmentStatus(EquipmentStatusEnum::BROKEN, $gameEquipment);
+        if ($gameEquipment instanceof Door) {
+            return;
         }
 
-        return;
-    }
+        if ($gameEquipment->getEquipment()->isFireDestroyable() &&
+            $this->randomService->isSuccessfull($this->gameConfig->getDifficultyConfig()->getEquipmentFireBreakRate())
+        ) {
+            $equipmentEvent = new EquipmentEvent($gameEquipment, VisibilityEnum::PUBLIC, $date);
+            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        }
 
-    public function breakEquipmentCycle(GameEquipment $gameEquipment): void
-    {
-        if ($gameEquipment->getEquipment()->getBreakableRate() > 0 &&
-            !$gameEquipment->getStatusByName(EquipmentStatusEnum::BROKEN) &&
-            $this->randomService->isSuccessfull($this->gameConfig->getDifficultyConfig()->getEquipmentBreakRate())) {
-            $this->statusService->createCoreEquipmentStatus(EquipmentStatusEnum::BROKEN, $gameEquipment);
+        if ($gameEquipment->getEquipment()->isFireBreakable() &&
+            $gameEquipment->getStatusByName(EquipmentStatusEnum::BROKEN) &&
+            $this->randomService->isSuccessfull($this->gameConfig->getDifficultyConfig()->getEquipmentFireBreakRate())
+        ) {
+            $equipmentEvent = new EquipmentEvent($gameEquipment, VisibilityEnum::PUBLIC, $date);
+            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_BROKEN);
+            $this->persist($gameEquipment);
         }
 
         return;

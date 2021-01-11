@@ -15,11 +15,7 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\Room\Entity\Room;
 use Mush\Room\Entity\RoomConfig;
 use Mush\Room\Repository\RoomRepository;
-use Mush\RoomLog\Enum\VisibilityEnum;
-use Mush\Status\Entity\ChargeStatus;
-use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
 class RoomService implements RoomServiceInterface
@@ -130,63 +126,5 @@ class RoomService implements RoomServiceInterface
         }
 
         return $this->persist($room);
-    }
-
-    public function handleFire(Room $room): Room
-    {
-        $fireStatus = $room->getStatusByName(StatusEnum::FIRE);
-
-        if ($fireStatus && !$fireStatus instanceof ChargeStatus) {
-            throw new \LogicException('Fire is not a ChargedStatus');
-        }
-
-        if ($fireStatus && $fireStatus->getCharge() === 0) {
-            $this->propagateFire($room);
-        } elseif ($this->randomService->isSuccessfull($this->gameConfig->getDifficultyConfig()->getStartingFireRate())) {
-            $fireStatus = $this->startFire($room);
-
-            //primary fire deal damage on the first cycle
-            $fireStatus->setCharge(0);
-            $this->propagateFire($room);
-        }
-
-        return $room;
-    }
-
-    public function startFire(Room $room): ChargeStatus
-    {
-        if (!$room->hasStatus(StatusEnum::FIRE)) {
-            $fireStatus = $this->statusService->createChargeRoomStatus(StatusEnum::FIRE,
-                    $room,
-                    ChargeStrategyTypeEnum::CYCLE_DECREMENT,
-                    VisibilityEnum::PUBLIC,
-                    1);
-        } else {
-            $fireStatus = $room->getStatusByName(StatusEnum::FIRE);
-
-            if (!$fireStatus instanceof ChargeStatus) {
-                throw new \LogicException('Fire is not a charged Status');
-            }
-
-            $fireStatus->setCharge(0);
-        }
-
-        $this->persist($room);
-
-        return $fireStatus;
-    }
-
-    public function propagateFire(Room $room): Room
-    {
-        foreach ($room->getDoors() as $door) {
-            $adjacentRoom = $door->getOtherRoom($room);
-
-            if ($this->randomService->isSuccessfull($this->gameConfig->getDifficultyConfig()->getPropagatingFireRate())) {
-                $this->startFire($adjacentRoom);
-            }
-        }
-        $this->persist($room);
-
-        return $room;
     }
 }

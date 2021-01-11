@@ -7,11 +7,11 @@
                 </div>
                 <div>
                     <p class="name">Gioele Rinaldo</p>
-                    <ul class="status">
-                        <li><img src="@/assets/images/status/spore.png"><span>x2</span></li>
-                        <li><img src="@/assets/images/status/thinklinked.png"></li>
-                        <li><img src="@/assets/images/status/laid.png"></li>
-                    </ul>
+                    <div class="status">
+                        <span><img src="@/assets/images/status/spore.png">x2</span>
+                        <span><img src="@/assets/images/status/thinklinked.png"></span>
+                        <span><img src="@/assets/images/status/laid.png"></span>
+                    </div>
                 </div>
             </div>
             <p class="presentation">Armateur philantrope caféinomane.</p>
@@ -55,13 +55,13 @@ export default {
         font-size: .85em;
 
         .card {
-            flex-direction: row;
+            flex-flow: row wrap;
+
+            & > * { flex: 1 } //divs will wrap only if too small
 
             .avatar {
-                position: relative;
-                float: left;
+                align-items: center;
                 min-width: 110px;
-                width: 110px;
                 height: 70px;
                 overflow: hidden;
                 border: 1px solid #161951;
@@ -70,7 +70,7 @@ export default {
                     position: relative;
                     width: 210px;
                     height: auto;
-                    left: -16px;
+                    left: 20px;
                     top: -36px;
                 }
             }
@@ -79,7 +79,7 @@ export default {
                 flex-direction: row;
                 flex-wrap: wrap;
                 font-size: .9em;
-                li { padding: 1px; }
+                span { padding: 1px; }
             }
 
             .name {

@@ -15,4 +15,5 @@ class AlertEnum
     public const NO_ALERT = 'no.alert';
     public const HUNGER_GENERAL = 'hunger.general';
     public const LOST_COMMUNICATION = 'lost.communication';
+    public const HUNTERS_ATTACK = 'hunters.attack';
 }

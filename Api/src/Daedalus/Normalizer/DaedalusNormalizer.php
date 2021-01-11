@@ -75,6 +75,27 @@ class DaedalusNormalizer implements ContextAwareNormalizerInterface
     {
         $alerts = [];
 
+        $numberAlert = array_filter($this->countAlert($daedalus), function (int $value) {return $value > 0; });
+
+        foreach ($numberAlert as $key => $number) {
+            $alert = $this->translateAlert($key, $number);
+            $alerts[] = $alert;
+        }
+
+        if ($daedalus->getOxygen() < 8) {
+            $alert = $this->translateAlert(AlertEnum::LOW_OXYGEN);
+            $alerts[] = $alert;
+        }
+        if ($daedalus->getHull() <= 33) {
+            $alert = $this->translateAlert(AlertEnum::LOW_HULL, $daedalus->getHull());
+            $alerts[] = $alert;
+        }
+
+        return $alerts;
+    }
+
+    public function countAlert(Daedalus $daedalus): array
+    {
         $fire = 0;
         $brokenDoors = 0;
         $brokenEquipments = 0;
@@ -89,29 +110,7 @@ class DaedalusNormalizer implements ContextAwareNormalizerInterface
                 ->filter(fn (GameEquipment $equipment) => $equipment->isPureEquipment() && $equipment->isBroken())->count();
         }
 
-        if ($fire !== 0) {
-            $alert = $this->translateAlert(AlertEnum::NUMBER_FIRE, $fire);
-            $alerts[] = $alert;
-        }
-        if ($brokenDoors !== 0) {
-            $alert = $this->translateAlert(AlertEnum::BROKEN_DOORS, $brokenDoors);
-            $alerts[] = $alert;
-        }
-        if ($brokenEquipments !== 0) {
-            $alert = $this->translateAlert(AlertEnum::BROKEN_EQUIPMENTS, $brokenEquipments);
-            $alerts[] = $alert;
-        }
-
-        if ($daedalus->getOxygen() < 8) {
-            $alert = $this->translateAlert(AlertEnum::LOW_OXYGEN);
-            $alerts[] = $alert;
-        }
-        if ($daedalus->getHull() <= 33) {
-            $alert = $this->translateAlert(AlertEnum::LOW_HULL, $daedalus->getHull());
-            $alerts[] = $alert;
-        }
-
-        return $alerts;
+        return [AlertEnum::NUMBER_FIRE => $fire, AlertEnum::BROKEN_DOORS => $brokenDoors, AlertEnum::BROKEN_EQUIPMENTS => $brokenEquipments];
     }
 
     public function translateAlert(string $key, ?int $quantity = null): array

@@ -81,6 +81,7 @@ class CycleSubscriber implements EventSubscriberInterface
     {
         //Handle oxygen loss
         $oxygenLoss = 1;
+        
         //@TODO: We shouldn't assume the oxygen tank are in these storages
         if (($alphaStorageRoom = $daedalus->getRoomByName(RoomEnum::CENTER_ALPHA_STORAGE)) &&
             $alphaStorageRoom

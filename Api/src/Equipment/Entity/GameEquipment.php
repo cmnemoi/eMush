@@ -71,6 +71,11 @@ class GameEquipment
         return $this->id;
     }
 
+    public function isPureEquipment(): bool
+    {
+        return !($this instanceof GameItem) && !($this instanceof Door);
+    }
+
     public function getActions(): Collection
     {
         return $this->equipment->getActions();

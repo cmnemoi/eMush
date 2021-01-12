@@ -45,7 +45,7 @@ services:
       POSTGRES_MULTIPLE_DATABASES: mush,eternal_twin
 
   mush_front:
-    container_name: front_mush
+    container_name: mush_front
     build:
       context: ./App
       dockerfile: Dockerfile

@@ -6,7 +6,12 @@
             <span>Ceci est une alpha reservée aux testeurs</span>
             <span>This is an alpha for testers only</span>
             <label for="passphrase" class="passphrase">Passphrase:</label>
-            <input id="passphrase" v-model="passphrase" type="text">
+            <input
+                id="passphrase"
+                v-model="passphrase"
+                type="text"
+                @keyup.enter="submitPassphrase"
+            >
             <button type="submit" @click="submitPassphrase">
                 Submit
             </button>

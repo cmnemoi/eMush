@@ -13,7 +13,20 @@ const actions = {
 
 const mutations = {
     setError(state, error) {
-        state.error = { message: error.message };
+        state.error = {
+            message: error.message,
+            status: error.request?.status,
+            statusText: error.request?.statusText,
+            request: {
+                url: error.config?.url,
+                params: error.response?.config?.data,
+                method: error.config?.method
+            },
+            response: {
+                details: error.response?.data?.detail,
+                class: error.response?.data?.class
+            }
+        };
     },
     resetError(state) {
         state.error = null;

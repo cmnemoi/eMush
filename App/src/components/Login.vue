@@ -8,6 +8,7 @@
             <label for="passphrase" class="passphrase">Passphrase:</label>
             <input
                 id="passphrase"
+                ref="passphrase_input"
                 v-model="passphrase"
                 type="text"
                 @keyup.enter="submitPassphrase"
@@ -52,8 +53,10 @@ export default {
             }
             this.closePopup();
         },
-        openPopup() {
+        async openPopup() {
             this.isPassphrasePopupOpen = true;
+            await this.$nextTick;
+            this.$refs.passphrase_input.focus();
         },
         closePopup() {
             this.isPassphrasePopupOpen = false;

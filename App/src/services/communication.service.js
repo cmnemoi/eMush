@@ -1,6 +1,7 @@
 import ApiService from "@/services/api.service";
 import { Channel } from "@/entities/Channel";
 import { Message } from "@/entities/Message";
+import { ROOM_LOG, TIPS } from '@/enums/communication.enum';
 
 const CHANNELS_ENDPOINT = process.env.VUE_APP_API_URL+'channel';
 
@@ -9,7 +10,10 @@ const CommunicationService = {
     loadChannels: async() => {
         const channelsData = await ApiService.get(CHANNELS_ENDPOINT);
 
-        let channels = [];
+        let channels = [
+            (new Channel()).load({ scope: TIPS, id: TIPS }),
+            (new Channel()).load({ scope: ROOM_LOG, id: ROOM_LOG })
+        ];
         if (channelsData.data) {
             channelsData.data.forEach((data) => {
                 channels.push((new Channel()).load(data));
@@ -21,7 +25,10 @@ const CommunicationService = {
     createPrivateChannel: async () => {
         const channelsData = await ApiService.post(CHANNELS_ENDPOINT);
 
-        let channels = [];
+        let channels = [
+            (new Channel()).load({ scope: TIPS, id: TIPS }),
+            (new Channel()).load({ scope: ROOM_LOG, id: ROOM_LOG })
+        ];
         if (channelsData.data) {
             channelsData.data.forEach((data) => {
                 channels.push((new Channel()).load(data));

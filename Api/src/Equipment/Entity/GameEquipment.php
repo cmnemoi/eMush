@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Mush\Equipment\Enum\EquipmentClassEnum;
 use Mush\Room\Entity\Room;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -71,9 +72,15 @@ class GameEquipment
         return $this->id;
     }
 
-    public function isPureEquipment(): bool
+    public function getClassName(): string
     {
-        return !($this instanceof GameItem) && !($this instanceof Door);
+        if ($this instanceof GameItem) {
+            return EquipmentClassEnum::DOOR;
+        } elseif ($this instanceof Door) {
+            return EquipmentClassEnum::GAME_ITEM;
+        } else {
+            return EquipmentClassEnum::GAME_EQUIPMENT;
+        }
     }
 
     public function getActions(): Collection

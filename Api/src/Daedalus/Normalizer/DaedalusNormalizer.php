@@ -6,6 +6,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Enum\AlertEnum;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\EquipmentClassEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\GameConfigServiceInterface;
@@ -63,7 +64,12 @@ class DaedalusNormalizer implements ContextAwareNormalizerInterface
     {
         $minimap = [];
         foreach ($daedalus->getRoom() as $room) {
-            $minimap[$room->getName()] = ['players' => $room->getPlayers()->count()];
+            $minimap[] = [
+                'key' => $room->getName(),
+                'name' => $this->translator->trans($room->getName() . '.name', [], 'rooms'),
+                'players' => $room->getPlayers()->count(),
+                'fire' => $room->getStatusByName(StatusEnum::FIRE) !== null,
+            ];
 
             //@TODO add project fire detector, anomaly detector doors detectors and actopi protocol
         }
@@ -73,6 +79,9 @@ class DaedalusNormalizer implements ContextAwareNormalizerInterface
 
     public function getAlerts(Daedalus $daedalus): array
     {
+        $oxygenAlert = 8;
+        $hullAlert = 33;
+
         $alerts = [];
 
         $numberAlert = array_filter($this->countAlert($daedalus), function (int $value) {return $value > 0; });
@@ -82,11 +91,11 @@ class DaedalusNormalizer implements ContextAwareNormalizerInterface
             $alerts[] = $alert;
         }
 
-        if ($daedalus->getOxygen() < 8) {
+        if ($daedalus->getOxygen() < $oxygenAlert) {
             $alert = $this->translateAlert(AlertEnum::LOW_OXYGEN);
             $alerts[] = $alert;
         }
-        if ($daedalus->getHull() <= 33) {
+        if ($daedalus->getHull() <= $hullAlert) {
             $alert = $this->translateAlert(AlertEnum::LOW_HULL, $daedalus->getHull());
             $alerts[] = $alert;
         }
@@ -107,7 +116,9 @@ class DaedalusNormalizer implements ContextAwareNormalizerInterface
             $brokenDoors = $brokenDoors + $room->getEquipment()
                 ->filter(fn (GameEquipment $equipment) => $equipment instanceof Door && $equipment->isBroken())->count();
             $brokenEquipments = $brokenEquipments + $room->getEquipment()
-                ->filter(fn (GameEquipment $equipment) => $equipment->isPureEquipment() && $equipment->isBroken())->count();
+                ->filter(fn (GameEquipment $equipment) => $equipment->getClassName() === EquipmentClassEnum::GAME_EQUIPMENT &&
+                        $equipment->isBroken()
+                    )->count();
         }
 
         return [AlertEnum::NUMBER_FIRE => $fire, AlertEnum::BROKEN_DOORS => $brokenDoors, AlertEnum::BROKEN_EQUIPMENTS => $brokenEquipments];

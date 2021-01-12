@@ -36,7 +36,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
     public const HEAL_ULTRA = 'heal.ultra';
     public const WRITE_DEFAULT = 'write.default';
     public const GAG_DEFAULT = 'gag.default';
-    public const HYPERFREEZ_DEFAULT = 'hyperfreez.default';
+    public const HYPERFREEZE_DEFAULT = 'hyperfreez.default';
     public const SHOWER_DEFAULT = 'shower.default';
     public const FUEL_INJECT = 'fuel.inject';
     public const FUEL_RETRIEVE = 'fuel.retrieve';
@@ -180,7 +180,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $extinguishAction = new Action();
         $extinguishAction
             ->setName(ActionEnum::EXTINGUISH)
-            ->setScope(ActionScopeEnum::SELF)
+            ->setScope(ActionScopeEnum::CURRENT)
             ->setSuccessRate(50)
             ->setInjuryRate(10)
             ->setDirtyRate(0)
@@ -449,7 +449,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::HEAL_SELF, $selfHealAction);
         $this->addReference(self::HEAL_ULTRA, $ultraHealAction);
         $this->addReference(self::WRITE_DEFAULT, $writeAction);
-        $this->addReference(self::HYPERFREEZ_DEFAULT, $hyperfreezAction);
+        $this->addReference(self::HYPERFREEZE_DEFAULT, $hyperfreezAction);
         $this->addReference(self::GAG_DEFAULT, $gagAction);
         $this->addReference(self::SHOWER_DEFAULT, $showerAction);
         $this->addReference(self::FUEL_INJECT, $fuelInjectAction);

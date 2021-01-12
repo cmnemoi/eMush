@@ -57,10 +57,12 @@ class DaedalusNormalizer implements ContextAwareNormalizerInterface
                 'humanPlayerDead' => $daedalus->getPlayers()->getHumanPlayer()->getPlayerDead()->count(),
                 'mushPlayerAlive' => $daedalus->getPlayers()->getMushPlayer()->getPlayerAlive()->count(),
                 'mushPlayerDead' => $daedalus->getPlayers()->getMushPlayer()->getPlayerDead()->count(),
+                'alerts' => $this->getAlerts($daedalus),
+                'minimap' => $this->getMinimap($daedalus),
             ];
     }
 
-    public function minimap($daedalus): array
+    public function getMinimap($daedalus): array
     {
         $minimap = [];
         foreach ($daedalus->getRoom() as $room) {
@@ -87,17 +89,18 @@ class DaedalusNormalizer implements ContextAwareNormalizerInterface
         $numberAlert = array_filter($this->countAlert($daedalus), function (int $value) {return $value > 0; });
 
         foreach ($numberAlert as $key => $number) {
-            $alert = $this->translateAlert($key, $number);
-            $alerts[] = $alert;
+            $alerts[] = $this->translateAlert($key, $number);
         }
 
         if ($daedalus->getOxygen() < $oxygenAlert) {
-            $alert = $this->translateAlert(AlertEnum::LOW_OXYGEN);
-            $alerts[] = $alert;
+            $alerts[] = $this->translateAlert(AlertEnum::LOW_OXYGEN);
         }
         if ($daedalus->getHull() <= $hullAlert) {
-            $alert = $this->translateAlert(AlertEnum::LOW_HULL, $daedalus->getHull());
-            $alerts[] = $alert;
+            $alerts[] = $this->translateAlert(AlertEnum::LOW_HULL, $daedalus->getHull());
+        }
+
+        if (count($alerts)===0){
+            $alerts[] = $this->translateAlert(AlertEnum::NO_ALERT);
         }
 
         return $alerts;

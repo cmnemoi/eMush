@@ -283,6 +283,16 @@ class Daedalus
     /**
      * @return static
      */
+    public function addHull(int $change): Daedalus
+    {
+        $this->hull += $change;
+
+        return $this;
+    }
+
+    /**
+     * @return static
+     */
     public function setHull(int $hull): Daedalus
     {
         $this->hull = $hull;

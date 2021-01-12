@@ -6,7 +6,7 @@ const PLANT_DRIED_OUT= "plant_dried_out";
 const PLANT_DISEASED = "plant_diseased";
 const CHARGE = "charges";
 const BROKEN = "broken";
-const FROZEN = "broken";
+const FROZEN = "frozen";
 
 
 export const statusItemEnum = {

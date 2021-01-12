@@ -3,6 +3,7 @@
 namespace Mush\Equipment\Event;
 
 use Error;
+use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
@@ -74,18 +75,24 @@ class EquipmentSubscriber implements EventSubscriberInterface
 
         $this->statusService->createCoreEquipmentStatus(EquipmentStatusEnum::BROKEN, $equipment);
 
-        $room = $equipment->getCurrentRoom();
-
-        $this->roomLogService->createEquipmentLog(
-            LogEnum::EQUIPMENT_BROKEN,
-            $room,
-            null,
-            $equipment,
-            $event->getVisibility(),
-            $event->getTime()
-        );
-
         $this->gameEquipmentService->persist($equipment);
+
+        if ($equipment instanceof Door) {
+            $rooms = $equipment->getRooms()->toArray();
+        } else {
+            $rooms = [$equipment->getCurrentRoom()];
+        }
+
+        foreach ($rooms as $room) {
+            $this->roomLogService->createEquipmentLog(
+                LogEnum::EQUIPMENT_BROKEN,
+                $room,
+                null,
+                $equipment,
+                $event->getVisibility(),
+                $event->getTime()
+            );
+        }
     }
 
     public function onEquipmentDestroyed(EquipmentEvent $event): void

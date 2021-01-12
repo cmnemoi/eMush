@@ -21,7 +21,7 @@ external_uri = "http://localhost:50320"
 # This section is always required, even if it will be ignored when using the `in-memory` API.
 [db]
 # Database service host
-host = "localhost"
+host = "mush_database"
 # Database service port
 port = 5432
 # Database name

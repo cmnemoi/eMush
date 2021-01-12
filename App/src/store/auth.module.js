@@ -1,16 +1,12 @@
-import { UserService, AuthenticationError } from '../services/user.service';
+import { UserService } from '../services/user.service';
 import { TokenService } from '../services/storage.service';
 import ApiService from "@/services/api.service";
 
 
 const state =  {
-    authenticating: false,
     userInfo: TokenService.getUserInfo(),
-    userInfoError: '',
-    userInfoErrorCode: 0,
     accessToken: TokenService.getToken(),
-    authenticationErrorCode: 0,
-    authenticationError: ''
+    refreshTokenPromise: null
 };
 
 const getters = {
@@ -18,28 +14,8 @@ const getters = {
         return state.accessToken ? true : false;
     },
 
-    authenticationErrorCode: (state) => {
-        return state.authenticationErrorCode;
-    },
-
-    authenticationError: (state) => {
-        return state.authenticationError;
-    },
-
     getUserInfo: (state) => {
         return state.userInfo;
-    },
-
-    userInfoErrorCode: (state) => {
-        return state.userInfoErrorCode;
-    },
-
-    userInfoError: (state) => {
-        return state.userInfoError;
-    },
-
-    authenticating: (state) => {
-        return state.authenticating;
     }
 };
 
@@ -48,32 +24,24 @@ const actions = {
         TokenService.saveToken(token);
         ApiService.setHeader();
 
-        ApiService.mount401Interceptor();
-
         await UserService.userInfo();
 
-        commit('loginSuccess', token);
+        commit('setToken', token);
     },
 
     redirect({ commit }, { passphrase }) {
-        commit('loginRedirect');
+        commit('resetUserInfo');
         UserService.redirect(passphrase);
     },
 
     async login({ commit }, { code }) {
-        commit('loginRequest');
-
         try {
             const token = await UserService.login(code);
-            commit('loginSuccess', token);
+            commit('setToken', token);
             await this.dispatch('auth/userInfo');
 
             return true;
         } catch (e) {
-            if (e instanceof AuthenticationError) {
-                commit('loginError', { errorCode: e.errorCode, errorMessage: e.message });
-            }
-
             return false;
         }
     },
@@ -81,37 +49,31 @@ const actions = {
     refreshToken({ commit, state }) {
         // If this is the first time the refreshToken has been called, make a request
         // otherwise return the same promise to the caller
-        if(!state.refreshTokenPromise) {
-            let p = UserService.refreshToken();
-            commit('refreshTokenPromise', p);
+        if(! state.refreshTokenPromise) {
+            const promise = UserService.refreshToken();
+            commit('setRefreshTokenPromise', promise);
             // Wait for the UserService.refreshToken() to resolve. On success set the token and clear promise
             // Clear the promise on error as well.
-            p.then(
+            promise.then(
                 response => {
-                    commit('refreshTokenPromise', null);
-                    commit('loginSuccess', response);
+                    commit('setRefreshTokenPromise', null);
+                    commit('setToken', response);
                 },
                 () => {
-                    commit('refreshTokenPromise', null);
+                    commit('setRefreshTokenPromise', null);
                 }
             );
         }
-        return state.refreshTokenPromise;
     },
 
     async userInfo({ commit, state }) {
-        if(state.accessToken) {
-            commit('userInfoRequest');
+        if (state.accessToken) {
+            commit('resetUserInfo');
             try {
                 let userInfo = await UserService.userInfo();
-                commit('userInfoSuccess', userInfo);
-
+                commit('setUserInfo', userInfo);
                 return userInfo;
             } catch (e) {
-                if (e instanceof AuthenticationError) {
-                    commit('userInfoError', { errorCode: e.errorCode, errorMessage: e.message });
-                }
-
                 return null;
             }
         }
@@ -120,49 +82,28 @@ const actions = {
 
     logout({ commit }) {
         UserService.logout();
-        commit('logoutSuccess');
+        commit('resetToken');
     }
 };
 
 const mutations = {
-    loginRedirect(state) {
-        state.userInfo = null;
-    },
-    userInfoRequest(state) {
+    resetUserInfo(state) {
         state.userInfo = null;
     },
 
-    userInfoSuccess(state, userInfo) {
+    setUserInfo(state, userInfo) {
         state.userInfo = userInfo;
     },
 
-    userInfoError(state, { errorCode, errorMessage }) {
-        state.userInfoErrorCode = errorCode;
-        state.userInfoError = errorMessage;
-    },
-
-    loginRequest(state) {
-        state.authenticating = true;
-        state.authenticationError = '';
-        state.authenticationErrorCode = 0;
-    },
-
-    loginSuccess(state, accessToken) {
+    setToken(state, accessToken) {
         state.accessToken = accessToken;
-        state.authenticating = false;
     },
 
-    loginError(state, { errorCode, errorMessage }) {
-        state.authenticating = false;
-        state.authenticationErrorCode = errorCode;
-        state.authenticationError = errorMessage;
+    resetToken(state) {
+        state.accessToken = "";
     },
 
-    logoutSuccess(state) {
-        state.accessToken = '';
-    },
-
-    refreshTokenPromise(state, promise) {
+    setRefreshTokenPromise(state, promise) {
         state.refreshTokenPromise = promise;
     }
 };

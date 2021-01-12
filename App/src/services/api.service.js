@@ -4,7 +4,7 @@ import store from '../store';
 
 const ApiService = {
 
-    _401interceptor: null,
+    _errorInterceptor: null,
 
     init(baseURL) {
         axios.defaults.baseURL = baseURL;
@@ -34,8 +34,8 @@ const ApiService = {
         return axios.delete(resource);
     },
 
-    mount401Interceptor() {
-        this._401interceptor = axios.interceptors.response.use(
+    mountErrorInterceptor() {
+        this._errorInterceptor = axios.interceptors.response.use(
             (response) => {
                 return response;
             },
@@ -62,16 +62,18 @@ const ApiService = {
                     //         throw error
                     //     }
                     // }
+                } else {
+                    // If error was not 401, inform user with a pop-up before rejecting
+                    await store.dispatch('error/setError', error);
+                    throw error;
                 }
-                // If error was not 401 just reject as is
-                throw error;
             }
         );
     },
 
-    unmount401Interceptor() {
+    unmountErrorInterceptor() {
         // Eject the interceptor
-        axios.interceptors.response.eject(this._401interceptor);
+        axios.interceptors.response.eject(this._errorInterceptor);
     },
 
     /**

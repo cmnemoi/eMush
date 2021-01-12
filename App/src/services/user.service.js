@@ -34,8 +34,6 @@ const UserService = {
             TokenService.saveToken(response.data.token);
             ApiService.setHeader();
 
-            ApiService.mount401Interceptor();
-
             return response.data.token;
         } catch (error) {
             console.error(error);
@@ -103,9 +101,6 @@ const UserService = {
         TokenService.removeRefreshToken();
         TokenService.removeUserInfo();
         ApiService.removeHeader();
-
-        // NOTE: Again, we'll cover the 401 Interceptor a bit later.
-        ApiService.unmount401Interceptor();
     }
 };
 

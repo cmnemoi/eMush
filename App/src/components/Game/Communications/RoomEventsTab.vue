@@ -25,10 +25,10 @@ export default {
     },
     computed: {
         ...mapGetters('communication', [
-            'currentChannel'
+            'messages'
         ]),
         roomLogs() {
-            return this.currentChannel.messages;
+            return this.messages;
         }
     },
     beforeMount() {

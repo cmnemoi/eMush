@@ -3,7 +3,6 @@ export class Channel {
         this.id = null;
         this.scope = null;
         this.participants = [];
-        this.messages = [];
     }
 
     load = function(object) {

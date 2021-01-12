@@ -6,7 +6,7 @@ const state =  {
     loading: false,
     currentChannel: null,
     channels: [],
-    messages: []
+    messagesByChannelId: {}
 };
 
 const getters = {
@@ -16,6 +16,9 @@ const getters = {
         }
 
         return state.currentChannel;
+    },
+    messages(state) {
+        return state.messagesByChannelId[state.currentChannel.id] || [];
     }
 };
 
@@ -43,7 +46,7 @@ const actions = {
 
         try {
             const messages = await CommunicationService.loadMessages(channel);
-            commit('setCurrentChannelMessages', messages);
+            commit('setChannelMessages', { channel, messages });
             commit('setLoading', false);
             return true;
         } catch (e) {
@@ -57,7 +60,7 @@ const actions = {
 
         try {
             const messages = await CommunicationService.sendMessage(channel, text, parent);
-            commit('setCurrentChannelMessages', messages);
+            commit('setChannelMessages', { channel, messages });
             commit('setLoading', false);
             return true;
         } catch (e) {
@@ -95,8 +98,8 @@ const mutations = {
         state.channels = channels;
     },
 
-    setCurrentChannelMessages(state, messages) {
-        state.currentChannel.messages = messages;
+    setChannelMessages(state, { channel, messages }) {
+        state.messagesByChannelId[channel.id] = messages;
     }
 };
 

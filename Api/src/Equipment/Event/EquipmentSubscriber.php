@@ -97,7 +97,6 @@ class EquipmentSubscriber implements EventSubscriberInterface
 
         $this->gameEquipmentService->delete($equipment);
 
-
         $this->roomLogService->createEquipmentLog(
             LogEnum::EQUIPMENT_DESTROYED,
             $room,

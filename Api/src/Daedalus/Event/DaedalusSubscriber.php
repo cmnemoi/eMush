@@ -62,6 +62,7 @@ class DaedalusSubscriber implements EventSubscriberInterface
 
         $daedalus->setFinishedAt(new \DateTime());
         $daedalus->setGameStatus(GameStatusEnum::FINISHED);
+        $this->daedalusService->persist($daedalus);
     }
 
     public function onDaedalusFull(DaedalusEvent $event): void
@@ -76,5 +77,6 @@ class DaedalusSubscriber implements EventSubscriberInterface
 
         $daedalus->setFilledAt(new \DateTime());
         $daedalus->setGameStatus(GameStatusEnum::CURRENT);
+        $this->daedalusService->persist($daedalus);
     }
 }

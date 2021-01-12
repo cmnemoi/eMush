@@ -182,7 +182,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($chargedMechanic);
 
         /** @var Action $hyperfreezAction */
-        $hyperfreezAction = $this->getReference(ActionsFixtures::HYPERFREEZ_DEFAULT);
+        $hyperfreezAction = $this->getReference(ActionsFixtures::HYPERFREEZE_DEFAULT);
 
         $superFreezerMechanic = new Tool();
         $superFreezerMechanic->addAction($hyperfreezAction);
@@ -199,6 +199,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setBreakableRate(25)
             ->setMechanics(new ArrayCollection([$superFreezerMechanic]))
             ->setActions($microwaveActions)
+            ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 2])
         ;
 
         $manager->persist($superFreezer);

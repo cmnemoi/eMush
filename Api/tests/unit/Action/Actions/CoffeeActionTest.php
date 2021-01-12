@@ -134,6 +134,7 @@ class CoffeeActionTest extends AbstractActionTest
         ;
 
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->andReturn($gameCoffee)->once();
+        $this->gameEquipmentService->shouldReceive('isOperational')->andReturn(true)->once();
         $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $eventDispatcher->shouldReceive('dispatch');
         $this->gameEquipmentService->shouldReceive('persist');

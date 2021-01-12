@@ -92,11 +92,10 @@ class EquipmentSubscriber implements EventSubscriberInterface
     {
         $equipment = $event->getEquipment();
 
+        $room = $equipment->getCurrentRoom();
         $equipment->removeLocation();
 
         $this->gameEquipmentService->delete($equipment);
-
-        $room = $equipment->getCurrentRoom();
 
         $this->roomLogService->createEquipmentLog(
             LogEnum::EQUIPMENT_DESTROYED,

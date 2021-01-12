@@ -59,7 +59,8 @@ class Coffee extends AbstractAction
     public function canExecute(): bool
     {
         return $this->gameEquipment->getActions()->contains($this->action) &&
-            $this->player->canReachEquipment($this->gameEquipment)
+            $this->player->canReachEquipment($this->gameEquipment) &&
+            $this->gameEquipmentService->isOperational($this->gameEquipment)
             ;
     }
 

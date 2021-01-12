@@ -9,6 +9,8 @@ const MUSH = "mush";
 const PACIFIST = "pacifist";
 const DEMORALIZED = "demoralized";
 const SUICIDAL = "suicidal";
+const SPORES = "spores";
+const ANTISOCIAL = "antisocial";
 
 
 export const statusPlayerEnum = {
@@ -44,5 +46,11 @@ export const statusPlayerEnum = {
     },
     [SUICIDAL]: {
         'icon': require('@/assets/images/status/suicidal.png')
+    },
+    [SPORES]: {
+        'icon': require('@/assets/images/status/spore.png')
+    },
+    [ANTISOCIAL]: {
+        'icon': require('@/assets/images/status/unsociable.png')
     }
 };

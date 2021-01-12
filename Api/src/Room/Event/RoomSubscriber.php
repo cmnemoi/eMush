@@ -74,8 +74,9 @@ class RoomSubscriber implements EventSubscriberInterface
             $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
         }
 
+        //@TODO add the log in case gravity is broken
         $this->roomLogService->createRoomLog(
-            LogEnum::TREMOR,
+            LogEnum::TREMOR_GRAVITY,
             $room,
             VisibilityEnum::PUBLIC,
             $event->getTime()

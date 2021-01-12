@@ -1,5 +1,4 @@
 import PlayerService from "@/services/player.service";
-import { AuthenticationError } from "@/services/user.service";
 
 
 const state =  {
@@ -21,10 +20,10 @@ const getters = {
 };
 
 const actions = {
-    async selectTarget({ commit }, { target }) {
+    selectTarget({ commit }, { target }) {
         commit('setTarget', target);
     },
-    async storePlayer({ commit }, { player }) {
+    storePlayer({ commit }, { player }) {
         commit('updatePlayer', player);
     },
     async loadPlayer({ commit }, { playerId }) {
@@ -35,17 +34,13 @@ const actions = {
 
             return true;
         } catch (e) {
-            if (e instanceof AuthenticationError) {
-                commit('setError', { errorCode: e.errorCode, errorMessage: e.message });
-            }
-
             return false;
         }
     },
     async reloadPlayer({ state, dispatch }) {
         return dispatch("loadPlayer", { playerId: state.player.id });
     },
-    async setLoading({ commit }) {
+    setLoading({ commit }) {
         commit('setLoading', true);
     }
 };
@@ -61,10 +56,6 @@ const mutations = {
         state.target = player;
         state.player = player;
         state.loading = false;
-    },
-    setError(state, { errorCode, errorMessage }) {
-        state.playerErrorCode = errorCode;
-        state.playerError = errorMessage;
     }
 };
 

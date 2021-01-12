@@ -4,12 +4,12 @@
             v-for="(item) in items"
             :key="item.id"
             class="slot"
-            @click="$emit('select',item)"
+            @click="$emit('select', item)"
         >
             <img :src="itemImage(item)" :alt="item.name">
             <span class="qty">{{ item.number }}</span>
         </li>
-        <li v-for="n in emptySlots" :key="n" class="empty" />
+        <li v-for="n in emptySlots" :key="n" class="slot empty" />
     </ul>
 </template>
 
@@ -22,6 +22,9 @@ export default {
         items: Array,
         minSlot: Number
     },
+    emits: [
+        'select'
+    ],
     computed: {
         emptySlots: function () {
             const emptySlots = (this.minSlot - this.items.length);
@@ -37,11 +40,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.inventory ul {
+.inventory {
     display: flex;
     flex-direction: row;
 
-    li {
+    .slot {
         @include inventory-slot();
     }
 }

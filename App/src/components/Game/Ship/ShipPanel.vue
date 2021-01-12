@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import RoomInventoryPanel from "@/components/Game/RoomInventoryPanel";
+import RoomInventoryPanel from "@/components/Game/Ship/RoomInventoryPanel";
 import ActionButton from "@/components/Utils/ActionButton";
 import { Room } from "@/entities/Room";
 import ActionService from "@/services/action.service";

@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Mush\Equipment\Enum\EquipmentClassEnum;
 use Mush\Room\Entity\Room;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -69,6 +70,17 @@ class GameEquipment
     public function getId(): int
     {
         return $this->id;
+    }
+
+    public function getClassName(): string
+    {
+        if ($this instanceof GameItem) {
+            return EquipmentClassEnum::DOOR;
+        } elseif ($this instanceof Door) {
+            return EquipmentClassEnum::GAME_ITEM;
+        } else {
+            return EquipmentClassEnum::GAME_EQUIPMENT;
+        }
     }
 
     public function getActions(): Collection

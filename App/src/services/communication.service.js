@@ -25,18 +25,8 @@ const CommunicationService = {
     },
 
     createPrivateChannel: async () => {
-        const channelsData = await ApiService.post(CHANNELS_ENDPOINT);
-
-        let channels = [
-            (new Channel()).load({ scope: TIPS, id: TIPS }),
-            (new Channel()).load({ scope: ROOM_LOG, id: ROOM_LOG })
-        ];
-        if (channelsData.data) {
-            channelsData.data.forEach((data) => {
-                channels.push((new Channel()).load(data));
-            });
-        }
-        return channels;
+        const response = await ApiService.post(CHANNELS_ENDPOINT);
+        return (new Channel()).load(response.data);
     },
 
     loadMessages: async (channel) => {

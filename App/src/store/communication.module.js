@@ -67,8 +67,8 @@ const actions = {
         commit('setLoading', true);
 
         try {
-            const channels = await CommunicationService.createPrivateChannel();
-            commit('setChannels', channels);
+            const newChannel = await CommunicationService.createPrivateChannel();
+            commit('addChannel', newChannel);
             commit('setLoading', false);
 
             return true;
@@ -90,6 +90,10 @@ const mutations = {
 
     setChannels(state, channels) {
         state.channels = channels;
+    },
+
+    addChannel(state, channel) {
+        state.channels.push(channel);
     },
 
     setChannelMessages(state, { channel, messages }) {

@@ -150,5 +150,14 @@ class Consume extends AbstractAction
             $playerEvent->setModifier($modifier);
             $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
         }
+        if ($consumableEffect->getSatiety() !== 0) {
+            $modifier
+                ->setDelta($consumableEffect->getSatiety())
+                ->setTarget(ModifierTargetEnum::SATIETY)
+            ;
+            $playerEvent = new PlayerEvent($this->player);
+            $playerEvent->setModifier($modifier);
+            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
+        }
     }
 }

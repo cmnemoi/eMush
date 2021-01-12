@@ -60,9 +60,7 @@ export default {
     },
     computed: {
         ...mapState('communication', [
-            'channels'
-        ]),
-        ...mapGetters('communication', [
+            'channels',
             'currentChannel'
         ]),
         ...mapGetters('player', [

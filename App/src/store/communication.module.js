@@ -1,22 +1,16 @@
 import CommunicationService from "@/services/communication.service";
 import { Channel } from "@/entities/Channel";
+import { ROOM_LOG } from '@/enums/communication.enum';
 
 
 const state =  {
     loading: false,
-    currentChannel: null,
+    currentChannel: new Channel(),
     channels: [],
     messagesByChannelId: {}
 };
 
 const getters = {
-    currentChannel: (state) => {
-        if (state.currentChannel === null) {
-            state.currentChannel = (new Channel()).decode(localStorage.getItem('currentChannel'));
-        }
-
-        return state.currentChannel;
-    },
     messages(state) {
         return state.messagesByChannelId[state.currentChannel.id] || [];
     }
@@ -24,7 +18,6 @@ const getters = {
 
 const actions = {
     async changeChannel({ commit }, { channel }) {
-        localStorage.setItem('currentChannel', channel.jsonEncode());
         commit('setCurrentChannel', channel);
     },
     async loadChannels({ commit }) {
@@ -33,6 +26,7 @@ const actions = {
         try {
             const channels = await CommunicationService.loadChannels();
             commit('setChannels', channels);
+            commit('setCurrentChannel', channels.find(({ scope }) => scope === ROOM_LOG));
             commit('setLoading', false);
             return true;
         } catch (e) {

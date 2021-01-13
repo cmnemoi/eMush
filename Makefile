@@ -39,7 +39,7 @@ install-eternal-twin: reset-eternal-twin-database
 	docker exec -i eternal_twin yarn install
 
 install-api:
-	docker start mush_php &&\
+	docker start mush_php mush_database &&\
 	docker exec -i mush_php composer install &&\
 	docker exec -i mush_php ./reset.sh
 

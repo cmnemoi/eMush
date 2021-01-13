@@ -29,12 +29,12 @@ build:
 	docker-compose -f docker/docker-compose.yml build
 	docker-compose -f docker/docker-compose.yml up --no-start
 
-install: build install-api
+install: build install-api reset-eternal-twin-database
 	docker-compose -f docker/docker-compose.yml run -u node mush_front yarn install
 	docker-compose -f docker/docker-compose.yml run -u node eternal_twin yarn install
 
 remove-all: #Warning, it will remove EVERY container, images, volumes and network not only emushs ones
-	docker system prune --volumes
+	docker system prune --volumes -a
 
 install-eternal-twin: reset-eternal-twin-database
 	docker start eternal_twin

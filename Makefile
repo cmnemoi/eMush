@@ -29,7 +29,9 @@ build:
 	docker-compose -f docker/docker-compose.yml build
 	docker-compose -f docker/docker-compose.yml up --no-start
 
-install: build reset-dependencies
+install: build install-api
+	docker-compose -f docker/docker-compose.yml run -u node mush_front yarn install
+	docker-compose -f docker/docker-compose.yml run -u node eternal_twin yarn install
 
 remove-all: #Warning, it will remove EVERY container, images, volumes and network not only emushs ones
 	docker system prune --volumes

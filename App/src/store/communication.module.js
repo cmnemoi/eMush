@@ -11,22 +11,12 @@ const state =  {
 };
 
 const getters = {
-    getCurrentChannel: (state) => {
+    currentChannel: (state) => {
         if (state.currentChannel === null) {
             state.currentChannel = (new Channel()).decode(localStorage.getItem('currentChannel'));
         }
 
         return state.currentChannel;
-
-    },
-    getChannels: (state) => {
-        return state.channels;
-    },
-    getMessages: (state) => {
-        return state.messages;
-    },
-    loading: (state) => {
-        return state.loading;
     }
 };
 

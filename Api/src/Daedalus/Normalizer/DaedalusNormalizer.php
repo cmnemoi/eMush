@@ -57,15 +57,16 @@ class DaedalusNormalizer implements ContextAwareNormalizerInterface
                 'humanPlayerDead' => $daedalus->getPlayers()->getHumanPlayer()->getPlayerDead()->count(),
                 'mushPlayerAlive' => $daedalus->getPlayers()->getMushPlayer()->getPlayerAlive()->count(),
                 'mushPlayerDead' => $daedalus->getPlayers()->getMushPlayer()->getPlayerDead()->count(),
+                'alerts' => $this->getAlerts($daedalus),
+                'minimap' => $this->getMinimap($daedalus),
             ];
     }
 
-    public function minimap($daedalus): array
+    public function getMinimap($daedalus): array
     {
         $minimap = [];
-        foreach ($daedalus->getRoom() as $room) {
-            $minimap[] = [
-                'key' => $room->getName(),
+        foreach ($daedalus->getRooms() as $room) {
+            $minimap[$room->getName()] = [
                 'name' => $this->translator->trans($room->getName() . '.name', [], 'rooms'),
                 'players' => $room->getPlayers()->count(),
                 'fire' => $room->getStatusByName(StatusEnum::FIRE) !== null,
@@ -77,6 +78,7 @@ class DaedalusNormalizer implements ContextAwareNormalizerInterface
         return $minimap;
     }
 
+    //@FIXME move this to a more appropriate place
     public function getAlerts(Daedalus $daedalus): array
     {
         $oxygenAlert = 8;
@@ -87,17 +89,18 @@ class DaedalusNormalizer implements ContextAwareNormalizerInterface
         $numberAlert = array_filter($this->countAlert($daedalus), function (int $value) {return $value > 0; });
 
         foreach ($numberAlert as $key => $number) {
-            $alert = $this->translateAlert($key, $number);
-            $alerts[] = $alert;
+            $alerts[$key] = $this->translateAlert($key, $number);
         }
 
         if ($daedalus->getOxygen() < $oxygenAlert) {
-            $alert = $this->translateAlert(AlertEnum::LOW_OXYGEN);
-            $alerts[] = $alert;
+            $alerts[AlertEnum::LOW_OXYGEN] = $this->translateAlert(AlertEnum::LOW_OXYGEN);
         }
         if ($daedalus->getHull() <= $hullAlert) {
-            $alert = $this->translateAlert(AlertEnum::LOW_HULL, $daedalus->getHull());
-            $alerts[] = $alert;
+            $alerts[AlertEnum::LOW_HULL] = $this->translateAlert(AlertEnum::LOW_HULL, $daedalus->getHull());
+        }
+
+        if (count($alerts) === 0) {
+            $alerts[AlertEnum::NO_ALERT] = $this->translateAlert(AlertEnum::NO_ALERT);
         }
 
         return $alerts;
@@ -113,9 +116,9 @@ class DaedalusNormalizer implements ContextAwareNormalizerInterface
             if ($room->getStatusByName(StatusEnum::FIRE)) {
                 $fire = $fire + 1;
             }
-            $brokenDoors = $brokenDoors + $room->getEquipment()
+            $brokenDoors = $brokenDoors + $room->getEquipments()
                 ->filter(fn (GameEquipment $equipment) => $equipment instanceof Door && $equipment->isBroken())->count();
-            $brokenEquipments = $brokenEquipments + $room->getEquipment()
+            $brokenEquipments = $brokenEquipments + $room->getEquipments()
                 ->filter(fn (GameEquipment $equipment) => $equipment->getClassName() === EquipmentClassEnum::GAME_EQUIPMENT &&
                         $equipment->isBroken()
                     )->count();
@@ -133,13 +136,11 @@ class DaedalusNormalizer implements ContextAwareNormalizerInterface
                 $plural = '.single';
             }
             $alert = [
-                'key' => $key,
                 'name' => $this->translator->trans($key . '.name' . $plural, ['quantity' => $quantity], 'alerts'),
                 'description' => $this->translator->trans($key . '.description', [], 'alerts'),
             ];
         } else {
             $alert = [
-                'key' => $key,
                 'name' => $this->translator->trans($key . '.name', [], 'alerts'),
                 'description' => $this->translator->trans($key . '.description', [], 'alerts'),
             ];

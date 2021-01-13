@@ -151,6 +151,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $gioele
             ->setGameConfig($gameConfig)
             ->setName(CharacterEnum::GIOELE)
+            ->setActions($defaultActions)
             ->setStatuses([])
             ->setSkills([
                 SkillEnum::ASTROPHYSICIST,

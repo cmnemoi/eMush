@@ -39,7 +39,7 @@ class EquipmentEvent extends Event
         return $this->player;
     }
 
-    public function setPlayer($player): EquipmentEvent
+    public function setPlayer(Player $player): EquipmentEvent
     {
         $this->player = $player;
 

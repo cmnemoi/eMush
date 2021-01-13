@@ -51,36 +51,26 @@ cp ./EternalTwin/etwin.toml.example ./EternalTwin/etwin.toml
 Build the docker containers:
 ```
 make install
-Or 
-docker-compose -f docker/docker-compose.yml build
-docker-compose -f docker/docker-compose.yml run -u node mush_front yarn install && docker-compose -f docker/docker-compose.yml run -u dev mush_php composer install
 ```
+
 Start the docker container
 ```
 make docker-watch (make docker-start if you don't mind the compilation outputs)
 ```
+
 Go in the Api container:
 ```
 make bash-api
 ```
+
 Create the JWT certificates (https://github.com/lexik/LexikJWTAuthenticationBundle):
 ```
 $ mkdir -p config/jwt
 $ openssl genpkey -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096
 $ openssl pkey -in config/jwt/private.pem -out config/jwt/public.pem -pubout
+$ chmod go+r config/jwt/private.pem 
 ```
 Use mush as passphrase or update the .env with your passphrase
-
-Run the migrations (temporary just update the database)
-```
-#bin/console doctrine:migrations:migrate
-bin/console doctrine:schema:update --force
-```
-
-Add the fixtures
-```
-bin/console doctrine:fixtures:load
-```
 
 If everything went well you should be able to access: 
   - Swagger : http://localhost:8080/swagger/

@@ -20,7 +20,6 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
-use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Room\Entity\Room;
 
 class RetrieveOxygenTest extends AbstractActionTest
@@ -29,7 +28,6 @@ class RetrieveOxygenTest extends AbstractActionTest
     private GameEquipmentServiceInterface $gameEquipmentService;
     /** @var DaedalusServiceInterface | Mockery\Mock */
     private DaedalusServiceInterface $daedalusService;
-    private GameConfig $gameConfig;
 
     /**
      * @before
@@ -42,15 +40,11 @@ class RetrieveOxygenTest extends AbstractActionTest
 
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->daedalusService = Mockery::mock(DaedalusServiceInterface::class);
-        $gameConfigService = Mockery::mock(GameConfigServiceInterface::class);
-        $this->gameConfig = new GameConfig();
-        $gameConfigService->shouldReceive('getConfig')->andReturn($this->gameConfig)->once();
 
         $this->action = new RetrieveOxygen(
              $this->eventDispatcher,
              $this->gameEquipmentService,
              $this->daedalusService,
-             $gameConfigService
          );
     }
 
@@ -69,9 +63,11 @@ class RetrieveOxygenTest extends AbstractActionTest
 
         $player = $this->createPlayer($daedalus, $room);
 
+        $gameConfig = new GameConfig();
+        $gameConfig->setMaxOxygen(32);
+        $daedalus->setGameConfig($gameConfig);
+
         $daedalus->setOxygen(0);
-        $this->gameConfig->setMaxOxygen(32);
-        $this->gameConfig->setMaxItemInInventory(3);
 
         $action = new Action();
         $action->setName(ActionEnum::RETRIEVE_OXYGEN);
@@ -93,8 +89,10 @@ class RetrieveOxygenTest extends AbstractActionTest
         $this->gameEquipmentService->shouldReceive('isOperational')->andReturn(true)->once();
         $result = $this->action->execute();
 
+        $this->assertInstanceOf(Error::class, $result);
+
         //Inventory full
-        $this->gameConfig->setMaxItemInInventory(0);
+        $gameConfig->setMaxItemInInventory(0);
         $daedalus->setOxygen(10);
 
         $this->gameEquipmentService->shouldReceive('isOperational')->andReturn(true)->once();
@@ -121,9 +119,12 @@ class RetrieveOxygenTest extends AbstractActionTest
             ->setName(ItemEnum::OXYGEN_CAPSULE)
         ;
 
+        $gameConfig = new GameConfig();
+        $gameConfig->setMaxItemInInventory(3);
+        $gameConfig->setMaxOxygen(32);
+        $daedalus->setGameConfig($gameConfig);
+
         $daedalus->setOxygen(10);
-        $this->gameConfig->setMaxOxygen(32);
-        $this->gameConfig->setMaxItemInInventory(3);
 
         $action = new Action();
         $action->setName(ActionEnum::RETRIEVE_OXYGEN);

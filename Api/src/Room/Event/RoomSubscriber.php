@@ -5,8 +5,6 @@ namespace Mush\Room\Event;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Event\EquipmentEvent;
-use Mush\Game\Entity\DifficultyConfig;
-use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Modifier;
 use Mush\Player\Enum\EndCauseEnum;
@@ -29,7 +27,6 @@ class RoomSubscriber implements EventSubscriberInterface
     private StatusServiceInterface $statusService;
     private RandomServiceInterface $randomService;
     private RoomLogServiceInterface $roomLogService;
-    private DifficultyConfig $difficultyConfig;
     private EventDispatcherInterface $eventDispatcher;
 
     public function __construct(
@@ -37,15 +34,13 @@ class RoomSubscriber implements EventSubscriberInterface
         StatusServiceInterface $statusService,
         RandomServiceInterface $randomService,
         RoomLogServiceInterface $roomLogService,
-        EventDispatcherInterface $eventDispatcher,
-        GameConfigServiceInterface $gameConfigService)
-    {
+        EventDispatcherInterface $eventDispatcher
+    ) {
         $this->roomEventService = $roomEventService;
         $this->statusService = $statusService;
         $this->randomService = $randomService;
         $this->roomLogService = $roomLogService;
         $this->eventDispatcher = $eventDispatcher;
-        $this->difficultyConfig = $gameConfigService->getDifficultyConfig();
     }
 
     public static function getSubscribedEvents(): array
@@ -61,8 +56,9 @@ class RoomSubscriber implements EventSubscriberInterface
     public function onTremor(RoomEvent $event): void
     {
         $room = $event->getRoom();
+        $difficultyConfig = $room->getDaedalus()->getGameConfig()->getDifficultyConfig();
         foreach ($room->getPlayers() as $player) {
-            $damage = $this->randomService->getSingleRandomElementFromProbaArray($this->difficultyConfig->getTremorPlayerDamage());
+            $damage = $this->randomService->getSingleRandomElementFromProbaArray($difficultyConfig->getTremorPlayerDamage());
             $actionModifier = new Modifier();
             $actionModifier
                 ->setDelta(-$damage)
@@ -86,8 +82,9 @@ class RoomSubscriber implements EventSubscriberInterface
     public function onElectricArc(RoomEvent $event): void
     {
         $room = $event->getRoom();
+        $difficultyConfig = $room->getDaedalus()->getGameConfig()->getDifficultyConfig();
         foreach ($room->getPlayers() as $player) {
-            $damage = $this->randomService->getSingleRandomElementFromProbaArray($this->difficultyConfig->getElectricArcPlayerDamage());
+            $damage = $this->randomService->getSingleRandomElementFromProbaArray($difficultyConfig->getElectricArcPlayerDamage());
             $actionModifier = new Modifier();
             $actionModifier
                 ->setDelta(-$damage)

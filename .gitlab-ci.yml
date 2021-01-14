@@ -48,7 +48,7 @@
 api-test:
   <<: *php_with_db_template
   script:
-    - php vendor/bin/codecept run unit
+    - php vendor/bin/codecept run
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
 
@@ -63,7 +63,7 @@ api-test-develop:
   <<: *php_with_db_template
   script:
     - pecl install xdebug && docker-php-ext-enable xdebug
-    - XDEBUG_MODE=coverage php vendor/bin/codecept run unit --xml --html --coverage --coverage-html --no-colors
+    - XDEBUG_MODE=coverage php vendor/bin/codecept run --xml --html --coverage --coverage-html --no-colors
   coverage: '/^\s+Lines:\s+(\d+\.\d+)%/'
   artifacts:
     when: always

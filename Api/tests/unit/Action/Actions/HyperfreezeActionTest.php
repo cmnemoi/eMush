@@ -16,8 +16,6 @@ use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
 use Mush\Status\Service\StatusServiceInterface;
@@ -31,7 +29,6 @@ class HyperfreezeActionTest extends AbstractActionTest
     private PlayerServiceInterface $playerService;
     /** @var StatusServiceInterface | Mockery\Mock */
     private StatusServiceInterface $statusService;
-    private GameConfig $gameConfig;
 
     /**
      * @before
@@ -46,16 +43,11 @@ class HyperfreezeActionTest extends AbstractActionTest
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
 
-        $gameConfigService = Mockery::mock(GameConfigServiceInterface::class);
-        $this->gameConfig = new GameConfig();
-        $gameConfigService->shouldReceive('getConfig')->andReturn($this->gameConfig)->once();
-
         $this->action = new Hyperfreeze(
             $this->eventDispatcher,
             $this->gameEquipmentService,
             $this->playerService,
-            $this->statusService,
-            $gameConfigService,
+            $this->statusService
         );
     }
 
@@ -145,7 +137,6 @@ class HyperfreezeActionTest extends AbstractActionTest
             ->setRoom($room)
         ;
 
-        $this->gameConfig->setMaxItemInInventory(3);
         $actionParameter = new ActionParameters();
         $actionParameter->setItem($gameRation);
         $this->action->loadParameters($this->actionEntity, $player, $actionParameter);

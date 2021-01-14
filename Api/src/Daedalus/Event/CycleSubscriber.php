@@ -7,10 +7,8 @@ use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Entity\GameConfig;
 use Mush\Game\Event\CycleEvent;
 use Mush\Game\Event\DayEvent;
-use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Player\Enum\EndCauseEnum as EnumEndCauseEnum;
 use Mush\Room\Enum\RoomEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -21,18 +19,15 @@ class CycleSubscriber implements EventSubscriberInterface
     private DaedalusServiceInterface $daedalusService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private EventDispatcherInterface $eventDispatcher;
-    private GameConfig $gameConfig;
 
     public function __construct(
         DaedalusServiceInterface $daedalusService,
         GameEquipmentServiceInterface $gameEquipmentService,
-        EventDispatcherInterface $eventDispatcher,
-        GameConfigServiceInterface $gameConfigService
+        EventDispatcherInterface $eventDispatcher
     ) {
         $this->daedalusService = $daedalusService;
         $this->gameEquipmentService = $gameEquipmentService;
         $this->eventDispatcher = $eventDispatcher;
-        $this->gameConfig = $gameConfigService->getConfig();
     }
 
     public static function getSubscribedEvents(): array
@@ -114,7 +109,9 @@ class CycleSubscriber implements EventSubscriberInterface
     {
         $newDay = false;
 
-        if ($daedalus->getCycle() === ((24 / $this->gameConfig->getCycleLength()) + 1)) {
+        $gameConfig = $daedalus->getGameConfig();
+
+        if ($daedalus->getCycle() === ((24 / $gameConfig->getCycleLength()) + 1)) {
             $newDay = true;
             $daedalus->setCycle(1);
             $daedalus->setDay($daedalus->getDay() + 1);

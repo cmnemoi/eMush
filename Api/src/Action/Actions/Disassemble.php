@@ -11,8 +11,6 @@ use Mush\Action\Service\SuccessRateServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
@@ -30,7 +28,6 @@ class Disassemble extends AttemptAction
     private RoomLogServiceInterface $roomLogService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
-    private GameConfig $gameConfig;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
@@ -39,15 +36,13 @@ class Disassemble extends AttemptAction
         PlayerServiceInterface $playerService,
         RandomServiceInterface $randomService,
         SuccessRateServiceInterface $successRateService,
-        StatusServiceInterface $statusService,
-        GameConfigServiceInterface $gameConfigService
+        StatusServiceInterface $statusService
     ) {
         parent::__construct($randomService, $successRateService, $eventDispatcher, $statusService);
 
         $this->roomLogService = $roomLogService;
         $this->gameEquipmentService = $gameEquipmentService;
         $this->playerService = $playerService;
-        $this->gameConfig = $gameConfigService->getConfig();
     }
 
     public function loadParameters(Action $action, Player $player, ActionParameters $actionParameters): void

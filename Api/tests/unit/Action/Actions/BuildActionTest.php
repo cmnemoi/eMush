@@ -18,7 +18,6 @@ use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Blueprint;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
-use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -42,17 +41,13 @@ class BuildActionTest extends AbstractActionTest
 
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
-        $gameConfigService = Mockery::mock(GameConfigServiceInterface::class);
-        $this->gameConfig = new GameConfig();
-        $gameConfigService->shouldReceive('getConfig')->andReturn($this->gameConfig)->once();
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::BUILD);
 
         $this->action = new Build(
             $this->eventDispatcher,
             $this->gameEquipmentService,
-            $this->playerService,
-            $gameConfigService
+            $this->playerService
         );
     }
 
@@ -158,7 +153,6 @@ class BuildActionTest extends AbstractActionTest
 
         $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
-        $this->gameConfig->setMaxItemInInventory(3);
         $this->gameEquipmentService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
 

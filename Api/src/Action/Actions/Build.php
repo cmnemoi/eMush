@@ -13,8 +13,6 @@ use Mush\Equipment\Entity\Mechanics\Blueprint;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\Target;
@@ -30,19 +28,16 @@ class Build extends AbstractAction
 
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
-    private GameConfig $gameConfig;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         GameEquipmentServiceInterface $gameEquipmentService,
-        PlayerServiceInterface $playerService,
-        GameConfigServiceInterface $gameConfigService
+        PlayerServiceInterface $playerService
     ) {
         parent::__construct($eventDispatcher);
 
         $this->gameEquipmentService = $gameEquipmentService;
         $this->playerService = $playerService;
-        $this->gameConfig = $gameConfigService->getConfig();
     }
 
     public function loadParameters(Action $action, Player $player, ActionParameters $actionParameters): void

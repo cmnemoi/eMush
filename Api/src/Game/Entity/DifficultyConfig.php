@@ -30,82 +30,82 @@ class DifficultyConfig
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
-    private int $equipmentBreakRate;
+    private int $equipmentBreakRate = 0;
 
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
-    private int $doorBreakRate;
+    private int $doorBreakRate = 0;
 
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
-    private int $equipmentFireBreakRate;
+    private int $equipmentFireBreakRate = 0;
 
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
-    private int $startingFireRate;
+    private int $startingFireRate = 0;
 
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
-    private int $propagatingFireRate;
+    private int $propagatingFireRate = 0;
 
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
-    private int $hullFireDamageRate;
+    private int $hullFireDamageRate = 0;
 
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
-    private int $tremorRate;
+    private int $tremorRate = 0;
 
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
-    private int $electricArcRate;
+    private int $electricArcRate = 0;
 
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
-    private int $metalPlateRate;
+    private int $metalPlateRate = 0;
 
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
-    private int $panicCrisisRate;
+    private int $panicCrisisRate = 0;
 
     /**
      * @ORM\Column(type="array", nullable=false)
      */
-    private array $firePlayerDamage;
+    private array $firePlayerDamage = [];
 
     /**
      * @ORM\Column(type="array", nullable=false)
      */
-    private array $fireHullDamage;
+    private array $fireHullDamage = [];
 
     /**
      * @ORM\Column(type="array", nullable=false)
      */
-    private array $electricArcPlayerDamage;
+    private array $electricArcPlayerDamage = [];
 
     /**
      * @ORM\Column(type="array", nullable=false)
      */
-    private array $tremorPlayerDamage;
+    private array $tremorPlayerDamage = [];
 
     /**
      * @ORM\Column(type="array", nullable=false)
      */
-    private array $metalPlatePlayerDamage;
+    private array $metalPlatePlayerDamage = [];
 
     /**
      * @ORM\Column(type="array", nullable=false)
      */
-    private array $panicCrisisPlayerDamage;
+    private array $panicCrisisPlayerDamage = [];
 
     public function getId(): int
     {

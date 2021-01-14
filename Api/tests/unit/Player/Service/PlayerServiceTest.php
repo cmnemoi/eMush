@@ -8,7 +8,6 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\Collection\CharacterConfigCollection;
 use Mush\Game\Entity\GameConfig;
-use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Repository\PlayerRepository;
@@ -40,7 +39,6 @@ class PlayerServiceTest extends TestCase
     /** @var RandomServiceInterface | Mockery\Mock */
     private RandomServiceInterface $randomService;
 
-    private GameConfig $gameConfig;
     private CharacterConfigCollection $charactersConfig;
     private PlayerService $service;
 
@@ -56,13 +54,8 @@ class PlayerServiceTest extends TestCase
         $this->tokenStorage = Mockery::mock(TokenStorageInterface::class);
         $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
-        $gameConfigService = Mockery::mock(GameConfigServiceInterface::class);
-        $this->gameConfig = new GameConfig();
 
         $this->charactersConfig = new CharacterConfigCollection();
-        $gameConfigService->shouldReceive('getConfig')->andReturn($this->gameConfig)->once();
-        $gameConfigService->shouldReceive('getDifficultyConfig')->once();
-        $gameConfigService->shouldReceive('getTriumphConfig')->once();
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
 
         $this->service = new PlayerService(
@@ -71,7 +64,6 @@ class PlayerServiceTest extends TestCase
             $this->repository,
             $this->roomLogService,
             $this->statusService,
-            $gameConfigService,
             $this->tokenStorage,
             $this->randomService
         );
@@ -85,9 +77,10 @@ class PlayerServiceTest extends TestCase
         Mockery::close();
     }
 
-    public function testCreateDaedalus()
+    public function testCreatePlayer()
     {
-        $this->gameConfig
+        $gameConfig = new GameConfig();
+        $gameConfig
             ->setInitMovementPoint(0)
             ->setInitActionPoint(1)
             ->setInitSatiety(2)
@@ -123,6 +116,7 @@ class PlayerServiceTest extends TestCase
         ;
 
         $daedalus = new Daedalus();
+        $daedalus->setGameConfig($gameConfig);
         $laboratory = new Room();
         $laboratory->setName(RoomEnum::LABORATORY); // @FIXME: should we move the starting room in the config
         $daedalus->addRoom($laboratory);
@@ -137,7 +131,7 @@ class PlayerServiceTest extends TestCase
         $this->charactersConfig->add($characterConfig);
         $this->charactersConfig->add($characterConfig);
 
-        $this->gameConfig
+        $gameConfig
             ->setCharactersConfig($this->charactersConfig)
         ;
 
@@ -145,11 +139,11 @@ class PlayerServiceTest extends TestCase
 
         $this->assertInstanceOf(Player::class, $player);
         $this->assertEquals('character', $player->getCharacterConfig()->getName());
-        $this->assertEquals($this->gameConfig->getInitActionPoint(), $player->getActionPoint());
-        $this->assertEquals($this->gameConfig->getInitMovementPoint(), $player->getMovementPoint());
-        $this->assertEquals($this->gameConfig->getInitHealthPoint(), $player->getHealthPoint());
-        $this->assertEquals($this->gameConfig->getInitMoralPoint(), $player->getMoralPoint());
-        $this->assertEquals($this->gameConfig->getInitSatiety(), $player->getSatiety());
+        $this->assertEquals($gameConfig->getInitActionPoint(), $player->getActionPoint());
+        $this->assertEquals($gameConfig->getInitMovementPoint(), $player->getMovementPoint());
+        $this->assertEquals($gameConfig->getInitHealthPoint(), $player->getHealthPoint());
+        $this->assertEquals($gameConfig->getInitMoralPoint(), $player->getMoralPoint());
+        $this->assertEquals($gameConfig->getInitSatiety(), $player->getSatiety());
         $this->assertCount(0, $player->getItems());
         $this->assertCount(1, $player->getStatuses());
         $this->assertCount(0, $player->getSkills());

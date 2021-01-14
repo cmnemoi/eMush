@@ -14,7 +14,6 @@ use Mush\Equipment\Entity\PlantEffect;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
-use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
@@ -40,8 +39,6 @@ class PlantCycleHandlerTest extends TestCase
     /** @var EquipmentEffectServiceInterface | Mockery\Mock */
     private EquipmentEffectServiceInterface $equipmentEffectService;
 
-    private GameConfig $gameConfig;
-
     private PlantCycleHandler $plantCycleHandler;
 
     /**
@@ -55,16 +52,11 @@ class PlantCycleHandlerTest extends TestCase
         $this->equipmentEffectService = Mockery::mock(EquipmentEffectServiceInterface::class);
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
         $this->daedalusService = Mockery::mock(DaedalusServiceInterface::class);
-        $this->gameConfig = new GameConfig();
-
-        $gameConfigService = Mockery::mock(GameConfigServiceInterface::class);
-        $gameConfigService->shouldReceive('getConfig')->andReturn($this->gameConfig);
 
         $this->plantCycleHandler = new PlantCycleHandler(
             $this->gameEquipmentService,
             $this->randomService,
             $this->roomLogService,
-            $gameConfigService,
             $this->statusService,
             $this->daedalusService,
             $this->equipmentEffectService
@@ -148,7 +140,8 @@ class PlantCycleHandlerTest extends TestCase
 
     public function testNewDay()
     {
-        $this->gameConfig->setMaxItemInInventory(1);
+//        $gameConfig = new GameConfig();
+//        $gameConfig->setMaxItemInInventory(1);
 
         $daedalus = new Daedalus();
         $daedalus->setOxygen(10);

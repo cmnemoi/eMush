@@ -2,7 +2,6 @@
 
 namespace Mush\Player\Service;
 
-use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\ModifierTargetEnum;
@@ -20,13 +19,13 @@ class ActionModifierService implements ActionModifierServiceInterface
 
     private StatusServiceInterface $statusService;
     private RoomLogServiceInterface $roomLogService;
-    private GameConfigServiceInterface $gameConfigService;
 
-    public function __construct(StatusServiceInterface $statusService, RoomLogServiceInterface $roomLogService, GameConfigServiceInterface $gameConfigService)
-    {
+    public function __construct(
+        StatusServiceInterface $statusService,
+        RoomLogServiceInterface $roomLogService
+    ) {
         $this->statusService = $statusService;
         $this->roomLogService = $roomLogService;
-        $this->gameConfigService = $gameConfigService;
     }
 
     public function handlePlayerModifier(Player $player, Modifier $actionModifier, \DateTime $date = null): Player
@@ -56,7 +55,7 @@ class ActionModifierService implements ActionModifierServiceInterface
 
     private function handleActionPointModifier(int $actionModifier, Player $player, \DateTime $date): Player
     {
-        $gameConfig = $this->gameConfigService->getConfig();
+        $gameConfig = $player->getDaedalus()->getGameConfig();
 
         if ($actionModifier !== 0) {
             $playerNewActionPoint = $player->getActionPoint() + $actionModifier;
@@ -77,7 +76,7 @@ class ActionModifierService implements ActionModifierServiceInterface
 
     private function handleMovementPointModifier(int $movementModifier, Player $player, \DateTime $date): Player
     {
-        $gameConfig = $this->gameConfigService->getConfig();
+        $gameConfig = $player->getDaedalus()->getGameConfig();
 
         if ($movementModifier !== 0) {
             $playerNewMovementPoint = $player->getMovementPoint() + $movementModifier;
@@ -98,7 +97,7 @@ class ActionModifierService implements ActionModifierServiceInterface
 
     private function handleHealthPointModifier(int $healthModifier, Player $player, \DateTime $date): Player
     {
-        $gameConfig = $this->gameConfigService->getConfig();
+        $gameConfig = $player->getDaedalus()->getGameConfig();
 
         if ($healthModifier !== 0) {
             $playerNewHealthPoint = $player->getHealthPoint() + $healthModifier;
@@ -119,7 +118,7 @@ class ActionModifierService implements ActionModifierServiceInterface
 
     private function handleMoralPointModifier(int $moralModifier, Player $player, \DateTime $date): Player
     {
-        $gameConfig = $this->gameConfigService->getConfig();
+        $gameConfig = $player->getDaedalus()->getGameConfig();
 
         if ($moralModifier !== 0) {
             if (!$player->isMush()) {

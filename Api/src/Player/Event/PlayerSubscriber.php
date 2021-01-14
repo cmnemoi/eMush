@@ -3,9 +3,7 @@
 namespace Mush\Player\Event;
 
 use Mush\Daedalus\Event\DaedalusEvent;
-use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Enum\GameStatusEnum;
-use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
@@ -30,7 +28,6 @@ class PlayerSubscriber implements EventSubscriberInterface
     private RoomLogServiceInterface $roomLogService;
     private StatusServiceInterface $statusService;
     private RandomServiceInterface $randomService;
-    private DifficultyConfig $difficultyConfig;
 
     public function __construct(
         PlayerServiceInterface $playerService,
@@ -38,8 +35,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         EventDispatcherInterface $eventDispatcher,
         RoomLogServiceInterface $roomLogService,
         StatusServiceInterface $statusService,
-        RandomServiceInterface $randomService,
-        GameConfigServiceInterface $gameConfigService
+        RandomServiceInterface $randomService
     ) {
         $this->playerService = $playerService;
         $this->actionModifierService = $actionModifierService;
@@ -47,7 +43,6 @@ class PlayerSubscriber implements EventSubscriberInterface
         $this->roomLogService = $roomLogService;
         $this->statusService = $statusService;
         $this->randomService = $randomService;
-        $this->difficultyConfig = $gameConfigService->getDifficultyConfig();
     }
 
     public static function getSubscribedEvents()
@@ -136,7 +131,9 @@ class PlayerSubscriber implements EventSubscriberInterface
         $player = $event->getPlayer();
         $date = $event->getTime();
 
-        $damage = $this->randomService->getSingleRandomElementFromProbaArray($this->difficultyConfig->getMetalPlatePlayerDamage());
+        $difficultyConfig = $player->getDaedalus()->getGameConfig()->getDifficultyConfig();
+
+        $damage = $this->randomService->getSingleRandomElementFromProbaArray($difficultyConfig->getMetalPlatePlayerDamage());
         $actionModifier = new Modifier();
         $actionModifier
             ->setDelta(-$damage)
@@ -164,7 +161,9 @@ class PlayerSubscriber implements EventSubscriberInterface
         $player = $event->getPlayer();
         $date = $event->getTime();
 
-        $damage = $this->randomService->getSingleRandomElementFromProbaArray($this->difficultyConfig->getPanicCrisisPlayerDamage());
+        $difficultyConfig = $player->getDaedalus()->getGameConfig()->getDifficultyConfig();
+
+        $damage = $this->randomService->getSingleRandomElementFromProbaArray($difficultyConfig->getPanicCrisisPlayerDamage());
         $actionModifier = new Modifier();
         $actionModifier
             ->setDelta(-$damage)

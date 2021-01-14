@@ -12,8 +12,6 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -24,8 +22,6 @@ class WriteActionTest extends AbstractActionTest
     private GameEquipmentServiceInterface $gameEquipmentService;
     /** @var PlayerServiceInterface | Mockery\Mock */
     private PlayerServiceInterface $playerService;
-
-    private GameConfig $gameConfig;
 
     /**
      * @before
@@ -38,15 +34,11 @@ class WriteActionTest extends AbstractActionTest
 
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
-        $gameConfigService = Mockery::mock(GameConfigServiceInterface::class);
-        $this->gameConfig = new GameConfig();
-        $gameConfigService->shouldReceive('getConfig')->andReturn($this->gameConfig)->once();
 
         $this->action = new Write(
             $this->eventDispatcher,
             $this->gameEquipmentService,
-            $this->playerService,
-            $gameConfigService,
+            $this->playerService
         );
     }
 
@@ -74,8 +66,6 @@ class WriteActionTest extends AbstractActionTest
             ->setRoom($room)
             ->setName(ToolItemEnum::BLOCK_OF_POST_IT)
         ;
-
-        $this->gameConfig->setMaxItemInInventory(3);
 
         $actionParameter = new ActionParameters();
         $actionParameter->setMessage('Hello world');

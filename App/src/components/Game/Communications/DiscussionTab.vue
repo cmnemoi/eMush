@@ -2,7 +2,7 @@
     <div id="discussion-tab" class="chatbox-container">
         <MessageInput :channel="channel" />
         <div class="chatbox">
-            <section v-for="(message, id) in channel.messages" :key="id" class="unit">
+            <section v-for="(message, id) in messages" :key="id" class="unit">
                 <Message :message="message" :is-root="true" @click="replyTo(message)" />
                 <Message
                     v-for="(children, id) in message.child"
@@ -35,12 +35,11 @@ export default {
     },
     computed: {
         ...mapGetters('communication', [
-            'getCurrentChannel',
-            'getMessages'
+            'messages'
         ])
     },
     beforeMount() {
-        this.loadMessages({ channel:this.channel });
+        this.loadMessages({ channel: this.channel });
     },
     methods: {
         replyTo: function (message) {

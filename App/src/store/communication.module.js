@@ -1,28 +1,23 @@
 import CommunicationService from "@/services/communication.service";
 import { Channel } from "@/entities/Channel";
-import { ROOM_LOG, TIPS } from "@/enums/communication.enum";
+import { ROOM_LOG } from '@/enums/communication.enum';
 
 
 const state =  {
     loading: false,
-    currentChannel: null,
+    currentChannel: new Channel(),
     channels: [],
-    messages: []
+    messagesByChannelId: {}
 };
 
 const getters = {
-    currentChannel: (state) => {
-        if (state.currentChannel === null) {
-            state.currentChannel = (new Channel()).decode(localStorage.getItem('currentChannel'));
-        }
-
-        return state.currentChannel;
+    messages(state) {
+        return state.messagesByChannelId[state.currentChannel.id] || [];
     }
 };
 
 const actions = {
     async changeChannel({ commit }, { channel }) {
-        localStorage.setItem('currentChannel', channel.jsonEncode());
         commit('setCurrentChannel', channel);
     },
     async loadChannels({ commit }) {
@@ -30,18 +25,8 @@ const actions = {
 
         try {
             const channels = await CommunicationService.loadChannels();
-            channels.reverse();
-
-            const roomLogChannel = new Channel();
-            roomLogChannel.scope = ROOM_LOG;
-            channels.push(roomLogChannel);
-
-            const tipsChannel = new Channel();
-            tipsChannel.scope = TIPS;
-            channels.push(tipsChannel);
-
-            channels.reverse();
             commit('setChannels', channels);
+            commit('setCurrentChannel', channels.find(({ scope }) => scope === ROOM_LOG));
             commit('setLoading', false);
             return true;
         } catch (e) {
@@ -55,7 +40,7 @@ const actions = {
 
         try {
             const messages = await CommunicationService.loadMessages(channel);
-            commit('setCurrentChannelMessages', messages);
+            commit('setChannelMessages', { channel, messages });
             commit('setLoading', false);
             return true;
         } catch (e) {
@@ -69,7 +54,7 @@ const actions = {
 
         try {
             const messages = await CommunicationService.sendMessage(channel, text, parent);
-            commit('setCurrentChannelMessages', messages);
+            commit('setChannelMessages', { channel, messages });
             commit('setLoading', false);
             return true;
         } catch (e) {
@@ -82,19 +67,8 @@ const actions = {
         commit('setLoading', true);
 
         try {
-            const channels = await CommunicationService.createPrivateChannel();
-            channels.reverse();
-
-            const roomLogChannel = new Channel();
-            roomLogChannel.scope = ROOM_LOG;
-            channels.push(roomLogChannel);
-
-            const tipsChannel = new Channel();
-            tipsChannel.scope = TIPS;
-            channels.push(tipsChannel);
-
-            channels.reverse();
-            commit('setChannels', channels);
+            const newChannel = await CommunicationService.createPrivateChannel();
+            commit('addChannel', newChannel);
             commit('setLoading', false);
 
             return true;
@@ -118,8 +92,12 @@ const mutations = {
         state.channels = channels;
     },
 
-    setCurrentChannelMessages(state, messages) {
-        state.currentChannel.messages = messages;
+    addChannel(state, channel) {
+        state.channels.push(channel);
+    },
+
+    setChannelMessages(state, { channel, messages }) {
+        state.messagesByChannelId[channel.id] = messages;
     }
 };
 

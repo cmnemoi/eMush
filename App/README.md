@@ -91,7 +91,7 @@ _Ex: `setLoading`, `setCurrentChannel`, `resetError`_
 
 ## Contributing
 
-We write our tasks on the Trello board https://trello.com/b/4E10Z1Kc/dev-emush-front. Ask Simpkin on the Discord for access if you're not already a member.
+We write our tasks on the Trello board https://trello.com/b/4E10Z1Kc/dev-emush-front. Use this invite link if you're not already a member: https://trello.com/invite/b/4E10Z1Kc/2a62a2f7a080375f970d81c23945c912/dev-emush-front
 
 To start working on something / implement a new feature:
 

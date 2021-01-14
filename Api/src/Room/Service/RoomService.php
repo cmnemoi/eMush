@@ -9,8 +9,6 @@ use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Room\Entity\Room;
 use Mush\Room\Entity\RoomConfig;
@@ -25,25 +23,19 @@ class RoomService implements RoomServiceInterface
     private GameEquipmentServiceInterface $equipmentService;
     private StatusServiceInterface $statusService;
     private RandomServiceInterface $randomService;
-    private GameConfig $gameConfig;
 
-    /**
-     * RoomService constructor.
-     */
     public function __construct(
         EntityManagerInterface $entityManager,
         RoomRepository $repository,
         GameEquipmentServiceInterface $equipmentService,
         StatusServiceInterface $statusService,
-        RandomServiceInterface $randomService,
-        GameConfigServiceInterface $gameConfigService
+        RandomServiceInterface $randomService
     ) {
         $this->entityManager = $entityManager;
         $this->repository = $repository;
         $this->equipmentService = $equipmentService;
         $this->statusService = $statusService;
         $this->randomService = $randomService;
-        $this->gameConfig = $gameConfigService->getConfig();
     }
 
     public function persist(Room $room): Room

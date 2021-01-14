@@ -3,9 +3,7 @@
 namespace Mush\Daedalus\Event;
 
 use Mush\Daedalus\Service\DaedalusServiceInterface;
-use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
-use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -17,20 +15,17 @@ class DaedalusSubscriber implements EventSubscriberInterface
     private EventDispatcherInterface $eventDispatcher;
     private RandomServiceInterface $randomService;
     private StatusServiceInterface $statusService;
-    private GameConfig $gameConfig;
 
     public function __construct(
         DaedalusServiceInterface $daedalusService,
         EventDispatcherInterface $eventDispatcher,
         RandomServiceInterface $randomService,
-        StatusServiceInterface $statusService,
-        GameConfigServiceInterface $gameConfigService
+        StatusServiceInterface $statusService
     ) {
         $this->daedalusService = $daedalusService;
         $this->eventDispatcher = $eventDispatcher;
         $this->randomService = $randomService;
         $this->statusService = $statusService;
-        $this->gameConfig = $gameConfigService->getConfig();
     }
 
     public static function getSubscribedEvents(): array
@@ -40,11 +35,6 @@ class DaedalusSubscriber implements EventSubscriberInterface
             DaedalusEvent::END_DAEDALUS => 'onDaedalusEnd',
             DaedalusEvent::FULL_DAEDALUS => 'onDaedalusFull',
         ];
-    }
-
-    public function onDaedalusNew(DaedalusEvent $event): void
-    {
-        $daedalus = $event->getDaedalus();
     }
 
     public function onDaedalusEnd(DaedalusEvent $event): void

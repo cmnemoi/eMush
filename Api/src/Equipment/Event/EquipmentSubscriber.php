@@ -4,10 +4,10 @@ namespace Mush\Equipment\Event;
 
 use Error;
 use Mush\Equipment\Entity\Door;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
-use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
@@ -20,18 +20,15 @@ class EquipmentSubscriber implements EventSubscriberInterface
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
     private RoomLogServiceInterface $roomLogService;
-    private GameConfig $gameConfig;
 
     public function __construct(
         GameEquipmentServiceInterface $gameEquipmentService,
         StatusServiceInterface $statusService,
-        RoomLogServiceInterface $roomLogService,
-        GameConfigServiceInterface $gameConfigService
+        RoomLogServiceInterface $roomLogService
     ) {
         $this->gameEquipmentService = $gameEquipmentService;
         $this->statusService = $statusService;
         $this->roomLogService = $roomLogService;
-        $this->gameConfig = $gameConfigService->getConfig();
     }
 
     public static function getSubscribedEvents(): array
@@ -50,9 +47,10 @@ class EquipmentSubscriber implements EventSubscriberInterface
         }
 
         $equipment = $event->getEquipment();
+
         if (!$equipment instanceof GameItem) {
             $equipment->setRoom($player->getRoom());
-        } elseif ($player->getItems()->count() < $this->gameConfig->getMaxItemInInventory()) {
+        } elseif ($player->getItems()->count() < $this->getGameConfig($equipment)->getMaxItemInInventory()) {
             $equipment->setPlayer($player);
         } else {
             $equipment->setRoom($player->getRoom());
@@ -112,5 +110,10 @@ class EquipmentSubscriber implements EventSubscriberInterface
             $event->getVisibility(),
             $event->getTime()
         );
+    }
+
+    private function getGameConfig(GameEquipment $gameEquipment): GameConfig
+    {
+        return $gameEquipment->getEquipment()->getGameConfig();
     }
 }

@@ -19,7 +19,6 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
-use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Room\Entity\Room;
 
 class InsertOxygenTest extends AbstractActionTest
@@ -28,7 +27,6 @@ class InsertOxygenTest extends AbstractActionTest
     private GameEquipmentServiceInterface $gameEquipmentService;
     /** @var DaedalusServiceInterface | Mockery\Mock */
     private DaedalusServiceInterface $daedalusService;
-    private GameConfig $gameConfig;
 
     /**
      * @before
@@ -41,15 +39,11 @@ class InsertOxygenTest extends AbstractActionTest
 
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->daedalusService = Mockery::mock(DaedalusServiceInterface::class);
-        $gameConfigService = Mockery::mock(GameConfigServiceInterface::class);
-        $this->gameConfig = new GameConfig();
-        $gameConfigService->shouldReceive('getConfig')->andReturn($this->gameConfig)->once();
 
         $this->action = new InsertOxygen(
              $this->eventDispatcher,
              $this->gameEquipmentService,
              $this->daedalusService,
-             $gameConfigService
          );
     }
 
@@ -81,7 +75,10 @@ class InsertOxygenTest extends AbstractActionTest
         ;
 
         $daedalus->setOxygen(32);
-        $this->gameConfig->setMaxOxygen(32);
+
+        $gameConfig = new GameConfig();
+        $gameConfig->setMaxOxygen(32);
+        $daedalus->setGameConfig($gameConfig);
 
         $tank = new EquipmentConfig();
         $tank->setName(EquipmentEnum::OXYGEN_TANK);
@@ -124,7 +121,9 @@ class InsertOxygenTest extends AbstractActionTest
         ;
 
         $daedalus->setOxygen(10);
-        $this->gameConfig->setMaxOxygen(32);
+        $gameConfig = new GameConfig();
+        $gameConfig->setMaxOxygen(32);
+        $daedalus->setGameConfig($gameConfig);
 
         $tank = new EquipmentConfig();
         $tank->setName(EquipmentEnum::OXYGEN_TANK);

@@ -12,8 +12,6 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\CycleHandler\AbstractCycleHandler;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
@@ -32,7 +30,6 @@ class PlantCycleHandler extends AbstractCycleHandler
     private GameEquipmentServiceInterface $gameEquipmentService;
     private RandomServiceInterface $randomService;
     private RoomLogServiceInterface $roomLogService;
-    private GameConfig $gameConfig;
     private StatusServiceInterface $statusService;
     private DaedalusServiceInterface $daedalusService;
     private EquipmentEffectServiceInterface $equipmentEffectService;
@@ -43,7 +40,6 @@ class PlantCycleHandler extends AbstractCycleHandler
         GameEquipmentServiceInterface $gameEquipmentService,
         RandomServiceInterface $randomService,
         RoomLogServiceInterface $roomLogService,
-        GameConfigServiceInterface $gameConfigService,
         StatusServiceInterface $statusService,
         DaedalusServiceInterface $daedalusService,
         EquipmentEffectServiceInterface $equipmentEffectService
@@ -54,7 +50,6 @@ class PlantCycleHandler extends AbstractCycleHandler
         $this->equipmentEffectService = $equipmentEffectService;
         $this->statusService = $statusService;
         $this->daedalusService = $daedalusService;
-        $this->gameConfig = $gameConfigService->getConfig();
     }
 
     public function handleNewCycle($object, $daedalus, \DateTime $dateTime): void

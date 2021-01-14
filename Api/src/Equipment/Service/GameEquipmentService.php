@@ -19,7 +19,6 @@ use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Game\Entity\GameConfig;
-use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Room\Enum\DoorEnum;
@@ -39,7 +38,6 @@ class GameEquipmentService implements GameEquipmentServiceInterface
     private StatusServiceInterface $statusService;
     private EquipmentEffectServiceInterface $equipmentEffectService;
     private RandomServiceInterface $randomService;
-    private GameConfig $gameConfig;
     private EventDispatcherInterface $eventDispatcher;
 
     public function __construct(
@@ -49,7 +47,6 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         StatusServiceInterface $statusService,
         EquipmentEffectServiceInterface $equipmentEffectService,
         RandomServiceInterface $randomService,
-        GameConfigServiceInterface $gameConfigService,
         EventDispatcherInterface $eventDispatcher
     ) {
         $this->entityManager = $entityManager;
@@ -58,7 +55,6 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         $this->statusService = $statusService;
         $this->equipmentEffectService = $equipmentEffectService;
         $this->randomService = $randomService;
-        $this->gameConfig = $gameConfigService->getConfig();
         $this->eventDispatcher = $eventDispatcher;
     }
 
@@ -226,9 +222,9 @@ class GameEquipmentService implements GameEquipmentServiceInterface
 
         if (($gameEquipment instanceof Door &&
             !DoorEnum::isUnbreakable($gameEquipment->getName()) &&
-            $this->randomService->isSuccessfull($this->gameConfig->getDifficultyConfig()->getDoorBreakRate())) ||
+            $this->randomService->isSuccessfull($this->getGameConfig($gameEquipment)->getDifficultyConfig()->getDoorBreakRate())) ||
             ($gameEquipment->getEquipment()->getBreakableRate() > 0 &&
-            $this->randomService->isSuccessfull($this->gameConfig->getDifficultyConfig()->getEquipmentBreakRate()))
+            $this->randomService->isSuccessfull($this->getGameConfig($gameEquipment)->getDifficultyConfig()->getEquipmentBreakRate()))
             ) {
             $equipmentEvent = new EquipmentEvent($gameEquipment, VisibilityEnum::HIDDEN, $date);
             $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_BROKEN);
@@ -246,7 +242,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         }
 
         if ($gameEquipment->getEquipment()->isFireDestroyable() &&
-            $this->randomService->isSuccessfull($this->gameConfig->getDifficultyConfig()->getEquipmentFireBreakRate())
+            $this->randomService->isSuccessfull($this->getGameConfig($gameEquipment)->getDifficultyConfig()->getEquipmentFireBreakRate())
         ) {
             $equipmentEvent = new EquipmentEvent($gameEquipment, VisibilityEnum::PUBLIC, $date);
             $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
@@ -254,7 +250,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
 
         if ($gameEquipment->getEquipment()->isFireBreakable() &&
             $gameEquipment->getStatusByName(EquipmentStatusEnum::BROKEN) &&
-            $this->randomService->isSuccessfull($this->gameConfig->getDifficultyConfig()->getEquipmentFireBreakRate())
+            $this->randomService->isSuccessfull($this->getGameConfig($gameEquipment)->getDifficultyConfig()->getEquipmentFireBreakRate())
         ) {
             $equipmentEvent = new EquipmentEvent($gameEquipment, VisibilityEnum::PUBLIC, $date);
             $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_BROKEN);
@@ -262,5 +258,10 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         }
 
         return;
+    }
+
+    private function getGameConfig(GameEquipment $gameEquipment): GameConfig
+    {
+        return $gameEquipment->getEquipment()->getGameConfig();
     }
 }

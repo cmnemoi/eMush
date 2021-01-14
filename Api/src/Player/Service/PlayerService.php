@@ -4,13 +4,8 @@ namespace Mush\Player\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Event\DaedalusEvent;
-use Mush\Game\Entity\Collection\TriumphConfigCollection;
-use Mush\Game\Entity\DifficultyConfig;
-use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\TriumphEnum;
-use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
@@ -38,10 +33,6 @@ class PlayerService implements PlayerServiceInterface
 
     private PlayerRepository $repository;
 
-    private GameConfig $gameConfig;
-    private DifficultyConfig $difficultyConfig;
-    private TriumphConfigCollection $triumphConfig;
-
     private RoomLogServiceInterface $roomLogService;
 
     private StatusServiceInterface $statusService;
@@ -56,7 +47,6 @@ class PlayerService implements PlayerServiceInterface
         PlayerRepository $repository,
         RoomLogServiceInterface $roomLogService,
         StatusServiceInterface $statusService,
-        GameConfigServiceInterface $gameConfigService,
         TokenStorageInterface $tokenStorage,
         RandomServiceInterface $randomService
     ) {
@@ -65,9 +55,6 @@ class PlayerService implements PlayerServiceInterface
         $this->repository = $repository;
         $this->roomLogService = $roomLogService;
         $this->statusService = $statusService;
-        $this->gameConfig = $gameConfigService->getConfig();
-        $this->difficultyConfig = $gameConfigService->getDifficultyConfig();
-        $this->triumphConfig = $gameConfigService->getTriumphConfig();
         $this->tokenStorage = $tokenStorage;
         $this->randomService = $randomService;
     }
@@ -99,6 +86,8 @@ class PlayerService implements PlayerServiceInterface
     {
         $player = new Player();
 
+        $gameConfig = $daedalus->getGameConfig();
+
         if (!$token = $this->tokenStorage->getToken()) {
             throw new AccessDeniedException('User should be logged to access that');
         }
@@ -106,7 +95,7 @@ class PlayerService implements PlayerServiceInterface
         /** @var User $user */
         $user = $token->getUser();
 
-        $characterConfig = $this->gameConfig->getCharactersConfig()->getCharacter($character);
+        $characterConfig = $gameConfig->getCharactersConfig()->getCharacter($character);
         if (!$characterConfig) {
             throw new \LogicException('Character not available');
         }
@@ -122,12 +111,12 @@ class PlayerService implements PlayerServiceInterface
             )
             ->setCharacterConfig($characterConfig)
             ->setSkills([])
-            ->setHealthPoint($this->gameConfig->getInitHealthPoint())
-            ->setMoralPoint($this->gameConfig->getInitMoralPoint())
-            ->setActionPoint($this->gameConfig->getInitActionPoint())
-            ->setMovementPoint($this->gameConfig->getInitMovementPoint())
-            ->setSatiety($this->gameConfig->getInitSatiety())
-            ->setSatiety($this->gameConfig->getInitSatiety())
+            ->setHealthPoint($gameConfig->getInitHealthPoint())
+            ->setMoralPoint($gameConfig->getInitMoralPoint())
+            ->setActionPoint($gameConfig->getInitActionPoint())
+            ->setMovementPoint($gameConfig->getInitMovementPoint())
+            ->setSatiety($gameConfig->getInitSatiety())
+            ->setSatiety($gameConfig->getInitSatiety())
         ;
 
         foreach ($characterConfig->getStatuses() as $statusName) {
@@ -144,11 +133,6 @@ class PlayerService implements PlayerServiceInterface
         $user->setCurrentGame($player);
         $playerEvent = new PlayerEvent($player);
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::NEW_PLAYER);
-
-        if ($daedalus->getPlayers()->count() === $this->gameConfig->getMaxPlayer()) {
-            $fullDaedalusEvent = new DaedalusEvent($daedalus);
-            $this->eventDispatcher->dispatch($fullDaedalusEvent, DaedalusEvent::FULL_DAEDALUS);
-        }
 
         return $player;
     }
@@ -193,14 +177,16 @@ class PlayerService implements PlayerServiceInterface
 
         $triumphChange = 0;
 
+        $gameConfig = $player->getDaedalus()->getGameConfig();
+
         if ($player->isMush() &&
-            ($mushTriumph = $this->triumphConfig->getTriumph(TriumphEnum::CYCLE_MUSH))
+            ($mushTriumph = $gameConfig->getTriumphConfig()->getTriumph(TriumphEnum::CYCLE_MUSH))
         ) {
             $triumphChange = $mushTriumph->getTriumph();
         }
 
         if (!$player->isMush() &&
-            ($humanTriumph = $this->triumphConfig->getTriumph(TriumphEnum::CYCLE_HUMAN))
+            ($humanTriumph = $gameConfig->getTriumphConfig()->getTriumph(TriumphEnum::CYCLE_HUMAN))
         ) {
             $triumphChange = $humanTriumph->getTriumph();
         }
@@ -217,14 +203,14 @@ class PlayerService implements PlayerServiceInterface
         );
 
         //Metal Plates
-        if ($this->randomService->isSuccessfull($this->difficultyConfig->getMetalPlateRate())) {
+        if ($this->randomService->isSuccessfull($gameConfig->getDifficultyConfig()->getMetalPlateRate())) {
             $playerEvent = new PlayerEvent($player, $date);
             $playerEvent->setReason(EndCauseEnum::METAL_PLATE);
             $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::METAL_PLATE);
         }
 
         //Panic Crisis
-        if ($this->randomService->isSuccessfull($this->difficultyConfig->getPanicCrisisRate())) {
+        if ($this->randomService->isSuccessfull($gameConfig->getDifficultyConfig()->getPanicCrisisRate())) {
             $playerEvent = new PlayerEvent($player, $date);
             $playerEvent->setReason(EndCauseEnum::DEPRESSION);
             $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::PANIC_CRISIS);

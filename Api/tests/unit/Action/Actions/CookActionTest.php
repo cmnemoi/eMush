@@ -17,8 +17,6 @@ use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
 use Mush\Status\Entity\Status;
@@ -35,8 +33,6 @@ class CookActionTest extends AbstractActionTest
     /** @var StatusServiceInterface | Mockery\Mock */
     private StatusServiceInterface $statusService;
 
-    private GameConfig $gameConfig;
-
     /**
      * @before
      */
@@ -47,9 +43,6 @@ class CookActionTest extends AbstractActionTest
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
-        $gameConfigService = Mockery::mock(GameConfigServiceInterface::class);
-        $this->gameConfig = new GameConfig();
-        $gameConfigService->shouldReceive('getConfig')->andReturn($this->gameConfig)->once();
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::COOK, 1);
 
@@ -57,8 +50,7 @@ class CookActionTest extends AbstractActionTest
             $this->eventDispatcher,
             $this->gameEquipmentService,
             $this->playerService,
-            $this->statusService,
-            $gameConfigService,
+            $this->statusService
         );
     }
 
@@ -145,7 +137,6 @@ class CookActionTest extends AbstractActionTest
             ->setRoom($room)
         ;
 
-        $this->gameConfig->setMaxItemInInventory(3);
         $actionParameter = new ActionParameters();
         $actionParameter->setItem($gameRation);
         $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
@@ -187,7 +178,6 @@ class CookActionTest extends AbstractActionTest
         ;
         $player = $this->createPlayer(new Daedalus(), $room);
 
-        $this->gameConfig->setMaxItemInInventory(3);
         $actionParameter = new ActionParameters();
         $actionParameter->setItem($gameRation);
         $this->action->loadParameters($this->actionEntity, $player, $actionParameter);

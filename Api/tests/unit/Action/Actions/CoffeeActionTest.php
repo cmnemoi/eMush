@@ -17,8 +17,6 @@ use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Room\Entity\Room;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -41,18 +39,13 @@ class CoffeeActionTest extends AbstractActionTest
 
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
-        $gameConfigService = Mockery::mock(GameConfigServiceInterface::class);
-
-        $gameConfig = new GameConfig();
-        $gameConfigService->shouldReceive('getConfig')->andReturn($gameConfig)->once();
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::BUILD);
 
         $this->action = new Coffee(
             $this->eventDispatcher,
             $this->gameEquipmentService,
-            $this->statusService,
-            $gameConfigService,
+            $this->statusService
         );
     }
 

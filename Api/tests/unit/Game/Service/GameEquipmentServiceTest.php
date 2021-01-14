@@ -14,8 +14,6 @@ use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Equipment\Service\EquipmentServiceInterface;
 use Mush\Equipment\Service\GameEquipmentService;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
@@ -43,8 +41,6 @@ class GameEquipmentServiceTest extends TestCase
     /** @var EventDispatcherInterface | Mockery\Mock */
     protected EventDispatcherInterface $eventDispatcher;
 
-    private GameConfig $gameConfig;
-
     /**
      * @before
      */
@@ -56,11 +52,6 @@ class GameEquipmentServiceTest extends TestCase
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
         $this->equipmentEffectService = Mockery::mock(EquipmentEffectService::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
-        $this->gameConfigService = Mockery::mock(GameConfigServiceInterface::class);
-        $this->gameConfig = new GameConfig();
-
-        $gameConfigService = Mockery::mock(GameConfigServiceInterface::class);
-        $gameConfigService->shouldReceive('getConfig')->andReturn($this->gameConfig);
 
         $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
 
@@ -71,7 +62,6 @@ class GameEquipmentServiceTest extends TestCase
             $this->statusService,
             $this->equipmentEffectService,
             $this->randomService,
-            $gameConfigService,
             $this->eventDispatcher
         );
     }

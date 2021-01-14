@@ -7,9 +7,7 @@ use Mush\Daedalus\Enum\AlertEnum;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentClassEnum;
-use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\CycleServiceInterface;
-use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Status\Enum\StatusEnum;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -17,16 +15,13 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class DaedalusNormalizer implements ContextAwareNormalizerInterface
 {
     private CycleServiceInterface $cycleService;
-    private GameConfig $gameConfig;
     private TranslatorInterface $translator;
 
     public function __construct(
         CycleServiceInterface $cycleService,
-        GameConfigServiceInterface $gameConfigService,
         TranslatorInterface $translator
     ) {
         $this->cycleService = $cycleService;
-        $this->gameConfig = $gameConfigService->getConfig();
         $this->translator = $translator;
     }
 
@@ -42,6 +37,7 @@ class DaedalusNormalizer implements ContextAwareNormalizerInterface
     {
         /** @var Daedalus $daedalus */
         $daedalus = $object;
+        $gameConfig = $daedalus->getGameConfig();
 
         return [
                 'id' => $object->getId(),
@@ -52,7 +48,7 @@ class DaedalusNormalizer implements ContextAwareNormalizerInterface
                 'hull' => $object->getHull(),
                 'shield' => $object->getShield(),
                 'nextCycle' => $this->cycleService->getDateStartNextCycle($object)->format(\DateTime::ATOM),
-                'cryogenizedPlayers' => $this->gameConfig->getCharactersConfig()->count() - $daedalus->getPlayers()->count(),
+                'cryogenizedPlayers' => $gameConfig->getCharactersConfig()->count() - $daedalus->getPlayers()->count(),
                 'humanPlayerAlive' => $daedalus->getPlayers()->getHumanPlayer()->getPlayerAlive()->count(),
                 'humanPlayerDead' => $daedalus->getPlayers()->getHumanPlayer()->getPlayerDead()->count(),
                 'mushPlayerAlive' => $daedalus->getPlayers()->getMushPlayer()->getPlayerAlive()->count(),

@@ -18,8 +18,6 @@ class DaedalusNormalizerTest extends TestCase
     /** @var CycleServiceInterface | Mockery\Mock */
     private CycleServiceInterface $cycleService;
 
-    private GameConfig $gameConfig;
-
     /** @var TranslatorInterface | Mockery\Mock */
     private TranslatorInterface $translator;
 
@@ -32,11 +30,7 @@ class DaedalusNormalizerTest extends TestCase
         $this->cycleService = Mockery::mock(CycleServiceInterface::class);
         $this->translator = Mockery::mock(TranslatorInterface::class);
 
-        $this->gameConfig = new GameConfig();
-
-        $gameConfigService->shouldReceive('getConfig')->andReturn($this->gameConfig)->once();
-
-        $this->normalizer = new DaedalusNormalizer($this->cycleService, $gameConfigService, $this->translator);
+        $this->normalizer = new DaedalusNormalizer($this->cycleService, $this->translator);
     }
 
     /**
@@ -57,6 +51,7 @@ class DaedalusNormalizerTest extends TestCase
         $daedalus->makePartial();
         $daedalus->setPlayers(new ArrayCollection());
         $daedalus->setRooms(new ArrayCollection());
+        $daedalus->setGameConfig(new GameConfig());
 
         $daedalus
             ->setCycle(4)

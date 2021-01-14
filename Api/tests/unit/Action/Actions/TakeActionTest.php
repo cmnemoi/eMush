@@ -15,7 +15,6 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
-use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
 use Mush\Status\Service\StatusServiceInterface;
@@ -28,7 +27,6 @@ class TakeActionTest extends AbstractActionTest
     private PlayerServiceInterface $playerService;
     /** @var StatusServiceInterface | Mockery\Mock */
     private StatusServiceInterface $statusService;
-    private GameConfig $gameConfig;
 
     /**
      * @before
@@ -42,15 +40,11 @@ class TakeActionTest extends AbstractActionTest
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
-        $gameConfigService = Mockery::mock(GameConfigServiceInterface::class);
-        $this->gameConfig = new GameConfig();
-        $gameConfigService->shouldReceive('getConfig')->andReturn($this->gameConfig)->once();
 
         $this->action = new Take(
             $this->eventDispatcher,
             $this->gameEquipmentService,
             $this->playerService,
-            $gameConfigService,
             $this->statusService
         );
     }
@@ -84,13 +78,18 @@ class TakeActionTest extends AbstractActionTest
             ->setIsHeavy(false)
         ;
 
-        $this->gameConfig->setMaxItemInInventory(3);
+        $gameConfig = new GameConfig();
+        $gameConfig->setMaxItemInInventory(3);
+
+        $daedalus = new Daedalus();
+        $daedalus->setGameConfig($gameConfig);
+
         $this->gameEquipmentService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
 
         $actionParameter = new ActionParameters();
         $actionParameter->setItem($gameItem);
-        $player = $this->createPlayer(new Daedalus(), $room);
+        $player = $this->createPlayer($daedalus, $room);
 
         $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 

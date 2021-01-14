@@ -16,8 +16,6 @@ use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
 use Mush\Status\Entity\ChargeStatus;
@@ -35,8 +33,6 @@ class ExpressCookActionTest extends AbstractActionTest
     /** @var StatusServiceInterface | Mockery\Mock */
     private StatusServiceInterface $statusService;
 
-    private GameConfig $gameConfig;
-
     /**
      * @before
      */
@@ -47,9 +43,6 @@ class ExpressCookActionTest extends AbstractActionTest
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
-        $gameConfigService = Mockery::mock(GameConfigServiceInterface::class);
-        $this->gameConfig = new GameConfig();
-        $gameConfigService->shouldReceive('getConfig')->andReturn($this->gameConfig)->once();
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::EXPRESS_COOK);
 
@@ -57,8 +50,7 @@ class ExpressCookActionTest extends AbstractActionTest
             $this->eventDispatcher,
             $this->gameEquipmentService,
             $this->playerService,
-            $this->statusService,
-            $gameConfigService,
+            $this->statusService
         );
     }
 
@@ -160,7 +152,6 @@ class ExpressCookActionTest extends AbstractActionTest
         ;
         $chargeStatus->setGameEquipment($gameMicrowave);
 
-        $this->gameConfig->setMaxItemInInventory(3);
         $actionParameter = new ActionParameters();
         $actionParameter->setItem($gameRation);
         $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
@@ -214,7 +205,6 @@ class ExpressCookActionTest extends AbstractActionTest
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
-        $this->gameConfig->setMaxItemInInventory(3);
         $actionParameter = new ActionParameters();
         $actionParameter->setItem($gameRation);
         $this->action->loadParameters($this->actionEntity, $player, $actionParameter);

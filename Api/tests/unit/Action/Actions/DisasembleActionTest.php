@@ -16,9 +16,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\SkillEnum;
-use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
@@ -42,7 +40,6 @@ class DisasembleActionTest extends AbstractActionTest
     private RandomServiceInterface $randomService;
     /** @var StatusServiceInterface | Mockery\Mock */
     private StatusServiceInterface $statusService;
-    private GameConfig $gameConfig;
 
     /**
      * @before
@@ -57,9 +54,6 @@ class DisasembleActionTest extends AbstractActionTest
         $this->successRateService = Mockery::mock(SuccessRateServiceInterface::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
-        $gameConfigService = Mockery::mock(GameConfigServiceInterface::class);
-        $this->gameConfig = new GameConfig();
-        $gameConfigService->shouldReceive('getConfig')->andReturn($this->gameConfig)->once();
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::DISASSEMBLE, 3);
 
@@ -70,8 +64,7 @@ class DisasembleActionTest extends AbstractActionTest
             $this->playerService,
             $this->randomService,
             $this->successRateService,
-            $this->statusService,
-            $gameConfigService
+            $this->statusService
         );
     }
 
@@ -140,7 +133,6 @@ class DisasembleActionTest extends AbstractActionTest
 
         $this->roomLogService->shouldReceive('createPlayerLog')->twice();
 
-        $this->gameConfig->setMaxItemInInventory(3);
         $this->gameEquipmentService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
 

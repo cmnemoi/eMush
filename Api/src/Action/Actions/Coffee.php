@@ -12,8 +12,6 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -30,19 +28,16 @@ class Coffee extends AbstractAction
 
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
-    private GameConfig $gameConfig;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         GameEquipmentServiceInterface $gameEquipmentService,
-        StatusServiceInterface $statusService,
-        GameConfigServiceInterface $gameConfigService
+        StatusServiceInterface $statusService
     ) {
         parent::__construct($eventDispatcher);
 
         $this->gameEquipmentService = $gameEquipmentService;
         $this->statusService = $statusService;
-        $this->gameConfig = $gameConfigService->getConfig();
     }
 
     public function loadParameters(Action $action, Player $player, ActionParameters $actionParameters): void

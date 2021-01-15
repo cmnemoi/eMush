@@ -57,6 +57,12 @@ ol {
     display: flex;
 }
 
+button {
+    display: flex;
+    background: none;
+    border: none;
+}
+
 * .popup {
     display: none; /* WIP */
     z-index: 20;

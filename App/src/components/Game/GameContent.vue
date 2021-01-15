@@ -1,6 +1,6 @@
 <template>
     <div v-if="getPlayer !== null" class="main">
-        <ExplorationPanel style="display: none;" />
+        <GamePopUp style="display: none;" />
         <div class="top-banner">
             <BannerPanel :player="getPlayer" :daedalus="getPlayer.daedalus" />
         </div>
@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import ExplorationPanel from "@/components/Game/ExplorationPanel";
+import GamePopUp from "@/components/Utils/GamePopUp";
 import BannerPanel from "@/components/Game/BannerPanel";
 import CharPanel from "@/components/Game/CharPanel";
 import ShipPanel from "@/components/Game/Ship/ShipPanel";
@@ -26,7 +26,7 @@ import { mapActions, mapGetters } from "vuex";
 export default {
     name: 'GameContent',
     components: {
-        ExplorationPanel,
+        GamePopUp,
         BannerPanel,
         CharPanel,
         ShipPanel,

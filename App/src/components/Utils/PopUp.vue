@@ -1,7 +1,7 @@
 <template>
     <div v-if="isOpen" id="login-modal" class="modal-background">
         <div class="modal-box">
-            <a class="modal-close" @click="close">Close</a>
+            <button class="modal-close" @click="close">Close</button>
             <slot />
         </div>
     </div>
@@ -41,14 +41,12 @@ export default {
         left: 50%;
         transform: translate(-50%, -50%);
         padding: 2em;
-        margin: 0 12px 8px 12px;
         background-color: #191a4c;
         border-radius: 3px;
         border: 1px solid #3965fb;
         box-shadow:
             0 0 0 1px #191a4c,
             0 0 5px 1px rgba(57, 101, 251, 0.7),
-            0 12px 8px -6px rgba(0, 0, 0, 0.7);
     }
 }
 
@@ -66,8 +64,6 @@ export default {
     font-variant: small-caps;
     transition: all 0.15s;
 
-    &:hover {
-        color: white;
-    }
+    &:hover, &:focus, &:active { color: white; }
 }
 </style>

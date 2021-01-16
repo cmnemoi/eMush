@@ -10,14 +10,14 @@
                 @clickOnDoor="executeDoorAction"
                 @clickOnInventory="openInventory"
                 @clickOnTarget="setTarget"
-                @clickOnNothing="setTarget(getPlayer)"
+                @clickOnNothing="setTarget(null)"
             />
             <MiniMap />
             <RoomInventoryPanel v-if="isInventoryOpen" :items="room.items" />
             <component
                 :is="targetPanel"
-                v-else-if="getTarget"
-                :target="getTarget"
+                v-else-if="selectedTarget"
+                :target="selectedTarget"
             />
         </div>
         <p v-else class="loading">
@@ -35,7 +35,7 @@ import TextualInterface from "@/components/Game/Ship/TextualInterface";
 import { Room } from "@/entities/Room";
 import { Player } from "@/entities/Player";
 import ActionService from "@/services/action.service";
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapState } from "vuex";
 
 export default {
     name: "ShipPanel",
@@ -51,17 +51,16 @@ export default {
     },
     data() {
         return {
-            isInventoryOpen: false
+            isInventoryOpen: false,
+            selectedTarget: null
         };
     },
     computed: {
-        ...mapGetters('player', [
-            'getPlayer',
-            'loading',
-            'getTarget'
+        ...mapState('player', [
+            'loading'
         ]),
         targetPanel() {
-            return this.getTarget instanceof Player ? CrewmatePanel : EquipmentPanel;
+            return this.selectedTarget instanceof Player ? CrewmatePanel : EquipmentPanel;
         }
     },
     methods: {
@@ -72,7 +71,7 @@ export default {
             await this.reloadPlayer();
         },
         setTarget(target) {
-            this.selectTarget({ target });
+            this.selectedTarget = target;
             this.isInventoryOpen = false;
         },
         openInventory() {
@@ -80,7 +79,6 @@ export default {
         },
         ...mapActions('player', [
             'reloadPlayer',
-            'selectTarget',
             'setLoading'
         ])
     }

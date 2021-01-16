@@ -112,7 +112,7 @@ class ActionServiceTest extends TestCase
             ->once()
         ;
         $this->roomLogService->shouldReceive('createPlayerLog')->once();
-        $this->randomService->shouldReceive('randomPercent')->andReturn(10)->once();
+        $this->randomService->shouldReceive('isSuccessfull')->andReturn(true)->once();
         $this->statusServiceInterface->shouldReceive('createCorePlayerStatus')->never();
         $player = $this->actionService->handleActionSideEffect($action, $player, new \DateTime());
 

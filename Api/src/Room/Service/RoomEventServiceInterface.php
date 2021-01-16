@@ -8,5 +8,5 @@ interface RoomEventServiceInterface
 {
     public function handleIncident(Room $room, \DateTime $date): Room;
 
-    public function fireDamage(Room $room, \DateTime $date): Room;
+    public function handleNewFire(Room $room, \DateTime $date): Room;
 }

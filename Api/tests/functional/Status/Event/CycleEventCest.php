@@ -13,6 +13,7 @@ use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\CycleSubscriber;
 
 class CycleEventCest
@@ -86,5 +87,42 @@ class CycleEventCest
         $this->cycleSubscriber->onNewCycle($cycleEvent);
 
         $I->assertEquals($actionPointBefore + 1, $player->getActionPoint());
+    }
+
+    public function testFireStatusCycleSubscriber(FunctionalTester $I)
+    {
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class);
+        /** @var Room $room */
+        $room = $I->have(Room::class, ['daedalus' => $daedalus]);
+        /** @var Player $player */
+        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'room' => $room]);
+
+        $difficultyConfig = $daedalus->getGameConfig()->getDifficultyConfig();
+        $difficultyConfig->setFirePlayerDamage([2 => 1]);
+
+        $healthPointBefore = $player->getHealthPoint();
+
+        $time = new DateTime();
+
+        $cycleEvent = new CycleEvent($daedalus, $time);
+
+        $status = new ChargeStatus();
+
+        $status
+            ->setName(StatusEnum::FIRE)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setRoom($room)
+            ->setCharge(1)
+        ;
+
+        $cycleEvent->setStatus($status);
+
+        $I->haveInRepository($status);
+        $I->refreshEntities($player, $daedalus);
+
+        $this->cycleSubscriber->onNewCycle($cycleEvent);
+
+        $I->assertEquals($healthPointBefore - 2, $player->getHealthPoint());
     }
 }

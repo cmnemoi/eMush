@@ -49,7 +49,6 @@ class RoomSubscriber implements EventSubscriberInterface
             RoomEvent::TREMOR => 'onTremor',
             RoomEvent::ELECTRIC_ARC => 'onElectricArc',
             RoomEvent::STARTING_FIRE => 'onStartingFire',
-            RoomEvent::FIRE => 'onFire',
         ];
     }
 
@@ -116,19 +115,16 @@ class RoomSubscriber implements EventSubscriberInterface
 
     public function onStartingFire(RoomEvent $event): void
     {
-        $fireStatus = $this->statusService->createChargeRoomStatus(StatusEnum::FIRE,
-                    $event->getRoom(),
-                    ChargeStrategyTypeEnum::CYCLE_DECREMENT,
-                    VisibilityEnum::PUBLIC,
-                    1);
+        $room = $event->getRoom();
+        if (!$room->hasStatus(StatusEnum::FIRE)) {
+            $fireStatus = $this->statusService->createChargeRoomStatus(StatusEnum::FIRE,
+                $event->getRoom(),
+                ChargeStrategyTypeEnum::CYCLE_INCREMENT
+            );
 
-        if ($event->getReason() === RoomEventEnum::CYCLE_FIRE) {
-            $fireStatus->setCharge(0);
+            if ($event->getReason() === RoomEventEnum::CYCLE_FIRE) {
+                $fireStatus->setCharge(1);
+            }
         }
-    }
-
-    public function onFire(RoomEvent $event): void
-    {
-        $this->roomEventService->fireDamage($event->getRoom(), $event->getTime());
     }
 }

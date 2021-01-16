@@ -29,7 +29,9 @@ class DailyIncrement extends AbstractChargeStrategy
     {
         $daedalus = $this->getDaedalus($status);
         //Only applied on cycle 1
-        if ($daedalus->getCycle() !== 1 || $status->getCharge() >= $status->getThreshold()) {
+        if ($daedalus->getCycle() !== 1 ||
+            ($status->getThreshold() !== null && $status->getCharge() >= $status->getThreshold())
+        ) {
             return;
         }
         $status->addCharge(1);

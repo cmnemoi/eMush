@@ -10,7 +10,6 @@ class RoomEvent extends Event
     public const TREMOR = 'tremor';
     public const ELECTRIC_ARC = 'electric.arc';
     public const STARTING_FIRE = 'starting.fire';
-    public const FIRE = 'fire';
 
     private Room $room;
     private ?string $reason = null;

@@ -14,6 +14,11 @@
             />
             <MiniMap />
             <RoomInventoryPanel v-if="isInventoryOpen" :items="room.items" />
+            <component
+                :is="targetPanel"
+                v-else-if="getTarget"
+                :target="getTarget"
+            />
         </div>
         <p v-else class="loading">
             Loading...
@@ -22,16 +27,21 @@
 </template>
 
 <script>
+import CrewmatePanel from "@/components/Game/Ship/CrewmatePanel";
+import EquipmentPanel from "@/components/Game/Ship/EquipmentPanel";
 import MiniMap from "@/components/Game/Ship/MiniMap";
 import RoomInventoryPanel from "@/components/Game/Ship/RoomInventoryPanel";
 import TextualInterface from "@/components/Game/Ship/TextualInterface";
 import { Room } from "@/entities/Room";
+import { Player } from "@/entities/Player";
 import ActionService from "@/services/action.service";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
     name: "ShipPanel",
     components: {
+        CrewmatePanel,
+        EquipmentPanel,
         MiniMap,
         RoomInventoryPanel,
         TextualInterface
@@ -47,8 +57,12 @@ export default {
     computed: {
         ...mapGetters('player', [
             'getPlayer',
-            'loading'
-        ])
+            'loading',
+            'getTarget'
+        ]),
+        targetPanel() {
+            return this.getTarget instanceof Player ? CrewmatePanel : EquipmentPanel;
+        }
     },
     methods: {
         async executeDoorAction({ door, action }) {

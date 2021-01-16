@@ -89,10 +89,10 @@ export default {
         ])
     },
     methods: {
-      statusIcon: function(status) {
-        const statusImages = statusItemEnum[status.key];
-        return typeof statusImages !== 'undefined' ? statusImages.icon : null;
-      },
+        statusIcon: function(status) {
+          const statusImages = statusItemEnum[status.key];
+          return statusImages?.icon || null;
+        },
         async executeDoorAction(door, action) {
             this.setLoading();
             await ActionService.executeDoorAction(door, action);

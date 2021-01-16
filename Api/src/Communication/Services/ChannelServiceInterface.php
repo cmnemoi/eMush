@@ -15,7 +15,7 @@ interface ChannelServiceInterface
 
     public function createPrivateChannel(Player $player): Channel;
 
-    public function invitePlayerToPublicChannel(Player $player): Channel;
+    public function invitePlayerToPublicChannel(Player $player): ?Channel;
 
     public function invitePlayer(Player $player, Channel $channel): Channel;
 

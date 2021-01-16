@@ -9,12 +9,18 @@ use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Entity\Player;
+use Mush\User\Entity\User;
 
 class PlayerFactory extends \Codeception\Module
 {
     public function _beforeSuite($settings = [])
     {
         $factory = $this->getModule('DataFactory');
+
+        $factory->_define(User::class, [
+            'user_id' => 'test_user',
+            'username' => 'username',
+        ]);
 
         $factory->_define(Player::class, [
             'gameStatus' => GameStatusEnum::CURRENT,

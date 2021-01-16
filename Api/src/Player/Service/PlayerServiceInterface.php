@@ -14,7 +14,7 @@ interface PlayerServiceInterface
 
     public function findOneByCharacter(string $character, ?Daedalus $daedalus = null): ?Player;
 
-    public function createPlayer(Daedalus $daedalus, string $character): Player;
+    public function createPlayer(Daedalus $daedalus, User $user, string $character): Player;
 
     public function handleNewCycle(Player $player, \DateTime $date): Player;
 

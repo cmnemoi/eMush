@@ -40,7 +40,6 @@ class Fire extends AbstractCycleHandler
         $this->daedalusService = $daedalusService;
     }
 
-
     public function handleNewCycle($object, Daedalus $daedalus, \DateTime $dateTime): void
     {
         if (!$object instanceof ChargeStatus && $object->getName() !== StatusEnum::FIRE) {
@@ -57,7 +56,6 @@ class Fire extends AbstractCycleHandler
             $this->fireDamage($room, $dateTime);
         }
     }
-
 
     private function propagateFire(Room $room, \DateTime $date): Room
     {
@@ -95,7 +93,6 @@ class Fire extends AbstractCycleHandler
             $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
         }
 
-        //@TODO: also add items
         foreach ($room->getEquipments() as $equipment) {
             $this->gameEquipmentService->handleBreakFire($equipment, $date);
         }
@@ -110,11 +107,8 @@ class Fire extends AbstractCycleHandler
         return $room;
     }
 
-
     public function handleNewDay($object, Daedalus $daedalus, \DateTime $dateTime): void
     {
         return;
     }
-
-
 }

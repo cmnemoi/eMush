@@ -14,10 +14,7 @@ use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Room\Entity\Room;
 use Mush\Status\CycleHandler\Fire;
-use Mush\Status\CycleHandler\Starving;
 use Mush\Status\Entity\ChargeStatus;
-use Mush\Status\Entity\Status;
-use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
@@ -90,7 +87,7 @@ class FireTest extends TestCase
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn(PlayerEvent $playerEvent) => (
+            ->withArgs(fn (PlayerEvent $playerEvent) => (
                 $playerEvent->getModifier()->getTarget() === ModifierTargetEnum::HEALTH_POINT &&
                 intval($playerEvent->getModifier()->getDelta()) === -2
             ))

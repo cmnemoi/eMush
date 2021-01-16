@@ -1,13 +1,9 @@
 <?php
 
-
 namespace Mush\Test\Room\Service;
-
 
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Service\DaedalusServiceInterface;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\RandomServiceInterface;
@@ -66,7 +62,7 @@ class RoomEventServiceTest extends TestCase
         $this->randomService->shouldReceive('isSuccessfull')->andReturn(true)->once();
         $this->eventDispatcher->shouldReceive('dispatch')
             ->withArgs(
-                fn(RoomEvent $roomEvent, string $name) => ($roomEvent->getRoom() === $room && $name === RoomEvent::STARTING_FIRE))
+                fn (RoomEvent $roomEvent, string $name) => ($roomEvent->getRoom() === $room && $name === RoomEvent::STARTING_FIRE))
             ->once()
         ;
 
@@ -88,7 +84,7 @@ class RoomEventServiceTest extends TestCase
         $this->randomService->shouldReceive('isSuccessfull')->andReturn(true)->never();
         $this->eventDispatcher->shouldReceive('dispatch')
             ->withArgs(
-                fn(RoomEvent $roomEvent, string $name) => ($roomEvent->getRoom() === $room && $name === RoomEvent::STARTING_FIRE))
+                fn (RoomEvent $roomEvent, string $name) => ($roomEvent->getRoom() === $room && $name === RoomEvent::STARTING_FIRE))
             ->never()
         ;
 
@@ -109,6 +105,5 @@ class RoomEventServiceTest extends TestCase
         $room->setDaedalus($daedalus);
 
         return $room;
-
     }
 }

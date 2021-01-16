@@ -22,6 +22,10 @@
                 <div v-for="(equipment,key) in room.equipments" :key="key">
                     <p @click="clickOnTarget(equipment, $event); $event.stopPropagation()">
                         {{ equipment.name }}
+                        <span v-for="(status, key) in equipment.statuses" :key="key">
+                          <img :src="statusIcon(status)">
+                          <span v-if="status.charge > 0">x{{ status.charge }}</span>
+                      </span>
                     </p>
                 </div>
                 <h1>Players</h1>
@@ -68,6 +72,7 @@ import ActionButton from "@/components/Utils/ActionButton";
 import { Room } from "@/entities/Room";
 import ActionService from "@/services/action.service";
 import { mapActions, mapGetters } from "vuex";
+import {statusItemEnum} from "@/enums/status.item.enum";
 
 export default {
     name: "ShipPanel",
@@ -85,6 +90,10 @@ export default {
         ])
     },
     methods: {
+        statusIcon: function(status) {
+          const statusImages = statusItemEnum[status.key];
+          return statusImages?.icon || null;
+        },
         async executeDoorAction(door, action) {
             this.setLoading();
             await ActionService.executeDoorAction(door, action);

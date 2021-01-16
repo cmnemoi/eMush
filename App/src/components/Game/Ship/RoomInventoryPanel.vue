@@ -51,7 +51,7 @@ export default {
         },
         statusIcon: function(status) {
             const statusImages = statusItemEnum[status.key];
-            return typeof statusImages !== 'undefined' ? statusImages.icon : null;
+            return statusImages?.icon || null;
         },
         async executeItemAction(action) {
             this.setLoading();

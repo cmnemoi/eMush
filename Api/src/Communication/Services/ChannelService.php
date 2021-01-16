@@ -55,7 +55,7 @@ class ChannelService implements ChannelServiceInterface
         return $channel;
     }
 
-    public function invitePlayerToPublicChannel(Player $player): Channel
+    public function invitePlayerToPublicChannel(Player $player): ?Channel
     {
         /** @var Channel $publicChannel */
         $publicChannel = $this->channelRepository->findOneBy([
@@ -64,7 +64,7 @@ class ChannelService implements ChannelServiceInterface
         ]);
 
         if ($publicChannel === null) {
-            throw new \LogicException('There is no public channel for Daedalus: ' . $player->getDaedalus()->getId());
+            return null;
         }
 
         $publicChannel->addParticipant($player);

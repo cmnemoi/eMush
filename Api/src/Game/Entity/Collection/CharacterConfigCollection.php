@@ -9,8 +9,11 @@ class CharacterConfigCollection extends ArrayCollection
 {
     public function getCharacter(string $name): ?CharacterConfig
     {
-        return $this
+        $character = $this
             ->filter(fn (CharacterConfig $characterConfig) => $characterConfig->getName() === $name)
-            ->first();
+            ->first()
+        ;
+
+        return $character === false ? null : $character;
     }
 }

@@ -19,8 +19,6 @@ use Mush\Status\Service\StatusServiceInterface;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\Security\Core\Authentication\Token\AbstractToken;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class PlayerServiceTest extends TestCase
 {
@@ -34,8 +32,6 @@ class PlayerServiceTest extends TestCase
     private RoomLogServiceInterface $roomLogService;
     /** @var StatusServiceInterface | Mockery\Mock */
     private StatusServiceInterface $statusService;
-    /** @var TokenStorageInterface | Mockery\Mock */
-    private TokenStorageInterface $tokenStorage;
     /** @var RandomServiceInterface | Mockery\Mock */
     private RandomServiceInterface $randomService;
 
@@ -51,7 +47,6 @@ class PlayerServiceTest extends TestCase
         $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $this->repository = Mockery::mock(PlayerRepository::class);
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
-        $this->tokenStorage = Mockery::mock(TokenStorageInterface::class);
         $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
 
@@ -64,7 +59,6 @@ class PlayerServiceTest extends TestCase
             $this->repository,
             $this->roomLogService,
             $this->statusService,
-            $this->tokenStorage,
             $this->randomService
         );
     }
@@ -95,17 +89,6 @@ class PlayerServiceTest extends TestCase
 
         $user = new User();
 
-        $token = Mockery::mock(AbstractToken::class);
-        $token
-            ->shouldReceive('getUser')
-            ->andReturn($user)
-        ;
-
-        $this->tokenStorage
-            ->shouldReceive('getToken')
-            ->andReturn($token)
-            ->once()
-        ;
         $this->entityManager
             ->shouldReceive('persist')
             ->once()
@@ -135,7 +118,7 @@ class PlayerServiceTest extends TestCase
             ->setCharactersConfig($this->charactersConfig)
         ;
 
-        $player = $this->service->createPlayer($daedalus, 'character');
+        $player = $this->service->createPlayer($daedalus, $user, 'character');
 
         $this->assertInstanceOf(Player::class, $player);
         $this->assertEquals('character', $player->getCharacterConfig()->getName());

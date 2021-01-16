@@ -53,6 +53,7 @@ class CharacterEnum
     public static function isMale(string $character): bool
     {
         return in_array($character, [
+            self::ANDIE,
             self::TERRENCE,
             self::DEREK,
             self::GIOELE,

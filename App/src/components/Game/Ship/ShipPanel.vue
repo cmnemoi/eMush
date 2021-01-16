@@ -1,19 +1,20 @@
 <template>
     <div class="ship-panel">
-        <p v-if="! loading" class="room">
-            {{ room.name }}
-        </p>
-        <TextualInterface
-            v-if="! loading"
-            class="ship-view"
-            :room="room"
-            @clickOnDoor="executeDoorAction"
-            @clickOnTarget="setTarget"
-            @clickOnNothing="setTarget(getPlayer)"
-        />
-        <MiniMap v-if="! loading" />
-        <RoomInventoryPanel v-if="! loading" :items="room.items" />
-        <p v-if="loading" class="loading">
+        <div v-if="! loading" class="ship-panel-content">
+            <p class="room">
+                {{ room.name }}
+            </p>
+            <TextualInterface
+                class="ship-view"
+                :room="room"
+                @clickOnDoor="executeDoorAction"
+                @clickOnTarget="setTarget"
+                @clickOnNothing="setTarget(getPlayer)"
+            />
+            <MiniMap />
+            <RoomInventoryPanel :items="room.items" />
+        </div>
+        <p v-else class="loading">
             Loading...
         </p>
     </div>
@@ -69,6 +70,10 @@ export default {
     width: 424px;
     height: 460px;
     background: #09092d url("~@/assets/images/shipview/background.png") center repeat;
+
+    .ship-panel-content {
+        flex-direction: row;
+    }
 
     & .ship-view {
         position: absolute;

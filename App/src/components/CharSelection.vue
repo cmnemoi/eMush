@@ -1,25 +1,16 @@
 <template>
     <div class="main">
-        <!--<h1>Select a character</h1>
-        <ul class="char-selection">
-            <li v-for="(character, key) in characters" :key="key">
-                <a href="/#" @click="selectCharacter(character)">
-                    <div><img :src="characterBody(character)"></div>
-                    <span>{{ character.name }}</span>
-                </a>
-            </li>
-        </ul>-->
         <div class="char-selection">
-            <section class="char">
+            <section class="char" v-for="(character, key) in characters" :key="key" @click="selectCharacter(character)">
                 <div class="header">
-                    <p class="level">1</p>
-                    <h2 class="name">Eleesha Williams</h2>
+                    <p class="level"></p>
+                    <h2 class="name">{{ character.name }}</h2>
                 </div>
                 <div class="portrait">
-                    <img src="@/assets/images/char/portrait/Eleesha_williams_portrait.jpg" alt="Eleesha Williams">
+                    <img :src="characterPortrait(character)">
                 </div>
                 <div class="body">
-                    <img src="@/assets/images/char/body/eleesha.png">
+                    <img :src="characterBody(character)">
                 </div>
             </section>
         </div>
@@ -42,8 +33,8 @@
                 <p>Brilliant biologist and hardcore rebel markswoman, she is driven by the need to recontact Kivanç Terzi. Her technical and logistical skills are highly prized.</p>
             </div>
             <div class="gamestart">
-                <p>You have chosen... <strong>Eleesha Williams</strong>.</p>
-                <a class="start" href="#"><span>Start the game</span></a>
+                <p class="choice">Vous avez choisi... <strong>Eleesha Williams</strong>.</p>
+                <a class="start" href="#"><span>Démarrer la partie</span></a>
             </div>
         </div>
     </div>
@@ -76,6 +67,9 @@ export default {
             });
     },
     methods: {
+        characterPortrait: function(character) {
+            return characterEnum[character.key] ? characterEnum[character.key].portrait : require('@/assets/images/items/todo.jpg');
+        },
         characterBody: function(character) {
             return characterEnum[character.key] ? characterEnum[character.key].body : require('@/assets/images/items/todo.jpg');
         },
@@ -153,7 +147,7 @@ export default {
                     width: 33px;
                     margin: 0;
                     padding-top: .15em;
-                    font-family: "Days One";
+                    font-family: "Days-One";
                     font-size: 1.4em;
                     text-align: center;
                     background: rgba(54,76,148,0.3);
@@ -178,22 +172,22 @@ export default {
 
             .body {
                 position: relative;
-                align-items: flex-end;
+                align-items: center;
                 justify-content: flex-end;
                 padding: 10px;
+                padding-left: calc(100% - 20px);
                 height: 30px;
                 background: rgba(54,76,148,0.3);
 
                 img {
-                    transform: translate(-13px, -12px);
+                      transform: translate(-18px, 8px);
                     z-index: 2;
                 }
 
                 &::after {
                     content: "";
-                    position: absolute;
-                    right: 10px;
-                    bottom: 10px;
+                    position: relative;
+                    transform: translate(-17px, 0);
                     min-width: 39px;
                     min-height: 21px;
                     background: url("~@/assets/images/figure.png") center no-repeat;
@@ -201,7 +195,8 @@ export default {
             }
 
             &:hover, &:focus, &:active {
-                transform: translateY(-8px);
+                margin-top: 4px;
+                margin-bottom: 36px;
                 box-shadow: 0 9px 6px -6px #0f0f43;
 
             }
@@ -209,15 +204,18 @@ export default {
     }
 
     .banner {
-        flex-direction: row;
+        flex-flow: row wrap;
         justify-content: flex-start;
         font-size: .85em;
 
-        & > * { margin: 12px; }
+        & > * {
+            flex: 1;
+            min-width: 260px;
+            margin: 12px;
+            }
 
         .skills {
             flex-flow: row wrap;
-            flex: 1;
             min-width: 260px;
             padding: .3em .75em;
             border-radius: 5px;
@@ -233,20 +231,22 @@ export default {
         }
 
         .description {
-            flex: 3;
             padding: 1em;
             line-height: 1.4em;
         }
 
         .gamestart {
-            flex: 2;
-            min-width: 280px;
+            min-width: 320px;
             align-self: center;
             align-items: center;
-            padding: 0 2em;
-            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1.25em;
 
-            p strong { color: #01c3df; }
+            @media screen and (min-width: 960px) { border-left: 1px solid rgba(255, 255, 255, 0.1); }
+
+            .choice {
+                margin: 0 0 .8em;
+                strong { color: #01c3df; }
+            }
 
             a.start {
                 display: flex;

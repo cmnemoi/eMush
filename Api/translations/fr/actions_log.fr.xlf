@@ -271,7 +271,7 @@
                 <target>player s'est callé avec son gros repas, gurps.</target>
             </segment>
             <segment id="consume_success_3_3_3">
-                <source>consume_success_3_2_3.character.male</source>
+                <source>consume_success_3_3_3.character.male</source>
                 <target>player s'est callé avec son gros repas, merci.</target>
             </segment>
             <segment>

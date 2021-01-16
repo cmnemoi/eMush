@@ -4,11 +4,11 @@
         <unit id="awaken">
             <segment>
                 <source>awaken.character.male</source>
-                <target>**player** semble émerger péniblement de son sommeil...</target>
+                <target>**player** s'est éveillé de son si doux sommeil.</target>
             </segment>
             <segment>
                 <source>awaken.character.female</source>
-                <target>**player** semble émerger péniblement de son sommeil...</target>
+                <target>**player** s'est éveillée de son si long sommeil.</target>
             </segment>
         </unit>
         <unit id="gain_action_point">

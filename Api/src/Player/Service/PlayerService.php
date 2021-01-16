@@ -22,8 +22,6 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\User\Entity\User;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\Finder\Exception\AccessDeniedException;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class PlayerService implements PlayerServiceInterface
 {
@@ -37,8 +35,6 @@ class PlayerService implements PlayerServiceInterface
 
     private StatusServiceInterface $statusService;
 
-    private TokenStorageInterface $tokenStorage;
-
     private RandomServiceInterface $randomService;
 
     public function __construct(
@@ -47,7 +43,6 @@ class PlayerService implements PlayerServiceInterface
         PlayerRepository $repository,
         RoomLogServiceInterface $roomLogService,
         StatusServiceInterface $statusService,
-        TokenStorageInterface $tokenStorage,
         RandomServiceInterface $randomService
     ) {
         $this->entityManager = $entityManager;
@@ -55,7 +50,6 @@ class PlayerService implements PlayerServiceInterface
         $this->repository = $repository;
         $this->roomLogService = $roomLogService;
         $this->statusService = $statusService;
-        $this->tokenStorage = $tokenStorage;
         $this->randomService = $randomService;
     }
 
@@ -82,18 +76,11 @@ class PlayerService implements PlayerServiceInterface
         return $this->repository->findOneBy(['user' => $user, 'gameStatus' => GameStatusEnum::CURRENT]);
     }
 
-    public function createPlayer(Daedalus $daedalus, string $character): Player
+    public function createPlayer(Daedalus $daedalus, User $user, string $character): Player
     {
         $player = new Player();
 
         $gameConfig = $daedalus->getGameConfig();
-
-        if (!$token = $this->tokenStorage->getToken()) {
-            throw new AccessDeniedException('User should be logged to access that');
-        }
-
-        /** @var User $user */
-        $user = $token->getUser();
 
         $characterConfig = $gameConfig->getCharactersConfig()->getCharacter($character);
         if (!$characterConfig) {

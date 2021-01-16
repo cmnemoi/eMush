@@ -2,6 +2,7 @@
     <div class="ship-panel" @click="clickOnTarget(getPlayer, $event)">
         <p v-if="! loading" class="room">
             {{ room.name }}
+          <img v-if="(room.statuses.length > 0 && room.statuses[0].key === 'fire')" :src="require('@/assets/images/status/fire.png')">
         </p>
         <div v-if="! loading" class="ship-view">
             <div class="textual">

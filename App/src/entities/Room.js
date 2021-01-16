@@ -2,6 +2,7 @@ import { Item } from "@/entities/Item";
 import { Door } from "@/entities/Door";
 import { Player } from "@/entities/Player";
 import { Equipment } from "@/entities/Equipment";
+import {Status} from "@/entities/Status";
 
 export class Room {
     constructor() {
@@ -12,6 +13,7 @@ export class Room {
         this.doors = [];
         this.equipments = [];
         this.players = [];
+        this.statuses = [];
     }
     load = function(object) {
         if (typeof object !== "undefined") {
@@ -34,6 +36,10 @@ export class Room {
             object.equipments.forEach((equipmentObject) => {
                 let equipment = (new Equipment()).load(equipmentObject);
                 this.equipments.push(equipment);
+            });
+            object.statuses.forEach((statusObject) => {
+                let status = (new Status()).load(statusObject);
+                this.statuses.push(status);
             });
         }
         return this;

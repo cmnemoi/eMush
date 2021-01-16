@@ -28,7 +28,7 @@
                 v-for="(action, key) in target.actions"
                 :key="key"
                 :action="action"
-                @click="executeTargetAction"
+                @click="executeTargetAction(action)"
             />
         </div>
     </div>

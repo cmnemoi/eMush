@@ -74,6 +74,6 @@ class WaterPlant extends AbstractAction
 
         $this->gameEquipmentService->persist($this->gameEquipment);
 
-        return new Success(ActionLogEnum::WATER_PLANT_SUCCESS, VisibilityEnum::PUBLIC);
+        return new Success(ActionLogEnum::WATER_PLANT_SUCCESS, VisibilityEnum::PRIVATE);
     }
 }

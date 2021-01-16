@@ -3,6 +3,7 @@
         <div v-if="! loading" class="ship-panel-content">
             <p class="room">
                 {{ room.name }}
+                <img v-if="(room.statuses.length > 0 && room.statuses[0].key === 'fire')" :src="require('@/assets/images/status/fire.png')">
             </p>
             <TextualInterface
                 class="ship-view"

@@ -65,6 +65,6 @@ class TreatPlant extends AbstractAction
             $this->statusService->delete($diseased);
         }
 
-        return new Success(ActionLogEnum::TREAT_PLANT_SUCCESS, VisibilityEnum::PUBLIC);
+        return new Success(ActionLogEnum::TREAT_PLANT_SUCCESS, VisibilityEnum::PRIVATE);
     }
 }

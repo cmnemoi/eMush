@@ -134,6 +134,9 @@ export default {
             this.setLoading();
             await ActionService.executeTargetAction(target, action);
             await this.reloadPlayer();
+            if (! this.player.items.includes(this.selectedItem)) {
+                this.selectedItem = null;
+            }
         },
         ...mapActions('player', [
             'reloadPlayer',

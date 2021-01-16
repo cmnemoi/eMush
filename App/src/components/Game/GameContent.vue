@@ -1,13 +1,13 @@
 <template>
-    <div v-if="getPlayer !== null" class="main">
+    <div v-if="player" class="main">
         <GamePopUp style="display: none;" />
         <div class="top-banner">
-            <BannerPanel :player="getPlayer" :daedalus="getPlayer.daedalus" />
+            <BannerPanel :player="player" :daedalus="player.daedalus" />
         </div>
         <div class="game-content">
-            <CharPanel :player="getPlayer" />
-            <ShipPanel :room="getPlayer.room" />
-            <CommsPanel :day="getPlayer.daedalus.day" :cycle="getPlayer.daedalus.cycle" />
+            <CharPanel :player="player" />
+            <ShipPanel :room="player.room" />
+            <CommsPanel :day="player.daedalus.day" :cycle="player.daedalus.cycle" />
         </div>
         <ProjectsPanel />
         <div class="bottom-banner" />
@@ -21,7 +21,7 @@ import CharPanel from "@/components/Game/CharPanel";
 import ShipPanel from "@/components/Game/Ship/ShipPanel";
 import CommsPanel from "@/components/Game/Communications/CommsPanel";
 import ProjectsPanel from "@/components/Game/ProjectsPanel";
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapState } from "vuex";
 
 export default {
     name: 'GameContent',
@@ -37,8 +37,8 @@ export default {
         playerId: Number
     },
     computed: {
-        ...mapGetters('player', [
-            'getPlayer'
+        ...mapState('player', [
+            'player'
         ])
     },
     beforeMount() {

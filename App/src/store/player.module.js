@@ -3,26 +3,12 @@ import PlayerService from "@/services/player.service";
 
 const state =  {
     loading: false,
-    player: null,
-    target: null
+    player: null
 };
 
-const getters = {
-    getPlayer: (state) => {
-        return state.player;
-    },
-    loading: (state) => {
-        return state.loading;
-    },
-    getTarget: (state) => {
-        return state.target;
-    }
-};
+const getters = {};
 
 const actions = {
-    selectTarget({ commit }, { target }) {
-        commit('setTarget', target);
-    },
     storePlayer({ commit }, { player }) {
         commit('updatePlayer', player);
     },
@@ -46,14 +32,10 @@ const actions = {
 };
 
 const mutations = {
-    setTarget(state, target) {
-        state.target = target;
-    },
     setLoading(state, newValue) {
         state.loading = newValue;
     },
     updatePlayer(state, player) {
-        state.target = player;
         state.player = player;
         state.loading = false;
     }

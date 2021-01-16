@@ -24,21 +24,21 @@
                 </div>
             </div>
             <div class="inventory">
-                <inventory :items="player.items" :min-slot="3" @select="selectItem" />
+                <inventory :items="player.items" :min-slot="3" @select="toggleItemSelection" />
             </div>
-            <div v-if="! loading && getTarget" class="interactions">
-                <p v-if="shouldDisplayItemInformation(getTarget)">
-                    {{ getTarget.name }}
-                    <span v-for="(status, key) in getTarget.statuses" :key="key">
+            <div v-if="! loading && target" class="interactions">
+                <p v-if="selectedItem">
+                    {{ selectedItem.name }}
+                    <span v-for="(status, key) in selectedItem.statuses" :key="key">
                         <img :src="itemStatusIcon(status)">
                         <span v-if="status.charge > 0">x{{ status.charge }}</span>
                     </span>
                 </p>
                 <ActionButton
-                    v-for="(action, key) in getTarget.actions"
+                    v-for="(action, key) in target.actions"
                     :key="key"
                     :action="action"
-                    @click="executeTargetAction(action)"
+                    @click="executeTargetAction(target, action)"
                 />
             </div>
         </div>
@@ -79,10 +79,9 @@ import { characterEnum } from '@/enums/character';
 import Inventory from "@/components/Game/Inventory";
 import ActionButton from "@/components/Utils/ActionButton";
 import ActionService from "@/services/action.service";
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapState } from "vuex";
 import { statusPlayerEnum } from "@/enums/status.player.enum";
 import { statusItemEnum } from "@/enums/status.item.enum";
-import { Item } from "@/entities/Item";
 
 export default {
     name: "CharPanel",
@@ -93,7 +92,7 @@ export default {
     props: {
         player: Player
     },
-    data: () => {
+    data() {
         return {
             selectedItem: null
         };
@@ -102,36 +101,42 @@ export default {
         characterPortrait: function() {
             return characterEnum[this.player.characterKey].portrait;
         },
-        ...mapGetters('player', [
-            'getTarget',
+        ...mapState('player', [
             'loading'
-        ])
+        ]),
+        target() {
+            return this.selectedItem || this.player;
+        }
     },
     methods: {
-        shouldDisplayItemInformation: function(target) {
-            return target instanceof Item;
-        },
-        isFull: function (value, threshold) {
+        isFull (value, threshold) {
             return {
                 "full": value <= threshold,
                 'empty': value > threshold
             };
         },
-        playerStatusIcon: function(status) {
+        playerStatusIcon(status) {
             const statusImages = statusPlayerEnum[status.key];
             return typeof statusImages !== 'undefined' ? statusImages.icon : null;
         },
-        itemStatusIcon: function(status) {
+        itemStatusIcon(status) {
             const statusImages = statusItemEnum[status.key];
             return typeof statusImages !== 'undefined' ? statusImages.icon : null;
         },
-        selectItem: function(item) {
-            this.selectTarget({ target: item });
+        toggleItemSelection(item) {
+            if (this.selectedItem === item) {
+                this.selectedItem = null;
+            } else {
+                this.selectedItem = item;
+            }
         },
-        async executeTargetAction(action) {
+        async executeTargetAction(target, action) {
             this.setLoading();
-            await ActionService.executeTargetAction(this.getTarget, action);
+            await ActionService.executeTargetAction(target, action);
             await this.reloadPlayer();
+            if (! this.player.items.includes(this.selectedItem)) {
+                this.selectedItem = null;
+            }
         },
         ...mapActions('player', [
             'reloadPlayer',

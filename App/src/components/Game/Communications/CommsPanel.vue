@@ -34,7 +34,7 @@ import PrivateTab from "@/components/Game/Communications/PrivateTab";
 import MushTab from "@/components/Game/Communications/MushTab";
 import Tab from "@/components/Game/Communications/Tab";
 import { Room } from "@/entities/Room";
-import { mapActions, mapGetters, mapState } from "vuex";
+import { mapActions, mapState } from "vuex";
 import { PRIVATE, PUBLIC, ROOM_LOG, TIPS } from '@/enums/communication.enum';
 import { Channel } from "@/entities/Channel";
 
@@ -63,7 +63,7 @@ export default {
             'channels',
             'currentChannel'
         ]),
-        ...mapGetters('player', [
+        ...mapState('player', [
             'loading'
         ]),
         displayNewTab() {

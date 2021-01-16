@@ -91,14 +91,25 @@ class Repair extends AttemptAction
 
     protected function createLog(ActionResult $actionResult): void
     {
-        $this->roomLogService->createEquipmentLog(
-            ActionLogEnum::REPAIR_SUCCESS,
-            $this->player->getRoom(),
-            $this->player,
-            $this->gameEquipment,
-            VisibilityEnum::PUBLIC,
-            new \DateTime('now')
-        );
+        if ($actionResult instanceof Success) {
+            $this->roomLogService->createEquipmentLog(
+                ActionLogEnum::REPAIR_SUCCESS,
+                $this->player->getRoom(),
+                $this->player,
+                $this->gameEquipment,
+                VisibilityEnum::PRIVATE,
+                new \DateTime('now')
+            );
+        } else {
+            $this->roomLogService->createEquipmentLog(
+                ActionLogEnum::REPAIR_FAIL,
+                $this->player->getRoom(),
+                $this->player,
+                $this->gameEquipment,
+                VisibilityEnum::PRIVATE,
+                new \DateTime('now')
+            );
+        }
     }
 
     protected function getBaseRate(): int

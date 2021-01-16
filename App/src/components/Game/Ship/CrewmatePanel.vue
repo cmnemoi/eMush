@@ -6,7 +6,9 @@
                     <img src="@/assets/images/char/portrait/Gioele_rinaldo_portrait.jpg" alt="crewmate">
                 </div>
                 <div>
-                    <p class="name">Gioele Rinaldo</p>
+                    <p class="name">
+                        Gioele Rinaldo
+                    </p>
                     <div class="status">
                         <span><img src="@/assets/images/status/spore.png">x2</span>
                         <span><img src="@/assets/images/status/thinklinked.png"></span>
@@ -14,7 +16,9 @@
                     </div>
                 </div>
             </div>
-            <p class="presentation">Armateur philantrope caféinomane.</p>
+            <p class="presentation">
+                Armateur philantrope caféinomane.
+            </p>
             <div class="skills">
                 <img src="@/assets/images/skills/cook.png" alt="cook">
                 <img src="@/assets/images/skills/sturdy.png" alt="sturdy">
@@ -32,7 +36,7 @@
 <script>
 
 export default {
-    name: "CrewmatePanel",
+    name: "CrewmatePanel"
 };
 </script>
 
@@ -52,12 +56,12 @@ export default {
         border-right: 1px dotted #4a5d8f;
         padding: 1px;
         padding-right: 4px;
-        font-size: .85em;
+        font-size: 0.85em;
 
         .card {
             flex-flow: row wrap;
 
-            & > * { flex: 1 } //divs will wrap only if too small
+            & > * { flex: 1; } //divs will wrap only if too small
 
             .avatar {
                 align-items: center;
@@ -78,7 +82,7 @@ export default {
             .status {
                 flex-direction: row;
                 flex-wrap: wrap;
-                font-size: .9em;
+                font-size: 0.9em;
                 span { padding: 1px; }
             }
 
@@ -92,8 +96,8 @@ export default {
 
         .presentation {
             margin: 0;
-            padding: 2px 0px;
-            font-size: .9em;
+            padding: 2px 0;
+            font-size: 0.9em;
             font-style: italic;
         }
 
@@ -119,7 +123,7 @@ export default {
         width: 22px;
         height: 22px;
 
-        @include button-style(.83em, 400);
+        @include button-style(0.83em, 400);
     }
 }
 </style>

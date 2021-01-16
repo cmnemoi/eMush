@@ -3,11 +3,9 @@
         <div class="char-sheet">
             <img class="avatar" :src="characterPortrait" alt="avatar">
 
-            <ul class="status">
-                <li v-for="(status, id) in player.statuses" :key="id">
-                    <img :src="playerStatusIcon(status)">
-                </li>
-            </ul>
+            <div class="statuses">
+                <Statuses :statuses="player.statuses" type="player" />
+            </div>
 
             <div class="health-points">
                 <div class="life">
@@ -27,12 +25,9 @@
                 <inventory :items="player.items" :min-slot="3" @select="toggleItemSelection" />
             </div>
             <div v-if="! loading && target" class="interactions">
-                <p v-if="selectedItem">
+                <p v-if="selectedItem" class="item-name">
                     {{ selectedItem.name }}
-                    <span v-for="(status, key) in selectedItem.statuses" :key="key">
-                        <img :src="itemStatusIcon(status)">
-                        <span v-if="status.charge > 0">x{{ status.charge }}</span>
-                    </span>
+                    <Statuses :statuses="selectedItem.statuses" type="item" />
                 </p>
                 <ActionButton
                     v-for="(action, key) in target.actions"
@@ -79,15 +74,15 @@ import { characterEnum } from '@/enums/character';
 import Inventory from "@/components/Game/Inventory";
 import ActionButton from "@/components/Utils/ActionButton";
 import ActionService from "@/services/action.service";
+import Statuses from "@/components/Utils/Statuses";
 import { mapActions, mapState } from "vuex";
-import { statusPlayerEnum } from "@/enums/status.player.enum";
-import { statusItemEnum } from "@/enums/status.item.enum";
 
 export default {
     name: "CharPanel",
     components: {
         ActionButton,
-        Inventory
+        Inventory,
+        Statuses
     },
     props: {
         player: Player
@@ -114,14 +109,6 @@ export default {
                 "full": value <= threshold,
                 'empty': value > threshold
             };
-        },
-        playerStatusIcon(status) {
-            const statusImages = statusPlayerEnum[status.key];
-            return typeof statusImages !== 'undefined' ? statusImages.icon : null;
-        },
-        itemStatusIcon(status) {
-            const statusImages = statusItemEnum[status.key];
-            return typeof statusImages !== 'undefined' ? statusImages.icon : null;
         },
         toggleItemSelection(item) {
             if (this.selectedItem === item) {
@@ -164,12 +151,15 @@ export default {
             height: auto;
         }
 
-        & .status {
+        .statuses {
             position: absolute;
             flex-flow: column wrap;
             align-items: center;
             margin: 2px;
-            & li { margin-bottom: 3px; }
+
+            /deep/ .status {
+                margin-bottom: 3px;
+            }
         }
 
         & .health-points {
@@ -244,12 +234,16 @@ export default {
         & .interactions {
             margin-top: 12px;
 
-            & > p {
+            .item-name {
                 margin: 0 0 4px 0;
                 font-size: 0.83em;
                 letter-spacing: 0.03em;
                 font-variant: small-caps;
-                img { vertical-align: middle; margin-left: 2px; }
+
+                /deep/ .status {
+                    vertical-align: middle;
+                    margin-left: 2px;
+                }
             }
         }
     }

@@ -3,7 +3,7 @@
         <div v-if="! loading" class="ship-panel-content">
             <p class="room">
                 {{ room.name }}
-                <img v-if="(room.statuses.length > 0 && room.statuses[0].key === 'fire')" :src="require('@/assets/images/status/fire.png')">
+                <Statuses :statuses="room.statuses" type="room" />
             </p>
             <TextualInterface
                 class="ship-view"
@@ -32,6 +32,7 @@ import CrewmatePanel from "@/components/Game/Ship/CrewmatePanel";
 import EquipmentPanel from "@/components/Game/Ship/EquipmentPanel";
 import MiniMap from "@/components/Game/Ship/MiniMap";
 import RoomInventoryPanel from "@/components/Game/Ship/RoomInventoryPanel";
+import Statuses from "@/components/Utils/Statuses";
 import TextualInterface from "@/components/Game/Ship/TextualInterface";
 import { Room } from "@/entities/Room";
 import { Player } from "@/entities/Player";
@@ -45,6 +46,7 @@ export default {
         EquipmentPanel,
         MiniMap,
         RoomInventoryPanel,
+        Statuses,
         TextualInterface
     },
     props: {

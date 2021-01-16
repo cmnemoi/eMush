@@ -21,10 +21,7 @@
         <div v-for="(equipment,key) in room.equipments" :key="key">
             <p @click="$emit('clickOnTarget', equipment); $event.stopPropagation()">
                 {{ equipment.name }}
-                <span v-for="(status, key) in equipment.statuses" :key="key">
-                    <img :src="statusIcon(status)">
-                    <span v-if="status.charge > 0">x{{ status.charge }}</span>
-                </span>
+                <Statuses :statuses="equipment.statuses" type="equipment" />
             </p>
         </div>
         <h1>Players</h1>
@@ -38,12 +35,13 @@
 
 <script>
 import ActionButton from "@/components/Utils/ActionButton";
+import Statuses from "@/components/Utils/Statuses";
 import { Room } from "@/entities/Room";
-import { statusItemEnum } from "@/enums/status.item.enum";
 
 export default {
     components: {
-        ActionButton
+        ActionButton,
+        Statuses
     },
     props: {
         room: Room
@@ -53,15 +51,7 @@ export default {
         "clickOnInventory",
         "clickOnTarget",
         "clickOnNothing"
-    ],
-    computed: {
-        statusIcon() {
-            return (status) => {
-                const statusImages = statusItemEnum[status.key];
-                return statusImages?.icon || null;
-            };
-        }
-    }
+    ]
 };
 </script>
 

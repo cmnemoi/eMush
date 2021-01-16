@@ -3,40 +3,76 @@
         <div class="mate">
             <div class="card">
                 <div class="avatar">
-                    <img src="@/assets/images/char/portrait/Gioele_rinaldo_portrait.jpg" alt="crewmate">
+                    <img :src="portrait" alt="crewmate">
                 </div>
                 <div>
                     <p class="name">
-                        Gioele Rinaldo
+                        {{ target.characterValue }}
                     </p>
                     <div class="status">
-                        <span><img src="@/assets/images/status/spore.png">x2</span>
-                        <span><img src="@/assets/images/status/thinklinked.png"></span>
-                        <span><img src="@/assets/images/status/laid.png"></span>
+                        <span v-for="(status, id) in target.statuses" :key="id">
+                            <img :src="playerStatusIcon(status)">
+                        </span>
                     </div>
                 </div>
             </div>
             <p class="presentation">
-                Armateur philantrope caféinomane.
+                Description (to be implemented)
             </p>
             <div class="skills">
-                <img src="@/assets/images/skills/cook.png" alt="cook">
-                <img src="@/assets/images/skills/sturdy.png" alt="sturdy">
-                <img src="@/assets/images/skills/opportunist.png" alt="opportunist">
+                Skills (to be implemented)
             </div>
         </div>
         <div class="interactions">
-            <a href="#">Action 1</a>
-            <a href="#">Action 2</a>
+            <ActionButton
+                v-for="(action, key) in target.actions"
+                :key="key"
+                :action="action"
+                @click="executeTargetAction"
+            />
         </div>
-        <a class="close" href="#">x</a>
     </div>
 </template>
 
 <script>
+import { mapActions } from "vuex";
+import ActionButton from "@/components/Utils/ActionButton";
+import ActionService from "@/services/action.service";
+import { Player } from "@/entities/Player";
+import { characterEnum } from '@/enums/character';
+import { statusPlayerEnum } from "@/enums/status.player.enum";
+
 
 export default {
-    name: "CrewmatePanel"
+    name: "CrewmatePanel",
+    components: {
+        ActionButton
+    },
+    props: {
+        target: Player
+    },
+    computed: {
+        portrait() {
+            return characterEnum[this.target.characterKey].portrait;
+        },
+        playerStatusIcon() {
+            return (status) => {
+                const statusImages = statusPlayerEnum[status.key];
+                return typeof statusImages !== 'undefined' ? statusImages.icon : null;
+            };
+        }
+    },
+    methods: {
+        ...mapActions('player', [
+            'reloadPlayer',
+            'setLoading'
+        ]),
+        async executeTargetAction(action) {
+            this.setLoading();
+            await ActionService.executeTargetAction(this.target, action);
+            await this.reloadPlayer();
+        }
+    }
 };
 </script>
 
@@ -45,7 +81,7 @@ export default {
     position: absolute;
     z-index: 5;
     bottom: 0;
-    width: 100%;
+    width: calc(100% - 16px);
     flex-direction: row;
     padding: 3px;
     background-color: #222a6b;
@@ -112,18 +148,6 @@ export default {
         max-width: 50%;
         padding: 1px;
         padding-left: 4px;
-
-        a { @include button-style(); } // Provisional
-    }
-
-    .close {
-        position: absolute;
-        top: -30px;
-        right: 6px;
-        width: 22px;
-        height: 22px;
-
-        @include button-style(0.83em, 400);
     }
 }
 </style>

@@ -12,6 +12,11 @@
             />
         </div>
 
+        <h1>Inventory</h1>
+        <p @click="$emit('clickOnInventory'); $event.stopPropagation()">
+            Click here to open the Room Inventory
+        </p>
+
         <h1>Equipment</h1>
         <div v-for="(equipment,key) in room.equipments" :key="key">
             <p @click="$emit('clickOnTarget', equipment); $event.stopPropagation()">
@@ -40,6 +45,7 @@ export default {
     },
     emits: [
         "clickOnDoor",
+        "clickOnInventory",
         "clickOnTarget",
         "clickOnNothing"
     ]

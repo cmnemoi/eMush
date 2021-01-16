@@ -8,11 +8,12 @@
                 class="ship-view"
                 :room="room"
                 @clickOnDoor="executeDoorAction"
+                @clickOnInventory="openInventory"
                 @clickOnTarget="setTarget"
                 @clickOnNothing="setTarget(getPlayer)"
             />
             <MiniMap />
-            <RoomInventoryPanel :items="room.items" />
+            <RoomInventoryPanel v-if="isInventoryOpen" :items="room.items" />
         </div>
         <p v-else class="loading">
             Loading...
@@ -38,6 +39,11 @@ export default {
     props: {
         room: Room
     },
+    data() {
+        return {
+            isInventoryOpen: false
+        };
+    },
     computed: {
         ...mapGetters('player', [
             'getPlayer',
@@ -47,11 +53,16 @@ export default {
     methods: {
         async executeDoorAction({ door, action }) {
             this.setLoading();
+            this.isInventoryOpen = false;
             await ActionService.executeDoorAction(door, action);
             await this.reloadPlayer();
         },
         setTarget(target) {
             this.selectTarget({ target });
+            this.isInventoryOpen = false;
+        },
+        openInventory() {
+            this.isInventoryOpen = true;
         },
         ...mapActions('player', [
             'reloadPlayer',

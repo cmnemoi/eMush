@@ -83,7 +83,8 @@ class RandomService implements RandomServiceInterface
             $array[$event] = $cumuProba;
         }
 
-        $probaLim = $this->random(1, $cumuProba);
+        $probaLim = $this->random(0, $cumuProba);
+
         $pickedElement = array_filter($array, function ($n) use ($probaLim) {
             return $n >= $probaLim;
         });

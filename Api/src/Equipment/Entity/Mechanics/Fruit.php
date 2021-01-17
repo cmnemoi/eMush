@@ -22,7 +22,7 @@ class Fruit extends Ration
     /**
      * @ORM\Column(type="array", nullable=false)
      */
-    private array $fruitEffectsNumber = [0];
+    private array $fruitEffectsNumber = [];
 
     /**
      * @ORM\Column(type="array", nullable=false)

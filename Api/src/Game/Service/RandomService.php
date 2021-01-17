@@ -22,6 +22,11 @@ class RandomService implements RandomServiceInterface
         return $this->random(1, 100);
     }
 
+    public function isSuccessfull(int $successRate): bool
+    {
+        return $this->randomPercent() <= $successRate;
+    }
+
     public function getRandomPlayer(PlayerCollection $players): Player
     {
         if ($players->isEmpty()) {
@@ -69,7 +74,7 @@ class RandomService implements RandomServiceInterface
     public function getSingleRandomElementFromProbaArray(array $array): string
     {
         if (count($array) === 0) {
-            throw new Error('getRandomElements: array is not large enough');
+            throw new Error('getSingleRandomElement: array is not large enough');
         }
         //first create a cumulative form of the array
         $cumuProba = 0;
@@ -78,7 +83,8 @@ class RandomService implements RandomServiceInterface
             $array[$event] = $cumuProba;
         }
 
-        $probaLim = $this->random(1, $cumuProba);
+        $probaLim = $this->random(0, $cumuProba);
+
         $pickedElement = array_filter($array, function ($n) use ($probaLim) {
             return $n >= $probaLim;
         });

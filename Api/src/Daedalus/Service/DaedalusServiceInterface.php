@@ -24,7 +24,11 @@ interface DaedalusServiceInterface
 
     public function selectAlphaMush(Daedalus $daedalus): Daedalus;
 
-    public function getRandomAsphyxia(Daedalus $daedalus): Daedalus;
+    public function getRandomAsphyxia(Daedalus $daedalus, \DateTime $date = null): Daedalus;
 
     public function killRemainingPlayers(Daedalus $daedalus, string $cause): Daedalus;
+
+    public function changeOxygenLevel(Daedalus $daedalus, int $change): Daedalus;
+
+    public function changeFuelLevel(Daedalus $daedalus, int $change): Daedalus;
 }

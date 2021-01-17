@@ -5,11 +5,10 @@ namespace Mush\Test\Action\Actions;
 use Mockery;
 use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Actions\Action;
 use Mush\Action\Actions\Infect;
 use Mush\Action\Entity\ActionParameters;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
@@ -18,10 +17,9 @@ use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class InfectActionTest extends TestCase
+class InfectActionTest extends AbstractActionTest
 {
     /** @var RoomLogServiceInterface | Mockery\Mock */
     private RoomLogServiceInterface $roomLogService;
@@ -32,21 +30,21 @@ class InfectActionTest extends TestCase
     /** @var PlayerServiceInterface | Mockery\Mock */
     private PlayerServiceInterface $playerService;
 
-    private Action $action;
-
     /**
      * @before
      */
     public function before()
     {
-        $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
+        parent::before();
+
+        $this->actionEntity = $this->createActionEntity(ActionEnum::INFECT, 1);
+
         $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
-        $eventDispatcher->shouldReceive('dispatch');
 
         $this->action = new Infect(
-            $eventDispatcher,
+            $this->eventDispatcher,
             $this->roomLogService,
             $this->statusService,
             $this->playerService,
@@ -74,7 +72,7 @@ class InfectActionTest extends TestCase
         $actionParameter = new ActionParameters();
         $actionParameter->setPlayer($targetPlayer);
 
-        $this->action->loadParameters($player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
         $mushStatus = new ChargeStatus();
         $mushStatus
@@ -156,7 +154,7 @@ class InfectActionTest extends TestCase
             ->setName(PlayerStatusEnum::SPORES)
             ->setPlayer($player);
 
-        $this->action->loadParameters($player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
         $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $eventDispatcher->shouldReceive('dispatch');
@@ -171,21 +169,5 @@ class InfectActionTest extends TestCase
         $this->assertCount(1, $player->getStatuses());
         $this->assertEquals(0, $player->getStatusByName(PlayerStatusEnum::MUSH)->getCharge());
         $this->assertEquals(9, $player->getActionPoint());
-    }
-
-    private function createPlayer(Daedalus $daedalus, Room $room): Player
-    {
-        $player = new Player();
-        $player
-            ->setPerson('some person')
-            ->setActionPoint(10)
-            ->setMovementPoint(10)
-            ->setMoralPoint(10)
-            ->setDaedalus($daedalus)
-            ->setRoom($room)
-            ->setGameStatus(GameStatusEnum::CURRENT)
-        ;
-
-        return $player;
     }
 }

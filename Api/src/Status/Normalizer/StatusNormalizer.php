@@ -47,7 +47,7 @@ class StatusNormalizer implements ContextAwareNormalizerInterface
             $normedStatus = [
                 'key' => $statusName,
                 'name' => $this->translator->trans($statusName . '.name', [], 'statuses'),
-                'description' => $this->translator->trans("{$statusName}.description", [], 'statusess'),
+                'description' => $this->translator->trans("{$statusName}.description", [], 'statuses'),
             ];
 
             if ($status instanceof ChargeStatus) {

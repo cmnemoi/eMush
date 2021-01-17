@@ -1,86 +1,44 @@
 import PlayerService from "@/services/player.service";
-import {AuthenticationError} from "@/services/user.service";
 
 
 const state =  {
     loading: false,
-    player: null,
-    target: null
+    player: null
 };
 
-const getters = {
-    getPlayer: (state) => {
-        return state.player
+const getters = {};
+
+const actions = {
+    storePlayer({ commit }, { player }) {
+        commit('updatePlayer', player);
     },
-    loading: (state) => {
-        return state.loading
+    async loadPlayer({ commit }, { playerId }) {
+        commit('setLoading', true);
+        try {
+            const player = await PlayerService.loadPlayer(playerId);
+            commit('updatePlayer', player);
+
+            return true;
+        } catch (e) {
+            return false;
+        }
     },
-    getTarget: (state) => {
-        return state.target
+    async reloadPlayer({ state, dispatch }) {
+        return dispatch("loadPlayer", { playerId: state.player.id });
+    },
+    setLoading({ commit }) {
+        commit('setLoading', true);
     }
 };
 
-const actions = {
-    async selectTarget({ commit }, {target}) {
-        commit('selectTarget', target)
-    },
-    async storePlayer({ commit }, {player}) {
-        commit('loadSuccess', player)
-    },
-    async loadPlayer({ commit }, {playerId}) {
-        commit('loadRequest');
-        try {
-            const player = await PlayerService.loadPlayer(playerId);
-            commit('loadSuccess', player)
-
-            return true
-        } catch (e) {
-            if (e instanceof AuthenticationError) {
-                commit('loadError', {errorCode: e.errorCode, errorMessage: e.message})
-            }
-
-            return false
-        }
-    },
-    async reloadPlayer({ commit, state }) {
-        commit('reloadRequest');
-        try {
-            const player = await PlayerService.loadPlayer(state.player.id);
-            commit('loadSuccess', player)
-            return true
-        } catch (e) {
-            if (e instanceof AuthenticationError) {
-                commit('loadError', {errorCode: e.errorCode, errorMessage: e.message})
-            }
-
-            return false
-        }
-    },
-};
-
 const mutations = {
-    selectTarget(state, target) {
-        state.target = target;
+    setLoading(state, newValue) {
+        state.loading = newValue;
     },
-    loadRequest(state) {
-        state.player = null;
-        state.loading = true;
-    },
-
-    reloadRequest(state) {
-        state.loading = true;
-    },
-
-    loadSuccess(state, player) {
-        state.target = player;
+    updatePlayer(state, player) {
         state.player = player;
         state.loading = false;
-        },
-
-    loadError(state, {errorCode, errorMessage}) {
-        state.playerErrorCode = errorCode;
-        state.playerError = errorMessage
-    },
+    }
 };
 
 export const player = {

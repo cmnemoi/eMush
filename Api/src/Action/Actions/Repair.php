@@ -4,6 +4,7 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
+use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\SuccessRateServiceInterface;
@@ -45,18 +46,18 @@ class Repair extends AttemptAction
         $this->playerService = $playerService;
         $this->randomService = $randomService;
         $this->successRateService = $successRateService;
-        $this->actionCost->setActionPointCost(1);
     }
 
-    public function loadParameters(Player $player, ActionParameters $actionParameters): void
+    public function loadParameters(Action $action, Player $player, ActionParameters $actionParameters): void
     {
+        parent::loadParameters($action, $player, $actionParameters);
+
         if (!($equipment = $actionParameters->getItem()) &&
             !($equipment = $actionParameters->getDoor()) &&
             !($equipment = $actionParameters->getEquipment())) {
             throw new \InvalidArgumentException('Invalid equipment parameter');
         }
 
-        $this->player = $player;
         $this->gameEquipment = $equipment;
     }
 
@@ -70,9 +71,7 @@ class Repair extends AttemptAction
 
     protected function applyEffects(): ActionResult
     {
-        $modificator = 1; //@TODO: skills, wrench
-
-        $response = $this->makeAttempt($this->gameEquipment->getBrokenRate(), $modificator);
+        $response = $this->makeAttempt();
 
         if ($response instanceof Success &&
             ($brokenStatus = $this->gameEquipment->getStatusByName(EquipmentStatusEnum::BROKEN))
@@ -84,7 +83,7 @@ class Repair extends AttemptAction
 
         $this->playerService->persist($this->player);
 
-        //@TODO get ride of that
+        //@TODO get rid of that
         $this->createLog($response);
 
         return $response;
@@ -92,13 +91,29 @@ class Repair extends AttemptAction
 
     protected function createLog(ActionResult $actionResult): void
     {
-        $this->roomLogService->createEquipmentLog(
-            ActionLogEnum::REPAIR_SUCCESS,
-            $this->player->getRoom(),
-            $this->player,
-            $this->gameEquipment,
-            VisibilityEnum::PUBLIC,
-            new \DateTime('now')
-        );
+        if ($actionResult instanceof Success) {
+            $this->roomLogService->createEquipmentLog(
+                ActionLogEnum::REPAIR_SUCCESS,
+                $this->player->getRoom(),
+                $this->player,
+                $this->gameEquipment,
+                VisibilityEnum::PRIVATE,
+                new \DateTime('now')
+            );
+        } else {
+            $this->roomLogService->createEquipmentLog(
+                ActionLogEnum::REPAIR_FAIL,
+                $this->player->getRoom(),
+                $this->player,
+                $this->gameEquipment,
+                VisibilityEnum::PRIVATE,
+                new \DateTime('now')
+            );
+        }
+    }
+
+    protected function getBaseRate(): int
+    {
+        return $this->gameEquipment->getBrokenRate();
     }
 }

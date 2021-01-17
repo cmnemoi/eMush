@@ -20,11 +20,11 @@ class ActionSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            ActionEvent::POST_ACTION => 'onPostAction',
+            ActionEvent::RESULT_ACTION => 'onResultAction',
         ];
     }
 
-    public function onPostAction(ActionEvent $event): void
+    public function onResultAction(ActionEvent $event): void
     {
         $actionResult = $event->getActionResult();
         $player = $event->getPlayer();

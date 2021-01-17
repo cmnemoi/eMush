@@ -6,18 +6,18 @@ const routes = [
     {
         path: "/",
         name: "GamePage",
-        component: GamePage,
+        component: GamePage
     },
     {
         path: "/token",
         name: "Token",
-        component: Token,
-    },
+        component: Token
+    }
 ];
 
 const router = createRouter({
     history: createWebHistory(),
-    routes,
+    routes
 });
 
 export default router;

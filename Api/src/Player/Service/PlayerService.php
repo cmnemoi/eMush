@@ -4,13 +4,13 @@ namespace Mush\Player\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Event\DaedalusEvent;
-use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\TriumphEnum;
-use Mush\Game\Service\GameConfigServiceInterface;
-use Mush\Player\Entity\ActionModifier;
+use Mush\Game\Service\RandomServiceInterface;
+use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\EndCauseEnum;
+use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Repository\PlayerRepository;
 use Mush\Room\Entity\Room;
@@ -22,8 +22,6 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\User\Entity\User;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\Finder\Exception\AccessDeniedException;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class PlayerService implements PlayerServiceInterface
 {
@@ -33,13 +31,11 @@ class PlayerService implements PlayerServiceInterface
 
     private PlayerRepository $repository;
 
-    private GameConfig $gameConfig;
-
     private RoomLogServiceInterface $roomLogService;
 
     private StatusServiceInterface $statusService;
 
-    private TokenStorageInterface $tokenStorage;
+    private RandomServiceInterface $randomService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -47,16 +43,14 @@ class PlayerService implements PlayerServiceInterface
         PlayerRepository $repository,
         RoomLogServiceInterface $roomLogService,
         StatusServiceInterface $statusService,
-        GameConfigServiceInterface $gameConfigService,
-        TokenStorageInterface $tokenStorage
+        RandomServiceInterface $randomService
     ) {
         $this->entityManager = $entityManager;
         $this->eventDispatcher = $eventDispatcher;
         $this->repository = $repository;
         $this->roomLogService = $roomLogService;
         $this->statusService = $statusService;
-        $this->gameConfig = $gameConfigService->getConfig();
-        $this->tokenStorage = $tokenStorage;
+        $this->randomService = $randomService;
     }
 
     public function persist(Player $player): Player
@@ -74,13 +68,7 @@ class PlayerService implements PlayerServiceInterface
 
     public function findOneByCharacter(string $character, ?Daedalus $daedalus = null): ?Player
     {
-        $params = ['person' => $character];
-
-        if (null !== $daedalus) {
-            $params['daedalus'] = $daedalus;
-        }
-
-        return $this->repository->findOneBy($params);
+        return $this->repository->findOneByName($character);
     }
 
     public function findUserCurrentGame(User $user): ?Player
@@ -88,18 +76,13 @@ class PlayerService implements PlayerServiceInterface
         return $this->repository->findOneBy(['user' => $user, 'gameStatus' => GameStatusEnum::CURRENT]);
     }
 
-    public function createPlayer(Daedalus $daedalus, string $character): Player
+    public function createPlayer(Daedalus $daedalus, User $user, string $character): Player
     {
         $player = new Player();
 
-        if (!$token = $this->tokenStorage->getToken()) {
-            throw new AccessDeniedException('User should be logged to access that');
-        }
+        $gameConfig = $daedalus->getGameConfig();
 
-        /** @var User $user */
-        $user = $token->getUser();
-
-        $characterConfig = $this->gameConfig->getCharactersConfig()->getCharacter($character);
+        $characterConfig = $gameConfig->getCharactersConfig()->getCharacter($character);
         if (!$characterConfig) {
             throw new \LogicException('Character not available');
         }
@@ -113,13 +96,14 @@ class PlayerService implements PlayerServiceInterface
                     ->filter(fn (Room $room) => RoomEnum::LABORATORY === $room->getName())
                     ->first()
             )
-            ->setPerson($character)
+            ->setCharacterConfig($characterConfig)
             ->setSkills([])
-            ->setHealthPoint($this->gameConfig->getInitHealthPoint())
-            ->setMoralPoint($this->gameConfig->getInitMoralPoint())
-            ->setActionPoint($this->gameConfig->getInitActionPoint())
-            ->setMovementPoint($this->gameConfig->getInitMovementPoint())
-            ->setSatiety($this->gameConfig->getInitSatiety())
+            ->setHealthPoint($gameConfig->getInitHealthPoint())
+            ->setMoralPoint($gameConfig->getInitMoralPoint())
+            ->setActionPoint($gameConfig->getInitActionPoint())
+            ->setMovementPoint($gameConfig->getInitMovementPoint())
+            ->setSatiety($gameConfig->getInitSatiety())
+            ->setSatiety($gameConfig->getInitSatiety())
         ;
 
         foreach ($characterConfig->getStatuses() as $statusName) {
@@ -137,16 +121,15 @@ class PlayerService implements PlayerServiceInterface
         $playerEvent = new PlayerEvent($player);
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::NEW_PLAYER);
 
-        if ($daedalus->getPlayers()->count() === $this->gameConfig->getMaxPlayer()) {
-            $fullDaedalusEvent = new DaedalusEvent($daedalus);
-            $this->eventDispatcher->dispatch($fullDaedalusEvent, DaedalusEvent::FULL_DAEDALUS);
-        }
-
         return $player;
     }
 
     public function handleNewCycle(Player $player, \DateTime $date): Player
     {
+        if (!$player->isAlive()) {
+            return $player;
+        }
+
         if ($player->getMoralPoint() === 0) {
             $playerEvent = new PlayerEvent($player, $date);
             $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
@@ -154,27 +137,43 @@ class PlayerService implements PlayerServiceInterface
             return $player;
         }
 
-        $actionModifier = new ActionModifier();
+        $actionModifier = new Modifier();
         $actionModifier
-            ->setActionPointModifier(1)
-            ->setMovementPointModifier(1)
-            ->setSatietyModifier(-1)
+            ->setDelta(1)
+            ->setTarget(ModifierTargetEnum::ACTION_POINT)
         ;
-
         $playerEvent = new PlayerEvent($player, $date);
-        $playerEvent->setActionModifier($actionModifier);
+        $playerEvent->setModifier($actionModifier);
+        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
+
+        $movementModifier = new Modifier();
+        $movementModifier
+            ->setDelta(1)
+            ->setTarget(ModifierTargetEnum::MOVEMENT_POINT)
+        ;
+        $playerEvent->setModifier($movementModifier);
+        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
+
+        $satietyModifier = new Modifier();
+        $satietyModifier
+            ->setDelta(-1)
+            ->setTarget(ModifierTargetEnum::SATIETY)
+        ;
+        $playerEvent->setModifier($satietyModifier);
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
 
         $triumphChange = 0;
 
+        $gameConfig = $player->getDaedalus()->getGameConfig();
+
         if ($player->isMush() &&
-            ($mushTriumph = $this->gameConfig->getTriumphConfig()->getTriumph(TriumphEnum::CYCLE_MUSH))
+            ($mushTriumph = $gameConfig->getTriumphConfig()->getTriumph(TriumphEnum::CYCLE_MUSH))
         ) {
             $triumphChange = $mushTriumph->getTriumph();
         }
 
         if (!$player->isMush() &&
-            ($humanTriumph = $this->gameConfig->getTriumphConfig()->getTriumph(TriumphEnum::CYCLE_HUMAN))
+            ($humanTriumph = $gameConfig->getTriumphConfig()->getTriumph(TriumphEnum::CYCLE_HUMAN))
         ) {
             $triumphChange = $humanTriumph->getTriumph();
         }
@@ -190,21 +189,86 @@ class PlayerService implements PlayerServiceInterface
             $date
         );
 
+        //Metal Plates
+        if ($this->randomService->isSuccessfull($gameConfig->getDifficultyConfig()->getMetalPlateRate())) {
+            $playerEvent = new PlayerEvent($player, $date);
+            $playerEvent->setReason(EndCauseEnum::METAL_PLATE);
+            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::METAL_PLATE);
+        }
+
+        //Panic Crisis
+        if ($this->randomService->isSuccessfull($gameConfig->getDifficultyConfig()->getPanicCrisisRate())) {
+            $playerEvent = new PlayerEvent($player, $date);
+            $playerEvent->setReason(EndCauseEnum::DEPRESSION);
+            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::PANIC_CRISIS);
+        }
+
         return $this->persist($player);
     }
 
     public function handleNewDay(Player $player, \DateTime $date): Player
     {
-        $actionModifier = new ActionModifier();
-        $actionModifier
-            ->setHealthPointModifier(1)
-            ->setMoralPointModifier(-2) //@TODO check for last hope
-        ;
+        if (!$player->isAlive()) {
+            return $player;
+        }
 
         $playerEvent = new PlayerEvent($player, $date);
-        $playerEvent->setActionModifier($actionModifier);
+
+        $healthModifier = new Modifier();
+        $healthModifier
+            ->setDelta(1)
+            ->setTarget(ModifierTargetEnum::HEALTH_POINT)
+        ;
+        $playerEvent->setModifier($healthModifier);
+        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
+
+        $moralModifier = new Modifier();
+        $moralModifier
+            ->setDelta(-2)
+            ->setTarget(ModifierTargetEnum::MORAL_POINT)
+        ;
+
+        $playerEvent->setModifier($moralModifier);
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
 
         return $this->persist($player);
+    }
+
+    public function playerDeath(Player $player, ?string $reason, \DateTime $time): Player
+    {
+        if ($reason) {
+            $player->setEndStatus($reason);
+        }
+
+        if ($player->getEndStatus() !== EndCauseEnum::DEPRESSION) {
+            /** @var Player $daedalusPlayer */
+            foreach ($player->getDaedalus()->getPlayers()->getPlayerAlive() as $daedalusPlayer) {
+                if ($daedalusPlayer !== $player) {
+                    $actionModifier = new Modifier();
+                    $actionModifier
+                        ->setDelta(-1)
+                        ->setTarget(ModifierTargetEnum::MORAL_POINT)
+                    ;
+                    $playerEvent = new PlayerEvent($daedalusPlayer, $time);
+                    $playerEvent->setModifier($actionModifier);
+
+                    $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
+                }
+            }
+        }
+
+        foreach ($player->getItems() as $item) {
+            $item->setPlayer(null);
+            $item->setRoom($player->getRoom());
+        }
+        //@TODO in case of assasination chance of disorder for roommates
+        if ($grandBeyond = $player->getDaedalus()->getRoomByName(RoomEnum::GREAT_BEYOND)) {
+            $player->setRoom($grandBeyond);
+        }
+
+        //@TODO two steps death
+        $player->setGameStatus(GameStatusEnum::FINISHED);
+
+        return $player;
     }
 }

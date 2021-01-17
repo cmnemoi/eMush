@@ -1,195 +1,255 @@
 <template>
-  <div class="comms-panel">
-    <label v-for="(channel, id) in getChannels"
-           v-bind:key="id"
-           @click="changeChannel({channel: channel})"
-           :class="getCurrentChannel === channel ? 'checked' : ''"
-    >
-      <img :src="channelIcon(channel)">
-    </label>
-<!--    <label @click="createPrivateChannel">-->
-<!--      <img :src="require('@/assets/images/comms/newtab.png')">-->
-<!--    </label>-->
-    <div class="cycle-time"><img src="@/assets/images/comms/calendar.png"><span>Jour {{ day }} - Cycle {{ cycle }}</span></div>
+    <div id="comms-panel">
+        <ul class="tabs">
+            <Tab
+                v-for="(channel, id) in channels"
+                :key="id"
+                :type="channel.scope"
+                :selected="currentChannel === channel"
+                @select="changeChannel({ channel })"
+            />
+            <Tab
+                v-if="displayNewTab"
+                type="new"
+                class="new-tab"
+                @select="createPrivateChannel"
+            />
+        </ul>
+        <div class="cycle-time">
+            <img src="@/assets/images/comms/calendar.png"><span>Jour {{ day }} - Cycle {{ cycle }}</span>
+        </div>
 
-    <div class="tabs-content">
-      <component v-bind:is="currentTabComponent(getCurrentChannel)" :channel="getCurrentChannel"></component>
+        <div class="tabs-content">
+            <component :is="currentTabComponent" v-if="! loading" :channel="currentChannel" />
+        </div>
     </div>
-
-  </div>
 </template>
 
 <script>
 import TipsTab from "@/components/Game/Communications/TipsTab";
 import RoomEventsTab from "@/components/Game/Communications/RoomEventsTab";
+import FavouritesTab from "@/components/Game/Communications/FavouritesTab";
 import DiscussionTab from "@/components/Game/Communications/DiscussionTab";
-import {Room} from "@/entities/Room";
-import {mapActions, mapGetters} from "vuex";
-import {PRIVATE, PUBLIC, ROOM_LOG, TIPS} from '@/enums/communication.enum';
-import {Channel} from "@/entities/Channel";
+import PrivateTab from "@/components/Game/Communications/PrivateTab";
+import MushTab from "@/components/Game/Communications/MushTab";
+import Tab from "@/components/Game/Communications/Tab";
+import { Room } from "@/entities/Room";
+import { mapActions, mapState } from "vuex";
+import { PRIVATE, PUBLIC, ROOM_LOG, TIPS } from '@/enums/communication.enum';
+import { Channel } from "@/entities/Channel";
+
+
+const MAX_PRIVATE_TABS_NB = 3;
 
 
 export default {
-  name: "CommsPanel",
-  components: {
-    TipsTab,
-    DiscussionTab,
-    RoomEventsTab
-  },
-  props: {
-    day: Number,
-    cycle: Number,
-    room: Room
-  },
-  computed: {
-    ...mapGetters('communication', [
-      'getCurrentChannel',
-      'getChannels',
-    ])
-  },
-  methods: {
-    ...mapActions('communication', [
-      'loadChannels',
-      'changeChannel',
-      'createPrivateChannel'
-    ]),
-    currentTabComponent: (channel) => {
-      if (channel instanceof Channel) {
-        switch (channel.scope) {
-          case TIPS:
-            return TipsTab;
-          case ROOM_LOG:
-            return RoomEventsTab;
-          case PUBLIC:
-          default:
+    name: "CommsPanel",
+    components: {
+        TipsTab,
+        DiscussionTab,
+        FavouritesTab,
+        PrivateTab,
+        RoomEventsTab,
+        MushTab,
+        Tab
+    },
+    props: {
+        day: Number,
+        cycle: Number,
+        room: Room
+    },
+    computed: {
+        ...mapState('communication', [
+            'channels',
+            'currentChannel'
+        ]),
+        ...mapState('player', [
+            'loading'
+        ]),
+        displayNewTab() {
+            if (! this.channels || ! this.channels.length) { return false; }
+            return this.channels.filter(channel => channel.scope === PRIVATE).length < MAX_PRIVATE_TABS_NB;
+        },
+        currentTabComponent() {
+            if (this.currentChannel instanceof Channel) {
+                switch (this.currentChannel.scope) {
+                case TIPS:
+                    return TipsTab;
+                case ROOM_LOG:
+                    return RoomEventsTab;
+                case PRIVATE:
+                    return PrivateTab;
+                case PUBLIC:
+                default:
+                    return DiscussionTab;
+                }
+            }
             return DiscussionTab;
         }
-      }
-      return DiscussionTab;
     },
-    channelIcon: (channel) => {
-      if (channel instanceof Channel) {
-        switch (channel.scope) {
-          case TIPS:
-            return require('@/assets/images/comms/tip.png');
-          case ROOM_LOG:
-            return require('@/assets/images/comms/local.png');
-          case PRIVATE:
-            return require('@/assets/images/comms/private.png');
-          case PUBLIC:
-          default:
-            return require('@/assets/images/comms/wall.png');
-        }
-      }
-      return DiscussionTab;
+    beforeMount() {
+        this.loadChannels();
+    },
+    methods: {
+        ...mapActions('communication', [
+            'loadChannels',
+            'changeChannel',
+            'createPrivateChannel'
+        ])
     }
-  },
-  beforeMount() {
-    this.loadChannels();
-  }
-}
+};
 </script>
+
+<style lang="scss"> //Not scoped to apply to children components
+
+#comms-panel {
+    .tabs-content {
+        min-width: 100%;
+        font-size: 0.8em;
+    }
+
+    .chatbox-container {
+        display: flex;
+        position: relative;
+        z-index: 2;
+        height: 436px;
+        margin-top: -1px;
+        color: #090a61;
+        line-height: initial;
+        background: rgba(194, 243, 252, 1);
+
+        @include corner-bezel(0, 6.5px, 0);
+
+        .chatbox {
+            overflow: auto;
+            padding: 7px;
+            color: #090a61;
+        }
+
+        .unit {
+            padding: 5px 0;
+        }
+
+        .actions {
+            flex-direction: row;
+            justify-content: flex-end;
+            align-items: stretch;
+
+            a {
+                @include button-style(0.83em, 400, initial);
+
+                height: 100%;
+                margin-left: 3px;
+                img { padding: 0 0.2em 0 0; }
+            }
+        }
+
+        .chat-expand {
+            display: flex;
+            padding: 4px;
+            color: #67b000;
+            border-radius: 3px;
+            font-size: 0.8em;
+            text-decoration: underline;
+
+            &.active,
+            &:hover,
+            &:focus {
+                background: #a6eefb;
+            }
+        }
+
+        .banner {
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            min-height: 24px;
+            border-radius: 3px;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            background: #a6eefb;
+
+            span {
+                flex: 1;
+                text-align: center;
+            }
+
+            .expand {
+                align-self: center;
+                padding: 2px;
+            }
+
+            img { vertical-align: middle; }
+        }
+    }
+
+    .timestamp {
+        position: absolute;
+        z-index: 2;
+        right: 5px;
+        bottom: 5px;
+        font-size: 0.85em;
+        font-style: italic;
+        opacity: 0.5;
+        float: right;
+    }
+
+    /* SCROLLBAR STYLING */
+
+    .chatbox,
+    .chatbox-container {
+        --scrollbarBG: white;
+        --thumbBG: #090a61;
+
+        scrollbar-width: thin;
+        scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+        &::-webkit-scrollbar { width: 6px; }
+        &::-webkit-scrollbar-track { background: var(--scrollbarBG); }
+        &::-webkit-scrollbar-thumb { background-color: var(--thumbBG); }
+    }
+}
+
+</style>
 
 <style lang="scss" scoped>
 
-#tips-input:checked ~ .tabs-content #tips-tab,
-#room-events-input:checked ~ .tabs-content #room-events-tab,
-#discussion-input:checked ~ .tabs-content #discussion-tab {
-  display: flex;
-  visibility: visible;
-}
-
-
-
-.comms-panel {
-  position: relative;
-  display: block;
-  width: 404px;
-  height: 460px;
-
-  & .checked {
-    opacity: 1;
-    &::after { background: rgba(194, 243, 252, 1); }
-  }
-
-  & input {
-    position: absolute;
-    left: -100vw;
-  }
-
-  & .tabs-content {
-    min-width: 100%;
-    font-size: .8em;
-  }
-
-
-  & label {
+#comms-panel {
     position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: visible;
-    float: left;
-    cursor: pointer;
-    width: 31px;
-    min-height: 25px;
-    margin-right: 4px;
-    & * { z-index: 2; }
+    display: block;
+    width: 404px;
+    height: 460px;
 
-    &::after {
-      content: "";
-      z-index: 1;
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: #213578;
-      @include corner-bezel(4.5px, 4.5px, 0px);
+    .tabs {
+        float: left;
+
+        .new-tab {
+            opacity: 0.3;
+
+            &::after {
+                background: none;
+            }
+
+            &.active,
+            &:hover,
+            &:focus {
+                opacity: 1;
+            }
+        }
     }
 
-    &:last-child {
-      opacity: .3;
-      &::after { background: none !important; }
+    /* TIMER STYLING */
+
+    .cycle-time {
+        flex-direction: row;
+        align-items: center;
+        margin: 0 12px;
+        min-height: 25px;
+        float: right;
+        font-size: 0.7em;
+        font-variant: small-caps;
+
+        img { margin-right: 3px; }
     }
-
-    &.active, &:hover, &:focus {
-      opacity: 1;
-      &::after { background: rgba(194, 243, 252, 1); }
-    }
-
-    & span {
-      position: absolute;
-      top: -6px;
-      right: 3px;
-      font-size: .82em;
-      font-weight: 600;
-      text-shadow: 0 0 3px black, 0 0 3px black, 0 0 3px black;
-    }
-  }
-
-  & .cycle-time {
-    flex-direction: row;
-    align-items: center;
-    margin: 0 12px;
-    min-height: 25px;
-    float: right;
-    font-size: .7em;
-    font-variant: small-caps;
-
-    & img { margin-right: 3px; }
-  }
-
-  /* SCROLLBAR STYLING */
-
-  & .chatbox, {
-    --scrollbarBG: white;
-    --thumbBG: #090a61;
-
-    scrollbar-width: thin;
-    scrollbar-color: var(--thumbBG) var(--scrollbarBG);
-    &::-webkit-scrollbar { width: 6px; }
-    &::-webkit-scrollbar-track { background: var(--scrollbarBG); }
-    &::-webkit-scrollbar-thumb { background-color: var(--thumbBG); }
-  }
 }
 
 </style>

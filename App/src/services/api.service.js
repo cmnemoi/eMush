@@ -1,75 +1,79 @@
-import axios from 'axios'
-import { TokenService } from './storage.service'
-import store from '../store'
+import axios from 'axios';
+import { TokenService } from './storage.service';
+import store from '../store';
 
 const ApiService = {
 
-    _401interceptor: null,
+    _errorInterceptor: null,
 
     init(baseURL) {
         axios.defaults.baseURL = baseURL;
     },
 
     setHeader() {
-        axios.defaults.headers.common["Authorization"] = `Bearer ${TokenService.getToken()}`
+        axios.defaults.headers.common["Authorization"] = `Bearer ${TokenService.getToken()}`;
     },
 
     removeHeader() {
-        axios.defaults.headers.common = {}
+        axios.defaults.headers.common = {};
     },
 
     get(resource, params) {
-        return axios.get(resource, params)
+        return axios.get(resource, params);
     },
 
     post(resource, data, options) {
-        return axios.post(resource, data, options)
+        return axios.post(resource, data, options);
     },
 
     put(resource, data) {
-        return axios.put(resource, data)
+        return axios.put(resource, data);
     },
 
     delete(resource) {
-        return axios.delete(resource)
+        return axios.delete(resource);
     },
 
-    mount401Interceptor() {
-        this._401interceptor = axios.interceptors.response.use(
+    mountErrorInterceptor() {
+        this._errorInterceptor = axios.interceptors.response.use(
             (response) => {
-                return response
+                return response;
             },
             async (error) => {
                 if (error.request.status === 401) {
-                    if (error.config.url.includes('/oauth/v2/token')) {
-                        // Refresh token has failed. Logout the user
-                        await store.dispatch('auth/logout');
-                        throw error
-                    } else {
-                        // Refresh the access token
-                        try{
-                            await store.dispatch('auth/refreshToken');
-                            // Retry the original request
-                            return this.customRequest({
-                                method: error.config.method,
-                                url: error.config.url,
-                                data: error.config.data
-                            })
-                        } catch (e) {
-                            // Refresh has failed - reject the original request
-                            throw error
-                        }
-                    }
+                    //@TODO: use refresh token when available
+                    await store.dispatch('auth/logout');
+                    // if (error.config.url.includes('/oauth/v2/token')) {
+                    //     // Refresh token has failed. Logout the user
+                    //     await store.dispatch('auth/logout');
+                    //     throw error
+                    // } else {
+                    //     // Refresh the access token
+                    //     try{
+                    //         await store.dispatch('auth/refreshToken');
+                    //         // Retry the original request
+                    //         return this.customRequest({
+                    //             method: error.config.method,
+                    //             url: error.config.url,
+                    //             data: error.config.data
+                    //         })
+                    //     } catch (e) {
+                    //         // Refresh has failed - reject the original request
+                    //         throw error
+                    //     }
+                    // }
+                } else {
+                    // If error was not 401, inform user with a pop-up before rejecting
+                    await store.dispatch('error/setError', error);
+                    throw error;
                 }
-                // If error was not 401 just reject as is
-                throw error
             }
-        )
+        );
     },
 
-    unmount401Interceptor() {
+    unmountErrorInterceptor() {
         // Eject the interceptor
-        axios.interceptors.response.eject(this._401interceptor)
+        axios.interceptors.response.eject(this._errorInterceptor);
     },
 
     /**
@@ -84,8 +88,8 @@ const ApiService = {
      *    - password
      **/
     customRequest(data) {
-        return axios(data)
+        return axios(data);
     }
 };
 
-export default ApiService
+export default ApiService;

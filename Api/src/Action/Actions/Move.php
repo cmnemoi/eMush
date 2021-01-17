@@ -4,18 +4,18 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
+use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\Door;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Room\Entity\Room;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class Move extends Action
+class Move extends AbstractAction
 {
     protected string $name = ActionEnum::MOVE;
 
@@ -33,17 +33,16 @@ class Move extends Action
 
         $this->roomLogService = $roomLogService;
         $this->playerService = $playerService;
-
-        $this->actionCost->setMovementPointCost(1);
     }
 
-    public function loadParameters(Player $player, ActionParameters $actionParameters): void
+    public function loadParameters(Action $action, Player $player, ActionParameters $actionParameters): void
     {
+        parent::loadParameters($action, $player, $actionParameters);
+
         if (!($door = $actionParameters->getDoor())) {
             throw new \InvalidArgumentException('Invalid door parameter');
         }
 
-        $this->player = $player;
         $this->door = $door;
     }
 
@@ -55,7 +54,7 @@ class Move extends Action
 
     protected function applyEffects(): ActionResult
     {
-        $newRoom = $this->door->getRooms()->filter(fn (Room $room) => $room !== $this->player->getRoom())->first();
+        $newRoom = $this->door->getOtherRoom($this->player->getRoom());
         $this->player->setRoom($newRoom);
 
         $this->playerService->persist($this->player);
@@ -77,7 +76,7 @@ class Move extends Action
         );
         $this->roomLogService->createActionLog(
             ActionLogEnum::EXIT_ROOM,
-            $this->door->getRooms()->filter(fn (Room $room) => $room !== $this->player->getRoom())->first(),
+            $this->door->getOtherRoom($this->player->getRoom()),
             $this->player,
             null,
             VisibilityEnum::PUBLIC,

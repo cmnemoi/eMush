@@ -25,14 +25,14 @@
   "file" : "janice_kent",
   "color" : "#B44753",
   "short" : {
-	"en" : "",
+	"en" : "A Digital Psychologist and one-woman enigma machine",
 	"fr" : "Psychologue Digitale aux atouts certains",
-	"es" : ""
+	"es" : "Encargada del soporte psicológico e informático del equipo"
   },
   "intro" : {
 	"en" : "In charge of communication in a global sense, she has highest-level access to NERON. Her solid IT and psychoanalytical skills are crucial for the voyage.",
 	"fr" : "En charge de la communication au sens large. Elle a un lien privilégiée avec NERON. Ses solides acquis en informatique et psychanalyse sont cruciaux pour le voyage.",
-	"es" : ""
+	"es" : "Su dominio psico-informático le levanta el ánimo a la tripulación. Además es capaz de establecer contacto con la base."
   },
   "presentation" : {
 	"en" : "",

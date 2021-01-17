@@ -60,7 +60,7 @@ export const characterEnum = {
         'portrait': require('@/assets/images/char/portrait/Gioele_rinaldo_portrait.jpg')
     },
     [HUA]: {
-        'head': require('@/assets/images/char/head/derek.png'),
+        'head': require('@/assets/images/char/head/hua.png'),
         'body': require('@/assets/images/char/body/hua.png'),
         'portrait': require('@/assets/images/char/portrait/Jiang_hua_portrait.jpg')
     },
@@ -70,12 +70,12 @@ export const characterEnum = {
         'portrait': require('@/assets/images/char/portrait/Ian_soulton_portrait.jpg')
     },
     [JANICE]: {
-        'head': require('@/assets/images/char/head/derek.png'),
+        'head': require('@/assets/images/char/head/janice.png'),
         'body': require('@/assets/images/char/body/janice.png'),
         'portrait': require('@/assets/images/char/portrait/Janice_kent_portrait.jpg')
     },
     [JIN_SU]: {
-        'head': require('@/assets/images/char/head/derek.png'),
+        'head': require('@/assets/images/char/head/jin_su.png'),
         'body': require('@/assets/images/char/body/jin_su.png'),
         'portrait': require('@/assets/images/char/portrait/Kim_jin_su_portrait.jpg')
     },
@@ -85,12 +85,12 @@ export const characterEnum = {
         'portrait': require('@/assets/images/char/portrait/Lai_kuan_ti_portrait.jpg')
     },
     [PAOLA]: {
-        'head': require('@/assets/images/char/head/derek.png'),
+        'head': require('@/assets/images/char/head/paola.png'),
         'body': require('@/assets/images/char/body/paola.png'),
         'portrait': require('@/assets/images/char/portrait/Paola_rinaldo_portrait.jpg')
     },
     [RALUCA]: {
-        'head': require('@/assets/images/char/head/derek.png'),
+        'head': require('@/assets/images/char/head/raluca.png'),
         'body': require('@/assets/images/char/body/raluca.png'),
         'portrait': require('@/assets/images/char/portrait/Raluca_tomescu_portrait.jpg')
     },
@@ -108,5 +108,6 @@ export const characterEnum = {
         'head': require('@/assets/images/char/head/terrence.png'),
         'body': require('@/assets/images/char/body/terrence.png'),
         'portrait': require('@/assets/images/char/portrait/Terrence_archer_portrait.jpg')
-    },
+    }
 }
+;

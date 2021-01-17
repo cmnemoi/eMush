@@ -2,13 +2,40 @@
 
 namespace Mush\Action\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 use Mush\Player\Entity\Player;
 
+/**
+ * @ORM\Entity()
+ */
 class ActionCost
 {
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    private ?int $id = null;
+
+    /**
+     * @ORM\Column(type="integer", nullable=false)
+     */
     private int $actionPointCost = 0;
+
+    /**
+     * @ORM\Column(type="integer", nullable=false)
+     */
     private int $movementPointCost = 0;
+
+    /**
+     * @ORM\Column(type="integer", nullable=false)
+     */
     private int $moralPointCost = 0;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
     public function canPlayerDoAction(Player $player): bool
     {

@@ -10,6 +10,7 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\GameConfigService;
 use PHPUnit\Framework\TestCase;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DaedalusNormalizerTest extends TestCase
 {
@@ -17,7 +18,8 @@ class DaedalusNormalizerTest extends TestCase
     /** @var CycleServiceInterface | Mockery\Mock */
     private CycleServiceInterface $cycleService;
 
-    private GameConfig $gameConfig;
+    /** @var TranslatorInterface | Mockery\Mock */
+    private TranslatorInterface $translator;
 
     /**
      * @before
@@ -26,12 +28,9 @@ class DaedalusNormalizerTest extends TestCase
     {
         $gameConfigService = Mockery::mock(GameConfigService::class);
         $this->cycleService = Mockery::mock(CycleServiceInterface::class);
+        $this->translator = Mockery::mock(TranslatorInterface::class);
 
-        $this->gameConfig = new GameConfig();
-
-        $gameConfigService->shouldReceive('getConfig')->andReturn($this->gameConfig)->once();
-
-        $this->normalizer = new DaedalusNormalizer($this->cycleService, $gameConfigService);
+        $this->normalizer = new DaedalusNormalizer($this->cycleService, $this->translator);
     }
 
     /**
@@ -46,10 +45,13 @@ class DaedalusNormalizerTest extends TestCase
     {
         $nextCycle = new \DateTime();
         $this->cycleService->shouldReceive('getDateStartNextCycle')->andReturn($nextCycle);
+        $this->translator->shouldReceive('trans')->andReturn('alert trans')->twice();
         $daedalus = Mockery::mock(Daedalus::class);
         $daedalus->shouldReceive('getId')->andReturn(2);
         $daedalus->makePartial();
         $daedalus->setPlayers(new ArrayCollection());
+        $daedalus->setRooms(new ArrayCollection());
+        $daedalus->setGameConfig(new GameConfig());
 
         $daedalus
             ->setCycle(4)
@@ -76,6 +78,8 @@ class DaedalusNormalizerTest extends TestCase
             'humanPlayerDead' => 0,
             'mushPlayerAlive' => 0,
             'mushPlayerDead' => 0,
+            'alerts' => ['no.alert' => ['name' => 'alert trans', 'description' => 'alert trans']],
+            'minimap' => [],
         ];
 
         $this->assertIsArray($data);

@@ -3,7 +3,6 @@
 namespace Mush\Equipment\Entity\Mechanics;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 
 /**
@@ -14,8 +13,6 @@ use Mush\Equipment\Enum\EquipmentMechanicEnum;
 class Document extends Tool
 {
     protected string $mechanic = EquipmentMechanicEnum::DOCUMENT;
-
-    protected array $actions = [ActionEnum::READ_DOCUMENT, ActionEnum::SHRED];
 
     /**
      * @ORM\Column(type="string", nullable=false)

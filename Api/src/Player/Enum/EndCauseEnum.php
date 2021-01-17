@@ -21,6 +21,7 @@ class EndCauseEnum
     public const EXPLORATION = 'exploration';
     public const EXPLORATION_COMBAT = 'exploration_combat';
     public const EXPLORATION_LOST = 'exploration_lost';
+    public const ELECTROCUTED = 'electrocuted';
     public const INJURY = 'injury';
     public const BURNT = 'burnt';
     public const CLUMSINESS = 'clumsiness';

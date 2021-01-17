@@ -52,17 +52,17 @@ class Daedalus
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
-    private int $oxygen;
+    private int $oxygen = 0;
 
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
-    private int $fuel;
+    private int $fuel = 0;
 
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
-    private int $hull;
+    private int $hull = 100;
 
     /**
      * @ORM\Column(type="integer", nullable=false)
@@ -77,17 +77,17 @@ class Daedalus
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
-    private int $shield;
+    private int $shield = -2;
 
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
-    private int $spores;
+    private int $spores = 0;
 
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
-    private int $dailySpores;
+    private int $dailySpores = 0;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
@@ -184,9 +184,11 @@ class Daedalus
         return $this->rooms;
     }
 
-    public function getRoomByName(string $name): Room
+    public function getRoomByName(string $name): ?Room
     {
-        return $this->getRooms()->filter(fn (Room $room) => $room->getName() === $name)->first();
+        $room = $this->getRooms()->filter(fn (Room $room) => $room->getName() === $name)->first();
+
+        return $room === false ? null : $room;
     }
 
     /**
@@ -276,6 +278,16 @@ class Daedalus
     public function getHull(): int
     {
         return $this->hull;
+    }
+
+    /**
+     * @return static
+     */
+    public function addHull(int $change): Daedalus
+    {
+        $this->hull += $change;
+
+        return $this;
     }
 
     /**

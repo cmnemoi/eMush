@@ -9,8 +9,11 @@ class TriumphConfigCollection extends ArrayCollection
 {
     public function getTriumph(string $name): ?TriumphConfig
     {
-        return $this
+        $triumph = $this
             ->filter(fn (TriumphConfig $triumphConfig) => $triumphConfig->getName() === $name)
-            ->first();
+            ->first()
+        ;
+
+        return $triumph === false ? null : $triumph;
     }
 }

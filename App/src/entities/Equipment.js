@@ -1,5 +1,5 @@
-import {Action} from "@/entities/Action";
-import {Status} from "@/entities/Status";
+import { Action } from "@/entities/Action";
+import { Status } from "@/entities/Status";
 
 export class Equipment {
     constructor() {
@@ -20,11 +20,11 @@ export class Equipment {
 
             object.actions.forEach((actionObject) => {
                 this.actions.push((new Action).load(actionObject));
-            })
+            });
             object.statuses.forEach((statusObject) => {
-                let status = (new Status()).load(statusObject)
+                let status = (new Status()).load(statusObject);
                 this.statuses.push(status);
-            })
+            });
         }
         return this;
     }
@@ -33,7 +33,7 @@ export class Equipment {
     }
     decode(jsonString) {
         if (jsonString) {
-            let object = JSON.parse(jsonString)
+            let object = JSON.parse(jsonString);
             this.load(object);
         }
 

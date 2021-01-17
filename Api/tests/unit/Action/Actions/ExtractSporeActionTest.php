@@ -5,36 +5,34 @@ namespace Mush\Test\Action\Actions;
 use Mockery;
 use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Actions\Action;
 use Mush\Action\Actions\ExtractSpore;
 use Mush\Action\Entity\ActionParameters;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
-use PHPUnit\Framework\TestCase;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class ExtractSporeActionTest extends TestCase
+class ExtractSporeActionTest extends AbstractActionTest
 {
     /** @var StatusServiceInterface | Mockery\Mock */
     private StatusServiceInterface $statusService;
-    private Action $action;
 
     /**
      * @before
      */
     public function before()
     {
-        $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
+        parent::before();
+
+        $this->actionEntity = $this->createActionEntity(ActionEnum::EXTRACT_SPORE, 2);
+
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
-        $eventDispatcher->shouldReceive('dispatch');
 
         $this->action = new ExtractSpore(
-            $eventDispatcher,
+            $this->eventDispatcher,
             $this->statusService,
         );
     }
@@ -58,7 +56,7 @@ class ExtractSporeActionTest extends TestCase
 
         $actionParameter = new ActionParameters();
 
-        $this->action->loadParameters($player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
         $mushStatus = new ChargeStatus();
         $mushStatus
@@ -113,10 +111,9 @@ class ExtractSporeActionTest extends TestCase
 
         $actionParameter = new ActionParameters();
 
-        $this->action->loadParameters($player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
         $this->statusService->shouldReceive('persist')->once();
-        $this->statusService->shouldReceive('createCorePlayerStatus')->once();
 
         $result = $this->action->execute();
 
@@ -124,20 +121,5 @@ class ExtractSporeActionTest extends TestCase
         $this->assertCount(2, $player->getStatuses());
         $this->assertEquals(2, $player->getStatusByName(PlayerStatusEnum::SPORES)->getCharge());
         $this->assertEquals(8, $player->getActionPoint());
-    }
-
-    private function createPlayer(Daedalus $daedalus, Room $room): Player
-    {
-        $player = new Player();
-        $player
-            ->setActionPoint(10)
-            ->setMovementPoint(10)
-            ->setMoralPoint(10)
-            ->setDaedalus($daedalus)
-            ->setRoom($room)
-            ->setGameStatus(GameStatusEnum::CURRENT)
-        ;
-
-        return $player;
     }
 }

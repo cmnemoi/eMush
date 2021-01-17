@@ -6,11 +6,13 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Mush\Action\DataFixtures\ActionsFixtures;
+use Mush\Action\DataFixtures\TechnicianFixtures;
+use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTargetEnum;
 use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\Mechanics\Charged;
-use Mush\Equipment\Entity\Mechanics\Dismountable;
 use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
@@ -25,6 +27,11 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
+        $repair3 = $this->getReference(TechnicianFixtures::REPAIR_3);
+        $repair6 = $this->getReference(TechnicianFixtures::REPAIR_6);
+        $repair12 = $this->getReference(TechnicianFixtures::REPAIR_12);
+        $repair25 = $this->getReference(TechnicianFixtures::REPAIR_25);
+
         //@TODO terminals
         $icarus = new EquipmentConfig();
         $icarus
@@ -35,6 +42,19 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         ;
         $manager->persist($icarus);
 
+        $moveAction = $this->getReference(ActionsFixtures::MOVE_DEFAULT);
+
+        //@TODO terminals
+        $door = new EquipmentConfig();
+        $door
+            ->setGameConfig($gameConfig)
+            ->setName(EquipmentEnum::DOOR)
+            ->setIsFireDestroyable(false)
+            ->setIsFireBreakable(false)
+            ->setActions(new ArrayCollection([$moveAction]))
+        ;
+        $manager->persist($door);
+
         $comsCenter = new EquipmentConfig();
         $comsCenter
             ->setGameConfig($gameConfig)
@@ -42,6 +62,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setBreakableRate(6)
+            ->setActions(new ArrayCollection([$repair6]))
         ;
         $manager->persist($comsCenter);
 
@@ -52,6 +73,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setBreakableRate(6)
+            ->setActions(new ArrayCollection([$repair6]))
         ;
         $manager->persist($neronCore);
 
@@ -62,6 +84,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setBreakableRate(12)
+            ->setActions(new ArrayCollection([$repair12]))
         ;
         $manager->persist($astroTerminal);
 
@@ -72,6 +95,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setBreakableRate(6)
+            ->setActions(new ArrayCollection([$repair6]))
         ;
         $manager->persist($researchLab);
 
@@ -91,6 +115,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setBreakableRate(6)
+            ->setActions(new ArrayCollection([$repair6]))
         ;
         $manager->persist($calculator);
 
@@ -101,6 +126,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setBreakableRate(3)
+            ->setActions(new ArrayCollection([$repair3]))
         ;
         $manager->persist($biosTerminal);
 
@@ -111,6 +137,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setBreakableRate(12)
+            ->setActions(new ArrayCollection([$repair12]))
         ;
         $manager->persist($commandTerminal);
 
@@ -122,6 +149,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setBreakableRate(12)
+            ->setActions(new ArrayCollection([$repair12]))
         ;
         $manager->persist($planetScanner);
 
@@ -132,6 +160,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setBreakableRate(12)
+            ->setActions(new ArrayCollection([$repair12]))
         ;
         $manager->persist($jukebox);
 
@@ -142,6 +171,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setBreakableRate(6)
+            ->setActions(new ArrayCollection([$repair6]))
         ;
         $manager->persist($emergencyReactor);
 
@@ -152,6 +182,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setBreakableRate(6)
+            ->setActions(new ArrayCollection([$repair6]))
         ;
         $manager->persist($reactorLateral);
 
@@ -162,6 +193,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setBreakableRate(12)
+            ->setActions(new ArrayCollection([$repair12]))
         ;
         $manager->persist($antenna);
 
@@ -172,28 +204,28 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setBreakableRate(6)
+            ->setActions(new ArrayCollection([$repair6]))
         ;
         $manager->persist($gravitySimulator);
 
+        /** @var Action $showerAction */
+        $showerAction = $this->getReference(ActionsFixtures::SHOWER_DEFAULT);
+
         $showerMechanic = new Tool();
-        $showerMechanic->setActions([ActionEnum::SHOWER]);
-        $showerDismountableMechanic = new Dismountable();
-        $showerDismountableMechanic
-            ->setProducts([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::THICK_TUBE => 1])
-            ->setActionCost(3)
-            ->setChancesSuccess(25)
-        ;
+        $showerMechanic->addAction($showerAction);
+
         $thalasso = new EquipmentConfig();
         $thalasso
             ->setGameConfig($gameConfig)
             ->setName(EquipmentEnum::THALASSO)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$showerMechanic, $showerDismountableMechanic]))
+            ->setMechanics(new ArrayCollection([$showerMechanic]))
+            ->setActions(new ArrayCollection([$this->getReference(TechnicianFixtures::DISMANTLE_3_25)]))
+            ->setDismountedProducts([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::THICK_TUBE => 1])
         ;
         $manager->persist($thalasso);
         $manager->persist($showerMechanic);
-        $manager->persist($showerDismountableMechanic);
 
         //@TODO ships
         $patrolShipChargeMechanic = new Charged();
@@ -223,11 +255,15 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         ;
         $manager->persist($pasiphae);
 
+        /** @var Action $fuelInjectAction */
+        $fuelInjectAction = $this->getReference(ActionsFixtures::FUEL_INJECT);
+        /** @var Action $fuelRetrieveAction */
+        $fuelRetrieveAction = $this->getReference(ActionsFixtures::FUEL_RETRIEVE);
+
         //Tools
         $combustionChamberMechanic = new Tool();
-        $combustionChamberMechanic->setActions([ActionEnum::RETRIEVE_FUEL_CHAMBER]);
-        $combustionChamberMechanic->setGrantActions([ActionEnum::INSERT_FUEL_CHAMBER]);
-        $combustionChamberMechanic->setActionsTarget([ActionEnum::INSERT_FUEL_CHAMBER => ActionTargetEnum::ITEM]);
+        $combustionChamberMechanic->addAction($fuelInjectAction);
+        $combustionChamberMechanic->addAction($fuelRetrieveAction);
         $chargedMechanic = new Charged();
         $chargedMechanic
             ->setMaxCharge(9)
@@ -243,14 +279,18 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireBreakable(false)
             ->setBreakableRate(12)
             ->setMechanics(new ArrayCollection([$combustionChamberMechanic, $chargedMechanic]))
+            ->setActions(new ArrayCollection([$repair12]))
         ;
         $manager->persist($combustionChamber);
         $manager->persist($combustionChamberMechanic);
         $manager->persist($chargedMechanic);
 
+        /** @var Action $cookAction */
+        $cookAction = $this->getReference(ActionsFixtures::COOK_DEFAULT);
+
         $kitchenMechanic = new Tool();
-        $kitchenMechanic->setGrantActions([ActionEnum::COOK]);
-        $kitchenMechanic->setActionsTarget([ActionEnum::COOK => ActionTargetEnum::EQUIPMENT]);
+        $kitchenMechanic->addAction($cookAction);
+
         $kitchen = new EquipmentConfig();
         $kitchen
             ->setGameConfig($gameConfig)
@@ -259,16 +299,11 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireBreakable(false)
             ->setBreakableRate(12)
             ->setMechanics(new ArrayCollection([$kitchenMechanic]))
+            ->setActions(new ArrayCollection([$repair12]))
         ;
         $manager->persist($kitchen);
         $manager->persist($kitchenMechanic);
 
-        $distillerDismountableMechanic = new Dismountable();
-        $distillerDismountableMechanic
-            ->setProducts([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::METAL_SCRAPS => 2])
-            ->setActionCost(3)
-            ->setChancesSuccess(50)
-        ;
         $dailyChargeMechanic = new Charged();
         $dailyChargeMechanic
             ->setMaxCharge(1)
@@ -277,18 +312,20 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsVisible(false)
         ;
         $distillerMechanic = new Tool();
-        $distillerMechanic->setActions([ActionEnum::DISPENSE]);
+
         $narcoticDistiller = new EquipmentConfig();
         $narcoticDistiller
             ->setGameConfig($gameConfig)
             ->setName(EquipmentEnum::NARCOTIC_DISTILLER)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$distillerMechanic, $distillerDismountableMechanic, $dailyChargeMechanic]))
+            ->setMechanics(new ArrayCollection([$distillerMechanic, $dailyChargeMechanic]))
+            ->setActions(new ArrayCollection([$this->getReference(TechnicianFixtures::DISMANTLE_3_25)]))
+            ->setDismountedProducts([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::METAL_SCRAPS => 2])
         ;
+
         $manager->persist($narcoticDistiller);
         $manager->persist($distillerMechanic);
-        $manager->persist($distillerDismountableMechanic);
         $manager->persist($dailyChargeMechanic);
 
         $shower = new EquipmentConfig();
@@ -297,12 +334,13 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setName(EquipmentEnum::SHOWER)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$showerMechanic, $showerDismountableMechanic]))
+            ->setMechanics(new ArrayCollection([$showerMechanic]))
+            ->setActions(new ArrayCollection([$this->getReference(TechnicianFixtures::DISMANTLE_3_25)]))
+            ->setDismountedProducts([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::THICK_TUBE => 1])
         ;
         $manager->persist($shower);
 
         $dynarcadeMechanic = new Tool();
-        $dynarcadeMechanic->setActions([ActionEnum::PLAY_ARCADE]);
         $dynarcade = new EquipmentConfig();
         $dynarcade
             ->setGameConfig($gameConfig)
@@ -311,12 +349,16 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireBreakable(false)
             ->setBreakableRate(12)
             ->setMechanics(new ArrayCollection([$dynarcadeMechanic]))
+            ->setActions(new ArrayCollection([$repair12]))
         ;
         $manager->persist($dynarcade);
         $manager->persist($dynarcadeMechanic);
 
+        /** @var Action $lieDownAction */
+        $lieDownAction = $this->getReference(ActionsFixtures::LIE_DOWN);
+
         $bedMechanic = new Tool();
-        $bedMechanic->setActions([ActionEnum::LIE_DOWN]);
+        $bedMechanic->addAction($lieDownAction);
         $bed = new EquipmentConfig();
         $bed
             ->setGameConfig($gameConfig)
@@ -328,8 +370,12 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($bed);
         $manager->persist($bedMechanic);
 
+        /** @var Action $coffeeAction */
+        $coffeeAction = $this->getReference(ActionsFixtures::COFFEE_DEFAULT);
+
         $coffeMachineMechanic = new Tool();
-        $coffeMachineMechanic->setActions([ActionEnum::COFFEE]);
+        $coffeMachineMechanic->addAction($coffeeAction);
+
         $coffeMachine = new EquipmentConfig();
         $coffeMachine
             ->setGameConfig($gameConfig)
@@ -338,12 +384,13 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireBreakable(false)
             ->setBreakableRate(12)
             ->setMechanics(new ArrayCollection([$coffeMachineMechanic, $dailyChargeMechanic]))
+            ->setActions(new ArrayCollection([$repair12]))
         ;
         $manager->persist($coffeMachine);
         $manager->persist($coffeMachineMechanic);
 
         $cryoModuleMechanic = new Tool();
-        $cryoModuleMechanic->setActions([ActionEnum::CHECK_ROSTER]);
+//        $cryoModuleMechanic->setActions([ActionEnum::CHECK_ROSTER]);
         $cryoModule = new EquipmentConfig();
         $cryoModule
             ->setGameConfig($gameConfig)
@@ -356,7 +403,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($cryoModuleMechanic);
 
         $mycoscanMechanic = new Tool();
-        $mycoscanMechanic->setActions([ActionEnum::CHECK_INFECTION]);
+//        $mycoscanMechanic->setActions([ActionEnum::CHECK_INFECTION]);
         $mycoscan = new EquipmentConfig();
         $mycoscan
             ->setGameConfig($gameConfig)
@@ -365,6 +412,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireBreakable(false)
             ->setBreakableRate(12)
             ->setMechanics(new ArrayCollection([$mycoscanMechanic]))
+            ->setActions(new ArrayCollection([$repair12]))
         ;
         $manager->persist($mycoscan);
         $manager->persist($mycoscanMechanic);
@@ -377,7 +425,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsVisible(true)
         ;
         $turretCommandMechanic = new Tool();
-        $turretCommandMechanic->setActions([ActionEnum::SHOOT_HUNTER]);
+//        $turretCommandMechanic->setActions([ActionEnum::SHOOT_HUNTER]);
         $turretCommand = new EquipmentConfig();
         $turretCommand
             ->setGameConfig($gameConfig)
@@ -386,17 +434,18 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireBreakable(false)
             ->setBreakableRate(12)
             ->setMechanics(new ArrayCollection([$turretCommandMechanic, $turretChargeMechanic]))
+            ->setActions(new ArrayCollection([$repair12]))
         ;
         $manager->persist($turretCommand);
         $manager->persist($turretCommandMechanic);
         $manager->persist($turretChargeMechanic);
 
         $surgicalPlotMechanic = new Tool();
-        $surgicalPlotMechanic->setGrantActions([ActionEnum::SELF_SURGERY, ActionEnum::SURGERY]);
-        $surgicalPlotMechanic->setActionsTarget([
-            ActionEnum::SELF_SURGERY => ActionTargetEnum::SELF_PLAYER,
-            ActionEnum::SURGERY => ActionTargetEnum::TARGET_PLAYER,
-        ]);
+//        $surgicalPlotMechanic->setGrantActions([ActionEnum::SELF_SURGERY, ActionEnum::SURGERY]);
+//        $surgicalPlotMechanic->setActionsTarget([
+//            ActionEnum::SELF_SURGERY => ActionTargetEnum::SELF_PLAYER,
+//            ActionEnum::SURGERY => ActionTargetEnum::TARGET_PLAYER,
+//        ]);
         $surgicalPlot = new EquipmentConfig();
         $surgicalPlot
             ->setGameConfig($gameConfig)
@@ -405,14 +454,16 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireBreakable(false)
             ->setBreakableRate(12)
             ->setMechanics(new ArrayCollection([$surgicalPlotMechanic]))
+            ->setActions(new ArrayCollection([$repair12]))
         ;
         $manager->persist($surgicalPlot);
         $manager->persist($surgicalPlotMechanic);
 
         $fuelTankMechanic = new Tool();
-        $fuelTankMechanic->setActions([ActionEnum::RETRIEVE_FUEL]);
-        $fuelTankMechanic->setGrantActions([ActionEnum::INSERT_FUEL]);
-        $fuelTankMechanic->setActionsTarget([ActionEnum::INSERT_FUEL => ActionTargetEnum::ITEM]);
+
+        $fuelTankMechanic->addAction($fuelInjectAction);
+        $fuelTankMechanic->addAction($fuelRetrieveAction);
+
         $fuelTank = new EquipmentConfig();
         $fuelTank
             ->setGameConfig($gameConfig)
@@ -421,14 +472,21 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireBreakable(false)
             ->setBreakableRate(25)
             ->setMechanics(new ArrayCollection([$fuelTankMechanic]))
+            ->setActions(new ArrayCollection([$repair25]))
         ;
         $manager->persist($fuelTank);
         $manager->persist($fuelTankMechanic);
 
         $oxygenTankMechanic = new Tool();
-        $oxygenTankMechanic->setActions([ActionEnum::RETRIEVE_OXYGEN]);
-        $oxygenTankMechanic->setGrantActions([ActionEnum::INSERT_OXYGEN]);
-        $oxygenTankMechanic->setActionsTarget([ActionEnum::INSERT_OXYGEN => ActionTargetEnum::ITEM]);
+
+        /** @var Action $oxygenInjectAction */
+        $oxygenInjectAction = $this->getReference(ActionsFixtures::OXYGEN_INJECT);
+        /** @var Action $oxygenRetrieveAction */
+        $oxygenRetrieveAction = $this->getReference(ActionsFixtures::OXYGEN_RETRIEVE);
+
+        $oxygenTankMechanic->addAction($oxygenInjectAction);
+        $oxygenTankMechanic->addAction($oxygenRetrieveAction);
+
         $oxygenTank = new EquipmentConfig();
         $oxygenTank
             ->setGameConfig($gameConfig)
@@ -437,6 +495,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireBreakable(false)
             ->setBreakableRate(25)
             ->setMechanics(new ArrayCollection([$oxygenTankMechanic]))
+            ->setActions(new ArrayCollection([$repair25]))
         ;
         $manager->persist($oxygenTank);
         $manager->persist($oxygenTankMechanic);
@@ -448,6 +507,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
     {
         return [
             GameConfigFixtures::class,
+            ActionsFixtures::class,
+            TechnicianFixtures::class,
         ];
     }
 }

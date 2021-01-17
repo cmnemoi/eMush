@@ -25,12 +25,12 @@
   "file" : "terrence_archer",
   "color" : "#D32837",
   "short" : {
-	"en" : "",
+	"en" : "Disillusioned motorized technophile with an unhealthy drone fixation",
 	"fr" : "Technophile désabusé motorisé",
-	"es" : ""
+	"es" : "Técnico en armamento, con una revancha por cobrarse"
   },
   "intro" : {
-	"en" : "",
+	"en" : "Don't be fooled by his appearance, Terrence is amongst the most agile crew members, albeit mentally. Next-generation robotics and UAVs are his bread and butter.",
 	"fr" : "Certes handicapé, Terrence a aussi des compétences uniques dans les sciences de l'ingénieur.",
 	"es" : "Combatiente veterano, renegado de la vida. Experto en ingeniería, armamento y sarcasmo ácido."
   },

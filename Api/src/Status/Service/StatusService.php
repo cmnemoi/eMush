@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Error;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
+use Mush\Room\Entity\Room;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\ChargeStatus;
@@ -47,10 +48,23 @@ class StatusService implements StatusServiceInterface
         return $status;
     }
 
+    public function createCoreRoomStatus(string $statusName, Room $room, string $visibilty = VisibilityEnum::PUBLIC): Status
+    {
+        $status = new Status();
+        $status
+            ->setName($statusName)
+            ->setVisibility($visibilty)
+            ->setRoom($room)
+        ;
+
+        return $status;
+    }
+
     public function createChargeEquipmentStatus(
         string $statusName,
         GameEquipment $gameEquipment,
         string $strategy,
+        string $visibilty = VisibilityEnum::PUBLIC,
         int $charge = 0,
         int $threshold = null,
         bool $autoRemove = false
@@ -59,7 +73,7 @@ class StatusService implements StatusServiceInterface
         $status
             ->setName($statusName)
             ->setStrategy($strategy)
-            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setVisibility($visibilty)
             ->setGameEquipment($gameEquipment)
             ->setCharge($charge)
             ->setAutoRemove($autoRemove)
@@ -76,6 +90,7 @@ class StatusService implements StatusServiceInterface
         string $statusName,
         Player $player,
         string $strategy,
+        string $visibilty = VisibilityEnum::PUBLIC,
         int $charge = 0,
         int $threshold = null,
         bool $autoRemove = false
@@ -84,8 +99,34 @@ class StatusService implements StatusServiceInterface
         $status
             ->setName($statusName)
             ->setStrategy($strategy)
-            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setVisibility($visibilty)
             ->setPlayer($player)
+            ->setCharge($charge)
+            ->setAutoRemove($autoRemove)
+        ;
+
+        if ($threshold) {
+            $status->setThreshold($threshold);
+        }
+
+        return $status;
+    }
+
+    public function createChargeRoomStatus(
+        string $statusName,
+        Room $room,
+        string $strategy,
+        string $visibilty = VisibilityEnum::PUBLIC,
+        int $charge = 0,
+        int $threshold = null,
+        bool $autoRemove = false
+    ): ChargeStatus {
+        $status = new ChargeStatus();
+        $status
+            ->setName($statusName)
+            ->setStrategy($strategy)
+            ->setVisibility($visibilty)
+            ->setRoom($room)
             ->setCharge($charge)
             ->setAutoRemove($autoRemove)
         ;
@@ -151,6 +192,7 @@ class StatusService implements StatusServiceInterface
     public function delete(Status $status): bool
     {
         $this->entityManager->remove($status);
+        $this->entityManager->flush();
 
         return true;
     }

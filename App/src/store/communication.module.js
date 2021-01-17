@@ -1,177 +1,104 @@
-import {AuthenticationError} from "@/services/user.service";
 import CommunicationService from "@/services/communication.service";
-import {Channel} from "@/entities/Channel";
-import {ROOM_LOG, TIPS} from "@/enums/communication.enum";
+import { Channel } from "@/entities/Channel";
+import { ROOM_LOG } from '@/enums/communication.enum';
 
 
 const state =  {
     loading: false,
-    currentChannel: null,
+    currentChannel: new Channel(),
     channels: [],
-    messages: [],
+    messagesByChannelId: {}
 };
 
 const getters = {
-    getCurrentChannel: (state) => {
-        if (state.currentChannel === null) {
-            state.currentChannel = (new Channel()).decode(localStorage.getItem('currentChannel'));
-        }
-
-        return state.currentChannel;
-
-    },
-    getChannels: (state) => {
-        return state.channels
-    },
-    getMessages: (state) => {
-        return state.messages
-    },
-    loading: (state) => {
-        return state.loading
+    messages(state) {
+        return state.messagesByChannelId[state.currentChannel.id] || [];
     }
 };
 
 const actions = {
-    async changeChannel({ commit }, {channel}) {
-        localStorage.setItem('currentChannel', channel.jsonEncode());
-        commit('changeChannel', channel)
+    async changeChannel({ commit }, { channel }) {
+        commit('setCurrentChannel', channel);
     },
     async loadChannels({ commit }) {
-        commit('loadRequest');
+        commit('setLoading', true);
 
         try {
             const channels = await CommunicationService.loadChannels();
-            channels.reverse();
-
-            const roomLogChannel = new Channel();
-            roomLogChannel.scope = ROOM_LOG;
-            channels.push(roomLogChannel);
-
-            const tipsChannel = new Channel();
-            tipsChannel.scope = TIPS;
-            channels.push(tipsChannel)
-
-            channels.reverse();
-            commit('loadSuccess', channels)
-
-            return true
+            commit('setChannels', channels);
+            commit('setCurrentChannel', channels.find(({ scope }) => scope === ROOM_LOG));
+            commit('setLoading', false);
+            return true;
         } catch (e) {
-            if (e instanceof AuthenticationError) {
-                commit('loadError', {errorCode: e.errorCode, errorMessage: e.message})
-            }
-
-            return false
+            commit('setLoading', false);
+            return false;
         }
     },
 
-    async loadMessages({ commit }, {channel}) {
-        commit('loadMessagesRequest');
+    async loadMessages({ commit }, { channel }) {
+        commit('setLoading', true);
 
         try {
             const messages = await CommunicationService.loadMessages(channel);
-            commit('loadMessagesSuccess', messages)
-
-            return true
+            commit('setChannelMessages', { channel, messages });
+            commit('setLoading', false);
+            return true;
         } catch (e) {
-            if (e instanceof AuthenticationError) {
-                commit('loadMessagesError', {errorCode: e.errorCode, errorMessage: e.message})
-            }
-
-            return false
+            commit('setLoading', false);
+            return false;
         }
     },
 
-    async sendMessage({ commit }, {channel, text, parent}) {
-        commit('loadMessagesRequest');
+    async sendMessage({ commit }, { channel, text, parent }) {
+        commit('setLoading', true);
 
         try {
             const messages = await CommunicationService.sendMessage(channel, text, parent);
-            commit('loadMessagesSuccess', messages)
-
-            return true
+            commit('setChannelMessages', { channel, messages });
+            commit('setLoading', false);
+            return true;
         } catch (e) {
-            if (e instanceof AuthenticationError) {
-                commit('loadMessagesError', {errorCode: e.errorCode, errorMessage: e.message})
-            }
-
-            return false
+            commit('setLoading', false);
+            return false;
         }
     },
 
     async createPrivateChannel({ commit }) {
-        commit('createRequest');
+        commit('setLoading', true);
 
         try {
-            const channels = await CommunicationService.createPrivateChannel();
-            channels.reverse();
+            const newChannel = await CommunicationService.createPrivateChannel();
+            commit('addChannel', newChannel);
+            commit('setLoading', false);
 
-            const roomLogChannel = new Channel();
-            roomLogChannel.scope = ROOM_LOG;
-            channels.push(roomLogChannel);
-
-            const tipsChannel = new Channel();
-            tipsChannel.scope = TIPS;
-            channels.push(tipsChannel)
-
-            channels.reverse();
-            commit('createSuccess', channels)
-
-            return true
+            return true;
         } catch (e) {
-            if (e instanceof AuthenticationError) {
-                commit('createError', {errorCode: e.errorCode, errorMessage: e.message})
-            }
-
-            return false
+            commit('setLoading', false);
+            return false;
         }
-    },
+    }
 };
 
 const mutations = {
-    loadRequest(state) {
-        state.loading = true;
+    setLoading(state, newStatus) {
+        state.loading = newStatus;
     },
 
-    loadMessagesRequest(state) {
-        state.loading = true;
-    },
-
-    changeChannel(state, channel) {
+    setCurrentChannel(state, channel) {
         state.currentChannel = channel;
     },
 
-    createSuccess(state, channels) {
+    setChannels(state, channels) {
         state.channels = channels;
-        state.loading = false;
     },
 
-    loadSuccess(state, channels) {
-        state.channels = channels;
-        state.loading = false;
+    addChannel(state, channel) {
+        state.channels.push(channel);
     },
 
-    loadMessagesSuccess(state, messages) {
-        state.currentChannel.messages = messages;
-        state.loading = false;
-    },
-
-    loadError(state, {errorCode, errorMessage}) {
-        state.playerErrorCode = errorCode;
-        state.playerError = errorMessage;
-        state.loading = false;
-    },
-
-    createError(state, {errorCode, errorMessage}) {
-        state.playerErrorCode = errorCode;
-        state.playerError = errorMessage;
-        state.loading = false;
-    },
-
-    loadMessagesError(state, {errorCode, errorMessage}) {
-        state.playerErrorCode = errorCode;
-        state.playerError = errorMessage;
-        state.loading = false;
-    },
+    setChannelMessages(state, { channel, messages }) {
+        state.messagesByChannelId[channel.id] = messages;
+    }
 };
 
 export const communication = {

@@ -3,7 +3,6 @@
 namespace Mush\Equipment\Entity\Mechanics;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 
 /**
@@ -15,8 +14,6 @@ class Fruit extends Ration
 {
     protected string $mechanic = EquipmentMechanicEnum::FRUIT;
 
-    protected array $actions = [ActionEnum::TRANSPLANT];
-
     /**
      * @ORM\Column(type="string", nullable=false)
      */
@@ -25,7 +22,7 @@ class Fruit extends Ration
     /**
      * @ORM\Column(type="array", nullable=false)
      */
-    private array $fruitEffectsNumber = [0];
+    private array $fruitEffectsNumber = [];
 
     /**
      * @ORM\Column(type="array", nullable=false)

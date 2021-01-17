@@ -4,15 +4,19 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
+use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Equipment\Entity\ConsumableEffect;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\Mechanics\Drug;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Player\Entity\ActionModifier;
+use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\ActionLogEnum;
@@ -22,7 +26,7 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class Consume extends Action
+class Consume extends AbstractAction
 {
     protected string $name = ActionEnum::CONSUME;
 
@@ -48,22 +52,23 @@ class Consume extends Action
         $this->statusService = $statusService;
     }
 
-    public function loadParameters(Player $player, ActionParameters $actionParameters): void
+    public function loadParameters(Action $action, Player $player, ActionParameters $actionParameters): void
     {
+        parent::loadParameters($action, $player, $actionParameters);
+
         if (!($equipment = $actionParameters->getItem()) &&
             !($equipment = $actionParameters->getEquipment())) {
             throw new \InvalidArgumentException('Invalid equipment parameter');
         }
 
-        $this->player = $player;
         $this->gameEquipment = $equipment;
     }
 
     public function canExecute(): bool
     {
         return !($this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::DRUG) &&
-                $this->player->canReachEquipment($this->gameEquipment) &&
                 $this->player->getStatusByName(PlayerStatusEnum::DRUG_EATEN)) &&
+                $this->player->canReachEquipment($this->gameEquipment) &&
                 $this->gameEquipment->getEquipment()->hasAction(ActionEnum::CONSUME) &&
                 !$this->player->getStatusByName(PlayerStatusEnum::FULL_STOMACH);
     }
@@ -79,21 +84,9 @@ class Consume extends Action
         // @TODO add disease, cures and extra effects
         $equipmentEffect = $this->equipmentServiceEffect->getConsumableEffect($rationType, $this->player->getDaedalus());
 
-        $actionModifier = new ActionModifier();
-
         if (!$this->player->isMush()) {
-            $actionModifier
-                ->setActionPointModifier($equipmentEffect->getActionPoint())
-                ->setMovementPointModifier($equipmentEffect->getMovementPoint())
-                ->setHealthPointModifier($equipmentEffect->getHealthPoint())
-                ->setMoralPointModifier($equipmentEffect->getMoralPoint())
-            ;
+            $this->dispatchConsumableEffects($equipmentEffect);
         }
-        $actionModifier->setSatietyModifier($equipmentEffect->getSatiety());
-
-        $playerEvent = new PlayerEvent($this->player);
-        $playerEvent->setActionModifier($actionModifier);
-        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
 
         // If the ration is a drug player get Drug_Eaten status that prevent it from eating another drug this cycle.
         if ($rationType instanceof Drug) {
@@ -102,19 +95,69 @@ class Consume extends Action
                     PlayerStatusEnum::DRUG_EATEN,
                     $this->player,
                     ChargeStrategyTypeEnum::CYCLE_DECREMENT,
+                    VisibilityEnum::HIDDEN,
                     1,
                     0,
                     true
                 );
-            $drugEatenStatus->setVisibility(VisibilityEnum::HIDDEN);
         }
 
         $this->playerService->persist($this->player);
 
         // if no charges consume equipment
-        $this->gameEquipment->removeLocation();
-        $this->gameEquipmentService->delete($this->gameEquipment);
+        $equipmentEvent = new EquipmentEvent($this->gameEquipment, VisibilityEnum::HIDDEN);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         return new Success(ActionLogEnum::CONSUME_SUCCESS, VisibilityEnum::COVERT);
+    }
+
+    private function dispatchConsumableEffects(ConsumableEffect $consumableEffect): void
+    {
+        $modifier = new Modifier();
+        if ($consumableEffect->getActionPoint() !== 0) {
+            $modifier
+                ->setDelta($consumableEffect->getActionPoint())
+                ->setTarget(ModifierTargetEnum::ACTION_POINT)
+            ;
+            $playerEvent = new PlayerEvent($this->player);
+            $playerEvent->setModifier($modifier);
+            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
+        }
+        if ($consumableEffect->getMovementPoint() !== 0) {
+            $modifier
+                ->setDelta($consumableEffect->getMovementPoint())
+                ->setTarget(ModifierTargetEnum::MOVEMENT_POINT)
+            ;
+            $playerEvent = new PlayerEvent($this->player);
+            $playerEvent->setModifier($modifier);
+            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
+        }
+        if ($consumableEffect->getHealthPoint() !== 0) {
+            $modifier
+                ->setDelta($consumableEffect->getHealthPoint())
+                ->setTarget(ModifierTargetEnum::HEALTH_POINT)
+            ;
+            $playerEvent = new PlayerEvent($this->player);
+            $playerEvent->setModifier($modifier);
+            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
+        }
+        if ($consumableEffect->getMoralPoint() !== 0) {
+            $modifier
+                ->setDelta($consumableEffect->getMoralPoint())
+                ->setTarget(ModifierTargetEnum::MORAL_POINT)
+            ;
+            $playerEvent = new PlayerEvent($this->player);
+            $playerEvent->setModifier($modifier);
+            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
+        }
+        if ($consumableEffect->getSatiety() !== 0) {
+            $modifier
+                ->setDelta($consumableEffect->getSatiety())
+                ->setTarget(ModifierTargetEnum::SATIETY)
+            ;
+            $playerEvent = new PlayerEvent($this->player);
+            $playerEvent->setModifier($modifier);
+            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
+        }
     }
 }

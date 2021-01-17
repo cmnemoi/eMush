@@ -12,6 +12,7 @@ use Mush\Player\Entity\Dto\PlayerRequest;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Player\Voter\CharacterVoter;
+use Mush\User\Entity\User;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -111,7 +112,10 @@ class PlayerController extends AbstractFOSRestController
             return $this->view(['invalid parameters'], 422);
         }
 
-        $player = $this->playerService->createPlayer($daedalus, $character);
+        /** @var User $user */
+        $user = $this->getUser();
+
+        $player = $this->playerService->createPlayer($daedalus, $user, $character);
 
         return $this->view($player, Response::HTTP_CREATED);
     }

@@ -16,7 +16,7 @@ export class Character {
     }
     decode = function(jsonString) {
         if (jsonString) {
-            let object = JSON.parse(jsonString)
+            let object = JSON.parse(jsonString);
             this.key = object.key;
             this.name = object.value;
         }

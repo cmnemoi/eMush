@@ -1,7 +1,8 @@
-import {Item} from "@/entities/Item";
-import {Door} from "@/entities/Door";
-import {Player} from "@/entities/Player";
-import {Equipment} from "@/entities/Equipment";
+import { Item } from "@/entities/Item";
+import { Door } from "@/entities/Door";
+import { Player } from "@/entities/Player";
+import { Equipment } from "@/entities/Equipment";
+import {Status} from "@/entities/Status";
 
 export class Room {
     constructor() {
@@ -12,6 +13,7 @@ export class Room {
         this.doors = [];
         this.equipments = [];
         this.players = [];
+        this.statuses = [];
     }
     load = function(object) {
         if (typeof object !== "undefined") {
@@ -19,22 +21,26 @@ export class Room {
             this.key = object.key;
             this.name = object.name;
             object.items.forEach((itemObject) => {
-                let item = (new Item).load(itemObject)
+                let item = (new Item).load(itemObject);
                 this.items.push(item);
-            })
+            });
             object.doors.forEach((doorObject) => {
-                let door = (new Door).load(doorObject)
+                let door = (new Door).load(doorObject);
                 this.doors.push(door);
-            })
+            });
             object.players.forEach((playerObject) => {
-                let player = (new Player).load(playerObject)
+                let player = (new Player).load(playerObject);
                 this.players.push(player);
-            })
+            });
 
             object.equipments.forEach((equipmentObject) => {
-                let equipment = (new Equipment()).load(equipmentObject)
+                let equipment = (new Equipment()).load(equipmentObject);
                 this.equipments.push(equipment);
-            })
+            });
+            object.statuses.forEach((statusObject) => {
+                let status = (new Status()).load(statusObject);
+                this.statuses.push(status);
+            });
         }
         return this;
     }
@@ -43,7 +49,7 @@ export class Room {
     }
     decode = function(jsonString) {
         if (jsonString) {
-            let object = JSON.parse(jsonString)
+            let object = JSON.parse(jsonString);
             this.id = object.id;
             this.roomKey = object.roomKey;
             this.roomName = object.roomName;

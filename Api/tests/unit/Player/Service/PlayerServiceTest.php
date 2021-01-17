@@ -8,7 +8,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\Collection\CharacterConfigCollection;
 use Mush\Game\Entity\GameConfig;
-use Mush\Game\Service\GameConfigServiceInterface;
+use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Repository\PlayerRepository;
 use Mush\Player\Service\PlayerService;
@@ -19,8 +19,6 @@ use Mush\Status\Service\StatusServiceInterface;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\Security\Core\Authentication\Token\AbstractToken;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class PlayerServiceTest extends TestCase
 {
@@ -34,9 +32,9 @@ class PlayerServiceTest extends TestCase
     private RoomLogServiceInterface $roomLogService;
     /** @var StatusServiceInterface | Mockery\Mock */
     private StatusServiceInterface $statusService;
-    /** @var TokenStorageInterface | Mockery\Mock */
-    private TokenStorageInterface $tokenStorage;
-    private GameConfig $gameConfig;
+    /** @var RandomServiceInterface | Mockery\Mock */
+    private RandomServiceInterface $randomService;
+
     private CharacterConfigCollection $charactersConfig;
     private PlayerService $service;
 
@@ -49,13 +47,11 @@ class PlayerServiceTest extends TestCase
         $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $this->repository = Mockery::mock(PlayerRepository::class);
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
-        $this->tokenStorage = Mockery::mock(TokenStorageInterface::class);
         $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
-        $gameConfigService = Mockery::mock(GameConfigServiceInterface::class);
-        $this->gameConfig = new GameConfig();
+
         $this->charactersConfig = new CharacterConfigCollection();
-        $gameConfigService->shouldReceive('getConfig')->andReturn($this->gameConfig)->once();
+        $this->randomService = Mockery::mock(RandomServiceInterface::class);
 
         $this->service = new PlayerService(
             $this->entityManager,
@@ -63,8 +59,7 @@ class PlayerServiceTest extends TestCase
             $this->repository,
             $this->roomLogService,
             $this->statusService,
-            $gameConfigService,
-            $this->tokenStorage
+            $this->randomService
         );
     }
 
@@ -76,9 +71,10 @@ class PlayerServiceTest extends TestCase
         Mockery::close();
     }
 
-    public function testCreateDaedalus()
+    public function testCreatePlayer()
     {
-        $this->gameConfig
+        $gameConfig = new GameConfig();
+        $gameConfig
             ->setInitMovementPoint(0)
             ->setInitActionPoint(1)
             ->setInitSatiety(2)
@@ -93,17 +89,6 @@ class PlayerServiceTest extends TestCase
 
         $user = new User();
 
-        $token = Mockery::mock(AbstractToken::class);
-        $token
-            ->shouldReceive('getUser')
-            ->andReturn($user)
-        ;
-
-        $this->tokenStorage
-            ->shouldReceive('getToken')
-            ->andReturn($token)
-            ->once()
-        ;
         $this->entityManager
             ->shouldReceive('persist')
             ->once()
@@ -114,6 +99,7 @@ class PlayerServiceTest extends TestCase
         ;
 
         $daedalus = new Daedalus();
+        $daedalus->setGameConfig($gameConfig);
         $laboratory = new Room();
         $laboratory->setName(RoomEnum::LABORATORY); // @FIXME: should we move the starting room in the config
         $daedalus->addRoom($laboratory);
@@ -128,19 +114,19 @@ class PlayerServiceTest extends TestCase
         $this->charactersConfig->add($characterConfig);
         $this->charactersConfig->add($characterConfig);
 
-        $this->gameConfig
+        $gameConfig
             ->setCharactersConfig($this->charactersConfig)
         ;
 
-        $player = $this->service->createPlayer($daedalus, 'character');
+        $player = $this->service->createPlayer($daedalus, $user, 'character');
 
         $this->assertInstanceOf(Player::class, $player);
-        $this->assertEquals('character', $player->getPerson());
-        $this->assertEquals($this->gameConfig->getInitActionPoint(), $player->getActionPoint());
-        $this->assertEquals($this->gameConfig->getInitMovementPoint(), $player->getMovementPoint());
-        $this->assertEquals($this->gameConfig->getInitHealthPoint(), $player->getHealthPoint());
-        $this->assertEquals($this->gameConfig->getInitMoralPoint(), $player->getMoralPoint());
-        $this->assertEquals($this->gameConfig->getInitSatiety(), $player->getSatiety());
+        $this->assertEquals('character', $player->getCharacterConfig()->getName());
+        $this->assertEquals($gameConfig->getInitActionPoint(), $player->getActionPoint());
+        $this->assertEquals($gameConfig->getInitMovementPoint(), $player->getMovementPoint());
+        $this->assertEquals($gameConfig->getInitHealthPoint(), $player->getHealthPoint());
+        $this->assertEquals($gameConfig->getInitMoralPoint(), $player->getMoralPoint());
+        $this->assertEquals($gameConfig->getInitSatiety(), $player->getSatiety());
         $this->assertCount(0, $player->getItems());
         $this->assertCount(1, $player->getStatuses());
         $this->assertCount(0, $player->getSkills());

@@ -10,6 +10,7 @@ class ActionLogEnum
     public const COOK_SUCCESS = 'cook_success';
     public const DROP = 'drop';
     public const EXPRESS_COOK_SUCCESS = 'express_cook_success';
+    public const EXTINGUISH_SUCCESS = 'extinguish_success';
     public const EXTRACT_SPORE_SUCCESS = 'extract_spore_success';
     public const GET_UP = 'get_up';
     public const HIDE_SUCCESS = 'hide_success';
@@ -24,12 +25,18 @@ class ActionLogEnum
     public const READ_BOOK = 'read_book';
     public const READ_DOCUMENT = 'read_document';
     public const REPAIR_SUCCESS = 'repair_success';
+    public const REPAIR_FAIL = 'repair_success';
+    public const SABOTAGE_SUCCESS = 'sabotage_success';
+    public const SABOTAGE_FAIL = 'sabotage_fail';
     public const SEARCH_SUCCESS = 'search_success';
     public const SEARCH_FAIL = 'search_fail';
     public const SHRED_SUCCESS = 'shred_success';
+    public const SHOWER_HUMAN = 'shower';
+    public const SHOWER_MUSH = 'shower';
     public const TAKE = 'take';
     public const TRANSPLANT_SUCCESS = 'transplant_success';
-    public const TRANSPLANT_FAIL = 'transplant_fail';
+    public const HYBRIDIZE_SUCESS = 'transplant_success';
+    public const HYBRIDIZE_FAIL = 'transplant_fail';
     public const TREAT_PLANT_SUCCESS = 'treat_plant_success';
     public const WATER_PLANT_SUCCESS = 'water_plant_success';
     public const WRITE_SUCCESS = 'write_success';

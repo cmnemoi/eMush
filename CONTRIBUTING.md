@@ -19,7 +19,7 @@ git checkout -b fix-some-fix
 
 3- Merge go through a pipeline that check unit test and syntax. Be sure to run folloing commands before merging:
 ```
-php bin/phpunit
+php vendor/bin/codecept run
 vendor/bin/php-cs-fixer fix
 vendor/bin/psalm
 ```

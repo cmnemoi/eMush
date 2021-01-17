@@ -6,8 +6,10 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\EquipmentConfig;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Service\RandomServiceInterface;
 use Mush\Room\Entity\Room;
 use Mush\Room\Entity\RoomConfig;
 use Mush\Room\Repository\RoomRepository;
@@ -20,20 +22,20 @@ class RoomService implements RoomServiceInterface
     private RoomRepository $repository;
     private GameEquipmentServiceInterface $equipmentService;
     private StatusServiceInterface $statusService;
+    private RandomServiceInterface $randomService;
 
-    /**
-     * RoomService constructor.
-     */
     public function __construct(
         EntityManagerInterface $entityManager,
         RoomRepository $repository,
         GameEquipmentServiceInterface $equipmentService,
-        StatusServiceInterface $statusService
+        StatusServiceInterface $statusService,
+        RandomServiceInterface $randomService
     ) {
         $this->entityManager = $entityManager;
         $this->repository = $repository;
         $this->equipmentService = $equipmentService;
         $this->statusService = $statusService;
+        $this->randomService = $randomService;
     }
 
     public function persist(Room $room): Room
@@ -56,23 +58,32 @@ class RoomService implements RoomServiceInterface
 
         $this->persist($room);
 
+        $doorConfig = $daedalus
+            ->getGameConfig()
+            ->getEquipmentsConfig()
+            ->filter(fn (EquipmentConfig $item) => $item->getName() === EquipmentEnum::DOOR)->first()
+        ;
+
         // @FIXME how to simplify that?
         foreach ($roomConfig->getDoors() as $doorName) {
             if (
-                $roomDoor = $daedalus->getRooms()->filter( //If door already exist
-                    function (Room $room) use ($doorName) {
-                        return $room->getDoors()->exists(function ($key, Door $door) use ($doorName) {
-                            return $door->getName() === $doorName;
-                        });
-                    }
-                )->first()
+            $roomDoor = $daedalus->getRooms()->filter( //If door already exist
+                function (Room $room) use ($doorName) {
+                    return $room->getDoors()->exists(function ($key, Door $door) use ($doorName) {
+                        return $door->getName() === $doorName;
+                    });
+                }
+            )->first()
             ) {
                 $door = $roomDoor->getDoors()->filter(function (Door $door) use ($doorName) {
                     return $door->getName() === $doorName;
                 })->first();
             } else { //else create new door
                 $door = new Door();
-                $door->setName($doorName);
+                $door
+                    ->setName($doorName)
+                    ->setEquipment($doorConfig)
+                ;
             }
 
             $room->addDoor($door);

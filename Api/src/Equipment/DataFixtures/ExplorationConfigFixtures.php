@@ -6,8 +6,10 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Mush\Action\DataFixtures\ActionsFixtures;
+use Mush\Action\DataFixtures\TechnicianFixtures;
+use Mush\Action\Entity\Action;
 use Mush\Equipment\Entity\ItemConfig;
-use Mush\Equipment\Entity\Mechanics\Dismountable;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
@@ -19,18 +21,23 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
+        /** @var Action $takeAction */
+        $takeAction = $this->getReference(ActionsFixtures::DEFAULT_TAKE);
+        /** @var Action $takeAction */
+        $dropAction = $this->getReference(ActionsFixtures::DEFAULT_DROP);
+
+        $actions = new ArrayCollection([$takeAction, $dropAction]);
+
         $compass = new ItemConfig();
         $compass
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::QUADRIMETRIC_COMPASS)
             ->setIsHeavy(false)
-            ->setIsTakeable(true)
-            ->setIsDropable(true)
             ->setIsStackable(true)
             ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-
+            ->setActions($actions)
         ;
         $manager->persist($compass);
 
@@ -39,50 +46,43 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::ROPE)
             ->setIsHeavy(false)
-            ->setIsDropable(false)
-            ->setIsTakeable(true)
             ->setIsStackable(true)
             ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
+            ->setActions($actions)
         ;
         $manager->persist($rope);
 
-        $dismountableMechanic = new Dismountable();
-        $dismountableMechanic
-            ->setProducts([ItemEnum::METAL_SCRAPS => 1])
-            ->setActionCost(3)
-            ->setChancesSuccess(50)
-        ;
+        $drillActions = clone $actions;
+        $drillActions->add($this->getReference(TechnicianFixtures::DISMANTLE_3_50));
 
         $drill = new ItemConfig();
         $drill
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::DRILL)
             ->setIsHeavy(false)
-            ->setIsTakeable(true)
-            ->setIsDropable(true)
             ->setIsStackable(true)
             ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setBreakableRate(50)
-            ->setMechanics(new ArrayCollection([$dismountableMechanic]))
+            ->setActions($actions)
+            ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
         ;
+
         $manager->persist($drill);
-        $manager->persist($dismountableMechanic);
 
         $babelModule = new ItemConfig();
         $babelModule
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::BABEL_MODULE)
             ->setIsHeavy(false)
-            ->setIsTakeable(true)
-            ->setIsDropable(true)
             ->setIsStackable(true)
             ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
+            ->setActions($actions)
         ;
         $manager->persist($babelModule);
 
@@ -91,12 +91,11 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::ECHOLOCATOR)
             ->setIsHeavy(false)
-            ->setIsTakeable(true)
-            ->setIsDropable(true)
             ->setIsStackable(true)
             ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
+            ->setActions($actions)
         ;
         $manager->persist($echolocator);
 
@@ -105,14 +104,13 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::THERMOSENSOR)
             ->setIsHeavy(false)
-            ->setIsTakeable(true)
-            ->setIsDropable(true)
             ->setIsStackable(true)
             ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setBreakableRate(25)
-            ->setMechanics(new ArrayCollection([$dismountableMechanic]))
+            ->setActions($drillActions)
+            ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
         ;
         $manager->persist($thermosensor);
 
@@ -121,12 +119,11 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::WHITE_FLAG)
             ->setIsHeavy(false)
-            ->setIsTakeable(true)
-            ->setIsDropable(true)
             ->setIsStackable(true)
             ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
+            ->setActions($actions)
         ;
         $manager->persist($whiteFlag);
 
@@ -141,6 +138,7 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
     public function getDependencies(): array
     {
         return [
+            ActionsFixtures::class,
             GameConfigFixtures::class,
         ];
     }

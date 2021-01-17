@@ -1,209 +1,254 @@
 <template>
-  <div v-if="isRoot" class="main-message" @click="$emit('click')">
-    <img :src="characterPortrait">
-    <p>
-      <span class="author">{{ message.character.name }} :</span><span v-html="format(message.message)"></span></p>
-    <span class="timestamp">{{ formatDate(message.date, {local: "fr-FR"}) }}</span>
-  </div>
-  <div v-if="!isRoot" class="child-message" @click="$emit('click')">
-    <p>
-      <img :src="characterPortrait">
-      <span class="author">{{ message.character.name }} :</span><span v-html="format(message.message)"></span></p>
-    <span class="timestamp">{{ formatDate(message.date, {local: "fr-FR"}) }}</span>
-  </div>
+    <div v-if="isRoot" class="message main-message" @click="$emit('click')">
+        <div class="char-portrait">
+            <img :src="characterPortrait">
+        </div>
+        <p>
+            <span class="author">{{ message.character.name }} :</span><span v-html="format(message.message)" />
+        </p>
+        <div class="actions">
+            <a href="#"><img src="@/assets/images/comms/reply.png">Répondre</a>
+            <a href="#"><img src="@/assets/images/comms/fav.png">Favori</a>
+            <a href="#"><img src="@/assets/images/comms/alert.png">Plainte</a>
+        </div>
+        <span class="timestamp">{{ formatDate(message.date, {local: "fr-FR"}) }}</span>
+    </div>
+    <div v-if="!isRoot" class="message child-message" @click="$emit('click')">
+        <p>
+            <img :src="characterPortrait">
+            <span class="author">{{ message.character.name }} :</span><span v-html="format(message.message)" />
+        </p>
+        <div class="actions">
+            <a href="#"><img src="@/assets/images/comms/reply.png">Répondre</a>
+            <a href="#"><img src="@/assets/images/comms/alert.png">Plainte</a>
+        </div>
+        <span class="timestamp">{{ formatDate(message.date, {local: "fr-FR"}) }}</span>
+    </div>
 </template>
 
 <script>
-import formatDistanceToNow from 'date-fns/formatDistanceToNow'
-import { fr } from 'date-fns/locale'
-import {Message} from "@/entities/Message";
-import {characterEnum} from "@/enums/character";
+import formatDistanceToNow from 'date-fns/formatDistanceToNow';
+import { fr } from 'date-fns/locale';
+import { Message } from "@/entities/Message";
+import { characterEnum } from "@/enums/character";
 
 export default {
-  name: "Message",
-  emits: {
-    // No validation
-    click: null,
-  },
-  props: {
-    message: Message,
-    isRoot: {
-      type: Boolean,
-      default: false
-    }
-  },
-  computed: {
-    characterPortrait: function() {
-      const images = characterEnum[this.message.character.key];
-      return this.isRoot ? images.body : images.head;
+    name: "Message",
+    props: {
+        message: Message,
+        isRoot: {
+            type: Boolean,
+            default: false
+        }
     },
-  },
-  methods: {
-    formatDate: (date) => {
-      return formatDistanceToNow(date, {locale : fr});
+    emits: {
+        // No validation
+        click: null
     },
-    format: function (value) {
-      if (!value) return ''
-      value = value.toString()
-      value = value.replaceAll(/\*\*(\w*)\*\*/g, '<strong>$1&nbsp;</strong>');
-      value = value.replaceAll(/:pa:/g, '<img src="'+require("@/assets/images/pa.png")+'" alt="pa">')
-      return value.replaceAll(/:pm:/g, '<img src="'+require("@/assets/images/pm.png")+'" alt="pm">')
+    computed: {
+        characterPortrait: function() {
+            const images = characterEnum[this.message.character.key];
+            return this.isRoot ? images.body : images.head;
+        }
+    },
+    methods: {
+        formatDate: (date) => {
+            return formatDistanceToNow(date, { locale : fr });
+        },
+        format: function (value) {
+            if (!value) return '';
+            value = value.toString();
+            value = value.replaceAll(/\*\*(.*)\*\*/g, '<strong>$1</strong>');
+            value = value.replaceAll(/\*(.*)\*/g, '<em>$1</em>');
+            value = value.replaceAll(/:pa:/g, '<img src="'+require("@/assets/images/pa.png")+'" alt="pa">');
+            return value.replaceAll(/:pm:/g, '<img src="'+require("@/assets/images/pm.png")+'" alt="pm">');
+        }
     }
-  }
-}
+};
 </script>return
 
 <style lang="scss" scoped>
-div {
-  position: relative;
-  display: block;
-  clear: both;
 
-  & p:not(.timestamp) {
-    position:relative;
-    margin: 3px 0;
-    padding: 4px 6px;
-    border-radius: 3px;
-    background: white;
+.message {
+    position: relative;
+    align-items: flex-start;
+    flex-direction: row;
 
-    & .author {
-      color: #2081e2;
-      font-weight: 700;
-      font-variant: small-caps;
-      padding-right: .25em;
+    .char-portrait {
+        align-items: flex-start;
+        justify-content: flex-start;
+        min-width: 36px;
+        margin-top: 4px;
+        padding: 6px 2px;
     }
 
-    & em {color: #cf1830;}
-  }
+    p:not(.timestamp) {
+        position: relative;
+        flex: 1;
+        margin: 3px 0;
+        padding: 4px 6px;
+        border-radius: 3px;
+        background: white;
+        word-break: break-word;
 
-  & .timestamp {
-    position: absolute;
-    z-index: 2;
-    right: 5px;
-    bottom: 5px;
-    font-size: .85em;
-    font-style: italic;
-    opacity: .5;
-    float: right;
-  }
+        /deep/ em { color: #cf1830; } //Makes italic text red
 
-  &.new:not(.neron) p, &.new.neron {
-    border-left: 2px solid #EA9104;
-
-    &::after {
-      content:"";
-      position: absolute;
-      top: 7px;
-      left: -6px;
-      height: 11px;
-      width: 11px;
-      background: transparent url('~@/assets/images/comms/thinklinked.png') center no-repeat;
-    }
-  }
-
-  &.main-message {
-    & img { margin: 2px; float: left; }
-
-    & p { margin-left: 36px; min-height: 52px; }
-
-    & p::before { /* bubble triangle*/
-      $size: 8px;
-      content:"";
-      position: absolute;
-      top: 4px;
-      left: -$size;
-      width: 0px;
-      height: 0px;
-      border-top: $size solid transparent;
-      border-bottom: $size solid transparent;
-      border-right: $size solid white;
+        .author {
+            color: #2081e2;
+            font-weight: 700;
+            font-variant: small-caps;
+            padding-right: 0.25em;
+        }
     }
 
-    &.new p {
-      &::before { border-right-color: #EA9104 }
-      &::after { top: 22px; }
-    }
-  }
+    &.new p { //New messages styling
+        border-left: 2px solid #ea9104;
 
-  &.child-message {
-    margin-left: 50px;
-    & img { margin-right: 3px; }
-    & p { margin-top: 12px; }
-
-    p::before { /* bubble triangle*/
-      $size: 8px;
-      content:"";
-      position: absolute;
-      top: -$size;
-      left: 4px ;
-      width: 0px;
-      height: 0px;
-      border-left: $size solid transparent;
-      border-right: $size solid transparent;
-      border-bottom: $size solid white;
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: -6px;
+            min-height: 11px;
+            width: 11px;
+            background: transparent url('~@/assets/images/comms/thinklinked.png') center no-repeat;
+        }
     }
 
-    /* MESSAGES LINKTREE */
+    &.main-message {
 
-    &::before {
-      --border-radius: 5px;
-      content: "";
-      position: absolute;
-      top: calc( -12px - var(--border-radius) );
-      left: -36px;
-      width: calc( 28px + var(--border-radius) );
-      height: calc( 26px + var(--border-radius) );
-      border-left: 1px solid #aad4e5;
-      border-bottom: 1px solid #aad4e5;
-      border-radius: var(--border-radius);
+        p { min-height: 52px; }
 
-      clip-path: polygon(
-              0 var(--border-radius),
-              calc(100% - var(--border-radius)) var(--border-radius),
-              calc(100% - var(--border-radius)) 100%,
-              0 100%
-      );
+        p::before { //Bubble triangle*/
+            $size: 8px;
+
+            content: "";
+            position: absolute;
+            top: 4px;
+            left: -$size;
+            width: 0;
+            height: 0;
+            border-top: $size solid transparent;
+            border-bottom: $size solid transparent;
+            border-right: $size solid white;
+        }
+
+        &.new p::before { border-right-color: #ea9104; }
     }
 
-    &:not(:last-child)::after {
-      --border-radius: 5px;
-      content: "";
-      position: absolute;
-      top: 13px;
-      left: -36px;
-      width: calc( 28px + var(--border-radius) );
-      bottom: calc( -4px - var(--border-radius) );
-      border-left: 1px solid #aad4e5;
-      border-top: 1px solid #aad4e5;
-      border-radius: var(--border-radius);
+    &.child-message {
+        margin-left: 50px;
+        img { margin-right: 3px; }
+        p { margin-top: 10px; }
 
-      clip-path: polygon(
-              0 0,
-              calc(100% - var(--border-radius)) 0,
-              calc(100% - var(--border-radius)) calc(100% - var(--border-radius)),
-              0 calc(100% - var(--border-radius))
-      );
+        p::before { //Bubble triangle
+            $size: 8px;
+
+            content: "";
+            position: absolute;
+            top: -$size;
+            left: 4px;
+            width: 0;
+            height: 0;
+            border-left: $size solid transparent;
+            border-right: $size solid transparent;
+            border-bottom: $size solid white;
+        }
+
+        /* MESSAGES LINKTREE */
+
+        &::before {
+            --border-radius: 5px;
+
+            content: "";
+            position: absolute;
+            top: calc(0px - var(--border-radius));
+            left: -36px;
+            width: calc(28px + var(--border-radius));
+            height: calc(26px + var(--border-radius));
+            border-left: 1px solid #aad4e5;
+            border-bottom: 1px solid #aad4e5;
+            border-radius: var(--border-radius);
+            clip-path:
+                polygon(
+                    0 var(--border-radius),
+                    calc(100% - var(--border-radius)) var(--border-radius),
+                    calc(100% - var(--border-radius)) 100%,
+                    0 100%
+                );
+        }
+
+        &:not(:last-of-type)::after {
+            --border-radius: 5px;
+
+            content: "";
+            position: absolute;
+            top: 25px;
+            left: -36px;
+            width: calc(28px + var(--border-radius));
+            bottom: calc(-4px - var(--border-radius));
+            border-left: 1px solid #aad4e5;
+            border-top: 1px solid #aad4e5;
+            border-radius: var(--border-radius);
+            clip-path:
+                polygon(
+                    0 0,
+                    calc(100% - var(--border-radius)) 0,
+                    calc(100% - var(--border-radius)) calc(100% - var(--border-radius)),
+                    0 calc(100% - var(--border-radius))
+                );
+        }
     }
-  }
 
-  &.neron {
-    padding: 2px 4px;
-    border-radius: 4px;
-    background: #74CBF3;
+    &.neron { //Neron messages styling
 
-    & p {
-      min-height: 36px;
-      padding: 0 0 0 8px;
-      font-variant: small-caps;
-      color: inherit;
-      background: transparent;
-      & .author{ color: inherit; }
-      &::before { content: none; }
-      &::after { top: 8px;}
+        .char-portrait {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 2;
+            margin: 4px 6px;
+        }
+
+        p {
+            background: #74cbf3;
+            font-variant: small-caps;
+
+            .author { color: inherit; }
+        }
+
+        &.main-message {
+            p {
+                padding-left: 46px;
+                &::before { content: none; } //removes the bubble triangle
+            }
+        }
+
+        &.child-message p::before { border-color: #74cbf3; }
     }
 
-    &::after { top: 12px !important; }
-  }
-
+    .actions { //buttons styling
+        visibility: hidden;
+        opacity: 0;
+        position: absolute;
+        right: 3px;
+        top: -3px;
+        height: 14px;
+        transition: visibility 0s 0.15s, opacity 0.15s 0s, top 0.15s 0s;
+    }
 }
+
+.message:hover,
+.message:focus,
+.message:focus-within,
+.message:active {
+    .actions {
+        visibility: visible;
+        opacity: 1;
+        top: 5px;
+        transition: visibility 0s 0.5s, opacity 0.15s 0.5s, top 0.15s 0.5s;
+    }
+}
+
 </style>

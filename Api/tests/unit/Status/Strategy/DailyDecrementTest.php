@@ -3,7 +3,9 @@
 namespace Mush\Test\Status\Strategy;
 
 use Mockery;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Service\CycleServiceInterface;
+use Mush\Player\Entity\Player;
 use Mush\Status\ChargeStrategies\AbstractChargeStrategy;
 use Mush\Status\ChargeStrategies\DailyDecrement;
 use Mush\Status\Entity\ChargeStatus;
@@ -25,9 +27,8 @@ class DailyDecrementTest extends TestCase
     public function before()
     {
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
-        $this->cycleService = Mockery::mock(CycleServiceInterface::class);
 
-        $this->strategy = new DailyDecrement($this->statusService, $this->cycleService);
+        $this->strategy = new DailyDecrement($this->statusService);
     }
 
     /**
@@ -42,7 +43,13 @@ class DailyDecrementTest extends TestCase
     {
         $status = $this->createStatus();
 
-        $this->cycleService->shouldReceive('getCycleFromDate')->andReturn(2)->once();
+        $daedalus = new Daedalus();
+
+        $player = new Player();
+        $player->setDaedalus($daedalus);
+        $status->setPlayer($player);
+
+        $daedalus->setCycle(2);
         $this->statusService->shouldReceive('persist')->once();
 
         $this->strategy->execute($status);
@@ -50,14 +57,13 @@ class DailyDecrementTest extends TestCase
         $this->assertEquals(10, $status->getCharge());
 
         $this->statusService->shouldReceive('persist')->once();
-        $this->cycleService->shouldReceive('getCycleFromDate')->andReturn(1)->once();
+        $daedalus->setCycle(1);
 
         $this->strategy->execute($status);
 
         $this->assertEquals(9, $status->getCharge());
 
         $this->statusService->shouldReceive('persist')->once();
-        $this->cycleService->shouldReceive('getCycleFromDate')->andReturn(1)->once();
         $status->setCharge(0);
 
         $this->strategy->execute($status);
@@ -66,7 +72,6 @@ class DailyDecrementTest extends TestCase
 
         $status->setAutoRemove(true);
         $this->statusService->shouldReceive('delete')->once();
-        $this->cycleService->shouldReceive('getCycleFromDate')->andReturn(1)->once();
 
         $result = $this->strategy->execute($status);
 

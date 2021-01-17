@@ -2,7 +2,9 @@
 
 namespace Mush\Equipment\Event;
 
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Service\EquipmentCycleHandlerServiceInterface;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Event\CycleEvent;
 use Mush\Room\Service\RoomServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -13,13 +15,16 @@ class CycleSubscriber implements EventSubscriberInterface
     private RoomServiceInterface $roomService;
     private EventDispatcherInterface $eventDispatcher;
     private EquipmentCycleHandlerServiceInterface $equipmentCycleHandler;
+    private GameEquipmentServiceInterface $gameEquipmentService;
 
     public function __construct(
         RoomServiceInterface $roomService,
+        GameEquipmentServiceInterface $gameEquipmentService,
         EquipmentCycleHandlerServiceInterface $equipmentCycleHandler,
         EventDispatcherInterface $eventDispatcher
     ) {
         $this->roomService = $roomService;
+        $this->gameEquipmentService = $gameEquipmentService;
         $this->eventDispatcher = $eventDispatcher;
         $this->equipmentCycleHandler = $equipmentCycleHandler;
     }
@@ -37,10 +42,17 @@ class CycleSubscriber implements EventSubscriberInterface
             return;
         }
 
+        //each equipment as a chance to break
+        if (!$equipment instanceof GameItem) {
+            $this->gameEquipmentService->handleBreakCycle($equipment, $event->getTime());
+        }
+
         foreach ($equipment->getStatuses() as $status) {
-            $statusNewCycle = new CycleEvent($event->getDaedalus(), $event->getTime());
-            $statusNewCycle->setStatus($status);
-            $this->eventDispatcher->dispatch($statusNewCycle, CycleEvent::NEW_CYCLE);
+            if ($status->getPlayer() === null) {
+                $statusNewCycle = new CycleEvent($event->getDaedalus(), $event->getTime());
+                $statusNewCycle->setStatus($status);
+                $this->eventDispatcher->dispatch($statusNewCycle, CycleEvent::NEW_CYCLE);
+            }
         }
 
         foreach ($equipment->getEquipment()->getMechanics() as $mechanic) {

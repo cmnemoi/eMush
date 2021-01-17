@@ -96,7 +96,7 @@ class ItemPileNormalizer implements ContextAwareNormalizerInterface, NormalizerA
             )
         ));
 
-        return $pileItemKey ? $pileItemKey : null;
+        return $pileItemKey;
     }
 
     private function isSamePile(GameEquipment $gameEquipment, array $pile, Collection $items): bool
@@ -128,7 +128,7 @@ class ItemPileNormalizer implements ContextAwareNormalizerInterface, NormalizerA
 
         //mush player see contaminated rations in a different pile
         $statusName = EquipmentStatusEnum::CONTAMINATED;
-        if ($itemStatuses->filter(fn (Status $status) => ($status->getName() === $statusName))->isEmpty() ===
+        if ($itemStatuses->filter(fn (Status $status) => ($status->getName() === $statusName))->isEmpty() !==
             $pileStatuses->filter(fn (Status $status) => ($status->getName() === $statusName))->isEmpty() &&
             $this->getPlayer()->isMush()) {
             return false;

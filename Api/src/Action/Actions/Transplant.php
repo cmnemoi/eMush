@@ -4,6 +4,7 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
+use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
@@ -11,6 +12,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Fruit;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
@@ -19,7 +21,7 @@ use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class Transplant extends Action
+class Transplant extends AbstractAction
 {
     protected string $name = ActionEnum::TRANSPLANT;
 
@@ -37,17 +39,17 @@ class Transplant extends Action
 
         $this->gameEquipmentService = $gameEquipmentService;
         $this->playerService = $playerService;
-        $this->actionCost->setActionPointCost(1);
     }
 
-    public function loadParameters(Player $player, ActionParameters $actionParameters): void
+    public function loadParameters(Action $action, Player $player, ActionParameters $actionParameters): void
     {
+        parent::loadParameters($action, $player, $actionParameters);
+
         if (!($equipment = $actionParameters->getItem()) &&
             !($equipment = $actionParameters->getEquipment())) {
             throw new \InvalidArgumentException('Invalid equipment parameter');
         }
 
-        $this->player = $player;
         $this->gameEquipment = $equipment;
     }
 
@@ -78,10 +80,11 @@ class Transplant extends Action
             $plantEquipment->setRoom($place);
         }
 
-        $hydropot->removeLocation();
-        $this->gameEquipment->removeLocation();
-        $this->gameEquipmentService->delete($hydropot);
-        $this->gameEquipmentService->delete($this->gameEquipment);
+        $equipmentEvent = new EquipmentEvent($this->gameEquipment, VisibilityEnum::HIDDEN);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+
+        $equipmentEvent = new EquipmentEvent($hydropot, VisibilityEnum::HIDDEN);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         $this->gameEquipmentService->persist($plantEquipment);
 
@@ -90,6 +93,6 @@ class Transplant extends Action
         $type = $this->gameEquipment instanceof GameItem ? 'items' : 'equipments';
         $target = new Target($this->gameEquipment->getName(), $type);
 
-        return new Success(ActionLogEnum::TRANSPLANT_SUCCESS, VisibilityEnum::PUBLIC, $target);
+        return new Success(ActionLogEnum::TRANSPLANT_SUCCESS, VisibilityEnum::PRIVATE, $target);
     }
 }

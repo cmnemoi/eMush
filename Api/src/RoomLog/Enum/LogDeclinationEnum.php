@@ -6,7 +6,17 @@ use Mush\Action\Enum\ActionEnum;
 
 class LogDeclinationEnum
 {
-    public static function getAll(): array
+    public const REPAIR_FAIL_P1 = 'repair_fail_part1';
+    public const REPAIR_FAIL_P2 = 'repair_fail_part2';
+
+    public static function getAllParts(): array
+    {
+        return [
+            ActionLogEnum::REPAIR_SUCCESS => [self::REPAIR_FAIL_P1, self::REPAIR_FAIL_P2],
+        ];
+    }
+
+    public static function getAllVersions(): array
     {
         return [
             ActionLogEnum::CONSUME_SUCCESS => [
@@ -57,29 +67,29 @@ class LogDeclinationEnum
                 'consume_success_4_4_2' => 1,
                 'consume_success_4_4_3' => 1,
             ],
-            ActionEnum::SHRED => [
-                'shred_1' => 1,
-                'shred_2' => 1,
-                'shred_3' => 1,
-                'shred_4' => 1,
-            ],
-            ActionEnum::RETRIEVE_OXYGEN => [
-                'retrieve_oxygen_1' => 1,
-                'retrieve_oxygen_2' => 1,
-                'retrieve_oxygen_3' => 1,
-                'retrieve_oxygen_4' => 1,
-                'retrieve_oxygen_5' => 1,
-                'retrieve_oxygen_6' => 1,
-                'retrieve_oxygen_7' => 1,
-                'retrieve_oxygen_8' => 1,
-                'retrieve_oxygen_9' => 1,
-                'retrieve_oxygen_10' => 1,
-            ],
+            ActionEnum::SHRED => self::getComposedLogKeys(ActionEnum::SHRED, 4),
+            ActionEnum::RETRIEVE_OXYGEN => self::getComposedLogKeys(ActionEnum::RETRIEVE_OXYGEN, 10),
+            self::REPAIR_FAIL_P1 => self::getComposedLogKeys(self::REPAIR_FAIL_P1, 10),
+            self::REPAIR_FAIL_P2 => self::getComposedLogKeys(self::REPAIR_FAIL_P2, 47),
         ];
     }
 
     public static function getDeclination(string $key): ?array
     {
-        return self::getAll()[$key] ?? null;
+        return self::getAllVersions()[$key] ?? null;
+    }
+
+    public static function getComposed(string $key): ?array
+    {
+        return self::getAllParts()[$key] ?? null;
+    }
+
+    private static function getComposedLogKeys(string $key, int $versions): ?array
+    {
+        $probas = (array_fill(1, $versions, 1));
+
+        $key = array_map(function (int $int) use ($key) {return $key . '_v' . strval($int); }, array_keys($probas));
+
+        return array_combine($key, $probas);
     }
 }

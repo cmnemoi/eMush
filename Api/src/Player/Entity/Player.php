@@ -10,12 +10,12 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ReachEnum;
+use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Room\Entity\Room;
-use Mush\Status\Entity\Collection\MedicalConditionCollection;
-use Mush\Status\Entity\MedicalCondition;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -48,11 +48,9 @@ class Player
     private string $gameStatus;
 
     /**
-     * Character is a reserved keyword for sql.
-     *
-     * @ORM\Column(type="string", nullable=false)
+     * @ORM\ManyToOne (targetEntity="Mush\Game\Entity\CharacterConfig")
      */
-    private string $person;
+    private CharacterConfig $characterConfig;
 
     /**
      * @ORM\Column(type="string", nullable=true)
@@ -87,22 +85,22 @@ class Player
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
-    private int $healthPoint;
+    private int $healthPoint = 0;
 
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
-    private int $moralPoint;
+    private int $moralPoint = 0;
 
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
-    private int $actionPoint;
+    private int $actionPoint = 0;
 
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
-    private int $movementPoint;
+    private int $movementPoint = 0;
 
     /**
      * @ORM\Column(type="integer", nullable=false)
@@ -112,7 +110,7 @@ class Player
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
-    private int $satiety;
+    private int $satiety = 0;
 
     public function __construct()
     {
@@ -160,17 +158,17 @@ class Player
         return $this->gameStatus === GameStatusEnum::CURRENT;
     }
 
-    public function getPerson(): string
+    public function getCharacterConfig(): CharacterConfig
     {
-        return $this->person;
+        return $this->characterConfig;
     }
 
     /**
      * @return static
      */
-    public function setPerson(string $person): Player
+    public function setCharacterConfig(CharacterConfig $characterConfig): Player
     {
-        $this->person = $person;
+        $this->characterConfig = $characterConfig;
 
         return $this;
     }
@@ -262,18 +260,20 @@ class Player
             ))
             )->filter(fn (GameEquipment $equipment) => ($equipment->getName() === $name));
         } else {
-            return $this->getDaedalus()
-                ->getRoomByName($reach)
-                ->getEquipments()
-                ->filter(fn (GameEquipment $equipment) => $equipment->getName() === $name)
-                ;
+            if ($roomReached = $this->getDaedalus()->getRoomByName($reach)) {
+                return $roomReached
+                    ->getEquipments()
+                    ->filter(fn (GameEquipment $equipment) => $equipment->getName() === $name)
+                    ;
+            }
         }
+
+        return new ArrayCollection();
     }
 
     public function getReachableTools(): Collection
     {
         //reach can be set to inventory, shelve, shelve only or any room of the Daedalus
-
         return (new ArrayCollection(array_merge($this->getItems()->toArray(), $this->getRoom()->getEquipments()->toArray())
         ))->filter(fn (GameEquipment $gameEquipment) => ($gameEquipment->getEquipment()->getMechanicbyName(EquipmentMechanicEnum::TOOL)));
     }
@@ -323,16 +323,31 @@ class Player
         return $this;
     }
 
+    public function getApplicableGears(array $scope, array $types, ?string $target = null): Collection
+    {
+        /** @var Collection $gears */
+        $gears = new ArrayCollection();
+        /** @var GameItem $item */
+        foreach ($this->getItems() as $item) {
+            /** @var Gear $gear */
+            $gear = $item->getEquipment()->getMechanicByName(EquipmentMechanicEnum::GEAR);
+
+            if ($gear &&
+                in_array($gear->getModifier()->getScope(), $scope) &&
+                ($target === null || $gear->getModifier()->getTarget() === $target) &&
+                (count($types) || in_array($gear->getModifier()->getTarget(), $types)) &&
+                in_array($gear->getModifier()->getReach(), [ReachEnum::INVENTORY])
+            ) {
+                $gears->add($gear);
+            }
+        }
+
+        return $gears;
+    }
+
     public function hasItemByName(string $name): bool
     {
         return !$this->getItems()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $name)->isEmpty();
-    }
-
-    public function getMedicalConditions(): MedicalConditionCollection
-    {
-        return new MedicalConditionCollection(
-            $this->statuses->filter(fn (Status $status) => ($status instanceof MedicalCondition))->toArray()
-        );
     }
 
     public function getStatuses(): Collection
@@ -386,6 +401,11 @@ class Player
         }
 
         return $this;
+    }
+
+    public function hasStatus(string $statusName): bool
+    {
+        return $this->statuses->exists(fn ($key, Status $status) => ($status->getName() === $statusName));
     }
 
     public function isMush(): bool

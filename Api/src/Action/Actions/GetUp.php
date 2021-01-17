@@ -4,6 +4,7 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
+use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Player\Entity\Player;
@@ -13,7 +14,7 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class GetUp extends Action
+class GetUp extends AbstractAction
 {
     protected string $name = ActionEnum::GET_UP;
 
@@ -26,12 +27,11 @@ class GetUp extends Action
         parent::__construct($eventDispatcher);
 
         $this->statusService = $statusService;
-        $this->actionCost->setActionPointCost(0);
     }
 
-    public function loadParameters(Player $player, ActionParameters $actionParameters): void
+    public function loadParameters(Action $action, Player $player, ActionParameters $actionParameters): void
     {
-        $this->player = $player;
+        parent::loadParameters($action, $player, $actionParameters);
     }
 
     public function canExecute(): bool

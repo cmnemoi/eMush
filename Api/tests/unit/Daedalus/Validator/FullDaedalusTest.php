@@ -9,7 +9,6 @@ use Mush\Daedalus\Validator\FullDaedalus;
 use Mush\Daedalus\Validator\FullDaedalusValidator;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
-use Mush\Game\Service\GameConfigService;
 use Mush\Player\Entity\Player;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
@@ -18,16 +17,13 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 class FullDaedalusTest extends TestCase
 {
     private FullDaedalusValidator $validator;
-    /** @var GameConfigService | Mockery\Mock */
-    private GameConfigService $gameConfigService;
 
     /**
      * @before
      */
     public function before()
     {
-        $this->gameConfigService = Mockery::mock(GameConfigService::class);
-        $this->validator = new FullDaedalusValidator($this->gameConfigService);
+        $this->validator = new FullDaedalusValidator();
     }
 
     /**
@@ -51,8 +47,7 @@ class FullDaedalusTest extends TestCase
 
         $gameConfig = new GameConfig();
         $gameConfig->setCharactersConfig(new ArrayCollection([new CharacterConfig(), new CharacterConfig()]));
-
-        $this->gameConfigService->shouldReceive('getConfig')->andReturn($gameConfig);
+        $daedalus->setGameConfig($gameConfig);
 
         $this->validator->validate($daedalus, $constraint);
 
@@ -73,7 +68,7 @@ class FullDaedalusTest extends TestCase
         $gameConfig = new GameConfig();
         $gameConfig->setCharactersConfig(new ArrayCollection([new CharacterConfig()]));
 
-        $this->gameConfigService->shouldReceive('getConfig')->andReturn($gameConfig);
+        $daedalus->setGameConfig($gameConfig);
 
         $this->validator->validate($daedalus, $constraint);
 

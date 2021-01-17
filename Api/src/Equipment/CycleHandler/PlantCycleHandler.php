@@ -2,6 +2,7 @@
 
 namespace Mush\Equipment\CycleHandler;
 
+use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Plant;
@@ -11,8 +12,6 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\CycleHandler\AbstractCycleHandler;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
@@ -31,8 +30,8 @@ class PlantCycleHandler extends AbstractCycleHandler
     private GameEquipmentServiceInterface $gameEquipmentService;
     private RandomServiceInterface $randomService;
     private RoomLogServiceInterface $roomLogService;
-    private GameConfig $gameConfig;
     private StatusServiceInterface $statusService;
+    private DaedalusServiceInterface $daedalusService;
     private EquipmentEffectServiceInterface $equipmentEffectService;
 
     private const DISEASE_PERCENTAGE = 3;
@@ -41,8 +40,8 @@ class PlantCycleHandler extends AbstractCycleHandler
         GameEquipmentServiceInterface $gameEquipmentService,
         RandomServiceInterface $randomService,
         RoomLogServiceInterface $roomLogService,
-        GameConfigServiceInterface $gameConfigService,
         StatusServiceInterface $statusService,
+        DaedalusServiceInterface $daedalusService,
         EquipmentEffectServiceInterface $equipmentEffectService
     ) {
         $this->gameEquipmentService = $gameEquipmentService;
@@ -50,7 +49,7 @@ class PlantCycleHandler extends AbstractCycleHandler
         $this->roomLogService = $roomLogService;
         $this->equipmentEffectService = $equipmentEffectService;
         $this->statusService = $statusService;
-        $this->gameConfig = $gameConfigService->getConfig();
+        $this->daedalusService = $daedalusService;
     }
 
     public function handleNewCycle($object, $daedalus, \DateTime $dateTime): void
@@ -84,7 +83,7 @@ class PlantCycleHandler extends AbstractCycleHandler
         if ($youngStatus &&
             $youngStatus->getCharge() >= $plantEffect->getMaturationTime()
         ) {
-            $room = $this->getRoom($gamePlant);
+            $room = $gamePlant->getCurrentRoom();
 
             $gamePlant->removeStatus($youngStatus);
             $this->statusService->delete($youngStatus);
@@ -171,7 +170,7 @@ class PlantCycleHandler extends AbstractCycleHandler
 
     private function handleDriedPlant(GameItem $gamePlant, \DateTime $dateTime): void
     {
-        $room = $this->getRoom($gamePlant);
+        $room = $gamePlant->getCurrentRoom();
 
         // Create a new hydropot
         /** @var GameItem $hydropot */
@@ -218,20 +217,12 @@ class PlantCycleHandler extends AbstractCycleHandler
             return;
         }
         // If plant is not in a room, it is in player inventory
-        $room = $this->getRoom($gamePlant);
+        $room = $gamePlant->getCurrentRoom();
 
         /** @var GameItem $gameFruit */
         $gameFruit = $this->gameEquipmentService->createGameEquipment($plantType->getFruit(), $room->getDaedalus());
 
-        if ($player = $gamePlant->getPlayer()) {
-            if ($player->getItems() < $this->gameConfig->getMaxItemInInventory()) {
-                $gameFruit->setPlayer($player);
-            } else {
-                $gameFruit->setRoom($player->getRoom());
-            }
-        } else {
-            $gameFruit->setRoom($room);
-        }
+        $gameFruit->setRoom($room);
 
         $this->gameEquipmentService->persist($gameFruit);
 
@@ -247,25 +238,10 @@ class PlantCycleHandler extends AbstractCycleHandler
 
     private function addOxygen(GameItem $gamePlant, PlantEffect $plantEffect): void
     {
-        $daedalus = $this->getRoom($gamePlant)->getDaedalus();
+        $daedalus = $gamePlant->getCurrentRoom()->getDaedalus();
         //Add Oxygen
         if (($oxygen = $plantEffect->getOxygen())) {
-            $daedalus->setOxygen($daedalus->getOxygen() + $oxygen);
+            $this->daedalusService->changeOxygenLevel($daedalus, 1);
         }
-    }
-
-    private function getRoom(GameItem $gamePlant): Room
-    {
-        if ($player = $gamePlant->getPlayer()) {
-            $room = $player->getRoom();
-        } else {
-            $room = $gamePlant->getRoom();
-        }
-
-        if ($room === null) {
-            throw new \LogicException('Cannot find room of game plant');
-        }
-
-        return $room;
     }
 }

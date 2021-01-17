@@ -7,10 +7,8 @@ use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Entity\GameConfig;
 use Mush\Game\Event\CycleEvent;
 use Mush\Game\Event\DayEvent;
-use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Player\Enum\EndCauseEnum as EnumEndCauseEnum;
 use Mush\Room\Enum\RoomEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -21,18 +19,15 @@ class CycleSubscriber implements EventSubscriberInterface
     private DaedalusServiceInterface $daedalusService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private EventDispatcherInterface $eventDispatcher;
-    private GameConfig $gameConfig;
 
     public function __construct(
         DaedalusServiceInterface $daedalusService,
         GameEquipmentServiceInterface $gameEquipmentService,
-        EventDispatcherInterface $eventDispatcher,
-        GameConfigServiceInterface $gameConfigService
+        EventDispatcherInterface $eventDispatcher
     ) {
         $this->daedalusService = $daedalusService;
         $this->gameEquipmentService = $gameEquipmentService;
         $this->eventDispatcher = $eventDispatcher;
-        $this->gameConfig = $gameConfigService->getConfig();
     }
 
     public static function getSubscribedEvents(): array
@@ -58,14 +53,14 @@ class CycleSubscriber implements EventSubscriberInterface
 
         $daedalus = $this->handleOxygen($daedalus);
 
-        //@TODO When everything is added check that everithing happens in the right order
+        //@TODO When everything is added check that everything happens in the right order
         $this->daedalusService->persist($daedalus);
     }
 
     private function handleDaedalusEnd(Daedalus $daedalus): bool
     {
-        if ($daedalus->getPlayers()->getHumanPlayer()->isEmpty() &&
-            !$daedalus->getPlayers()->getMushPlayer()->isEmpty()
+        if ($daedalus->getPlayers()->getHumanPlayer()->getPlayerAlive()->isEmpty() &&
+            !$daedalus->getPlayers()->getMushPlayer()->getPlayerAlive()->isEmpty()
         ) {
             $endDaedalusEvent = new DaedalusEvent($daedalus);
             $endDaedalusEvent->setReason(EnumEndCauseEnum::KILLED_BY_NERON);
@@ -80,30 +75,32 @@ class CycleSubscriber implements EventSubscriberInterface
     private function handleOxygen(Daedalus $daedalus): Daedalus
     {
         //Handle oxygen loss
-        $daedalus->addOxygen(-1);
+        $oxygenLoss = 1;
 
-        if ($daedalus->getRoomByName(RoomEnum::CENTER_ALPHA_STORAGE)
-            ->getEquipments()
-            ->filter(fn (GameEquipment $equipment) => $equipment->getEquipment()->getName() === EquipmentEnum::OXYGEN_TANK)
-            ->first()
-            ->isBroken()
+        //@TODO: We shouldn't assume the oxygen tank are in these storages
+        if (($alphaStorageRoom = $daedalus->getRoomByName(RoomEnum::CENTER_ALPHA_STORAGE)) &&
+            $alphaStorageRoom
+                ->getEquipments()
+                ->filter(fn (GameEquipment $equipment) => $equipment->getEquipment()->getName() === EquipmentEnum::OXYGEN_TANK)
+                ->first()
+                ->isBroken()
         ) {
-            $daedalus->addOxygen(-1);
+            $oxygenLoss = $oxygenLoss + 1;
         }
-        if ($daedalus
-            ->getRoomByName(RoomEnum::CENTER_BRAVO_STORAGE)
-            ->getEquipments()
-            ->filter(fn (GameEquipment $equipment) => $equipment->getEquipment()->getName() === EquipmentEnum::OXYGEN_TANK)
-            ->first()
-            ->isBroken()
+        if (($bravoStorageRoom = $daedalus->getRoomByName(RoomEnum::CENTER_BRAVO_STORAGE)) &&
+            $bravoStorageRoom
+                ->getEquipments()
+                ->filter(fn (GameEquipment $equipment) => $equipment->getEquipment()->getName() === EquipmentEnum::OXYGEN_TANK)
+                ->first()
+                ->isBroken()
         ) {
-            $daedalus->addOxygen(-1);
+            $oxygenLoss = $oxygenLoss + 1;
         }
 
-        if ($daedalus->getOxygen() < 0) {
-            $daedalus->setOxygen(0);
+        if ($daedalus->getOxygen() <= $oxygenLoss) {
             $this->daedalusService->getRandomAsphyxia($daedalus);
         }
+        $this->daedalusService->changeOxygenLevel($daedalus, -$oxygenLoss);
 
         return $daedalus;
     }
@@ -112,22 +109,26 @@ class CycleSubscriber implements EventSubscriberInterface
     {
         $newDay = false;
 
-        if ($daedalus->getCycle() === ((24 / $this->gameConfig->getCycleLength()) + 1)) {
+        $gameConfig = $daedalus->getGameConfig();
+
+        if ($daedalus->getCycle() === ((24 / $gameConfig->getCycleLength()) + 1)) {
             $newDay = true;
             $daedalus->setCycle(1);
             $daedalus->setDay($daedalus->getDay() + 1);
         }
 
-        foreach ($daedalus->getPlayers() as $player) {
+        foreach ($daedalus->getPlayers()->getPlayerAlive() as $player) {
             $newPlayerCycle = new CycleEvent($daedalus, $time);
             $newPlayerCycle->setPlayer($player);
             $this->eventDispatcher->dispatch($newPlayerCycle, CycleEvent::NEW_CYCLE);
         }
 
         foreach ($daedalus->getRooms() as $room) {
-            $newRoomCycle = new CycleEvent($daedalus, $time);
-            $newRoomCycle->setRoom($room);
-            $this->eventDispatcher->dispatch($newRoomCycle, CycleEvent::NEW_CYCLE);
+            if ($room->getName() !== RoomEnum::GREAT_BEYOND) {
+                $newRoomCycle = new CycleEvent($daedalus, $time);
+                $newRoomCycle->setRoom($room);
+                $this->eventDispatcher->dispatch($newRoomCycle, CycleEvent::NEW_CYCLE);
+            }
         }
 
         if ($newDay) {

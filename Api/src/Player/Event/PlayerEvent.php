@@ -2,7 +2,7 @@
 
 namespace Mush\Player\Event;
 
-use Mush\Player\Entity\ActionModifier;
+use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
 use Symfony\Contracts\EventDispatcher\Event;
 
@@ -11,11 +11,13 @@ class PlayerEvent extends Event
     public const NEW_PLAYER = 'new.player';
     public const DEATH_PLAYER = 'death.player';
     public const MODIFIER_PLAYER = 'modifier.player';
+    public const METAL_PLATE = 'metal.plate';
+    public const PANIC_CRISIS = 'panic.crisis';
     public const INFECTION_PLAYER = 'infection.player';
     public const CONVERSION_PLAYER = 'conversion.player';
 
     private Player $player;
-    private ?ActionModifier $actionModifier = null;
+    private ?Modifier $modifier = null;
     private ?string $reason = null;
     private \DateTime $time;
 
@@ -35,14 +37,14 @@ class PlayerEvent extends Event
         return $this->time;
     }
 
-    public function getActionModifier(): ?ActionModifier
+    public function getModifier(): ?Modifier
     {
-        return $this->actionModifier;
+        return $this->modifier;
     }
 
-    public function setActionModifier(ActionModifier $actionModifier): PlayerEvent
+    public function setModifier(?Modifier $modifier): PlayerEvent
     {
-        $this->actionModifier = $actionModifier;
+        $this->modifier = $modifier;
 
         return $this;
     }

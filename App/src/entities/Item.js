@@ -1,4 +1,4 @@
-import {Equipment} from "@/entities/Equipment";
+import { Equipment } from "@/entities/Equipment";
 
 export class Item extends Equipment {
     constructor() {
@@ -17,7 +17,7 @@ export class Item extends Equipment {
     }
     decode(jsonString) {
         if (jsonString) {
-            let object = JSON.parse(jsonString)
+            let object = JSON.parse(jsonString);
             this.load(object);
         }
 

@@ -2,7 +2,10 @@
 
 namespace Mush\Equipment\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Action\Entity\Action;
 
 /**
  * Class EquipmentMechanic.
@@ -24,7 +27,6 @@ use Doctrine\ORM\Mapping as ORM;
  *     "ration" = "Mush\Equipment\Entity\Mechanics\Ration",
  *     "tool" = "Mush\Equipment\Entity\Mechanics\Tool",
  *     "weapon" = "Mush\Equipment\Entity\Mechanics\Weapon",
- *     "dismountable" = "Mush\Equipment\Entity\Mechanics\Dismountable",
  *     "charged" = "Mush\Equipment\Entity\Mechanics\Charged"
  * })
  */
@@ -40,9 +42,14 @@ abstract class EquipmentMechanic
     protected string $mechanic;
 
     /**
-     * @ORM\Column(type="array", nullable=false)
+     * @ORM\ManyToMany(targetEntity="Mush\Action\Entity\Action")
      */
-    protected array $actions = [];
+    private Collection $actions;
+
+    public function __construct()
+    {
+        $this->actions = new ArrayCollection();
+    }
 
     public function initEquipment(GameEquipment $gameEquipment): GameEquipment
     {
@@ -59,7 +66,7 @@ abstract class EquipmentMechanic
         return $this->mechanic;
     }
 
-    public function getActions(): array
+    public function getActions(): Collection
     {
         return $this->actions;
     }
@@ -67,7 +74,7 @@ abstract class EquipmentMechanic
     /**
      * @return static
      */
-    public function setActions(array $actions): EquipmentMechanic
+    public function setActions(Collection $actions): self
     {
         $this->actions = $actions;
 
@@ -77,9 +84,9 @@ abstract class EquipmentMechanic
     /**
      * @return static
      */
-    public function addAction(string $action): EquipmentMechanic
+    public function addAction(Action $action): self
     {
-        $this->actions[] = $action;
+        $this->actions->add($action);
 
         return $this;
     }

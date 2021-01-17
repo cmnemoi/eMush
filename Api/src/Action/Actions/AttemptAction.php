@@ -6,18 +6,23 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Service\SuccessRateServiceInterface;
+use Mush\Equipment\Entity\Mechanics\Gear;
+use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-abstract class AttemptAction extends Action
+abstract class AttemptAction extends AbstractAction
 {
     protected StatusServiceInterface $statusService;
     protected RandomServiceInterface $randomService;
     protected SuccessRateServiceInterface $successRateService;
+
+    private ?Attempt $attempt = null;
 
     public function __construct(
         RandomServiceInterface $randomService,
@@ -34,44 +39,41 @@ abstract class AttemptAction extends Action
 
     private function getAttempt(): Attempt
     {
-        /** @var Attempt $attempt */
-        $attempt = $this->player
-            ->getStatuses()
-            ->filter(fn (Status $status) => StatusEnum::ATTEMPT === $status->getName())
-            ->first()
-        ;
+        if ($this->attempt === null) {
+            /** @var Attempt $attempt */
+            $attempt = $this->player
+                ->getStatuses()
+                ->filter(fn (Status $status) => StatusEnum::ATTEMPT === $status->getName())
+                ->first();
 
-        if ($attempt !== false && $attempt->getAction() !== $this->getActionName()) {
-            // Re-initialize attempts with new action
-            $attempt
-                ->setAction($this->getActionName())
-                ->setCharge(0)
-            ;
-        } elseif ($attempt === false) { //Create Attempt
-            $attempt = $this->statusService->createAttemptStatus(
-                StatusEnum::ATTEMPT,
-                $this->getActionName(),
-                $this->player
-            );
-            $this->player->addStatus($attempt);
+            if ($attempt !== false && $attempt->getAction() !== $this->getActionName()) {
+                // Re-initialize attempts with new action
+                $attempt
+                    ->setAction($this->getActionName())
+                    ->setCharge(0);
+            } elseif ($attempt === false) { //Create Attempt
+                $attempt = $this->statusService->createAttemptStatus(
+                    StatusEnum::ATTEMPT,
+                    $this->getActionName(),
+                    $this->player
+                );
+                $this->player->addStatus($attempt);
+            }
+            $this->attempt = $attempt;
         }
 
-        return $attempt;
+        return $this->attempt;
     }
 
-    protected function makeAttempt(int $baseRate, float $modificator): ActionResult
+    protected function makeAttempt(): ActionResult
     {
         $attempt = $this->getAttempt();
 
-        $successChance = $this->successRateService->getSuccessRate(
-            $baseRate,
-            $attempt->getCharge(),
-            $modificator
-        );
+        $successChance = $this->getSuccessRate();
 
-        $random = $this->randomService->randomPercent();
+        $random = $this->randomService->isSuccessfull($successChance);
 
-        if ($random <= $successChance) {
+        if ($random) {
             $this->player->removeStatus($attempt);
             $response = new Success();
         } else {
@@ -81,4 +83,28 @@ abstract class AttemptAction extends Action
 
         return $response;
     }
+
+    public function getSuccessRate(): int
+    {
+        $modificator = 1;
+
+        $gears = $this->player->getApplicableGears(
+            array_merge([$this->getActionName()], $this->action->getTypes()),
+            [ReachEnum::INVENTORY],
+            ModifierTargetEnum::PERCENTAGE
+        );
+
+        /** @var Gear $gear */
+        foreach ($gears as $gear) {
+            $modificator *= $gear->getModifier()->getDelta();
+        }
+
+        return $this->successRateService->getSuccessRate(
+            $this->getBaseRate(),
+            $this->getAttempt()->getCharge(),
+            $modificator
+        );
+    }
+
+    abstract protected function getBaseRate(): int;
 }

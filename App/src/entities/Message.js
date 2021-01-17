@@ -1,4 +1,4 @@
-import {Character} from "@/entities/Character";
+import { Character } from "@/entities/Character";
 
 export class Message {
     constructor() {
@@ -16,9 +16,9 @@ export class Message {
             this.character = this.character.load(object.character);
             this.child = [];
             object.child.forEach((childMessageData) => {
-                let childMessage = (new Message()).load(childMessageData)
+                let childMessage = (new Message()).load(childMessageData);
                 this.child.push(childMessage);
-            })
+            });
             this.date = new Date(object.createdAt);
         }
         return this;
@@ -28,7 +28,7 @@ export class Message {
     }
     decode = function(jsonString) {
         if (jsonString) {
-            let object = JSON.parse(jsonString)
+            let object = JSON.parse(jsonString);
             this.load(object);
         }
 

@@ -4,6 +4,7 @@ namespace Mush\Equipment\Enum;
 
 class EquipmentEnum
 {
+    public const DOOR = 'door';
     public const PATROL_SHIP_ALPHA_LONGANE = 'patrol_ship_alpha_longane';
     public const PATROL_SHIP_ALPHA_JUJUBE = 'patrol_ship_alpha_jujube';
     public const PATROL_SHIP_ALPHA_TAMARIN = 'patrol_ship_alpha_tamarin';

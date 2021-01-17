@@ -20,7 +20,7 @@ class RoomLogRepository extends ServiceEntityRepository
      */
     public function getPlayerRoomLog(Player $player): array
     {
-        $yesterday = new \DateTime('yesterday');
+        $yesterday = new \DateTime('1 day ago');
 
         $queryBuilder = $this->createQueryBuilder('roomLog');
 
@@ -37,6 +37,7 @@ class RoomLogRepository extends ServiceEntityRepository
                 )
             ))
             ->orderBy('roomLog.date', 'desc')
+            ->addOrderBy('roomLog.id', 'desc')
             ->setParameter('room', $player->getRoom())
             ->setParameter('public', VisibilityEnum::PUBLIC)
             ->setParameter('privateArray', [VisibilityEnum::PRIVATE, VisibilityEnum::COVERT, VisibilityEnum::SECRET])

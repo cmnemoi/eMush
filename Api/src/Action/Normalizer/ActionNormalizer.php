@@ -2,9 +2,11 @@
 
 namespace Mush\Action\Normalizer;
 
-use Mush\Action\Actions\Action;
+use Mush\Action\Actions\AttemptAction;
+use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
-use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Service\ActionStrategyServiceInterface;
+use Mush\Player\Entity\Player;
 use Mush\User\Entity\User;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -14,12 +16,12 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class ActionNormalizer implements ContextAwareNormalizerInterface
 {
     private TranslatorInterface $translator;
-    private ActionServiceInterface $actionService;
+    private ActionStrategyServiceInterface $actionService;
     private TokenStorageInterface $tokenStorage;
 
     public function __construct(
         TranslatorInterface $translator,
-        ActionServiceInterface $actionService,
+        ActionStrategyServiceInterface $actionService,
         TokenStorageInterface $tokenStorage
     ) {
         $this->translator = $translator;
@@ -37,6 +39,11 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
      */
     public function normalize($object, string $format = null, array $context = []): array
     {
+        $actionClass = $this->actionService->getAction($object->getName());
+        if (!$actionClass) {
+            return [];
+        }
+
         $actionParameter = new ActionParameters();
         if (array_key_exists('player', $context)) {
             $actionParameter->setPlayer($context['player']);
@@ -51,33 +58,46 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
             $actionParameter->setEquipment($context['equipment']);
         }
 
-        $object->loadParameters($this->getUser()->getCurrentGame(), $actionParameter);
+        $actionClass->loadParameters($object, $this->getCurrentPlayer(), $actionParameter);
 
-        if ($object->canExecute()) {
-            $actionName = $object->getActionName();
+        if ($actionClass->getActionCost()->canPlayerDoAction($this->getCurrentPlayer()) && $actionClass->canExecute()) {
+            $actionName = $object->getName();
+            $actionCost = $actionClass->getActionCost();
+
+            $successRate = $object->getSuccessRate();
+
+            if ($actionClass instanceof AttemptAction) {
+                $successRate = $actionClass->getSuccessRate();
+            }
 
             return [
+                'id' => $object->getId(),
                 'key' => $actionName,
                 'name' => $this->translator->trans("{$actionName}.name", [], 'actions'),
                 'description' => $this->translator->trans("{$actionName}.description", [], 'actions'),
-                'actionPointCost' => $object->getActionCost()->getActionPointCost(),
-                'movementPointCost' => $object->getActionCost()->getMovementPointCost(),
-                'moralPointCost' => $object->getActionCost()->getMoralPointCost(),
+                'actionPointCost' => $actionCost->getActionPointCost(),
+                'movementPointCost' => $actionCost->getMovementPointCost(),
+                'moralPointCost' => $actionCost->getMoralPointCost(),
+                'successRate' => $successRate,
             ];
         }
 
         return [];
     }
 
-    private function getUser(): User
+    private function getCurrentPlayer(): Player
     {
-        if (!($token = $this->tokenStorage->getToken())) {
-            throw new AccessDeniedException('User should be logged');
+        if (!$token = $this->tokenStorage->getToken()) {
+            throw new AccessDeniedException('User should be logged to access that');
         }
 
         /** @var User $user */
         $user = $token->getUser();
 
-        return $user;
+        if (!$player = $user->getCurrentGame()) {
+            throw new AccessDeniedException('User should be in game to access that');
+        }
+
+        return $player;
     }
 }

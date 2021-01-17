@@ -4,17 +4,13 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
+use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\SuccessRateServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\Mechanics\Dismountable;
-use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Enum\SkillEnum;
-use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
@@ -32,7 +28,6 @@ class Disassemble extends AttemptAction
     private RoomLogServiceInterface $roomLogService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
-    private GameConfig $gameConfig;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
@@ -41,65 +36,44 @@ class Disassemble extends AttemptAction
         PlayerServiceInterface $playerService,
         RandomServiceInterface $randomService,
         SuccessRateServiceInterface $successRateService,
-        StatusServiceInterface $statusService,
-        GameConfigServiceInterface $gameConfigService
+        StatusServiceInterface $statusService
     ) {
         parent::__construct($randomService, $successRateService, $eventDispatcher, $statusService);
 
         $this->roomLogService = $roomLogService;
         $this->gameEquipmentService = $gameEquipmentService;
         $this->playerService = $playerService;
-        $this->gameConfig = $gameConfigService->getConfig();
     }
 
-    public function loadParameters(Player $player, ActionParameters $actionParameters): void
+    public function loadParameters(Action $action, Player $player, ActionParameters $actionParameters): void
     {
+        parent::loadParameters($action, $player, $actionParameters);
+
         if (!($equipment = $actionParameters->getItem()) &&
             !($equipment = $actionParameters->getEquipment())) {
             throw new \InvalidArgumentException('Invalid equipment parameter');
         }
 
-        $this->player = $player;
         $this->gameEquipment = $equipment;
-
-        /** @var Dismountable $dismountableType */
-        $dismountableType = $this->gameEquipment
-            ->getEquipment()
-            ->getMechanicByName(EquipmentMechanicEnum::DISMOUNTABLE)
-        ;
-
-        if ($dismountableType !== null) {
-            $this->actionCost->setActionPointCost($dismountableType->getActionCost());
-        }
     }
 
     public function canExecute(): bool
     {
-        $dismountableType = $this->gameEquipment
-            ->getEquipment()
-            ->getMechanicByName(EquipmentMechanicEnum::DISMOUNTABLE)
-        ;
-
         //Check that the item is reachable
-        return null !== $dismountableType &&
-            $this->player->canReachEquipment($this->gameEquipment) &&
-            in_array(SkillEnum::TECHNICIAN, $this->player->getSkills())
+        return $this->gameEquipment->getActions()->contains($this->action) &&
+            $this->player->canReachEquipment($this->gameEquipment)
+            //@TODO uncomment when skill are ready
+            //&&
+            //in_array(SkillEnum::TECHNICIAN, $this->player->getSkills())
         ;
     }
 
     protected function applyEffects(): ActionResult
     {
-        $modificator = 1; //@TODO: skills, wrench
-        /** @var Dismountable $dismountableType */
-        $dismountableType = $this->gameEquipment
-            ->getEquipment()
-            ->getMechanicByName(EquipmentMechanicEnum::DISMOUNTABLE)
-        ;
-
-        $response = $this->makeAttempt($dismountableType->getChancesSuccess(), $modificator);
+        $response = $this->makeAttempt();
 
         if ($response instanceof Success) {
-            $this->disasemble($dismountableType);
+            $this->disasemble();
         }
 
         //@TODO use post event
@@ -110,28 +84,26 @@ class Disassemble extends AttemptAction
         return $response;
     }
 
-    private function disasemble(Dismountable $dismountableType): void
+    private function disasemble(): void
     {
         // add the item produced by disassembling
-        foreach ($dismountableType->getProducts() as $productString => $number) {
+        foreach ($this->gameEquipment->getEquipment()->getDismountedProducts() as $productString => $number) {
             for ($i = 0; $i < $number; ++$i) {
                 $productEquipment = $this
                     ->gameEquipmentService
                     ->createGameEquipmentFromName($productString, $this->player->getDaedalus())
                 ;
-                if ($this->player->getItems()->count() < $this->gameConfig->getMaxItemInInventory() &&
-                    $productEquipment instanceof GameItem) {
-                    $productEquipment->setPlayer($this->player);
-                } else {
-                    $productEquipment->setRoom($this->player->getRoom());
-                }
+                $equipmentEvent = new EquipmentEvent($productEquipment, VisibilityEnum::HIDDEN);
+                $equipmentEvent->setPlayer($this->player);
+                $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
+
                 $this->gameEquipmentService->persist($productEquipment);
             }
         }
 
         // remove the dismanteled equipment
-        $this->gameEquipment->removeLocation();
-        $this->gameEquipmentService->delete($this->gameEquipment);
+        $equipmentEvent = new EquipmentEvent($this->gameEquipment, VisibilityEnum::HIDDEN);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
     }
 
     protected function createLog(ActionResult $actionResult): void
@@ -143,5 +115,10 @@ class Disassemble extends AttemptAction
             VisibilityEnum::PUBLIC,
             new \DateTime('now')
         );
+    }
+
+    protected function getBaseRate(): int
+    {
+        return $this->action->getSuccessRate();
     }
 }

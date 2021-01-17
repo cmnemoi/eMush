@@ -1,135 +1,117 @@
 <template>
-  <div>
-    <a @click="showLogin = true" v-if="!loggedIn">Login</a>
-    <a  @click="logout" v-if="loggedIn">Logout</a>
-    <div id="login-modal" class="modal-window" v-show="showLogin" >
-      <div>
-        <a title="Close" class="modal-close">Close</a>
-        <span>Ceci est une alpha reservé aux testeurs</span>
-        <span>This is an alpha for tester only</span>
-        <label for="passphrase"><h1>Passphrase: </h1></label><input id="passphrase" type="text" v-model="passphrase"/>
-        <a href="#" title="Close" class="modal-close" @click="showLogin = false">Close</a>
-        <button type="submit" @click="handleSubmit">{{ ('form.submit') }}</button>
-      </div>
+    <div>
+        <a v-if="! loggedIn" class="login-button" @click="openPopup">Login</a>
+        <a v-if="loggedIn" class="logout-button" @click="logout">Logout</a>
+        <PopUp :is-open="isPassphrasePopupOpen" @close="closePopup">
+            <span>Ceci est une alpha reservée aux testeurs</span>
+            <span>This is an alpha for testers only</span>
+            <label for="passphrase" class="passphrase">Passphrase:</label>
+            <input
+                id="passphrase"
+                ref="passphrase_input"
+                v-model="passphrase"
+                type="text"
+                @keyup.enter="submitPassphrase"
+            >
+            <button type="submit" @click="submitPassphrase">
+                Submit
+            </button>
+        </PopUp>
     </div>
-  </div>
 </template>
 
 <script>
-import {mapActions, mapGetters} from "vuex";
+import { mapActions, mapGetters } from "vuex";
+import PopUp from "@/components/Utils/PopUp";
 
 export default {
-  name: 'Login',
-  data() {
-    return {
-      showLogin: false,
-      passphrase: "",
-      loginError: null,
-    };
-  },
-  computed: {
-    ...mapGetters('auth', [
-      'loggedIn',
-    ])
-  },
-  methods: {
-    ...mapActions('auth', [
-      'redirect',
-      'logout'
-    ]),
-    handleSubmit() {
-      // Perform a simple validation that email and password have been typed in
-      if (this.passphrase !== '') {
-        this.submitted = true;
-        this.redirect({passphrase: this.passphrase});
-        this.passphrase = ""
-      }
+    name: 'Login',
+    components: {
+        PopUp
+    },
+    data() {
+        return {
+            isPassphrasePopupOpen: false,
+            passphrase: "",
+            loginError: null
+        };
+    },
+    computed: {
+        ...mapGetters('auth', [
+            'loggedIn'
+        ])
+    },
+    methods: {
+        ...mapActions('auth', [
+            'redirect',
+            'logout'
+        ]),
+        submitPassphrase() {
+            if (this.passphrase !== "") {
+                this.redirect({ passphrase: this.passphrase });
+                this.passphrase = "";
+            }
+            this.closePopup();
+        },
+        async openPopup() {
+            this.isPassphrasePopupOpen = true;
+            await this.$nextTick;
+            this.$refs.passphrase_input.focus();
+        },
+        closePopup() {
+            this.isPassphrasePopupOpen = false;
+        }
     }
-  }
-}
+};
 </script>
 
 <style lang="scss" scoped>
-a {
-  margin: 0 20px;
-  padding: 5px 10px;
-  color: white;
+.login-button,
+.logout-button {
+    cursor: pointer;
+    margin: 0 20px;
+    padding: 5px 10px;
+    color: white;
 
-  &:hover, &:active {
-    color: #dffaff;
-    text-shadow: 0 0px 1px rgb(255,255,255), 0 0px 1px rgb(255,255,255);
-  }
+    &:hover,
+    &:active {
+        color: #dffaff;
+        text-shadow: 0 0 1px rgb(255, 255, 255), 0 0 1px rgb(255, 255, 255);
+    }
 }
-.modal-window {
-  position: fixed;
-  background: transparentize(#09092d, .4);
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 999;
-  transition: all 0.3s;
 
-  & > div { /* modal box */
-    min-width: 400px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 2em;
-    margin: 0 12px 8px 12px;
-    background-color: #191a4c;
-    border-radius: 3px;
-    border: 1px solid #3965fb;
-    box-shadow:
-        0 0 0 1px #191a4c,
-        0px 0px 5px 1px rgba(57, 101, 251, 0.7),
-        0px 12px 8px -6px rgba(0, 0, 0, 0.7);
-  }
-
-  h1 {
-    margin: 0 0 15px;
+.passphrase {
+    margin-top: 15px;
     font-size: 150%;
     font-variant: small-caps;
-  }
 }
 
 input {
-  margin: 7px 0;
-  padding: 5px 8px;
-  font-style: italic;
-  opacity: .85;
-  box-shadow: 0px 1px 0px rgba(255, 255, 255, .3);
-  border: 1px solid #aad4e5;
-  border-radius: 3px;
-  &:active, &:focus { font-style: initial; opacity: 1; }
+    margin: 7px 0;
+    padding: 5px 8px;
+    font-style: italic;
+    opacity: 0.85;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+    border: 1px solid #aad4e5;
+    border-radius: 3px;
+
+    &:active,
+    &:focus {
+        font-style: initial;
+        opacity: 1;
+    }
 }
 
 button {
-  @include button-style(1em);
-  margin: 7px 0;
-  padding-top: 4px;
-  padding-bottom: 6px;
-  border: 0;
-}
+    cursor: pointer;
 
-.modal-close {
-  position: absolute;
-  text-align: center;
-  right: 0;
-  top: 0;
-  padding: 12px;
-  color: transparentize(white, .4);
-  font-size: 80%;
-  letter-spacing: .03em;
-  text-decoration: none;
-  font-variant: small-caps;
-  transition: all 0.15s;
-  &:hover {
-    color: white;
-  }
-}
+    @include button-style(1em);
 
+    margin: 7px 0;
+    padding-top: 4px;
+    padding-bottom: 6px;
+    border: 0;
+}
 
 </style>
 

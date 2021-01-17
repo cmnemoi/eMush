@@ -14,12 +14,14 @@ use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Equipment\Service\EquipmentServiceInterface;
 use Mush\Equipment\Service\GameEquipmentService;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class GameEquipmentServiceTest extends TestCase
 {
@@ -34,6 +36,10 @@ class GameEquipmentServiceTest extends TestCase
     /** @var EquipmentEffectServiceInterface | Mockery\Mock */
     private EquipmentEffectServiceInterface $equipmentEffectService;
     private GameEquipmentServiceInterface $service;
+    /** @var RandomServiceInterface | Mockery\Mock */
+    private RandomServiceInterface $randomService;
+    /** @var EventDispatcherInterface | Mockery\Mock */
+    protected EventDispatcherInterface $eventDispatcher;
 
     /**
      * @before
@@ -45,13 +51,18 @@ class GameEquipmentServiceTest extends TestCase
         $this->equipmentService = Mockery::mock(EquipmentServiceInterface::class);
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
         $this->equipmentEffectService = Mockery::mock(EquipmentEffectService::class);
+        $this->randomService = Mockery::mock(RandomServiceInterface::class);
+
+        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
 
         $this->service = new GameEquipmentService(
             $this->entityManager,
             $this->repository,
             $this->equipmentService,
             $this->statusService,
-            $this->equipmentEffectService
+            $this->equipmentEffectService,
+            $this->randomService,
+            $this->eventDispatcher
         );
     }
 

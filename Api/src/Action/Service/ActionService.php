@@ -46,7 +46,7 @@ class ActionService implements ActionServiceInterface
         $isSuperDirty = $dirtyRate > 100;
         if (!$player->hasStatus(PlayerStatusEnum::DIRTY) &&
             $dirtyRate > 0 &&
-            ($percent = $this->randomService->randomPercent()) < $dirtyRate
+            ($percent = $this->randomService->randomPercent()) <= $dirtyRate
         ) {
             $gears = $player->getApplicableGears(
                 [ModifierScopeEnum::EVENT_DIRTY],
@@ -81,7 +81,7 @@ class ActionService implements ActionServiceInterface
         }
 
         $injuryRate = $action->getInjuryRate();
-        if ($injuryRate > 0 && $this->randomService->randomPercent() < $injuryRate) {
+        if ($injuryRate > 0 && $this->randomService->isSuccessfull($injuryRate)) {
             $this->roomLogService->createPlayerLog(
                 LogEnum::CLUMSINESS,
                 $player->getRoom(),

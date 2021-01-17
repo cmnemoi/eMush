@@ -2,13 +2,7 @@
 
 namespace Mush\Room\Service;
 
-use Mush\Daedalus\Service\DaedalusServiceInterface;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Player\Entity\Modifier;
-use Mush\Player\Enum\EndCauseEnum;
-use Mush\Player\Enum\ModifierTargetEnum;
-use Mush\Player\Event\PlayerEvent;
 use Mush\Room\Entity\Room;
 use Mush\Room\Enum\RoomEventEnum;
 use Mush\Room\Event\RoomEvent;
@@ -20,19 +14,13 @@ class RoomEventService implements RoomEventServiceInterface
 {
     private RandomServiceInterface $randomService;
     private EventDispatcherInterface $eventDispatcher;
-    private DaedalusServiceInterface $daedalusService;
-    private GameEquipmentServiceInterface $gameEquipmentService;
 
     public function __construct(
         RandomServiceInterface $randomService,
-        GameEquipmentServiceInterface $gameEquipmentService,
-        DaedalusServiceInterface $daedalusService,
         EventDispatcherInterface $eventDispatcher
     ) {
         $this->randomService = $randomService;
         $this->eventDispatcher = $eventDispatcher;
-        $this->daedalusService = $daedalusService;
-        $this->gameEquipmentService = $gameEquipmentService;
     }
 
     public function handleIncident(Room $room, \DateTime $date): Room
@@ -48,85 +36,29 @@ class RoomEventService implements RoomEventServiceInterface
         //Electric Arcs
         if ($this->randomService->isSuccessfull($difficultyConfig->getElectricArcRate())) {
             $roomEvent = new RoomEvent($room, $date);
-            $this->eventDispatcher->dispatch($roomEvent, RoomEvent::TREMOR);
+            $this->eventDispatcher->dispatch($roomEvent, RoomEvent::ELECTRIC_ARC);
         }
 
         //Fire
-        $this->handleFire($room, $date);
+        $this->handleNewFire($room, $date);
 
         return $room;
     }
 
-    public function handleFire(Room $room, \DateTime $date): Room
+    public function handleNewFire(Room $room, \DateTime $date): Room
     {
         $difficultyConfig = $room->getDaedalus()->getGameConfig()->getDifficultyConfig();
 
         $fireStatus = $room->getStatusByName(StatusEnum::FIRE);
+
         if ($fireStatus && !$fireStatus instanceof ChargeStatus) {
             throw new \LogicException('Fire is not a ChargedStatus');
         }
 
-        if ($fireStatus && $fireStatus->getCharge() === 0) {
-            //there is already a fire in the room
-            $roomEvent = new RoomEvent($room, $date);
-            $this->eventDispatcher->dispatch($roomEvent, RoomEvent::FIRE);
-
-        //a secondary fire already started in this room this cycle OR no fire
-        } elseif ($this->randomService->isSuccessfull($difficultyConfig->getStartingFireRate())) {
+        if ($fireStatus === null && $this->randomService->isSuccessfull($difficultyConfig->getStartingFireRate())) {
             $roomEvent = new RoomEvent($room, $date);
             $roomEvent->setReason(RoomEventEnum::CYCLE_FIRE);
             $this->eventDispatcher->dispatch($roomEvent, RoomEvent::STARTING_FIRE);
-
-            $roomEvent = new RoomEvent($room, $date);
-            $this->eventDispatcher->dispatch($roomEvent, RoomEvent::FIRE);
-        }
-
-        return $room;
-    }
-
-    public function propagateFire(Room $room, \DateTime $date): Room
-    {
-        $difficultyConfig = $room->getDaedalus()->getGameConfig()->getDifficultyConfig();
-
-        foreach ($room->getDoors() as $door) {
-            $adjacentRoom = $door->getOtherRoom($room);
-
-            if ($this->randomService->isSuccessfull($difficultyConfig->getPropagatingFireRate())) {
-                $roomEvent = new RoomEvent($adjacentRoom, $date);
-                $roomEvent->setReason(RoomEventEnum::PROPAGATING_FIRE);
-                $this->eventDispatcher->dispatch($roomEvent, RoomEvent::STARTING_FIRE);
-            }
-        }
-
-        return $room;
-    }
-
-    public function fireDamage(Room $room, \DateTime $date): Room
-    {
-        $difficultyConfig = $room->getDaedalus()->getGameConfig()->getDifficultyConfig();
-
-        foreach ($room->getPlayers() as $player) {
-            $damage = $this->randomService->getSingleRandomElementFromProbaArray($difficultyConfig->getFirePlayerDamage());
-            $actionModifier = new Modifier();
-            $actionModifier
-                ->setDelta(-$damage)
-                ->setTarget(ModifierTargetEnum::HEALTH_POINT)
-            ;
-            $playerEvent = new PlayerEvent($player, $date);
-            $playerEvent->setReason(EndCauseEnum::BURNT);
-            $playerEvent->setModifier($actionModifier);
-            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
-        }
-
-        foreach ($room->getEquipments() as $equipment) {
-            $this->gameEquipmentService->handleBreakFire($equipment, $date);
-        }
-
-        if ($this->randomService->isSuccessfull($difficultyConfig->getHullFireDamageRate())) {
-            $damage = intval($this->randomService->getSingleRandomElementFromProbaArray($difficultyConfig->getFireHullDamage()));
-
-            $room->getDaedalus()->addHull(-$damage);
-            $this->daedalusService->persist($room->getDaedalus());
         }
 
         return $room;

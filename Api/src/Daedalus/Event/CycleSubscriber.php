@@ -59,8 +59,8 @@ class CycleSubscriber implements EventSubscriberInterface
 
     private function handleDaedalusEnd(Daedalus $daedalus): bool
     {
-        if ($daedalus->getPlayers()->getHumanPlayer()->isEmpty() &&
-            !$daedalus->getPlayers()->getMushPlayer()->isEmpty()
+        if ($daedalus->getPlayers()->getHumanPlayer()->getPlayerAlive()->isEmpty() &&
+            !$daedalus->getPlayers()->getMushPlayer()->getPlayerAlive()->isEmpty()
         ) {
             $endDaedalusEvent = new DaedalusEvent($daedalus);
             $endDaedalusEvent->setReason(EnumEndCauseEnum::KILLED_BY_NERON);
@@ -117,16 +117,18 @@ class CycleSubscriber implements EventSubscriberInterface
             $daedalus->setDay($daedalus->getDay() + 1);
         }
 
-        foreach ($daedalus->getPlayers() as $player) {
+        foreach ($daedalus->getPlayers()->getPlayerAlive() as $player) {
             $newPlayerCycle = new CycleEvent($daedalus, $time);
             $newPlayerCycle->setPlayer($player);
             $this->eventDispatcher->dispatch($newPlayerCycle, CycleEvent::NEW_CYCLE);
         }
 
         foreach ($daedalus->getRooms() as $room) {
-            $newRoomCycle = new CycleEvent($daedalus, $time);
-            $newRoomCycle->setRoom($room);
-            $this->eventDispatcher->dispatch($newRoomCycle, CycleEvent::NEW_CYCLE);
+            if ($room->getName() !== RoomEnum::GREAT_BEYOND) {
+                $newRoomCycle = new CycleEvent($daedalus, $time);
+                $newRoomCycle->setRoom($room);
+                $this->eventDispatcher->dispatch($newRoomCycle, CycleEvent::NEW_CYCLE);
+            }
         }
 
         if ($newDay) {

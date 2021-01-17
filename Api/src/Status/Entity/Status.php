@@ -32,7 +32,7 @@ class Status
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer", length=255, nullable=false)
      */
-    protected int $id;
+    protected ?int $id = null;
 
     /**
      * @ORM\Column(type="string", nullable=false)
@@ -64,7 +64,7 @@ class Status
      */
     protected ?ConsumableEffect $consumableEffect = null;
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }

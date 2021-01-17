@@ -234,10 +234,27 @@ class PlayerService implements PlayerServiceInterface
         return $this->persist($player);
     }
 
-    public function playerDeath(Player $player, ?string $reason): Player
+    public function playerDeath(Player $player, ?string $reason, \DateTime $time): Player
     {
         if ($reason) {
             $player->setEndStatus($reason);
+        }
+
+        if ($player->getEndStatus() !== EndCauseEnum::DEPRESSION) {
+            /** @var Player $daedalusPlayer */
+            foreach ($player->getDaedalus()->getPlayers()->getPlayerAlive() as $daedalusPlayer) {
+                if ($daedalusPlayer !== $player) {
+                    $actionModifier = new Modifier();
+                    $actionModifier
+                        ->setDelta(-1)
+                        ->setTarget(ModifierTargetEnum::MORAL_POINT)
+                    ;
+                    $playerEvent = new PlayerEvent($daedalusPlayer, $time);
+                    $playerEvent->setModifier($actionModifier);
+
+                    $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
+                }
+            }
         }
 
         foreach ($player->getItems() as $item) {
@@ -248,15 +265,9 @@ class PlayerService implements PlayerServiceInterface
         if ($grandBeyond = $player->getDaedalus()->getRoomByName(RoomEnum::GREAT_BEYOND)) {
             $player->setRoom($grandBeyond);
         }
+
         //@TODO two steps death
         $player->setGameStatus(GameStatusEnum::FINISHED);
-
-        $this->roomLogService->createPlayerLog(
-            LogEnum::DEATH,
-            $player->getRoom(),
-            $player,
-            VisibilityEnum::PUBLIC
-        );
 
         return $player;
     }

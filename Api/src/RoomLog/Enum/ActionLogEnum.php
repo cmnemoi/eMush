@@ -25,6 +25,7 @@ class ActionLogEnum
     public const READ_BOOK = 'read_book';
     public const READ_DOCUMENT = 'read_document';
     public const REPAIR_SUCCESS = 'repair_success';
+    public const REPAIR_FAIL = 'repair_success';
     public const SABOTAGE_SUCCESS = 'sabotage_success';
     public const SABOTAGE_FAIL = 'sabotage_fail';
     public const SEARCH_SUCCESS = 'search_success';

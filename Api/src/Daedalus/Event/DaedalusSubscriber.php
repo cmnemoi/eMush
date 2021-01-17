@@ -31,7 +31,6 @@ class DaedalusSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            DaedalusEvent::NEW_DAEDALUS => 'onDaedalusNew',
             DaedalusEvent::END_DAEDALUS => 'onDaedalusEnd',
             DaedalusEvent::FULL_DAEDALUS => 'onDaedalusFull',
         ];

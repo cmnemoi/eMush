@@ -10,10 +10,7 @@
             <div class="name-container">
                 <p v-if="selectedItem" class="item-name">
                     {{ selectedItem.name }}
-                    <span v-for="(status, key) in selectedItem.statuses" :key="key">
-                        <img :src="statusIcon(status)">
-                        <span v-if="status.charge > 0">x{{ status.charge }}</span>
-                    </span>
+                    <Statuses :statuses="selectedItem.statuses" type="item" />
                 </p>
             </div>
             <ActionPanel
@@ -27,15 +24,16 @@
 <script>
 import Inventory from "@/components/Game/Inventory";
 import ActionPanel from "@/components/Game/Ship/ActionPanel";
+import Statuses from "@/components/Utils/Statuses";
 import ActionService from "@/services/action.service";
 import { mapActions } from "vuex";
-import { statusItemEnum } from "@/enums/status.item.enum";
 
 export default {
     name: "RoomInventoryPanel",
     components: {
         ActionPanel,
-        Inventory
+        Inventory,
+        Statuses
     },
     props: {
         items: Array
@@ -48,10 +46,6 @@ export default {
     methods: {
         selectItem: function(item) {
             this.selectedItem = item;
-        },
-        statusIcon: function(status) {
-            const statusImages = statusItemEnum[status.key];
-            return statusImages?.icon || null;
         },
         async executeItemAction(action) {
             this.setLoading();
@@ -86,7 +80,7 @@ export default {
             margin: 0;
             padding: 8px 0;
 
-            img {
+            /deep/ .status {
                 vertical-align: middle;
                 margin-left: 2px;
             }

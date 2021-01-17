@@ -9,10 +9,8 @@
                     <p class="name">
                         {{ target.characterValue }}
                     </p>
-                    <div class="status">
-                        <span v-for="(status, id) in target.statuses" :key="id">
-                            <img :src="playerStatusIcon(status)">
-                        </span>
+                    <div class="statuses">
+                        <Statuses :statuses="target.statuses" type="player" />
                     </div>
                 </div>
             </div>
@@ -37,16 +35,17 @@
 <script>
 import { mapActions } from "vuex";
 import ActionButton from "@/components/Utils/ActionButton";
+import Statuses from "@/components/Utils/Statuses";
 import ActionService from "@/services/action.service";
 import { Player } from "@/entities/Player";
 import { characterEnum } from '@/enums/character';
-import { statusPlayerEnum } from "@/enums/status.player.enum";
 
 
 export default {
     name: "CrewmatePanel",
     components: {
-        ActionButton
+        ActionButton,
+        Statuses
     },
     props: {
         target: Player
@@ -54,12 +53,6 @@ export default {
     computed: {
         portrait() {
             return characterEnum[this.target.characterKey].portrait;
-        },
-        playerStatusIcon() {
-            return (status) => {
-                const statusImages = statusPlayerEnum[status.key];
-                return typeof statusImages !== 'undefined' ? statusImages.icon : null;
-            };
         }
     },
     methods: {
@@ -115,11 +108,14 @@ export default {
                 }
             }
 
-            .status {
+            .statuses {
                 flex-direction: row;
                 flex-wrap: wrap;
                 font-size: 0.9em;
-                span { padding: 1px; }
+
+                /deep/ .status {
+                    padding: 1px;
+                }
             }
 
             .name {

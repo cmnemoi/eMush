@@ -2,18 +2,12 @@
 
 namespace Mush\Player\Event;
 
-use Mush\Daedalus\Event\DaedalusEvent;
-use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Modifier;
-use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Service\ActionModifierServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\RoomLog\Enum\LogEnum;
-use Mush\RoomLog\Enum\VisibilityEnum;
-use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -25,7 +19,6 @@ class PlayerSubscriber implements EventSubscriberInterface
     private PlayerServiceInterface $playerService;
     private ActionModifierServiceInterface $actionModifierService;
     private EventDispatcherInterface $eventDispatcher;
-    private RoomLogServiceInterface $roomLogService;
     private StatusServiceInterface $statusService;
     private RandomServiceInterface $randomService;
 
@@ -33,14 +26,12 @@ class PlayerSubscriber implements EventSubscriberInterface
         PlayerServiceInterface $playerService,
         ActionModifierServiceInterface $actionModifierService,
         EventDispatcherInterface $eventDispatcher,
-        RoomLogServiceInterface $roomLogService,
         StatusServiceInterface $statusService,
         RandomServiceInterface $randomService
     ) {
         $this->playerService = $playerService;
         $this->actionModifierService = $actionModifierService;
         $this->eventDispatcher = $eventDispatcher;
-        $this->roomLogService = $roomLogService;
         $this->statusService = $statusService;
         $this->randomService = $randomService;
     }
@@ -48,7 +39,6 @@ class PlayerSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            PlayerEvent::NEW_PLAYER => 'onNewPlayer',
             PlayerEvent::DEATH_PLAYER => 'onDeathPlayer',
             PlayerEvent::MODIFIER_PLAYER => 'onModifierPlayer',
             PlayerEvent::METAL_PLATE => 'onMetalPlate',
@@ -58,50 +48,12 @@ class PlayerSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onNewPlayer(PlayerEvent $event): void
-    {
-        $player = $event->getPlayer();
-        $this->roomLogService->createPlayerLog(
-            LogEnum::AWAKEN,
-            $player->getRoom(),
-            $player,
-            VisibilityEnum::PUBLIC
-        );
-    }
-
     public function onDeathPlayer(PlayerEvent $event): void
     {
         $player = $event->getPlayer();
         $reason = $event->getReason();
 
-        $this->playerService->playerDeath($player, $reason);
-        if ($player->getEndStatus() !== EndCauseEnum::DEPRESSION) {
-            /** @var Player $daedalusPlayer */
-            foreach ($player->getDaedalus()->getPlayers()->getPlayerAlive() as $daedalusPlayer) {
-                if ($daedalusPlayer !== $player) {
-                    $actionModifier = new Modifier();
-                    $actionModifier
-                        ->setDelta(-1)
-                        ->setTarget(ModifierTargetEnum::MORAL_POINT)
-                    ;
-                    $playerEvent = new PlayerEvent($daedalusPlayer, $event->getTime());
-                    $playerEvent->setModifier($actionModifier);
-
-                    $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
-                }
-            }
-        }
-
-        if ($player->getDaedalus()->getPlayers()->getPlayerAlive()->isEmpty() &&
-            !in_array($reason, [EndCauseEnum::SOL_RETURN, EndCauseEnum::EDEN, EndCauseEnum::SUPER_NOVA, EndCauseEnum::KILLED_BY_NERON]) &&
-            $player->getDaedalus()->getGameStatus() !== GameStatusEnum::STARTING
-        ) {
-            $endDaedalusEvent = new DaedalusEvent($player->getDaedalus());
-
-            $endDaedalusEvent->setReason(EndCauseEnum::DAEDALUS_DESTROYED);
-
-            $this->eventDispatcher->dispatch($endDaedalusEvent, DaedalusEvent::END_DAEDALUS);
-        }
+        $this->playerService->playerDeath($player, $reason, $event->getTime());
     }
 
     public function onModifierPlayer(PlayerEvent $playerEvent): void
@@ -146,14 +98,6 @@ class PlayerSubscriber implements EventSubscriberInterface
             ->setReason($event->getReason())
         ;
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
-
-        $this->roomLogService->createPlayerLog(
-            LogEnum::METAL_PLATE,
-            $player->getRoom(),
-            $player,
-            VisibilityEnum::PUBLIC,
-            $date
-        );
     }
 
     public function onPanicCrisis(PlayerEvent $event): void
@@ -176,14 +120,6 @@ class PlayerSubscriber implements EventSubscriberInterface
             ->setReason($event->getReason())
         ;
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
-
-        $this->roomLogService->createPlayerLog(
-            LogEnum::PANIC_CRISIS,
-            $player->getRoom(),
-            $player,
-            VisibilityEnum::PRIVATE,
-            $date
-        );
     }
 
     public function onInfectionPlayer(PlayerEvent $playerEvent): void

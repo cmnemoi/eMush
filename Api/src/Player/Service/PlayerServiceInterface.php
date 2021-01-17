@@ -22,5 +22,5 @@ interface PlayerServiceInterface
 
     public function findUserCurrentGame(User $user): ?Player;
 
-    public function playerDeath(Player $player, ?string $reason): Player;
+    public function playerDeath(Player $player, ?string $reason, \DateTime $time): Player;
 }

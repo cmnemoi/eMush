@@ -14,7 +14,7 @@
                 </div>
             </section>
         </div>
-        <div class="banner">
+        <div style="display:none;" class="banner">
             <div class="skills">
                 <div class="Expert radio">
                     <img src="@/assets/images/skills/cook.png" alt="cook">

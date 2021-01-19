@@ -72,9 +72,10 @@ class ExtractSporeActionTest extends AbstractActionTest
         $result = $this->action->execute();
         $this->assertInstanceOf(Error::class, $result);
 
-        //player already max spores
-        $mushStatus->setPlayer($player);
-        $sporeStatus->setPlayer($player);
+        $player
+            ->addStatus($mushStatus)
+            ->addStatus($sporeStatus)
+        ;
 
         $result = $this->action->execute();
         $this->assertInstanceOf(Error::class, $result);
@@ -101,13 +102,17 @@ class ExtractSporeActionTest extends AbstractActionTest
         $mushStatus
             ->setCharge(0)
             ->setName(PlayerStatusEnum::MUSH)
-            ->setPlayer($player);
-
+        ;
         $sporeStatus = new ChargeStatus();
         $sporeStatus
             ->setCharge(1)
-            ->setPlayer($player)
-            ->setName(PlayerStatusEnum::SPORES);
+            ->setName(PlayerStatusEnum::SPORES)
+        ;
+
+        $player
+            ->addStatus($mushStatus)
+            ->addStatus($sporeStatus)
+        ;
 
         $actionParameter = new ActionParameters();
 

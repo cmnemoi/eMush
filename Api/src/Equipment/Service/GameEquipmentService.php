@@ -180,9 +180,10 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         $contentStatus
             ->setName(EquipmentStatusEnum::DOCUMENT_CONTENT)
             ->setVisibility(VisibilityEnum::HIDDEN)
-            ->setGameEquipment($gameEquipment)
             ->setContent($document->getContent())
         ;
+
+        $gameEquipment->addStatus($contentStatus);
 
         return $gameEquipment;
     }

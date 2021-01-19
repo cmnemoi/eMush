@@ -75,8 +75,9 @@ class FireTest extends TestCase
         $status
             ->setName(StatusEnum::FIRE)
             ->setCharge(1)
-            ->setRoom($room)
         ;
+
+        $room->addStatus($status);
 
         $player = new Player();
         $room->addPlayer($player);
@@ -94,7 +95,7 @@ class FireTest extends TestCase
             ->once()
         ;
 
-        $this->cycleHandler->handleNewCycle($status, $daedalus, new \DateTime());
+        $this->cycleHandler->handleNewCycle($status, $daedalus, $room, new \DateTime());
 
         $this->assertEquals($daedalusHull - 2, $daedalus->getHull());
     }

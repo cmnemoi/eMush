@@ -79,12 +79,13 @@ class StatusNormalizer implements ContextAwareNormalizerInterface
     {
         $visibility = $status->getVisibility();
         $equipmentContext = isset($context['equipment']) && $context['equipment'] instanceof GameEquipment;
-
-        return $this->getUserPlayer() === $status->getPlayer() &&
-            ($visibility === VisibilityEnum::PRIVATE ||
-                ($visibility === VisibilityEnum::EQUIPMENT_PRIVATE && $equipmentContext)
-            )
-        ;
+        //@TODO : check that
+        return true;
+//        return $this->getUserPlayer() === $status->getPlayer() &&
+//            ($visibility === VisibilityEnum::PRIVATE ||
+//                ($visibility === VisibilityEnum::EQUIPMENT_PRIVATE && $equipmentContext)
+//            )
+//        ;
     }
 
     private function getUserPlayer(): Player

@@ -59,7 +59,6 @@ class CycleEventCest
         $status
             ->setName(PlayerStatusEnum::LYING_DOWN)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setPlayer($player)
             ->setGameEquipment($gameEquipment)
         ;
 

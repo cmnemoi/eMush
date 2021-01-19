@@ -76,8 +76,6 @@ class CoffeeActionTest extends AbstractActionTest
             ->addStatus($chargeStatus)
         ;
 
-        $chargeStatus->setGameEquipment($gameCoffeeMachine);
-
         $player = $this->createPlayer(new Daedalus(), $room);
         $actionParameter = new ActionParameters();
         $actionParameter->setEquipment($gameCoffeeMachine);
@@ -108,7 +106,6 @@ class CoffeeActionTest extends AbstractActionTest
             ->addStatus($chargeStatus)
         ;
         $coffeeMachine->setActions(new ArrayCollection([$this->actionEntity]));
-        $chargeStatus->setGameEquipment($gameCoffeeMachine);
 
         $player = $this->createPlayer(new Daedalus(), $room);
 

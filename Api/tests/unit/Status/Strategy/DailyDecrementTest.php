@@ -4,7 +4,6 @@ namespace Mush\Test\Status\Strategy;
 
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Game\Service\CycleServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Status\ChargeStrategies\AbstractChargeStrategy;
 use Mush\Status\ChargeStrategies\DailyDecrement;
@@ -17,8 +16,7 @@ class DailyDecrementTest extends TestCase
 {
     /** @var StatusServiceInterface | Mockery\Mock */
     private StatusServiceInterface $statusService;
-    /** @var CycleServiceInterface | Mockery\Mock */
-    private CycleServiceInterface $cycleService;
+
     private AbstractChargeStrategy $strategy;
 
     /**
@@ -46,34 +44,36 @@ class DailyDecrementTest extends TestCase
         $daedalus = new Daedalus();
 
         $player = new Player();
-        $player->setDaedalus($daedalus);
-        $status->setPlayer($player);
+        $player
+            ->addStatus($status)
+            ->setDaedalus($daedalus)
+        ;
 
         $daedalus->setCycle(2);
         $this->statusService->shouldReceive('persist')->once();
 
-        $this->strategy->execute($status);
+        $this->strategy->execute($status, new Daedalus());
 
         $this->assertEquals(10, $status->getCharge());
 
         $this->statusService->shouldReceive('persist')->once();
         $daedalus->setCycle(1);
 
-        $this->strategy->execute($status);
+        $this->strategy->execute($status, new Daedalus());
 
         $this->assertEquals(9, $status->getCharge());
 
         $this->statusService->shouldReceive('persist')->once();
         $status->setCharge(0);
 
-        $this->strategy->execute($status);
+        $this->strategy->execute($status, new Daedalus());
 
         $this->assertEquals(0, $status->getCharge());
 
         $status->setAutoRemove(true);
         $this->statusService->shouldReceive('delete')->once();
 
-        $result = $this->strategy->execute($status);
+        $result = $this->strategy->execute($status, new Daedalus());
 
         $this->assertNull($result);
     }

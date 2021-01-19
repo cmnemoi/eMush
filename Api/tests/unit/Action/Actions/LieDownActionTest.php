@@ -89,15 +89,18 @@ class LieDownActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
         //Bed already occupied
-        $status->setGameEquipment($gameEquipment);
+        $status->setTarget($gameEquipment);
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Error::class, $result);
 
         //player already lying down
-        $status->setGameEquipment(null);
-        $status->setPlayer($player);
+        $status->setTarget(null);
         $result = $this->action->execute();
+
+        $player
+            ->addStatus($status)
+        ;
 
         $this->assertInstanceOf(Error::class, $result);
     }

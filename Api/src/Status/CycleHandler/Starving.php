@@ -3,15 +3,16 @@
 namespace Mush\Status\CycleHandler;
 
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Game\CycleHandler\AbstractCycleHandler;
 use Mush\Player\Entity\Modifier;
+use Mush\Player\Entity\Player;
 use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Status\Entity\Status;
+use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
-class Starving extends AbstractCycleHandler
+class Starving extends AbstractStatusCycleHandler
 {
     protected string $name = PlayerStatusEnum::STARVING;
 
@@ -22,15 +23,13 @@ class Starving extends AbstractCycleHandler
         $this->eventDispatcher = $eventDispatcher;
     }
 
-    public function handleNewCycle($object, Daedalus $daedalus, \DateTime $dateTime): void
+    public function handleNewCycle(Status $status, Daedalus $daedalus, StatusHolderInterface $statusHolder, \DateTime $dateTime): void
     {
-        if (!$object instanceof Status && $object->getName() !== PlayerStatusEnum::STARVING) {
+        if ($status->getName() !== PlayerStatusEnum::STARVING || !$statusHolder instanceof Player) {
             return;
         }
 
-        $player = $object->getPlayer();
-
-        $playerEvent = new PlayerEvent($player, $dateTime);
+        $playerEvent = new PlayerEvent($statusHolder, $dateTime);
 
         $healthModifier = new Modifier();
         $healthModifier
@@ -46,7 +45,7 @@ class Starving extends AbstractCycleHandler
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
     }
 
-    public function handleNewDay($object, Daedalus $daedalus, \DateTime $dateTime): void
+    public function handleNewDay(Status $status, Daedalus $daedalus, StatusHolderInterface $statusHolder, \DateTime $dateTime): void
     {
     }
 }

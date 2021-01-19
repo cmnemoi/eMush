@@ -30,8 +30,9 @@ class StatusService implements StatusServiceInterface
         $status
             ->setName($statusName)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setPlayer($player)
         ;
+
+        $player->addStatus($status);
 
         return $status;
     }
@@ -42,8 +43,9 @@ class StatusService implements StatusServiceInterface
         $status
             ->setName($statusName)
             ->setVisibility($visibilty)
-            ->setGameEquipment($gameEquipment)
         ;
+
+        $gameEquipment->addStatus($status);
 
         return $status;
     }
@@ -54,7 +56,7 @@ class StatusService implements StatusServiceInterface
         $status
             ->setName($statusName)
             ->setVisibility($visibilty)
-            ->setRoom($room)
+            ->setTarget($room)
         ;
 
         return $status;
@@ -76,7 +78,6 @@ class StatusService implements StatusServiceInterface
             ->setStrategy($strategy)
             ->setVisibility($visibilty)
             ->setChargeVisibility($chargeVisibilty)
-            ->setGameEquipment($gameEquipment)
             ->setCharge($charge)
             ->setAutoRemove($autoRemove)
         ;
@@ -84,6 +85,8 @@ class StatusService implements StatusServiceInterface
         if ($threshold) {
             $status->setThreshold($threshold);
         }
+
+        $gameEquipment->addStatus($status);
 
         return $status;
     }
@@ -104,7 +107,6 @@ class StatusService implements StatusServiceInterface
             ->setStrategy($strategy)
             ->setVisibility($visibilty)
             ->setChargeVisibility($chargeVisibilty)
-            ->setPlayer($player)
             ->setCharge($charge)
             ->setAutoRemove($autoRemove)
         ;
@@ -112,6 +114,8 @@ class StatusService implements StatusServiceInterface
         if ($threshold) {
             $status->setThreshold($threshold);
         }
+
+        $player->addStatus($status);
 
         return $status;
     }
@@ -132,7 +136,7 @@ class StatusService implements StatusServiceInterface
             ->setStrategy($strategy)
             ->setVisibility($visibilty)
             ->setChargeVisibility($chargeVisibilty)
-            ->setRoom($room)
+            ->setTarget($room)
             ->setCharge($charge)
             ->setAutoRemove($autoRemove)
         ;
@@ -150,10 +154,11 @@ class StatusService implements StatusServiceInterface
         $status
             ->setName($statusName)
             ->setVisibility(VisibilityEnum::HIDDEN)
-            ->setPlayer($player)
             ->setAction($action)
             ->setCharge(0)
         ;
+
+        $player->addStatus($status);
 
         return $status;
     }
@@ -164,11 +169,12 @@ class StatusService implements StatusServiceInterface
         $status
             ->setName(PlayerStatusEnum::MUSH)
             ->setVisibility(VisibilityEnum::MUSH)
-            ->setPlayer($player)
             ->setCharge(1)
             ->setThreshold(1)
             ->setStrategy(ChargeStrategyTypeEnum::DAILY_RESET)
         ;
+
+        $player->addStatus($status);
 
         return $status;
     }
@@ -179,10 +185,11 @@ class StatusService implements StatusServiceInterface
         $status
             ->setName(PlayerStatusEnum::SPORES)
             ->setVisibility(VisibilityEnum::MUSH)
-            ->setPlayer($player)
             ->setCharge(1)
             ->setStrategy(ChargeStrategyTypeEnum::NONE)
         ;
+
+        $player->addStatus($status);
 
         return $status;
     }

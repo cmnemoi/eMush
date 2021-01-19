@@ -59,11 +59,11 @@ class Write extends AbstractAction
         $newGameItem = $this->gameEquipmentService
             ->createGameEquipmentFromName(ItemEnum::POST_IT, $this->player->getDaedalus())
         ;
+
         $contentStatus = new ContentStatus();
         $contentStatus
             ->setName(EquipmentStatusEnum::DOCUMENT_CONTENT)
             ->setVisibility(VisibilityEnum::HIDDEN)
-            ->setGameEquipment($newGameItem)
             ->setContent($this->message)
         ;
         $newGameItem->addStatus($contentStatus);

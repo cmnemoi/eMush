@@ -52,7 +52,7 @@ class PlantCycleHandler extends AbstractCycleHandler
         $this->daedalusService = $daedalusService;
     }
 
-    public function handleNewCycle($object, $daedalus, \DateTime $dateTime): void
+    public function handleNewCycle($object, $daedalus, \DateTime $dateTime, array $context = []): void
     {
         /** @var GameItem $gamePlant */
         $gamePlant = $object;
@@ -72,8 +72,9 @@ class PlantCycleHandler extends AbstractCycleHandler
             $diseased
                 ->setName(EquipmentStatusEnum::PLANT_DISEASED)
                 ->setVisibility(VisibilityEnum::PUBLIC)
-                ->setGameEquipment($gamePlant)
             ;
+
+            $gamePlant->addStatus($diseased);
         }
 
         $plantEffect = $this->equipmentEffectService->getPlantEffect($plantType, $daedalus);
@@ -100,7 +101,7 @@ class PlantCycleHandler extends AbstractCycleHandler
         $this->gameEquipmentService->persist($gamePlant);
     }
 
-    public function handleNewDay($object, $daedalus, \DateTime $dateTime): void
+    public function handleNewDay($object, $daedalus, \DateTime $dateTime, array $context = []): void
     {
         /** @var GameItem $gamePlant */
         $gamePlant = $object;

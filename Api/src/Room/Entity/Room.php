@@ -12,13 +12,14 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\Status;
+use Mush\Status\Entity\StatusHolderInterface;
 
 /**
  * Class Room.
  *
  * @ORM\Entity(repositoryClass="Mush\Room\Repository\RoomRepository")
  */
-class Room
+class Room implements StatusHolderInterface
 {
     use TimestampableEntity;
 
@@ -55,7 +56,11 @@ class Room
     private Collection $equipments;
 
     /**
-     * @ORM\OneToMany(targetEntity="Mush\Status\Entity\Status", mappedBy="room", cascade={"ALL"}, orphanRemoval=true)
+     * @ORM\ManyToMany(targetEntity="Mush\Status\Entity\Status")
+     * @ORM\JoinTable(name="statuses_room",
+     *      joinColumns={@ORM\JoinColumn(name="game_equipment_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="status_id", referencedColumnName="id", unique=true)}
+     *      )
      */
     private Collection $statuses;
 
@@ -241,13 +246,7 @@ class Room
     public function addStatus(Status $status): Room
     {
         if (!$this->getStatuses()->contains($status)) {
-            if ($status->getRoom() !== $this) {
-                $status->setRoom(null);
-            }
-
             $this->statuses->add($status);
-
-            $status->setRoom($this);
         }
 
         return $this;
@@ -260,7 +259,6 @@ class Room
     {
         if ($this->statuses->contains($status)) {
             $this->statuses->removeElement($status);
-            $status->setRoom(null);
         }
 
         return $this;

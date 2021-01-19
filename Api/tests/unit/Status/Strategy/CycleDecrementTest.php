@@ -3,6 +3,7 @@
 namespace Mush\Test\Status\Strategy;
 
 use Mockery;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Status\ChargeStrategies\AbstractChargeStrategy;
 use Mush\Status\ChargeStrategies\CycleDecrement;
 use Mush\Status\Entity\ChargeStatus;
@@ -40,21 +41,21 @@ class CycleDecrementTest extends TestCase
 
         $this->statusService->shouldReceive('persist')->once();
 
-        $this->strategy->execute($status);
+        $this->strategy->execute($status, new Daedalus());
 
         $this->assertEquals(9, $status->getCharge());
 
         $status->setCharge(0);
         $this->statusService->shouldReceive('persist')->once();
 
-        $this->strategy->execute($status);
+        $this->strategy->execute($status, new Daedalus());
 
         $this->assertEquals(0, $status->getCharge());
 
         $status->setAutoRemove(true);
         $this->statusService->shouldReceive('delete')->once();
 
-        $result = $this->strategy->execute($status);
+        $result = $this->strategy->execute($status, new Daedalus());
 
         $this->assertNull($result);
     }

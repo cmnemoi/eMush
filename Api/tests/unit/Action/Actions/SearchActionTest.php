@@ -94,11 +94,9 @@ class SearchActionTest extends AbstractActionTest
         $hiddenBy = $this->createPlayer(new Daedalus(), new Room());
         $hidden
             ->setName(EquipmentStatusEnum::HIDDEN)
-            ->setPlayer($hiddenBy)
-            ->setGameEquipment($gameItem)
+            ->setTarget($hiddenBy)
         ;
         $gameItem->addStatus($hidden);
-        $hiddenBy->addStatus($hidden);
 
         $player = $this->createPlayer(new Daedalus(), $room);
         $actionParameter = new ActionParameters();
@@ -132,11 +130,9 @@ class SearchActionTest extends AbstractActionTest
         $hidden = new Status();
         $hidden
             ->setName(EquipmentStatusEnum::HIDDEN)
-            ->setPlayer($hiddenBy)
-            ->setGameEquipment($gameItem)
+            ->setTarget($hiddenBy)
         ;
         $gameItem->addStatus($hidden);
-        $hiddenBy->addStatus($hidden);
 
         $gameItem2 = new GameItem();
         $gameItem2
@@ -147,11 +143,9 @@ class SearchActionTest extends AbstractActionTest
         $hidden2 = new Status();
         $hidden2
             ->setName(EquipmentStatusEnum::HIDDEN)
-            ->setPlayer($hiddenBy)
-            ->setGameEquipment($gameItem2)
+            ->setTarget($hiddenBy)
         ;
         $gameItem2->addStatus($hidden2);
-        $hiddenBy->addStatus($hidden2);
 
         $player = $this->createPlayer(new Daedalus(), $room);
         $actionParameter = new ActionParameters();

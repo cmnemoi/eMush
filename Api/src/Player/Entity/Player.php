@@ -17,6 +17,7 @@ use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Room\Entity\Room;
 use Mush\Status\Entity\Status;
+use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
@@ -26,11 +27,12 @@ use Mush\User\Entity\User;
  *
  * @ORM\Entity(repositoryClass="Mush\Player\Repository\PlayerRepository")
  */
-class Player
+class Player implements StatusHolderInterface
 {
     use TimestampableEntity;
 
     /**
+     * @ORM\Id
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer", length=255, nullable=false)
@@ -73,7 +75,11 @@ class Player
     private Collection $items;
 
     /**
-     * @ORM\OneToMany(targetEntity="Mush\Status\Entity\Status", mappedBy="player", cascade={"ALL"}, orphanRemoval=true)
+     * @ORM\ManyToMany(targetEntity="Mush\Status\Entity\Status")
+     * @ORM\JoinTable(name="statuses_player",
+     *      joinColumns={@ORM\JoinColumn(name="player_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="status_id", referencedColumnName="id", unique=true)}
+     *      )
      */
     private Collection $statuses;
 
@@ -233,7 +239,7 @@ class Player
             return true;
         }
         if ($hiddenStatus = $gameEquipment->getStatusByName(EquipmentStatusEnum::HIDDEN)) {
-            return $hiddenStatus->getPlayer() === $this;
+            return $hiddenStatus->getTarget() === $this;
         } else {
             return $this->items->contains($gameEquipment) || $this->getRoom()->getEquipments()->contains($gameEquipment);
         }
@@ -252,7 +258,7 @@ class Player
             )->filter(fn (GameEquipment $gameEquipment) => (
                 $gameEquipment->getName() === $name &&
                 (($hiddenStatus = $gameEquipment->getStatusByName(EquipmentStatusEnum::HIDDEN)) === null ||
-                    $hiddenStatus->getPlayer() === $this)));
+                    $hiddenStatus->getTarget() === $this)));
         } elseif ($reach === ReachEnum::SHELVE) {
             return (new ArrayCollection(array_merge(
                 $this->getItems()->toArray(),
@@ -378,13 +384,7 @@ class Player
     public function addStatus(Status $status): Player
     {
         if (!$this->getStatuses()->contains($status)) {
-            if ($status->getPlayer() !== $this) {
-                $status->setPlayer(null);
-            }
-
             $this->statuses->add($status);
-
-            $status->setPlayer($this);
         }
 
         return $this;
@@ -397,7 +397,6 @@ class Player
     {
         if ($this->statuses->contains($status)) {
             $this->statuses->removeElement($status);
-            $status->setPlayer(null);
         }
 
         return $this;

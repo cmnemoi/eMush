@@ -68,9 +68,10 @@ class Hide extends AbstractAction
         $hiddenStatus
             ->setName(EquipmentStatusEnum::HIDDEN)
             ->setVisibility(VisibilityEnum::EQUIPMENT_PRIVATE)
-            ->setPlayer($this->player)
-            ->setGameEquipment($this->gameItem)
+            ->setTarget($this->player)
         ;
+
+        $this->gameItem->addStatus($hiddenStatus);
 
         if ($this->gameItem->getPlayer()) {
             $this->gameItem->setPlayer(null);

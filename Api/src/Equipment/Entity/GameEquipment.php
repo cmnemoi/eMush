@@ -6,9 +6,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Mush\Equipment\Enum\EquipmentClassEnum;
 use Mush\Room\Entity\Room;
 use Mush\Status\Entity\Status;
+use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 
 /**
@@ -23,7 +23,7 @@ use Mush\Status\Enum\EquipmentStatusEnum;
  *     "game_item" = "Mush\Equipment\Entity\GameItem"
  * })
  */
-class GameEquipment
+class GameEquipment implements StatusHolderInterface
 {
     use TimestampableEntity;
 
@@ -35,12 +35,11 @@ class GameEquipment
     private int $id;
 
     /**
-     * @ORM\OneToMany(
-     *     targetEntity="Mush\Status\Entity\Status",
-     *     mappedBy="gameEquipment",
-     *     cascade={"ALL"},
-     *     orphanRemoval=true
-     *     )
+     * @ORM\ManyToMany(targetEntity="Mush\Status\Entity\Status")
+     * @ORM\JoinTable(name="statuses_equipment",
+     *      joinColumns={@ORM\JoinColumn(name="game_equipment_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="status_id", referencedColumnName="id", unique=true)}
+     *      )
      */
     private Collection $statuses;
 
@@ -74,13 +73,7 @@ class GameEquipment
 
     public function getClassName(): string
     {
-        if ($this instanceof GameItem) {
-            return EquipmentClassEnum::DOOR;
-        } elseif ($this instanceof Door) {
-            return EquipmentClassEnum::GAME_ITEM;
-        } else {
-            return EquipmentClassEnum::GAME_EQUIPMENT;
-        }
+        return get_class($this);
     }
 
     public function getActions(): Collection
@@ -109,13 +102,7 @@ class GameEquipment
     public function addStatus(Status $status): GameEquipment
     {
         if (!$this->getStatuses()->contains($status)) {
-            if ($status->getGameEquipment() !== $this) {
-                $status->setGameEquipment(null);
-            }
-
             $this->statuses->add($status);
-
-            $status->setGameEquipment($this);
         }
 
         return $this;
@@ -128,7 +115,6 @@ class GameEquipment
     {
         if ($this->statuses->contains($status)) {
             $this->statuses->removeElement($status);
-            $status->setGameEquipment(null);
         }
 
         return $this;

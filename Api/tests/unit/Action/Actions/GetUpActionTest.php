@@ -69,8 +69,12 @@ class GetUpActionTest extends AbstractActionTest
         $status = new Status();
         $status
             ->setName(PlayerStatusEnum::LYING_DOWN)
-            ->setPlayer($player2)
-            ->setGameEquipment($gameItem);
+            ->setTarget($gameItem)
+        ;
+
+        $player2
+            ->addStatus($status)
+        ;
 
         $actionParameter = new ActionParameters();
 
@@ -101,8 +105,11 @@ class GetUpActionTest extends AbstractActionTest
         $status = new Status();
         $status
             ->setName(PlayerStatusEnum::LYING_DOWN)
-            ->setPlayer($player)
-            ->setGameEquipment($gameItem);
+            ->setTarget($gameItem);
+
+        $player
+            ->addStatus($status)
+        ;
 
         $actionParameter = new ActionParameters();
 

@@ -88,9 +88,10 @@ class InfectActionTest extends AbstractActionTest
         $result = $this->action->execute();
         $this->assertInstanceOf(Error::class, $result);
 
-        //player already daily infected
-        $mushStatus->setPlayer($player);
-        $sporeStatus->setPlayer($player);
+        $player
+            ->addStatus($mushStatus)
+            ->addStatus($sporeStatus)
+        ;
 
         $result = $this->action->execute();
         $this->assertInstanceOf(Error::class, $result);
@@ -111,7 +112,11 @@ class InfectActionTest extends AbstractActionTest
         $mushStatus2
             ->setCharge(0)
             ->setName(PlayerStatusEnum::MUSH)
-            ->setPlayer($targetPlayer);
+        ;
+
+        $targetPlayer
+            ->addStatus($mushStatus2)
+        ;
 
         $result = $this->action->execute();
         $this->assertInstanceOf(Error::class, $result);
@@ -121,7 +126,11 @@ class InfectActionTest extends AbstractActionTest
         $immune = new Status();
         $immune
             ->setName(PlayerStatusEnum::IMMUNIZED)
-            ->setPlayer($targetPlayer);
+        ;
+
+        $targetPlayer
+            ->addStatus($immune)
+        ;
 
         $actionParameter->setPlayer($targetPlayer);
 
@@ -146,13 +155,18 @@ class InfectActionTest extends AbstractActionTest
         $mushStatus
             ->setCharge(1)
             ->setName(PlayerStatusEnum::MUSH)
-            ->setPlayer($player);
+        ;
 
         $sporeStatus = new ChargeStatus();
         $sporeStatus
             ->setCharge(1)
             ->setName(PlayerStatusEnum::SPORES)
-            ->setPlayer($player);
+        ;
+
+        $player
+            ->addStatus($mushStatus)
+            ->addStatus($sporeStatus)
+        ;
 
         $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 

@@ -4,7 +4,6 @@ namespace Mush\Status\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Mush\Equipment\Entity\ConsumableEffect;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
@@ -45,24 +44,9 @@ class Status
     protected ?string $visibility = null;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Mush\Player\Entity\Player", inversedBy="statuses")
+     * @ORM\ManyToOne(targetEntity="Mush\Status\Entity\StatusTarget")
      */
-    protected ?Player $player = null;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Mush\Equipment\Entity\GameEquipment", inversedBy="statuses")
-     */
-    protected ?GameEquipment $gameEquipment = null;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Mush\Room\Entity\Room", inversedBy="statuses")
-     */
-    protected ?Room $room = null;
-
-    /**
-     * @ORM\OneToOne(targetEntity="Mush\Equipment\Entity\ConsumableEffect", cascade={"ALL"}, orphanRemoval=true)
-     */
-    protected ?ConsumableEffect $consumableEffect = null;
+    protected ?StatusTarget $target = null;
 
     public function getId(): ?int
     {
@@ -99,95 +83,42 @@ class Status
         return $this;
     }
 
-    public function getPlayer(): ?Player
+    public function getTarget(): ?StatusHolderInterface
     {
-        return $this->player;
-    }
-
-    /**
-     * @return static
-     */
-    public function setPlayer(?Player $player): Status
-    {
-        if ($player !== $this->player) {
-            $oldPlayer = $this->getPlayer();
-
-            $this->player = $player;
-
-            if ($player !== null) {
-                $player->addStatus($this);
-            }
-            if ($oldPlayer !== null) {
-                $oldPlayer->removeStatus($this);
-            }
+        if ($this->target === null) {
+            return null;
         }
 
-        return $this;
-    }
-
-    public function getGameEquipment(): ?GameEquipment
-    {
-        return $this->gameEquipment;
-    }
-
-    /**
-     * @return static
-     */
-    public function setGameEquipment(?GameEquipment $gameEquipment): Status
-    {
-        if ($gameEquipment !== $this->gameEquipment) {
-            $oldEquipment = $this->getGameEquipment();
-
-            $this->gameEquipment = $gameEquipment;
-
-            if ($gameEquipment !== null) {
-                $gameEquipment->addStatus($this);
-            }
-            if ($oldEquipment !== null) {
-                $oldEquipment->removeStatus($this);
-            }
+        if ($player = $this->target->getPlayer()) {
+            return $player;
+        }
+        if ($equipment = $this->target->getGameEquipment()) {
+            return $equipment;
+        }
+        if ($room = $this->target->getRoom()) {
+            return $room;
         }
 
-        return $this;
-    }
-
-    public function getRoom(): ?Room
-    {
-        return $this->room;
+        throw new \LogicException('There should always be a target on a status target');
     }
 
     /**
      * @return static
      */
-    public function setRoom(?Room $room): Status
+    public function setTarget(?StatusHolderInterface $target): Status
     {
-        if ($room !== $this->room) {
-            $oldRoom = $this->getRoom();
-
-            $this->room = $room;
-
-            if ($room !== null) {
-                $room->addStatus($this);
-            }
-            if ($oldRoom !== null) {
-                $oldRoom->removeStatus($this);
-            }
+        $statusTarget = new StatusTarget();
+        if ($target instanceof Player) {
+            $statusTarget->setPlayer($target);
+        } elseif ($target instanceof GameEquipment) {
+            $statusTarget->setGameEquipment($target);
+        } elseif ($target instanceof Room) {
+            $statusTarget->setRoom($target);
+        } else {
+            $statusTarget = null;
         }
 
-        return $this;
-    }
-
-    public function getConsumableEffect(): ?ConsumableEffect
-    {
-        return $this->consumableEffect;
-    }
-
-    /**
-     * @return static
-     */
-    public function setConsumableEffect(?ConsumableEffect $consumableEffect): Status
-    {
-        $this->consumableEffect = $consumableEffect;
+        $this->target = $statusTarget;
 
         return $this;
     }

@@ -42,7 +42,6 @@ class GetUp extends AbstractAction
     protected function applyEffects(): ActionResult
     {
         if ($lyingDownStatus = $this->player->getStatusByName(PlayerStatusEnum::LYING_DOWN)) {
-            $lyingDownStatus->setPlayer(null)->setGameEquipment(null);
             $this->statusService->delete($lyingDownStatus);
         }
 

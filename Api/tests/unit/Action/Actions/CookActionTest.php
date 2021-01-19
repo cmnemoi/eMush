@@ -96,7 +96,8 @@ class CookActionTest extends AbstractActionTest
         $frozenStatus = new Status();
         $frozenStatus
              ->setName(EquipmentStatusEnum::FROZEN)
-             ->setGameEquipment($gameRation);
+        ;
+
         $gameRation->addStatus($frozenStatus);
 
         $gameKitchen->setRoom(null);
@@ -125,7 +126,7 @@ class CookActionTest extends AbstractActionTest
         $frozenStatus = new Status();
         $frozenStatus
              ->setName(EquipmentStatusEnum::FROZEN)
-             ->setGameEquipment($gameRation);
+        ;
         $gameRation->addStatus($frozenStatus);
 
         $gameKitchen = new GameEquipment();

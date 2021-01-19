@@ -49,11 +49,14 @@ class LyingDownTest extends TestCase
         $status = new Status();
         $status
             ->setName(PlayerStatusEnum::LYING_DOWN)
-            ->setPlayer($player)
+        ;
+
+        $player
+            ->addStatus($status)
         ;
 
         $this->eventDispatcher->shouldReceive('dispatch')->once();
-        $this->cycleHandler->handleNewCycle($status, new Daedalus(), new \DateTime());
+        $this->cycleHandler->handleNewCycle($status, new Daedalus(), $player, new \DateTime());
 
         $this->assertTrue(true);
     }

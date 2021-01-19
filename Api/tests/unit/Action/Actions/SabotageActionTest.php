@@ -99,7 +99,11 @@ class SabotageActionTest extends AbstractActionTest
         $mushStatus
             ->setCharge(0)
             ->setName(PlayerStatusEnum::MUSH)
-            ->setPlayer($player);
+        ;
+
+        $player
+            ->addStatus($mushStatus)
+        ;
 
         $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
@@ -124,8 +128,9 @@ class SabotageActionTest extends AbstractActionTest
         $broken = new Status();
         $broken
             ->setName(EquipmentStatusEnum::BROKEN)
-            ->setGameEquipment($gameItem)
         ;
+        $gameItem->addStatus($broken);
+
         //already broken
         $result = $this->action->execute();
         $this->assertInstanceOf(Error::class, $result);
@@ -150,7 +155,11 @@ class SabotageActionTest extends AbstractActionTest
         $mushStatus
             ->setCharge(0)
             ->setName(PlayerStatusEnum::MUSH)
-            ->setPlayer($player);
+        ;
+
+        $player
+            ->addStatus($mushStatus)
+        ;
 
         $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 

@@ -90,8 +90,6 @@ class ExpressCookActionTest extends AbstractActionTest
             ->addStatus($chargeStatus)
         ;
 
-        $chargeStatus->setGameEquipment($gameMicrowave);
-
         $player = $this->createPlayer(new Daedalus(), $room);
         $actionParameter = new ActionParameters();
         $actionParameter->setItem($gameRation);
@@ -104,7 +102,8 @@ class ExpressCookActionTest extends AbstractActionTest
         $frozenStatus = new Status();
         $frozenStatus
              ->setName(EquipmentStatusEnum::FROZEN)
-             ->setGameEquipment($gameRation);
+        ;
+
         $gameRation->addStatus($frozenStatus);
 
         $gameMicrowave->setRoom(null);
@@ -133,7 +132,8 @@ class ExpressCookActionTest extends AbstractActionTest
         $frozenStatus = new Status();
         $frozenStatus
              ->setName(EquipmentStatusEnum::FROZEN)
-             ->setGameEquipment($gameRation);
+        ;
+
         $gameRation->addStatus($frozenStatus);
 
         $chargeStatus = new ChargeStatus();
@@ -150,7 +150,6 @@ class ExpressCookActionTest extends AbstractActionTest
             ->setRoom($room)
             ->addStatus($chargeStatus)
         ;
-        $chargeStatus->setGameEquipment($gameMicrowave);
 
         $actionParameter = new ActionParameters();
         $actionParameter->setItem($gameRation);
@@ -201,7 +200,6 @@ class ExpressCookActionTest extends AbstractActionTest
             ->setRoom($room)
             ->addStatus($chargeStatus)
         ;
-        $chargeStatus->setGameEquipment($gameMicrowave);
 
         $player = $this->createPlayer(new Daedalus(), $room);
 

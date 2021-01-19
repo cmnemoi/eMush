@@ -12,11 +12,18 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
     data() {
         return {
             supportedLanguages: ["en", "es", "fr"]
         };
+    },
+    methods: {
+        ...mapActions('traduction', [
+            'setUserLanguage'
+        ])
     }
 };
 </script>

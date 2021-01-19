@@ -12,11 +12,6 @@ use Doctrine\ORM\Mapping as ORM;
 class ChargeStatus extends Status
 {
     /**
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private string $chargeVisibility;
-
-    /**
      * @ORM\Column(type="integer", nullable=false)
      */
     protected int $charge = 0;
@@ -35,21 +30,6 @@ class ChargeStatus extends Status
      * @ORM\Column(type="boolean", nullable=false)
      */
     private bool $autoRemove = false;
-
-    public function getChargeVisibility(): string
-    {
-        return $this->chargeVisibility;
-    }
-
-    /**
-     * @return static
-     */
-    public function setChargeVisibility(string $chargeVisibility): ChargeStatus
-    {
-        $this->chargeVisibility = $chargeVisibility;
-
-        return $this;
-    }
 
     public function getCharge(): int
     {

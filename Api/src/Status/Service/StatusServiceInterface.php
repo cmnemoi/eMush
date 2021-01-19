@@ -24,7 +24,6 @@ interface StatusServiceInterface
         GameEquipment $gameEquipment,
         string $strategy,
         string $visibilty = VisibilityEnum::PUBLIC,
-        string $chargeVisibilty = VisibilityEnum::PUBLIC,
         int $charge = 0,
         int $threshold = null,
         bool $autoRemove = false
@@ -35,7 +34,6 @@ interface StatusServiceInterface
         Player $player,
         string $strategy,
         string $visibilty = VisibilityEnum::PUBLIC,
-        string $chargeVisibilty = VisibilityEnum::PUBLIC,
         int $charge = 0,
         int $threshold = null,
         bool $autoRemove = false
@@ -46,7 +44,6 @@ interface StatusServiceInterface
         Room $room,
         string $strategy,
         string $visibilty = VisibilityEnum::PUBLIC,
-        string $chargeVisibilty = VisibilityEnum::PUBLIC,
         int $charge = 0,
         int $threshold = null,
         bool $autoRemove = false

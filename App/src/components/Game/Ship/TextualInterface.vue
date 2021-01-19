@@ -2,7 +2,7 @@
     <div class="textual" @click="$emit('clickOnNothing')">
         <h1>Doors</h1>
         <div v-for="door in room.doors" :key="door.id" class="door">
-            <p>{{ door.direction }} :</p>
+            <p>{{ roomsTrad[door.direction].name }} :</p>
             <ActionButton
                 v-for="(action, key) in door.actions"
                 :key="key"
@@ -37,6 +37,7 @@
 import ActionButton from "@/components/Utils/ActionButton";
 import Statuses from "@/components/Utils/Statuses";
 import { Room } from "@/entities/Room";
+import { mapGetters } from "vuex";
 
 export default {
     components: {
@@ -51,7 +52,12 @@ export default {
         "clickOnInventory",
         "clickOnTarget",
         "clickOnNothing"
-    ]
+    ],
+    computed: {
+        ...mapGetters('traduction', [
+            'roomsTrad'
+        ])
+    }
 };
 </script>
 

@@ -4,9 +4,25 @@ const state =  {
     userLanguage: "fr"
 };
 
+const untranslatedValuesHandler = {
+    // always return the key if the field isn't translated
+    get(traductions, key) {
+        switch (typeof traductions[key]) {
+        case "undefined":
+            return new Proxy({}, { get: () => key });
+        case "object":
+            return new Proxy(traductions[key], { get: (field, subKey) => field[subKey] || key });
+        case "string":
+            return traductions[key];
+        default:
+            return key;
+        }
+    }
+};
+
 const getters = {
     roomsTrad(state) {
-        return rooms[state.userLanguage] || rooms["en"];
+        return new Proxy(rooms[state.userLanguage], untranslatedValuesHandler);
     }
 };
 

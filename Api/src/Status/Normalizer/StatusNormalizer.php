@@ -50,7 +50,7 @@ class StatusNormalizer implements ContextAwareNormalizerInterface
                 'description' => $this->translator->trans("{$statusName}.description", [], 'statuses'),
             ];
 
-            if ($status instanceof ChargeStatus && $status->getChargeVisibility()!==VisibilityEnum::HIDDEN) {
+            if ($status instanceof ChargeStatus && $status->getChargeVisibility() !== VisibilityEnum::HIDDEN) {
                 $normedStatus['charge'] = $status->getCharge();
             }
 

@@ -119,7 +119,9 @@ class RoomSubscriber implements EventSubscriberInterface
         if (!$room->hasStatus(StatusEnum::FIRE)) {
             $fireStatus = $this->statusService->createChargeRoomStatus(StatusEnum::FIRE,
                 $event->getRoom(),
-                ChargeStrategyTypeEnum::CYCLE_INCREMENT
+                ChargeStrategyTypeEnum::CYCLE_INCREMENT,
+                VisibilityEnum::PUBLIC,
+                VisibilityEnum::HIDDEN
             );
 
             if ($event->getReason() === RoomEventEnum::CYCLE_FIRE) {

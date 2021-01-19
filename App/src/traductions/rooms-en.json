@@ -1,5 +1,29 @@
 {
+    "bridge": {
+        "name": "Bridge"
+    },
+    "central_corridor": {
+        "name": "Central corridor"
+    },
+    "front_alpha_turret": {
+        "name": "Front Alpha turret"
+    },
+    "front_bravo_turret": {
+        "name": "Front Bravo turret"
+    },
+    "front_corridor": {
+        "name": "Front corridor"
+    },
+    "front_storage": {
+        "name": "Front storage"
+    },
+    "hydroponic_garden": {
+        "name": "Hydroponic garden"
+    },
     "laboratory": {
         "name": "Laboratory"
+    },
+    "medlab": {
+        "name": "Medlab"
     }
 }

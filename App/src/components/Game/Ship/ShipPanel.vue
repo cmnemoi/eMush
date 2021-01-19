@@ -2,7 +2,7 @@
     <div class="ship-panel">
         <div v-if="! loading" class="ship-panel-content">
             <p class="room">
-                {{ room.name }}
+                {{ roomsTrad[room.key].name }}
                 <Statuses :statuses="room.statuses" type="room" />
             </p>
             <TextualInterface
@@ -37,7 +37,7 @@ import TextualInterface from "@/components/Game/Ship/TextualInterface";
 import { Room } from "@/entities/Room";
 import { Player } from "@/entities/Player";
 import ActionService from "@/services/action.service";
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapGetters, mapState } from "vuex";
 
 export default {
     name: "ShipPanel",
@@ -59,6 +59,9 @@ export default {
         };
     },
     computed: {
+        ...mapGetters('traduction', [
+            'roomsTrad'
+        ]),
         ...mapState('player', [
             'loading'
         ]),

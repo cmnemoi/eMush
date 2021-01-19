@@ -1,8 +1,14 @@
+import { rooms } from "@/traductions";
+
 const state =  {
     userLanguage: "fr"
 };
 
-const getters = {};
+const getters = {
+    roomsTrad(state) {
+        return rooms[state.userLanguage] || rooms["en"];
+    }
+};
 
 const actions = {
     setUserLanguage({ commit }, language) {

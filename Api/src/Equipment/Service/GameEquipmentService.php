@@ -137,6 +137,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             $gameEquipment,
             ChargeStrategyTypeEnum::GROWING_PLANT,
             VisibilityEnum::PUBLIC,
+            VisibilityEnum::HIDDEN,
             0,
             $this->equipmentEffectService->getPlantEffect($plant, $daedalus)->getMaturationTime()
         );
@@ -154,13 +155,16 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             EquipmentStatusEnum::CHARGES,
             $gameEquipment,
             VisibilityEnum::PUBLIC,
+            VisibilityEnum::PUBLIC,
             $charged->getChargeStrategy(),
             $charged->getStartCharge(),
             $charged->getMaxCharge()
         );
 
         if (!$charged->isVisible()) {
-            $chargeStatus->setVisibility(VisibilityEnum::HIDDEN);
+            $chargeStatus
+                ->setVisibility(VisibilityEnum::HIDDEN)
+                ->setChargeVisibility(VisibilityEnum::HIDDEN);
         }
 
         return $gameEquipment;

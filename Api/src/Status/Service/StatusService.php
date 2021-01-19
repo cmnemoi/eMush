@@ -65,6 +65,7 @@ class StatusService implements StatusServiceInterface
         GameEquipment $gameEquipment,
         string $strategy,
         string $visibilty = VisibilityEnum::PUBLIC,
+        string $chargeVisibilty = VisibilityEnum::PUBLIC,
         int $charge = 0,
         int $threshold = null,
         bool $autoRemove = false
@@ -74,6 +75,7 @@ class StatusService implements StatusServiceInterface
             ->setName($statusName)
             ->setStrategy($strategy)
             ->setVisibility($visibilty)
+            ->setChargeVisibility($chargeVisibilty)
             ->setGameEquipment($gameEquipment)
             ->setCharge($charge)
             ->setAutoRemove($autoRemove)
@@ -91,6 +93,7 @@ class StatusService implements StatusServiceInterface
         Player $player,
         string $strategy,
         string $visibilty = VisibilityEnum::PUBLIC,
+        string $chargeVisibilty = VisibilityEnum::PUBLIC,
         int $charge = 0,
         int $threshold = null,
         bool $autoRemove = false
@@ -100,6 +103,7 @@ class StatusService implements StatusServiceInterface
             ->setName($statusName)
             ->setStrategy($strategy)
             ->setVisibility($visibilty)
+            ->setChargeVisibility($chargeVisibilty)
             ->setPlayer($player)
             ->setCharge($charge)
             ->setAutoRemove($autoRemove)
@@ -117,6 +121,7 @@ class StatusService implements StatusServiceInterface
         Room $room,
         string $strategy,
         string $visibilty = VisibilityEnum::PUBLIC,
+        string $chargeVisibilty = VisibilityEnum::PUBLIC,
         int $charge = 0,
         int $threshold = null,
         bool $autoRemove = false
@@ -126,6 +131,7 @@ class StatusService implements StatusServiceInterface
             ->setName($statusName)
             ->setStrategy($strategy)
             ->setVisibility($visibilty)
+            ->setChargeVisibility($chargeVisibilty)
             ->setRoom($room)
             ->setCharge($charge)
             ->setAutoRemove($autoRemove)

@@ -1,7 +1,7 @@
 import { rooms } from "@/traductions";
 
 const state =  {
-    userLanguage: "fr"
+    userLanguage: localStorage.getItem('userLanguage') || "fr"
 };
 
 const untranslatedValuesHandler = {
@@ -28,6 +28,7 @@ const getters = {
 
 const actions = {
     setUserLanguage({ commit }, language) {
+        localStorage.setItem('userLanguage', language);
         commit('setUserLanguage', language);
     }
 };

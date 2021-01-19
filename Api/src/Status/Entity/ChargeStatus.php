@@ -14,7 +14,7 @@ class ChargeStatus extends Status
     /**
      * @ORM\Column(type="string", nullable=true)
      */
-    private ?string $chargeVisibility = null;
+    private string $chargeVisibility;
 
     /**
      * @ORM\Column(type="integer", nullable=false)
@@ -36,7 +36,7 @@ class ChargeStatus extends Status
      */
     private bool $autoRemove = false;
 
-    public function getChargeVisibility(): ?string
+    public function getChargeVisibility(): string
     {
         return $this->chargeVisibility;
     }
@@ -44,7 +44,7 @@ class ChargeStatus extends Status
     /**
      * @return static
      */
-    public function setChargeVisibility(?string $chargeVisibility): ChargeStatus
+    public function setChargeVisibility(string $chargeVisibility): ChargeStatus
     {
         $this->chargeVisibility = $chargeVisibility;
 

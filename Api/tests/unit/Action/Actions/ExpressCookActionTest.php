@@ -75,11 +75,6 @@ class ExpressCookActionTest extends AbstractActionTest
             ->setName('ration')
         ;
 
-        $chargeStatus = new ChargeStatus();
-        $chargeStatus
-             ->setName(EquipmentStatusEnum::CHARGES)
-             ->setCharge(3);
-
         $gameMicrowave = new GameItem();
         $microwave = new ItemConfig();
         $microwave->setName(ToolItemEnum::MICROWAVE);
@@ -87,7 +82,12 @@ class ExpressCookActionTest extends AbstractActionTest
             ->setEquipment($microwave)
             ->setName(ToolItemEnum::MICROWAVE)
             ->setRoom($room)
-            ->addStatus($chargeStatus)
+        ;
+
+        $chargeStatus = new ChargeStatus($gameMicrowave);
+        $chargeStatus
+            ->setName(EquipmentStatusEnum::CHARGES)
+            ->setCharge(3)
         ;
 
         $player = $this->createPlayer(new Daedalus(), $room);
@@ -99,12 +99,10 @@ class ExpressCookActionTest extends AbstractActionTest
         $result = $this->action->execute();
         $this->assertInstanceOf(Error::class, $result);
 
-        $frozenStatus = new Status();
+        $frozenStatus = new Status($gameRation);
         $frozenStatus
              ->setName(EquipmentStatusEnum::FROZEN)
         ;
-
-        $gameRation->addStatus($frozenStatus);
 
         $gameMicrowave->setRoom(null);
         //No microwave in the room
@@ -129,17 +127,10 @@ class ExpressCookActionTest extends AbstractActionTest
             ->setName('ration')
         ;
 
-        $frozenStatus = new Status();
+        $frozenStatus = new Status($gameRation);
         $frozenStatus
              ->setName(EquipmentStatusEnum::FROZEN)
         ;
-
-        $gameRation->addStatus($frozenStatus);
-
-        $chargeStatus = new ChargeStatus();
-        $chargeStatus
-             ->setName(EquipmentStatusEnum::CHARGES)
-             ->setCharge(3);
 
         $gameMicrowave = new GameItem();
         $microwave = new ItemConfig();
@@ -148,7 +139,12 @@ class ExpressCookActionTest extends AbstractActionTest
             ->setEquipment($microwave)
             ->setName(ToolItemEnum::MICROWAVE)
             ->setRoom($room)
-            ->addStatus($chargeStatus)
+        ;
+
+        $chargeStatus = new ChargeStatus($gameMicrowave);
+        $chargeStatus
+            ->setName(EquipmentStatusEnum::CHARGES)
+            ->setCharge(3)
         ;
 
         $actionParameter = new ActionParameters();
@@ -158,7 +154,6 @@ class ExpressCookActionTest extends AbstractActionTest
         $this->gameEquipmentService->shouldReceive('getOperationalEquipmentsByName')->andReturn(new ArrayCollection([$gameMicrowave]))->twice();
         $this->gameEquipmentService->shouldReceive('persist')->once();
         $this->playerService->shouldReceive('persist')->once();
-        $this->statusService->shouldReceive('delete')->once();
         $this->statusService->shouldReceive('persist')->twice();
 
         $result = $this->action->execute();
@@ -186,11 +181,6 @@ class ExpressCookActionTest extends AbstractActionTest
             ->setName(GameRationEnum::STANDARD_RATION)
         ;
 
-        $chargeStatus = new ChargeStatus();
-        $chargeStatus
-             ->setName(EquipmentStatusEnum::CHARGES)
-             ->setCharge(3);
-
         $gameMicrowave = new GameItem();
         $microwave = new ItemConfig();
         $microwave->setName(ToolItemEnum::MICROWAVE);
@@ -198,7 +188,12 @@ class ExpressCookActionTest extends AbstractActionTest
             ->setEquipment($microwave)
             ->setName(ToolItemEnum::MICROWAVE)
             ->setRoom($room)
-            ->addStatus($chargeStatus)
+        ;
+
+        $chargeStatus = new ChargeStatus($gameMicrowave);
+        $chargeStatus
+            ->setName(EquipmentStatusEnum::CHARGES)
+            ->setCharge(3)
         ;
 
         $player = $this->createPlayer(new Daedalus(), $room);

@@ -79,9 +79,10 @@ class LieDownActionTest extends AbstractActionTest
             ->setName(EquipmentEnum::BED)
         ;
 
-        $status = new Status();
+        $status = new Status($player);
         $status
-            ->setName(PlayerStatusEnum::LYING_DOWN);
+            ->setName(PlayerStatusEnum::LYING_DOWN)
+        ;
 
         $actionParameter = new ActionParameters();
         $actionParameter->setEquipment($gameEquipment);
@@ -97,10 +98,6 @@ class LieDownActionTest extends AbstractActionTest
         //player already lying down
         $status->setTarget(null);
         $result = $this->action->execute();
-
-        $player
-            ->addStatus($status)
-        ;
 
         $this->assertInstanceOf(Error::class, $result);
     }
@@ -141,7 +138,7 @@ class LieDownActionTest extends AbstractActionTest
         $this->assertInstanceOf(Success::class, $result);
         $this->assertCount(1, $room->getEquipments());
         $this->assertCount(1, $player->getStatuses());
-        $this->assertCount(1, $room->getEquipments()->first()->getStatuses());
+        $this->assertCount(1, $gameEquipment->getTargetingStatuses());
         $this->assertEquals(10, $player->getActionPoint());
     }
 }

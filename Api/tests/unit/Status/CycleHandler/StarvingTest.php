@@ -46,13 +46,9 @@ class StarvingTest extends TestCase
             ->setRoom($room)
         ;
 
-        $status = new Status();
+        $status = new Status($player);
         $status
             ->setName(PlayerStatusEnum::STARVING)
-        ;
-
-        $player
-            ->addStatus($status)
         ;
 
         $this->eventDispatcher->shouldReceive('dispatch')->once();

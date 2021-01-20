@@ -106,7 +106,6 @@ class Status
         }
 
         throw new \LogicException('There should always be a target on a status target');
-
     }
 
     private function setOwner(StatusHolderInterface $owner): Status
@@ -198,5 +197,4 @@ class Status
     {
         return $this->target;
     }
-
 }

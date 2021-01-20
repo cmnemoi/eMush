@@ -61,11 +61,6 @@ class CoffeeActionTest extends AbstractActionTest
     {
         $room = new Room();
 
-        $chargeStatus = new ChargeStatus();
-        $chargeStatus
-             ->setName(EquipmentStatusEnum::CHARGES)
-             ->setCharge(1);
-
         $gameCoffeeMachine = new GameEquipment();
         $coffeeMachine = new EquipmentConfig();
         $coffeeMachine->setName(EquipmentEnum::COFFEE_MACHINE);
@@ -73,7 +68,12 @@ class CoffeeActionTest extends AbstractActionTest
             ->setEquipment($coffeeMachine)
             ->setName(EquipmentEnum::COFFEE_MACHINE)
             ->setRoom(null)
-            ->addStatus($chargeStatus)
+        ;
+
+        $chargeStatus = new ChargeStatus($gameCoffeeMachine);
+        $chargeStatus
+            ->setName(EquipmentStatusEnum::CHARGES)
+            ->setCharge(1)
         ;
 
         $player = $this->createPlayer(new Daedalus(), $room);
@@ -88,13 +88,7 @@ class CoffeeActionTest extends AbstractActionTest
 
     public function testExecute()
     {
-        //Standard Ration
         $room = new Room();
-
-        $chargeStatus = new ChargeStatus();
-        $chargeStatus
-             ->setName(EquipmentStatusEnum::CHARGES)
-             ->setCharge(1);
 
         $gameCoffeeMachine = new GameEquipment();
         $coffeeMachine = new EquipmentConfig();
@@ -103,9 +97,15 @@ class CoffeeActionTest extends AbstractActionTest
             ->setEquipment($coffeeMachine)
             ->setName(EquipmentEnum::COFFEE_MACHINE)
             ->setRoom($room)
-            ->addStatus($chargeStatus)
         ;
+
         $coffeeMachine->setActions(new ArrayCollection([$this->actionEntity]));
+
+        $chargeStatus = new ChargeStatus($gameCoffeeMachine);
+        $chargeStatus
+            ->setName(EquipmentStatusEnum::CHARGES)
+            ->setCharge(1)
+        ;
 
         $player = $this->createPlayer(new Daedalus(), $room);
 

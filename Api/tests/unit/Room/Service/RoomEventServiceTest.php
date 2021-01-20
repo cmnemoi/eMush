@@ -74,13 +74,11 @@ class RoomEventServiceTest extends TestCase
         $date = new \DateTime();
         $room = $this->createRoom();
 
-        $fireStatus = new ChargeStatus();
+        $fireStatus = new ChargeStatus($room);
         $fireStatus
             ->setName(StatusEnum::FIRE)
             ->setCharge(0)
         ;
-
-        $room->addStatus($fireStatus);
 
         $this->randomService->shouldReceive('isSuccessfull')->andReturn(true)->never();
         $this->eventDispatcher->shouldReceive('dispatch')

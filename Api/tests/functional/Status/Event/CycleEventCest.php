@@ -5,7 +5,6 @@ namespace Mush\Tests\Status\Event;
 use App\Tests\FunctionalTester;
 use DateTime;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Game\Event\CycleEvent;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -14,7 +13,6 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
-use Mush\Status\Event\CycleSubscriber;
 use Mush\Status\Event\StatusCycleEvent;
 use Mush\Status\Event\StatusCycleSubscriber;
 

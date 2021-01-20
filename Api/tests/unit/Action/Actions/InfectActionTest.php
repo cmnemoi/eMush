@@ -74,12 +74,12 @@ class InfectActionTest extends AbstractActionTest
 
         $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
-        $mushStatus = new ChargeStatus();
+        $mushStatus = new ChargeStatus($player);
         $mushStatus
             ->setCharge(0)
             ->setName(PlayerStatusEnum::MUSH);
 
-        $sporeStatus = new ChargeStatus();
+        $sporeStatus = new ChargeStatus($player);
         $sporeStatus
             ->setCharge(2)
             ->setName(PlayerStatusEnum::SPORES);
@@ -87,11 +87,6 @@ class InfectActionTest extends AbstractActionTest
         //Player not mush
         $result = $this->action->execute();
         $this->assertInstanceOf(Error::class, $result);
-
-        $player
-            ->addStatus($mushStatus)
-            ->addStatus($sporeStatus)
-        ;
 
         $result = $this->action->execute();
         $this->assertInstanceOf(Error::class, $result);
@@ -108,14 +103,10 @@ class InfectActionTest extends AbstractActionTest
         //target player is mush
         $sporeStatus
             ->setCharge(1);
-        $mushStatus2 = new ChargeStatus();
+        $mushStatus2 = new ChargeStatus($targetPlayer);
         $mushStatus2
             ->setCharge(0)
             ->setName(PlayerStatusEnum::MUSH)
-        ;
-
-        $targetPlayer
-            ->addStatus($mushStatus2)
         ;
 
         $result = $this->action->execute();
@@ -123,13 +114,9 @@ class InfectActionTest extends AbstractActionTest
 
         //target player is immune
         $targetPlayer = $this->createPlayer($daedalus, $room);
-        $immune = new Status();
+        $immune = new Status($targetPlayer);
         $immune
             ->setName(PlayerStatusEnum::IMMUNIZED)
-        ;
-
-        $targetPlayer
-            ->addStatus($immune)
         ;
 
         $actionParameter->setPlayer($targetPlayer);
@@ -151,21 +138,16 @@ class InfectActionTest extends AbstractActionTest
         $actionParameter = new ActionParameters();
         $actionParameter->setPlayer($targetPlayer);
 
-        $mushStatus = new ChargeStatus();
+        $mushStatus = new ChargeStatus($player);
         $mushStatus
             ->setCharge(1)
             ->setName(PlayerStatusEnum::MUSH)
         ;
 
-        $sporeStatus = new ChargeStatus();
+        $sporeStatus = new ChargeStatus($player);
         $sporeStatus
             ->setCharge(1)
             ->setName(PlayerStatusEnum::SPORES)
-        ;
-
-        $player
-            ->addStatus($mushStatus)
-            ->addStatus($sporeStatus)
         ;
 
         $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
@@ -175,7 +157,6 @@ class InfectActionTest extends AbstractActionTest
         $this->roomLogService->shouldReceive('createPlayerLog')->once();
         $this->playerService->shouldReceive('persist')->once();
         $this->statusService->shouldReceive('persist')->once();
-        $this->statusService->shouldReceive('delete')->once();
 
         $result = $this->action->execute();
 

@@ -90,13 +90,12 @@ class SearchActionTest extends AbstractActionTest
             ->setRoom($room)
         ;
 
-        $hidden = new Status();
+        $hidden = new Status($gameItem);
         $hiddenBy = $this->createPlayer(new Daedalus(), new Room());
         $hidden
             ->setName(EquipmentStatusEnum::HIDDEN)
             ->setTarget($hiddenBy)
         ;
-        $gameItem->addStatus($hidden);
 
         $player = $this->createPlayer(new Daedalus(), $room);
         $actionParameter = new ActionParameters();
@@ -127,12 +126,11 @@ class SearchActionTest extends AbstractActionTest
         ;
 
         $hiddenBy = $this->createPlayer(new Daedalus(), new Room());
-        $hidden = new Status();
+        $hidden = new Status($gameItem);
         $hidden
             ->setName(EquipmentStatusEnum::HIDDEN)
             ->setTarget($hiddenBy)
         ;
-        $gameItem->addStatus($hidden);
 
         $gameItem2 = new GameItem();
         $gameItem2
@@ -140,12 +138,11 @@ class SearchActionTest extends AbstractActionTest
             ->setRoom($room)
         ;
 
-        $hidden2 = new Status();
+        $hidden2 = new Status($gameItem2);
         $hidden2
             ->setName(EquipmentStatusEnum::HIDDEN)
             ->setTarget($hiddenBy)
         ;
-        $gameItem2->addStatus($hidden2);
 
         $player = $this->createPlayer(new Daedalus(), $room);
         $actionParameter = new ActionParameters();
@@ -161,6 +158,6 @@ class SearchActionTest extends AbstractActionTest
         $this->assertCount(2, $room->getEquipments());
         $this->assertCount(0, $room->getEquipments()->first()->getStatuses());
         $this->assertCount(1, $room->getEquipments()->last()->getStatuses());
-        $this->assertEquals($hidden2, $hiddenBy->getStatuses()->first());
+        $this->assertEquals($hidden2, $hiddenBy->getTargetingStatuses()->first());
     }
 }

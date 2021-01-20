@@ -46,13 +46,9 @@ class LyingDownTest extends TestCase
             ->setRoom($room)
         ;
 
-        $status = new Status();
+        $status = new Status($player);
         $status
             ->setName(PlayerStatusEnum::LYING_DOWN)
-        ;
-
-        $player
-            ->addStatus($status)
         ;
 
         $this->eventDispatcher->shouldReceive('dispatch')->once();

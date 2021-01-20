@@ -6,10 +6,8 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Status\Entity\MedicalConditionConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusTarget;
-use function Doctrine\ORM\QueryBuilder;
 
 class StatusRepository extends ServiceEntityRepository
 {

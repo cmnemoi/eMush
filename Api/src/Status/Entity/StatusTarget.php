@@ -57,10 +57,6 @@ class StatusTarget
         return $this->owner;
     }
 
-    /**
-     * @param Status $owner
-     * @return StatusTarget
-     */
     public function setOwner(Status $owner): StatusTarget
     {
         $this->owner = $owner;

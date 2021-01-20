@@ -68,13 +68,11 @@ class PlantCycleHandler extends AbstractCycleHandler
         }
 
         if ($this->randomService->randomPercent() <= self::DISEASE_PERCENTAGE) {
-            $diseased = new Status();
+            $diseased = new Status($gamePlant);
             $diseased
                 ->setName(EquipmentStatusEnum::PLANT_DISEASED)
                 ->setVisibility(VisibilityEnum::PUBLIC)
             ;
-
-            $gamePlant->addStatus($diseased);
         }
 
         $plantEffect = $this->equipmentEffectService->getPlantEffect($plantType, $daedalus);

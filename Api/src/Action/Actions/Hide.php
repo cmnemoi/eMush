@@ -64,14 +64,12 @@ class Hide extends AbstractAction
 
     protected function applyEffects(): ActionResult
     {
-        $hiddenStatus = new Status();
+        $hiddenStatus = new Status($this->gameItem);
         $hiddenStatus
             ->setName(EquipmentStatusEnum::HIDDEN)
             ->setVisibility(VisibilityEnum::EQUIPMENT_PRIVATE)
             ->setTarget($this->player)
         ;
-
-        $this->gameItem->addStatus($hiddenStatus);
 
         if ($this->gameItem->getPlayer()) {
             $this->gameItem->setPlayer(null);

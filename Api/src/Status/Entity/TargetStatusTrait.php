@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Mush\Status\Entity;
 
 use Doctrine\Common\Collections\Collection;
@@ -10,14 +9,17 @@ trait TargetStatusTrait
     public function getStatuses(): Collection
     {
         return $this->statuses
-            ->filter(fn(StatusTarget $statusTarget) => $statusTarget->getOwner() && $statusTarget->getOwner()->getOwner() === $this)
-            ->map(fn(StatusTarget $statusTarget) => $statusTarget->getOwner())
+            ->filter(fn (StatusTarget $statusTarget) => ($statusOwner = $statusTarget->getOwner()) && $statusOwner->getOwner() === $this)
+            ->map(fn (StatusTarget $statusTarget) => $statusTarget->getOwner())
             ;
     }
 
     public function getTargetingStatuses(): Collection
     {
-        return $this->statuses->map(fn(StatusTarget $statusTarget) => $statusTarget->getTarget()->getTarget());
+        return $this->statuses
+            ->filter(fn (StatusTarget $statusTarget) => ($statusOwner = $statusTarget->getTarget()) && $statusOwner->getTarget() === $this)
+            ->map(fn (StatusTarget $statusTarget) => $statusTarget->getTarget())
+            ;
     }
 
     public function getStatusByName(string $name): ?Status
@@ -57,7 +59,9 @@ trait TargetStatusTrait
             }
             if ($statusTarget = $status->getTarget()) {
                 $statusTarget->removeStatus($status);
-                $status->getStatusTargetTarget()->removeStatusLinksTarget();
+                if ($targetTarget = $status->getStatusTargetTarget()) {
+                    $targetTarget->removeStatusLinksTarget();
+                }
             }
         }
 

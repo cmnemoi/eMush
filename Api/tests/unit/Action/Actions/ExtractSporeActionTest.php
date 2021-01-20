@@ -58,12 +58,12 @@ class ExtractSporeActionTest extends AbstractActionTest
 
         $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
-        $mushStatus = new ChargeStatus();
+        $mushStatus = new ChargeStatus($player);
         $mushStatus
             ->setCharge(0)
             ->setName(PlayerStatusEnum::MUSH);
 
-        $sporeStatus = new ChargeStatus();
+        $sporeStatus = new ChargeStatus($player);
         $sporeStatus
             ->setCharge(2)
             ->setName(PlayerStatusEnum::SPORES);
@@ -71,11 +71,6 @@ class ExtractSporeActionTest extends AbstractActionTest
         //Player not mush
         $result = $this->action->execute();
         $this->assertInstanceOf(Error::class, $result);
-
-        $player
-            ->addStatus($mushStatus)
-            ->addStatus($sporeStatus)
-        ;
 
         $result = $this->action->execute();
         $this->assertInstanceOf(Error::class, $result);
@@ -98,20 +93,15 @@ class ExtractSporeActionTest extends AbstractActionTest
 
         $player = $this->createPlayer($daedalus, $room);
 
-        $mushStatus = new ChargeStatus();
+        $mushStatus = new ChargeStatus($player);
         $mushStatus
             ->setCharge(0)
             ->setName(PlayerStatusEnum::MUSH)
         ;
-        $sporeStatus = new ChargeStatus();
+        $sporeStatus = new ChargeStatus($player);
         $sporeStatus
             ->setCharge(1)
             ->setName(PlayerStatusEnum::SPORES)
-        ;
-
-        $player
-            ->addStatus($mushStatus)
-            ->addStatus($sporeStatus)
         ;
 
         $actionParameter = new ActionParameters();

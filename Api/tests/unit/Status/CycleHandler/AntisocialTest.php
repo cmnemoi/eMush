@@ -46,12 +46,9 @@ class AntisocialTest extends TestCase
             ->setRoom($room)
         ;
 
-        $status = new Status();
+        $status = new Status($player);
         $status
             ->setName(PlayerStatusEnum::ANTISOCIAL)
-        ;
-        $player
-            ->addStatus($status)
         ;
 
         $this->eventDispatcher->shouldReceive('dispatch')->never();

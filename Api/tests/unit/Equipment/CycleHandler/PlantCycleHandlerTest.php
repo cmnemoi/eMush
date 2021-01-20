@@ -13,7 +13,6 @@ use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Entity\PlantEffect;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
@@ -82,16 +81,16 @@ class PlantCycleHandlerTest extends TestCase
         $this->gameEquipmentService->shouldReceive('persist')->twice();
         $this->randomService->shouldReceive('randomPercent')->andReturn(100, 1)->twice(); //Plant should not get disease
 
-        $chargeStatus = new ChargeStatus();
-        $chargeStatus->setName(EquipmentStatusEnum::PLANT_YOUNG);
-        $chargeStatus->setCharge(1);
-
         $daedalus = new Daedalus();
         $gamePlant = new GameItem();
         $gamePlant
-            ->addStatus($chargeStatus)
             ->setEquipment($plant)
         ;
+
+        $chargeStatus = new ChargeStatus($gamePlant);
+        $chargeStatus->setName(EquipmentStatusEnum::PLANT_YOUNG);
+        $chargeStatus->setCharge(1);
+
         $plantEffect = new PlantEffect();
         $plantEffect
             ->setMaturationTime(10)
@@ -121,7 +120,6 @@ class PlantCycleHandlerTest extends TestCase
             ->setRoom(new Room())
         ;
 
-        $this->statusService->shouldReceive('delete')->once();
         $this->plantCycleHandler->handleNewCycle($gamePlant, $daedalus, new \DateTime());
 
         $this->assertTrue(
@@ -140,9 +138,6 @@ class PlantCycleHandlerTest extends TestCase
 
     public function testNewDay()
     {
-//        $gameConfig = new GameConfig();
-//        $gameConfig->setMaxItemInInventory(1);
-
         $daedalus = new Daedalus();
         $daedalus->setOxygen(10);
         $player = new Player();
@@ -174,17 +169,13 @@ class PlantCycleHandlerTest extends TestCase
         ;
         $this->equipmentEffectService->shouldReceive('getPlantEffect')->andReturn($plantEffect);
 
-        $chargeStatus = new ChargeStatus();
-        $chargeStatus->setName(EquipmentStatusEnum::PLANT_YOUNG);
-        $chargeStatus->setCharge(1);
-
         $gamePlant = new GameItem();
         $gamePlant
             ->setEquipment($plant)
             ->setRoom($room)
         ;
 
-        $status = new Status();
+        $status = new Status(new GameItem());
         $status->setName(EquipmentStatusEnum::PLANT_THIRSTY);
         $this->statusService
             ->shouldReceive('createCoreEquipmentStatus')
@@ -199,9 +190,8 @@ class PlantCycleHandlerTest extends TestCase
 
         $this->assertCount(2, $room->getEquipments());
 
-        $dried = new Status();
+        $dried = new Status(new GameItem());
         $dried->setName(EquipmentStatusEnum::PLANT_DRIED_OUT);
-        $this->statusService->shouldReceive('delete')->once();
         $this->statusService
             ->shouldReceive('createCoreEquipmentStatus')
             ->with(EquipmentStatusEnum::PLANT_DRIED_OUT, $gamePlant)->andReturn($dried)

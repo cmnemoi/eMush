@@ -70,12 +70,10 @@ class TreatPlantActionTest extends AbstractActionTest
 
         $plant = new Plant();
 
-        $diseased = new Status();
+        $diseased = new Status($gameItem);
         $diseased
             ->setName(EquipmentStatusEnum::PLANT_DISEASED)
         ;
-
-        $gameItem->addStatus($diseased);
 
         $player = $this->createPlayer(new Daedalus(), $room);
         $actionParameter = new ActionParameters();
@@ -108,12 +106,10 @@ class TreatPlantActionTest extends AbstractActionTest
         $plant = new Plant();
         $item->setMechanics(new ArrayCollection([$plant]));
 
-        $diseased = new Status();
+        $diseased = new Status($gameItem);
         $diseased
             ->setName(EquipmentStatusEnum::PLANT_DISEASED)
         ;
-
-        $gameItem->addStatus($diseased);
 
         $player = $this->createPlayer(new Daedalus(), $room);
         $actionParameter = new ActionParameters();

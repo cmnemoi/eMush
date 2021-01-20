@@ -59,11 +59,11 @@ class RationCycleHandlerTest extends TestCase
             ->setEquipment($fruit)
         ;
 
-        $unstable = new Status();
+        $unstable = new Status(new GameItem());
         $unstable->setName(EquipmentStatusEnum::UNSTABLE);
-        $hazardous = new Status();
+        $hazardous = new Status(new GameItem());
         $hazardous->setName(EquipmentStatusEnum::HAZARDOUS);
-        $decomposing = new Status();
+        $decomposing = new Status(new GameItem());
         $decomposing->setName(EquipmentStatusEnum::DECOMPOSING);
 
         $this->gameEquipmentService->shouldReceive('persist')->once();

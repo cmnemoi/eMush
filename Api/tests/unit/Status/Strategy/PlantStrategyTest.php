@@ -4,6 +4,7 @@ namespace Mush\Test\Status\Strategy;
 
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Player\Entity\Player;
 use Mush\Status\ChargeStrategies\AbstractChargeStrategy;
 use Mush\Status\ChargeStrategies\PlantStrategy;
 use Mush\Status\Entity\ChargeStatus;
@@ -62,7 +63,7 @@ class PlantStrategyTest extends TestCase
 
     private function createStatus(): ChargeStatus
     {
-        $status = new ChargeStatus();
+        $status = new ChargeStatus(new Player());
         $status
             ->setCharge(0)
             ->setThreshold(10)

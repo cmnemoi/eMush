@@ -96,13 +96,12 @@ class Hyperfreeze extends AbstractAction
 
             $this->gameEquipmentService->persist($newItem);
         } else {
-            $frozenStatus = new Status();
+            $frozenStatus = new Status($this->gameEquipment);
             $frozenStatus
                 ->setName(EquipmentStatusEnum::FROZEN)
                 ->setVisibility(VisibilityEnum::PUBLIC)
             ;
 
-            $this->gameEquipment->addStatus($frozenStatus);
             $this->gameEquipmentService->persist($this->gameEquipment);
         }
 

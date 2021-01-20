@@ -71,13 +71,11 @@ class FireTest extends TestCase
         $daedalusHull = 100;
         $daedalus->setHull($daedalusHull);
 
-        $status = new ChargeStatus();
+        $status = new ChargeStatus($room);
         $status
             ->setName(StatusEnum::FIRE)
             ->setCharge(1)
         ;
-
-        $room->addStatus($status);
 
         $player = new Player();
         $room->addPlayer($player);

@@ -2,16 +2,9 @@
 
 namespace Mush\Test\Status\Entity;
 
-use Mockery;
-use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
-use Mush\Status\ChargeStrategies\AbstractChargeStrategy;
-use Mush\Status\ChargeStrategies\CycleIncrement;
-use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
-use Mush\Status\Enum\ChargeStrategyTypeEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
 
 class StatusTest extends TestCase

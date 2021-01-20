@@ -46,13 +46,9 @@ class LostTest extends TestCase
             ->setRoom($room)
         ;
 
-        $status = new Status();
+        $status = new Status($player);
         $status
             ->setName(PlayerStatusEnum::LOST)
-        ;
-
-        $player
-            ->addStatus($status)
         ;
 
         $this->eventDispatcher

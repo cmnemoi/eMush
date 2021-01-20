@@ -31,14 +31,14 @@ class CycleSubscriber implements EventSubscriberInterface
             return;
         }
 
+        //handle events
+        $this->roomEventService->handleIncident($room, $event->getTime());
+
         foreach ($room->getStatuses() as $status) {
             $statusNewCycle = new CycleEvent($event->getDaedalus(), $event->getTime());
             $statusNewCycle->setStatus($status);
             $this->eventDispatcher->dispatch($statusNewCycle, CycleEvent::NEW_CYCLE);
         }
-
-        //handle events
-        $this->roomEventService->handleIncident($room, $event->getTime());
 
         foreach ($room->getEquipments() as $equipment) {
             $itemNewCycle = new CycleEvent($room->getDaedalus(), $event->getTime());

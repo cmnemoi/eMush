@@ -10,7 +10,6 @@ use Mush\Player\Entity\Modifier;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Event\PlayerEvent;
-use Mush\Room\Enum\RoomEventEnum;
 use Mush\Room\Service\RoomEventServiceInterface;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -121,10 +120,6 @@ class RoomSubscriber implements EventSubscriberInterface
                 $event->getRoom(),
                 ChargeStrategyTypeEnum::CYCLE_INCREMENT
             );
-
-            if ($event->getReason() === RoomEventEnum::CYCLE_FIRE) {
-                $fireStatus->setCharge(1);
-            }
         }
     }
 }

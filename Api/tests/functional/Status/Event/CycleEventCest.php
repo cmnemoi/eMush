@@ -5,6 +5,10 @@ namespace Mush\Tests\Status\Event;
 use App\Tests\FunctionalTester;
 use DateTime;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Equipment\Entity\Door;
+use Mush\Equipment\Entity\EquipmentConfig;
+use Mush\Game\Entity\DifficultyConfig;
+use Mush\Game\Entity\GameConfig;
 use Mush\Game\Event\CycleEvent;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
@@ -91,17 +95,45 @@ class CycleEventCest
 
     public function testFireStatusCycleSubscriber(FunctionalTester $I)
     {
+        /** @var DifficultyConfig $difficultyConfig */
+        $difficultyConfig = $I->have(DifficultyConfig::class, [
+            'propagatingFireRate' => 100,
+            'hullFireDamageRate' => 100, ]);
+
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class, ['difficultyConfig' => $difficultyConfig]);
+
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class);
+        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
+
         /** @var Room $room */
         $room = $I->have(Room::class, ['daedalus' => $daedalus]);
+
+        /** @var Room $room2 */
+        $room2 = $I->have(Room::class, ['daedalus' => $daedalus]);
+
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'room' => $room]);
 
-        $difficultyConfig = $daedalus->getGameConfig()->getDifficultyConfig();
-        $difficultyConfig->setFirePlayerDamage([2 => 1]);
+        /** @var EquipmentConfig $equipmentConfig */
+        $doorConfig = $I->have(EquipmentConfig::class, ['isFireBreakable' => false, 'isFireDestroyable' => false, 'gameConfig' => $gameConfig]);
+
+        $doorConfig
+            ->setGameConfig($daedalus->getGameConfig())
+            ->setIsFireBreakable(false)
+            ->setIsFireDestroyable(false);
+
+        $door = new Door();
+        $door
+             ->setName('door name')
+             ->setEquipment($doorConfig)
+        ;
+
+        $room->addDoor($door);
+        $room2->addDoor($door);
 
         $healthPointBefore = $player->getHealthPoint();
+        $hullPointBefore = $daedalus->getHull();
 
         $time = new DateTime();
 
@@ -110,11 +142,11 @@ class CycleEventCest
         $status = new ChargeStatus();
 
         $status
-            ->setName(StatusEnum::FIRE)
-            ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setRoom($room)
-            ->setCharge(1)
-        ;
+             ->setName(StatusEnum::FIRE)
+             ->setVisibility(VisibilityEnum::PUBLIC)
+             ->setRoom($room)
+             ->setCharge(1)
+         ;
 
         $cycleEvent->setStatus($status);
 
@@ -124,5 +156,9 @@ class CycleEventCest
         $this->cycleSubscriber->onNewCycle($cycleEvent);
 
         $I->assertEquals($healthPointBefore - 2, $player->getHealthPoint());
+        $I->assertEquals($hullPointBefore - 2, $daedalus->getHull());
+
+        $I->assertEquals(StatusEnum::FIRE, $room2->getStatuses()->first()->getName());
+        $I->assertEquals(0, $room2->getStatuses()->first()->getCharge());
     }
 }

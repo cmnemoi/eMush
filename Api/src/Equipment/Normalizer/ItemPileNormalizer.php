@@ -5,6 +5,7 @@ namespace Mush\Equipment\Normalizer;
 use Doctrine\Common\Collections\Collection;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Service\GameEquipmentService;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\Status;
@@ -45,11 +46,18 @@ class ItemPileNormalizer implements ContextAwareNormalizerInterface, NormalizerA
 
         $items = $object->filter(fn (GameEquipment $equipment) => $equipment instanceof GameItem);
 
+        /** @var GameItem $item */
         foreach ($items as $item) {
-            $hiddenStatus = $item->GetStatusByName(EquipmentStatusEnum::HIDDEN);
-            if (!$hiddenStatus || ($hiddenStatus->getPlayer() === $this->getPlayer())) {
+            $hiddenStatus = $item->getStatusByName(EquipmentStatusEnum::HIDDEN);
+            if (!$hiddenStatus || ($hiddenStatus->getTarget() === $this->getPlayer())) {
+                $itemConfig = $item->getEquipment();
+
+                if (!$itemConfig instanceof ItemConfig) {
+                    throw new \LogicException('It should be an item config');
+                }
+
                 //If item is stackable and there is already piles for this item
-                if ($item->getEquipment()->isStackable() &&
+                if ($itemConfig->isStackable() &&
                     ($pileItemKey = $this->getPileItemKey($item, $piles, $items))
                 ) {
                     //@TODO if ration is contaminated put it on top of the pile

@@ -5,6 +5,7 @@ namespace Mush\Status\Service;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Error;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
@@ -222,5 +223,20 @@ class StatusService implements StatusServiceInterface
         }
 
         return $pickedEquipment;
+    }
+
+    public function getDaedalus(Status $status): Daedalus
+    {
+        if ($player = $status->getPlayer()) {
+            return $player->getDaedalus();
+        }
+        if ($room = $status->getRoom()) {
+            return $room->getDaedalus();
+        }
+        if ($equipment = $status->getGameEquipment()) {
+            return $equipment->getCurrentRoom()->getDaedalus();
+        }
+
+        throw new \LogicException('status has no properties');
     }
 }

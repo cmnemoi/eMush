@@ -62,5 +62,7 @@ interface StatusServiceInterface
 
     public function persist(Status $status): Status;
 
+    public function delete(Status $status): bool;
+
     public function getMostRecent(string $statusName, Collection $equipments): GameEquipment;
 }

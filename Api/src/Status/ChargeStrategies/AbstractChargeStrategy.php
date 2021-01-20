@@ -34,8 +34,7 @@ abstract class AbstractChargeStrategy
     private function autoRemove(ChargeStatus $status): ?ChargeStatus
     {
         if ($status->isAutoRemove() && ($status->getCharge() === $status->getThreshold())) {
-            $status->getOwner()->removeStatus($status);
-            $this->statusService->persist($status);
+            $this->statusService->delete($status);
 
             return null;
         }

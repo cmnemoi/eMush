@@ -46,7 +46,7 @@ class Status
     /**
      * @ORM\OneToOne(targetEntity="Mush\Status\Entity\StatusTarget", cascade="ALL", inversedBy="owner")
      */
-    protected StatusTarget $owner;
+    protected ?StatusTarget $owner;
 
     /**
      * @ORM\OneToOne(targetEntity="Mush\Status\Entity\StatusTarget", cascade="ALL", inversedBy="target")
@@ -95,6 +95,10 @@ class Status
 
     public function getOwner(): StatusHolderInterface
     {
+        if ($this->owner === null) {
+            throw new \LogicException("This status should be deleted, id : {$this->getId()}");
+        }
+
         if ($player = $this->owner->getPlayer()) {
             return $player;
         }
@@ -183,6 +187,10 @@ class Status
 
     public function getStatusTargetOwner(): StatusTarget
     {
+        if ($this->owner === null) {
+            throw new \LogicException("This status should be deleted, id : {$this->getId()}");
+        }
+
         return $this->owner;
     }
 
@@ -196,5 +204,19 @@ class Status
     public function getStatusTargetTarget(): ?StatusTarget
     {
         return $this->target;
+    }
+
+    public function delete(): Status
+    {
+        if ($this->owner !== null) {
+            $this->owner->removeStatusLinksTarget();
+            $this->owner = null;
+        }
+        if ($this->target !== null) {
+            $this->target->removeStatusLinksTarget();
+            $this->target = null;
+        }
+
+        return $this;
     }
 }

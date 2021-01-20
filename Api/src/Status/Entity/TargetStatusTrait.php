@@ -55,14 +55,11 @@ trait TargetStatusTrait
         if ($statuses->contains($status)) {
             if ($statusTarget = $status->getStatusTargetOwner()) {
                 $this->statuses->removeElement($statusTarget);
-                $statusTarget->removeStatusLinksTarget();
             }
             if ($statusTarget = $status->getTarget()) {
                 $statusTarget->removeStatus($status);
-                if ($targetTarget = $status->getStatusTargetTarget()) {
-                    $targetTarget->removeStatusLinksTarget();
-                }
             }
+            $status->delete();
         }
 
         return $this;

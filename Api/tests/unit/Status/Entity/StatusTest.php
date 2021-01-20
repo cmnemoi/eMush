@@ -44,6 +44,7 @@ class StatusTest extends TestCase
 
         $equipment->removeStatus($status);
 
+        $this->assertNull($status->getStatusTargetTarget());
         $this->assertEquals(0, $player->getStatuses()->count());
     }
 }

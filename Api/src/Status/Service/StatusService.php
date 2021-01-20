@@ -194,6 +194,16 @@ class StatusService implements StatusServiceInterface
         return $status;
     }
 
+    public function delete(Status $status): bool
+    {
+        $status->getOwner()->removeStatus($status);
+
+        $this->entityManager->remove($status);
+        $this->entityManager->flush();
+
+        return true;
+    }
+
     public function getMostRecent(string $statusName, Collection $equipments): gameEquipment
     {
         $pickedEquipments = $equipments

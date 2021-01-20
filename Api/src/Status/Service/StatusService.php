@@ -40,8 +40,6 @@ class StatusService implements StatusServiceInterface
             ->setVisibility(VisibilityEnum::PUBLIC)
         ;
 
-        $this->persist($status);
-
         return $status;
     }
 
@@ -63,8 +61,6 @@ class StatusService implements StatusServiceInterface
             ->setName($statusName)
             ->setVisibility($visibilty)
         ;
-
-        $this->persist($status);
 
         return $status;
     }
@@ -93,8 +89,6 @@ class StatusService implements StatusServiceInterface
             $status->setThreshold($threshold);
         }
 
-        $this->persist($status);
-
         return $status;
     }
 
@@ -121,8 +115,6 @@ class StatusService implements StatusServiceInterface
         if ($threshold) {
             $status->setThreshold($threshold);
         }
-
-        $this->persist($status);
 
         return $status;
     }
@@ -151,8 +143,6 @@ class StatusService implements StatusServiceInterface
             $status->setThreshold($threshold);
         }
 
-        $this->persist($status);
-
         return $status;
     }
 
@@ -180,8 +170,6 @@ class StatusService implements StatusServiceInterface
             ->setStrategy(ChargeStrategyTypeEnum::DAILY_RESET)
         ;
 
-        $this->persist($status);
-
         return $status;
     }
 
@@ -195,8 +183,6 @@ class StatusService implements StatusServiceInterface
             ->setStrategy(ChargeStrategyTypeEnum::NONE)
         ;
 
-        $this->persist($status);
-
         return $status;
     }
 
@@ -206,14 +192,6 @@ class StatusService implements StatusServiceInterface
         $this->entityManager->flush();
 
         return $status;
-    }
-
-    public function delete(Status $status): bool
-    {
-        $this->entityManager->remove($status);
-        $this->entityManager->flush();
-
-        return true;
     }
 
     public function getMostRecent(string $statusName, Collection $equipments): gameEquipment

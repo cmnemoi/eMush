@@ -138,8 +138,6 @@ class PlayerSubscriber implements EventSubscriberInterface
         if ($playerSpores->getCharge() >= 3) {
             $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::CONVERSION_PLAYER);
         }
-
-        $this->statusService->persist($playerSpores);
     }
 
     public function onConversionPlayer(PlayerEvent $playerEvent): void

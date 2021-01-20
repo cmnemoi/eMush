@@ -38,7 +38,7 @@ class GameEquipment implements StatusHolderInterface
     private int $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="Mush\Status\Entity\StatusTarget", mappedBy="gameEquipment")
+     * @ORM\OneToMany(targetEntity="Mush\Status\Entity\StatusTarget", mappedBy="gameEquipment", cascade="ALL")
      */
     private Collection $statuses;
 

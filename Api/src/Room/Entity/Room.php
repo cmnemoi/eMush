@@ -54,12 +54,12 @@ class Room implements StatusHolderInterface
     private Collection $doors;
 
     /**
-     * @ORM\OneToMany(targetEntity="Mush\Equipment\Entity\GameEquipment", mappedBy="room", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Mush\Equipment\Entity\GameEquipment", mappedBy="room", orphanRemoval=true)
      */
     private Collection $equipments;
 
     /**
-     * @ORM\OneToMany (targetEntity="Mush\Status\Entity\StatusTarget", mappedBy="room")
+     * @ORM\OneToMany (targetEntity="Mush\Status\Entity\StatusTarget", mappedBy="room", cascade="ALL", orphanRemoval=true)
      */
     private Collection $statuses;
 

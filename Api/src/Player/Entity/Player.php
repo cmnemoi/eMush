@@ -78,7 +78,7 @@ class Player implements StatusHolderInterface
     private Collection $items;
 
     /**
-     * @ORM\OneToMany (targetEntity="Mush\Status\Entity\StatusTarget", mappedBy="player")
+     * @ORM\OneToMany (targetEntity="Mush\Status\Entity\StatusTarget", mappedBy="player", cascade="ALL", orphanRemoval=true)
      */
     private Collection $statuses;
 

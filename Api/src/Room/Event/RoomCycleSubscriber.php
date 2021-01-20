@@ -41,7 +41,7 @@ class RoomCycleSubscriber implements EventSubscriberInterface
 
         foreach ($room->getEquipments() as $equipment) {
             $itemNewCycle = new EquipmentCycleEvent($equipment, $room->getDaedalus(), $event->getTime());
-            $this->eventDispatcher->dispatch($itemNewCycle, StatusCycleEvent::STATUS_NEW_CYCLE);
+            $this->eventDispatcher->dispatch($itemNewCycle, EquipmentCycleEvent::EQUIPMENT_NEW_CYCLE);
         }
     }
 

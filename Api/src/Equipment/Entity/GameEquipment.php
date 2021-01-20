@@ -6,9 +6,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
+use Mush\Status\Entity\StatusTarget;
+use Mush\Status\Entity\TargetStatusTrait;
 use Mush\Status\Enum\EquipmentStatusEnum;
 
 /**
@@ -26,6 +29,7 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 class GameEquipment implements StatusHolderInterface
 {
     use TimestampableEntity;
+    use TargetStatusTrait;
 
     /**
      * @ORM\Id
@@ -35,11 +39,7 @@ class GameEquipment implements StatusHolderInterface
     private int $id;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Mush\Status\Entity\Status")
-     * @ORM\JoinTable(name="statuses_equipment",
-     *      joinColumns={@ORM\JoinColumn(name="game_equipment_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="status_id", referencedColumnName="id", unique=true)}
-     *      )
+     * @ORM\OneToMany(targetEntity="Mush\Status\Entity\StatusTarget", mappedBy="gameEquipment")
      */
     private Collection $statuses;
 
@@ -81,50 +81,21 @@ class GameEquipment implements StatusHolderInterface
         return $this->equipment->getActions();
     }
 
-    public function getStatuses(): Collection
-    {
-        return $this->statuses;
-    }
-
     /**
      * @return static
      */
-    public function setStatuses(Collection $statuses): GameEquipment
-    {
-        $this->statuses = $statuses;
-
-        return $this;
-    }
-
-    /**
-     * @return static
-     */
-    public function addStatus(Status $status): GameEquipment
+    public function addStatus(Status $status): self
     {
         if (!$this->getStatuses()->contains($status)) {
-            $this->statuses->add($status);
+            if (!$statusTarget = $status->getStatusTargetTarget()) {
+                $statusTarget = new StatusTarget();
+            }
+            $statusTarget->setOwner($status);
+            $statusTarget->setGameEquipment($this);
+            $this->statuses->add($statusTarget);
         }
 
         return $this;
-    }
-
-    /**
-     * @return static
-     */
-    public function removeStatus(Status $status): GameEquipment
-    {
-        if ($this->statuses->contains($status)) {
-            $this->statuses->removeElement($status);
-        }
-
-        return $this;
-    }
-
-    public function getStatusByName(string $name): ?Status
-    {
-        $status = $this->statuses->filter(fn (Status $status) => ($status->getName() === $name))->first();
-
-        return $status ? $status : null;
     }
 
     public function getRoom(): ?Room

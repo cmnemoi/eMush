@@ -6,6 +6,8 @@ use App\Tests\FunctionalTester;
 use DateTime;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\CycleSubscriber;
+use Mush\Daedalus\Event\DaedalusCycleEvent;
+use Mush\Daedalus\Event\DaedalusCycleSubscriber;
 use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Entity\CharacterConfig;
@@ -20,11 +22,11 @@ use Mush\Status\Enum\PlayerStatusEnum;
 
 class CycleEventCest
 {
-    private CycleSubscriber $cycleSubscriber;
+    private DaedalusCycleSubscriber $cycleSubscriber;
 
     public function _before(FunctionalTester $I)
     {
-        $this->cycleSubscriber = $I->grabService(CycleSubscriber::class);
+        $this->cycleSubscriber = $I->grabService(DaedalusCycleSubscriber::class);
     }
 
     public function testLieDownStatusCycleSubscriber(FunctionalTester $I)
@@ -52,15 +54,17 @@ class CycleEventCest
 
         $time = new DateTime();
 
-        $cycleEvent = new CycleEvent($daedalus, $time);
+        $cycleEvent = new DaedalusCycleEvent($daedalus, $time);
 
         $status = new Status();
 
         $status
             ->setName(PlayerStatusEnum::LYING_DOWN)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setGameEquipment($gameEquipment)
+            ->setTarget($gameEquipment)
         ;
+
+        $player->addStatus($status);
 
         $I->haveInRepository($status);
         $I->refreshEntities($player, $daedalus, $gameEquipment);
@@ -93,7 +97,7 @@ class CycleEventCest
 
         $time = new DateTime();
 
-        $cycleEvent = new CycleEvent($daedalus, $time);
+        $cycleEvent = new DaedalusCycleEvent($daedalus, $time);
 
         $this->cycleSubscriber->onNewCycle($cycleEvent);
 

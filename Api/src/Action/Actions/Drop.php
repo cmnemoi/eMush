@@ -78,7 +78,6 @@ class Drop extends AbstractAction
             })->isEmpty()
         ) {
             $this->player->removeStatus($burdened);
-            $this->statusService->delete($burdened);
         }
 
         $this->gameEquipmentService->persist($this->gameItem);

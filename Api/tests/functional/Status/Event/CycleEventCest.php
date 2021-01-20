@@ -15,14 +15,16 @@ use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\CycleSubscriber;
+use Mush\Status\Event\StatusCycleEvent;
+use Mush\Status\Event\StatusCycleSubscriber;
 
 class CycleEventCest
 {
-    private CycleSubscriber $cycleSubscriber;
+    private StatusCycleSubscriber $cycleSubscriber;
 
     public function _before(FunctionalTester $I)
     {
-        $this->cycleSubscriber = $I->grabService(CycleSubscriber::class);
+        $this->cycleSubscriber = $I->grabService(StatusCycleSubscriber::class);
     }
 
     // tests
@@ -30,8 +32,6 @@ class CycleEventCest
     {
         $daedalus = new Daedalus();
         $time = new DateTime();
-
-        $cycleEvent = new CycleEvent($daedalus, $time);
 
         $status = new ChargeStatus();
 
@@ -47,7 +47,7 @@ class CycleEventCest
         $I->haveInRepository($status);
         $id = $status->getId();
 
-        $cycleEvent->setStatus($status);
+        $cycleEvent = new StatusCycleEvent($status, new Player(), $daedalus, $time);
 
         $this->cycleSubscriber->onNewCycle($cycleEvent);
 
@@ -69,8 +69,6 @@ class CycleEventCest
 
         $time = new DateTime();
 
-        $cycleEvent = new CycleEvent($daedalus, $time);
-
         $status = new Status();
 
         $status
@@ -80,7 +78,7 @@ class CycleEventCest
 
         $player->addStatus($status);
 
-        $cycleEvent->setStatus($status);
+        $cycleEvent = new StatusCycleEvent($status, $player, $daedalus, $time);
 
         $I->haveInRepository($status);
         $I->refreshEntities($player, $daedalus);
@@ -106,18 +104,17 @@ class CycleEventCest
 
         $time = new DateTime();
 
-        $cycleEvent = new CycleEvent($daedalus, $time);
-
         $status = new ChargeStatus();
 
         $status
             ->setName(StatusEnum::FIRE)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setRoom($room)
             ->setCharge(1)
         ;
 
-        $cycleEvent->setStatus($status);
+        $room->addStatus($status);
+
+        $cycleEvent = new StatusCycleEvent($status, $room, $daedalus, $time);
 
         $I->haveInRepository($status);
         $I->refreshEntities($player, $daedalus);

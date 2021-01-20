@@ -44,7 +44,12 @@ class Status
     protected ?string $visibility = null;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Mush\Status\Entity\StatusTarget")
+     * @ORM\OneToOne(targetEntity="Mush\Status\Entity\StatusTarget", cascade="ALL", inversedBy="owner")
+     */
+    protected StatusTarget $owner;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Mush\Status\Entity\StatusTarget", cascade="ALL", inversedBy="target")
      */
     protected ?StatusTarget $target = null;
 
@@ -83,6 +88,46 @@ class Status
         return $this;
     }
 
+    public function getOwner(): StatusHolderInterface
+    {
+        if ($player = $this->owner->getPlayer()) {
+            return $player;
+        }
+        if ($equipment = $this->owner->getGameEquipment()) {
+            return $equipment;
+        }
+        if ($room = $this->owner->getRoom()) {
+            return $room;
+        }
+
+        throw new \LogicException('There should always be a target on a status target');
+
+    }
+
+    public function setOwner(StatusHolderInterface $owner): Status
+    {
+        $statusOwner = new StatusTarget();
+        $statusOwner->setOwner($this);
+        if ($owner instanceof Player) {
+            $statusOwner->setPlayer($owner);
+        } elseif ($owner instanceof GameEquipment) {
+            $statusOwner->setGameEquipment($owner);
+        } elseif ($owner instanceof Room) {
+            $statusOwner->setRoom($owner);
+        }
+
+        $this->owner = $statusOwner;
+
+        return $this;
+    }
+
+    public function setTargetOwner(StatusTarget $owner): Status
+    {
+        $this->owner = $owner;
+
+        return $this;
+    }
+
     public function getTarget(): ?StatusHolderInterface
     {
         if ($this->target === null) {
@@ -108,6 +153,7 @@ class Status
     public function setTarget(?StatusHolderInterface $target): Status
     {
         $statusTarget = new StatusTarget();
+        $statusTarget->setTarget($this);
         if ($target instanceof Player) {
             $statusTarget->setPlayer($target);
         } elseif ($target instanceof GameEquipment) {
@@ -122,4 +168,25 @@ class Status
 
         return $this;
     }
+
+    public function setStatusTargetOwner(StatusTarget $statusTarget): Status
+    {
+        $this->owner = $statusTarget;
+    }
+
+    public function getStatusTargetOwner(): StatusTarget
+    {
+        return $this->owner;
+    }
+
+    public function setStatusTargetTarget(StatusTarget $statusTarget): Status
+    {
+        $this->target = $statusTarget;
+    }
+
+    public function getStatusTargetTarget(): ?StatusTarget
+    {
+        return $this->target;
+    }
+
 }

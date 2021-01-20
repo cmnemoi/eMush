@@ -13,6 +13,8 @@ use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
+use Mush\Status\Entity\StatusTarget;
+use Mush\Status\Entity\TargetStatusTrait;
 
 /**
  * Class Room.
@@ -22,6 +24,7 @@ use Mush\Status\Entity\StatusHolderInterface;
 class Room implements StatusHolderInterface
 {
     use TimestampableEntity;
+    use TargetStatusTrait;
 
     /**
      * @ORM\Id
@@ -56,11 +59,7 @@ class Room implements StatusHolderInterface
     private Collection $equipments;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Mush\Status\Entity\Status")
-     * @ORM\JoinTable(name="statuses_room",
-     *      joinColumns={@ORM\JoinColumn(name="game_equipment_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="status_id", referencedColumnName="id", unique=true)}
-     *      )
+     * @ORM\OneToMany (targetEntity="Mush\Status\Entity\StatusTarget", mappedBy="room")
      */
     private Collection $statuses;
 
@@ -225,54 +224,20 @@ class Room implements StatusHolderInterface
         return $this;
     }
 
-    public function getStatuses(): Collection
-    {
-        return $this->statuses;
-    }
-
     /**
      * @return static
      */
-    public function setStatuses(Collection $statuses): Room
-    {
-        $this->statuses = $statuses;
-
-        return $this;
-    }
-
-    /**
-     * @return static
-     */
-    public function addStatus(Status $status): Room
+    public function addStatus(Status $status): self
     {
         if (!$this->getStatuses()->contains($status)) {
-            $this->statuses->add($status);
+            if (!$statusTarget = $status->getStatusTargetTarget()) {
+                $statusTarget = new StatusTarget();
+            }
+            $statusTarget->setOwner($status);
+            $statusTarget->setRoom($this);
+            $this->statuses->add($statusTarget);
         }
 
         return $this;
-    }
-
-    /**
-     * @return static
-     */
-    public function removeStatus(Status $status): Room
-    {
-        if ($this->statuses->contains($status)) {
-            $this->statuses->removeElement($status);
-        }
-
-        return $this;
-    }
-
-    public function hasStatus(string $statusName): bool
-    {
-        return $this->statuses->exists(fn ($key, Status $status) => ($status->getName() === $statusName));
-    }
-
-    public function getStatusByName(string $statusName): ?Status
-    {
-        $status = $this->statuses->filter(fn (Status $status) => ($status->getName() === $statusName))->first();
-
-        return $status ? $status : null;
     }
 }

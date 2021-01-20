@@ -148,7 +148,6 @@ class PlayerSubscriber implements EventSubscriberInterface
 
         if ($sporeStatus = $player->getStatusByName(PlayerStatusEnum::SPORES)) {
             $player->removeStatus($sporeStatus);
-            $this->statusService->delete($sporeStatus);
         }
         $this->statusService->createMushStatus($player);
 

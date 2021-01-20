@@ -91,7 +91,6 @@ class Cook extends AbstractAction
             $this->gameEquipmentService->persist($newItem);
         } elseif ($frozenStatus = $this->gameEquipment->getStatusByName(EquipmentStatusEnum::FROZEN)) {
             $this->gameEquipment->removeStatus($frozenStatus);
-            $this->statusService->delete($frozenStatus);
             $this->gameEquipmentService->persist($this->gameEquipment);
         }
 

@@ -22,8 +22,8 @@ class RoomCycleSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            StatusCycleEvent::STATUS_NEW_CYCLE => 'onNewCycle',
-            StatusCycleEvent::STATUS_NEW_DAY => 'onNewDay',
+            RoomCycleEvent::ROOM_NEW_CYCLE => 'onNewCycle',
+            RoomCycleEvent::ROOM_NEW_DAY => 'onNewDay',
         ];
     }
 

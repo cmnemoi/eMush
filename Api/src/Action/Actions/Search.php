@@ -75,9 +75,6 @@ class Search extends AbstractAction
 
             $this->playerService->persist($hiddenBy);
 
-            $this->statusService->delete($hiddenStatus);
-            $this->gameEquipmentService->persist($mostRecentHiddenItem);
-
             $target = new Target($itemFound->getName(), 'items');
 
             return new Success(ActionLogEnum::SEARCH_SUCCESS, VisibilityEnum::PUBLIC, $target);

@@ -67,7 +67,6 @@ class Shower extends AbstractAction
     {
         if ($dirty = $this->player->getStatusByName(PlayerStatusEnum::DIRTY)) {
             $this->player->removeStatus($dirty);
-            $this->statusService->delete($dirty);
         }
 
         if ($this->player->isMush()) {

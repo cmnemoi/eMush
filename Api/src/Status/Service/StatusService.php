@@ -12,16 +12,26 @@ use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
+use Mush\Status\Entity\StatusTarget;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Repository\StatusRepository;
+use Mush\Status\Repository\StatusServiceRepository;
 
 class StatusService implements StatusServiceInterface
 {
     private EntityManagerInterface $entityManager;
+    private StatusRepository $statusRepository;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, StatusRepository $statusRepository)
     {
         $this->entityManager = $entityManager;
+        $this->statusRepository = $statusRepository;
+    }
+
+    public function getStatusTargetingGameEquipment(GameEquipment $gameEquipment, string $statusName): ?Status
+    {
+        return $this->statusRepository->findStatusTargetingGameEquipment($gameEquipment, $statusName);
     }
 
     public function createCorePlayerStatus(string $statusName, Player $player): Status

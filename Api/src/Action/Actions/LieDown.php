@@ -46,9 +46,9 @@ class LieDown extends AbstractAction
 
     public function canExecute(): bool
     {
-        //@TODO: handle someone already lying down
         return $this->gameEquipment->getEquipment()->hasAction(ActionEnum::LIE_DOWN) &&
             !$this->gameEquipment->isbroken() &&
+            !$this->gameEquipment->getTargetingStatuses()->filter(fn (Status $status) => ($status->getName() === PlayerStatusEnum::LYING_DOWN)) &&
             !$this->player->getStatusByName(PlayerStatusEnum::LYING_DOWN) &&
             $this->player->canReachEquipment($this->gameEquipment);
     }

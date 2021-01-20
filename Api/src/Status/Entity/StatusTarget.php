@@ -20,22 +20,27 @@ class StatusTarget
     private ?int $id = null;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Mush\Status\Entity\Status")
+     * @ORM\OneToOne(targetEntity="Mush\Status\Entity\Status", mappedBy="owner", cascade="ALL")
      */
-    private Status $status;
+    private Status $owner;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Mush\Player\Entity\Player")
+     * @ORM\OneToOne(targetEntity="Mush\Status\Entity\Status", mappedBy="target", cascade="ALL")
+     */
+    private Status $target;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Mush\Player\Entity\Player", inversedBy="statuses")
      */
     private ?Player $player = null;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Mush\Equipment\Entity\GameEquipment")
+     * @ORM\ManyToOne(targetEntity="Mush\Equipment\Entity\GameEquipment", inversedBy="statuses")
      */
     private ?GameEquipment $gameEquipment = null;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Mush\Room\Entity\Room")
+     * @ORM\ManyToOne(targetEntity="Mush\Room\Entity\Room", inversedBy="statuses")
      */
     private ?Room $room = null;
 
@@ -44,15 +49,34 @@ class StatusTarget
         return $this->id;
     }
 
-    public function getStatus(): Status
+    /**
+     * @return Status
+     */
+    public function getOwner(): Status
     {
-        return $this->status;
+        return $this->owner;
     }
 
-    public function setStatus(Status $status): StatusTarget
+    /**
+     * @param Status $owner
+     * @return StatusTarget
+     */
+    public function setOwner(Status $owner): StatusTarget
     {
-        $this->status = $status;
+        $this->owner = $owner;
+        $owner->setTargetOwner($this);
 
+        return $this;
+    }
+
+    public function getTarget(): Status
+    {
+        return $this->target;
+    }
+
+    public function setTarget(Status $target): StatusTarget
+    {
+        $this->target = $target;
         return $this;
     }
 

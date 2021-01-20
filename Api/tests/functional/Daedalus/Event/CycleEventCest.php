@@ -56,7 +56,7 @@ class CycleEventCest
 
         $cycleEvent = new DaedalusCycleEvent($daedalus, $time);
 
-        $status = new Status();
+        $status = new Status($player);
 
         $status
             ->setName(PlayerStatusEnum::LYING_DOWN)

@@ -32,8 +32,9 @@ class CycleEventCest
     {
         $daedalus = new Daedalus();
         $time = new DateTime();
+        $player = $I->have(Player::class);
 
-        $status = new ChargeStatus();
+        $status = new ChargeStatus($player);
 
         $status
             ->setName('charged')
@@ -69,7 +70,7 @@ class CycleEventCest
 
         $time = new DateTime();
 
-        $status = new Status();
+        $status = new Status($player);
 
         $status
             ->setName(PlayerStatusEnum::LYING_DOWN)
@@ -104,7 +105,7 @@ class CycleEventCest
 
         $time = new DateTime();
 
-        $status = new ChargeStatus();
+        $status = new ChargeStatus($room);
 
         $status
             ->setName(StatusEnum::FIRE)

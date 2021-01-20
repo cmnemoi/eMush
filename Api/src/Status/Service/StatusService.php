@@ -36,38 +36,37 @@ class StatusService implements StatusServiceInterface
 
     public function createCorePlayerStatus(string $statusName, Player $player): Status
     {
-        $status = new Status();
+        $status = new Status($player);
         $status
             ->setName($statusName)
             ->setVisibility(VisibilityEnum::PUBLIC)
         ;
 
-        $player->addStatus($status);
+        $this->persist($status);
 
         return $status;
     }
 
     public function createCoreEquipmentStatus(string $statusName, GameEquipment $gameEquipment, string $visibilty = VisibilityEnum::PUBLIC): Status
     {
-        $status = new Status();
+        $status = new Status($gameEquipment);
         $status
             ->setName($statusName)
             ->setVisibility($visibilty)
         ;
-
-        $gameEquipment->addStatus($status);
 
         return $status;
     }
 
     public function createCoreRoomStatus(string $statusName, Room $room, string $visibilty = VisibilityEnum::PUBLIC): Status
     {
-        $status = new Status();
+        $status = new Status($room);
         $status
             ->setName($statusName)
             ->setVisibility($visibilty)
-            ->setTarget($room)
         ;
+
+        $this->persist($status);
 
         return $status;
     }
@@ -82,7 +81,7 @@ class StatusService implements StatusServiceInterface
         int $threshold = null,
         bool $autoRemove = false
     ): ChargeStatus {
-        $status = new ChargeStatus();
+        $status = new ChargeStatus($gameEquipment);
         $status
             ->setName($statusName)
             ->setStrategy($strategy)
@@ -96,7 +95,7 @@ class StatusService implements StatusServiceInterface
             $status->setThreshold($threshold);
         }
 
-        $gameEquipment->addStatus($status);
+        $this->persist($status);
 
         return $status;
     }
@@ -111,7 +110,7 @@ class StatusService implements StatusServiceInterface
         int $threshold = null,
         bool $autoRemove = false
     ): ChargeStatus {
-        $status = new ChargeStatus();
+        $status = new ChargeStatus($player);
         $status
             ->setName($statusName)
             ->setStrategy($strategy)
@@ -125,7 +124,7 @@ class StatusService implements StatusServiceInterface
             $status->setThreshold($threshold);
         }
 
-        $player->addStatus($status);
+        $this->persist($status);
 
         return $status;
     }
@@ -140,13 +139,12 @@ class StatusService implements StatusServiceInterface
         int $threshold = null,
         bool $autoRemove = false
     ): ChargeStatus {
-        $status = new ChargeStatus();
+        $status = new ChargeStatus($room);
         $status
             ->setName($statusName)
             ->setStrategy($strategy)
             ->setVisibility($visibilty)
             ->setChargeVisibility($chargeVisibilty)
-            ->setTarget($room)
             ->setCharge($charge)
             ->setAutoRemove($autoRemove)
         ;
@@ -155,12 +153,14 @@ class StatusService implements StatusServiceInterface
             $status->setThreshold($threshold);
         }
 
+        $this->persist($status);
+
         return $status;
     }
 
     public function createAttemptStatus(string $statusName, string $action, Player $player): Attempt
     {
-        $status = new Attempt();
+        $status = new Attempt($player);
         $status
             ->setName($statusName)
             ->setVisibility(VisibilityEnum::HIDDEN)
@@ -168,14 +168,12 @@ class StatusService implements StatusServiceInterface
             ->setCharge(0)
         ;
 
-        $player->addStatus($status);
-
         return $status;
     }
 
     public function createMushStatus(Player $player): ChargeStatus
     {
-        $status = new ChargeStatus();
+        $status = new ChargeStatus($player);
         $status
             ->setName(PlayerStatusEnum::MUSH)
             ->setVisibility(VisibilityEnum::MUSH)
@@ -184,14 +182,14 @@ class StatusService implements StatusServiceInterface
             ->setStrategy(ChargeStrategyTypeEnum::DAILY_RESET)
         ;
 
-        $player->addStatus($status);
+        $this->persist($status);
 
         return $status;
     }
 
     public function createSporeStatus(Player $player): ChargeStatus
     {
-        $status = new ChargeStatus();
+        $status = new ChargeStatus($player);
         $status
             ->setName(PlayerStatusEnum::SPORES)
             ->setVisibility(VisibilityEnum::MUSH)
@@ -199,7 +197,7 @@ class StatusService implements StatusServiceInterface
             ->setStrategy(ChargeStrategyTypeEnum::NONE)
         ;
 
-        $player->addStatus($status);
+        $this->persist($status);
 
         return $status;
     }

@@ -10,7 +10,7 @@ trait TargetStatusTrait
     public function getStatuses(): Collection
     {
         return $this->statuses
-            ->filter(fn(StatusTarget $statusTarget) => $statusTarget->getOwner()->getOwner() === $this)
+            ->filter(fn(StatusTarget $statusTarget) => $statusTarget->getOwner() && $statusTarget->getOwner()->getOwner() === $this)
             ->map(fn(StatusTarget $statusTarget) => $statusTarget->getOwner())
             ;
     }
@@ -49,9 +49,25 @@ trait TargetStatusTrait
      */
     public function removeStatus(Status $status): self
     {
-        $statuses = $this->statuses->filter(fn(StatusTarget $statusTarget) => $statusTarget->getOwner() === $status);
-        if (!$statuses->isEmpty()) {
-            $this->statuses->removeElement($statuses->first());
+        $statuses = $this->getStatuses();
+        if ($statuses->contains($status)) {
+            if ($statusTarget = $status->getStatusTargetOwner()) {
+                $this->statuses->removeElement($statusTarget);
+                $statusTarget->removeStatusLinksTarget();
+            }
+            if ($statusTarget = $status->getTarget()) {
+                $statusTarget->removeStatus($status);
+                $status->getStatusTargetTarget()->removeStatusLinksTarget();
+            }
+        }
+
+        return $this;
+    }
+
+    public function addStatusTarget(StatusTarget $statusTarget): self
+    {
+        if (!$this->statuses->contains($statusTarget)) {
+            $this->statuses->add($statusTarget);
         }
 
         return $this;

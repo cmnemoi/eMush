@@ -53,6 +53,11 @@ class Status
      */
     protected ?StatusTarget $target = null;
 
+    public function __construct(StatusHolderInterface $statusHolder)
+    {
+        $this->setOwner($statusHolder);
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -104,7 +109,7 @@ class Status
 
     }
 
-    public function setOwner(StatusHolderInterface $owner): Status
+    private function setOwner(StatusHolderInterface $owner): Status
     {
         $statusOwner = new StatusTarget();
         $statusOwner->setOwner($this);
@@ -154,6 +159,7 @@ class Status
     {
         $statusTarget = new StatusTarget();
         $statusTarget->setTarget($this);
+
         if ($target instanceof Player) {
             $statusTarget->setPlayer($target);
         } elseif ($target instanceof GameEquipment) {
@@ -172,6 +178,8 @@ class Status
     public function setStatusTargetOwner(StatusTarget $statusTarget): Status
     {
         $this->owner = $statusTarget;
+
+        return $this;
     }
 
     public function getStatusTargetOwner(): StatusTarget
@@ -182,6 +190,8 @@ class Status
     public function setStatusTargetTarget(StatusTarget $statusTarget): Status
     {
         $this->target = $statusTarget;
+
+        return $this;
     }
 
     public function getStatusTargetTarget(): ?StatusTarget

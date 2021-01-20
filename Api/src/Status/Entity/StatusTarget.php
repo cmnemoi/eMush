@@ -22,12 +22,12 @@ class StatusTarget
     /**
      * @ORM\OneToOne(targetEntity="Mush\Status\Entity\Status", mappedBy="owner", cascade="ALL")
      */
-    private Status $owner;
+    private ?Status $owner = null;
 
     /**
      * @ORM\OneToOne(targetEntity="Mush\Status\Entity\Status", mappedBy="target", cascade="ALL")
      */
-    private Status $target;
+    private ?Status $target = null;
 
     /**
      * @ORM\ManyToOne(targetEntity="Mush\Player\Entity\Player", inversedBy="statuses")
@@ -52,7 +52,7 @@ class StatusTarget
     /**
      * @return Status
      */
-    public function getOwner(): Status
+    public function getOwner(): ?Status
     {
         return $this->owner;
     }
@@ -69,7 +69,7 @@ class StatusTarget
         return $this;
     }
 
-    public function getTarget(): Status
+    public function getTarget(): ?Status
     {
         return $this->target;
     }
@@ -77,6 +77,8 @@ class StatusTarget
     public function setTarget(Status $target): StatusTarget
     {
         $this->target = $target;
+        $target->setStatusTargetTarget($this);
+
         return $this;
     }
 
@@ -88,6 +90,10 @@ class StatusTarget
     public function setPlayer(?Player $player): StatusTarget
     {
         $this->player = $player;
+
+        if ($player !== null) {
+            $player->addStatusTarget($this);
+        }
 
         return $this;
     }
@@ -101,6 +107,10 @@ class StatusTarget
     {
         $this->gameEquipment = $gameEquipment;
 
+        if ($gameEquipment !== null) {
+            $gameEquipment->addStatusTarget($this);
+        }
+
         return $this;
     }
 
@@ -113,6 +123,19 @@ class StatusTarget
     {
         $this->room = $room;
 
+        if ($room !== null) {
+            $room->addStatusTarget($this);
+        }
+
         return $this;
+    }
+
+    public function removeStatusLinksTarget(): void
+    {
+        $this->owner = null;
+        $this->target = null;
+        $this->player = null;
+        $this->gameEquipment = null;
+        $this->room = null;
     }
 }

@@ -6,8 +6,10 @@ use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Shower;
 use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionCost;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
@@ -15,12 +17,14 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\GearItemEnum;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Room\Entity\Room;
+use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 
@@ -48,17 +52,24 @@ class ShowerActionCest
                                             'actionPoint' => 2,
                                             'healthPoint' => 6, ]);
 
-        $mushStatus = new Status();
-        $mushStatus->setName(PlayerStatusEnum::MUSH);
+        $mushStatus = new Status($player);
+        $mushStatus
+            ->setName(PlayerStatusEnum::MUSH)
+            ->setVisibility(VisibilityEnum::MUSH)
+        ;
 
-        $player->addStatus($mushStatus);
+        $actionCost = new ActionCost();
 
         $action = new Action();
         $action
             ->setName(ActionEnum::SHOWER)
             ->setDirtyRate(0)
+            ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(0)
+            ->setActionCost($actionCost)
         ;
+        $I->haveInRepository($actionCost);
+        $I->haveInRepository($action);
 
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, ['actions' => new ArrayCollection([$action])]);
@@ -70,8 +81,11 @@ class ShowerActionCest
             ->setName('shower')
             ->setRoom($room)
         ;
+        $I->haveInRepository($gameEquipment);
 
-        $player->addItem($this->createSoapItem());
+        $soap = $this->createSoapItem($I);
+
+        $player->addItem($soap);
 
         $actionParameters = new ActionParameters();
         $actionParameters->setEquipment($gameEquipment);
@@ -89,7 +103,7 @@ class ShowerActionCest
         //@TODO test skill water resistance
     }
 
-    private function createSoapItem(): GameItem
+    private function createSoapItem(FunctionalTester $I): GameItem
     {
         $modifier = new Modifier();
         $modifier
@@ -105,7 +119,7 @@ class ShowerActionCest
 
         $soap = new ItemConfig();
         $soap
-            ->setName(GearItemEnum::ADJUSTABLE_WRENCH)
+            ->setName(GearItemEnum::SOAP)
             ->setIsHeavy(false)
             ->setIsStackable(false)
             ->setIsHideable(true)
@@ -115,7 +129,15 @@ class ShowerActionCest
         ;
 
         $gameSoap = new GameItem();
-        $gameSoap->setEquipment($soap);
+        $gameSoap
+            ->setName(GearItemEnum::SOAP)
+            ->setEquipment($soap)
+        ;
+
+        $I->haveInRepository($modifier);
+        $I->haveInRepository($soapGear);
+        $I->haveInRepository($soap);
+        $I->haveInRepository($gameSoap);
 
         return $gameSoap;
     }

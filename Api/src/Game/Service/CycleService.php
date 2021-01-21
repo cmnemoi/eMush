@@ -4,8 +4,8 @@ namespace Mush\Game\Service;
 
 use DateTime;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Game\Entity\GameConfig;
-use Mush\Game\Event\CycleEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class CycleService implements CycleServiceInterface
@@ -40,8 +40,8 @@ class CycleService implements CycleServiceInterface
         $cycleInterval = new \DateInterval('PT' . $cycleLength . 'H');
         for ($i = 0; $i < $cycleElapsed; ++$i) {
             $currentCycleStartedAt->add($cycleInterval);
-            $cycleEvent = new CycleEvent($daedalus, $currentCycleStartedAt);
-            $this->eventDispatcher->dispatch($cycleEvent, CycleEvent::NEW_CYCLE);
+            $cycleEvent = new DaedalusCycleEvent($daedalus, $currentCycleStartedAt);
+            $this->eventDispatcher->dispatch($cycleEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
         }
 
         return $cycleElapsed;

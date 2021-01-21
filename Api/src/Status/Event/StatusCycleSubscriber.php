@@ -2,14 +2,13 @@
 
 namespace Mush\Status\Event;
 
-use Mush\Game\Event\CycleEvent;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Service\ChargeStrategyServiceInterface;
 use Mush\Status\Service\StatusCycleHandlerService;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class CycleSubscriber implements EventSubscriberInterface
+class StatusCycleSubscriber implements EventSubscriberInterface
 {
     private ChargeStrategyServiceInterface $chargeStrategyService;
     private StatusCycleHandlerService $cycleHandlerService;
@@ -25,17 +24,14 @@ class CycleSubscriber implements EventSubscriberInterface
         $this->statusService = $statusService;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
-            CycleEvent::NEW_CYCLE => 'onNewCycle',
+            StatusCycleEvent::STATUS_NEW_CYCLE => 'onNewCycle',
         ];
     }
 
-    /**
-     * @return void
-     */
-    public function onNewCycle(CycleEvent $event)
+    public function onNewCycle(StatusCycleEvent $event): void
     {
         if (!($status = $event->getStatus())) {
             return;
@@ -43,12 +39,12 @@ class CycleSubscriber implements EventSubscriberInterface
 
         if ($status instanceof ChargeStatus && ($strategyName = $status->getStrategy())) {
             if ($strategy = $this->chargeStrategyService->getStrategy($strategyName)) {
-                $strategy->execute($status);
+                $strategy->execute($status, $event->getDaedalus());
             }
         }
 
         if ($cycleHandler = $this->cycleHandlerService->getStatusCycleHandler($status)) {
-            $cycleHandler->handleNewCycle($status, $event->getDaedalus(), $event->getTime());
+            $cycleHandler->handleNewCycle($status, $event->getDaedalus(), $event->getHolder(), $event->getTime());
         }
     }
 }

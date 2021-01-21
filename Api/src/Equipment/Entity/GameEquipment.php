@@ -6,9 +6,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Mush\Equipment\Enum\EquipmentClassEnum;
 use Mush\Room\Entity\Room;
 use Mush\Status\Entity\Status;
+use Mush\Status\Entity\StatusHolderInterface;
+use Mush\Status\Entity\StatusTarget;
+use Mush\Status\Entity\TargetStatusTrait;
 use Mush\Status\Enum\EquipmentStatusEnum;
 
 /**
@@ -23,9 +25,10 @@ use Mush\Status\Enum\EquipmentStatusEnum;
  *     "game_item" = "Mush\Equipment\Entity\GameItem"
  * })
  */
-class GameEquipment
+class GameEquipment implements StatusHolderInterface
 {
     use TimestampableEntity;
+    use TargetStatusTrait;
 
     /**
      * @ORM\Id
@@ -35,12 +38,7 @@ class GameEquipment
     private int $id;
 
     /**
-     * @ORM\OneToMany(
-     *     targetEntity="Mush\Status\Entity\Status",
-     *     mappedBy="gameEquipment",
-     *     cascade={"ALL"},
-     *     orphanRemoval=true
-     *     )
+     * @ORM\OneToMany(targetEntity="Mush\Status\Entity\StatusTarget", mappedBy="gameEquipment", cascade="ALL")
      */
     private Collection $statuses;
 
@@ -74,13 +72,7 @@ class GameEquipment
 
     public function getClassName(): string
     {
-        if ($this instanceof GameItem) {
-            return EquipmentClassEnum::DOOR;
-        } elseif ($this instanceof Door) {
-            return EquipmentClassEnum::GAME_ITEM;
-        } else {
-            return EquipmentClassEnum::GAME_EQUIPMENT;
-        }
+        return get_class($this);
     }
 
     public function getActions(): Collection
@@ -88,57 +80,21 @@ class GameEquipment
         return $this->equipment->getActions();
     }
 
-    public function getStatuses(): Collection
-    {
-        return $this->statuses;
-    }
-
     /**
      * @return static
      */
-    public function setStatuses(Collection $statuses): GameEquipment
-    {
-        $this->statuses = $statuses;
-
-        return $this;
-    }
-
-    /**
-     * @return static
-     */
-    public function addStatus(Status $status): GameEquipment
+    public function addStatus(Status $status): self
     {
         if (!$this->getStatuses()->contains($status)) {
-            if ($status->getGameEquipment() !== $this) {
-                $status->setGameEquipment(null);
+            if (!$statusTarget = $status->getStatusTargetTarget()) {
+                $statusTarget = new StatusTarget();
             }
-
-            $this->statuses->add($status);
-
-            $status->setGameEquipment($this);
+            $statusTarget->setOwner($status);
+            $statusTarget->setGameEquipment($this);
+            $this->statuses->add($statusTarget);
         }
 
         return $this;
-    }
-
-    /**
-     * @return static
-     */
-    public function removeStatus(Status $status): GameEquipment
-    {
-        if ($this->statuses->contains($status)) {
-            $this->statuses->removeElement($status);
-            $status->setGameEquipment(null);
-        }
-
-        return $this;
-    }
-
-    public function getStatusByName(string $name): ?Status
-    {
-        $status = $this->statuses->filter(fn (Status $status) => ($status->getName() === $name))->first();
-
-        return $status ? $status : null;
     }
 
     public function getRoom(): ?Room

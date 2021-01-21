@@ -70,7 +70,6 @@ class WaterPlant extends AbstractAction
             ?? $this->gameEquipment->getStatusByName(EquipmentStatusEnum::PLANT_DRIED_OUT));
 
         $this->gameEquipment->removeStatus($status);
-        $this->statusService->delete($status);
 
         $this->gameEquipmentService->persist($this->gameEquipment);
 

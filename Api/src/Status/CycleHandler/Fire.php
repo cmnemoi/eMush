@@ -6,7 +6,6 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\CycleHandler\AbstractCycleHandler;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Modifier;
 use Mush\Player\Enum\EndCauseEnum;
@@ -16,10 +15,12 @@ use Mush\Room\Entity\Room;
 use Mush\Room\Enum\RoomEventEnum;
 use Mush\Room\Event\RoomEvent;
 use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Entity\Status;
+use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Enum\StatusEnum;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
-class Fire extends AbstractCycleHandler
+class Fire extends AbstractStatusCycleHandler
 {
     protected string $name = StatusEnum::FIRE;
 
@@ -40,20 +41,20 @@ class Fire extends AbstractCycleHandler
         $this->daedalusService = $daedalusService;
     }
 
-    public function handleNewCycle($object, Daedalus $daedalus, \DateTime $dateTime): void
+    public function handleNewCycle(Status $status, Daedalus $daedalus, StatusHolderInterface $statusHolder, \DateTime $dateTime, array $context = []): void
     {
-        if (!$object instanceof ChargeStatus && $object->getName() !== StatusEnum::FIRE) {
+        if (!$status instanceof ChargeStatus || $status->getName() !== StatusEnum::FIRE) {
             return;
         }
 
-        if (!($room = $object->getRoom())) {
+        if (!$statusHolder instanceof Room) {
             throw new \LogicException('Fire status does not have a room');
         }
 
         //If fire is active
-        if ($object->getCharge() > 0) {
-            $this->propagateFire($room, $dateTime);
-            $this->fireDamage($room, $dateTime);
+        if ($status->getCharge() > 0) {
+            $this->propagateFire($statusHolder, $dateTime);
+            $this->fireDamage($statusHolder, $dateTime);
         }
     }
 
@@ -107,7 +108,7 @@ class Fire extends AbstractCycleHandler
         return $room;
     }
 
-    public function handleNewDay($object, Daedalus $daedalus, \DateTime $dateTime): void
+    public function handleNewDay(Status $status, Daedalus $daedalus, StatusHolderInterface $statusHolder, \DateTime $dateTime): void
     {
         return;
     }

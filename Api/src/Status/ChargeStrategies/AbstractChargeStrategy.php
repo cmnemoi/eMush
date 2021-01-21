@@ -2,6 +2,7 @@
 
 namespace Mush\Status\ChargeStrategies;
 
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Service\StatusServiceInterface;
 
@@ -15,9 +16,9 @@ abstract class AbstractChargeStrategy
         $this->statusService = $statusService;
     }
 
-    public function execute(ChargeStatus $status): ?ChargeStatus
+    public function execute(ChargeStatus $status, Daedalus $daedalus): ?ChargeStatus
     {
-        $this->apply($status);
+        $this->apply($status, $daedalus);
 
         $status = $this->autoRemove($status);
 
@@ -28,7 +29,7 @@ abstract class AbstractChargeStrategy
         return $status;
     }
 
-    abstract public function apply(ChargeStatus $status): void;
+    abstract protected function apply(ChargeStatus $status, Daedalus $daedalus): void;
 
     private function autoRemove(ChargeStatus $status): ?ChargeStatus
     {

@@ -105,7 +105,7 @@ class HideActionTest extends AbstractActionTest
         $this->assertCount(1, $room->getEquipments());
         $this->assertCount(0, $player->getItems());
         $this->assertCount(1, $room->getEquipments()->first()->getStatuses());
-        $this->assertCount(1, $player->getStatuses());
+        $this->assertCount(1, $player->getTargetingStatuses());
         $this->assertEquals(9, $player->getActionPoint());
     }
 }

@@ -48,20 +48,20 @@ class LieDown extends AbstractAction
     {
         return $this->gameEquipment->getEquipment()->hasAction(ActionEnum::LIE_DOWN) &&
             !$this->gameEquipment->isbroken() &&
-            !$this->gameEquipment->getStatusByName(PlayerStatusEnum::LYING_DOWN) &&
+            $this->gameEquipment->getTargetingStatuses()->filter(fn (Status $status) => ($status->getName() === PlayerStatusEnum::LYING_DOWN))->isEmpty() &&
             !$this->player->getStatusByName(PlayerStatusEnum::LYING_DOWN) &&
             $this->player->canReachEquipment($this->gameEquipment);
     }
 
     protected function applyEffects(): ActionResult
     {
-        $lyingDownStatus = new Status();
+        $lyingDownStatus = new Status($this->player);
         $lyingDownStatus
             ->setName(PlayerStatusEnum::LYING_DOWN)
             ->setVisibility(VisibilityEnum::PLAYER_PUBLIC)
-            ->setPlayer($this->player)
-            ->setGameEquipment($this->gameEquipment)
+            ->setTarget($this->gameEquipment)
         ;
+
         $this->statusService->persist($lyingDownStatus);
 
         return new Success(ActionLogEnum::LIE_DOWN, VisibilityEnum::PUBLIC);

@@ -2,15 +2,17 @@
 
 namespace Mush\Equipment\Event;
 
+use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Service\EquipmentCycleHandlerServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Event\CycleEvent;
 use Mush\Room\Service\RoomServiceInterface;
+use Mush\Status\Entity\Status;
+use Mush\Status\Event\StatusCycleEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class CycleSubscriber implements EventSubscriberInterface
+class EquipmentCycleSubscriber implements EventSubscriberInterface
 {
     private RoomServiceInterface $roomService;
     private EventDispatcherInterface $eventDispatcher;
@@ -32,32 +34,48 @@ class CycleSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            CycleEvent::NEW_CYCLE => 'onNewCycle',
+            EquipmentCycleEvent::EQUIPMENT_NEW_CYCLE => 'onNewCycle',
+            EquipmentCycleEvent::EQUIPMENT_NEW_DAY => 'onNewDay',
         ];
     }
 
-    public function onNewCycle(CycleEvent $event): void
+    public function onNewCycle(EquipmentCycleEvent $event): void
     {
-        if (!($equipment = $event->getGameEquipment())) {
-            return;
-        }
+        $equipment = $event->getGameEquipment();
 
         //each equipment as a chance to break
         if (!$equipment instanceof GameItem) {
             $this->gameEquipmentService->handleBreakCycle($equipment, $event->getTime());
         }
 
+        /** @var Status $status */
         foreach ($equipment->getStatuses() as $status) {
-            if ($status->getPlayer() === null) {
-                $statusNewCycle = new CycleEvent($event->getDaedalus(), $event->getTime());
-                $statusNewCycle->setStatus($status);
-                $this->eventDispatcher->dispatch($statusNewCycle, CycleEvent::NEW_CYCLE);
-            }
+            $statusNewCycle = new StatusCycleEvent($status, $equipment, $event->getDaedalus(), $event->getTime());
+            $this->eventDispatcher->dispatch($statusNewCycle, StatusCycleEvent::STATUS_NEW_CYCLE);
         }
 
+        /** @var EquipmentMechanic $mechanic */
         foreach ($equipment->getEquipment()->getMechanics() as $mechanic) {
             if ($cycleHandler = $this->equipmentCycleHandler->getEquipmentCycleHandler($mechanic)) {
                 $cycleHandler->handleNewCycle($equipment, $event->getDaedalus(), $event->getTime());
+            }
+        }
+    }
+
+    public function onNewDay(EquipmentCycleEvent $event): void
+    {
+        $equipment = $event->getGameEquipment();
+
+        /** @var Status $status */
+        foreach ($equipment->getStatuses() as $status) {
+            $statusNewDay = new StatusCycleEvent($status, $equipment, $event->getDaedalus(), $event->getTime());
+            $this->eventDispatcher->dispatch($statusNewDay, StatusCycleEvent::STATUS_NEW_DAY);
+        }
+
+        /** @var EquipmentMechanic $mechanics */
+        foreach ($equipment->getEquipment()->getMechanics() as $mechanics) {
+            if ($cycleHandler = $this->equipmentCycleHandler->getEquipmentCycleHandler($mechanics)) {
+                $cycleHandler->handleNewDay($equipment, $event->getDaedalus(), $event->getTime());
             }
         }
     }

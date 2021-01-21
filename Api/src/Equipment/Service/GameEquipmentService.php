@@ -172,11 +172,10 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             throw new \LogicException('Parameter is not a document');
         }
 
-        $contentStatus = new ContentStatus();
+        $contentStatus = new ContentStatus($gameEquipment);
         $contentStatus
             ->setName(EquipmentStatusEnum::DOCUMENT_CONTENT)
             ->setVisibility(VisibilityEnum::HIDDEN)
-            ->setGameEquipment($gameEquipment)
             ->setContent($document->getContent())
         ;
 

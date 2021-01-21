@@ -71,12 +71,11 @@ class RepairActionCest
 
         $I->assertFalse($this->repairAction->canExecute());
 
-        $status = new Status();
+        $status = new Status($gameEquipment);
         $status
             ->setName(EquipmentStatusEnum::BROKEN)
             ->setVisibility(VisibilityEnum::PUBLIC)
         ;
-        $gameEquipment->addStatus($status);
 
         $I->assertTrue($this->repairAction->canExecute());
 //        $I->assertEquals(25, $this->repairAction->getSuccessRate());

@@ -13,6 +13,8 @@ use Mush\Status\Entity\Status;
 
 interface StatusServiceInterface
 {
+    public function getStatusTargetingGameEquipment(GameEquipment $gameEquipment, string $statusName): ?Status;
+
     public function createCorePlayerStatus(string $statusName, Player $player): Status;
 
     public function createCoreEquipmentStatus(string $statusName, GameEquipment $gameEquipment, string $visibilty = VisibilityEnum::PUBLIC): Status;

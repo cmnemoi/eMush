@@ -43,6 +43,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
     public const OXYGEN_INJECT = 'oxygen.inject';
     public const OXYGEN_RETRIEVE = 'oxygen.retrieve';
     public const LIE_DOWN = 'lie.down';
+    public const GET_UP = 'get.up';
     public const COFFEE_DEFAULT = 'coffee.default';
     public const TRANSPLANT_DEFAULT = 'transplant.default';
     public const TREAT_PLANT = 'treat.plant';
@@ -356,6 +357,15 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->persist($lieDownActon);
 
+        $getUpAction = new Action();
+        $getUpAction
+            ->setName(ActionEnum::GET_UP)
+            ->setScope(ActionScopeEnum::CURRENT)
+            ->setActionCost($freeCost)
+        ;
+
+        $manager->persist($getUpAction);
+
         $coffeeAction = new Action();
         $coffeeAction
             ->setName(ActionEnum::COFFEE)
@@ -457,6 +467,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::OXYGEN_INJECT, $oxygenInjectAction);
         $this->addReference(self::OXYGEN_RETRIEVE, $retrieveOxygenAction);
         $this->addReference(self::LIE_DOWN, $lieDownActon);
+        $this->addReference(self::GET_UP, $getUpAction);
         $this->addReference(self::COFFEE_DEFAULT, $coffeeAction);
         $this->addReference(self::TRANSPLANT_DEFAULT, $transplantAction);
         $this->addReference(self::TREAT_PLANT, $treatPlantAction);

@@ -3,15 +3,16 @@
 namespace Mush\Status\CycleHandler;
 
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Game\CycleHandler\AbstractCycleHandler;
 use Mush\Player\Entity\Modifier;
+use Mush\Player\Entity\Player;
 use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Status\Entity\Status;
+use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
-class Antisocial extends AbstractCycleHandler
+class Antisocial extends AbstractStatusCycleHandler
 {
     protected string $name = PlayerStatusEnum::ANTISOCIAL;
     private EventDispatcherInterface $eventDispatcher;
@@ -21,16 +22,14 @@ class Antisocial extends AbstractCycleHandler
         $this->eventDispatcher = $eventDispatcher;
     }
 
-    public function handleNewCycle($object, Daedalus $daedalus, \DateTime $dateTime): void
+    public function handleNewCycle(Status $status, Daedalus $daedalus, StatusHolderInterface $statusHolder, \DateTime $dateTime): void
     {
-        if (!$object instanceof Status && $object->getName() !== PlayerStatusEnum::ANTISOCIAL) {
+        if ($status->getName() !== PlayerStatusEnum::ANTISOCIAL || !$statusHolder instanceof Player) {
             return;
         }
 
-        $player = $object->getPlayer();
-
-        if ($player->getRoom()->getPlayers()->count() > 1) {
-            $playerEvent = new PlayerEvent($player, $dateTime);
+        if ($statusHolder->getRoom()->getPlayers()->count() > 1) {
+            $playerEvent = new PlayerEvent($statusHolder, $dateTime);
             $moralModifier = new Modifier();
             $moralModifier
                 ->setDelta(-1)
@@ -46,7 +45,7 @@ class Antisocial extends AbstractCycleHandler
         }
     }
 
-    public function handleNewDay($object, Daedalus $daedalus, \DateTime $dateTime): void
+    public function handleNewDay(Status $status, Daedalus $daedalus, StatusHolderInterface $statusHolder, \DateTime $dateTime): void
     {
     }
 }

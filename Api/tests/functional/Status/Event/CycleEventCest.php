@@ -5,11 +5,6 @@ namespace Mush\Tests\Status\Event;
 use App\Tests\FunctionalTester;
 use DateTime;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\Door;
-use Mush\Equipment\Entity\EquipmentConfig;
-use Mush\Game\Entity\DifficultyConfig;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Event\CycleEvent;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -18,15 +13,16 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
-use Mush\Status\Event\CycleSubscriber;
+use Mush\Status\Event\StatusCycleEvent;
+use Mush\Status\Event\StatusCycleSubscriber;
 
 class CycleEventCest
 {
-    private CycleSubscriber $cycleSubscriber;
+    private StatusCycleSubscriber $cycleSubscriber;
 
     public function _before(FunctionalTester $I)
     {
-        $this->cycleSubscriber = $I->grabService(CycleSubscriber::class);
+        $this->cycleSubscriber = $I->grabService(StatusCycleSubscriber::class);
     }
 
     // tests
@@ -34,10 +30,9 @@ class CycleEventCest
     {
         $daedalus = new Daedalus();
         $time = new DateTime();
+        $player = $I->have(Player::class);
 
-        $cycleEvent = new CycleEvent($daedalus, $time);
-
-        $status = new ChargeStatus();
+        $status = new ChargeStatus($player);
 
         $status
             ->setName('charged')
@@ -51,7 +46,7 @@ class CycleEventCest
         $I->haveInRepository($status);
         $id = $status->getId();
 
-        $cycleEvent->setStatus($status);
+        $cycleEvent = new StatusCycleEvent($status, new Player(), $daedalus, $time);
 
         $this->cycleSubscriber->onNewCycle($cycleEvent);
 
@@ -73,17 +68,16 @@ class CycleEventCest
 
         $time = new DateTime();
 
-        $cycleEvent = new CycleEvent($daedalus, $time);
-
-        $status = new Status();
+        $status = new Status($player);
 
         $status
             ->setName(PlayerStatusEnum::LYING_DOWN)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setPlayer($player)
         ;
 
-        $cycleEvent->setStatus($status);
+        $player->addStatus($status);
+
+        $cycleEvent = new StatusCycleEvent($status, $player, $daedalus, $time);
 
         $I->haveInRepository($status);
         $I->refreshEntities($player, $daedalus);
@@ -137,18 +131,17 @@ class CycleEventCest
 
         $time = new DateTime();
 
-        $cycleEvent = new CycleEvent($daedalus, $time);
-
-        $status = new ChargeStatus();
+        $status = new ChargeStatus($room);
 
         $status
-             ->setName(StatusEnum::FIRE)
-             ->setVisibility(VisibilityEnum::PUBLIC)
-             ->setRoom($room)
-             ->setCharge(1)
-         ;
+            ->setName(StatusEnum::FIRE)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setCharge(1)
+        ;
 
-        $cycleEvent->setStatus($status);
+        $room->addStatus($status);
+
+        $cycleEvent = new StatusCycleEvent($status, $room, $daedalus, $time);
 
         $I->haveInRepository($status);
         $I->refreshEntities($player, $daedalus);

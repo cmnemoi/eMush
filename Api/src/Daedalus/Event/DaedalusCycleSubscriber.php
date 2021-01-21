@@ -7,14 +7,15 @@ use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Event\CycleEvent;
-use Mush\Game\Event\DayEvent;
 use Mush\Player\Enum\EndCauseEnum as EnumEndCauseEnum;
+use Mush\Player\Event\PlayerCycleEvent;
+use Mush\Room\Entity\Room;
 use Mush\Room\Enum\RoomEnum;
+use Mush\Room\Event\RoomCycleEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class CycleSubscriber implements EventSubscriberInterface
+class DaedalusCycleSubscriber implements EventSubscriberInterface
 {
     private DaedalusServiceInterface $daedalusService;
     private GameEquipmentServiceInterface $gameEquipmentService;
@@ -33,15 +34,13 @@ class CycleSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            CycleEvent::NEW_CYCLE => 'onNewCycle',
+            DaedalusCycleEvent::DAEDALUS_NEW_CYCLE => 'onNewCycle',
+            DaedalusCycleEvent::DAEDALUS_NEW_DAY => 'onNewDay',
         ];
     }
 
-    public function onNewCycle(CycleEvent $event): void
+    public function onNewCycle(DaedalusCycleEvent $event): void
     {
-        if ($event->getGameEquipment() || $event->getPlayer() || $event->getRoom() || $event->getStatus()) {
-            return;
-        }
         $daedalus = $event->getDaedalus();
         $daedalus->setCycle($daedalus->getCycle() + 1);
 
@@ -54,6 +53,30 @@ class CycleSubscriber implements EventSubscriberInterface
         $daedalus = $this->handleOxygen($daedalus);
 
         //@TODO When everything is added check that everything happens in the right order
+        $this->daedalusService->persist($daedalus);
+    }
+
+    public function onNewDay(DaedalusCycleEvent $event): void
+    {
+        $daedalus = $event->getDaedalus();
+
+        foreach ($daedalus->getPlayers()->getPlayerAlive() as $player) {
+            $newPlayerDay = new PlayerCycleEvent($player, $event->getTime());
+
+            $this->eventDispatcher->dispatch($newPlayerDay, PlayerCycleEvent::PLAYER_NEW_DAY);
+        }
+
+        /** @var Room $room */
+        foreach ($daedalus->getRooms() as $room) {
+            if ($room->getName() !== RoomEnum::GREAT_BEYOND) {
+                $newRoomDay = new RoomCycleEvent($room, $event->getTime());
+                $this->eventDispatcher->dispatch($newRoomDay, RoomCycleEvent::ROOM_NEW_CYCLE);
+            }
+        }
+
+        //reset spore count
+        $daedalus->setSpores($daedalus->getDailySpores());
+
         $this->daedalusService->persist($daedalus);
     }
 
@@ -118,22 +141,20 @@ class CycleSubscriber implements EventSubscriberInterface
         }
 
         foreach ($daedalus->getPlayers()->getPlayerAlive() as $player) {
-            $newPlayerCycle = new CycleEvent($daedalus, $time);
-            $newPlayerCycle->setPlayer($player);
-            $this->eventDispatcher->dispatch($newPlayerCycle, CycleEvent::NEW_CYCLE);
+            $newPlayerCycle = new PlayerCycleEvent($player, $time);
+            $this->eventDispatcher->dispatch($newPlayerCycle, PlayerCycleEvent::PLAYER_NEW_CYCLE);
         }
 
         foreach ($daedalus->getRooms() as $room) {
             if ($room->getName() !== RoomEnum::GREAT_BEYOND) {
-                $newRoomCycle = new CycleEvent($daedalus, $time);
-                $newRoomCycle->setRoom($room);
-                $this->eventDispatcher->dispatch($newRoomCycle, CycleEvent::NEW_CYCLE);
+                $newRoomCycle = new RoomCycleEvent($room, $time);
+                $this->eventDispatcher->dispatch($newRoomCycle, RoomCycleEvent::ROOM_NEW_DAY);
             }
         }
 
         if ($newDay) {
-            $dayEvent = new DayEvent($daedalus, $time);
-            $this->eventDispatcher->dispatch($dayEvent, DayEvent::NEW_DAY);
+            $dayEvent = new DaedalusCycleEvent($daedalus, $time);
+            $this->eventDispatcher->dispatch($dayEvent, DaedalusCycleEvent::DAEDALUS_NEW_DAY);
         }
     }
 }

@@ -62,7 +62,6 @@ class TreatPlant extends AbstractAction
         if ($diseased = $this->gameEquipment->getStatusByName(EquipmentStatusEnum::PLANT_DISEASED)) {
             $this->gameEquipment->removeStatus($diseased);
             $this->gameEquipmentService->persist($this->gameEquipment);
-            $this->statusService->delete($diseased);
         }
 
         return new Success(ActionLogEnum::TREAT_PLANT_SUCCESS, VisibilityEnum::PRIVATE);

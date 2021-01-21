@@ -5,15 +5,14 @@ namespace functional\Daedalus\Event;
 use App\Tests\FunctionalTester;
 use DateTime;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Event\CycleSubscriber;
-use Mush\Equipment\Entity\Door;
+use Mush\Daedalus\Event\DaedalusCycleEvent;
+use Mush\Daedalus\Event\DaedalusCycleSubscriber;
 use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\CharacterEnum;
-use Mush\Game\Event\CycleEvent;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -24,11 +23,11 @@ use Mush\Status\Enum\StatusEnum;
 
 class CycleEventCest
 {
-    private CycleSubscriber $cycleSubscriber;
+    private DaedalusCycleSubscriber $cycleSubscriber;
 
     public function _before(FunctionalTester $I)
     {
-        $this->cycleSubscriber = $I->grabService(CycleSubscriber::class);
+        $this->cycleSubscriber = $I->grabService(DaedalusCycleSubscriber::class);
     }
 
     public function testLieDownStatusCycleSubscriber(FunctionalTester $I)
@@ -56,16 +55,17 @@ class CycleEventCest
 
         $time = new DateTime();
 
-        $cycleEvent = new CycleEvent($daedalus, $time);
+        $cycleEvent = new DaedalusCycleEvent($daedalus, $time);
 
-        $status = new Status();
+        $status = new Status($player);
 
         $status
             ->setName(PlayerStatusEnum::LYING_DOWN)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setPlayer($player)
-            ->setGameEquipment($gameEquipment)
+            ->setTarget($gameEquipment)
         ;
+
+        $player->addStatus($status);
 
         $I->haveInRepository($status);
         $I->refreshEntities($player, $daedalus, $gameEquipment);
@@ -98,7 +98,7 @@ class CycleEventCest
 
         $time = new DateTime();
 
-        $cycleEvent = new CycleEvent($daedalus, $time);
+        $cycleEvent = new DaedalusCycleEvent($daedalus, $time);
 
         $this->cycleSubscriber->onNewCycle($cycleEvent);
 

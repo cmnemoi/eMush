@@ -46,25 +46,24 @@ class AntisocialTest extends TestCase
             ->setRoom($room)
         ;
 
-        $status = new Status();
+        $status = new Status($player);
         $status
             ->setName(PlayerStatusEnum::ANTISOCIAL)
-            ->setPlayer($player)
         ;
 
         $this->eventDispatcher->shouldReceive('dispatch')->never();
-        $this->cycleHandler->handleNewCycle($status, new Daedalus(), new \DateTime());
+        $this->cycleHandler->handleNewCycle($status, new Daedalus(), $player, new \DateTime());
 
         $otherPlayer = new Player();
         $otherPlayer->setRoom(new Room());
 
         $this->eventDispatcher->shouldReceive('dispatch')->never();
-        $this->cycleHandler->handleNewCycle($status, new Daedalus(), new \DateTime());
+        $this->cycleHandler->handleNewCycle($status, new Daedalus(), $player, new \DateTime());
 
         $otherPlayer->setRoom($room);
 
         $this->eventDispatcher->shouldReceive('dispatch')->once();
-        $this->cycleHandler->handleNewCycle($status, new Daedalus(), new \DateTime());
+        $this->cycleHandler->handleNewCycle($status, new Daedalus(), $player, new \DateTime());
 
         $this->assertTrue(true);
     }

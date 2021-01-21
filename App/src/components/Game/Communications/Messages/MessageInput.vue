@@ -1,6 +1,11 @@
 <template>
     <form class="chat-input">
-        <textarea v-model="text" placeholder="Type your message here!" @keyup.enter="sendNewMessage" />
+        <textarea
+            v-model="text"
+            class="text-input"
+            placeholder="Type your message here!"
+            @keyup.enter="sendNewMessage"
+        />
         <a class="submit" href="#"><img src="@/assets/images/comms/submit.gif" alt="submit"></a>
     </form>
 </template>
@@ -49,14 +54,14 @@ export default {
     flex-direction: row;
     padding: 7px 7px 4px 7px;
 
-    a {
+    .submit {
         @include button-style();
 
         width: 24px;
         margin-left: 4px;
     }
 
-    textarea {
+    .text-input {
         position: relative;
         flex: 1;
         resize: vertical;

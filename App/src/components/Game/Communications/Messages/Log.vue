@@ -116,7 +116,7 @@ export default {
     }
 }
 
-p {
+.text-log {
     margin: 0;
     font-size: 0.95em;
     /deep/ img { vertical-align: middle; }

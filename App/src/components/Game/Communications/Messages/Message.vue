@@ -1,9 +1,9 @@
 <template>
     <div v-if="isRoot" class="message main-message" @click="$emit('click')">
-        <div class="char-portrait">
+        <div class="character-body">
             <img :src="characterPortrait">
         </div>
-        <p>
+        <p class="text">
             <span class="author">{{ message.character.name }} :</span><span v-html="format(message.message)" />
         </p>
         <div class="actions">
@@ -14,8 +14,8 @@
         <span class="timestamp">{{ formatDate(message.date, {local: "fr-FR"}) }}</span>
     </div>
     <div v-if="!isRoot" class="message child-message" @click="$emit('click')">
-        <p>
-            <img :src="characterPortrait">
+        <p class="text">
+            <img class="character-head" :src="characterPortrait">
             <span class="author">{{ message.character.name }} :</span><span v-html="format(message.message)" />
         </p>
         <div class="actions">
@@ -74,7 +74,7 @@ export default {
     align-items: flex-start;
     flex-direction: row;
 
-    .char-portrait {
+    .character-body {
         align-items: flex-start;
         justify-content: flex-start;
         min-width: 36px;
@@ -82,7 +82,14 @@ export default {
         padding: 6px 2px;
     }
 
-    p:not(.timestamp) {
+    .author {
+        color: #2081e2;
+        font-weight: 700;
+        font-variant: small-caps;
+        padding-right: 0.25em;
+    }
+
+    .text {
         position: relative;
         flex: 1;
         margin: 3px 0;
@@ -91,36 +98,32 @@ export default {
         background: white;
         word-break: break-word;
 
-        /deep/ em { color: #cf1830; } //Makes italic text red
+        /deep/ em {
+            color: #cf1830; // Makes italic text red
+        }
 
-        .author {
-            color: #2081e2;
-            font-weight: 700;
-            font-variant: small-caps;
-            padding-right: 0.25em;
+        &.unread { // unread messages styling
+            border-left: 2px solid #ea9104;
+
+            &::after {
+                content: "";
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: -6px;
+                min-height: 11px;
+                width: 11px;
+                background: transparent url('~@/assets/images/comms/thinklinked.png') center no-repeat;
+            }
         }
     }
+}
 
-    &.new p { //New messages styling
-        border-left: 2px solid #ea9104;
+.main-message {
+    .text {
+        min-height: 52px;
 
-        &::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: -6px;
-            min-height: 11px;
-            width: 11px;
-            background: transparent url('~@/assets/images/comms/thinklinked.png') center no-repeat;
-        }
-    }
-
-    &.main-message {
-
-        p { min-height: 52px; }
-
-        p::before { //Bubble triangle*/
+        &::before { //Bubble triangle*/
             $size: 8px;
 
             content: "";
@@ -134,109 +137,125 @@ export default {
             border-right: $size solid white;
         }
 
-        &.new p::before { border-right-color: #ea9104; }
+        &.unread {
+            &::before {
+                border-right-color: #ea9104;
+            }
+        }
+    }
+}
+
+.child-message {
+    margin-left: 50px;
+
+    .character-head {
+        margin-right: 3px;
+    }
+
+    .text {
+        margin-top: 10px;
+    }
+
+    .text::before { //Bubble triangle
+        $size: 8px;
+
+        content: "";
+        position: absolute;
+        top: -$size;
+        left: 4px;
+        width: 0;
+        height: 0;
+        border-left: $size solid transparent;
+        border-right: $size solid transparent;
+        border-bottom: $size solid white;
+    }
+
+    /* MESSAGES LINKTREE */
+
+    &::before {
+        --border-radius: 5px;
+
+        content: "";
+        position: absolute;
+        top: calc(0px - var(--border-radius));
+        left: -36px;
+        width: calc(28px + var(--border-radius));
+        height: calc(26px + var(--border-radius));
+        border-left: 1px solid #aad4e5;
+        border-bottom: 1px solid #aad4e5;
+        border-radius: var(--border-radius);
+        clip-path:
+            polygon(
+                0 var(--border-radius),
+                calc(100% - var(--border-radius)) var(--border-radius),
+                calc(100% - var(--border-radius)) 100%,
+                0 100%
+            );
+    }
+
+    &:not(:last-of-type)::after {
+        --border-radius: 5px;
+
+        content: "";
+        position: absolute;
+        top: 25px;
+        left: -36px;
+        width: calc(28px + var(--border-radius));
+        bottom: calc(-4px - var(--border-radius));
+        border-left: 1px solid #aad4e5;
+        border-top: 1px solid #aad4e5;
+        border-radius: var(--border-radius);
+        clip-path:
+            polygon(
+                0 0,
+                calc(100% - var(--border-radius)) 0,
+                calc(100% - var(--border-radius)) calc(100% - var(--border-radius)),
+                0 calc(100% - var(--border-radius))
+            );
+    }
+}
+
+.neron { // Neron messages styling
+
+    .character-body {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 2;
+        margin: 4px 6px;
+    }
+
+    .author {
+        color: inherit;
+    }
+
+    .text {
+        background: #74cbf3;
+        font-variant: small-caps;
+    }
+
+    &.main-message {
+        .text {
+            padding-left: 46px;
+            &::before { content: none; } // removes the bubble triangle
+        }
     }
 
     &.child-message {
-        margin-left: 50px;
-        img { margin-right: 3px; }
-        p { margin-top: 10px; }
-
-        p::before { //Bubble triangle
-            $size: 8px;
-
-            content: "";
-            position: absolute;
-            top: -$size;
-            left: 4px;
-            width: 0;
-            height: 0;
-            border-left: $size solid transparent;
-            border-right: $size solid transparent;
-            border-bottom: $size solid white;
-        }
-
-        /* MESSAGES LINKTREE */
-
-        &::before {
-            --border-radius: 5px;
-
-            content: "";
-            position: absolute;
-            top: calc(0px - var(--border-radius));
-            left: -36px;
-            width: calc(28px + var(--border-radius));
-            height: calc(26px + var(--border-radius));
-            border-left: 1px solid #aad4e5;
-            border-bottom: 1px solid #aad4e5;
-            border-radius: var(--border-radius);
-            clip-path:
-                polygon(
-                    0 var(--border-radius),
-                    calc(100% - var(--border-radius)) var(--border-radius),
-                    calc(100% - var(--border-radius)) 100%,
-                    0 100%
-                );
-        }
-
-        &:not(:last-of-type)::after {
-            --border-radius: 5px;
-
-            content: "";
-            position: absolute;
-            top: 25px;
-            left: -36px;
-            width: calc(28px + var(--border-radius));
-            bottom: calc(-4px - var(--border-radius));
-            border-left: 1px solid #aad4e5;
-            border-top: 1px solid #aad4e5;
-            border-radius: var(--border-radius);
-            clip-path:
-                polygon(
-                    0 0,
-                    calc(100% - var(--border-radius)) 0,
-                    calc(100% - var(--border-radius)) calc(100% - var(--border-radius)),
-                    0 calc(100% - var(--border-radius))
-                );
+        .text::before {
+            border-color: #74cbf3;
         }
     }
+}
 
-    &.neron { //Neron messages styling
-
-        .char-portrait {
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 2;
-            margin: 4px 6px;
-        }
-
-        p {
-            background: #74cbf3;
-            font-variant: small-caps;
-
-            .author { color: inherit; }
-        }
-
-        &.main-message {
-            p {
-                padding-left: 46px;
-                &::before { content: none; } //removes the bubble triangle
-            }
-        }
-
-        &.child-message p::before { border-color: #74cbf3; }
-    }
-
-    .actions { //buttons styling
-        visibility: hidden;
-        opacity: 0;
-        position: absolute;
-        right: 3px;
-        top: -3px;
-        height: 14px;
-        transition: visibility 0s 0.15s, opacity 0.15s 0s, top 0.15s 0s;
-    }
+.actions { //buttons styling
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    right: 3px;
+    top: -3px;
+    height: 14px;
+    transition: visibility 0s 0.15s, opacity 0.15s 0s, top 0.15s 0s;
 }
 
 .message:hover,

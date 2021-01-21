@@ -11,12 +11,16 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Room\Entity\Room;
 use Mush\Status\Entity\Status;
 use Mush\Status\Service\StatusService;
+use Mush\Status\Repository\StatusRepository;
 use PHPUnit\Framework\TestCase;
 
-class EquipmentEffectServiceTest extends TestCase
+class StatusServiceTest extends TestCase
 {
     /** @var EntityManagerInterface | Mockery\Mock */
     private EntityManagerInterface $entityManager;
+
+    /** @var StatusRepository | Mockery\Mock */
+    private StatusRepository $repository;
 
     private StatusService $service;
 
@@ -26,9 +30,11 @@ class EquipmentEffectServiceTest extends TestCase
     public function before()
     {
         $this->entityManager = Mockery::mock(EntityManagerInterface::class);
+        $this->repository = Mockery::mock(StatusRepository::class);
 
         $this->service = new StatusService(
-            $this->entityManager
+            $this->entityManager,
+            $this->repository
         );
     }
 
@@ -52,23 +58,20 @@ class EquipmentEffectServiceTest extends TestCase
         $item3 = new GameItem();
         $item3->setRoom($room)->setName('item 3');
 
-        $hidden1 = new Status();
+        $hidden1 = new Status($item1);
         $hidden1
             ->setName('hidden')
             ->setCreatedAt(new DateTime());
-        $item1->addStatus($hidden1);
 
-        $hidden2 = new Status();
+        $hidden2 = new Status($item3);
         $hidden2
             ->setName('hidden')
             ->setCreatedAt(new DateTime());
-        $item3->addStatus($hidden2);
 
-        $hidden3 = new Status();
+        $hidden3 = new Status($item2);
         $hidden3
             ->setName('hidden')
             ->setCreatedAt(new DateTime());
-        $item2->addStatus($hidden3);
 
         $mostRecent = $this->service->getMostRecent('hidden', new ArrayCollection([$item1, $item2, $item3]));
 

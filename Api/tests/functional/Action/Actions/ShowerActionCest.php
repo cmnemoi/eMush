@@ -19,12 +19,9 @@ use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
-use Mush\Player\Enum\ModifierScopeEnum;
 use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Room\Entity\Room;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Status;
-use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 
 class ShowerActionCest
@@ -45,18 +42,16 @@ class ShowerActionCest
         /** @var Room $room */
         $room = $I->have(Room::class, ['daedalus' => $daedalus]);
 
-
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus,
                                             'room' => $room,
                                             'actionPoint' => 2,
-                                            'healthPoint' => 6]);
+                                            'healthPoint' => 6, ]);
 
         $mushStatus = new Status();
         $mushStatus->setName(PlayerStatusEnum::MUSH);
 
         $player->addStatus($mushStatus);
-
 
         $action = new Action();
         $action
@@ -82,7 +77,6 @@ class ShowerActionCest
         $actionParameters->setEquipment($gameEquipment);
 
         $this->showerAction->loadParameters($action, $player, $actionParameters);
-
 
         $I->assertTrue($this->showerAction->canExecute());
 

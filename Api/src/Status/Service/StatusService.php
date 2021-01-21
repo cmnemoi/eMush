@@ -234,16 +234,15 @@ class StatusService implements StatusServiceInterface
 
     public function getDaedalus(Status $status): Daedalus
     {
-        if ($player = $status->getPlayer()) {
-            return $player->getDaedalus();
-        }
-        if ($room = $status->getRoom()) {
-            return $room->getDaedalus();
-        }
-        if ($equipment = $status->getGameEquipment()) {
-            return $equipment->getCurrentRoom()->getDaedalus();
+        $owner = $status->getOwner();
+        if ($owner instanceof GameEquipment) {
+            return $owner->getCurrentRoom()->getDaedalus();
         }
 
-        throw new \LogicException('status has no properties');
+        if ($owner instanceof Room || $owner instanceof Player) {
+            return $owner->getDaedalus();
+        }
+
+        throw new \LogicException('Status owner unknown');
     }
 }

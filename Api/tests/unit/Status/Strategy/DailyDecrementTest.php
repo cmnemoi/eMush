@@ -51,14 +51,12 @@ class DailyDecrementTest extends TestCase
 
         $daedalus->setCycle(2);
         $this->statusService->shouldReceive('persist')->once();
-        $this->statusService->shouldReceive('getDaedalus')->once()->andReturn($daedalus);
 
         $this->strategy->execute($status, $daedalus);
 
         $this->assertEquals(10, $status->getCharge());
 
         $this->statusService->shouldReceive('persist')->once();
-        $this->statusService->shouldReceive('getDaedalus')->once()->andReturn($daedalus);
         $daedalus->setCycle(1);
 
         $this->strategy->execute($status, $daedalus);
@@ -66,7 +64,6 @@ class DailyDecrementTest extends TestCase
         $this->assertEquals(9, $status->getCharge());
 
         $this->statusService->shouldReceive('persist')->once();
-        $this->statusService->shouldReceive('getDaedalus')->once()->andReturn($daedalus);
         $status->setCharge(0);
 
         $this->strategy->execute($status, $daedalus);
@@ -75,7 +72,6 @@ class DailyDecrementTest extends TestCase
 
         $status->setAutoRemove(true);
         $this->statusService->shouldReceive('delete')->once();
-        $this->statusService->shouldReceive('getDaedalus')->once()->andReturn($daedalus);
 
         $result = $this->strategy->execute($status, $daedalus);
 

@@ -11,15 +11,16 @@ use Mush\Room\Entity\Room;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
-use Mush\Status\Event\CycleSubscriber;
+use Mush\Status\Event\StatusCycleSubscriber;
+use Mush\Status\Event\StatusCycleEvent;
 
 class DayEventCest
 {
-    private CycleSubscriber $cycleSubscriber;
+    private StatusCycleSubscriber $cycleSubscriber;
 
     public function _before(FunctionalTester $I)
     {
-        $this->cycleSubscriber = $I->grabService(CycleSubscriber::class);
+        $this->cycleSubscriber = $I->grabService(StatusCycleSubscriber::class);
     }
 
     // tests
@@ -28,10 +29,10 @@ class DayEventCest
         //Day Increment
         $daedalus = new Daedalus();
         $time = new DateTime();
+        $player = $I->have(Player::class);
 
-        $daedalus->setCycle(8);
+        $daedalus->setCycle(1);
 
-        $dayEvent = new CycleEvent($daedalus, $time);
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
@@ -40,11 +41,10 @@ class DayEventCest
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'room' => $room]);
 
-        $status = new ChargeStatus();
+        $status = new ChargeStatus($player);
 
         $status
             ->setName('charged')
-            ->setPlayer($player)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setThreshold(1)
             ->setCharge(0)
@@ -54,20 +54,17 @@ class DayEventCest
 
         $I->haveInRepository($status);
 
-        $dayEvent->setStatus($status);
+        $dayEvent = new StatusCycleEvent($status, new Player(), $daedalus, $time);
 
         $this->cycleSubscriber->onNewCycle($dayEvent);
 
         $I->assertEquals(1, $status->getCharge());
 
         //Day decrement
-        $dayEvent = new CycleEvent($daedalus, $time);
-
-        $status = new ChargeStatus();
+        $status = new ChargeStatus($player);
 
         $status
             ->setName('charged')
-            ->setPlayer($player)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setThreshold(0)
             ->setCharge(1)
@@ -77,20 +74,18 @@ class DayEventCest
 
         $I->haveInRepository($status);
 
-        $dayEvent->setStatus($status);
+        $dayEvent = new StatusCycleEvent($status, new Player(), $daedalus, $time);
 
         $this->cycleSubscriber->onNewCycle($dayEvent);
 
         $I->assertEquals(0, $status->getCharge());
 
         //Day reset
-        $dayEvent = new CycleEvent($daedalus, $time);
 
-        $status = new ChargeStatus();
+        $status = new ChargeStatus($player);
 
         $status
             ->setName('charged')
-            ->setPlayer($player)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setThreshold(5)
             ->setCharge(1)
@@ -100,7 +95,7 @@ class DayEventCest
 
         $I->haveInRepository($status);
 
-        $dayEvent->setStatus($status);
+        $dayEvent = new StatusCycleEvent($status, new Player(), $daedalus, $time);
 
         $this->cycleSubscriber->onNewCycle($dayEvent);
 

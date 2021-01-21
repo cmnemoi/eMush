@@ -9,6 +9,7 @@ use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Daedalus\Event\DaedalusCycleSubscriber;
 use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Door;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
@@ -169,7 +170,7 @@ class CycleEventCest
 
         $time = new DateTime();
 
-        $cycleEvent = new CycleEvent($daedalus, $time);
+        $cycleEvent = new DaedalusCycleEvent($daedalus, $time);
 
         $this->cycleSubscriber->onNewCycle($cycleEvent);
 

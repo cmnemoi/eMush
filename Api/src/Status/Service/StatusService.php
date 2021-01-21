@@ -5,6 +5,7 @@ namespace Mush\Status\Service;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Error;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
@@ -229,5 +230,19 @@ class StatusService implements StatusServiceInterface
         }
 
         return $pickedEquipment;
+    }
+
+    public function getDaedalus(Status $status): Daedalus
+    {
+        $owner = $status->getOwner();
+        if ($owner instanceof GameEquipment) {
+            return $owner->getCurrentRoom()->getDaedalus();
+        }
+
+        if ($owner instanceof Room || $owner instanceof Player) {
+            return $owner->getDaedalus();
+        }
+
+        throw new \LogicException('Status owner unknown');
     }
 }

@@ -31,13 +31,13 @@ class RoomCycleSubscriber implements EventSubscriberInterface
     {
         $room = $event->getRoom();
 
+        //handle events
+        $this->roomEventService->handleIncident($room, $event->getTime());
+
         foreach ($room->getStatuses() as $status) {
             $statusNewCycle = new StatusCycleEvent($status, $room, $room->getDaedalus(), $event->getTime());
             $this->eventDispatcher->dispatch($statusNewCycle, StatusCycleEvent::STATUS_NEW_CYCLE);
         }
-
-        //handle events
-        $this->roomEventService->handleIncident($room, $event->getTime());
 
         foreach ($room->getEquipments() as $equipment) {
             $itemNewCycle = new EquipmentCycleEvent($equipment, $room->getDaedalus(), $event->getTime());

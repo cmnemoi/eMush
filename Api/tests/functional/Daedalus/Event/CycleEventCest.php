@@ -7,16 +7,20 @@ use DateTime;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Daedalus\Event\DaedalusCycleSubscriber;
+use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Entity\CharacterConfig;
+use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Status;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Enum\StatusEnum;
 
 class CycleEventCest
 {
@@ -102,5 +106,83 @@ class CycleEventCest
         $I->assertEquals(0, $daedalus->getOxygen());
         $I->assertCount(1, $daedalus->getPlayers()->getPlayerAlive());
         $I->assertEquals(9, $daedalus->getPlayers()->getPlayerAlive()->first()->getMoralPoint());
+    }
+
+    public function testStartingFire(FunctionalTester $I)
+    {
+        /** @var DifficultyConfig $difficultyConfig */
+        $difficultyConfig = $I->have(DifficultyConfig::class, [
+                                        'startingFireRate' => 100,
+                                        'equipmentFireBreakRate' => 100,
+                                        'propagatingFireRate' => 100,
+                                    ]);
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class, ['difficultyConfig' => $difficultyConfig]);
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
+
+        /** @var Room $room */
+        $room = $I->have(Room::class, ['daedalus' => $daedalus]);
+
+        /** @var Room $room */
+        $room2 = $I->have(Room::class, ['daedalus' => $daedalus]);
+
+        /** @var EquipmentConfig $equipmentConfig */
+        $doorConfig = $I->have(EquipmentConfig::class, ['isFireBreakable' => false, 'isFireDestroyable' => false, 'gameConfig' => $gameConfig]);
+
+        $doorConfig
+            ->setGameConfig($daedalus->getGameConfig())
+            ->setIsFireBreakable(false)
+            ->setIsFireDestroyable(false);
+
+        $door = new Door();
+        $door
+            ->setName('door name')
+            ->setEquipment($doorConfig)
+        ;
+
+        $room->addDoor($door);
+        $room2->addDoor($door);
+
+        /** @var EquipmentConfig $equipmentConfig */
+        $equipmentConfig = $I->have(EquipmentConfig::class, ['isFireBreakable' => true, 'isFireDestroyable' => false, 'gameConfig' => $gameConfig]);
+
+        /** @var EquipmentConfig $equipmentConfig2 */
+        $equipmentConfig2 = $I->have(EquipmentConfig::class, ['isFireBreakable' => false, 'isFireDestroyable' => true, 'gameConfig' => $gameConfig]);
+
+        $gameEquipment = new GameEquipment();
+
+        $gameEquipment
+            ->setEquipment($equipmentConfig)
+            ->setName('some name')
+            ->setRoom($room)
+        ;
+        $I->haveInRepository($gameEquipment);
+
+        $gameEquipment2 = new GameEquipment();
+
+        $gameEquipment2
+            ->setEquipment($equipmentConfig2)
+            ->setName('some other name')
+            ->setRoom($room)
+        ;
+        $I->haveInRepository($gameEquipment2);
+
+        $time = new DateTime();
+
+        $cycleEvent = new DaedalusCycleEvent($daedalus, $time);
+
+        $this->cycleSubscriber->onNewCycle($cycleEvent);
+
+        $I->assertCount(1, $room->getStatuses());
+        $I->assertEquals(StatusEnum::FIRE, $room->getStatuses()->first()->getName());
+        $I->assertEquals(1, $room->getStatuses()->first()->getCharge());
+        $I->assertCount(1, $room->getEquipments());
+        $I->assertCount(1, $room->getEquipments()->first()->getStatuses());
+        $I->assertEquals(EquipmentStatusEnum::BROKEN, $room->getEquipments()->first()->getStatuses()->first()->getName());
+        $I->assertEquals('some name', $room->getEquipments()->first()->getName());
+
+        $I->assertEquals(StatusEnum::FIRE, $room->getStatuses()->first()->getName());
+        $I->assertEquals(1, $room2->getStatuses()->first()->getCharge());
     }
 }

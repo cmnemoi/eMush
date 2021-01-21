@@ -17,7 +17,6 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\GearItemEnum;
-use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Player\Entity\Modifier;
@@ -60,6 +59,11 @@ class ShowerActionCest
 
         $actionCost = new ActionCost();
 
+        $actionCost
+            ->setActionPointCost(2)
+            ->setMovementPointCost(0)
+            ->setMoralPointCost(0);
+
         $action = new Action();
         $action
             ->setName(ActionEnum::SHOWER)
@@ -96,7 +100,7 @@ class ShowerActionCest
 
         $this->showerAction->execute();
 
-        $I->assertEquals(4, $player->getHealthPoint());
+        $I->assertEquals(3, $player->getHealthPoint());
 
         $I->assertEquals(1, $player->getActionPoint());
 

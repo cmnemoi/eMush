@@ -10,8 +10,8 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Room\Entity\Room;
 use Mush\Status\Entity\Status;
-use Mush\Status\Service\StatusService;
 use Mush\Status\Repository\StatusRepository;
+use Mush\Status\Service\StatusService;
 use PHPUnit\Framework\TestCase;
 
 class StatusServiceTest extends TestCase

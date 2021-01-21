@@ -58,7 +58,7 @@ class LieDown extends AbstractAction
         $lyingDownStatus = new Status($this->player);
         $lyingDownStatus
             ->setName(PlayerStatusEnum::LYING_DOWN)
-            ->setVisibility(VisibilityEnum::PLAYER_PUBLIC)
+            ->setVisibility(VisibilityEnum::PUBLIC)
             ->setTarget($this->gameEquipment)
         ;
 

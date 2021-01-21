@@ -52,7 +52,7 @@ class PlantCycleHandler extends AbstractCycleHandler
         $this->daedalusService = $daedalusService;
     }
 
-    public function handleNewCycle($object, $daedalus, \DateTime $dateTime): void
+    public function handleNewCycle($object, $daedalus, \DateTime $dateTime, array $context = []): void
     {
         /** @var GameItem $gamePlant */
         $gamePlant = $object;
@@ -68,11 +68,10 @@ class PlantCycleHandler extends AbstractCycleHandler
         }
 
         if ($this->randomService->randomPercent() <= self::DISEASE_PERCENTAGE) {
-            $diseased = new Status();
+            $diseased = new Status($gamePlant);
             $diseased
                 ->setName(EquipmentStatusEnum::PLANT_DISEASED)
                 ->setVisibility(VisibilityEnum::PUBLIC)
-                ->setGameEquipment($gamePlant)
             ;
         }
 
@@ -86,7 +85,6 @@ class PlantCycleHandler extends AbstractCycleHandler
             $room = $gamePlant->getCurrentRoom();
 
             $gamePlant->removeStatus($youngStatus);
-            $this->statusService->delete($youngStatus);
             $this->roomLogService->createEquipmentLog(
                 PlantLogEnum::PLANT_MATURITY,
                 $room,
@@ -100,7 +98,7 @@ class PlantCycleHandler extends AbstractCycleHandler
         $this->gameEquipmentService->persist($gamePlant);
     }
 
-    public function handleNewDay($object, $daedalus, \DateTime $dateTime): void
+    public function handleNewDay($object, $daedalus, \DateTime $dateTime, array $context = []): void
     {
         /** @var GameItem $gamePlant */
         $gamePlant = $object;
@@ -151,7 +149,6 @@ class PlantCycleHandler extends AbstractCycleHandler
         // If plant was thirsty, become dried
         if (($thirsty = $gamePlant->getStatusByName(EquipmentStatusEnum::PLANT_THIRSTY)) !== null) {
             $gamePlant->removeStatus($thirsty);
-            $this->statusService->delete($thirsty);
             $driedStatus = $this->statusService
                 ->createCoreEquipmentStatus(EquipmentStatusEnum::PLANT_DRIED_OUT, $gamePlant)
             ;

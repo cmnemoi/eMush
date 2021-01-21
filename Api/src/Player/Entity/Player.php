@@ -17,6 +17,9 @@ use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Room\Entity\Room;
 use Mush\Status\Entity\Status;
+use Mush\Status\Entity\StatusHolderInterface;
+use Mush\Status\Entity\StatusTarget;
+use Mush\Status\Entity\TargetStatusTrait;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
@@ -26,11 +29,13 @@ use Mush\User\Entity\User;
  *
  * @ORM\Entity(repositoryClass="Mush\Player\Repository\PlayerRepository")
  */
-class Player
+class Player implements StatusHolderInterface
 {
     use TimestampableEntity;
+    use TargetStatusTrait;
 
     /**
+     * @ORM\Id
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer", length=255, nullable=false)
@@ -73,7 +78,7 @@ class Player
     private Collection $items;
 
     /**
-     * @ORM\OneToMany(targetEntity="Mush\Status\Entity\Status", mappedBy="player", cascade={"ALL"}, orphanRemoval=true)
+     * @ORM\OneToMany (targetEntity="Mush\Status\Entity\StatusTarget", mappedBy="player", cascade="ALL", orphanRemoval=true)
      */
     private Collection $statuses;
 
@@ -233,7 +238,7 @@ class Player
             return true;
         }
         if ($hiddenStatus = $gameEquipment->getStatusByName(EquipmentStatusEnum::HIDDEN)) {
-            return $hiddenStatus->getPlayer() === $this;
+            return $hiddenStatus->getTarget() === $this;
         } else {
             return $this->items->contains($gameEquipment) || $this->getRoom()->getEquipments()->contains($gameEquipment);
         }
@@ -252,7 +257,7 @@ class Player
             )->filter(fn (GameEquipment $gameEquipment) => (
                 $gameEquipment->getName() === $name &&
                 (($hiddenStatus = $gameEquipment->getStatusByName(EquipmentStatusEnum::HIDDEN)) === null ||
-                    $hiddenStatus->getPlayer() === $this)));
+                    $hiddenStatus->getTarget() === $this)));
         } elseif ($reach === ReachEnum::SHELVE) {
             return (new ArrayCollection(array_merge(
                 $this->getItems()->toArray(),
@@ -350,70 +355,26 @@ class Player
         return !$this->getItems()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $name)->isEmpty();
     }
 
-    public function getStatuses(): Collection
-    {
-        return $this->statuses;
-    }
-
-    public function getStatusByName(string $name): ?Status
-    {
-        $status = $this->statuses->filter(fn (Status $status) => ($status->getName() === $name))->first();
-
-        return $status ? $status : null;
-    }
-
     /**
      * @return static
      */
-    public function setStatuses(Collection $statuses): Player
-    {
-        $this->statuses = $statuses;
-
-        return $this;
-    }
-
-    /**
-     * @return static
-     */
-    public function addStatus(Status $status): Player
+    public function addStatus(Status $status): self
     {
         if (!$this->getStatuses()->contains($status)) {
-            if ($status->getPlayer() !== $this) {
-                $status->setPlayer(null);
+            if (!$statusTarget = $status->getStatusTargetTarget()) {
+                $statusTarget = new StatusTarget();
             }
-
-            $this->statuses->add($status);
-
-            $status->setPlayer($this);
+            $statusTarget->setOwner($status);
+            $statusTarget->setPlayer($this);
+            $this->statuses->add($statusTarget);
         }
 
         return $this;
-    }
-
-    /**
-     * @return static
-     */
-    public function removeStatus(Status $status): Player
-    {
-        if ($this->statuses->contains($status)) {
-            $this->statuses->removeElement($status);
-            $status->setPlayer(null);
-        }
-
-        return $this;
-    }
-
-    public function hasStatus(string $statusName): bool
-    {
-        return $this->statuses->exists(fn ($key, Status $status) => ($status->getName() === $statusName));
     }
 
     public function isMush(): bool
     {
-        return $this
-            ->getStatuses()
-            ->exists(fn (int $key, Status $status) => ($status->getName() === PlayerStatusEnum::MUSH))
-            ;
+        return $this->hasStatus(PlayerStatusEnum::MUSH);
     }
 
     /**

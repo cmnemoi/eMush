@@ -74,10 +74,9 @@ class RoomEventServiceTest extends TestCase
         $date = new \DateTime();
         $room = $this->createRoom();
 
-        $fireStatus = new ChargeStatus();
+        $fireStatus = new ChargeStatus($room);
         $fireStatus
             ->setName(StatusEnum::FIRE)
-            ->setRoom($room)
             ->setCharge(0)
         ;
 

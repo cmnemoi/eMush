@@ -3,6 +3,8 @@
 namespace Mush\Test\Status\Strategy;
 
 use Mockery;
+use Mush\Daedalus\Entity\Daedalus;
+use Mush\Player\Entity\Player;
 use Mush\Status\ChargeStrategies\AbstractChargeStrategy;
 use Mush\Status\ChargeStrategies\CycleIncrement;
 use Mush\Status\Entity\ChargeStatus;
@@ -40,28 +42,28 @@ class CycleIncrementTest extends TestCase
 
         $this->statusService->shouldReceive('persist')->once();
 
-        $this->strategy->execute($status);
+        $this->strategy->execute($status, new Daedalus());
 
         $this->assertEquals(1, $status->getCharge());
 
         $status->setCharge(10);
         $this->statusService->shouldReceive('persist')->once();
 
-        $this->strategy->execute($status);
+        $this->strategy->execute($status, new Daedalus());
 
         $this->assertEquals(10, $status->getCharge());
 
         $status->setAutoRemove(true);
         $this->statusService->shouldReceive('delete')->once();
 
-        $result = $this->strategy->execute($status);
+        $result = $this->strategy->execute($status, new Daedalus());
 
         $this->assertNull($result);
     }
 
     private function createStatus(): ChargeStatus
     {
-        $status = new ChargeStatus();
+        $status = new ChargeStatus(new Player());
         $status
             ->setCharge(0)
             ->setThreshold(10)

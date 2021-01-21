@@ -56,10 +56,6 @@ class MoveActionTest extends AbstractActionTest
         $roomStart = new Room();
         $roomEnd = new Room();
         $door = new Door();
-        $broken = new Status();
-        $broken
-            ->setName(EquipmentStatusEnum::BROKEN)
-        ;
 
         $door
             ->addRoom($roomStart)
@@ -90,7 +86,10 @@ class MoveActionTest extends AbstractActionTest
 
         //Door is broken
         $player->setMovementPoint(1);
-        $door->addStatus($broken);
+        $broken = new Status($door);
+        $broken
+            ->setName(EquipmentStatusEnum::BROKEN)
+        ;
 
         $result = $this->action->execute();
 
@@ -100,8 +99,9 @@ class MoveActionTest extends AbstractActionTest
         //Player is in other room
         $player
             ->setRoom(new Room())
-            ->removeStatus($broken)
         ;
+
+        $door->removeStatus($broken);
 
         $this->assertInstanceOf(Error::class, $result);
         $this->assertEquals($player->getMovementPoint(), 1);

@@ -15,8 +15,8 @@ use Mush\Action\Service\SuccessRateServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
 use Mush\Room\Service\RoomServiceInterface;
@@ -31,8 +31,8 @@ class ExtinguishActionTest extends AbstractActionTest
 {
     /** @var RoomLogServiceInterface | Mockery\Mock */
     private RoomLogServiceInterface $roomLogService;
-    /** @var GameEquipmentServiceInterface | Mockery\Mock */
-    private RoomServiceInterface $gameEquipmentService;
+    /** @var RoomServiceInterface | Mockery\Mock */
+    private RoomServiceInterface $roomService;
     /** @var PlayerServiceInterface | Mockery\Mock */
     private PlayerServiceInterface $playerService;
     /** @var SuccessRateServiceInterface | Mockery\Mock */
@@ -101,18 +101,16 @@ class ExtinguishActionTest extends AbstractActionTest
         $result = $this->action->execute();
         $this->assertInstanceOf(Error::class, $result);
 
-        $fire = new Status();
+        $fire = new Status($room);
         $fire
             ->setName(StatusEnum::FIRE)
         ;
-        $room->addStatus($fire);
 
         //extinguisher is broken
-        $broken = new Status();
+        $broken = new Status($gameItem);
         $broken
             ->setName(EquipmentStatusEnum::BROKEN)
         ;
-        $gameItem->addStatus($broken);
 
         $result = $this->action->execute();
         $this->assertInstanceOf(Error::class, $result);
@@ -121,11 +119,10 @@ class ExtinguishActionTest extends AbstractActionTest
     public function testExecute()
     {
         $room = new Room();
-        $fire = new Status();
+        $fire = new Status($room);
         $fire
             ->setName(StatusEnum::FIRE)
         ;
-        $room->addStatus($fire);
 
         $gameItem = new GameItem();
         $item = new ItemConfig();
@@ -146,14 +143,14 @@ class ExtinguishActionTest extends AbstractActionTest
         $this->roomService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
 
-        $attempt = new Attempt();
+        $player = $this->createPlayer(new Daedalus(), $room);
+
+        $attempt = new Attempt(new Player());
         $attempt
             ->setName(StatusEnum::ATTEMPT)
             ->setAction($this->action->getActionName())
         ;
         $this->statusService->shouldReceive('createAttemptStatus')->andReturn($attempt)->once();
-
-        $player = $this->createPlayer(new Daedalus(), $room);
 
         $actionParameter = new ActionParameters();
         $actionParameter->setItem($gameItem);
@@ -169,13 +166,11 @@ class ExtinguishActionTest extends AbstractActionTest
         $this->assertInstanceOf(Fail::class, $result);
         $this->assertCount(0, $room->getEquipments()->first()->getStatuses());
         $this->assertCount(1, $room->getStatuses());
-        $this->assertCount(1, $player->getStatuses());
         $this->assertEquals(1, $attempt->getCharge());
         $this->assertEquals(9, $player->getActionPoint());
 
         $this->successRateService->shouldReceive('getSuccessRate')->andReturn(10)->once();
         $this->randomService->shouldReceive('isSuccessfull')->andReturn(true)->once();
-        $this->statusService->shouldReceive('delete')->once();
 
         //Success
         $result = $this->action->execute();
@@ -184,7 +179,6 @@ class ExtinguishActionTest extends AbstractActionTest
         $this->assertCount(1, $room->getEquipments());
         $this->assertCount(0, $room->getEquipments()->first()->getStatuses());
         $this->assertCount(0, $room->getStatuses());
-        $this->assertCount(0, $player->getStatuses());
         $this->assertEquals(8, $player->getActionPoint());
     }
 }

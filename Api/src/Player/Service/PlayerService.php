@@ -107,12 +107,11 @@ class PlayerService implements PlayerServiceInterface
         ;
 
         foreach ($characterConfig->getStatuses() as $statusName) {
-            $status = new Status();
+            $status = new Status($player);
             $status
                 ->setName($statusName)
                 ->setVisibility(VisibilityEnum::PUBLIC)
             ;
-            $player->addStatus($status);
         }
 
         $this->persist($player);

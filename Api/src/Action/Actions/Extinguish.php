@@ -78,7 +78,6 @@ class Extinguish extends AttemptAction
             ($fireStatus = $this->player->getRoom()->getStatusByName(StatusEnum::FIRE))
         ) {
             $this->player->getRoom()->removeStatus($fireStatus);
-            $this->statusService->delete($fireStatus);
             $this->roomService->persist($this->player->getRoom());
         }
 

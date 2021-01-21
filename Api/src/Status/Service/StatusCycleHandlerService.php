@@ -2,19 +2,19 @@
 
 namespace Mush\Status\Service;
 
-use Mush\Game\CycleHandler\AbstractCycleHandler;
+use Mush\Status\CycleHandler\AbstractStatusCycleHandler;
 use Mush\Status\Entity\Status;
 
 class StatusCycleHandlerService implements StatusCycleHandlerServiceInterface
 {
     private array $strategies = [];
 
-    public function addStrategy(AbstractCycleHandler $cycleHandler): void
+    public function addStrategy(AbstractStatusCycleHandler $cycleHandler): void
     {
         $this->strategies[$cycleHandler->getName()] = $cycleHandler;
     }
 
-    public function getStatusCycleHandler(Status $status): ?AbstractCycleHandler
+    public function getStatusCycleHandler(Status $status): ?AbstractStatusCycleHandler
     {
         if (!($name = $status->getName()) || !isset($this->strategies[$status->getName()])) {
             return null;

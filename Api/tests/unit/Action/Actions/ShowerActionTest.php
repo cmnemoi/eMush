@@ -72,13 +72,12 @@ class ShowerActionTest extends AbstractActionTest
         $action->setName(ActionEnum::SHOWER);
         $item->setActions(new ArrayCollection([$action]));
 
-        $dirty = new Status();
+        $player = $this->createPlayer(new Daedalus(), $room);
+
+        $dirty = new Status($player);
         $dirty
             ->setName(PlayerStatusEnum::DIRTY)
         ;
-
-        $player = $this->createPlayer(new Daedalus(), $room);
-        $player->addStatus($dirty);
 
         $actionParameter = new ActionParameters();
         $actionParameter->setEquipment($gameItem);

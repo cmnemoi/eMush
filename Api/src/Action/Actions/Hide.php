@@ -67,7 +67,7 @@ class Hide extends AbstractAction
         $hiddenStatus = new Status($this->gameItem);
         $hiddenStatus
             ->setName(EquipmentStatusEnum::HIDDEN)
-            ->setVisibility(VisibilityEnum::EQUIPMENT_PRIVATE)
+            ->setVisibility(VisibilityEnum::PRIVATE)
             ->setTarget($this->player)
         ;
 

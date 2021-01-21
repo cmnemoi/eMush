@@ -70,6 +70,7 @@ class StatusService implements StatusServiceInterface
         GameEquipment $gameEquipment,
         string $strategy,
         string $visibilty = VisibilityEnum::PUBLIC,
+        string $chargeVisibilty = VisibilityEnum::PUBLIC,
         int $charge = 0,
         int $threshold = null,
         bool $autoRemove = false
@@ -96,6 +97,7 @@ class StatusService implements StatusServiceInterface
         Player $player,
         string $strategy,
         string $visibilty = VisibilityEnum::PUBLIC,
+        string $chargeVisibilty = VisibilityEnum::PUBLIC,
         int $charge = 0,
         int $threshold = null,
         bool $autoRemove = false
@@ -122,6 +124,7 @@ class StatusService implements StatusServiceInterface
         Room $room,
         string $strategy,
         string $visibilty = VisibilityEnum::PUBLIC,
+        string $chargeVisibilty = VisibilityEnum::PUBLIC,
         int $charge = 0,
         int $threshold = null,
         bool $autoRemove = false

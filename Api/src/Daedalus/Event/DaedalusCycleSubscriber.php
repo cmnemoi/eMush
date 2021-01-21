@@ -148,7 +148,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         foreach ($daedalus->getRooms() as $room) {
             if ($room->getName() !== RoomEnum::GREAT_BEYOND) {
                 $newRoomCycle = new RoomCycleEvent($room, $time);
-                $this->eventDispatcher->dispatch($newRoomCycle, RoomCycleEvent::ROOM_NEW_DAY);
+                $this->eventDispatcher->dispatch($newRoomCycle, RoomCycleEvent::ROOM_NEW_CYCLE);
             }
         }
 

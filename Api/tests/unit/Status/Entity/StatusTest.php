@@ -4,7 +4,11 @@ namespace Mush\Test\Status\Entity;
 
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
+use Mush\Room\Entity\Room;
+use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
+use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use PHPUnit\Framework\TestCase;
 
 class StatusTest extends TestCase
@@ -46,5 +50,29 @@ class StatusTest extends TestCase
 
         $this->assertNull($status->getStatusTargetTarget());
         $this->assertEquals(0, $player->getStatuses()->count());
+    }
+
+    public function testAddRoomStatus()
+    {
+        $room = new Room();
+
+        $status = new ChargeStatus($room);
+        $status
+            ->setName('status name')
+            ->setStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setChargeVisibility(VisibilityEnum::PUBLIC)
+            ->setCharge(0)
+            ->setAutoRemove(false)
+        ;
+
+        $status->getOwner();
+
+        $this->assertEquals($room, $status->getOwner());
+        $this->assertEquals(1, $room->getStatuses()->count());
+
+        $room->removeStatus($status);
+
+        $this->assertEquals(0, $room->getStatuses()->count());
     }
 }

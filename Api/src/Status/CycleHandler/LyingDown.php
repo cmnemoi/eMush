@@ -3,15 +3,16 @@
 namespace Mush\Status\CycleHandler;
 
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Game\CycleHandler\AbstractCycleHandler;
 use Mush\Player\Entity\Modifier;
+use Mush\Player\Entity\Player;
 use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Status\Entity\Status;
+use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
-class LyingDown extends AbstractCycleHandler
+class LyingDown extends AbstractStatusCycleHandler
 {
     protected string $name = PlayerStatusEnum::LYING_DOWN;
     private EventDispatcherInterface $eventDispatcher;
@@ -21,15 +22,13 @@ class LyingDown extends AbstractCycleHandler
         $this->eventDispatcher = $eventDispatcher;
     }
 
-    public function handleNewCycle($object, Daedalus $daedalus, \DateTime $dateTime): void
+    public function handleNewCycle(Status $status, Daedalus $daedalus, StatusHolderInterface $statusHolder, \DateTime $dateTime): void
     {
-        if (!$object instanceof Status && $object->getName() !== PlayerStatusEnum::LYING_DOWN) {
+        if ($status->getName() !== PlayerStatusEnum::LYING_DOWN || !$statusHolder instanceof Player) {
             return;
         }
 
-        $player = $object->getPlayer();
-
-        $playerEvent = new PlayerEvent($player, $dateTime);
+        $playerEvent = new PlayerEvent($statusHolder, $dateTime);
         $actionModifier = new Modifier();
         $actionModifier
             ->setDelta(1)
@@ -44,7 +43,7 @@ class LyingDown extends AbstractCycleHandler
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
     }
 
-    public function handleNewDay($object, Daedalus $daedalus, \DateTime $dateTime): void
+    public function handleNewDay(Status $status, Daedalus $daedalus, StatusHolderInterface $statusHolder, \DateTime $dateTime): void
     {
     }
 }

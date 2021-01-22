@@ -137,6 +137,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             $gameEquipment,
             ChargeStrategyTypeEnum::GROWING_PLANT,
             VisibilityEnum::PUBLIC,
+            VisibilityEnum::HIDDEN,
             0,
             $this->equipmentEffectService->getPlantEffect($plant, $daedalus)->getMaturationTime()
         );
@@ -154,13 +155,16 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             EquipmentStatusEnum::CHARGES,
             $gameEquipment,
             VisibilityEnum::PUBLIC,
+            VisibilityEnum::PUBLIC,
             $charged->getChargeStrategy(),
             $charged->getStartCharge(),
             $charged->getMaxCharge()
         );
 
         if (!$charged->isVisible()) {
-            $chargeStatus->setVisibility(VisibilityEnum::HIDDEN);
+            $chargeStatus
+                ->setVisibility(VisibilityEnum::HIDDEN)
+                ->setChargeVisibility(VisibilityEnum::HIDDEN);
         }
 
         return $gameEquipment;
@@ -172,11 +176,10 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             throw new \LogicException('Parameter is not a document');
         }
 
-        $contentStatus = new ContentStatus();
+        $contentStatus = new ContentStatus($gameEquipment);
         $contentStatus
             ->setName(EquipmentStatusEnum::DOCUMENT_CONTENT)
             ->setVisibility(VisibilityEnum::HIDDEN)
-            ->setGameEquipment($gameEquipment)
             ->setContent($document->getContent())
         ;
 
@@ -249,7 +252,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         }
 
         if ($gameEquipment->getEquipment()->isFireBreakable() &&
-            $gameEquipment->getStatusByName(EquipmentStatusEnum::BROKEN) &&
+            !$gameEquipment->getStatusByName(EquipmentStatusEnum::BROKEN) &&
             $this->randomService->isSuccessfull($this->getGameConfig($gameEquipment)->getDifficultyConfig()->getEquipmentFireBreakRate())
         ) {
             $equipmentEvent = new EquipmentEvent($gameEquipment, VisibilityEnum::PUBLIC, $date);

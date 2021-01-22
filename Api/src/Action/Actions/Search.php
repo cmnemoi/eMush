@@ -9,6 +9,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\Target;
 use Mush\RoomLog\Enum\ActionLogEnum;
@@ -61,7 +62,8 @@ class Search extends AbstractAction
             ;
 
             if (!($hiddenStatus = $mostRecentHiddenItem->getStatusByName(EquipmentStatusEnum::HIDDEN)) ||
-                !($hiddenBy = $hiddenStatus->getPlayer())
+                !($hiddenBy = $hiddenStatus->getTarget()) ||
+                !$hiddenBy instanceof Player
             ) {
                 throw new \LogicException('invalid hidden status');
             }
@@ -72,9 +74,6 @@ class Search extends AbstractAction
             $hiddenBy->removeStatus($hiddenStatus);
 
             $this->playerService->persist($hiddenBy);
-
-            $this->statusService->delete($hiddenStatus);
-            $this->gameEquipmentService->persist($mostRecentHiddenItem);
 
             $target = new Target($itemFound->getName(), 'items');
 

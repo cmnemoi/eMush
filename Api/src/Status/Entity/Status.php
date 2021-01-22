@@ -4,7 +4,6 @@ namespace Mush\Status\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Mush\Equipment\Entity\ConsumableEffect;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
@@ -45,24 +44,19 @@ class Status
     protected ?string $visibility = null;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Mush\Player\Entity\Player", inversedBy="statuses")
+     * @ORM\OneToOne(targetEntity="Mush\Status\Entity\StatusTarget", cascade="ALL", inversedBy="owner")
      */
-    protected ?Player $player = null;
+    protected ?StatusTarget $owner;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Mush\Equipment\Entity\GameEquipment", inversedBy="statuses")
+     * @ORM\OneToOne(targetEntity="Mush\Status\Entity\StatusTarget", cascade="ALL", inversedBy="target")
      */
-    protected ?GameEquipment $gameEquipment = null;
+    protected ?StatusTarget $target = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Mush\Room\Entity\Room", inversedBy="statuses")
-     */
-    protected ?Room $room = null;
-
-    /**
-     * @ORM\OneToOne(targetEntity="Mush\Equipment\Entity\ConsumableEffect", cascade={"ALL"}, orphanRemoval=true)
-     */
-    protected ?ConsumableEffect $consumableEffect = null;
+    public function __construct(StatusHolderInterface $statusHolder)
+    {
+        $this->setOwner($statusHolder);
+    }
 
     public function getId(): ?int
     {
@@ -99,95 +93,129 @@ class Status
         return $this;
     }
 
-    public function getPlayer(): ?Player
+    public function getOwner(): StatusHolderInterface
     {
-        return $this->player;
+        if ($this->owner === null) {
+            throw new \LogicException("This status should be deleted, id : {$this->getId()}");
+        }
+
+        if ($player = $this->owner->getPlayer()) {
+            return $player;
+        }
+        if ($equipment = $this->owner->getGameEquipment()) {
+            return $equipment;
+        }
+        if ($room = $this->owner->getRoom()) {
+            return $room;
+        }
+
+        throw new \LogicException('There should always be a target on a status target');
     }
 
-    /**
-     * @return static
-     */
-    public function setPlayer(?Player $player): Status
+    private function setOwner(StatusHolderInterface $owner): Status
     {
-        if ($player !== $this->player) {
-            $oldPlayer = $this->getPlayer();
-
-            $this->player = $player;
-
-            if ($player !== null) {
-                $player->addStatus($this);
-            }
-            if ($oldPlayer !== null) {
-                $oldPlayer->removeStatus($this);
-            }
+        $statusOwner = new StatusTarget();
+        $statusOwner->setOwner($this);
+        if ($owner instanceof Player) {
+            $statusOwner->setPlayer($owner);
+        } elseif ($owner instanceof GameEquipment) {
+            $statusOwner->setGameEquipment($owner);
+        } elseif ($owner instanceof Room) {
+            $statusOwner->setRoom($owner);
         }
+
+        $this->owner = $statusOwner;
 
         return $this;
     }
 
-    public function getGameEquipment(): ?GameEquipment
+    public function setTargetOwner(StatusTarget $owner): Status
     {
-        return $this->gameEquipment;
-    }
-
-    /**
-     * @return static
-     */
-    public function setGameEquipment(?GameEquipment $gameEquipment): Status
-    {
-        if ($gameEquipment !== $this->gameEquipment) {
-            $oldEquipment = $this->getGameEquipment();
-
-            $this->gameEquipment = $gameEquipment;
-
-            if ($gameEquipment !== null) {
-                $gameEquipment->addStatus($this);
-            }
-            if ($oldEquipment !== null) {
-                $oldEquipment->removeStatus($this);
-            }
-        }
+        $this->owner = $owner;
 
         return $this;
     }
 
-    public function getRoom(): ?Room
+    public function getTarget(): ?StatusHolderInterface
     {
-        return $this->room;
+        if ($this->target === null) {
+            return null;
+        }
+
+        if ($player = $this->target->getPlayer()) {
+            return $player;
+        }
+        if ($equipment = $this->target->getGameEquipment()) {
+            return $equipment;
+        }
+        if ($room = $this->target->getRoom()) {
+            return $room;
+        }
+
+        throw new \LogicException('There should always be a target on a status target');
     }
 
     /**
      * @return static
      */
-    public function setRoom(?Room $room): Status
+    public function setTarget(?StatusHolderInterface $target): Status
     {
-        if ($room !== $this->room) {
-            $oldRoom = $this->getRoom();
+        $statusTarget = new StatusTarget();
+        $statusTarget->setTarget($this);
 
-            $this->room = $room;
-
-            if ($room !== null) {
-                $room->addStatus($this);
-            }
-            if ($oldRoom !== null) {
-                $oldRoom->removeStatus($this);
-            }
+        if ($target instanceof Player) {
+            $statusTarget->setPlayer($target);
+        } elseif ($target instanceof GameEquipment) {
+            $statusTarget->setGameEquipment($target);
+        } elseif ($target instanceof Room) {
+            $statusTarget->setRoom($target);
+        } else {
+            $statusTarget = null;
         }
+
+        $this->target = $statusTarget;
 
         return $this;
     }
 
-    public function getConsumableEffect(): ?ConsumableEffect
+    public function setStatusTargetOwner(StatusTarget $statusTarget): Status
     {
-        return $this->consumableEffect;
+        $this->owner = $statusTarget;
+
+        return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function setConsumableEffect(?ConsumableEffect $consumableEffect): Status
+    public function getStatusTargetOwner(): StatusTarget
     {
-        $this->consumableEffect = $consumableEffect;
+        if ($this->owner === null) {
+            throw new \LogicException("This status should be deleted, id : {$this->getId()}");
+        }
+
+        return $this->owner;
+    }
+
+    public function setStatusTargetTarget(StatusTarget $statusTarget): Status
+    {
+        $this->target = $statusTarget;
+
+        return $this;
+    }
+
+    public function getStatusTargetTarget(): ?StatusTarget
+    {
+        return $this->target;
+    }
+
+    public function delete(): Status
+    {
+        if ($this->owner !== null) {
+            $this->owner->removeStatusLinksTarget();
+            $this->owner = null;
+        }
+        if ($this->target !== null) {
+            $this->target->removeStatusLinksTarget();
+            $this->target = null;
+        }
 
         return $this;
     }

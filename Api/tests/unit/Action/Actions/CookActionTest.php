@@ -93,11 +93,10 @@ class CookActionTest extends AbstractActionTest
         $result = $this->action->execute();
         $this->assertInstanceOf(Error::class, $result);
 
-        $frozenStatus = new Status();
+        $frozenStatus = new Status($gameRation);
         $frozenStatus
              ->setName(EquipmentStatusEnum::FROZEN)
-             ->setGameEquipment($gameRation);
-        $gameRation->addStatus($frozenStatus);
+        ;
 
         $gameKitchen->setRoom(null);
         //No microwave in the room
@@ -122,11 +121,10 @@ class CookActionTest extends AbstractActionTest
             ->setName('ration')
         ;
 
-        $frozenStatus = new Status();
+        $frozenStatus = new Status($gameRation);
         $frozenStatus
              ->setName(EquipmentStatusEnum::FROZEN)
-             ->setGameEquipment($gameRation);
-        $gameRation->addStatus($frozenStatus);
+        ;
 
         $gameKitchen = new GameEquipment();
         $kitchen = new ItemConfig();
@@ -144,7 +142,6 @@ class CookActionTest extends AbstractActionTest
         $this->gameEquipmentService->shouldReceive('getOperationalEquipmentsByName')->andReturn(new ArrayCollection([$gameKitchen]))->once();
         $this->gameEquipmentService->shouldReceive('persist')->once();
         $this->playerService->shouldReceive('persist')->once();
-        $this->statusService->shouldReceive('delete')->once();
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
@@ -155,10 +152,9 @@ class CookActionTest extends AbstractActionTest
         $this->assertCount(0, $player->getStatuses());
         $this->assertEquals(9, $player->getActionPoint());
 
-        //Standard Ration
-        $daedalus = new Daedalus();
         $room = new Room();
 
+        //Standard Ration
         $gameRation = new GameItem();
         $ration = new ItemConfig();
         $ration->setName(GameRationEnum::STANDARD_RATION);

@@ -27,12 +27,16 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $sabotageAction = $this->getReference(ActionsFixtures::SABOTAGE_DEFAULT);
         $extractSporeAction = $this->getReference(ActionsFixtures::EXTRACT_SPORE);
         $infectAction = $this->getReference(ActionsFixtures::INFECT_PLAYER);
-        $defaultActions = new ArrayCollection([$hitAction,
-                                               $hideAction,
-                                               $searchAction,
-                                               $sabotageAction,
-                                               $infectAction,
-                                               $extractSporeAction, ]);
+        $getUpAction = $this->getReference(ActionsFixtures::GET_UP);
+        $defaultActions = new ArrayCollection([
+            $hitAction,
+            $hideAction,
+            $searchAction,
+            $sabotageAction,
+            $infectAction,
+            $extractSporeAction,
+            $getUpAction,
+        ]);
 
         $andie = new CharacterConfig();
         $andie
@@ -239,12 +243,12 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setActions($defaultActions)
             ->setStatuses([])
             ->setSkills([
-                    SkillEnum::ASTROPHYSICIST,
-                    SkillEnum::DESIGNER,
-                    SkillEnum::LEADER,
-                    SkillEnum::POLITICIAN,
-                    SkillEnum::TECHNICIAN,
-                    SkillEnum::OPTIMIST,
+                SkillEnum::ASTROPHYSICIST,
+                SkillEnum::DESIGNER,
+                SkillEnum::LEADER,
+                SkillEnum::POLITICIAN,
+                SkillEnum::TECHNICIAN,
+                SkillEnum::OPTIMIST,
             ])
         ;
         $manager->persist($kuanTi);

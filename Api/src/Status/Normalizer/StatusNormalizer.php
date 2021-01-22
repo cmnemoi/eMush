@@ -2,7 +2,6 @@
 
 namespace Mush\Status\Normalizer;
 
-use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
@@ -50,7 +49,7 @@ class StatusNormalizer implements ContextAwareNormalizerInterface
                 'description' => $this->translator->trans("{$statusName}.description", [], 'statuses'),
             ];
 
-            if ($status instanceof ChargeStatus) {
+            if ($status instanceof ChargeStatus && $status->getChargeVisibility() !== VisibilityEnum::HIDDEN) {
                 $normedStatus['charge'] = $status->getCharge();
             }
 
@@ -68,23 +67,22 @@ class StatusNormalizer implements ContextAwareNormalizerInterface
     {
         $visibility = $status->getVisibility();
 
-        $playerContext = array_key_exists('player', $context) && $context['player'] instanceof Player;
-
-        return $visibility === VisibilityEnum::PUBLIC ||
-            ($visibility === VisibilityEnum::PLAYER_PUBLIC && $playerContext)
-        ;
+        return $visibility === VisibilityEnum::PUBLIC;
     }
 
     private function isVisibilityPrivateForUser(Status $status, array $context): bool
     {
         $visibility = $status->getVisibility();
-        $equipmentContext = isset($context['equipment']) && $context['equipment'] instanceof GameEquipment;
 
-        return $this->getUserPlayer() === $status->getPlayer() &&
-            ($visibility === VisibilityEnum::PRIVATE ||
-                ($visibility === VisibilityEnum::EQUIPMENT_PRIVATE && $equipmentContext)
-            )
-        ;
+        if (($owner = $status->getOwner()) instanceof Player) {
+            $player = $owner;
+        } elseif (($target = $status->getTarget()) instanceof Player) {
+            $player = $target;
+        } else {
+            return false;
+        }
+
+        return $visibility === VisibilityEnum::PRIVATE && $player === $this->getUserPlayer();
     }
 
     private function getUserPlayer(): Player

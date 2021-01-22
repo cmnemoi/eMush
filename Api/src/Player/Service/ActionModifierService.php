@@ -188,6 +188,7 @@ class ActionModifierService implements ActionModifierServiceInterface
                 $player,
                 ChargeStrategyTypeEnum::CYCLE_DECREMENT,
                 VisibilityEnum::PUBLIC,
+                VisibilityEnum::HIDDEN,
                 2,
                 0,
                 true

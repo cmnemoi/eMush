@@ -3,6 +3,7 @@
 namespace Mush\Status\Service;
 
 use Doctrine\Common\Collections\Collection;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
@@ -13,6 +14,8 @@ use Mush\Status\Entity\Status;
 
 interface StatusServiceInterface
 {
+    public function getStatusTargetingGameEquipment(GameEquipment $gameEquipment, string $statusName): ?Status;
+
     public function createCorePlayerStatus(string $statusName, Player $player): Status;
 
     public function createCoreEquipmentStatus(string $statusName, GameEquipment $gameEquipment, string $visibilty = VisibilityEnum::PUBLIC): Status;
@@ -24,6 +27,7 @@ interface StatusServiceInterface
         GameEquipment $gameEquipment,
         string $strategy,
         string $visibilty = VisibilityEnum::PUBLIC,
+        string $chargeVisibilty = VisibilityEnum::PUBLIC,
         int $charge = 0,
         int $threshold = null,
         bool $autoRemove = false
@@ -34,6 +38,7 @@ interface StatusServiceInterface
         Player $player,
         string $strategy,
         string $visibilty = VisibilityEnum::PUBLIC,
+        string $chargeVisibilty = VisibilityEnum::PUBLIC,
         int $charge = 0,
         int $threshold = null,
         bool $autoRemove = false
@@ -44,6 +49,7 @@ interface StatusServiceInterface
         Room $room,
         string $strategy,
         string $visibilty = VisibilityEnum::PUBLIC,
+        string $chargeVisibilty = VisibilityEnum::PUBLIC,
         int $charge = 0,
         int $threshold = null,
         bool $autoRemove = false
@@ -60,4 +66,6 @@ interface StatusServiceInterface
     public function delete(Status $status): bool;
 
     public function getMostRecent(string $statusName, Collection $equipments): GameEquipment;
+
+    public function getDaedalus(Status $status): Daedalus;
 }

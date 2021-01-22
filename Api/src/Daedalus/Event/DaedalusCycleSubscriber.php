@@ -6,6 +6,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Event\EquipmentCycleEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Enum\EndCauseEnum as EnumEndCauseEnum;
 use Mush\Player\Event\PlayerCycleEvent;
@@ -150,6 +151,11 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
                 $newRoomCycle = new RoomCycleEvent($room, $time);
                 $this->eventDispatcher->dispatch($newRoomCycle, RoomCycleEvent::ROOM_NEW_CYCLE);
             }
+        }
+
+        foreach ($this->gameEquipmentService->getDoorsByDaedalus($daedalus) as $door) {
+            $itemNewCycle = new EquipmentCycleEvent($door, $daedalus, $time);
+            $this->eventDispatcher->dispatch($itemNewCycle, EquipmentCycleEvent::EQUIPMENT_NEW_CYCLE);
         }
 
         if ($newDay) {

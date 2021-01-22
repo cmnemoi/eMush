@@ -2,6 +2,7 @@
 
 namespace Mush\Equipment\Service;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
@@ -223,6 +224,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             return;
         }
 
+        dump($gameEquipment->getName());
         if (($gameEquipment instanceof Door &&
             !DoorEnum::isUnbreakable($gameEquipment->getName()) &&
             $this->randomService->isSuccessfull($this->getGameConfig($gameEquipment)->getDifficultyConfig()->getDoorBreakRate())) ||
@@ -266,5 +268,15 @@ class GameEquipmentService implements GameEquipmentServiceInterface
     private function getGameConfig(GameEquipment $gameEquipment): GameConfig
     {
         return $gameEquipment->getEquipment()->getGameConfig();
+    }
+
+    public function getDoorsByDaedalus(Daedalus $daedalus): Collection
+    {
+        $doors = $this->repository->findDoorsByDaedalus($daedalus);
+        if ($doors->count()===0){
+            return new ArrayCollection();
+        }
+
+        return $doors;
     }
 }

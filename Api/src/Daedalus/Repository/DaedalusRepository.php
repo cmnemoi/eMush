@@ -27,7 +27,6 @@ class DaedalusRepository extends ServiceEntityRepository
             ->where($qb->expr()->eq('config.id', 'daedalus.gameConfig'))
         ;
 
-        //@TODO do not display filled and finished Daedalus
         $qb
             ->select('daedalus')
             ->leftJoin('daedalus.players', 'player')

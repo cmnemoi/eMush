@@ -29,7 +29,7 @@ class DaedalusFactory extends \Codeception\Module
             'fireHullDamage' => [2 => 1],
             'firePlayerDamage' => [2 => 1],
             'electricArcPlayerDamage' => [3 => 1],
-            'tremorPlayerDamage' => [3 => 1],
+            'tremorPlayerDamage' => [2 => 1],
             'metalPlatePlayerDamage' => [6 => 1],
             'panicCrisisPlayerDamage' => [3 => 1],
         ]);

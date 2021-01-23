@@ -16,20 +16,4 @@ class GameEquipmentRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, GameEquipment::class);
     }
-
-    public function findDoorsByDaedalus(Daedalus $daedalus): Collection
-    {
-        $queryBuilder = $this->createQueryBuilder('gameEquipment');
-
-        $queryBuilder
-            ->from(Door::class, 'door')
-            ->leftJoin('door.rooms', 'room')
-            ->andWhere($queryBuilder->expr()->eq('room.daedalus', ':daedalus'))
-            ->andWhere('gameEquipment INSTANCE OF ' . Door::class)
-            ->distinct()
-            ->setParameter(':daedalus', $daedalus)
-        ;
-
-        return new ArrayCollection($queryBuilder->getQuery()->getArrayResult());
-    }
 }

@@ -28,4 +28,6 @@ interface GameEquipmentServiceInterface
     public function handleBreakCycle(GameEquipment $gameEquipment, \DateTime $date): void;
 
     public function handleBreakFire(GameEquipment $gameEquipment, \DateTime $date): void;
+
+    public function getDoorsByDaedalus(Daedalus $daedalus): Collection;
 }

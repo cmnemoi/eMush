@@ -2,6 +2,7 @@
 
 namespace Mush\Equipment\Service;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
@@ -266,5 +267,21 @@ class GameEquipmentService implements GameEquipmentServiceInterface
     private function getGameConfig(GameEquipment $gameEquipment): GameConfig
     {
         return $gameEquipment->getEquipment()->getGameConfig();
+    }
+
+    public function getDoorsByDaedalus(Daedalus $daedalus): Collection
+    {
+        //@FIXME use gameEquipment respository
+        $doors = new ArrayCollection();
+
+        foreach ($daedalus->getRooms() as $room) {
+            foreach ($room->getDoors() as $door) {
+                if (!$doors->contains($door)) {
+                    $doors->add($door);
+                }
+            }
+        }
+
+        return $doors;
     }
 }

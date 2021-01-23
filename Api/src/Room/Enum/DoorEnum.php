@@ -45,6 +45,52 @@ class DoorEnum
     public const REAR_ALPHA_TURRET_BAY_ALPHA_2 = 'rear_alpha_turret_bay_alpha_2';
     public const REAR_BRAVO_TURRET_BAY_ICARUS = 'rear_bravo_turret_bay_icarus';
 
+    public static function getAllDoors(): array
+    {
+        return [
+            self::BRIDGE_FRONT_ALPHA_TURRET,
+            self::BRIDGE_FRONT_BRAVO_TURRET,
+            self::FRONT_CORRIDOR_FRONT_ALPHA_TURRET,
+            self::FRONT_CORRIDOR_FRONT_BRAVO_TURRET,
+            self::FRONT_CORRIDOR_BRIDGE,
+            self::FRONT_CORRIDOR_LABORATORY,
+            self::FRONT_CORRIDOR_MEDLAB,
+            self::FRONT_CORRIDOR_GARDEN,
+            self::FRONT_CORRIDOR_FRONT_STORAGE,
+            self::FRONT_STORAGE_CENTRAL_ALPHA_TURRET,
+            self::FRONT_CORRIDOR_CENTRAL_CORRIDOR,
+            self::MEDLAB_LABORATORY,
+            self::FRONT_STORAGE_GARDEN,
+            self::REFECTORY_CENTRAL_CORRIDOR,
+            self::MEDLAB_CENTRAL_BRAVO_TURRET,
+            self::BRAVO_BAY_CENTRAL_BRAVO_TURRET,
+            self::BRAVO_BAY_CENTRAL_CORRIDOR,
+            self::BRAVO_BAY_CENTER_BRAVO_STORAGE,
+            self::BRAVO_BAY_REAR_CORRIDOR,
+            self::BRAVO_BAY_BRAVO_DORM,
+            self::ALPHA_BAY_CENTER_ALPHA_STORAGE,
+            self::ALPHA_BAY_ALPHA_DORM,
+            self::ALPHA_BAY_CENTRAL_ALPHA_TURRET,
+            self::ALPHA_BAY_CENTRAL_CORRIDOR,
+            self::ALPHA_BAY_ALPHA_BAY_2,
+            self::REAR_CORRIDOR_ALPHA_DORM,
+            self::REAR_CORRIDOR_BRAVO_DORM,
+            self::REAR_CORRIDOR_NEXUS,
+            self::REAR_CORRIDOR_BAY_ALPHA_2,
+            self::REAR_CORRIDOR_BAY_ICARUS,
+            self::REAR_CORRIDOR_REAR_ALPHA_STORAGE,
+            self::REAR_CORRIDOR_REAR_BRAVO_STORAGE,
+            self::REAR_BRAVO_TURRET_BAY_ICARUS,
+            self::REAR_ALPHA_TURRET_BAY_ALPHA_2,
+            self::ENGINE_ROOM_BAY_ICARUS,
+            self::ENGINE_ROOM_REAR_ALPHA_STORAGE,
+            self::ENGINE_ROOM_REAR_BRAVO_STORAGE,
+            self::ENGINE_ROOM_BAY_ALPHA_2,
+            self::ENGINE_ROOM_REAR_ALPHA_TURRET,
+            self::ENGINE_ROOM_REAR_BRAVO_TURRET,
+        ];
+    }
+
     public static function isUnbreakable(string $doorName): bool
     {
         return in_array($doorName, [

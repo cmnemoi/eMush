@@ -50,7 +50,7 @@ class GameEquipment implements StatusHolderInterface
     /**
      * @ORM\ManyToOne(targetEntity="EquipmentConfig")
      */
-    private EquipmentConfig $equipment;
+    protected EquipmentConfig $equipment;
 
     /**
      * @ORM\Column(type="string", nullable=false)

@@ -31,7 +31,7 @@ class Room implements StatusHolderInterface
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer", length=255, nullable=false)
      */
-    private int $id;
+    private ?int $id = null;
 
     /**
      * @ORM\Column(type="string", nullable=false)
@@ -71,7 +71,7 @@ class Room implements StatusHolderInterface
         $this->statuses = new ArrayCollection();
     }
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }

@@ -28,8 +28,10 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
         $takeAction = $this->getReference(ActionsFixtures::DEFAULT_TAKE);
         /** @var Action $takeAction */
         $dropAction = $this->getReference(ActionsFixtures::DEFAULT_DROP);
-        /** @var Action $readAction */
-        $readAction = $this->getReference(ActionsFixtures::READ_DEFAULT);
+        /** @var Action $readDocument */
+        $readDocument = $this->getReference(ActionsFixtures::READ_DOCUMENT);
+        /** @var Action $readBook */
+        $readBook = $this->getReference(ActionsFixtures::READ_BOOK);
 
         $actions = new ArrayCollection([$takeAction, $dropAction]);
 
@@ -56,7 +58,7 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
             $apprentonMechanic = new Book();
             $apprentonMechanic
                 ->setSkill($skillName)
-                ->addAction($readAction)
+                ->addAction($readBook)
             ;
 
             $apprenton = new ItemConfig();
@@ -81,7 +83,7 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
         $documentMechanic
             ->setIsTranslated(true)
             ->setCanShred(true)
-            ->addAction($readAction)
+            ->addAction($readDocument)
         ;
 
         $document = new ItemConfig();
@@ -104,7 +106,7 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
         $commandersManualMechanic
             ->setIsTranslated(true)
             ->setContent(DocumentContentEnum::COMMANDERS_MANUAL)
-            ->addAction($readAction)
+            ->addAction($readDocument)
         ;
 
         $commandersManual = new ItemConfig();
@@ -127,6 +129,7 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
         $mushResearchMechanic
             ->setIsTranslated(true)
             ->setContent(DocumentContentEnum::MUSH_RESEARCH_REVIEW)
+            ->addAction($readDocument)
         ;
 
         $mushResearch = new ItemConfig();
@@ -149,7 +152,7 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
         $postItMechanic
             ->setIsTranslated(false)
             ->setCanShred(true)
-            ->addAction($readAction)
+            ->addAction($readDocument)
         ;
 
         $postIt = new ItemConfig();

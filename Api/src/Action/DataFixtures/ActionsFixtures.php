@@ -22,7 +22,8 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
     public const DRUG_CONSUME = 'drug.consume';
     public const RATION_CONSUME = 'ration.consume';
     public const BUILD_DEFAULT = 'build.default';
-    public const READ_DEFAULT = 'read.default';
+    public const READ_DOCUMENT = 'read.document';
+    public const READ_BOOK = 'read.book';
     public const ATTACK_DEFAULT = 'attack.default';
     public const EXTINGUISH_DEFAULT = 'extinguish.default';
     public const TRY_KUBE = 'try.kube';
@@ -161,10 +162,21 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
             ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(0)
             ->setDirtyRate(0)
-            ->setActionCost($freeCost)
+            ->setActionCost($twoActionPointCost)
         ;
 
         $manager->persist($readAction);
+
+        $readDocument = new Action();
+        $readDocument
+            ->setName(ActionEnum::READ_DOCUMENT)
+            ->setScope(ActionScopeEnum::CURRENT)
+            ->setInjuryRate(0)
+            ->setDirtyRate(0)
+            ->setActionCost($freeCost)
+        ;
+
+        $manager->persist($readDocument);
 
         $attackAction = new Action();
         $attackAction
@@ -446,7 +458,8 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::RATION_CONSUME, $rationConsumeAction);
         $this->addReference(self::DRUG_CONSUME, $drugConsumeAction);
         $this->addReference(self::BUILD_DEFAULT, $buildAction);
-        $this->addReference(self::READ_DEFAULT, $readAction);
+        $this->addReference(self::READ_DOCUMENT, $readDocument);
+        $this->addReference(self::READ_BOOK, $readAction);
         $this->addReference(self::ATTACK_DEFAULT, $attackAction);
         $this->addReference(self::EXTINGUISH_DEFAULT, $extinguishAction);
         $this->addReference(self::TRY_KUBE, $tryKubeAction);

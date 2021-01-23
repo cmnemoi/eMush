@@ -4,11 +4,11 @@ namespace Mush\Tests\Room\Event;
 
 use App\Tests\FunctionalTester;
 use DateTime;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Daedalus\Entity\Daedalus;
-use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\CharacterConfig;
+use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
@@ -46,7 +46,6 @@ class RoomEventCest
         $I->assertEquals(StatusEnum::FIRE, $fireStatus->getName());
     }
 
-
     // tests
     public function testTremor(FunctionalTester $I)
     {
@@ -66,10 +65,8 @@ class RoomEventCest
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'room' => $room, 'healthPoint' => 10]);
 
-
         $roomEvent = new RoomEvent($room, $time);
         $this->roomSubscriber->onTremor($roomEvent);
-
 
         $I->assertEquals(8, $player->getHealthPoint());
     }
@@ -91,7 +88,6 @@ class RoomEventCest
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'room' => $room, 'healthPoint' => 10]);
 
-
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, ['breakableRate' => 12, 'gameConfig' => $gameConfig]);
 
@@ -103,10 +99,8 @@ class RoomEventCest
         ;
         $I->haveInRepository($gameEquipment);
 
-
         $roomEvent = new RoomEvent($room, $time);
         $this->roomSubscriber->onElectricArc($roomEvent);
-
 
         $I->assertEquals(7, $player->getHealthPoint());
         $I->assertTrue($gameEquipment->isBroken());

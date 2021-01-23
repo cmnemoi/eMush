@@ -186,7 +186,6 @@ class CycleEventCest
         $I->assertEquals(1, $room2->getStatuses()->first()->getCharge());
     }
 
-
     public function testCycleEquipmentBreak(FunctionalTester $I)
     {
         /** @var DifficultyConfig $difficultyConfig */
@@ -219,7 +218,6 @@ class CycleEventCest
             ->setName(DoorEnum::FRONT_CORRIDOR_BRIDGE)
             ->setEquipment($doorConfig)
         ;
-
 
         $room->addDoor($door);
         $room2->addDoor($door);
@@ -259,8 +257,4 @@ class CycleEventCest
 
         $I->assertTrue($room2->getDoors()->first()->isBroken());
     }
-
-
-
-
 }

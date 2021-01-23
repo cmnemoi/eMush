@@ -2,7 +2,6 @@
 
 namespace Mush\Daedalus\Service;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Collection\DaedalusCollection;
@@ -22,7 +21,6 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Room\Entity\Room;
-use Mush\Room\Enum\DoorEnum;
 use Mush\Room\Entity\RoomConfig;
 use Mush\Room\Service\RoomServiceInterface;
 use Mush\RoomLog\Enum\LogEnum;

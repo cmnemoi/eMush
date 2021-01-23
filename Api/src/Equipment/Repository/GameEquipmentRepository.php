@@ -2,15 +2,13 @@
 
 namespace Mush\Equipment\Repository;
 
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Query\Expr\Join;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Room\Entity\Room;
-use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\Door;
+use Mush\Equipment\Entity\GameEquipment;
 
 class GameEquipmentRepository extends ServiceEntityRepository
 {
@@ -23,16 +21,15 @@ class GameEquipmentRepository extends ServiceEntityRepository
     {
         $queryBuilder = $this->createQueryBuilder('gameEquipment');
 
-
         $queryBuilder
             ->from(Door::class, 'door')
-            ->leftJoin('door.rooms', 'room', Join::WITH)
+            ->leftJoin('door.rooms', 'room')
             ->andWhere($queryBuilder->expr()->eq('room.daedalus', ':daedalus'))
-            ->andWhere('gameEquipment INSTANCE OF ' .Door::class)
+            ->andWhere('gameEquipment INSTANCE OF ' . Door::class)
+            ->distinct()
             ->setParameter(':daedalus', $daedalus)
         ;
 
-        dump($queryBuilder->getQuery()->getArrayResult());
         return new ArrayCollection($queryBuilder->getQuery()->getArrayResult());
     }
 }

@@ -224,7 +224,6 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             return;
         }
 
-        dump($gameEquipment->getName());
         if (($gameEquipment instanceof Door &&
             !DoorEnum::isUnbreakable($gameEquipment->getName()) &&
             $this->randomService->isSuccessfull($this->getGameConfig($gameEquipment)->getDifficultyConfig()->getDoorBreakRate())) ||
@@ -272,9 +271,15 @@ class GameEquipmentService implements GameEquipmentServiceInterface
 
     public function getDoorsByDaedalus(Daedalus $daedalus): Collection
     {
-        $doors = $this->repository->findDoorsByDaedalus($daedalus);
-        if ($doors->count()===0){
-            return new ArrayCollection();
+        //@FIXME use gameEquipment respository
+        $doors = new ArrayCollection();
+
+        foreach ($daedalus->getRooms() as $room) {
+            foreach ($room->getDoors() as $door) {
+                if (!$doors->contains($door)) {
+                    $doors->add($door);
+                }
+            }
         }
 
         return $doors;

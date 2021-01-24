@@ -91,8 +91,8 @@ class Transplant extends AbstractAction
         $this->playerService->persist($this->player);
 
         $type = $this->gameEquipment instanceof GameItem ? 'items' : 'equipments';
-        $target = new Target($this->gameEquipment->getName(), $type);
+        $target = new Target($plantEquipment->getName(), $type);
 
-        return new Success(ActionLogEnum::TRANSPLANT_SUCCESS, VisibilityEnum::PRIVATE, $target);
+        return new Success(ActionLogEnum::TRANSPLANT_SUCCESS, VisibilityEnum::PUBLIC, $target);
     }
 }

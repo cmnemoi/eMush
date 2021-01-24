@@ -260,6 +260,11 @@ class PlayerService implements PlayerServiceInterface
             $item->setPlayer(null);
             $item->setRoom($player->getRoom());
         }
+
+        foreach ($player->getStatuses() as $status) {
+            $player->removeStatus($status);
+        }
+
         //@TODO in case of assasination chance of disorder for roommates
         if ($grandBeyond = $player->getDaedalus()->getRoomByName(RoomEnum::GREAT_BEYOND)) {
             $player->setRoom($grandBeyond);

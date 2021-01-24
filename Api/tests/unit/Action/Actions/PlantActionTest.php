@@ -82,7 +82,7 @@ class PlantActionTest extends AbstractActionTest
 
         $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
-        //Not a blueprint
+        //Not a fruit
         $result = $this->action->execute();
         $this->assertInstanceOf(Error::class, $result);
 
@@ -113,7 +113,10 @@ class PlantActionTest extends AbstractActionTest
         $plant = new ItemConfig();
         $plant->setName('banana_tree');
         $gamePlant = new GameItem();
-        $gamePlant->setEquipment($plant);
+        $gamePlant
+            ->setEquipment($plant)
+            ->setName('banana_tree')
+        ;
 
         $gameHydropot = new GameItem();
         $hydropot = new ItemConfig();

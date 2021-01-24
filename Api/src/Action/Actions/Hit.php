@@ -103,6 +103,6 @@ class Hit extends AttemptAction
 
     protected function getBaseRate(): int
     {
-        return 50;
+        return 60;
     }
 }

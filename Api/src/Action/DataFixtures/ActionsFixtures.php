@@ -372,7 +372,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $getUpAction = new Action();
         $getUpAction
             ->setName(ActionEnum::GET_UP)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setScope(ActionScopeEnum::SELF)
             ->setActionCost($freeCost)
         ;
 

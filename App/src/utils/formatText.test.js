@@ -34,12 +34,18 @@ describe('formatText', () => {
 
             expect(result).to.equal("<em>Raluca</em> a pris un Débris métallique.");
         });
-        it('should replace :pm: and :pa: tags with an image', () => {
-            const text = "Vous avez gagné 1 :pm: \nVous avez gagné 1 :pa:";
+        it('should replace :hp:, :pm:, :pa: and :pmo tags with an image', () => {
+            const text = `Vous avez gagné 1 :pm:
+            Vous avez gagné 1 :pa:
+            Vous avez perdu 3 :hp:
+            Vous avez perdu 3 :pmo:`;
 
             const result = formatText(text);
 
-            expect(result).to.equal("Vous avez gagné 1 <img/> \nVous avez gagné 1 <img/>");
+            expect(result).to.equal(`Vous avez gagné 1 <img/>
+            Vous avez gagné 1 <img/>
+            Vous avez perdu 3 <img/>
+            Vous avez perdu 3 <img/>`);
         });
     });
 

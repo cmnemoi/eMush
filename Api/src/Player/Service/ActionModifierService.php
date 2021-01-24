@@ -148,13 +148,13 @@ class ActionModifierService implements ActionModifierServiceInterface
         $suicidalStatus = $player->getStatusByName(PlayerStatusEnum::SUICIDAL);
 
         if ($player->getMoralPoint() <= 1 && !$suicidalStatus) {
-            $this->statusService->createCorePlayerStatus(PlayerStatusEnum::SUICIDAL, $player);
+            $this->statusService->createCorePlayerStatus(PlayerStatusEnum::SUICIDAL, $player, VisibilityEnum::PRIVATE);
         } elseif ($suicidalStatus) {
             $player->removeStatus($suicidalStatus);
         }
 
         if ($player->getMoralPoint() <= 4 && $player->getMoralPoint() > 1 && $demoralizedStatus) {
-            $this->statusService->createCorePlayerStatus(PlayerStatusEnum::DEMORALIZED, $player);
+            $this->statusService->createCorePlayerStatus(PlayerStatusEnum::DEMORALIZED, $player, VisibilityEnum::PRIVATE);
         } elseif ($demoralizedStatus) {
             $player->removeStatus($demoralizedStatus);
         }
@@ -210,8 +210,7 @@ class ActionModifierService implements ActionModifierServiceInterface
         }
 
         if ($player->getSatiety() >= self::FULL_STOMACH_STATUS_THRESHOLD && !$fullStatus) {
-            $fullStatus = $this->statusService->createCorePlayerStatus(PlayerStatusEnum::FULL_STOMACH, $player);
-            $fullStatus->setVisibility(VisibilityEnum::PRIVATE);
+            $fullStatus = $this->statusService->createCorePlayerStatus(PlayerStatusEnum::FULL_STOMACH, $player, VisibilityEnum::PRIVATE);
         } elseif ($fullStatus) {
             $player->removeStatus($fullStatus);
         }

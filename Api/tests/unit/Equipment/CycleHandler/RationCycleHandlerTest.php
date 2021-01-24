@@ -67,30 +67,18 @@ class RationCycleHandlerTest extends TestCase
         $decomposing->setName(EquipmentStatusEnum::DECOMPOSING);
 
         $this->gameEquipmentService->shouldReceive('persist')->once();
-        $this->statusService->shouldReceive('createCoreEquipmentStatus')->andReturn($unstable)->once();
+        $this->statusService->shouldReceive('createCoreStatus')->andReturn($unstable)->once();
 
         $this->rationCycleHandler->handleNewDay($gameFruit, $daedalus, new \DateTime());
-
-        $this->assertContains($unstable, $gameFruit->getStatuses());
-        $this->assertNotContains($hazardous, $gameFruit->getStatuses());
-        $this->assertNotContains($decomposing, $gameFruit->getStatuses());
 
         $this->gameEquipmentService->shouldReceive('persist')->once();
-        $this->statusService->shouldReceive('createCoreEquipmentStatus')->andReturn($hazardous)->once();
+        $this->statusService->shouldReceive('createCoreStatus')->andReturn($hazardous)->once();
 
         $this->rationCycleHandler->handleNewDay($gameFruit, $daedalus, new \DateTime());
-
-        $this->assertNotContains($unstable, $gameFruit->getStatuses());
-        $this->assertContains($hazardous, $gameFruit->getStatuses());
-        $this->assertNotContains($decomposing, $gameFruit->getStatuses());
 
         $this->gameEquipmentService->shouldReceive('persist')->once();
-        $this->statusService->shouldReceive('createCoreEquipmentStatus')->andReturn($decomposing)->once();
+        $this->statusService->shouldReceive('createCoreStatus')->andReturn($decomposing)->once();
 
         $this->rationCycleHandler->handleNewDay($gameFruit, $daedalus, new \DateTime());
-
-        $this->assertNotContains($unstable, $gameFruit->getStatuses());
-        $this->assertNotContains($hazardous, $gameFruit->getStatuses());
-        $this->assertContains($decomposing, $gameFruit->getStatuses());
     }
 }

@@ -120,18 +120,18 @@ class PlantCycleHandlerTest extends TestCase
             ->setRoom(new Room())
         ;
 
+        $this->statusService
+            ->shouldReceive('createCoreStatus')
+            ->with(EquipmentStatusEnum::PLANT_DISEASED, $gamePlant)
+            ->once()
+        ;
+
         $this->plantCycleHandler->handleNewCycle($gamePlant, $daedalus, new \DateTime());
 
         $this->assertTrue(
             $gamePlant
                 ->getStatuses()
                 ->filter(fn (Status $status) => EquipmentStatusEnum::PLANT_YOUNG === $status->getName())
-                ->isEmpty()
-        );
-        $this->assertFalse(
-            $gamePlant
-                ->getStatuses()
-                ->filter(fn (Status $status) => EquipmentStatusEnum::PLANT_DISEASED === $status->getName())
                 ->isEmpty()
         );
     }
@@ -178,7 +178,7 @@ class PlantCycleHandlerTest extends TestCase
         $status = new Status(new GameItem());
         $status->setName(EquipmentStatusEnum::PLANT_THIRSTY);
         $this->statusService
-            ->shouldReceive('createCoreEquipmentStatus')
+            ->shouldReceive('createCoreStatus')
             ->with(EquipmentStatusEnum::PLANT_THIRSTY, $gamePlant)
             ->andReturn($status)
             ->once()
@@ -193,7 +193,7 @@ class PlantCycleHandlerTest extends TestCase
         $dried = new Status(new GameItem());
         $dried->setName(EquipmentStatusEnum::PLANT_DRIED_OUT);
         $this->statusService
-            ->shouldReceive('createCoreEquipmentStatus')
+            ->shouldReceive('createCoreStatus')
             ->with(EquipmentStatusEnum::PLANT_DRIED_OUT, $gamePlant)->andReturn($dried)
             ->once()
         ;

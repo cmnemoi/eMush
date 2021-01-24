@@ -33,7 +33,7 @@ class StatusService implements StatusServiceInterface
         return $this->statusRepository->findStatusTargetingGameEquipment($gameEquipment, $statusName);
     }
 
-    public function createCorePlayerStatus(string $statusName, Player $player): Status
+    public function createCorePlayerStatus(string $statusName, Player $player, string $visibilty = VisibilityEnum::PUBLIC): Status
     {
         $status = new Status($player);
         $status

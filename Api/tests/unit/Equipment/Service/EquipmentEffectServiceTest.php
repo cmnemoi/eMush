@@ -108,12 +108,12 @@ class EquipmentEffectServiceTest extends TestCase
         $fruit = new Fruit();
 
         $fruit
-            ->setDiseasesEffectChance([100 => 64, 25 => 1])
+            ->setDiseasesChances([100 => 64, 25 => 1])
             ->setDiseasesName([
                         'disease1' => 1,
                         'disease2' => 6, ])
-            ->setDiseasesEffectDelayMin([0 => 1, 5 => 1])
-            ->setDiseasesEffectDelayLength([7 => 1])
+            ->setDiseasesDelayMin([0 => 1, 5 => 1])
+            ->setDiseasesDelayLength([7 => 1])
             ->setFruitEffectsNumber([0 => 35, 1 => 40, 2 => 15])
             ->setExtraEffects(['extraActionPoint' => 50])
         ;

@@ -42,26 +42,31 @@ class Ration extends EquipmentMechanic
      */
     protected int $satiety = 1;
 
+    //Store the chance (value) for the disease to be cured (key)
     /**
      * @ORM\Column(type="array", nullable=false)
      */
     private array $cures = [];
 
+    //Store the chance (value) for the disease to appear (key)
     /**
      * @ORM\Column(type="array", nullable=false)
      */
     private array $diseasesChances = [];
 
+    //Store the min delay (value) for the disease to appear (key)
     /**
      * @ORM\Column(type="array", nullable=false)
      */
     private array $diseasesDelayMin = [];
 
+    //Store the max delay (value) for the disease to appear (key)
     /**
      * @ORM\Column(type="array", nullable=false)
      */
     private array $diseasesDelayLength = [];
 
+    //Store any extra effect the food has as key with the chance to get it as value
     /**
      * @ORM\Column(type="array", nullable=false)
      */

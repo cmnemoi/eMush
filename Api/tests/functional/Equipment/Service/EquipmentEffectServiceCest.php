@@ -137,13 +137,13 @@ class EquipmentEffectServiceCest
                 DiseaseEnum::MIGRAINE => 8,
                 DiseaseEnum::TAPEWORM => 8,
             ])
-            ->setDiseasesEffectChance([100 => 64, 25 => 1, 30 => 2, 35 => 3, 40 => 4, 45 => 5,
+            ->setDiseasesChances([100 => 64, 25 => 1, 30 => 2, 35 => 3, 40 => 4, 45 => 5,
                 50 => 6, 55 => 5, 60 => 4, 65 => 3, 70 => 2, 75 => 1, ])
-            ->setDiseasesEffectDelayMin([0 => 1, 1 => 1, 2 => 1, 3 => 1, 4 => 1, 5 => 1,
+            ->setDiseasesDelayMin([0 => 1, 1 => 1, 2 => 1, 3 => 1, 4 => 1, 5 => 1,
                 6 => 1, 7 => 1, 8 => 1, 9 => 1, 10 => 1, 11 => 1, ])
-            ->setDiseasesEffectDelayLength([0 => 1, 1 => 1, 2 => 1, 3 => 1, 4 => 1, 5 => 1, 6 => 1, 7 => 1, 8 => 1])
+            ->setDiseasesDelayLength([0 => 1, 1 => 1, 2 => 1, 3 => 1, 4 => 1, 5 => 1, 6 => 1, 7 => 1, 8 => 1])
             ->setFruitEffectsNumber([0 => 35, 1 => 40, 2 => 15, 3 => 9, 4 => 1])
-            ->setExtraEffectsList([ExtraEffectEnum::EXTRA_PA_GAIN => 50])
+            ->setExtraEffects([ExtraEffectEnum::EXTRA_PA_GAIN => 50])
         ;
 
         return $alienFruitMechanic;

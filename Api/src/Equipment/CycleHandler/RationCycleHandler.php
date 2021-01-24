@@ -74,7 +74,6 @@ class RationCycleHandler extends AbstractCycleHandler
             $nextStatus = EquipmentStatusEnum::UNSTABLE;
         }
 
-        $status = $this->statusService->createCoreEquipmentStatus($nextStatus, $gameRation, VisibilityEnum::HIDDEN);
-        $gameRation->addStatus($status);
+        $this->statusService->createCoreStatus($nextStatus, $gameRation, null, VisibilityEnum::HIDDEN);
     }
 }

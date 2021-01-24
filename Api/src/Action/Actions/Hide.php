@@ -15,8 +15,8 @@ use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\Target;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
-use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Hide extends AbstractAction
@@ -27,15 +27,18 @@ class Hide extends AbstractAction
 
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
+    private StatusServiceInterface $statusService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         GameEquipmentServiceInterface $gameEquipmentService,
+        StatusServiceInterface $statusService,
         PlayerServiceInterface $playerService
     ) {
         parent::__construct($eventDispatcher);
 
         $this->gameEquipmentService = $gameEquipmentService;
+        $this->statusService = $statusService;
         $this->playerService = $playerService;
     }
 
@@ -64,12 +67,12 @@ class Hide extends AbstractAction
 
     protected function applyEffects(): ActionResult
     {
-        $hiddenStatus = new Status($this->gameItem);
-        $hiddenStatus
-            ->setName(EquipmentStatusEnum::HIDDEN)
-            ->setVisibility(VisibilityEnum::PRIVATE)
-            ->setTarget($this->player)
-        ;
+        $this->statusService->createCoreStatus(
+            EquipmentStatusEnum::HIDDEN,
+            $this->gameItem,
+            $this->player,
+            VisibilityEnum::PRIVATE,
+        );
 
         if ($this->gameItem->getPlayer()) {
             $this->gameItem->setPlayer(null);

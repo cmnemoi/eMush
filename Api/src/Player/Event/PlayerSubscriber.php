@@ -8,7 +8,9 @@ use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Service\ActionModifierServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -147,7 +149,16 @@ class PlayerSubscriber implements EventSubscriberInterface
         if ($sporeStatus = $player->getStatusByName(PlayerStatusEnum::SPORES)) {
             $player->removeStatus($sporeStatus);
         }
-        $this->statusService->createMushStatus($player);
+        $this->statusService->createChargeStatus(
+            PlayerStatusEnum::MUSH,
+            $player,
+            ChargeStrategyTypeEnum::DAILY_RESET,
+            null,
+            VisibilityEnum::MUSH,
+            VisibilityEnum::HIDDEN,
+            1,
+            1
+        );
 
         //@TODO add logs and welcome message
 

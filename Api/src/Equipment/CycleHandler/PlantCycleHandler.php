@@ -68,11 +68,7 @@ class PlantCycleHandler extends AbstractCycleHandler
         }
 
         if ($this->randomService->randomPercent() <= self::DISEASE_PERCENTAGE) {
-            $diseased = new Status($gamePlant);
-            $diseased
-                ->setName(EquipmentStatusEnum::PLANT_DISEASED)
-                ->setVisibility(VisibilityEnum::PUBLIC)
-            ;
+            $this->statusService->createCoreStatus(EquipmentStatusEnum::PLANT_DISEASED, $gamePlant);
         }
 
         $plantEffect = $this->equipmentEffectService->getPlantEffect($plantType, $daedalus);
@@ -150,7 +146,7 @@ class PlantCycleHandler extends AbstractCycleHandler
         if (($thirsty = $gamePlant->getStatusByName(EquipmentStatusEnum::PLANT_THIRSTY)) !== null) {
             $gamePlant->removeStatus($thirsty);
             $driedStatus = $this->statusService
-                ->createCoreEquipmentStatus(EquipmentStatusEnum::PLANT_DRIED_OUT, $gamePlant)
+                ->createCoreStatus(EquipmentStatusEnum::PLANT_DRIED_OUT, $gamePlant)
             ;
             $gamePlant->addStatus($driedStatus);
         // If plant was dried, become hydropot
@@ -159,7 +155,7 @@ class PlantCycleHandler extends AbstractCycleHandler
         // If plant was not thirsty or dried become thirsty
         } else {
             $thirstyStatus = $this->statusService
-                ->createCoreEquipmentStatus(EquipmentStatusEnum::PLANT_THIRSTY, $gamePlant)
+                ->createCoreStatus(EquipmentStatusEnum::PLANT_THIRSTY, $gamePlant)
             ;
             $gamePlant->addStatus($thirstyStatus);
         }

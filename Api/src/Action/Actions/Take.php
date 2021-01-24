@@ -77,7 +77,7 @@ class Take extends AbstractAction
 
         // add BURDENED status if item is heavy
         if ($item->isHeavy()) {
-            $this->statusService->createCorePlayerStatus(PlayerStatusEnum::BURDENED, $this->player);
+            $this->statusService->createCoreStatus(PlayerStatusEnum::BURDENED, $this->player);
         }
 
         if ($hiddenStatus = $this->gameItem->getStatusByName(EnumEquipmentStatusEnum::HIDDEN)) {

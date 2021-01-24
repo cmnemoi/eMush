@@ -78,7 +78,7 @@ class ActionServiceTest extends TestCase
         $this->eventDispatcher->shouldReceive('dispatch')->never();
         $this->roomLogService->shouldReceive('createPlayerLog')->once();
         $this->randomService->shouldReceive('randomPercent')->andReturn(10)->once();
-        $this->statusServiceInterface->shouldReceive('createCorePlayerStatus')->andReturn(new Status($player))->once();
+        $this->statusServiceInterface->shouldReceive('createCoreStatus')->andReturn(new Status($player))->once();
         $player = $this->actionService->handleActionSideEffect($action, $player, new \DateTime());
 
         $this->assertCount(1, $player->getStatuses());

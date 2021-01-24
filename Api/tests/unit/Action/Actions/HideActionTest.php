@@ -14,6 +14,7 @@ use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
+use Mush\Status\Service\StatusServiceInterface;
 
 class HideActionTest extends AbstractActionTest
 {
@@ -21,6 +22,8 @@ class HideActionTest extends AbstractActionTest
     private GameEquipmentServiceInterface $gameEquipmentService;
     /** @var PlayerServiceInterface | Mockery\Mock */
     private PlayerServiceInterface $playerService;
+    /** @var StatusServiceInterface | Mockery\Mock */
+    private StatusServiceInterface $statusService;
 
     /**
      * @before
@@ -33,10 +36,12 @@ class HideActionTest extends AbstractActionTest
 
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
+        $this->statusService = Mockery::mock(StatusServiceInterface::class);
 
         $this->action = new Hide(
             $this->eventDispatcher,
             $this->gameEquipmentService,
+            $this->statusService,
             $this->playerService,
         );
     }
@@ -98,14 +103,13 @@ class HideActionTest extends AbstractActionTest
 
         $this->gameEquipmentService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
+        $this->statusService->shouldReceive('createCoreStatus')->once();
 
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
         $this->assertCount(1, $room->getEquipments());
         $this->assertCount(0, $player->getItems());
-        $this->assertCount(1, $room->getEquipments()->first()->getStatuses());
-        $this->assertCount(1, $player->getTargetingStatuses());
         $this->assertEquals(9, $player->getActionPoint());
     }
 }

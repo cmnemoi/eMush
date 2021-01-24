@@ -44,11 +44,11 @@
                     <li v-for="(key) in daedalus.cryogenizedPlayers" :key="key">
                         <img src="@/assets/images/p_cryo.png">
                     </li>
-                    <li v-for="(key) in daedalus.humanPlayerDead" :key="key">
-                        <img src="@/assets/images/p_dead.png">
-                    </li>
                     <li v-for="(key) in daedalus.mushPlayerDead" :key="key">
                         <img src="@/assets/images/p_deadmush.png">
+                    </li>
+                    <li v-for="(key) in daedalus.humanPlayerDead" :key="key">
+                        <img src="@/assets/images/p_dead.png">
                     </li>
                 </ol>
             </div>

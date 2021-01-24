@@ -138,8 +138,6 @@ class PlayerSubscriber implements EventSubscriberInterface
         if ($playerSpores->getCharge() >= 3) {
             $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::CONVERSION_PLAYER);
         }
-
-        $this->statusService->persist($playerSpores);
     }
 
     public function onConversionPlayer(PlayerEvent $playerEvent): void
@@ -148,7 +146,6 @@ class PlayerSubscriber implements EventSubscriberInterface
 
         if ($sporeStatus = $player->getStatusByName(PlayerStatusEnum::SPORES)) {
             $player->removeStatus($sporeStatus);
-            $this->statusService->delete($sporeStatus);
         }
         $this->statusService->createMushStatus($player);
 

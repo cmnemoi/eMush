@@ -11,7 +11,6 @@ use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Status\Entity\Attempt;
-use Mush\Status\Entity\Status;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -41,23 +40,20 @@ abstract class AttemptAction extends AbstractAction
     {
         if ($this->attempt === null) {
             /** @var Attempt $attempt */
-            $attempt = $this->player
-                ->getStatuses()
-                ->filter(fn (Status $status) => StatusEnum::ATTEMPT === $status->getName())
-                ->first();
+            $attempt = $this->player->getStatusByName(StatusEnum::ATTEMPT);
 
-            if ($attempt !== false && $attempt->getAction() !== $this->getActionName()) {
+            if ($attempt && $attempt->getAction() !== $this->getActionName()) {
                 // Re-initialize attempts with new action
                 $attempt
                     ->setAction($this->getActionName())
-                    ->setCharge(0);
-            } elseif ($attempt === false) { //Create Attempt
+                    ->setCharge(0)
+                ;
+            } elseif ($attempt === null) { //Create Attempt
                 $attempt = $this->statusService->createAttemptStatus(
                     StatusEnum::ATTEMPT,
                     $this->getActionName(),
                     $this->player
                 );
-                $this->player->addStatus($attempt);
             }
             $this->attempt = $attempt;
         }
@@ -71,9 +67,7 @@ abstract class AttemptAction extends AbstractAction
 
         $successChance = $this->getSuccessRate();
 
-        $random = $this->randomService->isSuccessfull($successChance);
-
-        if ($random) {
+        if ($this->randomService->isSuccessfull($successChance)) {
             $this->player->removeStatus($attempt);
             $response = new Success();
         } else {

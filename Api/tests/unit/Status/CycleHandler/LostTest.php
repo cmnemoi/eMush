@@ -46,17 +46,16 @@ class LostTest extends TestCase
             ->setRoom($room)
         ;
 
-        $status = new Status();
+        $status = new Status($player);
         $status
             ->setName(PlayerStatusEnum::LOST)
-            ->setPlayer($player)
         ;
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->once()
         ;
-        $this->cycleHandler->handleNewCycle($status, new Daedalus(), new \DateTime());
+        $this->cycleHandler->handleNewCycle($status, new Daedalus(), $player, new \DateTime());
 
         $this->assertTrue(true);
     }

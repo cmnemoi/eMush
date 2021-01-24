@@ -15,6 +15,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
@@ -95,11 +96,11 @@ class SabotageActionTest extends AbstractActionTest
         $result = $this->action->execute();
         $this->assertInstanceOf(Error::class, $result);
 
-        $mushStatus = new ChargeStatus();
+        $mushStatus = new ChargeStatus($player);
         $mushStatus
             ->setCharge(0)
             ->setName(PlayerStatusEnum::MUSH)
-            ->setPlayer($player);
+        ;
 
         $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
@@ -121,11 +122,11 @@ class SabotageActionTest extends AbstractActionTest
         $this->assertInstanceOf(Error::class, $result);
 
         $item->setBreakableRate(20);
-        $broken = new Status();
+        $broken = new Status($gameItem);
         $broken
             ->setName(EquipmentStatusEnum::BROKEN)
-            ->setGameEquipment($gameItem)
         ;
+
         //already broken
         $result = $this->action->execute();
         $this->assertInstanceOf(Error::class, $result);
@@ -146,11 +147,11 @@ class SabotageActionTest extends AbstractActionTest
         $actionParameter->setItem($gameItem);
         $player = $this->createPlayer(new Daedalus(), $room);
 
-        $mushStatus = new ChargeStatus();
+        $mushStatus = new ChargeStatus($player);
         $mushStatus
             ->setCharge(0)
             ->setName(PlayerStatusEnum::MUSH)
-            ->setPlayer($player);
+        ;
 
         $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
@@ -159,7 +160,7 @@ class SabotageActionTest extends AbstractActionTest
         $this->gameEquipmentService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
 
-        $attempt = new Attempt();
+        $attempt = new Attempt(new Player());
         $attempt
             ->setName(StatusEnum::ATTEMPT)
             ->setAction($this->action->getActionName())
@@ -179,7 +180,7 @@ class SabotageActionTest extends AbstractActionTest
 
         $this->assertInstanceOf(Fail::class, $result);
         $this->assertCount(0, $room->getEquipments()->first()->getStatuses());
-        $this->assertCount(2, $player->getStatuses());
+        $this->assertCount(1, $player->getStatuses());
         $this->assertEquals(1, $attempt->getCharge());
         $this->assertEquals(8, $player->getActionPoint());
 

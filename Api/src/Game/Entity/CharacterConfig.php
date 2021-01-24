@@ -4,6 +4,7 @@ namespace Mush\Game\Entity;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Action\Entity\Action;
 
 /**
  * Class CharacterConfig.
@@ -100,6 +101,13 @@ class CharacterConfig
     public function getActions(): Collection
     {
         return $this->actions;
+    }
+
+    public function getActionByName(string $name): ?Action
+    {
+        $actions = $this->actions->filter(fn (Action $action) => $action->getName() === $name);
+
+        return $actions->isEmpty() ? null : $actions->first();
     }
 
     public function setActions(Collection $actions): CharacterConfig

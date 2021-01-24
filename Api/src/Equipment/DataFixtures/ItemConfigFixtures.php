@@ -62,8 +62,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($mycoAlarm);
 
-        $tabulatrixActions = clone $actions;
-        $tabulatrixActions->add($this->getReference(TechnicianFixtures::DISMANTLE_3_12));
+        $tabulatrixActions = new ArrayCollection([$this->getReference(TechnicianFixtures::DISMANTLE_3_12)]);
 
         $tabulatrix = new ItemConfig();
         $tabulatrix

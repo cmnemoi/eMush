@@ -106,11 +106,11 @@ class GameEquipmentServiceTest extends TestCase
 
         $this->assertNotEmpty($items);
 
-        $broken = new Status();
+        $broken = new Status($gameItem);
         $broken
             ->setName(EquipmentStatusEnum::BROKEN)
         ;
-        $gameItem->addStatus($broken);
+
         $items = $this->service->getOperationalEquipmentsByName(ItemEnum::METAL_SCRAPS, $player, ReachEnum::SHELVE);
 
         $this->assertEmpty($items);

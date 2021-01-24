@@ -71,12 +71,10 @@ class WaterPlantActionTest extends AbstractActionTest
 
         $plant = new Plant();
 
-        $thirsty = new Status();
+        $thirsty = new Status($gameItem);
         $thirsty
             ->setName(EquipmentStatusEnum::PLANT_THIRSTY)
         ;
-
-        $gameItem->addStatus($thirsty);
 
         $player = $this->createPlayer(new Daedalus(), $room);
         $actionParameter = new ActionParameters();
@@ -109,12 +107,10 @@ class WaterPlantActionTest extends AbstractActionTest
         $plant = new Plant();
         $item->setMechanics(new ArrayCollection([$plant]));
 
-        $thirsty = new Status();
+        $thirsty = new Status($gameItem);
         $thirsty
             ->setName(EquipmentStatusEnum::PLANT_THIRSTY)
         ;
-
-        $gameItem->addStatus($thirsty);
 
         $player = $this->createPlayer(new Daedalus(), $room);
         $actionParameter = new ActionParameters();
@@ -133,13 +129,12 @@ class WaterPlantActionTest extends AbstractActionTest
         $this->assertCount(0, $player->getStatuses());
         $this->assertEquals(9, $player->getActionPoint());
 
-        $driedOut = new Status();
+        $driedOut = new Status($gameItem);
         $driedOut
             ->setName(EquipmentStatusEnum::PLANT_DRIED_OUT)
         ;
 
         $gameItem->removeStatus($thirsty);
-        $gameItem->addStatus($driedOut);
 
         $this->gameEquipmentService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');

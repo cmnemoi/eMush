@@ -19,7 +19,7 @@
             <img src="@/assets/images/comms/calendar.png"><span>Jour {{ day }} - Cycle {{ cycle }}</span>
         </div>
 
-        <component :is="currentTabComponent" v-if="! loading" :channel="currentChannel" />
+        <component :is="currentTabComponent" :channel="currentChannel" />
     </div>
 </template>
 
@@ -60,9 +60,6 @@ export default {
         ...mapState('communication', [
             'channels',
             'currentChannel'
-        ]),
-        ...mapState('player', [
-            'loading'
         ]),
         displayNewTab() {
             if (! this.channels || ! this.channels.length) { return false; }

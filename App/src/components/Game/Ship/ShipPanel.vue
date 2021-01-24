@@ -19,6 +19,7 @@
                 :is="targetPanel"
                 v-else-if="selectedTarget"
                 :target="selectedTarget"
+                @executeAction="executeTargetAction"
             />
         </div>
         <p v-else class="loading">
@@ -70,8 +71,15 @@ export default {
         async executeDoorAction({ door, action }) {
             this.setLoading();
             this.isInventoryOpen = false;
+            this.selectedTarget = null;
             await ActionService.executeDoorAction(door, action);
             await this.reloadPlayer();
+        },
+        async executeTargetAction(action) {
+            this.setLoading();
+            await ActionService.executeTargetAction(this.selectedTarget, action);
+            await this.reloadPlayer();
+            this.selectedTarget = null;
         },
         setTarget(target) {
             this.selectedTarget = target;

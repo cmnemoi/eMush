@@ -26,17 +26,15 @@
                 v-for="(action, key) in target.actions"
                 :key="key"
                 :action="action"
-                @click="executeTargetAction(action)"
+                @click="() => $emit('executeAction', action)"
             />
         </div>
     </div>
 </template>
 
 <script>
-import { mapActions } from "vuex";
 import ActionButton from "@/components/Utils/ActionButton";
 import Statuses from "@/components/Utils/Statuses";
-import ActionService from "@/services/action.service";
 import { Player } from "@/entities/Player";
 import { characterEnum } from '@/enums/character';
 
@@ -50,20 +48,12 @@ export default {
     props: {
         target: Player
     },
+    emits: [
+        'executeAction'
+    ],
     computed: {
         portrait() {
             return characterEnum[this.target.characterKey].portrait;
-        }
-    },
-    methods: {
-        ...mapActions('player', [
-            'reloadPlayer',
-            'setLoading'
-        ]),
-        async executeTargetAction(action) {
-            this.setLoading();
-            await ActionService.executeTargetAction(this.target, action);
-            await this.reloadPlayer();
         }
     }
 };

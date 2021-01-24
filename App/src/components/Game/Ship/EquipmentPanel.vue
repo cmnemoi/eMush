@@ -2,14 +2,12 @@
     <ActionPanel
         class="equipment-panel"
         :actions="target.actions"
-        @clickOnAction="executeTargetAction"
+        @clickOnAction="action => $emit('executeAction', action)"
     />
 </template>
 
 <script>
-import { mapActions } from "vuex";
 import ActionPanel from "@/components/Game/Ship/ActionPanel";
-import ActionService from "@/services/action.service";
 import { Equipment } from "@/entities/Equipment";
 
 export default {
@@ -19,17 +17,9 @@ export default {
     props: {
         target: Equipment
     },
-    methods: {
-        ...mapActions('player', [
-            'reloadPlayer',
-            'setLoading'
-        ]),
-        async executeTargetAction(action) {
-            this.setLoading();
-            await ActionService.executeTargetAction(this.target, action);
-            await this.reloadPlayer();
-        }
-    }
+    emits: [
+        'executeAction'
+    ]
 };
 </script>
 

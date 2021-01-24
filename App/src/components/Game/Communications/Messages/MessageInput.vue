@@ -1,14 +1,16 @@
 <template>
     <form class="chat-input">
         <textarea v-model="text" placeholder="Type your message here!" @keyup.enter="sendNewMessage" />
-        <a class="submit" href="#"><img src="@/assets/images/comms/submit.gif" alt="submit"></a>
+        <a class="submit-button">
+            <img src="@/assets/images/comms/submit.gif" alt="submit">
+        </a>
     </form>
 </template>
 
 <script>
-import { Message } from "@/entities/Message";
 import { mapActions } from "vuex";
 import { Channel } from "@/entities/Channel";
+import { Message } from "@/entities/Message";
 
 export default {
     name: "MessageInput",
@@ -22,16 +24,16 @@ export default {
             required: false
         }
     },
-    data: () => {
+    data() {
         return {
-            text: null
+            text: ""
         };
     },
     methods: {
-        sendNewMessage: function () {
+        sendNewMessage () {
             if (this.text.length > 0) {
                 this.sendMessage({ text: this.text, parent: this.parent, channel: this.channel });
-                this.text = null;
+                this.text = "";
             }
         },
         ...mapActions('communication', [
@@ -49,7 +51,9 @@ export default {
     flex-direction: row;
     padding: 7px 7px 4px 7px;
 
-    a {
+    .submit-button {
+        cursor: pointer;
+
         @include button-style();
 
         width: 24px;

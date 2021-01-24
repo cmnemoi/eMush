@@ -50,6 +50,11 @@ class Fruit extends Ration
     }
 
     /**
+     * @ORM\Column(type="array", nullable=false)
+     */
+    private array $extraEffectsList = [];
+
+    /**
      * @return static
      */
     public function setPlantName(string $plantName): Fruit
@@ -130,6 +135,21 @@ class Fruit extends Ration
     public function setDiseasesEffectDelayLength(array $diseasesEffectDelayLength): Fruit
     {
         $this->diseasesEffectDelayLength = $diseasesEffectDelayLength;
+
+        return $this;
+    }
+
+    public function getExtraEffectsList(): array
+    {
+        return $this->extraEffectsList;
+    }
+
+    /**
+     * @return static
+     */
+    public function setExtraEffectsList(array $extraEffectsList): Fruit
+    {
+        $this->extraEffectsList = $extraEffectsList;
 
         return $this;
     }

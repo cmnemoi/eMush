@@ -167,7 +167,7 @@ class EquipmentEffectService implements EquipmentEffectServiceInterface
 
             //@TODO fruit have only 1 possible extra effect. If we change the, this part needs to be changed
             if ($extraEffectNumber > 0) {
-                $extraEffects = $fruit->getExtraEffects();
+                $extraEffects = $fruit->getExtraEffectsList();
             }
         }
 

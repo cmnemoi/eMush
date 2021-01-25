@@ -71,7 +71,6 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $moveAction
             ->setName(ActionEnum::MOVE)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(1)
             ->setActionCost($oneMovementPointCost)
         ;
         $manager->persist($moveAction);

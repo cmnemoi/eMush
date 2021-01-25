@@ -430,19 +430,19 @@
         <unit id="drop">
             <segment id="drop">
                 <source>drop.character.male.target.male</source>
-                <target>**player** a laché un **target**.</target>
+                <target>**player** a lâché un **target**.</target>
             </segment>
             <segment id="drop">
                 <source>drop.character.male.target.female</source>
-                <target>**player** a laché une **target**.</target>
+                <target>**player** a lâché une **target**.</target>
             </segment>
             <segment id="drop">
                 <source>drop.character.female.target.male</source>
-                <target>**player** a laché un **target**.</target>
+                <target>**player** a lâché un **target**.</target>
             </segment>
             <segment id="drop">
                 <source>drop.character.female.target.female</source>
-                <target>**player** a laché une **target**.</target>
+                <target>**player** a lâché une **target**.</target>
             </segment>
         </unit>
         <unit id="express_cook_success">
@@ -606,7 +606,7 @@
             </segment>
             <segment id="search_success">
                 <source>search_success.character.male.target.female</source>
-                <target>**player** a découvert une **target** caché.</target>
+                <target>**player** a découvert une **target** cachée.</target>
             </segment>
             <segment id="search_success">
                 <source>search_success.character.female.target.male</source>
@@ -614,7 +614,7 @@
             </segment>
             <segment id="search_success">
                 <source>search_success.character.female.target.female</source>
-                <target>**player** a découvert une **target** caché.</target>
+                <target>**player** a découvert une **target** cachée.</target>
             </segment>
         </unit>
         <unit id="search_fail">
@@ -664,19 +664,19 @@
         <unit id="take">
             <segment id="take">
                 <source>take.character.male.target.male</source>
-                <target>**player** a pris un target.</target>
+                <target>**player** a pris un **target**.</target>
             </segment>
             <segment id="take">
                 <source>take.character.male.target.female</source>
-                <target>**player** a pris une target.</target>
+                <target>**player** a pris une **target**.</target>
             </segment>
             <segment id="take">
                 <source>take.character.female.target.male</source>
-                <target>**player** a pris un target.</target>
+                <target>**player** a pris un **target**.</target>
             </segment>
             <segment id="take">
                 <source>take.character.female.target.female</source>
-                <target>**player** a pris une target.</target>
+                <target>**player** a pris une **target**.</target>
             </segment>
         </unit>
         <unit id="transplant_success">

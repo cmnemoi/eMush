@@ -1166,7 +1166,7 @@ Unique : Permet de donner +3 :pmo: à chaque téléspectateur.</target>
                 <target>Ce petit module peut projeter des séries télévisées alien grandeur nature dans le refectoire ! De quoi remonter le moral de l'équipage. Unique : Permet de donner +3 :pmo: à chaque téléspectateur. L'effet hypnotique de cet appareil vous fera oublier tout vos soucis. Et vos ennuis. Et... Vous vous appelez comment déjà ?</target>
 			</segment>
         </unit>
-	   <unit id="block_of_post_it_notes">
+	   <unit id="block_of_post_it">
             <segment id="name">
                 <source>block_of_post_it_notes.name</source>
                 <target>Bloc de pense-bête(s)</target>
@@ -3133,7 +3133,7 @@ Imperissable
             </segment>
             <segment id="short_name">
                 <source>babel_module_blueprint.short_name</source>
-                <target>Plan du module Babel</target>
+                <target>Plan</target>
             </segment>
             <segment id="genre">
                 <source>babel_module_blueprint.genre</source>
@@ -3162,7 +3162,7 @@ Les plans de construction bleus sont une bénédiction pour les équipiers en ma
             </segment>
             <segment id="short_name">
                 <source>echolocator_blueprint.short_name</source>
-                <target>Plan de l'écholocateur</target>
+                <target>Plan</target>
             </segment>
             <segment id="genre">
                 <source>echolocator_blueprint.genre</source>
@@ -3191,7 +3191,7 @@ Les plans de construction bleus sont une bénédiction pour les équipiers en ma
             </segment>
             <segment id="short_name">
                 <source>extinguisher_blueprint.short_name</source>
-                <target>Plan de l'extincteur</target>
+                <target>Plan</target>
             </segment>
             <segment id="genre">
                 <source>extinguisher_blueprint.genre</source>
@@ -3220,7 +3220,7 @@ Les plans de construction bleus sont une bénédiction pour les équipiers en ma
             </segment>
             <segment id="short_name">
                 <source>grenade_blueprint.short_name</source>
-                <target>Plan de la grenade</target>
+                <target>Plan</target>
             </segment>
             <segment id="genre">
                 <source>grenade_blueprint.genre</source>
@@ -3249,7 +3249,7 @@ Les plans de construction bleus sont une bénédiction pour les équipiers en ma
             </segment>
             <segment id="short_name">
                 <source>lizaro_jungle_blueprint.short_name</source>
-                <target>Plan du Lizaro Jungle</target>
+                <target>Plan</target>
             </segment>
             <segment id="genre">
                 <source>lizaro_jungle_blueprint.genre</source>
@@ -3278,7 +3278,7 @@ Les plans de construction bleus sont une bénédiction pour les équipiers en ma
             </segment>
             <segment id="short_name">
                 <source>old_faithful_blueprint.short_name</source>
-                <target>Plan de la sulfateuse</target>
+                <target>Plan</target>
             </segment>
             <segment id="genre">
                 <source>old_faithful_blueprint.genre</source>
@@ -3305,7 +3305,7 @@ Les plans de construction bleus sont une bénédiction pour les équipiers en ma
             </segment>
             <segment id="short_name">
                 <source>rocket_launcher_blueprint.short_name</source>
-                <target>Plan du lance-roquette</target>
+                <target>Plan</target>
             </segment>
             <segment id="genre">
                 <source>rocket_launcher_blueprint.genre</source>
@@ -3336,7 +3336,7 @@ Les plans de construction bleus sont une bénédiction pour les équipiers en ma
             </segment>
             <segment id="short_name">
                 <source>oscilloscope_blueprint.short_name</source>
-                <target>Plan du vaguoscope</target>
+                <target>Plan</target>
             </segment>
             <segment id="genre">
                 <source>oscilloscope_blueprint.genre</source>
@@ -3365,7 +3365,7 @@ Les plans de construction bleus sont une bénédiction pour les équipiers en ma
             </segment>
             <segment id="short_name">
                 <source>sniper_helmet_blueprint.short_name</source>
-                <target>Plan du casque de visée</target>
+                <target>Plan</target>
             </segment>
             <segment id="genre">
                 <source>sniper_helmet_blueprint.genre</source>
@@ -3394,7 +3394,7 @@ Les plans de construction bleus sont une bénédiction pour les équipiers en ma
             </segment>
             <segment id="short_name">
                 <source>support_drone_blueprint.short_name</source>
-                <target>Plan du drone de soutien</target>
+                <target>Plan</target>
             </segment>
             <segment id="genre">
                 <source>support_drone_blueprint.genre</source>
@@ -3423,7 +3423,7 @@ Les plans de construction bleus sont une bénédiction pour les équipiers en ma
             </segment>
             <segment id="short_name">
                 <source>swedish_sofa_blueprint.short_name</source>
-                <target>Plan du sofa suédois</target>
+                <target>Plan</target>
             </segment>
             <segment id="genre">
                 <source>swedish_sofa_blueprint.genre</source>
@@ -3452,7 +3452,7 @@ Les plans de construction bleus sont une bénédiction pour les équipiers en ma
             </segment>
             <segment id="short_name">
                 <source>thermosensor_blueprint.short_name</source>
-                <target>Plan du thermosenseur</target>
+                <target>Plan</target>
             </segment>
             <segment id="genre">
                 <source>thermosensor_blueprint.genre</source>
@@ -3481,7 +3481,7 @@ Les plans de construction bleus sont une bénédiction pour les équipiers en ma
             </segment>
             <segment id="short_name">
                 <source>white_flag_blueprint.short_name</source>
-                <target>Plan du drapeau blanc</target>
+                <target>Plan</target>
             </segment>
             <segment id="genre">
                 <source>white_flag_blueprint.genre</source>
@@ -3510,7 +3510,7 @@ Les plans de construction bleus sont une bénédiction pour les équipiers en ma
             </segment>
             <segment id="short_name">
                 <source>apprenton_astrophysicist.short_name</source>
-                <target>Apprentron : Astrophysicien</target>
+                <target>Apprentron</target>
             </segment>
             <segment id="genre">
                 <source>apprenton_astrophysicist.genre</source>
@@ -3556,7 +3556,7 @@ Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et e
             </segment>
             <segment id="short_name">
                 <source>apprenton_botanist.short_name</source>
-                <target>Apprentron : Botaniste</target>
+                <target>Apprentron</target>
             </segment>
             <segment id="genre">
                 <source>apprenton_botanist.genre</source>
@@ -3602,7 +3602,7 @@ Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et e
             </segment>
             <segment id="short_name">
                 <source>apprenton_firefighter.short_name</source>
-                <target>Apprentron : Pompier</target>
+                <target>Apprentron</target>
             </segment>
             <segment id="genre">
                 <source>apprenton_firefighter.genre</source>
@@ -3625,7 +3625,7 @@ Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et e
             </segment>
             <segment id="short_name">
                 <source>apprenton_chef.short_name</source>
-                <target>Apprentron : Cuistot</target>
+                <target>Apprentron</target>
             </segment>
             <segment id="genre">
                 <source>apprenton_chef.genre</source>
@@ -3648,7 +3648,7 @@ Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et e
             </segment>
             <segment id="short_name">
                 <source>apprenton_it_expert.short_name</source>
-                <target>Apprentron : Informaticien</target>
+                <target>Apprentron</target>
             </segment>
             <segment id="genre">
                 <source>apprenton_it_expert.genre</source>
@@ -3671,7 +3671,7 @@ Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et e
             </segment>
             <segment id="short_name">
                 <source>apprenton_logistics_expert.short_name</source>
-                <target>Apprentron : Logistique</target>
+                <target>Apprentron</target>
             </segment>
             <segment id="genre">
                 <source>apprenton_logistics_expert.genre</source>
@@ -3694,7 +3694,7 @@ Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et e
             </segment>
             <segment id="short_name">
                 <source>apprenton_medic.short_name</source>
-                <target>Apprentron : Médecin</target>
+                <target>Apprentron</target>
             </segment>
             <segment id="genre">
                 <source>apprenton_medic.genre</source>
@@ -3717,7 +3717,7 @@ Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et e
             </segment>
             <segment id="short_name">
                 <source>apprenton_pilot.short_name</source>
-                <target>Apprentron : Pilote</target>
+                <target>Apprentron</target>
             </segment>
             <segment id="genre">
                 <source>apprenton_pilot.genre</source>
@@ -3740,7 +3740,7 @@ Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et e
             </segment>
             <segment id="short_name">
                 <source>apprenton_radio_expert.short_name</source>
-                <target>Apprentron : Expert radio</target>
+                <target>Apprentron</target>
             </segment>
             <segment id="genre">
                 <source>apprenton_radio_expert.genre</source>
@@ -3763,7 +3763,7 @@ Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et e
             </segment>
             <segment id="short_name">
                 <source>apprenton_shooter.short_name</source>
-                <target>Apprentron : Tireur</target>
+                <target>Apprentron</target>
             </segment>
             <segment id="genre">
                 <source>apprenton_shooter.genre</source>
@@ -3786,7 +3786,7 @@ Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et e
             </segment>
             <segment id="short_name">
                 <source>apprenton_shrink.short_name</source>
-                <target>Apprentron : Psy</target>
+                <target>Apprentron</target>
             </segment>
             <segment id="genre">
                 <source>apprenton_shrink.genre</source>
@@ -3809,7 +3809,7 @@ Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et e
             </segment>
             <segment id="short_name">
                 <source>apprenton_sprinter.short_name</source>
-                <target>Apprentron : Sprinter</target>
+                <target>Apprentron</target>
             </segment>
             <segment id="genre">
                 <source>apprenton_sprinter.genre</source>
@@ -3832,7 +3832,7 @@ Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et e
             </segment>
             <segment id="short_name">
                 <source>apprenton_sprinter.short_name</source>
-                <target>Apprentron : Technicien</target>
+                <target>Apprentron</target>
             </segment>
             <segment id="genre">
                 <source>apprenton_sprinter.genre</source>

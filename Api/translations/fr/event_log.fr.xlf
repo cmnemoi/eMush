@@ -151,31 +151,19 @@
         </unit>
         <unit id="tremor_gravity">
             <segment>
-                <source>tremor_gravity.character.male</source>
-                <target>La salle est soudain prise de fortes secousses. Les membres d'équipage présents se retrouvent par terre et le plafond s'effondre par endroit. Quelle épave...</target>
-            </segment>
-            <segment>
-                <source>tremor_gravity.character.female</source>
+                <source>tremor_gravity</source>
                 <target>La salle est soudain prise de fortes secousses. Les membres d'équipage présents se retrouvent par terre et le plafond s'effondre par endroit. Quelle épave...</target>
             </segment>
         </unit>
         <unit id="tremor_no_gravity">
             <segment>
-                <source>tremor_no_gravity.character.male</source>
-                <target>La salle est soudain prise de fortes secousses. Les objets volent à travers la pièce et heurtent les membres d'équipage présents.</target>
-            </segment>
-            <segment>
-                <source>tremor_no_gravity.character.female</source>
+                <source>tremor_no_gravity</source>
                 <target>La salle est soudain prise de fortes secousses. Les objets volent à travers la pièce et heurtent les membres d'équipage présents.</target>
             </segment>
         </unit>
         <unit id="electric_arc">
             <segment>
-                <source>electric_arc.character.male</source>
-                <target>Un surcharge électrique brutale fait crépiter les équipements de la pièce, une gigantesque décharge traverse les équipiers !</target>
-            </segment>
-            <segment>
-                <source>electric_arc.character.female</source>
+                <source>electric_arc</source>
                 <target>Un surcharge électrique brutale fait crépiter les équipements de la pièce, une gigantesque décharge traverse les équipiers !</target>
             </segment>
         </unit>

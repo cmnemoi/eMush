@@ -80,6 +80,11 @@ const actions = {
             commit('setLoadingOfChannels', false);
             return false;
         }
+    },
+
+    resetRoomLogs({ commit, state }) {
+        const roomChannel = state.channels.find(channel => channel.scope === ROOM_LOG);
+        commit('setChannelMessages', { channel: roomChannel, messages: [] });
     }
 };
 

@@ -1,17 +1,13 @@
 .php_template: &php_template
-  image: php:8
+  image: registry.gitlab.com/eternal-twin/mush/mush/api:latest
   cache:
     paths:
       - "Api/vendor/"
   before_script:
     - php -v
-    - apt-get update -yqq
-    - apt-get install git zip -yqq zlib1g-dev libpq-dev
     - cd Api
-    # Install composer
-    - curl -sS https://getcomposer.org/installer | php
     # Install all project dependencies
-    - php composer.phar install
+    - composer install
     - cp .env.gitlab .env
 
 .php_with_db_template: &php_with_db_template
@@ -24,15 +20,10 @@
     POSTGRES_PASSWORD: "password"
   before_script:
     - php -v
-    - apt-get update -yqq
-    - apt-get install git zip -yqq zlib1g-dev libpq-dev
     - cd Api
-    # Install composer
-    - curl -sS https://getcomposer.org/installer | php
     # Install all project dependencies
-    - php composer.phar install
+    - composer install
     - cp .env.gitlab .env
-    - docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql && docker-php-ext-install pdo pdo_pgsql pgsql
     - bin/console doctrine:schema:update -f
     - echo y | bin/console doctrine:fixture:load
 

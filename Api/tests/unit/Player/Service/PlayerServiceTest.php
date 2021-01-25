@@ -118,6 +118,11 @@ class PlayerServiceTest extends TestCase
             ->setCharactersConfig($this->charactersConfig)
         ;
 
+        $this->statusService
+            ->shouldReceive('createCoreStatus')
+            ->once()
+        ;
+
         $player = $this->service->createPlayer($daedalus, $user, 'character');
 
         $this->assertInstanceOf(Player::class, $player);
@@ -128,7 +133,6 @@ class PlayerServiceTest extends TestCase
         $this->assertEquals($gameConfig->getInitMoralPoint(), $player->getMoralPoint());
         $this->assertEquals($gameConfig->getInitSatiety(), $player->getSatiety());
         $this->assertCount(0, $player->getItems());
-        $this->assertCount(1, $player->getStatuses());
         $this->assertCount(0, $player->getSkills());
     }
 }

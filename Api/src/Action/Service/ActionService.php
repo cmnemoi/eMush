@@ -68,7 +68,7 @@ class ActionService implements ActionServiceInterface
                     $date
                 );
             } else {
-                $this->statusService->createCorePlayerStatus(PlayerStatusEnum::DIRTY, $player);
+                $this->statusService->createCoreStatus(PlayerStatusEnum::DIRTY, $player);
 
                 $this->roomLogService->createPlayerLog(
                     LogEnum::SOILED,

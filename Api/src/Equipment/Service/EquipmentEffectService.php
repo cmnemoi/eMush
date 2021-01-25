@@ -148,7 +148,7 @@ class EquipmentEffectService implements EquipmentEffectServiceInterface
                 //For the cures append the name of the disease as key and the probability to cure as value (randomly picked)
                 $curesNames = $this->randomService->getRandomElementsFromProbaArray($fruit->getDiseasesName(), $curesNumber);
                 foreach ($curesNames as $cureName) {
-                    $cures[$cureName] = $this->randomService->getSingleRandomElementFromProbaArray($fruit->getDiseasesEffectChance());
+                    $cures[$cureName] = $this->randomService->getSingleRandomElementFromProbaArray($fruit->getDiseasesChances());
                 }
             }
 
@@ -159,9 +159,9 @@ class EquipmentEffectService implements EquipmentEffectServiceInterface
                 //append the name of the disease as key and the range of delay before effect in $diseasesDelayLengh
                 $diseasesNames = $this->randomService->getRandomElementsFromProbaArray($fruit->getDiseasesName(), $diseasesNumber);
                 foreach ($diseasesNames as $diseaseName) {
-                    $diseasesChances[$diseaseName] = $this->randomService->getSingleRandomElementFromProbaArray($fruit->getDiseasesEffectChance());
-                    $diseasesDelayMin[$diseaseName] = $this->randomService->getSingleRandomElementFromProbaArray($fruit->getDiseasesEffectDelayMin());
-                    $diseasesDelayLength[$diseaseName] = $this->randomService->getSingleRandomElementFromProbaArray($fruit->getDiseasesEffectDelayLength());
+                    $diseasesChances[$diseaseName] = $this->randomService->getSingleRandomElementFromProbaArray($fruit->getDiseasesChances());
+                    $diseasesDelayMin[$diseaseName] = $this->randomService->getSingleRandomElementFromProbaArray($fruit->getDiseasesDelayMin());
+                    $diseasesDelayLength[$diseaseName] = $this->randomService->getSingleRandomElementFromProbaArray($fruit->getDiseasesDelayLength());
                 }
             }
 

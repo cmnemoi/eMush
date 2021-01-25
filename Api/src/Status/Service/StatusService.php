@@ -13,6 +13,7 @@ use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
+use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Repository\StatusRepository;
@@ -28,111 +29,37 @@ class StatusService implements StatusServiceInterface
         $this->statusRepository = $statusRepository;
     }
 
-    public function getStatusTargetingGameEquipment(GameEquipment $gameEquipment, string $statusName): ?Status
-    {
-        return $this->statusRepository->findStatusTargetingGameEquipment($gameEquipment, $statusName);
-    }
-
-    public function createCorePlayerStatus(string $statusName, Player $player, string $visibilty = VisibilityEnum::PUBLIC): Status
-    {
-        $status = new Status($player);
+    public function createCoreStatus(
+        string $statusName,
+        StatusHolderInterface $owner,
+        ?StatusHolderInterface $target = null,
+        string $visibility = VisibilityEnum::PUBLIC
+    ): Status {
+        $status = new Status($owner);
         $status
             ->setName($statusName)
+            ->setTarget($target)
             ->setVisibility(VisibilityEnum::PUBLIC)
         ;
 
         return $status;
     }
 
-    public function createCoreEquipmentStatus(string $statusName, GameEquipment $gameEquipment, string $visibilty = VisibilityEnum::PUBLIC): Status
-    {
-        $status = new Status($gameEquipment);
-        $status
-            ->setName($statusName)
-            ->setVisibility($visibilty)
-        ;
-
-        return $status;
-    }
-
-    public function createCoreRoomStatus(string $statusName, Room $room, string $visibilty = VisibilityEnum::PUBLIC): Status
-    {
-        $status = new Status($room);
-        $status
-            ->setName($statusName)
-            ->setVisibility($visibilty)
-        ;
-
-        return $status;
-    }
-
-    public function createChargeEquipmentStatus(
+    public function createChargeStatus(
         string $statusName,
-        GameEquipment $gameEquipment,
+        StatusHolderInterface $owner,
         string $strategy,
+        ?StatusHolderInterface $target = null,
         string $visibilty = VisibilityEnum::PUBLIC,
         string $chargeVisibilty = VisibilityEnum::PUBLIC,
         int $charge = 0,
         int $threshold = null,
         bool $autoRemove = false
     ): ChargeStatus {
-        $status = new ChargeStatus($gameEquipment);
+        $status = new ChargeStatus($owner);
         $status
             ->setName($statusName)
-            ->setStrategy($strategy)
-            ->setVisibility($visibilty)
-            ->setChargeVisibility($chargeVisibilty)
-            ->setCharge($charge)
-            ->setAutoRemove($autoRemove)
-        ;
-
-        if ($threshold) {
-            $status->setThreshold($threshold);
-        }
-
-        return $status;
-    }
-
-    public function createChargePlayerStatus(
-        string $statusName,
-        Player $player,
-        string $strategy,
-        string $visibilty = VisibilityEnum::PUBLIC,
-        string $chargeVisibilty = VisibilityEnum::PUBLIC,
-        int $charge = 0,
-        int $threshold = null,
-        bool $autoRemove = false
-    ): ChargeStatus {
-        $status = new ChargeStatus($player);
-        $status
-            ->setName($statusName)
-            ->setStrategy($strategy)
-            ->setVisibility($visibilty)
-            ->setChargeVisibility($chargeVisibilty)
-            ->setCharge($charge)
-            ->setAutoRemove($autoRemove)
-        ;
-
-        if ($threshold) {
-            $status->setThreshold($threshold);
-        }
-
-        return $status;
-    }
-
-    public function createChargeRoomStatus(
-        string $statusName,
-        Room $room,
-        string $strategy,
-        string $visibilty = VisibilityEnum::PUBLIC,
-        string $chargeVisibilty = VisibilityEnum::PUBLIC,
-        int $charge = 0,
-        int $threshold = null,
-        bool $autoRemove = false
-    ): ChargeStatus {
-        $status = new ChargeStatus($room);
-        $status
-            ->setName($statusName)
+            ->setTarget($target)
             ->setStrategy($strategy)
             ->setVisibility($visibilty)
             ->setChargeVisibility($chargeVisibilty)
@@ -160,31 +87,17 @@ class StatusService implements StatusServiceInterface
         return $status;
     }
 
-    public function createMushStatus(Player $player): ChargeStatus
-    {
-        $status = new ChargeStatus($player);
-        $status
-            ->setName(PlayerStatusEnum::MUSH)
-            ->setVisibility(VisibilityEnum::MUSH)
-            ->setCharge(1)
-            ->setThreshold(1)
-            ->setStrategy(ChargeStrategyTypeEnum::DAILY_RESET)
-        ;
-
-        return $status;
-    }
-
     public function createSporeStatus(Player $player): ChargeStatus
     {
-        $status = new ChargeStatus($player);
-        $status
-            ->setName(PlayerStatusEnum::SPORES)
-            ->setVisibility(VisibilityEnum::MUSH)
-            ->setCharge(1)
-            ->setStrategy(ChargeStrategyTypeEnum::NONE)
-        ;
-
-        return $status;
+        return $this->createChargeStatus(
+            PlayerStatusEnum::SPORES,
+            $player,
+            ChargeStrategyTypeEnum::NONE,
+            null,
+            VisibilityEnum::MUSH,
+            VisibilityEnum::MUSH,
+            1,
+        );
     }
 
     public function persist(Status $status): Status

@@ -1,5 +1,5 @@
 .php_template: &php_template
-  image: php:7.4
+  image: php:8
   cache:
     paths:
       - "Api/vendor/"

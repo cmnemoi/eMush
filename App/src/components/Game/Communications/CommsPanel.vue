@@ -144,21 +144,6 @@ export default {
             }
         }
 
-        .chat-expand {
-            display: flex;
-            padding: 4px;
-            color: #67b000;
-            border-radius: 3px;
-            font-size: 0.8em;
-            text-decoration: underline;
-
-            &.active,
-            &:hover,
-            &:focus {
-                background: #a6eefb;
-            }
-        }
-
         .banner {
             flex-direction: row;
             align-items: center;

@@ -143,13 +143,13 @@ class HyperfreezeActionTest extends AbstractActionTest
 
         $this->gameEquipmentService->shouldReceive('getOperationalEquipmentsByName')->andReturn(new ArrayCollection([$gameSuperfreezer]))->once();
         $this->gameEquipmentService->shouldReceive('persist');
+        $this->statusService->shouldReceive('createCoreStatus')->once();
         $this->playerService->shouldReceive('persist');
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
         $this->assertCount(2, $room->getEquipments());
         $this->assertCount(0, $player->getItems());
-        $this->assertCount(1, $room->getEquipments()->first()->getStatuses());
         $this->assertEquals($gameRation->getName(), $room->getEquipments()->first()->getName());
         $this->assertCount(0, $player->getStatuses());
         $this->assertEquals(9, $player->getActionPoint());

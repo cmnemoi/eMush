@@ -29,20 +29,12 @@ class Fruit extends Ration
      */
     private array $diseasesName = [];
 
-    /**
-     * @ORM\Column(type="array", nullable=false)
-     */
-    private array $diseasesEffectChance = [];
-
-    /**
-     * @ORM\Column(type="array", nullable=false)
-     */
-    private array $diseasesEffectDelayMin = [];
-
-    /**
-     * @ORM\Column(type="array", nullable=false)
-     */
-    private array $diseasesEffectDelayLength = [];
+    //Following variable change their signification compared to ration
+    //The idea is that those variable store now all possible values of %, delayMin and delaylenght for any randomly picken disease
+    //DiseasesChances: Store the chance (value) for a given % (key) to be picked as the chance to get cured or sick
+    //DiseasesDelayMin: Store the chance (value) for a given DelayMin (key) to be picked
+    //DiseasesDelayMin: Store the chance (value) for a given DelayLenght (key) to be picked
+    //ExtraEffect: Store a list of extraEffect that can be randomly picked
 
     public function getPlantName(): string
     {
@@ -85,51 +77,6 @@ class Fruit extends Ration
     public function setDiseasesName(array $diseasesName): Fruit
     {
         $this->diseasesName = $diseasesName;
-
-        return $this;
-    }
-
-    public function getDiseasesEffectChance(): array
-    {
-        return $this->diseasesEffectChance;
-    }
-
-    /**
-     * @return static
-     */
-    public function setDiseasesEffectChance(array $diseasesEffectChance): Fruit
-    {
-        $this->diseasesEffectChance = $diseasesEffectChance;
-
-        return $this;
-    }
-
-    public function getDiseasesEffectDelayMin(): array
-    {
-        return $this->diseasesEffectDelayMin;
-    }
-
-    /**
-     * @return static
-     */
-    public function setDiseasesEffectDelayMin(array $diseasesEffectDelayMin): Fruit
-    {
-        $this->diseasesEffectDelayMin = $diseasesEffectDelayMin;
-
-        return $this;
-    }
-
-    public function getDiseasesEffectDelayLength(): array
-    {
-        return $this->diseasesEffectDelayLength;
-    }
-
-    /**
-     * @return static
-     */
-    public function setDiseasesEffectDelayLength(array $diseasesEffectDelayLength): Fruit
-    {
-        $this->diseasesEffectDelayLength = $diseasesEffectDelayLength;
 
         return $this;
     }

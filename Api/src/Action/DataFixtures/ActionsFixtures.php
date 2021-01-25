@@ -299,6 +299,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $hyperfreezeAction
             ->setName(ActionEnum::HYPERFREEZE)
             ->setScope(ActionScopeEnum::ROOM)
+            ->setTarget(GameItem::class)
             ->setActionCost($oneActionPointCost)
         ;
 

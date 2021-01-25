@@ -1,5 +1,5 @@
 <template>
-    <div class="crewmate-container">
+    <div class="crewmate-container" :class="target.characterValue">
         <div class="mate">
             <div class="card">
                 <div class="avatar">
@@ -60,6 +60,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+
 .crewmate-container {
     position: absolute;
     z-index: 5;
@@ -80,11 +82,12 @@ export default {
         .card {
             flex-flow: row wrap;
 
-            & > * { flex: 1; } //divs will wrap only if too small
+            //& > * { flex: 1; } //divs will wrap only if too small
 
             .avatar {
                 align-items: center;
-                min-width: 110px;
+                justify-content: center;
+                width: 110px;
                 height: 70px;
                 overflow: hidden;
                 border: 1px solid #161951;
@@ -93,8 +96,8 @@ export default {
                     position: relative;
                     width: 210px;
                     height: auto;
-                    left: 20px;
-                    top: -36px;
+                    //left: 20px;
+                    //top: -36px;
                 }
             }
 
@@ -136,4 +139,35 @@ export default {
         padding-left: 4px;
     }
 }
+
+$face-position: 
+    "Andie"    56% 37%,
+    "Chao"     63% 28%,
+    "Chun"     52% 24%,
+    "Derek"    39% 24%,
+    "Eleesha"  47% 32%,
+    "Finola"   50% 30%,
+    "Frieda"   46% 35%,
+    "Gioele"   47% 26%,
+    "Hua"      50% 28%,
+    "Ian"      49% 26%,
+    "Janice"   55% 35%,
+    "Jin"      50% 25%,
+    "Kuan"     52% 20%,
+    "Paola"    70% 37%,
+    "Raluca"   40% 22%,
+    "Roland"   43% 28%,
+    "Stephen"  51% 29%,
+    "Terrence" 67% 30%,
+;
+
+@each $crewmate, $face-position-x, $face-position-y in $face-position {
+    $translate-x : (50% - $face-position-x);
+    $translate-y : (50% - $face-position-y);
+    .#{$crewmate} .avatar img {
+        transform: translate($translate-x, $translate-y);
+    }
+}
+
+
 </style>

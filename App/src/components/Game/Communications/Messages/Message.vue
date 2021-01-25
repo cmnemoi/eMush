@@ -4,7 +4,7 @@
             <img :src="characterPortrait">
         </div>
         <p class="text">
-            <span class="author">{{ message.character.name }} :</span><span v-html="format(message.message)" />
+            <span class="author">{{ message.character.name }} :</span><span v-html="formatMessage(message.message)" />
         </p>
         <div class="actions">
             <a href="#"><img src="@/assets/images/comms/reply.png">Répondre</a>
@@ -16,7 +16,7 @@
     <div v-if="!isRoot" class="message child-message" @click="$emit('click')">
         <p class="text">
             <img class="character-head" :src="characterPortrait">
-            <span class="author">{{ message.character.name }} :</span><span v-html="format(message.message)" />
+            <span class="author">{{ message.character.name }} :</span><span v-html="formatMessage(message.message)" />
         </p>
         <div class="actions">
             <a href="#"><img src="@/assets/images/comms/reply.png">Répondre</a>
@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import { formatText } from "@/utils/formatText";
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import { fr } from 'date-fns/locale';
 import { Message } from "@/entities/Message";
@@ -55,13 +56,9 @@ export default {
         formatDate: (date) => {
             return formatDistanceToNow(date, { locale : fr });
         },
-        format: function (value) {
-            if (!value) return '';
-            value = value.toString();
-            value = value.replaceAll(/\*\*(.*)\*\*/g, '<strong>$1</strong>');
-            value = value.replaceAll(/\*(.*)\*/g, '<em>$1</em>');
-            value = value.replaceAll(/:pa:/g, '<img src="'+require("@/assets/images/pa.png")+'" alt="pa">');
-            return value.replaceAll(/:pm:/g, '<img src="'+require("@/assets/images/pm.png")+'" alt="pm">');
+        formatMessage(value) {
+            if (! value) return '';
+            return formatText(value.toString());
         }
     }
 };

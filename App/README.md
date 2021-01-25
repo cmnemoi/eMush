@@ -89,6 +89,16 @@ All mutations of the state must go through these methods, as the state cannot be
 
 _Ex: `setLoading`, `setCurrentChannel`, `resetError`_
 
+### src/utils
+
+This folder contains plain js files with helper functions. Each function should be stored in a separated file, and ideally come with its test file named myFunction.test.js.
+
+For testing, we use chai (syntax) + mocha (framework) + sinon (stubbing and spying). You can run all tests with the command:
+
+```bash
+yarn test
+```
+
 ## Contributing
 
 We write our tasks on the Trello board https://trello.com/b/4E10Z1Kc/dev-emush-front. Use this invite link if you're not already a member: https://trello.com/invite/b/4E10Z1Kc/2a62a2f7a080375f970d81c23945c912/dev-emush-front

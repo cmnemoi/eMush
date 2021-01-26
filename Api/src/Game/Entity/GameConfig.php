@@ -65,7 +65,12 @@ class GameConfig
     /**
      * @ORM\Column(type="integer", length=255, nullable=false)
      */
-    private int $cycleLength = 0;
+    private int $cyclePerGameDay = 0;
+
+    /**
+     * @ORM\Column(type="integer", length=255, nullable=false)
+     */
+    private int $cycleLength = 0; //in m
 
     /**
      * @ORM\Column(type="string", length=255, nullable=false)
@@ -261,17 +266,24 @@ class GameConfig
         return $this;
     }
 
-    public function getCycleLength(): int
+    public function getCyclePerGameDay(): int
     {
-        return $this->cycleLength;
+        return $this->cyclePerGameDay;
     }
 
     /**
-     * @return float|int
+     * @return static
      */
-    public function getNumberOfCyclePerDay()
+    public function setCyclePerGameDay(int $cyclePerGameDay): GameConfig
     {
-        return 24 / $this->getCycleLength();
+        $this->cyclePerGameDay = $cyclePerGameDay;
+
+        return $this;
+    }
+
+    public function getCycleLength(): int
+    {
+        return $this->cycleLength;
     }
 
     /**

@@ -169,37 +169,21 @@
         </unit>
         <unit id="equipment_broken">
             <segment>
-                <source>equipment_broken.character.male.target.male</source>
+                <source>equipment_broken.target.male</source>
                 <target>Un **target** a été cassé !</target>
             </segment>
             <segment>
-                <source>equipment_broken.character.female.target.male</source>
-                <target>Un **target** a été cassé !</target>
-            </segment>
-            <segment>
-                <source>equipment_broken.character.male.target.female</source>
-                <target>Une **target** a été cassée !</target>
-            </segment>
-            <segment>
-                <source>equipment_broken.character.female.target.female</source>
+                <source>equipment_broken.target.female</source>
                 <target>Une **target** a été cassée !</target>
             </segment>
         </unit>
         <unit id="equipment_destroyed">
             <segment>
-                <source>equipment_destroyed.character.male.target.male</source>
+                <source>equipment_destroyed.target.male</source>
                 <target>Un **target** a été détruit !</target>
             </segment>
             <segment>
-                <source>equipment_destroyed.character.female.target.male</source>
-                <target>Un **target** a été détruit !</target>
-            </segment>
-            <segment>
-                <source>equipment_destroyed.character.male.target.female</source>
-                <target>Une **target** a été détruite !</target>
-            </segment>
-            <segment>
-                <source>equipment_destroyed.character.female.target.female</source>
+                <source>equipment_destroyed.target.female</source>
                 <target>Une **target** a été détruite !</target>
             </segment>
         </unit>

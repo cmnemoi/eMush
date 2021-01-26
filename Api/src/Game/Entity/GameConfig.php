@@ -70,7 +70,7 @@ class GameConfig
     /**
      * @ORM\Column(type="integer", length=255, nullable=false)
      */
-    private int $gameDayPerDay = 0;
+    private float $gameDayPerDay = 0;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=false)
@@ -281,7 +281,7 @@ class GameConfig
         return $this;
     }
 
-    public function getGameDayPerDay(): int
+    public function getGameDayPerDay(): float
     {
         return $this->gameDayPerDay;
     }
@@ -289,7 +289,7 @@ class GameConfig
     /**
      * @return static
      */
-    public function setGameDayPerDay(int $gameDayPerDay): GameConfig
+    public function setGameDayPerDay(float $gameDayPerDay): GameConfig
     {
         $this->gameDayPerDay = $gameDayPerDay;
 

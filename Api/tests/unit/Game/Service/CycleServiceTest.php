@@ -103,6 +103,26 @@ class CycleServiceTest extends TestCase
         ;
         $this->assertEquals(5, $this->service->getCycleFromDate(new \DateTime('2020-10-10 12:10:00.0 Europe/Paris'), $daedalus));
         $this->assertEquals(1, $this->service->getGameDayFromDate(new \DateTime('2020-10-10 12:10:00.0 Europe/Paris'), $daedalus));
+
+        //longer cycles
+        $timeZone = 'Europe/Paris';
+        $gameConfig = new GameConfig();
+        $gameConfig
+            ->setCyclePerGameDay(8)
+            ->setGameDayPerDay(6 / 8)
+            ->setTimeZone($timeZone)
+        ;
+
+        $daedalus = new Daedalus();
+        $daedalus
+            ->setGameConfig($gameConfig)
+            ->setCreatedAt(new DateTime('2020-10-10 20:00:00.0 UTC'))
+        ;
+        $this->assertEquals(6, $this->service->getCycleFromDate(new \DateTime('2020-10-10 22:10:00.0 Europe/Paris'), $daedalus));
+        $this->assertEquals(1, $this->service->getGameDayFromDate(new \DateTime('2020-10-10 22:10:00.0 Europe/Paris'), $daedalus));
+
+        $this->assertEquals(8, $this->service->getCycleFromDate(new \DateTime('2020-10-13 22:10:00.0 Europe/Paris'), $daedalus));
+        $this->assertEquals(3, $this->service->getGameDayFromDate(new \DateTime('2020-10-13 22:10:00.0 Europe/Paris'), $daedalus));
     }
 
     public function testHandleCycleChange()

@@ -83,6 +83,7 @@ class DaedalusServiceTest extends TestCase
         $roomConfig = new RoomConfig();
 
         $gameConfig = new GameConfig();
+        $gameConfig->setCyclePerGameDay(8)->setGameDayPerDay(1);
         $daedalusConfig = new DaedalusConfig();
 
         $item = new ItemConfig();
@@ -168,6 +169,7 @@ class DaedalusServiceTest extends TestCase
     {
         $daedalus = new Daedalus();
         $gameConfig = new GameConfig();
+        $gameConfig->setCyclePerGameDay(8)->setGameDayPerDay(1);
 
         $daedalus->setGameConfig($gameConfig);
 

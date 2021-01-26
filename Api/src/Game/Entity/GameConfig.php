@@ -132,16 +132,6 @@ class GameConfig
      */
     private int $maxItemInInventory = 0;
 
-    /**
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
-    private int $maxOxygen = 0;
-
-    /**
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
-    private int $maxFuel = 0;
-
     public function __construct()
     {
         $this->charactersConfig = new ArrayCollection();
@@ -475,36 +465,6 @@ class GameConfig
     public function setMaxItemInInventory(int $maxItemInInventory): GameConfig
     {
         $this->maxItemInInventory = $maxItemInInventory;
-
-        return $this;
-    }
-
-    public function getMaxOxygen(): int
-    {
-        return $this->maxOxygen;
-    }
-
-    /**
-     * @return static
-     */
-    public function setMaxOxygen(int $maxOxygen): GameConfig
-    {
-        $this->maxOxygen = $maxOxygen;
-
-        return $this;
-    }
-
-    public function getMaxFuel(): int
-    {
-        return $this->maxFuel;
-    }
-
-    /**
-     * @return static
-     */
-    public function setMaxFuel(int $maxFuel): GameConfig
-    {
-        $this->maxFuel = $maxFuel;
 
         return $this;
     }

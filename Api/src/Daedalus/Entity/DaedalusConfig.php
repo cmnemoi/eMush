@@ -47,6 +47,21 @@ class DaedalusConfig
     private int $initShield;
 
     /**
+     * @ORM\Column(type="integer", length=255, nullable=false)
+     */
+    private int $maxOxygen = 0;
+
+    /**
+     * @ORM\Column(type="integer", length=255, nullable=false)
+     */
+    private int $maxFuel = 0;
+
+    /**
+     * @ORM\Column(type="integer", length=255, nullable=false)
+     */
+    private int $maxHull = 0;
+
+    /**
      * @ORM\OneToOne(targetEntity="Mush\Daedalus\Entity\RandomItemPlaces", cascade={"ALL"})
      */
     private ?RandomItemPlaces $randomItemPlace = null;
@@ -182,6 +197,51 @@ class DaedalusConfig
     public function setDailySporeNb(int $dailySporeNb): DaedalusConfig
     {
         $this->dailySporeNb = $dailySporeNb;
+
+        return $this;
+    }
+
+    public function getMaxOxygen(): int
+    {
+        return $this->maxOxygen;
+    }
+
+    /**
+     * @return static
+     */
+    public function setMaxOxygen(int $maxOxygen): DaedalusConfig
+    {
+        $this->maxOxygen = $maxOxygen;
+
+        return $this;
+    }
+
+    public function getMaxFuel(): int
+    {
+        return $this->maxFuel;
+    }
+
+    /**
+     * @return static
+     */
+    public function setMaxFuel(int $maxFuel): DaedalusConfig
+    {
+        $this->maxFuel = $maxFuel;
+
+        return $this;
+    }
+
+    public function getMaxHull(): int
+    {
+        return $this->maxHull;
+    }
+
+    /**
+     * @return static
+     */
+    public function setMaxHull(int $maxHull): DaedalusConfig
+    {
+        $this->maxHull = $maxHull;
 
         return $this;
     }

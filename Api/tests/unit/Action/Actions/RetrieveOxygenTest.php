@@ -11,6 +11,7 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
@@ -64,7 +65,10 @@ class RetrieveOxygenTest extends AbstractActionTest
         $player = $this->createPlayer($daedalus, $room);
 
         $gameConfig = new GameConfig();
-        $gameConfig->setMaxOxygen(32);
+        $daedalusConfig = new DaedalusConfig();
+
+        $daedalusConfig->setMaxOxygen(32);
+        $gameConfig->setDaedalusConfig($daedalusConfig);
         $daedalus->setGameConfig($gameConfig);
 
         $daedalus->setOxygen(0);
@@ -119,9 +123,12 @@ class RetrieveOxygenTest extends AbstractActionTest
             ->setName(ItemEnum::OXYGEN_CAPSULE)
         ;
 
+        $daedalusConfig = new DaedalusConfig();
+        $daedalusConfig->setMaxOxygen(32);
+
         $gameConfig = new GameConfig();
         $gameConfig->setMaxItemInInventory(3);
-        $gameConfig->setMaxOxygen(32);
+        $gameConfig->setDaedalusConfig($daedalusConfig);
         $daedalus->setGameConfig($gameConfig);
 
         $daedalus->setOxygen(10);

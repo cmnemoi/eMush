@@ -241,7 +241,7 @@ class DaedalusService implements DaedalusServiceInterface
 
     public function changeOxygenLevel(Daedalus $daedalus, int $change): Daedalus
     {
-        $maxOxygen = $daedalus->getGameConfig()->getMaxOxygen();
+        $maxOxygen = $daedalus->getGameConfig()->getDaedalusConfig()->getMaxOxygen();
         $newOxygenLevel = $daedalus->getOxygen() + $change;
         if ($newOxygenLevel <= $maxOxygen && $newOxygenLevel >= 0) {
             $daedalus->setOxygen($newOxygenLevel);
@@ -252,10 +252,29 @@ class DaedalusService implements DaedalusServiceInterface
 
     public function changeFuelLevel(Daedalus $daedalus, int $change): Daedalus
     {
-        $maxFuel = $daedalus->getGameConfig()->getMaxFuel();
+        $maxFuel = $daedalus->getGameConfig()->getDaedalusConfig()->getMaxFuel();
         if (!($newFuelLevel = $daedalus->getFuel() + $change > $maxFuel) && !($newFuelLevel < 0)) {
             $daedalus->addFuel($change);
         }
+
+        return $daedalus;
+    }
+
+    public function changeHull(Daedalus $daedalus, int $change): Daedalus
+    {
+        $maxHull = $daedalus->getGameConfig()->getDaedalusConfig()->getMaxHull();
+        if ($newHull = $daedalus->getHull() + $change < 0) {
+            $daedalus->setHull(0);
+
+            $daedalusEvent = new DaedalusEvent($daedalus);
+            $daedalusEvent->setReason(EndCauseEnum::DAEDALUS_DESTROYED);
+
+            $this->eventDispatcher->dispatch($daedalusEvent, DaedalusEvent::END_DAEDALUS);
+        } elseif ($newHull < $maxHull) {
+            $daedalus->addHull($change);
+        }
+
+        $this->persist($daedalus);
 
         return $daedalus;
     }

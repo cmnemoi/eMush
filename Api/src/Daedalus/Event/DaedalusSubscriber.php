@@ -48,6 +48,7 @@ class DaedalusSubscriber implements EventSubscriberInterface
         $this->daedalusService->killRemainingPlayers($daedalus, $reason);
 
         // @TODO: create logs
+        // @TODO: remove all fire and charged statuses
 
         $daedalus->setFinishedAt(new \DateTime());
         $daedalus->setGameStatus(GameStatusEnum::FINISHED);

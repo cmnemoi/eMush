@@ -57,7 +57,7 @@ class InsertOxygen extends AbstractAction
         return $this->player->canReachEquipment($this->gameItem) &&
             $this->gameItem->getEquipment()->getName() === ItemEnum::OXYGEN_CAPSULE &&
             $this->gameEquipmentService->getOperationalEquipmentsByName(EquipmentEnum::OXYGEN_TANK, $this->player) &&
-            $this->player->getDaedalus()->getOxygen() < $gameConfig->getMaxOxygen()
+            $this->player->getDaedalus()->getOxygen() < $gameConfig->getDaedalusConfig()->getMaxOxygen()
             ;
     }
 

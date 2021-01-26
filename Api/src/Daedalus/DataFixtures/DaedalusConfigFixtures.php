@@ -37,6 +37,9 @@ class DaedalusConfigFixtures extends Fixture implements DependentFixtureInterfac
             ->setInitHull(100)
             ->setInitShield(-2)
             ->setDailySporeNb(4)
+            ->setMaxOxygen(32)
+            ->setMaxFuel(32)
+            ->setMaxHull(100)
         ;
 
         $randomItemPlaces = new RandomItemPlaces();

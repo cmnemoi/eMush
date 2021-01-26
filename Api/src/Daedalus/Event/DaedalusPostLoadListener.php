@@ -4,6 +4,7 @@ namespace Mush\Daedalus\Event;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\CycleServiceInterface;
 
 class DaedalusPostLoadListener
@@ -17,6 +18,10 @@ class DaedalusPostLoadListener
 
     public function postLoad(Daedalus $daedalus, LifecycleEventArgs $event): void
     {
+        if ($daedalus->getGameStatus() === GameStatusEnum::FINISHED) {
+            return;
+        }
+
         $this->cycleService->handleCycleChange($daedalus);
     }
 }

@@ -5,6 +5,7 @@ namespace functional\Daedalus\Event;
 use App\Tests\FunctionalTester;
 use DateTime;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Daedalus\Event\DaedalusCycleSubscriber;
 use Mush\Equipment\Entity\Door;
@@ -34,8 +35,10 @@ class CycleEventCest
 
     public function testLieDownStatusCycleSubscriber(FunctionalTester $I)
     {
+        /** @var DaedalusConfig $gameConfig */
+        $daedalusConfig = $I->have(DaedalusConfig::class);
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $gameConfig = $I->have(GameConfig::class, ['daedalusConfig' => $daedalusConfig]);
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
         /** @var Room $room */
@@ -79,8 +82,10 @@ class CycleEventCest
 
     public function testOxygenCycleSubscriber(FunctionalTester $I)
     {
+        /** @var DaedalusConfig $gameConfig */
+        $daedalusConfig = $I->have(DaedalusConfig::class);
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $gameConfig = $I->have(GameConfig::class, ['daedalusConfig' => $daedalusConfig]);
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'oxygen' => 1]);
         /** @var Room $room */
@@ -111,6 +116,8 @@ class CycleEventCest
 
     public function testStartingFire(FunctionalTester $I)
     {
+        /** @var DaedalusConfig $gameConfig */
+        $daedalusConfig = $I->have(DaedalusConfig::class);
         /** @var DifficultyConfig $difficultyConfig */
         $difficultyConfig = $I->have(DifficultyConfig::class, [
                                         'startingFireRate' => 100,
@@ -118,7 +125,7 @@ class CycleEventCest
                                         'propagatingFireRate' => 100,
                                     ]);
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, ['difficultyConfig' => $difficultyConfig]);
+        $gameConfig = $I->have(GameConfig::class, ['difficultyConfig' => $difficultyConfig, 'daedalusConfig' => $daedalusConfig]);
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
 
@@ -188,6 +195,8 @@ class CycleEventCest
 
     public function testCycleEquipmentBreak(FunctionalTester $I)
     {
+        /** @var DaedalusConfig $gameConfig */
+        $daedalusConfig = $I->have(DaedalusConfig::class);
         /** @var DifficultyConfig $difficultyConfig */
         $difficultyConfig = $I->have(DifficultyConfig::class, [
                                         'equipmentBreakRate' => 100,
@@ -195,7 +204,7 @@ class CycleEventCest
                                     ]);
 
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, ['difficultyConfig' => $difficultyConfig]);
+        $gameConfig = $I->have(GameConfig::class, ['difficultyConfig' => $difficultyConfig, 'daedalusConfig' => $daedalusConfig]);
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
 

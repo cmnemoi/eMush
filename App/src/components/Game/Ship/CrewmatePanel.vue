@@ -60,8 +60,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-
 .crewmate-container {
     position: absolute;
     z-index: 5;
@@ -82,8 +80,6 @@ export default {
         .card {
             flex-flow: row wrap;
 
-            //& > * { flex: 1; } //divs will wrap only if too small
-
             .avatar {
                 align-items: center;
                 justify-content: center;
@@ -96,8 +92,6 @@ export default {
                     position: relative;
                     width: 210px;
                     height: auto;
-                    //left: 20px;
-                    //top: -36px;
                 }
             }
 

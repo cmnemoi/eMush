@@ -135,7 +135,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
 
         $gameConfig = $daedalus->getGameConfig();
 
-        if ($daedalus->getCycle() === ((24 / $gameConfig->getCycleLength()) + 1)) {
+        if ($daedalus->getCycle() === $gameConfig->getCyclePerGameDay()) {
             $newDay = true;
             $daedalus->setCycle(1);
             $daedalus->setDay($daedalus->getDay() + 1);

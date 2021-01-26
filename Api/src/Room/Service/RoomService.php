@@ -100,7 +100,7 @@ class RoomService implements RoomServiceInterface
             //@TODO better handle this
             if ($item->getMechanicByName(EquipmentMechanicEnum::PLANT) &&
                 $youngStatus = $gameItem->getStatusByName(EquipmentStatusEnum::PLANT_YOUNG)) {
-                    $gameItem->removeStatus($youngStatus);
+                $gameItem->removeStatus($youngStatus);
             }
 
             $room->addEquipment($gameItem);

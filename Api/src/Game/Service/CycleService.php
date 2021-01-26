@@ -26,7 +26,7 @@ class CycleService implements CycleServiceInterface
     {
         $gameConfig = $daedalus->getGameConfig();
 
-        $currentDate = new \DateTime();
+        $currentDate = DateTime::createFromFormat('U', time());
         $lastUpdate = $daedalus->getUpdatedAt();
 
         $cycleElapsed = $this->getNumberOfCycleElapsed($lastUpdate, $currentDate, $gameConfig);

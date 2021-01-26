@@ -1,4 +1,4 @@
-FROM node:14
+FROM node:15
 
 # not mandatory if you EXPORT a fixed port. See below.
 ARG YOUR_APP_WEB_HTTP_PORT

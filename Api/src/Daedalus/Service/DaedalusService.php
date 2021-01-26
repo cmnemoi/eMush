@@ -108,9 +108,9 @@ class DaedalusService implements DaedalusServiceInterface
 
         $daedalusConfig = $gameConfig->getDaedalusConfig();
 
-        if (24 * 60 / ($gameConfig->getGameDayPerDay() * $gameConfig->getCyclePerGameDay()) !==
-            floor(24 * 60 / ($gameConfig->getGameDayPerDay() * $gameConfig->getCyclePerGameDay()))) {
-            throw new Error('Cycle setting of GameConfig are invalid. gameDayPerDay * cyclePerGameDay should divide the number of min in a day');
+        if (floatval(24 * 60 / ($gameConfig->getCycleLength())) !==
+        floatval(floor(24 * 60 / ($gameConfig->getCycleLength())))) {
+            throw new Error('Cycle setting of GameConfig are invalid. CycleLength should divide the number of minutes in a day');
         }
 
         $daedalus

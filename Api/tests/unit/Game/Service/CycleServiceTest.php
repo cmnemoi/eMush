@@ -43,7 +43,7 @@ class CycleServiceTest extends TestCase
 
         $gameConfig
             ->setCyclePerGameDay(8)
-            ->setGameDayPerDay(1)
+            ->setCycleLength(3 * 60)
             ->setTimeZone($timeZone)
         ;
 
@@ -68,7 +68,7 @@ class CycleServiceTest extends TestCase
         $timeZone = 'Europe/London';
         $gameConfig
             ->setCyclePerGameDay(8)
-            ->setGameDayPerDay(1)
+            ->setCycleLength(3 * 60)
             ->setTimeZone($timeZone)
         ;
         $daedalus
@@ -84,7 +84,7 @@ class CycleServiceTest extends TestCase
         $gameConfig = new GameConfig();
         $gameConfig
             ->setCyclePerGameDay(8)
-            ->setGameDayPerDay(3)
+            ->setCycleLength(1 * 60)
             ->setTimeZone($timeZone)
         ;
 
@@ -109,7 +109,7 @@ class CycleServiceTest extends TestCase
         $gameConfig = new GameConfig();
         $gameConfig
             ->setCyclePerGameDay(8)
-            ->setGameDayPerDay(6 / 8)
+            ->setCycleLength(4 * 60)
             ->setTimeZone($timeZone)
         ;
 
@@ -133,7 +133,7 @@ class CycleServiceTest extends TestCase
 
         $gameConfig
             ->setCyclePerGameDay(8)
-            ->setGameDayPerDay(1)
+            ->setCycleLength(3 * 60)
             ->setTimeZone($timeZone)
         ;
 
@@ -157,14 +157,14 @@ class CycleServiceTest extends TestCase
         //1 hours cycles => 24 cycle elapsed
         $gameConfig
             ->setCyclePerGameDay(24)
-            ->setGameDayPerDay(1)
+            ->setCycleLength(1 * 60)
         ;
         $this->assertEquals(24, $this->service->handleCycleChange($daedalus));
 
         //12 hours cycles => 2 cycle elapsed
         $gameConfig
             ->setCyclePerGameDay(2)
-            ->setGameDayPerDay(1)
+            ->setCycleLength(12 * 60)
         ;
         $this->assertEquals(2, $this->service->handleCycleChange($daedalus));
     }

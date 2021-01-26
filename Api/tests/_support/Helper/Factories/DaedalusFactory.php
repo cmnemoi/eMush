@@ -64,8 +64,6 @@ class DaedalusFactory extends \Codeception\Module
             'initMovementPoint' => 12,
             'maxMovementPoint' => 12,
             'maxItemInInventory' => 12,
-            'maxOxygen' => 32,
-            'maxFuel' => 32,
         ]);
 
         $factory->_define(Daedalus::class, [

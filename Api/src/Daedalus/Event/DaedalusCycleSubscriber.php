@@ -8,7 +8,6 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Event\EquipmentCycleEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Enum\EndCauseEnum as EnumEndCauseEnum;
 use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Room\Entity\Room;
@@ -135,10 +134,6 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         $newDay = false;
 
         $gameConfig = $daedalus->getGameConfig();
-
-        if ($daedalus->getGameStatus() === GameStatusEnum::FINISHED) {
-            return;
-        }
 
         if ($daedalus->getCycle() === ((24 / $gameConfig->getCycleLength()) + 1)) {
             $newDay = true;

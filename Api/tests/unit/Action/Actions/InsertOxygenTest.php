@@ -10,6 +10,7 @@ use Mush\Action\Actions\InsertOxygen;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
@@ -76,8 +77,11 @@ class InsertOxygenTest extends AbstractActionTest
 
         $daedalus->setOxygen(32);
 
+        $daedalusConfig = new DaedalusConfig();
+        $daedalusConfig->setMaxOxygen(32);
+
         $gameConfig = new GameConfig();
-        $gameConfig->setMaxOxygen(32);
+        $gameConfig->setDaedalusConfig($daedalusConfig);
         $daedalus->setGameConfig($gameConfig);
 
         $tank = new EquipmentConfig();
@@ -121,8 +125,12 @@ class InsertOxygenTest extends AbstractActionTest
         ;
 
         $daedalus->setOxygen(10);
+
+        $daedalusConfig = new DaedalusConfig();
+        $daedalusConfig->setMaxOxygen(32);
+
         $gameConfig = new GameConfig();
-        $gameConfig->setMaxOxygen(32);
+        $gameConfig->setDaedalusConfig($daedalusConfig);
         $daedalus->setGameConfig($gameConfig);
 
         $tank = new EquipmentConfig();

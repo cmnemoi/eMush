@@ -35,10 +35,14 @@ class DaedalusFactory extends \Codeception\Module
             'panicCrisisPlayerDamage' => [3 => 1],
         ]);
         $factory->_define(DaedalusConfig::class, [
-            'gameConfig' => 'entity|' . GameConfig::class,
             'maxOxygen' => 32,
             'maxFuel' => 32,
             'maxHull' => 100,
+            'initOxygen' => 32,
+            'initFuel' => 32,
+            'initHull' => 100,
+            'initShield' => -2,
+            'dailySporeNb' => 4,
         ]);
 
         $factory->_define(GameConfig::class, [

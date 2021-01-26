@@ -167,5 +167,8 @@ class CycleServiceTest extends TestCase
             ->setCycleLength(12 * 60)
         ;
         $this->assertEquals(2, $this->service->handleCycleChange($daedalus));
+
+
+        //@TODO add test with entering DST
     }
 }

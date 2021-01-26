@@ -35,8 +35,8 @@ class CycleService implements CycleServiceInterface
         $lastUpdateCycle = $this->getDateCurrentCycleFromDaedalus($daedalus);
 
         for ($i = 0; $i < $cycleElapsed; ++$i) {
-            $date = $lastUpdateCycle->add(new DateInterval('PT' . strval($i * $gameConfig->getCycleLength()) . 'M'));
-            $cycleEvent = new DaedalusCycleEvent($daedalus, $date);
+            $lastUpdateCycle = $lastUpdateCycle->add(new DateInterval('PT' . strval($gameConfig->getCycleLength()) . 'M'));
+            $cycleEvent = new DaedalusCycleEvent($daedalus, $lastUpdateCycle);
             $this->eventDispatcher->dispatch($cycleEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
         }
 

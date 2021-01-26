@@ -65,7 +65,7 @@ class GameConfig
     /**
      * @ORM\Column(type="integer", length=255, nullable=false)
      */
-    private int $cyclePerGameDay = 0;
+    private int $cyclePerGameDay = 8;
 
     /**
      * @ORM\Column(type="integer", length=255, nullable=false)

@@ -115,6 +115,6 @@ class Build extends AbstractAction
 
         $target = new Target($blueprintEquipment->getName(), 'items');
 
-        return new Success(ActionLogEnum::BUILD_SUCCESS, VisibilityEnum::PUBLIC, $target);
+        return new Success($target);
     }
 }

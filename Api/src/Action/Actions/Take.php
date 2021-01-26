@@ -90,6 +90,6 @@ class Take extends AbstractAction
 
         $target = new Target($this->gameItem->getName(), 'items');
 
-        return new Success(ActionLogEnum::TAKE, VisibilityEnum::PUBLIC, $target);
+        return new Success($target);
     }
 }

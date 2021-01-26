@@ -105,6 +105,6 @@ class Hyperfreeze extends AbstractAction
 
         $this->playerService->persist($this->player);
 
-        return new Success(ActionLogEnum::HYPERFREEZE_SUCCESS, VisibilityEnum::PRIVATE);
+        return new Success();
     }
 }

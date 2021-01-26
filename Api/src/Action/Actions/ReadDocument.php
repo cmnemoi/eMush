@@ -47,6 +47,6 @@ class ReadDocument extends AbstractAction
 
     protected function applyEffects(): ActionResult
     {
-        return new Success(ActionLogEnum::READ_DOCUMENT, VisibilityEnum::PUBLIC);
+        return new Success();
     }
 }

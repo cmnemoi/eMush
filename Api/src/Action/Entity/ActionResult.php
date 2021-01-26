@@ -6,28 +6,16 @@ use Mush\RoomLog\Entity\Target;
 
 abstract class ActionResult
 {
-    private ?string $log;
-    private ?string $visibility;
     private ?Target $target;
 
-    public function __construct(
-        ?string $log = null,
-        ?string $visibility = null,
-        ?Target $target = null
-    ) {
-        $this->log = $log;
-        $this->visibility = $visibility;
+    public function __construct(?Target $target = null) {
         $this->target = $target;
     }
 
-    public function getLog(): ?string
+    public function setTarget(?Target $target): ActionResult
     {
-        return $this->log;
-    }
-
-    public function getVisibility(): ?string
-    {
-        return $this->visibility;
+        $this->target = $target;
+        return $this;
     }
 
     public function getTarget(): ?Target

@@ -77,9 +77,9 @@ class Search extends AbstractAction
 
             $target = new Target($itemFound->getName(), 'items');
 
-            return new Success(ActionLogEnum::SEARCH_SUCCESS, VisibilityEnum::PUBLIC, $target);
+            return new Success($target);
         } else {
-            return new Fail(ActionLogEnum::SEARCH_FAIL, VisibilityEnum::COVERT);
+            return new Fail();
         }
     }
 }

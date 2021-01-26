@@ -79,6 +79,6 @@ class Coffee extends AbstractAction
             $this->statusService->persist($chargeStatus);
         }
 
-        return new Success(ActionLogEnum::COFFEE_SUCCESS, VisibilityEnum::PUBLIC);
+        return new Success();
     }
 }

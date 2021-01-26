@@ -74,6 +74,6 @@ class Write extends AbstractAction
         $this->gameEquipmentService->persist($newGameItem);
         $this->playerService->persist($this->player);
 
-        return new Success(ActionLogEnum::WRITE_SUCCESS, VisibilityEnum::PUBLIC);
+        return new Success();
     }
 }

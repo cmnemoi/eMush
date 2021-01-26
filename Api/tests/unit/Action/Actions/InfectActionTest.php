@@ -21,9 +21,6 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class InfectActionTest extends AbstractActionTest
 {
-    /** @var RoomLogServiceInterface | Mockery\Mock */
-    private RoomLogServiceInterface $roomLogService;
-
     /** @var StatusServiceInterface | Mockery\Mock */
     private StatusServiceInterface $statusService;
 
@@ -39,13 +36,11 @@ class InfectActionTest extends AbstractActionTest
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::INFECT, 1);
 
-        $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
 
         $this->action = new Infect(
             $this->eventDispatcher,
-            $this->roomLogService,
             $this->statusService,
             $this->playerService,
         );
@@ -154,7 +149,6 @@ class InfectActionTest extends AbstractActionTest
 
         $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $eventDispatcher->shouldReceive('dispatch');
-        $this->roomLogService->shouldReceive('createPlayerLog')->once();
         $this->playerService->shouldReceive('persist')->once();
         $this->statusService->shouldReceive('persist')->once();
 

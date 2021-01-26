@@ -11,9 +11,6 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\Target;
-use Mush\RoomLog\Enum\ActionLogEnum;
-use Mush\RoomLog\Enum\VisibilityEnum;
-use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -25,19 +22,16 @@ class Infect extends AbstractAction
 
     private Player $targetPlayer;
 
-    private RoomLogServiceInterface $roomLogService;
     private StatusServiceInterface $statusService;
     private PlayerServiceInterface $playerService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
-        RoomLogServiceInterface $roomLogService,
         StatusServiceInterface $statusService,
         PlayerServiceInterface $playerService
     ) {
         parent::__construct($eventDispatcher);
 
-        $this->roomLogService = $roomLogService;
         $this->statusService = $statusService;
         $this->playerService = $playerService;
     }
@@ -91,19 +85,6 @@ class Infect extends AbstractAction
 
         $target = new Target($this->targetPlayer->getCharacterConfig()->getName(), 'character');
 
-        //@TODO: get ride of that
-        $this->createLog(new Success());
-
-        return new Success(ActionLogEnum::INFECT_SUCCESS, VisibilityEnum::SECRET, $target);
-    }
-
-    protected function createLog(ActionResult $actionResult): void
-    {
-        $this->roomLogService->createPlayerLog(
-            ActionEnum::INFECT,
-            $this->player->getRoom(),
-            $this->player,
-            VisibilityEnum::MUSH
-        );
+        return new Success($target);
     }
 }

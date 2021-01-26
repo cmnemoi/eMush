@@ -78,6 +78,6 @@ class RetrieveOxygen extends AbstractAction
 
         $target = new Target($this->gameEquipment->getName(), 'items');
 
-        return new Success(ActionLogEnum::RETRIEVE_OXYGEN, VisibilityEnum::COVERT, $target);
+        return new Success($target);
     }
 }

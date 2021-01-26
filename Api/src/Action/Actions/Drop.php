@@ -85,6 +85,6 @@ class Drop extends AbstractAction
 
         $target = new Target($this->gameItem->getName(), 'items');
 
-        return new Success(ActionLogEnum::DROP, VisibilityEnum::PUBLIC, $target);
+        return new Success($target);
     }
 }

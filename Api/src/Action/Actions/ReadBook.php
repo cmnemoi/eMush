@@ -71,6 +71,6 @@ class ReadBook extends AbstractAction
 
         $this->playerService->persist($this->player);
 
-        return new Success(ActionLogEnum::READ_BOOK, VisibilityEnum::PUBLIC);
+        return new Success();
     }
 }

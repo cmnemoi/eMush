@@ -45,6 +45,6 @@ class GetUp extends AbstractAction
             $this->player->removeStatus($lyingDownStatus);
         }
 
-        return new Success(ActionLogEnum::GET_UP, VisibilityEnum::PUBLIC);
+        return new Success();
     }
 }

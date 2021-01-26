@@ -84,6 +84,6 @@ class Hide extends AbstractAction
 
         $target = new Target($this->gameItem->getName(), 'items');
 
-        return new Success(ActionLogEnum::HIDE_SUCCESS, VisibilityEnum::COVERT, $target);
+        return new Success($target);
     }
 }

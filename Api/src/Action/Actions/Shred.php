@@ -68,6 +68,6 @@ class Shred extends AbstractAction
 
         $this->playerService->persist($this->player);
 
-        return new Success(ActionLogEnum::SHRED_SUCCESS, VisibilityEnum::PUBLIC);
+        return new Success();
     }
 }

@@ -64,6 +64,6 @@ class LieDown extends AbstractAction
 
         $this->statusService->persist($lyingDownStatus);
 
-        return new Success(ActionLogEnum::LIE_DOWN, VisibilityEnum::PUBLIC);
+        return new Success();
     }
 }

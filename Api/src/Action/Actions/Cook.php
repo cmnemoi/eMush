@@ -96,6 +96,6 @@ class Cook extends AbstractAction
 
         $this->playerService->persist($this->player);
 
-        return new Success(ActionLogEnum::COOK_SUCCESS, VisibilityEnum::PUBLIC);
+        return new Success();
     }
 }

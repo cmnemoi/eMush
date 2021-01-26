@@ -64,6 +64,6 @@ class TreatPlant extends AbstractAction
             $this->gameEquipmentService->persist($this->gameEquipment);
         }
 
-        return new Success(ActionLogEnum::TREAT_PLANT_SUCCESS, VisibilityEnum::PRIVATE);
+        return new Success();
     }
 }

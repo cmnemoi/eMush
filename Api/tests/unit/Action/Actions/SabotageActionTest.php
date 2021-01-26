@@ -18,7 +18,6 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
-use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
@@ -29,8 +28,6 @@ use Mush\Status\Service\StatusServiceInterface;
 
 class SabotageActionTest extends AbstractActionTest
 {
-    /** @var RoomLogServiceInterface | Mockery\Mock */
-    private RoomLogServiceInterface $roomLogService;
     /** @var GameEquipmentServiceInterface | Mockery\Mock */
     private GameEquipmentServiceInterface $gameEquipmentService;
     /** @var PlayerServiceInterface | Mockery\Mock */
@@ -48,7 +45,7 @@ class SabotageActionTest extends AbstractActionTest
     public function before()
     {
         parent::before();
-        $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
+
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
         $this->successRateService = Mockery::mock(SuccessRateServiceInterface::class);
@@ -59,7 +56,6 @@ class SabotageActionTest extends AbstractActionTest
 
         $this->action = new Sabotage(
             $this->eventDispatcher,
-            $this->roomLogService,
             $this->gameEquipmentService,
             $this->playerService,
             $this->randomService,
@@ -154,8 +150,6 @@ class SabotageActionTest extends AbstractActionTest
         ;
 
         $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
-
-        $this->roomLogService->shouldReceive('createEquipmentLog')->twice();
 
         $this->gameEquipmentService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');

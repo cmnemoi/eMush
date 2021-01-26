@@ -98,7 +98,7 @@ class Hit extends AttemptAction
             }
         }
 
-        return new Success(ActionLogEnum::HIT_SUCCESS, VisibilityEnum::PUBLIC);
+        return $result;
     }
 
     protected function getBaseRate(): int

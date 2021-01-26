@@ -3,6 +3,7 @@
 namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
+use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
@@ -86,6 +87,7 @@ class Consume extends AbstractAction
 
         if (!$this->player->isMush()) {
             $this->dispatchConsumableEffects($equipmentEffect);
+            $response = new Fail();
         }
 
         // If the ration is a drug player get Drug_Eaten status that prevent it from eating another drug this cycle.
@@ -110,7 +112,7 @@ class Consume extends AbstractAction
         $equipmentEvent = new EquipmentEvent($this->gameEquipment, VisibilityEnum::HIDDEN);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
-        return new Success(ActionLogEnum::CONSUME_SUCCESS, VisibilityEnum::COVERT);
+        return new Success();
     }
 
     private function dispatchConsumableEffects(ConsumableEffect $consumableEffect): void

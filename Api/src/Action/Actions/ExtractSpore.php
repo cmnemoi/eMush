@@ -51,6 +51,6 @@ class ExtractSpore extends AbstractAction
 
         $this->player->getDaedalus()->setSpores($this->player->getDaedalus()->getSpores() - 1);
 
-        return new Success(ActionLogEnum::EXTRACT_SPORE_SUCCESS, VisibilityEnum::COVERT);
+        return new Success();
     }
 }

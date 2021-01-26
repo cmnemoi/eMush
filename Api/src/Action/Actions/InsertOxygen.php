@@ -69,6 +69,6 @@ class InsertOxygen extends AbstractAction
 
         $this->daedalusService->changeOxygenLevel($this->player->getDaedalus(), 1);
 
-        return new Success(ActionLogEnum::INSERT_OXYGEN, VisibilityEnum::PUBLIC);
+        return new Success();
     }
 }

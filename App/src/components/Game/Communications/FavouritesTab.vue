@@ -1,42 +1,46 @@
 <template>
-    <div id="favourites-tab" class="chatbox-container">
-        <div class="chatbox">
-            <section class="unit">
-                <div class="message main-message">
-                    <div class="char-portrait">
-                        <img src="@/assets/images/char/body/stephen.png">
-                    </div>
-                    <p><span class="author">Stephen :</span>Comrades. Today starts the revolution</p>
-                    <span class="timestamp">2 jours</span>
+    <TabContainer id="favourites-tab" :channel="channel">
+        <section class="unit">
+            <div class="message main-message">
+                <div class="char-portrait">
+                    <img src="@/assets/images/char/body/stephen.png">
                 </div>
-                <a href="#" class="chat-expand">Afficher les 18 réponses</a>
-                <div class="message child-message">
-                    <p>
-                        <img src="@/assets/images/char/head/frieda.png">
-                        <span class="author">Frieda :</span>The ghost is ok with that. BoooOOOOooOOOooo.
-                    </p>
-                    <span class="timestamp">2 jours</span>
-                </div>
-                <div class="message child-message">
-                    <p>
-                        <img src="@/assets/images/char/head/jin_su.png">
-                        <span class="author">Jin Su :</span>I, Leader of the Ship, must show my disagreement, you mustached crazy moron !
-                    </p>
-                    <span class="timestamp">2 jours</span>
-                </div>
-            </section>
-        </div>
-    </div>
+                <p><span class="author">Stephen :</span>Comrades. Today starts the revolution</p>
+                <span class="timestamp">2 jours</span>
+            </div>
+            <a href="#" class="chat-expand">Afficher les 18 réponses</a>
+            <div class="message child-message">
+                <p>
+                    <img src="@/assets/images/char/head/frieda.png">
+                    <span class="author">Frieda :</span>The ghost is ok with that. BoooOOOOooOOOooo.
+                </p>
+                <span class="timestamp">2 jours</span>
+            </div>
+            <div class="message child-message">
+                <p>
+                    <img src="@/assets/images/char/head/jin_su.png">
+                    <span class="author">Jin Su :</span>I, Leader of the Ship, must show my disagreement, you mustached crazy moron !
+                </p>
+                <span class="timestamp">2 jours</span>
+            </div>
+        </section>
+    </TabContainer>
 </template>
 
 <script>
+import { Channel } from "@/entities/Channel";
+import TabContainer from "@/components/Game/Communications/TabContainer";
+
 
 export default {
     name: "FavouritesTab",
     components: {
+        TabContainer
+    },
+    props: {
+        channel: Channel
     }
 };
-
 </script>
 
 <style lang="scss" scoped>
@@ -222,58 +226,6 @@ export default {
         opacity: 1;
         top: 5px;
         transition: visibility 0s 0.5s, opacity 0.15s 0.5s, top 0.15s 0.5s;
-    }
-}
-
-/* ----- */
-
-.chat-input {
-    position: relative;
-    flex-direction: row;
-    padding: 7px 7px 4px 7px;
-
-    a {
-        @include button-style();
-
-        width: 24px;
-        margin-left: 4px;
-    }
-
-    textarea {
-        position: relative;
-        flex: 1;
-        resize: vertical;
-        min-height: 29px;
-        padding: 3px 5px;
-        font-style: italic;
-        opacity: 0.85;
-        box-shadow: 0 1px 0 white;
-        border: 1px solid #aad4e5;
-        border-radius: 3px;
-
-        &:active,
-        &:focus {
-            min-height: 48px;
-
-            /* max-height: 80%; */
-            font-style: initial;
-            opacity: 1;
-        }
-    }
-}
-
-/* ----- */
-
-.log {
-    position: relative;
-    padding: 4px 5px;
-    margin: 1px 0;
-    border-bottom: 1px solid rgb(170, 212, 229);
-
-    p {
-        margin: 0;
-        font-size: 0.95em;
-        /deep/ img { vertical-align: middle; }
     }
 }
 

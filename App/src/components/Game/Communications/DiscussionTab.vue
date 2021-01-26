@@ -1,19 +1,16 @@
 <template>
-    <div id="discussion-tab" class="chatbox-container">
-        <MessageInput :channel="channel" />
-        <div class="chatbox">
-            <section v-for="(message, id) in messages" :key="id" class="unit">
-                <Message :message="message" :is-root="true" @click="replyTo(message)" />
-                <Message
-                    v-for="(children, id) in message.child"
-                    :key="id"
-                    :message="children"
-                    @click="replyTo(message)"
-                />
-                <MessageInput v-show="messageToReply === message" :channel="channel" :parent="message" />
-            </section>
-        </div>
-    </div>
+    <TabContainer id="discussion-tab" :channel="channel" new-message-allowed>
+        <section v-for="(message, id) in messages" :key="id" class="unit">
+            <Message :message="message" :is-root="true" @click="replyTo(message)" />
+            <Message
+                v-for="(children, id) in message.child"
+                :key="id"
+                :message="children"
+                @click="replyTo(message)"
+            />
+            <MessageInput v-show="messageToReply === message" :channel="channel" :parent="message" />
+        </section>
+    </TabContainer>
 </template>
 
 <script>
@@ -21,10 +18,15 @@ import { mapActions, mapGetters } from "vuex";
 import { Channel } from "@/entities/Channel";
 import Message from "@/components/Game/Communications/Messages/Message";
 import MessageInput from "@/components/Game/Communications/Messages/MessageInput";
+import TabContainer from "@/components/Game/Communications/TabContainer";
 
 export default {
     name: "DiscussionTab",
-    components: { MessageInput, Message },
+    components: {
+        Message,
+        MessageInput,
+        TabContainer
+    },
     props: {
         channel: Channel
     },

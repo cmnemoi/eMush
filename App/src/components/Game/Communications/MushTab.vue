@@ -1,63 +1,63 @@
 <template>
-    <div id="mush-tab" class="chatbox-container">
-        <div class="chat-input">
-            <textarea v-model="text" placeholder="Type your message here!" @keyup.enter="sendNewMessage" />
-            <a class="submit" href="#"><img src="@/assets/images/comms/submit.gif" alt="submit"></a>
+    <TabContainer id="mush-tab" :channel="channel" new-message-allowed>
+        <div class="actions">
+            <a href="#"><img src="@/assets/images/comms/refresh.gif">Rafr.</a>
+            <a href="#"><img src="@/assets/images/comms/alert.png">Plainte</a>
         </div>
-        <div class="chatbox">
-            <div class="actions">
-                <a href="#"><img src="@/assets/images/comms/refresh.gif">Rafr.</a>
-                <a href="#"><img src="@/assets/images/comms/alert.png">Plainte</a>
+        <section class="unit">
+            <div class="banner cycle-banner">
+                <img class="expand" src="@/assets/images/comms/less.png">
+                <span>Jour 5 Cycle 6</span>
             </div>
-            <section class="unit">
-                <div class="banner cycle-banner">
-                    <img class="expand" src="@/assets/images/comms/less.png">
-                    <span>Jour 5 Cycle 6</span>
+            <div class="message new">
+                <div class="char-portrait">
+                    <img src="@/assets/images/char/body/ian.png">
                 </div>
-                <div class="message new">
-                    <div class="char-portrait">
-                        <img src="@/assets/images/char/body/ian.png">
-                    </div>
-                    <p><img src="@/assets/images/comms/talkie.png"> <span class="author">Ian :</span><strong><em>Piloting</em></strong></p>
-                    <span class="timestamp">~1d</span>
+                <p><img src="@/assets/images/comms/talkie.png"> <span class="author">Ian :</span><strong><em>Piloting</em></strong></p>
+                <span class="timestamp">~1d</span>
+            </div>
+        </section>
+        <section class="unit">
+            <div class="banner cycle-banner">
+                <img class="expand" src="@/assets/images/comms/less.png">
+                <span>Jour 5 Cycle 5</span>
+            </div>
+            <div class="message new">
+                <div class="char-portrait">
+                    <img src="@/assets/images/char/body/jin_su.png">
                 </div>
+                <p><img src="@/assets/images/comms/talkie.png"> <span class="author">Jin Su :</span>So far eight hunters shot total (3 + 5), no scrap collected yet.</p>
+                <span class="timestamp">~3d</span>
+            </div>
+            <div class="message">
+                <div class="char-portrait">
+                    <img src="@/assets/images/char/body/ian.png">
+                </div>
+                <p><img src="@/assets/images/comms/talkie.png"> <span class="author">Ian :</span>Excellent sir, I can see why they have you training the new pilots :P</p>
+                <span class="timestamp">~3d</span>
+            </div>
+            <section class="log">
+                <p class="text-log">
+                    <img src="@/assets/images/triumph.png"> Bienvenue parmi le Mush <strong>Ian</strong>. Vous avez été récompensé avec <strong>120 points de Triomphe</strong>.
+                </p>
+                <span class="timestamp">~5d</span>
             </section>
-            <section class="unit">
-                <div class="banner cycle-banner">
-                    <img class="expand" src="@/assets/images/comms/less.png">
-                    <span>Jour 5 Cycle 5</span>
-                </div>
-                <div class="message new">
-                    <div class="char-portrait">
-                        <img src="@/assets/images/char/body/jin_su.png">
-                    </div>
-                    <p><img src="@/assets/images/comms/talkie.png"> <span class="author">Jin Su :</span>So far eight hunters shot total (3 + 5), no scrap collected yet.</p>
-                    <span class="timestamp">~3d</span>
-                </div>
-                <div class="message">
-                    <div class="char-portrait">
-                        <img src="@/assets/images/char/body/ian.png">
-                    </div>
-                    <p><img src="@/assets/images/comms/talkie.png"> <span class="author">Ian :</span>Excellent sir, I can see why they have you training the new pilots :P</p>
-                    <span class="timestamp">~3d</span>
-                </div>
-                <section class="log">
-                    <p class="text-log">
-                        <img src="@/assets/images/triumph.png"> Bienvenue parmi le Mush <strong>Ian</strong>. Vous avez été récompensé avec <strong>120 points de Triomphe</strong>.
-                    </p>
-                    <span class="timestamp">~5d</span>
-                </section>
-            </section>
-        </div>
-    </div>
+        </section>
+    </TabContainer>
 </template>
 
 <script>
+import { Channel } from "@/entities/Channel";
+import TabContainer from "@/components/Game/Communications/TabContainer";
 
 
 export default {
     name: "MushTab",
+    components: {
+        TabContainer
+    },
     props: {
+        channel: Channel
     }
 };
 </script>
@@ -135,43 +135,6 @@ export default {
 
 /* ----- */
 
-.chat-input {
-    position: relative;
-    flex-direction: row;
-    padding: 7px 7px 4px 7px;
-
-    a {
-        @include button-style();
-
-        width: 24px;
-        margin-left: 4px;
-    }
-
-    textarea {
-        position: relative;
-        flex: 1;
-        resize: vertical;
-        min-height: 29px;
-        padding: 3px 5px;
-        font-style: italic;
-        opacity: 0.85;
-        box-shadow: 0 1px 0 white;
-        border: 1px solid #aad4e5;
-        border-radius: 3px;
-
-        &:active,
-        &:focus {
-            min-height: 48px;
-
-            /* max-height: 80%; */
-            font-style: initial;
-            opacity: 1;
-        }
-    }
-}
-
-/* ----- */
-
 .log {
     position: relative;
     padding: 4px 5px;
@@ -192,7 +155,7 @@ export default {
         padding: 5px 0;
     }
 
-    .chat-input .submit { //change the submit button color
+    /deep/ .chat-input .submit { //change the submit button color
         $color: #ff3867;
         $hover-color: #fa6480;
 

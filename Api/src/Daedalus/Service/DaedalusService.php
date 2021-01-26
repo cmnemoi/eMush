@@ -4,7 +4,6 @@ namespace Mush\Daedalus\Service;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
-use Error;
 use Mush\Daedalus\Entity\Collection\DaedalusCollection;
 use Mush\Daedalus\Entity\Criteria\DaedalusCriteria;
 use Mush\Daedalus\Entity\Daedalus;
@@ -107,11 +106,6 @@ class DaedalusService implements DaedalusServiceInterface
         $daedalus = new Daedalus();
 
         $daedalusConfig = $gameConfig->getDaedalusConfig();
-
-        if (floatval(24 * 60 / ($gameConfig->getCycleLength())) !==
-        floatval(floor(24 * 60 / ($gameConfig->getCycleLength())))) {
-            throw new Error('Cycle setting of GameConfig are invalid. CycleLength should divide the number of minutes in a day');
-        }
 
         $daedalus
             ->setGameConfig($gameConfig)

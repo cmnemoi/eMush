@@ -140,7 +140,7 @@ export default {
     }
 }
 
-$face-position: 
+$face-position: //defines the position of the face in reference to top left
     "Andie"    56% 37%,
     "Chao"     63% 28%,
     "Chun"     52% 24%,
@@ -161,7 +161,7 @@ $face-position:
     "Terrence" 67% 30%,
 ;
 
-@each $crewmate, $face-position-x, $face-position-y in $face-position {
+@each $crewmate, $face-position-x, $face-position-y in $face-position { // adjust the image position in the crewmate avatar div
     $translate-x : (50% - $face-position-x);
     $translate-y : (50% - $face-position-y);
     .#{$crewmate} .avatar img {

@@ -90,7 +90,6 @@ class PlantCycleHandlerTest extends TestCase
         $daedalus = new Daedalus();
         $daedalus->setGameConfig($gameConfig);
 
-
         $gamePlant = new GameItem();
         $gamePlant
             ->setEquipment($plant)

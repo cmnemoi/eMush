@@ -112,7 +112,6 @@ class DifficultyConfig
      */
     private int $plantDiseaseRate = 0;
 
-
     public function getId(): int
     {
         return $this->id;

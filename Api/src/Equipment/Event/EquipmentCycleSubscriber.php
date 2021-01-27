@@ -72,7 +72,6 @@ class EquipmentCycleSubscriber implements EventSubscriberInterface
             $this->eventDispatcher->dispatch($statusNewDay, StatusCycleEvent::STATUS_NEW_DAY);
         }
 
-
         /** @var EquipmentMechanic $mechanics */
         foreach ($equipment->getEquipment()->getMechanics() as $mechanics) {
             if ($cycleHandler = $this->equipmentCycleHandler->getEquipmentCycleHandler($mechanics)) {

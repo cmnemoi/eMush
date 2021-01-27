@@ -55,11 +55,9 @@ class RoomCycleSubscriber implements EventSubscriberInterface
             $this->eventDispatcher->dispatch($equipmentNewDay, EquipmentCycleEvent::EQUIPMENT_NEW_DAY);
         }
 
-
         foreach ($room->getStatuses() as $status) {
             $statusNewDay = new StatusCycleEvent($status, $room, $room->getDaedalus(), $event->getTime());
             $this->eventDispatcher->dispatch($statusNewDay, StatusCycleEvent::STATUS_NEW_DAY);
         }
-
     }
 }

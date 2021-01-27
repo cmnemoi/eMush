@@ -31,7 +31,6 @@ class Plant extends EquipmentMechanic
      */
     private array $oxygen;
 
-
     public function getFruit(): EquipmentConfig
     {
         return $this->fruit;

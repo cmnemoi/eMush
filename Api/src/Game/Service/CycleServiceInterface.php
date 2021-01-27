@@ -8,9 +8,9 @@ interface CycleServiceInterface
 {
     public function handleCycleChange(Daedalus $daedalus): int;
 
-    public function getCycleFromDate(\DateTime $date, Daedalus $daedalus): int;
+    public function getCycleFromDate(\DateTime $currentDate, Daedalus $daedalus): int;
 
-    public function getGameDayFromDate(\DateTime $date, Daedalus $daedalus): int;
+    public function getGameDayFromDate(\DateTime $currentDate, Daedalus $daedalus): int;
 
     public function getDateStartNextCycle(Daedalus $daedalus): \DateTime;
 }

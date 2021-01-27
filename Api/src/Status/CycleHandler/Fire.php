@@ -101,7 +101,7 @@ class Fire extends AbstractStatusCycleHandler
         if ($this->randomService->isSuccessfull($difficultyConfig->getHullFireDamageRate())) {
             $damage = intval($this->randomService->getSingleRandomElementFromProbaArray($difficultyConfig->getFireHullDamage()));
 
-            $room->getDaedalus()->addHull(-$damage);
+            $this->daedalusService->changeHull($room->getDaedalus(), -$damage);
             $this->daedalusService->persist($room->getDaedalus());
         }
 

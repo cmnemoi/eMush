@@ -4,6 +4,7 @@ namespace Mush\Test\Status\CycleHandler;
 
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\DifficultyConfig;
@@ -62,9 +63,15 @@ class FireTest extends TestCase
         $room = new Room();
 
         $difficultyConfig = new DifficultyConfig();
+        $daedalusConfig = new DaedalusConfig();
+        $daedalusConfig->setMaxHull(100);
+
         $gameConfig = new GameConfig();
         $daedalus = new Daedalus();
-        $gameConfig->setDifficultyConfig($difficultyConfig);
+        $gameConfig
+            ->setDifficultyConfig($difficultyConfig)
+            ->setDaedalusConfig($daedalusConfig)
+        ;
         $daedalus->setGameConfig($gameConfig);
         $room->setDaedalus($daedalus);
 
@@ -82,6 +89,7 @@ class FireTest extends TestCase
 
         $this->randomService->shouldReceive('isSuccessfull')->andReturn(true)->once();
         $this->randomService->shouldReceive('getSingleRandomElementFromProbaArray')->andReturn(2)->twice();
+        $this->daedalusService->shouldReceive('changeHull')->once();
         $this->daedalusService->shouldReceive('persist')->once();
 
         $this->eventDispatcher
@@ -95,6 +103,6 @@ class FireTest extends TestCase
 
         $this->cycleHandler->handleNewCycle($status, $daedalus, $room, new \DateTime());
 
-        $this->assertEquals($daedalusHull - 2, $daedalus->getHull());
+        $this->assertEquals($daedalusHull, $daedalus->getHull());
     }
 }

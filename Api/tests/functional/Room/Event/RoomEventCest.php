@@ -7,7 +7,6 @@ use DateTime;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Player\Entity\Player;
@@ -60,8 +59,6 @@ class RoomEventCest
         /** @var Room $room */
         $room = $I->have(Room::class, ['daedalus' => $daedalus]);
 
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class);
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'room' => $room, 'healthPoint' => 10]);
 

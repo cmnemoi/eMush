@@ -73,8 +73,7 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
         $bananaTreeMechanic
             ->setFruit($banana)
             ->setMaturationTime([36 => 1])
-            ->setMaxOxygen(1)
-            ->setMinOxygen(1)
+            ->setOxygen([1 => 1])
             ->setActions($plantActions)
         ;
 
@@ -179,8 +178,7 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
             $alienPlantMechanic
                 ->setFruit($alienFruit)
                 ->setMaturationTime([2 => 7, 4 => 7, 8 => 24, 12 => 14, 16 => 7, 24 => 7, 48 => 7])
-                ->setMaxOxygen(1)
-                ->setMinOxygen(1)
+                ->setOxygen([1 => 1])
                 ->setActions($plantActions)
             ;
 
@@ -233,8 +231,7 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
         $bumpjunkinMechanic
             ->setFruit($junkin)
             ->setMaturationTime([8 => 1])
-            ->setMaxOxygen(1)
-            ->setMinOxygen(1)
+            ->setOxygen([1 => 1])
             ->setActions($plantActions)
         ;
 

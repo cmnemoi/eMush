@@ -40,7 +40,7 @@ class ActionLogEnum
     public const SHOWER_MUSH = 'shower';
     public const TAKE = 'take';
     public const TRANSPLANT_SUCCESS = 'transplant_success';
-    public const HYBRIDIZE_SUCCESS = 'transplant_success';
+    public const HYBRIDIZE_SUCCESS = 'hybridize_success';
     public const HYBRIDIZE_FAIL = 'transplant_fail';
     public const TREAT_PLANT_SUCCESS = 'treat_plant_success';
     public const WATER_PLANT_SUCCESS = 'water_plant_success';

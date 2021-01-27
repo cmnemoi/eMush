@@ -27,14 +27,10 @@ class Plant extends EquipmentMechanic
     private array $maturationTime = [];
 
     /**
-     * @ORM\Column(type="integer", length=255, nullable=false)
+     * @ORM\Column(type="array", nullable=false)
      */
-    private int $minOxygen;
+    private array $oxygen;
 
-    /**
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
-    private int $maxOxygen;
 
     public function getFruit(): EquipmentConfig
     {
@@ -66,32 +62,17 @@ class Plant extends EquipmentMechanic
         return $this;
     }
 
-    public function getMinOxygen(): int
+    public function getOxygen(): array
     {
-        return $this->minOxygen;
+        return $this->oxygen;
     }
 
     /**
      * @return static
      */
-    public function setMinOxygen(int $minOxygen): Plant
+    public function setOxygen(array $oxygen): Plant
     {
-        $this->minOxygen = $minOxygen;
-
-        return $this;
-    }
-
-    public function getMaxOxygen(): int
-    {
-        return $this->maxOxygen;
-    }
-
-    /**
-     * @return static
-     */
-    public function setMaxOxygen(int $maxOxygen): Plant
-    {
-        $this->maxOxygen = $maxOxygen;
+        $this->oxygen = $oxygen;
 
         return $this;
     }

@@ -36,7 +36,7 @@ class ShowerActionCest
         $this->showerAction = $I->grabService(Shower::class);
     }
 
-    public function testShower(FunctionalTester $I)
+    public function testMushShower(FunctionalTester $I)
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);

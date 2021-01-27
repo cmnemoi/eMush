@@ -13,6 +13,8 @@ use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Entity\PlantEffect;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Entity\DifficultyConfig;
+use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
@@ -79,9 +81,16 @@ class PlantCycleHandlerTest extends TestCase
 
         $this->roomLogService->shouldReceive('createEquipmentLog');
         $this->gameEquipmentService->shouldReceive('persist')->twice();
-        $this->randomService->shouldReceive('randomPercent')->andReturn(100, 1)->twice(); //Plant should not get disease
+        $this->randomService->shouldReceive('isSuccessfull')->andReturn(false)->once(); //Plant should not get disease
 
+        $difficultyConfig = new DifficultyConfig();
+        $difficultyConfig->setPlantDiseaseRate(50);
+        $gameConfig = new GameConfig();
+        $gameConfig->setDifficultyConfig($difficultyConfig);
         $daedalus = new Daedalus();
+        $daedalus->setGameConfig($gameConfig);
+
+
         $gamePlant = new GameItem();
         $gamePlant
             ->setEquipment($plant)
@@ -120,6 +129,7 @@ class PlantCycleHandlerTest extends TestCase
             ->setRoom(new Room())
         ;
 
+        $this->randomService->shouldReceive('isSuccessfull')->andReturn(true)->once();
         $this->statusService
             ->shouldReceive('createCoreStatus')
             ->with(EquipmentStatusEnum::PLANT_DISEASED, $gamePlant)

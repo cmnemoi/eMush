@@ -34,8 +34,6 @@ class PlantCycleHandler extends AbstractCycleHandler
     private DaedalusServiceInterface $daedalusService;
     private EquipmentEffectServiceInterface $equipmentEffectService;
 
-    private const DISEASE_PERCENTAGE = 3;
-
     public function __construct(
         GameEquipmentServiceInterface $gameEquipmentService,
         RandomServiceInterface $randomService,
@@ -67,10 +65,6 @@ class PlantCycleHandler extends AbstractCycleHandler
             return;
         }
 
-        if ($this->randomService->randomPercent() <= self::DISEASE_PERCENTAGE) {
-            $this->statusService->createCoreStatus(EquipmentStatusEnum::PLANT_DISEASED, $gamePlant);
-        }
-
         $plantEffect = $this->equipmentEffectService->getPlantEffect($plantType, $daedalus);
 
         /** @var ChargeStatus $youngStatus */
@@ -89,6 +83,12 @@ class PlantCycleHandler extends AbstractCycleHandler
                 VisibilityEnum::PUBLIC,
                 $dateTime
             );
+        }
+
+        $diseaseRate = $daedalus->getGameConfig()->getDifficultyConfig()->getPlantDiseaseRate();
+        
+        if ($this->randomService->isSuccessfull($diseaseRate)) {
+            $this->statusService->createCoreStatus(EquipmentStatusEnum::PLANT_DISEASED, $gamePlant);
         }
 
         $this->gameEquipmentService->persist($gamePlant);
@@ -125,12 +125,14 @@ class PlantCycleHandler extends AbstractCycleHandler
             )
         )->isEmpty()
         ) {
+            dump('add oxygen');
             $this->addOxygen($gamePlant, $plantEffect);
             if ($plantStatus->filter(fn (Status $status) => in_array(
                 $status->getName(),
                 [EquipmentStatusEnum::PLANT_THIRSTY]
             ))->isEmpty()
             ) {
+                dump('add fruit');
                 $this->addFruit($gamePlant, $plantType, $dateTime);
             }
         }

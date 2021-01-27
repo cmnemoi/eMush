@@ -35,6 +35,7 @@ class DifficultyConfigFixtures extends Fixture implements DependentFixtureInterf
             ->setTremorPlayerDamage([1 => 1, 2 => 1, 3 => 1])
             ->setMetalPlatePlayerDamage([4 => 1, 5 => 1, 6 => 1])
             ->setPanicCrisisPlayerDamage([3 => 1])
+            ->setPlantDiseaseRate(5)
         ;
 
         $manager->persist($difficultyConfig);

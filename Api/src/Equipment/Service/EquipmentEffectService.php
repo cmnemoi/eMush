@@ -73,7 +73,7 @@ class EquipmentEffectService implements EquipmentEffectServiceInterface
                         $plant->getMaturationTime()
                     ))
                 )
-                ->setOxygen($this->randomService->random($plant->getMinOxygen(), $plant->getMaxOxygen()))
+                ->setOxygen($this->randomService->getSingleRandomElementFromProbaArray($plant->getOxygen()))
             ;
 
             $this->plantEffectRepository->persist($plantEffect);

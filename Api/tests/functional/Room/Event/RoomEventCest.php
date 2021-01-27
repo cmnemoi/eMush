@@ -60,8 +60,6 @@ class RoomEventCest
         /** @var Room $room */
         $room = $I->have(Room::class, ['daedalus' => $daedalus]);
 
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class);
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'room' => $room, 'healthPoint' => 10]);
 

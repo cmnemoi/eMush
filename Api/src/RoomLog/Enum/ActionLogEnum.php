@@ -150,7 +150,7 @@ class ActionLogEnum
         ActionEnum::BUILD => [
             self::SUCCESS => [
                 self::VALUE => self::BUILD_SUCCESS,
-                self::VISIBILITY => VisibilityEnum::PUBLIC,
+                self::VISIBILITY => VisibilityEnum::PRIVATE,
             ],
         ],
         ActionEnum::WATER_PLANT => [

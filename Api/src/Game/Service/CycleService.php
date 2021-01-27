@@ -4,7 +4,6 @@ namespace Mush\Game\Service;
 
 use DateInterval;
 use DateTime;
-use Error;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Game\Entity\GameConfig;
@@ -68,22 +67,13 @@ class CycleService implements CycleServiceInterface
         return $this->getCycleDateFromStartingDate($elapsedCycles + 1, $firstCycleDate, $gameConfig);
     }
 
-    public function getCycleFromDate(DateTime $currentDate, Daedalus $daedalus): int
+    public function getCycleFromDate(DateTime $date, GameConfig $gameConfig): int
     {
-        $gameConfig = $daedalus->getGameConfig();
-        if (floatval(24 * 60 / ($gameConfig->getCycleLength())) !==
-        floatval(floor(24 * 60 / ($gameConfig->getCycleLength())))) {
-            throw new Error('Cycle setting of GameConfig are invalid. CycleLength should divide the number of minutes in a day');
-        }
+        $hour = intval($date->setTimezone(new \DateTimeZone($gameConfig->getTimeZone()))->format('H'));
 
-        $currentDate = $currentDate->setTimezone(new \DateTimeZone('UTC'));
-
-        $firstCycleDate = $this->getStartingCycleDate($daedalus);
-
-        $durationCycles = $this->getNumberOfCycleElapsed($currentDate, $firstCycleDate, $gameConfig);
-        $durationDays = $this->getGameDayFromDate($currentDate, $daedalus);
-
-        return (int) ($durationCycles + 1 - ($durationDays - 1) * $gameConfig->getCyclePerGameDay());
+        return (int) floor(
+            (($hour / ($gameConfig->getCycleLength() / 60) + 1) - 1) % $gameConfig->getCyclePerGameDay() + 1
+        );
     }
 
     public function getGameDayFromDate(DateTime $currentDate, Daedalus $daedalus): int

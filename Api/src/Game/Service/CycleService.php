@@ -92,7 +92,7 @@ class CycleService implements CycleServiceInterface
     public function getStartingCycleDate(Daedalus $daedalus): DateTime
     {
         $gameConfig = $daedalus->getGameConfig();
-        $firstCycleDate = $daedalus->getCreatedAt();
+        $firstCycleDate = $daedalus->getCreatedAt() ?? new DateTime();
 
         $firstDayDate = clone $firstCycleDate;
         $firstDayDate

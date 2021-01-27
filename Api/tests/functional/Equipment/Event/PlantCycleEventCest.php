@@ -12,6 +12,8 @@ use Mush\Daedalus\Event\DaedalusCycleSubscriber;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
@@ -21,6 +23,7 @@ use Mush\Room\Entity\Room;
 use Mush\Room\Enum\DoorEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Entity\Status;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -88,9 +91,6 @@ class PlantCycleEventCest
             ->setThreshold(8)
         ;
 
-        $gameEquipment->addStatus($youngStatus);
-
-
 
         $time = new DateTime();
 
@@ -141,13 +141,17 @@ class PlantCycleEventCest
             ->setOxygen([1 => 1])
             ->setFruit($fruitConfig)
         ;
-        
+
         $I->haveInRepository($plantMechanic);
 
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'mechanics' => new ArrayCollection([$plantMechanic])]);
 
-        $gameEquipment = new GameEquipment();
+        /** @var EquipmentConfig $equipmentConfig */
+        $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'name' => ItemEnum::HYDROPOT]);
+
+
+        $gameEquipment = new GameItem();
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('plant name')
@@ -165,10 +169,6 @@ class PlantCycleEventCest
             ->setThreshold(8)
         ;
 
-        $gameEquipment->addStatus($youngStatus);
-
-
-
         //Plant is young : no fruit or oxygen
         $time = new DateTime();
 
@@ -180,8 +180,50 @@ class PlantCycleEventCest
         $I->assertCount(1, $room->getEquipments());
         $I->assertEquals(9, $daedalus->getOxygen());
 
-        //Plant is is young but grow this cycle
+
+        //Plant is diseased
         $daedalus->setCycle(8);
+
+        $diseasedStatus = new Status($gameEquipment);
+        $diseasedStatus
+            ->setName(EquipmentStatusEnum::PLANT_DISEASED)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+        ;
+
+        $gameEquipment->removeStatus($youngStatus);
+
+        $thirstyStatus = $gameEquipment->getStatuses()->first();
+        $gameEquipment->removeStatus($thirstyStatus);
+
+        $time = new DateTime();
+        $cycleEvent = new DaedalusCycleEvent($daedalus, $time);
+        $this->cycleSubscriber->onNewCycle($cycleEvent);
+
+        $I->assertCount(0, $room->getStatuses());
+        $I->assertCount(1, $room->getEquipments());
+        $I->assertCount(2, $room->getEquipments()->first()->getStatuses());
+        $I->assertEquals(8, $daedalus->getOxygen());
+
+        //Plant is thirsty
+        $daedalus->setCycle(8);
+
+        $gameEquipment->removeStatus($diseasedStatus);
+
+        $time = new DateTime();
+        $cycleEvent = new DaedalusCycleEvent($daedalus, $time);
+        $this->cycleSubscriber->onNewCycle($cycleEvent);
+
+
+        $I->assertCount(0, $room->getStatuses());
+        $I->assertCount(1, $room->getEquipments());
+        $I->assertCount(1, $room->getEquipments()->first()->getStatuses());
+        $I->assertEquals(8, $daedalus->getOxygen());
+
+        //Plant is totally healthy
+        $daedalus->setCycle(8);
+
+        $thirstyStatus = $gameEquipment->getStatuses()->first();
+        $gameEquipment->removeStatus($thirstyStatus);
 
         $time = new DateTime();
         $cycleEvent = new DaedalusCycleEvent($daedalus, $time);
@@ -189,7 +231,40 @@ class PlantCycleEventCest
 
         $I->assertCount(0, $room->getStatuses());
         $I->assertCount(2, $room->getEquipments());
-        $I->assertCount(EquipmentStatusEnum::PLANT_THIRSTY, $room->getEquipments()->first()->getStatuses()->first()->getName());
-        $I->assertEquals(9, $daedalus->getOxygen());
+        $I->assertCount(1, $room->getEquipments()->first()->getStatuses());
+        $I->assertEquals('fruit', $room->getEquipments()->next()->getName());
+        $I->assertEquals(8, $daedalus->getOxygen());
+
+
+
+        //Plant is dried
+        /** @var Room $room */
+        $room2 = $I->have(Room::class, ['daedalus' => $daedalus, 'name' => 'corridor']);
+
+        $gameEquipment2 = new GameItem();
+        $gameEquipment2
+            ->setEquipment($equipmentConfig)
+            ->setName('plant name')
+            ->setRoom($room2)
+        ;
+
+        $I->haveInRepository($gameEquipment2);
+
+        $daedalus->setCycle(8);
+
+        $driedOutStatus = new Status($gameEquipment2);
+        $driedOutStatus
+            ->setName(EquipmentStatusEnum::PLANT_DRIED_OUT)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+        ;
+
+        $time = new DateTime();
+        $cycleEvent = new DaedalusCycleEvent($daedalus, $time);
+        $this->cycleSubscriber->onNewCycle($cycleEvent);
+
+        $I->assertCount(0, $room2->getStatuses());
+        $I->assertCount(1, $room2->getEquipments());
+        $I->assertEquals(ItemEnum::HYDROPOT, $room2->getEquipments()->first()->getName());
+        $I->assertEquals(8, $daedalus->getOxygen());
     }
 }

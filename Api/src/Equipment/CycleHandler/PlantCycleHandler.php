@@ -113,6 +113,7 @@ class PlantCycleHandler extends AbstractCycleHandler
 
         $plantStatus = $gamePlant->getStatuses();
 
+
         //If plant is young, dried or diseased, do not produce oxygen
         if ($plantStatus->filter(
             fn (Status $status) => in_array(
@@ -125,41 +126,39 @@ class PlantCycleHandler extends AbstractCycleHandler
             )
         )->isEmpty()
         ) {
-            dump('add oxygen');
             $this->addOxygen($gamePlant, $plantEffect);
             if ($plantStatus->filter(fn (Status $status) => in_array(
                 $status->getName(),
                 [EquipmentStatusEnum::PLANT_THIRSTY]
             ))->isEmpty()
             ) {
-                dump('add fruit');
                 $this->addFruit($gamePlant, $plantType, $dateTime);
             }
         }
 
         $this->handleStatus($gamePlant, $dateTime);
 
+
         $this->gameEquipmentService->persist($gamePlant);
     }
 
     private function handleStatus(GameItem $gamePlant, \DateTime $dateTime): void
     {
+        // If plant was dried, become hydropot
+        if ($gamePlant->getStatusByName(EquipmentStatusEnum::PLANT_DRIED_OUT) !== null) {
+            $this->handleDriedPlant($gamePlant, $dateTime);
+
         // If plant was thirsty, become dried
-        if (($thirsty = $gamePlant->getStatusByName(EquipmentStatusEnum::PLANT_THIRSTY)) !== null) {
+        }elseif (($thirsty = $gamePlant->getStatusByName(EquipmentStatusEnum::PLANT_THIRSTY)) !== null) {
             $gamePlant->removeStatus($thirsty);
-            $driedStatus = $this->statusService
+            $driedOutStatus=$this->statusService
                 ->createCoreStatus(EquipmentStatusEnum::PLANT_DRIED_OUT, $gamePlant)
             ;
-            $gamePlant->addStatus($driedStatus);
-        // If plant was dried, become hydropot
-        } elseif ($gamePlant->getStatusByName(EquipmentStatusEnum::PLANT_DRIED_OUT) !== null) {
-            $this->handleDriedPlant($gamePlant, $dateTime);
         // If plant was not thirsty or dried become thirsty
         } else {
             $thirstyStatus = $this->statusService
                 ->createCoreStatus(EquipmentStatusEnum::PLANT_THIRSTY, $gamePlant)
             ;
-            $gamePlant->addStatus($thirstyStatus);
         }
     }
 

@@ -8,13 +8,15 @@ abstract class ActionResult
 {
     private ?Target $target;
 
-    public function __construct(?Target $target = null) {
+    public function __construct(?Target $target = null)
+    {
         $this->target = $target;
     }
 
     public function setTarget(?Target $target): ActionResult
     {
         $this->target = $target;
+
         return $this;
     }
 

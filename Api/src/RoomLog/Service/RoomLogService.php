@@ -3,6 +3,9 @@
 namespace Mush\RoomLog\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Mush\Action\ActionResult\ActionResult;
+use Mush\Action\ActionResult\Fail;
+use Mush\Action\ActionResult\Success;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Game\Enum\CharacterEnum;
@@ -11,7 +14,9 @@ use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Entity\Target;
+use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogDeclinationEnum;
+use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Repository\RoomLogRepository;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -45,6 +50,38 @@ class RoomLogService implements RoomLogServiceInterface
     public function findById(int $id): ?RoomLog
     {
         return $this->repository->find($id);
+    }
+
+    public function createLogFromActionResult(string $actionName, ActionResult $actionResult, Player $player): ?RoomLog
+    {
+        $logMapping = ActionLogEnum::ACTION_LOGS[$actionName] ?? null;
+
+        if (!$logMapping) {
+            return null;
+        }
+
+        $logData = null;
+        if ($actionResult instanceof Success && isset($logMapping[ActionLogEnum::SUCCESS])) {
+            $logData = $logMapping[ActionLogEnum::SUCCESS];
+        } elseif ($actionResult instanceof Fail && isset($logMapping[ActionLogEnum::FAIL])) {
+            $logData = $logMapping[ActionLogEnum::FAIL];
+        } else {
+            return $this->createActionLog(
+                'no_log_yet_' . $actionName,
+                $player->getRoom(),
+                $player,
+                null,
+                VisibilityEnum::PUBLIC
+            );
+        }
+
+        return $this->createActionLog(
+            $logData[ActionLogEnum::VALUE],
+            $player->getRoom(),
+            $player,
+            $actionResult->getTarget(),
+            $logData[ActionLogEnum::VISIBILITY]
+        );
     }
 
     private function createLog(

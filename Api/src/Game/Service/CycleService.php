@@ -52,7 +52,8 @@ class CycleService implements CycleServiceInterface
     public function getDateCurrentCycleFromDaedalus(Daedalus $daedalus): DateTime
     {
         $gameConfig = $daedalus->getGameConfig();
-        $elapsedCycles = $daedalus->getCycle() + 1 + $daedalus->getDay() * $gameConfig->getCyclePerGameDay();
+        $elapsedCycles = $daedalus->getCycle()-1 + ($daedalus->getDay()-1) * $gameConfig->getCyclePerGameDay();
+
         $firstCycleDate = $this->getStartingCycleDate($daedalus);
 
         return $this->getCycleDateFromStartingDate($elapsedCycles, $firstCycleDate, $gameConfig);
@@ -61,7 +62,7 @@ class CycleService implements CycleServiceInterface
     public function getDateStartNextCycle(Daedalus $daedalus): DateTime
     {
         $gameConfig = $daedalus->getGameConfig();
-        $elapsedCycles = $daedalus->getCycle() + 1 + $daedalus->getDay() * $gameConfig->getCyclePerGameDay();
+        $elapsedCycles = $daedalus->getCycle()-1 + ($daedalus->getDay()-1) * $gameConfig->getCyclePerGameDay();
         $firstCycleDate = $this->getStartingCycleDate($daedalus);
 
         return $this->getCycleDateFromStartingDate($elapsedCycles + 1, $firstCycleDate, $gameConfig);

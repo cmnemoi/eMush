@@ -190,37 +190,47 @@ class DaedalusService implements DaedalusServiceInterface
     public function getRandomAsphyxia(Daedalus $daedalus, \DateTime $date = null): Daedalus
     {
         $date = $date ?? new \DateTime('now');
-        $chancesArray = [];
-        /** @var Player $player */
-        foreach ($daedalus->getPlayers()->getPlayerAlive() as $player) {
-            if (!$player->getItems()->filter(fn (GameItem $item) => $item->getName() === ItemEnum::OXYGEN_CAPSULE)->isEmpty()) {
-                $capsule = $player->getItems()->filter(fn (GameItem $item) => $item->getName() === ItemEnum::OXYGEN_CAPSULE)->first();
-                $capsule->removeLocation();
-                $this->gameEquipmentService->delete($capsule);
 
-                $this->roomLogService->createPlayerLog(
-                    LogEnum::OXY_LOW_USE_CAPSULE,
-                    $player->getRoom(),
-                    $player,
-                    VisibilityEnum::PRIVATE,
-                    $date
-                );
-            } else {
-                $chancesArray[$player->getCharacterConfig()->getName()] = 1;
-            }
+        $noCapsule = $daedalus->getPlayers()->getPlayerAlive()->filter(fn (Player $player) => $player->getItems()->filter(fn (GameItem $item) => $item->getName() === ItemEnum::OXYGEN_CAPSULE)->count() === 0
+        );
+        $oneCapsule = $daedalus->getPlayers()->getPlayerAlive()->filter(fn (Player $player) => $player->getItems()->filter(fn (GameItem $item) => $item->getName() === ItemEnum::OXYGEN_CAPSULE)->count() === 1
+        );
+        $twoCapsule = $daedalus->getPlayers()->getPlayerAlive()->filter(fn (Player $player) => $player->getItems()->filter(fn (GameItem $item) => $item->getName() === ItemEnum::OXYGEN_CAPSULE)->count() === 2
+        );
+        $threeCapsule = $daedalus->getPlayers()->getPlayerAlive()->filter(fn (Player $player) => $player->getItems()->filter(fn (GameItem $item) => $item->getName() === ItemEnum::OXYGEN_CAPSULE)->count() === 3
+        );
+
+        $player = null;
+        if (!$oneCapsule->isEmpty()) {
+            $player = $this->randomService->getRandomPlayer($oneCapsule);
+        } elseif (!$twoCapsule->isEmpty()) {
+            $player = $this->randomService->getRandomPlayer($twoCapsule);
+        } elseif (!$threeCapsule->isEmpty()) {
+            $player = $this->randomService->getRandomPlayer($threeCapsule);
         }
 
-        $playerName = $this->randomService->getSingleRandomElementFromProbaArray($chancesArray);
+        if ($player) {
+            $capsule = $player->getItems()->filter(fn (GameItem $item) => $item->getName() === ItemEnum::OXYGEN_CAPSULE)->first();
+            $capsule->removeLocation();
+            $this->gameEquipmentService->delete($capsule);
 
-        $player = $daedalus
-            ->getPlayers()
-            ->filter(fn (Player $player) => $player->getCharacterConfig()->getName() === $playerName)->first()
-        ;
+            $this->roomLogService->createPlayerLog(
+                LogEnum::OXY_LOW_USE_CAPSULE,
+                $player->getRoom(),
+                $player,
+                VisibilityEnum::PRIVATE,
+                $date
+            );
+        }
 
-        $playerEvent = new PlayerEvent($player);
-        $playerEvent->setReason(EndCauseEnum::ASPHYXIA);
+        if (!$noCapsule->isEmpty()) {
+            $player = $this->randomService->getRandomPlayer($noCapsule);
 
-        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
+            $playerEvent = new PlayerEvent($player);
+            $playerEvent->setReason(EndCauseEnum::ASPHYXIA);
+
+            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
+        }
 
         return $daedalus;
     }

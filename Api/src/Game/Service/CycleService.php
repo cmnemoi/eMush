@@ -19,22 +19,16 @@ class CycleService implements CycleServiceInterface
         $this->eventDispatcher = $eventDispatcher;
     }
 
-    /**
-     * @Warning: To be reworked, doesn't work with hours changes
-     */
-    public function handleCycleChange(Daedalus $daedalus): int
+    public function handleCycleChange(DateTime $dateTime, Daedalus $daedalus): int
     {
         $gameConfig = $daedalus->getGameConfig();
 
-        $currentDate = new DateTime();
-        $lastUpdate = $daedalus->getUpdatedAt();
+        $dateDaedalusLastCycle = $this->getDaedalusCurrentCycleDate($daedalus);
 
-        $cycleElapsed = $this->getNumberOfCycleElapsed($lastUpdate, $currentDate, $gameConfig);
-
-        $lastUpdateCycle = $this->getDateCurrentCycleFromDaedalus($daedalus);
+        $cycleElapsed = $this->getNumberOfCycleElapsed($dateDaedalusLastCycle, $dateTime, $gameConfig);
 
         for ($i = 0; $i < $cycleElapsed; ++$i) {
-            $lastUpdateCycle = $lastUpdateCycle->add(new DateInterval('PT' . strval($gameConfig->getCycleLength()) . 'M'));
+            $lastUpdateCycle = $dateDaedalusLastCycle->add(new DateInterval('PT' . strval($gameConfig->getCycleLength()) . 'M'));
             $cycleEvent = new DaedalusCycleEvent($daedalus, $lastUpdateCycle);
             $this->eventDispatcher->dispatch($cycleEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
         }
@@ -42,28 +36,11 @@ class CycleService implements CycleServiceInterface
         return $cycleElapsed;
     }
 
-    public function getCycleDateFromStartingDate(int $elapsedCycles, DateTime $firstCycleDate, GameConfig $gameConfig): DateTime
-    {
-        $elapsedMins = intval(($elapsedCycles) * $gameConfig->getCycleLength());
-
-        return $firstCycleDate->add(new DateInterval('PT' . strval($elapsedMins) . 'M'));
-    }
-
-    public function getDateCurrentCycleFromDaedalus(Daedalus $daedalus): DateTime
-    {
-        $gameConfig = $daedalus->getGameConfig();
-        $elapsedCycles = $daedalus->getCycle()-1 + ($daedalus->getDay()-1) * $gameConfig->getCyclePerGameDay();
-
-        $firstCycleDate = $this->getStartingCycleDate($daedalus);
-
-        return $this->getCycleDateFromStartingDate($elapsedCycles, $firstCycleDate, $gameConfig);
-    }
-
     public function getDateStartNextCycle(Daedalus $daedalus): DateTime
     {
         $gameConfig = $daedalus->getGameConfig();
-        $elapsedCycles = $daedalus->getCycle()-1 + ($daedalus->getDay()-1) * $gameConfig->getCyclePerGameDay();
-        $firstCycleDate = $this->getStartingCycleDate($daedalus);
+        $elapsedCycles = $daedalus->getCycle() - 1 + ($daedalus->getDay()-1) * $gameConfig->getCyclePerGameDay();
+        $firstCycleDate = $this->getDaedalusStartingCycleDate($daedalus);
 
         return $this->getCycleDateFromStartingDate($elapsedCycles + 1, $firstCycleDate, $gameConfig);
     }
@@ -72,25 +49,46 @@ class CycleService implements CycleServiceInterface
     {
         $hour = intval($date->setTimezone(new \DateTimeZone($gameConfig->getTimeZone()))->format('H'));
 
-        return (int) floor(
-            (($hour / ($gameConfig->getCycleLength() / 60) + 1) - 1) % $gameConfig->getCyclePerGameDay() + 1
-        );
+        $cycles = (int) floor($hour / ($gameConfig->getCycleLength() / 60) + 1);
+
+        return (($cycles - 1) % $gameConfig->getCyclePerGameDay()) + 1;
     }
 
-    public function getGameDayFromDate(DateTime $currentDate, Daedalus $daedalus): int
+    public function getDayFromDate(DateTime $date, GameConfig $gameConfig): int
     {
-        $currentDate = $currentDate->setTimezone(new \DateTimeZone('UTC'));
+        $hour = intval($date->setTimezone(new \DateTimeZone($gameConfig->getTimeZone()))->format('H'));
 
-        $gameConfig = $daedalus->getGameConfig();
+        $cycles = (int) floor($hour / ($gameConfig->getCycleLength() / 60) + 1);
 
-        $firstCycleDate = $this->getStartingCycleDate($daedalus);
-
-        $gameDayLength = intval($gameConfig->getCyclePerGameDay() * $gameConfig->getCycleLength()); //in min
-
-        return (int) floor($this->getDateIntervalAsMinutes(date_diff($currentDate, $firstCycleDate)) / $gameDayLength + 1);
+        return (int) floor(($cycles - 1) / $gameConfig->getCyclePerGameDay()) + 1;
     }
 
-    public function getStartingCycleDate(Daedalus $daedalus): DateTime
+    /**
+     * Get the start of the daedalus current cycle
+     */
+    private function getDaedalusCurrentCycleDate(Daedalus $daedalus): DateTime
+    {
+        $gameConfig = $daedalus->getGameConfig();
+        $elapsedCycles = $daedalus->getCycle()-1 + ($daedalus->getDay()-1) * $gameConfig->getCyclePerGameDay();
+        $daedalusDateFirstCycle = $this->getDaedalusStartingCycleDate($daedalus);
+
+        return $this->getCycleDateFromStartingDate($elapsedCycles, $daedalusDateFirstCycle, $gameConfig);
+    }
+
+    /**
+     * Get the starting date of the $elapsedCycles cycle from the $firstCycleDate
+     */
+    private function getCycleDateFromStartingDate(int $elapsedCycles, DateTime $firstCycleDate, GameConfig $gameConfig): DateTime
+    {
+        $elapsedTimeInMinutes = intval(($elapsedCycles) * $gameConfig->getCycleLength());
+
+        return $firstCycleDate->add(new DateInterval('PT' . strval($elapsedTimeInMinutes) . 'M'));
+    }
+
+    /**
+     * Get Daedalus first cycle date (it will always be at 00h00 in the current Timezone)
+     */
+    private function getDaedalusStartingCycleDate(Daedalus $daedalus): DateTime
     {
         $gameConfig = $daedalus->getGameConfig();
         $firstCycleDate = $daedalus->getCreatedAt() ?? new DateTime();
@@ -102,22 +100,23 @@ class CycleService implements CycleServiceInterface
             ->setTimezone(new \DateTimeZone('UTC'))
         ;
 
-        $gameDayLength = intval($gameConfig->getCyclePerGameDay() * $gameConfig->getCycleLength()); //in min
-
-        $numberOfCompleteDay = intval($this->getDateIntervalAsMinutes(date_diff($firstCycleDate, $firstDayDate)) / $gameDayLength);
-
-        return $firstDayDate->add(new DateInterval('PT' . strval($numberOfCompleteDay * $gameDayLength) . 'M'));
+        return $firstDayDate;
     }
 
     private function getNumberOfCycleElapsed(DateTime $start, DateTime $end, GameConfig $gameConfig): int
     {
-        $dateInterval = date_diff($end, $start);
+        $end->setTimezone(new \DateTimeZone($gameConfig->getTimeZone()));
+        $start->setTimezone(new \DateTimeZone($gameConfig->getTimeZone()));
 
-        return intval(floor($this->getDateIntervalAsMinutes($dateInterval) / $gameConfig->getCycleLength()));
+        $differencesInMinutes = $this->getDateIntervalAsMinutes($start, $end);
+
+        return intval(floor($differencesInMinutes / $gameConfig->getCycleLength()));
     }
 
-    private function getDateIntervalAsMinutes(DateInterval $dateInterval): int
+    private function getDateIntervalAsMinutes(DateTime $dateStart, DateTime $dateEnd): int
     {
+        $dateInterval = $dateEnd->diff($dateStart);
+
         return intval($dateInterval->format('%a')) * 24 * 60 +
                 intval($dateInterval->format('%h')) * 60 +
                 intval($dateInterval->format('%m'));

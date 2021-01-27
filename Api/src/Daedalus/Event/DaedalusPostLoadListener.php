@@ -22,6 +22,6 @@ class DaedalusPostLoadListener
             return;
         }
 
-        $this->cycleService->handleCycleChange($daedalus);
+        $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
     }
 }

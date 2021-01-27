@@ -17,7 +17,8 @@ class GameConfigFixtures extends Fixture
         $gameConfig
             ->setName('default')
             ->setNbMush(2)
-            ->setCycleLength(3)
+            ->setCyclePerGameDay(8)
+            ->setCycleLength(3 * 60)
             ->setTimeZone('Europe/Paris')
             ->setLanguage('Fr-fr')
             ->setMaxNumberPrivateChannel(3)

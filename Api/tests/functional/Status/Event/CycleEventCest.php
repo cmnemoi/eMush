@@ -132,6 +132,7 @@ class CycleEventCest
         $room2->addDoor($door);
 
         $healthPointBefore = $player->getHealthPoint();
+        $moralPointBefore = $player->getMoralPoint();
         $hullPointBefore = $daedalus->getHull();
 
         $time = new DateTime();
@@ -154,6 +155,7 @@ class CycleEventCest
         $this->cycleSubscriber->onNewCycle($cycleEvent);
 
         $I->assertEquals($healthPointBefore - 2, $player->getHealthPoint());
+        $I->assertEquals($moralPointBefore, $player->getMoralPoint());
         $I->assertEquals($hullPointBefore - 2, $daedalus->getHull());
 
         $I->assertEquals(StatusEnum::FIRE, $room2->getStatuses()->first()->getName());

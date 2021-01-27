@@ -39,7 +39,7 @@ class CycleService implements CycleServiceInterface
     public function getDateStartNextCycle(Daedalus $daedalus): DateTime
     {
         $gameConfig = $daedalus->getGameConfig();
-        $elapsedCycles = $daedalus->getCycle() - 1 + ($daedalus->getDay()-1) * $gameConfig->getCyclePerGameDay();
+        $elapsedCycles = $daedalus->getCycle() - 1 + ($daedalus->getDay() - 1) * $gameConfig->getCyclePerGameDay();
         $firstCycleDate = $this->getDaedalusStartingCycleDate($daedalus);
 
         return $this->getCycleDateFromStartingDate($elapsedCycles + 1, $firstCycleDate, $gameConfig);
@@ -64,19 +64,19 @@ class CycleService implements CycleServiceInterface
     }
 
     /**
-     * Get the start of the daedalus current cycle
+     * Get the start of the daedalus current cycle.
      */
     private function getDaedalusCurrentCycleDate(Daedalus $daedalus): DateTime
     {
         $gameConfig = $daedalus->getGameConfig();
-        $elapsedCycles = $daedalus->getCycle()-1 + ($daedalus->getDay()-1) * $gameConfig->getCyclePerGameDay();
+        $elapsedCycles = $daedalus->getCycle() - 1 + ($daedalus->getDay() - 1) * $gameConfig->getCyclePerGameDay();
         $daedalusDateFirstCycle = $this->getDaedalusStartingCycleDate($daedalus);
 
         return $this->getCycleDateFromStartingDate($elapsedCycles, $daedalusDateFirstCycle, $gameConfig);
     }
 
     /**
-     * Get the starting date of the $elapsedCycles cycle from the $firstCycleDate
+     * Get the starting date of the $elapsedCycles cycle from the $firstCycleDate.
      */
     private function getCycleDateFromStartingDate(int $elapsedCycles, DateTime $firstCycleDate, GameConfig $gameConfig): DateTime
     {
@@ -86,7 +86,7 @@ class CycleService implements CycleServiceInterface
     }
 
     /**
-     * Get Daedalus first cycle date (it will always be at 00h00 in the current Timezone)
+     * Get Daedalus first cycle date (it will always be at 00h00 in the current Timezone).
      */
     private function getDaedalusStartingCycleDate(Daedalus $daedalus): DateTime
     {

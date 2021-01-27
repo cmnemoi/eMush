@@ -17,7 +17,6 @@ use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -105,6 +104,6 @@ class Hyperfreeze extends AbstractAction
 
         $this->playerService->persist($this->player);
 
-        return new Success(ActionLogEnum::HYPERFREEZE_SUCCESS, VisibilityEnum::PRIVATE);
+        return new Success();
     }
 }

@@ -14,7 +14,6 @@ use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -71,6 +70,6 @@ class ReadBook extends AbstractAction
 
         $this->playerService->persist($this->player);
 
-        return new Success(ActionLogEnum::READ_BOOK, VisibilityEnum::PUBLIC);
+        return new Success();
     }
 }

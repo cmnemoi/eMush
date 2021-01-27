@@ -14,8 +14,6 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Player\Entity\Player;
-use Mush\RoomLog\Enum\ActionLogEnum;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class InsertOxygen extends AbstractAction
@@ -69,6 +67,6 @@ class InsertOxygen extends AbstractAction
 
         $this->daedalusService->changeOxygenLevel($this->player->getDaedalus(), 1);
 
-        return new Success(ActionLogEnum::INSERT_OXYGEN, VisibilityEnum::PUBLIC);
+        return new Success();
     }
 }

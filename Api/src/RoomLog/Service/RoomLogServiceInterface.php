@@ -2,6 +2,7 @@
 
 namespace Mush\RoomLog\Service;
 
+use Mush\Action\ActionResult\ActionResult;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
@@ -18,6 +19,8 @@ interface RoomLogServiceInterface
         string $visibility,
         \DateTime $dateTime = null
     ): RoomLog;
+
+    public function createLogFromActionResult(string $actionName, ActionResult $actionResult, Player $player): ?RoomLog;
 
     public function createPlayerLog(
         string $logKey,

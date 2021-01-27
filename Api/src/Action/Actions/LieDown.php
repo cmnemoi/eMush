@@ -9,7 +9,6 @@ use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
-use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -64,6 +63,6 @@ class LieDown extends AbstractAction
 
         $this->statusService->persist($lyingDownStatus);
 
-        return new Success(ActionLogEnum::LIE_DOWN, VisibilityEnum::PUBLIC);
+        return new Success();
     }
 }

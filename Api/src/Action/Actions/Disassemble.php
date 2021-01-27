@@ -14,8 +14,8 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\RoomLog\Entity\Target;
 use Mush\RoomLog\Enum\VisibilityEnum;
-use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -25,13 +25,11 @@ class Disassemble extends AttemptAction
 
     private GameEquipment $gameEquipment;
 
-    private RoomLogServiceInterface $roomLogService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
-        RoomLogServiceInterface $roomLogService,
         GameEquipmentServiceInterface $gameEquipmentService,
         PlayerServiceInterface $playerService,
         RandomServiceInterface $randomService,
@@ -40,7 +38,6 @@ class Disassemble extends AttemptAction
     ) {
         parent::__construct($randomService, $successRateService, $eventDispatcher, $statusService);
 
-        $this->roomLogService = $roomLogService;
         $this->gameEquipmentService = $gameEquipmentService;
         $this->playerService = $playerService;
     }
@@ -76,10 +73,10 @@ class Disassemble extends AttemptAction
             $this->disasemble();
         }
 
-        //@TODO use post event
-        $this->createLog($response);
-
         $this->playerService->persist($this->player);
+
+        $target = new Target($this->gameEquipment->getName(), 'items');
+        $response->setTarget($target);
 
         return $response;
     }
@@ -104,17 +101,6 @@ class Disassemble extends AttemptAction
         // remove the dismanteled equipment
         $equipmentEvent = new EquipmentEvent($this->gameEquipment, VisibilityEnum::HIDDEN);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
-    }
-
-    protected function createLog(ActionResult $actionResult): void
-    {
-        $this->roomLogService->createPlayerLog(
-            ActionEnum::DISASSEMBLE,
-            $this->player->getRoom(),
-            $this->player,
-            VisibilityEnum::PUBLIC,
-            new \DateTime('now')
-        );
     }
 
     protected function getBaseRate(): int

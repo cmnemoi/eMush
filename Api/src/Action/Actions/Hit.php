@@ -18,8 +18,6 @@ use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\RoomLog\Enum\ActionLogEnum;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -98,7 +96,7 @@ class Hit extends AttemptAction
             }
         }
 
-        return new Success(ActionLogEnum::HIT_SUCCESS, VisibilityEnum::PUBLIC);
+        return $result;
     }
 
     protected function getBaseRate(): int

@@ -12,8 +12,6 @@ use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\RoomLog\Enum\ActionLogEnum;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -73,6 +71,6 @@ class WaterPlant extends AbstractAction
 
         $this->gameEquipmentService->persist($this->gameEquipment);
 
-        return new Success(ActionLogEnum::WATER_PLANT_SUCCESS, VisibilityEnum::PRIVATE);
+        return new Success();
     }
 }

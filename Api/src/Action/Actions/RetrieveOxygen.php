@@ -14,8 +14,6 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\Target;
-use Mush\RoomLog\Enum\ActionLogEnum;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class RetrieveOxygen extends AbstractAction
@@ -78,6 +76,6 @@ class RetrieveOxygen extends AbstractAction
 
         $target = new Target($this->gameEquipment->getName(), 'items');
 
-        return new Success(ActionLogEnum::RETRIEVE_OXYGEN, VisibilityEnum::COVERT, $target);
+        return new Success($target);
     }
 }

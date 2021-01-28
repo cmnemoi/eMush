@@ -21,21 +21,15 @@ class RoomService implements RoomServiceInterface
     private EntityManagerInterface $entityManager;
     private RoomRepository $repository;
     private GameEquipmentServiceInterface $equipmentService;
-    private StatusServiceInterface $statusService;
-    private RandomServiceInterface $randomService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         RoomRepository $repository,
         GameEquipmentServiceInterface $equipmentService,
-        StatusServiceInterface $statusService,
-        RandomServiceInterface $randomService
     ) {
         $this->entityManager = $entityManager;
         $this->repository = $repository;
         $this->equipmentService = $equipmentService;
-        $this->statusService = $statusService;
-        $this->randomService = $randomService;
     }
 
     public function persist(Room $room): Room

@@ -207,6 +207,16 @@
                 <target>Oh ! Une des plantes a donné : une *target*.</target>
             </segment>
         </unit>
+        <unit id="plant_maturity">
+            <segment>
+                <source>plant_maturity.target.male</source>
+                <target>Un *target* est arrivé à maturité ! Enfin !</target>
+            </segment>
+            <segment>
+                <source>plant_maturity.target.female</source>
+                <target>Uns *target* est arrivée à maturité ! Enfin !</target>
+            </segment>
+        </unit>
     </file>
 </xliff>
 

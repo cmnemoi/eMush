@@ -23,7 +23,9 @@ use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Room\Entity\Room;
+use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 
@@ -104,7 +106,16 @@ class ShowerActionCest
 
         $I->assertEquals(1, $player->getActionPoint());
 
+        $I->seeInRepository(RoomLog::class, [
+            'room' => $room->getId(),
+            'player' => $player->getId(),
+            'log' => ActionLogEnum::SHOWER_MUSH,
+            'visibility' => VisibilityEnum::PRIVATE,
+        ]);
+
         //@TODO test skill water resistance
+
+
     }
 
     private function createSoapItem(FunctionalTester $I): GameItem

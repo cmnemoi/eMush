@@ -19,6 +19,9 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Enum\ModifierScopeEnum;
 use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Room\Entity\Room;
+use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 
@@ -55,6 +58,13 @@ class ActionSubscriberCest
 
         $I->assertEquals(8, $player->getHealthPoint());
         $I->assertCount(0, $player->getStatuses());
+        $I->seeInRepository(RoomLog::class, [
+            'room' => $room->getId(),
+            'player' => $player->getId(),
+            'log' => LogEnum::CLUMSINESS,
+            'visibility' => VisibilityEnum::PRIVATE,
+        ]);
+
 
         $action
             ->setDirtyRate(100)
@@ -63,10 +73,17 @@ class ActionSubscriberCest
 
         //Test dirty
         $this->cycleSubscriber->onPostAction($actionEvent);
+        
 
         $I->assertEquals(8, $player->getHealthPoint());
         $I->assertCount(1, $player->getStatuses());
         $I->assertEquals(PlayerStatusEnum::DIRTY, $player->getStatuses()->first()->getName());
+        $I->seeInRepository(RoomLog::class, [
+            'room' => $room->getId(),
+            'player' => $player->getId(),
+            'log' => LogEnum::SOILED,
+            'visibility' => VisibilityEnum::PRIVATE,
+        ]);
 
         //Test already dirty
         $this->cycleSubscriber->onPostAction($actionEvent);
@@ -96,6 +113,7 @@ class ActionSubscriberCest
         $I->haveInRepository($gear);
         $I->haveInRepository($itemConfig);
 
+
         $gameItem = new GameItem();
         $gameItem
             ->setName($itemConfig->getName())
@@ -109,5 +127,11 @@ class ActionSubscriberCest
 
         $I->assertEquals(8, $player->getHealthPoint());
         $I->assertCount(0, $player->getStatuses());
+        $I->seeInRepository(RoomLog::class, [
+            'room' => $room->getId(),
+            'player' => $player->getId(),
+            'log' => LogEnum::SOIL_PREVENTED,
+            'visibility' => VisibilityEnum::PRIVATE,
+        ]);
     }
 }

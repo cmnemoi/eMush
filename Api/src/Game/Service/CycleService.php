@@ -47,20 +47,14 @@ class CycleService implements CycleServiceInterface
 
     public function getCycleFromDate(DateTime $date, GameConfig $gameConfig): int
     {
-        $hour = intval($date->setTimezone(new \DateTimeZone($gameConfig->getTimeZone()))->format('H'));
+        $date = $date->setTimezone(new \DateTimeZone($gameConfig->getTimeZone()));
+        $midnight = clone $date;
+        $midnight->setTime(0,0);
+        $minutesSinceMidnight = $this->getDateIntervalAsMinutes($date, $midnight);
 
-        $cycles = (int) floor($hour / ($gameConfig->getCycleLength() / 60) + 1);
+        $cycles = (int) floor($minutesSinceMidnight / ($gameConfig->getCycleLength()));
 
-        return (($cycles - 1) % $gameConfig->getCyclePerGameDay()) + 1;
-    }
-
-    public function getDayFromDate(DateTime $date, GameConfig $gameConfig): int
-    {
-        $hour = intval($date->setTimezone(new \DateTimeZone($gameConfig->getTimeZone()))->format('H'));
-
-        $cycles = (int) floor($hour / ($gameConfig->getCycleLength() / 60) + 1);
-
-        return (int) floor(($cycles - 1) / $gameConfig->getCyclePerGameDay()) + 1;
+        return (($cycles) % $gameConfig->getCyclePerGameDay()) +1 ;
     }
 
     /**
@@ -86,7 +80,9 @@ class CycleService implements CycleServiceInterface
     }
 
     /**
-     * Get Daedalus first cycle date (it will always be at 00h00 in the current Timezone).
+     * Get Daedalus first cycle date 
+     * Take 00h00 in the current Timezone as a reference and look how many complete days have already been completed
+     * First cycle of the ship is the date of the begining of the started game day
      */
     private function getDaedalusStartingCycleDate(Daedalus $daedalus): DateTime
     {
@@ -100,7 +96,10 @@ class CycleService implements CycleServiceInterface
             ->setTimezone(new \DateTimeZone('UTC'))
         ;
 
-        return $firstDayDate;
+        $gameDayLength = intval($gameConfig->getCyclePerGameDay() * $gameConfig->getCycleLength()); //in min
+        $numberOfCompleteDay = intval($this->getDateIntervalAsMinutes($firstCycleDate, $firstDayDate) / $gameDayLength);
+
+        return $firstDayDate->add(new DateInterval('PT' . strval($numberOfCompleteDay * $gameDayLength) . 'M'));
     }
 
     private function getNumberOfCycleElapsed(DateTime $start, DateTime $end, GameConfig $gameConfig): int

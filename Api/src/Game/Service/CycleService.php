@@ -45,16 +45,28 @@ class CycleService implements CycleServiceInterface
         return $this->getCycleDateFromStartingDate($elapsedCycles + 1, $firstCycleDate, $gameConfig);
     }
 
-    public function getCycleFromDate(DateTime $date, GameConfig $gameConfig): int
+    public function getCycleFromDate(DateTime $date, Daedalus $daedalus): int
     {
-        $date = $date->setTimezone(new \DateTimeZone($gameConfig->getTimeZone()));
-        $midnight = clone $date;
-        $midnight->setTime(0,0);
-        $minutesSinceMidnight = $this->getDateIntervalAsMinutes($date, $midnight);
+        $gameConfig = $daedalus->getGameConfig();
+        $firstCycleDate = $this->getDaedalusStartingCycleDate($daedalus);
 
-        $cycles = (int) floor($minutesSinceMidnight / ($gameConfig->getCycleLength()));
+        $minutesSinceStart = $this->getDateIntervalAsMinutes($date, $firstCycleDate);
 
-        return (($cycles) % $gameConfig->getCyclePerGameDay()) +1 ;
+        $cycles = (int) floor($minutesSinceStart / ($gameConfig->getCycleLength()));
+
+        return (($cycles) % $gameConfig->getCyclePerGameDay()) + 1;
+    }
+
+    public function getDayFromDate(DateTime $date, Daedalus $daedalus): int
+    {
+        $gameConfig = $daedalus->getGameConfig();
+        $firstCycleDate = $this->getDaedalusStartingCycleDate($daedalus);
+
+        $minutesSinceStart = $this->getDateIntervalAsMinutes($date, $firstCycleDate);
+
+        $cycles = (int) floor($minutesSinceStart / ($gameConfig->getCycleLength()));
+
+        return (int) floor(($cycles) / $gameConfig->getCyclePerGameDay()) + 1;
     }
 
     /**
@@ -80,9 +92,9 @@ class CycleService implements CycleServiceInterface
     }
 
     /**
-     * Get Daedalus first cycle date 
+     * Get Daedalus first cycle date
      * Take 00h00 in the current Timezone as a reference and look how many complete days have already been completed
-     * First cycle of the ship is the date of the begining of the started game day
+     * First cycle of the ship is the date of the begining of the started game day.
      */
     private function getDaedalusStartingCycleDate(Daedalus $daedalus): DateTime
     {
@@ -118,6 +130,6 @@ class CycleService implements CycleServiceInterface
 
         return intval($dateInterval->format('%a')) * 24 * 60 +
                 intval($dateInterval->format('%h')) * 60 +
-                intval($dateInterval->format('%m'));
+                intval($dateInterval->format('%i'));
     }
 }

@@ -217,6 +217,7 @@ class CycleServiceTest extends TestCase
         ;
 
         $this->assertEquals(0, $this->service->handleCycleChange(new DateTime("2020-10-09 00:31:00.0 {$timeZone}"), $daedalus));
+        $this->assertEquals(1, $this->service->handleCycleChange(new DateTime("2020-10-09 03:31:00.0 {$timeZone}"), $daedalus));
         $this->assertEquals(0, $this->service->handleCycleChange(new DateTime("2020-10-08 23:31:00.0 {$timeZone}"), $daedalus));
 
         $daedalus = new Daedalus();
@@ -230,5 +231,35 @@ class CycleServiceTest extends TestCase
 
         $this->assertEquals(0, $this->service->handleCycleChange(new DateTime("2020-10-09 02:31:00.0 {$timeZone}"), $daedalus));
         $this->assertEquals(0, $this->service->handleCycleChange(new DateTime("2020-10-09 03:31:00.0 {$timeZone}"), $daedalus));
+
+
+
+        dump('yoyoyoyo');
+        //in case entering DST in between
+        $daedalus = new Daedalus();
+        $daedalus
+            ->setGameConfig($gameConfig)
+            ->setCreatedAt(new DateTime("2021-03-27 00:00:00.0 {$timeZone}"))
+            ->setUpdatedAt(new DateTime("2021-03-28 01:30:00.0 {$timeZone}"))
+            ->setDay(2)
+            ->setCycle(1)
+        ;
+
+        $this->assertEquals(0, $this->service->handleCycleChange(new DateTime("2021-03-28 03:31:00.0 {$timeZone}"), $daedalus));
+        $this->assertEquals(1, $this->service->handleCycleChange(new DateTime("2021-03-28 04:31:00.0 {$timeZone}"), $daedalus));
+
+         //in case exiting DST in between
+         $daedalus = new Daedalus();
+         $daedalus
+             ->setGameConfig($gameConfig)
+             ->setCreatedAt(new DateTime("2020-10-24 00:00:00.0 {$timeZone}"))
+             ->setUpdatedAt(new DateTime("2020-10-25 01:30:00.0 {$timeZone}"))
+             ->setDay(2)
+             ->setCycle(1)
+         ;
+ 
+         $this->assertEquals(1, $this->service->handleCycleChange(new DateTime("2020-10-25 03:31:00.0 {$timeZone}"), $daedalus));
+         $this->assertEquals(2, $this->service->handleCycleChange(new DateTime("2020-10-25 05:31:00.0 {$timeZone}"), $daedalus));
+
     }
 }

@@ -14,8 +14,8 @@ use Mush\Room\Entity\Room;
 use Mush\Room\Event\RoomEvent;
 use Mush\Room\Event\RoomSubscriber;
 use Mush\RoomLog\Entity\RoomLog;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Enum\LogEnum;
+use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\StatusEnum;
 

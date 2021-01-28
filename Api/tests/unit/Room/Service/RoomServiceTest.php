@@ -7,25 +7,20 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
-use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\EquipmentConfig;
-use Mush\Equipment\Service\gameEquipmentServiceInterface;
+use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Game\Entity\DifficultyConfig;
+use Mush\Equipment\Service\gameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
-use Mush\Room\Entity\Room;
 use Mush\Room\Entity\createRoomConfig;
+use Mush\Room\Entity\Room;
 use Mush\Room\Entity\RoomConfig;
 use Mush\Room\Enum\DoorEnum;
-use Mush\Room\Event\RoomEvent;
 use Mush\Room\Repository\RoomRepository;
 use Mush\Room\Service\RoomService;
-use Mush\Status\Entity\ChargeStatus;
-use Mush\Status\Enum\StatusEnum;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class RoomServiceTest extends TestCase
 {
@@ -37,9 +32,6 @@ class RoomServiceTest extends TestCase
     private gameEquipmentServiceInterface $equipmentService;
     /** @var RoomRepository | Mockery\Mock */
     private RoomRepository $repository;
-
-
-
 
     /**
      * @before
@@ -81,7 +73,6 @@ class RoomServiceTest extends TestCase
 
         $gameConfig->setEquipmentsConfig($equipmentConfigCollection);
 
-
         $roomConfig = $this->createRoomConfig('bridge', $daedalusConfig);
 
         $this->equipmentService
@@ -103,13 +94,11 @@ class RoomServiceTest extends TestCase
             ->twice()
         ;
 
-
         $return = $this->roomService->createRoom($roomConfig, $daedalus);
 
         $this->assertInstanceOf(Room::class, $return);
         $this->assertCount(3, $return->getDoors());
         $this->assertCount(2, $return->getEquipments());
-
 
         //create the room on the other side of the doors
         $daedalus->addRoom($return);
@@ -142,7 +131,6 @@ class RoomServiceTest extends TestCase
         $this->assertCount(2, $return->getDoors()->first()->getRooms());
         $this->assertEquals($daedalus->getRooms()->first(), $return->getDoors()->first()->getRooms()->first());
     }
-
 
     private function createRoomConfig(string $name, DaedalusConfig $daedalusConfig): RoomConfig
     {

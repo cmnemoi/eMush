@@ -77,7 +77,6 @@ class PlayerEventCest
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'room' => $room, 'user' => $user]);
 
-
         $playerEvent = new PlayerEvent($player);
         $playerEvent->setReason(ActionEnum::INFECT);
 
@@ -93,12 +92,10 @@ class PlayerEventCest
         $I->assertEquals(2, $player->getStatuses()->first()->getCharge());
         $I->assertEquals($room, $player->getRoom());
 
-
         $this->eventDispatcherService->dispatch($playerEvent, PlayerEvent::INFECTION_PLAYER);
 
         $I->assertCount(1, $player->getStatuses());
         $I->assertEquals(PlayerStatusEnum::MUSH, $player->getStatuses()->first()->getName());
         $I->assertEquals($room, $player->getRoom());
-
     }
 }

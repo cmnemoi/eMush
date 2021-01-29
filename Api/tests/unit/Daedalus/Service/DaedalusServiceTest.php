@@ -125,7 +125,13 @@ class DaedalusServiceTest extends TestCase
 
         $this->cycleService
             ->shouldReceive('getCycleFromDate')
-            ->andReturn(5)
+            ->andReturn(1)
+            ->once()
+        ;
+
+        $this->cycleService
+            ->shouldReceive('getDaedalusStartingCycleDate')
+            ->andReturn(new \DateTime('today midnight'))
             ->once()
         ;
 
@@ -160,7 +166,8 @@ class DaedalusServiceTest extends TestCase
         $this->assertEquals($daedalusConfig->getInitOxygen(), $daedalus->getOxygen());
         $this->assertEquals($daedalusConfig->getInitHull(), $daedalus->getHull());
         $this->assertEquals($daedalusConfig->getInitShield(), $daedalus->getShield());
-        $this->assertEquals(5, $daedalus->getCycle());
+        $this->assertEquals(1, $daedalus->getCycle());
+        $this->assertEquals(new \DateTime('today midnight'), $daedalus->getCycleStartedAt());
         $this->assertCount(1, $daedalus->getRooms());
         $this->assertCount(0, $daedalus->getPlayers());
     }

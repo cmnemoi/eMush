@@ -26,7 +26,6 @@ class DaedalusNormalizerTest extends TestCase
      */
     public function before()
     {
-        $gameConfigService = Mockery::mock(GameConfigService::class);
         $this->cycleService = Mockery::mock(CycleServiceInterface::class);
         $this->translator = Mockery::mock(TranslatorInterface::class);
 

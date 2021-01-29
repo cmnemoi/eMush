@@ -99,6 +99,11 @@ class Daedalus
      */
     private ?DateTime $finishedAt = null;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=false)
+     */
+    private ?DateTime $cycleStartedAt;
+
     public function __construct()
     {
         $this->players = new ArrayCollection();
@@ -396,6 +401,17 @@ class Daedalus
     {
         $this->finishedAt = $finishedAt;
 
+        return $this;
+    }
+
+    public function getCycleStartedAt(): ?DateTime
+    {
+        return $this->cycleStartedAt;
+    }
+
+    public function setCycleStartedAt(?DateTime $cycleStartedAt): Daedalus
+    {
+        $this->cycleStartedAt = $cycleStartedAt;
         return $this;
     }
 }

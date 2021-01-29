@@ -262,10 +262,6 @@ class RandomServiceTest extends TestCase
         $this->assertEquals(['player1'], $this->service->getRandomElementsFromProbaArray($players, 1));
 
         $players = ['player1' => 2.5, 'player2' => 0.5, 'player3' => 1, 'player4' => 1, 'player5' => 0];
-        $nbPlayer1 = 0;
-        $nbPlayer2 = 0;
-        $nbPlayer3 = 0;
-        $nbPlayer4 = 0;
 
         for ($i = 1; $i <= 10; ++$i) {
             $randomPlayer = $this->service->getRandomElementsFromProbaArray($players, 2);

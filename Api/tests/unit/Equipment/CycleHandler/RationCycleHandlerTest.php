@@ -10,6 +10,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Fruit;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -59,6 +60,9 @@ class RationCycleHandlerTest extends TestCase
             ->setEquipment($fruit)
         ;
 
+        $frozen = new Status($gameFruit);
+        $frozen->setName(EquipmentStatusEnum::FROZEN);
+
         $unstable = new Status(new GameItem());
         $unstable->setName(EquipmentStatusEnum::UNSTABLE);
         $hazardous = new Status(new GameItem());
@@ -66,19 +70,64 @@ class RationCycleHandlerTest extends TestCase
         $decomposing = new Status(new GameItem());
         $decomposing->setName(EquipmentStatusEnum::DECOMPOSING);
 
+        //frozen
         $this->gameEquipmentService->shouldReceive('persist')->once();
-        $this->statusService->shouldReceive('createCoreStatus')->andReturn($unstable)->once();
 
         $this->rationCycleHandler->handleNewDay($gameFruit, $daedalus, new \DateTime());
+        $this->assertCount(1, $gameFruit->getStatuses());
 
+        $gameFruit->removeStatus($frozen);
+
+        //unfrozen day 1
         $this->gameEquipmentService->shouldReceive('persist')->once();
-        $this->statusService->shouldReceive('createCoreStatus')->andReturn($hazardous)->once();
+        $this->statusService
+            ->shouldReceive('createCoreStatus')
+            ->with(EquipmentStatusEnum::UNSTABLE,
+                $gameFruit,
+                null,
+                VisibilityEnum::HIDDEN
+            )
+            ->andReturn($unstable)
+            ->once()
+    ;
 
         $this->rationCycleHandler->handleNewDay($gameFruit, $daedalus, new \DateTime());
+        $this->assertCount(0, $gameFruit->getStatuses());
 
+        $gameFruit->addStatus($unstable);
+
+        //day 2
         $this->gameEquipmentService->shouldReceive('persist')->once();
-        $this->statusService->shouldReceive('createCoreStatus')->andReturn($decomposing)->once();
+        $this->statusService
+            ->shouldReceive('createCoreStatus')
+            ->with(EquipmentStatusEnum::HAZARDOUS,
+                    $gameFruit,
+                    null,
+                    VisibilityEnum::HIDDEN
+                )
+            ->andReturn($hazardous)
+            ->once()
+        ;
 
         $this->rationCycleHandler->handleNewDay($gameFruit, $daedalus, new \DateTime());
+        $this->assertCount(0, $gameFruit->getStatuses());
+
+        $gameFruit->addStatus($hazardous);
+
+        //day 3
+        $this->gameEquipmentService->shouldReceive('persist')->once();
+        $this->statusService
+            ->shouldReceive('createCoreStatus')
+            ->with(EquipmentStatusEnum::DECOMPOSING,
+                    $gameFruit,
+                    null,
+                    VisibilityEnum::HIDDEN
+                )
+            ->andReturn($decomposing)
+            ->once()
+        ;
+
+        $this->rationCycleHandler->handleNewDay($gameFruit, $daedalus, new \DateTime());
+        $this->assertCount(0, $gameFruit->getStatuses());
     }
 }

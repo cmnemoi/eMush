@@ -95,7 +95,7 @@ class RandomService implements RandomServiceInterface
     // This function takes an array [element => proba%] as input and send back an array
     public function getRandomElementsFromProbaArray(array $array, int $number): array
     {
-        if (count($array) < $number) {
+        if (count(array_filter($array, function ($weight) {return $weight !== 0; }) < $number)) {
             throw new Error('getRandomElements: array is not large enough');
         }
         $randomElements = [];

@@ -23,6 +23,8 @@ use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Room\Entity\Room;
+use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -103,6 +105,13 @@ class ShowerActionCest
         $I->assertEquals(3, $player->getHealthPoint());
 
         $I->assertEquals(1, $player->getActionPoint());
+
+        $I->seeInRepository(RoomLog::class, [
+            'room' => $room->getId(),
+            'player' => $player->getId(),
+            'log' => ActionLogEnum::SHOWER_MUSH,
+            'visibility' => VisibilityEnum::PRIVATE,
+        ]);
 
         //@TODO test skill water resistance
     }

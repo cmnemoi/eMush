@@ -30,14 +30,14 @@ class ActionLogEnum
     public const READ_BOOK = 'read_book';
     public const READ_DOCUMENT = 'read_document';
     public const REPAIR_SUCCESS = 'repair_success';
-    public const REPAIR_FAIL = 'repair_success';
+    public const REPAIR_FAIL = 'repair_fail';
     public const SABOTAGE_SUCCESS = 'sabotage_success';
     public const SABOTAGE_FAIL = 'sabotage_fail';
     public const SEARCH_SUCCESS = 'search_success';
     public const SEARCH_FAIL = 'search_fail';
     public const SHRED_SUCCESS = 'shred_success';
-    public const SHOWER_HUMAN = 'shower';
-    public const SHOWER_MUSH = 'shower';
+    public const SHOWER_HUMAN = 'shower_human';
+    public const SHOWER_MUSH = 'shower_mush';
     public const TAKE = 'take';
     public const TRANSPLANT_SUCCESS = 'transplant_success';
     public const HYBRIDIZE_SUCCESS = 'hybridize_success';
@@ -240,11 +240,11 @@ class ActionLogEnum
         ActionEnum::SHOWER => [
             self::SUCCESS => [
                 self::VALUE => self::SHOWER_HUMAN,
-                self::VISIBILITY => VisibilityEnum::PUBLIC,
+                self::VISIBILITY => VisibilityEnum::PRIVATE,
             ],
             self::FAIL => [
                 self::VALUE => self::SHOWER_MUSH,
-                self::VISIBILITY => VisibilityEnum::PUBLIC,
+                self::VISIBILITY => VisibilityEnum::PRIVATE,
             ],
         ],
         ActionEnum::LIE_DOWN => [

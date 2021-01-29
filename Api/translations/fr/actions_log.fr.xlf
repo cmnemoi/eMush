@@ -627,6 +627,26 @@
                 <target>Vous n'avez rien découvert.</target>
             </segment>
         </unit>
+        <unit id="shower_human">
+            <segment id="shower_human">
+                <source>shower_human.character.male</source>
+                <target>Vous vous lavez longuement sous la douche, savourant ce moment rare et paisible..</target>
+            </segment>
+            <segment>
+                <source>shower_human.character.female</source>
+                <target>Vous vous lavez longuement sous la douche, savourant ce moment rare et paisible..</target>
+            </segment>
+        </unit>
+        <unit id="shower_mush">
+            <segment id="shower_mush">
+                <source>shower_mush.character.male</source>
+                <target>Vous vous lavez et vous vous sentez brûlé, meurtri par toute cette eau... Que ne feriez vous pas pour passer pour l'un des leurs...</target>
+            </segment>
+            <segment>
+                <source>shower_mush.character.female</source>
+                <target>Vous vous lavez et vous vous sentez brûlée, meurtrie par toute cette eau... Que ne feriez vous pas pour passer pour l'un des leurs...</target>
+            </segment>
+        </unit>
         <unit id="shred_success">
             <segment id="shred_v1">
                 <source>shred_v1.character.male</source>

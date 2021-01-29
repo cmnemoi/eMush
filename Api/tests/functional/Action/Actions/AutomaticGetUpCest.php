@@ -17,6 +17,8 @@ use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
+use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -30,7 +32,7 @@ class AutomaticGetUpCest
         $this->showerAction = $I->grabService(Shower::class);
     }
 
-    public function testShower(FunctionalTester $I)
+    public function testAutomaticGetUp(FunctionalTester $I)
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
@@ -102,5 +104,19 @@ class AutomaticGetUpCest
         $this->showerAction->execute();
 
         $I->assertCount(0, $player->getStatuses());
+
+        $I->seeInRepository(RoomLog::class, [
+            'room' => $room->getId(),
+            'player' => $player->getId(),
+            'log' => ActionLogEnum::GET_UP,
+            'visibility' => VisibilityEnum::PUBLIC,
+        ]);
+
+        $I->seeInRepository(RoomLog::class, [
+            'room' => $room->getId(),
+            'player' => $player->getId(),
+            'log' => ActionLogEnum::SHOWER_HUMAN,
+            'visibility' => VisibilityEnum::PRIVATE,
+        ]);
     }
 }

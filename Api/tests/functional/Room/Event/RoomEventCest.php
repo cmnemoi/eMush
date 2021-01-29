@@ -13,6 +13,9 @@ use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
 use Mush\Room\Event\RoomEvent;
 use Mush\Room\Event\RoomSubscriber;
+use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Enum\LogEnum;
+use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\StatusEnum;
 
@@ -66,6 +69,11 @@ class RoomEventCest
         $this->roomSubscriber->onTremor($roomEvent);
 
         $I->assertEquals(8, $player->getHealthPoint());
+        $I->seeInRepository(RoomLog::class, [
+            'room' => $room->getId(),
+            'log' => LogEnum::TREMOR_GRAVITY,
+            'visibility' => VisibilityEnum::PUBLIC,
+        ]);
     }
 
     // tests
@@ -101,5 +109,10 @@ class RoomEventCest
 
         $I->assertEquals(7, $player->getHealthPoint());
         $I->assertTrue($gameEquipment->isBroken());
+        $I->seeInRepository(RoomLog::class, [
+            'room' => $room->getId(),
+            'log' => LogEnum::ELECTRIC_ARC,
+            'visibility' => VisibilityEnum::PUBLIC,
+        ]);
     }
 }

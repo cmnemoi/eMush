@@ -197,6 +197,26 @@
                 <target>Vous ressentez des frissons, l'espoir vous quitte, vous vous demandez ce que vous faites ici et quand cet enfer va s'arrêter... Vous êtes victime d'une Crise de Panique.</target>
             </segment>
         </unit>
+        <unit id="plant_new_fruit">
+            <segment>
+                <source>plant_new_fruit.target.male</source>
+                <target>Oh ! Une des plantes a donné : un *target*.</target>
+            </segment>
+            <segment>
+                <source>plant_new_fruit.target.female</source>
+                <target>Oh ! Une des plantes a donné : une *target*.</target>
+            </segment>
+        </unit>
+        <unit id="plant_maturity">
+            <segment>
+                <source>plant_maturity.target.male</source>
+                <target>Un *target* est arrivé à maturité ! Enfin !</target>
+            </segment>
+            <segment>
+                <source>plant_maturity.target.female</source>
+                <target>Uns *target* est arrivée à maturité ! Enfin !</target>
+            </segment>
+        </unit>
     </file>
 </xliff>
 

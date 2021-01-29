@@ -3,6 +3,7 @@
 namespace functional\Player\Event;
 
 use App\Tests\FunctionalTester;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
@@ -14,6 +15,7 @@ use Mush\Room\Enum\RoomEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
@@ -57,5 +59,43 @@ class PlayerEventCest
             'log' => LogEnum::DEATH,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
+    }
+
+    public function testDispatchInfection(FunctionalTester $I)
+    {
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class);
+
+        /** @var User $user */
+        $user = $I->have(User::class);
+
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
+        /** @var Room $room */
+        $room = $I->have(Room::class, ['daedalus' => $daedalus]);
+
+        /** @var Player $player */
+        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'room' => $room, 'user' => $user]);
+
+        $playerEvent = new PlayerEvent($player);
+        $playerEvent->setReason(ActionEnum::INFECT);
+
+        $this->eventDispatcherService->dispatch($playerEvent, PlayerEvent::INFECTION_PLAYER);
+
+        $I->assertCount(1, $player->getStatuses());
+        $I->assertEquals(1, $player->getStatuses()->first()->getCharge());
+        $I->assertEquals($room, $player->getRoom());
+
+        $this->eventDispatcherService->dispatch($playerEvent, PlayerEvent::INFECTION_PLAYER);
+
+        $I->assertCount(1, $player->getStatuses());
+        $I->assertEquals(2, $player->getStatuses()->first()->getCharge());
+        $I->assertEquals($room, $player->getRoom());
+
+        $this->eventDispatcherService->dispatch($playerEvent, PlayerEvent::INFECTION_PLAYER);
+
+        $I->assertCount(1, $player->getStatuses());
+        $I->assertEquals(PlayerStatusEnum::MUSH, $player->getStatuses()->first()->getName());
+        $I->assertEquals($room, $player->getRoom());
     }
 }

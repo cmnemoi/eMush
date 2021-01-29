@@ -172,7 +172,6 @@ class DaedalusService implements DaedalusServiceInterface
 
         $mushNumber = $gameConfig->getNbMush();
 
-        dump($chancesArray);
         $mushPlayerName = $this->randomService->getRandomElementsFromProbaArray($chancesArray, $mushNumber);
         foreach ($mushPlayerName as $playerName) {
             $mushPlayers = $daedalus

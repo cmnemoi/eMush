@@ -17,6 +17,8 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Room\Entity\Room;
+use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Enum\PlantLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
@@ -99,6 +101,11 @@ class PlantCycleEventCest
 
         $I->assertCount(0, $room->getStatuses());
         $I->assertCount(0, $room->getEquipments()->first()->getStatuses());
+        $I->seeInRepository(RoomLog::class, [
+            'room' => $room->getId(),
+            'log' => PlantLogEnum::PLANT_MATURITY,
+            'visibility' => VisibilityEnum::PUBLIC,
+        ]);
     }
 
     public function testPlantChangeDay(FunctionalTester $I)
@@ -218,6 +225,11 @@ class PlantCycleEventCest
         $I->assertCount(1, $room->getEquipments()->first()->getStatuses());
         $I->assertEquals('fruit', $room->getEquipments()->next()->getName());
         $I->assertEquals(8, $daedalus->getOxygen());
+        $I->seeInRepository(RoomLog::class, [
+            'room' => $room->getId(),
+            'log' => PlantLogEnum::PLANT_NEW_FRUIT,
+            'visibility' => VisibilityEnum::PUBLIC,
+        ]);
 
         //Plant is dried
         /** @var Room $room */

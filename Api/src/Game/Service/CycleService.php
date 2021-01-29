@@ -49,7 +49,7 @@ class CycleService implements CycleServiceInterface
     public function getInDayCycleFromDate(DateTime $date, GameConfig $gameConfig): int
     {
         $timeZoneDate = $date->setTimezone(new \DateTimeZone($gameConfig->getTimeZone()));
-        $minutes = intval($timeZoneDate->format('m'));
+        $minutes = intval($timeZoneDate->format('i'));
         $hours = intval($timeZoneDate->format('H'));
 
         return (int) (floor(
@@ -58,8 +58,8 @@ class CycleService implements CycleServiceInterface
     }
 
     /**
-     * Get Daedalus first cycle date 
-     * First actual cycle of the ship (ie 3h cycle in fr, if the ship start C8, then it will be 21h:00)
+     * Get Daedalus first cycle date
+     * First actual cycle of the ship (ie 3h cycle in fr, if the ship start C8, then it will be 21h:00).
      */
     public function getDaedalusStartingCycleDate(Daedalus $daedalus): DateTime
     {
@@ -75,7 +75,8 @@ class CycleService implements CycleServiceInterface
 
         $gameDayLength = intval($gameConfig->getCyclePerGameDay() * $gameConfig->getCycleLength()); //in min
         $numberOfCompleteDay = intval($this->getDateIntervalAsMinutes($firstCycleDate, $firstDayDate) / $gameDayLength);
-        $minutesBetweenDayStartAndDaedalusFirstCycle = $numberOfCompleteDay * $gameDayLength + (($daedalus->getCycle()-1) * $gameConfig->getCycleLength());
+        $minutesBetweenDayStartAndDaedalusFirstCycle = $numberOfCompleteDay * $gameDayLength + (($daedalus->getCycle() - 1) * $gameConfig->getCycleLength());
+
         return $firstDayDate->add(new DateInterval('PT' . strval($minutesBetweenDayStartAndDaedalusFirstCycle) . 'M'));
     }
 
@@ -94,7 +95,7 @@ class CycleService implements CycleServiceInterface
         $dateInterval = $dateEnd->diff($dateStart);
 
         return intval($dateInterval->format('%a')) * 24 * 60 +
-                intval($dateInterval->format('%h')) * 60 +
+                intval($dateInterval->format('%H')) * 60 +
                 intval($dateInterval->format('%i'));
     }
 }

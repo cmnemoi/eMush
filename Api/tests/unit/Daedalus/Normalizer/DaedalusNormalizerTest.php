@@ -8,7 +8,6 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Normalizer\DaedalusNormalizer;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\CycleServiceInterface;
-use Mush\Game\Service\GameConfigService;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\Translation\TranslatorInterface;
 

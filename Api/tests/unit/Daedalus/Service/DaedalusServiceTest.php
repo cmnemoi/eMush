@@ -124,7 +124,7 @@ class DaedalusServiceTest extends TestCase
         ;
 
         $this->cycleService
-            ->shouldReceive('getCycleFromDate')
+            ->shouldReceive('getInDayCycleFromDate')
             ->andReturn(1)
             ->once()
         ;

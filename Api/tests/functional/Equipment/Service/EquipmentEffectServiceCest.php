@@ -42,7 +42,7 @@ class EquipmentEffectServiceCest
         $rationEffect = new Ration();
         $rationEffect
             ->setActionPoints([1 => 1, 2 => 2, 3 => 3])
-            ->setMovementPoints([0])
+            ->setMovementPoints([0 => 1])
             ->setHealthPoints([1 => 1, 3 => 1])
             ->setMoralPoints([1000 => 1000])
         ;
@@ -86,7 +86,7 @@ class EquipmentEffectServiceCest
         $bananaMechanic
             ->setPlantName(GamePlantEnum::BANANA_TREE)
             ->setActionPoints([1 => 1])
-            ->setMovementPoints([0])
+            ->setMovementPoints([0 => 1])
             ->setHealthPoints([1 => 1])
             ->setMoralPoints([1 => 1])
         ;

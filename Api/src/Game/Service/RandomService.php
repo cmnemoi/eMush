@@ -33,7 +33,7 @@ class RandomService implements RandomServiceInterface
             throw new Error('getRandomPlayer: collection is empty');
         }
 
-        return $players->get($this->random(0, $players->count() - 1));
+        return $players->get(array_rand($players->toArray()));
     }
 
     public function getPlayerInRoom(Room $room): Player
@@ -52,8 +52,9 @@ class RandomService implements RandomServiceInterface
             throw new Error('getItemInRoom: room has no items');
         }
 
-        return $room->getEquipments()->filter(fn (GameEquipment $equipment) => $equipment instanceof GameItem)
-            ->get($this->random(0, $room->getEquipments()->count() - 1));
+        $items = $room->getEquipments()->filter(fn (GameEquipment $equipment) => $equipment instanceof GameItem);
+
+        return $items->get(array_rand($items->toArray()));
     }
 
     public function getRandomElements(array $array, int $number = 1): array
@@ -62,8 +63,9 @@ class RandomService implements RandomServiceInterface
             throw new Error('getRandomElements: array is not large enough');
         }
         $randomKeys = array_rand($array, $number);
+
         if (is_array($randomKeys)) {
-            return array_diff_key($array, array_flip($randomKeys));
+            return array_intersect_key($array, array_flip($randomKeys));
         } else {
             return [$randomKeys => $array[$randomKeys]];
         }
@@ -73,9 +75,13 @@ class RandomService implements RandomServiceInterface
     // Instead of proba relative ponderation also work
     public function getSingleRandomElementFromProbaArray(array $array): string
     {
-        if (count($array) === 0) {
+        if (count(array_filter($array, function ($weight) {return $weight !== 0; })) < 1) {
             throw new Error('getSingleRandomElement: array is not large enough');
         }
+        if ($array !== array_filter($array, 'is_int')) {
+            throw new Error('Proba weight should be provided as integers');
+        }
+
         //first create a cumulative form of the array
         $cumuProba = 0;
         foreach ($array as $event => $proba) {
@@ -98,6 +104,10 @@ class RandomService implements RandomServiceInterface
         if (count(array_filter($array, function ($weight) {return $weight !== 0; })) < $number) {
             throw new Error('getRandomElements: array is not large enough');
         }
+        if ($array !== array_filter($array, 'is_int')) {
+            throw new Error('Proba weight should be provided as integers');
+        }
+
         $randomElements = [];
         for ($i = 0; $i < $number; ++$i) {
             $randomElements[$i] = $this->getSingleRandomElementFromProbaArray(

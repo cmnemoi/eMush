@@ -11,15 +11,6 @@ const ActionService = {
      * @param item
      * @param action
      */
-    executeItemAction: (item, action) => {
-        const data = {
-            "action": action.id,
-            "params" : {
-                "item": item.id
-            }
-        };
-        return ApiService.post(ACTION_ENDPOINT, data);
-    },
 
     executeTargetAction(target, action) {
         return ApiService.post(ACTION_ENDPOINT, {
@@ -38,16 +29,6 @@ const ActionService = {
                 return { player: target.id };
             }
         }
-    },
-
-    executeDoorAction: (door, action) => {
-        const data = {
-            "action": action.id,
-            "params" : {
-                "door": door.id
-            }
-        };
-        return ApiService.post(ACTION_ENDPOINT, data);
     }
 };
 export default ActionService;

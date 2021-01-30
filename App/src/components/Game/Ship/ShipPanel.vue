@@ -76,7 +76,7 @@ export default {
             this.isInventoryOpen = false;
             this.selectedTarget = null;
             this.clearRoomLogs();
-            await ActionService.executeDoorAction(door, action);
+            await ActionService.executeTargetAction(door, action);
             await this.reloadPlayer();
         },
         async executeTargetAction(action) {

@@ -49,7 +49,7 @@ export default {
         },
         async executeItemAction(action) {
             this.setLoading();
-            await ActionService.executeItemAction(this.selectedItem, action);
+            await ActionService.executeTargetAction(this.selectedItem, action);
             await this.reloadPlayer();
         },
         ...mapActions('player', [

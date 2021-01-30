@@ -37,7 +37,6 @@ import Statuses from "@/components/Utils/Statuses";
 import TextualInterface from "@/components/Game/Ship/TextualInterface";
 import { Room } from "@/entities/Room";
 import { Player } from "@/entities/Player";
-import ActionService from "@/services/action.service";
 import { mapActions, mapState } from "vuex";
 
 export default {
@@ -68,21 +67,20 @@ export default {
         }
     },
     methods: {
+        ...mapActions('action', [
+            'executeAction'
+        ]),
         ...mapActions('communication', [
             'clearRoomLogs'
         ]),
         async executeDoorAction({ door, action }) {
-            this.setLoading();
             this.isInventoryOpen = false;
             this.selectedTarget = null;
             this.clearRoomLogs();
-            await ActionService.executeTargetAction(door, action);
-            await this.reloadPlayer();
+            await this.executeAction({ target: door, action });
         },
         async executeTargetAction(action) {
-            this.setLoading();
-            await ActionService.executeTargetAction(this.selectedTarget, action);
-            await this.reloadPlayer();
+            await this.executeAction({ target: this.selectedTarget, action });
             this.selectedTarget = null;
         },
         setTarget(target) {
@@ -91,11 +89,7 @@ export default {
         },
         openInventory() {
             this.isInventoryOpen = true;
-        },
-        ...mapActions('player', [
-            'reloadPlayer',
-            'setLoading'
-        ])
+        }
     }
 };
 </script>

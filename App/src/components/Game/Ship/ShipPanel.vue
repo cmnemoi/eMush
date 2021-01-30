@@ -70,13 +70,9 @@ export default {
         ...mapActions('action', [
             'executeAction'
         ]),
-        ...mapActions('communication', [
-            'clearRoomLogs'
-        ]),
         async executeDoorAction({ door, action }) {
             this.isInventoryOpen = false;
             this.selectedTarget = null;
-            this.clearRoomLogs();
             await this.executeAction({ target: door, action });
         },
         async executeTargetAction(action) {

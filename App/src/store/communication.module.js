@@ -17,6 +17,9 @@ const getters = {
     },
     messages(state) {
         return state.messagesByChannelId[state.currentChannel.id] || [];
+    },
+    roomChannel(state) {
+        return state.channels.find(channel => channel.scope === ROOM_LOG);
     }
 };
 
@@ -82,9 +85,11 @@ const actions = {
         }
     },
 
-    clearRoomLogs({ commit, state }) {
-        const roomChannel = state.channels.find(channel => channel.scope === ROOM_LOG);
-        commit('setChannelMessages', { channel: roomChannel, messages: [] });
+    clearRoomLogs({ getters, commit }) {
+        commit('setChannelMessages', { channel: getters.roomChannel, messages: [] });
+    },
+    async loadRoomLogs({ getters, dispatch }) {
+        await dispatch('loadMessages', { channel: getters.roomChannel });
     }
 };
 

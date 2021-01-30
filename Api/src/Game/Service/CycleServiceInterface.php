@@ -7,11 +7,11 @@ use Mush\Game\Entity\GameConfig;
 
 interface CycleServiceInterface
 {
-    public function handleCycleChange(Daedalus $daedalus): int;
+    public function handleCycleChange(\DateTime $dateTime, Daedalus $daedalus): int;
 
-    public function getCycleFromDate(\DateTime $date, GameConfig $gameConfig): int;
+    public function getInDayCycleFromDate(\DateTime $date, GameConfig $gameConfig): int;
 
-    public function getGameDayFromDate(\DateTime $currentDate, Daedalus $daedalus): int;
+    public function getDaedalusStartingCycleDate(Daedalus $daedalus): \DateTime;
 
     public function getDateStartNextCycle(Daedalus $daedalus): \DateTime;
 }

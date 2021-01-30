@@ -76,6 +76,7 @@ class DaedalusFactory extends \Codeception\Module
             'shield' => -2,
             'day' => 1,
             'cycle' => 1,
+            'cycleStartedAt' => new \DateTime('today midnight'),
         ]);
     }
 }

@@ -44,6 +44,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
     {
         $daedalus = $event->getDaedalus();
         $daedalus->setCycle($daedalus->getCycle() + 1);
+        $daedalus->setCycleStartedAt($event->getTime());
 
         if ($this->handleDaedalusEnd($daedalus)) {
             return; //@FIXME: should we continue cycle event if daedalus is destructed?

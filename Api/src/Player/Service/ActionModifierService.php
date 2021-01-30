@@ -212,7 +212,7 @@ class ActionModifierService implements ActionModifierServiceInterface
 
         if ($player->getSatiety() >= self::FULL_STOMACH_STATUS_THRESHOLD && !$fullStatus) {
             $this->statusService->createCoreStatus(PlayerStatusEnum::FULL_STOMACH, $player, null, VisibilityEnum::PRIVATE);
-        } elseif ($fullStatus) {
+        } elseif ($player->getSatiety() < self::FULL_STOMACH_STATUS_THRESHOLD && $fullStatus) {
             $player->removeStatus($fullStatus);
         }
 

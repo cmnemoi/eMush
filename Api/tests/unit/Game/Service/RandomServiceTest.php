@@ -190,7 +190,9 @@ class RandomServiceTest extends TestCase
         $this->assertEquals(['player1'], $this->service->getRandomElements($players));
 
         $players = ['player1', 'player2'];
-        $this->assertEquals(['player1', 'player2'], $this->service->getRandomElements($players, 2));
+        $result = $this->service->getRandomElements($players, 2);
+        $this->assertContains('player1', $result);
+        $this->assertContains('player2', $result);
 
         $players = ['player1', 'player2', 'player3', 'player4', 'player5'];
         $nbPlayer1 = 0;

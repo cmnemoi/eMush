@@ -33,7 +33,7 @@ class RandomService implements RandomServiceInterface
             throw new Error('getRandomPlayer: collection is empty');
         }
 
-        return $players->get(array_rand($players->toArray()));
+        return current($this->getRandomElements($players->toArray()));
     }
 
     public function getPlayerInRoom(Room $room): Player
@@ -54,7 +54,7 @@ class RandomService implements RandomServiceInterface
 
         $items = $room->getEquipments()->filter(fn (GameEquipment $equipment) => $equipment instanceof GameItem);
 
-        return $items->get(array_rand($items->toArray()));
+        return current($this->getRandomElements($items->toArray()));
     }
 
     public function getRandomElements(array $array, int $number = 1): array
@@ -62,31 +62,39 @@ class RandomService implements RandomServiceInterface
         if (count($array) < $number || empty($array)) {
             throw new Error('getRandomElements: array is not large enough');
         }
-        $randomKeys = array_rand($array, $number);
 
-        if (is_array($randomKeys)) {
-            return array_intersect_key($array, array_flip($randomKeys));
-        } else {
-            return [$randomKeys => $array[$randomKeys]];
+        $result = [];
+        for ($i = 0; $i < $number; ++$i) {
+            $keysNotPicked = array_values(array_diff(array_keys($array), array_keys($result)));
+
+            $key = $keysNotPicked[$this->random(0, count($keysNotPicked) - 1)];
+            $result[$key] = $array[$key];
         }
+
+        return $result;
     }
 
     // This function takes an array [element => proba%] as input and send back an array
     // Instead of proba relative ponderation also work
     public function getSingleRandomElementFromProbaArray(array $array): string
     {
-        if (count(array_filter($array, function ($weight) {return $weight !== 0; })) < 1) {
+        if (count($array) < 1) {
             throw new Error('getSingleRandomElement: array is not large enough');
-        }
-        if ($array !== array_filter($array, 'is_int')) {
-            throw new Error('Proba weight should be provided as integers');
         }
 
         //first create a cumulative form of the array
         $cumuProba = 0;
         foreach ($array as $event => $proba) {
+            if (!is_int($proba)) {
+                throw new Error('Proba weight should be provided as integers');
+            }
+
             $cumuProba = $cumuProba + $proba;
             $array[$event] = $cumuProba;
+        }
+
+        if ($cumuProba === 0) {
+            throw new Error('getSingleRandomElement: only 0 proba element in array');
         }
 
         $probaLim = $this->random(0, $cumuProba);
@@ -101,11 +109,8 @@ class RandomService implements RandomServiceInterface
     // This function takes an array [element => proba%] as input and send back an array
     public function getRandomElementsFromProbaArray(array $array, int $number): array
     {
-        if (count(array_filter($array, function ($weight) {return $weight !== 0; })) < $number) {
+        if (count($array) < $number) {
             throw new Error('getRandomElements: array is not large enough');
-        }
-        if ($array !== array_filter($array, 'is_int')) {
-            throw new Error('Proba weight should be provided as integers');
         }
 
         $randomElements = [];

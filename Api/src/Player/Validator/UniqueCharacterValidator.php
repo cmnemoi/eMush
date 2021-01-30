@@ -29,6 +29,7 @@ class UniqueCharacterValidator extends ConstraintValidator
 
         $daedalus = $value->getDaedalus();
         $character = $value->getCharacter();
+
         if ($daedalus !== null &&
             $character !== null &&
             $this->playerService->findOneByCharacter($character, $daedalus) !== null

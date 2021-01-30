@@ -181,11 +181,11 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($microwaveMechanic);
         $manager->persist($chargedMechanic);
 
-        /** @var Action $hyperfreezAction */
-        $hyperfreezAction = $this->getReference(ActionsFixtures::HYPERFREEZE_DEFAULT);
+        /** @var Action $hyperfreezeAction */
+        $hyperfreezeAction = $this->getReference(ActionsFixtures::HYPERFREEZE_DEFAULT);
 
         $superFreezerMechanic = new Tool();
-        $superFreezerMechanic->addAction($hyperfreezAction);
+        $superFreezerMechanic->addAction($hyperfreezeAction);
 
         $superFreezer = new ItemConfig();
         $superFreezer

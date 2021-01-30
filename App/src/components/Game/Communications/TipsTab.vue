@@ -1,5 +1,5 @@
 <template>
-    <div id="tips-tab" class="chatbox-container">
+    <TabContainer id="tips-tab" :channel="channel">
         <section class="unit">
             <div class="banner">
                 <span><img src="@/assets/images/comms/tip.png"> Conseils <img src="@/assets/images/comms/tip.png"></span>
@@ -42,13 +42,21 @@
                 <span class="timestamp">~1d</span>
             </div>
         </section>
-    </div>
+    </TabContainer>
 </template>
 
 <script>
+import { Channel } from "@/entities/Channel";
+import TabContainer from "@/components/Game/Communications/TabContainer";
+
+
 export default {
     name: "TipsTab",
+    components: {
+        TabContainer
+    },
     props: {
+        channel: Channel
     }
 };
 </script>
@@ -179,9 +187,9 @@ export default {
 /* --- END OF PROVISIONAL --- */
 
 #tips-tab {
-    overflow: auto;
-    padding: 7px;
-    .unit { padding: 1px 0 !important; }
+    .unit {
+        padding: 1px 0 !important;
+    }
 
     .tip {
         margin: 10px 6px;

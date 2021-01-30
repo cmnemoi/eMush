@@ -4,15 +4,22 @@ import { ROOM_LOG } from '@/enums/communication.enum';
 
 
 const state =  {
-    loading: false,
     currentChannel: new Channel(),
     channels: [],
+    loadingChannels: false,
+    loadingByChannelId: {},
     messagesByChannelId: {}
 };
 
 const getters = {
+    loading(state) {
+        return state.loadingByChannelId[state.currentChannel.id] || false;
+    },
     messages(state) {
         return state.messagesByChannelId[state.currentChannel.id] || [];
+    },
+    roomChannel(state) {
+        return state.channels.find(channel => channel.scope === ROOM_LOG);
     }
 };
 
@@ -21,67 +28,78 @@ const actions = {
         commit('setCurrentChannel', channel);
     },
     async loadChannels({ commit }) {
-        commit('setLoading', true);
+        commit('setLoadingOfChannels', true);
 
         try {
             const channels = await CommunicationService.loadChannels();
             commit('setChannels', channels);
             commit('setCurrentChannel', channels.find(({ scope }) => scope === ROOM_LOG));
-            commit('setLoading', false);
+            commit('setLoadingOfChannels', false);
             return true;
         } catch (e) {
-            commit('setLoading', false);
+            commit('setLoadingOfChannels', false);
             return false;
         }
     },
 
     async loadMessages({ commit }, { channel }) {
-        commit('setLoading', true);
+        commit('setLoadingForChannel', { channel, newStatus: true });
 
         try {
             const messages = await CommunicationService.loadMessages(channel);
             commit('setChannelMessages', { channel, messages });
-            commit('setLoading', false);
+            commit('setLoadingForChannel', { channel, newStatus: false });
             return true;
         } catch (e) {
-            commit('setLoading', false);
+            commit('setLoadingForChannel', { channel, newStatus: false });
             return false;
         }
     },
 
     async sendMessage({ commit }, { channel, text, parent }) {
-        commit('setLoading', true);
+        commit('setLoadingForChannel', { channel, newStatus: true });
 
         try {
             const messages = await CommunicationService.sendMessage(channel, text, parent);
             commit('setChannelMessages', { channel, messages });
-            commit('setLoading', false);
+            commit('setLoadingForChannel', { channel, newStatus: false });
             return true;
         } catch (e) {
-            commit('setLoading', false);
+            commit('setLoadingForChannel', { channel, newStatus: false });
             return false;
         }
     },
 
     async createPrivateChannel({ commit }) {
-        commit('setLoading', true);
+        commit('setLoadingOfChannels', true);
 
         try {
             const newChannel = await CommunicationService.createPrivateChannel();
             commit('addChannel', newChannel);
-            commit('setLoading', false);
+            commit('setLoadingOfChannels', false);
 
             return true;
         } catch (e) {
-            commit('setLoading', false);
+            commit('setLoadingOfChannels', false);
             return false;
         }
+    },
+
+    clearRoomLogs({ getters, commit }) {
+        commit('setChannelMessages', { channel: getters.roomChannel, messages: [] });
+    },
+    async loadRoomLogs({ getters, dispatch }) {
+        await dispatch('loadMessages', { channel: getters.roomChannel });
     }
 };
 
 const mutations = {
-    setLoading(state, newStatus) {
-        state.loading = newStatus;
+    setLoadingOfChannels(state, newStatus) {
+        state.loadingChannels = newStatus;
+    },
+
+    setLoadingForChannel(state, { channel, newStatus }) {
+        state.loadingByChannelId[channel.id] = newStatus;
     },
 
     setCurrentChannel(state, channel) {

@@ -2,6 +2,7 @@
 
 namespace Mush\Equipment\Service;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
@@ -132,10 +133,11 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             throw new \LogicException('Parameter is not a plant');
         }
 
-        $this->statusService->createChargeEquipmentStatus(
+        $this->statusService->createChargeStatus(
             EquipmentStatusEnum::PLANT_YOUNG,
             $gameEquipment,
             ChargeStrategyTypeEnum::GROWING_PLANT,
+            null,
             VisibilityEnum::PUBLIC,
             VisibilityEnum::HIDDEN,
             0,
@@ -151,12 +153,13 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             throw new \LogicException('Parameter is not a charged mechanic');
         }
 
-        $chargeStatus = $this->statusService->createChargeEquipmentStatus(
+        $chargeStatus = $this->statusService->createChargeStatus(
             EquipmentStatusEnum::CHARGES,
             $gameEquipment,
-            VisibilityEnum::PUBLIC,
-            VisibilityEnum::PUBLIC,
             $charged->getChargeStrategy(),
+            null,
+            VisibilityEnum::PUBLIC,
+            VisibilityEnum::PUBLIC,
             $charged->getStartCharge(),
             $charged->getMaxCharge()
         );
@@ -188,7 +191,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
 
     private function initStatus(GameEquipment $gameEquipment, string $statusName): GameEquipment
     {
-        $this->statusService->createCoreEquipmentStatus(
+        $this->statusService->createCoreStatus(
             $statusName,
             $gameEquipment
         );
@@ -266,5 +269,21 @@ class GameEquipmentService implements GameEquipmentServiceInterface
     private function getGameConfig(GameEquipment $gameEquipment): GameConfig
     {
         return $gameEquipment->getEquipment()->getGameConfig();
+    }
+
+    public function getDoorsByDaedalus(Daedalus $daedalus): Collection
+    {
+        //@FIXME use gameEquipment respository
+        $doors = new ArrayCollection();
+
+        foreach ($daedalus->getRooms() as $room) {
+            foreach ($room->getDoors() as $door) {
+                if (!$doors->contains($door)) {
+                    $doors->add($door);
+                }
+            }
+        }
+
+        return $doors;
     }
 }

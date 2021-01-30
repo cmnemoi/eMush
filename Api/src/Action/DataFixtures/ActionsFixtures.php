@@ -22,7 +22,8 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
     public const DRUG_CONSUME = 'drug.consume';
     public const RATION_CONSUME = 'ration.consume';
     public const BUILD_DEFAULT = 'build.default';
-    public const READ_DEFAULT = 'read.default';
+    public const READ_DOCUMENT = 'read.document';
+    public const READ_BOOK = 'read.book';
     public const ATTACK_DEFAULT = 'attack.default';
     public const EXTINGUISH_DEFAULT = 'extinguish.default';
     public const TRY_KUBE = 'try.kube';
@@ -36,7 +37,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
     public const HEAL_ULTRA = 'heal.ultra';
     public const WRITE_DEFAULT = 'write.default';
     public const GAG_DEFAULT = 'gag.default';
-    public const HYPERFREEZE_DEFAULT = 'hyperfreez.default';
+    public const HYPERFREEZE_DEFAULT = 'hyperfreeze.default';
     public const SHOWER_DEFAULT = 'shower.default';
     public const FUEL_INJECT = 'fuel.inject';
     public const FUEL_RETRIEVE = 'fuel.retrieve';
@@ -70,7 +71,6 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $moveAction
             ->setName(ActionEnum::MOVE)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(1)
             ->setActionCost($oneMovementPointCost)
         ;
         $manager->persist($moveAction);
@@ -161,10 +161,21 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
             ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(0)
             ->setDirtyRate(0)
-            ->setActionCost($freeCost)
+            ->setActionCost($twoActionPointCost)
         ;
 
         $manager->persist($readAction);
+
+        $readDocument = new Action();
+        $readDocument
+            ->setName(ActionEnum::READ_DOCUMENT)
+            ->setScope(ActionScopeEnum::CURRENT)
+            ->setInjuryRate(0)
+            ->setDirtyRate(0)
+            ->setActionCost($freeCost)
+        ;
+
+        $manager->persist($readDocument);
 
         $attackAction = new Action();
         $attackAction
@@ -231,7 +242,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ActionEnum::EXPRESS_COOK)
             ->setScope(ActionScopeEnum::ROOM)
             ->setTarget(GameItem::class)
-            ->setActionCost($oneActionPointCost)
+            ->setActionCost($freeCost)
         ;
 
         $manager->persist($expressCookAction);
@@ -283,14 +294,15 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->persist($writeAction);
 
-        $hyperfreezAction = new Action();
-        $hyperfreezAction
+        $hyperfreezeAction = new Action();
+        $hyperfreezeAction
             ->setName(ActionEnum::HYPERFREEZE)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setScope(ActionScopeEnum::ROOM)
+            ->setTarget(GameItem::class)
             ->setActionCost($oneActionPointCost)
         ;
 
-        $manager->persist($hyperfreezAction);
+        $manager->persist($hyperfreezeAction);
 
         $gagAction = new Action();
         $gagAction
@@ -360,7 +372,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $getUpAction = new Action();
         $getUpAction
             ->setName(ActionEnum::GET_UP)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setScope(ActionScopeEnum::SELF)
             ->setActionCost($freeCost)
         ;
 
@@ -446,7 +458,8 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::RATION_CONSUME, $rationConsumeAction);
         $this->addReference(self::DRUG_CONSUME, $drugConsumeAction);
         $this->addReference(self::BUILD_DEFAULT, $buildAction);
-        $this->addReference(self::READ_DEFAULT, $readAction);
+        $this->addReference(self::READ_DOCUMENT, $readDocument);
+        $this->addReference(self::READ_BOOK, $readAction);
         $this->addReference(self::ATTACK_DEFAULT, $attackAction);
         $this->addReference(self::EXTINGUISH_DEFAULT, $extinguishAction);
         $this->addReference(self::TRY_KUBE, $tryKubeAction);
@@ -459,7 +472,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::HEAL_SELF, $selfHealAction);
         $this->addReference(self::HEAL_ULTRA, $ultraHealAction);
         $this->addReference(self::WRITE_DEFAULT, $writeAction);
-        $this->addReference(self::HYPERFREEZE_DEFAULT, $hyperfreezAction);
+        $this->addReference(self::HYPERFREEZE_DEFAULT, $hyperfreezeAction);
         $this->addReference(self::GAG_DEFAULT, $gagAction);
         $this->addReference(self::SHOWER_DEFAULT, $showerAction);
         $this->addReference(self::FUEL_INJECT, $fuelInjectAction);

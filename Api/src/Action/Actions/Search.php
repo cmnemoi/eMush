@@ -12,8 +12,6 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\Target;
-use Mush\RoomLog\Enum\ActionLogEnum;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -77,9 +75,9 @@ class Search extends AbstractAction
 
             $target = new Target($itemFound->getName(), 'items');
 
-            return new Success(ActionLogEnum::SEARCH_SUCCESS, VisibilityEnum::PUBLIC, $target);
+            return new Success($target);
         } else {
-            return new Fail(ActionLogEnum::SEARCH_FAIL, VisibilityEnum::COVERT);
+            return new Fail();
         }
     }
 }

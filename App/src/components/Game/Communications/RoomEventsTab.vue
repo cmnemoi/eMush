@@ -1,5 +1,5 @@
 <template>
-    <div id="room-events-tab" class="chatbox-container">
+    <TabContainer :channel="channel">
         <section v-for="(cycleRoomLog, id) in roomLogs.slice().reverse()" :key="id" class="unit">
             <div class="banner cycle-banner">
                 <img class="expand" src="@/assets/images/comms/less.png">
@@ -9,17 +9,21 @@
                 <Log v-for="(roomLog, id) in cycleRoomLog.roomLogs" :key="id" :room-log="roomLog" />
             </div>
         </section>
-    </div>
+    </TabContainer>
 </template>
 
 <script>
 import { mapActions, mapGetters } from "vuex";
 import { Channel } from "@/entities/Channel";
 import Log from "@/components/Game/Communications/Messages/Log";
+import TabContainer from "@/components/Game/Communications/TabContainer";
 
 export default {
     name: "RoomEventsTab",
-    components: { Log },
+    components: {
+        Log,
+        TabContainer
+    },
     props: {
         channel: Channel
     },
@@ -44,11 +48,8 @@ export default {
 
 <style lang="scss" scoped>
 
-#room-events-tab {
-    overflow: auto;
-    padding: 7px;
-
-    .unit { padding: 1px 0 !important; }
+.unit {
+    padding: 1px 0 !important;
 }
 
 </style>

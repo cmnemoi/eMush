@@ -21,7 +21,6 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
-use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -29,8 +28,6 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class DisasembleActionTest extends AbstractActionTest
 {
-    /** @var RoomLogServiceInterface | Mockery\Mock */
-    private RoomLogServiceInterface $roomLogService;
     /** @var GameEquipmentServiceInterface | Mockery\Mock */
     private GameEquipmentServiceInterface $gameEquipmentService;
     /** @var PlayerServiceInterface | Mockery\Mock */
@@ -49,7 +46,6 @@ class DisasembleActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
         $this->successRateService = Mockery::mock(SuccessRateServiceInterface::class);
@@ -60,7 +56,6 @@ class DisasembleActionTest extends AbstractActionTest
 
         $this->action = new Disassemble(
             $this->eventDispatcher,
-            $this->roomLogService,
             $this->gameEquipmentService,
             $this->playerService,
             $this->randomService,
@@ -124,6 +119,7 @@ class DisasembleActionTest extends AbstractActionTest
         $item = new ItemConfig();
         $gameItem->setEquipment($item);
         $gameItem
+            ->setName('some name')
             ->setRoom($room)
         ;
 
@@ -131,8 +127,6 @@ class DisasembleActionTest extends AbstractActionTest
             ->setActions(new ArrayCollection([$this->actionEntity]))
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
         ;
-
-        $this->roomLogService->shouldReceive('createPlayerLog')->twice();
 
         $this->gameEquipmentService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');

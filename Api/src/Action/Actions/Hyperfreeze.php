@@ -17,9 +17,7 @@ use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
-use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -96,17 +94,16 @@ class Hyperfreeze extends AbstractAction
 
             $this->gameEquipmentService->persist($newItem);
         } else {
-            $frozenStatus = new Status($this->gameEquipment);
-            $frozenStatus
-                ->setName(EquipmentStatusEnum::FROZEN)
-                ->setVisibility(VisibilityEnum::PUBLIC)
-            ;
+            $this->statusService->createCoreStatus(
+                EquipmentStatusEnum::FROZEN,
+                $this->gameEquipment
+            );
 
             $this->gameEquipmentService->persist($this->gameEquipment);
         }
 
         $this->playerService->persist($this->player);
 
-        return new Success(ActionLogEnum::HYPERFREEZE_SUCCESS, VisibilityEnum::PRIVATE);
+        return new Success();
     }
 }

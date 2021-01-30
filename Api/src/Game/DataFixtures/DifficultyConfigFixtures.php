@@ -22,8 +22,8 @@ class DifficultyConfigFixtures extends Fixture implements DependentFixtureInterf
             ->setEquipmentBreakRate(30)
             ->setDoorBreakRate(40)
             ->setEquipmentFireBreakRate(5)
-            ->setStartingFireRate(5)
-            ->setPropagatingFireRate(50)
+            ->setStartingFireRate(2)
+            ->setPropagatingFireRate(25)
             ->setHullFireDamageRate(50)
             ->setTremorRate(5)
             ->setMetalPlateRate(5)
@@ -35,6 +35,7 @@ class DifficultyConfigFixtures extends Fixture implements DependentFixtureInterf
             ->setTremorPlayerDamage([1 => 1, 2 => 1, 3 => 1])
             ->setMetalPlatePlayerDamage([4 => 1, 5 => 1, 6 => 1])
             ->setPanicCrisisPlayerDamage([3 => 1])
+            ->setPlantDiseaseRate(5)
         ;
 
         $manager->persist($difficultyConfig);

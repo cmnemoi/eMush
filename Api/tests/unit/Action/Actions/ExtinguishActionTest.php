@@ -20,7 +20,6 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
 use Mush\Room\Service\RoomServiceInterface;
-use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -29,8 +28,6 @@ use Mush\Status\Service\StatusServiceInterface;
 
 class ExtinguishActionTest extends AbstractActionTest
 {
-    /** @var RoomLogServiceInterface | Mockery\Mock */
-    private RoomLogServiceInterface $roomLogService;
     /** @var RoomServiceInterface | Mockery\Mock */
     private RoomServiceInterface $roomService;
     /** @var PlayerServiceInterface | Mockery\Mock */
@@ -51,7 +48,6 @@ class ExtinguishActionTest extends AbstractActionTest
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::REPAIR, 1);
 
-        $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
         $this->roomService = Mockery::mock(roomServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
         $this->successRateService = Mockery::mock(SuccessRateServiceInterface::class);
@@ -60,7 +56,6 @@ class ExtinguishActionTest extends AbstractActionTest
 
         $this->action = new Extinguish(
             $this->eventDispatcher,
-            $this->roomLogService,
             $this->playerService,
             $this->randomService,
             $this->successRateService,
@@ -137,8 +132,6 @@ class ExtinguishActionTest extends AbstractActionTest
 
         $actionParameter = new ActionParameters();
         $actionParameter->setItem($gameItem);
-
-        $this->roomLogService->shouldReceive('createActionLog')->twice();
 
         $this->roomService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');

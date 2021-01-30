@@ -17,7 +17,8 @@ class GameConfigFixtures extends Fixture
         $gameConfig
             ->setName('default')
             ->setNbMush(2)
-            ->setCycleLength(3)
+            ->setCyclePerGameDay(8)
+            ->setCycleLength(60 * 3)
             ->setTimeZone('Europe/Paris')
             ->setLanguage('Fr-fr')
             ->setMaxNumberPrivateChannel(3)
@@ -31,8 +32,6 @@ class GameConfigFixtures extends Fixture
             ->setInitMovementPoint(12)
             ->setMaxMovementPoint(12)
             ->setMaxItemInInventory(3)
-            ->setMaxOxygen(32)
-            ->setMaxFuel(32)
         ;
 
         $manager->persist($gameConfig);

@@ -108,12 +108,12 @@ class EquipmentEffectServiceTest extends TestCase
         $fruit = new Fruit();
 
         $fruit
-            ->setDiseasesEffectChance([100 => 64, 25 => 1])
+            ->setDiseasesChances([100 => 64, 25 => 1])
             ->setDiseasesName([
                         'disease1' => 1,
                         'disease2' => 6, ])
-            ->setDiseasesEffectDelayMin([0 => 1, 5 => 1])
-            ->setDiseasesEffectDelayLength([7 => 1])
+            ->setDiseasesDelayMin([0 => 1, 5 => 1])
+            ->setDiseasesDelayLength([7 => 1])
             ->setFruitEffectsNumber([0 => 35, 1 => 40, 2 => 15])
             ->setExtraEffects(['extraActionPoint' => 50])
         ;
@@ -205,8 +205,7 @@ class EquipmentEffectServiceTest extends TestCase
         $plant = new Plant();
 
         $plant
-            ->setMinOxygen(0)
-            ->setMaxOxygen(10)
+            ->setOxygen([1 => 1])
             ->setMaturationTime([10 => 1])
         ;
         $plantEffectFromRepository = new PlantEffect();
@@ -232,13 +231,13 @@ class EquipmentEffectServiceTest extends TestCase
         ;
 
         $this->randomService
-            ->shouldReceive('random')
+            ->shouldReceive('getSingleRandomElementFromProbaArray')
             ->andReturn(8)
             ->once()
         ;
         $this->randomService
             ->shouldReceive('getSingleRandomElementFromProbaArray')
-            ->andReturn(8)
+            ->andReturn(1)
             ->once()
         ;
         $plantEffect = $this->service->getPlantEffect($plant, $daedalus);
@@ -246,7 +245,7 @@ class EquipmentEffectServiceTest extends TestCase
         $this->assertInstanceOf(PlantEffect::class, $plantEffect);
         $this->assertEquals($daedalus, $plantEffect->getDaedalus());
         $this->assertEquals($plant, $plantEffect->getPlant());
-        $this->assertEquals(8, $plantEffect->getOxygen());
+        $this->assertEquals(1, $plantEffect->getOxygen());
         $this->assertEquals(8, $plantEffect->getMaturationTime());
     }
 }

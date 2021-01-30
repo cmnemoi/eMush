@@ -378,7 +378,7 @@
 		<unit id="kim_jin_su">
             <segment id="name">
                 <source>kim_jin_su.name</source>
-                <target>Jin-Su</target>
+                <target>Jin Su</target>
             </segment>
             <segment id="fullname">
                 <source>kim_jin_su.fullname</source>
@@ -416,7 +416,7 @@
 		<unit id="kuan_ti">
             <segment id="name">
                 <source>kuan_ti.name</source>
-                <target>Lai</target>
+                <target>Kuan Ti</target>
             </segment>
             <segment id="fullname">
                 <source>kuan_ti.fullname</source>

@@ -14,9 +14,7 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
-use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -26,13 +24,11 @@ class Sabotage extends AttemptAction
 
     private GameEquipment $gameEquipment;
 
-    private RoomLogServiceInterface $roomLogService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
-        RoomLogServiceInterface $roomLogService,
         GameEquipmentServiceInterface $gameEquipmentService,
         PlayerServiceInterface $playerService,
         RandomServiceInterface $randomService,
@@ -41,7 +37,6 @@ class Sabotage extends AttemptAction
     ) {
         parent::__construct($randomService, $successRateService, $eventDispatcher, $statusService);
 
-        $this->roomLogService = $roomLogService;
         $this->gameEquipmentService = $gameEquipmentService;
         $this->playerService = $playerService;
         $this->randomService = $randomService;
@@ -81,22 +76,7 @@ class Sabotage extends AttemptAction
 
         $this->playerService->persist($this->player);
 
-        //@TODO get rid of that
-        $this->createLog($response);
-
         return $response;
-    }
-
-    protected function createLog(ActionResult $actionResult): void
-    {
-        $this->roomLogService->createEquipmentLog(
-            ActionLogEnum::SABOTAGE_SUCCESS,
-            $this->player->getRoom(),
-            $this->player,
-            $this->gameEquipment,
-            VisibilityEnum::PUBLIC,
-            new \DateTime('now')
-        );
     }
 
     protected function getBaseRate(): int

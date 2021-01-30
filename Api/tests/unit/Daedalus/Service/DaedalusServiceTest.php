@@ -12,9 +12,11 @@ use Mush\Daedalus\Repository\DaedalusRepository;
 use Mush\Daedalus\Service\DaedalusService;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
@@ -23,6 +25,7 @@ use Mush\Room\Entity\RoomConfig;
 use Mush\Room\Enum\RoomEnum;
 use Mush\Room\Service\RoomServiceInterface;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Mush\Status\Enum\PlayerStatusEnum;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -83,6 +86,7 @@ class DaedalusServiceTest extends TestCase
         $roomConfig = new RoomConfig();
 
         $gameConfig = new GameConfig();
+        $gameConfig->setCyclePerGameDay(8)->setCycleLength(3 * 60);
         $daedalusConfig = new DaedalusConfig();
 
         $item = new ItemConfig();
@@ -123,8 +127,14 @@ class DaedalusServiceTest extends TestCase
         ;
 
         $this->cycleService
-            ->shouldReceive('getCycleFromDate')
-            ->andReturn(5)
+            ->shouldReceive('getInDayCycleFromDate')
+            ->andReturn(1)
+            ->once()
+        ;
+
+        $this->cycleService
+            ->shouldReceive('getDaedalusStartingCycleDate')
+            ->andReturn(new \DateTime('today midnight'))
             ->once()
         ;
 
@@ -159,7 +169,8 @@ class DaedalusServiceTest extends TestCase
         $this->assertEquals($daedalusConfig->getInitOxygen(), $daedalus->getOxygen());
         $this->assertEquals($daedalusConfig->getInitHull(), $daedalus->getHull());
         $this->assertEquals($daedalusConfig->getInitShield(), $daedalus->getShield());
-        $this->assertEquals(5, $daedalus->getCycle());
+        $this->assertEquals(1, $daedalus->getCycle());
+        $this->assertEquals(new \DateTime('today midnight'), $daedalus->getCycleStartedAt());
         $this->assertCount(1, $daedalus->getRooms());
         $this->assertCount(0, $daedalus->getPlayers());
     }
@@ -168,6 +179,7 @@ class DaedalusServiceTest extends TestCase
     {
         $daedalus = new Daedalus();
         $gameConfig = new GameConfig();
+        $gameConfig->setCyclePerGameDay(8)->setCycleLength(3 * 60);
 
         $daedalus->setGameConfig($gameConfig);
 
@@ -190,5 +202,138 @@ class DaedalusServiceTest extends TestCase
         $result = $this->service->findAvailableCharacterForDaedalus($daedalus);
 
         $this->assertCount(0, $result);
+    }
+
+    public function testGetRandomAsphyxia()
+    {
+        $daedalus = new Daedalus();
+        $gameConfig = new GameConfig();
+        $gameConfig->setMaxItemInInventory(3);
+
+        $daedalus->setGameConfig($gameConfig);
+
+        $room1 = new Room();
+        $room2 = new Room();
+        $room3 = new Room();
+
+        $noCapsulePlayer = $this->createPlayer($daedalus, 'noCapsule');
+        $twoCapsulePlayer = $this->createPlayer($daedalus, 'twoCapsule');
+        $threeCapsulePlayer = $this->createPlayer($daedalus, 'threeCapsule');
+
+        $noCapsulePlayer->setRoom($room1);
+        $twoCapsulePlayer->setRoom($room2);
+        $threeCapsulePlayer->setRoom($room3);
+
+        $oxCapsuleConfig = new ItemConfig();
+        $oxCapsuleConfig->setName(ItemEnum::OXYGEN_CAPSULE);
+
+        $oxCapsule1 = new GameItem();
+        $oxCapsule2 = new GameItem();
+        $oxCapsule3 = new GameItem();
+        $oxCapsule4 = new GameItem();
+        $oxCapsule5 = new GameItem();
+
+        $oxCapsule1
+            ->setEquipment($oxCapsuleConfig)
+            ->setName(ItemEnum::OXYGEN_CAPSULE)
+            ->setPlayer($twoCapsulePlayer)
+        ;
+        $oxCapsule2
+            ->setEquipment($oxCapsuleConfig)
+            ->setName(ItemEnum::OXYGEN_CAPSULE)
+            ->setPlayer($twoCapsulePlayer)
+        ;
+
+        $oxCapsule3
+            ->setEquipment($oxCapsuleConfig)
+            ->setName(ItemEnum::OXYGEN_CAPSULE)
+            ->setPlayer($threeCapsulePlayer)
+        ;
+        $oxCapsule4
+            ->setEquipment($oxCapsuleConfig)
+            ->setName(ItemEnum::OXYGEN_CAPSULE)
+            ->setPlayer($threeCapsulePlayer)
+        ;
+        $oxCapsule5
+            ->setEquipment($oxCapsuleConfig)
+            ->setName(ItemEnum::OXYGEN_CAPSULE)
+            ->setPlayer($threeCapsulePlayer)
+        ;
+
+        $this->randomService->shouldReceive('getRandomPlayer')
+            ->andReturn($twoCapsulePlayer)
+            ->once()
+        ;
+        $this->roomLogService->shouldReceive('createPlayerLog')->once();
+        $this->randomService->shouldReceive('getRandomPlayer')
+            ->andReturn($noCapsulePlayer)
+            ->once()
+        ;
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->gameEquipmentService->shouldReceive('delete')->with($oxCapsule1)->once();
+
+        $result = $this->service->getRandomAsphyxia($daedalus);
+
+        $this->assertCount(1, $twoCapsulePlayer->getItems());
+        $this->assertCount(3, $threeCapsulePlayer->getItems());
+    }
+
+    public function testSelectAlphaMush()
+    {
+        $daedalus = new Daedalus();
+        $gameConfig = new GameConfig();
+        $gameConfig
+            ->setMaxItemInInventory(3)
+            ->setNbMush(2);
+
+        $daedalus->setGameConfig($gameConfig);
+
+        $characterConfigCollection = new ArrayCollection();
+        $gameConfig->setCharactersConfig($characterConfigCollection);
+
+        $player1 = $this->createPlayer($daedalus, 'player1');
+        $characterConfig1 = $player1->getCharacterConfig();
+        $characterConfigCollection->add($characterConfig1);
+
+        $player2 = $this->createPlayer($daedalus, 'player2');
+        $characterConfig2 = $player2->getCharacterConfig();
+        $characterConfigCollection->add($characterConfig2);
+
+        $player3 = $this->createPlayer($daedalus, 'player3');
+        $characterConfig3 = $player3->getCharacterConfig();
+        $characterConfigCollection->add($characterConfig3);
+
+        $imunizedPlayer = $this->createPlayer($daedalus, 'imunizedPlayer');
+        $characterConfigImunized = $imunizedPlayer->getCharacterConfig();
+        $characterConfigImunized->setStatuses([PlayerStatusEnum::IMMUNIZED]);
+        $characterConfigCollection->add($characterConfigImunized);
+
+        $this->randomService->shouldReceive('getRandomElementsFromProbaArray')
+            ->with(['player1' => 1, 'player2' => 1, 'player3' => 1, 'imunizedPlayer' => 0], 2)
+            ->andReturn(['player1', 'player3'])
+            ->once()
+        ;
+
+        $this->eventDispatcher->shouldReceive('dispatch')->twice();
+
+        $result = $this->service->selectAlphaMush($daedalus);
+    }
+
+    protected function createPlayer(Daedalus $daedalus, string $name): Player
+    {
+        $characterConfig = new CharacterConfig();
+        $characterConfig->setName($name);
+
+        $player = new Player();
+        $player
+            ->setActionPoint(10)
+            ->setMovementPoint(10)
+            ->setMoralPoint(10)
+            ->setDaedalus($daedalus)
+            ->setGameStatus(GameStatusEnum::CURRENT)
+            ->setCharacterConfig($characterConfig)
+        ;
+
+        return $player;
     }
 }

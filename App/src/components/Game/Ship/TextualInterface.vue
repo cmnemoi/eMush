@@ -77,7 +77,7 @@ export default {
     }
 
     & > *:last-child {
-        margin-bottom: 188px;
+        padding-bottom: 188px;
     }
 
     .door-action-button {

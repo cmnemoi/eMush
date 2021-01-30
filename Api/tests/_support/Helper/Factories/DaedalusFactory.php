@@ -6,6 +6,7 @@ namespace App\Tests\Helper\Factories;
 // all public methods declared in helper class will be available in $I
 
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 
@@ -29,16 +30,29 @@ class DaedalusFactory extends \Codeception\Module
             'fireHullDamage' => [2 => 1],
             'firePlayerDamage' => [2 => 1],
             'electricArcPlayerDamage' => [3 => 1],
-            'tremorPlayerDamage' => [3 => 1],
+            'tremorPlayerDamage' => [2 => 1],
             'metalPlatePlayerDamage' => [6 => 1],
             'panicCrisisPlayerDamage' => [3 => 1],
+            'plantDiseaseRate' => 0,
+        ]);
+        $factory->_define(DaedalusConfig::class, [
+            'maxOxygen' => 32,
+            'maxFuel' => 32,
+            'maxHull' => 100,
+            'initOxygen' => 32,
+            'initFuel' => 32,
+            'initHull' => 100,
+            'initShield' => -2,
+            'dailySporeNb' => 4,
         ]);
 
         $factory->_define(GameConfig::class, [
             'name' => 'default',
             'difficultyConfig' => 'entity|' . DifficultyConfig::class,
+            'daedalusConfig' => 'entity|' . DaedalusConfig::class,
             'nbMush' => 2,
             'cycleLength' => 3,
+            'cyclePerGameDay' => 8,
             'timeZone' => 'Paris/Europe',
             'language' => 'fr-FR',
             'maxNumberPrivateChannel' => 3,
@@ -52,9 +66,8 @@ class DaedalusFactory extends \Codeception\Module
             'initMovementPoint' => 12,
             'maxMovementPoint' => 12,
             'maxItemInInventory' => 12,
-            'maxOxygen' => 32,
-            'maxFuel' => 32,
         ]);
+
         $factory->_define(Daedalus::class, [
             'gameConfig' => 'entity|' . GameConfig::class,
             'oxygen' => 10,
@@ -63,6 +76,7 @@ class DaedalusFactory extends \Codeception\Module
             'shield' => -2,
             'day' => 1,
             'cycle' => 1,
+            'cycleStartedAt' => new \DateTime('today midnight'),
         ]);
     }
 }

@@ -19,9 +19,7 @@
             <img src="@/assets/images/comms/calendar.png"><span>Jour {{ day }} - Cycle {{ cycle }}</span>
         </div>
 
-        <div class="tabs-content">
-            <component :is="currentTabComponent" v-if="! loading" :channel="currentChannel" />
-        </div>
+        <component :is="currentTabComponent" :channel="currentChannel" />
     </div>
 </template>
 
@@ -63,9 +61,6 @@ export default {
             'channels',
             'currentChannel'
         ]),
-        ...mapState('player', [
-            'loading'
-        ]),
         displayNewTab() {
             if (! this.channels || ! this.channels.length) { return false; }
             return this.channels.filter(channel => channel.scope === PRIVATE).length < MAX_PRIVATE_TABS_NB;
@@ -103,29 +98,7 @@ export default {
 <style lang="scss"> //Not scoped to apply to children components
 
 #comms-panel {
-    .tabs-content {
-        min-width: 100%;
-        font-size: 0.8em;
-    }
-
     .chatbox-container {
-        display: flex;
-        position: relative;
-        z-index: 2;
-        height: 436px;
-        margin-top: -1px;
-        color: #090a61;
-        line-height: initial;
-        background: rgba(194, 243, 252, 1);
-
-        @include corner-bezel(0, 6.5px, 0);
-
-        .chatbox {
-            overflow: auto;
-            padding: 7px;
-            color: #090a61;
-        }
-
         .unit {
             padding: 5px 0;
         }
@@ -141,21 +114,6 @@ export default {
                 height: 100%;
                 margin-left: 3px;
                 img { padding: 0 0.2em 0 0; }
-            }
-        }
-
-        .chat-expand {
-            display: flex;
-            padding: 4px;
-            color: #67b000;
-            border-radius: 3px;
-            font-size: 0.8em;
-            text-decoration: underline;
-
-            &.active,
-            &:hover,
-            &:focus {
-                background: #a6eefb;
             }
         }
 
@@ -192,20 +150,6 @@ export default {
         font-style: italic;
         opacity: 0.5;
         float: right;
-    }
-
-    /* SCROLLBAR STYLING */
-
-    .chatbox,
-    .chatbox-container {
-        --scrollbarBG: white;
-        --thumbBG: #090a61;
-
-        scrollbar-width: thin;
-        scrollbar-color: var(--thumbBG) var(--scrollbarBG);
-        &::-webkit-scrollbar { width: 6px; }
-        &::-webkit-scrollbar-track { background: var(--scrollbarBG); }
-        &::-webkit-scrollbar-thumb { background-color: var(--thumbBG); }
     }
 }
 

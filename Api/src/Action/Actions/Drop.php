@@ -13,8 +13,6 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\Target;
-use Mush\RoomLog\Enum\ActionLogEnum;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -85,6 +83,6 @@ class Drop extends AbstractAction
 
         $target = new Target($this->gameItem->getName(), 'items');
 
-        return new Success(ActionLogEnum::DROP, VisibilityEnum::PUBLIC, $target);
+        return new Success($target);
     }
 }

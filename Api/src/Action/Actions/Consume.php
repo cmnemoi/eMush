@@ -3,6 +3,7 @@
 namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
+use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
@@ -19,7 +20,6 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -86,15 +86,17 @@ class Consume extends AbstractAction
 
         if (!$this->player->isMush()) {
             $this->dispatchConsumableEffects($equipmentEffect);
+            $response = new Fail();
         }
 
         // If the ration is a drug player get Drug_Eaten status that prevent it from eating another drug this cycle.
         if ($rationType instanceof Drug) {
             $drugEatenStatus = $this->statusService
-                ->createChargePlayerStatus(
+                ->createChargeStatus(
                     PlayerStatusEnum::DRUG_EATEN,
                     $this->player,
                     ChargeStrategyTypeEnum::CYCLE_DECREMENT,
+                    null,
                     VisibilityEnum::HIDDEN,
                     VisibilityEnum::HIDDEN,
                     1,
@@ -109,7 +111,7 @@ class Consume extends AbstractAction
         $equipmentEvent = new EquipmentEvent($this->gameEquipment, VisibilityEnum::HIDDEN);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
-        return new Success(ActionLogEnum::CONSUME_SUCCESS, VisibilityEnum::COVERT);
+        return new Success();
     }
 
     private function dispatchConsumableEffects(ConsumableEffect $consumableEffect): void

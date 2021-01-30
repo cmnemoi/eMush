@@ -13,8 +13,6 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\Target;
-use Mush\RoomLog\Enum\ActionLogEnum;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Enum\EquipmentStatusEnum as EnumEquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -77,7 +75,7 @@ class Take extends AbstractAction
 
         // add BURDENED status if item is heavy
         if ($item->isHeavy()) {
-            $this->statusService->createCorePlayerStatus(PlayerStatusEnum::BURDENED, $this->player);
+            $this->statusService->createCoreStatus(PlayerStatusEnum::BURDENED, $this->player);
         }
 
         if ($hiddenStatus = $this->gameItem->getStatusByName(EnumEquipmentStatusEnum::HIDDEN)) {
@@ -90,6 +88,6 @@ class Take extends AbstractAction
 
         $target = new Target($this->gameItem->getName(), 'items');
 
-        return new Success(ActionLogEnum::TAKE, VisibilityEnum::PUBLIC, $target);
+        return new Success($target);
     }
 }

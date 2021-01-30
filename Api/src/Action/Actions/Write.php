@@ -14,7 +14,6 @@ use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ContentStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -74,6 +73,6 @@ class Write extends AbstractAction
         $this->gameEquipmentService->persist($newGameItem);
         $this->playerService->persist($this->player);
 
-        return new Success(ActionLogEnum::WRITE_SUCCESS, VisibilityEnum::PUBLIC);
+        return new Success();
     }
 }

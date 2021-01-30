@@ -1,11 +1,12 @@
 <template>
     <section :class="'log ' + roomLog.visibility">
-        <p class="text-log" v-html="format(roomLog.message)" />
+        <p class="text-log" v-html="formatLog(roomLog.message)" />
         <span class="timestamp">{{ formatDate(roomLog.date, {local: "fr-FR"}) }}</span>
     </section>
 </template>
 
 <script>
+import { formatText } from "@/utils/formatText";
 import { RoomLog } from "@/entities/RoomLog";
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import { fr } from 'date-fns/locale';
@@ -19,14 +20,9 @@ export default {
         formatDate: (date) => {
             return formatDistanceToNow(date, { locale : fr });
         },
-        format: function (value) {
-            // console.log(value)
-            if (!value) return '';
-            value = value.toString();
-            value = value.replaceAll(/\*\*(.*)\*\*/g, '<strong>$1</strong>');
-            value = value.replaceAll(/\*(.*)\*/g, '<em>$1</em>');
-            value = value.replaceAll(/:pa:/g, '<img src="'+require("@/assets/images/pa.png")+'" alt="pa">');
-            return value.replaceAll(/:pm:/g, '<img src="'+require("@/assets/images/pm.png")+'" alt="pm">');
+        formatLog(value) {
+            if (! value) return '';
+            return formatText(value.toString());
         }
     }
 };
@@ -116,7 +112,7 @@ export default {
     }
 }
 
-p {
+.text-log {
     margin: 0;
     font-size: 0.95em;
     /deep/ img { vertical-align: middle; }

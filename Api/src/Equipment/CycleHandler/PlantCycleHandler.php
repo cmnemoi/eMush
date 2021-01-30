@@ -34,8 +34,6 @@ class PlantCycleHandler extends AbstractCycleHandler
     private DaedalusServiceInterface $daedalusService;
     private EquipmentEffectServiceInterface $equipmentEffectService;
 
-    private const DISEASE_PERCENTAGE = 3;
-
     public function __construct(
         GameEquipmentServiceInterface $gameEquipmentService,
         RandomServiceInterface $randomService,
@@ -67,14 +65,6 @@ class PlantCycleHandler extends AbstractCycleHandler
             return;
         }
 
-        if ($this->randomService->randomPercent() <= self::DISEASE_PERCENTAGE) {
-            $diseased = new Status($gamePlant);
-            $diseased
-                ->setName(EquipmentStatusEnum::PLANT_DISEASED)
-                ->setVisibility(VisibilityEnum::PUBLIC)
-            ;
-        }
-
         $plantEffect = $this->equipmentEffectService->getPlantEffect($plantType, $daedalus);
 
         /** @var ChargeStatus $youngStatus */
@@ -93,6 +83,12 @@ class PlantCycleHandler extends AbstractCycleHandler
                 VisibilityEnum::PUBLIC,
                 $dateTime
             );
+        }
+
+        $diseaseRate = $daedalus->getGameConfig()->getDifficultyConfig()->getPlantDiseaseRate();
+
+        if ($this->randomService->isSuccessfull($diseaseRate)) {
+            $this->statusService->createCoreStatus(EquipmentStatusEnum::PLANT_DISEASED, $gamePlant);
         }
 
         $this->gameEquipmentService->persist($gamePlant);
@@ -150,7 +146,7 @@ class PlantCycleHandler extends AbstractCycleHandler
         if (($thirsty = $gamePlant->getStatusByName(EquipmentStatusEnum::PLANT_THIRSTY)) !== null) {
             $gamePlant->removeStatus($thirsty);
             $driedStatus = $this->statusService
-                ->createCoreEquipmentStatus(EquipmentStatusEnum::PLANT_DRIED_OUT, $gamePlant)
+                ->createCoreStatus(EquipmentStatusEnum::PLANT_DRIED_OUT, $gamePlant)
             ;
             $gamePlant->addStatus($driedStatus);
         // If plant was dried, become hydropot
@@ -159,7 +155,7 @@ class PlantCycleHandler extends AbstractCycleHandler
         // If plant was not thirsty or dried become thirsty
         } else {
             $thirstyStatus = $this->statusService
-                ->createCoreEquipmentStatus(EquipmentStatusEnum::PLANT_THIRSTY, $gamePlant)
+                ->createCoreStatus(EquipmentStatusEnum::PLANT_THIRSTY, $gamePlant)
             ;
             $gamePlant->addStatus($thirstyStatus);
         }

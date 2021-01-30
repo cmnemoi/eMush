@@ -19,6 +19,7 @@
                 :is="targetPanel"
                 v-else-if="selectedTarget"
                 :target="selectedTarget"
+                @executeAction="executeTargetAction"
             />
         </div>
         <p v-else class="loading">
@@ -36,7 +37,6 @@ import Statuses from "@/components/Utils/Statuses";
 import TextualInterface from "@/components/Game/Ship/TextualInterface";
 import { Room } from "@/entities/Room";
 import { Player } from "@/entities/Player";
-import ActionService from "@/services/action.service";
 import { mapActions, mapState } from "vuex";
 
 export default {
@@ -67,11 +67,17 @@ export default {
         }
     },
     methods: {
+        ...mapActions('action', [
+            'executeAction'
+        ]),
         async executeDoorAction({ door, action }) {
-            this.setLoading();
             this.isInventoryOpen = false;
-            await ActionService.executeDoorAction(door, action);
-            await this.reloadPlayer();
+            this.selectedTarget = null;
+            await this.executeAction({ target: door, action });
+        },
+        async executeTargetAction(action) {
+            await this.executeAction({ target: this.selectedTarget, action });
+            this.selectedTarget = null;
         },
         setTarget(target) {
             this.selectedTarget = target;
@@ -79,11 +85,7 @@ export default {
         },
         openInventory() {
             this.isInventoryOpen = true;
-        },
-        ...mapActions('player', [
-            'reloadPlayer',
-            'setLoading'
-        ])
+        }
     }
 };
 </script>

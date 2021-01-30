@@ -19,7 +19,6 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
-use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -28,8 +27,6 @@ use Mush\Status\Service\StatusServiceInterface;
 
 class RepairActionTest extends AbstractActionTest
 {
-    /** @var RoomLogServiceInterface | Mockery\Mock */
-    private RoomLogServiceInterface $roomLogService;
     /** @var GameEquipmentServiceInterface | Mockery\Mock */
     private GameEquipmentServiceInterface $gameEquipmentService;
     /** @var PlayerServiceInterface | Mockery\Mock */
@@ -50,7 +47,6 @@ class RepairActionTest extends AbstractActionTest
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::REPAIR, 1);
 
-        $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
         $this->successRateService = Mockery::mock(SuccessRateServiceInterface::class);
@@ -59,7 +55,6 @@ class RepairActionTest extends AbstractActionTest
 
         $this->action = new Repair(
             $this->eventDispatcher,
-            $this->roomLogService,
             $this->gameEquipmentService,
             $this->playerService,
             $this->randomService,
@@ -130,8 +125,6 @@ class RepairActionTest extends AbstractActionTest
             ->setEquipment($item)
             ->setRoom($room)
         ;
-
-        $this->roomLogService->shouldReceive('createEquipmentLog')->twice();
 
         $this->gameEquipmentService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');

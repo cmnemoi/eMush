@@ -151,67 +151,39 @@
         </unit>
         <unit id="tremor_gravity">
             <segment>
-                <source>tremor_gravity.character.male</source>
-                <target>La salle est soudain prise de fortes secousses. Les membres d'équipage présents se retrouvent par terre et le plafond s'effondre par endroit. Quelle épave...</target>
-            </segment>
-            <segment>
-                <source>tremor_gravity.character.female</source>
+                <source>tremor_gravity</source>
                 <target>La salle est soudain prise de fortes secousses. Les membres d'équipage présents se retrouvent par terre et le plafond s'effondre par endroit. Quelle épave...</target>
             </segment>
         </unit>
         <unit id="tremor_no_gravity">
             <segment>
-                <source>tremor_no_gravity.character.male</source>
-                <target>La salle est soudain prise de fortes secousses. Les objets volent à travers la pièce et heurtent les membres d'équipage présents.</target>
-            </segment>
-            <segment>
-                <source>tremor_no_gravity.character.female</source>
+                <source>tremor_no_gravity</source>
                 <target>La salle est soudain prise de fortes secousses. Les objets volent à travers la pièce et heurtent les membres d'équipage présents.</target>
             </segment>
         </unit>
         <unit id="electric_arc">
             <segment>
-                <source>electric_arc.character.male</source>
-                <target>Un surcharge électrique brutale fait crépiter les équipements de la pièce, une gigantesque décharge traverse les équipiers !</target>
-            </segment>
-            <segment>
-                <source>electric_arc.character.female</source>
+                <source>electric_arc</source>
                 <target>Un surcharge électrique brutale fait crépiter les équipements de la pièce, une gigantesque décharge traverse les équipiers !</target>
             </segment>
         </unit>
         <unit id="equipment_broken">
             <segment>
-                <source>equipment_broken.character.male.target.male</source>
+                <source>equipment_broken.target.male</source>
                 <target>Un **target** a été cassé !</target>
             </segment>
             <segment>
-                <source>equipment_broken.character.female.target.male</source>
-                <target>Un **target** a été cassé !</target>
-            </segment>
-            <segment>
-                <source>equipment_broken.character.male.target.female</source>
-                <target>Une **target** a été cassée !</target>
-            </segment>
-            <segment>
-                <source>equipment_broken.character.female.target.female</source>
+                <source>equipment_broken.target.female</source>
                 <target>Une **target** a été cassée !</target>
             </segment>
         </unit>
         <unit id="equipment_destroyed">
             <segment>
-                <source>equipment_destroyed.character.male.target.male</source>
+                <source>equipment_destroyed.target.male</source>
                 <target>Un **target** a été détruit !</target>
             </segment>
             <segment>
-                <source>equipment_destroyed.character.female.target.male</source>
-                <target>Un **target** a été détruit !</target>
-            </segment>
-            <segment>
-                <source>equipment_destroyed.character.male.target.female</source>
-                <target>Une **target** a été détruite !</target>
-            </segment>
-            <segment>
-                <source>equipment_destroyed.character.female.target.female</source>
+                <source>equipment_destroyed.target.female</source>
                 <target>Une **target** a été détruite !</target>
             </segment>
         </unit>
@@ -223,6 +195,26 @@
             <segment>
                 <source>panic_crisis.character.female</source>
                 <target>Vous ressentez des frissons, l'espoir vous quitte, vous vous demandez ce que vous faites ici et quand cet enfer va s'arrêter... Vous êtes victime d'une Crise de Panique.</target>
+            </segment>
+        </unit>
+        <unit id="plant_new_fruit">
+            <segment>
+                <source>plant_new_fruit.target.male</source>
+                <target>Oh ! Une des plantes a donné : un *target*.</target>
+            </segment>
+            <segment>
+                <source>plant_new_fruit.target.female</source>
+                <target>Oh ! Une des plantes a donné : une *target*.</target>
+            </segment>
+        </unit>
+        <unit id="plant_maturity">
+            <segment>
+                <source>plant_maturity.target.male</source>
+                <target>Un *target* est arrivé à maturité ! Enfin !</target>
+            </segment>
+            <segment>
+                <source>plant_maturity.target.female</source>
+                <target>Uns *target* est arrivée à maturité ! Enfin !</target>
             </segment>
         </unit>
     </file>

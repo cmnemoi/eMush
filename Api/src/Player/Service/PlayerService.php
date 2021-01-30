@@ -18,7 +18,6 @@ use Mush\Room\Enum\RoomEnum;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
-use Mush\Status\Entity\Status;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\User\Entity\User;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -107,11 +106,7 @@ class PlayerService implements PlayerServiceInterface
         ;
 
         foreach ($characterConfig->getStatuses() as $statusName) {
-            $status = new Status($player);
-            $status
-                ->setName($statusName)
-                ->setVisibility(VisibilityEnum::PUBLIC)
-            ;
+            $this->statusService->createCoreStatus($statusName, $player);
         }
 
         $this->persist($player);
@@ -260,6 +255,11 @@ class PlayerService implements PlayerServiceInterface
             $item->setPlayer(null);
             $item->setRoom($player->getRoom());
         }
+
+        foreach ($player->getStatuses() as $status) {
+            $player->removeStatus($status);
+        }
+
         //@TODO in case of assasination chance of disorder for roommates
         if ($grandBeyond = $player->getDaedalus()->getRoomByName(RoomEnum::GREAT_BEYOND)) {
             $player->setRoom($grandBeyond);

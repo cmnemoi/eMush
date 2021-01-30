@@ -148,13 +148,13 @@ class ActionModifierService implements ActionModifierServiceInterface
         $suicidalStatus = $player->getStatusByName(PlayerStatusEnum::SUICIDAL);
 
         if ($player->getMoralPoint() <= 1 && !$suicidalStatus) {
-            $this->statusService->createCorePlayerStatus(PlayerStatusEnum::SUICIDAL, $player);
+            $this->statusService->createCoreStatus(PlayerStatusEnum::SUICIDAL, $player, null, VisibilityEnum::PRIVATE);
         } elseif ($suicidalStatus) {
             $player->removeStatus($suicidalStatus);
         }
 
         if ($player->getMoralPoint() <= 4 && $player->getMoralPoint() > 1 && $demoralizedStatus) {
-            $this->statusService->createCorePlayerStatus(PlayerStatusEnum::DEMORALIZED, $player);
+            $this->statusService->createCoreStatus(PlayerStatusEnum::DEMORALIZED, $player, null, VisibilityEnum::PRIVATE);
         } elseif ($demoralizedStatus) {
             $player->removeStatus($demoralizedStatus);
         }
@@ -183,10 +183,11 @@ class ActionModifierService implements ActionModifierServiceInterface
         if (!$player->isMush()) {
             $player = $this->handleHumanStatus($player);
         } elseif ($satietyModifier >= 0) {
-            $this->statusService->createChargePlayerStatus(
+            $this->statusService->createChargeStatus(
                 PlayerStatusEnum::FULL_STOMACH,
                 $player,
                 ChargeStrategyTypeEnum::CYCLE_DECREMENT,
+                null,
                 VisibilityEnum::PUBLIC,
                 VisibilityEnum::HIDDEN,
                 2,
@@ -204,13 +205,13 @@ class ActionModifierService implements ActionModifierServiceInterface
         $fullStatus = $player->getStatusByName(PlayerStatusEnum::FULL_STOMACH);
 
         if ($player->getSatiety() < self::STARVING_STATUS_THRESHOLD && !$starvingStatus) {
-            $this->statusService->createCorePlayerStatus(PlayerStatusEnum::STARVING, $player);
+            $this->statusService->createCoreStatus(PlayerStatusEnum::STARVING, $player);
         } elseif ($player->getSatiety() >= self::STARVING_STATUS_THRESHOLD && $starvingStatus) {
             $player->removeStatus($starvingStatus);
         }
 
         if ($player->getSatiety() >= self::FULL_STOMACH_STATUS_THRESHOLD && !$fullStatus) {
-            $this->statusService->createCorePlayerStatus(PlayerStatusEnum::FULL_STOMACH, $player);
+            $this->statusService->createCoreStatus(PlayerStatusEnum::FULL_STOMACH, $player, null, VisibilityEnum::PRIVATE);
         } elseif ($fullStatus) {
             $player->removeStatus($fullStatus);
         }

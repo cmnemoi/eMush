@@ -8,8 +8,6 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Player\Entity\Player;
-use Mush\RoomLog\Enum\ActionLogEnum;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -45,6 +43,6 @@ class GetUp extends AbstractAction
             $this->player->removeStatus($lyingDownStatus);
         }
 
-        return new Success(ActionLogEnum::GET_UP, VisibilityEnum::PUBLIC);
+        return new Success();
     }
 }

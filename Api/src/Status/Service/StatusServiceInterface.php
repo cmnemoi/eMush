@@ -6,48 +6,21 @@ use Doctrine\Common\Collections\Collection;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
-use Mush\Room\Entity\Room;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
+use Mush\Status\Entity\StatusHolderInterface;
 
 interface StatusServiceInterface
 {
-    public function getStatusTargetingGameEquipment(GameEquipment $gameEquipment, string $statusName): ?Status;
+    public function createCoreStatus(string $statusName, StatusHolderInterface $owner, ?StatusHolderInterface $target = null, string $visibility = VisibilityEnum::PUBLIC): Status;
 
-    public function createCorePlayerStatus(string $statusName, Player $player): Status;
-
-    public function createCoreEquipmentStatus(string $statusName, GameEquipment $gameEquipment, string $visibilty = VisibilityEnum::PUBLIC): Status;
-
-    public function createCoreRoomStatus(string $statusName, Room $room, string $visibilty = VisibilityEnum::PUBLIC): Status;
-
-    public function createChargeEquipmentStatus(
+    public function createChargeStatus(
         string $statusName,
-        GameEquipment $gameEquipment,
+        StatusHolderInterface $owner,
         string $strategy,
-        string $visibilty = VisibilityEnum::PUBLIC,
-        string $chargeVisibilty = VisibilityEnum::PUBLIC,
-        int $charge = 0,
-        int $threshold = null,
-        bool $autoRemove = false
-    ): ChargeStatus;
-
-    public function createChargePlayerStatus(
-        string $statusName,
-        Player $player,
-        string $strategy,
-        string $visibilty = VisibilityEnum::PUBLIC,
-        string $chargeVisibilty = VisibilityEnum::PUBLIC,
-        int $charge = 0,
-        int $threshold = null,
-        bool $autoRemove = false
-    ): ChargeStatus;
-
-    public function createChargeRoomStatus(
-        string $statusName,
-        Room $room,
-        string $strategy,
+        ?StatusHolderInterface $target = null,
         string $visibilty = VisibilityEnum::PUBLIC,
         string $chargeVisibilty = VisibilityEnum::PUBLIC,
         int $charge = 0,
@@ -56,8 +29,6 @@ interface StatusServiceInterface
     ): ChargeStatus;
 
     public function createAttemptStatus(string $statusName, string $action, Player $player): Attempt;
-
-    public function createMushStatus(Player $player): ChargeStatus;
 
     public function createSporeStatus(Player $player): ChargeStatus;
 

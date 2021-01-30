@@ -13,7 +13,6 @@ use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
-use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -79,6 +78,6 @@ class Coffee extends AbstractAction
             $this->statusService->persist($chargeStatus);
         }
 
-        return new Success(ActionLogEnum::COFFEE_SUCCESS, VisibilityEnum::PUBLIC);
+        return new Success();
     }
 }

@@ -17,7 +17,6 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\Target;
-use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -91,8 +90,8 @@ class Transplant extends AbstractAction
         $this->playerService->persist($this->player);
 
         $type = $this->gameEquipment instanceof GameItem ? 'items' : 'equipments';
-        $target = new Target($this->gameEquipment->getName(), $type);
+        $target = new Target($plantEquipment->getName(), $type);
 
-        return new Success(ActionLogEnum::TRANSPLANT_SUCCESS, VisibilityEnum::PRIVATE, $target);
+        return new Success($target);
     }
 }

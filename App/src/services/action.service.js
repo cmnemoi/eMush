@@ -1,4 +1,5 @@
 import ApiService from "@/services/api.service";
+import { Door } from "@/entities/Door";
 import { Item } from "@/entities/Item";
 import { Player } from "@/entities/Player";
 import { Equipment } from "@/entities/Equipment";
@@ -20,30 +21,23 @@ const ActionService = {
         return ApiService.post(ACTION_ENDPOINT, data);
     },
 
-    executeTargetAction: (target, action) => {
-        let param = null;
-        if (target instanceof Item) {
-            param = 'item';
-        } else if (target instanceof Equipment) {
-            param = 'equipment';
-        } else if (target instanceof Player) {
-            param = 'player';
-        }
+    executeTargetAction(target, action) {
+        return ApiService.post(ACTION_ENDPOINT, {
+            action: action.id,
+            params: buildParams()
+        });
 
-        let params = {};
-        if (param !== null) {
-            params = {
-                [param]: target.id
-            };
+        function buildParams() {
+            if (target instanceof Door) {
+                return { door: target.id };
+            } else if (target instanceof Item) {
+                return { item: target.id };
+            } else if (target instanceof Equipment) {
+                return { equipment: target.id };
+            } else if (target instanceof Player) {
+                return { player: target.id };
+            }
         }
-
-        let data = {
-            "action": action.id,
-            "params": params
-        }
-        ;
-
-        return ApiService.post(ACTION_ENDPOINT, data);
     },
 
     executeDoorAction: (door, action) => {

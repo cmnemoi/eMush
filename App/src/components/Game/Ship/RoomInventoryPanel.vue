@@ -25,7 +25,6 @@
 import Inventory from "@/components/Game/Inventory";
 import ActionPanel from "@/components/Game/Ship/ActionPanel";
 import Statuses from "@/components/Utils/Statuses";
-import ActionService from "@/services/action.service";
 import { mapActions } from "vuex";
 
 export default {
@@ -48,13 +47,10 @@ export default {
             this.selectedItem = item;
         },
         async executeItemAction(action) {
-            this.setLoading();
-            await ActionService.executeItemAction(this.selectedItem, action);
-            await this.reloadPlayer();
+            this.executeAction({ target: this.selectedItem, action });
         },
-        ...mapActions('player', [
-            'reloadPlayer',
-            'setLoading'
+        ...mapActions('action', [
+            'executeAction'
         ])
     }
 };

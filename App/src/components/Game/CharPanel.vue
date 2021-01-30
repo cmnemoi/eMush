@@ -73,7 +73,6 @@ import { Player } from "@/entities/Player";
 import { characterEnum } from '@/enums/character';
 import Inventory from "@/components/Game/Inventory";
 import ActionButton from "@/components/Utils/ActionButton";
-import ActionService from "@/services/action.service";
 import Statuses from "@/components/Utils/Statuses";
 import { mapActions, mapState } from "vuex";
 
@@ -104,6 +103,9 @@ export default {
         }
     },
     methods: {
+        ...mapActions('action', [
+            'executeAction'
+        ]),
         isFull (value, threshold) {
             return {
                 "full": value <= threshold,
@@ -118,18 +120,11 @@ export default {
             }
         },
         async executeTargetAction(target, action) {
-            this.setLoading();
-            await ActionService.executeTargetAction(target, action);
-            await this.reloadPlayer();
+            await this.executeAction({ target, action });
             if (! this.player.items.includes(this.selectedItem)) {
                 this.selectedItem = null;
             }
-        },
-        ...mapActions('player', [
-            'reloadPlayer',
-            'selectTarget',
-            'setLoading'
-        ])
+        }
     }
 };
 </script>

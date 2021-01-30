@@ -82,6 +82,8 @@ class CycleService implements CycleServiceInterface
 
     private function getNumberOfCycleElapsed(DateTime $start, DateTime $end, GameConfig $gameConfig): int
     {
+        $start = clone $start;
+        $end = clone $end;
         $end->setTimezone(new \DateTimeZone($gameConfig->getTimeZone()));
         $start->setTimezone(new \DateTimeZone($gameConfig->getTimeZone()));
 

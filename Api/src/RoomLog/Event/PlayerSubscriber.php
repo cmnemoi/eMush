@@ -8,7 +8,7 @@ use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class PlayerSuscriber implements EventSubscriberInterface
+class PlayerSubscriber implements EventSubscriberInterface
 {
     private RoomLogServiceInterface $roomLogService;
 

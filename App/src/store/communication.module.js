@@ -82,7 +82,7 @@ const actions = {
         }
     },
 
-    resetRoomLogs({ commit, state }) {
+    clearRoomLogs({ commit, state }) {
         const roomChannel = state.channels.find(channel => channel.scope === ROOM_LOG);
         commit('setChannelMessages', { channel: roomChannel, messages: [] });
     }

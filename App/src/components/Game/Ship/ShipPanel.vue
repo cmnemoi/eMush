@@ -69,13 +69,13 @@ export default {
     },
     methods: {
         ...mapActions('communication', [
-            'resetRoomLogs'
+            'clearRoomLogs'
         ]),
         async executeDoorAction({ door, action }) {
             this.setLoading();
             this.isInventoryOpen = false;
             this.selectedTarget = null;
-            this.resetRoomLogs();
+            this.clearRoomLogs();
             await ActionService.executeDoorAction(door, action);
             await this.reloadPlayer();
         },

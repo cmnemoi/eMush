@@ -227,7 +227,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         }
 
         if (($gameEquipment instanceof Door &&
-            !DoorEnum::isUnbreakable($gameEquipment->getName()) &&
+            DoorEnum::isBreakable($gameEquipment->getName()) &&
             $this->randomService->isSuccessfull($this->getGameConfig($gameEquipment)->getDifficultyConfig()->getDoorBreakRate())) ||
             ($gameEquipment->getEquipment()->getBreakableRate() > 0 &&
             $this->randomService->isSuccessfull($this->getGameConfig($gameEquipment)->getDifficultyConfig()->getEquipmentBreakRate()))

@@ -91,7 +91,7 @@ class DoorEnum
         ];
     }
 
-    public static function isUnbreakable(string $doorName): bool
+    public static function isBreakable(string $doorName): bool
     {
         return in_array($doorName, [
             self::BRIDGE_FRONT_BRAVO_TURRET,

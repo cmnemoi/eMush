@@ -62,7 +62,7 @@ export default {
         }
     }
 };
-</script>return
+</script>
 
 <style lang="scss" scoped>
 

@@ -1,6 +1,10 @@
 <template>
     <div class="actions">
-        <button v-for="(actionType, key) in actions" :key="key">
+        <button
+            v-for="(actionType, key) in actions"
+            :key="key"
+            @click="$emit(actionType, $event)"
+        >
             <img :src="action(actionType).icon">
             {{ action(actionType).wording }}
         </button>

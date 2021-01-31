@@ -29,6 +29,10 @@ const CommunicationService = {
         return (new Channel()).load(response.data);
     },
 
+    leaveChannel: async (channel) => {
+        return ApiService.post(CHANNELS_ENDPOINT + '/' + channel.id + '/exit');
+    },
+
     loadMessages: async (channel) => {
         switch (channel.scope) {
         case PRIVATE:

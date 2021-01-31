@@ -1,6 +1,10 @@
 <template>
     <TabContainer id="private-discussion-tab" :channel="channel" new-message-allowed>
-        <ActionButtons class="action-buttons" :actions="['refresh', 'invite', 'report', 'leave']" />
+        <ActionButtons
+            class="action-buttons"
+            :actions="['refresh', 'invite', 'report', 'leave']"
+            @leave="leavePrivateChannel(channel)"
+        />
         <ul class="participants">
             <li><img src="@/assets/images/char/body/ian.png"></li>
             <li><img src="@/assets/images/char/body/jin_su.png"></li>
@@ -54,6 +58,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import { Channel } from "@/entities/Channel";
 import ActionButtons from "@/components/Game/Communications/ActionButtons";
 import TabContainer from "@/components/Game/Communications/TabContainer";
@@ -67,6 +72,11 @@ export default {
     },
     props: {
         channel: Channel
+    },
+    methods: {
+        ...mapActions('communication', [
+            'leavePrivateChannel'
+        ])
     }
 };
 </script>

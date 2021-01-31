@@ -11,6 +11,9 @@
 
 const availableActions = {
     favorite: { icon: require('@/assets/images/comms/fav.png'), wording: 'Favori' },
+    invite: { icon: require('@/assets/images/comms/invite.png'), wording: 'Inviter' },
+    leave: { icon: require('@/assets/images/comms/close.png'), wording: 'Quitter' },
+    refresh: { icon: require('@/assets/images/comms/refresh.gif'), wording: 'Rafr.' },
     reply: { icon: require('@/assets/images/comms/reply.png'), wording: 'Répondre' },
     report: { icon: require('@/assets/images/comms/alert.png'), wording: 'Plainte' }
 };

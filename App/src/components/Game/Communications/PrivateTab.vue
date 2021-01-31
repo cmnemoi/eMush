@@ -1,11 +1,6 @@
 <template>
     <TabContainer id="private-discussion-tab" :channel="channel" new-message-allowed>
-        <div class="actions">
-            <a href="#"><img src="@/assets/images/comms/refresh.gif">Rafr.</a>
-            <a href="#"><img src="@/assets/images/comms/invite.png">Inviter</a>
-            <a href="#"><img src="@/assets/images/comms/alert.png">Plainte</a>
-            <a href="#"><img src="@/assets/images/comms/close.png">Quitter</a>
-        </div>
+        <ActionButtons class="action-buttons" :actions="['refresh', 'invite', 'report', 'leave']" />
         <ul class="participants">
             <li><img src="@/assets/images/char/body/ian.png"></li>
             <li><img src="@/assets/images/char/body/jin_su.png"></li>
@@ -60,12 +55,14 @@
 
 <script>
 import { Channel } from "@/entities/Channel";
+import ActionButtons from "@/components/Game/Communications/ActionButtons";
 import TabContainer from "@/components/Game/Communications/TabContainer";
 
 
 export default {
     name: "PrivateTab",
     components: {
+        ActionButtons,
         TabContainer
     },
     props: {
@@ -165,19 +162,6 @@ export default {
 #private-discussion-tab {
     .unit {
         padding: 5px 0;
-    }
-
-    .actions {
-        flex-direction: row;
-        justify-content: flex-end;
-        align-items: stretch;
-
-        a {
-            @include button-style(0.83em, 400, initial);
-
-            height: 100%;
-            margin-left: 3px;
-        }
     }
 
     .participants {

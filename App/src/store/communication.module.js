@@ -70,7 +70,8 @@ const actions = {
         }
     },
 
-    async createPrivateChannel({ commit }) {
+    async createPrivateChannel({ state, commit }) {
+        if (state.loadingChannels) { return; }
         commit('setLoadingOfChannels', true);
 
         try {

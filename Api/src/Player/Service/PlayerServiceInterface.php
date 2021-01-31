@@ -12,7 +12,7 @@ interface PlayerServiceInterface
 
     public function findById(int $id): ?Player;
 
-    public function findOneByCharacter(string $character, ?Daedalus $daedalus = null): ?Player;
+    public function findOneByCharacter(string $character, Daedalus $daedalus): ?Player;
 
     public function createPlayer(Daedalus $daedalus, User $user, string $character): Player;
 

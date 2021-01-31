@@ -77,12 +77,10 @@ const actions = {
         try {
             const newChannel = await CommunicationService.createPrivateChannel();
             commit('addChannel', newChannel);
+            commit('setCurrentChannel', newChannel);
             commit('setLoadingOfChannels', false);
-
-            return true;
         } catch (e) {
             commit('setLoadingOfChannels', false);
-            return false;
         }
     },
 

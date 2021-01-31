@@ -47,7 +47,7 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
         $bananaMechanic
             ->setPlantName(GamePlantEnum::BANANA_TREE)
             ->setActionPoints([1 => 1])
-            ->setMovementPoints([0])
+            ->setMovementPoints([0 => 1])
             ->setHealthPoints([1 => 1])
             ->setMoralPoints([1 => 1])
             ->setActions($fruitActions)

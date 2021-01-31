@@ -163,6 +163,7 @@ class RoomConfigFixtures extends Fixture implements DependentFixtureInterface
                 GameDrugEnum::BACTA,
                 GameDrugEnum::BACTA,
                 GameDrugEnum::BACTA,
+                GameFruitEnum::BANANA,
                 GameFruitEnum::CREEPNUT,
                 GameFruitEnum::BOTTINE,
                 GameFruitEnum::FRAGILANE,

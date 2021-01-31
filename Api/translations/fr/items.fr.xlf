@@ -1168,23 +1168,23 @@ Unique : Permet de donner +3 :pmo: à chaque téléspectateur.</target>
         </unit>
 	   <unit id="block_of_post_it">
             <segment id="name">
-                <source>block_of_post_it_notes.name</source>
+                <source>block_of_post_it.name</source>
                 <target>Bloc de pense-bête(s)</target>
             </segment>
             <segment id="short_name">
-                <source>block_of_post_it_notes.short_name</source>
+                <source>block_of_post_it.short_name</source>
                 <target>Bloc de pense-bête(s)</target>
             </segment>
             <segment id="genre">
-                <source>block_of_post_it_notes.genre</source>
+                <source>block_of_post_it.genre</source>
                 <target>female</target>
             </segment>
             <segment id="description">
-                <source>block_of_post_it_notes.description</source>
+                <source>block_of_post_it.description</source>
                 <target>Un bloc de ces affreux petit papiers...</target>
             </segment>
             <segment id="examine">
-                <source>block_of_post_it_notes.examine</source>
+                <source>block_of_post_it.examine</source>
                 <target>Un bloc de ces affreux petits papiers...
 Il manque pas mal de feuilles mais il pourra encore vous servir quelque temps.</target>
 			</segment>

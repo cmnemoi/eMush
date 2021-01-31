@@ -702,19 +702,19 @@
         <unit id="transplant_success">
             <segment id="transplant_success">
                 <source>transplant_success.character.male.target.male</source>
-                <target>**player** entreprend de reproduire un plan de **target**. Félicitation ! Le jeune plant est en parfaite santé.</target>
+                <target>**player** entreprend de reproduire un plant de **target**. Félicitation ! Le jeune plant est en parfaite santé.</target>
             </segment>
             <segment id="transplant_success">
                 <source>transplant_success.character.male.target.female</source>
-                <target>**player** entreprend de reproduire un plan de **target**. Félicitation ! Le jeune plant est en parfaite santé.</target>
+                <target>**player** entreprend de reproduire un plant de **target**. Félicitation ! Le jeune plant est en parfaite santé.</target>
             </segment>
             <segment id="transplant_success">
                 <source>transplant_success.character.female.target.male</source>
-                <target>**player** entreprend de reproduire un plan de **target**. Félicitation ! Le jeune plant est en parfaite santé.</target>
+                <target>**player** entreprend de reproduire un plant de **target**. Félicitation ! Le jeune plant est en parfaite santé.</target>
             </segment>
             <segment id="transplant_success">
                 <source>transplant_success.character.female.target.female</source>
-                <target>**player** entreprend de reproduire un plan de **target**. Félicitation ! Le jeune plant est en parfaite santé.</target>
+                <target>**player** entreprend de reproduire un plant de **target**. Félicitation ! Le jeune plant est en parfaite santé.</target>
             </segment>
         </unit>
         <unit id="transplant_fail">

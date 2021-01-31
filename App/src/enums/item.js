@@ -48,7 +48,7 @@ export const itemEnum = {
         'image': require('@/assets/images/items/book.jpg')
     },
     [BACTA]: {
-        'image': require('@/assets/images/items/drug_8.jpg')
+        'image': require('@/assets/images/items/drug/drug_8.jpg')
     },
     [SNIPER_HELMET_BLUEPRINT]: {
         'image': require('@/assets/images/items/blueprint.jpg')

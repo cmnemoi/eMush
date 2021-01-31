@@ -72,65 +72,6 @@ class RandomServiceTest extends TestCase
         $playerCollection->add($player1);
 
         $this->assertEquals($player1, $this->service->getRandomPlayer($playerCollection));
-
-        $player2 = new Player();
-        $playerConfig2 = new CharacterConfig();
-        $playerConfig2->setName('player2');
-        $player2->setCharacterConfig($playerConfig2);
-        $playerCollection->add($player2);
-
-        $player3 = new Player();
-        $playerConfig3 = new CharacterConfig();
-        $playerConfig3->setName('player3');
-        $player3->setCharacterConfig($playerConfig3);
-        $playerCollection->add($player3);
-
-        $player4 = new Player();
-        $playerConfig4 = new CharacterConfig();
-        $playerConfig4->setName('player4');
-        $player4->setCharacterConfig($playerConfig4);
-        $playerCollection->add($player4);
-
-        $player5 = new Player();
-        $playerConfig5 = new CharacterConfig();
-        $playerConfig5->setName('player5');
-        $player5->setCharacterConfig($playerConfig5);
-        $playerCollection->add($player5);
-
-        $nbPlayer1 = 0;
-        $nbPlayer2 = 0;
-        $nbPlayer3 = 0;
-        $nbPlayer4 = 0;
-        $nbPlayer5 = 0;
-        for ($i = 1; $i <= 500; ++$i) {
-            $randomPlayer = $this->service->getRandomPlayer($playerCollection);
-            switch ($randomPlayer) {
-                case $player1:
-                    $nbPlayer1 = $nbPlayer1 + 1;
-                    break;
-                case $player2:
-                    $nbPlayer2 = $nbPlayer2 + 1;
-                    break;
-                case $player3:
-                    $nbPlayer3 = $nbPlayer3 + 1;
-                    break;
-                case $player4:
-                    $nbPlayer4 = $nbPlayer4 + 1;
-                    break;
-                case $player5:
-                    $nbPlayer5 = $nbPlayer5 + 1;
-                    break;
-            }
-        }
-
-        //Xi2 law with 5 degrees of freedom and 95% confidence is 20.52
-        $xiTwo = ($nbPlayer1 - 100) * ($nbPlayer1 - 100) / 100 +
-            ($nbPlayer2 - 100) * ($nbPlayer2 - 100) / 100 +
-            ($nbPlayer3 - 100) * ($nbPlayer3 - 100) / 100 +
-            ($nbPlayer4 - 100) * ($nbPlayer4 - 100) / 100 +
-            ($nbPlayer5 - 100) * ($nbPlayer5 - 100) / 100;
-
-        $this->assertLessThan(20.52, $xiTwo);
     }
 
     public function testGetPlayerInRoom()
@@ -193,42 +134,6 @@ class RandomServiceTest extends TestCase
         $result = $this->service->getRandomElements($players, 2);
         $this->assertContains('player1', $result);
         $this->assertContains('player2', $result);
-
-        $players = ['player1', 'player2', 'player3', 'player4', 'player5'];
-        $nbPlayer1 = 0;
-        $nbPlayer2 = 0;
-        $nbPlayer3 = 0;
-        $nbPlayer4 = 0;
-        $nbPlayer5 = 0;
-        for ($i = 1; $i <= 500; ++$i) {
-            $randomPlayer = $this->service->getRandomElements($players);
-            switch ($randomPlayer) {
-                case [0 => 'player1']:
-                    $nbPlayer1 = $nbPlayer1 + 1;
-                    break;
-                case [1 => 'player2']:
-                    $nbPlayer2 = $nbPlayer2 + 1;
-                    break;
-                case [2 => 'player3']:
-                    $nbPlayer3 = $nbPlayer3 + 1;
-                    break;
-                case [3 => 'player4']:
-                    $nbPlayer4 = $nbPlayer4 + 1;
-                    break;
-                case [4 => 'player5']:
-                    $nbPlayer5 = $nbPlayer5 + 1;
-                    break;
-            }
-        }
-
-        //Xi2 law with 5 degrees of freedom and 99.9% confidence is 20.52
-        $xiTwo = ($nbPlayer1 - 100) * ($nbPlayer1 - 100) / 100 +
-            ($nbPlayer2 - 100) * ($nbPlayer2 - 100) / 100 +
-            ($nbPlayer3 - 100) * ($nbPlayer3 - 100) / 100 +
-            ($nbPlayer4 - 100) * ($nbPlayer4 - 100) / 100 +
-            ($nbPlayer5 - 100) * ($nbPlayer5 - 100) / 100;
-
-        $this->assertLessThan(20.52, $xiTwo);
     }
 
     public function testGetSingleRandomElementFromProbaArray()
@@ -238,40 +143,6 @@ class RandomServiceTest extends TestCase
 
         $players = ['player1' => 1, 'player2' => 0];
         $this->assertEquals('player1', $this->service->getSingleRandomElementFromProbaArray($players));
-
-        $players = ['player1' => 5, 'player2' => 1, 'player3' => 2, 'player4' => 2, 'player5' => 0];
-        $nbPlayer1 = 0;
-        $nbPlayer2 = 0;
-        $nbPlayer3 = 0;
-        $nbPlayer4 = 0;
-
-        for ($i = 1; $i <= 500; ++$i) {
-            $randomPlayer = $this->service->getSingleRandomElementFromProbaArray($players);
-            $this->assertNotEquals('player5', $randomPlayer);
-
-            switch ($randomPlayer) {
-                case 'player1':
-                    $nbPlayer1 = $nbPlayer1 + 1;
-                    break;
-                case 'player2':
-                    $nbPlayer2 = $nbPlayer2 + 1;
-                    break;
-                case 'player3':
-                    $nbPlayer3 = $nbPlayer3 + 1;
-                    break;
-                case 'player4':
-                    $nbPlayer4 = $nbPlayer4 + 1;
-                    break;
-            }
-        }
-
-        //Xi2 law with 4 degrees of freedom and 99.9% confidence is 18.47
-        $xiTwo = ($nbPlayer1 - 250) * ($nbPlayer1 - 250) / 250 +
-            ($nbPlayer2 - 50) * ($nbPlayer2 - 50) / 50 +
-            ($nbPlayer3 - 100) * ($nbPlayer3 - 100) / 100 +
-            ($nbPlayer4 - 100) * ($nbPlayer4 - 100) / 100;
-
-        $this->assertLessThan(18.47, $xiTwo);
     }
 
     public function testGetRandomElementsFromProbaArray()

@@ -19,4 +19,6 @@ interface StatusHolderInterface
     public function addStatus(Status $status): self;
 
     public function removeStatus(Status $status): self;
+
+    public function getClassName(): string;
 }

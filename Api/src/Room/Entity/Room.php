@@ -240,4 +240,9 @@ class Room implements StatusHolderInterface
 
         return $this;
     }
+
+    public function getClassName(): string
+    {
+        return get_class($this);
+    }
 }

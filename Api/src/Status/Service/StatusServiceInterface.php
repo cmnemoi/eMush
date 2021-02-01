@@ -3,10 +3,10 @@
 namespace Mush\Status\Service;
 
 use Doctrine\Common\Collections\Collection;
-use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Status\Criteria\StatusCriteria;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
@@ -38,5 +38,5 @@ interface StatusServiceInterface
 
     public function getMostRecent(string $statusName, Collection $equipments): GameEquipment;
 
-    public function getDaedalus(Status $status): Daedalus;
+    public function getByCriteria(StatusCriteria $criteria): Collection;
 }

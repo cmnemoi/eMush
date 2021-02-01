@@ -6,6 +6,7 @@ use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Service\DaedalusAlertsServiceInterface;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Service\GameConfigServiceInterface;
@@ -24,15 +25,18 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class DaedalusController extends AbstractFOSRestController
 {
     private DaedalusServiceInterface $daedalusService;
+    private DaedalusAlertsServiceInterface $daedalusAlertService;
     private GameConfigServiceInterface $gameConfigService;
     private TranslatorInterface $translator;
 
     public function __construct(
         DaedalusServiceInterface $daedalusService,
+        DaedalusAlertsServiceInterface $daedalusAlertService,
         GameConfigServiceInterface $gameConfigService,
         TranslatorInterface $translator
     ) {
         $this->daedalusService = $daedalusService;
+        $this->daedalusAlertService = $daedalusAlertService;
         $this->gameConfigService = $gameConfigService;
         $this->translator = $translator;
     }
@@ -105,5 +109,19 @@ class DaedalusController extends AbstractFOSRestController
         }
 
         return $this->view(['daedalus' => $daedalus->getId(), 'characters' => $characters], 200);
+    }
+
+    /**
+     * Display daedalus actions.
+     *
+     * @OA\Tag (name="Daedalus")
+     *
+     * @Security (name="Bearer")
+     *
+     * @Rest\Get(path="/{id}/alerts", requirements={"id"="\d+"})
+     */
+    public function getDaedalusAlertsAction(Daedalus $daedalus): View
+    {
+        return $this->view($this->daedalusAlertService->getAlerts($daedalus), 200);
     }
 }

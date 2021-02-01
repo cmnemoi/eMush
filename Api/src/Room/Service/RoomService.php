@@ -74,6 +74,7 @@ class RoomService implements RoomServiceInterface
                 $door = new Door();
                 $door
                     ->setName($doorName)
+                    ->setRoom($room)
                     ->setEquipment($doorConfig)
                 ;
             }

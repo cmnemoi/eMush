@@ -7,6 +7,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
 use Mush\Room\Entity\Room;
+use Mush\RoomLog\Enum\VisibilityEnum;
 
 /**
  * Class Status.
@@ -41,7 +42,7 @@ class Status
     /**
      * @ORM\Column(type="string", nullable=false)
      */
-    protected ?string $visibility = null;
+    protected string $visibility = VisibilityEnum::PUBLIC;
 
     /**
      * @ORM\OneToOne(targetEntity="Mush\Status\Entity\StatusTarget", cascade="ALL", inversedBy="owner")
@@ -78,7 +79,7 @@ class Status
         return $this;
     }
 
-    public function getVisibility(): ?string
+    public function getVisibility(): string
     {
         return $this->visibility;
     }
@@ -86,7 +87,7 @@ class Status
     /**
      * @return static
      */
-    public function setVisibility(?string $visibility): Status
+    public function setVisibility(string $visibility): Status
     {
         $this->visibility = $visibility;
 

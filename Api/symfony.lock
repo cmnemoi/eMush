@@ -737,6 +737,9 @@
     "webmozart/path-util": {
         "version": "2.3.0"
     },
+    "weirdan/doctrine-psalm-plugin": {
+        "version": "1.0.0"
+    },
     "willdurand/jsonp-callback-validator": {
         "version": "v1.1.0"
     },

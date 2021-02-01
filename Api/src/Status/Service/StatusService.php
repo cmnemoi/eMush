@@ -39,7 +39,7 @@ class StatusService implements StatusServiceInterface
         $status
             ->setName($statusName)
             ->setTarget($target)
-            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setVisibility($visibility)
         ;
 
         return $status;

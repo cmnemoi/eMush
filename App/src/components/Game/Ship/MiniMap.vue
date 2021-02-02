@@ -454,23 +454,27 @@
             </svg>
             <ul class="crew-position">
                 <li class="self" />
-                <li />
-                <li />
-                <li />
-                <li />
-                <li />
-                <li />
-                <li />
-                <li />
-                <li />
-                <li />
-                <li />
-                <li />
-                <li />
-                <li />
-                <li />
+                <li class="Andie" />
+                <li class="Chao" />
+                <li class="Chun" />
+                <li class="Derek" />
+                <li class="Eleesha" />
+                <li class="Finola" />
+                <li class="Frieda" />
+                <li class="Gioele" />
+                <li class="Hua" />
+                <li class="Ian" />
+                <li class="Janice" />
+                <li class="Jin" />
+                <li class="Kuan" />
+                <li class="Paola" />
+                <li class="Raluca" />
+                <li class="Roland" />
+                <li class="Stephen" />
+                <li class="Terrence" />
             </ul>
         </div>
+        <h3 class="room">Room name</h3>
     </div>
 </template>
 
@@ -490,16 +494,11 @@
     transform-origin: bottom left;
     transition: transform 0.5s;
 
-    &:hover {
-        transform: scale(1);
-        transition: transform 0.6s 0.2s;
-    }
-
-    & .map {
+    .map {
         width: 184px;
         height: 96px;
         margin: auto;
-        transform: rotate(30deg);
+        transform: translate(-0.4em, -0.4em) rotate(30deg);
 
         svg {
             #rooms {
@@ -509,6 +508,12 @@
 
                 .fire {
                     fill: #a6181e;
+                }
+
+                & > * {
+                    &:hover, &:focus, :active {
+                        fill: #3981a8;
+                    }
                 }
             }
 
@@ -546,34 +551,84 @@
                 stroke-width: 1.8px;
             }
         }
-    }
 
-    & .crew-position {
-        position: absolute;
-
-        li {
+        .crew-position {
             position: absolute;
-            width: 4px;
-            height: 4px;
-            background: #f88;
+            pointer-events: none;
 
-            @for $i from 1 through 16 { // randomize crew position, for testing only
-                &:nth-child(#{$i}) {
-                    left: random(156) + 10px;
-                    top: random(52) + 18px;
+            li {
+                position: absolute;
+                width: 4px;
+                height: 4px;
+                background: #f88;
+                box-shadow: 0 0 2px 1px #133951;
+
+                @for $i from 1 through 19 { // randomize crew position, for testing only
+                    &:nth-child(#{$i}) {
+                        left: random(156) + 10px;
+                        top: random(52) + 18px;
+                    }
                 }
-            }
 
-            &.self {
-                z-index: 2;
-                width: 6px;
-                height: 6px;
-                background: #889c28;
-                animation: self-position-color 1.1s infinite;
+                &.self {
+                    z-index: 2;
+                    width: 6px;
+                    height: 6px;
+                    background: #889c28;
+                    animation: self-position-color 1.1s infinite;
+                }
+
+                $actopi-color: //defines the color of each crewmate in the minimap when actopi project is active
+                    "Andie"    rgb(135, 206, 250),
+                    "Chao"     rgb(88 , 99 , 177),
+                    "Chun"     rgb(221, 211, 202),
+                    "Derek"    rgb(255, 69 , 0  ), //rgb(136, 156, 40) ?
+                    "Eleesha"  rgb(208, 133, 0  ),
+                    "Finola"   rgb(78 , 169, 182),
+                    "Frieda"   rgb(32 , 103, 134),
+                    "Gioele"   rgb(221, 112, 42 ),
+                    "Hua"      rgb(128, 84 , 65 ),
+                    "Ian"      rgb(35 , 124, 104),
+                    "Janice"   rgb(180, 71 , 83 ),
+                    "Jin"      rgb(192, 48 , 76 ),
+                    "Kuan"     rgb(243, 155, 1  ),
+                    "Paola"    rgb(255, 154, 250),
+                    "Raluca"   rgb(134, 134, 129),
+                    "Roland"   rgb(255, 163, 109),
+                    "Stephen"  rgb(255, 255, 255),
+                    "Terrence" rgb(211, 40 , 55 ),
+                ;
+
+                @each $crewmate, $color in $actopi-color {
+                    &.#{$crewmate} {
+                        background: $color;
+                    }
+                }
             }
         }
     }
+
+    .room {
+        display: none;
+        position: absolute;
+        bottom: 0;
+        z-index: 5;
+        margin: 8px 16px;
+        font-family: 'Pixel-Square';
+        font-size: 10px;
+        font-weight: 700;
+    }
+
+    &:hover, &:focus, &:focus-within, &:active {
+        transform: scale(1);
+        transition: transform 0.4s 0.2s;
+
+        .room {
+            display: initial;
+        }
+    }
 }
+
 
 @keyframes self-position-color {
     0% { background: #ff0; }

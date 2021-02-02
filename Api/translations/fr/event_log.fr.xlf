@@ -139,6 +139,16 @@
                 <target>Ça ne devait pas se passer comme cela. Lors de votre action, vous vous êtes fait mal...</target>
             </segment>
         </unit>
+        <unit id="clumsiness_prevented">
+            <segment>
+                <source>clumsiness_prevented.character.male</source>
+                <target>Ça ne devait pas se passer comme cela. Grâce à vos **Gants de protection**, vous avez évité la catastrophe...</target>
+            </segment>
+            <segment>
+                <source>clumsiness_prevented.character.female</source>
+                <target>Ça ne devait pas se passer comme cela. Grâce à vos **Gants de protection**, vous avez évité la catastrophe...</target>
+            </segment>
+        </unit>
         <unit id="metal_plate">
             <segment>
                 <source>metal_plate.character.male</source>

@@ -17,6 +17,7 @@ class LogEnum
     public const LOSS_MORAL_POINT = 'loss_moral_point';
     public const OBJECT_FELT = 'object_felt';
     public const CLUMSINESS = 'clumsiness';
+    public const CLUMSINESS_PREVENTED = 'clumsiness_prevented';
     public const SOILED = 'soiled';
     public const SOIL_PREVENTED = 'soil_prevented';
     public const SOIL_PREVENTED_OCD = 'soil_prevented_ocd';

@@ -2,12 +2,20 @@
 
 namespace unit\Action\Service;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Action\Entity\Action;
 use Mush\Action\Service\ActionService;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\ItemConfig;
+use Mush\Equipment\Entity\Mechanics\Gear;
+use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\ModifierScopeEnum;
+use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Room\Entity\Room;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
@@ -84,6 +92,41 @@ class ActionServiceTest extends TestCase
         $this->assertCount(1, $player->getStatuses());
     }
 
+    public function testHandleActionSideEffectDirtyWithApron()
+    {
+        $action = new Action();
+        $room = new Room();
+        $player = new Player();
+        $player->setRoom($room);
+
+        $action
+            ->setDirtyRate(100)
+            ->setInjuryRate(0)
+        ;
+
+        $itemConfig = new ItemConfig();
+
+        $apronGear = $this->createGear(
+            ModifierTargetEnum::PERCENTAGE,
+            -100,
+            ModifierScopeEnum::EVENT_DIRTY,
+            ReachEnum::INVENTORY
+        );
+
+        $itemConfig->setMechanics(new ArrayCollection([$apronGear]));
+        $gameItem = new GameItem();
+        $gameItem->setEquipment($itemConfig);
+
+        $player->addItem($gameItem);
+
+        $this->eventDispatcher->shouldReceive('dispatch')->never();
+        $this->roomLogService->shouldReceive('createPlayerLog')->once();
+        $this->randomService->shouldReceive('randomPercent')->andReturn(10)->once();
+        $player = $this->actionService->handleActionSideEffect($action, $player, new \DateTime());
+
+        $this->assertCount(0, $player->getStatuses());
+    }
+
     public function testHandleActionSideEffectInjury()
     {
         $action = new Action();
@@ -112,10 +155,61 @@ class ActionServiceTest extends TestCase
             ->once()
         ;
         $this->roomLogService->shouldReceive('createPlayerLog')->once();
-        $this->randomService->shouldReceive('isSuccessfull')->andReturn(true)->once();
+        $this->randomService->shouldReceive('randomPercent')->andReturn(10)->once();
         $this->statusServiceInterface->shouldReceive('createCorePlayerStatus')->never();
         $player = $this->actionService->handleActionSideEffect($action, $player, new \DateTime());
 
         $this->assertCount(0, $player->getStatuses());
+    }
+
+    public function testHandleActionSideEffectInjuryWithGloves()
+    {
+        $action = new Action();
+        $room = new Room();
+        $player = new Player();
+        $player->setRoom($room);
+
+        $action
+            ->setDirtyRate(0)
+            ->setInjuryRate(100)
+        ;
+
+        $itemConfig = new ItemConfig();
+
+        $apronGear = $this->createGear(
+            ModifierTargetEnum::PERCENTAGE,
+            -100,
+            ModifierScopeEnum::EVENT_CLUMSINESS,
+            ReachEnum::INVENTORY
+        );
+
+        $itemConfig->setMechanics(new ArrayCollection([$apronGear]));
+        $gameItem = new GameItem();
+        $gameItem->setEquipment($itemConfig);
+
+        $player->addItem($gameItem);
+
+        $this->eventDispatcher->shouldReceive('dispatch')->never();
+        $this->roomLogService->shouldReceive('createPlayerLog')->once();
+        $this->randomService->shouldReceive('randomPercent')->andReturn(10)->once();
+        $player = $this->actionService->handleActionSideEffect($action, $player, new \DateTime());
+
+        $this->assertCount(0, $player->getStatuses());
+    }
+
+    private function createGear(string $target, float $delta, string $scope, string $reach): Gear
+    {
+        $modifier = new Modifier();
+        $modifier
+            ->setTarget($target)
+            ->setDelta($delta)
+            ->setScope($scope)
+            ->setReach($reach)
+        ;
+
+        $gear = new Gear();
+        $gear->setModifier($modifier);
+
+        return $gear;
     }
 }

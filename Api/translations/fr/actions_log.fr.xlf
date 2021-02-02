@@ -524,19 +524,19 @@
         <unit id="infect_success">
             <segment id="infect_success">
                 <source>infect_success.character.male.target.male</source>
-                <target>**player** s'est rapprochée de **target** avec un regard de prédateur...et l'a poinçonné discrètement !.</target>
+                <target>**player** s'est rapprochée de **target** avec un regard de prédateur...et l'a poinçonné discrètement !</target>
             </segment>
             <segment id="infect_success">
                 <source>infect_success.character.male.target.female</source>
-                <target>**player** s'est rapprochée de **target** avec un regard de prédateur...et l'a poinçonné discrètement !.</target>
+                <target>**player** s'est rapprochée de **target** avec un regard de prédateur...et l'a poinçonnée discrètement !</target>
             </segment>
             <segment id="infect_success">
                 <source>infect_success.character.female.target.male</source>
-                <target>**player** s'est rapprochée de **target** avec un regard de prédatrice...et l'a poinçonné discrètement !.</target>
+                <target>**player** s'est rapprochée de **target** avec un regard de prédatrice...et l'a poinçonné discrètement !</target>
             </segment>
             <segment id="infect_success">
                 <source>infect_success.character.female.target.female</source>
-                <target>**player** s'est rapprochée de **target** avec un regard de prédatrice...et l'a poinçonné discrètement !.</target>
+                <target>**player** s'est rapprochée de **target** avec un regard de prédatrice...et l'a poinçonnée discrètement !</target>
             </segment>
         </unit>
         <unit id="lie_down">

@@ -110,7 +110,7 @@ class ActionLogEnum
         ActionEnum::INFECT => [
             self::SUCCESS => [
                 self::VALUE => self::INFECT_SUCCESS,
-                self::VISIBILITY => VisibilityEnum::MUSH,
+                self::VISIBILITY => VisibilityEnum::SECRET,
             ],
         ],
         ActionEnum::SABOTAGE => [
@@ -203,7 +203,7 @@ class ActionLogEnum
         ],
         ActionEnum::EXPRESS_COOK => [
             self::SUCCESS => [
-                self::VALUE => self::EXPRESS_COOK_SUCCESS,
+                self::VALUE => self::COOK_SUCCESS,
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
             ],
         ],

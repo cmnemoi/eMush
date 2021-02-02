@@ -74,11 +74,11 @@
         <unit id="gain_triumph">
             <segment>
                 <source>gain_triumph.character.male</source>
-                <target>Cette action remplit les objectifs personnels de votre personnage. Vous gagnez quantity Triomphe.</target>
+                <target>Cette action remplit les objectifs personnels de votre personnage. Vous gagnez *quantity Triomphe*.</target>
             </segment>
             <segment>
                 <source>gain_triumph.character.female</source>
-                <target>Cette action remplit les objectifs personnels de votre personnage. Vous gagnez quantity Triomphe.</target>
+                <target>Cette action remplit les objectifs personnels de votre personnage. Vous gagnez *quantity Triomphe*.</target>
             </segment>
         </unit>
         <unit id="object_felt">
@@ -164,7 +164,7 @@
         <unit id="electric_arc">
             <segment>
                 <source>electric_arc</source>
-                <target>Un surcharge électrique brutale fait crépiter les équipements de la pièce, une gigantesque décharge traverse les équipiers !</target>
+                <target>Une surcharge électrique brutale fait crépiter les équipements de la pièce, une gigantesque décharge traverse les équipiers !</target>
             </segment>
         </unit>
         <unit id="equipment_broken">

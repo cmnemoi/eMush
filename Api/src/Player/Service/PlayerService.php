@@ -18,6 +18,7 @@ use Mush\Room\Enum\RoomEnum;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\User\Entity\User;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -107,6 +108,10 @@ class PlayerService implements PlayerServiceInterface
 
         foreach ($characterConfig->getStatuses() as $statusName) {
             $this->statusService->createCoreStatus($statusName, $player);
+        }
+
+        if (!(in_array(PlayerStatusEnum::IMMUNIZED, $characterConfig->getStatuses()))) {
+            $this->statusService->createSporeStatus($player);
         }
 
         $this->persist($player);

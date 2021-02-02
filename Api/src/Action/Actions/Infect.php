@@ -70,13 +70,8 @@ class Infect extends AbstractAction
 
         /** @var ChargeStatus $sporeStatus */
         $sporeStatus = $this->player->getStatusByName(PlayerStatusEnum::SPORES);
-        if ($sporeStatus->getCharge() === 1) {
-            $this->player->removeStatus($sporeStatus);
-            $this->playerService->persist($this->player);
-        } else {
-            $sporeStatus->addCharge(-1);
-            $this->statusService->persist($sporeStatus);
-        }
+        $sporeStatus->addCharge(-1);
+        $this->statusService->persist($sporeStatus);
 
         /** @var ChargeStatus $mushStatus */
         $mushStatus = $this->player->getStatusByName(PlayerStatusEnum::MUSH);

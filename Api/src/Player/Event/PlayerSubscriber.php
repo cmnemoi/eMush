@@ -2,6 +2,7 @@
 
 namespace Mush\Player\Event;
 
+use Error;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Modifier;
 use Mush\Player\Enum\EndCauseEnum;
@@ -130,11 +131,12 @@ class PlayerSubscriber implements EventSubscriberInterface
 
         /** @var ?ChargeStatus $playerSpores */
         $playerSpores = $player->getStatusByName(PlayerStatusEnum::SPORES);
-        if ($playerSpores) {
-            $playerSpores->addCharge(1);
-        } else {
-            $playerSpores = $this->statusService->createSporeStatus($player);
+
+        if ($playerSpores === null) {
+            throw new Error('Player should have a spore status');
         }
+
+        $playerSpores->addCharge(1);
 
         //@TODO implement research modifiers
         if ($playerSpores->getCharge() >= 3) {
@@ -146,9 +148,14 @@ class PlayerSubscriber implements EventSubscriberInterface
     {
         $player = $playerEvent->getPlayer();
 
-        if ($sporeStatus = $player->getStatusByName(PlayerStatusEnum::SPORES)) {
-            $player->removeStatus($sporeStatus);
+        $sporeStatus = $player->getStatusByName(PlayerStatusEnum::SPORES);
+
+        if ($sporeStatus === null || !($sporeStatus instanceof ChargeStatus)) {
+            throw new Error('Player should have a spore status');
         }
+
+        $sporeStatus->setCharge(0);
+
         $this->statusService->createChargeStatus(
             PlayerStatusEnum::MUSH,
             $player,

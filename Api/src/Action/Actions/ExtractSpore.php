@@ -2,6 +2,7 @@
 
 namespace Mush\Action\Actions;
 
+use Error;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
@@ -40,12 +41,13 @@ class ExtractSpore extends AbstractAction
     {
         /** @var ?ChargeStatus $sporeStatus */
         $sporeStatus = $this->player->getStatusByName(PlayerStatusEnum::SPORES);
-        if ($sporeStatus) {
-            $sporeStatus->addCharge(1);
-            $this->statusService->persist($sporeStatus);
-        } else {
-            $this->statusService->createSporeStatus($this->player);
+
+        if ($sporeStatus === null) {
+            throw new Error('Player should have a spore status');
         }
+
+        $sporeStatus->addCharge(1);
+        $this->statusService->persist($sporeStatus);
 
         $this->player->getDaedalus()->setSpores($this->player->getDaedalus()->getSpores() - 1);
 

@@ -94,14 +94,14 @@ class RoomServiceTest extends TestCase
             ->twice()
         ;
 
-        $return = $this->roomService->createRoom($roomConfig, $daedalus);
+        $result = $this->roomService->createRoom($roomConfig, $daedalus);
 
-        $this->assertInstanceOf(Room::class, $return);
-        $this->assertCount(3, $return->getDoors());
-        $this->assertCount(2, $return->getEquipments());
+        $this->assertInstanceOf(Room::class, $result);
+        $this->assertCount(3, $result->getDoors());
+        $this->assertCount(5, $result->getEquipments());
 
         //create the room on the other side of the doors
-        $daedalus->addRoom($return);
+        $daedalus->addRoom($result);
         $roomConfig = $this->createRoomConfig('bridge2', $daedalusConfig);
 
         $this->equipmentService

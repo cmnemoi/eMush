@@ -8,17 +8,17 @@
     rememberPropertyAssignmentsAfterCall="false"
 >
     <projectFiles>
-        <directory name="src" />
+        <directory name="src"/>
         <ignoreFiles>
-            <directory name="vendor" />
+            <directory name="vendor"/>
             <file name="vendor/doctrine/orm/lib/Doctrine/ORM/EntityRepository.php"/>
         </ignoreFiles>
     </projectFiles>
     <issueHandlers>
         <InvalidDocblock>
             <errorLevel type="suppress">
-                <file name="vendor/doctrine/orm/lib/Doctrine/ORM/EntityRepository.php" />
+                <file name="vendor/doctrine/orm/lib/Doctrine/ORM/EntityRepository.php"/>
             </errorLevel>
         </InvalidDocblock>
     </issueHandlers>
-</psalm>
+<plugins><pluginClass class="Weirdan\DoctrinePsalmPlugin\Plugin"/></plugins></psalm>

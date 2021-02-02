@@ -2,14 +2,14 @@
 
 namespace Mush\Status\Service;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Error;
-use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
-use Mush\Room\Entity\Room;
 use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Status\Criteria\StatusCriteria;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
@@ -145,17 +145,8 @@ class StatusService implements StatusServiceInterface
         return $pickedEquipment;
     }
 
-    public function getDaedalus(Status $status): Daedalus
+    public function getByCriteria(StatusCriteria $criteria): Collection
     {
-        $owner = $status->getOwner();
-        if ($owner instanceof GameEquipment) {
-            return $owner->getCurrentRoom()->getDaedalus();
-        }
-
-        if ($owner instanceof Room || $owner instanceof Player) {
-            return $owner->getDaedalus();
-        }
-
-        throw new \LogicException('Status owner unknown');
+        return new ArrayCollection($this->statusRepository->findByCriteria($criteria));
     }
 }

@@ -13,7 +13,7 @@ use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class DaedalusAlertsService implements DaedalusAlertsServiceInterface
+class DaedalusWidgetService implements DaedalusWidgetServiceInterface
 {
     public const OXYGEN_ALERT = 8;
     public const HULL_ALERT = 33;
@@ -49,6 +49,19 @@ class DaedalusAlertsService implements DaedalusAlertsServiceInterface
         }
 
         return $alerts;
+    }
+
+    public function getMinimap(Daedalus $daedalus): array
+    {
+        $minimap = [];
+        foreach ($daedalus->getRooms() as $room) {
+            $minimap[$room->getName()] = [
+                'players' => $room->getPlayers()->count(),
+                'fire' => $room->getStatusByName(StatusEnum::FIRE) !== null,
+            ];
+        }
+
+        return $minimap;
     }
 
     private function countAlert(Daedalus $daedalus): array

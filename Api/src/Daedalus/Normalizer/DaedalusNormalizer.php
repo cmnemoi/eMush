@@ -4,21 +4,16 @@ namespace Mush\Daedalus\Normalizer;
 
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Service\CycleServiceInterface;
-use Mush\Status\Enum\StatusEnum;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DaedalusNormalizer implements ContextAwareNormalizerInterface
 {
     private CycleServiceInterface $cycleService;
-    private TranslatorInterface $translator;
 
     public function __construct(
-        CycleServiceInterface $cycleService,
-        TranslatorInterface $translator
+        CycleServiceInterface $cycleService
     ) {
         $this->cycleService = $cycleService;
-        $this->translator = $translator;
     }
 
     public function supportsNormalization($data, string $format = null, array $context = []): bool
@@ -49,23 +44,6 @@ class DaedalusNormalizer implements ContextAwareNormalizerInterface
                 'humanPlayerDead' => $daedalus->getPlayers()->getHumanPlayer()->getPlayerDead()->count(),
                 'mushPlayerAlive' => $daedalus->getPlayers()->getMushPlayer()->getPlayerAlive()->count(),
                 'mushPlayerDead' => $daedalus->getPlayers()->getMushPlayer()->getPlayerDead()->count(),
-                'minimap' => $this->getMinimap($daedalus),
             ];
-    }
-
-    public function getMinimap($daedalus): array
-    {
-        $minimap = [];
-        foreach ($daedalus->getRooms() as $room) {
-            $minimap[$room->getName()] = [
-                'name' => $this->translator->trans($room->getName() . '.name', [], 'rooms'),
-                'players' => $room->getPlayers()->count(),
-                'fire' => $room->getStatusByName(StatusEnum::FIRE) !== null,
-            ];
-
-            //@TODO add project fire detector, anomaly detector doors detectors and actopi protocol
-        }
-
-        return $minimap;
     }
 }

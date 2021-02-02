@@ -6,8 +6,8 @@ use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Service\DaedalusAlertsServiceInterface;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
+use Mush\Daedalus\Service\DaedalusWidgetServiceInterface;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Nelmio\ApiDocBundle\Annotation\Security;
@@ -25,18 +25,18 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class DaedalusController extends AbstractFOSRestController
 {
     private DaedalusServiceInterface $daedalusService;
-    private DaedalusAlertsServiceInterface $daedalusAlertService;
+    private DaedalusWidgetServiceInterface $daedalusWidgetService;
     private GameConfigServiceInterface $gameConfigService;
     private TranslatorInterface $translator;
 
     public function __construct(
         DaedalusServiceInterface $daedalusService,
-        DaedalusAlertsServiceInterface $daedalusAlertService,
+        DaedalusWidgetServiceInterface $daedalusWidgetService,
         GameConfigServiceInterface $gameConfigService,
         TranslatorInterface $translator
     ) {
         $this->daedalusService = $daedalusService;
-        $this->daedalusAlertService = $daedalusAlertService;
+        $this->daedalusWidgetService = $daedalusWidgetService;
         $this->gameConfigService = $gameConfigService;
         $this->translator = $translator;
     }
@@ -112,7 +112,7 @@ class DaedalusController extends AbstractFOSRestController
     }
 
     /**
-     * Display daedalus actions.
+     * Display daedalus alerts.
      *
      * @OA\Tag (name="Daedalus")
      *
@@ -122,6 +122,20 @@ class DaedalusController extends AbstractFOSRestController
      */
     public function getDaedalusAlertsAction(Daedalus $daedalus): View
     {
-        return $this->view($this->daedalusAlertService->getAlerts($daedalus), 200);
+        return $this->view($this->daedalusWidgetService->getAlerts($daedalus), 200);
+    }
+
+    /**
+     * Display daedalus minimap.
+     *
+     * @OA\Tag (name="Daedalus")
+     *
+     * @Security (name="Bearer")
+     *
+     * @Rest\Get(path="/{id}/minimap", requirements={"id"="\d+"})
+     */
+    public function getDaedalusMinimapsAction(Daedalus $daedalus): View
+    {
+        return $this->view($this->daedalusWidgetService->getMinimap($daedalus), 200);
     }
 }

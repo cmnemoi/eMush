@@ -75,7 +75,6 @@ class DaedalusNormalizerTest extends TestCase
             'humanPlayerDead' => 0,
             'mushPlayerAlive' => 0,
             'mushPlayerDead' => 0,
-            'minimap' => [],
         ];
 
         $this->assertIsArray($data);

@@ -4,7 +4,9 @@ namespace Mush\Daedalus\Service;
 
 use Mush\Daedalus\Entity\Daedalus;
 
-interface DaedalusAlertsServiceInterface
+interface DaedalusWidgetServiceInterface
 {
     public function getAlerts(Daedalus $daedalus): array;
+
+    public function getMinimap(Daedalus $daedalus): array;
 }

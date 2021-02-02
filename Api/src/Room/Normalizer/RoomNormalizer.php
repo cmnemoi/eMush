@@ -116,25 +116,28 @@ class RoomNormalizer implements ContextAwareNormalizerInterface, NormalizerAware
         foreach ($this->groupItemCollectionByName($items) as $itemGroup) {
             /** @var GameItem $patron */
             $patron = $itemGroup->first();
-            /** @var ItemConfig $patronConfig */
+
             $patronConfig = $patron->getEquipment();
-            //If not stackable, normalize each occurence of the item
-            if (!$patronConfig->isStackable()) {
-                foreach ($itemGroup as $item) {
-                    $piles[] = $this->normalizer->normalize($item);
-                }
-            } else {
-                //Only normalize the item reference
-                /** @var array $normalizedItem */
-                $normalizedItem = $this->normalizer->normalize($patron);
-                $statusesPiles = $this->groupByStatus($itemGroup);
-                foreach ($statusesPiles as $pileName => $statusesPile) {
-                    $currentNormalizedItem = $normalizedItem;
-                    $countItem = count($statusesPile);
-                    if ($countItem > 1) {
-                        $currentNormalizedItem['number'] = $countItem;
+
+            if ($patronConfig instanceof ItemConfig) {
+                //If not stackable, normalize each occurence of the item
+                if (!$patronConfig->isStackable()) {
+                    foreach ($itemGroup as $item) {
+                        $piles[] = $this->normalizer->normalize($item);
                     }
-                    $piles[] = $currentNormalizedItem;
+                } else {
+                    //Only normalize the item reference
+                    /** @var array $normalizedItem */
+                    $normalizedItem = $this->normalizer->normalize($patron);
+                    $statusesPiles = $this->groupByStatus($itemGroup);
+                    foreach ($statusesPiles as $pileName => $statusesPile) {
+                        $currentNormalizedItem = $normalizedItem;
+                        $countItem = count($statusesPile);
+                        if ($countItem > 1) {
+                            $currentNormalizedItem['number'] = $countItem;
+                        }
+                        $piles[] = $currentNormalizedItem;
+                    }
                 }
             }
         }

@@ -5,7 +5,7 @@ namespace functional\Daedalus\Service;
 use App\Tests\FunctionalTester;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Enum\AlertEnum;
-use Mush\Daedalus\Service\DaedalusAlertsServiceInterface;
+use Mush\Daedalus\Service\DaedalusWidgetServiceInterface;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
@@ -16,20 +16,20 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 
-class DaedalusAlertsServiceCest
+class DaedalusWidgetServiceCest
 {
-    private DaedalusAlertsServiceInterface $daedalusAlertService;
+    private DaedalusWidgetServiceInterface $daedalusWidgetService;
 
     public function _before(FunctionalTester $I)
     {
-        $this->daedalusAlertService = $I->grabService(DaedalusAlertsServiceInterface::class);
+        $this->daedalusWidgetService = $I->grabService(DaedalusWidgetServiceInterface::class);
     }
 
     public function testNoAlerts(FunctionalTester $I)
     {
         $daedalus = $I->have(Daedalus::class);
 
-        $alerts = $this->daedalusAlertService->getAlerts($daedalus);
+        $alerts = $this->daedalusWidgetService->getAlerts($daedalus);
 
         $I->assertCount(1, $alerts);
         $I->assertEquals(AlertEnum::NO_ALERT, key($alerts));
@@ -39,7 +39,7 @@ class DaedalusAlertsServiceCest
     {
         $daedalus = $I->have(Daedalus::class, ['oxygen' => 5, 'hull' => 10]);
 
-        $alerts = $this->daedalusAlertService->getAlerts($daedalus);
+        $alerts = $this->daedalusWidgetService->getAlerts($daedalus);
 
         $I->assertCount(2, $alerts);
         $I->assertEquals([AlertEnum::LOW_OXYGEN, AlertEnum::LOW_HULL], array_keys($alerts));
@@ -56,7 +56,7 @@ class DaedalusAlertsServiceCest
         ;
         $I->haveInRepository($status);
 
-        $alerts = $this->daedalusAlertService->getAlerts($daedalus);
+        $alerts = $this->daedalusWidgetService->getAlerts($daedalus);
 
         $I->assertCount(1, $alerts);
         $I->assertEquals([AlertEnum::NUMBER_FIRE], array_keys($alerts));
@@ -116,7 +116,7 @@ class DaedalusAlertsServiceCest
         $I->haveInRepository($status2);
         $I->haveInRepository($status3);
 
-        $alerts = $this->daedalusAlertService->getAlerts($daedalus);
+        $alerts = $this->daedalusWidgetService->getAlerts($daedalus);
 
         $I->assertCount(2, $alerts);
         $I->assertEquals([AlertEnum::BROKEN_DOORS, AlertEnum::BROKEN_EQUIPMENTS], array_keys($alerts));

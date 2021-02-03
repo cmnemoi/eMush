@@ -17,13 +17,25 @@ See endpoints for information on the different endpoints available.
 
 To have a working devlopment environment you will need to install:
 * [Docker](https://docs.docker.com/get-docker/) 
+  * _(Windows)_ during installation follow instruction to install WSL2
 * [Docker-compose](https://docs.docker.com/compose/install/) 
-
-Windows Users:
-* [mingw](https://en.wikipedia.org/wiki/MinGW) - Or any tools to run unix commands
 
 Optional:
 * [Postman](https://docs.docker.com/get-docker/) - Postman requests are exported in this file : mush.postman_collection.json
+
+#### Windows Users:
+* WSL2 linux distro (tested on Debian: https://www.microsoft.com/en-us/p/debian/9msvkqc78pk6)
+  * Enable Docker's WSL integration (Settings -> Resources -> WSL Integration)
+  * install build tools:
+    ```
+    > wsl -d Debian
+    $ sudo -s
+    $ apt-get update
+    $ apt-get install build-essential
+    ```
+
+Although, it is possible to run application checked out in Windows and mounted to WSL2, it will be very slow, so I recommend checking out repo inside WSL and then work with sources either by vscode's WSL remote https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl or accessing files through SMB (e.g. `\\wsl$\Debian\root\mush`).
+
 
 ### Installing
 
@@ -83,12 +95,12 @@ If everything went well you should be able to access:
 A swagger is available that list all the available endpoints and their specifications [Swagger](http://localhost:8080/swagger/) 
 To authenticate, at the moment, use the login endpoint and set the access_token returned in the swagger header to use the other endpoints
 
-## Troubleshotings
+## Troubleshooting
 
 ### Use different ports
 Feel free to improve the docker-compose to add a local non-committed docker-compose.dev
 
-For now you have to change the docker-compose.yml and be careful not commit it.
+For now, you have to change the docker-compose.yml and be careful not commit it.
 #### Changing front port:
 in docker/docker-compose.yml
 Change line 55: `- "80:8080"` by `- "new_port:8080"` where new_port is the desired port

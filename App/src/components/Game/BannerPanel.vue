@@ -15,12 +15,12 @@
 
         <div class="daedalus-banner">
             <div class="daedalus-alarms">
-                <ul>
-                    <li>Alertes :</li>
-                    <!--          <li><img src="@/assets/images/door.png"></li>-->
-                    <!--          <li><img src="@/assets/images/alert.png"></li>-->
-                    <!--          <li><img src="@/assets/images/hunter.png"></li>-->
-                </ul>
+                <p class="calme">
+                    <!--  <span>Alertes :</span>  -->
+                    <span><img src="@/assets/images/infoalert.png"> Calme </span>
+                    <!--  <img src="@/assets/images/door.png">  -->
+                    <!--  <img src="@/assets/images/hunter.png">  -->
+                </p>
             </div>
 
 
@@ -32,23 +32,22 @@
                     <li>{{ player.triumph }}<img src="@/assets/images/triumph.png"></li>
                 </ul>
             </div>
-            <div class="daedalus-players">
-                <span class="popup"><h3>Next cycle</h3><p>Your unbreakable watch tells you the time remaining until the next <strong>Cycle</strong>. At the changeover you earn some precious <img src="@/assets/images/pa.png" alt="Action Points"> <img src="@/assets/images/pm.png" alt="Movement Points"> depending on your health and hunger level.</p></span>
+            <div class="daedalus-crew">
                 <ol>
                     <li v-for="(key) in daedalus.humanPlayerAlive" :key="key">
-                        <img src="@/assets/images/p_alive.png">
+                        <img class="alive" src="@/assets/images/p_alive.png" alt="crewmate">
                     </li>
                     <li v-for="(key) in daedalus.mushPlayerAlive" :key="key">
-                        <img src="@/assets/images/p_mush.png">
+                        <img class="mush" src="@/assets/images/p_mush.png" alt="mush">
                     </li>
                     <li v-for="(key) in daedalus.cryogenizedPlayers" :key="key">
-                        <img src="@/assets/images/p_cryo.png">
+                        <img class="cryo" src="@/assets/images/p_cryo.png" alt="in cryosleep">
                     </li>
                     <li v-for="(key) in daedalus.mushPlayerDead" :key="key">
-                        <img src="@/assets/images/p_deadmush.png">
+                        <img class="deadmush" src="@/assets/images/p_deadmush.png" alt="dead mush">
                     </li>
                     <li v-for="(key) in daedalus.humanPlayerDead" :key="key">
-                        <img src="@/assets/images/p_dead.png">
+                        <img class="dead" src="@/assets/images/p_dead.png" alt="dead crewmate">
                     </li>
                 </ol>
             </div>
@@ -119,7 +118,7 @@ span {
     display: flex;
     flex-direction: row;
 
-    & .in-game-level {
+    .in-game-level {
         @include button-style(1.4em);
         @include corner-bezel(12px, 0);
 
@@ -132,7 +131,7 @@ span {
         font-family: Days-One;
     }
 
-    & .in-game-level-progress {
+    .in-game-level-progress {
         position: relative;
         width: 11px;
         height: 33px;
@@ -164,24 +163,24 @@ span {
         }
     }
 
-    & .character-info {
+    .character-info {
         display: flex;
         justify-content: center;
         margin-left: 6px;
 
-        & .character-name {
+        .character-name {
             margin-bottom: 1px;
             font-size: 0.91em;
             font-weight: 700;
             text-transform: uppercase;
         }
 
-        & .title {
+        .title {
             display: flex;
             flex-direction: row;
             align-items: center;
 
-            & .title-name {
+            .title-name {
                 margin-left: 4px;
                 font-size: 0.68em;
                 font-weight: bold;
@@ -198,28 +197,41 @@ span {
 
     & > div {
         margin: 0 12px;
-        display: flex;
         align-items: center;
     }
 
-    & .daedalus-alarms {
+    .daedalus-alarms p {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
         padding: 3px 6px 1px 6px;
+        margin: 0;
         max-height: 25px;
-        border: 1px solid #ff4e64;
+        color: white;
+        font-size: 1em;
+        font-weight: 400;
+        border: 1px solid rgba(58, 106, 171, 1);;
         border-radius: 3px;
         background: rgba(58, 106, 171, 1);
         box-shadow: 0 0 5px 1px inset rgba(28, 29, 56, 1);
-        animation: alarms-border-color 0.85s ease-in-out infinite; /* keyframes at the end of the doc */
-        color: #ff4e64;
         text-shadow: 0 0 2px rgba(0, 0, 0, 1), 0 0 2px rgba(0, 0, 0, 1); /* twice the same shadow */
-        font-weight: bold;
 
-        & li:not(:last-child) {
+        *:not(:last-child) {
             margin-right: 10px;
+        }
+
+        span img {
+            vertical-align: top;
+        }
+
+        &.alarm {
+            color: #ff4e64;
+            font-weight: 700;
+            animation: alarms-border-color 0.85s ease-in-out infinite; /* keyframes at the end of the doc */
         }
     }
 
-    & .daedalus-info li {
+    .daedalus-info li {
         display: flex;
         align-items: center;
 
@@ -227,12 +239,17 @@ span {
             padding-right: 1em;
         }
 
-        & img {
+        img {
             padding: 2px 0 0 4px;
+
         }
     }
 
-    & .cycle-time img {
+    .daedalus-crew img.cryo {
+        opacity: 0.5;
+    }
+
+    .cycle-time img {
         margin-right: 0.4em;
     }
 }

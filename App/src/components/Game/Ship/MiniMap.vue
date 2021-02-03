@@ -519,6 +519,7 @@
 
             #doors {
                 fill: none;
+                pointer-events: none;
                 stroke: #12d7ff;
                 stroke-width: 2px;
 
@@ -528,7 +529,8 @@
             }
 
             #broken-equipment {
-                display: none;
+                visibility: hidden;
+                pointer-events: none;
 
                 .floor {
                     fill: #ff9c00;
@@ -545,7 +547,8 @@
             }
 
             #broken-cameras {
-                display: none;
+                visibility: hidden;
+                pointer-events: none;
                 fill: none;
                 stroke: #ffce80;
                 stroke-width: 1.8px;

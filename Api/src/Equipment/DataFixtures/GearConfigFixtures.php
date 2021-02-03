@@ -110,8 +110,8 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($wrench);
 
         $glovesGear = $this->createGear(
-            ModifierTargetEnum::HEALTH_POINT,
-            -1,
+            ModifierTargetEnum::PERCENTAGE,
+            -100,
             ModifierScopeEnum::EVENT_CLUMSINESS,
             ReachEnum::INVENTORY
         );

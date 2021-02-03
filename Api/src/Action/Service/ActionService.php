@@ -81,15 +81,38 @@ class ActionService implements ActionServiceInterface
         }
 
         $injuryRate = $action->getInjuryRate();
-        if ($injuryRate > 0 && $this->randomService->isSuccessfull($injuryRate)) {
-            $this->roomLogService->createPlayerLog(
-                LogEnum::CLUMSINESS,
-                $player->getRoom(),
-                $player,
-                VisibilityEnum::PRIVATE,
-                $date
+        if ($injuryRate > 0 &&
+            ($percent = $this->randomService->randomPercent()) <= $injuryRate
+        ) {
+            $gears = $player->getApplicableGears(
+                [ModifierScopeEnum::EVENT_CLUMSINESS],
+                [ReachEnum::INVENTORY],
+                ModifierTargetEnum::PERCENTAGE
             );
-            $this->dispatchPlayerInjuryEvent($player, $date);
+
+            /** @var Gear $gear */
+            foreach ($gears as $gear) {
+                $injuryRate += $gear->getModifier()->getDelta();
+            }
+
+            if ($percent >= $injuryRate) {
+                $this->roomLogService->createPlayerLog(
+                    LogEnum::CLUMSINESS_PREVENTED,
+                    $player->getRoom(),
+                    $player,
+                    VisibilityEnum::PRIVATE,
+                    $date
+                );
+            } else {
+                $this->roomLogService->createPlayerLog(
+                    LogEnum::CLUMSINESS,
+                    $player->getRoom(),
+                    $player,
+                    VisibilityEnum::PRIVATE,
+                    $date
+                );
+                $this->dispatchPlayerInjuryEvent($player, $date);
+            }
         }
 
         return $player;
@@ -97,21 +120,9 @@ class ActionService implements ActionServiceInterface
 
     private function dispatchPlayerInjuryEvent(Player $player, ?\DateTime $dateTime = null): void
     {
-        $gears = $player->getApplicableGears(
-            [ModifierScopeEnum::EVENT_CLUMSINESS],
-            [ReachEnum::INVENTORY],
-            ModifierTargetEnum::HEALTH_POINT
-        );
-
-        $defaultDelta = self::ACTION_INJURY_MODIFIER;
-        /** @var Gear $gear */
-        foreach ($gears as $gear) {
-            $defaultDelta -= $gear->getModifier()->getDelta();
-        }
-
         $modifier = new Modifier();
         $modifier
-            ->setDelta($defaultDelta)
+            ->setDelta(self::ACTION_INJURY_MODIFIER)
             ->setTarget(ModifierTargetEnum::HEALTH_POINT)
         ;
 

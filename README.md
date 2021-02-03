@@ -19,6 +19,9 @@ To have a working devlopment environment you will need to install:
 * [Docker](https://docs.docker.com/get-docker/) 
 * [Docker-compose](https://docs.docker.com/compose/install/) 
 
+Windows Users:
+* [mingw](https://en.wikipedia.org/wiki/MinGW) - Or any tools to run unix commands
+
 Optional:
 * [Postman](https://docs.docker.com/get-docker/) - Postman requests are exported in this file : mush.postman_collection.json
 
@@ -79,6 +82,36 @@ If everything went well you should be able to access:
 ## Endpoints
 A swagger is available that list all the available endpoints and their specifications [Swagger](http://localhost:8080/swagger/) 
 To authenticate, at the moment, use the login endpoint and set the access_token returned in the swagger header to use the other endpoints
+
+## Troubleshotings
+
+### Use different ports
+Feel free to improve the docker-compose to add a local non-committed docker-compose.dev
+
+For now you have to change the docker-compose.yml and be careful not commit it.
+#### Changing front port:
+in docker/docker-compose.yml
+Change line 55: `- "80:8080"` by `- "new_port:8080"` where new_port is the desired port
+Change the `App/.env`
+`VUE_APP_URL=http://localhost` by `VUE_APP_URL=http://localhost:new_port`
+#### Changing back port:
+- in docker/docker-compose.yml:  
+Change line 8: `- "8080:80"` by `- "new_port:80"` where new_port is the desired port  
+- Change the `App/.env`  
+`VUE_APP_API_URL=http://localhost:8080/api/v1/
+VUE_APP_OAUTH_URL=http://localhost:8080/oauth
+` by  
+`VUE_APP_API_URL=http://localhost:new_port/api/v1/
+VUE_APP_OAUTH_URL=http://localhost:new_port/oauth`  
+
+- Change `Àpi.env`:  
+`OAUTH_CALLBACK="'http://localhost:8080/oauth/callback'"`
+by  
+`OAUTH_CALLBACK="'http://localhost:new_port/oauth/callback'"`
+ 
+- Change `EternalTwin/etwin.toml`  
+line 82: `callback_uri = "http://localhost:8080/oauth/callback"`  
+by `callback_uri = "http://localhost:new_port/oauth/callback"`
 
 ## Contributing
 

@@ -422,7 +422,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ActionEnum::SABOTAGE)
             ->setScope(ActionScopeEnum::ROOM)
             ->setDirtyRate(20)
-            ->setInjuryRate(20)
+            ->setInjuryRate(0)
             ->setActionCost($twoActionPointCost)
         ;
 

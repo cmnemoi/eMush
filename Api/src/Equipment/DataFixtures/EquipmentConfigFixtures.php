@@ -9,8 +9,6 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\DataFixtures\TechnicianFixtures;
 use Mush\Action\Entity\Action;
-use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionTargetEnum;
 use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\Mechanics\Charged;
 use Mush\Equipment\Entity\Mechanics\Tool;
@@ -31,6 +29,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $repair6 = $this->getReference(TechnicianFixtures::REPAIR_6);
         $repair12 = $this->getReference(TechnicianFixtures::REPAIR_12);
         $repair25 = $this->getReference(TechnicianFixtures::REPAIR_25);
+        $repair50 = $this->getReference(TechnicianFixtures::REPAIR_50);
 
         //@TODO terminals
         $icarus = new EquipmentConfig();

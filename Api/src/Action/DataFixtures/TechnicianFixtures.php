@@ -39,7 +39,7 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
             ->setTypes([ModifierScopeEnum::ACTION_TECHNICIAN])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(25)
-            ->setInjuryRate(25)
+            ->setInjuryRate(10)
             ->setSuccessRate(3)
             ->setActionCost($oneActionPointCost)
         ;
@@ -51,7 +51,7 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
             ->setTypes([ModifierScopeEnum::ACTION_TECHNICIAN])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(25)
-            ->setInjuryRate(25)
+            ->setInjuryRate(10)
             ->setSuccessRate(6)
             ->setActionCost($oneActionPointCost)
         ;
@@ -63,7 +63,7 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
             ->setTypes([ModifierScopeEnum::ACTION_TECHNICIAN])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(25)
-            ->setInjuryRate(25)
+            ->setInjuryRate(10)
             ->setSuccessRate(12)
             ->setActionCost($oneActionPointCost)
         ;
@@ -75,7 +75,7 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
             ->setTypes([ModifierScopeEnum::ACTION_TECHNICIAN])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(25)
-            ->setInjuryRate(25)
+            ->setInjuryRate(10)
             ->setSuccessRate(25)
             ->setActionCost($oneActionPointCost)
         ;
@@ -87,7 +87,7 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
             ->setTypes([ModifierScopeEnum::ACTION_TECHNICIAN])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(25)
-            ->setInjuryRate(25)
+            ->setInjuryRate(10)
             ->setSuccessRate(50)
             ->setActionCost($oneActionPointCost)
         ;
@@ -98,7 +98,8 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ActionEnum::DISASSEMBLE)
             ->setTypes([ModifierScopeEnum::ACTION_TECHNICIAN])
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(1)
+            ->setDirtyRate(25)
+            ->setInjuryRate(10)
             ->setSuccessRate(12)
             ->setActionCost($threeActionPointCost)
         ;
@@ -110,7 +111,7 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
             ->setTypes([ModifierScopeEnum::ACTION_TECHNICIAN])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(25)
-            ->setInjuryRate(25)
+            ->setInjuryRate(10)
             ->setSuccessRate(25)
             ->setActionCost($threeActionPointCost)
         ;
@@ -121,7 +122,8 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ActionEnum::DISASSEMBLE)
             ->setTypes([ModifierScopeEnum::ACTION_TECHNICIAN])
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(1)
+            ->setDirtyRate(25)
+            ->setInjuryRate(10)
             ->setSuccessRate(50)
             ->setActionCost($threeActionPointCost)
         ;
@@ -133,7 +135,7 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
             ->setTypes([ModifierScopeEnum::ACTION_TECHNICIAN])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(25)
-            ->setInjuryRate(25)
+            ->setInjuryRate(10)
             ->setSuccessRate(12)
             ->setActionCost($fourActionPointCost)
         ;
@@ -145,7 +147,7 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
             ->setTypes([ModifierScopeEnum::ACTION_TECHNICIAN])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(25)
-            ->setInjuryRate(25)
+            ->setInjuryRate(10)
             ->setSuccessRate(25)
             ->setActionCost($fourActionPointCost)
         ;

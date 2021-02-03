@@ -452,7 +452,7 @@
                     </g>
                 </g>
             </svg>
-            <ul class="crew-position">
+            <!--  <ul class="crew-position">
                 <li class="self" />
                 <li class="Andie" />
                 <li class="Chao" />
@@ -472,7 +472,7 @@
                 <li class="Roland" />
                 <li class="Stephen" />
                 <li class="Terrence" />
-            </ul>
+            </ul>  -->
         </div>
         <h3 class="room">Room name</h3>
     </div>

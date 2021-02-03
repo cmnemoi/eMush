@@ -196,7 +196,9 @@ class PlayerService implements PlayerServiceInterface
         }
 
         //Panic Crisis
-        if ($this->randomService->isSuccessfull($gameConfig->getDifficultyConfig()->getPanicCrisisRate())) {
+        if ($this->randomService->isSuccessfull($gameConfig->getDifficultyConfig()->getPanicCrisisRate()) &&
+            !$player->isMush()
+        ) {
             $playerEvent = new PlayerEvent($player, $date);
             $playerEvent->setReason(EndCauseEnum::DEPRESSION);
             $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::PANIC_CRISIS);

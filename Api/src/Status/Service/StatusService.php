@@ -96,7 +96,7 @@ class StatusService implements StatusServiceInterface
             null,
             VisibilityEnum::MUSH,
             VisibilityEnum::MUSH,
-            1,
+            0,
         );
     }
 

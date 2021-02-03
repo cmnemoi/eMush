@@ -15,6 +15,7 @@ use Mush\Room\Enum\RoomEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
@@ -77,6 +78,13 @@ class PlayerEventCest
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'room' => $room, 'user' => $user]);
 
+        $mushStatus = new ChargeStatus($player);
+        $mushStatus
+            ->setName(PlayerStatusEnum::SPORES)
+            ->setVisibility(VisibilityEnum::MUSH)
+            ->setCharge(0)
+        ;
+
         $playerEvent = new PlayerEvent($player);
         $playerEvent->setReason(ActionEnum::INFECT);
 
@@ -94,8 +102,7 @@ class PlayerEventCest
 
         $this->eventDispatcherService->dispatch($playerEvent, PlayerEvent::INFECTION_PLAYER);
 
-        $I->assertCount(1, $player->getStatuses());
-        $I->assertEquals(PlayerStatusEnum::MUSH, $player->getStatuses()->first()->getName());
+        $I->assertCount(2, $player->getStatuses());
         $I->assertEquals($room, $player->getRoom());
     }
 }

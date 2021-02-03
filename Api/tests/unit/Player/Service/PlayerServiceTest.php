@@ -123,6 +123,11 @@ class PlayerServiceTest extends TestCase
             ->once()
         ;
 
+        $this->statusService
+            ->shouldReceive('createSporeStatus')
+            ->once()
+        ;
+
         $player = $this->service->createPlayer($daedalus, $user, 'character');
 
         $this->assertInstanceOf(Player::class, $player);

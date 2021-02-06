@@ -1,9 +1,6 @@
 FROM php:8-fpm
 
-#For mac and windows
-#ARG HOST_IP=host.docker.internal
-#For linux
-ARG HOST_IP=172.19.0.1
+ARG HOST_IP=host.docker.internal
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends vim curl debconf subversion git apt-transport-https apt-utils \

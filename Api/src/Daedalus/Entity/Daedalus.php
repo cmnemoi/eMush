@@ -40,6 +40,11 @@ class Daedalus
     private GameConfig $gameConfig;
 
     /**
+     * @ORM\OneToOne(targetEntity="Mush\Daedalus\Entity\Neron", inversedBy="daedalus")
+     */
+    private Neron $neron;
+
+    /**
      * @ORM\Column(type="string", nullable=false)
      */
     private string $gameStatus = GameStatusEnum::STARTING;
@@ -165,6 +170,18 @@ class Daedalus
     public function setGameConfig(GameConfig $gameConfig): Daedalus
     {
         $this->gameConfig = $gameConfig;
+
+        return $this;
+    }
+
+    public function getNeron(): Neron
+    {
+        return $this->neron;
+    }
+
+    public function setNeron(Neron $neron): Daedalus
+    {
+        $this->neron = $neron;
 
         return $this;
     }

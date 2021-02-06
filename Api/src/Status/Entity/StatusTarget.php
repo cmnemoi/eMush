@@ -4,8 +4,8 @@ namespace Mush\Status\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\Room\Entity\Room;
 
 /**
  * @ORM\Entity()
@@ -40,18 +40,15 @@ class StatusTarget
     private ?GameEquipment $gameEquipment = null;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Mush\Room\Entity\Room", inversedBy="statuses")
+     * @ORM\ManyToOne(targetEntity="Mush\Place\Entity\Place", inversedBy="statuses")
      */
-    private ?Room $room = null;
+    private ?Place $place = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    /**
-     * @return Status
-     */
     public function getOwner(): ?Status
     {
         return $this->owner;
@@ -110,17 +107,17 @@ class StatusTarget
         return $this;
     }
 
-    public function getRoom(): ?Room
+    public function getPlace(): ?Place
     {
-        return $this->room;
+        return $this->place;
     }
 
-    public function setRoom(?Room $room): StatusTarget
+    public function setPlace(?Place $place): StatusTarget
     {
-        $this->room = $room;
+        $this->place = $place;
 
-        if ($room !== null) {
-            $room->addStatusTarget($this);
+        if ($place !== null) {
+            $place->addStatusTarget($this);
         }
 
         return $this;
@@ -132,6 +129,6 @@ class StatusTarget
         $this->target = null;
         $this->player = null;
         $this->gameEquipment = null;
-        $this->room = null;
+        $this->place = null;
     }
 }

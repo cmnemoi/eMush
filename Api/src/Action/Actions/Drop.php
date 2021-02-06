@@ -63,7 +63,7 @@ class Drop extends AbstractAction
 
     protected function applyEffects(): ActionResult
     {
-        $this->gameItem->setRoom($this->player->getRoom());
+        $this->gameItem->setPlace($this->player->getPlace());
         $this->gameItem->setPlayer(null);
 
         // Remove BURDENED status if no other heavy item in the inventory

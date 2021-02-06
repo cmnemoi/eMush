@@ -10,9 +10,9 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\SuccessRateServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Place\Service\PlaceServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Room\Service\RoomServiceInterface;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -24,7 +24,7 @@ class Extinguish extends AttemptAction
     private GameEquipment $gameEquipment;
 
     private PlayerServiceInterface $playerService;
-    private RoomServiceInterface $roomService;
+    private PlaceServiceInterface $placeService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
@@ -32,14 +32,14 @@ class Extinguish extends AttemptAction
         RandomServiceInterface $randomService,
         SuccessRateServiceInterface $successRateService,
         StatusServiceInterface $statusService,
-        RoomServiceInterface $roomService
+        PlaceServiceInterface $placeService
     ) {
         parent::__construct($randomService, $successRateService, $eventDispatcher, $statusService);
 
         $this->playerService = $playerService;
         $this->randomService = $randomService;
         $this->successRateService = $successRateService;
-        $this->roomService = $roomService;
+        $this->placeService = $placeService;
     }
 
     public function loadParameters(Action $action, Player $player, ActionParameters $actionParameters): void
@@ -60,7 +60,7 @@ class Extinguish extends AttemptAction
         return !$this->gameEquipment->isBroken() &&
             $this->gameEquipment->getEquipment()->hasAction(ActionEnum::EXTINGUISH) &&
             $this->player->canReachEquipment($this->gameEquipment) &&
-            $this->player->getRoom()->hasStatus(StatusEnum::FIRE)
+            $this->player->getPlace()->hasStatus(StatusEnum::FIRE)
         ;
     }
 
@@ -69,10 +69,10 @@ class Extinguish extends AttemptAction
         $response = $this->makeAttempt();
 
         if ($response instanceof Success &&
-            ($fireStatus = $this->player->getRoom()->getStatusByName(StatusEnum::FIRE))
+            ($fireStatus = $this->player->getPlace()->getStatusByName(StatusEnum::FIRE))
         ) {
-            $this->player->getRoom()->removeStatus($fireStatus);
-            $this->roomService->persist($this->player->getRoom());
+            $this->player->getPlace()->removeStatus($fireStatus);
+            $this->placeService->persist($this->player->getPlace());
         }
 
         $this->playerService->persist($this->player);

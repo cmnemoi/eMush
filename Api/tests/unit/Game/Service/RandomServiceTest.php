@@ -9,9 +9,9 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\RandomService;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
-use Mush\Room\Entity\Room;
 use PHPUnit\Framework\TestCase;
 
 class RandomServiceTest extends TestCase
@@ -55,9 +55,9 @@ class RandomServiceTest extends TestCase
 
     public function testIsSuccessfull()
     {
-        $this->assertIsBool($this->service->isSuccessfull(50));
-        $this->assertTrue($this->service->isSuccessfull(100));
-        $this->assertFalse($this->service->isSuccessfull(0));
+        $this->assertIsBool($this->service->isSuccessful(50));
+        $this->assertTrue($this->service->isSuccessful(100));
+        $this->assertFalse($this->service->isSuccessful(0));
     }
 
     public function testGetRandomPlayer()
@@ -76,7 +76,7 @@ class RandomServiceTest extends TestCase
 
     public function testGetPlayerInRoom()
     {
-        $room = new Room();
+        $room = new Place();
         $player1 = new Player();
         $player2 = new Player();
         $room
@@ -111,7 +111,7 @@ class RandomServiceTest extends TestCase
 
     public function testGetItemInRoom()
     {
-        $room = new Room();
+        $room = new Place();
         $equipment = new GameEquipment();
         $item = new GameItem();
         $room

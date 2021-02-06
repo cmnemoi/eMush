@@ -6,9 +6,9 @@ use Error;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
-use Mush\Room\Entity\Room;
 
 class RandomService implements RandomServiceInterface
 {
@@ -22,7 +22,7 @@ class RandomService implements RandomServiceInterface
         return $this->random(1, 100);
     }
 
-    public function isSuccessfull(int $successRate): bool
+    public function isSuccessful(int $successRate): bool
     {
         return $this->randomPercent() <= $successRate;
     }
@@ -36,9 +36,9 @@ class RandomService implements RandomServiceInterface
         return current($this->getRandomElements($players->toArray()));
     }
 
-    public function getPlayerInRoom(Room $room): Player
+    public function getPlayerInRoom(Place $place): Player
     {
-        return $this->getRandomPlayer($room->getPlayers());
+        return $this->getRandomPlayer($place->getPlayers());
     }
 
     public function getAlivePlayerInDaedalus(Daedalus $ship): Player
@@ -46,13 +46,13 @@ class RandomService implements RandomServiceInterface
         return $this->getRandomPlayer($ship->getPlayers()->getPlayerAlive());
     }
 
-    public function getItemInRoom(Room $room): GameItem
+    public function getItemInRoom(Place $place): GameItem
     {
-        if ($room->getEquipments()->isEmpty()) {
+        if ($place->getEquipments()->isEmpty()) {
             throw new Error('getItemInRoom: room has no items');
         }
 
-        $items = $room->getEquipments()->filter(fn (GameEquipment $equipment) => $equipment instanceof GameItem);
+        $items = $place->getEquipments()->filter(fn (GameEquipment $equipment) => $equipment instanceof GameItem);
 
         return current($this->getRandomElements($items->toArray()));
     }

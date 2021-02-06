@@ -9,8 +9,8 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Entity\GameConfig;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\Room\Entity\Room;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -32,11 +32,11 @@ class EquipmentEventCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
-        /** @var Room $room */
-        $room = $I->have(Room::class, ['daedalus' => $daedalus]);
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
         /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'room' => $room]);
+        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
 
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig]);
@@ -90,7 +90,7 @@ class EquipmentEventCest
         $I->assertCount(1, $player->getItems());
 
         $I->seeInRepository(RoomLog::class, [
-            'room' => $room->getId(),
+            'place' => $room->getId(),
             'player' => $player->getId(),
             'log' => LogEnum::OBJECT_FELT,
             'visibility' => VisibilityEnum::PUBLIC,
@@ -104,8 +104,8 @@ class EquipmentEventCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
-        /** @var Room $room */
-        $room = $I->have(Room::class, ['daedalus' => $daedalus]);
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig]);
@@ -115,7 +115,7 @@ class EquipmentEventCest
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('some name')
-            ->setRoom($room)
+            ->setPlace($room)
         ;
         $I->haveInRepository($gameEquipment);
 
@@ -127,7 +127,7 @@ class EquipmentEventCest
         $I->assertCount(1, $room->getEquipments()->first()->getStatuses());
         $I->assertTrue($room->getEquipments()->first()->isBroken());
         $I->seeInRepository(RoomLog::class, [
-            'room' => $room->getId(),
+            'place' => $room->getId(),
             'log' => LogEnum::EQUIPMENT_BROKEN,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
@@ -140,8 +140,8 @@ class EquipmentEventCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
-        /** @var Room $room */
-        $room = $I->have(Room::class, ['daedalus' => $daedalus]);
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig]);
@@ -151,7 +151,7 @@ class EquipmentEventCest
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('some name')
-            ->setRoom($room)
+            ->setPlace($room)
         ;
         $I->haveInRepository($gameEquipment);
 
@@ -161,7 +161,7 @@ class EquipmentEventCest
 
         $I->assertCount(0, $room->getEquipments());
         $I->seeInRepository(RoomLog::class, [
-            'room' => $room->getId(),
+            'place' => $room->getId(),
             'log' => LogEnum::EQUIPMENT_DESTROYED,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);

@@ -60,7 +60,7 @@ class Infect extends AbstractAction
             $mushStatus->getCharge() > 0 &&
             !$this->targetPlayer->isMush() &&
             !$this->targetPlayer->getStatusByName(PlayerStatusEnum::IMMUNIZED) &&
-            $this->player->getRoom() === $this->targetPlayer->getRoom();
+            $this->player->getPlace() === $this->targetPlayer->getPlace();
     }
 
     protected function applyEffects(): ActionResult

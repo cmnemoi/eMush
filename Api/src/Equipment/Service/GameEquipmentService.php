@@ -21,8 +21,8 @@ use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Place\Enum\DoorEnum;
 use Mush\Player\Entity\Player;
-use Mush\Room\Enum\DoorEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\ContentStatus;
@@ -228,9 +228,9 @@ class GameEquipmentService implements GameEquipmentServiceInterface
 
         if (($gameEquipment instanceof Door &&
             DoorEnum::isBreakable($gameEquipment->getName()) &&
-            $this->randomService->isSuccessfull($this->getGameConfig($gameEquipment)->getDifficultyConfig()->getDoorBreakRate())) ||
+            $this->randomService->isSuccessful($this->getGameConfig($gameEquipment)->getDifficultyConfig()->getDoorBreakRate())) ||
             ($gameEquipment->getEquipment()->getBreakableRate() > 0 &&
-            $this->randomService->isSuccessfull($this->getGameConfig($gameEquipment)->getDifficultyConfig()->getEquipmentBreakRate()))
+            $this->randomService->isSuccessful($this->getGameConfig($gameEquipment)->getDifficultyConfig()->getEquipmentBreakRate()))
             ) {
             $equipmentEvent = new EquipmentEvent($gameEquipment, VisibilityEnum::HIDDEN, $date);
             $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_BROKEN);
@@ -248,7 +248,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         }
 
         if ($gameEquipment->getEquipment()->isFireDestroyable() &&
-            $this->randomService->isSuccessfull($this->getGameConfig($gameEquipment)->getDifficultyConfig()->getEquipmentFireBreakRate())
+            $this->randomService->isSuccessful($this->getGameConfig($gameEquipment)->getDifficultyConfig()->getEquipmentFireBreakRate())
         ) {
             $equipmentEvent = new EquipmentEvent($gameEquipment, VisibilityEnum::PUBLIC, $date);
             $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
@@ -256,7 +256,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
 
         if ($gameEquipment->getEquipment()->isFireBreakable() &&
             !$gameEquipment->getStatusByName(EquipmentStatusEnum::BROKEN) &&
-            $this->randomService->isSuccessfull($this->getGameConfig($gameEquipment)->getDifficultyConfig()->getEquipmentFireBreakRate())
+            $this->randomService->isSuccessful($this->getGameConfig($gameEquipment)->getDifficultyConfig()->getEquipmentFireBreakRate())
         ) {
             $equipmentEvent = new EquipmentEvent($gameEquipment, VisibilityEnum::PUBLIC, $date);
             $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_BROKEN);

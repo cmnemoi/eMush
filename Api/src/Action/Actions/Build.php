@@ -91,7 +91,7 @@ class Build extends AbstractAction
                         ->filter(fn (GameItem $gameItem) => $gameItem->getName() === $name)->first();
                 } else {
                     // @FIXME change to a random choice of the equipment
-                    $ingredient = $this->player->getRoom()->getEquipments()
+                    $ingredient = $this->player->getPlace()->getEquipments()
                         ->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $name)->first();
                 }
 

@@ -12,7 +12,7 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
-use Mush\Room\Enum\RoomEnum;
+use Mush\Place\Enum\RoomEnum;
 
 /**
  * Class DaedalusConfigFixtures.

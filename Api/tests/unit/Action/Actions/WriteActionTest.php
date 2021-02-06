@@ -12,8 +12,8 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Room\Entity\Room;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class WriteActionTest extends AbstractActionTest
@@ -52,7 +52,7 @@ class WriteActionTest extends AbstractActionTest
 
     public function testExecute()
     {
-        $room = new Room();
+        $room = new Place();
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
@@ -63,7 +63,7 @@ class WriteActionTest extends AbstractActionTest
         ;
         $gameItem
             ->setEquipment($item)
-            ->setRoom($room)
+            ->setPlace($room)
             ->setName(ToolItemEnum::BLOCK_OF_POST_IT)
         ;
 

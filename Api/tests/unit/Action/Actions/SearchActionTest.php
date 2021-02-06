@@ -12,8 +12,8 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Room\Entity\Room;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -58,7 +58,7 @@ class SearchActionTest extends AbstractActionTest
 
     public function testExecute()
     {
-        $room = new Room();
+        $room = new Place();
 
         $player = $this->createPlayer(new Daedalus(), $room);
         $actionParameter = new ActionParameters();
@@ -74,24 +74,24 @@ class SearchActionTest extends AbstractActionTest
         $gameItem
             ->setName('itemName')
             ->setEquipment($item)
-            ->setRoom($room)
+            ->setPlace($room)
         ;
 
         $result = $this->action->execute();
         $this->assertInstanceOf(Fail::class, $result);
 
         //Success find
-        $room = new Room();
+        $room = new Place();
         $gameItem = new GameItem();
         $item = new ItemConfig();
         $gameItem
             ->setName('itemName')
             ->setEquipment($item)
-            ->setRoom($room)
+            ->setPlace($room)
         ;
 
         $hidden = new Status($gameItem);
-        $hiddenBy = $this->createPlayer(new Daedalus(), new Room());
+        $hiddenBy = $this->createPlayer(new Daedalus(), new Place());
         $hidden
             ->setName(EquipmentStatusEnum::HIDDEN)
             ->setTarget($hiddenBy)
@@ -116,16 +116,16 @@ class SearchActionTest extends AbstractActionTest
         $this->assertCount(0, $hiddenBy->getStatuses());
 
         //2 hidden items
-        $room = new Room();
+        $room = new Place();
         $gameItem = new GameItem();
         $item = new ItemConfig();
         $gameItem
             ->setName('itemName')
             ->setEquipment($item)
-            ->setRoom($room)
+            ->setPlace($room)
         ;
 
-        $hiddenBy = $this->createPlayer(new Daedalus(), new Room());
+        $hiddenBy = $this->createPlayer(new Daedalus(), new Place());
         $hidden = new Status($gameItem);
         $hidden
             ->setName(EquipmentStatusEnum::HIDDEN)
@@ -135,7 +135,7 @@ class SearchActionTest extends AbstractActionTest
         $gameItem2 = new GameItem();
         $gameItem2
             ->setEquipment($item)
-            ->setRoom($room)
+            ->setPlace($room)
         ;
 
         $hidden2 = new Status($gameItem2);

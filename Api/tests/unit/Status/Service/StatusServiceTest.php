@@ -8,7 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Room\Entity\Room;
+use Mush\Place\Entity\Place;
 use Mush\Status\Entity\Status;
 use Mush\Status\Repository\StatusRepository;
 use Mush\Status\Service\StatusService;
@@ -49,14 +49,14 @@ class StatusServiceTest extends TestCase
     public function testGetMostRecent()
     {
         $daedalus = new Daedalus();
-        $room = new Room();
+        $room = new Place();
 
         $item1 = new GameItem();
-        $item1->setRoom($room)->setName('item 1');
+        $item1->setPlace($room)->setName('item 1');
         $item2 = new GameItem();
-        $item2->setRoom($room)->setName('item 2');
+        $item2->setPlace($room)->setName('item 2');
         $item3 = new GameItem();
-        $item3->setRoom($room)->setName('item 3');
+        $item3->setPlace($room)->setName('item 3');
 
         $hidden1 = new Status($item1);
         $hidden1

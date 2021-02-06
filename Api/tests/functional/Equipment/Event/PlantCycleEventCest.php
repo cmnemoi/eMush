@@ -16,7 +16,7 @@ use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
-use Mush\Room\Entity\Room;
+use Mush\Place\Entity\Place;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\PlantLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -49,8 +49,8 @@ class PlantCycleEventCest
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
 
-        /** @var Room $room */
-        $room = $I->have(Room::class, ['daedalus' => $daedalus]);
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
         /** @var EquipmentConfig $equipmentConfig */
         $fruitConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'name' => 'fruit']);
@@ -70,7 +70,7 @@ class PlantCycleEventCest
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('plant name')
-            ->setRoom($room)
+            ->setPlace($room)
         ;
 
         $I->haveInRepository($gameEquipment);
@@ -102,7 +102,7 @@ class PlantCycleEventCest
         $I->assertCount(0, $room->getStatuses());
         $I->assertCount(0, $room->getEquipments()->first()->getStatuses());
         $I->seeInRepository(RoomLog::class, [
-            'room' => $room->getId(),
+            'place' => $room->getId(),
             'log' => PlantLogEnum::PLANT_MATURITY,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
@@ -123,8 +123,8 @@ class PlantCycleEventCest
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'cycle' => 8, 'oxygen' => 10]);
 
-        /** @var Room $room */
-        $room = $I->have(Room::class, ['daedalus' => $daedalus]);
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
         /** @var EquipmentConfig $equipmentConfig */
         $fruitConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'name' => 'fruit']);
@@ -148,7 +148,7 @@ class PlantCycleEventCest
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('plant name')
-            ->setRoom($room)
+            ->setPlace($room)
         ;
 
         $I->haveInRepository($gameEquipment);
@@ -226,20 +226,20 @@ class PlantCycleEventCest
         $I->assertEquals('fruit', $room->getEquipments()->next()->getName());
         $I->assertEquals(8, $daedalus->getOxygen());
         $I->seeInRepository(RoomLog::class, [
-            'room' => $room->getId(),
+            'place' => $room->getId(),
             'log' => PlantLogEnum::PLANT_NEW_FRUIT,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
 
         //Plant is dried
-        /** @var Room $room */
-        $room2 = $I->have(Room::class, ['daedalus' => $daedalus, 'name' => 'corridor']);
+        /** @var Place $room */
+        $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'corridor']);
 
         $gameEquipment2 = new GameItem();
         $gameEquipment2
             ->setEquipment($equipmentConfig)
             ->setName('plant name')
-            ->setRoom($room2)
+            ->setPlace($room2)
         ;
 
         $I->haveInRepository($gameEquipment2);

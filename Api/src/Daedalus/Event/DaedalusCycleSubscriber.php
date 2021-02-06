@@ -8,11 +8,11 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Event\EquipmentCycleEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Place\Entity\Place;
+use Mush\Place\Enum\RoomEnum;
+use Mush\Place\Event\PlaceCycleEvent;
 use Mush\Player\Enum\EndCauseEnum as EnumEndCauseEnum;
 use Mush\Player\Event\PlayerCycleEvent;
-use Mush\Room\Entity\Room;
-use Mush\Room\Enum\RoomEnum;
-use Mush\Room\Event\RoomCycleEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -68,11 +68,11 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
             $this->eventDispatcher->dispatch($newPlayerDay, PlayerCycleEvent::PLAYER_NEW_DAY);
         }
 
-        /** @var Room $room */
-        foreach ($daedalus->getRooms() as $room) {
-            if ($room->getName() !== RoomEnum::GREAT_BEYOND) {
-                $newRoomDay = new RoomCycleEvent($room, $event->getTime());
-                $this->eventDispatcher->dispatch($newRoomDay, RoomCycleEvent::ROOM_NEW_DAY);
+        /** @var Place $place */
+        foreach ($daedalus->getPlaces() as $place) {
+            if ($place->getName() !== RoomEnum::GREAT_BEYOND) {
+                $newRoomDay = new PlaceCycleEvent($place, $event->getTime());
+                $this->eventDispatcher->dispatch($newRoomDay, PlaceCycleEvent::PLACE_NEW_DAY);
             }
         }
 
@@ -103,7 +103,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         $oxygenLoss = 1;
 
         //@TODO: We shouldn't assume the oxygen tank are in these storages
-        if (($alphaStorageRoom = $daedalus->getRoomByName(RoomEnum::CENTER_ALPHA_STORAGE)) &&
+        if (($alphaStorageRoom = $daedalus->getPlaceByName(RoomEnum::CENTER_ALPHA_STORAGE)) &&
             $alphaStorageRoom
                 ->getEquipments()
                 ->filter(fn (GameEquipment $equipment) => $equipment->getEquipment()->getName() === EquipmentEnum::OXYGEN_TANK)
@@ -112,7 +112,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         ) {
             $oxygenLoss = $oxygenLoss + 1;
         }
-        if (($bravoStorageRoom = $daedalus->getRoomByName(RoomEnum::CENTER_BRAVO_STORAGE)) &&
+        if (($bravoStorageRoom = $daedalus->getPlaceByName(RoomEnum::CENTER_BRAVO_STORAGE)) &&
             $bravoStorageRoom
                 ->getEquipments()
                 ->filter(fn (GameEquipment $equipment) => $equipment->getEquipment()->getName() === EquipmentEnum::OXYGEN_TANK)
@@ -147,10 +147,10 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
             $this->eventDispatcher->dispatch($newPlayerCycle, PlayerCycleEvent::PLAYER_NEW_CYCLE);
         }
 
-        foreach ($daedalus->getRooms() as $room) {
-            if ($room->getName() !== RoomEnum::GREAT_BEYOND) {
-                $newRoomCycle = new RoomCycleEvent($room, $time);
-                $this->eventDispatcher->dispatch($newRoomCycle, RoomCycleEvent::ROOM_NEW_CYCLE);
+        foreach ($daedalus->getPlaces() as $place) {
+            if ($place->getName() !== RoomEnum::GREAT_BEYOND) {
+                $newRoomCycle = new PlaceCycleEvent($place, $time);
+                $this->eventDispatcher->dispatch($newRoomCycle, PlaceCycleEvent::PLACE_NEW_CYCLE);
             }
         }
 

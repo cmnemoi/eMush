@@ -9,8 +9,8 @@ use Mush\Action\Actions\ExtractSpore;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\Room\Entity\Room;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -50,7 +50,7 @@ class ExtractSporeActionTest extends AbstractActionTest
         $daedalus = new Daedalus();
         $daedalus->setSpores(1);
 
-        $room = new Room();
+        $room = new Place();
 
         $player = $this->createPlayer($daedalus, $room);
 
@@ -89,7 +89,7 @@ class ExtractSporeActionTest extends AbstractActionTest
         $daedalus = new Daedalus();
         $daedalus->setSpores(1);
 
-        $room = new Room();
+        $room = new Place();
 
         $player = $this->createPlayer($daedalus, $room);
 

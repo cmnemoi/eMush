@@ -16,8 +16,8 @@ use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Room\Entity\Room;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -64,14 +64,14 @@ class ExpressCookActionTest extends AbstractActionTest
 
     public function testCannotExecute()
     {
-        $room = new Room();
+        $room = new Place();
 
         $gameRation = new GameItem();
         $ration = new ItemConfig();
         $ration->setName('ration');
         $gameRation
             ->setEquipment($ration)
-            ->setRoom($room)
+            ->setPlace($room)
             ->setName('ration')
         ;
 
@@ -81,7 +81,7 @@ class ExpressCookActionTest extends AbstractActionTest
         $gameMicrowave
             ->setEquipment($microwave)
             ->setName(ToolItemEnum::MICROWAVE)
-            ->setRoom($room)
+            ->setPlace($room)
         ;
 
         $chargeStatus = new ChargeStatus($gameMicrowave);
@@ -104,7 +104,7 @@ class ExpressCookActionTest extends AbstractActionTest
              ->setName(EquipmentStatusEnum::FROZEN)
         ;
 
-        $gameMicrowave->setRoom(null);
+        $gameMicrowave->setPlace(null);
         //No microwave in the room
         $this->gameEquipmentService->shouldReceive('getOperationalEquipmentsByName')->andReturn(new ArrayCollection([]))->once();
         $result = $this->action->execute();
@@ -114,7 +114,7 @@ class ExpressCookActionTest extends AbstractActionTest
     public function testExecute()
     {
         //frozen fruit
-        $room = new Room();
+        $room = new Place();
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
@@ -138,7 +138,7 @@ class ExpressCookActionTest extends AbstractActionTest
         $gameMicrowave
             ->setEquipment($microwave)
             ->setName(ToolItemEnum::MICROWAVE)
-            ->setRoom($room)
+            ->setPlace($room)
         ;
 
         $chargeStatus = new ChargeStatus($gameMicrowave);
@@ -170,14 +170,14 @@ class ExpressCookActionTest extends AbstractActionTest
 
         //Standard Ration
         $daedalus = new Daedalus();
-        $room = new Room();
+        $room = new Place();
 
         $gameRation = new GameItem();
         $ration = new ItemConfig();
         $ration->setName(GameRationEnum::STANDARD_RATION);
         $gameRation
             ->setEquipment($ration)
-            ->setRoom($room)
+            ->setPlace($room)
             ->setName(GameRationEnum::STANDARD_RATION)
         ;
 
@@ -187,7 +187,7 @@ class ExpressCookActionTest extends AbstractActionTest
         $gameMicrowave
             ->setEquipment($microwave)
             ->setName(ToolItemEnum::MICROWAVE)
-            ->setRoom($room)
+            ->setPlace($room)
         ;
 
         $chargeStatus = new ChargeStatus($gameMicrowave);

@@ -16,8 +16,8 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\Room\Entity\Room;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -58,7 +58,7 @@ class LieDownActionTest extends AbstractActionTest
     public function testCannotExecute()
     {
         $daedalus = new Daedalus();
-        $room = new Room();
+        $room = new Place();
 
         $player = $this->createPlayer($daedalus, $room);
 
@@ -75,7 +75,7 @@ class LieDownActionTest extends AbstractActionTest
 
         $gameEquipment
             ->setEquipment($item)
-            ->setRoom($room)
+            ->setPlace($room)
             ->setName(EquipmentEnum::BED)
         ;
 
@@ -105,7 +105,7 @@ class LieDownActionTest extends AbstractActionTest
     public function testExecute()
     {
         $daedalus = new Daedalus();
-        $room = new Room();
+        $room = new Place();
 
         $player = $this->createPlayer($daedalus, $room);
 
@@ -122,7 +122,7 @@ class LieDownActionTest extends AbstractActionTest
 
         $gameEquipment
             ->setEquipment($item)
-            ->setRoom($room)
+            ->setPlace($room)
             ->setName(EquipmentEnum::BED)
         ;
 

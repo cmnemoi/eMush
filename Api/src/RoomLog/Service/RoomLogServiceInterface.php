@@ -4,8 +4,8 @@ namespace Mush\RoomLog\Service;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\Room\Entity\Room;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Entity\Target;
 
@@ -13,7 +13,7 @@ interface RoomLogServiceInterface
 {
     public function createActionLog(
         string $logKey,
-        Room $room,
+        Place $place,
         Player $player,
         ?Target $target,
         string $visibility,
@@ -24,7 +24,7 @@ interface RoomLogServiceInterface
 
     public function createPlayerLog(
         string $logKey,
-        Room $room,
+        Place $place,
         Player $player,
         string $visibility,
         \DateTime $dateTime = null
@@ -32,7 +32,7 @@ interface RoomLogServiceInterface
 
     public function createQuantityLog(
         string $logKey,
-        Room $room,
+        Place $place,
         Player $player,
         string $visibility,
         int $quantity,
@@ -41,7 +41,7 @@ interface RoomLogServiceInterface
 
     public function createEquipmentLog(
         string $logKey,
-        Room $room,
+        Place $place,
         ?Player $player,
         GameEquipment $gameEquipment,
         string $visibility,
@@ -50,7 +50,7 @@ interface RoomLogServiceInterface
 
     public function createRoomLog(
         string $logKey,
-        Room $room,
+        Place $place,
         string $visibility,
         \DateTime $dateTime = null
     ): RoomLog;

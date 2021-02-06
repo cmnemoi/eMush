@@ -15,8 +15,8 @@ use Mush\Equipment\Service\EquipmentServiceInterface;
 use Mush\Equipment\Service\GameEquipmentService;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\Room\Entity\Room;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -79,7 +79,7 @@ class GameEquipmentServiceTest extends TestCase
         $item = new ItemConfig();
         $item->setName(ItemEnum::METAL_SCRAPS);
 
-        $room = new Room();
+        $room = new Place();
 
         $player = new Player();
 

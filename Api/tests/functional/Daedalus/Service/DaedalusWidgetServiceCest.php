@@ -11,7 +11,7 @@ use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
-use Mush\Room\Entity\Room;
+use Mush\Place\Entity\Place;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
@@ -48,7 +48,7 @@ class DaedalusWidgetServiceCest
     public function testFireAlert(FunctionalTester $I)
     {
         $daedalus = $I->have(Daedalus::class);
-        $room = $I->have(Room::class, ['daedalus' => $daedalus]);
+        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
         $status = new Status($room);
         $status
@@ -65,7 +65,7 @@ class DaedalusWidgetServiceCest
     public function testBrokenAlert(FunctionalTester $I)
     {
         $daedalus = $I->have(Daedalus::class);
-        $room = $I->have(Room::class, ['daedalus' => $daedalus]);
+        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
         $equipmentConfig = $I->have(EquipmentConfig::class);
         $itemConfig = $I->have(ItemConfig::class);
 
@@ -73,7 +73,7 @@ class DaedalusWidgetServiceCest
         $item
             ->setName('item')
             ->setEquipment($itemConfig)
-            ->setRoom($room)
+            ->setPlace($room)
         ;
 
         $I->haveInRepository($item);
@@ -82,7 +82,7 @@ class DaedalusWidgetServiceCest
         $door
             ->setName('door')
             ->setEquipment($equipmentConfig)
-            ->setRoom($room)
+            ->setPlace($room)
         ;
 
         $I->haveInRepository($door);
@@ -92,7 +92,7 @@ class DaedalusWidgetServiceCest
         $equipment
             ->setName('equipment')
             ->setEquipment($equipmentConfig)
-            ->setRoom($room)
+            ->setPlace($room)
         ;
 
         $I->haveInRepository($equipment);

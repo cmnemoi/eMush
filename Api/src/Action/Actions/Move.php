@@ -49,13 +49,13 @@ class Move extends AbstractAction
     public function canExecute(): bool
     {
         return !$this->door->isBroken()
-            && $this->player->getRoom()->getDoors()->contains($this->door);
+            && $this->player->getPlace()->getDoors()->contains($this->door);
     }
 
     protected function applyEffects(): ActionResult
     {
-        $newRoom = $this->door->getOtherRoom($this->player->getRoom());
-        $this->player->setRoom($newRoom);
+        $newRoom = $this->door->getOtherRoom($this->player->getPlace());
+        $this->player->setPlace($newRoom);
 
         $this->playerService->persist($this->player);
 
@@ -68,7 +68,7 @@ class Move extends AbstractAction
     {
         $this->roomLogService->createActionLog(
             ActionLogEnum::ENTER_ROOM,
-            $this->player->getRoom(),
+            $this->player->getPlace(),
             $this->player,
             null,
             VisibilityEnum::PUBLIC,
@@ -76,7 +76,7 @@ class Move extends AbstractAction
         );
         $this->roomLogService->createActionLog(
             ActionLogEnum::EXIT_ROOM,
-            $this->door->getOtherRoom($this->player->getRoom()),
+            $this->door->getOtherRoom($this->player->getPlace()),
             $this->player,
             null,
             VisibilityEnum::PUBLIC,

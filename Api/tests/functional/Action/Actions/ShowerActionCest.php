@@ -19,10 +19,10 @@ use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Entity\GameConfig;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\ModifierTargetEnum;
-use Mush\Room\Entity\Room;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -44,12 +44,12 @@ class ShowerActionCest
         $gameConfig = $I->have(GameConfig::class);
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
-        /** @var Room $room */
-        $room = $I->have(Room::class, ['daedalus' => $daedalus]);
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus,
-                                            'room' => $room,
+                                            'place' => $room,
                                             'actionPoint' => 2,
                                             'healthPoint' => 6, ]);
 
@@ -85,7 +85,7 @@ class ShowerActionCest
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('shower')
-            ->setRoom($room)
+            ->setPlace($room)
         ;
         $I->haveInRepository($gameEquipment);
 
@@ -107,7 +107,7 @@ class ShowerActionCest
         $I->assertEquals(1, $player->getActionPoint());
 
         $I->seeInRepository(RoomLog::class, [
-            'room' => $room->getId(),
+            'place' => $room->getId(),
             'player' => $player->getId(),
             'log' => ActionLogEnum::SHOWER_MUSH,
             'visibility' => VisibilityEnum::PRIVATE,

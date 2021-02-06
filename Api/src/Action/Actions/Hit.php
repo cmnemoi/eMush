@@ -55,7 +55,7 @@ class Hit extends AttemptAction
 
     public function canExecute(): bool
     {
-        return $this->player->getRoom() === $this->target->getRoom() &&
+        return $this->player->getPlace() === $this->target->getPlace() &&
             $this->player !== $this->target;
     }
 

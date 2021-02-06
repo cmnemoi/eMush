@@ -9,8 +9,8 @@ use Mush\Action\Entity\ActionCost;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Enum\GameStatusEnum;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\Room\Entity\Room;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -54,7 +54,7 @@ abstract class AbstractActionTest extends TestCase
         return $action;
     }
 
-    protected function createPlayer(Daedalus $daedalus, Room $room, array $skills = []): Player
+    protected function createPlayer(Daedalus $daedalus, Place $room, array $skills = []): Player
     {
         $characterConfig = new CharacterConfig();
         $characterConfig->setName('character name');
@@ -65,7 +65,7 @@ abstract class AbstractActionTest extends TestCase
             ->setMovementPoint(10)
             ->setMoralPoint(10)
             ->setDaedalus($daedalus)
-            ->setRoom($room)
+            ->setPlace($room)
             ->setSkills($skills)
             ->setGameStatus(GameStatusEnum::CURRENT)
             ->setCharacterConfig($characterConfig)

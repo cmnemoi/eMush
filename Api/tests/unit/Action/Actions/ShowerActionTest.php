@@ -13,8 +13,8 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Room\Entity\Room;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -59,13 +59,13 @@ class ShowerActionTest extends AbstractActionTest
 
     public function testExecute()
     {
-        $room = new Room();
+        $room = new Place();
 
         $gameItem = new GameEquipment();
         $item = new EquipmentConfig();
         $gameItem
             ->setEquipment($item)
-            ->setRoom($room)
+            ->setPlace($room)
         ;
 
         $action = new Action();

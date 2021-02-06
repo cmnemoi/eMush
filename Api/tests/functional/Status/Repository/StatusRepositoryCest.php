@@ -9,8 +9,8 @@ use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\Room\Entity\Room;
 use Mush\Status\Criteria\StatusCriteria;
 use Mush\Status\Entity\Status;
 use Mush\Status\Repository\StatusRepository;
@@ -29,7 +29,7 @@ class StatusRepositoryCest
         $daedalus1 = $I->have(Daedalus::class);
         $daedalus2 = $I->have(Daedalus::class);
 
-        $room = $I->have(Room::class, ['daedalus' => $daedalus1]);
+        $room = $I->have(Place::class, ['daedalus' => $daedalus1]);
         $player = $I->have(Player::class, ['daedalus' => $daedalus1]);
         $equipmentConfig = $I->have(EquipmentConfig::class);
         $itemConfig = $I->have(ItemConfig::class);
@@ -38,7 +38,7 @@ class StatusRepositoryCest
         $door
             ->setName('door')
             ->setEquipment($equipmentConfig)
-            ->setRoom($room)
+            ->setPlace($room)
         ;
 
         $I->haveInRepository($door);
@@ -48,7 +48,7 @@ class StatusRepositoryCest
         $equipment
             ->setName('equipment')
             ->setEquipment($equipmentConfig)
-            ->setRoom($room)
+            ->setPlace($room)
         ;
 
         $I->haveInRepository($equipment);
@@ -114,7 +114,7 @@ class StatusRepositoryCest
     {
         $daedalus = $I->have(Daedalus::class);
 
-        $room = $I->have(Room::class, ['daedalus' => $daedalus]);
+        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
         $criteria = new StatusCriteria($daedalus);
 

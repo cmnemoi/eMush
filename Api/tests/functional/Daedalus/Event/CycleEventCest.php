@@ -15,9 +15,9 @@ use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\CharacterEnum;
+use Mush\Place\Entity\Place;
+use Mush\Place\Enum\DoorEnum;
 use Mush\Player\Entity\Player;
-use Mush\Room\Entity\Room;
-use Mush\Room\Enum\DoorEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -41,10 +41,10 @@ class CycleEventCest
         $gameConfig = $I->have(GameConfig::class, ['daedalusConfig' => $daedalusConfig]);
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
-        /** @var Room $room */
-        $room = $I->have(Room::class, ['daedalus' => $daedalus]);
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
         /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'room' => $room, 'actionPoint' => 2]);
+        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'actionPoint' => 2]);
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class);
 
@@ -53,7 +53,7 @@ class CycleEventCest
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('some name')
-            ->setRoom($room)
+            ->setPlace($room)
         ;
 
         $I->haveInRepository($gameEquipment);
@@ -88,19 +88,19 @@ class CycleEventCest
         $gameConfig = $I->have(GameConfig::class, ['daedalusConfig' => $daedalusConfig]);
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'oxygen' => 1]);
-        /** @var Room $room */
-        $room = $I->have(Room::class, ['daedalus' => $daedalus]);
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
         /** @var CharacterConfig $characterConfig2 */
         $characterConfig2 = $I->have(CharacterConfig::class, ['name' => CharacterEnum::ANDIE]);
         $I->have(
             Player::class,
-            ['daedalus' => $daedalus, 'room' => $room, 'characterConfig' => $characterConfig]
+            ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig]
         );
         $I->have(
             Player::class,
-            ['daedalus' => $daedalus, 'room' => $room, 'characterConfig' => $characterConfig2]
+            ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig2]
         );
 
         $time = new DateTime();
@@ -129,11 +129,11 @@ class CycleEventCest
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
 
-        /** @var Room $room */
-        $room = $I->have(Room::class, ['daedalus' => $daedalus]);
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
-        /** @var Room $room */
-        $room2 = $I->have(Room::class, ['daedalus' => $daedalus]);
+        /** @var Place $room */
+        $room2 = $I->have(Place::class, ['daedalus' => $daedalus]);
 
         /** @var EquipmentConfig $equipmentConfig */
         $doorConfig = $I->have(EquipmentConfig::class, ['isFireBreakable' => false, 'isFireDestroyable' => false, 'gameConfig' => $gameConfig]);
@@ -141,7 +141,8 @@ class CycleEventCest
         $doorConfig
             ->setGameConfig($daedalus->getGameConfig())
             ->setIsFireBreakable(false)
-            ->setIsFireDestroyable(false);
+            ->setIsFireDestroyable(false)
+        ;
 
         $door = new Door();
         $door
@@ -162,7 +163,7 @@ class CycleEventCest
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('some name')
-            ->setRoom($room)
+            ->setPlace($room)
         ;
         $I->haveInRepository($gameEquipment);
 
@@ -171,7 +172,7 @@ class CycleEventCest
         $gameEquipment2
             ->setEquipment($equipmentConfig2)
             ->setName('some other name')
-            ->setRoom($room)
+            ->setPlace($room)
         ;
         $I->haveInRepository($gameEquipment2);
 
@@ -208,11 +209,11 @@ class CycleEventCest
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
 
-        /** @var Room $room */
-        $room = $I->have(Room::class, ['daedalus' => $daedalus]);
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
-        /** @var Room $room */
-        $room2 = $I->have(Room::class, ['daedalus' => $daedalus]);
+        /** @var Place $room */
+        $room2 = $I->have(Place::class, ['daedalus' => $daedalus]);
 
         /** @var EquipmentConfig $equipmentConfig */
         $doorConfig = $I->have(EquipmentConfig::class, ['breakableRate' => 25, 'gameConfig' => $gameConfig]);
@@ -241,7 +242,7 @@ class CycleEventCest
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('some name')
-            ->setRoom($room)
+            ->setPlace($room)
         ;
         $I->haveInRepository($gameEquipment);
 
@@ -250,7 +251,7 @@ class CycleEventCest
         $gameEquipment2
             ->setEquipment($equipmentConfig2)
             ->setName('some other name')
-            ->setRoom($room2)
+            ->setPlace($room2)
         ;
         $I->haveInRepository($gameEquipment2);
 

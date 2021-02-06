@@ -21,7 +21,7 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
-use Mush\Room\Entity\Room;
+use Mush\Place\Entity\Place;
 
 class RetrieveOxygenTest extends AbstractActionTest
 {
@@ -60,7 +60,7 @@ class RetrieveOxygenTest extends AbstractActionTest
     public function testCannotExecute()
     {
         $daedalus = new Daedalus();
-        $room = new Room();
+        $room = new Place();
 
         $player = $this->createPlayer($daedalus, $room);
 
@@ -81,7 +81,7 @@ class RetrieveOxygenTest extends AbstractActionTest
         $gameTank = new GameEquipment();
         $gameTank
             ->setEquipment($tank)
-            ->setRoom($room)
+            ->setPlace($room)
             ;
 
         $actionParameter = new ActionParameters();
@@ -108,7 +108,7 @@ class RetrieveOxygenTest extends AbstractActionTest
     public function testExecute()
     {
         $daedalus = new Daedalus();
-        $room = new Room();
+        $room = new Place();
         $gameItem = new GameItem();
         $item = new ItemConfig();
         $gameItem->setEquipment($item);
@@ -143,7 +143,7 @@ class RetrieveOxygenTest extends AbstractActionTest
         $gameTank
             ->setEquipment($tank)
             ->setName(EquipmentEnum::OXYGEN_TANK)
-            ->setRoom($room)
+            ->setPlace($room)
             ;
 
         $this->gameEquipmentService->shouldReceive('persist');

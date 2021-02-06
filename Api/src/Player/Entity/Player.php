@@ -15,7 +15,7 @@ use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Enum\GameStatusEnum;
-use Mush\Room\Entity\Room;
+use Mush\Place\Entity\Place;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Entity\StatusTarget;
@@ -68,9 +68,9 @@ class Player implements StatusHolderInterface
     private Daedalus $daedalus;
 
     /**
-     * @ORM\ManyToOne (targetEntity="Mush\Room\Entity\Room", inversedBy="players")
+     * @ORM\ManyToOne (targetEntity="Mush\Place\Entity\Place", inversedBy="players")
      */
-    private Room $room;
+    private Place $place;
 
     /**
      * @ORM\OneToMany(targetEntity="Mush\Equipment\Entity\GameItem", mappedBy="player")
@@ -210,19 +210,19 @@ class Player implements StatusHolderInterface
         return $this;
     }
 
-    public function getRoom(): Room
+    public function getPlace(): Place
     {
-        return $this->room;
+        return $this->place;
     }
 
     /**
      * @return static
      */
-    public function setRoom(Room $room): Player
+    public function setPlace(Place $place): Player
     {
-        $this->room = $room;
+        $this->place = $place;
 
-        $room->addPlayer($this);
+        $place->addPlayer($this);
 
         return $this;
     }
@@ -233,14 +233,14 @@ class Player implements StatusHolderInterface
     public function canReachEquipment(GameEquipment $gameEquipment): bool
     {
         if ($gameEquipment instanceof Door &&
-            $this->getRoom()->getDoors()->contains($gameEquipment)
+            $this->getPlace()->getDoors()->contains($gameEquipment)
         ) {
             return true;
         }
         if ($hiddenStatus = $gameEquipment->getStatusByName(EquipmentStatusEnum::HIDDEN)) {
             return $hiddenStatus->getTarget() === $this;
         } else {
-            return $this->items->contains($gameEquipment) || $this->getRoom()->getEquipments()->contains($gameEquipment);
+            return $this->items->contains($gameEquipment) || $this->getPlace()->getEquipments()->contains($gameEquipment);
         }
     }
 
@@ -252,7 +252,7 @@ class Player implements StatusHolderInterface
         } elseif ($reach === ReachEnum::SHELVE_NOT_HIDDEN) {
             return (new ArrayCollection(array_merge(
                 $this->getItems()->toArray(),
-                $this->getRoom()->getEquipments()->toArray()
+                $this->getPlace()->getEquipments()->toArray()
             ))
             )->filter(fn (GameEquipment $gameEquipment) => (
                 $gameEquipment->getName() === $name &&
@@ -261,11 +261,11 @@ class Player implements StatusHolderInterface
         } elseif ($reach === ReachEnum::SHELVE) {
             return (new ArrayCollection(array_merge(
                 $this->getItems()->toArray(),
-                $this->getRoom()->getEquipments()->toArray()
+                $this->getPlace()->getEquipments()->toArray()
             ))
             )->filter(fn (GameEquipment $equipment) => ($equipment->getName() === $name));
         } else {
-            if ($roomReached = $this->getDaedalus()->getRoomByName($reach)) {
+            if ($roomReached = $this->getDaedalus()->getPlaceByName($reach)) {
                 return $roomReached
                     ->getEquipments()
                     ->filter(fn (GameEquipment $equipment) => $equipment->getName() === $name)
@@ -279,7 +279,7 @@ class Player implements StatusHolderInterface
     public function getReachableTools(): Collection
     {
         //reach can be set to inventory, shelve, shelve only or any room of the Daedalus
-        return (new ArrayCollection(array_merge($this->getItems()->toArray(), $this->getRoom()->getEquipments()->toArray())
+        return (new ArrayCollection(array_merge($this->getItems()->toArray(), $this->getPlace()->getEquipments()->toArray())
         ))->filter(fn (GameEquipment $gameEquipment) => ($gameEquipment->getEquipment()->getMechanicbyName(EquipmentMechanicEnum::TOOL)));
     }
 

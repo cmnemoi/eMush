@@ -15,9 +15,9 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Room\Entity\Room;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
@@ -74,13 +74,13 @@ class SabotageActionTest extends AbstractActionTest
 
     public function testCannotExecute()
     {
-        $room = new Room();
+        $room = new Place();
         $gameItem = new GameItem();
         $item = new ItemConfig();
         $item->setBreakableRate(20);
         $gameItem
             ->setEquipment($item)
-            ->setRoom($room)
+            ->setPlace($room)
         ;
 
         $actionParameter = new ActionParameters();
@@ -102,7 +102,7 @@ class SabotageActionTest extends AbstractActionTest
 
         //Not in the same room
         $gameItem
-            ->setRoom(new Room())
+            ->setPlace(new Place())
         ;
         $room->removeEquipment($gameItem);
 
@@ -110,7 +110,7 @@ class SabotageActionTest extends AbstractActionTest
         $this->assertInstanceOf(Error::class, $result);
 
         $gameItem
-            ->setRoom($room)
+            ->setPlace($room)
         ;
         $item->setBreakableRate(0);
         //Not breakable
@@ -130,13 +130,13 @@ class SabotageActionTest extends AbstractActionTest
 
     public function testExecute()
     {
-        $room = new Room();
+        $room = new Place();
         $gameItem = new GameItem();
         $item = new ItemConfig();
         $item->setBreakableRate(10);
         $gameItem
             ->setEquipment($item)
-            ->setRoom($room)
+            ->setPlace($room)
         ;
 
         $actionParameter = new ActionParameters();
@@ -167,7 +167,7 @@ class SabotageActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
         $this->successRateService->shouldReceive('getSuccessRate')->andReturn(10)->once();
-        $this->randomService->shouldReceive('isSuccessfull')->andReturn(false)->once();
+        $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->once();
 
         //Fail try
         $result = $this->action->execute();
@@ -179,7 +179,7 @@ class SabotageActionTest extends AbstractActionTest
         $this->assertEquals(8, $player->getActionPoint());
 
         $this->successRateService->shouldReceive('getSuccessRate')->andReturn(10)->once();
-        $this->randomService->shouldReceive('isSuccessfull')->andReturn(true)->once();
+        $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
         $this->eventDispatcher->shouldReceive('dispatch');
 
         //Success

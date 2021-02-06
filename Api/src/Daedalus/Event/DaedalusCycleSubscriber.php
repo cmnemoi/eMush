@@ -69,11 +69,9 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         }
 
         /** @var Place $place */
-        foreach ($daedalus->getPlaces() as $place) {
-            if ($place->getName() !== RoomEnum::GREAT_BEYOND) {
-                $newRoomDay = new PlaceCycleEvent($place, $event->getTime());
-                $this->eventDispatcher->dispatch($newRoomDay, PlaceCycleEvent::PLACE_NEW_DAY);
-            }
+        foreach ($daedalus->getRooms() as $place) {
+            $newRoomDay = new PlaceCycleEvent($place, $event->getTime());
+            $this->eventDispatcher->dispatch($newRoomDay, PlaceCycleEvent::PLACE_NEW_DAY);
         }
 
         //reset spore count
@@ -147,11 +145,9 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
             $this->eventDispatcher->dispatch($newPlayerCycle, PlayerCycleEvent::PLAYER_NEW_CYCLE);
         }
 
-        foreach ($daedalus->getPlaces() as $place) {
-            if ($place->getName() !== RoomEnum::GREAT_BEYOND) {
-                $newRoomCycle = new PlaceCycleEvent($place, $time);
-                $this->eventDispatcher->dispatch($newRoomCycle, PlaceCycleEvent::PLACE_NEW_CYCLE);
-            }
+        foreach ($daedalus->getRooms() as $place) {
+            $newRoomCycle = new PlaceCycleEvent($place, $time);
+            $this->eventDispatcher->dispatch($newRoomCycle, PlaceCycleEvent::PLACE_NEW_CYCLE);
         }
 
         foreach ($this->gameEquipmentService->getDoorsByDaedalus($daedalus) as $door) {

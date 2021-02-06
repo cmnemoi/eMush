@@ -6,6 +6,7 @@ use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Service\RoomEventServiceInterface;
 use Mush\Player\Entity\Modifier;
 use Mush\Player\Enum\EndCauseEnum;
@@ -54,6 +55,11 @@ class RoomSubscriber implements EventSubscriberInterface
     public function onTremor(RoomEvent $event): void
     {
         $room = $event->getRoom();
+
+        if ($room->getType() !== PlaceTypeEnum::ROOM) {
+            return;
+        }
+
         $difficultyConfig = $room->getDaedalus()->getGameConfig()->getDifficultyConfig();
         foreach ($room->getPlayers() as $player) {
             $damage = $this->randomService->getSingleRandomElementFromProbaArray($difficultyConfig->getTremorPlayerDamage());
@@ -80,6 +86,11 @@ class RoomSubscriber implements EventSubscriberInterface
     public function onElectricArc(RoomEvent $event): void
     {
         $room = $event->getRoom();
+
+        if ($room->getType() !== PlaceTypeEnum::ROOM) {
+            return;
+        }
+
         $difficultyConfig = $room->getDaedalus()->getGameConfig()->getDifficultyConfig();
         foreach ($room->getPlayers() as $player) {
             $damage = $this->randomService->getSingleRandomElementFromProbaArray($difficultyConfig->getElectricArcPlayerDamage());
@@ -115,8 +126,13 @@ class RoomSubscriber implements EventSubscriberInterface
     public function onStartingFire(RoomEvent $event): void
     {
         $room = $event->getRoom();
+
+        if ($room->getType() !== PlaceTypeEnum::ROOM) {
+            return;
+        }
+
         if (!$room->hasStatus(StatusEnum::FIRE)) {
-            $fireStatus = $this->statusService->createChargeStatus(StatusEnum::FIRE,
+            $this->statusService->createChargeStatus(StatusEnum::FIRE,
                 $event->getRoom(),
                 ChargeStrategyTypeEnum::CYCLE_INCREMENT,
                 null,

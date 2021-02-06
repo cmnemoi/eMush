@@ -47,6 +47,7 @@ class PlaceService implements PlaceServiceInterface
     {
         $room = new Place();
         $room->setName($roomConfig->getName());
+        $room->setType($roomConfig->getType());
 
         $this->persist($room);
 

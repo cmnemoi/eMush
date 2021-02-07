@@ -8,9 +8,6 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
-use Mush\User\Entity\User;
-use Symfony\Component\Finder\Exception\AccessDeniedException;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
@@ -20,20 +17,19 @@ class OtherPlayerNormalizer implements ContextAwareNormalizerInterface, Normaliz
 {
     use NormalizerAwareTrait;
 
-    private TokenStorageInterface $tokenStorage;
     private TranslatorInterface $translator;
 
     public function __construct(
-        TokenStorageInterface $tokenStorage,
         TranslatorInterface $translator
     ) {
-        $this->tokenStorage = $tokenStorage;
         $this->translator = $translator;
     }
 
     public function supportsNormalization($data, string $format = null, array $context = []): bool
     {
-        return $data instanceof Player && $data !== $this->getUserPlayer();
+        $currentPlayer = $context['currentPlayer'] ?? null;
+
+        return $data instanceof Player && $data !== $currentPlayer;
     }
 
     public function normalize($object, string $format = null, array $context = []): array
@@ -42,7 +38,7 @@ class OtherPlayerNormalizer implements ContextAwareNormalizerInterface, Normaliz
         $player = $object;
         $statuses = [];
         foreach ($player->getStatuses() as $status) {
-            $normedStatus = $this->normalizer->normalize($status, $format, ['player' => $player]);
+            $normedStatus = $this->normalizer->normalize($status, $format, array_merge($context, ['player' => $player]));
             if (is_array($normedStatus) && count($normedStatus) > 0) {
                 $statuses[] = $normedStatus;
             }
@@ -58,11 +54,11 @@ class OtherPlayerNormalizer implements ContextAwareNormalizerInterface, Normaliz
             ],
             'statuses' => $statuses,
             'skills' => $player->getSkills(),
-            'actions' => $this->getActions($player, $format),
+            'actions' => $this->getActions($player, $format, $context),
         ];
     }
 
-    private function getActions(Player $player, string $format = null): array
+    private function getActions(Player $player, ?string $format, array $context): array
     {
         $contextualActions = $this->getContextActions($player);
 
@@ -71,7 +67,7 @@ class OtherPlayerNormalizer implements ContextAwareNormalizerInterface, Normaliz
         /** @var Action $action */
         foreach ($player->getCharacterConfig()->getActions() as $action) {
             if ($action->getScope() === ActionScopeEnum::OTHER_PLAYER) {
-                $normedAction = $this->normalizer->normalize($action, $format, ['player' => $player]);
+                $normedAction = $this->normalizer->normalize($action, $format, array_merge($context, ['player' => $player]));
                 if (is_array($normedAction) && count($normedAction) > 0) {
                     $actions[] = $normedAction;
                 }
@@ -80,7 +76,7 @@ class OtherPlayerNormalizer implements ContextAwareNormalizerInterface, Normaliz
 
         /** @var Action $action */
         foreach ($contextualActions as $action) {
-            $normedAction = $this->normalizer->normalize($action, $format, ['player' => $player]);
+            $normedAction = $this->normalizer->normalize($action, $format, array_merge($context, ['player' => $player]));
             if (is_array($normedAction) && count($normedAction) > 0) {
                 $actions[] = $normedAction;
             }
@@ -107,21 +103,5 @@ class OtherPlayerNormalizer implements ContextAwareNormalizerInterface, Normaliz
         }
 
         return $contextActions;
-    }
-
-    private function getUserPlayer(): Player
-    {
-        if (!$token = $this->tokenStorage->getToken()) {
-            throw new AccessDeniedException('User should be logged to access that');
-        }
-
-        /** @var User $user */
-        $user = $token->getUser();
-
-        if (!$player = $user->getCurrentGame()) {
-            throw new AccessDeniedException('User should be in game to access that');
-        }
-
-        return $player;
     }
 }

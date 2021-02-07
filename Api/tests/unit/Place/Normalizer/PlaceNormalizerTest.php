@@ -12,19 +12,13 @@ use Mush\Place\Normalizer\PlaceNormalizer;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class PlaceNormalizerTest extends TestCase
 {
     private PlaceNormalizer $normalizer;
-
-    /** @var TokenStorageInterface | Mockery\Mock */
-    private TokenStorageInterface $tokenStorage;
 
     /** @var TranslatorInterface | Mockery\Mock */
     private TranslatorInterface $translator;
@@ -34,10 +28,9 @@ class PlaceNormalizerTest extends TestCase
      */
     public function before()
     {
-        $this->tokenStorage = Mockery::mock(TokenStorageInterface::class);
         $this->translator = Mockery::mock(TranslatorInterface::class);
 
-        $this->normalizer = new PlaceNormalizer($this->translator, $this->tokenStorage);
+        $this->normalizer = new PlaceNormalizer($this->translator);
     }
 
     /**
@@ -56,7 +49,7 @@ class PlaceNormalizerTest extends TestCase
 
         $this->translator->shouldReceive('trans')->andReturn('translated')->once();
 
-        $data = $this->normalizer->normalize($room);
+        $data = $this->normalizer->normalize($room, null, ['currentPlayer' => new Player()]);
 
         $expected = [
             'id' => $room->getId(),
@@ -93,7 +86,7 @@ class PlaceNormalizerTest extends TestCase
 
         $this->normalizer->setNormalizer($normalizer);
 
-        $data = $this->normalizer->normalize($room);
+        $data = $this->normalizer->normalize($room, null, ['currentPlayer' => new Player()]);
 
         $expected = [
             'id' => $room->getId(),
@@ -129,7 +122,7 @@ class PlaceNormalizerTest extends TestCase
 
         $this->normalizer->setNormalizer($normalizer);
 
-        $data = $this->normalizer->normalize($room);
+        $data = $this->normalizer->normalize($room, null, ['currentPlayer' => new Player()]);
 
         $expected = [
             'id' => $room->getId(),
@@ -164,15 +157,10 @@ class PlaceNormalizerTest extends TestCase
         $normalizer->shouldReceive('normalize')->andReturn([]);
 
         $player = new Player();
-        $user = new User();
-        $user->setCurrentGame($player);
-        $token = Mockery::mock(TokenInterface::class);
-        $token->shouldReceive('getUser')->andReturn($user);
-        $this->tokenStorage->shouldReceive('getToken')->andReturn($token);
 
         $this->normalizer->setNormalizer($normalizer);
 
-        $data = $this->normalizer->normalize($room);
+        $data = $this->normalizer->normalize($room, null, ['currentPlayer' => $player]);
 
         $expected = [
             'id' => $room->getId(),
@@ -212,15 +200,11 @@ class PlaceNormalizerTest extends TestCase
         $normalizer->shouldReceive('normalize')->andReturn([]);
 
         $player = new Player();
-        $user = new User();
-        $user->setCurrentGame($player);
-        $token = Mockery::mock(TokenInterface::class);
-        $token->shouldReceive('getUser')->andReturn($user);
-        $this->tokenStorage->shouldReceive('getToken')->andReturn($token);
 
         $this->normalizer->setNormalizer($normalizer);
 
-        $data = $this->normalizer->normalize($room);
+        $data = $this->normalizer->normalize($room, null, ['currentPlayer' => $player]);
+
         $expected = [
             'id' => $room->getId(),
             'key' => $room->getName(),

@@ -2,6 +2,7 @@
 
 namespace Mush\Player\Controller;
 
+use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
@@ -59,13 +60,17 @@ class PlayerController extends AbstractFOSRestController
      * @Security(name="Bearer")
      * @Rest\Get(path="/{id}")
      */
-    public function getPlayerAction(Player $player): Response
+    public function getPlayerAction(Player $player): View
     {
         $this->denyAccessUnlessGranted(CharacterVoter::PLAYER_VIEW, $player);
 
-        $view = $this->view($player, 200);
+        $context = new Context();
+        $context->setAttribute('currentPlayer', $player);
 
-        return $this->handleView($view);
+        $view = $this->view($player, Response::HTTP_OK);
+        $view->setContext($context);
+
+        return $view;
     }
 
     /**
@@ -117,6 +122,12 @@ class PlayerController extends AbstractFOSRestController
 
         $player = $this->playerService->createPlayer($daedalus, $user, $character);
 
-        return $this->view($player, Response::HTTP_CREATED);
+        $context = new Context();
+        $context->setAttribute('currentPlayer', $player);
+
+        $view = $this->view($player, Response::HTTP_CREATED);
+        $view->setContext($context);
+
+        return $view;
     }
 }

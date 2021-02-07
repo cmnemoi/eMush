@@ -15,8 +15,8 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
+use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Room\Entity\Room;
 use Mush\Status\Service\StatusServiceInterface;
 
 class TakeActionTest extends AbstractActionTest
@@ -59,7 +59,7 @@ class TakeActionTest extends AbstractActionTest
 
     public function testExecute()
     {
-        $room = new Room();
+        $room = new Place();
         $gameItem = new GameItem();
 
         $takeAction = new Action();
@@ -71,7 +71,7 @@ class TakeActionTest extends AbstractActionTest
         $gameItem->setEquipment($item);
         $gameItem
             ->setName('itemName')
-            ->setRoom($room)
+            ->setPlace($room)
         ;
 
         $item

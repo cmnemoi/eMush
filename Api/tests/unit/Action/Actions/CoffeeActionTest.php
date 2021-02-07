@@ -17,7 +17,7 @@ use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Room\Entity\Room;
+use Mush\Place\Entity\Place;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -59,7 +59,7 @@ class CoffeeActionTest extends AbstractActionTest
 
     public function testCannotExecute()
     {
-        $room = new Room();
+        $room = new Place();
 
         $gameCoffeeMachine = new GameEquipment();
         $coffeeMachine = new EquipmentConfig();
@@ -67,7 +67,7 @@ class CoffeeActionTest extends AbstractActionTest
         $gameCoffeeMachine
             ->setEquipment($coffeeMachine)
             ->setName(EquipmentEnum::COFFEE_MACHINE)
-            ->setRoom(null)
+            ->setPlace(null)
         ;
 
         $chargeStatus = new ChargeStatus($gameCoffeeMachine);
@@ -88,7 +88,7 @@ class CoffeeActionTest extends AbstractActionTest
 
     public function testExecute()
     {
-        $room = new Room();
+        $room = new Place();
 
         $gameCoffeeMachine = new GameEquipment();
         $coffeeMachine = new EquipmentConfig();
@@ -96,7 +96,7 @@ class CoffeeActionTest extends AbstractActionTest
         $gameCoffeeMachine
             ->setEquipment($coffeeMachine)
             ->setName(EquipmentEnum::COFFEE_MACHINE)
-            ->setRoom($room)
+            ->setPlace($room)
         ;
 
         $coffeeMachine->setActions(new ArrayCollection([$this->actionEntity]));

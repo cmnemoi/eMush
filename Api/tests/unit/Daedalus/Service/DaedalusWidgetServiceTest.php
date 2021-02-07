@@ -5,9 +5,9 @@ namespace Mush\Test\Daedalus\Service;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Service\DaedalusWidgetService;
+use Mush\Place\Entity\Place;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
-use Mush\Room\Entity\Room;
-use Mush\Room\Enum\RoomEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -45,15 +45,15 @@ class DaedalusWidgetServiceTest extends TestCase
 
     public function testgetMinimap()
     {
-        $room = new Room();
+        $room = new Place();
         $room->setName(RoomEnum::LABORATORY);
-        $room2 = new Room();
+        $room2 = new Place();
         $room2->setName(RoomEnum::BRIDGE);
 
         $daedalus = new Daedalus();
         $daedalus
-            ->addRoom($room)
-            ->addRoom($room2)
+            ->addPlace($room)
+            ->addPlace($room2)
         ;
 
         $player = new Player();

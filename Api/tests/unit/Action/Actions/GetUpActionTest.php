@@ -12,7 +12,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
-use Mush\Room\Entity\Room;
+use Mush\Place\Entity\Place;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -50,7 +50,7 @@ class GetUpActionTest extends AbstractActionTest
     public function testCannotExecute()
     {
         $daedalus = new Daedalus();
-        $room = new Room();
+        $room = new Place();
 
         $player = $this->createPlayer($daedalus, $room);
         $player2 = $this->createPlayer($daedalus, $room);
@@ -62,7 +62,7 @@ class GetUpActionTest extends AbstractActionTest
         ;
         $gameItem
             ->setEquipment($item)
-            ->setRoom($room)
+            ->setPlace($room)
             ->setName(EquipmentEnum::BED)
         ;
 
@@ -83,7 +83,7 @@ class GetUpActionTest extends AbstractActionTest
 
     public function testExecute()
     {
-        $room = new Room();
+        $room = new Place();
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
@@ -94,7 +94,7 @@ class GetUpActionTest extends AbstractActionTest
         ;
         $gameItem
             ->setEquipment($item)
-            ->setRoom($room)
+            ->setPlace($room)
             ->setName(EquipmentEnum::BED)
         ;
 

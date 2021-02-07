@@ -17,8 +17,8 @@ use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Room\Entity\Room;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -64,14 +64,14 @@ class CookActionTest extends AbstractActionTest
 
     public function testCannotExecute()
     {
-        $room = new Room();
+        $room = new Place();
 
         $gameRation = new GameItem();
         $ration = new ItemConfig();
         $ration->setName('ration');
         $gameRation
             ->setEquipment($ration)
-            ->setRoom($room)
+            ->setPlace($room)
             ->setName('ration')
         ;
 
@@ -81,7 +81,7 @@ class CookActionTest extends AbstractActionTest
         $gameKitchen
             ->setEquipment($kitchen)
             ->setName(EquipmentEnum::KITCHEN)
-            ->setRoom($room)
+            ->setPlace($room)
         ;
 
         $player = $this->createPlayer(new Daedalus(), $room);
@@ -98,7 +98,7 @@ class CookActionTest extends AbstractActionTest
              ->setName(EquipmentStatusEnum::FROZEN)
         ;
 
-        $gameKitchen->setRoom(null);
+        $gameKitchen->setPlace(null);
         //No microwave in the room
         $this->gameEquipmentService->shouldReceive('getOperationalEquipmentsByName')->andReturn(new ArrayCollection([]))->once();
         $result = $this->action->execute();
@@ -108,7 +108,7 @@ class CookActionTest extends AbstractActionTest
     public function testExecute()
     {
         //frozen fruit
-        $room = new Room();
+        $room = new Place();
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
@@ -132,7 +132,7 @@ class CookActionTest extends AbstractActionTest
         $gameKitchen
             ->setEquipment($kitchen)
             ->setName(EquipmentEnum::KITCHEN)
-            ->setRoom($room)
+            ->setPlace($room)
         ;
 
         $actionParameter = new ActionParameters();
@@ -152,7 +152,7 @@ class CookActionTest extends AbstractActionTest
         $this->assertCount(0, $player->getStatuses());
         $this->assertEquals(9, $player->getActionPoint());
 
-        $room = new Room();
+        $room = new Place();
 
         //Standard Ration
         $gameRation = new GameItem();
@@ -160,7 +160,7 @@ class CookActionTest extends AbstractActionTest
         $ration->setName(GameRationEnum::STANDARD_RATION);
         $gameRation
             ->setEquipment($ration)
-            ->setRoom($room)
+            ->setPlace($room)
             ->setName(GameRationEnum::STANDARD_RATION)
         ;
 
@@ -170,7 +170,7 @@ class CookActionTest extends AbstractActionTest
         $gameKitchen
             ->setEquipment($kitchen)
             ->setName(EquipmentEnum::KITCHEN)
-            ->setRoom($room)
+            ->setPlace($room)
         ;
         $player = $this->createPlayer(new Daedalus(), $room);
 

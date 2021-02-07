@@ -12,12 +12,12 @@ use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\ModifierScopeEnum;
 use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Event\PlayerEvent;
-use Mush\Room\Entity\Room;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\Status;
 use Mush\Status\Service\StatusServiceInterface;
@@ -66,9 +66,9 @@ class ActionServiceTest extends TestCase
     public function testHandleActionSideEffectDirty()
     {
         $action = new Action();
-        $room = new Room();
+        $room = new Place();
         $player = new Player();
-        $player->setRoom($room);
+        $player->setPlace($room);
 
         $action
             ->setDirtyRate(0)
@@ -95,9 +95,9 @@ class ActionServiceTest extends TestCase
     public function testHandleActionSideEffectDirtyWithApron()
     {
         $action = new Action();
-        $room = new Room();
+        $room = new Place();
         $player = new Player();
-        $player->setRoom($room);
+        $player->setPlace($room);
 
         $action
             ->setDirtyRate(100)
@@ -130,9 +130,9 @@ class ActionServiceTest extends TestCase
     public function testHandleActionSideEffectInjury()
     {
         $action = new Action();
-        $room = new Room();
+        $room = new Place();
         $player = new Player();
-        $player->setRoom($room);
+        $player->setPlace($room);
 
         $action
             ->setDirtyRate(0)
@@ -165,9 +165,9 @@ class ActionServiceTest extends TestCase
     public function testHandleActionSideEffectInjuryWithGloves()
     {
         $action = new Action();
-        $room = new Room();
+        $room = new Place();
         $player = new Player();
-        $player->setRoom($room);
+        $player->setPlace($room);
 
         $action
             ->setDirtyRate(0)

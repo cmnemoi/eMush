@@ -15,8 +15,9 @@ use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Fruit;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Room\Entity\Room;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class PlantActionTest extends AbstractActionTest
 {
@@ -54,12 +55,12 @@ class PlantActionTest extends AbstractActionTest
 
     public function testCannotExecute()
     {
-        $room = new Room();
+        $room = new Place();
         $gameItem = new GameItem();
         $item = new ItemConfig();
         $gameItem
                     ->setEquipment($item)
-                    ->setRoom($room)
+                    ->setPlace($room)
                     ->setName('toto');
 
         $fruit = new Fruit();
@@ -73,7 +74,7 @@ class PlantActionTest extends AbstractActionTest
         $hydropot->setName(ItemEnum::HYDROPOT);
         $gameHydropot
                     ->setEquipment($hydropot)
-                    ->setRoom($room)
+                    ->setPlace($room)
                     ->setName(ItemEnum::HYDROPOT);
 
         $actionParameter = new ActionParameters();
@@ -89,7 +90,7 @@ class PlantActionTest extends AbstractActionTest
         $item->setMechanics(new ArrayCollection([$fruit]));
 
         //Hydropot in another room
-        $gameHydropot->setRoom(new Room());
+        $gameHydropot->setPlace(new Place());
 
         $result = $this->action->execute();
         $this->assertInstanceOf(Error::class, $result);
@@ -97,12 +98,12 @@ class PlantActionTest extends AbstractActionTest
 
     public function testExecute()
     {
-        $room = new Room();
+        $room = new Place();
         $gameItem = new GameItem();
         $item = new ItemConfig();
         $gameItem
                     ->setEquipment($item)
-                    ->setRoom($room)
+                    ->setPlace($room)
                     ->setName('toto');
 
         $fruit = new Fruit();
@@ -123,7 +124,7 @@ class PlantActionTest extends AbstractActionTest
         $hydropot->setName(ItemEnum::HYDROPOT);
         $gameHydropot
                     ->setEquipment($hydropot)
-                    ->setRoom($room)
+                    ->setPlace($room)
                     ->setName(ItemEnum::HYDROPOT);
 
         $actionParameter = new ActionParameters();
@@ -144,6 +145,6 @@ class PlantActionTest extends AbstractActionTest
 
         $this->assertInstanceOf(Success::class, $result);
         $this->assertEmpty($player->getItems());
-        $this->assertContains($gamePlant, $player->getRoom()->getEquipments());
+        $this->assertContains($gamePlant, $player->getPlace()->getEquipments());
     }
 }

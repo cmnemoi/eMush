@@ -16,11 +16,11 @@ use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Entity\GameConfig;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\ModifierScopeEnum;
 use Mush\Player\Enum\ModifierTargetEnum;
-use Mush\Room\Entity\Room;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -40,10 +40,10 @@ class RepairActionCest
         $gameConfig = $I->have(GameConfig::class);
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
-        /** @var Room $room */
-        $room = $I->have(Room::class, ['daedalus' => $daedalus]);
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
         /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'room' => $room, 'actionPoint' => 2]);
+        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'actionPoint' => 2]);
         $action = new Action();
 
         $action
@@ -61,7 +61,7 @@ class RepairActionCest
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('some name')
-            ->setRoom($room)
+            ->setPlace($room)
         ;
 
         $actionParameters = new ActionParameters();

@@ -16,10 +16,10 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Place\Entity\Place;
+use Mush\Place\Service\PlaceServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Room\Entity\Room;
-use Mush\Room\Service\RoomServiceInterface;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -28,8 +28,8 @@ use Mush\Status\Service\StatusServiceInterface;
 
 class ExtinguishActionTest extends AbstractActionTest
 {
-    /** @var RoomServiceInterface | Mockery\Mock */
-    private RoomServiceInterface $roomService;
+    /** @var PlaceServiceInterface | Mockery\Mock */
+    private PlaceServiceInterface $placeService;
     /** @var PlayerServiceInterface | Mockery\Mock */
     private PlayerServiceInterface $playerService;
     /** @var SuccessRateServiceInterface | Mockery\Mock */
@@ -48,7 +48,7 @@ class ExtinguishActionTest extends AbstractActionTest
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::REPAIR, 1);
 
-        $this->roomService = Mockery::mock(roomServiceInterface::class);
+        $this->placeService = Mockery::mock(PlaceServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
         $this->successRateService = Mockery::mock(SuccessRateServiceInterface::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
@@ -60,7 +60,7 @@ class ExtinguishActionTest extends AbstractActionTest
             $this->randomService,
             $this->successRateService,
             $this->statusService,
-            $this->roomService
+            $this->placeService
         );
     }
 
@@ -74,12 +74,12 @@ class ExtinguishActionTest extends AbstractActionTest
 
     public function testCannotExecute()
     {
-        $room = new Room();
+        $room = new Place();
         $gameItem = new GameItem();
         $item = new ItemConfig();
         $gameItem->setEquipment($item);
         $gameItem
-            ->setRoom($room)
+            ->setPlace($room)
         ;
 
         $action = new Action();
@@ -113,7 +113,7 @@ class ExtinguishActionTest extends AbstractActionTest
 
     public function testExecute()
     {
-        $room = new Room();
+        $room = new Place();
         $fire = new Status($room);
         $fire
             ->setName(StatusEnum::FIRE)
@@ -123,7 +123,7 @@ class ExtinguishActionTest extends AbstractActionTest
         $item = new ItemConfig();
         $gameItem->setEquipment($item);
         $gameItem
-            ->setRoom($room)
+            ->setPlace($room)
         ;
 
         $action = new Action();
@@ -133,7 +133,7 @@ class ExtinguishActionTest extends AbstractActionTest
         $actionParameter = new ActionParameters();
         $actionParameter->setItem($gameItem);
 
-        $this->roomService->shouldReceive('persist');
+        $this->placeService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
 
         $player = $this->createPlayer(new Daedalus(), $room);
@@ -151,7 +151,7 @@ class ExtinguishActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
         $this->successRateService->shouldReceive('getSuccessRate')->andReturn(10)->once();
-        $this->randomService->shouldReceive('isSuccessfull')->andReturn(false)->once();
+        $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->once();
 
         //Fail try
         $result = $this->action->execute();
@@ -163,7 +163,7 @@ class ExtinguishActionTest extends AbstractActionTest
         $this->assertEquals(9, $player->getActionPoint());
 
         $this->successRateService->shouldReceive('getSuccessRate')->andReturn(10)->once();
-        $this->randomService->shouldReceive('isSuccessfull')->andReturn(true)->once();
+        $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
 
         //Success
         $result = $this->action->execute();

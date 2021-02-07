@@ -16,9 +16,9 @@ use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Room\Entity\Room;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -73,12 +73,12 @@ class RepairActionTest extends AbstractActionTest
 
     public function testCannotExecute()
     {
-        $room = new Room();
+        $room = new Place();
         $gameItem = new GameItem();
         $item = new ItemConfig();
         $gameItem->setEquipment($item);
         $gameItem
-            ->setRoom($room)
+            ->setPlace($room)
         ;
 
         $actionParameter = new ActionParameters();
@@ -98,7 +98,7 @@ class RepairActionTest extends AbstractActionTest
 
         //Not in the same room
         $gameItem
-            ->setRoom(new Room())
+            ->setPlace(new Place())
         ;
         $room->removeEquipment($gameItem);
 
@@ -109,7 +109,7 @@ class RepairActionTest extends AbstractActionTest
     public function testExecute()
     {
         $daedalus = new Daedalus();
-        $room = new Room();
+        $room = new Place();
         $gameItem = new GameItem();
         $item = new ItemConfig();
         $item
@@ -123,7 +123,7 @@ class RepairActionTest extends AbstractActionTest
 
         $gameItem
             ->setEquipment($item)
-            ->setRoom($room)
+            ->setPlace($room)
         ;
 
         $this->gameEquipmentService->shouldReceive('persist');
@@ -144,7 +144,7 @@ class RepairActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
         $this->successRateService->shouldReceive('getSuccessRate')->andReturn(10)->once();
-        $this->randomService->shouldReceive('isSuccessfull')->andReturn(false)->once();
+        $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->once();
 
         //Fail try
         $result = $this->action->execute();
@@ -155,7 +155,7 @@ class RepairActionTest extends AbstractActionTest
         $this->assertEquals(9, $player->getActionPoint());
 
         $this->successRateService->shouldReceive('getSuccessRate')->andReturn(10)->once();
-        $this->randomService->shouldReceive('isSuccessfull')->andReturn(true)->once();
+        $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
 
         //Success
         $result = $this->action->execute();

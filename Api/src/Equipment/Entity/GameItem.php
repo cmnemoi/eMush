@@ -3,8 +3,8 @@
 namespace Mush\Equipment\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\Room\Entity\Room;
 
 /**
  * Class GameItem.
@@ -60,18 +60,18 @@ class GameItem extends GameEquipment
      */
     public function removeLocation(): GameItem
     {
-        $this->setRoom(null);
+        $this->setPlace(null);
         $this->setPlayer(null);
 
         return $this;
     }
 
-    public function getCurrentRoom(): Room
+    public function getCurrentPlace(): Place
     {
         if ($player = $this->getPlayer()) {
-            $room = $player->getRoom();
+            $room = $player->getPlace();
         } else {
-            $room = $this->getRoom();
+            $room = $this->getPlace();
         }
 
         if ($room === null) {

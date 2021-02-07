@@ -16,6 +16,7 @@ use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Room\Entity\Room;
 use Mush\Status\Service\StatusServiceInterface;
@@ -61,14 +62,14 @@ class HyperfreezeActionTest extends AbstractActionTest
 
     public function testCannotExecute()
     {
-        $room = new Room();
+        $room = new Place();
 
         $gameRation = new GameItem();
         $ration = new ItemConfig();
         $ration->setName('ration');
         $gameRation
             ->setEquipment($ration)
-            ->setRoom($room)
+            ->setPlace($room)
             ->setName('ration')
         ;
 
@@ -78,7 +79,7 @@ class HyperfreezeActionTest extends AbstractActionTest
         $gameSuperfreezer
             ->setEquipment($superfreezer)
             ->setName(ToolItemEnum::SUPERFREEZER)
-            ->setRoom($room)
+            ->setPlace($room)
         ;
 
         $player = $this->createPlayer(new Daedalus(), $room);
@@ -99,7 +100,7 @@ class HyperfreezeActionTest extends AbstractActionTest
         $this->assertInstanceOf(Error::class, $result);
 
         $rationType->setIsPerishable(true);
-        $gameSuperfreezer->setRoom(null);
+        $gameSuperfreezer->setPlace(null);
         //No superfreezer in the room
         $this->gameEquipmentService->shouldReceive('getOperationalEquipmentsByName')->andReturn(new ArrayCollection([]))->once();
         $result = $this->action->execute();
@@ -109,7 +110,7 @@ class HyperfreezeActionTest extends AbstractActionTest
     public function testExecute()
     {
         //fruit
-        $room = new Room();
+        $room = new Place();
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
@@ -124,7 +125,7 @@ class HyperfreezeActionTest extends AbstractActionTest
          ;
         $gameRation
             ->setEquipment($ration)
-            ->setRoom($room)
+            ->setPlace($room)
             ->setName('fruit')
         ;
 
@@ -134,7 +135,7 @@ class HyperfreezeActionTest extends AbstractActionTest
         $gameSuperfreezer
             ->setEquipment($superfreezer)
             ->setName(ToolItemEnum::SUPERFREEZER)
-            ->setRoom($room)
+            ->setPlace($room)
         ;
 
         $actionParameter = new ActionParameters();
@@ -155,7 +156,7 @@ class HyperfreezeActionTest extends AbstractActionTest
         $this->assertEquals(9, $player->getActionPoint());
 
         //Alien Steak
-        $room = new Room();
+        $room = new Place();
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
@@ -170,7 +171,7 @@ class HyperfreezeActionTest extends AbstractActionTest
          ;
         $gameRation
             ->setEquipment($ration)
-            ->setRoom($room)
+            ->setPlace($room)
             ->setName(GameRationEnum::ALIEN_STEAK)
         ;
 
@@ -180,7 +181,7 @@ class HyperfreezeActionTest extends AbstractActionTest
         $gameSuperfreezer
             ->setEquipment($superfreezer)
             ->setName(ToolItemEnum::SUPERFREEZER)
-            ->setRoom($room)
+            ->setPlace($room)
         ;
 
         $actionParameter = new ActionParameters();

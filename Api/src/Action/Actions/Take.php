@@ -59,7 +59,7 @@ class Take extends AbstractAction
 
         $gameConfig = $this->player->getDaedalus()->getGameConfig();
 
-        return $this->player->getRoom()->getEquipments()->contains($this->gameItem) &&
+        return $this->player->getPlace()->getEquipments()->contains($this->gameItem) &&
             $this->player->getItems()->count() < $gameConfig->getMaxItemInInventory() &&
             $item->hasAction(ActionEnum::TAKE)
             ;
@@ -70,7 +70,7 @@ class Take extends AbstractAction
         /** @var ItemConfig $item */
         $item = $this->gameItem->getEquipment();
 
-        $this->gameItem->setRoom(null);
+        $this->gameItem->setPlace(null);
         $this->gameItem->setPlayer($this->player);
 
         // add BURDENED status if item is heavy

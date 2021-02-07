@@ -4,8 +4,8 @@ namespace Mush\Test\Status\CycleHandler;
 
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\Room\Entity\Room;
 use Mush\Status\CycleHandler\Lost;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -39,11 +39,11 @@ class LostTest extends TestCase
 
     public function testNewCycle()
     {
-        $room = new Room();
+        $room = new Place();
 
         $player = new Player();
         $player
-            ->setRoom($room)
+            ->setPlace($room)
         ;
 
         $status = new Status($player);

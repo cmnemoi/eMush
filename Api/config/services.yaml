@@ -10,7 +10,7 @@ imports:
     - { resource: ../src/Game/config/services.yaml }
     - { resource: ../src/Equipment/config/services.yaml }
     - { resource: ../src/Player/config/services.yaml }
-    - { resource: ../src/Room/config/services.yaml }
+    - { resource: ../src/Place/config/services.yaml }
     - { resource: ../src/RoomLog/config/services.yaml }
     - { resource: ../src/User/config/services.yaml }
     - { resource: ../src/Action/config/services.yaml }

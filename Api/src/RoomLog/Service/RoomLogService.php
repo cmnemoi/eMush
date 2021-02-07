@@ -10,8 +10,8 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\Room\Entity\Room;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Entity\Target;
 use Mush\RoomLog\Enum\ActionLogEnum;
@@ -68,7 +68,7 @@ class RoomLogService implements RoomLogServiceInterface
         } else {
             return $this->createActionLog(
                 'no_log_yet_' . $actionName,
-                $player->getRoom(),
+                $player->getPlace(),
                 $player,
                 null,
                 VisibilityEnum::PUBLIC
@@ -77,7 +77,7 @@ class RoomLogService implements RoomLogServiceInterface
 
         return $this->createActionLog(
             $logData[ActionLogEnum::VALUE],
-            $player->getRoom(),
+            $player->getPlace(),
             $player,
             $actionResult->getTarget(),
             $logData[ActionLogEnum::VISIBILITY]
@@ -86,7 +86,7 @@ class RoomLogService implements RoomLogServiceInterface
 
     private function createLog(
         string $logKey,
-        Room $room,
+        Place $place,
         ?Player $player,
         ?Target $target,
         ?int $quantity,
@@ -104,12 +104,12 @@ class RoomLogService implements RoomLogServiceInterface
             ->setType($type)
             ->setPlayer($player)
             ->setTarget($target)
-            ->setRoom($room)
+            ->setPlace($place)
             ->setVisibility($visibility)
             ->setDate($dateTime ?? new \DateTime('now'))
             ->setQuantity($quantity)
-            ->setCycle($room->getDaedalus()->getCycle())
-            ->setDay($room->getDaedalus()->getDay())
+            ->setCycle($place->getDaedalus()->getCycle())
+            ->setDay($place->getDaedalus()->getDay())
         ;
 
         return $roomLog;
@@ -117,13 +117,13 @@ class RoomLogService implements RoomLogServiceInterface
 
     public function createActionLog(
         string $logKey,
-        Room $room,
+        Place $place,
         Player $player,
         ?Target $target,
         string $visibility,
         \DateTime $dateTime = null
     ): RoomLog {
-        $log = $this->createLog($logKey, $room, $player, $target, null, $visibility, 'actions_log');
+        $log = $this->createLog($logKey, $place, $player, $target, null, $visibility, 'actions_log');
 
         $this->persist($log);
 
@@ -132,32 +132,32 @@ class RoomLogService implements RoomLogServiceInterface
 
     public function createPlayerLog(
         string $logKey,
-        Room $room,
+        Place $place,
         Player $player,
         string $visibility,
         \DateTime $dateTime = null
     ): RoomLog {
         return $this->persist(
-            $this->createLog($logKey, $room, $player, null, null, $visibility, 'event_log', $dateTime)
+            $this->createLog($logKey, $place, $player, null, null, $visibility, 'event_log', $dateTime)
         );
     }
 
     public function createQuantityLog(
         string $logKey,
-        Room $room,
+        Place $place,
         Player $player,
         string $visibility,
         int $quantity,
         \DateTime $dateTime = null
     ): RoomLog {
         return $this->persist(
-            $this->createLog($logKey, $room, $player, null, $quantity, $visibility, 'event_log', $dateTime)
+            $this->createLog($logKey, $place, $player, null, $quantity, $visibility, 'event_log', $dateTime)
         );
     }
 
     public function createEquipmentLog(
         string $logKey,
-        Room $room,
+        Place $place,
         ?Player $player,
         GameEquipment $gameEquipment,
         string $visibility,
@@ -167,18 +167,18 @@ class RoomLogService implements RoomLogServiceInterface
         $target = new Target($gameEquipment->getName(), $type);
 
         return $this->persist(
-            $this->createLog($logKey, $room, $player, $target, null, $visibility, 'event_log', $dateTime)
+            $this->createLog($logKey, $place, $player, $target, null, $visibility, 'event_log', $dateTime)
         );
     }
 
     public function createRoomLog(
         string $logKey,
-        Room $room,
+        Place $place,
         string $visibility,
         \DateTime $dateTime = null
     ): RoomLog {
         return $this->persist(
-            $this->createLog($logKey, $room, null, null, null, $visibility, 'event_log', $dateTime)
+            $this->createLog($logKey, $place, null, null, null, $visibility, 'event_log', $dateTime)
         );
     }
 

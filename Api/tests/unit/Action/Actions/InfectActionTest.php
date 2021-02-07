@@ -9,9 +9,9 @@ use Mush\Action\Actions\Infect;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Room\Entity\Room;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -57,7 +57,7 @@ class InfectActionTest extends AbstractActionTest
     {
         $daedalus = new Daedalus();
 
-        $room = new Room();
+        $room = new Place();
 
         $player = $this->createPlayer($daedalus, $room);
 
@@ -123,7 +123,7 @@ class InfectActionTest extends AbstractActionTest
     {
         $daedalus = new Daedalus();
 
-        $room = new Room();
+        $room = new Place();
 
         $player = $this->createPlayer($daedalus, $room);
 

@@ -63,7 +63,7 @@ class ActionModifierService implements ActionModifierServiceInterface
             $player->setActionPoint($playerNewActionPoint);
             $this->roomLogService->createQuantityLog(
                 $actionModifier > 0 ? LogEnum::GAIN_ACTION_POINT : LogEnum::LOSS_ACTION_POINT,
-                $player->getRoom(),
+                $player->getPlace(),
                 $player,
                 VisibilityEnum::PRIVATE,
                 abs($actionModifier),
@@ -84,7 +84,7 @@ class ActionModifierService implements ActionModifierServiceInterface
             $player->setMovementPoint($playerNewMovementPoint);
             $this->roomLogService->createQuantityLog(
                 $movementModifier > 0 ? LogEnum::GAIN_MOVEMENT_POINT : LogEnum::LOSS_MOVEMENT_POINT,
-                $player->getRoom(),
+                $player->getPlace(),
                 $player,
                 VisibilityEnum::PRIVATE,
                 abs($movementModifier),
@@ -105,7 +105,7 @@ class ActionModifierService implements ActionModifierServiceInterface
             $player->setHealthPoint($playerNewHealthPoint);
             $this->roomLogService->createQuantityLog(
                 $healthModifier > 0 ? LogEnum::GAIN_HEALTH_POINT : LogEnum::LOSS_HEALTH_POINT,
-                $player->getRoom(),
+                $player->getPlace(),
                 $player,
                 VisibilityEnum::PRIVATE,
                 abs($healthModifier),
@@ -130,7 +130,7 @@ class ActionModifierService implements ActionModifierServiceInterface
 
                 $this->roomLogService->createQuantityLog(
                     $moralModifier > 0 ? LogEnum::GAIN_MORAL_POINT : LogEnum::LOSS_MORAL_POINT,
-                    $player->getRoom(),
+                    $player->getPlace(),
                     $player,
                     VisibilityEnum::PRIVATE,
                     abs($moralModifier),

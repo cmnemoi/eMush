@@ -40,12 +40,12 @@ doctrine:
                 dir: '%kernel.project_dir%/src/User/Entity'
                 prefix: 'Mush\User\Entity'
                 alias: User
-            Room:
+            Place:
                 is_bundle: false
                 type: annotation
-                dir: '%kernel.project_dir%/src/Room/Entity'
-                prefix: 'Mush\Room\Entity'
-                alias: Room
+                dir: '%kernel.project_dir%/src/Place/Entity'
+                prefix: 'Mush\Place\Entity'
+                alias: Place
             RoomLog:
                 is_bundle: false
                 type: annotation

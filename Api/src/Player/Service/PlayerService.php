@@ -7,14 +7,14 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\TriumphEnum;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Place\Entity\Place;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Repository\PlayerRepository;
-use Mush\Room\Entity\Room;
-use Mush\Room\Enum\RoomEnum;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
@@ -91,9 +91,9 @@ class PlayerService implements PlayerServiceInterface
             ->setUser($user)
             ->setGameStatus(GameStatusEnum::CURRENT)
             ->setDaedalus($daedalus)
-            ->setRoom(
+            ->setPlace(
                 $daedalus->getRooms()
-                    ->filter(fn (Room $room) => RoomEnum::LABORATORY === $room->getName())
+                    ->filter(fn (Place $room) => RoomEnum::LABORATORY === $room->getName())
                     ->first()
             )
             ->setCharacterConfig($characterConfig)
@@ -181,7 +181,7 @@ class PlayerService implements PlayerServiceInterface
 
         $this->roomLogService->createQuantityLog(
             LogEnum::GAIN_TRIUMPH,
-            $player->getRoom(),
+            $player->getPlace(),
             $player,
             VisibilityEnum::PRIVATE,
             $triumphChange,
@@ -189,14 +189,14 @@ class PlayerService implements PlayerServiceInterface
         );
 
         //Metal Plates
-        if ($this->randomService->isSuccessfull($gameConfig->getDifficultyConfig()->getMetalPlateRate())) {
+        if ($this->randomService->isSuccessful($gameConfig->getDifficultyConfig()->getMetalPlateRate())) {
             $playerEvent = new PlayerEvent($player, $date);
             $playerEvent->setReason(EndCauseEnum::METAL_PLATE);
             $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::METAL_PLATE);
         }
 
         //Panic Crisis
-        if ($this->randomService->isSuccessfull($gameConfig->getDifficultyConfig()->getPanicCrisisRate()) &&
+        if ($this->randomService->isSuccessful($gameConfig->getDifficultyConfig()->getPanicCrisisRate()) &&
             !$player->isMush()
         ) {
             $playerEvent = new PlayerEvent($player, $date);
@@ -260,7 +260,7 @@ class PlayerService implements PlayerServiceInterface
 
         foreach ($player->getItems() as $item) {
             $item->setPlayer(null);
-            $item->setRoom($player->getRoom());
+            $item->setPlace($player->getPlace());
         }
 
         foreach ($player->getStatuses() as $status) {
@@ -268,8 +268,8 @@ class PlayerService implements PlayerServiceInterface
         }
 
         //@TODO in case of assasination chance of disorder for roommates
-        if ($grandBeyond = $player->getDaedalus()->getRoomByName(RoomEnum::GREAT_BEYOND)) {
-            $player->setRoom($grandBeyond);
+        if ($grandBeyond = $player->getDaedalus()->getPlaceByName(RoomEnum::GREAT_BEYOND)) {
+            $player->setPlace($grandBeyond);
         }
 
         //@TODO two steps death

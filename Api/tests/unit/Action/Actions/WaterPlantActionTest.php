@@ -14,8 +14,8 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Room\Entity\Room;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -60,13 +60,13 @@ class WaterPlantActionTest extends AbstractActionTest
 
     public function testCannotExecute()
     {
-        $room = new Room();
+        $room = new Place();
 
         $gameItem = new GameItem();
         $item = new ItemConfig();
         $gameItem
             ->setEquipment($item)
-            ->setRoom($room)
+            ->setPlace($room)
         ;
 
         $plant = new Plant();
@@ -95,13 +95,13 @@ class WaterPlantActionTest extends AbstractActionTest
 
     public function testExecute()
     {
-        $room = new Room();
+        $room = new Place();
 
         $gameItem = new GameItem();
         $item = new ItemConfig();
         $gameItem
               ->setEquipment($item)
-              ->setRoom($room)
+              ->setPlace($room)
         ;
 
         $plant = new Plant();

@@ -66,17 +66,18 @@ class Transplant extends AbstractAction
         /** @var Fruit $fruitType */
         $fruitType = $this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::FRUIT);
 
+        /** @var GameItem $hydropot */
         $hydropot = $this->player->getReachableEquipmentsByName(ItemEnum::HYDROPOT)->first();
-        $place = $hydropot->getRoom() ?? $hydropot->getPlayer();
+        $place = $hydropot->getPlace() ?? $hydropot->getPlayer();
 
         /** @var GameItem $plantEquipment */
         $plantEquipment = $this->gameEquipmentService
                     ->createGameEquipmentFromName($fruitType->getPlantName(), $this->player->getDaedalus());
 
-        if ($place instanceof Player && $plantEquipment instanceof GameEquipment) {
+        if ($place instanceof Player) {
             $plantEquipment->setPlayer($place);
         } else {
-            $plantEquipment->setRoom($place);
+            $plantEquipment->setPlace($place);
         }
 
         $equipmentEvent = new EquipmentEvent($this->gameEquipment, VisibilityEnum::HIDDEN);

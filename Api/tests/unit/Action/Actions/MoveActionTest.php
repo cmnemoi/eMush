@@ -10,9 +10,9 @@ use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Room\Entity\Room;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -53,8 +53,8 @@ class MoveActionTest extends AbstractActionTest
 
     public function testCanExecute()
     {
-        $roomStart = new Room();
-        $roomEnd = new Room();
+        $roomStart = new Place();
+        $roomEnd = new Place();
         $door = new Door();
 
         $door
@@ -70,7 +70,7 @@ class MoveActionTest extends AbstractActionTest
         $player = new Player();
         $player
             ->setMoralPoint(10)
-            ->setRoom($roomStart)
+            ->setPlace($roomStart)
         ;
 
         $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
@@ -98,7 +98,7 @@ class MoveActionTest extends AbstractActionTest
 
         //Player is in other room
         $player
-            ->setRoom(new Room())
+            ->setPlace(new Place())
         ;
 
         $door->removeStatus($broken);
@@ -109,8 +109,8 @@ class MoveActionTest extends AbstractActionTest
 
     public function testExecute()
     {
-        $roomStart = new Room();
-        $roomEnd = new Room();
+        $roomStart = new Place();
+        $roomEnd = new Place();
         $door = new Door();
         $door
             ->addRoom($roomStart)
@@ -131,13 +131,13 @@ class MoveActionTest extends AbstractActionTest
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
-        $this->assertEquals($player->getRoom(), $roomEnd);
+        $this->assertEquals($player->getPlace(), $roomEnd);
         $this->assertEquals($player->getMovementPoint(), 9);
 
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
-        $this->assertEquals($player->getRoom(), $roomStart);
+        $this->assertEquals($player->getPlace(), $roomStart);
         $this->assertEquals($player->getMovementPoint(), 8);
     }
 }

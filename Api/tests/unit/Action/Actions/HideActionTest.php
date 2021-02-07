@@ -12,8 +12,8 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Room\Entity\Room;
 use Mush\Status\Service\StatusServiceInterface;
 
 class HideActionTest extends AbstractActionTest
@@ -56,7 +56,7 @@ class HideActionTest extends AbstractActionTest
 
     public function testCannotExecute()
     {
-        $room = new Room();
+        $room = new Place();
 
         $gameItem = new GameItem();
         $item = new ItemConfig();
@@ -75,7 +75,7 @@ class HideActionTest extends AbstractActionTest
         $this->assertInstanceOf(Error::class, $result);
 
         //item is not hideable
-        $gameItem->setRoom($room);
+        $gameItem->setPlace($room);
         $item->setIsHideable(false);
 
         $result = $this->action->execute();
@@ -84,7 +84,7 @@ class HideActionTest extends AbstractActionTest
 
     public function testExecute()
     {
-        $room = new Room();
+        $room = new Place();
 
         $player = $this->createPlayer(new Daedalus(), $room);
 

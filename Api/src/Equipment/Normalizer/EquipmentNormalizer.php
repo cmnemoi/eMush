@@ -108,7 +108,7 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
         $reachableTools = $this->getPlayer()->getReachableTools();
 
         $scope = [ActionScopeEnum::ROOM];
-        $scope[] = $gameEquipment->getRoom() ? ActionScopeEnum::SHELVE : ActionScopeEnum::INVENTORY;
+        $scope[] = $gameEquipment->getPlace() ? ActionScopeEnum::SHELVE : ActionScopeEnum::INVENTORY;
 
         $contextActions = new ArrayCollection();
         /** @var GameEquipment $tool */

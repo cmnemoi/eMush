@@ -18,9 +18,9 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Room\Entity\Room;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -74,12 +74,12 @@ class DisasembleActionTest extends AbstractActionTest
 
     public function testCannotExecute()
     {
-        $room = new Room();
+        $room = new Place();
         $gameItem = new GameItem();
         $item = new ItemConfig();
         $gameItem->setEquipment($item);
         $gameItem
-            ->setRoom($room)
+            ->setPlace($room)
         ;
 
         $actionParameter = new ActionParameters();
@@ -105,7 +105,7 @@ class DisasembleActionTest extends AbstractActionTest
         //Not in the same room
         $player
             ->addSkill(SkillEnum::TECHNICIAN)
-            ->setRoom(new Room())
+            ->setPlace(new Place())
         ;
         $result = $this->action->execute();
         $this->assertInstanceOf(Error::class, $result);
@@ -114,13 +114,13 @@ class DisasembleActionTest extends AbstractActionTest
     public function testExecute()
     {
         $daedalus = new Daedalus();
-        $room = new Room();
+        $room = new Place();
         $gameItem = new GameItem();
         $item = new ItemConfig();
         $gameItem->setEquipment($item);
         $gameItem
             ->setName('some name')
-            ->setRoom($room)
+            ->setPlace($room)
         ;
 
         $item
@@ -146,7 +146,7 @@ class DisasembleActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
         $this->successRateService->shouldReceive('getSuccessRate')->andReturn(10)->once();
-        $this->randomService->shouldReceive('isSuccessfull')->andReturn(false)->once();
+        $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->once();
 
         //Fail try
         $result = $this->action->execute();
@@ -157,7 +157,7 @@ class DisasembleActionTest extends AbstractActionTest
         $this->assertEquals(7, $player->getActionPoint());
 
         $this->successRateService->shouldReceive('getSuccessRate')->andReturn(10)->once();
-        $this->randomService->shouldReceive('isSuccessfull')->andReturn(true)->once();
+        $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
         $scrap = new GameItem();
         $this->gameEquipmentService
             ->shouldReceive('createGameEquipmentFromName')

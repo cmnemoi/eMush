@@ -75,7 +75,7 @@ class Hide extends AbstractAction
 
         if ($this->gameItem->getPlayer()) {
             $this->gameItem->setPlayer(null);
-            $this->gameItem->setRoom($this->player->getRoom());
+            $this->gameItem->setPlace($this->player->getPlace());
         }
 
         $this->gameEquipmentService->persist($this->gameItem);

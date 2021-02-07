@@ -7,9 +7,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Enum\CharacterEnum;
+use Mush\Place\Entity\Place;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Service\PlayerService;
-use Mush\Room\Entity\Room;
-use Mush\Room\Enum\RoomEnum;
 use Mush\User\Entity\User;
 
 class CreatePlayerServiceCest
@@ -26,8 +26,8 @@ class CreatePlayerServiceCest
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
 
-        /** @var Room $room */
-        $room = $I->have(Room::class, ['name' => RoomEnum::LABORATORY]);
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['name' => RoomEnum::LABORATORY]);
 
         /** @var CharacterConfig $gioeleCharacterConfig */
         $gioeleCharacterConfig = $I->have(CharacterConfig::class);
@@ -35,7 +35,7 @@ class CreatePlayerServiceCest
         /** @var $andieCharacterConfig $characterConfig */
         $andieCharacterConfig = $I->have(CharacterConfig::class, ['name' => CharacterEnum::ANDIE]);
 
-        $daedalus->addRoom($room);
+        $daedalus->addPlace($room);
 
         /** @var User $user */
         $user = $I->have(User::class);

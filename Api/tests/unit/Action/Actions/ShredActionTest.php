@@ -13,8 +13,8 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Document;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Room\Entity\Room;
 
 class ShredActionTest extends AbstractActionTest
 {
@@ -52,7 +52,7 @@ class ShredActionTest extends AbstractActionTest
 
     public function testExecute()
     {
-        $room = new Room();
+        $room = new Place();
         $gameItem = new GameItem();
         $item = new ItemConfig();
         $document = new Document();
@@ -60,7 +60,7 @@ class ShredActionTest extends AbstractActionTest
         $item->setMechanics(new ArrayCollection([$document]));
         $gameItem
             ->setEquipment($item)
-            ->setRoom($room)
+            ->setPlace($room)
         ;
 
         $this->playerService->shouldReceive('persist');

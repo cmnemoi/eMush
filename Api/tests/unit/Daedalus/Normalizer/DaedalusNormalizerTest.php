@@ -47,7 +47,7 @@ class DaedalusNormalizerTest extends TestCase
         $daedalus->shouldReceive('getId')->andReturn(2);
         $daedalus->makePartial();
         $daedalus->setPlayers(new ArrayCollection());
-        $daedalus->setRooms(new ArrayCollection());
+        $daedalus->setPlaces(new ArrayCollection());
         $daedalus->setGameConfig(new GameConfig());
 
         $daedalus

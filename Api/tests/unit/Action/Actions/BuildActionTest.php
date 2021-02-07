@@ -17,9 +17,8 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Blueprint;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Entity\GameConfig;
+use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Room\Entity\Room;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class BuildActionTest extends AbstractActionTest
@@ -28,7 +27,6 @@ class BuildActionTest extends AbstractActionTest
     private GameEquipmentServiceInterface $gameEquipmentService;
     /** @var PlayerServiceInterface | Mockery\Mock */
     private PlayerServiceInterface $playerService;
-    private GameConfig $gameConfig;
 
     protected AbstractAction $action;
 
@@ -61,13 +59,13 @@ class BuildActionTest extends AbstractActionTest
 
     public function testCannotExecute()
     {
-        $room = new Room();
+        $room = new Place();
         $gameEquipment = new GameEquipment();
         $equipment = new EquipmentConfig();
         $equipment->setName('blueprint');
         $gameEquipment
             ->setEquipment($equipment)
-            ->setRoom($room)
+            ->setPlace($room)
             ->setName('blueprint');
 
         $product = new ItemConfig();
@@ -82,7 +80,7 @@ class BuildActionTest extends AbstractActionTest
         $ingredient->setName('metal_scraps');
         $gameIngredient
             ->setEquipment($ingredient)
-            ->setRoom($room)
+            ->setPlace($room)
             ->setName('metal_scraps');
 
         $actionParameter = new ActionParameters();
@@ -98,13 +96,13 @@ class BuildActionTest extends AbstractActionTest
         $equipment->setMechanics(new ArrayCollection([$blueprint]));
 
         //Ingredient in another room
-        $gameIngredient->setRoom(new Room());
+        $gameIngredient->setPlace(new Place());
 
         $result = $this->action->execute();
         $this->assertInstanceOf(Error::class, $result);
 
         //Not enough of a given ingredient
-        $gameIngredient->setRoom($room);
+        $gameIngredient->setPlace($room);
         $blueprint
             ->setIngredients(['metal_scraps' => 2]);
         $equipment->setMechanics(new ArrayCollection([$blueprint]));
@@ -115,13 +113,13 @@ class BuildActionTest extends AbstractActionTest
 
     public function testExecute()
     {
-        $room = new Room();
+        $room = new Place();
         $gameItem = new GameItem();
         $item = new ItemConfig();
         $item->setName('blueprint');
         $gameItem
             ->setEquipment($item)
-            ->setRoom($room)
+            ->setPlace($room)
             ->setName('blueprint')
         ;
 
@@ -143,7 +141,7 @@ class BuildActionTest extends AbstractActionTest
         $ingredient->setName('metal_scraps');
         $gameIngredient
             ->setEquipment($ingredient)
-            ->setRoom($room)
+            ->setPlace($room)
             ->setName('metal_scraps');
 
         $actionParameter = new ActionParameters();

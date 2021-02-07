@@ -20,7 +20,7 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
-use Mush\Room\Entity\Room;
+use Mush\Place\Entity\Place;
 
 class InsertOxygenTest extends AbstractActionTest
 {
@@ -42,10 +42,10 @@ class InsertOxygenTest extends AbstractActionTest
         $this->daedalusService = Mockery::mock(DaedalusServiceInterface::class);
 
         $this->action = new InsertOxygen(
-             $this->eventDispatcher,
-             $this->gameEquipmentService,
-             $this->daedalusService,
-         );
+            $this->eventDispatcher,
+            $this->gameEquipmentService,
+            $this->daedalusService,
+        );
     }
 
     /**
@@ -59,7 +59,7 @@ class InsertOxygenTest extends AbstractActionTest
     public function testCannotExecute()
     {
         $daedalus = new Daedalus();
-        $room = new Room();
+        $room = new Place();
         $gameItem = new GameItem();
         $item = new ItemConfig();
         $gameItem->setEquipment($item);
@@ -90,8 +90,8 @@ class InsertOxygenTest extends AbstractActionTest
         $gameTank
             ->setEquipment($tank)
             ->setName(EquipmentEnum::OXYGEN_TANK)
-            ->setRoom($room)
-            ;
+            ->setPlace($room)
+        ;
 
         $this->gameEquipmentService->shouldReceive('getOperationalEquipmentsByName')->andReturn(new ArrayCollection([$gameTank]))->once();
 
@@ -108,7 +108,7 @@ class InsertOxygenTest extends AbstractActionTest
     public function testExecute()
     {
         $daedalus = new Daedalus();
-        $room = new Room();
+        $room = new Place();
         $gameItem = new GameItem();
         $item = new ItemConfig();
         $gameItem->setEquipment($item);
@@ -139,8 +139,8 @@ class InsertOxygenTest extends AbstractActionTest
         $gameTank
             ->setEquipment($tank)
             ->setName(EquipmentEnum::OXYGEN_TANK)
-            ->setRoom($room)
-            ;
+            ->setPlace($room)
+        ;
 
         $this->gameEquipmentService->shouldReceive('delete');
         $this->gameEquipmentService->shouldReceive('getOperationalEquipmentsByName')->andReturn(new ArrayCollection([$gameTank]))->once();

@@ -46,7 +46,7 @@ class Search extends AbstractAction
     protected function applyEffects(): ActionResult
     {
         $hiddenItems = $this->player
-            ->getRoom()
+            ->getPlace()
             ->getEquipments()
             ->filter(
                 fn (GameEquipment $gameEquipment) => ($gameEquipment->getStatusByName(EquipmentStatusEnum::HIDDEN) !== null)

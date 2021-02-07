@@ -62,7 +62,7 @@ class ActionService implements ActionServiceInterface
             if (!$isSuperDirty && $percent >= $dirtyRate) {
                 $this->roomLogService->createPlayerLog(
                     LogEnum::SOIL_PREVENTED,
-                    $player->getRoom(),
+                    $player->getPlace(),
                     $player,
                     VisibilityEnum::PRIVATE,
                     $date
@@ -72,7 +72,7 @@ class ActionService implements ActionServiceInterface
 
                 $this->roomLogService->createPlayerLog(
                     LogEnum::SOILED,
-                    $player->getRoom(),
+                    $player->getPlace(),
                     $player,
                     VisibilityEnum::PRIVATE,
                     $date
@@ -98,7 +98,7 @@ class ActionService implements ActionServiceInterface
             if ($percent >= $injuryRate) {
                 $this->roomLogService->createPlayerLog(
                     LogEnum::CLUMSINESS_PREVENTED,
-                    $player->getRoom(),
+                    $player->getPlace(),
                     $player,
                     VisibilityEnum::PRIVATE,
                     $date
@@ -106,7 +106,7 @@ class ActionService implements ActionServiceInterface
             } else {
                 $this->roomLogService->createPlayerLog(
                     LogEnum::CLUMSINESS,
-                    $player->getRoom(),
+                    $player->getPlace(),
                     $player,
                     VisibilityEnum::PRIVATE,
                     $date

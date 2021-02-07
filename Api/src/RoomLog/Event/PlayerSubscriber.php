@@ -34,7 +34,7 @@ class PlayerSubscriber implements EventSubscriberInterface
 
         $this->roomLogService->createPlayerLog(
             LogEnum::AWAKEN,
-            $player->getRoom(),
+            $player->getPlace(),
             $player,
             VisibilityEnum::PUBLIC,
             $event->getTime()
@@ -47,7 +47,7 @@ class PlayerSubscriber implements EventSubscriberInterface
 
         $this->roomLogService->createPlayerLog(
             LogEnum::DEATH,
-            $player->getRoom(),
+            $player->getPlace(),
             $player,
             VisibilityEnum::PUBLIC,
             $event->getTime()
@@ -60,7 +60,7 @@ class PlayerSubscriber implements EventSubscriberInterface
 
         $this->roomLogService->createPlayerLog(
             LogEnum::METAL_PLATE,
-            $player->getRoom(),
+            $player->getPlace(),
             $player,
             VisibilityEnum::PUBLIC,
             $event->getTime()
@@ -73,7 +73,7 @@ class PlayerSubscriber implements EventSubscriberInterface
 
         $this->roomLogService->createPlayerLog(
             LogEnum::PANIC_CRISIS,
-            $player->getRoom(),
+            $player->getPlace(),
             $player,
             VisibilityEnum::PRIVATE,
             $event->getTime()

@@ -14,8 +14,8 @@ use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Book;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\SkillEnum;
+use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Room\Entity\Room;
 
 class ReadBookActionTest extends AbstractActionTest
 {
@@ -53,7 +53,7 @@ class ReadBookActionTest extends AbstractActionTest
 
     public function testExecute()
     {
-        $room = new Room();
+        $room = new Place();
         $gameItem = new GameItem();
         $item = new ItemConfig();
         $book = new Book();
@@ -61,7 +61,7 @@ class ReadBookActionTest extends AbstractActionTest
         $item->setMechanics(new ArrayCollection([$book]));
         $gameItem
             ->setEquipment($item)
-            ->setRoom($room)
+            ->setPlace($room)
         ;
 
         $this->playerService->shouldReceive('persist');

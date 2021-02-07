@@ -32,6 +32,7 @@ class DaedalusNormalizer implements ContextAwareNormalizerInterface
 
         return [
                 'id' => $object->getId(),
+                'game_config' => $object->getGameConfig()->getId(),
                 'cycle' => $object->getCycle(),
                 'day' => $object->getDay(),
                 'oxygen' => $object->getOxygen(),

@@ -63,6 +63,7 @@ class DaedalusNormalizerTest extends TestCase
 
         $expected = [
             'id' => 2,
+            'game_config' => null,
             'cycle' => 4,
             'day' => 4,
             'oxygen' => 24,

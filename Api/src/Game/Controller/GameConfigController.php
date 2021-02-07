@@ -1,20 +1,19 @@
 <?php
 
-
 namespace Mush\Game\Controller;
 
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\Annotations\Route;
 use FOS\RestBundle\View\View;
-use OpenApi\Annotations as OA;
 use Mush\Game\Entity\GameConfig;
 use Nelmio\ApiDocBundle\Annotation\Security;
-use Symfony\Component\HttpFoundation\Response;
+use OpenApi\Annotations as OA;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
- * Class GameConfigController
+ * Class GameConfigController.
+ *
  * @Route(path="/game-config")
  */
 class GameConfigController extends AbstractFOSRestController
@@ -40,5 +39,4 @@ class GameConfigController extends AbstractFOSRestController
 
         return $this->view($gameconfig, 200);
     }
-
 }

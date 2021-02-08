@@ -29,6 +29,7 @@ use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Enum\DoorEnum;
+use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Enum\RoomEnum;
 
 class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
@@ -522,6 +523,7 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
         $greatBeyond
             ->setDaedalusConfig($daedalusConfig)
             ->setName(RoomEnum::GREAT_BEYOND)
+            ->setType(PlaceTypeEnum::GREAT_BEYOND)
         ;
         $manager->persist($greatBeyond);
 

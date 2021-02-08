@@ -4,6 +4,7 @@ namespace Mush\Place\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Daedalus\Entity\DaedalusConfig;
+use Mush\Place\Enum\PlaceTypeEnum;
 
 /**
  * @ORM\Entity()
@@ -26,6 +27,11 @@ class PlaceConfig
      * @ORM\Column(type="string", length=255, nullable=false)
      */
     private string $name;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=false)
+     */
+    private string $type = PlaceTypeEnum::ROOM;
 
     /**
      * @ORM\Column(type="array", nullable=false)
@@ -73,6 +79,18 @@ class PlaceConfig
     public function setName(string $name): PlaceConfig
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): PlaceConfig
+    {
+        $this->type = $type;
 
         return $this;
     }

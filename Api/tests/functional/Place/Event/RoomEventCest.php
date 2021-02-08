@@ -10,6 +10,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Place\Entity\Place;
+use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Event\RoomEvent;
 use Mush\Place\Event\RoomSubscriber;
 use Mush\Player\Entity\Player;
@@ -28,7 +29,34 @@ class RoomEventCest
         $this->roomSubscriber = $I->grabService(RoomSubscriber::class);
     }
 
-    // tests
+    public function testRoomEventOnNonRoomPlace(FunctionalTester $I)
+    {
+        $time = new DateTime();
+
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class);
+
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['daedalus' => $daedalus, 'type' => PlaceTypeEnum::GREAT_BEYOND]);
+
+        /** @var Player $player */
+        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'healthPoint' => 10]);
+
+        $roomEvent = new RoomEvent($room, $time);
+
+        $this->roomSubscriber->onStartingFire($roomEvent);
+
+        $I->assertEquals(0, $room->getStatuses()->count());
+
+        $this->roomSubscriber->onTremor($roomEvent);
+
+        $I->assertEquals(10, $player->getHealthPoint());
+
+        $this->roomSubscriber->onElectricArc($roomEvent);
+
+        $I->assertEquals(10, $player->getHealthPoint());
+    }
+
     public function testNewFire(FunctionalTester $I)
     {
         $time = new DateTime();
@@ -48,7 +76,6 @@ class RoomEventCest
         $I->assertEquals(StatusEnum::FIRE, $fireStatus->getName());
     }
 
-    // tests
     public function testTremor(FunctionalTester $I)
     {
         $time = new DateTime();
@@ -76,7 +103,6 @@ class RoomEventCest
         ]);
     }
 
-    // tests
     public function testElectricArc(FunctionalTester $I)
     {
         $time = new DateTime();

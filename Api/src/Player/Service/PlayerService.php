@@ -18,6 +18,7 @@ use Mush\Player\Repository\PlayerRepository;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\User\Entity\User;
@@ -263,8 +264,11 @@ class PlayerService implements PlayerServiceInterface
             $item->setPlace($player->getPlace());
         }
 
+        /** @var Status $status */
         foreach ($player->getStatuses() as $status) {
-            $player->removeStatus($status);
+            if ($status->getName() !== PlayerStatusEnum::MUSH) {
+                $player->removeStatus($status);
+            }
         }
 
         //@TODO in case of assasination chance of disorder for roommates

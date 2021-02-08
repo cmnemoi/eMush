@@ -9,6 +9,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\Status;
@@ -37,6 +38,11 @@ class Place implements StatusHolderInterface
      * @ORM\Column(type="string", nullable=false)
      */
     private string $name;
+
+    /**
+     * @ORM\Column(type="string", nullable=false)
+     */
+    private string $type = PlaceTypeEnum::ROOM;
 
     /**
      * @ORM\ManyToOne(targetEntity="Mush\Daedalus\Entity\Daedalus", inversedBy="places")
@@ -87,6 +93,18 @@ class Place implements StatusHolderInterface
     public function setName(string $name): Place
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): Place
+    {
+        $this->type = $type;
 
         return $this;
     }

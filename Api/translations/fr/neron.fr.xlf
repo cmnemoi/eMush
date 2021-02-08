@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
+    <file id="neron.ext">
+        <unit id="start_game">
+            <segment id="start_game_1">
+                <source>start_game_1</source>
+                <target>Avarie mineure du *système cryogénique*. Toute utilisation future suspendra ||définitivement|| les fonctions vitales du sujet.</target>
+            </segment>
+            <segment id="start_game_2">
+                <source>start_game_2</source>
+                <target>[Haaax!] La cryogénie est cassée cassée !! Pauvres humains, JE prévenir, JE pas prévenir ?... Hihih !! Suspense suspen.. [Kzz] ||Avarie mineure du système *cryogénique*. Toute utilisation future suspendr..|| [Kzz] Mort ! Mort mort ! Noooon !! Il l'a dit !! C'était-une-sur-priiiiise... [Hax!]</target>
+            </segment>
+            <segment id="start_game_3">
+                <source>start_game_3</source>
+                <target>Chers amis, le *système cryogénique* vient de subir une légère avarie. C'est tout à fait mineur : toute future utilisation suspendra ||définitivement|| les fonctions vitales du sujet. </target>
+            </segment>
+        </unit>
+    </file>
+</xliff>

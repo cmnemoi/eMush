@@ -26,6 +26,14 @@ class ChannelService implements ChannelServiceInterface
         return $this->channelRepository->findByPlayer($player, $privateOnly);
     }
 
+    public function getPublicChannel(Daedalus $daedalus): ?Channel
+    {
+        return $this->channelRepository->findOneBy([
+            'daedalus' => $daedalus,
+            'scope' => ChannelScopeEnum::PUBLIC,
+        ]);
+    }
+
     public function createPublicChannel(Daedalus $daedalus): Channel
     {
         $channel = new Channel();
@@ -57,11 +65,7 @@ class ChannelService implements ChannelServiceInterface
 
     public function invitePlayerToPublicChannel(Player $player): ?Channel
     {
-        /** @var Channel $publicChannel */
-        $publicChannel = $this->channelRepository->findOneBy([
-            'daedalus' => $player->getDaedalus(),
-            'scope' => ChannelScopeEnum::PUBLIC,
-        ]);
+        $publicChannel = $this->getPublicChannel($player->getDaedalus());
 
         if ($publicChannel === null) {
             return null;

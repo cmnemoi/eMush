@@ -3,6 +3,7 @@
 namespace Mush\Communication\Normalizer;
 
 use Mush\Communication\Entity\Message;
+use Mush\Game\Enum\CharacterEnum;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -31,7 +32,12 @@ class MessageNormalizer implements ContextAwareNormalizerInterface
         foreach ($object->getChild() as $children) {
             $child[] = $this->normalize($children, $format, $context);
         }
-        $character = $object->getAuthor()->getCharacterConfig()->getName();
+
+        if ($object->getAuthor()) {
+            $character = $object->getAuthor()->getCharacterConfig()->getName();
+        } else {
+            $character = CharacterEnum::NERON;
+        }
 
         return [
             'id' => $object->getId(),

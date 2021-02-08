@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Mush\Daedalus\Entity\Neron;
 use Mush\Player\Entity\Player;
 
 /**
@@ -26,6 +27,11 @@ class Message
      * @ORM\ManyToOne(targetEntity="Mush\Player\Entity\Player")
      */
     private ?Player $author = null;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Mush\Daedalus\Entity\Neron")
+     */
+    private ?Neron $neron = null;
 
     /**
      * @ORM\OneToMany (targetEntity="Mush\Communication\Entity\Message", mappedBy="parent")
@@ -69,6 +75,18 @@ class Message
     public function setAuthor(?Player $author): Message
     {
         $this->author = $author;
+
+        return $this;
+    }
+
+    public function getNeron(): ?Neron
+    {
+        return $this->neron;
+    }
+
+    public function setNeron(?Neron $neron): Message
+    {
+        $this->neron = $neron;
 
         return $this;
     }

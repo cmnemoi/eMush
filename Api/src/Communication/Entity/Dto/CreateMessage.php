@@ -18,7 +18,7 @@ class CreateMessage
     /**
      * @MaxNestedParent
      */
-    private ?Message $parent;
+    private ?Message $parent = null;
 
     private Channel $channel;
 

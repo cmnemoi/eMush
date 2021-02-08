@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Collection\DaedalusCollection;
 use Mush\Daedalus\Entity\Criteria\DaedalusCriteria;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\Neron;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Daedalus\Repository\DaedalusRepository;
 use Mush\Equipment\Entity\EquipmentConfig;
@@ -121,6 +122,8 @@ class DaedalusService implements DaedalusServiceInterface
         ;
 
         $this->persist($daedalus);
+
+        $this->createNeron($daedalus);
 
         /** @var PlaceConfig $placeConfig */
         foreach ($daedalusConfig->getPlaceConfigs() as $placeConfig) {
@@ -291,5 +294,15 @@ class DaedalusService implements DaedalusServiceInterface
         $this->persist($daedalus);
 
         return $daedalus;
+    }
+
+    private function createNeron(Daedalus $daedalus): Neron
+    {
+        $neron = new Neron();
+        $neron->setDaedalus($daedalus);
+
+        $this->entityManager->persist($neron);
+
+        return $neron;
     }
 }

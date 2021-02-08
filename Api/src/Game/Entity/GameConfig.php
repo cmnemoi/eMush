@@ -25,7 +25,7 @@ class GameConfig
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer", length=255, nullable=false)
      */
-    private int $id;
+    private ?int $id = null;
 
     /**
      * @ORM\OneToOne (targetEntity="Mush\Daedalus\Entity\DaedalusConfig", mappedBy="gameConfig")
@@ -144,7 +144,7 @@ class GameConfig
         $this->triumphConfig = new ArrayCollection();
     }
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }

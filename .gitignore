@@ -16,3 +16,6 @@ dist/
 node_modules
 .env
 !.env.dist
+
+#Allow people to change the docker-compose.dev.yml
+docker/docker-compose.dev.yml

@@ -19,7 +19,7 @@
         |-- Game/
         |-- Equipment/
         |-- Player/
-        |-- Room/
+        |-- Place/
         |-- RoomLog/       
         |-- User/
 
@@ -33,7 +33,6 @@
 Symfony/php commands, you can run for instance
 ```
 bin/console
-bin/phpunit
 ```
 ### config/
 core config files, you will find every dependencies configuration, the routes definition, database configuration, etc...
@@ -108,7 +107,6 @@ There are several grey area still:
 Create a new Action:
 - Create a class that extends [src/Action/Actions/Action.php](./src/Action/Actions/Action.php) abstract class: implement the abstract methods
 - Register this action in the [src/Action/Enum/ActionEnum.php](./src/Action/Enum/ActionEnum.php)
-- Add the new Class in the [src/Action/config/actions.yaml](./src/Action/config/actions.yaml)
 
 ## [Items](./docs/Items.md)
 
@@ -120,12 +118,38 @@ In order to add a roomLog, use the RoomLogService::createLog method
 public function createLog(string $logKey, Player $player, Room $room, string $visibility, RoomLogParameter $roomLogParameter): RoomLog;
 ```
 
-## Tests PhpUnit
+## Tests Codeception
 The test folder is a mirror of the src directory
 You can Mock classes/services with [Mockery](https://github.com/mockery/mockery)
 
 You can run a unit test with
 ```
-php bin/phpunit
+php vendor/bin/codecept run
 ```
 
+##Xdebug
+
+### Phpstorm
+Ensure you have the following configuration
+![alt text](./docs/xdebug_phpstorm_debug.png)
+![alt text](./docs/xdebug_phpstorm_server.png)
+
+#### Command line:
+Prefix your command line with: `XDEBUG_CONFIG="idekey=PHPSTORM"`  
+example: `XDEBUG_CONFIG="idekey=PHPSTORM" vendor/bin/codecept run`
+
+#### Request
+Add in the query parameter `XDEBUG_SESSION_START=PHPSTORM`  
+Example: http://localhost:8080/api/v1/player/1/action?XDEBUG_SESSION_START=PHPSTORM
+
+Troobleshoting: 
+
+#### Ubuntu timeout
+Context: running the command on docker ubuntu 20 and getting this error:
+`Xdebug: [Step Debug] Time-out connecting to debugging client, waited: 200 ms. Tried: 172.17.0.1:9003 (through xdebug.client_host/xdebug.client_port) :-(`
+
+Check what the folowing command returns:
+`sudo ufw status verbose`
+
+On the host machine (not the docker container) run :
+`sudo ufw allow from any to any port 9003 proto tcp`

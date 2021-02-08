@@ -2,6 +2,7 @@
 
 namespace Mush\Action\Controller;
 
+use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
@@ -163,11 +164,16 @@ class ActionController extends AbstractFOSRestController
         }
 
         if ($result instanceof Error) {
-            $view = $this->view($result->getMessage(), 422);
+            $view = View::create($result->getMessage(), 422);
         } else {
-            $view = $this->view(null, 200);
+            $view = View::create('Success', 200);
         }
 
-        return $this->view($view);
+        $context = new Context();
+        $context->setAttribute('currentPlayer', $player);
+
+        $view->setContext($context);
+
+        return $view;
     }
 }

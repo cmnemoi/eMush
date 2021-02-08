@@ -6,10 +6,6 @@ use Mush\Action\Actions\AttemptAction;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Service\ActionStrategyServiceInterface;
-use Mush\Player\Entity\Player;
-use Mush\User\Entity\User;
-use Symfony\Component\Finder\Exception\AccessDeniedException;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -17,16 +13,13 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
 {
     private TranslatorInterface $translator;
     private ActionStrategyServiceInterface $actionService;
-    private TokenStorageInterface $tokenStorage;
 
     public function __construct(
         TranslatorInterface $translator,
-        ActionStrategyServiceInterface $actionService,
-        TokenStorageInterface $tokenStorage
+        ActionStrategyServiceInterface $actionService
     ) {
         $this->translator = $translator;
         $this->actionService = $actionService;
-        $this->tokenStorage = $tokenStorage;
     }
 
     public function supportsNormalization($data, string $format = null, array $context = []): bool
@@ -44,6 +37,10 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
             return [];
         }
 
+        if (!($currentPlayer = $context['currentPlayer'] ?? null)) {
+            throw new \LogicException('Current player is missing from context');
+        }
+
         $actionParameter = new ActionParameters();
         if (array_key_exists('player', $context)) {
             $actionParameter->setPlayer($context['player']);
@@ -58,9 +55,9 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
             $actionParameter->setEquipment($context['equipment']);
         }
 
-        $actionClass->loadParameters($object, $this->getCurrentPlayer(), $actionParameter);
+        $actionClass->loadParameters($object, $currentPlayer, $actionParameter);
 
-        if ($actionClass->getActionCost()->canPlayerDoAction($this->getCurrentPlayer()) && $actionClass->canExecute()) {
+        if ($actionClass->getActionCost()->canPlayerDoAction($currentPlayer) && $actionClass->canExecute()) {
             $actionName = $object->getName();
             $actionCost = $actionClass->getActionCost();
 
@@ -83,21 +80,5 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
         }
 
         return [];
-    }
-
-    private function getCurrentPlayer(): Player
-    {
-        if (!$token = $this->tokenStorage->getToken()) {
-            throw new AccessDeniedException('User should be logged to access that');
-        }
-
-        /** @var User $user */
-        $user = $token->getUser();
-
-        if (!$player = $user->getCurrentGame()) {
-            throw new AccessDeniedException('User should be in game to access that');
-        }
-
-        return $player;
     }
 }

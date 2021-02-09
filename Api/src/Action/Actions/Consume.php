@@ -97,8 +97,8 @@ class Consume extends AbstractAction
                     $this->player,
                     ChargeStrategyTypeEnum::CYCLE_DECREMENT,
                     null,
-                    VisibilityEnum::HIDDEN,
-                    VisibilityEnum::HIDDEN,
+                    VisibilityEnum::PUBLIC,
+                    VisibilityEnum::PUBLIC,
                     1,
                     0,
                     true

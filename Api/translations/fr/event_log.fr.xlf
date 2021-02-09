@@ -74,11 +74,11 @@
         <unit id="gain_triumph">
             <segment>
                 <source>gain_triumph.character.male</source>
-                <target>Cette action remplit les objectifs personnels de votre personnage. Vous gagnez *quantity Triomphe*.</target>
+                <target>:triumph: Cette action remplit les objectifs personnels de votre personnage. Vous gagnez *quantity Triomphe*.</target>
             </segment>
             <segment>
                 <source>gain_triumph.character.female</source>
-                <target>Cette action remplit les objectifs personnels de votre personnage. Vous gagnez *quantity Triomphe*.</target>
+                <target>:triumph: Cette action remplit les objectifs personnels de votre personnage. Vous gagnez *quantity Triomphe*.</target>
             </segment>
         </unit>
         <unit id="object_felt">

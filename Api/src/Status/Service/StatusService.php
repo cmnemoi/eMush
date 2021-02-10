@@ -64,12 +64,9 @@ class StatusService implements StatusServiceInterface
             ->setVisibility($visibilty)
             ->setChargeVisibility($chargeVisibilty)
             ->setCharge($charge)
+            ->setThreshold($threshold)
             ->setAutoRemove($autoRemove)
         ;
-
-        if ($threshold) {
-            $status->setThreshold($threshold);
-        }
 
         return $status;
     }

@@ -10,6 +10,7 @@ use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Event\ActionEvent;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\ReachEnum;
+use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\ModifierTargetEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -22,10 +23,14 @@ abstract class AbstractAction
     protected string $name;
 
     protected EventDispatcherInterface $eventDispatcher;
+    protected GearToolServiceInterface $gearToolService;
 
-    public function __construct(EventDispatcherInterface $eventDispatcher)
-    {
+    public function __construct(
+        EventDispatcherInterface $eventDispatcher,
+        GearToolServiceInterface $gearToolService
+    ){
         $this->eventDispatcher = $eventDispatcher;
+        $this->gearToolService = $gearToolService;
     }
 
     public function loadParameters(Action $action, Player $player, ActionParameters $actionParameters): void
@@ -74,7 +79,8 @@ abstract class AbstractAction
     {
         $actionCost = $this->action->getActionCost();
 
-        $gears = $this->player->getApplicableGears(
+        $gears = $this->gearToolService->getApplicableGears(
+            $this->player,
             array_merge([$this->getActionName()], $this->action->getTypes()),
             [ReachEnum::INVENTORY],
             ModifierTargetEnum::ACTION_POINT

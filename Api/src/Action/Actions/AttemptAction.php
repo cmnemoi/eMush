@@ -82,7 +82,8 @@ abstract class AttemptAction extends AbstractAction
     {
         $modificator = 1;
 
-        $gears = $this->player->getApplicableGears(
+        $gears = $this->gearToolService->getApplicableGears(
+            $this->player,
             array_merge([$this->getActionName()], $this->action->getTypes()),
             [ReachEnum::INVENTORY],
             ModifierTargetEnum::PERCENTAGE

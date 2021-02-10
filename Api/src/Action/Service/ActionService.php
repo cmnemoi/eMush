@@ -5,6 +5,7 @@ namespace Mush\Action\Service;
 use Mush\Action\Entity\Action;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\ReachEnum;
+use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
@@ -27,17 +28,20 @@ class ActionService implements ActionServiceInterface
     private RandomServiceInterface $randomService;
     private StatusServiceInterface $statusService;
     private RoomLogServiceInterface $roomLogService;
+    private GearToolServiceInterface $gearToolService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         RandomServiceInterface $randomService,
         StatusServiceInterface $statusService,
-        RoomLogServiceInterface $roomLogService
+        RoomLogServiceInterface $roomLogService,
+        GearToolServiceInterface $gearToolService
     ) {
         $this->eventDispatcher = $eventDispatcher;
         $this->randomService = $randomService;
         $this->statusService = $statusService;
         $this->roomLogService = $roomLogService;
+        $this->gearToolService = $gearToolService;
     }
 
     public function handleActionSideEffect(Action $action, Player $player, ?\DateTime $date = null): Player
@@ -48,7 +52,8 @@ class ActionService implements ActionServiceInterface
             $dirtyRate > 0 &&
             ($percent = $this->randomService->randomPercent()) <= $dirtyRate
         ) {
-            $gears = $player->getApplicableGears(
+            $gears = $this->gearToolService->getApplicableGears(
+                $player,
                 [ModifierScopeEnum::EVENT_DIRTY],
                 [ReachEnum::INVENTORY],
                 ModifierTargetEnum::PERCENTAGE
@@ -84,7 +89,8 @@ class ActionService implements ActionServiceInterface
         if ($injuryRate > 0 &&
             ($percent = $this->randomService->randomPercent()) <= $injuryRate
         ) {
-            $gears = $player->getApplicableGears(
+            $gears = $this->gearToolService->getApplicableGears(
+                $player,
                 [ModifierScopeEnum::EVENT_CLUMSINESS],
                 [ReachEnum::INVENTORY],
                 ModifierTargetEnum::PERCENTAGE

@@ -11,6 +11,7 @@ class EquipmentEvent extends Event
     public const EQUIPMENT_CREATED = 'equipment.created';
     public const EQUIPMENT_BROKEN = 'equipment.broken';
     public const EQUIPMENT_DESTROYED = 'equipment.destroyed';
+    public const CONSUME_CHARGE = 'consume.charge';
 
     private GameEquipment $equipment;
     private string $visibility;

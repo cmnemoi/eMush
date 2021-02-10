@@ -244,45 +244,6 @@ class Player implements StatusHolderInterface
         }
     }
 
-    public function getReachableEquipmentsByName(string $name, string $reach = ReachEnum::SHELVE_NOT_HIDDEN): Collection
-    {
-        //reach can be set to inventory, shelve, shelve only or any room of the Daedalus
-        if ($reach === ReachEnum::INVENTORY) {
-            return $this->getItems()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $name);
-        } elseif ($reach === ReachEnum::SHELVE_NOT_HIDDEN) {
-            return (new ArrayCollection(array_merge(
-                $this->getItems()->toArray(),
-                $this->getPlace()->getEquipments()->toArray()
-            ))
-            )->filter(fn (GameEquipment $gameEquipment) => (
-                $gameEquipment->getName() === $name &&
-                (($hiddenStatus = $gameEquipment->getStatusByName(EquipmentStatusEnum::HIDDEN)) === null ||
-                    $hiddenStatus->getTarget() === $this)));
-        } elseif ($reach === ReachEnum::SHELVE) {
-            return (new ArrayCollection(array_merge(
-                $this->getItems()->toArray(),
-                $this->getPlace()->getEquipments()->toArray()
-            ))
-            )->filter(fn (GameEquipment $equipment) => ($equipment->getName() === $name));
-        } else {
-            if ($roomReached = $this->getDaedalus()->getPlaceByName($reach)) {
-                return $roomReached
-                    ->getEquipments()
-                    ->filter(fn (GameEquipment $equipment) => $equipment->getName() === $name)
-                    ;
-            }
-        }
-
-        return new ArrayCollection();
-    }
-
-    public function getReachableTools(): Collection
-    {
-        //reach can be set to inventory, shelve, shelve only or any room of the Daedalus
-        return (new ArrayCollection(array_merge($this->getItems()->toArray(), $this->getPlace()->getEquipments()->toArray())
-        ))->filter(fn (GameEquipment $gameEquipment) => ($gameEquipment->getEquipment()->getMechanicbyName(EquipmentMechanicEnum::TOOL)));
-    }
-
     public function getItems(): Collection
     {
         return $this->items;

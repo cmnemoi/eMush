@@ -199,26 +199,6 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         return $gameEquipment;
     }
 
-    //Implement accessibility to Equipment (for tool and gear)
-    public function getOperationalEquipmentsByName(string $equipmentName, Player $player, string $reach = ReachEnum::SHELVE_NOT_HIDDEN): Collection
-    {
-        //reach can be set to inventory, shelve, shelve only or any room of the Daedalus
-        return $player->getReachableEquipmentsByName($equipmentName, $reach)
-            ->filter(fn (GameEquipment $gameEquipment) => $this->isOperational($gameEquipment))
-            ;
-    }
-
-    public function isOperational(GameEquipment $gameEquipment): bool
-    {
-        /** @var ?ChargeStatus $chargedStatus */
-        $chargedStatus = $gameEquipment->getStatusByName(EquipmentStatusEnum::CHARGES);
-        if ($chargedStatus) {
-            return !($gameEquipment->getStatusByName(EquipmentStatusEnum::BROKEN)) && $chargedStatus->getCharge() > 0;
-        }
-
-        return !($gameEquipment->getStatusByName(EquipmentStatusEnum::BROKEN));
-    }
-
     public function handleBreakCycle(GameEquipment $gameEquipment, \DateTime $date): void
     {
         if ($gameEquipment->getStatusByName(EquipmentStatusEnum::BROKEN) ||

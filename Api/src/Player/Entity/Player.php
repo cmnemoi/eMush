@@ -328,27 +328,6 @@ class Player implements StatusHolderInterface
         return $this;
     }
 
-    public function getApplicableGears(array $scope, array $types, ?string $target = null): Collection
-    {
-        /** @var Collection $gears */
-        $gears = new ArrayCollection();
-        /** @var GameItem $item */
-        foreach ($this->getItems() as $item) {
-            /** @var Gear $gear */
-            $gear = $item->getEquipment()->getMechanicByName(EquipmentMechanicEnum::GEAR);
-
-            if ($gear &&
-                in_array($gear->getModifier()->getScope(), $scope) &&
-                ($target === null || $gear->getModifier()->getTarget() === $target) &&
-                (count($types) || in_array($gear->getModifier()->getTarget(), $types)) &&
-                in_array($gear->getModifier()->getReach(), [ReachEnum::INVENTORY])
-            ) {
-                $gears->add($gear);
-            }
-        }
-
-        return $gears;
-    }
 
     public function hasItemByName(string $name): bool
     {

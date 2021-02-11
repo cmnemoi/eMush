@@ -11,7 +11,6 @@ use Mush\Game\Entity\GameConfig;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
-use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -42,7 +41,6 @@ class EquipmentSubscriber implements EventSubscriberInterface
             EquipmentEvent::EQUIPMENT_CREATED => 'onEquipmentCreated',
             EquipmentEvent::EQUIPMENT_BROKEN => 'onEquipmentBroken',
             EquipmentEvent::EQUIPMENT_DESTROYED => 'onEquipmentDestroyed',
-            EquipmentEvent::CONSUME_CHARGE => 'onConsumeCharge',
         ];
     }
 
@@ -116,32 +114,6 @@ class EquipmentSubscriber implements EventSubscriberInterface
             $event->getVisibility(),
             $event->getTime()
         );
-    }
-
-    public function onConsumeCharge(EquipmentEvent $event): void
-    {
-        $equipment = $event->getEquipment();
-
-        $chargeStatus = $equipment->getStatusByName(EquipmentStatusEnum::CHARGES);
-
-        if (!($chargeStatus !== null &&
-            $chargeStatus instanceof ChargeStatus &&
-            $chargeStatus->getCharge() > 0)
-        ) {
-            throw new Error('Equipment should have a charge status with more than 0 charge');
-        }
-
-        $chargeStatus->addCharge(-1);
-
-        if ($chargeStatus->isAutoRemove() &&
-            ($threshold = $chargeStatus->getThreshold()) &&
-            $chargeStatus->getCharge() === $threshold
-        ) {
-            $equipmentEvent = new EquipmentEvent($equipment, VisibilityEnum::HIDDEN);
-            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
-        }
-
-        $this->statusService->persist($chargeStatus);
     }
 
     private function getGameConfig(GameEquipment $gameEquipment): GameConfig

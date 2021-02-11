@@ -17,16 +17,20 @@ use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class GearToolService implements GearToolServiceInterface
 {
     private EventDispatcherInterface $eventDispatcher;
+    private StatusServiceInterface $statusService;
 
     public function __construct(
-        EventDispatcherInterface $eventDispatcher
+        EventDispatcherInterface $eventDispatcher,
+        StatusServiceInterface $statusService
     ) {
         $this->eventDispatcher = $eventDispatcher;
+        $this->statusService = $statusService;
     }
 
     public function getApplicableGears(Player $player, array $scopes, array $types, ?string $target = null): Collection
@@ -158,11 +162,19 @@ class GearToolService implements GearToolServiceInterface
         $chargeStatus = $equipment->getStatusByName(EquipmentStatusEnum::CHARGES);
 
         if ($chargeStatus &&
-            $chargeStatus instanceof ChargeStatus &&
-            $chargeStatus->getCharge() > 0
+            $chargeStatus instanceof ChargeStatus
         ) {
-            $equipmentEvent = new EquipmentEvent($equipment, VisibilityEnum::HIDDEN);
-            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::CONSUME_CHARGE);
+            $chargeStatus->addCharge(-1);
+
+            if ($chargeStatus->isAutoRemove() &&
+                ($threshold = $chargeStatus->getThreshold()) &&
+                $chargeStatus->getCharge() === $threshold
+            ) {
+                $equipmentEvent = new EquipmentEvent($equipment, VisibilityEnum::HIDDEN);
+                $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+            }
+
+            $this->statusService->persist($chargeStatus);
         }
     }
 }

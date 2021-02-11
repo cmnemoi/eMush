@@ -45,8 +45,7 @@ class GearToolService implements GearToolServiceInterface
                         ($target === null || $modifier->getTarget() === $target) &&
                         (count($types) || in_array($modifier->getTarget(), $types)) &&
                         in_array($modifier->getReach(), [ReachEnum::INVENTORY]) &&
-                        !$item->isBroken() &&
-                        $item->isCharged()
+                        !$item->isOperational()
                     ) {
                         $gears->add($item);
                         break;
@@ -138,9 +137,10 @@ class GearToolService implements GearToolServiceInterface
             if ($toolMechanic &&
                 $toolMechanic->getActions()->filter(fn (Action $action) => $action->getName() === $actionName)->isEmpty()
             ) {
-                if ($tool->getStatusByName(EquipmentStatusEnum::CHARGES) === null) {
+                $chargeStatus = $tool->getStatusByName(EquipmentStatusEnum::CHARGES);
+                if ($chargeStatus === null || !($chargeStatus instanceof ChargeStatus)) {
                     return $tool;
-                } elseif ($tool->isCharged()) {
+                } elseif ($chargeStatus->getCharge() > 0) {
                     $tools->add($tool);
                 }
             }

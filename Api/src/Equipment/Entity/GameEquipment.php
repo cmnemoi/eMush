@@ -182,15 +182,15 @@ class GameEquipment implements StatusHolderInterface
             ;
     }
 
-    public function isCharged(): bool
+    public function isOperational(): bool
     {
         $chargeStatus = $this->getStatusByName(EquipmentStatusEnum::CHARGES);
 
         if ($chargeStatus === null || !($chargeStatus instanceof ChargeStatus)) {
-            return true;
+            return !$this->isBroken();
         }
 
-        return $chargeStatus->getCharge() > 0;
+        return $chargeStatus->getCharge() > 0 && !$this->isBroken();
     }
 
     public function getBrokenRate(): int

@@ -45,7 +45,9 @@ class BuildActionTest extends AbstractActionTest
         $this->action = new Build(
             $this->eventDispatcher,
             $this->gameEquipmentService,
-            $this->playerService
+            $this->playerService,
+            $this->gearToolService,
+            $this->actionModifierService
         );
     }
 
@@ -98,6 +100,7 @@ class BuildActionTest extends AbstractActionTest
         //Ingredient in another room
         $gameIngredient->setPlace(new Place());
 
+        $this->gearToolService->shouldReceive('getEquipmentsOnReachByName')->andReturn(new ArrayCollection())->once();
         $result = $this->action->execute();
         $this->assertInstanceOf(Error::class, $result);
 
@@ -106,6 +109,8 @@ class BuildActionTest extends AbstractActionTest
         $blueprint
             ->setIngredients(['metal_scraps' => 2]);
         $equipment->setMechanics(new ArrayCollection([$blueprint]));
+
+        $this->gearToolService->shouldReceive('getEquipmentsOnReachByName')->andReturn(new ArrayCollection([$gameIngredient]))->once();
 
         $result = $this->action->execute();
         $this->assertInstanceOf(Error::class, $result);
@@ -154,6 +159,7 @@ class BuildActionTest extends AbstractActionTest
         $this->gameEquipmentService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
 
+        $this->gearToolService->shouldReceive('getEquipmentsOnReachByName')->andReturn(new ArrayCollection([$gameIngredient]))->once();
         $this->gameEquipmentService->shouldReceive('createGameEquipment')->andReturn($gameProduct)->once();
 
         $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);

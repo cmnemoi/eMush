@@ -7,10 +7,12 @@ use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionCost;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\Player\Service\ActionModifierServiceInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -18,6 +20,9 @@ abstract class AbstractActionTest extends TestCase
 {
     /** @var EventDispatcherInterface | Mockery\Mock */
     protected EventDispatcherInterface $eventDispatcher;
+
+    protected GearToolServiceInterface $gearToolService;
+    protected ActionModifierServiceInterface $actionModifier;
 
     protected AbstractAction $action;
     protected Action $actionEntity;
@@ -29,6 +34,9 @@ abstract class AbstractActionTest extends TestCase
     {
         $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $this->eventDispatcher->shouldReceive('dispatch');
+
+        $this->gearToolService = Mockery::mock(GearToolServiceInterface::class);
+        $this->actionModifierService = Mockery::mock(ActionModifierServiceInterface::class);
     }
 
     /**

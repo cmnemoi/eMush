@@ -9,6 +9,7 @@ use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Player\Entity\Player;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
@@ -20,11 +21,14 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
     use NormalizerAwareTrait;
 
     private TranslatorInterface $translator;
+    private GearToolServiceInterface $gearToolService;
 
     public function __construct(
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        GearToolServiceInterface $gearToolService
     ) {
         $this->translator = $translator;
+        $this->gearToolService = $gearToolService;
     }
 
     public function supportsNormalization($data, string $format = null, array $context = []): bool
@@ -105,25 +109,12 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
         $scope[] = $gameEquipment->getPlace() ? ActionScopeEnum::SHELVE : ActionScopeEnum::INVENTORY;
 
         $contextActions = new ArrayCollection();
-        /** @var GameEquipment $tool */
-        foreach ($currentPlayer->getReachableTools() as $tool) {
-            $actions = $tool->getActions()->filter(fn (Action $action) => (
-                in_array($action->getScope(), $scope) &&
-                ($action->getTarget() === null || get_class($gameEquipment) === $action->getTarget())
-            ));
-            foreach ($actions as $action) {
-                $contextActions->add($action);
-            }
-        }
 
-        $actions = $currentPlayer->getCharacterConfig()->getActions()->filter(fn (Action $action) => (
-            in_array($action->getScope(), $scope) &&
-            ($action->getTarget() === null || get_class($gameEquipment) === $action->getTarget())
-        ));
-        foreach ($actions as $action) {
-            $contextActions->add($action);
+        if ($gameEquipment instanceof GameItem) {
+            $target = GameItem::class;
         }
+        $target = null;
 
-        return $contextActions;
+        return $this->gearToolService->getActionsTools($currentPlayer, $scope, $target);
     }
 }

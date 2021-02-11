@@ -9,6 +9,7 @@ use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\SuccessRateServiceInterface;
 use Mush\Equipment\Enum\GearItemEnum;
+use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\SkillMushEnum;
 use Mush\Game\Service\RandomServiceInterface;
@@ -17,6 +18,7 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Event\PlayerEvent;
+use Mush\Player\Service\ActionModifierServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -34,9 +36,18 @@ class Hit extends AttemptAction
         PlayerServiceInterface $playerService,
         SuccessRateServiceInterface $successRateService,
         RandomServiceInterface $randomService,
-        StatusServiceInterface $statusService
+        StatusServiceInterface $statusService,
+        GearToolServiceInterface $gearToolService,
+        ActionModifierServiceInterface $actionModifierService
     ) {
-        parent::__construct($randomService, $successRateService, $eventDispatcher, $statusService);
+        parent::__construct(
+            $randomService,
+            $successRateService,
+            $eventDispatcher,
+            $statusService,
+            $gearToolService,
+            $actionModifierService
+        );
 
         $this->playerService = $playerService;
         $this->randomService = $randomService;

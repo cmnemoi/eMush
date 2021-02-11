@@ -9,10 +9,11 @@ use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Player\Service\ActionModifierServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ContentStatus;
@@ -31,9 +32,15 @@ class Write extends AbstractAction
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         GameEquipmentServiceInterface $gameEquipmentService,
-        PlayerServiceInterface $playerService
+        PlayerServiceInterface $playerService,
+        GearToolServiceInterface $gearToolService,
+        ActionModifierServiceInterface $actionModifierService
     ) {
-        parent::__construct($eventDispatcher);
+        parent::__construct(
+            $eventDispatcher,
+            $gearToolService,
+            $actionModifierService
+        );
 
         $this->gameEquipmentService = $gameEquipmentService;
         $this->playerService = $playerService;
@@ -49,7 +56,7 @@ class Write extends AbstractAction
     public function canExecute(): bool
     {
         //Check that the block of post-it is reachable
-        return !$this->player->getReachableEquipmentsByName(ToolItemEnum::BLOCK_OF_POST_IT)->isEmpty();
+        return $this->gearToolService->getUsedTool($this->player, $this->action->getName()) !== null;
     }
 
     protected function applyEffects(): ActionResult

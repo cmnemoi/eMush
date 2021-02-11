@@ -12,7 +12,9 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Player\Service\ActionModifierServiceInterface;
 use Mush\RoomLog\Entity\Target;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -28,9 +30,15 @@ class RetrieveOxygen extends AbstractAction
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         GameEquipmentServiceInterface $gameEquipmentService,
-        DaedalusServiceInterface $daedalusService
+        DaedalusServiceInterface $daedalusService,
+        GearToolServiceInterface $gearToolService,
+        ActionModifierServiceInterface $actionModifierService
     ) {
-        parent::__construct($eventDispatcher);
+        parent::__construct(
+            $eventDispatcher,
+            $gearToolService,
+            $actionModifierService
+        );
 
         $this->gameEquipmentService = $gameEquipmentService;
         $this->daedalusService = $daedalusService;
@@ -53,7 +61,7 @@ class RetrieveOxygen extends AbstractAction
 
         return $this->player->canReachEquipment($this->gameEquipment) &&
             $this->gameEquipment->getEquipment()->hasAction(ActionEnum::RETRIEVE_OXYGEN) &&
-            $this->gameEquipmentService->isOperational($this->gameEquipment) &&
+            $this->gameEquipment->isBroken() &&
             $this->player->canReachEquipment($this->gameEquipment) &&
             $this->player->getItems()->count() < $gameConfig->getMaxItemInInventory() &&
             $this->player->getDaedalus()->getOxygen() > 0

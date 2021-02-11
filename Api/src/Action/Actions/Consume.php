@@ -14,11 +14,12 @@ use Mush\Equipment\Entity\Mechanics\Drug;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Event\PlayerEvent;
+use Mush\Player\Service\ActionModifierServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
@@ -32,21 +33,24 @@ class Consume extends AbstractAction
 
     private GameEquipment $gameEquipment;
 
-    private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
     private EquipmentEffectServiceInterface $equipmentServiceEffect;
     private StatusServiceInterface $statusService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
-        GameEquipmentServiceInterface $gameEquipmentService,
         PlayerServiceInterface $playerService,
         EquipmentEffectServiceInterface $equipmentServiceEffect,
-        StatusServiceInterface $statusService
+        StatusServiceInterface $statusService,
+        GearToolServiceInterface $gearToolService,
+        ActionModifierServiceInterface $actionModifierService
     ) {
-        parent::__construct($eventDispatcher);
+        parent::__construct(
+            $eventDispatcher,
+            $gearToolService,
+            $actionModifierService
+        );
 
-        $this->gameEquipmentService = $gameEquipmentService;
         $this->playerService = $playerService;
         $this->equipmentServiceEffect = $equipmentServiceEffect;
         $this->statusService = $statusService;

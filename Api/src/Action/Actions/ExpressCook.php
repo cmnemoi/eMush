@@ -10,11 +10,11 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\GameRationEnum;
-use Mush\Equipment\Enum\ReachEnum;
-use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Player\Service\ActionModifierServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -35,9 +35,15 @@ class ExpressCook extends AbstractAction
         EventDispatcherInterface $eventDispatcher,
         GameEquipmentServiceInterface $gameEquipmentService,
         PlayerServiceInterface $playerService,
-        StatusServiceInterface $statusService
+        StatusServiceInterface $statusService,
+        GearToolServiceInterface $gearToolService,
+        ActionModifierServiceInterface $actionModifierService
     ) {
-        parent::__construct($eventDispatcher);
+        parent::__construct(
+            $eventDispatcher,
+            $gearToolService,
+            $actionModifierService
+        );
 
         $this->gameEquipmentService = $gameEquipmentService;
         $this->playerService = $playerService;
@@ -61,9 +67,8 @@ class ExpressCook extends AbstractAction
     {
         return ($this->gameEquipment->getEquipment()->getName() === GameRationEnum::STANDARD_RATION ||
                 $this->gameEquipment->getStatusByName(EquipmentStatusEnum::FROZEN)) &&
-            $this->player->canReachEquipment($this->gameEquipment) &&
-            !$this->gameEquipmentService
-                ->getOperationalEquipmentsByName(ToolItemEnum::MICROWAVE, $this->player, ReachEnum::SHELVE_NOT_HIDDEN)->isEmpty()
+                $this->player->canReachEquipment($this->gameEquipment) &&
+                $this->gearToolService->getUsedTool($this->player, $this->action->getName()) !== null
             ;
     }
 
@@ -90,19 +95,6 @@ class ExpressCook extends AbstractAction
             $this->gameEquipment->removeStatus($frozenStatus);
             $this->gameEquipmentService->persist($this->gameEquipment);
         }
-
-        $chargeStatus = $this->gameEquipmentService->getOperationalEquipmentsByName(
-            ToolItemEnum::MICROWAVE,
-            $this->player,
-            ReachEnum::SHELVE_NOT_HIDDEN
-        )
-            ->first()
-            ->getStatusByName(EquipmentStatusEnum::CHARGES)
-        ;
-
-        $chargeStatus->addCharge(-1);
-
-        $this->statusService->persist($chargeStatus);
 
         //@TODO add effect on the link with sol
 

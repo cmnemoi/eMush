@@ -9,7 +9,9 @@ use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Player\Service\ActionModifierServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ReadDocument extends AbstractAction
@@ -19,9 +21,15 @@ class ReadDocument extends AbstractAction
     private GameEquipment $gameEquipment;
 
     public function __construct(
-        EventDispatcherInterface $eventDispatcher
+        EventDispatcherInterface $eventDispatcher,
+        GearToolServiceInterface $gearToolService,
+        ActionModifierServiceInterface $actionModifierService
     ) {
-        parent::__construct($eventDispatcher);
+        parent::__construct(
+            $eventDispatcher,
+            $gearToolService,
+            $actionModifierService
+        );
     }
 
     public function loadParameters(Action $action, Player $player, ActionParameters $actionParameters): void

@@ -6,10 +6,12 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Service\SuccessRateServiceInterface;
-use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\ReachEnum;
+use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Player\Entity\Modifier;
 use Mush\Player\Enum\ModifierTargetEnum;
+use Mush\Player\Service\ActionModifierServiceInterface;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -27,13 +29,19 @@ abstract class AttemptAction extends AbstractAction
         RandomServiceInterface $randomService,
         SuccessRateServiceInterface $successRateService,
         EventDispatcherInterface $eventManager,
-        StatusServiceInterface $statusService
+        StatusServiceInterface $statusService,
+        GearToolServiceInterface $gearToolService,
+        ActionModifierServiceInterface $actionModifierService
     ) {
         $this->randomService = $randomService;
         $this->successRateService = $successRateService;
         $this->statusService = $statusService;
 
-        parent::__construct($eventManager);
+        parent::__construct(
+                $eventManager,
+                $gearToolService,
+                $actionModifierService
+            );
     }
 
     private function getAttempt(): Attempt
@@ -82,16 +90,16 @@ abstract class AttemptAction extends AbstractAction
     {
         $modificator = 1;
 
-        $gears = $this->gearToolService->getApplicableGears(
+        $modifiers = $this->actionModifierService->getActionModifier(
             $this->player,
             array_merge([$this->getActionName()], $this->action->getTypes()),
             [ReachEnum::INVENTORY],
             ModifierTargetEnum::PERCENTAGE
         );
 
-        /** @var Gear $gear */
-        foreach ($gears as $gear) {
-            $modificator *= $gear->getModifier()->getDelta();
+        /** @var Modifier $modifier */
+        foreach ($modifiers as $modifier) {
+            $modificator *= $modifier->getDelta();
         }
 
         return $this->successRateService->getSuccessRate(

@@ -10,11 +10,13 @@ use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Event\PlayerEvent;
+use Mush\Player\Service\ActionModifierServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -34,9 +36,15 @@ class Shower extends AbstractAction
         EventDispatcherInterface $eventDispatcher,
         GameEquipmentServiceInterface $gameEquipmentService,
         StatusServiceInterface $statusService,
-        PlayerServiceInterface $playerService
+        PlayerServiceInterface $playerService,
+        GearToolServiceInterface $gearToolService,
+        ActionModifierServiceInterface $actionModifierService
     ) {
-        parent::__construct($eventDispatcher);
+        parent::__construct(
+            $eventDispatcher,
+            $gearToolService,
+            $actionModifierService
+        );
 
         $this->gameEquipmentService = $gameEquipmentService;
         $this->statusService = $statusService;
@@ -57,7 +65,7 @@ class Shower extends AbstractAction
     public function canExecute(): bool
     {
         return $this->player->canReachEquipment($this->gameEquipment) &&
-               $this->gameEquipmentService->isOperational($this->gameEquipment) &&
+               $this->gameEquipment->isBroken() &&
                $this->gameEquipment->getEquipment()->hasAction(ActionEnum::SHOWER)
             ;
     }

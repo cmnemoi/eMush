@@ -8,7 +8,9 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\Door;
+use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Player\Service\ActionModifierServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -27,9 +29,15 @@ class Move extends AbstractAction
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         PlayerServiceInterface $playerService,
-        RoomLogServiceInterface $roomLogService
+        RoomLogServiceInterface $roomLogService,
+        GearToolServiceInterface $gearToolService,
+        ActionModifierServiceInterface $actionModifierService
     ) {
-        parent::__construct($eventDispatcher);
+        parent::__construct(
+            $eventDispatcher,
+            $gearToolService,
+            $actionModifierService
+        );
 
         $this->roomLogService = $roomLogService;
         $this->playerService = $playerService;

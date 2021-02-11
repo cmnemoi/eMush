@@ -13,7 +13,9 @@ use Mush\Equipment\Entity\Mechanics\Blueprint;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Player\Service\ActionModifierServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\Target;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -31,9 +33,15 @@ class Build extends AbstractAction
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         GameEquipmentServiceInterface $gameEquipmentService,
-        PlayerServiceInterface $playerService
+        PlayerServiceInterface $playerService,
+        GearToolServiceInterface $gearToolService,
+        ActionModifierServiceInterface $actionModifierService
     ) {
-        parent::__construct($eventDispatcher);
+        parent::__construct(
+            $eventDispatcher,
+            $gearToolService,
+            $actionModifierService
+        );
 
         $this->gameEquipmentService = $gameEquipmentService;
         $this->playerService = $playerService;
@@ -64,7 +72,7 @@ class Build extends AbstractAction
         }
         //Check the availlability of the ingredients
         foreach ($blueprintMechanic->getIngredients() as $name => $number) {
-            if ($this->player->getReachableEquipmentsByName($name)->count() < $number) {
+            if ($this->gearToolService->getEquipmentsOnReachByName($this->player, $name)->count() < $number) {
                 return false;
             }
         }

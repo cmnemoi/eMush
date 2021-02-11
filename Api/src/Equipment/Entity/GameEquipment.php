@@ -7,8 +7,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Place\Entity\Place;
-use Mush\Status\Entity\Status;
 use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Entity\StatusTarget;
 use Mush\Status\Entity\TargetStatusTrait;
@@ -186,11 +186,11 @@ class GameEquipment implements StatusHolderInterface
     {
         $chargeStatus = $this->getStatusByName(EquipmentStatusEnum::CHARGES);
 
-        if ($chargeStatus === null || !($chargeStatus instanceof ChargeStatus)){
+        if ($chargeStatus === null || !($chargeStatus instanceof ChargeStatus)) {
             return true;
         }
 
-        return $chargeStatus->getCharge()>0;
+        return $chargeStatus->getCharge() > 0;
     }
 
     public function getBrokenRate(): int

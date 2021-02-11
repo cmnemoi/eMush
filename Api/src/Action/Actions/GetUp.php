@@ -7,7 +7,9 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Player\Service\ActionModifierServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -20,9 +22,15 @@ class GetUp extends AbstractAction
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
-        StatusServiceInterface $statusService
+        StatusServiceInterface $statusService,
+        GearToolServiceInterface $gearToolService,
+        ActionModifierServiceInterface $actionModifierService
     ) {
-        parent::__construct($eventDispatcher);
+        parent::__construct(
+            $eventDispatcher,
+            $gearToolService,
+            $actionModifierService
+        );
 
         $this->statusService = $statusService;
     }

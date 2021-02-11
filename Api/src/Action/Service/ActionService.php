@@ -3,9 +3,7 @@
 namespace Mush\Action\Service;
 
 use Mush\Action\Entity\Action;
-use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
@@ -13,6 +11,7 @@ use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\ModifierScopeEnum;
 use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Event\PlayerEvent;
+use Mush\Player\Service\ActionModifierServiceInterface;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
@@ -28,20 +27,20 @@ class ActionService implements ActionServiceInterface
     private RandomServiceInterface $randomService;
     private StatusServiceInterface $statusService;
     private RoomLogServiceInterface $roomLogService;
-    private GearToolServiceInterface $gearToolService;
+    private ActionModifierServiceInterface $actionModifierService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         RandomServiceInterface $randomService,
         StatusServiceInterface $statusService,
         RoomLogServiceInterface $roomLogService,
-        GearToolServiceInterface $gearToolService
+        ActionModifierServiceInterface $actionModifierService
     ) {
         $this->eventDispatcher = $eventDispatcher;
         $this->randomService = $randomService;
         $this->statusService = $statusService;
         $this->roomLogService = $roomLogService;
-        $this->gearToolService = $gearToolService;
+        $this->actionModifierService = $actionModifierService;
     }
 
     public function handleActionSideEffect(Action $action, Player $player, ?\DateTime $date = null): Player
@@ -52,16 +51,16 @@ class ActionService implements ActionServiceInterface
             $dirtyRate > 0 &&
             ($percent = $this->randomService->randomPercent()) <= $dirtyRate
         ) {
-            $gears = $this->gearToolService->getApplicableGears(
+            $modifiers = $this->actionModifierService->getActionModifier(
                 $player,
                 [ModifierScopeEnum::EVENT_DIRTY],
                 [ReachEnum::INVENTORY],
                 ModifierTargetEnum::PERCENTAGE
             );
 
-            /** @var Gear $gear */
-            foreach ($gears as $gear) {
-                $dirtyRate += $gear->getModifier()->getDelta();
+            /** @var Modifier $modifier */
+            foreach ($modifiers as $modifier) {
+                $dirtyRate += $modifier->getDelta();
             }
 
             if (!$isSuperDirty && $percent >= $dirtyRate) {
@@ -89,16 +88,16 @@ class ActionService implements ActionServiceInterface
         if ($injuryRate > 0 &&
             ($percent = $this->randomService->randomPercent()) <= $injuryRate
         ) {
-            $gears = $this->gearToolService->getApplicableGears(
+            $modifiers = $this->actionModifierService->getActionModifier(
                 $player,
                 [ModifierScopeEnum::EVENT_CLUMSINESS],
                 [ReachEnum::INVENTORY],
                 ModifierTargetEnum::PERCENTAGE
             );
 
-            /** @var Gear $gear */
-            foreach ($gears as $gear) {
-                $injuryRate += $gear->getModifier()->getDelta();
+            /** @var Modifier $modifier */
+            foreach ($modifiers as $modifier) {
+                $injuryRate += $modifier->getDelta();
             }
 
             if ($percent >= $injuryRate) {

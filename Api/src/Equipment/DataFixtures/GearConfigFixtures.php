@@ -385,7 +385,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $this->objectManager->persist($modifier);
 
         $gear = new Gear();
-        $gear->setModifier($modifier);
+        $gear->setModifier(new ArrayCollection([$modifier]));
 
         $this->objectManager->persist($gear);
 

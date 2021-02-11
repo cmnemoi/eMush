@@ -14,7 +14,9 @@ use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Player\Service\ActionModifierServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\Target;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -32,9 +34,15 @@ class Transplant extends AbstractAction
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         GameEquipmentServiceInterface $gameEquipmentService,
-        PlayerServiceInterface $playerService
+        PlayerServiceInterface $playerService,
+        GearToolServiceInterface $gearToolService,
+        ActionModifierServiceInterface $actionModifierService
     ) {
-        parent::__construct($eventDispatcher);
+        parent::__construct(
+            $eventDispatcher,
+            $gearToolService,
+            $actionModifierService
+        );
 
         $this->gameEquipmentService = $gameEquipmentService;
         $this->playerService = $playerService;
@@ -54,7 +62,7 @@ class Transplant extends AbstractAction
 
     public function canExecute(): bool
     {
-        return $this->player->getReachableEquipmentsByName(ItemEnum::HYDROPOT)->count() > 0 &&
+        return $this->gearToolService->getEquipmentsOnReachByName($this->player, ItemEnum::HYDROPOT)->count() > 0 &&
                     $this->player->canReachEquipment($this->gameEquipment) &&
                     $this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::FRUIT)
                     ;
@@ -67,7 +75,8 @@ class Transplant extends AbstractAction
         $fruitType = $this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::FRUIT);
 
         /** @var GameItem $hydropot */
-        $hydropot = $this->player->getReachableEquipmentsByName(ItemEnum::HYDROPOT)->first();
+        $hydropot = $this->gearToolService->getEquipmentsOnReachByName($this->player, ItemEnum::HYDROPOT)->first();
+
         $place = $hydropot->getPlace() ?? $hydropot->getPlayer();
 
         /** @var GameItem $plantEquipment */

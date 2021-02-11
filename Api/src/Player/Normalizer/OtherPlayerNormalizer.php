@@ -2,11 +2,10 @@
 
 namespace Mush\Player\Normalizer;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionScopeEnum;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Player\Entity\Player;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
@@ -18,11 +17,14 @@ class OtherPlayerNormalizer implements ContextAwareNormalizerInterface, Normaliz
     use NormalizerAwareTrait;
 
     private TranslatorInterface $translator;
+    private GearToolServiceInterface $gearToolService;
 
     public function __construct(
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        GearToolServiceInterface $gearToolService
     ) {
         $this->translator = $translator;
+        $this->gearToolService = $gearToolService;
     }
 
     public function supportsNormalization($data, string $format = null, array $context = []): bool
@@ -60,7 +62,7 @@ class OtherPlayerNormalizer implements ContextAwareNormalizerInterface, Normaliz
 
     private function getActions(Player $player, ?string $format, array $context): array
     {
-        $contextualActions = $this->getContextActions($player);
+        $contextualActions = $this->getContextActions($context['currentPlayer']);
 
         $actions = [];
 
@@ -85,23 +87,10 @@ class OtherPlayerNormalizer implements ContextAwareNormalizerInterface, Normaliz
         return $actions;
     }
 
-    private function getContextActions(Player $player): Collection
+    private function getContextActions(Player $currentPlayer): Collection
     {
-        $reachableTools = $player->getReachableTools();
-
         $scope = [ActionScopeEnum::OTHER_PLAYER];
 
-        $contextActions = new ArrayCollection();
-        /** @var GameEquipment $tool */
-        foreach ($reachableTools as $tool) {
-            $actions = $tool->getActions()->filter(fn (Action $action) => (
-            in_array($action->getScope(), $scope))
-            );
-            foreach ($actions as $action) {
-                $contextActions->add($action);
-            }
-        }
-
-        return $contextActions;
+        return $this->gearToolService->getActionsTools($currentPlayer, $scope);
     }
 }

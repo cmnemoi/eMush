@@ -14,6 +14,7 @@ use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class EquipmentSubscriber implements EventSubscriberInterface
@@ -21,15 +22,18 @@ class EquipmentSubscriber implements EventSubscriberInterface
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
     private RoomLogServiceInterface $roomLogService;
+    private EventDispatcherInterface $eventDispatcher;
 
     public function __construct(
         GameEquipmentServiceInterface $gameEquipmentService,
         StatusServiceInterface $statusService,
-        RoomLogServiceInterface $roomLogService
+        RoomLogServiceInterface $roomLogService,
+        EventDispatcherInterface $eventDispatcher
     ) {
         $this->gameEquipmentService = $gameEquipmentService;
         $this->statusService = $statusService;
         $this->roomLogService = $roomLogService;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     public static function getSubscribedEvents(): array
@@ -118,14 +122,24 @@ class EquipmentSubscriber implements EventSubscriberInterface
     {
         $equipment = $event->getEquipment();
 
+        $chargeStatus = $equipment->getStatusByName(EquipmentStatusEnum::CHARGES);
 
-        if (!$equipment->isCharged())
-        {
+        if (!($chargeStatus !== null &&
+            $chargeStatus instanceof ChargeStatus &&
+            $chargeStatus->getCharge() > 0)
+        ) {
             throw new Error('Equipment should have a charge status with more than 0 charge');
         }
 
-        $chargeStatus = $equipment->getStatusByName(EquipmentStatusEnum::CHARGES);
         $chargeStatus->addCharge(-1);
+
+        if ($chargeStatus->isAutoRemove() &&
+            ($threshold = $chargeStatus->getThreshold()) &&
+            $chargeStatus->getCharge() === $threshold
+        ) {
+            $equipmentEvent = new EquipmentEvent($equipment, VisibilityEnum::HIDDEN);
+            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        }
 
         $this->statusService->persist($chargeStatus);
     }

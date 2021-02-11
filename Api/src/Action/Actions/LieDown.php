@@ -8,7 +8,9 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Player\Service\ActionModifierServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -25,9 +27,15 @@ class LieDown extends AbstractAction
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
-        StatusServiceInterface $statusService
+        StatusServiceInterface $statusService,
+        GearToolServiceInterface $gearToolService,
+        ActionModifierServiceInterface $actionModifierService
     ) {
-        parent::__construct($eventDispatcher);
+        parent::__construct(
+            $eventDispatcher,
+            $gearToolService,
+            $actionModifierService
+        );
 
         $this->statusService = $statusService;
     }

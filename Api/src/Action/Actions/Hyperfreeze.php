@@ -11,11 +11,11 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Equipment\Enum\GameRationEnum;
-use Mush\Equipment\Enum\ReachEnum;
-use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Player\Service\ActionModifierServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -36,9 +36,15 @@ class Hyperfreeze extends AbstractAction
         EventDispatcherInterface $eventDispatcher,
         GameEquipmentServiceInterface $gameEquipmentService,
         PlayerServiceInterface $playerService,
-        StatusServiceInterface $statusService
+        StatusServiceInterface $statusService,
+        GearToolServiceInterface $gearToolService,
+        ActionModifierServiceInterface $actionModifierService
     ) {
-        parent::__construct($eventDispatcher);
+        parent::__construct(
+            $eventDispatcher,
+            $gearToolService,
+            $actionModifierService
+        );
 
         $this->gameEquipmentService = $gameEquipmentService;
         $this->playerService = $playerService;
@@ -65,8 +71,7 @@ class Hyperfreeze extends AbstractAction
         return $rationMechanic &&
             $rationMechanic->isPerishable() &&
             $this->player->canReachEquipment($this->gameEquipment) &&
-            !$this->gameEquipmentService
-                ->getOperationalEquipmentsByName(ToolItemEnum::SUPERFREEZER, $this->player, ReachEnum::SHELVE_NOT_HIDDEN)->isEmpty() &&
+            $this->gearToolService->getUsedTool($this->player, $this->action->getName()) !== null &&
             !$this->gameEquipment->getStatusByName(EquipmentStatusEnum::FROZEN)
             ;
     }

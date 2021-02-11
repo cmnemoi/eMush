@@ -12,11 +12,10 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Player\Service\ActionModifierServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
-use Mush\Status\Entity\ChargeStatus;
-use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Coffee extends AbstractAction
@@ -26,17 +25,20 @@ class Coffee extends AbstractAction
     private GameEquipment $gameEquipment;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         GameEquipmentServiceInterface $gameEquipmentService,
-        StatusServiceInterface $statusService
+        GearToolServiceInterface $gearToolService,
+        ActionModifierServiceInterface $actionModifierService
     ) {
-        parent::__construct($eventDispatcher);
+        parent::__construct(
+            $eventDispatcher,
+            $gearToolService,
+            $actionModifierService
+        );
 
         $this->gameEquipmentService = $gameEquipmentService;
-        $this->statusService = $statusService;
     }
 
     public function loadParameters(Action $action, Player $player, ActionParameters $actionParameters): void
@@ -54,7 +56,8 @@ class Coffee extends AbstractAction
     {
         return $this->gameEquipment->getActions()->contains($this->action) &&
             $this->player->canReachEquipment($this->gameEquipment) &&
-            $this->gameEquipmentService->isOperational($this->gameEquipment)
+            $this->gameEquipment->isBroken() &&
+            $this->gameEquipment->isCharged()
             ;
     }
 
@@ -70,13 +73,6 @@ class Coffee extends AbstractAction
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
         $this->gameEquipmentService->persist($newItem);
-
-        $chargeStatus = $this->gameEquipment->getStatusByName(EquipmentStatusEnum::CHARGES);
-
-        if ($chargeStatus instanceof ChargeStatus) {
-            $chargeStatus->addCharge(-1);
-            $this->statusService->persist($chargeStatus);
-        }
 
         return new Success();
     }

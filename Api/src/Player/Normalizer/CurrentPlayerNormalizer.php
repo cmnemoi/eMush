@@ -2,12 +2,11 @@
 
 namespace Mush\Player\Normalizer;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionScopeEnum;
-use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Player\Entity\Player;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
@@ -19,11 +18,14 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
     use NormalizerAwareTrait;
 
     private TranslatorInterface $translator;
+    private GearToolServiceInterface $gearToolService;
 
     public function __construct(
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        GearToolServiceInterface $gearToolService
     ) {
         $this->translator = $translator;
+        $this->gearToolService = $gearToolService;
     }
 
     public function supportsNormalization($data, string $format = null, array $context = []): bool
@@ -105,17 +107,6 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
     {
         $scope = [ActionScopeEnum::SELF];
 
-        $contextActions = new ArrayCollection();
-        /** @var GameEquipment $tool */
-        foreach ($player->getReachableTools() as $tool) {
-            $actions = $tool->getActions()->filter(fn (Action $action) => (
-            in_array($action->getScope(), $scope))
-            );
-            foreach ($actions as $action) {
-                $contextActions->add($action);
-            }
-        }
-
-        return $contextActions;
+        return $this->gearToolService->getActionsTools($player, $scope);
     }
 }

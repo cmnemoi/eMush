@@ -8,11 +8,12 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionCost;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Event\ActionEvent;
-use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Service\GearToolServiceInterface;
+use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\ModifierTargetEnum;
+use Mush\Player\Service\ActionModifierServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 abstract class AbstractAction
@@ -24,13 +25,16 @@ abstract class AbstractAction
 
     protected EventDispatcherInterface $eventDispatcher;
     protected GearToolServiceInterface $gearToolService;
+    protected ActionModifierServiceInterface $actionModifierService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
-        GearToolServiceInterface $gearToolService
-    ){
+        GearToolServiceInterface $gearToolService,
+        ActionModifierServiceInterface $actionModifierService
+    ) {
         $this->eventDispatcher = $eventDispatcher;
         $this->gearToolService = $gearToolService;
+        $this->actionModifierService = $actionModifierService;
     }
 
     public function loadParameters(Action $action, Player $player, ActionParameters $actionParameters): void
@@ -72,13 +76,6 @@ abstract class AbstractAction
     {
         $this->getActionCost()->applyCostToPlayer($this->player);
 
-        return $this->player;
-    }
-
-    public function getActionCost(): ActionCost
-    {
-        $actionCost = $this->action->getActionCost();
-
         $gears = $this->gearToolService->getApplicableGears(
             $this->player,
             array_merge([$this->getActionName()], $this->action->getTypes()),
@@ -86,12 +83,35 @@ abstract class AbstractAction
             ModifierTargetEnum::ACTION_POINT
         );
 
-        /** @var Gear $gear */
         foreach ($gears as $gear) {
+            $this->gearToolService->applyChargeCost($gear);
+        }
+
+        $tool = $this->gearToolService->getUsedTool($this->player, $this->action->getName());
+        if ($tool) {
+            $this->gearToolService->applyChargeCost($tool);
+        }
+
+        return $this->player;
+    }
+
+    public function getActionCost(): ActionCost
+    {
+        $actionCost = $this->action->getActionCost();
+
+        $modifiers = $this->actionModifierService->getActionModifier(
+            $this->player,
+            array_merge([$this->getActionName()], $this->action->getTypes()),
+            [ReachEnum::INVENTORY],
+            ModifierTargetEnum::ACTION_POINT
+        );
+
+        /** @var Modifier $modifier */
+        foreach ($modifiers as $modifier) {
             if ($actionCost->getActionPointCost() > 0 &&
-               $gear->getModifier()->getTarget() === ModifierTargetEnum::ACTION_POINT
+               $modifier->getTarget() === ModifierTargetEnum::ACTION_POINT
            ) {
-                $actionCost->addActionPointCost((int) $gear->getModifier()->getDelta());
+                $actionCost->addActionPointCost((int) $modifier->getDelta());
             }
         }
 

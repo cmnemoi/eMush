@@ -9,11 +9,12 @@ use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Service\ActionModifierServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class InsertOxygen extends AbstractAction
@@ -29,9 +30,15 @@ class InsertOxygen extends AbstractAction
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         GameEquipmentServiceInterface $gameEquipmentService,
-        DaedalusServiceInterface $daedalusService
+        DaedalusServiceInterface $daedalusService,
+        GearToolServiceInterface $gearToolService,
+        ActionModifierServiceInterface $actionModifierService
     ) {
-        parent::__construct($eventDispatcher);
+        parent::__construct(
+            $eventDispatcher,
+            $gearToolService,
+            $actionModifierService
+        );
 
         $this->gameEquipmentService = $gameEquipmentService;
         $this->daedalusService = $daedalusService;
@@ -54,7 +61,7 @@ class InsertOxygen extends AbstractAction
 
         return $this->player->canReachEquipment($this->gameItem) &&
             $this->gameItem->getEquipment()->getName() === ItemEnum::OXYGEN_CAPSULE &&
-            $this->gameEquipmentService->getOperationalEquipmentsByName(EquipmentEnum::OXYGEN_TANK, $this->player) &&
+            $this->gearToolService->getUsedTool($this->player, $this->action->getName()) !== null &&
             $this->player->getDaedalus()->getOxygen() < $gameConfig->getDaedalusConfig()->getMaxOxygen()
             ;
     }

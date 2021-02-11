@@ -155,7 +155,7 @@ class PlayerVariableService implements PlayerVariableServiceInterface
             $player->removeStatus($suicidalStatus);
         }
 
-        if ($player->getMoralPoint() <= self::DEPRESSED_THRESHOLD && 
+        if ($player->getMoralPoint() <= self::DEPRESSED_THRESHOLD &&
             $player->getMoralPoint() > self::SUICIDAL_THRESHOLD && $demoralizedStatus
         ) {
             $this->statusService->createCoreStatus(PlayerStatusEnum::DEMORALIZED, $player, null, VisibilityEnum::PRIVATE);

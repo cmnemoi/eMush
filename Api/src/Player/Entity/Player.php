@@ -10,9 +10,6 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\Mechanics\Gear;
-use Mush\Equipment\Enum\EquipmentMechanicEnum;
-use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Place\Entity\Place;
@@ -288,7 +285,6 @@ class Player implements StatusHolderInterface
 
         return $this;
     }
-
 
     public function hasItemByName(string $name): bool
     {

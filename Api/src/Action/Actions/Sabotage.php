@@ -11,8 +11,10 @@ use Mush\Action\Service\SuccessRateServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Player\Service\ActionModifierServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -33,9 +35,18 @@ class Sabotage extends AttemptAction
         PlayerServiceInterface $playerService,
         RandomServiceInterface $randomService,
         SuccessRateServiceInterface $successRateService,
-        StatusServiceInterface $statusService
+        StatusServiceInterface $statusService,
+        GearToolServiceInterface $gearToolService,
+        ActionModifierServiceInterface $actionModifierService
     ) {
-        parent::__construct($randomService, $successRateService, $eventDispatcher, $statusService);
+        parent::__construct(
+            $randomService,
+            $successRateService,
+            $eventDispatcher,
+            $statusService,
+            $gearToolService,
+            $actionModifierService
+        );
 
         $this->gameEquipmentService = $gameEquipmentService;
         $this->playerService = $playerService;

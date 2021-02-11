@@ -65,7 +65,7 @@ class Shower extends AbstractAction
     public function canExecute(): bool
     {
         return $this->player->canReachEquipment($this->gameEquipment) &&
-               $this->gameEquipment->isBroken() &&
+               !$this->gameEquipment->isBroken() &&
                $this->gameEquipment->getEquipment()->hasAction(ActionEnum::SHOWER)
             ;
     }

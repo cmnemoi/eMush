@@ -39,17 +39,7 @@ class ActionModifierService implements ActionModifierServiceInterface
             }
         }
 
-        //Status modifiers
-        foreach ($player->getStatuses() as $status) {
-            foreach ($status->getActionModifier() as $modifier) {
-                if (in_array($modifier->getScope(), $scopes) &&
-                    ($target === null || $modifier->getTarget() === $target) &&
-                    (count($types) || in_array($modifier->getTarget(), $types))
-                ) {
-                    $modifiers->add($modifier);
-                }
-            }
-        }
+        //@TODO Status modifiers
 
         //@TODO skill modifiers
 

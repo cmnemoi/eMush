@@ -56,7 +56,7 @@ class Coffee extends AbstractAction
     {
         return $this->gameEquipment->getActions()->contains($this->action) &&
             $this->player->canReachEquipment($this->gameEquipment) &&
-            $this->gameEquipment->isBroken() &&
+            !$this->gameEquipment->isBroken() &&
             $this->gameEquipment->isCharged()
             ;
     }

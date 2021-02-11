@@ -98,7 +98,7 @@ class RepairActionCest
 
         $wrenchGear = new Gear();
 
-        $wrenchGear->setModifier($modifier);
+        $wrenchGear->setModifier(new arrayCollection([$modifier]));
 
         $wrench = new ItemConfig();
         $wrench

@@ -61,7 +61,7 @@ class RetrieveOxygen extends AbstractAction
 
         return $this->player->canReachEquipment($this->gameEquipment) &&
             $this->gameEquipment->getEquipment()->hasAction(ActionEnum::RETRIEVE_OXYGEN) &&
-            $this->gameEquipment->isBroken() &&
+            !$this->gameEquipment->isBroken() &&
             $this->player->canReachEquipment($this->gameEquipment) &&
             $this->player->getItems()->count() < $gameConfig->getMaxItemInInventory() &&
             $this->player->getDaedalus()->getOxygen() > 0

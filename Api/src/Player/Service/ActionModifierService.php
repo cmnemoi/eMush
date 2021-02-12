@@ -18,10 +18,10 @@ class ActionModifierService implements ActionModifierServiceInterface
         $this->gearToolService = $gearToolService;
     }
 
-    public function getActionModifier(Player $player, array $scopes, array $types, ?string $target = null): Collection
+    public function getAdditiveModifier(Player $player, array $scopes, array $types, ?string $target = null): int
     {
-        /** @var Collection $actions */
-        $modifiers = new ArrayCollection();
+        /** @var int $delta */
+        $delta = 0;
 
         //gear modifiers
         foreach ($this->gearToolService->getApplicableGears($player, $scopes, $types, $target) as $gear) {
@@ -33,7 +33,7 @@ class ActionModifierService implements ActionModifierServiceInterface
                         ($target === null || $modifier->getTarget() === $target) &&
                         (count($types) || in_array($modifier->getTarget(), $types))
                     ) {
-                        $modifiers->add($modifier);
+                        $delta += $modifier->getDelta();
                     }
                 }
             }
@@ -43,6 +43,35 @@ class ActionModifierService implements ActionModifierServiceInterface
 
         //@TODO skill modifiers
 
-        return $modifiers;
+        return $delta;
+    }
+
+
+    public function getMultiplicativeModifier(Player $player, array $scopes, array $types, ?string $target = null): int
+    {
+        /** @var int $delta */
+        $delta = 0;
+
+        //gear modifiers
+        foreach ($this->gearToolService->getApplicableGears($player, $scopes, $types, $target) as $gear) {
+            $gearMechanic = $gear->getEquipment()->getMechanicByName(EquipmentMechanicEnum::GEAR);
+
+            if ($gearMechanic) {
+                foreach ($gearMechanic->getModifiers() as $modifier) {
+                    if (in_array($modifier->getScope(), $scopes) &&
+                        ($target === null || $modifier->getTarget() === $target) &&
+                        (count($types) || in_array($modifier->getTarget(), $types))
+                    ) {
+                        $delta *= $modifier->getDelta();
+                    }
+                }
+            }
+        }
+
+        //@TODO Status modifiers
+
+        //@TODO skill modifiers
+
+        return $delta;
     }
 }

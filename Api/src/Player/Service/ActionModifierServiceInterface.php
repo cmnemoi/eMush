@@ -7,5 +7,7 @@ use Mush\Player\Entity\Player;
 
 interface ActionModifierServiceInterface
 {
-    public function getActionModifier(Player $player, array $scopes, array $types, ?string $target = null): Collection;
+    public function getAdditiveModifier(Player $player, array $scopes, array $types, ?string $target = null): int;
+
+    public function getMultiplicativeModifier(Player $player, array $scopes, array $types, ?string $target = null): int;
 }

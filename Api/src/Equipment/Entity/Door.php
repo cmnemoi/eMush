@@ -65,12 +65,7 @@ class Door extends GameEquipment
 
         return $this;
     }
-
-    public function getBrokenRate(): int
-    {
-        return 50;
-    }
-
+    
     public function getOtherRoom($currentRoom): Place
     {
         return $this->getRooms()->filter(fn (Place $room) => $room !== $currentRoom)->first();

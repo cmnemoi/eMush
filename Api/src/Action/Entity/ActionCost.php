@@ -37,23 +37,6 @@ class ActionCost
         return $this->id;
     }
 
-    public function canPlayerDoAction(Player $player): bool
-    {
-        return $this->getActionPointCost() <= $player->getActionPoint() &&
-            ($this->getMovementPointCost() <= $player->getMovementPoint() || $player->getActionPoint() > 0) &&
-            $this->getMoralPointCost() <= $player->getMoralPoint()
-            ;
-    }
-
-    public function applyCostToPlayer(Player $player): Player
-    {
-        return $player
-            ->addActionPoint((-1) * $this->getActionPointCost())
-            ->addMovementPoint((-1) * $this->getMovementPointCost())
-            ->addMoralPoint((-1) * $this->getMoralPointCost())
-            ;
-    }
-
     public function getActionPointCost(): ?int
     {
         return $this->actionPointCost;

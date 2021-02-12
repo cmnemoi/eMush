@@ -5,8 +5,8 @@ namespace unit\Action\Service;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Action\Entity\Action;
-use Mush\Action\Service\ActionService;
-use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Service\ActionSideEffectsService;
+use Mush\Action\Service\ActionSideEffectsServiceInterface;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Gear;
@@ -35,7 +35,7 @@ class ActionServiceTest extends TestCase
     /** @var StatusServiceInterface | Mockery\Mock */
     private StatusServiceInterface $statusServiceInterface;
 
-    private ActionServiceInterface $actionService;
+    private ActionSideEffectsServiceInterface $actionService;
 
     /**
      * @before
@@ -47,7 +47,7 @@ class ActionServiceTest extends TestCase
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
         $this->statusServiceInterface = Mockery::mock(StatusServiceInterface::class);
 
-        $this->actionService = new ActionService(
+        $this->actionService = new ActionSideEffectsService(
             $this->eventDispatcher,
             $this->randomService,
             $this->statusServiceInterface,

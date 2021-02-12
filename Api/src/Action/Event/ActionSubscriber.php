@@ -5,20 +5,20 @@ namespace Mush\Action\Event;
 use Mush\Action\Actions\GetUp;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Service\ActionSideEffectsServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ActionSubscriber implements EventSubscriberInterface
 {
-    private ActionServiceInterface $actionService;
+    private ActionSideEffectsServiceInterface $actionSideEffectsService;
     private GetUp $getUpAction;
 
     public function __construct(
-        ActionServiceInterface $actionService,
+        ActionSideEffectsServiceInterface $actionSideEffectsService,
         GetUp $getUp
     ) {
-        $this->actionService = $actionService;
+        $this->actionSideEffectsService = $actionSideEffectsService;
         $this->getUpAction = $getUp;
     }
 
@@ -54,6 +54,6 @@ class ActionSubscriber implements EventSubscriberInterface
         $action = $event->getAction();
         $player = $event->getPlayer();
 
-        $this->actionService->handleActionSideEffect($action, $player, new \DateTime());
+        $this->actionSideEffectsService->handleActionSideEffect($action, $player, new \DateTime());
     }
 }

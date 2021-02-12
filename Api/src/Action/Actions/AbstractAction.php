@@ -87,7 +87,7 @@ abstract class AbstractAction
             $this->gearToolService->applyChargeCost($gear);
         }
 
-        $tool = $this->gearToolService->getUsedTool($this->player, $this->action->getName());
+        $tool = $this->gearToolService->getUsedTool($this->player, $this->getActionName());
         if ($tool) {
             $this->gearToolService->applyChargeCost($tool);
         }
@@ -121,5 +121,24 @@ abstract class AbstractAction
     public function getActionName(): string
     {
         return $this->name;
+    }
+
+    public function canPlayerDoAction(Player $player): bool
+    {
+        $actionCost = $this->action->getActionCost();
+        
+        return $this->getActionPointCost() <= $player->getActionPoint() &&
+            ($this->getMovementPointCost() <= $player->getMovementPoint() || $player->getActionPoint() > 0) &&
+            $this->getMoralPointCost() <= $player->getMoralPoint()
+            ;
+    }
+
+    public function applyCostToPlayer(Player $player): Player
+    {
+        return $player
+            ->addActionPoint((-1) * $this->getActionPointCost())
+            ->addMovementPoint((-1) * $this->getMovementPointCost())
+            ->addMoralPoint((-1) * $this->getMoralPointCost())
+            ;
     }
 }

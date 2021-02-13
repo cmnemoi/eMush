@@ -13,6 +13,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class ActionSubscriber implements EventSubscriberInterface
 {
     private ActionSideEffectsServiceInterface $actionSideEffectsService;
+    private GearToolServiceInterface $gearToolService;
     private GetUp $getUpAction;
 
     public function __construct(
@@ -59,6 +60,6 @@ class ActionSubscriber implements EventSubscriberInterface
 
         $this->actionSideEffectsService->handleActionSideEffect($action, $player, new \DateTime());
 
-        $this->gearToolService->applyChargeCost($player, array_merge([$action->getName()], $action->getTypes()));
+        $this->gearToolService->applyChargeCost($player, $action->getName(), $action->getTypes());
     }
 }

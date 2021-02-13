@@ -14,7 +14,6 @@ use Mush\Place\Service\PlaceServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Status\Enum\StatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Extinguish extends AttemptAction
@@ -30,14 +29,12 @@ class Extinguish extends AttemptAction
         EventDispatcherInterface $eventDispatcher,
         PlayerServiceInterface $playerService,
         RandomServiceInterface $randomService,
-        StatusServiceInterface $statusService,
         PlaceServiceInterface $placeService,
         ActionServiceInterface $actionService
     ) {
         parent::__construct(
             $randomService,
             $eventDispatcher,
-            $statusService,
             $actionService
         );
 

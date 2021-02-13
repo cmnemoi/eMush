@@ -16,7 +16,6 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\Target;
 use Mush\RoomLog\Enum\VisibilityEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Disassemble extends AttemptAction
@@ -33,13 +32,11 @@ class Disassemble extends AttemptAction
         GameEquipmentServiceInterface $gameEquipmentService,
         PlayerServiceInterface $playerService,
         RandomServiceInterface $randomService,
-        StatusServiceInterface $statusService,
         ActionServiceInterface $actionService
     ) {
         parent::__construct(
             $randomService,
             $eventDispatcher,
-            $statusService,
             $actionService
         );
 
@@ -108,7 +105,7 @@ class Disassemble extends AttemptAction
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
     }
 
-    protected function getBaseRate(): int
+    public function getBaseRate(): int
     {
         return $this->action->getSuccessRate();
     }

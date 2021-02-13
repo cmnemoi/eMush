@@ -47,7 +47,7 @@ class ActionModifierService implements ActionModifierServiceInterface
     public function getMultiplicativeModifier(Player $player, array $scopes, array $types, ?string $target = null): int
     {
         /** @var int $delta */
-        $delta = 0;
+        $delta = 1;
 
         //gear modifiers
         foreach ($this->gearToolService->getApplicableGears($player, $scopes, $types, $target) as $gear) {

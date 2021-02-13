@@ -6,19 +6,23 @@ use Mush\Action\Actions\AttemptAction;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Service\ActionStrategyServiceInterface;
+use Mush\Action\Service\ActionServiceInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ActionNormalizer implements ContextAwareNormalizerInterface
 {
     private TranslatorInterface $translator;
-    private ActionStrategyServiceInterface $actionService;
+    private ActionStrategyServiceInterface $actionStrategyService;
+    private ActionServiceInterface $actionService;
 
     public function __construct(
         TranslatorInterface $translator,
-        ActionStrategyServiceInterface $actionService
+        ActionStrategyServiceInterface $actionStrategyService,
+        ActionServiceInterface $actionService
     ) {
         $this->translator = $translator;
+        $this->actionStrategyService = $actionStrategyService;
         $this->actionService = $actionService;
     }
 
@@ -32,7 +36,7 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
      */
     public function normalize($object, string $format = null, array $context = []): array
     {
-        $actionClass = $this->actionService->getAction($object->getName());
+        $actionClass = $this->actionStrategyService->getAction($object->getName());
         if (!$actionClass) {
             return [];
         }
@@ -55,16 +59,26 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
             $actionParameter->setEquipment($context['equipment']);
         }
 
+
         $actionClass->loadParameters($object, $currentPlayer, $actionParameter);
 
-        if ($actionClass->getActionCost()->canPlayerDoAction($currentPlayer) && $actionClass->canExecute()) {
+        if ($this->actionService->canPlayerDoAction($currentPlayer, $object) && $actionClass->canExecute()) {
             $actionName = $object->getName();
-            $actionCost = $actionClass->getActionCost();
 
-            $successRate = $object->getSuccessRate();
 
             if ($actionClass instanceof AttemptAction) {
-                $successRate = $actionClass->getSuccessRate();
+                $successRate = $this->actionService->getSuccessRate($object, $currentPlayer, $actionClass->getBaseRate());
+
+                return [
+                    'id' => $object->getId(),
+                    'key' => $actionName,
+                    'name' => $this->translator->trans("{$actionName}.name", [], 'actions'),
+                    'description' => $this->translator->trans("{$actionName}.description", [], 'actions'),
+                    'actionPointCost' => $this->actionService->getTotalActionPointCost($currentPlayer, $object),
+                    'movementPointCost' => $this->actionService->getTotalMovementPointCost($currentPlayer, $object),
+                    'moralPointCost' => $this->actionService->getTotalMoralPointCost($currentPlayer, $object),
+                    'successRate' => $successRate,
+                ];
             }
 
             return [
@@ -72,11 +86,10 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
                 'key' => $actionName,
                 'name' => $this->translator->trans("{$actionName}.name", [], 'actions'),
                 'description' => $this->translator->trans("{$actionName}.description", [], 'actions'),
-                'actionPointCost' => $actionCost->getActionPointCost(),
-                'movementPointCost' => $actionCost->getMovementPointCost(),
-                'moralPointCost' => $actionCost->getMoralPointCost(),
-                'successRate' => $successRate,
-            ];
+                'actionPointCost' => $this->actionService->getTotalActionPointCost($currentPlayer, $object),
+                'movementPointCost' => $this->actionService->getTotalMovementPointCost($currentPlayer, $object),
+                'moralPointCost' => $this->actionService->getTotalMoralPointCost($currentPlayer, $object),
+            ];  
         }
 
         return [];

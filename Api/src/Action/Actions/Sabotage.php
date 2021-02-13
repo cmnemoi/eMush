@@ -15,7 +15,6 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Sabotage extends AttemptAction
@@ -32,13 +31,11 @@ class Sabotage extends AttemptAction
         GameEquipmentServiceInterface $gameEquipmentService,
         PlayerServiceInterface $playerService,
         RandomServiceInterface $randomService,
-        StatusServiceInterface $statusService,
         ActionServiceInterface $actionService
     ) {
         parent::__construct(
             $randomService,
             $eventDispatcher,
-            $statusService,
             $actionService
         );
 
@@ -83,7 +80,7 @@ class Sabotage extends AttemptAction
         return $response;
     }
 
-    protected function getBaseRate(): int
+    public function getBaseRate(): int
     {
         return $this->gameEquipment->getBrokenRate();
     }

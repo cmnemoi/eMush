@@ -51,17 +51,13 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
             $dirtyRate > 0 &&
             ($percent = $this->randomService->randomPercent()) <= $dirtyRate
         ) {
-            $modifiers = $this->actionModifierService->getActionModifier(
+            $dirtyRate += $this->actionModifierService->getAdditiveModifier(
                 $player,
                 [ModifierScopeEnum::EVENT_DIRTY],
                 [ReachEnum::INVENTORY],
                 ModifierTargetEnum::PERCENTAGE
             );
 
-            /** @var Modifier $modifier */
-            foreach ($modifiers as $modifier) {
-                $dirtyRate += $modifier->getDelta();
-            }
 
             if (!$isSuperDirty && $percent >= $dirtyRate) {
                 $this->roomLogService->createPlayerLog(
@@ -88,18 +84,14 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
         if ($injuryRate > 0 &&
             ($percent = $this->randomService->randomPercent()) <= $injuryRate
         ) {
-            $modifiers = $this->actionModifierService->getActionModifier(
+            $injuryRate +=  $this->actionModifierService->getAdditiveModifier(
                 $player,
                 [ModifierScopeEnum::EVENT_CLUMSINESS],
                 [ReachEnum::INVENTORY],
                 ModifierTargetEnum::PERCENTAGE
             );
 
-            /** @var Modifier $modifier */
-            foreach ($modifiers as $modifier) {
-                $injuryRate += $modifier->getDelta();
-            }
-
+            
             if ($percent >= $injuryRate) {
                 $this->roomLogService->createPlayerLog(
                     LogEnum::CLUMSINESS_PREVENTED,

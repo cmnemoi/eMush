@@ -18,7 +18,6 @@ use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Hit extends AttemptAction
@@ -33,13 +32,11 @@ class Hit extends AttemptAction
         EventDispatcherInterface $eventDispatcher,
         PlayerServiceInterface $playerService,
         RandomServiceInterface $randomService,
-        StatusServiceInterface $statusService,
         ActionServiceInterface $actionService
     ) {
         parent::__construct(
             $randomService,
             $eventDispatcher,
-            $statusService,
             $actionService
         );
 

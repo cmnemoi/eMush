@@ -8,24 +8,33 @@ use Mush\Player\Service\ActionModifierServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Player\Enum\ModifierTargetEnum;
+use Mush\Status\Entity\Attempt;
+use Mush\Status\Enum\StatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
+
 
 class ActionService implements ActionServiceInterface
 {
     public const MAX_PERCENT = 99;
 
+    private ActionModifierServiceInterface $actionModifierService;
+    private StatusServiceInterface $statusService;
+
     public function __construct(
-        ActionModifierServiceInterface $actionModifierService
+        ActionModifierServiceInterface $actionModifierService,
+        StatusServiceInterface $statusService
     ) {
         $this->actionModifierService = $actionModifierService;
+        $this->statusService = $statusService;
     }
 
 
     public function canPlayerDoAction(Player $player, Action $action): bool
     {        
-        return $this->getTotalActionPointCost($player, $action <= $player->getActionPoint() &&
+        return $this->getTotalActionPointCost($player, $action) <= $player->getActionPoint() &&
             ($this->getTotalMovementPointCost($player, $action) <= $player->getMovementPoint() || $player->getActionPoint() > 0) &&
             $this->getTotalMoralPointCost($player, $action) <= $player->getMoralPoint()
-            ;
+        ;
     }
 
     public function applyCostToPlayer(Player $player, Action $action): Player
@@ -38,11 +47,11 @@ class ActionService implements ActionServiceInterface
     }
 
 
-    public function getTotalActionPointCost(Player $player, Action $action): int
+    public function getTotalActionPointCost(Player $player, Action $action): ?int
     { 
 
         $modifiersDelta = $this->actionModifierService->getAdditiveModifier(
-            $this->player,
+            $player,
             array_merge([$action->getName()], $action->getTypes()),
             [ReachEnum::INVENTORY],
             ModifierTargetEnum::ACTION_POINT
@@ -52,10 +61,10 @@ class ActionService implements ActionServiceInterface
         return (int) max($action->getActionCost()->getActionPointCost() + $modifiersDelta, 0);
     }
 
-    public function getTotalMovementPointCost(Player $player, Action $action): int
+    public function getTotalMovementPointCost(Player $player, Action $action): ?int
     {
         $modifiersDelta = $this->actionModifierService->getAdditiveModifier(
-            $this->player,
+            $player,
             array_merge([$action->getName()], $action->getTypes()),
             [ReachEnum::INVENTORY],
             ModifierTargetEnum::MOVEMENT_POINT
@@ -64,7 +73,7 @@ class ActionService implements ActionServiceInterface
         return (int) max($action->getActionCost()->getMovementPointCost() + $modifiersDelta, 0);
     }
 
-    public function getTotalMoralPointCost(Player $player, Action $action): int
+    public function getTotalMoralPointCost(Player $player, Action $action): ?int
     {
         return $action->getActionCost()->getMoralPointCost();
     }
@@ -74,27 +83,44 @@ class ActionService implements ActionServiceInterface
         Action $action,
         Player $player,
         int $baseRate,
-        int $numberOfAttempt,
-        float $relativeModificator,
     ): int {
+        //Get number of attempt
+        $numberOfAttempt = $this->getAttempt($player, $action->getName())->getCharge();
 
-        $modificator = 1;
-
-        $modifiers = $this->actionModifierService->getMulptiplicativeModifier(
+        //Get modifiers
+        $modificator = $this->actionModifierService->getMultiplicativeModifier(
             $player,
             array_merge([$action->getName()], $action->getTypes()),
             [ReachEnum::INVENTORY],
             ModifierTargetEnum::PERCENTAGE
         );
 
-        /** @var Modifier $modifier */
-        foreach ($modifiers as $modifier) {
-            $modificator *= $modifier->getDelta();
-        }
-
         return (int) min(
-            ($baseRate * (1.25) ** $numberOfAttempt) * $relativeModificator + $baseRate * $modificator,
+            ($baseRate * (1.25) ** $numberOfAttempt) * $modificator,
             self::MAX_PERCENT
         );
+    }
+
+
+    public function getAttempt(Player $player, string $actionName): Attempt
+    {
+        /** @var Attempt $attempt */
+        $attempt = $player->getStatusByName(StatusEnum::ATTEMPT);
+
+        if ($attempt && $attempt->getAction() !== $actionName) {
+            // Re-initialize attempts with new action
+            $attempt
+                ->setAction($actionName)
+                ->setCharge(0)
+            ;
+        } elseif ($attempt === null) { //Create Attempt
+            $attempt = $this->statusService->createAttemptStatus(
+                StatusEnum::ATTEMPT,
+                $actionName,
+                $player
+            );
+        }
+
+        return $attempt;
     }
 }

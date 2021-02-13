@@ -159,8 +159,8 @@ class GearToolService implements GearToolServiceInterface
 
     public function applyChargeCost(Player $player, string $actionName, array $types = []): void
     {
-        $gears = $this->gearToolService->getApplicableGears(
-            $this->player,
+        $gears = $this->getApplicableGears(
+            $player,
             array_merge([$actionName], $types),
             [ReachEnum::INVENTORY]
         );
@@ -169,7 +169,7 @@ class GearToolService implements GearToolServiceInterface
             $this->removeCharge($gear);
         }
 
-        $tool = $this->gearToolService->getUsedTool($player, $actionName);
+        $tool = $this->getUsedTool($player, $actionName);
         if ($tool) {
             $this->removeCharge($tool);
         }

@@ -6,8 +6,7 @@ use Error;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Equipment\Service\GearToolServiceInterface;
-use Mush\Player\Service\ActionModifierServiceInterface;
+use Mush\Action\Service\ActionServiceInterface;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -22,13 +21,11 @@ class ExtractSpore extends AbstractAction
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         StatusServiceInterface $statusService,
-        GearToolServiceInterface $gearToolService,
-        ActionModifierServiceInterface $actionModifierService
+        ActionServiceInterface $actionService
     ) {
         parent::__construct(
             $eventDispatcher,
-            $gearToolService,
-            $actionModifierService
+            $actionService
         );
 
         $this->statusService = $statusService;

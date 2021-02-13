@@ -2,8 +2,6 @@
 
 namespace Mush\Player\Service;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Player\Entity\Player;
@@ -45,7 +43,6 @@ class ActionModifierService implements ActionModifierServiceInterface
 
         return $delta;
     }
-
 
     public function getMultiplicativeModifier(Player $player, array $scopes, array $types, ?string $target = null): int
     {

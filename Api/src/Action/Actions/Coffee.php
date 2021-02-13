@@ -7,14 +7,13 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Service\ActionServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Player\Entity\Player;
-use Mush\Player\Service\ActionModifierServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -29,13 +28,11 @@ class Coffee extends AbstractAction
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         GameEquipmentServiceInterface $gameEquipmentService,
-        GearToolServiceInterface $gearToolService,
-        ActionModifierServiceInterface $actionModifierService
+        ActionServiceInterface $actionService
     ) {
         parent::__construct(
             $eventDispatcher,
-            $gearToolService,
-            $actionModifierService
+            $actionService
         );
 
         $this->gameEquipmentService = $gameEquipmentService;

@@ -72,6 +72,7 @@ class ActionService implements ActionServiceInterface
 
     public function getSuccessRate(
         Action $action,
+        Player $player,
         int $baseRate,
         int $numberOfAttempt,
         float $relativeModificator,
@@ -80,7 +81,7 @@ class ActionService implements ActionServiceInterface
         $modificator = 1;
 
         $modifiers = $this->actionModifierService->getMulptiplicativeModifier(
-            $this->player,
+            $player,
             array_merge([$action->getName()], $action->getTypes()),
             [ReachEnum::INVENTORY],
             ModifierTargetEnum::PERCENTAGE

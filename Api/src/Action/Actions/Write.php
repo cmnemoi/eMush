@@ -7,13 +7,12 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Service\ActionServiceInterface;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Player\Entity\Player;
-use Mush\Player\Service\ActionModifierServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ContentStatus;
@@ -33,13 +32,11 @@ class Write extends AbstractAction
         EventDispatcherInterface $eventDispatcher,
         GameEquipmentServiceInterface $gameEquipmentService,
         PlayerServiceInterface $playerService,
-        GearToolServiceInterface $gearToolService,
-        ActionModifierServiceInterface $actionModifierService
+        ActionServiceInterface $actionService
     ) {
         parent::__construct(
             $eventDispatcher,
-            $gearToolService,
-            $actionModifierService
+            $actionService
         );
 
         $this->gameEquipmentService = $gameEquipmentService;

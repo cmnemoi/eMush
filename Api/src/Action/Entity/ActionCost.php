@@ -3,7 +3,6 @@
 namespace Mush\Action\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Player\Entity\Player;
 
 /**
  * @ORM\Entity()

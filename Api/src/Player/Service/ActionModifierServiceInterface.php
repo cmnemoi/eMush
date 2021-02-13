@@ -2,7 +2,6 @@
 
 namespace Mush\Player\Service;
 
-use Doctrine\Common\Collections\Collection;
 use Mush\Player\Entity\Player;
 
 interface ActionModifierServiceInterface

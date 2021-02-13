@@ -157,24 +157,37 @@ class GearToolService implements GearToolServiceInterface
         return null;
     }
 
-    public function applyChargeCost(GameEquipment $equipment): void
+    public function applyChargeCost(Player $player, string $actionName, array $types = []): void
+    {
+        $gears = $this->gearToolService->getApplicableGears(
+            $this->player,
+            array_merge([$actionName], $types),
+            [ReachEnum::INVENTORY]
+        );
+
+        foreach ($gears as $gear) {
+            $this->removeCharge($gear);
+        }
+
+        $tool = $this->gearToolService->getUsedTool($player, $actionName);
+        if ($tool) {
+            $this->removeCharge($tool);
+        }
+    }
+
+    public function removeCharge(GameEquipment $equipment): void
     {
         $chargeStatus = $equipment->getStatusByName(EquipmentStatusEnum::CHARGES);
 
         if ($chargeStatus &&
             $chargeStatus instanceof ChargeStatus
         ) {
-            $chargeStatus->addCharge(-1);
+            $chargeStatus = $this->statusService->changeCharge($chargeStatus, -1);
 
-            if ($chargeStatus->isAutoRemove() &&
-                ($threshold = $chargeStatus->getThreshold()) &&
-                $chargeStatus->getCharge() === $threshold
-            ) {
+            if ($chargeStatus === null) {
                 $equipmentEvent = new EquipmentEvent($equipment, VisibilityEnum::HIDDEN);
                 $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
             }
-
-            $this->statusService->persist($chargeStatus);
         }
     }
 }

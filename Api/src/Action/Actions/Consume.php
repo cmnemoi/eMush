@@ -8,18 +8,17 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Service\ActionServiceInterface;
 use Mush\Equipment\Entity\ConsumableEffect;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\Mechanics\Drug;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
-use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Event\PlayerEvent;
-use Mush\Player\Service\ActionModifierServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
@@ -42,13 +41,11 @@ class Consume extends AbstractAction
         PlayerServiceInterface $playerService,
         EquipmentEffectServiceInterface $equipmentServiceEffect,
         StatusServiceInterface $statusService,
-        GearToolServiceInterface $gearToolService,
-        ActionModifierServiceInterface $actionModifierService
+        ActionServiceInterface $actionService
     ) {
         parent::__construct(
             $eventDispatcher,
-            $gearToolService,
-            $actionModifierService
+            $actionService
         );
 
         $this->playerService = $playerService;

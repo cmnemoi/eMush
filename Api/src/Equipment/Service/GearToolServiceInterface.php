@@ -15,7 +15,7 @@ interface GearToolServiceInterface
 
     public function getUsedTool(Player $player, string $actionName): ?GameEquipment;
 
-    public function applyChargeCost(GameEquipment $equipment): void;
+    public function applyChargeCost(Player $player, string $actionName, array $types = []): void;
 
     public function getEquipmentsOnReach(Player $player, string $reach = ReachEnum::SHELVE_NOT_HIDDEN): Collection;
 

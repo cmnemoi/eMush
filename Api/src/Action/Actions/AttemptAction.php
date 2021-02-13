@@ -5,13 +5,8 @@ namespace Mush\Action\Actions;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Service\SuccessRateServiceInterface;
-use Mush\Equipment\Enum\ReachEnum;
-use Mush\Equipment\Service\GearToolServiceInterface;
+use Mush\Action\Service\ActionServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Player\Entity\Modifier;
-use Mush\Player\Enum\ModifierTargetEnum;
-use Mush\Player\Service\ActionModifierServiceInterface;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -21,26 +16,21 @@ abstract class AttemptAction extends AbstractAction
 {
     protected StatusServiceInterface $statusService;
     protected RandomServiceInterface $randomService;
-    protected SuccessRateServiceInterface $successRateService;
 
     private ?Attempt $attempt = null;
 
     public function __construct(
         RandomServiceInterface $randomService,
-        SuccessRateServiceInterface $successRateService,
         EventDispatcherInterface $eventManager,
         StatusServiceInterface $statusService,
-        GearToolServiceInterface $gearToolService,
-        ActionModifierServiceInterface $actionModifierService
+        ActionServiceInterface $actionService
     ) {
         $this->randomService = $randomService;
-        $this->successRateService = $successRateService;
         $this->statusService = $statusService;
 
         parent::__construct(
                 $eventManager,
-                $gearToolService,
-                $actionModifierService
+                $actionService
             );
     }
 
@@ -73,7 +63,7 @@ abstract class AttemptAction extends AbstractAction
     {
         $attempt = $this->getAttempt();
 
-        $successChance = $this->getSuccessRate();
+        $successChance = $this->actionService->getSuccessRate($this->player, $this->action);
 
         if ($this->randomService->isSuccessful($successChance)) {
             $this->player->removeStatus($attempt);
@@ -86,28 +76,8 @@ abstract class AttemptAction extends AbstractAction
         return $response;
     }
 
-    public function getSuccessRate(): int
+    protected function getBaseRate(): int
     {
-        $modificator = 1;
-
-        $modifiers = $this->actionModifierService->getActionModifier(
-            $this->player,
-            array_merge([$this->getActionName()], $this->action->getTypes()),
-            [ReachEnum::INVENTORY],
-            ModifierTargetEnum::PERCENTAGE
-        );
-
-        /** @var Modifier $modifier */
-        foreach ($modifiers as $modifier) {
-            $modificator *= $modifier->getDelta();
-        }
-
-        return $this->successRateService->getSuccessRate(
-            $this->getBaseRate(),
-            $this->getAttempt()->getCharge(),
-            $modificator
-        );
+        return $this->action->getSuccessRate();
     }
-
-    abstract protected function getBaseRate(): int;
 }

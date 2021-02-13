@@ -65,7 +65,7 @@ class Door extends GameEquipment
 
         return $this;
     }
-    
+
     public function getOtherRoom($currentRoom): Place
     {
         return $this->getRooms()->filter(fn (Place $room) => $room !== $currentRoom)->first();

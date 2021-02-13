@@ -6,6 +6,7 @@ use Mush\Action\Actions\GetUp;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionSideEffectsServiceInterface;
+use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -16,9 +17,11 @@ class ActionSubscriber implements EventSubscriberInterface
 
     public function __construct(
         ActionSideEffectsServiceInterface $actionSideEffectsService,
+        GearToolServiceInterface $gearToolService,
         GetUp $getUp
     ) {
         $this->actionSideEffectsService = $actionSideEffectsService;
+        $this->$gearToolService = $gearToolService;
         $this->getUpAction = $getUp;
     }
 
@@ -55,5 +58,7 @@ class ActionSubscriber implements EventSubscriberInterface
         $player = $event->getPlayer();
 
         $this->actionSideEffectsService->handleActionSideEffect($action, $player, new \DateTime());
+
+        $this->gearToolService->applyChargeCost($player, array_merge([$action->getName()], $action->getTypes()));
     }
 }

@@ -7,10 +7,9 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Equipment\Service\GearToolServiceInterface;
+use Mush\Action\Service\ActionServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;
-use Mush\Player\Service\ActionModifierServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\Target;
 use Mush\Status\Entity\ChargeStatus;
@@ -31,13 +30,11 @@ class Infect extends AbstractAction
         EventDispatcherInterface $eventDispatcher,
         StatusServiceInterface $statusService,
         PlayerServiceInterface $playerService,
-        GearToolServiceInterface $gearToolService,
-        ActionModifierServiceInterface $actionModifierService
+        ActionServiceInterface $actionService
     ) {
         parent::__construct(
             $eventDispatcher,
-            $gearToolService,
-            $actionModifierService
+            $actionService
         );
 
         $this->statusService = $statusService;

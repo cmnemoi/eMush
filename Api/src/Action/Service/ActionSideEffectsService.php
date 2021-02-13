@@ -58,7 +58,6 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
                 ModifierTargetEnum::PERCENTAGE
             );
 
-
             if (!$isSuperDirty && $percent >= $dirtyRate) {
                 $this->roomLogService->createPlayerLog(
                     LogEnum::SOIL_PREVENTED,
@@ -84,14 +83,13 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
         if ($injuryRate > 0 &&
             ($percent = $this->randomService->randomPercent()) <= $injuryRate
         ) {
-            $injuryRate +=  $this->actionModifierService->getAdditiveModifier(
+            $injuryRate += $this->actionModifierService->getAdditiveModifier(
                 $player,
                 [ModifierScopeEnum::EVENT_CLUMSINESS],
                 [ReachEnum::INVENTORY],
                 ModifierTargetEnum::PERCENTAGE
             );
 
-            
             if ($percent >= $injuryRate) {
                 $this->roomLogService->createPlayerLog(
                     LogEnum::CLUMSINESS_PREVENTED,

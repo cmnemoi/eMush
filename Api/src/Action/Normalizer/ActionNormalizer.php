@@ -5,8 +5,8 @@ namespace Mush\Action\Normalizer;
 use Mush\Action\Actions\AttemptAction;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
-use Mush\Action\Service\ActionStrategyServiceInterface;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Service\ActionStrategyServiceInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -59,12 +59,10 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
             $actionParameter->setEquipment($context['equipment']);
         }
 
-
         $actionClass->loadParameters($object, $currentPlayer, $actionParameter);
 
         if ($this->actionService->canPlayerDoAction($currentPlayer, $object) && $actionClass->canExecute()) {
             $actionName = $object->getName();
-
 
             if ($actionClass instanceof AttemptAction) {
                 $successRate = $this->actionService->getSuccessRate($object, $currentPlayer, $actionClass->getBaseRate());
@@ -89,7 +87,7 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
                 'actionPointCost' => $this->actionService->getTotalActionPointCost($currentPlayer, $object),
                 'movementPointCost' => $this->actionService->getTotalMovementPointCost($currentPlayer, $object),
                 'moralPointCost' => $this->actionService->getTotalMoralPointCost($currentPlayer, $object),
-            ];  
+            ];
         }
 
         return [];

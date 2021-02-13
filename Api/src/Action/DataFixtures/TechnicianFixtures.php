@@ -18,11 +18,7 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
     public const DISMANTLE_3_50 = 'dismantle.3.50';
     public const DISMANTLE_4_12 = 'dismantle.4.12';
     public const DISMANTLE_4_25 = 'dismantle.4.25';
-    public const REPAIR_3 = 'repair.3';
-    public const REPAIR_6 = 'repair.6';
-    public const REPAIR_12 = 'repair.12';
-    public const REPAIR_25 = 'repair.25';
-    public const REPAIR_50 = 'repair.50';
+    public const REPAIR = 'repair';
 
     public function load(ObjectManager $manager): void
     {
@@ -33,65 +29,16 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
         /** @var ActionCost $fourActionPointCost */
         $fourActionPointCost = $this->getReference(ActionCostFixture::ACTION_COST_FOUR_ACTION);
 
-        $repair3 = new Action();
-        $repair3
+        $repair = new Action();
+        $repair
             ->setName(ActionEnum::REPAIR)
             ->setTypes([ModifierScopeEnum::ACTION_TECHNICIAN])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(25)
             ->setInjuryRate(10)
-            ->setSuccessRate(3)
             ->setActionCost($oneActionPointCost)
         ;
-        $manager->persist($repair3);
-
-        $repair6 = new Action();
-        $repair6
-            ->setName(ActionEnum::REPAIR)
-            ->setTypes([ModifierScopeEnum::ACTION_TECHNICIAN])
-            ->setScope(ActionScopeEnum::CURRENT)
-            ->setDirtyRate(25)
-            ->setInjuryRate(10)
-            ->setSuccessRate(6)
-            ->setActionCost($oneActionPointCost)
-        ;
-        $manager->persist($repair6);
-
-        $repair12 = new Action();
-        $repair12
-            ->setName(ActionEnum::REPAIR)
-            ->setTypes([ModifierScopeEnum::ACTION_TECHNICIAN])
-            ->setScope(ActionScopeEnum::CURRENT)
-            ->setDirtyRate(25)
-            ->setInjuryRate(10)
-            ->setSuccessRate(12)
-            ->setActionCost($oneActionPointCost)
-        ;
-        $manager->persist($repair12);
-
-        $repair25 = new Action();
-        $repair25
-            ->setName(ActionEnum::REPAIR)
-            ->setTypes([ModifierScopeEnum::ACTION_TECHNICIAN])
-            ->setScope(ActionScopeEnum::CURRENT)
-            ->setDirtyRate(25)
-            ->setInjuryRate(10)
-            ->setSuccessRate(25)
-            ->setActionCost($oneActionPointCost)
-        ;
-        $manager->persist($repair25);
-
-        $repair50 = new Action();
-        $repair50
-            ->setName(ActionEnum::REPAIR)
-            ->setTypes([ModifierScopeEnum::ACTION_TECHNICIAN])
-            ->setScope(ActionScopeEnum::CURRENT)
-            ->setDirtyRate(25)
-            ->setInjuryRate(10)
-            ->setSuccessRate(50)
-            ->setActionCost($oneActionPointCost)
-        ;
-        $manager->persist($repair50);
+        $manager->persist($repair);
 
         $dismantle312 = new Action();
         $dismantle312
@@ -160,11 +107,7 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::DISMANTLE_3_50, $dismantle350);
         $this->addReference(self::DISMANTLE_4_12, $dismantle412);
         $this->addReference(self::DISMANTLE_4_25, $dismantle425);
-        $this->addReference(self::REPAIR_3, $repair3);
-        $this->addReference(self::REPAIR_6, $repair6);
-        $this->addReference(self::REPAIR_12, $repair12);
-        $this->addReference(self::REPAIR_25, $repair25);
-        $this->addReference(self::REPAIR_50, $repair50);
+        $this->addReference(self::REPAIR, $repair);
     }
 
     public function getDependencies(): array

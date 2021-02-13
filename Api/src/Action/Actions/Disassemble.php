@@ -104,9 +104,4 @@ class Disassemble extends AttemptAction
         $equipmentEvent = new EquipmentEvent($this->gameEquipment, VisibilityEnum::HIDDEN);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
     }
-
-    public function getBaseRate(): int
-    {
-        return $this->action->getSuccessRate();
-    }
 }

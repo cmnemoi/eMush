@@ -161,14 +161,12 @@ class StatusService implements StatusServiceInterface
             return null;
         }
 
-        if ($threshold){
+        if ($threshold) {
             $chargeStatus->setCharge(max(min($newCharge, $threshold), 0));
-        } else{
+        } else {
             $chargeStatus->setCharge(max($newCharge, 0));
         }
 
-        
-        
         $this->persist($chargeStatus);
 
         return $chargeStatus;

@@ -12,7 +12,7 @@ use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Entity\GameConfig;
+use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Player\Entity\Player;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -24,13 +24,14 @@ class InsertOxygen extends AbstractAction
 
     private GameEquipmentServiceInterface $gameEquipmentService;
     private DaedalusServiceInterface $daedalusService;
-    private GameConfig $gameConfig;
+    private GearToolServiceInterface $gearToolService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         GameEquipmentServiceInterface $gameEquipmentService,
         DaedalusServiceInterface $daedalusService,
-        ActionServiceInterface $actionService
+        ActionServiceInterface $actionService,
+        GearToolServiceInterface $gearToolService
     ) {
         parent::__construct(
             $eventDispatcher,
@@ -39,6 +40,7 @@ class InsertOxygen extends AbstractAction
 
         $this->gameEquipmentService = $gameEquipmentService;
         $this->daedalusService = $daedalusService;
+        $this->gearToolService = $gearToolService;
     }
 
     public function loadParameters(Action $action, Player $player, ActionParameters $actionParameters): void

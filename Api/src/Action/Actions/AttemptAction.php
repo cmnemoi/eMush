@@ -7,9 +7,6 @@ use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Status\Entity\Attempt;
-use Mush\Status\Enum\StatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 abstract class AttemptAction extends AbstractAction

@@ -12,6 +12,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -25,6 +26,7 @@ class Write extends AbstractAction
 
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
+    private GearToolServiceInterface $gearToolService;
 
     private string $message;
 
@@ -32,7 +34,8 @@ class Write extends AbstractAction
         EventDispatcherInterface $eventDispatcher,
         GameEquipmentServiceInterface $gameEquipmentService,
         PlayerServiceInterface $playerService,
-        ActionServiceInterface $actionService
+        ActionServiceInterface $actionService,
+        GearToolServiceInterface $gearToolService
     ) {
         parent::__construct(
             $eventDispatcher,
@@ -41,6 +44,7 @@ class Write extends AbstractAction
 
         $this->gameEquipmentService = $gameEquipmentService;
         $this->playerService = $playerService;
+        $this->gearToolService = $gearToolService;
     }
 
     public function loadParameters(Action $action, Player $player, ActionParameters $actionParameters): void

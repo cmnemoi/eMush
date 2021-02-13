@@ -3,15 +3,13 @@
 namespace Mush\Action\Service;
 
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionCost;
-use Mush\Player\Service\ActionModifierServiceInterface;
-use Mush\Player\Entity\Player;
 use Mush\Equipment\Enum\ReachEnum;
+use Mush\Player\Entity\Player;
 use Mush\Player\Enum\ModifierTargetEnum;
+use Mush\Player\Service\ActionModifierServiceInterface;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
-
 
 class ActionService implements ActionServiceInterface
 {
@@ -28,9 +26,8 @@ class ActionService implements ActionServiceInterface
         $this->statusService = $statusService;
     }
 
-
     public function canPlayerDoAction(Player $player, Action $action): bool
-    {        
+    {
         return $this->getTotalActionPointCost($player, $action) <= $player->getActionPoint() &&
             ($this->getTotalMovementPointCost($player, $action) <= $player->getMovementPoint() || $player->getActionPoint() > 0) &&
             $this->getTotalMoralPointCost($player, $action) <= $player->getMoralPoint()
@@ -46,17 +43,14 @@ class ActionService implements ActionServiceInterface
             ;
     }
 
-
     public function getTotalActionPointCost(Player $player, Action $action): ?int
-    { 
-
+    {
         $modifiersDelta = $this->actionModifierService->getAdditiveModifier(
             $player,
             array_merge([$action->getName()], $action->getTypes()),
             [ReachEnum::INVENTORY],
             ModifierTargetEnum::ACTION_POINT
         );
-
 
         return (int) max($action->getActionCost()->getActionPointCost() + $modifiersDelta, 0);
     }
@@ -77,7 +71,6 @@ class ActionService implements ActionServiceInterface
     {
         return $action->getActionCost()->getMoralPointCost();
     }
-
 
     public function getSuccessRate(
         Action $action,
@@ -100,7 +93,6 @@ class ActionService implements ActionServiceInterface
             self::MAX_PERCENT
         );
     }
-
 
     public function getAttempt(Player $player, string $actionName): Attempt
     {

@@ -11,4 +11,8 @@ interface DaedalusIncidentServiceInterface
     public function handleTremorEvents(Daedalus $daedalus, \DateTime $date): int;
 
     public function handleElectricArcEvents(Daedalus $daedalus, \DateTime $date): int;
+
+    public function handleEquipmentBreak(Daedalus $daedalus, \DateTime $date): int;
+
+    public function handleDoorBreak(Daedalus $daedalus, \DateTime $date): int;
 }

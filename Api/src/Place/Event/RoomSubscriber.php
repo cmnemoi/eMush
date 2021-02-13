@@ -101,6 +101,7 @@ class RoomSubscriber implements EventSubscriberInterface
             $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
         }
 
+        //@FIXME does electric arc break everythings?
         foreach ($room->getEquipments() as $equipment) {
             if (!$equipment->isBroken() &&
                 !($equipment instanceof Door) &&

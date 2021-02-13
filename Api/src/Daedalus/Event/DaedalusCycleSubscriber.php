@@ -7,7 +7,6 @@ use Mush\Daedalus\Service\DaedalusIncidentServiceInterface;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
-use Mush\Equipment\Event\EquipmentCycleEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
@@ -151,15 +150,12 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         $this->daedalusIncidentService->handleFireEvents($daedalus, $time);
         $this->daedalusIncidentService->handleElectricArcEvents($daedalus, $time);
         $this->daedalusIncidentService->handleTremorEvents($daedalus, $time);
+        $this->daedalusIncidentService->handleEquipmentBreak($daedalus, $time);
+        $this->daedalusIncidentService->handleDoorBreak($daedalus, $time);
 
         foreach ($daedalus->getRooms() as $place) {
             $newRoomCycle = new PlaceCycleEvent($place, $time);
             $this->eventDispatcher->dispatch($newRoomCycle, PlaceCycleEvent::PLACE_NEW_CYCLE);
-        }
-
-        foreach ($this->gameEquipmentService->getDoorsByDaedalus($daedalus) as $door) {
-            $itemNewCycle = new EquipmentCycleEvent($door, $daedalus, $time);
-            $this->eventDispatcher->dispatch($itemNewCycle, EquipmentCycleEvent::EQUIPMENT_NEW_CYCLE);
         }
 
         if ($newDay) {

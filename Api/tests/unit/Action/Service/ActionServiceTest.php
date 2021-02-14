@@ -2,14 +2,14 @@
 
 namespace unit\Action\Service;
 
-use Mush\Action\Service\SuccessRateService;
+use Mush\Action\Service\ActionService;
 use PHPUnit\Framework\TestCase;
 
-class SuccessRateServiceTest extends TestCase
+class ActionServiceTest extends TestCase
 {
     public function testSuccessRate()
     {
-        $service = new SuccessRateService();
+        $service = new ActionService();
         $keyModificator = 1.5;
         $technician = 2;
         $expert = 0.2;

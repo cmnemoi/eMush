@@ -49,7 +49,7 @@ class GearToolService implements GearToolServiceInterface
                         ($target === null || $modifier->getTarget() === $target) &&
                         (count($types) || in_array($modifier->getTarget(), $types)) &&
                         in_array($modifier->getReach(), [ReachEnum::INVENTORY]) &&
-                        !$item->isOperational()
+                        $item->isOperational()
                     ) {
                         $gears->add($item);
                         break;
@@ -108,7 +108,7 @@ class GearToolService implements GearToolServiceInterface
 
         foreach ($tools as $tool) {
             /** @var Action $action */
-            $actions = $tool->getEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getAction();
+            $actions = $tool->getEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getActions();
 
             foreach ($actions as $action) {
                 if (in_array($action->getScope(), $scopes) &&

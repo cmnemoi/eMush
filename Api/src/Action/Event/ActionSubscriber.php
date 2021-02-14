@@ -13,17 +13,17 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class ActionSubscriber implements EventSubscriberInterface
 {
     private ActionSideEffectsServiceInterface $actionSideEffectsService;
-    private GearToolServiceInterface $gearToolService;
     private GetUp $getUpAction;
+    private GearToolServiceInterface $gearToolService;
 
     public function __construct(
         ActionSideEffectsServiceInterface $actionSideEffectsService,
+        GetUp $getUp,
         GearToolServiceInterface $gearToolService,
-        GetUp $getUp
     ) {
         $this->actionSideEffectsService = $actionSideEffectsService;
-        $this->$gearToolService = $gearToolService;
         $this->getUpAction = $getUp;
+        $this->gearToolService = $gearToolService;
     }
 
     public static function getSubscribedEvents(): array

@@ -102,7 +102,7 @@ class GearToolService implements GearToolServiceInterface
     public function getActionsTools(Player $player, array $scopes, ?string $target = null): Collection
     {
         /** @var Collection $actions */
-        $actions = new ArrayCollection();
+        $grantedActions = new ArrayCollection();
 
         $tools = $this->getToolsOnReach($player);
 
@@ -112,14 +112,14 @@ class GearToolService implements GearToolServiceInterface
 
             foreach ($actions as $action) {
                 if (in_array($action->getScope(), $scopes) &&
-                    ($target === null || $action->getTarget() === $target)
+                    ($action->getTarget() === null || $action->getTarget() === $target)
                 ) {
-                    $actions->add($action);
+                    $grantedActions->add($action);
                 }
             }
         }
 
-        return $actions;
+        return $grantedActions;
     }
 
     public function getToolsOnReach(Player $player): Collection
@@ -139,7 +139,7 @@ class GearToolService implements GearToolServiceInterface
             $toolMechanic = $tool->getEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL);
 
             if ($toolMechanic &&
-                $toolMechanic->getActions()->filter(fn (Action $action) => $action->getName() === $actionName)->isEmpty()
+                !$toolMechanic->getActions()->filter(fn (Action $action) => $action->getName() === $actionName)->isEmpty()
             ) {
                 $chargeStatus = $tool->getStatusByName(EquipmentStatusEnum::CHARGES);
                 if ($chargeStatus === null || !($chargeStatus instanceof ChargeStatus)) {

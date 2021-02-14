@@ -2,7 +2,6 @@
 
 namespace Mush\Equipment\Normalizer;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionScopeEnum;
@@ -108,12 +107,11 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
         $scope = [ActionScopeEnum::ROOM];
         $scope[] = $gameEquipment->getPlace() ? ActionScopeEnum::SHELVE : ActionScopeEnum::INVENTORY;
 
-        $contextActions = new ArrayCollection();
-
         if ($gameEquipment instanceof GameItem) {
             $target = GameItem::class;
+        } else {
+            $target = null;
         }
-        $target = null;
 
         return $this->gearToolService->getActionsTools($currentPlayer, $scope, $target);
     }

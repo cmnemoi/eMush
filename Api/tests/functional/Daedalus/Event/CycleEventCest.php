@@ -91,11 +91,11 @@ class CycleEventCest
         $characterConfig2 = $I->have(CharacterConfig::class, ['name' => CharacterEnum::ANDIE]);
         $I->have(
             Player::class,
-            ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig]
+            ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig, 'healthPoint' => 99]
         );
         $I->have(
             Player::class,
-            ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig2]
+            ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig2, 'healthPoint' => 99]
         );
 
         $time = new DateTime();

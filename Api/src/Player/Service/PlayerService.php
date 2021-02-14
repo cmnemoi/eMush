@@ -189,22 +189,6 @@ class PlayerService implements PlayerServiceInterface
             $date
         );
 
-        //Metal Plates
-        if ($this->randomService->isSuccessful($gameConfig->getDifficultyConfig()->getMetalPlateRate())) {
-            $playerEvent = new PlayerEvent($player, $date);
-            $playerEvent->setReason(EndCauseEnum::METAL_PLATE);
-            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::METAL_PLATE);
-        }
-
-        //Panic Crisis
-        if ($this->randomService->isSuccessful($gameConfig->getDifficultyConfig()->getPanicCrisisRate()) &&
-            !$player->isMush()
-        ) {
-            $playerEvent = new PlayerEvent($player, $date);
-            $playerEvent->setReason(EndCauseEnum::DEPRESSION);
-            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::PANIC_CRISIS);
-        }
-
         return $this->persist($player);
     }
 

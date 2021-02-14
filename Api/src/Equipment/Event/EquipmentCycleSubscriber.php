@@ -3,7 +3,6 @@
 namespace Mush\Equipment\Event;
 
 use Mush\Equipment\Entity\EquipmentMechanic;
-use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Service\EquipmentCycleHandlerServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Status\Entity\Status;
@@ -38,11 +37,6 @@ class EquipmentCycleSubscriber implements EventSubscriberInterface
     public function onNewCycle(EquipmentCycleEvent $event): void
     {
         $equipment = $event->getGameEquipment();
-
-        //each equipment as a chance to break
-        if (!$equipment instanceof GameItem) {
-            $this->gameEquipmentService->handleBreakCycle($equipment, $event->getTime());
-        }
 
         /** @var Status $status */
         foreach ($equipment->getStatuses() as $status) {

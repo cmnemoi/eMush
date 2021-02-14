@@ -7,7 +7,6 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Enum\PlaceTypeEnum;
-use Mush\Place\Service\RoomEventServiceInterface;
 use Mush\Player\Entity\Modifier;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\ModifierTargetEnum;
@@ -23,20 +22,17 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class RoomSubscriber implements EventSubscriberInterface
 {
-    private RoomEventServiceInterface $roomEventService;
     private StatusServiceInterface $statusService;
     private RandomServiceInterface $randomService;
     private RoomLogServiceInterface $roomLogService;
     private EventDispatcherInterface $eventDispatcher;
 
     public function __construct(
-        RoomEventServiceInterface $roomEventService,
         StatusServiceInterface $statusService,
         RandomServiceInterface $randomService,
         RoomLogServiceInterface $roomLogService,
         EventDispatcherInterface $eventDispatcher
     ) {
-        $this->roomEventService = $roomEventService;
         $this->statusService = $statusService;
         $this->randomService = $randomService;
         $this->roomLogService = $roomLogService;
@@ -105,6 +101,7 @@ class RoomSubscriber implements EventSubscriberInterface
             $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
         }
 
+        //@FIXME does electric arc break everythings?
         foreach ($room->getEquipments() as $equipment) {
             if (!$equipment->isBroken() &&
                 !($equipment instanceof Door) &&

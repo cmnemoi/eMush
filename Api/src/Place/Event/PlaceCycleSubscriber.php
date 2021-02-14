@@ -3,19 +3,16 @@
 namespace Mush\Place\Event;
 
 use Mush\Equipment\Event\EquipmentCycleEvent;
-use Mush\Place\Service\RoomEventServiceInterface;
 use Mush\Status\Event\StatusCycleEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class PlaceCycleSubscriber implements EventSubscriberInterface
 {
-    private RoomEventServiceInterface $roomEventService;
     private EventDispatcherInterface $eventDispatcher;
 
-    public function __construct(RoomEventServiceInterface $roomEventService, EventDispatcherInterface $eventDispatcher)
+    public function __construct(EventDispatcherInterface $eventDispatcher)
     {
-        $this->roomEventService = $roomEventService;
         $this->eventDispatcher = $eventDispatcher;
     }
 
@@ -30,9 +27,6 @@ class PlaceCycleSubscriber implements EventSubscriberInterface
     public function onNewCycle(PlaceCycleEvent $event): void
     {
         $place = $event->getPlace();
-
-        //handle events
-        $this->roomEventService->handleIncident($place, $event->getTime());
 
         foreach ($place->getStatuses() as $status) {
             $statusNewCycle = new StatusCycleEvent($status, $place, $place->getDaedalus(), $event->getTime());

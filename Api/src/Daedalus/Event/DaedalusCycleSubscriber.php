@@ -147,11 +147,13 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
             $this->eventDispatcher->dispatch($newPlayerCycle, PlayerCycleEvent::PLAYER_NEW_CYCLE);
         }
 
-        $this->daedalusIncidentService->handleFireEvents($daedalus, $time);
-        $this->daedalusIncidentService->handleElectricArcEvents($daedalus, $time);
-        $this->daedalusIncidentService->handleTremorEvents($daedalus, $time);
         $this->daedalusIncidentService->handleEquipmentBreak($daedalus, $time);
         $this->daedalusIncidentService->handleDoorBreak($daedalus, $time);
+        $this->daedalusIncidentService->handlePanicCrisis($daedalus, $time);
+        $this->daedalusIncidentService->handleMetalPlates($daedalus, $time);
+        $this->daedalusIncidentService->handleTremorEvents($daedalus, $time);
+        $this->daedalusIncidentService->handleElectricArcEvents($daedalus, $time);
+        $this->daedalusIncidentService->handleFireEvents($daedalus, $time);
 
         foreach ($daedalus->getRooms() as $place) {
             $newRoomCycle = new PlaceCycleEvent($place, $time);

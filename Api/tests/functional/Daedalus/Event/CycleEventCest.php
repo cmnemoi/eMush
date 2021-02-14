@@ -106,6 +106,5 @@ class CycleEventCest
 
         $I->assertEquals(0, $daedalus->getOxygen());
         $I->assertCount(1, $daedalus->getPlayers()->getPlayerAlive());
-        $I->assertEquals(9, $daedalus->getPlayers()->getPlayerAlive()->first()->getMoralPoint());
     }
 }

@@ -15,6 +15,10 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEventEnum;
 use Mush\Place\Event\RoomEvent;
+use Mush\Player\Entity\Player;
+use Mush\Player\Event\PlayerEvent;
+use Mush\Status\Entity\Status;
+use Mush\Status\Enum\PlayerStatusEnum;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
@@ -213,5 +217,95 @@ class DaedalusIncidentServiceTest extends TestCase
         $broken = $this->service->handleDoorBreak(new Daedalus(), new \DateTime());
 
         $this->assertEquals(1, $broken);
+    }
+
+    public function testHandlePanicCrisisEvents()
+    {
+        $this->randomService->shouldReceive('random')->andReturn(0)->once();
+
+        $panicCrisis = $this->service->handlePanicCrisis(new Daedalus(), new \DateTime());
+
+        $this->assertEquals(0, $panicCrisis);
+
+        $this->randomService->shouldReceive('random')->andReturn(1)->once();
+
+        $daedalus = new Daedalus();
+        $player = new Player();
+        $daedalus->addPlayer($player);
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
+            ->withArgs(fn (PlayerEvent $event) => $event->getPlayer() === $player)
+            ->once()
+        ;
+
+        $this->randomService
+            ->shouldReceive('getRandomElements')
+            ->andReturn([$player])
+            ->once()
+        ;
+
+        $broken = $this->service->handlePanicCrisis($daedalus, new \DateTime());
+
+        $this->assertEquals(1, $broken);
+    }
+
+    public function testHandlePanicCrisisEventsMushNotConcerned()
+    {
+        $this->randomService->shouldReceive('random')->andReturn(1)->once();
+
+        $daedalus = new Daedalus();
+        $player = new Player();
+        $mushPlayer = new Player();
+        $mush = new Status($mushPlayer);
+        $mush->setName(PlayerStatusEnum::MUSH);
+        $daedalus->addPlayer($mushPlayer);
+        $daedalus->addPlayer($player);
+
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
+            ->withArgs(fn (PlayerEvent $event) => $event->getPlayer() === $player)
+            ->once()
+        ;
+
+        $this->randomService
+            ->shouldReceive('getRandomElements')
+            ->withArgs(fn (array $humans, int $pick) => count($humans) === 1 && !in_array($mushPlayer, $humans))
+            ->andReturn([$player])
+            ->once()
+        ;
+
+        $broken = $this->service->handlePanicCrisis($daedalus, new \DateTime());
+
+        $this->assertEquals(1, $broken);
+    }
+
+    public function testHandleMetalPlatesEvents()
+    {
+        $this->randomService->shouldReceive('random')->andReturn(0)->once();
+
+        $metalPlates = $this->service->handleMetalPlates(new Daedalus(), new \DateTime());
+
+        $this->assertEquals(0, $metalPlates);
+
+        $this->randomService->shouldReceive('random')->andReturn(1)->once();
+
+        $daedalus = new Daedalus();
+        $player = new Player();
+        $daedalus->addPlayer($player);
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
+            ->withArgs(fn (PlayerEvent $event) => $event->getPlayer() === $player)
+            ->once()
+        ;
+
+        $this->randomService
+            ->shouldReceive('getRandomElements')
+            ->andReturn([$player])
+            ->once()
+        ;
+
+        $metalPlates = $this->service->handleMetalPlates($daedalus, new \DateTime());
+
+        $this->assertEquals(1, $metalPlates);
     }
 }

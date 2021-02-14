@@ -11,6 +11,7 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEventEnum;
 use Mush\Place\Event\RoomEvent;
+use Mush\Player\Event\PlayerEvent;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
@@ -120,6 +121,40 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
         }
 
         return $numberOfDoorBroken;
+    }
+
+    public function handlePanicCrisis(Daedalus $daedalus, \DateTime $date): int
+    {
+        $numberOfPanicCrisis = $this->getNumberOfIncident($daedalus);
+
+        if ($numberOfPanicCrisis > 0) {
+            $humans = $daedalus->getPlayers()->getHumanPlayer();
+            $humansCrisis = $this->randomService->getRandomElements($humans->toArray(), $numberOfPanicCrisis);
+
+            foreach ($humansCrisis as $player) {
+                $playerEvent = new PlayerEvent($player, $date);
+                $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::PANIC_CRISIS);
+            }
+        }
+
+        return $numberOfPanicCrisis;
+    }
+
+    public function handleMetalPlates(Daedalus $daedalus, \DateTime $date): int
+    {
+        $numberOfMetalPlates = $this->getNumberOfIncident($daedalus);
+
+        if ($numberOfMetalPlates > 0) {
+            $players = $daedalus->getPlayers();
+            $metalPlatesPlayer = $this->randomService->getRandomElements($players->toArray(), $numberOfMetalPlates);
+
+            foreach ($metalPlatesPlayer as $player) {
+                $playerEvent = new PlayerEvent($player, $date);
+                $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::METAL_PLATE);
+            }
+        }
+
+        return $numberOfMetalPlates;
     }
 
     //Each cycle get 0 to day event

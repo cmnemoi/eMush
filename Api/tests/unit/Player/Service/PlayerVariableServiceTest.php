@@ -67,7 +67,7 @@ class PlayerVariableServiceTest extends TestCase
         $this->service->modifyPlayerVariable($player, $modifier);
 
         $this->assertEquals(3, $player->getSatiety());
-        $this->assertCount(1, $player->getStatuses());
+        $this->assertCount(0, $player->getStatuses());
 
         $this->service->modifyPlayerVariable($player, $modifier);
 

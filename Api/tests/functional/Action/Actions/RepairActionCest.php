@@ -78,12 +78,9 @@ class RepairActionCest
         ;
 
         $I->assertTrue($this->repairAction->canExecute());
-//        $I->assertEquals(25, $this->repairAction->getSuccessRate());
 
         $wrench = $this->createWrenchItem();
         $player->addItem($wrench);
-
-        //$I->assertEquals(37, $this->repairAction->actionService->getSuccessRate());
     }
 
     private function createWrenchItem(): GameItem

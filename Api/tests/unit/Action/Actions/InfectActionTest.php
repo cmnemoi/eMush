@@ -42,6 +42,7 @@ class InfectActionTest extends AbstractActionTest
             $this->eventDispatcher,
             $this->statusService,
             $this->playerService,
+            $this->actionService
         );
     }
 
@@ -147,6 +148,8 @@ class InfectActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
         $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
+
+        $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $eventDispatcher->shouldReceive('dispatch');
         $this->statusService->shouldReceive('persist')->once();
         $this->statusService->shouldReceive('persist')->once();
@@ -156,6 +159,5 @@ class InfectActionTest extends AbstractActionTest
         $this->assertInstanceOf(Success::class, $result);
         $this->assertCount(2, $player->getStatuses());
         $this->assertEquals(0, $player->getStatusByName(PlayerStatusEnum::MUSH)->getCharge());
-        $this->assertEquals(9, $player->getActionPoint());
     }
 }

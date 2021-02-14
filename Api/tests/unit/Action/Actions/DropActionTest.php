@@ -44,7 +44,8 @@ class DropActionTest extends AbstractActionTest
             $this->eventDispatcher,
             $this->gameEquipmentService,
             $this->playerService,
-            $this->statusService
+            $this->statusService,
+            $this->actionService
         );
     }
 
@@ -88,8 +89,10 @@ class DropActionTest extends AbstractActionTest
         ;
         $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
+        $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $result = $this->action->execute();
 
+        $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->assertInstanceOf(Success::class, $result);
         $this->assertEmpty($player->getItems());
         $this->assertCount(1, $room->getEquipments());

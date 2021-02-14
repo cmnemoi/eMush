@@ -34,6 +34,7 @@ class ExtractSporeActionTest extends AbstractActionTest
         $this->action = new ExtractSpore(
             $this->eventDispatcher,
             $this->statusService,
+            $this->actionService
         );
     }
 
@@ -108,6 +109,7 @@ class ExtractSporeActionTest extends AbstractActionTest
 
         $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
+        $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->statusService->shouldReceive('persist')->once();
 
         $result = $this->action->execute();
@@ -115,6 +117,5 @@ class ExtractSporeActionTest extends AbstractActionTest
         $this->assertInstanceOf(Success::class, $result);
         $this->assertCount(2, $player->getStatuses());
         $this->assertEquals(2, $player->getStatusByName(PlayerStatusEnum::SPORES)->getCharge());
-        $this->assertEquals(8, $player->getActionPoint());
     }
 }

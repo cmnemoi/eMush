@@ -88,10 +88,7 @@ class ActionService implements ActionServiceInterface
             ModifierTargetEnum::PERCENTAGE
         );
 
-        return (int) min(
-            ($baseRate * (1.25) ** $numberOfAttempt) * $modificator,
-            self::MAX_PERCENT
-        );
+        return $this->computeSuccessRate($baseRate, $numberOfAttempt, $modificator);
     }
 
     public function getAttempt(Player $player, string $actionName): Attempt
@@ -114,5 +111,17 @@ class ActionService implements ActionServiceInterface
         }
 
         return $attempt;
+    }
+
+    public function computeSuccessRate(
+        int $baseRate,
+        int $numberOfAttempt,
+        float $relativeModificator,
+        float $fixedModificator = 0
+    ): int {
+        return (int) min(
+            ($baseRate * (1.25) ** $numberOfAttempt) * $relativeModificator + $baseRate * $fixedModificator,
+            self::MAX_PERCENT
+        );
     }
 }

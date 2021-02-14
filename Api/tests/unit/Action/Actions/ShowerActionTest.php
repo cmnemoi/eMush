@@ -43,9 +43,8 @@ class ShowerActionTest extends AbstractActionTest
 
         $this->action = new Shower(
             $this->eventDispatcher,
-            $this->gameEquipmentService,
-            $this->statusService,
-            $this->playerService
+            $this->playerService,
+            $this->actionService
         );
     }
 
@@ -83,7 +82,7 @@ class ShowerActionTest extends AbstractActionTest
         $actionParameter->setEquipment($gameItem);
         $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
-        $this->gameEquipmentService->shouldReceive('isOperational')->andReturn(true)->once();
+        $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->playerService->shouldReceive('persist');
         $this->statusService->shouldReceive('delete');
 
@@ -93,6 +92,5 @@ class ShowerActionTest extends AbstractActionTest
         $this->assertCount(1, $room->getEquipments());
         $this->assertCount(0, $room->getEquipments()->first()->getStatuses());
         $this->assertCount(0, $player->getStatuses());
-        $this->assertEquals(8, $player->getActionPoint());
     }
 }

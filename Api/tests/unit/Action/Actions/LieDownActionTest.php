@@ -43,7 +43,8 @@ class LieDownActionTest extends AbstractActionTest
 
         $this->action = new LieDown(
             $this->eventDispatcher,
-            $this->statusService
+            $this->statusService,
+            $this->actionService
         );
     }
 
@@ -129,6 +130,7 @@ class LieDownActionTest extends AbstractActionTest
         $actionParameter = new ActionParameters();
         $actionParameter->setEquipment($gameEquipment);
 
+        $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
         $this->statusService->shouldReceive('persist');

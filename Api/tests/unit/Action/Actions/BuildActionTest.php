@@ -17,6 +17,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Blueprint;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -27,6 +28,8 @@ class BuildActionTest extends AbstractActionTest
     private GameEquipmentServiceInterface $gameEquipmentService;
     /** @var PlayerServiceInterface | Mockery\Mock */
     private PlayerServiceInterface $playerService;
+    /** @var GearToolServiceInterface | Mockery\Mock */
+    private GearToolServiceInterface $gearToolService;
 
     protected AbstractAction $action;
 
@@ -39,6 +42,7 @@ class BuildActionTest extends AbstractActionTest
 
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
+        $this->gearToolService = Mockery::mock(GearToolServiceInterface::class);
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::BUILD);
 
@@ -46,8 +50,8 @@ class BuildActionTest extends AbstractActionTest
             $this->eventDispatcher,
             $this->gameEquipmentService,
             $this->playerService,
-            $this->gearToolService,
-            $this->actionModifierService
+            $this->actionService,
+            $this->gearToolService
         );
     }
 
@@ -159,6 +163,7 @@ class BuildActionTest extends AbstractActionTest
         $this->gameEquipmentService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
 
+        $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gearToolService->shouldReceive('getEquipmentsOnReachByName')->andReturn(new ArrayCollection([$gameIngredient]))->once();
         $this->gameEquipmentService->shouldReceive('createGameEquipment')->andReturn($gameProduct)->once();
 

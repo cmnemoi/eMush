@@ -11,7 +11,6 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\Target;
@@ -34,7 +33,6 @@ class Drop extends AbstractAction
         GameEquipmentServiceInterface $gameEquipmentService,
         PlayerServiceInterface $playerService,
         StatusServiceInterface $statusService,
-        GearToolServiceInterface $gearToolService,
         ActionServiceInterface $actionService
     ) {
         parent::__construct(

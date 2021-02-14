@@ -43,6 +43,7 @@ class HideActionTest extends AbstractActionTest
             $this->gameEquipmentService,
             $this->statusService,
             $this->playerService,
+            $this->actionService
         );
     }
 
@@ -101,6 +102,7 @@ class HideActionTest extends AbstractActionTest
         $actionParameter->setItem($gameItem);
         $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
+        $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gameEquipmentService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
         $this->statusService->shouldReceive('createCoreStatus')->once();
@@ -110,6 +112,5 @@ class HideActionTest extends AbstractActionTest
         $this->assertInstanceOf(Success::class, $result);
         $this->assertCount(1, $room->getEquipments());
         $this->assertCount(0, $player->getItems());
-        $this->assertEquals(9, $player->getActionPoint());
     }
 }

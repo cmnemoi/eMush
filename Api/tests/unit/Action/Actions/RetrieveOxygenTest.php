@@ -46,6 +46,7 @@ class RetrieveOxygenTest extends AbstractActionTest
              $this->eventDispatcher,
              $this->gameEquipmentService,
              $this->daedalusService,
+             $this->actionService
          );
     }
 
@@ -90,7 +91,6 @@ class RetrieveOxygenTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
         //No more oxygen
-        $this->gameEquipmentService->shouldReceive('isOperational')->andReturn(true)->once();
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Error::class, $result);
@@ -99,7 +99,6 @@ class RetrieveOxygenTest extends AbstractActionTest
         $gameConfig->setMaxItemInInventory(0);
         $daedalus->setOxygen(10);
 
-        $this->gameEquipmentService->shouldReceive('isOperational')->andReturn(true)->once();
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Error::class, $result);
@@ -146,9 +145,9 @@ class RetrieveOxygenTest extends AbstractActionTest
             ->setPlace($room)
             ;
 
+        $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gameEquipmentService->shouldReceive('persist');
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->andReturn($gameItem)->once();
-        $this->gameEquipmentService->shouldReceive('isOperational')->andReturn(true)->once();
         $this->daedalusService->shouldReceive('changeOxygenLevel')->andReturn($daedalus)->once();
 
         $actionParameter = new ActionParameters();

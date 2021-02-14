@@ -46,7 +46,8 @@ class WaterPlantActionTest extends AbstractActionTest
             $this->eventDispatcher,
             $this->gameEquipmentService,
             $this->playerService,
-            $this->statusService
+            $this->statusService,
+            $this->actionService
         );
     }
 
@@ -117,6 +118,7 @@ class WaterPlantActionTest extends AbstractActionTest
         $actionParameter->setItem($gameItem);
         $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
+        $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gameEquipmentService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
         $this->statusService->shouldReceive('delete');
@@ -127,7 +129,6 @@ class WaterPlantActionTest extends AbstractActionTest
         $this->assertCount(1, $room->getEquipments());
         $this->assertCount(0, $room->getEquipments()->first()->getStatuses());
         $this->assertCount(0, $player->getStatuses());
-        $this->assertEquals(9, $player->getActionPoint());
 
         $driedOut = new Status($gameItem);
         $driedOut
@@ -136,6 +137,7 @@ class WaterPlantActionTest extends AbstractActionTest
 
         $gameItem->removeStatus($thirsty);
 
+        $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gameEquipmentService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
         $this->statusService->shouldReceive('delete');

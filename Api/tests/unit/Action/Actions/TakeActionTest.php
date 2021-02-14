@@ -45,7 +45,8 @@ class TakeActionTest extends AbstractActionTest
             $this->eventDispatcher,
             $this->gameEquipmentService,
             $this->playerService,
-            $this->statusService
+            $this->statusService,
+            $this->actionService
         );
     }
 
@@ -90,6 +91,7 @@ class TakeActionTest extends AbstractActionTest
         $actionParameter = new ActionParameters();
         $actionParameter->setItem($gameItem);
         $player = $this->createPlayer($daedalus, $room);
+        $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
 
         $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 

@@ -80,7 +80,7 @@ class Sabotage extends AttemptAction
         return $response;
     }
 
-    public function getBaseRate(): int
+    protected function getBaseRate(): int
     {
         return $this->gameEquipment->getBrokenRate();
     }

@@ -54,7 +54,7 @@ class RepairActionCest
         ;
 
         /** @var EquipmentConfig $equipmentConfig */
-        $equipmentConfig = $I->have(EquipmentConfig::class, ['breakableRate' => 0]);
+        $equipmentConfig = $I->have(EquipmentConfig::class, ['breakableRate' => 25]);
 
         $gameEquipment = new GameItem();
 
@@ -77,10 +77,13 @@ class RepairActionCest
             ->setVisibility(VisibilityEnum::PUBLIC)
         ;
 
+        $I->assertEquals(25, $this->repairAction->getSuccessRate());
         $I->assertTrue($this->repairAction->canExecute());
 
         $wrench = $this->createWrenchItem();
         $player->addItem($wrench);
+
+        $I->assertEquals(37, $this->repairAction->getSuccessRate());
     }
 
     private function createWrenchItem(): GameItem

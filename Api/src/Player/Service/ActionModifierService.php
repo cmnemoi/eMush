@@ -44,7 +44,7 @@ class ActionModifierService implements ActionModifierServiceInterface
         return $delta;
     }
 
-    public function getMultiplicativeModifier(Player $player, array $scopes, array $types, ?string $target = null): int
+    public function getMultiplicativeModifier(Player $player, array $scopes, array $types, ?string $target = null): float
     {
         /** @var int $delta */
         $delta = 1;

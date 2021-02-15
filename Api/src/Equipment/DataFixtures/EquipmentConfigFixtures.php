@@ -46,6 +46,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setName(EquipmentEnum::DOOR)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
+            ->setBreakableRate(25)
             ->setActions(new ArrayCollection([$moveAction, $repair]))
         ;
         $manager->persist($door);
@@ -56,7 +57,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setName(EquipmentEnum::COMMUNICATION_CENTER)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setBreakableRate(25)
+            ->setBreakableRate(6)
             ->setActions(new ArrayCollection([$repair]))
         ;
         $manager->persist($comsCenter);

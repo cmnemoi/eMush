@@ -42,7 +42,12 @@ abstract class AttemptAction extends AbstractAction
         return $response;
     }
 
-    public function getBaseRate(): int
+    public function getSuccessRate(): int
+    {
+        return $this->actionService->getSuccessRate($this->action, $this->player, $this->getBaseRate());
+    }
+
+    protected function getBaseRate(): int
     {
         return $this->action->getSuccessRate();
     }

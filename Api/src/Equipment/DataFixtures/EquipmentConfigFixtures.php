@@ -503,7 +503,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->flush();
     }
 
-
     public function getDependencies(): array
     {
         return [

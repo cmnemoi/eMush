@@ -3,7 +3,6 @@
 namespace Mush\Action\Service;
 
 use Mush\Action\Entity\Action;
-use Mush\Equipment\Enum\ReachEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Service\ActionModifierServiceInterface;
@@ -45,26 +44,32 @@ class ActionService implements ActionServiceInterface
 
     public function getTotalActionPointCost(Player $player, Action $action): ?int
     {
-        $modifiersDelta = $this->actionModifierService->getAdditiveModifier(
-            $player,
-            array_merge([$action->getName()], $action->getTypes()),
-            [ReachEnum::INVENTORY],
-            ModifierTargetEnum::ACTION_POINT
-        );
+        if ($action->getActionCost()->getActionPointCost() !== null) {
+            $modifiersDelta = $this->actionModifierService->getAdditiveModifier(
+                $player,
+                array_merge([$action->getName()], $action->getTypes()),
+                ModifierTargetEnum::ACTION_POINT
+            );
 
-        return (int) max($action->getActionCost()->getActionPointCost() + $modifiersDelta, 0);
+            return (int) max($action->getActionCost()->getActionPointCost() + $modifiersDelta, 0);
+        }
+
+        return null;
     }
 
     public function getTotalMovementPointCost(Player $player, Action $action): ?int
     {
-        $modifiersDelta = $this->actionModifierService->getAdditiveModifier(
-            $player,
-            array_merge([$action->getName()], $action->getTypes()),
-            [ReachEnum::INVENTORY],
-            ModifierTargetEnum::MOVEMENT_POINT
-        );
+        if ($action->getActionCost()->getMovementPointCost() !== null) {
+            $modifiersDelta = $this->actionModifierService->getAdditiveModifier(
+                $player,
+                array_merge([$action->getName()], $action->getTypes()),
+                ModifierTargetEnum::MOVEMENT_POINT
+            );
 
-        return (int) max($action->getActionCost()->getMovementPointCost() + $modifiersDelta, 0);
+            return (int) max($action->getActionCost()->getMovementPointCost() + $modifiersDelta, 0);
+        }
+
+        return null;
     }
 
     public function getTotalMoralPointCost(Player $player, Action $action): ?int
@@ -84,9 +89,10 @@ class ActionService implements ActionServiceInterface
         $modificator = $this->actionModifierService->getMultiplicativeModifier(
             $player,
             array_merge([$action->getName()], $action->getTypes()),
-            [ReachEnum::INVENTORY],
             ModifierTargetEnum::PERCENTAGE
         );
+
+        dump($modificator);
 
         return $this->computeSuccessRate($baseRate, $numberOfAttempt, $modificator);
     }

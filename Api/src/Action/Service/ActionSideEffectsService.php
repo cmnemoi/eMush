@@ -3,7 +3,6 @@
 namespace Mush\Action\Service;
 
 use Mush\Action\Entity\Action;
-use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
@@ -54,7 +53,6 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
             $dirtyRate += $this->actionModifierService->getAdditiveModifier(
                 $player,
                 [ModifierScopeEnum::EVENT_DIRTY],
-                [ReachEnum::INVENTORY],
                 ModifierTargetEnum::PERCENTAGE
             );
 
@@ -86,7 +84,6 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
             $injuryRate += $this->actionModifierService->getAdditiveModifier(
                 $player,
                 [ModifierScopeEnum::EVENT_CLUMSINESS],
-                [ReachEnum::INVENTORY],
                 ModifierTargetEnum::PERCENTAGE
             );
 

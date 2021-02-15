@@ -16,20 +16,19 @@ class ActionModifierService implements ActionModifierServiceInterface
         $this->gearToolService = $gearToolService;
     }
 
-    public function getAdditiveModifier(Player $player, array $scopes, array $types, ?string $target = null): int
+    public function getAdditiveModifier(Player $player, array $scopes, ?string $target = null): int
     {
         /** @var int $delta */
         $delta = 0;
 
         //gear modifiers
-        foreach ($this->gearToolService->getApplicableGears($player, $scopes, $types, $target) as $gear) {
+        foreach ($this->gearToolService->getApplicableGears($player, $scopes, $target) as $gear) {
             $gearMechanic = $gear->getEquipment()->getMechanicByName(EquipmentMechanicEnum::GEAR);
 
             if ($gearMechanic) {
                 foreach ($gearMechanic->getModifiers() as $modifier) {
                     if (in_array($modifier->getScope(), $scopes) &&
-                        ($target === null || $modifier->getTarget() === $target) &&
-                        (count($types) || in_array($modifier->getTarget(), $types))
+                        ($target === null || $modifier->getTarget() === $target)
                     ) {
                         $delta += $modifier->getDelta();
                     }
@@ -44,20 +43,19 @@ class ActionModifierService implements ActionModifierServiceInterface
         return $delta;
     }
 
-    public function getMultiplicativeModifier(Player $player, array $scopes, array $types, ?string $target = null): float
+    public function getMultiplicativeModifier(Player $player, array $scopes, ?string $target = null): float
     {
         /** @var int $delta */
         $delta = 1;
 
         //gear modifiers
-        foreach ($this->gearToolService->getApplicableGears($player, $scopes, $types, $target) as $gear) {
+        foreach ($this->gearToolService->getApplicableGears($player, $scopes, $target) as $gear) {
             $gearMechanic = $gear->getEquipment()->getMechanicByName(EquipmentMechanicEnum::GEAR);
 
             if ($gearMechanic) {
                 foreach ($gearMechanic->getModifiers() as $modifier) {
                     if (in_array($modifier->getScope(), $scopes) &&
-                        ($target === null || $modifier->getTarget() === $target) &&
-                        (count($types) || in_array($modifier->getTarget(), $types))
+                        ($target === null || $modifier->getTarget() === $target)
                     ) {
                         $delta *= $modifier->getDelta();
                     }

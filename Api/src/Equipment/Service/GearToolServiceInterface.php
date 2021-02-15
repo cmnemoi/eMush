@@ -9,7 +9,7 @@ use Mush\Player\Entity\Player;
 
 interface GearToolServiceInterface
 {
-    public function getApplicableGears(Player $player, array $scopes, array $types, ?string $target = null): Collection;
+    public function getApplicableGears(Player $player, array $scopes, ?string $target = null): Collection;
 
     public function getActionsTools(Player $player, array $scopes, ?string $target = null): Collection;
 

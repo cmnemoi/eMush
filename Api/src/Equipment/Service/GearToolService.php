@@ -33,7 +33,7 @@ class GearToolService implements GearToolServiceInterface
         $this->statusService = $statusService;
     }
 
-    public function getApplicableGears(Player $player, array $scopes, array $types, ?string $target = null): Collection
+    public function getApplicableGears(Player $player, array $scopes, ?string $target = null): Collection
     {
         /** @var Collection $gears */
         $gears = new ArrayCollection();
@@ -47,7 +47,6 @@ class GearToolService implements GearToolServiceInterface
                 foreach ($gear->getModifiers() as $modifier) {
                     if (in_array($modifier->getScope(), $scopes) &&
                         ($target === null || $modifier->getTarget() === $target) &&
-                        (count($types) || in_array($modifier->getTarget(), $types)) &&
                         in_array($modifier->getReach(), [ReachEnum::INVENTORY]) &&
                         $item->isOperational()
                     ) {
@@ -161,8 +160,7 @@ class GearToolService implements GearToolServiceInterface
     {
         $gears = $this->getApplicableGears(
             $player,
-            array_merge([$actionName], $types),
-            [ReachEnum::INVENTORY]
+            array_merge([$actionName], $types)
         );
 
         foreach ($gears as $gear) {

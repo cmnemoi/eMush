@@ -66,17 +66,8 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
 
             if ($actionClass instanceof AttemptAction) {
                 $successRate = $actionClass->getSuccessRate();
-
-                return [
-                    'id' => $object->getId(),
-                    'key' => $actionName,
-                    'name' => $this->translator->trans("{$actionName}.name", [], 'actions'),
-                    'description' => $this->translator->trans("{$actionName}.description", [], 'actions'),
-                    'actionPointCost' => $actionClass->getActionPointCost(),
-                    'movementPointCost' => $actionClass->getMovementPointCost(),
-                    'moralPointCost' => $actionClass->getMoralPointCost(),
-                    'successRate' => $successRate,
-                ];
+            } else {
+                $successRate = null;
             }
 
             return [
@@ -87,6 +78,7 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
                 'actionPointCost' => $this->actionService->getTotalActionPointCost($currentPlayer, $object),
                 'movementPointCost' => $this->actionService->getTotalMovementPointCost($currentPlayer, $object),
                 'moralPointCost' => $this->actionService->getTotalMoralPointCost($currentPlayer, $object),
+                'successRate' => $successRate,
             ];
         }
 

@@ -119,7 +119,7 @@ class ActionService implements ActionServiceInterface
         return $attempt;
     }
 
-    public function computeSuccessRate(
+    private function computeSuccessRate(
         int $baseRate,
         int $numberOfAttempt,
         float $relativeModificator,

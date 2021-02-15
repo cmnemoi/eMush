@@ -25,7 +25,11 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
-        $repair = $this->getReference(TechnicianFixtures::REPAIR);
+        $repair3 = $this->getReference(TechnicianFixtures::REPAIR_3);
+        $repair6 = $this->getReference(TechnicianFixtures::REPAIR_6);
+        $repair12 = $this->getReference(TechnicianFixtures::REPAIR_12);
+        $repair25 = $this->getReference(TechnicianFixtures::REPAIR_25);
+        $repair50 = $this->getReference(TechnicianFixtures::REPAIR_50);
 
         //@TODO terminals
         $icarus = new EquipmentConfig();
@@ -47,7 +51,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setBreakableRate(25)
-            ->setActions(new ArrayCollection([$moveAction, $repair]))
+            ->setActions(new ArrayCollection([$moveAction, $repair25]))
         ;
         $manager->persist($door);
 
@@ -58,7 +62,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setBreakableRate(6)
-            ->setActions(new ArrayCollection([$repair]))
+            ->setActions(new ArrayCollection([$repair6]))
         ;
         $manager->persist($comsCenter);
 
@@ -69,7 +73,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setBreakableRate(6)
-            ->setActions(new ArrayCollection([$repair]))
+            ->setActions(new ArrayCollection([$repair6]))
         ;
         $manager->persist($neronCore);
 
@@ -80,7 +84,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setBreakableRate(12)
-            ->setActions(new ArrayCollection([$repair]))
+            ->setActions(new ArrayCollection([$repair12]))
         ;
         $manager->persist($astroTerminal);
 
@@ -91,7 +95,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setBreakableRate(6)
-            ->setActions(new ArrayCollection([$repair]))
+            ->setActions(new ArrayCollection([$repair6]))
         ;
         $manager->persist($researchLab);
 
@@ -111,7 +115,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setBreakableRate(6)
-            ->setActions(new ArrayCollection([$repair]))
+            ->setActions(new ArrayCollection([$repair6]))
         ;
         $manager->persist($calculator);
 
@@ -122,7 +126,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setBreakableRate(3)
-            ->setActions(new ArrayCollection([$repair]))
+            ->setActions(new ArrayCollection([$repair3]))
         ;
         $manager->persist($biosTerminal);
 
@@ -133,7 +137,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setBreakableRate(12)
-            ->setActions(new ArrayCollection([$repair]))
+            ->setActions(new ArrayCollection([$repair12]))
         ;
         $manager->persist($commandTerminal);
 
@@ -145,7 +149,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setBreakableRate(12)
-            ->setActions(new ArrayCollection([$repair]))
+            ->setActions(new ArrayCollection([$repair12]))
         ;
         $manager->persist($planetScanner);
 
@@ -156,7 +160,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setBreakableRate(12)
-            ->setActions(new ArrayCollection([$repair]))
+            ->setActions(new ArrayCollection([$repair12]))
         ;
         $manager->persist($jukebox);
 
@@ -167,7 +171,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setBreakableRate(6)
-            ->setActions(new ArrayCollection([$repair]))
+            ->setActions(new ArrayCollection([$repair6]))
         ;
         $manager->persist($emergencyReactor);
 
@@ -178,7 +182,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setBreakableRate(6)
-            ->setActions(new ArrayCollection([$repair]))
+            ->setActions(new ArrayCollection([$repair6]))
         ;
         $manager->persist($reactorLateral);
 
@@ -189,7 +193,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setBreakableRate(12)
-            ->setActions(new ArrayCollection([$repair]))
+            ->setActions(new ArrayCollection([$repair12]))
         ;
         $manager->persist($antenna);
 
@@ -200,7 +204,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setBreakableRate(6)
-            ->setActions(new ArrayCollection([$repair]))
+            ->setActions(new ArrayCollection([$repair6]))
         ;
         $manager->persist($gravitySimulator);
 
@@ -275,7 +279,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireBreakable(false)
             ->setBreakableRate(12)
             ->setMechanics(new ArrayCollection([$combustionChamberMechanic, $chargedMechanic]))
-            ->setActions(new ArrayCollection([$repair]))
+            ->setActions(new ArrayCollection([$repair12]))
         ;
         $manager->persist($combustionChamber);
         $manager->persist($combustionChamberMechanic);
@@ -295,7 +299,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireBreakable(false)
             ->setBreakableRate(12)
             ->setMechanics(new ArrayCollection([$kitchenMechanic]))
-            ->setActions(new ArrayCollection([$repair]))
+            ->setActions(new ArrayCollection([$repair12]))
         ;
         $manager->persist($kitchen);
         $manager->persist($kitchenMechanic);
@@ -345,7 +349,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireBreakable(false)
             ->setBreakableRate(12)
             ->setMechanics(new ArrayCollection([$dynarcadeMechanic]))
-            ->setActions(new ArrayCollection([$repair]))
+            ->setActions(new ArrayCollection([$repair12]))
         ;
         $manager->persist($dynarcade);
         $manager->persist($dynarcadeMechanic);
@@ -380,7 +384,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireBreakable(false)
             ->setBreakableRate(12)
             ->setMechanics(new ArrayCollection([$coffeMachineMechanic, $dailyChargeMechanic]))
-            ->setActions(new ArrayCollection([$repair]))
+            ->setActions(new ArrayCollection([$repair12]))
         ;
         $manager->persist($coffeMachine);
         $manager->persist($coffeMachineMechanic);
@@ -408,7 +412,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireBreakable(false)
             ->setBreakableRate(12)
             ->setMechanics(new ArrayCollection([$mycoscanMechanic]))
-            ->setActions(new ArrayCollection([$repair]))
+            ->setActions(new ArrayCollection([$repair12]))
         ;
         $manager->persist($mycoscan);
         $manager->persist($mycoscanMechanic);
@@ -430,7 +434,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireBreakable(false)
             ->setBreakableRate(12)
             ->setMechanics(new ArrayCollection([$turretCommandMechanic, $turretChargeMechanic]))
-            ->setActions(new ArrayCollection([$repair]))
+            ->setActions(new ArrayCollection([$repair12]))
         ;
         $manager->persist($turretCommand);
         $manager->persist($turretCommandMechanic);
@@ -450,7 +454,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireBreakable(false)
             ->setBreakableRate(12)
             ->setMechanics(new ArrayCollection([$surgicalPlotMechanic]))
-            ->setActions(new ArrayCollection([$repair]))
+            ->setActions(new ArrayCollection([$repair12]))
         ;
         $manager->persist($surgicalPlot);
         $manager->persist($surgicalPlotMechanic);
@@ -468,7 +472,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireBreakable(false)
             ->setBreakableRate(25)
             ->setMechanics(new ArrayCollection([$fuelTankMechanic]))
-            ->setActions(new ArrayCollection([$repair]))
+            ->setActions(new ArrayCollection([$repair25]))
         ;
         $manager->persist($fuelTank);
         $manager->persist($fuelTankMechanic);
@@ -491,13 +495,14 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireBreakable(false)
             ->setBreakableRate(25)
             ->setMechanics(new ArrayCollection([$oxygenTankMechanic]))
-            ->setActions(new ArrayCollection([$repair]))
+            ->setActions(new ArrayCollection([$repair25]))
         ;
         $manager->persist($oxygenTank);
         $manager->persist($oxygenTankMechanic);
 
         $manager->flush();
     }
+
 
     public function getDependencies(): array
     {

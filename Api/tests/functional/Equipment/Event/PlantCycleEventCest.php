@@ -7,13 +7,13 @@ use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
-use Mush\Daedalus\Event\DaedalusCycleEvent;
-use Mush\Daedalus\Event\DaedalusCycleSubscriber;
 use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Event\EquipmentCycleEvent;
+use Mush\Equipment\Event\EquipmentCycleSubscriber;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Place\Entity\Place;
@@ -27,11 +27,11 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 
 class PlantCycleEventCest
 {
-    private DaedalusCycleSubscriber $cycleSubscriber;
+    private EquipmentCycleSubscriber $cycleSubscriber;
 
     public function _before(FunctionalTester $I)
     {
-        $this->cycleSubscriber = $I->grabService(DaedalusCycleSubscriber::class);
+        $this->cycleSubscriber = $I->grabService(EquipmentCycleSubscriber::class);
     }
 
     public function testPlantGrowing(FunctionalTester $I)
@@ -86,17 +86,17 @@ class PlantCycleEventCest
 
         $time = new DateTime();
 
-        $cycleEvent = new DaedalusCycleEvent($daedalus, $time);
+        $cycleEvent = new EquipmentCycleEvent($gameEquipment, $daedalus, $time);
 
         $this->cycleSubscriber->onNewCycle($cycleEvent);
 
         $I->assertCount(0, $room->getStatuses());
-        $I->assertCount(1, $room->getEquipments()->first()->getStatuses());
-        $I->assertEquals(7, $room->getEquipments()->first()->getStatuses()->first()->getCharge());
+        $I->assertCount(1, $gameEquipment->getStatuses());
+        $I->assertEquals(7, $gameEquipment->getStatuses()->first()->getCharge());
 
         //growing up
         $time = new DateTime();
-        $cycleEvent = new DaedalusCycleEvent($daedalus, $time);
+        $cycleEvent = new EquipmentCycleEvent($gameEquipment, $daedalus, $time);
         $this->cycleSubscriber->onNewCycle($cycleEvent);
 
         $I->assertCount(0, $room->getStatuses());
@@ -165,17 +165,16 @@ class PlantCycleEventCest
         //Plant is young : no fruit or oxygen
         $time = new DateTime();
 
-        $cycleEvent = new DaedalusCycleEvent($daedalus, $time);
+        $cycleEvent = new EquipmentCycleEvent($gameEquipment, $daedalus, $time);
 
-        $this->cycleSubscriber->onNewCycle($cycleEvent);
+        $this->cycleSubscriber->onNewDay($cycleEvent);
 
-        $I->assertCount(0, $room->getStatuses());
+        $I->assertCount(2, $gameEquipment->getStatuses());
         $I->assertCount(1, $room->getEquipments());
-        $I->assertEquals(9, $daedalus->getOxygen());
+        $I->assertTrue($gameEquipment->getStatuses()->exists(fn (int $key, Status $value) => $value->getName() === EquipmentStatusEnum::PLANT_THIRSTY));
+        $I->assertEquals(10, $daedalus->getOxygen());
 
         //Plant is diseased
-        $daedalus->setCycle(8);
-
         $diseasedStatus = new Status($gameEquipment);
         $diseasedStatus
             ->setName(EquipmentStatusEnum::PLANT_DISEASED)
@@ -184,47 +183,30 @@ class PlantCycleEventCest
 
         $gameEquipment->removeStatus($youngStatus);
 
-        $thirstyStatus = $gameEquipment->getStatuses()->first();
-        $gameEquipment->removeStatus($thirstyStatus);
+        $cycleEvent = new EquipmentCycleEvent($gameEquipment, $daedalus, $time);
 
-        $time = new DateTime();
-        $cycleEvent = new DaedalusCycleEvent($daedalus, $time);
-        $this->cycleSubscriber->onNewCycle($cycleEvent);
+        $this->cycleSubscriber->onNewDay($cycleEvent);
 
         $I->assertCount(0, $room->getStatuses());
         $I->assertCount(1, $room->getEquipments());
-        $I->assertCount(2, $room->getEquipments()->first()->getStatuses());
-        $I->assertEquals(8, $daedalus->getOxygen());
-
-        //Plant is thirsty
-        $daedalus->setCycle(8);
-
-        $gameEquipment->removeStatus($diseasedStatus);
-
-        $time = new DateTime();
-        $cycleEvent = new DaedalusCycleEvent($daedalus, $time);
-        $this->cycleSubscriber->onNewCycle($cycleEvent);
-
-        $I->assertCount(0, $room->getStatuses());
-        $I->assertCount(1, $room->getEquipments());
-        $I->assertCount(1, $room->getEquipments()->first()->getStatuses());
-        $I->assertEquals(8, $daedalus->getOxygen());
+        $I->assertCount(2, $gameEquipment->getStatuses());
+        $I->assertTrue($gameEquipment->getStatuses()->exists(fn (int $key, Status $value) => $value->getName() === EquipmentStatusEnum::PLANT_DRIED_OUT));
+        $I->assertEquals(10, $daedalus->getOxygen());
 
         //Plant is totally healthy
-        $daedalus->setCycle(8);
-
-        $thirstyStatus = $gameEquipment->getStatuses()->first();
+        $thirstyStatus = $gameEquipment->getStatusByName(EquipmentStatusEnum::PLANT_DISEASED);
+        $gameEquipment->removeStatus($thirstyStatus);
+        $thirstyStatus = $gameEquipment->getStatusByName(EquipmentStatusEnum::PLANT_DRIED_OUT);
         $gameEquipment->removeStatus($thirstyStatus);
 
         $time = new DateTime();
-        $cycleEvent = new DaedalusCycleEvent($daedalus, $time);
-        $this->cycleSubscriber->onNewCycle($cycleEvent);
+        $cycleEvent = new EquipmentCycleEvent($gameEquipment, $daedalus, $time);
+        $this->cycleSubscriber->onNewDay($cycleEvent);
 
-        $I->assertCount(0, $room->getStatuses());
         $I->assertCount(2, $room->getEquipments());
         $I->assertCount(1, $room->getEquipments()->first()->getStatuses());
-        $I->assertEquals('fruit', $room->getEquipments()->next()->getName());
-        $I->assertEquals(8, $daedalus->getOxygen());
+        $I->assertTrue($room->getEquipments()->exists(fn (int $key, GameEquipment $item) => $item->getName() === 'fruit'));
+        $I->assertEquals(11, $daedalus->getOxygen());
         $I->seeInRepository(RoomLog::class, [
             'place' => $room->getId(),
             'log' => PlantLogEnum::PLANT_NEW_FRUIT,
@@ -253,12 +235,12 @@ class PlantCycleEventCest
         ;
 
         $time = new DateTime();
-        $cycleEvent = new DaedalusCycleEvent($daedalus, $time);
-        $this->cycleSubscriber->onNewCycle($cycleEvent);
+        $cycleEvent = new EquipmentCycleEvent($gameEquipment2, $daedalus, $time);
+        $this->cycleSubscriber->onNewDay($cycleEvent);
 
         $I->assertCount(0, $room2->getStatuses());
         $I->assertCount(1, $room2->getEquipments());
         $I->assertEquals(ItemEnum::HYDROPOT, $room2->getEquipments()->first()->getName());
-        $I->assertEquals(8, $daedalus->getOxygen());
+        $I->assertEquals(11, $daedalus->getOxygen());
     }
 }

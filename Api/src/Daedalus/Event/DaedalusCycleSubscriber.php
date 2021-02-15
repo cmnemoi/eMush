@@ -3,10 +3,10 @@
 namespace Mush\Daedalus\Event;
 
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Service\DaedalusIncidentServiceInterface;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
-use Mush\Equipment\Event\EquipmentCycleEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
@@ -19,15 +19,18 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class DaedalusCycleSubscriber implements EventSubscriberInterface
 {
     private DaedalusServiceInterface $daedalusService;
+    private DaedalusIncidentServiceInterface $daedalusIncidentService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private EventDispatcherInterface $eventDispatcher;
 
     public function __construct(
         DaedalusServiceInterface $daedalusService,
+        DaedalusIncidentServiceInterface $daedalusIncidentService,
         GameEquipmentServiceInterface $gameEquipmentService,
         EventDispatcherInterface $eventDispatcher
     ) {
         $this->daedalusService = $daedalusService;
+        $this->daedalusIncidentService = $daedalusIncidentService;
         $this->gameEquipmentService = $gameEquipmentService;
         $this->eventDispatcher = $eventDispatcher;
     }
@@ -47,14 +50,13 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         $daedalus->setCycleStartedAt($event->getTime());
 
         if ($this->handleDaedalusEnd($daedalus)) {
-            return; //@FIXME: should we continue cycle event if daedalus is destructed?
+            return;
         }
 
         $this->dispatchCycleChangeEvent($daedalus, $event->getTime());
 
         $daedalus = $this->handleOxygen($daedalus);
 
-        //@TODO When everything is added check that everything happens in the right order
         $this->daedalusService->persist($daedalus);
     }
 
@@ -145,14 +147,17 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
             $this->eventDispatcher->dispatch($newPlayerCycle, PlayerCycleEvent::PLAYER_NEW_CYCLE);
         }
 
+        $this->daedalusIncidentService->handleEquipmentBreak($daedalus, $time);
+        $this->daedalusIncidentService->handleDoorBreak($daedalus, $time);
+        $this->daedalusIncidentService->handlePanicCrisis($daedalus, $time);
+        $this->daedalusIncidentService->handleMetalPlates($daedalus, $time);
+        $this->daedalusIncidentService->handleTremorEvents($daedalus, $time);
+        $this->daedalusIncidentService->handleElectricArcEvents($daedalus, $time);
+        $this->daedalusIncidentService->handleFireEvents($daedalus, $time);
+
         foreach ($daedalus->getRooms() as $place) {
             $newRoomCycle = new PlaceCycleEvent($place, $time);
             $this->eventDispatcher->dispatch($newRoomCycle, PlaceCycleEvent::PLACE_NEW_CYCLE);
-        }
-
-        foreach ($this->gameEquipmentService->getDoorsByDaedalus($daedalus) as $door) {
-            $itemNewCycle = new EquipmentCycleEvent($door, $daedalus, $time);
-            $this->eventDispatcher->dispatch($itemNewCycle, EquipmentCycleEvent::EQUIPMENT_NEW_CYCLE);
         }
 
         if ($newDay) {

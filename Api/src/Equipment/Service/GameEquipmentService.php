@@ -2,7 +2,6 @@
 
 namespace Mush\Equipment\Service;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
@@ -10,7 +9,6 @@ use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Charged;
 use Mush\Equipment\Entity\Mechanics\Document;
@@ -20,6 +18,7 @@ use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Player\Entity\Player;
 use Mush\Place\Enum\DoorEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ContentStatus;
@@ -224,21 +223,5 @@ class GameEquipmentService implements GameEquipmentServiceInterface
     private function getGameConfig(GameEquipment $gameEquipment): GameConfig
     {
         return $gameEquipment->getEquipment()->getGameConfig();
-    }
-
-    public function getDoorsByDaedalus(Daedalus $daedalus): Collection
-    {
-        //@FIXME use gameEquipment respository
-        $doors = new ArrayCollection();
-
-        foreach ($daedalus->getRooms() as $room) {
-            foreach ($room->getDoors() as $door) {
-                if (!$doors->contains($door)) {
-                    $doors->add($door);
-                }
-            }
-        }
-
-        return $doors;
     }
 }

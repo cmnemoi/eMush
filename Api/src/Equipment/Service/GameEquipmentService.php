@@ -196,28 +196,6 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         return $gameEquipment;
     }
 
-    public function handleBreakCycle(GameEquipment $gameEquipment, \DateTime $date): void
-    {
-        if ($gameEquipment->getStatusByName(EquipmentStatusEnum::BROKEN) ||
-            $gameEquipment instanceof GameItem) {
-            return;
-        }
-
-        if (($gameEquipment instanceof Door &&
-            DoorEnum::isBreakable($gameEquipment->getName()) &&
-            $this->randomService->isSuccessful($this->getGameConfig($gameEquipment)->getDifficultyConfig()->getDoorBreakRate())) ||
-            ($gameEquipment->getEquipment()->getBreakableRate() > 0 &&
-            $this->randomService->isSuccessful($this->getGameConfig($gameEquipment)->getDifficultyConfig()->getEquipmentBreakRate()))
-            ) {
-            $equipmentEvent = new EquipmentEvent($gameEquipment, VisibilityEnum::HIDDEN, $date);
-            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_BROKEN);
-        }
-
-        $this->persist($gameEquipment);
-
-        return;
-    }
-
     public function handleBreakFire(GameEquipment $gameEquipment, \DateTime $date): void
     {
         if ($gameEquipment instanceof Door) {

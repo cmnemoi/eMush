@@ -19,8 +19,6 @@ interface GameEquipmentServiceInterface
 
     public function createGameEquipment(EquipmentConfig $equipment, Daedalus $daedalus): GameEquipment;
 
-    public function handleBreakCycle(GameEquipment $gameEquipment, \DateTime $date): void;
-
     public function handleBreakFire(GameEquipment $gameEquipment, \DateTime $date): void;
 
     public function getDoorsByDaedalus(Daedalus $daedalus): Collection;

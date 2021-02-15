@@ -2,7 +2,6 @@
 
 namespace Mush\Equipment\Service;
 
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
@@ -18,8 +17,6 @@ use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Player\Entity\Player;
-use Mush\Place\Enum\DoorEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ContentStatus;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;

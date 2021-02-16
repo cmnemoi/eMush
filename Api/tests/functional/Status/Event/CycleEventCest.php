@@ -56,8 +56,6 @@ class CycleEventCest
         $this->cycleSubscriber->onNewCycle($cycleEvent);
 
         $I->dontSeeInRepository(ChargeStatus::class, ['id' => $id]);
-
-        $I->assertEquals(1, $status->getCharge());
     }
 
     public function testLieDownStatusCycleSubscriber(FunctionalTester $I)

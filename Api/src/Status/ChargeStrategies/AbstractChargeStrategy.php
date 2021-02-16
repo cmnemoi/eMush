@@ -18,29 +18,12 @@ abstract class AbstractChargeStrategy
 
     public function execute(ChargeStatus $status, Daedalus $daedalus): ?ChargeStatus
     {
-        $this->apply($status, $daedalus);
-
-        $status = $this->autoRemove($status);
-
-        if ($status !== null) {
-            $this->statusService->persist($status);
-        }
+        $status = $this->apply($status, $daedalus);
 
         return $status;
     }
 
-    abstract protected function apply(ChargeStatus $status, Daedalus $daedalus): void;
-
-    private function autoRemove(ChargeStatus $status): ?ChargeStatus
-    {
-        if ($status->isAutoRemove() && ($status->getCharge() === $status->getThreshold())) {
-            $this->statusService->delete($status);
-
-            return null;
-        }
-
-        return $status;
-    }
+    abstract protected function apply(ChargeStatus $status, Daedalus $daedalus): ?ChargeStatus;
 
     public function getName(): string
     {

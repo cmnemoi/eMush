@@ -41,9 +41,6 @@ class GameEquipmentRepository extends ServiceEntityRepository
         if ($criteria->isBreakable() !== null) {
             $queryBuilder
                 ->leftJoin(EquipmentConfig::class, 'equipment_config', Join::WITH, 'equipment.equipment = equipment_config')
-            ;
-
-            $queryBuilder
                 ->andWhere($queryBuilder->expr()->eq('equipment_config.isBreakable', ':isBreakable'))
                 ->setParameter('isBreakable', $criteria->isBreakable())
                 ;

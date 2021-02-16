@@ -235,80 +235,36 @@ class ActionServiceTest extends TestCase
             ->once()
         ;
         $this->assertEquals(25, $this->service->getSuccessRate($action, $player, 20));
-    }
 
-    public function testGetAttempt()
-    {
-        $player = $this->createPlayer(5, 5, 5);
+        //With already an attempt
+        $attempt->setCharge(3);
 
-        //no Attemps status
-        $this->statusService->shouldReceive('createAttemptStatus')->once();
-        $answer = $this->service->getAttempt($player, ActionEnum::REPAIR);
-
-        $attempt = new Attempt($player);
-        $attempt
-            ->setAction(ActionEnum::REPAIR)
-            ->setName(StatusEnum::ATTEMPT)
-            ->setCharge(1)
+        $this->actionModifierService->shouldReceive('getMultiplicativeModifier')
+            ->with($player, [ActionEnum::TAKE], ModifierTargetEnum::PERCENTAGE)
+            ->andReturn(1)
+            ->once()
         ;
-        //not the same action
-        $answer = $this->service->getAttempt($player, ActionEnum::TAKE);
+        $this->assertEquals(39, $this->service->getSuccessRate($action, $player, 20));
 
-        $this->assertInstanceOf(Attempt::class, $answer);
-        $this->assertEquals(0, $attempt->getCharge());
-        $this->assertEquals(ActionEnum::TAKE, $attempt->getAction());
+        //Attempt + modifier
+        $attempt->setCharge(3);
 
-        //same action
-        $player = $this->createPlayer(5, 5, 5);
-        $attempt = new Attempt($player);
-        $attempt
-            ->setAction(ActionEnum::TAKE)
-            ->setName(StatusEnum::ATTEMPT)
-            ->setCharge(1)
+        $this->actionModifierService->shouldReceive('getMultiplicativeModifier')
+            ->with($player, [ActionEnum::TAKE], ModifierTargetEnum::PERCENTAGE)
+            ->andReturn(2)
+            ->once()
         ;
-        $answer = $this->service->getAttempt($player, ActionEnum::TAKE);
-        $this->assertInstanceOf(Attempt::class, $answer);
-        $this->assertEquals(1, $answer->getCharge());
-        $this->assertEquals(ActionEnum::TAKE, $answer->getAction());
-    }
+        $this->assertEquals(78, $this->service->getSuccessRate($action, $player, 20));
 
-    public function testSuccessRateFormula()
-    {
-        $keyModificator = 1.5;
-        $technician = 2;
-        $expert = 0.2;
+        //More than 99%
+        $attempt->setCharge(3);
 
-        //Base 6
-        $this->assertEquals(6, $this->service->computeSuccessRate(6, 0, 1));
-        $this->assertEquals(11, $this->service->computeSuccessRate(6, 3, 1));
-        $this->assertEquals(18, $this->service->computeSuccessRate(6, 5, 1));
-        //Base 25
-        $this->assertEquals(25, $this->service->computeSuccessRate(25, 0, 1));
-        $this->assertEquals(48, $this->service->computeSuccessRate(25, 3, 1));
-        $this->assertEquals(76, $this->service->computeSuccessRate(25, 5, 1));
-
-        //Modificator like adjustable wrench
-        //Base 6
-        $this->assertEquals(9, $this->service->computeSuccessRate(6, 0, $keyModificator));
-        $this->assertEquals(17, $this->service->computeSuccessRate(6, 3, $keyModificator));
-        $this->assertEquals(27, $this->service->computeSuccessRate(6, 5, $keyModificator));
-        //Base 25
-        $this->assertEquals(37, $this->service->computeSuccessRate(25, 0, $keyModificator));
-        $this->assertEquals(73, $this->service->computeSuccessRate(25, 3, $keyModificator));
-        $this->assertEquals(99, $this->service->computeSuccessRate(25, 5, $keyModificator));
-
-        //Modificator with 3 adjustable wrench
-        $this->assertEquals(37, $this->service->computeSuccessRate(25, 0, $keyModificator));
-        $this->assertEquals(56, $this->service->computeSuccessRate(25, 0, $keyModificator ** 2));
-        $this->assertEquals(84, $this->service->computeSuccessRate(25, 0, $keyModificator ** 3));
-
-        //Technician Modificator with 3 adjustable wrench
-
-        $this->assertEquals(30, $this->service->computeSuccessRate(25, 0, 1, $expert));
-        $this->assertEquals(55, $this->service->computeSuccessRate(25, 0, $technician, $expert));
-        $this->assertEquals(42, $this->service->computeSuccessRate(25, 0, $keyModificator ** 1, $expert));
-        $this->assertEquals(61, $this->service->computeSuccessRate(25, 0, $keyModificator ** 2, $expert));
-        $this->assertEquals(89, $this->service->computeSuccessRate(25, 0, $keyModificator ** 3, $expert));
+        $this->actionModifierService->shouldReceive('getMultiplicativeModifier')
+            ->with($player, [ActionEnum::TAKE], ModifierTargetEnum::PERCENTAGE)
+            ->andReturn(3)
+            ->once()
+        ;
+        $this->assertEquals(99, $this->service->getSuccessRate($action, $player, 20));
     }
 
     private function createPlayer(int $actionPoint, int $movementPoint, int $moralPoint): Player

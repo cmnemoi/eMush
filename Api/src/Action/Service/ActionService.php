@@ -92,8 +92,6 @@ class ActionService implements ActionServiceInterface
             ModifierTargetEnum::PERCENTAGE
         );
 
-        dump($modificator);
-
         return $this->computeSuccessRate($baseRate, $numberOfAttempt, $modificator);
     }
 

@@ -121,7 +121,7 @@ class GearToolService implements GearToolServiceInterface
         return $grantedActions;
     }
 
-    public function getToolsOnReach(Player $player): Collection
+    private function getToolsOnReach(Player $player): Collection
     {
         $equipments = $this->getEquipmentsOnReach($player);
 
@@ -173,7 +173,7 @@ class GearToolService implements GearToolServiceInterface
         }
     }
 
-    public function removeCharge(GameEquipment $equipment): void
+    private function removeCharge(GameEquipment $equipment): void
     {
         $chargeStatus = $equipment->getStatusByName(EquipmentStatusEnum::CHARGES);
 

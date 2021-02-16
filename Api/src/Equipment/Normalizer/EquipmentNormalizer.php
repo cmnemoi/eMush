@@ -104,8 +104,8 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
 
     private function getContextActions(GameEquipment $gameEquipment, Player $currentPlayer): Collection
     {
-        $scope = [ActionScopeEnum::ROOM];
-        $scope[] = $gameEquipment->getPlace() ? ActionScopeEnum::SHELVE : ActionScopeEnum::INVENTORY;
+        $scopes = [ActionScopeEnum::ROOM];
+        $scopes[] = $gameEquipment->getPlace() ? ActionScopeEnum::SHELVE : ActionScopeEnum::INVENTORY;
 
         if ($gameEquipment instanceof GameItem) {
             $target = GameItem::class;
@@ -113,6 +113,6 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
             $target = null;
         }
 
-        return $this->gearToolService->getActionsTools($currentPlayer, $scope, $target);
+        return $this->gearToolService->getActionsTools($currentPlayer, $scopes, $target);
     }
 }

@@ -16,7 +16,7 @@ class ActionModifierService implements ActionModifierServiceInterface
         $this->gearToolService = $gearToolService;
     }
 
-    public function getGearsModifier(Player $player, array $scopes, ?string $target = null): array
+    public function getGearsModifier(Player $player, array $scopes, string $target): array
     {
         /** @var int $delta */
         $additiveDelta = 0;
@@ -29,7 +29,7 @@ class ActionModifierService implements ActionModifierServiceInterface
             if ($gearMechanic) {
                 foreach ($gearMechanic->getModifiers() as $modifier) {
                     if (in_array($modifier->getScope(), $scopes) &&
-                        ($target === null || $modifier->getTarget() === $target)
+                        ($modifier->getTarget() === $target)
                     ) {
                         if ($modifier->isAdditive()) {
                             $additiveDelta += $modifier->getDelta();
@@ -44,7 +44,7 @@ class ActionModifierService implements ActionModifierServiceInterface
         return ['additive' => $additiveDelta, 'multiplicative' => $multiplicativeDelta];
     }
 
-    public function getModifiedValue(float $initValue, Player $player, array $scopes, ?string $target = null): int
+    public function getModifiedValue(float $initValue, Player $player, array $scopes, string $target): int
     {
         /** @var int $delta */
         $additiveDelta = 0;

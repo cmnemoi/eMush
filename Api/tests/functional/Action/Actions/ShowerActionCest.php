@@ -124,6 +124,7 @@ class ShowerActionCest
             ->setDelta(-1)
             ->setScope(ActionEnum::SHOWER)
             ->setReach(ReachEnum::INVENTORY)
+            ->setIsAdditive(true)
         ;
 
         $soapGear = new Gear();

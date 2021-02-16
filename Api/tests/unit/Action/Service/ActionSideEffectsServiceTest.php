@@ -88,7 +88,7 @@ class ActionSideEffectsServiceTest extends TestCase
 
         $action->setDirtyRate(100);
 
-        $this->actionModifierService->shouldReceive('getadditiveModifier')->andReturn(0);
+        $this->actionModifierService->shouldReceive('getModifiedValue')->andReturn(100);
         $this->eventDispatcher->shouldReceive('dispatch')->never();
         $this->roomLogService->shouldReceive('createPlayerLog')->once();
         $this->randomService->shouldReceive('randomPercent')->andReturn(10)->once();
@@ -125,7 +125,7 @@ class ActionSideEffectsServiceTest extends TestCase
 
         $player->addItem($gameItem);
 
-        $this->actionModifierService->shouldReceive('getAdditiveModifier')->andReturn(-100);
+        $this->actionModifierService->shouldReceive('getModifiedValue')->andReturn(0);
         $this->eventDispatcher->shouldReceive('dispatch')->never();
         $this->roomLogService->shouldReceive('createPlayerLog')->once();
         $this->randomService->shouldReceive('randomPercent')->andReturn(10)->once();
@@ -162,7 +162,7 @@ class ActionSideEffectsServiceTest extends TestCase
             ->once()
         ;
 
-        $this->actionModifierService->shouldReceive('getAdditiveModifier')->andReturn(0);
+        $this->actionModifierService->shouldReceive('getModifiedValue')->andReturn(100);
         $this->roomLogService->shouldReceive('createPlayerLog')->once();
         $this->randomService->shouldReceive('randomPercent')->andReturn(10)->once();
         $this->statusService->shouldReceive('createCorePlayerStatus')->never();
@@ -198,7 +198,7 @@ class ActionSideEffectsServiceTest extends TestCase
 
         $player->addItem($gameItem);
 
-        $this->actionModifierService->shouldReceive('getAdditiveModifier')->andReturn(-100);
+        $this->actionModifierService->shouldReceive('getModifiedValue')->andReturn(0);
         $this->eventDispatcher->shouldReceive('dispatch')->never();
         $this->roomLogService->shouldReceive('createPlayerLog')->once();
         $this->randomService->shouldReceive('randomPercent')->andReturn(10)->once();

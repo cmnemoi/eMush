@@ -95,6 +95,7 @@ class RepairActionCest
             ->setDelta(1.5)
             ->setScope(ModifierScopeEnum::ACTION_TECHNICIAN)
             ->setReach(ReachEnum::INVENTORY)
+            ->setIsAdditive(false)
         ;
 
         $wrenchGear = new Gear();

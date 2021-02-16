@@ -28,6 +28,14 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $actions = new ArrayCollection([$takeAction, $dropAction]);
 
+        $repair12 = $this->getReference(TechnicianFixtures::REPAIR_12);
+        $repair25 = $this->getReference(TechnicianFixtures::REPAIR_25);
+
+        $sabotage12 = $this->getReference(TechnicianFixtures::SABOTAGE_12);
+        $sabotage25 = $this->getReference(TechnicianFixtures::SABOTAGE_25);
+
+        $dismantle50 = $this->getReference(TechnicianFixtures::DISMANTLE_3_50);
+
         $camera = new ItemConfig();
         $camera
             ->setGameConfig($gameConfig)
@@ -37,8 +45,8 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(false)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
-            ->setBreakableRate(25)
-            ->setActions(new ArrayCollection([$takeAction, $this->getReference(TechnicianFixtures::DISMANTLE_3_25)]))
+            ->setIsBreakable(true)
+            ->setActions(new ArrayCollection([$takeAction, $this->getReference(TechnicianFixtures::DISMANTLE_3_25), $repair25, $sabotage25]))
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
         ;
 
@@ -46,6 +54,8 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $mycoAlarmeActions = clone $actions;
         $mycoAlarmeActions->add($this->getReference(TechnicianFixtures::DISMANTLE_3_25));
+        $mycoAlarmeActions->add($repair25);
+        $mycoAlarmeActions->add($sabotage25);
 
         $mycoAlarm = new ItemConfig();
         $mycoAlarm
@@ -56,13 +66,13 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setBreakableRate(25)
+            ->setIsBreakable(true)
             ->setActions($mycoAlarmeActions)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
         ;
         $manager->persist($mycoAlarm);
 
-        $tabulatrixActions = new ArrayCollection([$this->getReference(TechnicianFixtures::DISMANTLE_3_12)]);
+        $tabulatrixActions = new ArrayCollection([$this->getReference(TechnicianFixtures::DISMANTLE_3_12), $repair12, $sabotage12]);
 
         $tabulatrix = new ItemConfig();
         $tabulatrix
@@ -73,7 +83,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(false)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
-            ->setBreakableRate(12)
+            ->setIsBreakable(true)
             ->setActions($tabulatrixActions)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
         ;
@@ -137,7 +147,9 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($thickTube);
 
         $mushDiskActions = clone $actions;
-        $mushDiskActions->add($this->getReference(TechnicianFixtures::DISMANTLE_3_50));
+        $mushDiskActions->add($dismantle50);
+        $mushDiskActions->add($repair25);
+        $mushDiskActions->add($sabotage25);
 
         $mushDisk = new ItemConfig();
         $mushDisk
@@ -148,7 +160,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setBreakableRate(25)
+            ->setIsBreakable(true)
             ->setActions($mushDiskActions)
             ->setDismountedProducts([ItemEnum::PLASTIC_SCRAPS => 1])
         ;

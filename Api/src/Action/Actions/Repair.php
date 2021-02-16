@@ -79,9 +79,4 @@ class Repair extends AttemptAction
 
         return $response;
     }
-
-    protected function getBaseRate(): int
-    {
-        return $this->gameEquipment->getBrokenRate();
-    }
 }

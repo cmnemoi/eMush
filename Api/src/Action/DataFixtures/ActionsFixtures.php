@@ -50,7 +50,6 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
     public const TREAT_PLANT = 'treat.plant';
     public const WATER_PLANT = 'water.plant';
 
-    public const SABOTAGE_DEFAULT = 'sabotage.default';
     public const EXTRACT_SPORE = 'extract.spore';
     public const INFECT_PLAYER = 'infect.player';
 
@@ -418,17 +417,6 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->persist($waterPlantAction);
 
-        $sabotageAction = new Action();
-        $sabotageAction
-            ->setName(ActionEnum::SABOTAGE)
-            ->setScope(ActionScopeEnum::ROOM)
-            ->setDirtyRate(20)
-            ->setInjuryRate(0)
-            ->setActionCost($twoActionPointCost)
-        ;
-
-        $manager->persist($sabotageAction);
-
         $extractSporeAction = new Action();
         $extractSporeAction
             ->setName(ActionEnum::EXTRACT_SPORE)
@@ -486,7 +474,6 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::TRANSPLANT_DEFAULT, $transplantAction);
         $this->addReference(self::TREAT_PLANT, $treatPlantAction);
         $this->addReference(self::WATER_PLANT, $waterPlantAction);
-        $this->addReference(self::SABOTAGE_DEFAULT, $sabotageAction);
         $this->addReference(self::EXTRACT_SPORE, $extractSporeAction);
         $this->addReference(self::INFECT_PLAYER, $infectAction);
     }

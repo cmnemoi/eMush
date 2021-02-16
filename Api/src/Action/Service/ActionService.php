@@ -79,9 +79,10 @@ class ActionService implements ActionServiceInterface
 
     public function getSuccessRate(
         Action $action,
-        Player $player,
-        int $baseRate,
+        Player $player
     ): int {
+        $baseRate = $action->getSuccessRate();
+
         //Get number of attempt
         $numberOfAttempt = $this->getAttempt($player, $action->getName())->getCharge();
 

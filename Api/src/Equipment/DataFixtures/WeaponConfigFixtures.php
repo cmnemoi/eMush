@@ -33,8 +33,19 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $actions = new ArrayCollection([$takeAction, $dropAction]);
 
-        $blasterActions = clone $actions;
-        $blasterActions->add($this->getReference(TechnicianFixtures::DISMANTLE_3_25));
+        $repair12 = $this->getReference(TechnicianFixtures::REPAIR_12);
+        $repair25 = $this->getReference(TechnicianFixtures::REPAIR_25);
+
+        $sabotage12 = $this->getReference(TechnicianFixtures::SABOTAGE_12);
+        $sabotage25 = $this->getReference(TechnicianFixtures::SABOTAGE_25);
+
+        $dismantle12 = $this->getReference(TechnicianFixtures::DISMANTLE_3_12);
+        $dismantle25 = $this->getReference(TechnicianFixtures::DISMANTLE_3_25);
+
+        $actions25 = clone $actions;
+        $actions25->add($dismantle25);
+        $actions25->add($repair25);
+        $actions25->add($sabotage25);
 
         $chargedMechanic = new Charged();
         $chargedMechanic
@@ -63,9 +74,9 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
-            ->setBreakableRate(25)
+            ->setIsBreakable(true)
             ->setMechanics(new ArrayCollection([$blasterMechanic, $chargedMechanic]))
-            ->setActions($blasterActions)
+            ->setActions($actions25)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
         ;
 
@@ -83,9 +94,6 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->addAction($attackAction)
         ;
 
-        $knifeActions = clone $actions;
-        $knifeActions->add($this->getReference(TechnicianFixtures::DISMANTLE_3_25));
-
         $knife = new ItemConfig();
         $knife
             ->setGameConfig($gameConfig)
@@ -95,9 +103,9 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setBreakableRate(25)
+            ->setIsBreakable(true)
             ->setMechanics(new ArrayCollection([$knifeMechanic]))
-            ->setActions($knifeActions)
+            ->setActions($actions25)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
         ;
 
@@ -129,8 +137,10 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($grenade);
         $manager->persist($grenadeMechanic);
 
-        $natamyActions = clone $actions;
-        $natamyActions->add($this->getReference(TechnicianFixtures::DISMANTLE_3_12));
+        $actions12 = clone $actions;
+        $actions12->add($dismantle12);
+        $actions12->add($repair12);
+        $actions12->add($sabotage12);
 
         $natamyMechanic = new Weapon();
         $natamyMechanic
@@ -150,9 +160,9 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
-            ->setBreakableRate(12)
+            ->setIsBreakable(true)
             ->setMechanics(new ArrayCollection([$natamyMechanic, $chargedMechanic]))
-            ->setActions($natamyActions)
+            ->setActions($actions12)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
         ;
 
@@ -161,6 +171,8 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $oldFaithfulActions = clone $actions;
         $oldFaithfulActions->add($this->getReference(TechnicianFixtures::DISMANTLE_4_12));
+        $oldFaithfulActions->add($repair12);
+        $oldFaithfulActions->add($sabotage12);
 
         $oldFaithfulMechanic = new Weapon();
         $oldFaithfulMechanic
@@ -188,7 +200,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
-            ->setBreakableRate(12)
+            ->setIsBreakable(true)
             ->setMechanics(new ArrayCollection([$oldFaithfulMechanic, $chargedMechanic]))
             ->setActions($oldFaithfulActions)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
@@ -197,9 +209,6 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($oldFaithful);
         $manager->persist($oldFaithfulMechanic);
         $manager->persist($chargedMechanic);
-
-        $lizaroJungleActions = clone $actions;
-        $lizaroJungleActions->add($this->getReference(TechnicianFixtures::DISMANTLE_3_12));
 
         $chargedMechanic = new Charged();
         $chargedMechanic
@@ -227,9 +236,9 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
-            ->setBreakableRate(12)
+            ->setIsBreakable(true)
             ->setMechanics(new ArrayCollection([$lizaroJungleMechanic, $chargedMechanic]))
-            ->setActions($oldFaithfulActions)
+            ->setActions($actions12)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
         ;
 
@@ -246,9 +255,6 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->addAction($attackAction)
         ;
 
-        $rocketLauncherActions = clone $actions;
-        $rocketLauncherActions->add($this->getReference(TechnicianFixtures::DISMANTLE_3_12));
-
         $rocketLauncher = new ItemConfig();
         $rocketLauncher
             ->setGameConfig($gameConfig)
@@ -258,8 +264,8 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
-            ->setBreakableRate(12)
-            ->setActions($rocketLauncherActions)
+            ->setIsBreakable(true)
+            ->setActions($actions12)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
         ;
 

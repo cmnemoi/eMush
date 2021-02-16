@@ -20,10 +20,6 @@ abstract class AbstractChargeStrategy
     {
         $status = $this->apply($status, $daedalus);
 
-        if ($status !== null) {
-            $this->statusService->persist($status);
-        }
-
         return $status;
     }
 

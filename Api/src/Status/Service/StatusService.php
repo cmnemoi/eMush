@@ -152,7 +152,7 @@ class StatusService implements StatusServiceInterface
         $newCharge = $chargeStatus->getCharge() + $delta;
         $threshold = $chargeStatus->getThreshold();
 
-        if ($chargeStatus->isAutoRemove() && ($newCharge > $threshold || $newCharge < 0)) {
+        if ($chargeStatus->isAutoRemove() && ($newCharge >= $threshold || $newCharge <= 0)) {
             $this->delete($chargeStatus);
 
             return null;

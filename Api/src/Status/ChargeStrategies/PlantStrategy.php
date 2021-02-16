@@ -18,10 +18,6 @@ class PlantStrategy extends AbstractChargeStrategy
 
     public function apply(ChargeStatus $status, Daedalus $daedalus): ?ChargeStatus
     {
-        if ($status->getCharge() >= $status->getThreshold()) {
-            return $status;
-        }
-
         //@TODO: Handle garden
 
         return $this->statusService->changeCharge($status, 1);

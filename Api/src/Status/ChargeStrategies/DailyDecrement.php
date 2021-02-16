@@ -13,7 +13,7 @@ class DailyDecrement extends AbstractChargeStrategy
     public function apply(ChargeStatus $status, Daedalus $daedalus): ?ChargeStatus
     {
         //Only applied on cycle 1
-        if ($daedalus->getCycle() !== 1 || $status->getCharge() <= $status->getThreshold()) {
+        if ($daedalus->getCycle() !== 1) {
             return $status;
         }
 

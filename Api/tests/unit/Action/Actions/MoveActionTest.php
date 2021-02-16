@@ -39,7 +39,8 @@ class MoveActionTest extends AbstractActionTest
         $this->action = new Move(
             $this->eventDispatcher,
             $this->playerService,
-            $this->roomLogService
+            $this->roomLogService,
+            $this->actionService
         );
     }
 
@@ -67,22 +68,9 @@ class MoveActionTest extends AbstractActionTest
 
         $actionParameter = new ActionParameters();
         $actionParameter->setDoor($door);
-        $player = new Player();
-        $player
-            ->setMoralPoint(10)
-            ->setPlace($roomStart)
-        ;
+        $player = $this->createPlayer(new Daedalus(), $roomStart);
 
         $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
-
-        //No movement point
-        $player
-            ->setActionPoint(0)
-            ->setMovementPoint(0)
-        ;
-        $result = $this->action->execute();
-
-        $this->assertInstanceOf(Error::class, $result);
 
         //Door is broken
         $player->setMovementPoint(1);
@@ -128,16 +116,16 @@ class MoveActionTest extends AbstractActionTest
 
         $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
+        $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
         $this->assertEquals($player->getPlace(), $roomEnd);
-        $this->assertEquals($player->getMovementPoint(), 9);
 
+        $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
         $this->assertEquals($player->getPlace(), $roomStart);
-        $this->assertEquals($player->getMovementPoint(), 8);
     }
 }

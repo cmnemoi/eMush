@@ -6,9 +6,9 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Service\ActionServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\Target;
@@ -20,19 +20,19 @@ class Search extends AbstractAction
 {
     protected string $name = ActionEnum::SEARCH;
 
-    private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
     private StatusServiceInterface $statusService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
-        GameEquipmentServiceInterface $gameEquipmentService,
         PlayerServiceInterface $playerService,
-        StatusServiceInterface $statusService
+        StatusServiceInterface $statusService,
+        ActionServiceInterface $actionService
     ) {
-        parent::__construct($eventDispatcher);
-
-        $this->gameEquipmentService = $gameEquipmentService;
+        parent::__construct(
+            $eventDispatcher,
+            $actionService
+        );
         $this->playerService = $playerService;
         $this->statusService = $statusService;
     }

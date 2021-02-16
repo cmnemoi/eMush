@@ -7,6 +7,7 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Service\ActionServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -20,9 +21,13 @@ class GetUp extends AbstractAction
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
-        StatusServiceInterface $statusService
+        StatusServiceInterface $statusService,
+        ActionServiceInterface $actionService
     ) {
-        parent::__construct($eventDispatcher);
+        parent::__construct(
+            $eventDispatcher,
+            $actionService
+        );
 
         $this->statusService = $statusService;
     }

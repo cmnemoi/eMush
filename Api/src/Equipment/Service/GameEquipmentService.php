@@ -2,7 +2,6 @@
 
 namespace Mush\Equipment\Service;
 
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
@@ -14,14 +13,11 @@ use Mush\Equipment\Entity\Mechanics\Charged;
 use Mush\Equipment\Entity\Mechanics\Document;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
-use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
-use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\ContentStatus;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -194,26 +190,6 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         );
 
         return $gameEquipment;
-    }
-
-    //Implement accessibility to Equipment (for tool and gear)
-    public function getOperationalEquipmentsByName(string $equipmentName, Player $player, string $reach = ReachEnum::SHELVE_NOT_HIDDEN): Collection
-    {
-        //reach can be set to inventory, shelve, shelve only or any room of the Daedalus
-        return $player->getReachableEquipmentsByName($equipmentName, $reach)
-            ->filter(fn (GameEquipment $gameEquipment) => $this->isOperational($gameEquipment))
-            ;
-    }
-
-    public function isOperational(GameEquipment $gameEquipment): bool
-    {
-        /** @var ?ChargeStatus $chargedStatus */
-        $chargedStatus = $gameEquipment->getStatusByName(EquipmentStatusEnum::CHARGES);
-        if ($chargedStatus) {
-            return !($gameEquipment->getStatusByName(EquipmentStatusEnum::BROKEN)) && $chargedStatus->getCharge() > 0;
-        }
-
-        return !($gameEquipment->getStatusByName(EquipmentStatusEnum::BROKEN));
     }
 
     public function handleBreakFire(GameEquipment $gameEquipment, \DateTime $date): void

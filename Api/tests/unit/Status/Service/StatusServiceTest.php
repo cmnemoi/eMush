@@ -9,6 +9,7 @@ use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Place\Entity\Place;
+use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Repository\StatusRepository;
 use Mush\Status\Service\StatusService;
@@ -76,5 +77,42 @@ class StatusServiceTest extends TestCase
         $mostRecent = $this->service->getMostRecent('hidden', new ArrayCollection([$item1, $item2, $item3]));
 
         $this->assertEquals('item 2', $mostRecent->getName());
+    }
+
+    public function testchangeCharge()
+    {
+        $gameEquipment = new GameItem();
+        $chargeStatus = new ChargeStatus($gameEquipment);
+
+        $chargeStatus
+            ->setCharge(4)
+            ->setThreshold(6)
+        ;
+
+        $this->entityManager->shouldReceive('persist')->once();
+        $this->entityManager->shouldReceive('flush')->once();
+        $this->service->changeCharge($chargeStatus, -1);
+
+        $this->assertEquals(3, $chargeStatus->getCharge());
+
+        $this->entityManager->shouldReceive('persist')->once();
+        $this->entityManager->shouldReceive('flush')->once();
+        $this->service->changeCharge($chargeStatus, -4);
+
+        $this->assertEquals(0, $chargeStatus->getCharge());
+
+        $this->entityManager->shouldReceive('persist')->once();
+        $this->entityManager->shouldReceive('flush')->once();
+        $this->service->changeCharge($chargeStatus, 7);
+
+        $this->assertEquals(6, $chargeStatus->getCharge());
+
+        $chargeStatus->setAutoRemove(true);
+
+        $this->entityManager->shouldReceive('remove')->once();
+        $this->entityManager->shouldReceive('flush')->once();
+        $result = $this->service->changeCharge($chargeStatus, -7);
+
+        $this->assertNull($result);
     }
 }

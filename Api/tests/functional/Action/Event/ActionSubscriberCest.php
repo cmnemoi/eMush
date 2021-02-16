@@ -5,6 +5,7 @@ namespace functional\Action\Event;
 use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Entity\Action;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Action\Event\ActionSubscriber;
 use Mush\Daedalus\Entity\Daedalus;
@@ -49,6 +50,7 @@ class ActionSubscriberCest
         $action
             ->setDirtyRate(0)
             ->setInjuryRate(100)
+            ->setName(ActionEnum::TAKE)
         ;
 
         $actionEvent = new ActionEvent($action, $player);
@@ -106,7 +108,7 @@ class ActionSubscriberCest
             ->setScope(ModifierScopeEnum::EVENT_DIRTY)
         ;
         $I->haveInRepository($modifier);
-        $gear->setModifier($modifier);
+        $gear->setModifier(new arrayCollection([$modifier]));
         $itemConfig->setMechanics(new ArrayCollection([$gear]));
         $I->haveInRepository($gear);
         $I->haveInRepository($itemConfig);

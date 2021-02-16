@@ -42,9 +42,9 @@ class SearchActionTest extends AbstractActionTest
 
         $this->action = new Search(
             $this->eventDispatcher,
-            $this->gameEquipmentService,
             $this->playerService,
             $this->statusService,
+            $this->actionService
         );
     }
 
@@ -65,6 +65,7 @@ class SearchActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
         //No item in the room
+        $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $result = $this->action->execute();
         $this->assertInstanceOf(Fail::class, $result);
 
@@ -76,7 +77,7 @@ class SearchActionTest extends AbstractActionTest
             ->setEquipment($item)
             ->setPlace($room)
         ;
-
+        $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $result = $this->action->execute();
         $this->assertInstanceOf(Fail::class, $result);
 
@@ -101,6 +102,7 @@ class SearchActionTest extends AbstractActionTest
         $actionParameter = new ActionParameters();
         $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
+        $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->statusService->shouldReceive('getMostRecent')->andReturn($gameItem)->once();
         $this->gameEquipmentService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
@@ -112,7 +114,6 @@ class SearchActionTest extends AbstractActionTest
         $this->assertCount(1, $room->getEquipments());
         $this->assertCount(0, $room->getEquipments()->first()->getStatuses());
         $this->assertCount(0, $player->getStatuses());
-        $this->assertEquals(9, $player->getActionPoint());
         $this->assertCount(0, $hiddenBy->getStatuses());
 
         //2 hidden items
@@ -148,6 +149,7 @@ class SearchActionTest extends AbstractActionTest
         $actionParameter = new ActionParameters();
         $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
+        $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->statusService->shouldReceive('getMostRecent')->andReturn($gameItem)->once();
         $this->gameEquipmentService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');

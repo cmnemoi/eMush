@@ -6,6 +6,7 @@ use Mockery;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionCost;
+use Mush\Action\Service\ActionServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Enum\GameStatusEnum;
@@ -19,6 +20,8 @@ abstract class AbstractActionTest extends TestCase
     /** @var EventDispatcherInterface | Mockery\Mock */
     protected EventDispatcherInterface $eventDispatcher;
 
+    protected ActionServiceInterface $actionService;
+
     protected AbstractAction $action;
     protected Action $actionEntity;
 
@@ -29,6 +32,9 @@ abstract class AbstractActionTest extends TestCase
     {
         $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $this->eventDispatcher->shouldReceive('dispatch');
+
+        $this->actionService = Mockery::mock(ActionServiceInterface::class);
+        $this->actionService->shouldReceive('canPlayerDoAction')->andReturn(true);
     }
 
     /**

@@ -7,14 +7,13 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Service\SuccessRateServiceInterface;
+use Mush\Action\Service\ActionServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Service\PlaceServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Status\Enum\StatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Extinguish extends AttemptAction
@@ -30,15 +29,17 @@ class Extinguish extends AttemptAction
         EventDispatcherInterface $eventDispatcher,
         PlayerServiceInterface $playerService,
         RandomServiceInterface $randomService,
-        SuccessRateServiceInterface $successRateService,
-        StatusServiceInterface $statusService,
-        PlaceServiceInterface $placeService
+        PlaceServiceInterface $placeService,
+        ActionServiceInterface $actionService
     ) {
-        parent::__construct($randomService, $successRateService, $eventDispatcher, $statusService);
+        parent::__construct(
+            $randomService,
+            $eventDispatcher,
+            $actionService
+        );
 
         $this->playerService = $playerService;
         $this->randomService = $randomService;
-        $this->successRateService = $successRateService;
         $this->placeService = $placeService;
     }
 
@@ -78,10 +79,5 @@ class Extinguish extends AttemptAction
         $this->playerService->persist($this->player);
 
         return $response;
-    }
-
-    protected function getBaseRate(): int
-    {
-        return $this->action->getSuccessRate();
     }
 }

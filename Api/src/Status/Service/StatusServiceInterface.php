@@ -39,4 +39,6 @@ interface StatusServiceInterface
     public function getMostRecent(string $statusName, Collection $equipments): GameEquipment;
 
     public function getByCriteria(StatusCriteria $criteria): Collection;
+
+    public function changeCharge(ChargeStatus $chargeStatus, int $delta): ?ChargeStatus;
 }

@@ -7,8 +7,8 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Modifier;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\ModifierTargetEnum;
-use Mush\Player\Service\ActionModifierServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\Player\Service\PlayerVariableServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
@@ -20,20 +20,20 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class PlayerSubscriber implements EventSubscriberInterface
 {
     private PlayerServiceInterface $playerService;
-    private ActionModifierServiceInterface $actionModifierService;
+    private PlayerVariableServiceInterface $playerVariableService;
     private EventDispatcherInterface $eventDispatcher;
     private StatusServiceInterface $statusService;
     private RandomServiceInterface $randomService;
 
     public function __construct(
         PlayerServiceInterface $playerService,
-        ActionModifierServiceInterface $actionModifierService,
+        PlayerVariableServiceInterface $playerVariableService,
         EventDispatcherInterface $eventDispatcher,
         StatusServiceInterface $statusService,
         RandomServiceInterface $randomService
     ) {
         $this->playerService = $playerService;
-        $this->actionModifierService = $actionModifierService;
+        $this->playerVariableService = $playerVariableService;
         $this->eventDispatcher = $eventDispatcher;
         $this->statusService = $statusService;
         $this->randomService = $randomService;
@@ -68,7 +68,7 @@ class PlayerSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $this->actionModifierService->handlePlayerModifier($player, $playerModifier, $playerEvent->getTime());
+        $this->playerVariableService->modifyPlayerVariable($player, $playerModifier, $playerEvent->getTime());
 
         if ($player->getHealthPoint() === 0) {
             $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);

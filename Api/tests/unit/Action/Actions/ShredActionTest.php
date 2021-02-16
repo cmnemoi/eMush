@@ -38,7 +38,8 @@ class ShredActionTest extends AbstractActionTest
         $this->action = new Shred(
             $this->eventDispatcher,
             $this->gameEquipmentService,
-            $this->playerService
+            $this->playerService,
+            $this->actionService
         );
     }
 
@@ -72,6 +73,7 @@ class ShredActionTest extends AbstractActionTest
 
         $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
+        $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);

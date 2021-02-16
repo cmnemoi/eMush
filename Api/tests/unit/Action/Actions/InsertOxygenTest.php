@@ -2,7 +2,6 @@
 
 namespace Mush\Test\Action\Actions;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
@@ -19,6 +18,7 @@ use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Place\Entity\Place;
 
@@ -28,6 +28,8 @@ class InsertOxygenTest extends AbstractActionTest
     private GameEquipmentServiceInterface $gameEquipmentService;
     /** @var DaedalusServiceInterface | Mockery\Mock */
     private DaedalusServiceInterface $daedalusService;
+    /** @var GearToolServiceInterface | Mockery\Mock */
+    private GearToolServiceInterface $gearToolService;
 
     /**
      * @before
@@ -40,11 +42,14 @@ class InsertOxygenTest extends AbstractActionTest
 
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->daedalusService = Mockery::mock(DaedalusServiceInterface::class);
+        $this->gearToolService = Mockery::mock(GearToolServiceInterface::class);
 
         $this->action = new InsertOxygen(
             $this->eventDispatcher,
             $this->gameEquipmentService,
             $this->daedalusService,
+            $this->actionService,
+            $this->gearToolService
         );
     }
 
@@ -93,8 +98,11 @@ class InsertOxygenTest extends AbstractActionTest
             ->setPlace($room)
         ;
 
-        $this->gameEquipmentService->shouldReceive('getOperationalEquipmentsByName')->andReturn(new ArrayCollection([$gameTank]))->once();
-
+        $this->gearToolService
+            ->shouldReceive('getUsedTool')
+            ->andReturn($gameTank)
+            ->once()
+        ;
         $actionParameter = new ActionParameters();
         $actionParameter->setItem($gameItem);
 
@@ -142,8 +150,13 @@ class InsertOxygenTest extends AbstractActionTest
             ->setPlace($room)
         ;
 
+        $this->gearToolService
+            ->shouldReceive('getUsedTool')
+            ->andReturn($gameTank)
+            ->once()
+        ;
+        $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gameEquipmentService->shouldReceive('delete');
-        $this->gameEquipmentService->shouldReceive('getOperationalEquipmentsByName')->andReturn(new ArrayCollection([$gameTank]))->once();
         $this->daedalusService->shouldReceive('changeOxygenLevel')->andReturn($daedalus);
 
         $actionParameter = new ActionParameters();

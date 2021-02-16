@@ -59,8 +59,7 @@ class SabotageActionTest extends AbstractActionTest
             $this->gameEquipmentService,
             $this->playerService,
             $this->randomService,
-            $this->successRateService,
-            $this->statusService,
+            $this->actionService
         );
     }
 
@@ -159,14 +158,15 @@ class SabotageActionTest extends AbstractActionTest
             ->setName(StatusEnum::ATTEMPT)
             ->setAction($this->action->getActionName())
         ;
-        $this->statusService->shouldReceive('createAttemptStatus')->andReturn($attempt)->once();
+        $this->actionService->shouldReceive('getAttempt')->andReturn($attempt);
 
         $actionParameter = new ActionParameters();
         $actionParameter->setItem($gameItem);
 
         $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
-        $this->successRateService->shouldReceive('getSuccessRate')->andReturn(10)->once();
+        $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
+        $this->actionService->shouldReceive('getSuccessRate')->andReturn(10)->once();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->once();
 
         //Fail try
@@ -176,9 +176,9 @@ class SabotageActionTest extends AbstractActionTest
         $this->assertCount(0, $room->getEquipments()->first()->getStatuses());
         $this->assertCount(1, $player->getStatuses());
         $this->assertEquals(1, $attempt->getCharge());
-        $this->assertEquals(8, $player->getActionPoint());
 
-        $this->successRateService->shouldReceive('getSuccessRate')->andReturn(10)->once();
+        $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
+        $this->actionService->shouldReceive('getSuccessRate')->andReturn(10)->once();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
         $this->eventDispatcher->shouldReceive('dispatch');
 
@@ -189,6 +189,5 @@ class SabotageActionTest extends AbstractActionTest
         $this->assertCount(1, $room->getEquipments());
         $this->assertCount(0, $room->getEquipments()->first()->getStatuses());
         $this->assertCount(1, $player->getStatuses());
-        $this->assertEquals(6, $player->getActionPoint());
     }
 }

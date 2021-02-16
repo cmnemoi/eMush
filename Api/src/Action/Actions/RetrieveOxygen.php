@@ -7,6 +7,7 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Service\ActionServiceInterface;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
@@ -28,9 +29,13 @@ class RetrieveOxygen extends AbstractAction
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         GameEquipmentServiceInterface $gameEquipmentService,
-        DaedalusServiceInterface $daedalusService
+        DaedalusServiceInterface $daedalusService,
+        ActionServiceInterface $actionService
     ) {
-        parent::__construct($eventDispatcher);
+        parent::__construct(
+            $eventDispatcher,
+            $actionService
+        );
 
         $this->gameEquipmentService = $gameEquipmentService;
         $this->daedalusService = $daedalusService;
@@ -53,7 +58,7 @@ class RetrieveOxygen extends AbstractAction
 
         return $this->player->canReachEquipment($this->gameEquipment) &&
             $this->gameEquipment->getEquipment()->hasAction(ActionEnum::RETRIEVE_OXYGEN) &&
-            $this->gameEquipmentService->isOperational($this->gameEquipment) &&
+            !$this->gameEquipment->isBroken() &&
             $this->player->canReachEquipment($this->gameEquipment) &&
             $this->player->getItems()->count() < $gameConfig->getMaxItemInInventory() &&
             $this->player->getDaedalus()->getOxygen() > 0

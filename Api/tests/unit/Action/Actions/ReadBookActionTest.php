@@ -39,7 +39,8 @@ class ReadBookActionTest extends AbstractActionTest
         $this->action = new ReadBook(
             $this->eventDispatcher,
             $this->gameEquipmentService,
-            $this->playerService
+            $this->playerService,
+            $this->actionService
         );
     }
 
@@ -72,6 +73,7 @@ class ReadBookActionTest extends AbstractActionTest
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
+        $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
         $result = $this->action->execute();

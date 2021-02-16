@@ -3,7 +3,6 @@
 namespace Mush\Action\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Player\Entity\Player;
 
 /**
  * @ORM\Entity()
@@ -18,40 +17,23 @@ class ActionCost
     private ?int $id = null;
 
     /**
-     * @ORM\Column(type="integer", nullable=false)
+     * @ORM\Column(type="integer", nullable=true)
      */
-    private int $actionPointCost = 0;
+    private ?int $actionPointCost = null;
 
     /**
-     * @ORM\Column(type="integer", nullable=false)
+     * @ORM\Column(type="integer", nullable=true)
      */
-    private int $movementPointCost = 0;
+    private ?int $movementPointCost = null;
 
     /**
-     * @ORM\Column(type="integer", nullable=false)
+     * @ORM\Column(type="integer", nullable=true)
      */
-    private int $moralPointCost = 0;
+    private ?int $moralPointCost = null;
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function canPlayerDoAction(Player $player): bool
-    {
-        return $this->getActionPointCost() <= $player->getActionPoint() &&
-            ($this->getMovementPointCost() <= $player->getMovementPoint() || $player->getActionPoint() > 0) &&
-            $this->getMoralPointCost() <= $player->getMoralPoint()
-            ;
-    }
-
-    public function applyCostToPlayer(Player $player): Player
-    {
-        return $player
-            ->addActionPoint((-1) * $this->getActionPointCost())
-            ->addMovementPoint((-1) * $this->getMovementPointCost())
-            ->addMoralPoint((-1) * $this->getMoralPointCost())
-            ;
     }
 
     public function getActionPointCost(): ?int
@@ -59,14 +41,7 @@ class ActionCost
         return $this->actionPointCost;
     }
 
-    public function addActionPointCost(int $actionPoint): ActionCost
-    {
-        $this->actionPointCost += $actionPoint;
-
-        return $this;
-    }
-
-    public function setActionPointCost(int $actionPointCost): ActionCost
+    public function setActionPointCost(?int $actionPointCost): ActionCost
     {
         $this->actionPointCost = $actionPointCost;
 
@@ -78,14 +53,7 @@ class ActionCost
         return $this->movementPointCost;
     }
 
-    public function addMovementPointCost(int $movementPoint): ActionCost
-    {
-        $this->movementPointCost += $movementPoint;
-
-        return $this;
-    }
-
-    public function setMovementPointCost(int $movementPointCost): ActionCost
+    public function setMovementPointCost(?int $movementPointCost): ActionCost
     {
         $this->movementPointCost = $movementPointCost;
 
@@ -97,14 +65,7 @@ class ActionCost
         return $this->moralPointCost;
     }
 
-    public function addMoralPointPointCost(int $moralPointCost): ActionCost
-    {
-        $this->moralPointCost += $moralPointCost;
-
-        return $this;
-    }
-
-    public function setMoralPointCost(int $moralPointCost): ActionCost
+    public function setMoralPointCost(?int $moralPointCost): ActionCost
     {
         $this->moralPointCost = $moralPointCost;
 

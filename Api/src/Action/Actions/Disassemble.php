@@ -7,7 +7,7 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Service\SuccessRateServiceInterface;
+use Mush\Action\Service\ActionServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -16,7 +16,6 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\Target;
 use Mush\RoomLog\Enum\VisibilityEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Disassemble extends AttemptAction
@@ -33,10 +32,13 @@ class Disassemble extends AttemptAction
         GameEquipmentServiceInterface $gameEquipmentService,
         PlayerServiceInterface $playerService,
         RandomServiceInterface $randomService,
-        SuccessRateServiceInterface $successRateService,
-        StatusServiceInterface $statusService
+        ActionServiceInterface $actionService
     ) {
-        parent::__construct($randomService, $successRateService, $eventDispatcher, $statusService);
+        parent::__construct(
+            $randomService,
+            $eventDispatcher,
+            $actionService
+        );
 
         $this->gameEquipmentService = $gameEquipmentService;
         $this->playerService = $playerService;
@@ -101,10 +103,5 @@ class Disassemble extends AttemptAction
         // remove the dismanteled equipment
         $equipmentEvent = new EquipmentEvent($this->gameEquipment, VisibilityEnum::HIDDEN);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
-    }
-
-    protected function getBaseRate(): int
-    {
-        return $this->action->getSuccessRate();
     }
 }

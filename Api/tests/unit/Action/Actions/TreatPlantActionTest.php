@@ -45,7 +45,7 @@ class TreatPlantActionTest extends AbstractActionTest
         $this->action = new TreatPlant(
             $this->eventDispatcher,
             $this->gameEquipmentService,
-            $this->statusService
+            $this->actionService
         );
     }
 
@@ -116,6 +116,7 @@ class TreatPlantActionTest extends AbstractActionTest
         $actionParameter->setItem($gameItem);
         $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
+        $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gameEquipmentService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
         $this->statusService->shouldReceive('delete');
@@ -126,6 +127,5 @@ class TreatPlantActionTest extends AbstractActionTest
         $this->assertCount(1, $room->getEquipments());
         $this->assertCount(0, $room->getEquipments()->first()->getStatuses());
         $this->assertCount(0, $player->getStatuses());
-        $this->assertEquals(8, $player->getActionPoint());
     }
 }

@@ -45,7 +45,7 @@ class CoffeeActionTest extends AbstractActionTest
         $this->action = new Coffee(
             $this->eventDispatcher,
             $this->gameEquipmentService,
-            $this->statusService
+            $this->actionService
         );
     }
 
@@ -123,8 +123,8 @@ class CoffeeActionTest extends AbstractActionTest
             ->setName(GameRationEnum::COFFEE)
         ;
 
+        $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->andReturn($gameCoffee)->once();
-        $this->gameEquipmentService->shouldReceive('isOperational')->andReturn(true)->once();
         $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $eventDispatcher->shouldReceive('dispatch');
         $this->gameEquipmentService->shouldReceive('persist');
@@ -133,7 +133,6 @@ class CoffeeActionTest extends AbstractActionTest
 
         $this->assertInstanceOf(Success::class, $result);
         $this->assertCount(1, $room->getEquipments());
-        $this->assertEquals(0, $room->getEquipments()->first()->getStatuses()->first()->getCharge());
         $this->assertCount(0, $player->getStatuses());
         $this->assertEquals(10, $player->getActionPoint());
     }

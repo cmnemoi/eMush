@@ -146,4 +146,26 @@ class StatusService implements StatusServiceInterface
     {
         return new ArrayCollection($this->statusRepository->findByCriteria($criteria));
     }
+
+    public function changeCharge(ChargeStatus $chargeStatus, int $delta): ?ChargeStatus
+    {
+        $newCharge = $chargeStatus->getCharge() + $delta;
+        $threshold = $chargeStatus->getThreshold();
+
+        if ($chargeStatus->isAutoRemove() && ($newCharge > $threshold || $newCharge < 0)) {
+            $this->delete($chargeStatus);
+
+            return null;
+        }
+
+        if ($threshold) {
+            $chargeStatus->setCharge(max(min($newCharge, $threshold), 0));
+        } else {
+            $chargeStatus->setCharge(max($newCharge, 0));
+        }
+
+        $this->persist($chargeStatus);
+
+        return $chargeStatus;
+    }
 }

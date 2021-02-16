@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Place\Entity\Place;
+use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Entity\StatusTarget;
@@ -179,6 +180,17 @@ class GameEquipment implements StatusHolderInterface
             ->getStatuses()
             ->exists(fn (int $key, Status $status) => ($status->getName() === EquipmentStatusEnum::BROKEN))
             ;
+    }
+
+    public function isOperational(): bool
+    {
+        $chargeStatus = $this->getStatusByName(EquipmentStatusEnum::CHARGES);
+
+        if ($chargeStatus === null || !($chargeStatus instanceof ChargeStatus)) {
+            return !$this->isBroken();
+        }
+
+        return $chargeStatus->getCharge() > 0 && !$this->isBroken();
     }
 
     public function getBrokenRate(): int

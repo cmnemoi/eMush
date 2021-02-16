@@ -90,6 +90,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setInjuryRate(1)
             ->setActionCost($oneActionPointCost)
+            ->setSuccessRate(60)
         ;
         $manager->persist($hitAction);
 

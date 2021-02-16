@@ -128,7 +128,7 @@ class ShowerActionCest
 
         $soapGear = new Gear();
 
-        $soapGear->setModifier($modifier);
+        $soapGear->setModifier(new arrayCollection([$modifier]));
 
         $soap = new ItemConfig();
         $soap

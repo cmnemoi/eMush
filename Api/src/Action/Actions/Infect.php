@@ -7,6 +7,7 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Service\ActionServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Service\PlayerServiceInterface;
@@ -28,9 +29,13 @@ class Infect extends AbstractAction
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         StatusServiceInterface $statusService,
-        PlayerServiceInterface $playerService
+        PlayerServiceInterface $playerService,
+        ActionServiceInterface $actionService
     ) {
-        parent::__construct($eventDispatcher);
+        parent::__construct(
+            $eventDispatcher,
+            $actionService
+        );
 
         $this->statusService = $statusService;
         $this->playerService = $playerService;

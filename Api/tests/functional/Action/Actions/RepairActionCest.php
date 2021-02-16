@@ -77,8 +77,8 @@ class RepairActionCest
             ->setVisibility(VisibilityEnum::PUBLIC)
         ;
 
+        $I->assertEquals(25, $this->repairAction->getSuccessRate());
         $I->assertTrue($this->repairAction->canExecute());
-//        $I->assertEquals(25, $this->repairAction->getSuccessRate());
 
         $wrench = $this->createWrenchItem();
         $player->addItem($wrench);
@@ -98,7 +98,7 @@ class RepairActionCest
 
         $wrenchGear = new Gear();
 
-        $wrenchGear->setModifier($modifier);
+        $wrenchGear->setModifier(new arrayCollection([$modifier]));
 
         $wrench = new ItemConfig();
         $wrench

@@ -2,10 +2,10 @@
 
 namespace Mush\Equipment\Entity\Mechanics;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
-use Mush\Player\Entity\Modifier;
 
 /**
  * Class Equipment.
@@ -17,21 +17,21 @@ class Gear extends EquipmentMechanic
     protected string $mechanic = EquipmentMechanicEnum::GEAR;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Mush\Player\Entity\Modifier")
+     * @ORM\ManyToMany(targetEntity="Mush\Player\Entity\Modifier")
      */
-    private Modifier $modifier;
+    private Collection $modifiers;
 
-    public function getModifier(): Modifier
+    public function getModifiers(): Collection
     {
-        return $this->modifier;
+        return $this->modifiers;
     }
 
     /**
      * @return static
      */
-    public function setModifier(Modifier $modifier): Gear
+    public function setModifier(Collection $modifiers): Gear
     {
-        $this->modifier = $modifier;
+        $this->modifiers = $modifiers;
 
         return $this;
     }

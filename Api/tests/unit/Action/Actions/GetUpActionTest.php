@@ -35,7 +35,8 @@ class GetUpActionTest extends AbstractActionTest
 
         $this->action = new GetUp(
             $this->eventDispatcher,
-            $this->statusService
+            $this->statusService,
+            $this->actionService
         );
     }
 
@@ -108,6 +109,7 @@ class GetUpActionTest extends AbstractActionTest
 
         $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
+        $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->statusService->shouldReceive('delete');
 
         $result = $this->action->execute();

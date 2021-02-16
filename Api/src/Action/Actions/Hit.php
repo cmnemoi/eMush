@@ -7,7 +7,7 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Service\SuccessRateServiceInterface;
+use Mush\Action\Service\ActionServiceInterface;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\SkillMushEnum;
@@ -18,7 +18,6 @@ use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Hit extends AttemptAction
@@ -32,11 +31,14 @@ class Hit extends AttemptAction
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         PlayerServiceInterface $playerService,
-        SuccessRateServiceInterface $successRateService,
         RandomServiceInterface $randomService,
-        StatusServiceInterface $statusService
+        ActionServiceInterface $actionService
     ) {
-        parent::__construct($randomService, $successRateService, $eventDispatcher, $statusService);
+        parent::__construct(
+            $randomService,
+            $eventDispatcher,
+            $actionService
+        );
 
         $this->playerService = $playerService;
         $this->randomService = $randomService;
@@ -97,10 +99,5 @@ class Hit extends AttemptAction
         }
 
         return $result;
-    }
-
-    protected function getBaseRate(): int
-    {
-        return 60;
     }
 }

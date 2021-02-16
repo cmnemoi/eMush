@@ -10,9 +10,6 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\Mechanics\Gear;
-use Mush\Equipment\Enum\EquipmentMechanicEnum;
-use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Place\Entity\Place;
@@ -244,45 +241,6 @@ class Player implements StatusHolderInterface
         }
     }
 
-    public function getReachableEquipmentsByName(string $name, string $reach = ReachEnum::SHELVE_NOT_HIDDEN): Collection
-    {
-        //reach can be set to inventory, shelve, shelve only or any room of the Daedalus
-        if ($reach === ReachEnum::INVENTORY) {
-            return $this->getItems()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $name);
-        } elseif ($reach === ReachEnum::SHELVE_NOT_HIDDEN) {
-            return (new ArrayCollection(array_merge(
-                $this->getItems()->toArray(),
-                $this->getPlace()->getEquipments()->toArray()
-            ))
-            )->filter(fn (GameEquipment $gameEquipment) => (
-                $gameEquipment->getName() === $name &&
-                (($hiddenStatus = $gameEquipment->getStatusByName(EquipmentStatusEnum::HIDDEN)) === null ||
-                    $hiddenStatus->getTarget() === $this)));
-        } elseif ($reach === ReachEnum::SHELVE) {
-            return (new ArrayCollection(array_merge(
-                $this->getItems()->toArray(),
-                $this->getPlace()->getEquipments()->toArray()
-            ))
-            )->filter(fn (GameEquipment $equipment) => ($equipment->getName() === $name));
-        } else {
-            if ($roomReached = $this->getDaedalus()->getPlaceByName($reach)) {
-                return $roomReached
-                    ->getEquipments()
-                    ->filter(fn (GameEquipment $equipment) => $equipment->getName() === $name)
-                    ;
-            }
-        }
-
-        return new ArrayCollection();
-    }
-
-    public function getReachableTools(): Collection
-    {
-        //reach can be set to inventory, shelve, shelve only or any room of the Daedalus
-        return (new ArrayCollection(array_merge($this->getItems()->toArray(), $this->getPlace()->getEquipments()->toArray())
-        ))->filter(fn (GameEquipment $gameEquipment) => ($gameEquipment->getEquipment()->getMechanicbyName(EquipmentMechanicEnum::TOOL)));
-    }
-
     public function getItems(): Collection
     {
         return $this->items;
@@ -326,28 +284,6 @@ class Player implements StatusHolderInterface
         }
 
         return $this;
-    }
-
-    public function getApplicableGears(array $scope, array $types, ?string $target = null): Collection
-    {
-        /** @var Collection $gears */
-        $gears = new ArrayCollection();
-        /** @var GameItem $item */
-        foreach ($this->getItems() as $item) {
-            /** @var Gear $gear */
-            $gear = $item->getEquipment()->getMechanicByName(EquipmentMechanicEnum::GEAR);
-
-            if ($gear &&
-                in_array($gear->getModifier()->getScope(), $scope) &&
-                ($target === null || $gear->getModifier()->getTarget() === $target) &&
-                (count($types) || in_array($gear->getModifier()->getTarget(), $types)) &&
-                in_array($gear->getModifier()->getReach(), [ReachEnum::INVENTORY])
-            ) {
-                $gears->add($gear);
-            }
-        }
-
-        return $gears;
     }
 
     public function hasItemByName(string $name): bool

@@ -112,7 +112,7 @@ class RepairActionTest extends AbstractActionTest
         $gameItem = new GameItem();
         $item = new ItemConfig();
         $item
-            ->setBreakableRate(10)
+            ->setIsBreakable(true)
         ;
 
         $broken = new Status($gameItem);

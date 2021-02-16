@@ -18,20 +18,43 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
     public const DISMANTLE_3_50 = 'dismantle.3.50';
     public const DISMANTLE_4_12 = 'dismantle.4.12';
     public const DISMANTLE_4_25 = 'dismantle.4.25';
+
+    public const REPAIR_1 = 'repair.1';
     public const REPAIR_3 = 'repair.3';
     public const REPAIR_6 = 'repair.6';
     public const REPAIR_12 = 'repair.12';
     public const REPAIR_25 = 'repair.25';
     public const REPAIR_50 = 'repair.50';
 
+    public const SABOTAGE_1 = 'sabotage.1';
+    public const SABOTAGE_3 = 'sabotage.3';
+    public const SABOTAGE_6 = 'sabotage.6';
+    public const SABOTAGE_12 = 'sabotage.12';
+    public const SABOTAGE_25 = 'sabotage.25';
+    public const SABOTAGE_50 = 'sabotage.50';
+
     public function load(ObjectManager $manager): void
     {
         /** @var ActionCost $oneActionPointCost */
         $oneActionPointCost = $this->getReference(ActionCostFixture::ACTION_COST_ONE_ACTION);
+        /** @var ActionCost $twoActionPointCost */
+        $twoActionPointCost = $this->getReference(ActionCostFixture::ACTION_COST_TWO_ACTION);
         /** @var ActionCost $threeActionPointCost */
         $threeActionPointCost = $this->getReference(ActionCostFixture::ACTION_COST_THREE_ACTION);
         /** @var ActionCost $fourActionPointCost */
         $fourActionPointCost = $this->getReference(ActionCostFixture::ACTION_COST_FOUR_ACTION);
+
+        $repair1 = new Action();
+        $repair1
+            ->setName(ActionEnum::REPAIR)
+            ->setTypes([ModifierScopeEnum::ACTION_TECHNICIAN])
+            ->setScope(ActionScopeEnum::CURRENT)
+            ->setDirtyRate(25)
+            ->setInjuryRate(10)
+            ->setSuccessRate(1)
+            ->setActionCost($oneActionPointCost)
+        ;
+        $manager->persist($repair1);
 
         $repair3 = new Action();
         $repair3
@@ -153,6 +176,78 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($dismantle425);
 
+        $sabotageAction1 = new Action();
+        $sabotageAction1
+            ->setName(ActionEnum::SABOTAGE)
+            ->setScope(ActionScopeEnum::ROOM)
+            ->setDirtyRate(20)
+            ->setInjuryRate(0)
+            ->setSuccessRate(1)
+            ->setActionCost($twoActionPointCost)
+        ;
+
+        $manager->persist($sabotageAction1);
+
+        $sabotageAction3 = new Action();
+        $sabotageAction3
+            ->setName(ActionEnum::SABOTAGE)
+            ->setScope(ActionScopeEnum::ROOM)
+            ->setDirtyRate(20)
+            ->setInjuryRate(0)
+            ->setSuccessRate(3)
+            ->setActionCost($twoActionPointCost)
+        ;
+
+        $manager->persist($sabotageAction3);
+
+        $sabotageAction6 = new Action();
+        $sabotageAction6
+            ->setName(ActionEnum::SABOTAGE)
+            ->setScope(ActionScopeEnum::ROOM)
+            ->setDirtyRate(20)
+            ->setInjuryRate(0)
+            ->setSuccessRate(6)
+            ->setActionCost($twoActionPointCost)
+        ;
+
+        $manager->persist($sabotageAction6);
+
+        $sabotageAction12 = new Action();
+        $sabotageAction12
+            ->setName(ActionEnum::SABOTAGE)
+            ->setScope(ActionScopeEnum::ROOM)
+            ->setDirtyRate(20)
+            ->setInjuryRate(0)
+            ->setSuccessRate(12)
+            ->setActionCost($twoActionPointCost)
+        ;
+
+        $manager->persist($sabotageAction12);
+
+        $sabotageAction25 = new Action();
+        $sabotageAction25
+            ->setName(ActionEnum::SABOTAGE)
+            ->setScope(ActionScopeEnum::ROOM)
+            ->setDirtyRate(20)
+            ->setInjuryRate(0)
+            ->setSuccessRate(25)
+            ->setActionCost($twoActionPointCost)
+        ;
+
+        $manager->persist($sabotageAction25);
+
+        $sabotageAction50 = new Action();
+        $sabotageAction50
+            ->setName(ActionEnum::SABOTAGE)
+            ->setScope(ActionScopeEnum::ROOM)
+            ->setDirtyRate(20)
+            ->setInjuryRate(0)
+            ->setSuccessRate(50)
+            ->setActionCost($twoActionPointCost)
+        ;
+
+        $manager->persist($sabotageAction50);
+
         $manager->flush();
 
         $this->addReference(self::DISMANTLE_3_12, $dismantle312);
@@ -160,11 +255,18 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::DISMANTLE_3_50, $dismantle350);
         $this->addReference(self::DISMANTLE_4_12, $dismantle412);
         $this->addReference(self::DISMANTLE_4_25, $dismantle425);
+        $this->addReference(self::REPAIR_1, $repair1);
         $this->addReference(self::REPAIR_3, $repair3);
         $this->addReference(self::REPAIR_6, $repair6);
         $this->addReference(self::REPAIR_12, $repair12);
         $this->addReference(self::REPAIR_25, $repair25);
         $this->addReference(self::REPAIR_50, $repair50);
+        $this->addReference(self::SABOTAGE_1, $sabotageAction1);
+        $this->addReference(self::SABOTAGE_3, $sabotageAction3);
+        $this->addReference(self::SABOTAGE_6, $sabotageAction6);
+        $this->addReference(self::SABOTAGE_12, $sabotageAction12);
+        $this->addReference(self::SABOTAGE_25, $sabotageAction25);
+        $this->addReference(self::SABOTAGE_50, $sabotageAction50);
     }
 
     public function getDependencies(): array

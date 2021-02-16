@@ -61,7 +61,7 @@ class Sabotage extends AttemptAction
     {
         return $this->player->canReachEquipment($this->gameEquipment) &&
                !$this->gameEquipment->isBroken() &&
-               $this->gameEquipment->getBrokenRate() > 0 &&
+               $this->gameEquipment->isBreakable() &&
                $this->player->isMush()
             ;
     }
@@ -78,10 +78,5 @@ class Sabotage extends AttemptAction
         $this->playerService->persist($this->player);
 
         return $response;
-    }
-
-    protected function getBaseRate(): int
-    {
-        return $this->gameEquipment->getBrokenRate();
     }
 }

@@ -29,7 +29,7 @@ abstract class AttemptAction extends AbstractAction
     {
         $attempt = $this->actionService->getAttempt($this->player, $this->getActionName());
 
-        $successChance = $this->actionService->getSuccessRate($this->action, $this->player, $this->getBaseRate());
+        $successChance = $this->getSuccessRate();
 
         if ($this->randomService->isSuccessful($successChance)) {
             $this->player->removeStatus($attempt);
@@ -44,11 +44,6 @@ abstract class AttemptAction extends AbstractAction
 
     public function getSuccessRate(): int
     {
-        return $this->actionService->getSuccessRate($this->action, $this->player, $this->getBaseRate());
-    }
-
-    protected function getBaseRate(): int
-    {
-        return $this->action->getSuccessRate();
+        return $this->actionService->getSuccessRate($this->action, $this->player);
     }
 }

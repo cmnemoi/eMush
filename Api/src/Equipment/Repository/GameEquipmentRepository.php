@@ -41,17 +41,9 @@ class GameEquipmentRepository extends ServiceEntityRepository
         if ($criteria->isBreakable() !== null) {
             $queryBuilder
                 ->leftJoin(EquipmentConfig::class, 'equipment_config', Join::WITH, 'equipment.equipment = equipment_config')
-            ;
-            if ($criteria->isBreakable()) {
-                $queryBuilder
-                    ->andWhere($queryBuilder->expr()->gt('equipment_config.breakableRate', ':breakableRate'))
+                ->andWhere($queryBuilder->expr()->eq('equipment_config.isBreakable', ':isBreakable'))
+                ->setParameter('isBreakable', $criteria->isBreakable())
                 ;
-            } else {
-                $queryBuilder
-                    ->andWhere($queryBuilder->expr()->eq('equipment_config.breakableRate', ':breakableRate'))
-                ;
-            }
-            $queryBuilder->setParameter('breakableRate', 0);
         }
 
         if (($instanceOfs = $criteria->getInstanceOf()) !== null) {

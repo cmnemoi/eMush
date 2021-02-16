@@ -120,7 +120,7 @@ class RoomEventCest
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'healthPoint' => 10]);
 
         /** @var EquipmentConfig $equipmentConfig */
-        $equipmentConfig = $I->have(EquipmentConfig::class, ['breakableRate' => 12, 'gameConfig' => $gameConfig]);
+        $equipmentConfig = $I->have(EquipmentConfig::class, ['isBreakable' => true, 'gameConfig' => $gameConfig]);
 
         $gameEquipment = new GameEquipment();
         $gameEquipment

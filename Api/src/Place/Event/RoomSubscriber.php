@@ -106,7 +106,7 @@ class RoomSubscriber implements EventSubscriberInterface
             if (!$equipment->isBroken() &&
                 !($equipment instanceof Door) &&
                 !($equipment instanceof GameItem) &&
-                $equipment->getEquipment()->getBreakableRate() > 0) {
+                $equipment->isBreakable()) {
                 $equipmentEvent = new EquipmentEvent($equipment, VisibilityEnum::PUBLIC, $event->getTime());
                 $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_BROKEN);
             }

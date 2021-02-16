@@ -20,8 +20,7 @@ interface ActionServiceInterface
 
     public function getSuccessRate(
         Action $action,
-        Player $player,
-        int $baseRate,
+        Player $player
     ): int;
 
     public function getAttempt(Player $player, string $actionName): Attempt;

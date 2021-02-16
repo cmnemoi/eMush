@@ -193,8 +193,8 @@ class GameEquipment implements StatusHolderInterface
         return $chargeStatus->getCharge() > 0 && !$this->isBroken();
     }
 
-    public function getBrokenRate(): int
+    public function isBreakable(): bool
     {
-        return $this->getEquipment()->getBreakableRate();
+        return $this->getEquipment()->isBreakable();
     }
 }

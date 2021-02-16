@@ -50,11 +50,12 @@ class RepairActionCest
             ->setName(ActionEnum::REPAIR)
             ->setDirtyRate(0)
             ->setInjuryRate(0)
+            ->setSuccessRate(25)
             ->setTypes([ModifierScopeEnum::ACTION_TECHNICIAN])
         ;
 
         /** @var EquipmentConfig $equipmentConfig */
-        $equipmentConfig = $I->have(EquipmentConfig::class, ['breakableRate' => 25]);
+        $equipmentConfig = $I->have(EquipmentConfig::class, ['isBreakable' => true]);
 
         $gameEquipment = new GameItem();
 

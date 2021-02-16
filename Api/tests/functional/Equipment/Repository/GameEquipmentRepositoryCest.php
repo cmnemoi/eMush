@@ -122,10 +122,10 @@ class GameEquipmentRepositoryCest
         $player = $I->have(Player::class, ['daedalus' => $daedalus]);
 
         /** @var EquipmentConfig $breakableConfig */
-        $breakableConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'breakableRate' => 50]);
+        $breakableConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'isBreakable' => true]);
 
         /** @var EquipmentConfig $unbreakableConfig */
-        $unbreakableConfig = $I->have(ItemConfig::class, ['gameConfig' => $gameConfig, 'breakableRate' => 0]);
+        $unbreakableConfig = $I->have(ItemConfig::class, ['gameConfig' => $gameConfig, 'isBreakable' => false]);
 
         $breakableEquipment = new GameEquipment();
         $breakableEquipment

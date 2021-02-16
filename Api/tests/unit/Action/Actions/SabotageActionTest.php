@@ -76,7 +76,7 @@ class SabotageActionTest extends AbstractActionTest
         $room = new Place();
         $gameItem = new GameItem();
         $item = new ItemConfig();
-        $item->setBreakableRate(20);
+        $item->setIsBreakable(true);
         $gameItem
             ->setEquipment($item)
             ->setPlace($room)
@@ -111,12 +111,12 @@ class SabotageActionTest extends AbstractActionTest
         $gameItem
             ->setPlace($room)
         ;
-        $item->setBreakableRate(0);
+        $item->setIsBreakable(false);
         //Not breakable
         $result = $this->action->execute();
         $this->assertInstanceOf(Error::class, $result);
 
-        $item->setBreakableRate(20);
+        $item->setIsBreakable(true);
         $broken = new Status($gameItem);
         $broken
             ->setName(EquipmentStatusEnum::BROKEN)
@@ -132,7 +132,7 @@ class SabotageActionTest extends AbstractActionTest
         $room = new Place();
         $gameItem = new GameItem();
         $item = new ItemConfig();
-        $item->setBreakableRate(10);
+        $item->setIsBreakable(true);
         $gameItem
             ->setEquipment($item)
             ->setPlace($room)

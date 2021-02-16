@@ -211,12 +211,14 @@ class ActionServiceTest extends TestCase
 
         $action = $this->createAction(null, 1, null);
 
+        $action->setSuccessRate(20);
+
         $this->actionModifierService->shouldReceive('getMultiplicativeModifier')
             ->with($player, [ActionEnum::TAKE], ModifierTargetEnum::PERCENTAGE)
             ->andReturn(1)
             ->once()
         ;
-        $this->assertEquals(20, $this->service->getSuccessRate($action, $player, 20));
+        $this->assertEquals(20, $this->service->getSuccessRate($action, $player));
 
         //With Modifier
         $this->actionModifierService->shouldReceive('getMultiplicativeModifier')
@@ -224,7 +226,7 @@ class ActionServiceTest extends TestCase
             ->andReturn(2)
             ->once()
         ;
-        $this->assertEquals(40, $this->service->getSuccessRate($action, $player, 20));
+        $this->assertEquals(40, $this->service->getSuccessRate($action, $player));
 
         //With already an attempt
         $attempt->setCharge(1);
@@ -234,7 +236,7 @@ class ActionServiceTest extends TestCase
             ->andReturn(1)
             ->once()
         ;
-        $this->assertEquals(25, $this->service->getSuccessRate($action, $player, 20));
+        $this->assertEquals(25, $this->service->getSuccessRate($action, $player));
 
         //With already an attempt
         $attempt->setCharge(3);
@@ -244,7 +246,7 @@ class ActionServiceTest extends TestCase
             ->andReturn(1)
             ->once()
         ;
-        $this->assertEquals(39, $this->service->getSuccessRate($action, $player, 20));
+        $this->assertEquals(39, $this->service->getSuccessRate($action, $player));
 
         //Attempt + modifier
         $attempt->setCharge(3);
@@ -254,7 +256,7 @@ class ActionServiceTest extends TestCase
             ->andReturn(2)
             ->once()
         ;
-        $this->assertEquals(78, $this->service->getSuccessRate($action, $player, 20));
+        $this->assertEquals(78, $this->service->getSuccessRate($action, $player));
 
         //More than 99%
         $attempt->setCharge(3);
@@ -264,7 +266,7 @@ class ActionServiceTest extends TestCase
             ->andReturn(3)
             ->once()
         ;
-        $this->assertEquals(99, $this->service->getSuccessRate($action, $player, 20));
+        $this->assertEquals(99, $this->service->getSuccessRate($action, $player));
     }
 
     private function createPlayer(int $actionPoint, int $movementPoint, int $moralPoint): Player

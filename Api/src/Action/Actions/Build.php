@@ -7,6 +7,7 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
@@ -60,7 +61,7 @@ class Build extends AbstractAction
         $this->gameEquipment = $equipment;
     }
 
-    public function canExecute(): bool
+    public function isVisible(): bool
     {
         /** @var Blueprint $blueprintMechanic */
         $blueprintMechanic = $this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT);
@@ -71,14 +72,23 @@ class Build extends AbstractAction
         ) {
             return false;
         }
+
+        return parent::isVisible();
+    }
+
+    public function isImpossible(): ?string
+    {
+        /** @var Blueprint $blueprintMechanic */
+        $blueprintMechanic = $this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT);
+
         //Check the availlability of the ingredients
         foreach ($blueprintMechanic->getIngredients() as $name => $number) {
             if ($this->gearToolService->getEquipmentsOnReachByName($this->player, $name)->count() < $number) {
-                return false;
+                return ActionImpossibleCauseEnum::BUILD_LACK_RESSOURCES;
             }
         }
 
-        return true;
+        return parent::isImpossible();
     }
 
     protected function applyEffects(): ActionResult

@@ -61,12 +61,16 @@ class Transplant extends AbstractAction
         $this->gameEquipment = $equipment;
     }
 
-    public function canExecute(): bool
+    public function isVisible(): bool
     {
-        return $this->gearToolService->getEquipmentsOnReachByName($this->player, ItemEnum::HYDROPOT)->count() > 0 &&
-                    $this->player->canReachEquipment($this->gameEquipment) &&
-                    $this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::FRUIT)
-                    ;
+        if ($this->gearToolService->getEquipmentsOnReachByName($this->player, ItemEnum::HYDROPOT)->isEmpty() ||
+            !$this->player->canReachEquipment($this->gameEquipment) ||
+            !$this->gameEquipment->getEquipment()->hasAction($this->name)
+        ) {
+            return false;
+        }
+
+        return parent::isVisible();
     }
 
     protected function applyEffects(): ActionResult

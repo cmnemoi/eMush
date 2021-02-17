@@ -7,6 +7,7 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
@@ -57,17 +58,25 @@ class Take extends AbstractAction
         $this->gameItem = $item;
     }
 
-    public function canExecute(): bool
+    public function isVisible(): bool
     {
-        /** @var ItemConfig $item */
-        $item = $this->gameItem->getEquipment();
+        if (!$this->player->canReachEquipment($this->gameItem) ||
+            !$this->gameItem->getEquipment()->hasAction($this->name)
+        ) {
+            return false;
+        }
 
+        return parent::isVisible();
+    }
+
+    public function isImpossible(): ?string
+    {
         $gameConfig = $this->player->getDaedalus()->getGameConfig();
+        if ($this->player->getItems()->count() < $gameConfig->getMaxItemInInventory()) {
+            return ActionImpossibleCauseEnum::FULL_INVENTORY;
+        }
 
-        return $this->player->getPlace()->getEquipments()->contains($this->gameItem) &&
-            $this->player->getItems()->count() < $gameConfig->getMaxItemInInventory() &&
-            $item->hasAction(ActionEnum::TAKE)
-            ;
+        return parent::isImpossible();
     }
 
     protected function applyEffects(): ActionResult

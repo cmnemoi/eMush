@@ -54,15 +54,19 @@ class Shred extends AbstractAction
         $this->gameEquipment = $equipment;
     }
 
-    public function canExecute(): bool
+    public function isVisible(): bool
     {
         /** @var ?Document $document */
         $document = $this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::DOCUMENT);
 
-        return null !== $document &&
-            $document->canShred() &&
-            $this->player->canReachEquipment($this->gameEquipment)
-            ;
+        if ($document === null ||
+            !$document->canShred() ||
+            !$this->player->canReachEquipment($this->gameEquipment)
+        ) {
+            return false;
+        }
+
+        return parent::isVisible();
     }
 
     protected function applyEffects(): ActionResult

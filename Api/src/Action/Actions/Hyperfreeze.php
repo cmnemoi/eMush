@@ -77,6 +77,23 @@ class Hyperfreeze extends AbstractAction
             ;
     }
 
+    public function isVisible(): bool
+    {
+        /** @var Ration $rationMechanic */
+        $rationMechanic = $this->gameEquipment->getEquipment()->getRationsMechanic();
+
+        if (!$rationMechanic ||
+            !$rationMechanic->isPerishable() ||
+            !$this->player->canReachEquipment($this->gameEquipment) ||
+            $this->gearToolService->getUsedTool($this->player, $this->action->getName()) === null ||
+            $this->gameEquipment->getStatusByName(EquipmentStatusEnum::FROZEN)
+        ) {
+            return false;
+        }
+
+        return parent::isVisible();
+    }
+
     protected function applyEffects(): ActionResult
     {
         if ($this->gameEquipment->getEquipment()->getName() === GameRationEnum::COOKED_RATION ||

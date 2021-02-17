@@ -61,25 +61,30 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
 
         $actionClass->loadParameters($object, $currentPlayer, $actionParameter);
 
-        if ($this->actionService->canPlayerDoAction($currentPlayer, $object) && $actionClass->canExecute()) {
+        if ($actionClass->isVisible()) {
             $actionName = $object->getName();
 
-            if ($actionClass instanceof AttemptAction) {
-                $successRate = $actionClass->getSuccessRate();
-            } else {
-                $successRate = null;
-            }
-
-            return [
+            $normalizedAction = [
                 'id' => $object->getId(),
-                'key' => $actionName,
                 'name' => $this->translator->trans("{$actionName}.name", [], 'actions'),
-                'description' => $this->translator->trans("{$actionName}.description", [], 'actions'),
                 'actionPointCost' => $this->actionService->getTotalActionPointCost($currentPlayer, $object),
                 'movementPointCost' => $this->actionService->getTotalMovementPointCost($currentPlayer, $object),
                 'moralPointCost' => $this->actionService->getTotalMoralPointCost($currentPlayer, $object),
-                'successRate' => $successRate,
-            ];
+                ];
+
+            if ($actionClass instanceof AttemptAction) {
+                $normalizedAction['successRate'] = $actionClass->getSuccessRate();
+            }
+
+            if ($reason = $actionClass->isImpossible()) {
+                $normalizedAction['description'] = $this->translator->trans("{$reason}.description", [], 'actionsFail');
+                $normalizedAction['isPossible'] = false;
+            } else {
+                $normalizedAction['description'] = $this->translator->trans("{$actionName}.description", [], 'actions');
+                $normalizedAction['isPossible'] = true;
+            }
+
+            return $normalizedAction;
         }
 
         return [];

@@ -7,6 +7,7 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Event\EquipmentEvent;
@@ -15,6 +16,7 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Sabotage extends AttemptAction
@@ -57,13 +59,27 @@ class Sabotage extends AttemptAction
         $this->gameEquipment = $equipment;
     }
 
-    public function canExecute(): bool
+    public function isVisible(): bool
     {
-        return $this->player->canReachEquipment($this->gameEquipment) &&
-               !$this->gameEquipment->isBroken() &&
-               $this->gameEquipment->isBreakable() &&
-               $this->player->isMush()
-            ;
+        if (!$this->player->canReachEquipment($this->gameEquipment) ||
+            $this->gameEquipment->isBroken() ||
+            !$this->gameEquipment->isBreakable() ||
+            !$this->player->isMush()
+        ) {
+            return false;
+        }
+
+        return parent::isVisible();
+    }
+
+    public function isImpossible(): ?string
+    {
+        //@FIXME depending on reinforced implementation
+        if ($this->gameEquipment->hasStatus(EquipmentStatusEnum::REINFORCED)) {
+            return ActionImpossibleCauseEnum::DISMANTLE_REINFORCED;
+        }
+
+        return parent::isImpossible();
     }
 
     protected function applyEffects(): ActionResult

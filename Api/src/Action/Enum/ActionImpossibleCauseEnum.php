@@ -5,8 +5,8 @@ namespace Mush\Action\Enum;
 class ActionImpossibleCauseEnum
 {
     public const INSUFFICIENT_ACTION_POINT = 'insufficient_action_point';
-    public const IN_EXPLORATION = 'in_exploration';
-    public const DAILY_ACTION = 'daily_action';
+    public const NOT_A_ROOM = 'not_a_room';
+    public const DAILY_LIMIT = 'daily_limit';
     public const CEASEFIRE = 'ceasefire';
     public const UNIQUE_ACTION = 'unique_action';
     public const IN_SPACE_CAPSULE = 'in_space_capsule';

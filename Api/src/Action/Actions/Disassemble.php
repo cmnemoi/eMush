@@ -7,6 +7,7 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Event\EquipmentEvent;
@@ -16,6 +17,7 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\Target;
 use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Disassemble extends AttemptAction
@@ -56,15 +58,28 @@ class Disassemble extends AttemptAction
         $this->gameEquipment = $equipment;
     }
 
-    public function canExecute(): bool
+    public function isVisible(): bool
     {
-        //Check that the item is reachable
-        return $this->gameEquipment->getActions()->contains($this->action) &&
-            $this->player->canReachEquipment($this->gameEquipment)
+        if (!$this->gameEquipment->getActions()->contains($this->action) ||
+            !$this->player->canReachEquipment($this->gameEquipment)
             //@TODO uncomment when skill are ready
-            //&&
-            //in_array(SkillEnum::TECHNICIAN, $this->player->getSkills())
-        ;
+            //||
+            //!in_array(SkillEnum::TECHNICIAN, $this->player->getSkills())
+        ) {
+            return false;
+        }
+
+        return parent::isVisible();
+    }
+
+    public function isImpossible(): ?string
+    {
+        //@FIXME depending on reinforced implementation
+        if ($this->gameEquipment->hasStatus(EquipmentStatusEnum::REINFORCED)) {
+            return ActionImpossibleCauseEnum::DISMANTLE_REINFORCED;
+        }
+
+        return parent::isImpossible();
     }
 
     protected function applyEffects(): ActionResult

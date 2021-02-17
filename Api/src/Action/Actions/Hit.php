@@ -7,8 +7,10 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Equipment\Enum\GearItemEnum;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\SkillMushEnum;
 use Mush\Game\Service\RandomServiceInterface;
@@ -55,10 +57,24 @@ class Hit extends AttemptAction
         $this->target = $target;
     }
 
-    public function canExecute(): bool
+    public function isVisible(): bool
     {
-        return $this->player->getPlace() === $this->target->getPlace() &&
-            $this->player !== $this->target;
+        if ($this->player->getPlace() !== $this->target->getPlace() ||
+            $this->player === $this->target
+        ) {
+            return false;
+        }
+
+        return parent::isVisible();
+    }
+
+    public function isImpossible(): ?string
+    {
+        if ($this->player->getDaedalus()->getGameStatus() === GameStatusEnum::STARTING) {
+            return ActionImpossibleCauseEnum::PRE_MUSH_AGGRESSIVE;
+        }
+
+        return parent::isImpossible();
     }
 
     protected function applyEffects(): ActionResult

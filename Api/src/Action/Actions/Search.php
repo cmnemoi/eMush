@@ -6,9 +6,11 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\Target;
@@ -37,10 +39,13 @@ class Search extends AbstractAction
         $this->statusService = $statusService;
     }
 
-    public function canExecute(): bool
+    public function isImpossible(): ?string
     {
-        //@TODO add condition on the room
-        return true;
+        if ($this->player->getPlace()->getType() !== PlaceTypeEnum::ROOM) {
+            return ActionImpossibleCauseEnum::NOT_A_ROOM;
+        }
+
+        return parent::isImpossible();
     }
 
     protected function applyEffects(): ActionResult

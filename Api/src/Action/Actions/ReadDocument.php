@@ -41,11 +41,15 @@ class ReadDocument extends AbstractAction
         $this->player = $player;
     }
 
-    public function canExecute(): bool
+    public function isVisible(): bool
     {
-        return null !== $this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::DOCUMENT) &&
-            $this->player->canReachEquipment($this->gameEquipment)
-            ;
+        if ($this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::DOCUMENT) === null ||
+            !$this->player->canReachEquipment($this->gameEquipment)
+        ) {
+            return false;
+        }
+
+        return parent::isVisible();
     }
 
     protected function applyEffects(): ActionResult

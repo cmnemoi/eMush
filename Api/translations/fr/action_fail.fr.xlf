@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
+    <file id="actions_fail.ext">
+        <unit id="build_lack_ressources">
+            <segment id="description">
+                <source>build_lack_ressources.description</source>
+                <target>Il vous manque des objets pour réaliser ce plan.</target>
+            </segment>
+        </unit>
+        <unit id="insufficient_action_point">
+            <segment id="description">
+                <source>insufficient_action_point.description</source>
+                <target>Vous n'avez pas assez de :pa: (Point d'Action) pour réaliser cette action.
+                        *Mangez* ou *attendez quelques cycles*.</target>
+            </segment>
+        </unit>
+    </file>
+</xliff>

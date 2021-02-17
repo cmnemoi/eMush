@@ -7,10 +7,12 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\Target;
@@ -56,14 +58,27 @@ class Drop extends AbstractAction
         $this->gameItem = $item;
     }
 
-    public function canExecute(): bool
+    public function isVisible(): bool
     {
-        $gameEquipment = $this->gameItem->getEquipment();
+        /** @var ItemConfig $itemConfig */
+        $itemConfig = $this->gameItem->getEquipment();
+        if (!$this->player->getItems()->contains($this->gameItem) ||
+            !($itemConfig instanceof ItemConfig) ||
+            !$itemConfig->hasAction(ActionEnum::DROP)
+        ) {
+            return false;
+        }
 
-        return $this->player->getItems()->contains($this->gameItem) &&
-            $gameEquipment instanceof ItemConfig &&
-            $gameEquipment->hasAction(ActionEnum::DROP)
-            ;
+        return parent::isVisible();
+    }
+
+    public function isImpossible(): ?string
+    {
+        if ($this->player->getPlace()->getType() !== PlaceTypeEnum::ROOM) {
+            return ActionImpossibleCauseEnum::NO_SHELVING_UNIT;
+        }
+
+        return parent::isImpossible();
     }
 
     protected function applyEffects(): ActionResult

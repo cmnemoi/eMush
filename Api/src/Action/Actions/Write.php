@@ -54,10 +54,13 @@ class Write extends AbstractAction
         $this->message = $actionParameters->getMessage();
     }
 
-    public function canExecute(): bool
+    public function isVisible(): bool
     {
-        //Check that the block of post-it is reachable
-        return $this->gearToolService->getUsedTool($this->player, $this->action->getName()) !== null;
+        if ($this->gearToolService->getUsedTool($this->player, $this->action->getName()) === null) {
+            return false;
+        }
+
+        return parent::isVisible();
     }
 
     protected function applyEffects(): ActionResult

@@ -51,10 +51,15 @@ class Move extends AbstractAction
         $this->door = $door;
     }
 
-    public function canExecute(): bool
+    public function isVisible(): bool
     {
-        return !$this->door->isBroken()
-            && $this->player->getPlace()->getDoors()->contains($this->door);
+        if ($this->door->isBroken() ||
+            !$this->player->getPlace()->getDoors()->contains($this->door)
+        ) {
+            return false;
+        }
+
+        return parent::isVisible();
     }
 
     protected function applyEffects(): ActionResult

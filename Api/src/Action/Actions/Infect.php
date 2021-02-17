@@ -2,11 +2,13 @@
 
 namespace Mush\Action\Actions;
 
+use Error;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;
@@ -52,20 +54,44 @@ class Infect extends AbstractAction
         $this->targetPlayer = $targetPlayer;
     }
 
-    public function canExecute(): bool
+    public function isVisible(): bool
     {
-        /** @var ChargeStatus $sporeStatus */
+        if (!$this->player->isMush() ||
+            $this->player->getPlace() !== $this->targetPlayer->getPlace()
+        ) {
+            return false;
+        }
+
+        return parent::isVisible();
+    }
+
+    public function isImpossible(): ?string
+    {
+        /** @var ?ChargeStatus $sporeStatus */
         $sporeStatus = $this->player->getStatusByName(PlayerStatusEnum::SPORES);
         /** @var ChargeStatus $mushStatus */
         $mushStatus = $this->player->getStatusByName(PlayerStatusEnum::MUSH);
 
-        return $this->player->isMush() &&
-            $sporeStatus &&
-            $sporeStatus->getCharge() > 0 &&
-            $mushStatus->getCharge() > 0 &&
-            !$this->targetPlayer->isMush() &&
-            !$this->targetPlayer->getStatusByName(PlayerStatusEnum::IMMUNIZED) &&
-            $this->player->getPlace() === $this->targetPlayer->getPlace();
+        if ($sporeStatus === null || !($sporeStatus instanceof ChargeStatus) ||
+            $mushStatus === null || !($mushStatus instanceof ChargeStatus)
+        ) {
+            throw new Error('invalid spore and mush status');
+        }
+
+        if ($sporeStatus->getCharge() <= 0) {
+            return ActionImpossibleCauseEnum::INFECT_NO_SPORE;
+        }
+        if ($mushStatus->getCharge() <= 0) {
+            return ActionImpossibleCauseEnum::INFECT_DAILY_LIMIT;
+        }
+        if ($this->targetPlayer->isMush()) {
+            return ActionImpossibleCauseEnum::INFECT_MUSH;
+        }
+        if ($this->targetPlayer->getStatusByName(PlayerStatusEnum::IMMUNIZED)) {
+            return ActionImpossibleCauseEnum::INFECT_IMMUNE;
+        }
+
+        return parent::isImpossible();
     }
 
     protected function applyEffects(): ActionResult

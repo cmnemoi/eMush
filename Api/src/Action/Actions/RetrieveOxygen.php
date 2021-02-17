@@ -7,6 +7,7 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
@@ -52,17 +53,30 @@ class RetrieveOxygen extends AbstractAction
         $this->gameEquipment = $equipment;
     }
 
-    public function canExecute(): bool
+    public function isVisible(): bool
     {
-        $gameConfig = $this->player->getDaedalus()->getGameConfig();
+        if (!$this->player->canReachEquipment($this->gameEquipment) ||
+            !$this->gameEquipment->getEquipment()->hasAction($this->name) ||
+            $this->player->getDaedalus()->getOxygen() <= 0
+        ) {
+            return false;
+        }
 
-        return $this->player->canReachEquipment($this->gameEquipment) &&
-            $this->gameEquipment->getEquipment()->hasAction(ActionEnum::RETRIEVE_OXYGEN) &&
-            !$this->gameEquipment->isBroken() &&
-            $this->player->canReachEquipment($this->gameEquipment) &&
-            $this->player->getItems()->count() < $gameConfig->getMaxItemInInventory() &&
-            $this->player->getDaedalus()->getOxygen() > 0
-            ;
+        return parent::isVisible();
+    }
+
+    public function isImpossible(): ?string
+    {
+        if ($this->gameEquipment->isBroken()) {
+            return ActionImpossibleCauseEnum::BROKEN_EQUIPMENT;
+        }
+
+        $gameConfig = $this->player->getDaedalus()->getGameConfig();
+        if ($this->player->getItems()->count() < $gameConfig->getMaxItemInInventory()) {
+            return ActionImpossibleCauseEnum::FULL_INVENTORY;
+        }
+
+        return parent::isImpossible();
     }
 
     protected function applyEffects(): ActionResult

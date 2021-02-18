@@ -7,6 +7,7 @@ use Mockery;
 use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\TreatPlant;
+use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
@@ -103,7 +104,11 @@ class TreatPlantActionTest extends AbstractActionTest
               ->setPlace($room)
         ;
 
+        $action = new Action();
+        $action->setName(ActionEnum::TREAT_PLANT);
+
         $plant = new Plant();
+        $plant->addAction($action);
         $item->setMechanics(new ArrayCollection([$plant]));
 
         $diseased = new Status($gameItem);

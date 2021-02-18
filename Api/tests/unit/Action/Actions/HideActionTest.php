@@ -2,10 +2,12 @@
 
 namespace Mush\Test\Action\Actions;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Hide;
+use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
@@ -91,7 +93,12 @@ class HideActionTest extends AbstractActionTest
 
         $gameItem = new GameItem();
         $item = new ItemConfig();
-        $item->setIsHideable(true);
+        $action = new Action();
+        $action->setName(ActionEnum::HIDE);
+        $item
+            ->setIsHideable(true)
+            ->setActions(new ArrayCollection([$action]))
+        ;
         $gameItem
             ->setName('itemName')
             ->setEquipment($item)

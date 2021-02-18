@@ -7,12 +7,14 @@ use Mockery;
 use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Transplant;
+use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Fruit;
+use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Equipment\Service\GearToolServiceInterface;
@@ -69,7 +71,11 @@ class PlantActionTest extends AbstractActionTest
                     ->setPlace($room)
                     ->setName('toto');
 
+        $action = new Action();
+        $action->setName(ActionEnum::TRANSPLANT);
+
         $fruit = new Fruit();
+        $fruit->addAction($action);
         $fruit->setPlantName('banana_tree');
 
         $plant = new ItemConfig();
@@ -115,7 +121,11 @@ class PlantActionTest extends AbstractActionTest
                     ->setPlace($room)
                     ->setName('toto');
 
+        $action = new Action();
+        $action->setName(ActionEnum::TRANSPLANT);
+
         $fruit = new Fruit();
+        $fruit->addAction($action);
         $fruit->setPlantName('banana_tree');
 
         $item->setMechanics(new ArrayCollection([$fruit]));

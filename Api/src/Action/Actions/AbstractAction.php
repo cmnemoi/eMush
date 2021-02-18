@@ -54,7 +54,7 @@ abstract class AbstractAction
 
     public function execute(): ActionResult
     {
-        if ($this->isVisible() &&
+        if (!$this->isVisible() ||
             $this->isImpossible() !== null
         ) {
             return new Error('Cannot execute action');

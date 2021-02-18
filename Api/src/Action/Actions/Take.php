@@ -72,7 +72,7 @@ class Take extends AbstractAction
     public function isImpossible(): ?string
     {
         $gameConfig = $this->player->getDaedalus()->getGameConfig();
-        if ($this->player->getItems()->count() < $gameConfig->getMaxItemInInventory()) {
+        if ($this->player->getItems()->count() >= $gameConfig->getMaxItemInInventory()) {
             return ActionImpossibleCauseEnum::FULL_INVENTORY;
         }
 

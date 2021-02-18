@@ -7,6 +7,7 @@ use Mockery;
 use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\WaterPlant;
+use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
@@ -105,7 +106,11 @@ class WaterPlantActionTest extends AbstractActionTest
               ->setPlace($room)
         ;
 
+        $action = new Action();
+        $action->setName(ActionEnum::WATER_PLANT);
+
         $plant = new Plant();
+        $plant->addAction($action);
         $item->setMechanics(new ArrayCollection([$plant]));
 
         $thirsty = new Status($gameItem);

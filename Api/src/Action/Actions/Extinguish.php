@@ -58,7 +58,7 @@ class Extinguish extends AttemptAction
 
     public function isVisible(): bool
     {
-        if (!$this->gameEquipment->getActions()->contains($this->action) ||
+        if (!$this->gameEquipment->getEquipment()->hasAction($this->name) ||
             !$this->player->canReachEquipment($this->gameEquipment) ||
             !$this->player->getPlace()->hasStatus(StatusEnum::FIRE)
         ) {

@@ -98,7 +98,8 @@ class ShowerActionCest
 
         $this->showerAction->loadParameters($action, $player, $actionParameters);
 
-        $I->assertTrue($this->showerAction->canExecute());
+        $I->assertTrue($this->showerAction->isVisible());
+        $I->assertNull($this->showerAction->isImpossible());
 
         $this->showerAction->execute();
 

@@ -41,7 +41,7 @@ class ExtractSpore extends AbstractAction
         return parent::isVisible();
     }
 
-    public function isImpossible(): ?string
+    public function cannotExecuteReason(): ?string
     {
         /** @var ?ChargeStatus $sporeStatus */
         $sporeStatus = $this->player->getStatusByName(PlayerStatusEnum::SPORES);
@@ -57,7 +57,7 @@ class ExtractSpore extends AbstractAction
             return ActionImpossibleCauseEnum::DAILY_SPORE_LIMIT;
         }
 
-        return parent::isImpossible();
+        return parent::cannotExecuteReason();
     }
 
     protected function applyEffects(): ActionResult

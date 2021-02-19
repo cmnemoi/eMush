@@ -60,7 +60,7 @@ class LieDown extends AbstractAction
         return parent::isVisible();
     }
 
-    public function isImpossible(): ?string
+    public function cannotExecuteReason(): ?string
     {
         if ($this->player->getStatusByName(PlayerStatusEnum::LYING_DOWN)) {
             return ActionImpossibleCauseEnum::ALREADY_IN_BED;
@@ -72,7 +72,7 @@ class LieDown extends AbstractAction
             return ActionImpossibleCauseEnum::BROKEN_EQUIPMENT;
         }
 
-        return parent::isImpossible();
+        return parent::cannotExecuteReason();
     }
 
     protected function applyEffects(): ActionResult

@@ -66,17 +66,14 @@ class Build extends AbstractAction
         /** @var Blueprint $blueprintMechanic */
         $blueprintMechanic = $this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT);
         //Check that the equipment is a blueprint and is reachable
-        if (
-            $blueprintMechanic === null ||
-            !$this->player->canReachEquipment($this->gameEquipment)
-        ) {
-            return false;
-        }
 
-        return parent::isVisible();
+        return parent::isVisible() &&
+            $blueprintMechanic !== null &&
+            $this->player->canReachEquipment($this->gameEquipment)
+        ;
     }
 
-    public function isImpossible(): ?string
+    public function cannotExecuteReason(): ?string
     {
         /** @var Blueprint $blueprintMechanic */
         $blueprintMechanic = $this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT);
@@ -88,7 +85,7 @@ class Build extends AbstractAction
             }
         }
 
-        return parent::isImpossible();
+        return parent::cannotExecuteReason();
     }
 
     protected function applyEffects(): ActionResult

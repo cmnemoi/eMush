@@ -61,7 +61,7 @@ class Coffee extends AbstractAction
         return parent::isVisible();
     }
 
-    public function isImpossible(): ?string
+    public function cannotExecuteReason(): ?string
     {
         if ($this->gameEquipment->isBroken()) {
             return ActionImpossibleCauseEnum::BROKEN_EQUIPMENT;
@@ -71,7 +71,7 @@ class Coffee extends AbstractAction
             return ActionImpossibleCauseEnum::DAILY_LIMIT;
         }
 
-        return parent::isImpossible();
+        return parent::cannotExecuteReason();
     }
 
     protected function applyEffects(): ActionResult

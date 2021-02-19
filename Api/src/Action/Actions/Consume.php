@@ -77,7 +77,7 @@ class Consume extends AbstractAction
         return parent::isVisible();
     }
 
-    public function isImpossible(): ?string
+    public function cannotExecuteReason(): ?string
     {
         if ($this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::DRUG) &&
             $this->player->getStatusByName(PlayerStatusEnum::DRUG_EATEN)
@@ -89,7 +89,7 @@ class Consume extends AbstractAction
             return ActionImpossibleCauseEnum::CONSUME_FULL_BELLY;
         }
 
-        return parent::isImpossible();
+        return parent::cannotExecuteReason();
     }
 
     protected function applyEffects(): ActionResult

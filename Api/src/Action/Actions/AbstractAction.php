@@ -41,7 +41,7 @@ abstract class AbstractAction
         return $this->player->isAlive();
     }
 
-    public function isImpossible(): ?string
+    public function cannotExecuteReason(): ?string
     {
         if (!$this->actionService->canPlayerDoAction($this->player, $this->action)) {
             return ActionImpossibleCauseEnum::INSUFFICIENT_ACTION_POINT;
@@ -55,7 +55,7 @@ abstract class AbstractAction
     public function execute(): ActionResult
     {
         if (!$this->isVisible() ||
-            $this->isImpossible() !== null
+            $this->cannotExecuteReason() !== null
         ) {
             return new Error('Cannot execute action');
         }

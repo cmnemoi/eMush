@@ -72,13 +72,13 @@ class Drop extends AbstractAction
         return parent::isVisible();
     }
 
-    public function isImpossible(): ?string
+    public function cannotExecuteReason(): ?string
     {
         if ($this->player->getPlace()->getType() !== PlaceTypeEnum::ROOM) {
             return ActionImpossibleCauseEnum::NO_SHELVING_UNIT;
         }
 
-        return parent::isImpossible();
+        return parent::cannotExecuteReason();
     }
 
     protected function applyEffects(): ActionResult

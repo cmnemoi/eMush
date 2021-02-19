@@ -67,8 +67,7 @@ class Hide extends AbstractAction
 
         if ($this->gameItem->getStatusByName(EquipmentStatusEnum::HIDDEN) !== null ||
             !$itemConfig->isHideable() ||
-            !$this->player->canReachEquipment($this->gameItem) ||
-            !$itemConfig->hasAction(ActionEnum::DROP)
+            !$this->player->canReachEquipment($this->gameItem)
         ) {
             return false;
         }
@@ -76,7 +75,7 @@ class Hide extends AbstractAction
         return parent::isVisible();
     }
 
-    public function isImpossible(): ?string
+    public function cannotExecuteReason(): ?string
     {
         if ($this->player->getPlace()->getType() !== PlaceTypeEnum::ROOM) {
             return ActionImpossibleCauseEnum::NO_SHELVING_UNIT;
@@ -86,7 +85,7 @@ class Hide extends AbstractAction
             return ActionImpossibleCauseEnum::PRE_MUSH_RESTRICTED;
         }
 
-        return parent::isImpossible();
+        return parent::cannotExecuteReason();
     }
 
     protected function applyEffects(): ActionResult

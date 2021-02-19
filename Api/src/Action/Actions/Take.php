@@ -60,23 +60,21 @@ class Take extends AbstractAction
 
     public function isVisible(): bool
     {
-        if (!$this->player->canReachEquipment($this->gameItem) ||
-            !$this->gameItem->getEquipment()->hasAction($this->name)
-        ) {
-            return false;
-        }
-
-        return parent::isVisible();
+        return $this->player->canReachEquipment($this->gameItem) &&
+            !$this->player->getItems()->contains($this->gameItem) &&
+            $this->gameItem->getEquipment()->hasAction($this->name) &&
+            parent::isVisible()
+        ;
     }
 
-    public function isImpossible(): ?string
+    public function cannotExecuteReason(): ?string
     {
         $gameConfig = $this->player->getDaedalus()->getGameConfig();
         if ($this->player->getItems()->count() >= $gameConfig->getMaxItemInInventory()) {
             return ActionImpossibleCauseEnum::FULL_INVENTORY;
         }
 
-        return parent::isImpossible();
+        return parent::cannotExecuteReason();
     }
 
     protected function applyEffects(): ActionResult

@@ -74,14 +74,16 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
 
             if ($actionClass instanceof AttemptAction) {
                 $normalizedAction['successRate'] = $actionClass->getSuccessRate();
+            } else {
+                $normalizedAction['successRate'] = 100;
             }
 
-            if ($reason = $actionClass->isImpossible()) {
+            if ($reason = $actionClass->cannotExecuteReason()) {
                 $normalizedAction['description'] = $this->translator->trans("{$reason}.description", [], 'actionsFail');
-                $normalizedAction['isPossible'] = false;
+                $normalizedAction['canExecute'] = false;
             } else {
                 $normalizedAction['description'] = $this->translator->trans("{$actionName}.description", [], 'actions');
-                $normalizedAction['isPossible'] = true;
+                $normalizedAction['canExecute'] = true;
             }
 
             return $normalizedAction;

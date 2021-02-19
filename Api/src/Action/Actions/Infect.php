@@ -65,7 +65,7 @@ class Infect extends AbstractAction
         return parent::isVisible();
     }
 
-    public function isImpossible(): ?string
+    public function cannotExecuteReason(): ?string
     {
         /** @var ?ChargeStatus $sporeStatus */
         $sporeStatus = $this->player->getStatusByName(PlayerStatusEnum::SPORES);
@@ -91,7 +91,7 @@ class Infect extends AbstractAction
             return ActionImpossibleCauseEnum::INFECT_IMMUNE;
         }
 
-        return parent::isImpossible();
+        return parent::cannotExecuteReason();
     }
 
     protected function applyEffects(): ActionResult

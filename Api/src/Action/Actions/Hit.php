@@ -68,13 +68,13 @@ class Hit extends AttemptAction
         return parent::isVisible();
     }
 
-    public function isImpossible(): ?string
+    public function cannotExecuteReason(): ?string
     {
         if ($this->player->getDaedalus()->getGameStatus() === GameStatusEnum::STARTING) {
             return ActionImpossibleCauseEnum::PRE_MUSH_AGGRESSIVE;
         }
 
-        return parent::isImpossible();
+        return parent::cannotExecuteReason();
     }
 
     protected function applyEffects(): ActionResult

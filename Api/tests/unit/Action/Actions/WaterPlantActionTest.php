@@ -71,7 +71,10 @@ class WaterPlantActionTest extends AbstractActionTest
             ->setPlace($room)
         ;
 
+        $action = new Action();
+        $action->setName(ActionEnum::WATER_PLANT);
         $plant = new Plant();
+        $plant->addAction($action);
 
         $thirsty = new Status($gameItem);
         $thirsty

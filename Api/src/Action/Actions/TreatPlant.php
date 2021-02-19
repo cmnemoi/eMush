@@ -68,13 +68,13 @@ class TreatPlant extends AbstractAction
         return parent::isVisible();
     }
 
-    public function isImpossible(): ?string
+    public function cannotExecuteReason(): ?string
     {
         if ($this->gameEquipment->getStatusByName(EquipmentStatusEnum::PLANT_DISEASED) === null) {
             return ActionImpossibleCauseEnum::TREAT_PLANT_NO_DISEASE;
         }
 
-        return parent::isImpossible();
+        return parent::cannotExecuteReason();
     }
 
     protected function applyEffects(): ActionResult

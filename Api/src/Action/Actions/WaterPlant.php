@@ -67,7 +67,7 @@ class WaterPlant extends AbstractAction
         return parent::isVisible();
     }
 
-    public function isImpossible(): ?string
+    public function cannotExecuteReason(): ?string
     {
         if ($this->gameEquipment->getStatusByName(EquipmentStatusEnum::PLANT_THIRSTY) === null &&
             $this->gameEquipment->getStatusByName(EquipmentStatusEnum::PLANT_DRIED_OUT) === null
@@ -75,7 +75,7 @@ class WaterPlant extends AbstractAction
             return ActionImpossibleCauseEnum::TREAT_PLANT_NO_DISEASE;
         }
 
-        return parent::isImpossible();
+        return parent::cannotExecuteReason();
     }
 
     protected function applyEffects(): ActionResult

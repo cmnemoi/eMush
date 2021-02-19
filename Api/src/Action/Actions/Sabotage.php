@@ -72,14 +72,14 @@ class Sabotage extends AttemptAction
         return parent::isVisible();
     }
 
-    public function isImpossible(): ?string
+    public function cannotExecuteReason(): ?string
     {
         //@FIXME depending on reinforced implementation
         if ($this->gameEquipment->hasStatus(EquipmentStatusEnum::REINFORCED)) {
             return ActionImpossibleCauseEnum::DISMANTLE_REINFORCED;
         }
 
-        return parent::isImpossible();
+        return parent::cannotExecuteReason();
     }
 
     protected function applyEffects(): ActionResult

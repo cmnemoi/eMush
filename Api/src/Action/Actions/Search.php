@@ -39,13 +39,13 @@ class Search extends AbstractAction
         $this->statusService = $statusService;
     }
 
-    public function isImpossible(): ?string
+    public function cannotExecuteReason(): ?string
     {
         if ($this->player->getPlace()->getType() !== PlaceTypeEnum::ROOM) {
             return ActionImpossibleCauseEnum::NOT_A_ROOM;
         }
 
-        return parent::isImpossible();
+        return parent::cannotExecuteReason();
     }
 
     protected function applyEffects(): ActionResult

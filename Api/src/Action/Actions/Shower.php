@@ -62,13 +62,13 @@ class Shower extends AbstractAction
         return parent::isVisible();
     }
 
-    public function isImpossible(): ?string
+    public function cannotExecuteReason(): ?string
     {
         if ($this->gameEquipment->isBroken()) {
             return ActionImpossibleCauseEnum::BROKEN_EQUIPMENT;
         }
 
-        return parent::isImpossible();
+        return parent::cannotExecuteReason();
     }
 
     protected function applyEffects(): ActionResult

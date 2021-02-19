@@ -69,7 +69,11 @@ class TreatPlantActionTest extends AbstractActionTest
             ->setPlace($room)
         ;
 
+        $action = new Action();
+        $action->setName(ActionEnum::TREAT_PLANT);
+
         $plant = new Plant();
+        $plant->addAction($action);
 
         $diseased = new Status($gameItem);
         $diseased

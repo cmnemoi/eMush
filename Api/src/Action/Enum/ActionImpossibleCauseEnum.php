@@ -12,6 +12,7 @@ class ActionImpossibleCauseEnum
     public const IN_SPACE_CAPSULE = 'in_space_capsule';
     public const IN_PATROLLER = 'in_patroller';
     public const NO_SHELVING_UNIT = 'no_shelving_unit';
+    public const ON_PLANET = 'on_planet';
     public const PRE_MUSH_RESTRICTED = 'pre_mush_restricted';
     public const PRE_MUSH_AGGRESSIVE = 'pre_mush_aggressive';
     public const HEAL_NO_INJURY = 'heal_no_injury';

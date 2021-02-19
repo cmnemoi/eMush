@@ -65,14 +65,10 @@ class Hide extends AbstractAction
         /** @var ItemConfig $itemConfig */
         $itemConfig = $this->gameItem->getEquipment();
 
-        if ($this->gameItem->getStatusByName(EquipmentStatusEnum::HIDDEN) !== null ||
-            !$itemConfig->isHideable() ||
-            !$this->player->canReachEquipment($this->gameItem)
-        ) {
-            return false;
-        }
-
-        return parent::isVisible();
+        return parent::isVisible() &&
+            $this->gameItem->getStatusByName(EquipmentStatusEnum::HIDDEN) === null &&
+            $itemConfig->isHideable() &&
+            $this->player->canReachEquipment($this->gameItem);
     }
 
     public function cannotExecuteReason(): ?string

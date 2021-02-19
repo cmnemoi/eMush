@@ -39,11 +39,7 @@ class GetUp extends AbstractAction
 
     public function isVisible(): bool
     {
-        if ($this->player->getStatusByName(PlayerStatusEnum::LYING_DOWN) === null) {
-            return false;
-        }
-
-        return parent::isVisible();
+        return parent::isVisible() && $this->player->getStatusByName(PlayerStatusEnum::LYING_DOWN) !== null;
     }
 
     protected function applyEffects(): ActionResult

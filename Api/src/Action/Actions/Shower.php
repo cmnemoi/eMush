@@ -53,13 +53,9 @@ class Shower extends AbstractAction
 
     public function isVisible(): bool
     {
-        if (!$this->gameEquipment->getEquipment()->hasAction($this->name) ||
-            !$this->player->canReachEquipment($this->gameEquipment)
-        ) {
-            return false;
-        }
-
-        return parent::isVisible();
+        return parent::isVisible() &&
+            $this->gameEquipment->getEquipment()->hasAction($this->name) ||
+            $this->player->canReachEquipment($this->gameEquipment);
     }
 
     public function cannotExecuteReason(): ?string

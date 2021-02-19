@@ -56,13 +56,9 @@ class ReadBook extends AbstractAction
 
     public function isVisible(): bool
     {
-        if ($this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BOOK) === null ||
-            !$this->player->canReachEquipment($this->gameEquipment)
-        ) {
-            return false;
-        }
-
-        return parent::isVisible();
+        return parent::isVisible() &&
+            $this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BOOK) !== null &&
+            $this->player->canReachEquipment($this->gameEquipment);
     }
 
     public function cannotExecuteReason(): ?string

@@ -63,14 +63,10 @@ class Transplant extends AbstractAction
 
     public function isVisible(): bool
     {
-        if ($this->gearToolService->getEquipmentsOnReachByName($this->player, ItemEnum::HYDROPOT)->isEmpty() ||
-            !$this->player->canReachEquipment($this->gameEquipment) ||
-            !$this->gameEquipment->getEquipment()->hasAction($this->name)
-        ) {
-            return false;
-        }
-
-        return parent::isVisible();
+        return parent::isVisible() &&
+            !$this->gearToolService->getEquipmentsOnReachByName($this->player, ItemEnum::HYDROPOT)->isEmpty() &&
+            $this->player->canReachEquipment($this->gameEquipment) &&
+            $this->gameEquipment->getEquipment()->hasAction($this->name);
     }
 
     protected function applyEffects(): ActionResult

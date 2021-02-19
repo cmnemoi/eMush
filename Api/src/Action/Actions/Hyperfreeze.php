@@ -64,34 +64,17 @@ class Hyperfreeze extends AbstractAction
         $this->gameEquipment = $equipment;
     }
 
-    public function canExecute(): bool
-    {
-        /** @var Ration $rationMechanic */
-        $rationMechanic = $this->gameEquipment->getEquipment()->getRationsMechanic();
-
-        return $rationMechanic &&
-            $rationMechanic->isPerishable() &&
-            $this->player->canReachEquipment($this->gameEquipment) &&
-            $this->gearToolService->getUsedTool($this->player, $this->action->getName()) !== null &&
-            !$this->gameEquipment->getStatusByName(EquipmentStatusEnum::FROZEN)
-            ;
-    }
-
     public function isVisible(): bool
     {
         /** @var Ration $rationMechanic */
         $rationMechanic = $this->gameEquipment->getEquipment()->getRationsMechanic();
 
-        if (!$rationMechanic ||
-            !$rationMechanic->isPerishable() ||
-            !$this->player->canReachEquipment($this->gameEquipment) ||
-            $this->gearToolService->getUsedTool($this->player, $this->action->getName()) === null ||
-            $this->gameEquipment->getStatusByName(EquipmentStatusEnum::FROZEN)
-        ) {
-            return false;
-        }
-
-        return parent::isVisible();
+        return parent::isVisible() &&
+            $rationMechanic !== null &&
+            $rationMechanic->isPerishable() &&
+            $this->player->canReachEquipment($this->gameEquipment) &&
+            $this->gearToolService->getUsedTool($this->player, $this->action->getName()) !== null &&
+            !$this->gameEquipment->getStatusByName(EquipmentStatusEnum::FROZEN);
     }
 
     protected function applyEffects(): ActionResult

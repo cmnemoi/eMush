@@ -10,7 +10,6 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -49,23 +48,11 @@ class TreatPlant extends AbstractAction
         $this->gameEquipment = $equipment;
     }
 
-    public function canExecute(): bool
-    {
-        return $this->player->canReachEquipment($this->gameEquipment) &&
-                    $this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PLANT) &&
-                    $this->gameEquipment->getStatusByName(EquipmentStatusEnum::PLANT_DISEASED)
-                    ;
-    }
-
     public function isVisible(): bool
     {
-        if (!$this->player->canReachEquipment($this->gameEquipment) ||
-            !$this->gameEquipment->getEquipment()->hasAction($this->name)
-        ) {
-            return false;
-        }
-
-        return parent::isVisible();
+        return parent::isVisible() &&
+            $this->player->canReachEquipment($this->gameEquipment) &&
+            $this->gameEquipment->getEquipment()->hasAction($this->name);
     }
 
     public function cannotExecuteReason(): ?string

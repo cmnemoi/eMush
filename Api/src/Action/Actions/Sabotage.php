@@ -61,15 +61,11 @@ class Sabotage extends AttemptAction
 
     public function isVisible(): bool
     {
-        if (!$this->player->canReachEquipment($this->gameEquipment) ||
-            $this->gameEquipment->isBroken() ||
-            !$this->gameEquipment->isBreakable() ||
-            !$this->player->isMush()
-        ) {
-            return false;
-        }
-
-        return parent::isVisible();
+        return parent::isVisible() &&
+            $this->player->canReachEquipment($this->gameEquipment) &&
+            !$this->gameEquipment->isBroken() &&
+            $this->gameEquipment->isBreakable() &&
+            $this->player->isMush();
     }
 
     public function cannotExecuteReason(): ?string

@@ -58,13 +58,9 @@ class WaterPlant extends AbstractAction
 
     public function isVisible(): bool
     {
-        if (!$this->player->canReachEquipment($this->gameEquipment) ||
-            !$this->gameEquipment->getEquipment()->hasAction($this->name)
-        ) {
-            return false;
-        }
-
-        return parent::isVisible();
+        return parent::isVisible() &&
+            $this->player->canReachEquipment($this->gameEquipment) &&
+            $this->gameEquipment->getEquipment()->hasAction($this->name);
     }
 
     public function cannotExecuteReason(): ?string

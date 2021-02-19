@@ -58,14 +58,10 @@ class Extinguish extends AttemptAction
 
     public function isVisible(): bool
     {
-        if (!$this->gameEquipment->getEquipment()->hasAction($this->name) ||
-            !$this->player->canReachEquipment($this->gameEquipment) ||
-            !$this->player->getPlace()->hasStatus(StatusEnum::FIRE)
-        ) {
-            return false;
-        }
-
-        return parent::isVisible();
+        return parent::isVisible() &&
+            $this->gameEquipment->getEquipment()->hasAction($this->name) &&
+            $this->player->canReachEquipment($this->gameEquipment) &&
+            $this->player->getPlace()->hasStatus(StatusEnum::FIRE);
     }
 
     public function cannotExecuteReason(): ?string

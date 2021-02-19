@@ -59,13 +59,9 @@ class Hit extends AttemptAction
 
     public function isVisible(): bool
     {
-        if ($this->player->getPlace() !== $this->target->getPlace() ||
-            $this->player === $this->target
-        ) {
-            return false;
-        }
-
-        return parent::isVisible();
+        return parent::isVisible() &&
+            $this->player->getPlace() === $this->target->getPlace() &&
+            $this->player !== $this->target;
     }
 
     public function cannotExecuteReason(): ?string

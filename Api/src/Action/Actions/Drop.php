@@ -62,14 +62,11 @@ class Drop extends AbstractAction
     {
         /** @var ItemConfig $itemConfig */
         $itemConfig = $this->gameItem->getEquipment();
-        if (!$this->player->getItems()->contains($this->gameItem) ||
-            !($itemConfig instanceof ItemConfig) ||
-            !$itemConfig->hasAction(ActionEnum::DROP)
-        ) {
-            return false;
-        }
 
-        return parent::isVisible();
+        return parent::isVisible() &&
+            $itemConfig->hasAction(ActionEnum::DROP) &&
+            ($itemConfig instanceof ItemConfig) &&
+            $this->player->getItems()->contains($this->gameItem);
     }
 
     public function cannotExecuteReason(): ?string

@@ -58,13 +58,9 @@ class Repair extends AttemptAction
 
     public function isVisible(): bool
     {
-        if (!$this->gameEquipment->isBroken() ||
-            !$this->player->canReachEquipment($this->gameEquipment)
-        ) {
-            return false;
-        }
-
-        return parent::isVisible();
+        return parent::isVisible() &&
+            $this->gameEquipment->isBroken() &&
+            $this->player->canReachEquipment($this->gameEquipment);
     }
 
     protected function applyEffects(): ActionResult

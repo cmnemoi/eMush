@@ -56,11 +56,8 @@ class Write extends AbstractAction
 
     public function isVisible(): bool
     {
-        if ($this->gearToolService->getUsedTool($this->player, $this->action->getName()) === null) {
-            return false;
-        }
-
-        return parent::isVisible();
+        return parent::isVisible() &&
+            $this->gearToolService->getUsedTool($this->player, $this->action->getName()) != null;
     }
 
     protected function applyEffects(): ActionResult

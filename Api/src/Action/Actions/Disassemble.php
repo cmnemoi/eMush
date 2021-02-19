@@ -60,16 +60,13 @@ class Disassemble extends AttemptAction
 
     public function isVisible(): bool
     {
-        if (!$this->gameEquipment->getActions()->contains($this->action) ||
-            !$this->player->canReachEquipment($this->gameEquipment)
+        return parent::isVisible() &&
+            $this->gameEquipment->getActions()->contains($this->action) &&
+            $this->player->canReachEquipment($this->gameEquipment)
             //@TODO uncomment when skill are ready
             //||
-            //!in_array(SkillEnum::TECHNICIAN, $this->player->getSkills())
-        ) {
-            return false;
-        }
-
-        return parent::isVisible();
+            //in_array(SkillEnum::TECHNICIAN, $this->player->getSkills())
+            ;
     }
 
     public function cannotExecuteReason(): ?string

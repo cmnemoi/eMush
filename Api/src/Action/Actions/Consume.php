@@ -68,13 +68,9 @@ class Consume extends AbstractAction
 
     public function isVisible(): bool
     {
-        if (!$this->gameEquipment->getActions()->contains($this->action) ||
-            !$this->player->canReachEquipment($this->gameEquipment)
-        ) {
-            return false;
-        }
-
-        return parent::isVisible();
+        return parent::isVisible() &&
+            $this->gameEquipment->getActions()->contains($this->action) &&
+            $this->player->canReachEquipment($this->gameEquipment);
     }
 
     public function cannotExecuteReason(): ?string

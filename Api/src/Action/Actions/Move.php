@@ -53,13 +53,9 @@ class Move extends AbstractAction
 
     public function isVisible(): bool
     {
-        if ($this->door->isBroken() ||
-            !$this->player->getPlace()->getDoors()->contains($this->door)
-        ) {
-            return false;
-        }
-
-        return parent::isVisible();
+        return parent::isVisible() &&
+            !$this->door->isBroken() &&
+            $this->player->getPlace()->getDoors()->contains($this->door);
     }
 
     protected function applyEffects(): ActionResult

@@ -56,13 +56,9 @@ class Infect extends AbstractAction
 
     public function isVisible(): bool
     {
-        if (!$this->player->isMush() ||
-            $this->player->getPlace() !== $this->targetPlayer->getPlace()
-        ) {
-            return false;
-        }
-
-        return parent::isVisible();
+        return parent::isVisible() &&
+            $this->player->isMush() &&
+            $this->player->getPlace() === $this->targetPlayer->getPlace();
     }
 
     public function cannotExecuteReason(): ?string

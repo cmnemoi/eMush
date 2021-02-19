@@ -34,11 +34,7 @@ class ExtractSpore extends AbstractAction
 
     public function isVisible(): bool
     {
-        if (!$this->player->isMush()) {
-            return false;
-        }
-
-        return parent::isVisible();
+        return parent::isVisible() && $this->player->isMush();
     }
 
     public function cannotExecuteReason(): ?string

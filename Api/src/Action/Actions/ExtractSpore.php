@@ -6,6 +6,7 @@ use Error;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -31,15 +32,28 @@ class ExtractSpore extends AbstractAction
         $this->statusService = $statusService;
     }
 
-    public function canExecute(): bool
+    public function isVisible(): bool
+    {
+        return parent::isVisible() && $this->player->isMush();
+    }
+
+    public function cannotExecuteReason(): ?string
     {
         /** @var ?ChargeStatus $sporeStatus */
         $sporeStatus = $this->player->getStatusByName(PlayerStatusEnum::SPORES);
 
-        return $this->player->isMush() &&
-                (!$sporeStatus ||
-                $sporeStatus->getCharge() < 2) &&
-                $this->player->getDaedalus()->getSpores() > 0;
+        if ($sporeStatus === null || !($sporeStatus instanceof ChargeStatus)) {
+            throw new Error('invalid spore status');
+        }
+
+        if ($sporeStatus->getCharge() >= 2) {
+            return ActionImpossibleCauseEnum::PERSONAL_SPORE_LIMIT;
+        }
+        if ($this->player->getDaedalus()->getSpores() <= 0) {
+            return ActionImpossibleCauseEnum::DAILY_SPORE_LIMIT;
+        }
+
+        return parent::cannotExecuteReason();
     }
 
     protected function applyEffects(): ActionResult

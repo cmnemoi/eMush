@@ -100,7 +100,7 @@ class InsertOxygenTest extends AbstractActionTest
 
         $this->gearToolService
             ->shouldReceive('getUsedTool')
-            ->andReturn($gameTank)
+            ->andReturn(null)
             ->once()
         ;
         $actionParameter = new ActionParameters();

@@ -61,25 +61,32 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
 
         $actionClass->loadParameters($object, $currentPlayer, $actionParameter);
 
-        if ($this->actionService->canPlayerDoAction($currentPlayer, $object) && $actionClass->canExecute()) {
+        if ($actionClass->isVisible()) {
             $actionName = $object->getName();
 
-            if ($actionClass instanceof AttemptAction) {
-                $successRate = $actionClass->getSuccessRate();
-            } else {
-                $successRate = null;
-            }
-
-            return [
+            $normalizedAction = [
                 'id' => $object->getId(),
-                'key' => $actionName,
                 'name' => $this->translator->trans("{$actionName}.name", [], 'actions'),
-                'description' => $this->translator->trans("{$actionName}.description", [], 'actions'),
                 'actionPointCost' => $this->actionService->getTotalActionPointCost($currentPlayer, $object),
                 'movementPointCost' => $this->actionService->getTotalMovementPointCost($currentPlayer, $object),
                 'moralPointCost' => $this->actionService->getTotalMoralPointCost($currentPlayer, $object),
-                'successRate' => $successRate,
-            ];
+                ];
+
+            if ($actionClass instanceof AttemptAction) {
+                $normalizedAction['successRate'] = $actionClass->getSuccessRate();
+            } else {
+                $normalizedAction['successRate'] = 100;
+            }
+
+            if ($reason = $actionClass->cannotExecuteReason()) {
+                $normalizedAction['description'] = $this->translator->trans("{$reason}.description", [], 'actionsFail');
+                $normalizedAction['canExecute'] = false;
+            } else {
+                $normalizedAction['description'] = $this->translator->trans("{$actionName}.description", [], 'actions');
+                $normalizedAction['canExecute'] = true;
+            }
+
+            return $normalizedAction;
         }
 
         return [];

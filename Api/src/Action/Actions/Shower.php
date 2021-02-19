@@ -8,6 +8,7 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Modifier;
@@ -50,12 +51,20 @@ class Shower extends AbstractAction
         $this->gameEquipment = $equipment;
     }
 
-    public function canExecute(): bool
+    public function isVisible(): bool
     {
-        return $this->player->canReachEquipment($this->gameEquipment) &&
-               !$this->gameEquipment->isBroken() &&
-               $this->gameEquipment->getEquipment()->hasAction(ActionEnum::SHOWER)
-            ;
+        return parent::isVisible() &&
+            $this->gameEquipment->getEquipment()->hasAction($this->name) ||
+            $this->player->canReachEquipment($this->gameEquipment);
+    }
+
+    public function cannotExecuteReason(): ?string
+    {
+        if ($this->gameEquipment->isBroken()) {
+            return ActionImpossibleCauseEnum::BROKEN_EQUIPMENT;
+        }
+
+        return parent::cannotExecuteReason();
     }
 
     protected function applyEffects(): ActionResult

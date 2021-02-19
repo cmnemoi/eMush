@@ -2,16 +2,20 @@
 
 namespace Mush\Test\Action\Actions;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Hide;
+use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Status\Service\StatusServiceInterface;
@@ -60,13 +64,20 @@ class HideActionTest extends AbstractActionTest
         $room = new Place();
 
         $gameItem = new GameItem();
+        $actionHide = new Action();
+        $actionHide->setName(ActionEnum::HIDE);
         $item = new ItemConfig();
-        $item->setIsHideable(true);
+        $item
+            ->setIsHideable(true)
+            ->setActions(new ArrayCollection([$actionHide]))
+        ;
         $gameItem
             ->setEquipment($item)
         ;
 
-        $player = $this->createPlayer(new Daedalus(), $room);
+        $daedalus = new Daedalus();
+        $daedalus->setGameStatus(GameStatusEnum::CURRENT);
+        $player = $this->createPlayer($daedalus, $room);
         $actionParameter = new ActionParameters();
         $actionParameter->setItem($gameItem);
         $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
@@ -81,17 +92,33 @@ class HideActionTest extends AbstractActionTest
 
         $result = $this->action->execute();
         $this->assertInstanceOf(Error::class, $result);
+
+        //ship isn't started
+        $daedalus->setGameStatus(GameStatusEnum::STARTING);
+
+        $result = $this->action->execute();
+        $this->assertInstanceOf(Error::class, $result);
+        $this->assertEquals(ActionImpossibleCauseEnum::PRE_MUSH_RESTRICTED, $this->action->cannotExecuteReason());
     }
 
     public function testExecute()
     {
         $room = new Place();
 
-        $player = $this->createPlayer(new Daedalus(), $room);
+        $daedalus = new Daedalus();
+        $daedalus->setGameStatus(GameStatusEnum::CURRENT);
+
+        $player = $this->createPlayer($daedalus, $room);
 
         $gameItem = new GameItem();
         $item = new ItemConfig();
-        $item->setIsHideable(true);
+        $actionHide = new Action();
+        $actionHide->setName(ActionEnum::HIDE);
+        $item = new ItemConfig();
+        $item
+            ->setIsHideable(true)
+            ->setActions(new ArrayCollection([$actionHide]))
+        ;
         $gameItem
             ->setName('itemName')
             ->setEquipment($item)

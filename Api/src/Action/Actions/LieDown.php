@@ -7,6 +7,7 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
@@ -48,13 +49,26 @@ class LieDown extends AbstractAction
         $this->gameEquipment = $equipment;
     }
 
-    public function canExecute(): bool
+    public function isVisible(): bool
     {
-        return $this->gameEquipment->getEquipment()->hasAction(ActionEnum::LIE_DOWN) &&
-            !$this->gameEquipment->isbroken() &&
-            $this->gameEquipment->getTargetingStatuses()->filter(fn (Status $status) => ($status->getName() === PlayerStatusEnum::LYING_DOWN))->isEmpty() &&
-            !$this->player->getStatusByName(PlayerStatusEnum::LYING_DOWN) &&
+        return parent::isVisible() &&
+            $this->gameEquipment->getEquipment()->hasAction($this->name) &&
             $this->player->canReachEquipment($this->gameEquipment);
+    }
+
+    public function cannotExecuteReason(): ?string
+    {
+        if ($this->player->getStatusByName(PlayerStatusEnum::LYING_DOWN)) {
+            return ActionImpossibleCauseEnum::ALREADY_IN_BED;
+        }
+        if (!$this->gameEquipment->getTargetingStatuses()->filter(fn (Status $status) => ($status->getName() === PlayerStatusEnum::LYING_DOWN))->isEmpty()) {
+            return ActionImpossibleCauseEnum::BED_OCCUPIED;
+        }
+        if ($this->gameEquipment->isbroken()) {
+            return ActionImpossibleCauseEnum::BROKEN_EQUIPMENT;
+        }
+
+        return parent::cannotExecuteReason();
     }
 
     protected function applyEffects(): ActionResult

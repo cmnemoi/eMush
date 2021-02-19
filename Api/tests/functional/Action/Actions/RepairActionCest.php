@@ -70,7 +70,7 @@ class RepairActionCest
 
         $this->repairAction->loadParameters($action, $player, $actionParameters);
 
-        $I->assertFalse($this->repairAction->canExecute());
+        $I->assertFalse($this->repairAction->isVisible());
 
         $status = new Status($gameEquipment);
         $status
@@ -79,7 +79,8 @@ class RepairActionCest
         ;
 
         $I->assertEquals(25, $this->repairAction->getSuccessRate());
-        $I->assertTrue($this->repairAction->canExecute());
+
+        $I->assertTrue($this->repairAction->isVisible());
 
         $wrench = $this->createWrenchItem();
         $player->addItem($wrench);

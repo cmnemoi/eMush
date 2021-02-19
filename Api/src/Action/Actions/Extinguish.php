@@ -7,6 +7,7 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Service\RandomServiceInterface;
@@ -55,14 +56,21 @@ class Extinguish extends AttemptAction
         $this->gameEquipment = $equipment;
     }
 
-    public function canExecute(): bool
+    public function isVisible(): bool
     {
-        //Check that the equipment is reachable
-        return !$this->gameEquipment->isBroken() &&
-            $this->gameEquipment->getEquipment()->hasAction(ActionEnum::EXTINGUISH) &&
+        return parent::isVisible() &&
+            $this->gameEquipment->getEquipment()->hasAction($this->name) &&
             $this->player->canReachEquipment($this->gameEquipment) &&
-            $this->player->getPlace()->hasStatus(StatusEnum::FIRE)
-        ;
+            $this->player->getPlace()->hasStatus(StatusEnum::FIRE);
+    }
+
+    public function cannotExecuteReason(): ?string
+    {
+        if ($this->gameEquipment->isBroken()) {
+            return ActionImpossibleCauseEnum::BROKEN_EQUIPMENT;
+        }
+
+        return parent::cannotExecuteReason();
     }
 
     protected function applyEffects(): ActionResult

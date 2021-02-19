@@ -8,6 +8,7 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Equipment\Entity\ConsumableEffect;
 use Mush\Equipment\Entity\GameEquipment;
@@ -65,13 +66,26 @@ class Consume extends AbstractAction
         $this->gameEquipment = $equipment;
     }
 
-    public function canExecute(): bool
+    public function isVisible(): bool
     {
-        return !($this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::DRUG) &&
-                $this->player->getStatusByName(PlayerStatusEnum::DRUG_EATEN)) &&
-                $this->player->canReachEquipment($this->gameEquipment) &&
-                $this->gameEquipment->getEquipment()->hasAction(ActionEnum::CONSUME) &&
-                !$this->player->getStatusByName(PlayerStatusEnum::FULL_STOMACH);
+        return parent::isVisible() &&
+            $this->gameEquipment->getActions()->contains($this->action) &&
+            $this->player->canReachEquipment($this->gameEquipment);
+    }
+
+    public function cannotExecuteReason(): ?string
+    {
+        if ($this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::DRUG) &&
+            $this->player->getStatusByName(PlayerStatusEnum::DRUG_EATEN)
+        ) {
+            return ActionImpossibleCauseEnum::CONSUME_DRUG_TWICE;
+        }
+
+        if ($this->player->getStatusByName(PlayerStatusEnum::FULL_STOMACH)) {
+            return ActionImpossibleCauseEnum::CONSUME_FULL_BELLY;
+        }
+
+        return parent::cannotExecuteReason();
     }
 
     protected function applyEffects(): ActionResult

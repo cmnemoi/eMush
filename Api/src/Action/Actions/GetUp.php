@@ -37,9 +37,9 @@ class GetUp extends AbstractAction
         parent::loadParameters($action, $player, $actionParameters);
     }
 
-    public function canExecute(): bool
+    public function isVisible(): bool
     {
-        return $this->player->getStatusByName(PlayerStatusEnum::LYING_DOWN) !== null;
+        return parent::isVisible() && $this->player->getStatusByName(PlayerStatusEnum::LYING_DOWN) !== null;
     }
 
     protected function applyEffects(): ActionResult

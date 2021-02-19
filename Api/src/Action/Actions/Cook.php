@@ -63,13 +63,13 @@ class Cook extends AbstractAction
         $this->gameEquipment = $equipment;
     }
 
-    public function canExecute(): bool
+    public function isVisible(): bool
     {
-        return ($this->gameEquipment->getEquipment()->getName() === GameRationEnum::STANDARD_RATION ||
-                $this->gameEquipment->getStatusByName(EquipmentStatusEnum::FROZEN)) &&
-                $this->player->canReachEquipment($this->gameEquipment) &&
-                $this->gearToolService->getUsedTool($this->player, $this->action->getName()) !== null
-            ;
+        return parent::isVisible() &&
+            ($this->gameEquipment->getEquipment()->getName() === GameRationEnum::STANDARD_RATION ||
+            $this->gameEquipment->getStatusByName(EquipmentStatusEnum::FROZEN)) &&
+            $this->gearToolService->getUsedTool($this->player, $this->action->getName()) !== null &&
+            $this->player->canReachEquipment($this->gameEquipment);
     }
 
     protected function applyEffects(): ActionResult

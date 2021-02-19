@@ -54,12 +54,18 @@ class ReadBook extends AbstractAction
         $this->gameEquipment = $equipment;
     }
 
-    public function canExecute(): bool
+    public function isVisible(): bool
+    {
+        return parent::isVisible() &&
+            $this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BOOK) !== null &&
+            $this->player->canReachEquipment($this->gameEquipment);
+    }
+
+    public function cannotExecuteReason(): ?string
     {
         //@TODO add conditions player already have the skill and player already read a book
-        return null !== $this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BOOK) &&
-            $this->player->canReachEquipment($this->gameEquipment)
-            ;
+
+        return parent::cannotExecuteReason();
     }
 
     protected function applyEffects(): ActionResult

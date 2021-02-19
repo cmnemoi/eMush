@@ -6,6 +6,7 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Error;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Player\Entity\Player;
@@ -35,15 +36,27 @@ abstract class AbstractAction
         $this->player = $player;
     }
 
-    abstract public function canExecute(): bool;
+    public function isVisible(): bool
+    {
+        return $this->player->isAlive();
+    }
+
+    public function cannotExecuteReason(): ?string
+    {
+        if (!$this->actionService->canPlayerDoAction($this->player, $this->action)) {
+            return ActionImpossibleCauseEnum::INSUFFICIENT_ACTION_POINT;
+        }
+
+        return null;
+    }
 
     abstract protected function applyEffects(): ActionResult;
 
     public function execute(): ActionResult
     {
-        if (!$this->canExecute() ||
-            !$this->actionService->canPlayerDoAction($this->player, $this->action) ||
-            !$this->player->isAlive()) {
+        if (!$this->isVisible() ||
+            $this->cannotExecuteReason() !== null
+        ) {
             return new Error('Cannot execute action');
         }
 

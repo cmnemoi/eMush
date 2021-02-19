@@ -54,15 +54,16 @@ class InsertOxygen extends AbstractAction
         $this->gameItem = $item;
     }
 
-    public function canExecute(): bool
+    public function isVisible(): bool
     {
         $gameConfig = $this->player->getDaedalus()->getGameConfig();
 
         return $this->player->canReachEquipment($this->gameItem) &&
             $this->gameItem->getEquipment()->getName() === ItemEnum::OXYGEN_CAPSULE &&
             $this->gearToolService->getUsedTool($this->player, $this->action->getName()) !== null &&
-            $this->player->getDaedalus()->getOxygen() < $gameConfig->getDaedalusConfig()->getMaxOxygen()
-            ;
+            $this->player->getDaedalus()->getOxygen() < $gameConfig->getDaedalusConfig()->getMaxOxygen() &&
+            parent::isVisible()
+        ;
     }
 
     protected function applyEffects(): ActionResult

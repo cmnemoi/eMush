@@ -56,12 +56,11 @@ class Repair extends AttemptAction
         $this->gameEquipment = $equipment;
     }
 
-    public function canExecute(): bool
+    public function isVisible(): bool
     {
-        //Check that the equipment is reachable
-        return $this->gameEquipment->isBroken() &&
-            $this->player->canReachEquipment($this->gameEquipment)
-        ;
+        return parent::isVisible() &&
+            $this->gameEquipment->isBroken() &&
+            $this->player->canReachEquipment($this->gameEquipment);
     }
 
     protected function applyEffects(): ActionResult

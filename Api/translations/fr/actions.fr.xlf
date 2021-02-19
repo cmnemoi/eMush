@@ -10,10 +10,6 @@
                 <source>build.description</source>
                 <target>Assemble un objet à partir d'autres objets.</target>
             </segment>
-            <segment id="description_no">
-                <source>build.description.no</source>
-                <target>Il vous manque des objets pour réaliser ce plan.</target>
-            </segment>
         </unit>
         <unit id="coffee">
             <segment id="coffee">
@@ -23,10 +19,6 @@
             <segment id="description">
                 <source>coffee.description</source>
                 <target>Un bon café et ça repart !</target>
-            </segment>
-            <segment id="description_no">
-                <source>coffee.description.no</source>
-                <target>TODO</target>
             </segment>
         </unit>
         <unit id="consume">
@@ -38,10 +30,6 @@
                 <source>consume.description</source>
                 <target>Dévorer une délicieuse denrée. En général, manger vous apportera des :pa::pm:. Les {i}rations cuisinées{\i} n'entamerons pas votre moral. Les autres nouritures peuvent réserver des surprises.</target>
             </segment>
-            <segment id="description_no">
-                <source>consume.description.no</source>
-                <target>TODO</target>
-            </segment>
         </unit>
         <unit id="cook">
             <segment id="cook">
@@ -51,10 +39,6 @@
             <segment id="description">
                 <source>cook.description</source>
                 <target>Assaisonner la chose pour en faire quelque chose qui ne provoque pas un renvoi instantané.</target>
-            </segment>
-            <segment id="description_no">
-                <source>cook.description.no</source>
-                <target>TODO</target>
             </segment>
         </unit>
         <unit id="disassemble">
@@ -66,10 +50,6 @@
                 <source>disassemble.description</source>
                 <target>Permet de désassembler un objet pour récupérer tout ou partie des composants.</target>
             </segment>
-            <segment id="description_no">
-                <source>disassemble.description.no</source>
-                <target>TODO</target>
-            </segment>
         </unit>
         <unit id="drop">
             <segment id="name">
@@ -79,10 +59,6 @@
             <segment id="description">
                 <source>drop.description</source>
                 <target>Pose un objet dans la pièce ou vous vous trouvez</target>
-            </segment>
-            <segment id="description_no">
-                <source>drop.description.no</source>
-                <target>Cette piège ne dispose pas d'étagère...</target>
             </segment>
         </unit>
         <unit id="express_cook">
@@ -94,10 +70,6 @@
                 <source>express_cook.description</source>
                 <target>Dégrader suffisament la nouriture tout en la réchauffant pour rendre cela mangeable.</target>
             </segment>
-            <segment id="description_no">
-                <source>express_cook.description.no</source>
-                <target>TODO</target>
-            </segment>
         </unit>
         <unit id="extract_spore">
             <segment id="extract_spore">
@@ -107,10 +79,6 @@
             <segment id="description">
                 <source>extract_spore.description</source>
                 <target>Extirpez-vous un spore pour ensuite contaminer un coéquipier (avant de contaminer repérez les caméras).</target>
-            </segment>
-            <segment id="description_no">
-                <source>extract_spore.description.no</source>
-                <target>TODO</target>
             </segment>
         </unit>
         <unit id="get_up">
@@ -122,10 +90,6 @@
                 <source>get_up.description</source>
                 <target>Quitter ce petit nid douillet pour affronter le monde cruel.</target>
             </segment>
-            <segment id="description_no">
-                <source>get_up.description.no</source>
-                <target>TODO</target>
-            </segment>
         </unit>
         <unit id="hide">
             <segment id="hide">
@@ -136,10 +100,6 @@
                 <source>hide.description</source>
                 <target>Cache un objet du regard de vos équipier dans la salle.</target>
             </segment>
-            <segment id="description_no">
-                <source>hide.description.no</source>
-                <target>TODO</target>
-            </segment>
         </unit>
         <unit id="hit">
             <segment id="hit">
@@ -148,10 +108,6 @@
             </segment>
             <segment id="description">
                 <source>hit.description</source>
-                <target>TODO</target>
-            </segment>
-            <segment id="description_no">
-                <source>hit.description.no</source>
                 <target>TODO</target>
             </segment>
         </unit>
@@ -164,10 +120,6 @@
                 <source>hyperfreeze.description</source>
                 <target>Transforme une denrée perissable en une non-perissable.</target>
             </segment>
-            <segment id="description_no">
-                <source>hyperfreeze.description.no</source>
-                <target>TODO</target>
-            </segment>
         </unit>
         <unit id="infect">
             <segment id="infect">
@@ -178,10 +130,6 @@
                 <source>infect.description</source>
                 <target>Poinçonner une personne avec un spore permets de l'Infecter. Pour cela, vous devez avoir des spores sur vous. Au bout de trois infections, le personnage aura achevé son voyage vers le Mush.</target>
             </segment>
-            <segment id="description_no">
-                <source>infect.description.no</source>
-                <target>TODO</target>
-            </segment>
         </unit>
         <unit id="lie_down">
             <segment id="lie_down">
@@ -191,10 +139,6 @@
             <segment id="description">
                 <source>lie_down.description</source>
                 <target>Pour vous détendre ou parler, rien de tel que de s'allonger un peu. S'allonger permet à chaque cycle passé de gagner 1 :pa: et 1 :pmo: si un psy est présent.</target>
-            </segment>
-            <segment id="description_no">
-                <source>lie_down.description.no</source>
-                <target>TODO</target>
             </segment>
         </unit>
         <unit id="move">
@@ -216,10 +160,6 @@
                 <source>read_book.description</source>
                 <target>La curiosité est certes un vilain défault mais bon... Un document, secret, inutile ou indispensable, qui sait ce qu'il contient...</target>
             </segment>
-            <segment id="description_no">
-                <source>read_book.description.no</source>
-                <target>TODO</target>
-            </segment>
         </unit>
         <unit id="read_document">
             <segment id="read_document">
@@ -229,10 +169,6 @@
             <segment id="description">
                 <source>read_document.description</source>
                 <target>La curiosité est certes un vilain défault mais bon... Un document, secret, inutile ou indispensable, qui sait ce qu'il contient...</target>
-            </segment>
-            <segment id="description_no">
-                <source>read_document.description.no</source>
-                <target>TODO</target>
             </segment>
         </unit>
         <unit id="repair">
@@ -244,10 +180,6 @@
                 <source>repair.description</source>
                 <target>Un objet non équipement endommagé est remis en état.</target>
             </segment>
-            <segment id="description_no">
-                <source>repair.description.no</source>
-                <target>TODO</target>
-            </segment>
         </unit>
         <unit id="search">
             <segment id="search">
@@ -257,10 +189,6 @@
             <segment id="description">
                 <source>search.description</source>
                 <target>Permet de retrouver un objet caché à l'endroit où vous vous trouvez.</target>
-            </segment>
-            <segment id="description_no">
-                <source>search.description.no</source>
-                <target>TODO</target>
             </segment>
         </unit>
         <unit id="shred">
@@ -272,10 +200,6 @@
                 <source>shred.description</source>
                 <target>Ces maudits papiers pullulent partout. Sus à l'envahisseur !</target>
             </segment>
-            <segment id="description_no">
-                <source>shred.description.no</source>
-                <target>TODO</target>
-            </segment>
         </unit>
         <unit id="take">
             <segment id="name">
@@ -284,11 +208,7 @@
             </segment>
             <segment id="description">
                 <source>take.description</source>
-                <target>Prends un objet dans la pièce courrante et le place dans votre inventaire</target>
-            </segment>
-            <segment id="description_no">
-                <source>take.description.no</source>
-                <target>Votre inventaire est plein, faites de la place !</target>
+                <target>Prends un objet dans la pièce courante et le place dans votre inventaire</target>
             </segment>
         </unit>
         <unit id="transplant">
@@ -300,10 +220,6 @@
                 <source>transplant.description</source>
                 <target>Sacrifie un fruit pour créer un nouveau plant.</target>
             </segment>
-            <segment id="description_no">
-                <source>transplant.description.no</source>
-                <target>TODO</target>
-            </segment>
         </unit>
         <unit id="treat_plant">
             <segment id="name">
@@ -313,10 +229,6 @@
             <segment id="description">
                 <source>treat_plant.description</source>
                 <target>Permet de soigner les maladies des plantes.</target>
-            </segment>
-            <segment id="description_no">
-                <source>treat_plant.description.no</source>
-                <target>TODO</target>
             </segment>
         </unit>
         <unit id="water_plant">
@@ -328,10 +240,6 @@
                 <source>water_plant.description</source>
                 <target>Permet d'étancher la soif de vos plantations.</target>
             </segment>
-            <segment id="description_no">
-                <source>water_plant.description.no</source>
-                <target>TODO</target>
-            </segment>
         </unit>
         <unit id="write">
             <segment id="name">
@@ -341,10 +249,6 @@
             <segment id="description">
                 <source>write.description</source>
                 <target>Vous pouvez écrire un message que peut-être quelqu'un lira...</target>
-            </segment>
-            <segment id="description_no">
-                <source>write.description.no</source>
-                <target>TODO</target>
             </segment>
         </unit>
         <unit id="insert_oxygen">
@@ -356,10 +260,6 @@
                 <source>insert_oxygen.description</source>
                 <target>Injecte l'Oxygène dans un Réservoir.</target>
             </segment>
-            <segment id="description_no">
-                <source>insert_oxygen.description.no</source>
-                <target>TODO</target>
-            </segment>
         </unit>
         <unit id="retrieve_oxygen">
             <segment id="name">
@@ -369,10 +269,6 @@
             <segment id="description">
                 <source>retrieve_oxygen.description</source>
                 <target>Fantastique, le système d'Oxy Rev vous permet d'enlever de l'Oxygène des Réservoirs. Attention à bien fermer la vanne et à vous laver les mains.</target>
-            </segment>
-            <segment id="description_no">
-                <source>retrieve_oxygen.description.no</source>
-                <target>TODO</target>
             </segment>
         </unit>
         <unit id="sabotage">
@@ -384,10 +280,6 @@
                 <source>sabotage.description</source>
                 <target>Casse l'équipement ciblé.</target>
             </segment>
-            <segment id="description_no">
-                <source>sabotage.description.no</source>
-                <target>TODO</target>
-            </segment>
         </unit>
         <unit id="shower">
             <segment id="name">
@@ -398,10 +290,6 @@
                 <source>shower.description</source>
                 <target>Quand la crasse se fait épaisse, quand la propreté cesse, quand les turpitudes des odeurs vous oppressent. Une solution. La douche.</target>
             </segment>
-            <segment id="description_no">
-                <source>shower.description.no</source>
-                <target>TODO</target>
-            </segment>
         </unit>
         <unit id="extinguish">
             <segment id="name">
@@ -411,10 +299,6 @@
             <segment id="description">
                 <source>extinguish.description</source>
                 <target>Avec un peu d'adresse vous arriverez à vous débarasser du feu. Faites attention à ne pas vous brûler.</target>
-            </segment>
-            <segment id="description_no">
-                <source>extinguish.description.no</source>
-                <target>TODO</target>
             </segment>
         </unit>
     </file>

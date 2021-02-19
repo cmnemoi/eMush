@@ -39,7 +39,7 @@ class User implements UserInterface
     /**
      * @ORM\OneToOne (targetEntity="Mush\Player\Entity\Player")
      */
-    private ?Player $currentGame;
+    private ?Player $currentGame = null;
 
     /**
      * @ORM\Column(type="string", nullable=true)

@@ -21,6 +21,6 @@ services:
     resource: '../Controller/'
     tags: ['controller.service_arguments']
 
-  Mush\Player\ParamConverter\PlayerRequestConverter:
+  Mush\Player\ParamConverter\PlayerCreateRequestConverter:
     tags:
-      - { name: 'request.param_converter', converter: PlayerRequestConverter }
+      - { name: 'request.param_converter', converter: PlayerCreateRequestConverter }

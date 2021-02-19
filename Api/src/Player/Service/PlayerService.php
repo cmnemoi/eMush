@@ -11,6 +11,7 @@ use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerLastWords;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Event\PlayerEvent;
@@ -120,6 +121,31 @@ class PlayerService implements PlayerServiceInterface
         $user->setCurrentGame($player);
         $playerEvent = new PlayerEvent($player);
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::NEW_PLAYER);
+
+        return $player;
+    }
+
+    public function endPlayer(Player $player, string $message): Player
+    {
+        $user = $player->getUser();
+        $user->setCurrentGame(null);
+
+        $lastWords = new PlayerLastWords();
+        $lastWords
+            ->setPlayer($player)
+            ->setMessage($message)
+        ;
+
+        $player->setGameStatus(GameStatusEnum::CLOSED);
+
+        $playerEvent = new PlayerEvent($player, new \DateTime());
+        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::END_PLAYER);
+
+        $this->entityManager->persist($lastWords);
+        $this->entityManager->persist($player);
+        $this->entityManager->persist($user);
+
+        $this->entityManager->flush();
 
         return $player;
     }

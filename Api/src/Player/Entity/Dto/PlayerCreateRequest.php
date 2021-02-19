@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @UniqueCharacter
  */
-class PlayerRequest
+class PlayerCreateRequest
 {
     /**
      * @Assert\NotBlank
@@ -31,7 +31,7 @@ class PlayerRequest
         return $this->character;
     }
 
-    public function setCharacter(?string $character): PlayerRequest
+    public function setCharacter(?string $character): PlayerCreateRequest
     {
         $this->character = $character;
 
@@ -43,7 +43,7 @@ class PlayerRequest
         return $this->daedalus;
     }
 
-    public function setDaedalus(?Daedalus $daedalus): PlayerRequest
+    public function setDaedalus(?Daedalus $daedalus): PlayerCreateRequest
     {
         $this->daedalus = $daedalus;
 

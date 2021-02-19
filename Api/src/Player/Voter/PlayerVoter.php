@@ -7,15 +7,16 @@ use Mush\User\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class CharacterVoter extends Voter
+class PlayerVoter extends Voter
 {
     public const PLAYER_VIEW = 'player_view';
     public const PLAYER_CREATE = 'player_create';
+    public const PLAYER_END = 'player_end';
 
     protected function supports(string $attribute, $subject)
     {
         // if the attribute isn't one we support, return false
-        if (!in_array($attribute, [self::PLAYER_VIEW, self::PLAYER_CREATE])) {
+        if (!in_array($attribute, [self::PLAYER_VIEW, self::PLAYER_CREATE, self::PLAYER_END])) {
             return false;
         }
 
@@ -41,6 +42,8 @@ class CharacterVoter extends Voter
                 return $this->canViewPlayer($user, $subject);
             case self::PLAYER_CREATE:
                 return $this->canCreatePlayer($user);
+            case self::PLAYER_END:
+                return $this->canPlayerEnd($user, $subject);
         }
 
         throw new \LogicException('This code should not be reached!');
@@ -54,5 +57,10 @@ class CharacterVoter extends Voter
     private function canCreatePlayer(User $user): bool
     {
         return null === $user->getCurrentGame();
+    }
+
+    private function canPlayerEnd(User $user, ?Player $player): bool
+    {
+        return $user->getCurrentGame() === $player;
     }
 }

@@ -3,12 +3,12 @@
 namespace Mush\Player\ParamConverter;
 
 use Mush\Daedalus\Service\DaedalusServiceInterface;
-use Mush\Player\Entity\Dto\PlayerRequest;
+use Mush\Player\Entity\Dto\PlayerCreateRequest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-class PlayerRequestConverter implements ParamConverterInterface
+class PlayerCreateRequestConverter implements ParamConverterInterface
 {
     private DaedalusServiceInterface $daedalusService;
 
@@ -26,7 +26,7 @@ class PlayerRequestConverter implements ParamConverterInterface
             $daedalus = $this->daedalusService->findById($daedalusId);
         }
 
-        $playerRequest = new PlayerRequest();
+        $playerRequest = new PlayerCreateRequest();
         $playerRequest
             ->setCharacter($character)
             ->setDaedalus($daedalus)
@@ -39,6 +39,6 @@ class PlayerRequestConverter implements ParamConverterInterface
 
     public function supports(ParamConverter $configuration)
     {
-        return PlayerRequest::class === $configuration->getClass();
+        return PlayerCreateRequest::class === $configuration->getClass();
     }
 }

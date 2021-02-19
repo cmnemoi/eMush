@@ -2,7 +2,7 @@
 
 namespace Mush\Player\Validator;
 
-use Mush\Player\Entity\Dto\PlayerRequest;
+use Mush\Player\Entity\Dto\PlayerCreateRequest;
 use Mush\Player\Service\PlayerServiceInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -19,7 +19,7 @@ class UniqueCharacterValidator extends ConstraintValidator
 
     public function validate($value, Constraint $constraint): void
     {
-        if (!$value instanceof PlayerRequest) {
+        if (!$value instanceof PlayerCreateRequest) {
             throw new \InvalidArgumentException();
         }
 

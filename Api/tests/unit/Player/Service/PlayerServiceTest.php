@@ -8,6 +8,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\Collection\CharacterConfigCollection;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
@@ -139,5 +140,25 @@ class PlayerServiceTest extends TestCase
         $this->assertEquals($gameConfig->getInitSatiety(), $player->getSatiety());
         $this->assertCount(0, $player->getItems());
         $this->assertCount(0, $player->getSkills());
+    }
+
+    public function testEndPlayer()
+    {
+        $user = new User();
+        $player = new Player();
+        $player->setUser($user);
+        $message = 'message';
+
+        $this->entityManager->shouldReceive([
+            'persist' => null,
+            'flush' => null,
+        ]);
+
+        $this->eventDispatcher->shouldReceive('dispatch');
+
+        $player = $this->service->endPlayer($player, $message);
+
+        $this->assertEquals(GameStatusEnum::CLOSED, $player->getGameStatus());
+        $this->assertNull($user->getCurrentGame());
     }
 }

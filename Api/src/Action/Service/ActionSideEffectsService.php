@@ -50,7 +50,8 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
             $dirtyRate > 0 &&
             ($percent = $this->randomService->randomPercent()) <= $dirtyRate
         ) {
-            $dirtyRate += $this->actionModifierService->getAdditiveModifier(
+            $dirtyRate = $this->actionModifierService->getModifiedValue(
+                $dirtyRate,
                 $player,
                 [ModifierScopeEnum::EVENT_DIRTY],
                 ModifierTargetEnum::PERCENTAGE
@@ -81,7 +82,8 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
         if ($injuryRate > 0 &&
             ($percent = $this->randomService->randomPercent()) <= $injuryRate
         ) {
-            $injuryRate += $this->actionModifierService->getAdditiveModifier(
+            $injuryRate = $this->actionModifierService->getModifiedValue(
+                $injuryRate,
                 $player,
                 [ModifierScopeEnum::EVENT_CLUMSINESS],
                 ModifierTargetEnum::PERCENTAGE

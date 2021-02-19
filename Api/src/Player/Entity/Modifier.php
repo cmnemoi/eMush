@@ -36,6 +36,11 @@ class Modifier
      */
     private ?string $reach = null;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private ?bool $isAdditive = null;
+
     public function getId(): int
     {
         return $this->id;
@@ -85,6 +90,18 @@ class Modifier
     public function setReach(?string $reach): Modifier
     {
         $this->reach = $reach;
+
+        return $this;
+    }
+
+    public function isAdditive(): ?bool
+    {
+        return $this->isAdditive;
+    }
+
+    public function setIsAdditive(?bool $isAdditive): Modifier
+    {
+        $this->isAdditive = $isAdditive;
 
         return $this;
     }

@@ -44,14 +44,17 @@ class ActionService implements ActionServiceInterface
 
     public function getTotalActionPointCost(Player $player, Action $action): ?int
     {
-        if ($action->getActionCost()->getActionPointCost() !== null) {
-            $modifiersDelta = $this->actionModifierService->getAdditiveModifier(
+        $initCost = $action->getActionCost()->getActionPointCost();
+
+        if ($initCost !== null) {
+            $actionCost = $this->actionModifierService->getModifiedValue(
+                $initCost,
                 $player,
                 array_merge([$action->getName()], $action->getTypes()),
                 ModifierTargetEnum::ACTION_POINT
             );
 
-            return (int) max($action->getActionCost()->getActionPointCost() + $modifiersDelta, 0);
+            return max($actionCost, 0);
         }
 
         return null;
@@ -59,14 +62,17 @@ class ActionService implements ActionServiceInterface
 
     public function getTotalMovementPointCost(Player $player, Action $action): ?int
     {
-        if ($action->getActionCost()->getMovementPointCost() !== null) {
-            $modifiersDelta = $this->actionModifierService->getAdditiveModifier(
+        $initCost = $action->getActionCost()->getMovementPointCost();
+
+        if ($initCost !== null) {
+            $actionCost = $this->actionModifierService->getModifiedValue(
+                $initCost,
                 $player,
                 array_merge([$action->getName()], $action->getTypes()),
                 ModifierTargetEnum::MOVEMENT_POINT
             );
 
-            return (int) max($action->getActionCost()->getMovementPointCost() + $modifiersDelta, 0);
+            return max($actionCost, 0);
         }
 
         return null;
@@ -86,14 +92,17 @@ class ActionService implements ActionServiceInterface
         //Get number of attempt
         $numberOfAttempt = $this->getAttempt($player, $action->getName())->getCharge();
 
+        $initialValue = ($baseRate * (1.25) ** $numberOfAttempt);
+
         //Get modifiers
-        $modificator = $this->actionModifierService->getMultiplicativeModifier(
+        $modifiedValue = $this->actionModifierService->getModifiedValue(
+            $initialValue,
             $player,
             array_merge([$action->getName()], $action->getTypes()),
             ModifierTargetEnum::PERCENTAGE
         );
 
-        return $this->computeSuccessRate($baseRate, $numberOfAttempt, $modificator);
+        return min($this::MAX_PERCENT, $modifiedValue);
     }
 
     public function getAttempt(Player $player, string $actionName): Attempt
@@ -116,17 +125,5 @@ class ActionService implements ActionServiceInterface
         }
 
         return $attempt;
-    }
-
-    private function computeSuccessRate(
-        int $baseRate,
-        int $numberOfAttempt,
-        float $relativeModificator,
-        float $fixedModificator = 0
-    ): int {
-        return (int) min(
-            ($baseRate * (1.25) ** $numberOfAttempt) * $relativeModificator + $baseRate * $fixedModificator,
-            self::MAX_PERCENT
-        );
     }
 }

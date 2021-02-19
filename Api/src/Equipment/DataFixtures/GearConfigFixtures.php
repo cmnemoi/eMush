@@ -57,7 +57,8 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ModifierTargetEnum::PERCENTAGE,
             -100,
             ModifierScopeEnum::EVENT_DIRTY,
-            ReachEnum::INVENTORY
+            ReachEnum::INVENTORY,
+            true
         );
 
         $actions25 = clone $actions;
@@ -87,7 +88,8 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ModifierTargetEnum::HEALTH_POINT,
             -1,
             ModifierScopeEnum::ACTION_ATTACK,
-            ReachEnum::INVENTORY
+            ReachEnum::INVENTORY,
+            true
         );
 
         $plasteniteArmor = new ItemConfig();
@@ -110,7 +112,8 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ModifierTargetEnum::PERCENTAGE,
             1.5,
             ModifierScopeEnum::ACTION_TECHNICIAN,
-            ReachEnum::INVENTORY
+            ReachEnum::INVENTORY,
+            false
         );
         $wrench = new ItemConfig();
         $wrench
@@ -130,7 +133,8 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ModifierTargetEnum::PERCENTAGE,
             -100,
             ModifierScopeEnum::EVENT_CLUMSINESS,
-            ReachEnum::INVENTORY
+            ReachEnum::INVENTORY,
+            true
         );
 
         $gloves = new ItemConfig();
@@ -152,7 +156,8 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ModifierTargetEnum::ACTION_POINT,
             -1,
             ActionEnum::SHOWER,
-            ReachEnum::INVENTORY
+            ReachEnum::INVENTORY,
+            true
         );
 
         $soap = new ItemConfig();
@@ -176,9 +181,10 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $sniperHelmetGear = $this->createGear(
             ModifierTargetEnum::PERCENTAGE,
-            10,
+            1.1,
             ModifierScopeEnum::ACTION_SHOOT,
-            ReachEnum::INVENTORY
+            ReachEnum::INVENTORY,
+            true
         );
 
         $sniperHelmet = new ItemConfig();
@@ -201,7 +207,8 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ModifierTargetEnum::PERCENTAGE,
             1.5,
             ModifierScopeEnum::ACTION_TECHNICIAN,
-            ReachEnum::INVENTORY
+            ReachEnum::INVENTORY,
+            false
         );
 
         $alienBottleOpener = new ItemConfig();
@@ -228,7 +235,8 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ModifierTargetEnum::MOVEMENT_POINT,
             2,
             ModifierScopeEnum::EVENT_ACTION_POINT_CONVERSION,
-            ReachEnum::INVENTORY
+            ReachEnum::INVENTORY,
+            true
         );
 
         $chargedMechanic = new Charged();
@@ -276,9 +284,10 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $lensesGear = $this->createGear(
             ModifierTargetEnum::PERCENTAGE,
-            10,
+            1.1,
             ModifierScopeEnum::ACTION_SHOOT,
-            ReachEnum::INVENTORY
+            ReachEnum::INVENTORY,
+            false
         );
         $lenses = new ItemConfig();
         $lenses
@@ -299,7 +308,8 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ModifierTargetEnum::PERCENTAGE,
             1.5,
             ActionEnum::REINFORCE,
-            ReachEnum::INVENTORY
+            ReachEnum::INVENTORY,
+            false
         );
 
         $oscilloscope = new ItemConfig();
@@ -402,7 +412,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->flush();
     }
 
-    private function createGear(string $target, float $delta, string $scope, string $reach): Gear
+    private function createGear(string $target, float $delta, string $scope, string $reach, bool $isAdditive): Gear
     {
         $modifier = new Modifier();
         $modifier
@@ -410,6 +420,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setDelta($delta)
             ->setScope($scope)
             ->setReach($reach)
+            ->setIsAdditive($isAdditive)
         ;
 
         $this->objectManager->persist($modifier);

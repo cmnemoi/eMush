@@ -16,10 +16,11 @@ class ActionModifierService implements ActionModifierServiceInterface
         $this->gearToolService = $gearToolService;
     }
 
-    public function getAdditiveModifier(Player $player, array $scopes, ?string $target = null): int
+    public function getGearsModifier(Player $player, array $scopes, string $target): array
     {
         /** @var int $delta */
-        $delta = 0;
+        $additiveDelta = 0;
+        $multiplicativeDelta = 1;
 
         //gear modifiers
         foreach ($this->gearToolService->getApplicableGears($player, $scopes, $target) as $gear) {
@@ -28,45 +29,37 @@ class ActionModifierService implements ActionModifierServiceInterface
             if ($gearMechanic) {
                 foreach ($gearMechanic->getModifiers() as $modifier) {
                     if (in_array($modifier->getScope(), $scopes) &&
-                        ($target === null || $modifier->getTarget() === $target)
+                        ($modifier->getTarget() === $target)
                     ) {
-                        $delta += $modifier->getDelta();
+                        if ($modifier->isAdditive()) {
+                            $additiveDelta += $modifier->getDelta();
+                        } else {
+                            $multiplicativeDelta *= $modifier->getDelta();
+                        }
                     }
                 }
             }
         }
 
-        //@TODO Status modifiers
-
-        //@TODO skill modifiers
-
-        return $delta;
+        return ['additive' => $additiveDelta, 'multiplicative' => $multiplicativeDelta];
     }
 
-    public function getMultiplicativeModifier(Player $player, array $scopes, ?string $target = null): float
+    public function getModifiedValue(float $initValue, Player $player, array $scopes, string $target): int
     {
         /** @var int $delta */
-        $delta = 1;
+        $additiveDelta = 0;
+        $multiplicativeDelta = 1;
 
         //gear modifiers
-        foreach ($this->gearToolService->getApplicableGears($player, $scopes, $target) as $gear) {
-            $gearMechanic = $gear->getEquipment()->getMechanicByName(EquipmentMechanicEnum::GEAR);
+        $modifiersDelta = $this->getGearsModifier($player, $scopes, $target);
 
-            if ($gearMechanic) {
-                foreach ($gearMechanic->getModifiers() as $modifier) {
-                    if (in_array($modifier->getScope(), $scopes) &&
-                        ($target === null || $modifier->getTarget() === $target)
-                    ) {
-                        $delta *= $modifier->getDelta();
-                    }
-                }
-            }
-        }
+        $additiveDelta += $modifiersDelta['additive'];
+        $multiplicativeDelta *= $modifiersDelta['multiplicative'];
 
         //@TODO Status modifiers
 
         //@TODO skill modifiers
 
-        return $delta;
+        return (int) $initValue * $multiplicativeDelta + $additiveDelta;
     }
 }

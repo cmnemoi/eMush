@@ -8,6 +8,7 @@ use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Specification\Reach;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -51,14 +52,11 @@ class Drop extends AbstractAction
         return $parameter instanceof GameItem;
     }
 
-    public function isVisible(): bool
+    protected function getVisibilitySpecifications(): array
     {
-        $itemConfig = $this->parameter->getEquipment();
-
-        return parent::isVisible() &&
-            $itemConfig->hasAction(ActionEnum::DROP) &&
-            ($itemConfig instanceof ItemConfig) &&
-            $this->player->getItems()->contains($this->parameter);
+        return [
+            Reach::class => null,
+        ];
     }
 
     public function cannotExecuteReason(): ?string

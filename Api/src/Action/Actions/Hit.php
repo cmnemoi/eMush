@@ -8,6 +8,7 @@ use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Specification\Reach;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\SkillEnum;
@@ -51,11 +52,11 @@ class Hit extends AttemptAction
         return $parameter instanceof Player;
     }
 
-    public function isVisible(): bool
+    protected function getVisibilitySpecifications(): array
     {
-        return parent::isVisible() &&
-            $this->player->getPlace() === $this->parameter->getPlace() &&
-            $this->player !== $this->parameter;
+        return [
+            Reach::class => null,
+        ];
     }
 
     public function cannotExecuteReason(): ?string

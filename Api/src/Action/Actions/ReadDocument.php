@@ -7,6 +7,8 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Specification\Mechanic;
+use Mush\Action\Specification\Reach;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -33,11 +35,12 @@ class ReadDocument extends AbstractAction
         return $parameter instanceof GameItem;
     }
 
-    public function isVisible(): bool
+    protected function getVisibilitySpecifications(): array
     {
-        return parent::isVisible() &&
-            $this->parameter->getEquipment()->getMechanicByName(EquipmentMechanicEnum::DOCUMENT) !== null &&
-            $this->player->canReachEquipment($this->parameter);
+        return [
+            Mechanic::class => [Mechanic::PARAMETER_KEY => EquipmentMechanicEnum::DOCUMENT],
+            Reach::class => null,
+        ];
     }
 
     protected function applyEffects(): ActionResult

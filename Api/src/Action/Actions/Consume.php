@@ -9,6 +9,7 @@ use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Specification\Reach;
 use Mush\Equipment\Entity\ConsumableEffect;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Drug;
@@ -59,13 +60,13 @@ class Consume extends AbstractAction
         return $parameter instanceof GameItem;
     }
 
-    public function isVisible(): bool
+    protected function getVisibilitySpecifications(): array
     {
-        return parent::isVisible() &&
-            $this->parameter->getActions()->contains($this->action) &&
-            $this->player->canReachEquipment($this->parameter);
+        return [
+            Reach::class => null,
+        ];
     }
-
+    
     public function cannotExecuteReason(): ?string
     {
         if ($this->parameter->getEquipment()->getMechanicByName(EquipmentMechanicEnum::DRUG) &&

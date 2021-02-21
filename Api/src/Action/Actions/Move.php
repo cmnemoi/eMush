@@ -7,6 +7,7 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Specification\Reach;
 use Mush\Equipment\Entity\Door;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\ActionLogEnum;
@@ -42,6 +43,11 @@ class Move extends AbstractAction
     protected function support(?ActionParameter $parameter): bool
     {
         return $parameter instanceof Door;
+    }
+
+    protected function getVisibilitySpecifications(): array
+    {
+        return [];
     }
 
     public function isVisible(): bool

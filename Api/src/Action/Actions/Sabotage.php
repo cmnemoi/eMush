@@ -8,7 +8,10 @@ use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Specification\Mechanic;
+use Mush\Action\Specification\Reach;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
@@ -50,10 +53,17 @@ class Sabotage extends AttemptAction
         return $parameter instanceof GameEquipment;
     }
 
+    protected function getVisibilitySpecifications(): array
+    {
+        return [
+            Mechanic::class => [Mechanic::PARAMETER_KEY => EquipmentMechanicEnum::BOOK],
+            Reach::class => null,
+        ];
+    }
+
     public function isVisible(): bool
     {
         return parent::isVisible() &&
-            $this->player->canReachEquipment($this->parameter) &&
             !$this->parameter->isBroken() &&
             $this->parameter->isBreakable() &&
             $this->player->isMush();

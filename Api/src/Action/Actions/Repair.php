@@ -7,7 +7,10 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Specification\Mechanic;
+use Mush\Action\Specification\Reach;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
@@ -47,11 +50,18 @@ class Repair extends AttemptAction
         return $parameter instanceof GameEquipment;
     }
 
+    protected function getVisibilitySpecifications(): array
+    {
+        return [
+            Reach::class => null,
+        ];
+    }
+
     public function isVisible(): bool
     {
         return parent::isVisible() &&
-            $this->parameter->isBroken() &&
-            $this->player->canReachEquipment($this->parameter);
+            $this->parameter->isBroken()
+            ;
     }
 
     protected function applyEffects(): ActionResult

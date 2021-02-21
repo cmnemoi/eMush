@@ -9,6 +9,7 @@ use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Specification\SpecificationInterface;
 use Mush\Player\Entity\Player;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -45,9 +46,19 @@ abstract class AbstractAction
         $this->parameter = $parameter;
     }
 
+    protected abstract function getVisibilitySpecifications(): array;
+
     public function isVisible(): bool
     {
-        return $this->player->isAlive();
+        foreach ($this->getVisibilitySpecifications() as $specificationClassname => $parameters) {
+            /** @var SpecificationInterface $specification */
+            $specification = new $specificationClassname();
+            if (!$specification->isValid($this->parameter, $this->player, $parameters)) {
+                return false;
+            }
+        }
+
+        return $this->player->isAlive() && $this->parameter->getActions()->contains($this->action);
     }
 
     public function cannotExecuteReason(): ?string

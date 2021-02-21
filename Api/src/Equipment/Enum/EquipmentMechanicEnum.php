@@ -20,4 +20,26 @@ class EquipmentMechanicEnum
     public const ENTITY = 'entity';
     public const DISMOUNTABLE = 'dismountable';
     public const CHARGED = 'charged';
+
+    public static function getAll(): array
+    {
+        return [
+            self::RATION,
+            self::GEAR,
+            self::TOOL,
+            self::WEAPON,
+            self::EXPLORATION,
+            self::INSTRUMENT,
+            self::FRUIT,
+            self::PLANT,
+            self::DRUG,
+            self::BOOK,
+            self::BLUEPRINT,
+            self::COMPONENT,
+            self::DOCUMENT,
+            self::ENTITY,
+            self::DISMOUNTABLE,
+            self::CHARGED
+        ];
+    }
 }

@@ -8,6 +8,7 @@ use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Specification\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -51,15 +52,11 @@ class Disassemble extends AttemptAction
         return $parameter instanceof GameEquipment;
     }
 
-    public function isVisible(): bool
+    protected function getVisibilitySpecifications(): array
     {
-        return parent::isVisible() &&
-            $this->parameter->getActions()->contains($this->action) &&
-            $this->player->canReachEquipment($this->parameter)
-            //@TODO uncomment when skill are ready
-            //||
-            //in_array(SkillEnum::TECHNICIAN, $this->player->getSkills())
-            ;
+        return [
+            Reach::class => null,
+        ];
     }
 
     public function cannotExecuteReason(): ?string

@@ -9,6 +9,7 @@ use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Specification\Reach;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -36,6 +37,11 @@ class ExtractSpore extends AbstractAction
     protected function support(?ActionParameter $parameter): bool
     {
         return $parameter === null;
+    }
+
+    protected function getVisibilitySpecifications(): array
+    {
+        return [];
     }
 
     public function isVisible(): bool

@@ -7,6 +7,8 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Specification\Mechanic;
+use Mush\Action\Specification\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Ration;
@@ -56,6 +58,14 @@ class Hyperfreeze extends AbstractAction
         return $parameter instanceof GameEquipment;
     }
 
+
+    protected function getVisibilitySpecifications(): array
+    {
+        return [
+            Reach::class => null,
+        ];
+    }
+
     public function isVisible(): bool
     {
         /** @var Ration $rationMechanic */
@@ -64,7 +74,6 @@ class Hyperfreeze extends AbstractAction
         return parent::isVisible() &&
             $rationMechanic !== null &&
             $rationMechanic->isPerishable() &&
-            $this->player->canReachEquipment($this->parameter) &&
             $this->gearToolService->getUsedTool($this->player, $this->action->getName()) !== null &&
             !$this->parameter->getStatusByName(EquipmentStatusEnum::FROZEN);
     }

@@ -7,6 +7,7 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Specification\Reach;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
@@ -47,13 +48,19 @@ class InsertOxygen extends AbstractAction
         return $parameter instanceof GameItem;
     }
 
+
+    protected function getVisibilitySpecifications(): array
+    {
+        return [
+            Reach::class => null,
+        ];
+    }
+
     public function isVisible(): bool
     {
         $gameConfig = $this->player->getDaedalus()->getGameConfig();
 
-        return $this->player->canReachEquipment($this->parameter) &&
-            $this->parameter->getEquipment()->getName() === ItemEnum::OXYGEN_CAPSULE &&
-            $this->gearToolService->getUsedTool($this->player, $this->action->getName()) !== null &&
+        return $this->gearToolService->getUsedTool($this->player, $this->action->getName()) !== null &&
             $this->player->getDaedalus()->getOxygen() < $gameConfig->getDaedalusConfig()->getMaxOxygen() &&
             parent::isVisible()
         ;

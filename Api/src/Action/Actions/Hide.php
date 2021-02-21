@@ -8,6 +8,7 @@ use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Specification\Reach;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -53,6 +54,13 @@ class Hide extends AbstractAction
         return $parameter instanceof GameItem;
     }
 
+    protected function getVisibilitySpecifications(): array
+    {
+        return [
+            Reach::class => null,
+        ];
+    }
+
     public function isVisible(): bool
     {
         /** @var ItemConfig $itemConfig */
@@ -60,8 +68,8 @@ class Hide extends AbstractAction
 
         return parent::isVisible() &&
             $this->parameter->getStatusByName(EquipmentStatusEnum::HIDDEN) === null &&
-            $itemConfig->isHideable() &&
-            $this->player->canReachEquipment($this->parameter);
+            $itemConfig->isHideable()
+            ;
     }
 
     public function cannotExecuteReason(): ?string

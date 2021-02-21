@@ -7,6 +7,8 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Specification\Mechanic;
+use Mush\Action\Specification\Reach;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Book;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
@@ -47,11 +49,12 @@ class ReadBook extends AbstractAction
         return $parameter instanceof GameItem;
     }
 
-    public function isVisible(): bool
+    protected function getVisibilitySpecifications(): array
     {
-        return parent::isVisible() &&
-            $this->parameter->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BOOK) !== null &&
-            $this->player->canReachEquipment($this->parameter);
+        return [
+            Mechanic::class => [Mechanic::PARAMETER_KEY => EquipmentMechanicEnum::BOOK],
+            Reach::class => null,
+        ];
     }
 
     public function cannotExecuteReason(): ?string

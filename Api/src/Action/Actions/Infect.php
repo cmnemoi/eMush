@@ -9,6 +9,7 @@ use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Specification\Reach;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Service\PlayerServiceInterface;
@@ -48,11 +49,18 @@ class Infect extends AbstractAction
         return $parameter instanceof Player;
     }
 
+    protected function getVisibilitySpecifications(): array
+    {
+        return [
+            Reach::class => null,
+        ];
+    }
+
     public function isVisible(): bool
     {
         return parent::isVisible() &&
-            $this->player->isMush() &&
-            $this->player->getPlace() === $this->parameter->getPlace();
+            $this->player->isMush()
+            ;
     }
 
     public function cannotExecuteReason(): ?string

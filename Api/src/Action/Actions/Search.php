@@ -9,8 +9,11 @@ use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Specification\Mechanic;
+use Mush\Action\Specification\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
@@ -41,6 +44,12 @@ class Search extends AbstractAction
     protected function support(?ActionParameter $parameter): bool
     {
         return $parameter === null;
+    }
+
+
+    protected function getVisibilitySpecifications(): array
+    {
+        return [];
     }
 
     public function cannotExecuteReason(): ?string

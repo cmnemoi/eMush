@@ -8,6 +8,7 @@ use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Specification\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Service\PlaceServiceInterface;
@@ -48,11 +49,16 @@ class Extinguish extends AttemptAction
         return $parameter instanceof GameEquipment;
     }
 
+    protected function getVisibilitySpecifications(): array
+    {
+        return [
+            Reach::class => null,
+        ];
+    }
+
     public function isVisible(): bool
     {
         return parent::isVisible() &&
-            $this->parameter->getEquipment()->hasAction($this->name) &&
-            $this->player->canReachEquipment($this->parameter) &&
             $this->player->getPlace()->hasStatus(StatusEnum::FIRE);
     }
 

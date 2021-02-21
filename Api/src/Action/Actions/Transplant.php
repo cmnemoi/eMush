@@ -7,6 +7,8 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Specification\Mechanic;
+use Mush\Action\Specification\Reach;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Fruit;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
@@ -53,12 +55,18 @@ class Transplant extends AbstractAction
         return $parameter instanceof GameItem;
     }
 
+    protected function getVisibilitySpecifications(): array
+    {
+        return [
+            Reach::class => null,
+        ];
+    }
+
     public function isVisible(): bool
     {
         return parent::isVisible() &&
-            !$this->gearToolService->getEquipmentsOnReachByName($this->player, ItemEnum::HYDROPOT)->isEmpty() &&
-            $this->player->canReachEquipment($this->parameter) &&
-            $this->parameter->getEquipment()->hasAction($this->name);
+            !$this->gearToolService->getEquipmentsOnReachByName($this->player, ItemEnum::HYDROPOT)->isEmpty()
+            ;
     }
 
     protected function applyEffects(): ActionResult
@@ -74,7 +82,7 @@ class Transplant extends AbstractAction
 
         /** @var GameItem $plantEquipment */
         $plantEquipment = $this->gameEquipmentService
-                    ->createGameEquipmentFromName($fruitType->getPlantName(), $this->player->getDaedalus());
+            ->createGameEquipmentFromName($fruitType->getPlantName(), $this->player->getDaedalus());
 
         if ($place instanceof Player) {
             $plantEquipment->setPlayer($place);

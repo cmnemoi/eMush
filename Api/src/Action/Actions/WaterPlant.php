@@ -8,7 +8,10 @@ use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Specification\Mechanic;
+use Mush\Action\Specification\Reach;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Status\Entity\Status;
@@ -48,11 +51,11 @@ class WaterPlant extends AbstractAction
         return $parameter instanceof GameItem;
     }
 
-    public function isVisible(): bool
+    protected function getVisibilitySpecifications(): array
     {
-        return parent::isVisible() &&
-            $this->player->canReachEquipment($this->parameter) &&
-            $this->parameter->getEquipment()->hasAction($this->name);
+        return [
+            Reach::class => null,
+        ];
     }
 
     public function cannotExecuteReason(): ?string

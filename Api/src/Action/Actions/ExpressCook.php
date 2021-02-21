@@ -7,6 +7,7 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Specification\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\GameRationEnum;
@@ -55,12 +56,18 @@ class ExpressCook extends AbstractAction
         return $parameter instanceof GameEquipment;
     }
 
+    protected function getVisibilitySpecifications(): array
+    {
+        return [
+            Reach::class => null,
+        ];
+    }
+
     public function isVisible(): bool
     {
         return parent::isVisible() &&
             ($this->parameter->getEquipment()->getName() === GameRationEnum::STANDARD_RATION ||
                 $this->parameter->getStatusByName(EquipmentStatusEnum::FROZEN)) &&
-            $this->player->canReachEquipment($this->parameter) &&
             $this->gearToolService->getUsedTool($this->player, $this->action->getName()) !== null;
     }
 

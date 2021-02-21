@@ -8,6 +8,8 @@ use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Specification\Mechanic;
+use Mush\Action\Specification\Reach;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
@@ -55,16 +57,12 @@ class Build extends AbstractAction
         return $parameter instanceof GameEquipment && !$parameter instanceof Door;
     }
 
-    public function isVisible(): bool
+    protected function getVisibilitySpecifications(): array
     {
-        /** @var Blueprint $blueprintMechanic */
-        $blueprintMechanic = $this->parameter->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT);
-        //Check that the equipment is a blueprint and is reachable
-
-        return parent::isVisible() &&
-            $blueprintMechanic !== null &&
-            $this->player->canReachEquipment($this->parameter)
-        ;
+        return [
+            Mechanic::class => [Mechanic::PARAMETER_KEY => EquipmentMechanicEnum::BLUEPRINT],
+            Reach::class => null,
+        ];
     }
 
     public function cannotExecuteReason(): ?string

@@ -7,6 +7,8 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Specification\Mechanic;
+use Mush\Action\Specification\Reach;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Document;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
@@ -46,15 +48,22 @@ class Shred extends AbstractAction
         return $parameter instanceof GameItem;
     }
 
+    protected function getVisibilitySpecifications(): array
+    {
+        return [
+            Mechanic::class => [Mechanic::PARAMETER_KEY => EquipmentMechanicEnum::DOCUMENT],
+            Reach::class => null,
+        ];
+    }
+
     public function isVisible(): bool
     {
         /** @var ?Document $document */
         $document = $this->parameter->getEquipment()->getMechanicByName(EquipmentMechanicEnum::DOCUMENT);
 
         return parent::isVisible() &&
-            $document !== null &&
-            $document->canShred() &&
-            $this->player->canReachEquipment($this->parameter);
+            $document->canShred()
+            ;
     }
 
     protected function applyEffects(): ActionResult

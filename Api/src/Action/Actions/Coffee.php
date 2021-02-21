@@ -8,8 +8,11 @@ use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Specification\Mechanic;
+use Mush\Action\Specification\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -43,11 +46,11 @@ class Coffee extends AbstractAction
         return $parameter !== null && $parameter->getClassName() === GameEquipment::class;
     }
 
-    public function isVisible(): bool
+    protected function getVisibilitySpecifications(): array
     {
-        return parent::isVisible() &&
-            $this->parameter->getActions()->contains($this->action) &&
-            $this->player->canReachEquipment($this->parameter);
+        return [
+            Reach::class => null,
+        ];
     }
 
     public function cannotExecuteReason(): ?string

@@ -5,8 +5,7 @@ namespace Mush\Action\Actions;
 use Error;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionParameters;
+use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
@@ -23,7 +22,8 @@ class Infect extends AbstractAction
 {
     protected string $name = ActionEnum::INFECT;
 
-    private Player $targetPlayer;
+    /** @var Player */
+    protected $parameter;
 
     private StatusServiceInterface $statusService;
     private PlayerServiceInterface $playerService;
@@ -43,22 +43,16 @@ class Infect extends AbstractAction
         $this->playerService = $playerService;
     }
 
-    public function loadParameters(Action $action, Player $player, ActionParameters $actionParameters): void
+    protected function support(?ActionParameter $parameter): bool
     {
-        parent::loadParameters($action, $player, $actionParameters);
-
-        if (!($targetPlayer = $actionParameters->getPlayer())) {
-            throw new \InvalidArgumentException('Invalid player parameter');
-        }
-
-        $this->targetPlayer = $targetPlayer;
+        return $parameter instanceof Player;
     }
 
     public function isVisible(): bool
     {
         return parent::isVisible() &&
             $this->player->isMush() &&
-            $this->player->getPlace() === $this->targetPlayer->getPlace();
+            $this->player->getPlace() === $this->parameter->getPlace();
     }
 
     public function cannotExecuteReason(): ?string
@@ -80,10 +74,10 @@ class Infect extends AbstractAction
         if ($mushStatus->getCharge() <= 0) {
             return ActionImpossibleCauseEnum::INFECT_DAILY_LIMIT;
         }
-        if ($this->targetPlayer->isMush()) {
+        if ($this->parameter->isMush()) {
             return ActionImpossibleCauseEnum::INFECT_MUSH;
         }
-        if ($this->targetPlayer->getStatusByName(PlayerStatusEnum::IMMUNIZED)) {
+        if ($this->parameter->getStatusByName(PlayerStatusEnum::IMMUNIZED)) {
             return ActionImpossibleCauseEnum::INFECT_IMMUNE;
         }
 
@@ -92,7 +86,7 @@ class Infect extends AbstractAction
 
     protected function applyEffects(): ActionResult
     {
-        $playerEvent = new PlayerEvent($this->targetPlayer);
+        $playerEvent = new PlayerEvent($this->parameter);
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::INFECTION_PLAYER);
 
         /** @var ChargeStatus $sporeStatus */
@@ -105,7 +99,7 @@ class Infect extends AbstractAction
         $mushStatus->addCharge(-1);
         $this->statusService->persist($mushStatus);
 
-        $target = new Target($this->targetPlayer->getCharacterConfig()->getName(), 'character');
+        $target = new Target($this->parameter->getCharacterConfig()->getName(), 'character');
 
         return new Success($target);
     }

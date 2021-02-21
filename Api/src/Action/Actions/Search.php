@@ -5,6 +5,7 @@ namespace Mush\Action\Actions;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
+use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
@@ -31,12 +32,15 @@ class Search extends AbstractAction
         StatusServiceInterface $statusService,
         ActionServiceInterface $actionService
     ) {
-        parent::__construct(
-            $eventDispatcher,
-            $actionService
-        );
+        parent::__construct($eventDispatcher, $actionService);
+
         $this->playerService = $playerService;
         $this->statusService = $statusService;
+    }
+
+    protected function support(?ActionParameter $parameter): bool
+    {
+        return $parameter === null;
     }
 
     public function cannotExecuteReason(): ?string

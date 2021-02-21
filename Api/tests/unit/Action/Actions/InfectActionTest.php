@@ -6,7 +6,6 @@ use Mockery;
 use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Infect;
-use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Place\Entity\Place;
@@ -64,10 +63,7 @@ class InfectActionTest extends AbstractActionTest
 
         $targetPlayer = $this->createPlayer($daedalus, $room);
 
-        $actionParameter = new ActionParameters();
-        $actionParameter->setPlayer($targetPlayer);
-
-        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player, $targetPlayer);
 
         $mushStatus = new ChargeStatus($player);
         $mushStatus
@@ -114,8 +110,6 @@ class InfectActionTest extends AbstractActionTest
             ->setName(PlayerStatusEnum::IMMUNIZED)
         ;
 
-        $actionParameter->setPlayer($targetPlayer);
-
         $result = $this->action->execute();
         $this->assertInstanceOf(Error::class, $result);
     }
@@ -130,9 +124,6 @@ class InfectActionTest extends AbstractActionTest
 
         $targetPlayer = $this->createPlayer($daedalus, $room);
 
-        $actionParameter = new ActionParameters();
-        $actionParameter->setPlayer($targetPlayer);
-
         $mushStatus = new ChargeStatus($player);
         $mushStatus
             ->setCharge(1)
@@ -145,7 +136,7 @@ class InfectActionTest extends AbstractActionTest
             ->setName(PlayerStatusEnum::SPORES)
         ;
 
-        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player, $targetPlayer);
 
         $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
 

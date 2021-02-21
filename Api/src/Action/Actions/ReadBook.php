@@ -4,11 +4,10 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionParameters;
+use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Book;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Event\EquipmentEvent;
@@ -22,7 +21,8 @@ class ReadBook extends AbstractAction
 {
     protected string $name = ActionEnum::READ_BOOK;
 
-    private GameEquipment $gameEquipment;
+    /** @var GameItem */
+    protected $parameter;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
@@ -42,23 +42,16 @@ class ReadBook extends AbstractAction
         $this->playerService = $playerService;
     }
 
-    public function loadParameters(Action $action, Player $player, ActionParameters $actionParameters): void
+    protected function support(?ActionParameter $parameter): bool
     {
-        parent::loadParameters($action, $player, $actionParameters);
-
-        if (!($equipment = $actionParameters->getItem()) &&
-            !($equipment = $actionParameters->getEquipment())) {
-            throw new \InvalidArgumentException('Invalid equipment parameter');
-        }
-
-        $this->gameEquipment = $equipment;
+        return $parameter instanceof GameItem;
     }
 
     public function isVisible(): bool
     {
         return parent::isVisible() &&
-            $this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BOOK) !== null &&
-            $this->player->canReachEquipment($this->gameEquipment);
+            $this->parameter->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BOOK) !== null &&
+            $this->player->canReachEquipment($this->parameter);
     }
 
     public function cannotExecuteReason(): ?string
@@ -70,13 +63,11 @@ class ReadBook extends AbstractAction
 
     protected function applyEffects(): ActionResult
     {
-        /**
-         * @var Book $bookType
-         */
-        $bookType = $this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BOOK);
+        /** @var Book $bookType */
+        $bookType = $this->parameter->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BOOK);
         $this->player->addSkill($bookType->getSkill());
 
-        $equipmentEvent = new EquipmentEvent($this->gameEquipment, VisibilityEnum::HIDDEN);
+        $equipmentEvent = new EquipmentEvent($this->parameter, VisibilityEnum::HIDDEN);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         $this->playerService->persist($this->player);

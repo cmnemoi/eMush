@@ -7,7 +7,6 @@ use Mockery;
 use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Coffee;
-use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\EquipmentConfig;
@@ -77,9 +76,8 @@ class CoffeeActionTest extends AbstractActionTest
         ;
 
         $player = $this->createPlayer(new Daedalus(), $room);
-        $actionParameter = new ActionParameters();
-        $actionParameter->setEquipment($gameCoffeeMachine);
-        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
+
+        $this->action->loadParameters($this->actionEntity, $player, $gameCoffeeMachine);
 
         //No coffee Machine in the room
         $result = $this->action->execute();
@@ -109,9 +107,7 @@ class CoffeeActionTest extends AbstractActionTest
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
-        $actionParameter = new ActionParameters();
-        $actionParameter->setEquipment($gameCoffeeMachine);
-        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player, $gameCoffeeMachine);
 
         $gameCoffee = new GameItem();
         $coffee = new ItemConfig();

@@ -8,7 +8,6 @@ use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Transplant;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameItem;
@@ -86,13 +85,12 @@ class PlantActionTest extends AbstractActionTest
         $gameHydropot
                     ->setEquipment($hydropot)
                     ->setPlace($room)
-                    ->setName(ItemEnum::HYDROPOT);
+                    ->setName(ItemEnum::HYDROPOT)
+        ;
 
-        $actionParameter = new ActionParameters();
-        $actionParameter->setItem($gameItem);
         $player = $this->createPlayer(new Daedalus(), $room);
 
-        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         $item->setMechanics(new ArrayCollection([$fruit]));
         //Hydropot in another room
@@ -143,10 +141,8 @@ class PlantActionTest extends AbstractActionTest
         $gameHydropot
                     ->setEquipment($hydropot)
                     ->setPlace($room)
-                    ->setName(ItemEnum::HYDROPOT);
-
-        $actionParameter = new ActionParameters();
-        $actionParameter->setItem($gameItem);
+                    ->setName(ItemEnum::HYDROPOT)
+        ;
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
@@ -159,7 +155,7 @@ class PlantActionTest extends AbstractActionTest
         $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $eventDispatcher->shouldReceive('dispatch');
 
-        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         $result = $this->action->execute();
 

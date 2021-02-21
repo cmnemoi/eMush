@@ -4,8 +4,7 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionParameters;
+use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
@@ -24,7 +23,8 @@ class Disassemble extends AttemptAction
 {
     protected string $name = ActionEnum::DISASSEMBLE;
 
-    private GameEquipment $gameEquipment;
+    /** @var GameEquipment */
+    protected $parameter;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
@@ -46,23 +46,16 @@ class Disassemble extends AttemptAction
         $this->playerService = $playerService;
     }
 
-    public function loadParameters(Action $action, Player $player, ActionParameters $actionParameters): void
+    protected function support(?ActionParameter $parameter): bool
     {
-        parent::loadParameters($action, $player, $actionParameters);
-
-        if (!($equipment = $actionParameters->getItem()) &&
-            !($equipment = $actionParameters->getEquipment())) {
-            throw new \InvalidArgumentException('Invalid equipment parameter');
-        }
-
-        $this->gameEquipment = $equipment;
+        return $parameter instanceof GameEquipment;
     }
 
     public function isVisible(): bool
     {
         return parent::isVisible() &&
-            $this->gameEquipment->getActions()->contains($this->action) &&
-            $this->player->canReachEquipment($this->gameEquipment)
+            $this->parameter->getActions()->contains($this->action) &&
+            $this->player->canReachEquipment($this->parameter)
             //@TODO uncomment when skill are ready
             //||
             //in_array(SkillEnum::TECHNICIAN, $this->player->getSkills())
@@ -72,7 +65,7 @@ class Disassemble extends AttemptAction
     public function cannotExecuteReason(): ?string
     {
         //@FIXME depending on reinforced implementation
-        if ($this->gameEquipment->hasStatus(EquipmentStatusEnum::REINFORCED)) {
+        if ($this->parameter->hasStatus(EquipmentStatusEnum::REINFORCED)) {
             return ActionImpossibleCauseEnum::DISMANTLE_REINFORCED;
         }
 
@@ -89,7 +82,7 @@ class Disassemble extends AttemptAction
 
         $this->playerService->persist($this->player);
 
-        $target = new Target($this->gameEquipment->getName(), 'items');
+        $target = new Target($this->parameter->getName(), 'items');
         $response->setTarget($target);
 
         return $response;
@@ -98,7 +91,7 @@ class Disassemble extends AttemptAction
     private function disasemble(): void
     {
         // add the item produced by disassembling
-        foreach ($this->gameEquipment->getEquipment()->getDismountedProducts() as $productString => $number) {
+        foreach ($this->parameter->getEquipment()->getDismountedProducts() as $productString => $number) {
             for ($i = 0; $i < $number; ++$i) {
                 $productEquipment = $this
                     ->gameEquipmentService
@@ -112,8 +105,8 @@ class Disassemble extends AttemptAction
             }
         }
 
-        // remove the dismanteled equipment
-        $equipmentEvent = new EquipmentEvent($this->gameEquipment, VisibilityEnum::HIDDEN);
+        // remove the dismantled equipment
+        $equipmentEvent = new EquipmentEvent($this->parameter, VisibilityEnum::HIDDEN);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
     }
 }

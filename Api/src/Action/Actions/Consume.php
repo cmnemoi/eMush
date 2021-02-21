@@ -5,13 +5,12 @@ namespace Mush\Action\Actions;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionParameters;
+use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Equipment\Entity\ConsumableEffect;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Drug;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Event\EquipmentEvent;
@@ -31,7 +30,8 @@ class Consume extends AbstractAction
 {
     protected string $name = ActionEnum::CONSUME;
 
-    private GameEquipment $gameEquipment;
+    /** @var GameItem */
+    protected $parameter;
 
     private PlayerServiceInterface $playerService;
     private EquipmentEffectServiceInterface $equipmentServiceEffect;
@@ -54,28 +54,21 @@ class Consume extends AbstractAction
         $this->statusService = $statusService;
     }
 
-    public function loadParameters(Action $action, Player $player, ActionParameters $actionParameters): void
+    protected function support(?ActionParameter $parameter): bool
     {
-        parent::loadParameters($action, $player, $actionParameters);
-
-        if (!($equipment = $actionParameters->getItem()) &&
-            !($equipment = $actionParameters->getEquipment())) {
-            throw new \InvalidArgumentException('Invalid equipment parameter');
-        }
-
-        $this->gameEquipment = $equipment;
+        return $parameter instanceof GameItem;
     }
 
     public function isVisible(): bool
     {
         return parent::isVisible() &&
-            $this->gameEquipment->getActions()->contains($this->action) &&
-            $this->player->canReachEquipment($this->gameEquipment);
+            $this->parameter->getActions()->contains($this->action) &&
+            $this->player->canReachEquipment($this->parameter);
     }
 
     public function cannotExecuteReason(): ?string
     {
-        if ($this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::DRUG) &&
+        if ($this->parameter->getEquipment()->getMechanicByName(EquipmentMechanicEnum::DRUG) &&
             $this->player->getStatusByName(PlayerStatusEnum::DRUG_EATEN)
         ) {
             return ActionImpossibleCauseEnum::CONSUME_DRUG_TWICE;
@@ -90,7 +83,7 @@ class Consume extends AbstractAction
 
     protected function applyEffects(): ActionResult
     {
-        $rationType = $this->gameEquipment->getEquipment()->getRationsMechanic();
+        $rationType = $this->parameter->getEquipment()->getRationsMechanic();
 
         if (null === $rationType) {
             throw new \Exception('Cannot consume this equipment');
@@ -123,7 +116,7 @@ class Consume extends AbstractAction
         $this->playerService->persist($this->player);
 
         // if no charges consume equipment
-        $equipmentEvent = new EquipmentEvent($this->gameEquipment, VisibilityEnum::HIDDEN);
+        $equipmentEvent = new EquipmentEvent($this->parameter, VisibilityEnum::HIDDEN);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         return new Success();

@@ -6,7 +6,6 @@ use Mockery;
 use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\ExpressCook;
-use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameItem;
@@ -96,9 +95,8 @@ class ExpressCookActionTest extends AbstractActionTest
         ;
 
         $player = $this->createPlayer(new Daedalus(), $room);
-        $actionParameter = new ActionParameters();
-        $actionParameter->setItem($gameRation);
-        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
+
+        $this->action->loadParameters($this->actionEntity, $player, $gameRation);
 
         //not possible to cook (not frozen nor standard ration)
         $result = $this->action->execute();
@@ -156,9 +154,7 @@ class ExpressCookActionTest extends AbstractActionTest
             ->setCharge(3)
         ;
 
-        $actionParameter = new ActionParameters();
-        $actionParameter->setItem($gameRation);
-        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player, $gameRation);
 
         $this->gearToolService
             ->shouldReceive('getUsedTool')
@@ -210,9 +206,7 @@ class ExpressCookActionTest extends AbstractActionTest
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
-        $actionParameter = new ActionParameters();
-        $actionParameter->setItem($gameRation);
-        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player, $gameRation);
 
         $gameCookedRation = new GameItem();
         $cookedRation = new ItemConfig();

@@ -6,7 +6,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Shred;
-use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameItem;
@@ -67,11 +66,9 @@ class ShredActionTest extends AbstractActionTest
         $this->playerService->shouldReceive('persist');
         $this->eventDispatcher->shouldReceive('dispatch');
 
-        $actionParameter = new ActionParameters();
-        $actionParameter->setItem($gameItem);
         $player = $this->createPlayer(new Daedalus(), $room);
 
-        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $result = $this->action->execute();

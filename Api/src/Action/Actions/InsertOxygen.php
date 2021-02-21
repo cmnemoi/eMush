@@ -4,8 +4,7 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionParameters;
+use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
@@ -13,14 +12,14 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Equipment\Service\GearToolServiceInterface;
-use Mush\Player\Entity\Player;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class InsertOxygen extends AbstractAction
 {
     protected string $name = ActionEnum::INSERT_OXYGEN;
 
-    private GameItem $gameItem;
+    /** @var GameItem */
+    protected $parameter;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
     private DaedalusServiceInterface $daedalusService;
@@ -43,23 +42,17 @@ class InsertOxygen extends AbstractAction
         $this->gearToolService = $gearToolService;
     }
 
-    public function loadParameters(Action $action, Player $player, ActionParameters $actionParameters): void
+    protected function support(?ActionParameter $parameter): bool
     {
-        parent::loadParameters($action, $player, $actionParameters);
-
-        if (!$item = $actionParameters->getItem()) {
-            throw new \InvalidArgumentException('Invalid item parameter');
-        }
-
-        $this->gameItem = $item;
+        return $parameter instanceof GameItem;
     }
 
     public function isVisible(): bool
     {
         $gameConfig = $this->player->getDaedalus()->getGameConfig();
 
-        return $this->player->canReachEquipment($this->gameItem) &&
-            $this->gameItem->getEquipment()->getName() === ItemEnum::OXYGEN_CAPSULE &&
+        return $this->player->canReachEquipment($this->parameter) &&
+            $this->parameter->getEquipment()->getName() === ItemEnum::OXYGEN_CAPSULE &&
             $this->gearToolService->getUsedTool($this->player, $this->action->getName()) !== null &&
             $this->player->getDaedalus()->getOxygen() < $gameConfig->getDaedalusConfig()->getMaxOxygen() &&
             parent::isVisible()
@@ -68,9 +61,9 @@ class InsertOxygen extends AbstractAction
 
     protected function applyEffects(): ActionResult
     {
-        $this->gameItem->setPlayer(null);
+        $this->parameter->setPlayer(null);
 
-        $this->gameEquipmentService->delete($this->gameItem);
+        $this->gameEquipmentService->delete($this->parameter);
 
         $this->daedalusService->changeOxygenLevel($this->player->getDaedalus(), 1);
 

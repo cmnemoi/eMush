@@ -7,7 +7,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Shower;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionCost;
-use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
@@ -48,10 +47,12 @@ class ShowerActionCest
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
         /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus,
-                                            'place' => $room,
-                                            'actionPoint' => 2,
-                                            'healthPoint' => 6, ]);
+        $player = $I->have(Player::class, [
+            'daedalus' => $daedalus,
+            'place' => $room,
+            'actionPoint' => 2,
+            'healthPoint' => 6,
+        ]);
 
         $mushStatus = new Status($player);
         $mushStatus
@@ -93,10 +94,7 @@ class ShowerActionCest
 
         $player->addItem($soap);
 
-        $actionParameters = new ActionParameters();
-        $actionParameters->setEquipment($gameEquipment);
-
-        $this->showerAction->loadParameters($action, $player, $actionParameters);
+        $this->showerAction->loadParameters($action, $player, $gameEquipment);
 
         $I->assertTrue($this->showerAction->isVisible());
         $I->assertNull($this->showerAction->cannotExecuteReason());

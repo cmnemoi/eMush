@@ -5,14 +5,12 @@ namespace Mush\Action\Actions;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionParameters;
+use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Modifier;
-use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Event\PlayerEvent;
@@ -24,7 +22,8 @@ class Shower extends AbstractAction
 {
     protected string $name = ActionEnum::SHOWER;
 
-    private GameEquipment $gameEquipment;
+    /** @var GameEquipment */
+    protected $parameter;
 
     private PlayerServiceInterface $playerService;
 
@@ -40,27 +39,21 @@ class Shower extends AbstractAction
         $this->playerService = $playerService;
     }
 
-    public function loadParameters(Action $action, Player $player, ActionParameters $actionParameters): void
+    protected function support(?ActionParameter $parameter): bool
     {
-        parent::loadParameters($action, $player, $actionParameters);
-
-        if (!($equipment = $actionParameters->getEquipment())) {
-            throw new \InvalidArgumentException('Invalid equipment parameter');
-        }
-
-        $this->gameEquipment = $equipment;
+        return $parameter instanceof GameEquipment;
     }
 
     public function isVisible(): bool
     {
         return parent::isVisible() &&
-            $this->gameEquipment->getEquipment()->hasAction($this->name) ||
-            $this->player->canReachEquipment($this->gameEquipment);
+            $this->parameter->getEquipment()->hasAction($this->name) ||
+            $this->player->canReachEquipment($this->parameter);
     }
 
     public function cannotExecuteReason(): ?string
     {
-        if ($this->gameEquipment->isBroken()) {
+        if ($this->parameter->isBroken()) {
             return ActionImpossibleCauseEnum::BROKEN_EQUIPMENT;
         }
 

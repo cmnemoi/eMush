@@ -7,7 +7,6 @@ use Mockery;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Shower;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\EquipmentConfig;
@@ -78,9 +77,7 @@ class ShowerActionTest extends AbstractActionTest
             ->setName(PlayerStatusEnum::DIRTY)
         ;
 
-        $actionParameter = new ActionParameters();
-        $actionParameter->setEquipment($gameItem);
-        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->playerService->shouldReceive('persist');

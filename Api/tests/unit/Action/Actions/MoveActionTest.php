@@ -6,7 +6,6 @@ use Mockery;
 use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Move;
-use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
@@ -66,11 +65,9 @@ class MoveActionTest extends AbstractActionTest
         $roomStart->addDoor($door);
         $roomEnd->addDoor($door);
 
-        $actionParameter = new ActionParameters();
-        $actionParameter->setDoor($door);
         $player = $this->createPlayer(new Daedalus(), $roomStart);
 
-        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player, $door);
 
         //Door is broken
         $player->setMovementPoint(1);
@@ -110,11 +107,9 @@ class MoveActionTest extends AbstractActionTest
         $this->roomLogService->shouldReceive('createActionLog')->times(4);
         $this->playerService->shouldReceive('persist');
 
-        $actionParameter = new ActionParameters();
-        $actionParameter->setDoor($door);
         $player = $this->createPlayer(new Daedalus(), $roomStart);
 
-        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player, $door);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $result = $this->action->execute();

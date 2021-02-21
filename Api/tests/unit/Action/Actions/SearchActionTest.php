@@ -6,7 +6,6 @@ use Mockery;
 use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Search;
-use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameItem;
@@ -61,8 +60,8 @@ class SearchActionTest extends AbstractActionTest
         $room = new Place();
 
         $player = $this->createPlayer(new Daedalus(), $room);
-        $actionParameter = new ActionParameters();
-        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
+
+        $this->action->loadParameters($this->actionEntity, $player);
 
         //No item in the room
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
@@ -99,8 +98,8 @@ class SearchActionTest extends AbstractActionTest
         ;
 
         $player = $this->createPlayer(new Daedalus(), $room);
-        $actionParameter = new ActionParameters();
-        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
+
+        $this->action->loadParameters($this->actionEntity, $player);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->statusService->shouldReceive('getMostRecent')->andReturn($gameItem)->once();
@@ -146,8 +145,8 @@ class SearchActionTest extends AbstractActionTest
         ;
 
         $player = $this->createPlayer(new Daedalus(), $room);
-        $actionParameter = new ActionParameters();
-        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
+
+        $this->action->loadParameters($this->actionEntity, $player);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->statusService->shouldReceive('getMostRecent')->andReturn($gameItem)->once();

@@ -6,7 +6,6 @@ use Mockery;
 use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\InsertOxygen;
-use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
@@ -103,10 +102,8 @@ class InsertOxygenTest extends AbstractActionTest
             ->andReturn(null)
             ->once()
         ;
-        $actionParameter = new ActionParameters();
-        $actionParameter->setItem($gameItem);
 
-        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         $result = $this->action->execute();
 
@@ -159,10 +156,7 @@ class InsertOxygenTest extends AbstractActionTest
         $this->gameEquipmentService->shouldReceive('delete');
         $this->daedalusService->shouldReceive('changeOxygenLevel')->andReturn($daedalus);
 
-        $actionParameter = new ActionParameters();
-        $actionParameter->setItem($gameItem);
-
-        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         $result = $this->action->execute();
 

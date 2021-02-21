@@ -8,7 +8,6 @@ use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Actions\Build;
-use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\EquipmentConfig;
@@ -89,11 +88,9 @@ class BuildActionTest extends AbstractActionTest
             ->setPlace($room)
             ->setName('metal_scraps');
 
-        $actionParameter = new ActionParameters();
-        $actionParameter->setEquipment($gameEquipment);
         $player = $this->createPlayer(new Daedalus(), $room);
 
-        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player, $gameEquipment);
 
         //Not a blueprint
         $result = $this->action->execute();
@@ -151,14 +148,12 @@ class BuildActionTest extends AbstractActionTest
         $gameIngredient
             ->setEquipment($ingredient)
             ->setPlace($room)
-            ->setName('metal_scraps');
-
-        $actionParameter = new ActionParameters();
-        $actionParameter->setItem($gameItem);
+            ->setName('metal_scraps')
+        ;
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
-        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         $this->gameEquipmentService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');

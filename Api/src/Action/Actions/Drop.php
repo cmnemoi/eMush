@@ -4,8 +4,7 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionParameters;
+use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
@@ -13,7 +12,6 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Enum\PlaceTypeEnum;
-use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\Target;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -24,7 +22,8 @@ class Drop extends AbstractAction
 {
     protected string $name = ActionEnum::DROP;
 
-    private GameItem $gameItem;
+    /** @var GameItem */
+    protected $parameter;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
@@ -47,26 +46,19 @@ class Drop extends AbstractAction
         $this->statusService = $statusService;
     }
 
-    public function loadParameters(Action $action, Player $player, ActionParameters $actionParameters): void
+    protected function support(?ActionParameter $parameter): bool
     {
-        parent::loadParameters($action, $player, $actionParameters);
-
-        if (!$item = $actionParameters->getItem()) {
-            throw new \InvalidArgumentException('Invalid item parameter');
-        }
-
-        $this->gameItem = $item;
+        return $parameter instanceof GameItem;
     }
 
     public function isVisible(): bool
     {
-        /** @var ItemConfig $itemConfig */
-        $itemConfig = $this->gameItem->getEquipment();
+        $itemConfig = $this->parameter->getEquipment();
 
         return parent::isVisible() &&
             $itemConfig->hasAction(ActionEnum::DROP) &&
             ($itemConfig instanceof ItemConfig) &&
-            $this->player->getItems()->contains($this->gameItem);
+            $this->player->getItems()->contains($this->parameter);
     }
 
     public function cannotExecuteReason(): ?string
@@ -80,8 +72,8 @@ class Drop extends AbstractAction
 
     protected function applyEffects(): ActionResult
     {
-        $this->gameItem->setPlace($this->player->getPlace());
-        $this->gameItem->setPlayer(null);
+        $this->parameter->setPlace($this->player->getPlace());
+        $this->parameter->setPlayer(null);
 
         // Remove BURDENED status if no other heavy item in the inventory
         if (($burdened = $this->player->getStatusByName(PlayerStatusEnum::BURDENED)) &&
@@ -95,10 +87,10 @@ class Drop extends AbstractAction
             $this->player->removeStatus($burdened);
         }
 
-        $this->gameEquipmentService->persist($this->gameItem);
+        $this->gameEquipmentService->persist($this->parameter);
         $this->playerService->persist($this->player);
 
-        $target = new Target($this->gameItem->getName(), 'items');
+        $target = new Target($this->parameter->getName(), 'items');
 
         return new Success($target);
     }

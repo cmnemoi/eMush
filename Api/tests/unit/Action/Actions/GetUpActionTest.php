@@ -6,7 +6,6 @@ use Mockery;
 use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\GetUp;
-use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\EquipmentConfig;
@@ -73,9 +72,7 @@ class GetUpActionTest extends AbstractActionTest
             ->setTarget($gameItem)
         ;
 
-        $actionParameter = new ActionParameters();
-
-        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player);
 
         $result = $this->action->execute();
 
@@ -105,9 +102,7 @@ class GetUpActionTest extends AbstractActionTest
             ->setTarget($gameItem)
         ;
 
-        $actionParameter = new ActionParameters();
-
-        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->statusService->shouldReceive('delete');

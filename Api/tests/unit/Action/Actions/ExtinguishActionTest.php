@@ -11,7 +11,6 @@ use Mush\Action\Actions\Extinguish;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Service\SuccessRateServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
@@ -32,8 +31,6 @@ class ExtinguishActionTest extends AbstractActionTest
     private PlaceServiceInterface $placeService;
     /** @var PlayerServiceInterface | Mockery\Mock */
     private PlayerServiceInterface $playerService;
-    /** @var SuccessRateServiceInterface | Mockery\Mock */
-    private SuccessRateServiceInterface $successRateService;
     /** @var RandomServiceInterface | Mockery\Mock */
     private RandomServiceInterface $randomService;
     /** @var StatusServiceInterface | Mockery\Mock */
@@ -50,7 +47,6 @@ class ExtinguishActionTest extends AbstractActionTest
 
         $this->placeService = Mockery::mock(PlaceServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
-        $this->successRateService = Mockery::mock(SuccessRateServiceInterface::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
 
@@ -85,11 +81,9 @@ class ExtinguishActionTest extends AbstractActionTest
         $action->setName(ActionEnum::EXTINGUISH);
         $item->setActions(new ArrayCollection([$action]));
 
-        $actionParameter = new ActionParameters();
-        $actionParameter->setItem($gameItem);
         $player = $this->createPlayer(new Daedalus(), $room);
 
-        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         //No fire
         $result = $this->action->execute();
@@ -144,10 +138,7 @@ class ExtinguishActionTest extends AbstractActionTest
         ;
         $this->actionService->shouldReceive('getAttempt')->andReturn($attempt);
 
-        $actionParameter = new ActionParameters();
-        $actionParameter->setItem($gameItem);
-
-        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->actionService->shouldReceive('getSuccessRate')->andReturn(10)->once();

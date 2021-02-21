@@ -7,7 +7,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Shower;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionCost;
-use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
@@ -94,10 +93,7 @@ class AutomaticGetUpCest
         ;
         $I->haveInRepository($gameEquipment);
 
-        $actionParameters = new ActionParameters();
-        $actionParameters->setEquipment($gameEquipment);
-
-        $this->showerAction->loadParameters($action, $player, $actionParameters);
+        $this->showerAction->loadParameters($action, $player, $gameEquipment);
 
         $I->assertTrue($this->showerAction->isVisible());
         $I->assertNull($this->showerAction->cannotExecuteReason());

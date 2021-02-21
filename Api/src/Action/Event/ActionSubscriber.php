@@ -3,7 +3,6 @@
 namespace Mush\Action\Event;
 
 use Mush\Action\Actions\GetUp;
-use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionSideEffectsServiceInterface;
 use Mush\Equipment\Service\GearToolServiceInterface;
@@ -48,7 +47,7 @@ class ActionSubscriber implements EventSubscriberInterface
                 throw new \LogicException('character do not have get up action');
             }
 
-            $this->getUpAction->loadParameters($getUpAction, $player, new ActionParameters());
+            $this->getUpAction->loadParameters($getUpAction, $player);
             $this->getUpAction->execute();
         }
     }

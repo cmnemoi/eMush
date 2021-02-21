@@ -4,20 +4,19 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionParameters;
+use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
-use Mush\Player\Entity\Player;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ReadDocument extends AbstractAction
 {
     protected string $name = ActionEnum::READ_DOCUMENT;
 
-    private GameEquipment $gameEquipment;
+    /** @var GameItem */
+    protected $parameter;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
@@ -29,23 +28,16 @@ class ReadDocument extends AbstractAction
         );
     }
 
-    public function loadParameters(Action $action, Player $player, ActionParameters $actionParameters): void
+    protected function support(?ActionParameter $parameter): bool
     {
-        parent::loadParameters($action, $player, $actionParameters);
-
-        if (!($equipment = $actionParameters->getItem()) &&
-            !($equipment = $actionParameters->getEquipment())) {
-            throw new \InvalidArgumentException('Invalid equipment parameter');
-        }
-
-        $this->player = $player;
+        return $parameter instanceof GameItem;
     }
 
     public function isVisible(): bool
     {
         return parent::isVisible() &&
-            $this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::DOCUMENT) !== null &&
-            $this->player->canReachEquipment($this->gameEquipment);
+            $this->parameter->getEquipment()->getMechanicByName(EquipmentMechanicEnum::DOCUMENT) !== null &&
+            $this->player->canReachEquipment($this->parameter);
     }
 
     protected function applyEffects(): ActionResult

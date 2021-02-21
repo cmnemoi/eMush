@@ -8,7 +8,6 @@ use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\WaterPlant;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameItem;
@@ -82,9 +81,8 @@ class WaterPlantActionTest extends AbstractActionTest
         ;
 
         $player = $this->createPlayer(new Daedalus(), $room);
-        $actionParameter = new ActionParameters();
-        $actionParameter->setItem($gameItem);
-        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
+
+        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         //Not a plant
         $result = $this->action->execute();
@@ -122,9 +120,8 @@ class WaterPlantActionTest extends AbstractActionTest
         ;
 
         $player = $this->createPlayer(new Daedalus(), $room);
-        $actionParameter = new ActionParameters();
-        $actionParameter->setItem($gameItem);
-        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
+
+        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gameEquipmentService->shouldReceive('persist');

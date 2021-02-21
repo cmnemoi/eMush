@@ -4,8 +4,7 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionParameters;
+use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
@@ -26,7 +25,8 @@ class Hit extends AttemptAction
 {
     protected string $name = ActionEnum::HIT;
 
-    private Player $target;
+    /** @var Player */
+    protected $parameter;
 
     private PlayerServiceInterface $playerService;
 
@@ -46,22 +46,16 @@ class Hit extends AttemptAction
         $this->randomService = $randomService;
     }
 
-    public function loadParameters(Action $action, Player $player, ActionParameters $actionParameters): void
+    protected function support(?ActionParameter $parameter): bool
     {
-        parent::loadParameters($action, $player, $actionParameters);
-
-        if (!($target = $actionParameters->getPlayer())) {
-            throw new \InvalidArgumentException('Invalid target parameter');
-        }
-
-        $this->target = $target;
+        return $parameter instanceof Player;
     }
 
     public function isVisible(): bool
     {
         return parent::isVisible() &&
-            $this->player->getPlace() === $this->target->getPlace() &&
-            $this->player !== $this->target;
+            $this->player->getPlace() === $this->parameter->getPlace() &&
+            $this->player !== $this->parameter;
     }
 
     public function cannotExecuteReason(): ?string
@@ -86,10 +80,10 @@ class Hit extends AttemptAction
             if (in_array(SkillEnum::WRESTLER, $this->player->getSkills())) {
                 $damage += 2;
             }
-            if (in_array(SkillMushEnum::HARD_BOILED, $this->target->getSkills())) {
+            if (in_array(SkillMushEnum::HARD_BOILED, $this->parameter->getSkills())) {
                 --$damage;
             }
-            if ($this->target->hasItemByName(GearItemEnum::PLASTENITE_ARMOR)) {
+            if ($this->parameter->hasItemByName(GearItemEnum::PLASTENITE_ARMOR)) {
                 --$damage;
             }
             if ($damage <= 0) {
@@ -101,12 +95,12 @@ class Hit extends AttemptAction
                     ->setTarget(ModifierTargetEnum::HEALTH_POINT)
                 ;
 
-                $playerEvent = new PlayerEvent($this->target);
+                $playerEvent = new PlayerEvent($this->parameter);
                 $playerEvent->setModifier($actionModifier);
                 $playerEvent->setReason(EndCauseEnum::ASSASSINATED);
                 $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
 
-                $this->playerService->persist($this->target);
+                $this->playerService->persist($this->parameter);
             }
         }
 

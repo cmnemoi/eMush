@@ -4,13 +4,11 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionParameters;
+use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -21,7 +19,8 @@ class LieDown extends AbstractAction
 {
     protected string $name = ActionEnum::LIE_DOWN;
 
-    private GameEquipment $gameEquipment;
+    /** @var GameEquipment */
+    protected $parameter;
 
     private StatusServiceInterface $statusService;
 
@@ -38,22 +37,16 @@ class LieDown extends AbstractAction
         $this->statusService = $statusService;
     }
 
-    public function loadParameters(Action $action, Player $player, ActionParameters $actionParameters): void
+    protected function support(?ActionParameter $parameter): bool
     {
-        parent::loadParameters($action, $player, $actionParameters);
-
-        if (!($equipment = $actionParameters->getEquipment())) {
-            throw new \InvalidArgumentException('Invalid equipment parameter');
-        }
-
-        $this->gameEquipment = $equipment;
+        return $parameter instanceof GameEquipment;
     }
 
     public function isVisible(): bool
     {
         return parent::isVisible() &&
-            $this->gameEquipment->getEquipment()->hasAction($this->name) &&
-            $this->player->canReachEquipment($this->gameEquipment);
+            $this->parameter->getEquipment()->hasAction($this->name) &&
+            $this->player->canReachEquipment($this->parameter);
     }
 
     public function cannotExecuteReason(): ?string
@@ -61,10 +54,10 @@ class LieDown extends AbstractAction
         if ($this->player->getStatusByName(PlayerStatusEnum::LYING_DOWN)) {
             return ActionImpossibleCauseEnum::ALREADY_IN_BED;
         }
-        if (!$this->gameEquipment->getTargetingStatuses()->filter(fn (Status $status) => ($status->getName() === PlayerStatusEnum::LYING_DOWN))->isEmpty()) {
+        if (!$this->parameter->getTargetingStatuses()->filter(fn (Status $status) => ($status->getName() === PlayerStatusEnum::LYING_DOWN))->isEmpty()) {
             return ActionImpossibleCauseEnum::BED_OCCUPIED;
         }
-        if ($this->gameEquipment->isbroken()) {
+        if ($this->parameter->isbroken()) {
             return ActionImpossibleCauseEnum::BROKEN_EQUIPMENT;
         }
 
@@ -77,7 +70,7 @@ class LieDown extends AbstractAction
         $lyingDownStatus
             ->setName(PlayerStatusEnum::LYING_DOWN)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setTarget($this->gameEquipment)
+            ->setTarget($this->parameter)
         ;
 
         $this->statusService->persist($lyingDownStatus);

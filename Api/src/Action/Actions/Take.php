@@ -4,15 +4,13 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionParameters;
+use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\Target;
 use Mush\Status\Enum\EquipmentStatusEnum as EnumEquipmentStatusEnum;
@@ -24,7 +22,8 @@ class Take extends AbstractAction
 {
     protected string $name = ActionEnum::TAKE;
 
-    private GameItem $gameItem;
+    /** @var GameItem */
+    protected $parameter;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
@@ -47,22 +46,16 @@ class Take extends AbstractAction
         $this->statusService = $statusService;
     }
 
-    public function loadParameters(Action $action, Player $player, ActionParameters $actionParameters): void
+    protected function support(?ActionParameter $parameter): bool
     {
-        parent::loadParameters($action, $player, $actionParameters);
-
-        if (!($item = $actionParameters->getItem())) {
-            throw new \InvalidArgumentException('Invalid equipment parameter');
-        }
-
-        $this->gameItem = $item;
+        return $parameter instanceof GameItem;
     }
 
     public function isVisible(): bool
     {
-        return $this->player->canReachEquipment($this->gameItem) &&
-            !$this->player->getItems()->contains($this->gameItem) &&
-            $this->gameItem->getEquipment()->hasAction($this->name) &&
+        return $this->player->canReachEquipment($this->parameter) &&
+            !$this->player->getItems()->contains($this->parameter) &&
+            $this->parameter->getEquipment()->hasAction($this->name) &&
             parent::isVisible()
         ;
     }
@@ -80,25 +73,25 @@ class Take extends AbstractAction
     protected function applyEffects(): ActionResult
     {
         /** @var ItemConfig $item */
-        $item = $this->gameItem->getEquipment();
+        $item = $this->parameter->getEquipment();
 
-        $this->gameItem->setPlace(null);
-        $this->gameItem->setPlayer($this->player);
+        $this->parameter->setPlace(null);
+        $this->parameter->setPlayer($this->player);
 
         // add BURDENED status if item is heavy
         if ($item->isHeavy()) {
             $this->statusService->createCoreStatus(PlayerStatusEnum::BURDENED, $this->player);
         }
 
-        if ($hiddenStatus = $this->gameItem->getStatusByName(EnumEquipmentStatusEnum::HIDDEN)) {
-            $this->gameItem->removeStatus($hiddenStatus);
+        if ($hiddenStatus = $this->parameter->getStatusByName(EnumEquipmentStatusEnum::HIDDEN)) {
+            $this->parameter->removeStatus($hiddenStatus);
             $this->player->removeStatus($hiddenStatus);
         }
 
-        $this->gameEquipmentService->persist($this->gameItem);
+        $this->gameEquipmentService->persist($this->parameter);
         $this->playerService->persist($this->player);
 
-        $target = new Target($this->gameItem->getName(), 'items');
+        $target = new Target($this->parameter->getName(), 'items');
 
         return new Success($target);
     }

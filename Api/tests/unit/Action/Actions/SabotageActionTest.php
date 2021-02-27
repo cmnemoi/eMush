@@ -7,9 +7,7 @@ use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Sabotage;
-use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Service\SuccessRateServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
@@ -32,8 +30,6 @@ class SabotageActionTest extends AbstractActionTest
     private GameEquipmentServiceInterface $gameEquipmentService;
     /** @var PlayerServiceInterface | Mockery\Mock */
     private PlayerServiceInterface $playerService;
-    /** @var SuccessRateServiceInterface | Mockery\Mock */
-    private SuccessRateServiceInterface $successRateService;
     /** @var RandomServiceInterface | Mockery\Mock */
     private RandomServiceInterface $randomService;
     /** @var StatusServiceInterface | Mockery\Mock */
@@ -48,7 +44,6 @@ class SabotageActionTest extends AbstractActionTest
 
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
-        $this->successRateService = Mockery::mock(SuccessRateServiceInterface::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
 
@@ -82,10 +77,8 @@ class SabotageActionTest extends AbstractActionTest
             ->setPlace($room)
         ;
 
-        $actionParameter = new ActionParameters();
-        $actionParameter->setItem($gameItem);
         $player = $this->createPlayer(new Daedalus(), $room);
-        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         //Not mush
         $result = $this->action->execute();
@@ -97,7 +90,7 @@ class SabotageActionTest extends AbstractActionTest
             ->setName(PlayerStatusEnum::MUSH)
         ;
 
-        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         //Not in the same room
         $gameItem
@@ -138,8 +131,6 @@ class SabotageActionTest extends AbstractActionTest
             ->setPlace($room)
         ;
 
-        $actionParameter = new ActionParameters();
-        $actionParameter->setItem($gameItem);
         $player = $this->createPlayer(new Daedalus(), $room);
 
         $mushStatus = new ChargeStatus($player);
@@ -148,7 +139,7 @@ class SabotageActionTest extends AbstractActionTest
             ->setName(PlayerStatusEnum::MUSH)
         ;
 
-        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         $this->gameEquipmentService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
@@ -160,10 +151,7 @@ class SabotageActionTest extends AbstractActionTest
         ;
         $this->actionService->shouldReceive('getAttempt')->andReturn($attempt);
 
-        $actionParameter = new ActionParameters();
-        $actionParameter->setItem($gameItem);
-
-        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->actionService->shouldReceive('getSuccessRate')->andReturn(10)->once();

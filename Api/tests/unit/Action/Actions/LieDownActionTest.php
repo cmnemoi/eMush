@@ -8,7 +8,6 @@ use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\LieDown;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\EquipmentConfig;
@@ -85,10 +84,7 @@ class LieDownActionTest extends AbstractActionTest
             ->setName(PlayerStatusEnum::LYING_DOWN)
         ;
 
-        $actionParameter = new ActionParameters();
-        $actionParameter->setEquipment($gameEquipment);
-
-        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player, $gameEquipment);
 
         //Bed already occupied
         $status->setTarget($gameEquipment);
@@ -127,11 +123,8 @@ class LieDownActionTest extends AbstractActionTest
             ->setName(EquipmentEnum::BED)
         ;
 
-        $actionParameter = new ActionParameters();
-        $actionParameter->setEquipment($gameEquipment);
-
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player, $gameEquipment);
 
         $this->statusService->shouldReceive('persist');
 

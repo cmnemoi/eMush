@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Mush\Action\Entity\ActionParameter;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
@@ -26,7 +27,7 @@ use Mush\User\Entity\User;
  *
  * @ORM\Entity(repositoryClass="Mush\Player\Repository\PlayerRepository")
  */
-class Player implements StatusHolderInterface
+class Player implements StatusHolderInterface, ActionParameter
 {
     use TimestampableEntity;
     use TargetStatusTrait;

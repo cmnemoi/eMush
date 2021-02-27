@@ -8,7 +8,6 @@ use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Hide;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Daedalus\Entity\Daedalus;
@@ -78,9 +77,8 @@ class HideActionTest extends AbstractActionTest
         $daedalus = new Daedalus();
         $daedalus->setGameStatus(GameStatusEnum::CURRENT);
         $player = $this->createPlayer($daedalus, $room);
-        $actionParameter = new ActionParameters();
-        $actionParameter->setItem($gameItem);
-        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
+
+        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         //item is not in the room
         $result = $this->action->execute();
@@ -125,9 +123,7 @@ class HideActionTest extends AbstractActionTest
             ->setPlayer($player)
         ;
 
-        $actionParameter = new ActionParameters();
-        $actionParameter->setItem($gameItem);
-        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gameEquipmentService->shouldReceive('persist');

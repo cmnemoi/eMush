@@ -4,7 +4,6 @@ namespace Mush\Action\Normalizer;
 
 use Mush\Action\Actions\AttemptAction;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Service\ActionStrategyServiceInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
@@ -45,21 +44,21 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
             throw new \LogicException('Current player is missing from context');
         }
 
-        $actionParameter = new ActionParameters();
+        $parameter = null;
         if (array_key_exists('player', $context)) {
-            $actionParameter->setPlayer($context['player']);
+            $parameter = $context['player'];
         }
         if (array_key_exists('door', $context)) {
-            $actionParameter->setDoor($context['door']);
+            $parameter = $context['door'];
         }
         if (array_key_exists('item', $context)) {
-            $actionParameter->setItem($context['item']);
+            $parameter = $context['item'];
         }
         if (array_key_exists('equipment', $context)) {
-            $actionParameter->setEquipment($context['equipment']);
+            $parameter = $context['equipment'];
         }
 
-        $actionClass->loadParameters($object, $currentPlayer, $actionParameter);
+        $actionClass->loadParameters($object, $currentPlayer, $parameter);
 
         if ($actionClass->isVisible()) {
             $actionName = $object->getName();

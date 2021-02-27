@@ -6,7 +6,6 @@ use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Repair;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\EquipmentConfig;
@@ -65,10 +64,7 @@ class RepairActionCest
             ->setPlace($room)
         ;
 
-        $actionParameters = new ActionParameters();
-        $actionParameters->setItem($gameEquipment);
-
-        $this->repairAction->loadParameters($action, $player, $actionParameters);
+        $this->repairAction->loadParameters($action, $player, $gameEquipment);
 
         $I->assertFalse($this->repairAction->isVisible());
 

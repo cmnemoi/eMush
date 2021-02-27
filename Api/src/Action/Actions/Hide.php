@@ -4,8 +4,7 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionParameters;
+use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
@@ -14,7 +13,6 @@ use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Place\Enum\PlaceTypeEnum;
-use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\Target;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -26,7 +24,8 @@ class Hide extends AbstractAction
 {
     protected string $name = ActionEnum::HIDE;
 
-    private GameItem $gameItem;
+    /** @var GameItem */
+    protected $parameter;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
@@ -49,26 +48,20 @@ class Hide extends AbstractAction
         $this->playerService = $playerService;
     }
 
-    public function loadParameters(Action $action, Player $player, ActionParameters $actionParameters): void
+    protected function support(?ActionParameter $parameter): bool
     {
-        parent::loadParameters($action, $player, $actionParameters);
-
-        if (!($item = $actionParameters->getItem())) {
-            throw new \InvalidArgumentException('Invalid item parameter');
-        }
-
-        $this->gameItem = $item;
+        return $parameter instanceof GameItem;
     }
 
     public function isVisible(): bool
     {
         /** @var ItemConfig $itemConfig */
-        $itemConfig = $this->gameItem->getEquipment();
+        $itemConfig = $this->parameter->getEquipment();
 
         return parent::isVisible() &&
-            $this->gameItem->getStatusByName(EquipmentStatusEnum::HIDDEN) === null &&
+            $this->parameter->getStatusByName(EquipmentStatusEnum::HIDDEN) === null &&
             $itemConfig->isHideable() &&
-            $this->player->canReachEquipment($this->gameItem);
+            $this->player->canReachEquipment($this->parameter);
     }
 
     public function cannotExecuteReason(): ?string
@@ -88,20 +81,20 @@ class Hide extends AbstractAction
     {
         $this->statusService->createCoreStatus(
             EquipmentStatusEnum::HIDDEN,
-            $this->gameItem,
+            $this->parameter,
             $this->player,
             VisibilityEnum::PRIVATE,
         );
 
-        if ($this->gameItem->getPlayer()) {
-            $this->gameItem->setPlayer(null);
-            $this->gameItem->setPlace($this->player->getPlace());
+        if ($this->parameter->getPlayer()) {
+            $this->parameter->setPlayer(null);
+            $this->parameter->setPlace($this->player->getPlace());
         }
 
-        $this->gameEquipmentService->persist($this->gameItem);
+        $this->gameEquipmentService->persist($this->parameter);
         $this->playerService->persist($this->player);
 
-        $target = new Target($this->gameItem->getName(), 'items');
+        $target = new Target($this->parameter->getName(), 'items');
 
         return new Success($target);
     }

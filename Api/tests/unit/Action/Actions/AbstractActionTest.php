@@ -20,6 +20,7 @@ abstract class AbstractActionTest extends TestCase
     /** @var EventDispatcherInterface | Mockery\Mock */
     protected EventDispatcherInterface $eventDispatcher;
 
+    /** @var ActionServiceInterface | Mockery\Mock */
     protected ActionServiceInterface $actionService;
 
     protected AbstractAction $action;

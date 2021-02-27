@@ -6,7 +6,6 @@ use Mockery;
 use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\ExtractSpore;
-use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Place\Entity\Place;
@@ -55,9 +54,7 @@ class ExtractSporeActionTest extends AbstractActionTest
 
         $player = $this->createPlayer($daedalus, $room);
 
-        $actionParameter = new ActionParameters();
-
-        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player);
 
         $mushStatus = new ChargeStatus($player);
         $mushStatus
@@ -105,9 +102,7 @@ class ExtractSporeActionTest extends AbstractActionTest
             ->setName(PlayerStatusEnum::SPORES)
         ;
 
-        $actionParameter = new ActionParameters();
-
-        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->statusService->shouldReceive('persist')->once();

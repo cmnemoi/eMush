@@ -4,8 +4,7 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionParameters;
+use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
@@ -14,7 +13,6 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -22,7 +20,8 @@ class Coffee extends AbstractAction
 {
     protected string $name = ActionEnum::COFFEE;
 
-    private GameEquipment $gameEquipment;
+    /** @var GameEquipment */
+    protected $parameter;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
 
@@ -39,31 +38,25 @@ class Coffee extends AbstractAction
         $this->gameEquipmentService = $gameEquipmentService;
     }
 
-    public function loadParameters(Action $action, Player $player, ActionParameters $actionParameters): void
+    protected function support(?ActionParameter $parameter): bool
     {
-        parent::loadParameters($action, $player, $actionParameters);
-
-        if (!($equipment = $actionParameters->getEquipment())) {
-            throw new \InvalidArgumentException('Invalid equipment parameter');
-        }
-
-        $this->gameEquipment = $equipment;
+        return $parameter !== null && $parameter->getClassName() === GameEquipment::class;
     }
 
     public function isVisible(): bool
     {
         return parent::isVisible() &&
-            $this->gameEquipment->getActions()->contains($this->action) &&
-            $this->player->canReachEquipment($this->gameEquipment);
+            $this->parameter->getActions()->contains($this->action) &&
+            $this->player->canReachEquipment($this->parameter);
     }
 
     public function cannotExecuteReason(): ?string
     {
-        if ($this->gameEquipment->isBroken()) {
+        if ($this->parameter->isBroken()) {
             return ActionImpossibleCauseEnum::BROKEN_EQUIPMENT;
         }
 
-        if (!$this->gameEquipment->isOperational()) {
+        if (!$this->parameter->isOperational()) {
             return ActionImpossibleCauseEnum::DAILY_LIMIT;
         }
 

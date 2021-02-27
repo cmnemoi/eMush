@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Mush\Action\Entity\ActionParameter;
 use Mush\Place\Entity\Place;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
@@ -26,7 +27,7 @@ use Mush\Status\Enum\EquipmentStatusEnum;
  *     "game_item" = "Mush\Equipment\Entity\GameItem"
  * })
  */
-class GameEquipment implements StatusHolderInterface
+class GameEquipment implements StatusHolderInterface, ActionParameter
 {
     use TimestampableEntity;
     use TargetStatusTrait;

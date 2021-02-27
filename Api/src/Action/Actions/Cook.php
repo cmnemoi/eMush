@@ -4,17 +4,16 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionParameters;
+use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Equipment\Service\GearToolServiceInterface;
-use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -25,7 +24,8 @@ class Cook extends AbstractAction
 {
     protected string $name = ActionEnum::COOK;
 
-    private GameEquipment $gameEquipment;
+    /** @var GameEquipment */
+    protected $parameter;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
@@ -51,30 +51,23 @@ class Cook extends AbstractAction
         $this->gearToolService = $gearToolService;
     }
 
-    public function loadParameters(Action $action, Player $player, ActionParameters $actionParameters): void
+    protected function support(?ActionParameter $parameter): bool
     {
-        parent::loadParameters($action, $player, $actionParameters);
-
-        if (!($equipment = $actionParameters->getItem()) &&
-            !($equipment = $actionParameters->getEquipment())) {
-            throw new \InvalidArgumentException('Invalid equipment parameter');
-        }
-
-        $this->gameEquipment = $equipment;
+        return $parameter instanceof GameEquipment && !$parameter instanceof Door;
     }
 
     public function isVisible(): bool
     {
         return parent::isVisible() &&
-            ($this->gameEquipment->getEquipment()->getName() === GameRationEnum::STANDARD_RATION ||
-            $this->gameEquipment->getStatusByName(EquipmentStatusEnum::FROZEN)) &&
+            ($this->parameter->getEquipment()->getName() === GameRationEnum::STANDARD_RATION ||
+            $this->parameter->getStatusByName(EquipmentStatusEnum::FROZEN)) &&
             $this->gearToolService->getUsedTool($this->player, $this->action->getName()) !== null &&
-            $this->player->canReachEquipment($this->gameEquipment);
+            $this->player->canReachEquipment($this->parameter);
     }
 
     protected function applyEffects(): ActionResult
     {
-        if ($this->gameEquipment->getEquipment()->getName() === GameRationEnum::STANDARD_RATION) {
+        if ($this->parameter->getEquipment()->getName() === GameRationEnum::STANDARD_RATION) {
             /** @var GameItem $newItem */
             $newItem = $this->gameEquipmentService
                 ->createGameEquipmentFromName(GameRationEnum::COOKED_RATION, $this->player->getDaedalus())
@@ -84,19 +77,19 @@ class Cook extends AbstractAction
             $equipmentEvent->setPlayer($this->player);
             $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
-            foreach ($this->gameEquipment->getStatuses() as $status) {
+            foreach ($this->parameter->getStatuses() as $status) {
                 $newItem->addStatus($status);
                 $status->setGameEquipment($newItem);
                 $this->statusService->persist($status);
             }
 
-            $equipmentEvent = new EquipmentEvent($this->gameEquipment, VisibilityEnum::HIDDEN);
+            $equipmentEvent = new EquipmentEvent($this->parameter, VisibilityEnum::HIDDEN);
             $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
             $this->gameEquipmentService->persist($newItem);
-        } elseif ($frozenStatus = $this->gameEquipment->getStatusByName(EquipmentStatusEnum::FROZEN)) {
-            $this->gameEquipment->removeStatus($frozenStatus);
-            $this->gameEquipmentService->persist($this->gameEquipment);
+        } elseif ($frozenStatus = $this->parameter->getStatusByName(EquipmentStatusEnum::FROZEN)) {
+            $this->parameter->removeStatus($frozenStatus);
+            $this->gameEquipmentService->persist($this->parameter);
         }
 
         $this->playerService->persist($this->player);

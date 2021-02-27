@@ -4,12 +4,10 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionParameters;
+use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Equipment\Entity\Door;
-use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -20,7 +18,8 @@ class Move extends AbstractAction
 {
     protected string $name = ActionEnum::MOVE;
 
-    private Door $door;
+    /** @var Door */
+    protected $parameter;
 
     private RoomLogServiceInterface $roomLogService;
     private PlayerServiceInterface $playerService;
@@ -40,27 +39,21 @@ class Move extends AbstractAction
         $this->playerService = $playerService;
     }
 
-    public function loadParameters(Action $action, Player $player, ActionParameters $actionParameters): void
+    protected function support(?ActionParameter $parameter): bool
     {
-        parent::loadParameters($action, $player, $actionParameters);
-
-        if (!($door = $actionParameters->getDoor())) {
-            throw new \InvalidArgumentException('Invalid door parameter');
-        }
-
-        $this->door = $door;
+        return $parameter instanceof Door;
     }
 
     public function isVisible(): bool
     {
         return parent::isVisible() &&
-            !$this->door->isBroken() &&
-            $this->player->getPlace()->getDoors()->contains($this->door);
+            !$this->parameter->isBroken() &&
+            $this->player->getPlace()->getDoors()->contains($this->parameter);
     }
 
     protected function applyEffects(): ActionResult
     {
-        $newRoom = $this->door->getOtherRoom($this->player->getPlace());
+        $newRoom = $this->parameter->getOtherRoom($this->player->getPlace());
         $this->player->setPlace($newRoom);
 
         $this->playerService->persist($this->player);
@@ -82,7 +75,7 @@ class Move extends AbstractAction
         );
         $this->roomLogService->createActionLog(
             ActionLogEnum::EXIT_ROOM,
-            $this->door->getOtherRoom($this->player->getPlace()),
+            $this->parameter->getOtherRoom($this->player->getPlace()),
             $this->player,
             null,
             VisibilityEnum::PUBLIC,

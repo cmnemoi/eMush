@@ -5,7 +5,7 @@ namespace Mush\Action\Actions;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Error;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionParameters;
+use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Action\Service\ActionServiceInterface;
@@ -16,6 +16,8 @@ abstract class AbstractAction
 {
     protected Action $action;
     protected Player $player;
+
+    protected $parameter = null;
 
     protected string $name;
 
@@ -30,10 +32,17 @@ abstract class AbstractAction
         $this->actionService = $actionService;
     }
 
-    public function loadParameters(Action $action, Player $player, ActionParameters $actionParameters): void
+    abstract protected function support(?ActionParameter $parameter): bool;
+
+    public function loadParameters(Action $action, Player $player, ?ActionParameter $parameter = null): void
     {
+        if (!$this->support($parameter)) {
+            throw new \InvalidArgumentException('Invalid equipment parameter');
+        }
+
         $this->action = $action;
         $this->player = $player;
+        $this->parameter = $parameter;
     }
 
     public function isVisible(): bool

@@ -4,14 +4,12 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionParameters;
+use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Player\Entity\Player;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -19,7 +17,8 @@ class TreatPlant extends AbstractAction
 {
     protected string $name = ActionEnum::TREAT_PLANT;
 
-    private GameEquipment $gameEquipment;
+    /** @var GameItem */
+    protected $parameter;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
 
@@ -36,28 +35,21 @@ class TreatPlant extends AbstractAction
         $this->gameEquipmentService = $gameEquipmentService;
     }
 
-    public function loadParameters(Action $action, Player $player, ActionParameters $actionParameters): void
+    protected function support(?ActionParameter $parameter): bool
     {
-        parent::loadParameters($action, $player, $actionParameters);
-
-        if (!($equipment = $actionParameters->getItem()) &&
-            !($equipment = $actionParameters->getEquipment())) {
-            throw new \InvalidArgumentException('Invalid equipment parameter');
-        }
-
-        $this->gameEquipment = $equipment;
+        return $parameter instanceof GameItem;
     }
 
     public function isVisible(): bool
     {
         return parent::isVisible() &&
-            $this->player->canReachEquipment($this->gameEquipment) &&
-            $this->gameEquipment->getEquipment()->hasAction($this->name);
+            $this->player->canReachEquipment($this->parameter) &&
+            $this->parameter->getEquipment()->hasAction($this->name);
     }
 
     public function cannotExecuteReason(): ?string
     {
-        if ($this->gameEquipment->getStatusByName(EquipmentStatusEnum::PLANT_DISEASED) === null) {
+        if ($this->parameter->getStatusByName(EquipmentStatusEnum::PLANT_DISEASED) === null) {
             return ActionImpossibleCauseEnum::TREAT_PLANT_NO_DISEASE;
         }
 
@@ -66,9 +58,9 @@ class TreatPlant extends AbstractAction
 
     protected function applyEffects(): ActionResult
     {
-        if ($diseased = $this->gameEquipment->getStatusByName(EquipmentStatusEnum::PLANT_DISEASED)) {
-            $this->gameEquipment->removeStatus($diseased);
-            $this->gameEquipmentService->persist($this->gameEquipment);
+        if ($diseased = $this->parameter->getStatusByName(EquipmentStatusEnum::PLANT_DISEASED)) {
+            $this->parameter->removeStatus($diseased);
+            $this->gameEquipmentService->persist($this->parameter);
         }
 
         return new Success();

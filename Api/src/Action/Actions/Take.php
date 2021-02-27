@@ -8,8 +8,12 @@ use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\Location;
+use Mush\Action\Validator\ParameterHasAction;
+use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
+use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\Target;
@@ -17,6 +21,7 @@ use Mush\Status\Enum\EquipmentStatusEnum as EnumEquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class Take extends AbstractAction
 {
@@ -51,13 +56,11 @@ class Take extends AbstractAction
         return $parameter instanceof GameItem;
     }
 
-    public function isVisible(): bool
+    public static function loadVisibilityValidatorMetadata(ClassMetadata $metadata): void
     {
-        return $this->player->canReachEquipment($this->parameter) &&
-            !$this->player->getItems()->contains($this->parameter) &&
-            $this->parameter->getEquipment()->hasAction($this->name) &&
-            parent::isVisible()
-        ;
+        $metadata->addConstraint(new ParameterHasAction());
+        $metadata->addConstraint(new Reach());
+        $metadata->addConstraint(new Location(['location' => ReachEnum::SHELVE]));
     }
 
     public function cannotExecuteReason(): ?string

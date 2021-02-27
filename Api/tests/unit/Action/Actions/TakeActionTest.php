@@ -62,11 +62,8 @@ class TakeActionTest extends AbstractActionTest
         $room = new Place();
         $gameItem = new GameItem();
 
-        $takeAction = new Action();
-        $takeAction->setName(ActionEnum::TAKE);
-
         $item = new ItemConfig();
-        $item->setActions(new ArrayCollection([$takeAction]));
+        $item->setActions(new ArrayCollection([$this->actionEntity]));
 
         $gameItem->setEquipment($item);
         $gameItem

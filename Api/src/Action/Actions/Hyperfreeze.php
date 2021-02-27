@@ -7,9 +7,12 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\Mechanic;
+use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Ration;
+use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -19,6 +22,7 @@ use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class Hyperfreeze extends AbstractAction
 {
@@ -56,17 +60,13 @@ class Hyperfreeze extends AbstractAction
         return $parameter instanceof GameEquipment;
     }
 
-    public function isVisible(): bool
+    public static function loadVisibilityValidatorMetadata(ClassMetadata $metadata): void
     {
-        /** @var Ration $rationMechanic */
-        $rationMechanic = $this->parameter->getEquipment()->getRationsMechanic();
-
-        return parent::isVisible() &&
-            $rationMechanic !== null &&
-            $rationMechanic->isPerishable() &&
-            $this->player->canReachEquipment($this->parameter) &&
-            $this->gearToolService->getUsedTool($this->player, $this->action->getName()) !== null &&
-            !$this->parameter->getStatusByName(EquipmentStatusEnum::FROZEN);
+        $metadata->addConstraint(new Mechanic(['mechanic' => EquipmentMechanicEnum::RATION]));
+        $metadata->addConstraint(new Reach());
+//            $this->gearToolService->getUsedTool($this->player, $this->action->getName()) !== null &&
+//            !$this->parameter->getStatusByName(EquipmentStatusEnum::FROZEN);
+        //            $rationMechanic->isPerishable() &&
     }
 
     protected function applyEffects(): ActionResult

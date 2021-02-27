@@ -61,11 +61,8 @@ class DropActionTest extends AbstractActionTest
         $room = new Place();
         $gameItem = new GameItem();
 
-        $dropAction = new Action();
-        $dropAction->setName(ActionEnum::DROP);
-
         $item = new ItemConfig();
-        $item->setActions(new ArrayCollection([$dropAction]));
+        $item->setActions(new ArrayCollection([$this->actionEntity]));
 
         $gameItem->setEquipment($item);
 
@@ -88,7 +85,6 @@ class DropActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $result = $this->action->execute();
 
-        $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->assertInstanceOf(Success::class, $result);
         $this->assertEmpty($player->getItems());
         $this->assertCount(1, $room->getEquipments());

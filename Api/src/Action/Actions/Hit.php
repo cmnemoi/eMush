@@ -8,6 +8,8 @@ use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\ParameterHasAction;
+use Mush\Action\Validator\Reach;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\SkillEnum;
@@ -20,6 +22,7 @@ use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Service\PlayerServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class Hit extends AttemptAction
 {
@@ -49,6 +52,12 @@ class Hit extends AttemptAction
     protected function support(?ActionParameter $parameter): bool
     {
         return $parameter instanceof Player;
+    }
+
+    public static function loadVisibilityValidatorMetadata(ClassMetadata $metadata): void
+    {
+        $metadata->addConstraint(new ParameterHasAction());
+        $metadata->addConstraint(new Reach());
     }
 
     public function isVisible(): bool

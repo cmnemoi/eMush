@@ -66,9 +66,7 @@ class ShowerActionTest extends AbstractActionTest
             ->setPlace($room)
         ;
 
-        $action = new Action();
-        $action->setName(ActionEnum::SHOWER);
-        $item->setActions(new ArrayCollection([$action]));
+        $item->setActions(new ArrayCollection([$this->actionEntity]));
 
         $player = $this->createPlayer(new Daedalus(), $room);
 

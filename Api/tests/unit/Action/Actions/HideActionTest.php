@@ -109,13 +109,11 @@ class HideActionTest extends AbstractActionTest
         $player = $this->createPlayer($daedalus, $room);
 
         $gameItem = new GameItem();
-        $item = new ItemConfig();
-        $actionHide = new Action();
-        $actionHide->setName(ActionEnum::HIDE);
+
         $item = new ItemConfig();
         $item
             ->setIsHideable(true)
-            ->setActions(new ArrayCollection([$actionHide]))
+            ->setActions(new ArrayCollection([$this->actionEntity]))
         ;
         $gameItem
             ->setName('itemName')

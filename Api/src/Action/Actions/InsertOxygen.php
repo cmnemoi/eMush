@@ -7,12 +7,16 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\Oxygen;
+use Mush\Action\Validator\ParameterHasAction;
+use Mush\Action\Validator\Reach;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class InsertOxygen extends AbstractAction
 {
@@ -47,16 +51,13 @@ class InsertOxygen extends AbstractAction
         return $parameter instanceof GameItem;
     }
 
-    public function isVisible(): bool
-    {
-        $gameConfig = $this->player->getDaedalus()->getGameConfig();
 
-        return $this->player->canReachEquipment($this->parameter) &&
-            $this->parameter->getEquipment()->getName() === ItemEnum::OXYGEN_CAPSULE &&
-            $this->gearToolService->getUsedTool($this->player, $this->action->getName()) !== null &&
-            $this->player->getDaedalus()->getOxygen() < $gameConfig->getDaedalusConfig()->getMaxOxygen() &&
-            parent::isVisible()
-        ;
+    public static function loadVisibilityValidatorMetadata(ClassMetadata $metadata): void
+    {
+        $metadata->addConstraint(new Reach());
+        $metadata->addConstraint(new Oxygen(['retrieve' => false]));
+        //@TODO used tool?
+        //@$this->parameter->getEquipment()->getName() === ItemEnum::OXYGEN_CAPSULE
     }
 
     protected function applyEffects(): ActionResult

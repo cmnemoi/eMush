@@ -7,9 +7,13 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\ParameterHasAction;
+use Mush\Action\Validator\Reach;
+use Mush\Action\Validator\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class GetUp extends AbstractAction
 {
@@ -35,9 +39,9 @@ class GetUp extends AbstractAction
         return $parameter === null;
     }
 
-    public function isVisible(): bool
+    public static function loadVisibilityValidatorMetadata(ClassMetadata $metadata): void
     {
-        return parent::isVisible() && $this->player->getStatusByName(PlayerStatusEnum::LYING_DOWN) !== null;
+        $metadata->addConstraint(new Status(['status' => PlayerStatusEnum::LYING_DOWN, 'target' => Status::PLAYER]));
     }
 
     protected function applyEffects(): ActionResult

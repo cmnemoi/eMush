@@ -7,6 +7,10 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\Mechanic;
+use Mush\Action\Validator\ParameterHasAction;
+use Mush\Action\Validator\Reach;
+use Mush\Action\Validator\Shredable;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Document;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
@@ -15,6 +19,7 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class Shred extends AbstractAction
 {
@@ -46,15 +51,13 @@ class Shred extends AbstractAction
         return $parameter instanceof GameItem;
     }
 
-    public function isVisible(): bool
+    public static function loadVisibilityValidatorMetadata(ClassMetadata $metadata): void
     {
-        /** @var ?Document $document */
-        $document = $this->parameter->getEquipment()->getMechanicByName(EquipmentMechanicEnum::DOCUMENT);
+        $metadata->addConstraint(new Mechanic(['mechanic' => EquipmentMechanicEnum::DOCUMENT]));
+        $metadata->addConstraint(new Reach());
+        $metadata->addConstraint(new Shredable());
+        //@TODO: can shred
 
-        return parent::isVisible() &&
-            $document !== null &&
-            $document->canShred() &&
-            $this->player->canReachEquipment($this->parameter);
     }
 
     protected function applyEffects(): ActionResult

@@ -8,6 +8,8 @@ use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\Mechanic;
+use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
@@ -21,6 +23,8 @@ use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\Target;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Validation;
 
 class Build extends AbstractAction
 {
@@ -55,16 +59,15 @@ class Build extends AbstractAction
         return $parameter instanceof GameEquipment && !$parameter instanceof Door;
     }
 
-    public function isVisible(): bool
+    public static function loadVisibilityValidatorMetadata(ClassMetadata $metadata): void
     {
-        /** @var Blueprint $blueprintMechanic */
-        $blueprintMechanic = $this->parameter->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT);
-        //Check that the equipment is a blueprint and is reachable
+        $metadata->addConstraint(new Mechanic(['mechanic' => EquipmentMechanicEnum::BLUEPRINT]));
+        $metadata->addConstraint(new Reach());
+    }
 
-        return parent::isVisible() &&
-            $blueprintMechanic !== null &&
-            $this->player->canReachEquipment($this->parameter)
-        ;
+    public static function loadExecuteValidatorMetadata(ClassMetadata $metadata): void
+    {
+        // TODO: Implement loadExecuteValidatorMetadata() method.
     }
 
     public function cannotExecuteReason(): ?string

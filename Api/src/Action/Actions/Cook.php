@@ -7,6 +7,8 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\ParameterHasAction;
+use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
@@ -19,6 +21,7 @@ use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class Cook extends AbstractAction
 {
@@ -56,13 +59,12 @@ class Cook extends AbstractAction
         return $parameter instanceof GameEquipment && !$parameter instanceof Door;
     }
 
-    public function isVisible(): bool
+    public static function loadVisibilityValidatorMetadata(ClassMetadata $metadata): void
     {
-        return parent::isVisible() &&
-            ($this->parameter->getEquipment()->getName() === GameRationEnum::STANDARD_RATION ||
-            $this->parameter->getStatusByName(EquipmentStatusEnum::FROZEN)) &&
-            $this->gearToolService->getUsedTool($this->player, $this->action->getName()) !== null &&
-            $this->player->canReachEquipment($this->parameter);
+        $metadata->addConstraint(new Reach());
+        //            ($this->parameter->getEquipment()->getName() === GameRationEnum::STANDARD_RATION ||
+        //            $this->parameter->getStatusByName(EquipmentStatusEnum::FROZEN)) &&
+        //            $this->gearToolService->getUsedTool($this->player, $this->action->getName()) !== null
     }
 
     protected function applyEffects(): ActionResult

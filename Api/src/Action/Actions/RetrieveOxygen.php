@@ -8,13 +8,19 @@ use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\Mechanic;
+use Mush\Action\Validator\Oxygen;
+use Mush\Action\Validator\ParameterHasAction;
+use Mush\Action\Validator\Reach;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\RoomLog\Entity\Target;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class RetrieveOxygen extends AbstractAction
 {
@@ -46,12 +52,11 @@ class RetrieveOxygen extends AbstractAction
         return $parameter instanceof GameEquipment;
     }
 
-    public function isVisible(): bool
+    public static function loadVisibilityValidatorMetadata(ClassMetadata $metadata): void
     {
-        return parent::isVisible() &&
-            $this->player->canReachEquipment($this->parameter) ||
-            $this->parameter->getEquipment()->hasAction($this->name) ||
-            $this->player->getDaedalus()->getOxygen() > 0;
+        $metadata->addConstraint(new ParameterHasAction());
+        $metadata->addConstraint(new Reach());
+        $metadata->addConstraint(new Oxygen());
     }
 
     public function cannotExecuteReason(): ?string

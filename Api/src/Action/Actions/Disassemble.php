@@ -8,6 +8,8 @@ use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\ParameterHasAction;
+use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -18,6 +20,7 @@ use Mush\RoomLog\Entity\Target;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class Disassemble extends AttemptAction
 {
@@ -51,15 +54,10 @@ class Disassemble extends AttemptAction
         return $parameter instanceof GameEquipment;
     }
 
-    public function isVisible(): bool
+    public static function loadVisibilityValidatorMetadata(ClassMetadata $metadata): void
     {
-        return parent::isVisible() &&
-            $this->parameter->getActions()->contains($this->action) &&
-            $this->player->canReachEquipment($this->parameter)
-            //@TODO uncomment when skill are ready
-            //||
-            //in_array(SkillEnum::TECHNICIAN, $this->player->getSkills())
-            ;
+        $metadata->addConstraint(new ParameterHasAction());
+        $metadata->addConstraint(new Reach());
     }
 
     public function cannotExecuteReason(): ?string

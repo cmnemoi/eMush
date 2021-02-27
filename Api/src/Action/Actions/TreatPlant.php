@@ -8,10 +8,13 @@ use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\ParameterHasAction;
+use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class TreatPlant extends AbstractAction
 {
@@ -40,12 +43,12 @@ class TreatPlant extends AbstractAction
         return $parameter instanceof GameItem;
     }
 
-    public function isVisible(): bool
+    public static function loadVisibilityValidatorMetadata(ClassMetadata $metadata): void
     {
-        return parent::isVisible() &&
-            $this->player->canReachEquipment($this->parameter) &&
-            $this->parameter->getEquipment()->hasAction($this->name);
+        $metadata->addConstraint(new ParameterHasAction());
+        $metadata->addConstraint(new Reach());
     }
+
 
     public function cannotExecuteReason(): ?string
     {

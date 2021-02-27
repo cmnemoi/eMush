@@ -8,6 +8,9 @@ use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\Breakable;
+use Mush\Action\Validator\Reach;
+use Mush\Action\Validator\Status;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -15,7 +18,9 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class Sabotage extends AttemptAction
 {
@@ -50,13 +55,13 @@ class Sabotage extends AttemptAction
         return $parameter instanceof GameEquipment;
     }
 
-    public function isVisible(): bool
+
+    public static function loadVisibilityValidatorMetadata(ClassMetadata $metadata): void
     {
-        return parent::isVisible() &&
-            $this->player->canReachEquipment($this->parameter) &&
-            !$this->parameter->isBroken() &&
-            $this->parameter->isBreakable() &&
-            $this->player->isMush();
+        $metadata->addConstraint(new Reach());
+        $metadata->addConstraint(new Breakable());
+        $metadata->addConstraint(new Status(['status' => PlayerStatusEnum::MUSH, 'target' => Status::PLAYER]));
+        $metadata->addConstraint(new Status(['status' => EquipmentStatusEnum::BROKEN, 'contain' => false]));
     }
 
     public function cannotExecuteReason(): ?string

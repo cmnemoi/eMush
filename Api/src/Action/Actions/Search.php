@@ -18,6 +18,7 @@ use Mush\RoomLog\Entity\Target;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class Search extends AbstractAction
 {
@@ -41,6 +42,10 @@ class Search extends AbstractAction
     protected function support(?ActionParameter $parameter): bool
     {
         return $parameter === null;
+    }
+
+    public static function loadVisibilityValidatorMetadata(ClassMetadata $metadata): void
+    {
     }
 
     public function cannotExecuteReason(): ?string

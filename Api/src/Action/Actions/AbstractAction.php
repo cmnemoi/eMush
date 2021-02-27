@@ -11,6 +11,9 @@ use Mush\Action\Event\ActionEvent;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Player\Entity\Player;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Validator\ConstraintViolationInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Validation;
 
 abstract class AbstractAction
 {
@@ -45,15 +48,37 @@ abstract class AbstractAction
         $this->parameter = $parameter;
     }
 
+    public abstract static function loadVisibilityValidatorMetadata(ClassMetadata $metadata) : void;
+//    public abstract static function loadExecuteValidatorMetadata(ClassMetadata $metadata) : void;
+
     public function isVisible(): bool
     {
-        return $this->player->isAlive();
-    }
+        if (!$this->player->isAlive()) {
+            return false;
+        }
+
+        $validator = Validation::createValidatorBuilder()
+            ->addMethodMapping('loadVisibilityValidatorMetadata')
+            ->getValidator()
+        ;
+
+        return $validator->validate($this)->count() === 0;    }
 
     public function cannotExecuteReason(): ?string
     {
         if (!$this->actionService->canPlayerDoAction($this->player, $this->action)) {
             return ActionImpossibleCauseEnum::INSUFFICIENT_ACTION_POINT;
+        }
+
+        $validator = Validation::createValidatorBuilder()
+            ->addMethodMapping('loadExecuteValidatorMetadata')
+            ->getValidator()
+        ;
+        $violations = $validator->validate($this);
+
+        /** @var ConstraintViolationInterface $violation */
+        foreach ($violations as $violation) {
+            return $violation->getMessage();
         }
 
         return null;
@@ -105,5 +130,20 @@ abstract class AbstractAction
     public function getMoralPointCost(): ?int
     {
         return $this->actionService->getTotalMoralPointCost($this->player, $this->action);
+    }
+
+    public function getPlayer(): Player
+    {
+        return $this->player;
+    }
+
+    public function getParameter(): ActionParameter
+    {
+        return $this->parameter;
+    }
+
+    public function getAction(): Action
+    {
+        return $this->action;
     }
 }

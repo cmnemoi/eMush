@@ -8,6 +8,10 @@ use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\Hideable;
+use Mush\Action\Validator\ParameterHasAction;
+use Mush\Action\Validator\Reach;
+use Mush\Action\Validator\Status;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -19,6 +23,7 @@ use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class Hide extends AbstractAction
 {
@@ -53,15 +58,12 @@ class Hide extends AbstractAction
         return $parameter instanceof GameItem;
     }
 
-    public function isVisible(): bool
-    {
-        /** @var ItemConfig $itemConfig */
-        $itemConfig = $this->parameter->getEquipment();
 
-        return parent::isVisible() &&
-            $this->parameter->getStatusByName(EquipmentStatusEnum::HIDDEN) === null &&
-            $itemConfig->isHideable() &&
-            $this->player->canReachEquipment($this->parameter);
+    public static function loadVisibilityValidatorMetadata(ClassMetadata $metadata): void
+    {
+        $metadata->addConstraint(new Reach());
+        $metadata->addConstraint(new Hideable());
+        $metadata->addConstraint(new Status(['status' => EquipmentStatusEnum::HIDDEN, 'contain' => false]));
     }
 
     public function cannotExecuteReason(): ?string

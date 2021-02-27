@@ -108,9 +108,7 @@ class LieDownActionTest extends AbstractActionTest
 
         $gameEquipment = new GameEquipment();
         $tool = new Tool();
-        $lieDownAction = new Action();
-        $lieDownAction->setName(ActionEnum::LIE_DOWN);
-        $tool->setActions(new ArrayCollection([$lieDownAction]));
+        $tool->setActions(new ArrayCollection([$this->actionEntity]));
         $item = new EquipmentConfig();
         $item
             ->setName(EquipmentEnum::BED)

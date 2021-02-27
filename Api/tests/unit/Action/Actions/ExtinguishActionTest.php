@@ -119,9 +119,7 @@ class ExtinguishActionTest extends AbstractActionTest
             ->setPlace($room)
         ;
 
-        $action = new Action();
-        $action->setName(ActionEnum::EXTINGUISH);
-        $item->setActions(new ArrayCollection([$action]));
+        $item->setActions(new ArrayCollection([$this->actionEntity]));
 
         $actionParameter = new ActionParameters();
         $actionParameter->setItem($gameItem);

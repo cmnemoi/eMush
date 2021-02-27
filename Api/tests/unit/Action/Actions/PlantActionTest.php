@@ -116,13 +116,11 @@ class PlantActionTest extends AbstractActionTest
         $gameItem
                     ->setEquipment($item)
                     ->setPlace($room)
-                    ->setName('toto');
-
-        $action = new Action();
-        $action->setName(ActionEnum::TRANSPLANT);
+                    ->setName('toto')
+        ;
 
         $fruit = new Fruit();
-        $fruit->addAction($action);
+        $fruit->addAction($this->actionEntity);
         $fruit->setPlantName('banana_tree');
 
         $item->setMechanics(new ArrayCollection([$fruit]));

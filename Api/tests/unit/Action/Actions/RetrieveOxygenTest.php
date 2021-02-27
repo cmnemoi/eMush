@@ -128,11 +128,8 @@ class RetrieveOxygenTest extends AbstractActionTest
 
         $daedalus->setOxygen(10);
 
-        $action = new Action();
-        $action->setName(ActionEnum::RETRIEVE_OXYGEN);
-
         $tank = new EquipmentConfig();
-        $tank->setActions(new ArrayCollection([$action]));
+        $tank->setActions(new ArrayCollection([$this->actionEntity]));
 
         $gameTank = new GameEquipment();
         $gameTank

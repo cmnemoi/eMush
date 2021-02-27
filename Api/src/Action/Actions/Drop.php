@@ -8,6 +8,9 @@ use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\Location;
+use Mush\Action\Validator\ParameterHasAction;
+use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -17,6 +20,7 @@ use Mush\RoomLog\Entity\Target;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class Drop extends AbstractAction
 {
@@ -51,14 +55,10 @@ class Drop extends AbstractAction
         return $parameter instanceof GameItem;
     }
 
-    public function isVisible(): bool
+    public static function loadVisibilityValidatorMetadata(ClassMetadata $metadata): void
     {
-        $itemConfig = $this->parameter->getEquipment();
-
-        return parent::isVisible() &&
-            $itemConfig->hasAction(ActionEnum::DROP) &&
-            ($itemConfig instanceof ItemConfig) &&
-            $this->player->getItems()->contains($this->parameter);
+        $metadata->addConstraint(new ParameterHasAction());
+        $metadata->addConstraint(new Location());
     }
 
     public function cannotExecuteReason(): ?string

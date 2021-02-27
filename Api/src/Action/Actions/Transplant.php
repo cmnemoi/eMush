@@ -7,6 +7,8 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\ParameterHasAction;
+use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Fruit;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
@@ -19,6 +21,7 @@ use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\Target;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class Transplant extends AbstractAction
 {
@@ -53,12 +56,11 @@ class Transplant extends AbstractAction
         return $parameter instanceof GameItem;
     }
 
-    public function isVisible(): bool
+    public static function loadVisibilityValidatorMetadata(ClassMetadata $metadata): void
     {
-        return parent::isVisible() &&
-            !$this->gearToolService->getEquipmentsOnReachByName($this->player, ItemEnum::HYDROPOT)->isEmpty() &&
-            $this->player->canReachEquipment($this->parameter) &&
-            $this->parameter->getEquipment()->hasAction($this->name);
+        $metadata->addConstraint(new ParameterHasAction());
+        $metadata->addConstraint(new Reach());
+        //!$this->gearToolService->getEquipmentsOnReachByName($this->player, ItemEnum::HYDROPOT)->isEmpty() &&
     }
 
     protected function applyEffects(): ActionResult

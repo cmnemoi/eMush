@@ -14,7 +14,6 @@ use Mush\Equipment\Entity\Mechanics\Book;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -57,13 +56,6 @@ class ReadBook extends AbstractAction
     {
         $metadata->addConstraint(new Mechanic(['mechanic' => EquipmentMechanicEnum::BOOK, 'groups' => ['visibility']]));
         $metadata->addConstraint(new Reach(['groups' => ['visibility']]));
-    }
-
-    public function cannotExecuteReason(): ?string
-    {
-        //@TODO add conditions player already have the skill and player already read a book
-
-        return parent::cannotExecuteReason();
     }
 
     protected function applyEffects(): ActionResult

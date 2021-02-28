@@ -10,6 +10,7 @@ use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\ParameterHasAction;
 use Mush\Action\Validator\Reach;
+use Mush\Action\Validator\Status;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -50,15 +51,9 @@ class TreatPlant extends AbstractAction
     {
         $metadata->addConstraint(new ParameterHasAction(['groups' => ['visibility']]));
         $metadata->addConstraint(new Reach(['groups' => ['visibility']]));
-    }
-
-    public function cannotExecuteReason(): ?string
-    {
-        if ($this->parameter->getStatusByName(EquipmentStatusEnum::PLANT_DISEASED) === null) {
-            return ActionImpossibleCauseEnum::TREAT_PLANT_NO_DISEASE;
-        }
-
-        return parent::cannotExecuteReason();
+        $metadata->addConstraint(new Status([
+            'status' => EquipmentStatusEnum::PLANT_DISEASED, 'contain' => false, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::TREAT_PLANT_NO_DISEASE,
+        ]));
     }
 
     protected function applyEffects(): ActionResult

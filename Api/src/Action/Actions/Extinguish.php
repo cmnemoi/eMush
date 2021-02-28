@@ -15,6 +15,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Service\PlaceServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -60,15 +61,9 @@ class Extinguish extends AttemptAction
         $metadata->addConstraint(new ParameterHasAction(['groups' => ['visibility']]));
         $metadata->addConstraint(new Reach(['groups' => ['visibility']]));
         $metadata->addConstraint(new Status(['status' => StatusEnum::FIRE, 'target' => Status::PLAYER_ROOM]));
-    }
-
-    public function cannotExecuteReason(): ?string
-    {
-        if ($this->parameter->isBroken()) {
-            return ActionImpossibleCauseEnum::BROKEN_EQUIPMENT;
-        }
-
-        return parent::cannotExecuteReason();
+        $metadata->addConstraint(new Status([
+            'status' => EquipmentStatusEnum::BROKEN, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
+        ]));
     }
 
     protected function applyEffects(): ActionResult

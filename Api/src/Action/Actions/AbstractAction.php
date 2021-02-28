@@ -13,7 +13,6 @@ use Mush\Player\Entity\Player;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
-use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class AbstractAction
@@ -62,11 +61,6 @@ abstract class AbstractAction
             return false;
         }
 
-//        $validator = Validation::createValidatorBuilder()
-//            ->addMethodMapping('loadVisibilityValidatorMetadata')
-//            ->getValidator()
-//        ;
-
         $validator = $this->validator;
 
         return $validator->validate($this, null, 'visibility')->count() === 0;
@@ -78,11 +72,8 @@ abstract class AbstractAction
             return ActionImpossibleCauseEnum::INSUFFICIENT_ACTION_POINT;
         }
 
-        $validator = Validation::createValidatorBuilder()
-            ->addMethodMapping('loadExecuteValidatorMetadata')
-            ->getValidator()
-        ;
-        $violations = $validator->validate($this);
+        $validator = $this->validator;
+        $violations = $validator->validate($this, null, 'execute');
 
         /** @var ConstraintViolationInterface $violation */
         foreach ($violations as $violation) {

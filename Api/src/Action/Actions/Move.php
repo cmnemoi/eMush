@@ -53,7 +53,7 @@ class Move extends AbstractAction
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        $metadata->addConstraint(new Status(['status' => EquipmentStatusEnum::BROKEN, 'contain' => false, ['groups' => ['visibility']]]));
+        $metadata->addConstraint(new Status(['status' => EquipmentStatusEnum::BROKEN, 'groups' => ['visibility']]));
         $metadata->addConstraint(new Reach(['groups' => ['visibility']]));
     }
 

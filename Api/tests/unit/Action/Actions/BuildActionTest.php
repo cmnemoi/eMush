@@ -71,14 +71,16 @@ class BuildActionTest extends AbstractActionTest
         $gameEquipment
             ->setEquipment($equipment)
             ->setPlace($room)
-            ->setName('blueprint');
+            ->setName('blueprint')
+        ;
 
         $product = new ItemConfig();
 
         $blueprint = new Blueprint();
         $blueprint
             ->setIngredients(['metal_scraps' => 1])
-            ->setEquipment($product);
+            ->setEquipment($product)
+        ;
 
         $gameIngredient = new GameItem();
         $ingredient = new ItemConfig();

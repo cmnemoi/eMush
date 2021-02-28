@@ -9,6 +9,8 @@ use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\DailySporesLimit;
+use Mush\Action\Validator\MushSpore;
 use Mush\Action\Validator\Status;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -41,35 +43,13 @@ class ExtractSpore extends AbstractAction
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Status(['status' => PlayerStatusEnum::MUSH, 'target' => Status::PLAYER, 'groups' => ['visibility']]));
+        $metadata->addConstraint(new DailySporesLimit(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::DAILY_SPORE_LIMIT]));
+        $metadata->addConstraint(new MushSpore(['threshold' => 2, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::PERSONAL_SPORE_LIMIT]));
     }
 
     protected function support(?ActionParameter $parameter): bool
     {
         return $parameter === null;
-    }
-
-    public function isVisible(): bool
-    {
-        return parent::isVisible() && $this->player->isMush();
-    }
-
-    public function cannotExecuteReason(): ?string
-    {
-        /** @var ?ChargeStatus $sporeStatus */
-        $sporeStatus = $this->player->getStatusByName(PlayerStatusEnum::SPORES);
-
-        if ($sporeStatus === null || !($sporeStatus instanceof ChargeStatus)) {
-            throw new Error('invalid spore status');
-        }
-
-        if ($sporeStatus->getCharge() >= 2) {
-            return ActionImpossibleCauseEnum::PERSONAL_SPORE_LIMIT;
-        }
-        if ($this->player->getDaedalus()->getSpores() <= 0) {
-            return ActionImpossibleCauseEnum::DAILY_SPORE_LIMIT;
-        }
-
-        return parent::cannotExecuteReason();
     }
 
     protected function applyEffects(): ActionResult

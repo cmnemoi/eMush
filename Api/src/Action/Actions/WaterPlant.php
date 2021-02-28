@@ -9,6 +9,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\ParameterHasAction;
+use Mush\Action\Validator\PlantWaterable;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -59,10 +60,12 @@ class WaterPlant extends AbstractAction
     {
         $metadata->addConstraint(new ParameterHasAction(['groups' => ['visibility']]));
         $metadata->addConstraint(new Reach(['groups' => ['visibility']]));
+        $metadata->addConstraint(new PlantWaterable(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::TREAT_PLANT_NO_DISEASE]));
     }
 
     public function cannotExecuteReason(): ?string
     {
+        //@TODO
         if ($this->parameter->getStatusByName(EquipmentStatusEnum::PLANT_THIRSTY) === null &&
             $this->parameter->getStatusByName(EquipmentStatusEnum::PLANT_DRIED_OUT) === null
         ) {

@@ -9,12 +9,12 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\Hideable;
+use Mush\Action\Validator\PreMush;
 use Mush\Action\Validator\Reach;
+use Mush\Action\Validator\Room;
 use Mush\Action\Validator\Status;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Enum\GameStatusEnum;
-use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\Target;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -64,19 +64,8 @@ class Hide extends AbstractAction
         $metadata->addConstraint(new Reach(['groups' => ['visibility']]));
         $metadata->addConstraint(new Hideable(['groups' => ['visibility']]));
         $metadata->addConstraint(new Status(['status' => EquipmentStatusEnum::HIDDEN, 'contain' => false, 'groups' => ['visibility']]));
-    }
-
-    public function cannotExecuteReason(): ?string
-    {
-        if ($this->player->getPlace()->getType() !== PlaceTypeEnum::ROOM) {
-            return ActionImpossibleCauseEnum::NO_SHELVING_UNIT;
-        }
-
-        if ($this->player->getDaedalus()->getGameStatus() === GameStatusEnum::STARTING) {
-            return ActionImpossibleCauseEnum::PRE_MUSH_RESTRICTED;
-        }
-
-        return parent::cannotExecuteReason();
+        $metadata->addConstraint(new Room(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::NO_SHELVING_UNIT]));
+        $metadata->addConstraint(new PreMush(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::PRE_MUSH_RESTRICTED]));
     }
 
     protected function applyEffects(): ActionResult

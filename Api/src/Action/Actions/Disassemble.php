@@ -10,6 +10,7 @@ use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\ParameterHasAction;
 use Mush\Action\Validator\Reach;
+use Mush\Action\Validator\Status;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -60,16 +61,9 @@ class Disassemble extends AttemptAction
     {
         $metadata->addConstraint(new ParameterHasAction(['groups' => ['visibility']]));
         $metadata->addConstraint(new Reach(['groups' => ['visibility']]));
-    }
-
-    public function cannotExecuteReason(): ?string
-    {
-        //@FIXME depending on reinforced implementation
-        if ($this->parameter->hasStatus(EquipmentStatusEnum::REINFORCED)) {
-            return ActionImpossibleCauseEnum::DISMANTLE_REINFORCED;
-        }
-
-        return parent::cannotExecuteReason();
+        $metadata->addConstraint(new Status([
+            'status' => EquipmentStatusEnum::REINFORCED, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::DISMANTLE_REINFORCED,
+        ]));
     }
 
     protected function applyEffects(): ActionResult

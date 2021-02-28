@@ -9,9 +9,9 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\ParameterHasAction;
+use Mush\Action\Validator\PreMush;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Enum\GearItemEnum;
-use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\SkillMushEnum;
 use Mush\Game\Service\RandomServiceInterface;
@@ -59,23 +59,8 @@ class Hit extends AttemptAction
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new ParameterHasAction(['groups' => ['visibility']]));
-        $metadata->addConstraint(new Reach(['groups' => ['visibility']]));
-    }
-
-    public function isVisible(): bool
-    {
-        return parent::isVisible() &&
-            $this->player->getPlace() === $this->parameter->getPlace() &&
-            $this->player !== $this->parameter;
-    }
-
-    public function cannotExecuteReason(): ?string
-    {
-        if ($this->player->getDaedalus()->getGameStatus() === GameStatusEnum::STARTING) {
-            return ActionImpossibleCauseEnum::PRE_MUSH_AGGRESSIVE;
-        }
-
-        return parent::cannotExecuteReason();
+        $metadata->addConstraint(new Reach(['player' => true, 'groups' => ['visibility']]));
+        $metadata->addConstraint(new PreMush(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::PRE_MUSH_AGGRESSIVE]));
     }
 
     protected function applyEffects(): ActionResult

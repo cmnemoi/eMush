@@ -8,14 +8,17 @@ use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\Charged;
 use Mush\Action\Validator\ParameterHasAction;
 use Mush\Action\Validator\Reach;
+use Mush\Action\Validator\Status;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -53,19 +56,10 @@ class Coffee extends AbstractAction
     {
         $metadata->addConstraint(new ParameterHasAction(['groups' => ['visibility']]));
         $metadata->addConstraint(new Reach(['groups' => ['visibility']]));
-    }
-
-    public function cannotExecuteReason(): ?string
-    {
-        if ($this->parameter->isBroken()) {
-            return ActionImpossibleCauseEnum::BROKEN_EQUIPMENT;
-        }
-
-        if (!$this->parameter->isOperational()) {
-            return ActionImpossibleCauseEnum::DAILY_LIMIT;
-        }
-
-        return parent::cannotExecuteReason();
+        $metadata->addConstraint(new Status([
+            'status' => EquipmentStatusEnum::BROKEN, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
+        ]));
+        $metadata->addConstraint(new Charged(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::DAILY_LIMIT]));
     }
 
     protected function applyEffects(): ActionResult

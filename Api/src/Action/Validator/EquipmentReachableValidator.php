@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class UsedToolValidator extends ConstraintValidator
+class EquipmentReachableValidator extends ConstraintValidator
 {
     private GearToolServiceInterface $gearToolService;
 
@@ -23,7 +23,7 @@ class UsedToolValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, AbstractAction::class);
         }
 
-        if ($this->gearToolService->getUsedTool($value->getPlayer(), $value->getActionName()) === null) {
+        if ((bool) $this->gearToolService->getEquipmentsOnReachByName($value->getPlayer(), $constraint->name)->isEmpty()) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }

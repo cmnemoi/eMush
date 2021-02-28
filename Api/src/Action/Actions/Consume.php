@@ -11,10 +11,10 @@ use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\ParameterHasAction;
 use Mush\Action\Validator\Reach;
+use Mush\Action\Validator\Status;
 use Mush\Equipment\Entity\ConsumableEffect;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Drug;
-use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Player\Entity\Modifier;
@@ -69,21 +69,12 @@ class Consume extends AbstractAction
     {
         $metadata->addConstraint(new ParameterHasAction(['groups' => ['visibility']]));
         $metadata->addConstraint(new Reach(['groups' => ['visibility']]));
-    }
-
-    public function cannotExecuteReason(): ?string
-    {
-        if ($this->parameter->getEquipment()->getMechanicByName(EquipmentMechanicEnum::DRUG) &&
-            $this->player->getStatusByName(PlayerStatusEnum::DRUG_EATEN)
-        ) {
-            return ActionImpossibleCauseEnum::CONSUME_DRUG_TWICE;
-        }
-
-        if ($this->player->getStatusByName(PlayerStatusEnum::FULL_STOMACH)) {
-            return ActionImpossibleCauseEnum::CONSUME_FULL_BELLY;
-        }
-
-        return parent::cannotExecuteReason();
+        $metadata->addConstraint(new Status([
+            'status' => PlayerStatusEnum::DRUG_EATEN, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::CONSUME_DRUG_TWICE,
+        ]));
+        $metadata->addConstraint(new Status([
+            'status' => PlayerStatusEnum::FULL_STOMACH, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::CONSUME_FULL_BELLY,
+        ]));
     }
 
     protected function applyEffects(): ActionResult

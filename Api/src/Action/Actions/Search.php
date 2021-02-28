@@ -9,9 +9,9 @@ use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\Room;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\Target;
@@ -52,15 +52,7 @@ class Search extends AbstractAction
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-    }
-
-    public function cannotExecuteReason(): ?string
-    {
-        if ($this->player->getPlace()->getType() !== PlaceTypeEnum::ROOM) {
-            return ActionImpossibleCauseEnum::NOT_A_ROOM;
-        }
-
-        return parent::cannotExecuteReason();
+        $metadata->addConstraint(new Room(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::NOT_A_ROOM]));
     }
 
     protected function applyEffects(): ActionResult

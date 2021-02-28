@@ -63,17 +63,10 @@ class Sabotage extends AttemptAction
         $metadata->addConstraint(new Reach(['groups' => ['visibility']]));
         $metadata->addConstraint(new Breakable(['groups' => ['visibility']]));
         $metadata->addConstraint(new Status(['status' => PlayerStatusEnum::MUSH, 'target' => Status::PLAYER, ['groups' => ['visibility']]]));
-        $metadata->addConstraint(new Status(['status' => EquipmentStatusEnum::BROKEN, 'contain' => false, ['groups' => ['visibility']]]));
-    }
-
-    public function cannotExecuteReason(): ?string
-    {
-        //@FIXME depending on reinforced implementation
-        if ($this->parameter->hasStatus(EquipmentStatusEnum::REINFORCED)) {
-            return ActionImpossibleCauseEnum::DISMANTLE_REINFORCED;
-        }
-
-        return parent::cannotExecuteReason();
+        $metadata->addConstraint(new Status(['status' => EquipmentStatusEnum::BROKEN, ['groups' => ['visibility']]]));
+        $metadata->addConstraint(new Status([
+            'status' => EquipmentStatusEnum::REINFORCED, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::DISMANTLE_REINFORCED,
+        ]));
     }
 
     protected function applyEffects(): ActionResult

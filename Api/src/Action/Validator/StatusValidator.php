@@ -33,7 +33,11 @@ class StatusValidator extends ConstraintValidator
                 throw new \LogicException('unsupported target');
         }
 
-        if ($target->hasStatus($constraint->status) !== $constraint->contain) {
+        if ($constraint->ownerSide && $target->hasStatus($constraint->status) !== $constraint->contain) {
+            $this->context->buildViolation($constraint->message)
+                ->addViolation();
+        }
+        if (!$constraint->ownerSide && $target->hasTargetingStatus($constraint->status) !== $constraint->contain) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }

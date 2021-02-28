@@ -16,4 +16,7 @@ class Status extends ClassConstraint
 
     //If not target player, then it targets the parameter
     public string $target = self::PARAMETER;
+
+    //check on the owner side, if false check target side of the status
+    public bool $ownerSide = true;
 }

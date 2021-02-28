@@ -7,7 +7,9 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\Cookable;
 use Mush\Action\Validator\Reach;
+use Mush\Action\Validator\UsedTool;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
@@ -64,9 +66,8 @@ class Cook extends AbstractAction
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['groups' => ['visibility']]));
-        //            ($this->parameter->getEquipment()->getName() === GameRationEnum::STANDARD_RATION ||
-        //            $this->parameter->getStatusByName(EquipmentStatusEnum::FROZEN)) &&
-        //            $this->gearToolService->getUsedTool($this->player, $this->action->getName()) !== null
+        $metadata->addConstraint(new UsedTool(['groups' => ['visibility']]));
+        $metadata->addConstraint(new Cookable(['groups' => ['visibility']]));
     }
 
     protected function applyEffects(): ActionResult

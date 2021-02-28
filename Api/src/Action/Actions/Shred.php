@@ -57,7 +57,6 @@ class Shred extends AbstractAction
         $metadata->addConstraint(new Mechanic(['mechanic' => EquipmentMechanicEnum::DOCUMENT, 'groups' => ['visibility']]));
         $metadata->addConstraint(new Reach(['groups' => ['visibility']]));
         $metadata->addConstraint(new Shredable(['groups' => ['visibility']]));
-        //@TODO: can shred
     }
 
     protected function applyEffects(): ActionResult

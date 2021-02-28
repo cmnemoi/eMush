@@ -59,13 +59,6 @@ class Repair extends AttemptAction
         $metadata->addConstraint(new Status(['status' => EquipmentStatusEnum::BROKEN, 'groups' => ['visibility']]));
     }
 
-    public function isVisible(): bool
-    {
-        return parent::isVisible() &&
-            $this->parameter->isBroken() &&
-            $this->player->canReachEquipment($this->parameter);
-    }
-
     protected function applyEffects(): ActionResult
     {
         $response = $this->makeAttempt();

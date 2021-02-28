@@ -1,11 +1,6 @@
 <?php
 
-
 namespace Mush\Action\Validator;
-
-
-use Mush\Action\Validator\ClassConstraint;
-use Mush\Equipment\Enum\EquipmentMechanicEnum;
 
 class Oxygen extends ClassConstraint
 {

@@ -23,6 +23,7 @@ use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Service\PlayerServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Hit extends AttemptAction
 {
@@ -35,18 +36,19 @@ class Hit extends AttemptAction
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
+        ActionServiceInterface $actionService,
+        ValidatorInterface $validator,
         PlayerServiceInterface $playerService,
         RandomServiceInterface $randomService,
-        ActionServiceInterface $actionService
     ) {
         parent::__construct(
-            $randomService,
             $eventDispatcher,
-            $actionService
+            $actionService,
+            $validator,
+            $randomService
         );
 
         $this->playerService = $playerService;
-        $this->randomService = $randomService;
     }
 
     protected function support(?ActionParameter $parameter): bool
@@ -54,10 +56,10 @@ class Hit extends AttemptAction
         return $parameter instanceof Player;
     }
 
-    public static function loadVisibilityValidatorMetadata(ClassMetadata $metadata): void
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        $metadata->addConstraint(new ParameterHasAction());
-        $metadata->addConstraint(new Reach());
+        $metadata->addConstraint(new ParameterHasAction(['groups' => ['visibility']]));
+        $metadata->addConstraint(new Reach(['groups' => ['visibility']]));
     }
 
     public function isVisible(): bool

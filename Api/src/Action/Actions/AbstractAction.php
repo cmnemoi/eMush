@@ -14,6 +14,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validation;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class AbstractAction
 {
@@ -26,13 +27,16 @@ abstract class AbstractAction
 
     protected EventDispatcherInterface $eventDispatcher;
     protected ActionServiceInterface $actionService;
+    private ValidatorInterface $validator;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
-        ActionServiceInterface $actionService
+        ActionServiceInterface $actionService,
+        ValidatorInterface $validator
     ) {
         $this->eventDispatcher = $eventDispatcher;
         $this->actionService = $actionService;
+        $this->validator = $validator;
     }
 
     abstract protected function support(?ActionParameter $parameter): bool;
@@ -48,7 +52,8 @@ abstract class AbstractAction
         $this->parameter = $parameter;
     }
 
-    public abstract static function loadVisibilityValidatorMetadata(ClassMetadata $metadata) : void;
+    abstract public static function loadValidatorMetadata(ClassMetadata $metadata): void;
+
 //    public abstract static function loadExecuteValidatorMetadata(ClassMetadata $metadata) : void;
 
     public function isVisible(): bool
@@ -57,12 +62,15 @@ abstract class AbstractAction
             return false;
         }
 
-        $validator = Validation::createValidatorBuilder()
-            ->addMethodMapping('loadVisibilityValidatorMetadata')
-            ->getValidator()
-        ;
+//        $validator = Validation::createValidatorBuilder()
+//            ->addMethodMapping('loadVisibilityValidatorMetadata')
+//            ->getValidator()
+//        ;
 
-        return $validator->validate($this)->count() === 0;    }
+        $validator = $this->validator;
+
+        return $validator->validate($this, null, 'visibility')->count() === 0;
+    }
 
     public function cannotExecuteReason(): ?string
     {

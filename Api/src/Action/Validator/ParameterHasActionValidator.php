@@ -1,18 +1,13 @@
 <?php
 
-
 namespace Mush\Action\Validator;
 
-
 use Mush\Action\Actions\AbstractAction;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\Mechanics\Document;
-use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class ShredableValidator extends ConstraintValidator
+class ParameterHasActionValidator extends ConstraintValidator
 {
     public function validate($value, Constraint $constraint): void
     {
@@ -20,15 +15,7 @@ class ShredableValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, AbstractAction::class);
         }
 
-        $parameter = $value->getParameter();
-        if (!$parameter instanceof GameEquipment) {
-            throw new UnexpectedTypeException($parameter, GameEquipment::class);
-        }
-
-        /** @var Document $document */
-        $document = $parameter->getEquipment()->getMechanicByName(EquipmentMechanicEnum::DOCUMENT);
-
-        if ($document && !$document->canShred()) {
+        if (!$value->getParameter()->getActions()->contains($value->getAction())) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }

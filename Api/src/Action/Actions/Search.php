@@ -19,6 +19,7 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Search extends AbstractAction
 {
@@ -29,11 +30,16 @@ class Search extends AbstractAction
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
+        ActionServiceInterface $actionService,
+        ValidatorInterface $validator,
         PlayerServiceInterface $playerService,
         StatusServiceInterface $statusService,
-        ActionServiceInterface $actionService
     ) {
-        parent::__construct($eventDispatcher, $actionService);
+        parent::__construct(
+            $eventDispatcher,
+            $actionService,
+            $validator
+        );
 
         $this->playerService = $playerService;
         $this->statusService = $statusService;
@@ -44,7 +50,7 @@ class Search extends AbstractAction
         return $parameter === null;
     }
 
-    public static function loadVisibilityValidatorMetadata(ClassMetadata $metadata): void
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
     }
 

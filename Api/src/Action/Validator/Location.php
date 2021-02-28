@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Mush\Action\Validator;
 
 use Mush\Equipment\Enum\ReachEnum;

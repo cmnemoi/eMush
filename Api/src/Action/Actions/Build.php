@@ -24,7 +24,7 @@ use Mush\RoomLog\Entity\Target;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
-use Symfony\Component\Validator\Validation;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Build extends AbstractAction
 {
@@ -39,14 +39,16 @@ class Build extends AbstractAction
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
+        ActionServiceInterface $actionService,
+        ValidatorInterface $validator,
         GameEquipmentServiceInterface $gameEquipmentService,
         PlayerServiceInterface $playerService,
-        ActionServiceInterface $actionService,
         GearToolServiceInterface $gearToolService
     ) {
         parent::__construct(
             $eventDispatcher,
             $actionService,
+            $validator
         );
 
         $this->gameEquipmentService = $gameEquipmentService;
@@ -59,15 +61,10 @@ class Build extends AbstractAction
         return $parameter instanceof GameEquipment && !$parameter instanceof Door;
     }
 
-    public static function loadVisibilityValidatorMetadata(ClassMetadata $metadata): void
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        $metadata->addConstraint(new Mechanic(['mechanic' => EquipmentMechanicEnum::BLUEPRINT]));
-        $metadata->addConstraint(new Reach());
-    }
-
-    public static function loadExecuteValidatorMetadata(ClassMetadata $metadata): void
-    {
-        // TODO: Implement loadExecuteValidatorMetadata() method.
+        $metadata->addConstraint(new Mechanic(['mechanic' => EquipmentMechanicEnum::BLUEPRINT, 'groups' => ['visibility']]));
+        $metadata->addConstraint(new Reach(['groups' => ['visibility']]));
     }
 
     public function cannotExecuteReason(): ?string

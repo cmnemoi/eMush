@@ -7,13 +7,12 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
-use Mush\Action\Validator\ParameterHasAction;
-use Mush\Action\Validator\Reach;
 use Mush\Action\Validator\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class GetUp extends AbstractAction
 {
@@ -23,12 +22,14 @@ class GetUp extends AbstractAction
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
+        ActionServiceInterface $actionService,
+        ValidatorInterface $validator,
         StatusServiceInterface $statusService,
-        ActionServiceInterface $actionService
     ) {
         parent::__construct(
             $eventDispatcher,
-            $actionService
+            $actionService,
+            $validator
         );
 
         $this->statusService = $statusService;
@@ -39,9 +40,9 @@ class GetUp extends AbstractAction
         return $parameter === null;
     }
 
-    public static function loadVisibilityValidatorMetadata(ClassMetadata $metadata): void
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        $metadata->addConstraint(new Status(['status' => PlayerStatusEnum::LYING_DOWN, 'target' => Status::PLAYER]));
+        $metadata->addConstraint(new Status(['status' => PlayerStatusEnum::LYING_DOWN, 'target' => Status::PLAYER, 'groups' => ['visibility']]));
     }
 
     protected function applyEffects(): ActionResult

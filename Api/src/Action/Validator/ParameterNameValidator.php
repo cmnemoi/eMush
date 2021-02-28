@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Mush\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
@@ -8,7 +7,7 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class MechanicValidator extends ConstraintValidator
+class ParameterNameValidator extends ConstraintValidator
 {
     public function validate($value, Constraint $constraint): void
     {
@@ -16,7 +15,7 @@ class MechanicValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, AbstractAction::class);
         }
 
-        if ($value->getParameter()->getEquipment()->getMechanicByName($constraint->mechanic) === null) {
+        if (!$value->getParameter()->getName() !== $constraint->name) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }

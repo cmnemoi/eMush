@@ -21,6 +21,7 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Sabotage extends AttemptAction
 {
@@ -34,15 +35,17 @@ class Sabotage extends AttemptAction
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
+        ActionServiceInterface $actionService,
+        ValidatorInterface $validator,
         GameEquipmentServiceInterface $gameEquipmentService,
         PlayerServiceInterface $playerService,
         RandomServiceInterface $randomService,
-        ActionServiceInterface $actionService
     ) {
         parent::__construct(
-            $randomService,
             $eventDispatcher,
-            $actionService
+            $actionService,
+            $validator,
+            $randomService,
         );
 
         $this->gameEquipmentService = $gameEquipmentService;
@@ -55,13 +58,12 @@ class Sabotage extends AttemptAction
         return $parameter instanceof GameEquipment;
     }
 
-
-    public static function loadVisibilityValidatorMetadata(ClassMetadata $metadata): void
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        $metadata->addConstraint(new Reach());
-        $metadata->addConstraint(new Breakable());
-        $metadata->addConstraint(new Status(['status' => PlayerStatusEnum::MUSH, 'target' => Status::PLAYER]));
-        $metadata->addConstraint(new Status(['status' => EquipmentStatusEnum::BROKEN, 'contain' => false]));
+        $metadata->addConstraint(new Reach(['groups' => ['visibility']]));
+        $metadata->addConstraint(new Breakable(['groups' => ['visibility']]));
+        $metadata->addConstraint(new Status(['status' => PlayerStatusEnum::MUSH, 'target' => Status::PLAYER, ['groups' => ['visibility']]]));
+        $metadata->addConstraint(new Status(['status' => EquipmentStatusEnum::BROKEN, 'contain' => false, ['groups' => ['visibility']]]));
     }
 
     public function cannotExecuteReason(): ?string

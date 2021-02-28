@@ -7,7 +7,6 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
-use Mush\Action\Validator\ParameterHasAction;
 use Mush\Action\Validator\Reach;
 use Mush\Action\Validator\Status;
 use Mush\Equipment\Entity\Door;
@@ -16,9 +15,9 @@ use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Enum\StatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Move extends AbstractAction
 {
@@ -32,13 +31,15 @@ class Move extends AbstractAction
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
+        ActionServiceInterface $actionService,
+        ValidatorInterface $validator,
         PlayerServiceInterface $playerService,
         RoomLogServiceInterface $roomLogService,
-        ActionServiceInterface $actionService
     ) {
         parent::__construct(
             $eventDispatcher,
-            $actionService
+            $actionService,
+            $validator
         );
 
         $this->roomLogService = $roomLogService;
@@ -50,11 +51,10 @@ class Move extends AbstractAction
         return $parameter instanceof Door;
     }
 
-
-    public static function loadVisibilityValidatorMetadata(ClassMetadata $metadata): void
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        $metadata->addConstraint(new Status(['status' => EquipmentStatusEnum::BROKEN, 'contain' => false]));
-        $metadata->addConstraint(new Reach());
+        $metadata->addConstraint(new Status(['status' => EquipmentStatusEnum::BROKEN, 'contain' => false, ['groups' => ['visibility']]]));
+        $metadata->addConstraint(new Reach(['groups' => ['visibility']]));
     }
 
     protected function applyEffects(): ActionResult

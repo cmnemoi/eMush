@@ -8,8 +8,9 @@ use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\Oxygen;
-use Mush\Action\Validator\ParameterHasAction;
+use Mush\Action\Validator\ParameterName;
 use Mush\Action\Validator\Reach;
+use Mush\Action\Validator\UsedTool;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
@@ -17,6 +18,7 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class InsertOxygen extends AbstractAction
 {
@@ -31,14 +33,16 @@ class InsertOxygen extends AbstractAction
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
+        ActionServiceInterface $actionService,
+        ValidatorInterface $validator,
         GameEquipmentServiceInterface $gameEquipmentService,
         DaedalusServiceInterface $daedalusService,
-        ActionServiceInterface $actionService,
         GearToolServiceInterface $gearToolService
     ) {
         parent::__construct(
             $eventDispatcher,
-            $actionService
+            $actionService,
+            $validator
         );
 
         $this->gameEquipmentService = $gameEquipmentService;
@@ -51,13 +55,12 @@ class InsertOxygen extends AbstractAction
         return $parameter instanceof GameItem;
     }
 
-
-    public static function loadVisibilityValidatorMetadata(ClassMetadata $metadata): void
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        $metadata->addConstraint(new Reach());
-        $metadata->addConstraint(new Oxygen(['retrieve' => false]));
-        //@TODO used tool?
-        //@$this->parameter->getEquipment()->getName() === ItemEnum::OXYGEN_CAPSULE
+        $metadata->addConstraint(new ParameterName(['name' => ItemEnum::OXYGEN_CAPSULE, 'groups' => ['visibility']]));
+        $metadata->addConstraint(new UsedTool(['groups' => ['visibility']]));
+        $metadata->addConstraint(new Reach(['groups' => ['visibility']]));
+        $metadata->addConstraint(new Oxygen(['retrieve' => false, 'groups' => ['visibility']]));
     }
 
     protected function applyEffects(): ActionResult

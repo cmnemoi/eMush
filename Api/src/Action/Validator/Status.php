@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Mush\Action\Validator;
 
 class Status extends ClassConstraint

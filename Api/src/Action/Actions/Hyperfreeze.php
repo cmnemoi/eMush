@@ -11,7 +11,6 @@ use Mush\Action\Validator\Mechanic;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Event\EquipmentEvent;
@@ -23,6 +22,7 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Hyperfreeze extends AbstractAction
 {
@@ -38,17 +38,18 @@ class Hyperfreeze extends AbstractAction
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
+        ActionServiceInterface $actionService,
+        ValidatorInterface $validator,
         GameEquipmentServiceInterface $gameEquipmentService,
         PlayerServiceInterface $playerService,
         StatusServiceInterface $statusService,
-        ActionServiceInterface $actionService,
         GearToolServiceInterface $gearToolService
     ) {
         parent::__construct(
             $eventDispatcher,
-            $actionService
+            $actionService,
+            $validator
         );
-
         $this->gameEquipmentService = $gameEquipmentService;
         $this->playerService = $playerService;
         $this->statusService = $statusService;
@@ -60,10 +61,10 @@ class Hyperfreeze extends AbstractAction
         return $parameter instanceof GameEquipment;
     }
 
-    public static function loadVisibilityValidatorMetadata(ClassMetadata $metadata): void
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        $metadata->addConstraint(new Mechanic(['mechanic' => EquipmentMechanicEnum::RATION]));
-        $metadata->addConstraint(new Reach());
+        $metadata->addConstraint(new Mechanic(['mechanic' => EquipmentMechanicEnum::RATION, 'groups' => ['visibility']]));
+        $metadata->addConstraint(new Reach(['groups' => ['visibility']]));
 //            $this->gearToolService->getUsedTool($this->player, $this->action->getName()) !== null &&
 //            !$this->parameter->getStatusByName(EquipmentStatusEnum::FROZEN);
         //            $rationMechanic->isPerishable() &&

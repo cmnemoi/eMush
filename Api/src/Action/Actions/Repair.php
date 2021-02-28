@@ -7,17 +7,16 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
-use Mush\Action\Validator\Mechanic;
 use Mush\Action\Validator\Reach;
 use Mush\Action\Validator\Status;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Repair extends AttemptAction
 {
@@ -31,15 +30,17 @@ class Repair extends AttemptAction
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
+        ActionServiceInterface $actionService,
+        ValidatorInterface $validator,
         GameEquipmentServiceInterface $gameEquipmentService,
         PlayerServiceInterface $playerService,
         RandomServiceInterface $randomService,
-        ActionServiceInterface $actionService
     ) {
         parent::__construct(
-            $randomService,
             $eventDispatcher,
-            $actionService
+            $actionService,
+            $validator,
+            $randomService,
         );
 
         $this->gameEquipmentService = $gameEquipmentService;
@@ -52,12 +53,11 @@ class Repair extends AttemptAction
         return $parameter instanceof GameEquipment;
     }
 
-    public static function loadVisibilityValidatorMetadata(ClassMetadata $metadata): void
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        $metadata->addConstraint(new Reach());
-        $metadata->addConstraint(new Status(['status' => EquipmentStatusEnum::BROKEN]));
+        $metadata->addConstraint(new Reach(['groups' => ['visibility']]));
+        $metadata->addConstraint(new Status(['status' => EquipmentStatusEnum::BROKEN, 'groups' => ['visibility']]));
     }
-
 
     public function isVisible(): bool
     {

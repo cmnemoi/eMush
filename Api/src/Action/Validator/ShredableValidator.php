@@ -18,6 +18,10 @@ class ShredableValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, AbstractAction::class);
         }
 
+        if (!$constraint instanceof Shredable) {
+            throw new UnexpectedTypeException($constraint, Shredable::class);
+        }
+
         $parameter = $value->getParameter();
         if (!$parameter instanceof GameEquipment) {
             throw new UnexpectedTypeException($parameter, GameEquipment::class);

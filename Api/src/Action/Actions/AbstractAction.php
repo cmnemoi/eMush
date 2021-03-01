@@ -77,7 +77,7 @@ abstract class AbstractAction
 
         /** @var ConstraintViolationInterface $violation */
         foreach ($violations as $violation) {
-            return $violation->getMessage();
+            return (string) $violation->getMessage();
         }
 
         return null;

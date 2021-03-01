@@ -15,6 +15,10 @@ class OxygenValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, AbstractAction::class);
         }
 
+        if (!$constraint instanceof Oxygen) {
+            throw new UnexpectedTypeException($constraint, Oxygen::class);
+        }
+
         $daedalus = $value->getPlayer()->getDaedalus();
 
         if ($constraint->retrieve && $daedalus->getOxygen() <= 0) {

@@ -3,6 +3,7 @@
 namespace Mush\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
+use Mush\Equipment\Entity\GameEquipment;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -15,7 +16,16 @@ class ParameterNameValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, AbstractAction::class);
         }
 
-        if (!$value->getParameter()->getName() !== $constraint->name) {
+        if (!$constraint instanceof ParameterName) {
+            throw new UnexpectedTypeException($constraint, ParameterName::class);
+        }
+
+        $parameter = $value->getParameter();
+        if (!$parameter instanceof GameEquipment) {
+            throw new UnexpectedTypeException($parameter, GameEquipment::class);
+        }
+
+        if ($parameter->getName() !== $constraint->name) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }

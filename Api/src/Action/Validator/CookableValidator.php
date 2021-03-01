@@ -18,6 +18,10 @@ class CookableValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, AbstractAction::class);
         }
 
+        if (!$constraint instanceof Cookable) {
+            throw new UnexpectedTypeException($constraint, Cookable::class);
+        }
+
         $parameter = $value->getParameter();
         if (!$parameter instanceof GameEquipment) {
             throw new UnexpectedTypeException($parameter, GameEquipment::class);

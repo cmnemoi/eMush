@@ -3,6 +3,8 @@
 namespace Mush\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
+use Mush\Equipment\Entity\GameEquipment;
+use Mush\Player\Entity\Player;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -15,16 +17,21 @@ class ReachValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, AbstractAction::class);
         }
 
-        if ($constraint->player) {
-            $targetPlayer = $value->getParameter();
-            if ($targetPlayer === $value->getPlayer() ||
-                $targetPlayer->getPlace() !== $value->getPlayer()->getPlace()
+        if (!$constraint instanceof Reach) {
+            throw new UnexpectedTypeException($constraint, Reach::class);
+        }
+
+        $parameter = $value->getParameter();
+
+        if ($parameter instanceof Player) {
+            if ($parameter === $value->getPlayer() ||
+                $parameter->getPlace() !== $value->getPlayer()->getPlace()
             ) {
                 $this->context->buildViolation($constraint->message)
                     ->addViolation();
             }
-        } else {
-            if (!$value->getPlayer()->canReachEquipment($value->getParameter())) {
+        } elseif ($parameter instanceof GameEquipment) {
+            if (!$value->getPlayer()->canReachEquipment($parameter)) {
                 $this->context->buildViolation($constraint->message)
                     ->addViolation();
             }

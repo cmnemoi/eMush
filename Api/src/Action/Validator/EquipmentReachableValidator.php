@@ -23,6 +23,10 @@ class EquipmentReachableValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, AbstractAction::class);
         }
 
+        if (!$constraint instanceof EquipmentReachable) {
+            throw new UnexpectedTypeException($constraint, EquipmentReachable::class);
+        }
+
         if ((bool) $this->gearToolService->getEquipmentsOnReachByName($value->getPlayer(), $constraint->name)->isEmpty()) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();

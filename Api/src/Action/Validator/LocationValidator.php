@@ -16,6 +16,10 @@ class LocationValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, AbstractAction::class);
         }
 
+        if (!$constraint instanceof Location) {
+            throw new UnexpectedTypeException($constraint, Location::class);
+        }
+
         switch ($constraint->location) {
             case ReachEnum::INVENTORY:
                 if (!$value->getPlayer()->getItems()->contains($value->getParameter())) {

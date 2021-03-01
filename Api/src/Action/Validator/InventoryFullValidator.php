@@ -15,6 +15,10 @@ class InventoryFullValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, AbstractAction::class);
         }
 
+        if (!$constraint instanceof InventoryFull) {
+            throw new UnexpectedTypeException($constraint, InventoryFull::class);
+        }
+
         $player = $value->getPlayer();
         if ($player->getItems()->count() >= $player->getDaedalus()->getGameConfig()->getMaxItemInInventory()) {
             $this->context->buildViolation($constraint->message)

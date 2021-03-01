@@ -18,6 +18,10 @@ class PlantWaterableValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, AbstractAction::class);
         }
 
+        if (!$constraint instanceof PlantWaterable) {
+            throw new UnexpectedTypeException($constraint, PlantWaterable::class);
+        }
+
         $parameter = $value->getParameter();
         if (!$parameter instanceof GameItem) {
             throw new UnexpectedTypeException($parameter, GameEquipment::class);

@@ -17,6 +17,10 @@ class DailySporesLimitValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, AbstractAction::class);
         }
 
+        if (!$constraint instanceof DailySporesLimit) {
+            throw new UnexpectedTypeException($constraint, DailySporesLimit::class);
+        }
+
         $player = $value->getPlayer();
 
         if ($constraint->target === DailySporesLimit::DAEDALUS && !$player->getDaedalus()->getSpores() <= 0) {

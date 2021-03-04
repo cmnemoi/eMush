@@ -57,7 +57,7 @@ class Shower extends AbstractAction
         $metadata->addConstraint(new ParameterHasAction(['groups' => ['visibility']]));
         $metadata->addConstraint(new Reach(['groups' => ['visibility']]));
         $metadata->addConstraint(new Status([
-            'status' => EquipmentStatusEnum::BROKEN, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
+            'status' => EquipmentStatusEnum::BROKEN, 'contain' => false, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
         ]));
     }
 

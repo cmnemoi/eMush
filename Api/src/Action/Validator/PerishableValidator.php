@@ -29,7 +29,7 @@ class PerishableValidator extends ConstraintValidator
         /** @var Ration $rationMechanic */
         $rationMechanic = $parameter->getEquipment()->getRationsMechanic();
 
-        if (!$rationMechanic->isPerishable()) {
+        if (!$rationMechanic || !$rationMechanic->isPerishable()) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }

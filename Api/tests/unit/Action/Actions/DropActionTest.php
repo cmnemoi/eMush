@@ -4,7 +4,6 @@ namespace Mush\Test\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
-use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Drop;
 use Mush\Action\Enum\ActionEnum;
@@ -40,10 +39,11 @@ class DropActionTest extends AbstractActionTest
 
         $this->action = new Drop(
             $this->eventDispatcher,
+            $this->actionService,
+            $this->validator,
             $this->gameEquipmentService,
             $this->playerService,
             $this->statusService,
-            $this->actionService
         );
     }
 
@@ -85,12 +85,6 @@ class DropActionTest extends AbstractActionTest
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
-        $this->assertEmpty($player->getItems());
-        $this->assertCount(1, $room->getEquipments());
-
-        $result = $this->action->execute();
-
-        $this->assertInstanceOf(Error::class, $result);
         $this->assertEmpty($player->getItems());
         $this->assertCount(1, $room->getEquipments());
     }

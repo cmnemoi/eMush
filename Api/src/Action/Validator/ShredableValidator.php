@@ -30,7 +30,7 @@ class ShredableValidator extends ConstraintValidator
         /** @var Document $document */
         $document = $parameter->getEquipment()->getMechanicByName(EquipmentMechanicEnum::DOCUMENT);
 
-        if ($document && !$document->canShred()) {
+        if (!$document || !$document->canShred()) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }

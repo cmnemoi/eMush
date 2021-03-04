@@ -18,7 +18,6 @@ use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -37,7 +36,6 @@ class Hyperfreeze extends AbstractAction
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
     private StatusServiceInterface $statusService;
-    private GearToolServiceInterface $gearToolService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
@@ -45,8 +43,7 @@ class Hyperfreeze extends AbstractAction
         ValidatorInterface $validator,
         GameEquipmentServiceInterface $gameEquipmentService,
         PlayerServiceInterface $playerService,
-        StatusServiceInterface $statusService,
-        GearToolServiceInterface $gearToolService
+        StatusServiceInterface $statusService
     ) {
         parent::__construct(
             $eventDispatcher,
@@ -56,7 +53,6 @@ class Hyperfreeze extends AbstractAction
         $this->gameEquipmentService = $gameEquipmentService;
         $this->playerService = $playerService;
         $this->statusService = $statusService;
-        $this->gearToolService = $gearToolService;
     }
 
     protected function support(?ActionParameter $parameter): bool

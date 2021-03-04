@@ -36,9 +36,10 @@ class ShredActionTest extends AbstractActionTest
 
         $this->action = new Shred(
             $this->eventDispatcher,
+            $this->actionService,
+            $this->validator,
             $this->gameEquipmentService,
             $this->playerService,
-            $this->actionService
         );
     }
 

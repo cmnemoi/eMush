@@ -4,12 +4,9 @@ namespace Mush\Test\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
-use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Hide;
-use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
@@ -43,10 +40,11 @@ class HideActionTest extends AbstractActionTest
 
         $this->action = new Hide(
             $this->eventDispatcher,
+            $this->actionService,
+            $this->validator,
             $this->gameEquipmentService,
             $this->statusService,
             $this->playerService,
-            $this->actionService
         );
     }
 
@@ -56,47 +54,6 @@ class HideActionTest extends AbstractActionTest
     public function after()
     {
         Mockery::close();
-    }
-
-    public function testCannotExecute()
-    {
-        $room = new Place();
-
-        $gameItem = new GameItem();
-        $actionHide = new Action();
-        $actionHide->setName(ActionEnum::HIDE);
-        $item = new ItemConfig();
-        $item
-            ->setIsHideable(true)
-            ->setActions(new ArrayCollection([$actionHide]))
-        ;
-        $gameItem
-            ->setEquipment($item)
-        ;
-
-        $daedalus = new Daedalus();
-        $daedalus->setGameStatus(GameStatusEnum::CURRENT);
-        $player = $this->createPlayer($daedalus, $room);
-
-        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
-
-        //item is not in the room
-        $result = $this->action->execute();
-        $this->assertInstanceOf(Error::class, $result);
-
-        //item is not hideable
-        $gameItem->setPlace($room);
-        $item->setIsHideable(false);
-
-        $result = $this->action->execute();
-        $this->assertInstanceOf(Error::class, $result);
-
-        //ship isn't started
-        $daedalus->setGameStatus(GameStatusEnum::STARTING);
-
-        $result = $this->action->execute();
-        $this->assertInstanceOf(Error::class, $result);
-        $this->assertEquals(ActionImpossibleCauseEnum::PRE_MUSH_RESTRICTED, $this->action->cannotExecuteReason());
     }
 
     public function testExecute()

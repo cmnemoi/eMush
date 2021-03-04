@@ -23,7 +23,7 @@ class DailySporesLimitValidator extends ConstraintValidator
 
         $player = $value->getPlayer();
 
-        if ($constraint->target === DailySporesLimit::DAEDALUS && !$player->getDaedalus()->getSpores() <= 0) {
+        if ($constraint->target === DailySporesLimit::DAEDALUS && $player->getDaedalus()->getSpores() <= 0) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }
@@ -31,7 +31,7 @@ class DailySporesLimitValidator extends ConstraintValidator
             /** @var ChargeStatus $mushStatus */
             $mushStatus = $player->getStatusByName(PlayerStatusEnum::MUSH);
 
-            if ($mushStatus && $mushStatus->getCharge() <= 0) {
+            if (!$mushStatus || $mushStatus->getCharge() <= 0) {
                 $this->context->buildViolation($constraint->message)
                     ->addViolation();
             }

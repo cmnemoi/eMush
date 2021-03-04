@@ -4,10 +4,8 @@ namespace Mush\Test\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
-use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\RetrieveOxygen;
-use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
@@ -43,9 +41,10 @@ class RetrieveOxygenTest extends AbstractActionTest
 
         $this->action = new RetrieveOxygen(
             $this->eventDispatcher,
+            $this->actionService,
+            $this->validator,
             $this->gameEquipmentService,
             $this->daedalusService,
-            $this->actionService
         );
     }
 
@@ -55,49 +54,6 @@ class RetrieveOxygenTest extends AbstractActionTest
     public function after()
     {
         Mockery::close();
-    }
-
-    public function testCannotExecute()
-    {
-        $daedalus = new Daedalus();
-        $room = new Place();
-
-        $player = $this->createPlayer($daedalus, $room);
-
-        $gameConfig = new GameConfig();
-        $daedalusConfig = new DaedalusConfig();
-
-        $daedalusConfig->setMaxOxygen(32);
-        $gameConfig->setDaedalusConfig($daedalusConfig);
-        $daedalus->setGameConfig($gameConfig);
-
-        $daedalus->setOxygen(0);
-
-        $action = new Action();
-        $action->setName(ActionEnum::RETRIEVE_OXYGEN);
-
-        $tank = new EquipmentConfig();
-        $tank->setActions(new ArrayCollection([$action]));
-        $gameTank = new GameEquipment();
-        $gameTank
-            ->setEquipment($tank)
-            ->setPlace($room)
-        ;
-
-        $this->action->loadParameters($this->actionEntity, $player, $gameTank);
-
-        //No more oxygen
-        $result = $this->action->execute();
-
-        $this->assertInstanceOf(Error::class, $result);
-
-        //Inventory full
-        $gameConfig->setMaxItemInInventory(0);
-        $daedalus->setOxygen(10);
-
-        $result = $this->action->execute();
-
-        $this->assertInstanceOf(Error::class, $result);
     }
 
     public function testExecute()

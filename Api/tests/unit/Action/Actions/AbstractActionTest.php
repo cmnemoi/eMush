@@ -14,6 +14,8 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Validator\ConstraintViolationList;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class AbstractActionTest extends TestCase
 {
@@ -22,6 +24,9 @@ abstract class AbstractActionTest extends TestCase
 
     /** @var ActionServiceInterface | Mockery\Mock */
     protected ActionServiceInterface $actionService;
+
+    /** @var ValidatorInterface | Mockery\Mock */
+    protected ValidatorInterface $validator;
 
     protected AbstractAction $action;
     protected Action $actionEntity;
@@ -36,6 +41,9 @@ abstract class AbstractActionTest extends TestCase
 
         $this->actionService = Mockery::mock(ActionServiceInterface::class);
         $this->actionService->shouldReceive('canPlayerDoAction')->andReturn(true);
+
+        $this->validator = Mockery::mock(ValidatorInterface::class);
+        $this->validator->shouldReceive('validate')->andReturn(new ConstraintViolationList());
     }
 
     /**

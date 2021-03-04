@@ -15,7 +15,6 @@ use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Equipment\Service\GearToolServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -29,15 +28,13 @@ class InsertOxygen extends AbstractAction
 
     private GameEquipmentServiceInterface $gameEquipmentService;
     private DaedalusServiceInterface $daedalusService;
-    private GearToolServiceInterface $gearToolService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         GameEquipmentServiceInterface $gameEquipmentService,
-        DaedalusServiceInterface $daedalusService,
-        GearToolServiceInterface $gearToolService
+        DaedalusServiceInterface $daedalusService
     ) {
         parent::__construct(
             $eventDispatcher,
@@ -47,7 +44,6 @@ class InsertOxygen extends AbstractAction
 
         $this->gameEquipmentService = $gameEquipmentService;
         $this->daedalusService = $daedalusService;
-        $this->gearToolService = $gearToolService;
     }
 
     protected function support(?ActionParameter $parameter): bool

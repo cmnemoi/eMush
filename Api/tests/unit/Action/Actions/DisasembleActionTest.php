@@ -4,7 +4,6 @@ namespace Mush\Test\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
-use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Disassemble;
@@ -51,10 +50,11 @@ class DisasembleActionTest extends AbstractActionTest
 
         $this->action = new Disassemble(
             $this->eventDispatcher,
+            $this->actionService,
+            $this->validator,
             $this->gameEquipmentService,
             $this->playerService,
             $this->randomService,
-            $this->actionService
         );
     }
 
@@ -64,43 +64,6 @@ class DisasembleActionTest extends AbstractActionTest
     public function after()
     {
         Mockery::close();
-    }
-
-    public function testCannotExecute()
-    {
-        $room = new Place();
-        $gameItem = new GameItem();
-        $item = new ItemConfig();
-        $gameItem->setEquipment($item);
-        $gameItem
-            ->setPlace($room)
-        ;
-
-        $player = $this->createPlayer(new Daedalus(), $room, [SkillEnum::TECHNICIAN]);
-
-        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
-
-        //Not dismantable
-        $result = $this->action->execute();
-        $this->assertInstanceOf(Error::class, $result);
-
-        //@TODO uncomment when skills are ready
-        /*         //Not Technician
-                $player->setSkills([]);
-                $item
-                    ->setMechanics(new ArrayCollection([$dismountable]))
-                ;
-
-                $result = $this->action->execute();
-                $this->assertInstanceOf(Error::class, $result); */
-
-        //Not in the same room
-        $player
-            ->addSkill(SkillEnum::TECHNICIAN)
-            ->setPlace(new Place())
-        ;
-        $result = $this->action->execute();
-        $this->assertInstanceOf(Error::class, $result);
     }
 
     public function testExecute()

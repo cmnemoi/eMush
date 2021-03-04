@@ -41,9 +41,10 @@ class SearchActionTest extends AbstractActionTest
 
         $this->action = new Search(
             $this->eventDispatcher,
+            $this->actionService,
+            $this->validator,
             $this->playerService,
             $this->statusService,
-            $this->actionService
         );
     }
 

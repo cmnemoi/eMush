@@ -20,7 +20,7 @@ class RoomValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, Room::class);
         }
 
-        if ($value->getPlayer()->getPlace()->getType() === PlaceTypeEnum::ROOM) {
+        if ($value->getPlayer()->getPlace()->getType() !== PlaceTypeEnum::ROOM) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }

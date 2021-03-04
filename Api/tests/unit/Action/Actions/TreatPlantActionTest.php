@@ -4,10 +4,8 @@ namespace Mush\Test\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
-use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\TreatPlant;
-use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameItem;
@@ -44,8 +42,9 @@ class TreatPlantActionTest extends AbstractActionTest
 
         $this->action = new TreatPlant(
             $this->eventDispatcher,
+            $this->actionService,
+            $this->validator,
             $this->gameEquipmentService,
-            $this->actionService
         );
     }
 
@@ -55,44 +54,6 @@ class TreatPlantActionTest extends AbstractActionTest
     public function after()
     {
         Mockery::close();
-    }
-
-    public function testCannotExecute()
-    {
-        $room = new Place();
-
-        $gameItem = new GameItem();
-        $item = new ItemConfig();
-        $gameItem
-            ->setEquipment($item)
-            ->setPlace($room)
-        ;
-
-        $action = new Action();
-        $action->setName(ActionEnum::TREAT_PLANT);
-
-        $plant = new Plant();
-        $plant->addAction($action);
-
-        $diseased = new Status($gameItem);
-        $diseased
-            ->setName(EquipmentStatusEnum::PLANT_DISEASED)
-        ;
-
-        $player = $this->createPlayer(new Daedalus(), $room);
-
-        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
-
-        //Not a plant
-        $result = $this->action->execute();
-        $this->assertInstanceOf(Error::class, $result);
-
-        $item->setMechanics(new ArrayCollection([$plant]));
-
-        //Not thirsty
-        $gameItem->removeStatus($diseased);
-        $result = $this->action->execute();
-        $this->assertInstanceOf(Error::class, $result);
     }
 
     public function testExecute()

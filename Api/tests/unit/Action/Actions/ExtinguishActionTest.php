@@ -4,11 +4,9 @@ namespace Mush\Test\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
-use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Extinguish;
-use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
@@ -21,7 +19,6 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\Status;
-use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
@@ -52,10 +49,11 @@ class ExtinguishActionTest extends AbstractActionTest
 
         $this->action = new Extinguish(
             $this->eventDispatcher,
+            $this->actionService,
+            $this->validator,
             $this->playerService,
             $this->randomService,
             $this->placeService,
-            $this->actionService
         );
     }
 
@@ -65,43 +63,6 @@ class ExtinguishActionTest extends AbstractActionTest
     public function after()
     {
         Mockery::close();
-    }
-
-    public function testCannotExecute()
-    {
-        $room = new Place();
-        $gameItem = new GameItem();
-        $item = new ItemConfig();
-        $gameItem->setEquipment($item);
-        $gameItem
-            ->setPlace($room)
-        ;
-
-        $action = new Action();
-        $action->setName(ActionEnum::EXTINGUISH);
-        $item->setActions(new ArrayCollection([$action]));
-
-        $player = $this->createPlayer(new Daedalus(), $room);
-
-        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
-
-        //No fire
-        $result = $this->action->execute();
-        $this->assertInstanceOf(Error::class, $result);
-
-        $fire = new Status($room);
-        $fire
-            ->setName(StatusEnum::FIRE)
-        ;
-
-        //extinguisher is broken
-        $broken = new Status($gameItem);
-        $broken
-            ->setName(EquipmentStatusEnum::BROKEN)
-        ;
-
-        $result = $this->action->execute();
-        $this->assertInstanceOf(Error::class, $result);
     }
 
     public function testExecute()

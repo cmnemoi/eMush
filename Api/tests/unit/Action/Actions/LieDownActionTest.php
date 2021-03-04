@@ -4,10 +4,8 @@ namespace Mush\Test\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
-use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\LieDown;
-use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\EquipmentConfig;
@@ -16,9 +14,6 @@ use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
-use Mush\Player\Entity\Player;
-use Mush\Status\Entity\Status;
-use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
 class LieDownActionTest extends AbstractActionTest
@@ -42,8 +37,9 @@ class LieDownActionTest extends AbstractActionTest
 
         $this->action = new LieDown(
             $this->eventDispatcher,
+            $this->actionService,
+            $this->validator,
             $this->statusService,
-            $this->actionService
         );
     }
 
@@ -53,50 +49,6 @@ class LieDownActionTest extends AbstractActionTest
     public function after()
     {
         Mockery::close();
-    }
-
-    public function testCannotExecute()
-    {
-        $daedalus = new Daedalus();
-        $room = new Place();
-
-        $player = $this->createPlayer($daedalus, $room);
-
-        $gameEquipment = new GameEquipment();
-        $tool = new Tool();
-        $lieDownAction = new Action();
-        $lieDownAction->setName(ActionEnum::LIE_DOWN);
-        $tool->setActions(new ArrayCollection([$lieDownAction]));
-        $item = new EquipmentConfig();
-        $item
-            ->setName(EquipmentEnum::BED)
-            ->setMechanics(new ArrayCollection([$tool]))
-        ;
-
-        $gameEquipment
-            ->setEquipment($item)
-            ->setPlace($room)
-            ->setName(EquipmentEnum::BED)
-        ;
-
-        $status = new Status($player);
-        $status
-            ->setName(PlayerStatusEnum::LYING_DOWN)
-        ;
-
-        $this->action->loadParameters($this->actionEntity, $player, $gameEquipment);
-
-        //Bed already occupied
-        $status->setTarget($gameEquipment);
-        $result = $this->action->execute();
-
-        $this->assertInstanceOf(Error::class, $result);
-
-        //player already lying down
-        $status->setTarget(null);
-        $result = $this->action->execute();
-
-        $this->assertInstanceOf(Error::class, $result);
     }
 
     public function testExecute()

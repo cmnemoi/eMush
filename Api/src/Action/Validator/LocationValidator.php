@@ -10,6 +10,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class LocationValidator extends ConstraintValidator
 {
+    //@FIXME: can it be part of ReachValidator?
     public function validate($value, Constraint $constraint): void
     {
         if (!$value instanceof AbstractAction) {

@@ -3,18 +3,14 @@
 namespace Mush\Test\Action\Actions;
 
 use Mockery;
-use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Move;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
 use Mush\Place\Entity\Place;
-use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
-use Mush\Status\Entity\Status;
-use Mush\Status\Enum\EquipmentStatusEnum;
 
 class MoveActionTest extends AbstractActionTest
 {
@@ -37,9 +33,10 @@ class MoveActionTest extends AbstractActionTest
 
         $this->action = new Move(
             $this->eventDispatcher,
+            $this->actionService,
+            $this->validator,
             $this->playerService,
             $this->roomLogService,
-            $this->actionService
         );
     }
 
@@ -49,47 +46,6 @@ class MoveActionTest extends AbstractActionTest
     public function after()
     {
         Mockery::close();
-    }
-
-    public function testCanExecute()
-    {
-        $roomStart = new Place();
-        $roomEnd = new Place();
-        $door = new Door();
-
-        $door
-            ->addRoom($roomStart)
-            ->addRoom($roomEnd)
-        ;
-
-        $roomStart->addDoor($door);
-        $roomEnd->addDoor($door);
-
-        $player = $this->createPlayer(new Daedalus(), $roomStart);
-
-        $this->action->loadParameters($this->actionEntity, $player, $door);
-
-        //Door is broken
-        $player->setMovementPoint(1);
-        $broken = new Status($door);
-        $broken
-            ->setName(EquipmentStatusEnum::BROKEN)
-        ;
-
-        $result = $this->action->execute();
-
-        $this->assertInstanceOf(Error::class, $result);
-        $this->assertEquals($player->getMovementPoint(), 1);
-
-        //Player is in other room
-        $player
-            ->setPlace(new Place())
-        ;
-
-        $door->removeStatus($broken);
-
-        $this->assertInstanceOf(Error::class, $result);
-        $this->assertEquals($player->getMovementPoint(), 1);
     }
 
     public function testExecute()

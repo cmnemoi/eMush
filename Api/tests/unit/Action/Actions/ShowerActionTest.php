@@ -41,8 +41,9 @@ class ShowerActionTest extends AbstractActionTest
 
         $this->action = new Shower(
             $this->eventDispatcher,
+            $this->actionService,
+            $this->validator,
             $this->playerService,
-            $this->actionService
         );
     }
 

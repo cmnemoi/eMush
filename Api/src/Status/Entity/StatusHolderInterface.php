@@ -14,6 +14,8 @@ interface StatusHolderInterface
 
     public function hasStatus(string $statusName): bool;
 
+    public function hasTargetingStatus(string $statusName): bool;
+
     public function setStatuses(Collection $statuses): self;
 
     public function addStatus(Status $status): self;

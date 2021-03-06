@@ -4,14 +4,11 @@ namespace Mush\Test\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
-use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Actions\Build;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\EquipmentConfig;
-use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Blueprint;
@@ -47,9 +44,10 @@ class BuildActionTest extends AbstractActionTest
 
         $this->action = new Build(
             $this->eventDispatcher,
+            $this->actionService,
+            $this->validator,
             $this->gameEquipmentService,
             $this->playerService,
-            $this->actionService,
             $this->gearToolService
         );
     }
@@ -60,61 +58,6 @@ class BuildActionTest extends AbstractActionTest
     public function after()
     {
         Mockery::close();
-    }
-
-    public function testCannotExecute()
-    {
-        $room = new Place();
-        $gameEquipment = new GameEquipment();
-        $equipment = new EquipmentConfig();
-        $equipment->setName('blueprint');
-        $gameEquipment
-            ->setEquipment($equipment)
-            ->setPlace($room)
-            ->setName('blueprint');
-
-        $product = new ItemConfig();
-
-        $blueprint = new Blueprint();
-        $blueprint
-            ->setIngredients(['metal_scraps' => 1])
-            ->setEquipment($product);
-
-        $gameIngredient = new GameItem();
-        $ingredient = new ItemConfig();
-        $ingredient->setName('metal_scraps');
-        $gameIngredient
-            ->setEquipment($ingredient)
-            ->setPlace($room)
-            ->setName('metal_scraps');
-
-        $player = $this->createPlayer(new Daedalus(), $room);
-
-        $this->action->loadParameters($this->actionEntity, $player, $gameEquipment);
-
-        //Not a blueprint
-        $result = $this->action->execute();
-        $this->assertInstanceOf(Error::class, $result);
-
-        $equipment->setMechanics(new ArrayCollection([$blueprint]));
-
-        //Ingredient in another room
-        $gameIngredient->setPlace(new Place());
-
-        $this->gearToolService->shouldReceive('getEquipmentsOnReachByName')->andReturn(new ArrayCollection())->once();
-        $result = $this->action->execute();
-        $this->assertInstanceOf(Error::class, $result);
-
-        //Not enough of a given ingredient
-        $gameIngredient->setPlace($room);
-        $blueprint
-            ->setIngredients(['metal_scraps' => 2]);
-        $equipment->setMechanics(new ArrayCollection([$blueprint]));
-
-        $this->gearToolService->shouldReceive('getEquipmentsOnReachByName')->andReturn(new ArrayCollection([$gameIngredient]))->once();
-
-        $result = $this->action->execute();
-        $this->assertInstanceOf(Error::class, $result);
     }
 
     public function testExecute()

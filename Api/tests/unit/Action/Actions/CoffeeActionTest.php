@@ -4,7 +4,6 @@ namespace Mush\Test\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
-use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Coffee;
 use Mush\Action\Enum\ActionEnum;
@@ -43,8 +42,9 @@ class CoffeeActionTest extends AbstractActionTest
 
         $this->action = new Coffee(
             $this->eventDispatcher,
+            $this->actionService,
+            $this->validator,
             $this->gameEquipmentService,
-            $this->actionService
         );
     }
 
@@ -54,34 +54,6 @@ class CoffeeActionTest extends AbstractActionTest
     public function after()
     {
         Mockery::close();
-    }
-
-    public function testCannotExecute()
-    {
-        $room = new Place();
-
-        $gameCoffeeMachine = new GameEquipment();
-        $coffeeMachine = new EquipmentConfig();
-        $coffeeMachine->setName(EquipmentEnum::COFFEE_MACHINE);
-        $gameCoffeeMachine
-            ->setEquipment($coffeeMachine)
-            ->setName(EquipmentEnum::COFFEE_MACHINE)
-            ->setPlace(null)
-        ;
-
-        $chargeStatus = new ChargeStatus($gameCoffeeMachine);
-        $chargeStatus
-            ->setName(EquipmentStatusEnum::CHARGES)
-            ->setCharge(1)
-        ;
-
-        $player = $this->createPlayer(new Daedalus(), $room);
-
-        $this->action->loadParameters($this->actionEntity, $player, $gameCoffeeMachine);
-
-        //No coffee Machine in the room
-        $result = $this->action->execute();
-        $this->assertInstanceOf(Error::class, $result);
     }
 
     public function testExecute()

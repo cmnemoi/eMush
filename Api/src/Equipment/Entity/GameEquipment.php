@@ -113,13 +113,13 @@ class GameEquipment implements StatusHolderInterface, ActionParameter
             $oldPlace = $this->getPlace();
             $this->place = $place;
 
-            if ($place !== null) {
-                $place->addEquipment($this);
-            }
-
             if ($oldPlace !== null) {
                 $oldPlace->removeEquipment($this);
                 $this->place = $place;
+            }
+
+            if ($place !== null) {
+                $place->addEquipment($this);
             }
         }
 

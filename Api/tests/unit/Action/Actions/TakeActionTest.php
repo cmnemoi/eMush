@@ -4,10 +4,8 @@ namespace Mush\Test\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
-use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Take;
-use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameItem;
@@ -42,10 +40,11 @@ class TakeActionTest extends AbstractActionTest
 
         $this->action = new Take(
             $this->eventDispatcher,
+            $this->actionService,
+            $this->validator,
             $this->gameEquipmentService,
             $this->playerService,
             $this->statusService,
-            $this->actionService
         );
     }
 
@@ -62,11 +61,8 @@ class TakeActionTest extends AbstractActionTest
         $room = new Place();
         $gameItem = new GameItem();
 
-        $takeAction = new Action();
-        $takeAction->setName(ActionEnum::TAKE);
-
         $item = new ItemConfig();
-        $item->setActions(new ArrayCollection([$takeAction]));
+        $item->setActions(new ArrayCollection([$this->actionEntity]));
 
         $gameItem->setEquipment($item);
         $gameItem
@@ -95,12 +91,6 @@ class TakeActionTest extends AbstractActionTest
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
-        $this->assertEmpty($room->getEquipments());
-        $this->assertCount(1, $player->getItems());
-
-        $result = $this->action->execute();
-
-        $this->assertInstanceOf(Error::class, $result);
         $this->assertEmpty($room->getEquipments());
         $this->assertCount(1, $player->getItems());
     }

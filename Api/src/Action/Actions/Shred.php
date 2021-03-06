@@ -7,14 +7,18 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\Mechanic;
+use Mush\Action\Validator\Reach;
+use Mush\Action\Validator\Shredable;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\Mechanics\Document;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Shred extends AbstractAction
 {
@@ -28,13 +32,15 @@ class Shred extends AbstractAction
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
+        ActionServiceInterface $actionService,
+        ValidatorInterface $validator,
         GameEquipmentServiceInterface $gameEquipmentService,
         PlayerServiceInterface $playerService,
-        ActionServiceInterface $actionService
     ) {
         parent::__construct(
             $eventDispatcher,
-            $actionService
+            $actionService,
+            $validator
         );
 
         $this->gameEquipmentService = $gameEquipmentService;
@@ -46,15 +52,11 @@ class Shred extends AbstractAction
         return $parameter instanceof GameItem;
     }
 
-    public function isVisible(): bool
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        /** @var ?Document $document */
-        $document = $this->parameter->getEquipment()->getMechanicByName(EquipmentMechanicEnum::DOCUMENT);
-
-        return parent::isVisible() &&
-            $document !== null &&
-            $document->canShred() &&
-            $this->player->canReachEquipment($this->parameter);
+        $metadata->addConstraint(new Mechanic(['mechanic' => EquipmentMechanicEnum::DOCUMENT, 'groups' => ['visibility']]));
+        $metadata->addConstraint(new Reach(['groups' => ['visibility']]));
+        $metadata->addConstraint(new Shredable(['groups' => ['visibility']]));
     }
 
     protected function applyEffects(): ActionResult

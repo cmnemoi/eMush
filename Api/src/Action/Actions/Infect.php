@@ -9,6 +9,10 @@ use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\DailySporesLimit;
+use Mush\Action\Validator\MushSpore;
+use Mush\Action\Validator\Reach;
+use Mush\Action\Validator\Status;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Service\PlayerServiceInterface;
@@ -17,6 +21,8 @@ use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Infect extends AbstractAction
 {
@@ -30,13 +36,15 @@ class Infect extends AbstractAction
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
+        ActionServiceInterface $actionService,
+        ValidatorInterface $validator,
         StatusServiceInterface $statusService,
         PlayerServiceInterface $playerService,
-        ActionServiceInterface $actionService
     ) {
         parent::__construct(
             $eventDispatcher,
-            $actionService
+            $actionService,
+            $validator
         );
 
         $this->statusService = $statusService;
@@ -48,15 +56,19 @@ class Infect extends AbstractAction
         return $parameter instanceof Player;
     }
 
-    public function isVisible(): bool
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        return parent::isVisible() &&
-            $this->player->isMush() &&
-            $this->player->getPlace() === $this->parameter->getPlace();
+        $metadata->addConstraint(new Status(['status' => PlayerStatusEnum::MUSH, 'target' => Status::PLAYER, 'groups' => ['visibility']]));
+        $metadata->addConstraint(new Reach(['player' => true, 'groups' => ['visibility']]));
+        $metadata->addConstraint(new MushSpore(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::INFECT_NO_SPORE]));
+        $metadata->addConstraint(new Status(['status' => PlayerStatusEnum::MUSH, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::INFECT_MUSH]));
+        $metadata->addConstraint(new Status(['status' => PlayerStatusEnum::IMMUNIZED, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::INFECT_IMMUNE]));
+        $metadata->addConstraint(new DailySporesLimit(['target' => DailySporesLimit::PLAYER, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::INFECT_DAILY_LIMIT]));
     }
 
     public function cannotExecuteReason(): ?string
     {
+        //@TODO
         /** @var ?ChargeStatus $sporeStatus */
         $sporeStatus = $this->player->getStatusByName(PlayerStatusEnum::SPORES);
         /** @var ChargeStatus $mushStatus */

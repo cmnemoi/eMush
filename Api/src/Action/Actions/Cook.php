@@ -7,18 +7,22 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\Cookable;
+use Mush\Action\Validator\Reach;
+use Mush\Action\Validator\UsedTool;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Cook extends AbstractAction
 {
@@ -30,25 +34,24 @@ class Cook extends AbstractAction
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
     private StatusServiceInterface $statusService;
-    private GearToolServiceInterface $gearToolService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
+        ActionServiceInterface $actionService,
+        ValidatorInterface $validator,
         GameEquipmentServiceInterface $gameEquipmentService,
         PlayerServiceInterface $playerService,
-        StatusServiceInterface $statusService,
-        ActionServiceInterface $actionService,
-        GearToolServiceInterface $gearToolService
+        StatusServiceInterface $statusService
     ) {
         parent::__construct(
             $eventDispatcher,
-            $actionService
+            $actionService,
+            $validator
         );
 
         $this->gameEquipmentService = $gameEquipmentService;
         $this->playerService = $playerService;
         $this->statusService = $statusService;
-        $this->gearToolService = $gearToolService;
     }
 
     protected function support(?ActionParameter $parameter): bool
@@ -56,13 +59,11 @@ class Cook extends AbstractAction
         return $parameter instanceof GameEquipment && !$parameter instanceof Door;
     }
 
-    public function isVisible(): bool
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        return parent::isVisible() &&
-            ($this->parameter->getEquipment()->getName() === GameRationEnum::STANDARD_RATION ||
-            $this->parameter->getStatusByName(EquipmentStatusEnum::FROZEN)) &&
-            $this->gearToolService->getUsedTool($this->player, $this->action->getName()) !== null &&
-            $this->player->canReachEquipment($this->parameter);
+        $metadata->addConstraint(new Reach(['groups' => ['visibility']]));
+        $metadata->addConstraint(new UsedTool(['groups' => ['visibility']]));
+        $metadata->addConstraint(new Cookable(['groups' => ['visibility']]));
     }
 
     protected function applyEffects(): ActionResult

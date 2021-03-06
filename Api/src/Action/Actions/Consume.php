@@ -9,10 +9,12 @@ use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\ParameterHasAction;
+use Mush\Action\Validator\Reach;
+use Mush\Action\Validator\Status;
 use Mush\Equipment\Entity\ConsumableEffect;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Drug;
-use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Player\Entity\Modifier;
@@ -25,6 +27,8 @@ use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Consume extends AbstractAction
 {
@@ -39,14 +43,16 @@ class Consume extends AbstractAction
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
+        ActionServiceInterface $actionService,
+        ValidatorInterface $validator,
         PlayerServiceInterface $playerService,
         EquipmentEffectServiceInterface $equipmentServiceEffect,
         StatusServiceInterface $statusService,
-        ActionServiceInterface $actionService
     ) {
         parent::__construct(
             $eventDispatcher,
-            $actionService
+            $actionService,
+            $validator
         );
 
         $this->playerService = $playerService;
@@ -59,26 +65,16 @@ class Consume extends AbstractAction
         return $parameter instanceof GameItem;
     }
 
-    public function isVisible(): bool
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        return parent::isVisible() &&
-            $this->parameter->getActions()->contains($this->action) &&
-            $this->player->canReachEquipment($this->parameter);
-    }
-
-    public function cannotExecuteReason(): ?string
-    {
-        if ($this->parameter->getEquipment()->getMechanicByName(EquipmentMechanicEnum::DRUG) &&
-            $this->player->getStatusByName(PlayerStatusEnum::DRUG_EATEN)
-        ) {
-            return ActionImpossibleCauseEnum::CONSUME_DRUG_TWICE;
-        }
-
-        if ($this->player->getStatusByName(PlayerStatusEnum::FULL_STOMACH)) {
-            return ActionImpossibleCauseEnum::CONSUME_FULL_BELLY;
-        }
-
-        return parent::cannotExecuteReason();
+        $metadata->addConstraint(new ParameterHasAction(['groups' => ['visibility']]));
+        $metadata->addConstraint(new Reach(['groups' => ['visibility']]));
+        $metadata->addConstraint(new Status([
+            'status' => PlayerStatusEnum::DRUG_EATEN, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::CONSUME_DRUG_TWICE,
+        ]));
+        $metadata->addConstraint(new Status([
+            'status' => PlayerStatusEnum::FULL_STOMACH, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::CONSUME_FULL_BELLY,
+        ]));
     }
 
     protected function applyEffects(): ActionResult

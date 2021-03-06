@@ -4,10 +4,8 @@ namespace Mush\Test\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
-use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Drop;
-use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameItem;
@@ -41,10 +39,11 @@ class DropActionTest extends AbstractActionTest
 
         $this->action = new Drop(
             $this->eventDispatcher,
+            $this->actionService,
+            $this->validator,
             $this->gameEquipmentService,
             $this->playerService,
             $this->statusService,
-            $this->actionService
         );
     }
 
@@ -61,11 +60,8 @@ class DropActionTest extends AbstractActionTest
         $room = new Place();
         $gameItem = new GameItem();
 
-        $dropAction = new Action();
-        $dropAction->setName(ActionEnum::DROP);
-
         $item = new ItemConfig();
-        $item->setActions(new ArrayCollection([$dropAction]));
+        $item->setActions(new ArrayCollection([$this->actionEntity]));
 
         $gameItem->setEquipment($item);
 
@@ -88,14 +84,7 @@ class DropActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $result = $this->action->execute();
 
-        $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->assertInstanceOf(Success::class, $result);
-        $this->assertEmpty($player->getItems());
-        $this->assertCount(1, $room->getEquipments());
-
-        $result = $this->action->execute();
-
-        $this->assertInstanceOf(Error::class, $result);
         $this->assertEmpty($player->getItems());
         $this->assertCount(1, $room->getEquipments());
     }

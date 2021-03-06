@@ -11,6 +11,9 @@ use Mush\Action\Event\ActionEvent;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Player\Entity\Player;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Validator\ConstraintViolationInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class AbstractAction
 {
@@ -23,13 +26,16 @@ abstract class AbstractAction
 
     protected EventDispatcherInterface $eventDispatcher;
     protected ActionServiceInterface $actionService;
+    private ValidatorInterface $validator;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
-        ActionServiceInterface $actionService
+        ActionServiceInterface $actionService,
+        ValidatorInterface $validator
     ) {
         $this->eventDispatcher = $eventDispatcher;
         $this->actionService = $actionService;
+        $this->validator = $validator;
     }
 
     abstract protected function support(?ActionParameter $parameter): bool;
@@ -45,15 +51,33 @@ abstract class AbstractAction
         $this->parameter = $parameter;
     }
 
+    abstract public static function loadValidatorMetadata(ClassMetadata $metadata): void;
+
+//    public abstract static function loadExecuteValidatorMetadata(ClassMetadata $metadata) : void;
+
     public function isVisible(): bool
     {
-        return $this->player->isAlive();
+        if (!$this->player->isAlive()) {
+            return false;
+        }
+
+        $validator = $this->validator;
+
+        return $validator->validate($this, null, 'visibility')->count() === 0;
     }
 
     public function cannotExecuteReason(): ?string
     {
         if (!$this->actionService->canPlayerDoAction($this->player, $this->action)) {
             return ActionImpossibleCauseEnum::INSUFFICIENT_ACTION_POINT;
+        }
+
+        $validator = $this->validator;
+        $violations = $validator->validate($this, null, 'execute');
+
+        /** @var ConstraintViolationInterface $violation */
+        foreach ($violations as $violation) {
+            return (string) $violation->getMessage();
         }
 
         return null;
@@ -105,5 +129,20 @@ abstract class AbstractAction
     public function getMoralPointCost(): ?int
     {
         return $this->actionService->getTotalMoralPointCost($this->player, $this->action);
+    }
+
+    public function getPlayer(): Player
+    {
+        return $this->player;
+    }
+
+    public function getParameter(): ActionParameter
+    {
+        return $this->parameter;
+    }
+
+    public function getAction(): Action
+    {
+        return $this->action;
     }
 }

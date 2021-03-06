@@ -37,9 +37,10 @@ class ReadBookActionTest extends AbstractActionTest
 
         $this->action = new ReadBook(
             $this->eventDispatcher,
+            $this->actionService,
+            $this->validator,
             $this->gameEquipmentService,
             $this->playerService,
-            $this->actionService
         );
     }
 

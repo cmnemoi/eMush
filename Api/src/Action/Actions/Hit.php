@@ -8,8 +8,10 @@ use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\ParameterHasAction;
+use Mush\Action\Validator\PreMush;
+use Mush\Action\Validator\Reach;
 use Mush\Equipment\Enum\GearItemEnum;
-use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\SkillMushEnum;
 use Mush\Game\Service\RandomServiceInterface;
@@ -20,6 +22,8 @@ use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Service\PlayerServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Hit extends AttemptAction
 {
@@ -32,18 +36,19 @@ class Hit extends AttemptAction
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
+        ActionServiceInterface $actionService,
+        ValidatorInterface $validator,
         PlayerServiceInterface $playerService,
         RandomServiceInterface $randomService,
-        ActionServiceInterface $actionService
     ) {
         parent::__construct(
-            $randomService,
             $eventDispatcher,
-            $actionService
+            $actionService,
+            $validator,
+            $randomService
         );
 
         $this->playerService = $playerService;
-        $this->randomService = $randomService;
     }
 
     protected function support(?ActionParameter $parameter): bool
@@ -51,20 +56,11 @@ class Hit extends AttemptAction
         return $parameter instanceof Player;
     }
 
-    public function isVisible(): bool
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        return parent::isVisible() &&
-            $this->player->getPlace() === $this->parameter->getPlace() &&
-            $this->player !== $this->parameter;
-    }
-
-    public function cannotExecuteReason(): ?string
-    {
-        if ($this->player->getDaedalus()->getGameStatus() === GameStatusEnum::STARTING) {
-            return ActionImpossibleCauseEnum::PRE_MUSH_AGGRESSIVE;
-        }
-
-        return parent::cannotExecuteReason();
+        $metadata->addConstraint(new ParameterHasAction(['groups' => ['visibility']]));
+        $metadata->addConstraint(new Reach(['player' => true, 'groups' => ['visibility']]));
+        $metadata->addConstraint(new PreMush(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::PRE_MUSH_AGGRESSIVE]));
     }
 
     protected function applyEffects(): ActionResult

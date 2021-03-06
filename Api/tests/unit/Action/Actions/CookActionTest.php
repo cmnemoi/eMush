@@ -3,7 +3,6 @@
 namespace Mush\Test\Action\Actions;
 
 use Mockery;
-use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Cook;
 use Mush\Action\Enum\ActionEnum;
@@ -15,7 +14,6 @@ use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Status\Entity\Status;
@@ -31,8 +29,6 @@ class CookActionTest extends AbstractActionTest
     private PlayerServiceInterface $playerService;
     /** @var StatusServiceInterface | Mockery\Mock */
     private StatusServiceInterface $statusService;
-    /** @var GearToolServiceInterface | Mockery\Mock */
-    private GearToolServiceInterface $gearToolService;
 
     /**
      * @before
@@ -44,17 +40,16 @@ class CookActionTest extends AbstractActionTest
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
-        $this->gearToolService = Mockery::mock(GearToolServiceInterface::class);
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::COOK, 1);
 
         $this->action = new Cook(
             $this->eventDispatcher,
+            $this->actionService,
+            $this->validator,
             $this->gameEquipmentService,
             $this->playerService,
             $this->statusService,
-            $this->actionService,
-            $this->gearToolService
         );
     }
 
@@ -64,52 +59,6 @@ class CookActionTest extends AbstractActionTest
     public function after()
     {
         Mockery::close();
-    }
-
-    public function testCannotExecute()
-    {
-        $room = new Place();
-
-        $gameRation = new GameItem();
-        $ration = new ItemConfig();
-        $ration->setName('ration');
-        $gameRation
-            ->setEquipment($ration)
-            ->setPlace($room)
-            ->setName('ration')
-        ;
-
-        $gameKitchen = new GameEquipment();
-        $kitchen = new EquipmentConfig();
-        $kitchen->setName(EquipmentEnum::KITCHEN);
-        $gameKitchen
-            ->setEquipment($kitchen)
-            ->setName(EquipmentEnum::KITCHEN)
-            ->setPlace($room)
-        ;
-
-        $player = $this->createPlayer(new Daedalus(), $room);
-
-        $this->action->loadParameters($this->actionEntity, $player, $gameRation);
-
-        //not possible to cook (not frozen nor standard ration)
-        $result = $this->action->execute();
-        $this->assertInstanceOf(Error::class, $result);
-
-        $frozenStatus = new Status($gameRation);
-        $frozenStatus
-             ->setName(EquipmentStatusEnum::FROZEN)
-        ;
-
-        $gameKitchen->setPlace(null);
-        //No kitchen in the room
-        $this->gearToolService
-            ->shouldReceive('getUsedTool')
-            ->andReturn(null)
-            ->once()
-        ;
-        $result = $this->action->execute();
-        $this->assertInstanceOf(Error::class, $result);
     }
 
     public function testExecute()
@@ -144,11 +93,6 @@ class CookActionTest extends AbstractActionTest
 
         $this->action->loadParameters($this->actionEntity, $player, $gameRation);
 
-        $this->gearToolService
-            ->shouldReceive('getUsedTool')
-            ->andReturn($gameKitchen)
-            ->once()
-        ;
         $this->gameEquipmentService->shouldReceive('persist')->once();
         $this->playerService->shouldReceive('persist')->once();
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
@@ -195,11 +139,6 @@ class CookActionTest extends AbstractActionTest
             ->setName(GameRationEnum::COOKED_RATION)
         ;
 
-        $this->gearToolService
-            ->shouldReceive('getUsedTool')
-            ->andReturn($gameKitchen)
-            ->once()
-        ;
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->andReturn($gameCookedRation)->once();
         $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);

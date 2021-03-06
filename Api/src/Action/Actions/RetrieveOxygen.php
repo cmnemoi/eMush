@@ -8,13 +8,21 @@ use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\InventoryFull;
+use Mush\Action\Validator\Oxygen;
+use Mush\Action\Validator\ParameterHasAction;
+use Mush\Action\Validator\Reach;
+use Mush\Action\Validator\Status;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\RoomLog\Entity\Target;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class RetrieveOxygen extends AbstractAction
 {
@@ -28,13 +36,15 @@ class RetrieveOxygen extends AbstractAction
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
+        ActionServiceInterface $actionService,
+        ValidatorInterface $validator,
         GameEquipmentServiceInterface $gameEquipmentService,
         DaedalusServiceInterface $daedalusService,
-        ActionServiceInterface $actionService
     ) {
         parent::__construct(
             $eventDispatcher,
-            $actionService
+            $actionService,
+            $validator
         );
 
         $this->gameEquipmentService = $gameEquipmentService;
@@ -46,26 +56,15 @@ class RetrieveOxygen extends AbstractAction
         return $parameter instanceof GameEquipment;
     }
 
-    public function isVisible(): bool
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        return parent::isVisible() &&
-            $this->player->canReachEquipment($this->parameter) ||
-            $this->parameter->getEquipment()->hasAction($this->name) ||
-            $this->player->getDaedalus()->getOxygen() > 0;
-    }
-
-    public function cannotExecuteReason(): ?string
-    {
-        if ($this->parameter->isBroken()) {
-            return ActionImpossibleCauseEnum::BROKEN_EQUIPMENT;
-        }
-
-        $gameConfig = $this->player->getDaedalus()->getGameConfig();
-        if ($this->player->getItems()->count() >= $gameConfig->getMaxItemInInventory()) {
-            return ActionImpossibleCauseEnum::FULL_INVENTORY;
-        }
-
-        return parent::cannotExecuteReason();
+        $metadata->addConstraint(new ParameterHasAction(['groups' => ['visibility']]));
+        $metadata->addConstraint(new Reach(['groups' => ['visibility']]));
+        $metadata->addConstraint(new Oxygen(['groups' => ['visibility']]));
+        $metadata->addConstraint(new InventoryFull(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::FULL_INVENTORY]));
+        $metadata->addConstraint(new Status([
+            'status' => EquipmentStatusEnum::BROKEN, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
+        ]));
     }
 
     protected function applyEffects(): ActionResult

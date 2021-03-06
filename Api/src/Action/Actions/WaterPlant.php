@@ -8,6 +8,9 @@ use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\ParameterHasAction;
+use Mush\Action\Validator\PlantWaterable;
+use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
@@ -15,6 +18,8 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class WaterPlant extends AbstractAction
 {
@@ -29,15 +34,18 @@ class WaterPlant extends AbstractAction
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
+        ActionServiceInterface $actionService,
+        ValidatorInterface $validator,
         GameEquipmentServiceInterface $gameEquipmentService,
         PlayerServiceInterface $playerService,
-        StatusServiceInterface $statusService,
-        ActionServiceInterface $actionService
+        StatusServiceInterface $statusService
     ) {
         parent::__construct(
             $eventDispatcher,
-            $actionService
+            $actionService,
+            $validator
         );
+
         $this->gameEquipmentService = $gameEquipmentService;
         $this->playerService = $playerService;
         $this->statusService = $statusService;
@@ -48,22 +56,11 @@ class WaterPlant extends AbstractAction
         return $parameter instanceof GameItem;
     }
 
-    public function isVisible(): bool
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        return parent::isVisible() &&
-            $this->player->canReachEquipment($this->parameter) &&
-            $this->parameter->getEquipment()->hasAction($this->name);
-    }
-
-    public function cannotExecuteReason(): ?string
-    {
-        if ($this->parameter->getStatusByName(EquipmentStatusEnum::PLANT_THIRSTY) === null &&
-            $this->parameter->getStatusByName(EquipmentStatusEnum::PLANT_DRIED_OUT) === null
-        ) {
-            return ActionImpossibleCauseEnum::TREAT_PLANT_NO_DISEASE;
-        }
-
-        return parent::cannotExecuteReason();
+        $metadata->addConstraint(new ParameterHasAction(['groups' => ['visibility']]));
+        $metadata->addConstraint(new Reach(['groups' => ['visibility']]));
+        $metadata->addConstraint(new PlantWaterable(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::TREAT_PLANT_NO_DISEASE]));
     }
 
     protected function applyEffects(): ActionResult

@@ -1,0 +1,102 @@
+<?php
+
+namespace Mush\Test\Action\Validator;
+
+use Doctrine\Common\Collections\ArrayCollection;
+use Mockery;
+use Mush\Action\Actions\AbstractAction;
+use Mush\Action\Entity\Action;
+use Mush\Action\Validator\ParameterHasAction;
+use Mush\Action\Validator\ParameterHasActionValidator;
+use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\ItemConfig;
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\Validator\Context\ExecutionContext;
+use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
+
+class ParameterHasActionValidatorTest extends TestCase
+{
+    private ParameterHasActionValidator $validator;
+    private ParameterHasAction $constraint;
+
+    /**
+     * @before
+     */
+    public function before()
+    {
+        $this->validator = new ParameterHasActionValidator();
+        $this->constraint = new ParameterHasAction();
+    }
+
+    /**
+     * @after
+     */
+    public function after()
+    {
+        Mockery::close();
+    }
+
+    public function testValid()
+    {
+        $actionEntity = new Action();
+
+        $itemConfig = new ItemConfig();
+        $itemConfig->setActions(new ArrayCollection([$actionEntity]));
+
+        $gameItem = new GameItem();
+        $gameItem->setEquipment($itemConfig);
+
+        $action = Mockery::mock(AbstractAction::class);
+        $action
+            ->shouldReceive([
+                'getAction' => $actionEntity,
+                'getParameter' => $gameItem,
+            ])
+        ;
+
+        $this->initValidator();
+        $this->validator->validate($action, $this->constraint);
+
+        $this->assertTrue(true);
+    }
+
+    public function testNotValid()
+    {
+        $itemConfig = new ItemConfig();
+        $itemConfig->setActions(new ArrayCollection([]));
+
+        $gameItem = new GameItem();
+        $gameItem->setEquipment($itemConfig);
+
+        $action = Mockery::mock(AbstractAction::class);
+        $action
+            ->shouldReceive([
+                'getAction' => new Action(),
+                'getParameter' => $gameItem,
+            ])
+        ;
+
+        $this->initValidator($this->constraint->message);
+        $this->validator->validate($action, $this->constraint);
+
+        $this->assertTrue(true);
+    }
+
+    protected function initValidator(?string $expectedMessage = null)
+    {
+        $builder = Mockery::mock(ConstraintViolationBuilder::class);
+        $context = Mockery::mock(ExecutionContext::class);
+
+        if ($expectedMessage) {
+            $builder->shouldReceive('addViolation')->andReturn($builder)->once();
+            $context->shouldReceive('buildViolation')->with($expectedMessage)->andReturn($builder)->once();
+        } else {
+            $context->shouldReceive('buildViolation')->never();
+        }
+
+        /* @var ExecutionContext $context */
+        $this->validator->initialize($context);
+
+        return $this->validator;
+    }
+}

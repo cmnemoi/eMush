@@ -9,15 +9,17 @@ use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\Room;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\Target;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Search extends AbstractAction
 {
@@ -28,11 +30,16 @@ class Search extends AbstractAction
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
+        ActionServiceInterface $actionService,
+        ValidatorInterface $validator,
         PlayerServiceInterface $playerService,
         StatusServiceInterface $statusService,
-        ActionServiceInterface $actionService
     ) {
-        parent::__construct($eventDispatcher, $actionService);
+        parent::__construct(
+            $eventDispatcher,
+            $actionService,
+            $validator
+        );
 
         $this->playerService = $playerService;
         $this->statusService = $statusService;
@@ -43,13 +50,9 @@ class Search extends AbstractAction
         return $parameter === null;
     }
 
-    public function cannotExecuteReason(): ?string
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        if ($this->player->getPlace()->getType() !== PlaceTypeEnum::ROOM) {
-            return ActionImpossibleCauseEnum::NOT_A_ROOM;
-        }
-
-        return parent::cannotExecuteReason();
+        $metadata->addConstraint(new Room(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::NOT_A_ROOM]));
     }
 
     protected function applyEffects(): ActionResult

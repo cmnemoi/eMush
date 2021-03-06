@@ -8,17 +8,21 @@ use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\Hideable;
+use Mush\Action\Validator\PreMush;
+use Mush\Action\Validator\Reach;
+use Mush\Action\Validator\Room;
+use Mush\Action\Validator\Status;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Enum\GameStatusEnum;
-use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\Target;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Hide extends AbstractAction
 {
@@ -33,14 +37,16 @@ class Hide extends AbstractAction
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
+        ActionServiceInterface $actionService,
+        ValidatorInterface $validator,
         GameEquipmentServiceInterface $gameEquipmentService,
         StatusServiceInterface $statusService,
         PlayerServiceInterface $playerService,
-        ActionServiceInterface $actionService
     ) {
         parent::__construct(
             $eventDispatcher,
-            $actionService
+            $actionService,
+            $validator
         );
 
         $this->gameEquipmentService = $gameEquipmentService;
@@ -53,28 +59,13 @@ class Hide extends AbstractAction
         return $parameter instanceof GameItem;
     }
 
-    public function isVisible(): bool
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        /** @var ItemConfig $itemConfig */
-        $itemConfig = $this->parameter->getEquipment();
-
-        return parent::isVisible() &&
-            $this->parameter->getStatusByName(EquipmentStatusEnum::HIDDEN) === null &&
-            $itemConfig->isHideable() &&
-            $this->player->canReachEquipment($this->parameter);
-    }
-
-    public function cannotExecuteReason(): ?string
-    {
-        if ($this->player->getPlace()->getType() !== PlaceTypeEnum::ROOM) {
-            return ActionImpossibleCauseEnum::NO_SHELVING_UNIT;
-        }
-
-        if ($this->player->getDaedalus()->getGameStatus() === GameStatusEnum::STARTING) {
-            return ActionImpossibleCauseEnum::PRE_MUSH_RESTRICTED;
-        }
-
-        return parent::cannotExecuteReason();
+        $metadata->addConstraint(new Reach(['groups' => ['visibility']]));
+        $metadata->addConstraint(new Hideable(['groups' => ['visibility']]));
+        $metadata->addConstraint(new Status(['status' => EquipmentStatusEnum::HIDDEN, 'contain' => false, 'groups' => ['visibility']]));
+        $metadata->addConstraint(new Room(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::NO_SHELVING_UNIT]));
+        $metadata->addConstraint(new PreMush(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::PRE_MUSH_RESTRICTED]));
     }
 
     protected function applyEffects(): ActionResult

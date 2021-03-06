@@ -4,10 +4,8 @@ namespace Mush\Test\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
-use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\WaterPlant;
-use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameItem;
@@ -44,10 +42,11 @@ class WaterPlantActionTest extends AbstractActionTest
 
         $this->action = new WaterPlant(
             $this->eventDispatcher,
+            $this->actionService,
+            $this->validator,
             $this->gameEquipmentService,
             $this->playerService,
             $this->statusService,
-            $this->actionService
         );
     }
 
@@ -57,43 +56,6 @@ class WaterPlantActionTest extends AbstractActionTest
     public function after()
     {
         Mockery::close();
-    }
-
-    public function testCannotExecute()
-    {
-        $room = new Place();
-
-        $gameItem = new GameItem();
-        $item = new ItemConfig();
-        $gameItem
-            ->setEquipment($item)
-            ->setPlace($room)
-        ;
-
-        $action = new Action();
-        $action->setName(ActionEnum::WATER_PLANT);
-        $plant = new Plant();
-        $plant->addAction($action);
-
-        $thirsty = new Status($gameItem);
-        $thirsty
-            ->setName(EquipmentStatusEnum::PLANT_THIRSTY)
-        ;
-
-        $player = $this->createPlayer(new Daedalus(), $room);
-
-        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
-
-        //Not a plant
-        $result = $this->action->execute();
-        $this->assertInstanceOf(Error::class, $result);
-
-        $item->setMechanics(new ArrayCollection([$plant]));
-
-        //Not thirsty
-        $gameItem->removeStatus($thirsty);
-        $result = $this->action->execute();
-        $this->assertInstanceOf(Error::class, $result);
     }
 
     public function testExecute()
@@ -107,11 +69,8 @@ class WaterPlantActionTest extends AbstractActionTest
               ->setPlace($room)
         ;
 
-        $action = new Action();
-        $action->setName(ActionEnum::WATER_PLANT);
-
         $plant = new Plant();
-        $plant->addAction($action);
+        $plant->addAction($this->actionEntity);
         $item->setMechanics(new ArrayCollection([$plant]));
 
         $thirsty = new Status($gameItem);

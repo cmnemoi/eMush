@@ -3,7 +3,6 @@
 namespace Mush\Test\Action\Actions;
 
 use Mockery;
-use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\GetUp;
 use Mush\Action\Enum\ActionEnum;
@@ -34,8 +33,9 @@ class GetUpActionTest extends AbstractActionTest
 
         $this->action = new GetUp(
             $this->eventDispatcher,
+            $this->actionService,
+            $this->validator,
             $this->statusService,
-            $this->actionService
         );
     }
 
@@ -45,38 +45,6 @@ class GetUpActionTest extends AbstractActionTest
     public function after()
     {
         Mockery::close();
-    }
-
-    public function testCannotExecute()
-    {
-        $daedalus = new Daedalus();
-        $room = new Place();
-
-        $player = $this->createPlayer($daedalus, $room);
-        $player2 = $this->createPlayer($daedalus, $room);
-
-        $gameItem = new GameEquipment();
-        $item = new EquipmentConfig();
-        $item
-            ->setName(EquipmentEnum::BED)
-        ;
-        $gameItem
-            ->setEquipment($item)
-            ->setPlace($room)
-            ->setName(EquipmentEnum::BED)
-        ;
-
-        $status = new Status($player2);
-        $status
-            ->setName(PlayerStatusEnum::LYING_DOWN)
-            ->setTarget($gameItem)
-        ;
-
-        $this->action->loadParameters($this->actionEntity, $player);
-
-        $result = $this->action->execute();
-
-        $this->assertInstanceOf(Error::class, $result);
     }
 
     public function testExecute()

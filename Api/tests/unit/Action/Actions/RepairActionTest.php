@@ -3,7 +3,6 @@
 namespace Mush\Test\Action\Actions;
 
 use Mockery;
-use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Repair;
@@ -50,10 +49,11 @@ class RepairActionTest extends AbstractActionTest
 
         $this->action = new Repair(
             $this->eventDispatcher,
+            $this->actionService,
+            $this->validator,
             $this->gameEquipmentService,
             $this->playerService,
             $this->randomService,
-            $this->actionService
         );
     }
 
@@ -63,39 +63,6 @@ class RepairActionTest extends AbstractActionTest
     public function after()
     {
         Mockery::close();
-    }
-
-    public function testCannotExecute()
-    {
-        $room = new Place();
-        $gameItem = new GameItem();
-        $item = new ItemConfig();
-        $gameItem->setEquipment($item);
-        $gameItem
-            ->setPlace($room)
-        ;
-
-        $player = $this->createPlayer(new Daedalus(), $room, [SkillEnum::TECHNICIAN]);
-
-        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
-
-        //Not broken
-        $result = $this->action->execute();
-        $this->assertInstanceOf(Error::class, $result);
-
-        $broken = new Status($gameItem);
-        $broken
-            ->setName(EquipmentStatusEnum::BROKEN)
-        ;
-
-        //Not in the same room
-        $gameItem
-            ->setPlace(new Place())
-        ;
-        $room->removeEquipment($gameItem);
-
-        $result = $this->action->execute();
-        $this->assertInstanceOf(Error::class, $result);
     }
 
     public function testExecute()

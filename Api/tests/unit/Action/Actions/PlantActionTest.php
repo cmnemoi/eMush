@@ -4,10 +4,8 @@ namespace Mush\Test\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
-use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Transplant;
-use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameItem;
@@ -44,9 +42,10 @@ class PlantActionTest extends AbstractActionTest
 
         $this->action = new Transplant(
             $this->eventDispatcher,
+            $this->actionService,
+            $this->validator,
             $this->gameEquipmentService,
             $this->playerService,
-            $this->actionService,
             $this->gearToolService
         );
     }
@@ -59,55 +58,6 @@ class PlantActionTest extends AbstractActionTest
         Mockery::close();
     }
 
-    public function testCannotExecute()
-    {
-        $room = new Place();
-        $gameItem = new GameItem();
-        $item = new ItemConfig();
-        $gameItem
-                    ->setEquipment($item)
-                    ->setPlace($room)
-                    ->setName('toto');
-
-        $action = new Action();
-        $action->setName(ActionEnum::TRANSPLANT);
-
-        $fruit = new Fruit();
-        $fruit->addAction($action);
-        $fruit->setPlantName('banana_tree');
-
-        $plant = new ItemConfig();
-        $plant->setName('plant');
-
-        $gameHydropot = new GameItem();
-        $hydropot = new ItemConfig();
-        $hydropot->setName(ItemEnum::HYDROPOT);
-        $gameHydropot
-                    ->setEquipment($hydropot)
-                    ->setPlace($room)
-                    ->setName(ItemEnum::HYDROPOT)
-        ;
-
-        $player = $this->createPlayer(new Daedalus(), $room);
-
-        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
-
-        $item->setMechanics(new ArrayCollection([$fruit]));
-        //Hydropot in another room
-        $gameHydropot->setPlace(new Place());
-        $this->gearToolService->shouldReceive('getEquipmentsOnReachByName')->andReturn(new ArrayCollection());
-
-        $result = $this->action->execute();
-        $this->assertInstanceOf(Error::class, $result);
-
-        $item->setMechanics(new ArrayCollection([]));
-        $gameHydropot->setPlace($room);
-        //Not a fruit
-        $this->gearToolService->shouldReceive('getEquipmentsOnReachByName')->andReturn(new ArrayCollection([$gameHydropot]));
-        $result = $this->action->execute();
-        $this->assertInstanceOf(Error::class, $result);
-    }
-
     public function testExecute()
     {
         $room = new Place();
@@ -116,13 +66,11 @@ class PlantActionTest extends AbstractActionTest
         $gameItem
                     ->setEquipment($item)
                     ->setPlace($room)
-                    ->setName('toto');
-
-        $action = new Action();
-        $action->setName(ActionEnum::TRANSPLANT);
+                    ->setName('toto')
+        ;
 
         $fruit = new Fruit();
-        $fruit->addAction($action);
+        $fruit->addAction($this->actionEntity);
         $fruit->setPlantName('banana_tree');
 
         $item->setMechanics(new ArrayCollection([$fruit]));

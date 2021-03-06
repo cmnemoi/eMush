@@ -3,7 +3,6 @@
 namespace Mush\Test\Action\Actions;
 
 use Mockery;
-use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\InsertOxygen;
 use Mush\Action\Enum\ActionEnum;
@@ -17,7 +16,6 @@ use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Place\Entity\Place;
 
@@ -27,8 +25,6 @@ class InsertOxygenTest extends AbstractActionTest
     private GameEquipmentServiceInterface $gameEquipmentService;
     /** @var DaedalusServiceInterface | Mockery\Mock */
     private DaedalusServiceInterface $daedalusService;
-    /** @var GearToolServiceInterface | Mockery\Mock */
-    private GearToolServiceInterface $gearToolService;
 
     /**
      * @before
@@ -41,14 +37,13 @@ class InsertOxygenTest extends AbstractActionTest
 
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->daedalusService = Mockery::mock(DaedalusServiceInterface::class);
-        $this->gearToolService = Mockery::mock(GearToolServiceInterface::class);
 
         $this->action = new InsertOxygen(
             $this->eventDispatcher,
-            $this->gameEquipmentService,
-            $this->daedalusService,
             $this->actionService,
-            $this->gearToolService
+            $this->validator,
+            $this->gameEquipmentService,
+            $this->daedalusService
         );
     }
 
@@ -58,56 +53,6 @@ class InsertOxygenTest extends AbstractActionTest
     public function after()
     {
         Mockery::close();
-    }
-
-    public function testCannotExecute()
-    {
-        $daedalus = new Daedalus();
-        $room = new Place();
-        $gameItem = new GameItem();
-        $item = new ItemConfig();
-        $gameItem->setEquipment($item);
-
-        $item
-            ->setName(ItemEnum::OXYGEN_CAPSULE)
-            ->setIsHeavy(false)
-        ;
-
-        $player = $this->createPlayer($daedalus, $room);
-        $gameItem
-            ->setName(ItemEnum::OXYGEN_CAPSULE)
-            ->setPlayer($player)
-        ;
-
-        $daedalus->setOxygen(32);
-
-        $daedalusConfig = new DaedalusConfig();
-        $daedalusConfig->setMaxOxygen(32);
-
-        $gameConfig = new GameConfig();
-        $gameConfig->setDaedalusConfig($daedalusConfig);
-        $daedalus->setGameConfig($gameConfig);
-
-        $tank = new EquipmentConfig();
-        $tank->setName(EquipmentEnum::OXYGEN_TANK);
-        $gameTank = new GameEquipment();
-        $gameTank
-            ->setEquipment($tank)
-            ->setName(EquipmentEnum::OXYGEN_TANK)
-            ->setPlace($room)
-        ;
-
-        $this->gearToolService
-            ->shouldReceive('getUsedTool')
-            ->andReturn(null)
-            ->once()
-        ;
-
-        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
-
-        $result = $this->action->execute();
-
-        $this->assertInstanceOf(Error::class, $result);
     }
 
     public function testExecute()
@@ -147,11 +92,6 @@ class InsertOxygenTest extends AbstractActionTest
             ->setPlace($room)
         ;
 
-        $this->gearToolService
-            ->shouldReceive('getUsedTool')
-            ->andReturn($gameTank)
-            ->once()
-        ;
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gameEquipmentService->shouldReceive('delete');
         $this->daedalusService->shouldReceive('changeOxygenLevel')->andReturn($daedalus);

@@ -7,6 +7,9 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\EquipmentReachable;
+use Mush\Action\Validator\ParameterHasAction;
+use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Fruit;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
@@ -19,6 +22,8 @@ use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\Target;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Transplant extends AbstractAction
 {
@@ -33,14 +38,16 @@ class Transplant extends AbstractAction
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
+        ActionServiceInterface $actionService,
+        ValidatorInterface $validator,
         GameEquipmentServiceInterface $gameEquipmentService,
         PlayerServiceInterface $playerService,
-        ActionServiceInterface $actionService,
         GearToolServiceInterface $gearToolService
     ) {
         parent::__construct(
             $eventDispatcher,
-            $actionService
+            $actionService,
+            $validator
         );
 
         $this->gameEquipmentService = $gameEquipmentService;
@@ -53,12 +60,11 @@ class Transplant extends AbstractAction
         return $parameter instanceof GameItem;
     }
 
-    public function isVisible(): bool
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        return parent::isVisible() &&
-            !$this->gearToolService->getEquipmentsOnReachByName($this->player, ItemEnum::HYDROPOT)->isEmpty() &&
-            $this->player->canReachEquipment($this->parameter) &&
-            $this->parameter->getEquipment()->hasAction($this->name);
+        $metadata->addConstraint(new ParameterHasAction(['groups' => ['visibility']]));
+        $metadata->addConstraint(new Reach(['groups' => ['visibility']]));
+        $metadata->addConstraint(new EquipmentReachable(['name' => ItemEnum::HYDROPOT, 'groups' => ['visibility']]));
     }
 
     protected function applyEffects(): ActionResult

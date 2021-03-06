@@ -6,7 +6,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Shower;
-use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\EquipmentConfig;
@@ -42,8 +41,9 @@ class ShowerActionTest extends AbstractActionTest
 
         $this->action = new Shower(
             $this->eventDispatcher,
+            $this->actionService,
+            $this->validator,
             $this->playerService,
-            $this->actionService
         );
     }
 
@@ -66,9 +66,7 @@ class ShowerActionTest extends AbstractActionTest
             ->setPlace($room)
         ;
 
-        $action = new Action();
-        $action->setName(ActionEnum::SHOWER);
-        $item->setActions(new ArrayCollection([$action]));
+        $item->setActions(new ArrayCollection([$this->actionEntity]));
 
         $player = $this->createPlayer(new Daedalus(), $room);
 

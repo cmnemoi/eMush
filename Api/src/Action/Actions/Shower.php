@@ -9,14 +9,20 @@ use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\ParameterHasAction;
+use Mush\Action\Validator\Reach;
+use Mush\Action\Validator\Status;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Modifier;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Shower extends AbstractAction
 {
@@ -29,12 +35,14 @@ class Shower extends AbstractAction
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
+        ActionServiceInterface $actionService,
+        ValidatorInterface $validator,
         PlayerServiceInterface $playerService,
-        ActionServiceInterface $actionService
     ) {
         parent::__construct(
             $eventDispatcher,
-            $actionService
+            $actionService,
+            $validator
         );
         $this->playerService = $playerService;
     }
@@ -44,20 +52,13 @@ class Shower extends AbstractAction
         return $parameter instanceof GameEquipment;
     }
 
-    public function isVisible(): bool
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        return parent::isVisible() &&
-            $this->parameter->getEquipment()->hasAction($this->name) ||
-            $this->player->canReachEquipment($this->parameter);
-    }
-
-    public function cannotExecuteReason(): ?string
-    {
-        if ($this->parameter->isBroken()) {
-            return ActionImpossibleCauseEnum::BROKEN_EQUIPMENT;
-        }
-
-        return parent::cannotExecuteReason();
+        $metadata->addConstraint(new ParameterHasAction(['groups' => ['visibility']]));
+        $metadata->addConstraint(new Reach(['groups' => ['visibility']]));
+        $metadata->addConstraint(new Status([
+            'status' => EquipmentStatusEnum::BROKEN, 'contain' => false, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
+        ]));
     }
 
     protected function applyEffects(): ActionResult

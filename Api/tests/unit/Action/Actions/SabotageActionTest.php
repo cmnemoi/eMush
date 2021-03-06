@@ -3,7 +3,6 @@
 namespace Mush\Test\Action\Actions;
 
 use Mockery;
-use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Sabotage;
@@ -18,8 +17,6 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\ChargeStatus;
-use Mush\Status\Entity\Status;
-use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -51,10 +48,11 @@ class SabotageActionTest extends AbstractActionTest
 
         $this->action = new Sabotage(
             $this->eventDispatcher,
+            $this->actionService,
+            $this->validator,
             $this->gameEquipmentService,
             $this->playerService,
             $this->randomService,
-            $this->actionService
         );
     }
 
@@ -64,60 +62,6 @@ class SabotageActionTest extends AbstractActionTest
     public function after()
     {
         Mockery::close();
-    }
-
-    public function testCannotExecute()
-    {
-        $room = new Place();
-        $gameItem = new GameItem();
-        $item = new ItemConfig();
-        $item->setIsBreakable(true);
-        $gameItem
-            ->setEquipment($item)
-            ->setPlace($room)
-        ;
-
-        $player = $this->createPlayer(new Daedalus(), $room);
-        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
-
-        //Not mush
-        $result = $this->action->execute();
-        $this->assertInstanceOf(Error::class, $result);
-
-        $mushStatus = new ChargeStatus($player);
-        $mushStatus
-            ->setCharge(0)
-            ->setName(PlayerStatusEnum::MUSH)
-        ;
-
-        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
-
-        //Not in the same room
-        $gameItem
-            ->setPlace(new Place())
-        ;
-        $room->removeEquipment($gameItem);
-
-        $result = $this->action->execute();
-        $this->assertInstanceOf(Error::class, $result);
-
-        $gameItem
-            ->setPlace($room)
-        ;
-        $item->setIsBreakable(false);
-        //Not breakable
-        $result = $this->action->execute();
-        $this->assertInstanceOf(Error::class, $result);
-
-        $item->setIsBreakable(true);
-        $broken = new Status($gameItem);
-        $broken
-            ->setName(EquipmentStatusEnum::BROKEN)
-        ;
-
-        //already broken
-        $result = $this->action->execute();
-        $this->assertInstanceOf(Error::class, $result);
     }
 
     public function testExecute()

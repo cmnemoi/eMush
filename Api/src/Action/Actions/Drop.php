@@ -8,15 +8,19 @@ use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\Location;
+use Mush\Action\Validator\ParameterHasAction;
+use Mush\Action\Validator\Room;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\Target;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Drop extends AbstractAction
 {
@@ -31,14 +35,16 @@ class Drop extends AbstractAction
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
+        ActionServiceInterface $actionService,
+        ValidatorInterface $validator,
         GameEquipmentServiceInterface $gameEquipmentService,
         PlayerServiceInterface $playerService,
         StatusServiceInterface $statusService,
-        ActionServiceInterface $actionService
     ) {
         parent::__construct(
             $eventDispatcher,
-            $actionService
+            $actionService,
+            $validator
         );
 
         $this->gameEquipmentService = $gameEquipmentService;
@@ -51,23 +57,11 @@ class Drop extends AbstractAction
         return $parameter instanceof GameItem;
     }
 
-    public function isVisible(): bool
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        $itemConfig = $this->parameter->getEquipment();
-
-        return parent::isVisible() &&
-            $itemConfig->hasAction(ActionEnum::DROP) &&
-            ($itemConfig instanceof ItemConfig) &&
-            $this->player->getItems()->contains($this->parameter);
-    }
-
-    public function cannotExecuteReason(): ?string
-    {
-        if ($this->player->getPlace()->getType() !== PlaceTypeEnum::ROOM) {
-            return ActionImpossibleCauseEnum::NO_SHELVING_UNIT;
-        }
-
-        return parent::cannotExecuteReason();
+        $metadata->addConstraint(new ParameterHasAction(['groups' => ['visibility']]));
+        $metadata->addConstraint(new Location(['groups' => ['visibility']]));
+        $metadata->addConstraint(new Room(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::NO_SHELVING_UNIT]));
     }
 
     protected function applyEffects(): ActionResult

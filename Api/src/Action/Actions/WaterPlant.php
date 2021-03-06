@@ -63,18 +63,6 @@ class WaterPlant extends AbstractAction
         $metadata->addConstraint(new PlantWaterable(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::TREAT_PLANT_NO_DISEASE]));
     }
 
-    public function cannotExecuteReason(): ?string
-    {
-        //@TODO
-        if ($this->parameter->getStatusByName(EquipmentStatusEnum::PLANT_THIRSTY) === null &&
-            $this->parameter->getStatusByName(EquipmentStatusEnum::PLANT_DRIED_OUT) === null
-        ) {
-            return ActionImpossibleCauseEnum::TREAT_PLANT_NO_DISEASE;
-        }
-
-        return parent::cannotExecuteReason();
-    }
-
     protected function applyEffects(): ActionResult
     {
         /** @var Status $status */

@@ -60,7 +60,7 @@ class Extinguish extends AttemptAction
     {
         $metadata->addConstraint(new ParameterHasAction(['groups' => ['visibility']]));
         $metadata->addConstraint(new Reach(['groups' => ['visibility']]));
-        $metadata->addConstraint(new Status(['status' => StatusEnum::FIRE, 'target' => Status::PLAYER_ROOM]));
+        $metadata->addConstraint(new Status(['status' => StatusEnum::FIRE, 'target' => Status::PLAYER_ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(new Status([
             'status' => EquipmentStatusEnum::BROKEN, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
         ]));

@@ -4,12 +4,15 @@ namespace Mush\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Service\GearToolServiceInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class ParameterHasActionValidator extends ConstraintValidator
 {
+    private GearToolServiceInterface $gearToolService;
+
     public function validate($value, Constraint $constraint): void
     {
         if (!$value instanceof AbstractAction) {
@@ -25,7 +28,9 @@ class ParameterHasActionValidator extends ConstraintValidator
             throw new UnexpectedTypeException($parameter, GameEquipment::class);
         }
 
-        if (!$parameter->getActions()->contains($value->getAction())) {
+        if (!$parameter->getActions()->contains($value->getAction()) &&
+            $this->gearToolService->getUsedTool($value->getPlayer(), $value->getActionName()) === null
+        ) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }

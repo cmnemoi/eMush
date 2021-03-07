@@ -9,6 +9,10 @@ use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\ActionPoint;
+use Mush\Action\Validator\ParameterHasAction;
+use Mush\Action\Validator\PlayerAlive;
+use Mush\Action\Validator\Reach;
 use Mush\Player\Entity\Player;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\ConstraintViolationInterface;
@@ -51,16 +55,18 @@ abstract class AbstractAction
         $this->parameter = $parameter;
     }
 
-    abstract public static function loadValidatorMetadata(ClassMetadata $metadata): void;
+    protected static function loadValidatorMetadata(ClassMetadata $metadata): void
+    {
+        $metadata->addConstraint(new Reach(['groups' => ['visibility']]));
+        $metadata->addConstraint(new PlayerAlive(['groups' => ['visibility']]));
+        $metadata->addConstraint(new ParameterHasAction(['groups' => ['visibility']]));
+        $metadata->addConstraint(new ActionPoint(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::INSUFFICIENT_ACTION_POINT]));
+    }
 
 //    public abstract static function loadExecuteValidatorMetadata(ClassMetadata $metadata) : void;
 
     public function isVisible(): bool
     {
-        if (!$this->player->isAlive()) {
-            return false;
-        }
-
         $validator = $this->validator;
 
         return $validator->validate($this, null, 'visibility')->count() === 0;
@@ -68,10 +74,6 @@ abstract class AbstractAction
 
     public function cannotExecuteReason(): ?string
     {
-        if (!$this->actionService->canPlayerDoAction($this->player, $this->action)) {
-            return ActionImpossibleCauseEnum::INSUFFICIENT_ACTION_POINT;
-        }
-
         $validator = $this->validator;
         $violations = $validator->validate($this, null, 'execute');
 
@@ -136,7 +138,7 @@ abstract class AbstractAction
         return $this->player;
     }
 
-    public function getParameter(): ActionParameter
+    public function getParameter(): ?ActionParameter
     {
         return $this->parameter;
     }

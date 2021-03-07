@@ -10,8 +10,6 @@ use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\InventoryFull;
 use Mush\Action\Validator\Oxygen;
-use Mush\Action\Validator\ParameterHasAction;
-use Mush\Action\Validator\Reach;
 use Mush\Action\Validator\Status;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
@@ -58,8 +56,6 @@ class RetrieveOxygen extends AbstractAction
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        $metadata->addConstraint(new ParameterHasAction(['groups' => ['visibility']]));
-        $metadata->addConstraint(new Reach(['groups' => ['visibility']]));
         $metadata->addConstraint(new Oxygen(['groups' => ['visibility']]));
         $metadata->addConstraint(new InventoryFull(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::FULL_INVENTORY]));
         $metadata->addConstraint(new Status([

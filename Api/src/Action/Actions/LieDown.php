@@ -8,8 +8,6 @@ use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
-use Mush\Action\Validator\ParameterHasAction;
-use Mush\Action\Validator\Reach;
 use Mush\Action\Validator\Status as StatusValidator;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -52,8 +50,6 @@ class LieDown extends AbstractAction
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        $metadata->addConstraint(new ParameterHasAction(['groups' => ['visibility']]));
-        $metadata->addConstraint(new Reach(['groups' => ['visibility']]));
         $metadata->addConstraint(new StatusValidator([
             'status' => PlayerStatusEnum::LYING_DOWN, 'target' => StatusValidator::PLAYER, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::ALREADY_IN_BED,
         ]));

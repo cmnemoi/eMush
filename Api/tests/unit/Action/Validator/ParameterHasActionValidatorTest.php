@@ -10,6 +10,8 @@ use Mush\Action\Validator\ParameterHasAction;
 use Mush\Action\Validator\ParameterHasActionValidator;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
+use Mush\Equipment\Service\GearToolServiceInterface;
+use Mush\Player\Entity\Player;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
@@ -19,12 +21,17 @@ class ParameterHasActionValidatorTest extends TestCase
     private ParameterHasActionValidator $validator;
     private ParameterHasAction $constraint;
 
+    /** @var GearToolServiceInterface | Mockery\Mock */
+    private GearToolServiceInterface $gearToolService;
+
     /**
      * @before
      */
     public function before()
     {
-        $this->validator = new ParameterHasActionValidator();
+        $this->gearToolService = Mockery::mock(GearToolServiceInterface::class);
+
+        $this->validator = new ParameterHasActionValidator($this->gearToolService);
         $this->constraint = new ParameterHasAction();
     }
 
@@ -73,8 +80,12 @@ class ParameterHasActionValidatorTest extends TestCase
             ->shouldReceive([
                 'getAction' => new Action(),
                 'getParameter' => $gameItem,
+                'getActionName' => 'some_name',
+                'getPlayer' => new Player(),
             ])
         ;
+
+        $this->gearToolService->shouldReceive('getUsedTool')->andReturn(null);
 
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);

@@ -13,6 +13,11 @@ class ParameterHasActionValidator extends ConstraintValidator
 {
     private GearToolServiceInterface $gearToolService;
 
+    public function __construct(GearToolServiceInterface $gearToolService)
+    {
+        $this->gearToolService = $gearToolService;
+    }
+
     public function validate($value, Constraint $constraint): void
     {
         if (!$value instanceof AbstractAction) {

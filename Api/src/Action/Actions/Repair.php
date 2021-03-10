@@ -7,8 +7,10 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\Reach;
 use Mush\Action\Validator\Status;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
@@ -52,8 +54,9 @@ class Repair extends AttemptAction
         return $parameter instanceof GameEquipment;
     }
 
-    public static function loadValidatorMetadata(ClassMetadata $metadata): void
+    protected static function addConstraints(ClassMetadata $metadata): void
     {
+        $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(new Status(['status' => EquipmentStatusEnum::BROKEN, 'groups' => ['visibility']]));
     }
 

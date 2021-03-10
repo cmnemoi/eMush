@@ -9,8 +9,10 @@ use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\Reach;
 use Mush\Action\Validator\Status;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\ReachEnum;
 use Mush\Player\Entity\Modifier;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\ModifierTargetEnum;
@@ -50,8 +52,9 @@ class Shower extends AbstractAction
         return $parameter instanceof GameEquipment;
     }
 
-    public static function loadValidatorMetadata(ClassMetadata $metadata): void
+    protected static function addConstraints(ClassMetadata $metadata): void
     {
+        $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(new Status([
             'status' => EquipmentStatusEnum::BROKEN, 'contain' => false, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
         ]));

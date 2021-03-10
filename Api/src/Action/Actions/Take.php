@@ -9,7 +9,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\InventoryFull;
-use Mush\Action\Validator\Location;
+use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Enum\ReachEnum;
@@ -58,9 +58,9 @@ class Take extends AbstractAction
         return $parameter instanceof GameItem;
     }
 
-    public static function loadValidatorMetadata(ClassMetadata $metadata): void
+    protected static function addConstraints(ClassMetadata $metadata): void
     {
-        $metadata->addConstraint(new Location(['location' => ReachEnum::SHELVE, 'groups' => ['visibility']]));
+        $metadata->addConstraint(new Reach(['reach' => ReachEnum::SHELVE, 'groups' => ['visibility']]));
         $metadata->addConstraint(new InventoryFull(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::FULL_INVENTORY]));
     }
 

@@ -9,7 +9,9 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\PlantWaterable;
+use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Status\Entity\Status;
@@ -54,8 +56,9 @@ class WaterPlant extends AbstractAction
         return $parameter instanceof GameItem;
     }
 
-    public static function loadValidatorMetadata(ClassMetadata $metadata): void
+    protected static function addConstraints(ClassMetadata $metadata): void
     {
+        $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(new PlantWaterable(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::WATER_PLANT_NO_THIRSTY]));
     }
 

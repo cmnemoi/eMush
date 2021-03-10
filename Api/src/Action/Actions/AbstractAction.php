@@ -12,7 +12,6 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\ActionPoint;
 use Mush\Action\Validator\ParameterHasAction;
 use Mush\Action\Validator\PlayerAlive;
-use Mush\Action\Validator\Reach;
 use Mush\Player\Entity\Player;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\ConstraintViolationInterface;
@@ -55,15 +54,15 @@ abstract class AbstractAction
         $this->parameter = $parameter;
     }
 
-    protected static function loadValidatorMetadata(ClassMetadata $metadata): void
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        $metadata->addConstraint(new Reach(['groups' => ['visibility']]));
+        static::addConstraints($metadata);
         $metadata->addConstraint(new PlayerAlive(['groups' => ['visibility']]));
         $metadata->addConstraint(new ParameterHasAction(['groups' => ['visibility']]));
         $metadata->addConstraint(new ActionPoint(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::INSUFFICIENT_ACTION_POINT]));
     }
 
-//    public abstract static function loadExecuteValidatorMetadata(ClassMetadata $metadata) : void;
+    abstract protected static function addConstraints(ClassMetadata $metadata): void;
 
     public function isVisible(): bool
     {

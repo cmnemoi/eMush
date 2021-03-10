@@ -11,7 +11,9 @@ use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\DailySporesLimit;
 use Mush\Action\Validator\MushSpore;
+use Mush\Action\Validator\Reach;
 use Mush\Action\Validator\Status;
+use Mush\Equipment\Enum\ReachEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Service\PlayerServiceInterface;
@@ -55,8 +57,9 @@ class Infect extends AbstractAction
         return $parameter instanceof Player;
     }
 
-    public static function loadValidatorMetadata(ClassMetadata $metadata): void
+    protected static function addConstraints(ClassMetadata $metadata): void
     {
+        $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(new Status(['status' => PlayerStatusEnum::MUSH, 'target' => Status::PLAYER, 'groups' => ['visibility']]));
         $metadata->addConstraint(new MushSpore(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::INFECT_NO_SPORE]));
         $metadata->addConstraint(new Status(['status' => PlayerStatusEnum::MUSH, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::INFECT_MUSH]));

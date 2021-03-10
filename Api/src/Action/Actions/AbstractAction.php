@@ -10,7 +10,7 @@ use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\ActionPoint;
-use Mush\Action\Validator\ParameterHasAction;
+use Mush\Action\Validator\HasAction;
 use Mush\Action\Validator\PlayerAlive;
 use Mush\Player\Entity\Player;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -58,7 +58,7 @@ abstract class AbstractAction
     {
         static::addConstraints($metadata);
         $metadata->addConstraint(new PlayerAlive(['groups' => ['visibility']]));
-        $metadata->addConstraint(new ParameterHasAction(['groups' => ['visibility']]));
+        $metadata->addConstraint(new HasAction(['groups' => ['visibility']]));
         $metadata->addConstraint(new ActionPoint(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::INSUFFICIENT_ACTION_POINT]));
     }
 

@@ -67,12 +67,10 @@ class OtherPlayerNormalizer implements ContextAwareNormalizerInterface, Normaliz
         $actions = [];
 
         /** @var Action $action */
-        foreach ($player->getCharacterConfig()->getActions() as $action) {
-            if ($action->getScope() === ActionScopeEnum::OTHER_PLAYER) {
-                $normedAction = $this->normalizer->normalize($action, $format, array_merge($context, ['player' => $player]));
-                if (is_array($normedAction) && count($normedAction) > 0) {
-                    $actions[] = $normedAction;
-                }
+        foreach ($player->getActions() as $action) {
+            $normedAction = $this->normalizer->normalize($action, $format, array_merge($context, ['player' => $player]));
+            if (is_array($normedAction) && count($normedAction) > 0) {
+                $actions[] = $normedAction;
             }
         }
 

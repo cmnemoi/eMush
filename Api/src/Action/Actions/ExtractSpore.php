@@ -40,7 +40,7 @@ class ExtractSpore extends AbstractAction
         $this->statusService = $statusService;
     }
 
-    protected static function addConstraints(ClassMetadata $metadata): void
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Status(['status' => PlayerStatusEnum::MUSH, 'target' => Status::PLAYER, 'groups' => ['visibility']]));
         $metadata->addConstraint(new DailySporesLimit(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::DAILY_SPORE_LIMIT]));

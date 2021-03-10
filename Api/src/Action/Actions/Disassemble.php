@@ -57,7 +57,7 @@ class Disassemble extends AttemptAction
         return $parameter instanceof GameEquipment;
     }
 
-    protected static function addConstraints(ClassMetadata $metadata): void
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(new Status([

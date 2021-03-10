@@ -34,14 +34,14 @@ class BuildActionCest
 
         $player = $this->createPlayer(new Daedalus(), $room1);
 
+        $buildActionEntity = new Action();
+        $buildActionEntity->setName(ActionEnum::BUILD);
+
         $gameEquipment = $this->createEquipment('blueprint', $room2);
 
         $gameEquipment->getEquipment()->setMechanics(new ArrayCollection([
-            $this->createBluePrint(['metal_scraps' => 1]),
+            $this->createBlueprint(['metal_scraps' => 1], $buildActionEntity),
         ]));
-
-        $buildActionEntity = new Action();
-        $buildActionEntity->setName(ActionEnum::BUILD);
 
         $this->buildAction->loadParameters($buildActionEntity, $player, $gameEquipment);
 
@@ -68,7 +68,7 @@ class BuildActionCest
         $I->assertFalse($this->buildAction->isVisible());
 
         $gameEquipment->getEquipment()->setMechanics(new ArrayCollection([
-            $this->createBluePrint(['metal_scraps' => 1]),
+            $this->createBlueprint(['metal_scraps' => 1], $buildActionEntity),
         ]));
 
         $I->assertTrue($this->buildAction->isVisible());
@@ -107,7 +107,7 @@ class BuildActionCest
         return $gameEquipment;
     }
 
-    private function createBluePrint(array $ingredients, ?EquipmentConfig $product = null): Blueprint
+    private function createBlueprint(array $ingredients, Action $buildAction, ?EquipmentConfig $product = null): Blueprint
     {
         if ($product === null) {
             $product = new ItemConfig();
@@ -123,6 +123,7 @@ class BuildActionCest
         $blueprint
             ->setIngredients($ingredients)
             ->setEquipment($product)
+            ->addAction($buildAction)
         ;
 
         return $blueprint;

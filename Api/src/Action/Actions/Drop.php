@@ -57,7 +57,7 @@ class Drop extends AbstractAction
         return $parameter instanceof GameItem;
     }
 
-    protected static function addConstraints(ClassMetadata $metadata): void
+    public static function LoadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::INVENTORY, 'groups' => ['visibility']]));
         $metadata->addConstraint(new Room(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::NO_SHELVING_UNIT]));

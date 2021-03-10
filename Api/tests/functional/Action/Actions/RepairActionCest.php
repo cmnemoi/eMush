@@ -56,6 +56,8 @@ class RepairActionCest
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, ['isBreakable' => true]);
 
+        $equipmentConfig->setActions(new ArrayCollection([$action]));
+
         $gameEquipment = new GameItem();
 
         $gameEquipment

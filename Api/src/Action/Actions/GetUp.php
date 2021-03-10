@@ -40,7 +40,7 @@ class GetUp extends AbstractAction
         return $parameter === null;
     }
 
-    protected static function addConstraints(ClassMetadata $metadata): void
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Status(['status' => PlayerStatusEnum::LYING_DOWN, 'target' => Status::PLAYER, 'groups' => ['visibility']]));
     }

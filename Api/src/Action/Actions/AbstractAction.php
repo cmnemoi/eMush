@@ -15,7 +15,6 @@ use Mush\Action\Validator\PlayerAlive;
 use Mush\Player\Entity\Player;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\ConstraintViolationInterface;
-use Symfony\Component\Validator\Exception\RuntimeException;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -60,12 +59,6 @@ abstract class AbstractAction
         $metadata->addConstraint(new PlayerAlive(['groups' => ['visibility']]));
         $metadata->addConstraint(new HasAction(['groups' => ['visibility']]));
         $metadata->addConstraint(new ActionPoint(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::INSUFFICIENT_ACTION_POINT]));
-        static::addConstraints($metadata);
-    }
-
-    protected static function addConstraints(ClassMetadata $metadata): void
-    {
-        throw new RuntimeException('AddConstraints is unimplemented');
     }
 
     public function isVisible(): bool

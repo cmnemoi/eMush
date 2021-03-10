@@ -57,10 +57,12 @@ class Drop extends AbstractAction
         return $parameter instanceof GameItem;
     }
 
-    protected static function addConstraints(ClassMetadata $metadata): void
+    protected function getConstraints(): array
     {
-        $metadata->addConstraint(new Reach(['reach' => ReachEnum::INVENTORY, 'groups' => ['visibility']]));
-        $metadata->addConstraint(new Room(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::NO_SHELVING_UNIT]));
+        return [
+            new Reach(['reach' => ReachEnum::INVENTORY, 'groups' => ['visibility']]),
+            new Room(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::NO_SHELVING_UNIT])
+        ];
     }
 
     protected function applyEffects(): ActionResult

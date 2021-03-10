@@ -55,30 +55,25 @@ abstract class AbstractAction
         $this->parameter = $parameter;
     }
 
-    public static function loadValidatorMetadata(ClassMetadata $metadata): void
-    {
-        $metadata->addConstraint(new PlayerAlive(['groups' => ['visibility']]));
-        $metadata->addConstraint(new HasAction(['groups' => ['visibility']]));
-        $metadata->addConstraint(new ActionPoint(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::INSUFFICIENT_ACTION_POINT]));
-        static::addConstraints($metadata);
-    }
-
-    protected static function addConstraints(ClassMetadata $metadata): void
-    {
-        throw new RuntimeException('AddConstraints is unimplemented');
-    }
+//    protected abstract function getConstraints(): array;
+    protected function getConstraints(): array {return [];}
 
     public function isVisible(): bool
     {
         $validator = $this->validator;
 
-        return $validator->validate($this, null, 'visibility')->count() === 0;
+        $constraints = array_merge($this->getConstraints(), [new HasAction(['groups' => ['visibility']]), new PlayerAlive(['groups' => ['visibility']])]);
+
+        return $validator->validate($this, $constraints, 'visibility')->count() === 0;
     }
 
     public function cannotExecuteReason(): ?string
     {
         $validator = $this->validator;
-        $violations = $validator->validate($this, null, 'execute');
+
+        $constraints = array_merge($this->getConstraints(), [new ActionPoint(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::INSUFFICIENT_ACTION_POINT])]);
+
+        $violations = $validator->validate($this, $constraints, 'execute');
 
         /** @var ConstraintViolationInterface $violation */
         foreach ($violations as $violation) {

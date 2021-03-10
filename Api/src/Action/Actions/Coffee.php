@@ -52,13 +52,15 @@ class Coffee extends AbstractAction
         return $parameter !== null && $parameter->getClassName() === GameEquipment::class;
     }
 
-    protected static function addConstraints(ClassMetadata $metadata): void
+    protected function getConstraints(): array
     {
-        $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
-        $metadata->addConstraint(new Status([
-            'status' => EquipmentStatusEnum::BROKEN, 'contain' => false, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
-        ]));
-        $metadata->addConstraint(new Charged(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::DAILY_LIMIT]));
+        return [
+            new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]),
+            new Status([
+                'status' => EquipmentStatusEnum::BROKEN, 'contain' => false, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
+            ]),
+            new Charged(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::DAILY_LIMIT])
+        ];
     }
 
     protected function applyEffects(): ActionResult

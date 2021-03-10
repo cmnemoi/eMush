@@ -56,13 +56,15 @@ class Extinguish extends AttemptAction
         return $parameter instanceof GameEquipment;
     }
 
-    protected static function addConstraints(ClassMetadata $metadata): void
+    protected function getConstraints(): array
     {
-        $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
-        $metadata->addConstraint(new Status(['status' => StatusEnum::FIRE, 'target' => Status::PLAYER_ROOM, 'groups' => ['visibility']]));
-        $metadata->addConstraint(new Status([
-            'status' => EquipmentStatusEnum::BROKEN, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
-        ]));
+        return [
+            new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]),
+            new Status(['status' => StatusEnum::FIRE, 'target' => Status::PLAYER_ROOM, 'groups' => ['visibility']]),
+            new Status([
+                'status' => EquipmentStatusEnum::BROKEN, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
+            ])
+        ];
     }
 
     protected function applyEffects(): ActionResult

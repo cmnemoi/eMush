@@ -40,11 +40,13 @@ class ExtractSpore extends AbstractAction
         $this->statusService = $statusService;
     }
 
-    protected static function addConstraints(ClassMetadata $metadata): void
+    protected function getConstraints(): array
     {
-        $metadata->addConstraint(new Status(['status' => PlayerStatusEnum::MUSH, 'target' => Status::PLAYER, 'groups' => ['visibility']]));
-        $metadata->addConstraint(new DailySporesLimit(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::DAILY_SPORE_LIMIT]));
-        $metadata->addConstraint(new MushSpore(['threshold' => 2, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::PERSONAL_SPORE_LIMIT]));
+        return [
+            new Status(['status' => PlayerStatusEnum::MUSH, 'target' => Status::PLAYER, 'groups' => ['visibility']]),
+            new DailySporesLimit(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::DAILY_SPORE_LIMIT]),
+            new MushSpore(['threshold' => 2, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::PERSONAL_SPORE_LIMIT])
+        ];
     }
 
     protected function support(?ActionParameter $parameter): bool

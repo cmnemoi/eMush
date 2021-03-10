@@ -57,12 +57,14 @@ class Disassemble extends AttemptAction
         return $parameter instanceof GameEquipment;
     }
 
-    protected static function addConstraints(ClassMetadata $metadata): void
+    protected function getConstraints(): array
     {
-        $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
-        $metadata->addConstraint(new Status([
-            'status' => EquipmentStatusEnum::REINFORCED, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::DISMANTLE_REINFORCED,
-        ]));
+        return [
+            new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]),
+            new Status([
+                'status' => EquipmentStatusEnum::REINFORCED, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::DISMANTLE_REINFORCED,
+            ])
+        ];
     }
 
     protected function applyEffects(): ActionResult

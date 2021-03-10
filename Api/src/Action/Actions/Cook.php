@@ -59,10 +59,12 @@ class Cook extends AbstractAction
         return $parameter instanceof GameEquipment && !$parameter instanceof Door;
     }
 
-    protected static function addConstraints(ClassMetadata $metadata): void
+    protected function getConstraints(): array
     {
-        $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
-        $metadata->addConstraint(new Cookable(['groups' => ['visibility']]));
+        return [
+            new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]),
+            new Cookable(['groups' => ['visibility']])
+        ];
     }
 
     protected function applyEffects(): ActionResult

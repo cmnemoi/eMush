@@ -65,15 +65,17 @@ class Consume extends AbstractAction
         return $parameter instanceof GameItem;
     }
 
-    protected static function addConstraints(ClassMetadata $metadata): void
+    protected function getConstraints(): array
     {
-        $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
-        $metadata->addConstraint(new Status([
-            'status' => PlayerStatusEnum::DRUG_EATEN, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::CONSUME_DRUG_TWICE,
-        ]));
-        $metadata->addConstraint(new Status([
-            'status' => PlayerStatusEnum::FULL_STOMACH, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::CONSUME_FULL_BELLY,
-        ]));
+        return [
+            new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]),
+            new Status([
+                'status' => PlayerStatusEnum::DRUG_EATEN, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::CONSUME_DRUG_TWICE,
+            ]),
+            new Status([
+                'status' => PlayerStatusEnum::FULL_STOMACH, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::CONSUME_FULL_BELLY,
+            ])
+        ];
     }
 
     protected function applyEffects(): ActionResult

@@ -6,15 +6,14 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Shred;
-use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Document;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Room\Entity\Room;
 
 class ShredActionTest extends AbstractActionTest
 {
@@ -37,8 +36,10 @@ class ShredActionTest extends AbstractActionTest
 
         $this->action = new Shred(
             $this->eventDispatcher,
+            $this->actionService,
+            $this->validator,
             $this->gameEquipmentService,
-            $this->playerService
+            $this->playerService,
         );
     }
 
@@ -52,7 +53,7 @@ class ShredActionTest extends AbstractActionTest
 
     public function testExecute()
     {
-        $room = new Room();
+        $room = new Place();
         $gameItem = new GameItem();
         $item = new ItemConfig();
         $document = new Document();
@@ -60,18 +61,17 @@ class ShredActionTest extends AbstractActionTest
         $item->setMechanics(new ArrayCollection([$document]));
         $gameItem
             ->setEquipment($item)
-            ->setRoom($room)
+            ->setPlace($room)
         ;
 
         $this->playerService->shouldReceive('persist');
         $this->eventDispatcher->shouldReceive('dispatch');
 
-        $actionParameter = new ActionParameters();
-        $actionParameter->setItem($gameItem);
         $player = $this->createPlayer(new Daedalus(), $room);
 
-        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
+        $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);

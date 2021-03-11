@@ -6,9 +6,9 @@ use Error;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
-use Mush\Room\Entity\Room;
 
 class RandomService implements RandomServiceInterface
 {
@@ -22,7 +22,7 @@ class RandomService implements RandomServiceInterface
         return $this->random(1, 100);
     }
 
-    public function isSuccessfull(int $successRate): bool
+    public function isSuccessful(int $successRate): bool
     {
         return $this->randomPercent() <= $successRate;
     }
@@ -33,12 +33,12 @@ class RandomService implements RandomServiceInterface
             throw new Error('getRandomPlayer: collection is empty');
         }
 
-        return $players->get($this->random(0, $players->count() - 1));
+        return current($this->getRandomElements($players->toArray()));
     }
 
-    public function getPlayerInRoom(Room $room): Player
+    public function getPlayerInRoom(Place $place): Player
     {
-        return $this->getRandomPlayer($room->getPlayers());
+        return $this->getRandomPlayer($place->getPlayers());
     }
 
     public function getAlivePlayerInDaedalus(Daedalus $ship): Player
@@ -46,41 +46,55 @@ class RandomService implements RandomServiceInterface
         return $this->getRandomPlayer($ship->getPlayers()->getPlayerAlive());
     }
 
-    public function getItemInRoom(Room $room): GameItem
+    public function getItemInRoom(Place $place): GameItem
     {
-        if ($room->getEquipments()->isEmpty()) {
+        if ($place->getEquipments()->isEmpty()) {
             throw new Error('getItemInRoom: room has no items');
         }
 
-        return $room->getEquipments()->filter(fn (GameEquipment $equipment) => $equipment instanceof GameItem)
-            ->get($this->random(0, $room->getEquipments()->count() - 1));
+        $items = $place->getEquipments()->filter(fn (GameEquipment $equipment) => $equipment instanceof GameItem);
+
+        return current($this->getRandomElements($items->toArray()));
     }
 
     public function getRandomElements(array $array, int $number = 1): array
     {
         if (count($array) < $number || empty($array)) {
-            throw new Error('getRandomElements: array is not large enough');
+            return [];
         }
-        $randomKeys = array_rand($array, $number);
-        if (is_array($randomKeys)) {
-            return array_diff_key($array, array_flip($randomKeys));
-        } else {
-            return [$randomKeys => $array[$randomKeys]];
+
+        $result = [];
+        for ($i = 0; $i < $number; ++$i) {
+            $keysNotPicked = array_values(array_diff(array_keys($array), array_keys($result)));
+
+            $key = $keysNotPicked[$this->random(0, count($keysNotPicked) - 1)];
+            $result[$key] = $array[$key];
         }
+
+        return $result;
     }
 
     // This function takes an array [element => proba%] as input and send back an array
     // Instead of proba relative ponderation also work
     public function getSingleRandomElementFromProbaArray(array $array): string
     {
-        if (count($array) === 0) {
+        if (count($array) < 1) {
             throw new Error('getSingleRandomElement: array is not large enough');
         }
+
         //first create a cumulative form of the array
         $cumuProba = 0;
         foreach ($array as $event => $proba) {
+            if (!is_int($proba)) {
+                throw new Error('Proba weight should be provided as integers');
+            }
+
             $cumuProba = $cumuProba + $proba;
             $array[$event] = $cumuProba;
+        }
+
+        if ($cumuProba === 0) {
+            throw new Error('getSingleRandomElement: only 0 proba element in array');
         }
 
         $probaLim = $this->random(0, $cumuProba);
@@ -98,6 +112,7 @@ class RandomService implements RandomServiceInterface
         if (count($array) < $number) {
             throw new Error('getRandomElements: array is not large enough');
         }
+
         $randomElements = [];
         for ($i = 0; $i < $number; ++$i) {
             $randomElements[$i] = $this->getSingleRandomElementFromProbaArray(

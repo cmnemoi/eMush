@@ -7,9 +7,7 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Error;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionParameters;
-use Mush\Equipment\Entity\Door;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Action\Entity\ActionParameter;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
@@ -61,44 +59,26 @@ class ActionStrategyService implements ActionStrategyServiceInterface
             return new Error('Action do not exist');
         }
 
-        $actionParams = new ActionParameters();
-        if ($params) {
-            $actionParams = $this->loadParameter($params);
-        }
-        $actionService->loadParameters($action, $player, $actionParams);
+        $actionService->loadParameters($action, $player, $this->loadParameter($params));
 
         return $actionService->execute();
     }
 
-    private function loadParameter(array $parameter): ActionParameters
+    private function loadParameter(?array $parameter): ?ActionParameter
     {
-        $actionParams = new ActionParameters();
+        if ($parameter !== null) {
+            if (($equipmentId = $parameter['door'] ?? null) ||
+                ($equipmentId = $parameter['item'] ?? null) ||
+                ($equipmentId = $parameter['equipment'] ?? null)
+            ) {
+                return $this->equipmentService->findById($equipmentId);
+            }
 
-        if ($doorId = $parameter['door'] ?? null) {
-            $door = $this->equipmentService->findById($doorId);
-            if ($door instanceof Door) {
-                $actionParams->setDoor($door);
+            if ($playerId = $parameter['player'] ?? null) {
+                return $this->playerService->findById($playerId);
             }
         }
-        if ($itemId = $parameter['item'] ?? null) {
-            $item = $this->equipmentService->findById($itemId);
-            if ($item instanceof GameItem) {
-                $actionParams->setItem($item);
-            }
-        }
-        if ($equipmentId = $parameter['equipment'] ?? null) {
-            $equipment = $this->equipmentService->findById($equipmentId);
-            $actionParams->setEquipment($equipment);
-        }
-        if ($playerId = $parameter['player'] ?? null) {
-            $player = $this->playerService->findById($playerId);
-            $actionParams->setPlayer($player);
-        }
 
-        if (($message = $parameter['message'] ?? null)) {
-            $actionParams->setMessage($message);
-        }
-
-        return $actionParams;
+        return null;
     }
 }

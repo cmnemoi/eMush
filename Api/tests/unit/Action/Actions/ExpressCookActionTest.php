@@ -2,12 +2,9 @@
 
 namespace Mush\Test\Action\Actions;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
-use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\ExpressCook;
-use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameItem;
@@ -16,8 +13,8 @@ use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Room\Entity\Room;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -48,9 +45,11 @@ class ExpressCookActionTest extends AbstractActionTest
 
         $this->action = new ExpressCook(
             $this->eventDispatcher,
+            $this->actionService,
+            $this->validator,
             $this->gameEquipmentService,
             $this->playerService,
-            $this->statusService
+            $this->statusService,
         );
     }
 
@@ -62,59 +61,10 @@ class ExpressCookActionTest extends AbstractActionTest
         Mockery::close();
     }
 
-    public function testCannotExecute()
-    {
-        $room = new Room();
-
-        $gameRation = new GameItem();
-        $ration = new ItemConfig();
-        $ration->setName('ration');
-        $gameRation
-            ->setEquipment($ration)
-            ->setRoom($room)
-            ->setName('ration')
-        ;
-
-        $gameMicrowave = new GameItem();
-        $microwave = new ItemConfig();
-        $microwave->setName(ToolItemEnum::MICROWAVE);
-        $gameMicrowave
-            ->setEquipment($microwave)
-            ->setName(ToolItemEnum::MICROWAVE)
-            ->setRoom($room)
-        ;
-
-        $chargeStatus = new ChargeStatus($gameMicrowave);
-        $chargeStatus
-            ->setName(EquipmentStatusEnum::CHARGES)
-            ->setCharge(3)
-        ;
-
-        $player = $this->createPlayer(new Daedalus(), $room);
-        $actionParameter = new ActionParameters();
-        $actionParameter->setItem($gameRation);
-        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
-
-        //not possible to cook (not frozen nor standard ration)
-        $result = $this->action->execute();
-        $this->assertInstanceOf(Error::class, $result);
-
-        $frozenStatus = new Status($gameRation);
-        $frozenStatus
-             ->setName(EquipmentStatusEnum::FROZEN)
-        ;
-
-        $gameMicrowave->setRoom(null);
-        //No microwave in the room
-        $this->gameEquipmentService->shouldReceive('getOperationalEquipmentsByName')->andReturn(new ArrayCollection([]))->once();
-        $result = $this->action->execute();
-        $this->assertInstanceOf(Error::class, $result);
-    }
-
     public function testExecute()
     {
         //frozen fruit
-        $room = new Room();
+        $room = new Place();
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
@@ -138,7 +88,7 @@ class ExpressCookActionTest extends AbstractActionTest
         $gameMicrowave
             ->setEquipment($microwave)
             ->setName(ToolItemEnum::MICROWAVE)
-            ->setRoom($room)
+            ->setPlace($room)
         ;
 
         $chargeStatus = new ChargeStatus($gameMicrowave);
@@ -147,14 +97,11 @@ class ExpressCookActionTest extends AbstractActionTest
             ->setCharge(3)
         ;
 
-        $actionParameter = new ActionParameters();
-        $actionParameter->setItem($gameRation);
-        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player, $gameRation);
 
-        $this->gameEquipmentService->shouldReceive('getOperationalEquipmentsByName')->andReturn(new ArrayCollection([$gameMicrowave]))->twice();
+        $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gameEquipmentService->shouldReceive('persist')->once();
         $this->playerService->shouldReceive('persist')->once();
-        $this->statusService->shouldReceive('persist')->twice();
 
         $result = $this->action->execute();
 
@@ -163,21 +110,20 @@ class ExpressCookActionTest extends AbstractActionTest
         $this->assertCount(1, $player->getItems());
         $this->assertCount(1, $room->getEquipments()->first()->getStatuses());
         $this->assertCount(0, $player->getItems()->first()->getStatuses());
-        $this->assertEquals(2, $room->getEquipments()->first()->getStatuses()->first()->getCharge());
         $this->assertEquals($gameRation->getName(), $player->getItems()->first()->getName());
         $this->assertCount(0, $player->getStatuses());
         $this->assertEquals(10, $player->getActionPoint());
 
         //Standard Ration
         $daedalus = new Daedalus();
-        $room = new Room();
+        $room = new Place();
 
         $gameRation = new GameItem();
         $ration = new ItemConfig();
         $ration->setName(GameRationEnum::STANDARD_RATION);
         $gameRation
             ->setEquipment($ration)
-            ->setRoom($room)
+            ->setPlace($room)
             ->setName(GameRationEnum::STANDARD_RATION)
         ;
 
@@ -187,7 +133,7 @@ class ExpressCookActionTest extends AbstractActionTest
         $gameMicrowave
             ->setEquipment($microwave)
             ->setName(ToolItemEnum::MICROWAVE)
-            ->setRoom($room)
+            ->setPlace($room)
         ;
 
         $chargeStatus = new ChargeStatus($gameMicrowave);
@@ -198,9 +144,7 @@ class ExpressCookActionTest extends AbstractActionTest
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
-        $actionParameter = new ActionParameters();
-        $actionParameter->setItem($gameRation);
-        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player, $gameRation);
 
         $gameCookedRation = new GameItem();
         $cookedRation = new ItemConfig();
@@ -212,7 +156,7 @@ class ExpressCookActionTest extends AbstractActionTest
             ->setName(GameRationEnum::COOKED_RATION)
         ;
 
-        $this->gameEquipmentService->shouldReceive('getOperationalEquipmentsByName')->andReturn(new ArrayCollection([$gameMicrowave]))->twice();
+        $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->andReturn($gameCookedRation)->once();
         $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $eventDispatcher->shouldReceive('dispatch');
@@ -223,7 +167,6 @@ class ExpressCookActionTest extends AbstractActionTest
         $this->assertInstanceOf(Success::class, $result);
         $this->assertCount(2, $room->getEquipments());
         $this->assertCount(1, $gameMicrowave->getStatuses());
-        $this->assertEquals(2, $gameMicrowave->getStatuses()->first()->getCharge());
         $this->assertCount(0, $player->getStatuses());
         $this->assertEquals(10, $player->getActionPoint());
     }

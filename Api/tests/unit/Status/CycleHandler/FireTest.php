@@ -10,10 +10,10 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Event\PlayerEvent;
-use Mush\Room\Entity\Room;
 use Mush\Status\CycleHandler\Fire;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\StatusEnum;
@@ -60,7 +60,7 @@ class FireTest extends TestCase
 
     public function testNewCycleFireDamage()
     {
-        $room = new Room();
+        $room = new Place();
 
         $difficultyConfig = new DifficultyConfig();
         $daedalusConfig = new DaedalusConfig();
@@ -87,7 +87,7 @@ class FireTest extends TestCase
         $player = new Player();
         $room->addPlayer($player);
 
-        $this->randomService->shouldReceive('isSuccessfull')->andReturn(true)->once();
+        $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
         $this->randomService->shouldReceive('getSingleRandomElementFromProbaArray')->andReturn(2)->twice();
         $this->daedalusService->shouldReceive('changeHull')->once();
         $this->daedalusService->shouldReceive('persist')->once();

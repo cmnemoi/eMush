@@ -4,18 +4,16 @@ namespace Mush\Test\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
-use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\WaterPlant;
-use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Room\Entity\Room;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -44,9 +42,11 @@ class WaterPlantActionTest extends AbstractActionTest
 
         $this->action = new WaterPlant(
             $this->eventDispatcher,
+            $this->actionService,
+            $this->validator,
             $this->gameEquipmentService,
             $this->playerService,
-            $this->statusService
+            $this->statusService,
         );
     }
 
@@ -58,53 +58,19 @@ class WaterPlantActionTest extends AbstractActionTest
         Mockery::close();
     }
 
-    public function testCannotExecute()
-    {
-        $room = new Room();
-
-        $gameItem = new GameItem();
-        $item = new ItemConfig();
-        $gameItem
-            ->setEquipment($item)
-            ->setRoom($room)
-        ;
-
-        $plant = new Plant();
-
-        $thirsty = new Status($gameItem);
-        $thirsty
-            ->setName(EquipmentStatusEnum::PLANT_THIRSTY)
-        ;
-
-        $player = $this->createPlayer(new Daedalus(), $room);
-        $actionParameter = new ActionParameters();
-        $actionParameter->setItem($gameItem);
-        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
-
-        //Not a plant
-        $result = $this->action->execute();
-        $this->assertInstanceOf(Error::class, $result);
-
-        $item->setMechanics(new ArrayCollection([$plant]));
-
-        //Not thirsty
-        $gameItem->removeStatus($thirsty);
-        $result = $this->action->execute();
-        $this->assertInstanceOf(Error::class, $result);
-    }
-
     public function testExecute()
     {
-        $room = new Room();
+        $room = new Place();
 
         $gameItem = new GameItem();
         $item = new ItemConfig();
         $gameItem
               ->setEquipment($item)
-              ->setRoom($room)
+              ->setPlace($room)
         ;
 
         $plant = new Plant();
+        $plant->addAction($this->actionEntity);
         $item->setMechanics(new ArrayCollection([$plant]));
 
         $thirsty = new Status($gameItem);
@@ -113,10 +79,10 @@ class WaterPlantActionTest extends AbstractActionTest
         ;
 
         $player = $this->createPlayer(new Daedalus(), $room);
-        $actionParameter = new ActionParameters();
-        $actionParameter->setItem($gameItem);
-        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
+        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
+
+        $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gameEquipmentService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
         $this->statusService->shouldReceive('delete');
@@ -127,7 +93,6 @@ class WaterPlantActionTest extends AbstractActionTest
         $this->assertCount(1, $room->getEquipments());
         $this->assertCount(0, $room->getEquipments()->first()->getStatuses());
         $this->assertCount(0, $player->getStatuses());
-        $this->assertEquals(9, $player->getActionPoint());
 
         $driedOut = new Status($gameItem);
         $driedOut
@@ -136,6 +101,7 @@ class WaterPlantActionTest extends AbstractActionTest
 
         $gameItem->removeStatus($thirsty);
 
+        $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gameEquipmentService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
         $this->statusService->shouldReceive('delete');

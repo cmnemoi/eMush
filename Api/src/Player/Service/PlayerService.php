@@ -7,17 +7,20 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\TriumphEnum;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Place\Entity\Place;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerLastWords;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Repository\PlayerRepository;
-use Mush\Room\Entity\Room;
-use Mush\Room\Enum\RoomEnum;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Mush\Status\Entity\Status;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\User\Entity\User;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -65,9 +68,9 @@ class PlayerService implements PlayerServiceInterface
         return $this->repository->find($id);
     }
 
-    public function findOneByCharacter(string $character, ?Daedalus $daedalus = null): ?Player
+    public function findOneByCharacter(string $character, Daedalus $daedalus): ?Player
     {
-        return $this->repository->findOneByName($character);
+        return $this->repository->findOneByName($character, $daedalus);
     }
 
     public function findUserCurrentGame(User $user): ?Player
@@ -90,9 +93,9 @@ class PlayerService implements PlayerServiceInterface
             ->setUser($user)
             ->setGameStatus(GameStatusEnum::CURRENT)
             ->setDaedalus($daedalus)
-            ->setRoom(
+            ->setPlace(
                 $daedalus->getRooms()
-                    ->filter(fn (Room $room) => RoomEnum::LABORATORY === $room->getName())
+                    ->filter(fn (Place $room) => RoomEnum::LABORATORY === $room->getName())
                     ->first()
             )
             ->setCharacterConfig($characterConfig)
@@ -109,11 +112,40 @@ class PlayerService implements PlayerServiceInterface
             $this->statusService->createCoreStatus($statusName, $player);
         }
 
+        if (!(in_array(PlayerStatusEnum::IMMUNIZED, $characterConfig->getStatuses()))) {
+            $this->statusService->createSporeStatus($player);
+        }
+
         $this->persist($player);
 
         $user->setCurrentGame($player);
         $playerEvent = new PlayerEvent($player);
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::NEW_PLAYER);
+
+        return $player;
+    }
+
+    public function endPlayer(Player $player, string $message): Player
+    {
+        $user = $player->getUser();
+        $user->setCurrentGame(null);
+
+        $lastWords = new PlayerLastWords();
+        $lastWords
+            ->setPlayer($player)
+            ->setMessage($message)
+        ;
+
+        $player->setGameStatus(GameStatusEnum::CLOSED);
+
+        $playerEvent = new PlayerEvent($player, new \DateTime());
+        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::END_PLAYER);
+
+        $this->entityManager->persist($lastWords);
+        $this->entityManager->persist($player);
+        $this->entityManager->persist($user);
+
+        $this->entityManager->flush();
 
         return $player;
     }
@@ -176,26 +208,12 @@ class PlayerService implements PlayerServiceInterface
 
         $this->roomLogService->createQuantityLog(
             LogEnum::GAIN_TRIUMPH,
-            $player->getRoom(),
+            $player->getPlace(),
             $player,
             VisibilityEnum::PRIVATE,
             $triumphChange,
             $date
         );
-
-        //Metal Plates
-        if ($this->randomService->isSuccessfull($gameConfig->getDifficultyConfig()->getMetalPlateRate())) {
-            $playerEvent = new PlayerEvent($player, $date);
-            $playerEvent->setReason(EndCauseEnum::METAL_PLATE);
-            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::METAL_PLATE);
-        }
-
-        //Panic Crisis
-        if ($this->randomService->isSuccessfull($gameConfig->getDifficultyConfig()->getPanicCrisisRate())) {
-            $playerEvent = new PlayerEvent($player, $date);
-            $playerEvent->setReason(EndCauseEnum::DEPRESSION);
-            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::PANIC_CRISIS);
-        }
 
         return $this->persist($player);
     }
@@ -253,16 +271,19 @@ class PlayerService implements PlayerServiceInterface
 
         foreach ($player->getItems() as $item) {
             $item->setPlayer(null);
-            $item->setRoom($player->getRoom());
+            $item->setPlace($player->getPlace());
         }
 
+        /** @var Status $status */
         foreach ($player->getStatuses() as $status) {
-            $player->removeStatus($status);
+            if ($status->getName() !== PlayerStatusEnum::MUSH) {
+                $player->removeStatus($status);
+            }
         }
 
         //@TODO in case of assasination chance of disorder for roommates
-        if ($grandBeyond = $player->getDaedalus()->getRoomByName(RoomEnum::GREAT_BEYOND)) {
-            $player->setRoom($grandBeyond);
+        if ($grandBeyond = $player->getDaedalus()->getPlaceByName(RoomEnum::GREAT_BEYOND)) {
+            $player->setPlace($grandBeyond);
         }
 
         //@TODO two steps death

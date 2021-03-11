@@ -3,121 +3,127 @@
 namespace Mush\Action\Service;
 
 use Mush\Action\Entity\Action;
-use Mush\Equipment\Entity\Mechanics\Gear;
-use Mush\Equipment\Enum\ReachEnum;
-use Mush\Game\Service\RandomServiceInterface;
-use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
-use Mush\Player\Enum\EndCauseEnum;
-use Mush\Player\Enum\ModifierScopeEnum;
 use Mush\Player\Enum\ModifierTargetEnum;
-use Mush\Player\Event\PlayerEvent;
-use Mush\RoomLog\Enum\LogEnum;
-use Mush\RoomLog\Enum\VisibilityEnum;
-use Mush\RoomLog\Service\RoomLogServiceInterface;
-use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Player\Service\ActionModifierServiceInterface;
+use Mush\Status\Entity\Attempt;
+use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class ActionService implements ActionServiceInterface
 {
-    const ACTION_INJURY_MODIFIER = -2;
+    public const MAX_PERCENT = 99;
 
-    private EventDispatcherInterface $eventDispatcher;
-    private RandomServiceInterface $randomService;
+    private ActionModifierServiceInterface $actionModifierService;
     private StatusServiceInterface $statusService;
-    private RoomLogServiceInterface $roomLogService;
 
     public function __construct(
-        EventDispatcherInterface $eventDispatcher,
-        RandomServiceInterface $randomService,
-        StatusServiceInterface $statusService,
-        RoomLogServiceInterface $roomLogService
+        ActionModifierServiceInterface $actionModifierService,
+        StatusServiceInterface $statusService
     ) {
-        $this->eventDispatcher = $eventDispatcher;
-        $this->randomService = $randomService;
+        $this->actionModifierService = $actionModifierService;
         $this->statusService = $statusService;
-        $this->roomLogService = $roomLogService;
     }
 
-    public function handleActionSideEffect(Action $action, Player $player, ?\DateTime $date = null): Player
+    public function canPlayerDoAction(Player $player, Action $action): bool
     {
-        $dirtyRate = $action->getDirtyRate();
-        $isSuperDirty = $dirtyRate > 100;
-        if (!$player->hasStatus(PlayerStatusEnum::DIRTY) &&
-            $dirtyRate > 0 &&
-            ($percent = $this->randomService->randomPercent()) <= $dirtyRate
-        ) {
-            $gears = $player->getApplicableGears(
-                [ModifierScopeEnum::EVENT_DIRTY],
-                [ReachEnum::INVENTORY],
-                ModifierTargetEnum::PERCENTAGE
-            );
+        return $this->getTotalActionPointCost($player, $action) <= $player->getActionPoint() &&
+            ($this->getTotalMovementPointCost($player, $action) <= $player->getMovementPoint() || $player->getActionPoint() > 0) &&
+            $this->getTotalMoralPointCost($player, $action) <= $player->getMoralPoint()
+        ;
+    }
 
-            /** @var Gear $gear */
-            foreach ($gears as $gear) {
-                $dirtyRate += $gear->getModifier()->getDelta();
-            }
+    public function applyCostToPlayer(Player $player, Action $action): Player
+    {
+        return $player
+            ->addActionPoint((-1) * $this->getTotalActionPointCost($player, $action))
+            ->addMovementPoint((-1) * $this->getTotalMovementPointCost($player, $action))
+            ->addMoralPoint((-1) * $this->getTotalMoralPointCost($player, $action))
+            ;
+    }
 
-            if (!$isSuperDirty && $percent >= $dirtyRate) {
-                $this->roomLogService->createPlayerLog(
-                    LogEnum::SOIL_PREVENTED,
-                    $player->getRoom(),
-                    $player,
-                    VisibilityEnum::PRIVATE,
-                    $date
-                );
-            } else {
-                $this->statusService->createCoreStatus(PlayerStatusEnum::DIRTY, $player);
+    public function getTotalActionPointCost(Player $player, Action $action): ?int
+    {
+        $initCost = $action->getActionCost()->getActionPointCost();
 
-                $this->roomLogService->createPlayerLog(
-                    LogEnum::SOILED,
-                    $player->getRoom(),
-                    $player,
-                    VisibilityEnum::PRIVATE,
-                    $date
-                );
-            }
-        }
-
-        $injuryRate = $action->getInjuryRate();
-        if ($injuryRate > 0 && $this->randomService->isSuccessfull($injuryRate)) {
-            $this->roomLogService->createPlayerLog(
-                LogEnum::CLUMSINESS,
-                $player->getRoom(),
+        if ($initCost !== null) {
+            $actionCost = $this->actionModifierService->getModifiedValue(
+                $initCost,
                 $player,
-                VisibilityEnum::PRIVATE,
-                $date
+                array_merge([$action->getName()], $action->getTypes()),
+                ModifierTargetEnum::ACTION_POINT
             );
-            $this->dispatchPlayerInjuryEvent($player, $date);
+
+            return max($actionCost, 0);
         }
 
-        return $player;
+        return null;
     }
 
-    private function dispatchPlayerInjuryEvent(Player $player, ?\DateTime $dateTime = null): void
+    public function getTotalMovementPointCost(Player $player, Action $action): ?int
     {
-        $gears = $player->getApplicableGears(
-            [ModifierScopeEnum::EVENT_CLUMSINESS],
-            [ReachEnum::INVENTORY],
-            ModifierTargetEnum::HEALTH_POINT
+        $initCost = $action->getActionCost()->getMovementPointCost();
+
+        if ($initCost !== null) {
+            $actionCost = $this->actionModifierService->getModifiedValue(
+                $initCost,
+                $player,
+                array_merge([$action->getName()], $action->getTypes()),
+                ModifierTargetEnum::MOVEMENT_POINT
+            );
+
+            return max($actionCost, 0);
+        }
+
+        return null;
+    }
+
+    public function getTotalMoralPointCost(Player $player, Action $action): ?int
+    {
+        return $action->getActionCost()->getMoralPointCost();
+    }
+
+    public function getSuccessRate(
+        Action $action,
+        Player $player
+    ): int {
+        $baseRate = $action->getSuccessRate();
+
+        //Get number of attempt
+        $numberOfAttempt = $this->getAttempt($player, $action->getName())->getCharge();
+
+        $initialValue = ($baseRate * (1.25) ** $numberOfAttempt);
+
+        //Get modifiers
+        $modifiedValue = $this->actionModifierService->getModifiedValue(
+            $initialValue,
+            $player,
+            array_merge([$action->getName()], $action->getTypes()),
+            ModifierTargetEnum::PERCENTAGE
         );
 
-        $defaultDelta = self::ACTION_INJURY_MODIFIER;
-        /** @var Gear $gear */
-        foreach ($gears as $gear) {
-            $defaultDelta -= $gear->getModifier()->getDelta();
+        return min($this::MAX_PERCENT, $modifiedValue);
+    }
+
+    public function getAttempt(Player $player, string $actionName): Attempt
+    {
+        /** @var Attempt $attempt */
+        $attempt = $player->getStatusByName(StatusEnum::ATTEMPT);
+
+        if ($attempt && $attempt->getAction() !== $actionName) {
+            // Re-initialize attempts with new action
+            $attempt
+                ->setAction($actionName)
+                ->setCharge(0)
+            ;
+        } elseif ($attempt === null) { //Create Attempt
+            $attempt = $this->statusService->createAttemptStatus(
+                StatusEnum::ATTEMPT,
+                $actionName,
+                $player
+            );
         }
 
-        $modifier = new Modifier();
-        $modifier
-            ->setDelta($defaultDelta)
-            ->setTarget(ModifierTargetEnum::HEALTH_POINT)
-        ;
-
-        $playerEvent = new PlayerEvent($player, $dateTime);
-        $playerEvent->setModifier($modifier);
-        $playerEvent->setReason(EndCauseEnum::CLUMSINESS);
-        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
+        return $attempt;
     }
 }

@@ -2,16 +2,12 @@
 
 namespace Mush\Player\Normalizer;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionScopeEnum;
-use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Player\Entity\Player;
-use Mush\User\Entity\User;
-use Symfony\Component\Finder\Exception\AccessDeniedException;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
@@ -21,20 +17,22 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
 {
     use NormalizerAwareTrait;
 
-    private TokenStorageInterface $tokenStorage;
     private TranslatorInterface $translator;
+    private GearToolServiceInterface $gearToolService;
 
     public function __construct(
-        TokenStorageInterface $tokenStorage,
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        GearToolServiceInterface $gearToolService
     ) {
-        $this->tokenStorage = $tokenStorage;
         $this->translator = $translator;
+        $this->gearToolService = $gearToolService;
     }
 
     public function supportsNormalization($data, string $format = null, array $context = []): bool
     {
-        return $data instanceof Player && $data === $this->getUserPlayer();
+        $currentPlayer = $context['currentPlayer'] ?? null;
+
+        return $data instanceof Player && $data === $currentPlayer;
     }
 
     public function normalize($object, string $format = null, array $context = []): array
@@ -45,12 +43,12 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
         $items = [];
         /** @var GameItem $item */
         foreach ($player->getItems() as $item) {
-            $items[] = $this->normalizer->normalize($item);
+            $items[] = $this->normalizer->normalize($item, $format, $context);
         }
 
         $statuses = [];
         foreach ($player->getStatuses() as $status) {
-            $normedStatus = $this->normalizer->normalize($status, null, ['player' => $player]);
+            $normedStatus = $this->normalizer->normalize($status, $format, array_merge($context, ['player' => $player]));
             if (is_array($normedStatus) && count($normedStatus) > 0) {
                 $statuses[] = $normedStatus;
             }
@@ -64,10 +62,10 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
                 'key' => $character,
                 'value' => $this->translator->trans($character . '.name', [], 'characters'),
             ],
-            'daedalus' => $this->normalizer->normalize($object->getDaedalus()),
-            'room' => $this->normalizer->normalize($object->getRoom()),
+            'daedalus' => $this->normalizer->normalize($object->getDaedalus(), $format, $context),
+            'room' => $this->normalizer->normalize($object->getPlace(), $format, $context),
             'skills' => $player->getSkills(),
-            'actions' => $this->getActions($object),
+            'actions' => $this->getActions($object, $format, $context),
             'items' => $items,
             'statuses' => $statuses,
             'actionPoint' => $player->getActionPoint(),
@@ -78,25 +76,23 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
         ];
     }
 
-    private function getActions(Player $player): array
+    private function getActions(Player $player, ?string $format, array $context): array
     {
         $contextualActions = $this->getContextActions($player);
 
         $actions = [];
 
         /** @var Action $action */
-        foreach ($player->getCharacterConfig()->getActions() as $action) {
-            if ($action->getScope() === ActionScopeEnum::SELF) {
-                $normedAction = $this->normalizer->normalize($action);
-                if (is_array($normedAction) && count($normedAction) > 0) {
-                    $actions[] = $normedAction;
-                }
+        foreach ($player->getSelfActions() as $action) {
+            $normedAction = $this->normalizer->normalize($action, $format, $context);
+            if (is_array($normedAction) && count($normedAction) > 0) {
+                $actions[] = $normedAction;
             }
         }
 
         /** @var Action $action */
         foreach ($contextualActions as $action) {
-            $normedAction = $this->normalizer->normalize($action);
+            $normedAction = $this->normalizer->normalize($action, $format, $context);
             if (is_array($normedAction) && count($normedAction) > 0) {
                 $actions[] = $normedAction;
             }
@@ -107,37 +103,8 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
 
     private function getContextActions(Player $player): Collection
     {
-        $reachableTools = $player->getReachableTools();
-
         $scope = [ActionScopeEnum::SELF];
 
-        $contextActions = new ArrayCollection();
-        /** @var GameEquipment $tool */
-        foreach ($reachableTools as $tool) {
-            $actions = $tool->getActions()->filter(fn (Action $action) => (
-            in_array($action->getScope(), $scope))
-            );
-            foreach ($actions as $action) {
-                $contextActions->add($action);
-            }
-        }
-
-        return $contextActions;
-    }
-
-    private function getUserPlayer(): Player
-    {
-        if (!$token = $this->tokenStorage->getToken()) {
-            throw new AccessDeniedException('User should be logged to access that');
-        }
-
-        /** @var User $user */
-        $user = $token->getUser();
-
-        if (!$player = $user->getCurrentGame()) {
-            throw new AccessDeniedException('User should be in game to access that');
-        }
-
-        return $player;
+        return $this->gearToolService->getActionsTools($player, $scope);
     }
 }

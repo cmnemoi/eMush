@@ -15,6 +15,7 @@ class PlayerEvent extends Event
     public const PANIC_CRISIS = 'panic.crisis';
     public const INFECTION_PLAYER = 'infection.player';
     public const CONVERSION_PLAYER = 'conversion.player';
+    public const END_PLAYER = 'end.player';
 
     private Player $player;
     private ?Modifier $modifier = null;

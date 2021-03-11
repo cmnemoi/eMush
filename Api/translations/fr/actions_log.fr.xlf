@@ -524,19 +524,19 @@
         <unit id="infect_success">
             <segment id="infect_success">
                 <source>infect_success.character.male.target.male</source>
-                <target>**player** s'est rapprochée de **target** avec un regard de prédateur...et l'a poinçonné discrètement !.</target>
+                <target>**player** s'est rapprochée de **target** avec un regard de prédateur...et l'a poinçonné discrètement !</target>
             </segment>
             <segment id="infect_success">
                 <source>infect_success.character.male.target.female</source>
-                <target>**player** s'est rapprochée de **target** avec un regard de prédateur...et l'a poinçonné discrètement !.</target>
+                <target>**player** s'est rapprochée de **target** avec un regard de prédateur...et l'a poinçonnée discrètement !</target>
             </segment>
             <segment id="infect_success">
                 <source>infect_success.character.female.target.male</source>
-                <target>**player** s'est rapprochée de **target** avec un regard de prédatrice...et l'a poinçonné discrètement !.</target>
+                <target>**player** s'est rapprochée de **target** avec un regard de prédatrice...et l'a poinçonné discrètement !</target>
             </segment>
             <segment id="infect_success">
                 <source>infect_success.character.female.target.female</source>
-                <target>**player** s'est rapprochée de **target** avec un regard de prédatrice...et l'a poinçonné discrètement !.</target>
+                <target>**player** s'est rapprochée de **target** avec un regard de prédatrice...et l'a poinçonnée discrètement !</target>
             </segment>
         </unit>
         <unit id="lie_down">
@@ -627,6 +627,26 @@
                 <target>Vous n'avez rien découvert.</target>
             </segment>
         </unit>
+        <unit id="shower_human">
+            <segment id="shower_human">
+                <source>shower_human.character.male</source>
+                <target>Vous vous lavez longuement sous la douche, savourant ce moment rare et paisible..</target>
+            </segment>
+            <segment>
+                <source>shower_human.character.female</source>
+                <target>Vous vous lavez longuement sous la douche, savourant ce moment rare et paisible..</target>
+            </segment>
+        </unit>
+        <unit id="shower_mush">
+            <segment id="shower_mush">
+                <source>shower_mush.character.male</source>
+                <target>Vous vous lavez et vous vous sentez brûlé, meurtri par toute cette eau... Que ne feriez vous pas pour passer pour l'un des leurs...</target>
+            </segment>
+            <segment>
+                <source>shower_mush.character.female</source>
+                <target>Vous vous lavez et vous vous sentez brûlée, meurtrie par toute cette eau... Que ne feriez vous pas pour passer pour l'un des leurs...</target>
+            </segment>
+        </unit>
         <unit id="shred_success">
             <segment id="shred_v1">
                 <source>shred_v1.character.male</source>
@@ -682,19 +702,19 @@
         <unit id="transplant_success">
             <segment id="transplant_success">
                 <source>transplant_success.character.male.target.male</source>
-                <target>**player** entreprend de reproduire un plan de **target**. Félicitation ! Le jeune plant est en parfaite santé.</target>
+                <target>**player** entreprend de reproduire un plant de **target**. Félicitation ! Le jeune plant est en parfaite santé.</target>
             </segment>
             <segment id="transplant_success">
                 <source>transplant_success.character.male.target.female</source>
-                <target>**player** entreprend de reproduire un plan de **target**. Félicitation ! Le jeune plant est en parfaite santé.</target>
+                <target>**player** entreprend de reproduire un plant de **target**. Félicitation ! Le jeune plant est en parfaite santé.</target>
             </segment>
             <segment id="transplant_success">
                 <source>transplant_success.character.female.target.male</source>
-                <target>**player** entreprend de reproduire un plan de **target**. Félicitation ! Le jeune plant est en parfaite santé.</target>
+                <target>**player** entreprend de reproduire un plant de **target**. Félicitation ! Le jeune plant est en parfaite santé.</target>
             </segment>
             <segment id="transplant_success">
                 <source>transplant_success.character.female.target.female</source>
-                <target>**player** entreprend de reproduire un plan de **target**. Félicitation ! Le jeune plant est en parfaite santé.</target>
+                <target>**player** entreprend de reproduire un plant de **target**. Félicitation ! Le jeune plant est en parfaite santé.</target>
             </segment>
         </unit>
         <unit id="transplant_fail">

@@ -38,9 +38,8 @@ class MessageVoter extends Voter
             return false;
         }
 
-        // you know $subject is a Post object, thanks to `supports()`
-        /** @var Channel $channel */
-        $channel = $subject;
+        /** @var Message $subject */
+        $channel = $subject->getChannel();
 
         switch ($attribute) {
             case self::VIEW:
@@ -59,6 +58,6 @@ class MessageVoter extends Voter
 
     private function canCreate(Channel $channel, Player $player): bool
     {
-        return $player->isAlive() && $channel->isPublic() || $channel->getParticipants()->contains($player);
+        return $player->isAlive() && ($channel->isPublic() || $channel->getParticipants()->contains($player));
     }
 }

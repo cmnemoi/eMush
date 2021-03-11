@@ -6,15 +6,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Shower;
-use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Room\Entity\Room;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -43,9 +41,9 @@ class ShowerActionTest extends AbstractActionTest
 
         $this->action = new Shower(
             $this->eventDispatcher,
-            $this->gameEquipmentService,
-            $this->statusService,
-            $this->playerService
+            $this->actionService,
+            $this->validator,
+            $this->playerService,
         );
     }
 
@@ -59,18 +57,16 @@ class ShowerActionTest extends AbstractActionTest
 
     public function testExecute()
     {
-        $room = new Room();
+        $room = new Place();
 
         $gameItem = new GameEquipment();
         $item = new EquipmentConfig();
         $gameItem
             ->setEquipment($item)
-            ->setRoom($room)
+            ->setPlace($room)
         ;
 
-        $action = new Action();
-        $action->setName(ActionEnum::SHOWER);
-        $item->setActions(new ArrayCollection([$action]));
+        $item->setActions(new ArrayCollection([$this->actionEntity]));
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
@@ -79,11 +75,9 @@ class ShowerActionTest extends AbstractActionTest
             ->setName(PlayerStatusEnum::DIRTY)
         ;
 
-        $actionParameter = new ActionParameters();
-        $actionParameter->setEquipment($gameItem);
-        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
-        $this->gameEquipmentService->shouldReceive('isOperational')->andReturn(true)->once();
+        $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->playerService->shouldReceive('persist');
         $this->statusService->shouldReceive('delete');
 
@@ -93,6 +87,5 @@ class ShowerActionTest extends AbstractActionTest
         $this->assertCount(1, $room->getEquipments());
         $this->assertCount(0, $room->getEquipments()->first()->getStatuses());
         $this->assertCount(0, $player->getStatuses());
-        $this->assertEquals(8, $player->getActionPoint());
     }
 }

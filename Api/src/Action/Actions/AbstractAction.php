@@ -5,51 +5,97 @@ namespace Mush\Action\Actions;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Error;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionCost;
-use Mush\Action\Entity\ActionParameters;
+use Mush\Action\Entity\ActionParameter;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Event\ActionEvent;
-use Mush\Equipment\Entity\Mechanics\Gear;
-use Mush\Equipment\Enum\ReachEnum;
+use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\ActionPoint;
+use Mush\Action\Validator\HasAction;
+use Mush\Action\Validator\PlayerAlive;
 use Mush\Player\Entity\Player;
-use Mush\Player\Enum\ModifierTargetEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Validator\ConstraintViolationInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class AbstractAction
 {
     protected Action $action;
     protected Player $player;
 
+    protected $parameter = null;
+
     protected string $name;
 
     protected EventDispatcherInterface $eventDispatcher;
+    protected ActionServiceInterface $actionService;
+    private ValidatorInterface $validator;
 
-    public function __construct(EventDispatcherInterface $eventDispatcher)
-    {
+    public function __construct(
+        EventDispatcherInterface $eventDispatcher,
+        ActionServiceInterface $actionService,
+        ValidatorInterface $validator
+    ) {
         $this->eventDispatcher = $eventDispatcher;
+        $this->actionService = $actionService;
+        $this->validator = $validator;
     }
 
-    public function loadParameters(Action $action, Player $player, ActionParameters $actionParameters): void
+    abstract protected function support(?ActionParameter $parameter): bool;
+
+    public function loadParameters(Action $action, Player $player, ?ActionParameter $parameter = null): void
     {
+        if (!$this->support($parameter)) {
+            throw new \InvalidArgumentException('Invalid equipment parameter');
+        }
+
         $this->action = $action;
         $this->player = $player;
+        $this->parameter = $parameter;
     }
 
-    abstract public function canExecute(): bool;
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
+    {
+        $metadata->addConstraint(new PlayerAlive(['groups' => ['visibility']]));
+        $metadata->addConstraint(new HasAction(['groups' => ['visibility']]));
+        $metadata->addConstraint(new ActionPoint(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::INSUFFICIENT_ACTION_POINT]));
+    }
+
+    public function isVisible(): bool
+    {
+        $validator = $this->validator;
+
+        return $validator->validate($this, null, 'visibility')->count() === 0;
+    }
+
+    public function cannotExecuteReason(): ?string
+    {
+        $validator = $this->validator;
+        $violations = $validator->validate($this, null, 'execute');
+
+        /** @var ConstraintViolationInterface $violation */
+        foreach ($violations as $violation) {
+            return (string) $violation->getMessage();
+        }
+
+        return null;
+    }
 
     abstract protected function applyEffects(): ActionResult;
 
     public function execute(): ActionResult
     {
-        if (!$this->canExecute() ||
-            !$this->action->getActionCost()->canPlayerDoAction($this->player) ||
-            !$this->player->isAlive()) {
+        if (!$this->isVisible() ||
+            $this->cannotExecuteReason() !== null
+        ) {
             return new Error('Cannot execute action');
         }
 
         $preActionEvent = new ActionEvent($this->action, $this->player);
         $this->eventDispatcher->dispatch($preActionEvent, ActionEvent::PRE_ACTION);
 
-        $this->applyActionCost();
+        $this->actionService->applyCostToPlayer($this->player, $this->action);
+
         $result = $this->applyEffects();
 
         $postActionEvent = new ActionEvent($this->action, $this->player);
@@ -63,37 +109,38 @@ abstract class AbstractAction
         return $result;
     }
 
-    protected function applyActionCost(): Player
-    {
-        $this->getActionCost()->applyCostToPlayer($this->player);
-
-        return $this->player;
-    }
-
-    public function getActionCost(): ActionCost
-    {
-        $actionCost = $this->action->getActionCost();
-
-        $gears = $this->player->getApplicableGears(
-            array_merge([$this->getActionName()], $this->action->getTypes()),
-            [ReachEnum::INVENTORY],
-            ModifierTargetEnum::ACTION_POINT
-        );
-
-        /** @var Gear $gear */
-        foreach ($gears as $gear) {
-            if ($actionCost->getActionPointCost() > 0 &&
-               $gear->getModifier()->getTarget() === ModifierTargetEnum::ACTION_POINT
-           ) {
-                $actionCost->addActionPointCost((int) $gear->getModifier()->getDelta());
-            }
-        }
-
-        return $actionCost;
-    }
-
     public function getActionName(): string
     {
         return $this->name;
+    }
+
+    public function getActionPointCost(): ?int
+    {
+        return $this->actionService->getTotalActionPointCost($this->player, $this->action);
+    }
+
+    public function getMovementPointCost(): ?int
+    {
+        return $this->actionService->getTotalMovementPointCost($this->player, $this->action);
+    }
+
+    public function getMoralPointCost(): ?int
+    {
+        return $this->actionService->getTotalMoralPointCost($this->player, $this->action);
+    }
+
+    public function getPlayer(): Player
+    {
+        return $this->player;
+    }
+
+    public function getParameter(): ?ActionParameter
+    {
+        return $this->parameter;
+    }
+
+    public function getAction(): Action
+    {
+        return $this->action;
     }
 }

@@ -4,8 +4,8 @@ namespace Mush\RoomLog\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\Room\Entity\Room;
 
 /**
  * Class RoomLog.
@@ -24,9 +24,9 @@ class RoomLog
     private int $id;
 
     /**
-     * @ORM\ManyToOne (targetEntity="Mush\Room\Entity\Room")
+     * @ORM\ManyToOne (targetEntity="Mush\Place\Entity\Place")
      */
-    private Room $room;
+    private Place $place;
 
     /**
      * @ORM\ManyToOne (targetEntity="Mush\Player\Entity\Player")
@@ -78,17 +78,17 @@ class RoomLog
         return $this->id;
     }
 
-    public function getRoom(): Room
+    public function getPlace(): Place
     {
-        return $this->room;
+        return $this->place;
     }
 
     /**
      * @return static
      */
-    public function setRoom(Room $room): RoomLog
+    public function setPlace(Place $place): RoomLog
     {
-        $this->room = $room;
+        $this->place = $place;
 
         return $this;
     }

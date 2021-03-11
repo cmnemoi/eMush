@@ -107,6 +107,11 @@ class DifficultyConfig
      */
     private array $panicCrisisPlayerDamage = [];
 
+    /**
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    private int $plantDiseaseRate = 0;
+
     public function getId(): int
     {
         return $this->id;
@@ -363,6 +368,21 @@ class DifficultyConfig
     public function setPanicCrisisPlayerDamage(array $panicCrisisPlayerDamage): DifficultyConfig
     {
         $this->panicCrisisPlayerDamage = $panicCrisisPlayerDamage;
+
+        return $this;
+    }
+
+    public function getPlantDiseaseRate(): int
+    {
+        return $this->plantDiseaseRate;
+    }
+
+    /**
+     * @return static
+     */
+    public function setPlantDiseaseRate(int $plantDiseaseRate): DifficultyConfig
+    {
+        $this->plantDiseaseRate = $plantDiseaseRate;
 
         return $this;
     }

@@ -4,71 +4,68 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionParameters;
+use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\Oxygen;
+use Mush\Action\Validator\ParameterName;
+use Mush\Action\Validator\Reach;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Entity\GameConfig;
-use Mush\Player\Entity\Player;
-use Mush\RoomLog\Enum\ActionLogEnum;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class InsertOxygen extends AbstractAction
 {
     protected string $name = ActionEnum::INSERT_OXYGEN;
 
-    private GameItem $gameItem;
+    /** @var GameItem */
+    protected $parameter;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
     private DaedalusServiceInterface $daedalusService;
-    private GameConfig $gameConfig;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
+        ActionServiceInterface $actionService,
+        ValidatorInterface $validator,
         GameEquipmentServiceInterface $gameEquipmentService,
         DaedalusServiceInterface $daedalusService
     ) {
-        parent::__construct($eventDispatcher);
+        parent::__construct(
+            $eventDispatcher,
+            $actionService,
+            $validator
+        );
 
         $this->gameEquipmentService = $gameEquipmentService;
         $this->daedalusService = $daedalusService;
     }
 
-    public function loadParameters(Action $action, Player $player, ActionParameters $actionParameters): void
+    protected function support(?ActionParameter $parameter): bool
     {
-        parent::loadParameters($action, $player, $actionParameters);
-
-        if (!$item = $actionParameters->getItem()) {
-            throw new \InvalidArgumentException('Invalid item parameter');
-        }
-
-        $this->gameItem = $item;
+        return $parameter instanceof GameItem;
     }
 
-    public function canExecute(): bool
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        $gameConfig = $this->player->getDaedalus()->getGameConfig();
-
-        return $this->player->canReachEquipment($this->gameItem) &&
-            $this->gameItem->getEquipment()->getName() === ItemEnum::OXYGEN_CAPSULE &&
-            $this->gameEquipmentService->getOperationalEquipmentsByName(EquipmentEnum::OXYGEN_TANK, $this->player) &&
-            $this->player->getDaedalus()->getOxygen() < $gameConfig->getDaedalusConfig()->getMaxOxygen()
-            ;
+        $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
+        $metadata->addConstraint(new ParameterName(['name' => ItemEnum::OXYGEN_CAPSULE, 'groups' => ['visibility']]));
+        $metadata->addConstraint(new Oxygen(['retrieve' => false, 'groups' => ['visibility']]));
     }
 
     protected function applyEffects(): ActionResult
     {
-        $this->gameItem->setPlayer(null);
+        $this->parameter->setPlayer(null);
 
-        $this->gameEquipmentService->delete($this->gameItem);
+        $this->gameEquipmentService->delete($this->parameter);
 
         $this->daedalusService->changeOxygenLevel($this->player->getDaedalus(), 1);
 
-        return new Success(ActionLogEnum::INSERT_OXYGEN, VisibilityEnum::PUBLIC);
+        return new Success();
     }
 }

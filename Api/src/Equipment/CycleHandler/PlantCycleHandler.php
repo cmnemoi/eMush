@@ -14,7 +14,6 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\CycleHandler\AbstractCycleHandler;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
-use Mush\Room\Entity\Room;
 use Mush\RoomLog\Enum\PlantLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
@@ -33,8 +32,6 @@ class PlantCycleHandler extends AbstractCycleHandler
     private StatusServiceInterface $statusService;
     private DaedalusServiceInterface $daedalusService;
     private EquipmentEffectServiceInterface $equipmentEffectService;
-
-    private const DISEASE_PERCENTAGE = 3;
 
     public function __construct(
         GameEquipmentServiceInterface $gameEquipmentService,
@@ -67,10 +64,6 @@ class PlantCycleHandler extends AbstractCycleHandler
             return;
         }
 
-        if ($this->randomService->randomPercent() <= self::DISEASE_PERCENTAGE) {
-            $this->statusService->createCoreStatus(EquipmentStatusEnum::PLANT_DISEASED, $gamePlant);
-        }
-
         $plantEffect = $this->equipmentEffectService->getPlantEffect($plantType, $daedalus);
 
         /** @var ChargeStatus $youngStatus */
@@ -78,17 +71,23 @@ class PlantCycleHandler extends AbstractCycleHandler
         if ($youngStatus &&
             $youngStatus->getCharge() >= $plantEffect->getMaturationTime()
         ) {
-            $room = $gamePlant->getCurrentRoom();
+            $place = $gamePlant->getCurrentPlace();
 
             $gamePlant->removeStatus($youngStatus);
             $this->roomLogService->createEquipmentLog(
                 PlantLogEnum::PLANT_MATURITY,
-                $room,
+                $place,
                 null,
                 $gamePlant,
                 VisibilityEnum::PUBLIC,
                 $dateTime
             );
+        }
+
+        $diseaseRate = $daedalus->getGameConfig()->getDifficultyConfig()->getPlantDiseaseRate();
+
+        if ($this->randomService->isSuccessful($diseaseRate)) {
+            $this->statusService->createCoreStatus(EquipmentStatusEnum::PLANT_DISEASED, $gamePlant);
         }
 
         $this->gameEquipmentService->persist($gamePlant);
@@ -163,22 +162,22 @@ class PlantCycleHandler extends AbstractCycleHandler
 
     private function handleDriedPlant(GameItem $gamePlant, \DateTime $dateTime): void
     {
-        $room = $gamePlant->getCurrentRoom();
+        $place = $gamePlant->getCurrentPlace();
 
         // Create a new hydropot
         /** @var GameItem $hydropot */
-        $hydropot = $this->gameEquipmentService->createGameEquipmentFromName(ItemEnum::HYDROPOT, $room->getDaedalus());
+        $hydropot = $this->gameEquipmentService->createGameEquipmentFromName(ItemEnum::HYDROPOT, $place->getDaedalus());
 
         if ($player = $gamePlant->getPlayer()) {
             $gamePlant->setPlayer(null);
             $hydropot->setPlayer($player);
         } else {
-            $gamePlant->setRoom(null);
-            $hydropot->setRoom($room);
+            $gamePlant->setPlace(null);
+            $hydropot->setPlace($place);
         }
         $this->roomLogService->createEquipmentLog(
             PlantLogEnum::PLANT_DEATH,
-            $room,
+            $place,
             null,
             $gamePlant,
             VisibilityEnum::PUBLIC,
@@ -210,18 +209,18 @@ class PlantCycleHandler extends AbstractCycleHandler
             return;
         }
         // If plant is not in a room, it is in player inventory
-        $room = $gamePlant->getCurrentRoom();
+        $place = $gamePlant->getCurrentPlace();
 
         /** @var GameItem $gameFruit */
-        $gameFruit = $this->gameEquipmentService->createGameEquipment($plantType->getFruit(), $room->getDaedalus());
+        $gameFruit = $this->gameEquipmentService->createGameEquipment($plantType->getFruit(), $place->getDaedalus());
 
-        $gameFruit->setRoom($room);
+        $gameFruit->setPlace($place);
 
         $this->gameEquipmentService->persist($gameFruit);
 
         $this->roomLogService->createEquipmentLog(
             PlantLogEnum::PLANT_NEW_FRUIT,
-            $room,
+            $place,
             null,
             $gameFruit,
             VisibilityEnum::PUBLIC,
@@ -231,7 +230,7 @@ class PlantCycleHandler extends AbstractCycleHandler
 
     private function addOxygen(GameItem $gamePlant, PlantEffect $plantEffect): void
     {
-        $daedalus = $gamePlant->getCurrentRoom()->getDaedalus();
+        $daedalus = $gamePlant->getCurrentPlace()->getDaedalus();
         //Add Oxygen
         if (($oxygen = $plantEffect->getOxygen())) {
             $this->daedalusService->changeOxygenLevel($daedalus, 1);

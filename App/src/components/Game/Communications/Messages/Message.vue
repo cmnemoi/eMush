@@ -6,11 +6,7 @@
         <p class="text">
             <span class="author">{{ message.character.name }} :</span><span v-html="formatMessage(message.message)" />
         </p>
-        <div class="actions">
-            <a href="#"><img src="@/assets/images/comms/reply.png">Répondre</a>
-            <a href="#"><img src="@/assets/images/comms/fav.png">Favori</a>
-            <a href="#"><img src="@/assets/images/comms/alert.png">Plainte</a>
-        </div>
+        <ActionButtons class="actions" :actions="['reply', 'favorite', 'report']" />
         <span class="timestamp">{{ formatDate(message.date, {local: "fr-FR"}) }}</span>
     </div>
     <div v-if="!isRoot" class="message child-message" @click="$emit('click')">
@@ -18,15 +14,13 @@
             <img class="character-head" :src="characterPortrait">
             <span class="author">{{ message.character.name }} :</span><span v-html="formatMessage(message.message)" />
         </p>
-        <div class="actions">
-            <a href="#"><img src="@/assets/images/comms/reply.png">Répondre</a>
-            <a href="#"><img src="@/assets/images/comms/alert.png">Plainte</a>
-        </div>
+        <ActionButtons class="actions" :actions="['reply', 'report']" />
         <span class="timestamp">{{ formatDate(message.date, {local: "fr-FR"}) }}</span>
     </div>
 </template>
 
 <script>
+import ActionButtons from "@/components/Game/Communications/ActionButtons";
 import { formatText } from "@/utils/formatText";
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import { fr } from 'date-fns/locale';
@@ -35,6 +29,9 @@ import { characterEnum } from "@/enums/character";
 
 export default {
     name: "Message",
+    components: {
+        ActionButtons
+    },
     props: {
         message: Message,
         isRoot: {
@@ -62,7 +59,7 @@ export default {
         }
     }
 };
-</script>return
+</script>
 
 <style lang="scss" scoped>
 

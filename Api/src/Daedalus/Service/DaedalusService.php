@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Collection\DaedalusCollection;
 use Mush\Daedalus\Entity\Criteria\DaedalusCriteria;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\Neron;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Daedalus\Repository\DaedalusRepository;
 use Mush\Equipment\Entity\EquipmentConfig;
@@ -17,12 +18,13 @@ use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Place\Entity\Place;
+use Mush\Place\Entity\PlaceConfig;
+use Mush\Place\Service\PlaceServiceInterface;
+use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
-use Mush\Room\Entity\Room;
-use Mush\Room\Entity\RoomConfig;
-use Mush\Room\Service\RoomServiceInterface;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
@@ -34,7 +36,7 @@ class DaedalusService implements DaedalusServiceInterface
     private EntityManagerInterface $entityManager;
     private EventDispatcherInterface $eventDispatcher;
     private DaedalusRepository $repository;
-    private RoomServiceInterface $roomService;
+    private PlaceServiceInterface $placesService;
     private CycleServiceInterface $cycleService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private RandomServiceInterface $randomService;
@@ -44,7 +46,7 @@ class DaedalusService implements DaedalusServiceInterface
         EntityManagerInterface $entityManager,
         EventDispatcherInterface $eventDispatcher,
         DaedalusRepository $repository,
-        RoomServiceInterface $roomService,
+        PlaceServiceInterface $placesService,
         CycleServiceInterface $cycleService,
         GameEquipmentServiceInterface $gameEquipmentService,
         RandomServiceInterface $randomService,
@@ -53,7 +55,7 @@ class DaedalusService implements DaedalusServiceInterface
         $this->entityManager = $entityManager;
         $this->eventDispatcher = $eventDispatcher;
         $this->repository = $repository;
-        $this->roomService = $roomService;
+        $this->placesService = $placesService;
         $this->cycleService = $cycleService;
         $this->gameEquipmentService = $gameEquipmentService;
         $this->randomService = $randomService;
@@ -109,7 +111,8 @@ class DaedalusService implements DaedalusServiceInterface
 
         $daedalus
             ->setGameConfig($gameConfig)
-            ->setCycle($this->cycleService->getCycleFromDate(new \DateTime(), $daedalus))
+            ->setCycle($this->cycleService->getInDayCycleFromDate(new \DateTime(), $gameConfig))
+            ->setCycleStartedAt($this->cycleService->getDaedalusStartingCycleDate($daedalus))
             ->setOxygen($daedalusConfig->getInitOxygen())
             ->setFuel($daedalusConfig->getInitFuel())
             ->setHull($daedalusConfig->getInitHull())
@@ -120,10 +123,12 @@ class DaedalusService implements DaedalusServiceInterface
 
         $this->persist($daedalus);
 
-        /** @var RoomConfig $roomconfig */
-        foreach ($daedalusConfig->getRoomConfigs() as $roomconfig) {
-            $room = $this->roomService->createRoom($roomconfig, $daedalus);
-            $daedalus->addRoom($room);
+        $this->createNeron($daedalus);
+
+        /** @var PlaceConfig $placeConfig */
+        foreach ($daedalusConfig->getPlaceConfigs() as $placeConfig) {
+            $place = $this->placesService->createPlace($placeConfig, $daedalus);
+            $daedalus->addPlace($place);
         }
 
         $randomItemPlaces = $daedalusConfig->getRandomItemPlace();
@@ -139,8 +144,8 @@ class DaedalusService implements DaedalusServiceInterface
                 $roomName = $randomItemPlaces
                     ->getPlaces()[$this->randomService->random(0, count($randomItemPlaces->getPlaces()) - 1)]
                 ;
-                $room = $daedalus->getRooms()->filter(fn (Room $room) => $roomName === $room->getName())->first();
-                $item->setRoom($room);
+                $room = $daedalus->getRooms()->filter(fn (Place $room) => $roomName === $room->getName())->first();
+                $item->setPlace($room);
                 $this->gameEquipmentService->persist($item);
             }
         }
@@ -190,39 +195,51 @@ class DaedalusService implements DaedalusServiceInterface
     public function getRandomAsphyxia(Daedalus $daedalus, \DateTime $date = null): Daedalus
     {
         $date = $date ?? new \DateTime('now');
-        $chancesArray = [];
-        /** @var Player $player */
-        foreach ($daedalus->getPlayers()->getPlayerAlive() as $player) {
-            if (!$player->getItems()->filter(fn (GameItem $item) => $item->getName() === ItemEnum::OXYGEN_CAPSULE)->isEmpty()) {
-                $capsule = $player->getItems()->filter(fn (GameItem $item) => $item->getName() === ItemEnum::OXYGEN_CAPSULE)->first();
-                $capsule->removeLocation();
-                $this->gameEquipmentService->delete($capsule);
 
-                $this->roomLogService->createPlayerLog(
-                    LogEnum::OXY_LOW_USE_CAPSULE,
-                    $player->getRoom(),
-                    $player,
-                    VisibilityEnum::PRIVATE,
-                    $date
-                );
-            } else {
-                $chancesArray[$player->getCharacterConfig()->getName()] = 1;
+        $noCapsule = $daedalus->getPlayers()->getPlayerAlive()->filter(fn (Player $player) => $player->getItems()->filter(fn (GameItem $item) => $item->getName() === ItemEnum::OXYGEN_CAPSULE)->count() === 0
+        );
+
+        $players = $this->getPlayersWithLessOxygen($daedalus);
+
+        if ($players !== null) {
+            $player = $this->randomService->getRandomPlayer($players);
+            $capsule = $player->getItems()->filter(fn (GameItem $item) => $item->getName() === ItemEnum::OXYGEN_CAPSULE)->first();
+            $capsule->removeLocation();
+            $this->gameEquipmentService->delete($capsule);
+
+            $this->roomLogService->createPlayerLog(
+                LogEnum::OXY_LOW_USE_CAPSULE,
+                $player->getPlace(),
+                $player,
+                VisibilityEnum::PRIVATE,
+                $date
+            );
+        }
+
+        if (!$noCapsule->isEmpty()) {
+            $player = $this->randomService->getRandomPlayer($noCapsule);
+
+            $playerEvent = new PlayerEvent($player);
+            $playerEvent->setReason(EndCauseEnum::ASPHYXIA);
+
+            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
+        }
+
+        return $daedalus;
+    }
+
+    public function getPlayersWithLessOxygen(Daedalus $daedalus): ?PlayerCollection
+    {
+        for ($i = 1; $i <= $daedalus->getGameConfig()->getMaxItemInInventory(); ++$i) {
+            $players = $daedalus->getPlayers()->getPlayerAlive()
+                ->filter(fn (Player $player) => $player->getItems()
+                ->filter(fn (GameItem $item) => $item->getName() === ItemEnum::OXYGEN_CAPSULE)->count() === $i);
+            if ($players && !$players->isEmpty()) {
+                return $players;
             }
         }
 
-        $playerName = $this->randomService->getSingleRandomElementFromProbaArray($chancesArray);
-
-        $player = $daedalus
-            ->getPlayers()
-            ->filter(fn (Player $player) => $player->getCharacterConfig()->getName() === $playerName)->first()
-        ;
-
-        $playerEvent = new PlayerEvent($player);
-        $playerEvent->setReason(EndCauseEnum::ASPHYXIA);
-
-        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
-
-        return $daedalus;
+        return null;
     }
 
     public function killRemainingPlayers(Daedalus $daedalus, string $cause): Daedalus
@@ -277,5 +294,15 @@ class DaedalusService implements DaedalusServiceInterface
         $this->persist($daedalus);
 
         return $daedalus;
+    }
+
+    private function createNeron(Daedalus $daedalus): Neron
+    {
+        $neron = new Neron();
+        $neron->setDaedalus($daedalus);
+
+        $this->entityManager->persist($neron);
+
+        return $neron;
     }
 }

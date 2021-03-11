@@ -8,12 +8,13 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\Collection\CharacterConfigCollection;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Place\Entity\Place;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Repository\PlayerRepository;
 use Mush\Player\Service\PlayerService;
-use Mush\Room\Entity\Room;
-use Mush\Room\Enum\RoomEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\User\Entity\User;
@@ -100,9 +101,9 @@ class PlayerServiceTest extends TestCase
 
         $daedalus = new Daedalus();
         $daedalus->setGameConfig($gameConfig);
-        $laboratory = new Room();
+        $laboratory = new Place();
         $laboratory->setName(RoomEnum::LABORATORY); // @FIXME: should we move the starting room in the config
-        $daedalus->addRoom($laboratory);
+        $daedalus->addPlace($laboratory);
 
         $characterConfig = new CharacterConfig();
         $characterConfig
@@ -123,6 +124,11 @@ class PlayerServiceTest extends TestCase
             ->once()
         ;
 
+        $this->statusService
+            ->shouldReceive('createSporeStatus')
+            ->once()
+        ;
+
         $player = $this->service->createPlayer($daedalus, $user, 'character');
 
         $this->assertInstanceOf(Player::class, $player);
@@ -134,5 +140,25 @@ class PlayerServiceTest extends TestCase
         $this->assertEquals($gameConfig->getInitSatiety(), $player->getSatiety());
         $this->assertCount(0, $player->getItems());
         $this->assertCount(0, $player->getSkills());
+    }
+
+    public function testEndPlayer()
+    {
+        $user = new User();
+        $player = new Player();
+        $player->setUser($user);
+        $message = 'message';
+
+        $this->entityManager->shouldReceive([
+            'persist' => null,
+            'flush' => null,
+        ]);
+
+        $this->eventDispatcher->shouldReceive('dispatch');
+
+        $player = $this->service->endPlayer($player, $message);
+
+        $this->assertEquals(GameStatusEnum::CLOSED, $player->getGameStatus());
+        $this->assertNull($user->getCurrentGame());
     }
 }

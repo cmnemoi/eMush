@@ -16,13 +16,10 @@ class PlantStrategy extends AbstractChargeStrategy
         parent::__construct($statusService);
     }
 
-    public function apply(ChargeStatus $status, Daedalus $daedalus): void
+    public function apply(ChargeStatus $status, Daedalus $daedalus): ?ChargeStatus
     {
-        if ($status->getCharge() >= $status->getThreshold()) {
-            return;
-        }
-
         //@TODO: Handle garden
-        $status->addCharge(1);
+
+        return $this->statusService->changeCharge($status, 1);
     }
 }

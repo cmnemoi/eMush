@@ -13,6 +13,7 @@ use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class EquipmentSubscriber implements EventSubscriberInterface
@@ -20,15 +21,18 @@ class EquipmentSubscriber implements EventSubscriberInterface
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
     private RoomLogServiceInterface $roomLogService;
+    private EventDispatcherInterface $eventDispatcher;
 
     public function __construct(
         GameEquipmentServiceInterface $gameEquipmentService,
         StatusServiceInterface $statusService,
-        RoomLogServiceInterface $roomLogService
+        RoomLogServiceInterface $roomLogService,
+        EventDispatcherInterface $eventDispatcher
     ) {
         $this->gameEquipmentService = $gameEquipmentService;
         $this->statusService = $statusService;
         $this->roomLogService = $roomLogService;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     public static function getSubscribedEvents(): array
@@ -49,14 +53,14 @@ class EquipmentSubscriber implements EventSubscriberInterface
         $equipment = $event->getEquipment();
 
         if (!$equipment instanceof GameItem) {
-            $equipment->setRoom($player->getRoom());
+            $equipment->setPlace($player->getPlace());
         } elseif ($player->getItems()->count() < $this->getGameConfig($equipment)->getMaxItemInInventory()) {
             $equipment->setPlayer($player);
         } else {
-            $equipment->setRoom($player->getRoom());
+            $equipment->setPlace($player->getPlace());
             $this->roomLogService->createEquipmentLog(
                 LogEnum::OBJECT_FELT,
-                $player->getRoom(),
+                $player->getPlace(),
                 $player,
                 $equipment,
                 VisibilityEnum::PUBLIC,
@@ -78,7 +82,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         if ($equipment instanceof Door) {
             $rooms = $equipment->getRooms()->toArray();
         } else {
-            $rooms = [$equipment->getCurrentRoom()];
+            $rooms = [$equipment->getCurrentPlace()];
         }
 
         foreach ($rooms as $room) {
@@ -97,14 +101,14 @@ class EquipmentSubscriber implements EventSubscriberInterface
     {
         $equipment = $event->getEquipment();
 
-        $room = $equipment->getCurrentRoom();
+        $place = $equipment->getCurrentPlace();
         $equipment->removeLocation();
 
         $this->gameEquipmentService->delete($equipment);
 
         $this->roomLogService->createEquipmentLog(
             LogEnum::EQUIPMENT_DESTROYED,
-            $room,
+            $place,
             null,
             $equipment,
             $event->getVisibility(),

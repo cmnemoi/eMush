@@ -3,16 +3,14 @@
 namespace Mush\Test\Action\Actions;
 
 use Mockery;
-use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\GetUp;
-use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
-use Mush\Room\Entity\Room;
+use Mush\Place\Entity\Place;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -35,7 +33,9 @@ class GetUpActionTest extends AbstractActionTest
 
         $this->action = new GetUp(
             $this->eventDispatcher,
-            $this->statusService
+            $this->actionService,
+            $this->validator,
+            $this->statusService,
         );
     }
 
@@ -47,43 +47,9 @@ class GetUpActionTest extends AbstractActionTest
         Mockery::close();
     }
 
-    public function testCannotExecute()
-    {
-        $daedalus = new Daedalus();
-        $room = new Room();
-
-        $player = $this->createPlayer($daedalus, $room);
-        $player2 = $this->createPlayer($daedalus, $room);
-
-        $gameItem = new GameEquipment();
-        $item = new EquipmentConfig();
-        $item
-            ->setName(EquipmentEnum::BED)
-        ;
-        $gameItem
-            ->setEquipment($item)
-            ->setRoom($room)
-            ->setName(EquipmentEnum::BED)
-        ;
-
-        $status = new Status($player2);
-        $status
-            ->setName(PlayerStatusEnum::LYING_DOWN)
-            ->setTarget($gameItem)
-        ;
-
-        $actionParameter = new ActionParameters();
-
-        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
-
-        $result = $this->action->execute();
-
-        $this->assertInstanceOf(Error::class, $result);
-    }
-
     public function testExecute()
     {
-        $room = new Room();
+        $room = new Place();
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
@@ -94,7 +60,7 @@ class GetUpActionTest extends AbstractActionTest
         ;
         $gameItem
             ->setEquipment($item)
-            ->setRoom($room)
+            ->setPlace($room)
             ->setName(EquipmentEnum::BED)
         ;
 
@@ -104,10 +70,9 @@ class GetUpActionTest extends AbstractActionTest
             ->setTarget($gameItem)
         ;
 
-        $actionParameter = new ActionParameters();
+        $this->action->loadParameters($this->actionEntity, $player);
 
-        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
-
+        $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->statusService->shouldReceive('delete');
 
         $result = $this->action->execute();

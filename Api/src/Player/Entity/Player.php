@@ -6,16 +6,16 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionParameter;
+use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\Mechanics\Gear;
-use Mush\Equipment\Enum\EquipmentMechanicEnum;
-use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Enum\GameStatusEnum;
-use Mush\Room\Entity\Room;
+use Mush\Place\Entity\Place;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Entity\StatusTarget;
@@ -29,7 +29,7 @@ use Mush\User\Entity\User;
  *
  * @ORM\Entity(repositoryClass="Mush\Player\Repository\PlayerRepository")
  */
-class Player implements StatusHolderInterface
+class Player implements StatusHolderInterface, ActionParameter
 {
     use TimestampableEntity;
     use TargetStatusTrait;
@@ -68,9 +68,9 @@ class Player implements StatusHolderInterface
     private Daedalus $daedalus;
 
     /**
-     * @ORM\ManyToOne (targetEntity="Mush\Room\Entity\Room", inversedBy="players")
+     * @ORM\ManyToOne (targetEntity="Mush\Place\Entity\Place", inversedBy="players")
      */
-    private Room $room;
+    private Place $place;
 
     /**
      * @ORM\OneToMany(targetEntity="Mush\Equipment\Entity\GameItem", mappedBy="player")
@@ -210,19 +210,19 @@ class Player implements StatusHolderInterface
         return $this;
     }
 
-    public function getRoom(): Room
+    public function getPlace(): Place
     {
-        return $this->room;
+        return $this->place;
     }
 
     /**
      * @return static
      */
-    public function setRoom(Room $room): Player
+    public function setPlace(Place $place): Player
     {
-        $this->room = $room;
+        $this->place = $place;
 
-        $room->addPlayer($this);
+        $place->addPlayer($this);
 
         return $this;
     }
@@ -233,54 +233,15 @@ class Player implements StatusHolderInterface
     public function canReachEquipment(GameEquipment $gameEquipment): bool
     {
         if ($gameEquipment instanceof Door &&
-            $this->getRoom()->getDoors()->contains($gameEquipment)
+            $this->getPlace()->getDoors()->contains($gameEquipment)
         ) {
             return true;
         }
         if ($hiddenStatus = $gameEquipment->getStatusByName(EquipmentStatusEnum::HIDDEN)) {
             return $hiddenStatus->getTarget() === $this;
         } else {
-            return $this->items->contains($gameEquipment) || $this->getRoom()->getEquipments()->contains($gameEquipment);
+            return $this->items->contains($gameEquipment) || $this->getPlace()->getEquipments()->contains($gameEquipment);
         }
-    }
-
-    public function getReachableEquipmentsByName(string $name, string $reach = ReachEnum::SHELVE_NOT_HIDDEN): Collection
-    {
-        //reach can be set to inventory, shelve, shelve only or any room of the Daedalus
-        if ($reach === ReachEnum::INVENTORY) {
-            return $this->getItems()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $name);
-        } elseif ($reach === ReachEnum::SHELVE_NOT_HIDDEN) {
-            return (new ArrayCollection(array_merge(
-                $this->getItems()->toArray(),
-                $this->getRoom()->getEquipments()->toArray()
-            ))
-            )->filter(fn (GameEquipment $gameEquipment) => (
-                $gameEquipment->getName() === $name &&
-                (($hiddenStatus = $gameEquipment->getStatusByName(EquipmentStatusEnum::HIDDEN)) === null ||
-                    $hiddenStatus->getTarget() === $this)));
-        } elseif ($reach === ReachEnum::SHELVE) {
-            return (new ArrayCollection(array_merge(
-                $this->getItems()->toArray(),
-                $this->getRoom()->getEquipments()->toArray()
-            ))
-            )->filter(fn (GameEquipment $equipment) => ($equipment->getName() === $name));
-        } else {
-            if ($roomReached = $this->getDaedalus()->getRoomByName($reach)) {
-                return $roomReached
-                    ->getEquipments()
-                    ->filter(fn (GameEquipment $equipment) => $equipment->getName() === $name)
-                    ;
-            }
-        }
-
-        return new ArrayCollection();
-    }
-
-    public function getReachableTools(): Collection
-    {
-        //reach can be set to inventory, shelve, shelve only or any room of the Daedalus
-        return (new ArrayCollection(array_merge($this->getItems()->toArray(), $this->getRoom()->getEquipments()->toArray())
-        ))->filter(fn (GameEquipment $gameEquipment) => ($gameEquipment->getEquipment()->getMechanicbyName(EquipmentMechanicEnum::TOOL)));
     }
 
     public function getItems(): Collection
@@ -326,28 +287,6 @@ class Player implements StatusHolderInterface
         }
 
         return $this;
-    }
-
-    public function getApplicableGears(array $scope, array $types, ?string $target = null): Collection
-    {
-        /** @var Collection $gears */
-        $gears = new ArrayCollection();
-        /** @var GameItem $item */
-        foreach ($this->getItems() as $item) {
-            /** @var Gear $gear */
-            $gear = $item->getEquipment()->getMechanicByName(EquipmentMechanicEnum::GEAR);
-
-            if ($gear &&
-                in_array($gear->getModifier()->getScope(), $scope) &&
-                ($target === null || $gear->getModifier()->getTarget() === $target) &&
-                (count($types) || in_array($gear->getModifier()->getTarget(), $types)) &&
-                in_array($gear->getModifier()->getReach(), [ReachEnum::INVENTORY])
-            ) {
-                $gears->add($gear);
-            }
-        }
-
-        return $gears;
     }
 
     public function hasItemByName(string $name): bool
@@ -554,5 +493,22 @@ class Player implements StatusHolderInterface
         $this->satiety += $satiety;
 
         return $this;
+    }
+
+    public function getClassName(): string
+    {
+        return get_class($this);
+    }
+
+    public function getSelfActions(): Collection
+    {
+        return $this->characterConfig->getActions()
+            ->filter(fn (Action $action) => $action->getScope() === ActionScopeEnum::SELF);
+    }
+
+    public function getActions(): Collection
+    {
+        return $this->characterConfig->getActions()
+            ->filter(fn (Action $action) => $action->getScope() === ActionScopeEnum::OTHER_PLAYER);
     }
 }

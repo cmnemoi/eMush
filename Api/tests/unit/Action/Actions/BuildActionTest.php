@@ -4,22 +4,18 @@ namespace Mush\Test\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
-use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Actions\Build;
-use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\EquipmentConfig;
-use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Blueprint;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Entity\GameConfig;
+use Mush\Equipment\Service\GearToolServiceInterface;
+use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Room\Entity\Room;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class BuildActionTest extends AbstractActionTest
@@ -28,7 +24,8 @@ class BuildActionTest extends AbstractActionTest
     private GameEquipmentServiceInterface $gameEquipmentService;
     /** @var PlayerServiceInterface | Mockery\Mock */
     private PlayerServiceInterface $playerService;
-    private GameConfig $gameConfig;
+    /** @var GearToolServiceInterface | Mockery\Mock */
+    private GearToolServiceInterface $gearToolService;
 
     protected AbstractAction $action;
 
@@ -41,13 +38,17 @@ class BuildActionTest extends AbstractActionTest
 
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
+        $this->gearToolService = Mockery::mock(GearToolServiceInterface::class);
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::BUILD);
 
         $this->action = new Build(
             $this->eventDispatcher,
+            $this->actionService,
+            $this->validator,
             $this->gameEquipmentService,
-            $this->playerService
+            $this->playerService,
+            $this->gearToolService
         );
     }
 
@@ -59,69 +60,15 @@ class BuildActionTest extends AbstractActionTest
         Mockery::close();
     }
 
-    public function testCannotExecute()
-    {
-        $room = new Room();
-        $gameEquipment = new GameEquipment();
-        $equipment = new EquipmentConfig();
-        $equipment->setName('blueprint');
-        $gameEquipment
-            ->setEquipment($equipment)
-            ->setRoom($room)
-            ->setName('blueprint');
-
-        $product = new ItemConfig();
-
-        $blueprint = new Blueprint();
-        $blueprint
-            ->setIngredients(['metal_scraps' => 1])
-            ->setEquipment($product);
-
-        $gameIngredient = new GameItem();
-        $ingredient = new ItemConfig();
-        $ingredient->setName('metal_scraps');
-        $gameIngredient
-            ->setEquipment($ingredient)
-            ->setRoom($room)
-            ->setName('metal_scraps');
-
-        $actionParameter = new ActionParameters();
-        $actionParameter->setEquipment($gameEquipment);
-        $player = $this->createPlayer(new Daedalus(), $room);
-
-        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
-
-        //Not a blueprint
-        $result = $this->action->execute();
-        $this->assertInstanceOf(Error::class, $result);
-
-        $equipment->setMechanics(new ArrayCollection([$blueprint]));
-
-        //Ingredient in another room
-        $gameIngredient->setRoom(new Room());
-
-        $result = $this->action->execute();
-        $this->assertInstanceOf(Error::class, $result);
-
-        //Not enough of a given ingredient
-        $gameIngredient->setRoom($room);
-        $blueprint
-            ->setIngredients(['metal_scraps' => 2]);
-        $equipment->setMechanics(new ArrayCollection([$blueprint]));
-
-        $result = $this->action->execute();
-        $this->assertInstanceOf(Error::class, $result);
-    }
-
     public function testExecute()
     {
-        $room = new Room();
+        $room = new Place();
         $gameItem = new GameItem();
         $item = new ItemConfig();
         $item->setName('blueprint');
         $gameItem
             ->setEquipment($item)
-            ->setRoom($room)
+            ->setPlace($room)
             ->setName('blueprint')
         ;
 
@@ -143,19 +90,19 @@ class BuildActionTest extends AbstractActionTest
         $ingredient->setName('metal_scraps');
         $gameIngredient
             ->setEquipment($ingredient)
-            ->setRoom($room)
-            ->setName('metal_scraps');
-
-        $actionParameter = new ActionParameters();
-        $actionParameter->setItem($gameItem);
+            ->setPlace($room)
+            ->setName('metal_scraps')
+        ;
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
-        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         $this->gameEquipmentService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
 
+        $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
+        $this->gearToolService->shouldReceive('getEquipmentsOnReachByName')->andReturn(new ArrayCollection([$gameIngredient]))->once();
         $this->gameEquipmentService->shouldReceive('createGameEquipment')->andReturn($gameProduct)->once();
 
         $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);

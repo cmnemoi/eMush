@@ -121,7 +121,7 @@ class ChannelController extends AbstractFOSRestController
 
         $invited = $request->get('player');
 
-        if (!($invitedPlayer = $this->playerService->findOneByCharacter($invited))) {
+        if (!($invitedPlayer = $this->playerService->findOneByCharacter($invited, $channel->getDaedalus()))) {
             return $this->view(['error' => 'player not found'], 404);
         }
 

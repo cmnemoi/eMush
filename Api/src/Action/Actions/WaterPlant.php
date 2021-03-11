@@ -4,26 +4,29 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionParameters;
+use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\PlantWaterable;
+use Mush\Action\Validator\Reach;
+use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\RoomLog\Enum\ActionLogEnum;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class WaterPlant extends AbstractAction
 {
     protected string $name = ActionEnum::WATER_PLANT;
 
-    private GameEquipment $gameEquipment;
+    /** @var GameItem */
+    protected $parameter;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
@@ -31,48 +34,44 @@ class WaterPlant extends AbstractAction
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
+        ActionServiceInterface $actionService,
+        ValidatorInterface $validator,
         GameEquipmentServiceInterface $gameEquipmentService,
         PlayerServiceInterface $playerService,
         StatusServiceInterface $statusService
     ) {
-        parent::__construct($eventDispatcher);
+        parent::__construct(
+            $eventDispatcher,
+            $actionService,
+            $validator
+        );
 
         $this->gameEquipmentService = $gameEquipmentService;
         $this->playerService = $playerService;
         $this->statusService = $statusService;
     }
 
-    public function loadParameters(Action $action, Player $player, ActionParameters $actionParameters): void
+    protected function support(?ActionParameter $parameter): bool
     {
-        parent::loadParameters($action, $player, $actionParameters);
-
-        if (!($equipment = $actionParameters->getItem()) &&
-            !($equipment = $actionParameters->getEquipment())) {
-            throw new \InvalidArgumentException('Invalid equipment parameter');
-        }
-
-        $this->gameEquipment = $equipment;
+        return $parameter instanceof GameItem;
     }
 
-    public function canExecute(): bool
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        return $this->player->canReachEquipment($this->gameEquipment) &&
-            $this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PLANT) &&
-            ($this->gameEquipment->getStatusByName(EquipmentStatusEnum::PLANT_THIRSTY) ||
-                $this->gameEquipment->getStatusByName(EquipmentStatusEnum::PLANT_DRIED_OUT))
-            ;
+        $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
+        $metadata->addConstraint(new PlantWaterable(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::WATER_PLANT_NO_THIRSTY]));
     }
 
     protected function applyEffects(): ActionResult
     {
         /** @var Status $status */
-        $status = ($this->gameEquipment->getStatusByName(EquipmentStatusEnum::PLANT_THIRSTY)
-            ?? $this->gameEquipment->getStatusByName(EquipmentStatusEnum::PLANT_DRIED_OUT));
+        $status = ($this->parameter->getStatusByName(EquipmentStatusEnum::PLANT_THIRSTY)
+            ?? $this->parameter->getStatusByName(EquipmentStatusEnum::PLANT_DRIED_OUT));
 
-        $this->gameEquipment->removeStatus($status);
+        $this->parameter->removeStatus($status);
 
-        $this->gameEquipmentService->persist($this->gameEquipment);
+        $this->gameEquipmentService->persist($this->parameter);
 
-        return new Success(ActionLogEnum::WATER_PLANT_SUCCESS, VisibilityEnum::PRIVATE);
+        return new Success();
     }
 }

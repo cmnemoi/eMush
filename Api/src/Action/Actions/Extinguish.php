@@ -4,70 +4,65 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionParameters;
+use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Service\SuccessRateServiceInterface;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\Reach;
+use Mush\Action\Validator\Status;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Player\Entity\Player;
+use Mush\Place\Service\PlaceServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Room\Service\RoomServiceInterface;
-use Mush\RoomLog\Enum\ActionLogEnum;
-use Mush\RoomLog\Enum\VisibilityEnum;
-use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Extinguish extends AttemptAction
 {
     protected string $name = ActionEnum::EXTINGUISH;
 
-    private GameEquipment $gameEquipment;
+    /** @var GameEquipment */
+    protected $parameter;
 
-    private RoomLogServiceInterface $roomLogService;
     private PlayerServiceInterface $playerService;
-    private RoomServiceInterface $roomService;
+    private PlaceServiceInterface $placeService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
-        RoomLogServiceInterface $roomLogService,
+        ActionServiceInterface $actionService,
+        ValidatorInterface $validator,
         PlayerServiceInterface $playerService,
         RandomServiceInterface $randomService,
-        SuccessRateServiceInterface $successRateService,
-        StatusServiceInterface $statusService,
-        RoomServiceInterface $roomService
+        PlaceServiceInterface $placeService,
     ) {
-        parent::__construct($randomService, $successRateService, $eventDispatcher, $statusService);
+        parent::__construct(
+            $eventDispatcher,
+            $actionService,
+            $validator,
+            $randomService,
+        );
 
-        $this->roomLogService = $roomLogService;
         $this->playerService = $playerService;
         $this->randomService = $randomService;
-        $this->successRateService = $successRateService;
-        $this->roomService = $roomService;
+        $this->placeService = $placeService;
     }
 
-    public function loadParameters(Action $action, Player $player, ActionParameters $actionParameters): void
+    protected function support(?ActionParameter $parameter): bool
     {
-        parent::loadParameters($action, $player, $actionParameters);
-
-        if (!($equipment = $actionParameters->getItem()) &&
-            !($equipment = $actionParameters->getEquipment())) {
-            throw new \InvalidArgumentException('Invalid equipment parameter');
-        }
-
-        $this->gameEquipment = $equipment;
+        return $parameter instanceof GameEquipment;
     }
 
-    public function canExecute(): bool
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        //Check that the equipment is reachable
-        return !$this->gameEquipment->isBroken() &&
-            $this->gameEquipment->getEquipment()->hasAction(ActionEnum::EXTINGUISH) &&
-            $this->player->canReachEquipment($this->gameEquipment) &&
-            $this->player->getRoom()->hasStatus(StatusEnum::FIRE)
-        ;
+        $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
+        $metadata->addConstraint(new Status(['status' => StatusEnum::FIRE, 'target' => Status::PLAYER_ROOM, 'groups' => ['visibility']]));
+        $metadata->addConstraint(new Status([
+            'status' => EquipmentStatusEnum::BROKEN, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
+        ]));
     }
 
     protected function applyEffects(): ActionResult
@@ -75,34 +70,14 @@ class Extinguish extends AttemptAction
         $response = $this->makeAttempt();
 
         if ($response instanceof Success &&
-            ($fireStatus = $this->player->getRoom()->getStatusByName(StatusEnum::FIRE))
+            ($fireStatus = $this->player->getPlace()->getStatusByName(StatusEnum::FIRE))
         ) {
-            $this->player->getRoom()->removeStatus($fireStatus);
-            $this->roomService->persist($this->player->getRoom());
+            $this->player->getPlace()->removeStatus($fireStatus);
+            $this->placeService->persist($this->player->getPlace());
         }
 
         $this->playerService->persist($this->player);
 
-        //@TODO get rid of that
-        $this->createLog($response);
-
         return $response;
-    }
-
-    protected function createLog(ActionResult $actionResult): void
-    {
-        $this->roomLogService->createActionLog(
-            ActionLogEnum::EXTINGUISH_SUCCESS,
-            $this->player->getRoom(),
-            $this->player,
-            null,
-            VisibilityEnum::PUBLIC,
-            new \DateTime('now')
-        );
-    }
-
-    protected function getBaseRate(): int
-    {
-        return 50;
     }
 }

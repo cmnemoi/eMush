@@ -5,8 +5,7 @@ namespace Mush\Equipment\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Action\Enum\ActionEnum;
-use Mush\Room\Entity\Room;
+use Mush\Place\Entity\Place;
 
 /**
  * Class Door.
@@ -16,7 +15,7 @@ use Mush\Room\Entity\Room;
 class Door extends GameEquipment
 {
     /**
-     * @ORM\ManyToMany(targetEntity="Mush\Room\Entity\Room")
+     * @ORM\ManyToMany(targetEntity="Mush\Place\Entity\Place")
      */
     private Collection $rooms;
 
@@ -30,7 +29,6 @@ class Door extends GameEquipment
     public function getActions(): Collection
     {
         return new ArrayCollection();
-//        return new ArrayCollection([ActionEnum::MOVE, ActionEnum::REPAIR]);
     }
 
     public function getRooms(): Collection
@@ -57,7 +55,7 @@ class Door extends GameEquipment
     /**
      * @return static
      */
-    public function addRoom(Room $room): Door
+    public function addRoom(Place $room): Door
     {
         $this->rooms->add($room);
 
@@ -68,13 +66,8 @@ class Door extends GameEquipment
         return $this;
     }
 
-    public function getBrokenRate(): int
+    public function getOtherRoom($currentRoom): Place
     {
-        return 50;
-    }
-
-    public function getOtherRoom($currentRoom): Room
-    {
-        return $this->getRooms()->filter(fn (Room $room) => $room !== $currentRoom)->first();
+        return $this->getRooms()->filter(fn (Place $room) => $room !== $currentRoom)->first();
     }
 }

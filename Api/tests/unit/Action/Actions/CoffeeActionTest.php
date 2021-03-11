@@ -4,10 +4,8 @@ namespace Mush\Test\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
-use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Coffee;
-use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\EquipmentConfig;
@@ -17,7 +15,7 @@ use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Room\Entity\Room;
+use Mush\Place\Entity\Place;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -44,8 +42,9 @@ class CoffeeActionTest extends AbstractActionTest
 
         $this->action = new Coffee(
             $this->eventDispatcher,
+            $this->actionService,
+            $this->validator,
             $this->gameEquipmentService,
-            $this->statusService
         );
     }
 
@@ -57,38 +56,9 @@ class CoffeeActionTest extends AbstractActionTest
         Mockery::close();
     }
 
-    public function testCannotExecute()
-    {
-        $room = new Room();
-
-        $gameCoffeeMachine = new GameEquipment();
-        $coffeeMachine = new EquipmentConfig();
-        $coffeeMachine->setName(EquipmentEnum::COFFEE_MACHINE);
-        $gameCoffeeMachine
-            ->setEquipment($coffeeMachine)
-            ->setName(EquipmentEnum::COFFEE_MACHINE)
-            ->setRoom(null)
-        ;
-
-        $chargeStatus = new ChargeStatus($gameCoffeeMachine);
-        $chargeStatus
-            ->setName(EquipmentStatusEnum::CHARGES)
-            ->setCharge(1)
-        ;
-
-        $player = $this->createPlayer(new Daedalus(), $room);
-        $actionParameter = new ActionParameters();
-        $actionParameter->setEquipment($gameCoffeeMachine);
-        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
-
-        //No coffee Machine in the room
-        $result = $this->action->execute();
-        $this->assertInstanceOf(Error::class, $result);
-    }
-
     public function testExecute()
     {
-        $room = new Room();
+        $room = new Place();
 
         $gameCoffeeMachine = new GameEquipment();
         $coffeeMachine = new EquipmentConfig();
@@ -96,7 +66,7 @@ class CoffeeActionTest extends AbstractActionTest
         $gameCoffeeMachine
             ->setEquipment($coffeeMachine)
             ->setName(EquipmentEnum::COFFEE_MACHINE)
-            ->setRoom($room)
+            ->setPlace($room)
         ;
 
         $coffeeMachine->setActions(new ArrayCollection([$this->actionEntity]));
@@ -109,9 +79,7 @@ class CoffeeActionTest extends AbstractActionTest
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
-        $actionParameter = new ActionParameters();
-        $actionParameter->setEquipment($gameCoffeeMachine);
-        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
+        $this->action->loadParameters($this->actionEntity, $player, $gameCoffeeMachine);
 
         $gameCoffee = new GameItem();
         $coffee = new ItemConfig();
@@ -123,8 +91,8 @@ class CoffeeActionTest extends AbstractActionTest
             ->setName(GameRationEnum::COFFEE)
         ;
 
+        $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->andReturn($gameCoffee)->once();
-        $this->gameEquipmentService->shouldReceive('isOperational')->andReturn(true)->once();
         $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $eventDispatcher->shouldReceive('dispatch');
         $this->gameEquipmentService->shouldReceive('persist');
@@ -133,7 +101,6 @@ class CoffeeActionTest extends AbstractActionTest
 
         $this->assertInstanceOf(Success::class, $result);
         $this->assertCount(1, $room->getEquipments());
-        $this->assertEquals(0, $room->getEquipments()->first()->getStatuses()->first()->getCharge());
         $this->assertCount(0, $player->getStatuses());
         $this->assertEquals(10, $player->getActionPoint());
     }

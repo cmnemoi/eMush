@@ -5,8 +5,8 @@ namespace Mush\Tests\Status\Event;
 use App\Tests\FunctionalTester;
 use DateTime;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\Room\Entity\Room;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
@@ -34,10 +34,10 @@ class DayEventCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
-        /** @var Room $room */
-        $room = $I->have(Room::class, ['daedalus' => $daedalus]);
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
         /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'room' => $room]);
+        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
 
         $status = new ChargeStatus($player);
 

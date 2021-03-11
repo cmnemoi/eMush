@@ -4,15 +4,15 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionParameters;
+use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Player\Entity\Player;
-use Mush\RoomLog\Enum\ActionLogEnum;
-use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class GetUp extends AbstractAction
 {
@@ -22,21 +22,27 @@ class GetUp extends AbstractAction
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
-        StatusServiceInterface $statusService
+        ActionServiceInterface $actionService,
+        ValidatorInterface $validator,
+        StatusServiceInterface $statusService,
     ) {
-        parent::__construct($eventDispatcher);
+        parent::__construct(
+            $eventDispatcher,
+            $actionService,
+            $validator
+        );
 
         $this->statusService = $statusService;
     }
 
-    public function loadParameters(Action $action, Player $player, ActionParameters $actionParameters): void
+    protected function support(?ActionParameter $parameter): bool
     {
-        parent::loadParameters($action, $player, $actionParameters);
+        return $parameter === null;
     }
 
-    public function canExecute(): bool
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        return $this->player->getStatusByName(PlayerStatusEnum::LYING_DOWN) !== null;
+        $metadata->addConstraint(new Status(['status' => PlayerStatusEnum::LYING_DOWN, 'target' => Status::PLAYER, 'groups' => ['visibility']]));
     }
 
     protected function applyEffects(): ActionResult
@@ -45,6 +51,6 @@ class GetUp extends AbstractAction
             $this->player->removeStatus($lyingDownStatus);
         }
 
-        return new Success(ActionLogEnum::GET_UP, VisibilityEnum::PUBLIC);
+        return new Success();
     }
 }

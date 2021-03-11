@@ -5,26 +5,26 @@ namespace Mush\Action\Entity;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\Room\Entity\Room;
 
 class ActionParameters
 {
-    private ?Room $room = null;
+    private ?Place $place = null;
     private ?Player $player = null;
     private ?GameEquipment $equipment = null;
     private ?GameItem $item = null;
     private ?Door $door = null;
     private string $message = '';
 
-    public function getRoom(): ?Room
+    public function getPlace(): ?Place
     {
-        return $this->room;
+        return $this->place;
     }
 
-    public function setRoom(?Room $room): ActionParameters
+    public function setPlace(?Place $place): ActionParameters
     {
-        $this->room = $room;
+        $this->place = $place;
 
         return $this;
     }

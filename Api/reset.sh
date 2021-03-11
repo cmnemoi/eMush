@@ -1,6 +1,6 @@
 #!/bin/bash
 
 composer install
-bin/console doctrine:schema:drop -f
-bin/console doctrine:schema:update -f
-yes | bin/console doctrine:fixture:load
+php bin/console doctrine:schema:drop -f
+php bin/console doctrine:schema:update -f
+yes | php bin/console doctrine:fixture:load

@@ -17,6 +17,9 @@ const getters = {
     },
     messages(state) {
         return state.messagesByChannelId[state.currentChannel.id] || [];
+    },
+    roomChannel(state) {
+        return state.channels.find(channel => channel.scope === ROOM_LOG);
     }
 };
 
@@ -24,13 +27,13 @@ const actions = {
     async changeChannel({ commit }, { channel }) {
         commit('setCurrentChannel', channel);
     },
-    async loadChannels({ commit }) {
+    async loadChannels({ getters, commit }) {
         commit('setLoadingOfChannels', true);
 
         try {
             const channels = await CommunicationService.loadChannels();
             commit('setChannels', channels);
-            commit('setCurrentChannel', channels.find(({ scope }) => scope === ROOM_LOG));
+            commit('setCurrentChannel', getters.roomChannel);
             commit('setLoadingOfChannels', false);
             return true;
         } catch (e) {
@@ -67,24 +70,37 @@ const actions = {
         }
     },
 
-    async createPrivateChannel({ commit }) {
+    async createPrivateChannel({ state, commit }) {
+        if (state.loadingChannels) { return; }
         commit('setLoadingOfChannels', true);
 
         try {
             const newChannel = await CommunicationService.createPrivateChannel();
             commit('addChannel', newChannel);
+            commit('setCurrentChannel', newChannel);
             commit('setLoadingOfChannels', false);
-
-            return true;
         } catch (e) {
             commit('setLoadingOfChannels', false);
-            return false;
         }
     },
 
-    resetRoomLogs({ commit, state }) {
-        const roomChannel = state.channels.find(channel => channel.scope === ROOM_LOG);
-        commit('setChannelMessages', { channel: roomChannel, messages: [] });
+    async leavePrivateChannel({ getters, commit }, channel) {
+        commit('setLoadingOfChannels', true);
+        try {
+            await CommunicationService.leaveChannel(channel);
+            commit('removeChannel', channel);
+            commit('setCurrentChannel', getters.roomChannel);
+            commit('setLoadingOfChannels', false);
+        } catch (e) {
+            commit('setLoadingOfChannels', false);
+        }
+    },
+
+    clearRoomLogs({ getters, commit }) {
+        commit('setChannelMessages', { channel: getters.roomChannel, messages: [] });
+    },
+    async loadRoomLogs({ getters, dispatch }) {
+        await dispatch('loadMessages', { channel: getters.roomChannel });
     }
 };
 
@@ -107,6 +123,12 @@ const mutations = {
 
     addChannel(state, channel) {
         state.channels.push(channel);
+    },
+
+    removeChannel(state, channel) {
+        state.channels = state.channels.filter(({ id }) => id !== channel.id);
+        delete state.loadingByChannelId[channel.id];
+        delete state.messagesByChannelId[channel.id];
     },
 
     setChannelMessages(state, { channel, messages }) {

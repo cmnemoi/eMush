@@ -41,12 +41,29 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $actions = new ArrayCollection([$takeAction, $dropAction]);
 
+        $repair1 = $this->getReference(TechnicianFixtures::REPAIR_1);
+        $repair6 = $this->getReference(TechnicianFixtures::REPAIR_6);
+        $repair12 = $this->getReference(TechnicianFixtures::REPAIR_12);
+        $repair25 = $this->getReference(TechnicianFixtures::REPAIR_25);
+
+        $sabotage1 = $this->getReference(TechnicianFixtures::SABOTAGE_1);
+        $sabotage6 = $this->getReference(TechnicianFixtures::SABOTAGE_6);
+        $sabotage12 = $this->getReference(TechnicianFixtures::SABOTAGE_12);
+        $sabotage25 = $this->getReference(TechnicianFixtures::SABOTAGE_25);
+
+        $dismantle12 = $this->getReference(TechnicianFixtures::DISMANTLE_3_12);
+
         $apronGear = $this->createGear(
             ModifierTargetEnum::PERCENTAGE,
             -100,
             ModifierScopeEnum::EVENT_DIRTY,
-            ReachEnum::INVENTORY
+            ReachEnum::INVENTORY,
+            true
         );
+
+        $actions25 = clone $actions;
+        $actions25->add($repair25);
+        $actions25->add($sabotage25);
 
         $apron = new ItemConfig();
         $apron
@@ -57,20 +74,22 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
-            ->setBreakableRate(25)
-            ->setActions($actions)
+            ->setActions($actions25)
             ->setMechanics(new ArrayCollection([$apronGear]))
         ;
         $manager->persist($apron);
 
-        $plasteniteGearActions = clone $actions;
-        $plasteniteGearActions->add($this->getReference(TechnicianFixtures::DISMANTLE_3_12));
+        $plasteniteActions = clone $actions;
+        $plasteniteActions->add($dismantle12);
+        $plasteniteActions->add($repair12);
+        $plasteniteActions->add($sabotage12);
 
         $plasteniteGear = $this->createGear(
             ModifierTargetEnum::HEALTH_POINT,
             -1,
             ModifierScopeEnum::ACTION_ATTACK,
-            ReachEnum::INVENTORY
+            ReachEnum::INVENTORY,
+            true
         );
 
         $plasteniteArmor = new ItemConfig();
@@ -82,9 +101,9 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
-            ->setBreakableRate(12)
+            ->setIsBreakable(true)
             ->setMechanics(new ArrayCollection([$plasteniteGear]))
-            ->setActions($plasteniteGearActions)
+            ->setActions($plasteniteActions)
             ->setDismountedProducts([ItemEnum::PLASTIC_SCRAPS => 1])
         ;
         $manager->persist($plasteniteArmor);
@@ -93,7 +112,8 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ModifierTargetEnum::PERCENTAGE,
             1.5,
             ModifierScopeEnum::ACTION_TECHNICIAN,
-            ReachEnum::INVENTORY
+            ReachEnum::INVENTORY,
+            false
         );
         $wrench = new ItemConfig();
         $wrench
@@ -110,10 +130,11 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($wrench);
 
         $glovesGear = $this->createGear(
-            ModifierTargetEnum::HEALTH_POINT,
-            -1,
+            ModifierTargetEnum::PERCENTAGE,
+            -100,
             ModifierScopeEnum::EVENT_CLUMSINESS,
-            ReachEnum::INVENTORY
+            ReachEnum::INVENTORY,
+            true
         );
 
         $gloves = new ItemConfig();
@@ -125,9 +146,9 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
-            ->setBreakableRate(25)
+            ->setIsBreakable(true)
             ->setMechanics(new ArrayCollection([$glovesGear]))
-            ->setActions($actions)
+            ->setActions($actions25)
         ;
         $manager->persist($gloves);
 
@@ -135,7 +156,8 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ModifierTargetEnum::ACTION_POINT,
             -1,
             ActionEnum::SHOWER,
-            ReachEnum::INVENTORY
+            ReachEnum::INVENTORY,
+            true
         );
 
         $soap = new ItemConfig();
@@ -153,13 +175,16 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($soap);
 
         $sniperHelmetActions = clone $actions;
-        $sniperHelmetActions->add($this->getReference(TechnicianFixtures::DISMANTLE_3_12));
+        $sniperHelmetActions->add($dismantle12);
+        $sniperHelmetActions->add($repair1); //@FIXME with the right %
+        $sniperHelmetActions->add($sabotage1);
 
         $sniperHelmetGear = $this->createGear(
             ModifierTargetEnum::PERCENTAGE,
-            10,
+            1.1,
             ModifierScopeEnum::ACTION_SHOOT,
-            ReachEnum::INVENTORY
+            ReachEnum::INVENTORY,
+            true
         );
 
         $sniperHelmet = new ItemConfig();
@@ -171,7 +196,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
-            ->setBreakableRate(99)
+            ->setIsBreakable(true)
             ->setMechanics(new ArrayCollection([$sniperHelmetGear]))
             ->setActions($sniperHelmetActions)
             ->setDismountedProducts([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::METAL_SCRAPS => 1])
@@ -182,7 +207,8 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ModifierTargetEnum::PERCENTAGE,
             1.5,
             ModifierScopeEnum::ACTION_TECHNICIAN,
-            ReachEnum::INVENTORY
+            ReachEnum::INVENTORY,
+            false
         );
 
         $alienBottleOpener = new ItemConfig();
@@ -202,12 +228,15 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $antiGravScooterActions = clone $actions;
         $antiGravScooterActions->add($this->getReference(TechnicianFixtures::DISMANTLE_3_25));
+        $antiGravScooterActions->add($repair6);
+        $antiGravScooterActions->add($sabotage6);
 
         $antiGravScooterGear = $this->createGear(
             ModifierTargetEnum::MOVEMENT_POINT,
             2,
             ModifierScopeEnum::EVENT_ACTION_POINT_CONVERSION,
-            ReachEnum::INVENTORY
+            ReachEnum::INVENTORY,
+            true
         );
 
         $chargedMechanic = new Charged();
@@ -227,7 +256,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
-            ->setBreakableRate(6)
+            ->setIsBreakable(true)
             ->setMechanics(new ArrayCollection([$chargedMechanic, $antiGravScooterGear]))
             ->setActions($antiGravScooterActions)
             ->setDismountedProducts([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::METAL_SCRAPS => 2])
@@ -249,11 +278,16 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($rollingBoulder);
 
+        $actions12 = clone $actions;
+        $actions12->add($repair12);
+        $actions12->add($sabotage12);
+
         $lensesGear = $this->createGear(
             ModifierTargetEnum::PERCENTAGE,
-            10,
+            1.1,
             ModifierScopeEnum::ACTION_SHOOT,
-            ReachEnum::INVENTORY
+            ReachEnum::INVENTORY,
+            false
         );
         $lenses = new ItemConfig();
         $lenses
@@ -264,9 +298,9 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setBreakableRate(12)
+            ->setIsBreakable(true)
             ->setMechanics(new ArrayCollection([$lensesGear]))
-            ->setActions($actions)
+            ->setActions($actions12)
         ;
         $manager->persist($lenses);
 
@@ -274,7 +308,8 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ModifierTargetEnum::PERCENTAGE,
             1.5,
             ActionEnum::REINFORCE,
-            ReachEnum::INVENTORY
+            ReachEnum::INVENTORY,
+            false
         );
 
         $oscilloscope = new ItemConfig();
@@ -286,14 +321,15 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
-            ->setBreakableRate(99)
             ->setMechanics(new ArrayCollection([$oscilloscopeGear]))
-            ->setActions($actions)
+            ->setActions($actions) //@FIXME add repair and sabotage with right %
         ;
         $manager->persist($oscilloscope);
 
         $spacesuitActions = clone $actions;
-        $spacesuitActions->add($this->getReference(TechnicianFixtures::DISMANTLE_3_12));
+        $spacesuitActions->add($dismantle12);
+        $spacesuitActions->add($repair6);
+        $spacesuitActions->add($sabotage6);
 
         $spacesuit = new ItemConfig();
         $spacesuit
@@ -304,7 +340,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
-            ->setBreakableRate(6)
+            ->setIsBreakable(true)
             ->setActions($spacesuitActions)
             ->setDismountedProducts([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::METAL_SCRAPS => 1])
         ;
@@ -351,6 +387,10 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($invertebrateShell);
 
+        $actionsLiquidMap = clone $actions;
+        $actionsLiquidMap->add($repair1);
+        $actionsLiquidMap->add($sabotage1);
+
         $liquidMap = new ItemConfig();
         $liquidMap
             ->setGameConfig($gameConfig)
@@ -360,9 +400,9 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
-            ->setBreakableRate(1)
             ->setIsAlienArtifact(true)
-            ->setActions($actions)
+            ->setIsBreakable(true)
+            ->setActions($actionsLiquidMap)
         ;
         $manager->persist($liquidMap);
 
@@ -372,7 +412,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->flush();
     }
 
-    private function createGear(string $target, float $delta, string $scope, string $reach): Gear
+    private function createGear(string $target, float $delta, string $scope, string $reach, bool $isAdditive): Gear
     {
         $modifier = new Modifier();
         $modifier
@@ -380,12 +420,13 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setDelta($delta)
             ->setScope($scope)
             ->setReach($reach)
+            ->setIsAdditive($isAdditive)
         ;
 
         $this->objectManager->persist($modifier);
 
         $gear = new Gear();
-        $gear->setModifier($modifier);
+        $gear->setModifier(new ArrayCollection([$modifier]));
 
         $this->objectManager->persist($gear);
 

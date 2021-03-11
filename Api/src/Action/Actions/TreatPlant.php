@@ -4,66 +4,64 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionParameters;
+use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\Reach;
+use Mush\Action\Validator\Status;
+use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Player\Entity\Player;
-use Mush\RoomLog\Enum\ActionLogEnum;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class TreatPlant extends AbstractAction
 {
     protected string $name = ActionEnum::TREAT_PLANT;
 
-    private GameEquipment $gameEquipment;
+    /** @var GameItem */
+    protected $parameter;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
+        ActionServiceInterface $actionService,
+        ValidatorInterface $validator,
         GameEquipmentServiceInterface $gameEquipmentService,
-        StatusServiceInterface $statusService
     ) {
-        parent::__construct($eventDispatcher);
+        parent::__construct(
+            $eventDispatcher,
+            $actionService,
+            $validator
+        );
 
         $this->gameEquipmentService = $gameEquipmentService;
-        $this->statusService = $statusService;
     }
 
-    public function loadParameters(Action $action, Player $player, ActionParameters $actionParameters): void
+    protected function support(?ActionParameter $parameter): bool
     {
-        parent::loadParameters($action, $player, $actionParameters);
-
-        if (!($equipment = $actionParameters->getItem()) &&
-            !($equipment = $actionParameters->getEquipment())) {
-            throw new \InvalidArgumentException('Invalid equipment parameter');
-        }
-
-        $this->gameEquipment = $equipment;
+        return $parameter instanceof GameItem;
     }
 
-    public function canExecute(): bool
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        return $this->player->canReachEquipment($this->gameEquipment) &&
-                    $this->gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PLANT) &&
-                    $this->gameEquipment->getStatusByName(EquipmentStatusEnum::PLANT_DISEASED)
-                    ;
+        $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
+        $metadata->addConstraint(new Status([
+            'status' => EquipmentStatusEnum::PLANT_DISEASED, 'contain' => false, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::TREAT_PLANT_NO_DISEASE,
+        ]));
     }
 
     protected function applyEffects(): ActionResult
     {
-        if ($diseased = $this->gameEquipment->getStatusByName(EquipmentStatusEnum::PLANT_DISEASED)) {
-            $this->gameEquipment->removeStatus($diseased);
-            $this->gameEquipmentService->persist($this->gameEquipment);
+        if ($diseased = $this->parameter->getStatusByName(EquipmentStatusEnum::PLANT_DISEASED)) {
+            $this->parameter->removeStatus($diseased);
+            $this->gameEquipmentService->persist($this->parameter);
         }
 
-        return new Success(ActionLogEnum::TREAT_PLANT_SUCCESS, VisibilityEnum::PRIVATE);
+        return new Success();
     }
 }

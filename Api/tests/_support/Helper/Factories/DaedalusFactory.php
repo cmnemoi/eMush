@@ -33,6 +33,7 @@ class DaedalusFactory extends \Codeception\Module
             'tremorPlayerDamage' => [2 => 1],
             'metalPlatePlayerDamage' => [6 => 1],
             'panicCrisisPlayerDamage' => [3 => 1],
+            'plantDiseaseRate' => 0,
         ]);
         $factory->_define(DaedalusConfig::class, [
             'maxOxygen' => 32,
@@ -51,6 +52,7 @@ class DaedalusFactory extends \Codeception\Module
             'daedalusConfig' => 'entity|' . DaedalusConfig::class,
             'nbMush' => 2,
             'cycleLength' => 3,
+            'cyclePerGameDay' => 8,
             'timeZone' => 'Paris/Europe',
             'language' => 'fr-FR',
             'maxNumberPrivateChannel' => 3,
@@ -74,6 +76,7 @@ class DaedalusFactory extends \Codeception\Module
             'shield' => -2,
             'day' => 1,
             'cycle' => 1,
+            'cycleStartedAt' => new \DateTime('today midnight'),
         ]);
     }
 }

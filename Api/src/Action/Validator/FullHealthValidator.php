@@ -1,15 +1,14 @@
 <?php
 
-
 namespace Mush\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
-use Mush\Player\Enum\ModifierTargetEnum;
+use Mush\Player\Entity\Player;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class MaxHealthValidator extends ConstraintValidator
+class FullHealthValidator extends ConstraintValidator
 {
     public function validate($value, Constraint $constraint): void
     {
@@ -17,7 +16,7 @@ class MaxHealthValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, AbstractAction::class);
         }
 
-        if (!$constraint instanceof MaxHealth) {
+        if (!$constraint instanceof FullHealth) {
             throw new UnexpectedTypeException($constraint, Reach::class);
         }
 
@@ -26,8 +25,11 @@ class MaxHealthValidator extends ConstraintValidator
             FullHealth::PLAYER => $value->getPlayer()
         };
 
+        if (!$player instanceof Player) {
+            throw new UnexpectedTypeException($constraint, Player::class);
+        }
 
-        if($player->getHealthPoint() === $player->getCharacterConfig()->getGameConfig()->getMaxHealthPoint()){
+        if ($player->getHealthPoint() === $player->getCharacterConfig()->getGameConfig()->getMaxHealthPoint()) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }

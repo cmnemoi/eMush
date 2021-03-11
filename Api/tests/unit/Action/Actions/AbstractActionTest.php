@@ -9,6 +9,7 @@ use Mush\Action\Entity\ActionCost;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\CharacterConfig;
+use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
@@ -71,8 +72,14 @@ abstract class AbstractActionTest extends TestCase
 
     protected function createPlayer(Daedalus $daedalus, Place $room, array $skills = []): Player
     {
+        $gameConfig = new GameConfig();
+        $gameConfig->setMaxHealthPoint(16);
+
         $characterConfig = new CharacterConfig();
-        $characterConfig->setName('character name');
+        $characterConfig
+            ->setName('character name')
+            ->setGameConfig($gameConfig)
+        ;
 
         $player = new Player();
         $player

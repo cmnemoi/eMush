@@ -9,6 +9,7 @@ use Mush\Equipment\Enum\ReachEnum;
 use Mush\Player\Entity\Player;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
+use Symfony\Component\Validator\Exception\LogicException;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class ReachValidator extends ConstraintValidator
@@ -16,7 +17,7 @@ class ReachValidator extends ConstraintValidator
     public function validate($value, Constraint $constraint): void
     {
         if (!$value instanceof AbstractAction) {
-            throw new UnexpectedTypeException($constraint, AbstractAction::class);
+            throw new UnexpectedTypeException($value, AbstractAction::class);
         }
 
         if (!$constraint instanceof Reach) {
@@ -24,43 +25,66 @@ class ReachValidator extends ConstraintValidator
         }
 
         $parameter = $value->getParameter();
+        $player = $value->getPlayer();
 
-        switch ($constraint->reach) {
+        if ($parameter instanceof GameEquipment) {
+            $canReach = $this->canReachGameEquipment($player, $parameter, $constraint->reach);
+        } elseif ($parameter instanceof Player) {
+            $canReach = $this->canReachPlayer($player, $parameter, $constraint->reach);
+        } else {
+            throw new LogicException('invalid parameter type');
+        }
+
+        if (!$canReach) {
+            $this->context->buildViolation($constraint->message)
+                ->addViolation();
+        }
+    }
+
+    private function canReachPlayer(Player $player, Player $parameter, string $reach): bool
+    {
+        if ($reach !== ReachEnum::ROOM) {
+            throw new LogicException('invalid reach for player');
+        }
+
+        if ($parameter === $player ||
+            $parameter->getPlace() !== $player->getPlace()
+        ) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private function canReachGameEquipment(Player $player, GameEquipment $parameter, string $reach): bool
+    {
+        switch ($reach) {
             case ReachEnum::INVENTORY:
                 if (!$parameter instanceof GameItem) {
-                    throw new UnexpectedTypeException($constraint, GameItem::class);
+                    throw new UnexpectedTypeException($parameter, GameItem::class);
                 }
 
-                if (!$value->getPlayer()->getItems()->contains($parameter)) {
-                    $this->context->buildViolation($constraint->message)
-                        ->addViolation();
+                if (!$player->getItems()->contains($parameter)) {
+                    return false;
                 }
                 break;
             case ReachEnum::SHELVE:
                 if (!$parameter instanceof GameItem) {
-                    throw new UnexpectedTypeException($constraint, GameItem::class);
+                    throw new UnexpectedTypeException($parameter, GameItem::class);
                 }
 
-                if (!$value->getPlayer()->getPlace()->getEquipments()->contains($parameter)) {
-                    $this->context->buildViolation($constraint->message)
-                        ->addViolation();
+                if (!$player->getPlace()->getEquipments()->contains($parameter)) {
+                    return false;
                 }
                 break;
+
             case ReachEnum::ROOM:
-                if ($parameter instanceof Player) {
-                    if ($parameter === $value->getPlayer() ||
-                        $parameter->getPlace() !== $value->getPlayer()->getPlace()
-                    ) {
-                        $this->context->buildViolation($constraint->message)
-                            ->addViolation();
-                    }
-                } elseif ($parameter instanceof GameEquipment) {
-                    if (!$value->getPlayer()->canReachEquipment($parameter)) {
-                        $this->context->buildViolation($constraint->message)
-                            ->addViolation();
-                    }
+                if (!$player->canReachEquipment($parameter)) {
+                    return false;
                 }
                 break;
         }
+
+        return true;
     }
 }

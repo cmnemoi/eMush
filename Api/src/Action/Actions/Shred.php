@@ -12,6 +12,7 @@ use Mush\Action\Validator\Reach;
 use Mush\Action\Validator\Shredable;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
@@ -54,8 +55,8 @@ class Shred extends AbstractAction
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
+        $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(new Mechanic(['mechanic' => EquipmentMechanicEnum::DOCUMENT, 'groups' => ['visibility']]));
-        $metadata->addConstraint(new Reach(['groups' => ['visibility']]));
         $metadata->addConstraint(new Shredable(['groups' => ['visibility']]));
     }
 

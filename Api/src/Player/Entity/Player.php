@@ -6,7 +6,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameter;
+use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
@@ -496,5 +498,17 @@ class Player implements StatusHolderInterface, ActionParameter
     public function getClassName(): string
     {
         return get_class($this);
+    }
+
+    public function getSelfActions(): Collection
+    {
+        return $this->characterConfig->getActions()
+            ->filter(fn (Action $action) => $action->getScope() === ActionScopeEnum::SELF);
+    }
+
+    public function getTargetActions(): Collection
+    {
+        return $this->characterConfig->getActions()
+            ->filter(fn (Action $action) => $action->getScope() === ActionScopeEnum::OTHER_PLAYER);
     }
 }

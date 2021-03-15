@@ -83,12 +83,10 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
         $actions = [];
 
         /** @var Action $action */
-        foreach ($player->getCharacterConfig()->getActions() as $action) {
-            if ($action->getScope() === ActionScopeEnum::SELF) {
-                $normedAction = $this->normalizer->normalize($action, $format, $context);
-                if (is_array($normedAction) && count($normedAction) > 0) {
-                    $actions[] = $normedAction;
-                }
+        foreach ($player->getSelfActions() as $action) {
+            $normedAction = $this->normalizer->normalize($action, $format, $context);
+            if (is_array($normedAction) && count($normedAction) > 0) {
+                $actions[] = $normedAction;
             }
         }
 

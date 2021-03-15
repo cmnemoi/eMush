@@ -45,7 +45,7 @@ class AutomaticGetUpCest
         $getUpAction
             ->setName(ActionEnum::GET_UP)
             ->setDirtyRate(0)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setScope(ActionScopeEnum::SELF)
             ->setInjuryRate(0)
             ->setActionCost($getUpCost)
         ;

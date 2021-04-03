@@ -13,7 +13,7 @@ class ParameterNameValidator extends ConstraintValidator
     public function validate($value, Constraint $constraint): void
     {
         if (!$value instanceof AbstractAction) {
-            throw new UnexpectedTypeException($constraint, AbstractAction::class);
+            throw new UnexpectedTypeException($value, AbstractAction::class);
         }
 
         if (!$constraint instanceof ParameterName) {

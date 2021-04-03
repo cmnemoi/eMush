@@ -506,7 +506,7 @@ class Player implements StatusHolderInterface, ActionParameter
             ->filter(fn (Action $action) => $action->getScope() === ActionScopeEnum::SELF);
     }
 
-    public function getActions(): Collection
+    public function getTargetActions(): Collection
     {
         return $this->characterConfig->getActions()
             ->filter(fn (Action $action) => $action->getScope() === ActionScopeEnum::OTHER_PLAYER);

@@ -22,7 +22,7 @@ class HasActionValidator extends ConstraintValidator
     public function validate($value, Constraint $constraint): void
     {
         if (!$value instanceof AbstractAction) {
-            throw new UnexpectedTypeException($constraint, AbstractAction::class);
+            throw new UnexpectedTypeException($value, AbstractAction::class);
         }
 
         if (!$constraint instanceof HasAction) {
@@ -33,10 +33,9 @@ class HasActionValidator extends ConstraintValidator
         $action = $value->getAction();
         $player = $value->getPlayer();
 
-        if (($parameter === null &&
-            $player->getSelfActions()->contains($action)) ||
-            (($parameter instanceof Player || $parameter instanceof GameEquipment) &&
-                !$parameter->getActions()->contains($action)) &&
+        if ((($parameter === null && !$player->getSelfActions()->contains($action)) ||
+            ($parameter instanceof Player && !$parameter->getTargetActions()->contains($action)) ||
+            ($parameter instanceof GameEquipment && !$parameter->getActions()->contains($action))) &&
             $this->gearToolService->getUsedTool($player, $value->getActionName()) === null
         ) {
             $this->context->buildViolation($constraint->message)

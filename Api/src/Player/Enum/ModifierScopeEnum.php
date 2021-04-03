@@ -4,6 +4,7 @@ namespace Mush\Player\Enum;
 
 class ModifierScopeEnum
 {
+    public const PERMANENT = 'permanent';
     public const ACTION_TECHNICIAN = 'action_technician';
     public const ACTION_SHOOT = 'action_shoot';
     public const ACTION_REINFORCE = 'action_reinforce';

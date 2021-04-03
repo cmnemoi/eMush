@@ -9,5 +9,6 @@ class FullHealth extends ClassConstraint
 
     public string $message = 'player already full health';
 
-    public string $target;
+    //If not target player, then it targets the parameter
+    public string $target = self::PARAMETER;
 }

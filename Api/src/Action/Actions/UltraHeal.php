@@ -16,6 +16,7 @@ use Mush\Player\Entity\Modifier;
 use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\Player\Service\PlayerVariableServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -26,12 +27,14 @@ class UltraHeal extends AbstractAction
     protected string $name = ActionEnum::ULTRAHEAL;
 
     private PlayerServiceInterface $playerService;
+    private PlayerVariableServiceInterface $playerVariableService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         PlayerServiceInterface $playerService,
+        PlayerVariableServiceInterface $playerVariableService,
     ) {
         parent::__construct(
             $eventDispatcher,
@@ -40,6 +43,7 @@ class UltraHeal extends AbstractAction
         );
 
         $this->playerService = $playerService;
+        $this->playerVariableService = $playerVariableService;
     }
 
     protected function support(?ActionParameter $parameter): bool
@@ -57,7 +61,7 @@ class UltraHeal extends AbstractAction
     {
         //@TODO remove all injuries
 
-        $delta = $this->player->getCharacterConfig()->getGameConfig()->getMaxHealthPoint() - $this->player->getHealthPoint();
+        $delta = $this->playerVariableService->getMaxPlayerVariable($this->player, ModifierTargetEnum::MAX_HEALTH_POINT) - $this->player->getHealthPoint();
 
         $actionModifier = new Modifier();
         $actionModifier

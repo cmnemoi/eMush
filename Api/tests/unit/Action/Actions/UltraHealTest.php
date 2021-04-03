@@ -11,12 +11,17 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
+use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\Player\Service\PlayerVariableServiceInterface;
 
 class UltraHealActionTest extends AbstractActionTest
 {
     /** @var PlayerServiceInterface | Mockery\Mock */
     private PlayerServiceInterface $playerService;
+
+    /** @var PlayerVariableServiceInterface | Mockery\Mock */
+    private PlayerVariableServiceInterface $playerVariableService;
 
     /**
      * @before
@@ -28,12 +33,14 @@ class UltraHealActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::SELF_HEAL);
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
+        $this->playerVariableService = Mockery::mock(PlayerVariableServiceInterface::class);
 
         $this->action = new UltraHeal(
             $this->eventDispatcher,
             $this->actionService,
             $this->validator,
             $this->playerService,
+            $this->playerVariableService
         );
     }
 
@@ -54,10 +61,13 @@ class UltraHealActionTest extends AbstractActionTest
             ->setEquipment($item)
             ->setPlace($room);
 
+        $player = $this->createPlayer(new Daedalus(), $room);
+
+        $this->playerVariableService
+            ->shouldReceive('getMaxPlayerVariable')
+            ->with($player, ModifierTargetEnum::MAX_HEALTH_POINT);
         $this->playerService->shouldReceive('persist');
         $this->eventDispatcher->shouldReceive('dispatch');
-
-        $player = $this->createPlayer(new Daedalus(), $room);
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 

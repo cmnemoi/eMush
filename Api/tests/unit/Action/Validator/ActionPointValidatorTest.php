@@ -4,26 +4,25 @@ namespace Mush\Test\Action\Validator;
 
 use Mockery;
 use Mush\Action\Actions\AbstractAction;
-use Mush\Action\Validator\Breakable;
-use Mush\Action\Validator\BreakableValidator;
-use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\ItemConfig;
+use Mush\Action\Validator\ActionPoint;
+use Mush\Action\Validator\ActionPointValidator;
+use Mush\Player\Entity\Player;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
-class BreakableValidatorTest extends TestCase
+class ActionPointValidatorTest extends TestCase
 {
-    private BreakableValidator $validator;
-    private Breakable $constraint;
+    private ActionPointValidator $validator;
+    private ActionPoint $constraint;
 
     /**
      * @before
      */
     public function before()
     {
-        $this->validator = new BreakableValidator();
-        $this->constraint = new Breakable();
+        $this->validator = new ActionPointValidator();
+        $this->constraint = new ActionPoint();
     }
 
     /**
@@ -36,18 +35,22 @@ class BreakableValidatorTest extends TestCase
 
     public function testValid()
     {
-        $itemConfig = new ItemConfig();
-        $itemConfig->setIsBreakable(true);
-
-        $target = new GameItem();
-        $target->setEquipment($itemConfig);
+        $player = new Player();
+        $player
+            ->setActionPoint(5)
+            ->setMovementPoint(5)
+            ->setMoralPoint(5)
+        ;
 
         $action = Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
-                'getParameter' => $target,
-            ])
-        ;
+                'getPlayer' => $player,
+            ]);
+
+        $action->shouldReceive('getActionPointCost')->andReturn(1);
+        $action->shouldReceive('getMoralPointCost')->andReturn(1);
+        $action->shouldReceive('getMovementPointCost')->andReturn(1);
 
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
@@ -55,21 +58,25 @@ class BreakableValidatorTest extends TestCase
 
     public function testNotValid()
     {
-        $itemConfig = new ItemConfig();
-        $itemConfig->setIsBreakable(false);
-
-        $target = new GameItem();
-        $target->setEquipment($itemConfig);
+        $player = new Player();
+        $player
+            ->setActionPoint(5)
+            ->setMovementPoint(5)
+            ->setMoralPoint(5)
+        ;
 
         $action = Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
-                'getParameter' => $target,
-            ])
-        ;
+                'getPlayer' => $player,
+            ]);
+
+        $action->shouldReceive('getActionPointCost')->andReturn(6);
+        $action->shouldReceive('getMoralPointCost')->andReturn(1);
+        $action->shouldReceive('getMovementPointCost')->andReturn(1);
 
         $this->initValidator($this->constraint->message);
-        $this->validator->validate($action, $this->constraint, 'visibility');
+        $this->validator->validate($action, $this->constraint);
     }
 
     protected function initValidator(?string $expectedMessage = null)

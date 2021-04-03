@@ -79,7 +79,7 @@ class StatusServiceTest extends TestCase
         $this->assertEquals('item 2', $mostRecent->getName());
     }
 
-    public function testchangeCharge()
+    public function testChangeCharge()
     {
         $gameEquipment = new GameItem();
         $chargeStatus = new ChargeStatus($gameEquipment);

@@ -13,7 +13,7 @@ class FullHealthValidator extends ConstraintValidator
     public function validate($value, Constraint $constraint): void
     {
         if (!$value instanceof AbstractAction) {
-            throw new UnexpectedTypeException($constraint, AbstractAction::class);
+            throw new UnexpectedTypeException($value, AbstractAction::class);
         }
 
         if (!$constraint instanceof FullHealth) {
@@ -26,7 +26,7 @@ class FullHealthValidator extends ConstraintValidator
         };
 
         if (!$player instanceof Player) {
-            throw new UnexpectedTypeException($constraint, Player::class);
+            throw new UnexpectedTypeException($player, Player::class);
         }
 
         if ($player->getHealthPoint() === $player->getCharacterConfig()->getGameConfig()->getMaxHealthPoint()) {

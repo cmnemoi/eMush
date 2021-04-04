@@ -135,7 +135,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
 
         $drugConsumeAction = new Action();
         $drugConsumeAction
-            ->setName(ActionEnum::CONSUME)
+            ->setName(ActionEnum::CONSUME_DRUG)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(0)
             ->setDirtyRate(10)

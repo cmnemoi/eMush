@@ -11,6 +11,7 @@ class ActionLogEnum
     public const BUILD_SUCCESS = 'build_success';
     public const COFFEE_SUCCESS = 'coffee_success';
     public const CONSUME_SUCCESS = 'consume_success';
+    public const CONSUME_DRUG = 'consume_drug';
     public const COOK_SUCCESS = 'cook_success';
     public const DROP = 'drop';
     public const EXPRESS_COOK_SUCCESS = 'express_cook_success';
@@ -147,6 +148,12 @@ class ActionLogEnum
                 self::VISIBILITY => VisibilityEnum::COVERT,
             ],
         ],
+        ActionEnum::CONSUME_DRUG => [
+            self::SUCCESS => [
+                self::VALUE => self::CONSUME_DRUG,
+                self::VISIBILITY => VisibilityEnum::COVERT,
+            ],
+        ],
         ActionEnum::BUILD => [
             self::SUCCESS => [
                 self::VALUE => self::BUILD_SUCCESS,
@@ -193,12 +200,8 @@ class ActionLogEnum
         ],
         ActionEnum::HYPERFREEZE => [
             self::SUCCESS => [
-                self::VALUE => self::HYBRIDIZE_SUCCESS,
+                self::VALUE => self::HYPERFREEZE_SUCCESS,
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
-            ],
-            self::FAIL => [
-                self::VALUE => self::HYBRIDIZE_SUCCESS,
-                self::VISIBILITY => VisibilityEnum::PRIVATE,
             ],
         ],
         ActionEnum::EXPRESS_COOK => [

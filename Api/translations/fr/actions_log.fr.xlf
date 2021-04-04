@@ -399,6 +399,16 @@
                 <target>player s'est mangé son petit repas, merci.</target>
             </segment>
         </unit>
+        <unit id="consume_drug">
+            <segment id="cook_success">
+                <source>consume_drug.character.male</source>
+                <target>**player** s'envoie un cachet.</target>
+            </segment>
+            <segment>
+                <source>consume_drug.character.female</source>
+                <target>**player** s'envoie un cachet.</target>
+            </segment>
+        </unit>
         <unit id="cook_success">
             <segment id="cook_success">
                 <source>cook_success.character.male</source>

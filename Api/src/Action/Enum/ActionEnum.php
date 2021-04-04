@@ -6,6 +6,9 @@ class ActionEnum
 {
     // Not yet an exhaustive list
 
+    //alpha actions
+    public const REJUVENATE_ALPHA = 'rejuvenate_alpha';
+
     // Permanent Item actions
     public const MOVE = 'move';
     public const TAKE = 'take';

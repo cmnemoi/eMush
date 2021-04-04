@@ -13,6 +13,8 @@ use Mush\Equipment\Entity\GameItem;
 
 class ActionsFixtures extends Fixture implements DependentFixtureInterface
 {
+    public const REJUVENATE_ALPHA = 'rejuvenate.alpha';
+
     public const MOVE_DEFAULT = 'move.default';
     public const SEARCH_DEFAULT = 'search.default';
     public const HIT_DEFAULT = 'hit.default';
@@ -65,6 +67,15 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $threeActionPointCost = $this->getReference(ActionCostFixture::ACTION_COST_THREE_ACTION);
         /** @var ActionCost $oneMovementPointCost */
         $oneMovementPointCost = $this->getReference(ActionCostFixture::ACTION_COST_ONE_MOVEMENT);
+
+        //@TODO remove this after alpha
+        $rejuvenateAlpha = new Action();
+        $rejuvenateAlpha
+            ->setName(ActionEnum::REJUVENATE_ALPHA)
+            ->setScope(ActionScopeEnum::SELF)
+            ->setActionCost($freeCost)
+        ;
+        $manager->persist($rejuvenateAlpha);
 
         $moveAction = new Action();
         $moveAction
@@ -437,6 +448,8 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($infectAction);
 
         $manager->flush();
+
+        $this->addReference(self::REJUVENATE_ALPHA, $rejuvenateAlpha);
 
         $this->addReference(self::MOVE_DEFAULT, $moveAction);
         $this->addReference(self::SEARCH_DEFAULT, $searchAction);

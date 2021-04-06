@@ -18,7 +18,10 @@ RUN curl -sSk https://getcomposer.org/installer | php -- --disable-tls && \
    mv composer.phar /usr/local/bin/composer
 
 # Install Postgre PDO
-RUN apt-get install -y libpq-dev \
+RUN apt-get -y update \
+    && apt-get install -y libpq-dev libicu-dev \
+    && docker-php-ext-configure intl \
+    && docker-php-ext-install intl \
     && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
     && docker-php-ext-install pdo pdo_pgsql pgsql
 

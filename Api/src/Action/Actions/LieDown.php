@@ -54,13 +54,24 @@ class LieDown extends AbstractAction
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(new StatusValidator([
-            'status' => PlayerStatusEnum::LYING_DOWN, 'target' => StatusValidator::PLAYER, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::ALREADY_IN_BED,
+            'status' => PlayerStatusEnum::LYING_DOWN,
+            'target' => StatusValidator::PLAYER,
+            'contain' => false,
+            'groups' => ['execute'],
+            'message' => ActionImpossibleCauseEnum::ALREADY_IN_BED,
         ]));
         $metadata->addConstraint(new StatusValidator([
-            'status' => EquipmentStatusEnum::BROKEN, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
+            'status' => EquipmentStatusEnum::BROKEN,
+            'contain' => false,
+            'groups' => ['execute'],
+            'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
         ]));
         $metadata->addConstraint(new StatusValidator([
-            'status' => PlayerStatusEnum::LYING_DOWN, 'ownerSide' => false, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::BED_OCCUPIED,
+            'status' => PlayerStatusEnum::LYING_DOWN,
+            'ownerSide' => false,
+            'contain' => false,
+            'groups' => ['execute'],
+            'message' => ActionImpossibleCauseEnum::BED_OCCUPIED,
         ]));
     }
 

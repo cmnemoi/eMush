@@ -26,11 +26,6 @@ class Door extends GameEquipment
         parent::__construct();
     }
 
-    public function getActions(): Collection
-    {
-        return new ArrayCollection();
-    }
-
     public function getRooms(): Collection
     {
         return $this->rooms;

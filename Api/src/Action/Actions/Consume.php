@@ -3,7 +3,6 @@
 namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
-use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
@@ -13,7 +12,6 @@ use Mush\Action\Validator\Reach;
 use Mush\Action\Validator\Status;
 use Mush\Equipment\Entity\ConsumableEffect;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\Mechanics\Drug;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
@@ -22,9 +20,7 @@ use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
-use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -38,7 +34,6 @@ class Consume extends AbstractAction
 
     private PlayerServiceInterface $playerService;
     private EquipmentEffectServiceInterface $equipmentServiceEffect;
-    private StatusServiceInterface $statusService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
@@ -46,7 +41,6 @@ class Consume extends AbstractAction
         ValidatorInterface $validator,
         PlayerServiceInterface $playerService,
         EquipmentEffectServiceInterface $equipmentServiceEffect,
-        StatusServiceInterface $statusService,
     ) {
         parent::__construct(
             $eventDispatcher,
@@ -56,7 +50,6 @@ class Consume extends AbstractAction
 
         $this->playerService = $playerService;
         $this->equipmentServiceEffect = $equipmentServiceEffect;
-        $this->statusService = $statusService;
     }
 
     protected function support(?ActionParameter $parameter): bool
@@ -68,10 +61,11 @@ class Consume extends AbstractAction
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(new Status([
-            'status' => PlayerStatusEnum::DRUG_EATEN, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::CONSUME_DRUG_TWICE,
-        ]));
-        $metadata->addConstraint(new Status([
-            'status' => PlayerStatusEnum::FULL_STOMACH, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::CONSUME_FULL_BELLY,
+            'status' => PlayerStatusEnum::FULL_STOMACH,
+            'contain' => false,
+            'target' => Status::PLAYER,
+            'groups' => ['execute'],
+            'message' => ActionImpossibleCauseEnum::CONSUME_FULL_BELLY,
         ]));
     }
 
@@ -88,23 +82,6 @@ class Consume extends AbstractAction
 
         if (!$this->player->isMush()) {
             $this->dispatchConsumableEffects($equipmentEffect);
-            $response = new Fail();
-        }
-
-        // If the ration is a drug player get Drug_Eaten status that prevent it from eating another drug this cycle.
-        if ($rationType instanceof Drug) {
-            $drugEatenStatus = $this->statusService
-                ->createChargeStatus(
-                    PlayerStatusEnum::DRUG_EATEN,
-                    $this->player,
-                    ChargeStrategyTypeEnum::CYCLE_DECREMENT,
-                    null,
-                    VisibilityEnum::HIDDEN,
-                    VisibilityEnum::HIDDEN,
-                    1,
-                    0,
-                    true
-                );
         }
 
         $this->playerService->persist($this->player);
@@ -116,7 +93,7 @@ class Consume extends AbstractAction
         return new Success();
     }
 
-    private function dispatchConsumableEffects(ConsumableEffect $consumableEffect): void
+    protected function dispatchConsumableEffects(ConsumableEffect $consumableEffect): void
     {
         $modifier = new Modifier();
         if ($consumableEffect->getActionPoint() !== 0) {

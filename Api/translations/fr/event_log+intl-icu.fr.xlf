@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
+    <file id="event_log.ext">
+        <unit id="awaken">
+            <segment>
+                <source>awaken</source>
+                <target>{character_gender, select,
+                    male {**{player}** s'est éveillé de son si doux sommeil.}
+                    female {**{player}** s'est éveillée de son si doux sommeil.}
+                    other {invalid gender input}
+                }</target>
+            </segment>
+        </unit>
+        <unit id="gain_action_point">
+            <segment>
+                <source>gain_action_point</source>
+                <target>{character_gender, select, other {Vous avez gagné quantity :pa:}}</target>
+            </segment>
+        </unit>
+        <unit id="gain_movement_point">
+            <segment>
+                <source>gain_movement_point</source>
+                <target>{character_gender, select, other {Vous avez gagné quantity :pm:}}</target>
+            </segment>
+        </unit>
+        <unit id="gain_health_point">
+            <segment>
+                <source>gain_health_point</source>
+                <target>{character_gender, select, other {Vous avez gagné quantity :hp:}}</target>
+            </segment>
+        </unit>
+        <unit id="loss_health_point">
+            <segment>
+                <source>loss_health_point</source>
+                <target>{character_gender, select, other {Vous perdez quantity :hp:}}</target>
+            </segment>
+        </unit>
+        <unit id="gain_moral_point">
+            <segment>
+                <source>gain_moral_point</source>
+                <target>{character_gender, select, other {Vous avez gagné quantity :pmo:}}</target>
+            </segment>
+        </unit>
+        <unit id="loss_moral_point">
+            <segment>
+                <source>loss_moral_point</source>
+                <target>{character_gender, select, other {Vous perdez quantity :pmo:}}</target>
+            </segment>
+        </unit>
+        <unit id="gain_triumph">
+            <segment>
+                <source>gain_triumph</source>
+                <target>{character_gender, select, other {:triumph: Cette action remplit les objectifs personnels de votre personnage. Vous gagnez *quantity Triomphe*.}}</target>
+            </segment>
+        </unit>
+        <unit id="object_felt">
+            <segment>
+                <source>object_felt</source>
+                <target>{character_gender, select,
+                     other {{target_gender, select,
+                        male {Étrange, **{player}** a fait tomber un **{target}**.}
+                        female {Étrange, **{player}** a fait tomber une **{target}**.}
+                        other {invalid gender input}
+                     }}
+                }</target>
+            </segment>
+        </unit>
+        <unit id="oxy_low_use_capsule">
+            <segment>
+                <source>oxy_low_use_capsule</source>
+                <target>{character_gender, select, other {Vous ne respirez plus... Vous vous étouffez... Mais heureusement cette **Capsule d'Oxygène** vous a sauvé la vie...}}</target>
+            </segment>
+        </unit>
+        <unit id="soiled">
+            <segment>
+                <source>soiled</source>
+                <target>{character_gender, select,
+                    male {C'est dégoûtant... Vous vous êtes sali.}
+                    female {C'est dégoûtant... Vous vous êtes salie.}
+                    other {invalid gender input}
+                }</target>
+            </segment>
+        </unit>
+        <unit id="soil_prevented">
+            <segment>
+                <source>soil_prevented</source>
+                <target>{character_gender, select, other {C'est dégoûtant... Heureusement que vous aviez votre **Tablier intachable**...}}</target>
+            </segment>
+        </unit>
+        <unit id="clumsiness">
+            <segment>
+                <source>clumsiness</source>
+                <target>{character_gender, select, other {Ça ne devait pas se passer comme cela. Lors de votre action, vous vous êtes fait mal...}}</target>
+            </segment>
+        </unit>
+        <unit id="clumsiness_prevented">
+            <segment>
+                <source>clumsiness_prevented</source>
+                <target>{character_gender, select, other {Ça ne devait pas se passer comme cela. Mais grâce à vos **Gants de protection**, vous avez évité la catastrophe...}}</target>
+            </segment>
+        </unit>
+        <unit id="metal_plate">
+            <segment>
+                <source>metal_plate</source>
+                <target>{character_gender, select,
+                    male {Un tremblement soudain projette une grosse plaque de métal sur **{player}**. Il est grièvement blessé !}
+                    female {Un tremblement soudain projette une grosse plaque de métal sur **{player}**. Elle est grièvement blessée !}
+                    other {invalid gender input}
+                }</target>
+            </segment>
+        </unit>
+        <unit id="tremor_gravity">
+            <segment>
+                <source>tremor_gravity</source>
+                <target>La salle est soudain prise de fortes secousses. Les membres d'équipage présents se retrouvent par terre et le plafond s'effondre par endroit. Quelle épave...</target>
+            </segment>
+        </unit>
+        <unit id="tremor_no_gravity">
+            <segment>
+                <source>tremor_no_gravity</source>
+                <target>La salle est soudain prise de fortes secousses. Les objets volent à travers la pièce et heurtent les membres d'équipage présents.</target>
+            </segment>
+        </unit>
+        <unit id="electric_arc">
+            <segment>
+                <source>electric_arc</source>
+                <target>Une surcharge électrique brutale fait crépiter les équipements de la pièce, une gigantesque décharge traverse les équipiers !</target>
+            </segment>
+        </unit>
+        <unit id="equipment_broken">
+            <segment>
+                <source>equipment_broken</source>
+                <target>{target_gender, select,
+                    male {Un **{target}** a été cassé !}
+                    female {Une **{target}** a été cassée !}
+                    other {invalid gender input}
+                }</target>
+            </segment>
+        </unit>
+        <unit id="equipment_destroyed">
+            <segment>
+                <source>equipment_destroyed</source>
+                <target>{target_gender, select,
+                    male {Un **{target}** a été détruit !}
+                    female {Une **{target}** a été détruite !}
+                    other {invalid gender input}
+                }</target>
+            </segment>
+        </unit>
+        <unit id="panic_crisis">
+            <segment>
+                <source>panic_crisis</source>
+                <target>{character_gender, select, other {Vous ressentez des frissons, l'espoir vous quitte, vous vous demandez ce que vous faites ici et quand cet enfer va s'arrêter... Vous êtes victime d'une Crise de Panique.}}</target>
+            </segment>
+
+        </unit>
+        <unit id="plant_new_fruit">
+            <segment>
+                <source>plant_new_fruit</source>
+
+                <target>{target_gender, select,
+                    male {Oh ! Une des plantes a donné : un *{target}*.}
+                    female {Oh ! Une des plantes a donné : une *{target}*.}
+                    other {invalid gender input}
+                }</target>
+            </segment>
+        </unit>
+        <unit id="plant_maturity">
+            <segment>
+                <source>plant_maturity.target.male</source>
+
+                <target>{target_gender, select,
+                    male {Un *{target}* est arrivé à maturité ! Enfin !}
+                    female {Une *{target}* est arrivé à maturité ! Enfin !}
+                    other {invalid gender input}
+                }</target>
+            </segment>
+        </unit>
+    </file>
+</xliff>
+

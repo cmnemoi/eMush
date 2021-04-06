@@ -593,6 +593,9 @@
     "symfony/polyfill-intl-normalizer": {
         "version": "v1.18.1"
     },
+    "symfony/polyfill-messageformatter": {
+            "version": "v1.18.1"
+    },
     "symfony/polyfill-mbstring": {
         "version": "v1.18.1"
     },

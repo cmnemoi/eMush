@@ -194,16 +194,17 @@ class RoomLogService implements RoomLogServiceInterface
             if ($player = $roomLog->getPlayer()) {
                 $characterKey = $player->getCharacterConfig()->getName();
                 $characterName = $this->translator->trans($characterKey . '.name', [], 'characters');
-                $logKey .= '.character.' . (CharacterEnum::isMale($characterKey) ? 'male' : 'female');
+
                 $params['player'] = $characterName;
+                $params['character_gender'] = (CharacterEnum::isMale($characterKey) ? 'male' : 'female');
             }
 
             if ($target = $roomLog->getTarget()) {
                 $targetName = $this->translator->trans($target->getName() . '.short_name', [], $target->getType());
-                $targetGenre = $this->translator->trans($target->getName() . '.genre', [], $target->getType());
+                $targetGender = $this->translator->trans($target->getName() . '.genre', [], $target->getType());
 
-                $logKey .= '.target.' . $targetGenre;
                 $params['target'] = $targetName;
+                $params['target_gender'] = $targetGender;
             }
 
             if ($roomLog->getQuantity() !== null) {

@@ -4,5 +4,7 @@ namespace Mush\Communication\Enum;
 
 class NeronMessageEnum
 {
-    public const START_GAME = 'start_game_1';
+    //every NERON message come in 3 versions inhibited, crazy and uninhibited
+
+    public const START_GAME = 'start_game';
 }

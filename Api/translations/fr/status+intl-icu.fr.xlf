@@ -64,7 +64,7 @@
             </segment>
             <segment id="description">
                 <source>hidden.description</source>
-                <target>Cet objet est {i}caché{\i} ! Vous seul êtes au courant... avec ceux qui fouilleront la pièce.</target>
+                <target>Cet objet est //caché// ! Vous seul êtes au courant... avec ceux qui fouilleront la pièce.</target>
             </segment>
             <segment id="effect">
                 <source>hidden.examine</source>
@@ -78,7 +78,7 @@
             </segment>
             <segment id="description">
                 <source>broken.description</source>
-                <target>Cet objet est {i}cassé{\i}. Il faudrait penser à le réparer...</target>
+                <target>Cet objet est //cassé//. Il faudrait penser à le réparer...</target>
             </segment>
             <segment id="effect">
                 <source>broken.examine</source>
@@ -176,7 +176,7 @@
             </segment>
             <segment id="description">
                 <source>thirsty.description</source>
-                <target>Cette plante a {b}Soif{\b}, elle ne produira plus que de l'oxygène. Si elle n'est pas arrosée, demain elle deviendra {b}Desséchée{\b}.</target>
+                <target>Cette plante a **Soif**, elle ne produira plus que de l'oxygène. Si elle n'est pas arrosée, demain elle deviendra **Desséchée**.</target>
             </segment>
             <segment id="effect">
                 <source>thirsty.examine</source>
@@ -190,7 +190,7 @@
             </segment>
             <segment id="description">
                 <source>dried_out.description</source>
-                <target>Cette plante est {b}Desséchée{\b}, elle ne produira ni fruits ni oxygène. Si elle n'est pas arrosée, demain elle sera morte.</target>
+                <target>Cette plante est **Desséchée**, elle ne produira ni fruits ni oxygène. Si elle n'est pas arrosée, demain elle sera morte.</target>
             </segment>
             <segment id="effect">
                 <source>dried_out.examine</source>
@@ -204,7 +204,7 @@
             </segment>
             <segment id="description">
                 <source>diseased.description</source>
-                <target>Cette plante est {b}Malade{\b}, elle ne produira ni fruits ni oxygène.</target>
+                <target>Cette plante est **Malade**, elle ne produira ni fruits ni oxygène.</target>
             </segment>
             <segment id="effect">
                 <source>diseased.examine</source>
@@ -1366,7 +1366,7 @@
             </segment>
             <segment id="description">
                 <source>guardian.description</source>
-                <target>Quand un Gardien est présent dans la pièce, le visiteur peut {b}seulement{/b} repartir d'où il vient.</target>
+                <target>Quand un Gardien est présent dans la pièce, le visiteur peut **seulement** repartir d'où il vient.</target>
             </segment>
             <segment id="effect">
                 <source>guardian.examine</source>

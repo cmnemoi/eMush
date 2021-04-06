@@ -64,10 +64,9 @@ class UltraHealActionTest extends AbstractActionTest
         $player = $this->createPlayer(new Daedalus(), $room);
 
         $this->playerVariableService
-            ->shouldReceive('getMaxPlayerVariable')
+            ->shouldReceive('setPlayerVariableToMax')
             ->with($player, ModifierTargetEnum::MAX_HEALTH_POINT);
         $this->playerService->shouldReceive('persist');
-        $this->eventDispatcher->shouldReceive('dispatch');
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 

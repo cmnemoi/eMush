@@ -12,9 +12,7 @@ use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
-use Mush\Player\Entity\Modifier;
 use Mush\Player\Enum\ModifierTargetEnum;
-use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Player\Service\PlayerVariableServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -61,16 +59,7 @@ class UltraHeal extends AbstractAction
     {
         //@TODO remove all injuries
 
-        $delta = $this->playerVariableService->getMaxPlayerVariable($this->player, ModifierTargetEnum::MAX_HEALTH_POINT) - $this->player->getHealthPoint();
-
-        $actionModifier = new Modifier();
-        $actionModifier
-            ->setDelta($delta)
-            ->setTarget(ModifierTargetEnum::HEALTH_POINT);
-
-        $playerEvent = new PlayerEvent($this->player);
-        $playerEvent->setModifier($actionModifier);
-        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
+        $player = $this->playerVariableService->setPlayerVariableToMax($this->player, ModifierTargetEnum::MAX_HEALTH_POINT);
 
         $this->playerService->persist($this->player);
 

@@ -55,6 +55,8 @@ class PlayerVariableService implements PlayerVariableServiceInterface
             case ModifierTargetEnum::SATIETY:
                 $player = $this->handleSatietyModifier($delta, $player);
                 break;
+            default:
+                throw new Error('modifyPlayerVariable : invalid action modifier target');
         }
 
         return $player;
@@ -82,6 +84,34 @@ class PlayerVariableService implements PlayerVariableServiceInterface
         }
 
         return $this->actionModifierService->getModifiedValue($maxValue, $player, [ModifierScopeEnum::PERMANENT], $target);
+    }
+
+    public function setPlayerVariableToMax(Player $player, string $target, \DateTime $date = null): Player
+    {
+        $date = $date ?? new \DateTime('now');
+        $maxPoint = $this->getMaxPlayerVariable($player, $target);
+        switch ($target) {
+            case ModifierTargetEnum::ACTION_POINT:
+                $delta = $maxPoint - $player->getActionPoint();
+                $player = $this->handleActionPointModifier($delta, $player, $date);
+                break;
+            case ModifierTargetEnum::MOVEMENT_POINT:
+                $delta = $maxPoint - $player->getMovementPoint();
+                $player = $this->handleMovementPointModifier($delta, $player, $date);
+                break;
+            case ModifierTargetEnum::HEALTH_POINT:
+                $delta = $maxPoint - $player->getHealthPoint();
+                $player = $this->handleHealthPointModifier($delta, $player, $date);
+                break;
+            case ModifierTargetEnum::MORAL_POINT:
+                $delta = $maxPoint - $player->getMoralPoint();
+                $player = $this->handleMoralPointModifier($delta, $player, $date);
+                break;
+            default:
+                throw new Error('getMaxPlayerVariable : invalid target string');
+        }
+
+        return $player;
     }
 
     private function handleActionPointModifier(int $actionModifier, Player $player, \DateTime $date): Player

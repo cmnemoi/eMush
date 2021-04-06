@@ -21,7 +21,6 @@ use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -35,7 +34,6 @@ class Consume extends AbstractAction
 
     private PlayerServiceInterface $playerService;
     private EquipmentEffectServiceInterface $equipmentServiceEffect;
-    private StatusServiceInterface $statusService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
@@ -43,7 +41,6 @@ class Consume extends AbstractAction
         ValidatorInterface $validator,
         PlayerServiceInterface $playerService,
         EquipmentEffectServiceInterface $equipmentServiceEffect,
-        StatusServiceInterface $statusService,
     ) {
         parent::__construct(
             $eventDispatcher,
@@ -53,7 +50,6 @@ class Consume extends AbstractAction
 
         $this->playerService = $playerService;
         $this->equipmentServiceEffect = $equipmentServiceEffect;
-        $this->statusService = $statusService;
     }
 
     protected function support(?ActionParameter $parameter): bool
@@ -97,7 +93,7 @@ class Consume extends AbstractAction
         return new Success();
     }
 
-    private function dispatchConsumableEffects(ConsumableEffect $consumableEffect): void
+    protected function dispatchConsumableEffects(ConsumableEffect $consumableEffect): void
     {
         $modifier = new Modifier();
         if ($consumableEffect->getActionPoint() !== 0) {

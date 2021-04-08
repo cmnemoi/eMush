@@ -1,13 +1,7 @@
 <?php
 
-
 namespace Mush\Player\Normalizer;
 
-use Doctrine\Common\Collections\Collection;
-use Mush\Action\Entity\Action;
-use Mush\Action\Enum\ActionScopeEnum;
-use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Entity\Player;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
@@ -23,8 +17,7 @@ class DeadPlayerNormalizer implements ContextAwareNormalizerInterface, Normalize
 
     public function __construct(
         TranslatorInterface $translator,
-    )
-    {
+    ) {
         $this->translator = $translator;
     }
 
@@ -50,15 +43,15 @@ class DeadPlayerNormalizer implements ContextAwareNormalizerInterface, Normalize
             ],
             'triumph' => $player->getTriumph(),
             'user' => $player->getUser()->getUsername(),
+            'players' => $this->getOtherPlayers($player),
         ];
     }
 
     private function getOtherPlayers(Player $player): array
     {
         $otherPlayers = [];
-        foreach($player->getDaedalus()->getPlayers() as $otherPlayer){
-            if($otherPlayer !== $player){
-
+        foreach ($player->getDaedalus()->getPlayers() as $otherPlayer) {
+            if ($otherPlayer !== $player) {
                 $character = $otherPlayer->getCharacterConfig()->getName();
 
                 $normalizedOtherPlayer = [
@@ -70,20 +63,19 @@ class DeadPlayerNormalizer implements ContextAwareNormalizerInterface, Normalize
                     'likes' => $player->getLikes(),
                     ];
 
-                if ($otherPlayer->getGameStatus() !== GameStatusEnum::CURRENT){
+                if ($otherPlayer->getGameStatus() !== GameStatusEnum::CURRENT) {
                     $normalizedOtherPlayer['isDead'] = [
                         'day' => $otherPlayer->getDayDeath(),
                         'cycle' => $otherPlayer->getCycleDeath(),
-                        'cause' => $otherPlayer->getEndStatus()
+                        'cause' => $otherPlayer->getEndStatus(),
                     ];
-                }else{
+                } else {
                     $normalizedOtherPlayer['isDead'] = false;
                 }
                 $otherPlayers[] = $normalizedOtherPlayer;
             }
         }
+
         return $otherPlayers;
     }
 }
-
-

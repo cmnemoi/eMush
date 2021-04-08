@@ -224,8 +224,6 @@ class PlayerService implements PlayerServiceInterface
             return $player;
         }
 
-
-
         $playerEvent = new PlayerEvent($player, $date);
 
         $healthModifier = new Modifier();

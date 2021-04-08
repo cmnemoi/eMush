@@ -224,6 +224,8 @@ class PlayerService implements PlayerServiceInterface
             return $player;
         }
 
+
+
         $playerEvent = new PlayerEvent($player, $date);
 
         $healthModifier = new Modifier();
@@ -251,6 +253,9 @@ class PlayerService implements PlayerServiceInterface
         if ($reason) {
             $player->setEndStatus($reason);
         }
+
+        $player->setDayDeath($player->getDaedalus()->getDay());
+        $player->setCycleDeath($player->getDaedalus()->getCycle());
 
         if ($player->getEndStatus() !== EndCauseEnum::DEPRESSION) {
             /** @var Player $daedalusPlayer */

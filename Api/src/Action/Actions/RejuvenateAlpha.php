@@ -7,22 +7,15 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
-use Mush\Action\Validator\FullHealth;
-use Mush\Action\Validator\Reach;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Enum\ReachEnum;
-use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Player\Service\PlayerVariableServiceInterface;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class UltraHeal extends AbstractAction
+class RejuvenateAlpha extends AbstractAction
 {
-    protected string $name = ActionEnum::ULTRAHEAL;
+    protected string $name = ActionEnum::REJUVENATE_ALPHA;
 
     private PlayerServiceInterface $playerService;
     private PlayerVariableServiceInterface $playerVariableService;
@@ -46,25 +39,26 @@ class UltraHeal extends AbstractAction
 
     protected function support(?ActionParameter $parameter): bool
     {
-        return $parameter instanceof GameEquipment;
-    }
-
-    public static function loadValidatorMetadata(ClassMetadata $metadata): void
-    {
-        $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
-        $metadata->addConstraint(new FullHealth(['target' => FullHealth::PLAYER, 'groups' => ['visible']]));
+        return $parameter === null;
     }
 
     protected function applyEffects(): ActionResult
     {
         //@TODO remove all injuries
 
-        $player = $this->playerVariableService->setPlayerVariableToMax($this->player, ModifierTargetEnum::MAX_HEALTH_POINT);
+        $maxActionPoint = $this->playerVariableService->getMaxPlayerVariable($this->player, ModifierTargetEnum::MAX_ACTION_POINT);
+        $maxMovementPoint = $this->playerVariableService->getMaxPlayerVariable($this->player, ModifierTargetEnum::MAX_MOVEMENT_POINT);
+        $maxMoralePoint = $this->playerVariableService->getMaxPlayerVariable($this->player, ModifierTargetEnum::MAX_MORAL_POINT);
+        $maxHealthPoint = $this->playerVariableService->getMaxPlayerVariable($this->player, ModifierTargetEnum::MAX_HEALTH_POINT);
+
+        $this->player
+            ->setActionPoint($maxActionPoint)
+            ->setMovementPoint($maxMovementPoint)
+            ->setMoralPoint($maxMoralePoint)
+            ->setHealthPoint($maxHealthPoint)
+        ;
 
         $this->playerService->persist($this->player);
-
-        $equipmentEvent = new EquipmentEvent($this->parameter, VisibilityEnum::HIDDEN);
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         return new Success();
     }

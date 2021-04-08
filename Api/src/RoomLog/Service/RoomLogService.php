@@ -17,7 +17,6 @@ use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogDeclinationEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Repository\RoomLogRepository;
-use Symfony\Component\Translation\TranslatableMessage;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RoomLogService implements RoomLogServiceInterface
@@ -109,7 +108,6 @@ class RoomLogService implements RoomLogServiceInterface
             }
         }
 
-
         $roomLog = new RoomLog();
         $roomLog
             ->setLog($logKey)
@@ -152,7 +150,6 @@ class RoomLogService implements RoomLogServiceInterface
             $targetPlural = $this->translator->trans($targetEquipment->getName() . '.plural_name', [], $domain);
             $targetGender = $this->translator->trans($targetEquipment->getName() . '.genre', [], $domain);
             $targetFirstLetter = $this->translator->trans($targetEquipment->getName() . '.first_Letter', [], $domain);
-
 
             $params['target_first_letter'] = $targetFirstLetter;
             $params['targetPlural'] = $targetPlural;

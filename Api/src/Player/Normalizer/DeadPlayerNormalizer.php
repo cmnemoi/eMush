@@ -49,6 +49,7 @@ class DeadPlayerNormalizer implements ContextAwareNormalizerInterface, Normalize
                 'value' => $this->translator->trans($character . '.name', [], 'characters'),
             ],
             'triumph' => $player->getTriumph(),
+            'user' => $player->getUser()->getUsername(),
         ];
     }
 

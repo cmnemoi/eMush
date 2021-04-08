@@ -21,6 +21,8 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
+        $rejuvenateAlphaAction = $this->getReference(ActionsFixtures::REJUVENATE_ALPHA);
+
         $hitAction = $this->getReference(ActionsFixtures::HIT_DEFAULT);
         $hideAction = $this->getReference(ActionsFixtures::HIDE_DEFAULT);
         $searchAction = $this->getReference(ActionsFixtures::SEARCH_DEFAULT);
@@ -34,6 +36,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             $infectAction,
             $extractSporeAction,
             $getUpAction,
+            $rejuvenateAlphaAction,
         ]);
 
         $andie = new CharacterConfig();

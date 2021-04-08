@@ -15,7 +15,6 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\RoomLog\Entity\Target;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -84,8 +83,6 @@ class Drop extends AbstractAction
         $this->gameEquipmentService->persist($this->parameter);
         $this->playerService->persist($this->player);
 
-        $target = new Target($this->parameter->getName(), 'items');
-
-        return new Success($target);
+        return new Success(null, $this->parameter);
     }
 }

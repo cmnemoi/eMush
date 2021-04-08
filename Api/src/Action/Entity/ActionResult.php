@@ -2,26 +2,41 @@
 
 namespace Mush\Action\ActionResult;
 
-use Mush\RoomLog\Entity\Target;
+use Mush\Equipment\Entity\GameEquipment;
+use Mush\Player\Entity\Player;
 
 abstract class ActionResult
 {
-    private ?Target $target;
+    private ?Player $targetPlayer;
+    private ?GameEquipment $targetEquipment;
 
-    public function __construct(?Target $target = null)
+    public function __construct(?Player $targetPlayer = null, ?GameEquipment $targetEquipment = null)
     {
-        $this->target = $target;
+        $this->targetPlayer = $targetPlayer;
+        $this->targetEquipment = $targetEquipment;
     }
 
-    public function setTarget(?Target $target): ActionResult
+    public function setTargetPlayer(?Player $targetPlayer): ActionResult
     {
-        $this->target = $target;
+        $this->targetPlayer = $targetPlayer;
 
         return $this;
     }
 
-    public function getTarget(): ?Target
+    public function getTargetPlayer(): ?Player
     {
-        return $this->target;
+        return $this->targetPlayer;
+    }
+
+    public function setTargetEquipment(?GameEquipment $targetEquipment): ActionResult
+    {
+        $this->targetEquipment = $targetEquipment;
+
+        return $this;
+    }
+
+    public function getTargetEquipment(): ?GameEquipment
+    {
+        return $this->targetEquipment;
     }
 }

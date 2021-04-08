@@ -58,21 +58,29 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
             );
 
             if (!$isSuperDirty && $percent >= $dirtyRate) {
-                $this->roomLogService->createPlayerLog(
+                $this->roomLogService->createLog(
                     LogEnum::SOIL_PREVENTED,
                     $player->getPlace(),
-                    $player,
                     VisibilityEnum::PRIVATE,
+                    'event_log',
+                    $player,
+                    null,
+                    null,
+                    null,
                     $date
                 );
             } else {
                 $this->statusService->createCoreStatus(PlayerStatusEnum::DIRTY, $player);
 
-                $this->roomLogService->createPlayerLog(
+                $this->roomLogService->createLog(
                     LogEnum::SOILED,
                     $player->getPlace(),
-                    $player,
                     VisibilityEnum::PRIVATE,
+                    'event_log',
+                    $player,
+                    null,
+                    null,
+                    null,
                     $date
                 );
             }
@@ -90,19 +98,27 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
             );
 
             if ($percent >= $injuryRate) {
-                $this->roomLogService->createPlayerLog(
+                $this->roomLogService->createLog(
                     LogEnum::CLUMSINESS_PREVENTED,
                     $player->getPlace(),
-                    $player,
                     VisibilityEnum::PRIVATE,
+                    'event_log',
+                    $player,
+                    null,
+                    null,
+                    null,
                     $date
                 );
             } else {
-                $this->roomLogService->createPlayerLog(
+                $this->roomLogService->createLog(
                     LogEnum::CLUMSINESS,
                     $player->getPlace(),
-                    $player,
                     VisibilityEnum::PRIVATE,
+                    'event_log',
+                    $player,
+                    null,
+                    null,
+                    null,
                     $date
                 );
                 $this->dispatchPlayerInjuryEvent($player, $date);

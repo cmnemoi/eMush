@@ -20,7 +20,6 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\RoomLog\Entity\Target;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -122,8 +121,6 @@ class Build extends AbstractAction
 
         $this->playerService->persist($this->player);
 
-        $target = new Target($blueprintEquipment->getName(), 'items');
-
-        return new Success($target);
+        return new Success(null, $blueprintEquipment);
     }
 }

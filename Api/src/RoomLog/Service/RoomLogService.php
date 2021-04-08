@@ -13,11 +13,11 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
-use Mush\RoomLog\Entity\Target;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogDeclinationEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Repository\RoomLogRepository;
+use Symfony\Component\Translation\TranslatableMessage;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RoomLogService implements RoomLogServiceInterface
@@ -66,120 +66,110 @@ class RoomLogService implements RoomLogServiceInterface
         } elseif ($actionResult instanceof Fail && isset($logMapping[ActionLogEnum::FAIL])) {
             $logData = $logMapping[ActionLogEnum::FAIL];
         } else {
-            return $this->createActionLog(
+            return $this->createLog(
                 'no_log_yet_' . $actionName,
                 $player->getPlace(),
+                VisibilityEnum::PUBLIC,
+                'actions_log',
                 $player,
                 null,
-                VisibilityEnum::PUBLIC
+                null,
+                null
             );
         }
 
-        return $this->createActionLog(
+        return $this->createLog(
             $logData[ActionLogEnum::VALUE],
             $player->getPlace(),
+            $logData[ActionLogEnum::VISIBILITY],
+            'actions_log',
             $player,
-            $actionResult->getTarget(),
-            $logData[ActionLogEnum::VISIBILITY]
+            $actionResult->getTargetPlayer(),
+            $actionResult->getTargetEquipment()
         );
     }
 
-    private function createLog(
+    public function createLog(
         string $logKey,
         Place $place,
-        ?Player $player,
-        ?Target $target,
-        ?int $quantity,
         string $visibility,
         string $type,
+        ?Player $player = null,
+        ?Player $targetPlayer = null,
+        ?GameEquipment $targetEquipment = null,
+        ?int $quantity = null,
         \DateTime $dateTime = null
     ): RoomLog {
-        if ($declinations = LogDeclinationEnum::getDeclination($logKey)) {
-            $logKey = $this->randomService->getSingleRandomElementFromProbaArray($declinations);
+        $params = $this->getMessageParam($player, $targetPlayer, $targetEquipment, $quantity);
+
+        //if there is several version of the log
+        if (in_array($logKey, $declinations = LogDeclinationEnum::getVersionNumber())) {
+            foreach ($declinations as $keyVersion => $versionNb) {
+                $params[$keyVersion] = $this->randomService->random(0, $versionNb);
+            }
         }
+
+        $message = new TranslatableMessage($logKey, $params);
 
         $roomLog = new RoomLog();
         $roomLog
             ->setLog($logKey)
+            ->setParameters($params)
             ->setType($type)
-            ->setPlayer($player)
-            ->setTarget($target)
             ->setPlace($place)
+            ->setPlayer($player)
             ->setVisibility($visibility)
             ->setDate($dateTime ?? new \DateTime('now'))
-            ->setQuantity($quantity)
             ->setCycle($place->getDaedalus()->getCycle())
             ->setDay($place->getDaedalus()->getDay())
+
         ;
 
-        return $roomLog;
+        return $this->persist($roomLog);
     }
 
-    public function createActionLog(
-        string $logKey,
-        Place $place,
-        Player $player,
-        ?Target $target,
-        string $visibility,
-        \DateTime $dateTime = null
-    ): RoomLog {
-        $log = $this->createLog($logKey, $place, $player, $target, null, $visibility, 'actions_log');
+    public function getMessageParam(
+        ?Player $player = null,
+        ?Player $targetPlayer = null,
+        ?GameEquipment $targetEquipment = null,
+        ?int $quantity = null,
+    ): array {
+        $params = [];
 
-        $this->persist($log);
+        if ($player !== null) {
+            $characterKey = $player->getCharacterConfig()->getName();
+            $characterName = $this->translator->trans($characterKey . '.name', [], 'characters');
 
-        return $log;
-    }
+            $params['player'] = $characterName;
+            $params['character_gender'] = (CharacterEnum::isMale($characterKey) ? 'male' : 'female');
+        }
+        if ($targetEquipment !== null) {
+            if ($targetEquipment instanceof GameItem) {
+                $domain = 'items';
+            } else {
+                $domain = 'equipments';
+            }
+            $targetName = $this->translator->trans($targetEquipment->getName() . '.short_name', [], $domain);
+            $targetPlural = $this->translator->trans($targetEquipment->getName() . '.plural', [], $domain);
+            $targetGender = $this->translator->trans($targetEquipment->getName() . '.genre', [], $domain);
 
-    public function createPlayerLog(
-        string $logKey,
-        Place $place,
-        Player $player,
-        string $visibility,
-        \DateTime $dateTime = null
-    ): RoomLog {
-        return $this->persist(
-            $this->createLog($logKey, $place, $player, null, null, $visibility, 'event_log', $dateTime)
-        );
-    }
+            $params['targetPlural'] = $targetPlural;
+            $params['target'] = $targetName;
+            $params['target_gender'] = $targetGender;
+        }
+        if ($targetPlayer !== null) {
+            $characterKey = $targetPlayer->getCharacterConfig()->getName();
+            $characterName = $this->translator->trans($characterKey . '.name', [], 'characters');
 
-    public function createQuantityLog(
-        string $logKey,
-        Place $place,
-        Player $player,
-        string $visibility,
-        int $quantity,
-        \DateTime $dateTime = null
-    ): RoomLog {
-        return $this->persist(
-            $this->createLog($logKey, $place, $player, null, $quantity, $visibility, 'event_log', $dateTime)
-        );
-    }
+            $params['target'] = $characterName;
+            $params['target_gender'] = (CharacterEnum::isMale($characterKey) ? 'male' : 'female');
+        }
 
-    public function createEquipmentLog(
-        string $logKey,
-        Place $place,
-        ?Player $player,
-        GameEquipment $gameEquipment,
-        string $visibility,
-        \DateTime $dateTime = null
-    ): RoomLog {
-        $type = $gameEquipment instanceof GameItem ? 'items' : 'equipments';
-        $target = new Target($gameEquipment->getName(), $type);
+        if ($quantity !== null) {
+            $params['quantity'] = $quantity;
+        }
 
-        return $this->persist(
-            $this->createLog($logKey, $place, $player, $target, null, $visibility, 'event_log', $dateTime)
-        );
-    }
-
-    public function createRoomLog(
-        string $logKey,
-        Place $place,
-        string $visibility,
-        \DateTime $dateTime = null
-    ): RoomLog {
-        return $this->persist(
-            $this->createLog($logKey, $place, null, null, null, $visibility, 'event_log', $dateTime)
-        );
+        return $params;
     }
 
     public function getRoomLog(Player $player): array
@@ -189,32 +179,10 @@ class RoomLogService implements RoomLogServiceInterface
         $logs = [];
         /** @var RoomLog $roomLog */
         foreach ($roomLogs as $roomLog) {
-            $logKey = $roomLog->getLog();
-            $params = [];
-            if ($player = $roomLog->getPlayer()) {
-                $characterKey = $player->getCharacterConfig()->getName();
-                $characterName = $this->translator->trans($characterKey . '.name', [], 'characters');
-
-                $params['player'] = $characterName;
-                $params['character_gender'] = (CharacterEnum::isMale($characterKey) ? 'male' : 'female');
-            }
-
-            if ($target = $roomLog->getTarget()) {
-                $targetName = $this->translator->trans($target->getName() . '.short_name', [], $target->getType());
-                $targetGender = $this->translator->trans($target->getName() . '.genre', [], $target->getType());
-
-                $params['target'] = $targetName;
-                $params['target_gender'] = $targetGender;
-            }
-
-            if ($roomLog->getQuantity() !== null) {
-                $params['quantity'] = $roomLog->getQuantity();
-            }
-
             $logs[$roomLog->getDay()][$roomLog->getCycle()][] = [
                 'log' => $this->translator->trans(
-                    $logKey,
-                    $params,
+                    $roomLog->getLog(),
+                    $roomLog->getParameters(),
                     $roomLog->getType()
                 ),
                 'visibility' => $roomLog->getVisibility(),

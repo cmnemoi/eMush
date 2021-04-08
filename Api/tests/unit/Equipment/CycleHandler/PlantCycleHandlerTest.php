@@ -79,7 +79,7 @@ class PlantCycleHandlerTest extends TestCase
         $plantType = new Plant();
         $plant->setMechanics(new ArrayCollection([$plantType]));
 
-        $this->roomLogService->shouldReceive('createEquipmentLog');
+        $this->roomLogService->shouldReceive('createLog');
         $this->gameEquipmentService->shouldReceive('persist')->twice();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->once(); //Plant should not get disease
 
@@ -158,7 +158,7 @@ class PlantCycleHandlerTest extends TestCase
         $newFruit = new ItemConfig();
         $newFruit->setName('fruit name');
         $this->gameEquipmentService->shouldReceive('persist');
-        $this->roomLogService->shouldReceive('createEquipmentLog');
+        $this->roomLogService->shouldReceive('createLog');
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->andReturn(new GameItem());
         $this->gameEquipmentService->shouldReceive('createGameEquipment')->andReturn(new GameItem());
 

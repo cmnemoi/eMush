@@ -100,6 +100,8 @@ class Hit extends AttemptAction
             }
         }
 
+        $result->setTargetPlayer($this->parameter);
+
         return $result;
     }
 }

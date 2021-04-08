@@ -6,6 +6,7 @@ use App\Tests\FunctionalTester;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
+use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
@@ -93,14 +94,16 @@ class PlayerServiceCest
 
         $I->have(Place::class, ['name' => RoomEnum::GREAT_BEYOND, 'daedalus' => $daedalus]);
 
+        /** @var CharacterConfig $characterConfig */
+        $characterConfig = $I->have(CharacterConfig::class);
         /** @var Player $player */
-        $player = $I->have(Player::class, ['place' => $room, 'daedalus' => $daedalus]);
+        $player = $I->have(Player::class, ['place' => $room, 'daedalus' => $daedalus, 'characterConfig' => $characterConfig]);
 
         /** @var Player $player2 */
-        $player2 = $I->have(Player::class, ['place' => $room, 'daedalus' => $daedalus]);
+        $player2 = $I->have(Player::class, ['place' => $room, 'daedalus' => $daedalus, 'characterConfig' => $characterConfig]);
 
         /** @var Player $mushPlayer */
-        $mushPlayer = $I->have(Player::class, ['place' => $room, 'daedalus' => $daedalus]);
+        $mushPlayer = $I->have(Player::class, ['place' => $room, 'daedalus' => $daedalus, 'characterConfig' => $characterConfig]);
         $status = new ChargeStatus($mushPlayer);
         $status->setName(PlayerStatusEnum::MUSH);
 

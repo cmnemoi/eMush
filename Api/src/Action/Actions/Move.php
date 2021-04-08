@@ -71,20 +71,26 @@ class Move extends AbstractAction
 
     protected function createLog(): void
     {
-        $this->roomLogService->createActionLog(
+        $this->roomLogService->createLog(
             ActionLogEnum::ENTER_ROOM,
             $this->player->getPlace(),
+            VisibilityEnum::PUBLIC,
+            'actions_log',
             $this->player,
             null,
-            VisibilityEnum::PUBLIC,
+            null,
+            null,
             new \DateTime('now')
         );
-        $this->roomLogService->createActionLog(
+        $this->roomLogService->createLog(
             ActionLogEnum::EXIT_ROOM,
             $this->parameter->getOtherRoom($this->player->getPlace()),
+            VisibilityEnum::PUBLIC,
+            'actions_log',
             $this->player,
             null,
-            VisibilityEnum::PUBLIC,
+            null,
+            null,
             new \DateTime('now')
         );
     }

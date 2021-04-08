@@ -55,6 +55,10 @@ Les plans de construction bleus sont une bénédiction pour les équipiers en ma
                 <source>sniper_helmet.short_name</source>
                 <target>Casque de visée</target>
             </segment>
+            <segment id="plural">
+                <source>sniper_helmet.plural</source>
+                <target>Casques de visée</target>
+            </segment>
             <segment id="description">
                 <source>sniper_helmet.description</source>
                 <target>TODO</target>

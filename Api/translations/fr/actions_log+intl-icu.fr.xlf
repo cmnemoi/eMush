@@ -20,189 +20,59 @@
             </segment>
         </unit>
         <unit id="consume_success">
-            <segment id="consume_success_1">
-                <source>consume_success_1</source>
-                <target>{character_gender, select, other {{player} a dévoré sa ration.}}</target>
-            </segment>
-            <segment id="consume_success_2_1_1">
-                <source>consume_success_2_1_1</source>
-                <target>{character_gender, select, other {{player} s'est bien calé l'estomac.}}</target>
-            </segment>
-            <segment id="consume_success_2_1_2">
-                <source>consume_success_2_1_2</source>
-                <target>{character_gender, select, other {{player} s'est bien calé l'estomac, gurps.}}</target>
-            </segment>
-            <segment id="consume_success_2_1_3">
-                <source>consume_success_2_1_3</source>
-                <target>{character_gender, select, other {{player} s'est bien calé l'estomac, merci.}}</target>
-            </segment>
-            <segment id="consume_success_2_2_1">
-                <source>consume_success_2_2_1</source>
-                <target>{character_gender, select, other {{player} s'est bien calé la panse.}}</target>
-            </segment>
-            <segment id="consume_success_2_2_2">
-                <source>consume_success_2_2_2</source>
-                <target>{character_gender, select, other {{player} s'est bien calé la panse, gurps.}}</target>
-            </segment>
-            <segment id="consume_success_2_2_3">
-                <source>consume_success_2_2_3</source>
-                <target>{character_gender, select, other {{player} s'est bien calé la panse, merci.}}</target>
-            </segment>
-            <segment id="consume_success_2_3_1">
-                <source>consume_success_2_3_1</source>
-                <target>{character_gender, select, other {{player} s'est bien calé le ventre.}}</target>
-            </segment>
-            <segment id="consume_success_2_3_2">
-                <source>consume_success_2_3_2.character.male</source>
-                <target>{character_gender, select, other {{player} s'est bien calé le ventre, gurps.}}</target>
-            </segment>
-            <segment id="consume_success_2_3_3">
-                <source>consume_success_2_2_3.character.male</source>
-                <target>{character_gender, select, other {{player} s'est bien calé le ventre, merci.}}</target>
-            </segment>
-            <segment id="consume_success_2_4_1">
-                <source>consume_success_2_4_1.character.male</source>
-                <target>{character_gender, select, other {{player} s'est bien calé avec sa petite collation.}}</target>
-            </segment>
-            <segment id="consume_success_2_4_2">
-                <source>consume_success_2_4_2.character.male</source>
-                <target>{character_gender, select, other {{player} s'est bien calé avec sa petite collation, gurps.}}</target>
-            </segment>
-            <segment id="consume_success_2_4_3">
-                <source>consume_success_2_4_3.character.male</source>
-                <target>{character_gender, select, other {{player} s'est bien calé avec sa petite collation, merci.}}</target>
-            </segment>
-            <segment id="consume_success_2_5_1">
-                <source>consume_success_2_5_1.character.male</source>
-                <target>{character_gender, select, other {{player} s'est bien calé avec son bon petit repas.}}</target>
-            </segment>
-            <segment id="consume_success_2_5_2">
-                <source>consume_success_2_5_2.character.male</source>
-                <target>{character_gender, select, other {{player} s'est bien calé avec son bon petit repas, gurps.}}</target>
-            </segment>
-            <segment id="consume_success_2_5_3">
-                <source>consume_success_2_5_3.character.male</source>
-                <target>{character_gender, select, other {{player} s'est bien calé avec son bon petit repas, merci.}}</target>
-            </segment>
-            <segment id="consume_success_2_6_1">
-                <source>consume_success_2_6_1.character.male</source>
-                <target>{character_gender, select, other {{player} s'est bien calé avec son gros repas.}}</target>
-            </segment>
-            <segment id="consume_success_2_6_2">
-                <source>consume_success_2_6_2.character.male</source>
-                <target>{character_gender, select, other {{player} s'est bien calé avec son gros repas, gurps.}}</target>
-            </segment>
-            <segment id="consume_success_2_6_3">
-                <source>consume_success_2_6_3.character.male</source>
-                <target>{character_gender, select, other {{player} s'est bien calé avec son gros repas, merci.}}</target>
-            </segment>
-            <segment id="consume_success_2_7_1">
-                <source>consume_success_2_7_1.character.male</source>
-                <target>{character_gender, select, other {{player} s'est bien calé avec son petit repas.}}</target>
-            </segment>
-            <segment id="consume_success_2_7_2">
-                <source>consume_success_2_7_2.character.male</source>
-                <target>{character_gender, select, other {{player} s'est bien calé avec son petit repas, gurps.}}</target>
-            </segment>
-            <segment id="consume_success_2_7_3">
-                <source>consume_success_2_7_3.character.male</source>
-                <target>{character_gender, select, other {{player} s'est bien calé avec son petit repas, merci.}}</target>
-            </segment>
-            <segment id="consume_success_3_1_1">
-                <source>consume_success_3_1_1.character.male</source>
-                <target>{character_gender, select, other {{player} s'est calé avec sa petite collation.}}</target>
-            </segment>
-            <segment id="consume_success_3_1_2">
-                <source>consume_success_3_1_2.character.male</source>
-                <target>{character_gender, select, other {{player} s'est calé avec sa petite collation, gurps.}}</target>
-            </segment>
-            <segment id="consume_success_3_1_3">
-                <source>consume_success_3_1_3.character.male</source>
-                <target>{character_gender, select, other {{player} s'est calé avec sa petite collation, merci.}}</target>
-            </segment>
-            <segment id="consume_success_3_2_1">
-                <source>consume_success_3_2_1.character.male</source>
-                <target>{character_gender, select, other {{player} s'est calé avec son bon petit repas.}}</target>
-            </segment>
-            <segment id="consume_success_3_2_2">
-                <source>consume_success_3_2_2.character.male</source>
-                <target>{character_gender, select, other {{player} s'est calé avec son bon petit repas, gurps.}}</target>
-            </segment>
-            <segment id="consume_success_3_2_3">
-                <source>consume_success_3_2_3.character.male</source>
-                <target>{character_gender, select, other {{player} s'est calé avec son bon petit repas, merci.}}</target>
-            </segment>
-            <segment id="consume_success_3_3_1">
-                <source>consume_success_3_3_1.character.male</source>
-                <target>{character_gender, select, other {{player} s'est calé avec son gros repas.}}</target>
-            </segment>
-            <segment id="consume_success_3_3_2">
-                <source>consume_success_3_3_2.character.male</source>
-                <target>{character_gender, select, other {{player} s'est calé avec son gros repas, gurps.}}</target>
-            </segment>
-            <segment id="consume_success_3_3_3">
-                <source>consume_success_3_3_3.character.male</source>
-                <target>{character_gender, select, other {{player} s'est calé avec son gros repas, merci.}}</target>
-            </segment>
-            <segment id="consume_success_3_4_1">
-                <source>consume_success_3_4_1.character.male</source>
-                <target>{character_gender, select, other {{player} s'est calé avec son petit repas.}}</target>
-            </segment>
-            <segment id="consume_success_3_4_2">
-                <source>consume_success_3_4_2.character.male</source>
-                <target>{character_gender, select, other {{player} s'est calé avec son petit repas, gurps.}}</target>
-            </segment>
-            <segment id="consume_success_3_4_3">
-                <source>consume_success_3_4_3.character.male</source>
-                <target>{character_gender, select, other {{player} s'est calé avec son petit repas, merci.}}</target>
-            </segment>
-            <segment id="consume_success_4_1_1">
-                <source>consume_success_4_1_1.character.male</source>
-                <target>{character_gender, select, other {{player} s'est mangé sa petite collation.}}</target>
-            </segment>
-            <segment id="consume_success_4_1_2">
-                <source>consume_success_4_1_2.character.male</source>
-                <target>{character_gender, select, other {{player} s'est mangé sa petite collation, gurps.}}</target>
-            </segment>
-            <segment id="consume_success_4_1_3">
-                <source>consume_success_4_1_3.character.male</source>
-                <target>{character_gender, select, other {{player} s'est mangé sa petite collation, merci.}}</target>
-            </segment>
-            <segment id="consume_success_4_2_1">
-                <source>consume_success_4_2_1.character.male</source>
-                <target>{character_gender, select, other {{player} s'est mangé son bon petit repas.}}</target>
-            </segment>
-            <segment id="consume_success_4_2_2">
-                <source>consume_success_4_2_2.character.male</source>
-                <target>{character_gender, select, other {{player} s'est mangé son bon petit repas, gurps.}}</target>
-            </segment>
-            <segment id="consume_success_4_2_3">
-                <source>consume_success_4_2_3.character.male</source>
-                <target>{character_gender, select, other {{player} s'est mangé son bon petit repas, merci.}}</target>
-            </segment>
-            <segment id="consume_success_4_3_1">
-                <source>consume_success_4_3_1.character.male</source>
-                <target>{character_gender, select, other {{player} s'est mangé son gros repas.}}</target>
-            </segment>
-            <segment id="consume_success_4_3_2">
-                <source>consume_success_4_3_2.character.male</source>
-                <target>{character_gender, select, other {{player} s'est mangé son gros repas, gurps.}}</target>
-            </segment>
-            <segment id="consume_success_4_3_3">
-                <source>consume_success_4_3_3.character.male</source>
-                <target>{character_gender, select, other {{player} s'est mangé son gros repas, merci.}}</target>
-            </segment>
-            <segment id="consume_success_4_4_1">
-                <source>consume_success_4_4_1.character.male</source>
-                <target>{character_gender, select, other {{player} s'est mangé son petit repas.}}</target>
-            </segment>
-            <segment id="consume_success_4_4_2">
-                <source>consume_success_4_4_2.character.male</source>
-                <target>{character_gender, select, other {{player} s'est mangé son petit repas, gurps.}}</target>
-            </segment>
-            <segment id="consume_success_4_4_3">
-                <source>consume_success_4_4_3.character.male</source>
-                <target>{character_gender, select, other {{player} s'est mangé son petit repas, merci.}}</target>
+            <segment id="consume_success">
+                <source>consume_success</source>
+                <target>{character_gender, select,
+                    other {{version, select,
+                        1 {{player} a dévoré sa ration.}
+                        2 {{player} s'est bien calé l'estomac.}
+                        3 {{player} s'est bien calé l'estomac, gurps.}
+                        4 {{player} s'est bien calé l'estomac, merci.}
+                        5 {{player} s'est bien calé la panse.}
+                        6 {{player} s'est bien calé la panse, gurps.}
+                        7 {{player} s'est bien calé la panse, merci.}
+                        8 {{player} s'est bien calé le ventre.}
+                        9 {{player} s'est bien calé le ventre, gurps.}
+                        10 {{player} s'est bien calé le ventre, merci.}
+                        11 {{player} s'est bien calé avec sa petite collation.}
+                        12 {{player} s'est bien calé avec sa petite collation, gurps.}
+                        13 {{player} s'est bien calé avec sa petite collation, merci.}
+                        14 {{player} s'est bien calé avec son bon petit repas.}
+                        15 {{player} s'est bien calé avec son bon petit repas, gurps.}
+                        16 {{player} s'est bien calé avec son bon petit repas, merci.}
+                        17 {{player} s'est bien calé avec son gros repas.}
+                        18 {{player} s'est bien calé avec son gros repas, gurps.}
+                        19 {{player} s'est bien calé avec son gros repas, merci.}
+                        20 {{player} s'est bien calé avec son petit repas.}
+                        21 {{player} s'est bien calé avec son petit repas, gurps.}
+                        22 {{player} s'est bien calé avec son petit repas, merci.}
+                        23 {{player} s'est calé avec sa petite collation.}
+                        24 {{player} s'est calé avec sa petite collation, gurps.}
+                        25 {{player} s'est calé avec sa petite collation, merci.}
+                        26 {{player} s'est calé avec son bon petit repas.}
+                        27 {{player} s'est calé avec son bon petit repas, gurps.}
+                        28 {{player} s'est calé avec son bon petit repas, merci.}
+                        29 {{player} s'est calé avec son gros repas.}
+                        30 {{player} s'est calé avec son gros repas, gurps.}
+                        31 {{player} s'est calé avec son gros repas, merci.}
+                        32 {{player} s'est calé avec son petit repas.}
+                        33 {{player} s'est calé avec son petit repas, gurps.}
+                        34 {{player} s'est calé avec son petit repas, merci.}
+                        35 {{player} s'est mangé sa petite collation.}
+                        36 {{player} s'est mangé sa petite collation, gurps.}
+                        37 {{player} s'est mangé sa petite collation, merci.}
+                        38 {{player} s'est mangé son bon petit repas.}
+                        39 {{player} s'est mangé son bon petit repas, gurps.}
+                        40 {{player} s'est mangé son bon petit repas, merci.}
+                        41 {{player} s'est mangé son gros repas.}
+                        42 {{player} s'est mangé son gros repas, gurps.}
+                        43 {{player} s'est mangé son gros repas, merci.}
+                        44 {{player} s'est mangé son petit repas.}
+                        45 {{player} s'est mangé son petit repas, gurps.}
+                        46 {{player} s'est mangé son petit repas, merci.}
+                        other {"invalid version number"}
+                    }}}
+                </target>
             </segment>
         </unit>
         <unit id="cook_success">
@@ -337,14 +207,160 @@
                 <target>{character_gender, select, other {**{player}** se plonge dans un document avec un air intrigué...}}</target>
             </segment>
         </unit>
+        <unit id="repair_fail">
+            <segment id="repair_fail">
+                <source>repair_fail</source>
+                <target>{{versionPart1, select,
+                    1 {**{target}** ou pas **{target}**… Telle est la question...}
+                    2 {{target_gender, select,
+                        male {Ce **{target}** n'est toujours pas réparé.}
+                        female {Cette **{target}** n'est toujours pas réparée.}
+                        other {invalid gender input}
+                    }}
+                    3 {{target_gender, select,
+                        male {Encore un essai pathétique pour réparer ce maudit **{target}**.}
+                        female {Encore un essai pathétique pour réparer cette maudite **{target}**.}
+                        other {invalid gender input}
+                    }}
+                    4 {{target_gender, select,
+                        male {L'état de ce **{target}** demeure...}
+                        female {L'état de cette **{target}** demeure...}
+                        other {invalid gender input}
+                    }}
+                    5 {{target_gender, select,
+                        male {Le **{target}** est toujours cassé.}
+                        female {La **{target}** est toujours cassée.}
+                        other {invalid gender input}
+                    }}
+                    6 {{target_gender, select,
+                        male {Le **{target}** sent le cramé.}
+                        female {La **{target}** sent le cramé.}
+                        other {invalid gender input}
+                    }}
+                    7 {{target_gender, select,
+                        male {Le **{target}** n'a pas l'air de mieux se porter et dégage une odeur de cramé.}
+                        female {La **{target}** n'a pas l'air de mieux se porter et dégage une odeur de cramé.}
+                        other {invalid gender input}
+                    }}
+                    8 {{target_gender, select,
+                        male {Malgré votre ténacité, vos tentatives de réparation du **{target}** restent infructueuses.}
+                        female {Malgré votre ténacité, vos tentatives de réparation de la **{target}** restent infructueuses.}
+                        other {invalid gender input}
+                    }}
+                    9 {{target_gender, select,
+                        male {Qui aurait cru que ce **{target}** soit en fait une telle énigme.}
+                        female {Qui aurait cru que cette **{target}** soit en fait une telle énigme.}
+                        other {invalid gender input}
+                    }}
+                    10 {{target_gender, select,
+                        male {Vous avez échoué les réparations du **{target}**.}
+                        female {Vous avez échoué les réparations de la **{target}**.}
+                        other {invalid gender input}
+                    }}
+                    other {invalid version number}
+                }{versionPart2, select,
+                    1 {Avec la fatigue, vous avez l'impression que l'objet vous a parlé et vous a dit "Autant embrasser un wookie"...}
+                    2 {Avec un petit peu de chance la prochaine sera la bonne.}
+                    3 {Ça ne peut-être que la faute du mush !}
+                    4 {Ce vieux matos alien vous a encore lâché.}
+                    5 {Cette pièce a vraiment une sale trogne...}
+                    6 {Encore du matos alien moisi !}
+                    7 {Essayez de prendre le problème sous un autre angle...}
+                    8 {Faites-le ou ne le faites pas, mais n'essayez pas.}
+                    9 {Finalement, les bâtons de la mort, c'était pas si mal...}
+                    10 {Inspirez donc un peu.}
+                    11 {La chance n'a rien à voir là dedans... ou presque.}
+                    12 {La solution n'arrivera pas toute seule.}
+                    13 {Les réparations échouent.}
+                    14 {Oubliez le reste et concentrez-vous.}
+                    15 {Peut-être devriez vous renoncer.}
+                    16 {Peut-être devriez vous vous concentrer.}
+                    17 {Peut-être pourriez vous tenter avec un outil plus approprié.}
+                    18 {Peut-être que ce maudit papillon n'a pas battu des ailes.}
+                    19 {Peut-être que le destin ne vous a pas souri aujourd'hui.}
+                    20 {Peut-être que les {targetPlural} sont des mensonges...}
+                    21 {Peut-être que vous n'êtes pas fait pour cela.}
+                    22 {Prenez de la distance...}
+                    23 {Prenez du recul...}
+                    24 {Prenez votre pelle et votre seau, ça ira mieux.}
+                    25 {Qu'est ce qui a bien pu foirer…}
+                    26 {Qu'est ce qui a bien pu rater…}
+                    27 {Qu'est ce qui n'a pas fonctionné...}
+                    28 {Qu'est ce qui n'a pas marché...}
+                    29 {Regardez les choses en face et changez de métier.}
+                    30 {Tentez autre chose...}
+                    31 {Un petit tour dans l'espace infini vous fera peut-être du bien.}
+                    32 {Tu quoque mi fili...}
+                    33 {Un second avis peut être nécessaire.}
+                    34 {Veuillez vous référer à la dernière page du manuel du parfait mécanicien.}
+                    35 {Veuillez vous référer à la page 1 du manuel du parfait mécanicien.}
+                    36 {Veuillez vous référer à la page 666 du manuel du parfait mécanicien.}
+                    37 {Veuillez vous référer à la page 42 du manuel du parfait mécanicien.}
+                    38 {Veuillez vous référer à la page 16 du manuel du parfait mécanicien.}
+                    39 {Votre génie a peut-être des limites, finalement...}
+                    40 {Vous auriez mieux fait de rester sur Xyloph-17...}
+                    41 {Vous aviez la bonne idée...}
+                    42 {Vous devriez essayer avec un zygocompresseur.}
+                    43 {Vous devriez passez à autre chose.}
+                    44 {Vous devriez vous asseoir et prendre une petite ration.}
+                    45 {Vous devriez vous asseoir...}
+                    46 {Vous n'étiez pas si loin pourtant...}
+                    47 {Vous saviez que vous n'auriez pas du rater le cours de couture...}
+                    48 {Vous y étiez presque...}
+                    49 {L'inspiration arrive.}
+                    50 {...et les réparations échouent.}
+                    other {invalid version number}
+                }}</target>
+            </segment>
+        </unit>
         <unit id="repair_success">
             <segment id="repair_success">
                 <source>repair_success</source>
-                <target>{character_gender, select,
-                    male {TODO: repair success}
-                    female {TODO: repair success}
-                    other {invalid gender input}
-                }</target>
+                <target>{{version, select,
+                    1 {{target_gender, select,
+                        male {La dernière tentative de **{player}** pour réparer le **{target}** s'est avérée fructueuse.}
+                        female {La dernière tentative de **{player}** pour réparer la **{target}** s'est avérée fructueuse.}
+                        other {invalid gender input}
+                    }}
+                    2 {{target_gender, select,
+                        male {Félicitation **{player}**. Le **{target}** fonctionne à nouveau.}
+                        female {Félicitation **{player}**. La **{target}** fonctionne à nouveau.}
+                        other {invalid gender input}
+                    }}
+                    3 {{target_gender, select,
+                        male {Le **{target}** est à nouveau fonctionnel, merci **{player}**.}
+                        female {La **{target}** est à nouveau fonctionnelle, merci **{player}**.}
+                        other {invalid gender input}
+                    }}
+                    4 {{target_gender, select,
+                        male {**{player}** a enfin réussi les réparations sur ce maudit **{target}**.}
+                        female {**{player}** a enfin réussi les réparations sur cette maudite **{target}**.}
+                        other {invalid gender input}
+                    }}
+                    5 {{target_gender, select,
+                        male {**{player}** a enfin remis le **{target}** à neuf.}
+                        female {**{player}** a enfin remis la **{target}** à neuf.}
+                        other {invalid gender input}
+                    }}
+                    6 {{target_gender, select,
+                        male {**{player}** peut se féliciter. Le **{target}** est réparé.}
+                        female {**{player}** peut se féliciter. La **{target}** est réparée.}
+                        other {invalid gender input}
+                    }}
+                    7 {{target_gender, select,
+                        male {{character_gender, select,
+                            male {**{player}** s'est finalement motivé et a réparé le **{target}**. Bravo.}
+                            female {**{player}** s'est finalement motivée et a réparé le **{target}**. Bravo.}
+                            other {invalid gender input}
+                        }}
+                        female {{character_gender, select,
+                            male {**{player}** s'est finalement motivé et a réparé la **{target}**. Bravo.}
+                            female {**{player}** s'est finalement motivée et a réparé la **{target}**. Bravo.}
+                            other {invalid gender input}
+                        }}
+                        other {invalid gender input}
+                    }}
+                }}</target>
             </segment>
         </unit>
         <unit id="search_success">
@@ -382,21 +398,17 @@
             </segment>
         </unit>
         <unit id="shred_success">
-            <segment id="shred_v1">
-                <source>shred_v1</source>
-                <target>{character_gender, select, other {**{player}** déchire un petit bout de papier avec un air résolu.}}</target>
-            </segment>
-            <segment id="shred_v2">
-                <source>shred_v2</source>
-                <target>{character_gender, select, other {**{player}** déchire un petit bout de papier avec un air satisfait.}}</target>
-            </segment>
-            <segment id="shred_v3">
-                <source>shred_v3</source>
-                <target>{character_gender, select, other {**{player}** déchire un petit bout de papier avec un air soucieux.}}</target>
-            </segment>
-            <segment id="shred_v4">
-                <source>shred_v4</source>
-                <target>{character_gender, select, other {**{player}** déchire un petit bout de papier avec un air soulagé.}}</target>
+            <segment id="shred_success">
+                <source>shred_success</source>
+                <target>{character_gender, select,
+                    other {{version, select,
+                        1 {**{player}** déchire un petit bout de papier avec un air résolu.}
+                        2 {**{player}** déchire un petit bout de papier avec un air satisfait.}
+                        3 {**{player}** déchire un petit bout de papier avec un air soucieux.}
+                        4 {**{player}** déchire un petit bout de papier avec un air soulagé.}
+                        other {"invalid version number"}
+                    }}}
+                </target>
             </segment>
         </unit>
         <unit id="take">
@@ -421,9 +433,15 @@
                 }</target>
             </segment>
         </unit>
-        <unit id="transplant_fail">
-            <segment id="transplant_fail">
-                <source>transplant_fail</source>
+        <unit id="hybridize_success">
+            <segment id="hybridize_success">
+                <source>hybridize_success</source>
+                <target>TODO</target>
+            </segment>
+        </unit>
+        <unit id="hybridize_fail">
+            <segment id="hybridize_fail">
+                <source>hybridize_fail</source>
                 <target>{character_gender, select,
                      other {{target_gender, select,
                         other {Quel soulagement... oh mais... **{player}** n'a pas réussi sa greffe de **{target}**. La petite plante reste chétive et meurt... Quelque chose a du contaminer l'opération.}
@@ -456,57 +474,34 @@
             </segment>
         </unit>
         <unit id="retrieve_oxygen_success">
-            <segment id="retrieve_oxygen_v1">
-                <source>retrieve_oxygen_v1</source>
-                <target>{character_gender, select,
-                    male {**{player}** enlève délicatement un peu d'oxygène du réservoir. Il a l'air louche.}
-                    female {**{player}** enlève délicatement un peu d'oxygène du réservoir. Elle a l'air louche.}
-                    other {invalid gender input}
-                }</target>
-            </segment>
-            <segment id="retrieve_oxygen_v2">
-                <source>retrieve_oxygen_v2</source>
-                <target>{character_gender, select,
-                    male {**{player}** enlève délicatement un peu d'oxygène du réservoir. Il a l'air tout à fait serein.}
-                    female {**{player}** enlève délicatement un peu d'oxygène du réservoir. Elle a l'air tout à fait sereine.}
-                    other {invalid gender input}
-                }</target>
-            </segment>
-            <segment id="retrieve_oxygen_v3">
-                <source>retrieve_oxygen_v3</source>
-                <target>{character_gender, select, other {**{player}** enlève délicatement un peu d'oxygène du réservoir. Ce rictus est inquiétant.}}</target>
-            </segment>
-            <segment id="retrieve_oxygen_v4">
-                <source>retrieve_oxygen_v4</source>
-                <target>{character_gender, select, other {**{player}** enlève délicatement un peu d'oxygène du réservoir. Etait-ce vraiment nécessaire ?}}</target>
-            </segment>
-            <segment id="retrieve_oxygen_v5">
-                <source>retrieve_oxygen_v5</source>
-                <target>{character_gender, select, other {**{player}** enlève délicatement un peu d'oxygène du réservoir. Mais pourquoi ?}}</target>
-            </segment>
-            <segment id="retrieve_oxygen_v6">
-                <source>retrieve_oxygen_v6</source>
-                <target>{character_gender, select, other {**{player}** enlève délicatement un peu d'oxygène du réservoir. Sans doute pour faire une BA.}}</target>
-            </segment>
-            <segment id="retrieve_oxygen_v7">
-                <source>retrieve_oxygen_v7</source>
-                <target>{character_gender, select, other {**{player}** enlève délicatement un peu d'oxygène du réservoir. Son but est sans doute louable.}}</target>
-            </segment>
-            <segment id="retrieve_oxygen_v8">
-                <source>retrieve_oxygen_v8</source>
-                <target>{character_gender, select, other {**{player}** enlève délicatement un peu d'oxygène du réservoir. Son sourire vous rapelle quelque chose.}}</target>
-            </segment>
-            <segment id="retrieve_oxygen_v9">
-                <source>retrieve_oxygen_v9</source>
-                <target>{character_gender, select, other {**{player}** enlève délicatement un peu d'oxygène du réservoir. Vous connaissez ce rire...}}</target>
-            </segment>
-            <segment id="retrieve_oxygen_v10">
-                <source>retrieve_oxygen_v10</source>
-                <target>{character_gender, select,
-                    male {**{player}** enlève délicatement un peu d'oxygène du réservoir. Vous devriez peut-être le surveiller de plus près.}
-                    female {**{player}** enlève délicatement un peu d'oxygène du réservoir. Vous devriez peut-être la surveiller de plus près.}
-                    other {invalid gender input}
-                }</target>
+            <segment id="retrieve_oxygen">
+                <source>retrieve_oxygen</source>
+                <target>{version, select,
+                    1 {{character_gender, select,
+                        male {**{player}** enlève délicatement un peu d'oxygène du réservoir. Il a l'air louche.}
+                        female {**{player}** enlève délicatement un peu d'oxygène du réservoir. Elle a l'air louche.}
+                        other {invalid gender input}
+                    }}
+                    2 {{character_gender, select,
+                        male {**{player}** enlève délicatement un peu d'oxygène du réservoir. Il a l'air tout à fait serein.}
+                        female {**{player}** enlève délicatement un peu d'oxygène du réservoir. Elle a l'air tout à fait sereine.}
+                        other {invalid gender input}
+                    }}
+                    3 {{character_gender, select, other {**{player}** enlève délicatement un peu d'oxygène du réservoir. Ce rictus est inquiétant.}}}
+                    4 {{character_gender, select, other {**{player}** enlève délicatement un peu d'oxygène du réservoir. Etait-ce vraiment nécessaire ?}}}
+                    5 {{character_gender, select, other {**{player}** enlève délicatement un peu d'oxygène du réservoir. Mais pourquoi ?}}}
+                    6 {{character_gender, select, other {**{player}** enlève délicatement un peu d'oxygène du réservoir. Sans doute pour faire une BA.}}}
+                    7 {{character_gender, select, other {**{player}** enlève délicatement un peu d'oxygène du réservoir. Son but est sans doute louable.}}}
+                    8 {{character_gender, select, other {**{player}** enlève délicatement un peu d'oxygène du réservoir. Son sourire vous rapelle quelque chose.}}}
+                    9 {{character_gender, select, other {**{player}** enlève délicatement un peu d'oxygène du réservoir. Vous connaissez ce rire...}}}
+                    10 {{character_gender, select,
+                        male {**{player}** enlève délicatement un peu d'oxygène du réservoir. Vous devriez peut-être le surveiller de plus près.}
+                        female {**{player}** enlève délicatement un peu d'oxygène du réservoir. Vous devriez peut-être la surveiller de plus près.}
+                        other {invalid gender input}
+                    }}
+                    other {"invalid version number"}
+                }
+                </target>
             </segment>
         </unit>
         <unit id="sabotage_success">

@@ -207,11 +207,15 @@ class DaedalusService implements DaedalusServiceInterface
             $capsule->removeLocation();
             $this->gameEquipmentService->delete($capsule);
 
-            $this->roomLogService->createPlayerLog(
+            $this->roomLogService->createLog(
                 LogEnum::OXY_LOW_USE_CAPSULE,
                 $player->getPlace(),
-                $player,
                 VisibilityEnum::PRIVATE,
+                'event_log',
+                $player,
+                null,
+                null,
+                null,
                 $date
             );
         }

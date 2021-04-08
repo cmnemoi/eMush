@@ -2,8 +2,10 @@
 
 namespace Mush\Player\Service;
 
+use Error;
 use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\ModifierScopeEnum;
 use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -17,17 +19,20 @@ class PlayerVariableService implements PlayerVariableServiceInterface
     const FULL_STOMACH_STATUS_THRESHOLD = 4;
     const STARVING_STATUS_THRESHOLD = -24;
     const SUICIDAL_THRESHOLD = 1;
-    const DEPRESSED_THRESHOLD = 3;
+    const DEMORALIZED_THRESHOLD = 3;
 
     private StatusServiceInterface $statusService;
     private RoomLogServiceInterface $roomLogService;
+    private ActionModifierServiceInterface $actionModifierService;
 
     public function __construct(
         StatusServiceInterface $statusService,
-        RoomLogServiceInterface $roomLogService
+        RoomLogServiceInterface $roomLogService,
+        ActionModifierServiceInterface $actionModifierService
     ) {
         $this->statusService = $statusService;
         $this->roomLogService = $roomLogService;
+        $this->actionModifierService = $actionModifierService;
     }
 
     public function modifyPlayerVariable(Player $player, Modifier $actionModifier, \DateTime $date = null): Player
@@ -50,6 +55,60 @@ class PlayerVariableService implements PlayerVariableServiceInterface
             case ModifierTargetEnum::SATIETY:
                 $player = $this->handleSatietyModifier($delta, $player);
                 break;
+            default:
+                throw new Error('modifyPlayerVariable : invalid action modifier target');
+        }
+
+        return $player;
+    }
+
+    public function getMaxPlayerVariable(Player $player, string $target): int
+    {
+        $gameConfig = $player->getDaedalus()->getGameConfig();
+
+        switch ($target) {
+            case ModifierTargetEnum::MAX_ACTION_POINT:
+                $maxValue = $gameConfig->getMaxActionPoint();
+                break;
+            case ModifierTargetEnum::MAX_MOVEMENT_POINT:
+                $maxValue = $gameConfig->getMaxMovementPoint();
+                break;
+            case ModifierTargetEnum::MAX_HEALTH_POINT:
+                $maxValue = $gameConfig->getMaxHealthPoint();
+                break;
+            case ModifierTargetEnum::MAX_MORAL_POINT:
+                $maxValue = $gameConfig->getMaxMoralPoint();
+                break;
+            default:
+                throw new Error('getMaxPlayerVariable : invalid target string');
+        }
+
+        return $this->actionModifierService->getModifiedValue($maxValue, $player, [ModifierScopeEnum::PERMANENT], $target);
+    }
+
+    public function setPlayerVariableToMax(Player $player, string $target, \DateTime $date = null): Player
+    {
+        $date = $date ?? new \DateTime('now');
+        $maxPoint = $this->getMaxPlayerVariable($player, $target);
+        switch ($target) {
+            case ModifierTargetEnum::ACTION_POINT:
+                $delta = $maxPoint - $player->getActionPoint();
+                $player = $this->handleActionPointModifier($delta, $player, $date);
+                break;
+            case ModifierTargetEnum::MOVEMENT_POINT:
+                $delta = $maxPoint - $player->getMovementPoint();
+                $player = $this->handleMovementPointModifier($delta, $player, $date);
+                break;
+            case ModifierTargetEnum::HEALTH_POINT:
+                $delta = $maxPoint - $player->getHealthPoint();
+                $player = $this->handleHealthPointModifier($delta, $player, $date);
+                break;
+            case ModifierTargetEnum::MORAL_POINT:
+                $delta = $maxPoint - $player->getMoralPoint();
+                $player = $this->handleMoralPointModifier($delta, $player, $date);
+                break;
+            default:
+                throw new Error('getMaxPlayerVariable : invalid target string');
         }
 
         return $player;
@@ -57,11 +116,10 @@ class PlayerVariableService implements PlayerVariableServiceInterface
 
     private function handleActionPointModifier(int $actionModifier, Player $player, \DateTime $date): Player
     {
-        $gameConfig = $player->getDaedalus()->getGameConfig();
-
         if ($actionModifier !== 0) {
             $playerNewActionPoint = $player->getActionPoint() + $actionModifier;
-            $playerNewActionPoint = $this->getValueInInterval($playerNewActionPoint, 0, $gameConfig->getMaxActionPoint());
+            $playerMaxActionPoint = $this->getMaxPlayerVariable($player, ModifierTargetEnum::MAX_ACTION_POINT);
+            $playerNewActionPoint = $this->getValueInInterval($playerNewActionPoint, 0, $playerMaxActionPoint);
             $player->setActionPoint($playerNewActionPoint);
             $this->roomLogService->createQuantityLog(
                 $actionModifier > 0 ? LogEnum::GAIN_ACTION_POINT : LogEnum::LOSS_ACTION_POINT,
@@ -78,11 +136,10 @@ class PlayerVariableService implements PlayerVariableServiceInterface
 
     private function handleMovementPointModifier(int $movementModifier, Player $player, \DateTime $date): Player
     {
-        $gameConfig = $player->getDaedalus()->getGameConfig();
-
         if ($movementModifier !== 0) {
             $playerNewMovementPoint = $player->getMovementPoint() + $movementModifier;
-            $playerNewMovementPoint = $this->getValueInInterval($playerNewMovementPoint, 0, $gameConfig->getMaxMovementPoint());
+            $playerMaxMovementPoint = $this->getMaxPlayerVariable($player, ModifierTargetEnum::MAX_MOVEMENT_POINT);
+            $playerNewMovementPoint = $this->getValueInInterval($playerNewMovementPoint, 0, $playerMaxMovementPoint);
             $player->setMovementPoint($playerNewMovementPoint);
             $this->roomLogService->createQuantityLog(
                 $movementModifier > 0 ? LogEnum::GAIN_MOVEMENT_POINT : LogEnum::LOSS_MOVEMENT_POINT,
@@ -99,11 +156,10 @@ class PlayerVariableService implements PlayerVariableServiceInterface
 
     private function handleHealthPointModifier(int $healthModifier, Player $player, \DateTime $date): Player
     {
-        $gameConfig = $player->getDaedalus()->getGameConfig();
-
         if ($healthModifier !== 0) {
             $playerNewHealthPoint = $player->getHealthPoint() + $healthModifier;
-            $playerNewHealthPoint = $this->getValueInInterval($playerNewHealthPoint, 0, $gameConfig->getMaxHealthPoint());
+            $playerMaxHealthPoint = $this->getMaxPlayerVariable($player, ModifierTargetEnum::MAX_HEALTH_POINT);
+            $playerNewHealthPoint = $this->getValueInInterval($playerNewHealthPoint, 0, $playerMaxHealthPoint);
             $player->setHealthPoint($playerNewHealthPoint);
             $this->roomLogService->createQuantityLog(
                 $healthModifier > 0 ? LogEnum::GAIN_HEALTH_POINT : LogEnum::LOSS_HEALTH_POINT,
@@ -120,12 +176,11 @@ class PlayerVariableService implements PlayerVariableServiceInterface
 
     private function handleMoralPointModifier(int $moralModifier, Player $player, \DateTime $date): Player
     {
-        $gameConfig = $player->getDaedalus()->getGameConfig();
-
         if ($moralModifier !== 0) {
             if (!$player->isMush()) {
                 $playerNewMoralPoint = $player->getMoralPoint() + $moralModifier;
-                $playerNewMoralPoint = $this->getValueInInterval($playerNewMoralPoint, 0, $gameConfig->getMaxMoralPoint());
+                $playerMaxMoralPoint = $this->getMaxPlayerVariable($player, ModifierTargetEnum::MAX_MORAL_POINT);
+                $playerNewMoralPoint = $this->getValueInInterval($playerNewMoralPoint, 0, $playerMaxMoralPoint);
                 $player->setMoralPoint($playerNewMoralPoint);
 
                 $player = $this->handleMoralStatus($player);
@@ -155,8 +210,8 @@ class PlayerVariableService implements PlayerVariableServiceInterface
             $player->removeStatus($suicidalStatus);
         }
 
-        if ($player->getMoralPoint() <= self::DEPRESSED_THRESHOLD &&
-            $player->getMoralPoint() > self::SUICIDAL_THRESHOLD && $demoralizedStatus
+        if ($player->getMoralPoint() <= self::DEMORALIZED_THRESHOLD &&
+            $player->getMoralPoint() > self::SUICIDAL_THRESHOLD && !$demoralizedStatus
         ) {
             $this->statusService->createCoreStatus(PlayerStatusEnum::DEMORALIZED, $player, null, VisibilityEnum::PRIVATE);
         } elseif ($demoralizedStatus) {

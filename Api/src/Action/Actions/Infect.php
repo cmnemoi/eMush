@@ -61,8 +61,18 @@ class Infect extends AbstractAction
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(new Status(['status' => PlayerStatusEnum::MUSH, 'target' => Status::PLAYER, 'groups' => ['visibility']]));
         $metadata->addConstraint(new MushSpore(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::INFECT_NO_SPORE]));
-        $metadata->addConstraint(new Status(['status' => PlayerStatusEnum::MUSH, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::INFECT_MUSH]));
-        $metadata->addConstraint(new Status(['status' => PlayerStatusEnum::IMMUNIZED, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::INFECT_IMMUNE]));
+        $metadata->addConstraint(new Status([
+            'status' => PlayerStatusEnum::MUSH,
+            'contain' => false,
+            'groups' => ['execute'],
+            'message' => ActionImpossibleCauseEnum::INFECT_MUSH,
+        ]));
+        $metadata->addConstraint(new Status([
+            'status' => PlayerStatusEnum::IMMUNIZED,
+            'contain' => false,
+            'groups' => ['execute'],
+            'message' => ActionImpossibleCauseEnum::INFECT_IMMUNE,
+        ]));
         $metadata->addConstraint(new DailySporesLimit(['target' => DailySporesLimit::PLAYER, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::INFECT_DAILY_LIMIT]));
     }
 

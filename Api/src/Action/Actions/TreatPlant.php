@@ -51,7 +51,9 @@ class TreatPlant extends AbstractAction
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(new Status([
-            'status' => EquipmentStatusEnum::PLANT_DISEASED, 'contain' => false, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::TREAT_PLANT_NO_DISEASE,
+            'status' => EquipmentStatusEnum::PLANT_DISEASED,
+            'groups' => ['execute'],
+            'message' => ActionImpossibleCauseEnum::TREAT_PLANT_NO_DISEASE,
         ]));
     }
 

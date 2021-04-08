@@ -60,7 +60,10 @@ class Disassemble extends AttemptAction
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(new Status([
-            'status' => EquipmentStatusEnum::REINFORCED, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::DISMANTLE_REINFORCED,
+            'status' => EquipmentStatusEnum::REINFORCED,
+            'contain' => false,
+            'groups' => ['execute'],
+            'message' => ActionImpossibleCauseEnum::DISMANTLE_REINFORCED,
         ]));
     }
 

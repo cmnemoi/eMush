@@ -2,7 +2,7 @@
 
 namespace Mush\Action\Validator;
 
-class ParameterHasAction extends ClassConstraint
+class HasAction extends ClassConstraint
 {
     public string $message = 'parameter do not have the action';
 }

@@ -7,7 +7,7 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class InventoryFullValidator extends ConstraintValidator
+class ActionPointValidator extends ConstraintValidator
 {
     public function validate($value, Constraint $constraint): void
     {
@@ -15,12 +15,14 @@ class InventoryFullValidator extends ConstraintValidator
             throw new UnexpectedTypeException($value, AbstractAction::class);
         }
 
-        if (!$constraint instanceof InventoryFull) {
-            throw new UnexpectedTypeException($constraint, InventoryFull::class);
+        if (!$constraint instanceof ActionPoint) {
+            throw new UnexpectedTypeException($constraint, ActionPoint::class);
         }
 
-        $player = $value->getPlayer();
-        if ($player->getItems()->count() >= $player->getDaedalus()->getGameConfig()->getMaxItemInInventory()) {
+        if ($value->getPlayer()->getActionPoint() < $value->getActionPointCost() ||
+            $value->getPlayer()->getMovementPoint() < $value->getMovementPointCost() ||
+            $value->getPlayer()->getMoralPoint() < $value->getMoralPointCost()
+        ) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }

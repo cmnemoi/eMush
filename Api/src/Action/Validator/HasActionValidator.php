@@ -3,12 +3,14 @@
 namespace Mush\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Service\GearToolServiceInterface;
+use Mush\Player\Entity\Player;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class UsedToolValidator extends ConstraintValidator
+class HasActionValidator extends ConstraintValidator
 {
     private GearToolServiceInterface $gearToolService;
 
@@ -23,11 +25,19 @@ class UsedToolValidator extends ConstraintValidator
             throw new UnexpectedTypeException($value, AbstractAction::class);
         }
 
-        if (!$constraint instanceof UsedTool) {
-            throw new UnexpectedTypeException($constraint, UsedTool::class);
+        if (!$constraint instanceof HasAction) {
+            throw new UnexpectedTypeException($constraint, HasAction::class);
         }
 
-        if ($this->gearToolService->getUsedTool($value->getPlayer(), $value->getActionName()) === null) {
+        $parameter = $value->getParameter();
+        $action = $value->getAction();
+        $player = $value->getPlayer();
+
+        if ((($parameter === null && !$player->getSelfActions()->contains($action)) ||
+            ($parameter instanceof Player && !$parameter->getTargetActions()->contains($action)) ||
+            ($parameter instanceof GameEquipment && !$parameter->getActions()->contains($action))) &&
+            $this->gearToolService->getUsedTool($player, $value->getActionName()) === null
+        ) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }

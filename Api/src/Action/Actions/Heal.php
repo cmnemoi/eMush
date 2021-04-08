@@ -7,35 +7,33 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
-use Mush\Action\Validator\Mechanic;
+use Mush\Action\Validator\FullHealth;
 use Mush\Action\Validator\Reach;
-use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\Mechanics\Book;
-use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Equipment\Event\EquipmentEvent;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Player\Entity\Modifier;
+use Mush\Player\Entity\Player;
+use Mush\Player\Enum\ModifierTargetEnum;
+use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class ReadBook extends AbstractAction
+class Heal extends AbstractAction
 {
-    protected string $name = ActionEnum::READ_BOOK;
+    const BASE_HEAL = 2;
 
-    /** @var GameItem */
+    protected string $name = ActionEnum::HEAL;
+
+    /** @var Player */
     protected $parameter;
 
-    private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        GameEquipmentServiceInterface $gameEquipmentService,
         PlayerServiceInterface $playerService,
     ) {
         parent::__construct(
@@ -44,31 +42,35 @@ class ReadBook extends AbstractAction
             $validator
         );
 
-        $this->gameEquipmentService = $gameEquipmentService;
         $this->playerService = $playerService;
     }
 
     protected function support(?ActionParameter $parameter): bool
     {
-        return $parameter instanceof GameItem;
+        return $parameter instanceof Player;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
-        $metadata->addConstraint(new Mechanic(['mechanic' => EquipmentMechanicEnum::BOOK, 'groups' => ['visibility']]));
+        $metadata->addConstraint(new FullHealth(['target' => FullHealth::PARAMETER, 'groups' => ['visibility']]));
     }
 
     protected function applyEffects(): ActionResult
     {
-        /** @var Book $bookType */
-        $bookType = $this->parameter->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BOOK);
-        $this->player->addSkill($bookType->getSkill());
+        //@TODO remove diseases
 
-        $equipmentEvent = new EquipmentEvent($this->parameter, VisibilityEnum::HIDDEN);
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        $actionModifier = new Modifier();
+        $actionModifier
+            ->setDelta(self::BASE_HEAL)
+            ->setTarget(ModifierTargetEnum::HEALTH_POINT)
+        ;
 
-        $this->playerService->persist($this->player);
+        $playerEvent = new PlayerEvent($this->parameter);
+        $playerEvent->setModifier($actionModifier);
+        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
+
+        $this->playerService->persist($this->parameter);
 
         return new Success();
     }

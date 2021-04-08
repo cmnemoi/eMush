@@ -7,6 +7,7 @@ use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Validator\Reach;
 use Mush\Action\Validator\ReachValidator;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\ReachEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use PHPUnit\Framework\TestCase;
@@ -37,6 +38,7 @@ class ReachValidatorTest extends TestCase
 
     public function testValidForPlayer()
     {
+        $this->constraint->reach = ReachEnum::ROOM;
         $this->initValidator();
 
         $room = new Place();
@@ -61,6 +63,7 @@ class ReachValidatorTest extends TestCase
 
     public function testValidForEquipment()
     {
+        $this->constraint->reach = ReachEnum::ROOM;
         $this->initValidator();
 
         $room = new Place();
@@ -90,6 +93,7 @@ class ReachValidatorTest extends TestCase
 
     public function testNotValidForPlayer()
     {
+        $this->constraint->reach = ReachEnum::ROOM;
         $this->initValidator($this->constraint->message);
 
         $player = new Player();
@@ -112,6 +116,8 @@ class ReachValidatorTest extends TestCase
 
     public function testNotValidForEquipment()
     {
+        $this->constraint->reach = ReachEnum::ROOM;
+
         $this->initValidator();
 
         $player = new Player();
@@ -132,6 +138,103 @@ class ReachValidatorTest extends TestCase
 
         $target->setPlace(null);
         $target->setPlayer(new Player());
+
+        $this->initValidator($this->constraint->message);
+        $this->validator->validate($action, $this->constraint);
+
+        $this->assertTrue(true);
+    }
+
+    public function testValidForInventory()
+    {
+        $this->constraint->reach = ReachEnum::INVENTORY;
+
+        $gameItem = new GameItem();
+
+        $player = new Player();
+        $player->addItem($gameItem);
+
+        $action = Mockery::mock(AbstractAction::class);
+        $action
+            ->shouldReceive([
+                'getPlayer' => $player,
+                'getParameter' => $gameItem,
+            ])
+        ;
+
+        $this->initValidator();
+        $this->validator->validate($action, $this->constraint);
+
+        $this->assertTrue(true);
+    }
+
+    public function testNotValidForInventory()
+    {
+        $this->constraint->reach = ReachEnum::INVENTORY;
+
+        $gameItem = new GameItem();
+
+        $player = new Player();
+
+        $action = Mockery::mock(AbstractAction::class);
+        $action
+            ->shouldReceive([
+                'getPlayer' => $player,
+                'getParameter' => $gameItem,
+            ])
+        ;
+
+        $this->initValidator($this->constraint->message);
+        $this->validator->validate($action, $this->constraint);
+
+        $this->assertTrue(true);
+    }
+
+    public function testValidForShelve()
+    {
+        $this->constraint->reach = ReachEnum::SHELVE;
+
+        $room = new Place();
+
+        $player = new Player();
+        $player->setPlace($room);
+
+        $gameItem = new GameItem();
+        $gameItem->setPlace($room);
+
+        $action = Mockery::mock(AbstractAction::class);
+        $action
+            ->shouldReceive([
+                'getPlayer' => $player,
+                'getParameter' => $gameItem,
+            ])
+        ;
+
+        $this->initValidator();
+        $this->validator->validate($action, $this->constraint);
+
+        $this->assertTrue(true);
+    }
+
+    public function testNotValidForShelve()
+    {
+        $this->constraint->reach = ReachEnum::SHELVE;
+
+        $room = new Place();
+
+        $player = new Player();
+        $player->setPlace($room);
+
+        $gameItem = new GameItem();
+        $gameItem->setPlace(new Place());
+
+        $action = Mockery::mock(AbstractAction::class);
+        $action
+            ->shouldReceive([
+                'getPlayer' => $player,
+                'getParameter' => $gameItem,
+            ])
+        ;
 
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);

@@ -10,10 +10,10 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\Oxygen;
 use Mush\Action\Validator\ParameterName;
 use Mush\Action\Validator\Reach;
-use Mush\Action\Validator\UsedTool;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -53,9 +53,8 @@ class InsertOxygen extends AbstractAction
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
+        $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(new ParameterName(['name' => ItemEnum::OXYGEN_CAPSULE, 'groups' => ['visibility']]));
-        $metadata->addConstraint(new UsedTool(['groups' => ['visibility']]));
-        $metadata->addConstraint(new Reach(['groups' => ['visibility']]));
         $metadata->addConstraint(new Oxygen(['retrieve' => false, 'groups' => ['visibility']]));
     }
 

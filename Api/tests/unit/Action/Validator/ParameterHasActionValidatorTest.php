@@ -6,26 +6,34 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Entity\Action;
-use Mush\Action\Validator\ParameterHasAction;
-use Mush\Action\Validator\ParameterHasActionValidator;
+use Mush\Action\Validator\HasAction;
+use Mush\Action\Validator\HasActionValidator;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
+use Mush\Equipment\Service\GearToolServiceInterface;
+use Mush\Player\Entity\Player;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
 class ParameterHasActionValidatorTest extends TestCase
 {
-    private ParameterHasActionValidator $validator;
-    private ParameterHasAction $constraint;
+    private HasActionValidator $validator;
+    private HasAction $constraint;
+
+    /** @var GearToolServiceInterface | Mockery\Mock */
+    private GearToolServiceInterface $gearToolService;
 
     /**
      * @before
      */
     public function before()
     {
-        $this->validator = new ParameterHasActionValidator();
-        $this->constraint = new ParameterHasAction();
+        $this->gearToolService = Mockery::mock(GearToolServiceInterface::class);
+
+        $this->validator = new HasActionValidator($this->gearToolService);
+        $this->constraint = new HasAction();
     }
 
     /**
@@ -51,6 +59,7 @@ class ParameterHasActionValidatorTest extends TestCase
             ->shouldReceive([
                 'getAction' => $actionEntity,
                 'getParameter' => $gameItem,
+                'getPlayer' => new Player(),
             ])
         ;
 
@@ -73,13 +82,67 @@ class ParameterHasActionValidatorTest extends TestCase
             ->shouldReceive([
                 'getAction' => new Action(),
                 'getParameter' => $gameItem,
+                'getActionName' => 'some_name',
+                'getPlayer' => new Player(),
             ])
         ;
+
+        $this->gearToolService->shouldReceive('getUsedTool')->andReturn(null);
 
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);
 
         $this->assertTrue(true);
+    }
+
+    public function testValidTool()
+    {
+        $itemConfig = new ItemConfig();
+        $itemConfig->setActions(new ArrayCollection([]));
+
+        $gameItem = new GameItem();
+        $gameItem->setEquipment($itemConfig);
+
+        $action = Mockery::mock(AbstractAction::class);
+        $action
+            ->shouldReceive([
+                'getAction' => new Action(),
+                'getParameter' => $gameItem,
+                'getActionName' => 'some_name',
+                'getPlayer' => new Player(),
+            ])
+        ;
+
+        $this->gearToolService->shouldReceive('getUsedTool')->andReturn(new GameEquipment());
+
+        $this->initValidator();
+        $this->validator->validate($action, $this->constraint);
+
+        $this->assertTrue(true);
+    }
+
+    public function testNotValidTool()
+    {
+        $itemConfig = new ItemConfig();
+        $itemConfig->setActions(new ArrayCollection([]));
+
+        $gameItem = new GameItem();
+        $gameItem->setEquipment($itemConfig);
+
+        $action = Mockery::mock(AbstractAction::class);
+        $action
+            ->shouldReceive([
+                'getAction' => new Action(),
+                'getParameter' => $gameItem,
+                'getActionName' => 'some_name',
+                'getPlayer' => new Player(),
+            ])
+        ;
+
+        $this->gearToolService->shouldReceive('getUsedTool')->andReturn(null);
+
+        $this->initValidator($this->constraint->message);
+        $this->validator->validate($action, $this->constraint);
     }
 
     protected function initValidator(?string $expectedMessage = null)

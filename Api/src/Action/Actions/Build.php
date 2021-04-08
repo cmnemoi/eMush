@@ -15,10 +15,10 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Blueprint;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Equipment\Service\GearToolServiceInterface;
-use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -62,8 +62,8 @@ class Build extends AbstractAction
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
+        $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(new Mechanic(['mechanic' => EquipmentMechanicEnum::BLUEPRINT, 'groups' => ['visibility']]));
-        $metadata->addConstraint(new Reach(['groups' => ['visibility']]));
     }
 
     public function cannotExecuteReason(): ?string

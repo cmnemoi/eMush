@@ -4,6 +4,7 @@ namespace Mush\Test\Player\Service;
 
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Modifier;
@@ -120,11 +121,15 @@ class PlayerVariableServiceTest extends TestCase
         $daedalus = new Daedalus();
         $daedalus->setGameConfig($gameConfig);
         $room = new Place();
+        $characterConfig = new CharacterConfig();
+        $characterConfig->setName('Toto');
+
         $player = new Player();
         $player
             ->setMoralPoint(5)
             ->setDaedalus($daedalus)
             ->setPlace($room)
+            ->setCharacterConfig($characterConfig)
         ;
 
         $modifier = new Modifier();
@@ -137,7 +142,7 @@ class PlayerVariableServiceTest extends TestCase
             ->andReturn(16)
             ->once();
         $this->statusService->shouldReceive('createCoreStatus')->once();
-        $this->roomLogService->shouldReceive('createQuantityLog')->once();
+        $this->roomLogService->shouldReceive('createLog')->once();
 
         $this->service->modifyPlayerVariable($player, $modifier);
 
@@ -152,7 +157,7 @@ class PlayerVariableServiceTest extends TestCase
             ->andReturn(16)
             ->once();
         $this->statusService->shouldReceive('createCoreStatus')->once();
-        $this->roomLogService->shouldReceive('createQuantityLog')->once();
+        $this->roomLogService->shouldReceive('createLog')->once();
 
         $this->service->modifyPlayerVariable($player, $modifier);
 
@@ -170,7 +175,7 @@ class PlayerVariableServiceTest extends TestCase
             ->andReturn(16)
             ->once();
         $this->statusService->shouldReceive('createCoreStatus')->once();
-        $this->roomLogService->shouldReceive('createQuantityLog')->once();
+        $this->roomLogService->shouldReceive('createLog')->once();
 
         $this->service->modifyPlayerVariable($player, $modifier);
 
@@ -187,7 +192,7 @@ class PlayerVariableServiceTest extends TestCase
             ->with(16, $player, [ModifierScopeEnum::PERMANENT], ModifierTargetEnum::MAX_MORAL_POINT)
             ->andReturn(16)
             ->once();
-        $this->roomLogService->shouldReceive('createQuantityLog')->once();
+        $this->roomLogService->shouldReceive('createLog')->once();
 
         $this->service->modifyPlayerVariable($player, $modifier);
 
@@ -202,11 +207,14 @@ class PlayerVariableServiceTest extends TestCase
         $daedalus = new Daedalus();
         $daedalus->setGameConfig($gameConfig);
         $room = new Place();
+        $characterConfig = new CharacterConfig();
+        $characterConfig->setName('Toto');
         $player = new Player();
         $player
             ->setActionPoint(5)
             ->setDaedalus($daedalus)
             ->setPlace($room)
+            ->setCharacterConfig($characterConfig)
         ;
 
         $modifier = new Modifier();
@@ -217,7 +225,7 @@ class PlayerVariableServiceTest extends TestCase
             ->with(16, $player, [ModifierScopeEnum::PERMANENT], ModifierTargetEnum::MAX_ACTION_POINT)
             ->andReturn(16)
             ->once();
-        $this->roomLogService->shouldReceive('createQuantityLog')->once();
+        $this->roomLogService->shouldReceive('createLog')->once();
 
         $this->service->modifyPlayerVariable($player, $modifier);
 
@@ -232,7 +240,7 @@ class PlayerVariableServiceTest extends TestCase
             ->with(16, $player, [ModifierScopeEnum::PERMANENT], ModifierTargetEnum::MAX_ACTION_POINT)
             ->andReturn(16)
             ->once();
-        $this->roomLogService->shouldReceive('createQuantityLog')->once();
+        $this->roomLogService->shouldReceive('createLog')->once();
 
         $this->service->modifyPlayerVariable($player, $modifier);
 
@@ -245,7 +253,7 @@ class PlayerVariableServiceTest extends TestCase
             ->with(16, $player, [ModifierScopeEnum::PERMANENT], ModifierTargetEnum::MAX_ACTION_POINT)
             ->andReturn(16)
             ->once();
-        $this->roomLogService->shouldReceive('createQuantityLog')->once();
+        $this->roomLogService->shouldReceive('createLog')->once();
 
         $this->service->modifyPlayerVariable($player, $modifier);
 
@@ -259,11 +267,14 @@ class PlayerVariableServiceTest extends TestCase
         $daedalus = new Daedalus();
         $daedalus->setGameConfig($gameConfig);
         $room = new Place();
+        $characterConfig = new CharacterConfig();
+        $characterConfig->setName('Toto');
         $player = new Player();
         $player
             ->setHealthPoint(5)
             ->setDaedalus($daedalus)
             ->setPlace($room)
+            ->setCharacterConfig($characterConfig)
         ;
 
         $modifier = new Modifier();
@@ -274,7 +285,7 @@ class PlayerVariableServiceTest extends TestCase
             ->with(16, $player, [ModifierScopeEnum::PERMANENT], ModifierTargetEnum::MAX_HEALTH_POINT)
             ->andReturn(16)
             ->once();
-        $this->roomLogService->shouldReceive('createQuantityLog')->once();
+        $this->roomLogService->shouldReceive('createLog')->once();
 
         $this->service->modifyPlayerVariable($player, $modifier);
 

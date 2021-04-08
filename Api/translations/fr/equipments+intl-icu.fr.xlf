@@ -1,76 +1,1070 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
     <file id="equipements.ext">
-        <unit id="apprenton_pilot">
+        <unit id="antenna">
             <segment id="name">
-                <source>apprenton_pilot.name</source>
-                <target>Apprenton Pilote</target>
+                <source>antenna.name</source>
+                <target>Antenne</target>
             </segment>
             <segment id="short_name">
-                <source>apprenton_pilot.short_name</source>
-                <target>Apprenton</target>
+                <source>antenna.short_name</source>
+                <target>Antenne</target>
+            </segment>
+            <segment id="plural_name">
+                <source>antenna.plural_name</source>
+                <target>Antennes</target>
             </segment>
             <segment id="genre">
-                <source>apprenton_pilot.genre</source>
-                <target>male</target>
+                <source>antenna.genre</source>
+                <target>female</target>
             </segment>
-        </unit>
-        <unit id="sniper_helmet_blueprint">
-            <segment id="name">
-                <source>sniper_helmet_blueprint.name</source>
-                <target>plan du casque de visée</target>
-            </segment>
-            <segment id="short_name">
-                <source>sniper_helmet_blueprint.short_name</source>
-                <target>Plan</target>
+            <segment id="first_letter">
+                <source>antenna.first_letter</source>
+                <target>vowel</target>
             </segment>
             <segment id="description">
-                <source>sniper_helmet_blueprint.description</source>
-                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
-Ce plan nécessite :
-1 x Débris Métallique
-1 x Débris Plastique
-                </target>
-            </segment>
-            <segment id="examine">
-                <source>sniper_helmet_blueprint.examine</source>
-                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
-Ce plan nécessite :
-1 x Débris Métallique
-1 x Débris Plastique
-Les plans de construction bleus sont une bénédiction pour les équipiers en mal de jeux de construction.</target>
-            </segment>
-
-            <segment id="genre">
-                <source>sniper_helmet_blueprint.genre</source>
-                <target>male</target>
+                <source>antenna.description</source>
+                <target>Améliore grandement le rendement du Centre de Communication. Diminue de 1 pa le coût des actions de communication. Le manuel stipule que l'antenne stellaire est le must have en terme de communication, avec sa bande passante de 24 Bauds, il vous permettra de communiquer à l'autre bout de l'univers sans effort.</target>
             </segment>
         </unit>
-        <unit id="sniper_helmet">
+        <unit id="astro_terminal">
             <segment id="name">
-                <source>sniper_helmet.name</source>
-                <target>Casque de visée</target>
+                <source>astro_terminal.name</source>
+                <target>Terminal Astro</target>
             </segment>
             <segment id="short_name">
-                <source>sniper_helmet.short_name</source>
-                <target>Casque de visée</target>
+                <source>astro_terminal.short_name</source>
+                <target>Terminal Astro</target>
             </segment>
-            <segment id="plural">
-                <source>sniper_helmet.plural</source>
-                <target>Casques de visée</target>
+            <segment id="plural_name">
+                <source>astro_terminal.plural_name</source>
+                <target>Terminaux Astro</target>
+            </segment>
+            <segment id="genre">
+                <source>astro_terminal.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="first_letter">
+                <source>astro_terminal.first_letter</source>
+                <target>vowel</target>
             </segment>
             <segment id="description">
-                <source>sniper_helmet.description</source>
-                <target>TODO</target>
+                <source>astro_terminal.description</source>
+                <target>Permet de chercher des planètes dans les systèmes proches et de les sonder. Le terminal Astro permet de scanner l'espace proche à la recherche d'une planète à explorer. Les informations qui sont contenues dedans sont strictement réservées aux navigateurs dans le but de préserver le moral de l'équipage.</target>
             </segment>
-            <segment id="examine">
-                <source>sniper_helmet.examine</source>
-                <target>TODO</target>
+        </unit>
+        <unit id="auxiliary_terminal">
+            <segment id="name">
+                <source>auxiliary_terminal.name</source>
+                <target>Terminal Auxiliaire</target>
             </segment>
-
+            <segment id="short_name">
+                <source>auxiliary_terminal.short_name</source>
+                <target>Terminal Auxiliaire</target>
+            </segment>
+            <segment id="plural_name">
+                <source>auxiliary_terminal.plural_name</source>
+                <target>Terminaux Auxiliaires</target>
+            </segment>
             <segment id="genre">
-                <source>sniper_helmet.genre</source>
+                <source>auxiliary_terminal.genre</source>
                 <target>male</target>
+            </segment>
+            <segment id="first_letter">
+                <source>auxiliary_terminal.first_letter</source>
+                <target>vowel</target>
+            </segment>
+            <segment id="description">
+                <source>auxiliary_terminal.description</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="bed">
+            <segment id="name">
+                <source>bed.name</source>
+                <target>Lit</target>
+            </segment>
+            <segment id="short_name">
+                <source>bed.short_name</source>
+                <target>Lit</target>
+            </segment>
+            <segment id="plural_name">
+                <source>bed.plural_name</source>
+                <target>Lits</target>
+            </segment>
+            <segment id="genre">
+                <source>bed.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="first_letter">
+                <source>bed.first_letter</source>
+                <target>consonant</target>
+            </segment>
+            <segment id="description">
+                <source>bed.description</source>
+                <target>Le lit vous permet de dormir pour régénérer des pa. Faites de beaux rêves !</target>
+            </segment>
+        </unit>
+        <unit id="bios_terminal">
+            <segment id="name">
+                <source>bios_terminal.name</source>
+                <target>Terminal BIOS</target>
+            </segment>
+            <segment id="short_name">
+                <source>bios_terminal.short_name</source>
+                <target>Terminal BIOS</target>
+            </segment>
+            <segment id="plural_name">
+                <source>bios_terminal.plural_name</source>
+                <target>Terminaux BIOS</target>
+            </segment>
+            <segment id="genre">
+                <source>bios_terminal.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="first_letter">
+                <source>bios_terminal.first_letter</source>
+                <target>consonant</target>
+            </segment>
+            <segment id="description">
+                <source>bios_terminal.description</source>
+                <target>Permet à l' Admin. NERON de modifier certains comportements de l' IA de bord. Lors de la psychothérapie de NERON, l'interface de celui-ci à été ouverte pour qu'il soit plus malléable. L' interface basique d'entrée-sortie reste donc accessible pour une poignée d'élus.</target>
+            </segment>
+        </unit>
+        <unit id="calculator">
+            <segment id="name">
+                <source>calculator.name</source>
+                <target>Calculateur</target>
+            </segment>
+            <segment id="short_name">
+                <source>calculator.short_name</source>
+                <target>Calculateur</target>
+            </segment>
+            <segment id="plural_name">
+                <source>calculator.plural_name</source>
+                <target>Calculateurs</target>
+            </segment>
+            <segment id="genre">
+                <source>calculator.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="first_letter">
+                <source>calculator.first_letter</source>
+                <target>consonant</target>
+            </segment>
+            <segment id="description">
+                <source>calculator.description</source>
+                <target>Permet de calculer quelque chose... Reste à savoir quoi...</target>
+            </segment>
+        </unit>
+        <unit id="coffee_machine">
+            <segment id="name">
+                <source>coffee_machine.name</source>
+                <target>Machine à café</target>
+            </segment>
+            <segment id="short_name">
+                <source>coffee_machine.short_name</source>
+                <target>Machine à café</target>
+            </segment>
+            <segment id="plural_name">
+                <source>coffee_machine.plural_name</source>
+                <target>Machines à café</target>
+            </segment>
+            <segment id="genre">
+                <source>coffee_machine.genre</source>
+                <target>female</target>
+            </segment>
+            <segment id="first_letter">
+                <source>coffee_machine.first_letter</source>
+                <target>consonant</target>
+            </segment>
+            <segment id="description">
+                <source>coffee_machine.description</source>
+                <target>Cette fantastique machine a café produit un pur Arabica à une vitesse proche de la lumière. Malheureusement elle consomme autant d'énergie qu'une centrale nucléaire, et en l'absence du réacteur PILGRED il vous faudra vous contenter d'un café toutes les 24 heures. La machine a café est la meilleur ami de l'Homme. Après le chat.</target>
+            </segment>
+        </unit>
+        <unit id="combustion_chamber">
+            <segment id="name">
+                <source>combustion_chamber.name</source>
+                <target>Chambre de Combustion</target>
+            </segment>
+            <segment id="short_name">
+                <source>combustion_chamber.short_name</source>
+                <target>Chambre de Combustion</target>
+            </segment>
+            <segment id="plural_name">
+                <source>combustion_chamber.plural_name</source>
+                <target>Chambres de Combustion</target>
+            </segment>
+            <segment id="genre">
+                <source>combustion_chamber.genre</source>
+                <target>female</target>
+            </segment>
+            <segment id="first_letter">
+                <source>combustion_chamber.first_letter</source>
+                <target>consonant</target>
+            </segment>
+            <segment id="description">
+                <source>combustion_chamber.description</source>
+                <target>La chambre de combustion se trouve dans la Salle de Moteurs. Elle permet d'alimenter les réacteurs auxiliaires en Fuel pour voyager. Réserve de carburant destinée au moteur diesel. Une technologie sublime et un usage assez particulier. Les canaux de transfert de carburant ne fonctionnant plus, il faut transporter le mélange des buses des réservoirs jusqu'à la pré chambre de combustion. Les concepteurs auraient pu propulser la bête au charbon tant qu'ils y étaient...</target>
+            </segment>
+        </unit>
+        <unit id="command_terminal">
+            <segment id="name">
+                <source>command_terminal.name</source>
+                <target>Terminal de Commandement</target>
+            </segment>
+            <segment id="short_name">
+                <source>command_terminal.short_name</source>
+                <target>Terminal de Commandement</target>
+            </segment>
+            <segment id="plural_name">
+                <source>command_terminal.plural_name</source>
+                <target>Terminaux de Commandement</target>
+            </segment>
+            <segment id="genre">
+                <source>command_terminal.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="first_letter">
+                <source>command_terminal.first_letter</source>
+                <target>consonant</target>
+            </segment>
+            <segment id="description">
+                <source>command_terminal.description</source>
+                <target>Le module de commandement sert uniquement au Commandant. Accès Interdit. Permet au Commandant d'effectuer ses devoirs. Le module de pilotage possède plein d'outils facilitant la gestion quotidien du Daedalus.</target>
+            </segment>
+        </unit>
+        <unit id="communication_center">
+            <segment id="name">
+                <source>communication_center.name</source>
+                <target>Centre de Communication</target>
+            </segment>
+            <segment id="short_name">
+                <source>communication_center.short_name</source>
+                <target>Centre de Communication</target>
+            </segment>
+            <segment id="plural_name">
+                <source>communication_center.plural_name</source>
+                <target>Centres de Communication</target>
+            </segment>
+            <segment id="genre">
+                <source>communication_center.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="first_letter">
+                <source>communication_center.first_letter</source>
+                <target>consonant</target>
+            </segment>
+            <segment id="description">
+                <source>communication_center.description</source>
+                <target>Le centre de communication permet de joindre les systèmes très éloignés. Le centre de communication ultra-moderne permet de rassembler les résultats d'analyse des senseurs et autres radars. Il permet également d'établir des communications longues distances.</target>
+            </segment>
+        </unit>
+        <unit id="cryo_module">
+            <segment id="name">
+                <source>cryo_module.name</source>
+                <target>Module Cryo®</target>
+            </segment>
+            <segment id="short_name">
+                <source>cryo_module.short_name</source>
+                <target>Module Cryo®</target>
+            </segment>
+            <segment id="plural_name">
+                <source>cryo_module.plural_name</source>
+                <target>Modules Cryo®</target>
+            </segment>
+            <segment id="genre">
+                <source>cryo_module.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="first_letter">
+                <source>cryo_module.first_letter</source>
+                <target>consonant</target>
+            </segment>
+            <segment id="description">
+                <source>cryo_module.description</source>
+                <target>Le Module Cryo® contient les corps de vos compagnons encore inanimés. Le module de cryogénisation vous contenait pendant votre long sommeil. Charge à vous de ne pas y retourner.</target>
+            </segment>
+        </unit>
+        <unit id="door">
+            <segment id="name">
+                <source>door.name</source>
+                <target>Porte</target>
+            </segment>
+            <segment id="short_name">
+                <source>door.short_name</source>
+                <target>Porte</target>
+            </segment>
+            <segment id="plural_name">
+                <source>door.plural_name</source>
+                <target>Portes</target>
+            </segment>
+            <segment id="genre">
+                <source>door.genre</source>
+                <target>female</target>
+            </segment>
+            <segment id="first_letter">
+                <source>door.first_letter</source>
+                <target>consonant</target>
+            </segment>
+            <segment id="description">
+                <source>door.description</source>
+                <target>Les portes du Daedalus sont fragiles et ont la fâcheuse habitude de rester bloquées... En cas de panne, contacter un technicien. Qu'elle que soit son matériaux, sa densité, son état, une porte mène quelque part.</target>
+            </segment>
+        </unit>
+        <unit id="dynarcade">
+            <segment id="name">
+                <source>dynarcade.name</source>
+                <target>Dynacarde</target>
+            </segment>
+            <segment id="short_name">
+                <source>dynarcade.short_name</source>
+                <target>Dynacarde</target>
+            </segment>
+            <segment id="plural_name">
+                <source>dynarcade.plural_name</source>
+                <target>Dynacardes</target>
+            </segment>
+            <segment id="genre">
+                <source>dynarcade.genre</source>
+                <target>female</target>
+            </segment>
+            <segment id="first_letter">
+                <source>dynarcade.first_letter</source>
+                <target>consonant</target>
+            </segment>
+            <segment id="description">
+                <source>dynarcade.description</source>
+                <target>Une borne de jeu d'arcade monté sur verrin hydraulique, le nec plus ultra de la fracture cranienne. Trop mortel ! La réplique authentique de la borde DYN-X666 qui n'a fait que 63 morts à Shanghai2000 en 2117. Fait tourner Rage Storm Of Fury et Call Of Dirty à 240 FPS !!!! À utiliser avec précaution.</target>
+            </segment>
+        </unit>
+        <unit id="emergency_reactor">
+            <segment id="name">
+                <source>emergency_reactor.name</source>
+                <target>Réacteur d'urgence</target>
+            </segment>
+            <segment id="short_name">
+                <source>emergency_reactor.short_name</source>
+                <target>Réacteur d'urgence</target>
+            </segment>
+            <segment id="plural_name">
+                <source>emergency_reactor.plural_name</source>
+                <target>Réacteurs d'urgence</target>
+            </segment>
+            <segment id="genre">
+                <source>emergency_reactor.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="first_letter">
+                <source>emergency_reactor.first_letter</source>
+                <target>vowel</target>
+            </segment>
+            <segment id="description">
+                <source>emergency_reactor.description</source>
+                <target>Il permet de faire avancer Daedalus en cas de défaillance du PILGRED. La fulgurante technologie Diesel a encore de beaux restes. Désormais c'est la seule façon pour Daedalus d'avancer. Chaque réacteur permet de brûler deux unités de fuel par voyage.</target>
+            </segment>
+        </unit>
+        <unit id="fuel_tank">
+            <segment id="name">
+                <source>fuel_tank.name</source>
+                <target>Réservoir de Fuel</target>
+            </segment>
+            <segment id="short_name">
+                <source>fuel_tank.short_name</source>
+                <target>Réservoir de Fuel</target>
+            </segment>
+            <segment id="plural_name">
+                <source>fuel_tank.plural_name</source>
+                <target>Réservoirs de Fuel</target>
+            </segment>
+            <segment id="genre">
+                <source>fuel_tank.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="first_letter">
+                <source>fuel_tank.first_letter</source>
+                <target>consonant</target>
+            </segment>
+            <segment id="description">
+                <source>fuel_tank.description</source>
+                <target>Le réservoir de fuel sert à stocker le précieux carburant et est muni d'un distributeur. Réserve de fuel du Daedalus, manipuler avec précaution. NE PAS FUMER.</target>
+            </segment>
+        </unit>
+        <unit id="gravity_simulator">
+            <segment id="name">
+                <source>gravity_simulator.name</source>
+                <target>Simulateur de Gravité</target>
+            </segment>
+            <segment id="short_name">
+                <source>gravity_simulator.short_name</source>
+                <target>Simulateur de Gravité</target>
+            </segment>
+            <segment id="plural_name">
+                <source>gravity_simulator.plural_name</source>
+                <target>Simulateurs de Gravité</target>
+            </segment>
+            <segment id="genre">
+                <source>gravity_simulator.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="first_letter">
+                <source>gravity_simulator.first_letter</source>
+                <target>consonant</target>
+            </segment>
+            <segment id="description">
+                <source>gravity_simulator.description</source>
+                <target>Le simulateur permet d'obtenir de la gravité. Cela facilite les déplacements de tout l'équipage dans le vaisseau. //Et la lourdeur fut !//</target>
+            </segment>
+        </unit>
+        <unit id="kitchen">
+            <segment id="name">
+                <source>kitchen.name</source>
+                <target>Cuisine</target>
+            </segment>
+            <segment id="short_name">
+                <source>kitchen.short_name</source>
+                <target>Cuisine</target>
+            </segment>
+            <segment id="plural_name">
+                <source>kitchen.plural_name</source>
+                <target>Cuisines</target>
+            </segment>
+            <segment id="genre">
+                <source>kitchen.genre</source>
+                <target>female</target>
+            </segment>
+            <segment id="first_letter">
+                <source>kitchen.first_letter</source>
+                <target>consonant</target>
+            </segment>
+            <segment id="description">
+                <source>kitchen.description</source>
+                <target>Domaine réservé d'un célèbre moustachu. Sert aussi à faire la popote. Poste de cuisine d'élite inter-galactique, certaines compétences en arts martiaux peuvent être nécessaires.</target>
+            </segment>
+        </unit>
+        <unit id="reactor_lateral">
+            <segment id="name">
+                <source>reactor_lateral.name</source>
+                <target>Réacteur Latéral</target>
+            </segment>
+            <segment id="short_name">
+                <source>reactor_lateral.short_name</source>
+                <target>Réacteur Latéral</target>
+            </segment>
+            <segment id="plural_name">
+                <source>reactor_lateral.plural_name</source>
+                <target>Réacteurs Latéraux</target>
+            </segment>
+            <segment id="genre">
+                <source>reactor_lateral.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="first_letter">
+                <source>reactor_lateral.first_letter</source>
+                <target>consonant</target>
+            </segment>
+            <segment id="description">
+                <source>reactor_lateral.description</source>
+                <target>Placé dans la Salle de Moteurs, le réacteur latéral permet de faire tourner le Daedalus. Permettent de faire tourner cette bonne vieille carne.</target>
+            </segment>
+        </unit>
+        <unit id="mycoscan">
+            <segment id="name">
+                <source>mycoscan.name</source>
+                <target>Mycoscan</target>
+            </segment>
+            <segment id="short_name">
+                <source>mycoscan.short_name</source>
+                <target>Mycoscan</target>
+            </segment>
+            <segment id="plural_name">
+                <source>mycoscan.plural_name</source>
+                <target>Mycoscans</target>
+            </segment>
+            <segment id="genre">
+                <source>mycoscan.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="first_letter">
+                <source>mycoscan.first_letter</source>
+                <target>consonant</target>
+            </segment>
+            <segment id="description">
+                <source>mycoscan.description</source>
+                <target>Permet de trouver les traces de spore Mush dans les organismes. Prototype de détecteur de traces de Mush, originalement élaboré par Finola puis perfectionné dans le cadre du projet Magellan.</target>
+            </segment>
+        </unit>
+        <unit id="narcotic_distiller">
+            <segment id="name">
+                <source>narcotic_distiller.name</source>
+                <target>Distilateur de Stupéfiants</target>
+            </segment>
+            <segment id="short_name">
+                <source>narcotic_distiller.short_name</source>
+                <target>Distilateur de Stupéfiants</target>
+            </segment>
+            <segment id="plural_name">
+                <source>narcotic_distiller.plural_name</source>
+                <target>Distilateurs de Stupéfiants</target>
+            </segment>
+            <segment id="genre">
+                <source>narcotic_distiller.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="first_letter">
+                <source>narcotic_distiller.first_letter</source>
+                <target>consonant</target>
+            </segment>
+            <segment id="description">
+                <source>narcotic_distiller.description</source>
+                <target>Le distilleur permet de fabriquer des médicaments. Hélas son comportement erratique le rend peu fiable. Distributeur de bonheur agrée par le professeur Albus Haxley.</target>
+            </segment>
+        </unit>
+        <unit id="neron_core">
+            <segment id="name">
+                <source>neron_core.name</source>
+                <target>Cœur de NERON</target>
+            </segment>
+            <segment id="short_name">
+                <source>neron_core.short_name</source>
+                <target>Cœur de NERON</target>
+            </segment>
+            <segment id="plural_name">
+                <source>neron_core.plural_name</source>
+                <target>Cœurs de NERON</target>
+            </segment>
+            <segment id="genre">
+                <source>neron_core.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="first_letter">
+                <source>neron_core.first_letter</source>
+                <target>consonant</target>
+            </segment>
+            <segment id="description">
+                <source>neron_core.description</source>
+                <target>Le cœur de NERON donne accès aux projets NERON. Le cœur de NERON permet de modifier ses programmes pour l'améliorer.</target>
+            </segment>
+        </unit>
+        <unit id="oxygen_tank">
+            <segment id="name">
+                <source>oxygen_tank.name</source>
+                <target>Réservoir d'Oxygène</target>
+            </segment>
+            <segment id="short_name">
+                <source>oxygen_tank.short_name</source>
+                <target>Réservoir d'Oxygène</target>
+            </segment>
+            <segment id="plural_name">
+                <source>oxygen_tank.plural_name</source>
+                <target>Réservoirs d'Oxygène</target>
+            </segment>
+            <segment id="genre">
+                <source>oxygen_tank.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="first_letter">
+                <source>oxygen_tank.first_letter</source>
+                <target>consonant</target>
+            </segment>
+            <segment id="description">
+                <source>oxygen_tank.description</source>
+                <target>Le réservoir d'oxygène stocke l'oxygène nécessaire à votre respiration. Réserve d'oxygène du Daedalus, manipuler avec précaution. NE PAS VIDER à mauvais escient.</target>
+            </segment>
+        </unit>
+        <unit id="pasiphae">
+            <segment id="name">
+                <source>pasiphae.name</source>
+                <target>Patrouilleur Pasiphae</target>
+            </segment>
+            <segment id="short_name">
+                <source>pasiphae.short_name</source>
+                <target>Pasiphae</target>
+            </segment>
+            <segment id="plural_name">
+                <source>pasiphae.plural_name</source>
+                <target>Pasiphae</target>
+            </segment>
+            <segment id="genre">
+                <source>pasiphae.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="first_letter">
+                <source>pasiphae.first_letter</source>
+                <target>consonant</target>
+            </segment>
+            <segment id="description">
+                <source>pasiphae.description</source>
+                <target>Patrouilleur Armure de l'appareil : 12. Il n'est plus tout jeune mais il fera l'affaire.</target>
+            </segment>
+        </unit>
+        <unit id="patrol_ship_alpha_2_wallis">
+            <segment id="name">
+                <source>patrol_ship_alpha_2_wallis.name</source>
+                <target>Patrouilleur Wallis</target>
+            </segment>
+            <segment id="short_name">
+                <source>patrol_ship_alpha_2_wallis.short_name</source>
+                <target>Patrouilleur</target>
+            </segment>
+            <segment id="plural_name">
+                <source>patrol_ship_alpha_2_wallis.plural_name</source>
+                <target>Patrouilleurs</target>
+            </segment>
+            <segment id="genre">
+                <source>patrol_ship_alpha_2_wallis.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="first_letter">
+                <source>patrol_ship_alpha_2_wallis.first_letter</source>
+                <target>consonant</target>
+            </segment>
+            <segment id="description">
+                <source>patrol_ship_alpha_2_wallis.description</source>
+                <target>Patrouilleur Charges de l'appareil : 10. Armure de l'appareil : 10. Il n'est plus tout jeune mais il fera l'affaire.</target>
+            </segment>
+        </unit>
+        <unit id="patrol_ship_alpha_epicure">
+            <segment id="name">
+                <source>patrol_ship_alpha_epicure.name</source>
+                <target>Patrouilleur Epicure</target>
+            </segment>
+            <segment id="short_name">
+                <source>patrol_ship_alpha_epicure.short_name</source>
+                <target>Patrouilleur</target>
+            </segment>
+            <segment id="plural_name">
+                <source>patrol_ship_alpha_epicure.plural_name</source>
+                <target>Patrouilleurs</target>
+            </segment>
+            <segment id="genre">
+                <source>patrol_ship_alpha_epicure.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="first_letter">
+                <source>patrol_ship_alpha_epicure.first_letter</source>
+                <target>consonant</target>
+            </segment>
+            <segment id="description">
+                <source>patrol_ship_alpha_epicure.description</source>
+                <target>Patrouilleur Charges de l'appareil : 10. Armure de l'appareil : 10. Il n'est plus tout jeune mais il fera l'affaire.</target>
+            </segment>
+        </unit>
+        <unit id="patrol_ship_alpha_jujube">
+            <segment id="name">
+                <source>patrol_ship_alpha_jujube.name</source>
+                <target>Patrouilleur Jujube</target>
+            </segment>
+            <segment id="short_name">
+                <source>patrol_ship_alpha_jujube.short_name</source>
+                <target>Patrouilleur</target>
+            </segment>
+            <segment id="plural_name">
+                <source>patrol_ship_alpha_jujube.plural_name</source>
+                <target>Patrouilleurs</target>
+            </segment>
+            <segment id="genre">
+                <source>patrol_ship_alpha_jujube.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="first_letter">
+                <source>patrol_ship_alpha_jujube.first_letter</source>
+                <target>consonant</target>
+            </segment>
+            <segment id="description">
+                <source>patrol_ship_alpha_jujube.description</source>
+                <target>Patrouilleur Charges de l'appareil : 10. Armure de l'appareil : 10. Il n'est plus tout jeune mais il fera l'affaire.</target>
+            </segment>
+        </unit>
+        <unit id="patrol_ship_alpha_longane">
+            <segment id="name">
+                <source>patrol_ship_alpha_longane.name</source>
+                <target>Patrouilleur Longane</target>
+            </segment>
+            <segment id="short_name">
+                <source>patrol_ship_alpha_longane.short_name</source>
+                <target>Patrouilleur</target>
+            </segment>
+            <segment id="plural_name">
+                <source>patrol_ship_alpha_longane.plural_name</source>
+                <target>Patrouilleurs</target>
+            </segment>
+            <segment id="genre">
+                <source>patrol_ship_alpha_longane.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="first_letter">
+                <source>patrol_ship_alpha_longane.first_letter</source>
+                <target>consonant</target>
+            </segment>
+            <segment id="description">
+                <source>patrol_ship_alpha_longane.description</source>
+                <target>Patrouilleur Charges de l'appareil : 10. Armure de l'appareil : 10. Il n'est plus tout jeune mais il fera l'affaire.</target>
+            </segment>
+        </unit>
+        <unit id="patrol_ship_alpha_planton">
+            <segment id="name">
+                <source>patrol_ship_alpha_planton.name</source>
+                <target>Patrouilleur Platon</target>
+            </segment>
+            <segment id="short_name">
+                <source>patrol_ship_alpha_planton.short_name</source>
+                <target>Patrouilleur</target>
+            </segment>
+            <segment id="plural_name">
+                <source>patrol_ship_alpha_planton.plural_name</source>
+                <target>Patrouilleurs</target>
+            </segment>
+            <segment id="genre">
+                <source>patrol_ship_alpha_planton.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="first_letter">
+                <source>patrol_ship_alpha_planton.first_letter</source>
+                <target>consonant</target>
+            </segment>
+            <segment id="description">
+                <source>patrol_ship_alpha_planton.description</source>
+                <target>Patrouilleur Charges de l'appareil : 10. Armure de l'appareil : 10. Il n'est plus tout jeune mais il fera l'affaire.</target>
+            </segment>
+        </unit>
+        <unit id="patrol_ship_alpha_socrate">
+            <segment id="name">
+                <source>patrol_ship_alpha_socrate.name</source>
+                <target>Patrouilleur Socrate</target>
+            </segment>
+            <segment id="short_name">
+                <source>patrol_ship_alpha_socrate.short_name</source>
+                <target>Patrouilleur</target>
+            </segment>
+            <segment id="plural_name">
+                <source>patrol_ship_alpha_socrate.plural_name</source>
+                <target>Patrouilleurs</target>
+            </segment>
+            <segment id="genre">
+                <source>patrol_ship_alpha_socrate.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="first_letter">
+                <source>patrol_ship_alpha_socrate.first_letter</source>
+                <target>consonant</target>
+            </segment>
+            <segment id="description">
+                <source>patrol_ship_alpha_socrate.description</source>
+                <target>Patrouilleur Charges de l'appareil : 10. Armure de l'appareil : 10. Il n'est plus tout jeune mais il fera l'affaire.</target>
+            </segment>
+        </unit>
+        <unit id="patrol_ship_alpha_tamarin">
+            <segment id="name">
+                <source>patrol_ship_alpha_tamarin.name</source>
+                <target>Patrouilleur Tamarin</target>
+            </segment>
+            <segment id="short_name">
+                <source>patrol_ship_alpha_tamarin.short_name</source>
+                <target>Patrouilleur</target>
+            </segment>
+            <segment id="plural_name">
+                <source>patrol_ship_alpha_tamarin.plural_name</source>
+                <target>Patrouilleurs</target>
+            </segment>
+            <segment id="genre">
+                <source>patrol_ship_alpha_tamarin.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="first_letter">
+                <source>patrol_ship_alpha_tamarin.first_letter</source>
+                <target>consonant</target>
+            </segment>
+            <segment id="description">
+                <source>patrol_ship_alpha_tamarin.description</source>
+                <target>Patrouilleur Charges de l'appareil : 10. Armure de l'appareil : 10. Il n'est plus tout jeune mais il fera l'affaire.</target>
+            </segment>
+        </unit>
+        <unit id="pilgred">
+            <segment id="name">
+                <source>pilgred.name</source>
+                <target>Pilgred</target>
+            </segment>
+            <segment id="short_name">
+                <source>pilgred.short_name</source>
+                <target>Pilgred</target>
+            </segment>
+            <segment id="plural_name">
+                <source>pilgred.plural_name</source>
+                <target>Pilgreds</target>
+            </segment>
+            <segment id="genre">
+                <source>pilgred.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="first_letter">
+                <source>pilgred.first_letter</source>
+                <target>consonant</target>
+            </segment>
+            <segment id="description">
+                <source>pilgred.description</source>
+                <target>Le réacteur PILGRED. La seule façon de voyager plus vite que la lumière connue au moment du départ du Daedalus. Sa remise en état vous permettra peut-être de retourner sur Sol. Déchirez votre espace-temps en toute sécurité.</target>
+            </segment>
+        </unit>
+        <unit id="planet_scanner">
+            <segment id="name">
+                <source>planet_scanner.name</source>
+                <target>Scanner de Planète</target>
+            </segment>
+            <segment id="short_name">
+                <source>planet_scanner.short_name</source>
+                <target>Scanner de Planète</target>
+            </segment>
+            <segment id="plural_name">
+                <source>planet_scanner.plural_name</source>
+                <target>Scanners de Planète</target>
+            </segment>
+            <segment id="genre">
+                <source>planet_scanner.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="first_letter">
+                <source>planet_scanner.first_letter</source>
+                <target>consonant</target>
+            </segment>
+            <segment id="description">
+                <source>planet_scanner.description</source>
+                <target>Améliore grandement le rendement du Terminal Astro. +30% de chance de trouver une planète. Il émet de la musique quand vous le démarrez. Ces ingénieurs sont décidément excentriques... Qui eût cru que Verdi aurait pu inspirer un tel calculateur...</target>
+            </segment>
+        </unit>
+        <unit id="research_laboratory">
+            <segment id="name">
+                <source>research_laboratory.name</source>
+                <target>Laboratoire de Recherche</target>
+            </segment>
+            <segment id="short_name">
+                <source>research_laboratory.short_name</source>
+                <target>Laboratoire de Recherche</target>
+            </segment>
+            <segment id="plural_name">
+                <source>research_laboratory.plural_name</source>
+                <target>Laboratoires de Recherche</target>
+            </segment>
+            <segment id="genre">
+                <source>research_laboratory.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="first_letter">
+                <source>research_laboratory.first_letter</source>
+                <target>consonant</target>
+            </segment>
+            <segment id="description">
+                <source>research_laboratory.description</source>
+                <target>Le laboratoire permet de rassembler les recherches les plus pointues sur le Mush. Un laboratoire super ultra moderne avec de vrais ordinateurs à lampe fluo compacte et des cartes perforées haute densité.</target>
+            </segment>
+        </unit>
+        <unit id="shower">
+            <segment id="name">
+                <source>shower.name</source>
+                <target>Douche</target>
+            </segment>
+            <segment id="short_name">
+                <source>shower.short_name</source>
+                <target>Douche</target>
+            </segment>
+            <segment id="plural_name">
+                <source>shower.plural_name</source>
+                <target>Douches</target>
+            </segment>
+            <segment id="genre">
+                <source>shower.genre</source>
+                <target>female</target>
+            </segment>
+            <segment id="first_letter">
+                <source>shower.first_letter</source>
+                <target>consonant</target>
+            </segment>
+            <segment id="description">
+                <source>shower.description</source>
+                <target>L’hygiène aide à rester sain. Dans l'espace tout peut arriver, parfois pour se laver de toutes les péripéties, une bonne douche et c'est reparti.</target>
+            </segment>
+        </unit>
+        <unit id="swedish_sofa">
+            <segment id="name">
+                <source>.name</source>
+                <target>Sofa suédois</target>
+            </segment>
+            <segment id="short_name">
+                <source>swedish_sofa.short_name</source>
+                <target>Sofa suédois</target>
+            </segment>
+            <segment id="plural_name">
+                <source>swedish_sofa.plural_name</source>
+                <target>Sofas suédois</target>
+            </segment>
+            <segment id="genre">
+                <source>swedish_sofa.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="first_letter">
+                <source>swedish_sofa.first_letter</source>
+                <target>consonant</target>
+            </segment>
+            <segment id="description">
+                <source>swedish_sofa.description</source>
+                <target>Un superbe sofa en cuir de Nubuk véritable, cousu main. Conçu en Suède mais fabriqué sur Encelade pour pas cher. Qui eu crû que quelques coussins et une structure de contre-plaqué puissent autant détendre...</target>
+            </segment>
+        </unit>
+        <unit id="surgical_plot">
+            <segment id="name">
+                <source>surgical_plot.name</source>
+                <target>Plot Chirurgical</target>
+            </segment>
+            <segment id="short_name">
+                <source>surgical_plot.short_name</source>
+                <target>Plot Chirurgical</target>
+            </segment>
+            <segment id="plural_name">
+                <source>surgical_plot.plural_name</source>
+                <target>Plots Chirurgicaux</target>
+            </segment>
+            <segment id="genre">
+                <source>surgical_plot.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="first_letter">
+                <source>surgical_plot.first_letter</source>
+                <target>consonant</target>
+            </segment>
+            <segment id="description">
+                <source>surgical_plot.description</source>
+                <target>Ce plot comprend tous les instruments. Automate nécessaire à des soins efficaces. En cas de coups durs vous devriez toujours savoir où il se trouve.</target>
+            </segment>
+        </unit>
+        <unit id="thalasso">
+            <segment id="name">
+                <source>thalasso.name</source>
+                <target>Thalasso</target>
+            </segment>
+            <segment id="short_name">
+                <source>thalasso.short_name</source>
+                <target>Thalasso</target>
+            </segment>
+            <segment id="plural_name">
+                <source>thalasso.plural_name</source>
+                <target>Thalasso</target>
+            </segment>
+            <segment id="genre">
+                <source>thalasso.genre</source>
+                <target>female</target>
+            </segment>
+            <segment id="first_letter">
+                <source>thalasso.first_letter</source>
+                <target>consonant</target>
+            </segment>
+            <segment id="description">
+                <source>thalasso.description</source>
+                <target>L’hygiène aide à rester sain. Dans l'espace tout peut arriver, parfois pour se laver de toutes les péripéties, une bonne douche et c'est reparti.</target>
+            </segment>
+        </unit>
+        <unit id="turret_command">
+            <segment id="name">
+                <source>turret_command.name</source>
+                <target>Poste de Tir</target>
+            </segment>
+            <segment id="short_name">
+                <source>turret_command.short_name</source>
+                <target>Poste de Tir</target>
+            </segment>
+            <segment id="plural_name">
+                <source>turret_command.plural_name</source>
+                <target>Postes de Tir</target>
+            </segment>
+            <segment id="genre">
+                <source>turret_command.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="first_letter">
+                <source>turret_command.first_letter</source>
+                <target>consonant</target>
+            </segment>
+            <segment id="description">
+                <source>turret_command.description</source>
+                <target>La défense contre les Hunters est une priorité Camarade. Poste de tir de la tourelle Bidulotron 3000. En pointe de la technologie, ses boucliers de verres et son teslatron en font une arme redoutable contre les Hunters.</target>
+            </segment>
+        </unit>
+        <unit id="icarus">
+            <segment id="name">
+                <source>icarus.name</source>
+                <target>Icarus</target>
+            </segment>
+            <segment id="short_name">
+                <source>icarus.short_name</source>
+                <target>Icarus</target>
+            </segment>
+            <segment id="plural_name">
+                <source>icarus.plural_name</source>
+                <target>Icari</target>
+            </segment>
+            <segment id="genre">
+                <source>icarus.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="first_letter">
+                <source>icarus.first_letter</source>
+                <target>vowel</target>
+            </segment>
+            <segment id="description">
+                <source>icarus.description</source>
+                <target>Permet de mener l'Icarus vers de nouvelles aventures. L'Icarus était un vaisseau d'exploration d'élite... il y a quelques centaines d'années.</target>
+            </segment>
+        </unit>
+        <unit id="jukebox">
+            <segment id="name">
+                <source>jukebox.name</source>
+                <target>Jukebox</target>
+            </segment>
+            <segment id="short_name">
+                <source>jukebox.short_name</source>
+                <target>Jukebox</target>
+            </segment>
+            <segment id="plural_name">
+                <source>jukebox.plural_name</source>
+                <target>Jukeboxes</target>
+            </segment>
+            <segment id="genre">
+                <source>jukebox.genre</source>
+                <target>male</target>
+            </segment>
+            <segment id="first_letter">
+                <source>jukebox.first_letter</source>
+                <target>consonant</target>
+            </segment>
+            <segment id="description">
+                <source>jukebox.description</source>
+                <target>Le jukebox permet de se faire une bonne petite séance de regression de temps à autre. Le jukebox des années folles par excellence. Et en plus chargé avec les tubes préféré de l'équipage !</target>
+            </segment>
+        </unit>
+        <unit id="camera">
+            <segment id="name">
+                <source>camera.name</source>
+                <target>Caméra</target>
+            </segment>
+            <segment id="short_name">
+                <source>camera.short_name</source>
+                <target>Caméra</target>
+            </segment>
+            <segment id="plural_name">
+                <source>camera.plural_name</source>
+                <target>Caméras</target>
+            </segment>
+            <segment id="genre">
+                <source>camera.genre</source>
+                <target>female</target>
+            </segment>
+            <segment id="first_letter">
+                <source>camera.first_letter</source>
+                <target>consonant</target>
+            </segment>
+            <segment id="description">
+                <source>camera.description</source>
+                <target>La caméra est un outils de surveillance bien pratique pour --espionner-- surveiller votre prochain. En sa présence, les actions **discrètes** et **furtives** effectuées sont révélées. Lorsqu'une salle possède une caméra, tous les logs sont sauvegardés dans l'historique et apparaissent publiquement. La caméra repère également les actions discrètes et furtives effectuées. Elle ne fonctionne pas si elle est placée dans votre inventaire personnel.</target>
             </segment>
         </unit>
     </file>

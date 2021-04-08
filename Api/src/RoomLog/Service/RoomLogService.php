@@ -103,13 +103,12 @@ class RoomLogService implements RoomLogServiceInterface
         $params = $this->getMessageParam($player, $targetPlayer, $targetEquipment, $quantity);
 
         //if there is several version of the log
-        if (in_array($logKey, $declinations = LogDeclinationEnum::getVersionNumber())) {
-            foreach ($declinations as $keyVersion => $versionNb) {
-                $params[$keyVersion] = $this->randomService->random(0, $versionNb);
+        if (array_key_exists($logKey, $declinations = LogDeclinationEnum::getVersionNumber())) {
+            foreach ($declinations[$logKey] as $keyVersion => $versionNb) {
+                $params[$keyVersion] = $this->randomService->random(1, $versionNb);
             }
         }
 
-        $message = new TranslatableMessage($logKey, $params);
 
         $roomLog = new RoomLog();
         $roomLog
@@ -150,9 +149,12 @@ class RoomLogService implements RoomLogServiceInterface
                 $domain = 'equipments';
             }
             $targetName = $this->translator->trans($targetEquipment->getName() . '.short_name', [], $domain);
-            $targetPlural = $this->translator->trans($targetEquipment->getName() . '.plural', [], $domain);
+            $targetPlural = $this->translator->trans($targetEquipment->getName() . '.plural_name', [], $domain);
             $targetGender = $this->translator->trans($targetEquipment->getName() . '.genre', [], $domain);
+            $targetFirstLetter = $this->translator->trans($targetEquipment->getName() . '.first_Letter', [], $domain);
 
+
+            $params['target_first_letter'] = $targetFirstLetter;
             $params['targetPlural'] = $targetPlural;
             $params['target'] = $targetName;
             $params['target_gender'] = $targetGender;

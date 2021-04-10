@@ -93,7 +93,7 @@ class PlayerServiceTest extends TestCase
 
         $this->entityManager
             ->shouldReceive('persist')
-            ->once()
+            ->twice()
         ;
         $this->entityManager
             ->shouldReceive('flush')

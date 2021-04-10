@@ -25,9 +25,6 @@ class LieDown extends AbstractAction
 {
     protected string $name = ActionEnum::LIE_DOWN;
 
-    /** @var GameEquipment */
-    protected $parameter;
-
     private StatusServiceInterface $statusService;
 
     public function __construct(
@@ -77,11 +74,14 @@ class LieDown extends AbstractAction
 
     protected function applyEffects(): ActionResult
     {
+        /** @var GameEquipment $parameter */
+        $parameter = $this->parameter;
+
         $lyingDownStatus = new Status($this->player);
         $lyingDownStatus
             ->setName(PlayerStatusEnum::LYING_DOWN)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setTarget($this->parameter)
+            ->setTarget($parameter)
         ;
 
         $this->statusService->persist($lyingDownStatus);

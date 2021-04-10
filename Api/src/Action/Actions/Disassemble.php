@@ -26,9 +26,6 @@ class Disassemble extends AttemptAction
 {
     protected string $name = ActionEnum::DISASSEMBLE;
 
-    /** @var GameEquipment */
-    protected $parameter;
-
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
 
@@ -69,23 +66,26 @@ class Disassemble extends AttemptAction
 
     protected function applyEffects(): ActionResult
     {
+        /** @var GameEquipment $parameter */
+        $parameter = $this->parameter;
+
         $response = $this->makeAttempt();
 
         if ($response instanceof Success) {
-            $this->disasemble();
+            $this->disasemble($parameter);
         }
 
         $this->playerService->persist($this->player);
 
-        $response->setActionParameter($this->parameter);
+        $response->setActionParameter($parameter);
 
         return $response;
     }
 
-    private function disasemble(): void
+    private function disasemble(GameEquipment $gameEquipment): void
     {
         // add the item produced by disassembling
-        foreach ($this->parameter->getEquipment()->getDismountedProducts() as $productString => $number) {
+        foreach ($gameEquipment->getEquipment()->getDismountedProducts() as $productString => $number) {
             for ($i = 0; $i < $number; ++$i) {
                 $productEquipment = $this
                     ->gameEquipmentService
@@ -100,7 +100,7 @@ class Disassemble extends AttemptAction
         }
 
         // remove the dismantled equipment
-        $equipmentEvent = new EquipmentEvent($this->parameter, VisibilityEnum::HIDDEN);
+        $equipmentEvent = new EquipmentEvent($gameEquipment, VisibilityEnum::HIDDEN);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
     }
 }

@@ -28,9 +28,6 @@ class Transplant extends AbstractAction
 {
     protected string $name = ActionEnum::TRANSPLANT;
 
-    /** @var GameItem */
-    protected $parameter;
-
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
     private GearToolServiceInterface $gearToolService;
@@ -67,9 +64,12 @@ class Transplant extends AbstractAction
 
     protected function applyEffects(): ActionResult
     {
+        /** @var GameItem $parameter */
+        $parameter = $this->parameter;
+
         //@TODO fail transplant
         /** @var Fruit $fruitType */
-        $fruitType = $this->parameter->getEquipment()->getMechanicByName(EquipmentMechanicEnum::FRUIT);
+        $fruitType = $parameter->getEquipment()->getMechanicByName(EquipmentMechanicEnum::FRUIT);
 
         /** @var GameItem $hydropot */
         $hydropot = $this->gearToolService->getEquipmentsOnReachByName($this->player, ItemEnum::HYDROPOT)->first();
@@ -86,7 +86,7 @@ class Transplant extends AbstractAction
             $plantEquipment->setPlace($place);
         }
 
-        $equipmentEvent = new EquipmentEvent($this->parameter, VisibilityEnum::HIDDEN);
+        $equipmentEvent = new EquipmentEvent($parameter, VisibilityEnum::HIDDEN);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         $equipmentEvent = new EquipmentEvent($hydropot, VisibilityEnum::HIDDEN);

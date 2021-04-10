@@ -25,9 +25,6 @@ class Extinguish extends AttemptAction
 {
     protected string $name = ActionEnum::EXTINGUISH;
 
-    /** @var GameEquipment */
-    protected $parameter;
-
     private PlayerServiceInterface $playerService;
     private PlaceServiceInterface $placeService;
 

@@ -28,9 +28,6 @@ class Hide extends AbstractAction
 {
     protected string $name = ActionEnum::HIDE;
 
-    /** @var GameItem */
-    protected $parameter;
-
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
     private StatusServiceInterface $statusService;
@@ -70,19 +67,22 @@ class Hide extends AbstractAction
 
     protected function applyEffects(): ActionResult
     {
+        /** @var GameItem $parameter */
+        $parameter = $this->parameter;
+
         $this->statusService->createCoreStatus(
             EquipmentStatusEnum::HIDDEN,
-            $this->parameter,
+            $parameter,
             $this->player,
             VisibilityEnum::PRIVATE,
         );
 
-        if ($this->parameter->getPlayer()) {
-            $this->parameter->setPlayer(null);
-            $this->parameter->setPlace($this->player->getPlace());
+        if ($parameter->getPlayer()) {
+            $parameter->setPlayer(null);
+            $parameter->setPlace($this->player->getPlace());
         }
 
-        $this->gameEquipmentService->persist($this->parameter);
+        $this->gameEquipmentService->persist($parameter);
         $this->playerService->persist($this->player);
 
         return new Success($this->parameter);

@@ -57,13 +57,14 @@ class UltraHeal extends AbstractAction
 
     protected function applyEffects(): ActionResult
     {
-        //@TODO remove all injuries
+        /** @var GameEquipment $parameter */
+        $parameter = $this->parameter;
 
-        $player = $this->playerVariableService->setPlayerVariableToMax($this->player, ModifierTargetEnum::MAX_HEALTH_POINT);
+        $this->playerVariableService->setPlayerVariableToMax($this->player, ModifierTargetEnum::MAX_HEALTH_POINT);
 
         $this->playerService->persist($this->player);
 
-        $equipmentEvent = new EquipmentEvent($this->parameter, VisibilityEnum::HIDDEN);
+        $equipmentEvent = new EquipmentEvent($parameter, VisibilityEnum::HIDDEN);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         return new Success();

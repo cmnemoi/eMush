@@ -3,6 +3,8 @@
 namespace Mush\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
+use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionParameter;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Player\Entity\Player;
@@ -33,13 +35,30 @@ class HasActionValidator extends ConstraintValidator
         $action = $value->getAction();
         $player = $value->getPlayer();
 
-        if ((($parameter === null && !$player->getSelfActions()->contains($action)) ||
-            ($parameter instanceof Player && !$parameter->getTargetActions()->contains($action)) ||
-            ($parameter instanceof GameEquipment && !$parameter->getActions()->contains($action))) &&
+        if (($this->isPlayerAction($parameter, $player, $action) || $this->isParameterAction($parameter, $action)) &&
             $this->gearToolService->getUsedTool($player, $value->getActionName()) === null
         ) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }
+    }
+
+    /**
+     * no parameter and player do not have action.
+     */
+    private function isPlayerAction(?ActionParameter $parameter, Player $player, Action $action): bool
+    {
+        return $parameter === null && !$player->getSelfActions()->contains($action);
+    }
+
+    /**
+     * parameter is player but do not have action or
+     * parameter is equipment and do not have action.
+     */
+    private function isParameterAction(?ActionParameter $parameter, Action $action): bool
+    {
+        return ($parameter instanceof Player && !$parameter->getTargetActions()->contains($action)) ||
+            ($parameter instanceof GameEquipment && !$parameter->getActions()->contains($action))
+            ;
     }
 }

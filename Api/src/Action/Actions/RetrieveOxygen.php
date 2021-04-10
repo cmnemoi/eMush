@@ -27,9 +27,6 @@ class RetrieveOxygen extends AbstractAction
 {
     protected string $name = ActionEnum::RETRIEVE_OXYGEN;
 
-    /** @var GameEquipment */
-    protected $parameter;
-
     private GameEquipmentServiceInterface $gameEquipmentService;
     private DaedalusServiceInterface $daedalusService;
 

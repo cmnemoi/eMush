@@ -6,8 +6,8 @@ use Mush\Action\Enum\ActionEnum;
 
 class ActionLogEnum
 {
-    public const DISASEMBLE_SUCCESS = 'disasemble_success';
-    public const DISASEMBLE_FAIL = 'disasemble_fail';
+    public const DISASSEMBLE_SUCCESS = 'disassemble_success';
+    public const DISASSEMBLE_FAIL = 'disassemble_fail';
     public const BUILD_SUCCESS = 'build_success';
     public const COFFEE_SUCCESS = 'coffee_success';
     public const CONSUME_SUCCESS = 'consume_success';
@@ -56,11 +56,11 @@ class ActionLogEnum
     public const ACTION_LOGS = [
         ActionEnum::DISASSEMBLE => [
             self::SUCCESS => [
-                self::VALUE => self::DISASEMBLE_SUCCESS,
+                self::VALUE => self::DISASSEMBLE_SUCCESS,
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
             ],
             self::FAIL => [
-                self::VALUE => self::DISASEMBLE_FAIL,
+                self::VALUE => self::DISASSEMBLE_FAIL,
                 self::VISIBILITY => VisibilityEnum::PRIVATE,
             ],
         ],

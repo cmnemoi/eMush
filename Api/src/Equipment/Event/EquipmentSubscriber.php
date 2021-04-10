@@ -58,12 +58,14 @@ class EquipmentSubscriber implements EventSubscriberInterface
             $equipment->setPlayer($player);
         } else {
             $equipment->setPlace($player->getPlace());
-            $this->roomLogService->createEquipmentLog(
+            $this->roomLogService->createLog(
                 LogEnum::OBJECT_FELT,
                 $player->getPlace(),
+                VisibilityEnum::PUBLIC,
+                'event_log',
                 $player,
                 $equipment,
-                VisibilityEnum::PUBLIC,
+                null,
                 $event->getTime()
             );
         }
@@ -86,12 +88,14 @@ class EquipmentSubscriber implements EventSubscriberInterface
         }
 
         foreach ($rooms as $room) {
-            $this->roomLogService->createEquipmentLog(
+            $this->roomLogService->createLog(
                 LogEnum::EQUIPMENT_BROKEN,
                 $room,
+                $event->getVisibility(),
+                'event_log',
                 null,
                 $equipment,
-                $event->getVisibility(),
+                null,
                 $event->getTime()
             );
         }
@@ -106,12 +110,14 @@ class EquipmentSubscriber implements EventSubscriberInterface
 
         $this->gameEquipmentService->delete($equipment);
 
-        $this->roomLogService->createEquipmentLog(
+        $this->roomLogService->createLog(
             LogEnum::EQUIPMENT_DESTROYED,
             $place,
+            $event->getVisibility(),
+            'event_log',
             null,
             $equipment,
-            $event->getVisibility(),
+            null,
             $event->getTime()
         );
     }

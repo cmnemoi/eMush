@@ -121,11 +121,13 @@ class PlayerVariableService implements PlayerVariableServiceInterface
             $playerMaxActionPoint = $this->getMaxPlayerVariable($player, ModifierTargetEnum::MAX_ACTION_POINT);
             $playerNewActionPoint = $this->getValueInInterval($playerNewActionPoint, 0, $playerMaxActionPoint);
             $player->setActionPoint($playerNewActionPoint);
-            $this->roomLogService->createQuantityLog(
+            $this->roomLogService->createLog(
                 $actionModifier > 0 ? LogEnum::GAIN_ACTION_POINT : LogEnum::LOSS_ACTION_POINT,
                 $player->getPlace(),
-                $player,
                 VisibilityEnum::PRIVATE,
+                'event_log',
+                $player,
+                null,
                 abs($actionModifier),
                 $date
             );
@@ -141,11 +143,13 @@ class PlayerVariableService implements PlayerVariableServiceInterface
             $playerMaxMovementPoint = $this->getMaxPlayerVariable($player, ModifierTargetEnum::MAX_MOVEMENT_POINT);
             $playerNewMovementPoint = $this->getValueInInterval($playerNewMovementPoint, 0, $playerMaxMovementPoint);
             $player->setMovementPoint($playerNewMovementPoint);
-            $this->roomLogService->createQuantityLog(
+            $this->roomLogService->createLog(
                 $movementModifier > 0 ? LogEnum::GAIN_MOVEMENT_POINT : LogEnum::LOSS_MOVEMENT_POINT,
                 $player->getPlace(),
-                $player,
                 VisibilityEnum::PRIVATE,
+                'event_log',
+                $player,
+                null,
                 abs($movementModifier),
                 $date
             );
@@ -161,11 +165,13 @@ class PlayerVariableService implements PlayerVariableServiceInterface
             $playerMaxHealthPoint = $this->getMaxPlayerVariable($player, ModifierTargetEnum::MAX_HEALTH_POINT);
             $playerNewHealthPoint = $this->getValueInInterval($playerNewHealthPoint, 0, $playerMaxHealthPoint);
             $player->setHealthPoint($playerNewHealthPoint);
-            $this->roomLogService->createQuantityLog(
+            $this->roomLogService->createLog(
                 $healthModifier > 0 ? LogEnum::GAIN_HEALTH_POINT : LogEnum::LOSS_HEALTH_POINT,
                 $player->getPlace(),
-                $player,
                 VisibilityEnum::PRIVATE,
+                'event_log',
+                $player,
+                null,
                 abs($healthModifier),
                 $date
             );
@@ -185,11 +191,13 @@ class PlayerVariableService implements PlayerVariableServiceInterface
 
                 $player = $this->handleMoralStatus($player);
 
-                $this->roomLogService->createQuantityLog(
+                $this->roomLogService->createLog(
                     $moralModifier > 0 ? LogEnum::GAIN_MORAL_POINT : LogEnum::LOSS_MORAL_POINT,
                     $player->getPlace(),
-                    $player,
                     VisibilityEnum::PRIVATE,
+                    'event_log',
+                    $player,
+                    null,
                     abs($moralModifier),
                     $date
                 );

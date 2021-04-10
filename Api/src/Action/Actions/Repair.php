@@ -73,6 +73,8 @@ class Repair extends AttemptAction
 
         $this->playerService->persist($this->player);
 
+        $response->setActionParameter($this->parameter);
+
         return $response;
     }
 }

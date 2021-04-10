@@ -34,11 +34,6 @@ class RoomLog
     private ?Player $player;
 
     /**
-     * @ORM\OneToOne  (targetEntity="Mush\RoomLog\Entity\Target", cascade={"All"}, orphanRemoval=true)
-     */
-    private ?Target $target;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=false)
      */
     private string $visibility;
@@ -47,6 +42,11 @@ class RoomLog
      * @ORM\Column(type="string", length=255, nullable=false)
      */
     private string $log;
+
+    /**
+     * @ORM\Column(type="array", nullable=false)
+     */
+    private array $parameters;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=false)
@@ -67,11 +67,6 @@ class RoomLog
      * @ORM\Column(type="integer", nullable=false)
      */
     private int $cycle;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private ?int $quantity = null;
 
     public function getId(): int
     {
@@ -108,21 +103,6 @@ class RoomLog
         return $this;
     }
 
-    public function getTarget(): ?Target
-    {
-        return $this->target;
-    }
-
-    /**
-     * @return static
-     */
-    public function setTarget(?Target $target): RoomLog
-    {
-        $this->target = $target;
-
-        return $this;
-    }
-
     public function getVisibility(): string
     {
         return $this->visibility;
@@ -149,6 +129,21 @@ class RoomLog
     public function setLog(string $log): RoomLog
     {
         $this->log = $log;
+
+        return $this;
+    }
+
+    public function getParameters(): array
+    {
+        return $this->parameters;
+    }
+
+    /**
+     * @return static
+     */
+    public function setParameters(array $parameters): RoomLog
+    {
+        $this->parameters = $parameters;
 
         return $this;
     }
@@ -206,21 +201,6 @@ class RoomLog
     public function setCycle(int $cycle): RoomLog
     {
         $this->cycle = $cycle;
-
-        return $this;
-    }
-
-    public function getQuantity(): ?int
-    {
-        return $this->quantity;
-    }
-
-    /**
-     * @return static
-     */
-    public function setQuantity(?int $quantity): RoomLog
-    {
-        $this->quantity = $quantity;
 
         return $this;
     }

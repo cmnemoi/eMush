@@ -32,8 +32,8 @@ class Consume extends AbstractAction
     /** @var GameItem */
     protected $parameter;
 
-    private PlayerServiceInterface $playerService;
-    private EquipmentEffectServiceInterface $equipmentServiceEffect;
+    protected PlayerServiceInterface $playerService;
+    protected EquipmentEffectServiceInterface $equipmentServiceEffect;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,

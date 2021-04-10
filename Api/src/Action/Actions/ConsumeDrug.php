@@ -30,8 +30,6 @@ class ConsumeDrug extends Consume
     /** @var GameItem */
     protected $parameter;
 
-    private PlayerServiceInterface $playerService;
-    private EquipmentEffectServiceInterface $equipmentServiceEffect;
     private StatusServiceInterface $statusService;
 
     public function __construct(

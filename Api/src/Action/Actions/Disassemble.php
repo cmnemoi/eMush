@@ -16,7 +16,6 @@ use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\RoomLog\Entity\Target;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -78,8 +77,7 @@ class Disassemble extends AttemptAction
 
         $this->playerService->persist($this->player);
 
-        $target = new Target($this->parameter->getName(), 'items');
-        $response->setTarget($target);
+        $response->setActionParameter($this->parameter);
 
         return $response;
     }

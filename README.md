@@ -95,6 +95,25 @@ If everything went well you should be able to access:
 A swagger is available that list all the available endpoints and their specifications [Swagger](http://localhost:8080/swagger/) 
 To authenticate, at the moment, use the login endpoint and set the access_token returned in the swagger header to use the other endpoints
 
+## Gitlab
+This project use gitlab ci to check the merge requests
+
+### Gitlab docker php images
+This image is used for the php environment validation
+
+The dockerfile: [Dockerfile](./docker/gitlab/Php/Dockerfile)
+
+#### Update the container in gitlab
+
+```
+$ docker login registry.gitlab.com -u YOUR_USERNAME -p ACCESSS_TOKEN
+$docker build -t registry.gitlab.com/eternal-twin/mush/mush/api ./docker/gitlab/Php/Dockerfile
+$docker push registry.gitlab.com/eternal-twin/mush/mush/api
+```
+Username can be found at: https://gitlab.com/-/profile under Full Name
+
+Access Token can be created at: https://gitlab.com/-/profile/personal_access_tokens
+
 ## Troubleshooting
 
 ### Use different ports

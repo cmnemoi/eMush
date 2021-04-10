@@ -18,7 +18,6 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\RoomLog\Entity\Target;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -83,8 +82,6 @@ class RetrieveOxygen extends AbstractAction
 
         $this->daedalusService->changeOxygenLevel($this->player->getDaedalus(), -1);
 
-        $target = new Target($this->parameter->getName(), 'items');
-
-        return new Success($target);
+        return new Success();
     }
 }

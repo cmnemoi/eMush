@@ -58,7 +58,7 @@
         <unit id="unique_action">
             <segment id="description">
                 <source>unique_action.description</source>
-                <target>Cette action ne peut plus être utilisée. Jamais.... Plus du tout...</target>
+                <target>Cette action ne peut plus être utilisée. Jamais... Plus du tout...</target>
             </segment>
         </unit>
 

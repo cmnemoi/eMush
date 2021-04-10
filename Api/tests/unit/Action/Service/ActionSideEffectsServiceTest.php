@@ -90,7 +90,7 @@ class ActionSideEffectsServiceTest extends TestCase
 
         $this->actionModifierService->shouldReceive('getModifiedValue')->andReturn(100);
         $this->eventDispatcher->shouldReceive('dispatch')->never();
-        $this->roomLogService->shouldReceive('createPlayerLog')->once();
+        $this->roomLogService->shouldReceive('createLog')->once();
         $this->randomService->shouldReceive('randomPercent')->andReturn(10)->once();
         $this->statusService->shouldReceive('createCoreStatus')->andReturn(new Status($player))->once();
         $player = $this->actionService->handleActionSideEffect($action, $player, new \DateTime());
@@ -127,7 +127,7 @@ class ActionSideEffectsServiceTest extends TestCase
 
         $this->actionModifierService->shouldReceive('getModifiedValue')->andReturn(0);
         $this->eventDispatcher->shouldReceive('dispatch')->never();
-        $this->roomLogService->shouldReceive('createPlayerLog')->once();
+        $this->roomLogService->shouldReceive('createLog')->once();
         $this->randomService->shouldReceive('randomPercent')->andReturn(10)->once();
         $player = $this->actionService->handleActionSideEffect($action, $player, new \DateTime());
 
@@ -163,7 +163,7 @@ class ActionSideEffectsServiceTest extends TestCase
         ;
 
         $this->actionModifierService->shouldReceive('getModifiedValue')->andReturn(100);
-        $this->roomLogService->shouldReceive('createPlayerLog')->once();
+        $this->roomLogService->shouldReceive('createLog')->once();
         $this->randomService->shouldReceive('randomPercent')->andReturn(10)->once();
         $this->statusService->shouldReceive('createCorePlayerStatus')->never();
         $player = $this->actionService->handleActionSideEffect($action, $player, new \DateTime());
@@ -200,7 +200,7 @@ class ActionSideEffectsServiceTest extends TestCase
 
         $this->actionModifierService->shouldReceive('getModifiedValue')->andReturn(0);
         $this->eventDispatcher->shouldReceive('dispatch')->never();
-        $this->roomLogService->shouldReceive('createPlayerLog')->once();
+        $this->roomLogService->shouldReceive('createLog')->once();
         $this->randomService->shouldReceive('randomPercent')->andReturn(10)->once();
         $player = $this->actionService->handleActionSideEffect($action, $player, new \DateTime());
 

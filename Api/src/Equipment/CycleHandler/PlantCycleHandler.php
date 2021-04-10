@@ -80,7 +80,6 @@ class PlantCycleHandler extends AbstractCycleHandler
                 VisibilityEnum::PUBLIC,
                 'event_log',
                 null,
-                null,
                 $gamePlant,
                 null,
                 $dateTime
@@ -184,7 +183,6 @@ class PlantCycleHandler extends AbstractCycleHandler
             VisibilityEnum::PUBLIC,
             'event_log',
             null,
-            null,
             $gamePlant,
             null,
             $dateTime
@@ -229,7 +227,6 @@ class PlantCycleHandler extends AbstractCycleHandler
             $place,
             VisibilityEnum::PUBLIC,
             'event_log',
-            null,
             null,
             $gameFruit,
             null,

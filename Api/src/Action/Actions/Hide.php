@@ -85,6 +85,6 @@ class Hide extends AbstractAction
         $this->gameEquipmentService->persist($this->parameter);
         $this->playerService->persist($this->player);
 
-        return new Success(null, $this->parameter);
+        return new Success($this->parameter);
     }
 }

@@ -128,7 +128,6 @@ class PlayerVariableService implements PlayerVariableServiceInterface
                 'event_log',
                 $player,
                 null,
-                null,
                 abs($actionModifier),
                 $date
             );
@@ -151,7 +150,6 @@ class PlayerVariableService implements PlayerVariableServiceInterface
                 'event_log',
                 $player,
                 null,
-                null,
                 abs($movementModifier),
                 $date
             );
@@ -173,7 +171,6 @@ class PlayerVariableService implements PlayerVariableServiceInterface
                 VisibilityEnum::PRIVATE,
                 'event_log',
                 $player,
-                null,
                 null,
                 abs($healthModifier),
                 $date
@@ -200,7 +197,6 @@ class PlayerVariableService implements PlayerVariableServiceInterface
                     VisibilityEnum::PRIVATE,
                     'event_log',
                     $player,
-                    null,
                     null,
                     abs($moralModifier),
                     $date

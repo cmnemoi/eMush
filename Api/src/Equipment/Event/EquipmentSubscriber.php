@@ -64,7 +64,6 @@ class EquipmentSubscriber implements EventSubscriberInterface
                 VisibilityEnum::PUBLIC,
                 'event_log',
                 $player,
-                null,
                 $equipment,
                 null,
                 $event->getTime()
@@ -95,7 +94,6 @@ class EquipmentSubscriber implements EventSubscriberInterface
                 $event->getVisibility(),
                 'event_log',
                 null,
-                null,
                 $equipment,
                 null,
                 $event->getTime()
@@ -117,7 +115,6 @@ class EquipmentSubscriber implements EventSubscriberInterface
             $place,
             $event->getVisibility(),
             'event_log',
-            null,
             null,
             $equipment,
             null,

@@ -80,7 +80,6 @@ class Move extends AbstractAction
             $this->player,
             null,
             null,
-            null,
             new \DateTime('now')
         );
         $this->roomLogService->createLog(
@@ -89,7 +88,6 @@ class Move extends AbstractAction
             VisibilityEnum::PUBLIC,
             'actions_log',
             $this->player,
-            null,
             null,
             null,
             new \DateTime('now')

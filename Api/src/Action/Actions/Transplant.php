@@ -96,6 +96,6 @@ class Transplant extends AbstractAction
 
         $this->playerService->persist($this->player);
 
-        return new Success(null, $plantEquipment);
+        return new Success($plantEquipment);
     }
 }

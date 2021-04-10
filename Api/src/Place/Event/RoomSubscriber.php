@@ -79,7 +79,6 @@ class RoomSubscriber implements EventSubscriberInterface
             null,
             null,
             null,
-            null,
             $event->getTime()
         );
     }
@@ -122,7 +121,6 @@ class RoomSubscriber implements EventSubscriberInterface
             $room,
             VisibilityEnum::PUBLIC,
             'event_log',
-            null,
             null,
             null,
             null,

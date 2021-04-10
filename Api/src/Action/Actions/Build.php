@@ -121,6 +121,6 @@ class Build extends AbstractAction
 
         $this->playerService->persist($this->player);
 
-        return new Success(null, $blueprintEquipment);
+        return new Success($blueprintEquipment);
     }
 }

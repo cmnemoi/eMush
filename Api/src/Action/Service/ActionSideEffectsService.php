@@ -66,7 +66,6 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
                     $player,
                     null,
                     null,
-                    null,
                     $date
                 );
             } else {
@@ -78,7 +77,6 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
                     VisibilityEnum::PRIVATE,
                     'event_log',
                     $player,
-                    null,
                     null,
                     null,
                     $date
@@ -106,7 +104,6 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
                     $player,
                     null,
                     null,
-                    null,
                     $date
                 );
             } else {
@@ -116,7 +113,6 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
                     VisibilityEnum::PRIVATE,
                     'event_log',
                     $player,
-                    null,
                     null,
                     null,
                     $date

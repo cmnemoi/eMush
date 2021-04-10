@@ -14,7 +14,6 @@ use Mush\Action\Validator\Status;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -31,14 +30,12 @@ class Sabotage extends AttemptAction
     /** @var GameEquipment */
     protected $parameter;
 
-    private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        GameEquipmentServiceInterface $gameEquipmentService,
         PlayerServiceInterface $playerService,
         RandomServiceInterface $randomService,
     ) {
@@ -49,7 +46,6 @@ class Sabotage extends AttemptAction
             $randomService,
         );
 
-        $this->gameEquipmentService = $gameEquipmentService;
         $this->playerService = $playerService;
         $this->randomService = $randomService;
     }
@@ -84,7 +80,7 @@ class Sabotage extends AttemptAction
 
         $this->playerService->persist($this->player);
 
-        $response->setTargetEquipment($this->parameter);
+        $response->setActionParameter($this->parameter);
 
         return $response;
     }

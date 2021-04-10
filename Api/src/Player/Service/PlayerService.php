@@ -213,7 +213,6 @@ class PlayerService implements PlayerServiceInterface
             'event_log',
             $player,
             null,
-            null,
             $triumphChange,
             $date
         );

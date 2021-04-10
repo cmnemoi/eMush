@@ -99,7 +99,7 @@ class Hit extends AttemptAction
             }
         }
 
-        $result->setTargetPlayer($this->parameter);
+        $result->setActionParameter($this->parameter);
 
         return $result;
     }

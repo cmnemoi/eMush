@@ -215,7 +215,6 @@ class DaedalusService implements DaedalusServiceInterface
                 $player,
                 null,
                 null,
-                null,
                 $date
             );
         }

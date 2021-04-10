@@ -3,9 +3,9 @@
 namespace Mush\RoomLog\Service;
 
 use Mush\Action\ActionResult\ActionResult;
-use Mush\Equipment\Entity\GameEquipment;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Entity\LogParameter;
 use Mush\RoomLog\Entity\RoomLog;
 
 interface RoomLogServiceInterface
@@ -16,20 +16,12 @@ interface RoomLogServiceInterface
         string $visibility,
         string $type,
         ?Player $player = null,
-        ?Player $targetPlayer = null,
-        ?GameEquipment $targetEquipment = null,
+        ?LogParameter $target = null,
         ?int $quantity = null,
         \DateTime $dateTime = null
     ): RoomLog;
 
     public function createLogFromActionResult(string $actionName, ActionResult $actionResult, Player $player): ?RoomLog;
-
-    public function getMessageParam(
-        ?Player $player = null,
-        ?Player $targetPlayer = null,
-        ?GameEquipment $targetEquipment = null,
-        ?int $quantity = null,
-    ): array;
 
     public function persist(RoomLog $roomLog): RoomLog;
 

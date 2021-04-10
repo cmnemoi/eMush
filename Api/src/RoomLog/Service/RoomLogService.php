@@ -12,6 +12,7 @@ use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Entity\LogParameter;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogDeclinationEnum;
@@ -71,9 +72,6 @@ class RoomLogService implements RoomLogServiceInterface
                 VisibilityEnum::PUBLIC,
                 'actions_log',
                 $player,
-                null,
-                null,
-                null
             );
         }
 
@@ -83,8 +81,7 @@ class RoomLogService implements RoomLogServiceInterface
             $logData[ActionLogEnum::VISIBILITY],
             'actions_log',
             $player,
-            $actionResult->getTargetPlayer(),
-            $actionResult->getTargetEquipment()
+            $actionResult->getTargetPlayer() ?? $actionResult->getTargetEquipment(),
         );
     }
 
@@ -94,12 +91,11 @@ class RoomLogService implements RoomLogServiceInterface
         string $visibility,
         string $type,
         ?Player $player = null,
-        ?Player $targetPlayer = null,
-        ?GameEquipment $targetEquipment = null,
+        ?LogParameter $target = null,
         ?int $quantity = null,
         \DateTime $dateTime = null
     ): RoomLog {
-        $params = $this->getMessageParam($player, $targetPlayer, $targetEquipment, $quantity);
+        $params = $this->getMessageParam($player, $target, $quantity);
 
         //if there is several version of the log
         if (array_key_exists($logKey, $declinations = LogDeclinationEnum::getVersionNumber())) {
@@ -125,10 +121,9 @@ class RoomLogService implements RoomLogServiceInterface
         return $this->persist($roomLog);
     }
 
-    public function getMessageParam(
+    private function getMessageParam(
         ?Player $player = null,
-        ?Player $targetPlayer = null,
-        ?GameEquipment $targetEquipment = null,
+        ?LogParameter $target = null,
         ?int $quantity = null,
     ): array {
         $params = [];
@@ -140,24 +135,26 @@ class RoomLogService implements RoomLogServiceInterface
             $params['player'] = $characterName;
             $params['character_gender'] = (CharacterEnum::isMale($characterKey) ? 'male' : 'female');
         }
-        if ($targetEquipment !== null) {
-            if ($targetEquipment instanceof GameItem) {
+
+        if ($target instanceof GameEquipment) {
+            if ($target instanceof GameItem) {
                 $domain = 'items';
             } else {
                 $domain = 'equipments';
             }
-            $targetName = $this->translator->trans($targetEquipment->getName() . '.short_name', [], $domain);
-            $targetPlural = $this->translator->trans($targetEquipment->getName() . '.plural_name', [], $domain);
-            $targetGender = $this->translator->trans($targetEquipment->getName() . '.genre', [], $domain);
-            $targetFirstLetter = $this->translator->trans($targetEquipment->getName() . '.first_Letter', [], $domain);
+            $targetName = $this->translator->trans($target->getName() . '.short_name', [], $domain);
+            $targetPlural = $this->translator->trans($target->getName() . '.plural_name', [], $domain);
+            $targetGender = $this->translator->trans($target->getName() . '.genre', [], $domain);
+            $targetFirstLetter = $this->translator->trans($target->getName() . '.first_Letter', [], $domain);
 
             $params['target_first_letter'] = $targetFirstLetter;
             $params['targetPlural'] = $targetPlural;
             $params['target'] = $targetName;
             $params['target_gender'] = $targetGender;
         }
-        if ($targetPlayer !== null) {
-            $characterKey = $targetPlayer->getCharacterConfig()->getName();
+
+        if ($target instanceof Player) {
+            $characterKey = $target->getCharacterConfig()->getName();
             $characterName = $this->translator->trans($characterKey . '.name', [], 'characters');
 
             $params['target'] = $characterName;

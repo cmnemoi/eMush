@@ -12,6 +12,7 @@ use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
+use Mush\Player\Entity\DeadPlayerInfo;
 use Mush\Player\Entity\Player;
 use Mush\Player\Repository\PlayerRepository;
 use Mush\Player\Service\PlayerService;
@@ -145,8 +146,12 @@ class PlayerServiceTest extends TestCase
     public function testEndPlayer()
     {
         $user = new User();
+        $deadPlayerInfo = new DeadPlayerInfo();
         $player = new Player();
-        $player->setUser($user);
+        $player
+            ->setUser($user)
+            ->setDeadPlayerInfo($deadPlayerInfo)
+        ;
         $message = 'message';
 
         $this->entityManager->shouldReceive([

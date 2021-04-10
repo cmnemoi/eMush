@@ -53,29 +53,14 @@ class Player implements StatusHolderInterface, ActionParameter
     private string $gameStatus;
 
     /**
+     * @ORM\OneToOne (targetEntity="Mush\Player\Entity\DeadPlayerInfo")
+     */
+    private DeadPlayerInfo $deadPlayerInfo;
+
+    /**
      * @ORM\ManyToOne (targetEntity="Mush\Game\Entity\CharacterConfig")
      */
     private CharacterConfig $characterConfig;
-
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private ?string $endStatus = null;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private int $dayDeath;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private int $cycleDeath;
-
-    /**
-     * @ORM\Column(type="integer", nullable=false)
-     */
-    private int $likes = 0;
 
     /**
      * @ORM\ManyToOne (targetEntity="Mush\Daedalus\Entity\Daedalus", inversedBy="players")
@@ -173,6 +158,21 @@ class Player implements StatusHolderInterface, ActionParameter
         return $this;
     }
 
+    public function getDeadPlayerInfo(): DeadPlayerInfo
+    {
+        return $this->deadPlayerInfo;
+    }
+
+    /**
+     * @return static
+     */
+    public function setDeadPlayerInfo(DeadPlayerInfo $deadPlayerInfo): Player
+    {
+        $this->deadPlayerInfo = $deadPlayerInfo;
+
+        return $this;
+    }
+
     public function isAlive(): bool
     {
         return $this->gameStatus === GameStatusEnum::CURRENT;
@@ -189,66 +189,6 @@ class Player implements StatusHolderInterface, ActionParameter
     public function setCharacterConfig(CharacterConfig $characterConfig): Player
     {
         $this->characterConfig = $characterConfig;
-
-        return $this;
-    }
-
-    public function getEndStatus(): ?string
-    {
-        return $this->endStatus;
-    }
-
-    /**
-     * @return static
-     */
-    public function setEndStatus(string $endStatus): Player
-    {
-        $this->endStatus = $endStatus;
-
-        return $this;
-    }
-
-    public function getDayDeath(): ?int
-    {
-        return $this->dayDeath;
-    }
-
-    /**
-     * @return static
-     */
-    public function setDayDeath(int $dayDeath): Player
-    {
-        $this->dayDeath = $dayDeath;
-
-        return $this;
-    }
-
-    public function getCycleDeath(): ?int
-    {
-        return $this->cycleDeath;
-    }
-
-    /**
-     * @return static
-     */
-    public function setCycleDeath(int $cycleDeath): Player
-    {
-        $this->cycleDeath = $cycleDeath;
-
-        return $this;
-    }
-
-    public function getLikes(): int
-    {
-        return $this->likes;
-    }
-
-    /**
-     * @return static
-     */
-    public function addlikes(int $change): Player
-    {
-        $this->likes += $change;
 
         return $this;
     }

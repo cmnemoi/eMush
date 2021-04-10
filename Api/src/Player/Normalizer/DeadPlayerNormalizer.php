@@ -35,6 +35,8 @@ class DeadPlayerNormalizer implements ContextAwareNormalizerInterface, Normalize
 
         $character = $player->getCharacterConfig()->getName();
 
+        $endCause = $player->getDeadPlayerInfo()->getEndStatus();
+
         return [
             'id' => $player->getId(),
             'character' => [
@@ -42,8 +44,13 @@ class DeadPlayerNormalizer implements ContextAwareNormalizerInterface, Normalize
                 'value' => $this->translator->trans($character . '.name', [], 'characters'),
             ],
             'triumph' => $player->getTriumph(),
+            'mush' => $player->isMush(),
             'user' => $player->getUser()->getUsername(),
             'players' => $this->getOtherPlayers($player),
+            'endCause' => [
+                'name' => $this->translator->trans($endCause . '.name', [], 'end_cause'),
+                'description' => $this->translator->trans($endCause . '.category', [], 'end_cause'),
+            ],
         ];
     }
 
@@ -59,15 +66,17 @@ class DeadPlayerNormalizer implements ContextAwareNormalizerInterface, Normalize
                     'character' => [
                         'key' => $character,
                         'value' => $this->translator->trans($character . '.name', [], 'characters'),
+                        'description' => $this->translator->trans($character . '.abstract', [], 'characters'),
                         ],
-                    'likes' => $player->getLikes(),
+                    'likes' => $player->getDeadPlayerInfo()->getLikes(),
                     ];
 
                 if ($otherPlayer->getGameStatus() !== GameStatusEnum::CURRENT) {
+                    $endCause = $otherPlayer->getDeathPlayerInfo()->getEndStatus();
                     $normalizedOtherPlayer['isDead'] = [
-                        'day' => $otherPlayer->getDayDeath(),
-                        'cycle' => $otherPlayer->getCycleDeath(),
-                        'cause' => $otherPlayer->getEndStatus(),
+                        'day' => $otherPlayer->getDeathPlayerInfo()->getDayDeath(),
+                        'cycle' => $otherPlayer->getDeathPlayerInfo()->getCycleDeath(),
+                        'cause' => [$this->normalizeEndReason($endCause)],
                     ];
                 } else {
                     $normalizedOtherPlayer['isDead'] = false;
@@ -77,5 +86,13 @@ class DeadPlayerNormalizer implements ContextAwareNormalizerInterface, Normalize
         }
 
         return $otherPlayers;
+    }
+
+    private function normalizeEndReason(string $endCause): array
+    {
+        return [
+            'name' => $this->translator->trans($endCause . '.name', [], 'end_cause'),
+            'description' => $this->translator->trans($endCause . '.description', [], 'end_cause'),
+        ];
     }
 }

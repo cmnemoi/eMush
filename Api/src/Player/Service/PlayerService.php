@@ -9,9 +9,9 @@ use Mush\Game\Enum\TriumphEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
+use Mush\Player\Entity\DeadPlayerInfo;
 use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
-use Mush\Player\Entity\PlayerLastWords;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Event\PlayerEvent;
@@ -106,7 +106,10 @@ class PlayerService implements PlayerServiceInterface
             ->setMovementPoint($gameConfig->getInitMovementPoint())
             ->setSatiety($gameConfig->getInitSatiety())
             ->setSatiety($gameConfig->getInitSatiety())
+            ->setDeadPlayerInfo($deadPlayerInfo = new DeadPlayerInfo())
         ;
+
+        $this->entityManager->persist($deadPlayerInfo);
 
         foreach ($characterConfig->getStatuses() as $statusName) {
             $this->statusService->createCoreStatus($statusName, $player);
@@ -130,9 +133,9 @@ class PlayerService implements PlayerServiceInterface
         $user = $player->getUser();
         $user->setCurrentGame(null);
 
-        $lastWords = new PlayerLastWords();
-        $lastWords
-            ->setPlayer($player)
+        $deadPlayerInfo = $player->getDeadPlayerInfo();
+
+        $deadPlayerInfo
             ->setMessage($message)
         ;
 
@@ -141,7 +144,7 @@ class PlayerService implements PlayerServiceInterface
         $playerEvent = new PlayerEvent($player, new \DateTime());
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::END_PLAYER);
 
-        $this->entityManager->persist($lastWords);
+        $this->entityManager->persist($deadPlayerInfo);
         $this->entityManager->persist($player);
         $this->entityManager->persist($user);
 
@@ -248,14 +251,20 @@ class PlayerService implements PlayerServiceInterface
 
     public function playerDeath(Player $player, ?string $reason, \DateTime $time): Player
     {
-        if ($reason) {
-            $player->setEndStatus($reason);
+        if (!$reason) {
+            $reason = 'missing end reason';
         }
 
-        $player->setDayDeath($player->getDaedalus()->getDay());
-        $player->setCycleDeath($player->getDaedalus()->getCycle());
+        $deadPlayerInfo = $player->getDeadPlayerInfo();
+        $deadPlayerInfo
+            ->setDayDeath($player->getDaedalus()->getDay())
+            ->setCycleDeath($player->getDaedalus()->getCycle())
+            ->setEndStatus($reason)
+        ;
 
-        if ($player->getEndStatus() !== EndCauseEnum::DEPRESSION) {
+        $this->entityManager->persist($deadPlayerInfo);
+
+        if ($reason !== EndCauseEnum::DEPRESSION) {
             /** @var Player $daedalusPlayer */
             foreach ($player->getDaedalus()->getPlayers()->getPlayerAlive() as $daedalusPlayer) {
                 if ($daedalusPlayer !== $player) {
@@ -284,7 +293,7 @@ class PlayerService implements PlayerServiceInterface
             }
         }
 
-        //@TODO in case of assasination chance of disorder for roommates
+        //@TODO in case of assassination chance of disorder for roommates
         if ($grandBeyond = $player->getDaedalus()->getPlaceByName(RoomEnum::GREAT_BEYOND)) {
             $player->setPlace($grandBeyond);
         }

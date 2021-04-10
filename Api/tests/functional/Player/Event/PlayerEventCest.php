@@ -9,6 +9,7 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
+use Mush\Player\Entity\DeadPlayerInfo;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
@@ -43,8 +44,11 @@ class PlayerEventCest
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
         /** @var Place $room */
         $greatBeyond = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::GREAT_BEYOND]);
+
+        $deadPlayerInfo = new DeadPlayerInfo();
+        $I->haveInRepository($deadPlayerInfo);
         /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'user' => $user]);
+        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'user' => $user, 'deadPlayerInfo' => $deadPlayerInfo]);
 
         $playerEvent = new PlayerEvent($player);
         $playerEvent->setReason(EndCauseEnum::CLUMSINESS);

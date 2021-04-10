@@ -14,6 +14,7 @@ use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\DeadPlayerInfo;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Status;
@@ -38,6 +39,7 @@ class CycleEventCest
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'actionPoint' => 2]);
         /** @var EquipmentConfig $equipmentConfig */
@@ -89,13 +91,18 @@ class CycleEventCest
         $characterConfig = $I->have(CharacterConfig::class);
         /** @var CharacterConfig $characterConfig2 */
         $characterConfig2 = $I->have(CharacterConfig::class, ['name' => CharacterEnum::ANDIE]);
+
+        $deadPlayerInfo1 = new DeadPlayerInfo();
+        $I->haveInRepository($deadPlayerInfo1);
+        $deadPlayerInfo2 = new DeadPlayerInfo();
+        $I->haveInRepository($deadPlayerInfo2);
         $I->have(
             Player::class,
-            ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig, 'healthPoint' => 99]
+            ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig, 'healthPoint' => 99, 'deadPlayerInfo' => $deadPlayerInfo1]
         );
         $I->have(
             Player::class,
-            ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig2, 'healthPoint' => 99]
+            ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig2, 'healthPoint' => 99, 'deadPlayerInfo' => $deadPlayerInfo2]
         );
 
         $time = new DateTime();

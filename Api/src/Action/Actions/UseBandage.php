@@ -28,9 +28,6 @@ class UseBandage extends AbstractAction
 
     protected string $name = ActionEnum::USE_BANDAGE;
 
-    /** @var GameEquipment */
-    protected $parameter;
-
     private PlayerServiceInterface $playerService;
 
     public function __construct(
@@ -61,6 +58,9 @@ class UseBandage extends AbstractAction
 
     protected function applyEffects(): ActionResult
     {
+        /** @var GameEquipment $parameter */
+        $parameter = $this->parameter;
+
         $actionModifier = new Modifier();
         $actionModifier
             ->setDelta(self::BANDAGE_HEAL)
@@ -72,7 +72,7 @@ class UseBandage extends AbstractAction
 
         $this->playerService->persist($this->player);
 
-        $equipmentEvent = new EquipmentEvent($this->parameter, VisibilityEnum::HIDDEN);
+        $equipmentEvent = new EquipmentEvent($parameter, VisibilityEnum::HIDDEN);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         return new Success();

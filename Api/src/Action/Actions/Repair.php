@@ -23,9 +23,6 @@ class Repair extends AttemptAction
 {
     protected string $name = ActionEnum::REPAIR;
 
-    /** @var GameEquipment */
-    protected $parameter;
-
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
 
@@ -62,18 +59,21 @@ class Repair extends AttemptAction
 
     protected function applyEffects(): ActionResult
     {
+        /** @var GameEquipment $parameter */
+        $parameter = $this->parameter;
+
         $response = $this->makeAttempt();
 
         if ($response instanceof Success &&
-            ($brokenStatus = $this->parameter->getStatusByName(EquipmentStatusEnum::BROKEN))
+            ($brokenStatus = $parameter->getStatusByName(EquipmentStatusEnum::BROKEN))
         ) {
-            $this->parameter->removeStatus($brokenStatus);
-            $this->gameEquipmentService->persist($this->parameter);
+            $parameter->removeStatus($brokenStatus);
+            $this->gameEquipmentService->persist($parameter);
         }
 
         $this->playerService->persist($this->player);
 
-        $response->setActionParameter($this->parameter);
+        $response->setActionParameter($parameter);
 
         return $response;
     }

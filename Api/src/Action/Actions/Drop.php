@@ -16,7 +16,6 @@ use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -25,12 +24,8 @@ class Drop extends AbstractAction
 {
     protected string $name = ActionEnum::DROP;
 
-    /** @var GameItem */
-    protected $parameter;
-
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
-    private StatusServiceInterface $statusService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
@@ -38,7 +33,6 @@ class Drop extends AbstractAction
         ValidatorInterface $validator,
         GameEquipmentServiceInterface $gameEquipmentService,
         PlayerServiceInterface $playerService,
-        StatusServiceInterface $statusService,
     ) {
         parent::__construct(
             $eventDispatcher,
@@ -48,7 +42,6 @@ class Drop extends AbstractAction
 
         $this->gameEquipmentService = $gameEquipmentService;
         $this->playerService = $playerService;
-        $this->statusService = $statusService;
     }
 
     protected function support(?ActionParameter $parameter): bool
@@ -64,8 +57,11 @@ class Drop extends AbstractAction
 
     protected function applyEffects(): ActionResult
     {
-        $this->parameter->setPlace($this->player->getPlace());
-        $this->parameter->setPlayer(null);
+        /** @var GameItem $parameter */
+        $parameter = $this->parameter;
+
+        $parameter->setPlace($this->player->getPlace());
+        $parameter->setPlayer(null);
 
         // Remove BURDENED status if no other heavy item in the inventory
         if (($burdened = $this->player->getStatusByName(PlayerStatusEnum::BURDENED)) &&
@@ -79,9 +75,9 @@ class Drop extends AbstractAction
             $this->player->removeStatus($burdened);
         }
 
-        $this->gameEquipmentService->persist($this->parameter);
+        $this->gameEquipmentService->persist($parameter);
         $this->playerService->persist($this->player);
 
-        return new Success($this->parameter);
+        return new Success($parameter);
     }
 }

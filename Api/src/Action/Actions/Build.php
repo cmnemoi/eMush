@@ -29,9 +29,6 @@ class Build extends AbstractAction
 {
     protected string $name = ActionEnum::BUILD;
 
-    /** @var GameEquipment */
-    protected $parameter;
-
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
     private GearToolServiceInterface $gearToolService;
@@ -68,8 +65,12 @@ class Build extends AbstractAction
 
     public function cannotExecuteReason(): ?string
     {
+        //@TODO use validator
+        /** @var GameEquipment $parameter */
+        $parameter = $this->parameter;
+
         /** @var Blueprint $blueprintMechanic */
-        $blueprintMechanic = $this->parameter->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT);
+        $blueprintMechanic = $parameter->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT);
 
         //Check the availlability of the ingredients
         foreach ($blueprintMechanic->getIngredients() as $name => $number) {
@@ -83,8 +84,11 @@ class Build extends AbstractAction
 
     protected function applyEffects(): ActionResult
     {
+        /** @var GameEquipment $parameter */
+        $parameter = $this->parameter;
+
         /** @var Blueprint $blueprintMechanic */
-        $blueprintMechanic = $this->parameter->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT);
+        $blueprintMechanic = $parameter->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT);
 
         $blueprintEquipment = $this->gameEquipmentService->createGameEquipment(
             $blueprintMechanic->getEquipment(),
@@ -109,7 +113,7 @@ class Build extends AbstractAction
             }
         }
 
-        $equipmentEvent = new EquipmentEvent($this->parameter, VisibilityEnum::HIDDEN);
+        $equipmentEvent = new EquipmentEvent($parameter, VisibilityEnum::HIDDEN);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         //create the equipment

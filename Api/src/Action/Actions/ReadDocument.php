@@ -17,9 +17,6 @@ class ReadDocument extends AbstractAction
 {
     protected string $name = ActionEnum::READ_DOCUMENT;
 
-    /** @var GameItem */
-    protected $parameter;
-
     protected function support(?ActionParameter $parameter): bool
     {
         return $parameter instanceof GameItem;

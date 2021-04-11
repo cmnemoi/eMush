@@ -13,10 +13,8 @@ use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -25,20 +23,13 @@ class WaterPlant extends AbstractAction
 {
     protected string $name = ActionEnum::WATER_PLANT;
 
-    /** @var GameItem */
-    protected $parameter;
-
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private PlayerServiceInterface $playerService;
-    private StatusServiceInterface $statusService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         GameEquipmentServiceInterface $gameEquipmentService,
-        PlayerServiceInterface $playerService,
-        StatusServiceInterface $statusService
     ) {
         parent::__construct(
             $eventDispatcher,
@@ -47,8 +38,6 @@ class WaterPlant extends AbstractAction
         );
 
         $this->gameEquipmentService = $gameEquipmentService;
-        $this->playerService = $playerService;
-        $this->statusService = $statusService;
     }
 
     protected function support(?ActionParameter $parameter): bool
@@ -64,13 +53,16 @@ class WaterPlant extends AbstractAction
 
     protected function applyEffects(): ActionResult
     {
+        /** @var GameItem $parameter */
+        $parameter = $this->parameter;
+
         /** @var Status $status */
-        $status = ($this->parameter->getStatusByName(EquipmentStatusEnum::PLANT_THIRSTY)
-            ?? $this->parameter->getStatusByName(EquipmentStatusEnum::PLANT_DRIED_OUT));
+        $status = ($parameter->getStatusByName(EquipmentStatusEnum::PLANT_THIRSTY)
+            ?? $parameter->getStatusByName(EquipmentStatusEnum::PLANT_DRIED_OUT));
 
-        $this->parameter->removeStatus($status);
+        $parameter->removeStatus($status);
 
-        $this->gameEquipmentService->persist($this->parameter);
+        $this->gameEquipmentService->persist($parameter);
 
         return new Success();
     }

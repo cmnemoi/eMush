@@ -23,9 +23,6 @@ class InsertOxygen extends AbstractAction
 {
     protected string $name = ActionEnum::INSERT_OXYGEN;
 
-    /** @var GameItem */
-    protected $parameter;
-
     private GameEquipmentServiceInterface $gameEquipmentService;
     private DaedalusServiceInterface $daedalusService;
 
@@ -60,9 +57,12 @@ class InsertOxygen extends AbstractAction
 
     protected function applyEffects(): ActionResult
     {
-        $this->parameter->setPlayer(null);
+        /** @var GameItem $parameter */
+        $parameter = $this->parameter;
 
-        $this->gameEquipmentService->delete($this->parameter);
+        $parameter->setPlayer(null);
+
+        $this->gameEquipmentService->delete($parameter);
 
         $this->daedalusService->changeOxygenLevel($this->player->getDaedalus(), 1);
 

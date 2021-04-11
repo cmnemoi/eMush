@@ -22,9 +22,6 @@ class TreatPlant extends AbstractAction
 {
     protected string $name = ActionEnum::TREAT_PLANT;
 
-    /** @var GameItem */
-    protected $parameter;
-
     private GameEquipmentServiceInterface $gameEquipmentService;
 
     public function __construct(
@@ -59,9 +56,12 @@ class TreatPlant extends AbstractAction
 
     protected function applyEffects(): ActionResult
     {
-        if ($diseased = $this->parameter->getStatusByName(EquipmentStatusEnum::PLANT_DISEASED)) {
-            $this->parameter->removeStatus($diseased);
-            $this->gameEquipmentService->persist($this->parameter);
+        /** @var GameItem $parameter */
+        $parameter = $this->parameter;
+
+        if ($diseasedStatus = $parameter->getStatusByName(EquipmentStatusEnum::PLANT_DISEASED)) {
+            $parameter->removeStatus($diseasedStatus);
+            $this->gameEquipmentService->persist($parameter);
         }
 
         return new Success();

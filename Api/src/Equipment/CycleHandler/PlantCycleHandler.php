@@ -74,12 +74,14 @@ class PlantCycleHandler extends AbstractCycleHandler
             $place = $gamePlant->getCurrentPlace();
 
             $gamePlant->removeStatus($youngStatus);
-            $this->roomLogService->createEquipmentLog(
+            $this->roomLogService->createLog(
                 PlantLogEnum::PLANT_MATURITY,
                 $place,
+                VisibilityEnum::PUBLIC,
+                'event_log',
                 null,
                 $gamePlant,
-                VisibilityEnum::PUBLIC,
+                null,
                 $dateTime
             );
         }
@@ -175,12 +177,14 @@ class PlantCycleHandler extends AbstractCycleHandler
             $gamePlant->setPlace(null);
             $hydropot->setPlace($place);
         }
-        $this->roomLogService->createEquipmentLog(
+        $this->roomLogService->createLog(
             PlantLogEnum::PLANT_DEATH,
             $place,
+            VisibilityEnum::PUBLIC,
+            'event_log',
             null,
             $gamePlant,
-            VisibilityEnum::PUBLIC,
+            null,
             $dateTime
         );
 
@@ -218,12 +222,14 @@ class PlantCycleHandler extends AbstractCycleHandler
 
         $this->gameEquipmentService->persist($gameFruit);
 
-        $this->roomLogService->createEquipmentLog(
+        $this->roomLogService->createLog(
             PlantLogEnum::PLANT_NEW_FRUIT,
             $place,
+            VisibilityEnum::PUBLIC,
+            'event_log',
             null,
             $gameFruit,
-            VisibilityEnum::PUBLIC,
+            null,
             $dateTime
         );
     }

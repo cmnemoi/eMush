@@ -17,7 +17,6 @@ use Mush\Equipment\Enum\ReachEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\RoomLog\Entity\Target;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -122,8 +121,6 @@ class Infect extends AbstractAction
         $mushStatus->addCharge(-1);
         $this->statusService->persist($mushStatus);
 
-        $target = new Target($this->parameter->getCharacterConfig()->getName(), 'character');
-
-        return new Success($target);
+        return new Success($this->parameter);
     }
 }

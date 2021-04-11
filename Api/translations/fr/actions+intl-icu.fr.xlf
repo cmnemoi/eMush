@@ -28,9 +28,19 @@
             </segment>
             <segment id="description">
                 <source>consume.description</source>
-                <target>Dévorer une délicieuse denrée. En général, manger vous apportera des :pa::pm:. Les {i}rations cuisinées{\i} n'entamerons pas votre moral. Les autres nouritures peuvent réserver des surprises.</target>
+                <target>Dévorer une délicieuse denrée. En général, manger vous apportera des :pa::pm:. Les //rations cuisinées// n'entamerons pas votre moral. Les autres nouritures peuvent réserver des surprises.</target>
             </segment>
         </unit>
+        <unit id="consume_drug">
+                    <segment id="consume_drug">
+                        <source>consume_drug.name</source>
+                        <target>Consommer</target>
+                    </segment>
+                    <segment id="description">
+                        <source>consume_drug.description</source>
+                        <target>Dévorer une délicieuse denrée. En général, manger vous apportera des :pa::pm:. Les //rations cuisinées// n'entameront pas votre moral. Les autres nouritures peuvent réserver des surprises.</target>
+                    </segment>
+                </unit>
         <unit id="cook">
             <segment id="cook">
                 <source>cook.name</source>

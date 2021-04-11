@@ -17,7 +17,6 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\RoomLog\Entity\Target;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -86,8 +85,6 @@ class Hide extends AbstractAction
         $this->gameEquipmentService->persist($this->parameter);
         $this->playerService->persist($this->player);
 
-        $target = new Target($this->parameter->getName(), 'items');
-
-        return new Success($target);
+        return new Success($this->parameter);
     }
 }

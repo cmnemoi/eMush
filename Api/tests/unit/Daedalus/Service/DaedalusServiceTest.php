@@ -266,7 +266,7 @@ class DaedalusServiceTest extends TestCase
             ->andReturn($twoCapsulePlayer)
             ->once()
         ;
-        $this->roomLogService->shouldReceive('createPlayerLog')->once();
+        $this->roomLogService->shouldReceive('createLog')->once();
         $this->randomService->shouldReceive('getRandomPlayer')
             ->andReturn($noCapsulePlayer)
             ->once()

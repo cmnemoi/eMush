@@ -5,6 +5,7 @@ namespace functional\Player\Event;
 use App\Tests\FunctionalTester;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Place\Entity\Place;
@@ -45,10 +46,19 @@ class PlayerEventCest
         /** @var Place $room */
         $greatBeyond = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::GREAT_BEYOND]);
 
+        /** @var CharacterConfig $characterConfig */
+        $characterConfig = $I->have(CharacterConfig::class);
         $deadPlayerInfo = new DeadPlayerInfo();
+
         $I->haveInRepository($deadPlayerInfo);
         /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'user' => $user, 'deadPlayerInfo' => $deadPlayerInfo]);
+        $player = $I->have(Player::class, [
+            'daedalus' => $daedalus,
+            'place' => $room,
+            'user' => $user,
+            'characterConfig' => $characterConfig,
+            'deadPlayerInfo' => $deadPlayerInfo
+        ]);
 
         $playerEvent = new PlayerEvent($player);
         $playerEvent->setReason(EndCauseEnum::CLUMSINESS);

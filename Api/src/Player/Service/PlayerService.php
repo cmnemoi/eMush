@@ -209,11 +209,13 @@ class PlayerService implements PlayerServiceInterface
 
         $player->addTriumph($triumphChange);
 
-        $this->roomLogService->createQuantityLog(
+        $this->roomLogService->createLog(
             LogEnum::GAIN_TRIUMPH,
             $player->getPlace(),
-            $player,
             VisibilityEnum::PRIVATE,
+            'event_log',
+            $player,
+            null,
             $triumphChange,
             $date
         );

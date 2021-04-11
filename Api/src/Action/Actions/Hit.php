@@ -99,6 +99,8 @@ class Hit extends AttemptAction
             }
         }
 
+        $result->setActionParameter($this->parameter);
+
         return $result;
     }
 }

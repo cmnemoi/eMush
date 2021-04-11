@@ -4,6 +4,7 @@ namespace Mush\Action\Normalizer;
 
 use Mush\Action\Actions\AttemptAction;
 use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Service\ActionStrategyServiceInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
@@ -44,19 +45,7 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
             throw new \LogicException('Current player is missing from context');
         }
 
-        $parameter = null;
-        if (array_key_exists('player', $context)) {
-            $parameter = $context['player'];
-        }
-        if (array_key_exists('door', $context)) {
-            $parameter = $context['door'];
-        }
-        if (array_key_exists('item', $context)) {
-            $parameter = $context['item'];
-        }
-        if (array_key_exists('equipment', $context)) {
-            $parameter = $context['equipment'];
-        }
+        $parameter = $this->loadParameters($context);
 
         $actionClass->loadParameters($object, $currentPlayer, $parameter);
 
@@ -89,5 +78,24 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
         }
 
         return [];
+    }
+
+    private function loadParameters(array $context): ?ActionParameter
+    {
+        $parameter = null;
+        if (array_key_exists('player', $context)) {
+            $parameter = $context['player'];
+        }
+        if (array_key_exists('door', $context)) {
+            $parameter = $context['door'];
+        }
+        if (array_key_exists('item', $context)) {
+            $parameter = $context['item'];
+        }
+        if (array_key_exists('equipment', $context)) {
+            $parameter = $context['equipment'];
+        }
+
+        return $parameter;
     }
 }

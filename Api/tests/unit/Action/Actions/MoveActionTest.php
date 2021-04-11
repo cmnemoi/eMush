@@ -60,7 +60,7 @@ class MoveActionTest extends AbstractActionTest
         $roomStart->addDoor($door);
         $roomEnd->addDoor($door);
 
-        $this->roomLogService->shouldReceive('createActionLog')->times(4);
+        $this->roomLogService->shouldReceive('createLog')->times(4);
         $this->playerService->shouldReceive('persist');
 
         $player = $this->createPlayer(new Daedalus(), $roomStart);

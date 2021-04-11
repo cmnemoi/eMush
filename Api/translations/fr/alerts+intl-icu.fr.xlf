@@ -3,12 +3,8 @@
     <file id="alerts.ext">
         <unit id="broken.doors">
             <segment id="name">
-                <source>broken.doors.name.single</source>
-                <target>quantity Porte cassée</target>
-            </segment>
-            <segment>
-                <source>broken.doors.name.plural</source>
-                <target>quantity Portes cassées</target>
+                <source>broken.doors.name</source>
+                <target>{quantity, plural, one {# Porte cassée} other {# Portes cassées}}</target>
             </segment>
             <segment id="description">
                 <source>broken.doors.description</source>
@@ -18,12 +14,8 @@
 
         <unit id="number.fire">
             <segment id="name">
-                <source>number.fire.name.single</source>
-                <target>quantity Incendie en cours</target>
-            </segment>
-            <segment>
-                <source>number.fire.name.plural</source>
-                <target>quantity Incendies en cours</target>
+                <source>number.fire.name</source>
+                <target>{quantity, plural, one {# Incendie en cours} other {# Incendies en cours}}</target>
             </segment>
             <segment id="description">
                 <source>number.fire.description</source>
@@ -34,11 +26,7 @@
         <unit id="broken.equipments">
             <segment id="name">
                 <source>broken.equipment.name.single</source>
-                <target>quantity Equipement hors-service</target>
-            </segment>
-            <segment>
-                <source>broken.equipment.name.plural</source>
-                <target>quantity Equipements hors-service</target>
+                <target>{quantity, plural, one {# Equipement hors-service} other {# Equipements hors-service}}</target>
             </segment>
             <segment id="description">
                 <source>broken.equipment.description</source>
@@ -93,11 +81,7 @@
 
         <unit id="low.hull">
             <segment id="name">
-                <source>low.hull.name.single</source>
-                <target>TODO.low_hull.name</target>
-            </segment>
-            <segment id="name">
-                <source>low.hull.name.plural</source>
+                <source>low.hull.name</source>
                 <target>TODO.low_hull.name</target>
             </segment>
             <segment id="description">
@@ -131,12 +115,8 @@
 
         <unit id="hunters.attack">
             <segment id="name">
-                <source>hunters.attack.name.single</source>
-                <target>quantity Hunter nous attaquent !</target>
-            </segment>
-            <segment>
-                <source>hunters.attack.name.plural</source>
-                <target>quantity Hunters nous attaquent !</target>
+                <source>hunters.attack.name</source>
+                <target>{quantity, plural, one {# Hunter nous attaque !} other {# Hunters nous attaquent !}}</target>
             </segment>
             <segment id="description">
                 <source>hunters.attack.description</source>
@@ -146,7 +126,7 @@
 
         <unit id="no.alert">
             <segment id="name">
-                <source>no.alert.name.single</source>
+                <source>no.alert.name</source>
                 <target>Calme</target>
             </segment>
             <segment id="description">
@@ -154,7 +134,5 @@
                 <target>Pas d'alertes en cours : l'équipage peut être tranquille. </target>
             </segment>
         </unit>
-
-        
     </file>
 </xliff>

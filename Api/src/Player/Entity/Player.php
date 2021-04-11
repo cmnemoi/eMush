@@ -16,6 +16,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Place\Entity\Place;
+use Mush\RoomLog\Entity\LogParameter;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Entity\StatusTarget;
@@ -29,7 +30,7 @@ use Mush\User\Entity\User;
  *
  * @ORM\Entity(repositoryClass="Mush\Player\Repository\PlayerRepository")
  */
-class Player implements StatusHolderInterface, ActionParameter
+class Player implements StatusHolderInterface, ActionParameter, LogParameter
 {
     use TimestampableEntity;
     use TargetStatusTrait;

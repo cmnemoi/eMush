@@ -14,7 +14,6 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\RoomLog\Entity\Target;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -85,9 +84,7 @@ class Search extends AbstractAction
 
             $this->playerService->persist($hiddenBy);
 
-            $target = new Target($itemFound->getName(), 'items');
-
-            return new Success($target);
+            return new Success($itemFound);
         } else {
             return new Fail();
         }

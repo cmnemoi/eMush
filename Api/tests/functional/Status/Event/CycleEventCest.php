@@ -7,6 +7,7 @@ use DateTime;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\EquipmentConfig;
+use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Place\Entity\Place;
@@ -64,8 +65,10 @@ class CycleEventCest
         $daedalus = $I->have(Daedalus::class);
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+        /** @var CharacterConfig $characterConfig */
+        $characterConfig = $I->have(CharacterConfig::class);
         /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
+        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig]);
 
         $actionPointBefore = $player->getActionPoint();
 
@@ -109,8 +112,10 @@ class CycleEventCest
         /** @var Place $room2 */
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus]);
 
+        /** @var CharacterConfig $characterConfig */
+        $characterConfig = $I->have(CharacterConfig::class);
         /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
+        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig]);
 
         /** @var EquipmentConfig $equipmentConfig */
         $doorConfig = $I->have(EquipmentConfig::class, ['isFireBreakable' => false, 'isFireDestroyable' => false, 'gameConfig' => $gameConfig]);

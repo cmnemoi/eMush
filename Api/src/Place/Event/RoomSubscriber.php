@@ -71,10 +71,14 @@ class RoomSubscriber implements EventSubscriberInterface
         }
 
         //@TODO add the log in case gravity is broken
-        $this->roomLogService->createRoomLog(
+        $this->roomLogService->createLog(
             LogEnum::TREMOR_GRAVITY,
             $room,
             VisibilityEnum::PUBLIC,
+            'event_log',
+            null,
+            null,
+            null,
             $event->getTime()
         );
     }
@@ -112,10 +116,14 @@ class RoomSubscriber implements EventSubscriberInterface
             }
         }
 
-        $this->roomLogService->createRoomLog(
+        $this->roomLogService->createLog(
             LogEnum::ELECTRIC_ARC,
             $room,
             VisibilityEnum::PUBLIC,
+            'event_log',
+            null,
+            null,
+            null,
             $event->getTime()
         );
     }

@@ -3,12 +3,15 @@
 namespace Mush\Player\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
  * @ORM\Entity()
  */
 class DeadPlayerInfo
 {
+    use TimestampableEntity;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -17,33 +20,53 @@ class DeadPlayerInfo
     private ?int $id = null;
 
     /**
+     * @ORM\OneToOne (targetEntity="Mush\Player\Entity\Player")
+     */
+    private Player $player;
+
+    /**
      * @ORM\Column(type="string", nullable=true)
      */
     private ?string $message = null;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", nullable=false)
      */
-    private ?string $endStatus = null;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private ?int $dayDeath = null;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private ?int $cycleDeath = null;
+    private string $endStatus;
 
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
-    private int $likes = 0;
+    private int $dayDeath;
+
+    /**
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    private int $cycleDeath;
+
+    /**
+     * @ORM\Column(type="array")
+     */
+    private ?array $likes;
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getPlayer(): Player
+    {
+        return $this->player;
+    }
+
+    /**
+     * @return static
+     */
+    public function setPlayer(Player $player): DeadPlayerInfo
+    {
+        $this->player = $player;
+
+        return $this;
     }
 
     public function getMessage(): ?string
@@ -58,7 +81,7 @@ class DeadPlayerInfo
         return $this;
     }
 
-    public function getDayDeath(): ?int
+    public function getDayDeath(): int
     {
         return $this->dayDeath;
     }
@@ -73,7 +96,7 @@ class DeadPlayerInfo
         return $this;
     }
 
-    public function getCycleDeath(): ?int
+    public function getCycleDeath(): int
     {
         return $this->cycleDeath;
     }
@@ -88,7 +111,7 @@ class DeadPlayerInfo
         return $this;
     }
 
-    public function getLikes(): int
+    public function getLikes(): ?array
     {
         return $this->likes;
     }
@@ -96,14 +119,14 @@ class DeadPlayerInfo
     /**
      * @return static
      */
-    public function addlikes(int $change): DeadPlayerInfo
+    public function setLikes(array $likes): DeadPlayerInfo
     {
-        $this->likes += $change;
+        $this->likes = $likes;
 
         return $this;
     }
 
-    public function getEndStatus(): ?string
+    public function getEndStatus(): string
     {
         return $this->endStatus;
     }

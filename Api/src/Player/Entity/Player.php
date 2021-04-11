@@ -54,11 +54,6 @@ class Player implements StatusHolderInterface, ActionParameter, LogParameter
     private string $gameStatus;
 
     /**
-     * @ORM\OneToOne (targetEntity="Mush\Player\Entity\DeadPlayerInfo")
-     */
-    private DeadPlayerInfo $deadPlayerInfo;
-
-    /**
      * @ORM\ManyToOne (targetEntity="Mush\Game\Entity\CharacterConfig")
      */
     private CharacterConfig $characterConfig;
@@ -155,21 +150,6 @@ class Player implements StatusHolderInterface, ActionParameter, LogParameter
     public function setGameStatus(string $gameStatus): Player
     {
         $this->gameStatus = $gameStatus;
-
-        return $this;
-    }
-
-    public function getDeadPlayerInfo(): DeadPlayerInfo
-    {
-        return $this->deadPlayerInfo;
-    }
-
-    /**
-     * @return static
-     */
-    public function setDeadPlayerInfo(DeadPlayerInfo $deadPlayerInfo): Player
-    {
-        $this->deadPlayerInfo = $deadPlayerInfo;
 
         return $this;
     }

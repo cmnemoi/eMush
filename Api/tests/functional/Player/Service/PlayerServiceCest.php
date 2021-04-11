@@ -30,26 +30,28 @@ class PlayerServiceCest
     public function testDeathHumanPlayer(FunctionalTester $I)
     {
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class);
+        $daedalus = $I->have(Daedalus::class, ['day' => 5, 'cycle' => '3']);
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['name' => RoomEnum::LABORATORY, 'daedalus' => $daedalus]);
 
         $I->have(Place::class, ['name' => RoomEnum::GREAT_BEYOND, 'daedalus' => $daedalus]);
 
-        $deadPlayerInfo = new DeadPlayerInfo();
-        $I->haveInRepository($deadPlayerInfo);
-
         /** @var Player $player */
-        $player = $I->have(Player::class, ['place' => $room, 'daedalus' => $daedalus, 'deadPlayerInfo' => $deadPlayerInfo]);
+        $player = $I->have(Player::class, ['place' => $room, 'daedalus' => $daedalus]);
 
         $status = new Status($player);
         $status->setName(PlayerStatusEnum::FULL_STOMACH);
 
         $deadPlayer = $this->playerService->playerDeath($player, EndCauseEnum::INJURY, new \DateTime());
 
+        $I->seeInRepository(DeadPlayerInfo::class, [
+            'endStatus' => EndCauseEnum::INJURY,
+            'dayDeath' => 5,
+            'cycleDeath' => 3,
+        ]);
+
         $I->assertEquals(RoomEnum::GREAT_BEYOND, $deadPlayer->getPlace()->getName());
-        $I->assertEquals(EndCauseEnum::INJURY, $deadPlayer->getDeadPlayerInfo()->getEndStatus());
         $I->assertEquals(GameStatusEnum::FINISHED, $deadPlayer->getGameStatus());
         $I->assertCount(0, $deadPlayer->getStatuses());
         $I->assertCount(1, $daedalus->getPlayers()->getPlayerDead());
@@ -67,11 +69,8 @@ class PlayerServiceCest
 
         $I->have(Place::class, ['name' => RoomEnum::GREAT_BEYOND, 'daedalus' => $daedalus]);
 
-        $deadPlayerInfo = new DeadPlayerInfo();
-        $I->haveInRepository($deadPlayerInfo);
-
         /** @var Player $player */
-        $player = $I->have(Player::class, ['place' => $room, 'daedalus' => $daedalus, 'deadPlayerInfo' => $deadPlayerInfo]);
+        $player = $I->have(Player::class, ['place' => $room, 'daedalus' => $daedalus]);
 
         $status = new ChargeStatus($player);
         $status->setName(PlayerStatusEnum::MUSH);
@@ -83,7 +82,6 @@ class PlayerServiceCest
 
         $I->assertEquals(RoomEnum::GREAT_BEYOND, $deadPlayer->getPlace()->getName());
         $I->assertEquals(GameStatusEnum::FINISHED, $deadPlayer->getGameStatus());
-        $I->assertEquals(EndCauseEnum::INJURY, $deadPlayer->getDeadPlayerInfo()->getEndStatus());
         $I->assertCount(1, $deadPlayer->getStatuses());
         $I->assertEquals(PlayerStatusEnum::MUSH, $deadPlayer->getStatuses()->first()->getName());
         $I->assertCount(1, $daedalus->getPlayers()->getPlayerDead());
@@ -103,14 +101,12 @@ class PlayerServiceCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
-        $deadPlayerInfo = new DeadPlayerInfo();
-        $I->haveInRepository($deadPlayerInfo);
+
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'place' => $room,
             'daedalus' => $daedalus,
-            'deadPlayerInfo' => $deadPlayerInfo,
-            'characterConfig' => $characterConfig
+            'characterConfig' => $characterConfig,
         ]);
 
         /** @var Player $player2 */
@@ -124,7 +120,6 @@ class PlayerServiceCest
         $deadPlayer = $this->playerService->playerDeath($player, EndCauseEnum::INJURY, new \DateTime());
 
         $I->assertEquals(RoomEnum::GREAT_BEYOND, $deadPlayer->getPlace()->getName());
-        $I->assertEquals(EndCauseEnum::INJURY, $deadPlayer->getDeadPlayerInfo()->getEndStatus());
         $I->assertEquals(9, $player2->getMoralPoint());
         $I->assertEquals(10, $mushPlayer->getMoralPoint());
         $I->assertCount(0, $deadPlayer->getStatuses());
@@ -144,15 +139,13 @@ class PlayerServiceCest
         /** @var Place $greatBeyond */
         $greatBeyond = $I->have(Place::class, ['name' => RoomEnum::GREAT_BEYOND, 'daedalus' => $daedalus]);
 
-        $deadPlayerInfo = new DeadPlayerInfo();
-        $I->haveInRepository($deadPlayerInfo);
-
         /** @var Player $player */
-        $player = $I->have(Player::class, ['place' => $room, 'daedalus' => $daedalus, 'deadPlayerInfo' => $deadPlayerInfo]);
+        $player = $I->have(Player::class, ['place' => $room, 'daedalus' => $daedalus]);
 
         $item = $I->have(ItemConfig::class);
         $gameItem = new GameItem();
         $gameItem
+            ->setName('item')
             ->setEquipment($item)
             ->setPlayer($player)
         ;
@@ -160,7 +153,6 @@ class PlayerServiceCest
         $deadPlayer = $this->playerService->playerDeath($player, EndCauseEnum::INJURY, new \DateTime());
 
         $I->assertEquals(RoomEnum::GREAT_BEYOND, $deadPlayer->getPlace()->getName());
-        $I->assertEquals(EndCauseEnum::INJURY, $deadPlayer->getDeadPlayerInfo()->getEndStatus());
         $I->assertCount(0, $player->getItems());
         $I->assertCount(1, $room->getEquipments());
         $I->assertCount(0, $greatBeyond->getEquipments());

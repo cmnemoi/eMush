@@ -10,7 +10,6 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
-use Mush\Player\Entity\DeadPlayerInfo;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
@@ -48,16 +47,13 @@ class PlayerEventCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
-        $deadPlayerInfo = new DeadPlayerInfo();
 
-        $I->haveInRepository($deadPlayerInfo);
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
             'place' => $room,
             'user' => $user,
             'characterConfig' => $characterConfig,
-            'deadPlayerInfo' => $deadPlayerInfo
         ]);
 
         $playerEvent = new PlayerEvent($player);

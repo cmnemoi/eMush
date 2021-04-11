@@ -4,6 +4,7 @@ namespace Mush\Player\Normalizer;
 
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Entity\Player;
+use Mush\Player\Service\PlayerServiceInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
@@ -15,10 +16,14 @@ class DeadPlayerNormalizer implements ContextAwareNormalizerInterface, Normalize
 
     private TranslatorInterface $translator;
 
+    private PlayerServiceInterface $playerService;
+
     public function __construct(
         TranslatorInterface $translator,
+        PlayerServiceInterface $playerService,
     ) {
         $this->translator = $translator;
+        $this->playerService = $playerService;
     }
 
     public function supportsNormalization($data, string $format = null, array $context = []): bool
@@ -35,7 +40,12 @@ class DeadPlayerNormalizer implements ContextAwareNormalizerInterface, Normalize
 
         $character = $player->getCharacterConfig()->getName();
 
-        $endCause = $player->getDeadPlayerInfo()->getEndStatus();
+        $deadPlayerInfo = $this->playerService->findDeadPlayerInfo($player);
+        if ($deadPlayerInfo === null) {
+            throw new \LogicException('unable to find deadPlayerInfo');
+        }
+
+        $endCause = $deadPlayerInfo->getEndStatus();
 
         return [
             'id' => $player->getId(),
@@ -61,6 +71,7 @@ class DeadPlayerNormalizer implements ContextAwareNormalizerInterface, Normalize
             if ($otherPlayer !== $player) {
                 $character = $otherPlayer->getCharacterConfig()->getName();
 
+                //TODO add likes
                 $normalizedOtherPlayer = [
                     'id' => $player->getId(),
                     'character' => [
@@ -68,14 +79,18 @@ class DeadPlayerNormalizer implements ContextAwareNormalizerInterface, Normalize
                         'value' => $this->translator->trans($character . '.name', [], 'characters'),
                         'description' => $this->translator->trans($character . '.abstract', [], 'characters'),
                         ],
-                    'likes' => $player->getDeadPlayerInfo()->getLikes(),
                     ];
 
                 if ($otherPlayer->getGameStatus() !== GameStatusEnum::CURRENT) {
-                    $endCause = $otherPlayer->getDeathPlayerInfo()->getEndStatus();
+                    $deadPlayerInfo = $this->playerService->findDeadPlayerInfo($otherPlayer);
+                    if ($deadPlayerInfo === null) {
+                        throw new \LogicException('unable to find deadPlayerInfo');
+                    }
+
+                    $endCause = $deadPlayerInfo->getEndStatus();
                     $normalizedOtherPlayer['isDead'] = [
-                        'day' => $otherPlayer->getDeathPlayerInfo()->getDayDeath(),
-                        'cycle' => $otherPlayer->getDeathPlayerInfo()->getCycleDeath(),
+                        'day' => $deadPlayerInfo->getDayDeath(),
+                        'cycle' => $deadPlayerInfo->getCycleDeath(),
                         'cause' => [$this->normalizeEndReason($endCause)],
                     ];
                 } else {

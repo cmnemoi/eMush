@@ -2,6 +2,7 @@ export class Action {
     constructor() {
         this.id = null;
         this.key = null;
+        this.canExecute = null;
         this.name = null;
         this.description = null;
         this.actionPointCost = null;
@@ -12,6 +13,7 @@ export class Action {
         if (typeof object !== "undefined") {
             this.id = object.id;
             this.key = object.key;
+            this.canExecute = object.canExecute;
             this.name = object.name;
             this.description = object.description;
             this.actionPointCost = object.actionPointCost;

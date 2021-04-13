@@ -16,14 +16,6 @@ class DeadPlayerInfoRepository extends ServiceEntityRepository
 
     public function findOneByPlayer(Player $player): ?DeadPlayerInfo
     {
-        $qb = $this->createQueryBuilder('dead_player_info');
-
-        $qb
-            ->where($qb->expr()->eq('player', ':player'))
-            ->setParameter('player', $player)
-            ->setMaxResults(1)
-        ;
-
-        return $qb->getQuery()->getOneOrNullResult();
+        return $this->find($player);
     }
 }

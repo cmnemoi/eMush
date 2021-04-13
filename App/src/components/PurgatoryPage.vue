@@ -1,6 +1,6 @@
 <template>
     <div class="main">
-        <div>
+        <div class="death-summary">
             <h1>Vous êtes mort !</h1>
             <div class="char-sheet">
                 <img class="avatar" src="@/assets/images/char/portrait/Stephen_seagull_portrait.jpg" alt="avatar">
@@ -14,8 +14,8 @@
                         <p class="score">43<img src="@/assets/images/triumph.png" alt="triumph"></p>
                     </div>
                     <div class="epitaph-form">
-                        <textarea id="epitaph" placeholder="Laissez vos impressions sur la partie ici (300 char. max.) !">
-                        </textarea>
+                        <textarea id="epitaph" v-model="epitaph" maxlength="300" placeholder="Laissez vos impressions sur la partie ici !"></textarea>
+                        <p id="char-count"> {{ (maxChar - epitaph.length) }} char.</p>
                     </div>
                     <div>
                         <p class="death-cause"><img src="@/assets/images/dead.png" alt="dead"> Assassiné par un équipier !</p>
@@ -63,12 +63,12 @@
                         <td><img src="@/assets/images/char/body/kuan_ti.png" class="char kuan_ti"> <span class="charname">Kuan Ti</span></td>
                         <td>6.7</td>
                         <td>Assassiné</td>
-                        <td><button class="like">2 <img src="@/assets/images/dislike.png"></button></td>
+                        <td><button class="like liked">2 <img src="@/assets/images/like.png"></button></td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <div class="chat"></div>
+        <div class="chat">PLACEHOLDER</div>
     </div>
 
 </template>
@@ -76,7 +76,14 @@
 <script>
 
 export default {
-    name: 'Purgatory'
+    name: 'Purgatory',
+
+    data: function () {
+        return {
+            maxChar: 300,
+            epitaph: ''
+        }
+    }
 };
 </script>
 
@@ -84,7 +91,7 @@ export default {
 
 .main {
     position: relative;
-    flex-direction: row;
+    flex-flow: row wrap;
     justify-content: stretch;
     min-height: 625px;
     max-width: 1080px;
@@ -110,17 +117,13 @@ export default {
         opacity: 0.5;
     }
 
-    .chat { /* PROVISIONAL */
-        background: #c2f3fc;
-        width: 406px;
-        height: 435px;
-        margin-left: 15px;
-    }
+    .death-summary { flex: 1; }
 
     h1 {
-        font-size: 1em;
+        font-size: 1.4em;
         letter-spacing: .04em;
         text-transform: uppercase;
+        margin: .6em 1.2em 1.2em;
     }
 
     .char-sheet {
@@ -141,7 +144,7 @@ export default {
             .body {
                 width: fit-content;
                 height: fit-content;
-                margin-right: 1em;
+                margin-right: .8em;
             }
 
             .char-name, .pseudo, .score { margin: .1em 0; }
@@ -162,47 +165,89 @@ export default {
                 letter-spacing: .05em;
                 text-shadow: 0 0 2px black;
 
-                img { vertical-align: middle; }
+                img {
+                    vertical-align: middle;
+                    margin-left: .25em;
+                }
             }
         }
 
         .epitaph-form {
             position: relative;
-            font-style: italic;
+            margin: 1.4em 0;
             border: 1px solid #5f67bf;
-            margin: 1.6em 0;
             background-color: rgba(31, 39, 104, .5);
             box-shadow: 0px 8px 6px -6px rgba(23, 68, 142, .6);
-        }
 
-        .epitaph-form::before {
-            content:"";
-            position: absolute;
-            left: -7px;
-            top: 6px;
-            width: 14px;
-            height: 14px;
-            border: 1px solid #5f67bf;
-            background-color: #26357c;
-            transform: rotate(-45deg);
-            clip-path: polygon(0 0, 100% 0, 0 100%);
-        }
+            &::before {
+                content:"";
+                position: absolute;
+                left: -7px;
+                top: 6px;
+                width: 14px;
+                height: 14px;
+                border: 1px solid #5f67bf;
+                background-color: #1b215c;
+                transform: rotate(-45deg);
+                clip-path: polygon(0 0, 100% 0, 0 100%);
+            }
 
-        #epitaph {
-            padding: 1em .8em;
-            color: white;
-            font-size: 1.2em;
-            line-height: 1.6em;
-            font-style: italic;
-            border: none;
-            background: none;
-            resize: vertical;
-        }
+            #epitaph {
+                padding: 1em .8em;
+                color: white;
+                font-size: 1.2em;
+                line-height: 1.6em;
+                font-style: italic;
+                border: none;
+                background: none;
+                resize: vertical;
+            }
 
-        #epitaph::placeholder, #epitaph::-ms-input-placeholder {
-                color: blue;
+            /* do not group these rules */
+            #epitaph::-webkit-input-placeholder {
+                color: rgba(255, 255, 255, .8);
+            }
+            #epitaph:-moz-placeholder {
+                /* FF 4-18 */
+                color: rgba(255, 255, 255, .8);
                 opacity: 1;
             }
+            #epitaph::-moz-placeholder {
+                /* FF 19+ */
+                color: rgba(255, 255, 255, .8);
+                opacity: 1;
+            }
+            #epitaph:-ms-input-placeholder {
+                /* IE 10+ */
+                color: rgba(255, 255, 255, .8);
+            }
+            #epitaph::-ms-input-placeholder {
+                /* Microsoft Edge */
+                color: rgba(255, 255, 255, .8);
+            }
+            #epitaph::placeholder {
+                /* modern browser */
+                color: rgba(255, 255, 255, .8);
+            }
+
+            #char-count {
+                position: absolute;
+                top: -.8em;
+                right: 1.2em;
+                margin: 0;
+                padding: .2em .6em;
+                font-size: .8em;
+                font-style: italic;
+                font-weight: bold;
+                letter-spacing: .05em;
+                text-shadow: 0 0 4px #092f6d;
+                /* border: 1px solid #5f67bf; */
+                border-radius: 4px;
+                background-color: #5f67bf;
+            }
+        }
+
+        .death-cause { margin-top: 0; }
 
         .history-logs {
             display: block;
@@ -238,7 +283,7 @@ export default {
 
     .crew-summary {
         width: 100%;
-        background-color: #222b6b;
+        background: #222b6b;
         border-radius: 5px;
         border-collapse: collapse;
 
@@ -246,6 +291,8 @@ export default {
 
         tr:not(:first-of-type) {
             border-top: 1px solid rgba(0,0,0,0.2);
+
+            &:hover { background: rgba(255, 255, 255, .03); }
         }
 
         th, td {
@@ -260,17 +307,39 @@ export default {
             letter-spacing: .05em;
         }
 
-        button {
+        button.like {
             cursor: pointer;
             color: white;
+            font-weight: bold;
             padding: .2em .4em;
             margin: 0 auto;
             background: rgba(17,84,165,0.5);
             border-radius: 4px;
             white-space: pre;
 
-            &:hover, &:focus, &:active { background: rgba(17,84,165,1); }
+            transition: all .15s;
+
+            &:hover, &:focus, &:active {
+                background: rgba(17, 84, 165, 1);
+                box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .15);
+                }
+
+            &.liked {
+                background: rgba(255, 54, 118, .5);
+
+                &:hover, &:focus, &:active { background: rgba(255, 54, 118, .7); }
+            }
         }
+    }
+
+    
+    .chat { /* PROVISIONAL */
+        width: 406px;
+        height: 435px;
+        margin-left: 15px;
+        margin-top: 2em;
+        color: red;
+        background: #c2f3fc;
     }
 }
 

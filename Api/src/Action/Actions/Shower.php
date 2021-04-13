@@ -28,9 +28,6 @@ class Shower extends AbstractAction
 {
     protected string $name = ActionEnum::SHOWER;
 
-    /** @var GameEquipment */
-    protected $parameter;
-
     private PlayerServiceInterface $playerService;
 
     public function __construct(

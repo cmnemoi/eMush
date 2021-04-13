@@ -27,9 +27,6 @@ class Sabotage extends AttemptAction
 {
     protected string $name = ActionEnum::SABOTAGE;
 
-    /** @var GameEquipment */
-    protected $parameter;
-
     private PlayerServiceInterface $playerService;
 
     public function __construct(
@@ -71,16 +68,19 @@ class Sabotage extends AttemptAction
 
     protected function applyEffects(): ActionResult
     {
+        /** @var GameEquipment $parameter */
+        $parameter = $this->parameter;
+
         $response = $this->makeAttempt();
 
         if ($response instanceof Success) {
-            $equipmentEvent = new EquipmentEvent($this->parameter, VisibilityEnum::HIDDEN);
+            $equipmentEvent = new EquipmentEvent($parameter, VisibilityEnum::HIDDEN);
             $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_BROKEN);
         }
 
         $this->playerService->persist($this->player);
 
-        $response->setActionParameter($this->parameter);
+        $response->setActionParameter($parameter);
 
         return $response;
     }

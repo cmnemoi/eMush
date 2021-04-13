@@ -59,11 +59,6 @@ class Player implements StatusHolderInterface, ActionParameter, LogParameter
     private CharacterConfig $characterConfig;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private ?string $endStatus = null;
-
-    /**
      * @ORM\ManyToOne (targetEntity="Mush\Daedalus\Entity\Daedalus", inversedBy="players")
      */
     private Daedalus $daedalus;
@@ -175,21 +170,6 @@ class Player implements StatusHolderInterface, ActionParameter, LogParameter
     public function setCharacterConfig(CharacterConfig $characterConfig): Player
     {
         $this->characterConfig = $characterConfig;
-
-        return $this;
-    }
-
-    public function getEndStatus(): ?string
-    {
-        return $this->endStatus;
-    }
-
-    /**
-     * @return static
-     */
-    public function setEndStatus(string $endStatus): Player
-    {
-        $this->endStatus = $endStatus;
 
         return $this;
     }

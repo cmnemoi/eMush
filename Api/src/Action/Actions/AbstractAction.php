@@ -24,7 +24,7 @@ abstract class AbstractAction
     protected Action $action;
     protected Player $player;
 
-    protected $parameter = null;
+    protected ?ActionParameter $parameter = null;
 
     protected string $name;
 

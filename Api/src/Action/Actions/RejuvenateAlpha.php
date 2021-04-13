@@ -44,8 +44,6 @@ class RejuvenateAlpha extends AbstractAction
 
     protected function applyEffects(): ActionResult
     {
-        //@TODO remove all injuries
-
         $maxActionPoint = $this->playerVariableService->getMaxPlayerVariable($this->player, ModifierTargetEnum::MAX_ACTION_POINT);
         $maxMovementPoint = $this->playerVariableService->getMaxPlayerVariable($this->player, ModifierTargetEnum::MAX_MOVEMENT_POINT);
         $maxMoralePoint = $this->playerVariableService->getMaxPlayerVariable($this->player, ModifierTargetEnum::MAX_MORAL_POINT);

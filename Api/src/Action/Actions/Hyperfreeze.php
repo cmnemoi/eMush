@@ -30,9 +30,6 @@ class Hyperfreeze extends AbstractAction
 {
     protected string $name = ActionEnum::HYPERFREEZE;
 
-    /** @var GameEquipment */
-    protected $parameter;
-
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
     private StatusServiceInterface $statusService;
@@ -70,8 +67,11 @@ class Hyperfreeze extends AbstractAction
 
     protected function applyEffects(): ActionResult
     {
-        if ($this->parameter->getEquipment()->getName() === GameRationEnum::COOKED_RATION ||
-            $this->parameter->getEquipment()->getName() === GameRationEnum::ALIEN_STEAK) {
+        /** @var GameEquipment $parameter */
+        $parameter = $this->parameter;
+
+        if ($parameter->getEquipment()->getName() === GameRationEnum::COOKED_RATION ||
+            $parameter->getEquipment()->getName() === GameRationEnum::ALIEN_STEAK) {
             /** @var GameItem $newItem */
             $newItem = $this->gameEquipmentService
                 ->createGameEquipmentFromName(GameRationEnum::STANDARD_RATION, $this->player->getDaedalus())
@@ -80,23 +80,23 @@ class Hyperfreeze extends AbstractAction
             $equipmentEvent->setPlayer($this->player);
             $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
-            foreach ($this->parameter->getStatuses() as $status) {
+            /** @var \Mush\Status\Entity\Status $status */
+            foreach ($parameter->getStatuses() as $status) {
                 $newItem->addStatus($status);
-                $status->setGameEquipment($newItem);
                 $this->statusService->persist($status);
             }
 
-            $equipmentEvent = new EquipmentEvent($this->parameter, VisibilityEnum::HIDDEN);
+            $equipmentEvent = new EquipmentEvent($parameter, VisibilityEnum::HIDDEN);
             $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
             $this->gameEquipmentService->persist($newItem);
         } else {
             $this->statusService->createCoreStatus(
                 EquipmentStatusEnum::FROZEN,
-                $this->parameter
+                $parameter
             );
 
-            $this->gameEquipmentService->persist($this->parameter);
+            $this->gameEquipmentService->persist($parameter);
         }
 
         $this->playerService->persist($this->player);

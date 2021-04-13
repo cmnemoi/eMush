@@ -7,6 +7,7 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Service\GearToolServiceInterface;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Entity\Player;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
@@ -32,7 +33,7 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
     {
         $currentPlayer = $context['currentPlayer'] ?? null;
 
-        return $data instanceof Player && $data === $currentPlayer;
+        return $data instanceof Player && $data === $currentPlayer && $data->getGameStatus() === GameStatusEnum::CURRENT;
     }
 
     public function normalize($object, string $format = null, array $context = []): array

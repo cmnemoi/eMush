@@ -27,9 +27,6 @@ class Coffee extends AbstractAction
 {
     protected string $name = ActionEnum::COFFEE;
 
-    /** @var GameEquipment */
-    protected $parameter;
-
     private GameEquipmentServiceInterface $gameEquipmentService;
 
     public function __construct(

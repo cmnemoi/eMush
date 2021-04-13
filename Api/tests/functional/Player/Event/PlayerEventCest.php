@@ -47,8 +47,14 @@ class PlayerEventCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'user' => $user, 'characterConfig' => $characterConfig]);
+        $player = $I->have(Player::class, [
+            'daedalus' => $daedalus,
+            'place' => $room,
+            'user' => $user,
+            'characterConfig' => $characterConfig,
+        ]);
 
         $playerEvent = new PlayerEvent($player);
         $playerEvent->setReason(EndCauseEnum::CLUMSINESS);

@@ -11,6 +11,7 @@ use Mush\Action\Validator\Reach;
 use Mush\Action\Validator\Status;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Enum\ReachEnum;
+use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -23,9 +24,6 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class Move extends AbstractAction
 {
     protected string $name = ActionEnum::MOVE;
-
-    /** @var Door */
-    protected $parameter;
 
     private RoomLogServiceInterface $roomLogService;
     private PlayerServiceInterface $playerService;
@@ -60,21 +58,25 @@ class Move extends AbstractAction
 
     protected function applyEffects(): ActionResult
     {
-        $newRoom = $this->parameter->getOtherRoom($this->player->getPlace());
+        /** @var Door $parameter */
+        $parameter = $this->parameter;
+
+        $oldRoom = $this->player->getPlace();
+        $newRoom = $parameter->getOtherRoom($this->player->getPlace());
         $this->player->setPlace($newRoom);
 
         $this->playerService->persist($this->player);
 
-        $this->createLog();
+        $this->createLog($newRoom, $oldRoom);
 
         return new Success();
     }
 
-    protected function createLog(): void
+    protected function createLog(Place $newplace, Place $oldPlace): void
     {
         $this->roomLogService->createLog(
             ActionLogEnum::ENTER_ROOM,
-            $this->player->getPlace(),
+            $newplace,
             VisibilityEnum::PUBLIC,
             'actions_log',
             $this->player,
@@ -84,7 +86,7 @@ class Move extends AbstractAction
         );
         $this->roomLogService->createLog(
             ActionLogEnum::EXIT_ROOM,
-            $this->parameter->getOtherRoom($this->player->getPlace()),
+            $oldPlace,
             VisibilityEnum::PUBLIC,
             'actions_log',
             $this->player,

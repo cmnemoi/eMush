@@ -8,7 +8,6 @@ class StatusCriteria
 {
     private Daedalus $daedalus;
 
-    /** @var array | string | null */
     private $name = null;
 
     public function __construct(Daedalus $daedalus)
@@ -28,12 +27,12 @@ class StatusCriteria
         return $this;
     }
 
-    public function getName(): array | string | null
+    public function getName()
     {
         return $this->name;
     }
 
-    public function setName(array | string $name): StatusCriteria
+    public function setName($name): StatusCriteria
     {
         $this->name = $name;
 

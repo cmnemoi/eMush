@@ -29,9 +29,6 @@ class Consume extends AbstractAction
 {
     protected string $name = ActionEnum::CONSUME;
 
-    /** @var GameItem */
-    protected $parameter;
-
     protected PlayerServiceInterface $playerService;
     protected EquipmentEffectServiceInterface $equipmentServiceEffect;
 
@@ -71,7 +68,10 @@ class Consume extends AbstractAction
 
     protected function applyEffects(): ActionResult
     {
-        $rationType = $this->parameter->getEquipment()->getRationsMechanic();
+        /** @var GameItem $parameter */
+        $parameter = $this->parameter;
+
+        $rationType = $parameter->getEquipment()->getRationsMechanic();
 
         if (null === $rationType) {
             throw new \Exception('Cannot consume this equipment');
@@ -87,7 +87,7 @@ class Consume extends AbstractAction
         $this->playerService->persist($this->player);
 
         // if no charges consume equipment
-        $equipmentEvent = new EquipmentEvent($this->parameter, VisibilityEnum::HIDDEN);
+        $equipmentEvent = new EquipmentEvent($parameter, VisibilityEnum::HIDDEN);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         return new Success();

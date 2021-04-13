@@ -25,9 +25,6 @@ class Heal extends AbstractAction
 
     protected string $name = ActionEnum::HEAL;
 
-    /** @var Player */
-    protected $parameter;
-
     private PlayerServiceInterface $playerService;
 
     public function __construct(
@@ -58,6 +55,9 @@ class Heal extends AbstractAction
 
     protected function applyEffects(): ActionResult
     {
+        /** @var Player $parameter */
+        $parameter = $this->parameter;
+
         //@TODO remove diseases
 
         $actionModifier = new Modifier();
@@ -66,11 +66,11 @@ class Heal extends AbstractAction
             ->setTarget(ModifierTargetEnum::HEALTH_POINT)
         ;
 
-        $playerEvent = new PlayerEvent($this->parameter);
+        $playerEvent = new PlayerEvent($parameter);
         $playerEvent->setModifier($actionModifier);
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
 
-        $this->playerService->persist($this->parameter);
+        $this->playerService->persist($parameter);
 
         return new Success();
     }

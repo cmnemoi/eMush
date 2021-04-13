@@ -14,7 +14,6 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -25,17 +24,12 @@ class Shred extends AbstractAction
 {
     protected string $name = ActionEnum::SHRED;
 
-    /** @var GameItem */
-    protected $parameter;
-
-    private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        GameEquipmentServiceInterface $gameEquipmentService,
         PlayerServiceInterface $playerService,
     ) {
         parent::__construct(
@@ -44,7 +38,6 @@ class Shred extends AbstractAction
             $validator
         );
 
-        $this->gameEquipmentService = $gameEquipmentService;
         $this->playerService = $playerService;
     }
 
@@ -62,7 +55,10 @@ class Shred extends AbstractAction
 
     protected function applyEffects(): ActionResult
     {
-        $equipmentEvent = new EquipmentEvent($this->parameter, VisibilityEnum::HIDDEN);
+        /** @var GameItem $parameter */
+        $parameter = $this->parameter;
+
+        $equipmentEvent = new EquipmentEvent($parameter, VisibilityEnum::HIDDEN);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         $this->playerService->persist($this->player);

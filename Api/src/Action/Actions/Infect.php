@@ -2,7 +2,6 @@
 
 namespace Mush\Action\Actions;
 
-use Error;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameter;
@@ -16,7 +15,6 @@ use Mush\Action\Validator\Status;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;
-use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -28,18 +26,13 @@ class Infect extends AbstractAction
 {
     protected string $name = ActionEnum::INFECT;
 
-    /** @var Player */
-    protected $parameter;
-
     private StatusServiceInterface $statusService;
-    private PlayerServiceInterface $playerService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         StatusServiceInterface $statusService,
-        PlayerServiceInterface $playerService,
     ) {
         parent::__construct(
             $eventDispatcher,
@@ -48,7 +41,6 @@ class Infect extends AbstractAction
         );
 
         $this->statusService = $statusService;
-        $this->playerService = $playerService;
     }
 
     protected function support(?ActionParameter $parameter): bool
@@ -76,39 +68,12 @@ class Infect extends AbstractAction
         $metadata->addConstraint(new DailySporesLimit(['target' => DailySporesLimit::PLAYER, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::INFECT_DAILY_LIMIT]));
     }
 
-    public function cannotExecuteReason(): ?string
-    {
-        //@TODO
-        /** @var ?ChargeStatus $sporeStatus */
-        $sporeStatus = $this->player->getStatusByName(PlayerStatusEnum::SPORES);
-        /** @var ChargeStatus $mushStatus */
-        $mushStatus = $this->player->getStatusByName(PlayerStatusEnum::MUSH);
-
-        if ($sporeStatus === null || !($sporeStatus instanceof ChargeStatus) ||
-            $mushStatus === null || !($mushStatus instanceof ChargeStatus)
-        ) {
-            throw new Error('invalid spore and mush status');
-        }
-
-        if ($sporeStatus->getCharge() <= 0) {
-            return ActionImpossibleCauseEnum::INFECT_NO_SPORE;
-        }
-        if ($mushStatus->getCharge() <= 0) {
-            return ActionImpossibleCauseEnum::INFECT_DAILY_LIMIT;
-        }
-        if ($this->parameter->isMush()) {
-            return ActionImpossibleCauseEnum::INFECT_MUSH;
-        }
-        if ($this->parameter->getStatusByName(PlayerStatusEnum::IMMUNIZED)) {
-            return ActionImpossibleCauseEnum::INFECT_IMMUNE;
-        }
-
-        return parent::cannotExecuteReason();
-    }
-
     protected function applyEffects(): ActionResult
     {
-        $playerEvent = new PlayerEvent($this->parameter);
+        /** @var Player $parameter */
+        $parameter = $this->parameter;
+
+        $playerEvent = new PlayerEvent($parameter);
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::INFECTION_PLAYER);
 
         /** @var ChargeStatus $sporeStatus */

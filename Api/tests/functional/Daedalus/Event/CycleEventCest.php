@@ -14,6 +14,7 @@ use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Place\Entity\Place;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Status;
@@ -42,7 +43,13 @@ class CycleEventCest
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
         /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'actionPoint' => 2, 'characterConfig' => $characterConfig]);
+        $player = $I->have(Player::class, [
+            'daedalus' => $daedalus,
+            'place' => $room,
+            'actionPoint' => 2,
+            'healthPoint' => 99,
+            'characterConfig' => $characterConfig,
+        ]);
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class);
 
@@ -88,10 +95,14 @@ class CycleEventCest
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'oxygen' => 1]);
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+        /** @var Place $greatBeyond */
+        $greatBeyond = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::GREAT_BEYOND]);
+
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
         /** @var CharacterConfig $characterConfig2 */
         $characterConfig2 = $I->have(CharacterConfig::class, ['name' => CharacterEnum::ANDIE]);
+
         $I->have(
             Player::class,
             ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig, 'healthPoint' => 99]

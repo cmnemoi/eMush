@@ -18,7 +18,7 @@ abstract class ActionResult
         }
     }
 
-    public function setActionParameter(ActionParameter $actionParameter): static
+    public function setActionParameter(ActionParameter $actionParameter): self
     {
         if ($actionParameter instanceof Player) {
             if ($this->targetEquipment !== null) {

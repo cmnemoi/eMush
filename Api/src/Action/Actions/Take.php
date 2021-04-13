@@ -26,9 +26,6 @@ class Take extends AbstractAction
 {
     protected string $name = ActionEnum::TAKE;
 
-    /** @var GameItem */
-    protected $parameter;
-
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
     private StatusServiceInterface $statusService;
@@ -65,23 +62,26 @@ class Take extends AbstractAction
 
     protected function applyEffects(): ActionResult
     {
-        /** @var ItemConfig $item */
-        $item = $this->parameter->getEquipment();
+        /** @var GameItem $parameter */
+        $parameter = $this->parameter;
 
-        $this->parameter->setPlace(null);
-        $this->parameter->setPlayer($this->player);
+        /** @var ItemConfig $item */
+        $item = $parameter->getEquipment();
+
+        $parameter->setPlace(null);
+        $parameter->setPlayer($this->player);
 
         // add BURDENED status if item is heavy
         if ($item->isHeavy()) {
             $this->statusService->createCoreStatus(PlayerStatusEnum::BURDENED, $this->player);
         }
 
-        if ($hiddenStatus = $this->parameter->getStatusByName(EnumEquipmentStatusEnum::HIDDEN)) {
-            $this->parameter->removeStatus($hiddenStatus);
+        if ($hiddenStatus = $parameter->getStatusByName(EnumEquipmentStatusEnum::HIDDEN)) {
+            $parameter->removeStatus($hiddenStatus);
             $this->player->removeStatus($hiddenStatus);
         }
 
-        $this->gameEquipmentService->persist($this->parameter);
+        $this->gameEquipmentService->persist($parameter);
         $this->playerService->persist($this->player);
 
         return new Success($this->parameter);

@@ -27,9 +27,6 @@ class ConsumeDrug extends Consume
 {
     protected string $name = ActionEnum::CONSUME_DRUG;
 
-    /** @var GameItem */
-    protected $parameter;
-
     private StatusServiceInterface $statusService;
 
     public function __construct(
@@ -68,8 +65,11 @@ class ConsumeDrug extends Consume
 
     protected function applyEffects(): ActionResult
     {
+        /** @var GameItem $parameter */
+        $parameter = $this->parameter;
+
         /** @var Drug $drugMechanic */
-        $drugMechanic = $this->parameter->getEquipment()->getMechanicByName(EquipmentMechanicEnum::DRUG);
+        $drugMechanic = $parameter->getEquipment()->getMechanicByName(EquipmentMechanicEnum::DRUG);
 
         if (null === $drugMechanic) {
             throw new \Exception('Cannot consume this equipment');
@@ -97,7 +97,7 @@ class ConsumeDrug extends Consume
         $this->playerService->persist($this->player);
 
         // if no charges consume equipment
-        $equipmentEvent = new EquipmentEvent($this->parameter, VisibilityEnum::HIDDEN);
+        $equipmentEvent = new EquipmentEvent($parameter, VisibilityEnum::HIDDEN);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         return new Success();

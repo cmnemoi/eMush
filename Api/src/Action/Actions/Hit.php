@@ -29,9 +29,6 @@ class Hit extends AttemptAction
 {
     protected string $name = ActionEnum::HIT;
 
-    /** @var Player */
-    protected $parameter;
-
     private PlayerServiceInterface $playerService;
 
     public function __construct(
@@ -64,6 +61,9 @@ class Hit extends AttemptAction
 
     protected function applyEffects(): ActionResult
     {
+        /** @var Player $parameter */
+        $parameter = $this->parameter;
+
         $result = $this->makeAttempt();
 
         if ($result instanceof Success) {
@@ -75,10 +75,10 @@ class Hit extends AttemptAction
             if (in_array(SkillEnum::WRESTLER, $this->player->getSkills())) {
                 $damage += 2;
             }
-            if (in_array(SkillMushEnum::HARD_BOILED, $this->parameter->getSkills())) {
+            if (in_array(SkillMushEnum::HARD_BOILED, $parameter->getSkills())) {
                 --$damage;
             }
-            if ($this->parameter->hasItemByName(GearItemEnum::PLASTENITE_ARMOR)) {
+            if ($parameter->hasItemByName(GearItemEnum::PLASTENITE_ARMOR)) {
                 --$damage;
             }
             if ($damage <= 0) {
@@ -90,16 +90,16 @@ class Hit extends AttemptAction
                     ->setTarget(ModifierTargetEnum::HEALTH_POINT)
                 ;
 
-                $playerEvent = new PlayerEvent($this->parameter);
+                $playerEvent = new PlayerEvent($parameter);
                 $playerEvent->setModifier($actionModifier);
                 $playerEvent->setReason(EndCauseEnum::ASSASSINATED);
                 $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
 
-                $this->playerService->persist($this->parameter);
+                $this->playerService->persist($parameter);
             }
         }
 
-        $result->setActionParameter($this->parameter);
+        $result->setActionParameter($parameter);
 
         return $result;
     }

@@ -38,8 +38,10 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $takeAction = $this->getReference(ActionsFixtures::DEFAULT_TAKE);
         /** @var Action $takeAction */
         $dropAction = $this->getReference(ActionsFixtures::DEFAULT_DROP);
+        /** @var Action $buildAction */
+        $hideAction = $this->getReference(ActionsFixtures::HIDE_DEFAULT);
 
-        $actions = new ArrayCollection([$takeAction, $dropAction]);
+        $actions = new ArrayCollection([$takeAction, $dropAction, $hideAction]);
 
         $repair1 = $this->getReference(TechnicianFixtures::REPAIR_1);
         $repair6 = $this->getReference(TechnicianFixtures::REPAIR_6);

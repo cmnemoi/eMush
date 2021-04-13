@@ -27,10 +27,13 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
         $takeAction = $this->getReference(ActionsFixtures::DEFAULT_TAKE);
         /** @var Action $takeAction */
         $dropAction = $this->getReference(ActionsFixtures::DEFAULT_DROP);
+        /** @var Action $buildAction */
+        $hideAction = $this->getReference(ActionsFixtures::HIDE_DEFAULT);
+
         /** @var Action $consumeRationAction */
         $consumeRationAction = $this->getReference(ActionsFixtures::RATION_CONSUME);
 
-        $actions = new ArrayCollection([$takeAction, $dropAction]);
+        $actions = new ArrayCollection([$takeAction, $dropAction, $hideAction]);
 
         $standardRationMechanic = new Ration();
         $standardRationMechanic

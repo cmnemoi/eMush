@@ -213,7 +213,7 @@
         <unit id="repair_fail">
             <segment id="repair_fail">
                 <source>repair_fail</source>
-                <target>{{versionPart1, select,
+                <target>{versionPart1, select,
                     1 {**{target}** ou pas **{target}**… Telle est la question...}
                     2 {{target_gender, select,
                         male {{target_first_letter, select,
@@ -290,7 +290,7 @@
                         }}
                     }}
                     other {invalid version number}
-                }{versionPart2, select,
+                } {versionPart2, select,
                     1 {Avec la fatigue, vous avez l'impression que l'objet vous a parlé et vous a dit "Autant embrasser un wookie"...}
                     2 {Avec un petit peu de chance la prochaine sera la bonne.}
                     3 {Ça ne peut-être que la faute du mush !}
@@ -342,13 +342,13 @@
                     49 {L'inspiration arrive.}
                     50 {...et les réparations échouent.}
                     other {invalid version number}
-                }}</target>
+                }</target>
             </segment>
         </unit>
         <unit id="repair_success">
             <segment id="repair_success">
                 <source>repair_success</source>
-                <target>{{version, select,
+                <target>{version, select,
                     1 {{target_first_letter, select,
                         vowel {La dernière tentative de **{player}** pour réparer l'**{target}** s'est avérée fructueuse.}
                         other {{target_gender, select,
@@ -358,7 +358,7 @@
                         }}
                     }}
                     2 {{target_first_letter, select,
-                        vowel {Félicitation **{player}**. L'**{target}** fonctionne à nouveau.
+                        vowel {Félicitation **{player}**. L'**{target}** fonctionne à nouveau.}
                         other {{target_gender, select,
                             male {Félicitation **{player}**. Le **{target}** fonctionne à nouveau.}
                             female {Félicitation **{player}**. La **{target}** fonctionne à nouveau.}
@@ -366,12 +366,12 @@
                         }}
                     }}
                     3 {{target_first_letter, select,
-                        vowel {target_gender, select,
+                        vowel {{target_gender, select,
                             male {L'**{target}** est à nouveau fonctionnel, merci **{player}**.}
                             female {L'**{target}** est à nouveau fonctionnelle, merci **{player}**.}
                             other {invalid gender input}
                         }}
-                        other {target_gender, select,
+                        other {{target_gender, select,
                             male {Le **{target}** est à nouveau fonctionnel, merci **{player}**.}
                             female {La **{target}** est à nouveau fonctionnelle, merci **{player}**.}
                             other {invalid gender input}
@@ -382,36 +382,36 @@
                         female {**{player}** a enfin réussi les réparations sur cette maudite **{target}**.}
                         other {invalid gender input}
                     }}
-                    5 {target_first_letter, select,
+                    5 {{target_first_letter, select,
                         vowel {**{player}** a enfin remis l'**{target}** à neuf.}
-                        other {target_gender, select,
+                        other {{target_gender, select,
                             male {**{player}** a enfin remis le **{target}** à neuf.}
                             female {**{player}** a enfin remis la **{target}** à neuf.}
                             other {invalid gender input}
                         }}
                     }}
-                    6 {target_first_letter, select,
-                        vowel {target_gender, select,
+                    6 {{target_first_letter, select,
+                        vowel {{target_gender, select,
                             male {**{player}** peut se féliciter. L'**{target}** est réparé.}
                             female {**{player}** peut se féliciter. L'**{target}** est réparée.}
                             other {invalid gender input}
                         }}
-                        other {target_gender, select,
+                        other {{target_gender, select,
                             male {**{player}** peut se féliciter. Le **{target}** est réparé.}
                             female {**{player}** peut se féliciter. Le **{target}** est réparée.}
                             other {invalid gender input}
                         }}
                     }}
-                    7 {target_first_letter, select,
+                    7 {{target_first_letter, select,
                         vowel {**{player}** s'est finalement motivé et a réparé l'**{target}**. Bravo.}
-                        other {target_gender, select,
+                        other {{target_gender, select,
                             male {**{player}** s'est finalement motivé et a réparé le **{target}**. Bravo.}
                             female {**{player}** s'est finalement motivée et a réparé la **{target}**. Bravo.}
                             other {invalid gender input}
                         }}
                     }}
                     other {invalid version input}
-                }}</target>
+                }</target>
             </segment>
         </unit>
         <unit id="search_success">

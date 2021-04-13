@@ -25,8 +25,10 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         $takeAction = $this->getReference(ActionsFixtures::DEFAULT_TAKE);
         /** @var Action $takeAction */
         $dropAction = $this->getReference(ActionsFixtures::DEFAULT_DROP);
+        /** @var Action $buildAction */
+        $hideAction = $this->getReference(ActionsFixtures::HIDE_DEFAULT);
 
-        $actions = new ArrayCollection([$takeAction, $dropAction]);
+        $hideableActions = new ArrayCollection([$takeAction, $dropAction, $hideAction]);
 
         $repair12 = $this->getReference(TechnicianFixtures::REPAIR_12);
         $repair25 = $this->getReference(TechnicianFixtures::REPAIR_25);
@@ -52,7 +54,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->persist($camera);
 
-        $mycoAlarmeActions = clone $actions;
+        $mycoAlarmeActions = clone $hideableActions;
         $mycoAlarmeActions->add($this->getReference(TechnicianFixtures::DISMANTLE_3_25));
         $mycoAlarmeActions->add($repair25);
         $mycoAlarmeActions->add($sabotage25);
@@ -98,7 +100,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setActions($actions)
+            ->setActions($hideableActions)
         ;
 
         $manager->persist($metalScraps);
@@ -112,7 +114,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setActions($actions)
+            ->setActions($hideableActions)
         ;
         $manager->persist($plasticScraps);
 
@@ -125,11 +127,11 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setActions($actions)
+            ->setActions($hideableActions)
         ;
         $manager->persist($oldTShirt);
 
-        $thickTubeActions = clone $actions;
+        $thickTubeActions = clone $hideableActions;
         $thickTubeActions->add($this->getReference(TechnicianFixtures::DISMANTLE_3_50));
 
         $thickTube = new ItemConfig();
@@ -146,7 +148,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($thickTube);
 
-        $mushDiskActions = clone $actions;
+        $mushDiskActions = clone $hideableActions;
         $mushDiskActions->add($dismantle50);
         $mushDiskActions->add($repair25);
         $mushDiskActions->add($sabotage25);
@@ -175,7 +177,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setActions($actions)
+            ->setActions($hideableActions)
         ;
         $manager->persist($mushSample);
 
@@ -189,7 +191,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setIsAlienArtifact(true)
-            ->setActions($actions)
+            ->setActions($hideableActions)
         ;
         $manager->persist($starmapFragment);
 
@@ -203,7 +205,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setIsAlienArtifact(true)
-            ->setActions($actions)
+            ->setActions($hideableActions)
         ;
         $manager->persist($waterStick);
 
@@ -216,7 +218,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setActions($actions)
+            ->setActions($hideableActions)
         ;
         $manager->persist($hydropot);
 

@@ -11,6 +11,7 @@ use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Repository\GameEquipmentRepository;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEventEnum;
@@ -231,6 +232,7 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $daedalus = new Daedalus();
         $player = new Player();
+        $player->setGameStatus(GameStatusEnum::CURRENT);
         $daedalus->addPlayer($player);
         $this->eventDispatcher
             ->shouldReceive('dispatch')
@@ -255,7 +257,9 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $daedalus = new Daedalus();
         $player = new Player();
+        $player->setGameStatus(GameStatusEnum::CURRENT);
         $mushPlayer = new Player();
+        $mushPlayer->setGameStatus(GameStatusEnum::CURRENT);
         $mush = new Status($mushPlayer);
         $mush->setName(PlayerStatusEnum::MUSH);
         $daedalus->addPlayer($mushPlayer);
@@ -291,6 +295,7 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $daedalus = new Daedalus();
         $player = new Player();
+        $player->setGameStatus(GameStatusEnum::CURRENT);
         $daedalus->addPlayer($player);
         $this->eventDispatcher
             ->shouldReceive('dispatch')

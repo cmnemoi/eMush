@@ -128,7 +128,7 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
         $numberOfPanicCrisis = $this->getNumberOfIncident($daedalus);
 
         if ($numberOfPanicCrisis > 0) {
-            $humans = $daedalus->getPlayers()->getHumanPlayer();
+            $humans = $daedalus->getPlayers()->getPlayerAlive()->getHumanPlayer();
             $humansCrisis = $this->randomService->getRandomElements($humans->toArray(), $numberOfPanicCrisis);
 
             foreach ($humansCrisis as $player) {
@@ -145,7 +145,7 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
         $numberOfMetalPlates = $this->getNumberOfIncident($daedalus);
 
         if ($numberOfMetalPlates > 0) {
-            $players = $daedalus->getPlayers();
+            $players = $daedalus->getPlayers()->getPlayerAlive();
             $metalPlatesPlayer = $this->randomService->getRandomElements($players->toArray(), $numberOfMetalPlates);
 
             foreach ($metalPlatesPlayer as $player) {

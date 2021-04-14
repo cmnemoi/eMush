@@ -15,7 +15,7 @@
                     </div>
                     <div class="epitaph-form">
                         <textarea id="epitaph" v-model="epitaph" maxlength="300" placeholder="Laissez vos impressions sur la partie ici !"></textarea>
-                        <p id="char-count"> {{ (maxChar - epitaph.length) }} char.</p>
+                        <p v-bind:class="{ limit: !(maxChar - epitaph.length) }" class="char-count"> {{ (maxChar - epitaph.length) }} char.</p>
                     </div>
                     <div>
                         <p class="death-cause"><img src="@/assets/images/dead.png" alt="dead"> Assassiné par un équipier !</p>
@@ -67,6 +67,8 @@
                     </tr>
                 </tbody>
             </table>
+            <p><em>Vous serez notifié quand le classement de fin de partie sera publié.</em></p>
+            <a href="#" class="validate">Valider et continuer</a>
         </div>
         <div class="chat">PLACEHOLDER</div>
     </div>
@@ -230,7 +232,7 @@ export default {
                 color: rgba(255, 255, 255, .8);
             }
 
-            #char-count {
+            .char-count {
                 position: absolute;
                 top: -.8em;
                 right: 1.2em;
@@ -244,6 +246,10 @@ export default {
                 /* border: 1px solid #5f67bf; */
                 border-radius: 4px;
                 background-color: #5f67bf;
+
+                transition: all .2s;
+
+                &.limit { background-color: #ff4e64; }
             }
         }
 
@@ -330,6 +336,12 @@ export default {
                 &:hover, &:focus, &:active { background: rgba(255, 54, 118, .7); }
             }
         }
+    }
+
+    .validate {
+        @include button-style($font-size: 1em);
+        margin: .5em auto;
+        padding: .2em 1em .4em;
     }
 
     

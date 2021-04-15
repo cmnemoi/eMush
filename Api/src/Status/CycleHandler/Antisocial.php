@@ -28,7 +28,7 @@ class Antisocial extends AbstractStatusCycleHandler
             return;
         }
 
-        if ($statusHolder->getPlace()->getPlayers()->count() > 1) {
+        if ($statusHolder->getPlace()->getPlayers()->getPlayerAlive()->count() > 1) {
             $playerEvent = new PlayerEvent($statusHolder, $dateTime);
             $moralModifier = new Modifier();
             $moralModifier

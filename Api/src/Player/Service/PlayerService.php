@@ -294,9 +294,10 @@ class PlayerService implements PlayerServiceInterface
             }
         }
 
+        $currentRoom = $player->getPlace();
         foreach ($player->getItems() as $item) {
             $item->setPlayer(null);
-            $item->setPlace($player->getPlace());
+            $item->setPlace($currentRoom);
             $this->gameEquipmentService->persist($item);
         }
 
@@ -308,10 +309,9 @@ class PlayerService implements PlayerServiceInterface
         }
 
         //@TODO in case of assassination chance of disorder for roommates
-        $place = $player->getPlace();
         if ($grandBeyond = $player->getDaedalus()->getPlaceByName(RoomEnum::GREAT_BEYOND)) {
             $player->setPlace($grandBeyond);
-            $place->removePlayer($player);
+            $currentRoom->removePlayer($player);
         } else {
             throw new \LogicException('Did not found Great_Beyond Room');
         }

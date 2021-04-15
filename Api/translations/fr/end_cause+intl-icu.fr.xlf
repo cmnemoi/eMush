@@ -15,7 +15,7 @@
                 <target>Vous êtes rentré sur Sol… mais la suite est une autre histoire !</target>
             </segment>
             <segment id="description">
-                <source>sol_return</source>
+                <source>sol_return.description</source>
                 <target>Vous avez décidez d'essayer de rentrer sur Sol. La folle course du Daedalus s'arrête ici. Mais votre destin est-il maintenant une légende ?</target>
             </segment>
         </unit>
@@ -33,7 +33,7 @@
                 <target>Après toutes ces errances, vous avez mis le cap vers EDEN… mais la suite est une autre histoire !</target>
             </segment>
             <segment id="description">
-                <source>eden</source>
+                <source>eden.description</source>
                 <target>L'espoir renaît des scories de l'Humanité. Sur une nouvelle planète, un nouveau départ et la suite des aventures de nos héros. Mais c'est une autre histoire.</target>
             </segment>
         </unit>
@@ -51,7 +51,7 @@
                 <target>Vous êtes mort !</target>
             </segment>
             <segment id="description">
-                <source>daedalus_destroyed</source>
+                <source>daedalus_destroyed.description</source>
                 <target>Le Daedalus a été détruit et vous avec.</target>
             </segment>
         </unit>
@@ -69,7 +69,7 @@
                 <target>Vous êtes mort !</target>
             </segment>
             <segment id="description">
-                <source>killed_by_neron</source>
+                <source>killed_by_neron.description</source>
                 <target>L'équipage a été totalement converti par le Mush. Le protocol A-TRUE étant ainsi caduque, NERON a décidé de se débarrasser de vous. Bon voyage vers l'infini !</target>
             </segment>
         </unit>
@@ -87,7 +87,7 @@
                 <target>Vous êtes mort !</target>
             </segment>
             <segment id="description">
-                <source>super_nova</source>
+                <source>super_nova.description</source>
                 <target>TODO</target>
             </segment>
         </unit>
@@ -105,7 +105,7 @@
                 <target>Fin de l'aventure !</target>
             </segment>
             <segment id="description">
-                <source>alien_obducted</source>
+                <source>alien_obducted.description</source>
                 <target>Vous allez contribuer aux progrès de la science d'une autre civililisation. Bravo !</target>
             </segment>
         </unit>
@@ -123,7 +123,7 @@
                 <target>Vous êtes mort !</target>
             </segment>
             <segment id="description">
-                <source>assassinated</source>
+                <source>assassinated.description</source>
                 <target>Apparemment vous aviez des ennemis à bord et pas des tendres…</target>
             </segment>
         </unit>
@@ -141,7 +141,7 @@
                 <target>Vous êtes mort !</target>
             </segment>
             <segment id="description">
-                <source>depression</source>
+                <source>depression.description</source>
                 <target>Vous n'aviez plus la force morale de continuer et avez embrassé avec fougue votre mort pour votre propre salut.</target>
             </segment>
         </unit>
@@ -159,7 +159,7 @@
                 <target>Vous êtes mort !</target>
             </segment>
             <segment id="description">
-                <source>asphyxia</source>
+                <source>asphyxia.description</source>
                 <target>Il n'y a plus d'oxygène. Vous étouffez par manque d'oxygène. C'est long et douleureux et puis c'est frustrant aussi.</target>
             </segment>
         </unit>
@@ -177,7 +177,7 @@
                 <target>Vous êtes mort !</target>
             </segment>
             <segment id="description">
-                <source>abandoned</source>
+                <source>abandoned.description</source>
                 <target>Le Daedalus est parti sans vous, mais que leur avez vous donc fait ?</target>
             </segment>
         </unit>
@@ -195,7 +195,7 @@
                 <target>Vous êtes mort !</target>
             </segment>
             <segment id="description">
-                <source>alergy</source>
+                <source>alergy.description</source>
                 <target>TODO</target>
             </segment>
         </unit>
@@ -213,7 +213,7 @@
                 <target>Vous êtes mort !</target>
             </segment>
             <segment id="description">
-                <source>self_extracted</source>
+                <source>self_extracted.description</source>
                 <target>Vous avez un tantinet abusé de l'auto-extracteur et vous en êtes mort…</target>
             </segment>
         </unit>
@@ -231,7 +231,7 @@
                 <target>Vous êtes mort !</target>
             </segment>
             <segment id="description">
-                <source>exploration</source>
+                <source>exploration.description</source>
                 <target>Parfois l'histoire est sordide, parfois elle est cruelle, parfois elle est triste. Et parfois glorieuse. Le récit de vos aventures fera peut être date ou pas… Quoiqu'il en soit vous avez trépassé, c'est officiel !</target>
             </segment>
         </unit>
@@ -249,7 +249,7 @@
                 <target>Vous êtes mort !</target>
             </segment>
             <segment id="description">
-                <source>exploration_combat</source>
+                <source>exploration_combat.description</source>
                 <target>Il était vraiment trop gros pour vous celui-là !</target>
             </segment>
         </unit>
@@ -267,7 +267,7 @@
                 <target>Vous êtes mort !</target>
             </segment>
             <segment id="description">
-                <source>exploration_lost</source>
+                <source>exploration_lost.description</source>
                 <target>On ne va pas se mentir. Vous êtes perdu. Et malheureusement, vos coéquipier ne dispose d'aucun moyen pour vous retrouver. Donc en fait vous êtes mort, oublié de tous.</target>
             </segment>
         </unit>
@@ -285,7 +285,7 @@
                 <target>Vous êtes mort !</target>
             </segment>
             <segment id="description">
-                <source>electrocuted</source>
+                <source>electrocuted.description</source>
                 <target>Une des salles du Daedalus a été ravagée par une gigantesque décharge et vous en êtes mort.</target>
             </segment>
         </unit>
@@ -303,7 +303,7 @@
                 <target>Vous êtes mort !</target>
             </segment>
             <segment id="description">
-                <source>injury</source>
+                <source>injury.description</source>
                 <target>Vous succombez à vos blessures. Une vraie délivrance…</target>
             </segment>
         </unit>
@@ -321,7 +321,7 @@
                 <target>Vous êtes mort !</target>
             </segment>
             <segment id="description">
-                <source>burnt</source>
+                <source>burnt.description</source>
                 <target>Vous êtes mort calciné, brûlé. Les incendies sont monnaies courante sur le Daedalus même si NERON fait de son mieux pour les contenir.</target>
             </segment>
         </unit>
@@ -339,7 +339,7 @@
                 <target>Vous êtes mort !</target>
             </segment>
             <segment id="description">
-                <source>clumsiness</source>
+                <source>clumsiness.description</source>
                 <target>Quoi que vous ayez fait, vous l'avez mal fait. Très mal. Tellement mal que vous vous êtes fait mal. Et pas qu'un peu. Dommage.</target>
             </segment>
         </unit>
@@ -357,7 +357,7 @@
                 <target>Vous êtes mort !</target>
             </segment>
             <segment id="description">
-                <source>space_battle</source>
+                <source>space_battle.description</source>
                 <target>Vous êtes tombé au champs d'honneur, il s'en est fallu de peu mais ce dernier Hunter était vraiment trop habile.</target>
             </segment>
         </unit>
@@ -375,7 +375,7 @@
                 <target>Vous êtes mort !</target>
             </segment>
             <segment id="description">
-                <source>space_asphyxied</source>
+                <source>space_asphyxied.description</source>
                 <target>Par on ne sait quel hasard, vous vous êtes retrouvé dans l'espace sans moyen de respirer. La prochaine fois, sortez couvert. C'est ballot.</target>
             </segment>
         </unit>
@@ -393,7 +393,7 @@
                 <target>Vous êtes mort !</target>
             </segment>
             <segment id="description">
-                <source>beheaded</source>
+                <source>beheaded.description</source>
                 <target>Contrairement au cavalier sans tête, vous ne reviendrez pas d'entre les morts. Votre assassin ne vous a pas raté.</target>
             </segment>
         </unit>
@@ -411,7 +411,7 @@
                 <target>Vous êtes mort !</target>
             </segment>
             <segment id="description">
-                <source>starvation</source>
+                <source>starvation.description</source>
                 <target>Il n'y a vraiment plus rien à manger… ou peut-être avez-vous oublié ce besoin élémentaire.</target>
             </segment>
         </unit>
@@ -429,7 +429,7 @@
                 <target>Vous êtes mort !</target>
             </segment>
             <segment id="description">
-                <source>quarantine</source>
+                <source>quarantine.description</source>
                 <target>Vous avez commis un délit majeur dans le jeu et NERON a dû vous mettre en quarantaine, ne recommencez pas.</target>
             </segment>
         </unit>
@@ -447,7 +447,7 @@
                 <target>Vous êtes mort !</target>
             </segment>
             <segment id="description">
-                <source>black_bite</source>
+                <source>black_bite.description</source>
                 <target>Vous succombez foudroyé par la Morsure Noire.</target>
             </segment>
         </unit>
@@ -465,7 +465,7 @@
                 <target>Vous êtes mort !</target>
             </segment>
             <segment id="description">
-                <source>metal_plate</source>
+                <source>metal_plate.description</source>
                 <target>Le Daedalus est une poubelle volante…Vous saviez que vous n'auriez pas dû trainer sous cette plaque branlante…</target>
             </segment>
         </unit>
@@ -483,7 +483,7 @@
                 <target>Vous êtes mort !</target>
             </segment>
             <segment id="description">
-                <source>rocketed</source>
+                <source>rocketed.description</source>
                 <target>Non vous n'êtes pas mort étouffé par de la salade. Vous avez été heurté par un projectile à haut rapport énergie/ vélocité. Rempli d'explosif qui plus est. Et plein de technologie. En clair, vos restes sont éparpillés un peu partout.</target>
             </segment>
         </unit>
@@ -501,7 +501,7 @@
                 <target>Vous êtes mort !</target>
             </segment>
             <segment id="description">
-                <source>bled</source>
+                <source>bled.description</source>
                 <target>Vous avez perdu tout votre sang. Exténué de fatigue, vous vous éteignez…</target>
             </segment>
         </unit>
@@ -519,7 +519,7 @@
                 <target>Vous êtes mort !</target>
             </segment>
             <segment id="description">
-                <source>infection</source>
+                <source>infection.description</source>
                 <target>Votre état a beaucoup empiré… voire trop. C'est ainsi que vous mourrez d'un choc septique grave.</target>
             </segment>
         </unit>
@@ -537,7 +537,7 @@
                 <target>Vous êtes mort !</target>
             </segment>
             <segment id="description">
-                <source>mankarog</source>
+                <source>mankarog.description</source>
                 <target>TODO</target>
             </segment>
         </unit>
@@ -555,7 +555,7 @@
                 <target>Vous êtes mort !</target>
             </segment>
             <segment id="description">
-                <source>no_infirmerie</source>
+                <source>no_infirmerie.description</source>
                 <target>TODO</target>
             </segment>
         </unit>

@@ -84,18 +84,19 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
             }
         }
 
-        $injuryRate = $action->getInjuryRate();
-        if ($injuryRate > 0 &&
-            ($percent = $this->randomService->randomPercent()) <= $injuryRate
-        ) {
-            $injuryRate = $this->actionModifierService->getModifiedValue(
-                $injuryRate,
-                $player,
-                [ModifierScopeEnum::EVENT_CLUMSINESS],
-                ModifierTargetEnum::PERCENTAGE
-            );
+        $baseInjuryRate = $action->getInjuryRate();
+        $baseInjuryRate = 100;
+        $injuryRate = $this->actionModifierService->getModifiedValue(
+            $baseInjuryRate,
+            $player,
+            [ModifierScopeEnum::EVENT_CLUMSINESS],
+            ModifierTargetEnum::PERCENTAGE
+        );
 
-            if ($percent >= $injuryRate) {
+        if ($injuryRate > 0 &&
+            ($this->randomService->randomPercent()) <= $injuryRate
+        ) {
+            if ($baseInjuryRate > $injuryRate) {
                 $this->roomLogService->createLog(
                     LogEnum::CLUMSINESS_PREVENTED,
                     $player->getPlace(),

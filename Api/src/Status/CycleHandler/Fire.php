@@ -80,7 +80,7 @@ class Fire extends AbstractStatusCycleHandler
     {
         $difficultyConfig = $room->getDaedalus()->getGameConfig()->getDifficultyConfig();
 
-        foreach ($room->getPlayers() as $player) {
+        foreach ($room->getPlayers()->getPlayerAlive() as $player) {
             $damage = $this->randomService->getSingleRandomElementFromProbaArray($difficultyConfig->getFirePlayerDamage());
             $actionModifier = new Modifier();
             $actionModifier

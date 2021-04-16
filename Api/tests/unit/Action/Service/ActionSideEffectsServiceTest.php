@@ -17,7 +17,7 @@ use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\ModifierScopeEnum;
 use Mush\Player\Enum\ModifierTargetEnum;
-use Mush\Player\Event\PlayerEvent;
+use Mush\Player\Event\PlayerModifierEvent;
 use Mush\Player\Service\ActionModifierServiceInterface;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\Status;
@@ -164,7 +164,7 @@ class ActionSideEffectsServiceTest extends TestCase
         $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->withArgs(
-                fn (PlayerEvent $playerEvent, string $eventName) => ((int) $playerEvent->getModifier()->getDelta() === -2)
+                fn (PlayerModifierEvent $playerEvent, string $eventName) => ($playerEvent->getDelta() === -2 && $eventName === PlayerModifierEvent::HEALTH_POINT_MODIFIER)
             )
             ->once()
         ;

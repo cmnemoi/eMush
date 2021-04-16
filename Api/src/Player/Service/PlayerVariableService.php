@@ -3,13 +3,10 @@
 namespace Mush\Player\Service;
 
 use Error;
-use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\ModifierScopeEnum;
 use Mush\Player\Enum\ModifierTargetEnum;
-use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
-use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -22,44 +19,14 @@ class PlayerVariableService implements PlayerVariableServiceInterface
     const DEMORALIZED_THRESHOLD = 3;
 
     private StatusServiceInterface $statusService;
-    private RoomLogServiceInterface $roomLogService;
     private ActionModifierServiceInterface $actionModifierService;
 
     public function __construct(
         StatusServiceInterface $statusService,
-        RoomLogServiceInterface $roomLogService,
         ActionModifierServiceInterface $actionModifierService
     ) {
         $this->statusService = $statusService;
-        $this->roomLogService = $roomLogService;
         $this->actionModifierService = $actionModifierService;
-    }
-
-    public function modifyPlayerVariable(Player $player, Modifier $actionModifier, \DateTime $date = null): Player
-    {
-        $date = $date ?? new \DateTime('now');
-        $delta = (int) $actionModifier->getDelta();
-        switch ($actionModifier->getTarget()) {
-            case ModifierTargetEnum::ACTION_POINT:
-                $player = $this->handleActionPointModifier($delta, $player, $date);
-                break;
-            case ModifierTargetEnum::MOVEMENT_POINT:
-                $player = $this->handleMovementPointModifier($delta, $player, $date);
-                break;
-            case ModifierTargetEnum::HEALTH_POINT:
-                $player = $this->handleHealthPointModifier($delta, $player, $date);
-                break;
-            case ModifierTargetEnum::MORAL_POINT:
-                $player = $this->handleMoralPointModifier($delta, $player, $date);
-                break;
-            case ModifierTargetEnum::SATIETY:
-                $player = $this->handleSatietyModifier($delta, $player);
-                break;
-            default:
-                throw new Error('modifyPlayerVariable : invalid action modifier target');
-        }
-
-        return $player;
     }
 
     public function getMaxPlayerVariable(Player $player, string $target): int
@@ -88,24 +55,23 @@ class PlayerVariableService implements PlayerVariableServiceInterface
 
     public function setPlayerVariableToMax(Player $player, string $target, \DateTime $date = null): Player
     {
-        $date = $date ?? new \DateTime('now');
         $maxPoint = $this->getMaxPlayerVariable($player, $target);
         switch ($target) {
             case ModifierTargetEnum::ACTION_POINT:
                 $delta = $maxPoint - $player->getActionPoint();
-                $player = $this->handleActionPointModifier($delta, $player, $date);
+                $player = $this->handleActionPointModifier($delta, $player);
                 break;
             case ModifierTargetEnum::MOVEMENT_POINT:
                 $delta = $maxPoint - $player->getMovementPoint();
-                $player = $this->handleMovementPointModifier($delta, $player, $date);
+                $player = $this->handleMovementPointModifier($delta, $player);
                 break;
             case ModifierTargetEnum::HEALTH_POINT:
                 $delta = $maxPoint - $player->getHealthPoint();
-                $player = $this->handleHealthPointModifier($delta, $player, $date);
+                $player = $this->handleHealthPointModifier($delta, $player);
                 break;
             case ModifierTargetEnum::MORAL_POINT:
                 $delta = $maxPoint - $player->getMoralPoint();
-                $player = $this->handleMoralPointModifier($delta, $player, $date);
+                $player = $this->handleMoralPointModifier($delta, $player);
                 break;
             default:
                 throw new Error('getMaxPlayerVariable : invalid target string');
@@ -114,94 +80,69 @@ class PlayerVariableService implements PlayerVariableServiceInterface
         return $player;
     }
 
-    private function handleActionPointModifier(int $actionModifier, Player $player, \DateTime $date): Player
+    public function handleActionPointModifier(int $delta, Player $player): Player
     {
-        if ($actionModifier !== 0) {
-            $playerNewActionPoint = $player->getActionPoint() + $actionModifier;
+        if ($delta !== 0) {
+            $playerNewActionPoint = $player->getActionPoint() + $delta;
             $playerMaxActionPoint = $this->getMaxPlayerVariable($player, ModifierTargetEnum::MAX_ACTION_POINT);
             $playerNewActionPoint = $this->getValueInInterval($playerNewActionPoint, 0, $playerMaxActionPoint);
             $player->setActionPoint($playerNewActionPoint);
-            $this->roomLogService->createLog(
-                $actionModifier > 0 ? LogEnum::GAIN_ACTION_POINT : LogEnum::LOSS_ACTION_POINT,
-                $player->getPlace(),
-                VisibilityEnum::PRIVATE,
-                'event_log',
-                $player,
-                null,
-                abs($actionModifier),
-                $date
-            );
         }
 
         return $player;
     }
 
-    private function handleMovementPointModifier(int $movementModifier, Player $player, \DateTime $date): Player
+    public function handleMovementPointModifier(int $delta, Player $player): Player
     {
-        if ($movementModifier !== 0) {
-            $playerNewMovementPoint = $player->getMovementPoint() + $movementModifier;
+        if ($delta !== 0) {
+            $playerNewMovementPoint = $player->getMovementPoint() + $delta;
             $playerMaxMovementPoint = $this->getMaxPlayerVariable($player, ModifierTargetEnum::MAX_MOVEMENT_POINT);
             $playerNewMovementPoint = $this->getValueInInterval($playerNewMovementPoint, 0, $playerMaxMovementPoint);
             $player->setMovementPoint($playerNewMovementPoint);
-            $this->roomLogService->createLog(
-                $movementModifier > 0 ? LogEnum::GAIN_MOVEMENT_POINT : LogEnum::LOSS_MOVEMENT_POINT,
-                $player->getPlace(),
-                VisibilityEnum::PRIVATE,
-                'event_log',
-                $player,
-                null,
-                abs($movementModifier),
-                $date
-            );
         }
 
         return $player;
     }
 
-    private function handleHealthPointModifier(int $healthModifier, Player $player, \DateTime $date): Player
+    public function handleHealthPointModifier(int $delta, Player $player): Player
     {
-        if ($healthModifier !== 0) {
-            $playerNewHealthPoint = $player->getHealthPoint() + $healthModifier;
+        if ($delta !== 0) {
+            $playerNewHealthPoint = $player->getHealthPoint() + $delta;
             $playerMaxHealthPoint = $this->getMaxPlayerVariable($player, ModifierTargetEnum::MAX_HEALTH_POINT);
             $playerNewHealthPoint = $this->getValueInInterval($playerNewHealthPoint, 0, $playerMaxHealthPoint);
             $player->setHealthPoint($playerNewHealthPoint);
-            $this->roomLogService->createLog(
-                $healthModifier > 0 ? LogEnum::GAIN_HEALTH_POINT : LogEnum::LOSS_HEALTH_POINT,
-                $player->getPlace(),
-                VisibilityEnum::PRIVATE,
-                'event_log',
-                $player,
-                null,
-                abs($healthModifier),
-                $date
-            );
         }
 
         return $player;
     }
 
-    private function handleMoralPointModifier(int $moralModifier, Player $player, \DateTime $date): Player
+    public function handleMoralPointModifier(int $delta, Player $player): Player
     {
-        if ($moralModifier !== 0) {
+        if ($delta !== 0) {
             if (!$player->isMush()) {
-                $playerNewMoralPoint = $player->getMoralPoint() + $moralModifier;
+                $playerNewMoralPoint = $player->getMoralPoint() + $delta;
                 $playerMaxMoralPoint = $this->getMaxPlayerVariable($player, ModifierTargetEnum::MAX_MORAL_POINT);
                 $playerNewMoralPoint = $this->getValueInInterval($playerNewMoralPoint, 0, $playerMaxMoralPoint);
                 $player->setMoralPoint($playerNewMoralPoint);
 
                 $player = $this->handleMoralStatus($player);
-
-                $this->roomLogService->createLog(
-                    $moralModifier > 0 ? LogEnum::GAIN_MORAL_POINT : LogEnum::LOSS_MORAL_POINT,
-                    $player->getPlace(),
-                    VisibilityEnum::PRIVATE,
-                    'event_log',
-                    $player,
-                    null,
-                    abs($moralModifier),
-                    $date
-                );
             }
+        }
+
+        return $player;
+    }
+
+    public function handleSatietyModifier(int $delta, Player $player): Player
+    {
+        if ($delta !== 0) {
+            if ($delta >= 0 &&
+                $player->getSatiety() < 0) {
+                $player->setSatiety($delta);
+            } else {
+                $player->setSatiety($player->getSatiety() + $delta);
+            }
+
+            $player = $this->handleSatietyStatus($delta, $player);
         }
 
         return $player;
@@ -224,22 +165,6 @@ class PlayerVariableService implements PlayerVariableServiceInterface
             $this->statusService->createCoreStatus(PlayerStatusEnum::DEMORALIZED, $player, null, VisibilityEnum::PRIVATE);
         } elseif ($demoralizedStatus) {
             $player->removeStatus($demoralizedStatus);
-        }
-
-        return $player;
-    }
-
-    private function handleSatietyModifier(int $satietyModifier, Player $player): Player
-    {
-        if ($satietyModifier !== 0) {
-            if ($satietyModifier >= 0 &&
-                $player->getSatiety() < 0) {
-                $player->setSatiety($satietyModifier);
-            } else {
-                $player->setSatiety($player->getSatiety() + $satietyModifier);
-            }
-
-            $player = $this->handleSatietyStatus($satietyModifier, $player);
         }
 
         return $player;

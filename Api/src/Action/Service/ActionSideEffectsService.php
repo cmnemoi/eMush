@@ -4,12 +4,11 @@ namespace Mush\Action\Service;
 
 use Mush\Action\Entity\Action;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\ModifierScopeEnum;
 use Mush\Player\Enum\ModifierTargetEnum;
-use Mush\Player\Event\PlayerEvent;
+use Mush\Player\Event\PlayerModifierEvent;
 use Mush\Player\Service\ActionModifierServiceInterface;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -135,15 +134,8 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
 
     private function dispatchPlayerInjuryEvent(Player $player, ?\DateTime $dateTime = null): void
     {
-        $modifier = new Modifier();
-        $modifier
-            ->setDelta(self::ACTION_INJURY_MODIFIER)
-            ->setTarget(ModifierTargetEnum::HEALTH_POINT)
-        ;
-
-        $playerEvent = new PlayerEvent($player, $dateTime);
-        $playerEvent->setModifier($modifier);
-        $playerEvent->setReason(EndCauseEnum::CLUMSINESS);
-        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
+        $playerModifierEvent = new PlayerModifierEvent($player, self::ACTION_INJURY_MODIFIER, $dateTime);
+        $playerModifierEvent->setReason(EndCauseEnum::CLUMSINESS);
+        $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
     }
 }

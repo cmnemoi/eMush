@@ -59,7 +59,7 @@ class RoomValidatorTest extends TestCase
     public function testNotValid()
     {
         $place = new Place();
-        $place->setType(PlaceTypeEnum::GREAT_BEYOND);
+        $place->setType(PlaceTypeEnum::SPACE);
 
         $player = new Player();
         $player->setPlace($place);

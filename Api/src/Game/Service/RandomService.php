@@ -38,7 +38,7 @@ class RandomService implements RandomServiceInterface
 
     public function getPlayerInRoom(Place $place): Player
     {
-        return $this->getRandomPlayer($place->getPlayers());
+        return $this->getRandomPlayer($place->getPlayers()->getPlayerAlive());
     }
 
     public function getAlivePlayerInDaedalus(Daedalus $ship): Player

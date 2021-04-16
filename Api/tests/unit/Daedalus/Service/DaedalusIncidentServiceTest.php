@@ -222,9 +222,9 @@ class DaedalusIncidentServiceTest extends TestCase
 
     public function testHandlePanicCrisisEvents()
     {
-        $this->randomService->shouldReceive('random')->andReturn(0)->once();
+        $daedalus = new Daedalus();
 
-        $panicCrisis = $this->service->handlePanicCrisis(new Daedalus(), new \DateTime());
+        $panicCrisis = $this->service->handlePanicCrisis($daedalus, new \DateTime());
 
         $this->assertEquals(0, $panicCrisis);
 
@@ -253,7 +253,7 @@ class DaedalusIncidentServiceTest extends TestCase
 
     public function testHandlePanicCrisisEventsMushNotConcerned()
     {
-        $this->randomService->shouldReceive('random')->andReturn(1)->once();
+        $this->randomService->shouldReceive('random')->andReturn(2)->once();
 
         $daedalus = new Daedalus();
         $player = new Player();
@@ -285,8 +285,6 @@ class DaedalusIncidentServiceTest extends TestCase
 
     public function testHandleMetalPlatesEvents()
     {
-        $this->randomService->shouldReceive('random')->andReturn(0)->once();
-
         $metalPlates = $this->service->handleMetalPlates(new Daedalus(), new \DateTime());
 
         $this->assertEquals(0, $metalPlates);

@@ -86,13 +86,18 @@ class ActionSideEffectsServiceTest extends TestCase
 
         $this->assertCount(0, $player->getStatuses());
 
-        $action->setDirtyRate(100);
+        $action->setDirtyRate(10);
 
-        $this->actionModifierService->shouldReceive('getModifiedValue')->andReturn(100);
+        $this->actionModifierService
+            ->shouldReceive('getModifiedValue')
+            ->with(10, $player, [ModifierScopeEnum::EVENT_DIRTY], ModifierTargetEnum::PERCENTAGE)
+            ->andReturn(100)
+        ;
         $this->eventDispatcher->shouldReceive('dispatch')->never();
         $this->roomLogService->shouldReceive('createLog')->once();
         $this->randomService->shouldReceive('randomPercent')->andReturn(10)->once();
         $this->statusService->shouldReceive('createCoreStatus')->andReturn(new Status($player))->once();
+
         $player = $this->actionService->handleActionSideEffect($action, $player, new \DateTime());
 
         $this->assertCount(1, $player->getStatuses());
@@ -125,7 +130,10 @@ class ActionSideEffectsServiceTest extends TestCase
 
         $player->addItem($gameItem);
 
-        $this->actionModifierService->shouldReceive('getModifiedValue')->andReturn(0);
+        $this->actionModifierService
+            ->shouldReceive('getModifiedValue')
+            ->with(100, $player, [ModifierScopeEnum::EVENT_DIRTY], ModifierTargetEnum::PERCENTAGE)
+            ->andReturn(0);
         $this->eventDispatcher->shouldReceive('dispatch')->never();
         $this->roomLogService->shouldReceive('createLog')->once();
         $this->randomService->shouldReceive('randomPercent')->andReturn(10)->once();
@@ -153,7 +161,6 @@ class ActionSideEffectsServiceTest extends TestCase
         $this->assertCount(0, $player->getStatuses());
 
         $action->setInjuryRate(100);
-
         $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->withArgs(
@@ -162,7 +169,10 @@ class ActionSideEffectsServiceTest extends TestCase
             ->once()
         ;
 
-        $this->actionModifierService->shouldReceive('getModifiedValue')->andReturn(100);
+        $this->actionModifierService
+            ->shouldReceive('getModifiedValue')
+            ->with(100, $player, [ModifierScopeEnum::EVENT_CLUMSINESS], ModifierTargetEnum::PERCENTAGE)
+            ->andReturn(100);
         $this->roomLogService->shouldReceive('createLog')->once();
         $this->randomService->shouldReceive('randomPercent')->andReturn(10)->once();
         $this->statusService->shouldReceive('createCorePlayerStatus')->never();
@@ -198,7 +208,11 @@ class ActionSideEffectsServiceTest extends TestCase
 
         $player->addItem($gameItem);
 
-        $this->actionModifierService->shouldReceive('getModifiedValue')->andReturn(0);
+        $this->actionModifierService
+            ->shouldReceive('getModifiedValue')
+            ->with(100, $player, [ModifierScopeEnum::EVENT_CLUMSINESS], ModifierTargetEnum::PERCENTAGE)
+            ->andReturn(0)
+        ;
         $this->eventDispatcher->shouldReceive('dispatch')->never();
         $this->roomLogService->shouldReceive('createLog')->once();
         $this->randomService->shouldReceive('randomPercent')->andReturn(10)->once();

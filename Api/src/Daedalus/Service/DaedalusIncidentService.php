@@ -125,9 +125,9 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
 
     public function handlePanicCrisis(Daedalus $daedalus, \DateTime $date): int
     {
-        if ($daedalus->getPlayers()->getPlayerAlive()->count()>0) {
-            $playerCount = $daedalus->getPlayers()->getPlayerAlive()->count();
-            $numberOfPanicCrisis = max(intval($this->getNumberOfIncident($daedalus) / $playerCount), $playerCount);
+        if (($playerCount = $daedalus->getPlayers()->getPlayerAlive()->count()) > 0) {
+            $panicCrisisRate = intval($this->getNumberOfIncident($daedalus) / $playerCount);
+            $numberOfPanicCrisis = min($panicCrisisRate, $playerCount);
 
             if ($numberOfPanicCrisis > 0) {
                 $humans = $daedalus->getPlayers()->getPlayerAlive()->getHumanPlayer();
@@ -140,16 +140,16 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
             }
 
             return $numberOfPanicCrisis;
-        }else{
+        } else {
             return 0;
         }
     }
 
     public function handleMetalPlates(Daedalus $daedalus, \DateTime $date): int
     {
-        if ($daedalus->getPlayers()->getPlayerAlive()->count()>0) {
-            $playerCount = $daedalus->getPlayers()->getPlayerAlive()->count();
-            $numberOfMetalPlates = max(intval($this->getNumberOfIncident($daedalus) / $playerCount), $playerCount);
+        if (($playerCount = $daedalus->getPlayers()->getPlayerAlive()->count()) > 0) {
+            $metalPlateRate = intval($this->getNumberOfIncident($daedalus) / $playerCount);
+            $numberOfMetalPlates = min($metalPlateRate, $playerCount);
 
             if ($numberOfMetalPlates > 0) {
                 $players = $daedalus->getPlayers()->getPlayerAlive();
@@ -162,7 +162,7 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
             }
 
             return $numberOfMetalPlates;
-        }else{
+        } else {
             return 0;
         }
     }
@@ -171,7 +171,8 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
     //@TODO: to be improved
     private function getNumberOfIncident(Daedalus $daedalus): int
     {
-        $rate = intval($daedalus->getDay());
+        $rate = intval($daedalus->getDay() / 2);
+
         return $this->randomService->random(0, $rate);
     }
 }

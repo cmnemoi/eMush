@@ -25,8 +25,10 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
         $takeAction = $this->getReference(ActionsFixtures::DEFAULT_TAKE);
         /** @var Action $takeAction */
         $dropAction = $this->getReference(ActionsFixtures::DEFAULT_DROP);
+        /** @var Action $buildAction */
+        $hideAction = $this->getReference(ActionsFixtures::HIDE_DEFAULT);
 
-        $actions = new ArrayCollection([$takeAction, $dropAction]);
+        $actions = new ArrayCollection([$takeAction, $dropAction, $hideAction]);
 
         $repair25 = $this->getReference(TechnicianFixtures::REPAIR_25);
         $repair50 = $this->getReference(TechnicianFixtures::REPAIR_50);

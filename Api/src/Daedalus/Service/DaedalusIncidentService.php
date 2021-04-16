@@ -125,42 +125,54 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
 
     public function handlePanicCrisis(Daedalus $daedalus, \DateTime $date): int
     {
-        $numberOfPanicCrisis = $this->getNumberOfIncident($daedalus);
+        if (($playerCount = $daedalus->getPlayers()->getPlayerAlive()->count()) > 0) {
+            $panicCrisisRate = intval($this->getNumberOfIncident($daedalus) / $playerCount);
+            $numberOfPanicCrisis = min($panicCrisisRate, $playerCount);
 
-        if ($numberOfPanicCrisis > 0) {
-            $humans = $daedalus->getPlayers()->getPlayerAlive()->getHumanPlayer();
-            $humansCrisis = $this->randomService->getRandomElements($humans->toArray(), $numberOfPanicCrisis);
+            if ($numberOfPanicCrisis > 0) {
+                $humans = $daedalus->getPlayers()->getPlayerAlive()->getHumanPlayer();
+                $humansCrisis = $this->randomService->getRandomElements($humans->toArray(), $numberOfPanicCrisis);
 
-            foreach ($humansCrisis as $player) {
-                $playerEvent = new PlayerEvent($player, $date);
-                $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::PANIC_CRISIS);
+                foreach ($humansCrisis as $player) {
+                    $playerEvent = new PlayerEvent($player, $date);
+                    $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::PANIC_CRISIS);
+                }
             }
-        }
 
-        return $numberOfPanicCrisis;
+            return $numberOfPanicCrisis;
+        } else {
+            return 0;
+        }
     }
 
     public function handleMetalPlates(Daedalus $daedalus, \DateTime $date): int
     {
-        $numberOfMetalPlates = $this->getNumberOfIncident($daedalus);
+        if (($playerCount = $daedalus->getPlayers()->getPlayerAlive()->count()) > 0) {
+            $metalPlateRate = intval($this->getNumberOfIncident($daedalus) / $playerCount);
+            $numberOfMetalPlates = min($metalPlateRate, $playerCount);
 
-        if ($numberOfMetalPlates > 0) {
-            $players = $daedalus->getPlayers()->getPlayerAlive();
-            $metalPlatesPlayer = $this->randomService->getRandomElements($players->toArray(), $numberOfMetalPlates);
+            if ($numberOfMetalPlates > 0) {
+                $players = $daedalus->getPlayers()->getPlayerAlive();
+                $metalPlatesPlayer = $this->randomService->getRandomElements($players->toArray(), $numberOfMetalPlates);
 
-            foreach ($metalPlatesPlayer as $player) {
-                $playerEvent = new PlayerEvent($player, $date);
-                $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::METAL_PLATE);
+                foreach ($metalPlatesPlayer as $player) {
+                    $playerEvent = new PlayerEvent($player, $date);
+                    $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::METAL_PLATE);
+                }
             }
-        }
 
-        return $numberOfMetalPlates;
+            return $numberOfMetalPlates;
+        } else {
+            return 0;
+        }
     }
 
     //Each cycle get 0 to day event
     //@TODO: to be improved
     private function getNumberOfIncident(Daedalus $daedalus): int
     {
-        return $this->randomService->random(0, $daedalus->getDay());
+        $rate = intval($daedalus->getDay() / 2);
+
+        return $this->randomService->random(0, $rate);
     }
 }

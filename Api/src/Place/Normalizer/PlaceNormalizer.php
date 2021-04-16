@@ -50,7 +50,7 @@ class PlaceNormalizer implements ContextAwareNormalizerInterface, NormalizerAwar
 
         $players = [];
         /** @var Player $player */
-        foreach ($room->getPlayers() as $player) {
+        foreach ($room->getPlayers()->getPlayerAlive() as $player) {
             if ($currentPlayer !== $player) {
                 $players[] = $this->normalizer->normalize($player, $format, $context);
             }

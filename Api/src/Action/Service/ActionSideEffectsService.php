@@ -44,20 +44,28 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
 
     public function handleActionSideEffect(Action $action, Player $player, ?\DateTime $date = null): Player
     {
-        $dirtyRate = $action->getDirtyRate();
-        $isSuperDirty = $dirtyRate > 100;
+        $this->handleDirty($action, $player, $date);
+        $this->handleInjury($action, $player, $date);
+
+        return $player;
+    }
+
+    private function handleDirty(Action $action, Player $player, ?\DateTime $date): void
+    {
+        $baseDirtyRate = $action->getDirtyRate();
+        $isSuperDirty = $baseDirtyRate > 100;
         if (!$player->hasStatus(PlayerStatusEnum::DIRTY) &&
-            $dirtyRate > 0 &&
-            ($percent = $this->randomService->randomPercent()) <= $dirtyRate
-        ) {
+            $baseDirtyRate > 0) {
             $dirtyRate = $this->actionModifierService->getModifiedValue(
-                $dirtyRate,
+                $baseDirtyRate,
                 $player,
                 [ModifierScopeEnum::EVENT_DIRTY],
                 ModifierTargetEnum::PERCENTAGE
             );
 
-            if (!$isSuperDirty && $percent >= $dirtyRate) {
+            $percent = $this->randomService->randomPercent();
+
+            if ($percent <= $baseDirtyRate && $percent > $dirtyRate && !$isSuperDirty) {
                 $this->roomLogService->createLog(
                     LogEnum::SOIL_PREVENTED,
                     $player->getPlace(),
@@ -68,7 +76,7 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
                     null,
                     $date
                 );
-            } else {
+            } elseif ($percent <= $dirtyRate) {
                 $this->statusService->createCoreStatus(PlayerStatusEnum::DIRTY, $player);
 
                 $this->roomLogService->createLog(
@@ -83,19 +91,22 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
                 );
             }
         }
+    }
 
-        $injuryRate = $action->getInjuryRate();
-        if ($injuryRate > 0 &&
-            ($percent = $this->randomService->randomPercent()) <= $injuryRate
-        ) {
+    private function handleInjury(Action $action, Player $player, ?\DateTime $date): void
+    {
+        $baseInjuryRate = $action->getInjuryRate();
+        if ($baseInjuryRate > 0) {
             $injuryRate = $this->actionModifierService->getModifiedValue(
-                $injuryRate,
+                $baseInjuryRate,
                 $player,
                 [ModifierScopeEnum::EVENT_CLUMSINESS],
                 ModifierTargetEnum::PERCENTAGE
             );
 
-            if ($percent >= $injuryRate) {
+            $percent = $this->randomService->randomPercent();
+
+            if ($percent <= $baseInjuryRate && $percent > $injuryRate) {
                 $this->roomLogService->createLog(
                     LogEnum::CLUMSINESS_PREVENTED,
                     $player->getPlace(),
@@ -106,7 +117,7 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
                     null,
                     $date
                 );
-            } else {
+            } elseif ($percent <= $injuryRate) {
                 $this->roomLogService->createLog(
                     LogEnum::CLUMSINESS,
                     $player->getPlace(),
@@ -120,8 +131,6 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
                 $this->dispatchPlayerInjuryEvent($player, $date);
             }
         }
-
-        return $player;
     }
 
     private function dispatchPlayerInjuryEvent(Player $player, ?\DateTime $dateTime = null): void

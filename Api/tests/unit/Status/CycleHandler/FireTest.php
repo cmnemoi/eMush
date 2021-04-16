@@ -9,6 +9,7 @@ use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
@@ -85,6 +86,7 @@ class FireTest extends TestCase
         ;
 
         $player = new Player();
+        $player->setGameStatus(GameStatusEnum::CURRENT);
         $room->addPlayer($player);
 
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();

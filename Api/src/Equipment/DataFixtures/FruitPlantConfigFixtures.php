@@ -30,6 +30,8 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
         $takeAction = $this->getReference(ActionsFixtures::DEFAULT_TAKE);
         /** @var Action $takeAction */
         $dropAction = $this->getReference(ActionsFixtures::DEFAULT_DROP);
+        /** @var Action $buildAction */
+        $hideAction = $this->getReference(ActionsFixtures::HIDE_DEFAULT);
         /** @var Action $consumeRationAction */
         $consumeRationAction = $this->getReference(ActionsFixtures::RATION_CONSUME);
         /** @var Action $transplantAction */
@@ -39,7 +41,7 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
         /** @var Action $waterAction */
         $waterAction = $this->getReference(ActionsFixtures::WATER_PLANT);
 
-        $actions = new ArrayCollection([$takeAction, $dropAction]);
+        $actions = new ArrayCollection([$takeAction, $dropAction, $hideAction]);
         $plantActions = new ArrayCollection([$treatAction, $waterAction]);
         $fruitActions = new ArrayCollection([$consumeRationAction, $transplantAction]);
 

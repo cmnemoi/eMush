@@ -3,10 +3,8 @@
 namespace Mush\Status\CycleHandler;
 
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
-use Mush\Player\Enum\ModifierTargetEnum;
-use Mush\Player\Event\PlayerEvent;
+use Mush\Player\Event\PlayerModifierEvent;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -29,20 +27,9 @@ class Starving extends AbstractStatusCycleHandler
             return;
         }
 
-        $playerEvent = new PlayerEvent($statusHolder, $dateTime);
-
-        $healthModifier = new Modifier();
-        $healthModifier
-            ->setDelta(-1)
-            ->setTarget(ModifierTargetEnum::HEALTH_POINT)
-        ;
-
-        $playerEvent
-            ->setModifier($healthModifier)
-            ->setReason(PlayerStatusEnum::STARVING)
-        ;
-
-        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
+        $playerModifierEvent = new PlayerModifierEvent($statusHolder, -1, $dateTime);
+        $playerModifierEvent->setReason(PlayerStatusEnum::STARVING);
+        $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
     }
 
     public function handleNewDay(Status $status, Daedalus $daedalus, StatusHolderInterface $statusHolder, \DateTime $dateTime): void

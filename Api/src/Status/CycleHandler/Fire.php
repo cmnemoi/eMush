@@ -10,10 +10,8 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEventEnum;
 use Mush\Place\Event\RoomEvent;
-use Mush\Player\Entity\Modifier;
 use Mush\Player\Enum\EndCauseEnum;
-use Mush\Player\Enum\ModifierTargetEnum;
-use Mush\Player\Event\PlayerEvent;
+use Mush\Player\Event\PlayerModifierEvent;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
@@ -81,17 +79,11 @@ class Fire extends AbstractStatusCycleHandler
         $difficultyConfig = $room->getDaedalus()->getGameConfig()->getDifficultyConfig();
 
         foreach ($room->getPlayers()->getPlayerAlive() as $player) {
-            $damage = $this->randomService->getSingleRandomElementFromProbaArray($difficultyConfig->getFirePlayerDamage());
-            $actionModifier = new Modifier();
-            $actionModifier
-                ->setDelta(-$damage)
-                ->setTarget(ModifierTargetEnum::HEALTH_POINT)
-            ;
+            $damage = (int) $this->randomService->getSingleRandomElementFromProbaArray($difficultyConfig->getFirePlayerDamage());
 
-            $playerEvent = new PlayerEvent($player, $date);
-            $playerEvent->setReason(EndCauseEnum::BURNT);
-            $playerEvent->setModifier($actionModifier);
-            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
+            $playerModifierEvent = new PlayerModifierEvent($player, -$damage, $date);
+            $playerModifierEvent->setReason(EndCauseEnum::BURNT);
+            $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
         }
 
         foreach ($room->getEquipments() as $equipment) {

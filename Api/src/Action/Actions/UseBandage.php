@@ -13,9 +13,7 @@ use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
-use Mush\Player\Entity\Modifier;
-use Mush\Player\Enum\ModifierTargetEnum;
-use Mush\Player\Event\PlayerEvent;
+use Mush\Player\Event\PlayerModifierEvent;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -61,14 +59,8 @@ class UseBandage extends AbstractAction
         /** @var GameEquipment $parameter */
         $parameter = $this->parameter;
 
-        $actionModifier = new Modifier();
-        $actionModifier
-            ->setDelta(self::BANDAGE_HEAL)
-            ->setTarget(ModifierTargetEnum::HEALTH_POINT);
-
-        $playerEvent = new PlayerEvent($this->player);
-        $playerEvent->setModifier($actionModifier);
-        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
+        $playerModifierEvent = new PlayerModifierEvent($this->player, self::BANDAGE_HEAL);
+        $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
 
         $this->playerService->persist($this->player);
 

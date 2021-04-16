@@ -79,6 +79,34 @@ class ActionPointValidatorTest extends TestCase
         $this->validator->validate($action, $this->constraint);
     }
 
+    public function testWithMovementPointConversion()
+    {
+        $player = new Player();
+        $player
+            ->setActionPoint(5)
+            ->setMovementPoint(0)
+        ;
+
+        $action = Mockery::mock(AbstractAction::class);
+        $action
+            ->shouldReceive([
+                'getPlayer' => $player,
+            ])
+        ;
+
+        $action->shouldReceive('getActionPointCost')->andReturn(0);
+        $action->shouldReceive('getMoralPointCost')->andReturn(0);
+        $action->shouldReceive('getMovementPointCost')->andReturn(1);
+
+        $this->initValidator();
+        $this->validator->validate($action, $this->constraint);
+
+        $player->setActionPoint(0);
+
+        $this->initValidator($this->constraint->message);
+        $this->validator->validate($action, $this->constraint);
+    }
+
     protected function initValidator(?string $expectedMessage = null)
     {
         $builder = Mockery::mock(ConstraintViolationBuilder::class);

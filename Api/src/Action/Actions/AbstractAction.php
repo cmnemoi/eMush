@@ -114,17 +114,17 @@ abstract class AbstractAction
         return $this->name;
     }
 
-    public function getActionPointCost(): ?int
+    public function getActionPointCost(): int
     {
         return $this->actionService->getTotalActionPointCost($this->player, $this->action);
     }
 
-    public function getMovementPointCost(): ?int
+    public function getMovementPointCost(): int
     {
         return $this->actionService->getTotalMovementPointCost($this->player, $this->action);
     }
 
-    public function getMoralPointCost(): ?int
+    public function getMoralPointCost(): int
     {
         return $this->actionService->getTotalMoralPointCost($this->player, $this->action);
     }

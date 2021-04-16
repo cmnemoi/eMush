@@ -42,7 +42,7 @@ class ActionService implements ActionServiceInterface
             ;
     }
 
-    public function getTotalActionPointCost(Player $player, Action $action): ?int
+    public function getTotalActionPointCost(Player $player, Action $action): int
     {
         $initCost = $action->getActionCost()->getActionPointCost();
 
@@ -57,10 +57,10 @@ class ActionService implements ActionServiceInterface
             return max($actionCost, 0);
         }
 
-        return null;
+        return 0;
     }
 
-    public function getTotalMovementPointCost(Player $player, Action $action): ?int
+    public function getTotalMovementPointCost(Player $player, Action $action): int
     {
         $initCost = $action->getActionCost()->getMovementPointCost();
 
@@ -75,12 +75,12 @@ class ActionService implements ActionServiceInterface
             return max($actionCost, 0);
         }
 
-        return null;
+        return 0;
     }
 
-    public function getTotalMoralPointCost(Player $player, Action $action): ?int
+    public function getTotalMoralPointCost(Player $player, Action $action): int
     {
-        return $action->getActionCost()->getMoralPointCost();
+        return $action->getActionCost()->getMoralPointCost() ?? 0;
     }
 
     public function getSuccessRate(

@@ -286,7 +286,6 @@ class DaedalusService implements DaedalusServiceInterface
         if ($newHull = $daedalus->getHull() + $change < 0) {
             $daedalus->setHull(0);
 
-            dump('yo hull totally wrecked');
             $daedalusEvent = new DaedalusEvent($daedalus);
             $daedalusEvent->setReason(EndCauseEnum::DAEDALUS_DESTROYED);
 

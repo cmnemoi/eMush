@@ -50,7 +50,6 @@ class DaedalusSubscriber implements EventSubscriberInterface
         // @TODO: create logs
         // @TODO: remove all fire and charged statuses
 
-        dump('this should happen in any cases');
         $daedalus->setFinishedAt(new \DateTime());
         $daedalus->setGameStatus(GameStatusEnum::FINISHED);
         $this->daedalusService->persist($daedalus);

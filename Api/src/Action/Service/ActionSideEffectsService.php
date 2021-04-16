@@ -44,6 +44,14 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
 
     public function handleActionSideEffect(Action $action, Player $player, ?\DateTime $date = null): Player
     {
+        $this->handleDirty($action, $player, $date);
+        $this->handleInjury($action, $player, $date);
+
+        return $player;
+    }
+
+    private function handleDirty(Action $action, Player $player, ?\DateTime $date): void
+    {
         $baseDirtyRate = $action->getDirtyRate();
         $isSuperDirty = $baseDirtyRate > 100;
         if (!$player->hasStatus(PlayerStatusEnum::DIRTY) &&
@@ -83,7 +91,10 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
                 );
             }
         }
+    }
 
+    private function handleInjury(Action $action, Player $player, ?\DateTime $date): void
+    {
         $baseInjuryRate = $action->getInjuryRate();
         if ($baseInjuryRate > 0) {
             $injuryRate = $this->actionModifierService->getModifiedValue(
@@ -120,8 +131,6 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
                 $this->dispatchPlayerInjuryEvent($player, $date);
             }
         }
-
-        return $player;
     }
 
     private function dispatchPlayerInjuryEvent(Player $player, ?\DateTime $dateTime = null): void

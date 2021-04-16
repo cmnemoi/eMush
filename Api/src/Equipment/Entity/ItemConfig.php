@@ -24,11 +24,6 @@ class ItemConfig extends EquipmentConfig
      */
     private bool $isStackable;
 
-    /**
-     * @ORM\Column(type="boolean", nullable=false)
-     */
-    private bool $isHideable;
-
     public function createGameItem(): GameItem
     {
         $gameItem = new GameItem();
@@ -66,21 +61,6 @@ class ItemConfig extends EquipmentConfig
     public function setIsStackable(bool $isStackable): ItemConfig
     {
         $this->isStackable = $isStackable;
-
-        return $this;
-    }
-
-    public function isHideable(): bool
-    {
-        return $this->isHideable;
-    }
-
-    /**
-     * @return static
-     */
-    public function setIsHideable(bool $isHideable): ItemConfig
-    {
-        $this->isHideable = $isHideable;
 
         return $this;
     }

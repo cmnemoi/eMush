@@ -140,7 +140,6 @@ class ShowerActionCest
             ->setName(GearItemEnum::SOAP)
             ->setIsHeavy(false)
             ->setIsStackable(false)
-            ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setMechanics(new ArrayCollection([$soapGear]))

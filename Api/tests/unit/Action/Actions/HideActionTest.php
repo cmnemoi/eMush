@@ -69,7 +69,6 @@ class HideActionTest extends AbstractActionTest
 
         $item = new ItemConfig();
         $item
-            ->setIsHideable(true)
             ->setActions(new ArrayCollection([$this->actionEntity]))
         ;
         $gameItem

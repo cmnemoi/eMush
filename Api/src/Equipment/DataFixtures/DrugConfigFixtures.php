@@ -64,7 +64,6 @@ class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
                 ->setName($drugName)
                 ->setIsHeavy(false)
                 ->setIsStackable(true)
-                ->setIsHideable(true)
                 ->setIsFireDestroyable(true)
                 ->setIsFireBreakable(false)
                 ->setMechanics(new ArrayCollection([$drugMechanic]))

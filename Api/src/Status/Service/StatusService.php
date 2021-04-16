@@ -14,8 +14,6 @@ use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
-use Mush\Status\Enum\ChargeStrategyTypeEnum;
-use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Repository\StatusRepository;
 
 class StatusService implements StatusServiceInterface
@@ -84,19 +82,6 @@ class StatusService implements StatusServiceInterface
         return $status;
     }
 
-    public function createSporeStatus(Player $player): ChargeStatus
-    {
-        return $this->createChargeStatus(
-            PlayerStatusEnum::SPORES,
-            $player,
-            ChargeStrategyTypeEnum::NONE,
-            null,
-            VisibilityEnum::MUSH,
-            VisibilityEnum::MUSH,
-            0,
-        );
-    }
-
     public function persist(Status $status): Status
     {
         $this->entityManager->persist($status);
@@ -147,7 +132,7 @@ class StatusService implements StatusServiceInterface
         return new ArrayCollection($this->statusRepository->findByCriteria($criteria));
     }
 
-    public function changeCharge(ChargeStatus $chargeStatus, int $delta): ?ChargeStatus
+    public function updateCharge(ChargeStatus $chargeStatus, int $delta): ?ChargeStatus
     {
         $newCharge = $chargeStatus->getCharge() + $delta;
         $threshold = $chargeStatus->getThreshold();

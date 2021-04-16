@@ -12,6 +12,8 @@ use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
+use Mush\Status\Entity\Status;
+use Mush\Status\Enum\PlayerStatusEnum;
 
 class ActionServiceCest
 {
@@ -81,5 +83,37 @@ class ActionServiceCest
 
         $I->assertEquals(9, $player->getActionPoint());
         $I->assertEquals(3, $player->getMovementPoint());
+    }
+
+    public function testApplyCostToPlayerWithMovementPointConversionAndDisabledStatus(FunctionalTester $I)
+    {
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class);
+
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['name' => RoomEnum::LABORATORY, 'daedalus' => $daedalus]);
+
+        /** @var Player $player */
+        $player = $I->have(Player::class, [
+            'place' => $room,
+            'daedalus' => $daedalus,
+            'actionPoint' => 10,
+            'movementPoint' => 0,
+        ]);
+
+        $disabled = new Status($player);
+        $disabled->setName(PlayerStatusEnum::DISABLED);
+
+        $actionCost = new ActionCost();
+        $actionCost->setMovementPointCost(1);
+
+        $action = new Action();
+        $action->setName('some name');
+        $action->setActionCost($actionCost);
+
+        $this->actionService->applyCostToPlayer($player, $action);
+
+        $I->assertEquals(9, $player->getActionPoint());
+        $I->assertEquals(0, $player->getMovementPoint());
     }
 }

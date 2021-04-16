@@ -91,19 +91,19 @@ class StatusServiceTest extends TestCase
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
-        $this->service->changeCharge($chargeStatus, -1);
+        $this->service->updateCharge($chargeStatus, -1);
 
         $this->assertEquals(3, $chargeStatus->getCharge());
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
-        $this->service->changeCharge($chargeStatus, -4);
+        $this->service->updateCharge($chargeStatus, -4);
 
         $this->assertEquals(0, $chargeStatus->getCharge());
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
-        $this->service->changeCharge($chargeStatus, 7);
+        $this->service->updateCharge($chargeStatus, 7);
 
         $this->assertEquals(6, $chargeStatus->getCharge());
 
@@ -111,7 +111,7 @@ class StatusServiceTest extends TestCase
 
         $this->entityManager->shouldReceive('remove')->once();
         $this->entityManager->shouldReceive('flush')->once();
-        $result = $this->service->changeCharge($chargeStatus, -7);
+        $result = $this->service->updateCharge($chargeStatus, -7);
 
         $this->assertNull($result);
     }

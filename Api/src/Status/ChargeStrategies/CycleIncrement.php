@@ -18,6 +18,6 @@ class CycleIncrement extends AbstractChargeStrategy
 
     public function apply(ChargeStatus $status, Daedalus $daedalus): ?ChargeStatus
     {
-        return $this->statusService->changeCharge($status, 1);
+        return $this->statusService->updateCharge($status, 1);
     }
 }

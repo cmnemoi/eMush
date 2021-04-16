@@ -17,6 +17,6 @@ class DailyDecrement extends AbstractChargeStrategy
             return $status;
         }
 
-        return $this->statusService->changeCharge($status, -1);
+        return $this->statusService->updateCharge($status, -1);
     }
 }

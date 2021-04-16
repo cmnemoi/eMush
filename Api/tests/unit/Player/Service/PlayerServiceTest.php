@@ -157,8 +157,6 @@ class PlayerServiceTest extends TestCase
     {
         $room = new Place();
         $room->setType(PlaceTypeEnum::ROOM)->setName('randomRoom');
-        $greatBeyond = new Place();
-        $greatBeyond->setName(RoomEnum::GREAT_BEYOND);
 
         $gameItem = new GameItem();
 
@@ -166,7 +164,6 @@ class PlayerServiceTest extends TestCase
         $daedalus
             ->setCycle(3)
             ->setDay(5)
-            ->addPlace($greatBeyond)
             ->addPlace($room)
         ;
 
@@ -199,8 +196,7 @@ class PlayerServiceTest extends TestCase
         $this->assertEquals(GameStatusEnum::FINISHED, $player->getGameStatus());
         $this->assertCount(0, $player->getItems());
         $this->assertCount(1, $room->getEquipments());
-        $this->assertCount(0, $room->getPlayers());
-        $this->assertCount(1, $greatBeyond->getPlayers());
+        $this->assertCount(1, $room->getPlayers());
     }
 
     public function testEndPlayer()

@@ -35,8 +35,6 @@ class PlayerServiceCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['name' => RoomEnum::LABORATORY, 'daedalus' => $daedalus]);
 
-        $I->have(Place::class, ['name' => RoomEnum::GREAT_BEYOND, 'daedalus' => $daedalus]);
-
         /** @var Player $player */
         $player = $I->have(Player::class, ['place' => $room, 'daedalus' => $daedalus]);
 
@@ -51,7 +49,6 @@ class PlayerServiceCest
             'cycleDeath' => 3,
         ]);
 
-        $I->assertEquals(RoomEnum::GREAT_BEYOND, $deadPlayer->getPlace()->getName());
         $I->assertEquals(GameStatusEnum::FINISHED, $deadPlayer->getGameStatus());
         $I->assertCount(0, $deadPlayer->getStatuses());
         $I->assertCount(1, $daedalus->getPlayers()->getPlayerDead());
@@ -67,8 +64,6 @@ class PlayerServiceCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['name' => RoomEnum::LABORATORY, 'daedalus' => $daedalus]);
 
-        $I->have(Place::class, ['name' => RoomEnum::GREAT_BEYOND, 'daedalus' => $daedalus]);
-
         /** @var Player $player */
         $player = $I->have(Player::class, ['place' => $room, 'daedalus' => $daedalus]);
 
@@ -80,7 +75,6 @@ class PlayerServiceCest
 
         $deadPlayer = $this->playerService->playerDeath($player, EndCauseEnum::INJURY, new \DateTime());
 
-        $I->assertEquals(RoomEnum::GREAT_BEYOND, $deadPlayer->getPlace()->getName());
         $I->assertEquals(GameStatusEnum::FINISHED, $deadPlayer->getGameStatus());
         $I->assertCount(1, $deadPlayer->getStatuses());
         $I->assertEquals(PlayerStatusEnum::MUSH, $deadPlayer->getStatuses()->first()->getName());
@@ -96,8 +90,6 @@ class PlayerServiceCest
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['name' => RoomEnum::LABORATORY, 'daedalus' => $daedalus]);
-
-        $I->have(Place::class, ['name' => RoomEnum::GREAT_BEYOND, 'daedalus' => $daedalus]);
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
@@ -119,7 +111,6 @@ class PlayerServiceCest
 
         $deadPlayer = $this->playerService->playerDeath($player, EndCauseEnum::INJURY, new \DateTime());
 
-        $I->assertEquals(RoomEnum::GREAT_BEYOND, $deadPlayer->getPlace()->getName());
         $I->assertEquals(9, $player2->getMoralPoint());
         $I->assertEquals(10, $mushPlayer->getMoralPoint());
         $I->assertCount(0, $deadPlayer->getStatuses());
@@ -136,9 +127,6 @@ class PlayerServiceCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['name' => RoomEnum::LABORATORY, 'daedalus' => $daedalus]);
 
-        /** @var Place $greatBeyond */
-        $greatBeyond = $I->have(Place::class, ['name' => RoomEnum::GREAT_BEYOND, 'daedalus' => $daedalus]);
-
         /** @var Player $player */
         $player = $I->have(Player::class, ['place' => $room, 'daedalus' => $daedalus]);
 
@@ -152,9 +140,9 @@ class PlayerServiceCest
 
         $deadPlayer = $this->playerService->playerDeath($player, EndCauseEnum::INJURY, new \DateTime());
 
-        $I->assertEquals(RoomEnum::GREAT_BEYOND, $deadPlayer->getPlace()->getName());
+        $I->assertCount(1, $room->getPlayers());
+        $I->assertCount(0, $room->getPlayers()->getPlayerAlive());
         $I->assertCount(0, $player->getItems());
         $I->assertCount(1, $room->getEquipments());
-        $I->assertCount(0, $greatBeyond->getEquipments());
     }
 }

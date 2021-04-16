@@ -48,7 +48,8 @@ class ReachValidator extends ConstraintValidator
         }
 
         if ($parameter === $player ||
-            $parameter->getPlace() !== $player->getPlace()
+            $parameter->getPlace() !== $player->getPlace() ||
+            !$parameter->isAlive()
         ) {
             return false;
         }

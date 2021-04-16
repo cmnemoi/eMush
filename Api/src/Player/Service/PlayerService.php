@@ -309,12 +309,6 @@ class PlayerService implements PlayerServiceInterface
         }
 
         //@TODO in case of assassination chance of disorder for roommates
-        if ($grandBeyond = $player->getDaedalus()->getPlaceByName(RoomEnum::GREAT_BEYOND)) {
-            $player->setPlace($grandBeyond);
-            $currentRoom->removePlayer($player);
-        } else {
-            throw new \LogicException('Did not found Great_Beyond Room');
-        }
 
         $player->setGameStatus(GameStatusEnum::FINISHED);
 

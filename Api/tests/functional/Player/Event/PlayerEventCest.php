@@ -9,7 +9,6 @@ use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Place\Entity\Place;
-use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
@@ -42,8 +41,6 @@ class PlayerEventCest
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
-        /** @var Place $room */
-        $greatBeyond = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::GREAT_BEYOND]);
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
@@ -62,7 +59,6 @@ class PlayerEventCest
         $this->eventDispatcherService->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
 
         $I->assertEquals(GameStatusEnum::FINISHED, $player->getGameStatus());
-        $I->assertEquals($greatBeyond, $player->getPlace());
 
         $I->seeInRepository(RoomLog::class, [
             'place' => $room->getId(),

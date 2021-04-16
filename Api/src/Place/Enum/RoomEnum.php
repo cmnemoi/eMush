@@ -33,5 +33,4 @@ class RoomEnum
     public const CENTER_BRAVO_STORAGE = 'center_bravo_storage';
     public const REAR_BRAVO_STORAGE = 'rear_bravo_storage';
     public const SPACE = 'space';
-    public const GREAT_BEYOND = 'great_beyond';
 }

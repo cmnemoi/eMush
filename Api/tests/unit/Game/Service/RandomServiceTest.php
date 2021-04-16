@@ -67,7 +67,9 @@ class RandomServiceTest extends TestCase
         $playerConfig1 = new CharacterConfig();
         $playerConfig1->setName('player1');
         $player1 = new Player();
-        $player1->setCharacterConfig($playerConfig1);
+        $player1
+            ->setCharacterConfig($playerConfig1)
+        ;
 
         $playerCollection->add($player1);
 
@@ -78,7 +80,9 @@ class RandomServiceTest extends TestCase
     {
         $room = new Place();
         $player1 = new Player();
+        $player1->setGameStatus(GameStatusEnum::CURRENT);
         $player2 = new Player();
+        $player2->setGameStatus(GameStatusEnum::CURRENT);
         $room
             ->addPlayer($player1)
             ->addPlayer($player2)

@@ -38,7 +38,7 @@ class RoomEventCest
         $daedalus = $I->have(Daedalus::class);
 
         /** @var Place $room */
-        $room = $I->have(Place::class, ['daedalus' => $daedalus, 'type' => PlaceTypeEnum::GREAT_BEYOND]);
+        $room = $I->have(Place::class, ['daedalus' => $daedalus, 'type' => PlaceTypeEnum::SPACE]);
 
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'healthPoint' => 10]);

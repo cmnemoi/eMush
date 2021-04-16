@@ -106,7 +106,6 @@ class RepairActionCest
             ->setName(GearItemEnum::ADJUSTABLE_WRENCH)
             ->setIsHeavy(false)
             ->setIsStackable(false)
-            ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setMechanics(new ArrayCollection([$wrenchGear]))

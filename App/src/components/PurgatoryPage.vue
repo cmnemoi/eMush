@@ -1,70 +1,53 @@
 <template>
     <div class="main">
-        <div class="death-summary">
+        <div class="death-summary" v-if="deadPlayerInfo">
             <h1>Vous êtes mort !</h1>
             <div class="char-sheet">
-                <img class="avatar" src="@/assets/images/char/portrait/Stephen_seagull_portrait.jpg" alt="avatar">
+                <img class="avatar" :src="characterPortrait" alt="avatar">
                 <div>
                     <div class="char-card">
-                        <img class="body" src="@/assets/images/char/body/stephen.png" alt="">
+                        <img class="body" :src="characterBody(player.characterKey)" alt="">
                         <div>
-                            <h3 class="char-name">Stephen</h3>
-                            <p class="pseudo">Atar7</p>
+                            <h3 class="char-name">{{ player.characterValue }}</h3>
+                            <p class="pseudo">{{ getUserInfo.username }}</p>
                         </div>
-                        <p class="score">43<img src="@/assets/images/triumph.png" alt="triumph"></p>
+                        <p class="score"> {{ player.triumph }}<img src="@/assets/images/triumph.png" alt="triumph"></p>
                     </div>
                     <div class="epitaph-form">
                         <textarea id="epitaph" v-model="epitaph" maxlength="300" placeholder="Laissez vos impressions sur la partie ici !"></textarea>
                         <p v-bind:class="{ limit: !(maxChar - epitaph.length) }" class="char-count"> {{ (maxChar - epitaph.length) }} char.</p>
                     </div>
                     <div>
-                        <p class="death-cause"><img src="@/assets/images/dead.png" alt="dead"> Assassiné par un équipier !</p>
+                        <p class="death-cause"><img src="@/assets/images/dead.png" alt="dead"> {{ deadPlayerInfo.endCauseValue }}</p>
                     </div>
                     <div class="history-logs">
-                        <span class="tab">Grands Moments</span>
-                        <span class="tab active">Historique de Triomphe</span>
-                        <div class="logs">
-                            <p><img src="@/assets/images/point.png" alt="dot"> 2 x Cycle Humain ( + 1 )</p>
-                            <p><img src="@/assets/images/point.png" alt="dot"> 1 x Ambitieux ( + 4 )</p>
-                            <p><img src="@/assets/images/point.png" alt="dot"> 1 x Contact Avec Sol ( + 8 )</p>
-                            <p><img src="@/assets/images/point.png" alt="dot"> 1 x Vers le Nouvel Eden ( + 6 )</p>
-                            <p><img src="@/assets/images/point.png" alt="dot"> 3 x Cycle Humain ( + 1 )</p>
-                        </div>
+                        Not implemented yet ...
+                        <!--                        <span class="tab">Grands Moments</span>-->
+                        <!--                        <span class="tab active">Historique de Triomphe</span>-->
+                        <!--                        <div class="logs">-->
+                        <!--                            <p><img src="@/assets/images/point.png" alt="dot"> 2 x Cycle Humain ( + 1 )</p>-->
+                        <!--                            <p><img src="@/assets/images/point.png" alt="dot"> 1 x Ambitieux ( + 4 )</p>-->
+                        <!--                            <p><img src="@/assets/images/point.png" alt="dot"> 1 x Contact Avec Sol ( + 8 )</p>-->
+                        <!--                            <p><img src="@/assets/images/point.png" alt="dot"> 1 x Vers le Nouvel Eden ( + 6 )</p>-->
+                        <!--                            <p><img src="@/assets/images/point.png" alt="dot"> 3 x Cycle Humain ( + 1 )</p>-->
+                        <!--                        </div>-->
                     </div>
                 </div>
             </div>
             <table class="crew-summary">
                 <tbody>
-                    <tr>
-                        <th>nom</th>
-                        <th>mort</th>
-                        <th>cause</th>
-                        <th>j'aime</th>
-                    </tr>
-                    <tr>
-                        <td><img src="@/assets/images/char/body/hua.png" class="char hua"> <span class="charname">Hua</span></td>
-                        <td>6.7</td>
-                        <td>Assassiné</td>
-                        <td><button class="like">1 <img src="@/assets/images/dislike.png"></button></td>
-                    </tr>
-                    <tr>
-                        <td><img src="@/assets/images/char/body/paola.png" class="char paola"> <span class="charname">Paola</span></td>
-                        <td>Pas Encore</td>
-                        <td>-</td>
-                        <td><button class="like">1 <img src="@/assets/images/dislike.png"></button></td>
-                    </tr>
-                    <tr>
-                        <td><img src="@/assets/images/char/body/derek.png" class="char derek"> <span class="charname">Derek</span></td>
-                        <td>4.6</td>
-                        <td>Enlevé par des races supérieures</td>
-                        <td><button class="like">0 <img src="@/assets/images/dislike.png"></button></td>
-                    </tr>
-                    <tr>
-                        <td><img src="@/assets/images/char/body/kuan_ti.png" class="char kuan_ti"> <span class="charname">Kuan Ti</span></td>
-                        <td>6.7</td>
-                        <td>Assassiné</td>
-                        <td><button class="like liked">2 <img src="@/assets/images/like.png"></button></td>
-                    </tr>
+                <tr>
+                    <th>nom</th>
+                    <th>mort</th>
+                    <th>cause</th>
+                    <th>j'aime</th>
+                </tr>
+                <tr v-for="(player,key) in deadPlayerInfo.players" v-bind:key="key">
+                    <td><img :src="characterBody(player.characterKey)" class="char hua"> <span class="charname">{{ player.characterValue }}</span></td>
+                    <td>{{ player.deathTime ? player.deathTime : '-' }}</td>
+                    <td>{{ player.endCauseValue ? player.endCauseValue : "Pas Encore"}}</td>
+                    <td><button class="like">1 <img src="@/assets/images/dislike.png"></button></td>
+                </tr>
                 </tbody>
             </table>
             <p><em>Vous serez notifié quand le classement de fin de partie sera publié.</em></p>
@@ -77,14 +60,44 @@
 
 <script>
 
+import {Player} from "@/entities/Player";
+import {characterEnum} from "@/enums/character";
+import {mapGetters} from "vuex";
+import PlayerService from "@/services/player.service";
+
 export default {
     name: 'Purgatory',
-
+    props: {
+        player: Player,
+    },
     data: function () {
         return {
+            deadPlayerInfo: null,
             maxChar: 300,
             epitaph: ''
         }
+    },
+    methods: {
+        characterBody: function(characterKey) {
+            return characterEnum[characterKey].body;
+        },
+
+    },
+    computed: {
+        characterPortrait: function() {
+            return characterEnum[this.player.characterKey].portrait;
+        },
+        ...mapGetters('auth', [
+            'getUserInfo'
+        ])
+    },
+    beforeMount() {
+        PlayerService.loadDeadPlayerInfo(this.player.id).then((res) => {
+                console.log(res);
+                this.deadPlayerInfo = res
+            }
+
+        );
     }
 };
 </script>
@@ -328,7 +341,7 @@ export default {
             &:hover, &:focus, &:active {
                 background: rgba(17, 84, 165, 1);
                 box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .15);
-                }
+            }
 
             &.liked {
                 background: rgba(255, 54, 118, .5);
@@ -344,7 +357,7 @@ export default {
         padding: .2em 1em .4em;
     }
 
-    
+
     .chat { /* PROVISIONAL */
         width: 406px;
         height: 435px;

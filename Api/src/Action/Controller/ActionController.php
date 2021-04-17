@@ -23,14 +23,11 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class ActionController extends AbstractFOSRestController
 {
     private ActionStrategyServiceInterface $actionService;
-    private ValidatorInterface $validator;
 
     public function __construct(
         ActionStrategyServiceInterface $actionService,
-        ValidatorInterface $validator
     ) {
         $this->actionService = $actionService;
-        $this->validator = $validator;
     }
 
     /**

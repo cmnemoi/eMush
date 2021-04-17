@@ -136,17 +136,12 @@ class PlayerService implements PlayerServiceInterface
 
     public function endPlayer(Player $player, string $message): Player
     {
-        $user = $player->getUser();
-        $user->setCurrentGame(null);
-
         $deadPlayerInfo = $this->findDeadPlayerInfo($player);
         if ($deadPlayerInfo === null) {
             throw new \LogicException('unable to find deadPlayerInfo');
         }
 
-        $deadPlayerInfo
-            ->setMessage($message)
-        ;
+        $deadPlayerInfo->setMessage($message);
 
         $player->setGameStatus(GameStatusEnum::CLOSED);
 
@@ -154,10 +149,7 @@ class PlayerService implements PlayerServiceInterface
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::END_PLAYER);
 
         $this->entityManager->persist($deadPlayerInfo);
-        $this->entityManager->persist($player);
-        $this->entityManager->persist($user);
-
-        $this->entityManager->flush();
+        $this->persist($player);
 
         return $player;
     }

@@ -13,9 +13,4 @@ class DeadPlayerInfoRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, DeadPlayerInfo::class);
     }
-
-    public function findOneByPlayer(Player $player): ?DeadPlayerInfo
-    {
-        return $this->find($player);
-    }
 }

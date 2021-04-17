@@ -28,6 +28,7 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
             PlayerModifierEvent::HEALTH_POINT_MODIFIER => 'onHealthPointModifier',
             PlayerModifierEvent::MORAL_POINT_MODIFIER => 'onMoralPointModifier',
             PlayerModifierEvent::SATIETY_POINT_MODIFIER => 'onSatietyPointModifier',
+            PlayerModifierEvent::MOVEMENT_POINT_CONVERSION => 'onMovementPointConversion',
         ];
     }
 
@@ -83,5 +84,18 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
             $playerEvent->setReason(EndCauseEnum::DEPRESSION);
             $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
         }
+    }
+
+    public function onMovementPointConversion(PlayerModifierEvent $playerEvent): void
+    {
+        $player = $playerEvent->getPlayer();
+        $delta = $playerEvent->getDelta();
+
+        if ($player->getActionPoint() <= 1) {
+            throw new \Exception('Trying to convert movement point without action point');
+        }
+
+        $this->playerVariableService->handleActionPointModifier(-1, $player);
+        $this->playerVariableService->handleMovementPointModifier($delta, $player);
     }
 }

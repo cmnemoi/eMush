@@ -31,6 +31,18 @@ const PlayerService = {
         return deadPlayer;
     },
 
+    sendEndGameRequest: (player, message, likes) => {
+        let data = {
+            message: message,
+            likes: likes
+        };
+
+        return ApiService.post(ACTION_ENDPOINT + '/' + player.id + '/end', data)
+            .then(() => {
+                store.dispatch('auth/userInfo');
+            });
+        },
+
     selectCharacter: (daedalusId, character) => {
         return ApiService.post('player', { 'daedalus' : daedalusId, 'character': character })
             .then((response) => {
@@ -39,7 +51,7 @@ const PlayerService = {
                 store.dispatch('auth/userInfo');
             })
 
-        ;
+            ;
     }
 };
 export default PlayerService;

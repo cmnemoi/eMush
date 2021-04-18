@@ -51,7 +51,7 @@
                 </tbody>
             </table>
             <p><em>Vous serez notifié quand le classement de fin de partie sera publié.</em></p>
-            <a href="#" class="validate">Valider et continuer</a>
+            <a href="#" class="validate" @click="endGame">Valider et continuer</a>
         </div>
         <div class="chat">PLACEHOLDER</div>
     </div>
@@ -81,7 +81,9 @@ export default {
         characterBody: function(characterKey) {
             return characterEnum[characterKey].body;
         },
-
+        endGame: function() {
+             PlayerService.sendEndGameRequest(this.player, this.epitaph);
+        },
     },
     computed: {
         characterPortrait: function() {
@@ -93,7 +95,6 @@ export default {
     },
     beforeMount() {
         PlayerService.loadDeadPlayerInfo(this.player.id).then((res) => {
-                console.log(res);
                 this.deadPlayerInfo = res
             }
 

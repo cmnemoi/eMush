@@ -69,11 +69,11 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
             ],
             'gameStatus' => $player->getGameStatus(),
             'triumph' => $player->getTriumph(),
+            'daedalus' => $this->normalizer->normalize($object->getDaedalus(), $format, $context),
         ];
 
         if ($player->getGameStatus() === GameStatusEnum::CURRENT) {
             $playerData = array_merge($playerData, [
-                'daedalus' => $this->normalizer->normalize($object->getDaedalus(), $format, $context),
                 'room' => $this->normalizer->normalize($object->getPlace(), $format, $context),
                 'skills' => $player->getSkills(),
                 'actions' => $this->getActions($object, $format, $context),

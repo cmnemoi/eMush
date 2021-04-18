@@ -471,12 +471,12 @@ class GearToolServiceTest extends TestCase
         $room->addPlayer($player)->addEquipment($gameTool);
         $player->addItem($gameGear1)->addItem($gameGear2)->addItem($gameGear3);
 
-        $this->statusService->shouldReceive('changeCharge')
+        $this->statusService->shouldReceive('updateCharge')
             ->with($chargeStatus2, -1)
             ->andReturn($chargeStatus2)
             ->once()
         ;
-        $this->statusService->shouldReceive('changeCharge')
+        $this->statusService->shouldReceive('updateCharge')
             ->with($chargeStatus1, -1)
             ->andReturn($chargeStatus1)
             ->once()
@@ -485,18 +485,18 @@ class GearToolServiceTest extends TestCase
 
         $chargeStatus3->setAutoRemove(true)->setCharge(1);
 
-        $this->statusService->shouldReceive('changeCharge')
+        $this->statusService->shouldReceive('updateCharge')
             ->with($chargeStatus2, -1)
             ->andReturn($chargeStatus2)
             ->once()
         ;
-        $this->statusService->shouldReceive('changeCharge')
+        $this->statusService->shouldReceive('updateCharge')
             ->with($chargeStatus3, -1)
             ->andReturn(null)
             ->once()
         ;
         $this->eventDispatcher->shouldReceive('dispatch')->once();
-        $this->statusService->shouldReceive('changeCharge')
+        $this->statusService->shouldReceive('updateCharge')
             ->with($chargeStatus1, -1)
             ->andReturn($chargeStatus1)
             ->once()

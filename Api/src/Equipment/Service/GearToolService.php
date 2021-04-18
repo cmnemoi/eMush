@@ -180,7 +180,7 @@ class GearToolService implements GearToolServiceInterface
         if ($chargeStatus &&
             $chargeStatus instanceof ChargeStatus
         ) {
-            $chargeStatus = $this->statusService->changeCharge($chargeStatus, -1);
+            $chargeStatus = $this->statusService->updateCharge($chargeStatus, -1);
 
             if ($chargeStatus === null) {
                 $equipmentEvent = new EquipmentEvent($equipment, VisibilityEnum::HIDDEN);

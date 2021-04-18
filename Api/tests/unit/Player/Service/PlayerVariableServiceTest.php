@@ -15,13 +15,10 @@ use Mush\Player\Service\ActionModifierServiceInterface;
 use Mush\Player\Service\PlayerVariableService;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
 
 class PlayerVariableServiceTest extends TestCase
 {
-    /** @var StatusServiceInterface | Mockery\Mock */
-    private StatusServiceInterface $statusService;
     /** @var ActionModifierServiceInterface | Mockery\Mock */
     private ActionModifierServiceInterface $actionModifierService;
 
@@ -32,11 +29,9 @@ class PlayerVariableServiceTest extends TestCase
      */
     public function before()
     {
-        $this->statusService = Mockery::mock(StatusServiceInterface::class);
         $this->actionModifierService = Mockery::mock(ActionModifierServiceInterface::class);
 
         $this->service = new PlayerVariableService(
-            $this->statusService,
             $this->actionModifierService
         );
     }
@@ -55,8 +50,6 @@ class PlayerVariableServiceTest extends TestCase
 
         $this->service->handleSatietyModifier(-1, $player);
 
-        $this->statusService->shouldReceive('createCoreStatus')->once();
-
         $this->service->handleSatietyModifier(4, $player);
 
         $status = new Status($player);
@@ -65,12 +58,10 @@ class PlayerVariableServiceTest extends TestCase
         $this->service->handleSatietyModifier(-1, $player);
 
         $this->assertEquals(3, $player->getSatiety());
-        $this->assertCount(0, $player->getStatuses());
 
         $this->service->handleSatietyModifier(-1, $player);
 
         $this->assertEquals(2, $player->getSatiety());
-        $this->assertCount(0, $player->getStatuses());
     }
 
     public function testMushSatietyModifier()
@@ -85,8 +76,6 @@ class PlayerVariableServiceTest extends TestCase
 
         $this->service->handleSatietyModifier(-1, $player);
 
-        $this->statusService->shouldReceive('createChargeStatus')->once();
-
         $modifier->setDelta(1);
 
         $this->service->handleSatietyModifier(1, $player);
@@ -97,7 +86,6 @@ class PlayerVariableServiceTest extends TestCase
         $this->service->handleSatietyModifier(-1, $player);
 
         $this->assertEquals(0, $player->getSatiety());
-        $this->assertCount(2, $player->getStatuses());
     }
 
     public function testMoraleModifier()
@@ -123,7 +111,6 @@ class PlayerVariableServiceTest extends TestCase
             ->with(16, $player, [ModifierScopeEnum::PERMANENT], ModifierTargetEnum::MAX_MORAL_POINT)
             ->andReturn(16)
             ->once();
-        $this->statusService->shouldReceive('createCoreStatus')->once();
 
         $this->service->handleMoralPointModifier(-2, $player);
 
@@ -137,12 +124,10 @@ class PlayerVariableServiceTest extends TestCase
             ->with(16, $player, [ModifierScopeEnum::PERMANENT], ModifierTargetEnum::MAX_MORAL_POINT)
             ->andReturn(16)
             ->once();
-        $this->statusService->shouldReceive('createCoreStatus')->once();
 
         $this->service->handleMoralPointModifier(-2, $player);
 
         $this->assertEquals(1, $player->getMoralPoint());
-        $this->assertCount(0, $player->getStatuses());
 
         $status = new Status($player);
         $status->setName(PlayerStatusEnum::SUICIDAL);
@@ -152,12 +137,10 @@ class PlayerVariableServiceTest extends TestCase
             ->with(16, $player, [ModifierScopeEnum::PERMANENT], ModifierTargetEnum::MAX_MORAL_POINT)
             ->andReturn(16)
             ->once();
-        $this->statusService->shouldReceive('createCoreStatus')->once();
 
         $this->service->handleMoralPointModifier(2, $player);
 
         $this->assertEquals(3, $player->getMoralPoint());
-        $this->assertCount(0, $player->getStatuses());
 
         $status = new Status($player);
         $status->setName(PlayerStatusEnum::DEMORALIZED);
@@ -171,7 +154,6 @@ class PlayerVariableServiceTest extends TestCase
         $this->service->handleMoralPointModifier(22, $player);
 
         $this->assertEquals(16, $player->getMoralPoint());
-        $this->assertCount(0, $player->getStatuses());
     }
 
     public function testActionPointModifier()

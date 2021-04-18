@@ -27,6 +27,13 @@ class PlayerModifierEvent extends PlayerEvent
         return $this->delta;
     }
 
+    public function setDelta(int $delta): PlayerModifierEvent
+    {
+        $this->delta = $delta;
+
+        return $this;
+    }
+
     public function isDisplayedRoomLog(): bool
     {
         return $this->isDisplayedRoomLog;

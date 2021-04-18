@@ -20,6 +20,6 @@ class PlantStrategy extends AbstractChargeStrategy
     {
         //@TODO: Handle garden
 
-        return $this->statusService->changeCharge($status, 1);
+        return $this->statusService->updateCharge($status, 1);
     }
 }

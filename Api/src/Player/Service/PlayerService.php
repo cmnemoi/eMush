@@ -20,6 +20,7 @@ use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\Status;
+use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\User\Entity\User;
@@ -122,7 +123,14 @@ class PlayerService implements PlayerServiceInterface
         }
 
         if (!(in_array(PlayerStatusEnum::IMMUNIZED, $characterConfig->getStatuses()))) {
-            $this->statusService->createSporeStatus($player);
+            $this->statusService->createChargeStatus(
+                PlayerStatusEnum::SPORES,
+                $player,
+                ChargeStrategyTypeEnum::NONE,
+                null,
+                VisibilityEnum::MUSH,
+                VisibilityEnum::MUSH,
+            );
         }
 
         $this->persist($player);

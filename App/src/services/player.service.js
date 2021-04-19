@@ -21,12 +21,15 @@ const PlayerService = {
     },
 
     loadDeadPlayerInfo: async(playerId) => {
+        store.dispatch('player/setLoading', {loading: true});
         const deadPlayerData = await ApiService.get(ACTION_ENDPOINT + '/' + playerId + '/end');
 
         let deadPlayer = null;
         if (deadPlayerData.data) {
             deadPlayer = (new DeadPlayerInfo()).load(deadPlayerData.data);
         }
+
+        store.dispatch('player/setLoading', {loading: false});
 
         return deadPlayer;
     },

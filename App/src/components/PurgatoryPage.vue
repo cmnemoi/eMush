@@ -1,5 +1,5 @@
 <template>
-    <div class="main">
+    <div class="purgatory-container">
         <div class="death-summary" v-if="deadPlayerInfo">
             <h1>Vous êtes mort !</h1>
             <div class="char-sheet">
@@ -20,18 +20,7 @@
                     <div>
                         <p class="death-cause"><img src="@/assets/images/dead.png" alt="dead"> {{ deadPlayerInfo.endCauseValue }}</p>
                     </div>
-                    <div class="history-logs">
-                        Not implemented yet ...
-                        <!--                        <span class="tab">Grands Moments</span>-->
-                        <!--                        <span class="tab active">Historique de Triomphe</span>-->
-                        <!--                        <div class="logs">-->
-                        <!--                            <p><img src="@/assets/images/point.png" alt="dot"> 2 x Cycle Humain ( + 1 )</p>-->
-                        <!--                            <p><img src="@/assets/images/point.png" alt="dot"> 1 x Ambitieux ( + 4 )</p>-->
-                        <!--                            <p><img src="@/assets/images/point.png" alt="dot"> 1 x Contact Avec Sol ( + 8 )</p>-->
-                        <!--                            <p><img src="@/assets/images/point.png" alt="dot"> 1 x Vers le Nouvel Eden ( + 6 )</p>-->
-                        <!--                            <p><img src="@/assets/images/point.png" alt="dot"> 3 x Cycle Humain ( + 1 )</p>-->
-                        <!--                        </div>-->
-                    </div>
+                    <HistoryLogs/>
                 </div>
             </div>
             <table class="crew-summary">
@@ -53,7 +42,7 @@
             <p><em>Vous serez notifié quand le classement de fin de partie sera publié.</em></p>
             <a href="#" class="validate" @click="endGame">Valider et continuer</a>
         </div>
-        <div class="chat">PLACEHOLDER</div>
+        <CommsPanel :day="player.daedalus.day" :cycle="player.daedalus.cycle" />
     </div>
 
 </template>
@@ -64,9 +53,12 @@ import {Player} from "@/entities/Player";
 import {characterEnum} from "@/enums/character";
 import {mapGetters} from "vuex";
 import PlayerService from "@/services/player.service";
+import HistoryLogs from "@/components/Game/HistoryLogs";
+import CommsPanel from "@/components/Game/Communications/CommsPanel";
 
 export default {
     name: 'Purgatory',
+    components: {CommsPanel, HistoryLogs},
     props: {
         player: Player,
     },
@@ -82,7 +74,7 @@ export default {
             return characterEnum[characterKey].body;
         },
         endGame: function() {
-             PlayerService.sendEndGameRequest(this.player, this.epitaph);
+            PlayerService.sendEndGameRequest(this.player, this.epitaph);
         },
     },
     computed: {
@@ -105,11 +97,8 @@ export default {
 
 <style lang="scss" scoped>
 
-.main {
-    position: relative;
+.purgatory-container {
     flex-flow: row wrap;
-    justify-content: stretch;
-    min-height: 625px;
     max-width: 1080px;
     width: 100%;
     margin: 36px auto;
@@ -117,23 +106,10 @@ export default {
     z-index: 10;
     font-size: .9rem;
 
-    &::after {
-        content: "";
-        position: absolute;
-        z-index: -1;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-
-        @include corner-bezel(18.5px);
-
-        box-shadow: inset 0 0 35px 25px rgb(15, 89, 171);
-        background-color: rgb(34, 38, 102);
-        opacity: 0.5;
+    .death-summary {
+        flex: 1;
+        padding-right: 10px;
     }
-
-    .death-summary { flex: 1; }
 
     h1 {
         font-size: 1.4em;
@@ -268,37 +244,6 @@ export default {
         }
 
         .death-cause { margin-top: 0; }
-
-        .history-logs {
-            display: block;
-
-            .tab {
-                display: block;
-                float: left;
-                cursor: pointer;
-                font-size: .86em;
-                opacity: .6;
-                padding: 5px 15px;
-                border-radius: 5px 5px 0 0;
-
-                &:hover, &:focus, &:active, &.active { opacity: 1; }
-
-                &.active {
-                    background: #222b6b;
-                    border-top: 1px solid #3d4dbf;
-                }
-            }
-
-            .logs {
-                width: 100%;
-                border-top: 1px solid #3d4dbf;
-                font-size: .8em;
-                letter-spacing: .05em;
-                padding: 1em;
-
-                p { margin: .5em 0; }
-            }
-        }
     }
 
     .crew-summary {

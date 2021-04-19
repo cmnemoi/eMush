@@ -29,7 +29,7 @@ class OtherPlayerNormalizer implements ContextAwareNormalizerInterface, Normaliz
 
     public function supportsNormalization($data, string $format = null, array $context = []): bool
     {
-        $currentPlayer = $context['currentPlayer'] ?? null;
+        $currentPlayer = isset($context['currentPlayer']) ?: null;
 
         return $data instanceof Player && $data !== $currentPlayer;
     }

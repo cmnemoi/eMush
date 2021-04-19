@@ -15,7 +15,6 @@ use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * Class UsersController.
@@ -23,14 +22,11 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class ActionController extends AbstractFOSRestController
 {
     private ActionStrategyServiceInterface $actionService;
-    private ValidatorInterface $validator;
 
     public function __construct(
         ActionStrategyServiceInterface $actionService,
-        ValidatorInterface $validator
     ) {
         $this->actionService = $actionService;
-        $this->validator = $validator;
     }
 
     /**

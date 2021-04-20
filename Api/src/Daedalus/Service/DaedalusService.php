@@ -119,7 +119,6 @@ class DaedalusService implements DaedalusServiceInterface
             ->setShield($daedalusConfig->getInitShield())
             ->setSpores($daedalusConfig->getDailySporeNb())
             ->setDailySpores($daedalusConfig->getDailySporeNb())
-            ->setNeron(new Neron())
         ;
 
         $this->persist($daedalus);

@@ -24,7 +24,7 @@ class Neron
     /**
      * @ORM\Column(type="boolean", nullable=false)
      */
-    private bool $isInhibited;
+    private bool $isInhibited = true;
 
     public function getId(): ?int
     {

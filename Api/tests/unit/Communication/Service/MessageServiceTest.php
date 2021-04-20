@@ -7,6 +7,7 @@ use Mockery;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\Dto\CreateMessage;
 use Mush\Communication\Entity\Message;
+use Mush\Communication\Repository\MessageRepository;
 use Mush\Communication\Services\ChannelServiceInterface;
 use Mush\Communication\Services\MessageService;
 use Mush\Communication\Services\MessageServiceInterface;
@@ -24,6 +25,8 @@ class MessageServiceTest extends TestCase
     private ChannelServiceInterface $channelService;
     /** @var RandomServiceInterface | Mockery\Mock */
     private RandomServiceInterface $randomService;
+    /** @var MessageRepository | Mockery\Mock */
+    private MessageRepository $repository;
 
     private MessageServiceInterface $service;
 
@@ -35,6 +38,7 @@ class MessageServiceTest extends TestCase
         $this->entityManager = Mockery::mock(EntityManagerInterface::class);
         $this->channelService = Mockery::mock(ChannelServiceInterface::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
+        $this->repository = Mockery::mock(MessageRepository::class);
 
         $this->entityManager->shouldReceive([
             'persist' => null,
@@ -44,7 +48,8 @@ class MessageServiceTest extends TestCase
         $this->service = new MessageService(
             $this->channelService,
             $this->entityManager,
-            $this->randomService
+            $this->randomService,
+            $this->repository
         );
     }
 

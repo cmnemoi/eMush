@@ -5,7 +5,6 @@ namespace Mush\Communication\Enum;
 class NeronMessageEnum
 {
     public const ACTIVATE_DMZ = 'activate_dmz';
-    public const ASPHYXIA_DEATH = 'asphyxia_death';
     public const AUTOMATIC_SPRINKLERS = 'automatic_sprinklers';
     public const BROKEN_EQUIPMENT = 'broken_equipment';
     public const BROKEN_FUEL = 'broken_fuel';
@@ -15,7 +14,6 @@ class NeronMessageEnum
     public const DISMANTLED_SHOWER = 'dismantled_shower';
     public const HEADING_ACCIDENT = 'heading_accident';
     public const HUNTER_ARRIVAL = 'hunter_arrival';
-    public const JANICE_DEATH = 'janice_death';
     public const LEAVE_ORBIT = 'leave_orbit';
     public const LOST_SIGNAL = 'lost_signal';
     public const LOST_SIGNAL_OVEN = 'lost_signal_oven';
@@ -29,7 +27,9 @@ class NeronMessageEnum
     public const OXYGENATED_DUCTS = 'oxygenated_ducts';
     public const PATCHING_UP = 'patching_up';
     public const PLAYER_DEATH = 'player_death';
+    public const ASPHYXIA_DEATH = 'asphyxia_death';
     public const RALUCA_DEATH = 'raluca_death';
+    public const JANICE_DEATH = 'janice_death';
     public const REBEL_SIGNAL = 'rebel_signal';
     public const REPAIRED_PILGRED = 'repaired_pilgred';
     public const REPORT_EQUIPMENT = 'report_equipment';
@@ -45,4 +45,5 @@ class NeronMessageEnum
     public const TRAVEL_DEFAULT = 'travel_default';
     public const TRAVEL_PLANET = 'travel_planet';
     public const VENTING_MUSH = 'venting_mush';
+    public const CYCLE_FAILURES = 'cycle_failures';
 }

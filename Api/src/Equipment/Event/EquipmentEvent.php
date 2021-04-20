@@ -15,6 +15,7 @@ class EquipmentEvent extends Event
     private GameEquipment $equipment;
     private string $visibility;
     private ?Player $player;
+    private ?string $reason;
     private \DateTime $time;
 
     public function __construct(GameEquipment $equipment, string $visibility, $time = null)
@@ -42,6 +43,18 @@ class EquipmentEvent extends Event
     public function setPlayer(Player $player): EquipmentEvent
     {
         $this->player = $player;
+
+        return $this;
+    }
+
+    public function getReason(): ?string
+    {
+        return $this->reason;
+    }
+
+    public function setReason(string $reason): EquipmentEvent
+    {
+        $this->reason = $reason;
 
         return $this;
     }

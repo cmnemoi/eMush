@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
     <file id="neron.ext">
-
+        <unit id="cycle_failures">
+            <segment id="cycle_failures">
+                <source>cycle_failures</source>
+                <target>{neronMood, select,
+                    neutral {placeHolder : Alerte : Défaillances detectées}
+                    crazy {placeHolder : Alerte : Défaillances detectées}
+                    uninhibited {placeHolder : Alerte : Défaillances detectées}
+                    other {invalid mood input}
+                }</target>
+            </segment>
+        </unit>
         <unit id="start_game">
             <segment id="start_game">
                 <source>start_game</source>

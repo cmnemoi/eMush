@@ -15,7 +15,9 @@ interface MessageServiceInterface
 
     public function createPlayerMessage(Player $player, CreateMessage $createMessage): Message;
 
-    public function createNeronMessage(string $messageCode, Daedalus $daedalus, array $parameters, \DateTime $dateTime): Message;
+    public function createNeronMessage(string $messageKey, Daedalus $daedalus, array $parameters, \DateTime $dateTime, ?Message $parent = null): Message;
+
+    public function getMessageNeronCycleFailures(Daedalus $daedalus): Message;
 
     public function getChannelMessages(Player $player, Channel $channel): Collection;
 }

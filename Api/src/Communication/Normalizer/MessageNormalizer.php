@@ -92,6 +92,7 @@ class MessageNormalizer implements ContextAwareNormalizerInterface
                     break;
                 default:
                     $params[$key] = $element;
+                    break;
             }
         }
 

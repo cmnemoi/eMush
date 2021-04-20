@@ -9,6 +9,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Entity\Player;
+use Mush\Player\Service\PlayerServiceInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
@@ -18,13 +19,16 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
 {
     use NormalizerAwareTrait;
 
+    private PlayerServiceInterface $playerService;
     private TranslatorInterface $translator;
     private GearToolServiceInterface $gearToolService;
 
     public function __construct(
+        PlayerServiceInterface $playerService,
         TranslatorInterface $translator,
         GearToolServiceInterface $gearToolService
     ) {
+        $this->playerService = $playerService;
         $this->translator = $translator;
         $this->gearToolService = $gearToolService;
     }
@@ -33,7 +37,7 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
     {
         $currentPlayer = $context['currentPlayer'] ?? null;
 
-        return $data instanceof Player && $data === $currentPlayer && $data->getGameStatus() === GameStatusEnum::CURRENT;
+        return $data instanceof Player && $data === $currentPlayer;
     }
 
     public function normalize($object, string $format = null, array $context = []): array
@@ -57,24 +61,32 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
 
         $character = $player->getCharacterConfig()->getName();
 
-        return [
+        $playerData = [
             'id' => $player->getId(),
             'character' => [
                 'key' => $character,
                 'value' => $this->translator->trans($character . '.name', [], 'characters'),
             ],
-            'daedalus' => $this->normalizer->normalize($object->getDaedalus(), $format, $context),
-            'room' => $this->normalizer->normalize($object->getPlace(), $format, $context),
-            'skills' => $player->getSkills(),
-            'actions' => $this->getActions($object, $format, $context),
-            'items' => $items,
-            'statuses' => $statuses,
-            'actionPoint' => $player->getActionPoint(),
-            'movementPoint' => $player->getMovementPoint(),
-            'healthPoint' => $player->getHealthPoint(),
-            'moralPoint' => $player->getMoralPoint(),
+            'gameStatus' => $player->getGameStatus(),
             'triumph' => $player->getTriumph(),
+            'daedalus' => $this->normalizer->normalize($object->getDaedalus(), $format, $context),
         ];
+
+        if ($player->getGameStatus() === GameStatusEnum::CURRENT) {
+            $playerData = array_merge($playerData, [
+                'room' => $this->normalizer->normalize($object->getPlace(), $format, $context),
+                'skills' => $player->getSkills(),
+                'actions' => $this->getActions($object, $format, $context),
+                'items' => $items,
+                'statuses' => $statuses,
+                'actionPoint' => $player->getActionPoint(),
+                'movementPoint' => $player->getMovementPoint(),
+                'healthPoint' => $player->getHealthPoint(),
+                'moralPoint' => $player->getMoralPoint(),
+            ]);
+        }
+
+        return $playerData;
     }
 
     private function getActions(Player $player, ?string $format, array $context): array

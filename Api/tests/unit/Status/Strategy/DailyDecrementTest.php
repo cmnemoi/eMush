@@ -50,7 +50,7 @@ class DailyDecrementTest extends TestCase
         ;
 
         $daedalus->setCycle(1);
-        $this->statusService->shouldReceive('changeCharge')->with($status, -1)->once();
+        $this->statusService->shouldReceive('updateCharge')->with($status, -1)->once();
 
         $this->strategy->execute($status, $daedalus);
 

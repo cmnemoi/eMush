@@ -10,17 +10,17 @@ use Mush\Game\Enum\TriumphEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\DeadPlayerInfo;
-use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
-use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Event\PlayerEvent;
+use Mush\Player\Event\PlayerModifierEvent;
 use Mush\Player\Repository\DeadPlayerInfoRepository;
 use Mush\Player\Repository\PlayerRepository;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\Status;
+use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\User\Entity\User;
@@ -123,7 +123,14 @@ class PlayerService implements PlayerServiceInterface
         }
 
         if (!(in_array(PlayerStatusEnum::IMMUNIZED, $characterConfig->getStatuses()))) {
-            $this->statusService->createSporeStatus($player);
+            $this->statusService->createChargeStatus(
+                PlayerStatusEnum::SPORES,
+                $player,
+                ChargeStrategyTypeEnum::NONE,
+                null,
+                VisibilityEnum::MUSH,
+                VisibilityEnum::MUSH,
+            );
         }
 
         $this->persist($player);
@@ -137,17 +144,12 @@ class PlayerService implements PlayerServiceInterface
 
     public function endPlayer(Player $player, string $message): Player
     {
-        $user = $player->getUser();
-        $user->setCurrentGame(null);
-
         $deadPlayerInfo = $this->findDeadPlayerInfo($player);
         if ($deadPlayerInfo === null) {
             throw new \LogicException('unable to find deadPlayerInfo');
         }
 
-        $deadPlayerInfo
-            ->setMessage($message)
-        ;
+        $deadPlayerInfo->setMessage($message);
 
         $player->setGameStatus(GameStatusEnum::CLOSED);
 
@@ -155,10 +157,7 @@ class PlayerService implements PlayerServiceInterface
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::END_PLAYER);
 
         $this->entityManager->persist($deadPlayerInfo);
-        $this->entityManager->persist($player);
-        $this->entityManager->persist($user);
-
-        $this->entityManager->flush();
+        $this->persist($player);
 
         return $player;
     }
@@ -176,30 +175,14 @@ class PlayerService implements PlayerServiceInterface
             return $player;
         }
 
-        $actionModifier = new Modifier();
-        $actionModifier
-            ->setDelta(1)
-            ->setTarget(ModifierTargetEnum::ACTION_POINT)
-        ;
-        $playerEvent = new PlayerEvent($player, $date);
-        $playerEvent->setModifier($actionModifier);
-        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
+        $playerModifierEvent = new PlayerModifierEvent($player, 1, $date);
+        $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::ACTION_POINT_MODIFIER);
 
-        $movementModifier = new Modifier();
-        $movementModifier
-            ->setDelta(1)
-            ->setTarget(ModifierTargetEnum::MOVEMENT_POINT)
-        ;
-        $playerEvent->setModifier($movementModifier);
-        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
+        $playerModifierEvent = new PlayerModifierEvent($player, 1, $date);
+        $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::MOVEMENT_POINT_MODIFIER);
 
-        $satietyModifier = new Modifier();
-        $satietyModifier
-            ->setDelta(-1)
-            ->setTarget(ModifierTargetEnum::SATIETY)
-        ;
-        $playerEvent->setModifier($satietyModifier);
-        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
+        $playerModifierEvent = new PlayerModifierEvent($player, -1, $date);
+        $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::SATIETY_POINT_MODIFIER);
 
         $triumphChange = 0;
 
@@ -239,24 +222,11 @@ class PlayerService implements PlayerServiceInterface
             return $player;
         }
 
-        $playerEvent = new PlayerEvent($player, $date);
+        $playerModifierEvent = new PlayerModifierEvent($player, 1, $date);
+        $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
 
-        $healthModifier = new Modifier();
-        $healthModifier
-            ->setDelta(1)
-            ->setTarget(ModifierTargetEnum::HEALTH_POINT)
-        ;
-        $playerEvent->setModifier($healthModifier);
-        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
-
-        $moralModifier = new Modifier();
-        $moralModifier
-            ->setDelta(-2)
-            ->setTarget(ModifierTargetEnum::MORAL_POINT)
-        ;
-
-        $playerEvent->setModifier($moralModifier);
-        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
+        $playerModifierEvent = new PlayerModifierEvent($player, -2, $date);
+        $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::MORAL_POINT_MODIFIER);
 
         return $this->persist($player);
     }
@@ -281,15 +251,8 @@ class PlayerService implements PlayerServiceInterface
             /** @var Player $daedalusPlayer */
             foreach ($player->getDaedalus()->getPlayers()->getPlayerAlive() as $daedalusPlayer) {
                 if ($daedalusPlayer !== $player) {
-                    $actionModifier = new Modifier();
-                    $actionModifier
-                        ->setDelta(-1)
-                        ->setTarget(ModifierTargetEnum::MORAL_POINT)
-                    ;
-                    $playerEvent = new PlayerEvent($daedalusPlayer, $time);
-                    $playerEvent->setModifier($actionModifier);
-
-                    $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
+                    $playerModifierEvent = new PlayerModifierEvent($daedalusPlayer, -1, $time);
+                    $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::MORAL_POINT_MODIFIER);
                 }
             }
         }

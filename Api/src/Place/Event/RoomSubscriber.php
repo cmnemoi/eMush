@@ -7,10 +7,8 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Enum\PlaceTypeEnum;
-use Mush\Player\Entity\Modifier;
 use Mush\Player\Enum\EndCauseEnum;
-use Mush\Player\Enum\ModifierTargetEnum;
-use Mush\Player\Event\PlayerEvent;
+use Mush\Player\Event\PlayerModifierEvent;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
@@ -58,16 +56,11 @@ class RoomSubscriber implements EventSubscriberInterface
 
         $difficultyConfig = $room->getDaedalus()->getGameConfig()->getDifficultyConfig();
         foreach ($room->getPlayers()->getPlayerAlive() as $player) {
-            $damage = $this->randomService->getSingleRandomElementFromProbaArray($difficultyConfig->getTremorPlayerDamage());
-            $actionModifier = new Modifier();
-            $actionModifier
-                ->setDelta(-$damage)
-                ->setTarget(ModifierTargetEnum::HEALTH_POINT)
-            ;
-            $playerEvent = new PlayerEvent($player, $event->getTime());
-            $playerEvent->setReason(EndCauseEnum::INJURY);
-            $playerEvent->setModifier($actionModifier);
-            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
+            $damage = (int) $this->randomService->getSingleRandomElementFromProbaArray($difficultyConfig->getTremorPlayerDamage());
+
+            $playerModifierEvent = new PlayerModifierEvent($player, -$damage, $event->getTime());
+            $playerModifierEvent->setReason(EndCauseEnum::INJURY);
+            $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
         }
 
         //@TODO add the log in case gravity is broken
@@ -93,16 +86,11 @@ class RoomSubscriber implements EventSubscriberInterface
 
         $difficultyConfig = $room->getDaedalus()->getGameConfig()->getDifficultyConfig();
         foreach ($room->getPlayers()->getPlayerAlive() as $player) {
-            $damage = $this->randomService->getSingleRandomElementFromProbaArray($difficultyConfig->getElectricArcPlayerDamage());
-            $actionModifier = new Modifier();
-            $actionModifier
-                ->setDelta(-$damage)
-                ->setTarget(ModifierTargetEnum::HEALTH_POINT)
-            ;
-            $playerEvent = new PlayerEvent($player, $event->getTime());
-            $playerEvent->setReason(EndCauseEnum::ELECTROCUTED);
-            $playerEvent->setModifier($actionModifier);
-            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
+            $damage = (int) $this->randomService->getSingleRandomElementFromProbaArray($difficultyConfig->getElectricArcPlayerDamage());
+
+            $playerModifierEvent = new PlayerModifierEvent($player, -$damage, $event->getTime());
+            $playerModifierEvent->setReason(EndCauseEnum::ELECTROCUTED);
+            $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
         }
 
         //@FIXME does electric arc break everythings?

@@ -41,8 +41,6 @@ class PlayerServiceTest extends TestCase
     /** @var StatusServiceInterface | Mockery\Mock */
     private StatusServiceInterface $statusService;
     /** @var RandomServiceInterface | Mockery\Mock */
-    private RandomServiceInterface $randomService;
-    /** @var RandomServiceInterface | Mockery\Mock */
     private GameEquipmentServiceInterface $gameEquipmentService;
 
     private CharacterConfigCollection $charactersConfig;
@@ -136,7 +134,7 @@ class PlayerServiceTest extends TestCase
         ;
 
         $this->statusService
-            ->shouldReceive('createSporeStatus')
+            ->shouldReceive('createChargeStatus')
             ->once()
         ;
 

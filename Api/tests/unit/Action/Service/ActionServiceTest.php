@@ -7,25 +7,39 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionService;
+use Mush\Action\Service\ActionServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\ModifierTargetEnum;
+use Mush\Player\Event\PlayerModifierEvent;
 use Mush\Player\Service\ActionModifierServiceInterface;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ActionServiceTest extends TestCase
 {
+    /** @var EventDispatcherInterface | Mockery\Mock */
+    private EventDispatcherInterface $eventDispatcher;
+    /** @var StatusServiceInterface | Mockery\Mock */
+    private StatusServiceInterface $statusService;
+    /** @var ActionModifierServiceInterface | Mockery\Mock */
+    private ActionModifierServiceInterface $actionModifierService;
+
+    private ActionServiceInterface $service;
+
     /**
      * @before
      */
     public function before()
     {
+        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
         $this->actionModifierService = Mockery::mock(ActionModifierServiceInterface::class);
 
         $this->service = new ActionService(
+            $this->eventDispatcher,
             $this->actionModifierService,
             $this->statusService
         );
@@ -132,40 +146,55 @@ class ActionServiceTest extends TestCase
         $player = $this->createPlayer(5, 5, 5);
         $action = $this->createAction(1, null, null);
 
-        $this->actionModifierService->shouldReceive('getModifiedValue')
+        $this->actionModifierService
+            ->shouldReceive('getModifiedValue')
             ->with(1, $player, [ActionEnum::TAKE], ModifierTargetEnum::ACTION_POINT)
             ->andReturn(1)
             ->once()
         ;
 
-        $player = $this->service->applyCostToPlayer($player, $action);
-        $this->assertEquals(4, $player->getActionPoint());
-        $this->assertEquals(5, $player->getMovementPoint());
-        $this->assertEquals(5, $player->getMoralPoint());
+        $eventDispatched = static function (int $delta, string $name) {
+            return fn (PlayerModifierEvent $event, string $eventName) => ($event->getDelta() === $delta && $eventName === $name);
+        };
+
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
+            ->withArgs($eventDispatched(-1, PlayerModifierEvent::ACTION_POINT_MODIFIER))
+            ->once()
+        ;
+
+        $this->service->applyCostToPlayer($player, $action);
 
         //movement cost
         $player = $this->createPlayer(5, 5, 5);
         $action = $this->createAction(null, 1, null);
 
-        $this->actionModifierService->shouldReceive('getModifiedValue')
+        $this->actionModifierService
+            ->shouldReceive('getModifiedValue')
             ->with(1, $player, [ActionEnum::TAKE], ModifierTargetEnum::MOVEMENT_POINT)
             ->andReturn(1)
             ->once()
         ;
 
-        $player = $this->service->applyCostToPlayer($player, $action);
-        $this->assertEquals(5, $player->getActionPoint());
-        $this->assertEquals(4, $player->getMovementPoint());
-        $this->assertEquals(5, $player->getMoralPoint());
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
+            ->withArgs($eventDispatched(-1, PlayerModifierEvent::MOVEMENT_POINT_MODIFIER))
+            ->once()
+        ;
+
+        $this->service->applyCostToPlayer($player, $action);
 
         //moral cost
         $player = $this->createPlayer(5, 5, 5);
         $action = $this->createAction(null, null, 1);
 
-        $player = $this->service->applyCostToPlayer($player, $action);
-        $this->assertEquals(5, $player->getActionPoint());
-        $this->assertEquals(5, $player->getMovementPoint());
-        $this->assertEquals(4, $player->getMoralPoint());
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
+            ->withArgs($eventDispatched(-1, PlayerModifierEvent::MORAL_POINT_MODIFIER))
+            ->once()
+        ;
+
+        $this->service->applyCostToPlayer($player, $action);
 
         //mixed cost
         $player = $this->createPlayer(5, 5, 5);
@@ -177,10 +206,18 @@ class ActionServiceTest extends TestCase
             ->once()
         ;
 
-        $player = $this->service->applyCostToPlayer($player, $action);
-        $this->assertEquals(4, $player->getActionPoint());
-        $this->assertEquals(5, $player->getMovementPoint());
-        $this->assertEquals(4, $player->getMoralPoint());
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
+            ->withArgs(
+                fn (PlayerModifierEvent $event, string $eventName) => (
+                    $event->getDelta() === -1 &&
+                    in_array($eventName, [PlayerModifierEvent::ACTION_POINT_MODIFIER, PlayerModifierEvent::MORAL_POINT_MODIFIER])
+                )
+            )
+            ->twice()
+        ;
+
+        $this->service->applyCostToPlayer($player, $action);
 
         //ActionPoint with modifiers
         $player = $this->createPlayer(5, 5, 5);
@@ -192,10 +229,13 @@ class ActionServiceTest extends TestCase
             ->once()
         ;
 
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
+            ->withArgs($eventDispatched(-3, PlayerModifierEvent::ACTION_POINT_MODIFIER))
+            ->once()
+        ;
+
         $player = $this->service->applyCostToPlayer($player, $action);
-        $this->assertEquals(2, $player->getActionPoint());
-        $this->assertEquals(5, $player->getMovementPoint());
-        $this->assertEquals(5, $player->getMoralPoint());
     }
 
     public function testGetSuccessRate()

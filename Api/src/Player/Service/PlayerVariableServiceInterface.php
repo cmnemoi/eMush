@@ -2,14 +2,21 @@
 
 namespace Mush\Player\Service;
 
-use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
 
 interface PlayerVariableServiceInterface
 {
-    public function modifyPlayerVariable(Player $player, Modifier $actionModifier, \DateTime $date = null): Player;
-
     public function getMaxPlayerVariable(Player $player, string $target): int;
+
+    public function handleActionPointModifier(int $delta, Player $player): Player;
+
+    public function handleMovementPointModifier(int $delta, Player $player): Player;
+
+    public function handleHealthPointModifier(int $delta, Player $player): Player;
+
+    public function handleMoralPointModifier(int $delta, Player $player): Player;
+
+    public function handleSatietyModifier(int $delta, Player $player): Player;
 
     public function setPlayerVariableToMax(Player $player, string $target, \DateTime $date = null): Player;
 }

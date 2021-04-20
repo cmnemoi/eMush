@@ -30,8 +30,6 @@ interface StatusServiceInterface
 
     public function createAttemptStatus(string $statusName, string $action, Player $player): Attempt;
 
-    public function createSporeStatus(Player $player): ChargeStatus;
-
     public function persist(Status $status): Status;
 
     public function delete(Status $status): bool;
@@ -40,5 +38,5 @@ interface StatusServiceInterface
 
     public function getByCriteria(StatusCriteria $criteria): Collection;
 
-    public function changeCharge(ChargeStatus $chargeStatus, int $delta): ?ChargeStatus;
+    public function updateCharge(ChargeStatus $chargeStatus, int $delta): ?ChargeStatus;
 }

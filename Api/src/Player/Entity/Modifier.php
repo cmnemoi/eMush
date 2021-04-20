@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
+ * @TODO: Move that to Equipment directory
  */
 class Modifier
 {

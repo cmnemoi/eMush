@@ -8,9 +8,7 @@ use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\FullHealth;
-use Mush\Player\Entity\Modifier;
-use Mush\Player\Enum\ModifierTargetEnum;
-use Mush\Player\Event\PlayerEvent;
+use Mush\Player\Event\PlayerModifierEvent;
 use Mush\Player\Service\PlayerServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -53,14 +51,8 @@ class SelfHeal extends AbstractAction
     {
         //@TODO remove diseases
 
-        $actionModifier = new Modifier();
-        $actionModifier
-            ->setDelta(self::BASE_HEAL)
-            ->setTarget(ModifierTargetEnum::HEALTH_POINT);
-
-        $playerEvent = new PlayerEvent($this->player);
-        $playerEvent->setModifier($actionModifier);
-        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
+        $playerModifierEvent = new PlayerModifierEvent($this->player, self::BASE_HEAL);
+        $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
 
         $this->playerService->persist($this->player);
 

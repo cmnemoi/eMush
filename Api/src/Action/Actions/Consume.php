@@ -15,9 +15,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
-use Mush\Player\Entity\Modifier;
-use Mush\Player\Enum\ModifierTargetEnum;
-use Mush\Player\Event\PlayerEvent;
+use Mush\Player\Event\PlayerModifierEvent;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -95,51 +93,25 @@ class Consume extends AbstractAction
 
     protected function dispatchConsumableEffects(ConsumableEffect $consumableEffect): void
     {
-        $modifier = new Modifier();
         if ($consumableEffect->getActionPoint() !== 0) {
-            $modifier
-                ->setDelta($consumableEffect->getActionPoint())
-                ->setTarget(ModifierTargetEnum::ACTION_POINT)
-            ;
-            $playerEvent = new PlayerEvent($this->player);
-            $playerEvent->setModifier($modifier);
-            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
+            $playerModifierEvent = new PlayerModifierEvent($this->player, $consumableEffect->getActionPoint());
+            $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::ACTION_POINT_MODIFIER);
         }
         if ($consumableEffect->getMovementPoint() !== 0) {
-            $modifier
-                ->setDelta($consumableEffect->getMovementPoint())
-                ->setTarget(ModifierTargetEnum::MOVEMENT_POINT)
-            ;
-            $playerEvent = new PlayerEvent($this->player);
-            $playerEvent->setModifier($modifier);
-            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
+            $playerModifierEvent = new PlayerModifierEvent($this->player, $consumableEffect->getMovementPoint());
+            $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::MOVEMENT_POINT_MODIFIER);
         }
         if ($consumableEffect->getHealthPoint() !== 0) {
-            $modifier
-                ->setDelta($consumableEffect->getHealthPoint())
-                ->setTarget(ModifierTargetEnum::HEALTH_POINT)
-            ;
-            $playerEvent = new PlayerEvent($this->player);
-            $playerEvent->setModifier($modifier);
-            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
+            $playerModifierEvent = new PlayerModifierEvent($this->player, $consumableEffect->getHealthPoint());
+            $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
         }
         if ($consumableEffect->getMoralPoint() !== 0) {
-            $modifier
-                ->setDelta($consumableEffect->getMoralPoint())
-                ->setTarget(ModifierTargetEnum::MORAL_POINT)
-            ;
-            $playerEvent = new PlayerEvent($this->player);
-            $playerEvent->setModifier($modifier);
-            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
+            $playerModifierEvent = new PlayerModifierEvent($this->player, $consumableEffect->getMoralPoint());
+            $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::ACTION_POINT_MODIFIER);
         }
         if ($consumableEffect->getSatiety() !== 0) {
-            $modifier
-                ->setDelta($consumableEffect->getSatiety())
-                ->setTarget(ModifierTargetEnum::SATIETY)
-            ;
-            $playerEvent = new PlayerEvent($this->player);
-            $playerEvent->setModifier($modifier);
-            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
+            $playerModifierEvent = new PlayerModifierEvent($this->player, $consumableEffect->getSatiety());
+            $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::SATIETY_POINT_MODIFIER);
         }
     }
 }

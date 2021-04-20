@@ -3,10 +3,8 @@
 namespace Mush\Status\CycleHandler;
 
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
-use Mush\Player\Enum\ModifierTargetEnum;
-use Mush\Player\Event\PlayerEvent;
+use Mush\Player\Event\PlayerModifierEvent;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -28,19 +26,9 @@ class LyingDown extends AbstractStatusCycleHandler
             return;
         }
 
-        $playerEvent = new PlayerEvent($statusHolder, $dateTime);
-        $actionModifier = new Modifier();
-        $actionModifier
-            ->setDelta(1)
-            ->setTarget(ModifierTargetEnum::ACTION_POINT)
-        ;
-
-        $playerEvent
-            ->setModifier($actionModifier)
-            ->setReason(PlayerStatusEnum::LYING_DOWN)
-        ;
-
-        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
+        $playerModifierEvent = new PlayerModifierEvent($statusHolder, 1, $dateTime);
+        $playerModifierEvent->setReason(PlayerStatusEnum::LYING_DOWN);
+        $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::ACTION_POINT_MODIFIER);
     }
 
     public function handleNewDay(Status $status, Daedalus $daedalus, StatusHolderInterface $statusHolder, \DateTime $dateTime): void

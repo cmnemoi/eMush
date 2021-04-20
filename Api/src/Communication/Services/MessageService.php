@@ -9,19 +9,25 @@ use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\Dto\CreateMessage;
 use Mush\Communication\Entity\Message;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 
 class MessageService implements MessageServiceInterface
 {
+    const CRAZY_NERON_CHANCE = 25;
+
     private ChannelServiceInterface $channelService;
     private EntityManagerInterface $entityManager;
+    private RandomServiceInterface $randomservice;
 
     public function __construct(
         ChannelServiceInterface $channelService,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        RandomServiceInterface $randomservice
     ) {
         $this->channelService = $channelService;
         $this->entityManager = $entityManager;
+        $this->randomservice = $randomservice;
     }
 
     public function createPlayerMessage(Player $player, CreateMessage $createMessage): Message
@@ -59,18 +65,29 @@ class MessageService implements MessageServiceInterface
             ;
     }
 
-    public function createNeronMessage(string $messageCode, Daedalus $daedalus, \DateTime $dateTime): Message
+    public function createNeronMessage(string $messageCode, Daedalus $daedalus, array $parameters, \DateTime $dateTime): Message
     {
         $publicChannel = $this->channelService->getPublicChannel($daedalus);
         if ($publicChannel === null) {
             throw new \LogicException('Daedalus do not have a public channel');
         }
 
+        $neron = $daedalus->getNeron();
+        //Get Neron personality
+        if (!$neron->isInhibited()) {
+            $parameters['neronMood'] = 'uninhibited';
+        } elseif ($this->randomservice->randomPercent() <= self::CRAZY_NERON_CHANCE) {
+            $parameters['neronMood'] = 'crazy';
+        } else {
+            $parameters['neronMood'] = 'neutral';
+        }
+
         $message = new Message();
         $message
-            ->setNeron($daedalus->getNeron())
+            ->setNeron($neron)
             ->setChannel($publicChannel)
             ->setMessage($messageCode)
+            ->setTranslationParameters($parameters)
             ->setCreatedAt($dateTime)
             ->setUpdatedAt($dateTime)
         ;

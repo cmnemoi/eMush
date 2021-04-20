@@ -12,6 +12,7 @@ use Mush\Communication\Services\MessageService;
 use Mush\Communication\Services\MessageServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\Neron;
+use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use PHPUnit\Framework\TestCase;
 
@@ -21,6 +22,8 @@ class MessageServiceTest extends TestCase
     private EntityManagerInterface $entityManager;
     /** @var ChannelServiceInterface | Mockery\Mock */
     private ChannelServiceInterface $channelService;
+    /** @var RandomServiceInterface | Mockery\Mock */
+    private RandomServiceInterface $randomService;
 
     private MessageServiceInterface $service;
 
@@ -31,6 +34,7 @@ class MessageServiceTest extends TestCase
     {
         $this->entityManager = Mockery::mock(EntityManagerInterface::class);
         $this->channelService = Mockery::mock(ChannelServiceInterface::class);
+        $this->randomService = Mockery::mock(RandomServiceInterface::class);
 
         $this->entityManager->shouldReceive([
             'persist' => null,
@@ -39,7 +43,8 @@ class MessageServiceTest extends TestCase
 
         $this->service = new MessageService(
             $this->channelService,
-            $this->entityManager
+            $this->entityManager,
+            $this->randomService
         );
     }
 
@@ -88,15 +93,17 @@ class MessageServiceTest extends TestCase
         $daedalus = new Daedalus();
         $channel = new Channel();
         $neron = new Neron();
+        $neron->setIsInhibited(false);
         $daedalus->setNeron($neron);
 
         $this->channelService->shouldReceive('getPublicChannel')->andReturn($channel)->once();
 
-        $message = $this->service->createNeronMessage('message', $daedalus, new \DateTime());
+        $message = $this->service->createNeronMessage('message', $daedalus, ['player' => 'hua'], new \DateTime());
 
         $this->assertInstanceOf(Message::class, $message);
         $this->assertEquals('message', $message->getMessage());
         $this->assertEquals($neron, $message->getNeron());
+        $this->assertEquals(['player' => 'hua', 'neronMood' => 'uninhibited'], $message->getTranslationParameters());
         $this->assertNull($message->getAuthor());
         $this->assertNull($message->getParent());
         $this->assertEquals($channel, $message->getChannel());

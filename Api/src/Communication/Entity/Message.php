@@ -54,6 +54,11 @@ class Message
      */
     private string $message;
 
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private ?array $translationParameters = null;
+
     public function __construct()
     {
         $this->child = new ArrayCollection();
@@ -117,6 +122,21 @@ class Message
     public function setMessage(string $message): Message
     {
         $this->message = $message;
+
+        return $this;
+    }
+
+    public function getTranslationParameters(): ?array
+    {
+        return $this->translationParameters;
+    }
+
+    /**
+     * @return static
+     */
+    public function setTranslationParameters(array $translationParameters): Message
+    {
+        $this->translationParameters = $translationParameters;
 
         return $this;
     }

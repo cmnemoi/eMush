@@ -5,6 +5,7 @@ namespace Mush\Communication\Repository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Mush\Communication\Entity\Message;
+use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Daedalus\Entity\Daedalus;
 
 class MessageRepository extends ServiceEntityRepository
@@ -21,8 +22,10 @@ class MessageRepository extends ServiceEntityRepository
         $queryBuilder
             ->where($queryBuilder->expr()->eq('message.neron', ':neron'))
             ->andWhere($queryBuilder->expr()->gte('message.createdAt', ':cycleStart'))
+            ->andWhere($queryBuilder->expr()->eq('message.message', ':failureMessage'))
             ->setParameter('neron', $daedalus->getNeron()->getId())
             ->setParameter('cycleStart', $daedalus->getCycleStartedAt())
+            ->setParameter('failureMessage', NeronMessageEnum::CYCLE_FAILURES)
         ;
 
         return $queryBuilder->getQuery()->getOneOrNullResult();

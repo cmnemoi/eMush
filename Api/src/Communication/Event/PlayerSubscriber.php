@@ -2,25 +2,22 @@
 
 namespace Mush\Communication\Event;
 
-use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Communication\Services\ChannelServiceInterface;
-use Mush\Communication\Services\MessageServiceInterface;
-use Mush\Game\Enum\CharacterEnum;
-use Mush\Player\Enum\EndCauseEnum;
+use Mush\Communication\Services\NeronMessageServiceInterface;
 use Mush\Player\Event\PlayerEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class PlayerSubscriber implements EventSubscriberInterface
 {
     private ChannelServiceInterface $channelService;
-    private MessageServiceInterface $messageService;
+    private NeronMessageServiceInterface $neronMessageService;
 
     public function __construct(
         ChannelServiceInterface $channelService,
-        MessageServiceInterface $messageService
+        NeronMessageServiceInterface $neronMessageService
     ) {
         $this->channelService = $channelService;
-        $this->messageService = $messageService;
+        $this->neronMessageService = $neronMessageService;
     }
 
     public static function getSubscribedEvents(): array
@@ -39,28 +36,9 @@ class PlayerSubscriber implements EventSubscriberInterface
 
     public function onDeathPlayer(PlayerEvent $event): void
     {
-        $player = $event->getPlayer();
-
-        $playerName = $player->getCharacterConfig()->getName();
-        $cause = $event->getReason();
-
-        switch ($playerName) {
-            case CharacterEnum::RALUCA:
-                $message = NeronMessageEnum::RALUCA_DEATH;
-                break;
-            case CharacterEnum::JANICE:
-                $message = NeronMessageEnum::JANICE_DEATH;
-                break;
-            default:
-                if ($cause === EndCauseEnum::ASPHYXIA) {
-                    $message = NeronMessageEnum::ASPHYXIA_DEATH;
-                } else {
-                    $message = NeronMessageEnum::PLAYER_DEATH;
-                }
-                break;
+        if (!($reason = $event->getReason())) {
+            throw new \LogicException('Player should die with a reason');
         }
-
-        $parameters = ['player' => $playerName, 'cause' => $cause];
-        $this->messageService->createNeronMessage($message, $player->getDaedalus(), $parameters, $event->getTime());
+        $this->neronMessageService->createPlayerDeathMessage($event->getPlayer(), $reason, $event->getTime());
     }
 }

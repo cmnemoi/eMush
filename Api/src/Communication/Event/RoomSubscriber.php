@@ -2,19 +2,18 @@
 
 namespace Mush\Communication\Event;
 
-use Mush\Communication\Enum\NeronMessageEnum;
-use Mush\Communication\Services\MessageServiceInterface;
+use Mush\Communication\Services\NeronMessageServiceInterface;
 use Mush\Place\Event\RoomEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class RoomSubscriber implements EventSubscriberInterface
 {
-    private MessageServiceInterface $messageService;
+    private NeronMessageServiceInterface $neronMessageService;
 
     public function __construct(
-        MessageServiceInterface $messageService
+        NeronMessageServiceInterface $neronMessageService
     ) {
-        $this->messageService = $messageService;
+        $this->neronMessageService = $neronMessageService;
     }
 
     public static function getSubscribedEvents(): array
@@ -28,8 +27,6 @@ class RoomSubscriber implements EventSubscriberInterface
     {
         $daedalus = $event->getRoom()->getDaedalus();
 
-        $parentMessage = $this->messageService->getMessageNeronCycleFailures($daedalus);
-
-        $this->messageService->createNeronMessage(NeronMessageEnum::NEW_FIRE, $daedalus, [], $event->getTime(), $parentMessage);
+        $this->neronMessageService->createNewFireMessage($daedalus, $event->getTime());
     }
 }

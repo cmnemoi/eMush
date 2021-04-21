@@ -4,21 +4,21 @@ namespace Mush\Communication\Event;
 
 use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Communication\Services\ChannelServiceInterface;
-use Mush\Communication\Services\MessageServiceInterface;
+use Mush\Communication\Services\NeronMessageServiceInterface;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class DaedalusSubscriber implements EventSubscriberInterface
 {
     private ChannelServiceInterface $channelService;
-    private MessageServiceInterface $messageService;
+    private NeronMessageServiceInterface $neronMessageService;
 
     public function __construct(
         ChannelServiceInterface $channelService,
-        MessageServiceInterface $messageService,
+        NeronMessageServiceInterface $neronMessageService,
     ) {
         $this->channelService = $channelService;
-        $this->messageService = $messageService;
+        $this->neronMessageService = $neronMessageService;
     }
 
     public static function getSubscribedEvents(): array
@@ -39,6 +39,6 @@ class DaedalusSubscriber implements EventSubscriberInterface
     public function onDaedalusFull(DaedalusEvent $event): void
     {
         $daedalus = $event->getDaedalus();
-        $this->messageService->createNeronMessage(NeronMessageEnum::START_GAME, $daedalus, [], new \DateTime());
+        $this->neronMessageService->createNeronMessage(NeronMessageEnum::START_GAME, $daedalus, [], $event->getTime());
     }
 }

@@ -18,7 +18,7 @@ class EquipmentEvent extends Event
     private ?string $reason;
     private \DateTime $time;
 
-    public function __construct(GameEquipment $equipment, string $visibility, $time = null)
+    public function __construct(GameEquipment $equipment, string $visibility, ?\DateTime $time = null)
     {
         $this->time = $time ?? new \DateTime();
         $this->equipment = $equipment;

@@ -303,6 +303,7 @@ class DaedalusService implements DaedalusServiceInterface
     {
         $neron = new Neron();
         $neron->setDaedalus($daedalus);
+        $daedalus->setNeron($neron);
 
         $this->entityManager->persist($neron);
 

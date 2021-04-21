@@ -2,34 +2,18 @@
 
 namespace Mush\Daedalus\Event;
 
-use Mush\Communication\Services\MessageServiceInterface;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Game\Enum\GameStatusEnum;
-use Mush\Game\Service\RandomServiceInterface;
-use Mush\Status\Service\StatusServiceInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class DaedalusSubscriber implements EventSubscriberInterface
 {
     private DaedalusServiceInterface $daedalusService;
-    private EventDispatcherInterface $eventDispatcher;
-    private RandomServiceInterface $randomService;
-    private StatusServiceInterface $statusService;
-    private MessageServiceInterface $messageService;
 
     public function __construct(
         DaedalusServiceInterface $daedalusService,
-        EventDispatcherInterface $eventDispatcher,
-        RandomServiceInterface $randomService,
-        StatusServiceInterface $statusService,
-        MessageServiceInterface $messageService,
     ) {
         $this->daedalusService = $daedalusService;
-        $this->eventDispatcher = $eventDispatcher;
-        $this->randomService = $randomService;
-        $this->statusService = $statusService;
-        $this->messageService = $messageService;
     }
 
     public static function getSubscribedEvents(): array

@@ -18,20 +18,37 @@
             <div class="project">
                 <h3>Anti-gravity Thrusters</h3>
                 <div class="card">
-                    <img src="http://mush.twinoid.com/img/cards/projects/icarus_antigrav_propeller.png">
+                    <img src="@/assets/images/projects/icarus_antigrav_propeller.png">
                     <div class="progress-container">
                         <div>
-                            <img class="skill" src="http://mush.twinoid.com/img/icons/skills/pilot.png">
-                            <img class="skill" src="http://mush.twinoid.com/img/icons/skills/physicist.png">
+                            <img class="skill" src="@/assets/images/skills/cook.png">
+                            <img class="skill" src="@/assets/images/skills/sturdy.png">
                         </div>
                         <span class="completion">0%</span>
                     </div>
                 </div>
                 <p class="description">Increases your chances of successfully landing on a planet</p>
                 <p class="efficiency">Efficiency : 18% - 18%</p>
-                <button class="action-participate">1x Participate</button>
+                <button class="action-participate">Participate</button>
+            </div>
+
+            <div class="project ongoing">
+                <h3>Launch Propulsion System</h3>
+                <div class="card">
+                    <img src="@/assets/images/projects/patrol_ship_launcher.png">
+                    <div class="progress-container">
+                        <div>
+                            <img class="skill" src="@/assets/images/skills/sturdy.png">
+                        </div>
+                        <span class="completion">25%</span>
+                    </div>
+                </div>
+                <p class="description">Takeoff manœuvres cost less :ap: .</p>
+                <p class="efficiency">Efficiency : 3% - 3%</p>
+                <button class="action-participate">Participate</button>
             </div>
         </div>
+        <button class="exit">Exit</button>
     </div>
 </template>
 
@@ -81,6 +98,7 @@ export default {
             overflow: hidden;
             opacity: .5;
             height: 1.55em;
+            padding-bottom: .5em;
             line-height: 1.35em;
             font-style: italic;
 
@@ -97,27 +115,49 @@ export default {
 
         .expand {
             position: absolute;
-            top: -.75em;
+            top: -1.5em;
             right: .8em;
-            padding: 1px 3px;
-            border-radius: 5px;
+            padding: .2em .5em;
+            border-radius: 5px 5px 0 0;
             background: #84e100;
-            color: white;
-            font-size: .75em;
-            font-weight: bold;
+            font-size: .8em;
             text-transform: uppercase;
             letter-spacing: .05em;
-            text-shadow: 0 0 3px rgba(0, 0, 0, .4);
         }
     }
 
     .project-container {
         flex-direction: row;
         align-items: stretch;
-        min-height: 272px;
+        padding-bottom: .3em;
+        min-height: 276px;
+        overflow: auto;
+
+        --scrollbarBG: white;
+        --thumbBG: rgba(0, 116, 223, 1);
+        --border-radius: 6px;
+
+        scrollbar-width: medium;
+        scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+
+        &::-webkit-scrollbar {
+            height: 8px;
+            border-radius: var(--border-radius);
+        }
+
+        &::-webkit-scrollbar-track {
+            background: var(--scrollbarBG);
+            border-radius: var(--border-radius);
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: var(--thumbBG);
+            border-radius: var(--border-radius);
+        }
 
         .project {
-            width: 128px;
+            min-width: 132px;
+            width: 132px;
             padding-bottom: .4em;
             margin-right: 6px;
             background: #a6eefb url("http://data.mush.twinoid.com/img/design/neroncore_bg.png") no-repeat right bottom;
@@ -126,14 +166,19 @@ export default {
             @include corner-bezel(0, 6.5px, 0);
 
             h3 {
+                display: flex;
+                align-items: center;
+                justify-content: center;
                 width: 100%;
                 min-height: 42px;
                 margin: 0;
+                padding-bottom: .25em;
                 background: #89e8fa;
                 text-align: center;
                 font-size: 1em;
                 font-weight: normal;
                 font-variant: small-caps;
+                line-height: 1em;
             }
 
             .card {
@@ -159,15 +204,20 @@ export default {
                 .completion {
                     margin: .1em;
                     font-size: 2.25em;
+                    letter-spacing: -.03em;
                     opacity: .7;
                     text-align: center;
                 }
             }
 
-            .description { margin: .8em 4px; }
+            .description {
+                margin: .8em 4px;
+                flex: 1;
+            }
 
             .efficiency {
                 opacity: .6;
+                margin: .6em 0;
                 font-size: .9em;
                 font-style: italic;
                 text-align: center;
@@ -175,7 +225,44 @@ export default {
 
             .action-participate {
                 @include button-style($font-size: 1em);
+                margin: 1px 4px;
             }
+
+            &.ongoing {
+                border-color: #84e100;
+
+                .completion {
+                    opacity: 1;
+                    color: darken(#84e100, 5%);
+                    text-shadow: 0 0 10px white;
+                    }
+            }
+        }
+    }
+
+    .exit {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 120px;
+        min-height: 22px;
+        transform: translateY(100%);
+        align-items: center;
+        justify-content: center;
+        padding: .2em;
+        background: #232e6e;
+        border-radius: 0 0 3px 3px;
+        color: white;
+        font-size: 1em;
+        font-weight: 700;
+        font-variant: small-caps;
+        letter-spacing: 0.03em;
+        text-decoration: none;
+        text-align: center;
+        text-shadow: 0 0 4px #15273c, 0 0 4px #15273c;
+
+        &:hover, &:focus, &:active {
+            background: #c2f3fc;
         }
     }
 }

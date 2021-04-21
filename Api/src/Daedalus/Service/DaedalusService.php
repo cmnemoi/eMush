@@ -121,9 +121,9 @@ class DaedalusService implements DaedalusServiceInterface
             ->setDailySpores($daedalusConfig->getDailySporeNb())
         ;
 
-        $this->persist($daedalus);
-
         $this->createNeron($daedalus);
+
+        $this->persist($daedalus);
 
         /** @var PlaceConfig $placeConfig */
         foreach ($daedalusConfig->getPlaceConfigs() as $placeConfig) {
@@ -303,6 +303,7 @@ class DaedalusService implements DaedalusServiceInterface
     {
         $neron = new Neron();
         $neron->setDaedalus($daedalus);
+        $daedalus->setNeron($neron);
 
         $this->entityManager->persist($neron);
 

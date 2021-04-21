@@ -7,9 +7,11 @@ use Mockery;
 use Mush\Communication\Entity\Message;
 use Mush\Communication\Normalizer\MessageNormalizer;
 use Mush\Daedalus\Entity\Neron;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\EndCauseEnum;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -84,16 +86,52 @@ class MessageNormalizerTest extends TestCase
             ->setNeron($neron)
             ->setMessage('message')
             ->setCreatedAt($createdAt)
+            ->setTranslationParameters([
+                'player' => CharacterEnum::ANDIE,
+                'cause' => EndCauseEnum::ABANDONED,
+                'targetEquipment' => EquipmentEnum::ANTENNA,
+            ])
         ;
 
-        $this->translator->shouldReceive('trans')->andReturn('translatedName');
+        $this->translator
+            ->shouldReceive('trans')
+            ->with(CharacterEnum::ANDIE . '.name', [], 'characters')
+            ->andReturn('Andie')
+        ;
+        $this->translator
+            ->shouldReceive('trans')
+            ->with(EndCauseEnum::ABANDONED . '.name', [], 'end_cause')
+            ->andReturn('abandoné')
+        ;
+        $this->translator
+            ->shouldReceive('trans')
+            ->with(EquipmentEnum::ANTENNA . '.name', [], 'equipments')
+            ->andReturn('antenne')
+        ;
+        $this->translator
+            ->shouldReceive('trans')
+            ->with(EquipmentEnum::ANTENNA . '.genre', [], 'equipments')
+            ->andReturn('female')
+        ;
+
+        $parametersArray = ['player' => 'Andie', 'cause' => 'abandoné', 'target' => 'antenne', 'target_gender' => 'female'];
+        $this->translator
+            ->shouldReceive('trans')
+            ->with('message', $parametersArray, 'neron')
+            ->andReturn('translatedMessage')
+        ;
+        $this->translator
+            ->shouldReceive('trans')
+            ->with(CharacterEnum::NERON . '.name', [], 'characters')
+            ->andReturn('translatedName')
+        ;
 
         $normalizedData = $this->normalizer->normalize($message);
 
         $this->assertEquals([
             'id' => null,
             'character' => ['key' => CharacterEnum::NERON, 'value' => 'translatedName'],
-            'message' => 'message',
+            'message' => 'translatedMessage',
             'createdAt' => $createdAt->format(\DateTime::ATOM),
             'child' => [],
         ], $normalizedData);
@@ -129,18 +167,35 @@ class MessageNormalizerTest extends TestCase
             ->setChild(new ArrayCollection([$playerMessage]))
         ;
 
-        $this->translator->shouldReceive('trans')->andReturn('translatedName')->twice();
+        $this->translator
+            ->shouldReceive('trans')
+            ->with(CharacterEnum::NERON . '.name', [], 'characters')
+            ->andReturn('translatedName')
+            ->once()
+        ;
+        $this->translator
+            ->shouldReceive('trans')
+            ->with('name' . '.name', [], 'characters')
+            ->andReturn('translated player name')
+            ->once()
+        ;
+        $this->translator
+            ->shouldReceive('trans')
+            ->with('message parent', [], 'neron')
+            ->andReturn('translated message parent')
+            ->once()
+        ;
 
         $normalizedData = $this->normalizer->normalize($neronMessage);
 
         $this->assertEquals([
             'id' => null,
             'character' => ['key' => CharacterEnum::NERON, 'value' => 'translatedName'],
-            'message' => 'message parent',
+            'message' => 'translated message parent',
             'createdAt' => $createdAt->format(\DateTime::ATOM),
             'child' => [[
                 'id' => null,
-                'character' => ['key' => 'name', 'value' => 'translatedName'],
+                'character' => ['key' => 'name', 'value' => 'translated player name'],
                 'message' => 'message child',
                 'createdAt' => $createdAt->format(\DateTime::ATOM),
                 'child' => [],

@@ -172,6 +172,12 @@
                 }</target>
             </segment>
         </unit>
+        <unit id="garden_destroyed">
+            <segment>
+                <source>garden_destroyed</source>
+                <target>Le jardin a été saccagé par l'attaque, sur les 12 plantes, il n'en reste plus que 2 et un pot vide...</target>
+            </segment>
+        </unit>
     </file>
 </xliff>
 

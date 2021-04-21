@@ -2080,12 +2080,12 @@ Vous avez l'impression que cette chose essaie de vous parler. Vous devez sûreme
             <segment id="description">
                 <source>camera.description</source>
                 <target>La caméra est un outils de surveillance bien pratique pour --espionner-- surveiller votre prochain.
-En sa présence, les actions {b}discrètes{\b} et {b}furtives{\b} effectuées sont révélées.</target>
+En sa présence, les actions *discrètes* et *furtives* effectuées sont révélées.</target>
             </segment>
             <segment id="examine">
                 <source>camera.examine</source>
                 <target>La caméra est un outils de surveillance bien pratique pour --espionner-- surveiller votre prochain.
-En sa présence, les actions {b}discrètes{\b} et {b}furtives{\b} effectuées sont révélées.
+En sa présence, les actions *discrètes* et *furtives* effectuées sont révélées.
 Lorsqu'une salle possède une caméra, tous les logs sont sauvegardés dans l'historique et apparaissent publiquement. La caméra repère également les actions discrètes et furtives effectuées. Elle ne fonctionne pas si elle est placée dans votre inventaire personnel.</target>
             </segment>
         </unit>

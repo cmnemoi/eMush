@@ -21,6 +21,7 @@ class ActionLogEnum
     public const GET_UP = 'get_up';
     public const HIDE_SUCCESS = 'hide_success';
     public const HIT_SUCCESS = 'hit_success';
+    public const HIT_FAIL = 'hit_fail';
     public const HYPERFREEZE_SUCCESS = 'hyperfreeze_success';
     public const INFECT_SUCCESS = 'infect_success';
     public const INSERT_OXYGEN = 'insert_oxygen';
@@ -265,6 +266,10 @@ class ActionLogEnum
         ActionEnum::HIT => [
             self::SUCCESS => [
                 self::VALUE => self::HIT_SUCCESS,
+                self::VISIBILITY => VisibilityEnum::PUBLIC,
+            ],
+            self::FAIL => [
+                self::VALUE => self::HIT_FAIL,
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
             ],
         ],

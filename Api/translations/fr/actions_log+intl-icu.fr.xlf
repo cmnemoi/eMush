@@ -148,6 +148,16 @@
                 }</target>
             </segment>
         </unit>
+        <unit id="hit_fail">
+            <segment id="hit_fail">
+                <source>hit_fail</source>
+                <target>{character_gender, select,
+                     other {{target_gender, select,
+                        other {@TODO hit fail log}
+                     }}
+                }</target>
+            </segment>
+        </unit>
         <unit id="hyperfreeze_success">
             <segment id="hyperfreeze_success">
                 <source>hyperfreeze_success</source>

@@ -82,7 +82,7 @@
         <unit id="low.hull">
             <segment id="name">
                 <source>low.hull.name</source>
-                <target>TODO.low_hull.name</target>
+                <target>{quantity, plural, one { TODO.low_hull.name.singular } other { TODO.low_hull.name.plural }}</target>
             </segment>
             <segment id="description">
                 <source>low.hull.description</source>

@@ -79,7 +79,7 @@ class PlaceNormalizerTest extends TestCase
 
         $room->setName(RoomEnum::BRIDGE);
 
-        $this->translator->shouldReceive('trans')->andReturn('translated')->once();
+        $this->translator->shouldReceive('trans')->andReturn('translated')->twice();
 
         $normalizer = Mockery::mock(NormalizerInterface::class);
         $normalizer->shouldReceive('normalize')->andReturn([]);
@@ -93,7 +93,7 @@ class PlaceNormalizerTest extends TestCase
             'key' => $room->getName(),
             'name' => 'translated',
             'statuses' => [],
-            'doors' => [['direction' => $otherRoom->getName()]],
+            'doors' => [['direction' => 'translated']],
             'players' => [],
             'items' => [],
             'equipments' => [],

@@ -32,7 +32,7 @@ class DaedalusWidgetServiceCest
         $alerts = $this->daedalusWidgetService->getAlerts($daedalus);
 
         $I->assertCount(1, $alerts);
-        $I->assertEquals(AlertEnum::NO_ALERT, key($alerts));
+        $I->assertEquals(AlertEnum::NO_ALERT, $alerts[0]['key']);
     }
 
     public function testNoOxygenAndHullAlert(FunctionalTester $I)
@@ -42,7 +42,8 @@ class DaedalusWidgetServiceCest
         $alerts = $this->daedalusWidgetService->getAlerts($daedalus);
 
         $I->assertCount(2, $alerts);
-        $I->assertEquals([AlertEnum::LOW_OXYGEN, AlertEnum::LOW_HULL], array_keys($alerts));
+        $I->assertEquals(AlertEnum::LOW_OXYGEN, $alerts[0]['key']);
+        $I->assertEquals(AlertEnum::LOW_HULL, $alerts[1]['key']);
     }
 
     public function testFireAlert(FunctionalTester $I)
@@ -59,7 +60,7 @@ class DaedalusWidgetServiceCest
         $alerts = $this->daedalusWidgetService->getAlerts($daedalus);
 
         $I->assertCount(1, $alerts);
-        $I->assertEquals([AlertEnum::NUMBER_FIRE], array_keys($alerts));
+        $I->assertEquals(AlertEnum::NUMBER_FIRE, $alerts[0]['key']);
     }
 
     public function testBrokenAlert(FunctionalTester $I)
@@ -119,6 +120,7 @@ class DaedalusWidgetServiceCest
         $alerts = $this->daedalusWidgetService->getAlerts($daedalus);
 
         $I->assertCount(2, $alerts);
-        $I->assertEquals([AlertEnum::BROKEN_DOORS, AlertEnum::BROKEN_EQUIPMENTS], array_keys($alerts));
+        $I->assertEquals(AlertEnum::BROKEN_DOORS, $alerts[0]['key']);
+        $I->assertEquals(AlertEnum::BROKEN_EQUIPMENTS, $alerts[1]['key']);
     }
 }

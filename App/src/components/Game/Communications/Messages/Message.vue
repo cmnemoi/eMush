@@ -1,5 +1,9 @@
 <template>
-    <div v-if="isRoot" class="message main-message" @click="$emit('click')">
+    <div v-if="isRoot"
+         :class="
+        isNeronMessage ? 'message main-message neron' : 'message main-message'"
+         @click="$emit('click')"
+    >
         <div class="character-body">
             <img :src="characterPortrait">
         </div>
@@ -25,7 +29,7 @@ import { formatText } from "@/utils/formatText";
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import { fr } from 'date-fns/locale';
 import { Message } from "@/entities/Message";
-import { characterEnum } from "@/enums/character";
+import { characterEnum, NERON } from "@/enums/character";
 
 export default {
     name: "Message",
@@ -47,6 +51,9 @@ export default {
         characterPortrait: function() {
             const images = characterEnum[this.message.character.key];
             return this.isRoot ? images.body : images.head;
+        },
+        isNeronMessage: function() {
+            return this.message.character.key === NERON;
         }
     },
     methods: {
@@ -180,10 +187,10 @@ export default {
         border-radius: var(--border-radius);
         clip-path:
             polygon(
-                0 var(--border-radius),
-                calc(100% - var(--border-radius)) var(--border-radius),
-                calc(100% - var(--border-radius)) 100%,
-                0 100%
+                    0 var(--border-radius),
+                    calc(100% - var(--border-radius)) var(--border-radius),
+                    calc(100% - var(--border-radius)) 100%,
+                    0 100%
             );
     }
 
@@ -201,10 +208,10 @@ export default {
         border-radius: var(--border-radius);
         clip-path:
             polygon(
-                0 0,
-                calc(100% - var(--border-radius)) 0,
-                calc(100% - var(--border-radius)) calc(100% - var(--border-radius)),
-                0 calc(100% - var(--border-radius))
+                    0 0,
+                    calc(100% - var(--border-radius)) 0,
+                    calc(100% - var(--border-radius)) calc(100% - var(--border-radius)),
+                    0 calc(100% - var(--border-radius))
             );
     }
 }

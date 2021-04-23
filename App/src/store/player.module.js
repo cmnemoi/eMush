@@ -24,6 +24,7 @@ const actions = {
 
             return true;
         } catch (e) {
+            commit('errorUpdatePlayer');
             return false;
         }
     },
@@ -41,6 +42,9 @@ const mutations = {
     },
     updatePlayer(state, player) {
         state.player = player;
+        state.loading = false;
+    },
+    errorUpdatePlayer(state) {
         state.loading = false;
     }
 };

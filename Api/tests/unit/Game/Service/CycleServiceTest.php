@@ -3,6 +3,7 @@
 namespace Mush\Test\Game\Service;
 
 use DateTime;
+use Doctrine\ORM\EntityManagerInterface;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\GameConfig;
@@ -14,6 +15,8 @@ class CycleServiceTest extends TestCase
 {
     /** @var EventDispatcherInterface | Mockery\Mock */
     private EventDispatcherInterface $eventDispatcher;
+    /** @var EntityManagerInterface | Mockery\Mock */
+    private EntityManagerInterface $entityManager;
 
     private CycleService $service;
 
@@ -23,8 +26,12 @@ class CycleServiceTest extends TestCase
     public function before()
     {
         $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
+        $this->entityManager = Mockery::mock(EntityManagerInterface::class);
 
-        $this->service = new CycleService($this->eventDispatcher);
+        $this->entityManager->shouldReceive('persist');
+        $this->entityManager->shouldReceive('flush');
+
+        $this->service = new CycleService($this->entityManager, $this->eventDispatcher);
     }
 
     /**

@@ -110,6 +110,11 @@ class Daedalus
      */
     private DateTime $cycleStartedAt;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=false)
+     */
+    private bool $isCycleChange = false;
+
     public function __construct()
     {
         $this->players = new ArrayCollection();
@@ -435,6 +440,18 @@ class Daedalus
     public function setCycleStartedAt(DateTime $cycleStartedAt): Daedalus
     {
         $this->cycleStartedAt = $cycleStartedAt;
+
+        return $this;
+    }
+
+    public function isCycleChange(): bool
+    {
+        return $this->isCycleChange;
+    }
+
+    public function setIsCycleChange(bool $isCycleChange): Daedalus
+    {
+        $this->isCycleChange = $isCycleChange;
 
         return $this;
     }

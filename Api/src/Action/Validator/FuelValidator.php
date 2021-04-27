@@ -3,10 +3,8 @@
 
 namespace Mush\Action\Validator;
 
-
 use Mush\Action\Actions\AbstractAction;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Player\Entity\Player;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;

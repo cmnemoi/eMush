@@ -11,7 +11,6 @@ use Mush\Action\Validator\Fuel;
 use Mush\Action\Validator\ParameterName;
 use Mush\Action\Validator\Reach;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
-use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;

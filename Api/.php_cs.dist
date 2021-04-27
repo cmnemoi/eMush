@@ -1,7 +1,7 @@
 <?php
 
 $finder = PhpCsFixer\Finder::create()
-    ->in('Api')
+    ->in(__DIR__)
     ->exclude('var')
     ->exclude('_data')
     ->exclude('_generated')

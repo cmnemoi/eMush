@@ -2,7 +2,6 @@
 
 namespace Mush\Test\Action\Actions;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\InsertFuel;

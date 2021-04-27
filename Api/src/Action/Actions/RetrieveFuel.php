@@ -17,6 +17,7 @@ use Mush\Action\Validator\Reach;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -54,7 +55,7 @@ class RetrieveFuel extends AbstractAction
     {
         $metadata->addConstraints([
             new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]),
-            new ParameterName(['name' => ItemEnum::FUEL_CAPSULE, 'groups' => ['visibility']]),
+            new ParameterName(['name' => EquipmentEnum::FUEL_TANK, 'groups' => ['visibility']]),
             new Fuel(['groups' => ['visibility']]),
             new InventoryFull(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::FULL_INVENTORY]),
             new Status([

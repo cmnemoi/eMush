@@ -24,7 +24,9 @@ class GameItem extends GameEquipment
     }
 
     /**
-     * @return static
+     * @param  \Mush\Player\Entity\Player|null  $player
+     *
+     * @return self
      */
     public function setPlayer(?Player $player): GameItem
     {
@@ -42,7 +44,7 @@ class GameItem extends GameEquipment
             }
         }
 
-        if (null === $player && null !== $this->player) {
+        if ($player === null && $this->player !== null) {
             $this->player->removeItem($this);
         }
 
@@ -56,7 +58,7 @@ class GameItem extends GameEquipment
     }
 
     /**
-     * @return static
+     * @return self
      */
     public function removeLocation(): GameItem
     {

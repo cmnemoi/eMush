@@ -24,7 +24,7 @@ class GameItem extends GameEquipment
     }
 
     /**
-     * @return self
+     * @return static
      */
     public function setPlayer(?Player $player): GameItem
     {
@@ -56,7 +56,7 @@ class GameItem extends GameEquipment
     }
 
     /**
-     * @return self
+     * @return static
      */
     public function removeLocation(): GameItem
     {

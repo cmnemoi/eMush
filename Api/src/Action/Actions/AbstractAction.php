@@ -46,7 +46,8 @@ abstract class AbstractAction
     public function loadParameters(Action $action, Player $player, ?ActionParameter $parameter = null): void
     {
         if (!$this->support($parameter)) {
-            throw new \InvalidArgumentException("Invalid action parameter, the parameter [{$parameter->getClassName()}] isn't supported.");
+            $className = isset($parameter) ? $parameter->getClassName() : '$parameter is null';
+            throw new \InvalidArgumentException("Invalid action parameter, the parameter [{$className}] isn't supported.");
         }
 
         $this->action = $action;

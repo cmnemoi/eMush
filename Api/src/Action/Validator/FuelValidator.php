@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Mush\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
@@ -12,7 +11,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 class FuelValidator extends ConstraintValidator
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function validate($value, Constraint $constraint): void
     {

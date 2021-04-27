@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Mush\Action\Actions;
-
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
@@ -14,6 +12,7 @@ use Mush\Action\Validator\Fuel;
 use Mush\Action\Validator\InventoryFull;
 use Mush\Action\Validator\ParameterName;
 use Mush\Action\Validator\Reach;
+use Mush\Action\Validator\Status;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
@@ -21,7 +20,6 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Action\Validator\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -63,7 +61,7 @@ class RetrieveFuel extends AbstractAction
                 'contain' => false,
                 'groups' => ['execute'],
                 'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
-            ])
+            ]),
         ]);
     }
 
@@ -80,7 +78,7 @@ class RetrieveFuel extends AbstractAction
         );
 
         if (!$item instanceof GameItem) {
-            throw new \LogicException('invalid GameItem: ['. $item::class . '].');
+            throw new \LogicException('invalid GameItem: [' . $item::class . '].');
         }
 
         $item->setPlayer($this->getPlayer());

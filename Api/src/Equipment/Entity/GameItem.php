@@ -24,8 +24,6 @@ class GameItem extends GameEquipment
     }
 
     /**
-     * @param  \Mush\Player\Entity\Player|null  $player
-     *
      * @return self
      */
     public function setPlayer(?Player $player): GameItem

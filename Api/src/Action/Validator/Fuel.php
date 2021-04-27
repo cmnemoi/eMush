@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Mush\Action\Validator;
-
 
 class Fuel extends ClassConstraint
 {

@@ -28,6 +28,12 @@ class MessageRepository extends ServiceEntityRepository
             ->setParameter('failureMessage', NeronMessageEnum::CYCLE_FAILURES)
         ;
 
-        return $queryBuilder->getQuery()->getOneOrNullResult();
+        $results = $queryBuilder->getQuery()->getResult();
+
+        if (count($results) === 0) {
+            return null;
+        }
+
+        return current($results);
     }
 }

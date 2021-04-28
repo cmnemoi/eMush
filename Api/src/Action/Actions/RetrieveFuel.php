@@ -14,12 +14,15 @@ use Mush\Action\Validator\ParameterName;
 use Mush\Action\Validator\Reach;
 use Mush\Action\Validator\Status;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
+use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
+use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -67,7 +70,7 @@ class RetrieveFuel extends AbstractAction
 
     protected function support(?ActionParameter $parameter): bool
     {
-        return $parameter instanceof GameEquipment;
+        return $parameter instanceof GameEquipment && !$parameter instanceof Door;
     }
 
     protected function applyEffects(): ActionResult

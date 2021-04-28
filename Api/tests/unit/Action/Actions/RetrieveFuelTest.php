@@ -34,7 +34,7 @@ class RetrieveFuelTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::RETRIEVE_FUEL);
+        $this->actionEntity = $this->createActionEntity(ActionEnum::RETRIEVE_FUEL, 1);
 
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->daedalusService = Mockery::mock(DaedalusServiceInterface::class);
@@ -97,6 +97,6 @@ class RetrieveFuelTest extends AbstractActionTest
         self::assertInstanceOf(Success::class, $result);
         self::assertCount(1, $player->getItems());
         self::assertCount(1, $room->getEquipments());
-        self::assertEquals(10, $player->getActionPoint());
+        self::assertEquals(9, $player->getActionPoint());
     }
 }

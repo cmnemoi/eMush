@@ -63,7 +63,7 @@ class InsertFuel extends AbstractAction
 
         $item->setPlayer(null);
         $this->gameEquipmentService->delete($item);
-        $this->daedalusService->changeFuelLevel($this->player->getDaedalus(), 1);
+        $this->daedalusService->changeFuelLevel($this->getPlayer()->getDaedalus(), 1);
 
         return new Success();
     }

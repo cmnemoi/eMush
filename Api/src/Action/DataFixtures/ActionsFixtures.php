@@ -338,6 +338,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ActionEnum::INSERT_FUEL)
             ->setScope(ActionScopeEnum::ROOM)
             ->setTarget(GameItem::class)
+            ->setDirtyRate(50)
             ->setActionCost($freeCost);
 
         $manager->persist($fuelInjectAction);

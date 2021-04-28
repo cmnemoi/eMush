@@ -38,6 +38,13 @@ class DaedalusSubscriber implements EventSubscriberInterface
         // @TODO: create logs
         // @TODO: remove all fire and charged statuses
 
+        $daedalus->getPlaces()->map(static function ($room) {
+            /** @var \Mush\Place\Entity\Place $room */
+            foreach ($room->getStatuses() as $status) {
+                $room->removeStatus($status);
+            }
+        });
+
         $daedalus->setFinishedAt(new \DateTime());
         $daedalus->setGameStatus(GameStatusEnum::FINISHED);
         $this->daedalusService->persist($daedalus);

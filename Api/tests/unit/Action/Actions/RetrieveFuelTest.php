@@ -23,9 +23,9 @@ use Mush\Place\Entity\Place;
 class RetrieveFuelTest extends AbstractActionTest
 {
     /** @var GameEquipmentServiceInterface | Mockery\Mock */
-    private GameEquipmentServiceInterface $gameEquipmentService;
+    private GameEquipmentServiceInterface | Mockery\Mock $gameEquipmentService;
     /** @var DaedalusServiceInterface | Mockery\Mock */
-    private DaedalusServiceInterface $daedalusService;
+    private DaedalusServiceInterface | Mockery\Mock $daedalusService;
 
     /**
      * @before
@@ -34,7 +34,7 @@ class RetrieveFuelTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::RETRIEVE_FUEL, 1);
+        $this->actionEntity = $this->createActionEntity(ActionEnum::RETRIEVE_FUEL, -1);
 
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->daedalusService = Mockery::mock(DaedalusServiceInterface::class);
@@ -60,14 +60,15 @@ class RetrieveFuelTest extends AbstractActionTest
     {
         $daedalus = new Daedalus();
         $room = new Place();
-        $gameItem = new GameItem();
         $item = new ItemConfig();
+
+        $gameItem = new GameItem();
         $gameItem->setEquipment($item);
+        $gameItem->setName(ItemEnum::FUEL_CAPSULE);
 
         $item->setName(ItemEnum::FUEL_CAPSULE)->setIsHeavy(false);
 
         $player = $this->createPlayer($daedalus, $room);
-        $gameItem->setName(ItemEnum::FUEL_CAPSULE);
 
         $daedalusConfig = new DaedalusConfig();
         $daedalusConfig->setMaxFuel(32);
@@ -97,6 +98,6 @@ class RetrieveFuelTest extends AbstractActionTest
         self::assertInstanceOf(Success::class, $result);
         self::assertCount(1, $player->getItems());
         self::assertCount(1, $room->getEquipments());
-        self::assertEquals(9, $player->getActionPoint());
+        self::assertEquals(10, $player->getActionPoint());
     }
 }

@@ -4,24 +4,17 @@ namespace Mush\Test\Action\Actions;
 
 use Mockery;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Actions\UltraHeal;
+use Mush\Action\Actions\Comfort;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
-use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Player\Service\PlayerVariableServiceInterface;
 
-class UltraHealActionTest extends AbstractActionTest
+class ComfortActionTest extends AbstractActionTest
 {
     /** @var PlayerServiceInterface | Mockery\Mock */
     private PlayerServiceInterface $playerService;
-
-    /** @var PlayerVariableServiceInterface | Mockery\Mock */
-    private PlayerVariableServiceInterface $playerVariableService;
 
     /**
      * @before
@@ -30,17 +23,15 @@ class UltraHealActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::SELF_HEAL);
+        $this->actionEntity = $this->createActionEntity(ActionEnum::COMFORT);
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
-        $this->playerVariableService = Mockery::mock(PlayerVariableServiceInterface::class);
 
-        $this->action = new UltraHeal(
+        $this->action = new Comfort(
             $this->eventDispatcher,
             $this->actionService,
             $this->validator,
             $this->playerService,
-            $this->playerVariableService
         );
     }
 
@@ -55,23 +46,16 @@ class UltraHealActionTest extends AbstractActionTest
     public function testExecute()
     {
         $room = new Place();
-        $gameItem = new GameItem();
-        $item = new ItemConfig();
-        $gameItem
-            ->setEquipment($item)
-            ->setPlace($room);
+
+        $this->playerService->shouldReceive('persist');
+        $this->eventDispatcher->shouldReceive('dispatch');
 
         $player = $this->createPlayer(new Daedalus(), $room);
+        $playerTarget = $this->createPlayer(new Daedalus(), $room);
 
-        $this->playerVariableService
-            ->shouldReceive('setPlayerVariableToMax')
-            ->with($player, ModifierTargetEnum::HEALTH_POINT);
-        $this->playerService->shouldReceive('persist');
-
-        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
+        $this->action->loadParameters($this->actionEntity, $player, $playerTarget);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch');
         $this->eventDispatcher->shouldReceive('dispatch');
         $result = $this->action->execute();
 

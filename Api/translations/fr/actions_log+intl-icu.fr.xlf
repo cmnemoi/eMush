@@ -589,6 +589,37 @@
                 <target>Vous n'avez pas réussi à éteindre l'incendie...</target>
             </segment>
         </unit>
+
+
+        <unit id="comfort_success">
+            <segment id="comfort_success">
+                <source>comfort_success</source>
+                <target>**{player}** réconforte **{target}**, ça ira mieux demain tu verras...</target>
+            </segment>
+        </unit>
+        <unit id="heal_success">
+            <segment id="heal_success">
+                <source>heal_success</source>
+                <target>**{player}** a soigné {quantity} :hp: à **{target}**.</target>
+            </segment>
+        </unit>
+        <unit id="self_heal">
+            <segment id="self_heal">
+                <source>self_heal</source>
+                <target>Vous vous êtes soigné. Vous avez récuperé {quantity} :hp:.</target>
+            </segment>
+        </unit>
+        <unit id="ultraheal_success">
+            <segment id="ultraheal_success">
+                <source>ultraheal_success</source>
+                <target>{character_gender, select,
+                    male {**{player}** est entouré d'un halo lumineux. d'horrible tentacules bleues iridescents parcourent son corps. La lumière qu'il émet est aveuglante. Ses blessures sont parfaitement guéries !}
+                    female {**{player}** est entourée d'un halo lumineux. D'horribles tentacules bleues iridescents lui courent sur le corps... ses blessures semblent guérir d'elles-même !}
+                    other {invalid gender input}
+                }
+                </target>
+            </segment>
+        </unit>
     </file>
 </xliff>
 

@@ -311,5 +311,56 @@
                 <target>Avec un peu d'adresse vous arriverez à vous débarasser du feu. Faites attention à ne pas vous brûler.</target>
             </segment>
         </unit>
+
+        <unit id="heal">
+            <segment id="name">
+                <source>heal.name</source>
+                <target>Soigner</target>
+            </segment>
+            <segment id="description">
+                <source>heal.description</source>
+                <target>Rend des Points de Vie (:pv:) à la cible. Si celle ci est malade, enlève un point de maladie à l'une de ses maladies.</target>
+            </segment>
+        </unit>
+        <unit id="self_heal">
+            <segment id="name">
+                <source>self_heal.name</source>
+                <target>Se soigner</target>
+            </segment>
+            <segment id="description">
+                <source>self_heal.description</source>
+                <target>Vous rend des Points de Vie (:pv:). Si vous êtes malade, enlève un point de maladie à l'une de vos maladies.</target>
+            </segment>
+        </unit>
+        <unit id="ultraheal">
+            <segment id="name">
+                <source>ultraheal.name</source>
+                <target>Apliquer</target>
+            </segment>
+            <segment id="description">
+                <source>ultraheal.description</source>
+                <target>Permet de guérir de se toutes ses blessures.</target>
+            </segment>
+        </unit>
+        <unit id="use_bandage">
+            <segment id="name">
+                <source>use_bandage.name</source>
+                <target>Se soigner</target>
+            </segment>
+            <segment id="description">
+                <source>use_bandage.description</source>
+                <target>Permet de soigner vos petits bobos.</target>
+            </segment>
+        </unit>
+        <unit id="comfort">
+            <segment id="name">
+                <source>comfort.name</source>
+                <target>Réconforter</target>
+            </segment>
+            <segment id="description">
+                <source>comfort.description</source>
+                <target>Vous savez écouter votre prochain, ce qui lui remonte le moral.</target>
+            </segment>
+        </unit>
     </file>
 </xliff>

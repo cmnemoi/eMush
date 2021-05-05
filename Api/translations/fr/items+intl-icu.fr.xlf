@@ -1820,11 +1820,11 @@ Le drone de Soutien permet d'achever l'objectif de maintenance automatique de Ma
         <unit id="jar_of_alien_oil">
             <segment id="name">
                 <source>jar_of_alien_oil.name</source>
-                <target>Drone de Soutien (ou Drone)</target>
+                <target>Lubrifiant Alien</target>
             </segment>
             <segment id="short_name">
                 <source>jar_of_alien_oil.short_name</source>
-                <target>Drone de Soutien (ou Drone)</target>
+                <target>Lubrifiant Alien</target>
             </segment>
             <segment id="genre">
                 <source>jar_of_alien_oil.genre</source>

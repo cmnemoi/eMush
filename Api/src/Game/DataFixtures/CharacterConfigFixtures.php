@@ -29,6 +29,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $extractSporeAction = $this->getReference(ActionsFixtures::EXTRACT_SPORE);
         $infectAction = $this->getReference(ActionsFixtures::INFECT_PLAYER);
         $getUpAction = $this->getReference(ActionsFixtures::GET_UP);
+        $comfortAction = $this->getReference(ActionsFixtures::COMFORT_DEFAULT);
         $defaultActions = new ArrayCollection([
             $hitAction,
             $hideAction,
@@ -36,6 +37,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             $infectAction,
             $extractSporeAction,
             $getUpAction,
+            $comfortAction,
             $rejuvenateAlphaAction,
         ]);
 

@@ -19,7 +19,7 @@
             </segment>
             <segment id="description">
                 <source>number.fire.description</source>
-                <target>Prevenez une personne responsable ou attrapez un extincteur !</target>
+                <target>Prévenez une personne responsable ou attrapez un extincteur !</target>
             </segment>
         </unit>
 

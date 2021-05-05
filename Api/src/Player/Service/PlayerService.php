@@ -170,6 +170,7 @@ class PlayerService implements PlayerServiceInterface
 
         if ($player->getMoralPoint() === 0) {
             $playerEvent = new PlayerEvent($player, $date);
+            $playerEvent->setReason(EndCauseEnum::DEPRESSION);
             $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
 
             return $player;

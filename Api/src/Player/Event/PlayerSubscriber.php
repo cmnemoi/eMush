@@ -4,6 +4,7 @@ namespace Mush\Player\Event;
 
 use Error;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
@@ -60,7 +61,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         $damage = (int) $this->randomService->getSingleRandomElementFromProbaArray($difficultyConfig->getMetalPlatePlayerDamage());
 
         $playerModifierEvent = new PlayerModifierEvent($player, -$damage, $event->getTime());
-        $playerModifierEvent->setReason($event->getReason());
+        $playerModifierEvent->setReason(EndCauseEnum::METAL_PLATE);
         $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
     }
 

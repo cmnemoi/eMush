@@ -17,6 +17,12 @@
                 <target>{player} amorce la machine. Et dans un grand fracas, la mécanique se lance, les rouages crissent et les arômes embaument la pièce. Ça sent les matins chaleureux sur une terrasse de Vénus. Café !</target>
             </segment>
         </unit>
+        <unit id="dispense_success">
+            <segment id="dispense_success">
+                <source>dispense_success</source>
+                <target>{player} enclenche le dispensaire avec une étrange lueur dans les yeux.</target>
+            </segment>
+        </unit>
         <unit id="consume_success">
             <segment id="consume_success">
                 <source>consume_success</source>

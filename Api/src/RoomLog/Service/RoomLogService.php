@@ -6,8 +6,10 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
+use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
@@ -135,6 +137,8 @@ class RoomLogService implements RoomLogServiceInterface
         if ($target instanceof GameEquipment) {
             if ($target instanceof GameItem) {
                 $params['targetItem'] = $target->getName();
+            } elseif ($target instanceof Door) {
+                $params['targetEquipment'] = EquipmentEnum::DOOR;
             } else {
                 $params['targetEquipment'] = $target->getName();
             }
@@ -200,6 +204,7 @@ class RoomLogService implements RoomLogServiceInterface
                     $params['target_first_letter'] = $this->translator->trans($element . '.first_Letter', [], $domain);
                     $params['targetPlural'] = $this->translator->trans($element . '.plural_name', [], $domain);
                     break;
+
                 case 'targetPlayer':
                     $params['target'] = $this->translator->trans($element . '.name', [], 'characters');
                     $params['target_gender'] = (CharacterEnum::isMale($element) ? 'male' : 'female');

@@ -183,7 +183,7 @@ class PlayerController extends AbstractFOSRestController
     }
 
     /**
-     * Get the end  game informations for a player.
+     * Get the end game informations for a player.
      *
      * @OA\Tag(name="Player")
      * @Security(name="Bearer")

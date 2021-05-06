@@ -55,7 +55,7 @@ class Comfort extends AbstractAction
         /** @var Player $parameter */
         $parameter = $this->parameter;
 
-        $playerModifierEvent = new PlayerModifierEvent($this->player, self::BASE_CONFORT);
+        $playerModifierEvent = new PlayerModifierEvent($parameter, self::BASE_CONFORT);
         $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::MORAL_POINT_MODIFIER);
 
         $this->playerService->persist($parameter);

@@ -21,6 +21,16 @@
                 <target>Un bon café et ça repart !</target>
             </segment>
         </unit>
+        <unit id="dispense">
+            <segment id="dispense">
+                <source>dispense.name</source>
+                <target>Distiller</target>
+            </segment>
+            <segment id="description">
+                <source>dispense.description</source>
+                <target>Permet de distiller une nouvelle petite gourmandise.</target>
+            </segment>
+        </unit>
         <unit id="consume">
             <segment id="consume">
                 <source>consume.name</source>
@@ -32,15 +42,15 @@
             </segment>
         </unit>
         <unit id="consume_drug">
-                    <segment id="consume_drug">
-                        <source>consume_drug.name</source>
-                        <target>Consommer</target>
-                    </segment>
-                    <segment id="description">
-                        <source>consume_drug.description</source>
-                        <target>Dévorer une délicieuse denrée. En général, manger vous apportera des :pa::pm:. Les //rations cuisinées// n'entameront pas votre moral. Les autres nouritures peuvent réserver des surprises.</target>
-                    </segment>
-                </unit>
+            <segment id="consume_drug">
+                <source>consume_drug.name</source>
+                <target>Consommer</target>
+            </segment>
+            <segment id="description">
+                <source>consume_drug.description</source>
+                <target>Dévorer une délicieuse denrée. En général, manger vous apportera des :pa::pm:. Les //rations cuisinées// n'entameront pas votre moral. Les autres nouritures peuvent réserver des surprises.</target>
+            </segment>
+        </unit>
         <unit id="cook">
             <segment id="cook">
                 <source>cook.name</source>

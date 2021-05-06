@@ -13,6 +13,7 @@ class ActionLogEnum
     public const CONSUME_SUCCESS = 'consume_success';
     public const CONSUME_DRUG = 'consume_drug';
     public const COOK_SUCCESS = 'cook_success';
+    public const DISPENSE_SUCCESS = 'dispense_success';
     public const DROP = 'drop';
     public const EXPRESS_COOK_SUCCESS = 'express_cook_success';
     public const EXTINGUISH_SUCCESS = 'extinguish_success';
@@ -238,6 +239,12 @@ class ActionLogEnum
         ActionEnum::COFFEE => [
             self::SUCCESS => [
                 self::VALUE => self::COFFEE_SUCCESS,
+                self::VISIBILITY => VisibilityEnum::PUBLIC,
+            ],
+        ],
+        ActionEnum::DISPENSE => [
+            self::SUCCESS => [
+                self::VALUE => self::DISPENSE_SUCCESS,
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
             ],
         ],

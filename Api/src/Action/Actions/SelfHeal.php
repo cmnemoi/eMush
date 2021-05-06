@@ -51,11 +51,16 @@ class SelfHeal extends AbstractAction
     {
         //@TODO remove diseases
 
+        $initialHealth = $this->player->getHealthPoint();
+
         $playerModifierEvent = new PlayerModifierEvent($this->player, self::BASE_HEAL);
+        $playerModifierEvent->setIsDisplayedRoomLog(false);
         $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
 
         $this->playerService->persist($this->player);
 
-        return new Success();
+        $healedQuantity = $this->player->getHealthPoint() - $initialHealth;
+
+        return new Success(null, $healedQuantity);
     }
 }

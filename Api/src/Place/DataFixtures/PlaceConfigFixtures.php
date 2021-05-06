@@ -114,6 +114,21 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
                 EquipmentEnum::DYNARCADE,
                 EquipmentEnum::JUKEBOX,
             ])
+            ->setItems([
+                ToolItemEnum::SPACE_CAPSULE,
+                ToolItemEnum::SPACE_CAPSULE,
+                ToolItemEnum::SPACE_CAPSULE,
+                ToolItemEnum::SPACE_CAPSULE,
+                ToolItemEnum::SPACE_CAPSULE,
+                ToolItemEnum::SPACE_CAPSULE,
+                ToolItemEnum::SPACE_CAPSULE,
+                ToolItemEnum::SPACE_CAPSULE,
+                ToolItemEnum::SPACE_CAPSULE,
+                ToolItemEnum::SPACE_CAPSULE,
+                ToolItemEnum::SPACE_CAPSULE,
+                ToolItemEnum::SPACE_CAPSULE,
+                ToolItemEnum::SPACE_CAPSULE,
+            ])
         ;
         $manager->persist($alphaBay2);
 
@@ -145,6 +160,12 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
                 EquipmentEnum::SURGICAL_PLOT,
                 EquipmentEnum::NARCOTIC_DISTILLER,
                 EquipmentEnum::BED,
+            ])
+            ->setItems([
+                ToolItemEnum::BANDAGE,
+                ToolItemEnum::BANDAGE,
+                ToolItemEnum::BANDAGE,
+                ToolItemEnum::JAR_OF_ALIEN_OIL,
             ])
         ;
         $manager->persist($medLab);

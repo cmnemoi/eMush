@@ -60,7 +60,7 @@ class UltraHeal extends AbstractAction
         /** @var GameEquipment $parameter */
         $parameter = $this->parameter;
 
-        $this->playerVariableService->setPlayerVariableToMax($this->player, ModifierTargetEnum::MAX_HEALTH_POINT);
+        $this->playerVariableService->setPlayerVariableToMax($this->player, ModifierTargetEnum::HEALTH_POINT);
 
         $this->playerService->persist($this->player);
 

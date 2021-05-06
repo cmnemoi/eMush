@@ -37,6 +37,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
     public const HEAL_DEFAULT = 'heal.default';
     public const HEAL_SELF = 'heal.self';
     public const HEAL_ULTRA = 'heal.ultra';
+    public const COMFORT_DEFAULT = 'confort.default';
     public const WRITE_DEFAULT = 'write.default';
     public const GAG_DEFAULT = 'gag.default';
     public const HYPERFREEZE_DEFAULT = 'hyperfreeze.default';
@@ -243,7 +244,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $bandageAction = new Action();
         $bandageAction
             ->setName(ActionEnum::USE_BANDAGE)
-            ->setScope(ActionScopeEnum::SELF)
+            ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost($oneActionPointCost)
         ;
 
@@ -288,11 +289,20 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->persist($healAction);
 
+        $comfortAction = new Action();
+        $comfortAction
+            ->setName(ActionEnum::COMFORT)
+            ->setScope(ActionScopeEnum::OTHER_PLAYER)
+            ->setActionCost($oneActionPointCost)
+        ;
+
+        $manager->persist($comfortAction);
+
         $ultraHealAction = new Action();
         $ultraHealAction
             ->setName(ActionEnum::ULTRAHEAL)
-            ->setScope(ActionScopeEnum::SELF)
-            ->setActionCost($twoActionPointCost)
+            ->setScope(ActionScopeEnum::CURRENT)
+            ->setActionCost($freeCost)
         ;
 
         $manager->persist($ultraHealAction);
@@ -485,6 +495,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::HEAL_DEFAULT, $healAction);
         $this->addReference(self::HEAL_SELF, $selfHealAction);
         $this->addReference(self::HEAL_ULTRA, $ultraHealAction);
+        $this->addReference(self::COMFORT_DEFAULT, $comfortAction);
         $this->addReference(self::WRITE_DEFAULT, $writeAction);
         $this->addReference(self::HYPERFREEZE_DEFAULT, $hyperfreezeAction);
         $this->addReference(self::GAG_DEFAULT, $gagAction);

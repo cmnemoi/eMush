@@ -84,6 +84,7 @@ class RoomLogService implements RoomLogServiceInterface
             'actions_log',
             $player,
             $actionResult->getTargetPlayer() ?? $actionResult->getTargetEquipment(),
+            $actionResult->getQuantity()
         );
     }
 

@@ -30,4 +30,5 @@ class LogEnum
     public const EQUIPMENT_DESTROYED = 'equipment_destroyed';
     public const EQUIPMENT_BROKEN = 'equipment_broken';
     public const GARDEN_DESTROYED = 'garden_destroyed';
+    public const HUNGER = 'hunger';
 }

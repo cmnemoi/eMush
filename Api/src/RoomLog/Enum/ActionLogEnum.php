@@ -10,6 +10,7 @@ class ActionLogEnum
     public const DISASSEMBLE_FAIL = 'disassemble_fail';
     public const BUILD_SUCCESS = 'build_success';
     public const COFFEE_SUCCESS = 'coffee_success';
+    public const COMFORT_SUCCESS = 'comfort_success';
     public const CONSUME_SUCCESS = 'consume_success';
     public const CONSUME_DRUG = 'consume_drug';
     public const COOK_SUCCESS = 'cook_success';
@@ -20,9 +21,12 @@ class ActionLogEnum
     public const EXTINGUISH_FAIL = 'extinguish_fail';
     public const EXTRACT_SPORE_SUCCESS = 'extract_spore_success';
     public const GET_UP = 'get_up';
+    public const HEAL_SUCCESS = 'heal_success';
     public const HIDE_SUCCESS = 'hide_success';
     public const HIT_SUCCESS = 'hit_success';
     public const HIT_FAIL = 'hit_fail';
+    public const HYBRIDIZE_SUCCESS = 'hybridize_success';
+    public const HYBRIDIZE_FAIL = 'transplant_fail';
     public const HYPERFREEZE_SUCCESS = 'hyperfreeze_success';
     public const INFECT_SUCCESS = 'infect_success';
     public const INSERT_OXYGEN = 'insert_oxygen';
@@ -43,9 +47,9 @@ class ActionLogEnum
     public const SHOWER_MUSH = 'shower_mush';
     public const TAKE = 'take';
     public const TRANSPLANT_SUCCESS = 'transplant_success';
-    public const HYBRIDIZE_SUCCESS = 'hybridize_success';
-    public const HYBRIDIZE_FAIL = 'transplant_fail';
     public const TREAT_PLANT_SUCCESS = 'treat_plant_success';
+    public const ULTRAHEAL_SUCCESS = 'ultraheal_success';
+    public const SELF_HEAL = 'self_heal';
     public const WATER_PLANT_SUCCESS = 'water_plant_success';
     public const WRITE_SUCCESS = 'write_success';
 
@@ -278,6 +282,36 @@ class ActionLogEnum
             self::FAIL => [
                 self::VALUE => self::HIT_FAIL,
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
+            ],
+        ],
+        ActionEnum::COMFORT => [
+            self::SUCCESS => [
+                self::VALUE => self::COMFORT_SUCCESS,
+                self::VISIBILITY => VisibilityEnum::PUBLIC,
+            ],
+        ],
+        ActionEnum::HEAL => [
+            self::SUCCESS => [
+                self::VALUE => self::HEAL_SUCCESS,
+                self::VISIBILITY => VisibilityEnum::PUBLIC,
+            ],
+        ],
+        ActionEnum::ULTRAHEAL => [
+            self::SUCCESS => [
+                self::VALUE => self::ULTRAHEAL_SUCCESS,
+                self::VISIBILITY => VisibilityEnum::PUBLIC,
+            ],
+        ],
+        ActionEnum::USE_BANDAGE => [
+            self::SUCCESS => [
+                self::VALUE => self::SELF_HEAL,
+                self::VISIBILITY => VisibilityEnum::PRIVATE,
+            ],
+        ],
+        ActionEnum::SELF_HEAL => [
+            self::SUCCESS => [
+                self::VALUE => self::SELF_HEAL,
+                self::VISIBILITY => VisibilityEnum::PRIVATE,
             ],
         ],
     ];

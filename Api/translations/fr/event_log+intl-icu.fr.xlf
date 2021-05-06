@@ -178,6 +178,12 @@
                 <target>Le jardin a été saccagé par l'attaque, sur les 12 plantes, il n'en reste plus que 2 et un pot vide...</target>
             </segment>
         </unit>
+        <unit id="hunger">
+            <segment>
+                <source>hunger</source>
+                <target>Vous avez faim. Si vous n'y remédiez pas, votre santé va se détériorer à chaque changement de cycle.</target>
+            </segment>
+        </unit>
     </file>
 </xliff>
 

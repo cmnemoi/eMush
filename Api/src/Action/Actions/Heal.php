@@ -58,11 +58,14 @@ class Heal extends AbstractAction
 
         //@TODO remove diseases
 
-        $playerModifierEvent = new PlayerModifierEvent($this->player, self::BASE_HEAL);
+        //@TODO add modifiers
+        $healedQuantity = self::BASE_HEAL;
+
+        $playerModifierEvent = new PlayerModifierEvent($this->player, $healedQuantity);
         $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
 
         $this->playerService->persist($parameter);
 
-        return new Success();
+        return new Success($parameter, $healedQuantity);
     }
 }

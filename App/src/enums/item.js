@@ -75,9 +75,17 @@ const THICK_TUBE = "thick_tube";
 const OXYGEN_CAPSULE = "oxygen_capsule";
 const FUEL_CAPSULE = "fuel_capsule";
 const SPACE_CAPSULE = "space_capsule";
+const JAR_OF_ALIEN_OIL = "jar_of_alien_oil";
+const BANDAGE = "bandage";
 
 
 export const itemEnum = {
+    [BANDAGE]: {
+        'image': require('@/assets/images/items/bandage.jpg')
+    },
+    [JAR_OF_ALIEN_OIL]: {
+        'image': require('@/assets/images/items/alien_oil.jpg')
+    },
     [COFFEE]: {
         'image': require('@/assets/images/items/coffee.jpg')
     },

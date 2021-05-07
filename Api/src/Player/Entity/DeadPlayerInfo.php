@@ -4,6 +4,7 @@ namespace Mush\Player\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Mush\Player\Enum\EndCauseEnum;
 
 /**
  * @ORM\Entity()
@@ -32,7 +33,7 @@ class DeadPlayerInfo
     /**
      * @ORM\Column(type="string", nullable=false)
      */
-    private string $endStatus;
+    private string $endStatus = EndCauseEnum::NO_INFIRMERY;
 
     /**
      * @ORM\Column(type="integer", nullable=false)

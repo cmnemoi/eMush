@@ -7,7 +7,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 class PlayerEndRequest
 {
     /**
-     * @Assert\NotBlank
+     * @Assert\Type("string")
+     * @Assert\Length(max = 300)
      */
     private ?string $message = null;
 

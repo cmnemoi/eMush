@@ -100,13 +100,15 @@ class PlayerSubscriber implements EventSubscriberInterface
     {
         $player = $playerEvent->getPlayer();
 
-        $sporeStatus = $player->getStatusByName(PlayerStatusEnum::SPORES);
+        if ($player->isAlive()) {
+            $sporeStatus = $player->getStatusByName(PlayerStatusEnum::SPORES);
 
-        if ($sporeStatus === null || !($sporeStatus instanceof ChargeStatus)) {
-            throw new Error('Player should have a spore status');
+            if ($sporeStatus === null || !($sporeStatus instanceof ChargeStatus)) {
+                throw new Error('Player should have a spore status');
+            }
+
+            $sporeStatus->setCharge(0);
         }
-
-        $sporeStatus->setCharge(0);
 
         $this->statusService->createChargeStatus(
             PlayerStatusEnum::MUSH,

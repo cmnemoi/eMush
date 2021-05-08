@@ -4,8 +4,8 @@ namespace Mush\RoomLog\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\Room\Entity\Room;
 
 /**
  * Class RoomLog.
@@ -24,19 +24,14 @@ class RoomLog
     private int $id;
 
     /**
-     * @ORM\ManyToOne (targetEntity="Mush\Room\Entity\Room")
+     * @ORM\ManyToOne (targetEntity="Mush\Place\Entity\Place")
      */
-    private Room $room;
+    private Place $place;
 
     /**
      * @ORM\ManyToOne (targetEntity="Mush\Player\Entity\Player")
      */
     private ?Player $player;
-
-    /**
-     * @ORM\OneToOne  (targetEntity="Mush\RoomLog\Entity\Target", cascade={"All"}, orphanRemoval=true)
-     */
-    private ?Target $target;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=false)
@@ -47,6 +42,11 @@ class RoomLog
      * @ORM\Column(type="string", length=255, nullable=false)
      */
     private string $log;
+
+    /**
+     * @ORM\Column(type="array", nullable=false)
+     */
+    private array $parameters;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=false)
@@ -68,27 +68,22 @@ class RoomLog
      */
     private int $cycle;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private ?int $quantity = null;
-
     public function getId(): int
     {
         return $this->id;
     }
 
-    public function getRoom(): Room
+    public function getPlace(): Place
     {
-        return $this->room;
+        return $this->place;
     }
 
     /**
      * @return static
      */
-    public function setRoom(Room $room): RoomLog
+    public function setPlace(Place $place): RoomLog
     {
-        $this->room = $room;
+        $this->place = $place;
 
         return $this;
     }
@@ -104,21 +99,6 @@ class RoomLog
     public function setPlayer(?Player $player): RoomLog
     {
         $this->player = $player;
-
-        return $this;
-    }
-
-    public function getTarget(): ?Target
-    {
-        return $this->target;
-    }
-
-    /**
-     * @return static
-     */
-    public function setTarget(?Target $target): RoomLog
-    {
-        $this->target = $target;
 
         return $this;
     }
@@ -149,6 +129,21 @@ class RoomLog
     public function setLog(string $log): RoomLog
     {
         $this->log = $log;
+
+        return $this;
+    }
+
+    public function getParameters(): array
+    {
+        return $this->parameters;
+    }
+
+    /**
+     * @return static
+     */
+    public function setParameters(array $parameters): RoomLog
+    {
+        $this->parameters = $parameters;
 
         return $this;
     }
@@ -206,21 +201,6 @@ class RoomLog
     public function setCycle(int $cycle): RoomLog
     {
         $this->cycle = $cycle;
-
-        return $this;
-    }
-
-    public function getQuantity(): ?int
-    {
-        return $this->quantity;
-    }
-
-    /**
-     * @return static
-     */
-    public function setQuantity(?int $quantity): RoomLog
-    {
-        $this->quantity = $quantity;
 
         return $this;
     }

@@ -6,7 +6,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Mush\Room\Entity\Room;
+use Mush\Action\Entity\ActionParameter;
+use Mush\Place\Entity\Place;
+use Mush\RoomLog\Entity\LogParameter;
+use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Entity\StatusTarget;
@@ -25,7 +28,7 @@ use Mush\Status\Enum\EquipmentStatusEnum;
  *     "game_item" = "Mush\Equipment\Entity\GameItem"
  * })
  */
-class GameEquipment implements StatusHolderInterface
+class GameEquipment implements StatusHolderInterface, ActionParameter, LogParameter
 {
     use TimestampableEntity;
     use TargetStatusTrait;
@@ -43,9 +46,9 @@ class GameEquipment implements StatusHolderInterface
     private Collection $statuses;
 
     /**
-     * @ORM\ManyToOne (targetEntity="Mush\Room\Entity\Room", inversedBy="equipments")
+     * @ORM\ManyToOne (targetEntity="Mush\Place\Entity\Place", inversedBy="equipments")
      */
-    private ?Room $room = null;
+    private ?Place $place = null;
 
     /**
      * @ORM\ManyToOne(targetEntity="EquipmentConfig")
@@ -97,40 +100,40 @@ class GameEquipment implements StatusHolderInterface
         return $this;
     }
 
-    public function getRoom(): ?Room
+    public function getPlace(): ?Place
     {
-        return $this->room;
+        return $this->place;
     }
 
     /**
      * @return static
      */
-    public function setRoom(?Room $room): GameEquipment
+    public function setPlace(?Place $place): GameEquipment
     {
-        if ($room !== $this->room) {
-            $oldRoom = $this->getRoom();
-            $this->room = $room;
+        if ($place !== $this->place) {
+            $oldPlace = $this->getPlace();
+            $this->place = $place;
 
-            if ($room !== null) {
-                $room->addEquipment($this);
+            if ($oldPlace !== null) {
+                $oldPlace->removeEquipment($this);
+                $this->place = $place;
             }
 
-            if ($oldRoom !== null) {
-                $oldRoom->removeEquipment($this);
-                $this->room = $room;
+            if ($place !== null) {
+                $place->addEquipment($this);
             }
         }
 
         return $this;
     }
 
-    public function getCurrentRoom(): Room
+    public function getCurrentPlace(): Place
     {
-        if ($this->room === null) {
+        if ($this->place === null) {
             throw new \LogicException('Cannot find room of game equipment');
         }
 
-        return $this->room;
+        return $this->place;
     }
 
     /**
@@ -138,7 +141,7 @@ class GameEquipment implements StatusHolderInterface
      */
     public function removeLocation(): GameEquipment
     {
-        $this->setRoom(null);
+        $this->setPlace(null);
 
         return $this;
     }
@@ -181,8 +184,19 @@ class GameEquipment implements StatusHolderInterface
             ;
     }
 
-    public function getBrokenRate(): int
+    public function isOperational(): bool
     {
-        return $this->getEquipment()->getBreakableRate();
+        $chargeStatus = $this->getStatusByName(EquipmentStatusEnum::CHARGES);
+
+        if ($chargeStatus === null || !($chargeStatus instanceof ChargeStatus)) {
+            return !$this->isBroken();
+        }
+
+        return $chargeStatus->getCharge() > 0 && !$this->isBroken();
+    }
+
+    public function isBreakable(): bool
+    {
+        return $this->getEquipment()->isBreakable();
     }
 }

@@ -104,6 +104,9 @@
     "doctrine/dbal": {
         "version": "2.11.1"
     },
+    "doctrine/deprecations": {
+        "version": "v0.5.3"
+    },
     "doctrine/doctrine-bundle": {
         "version": "2.0",
         "recipe": {
@@ -596,6 +599,9 @@
     "symfony/polyfill-mbstring": {
         "version": "v1.18.1"
     },
+    "symfony/polyfill-messageformatter": {
+        "version": "v1.18.1"
+    },
     "symfony/polyfill-php73": {
         "version": "v1.18.1"
     },
@@ -736,6 +742,9 @@
     },
     "webmozart/path-util": {
         "version": "2.3.0"
+    },
+    "weirdan/doctrine-psalm-plugin": {
+        "version": "1.0.0"
     },
     "willdurand/jsonp-callback-validator": {
         "version": "v1.1.0"

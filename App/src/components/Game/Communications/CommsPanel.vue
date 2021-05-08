@@ -103,20 +103,6 @@ export default {
             padding: 5px 0;
         }
 
-        .actions {
-            flex-direction: row;
-            justify-content: flex-end;
-            align-items: stretch;
-
-            a {
-                @include button-style(0.83em, 400, initial);
-
-                height: 100%;
-                margin-left: 3px;
-                img { padding: 0 0.2em 0 0; }
-            }
-        }
-
         .banner {
             flex-direction: row;
             align-items: center;

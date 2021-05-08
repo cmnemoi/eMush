@@ -5,8 +5,9 @@ namespace Mush\Status\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\Room\Entity\Room;
+use Mush\RoomLog\Enum\VisibilityEnum;
 
 /**
  * Class Status.
@@ -41,7 +42,7 @@ class Status
     /**
      * @ORM\Column(type="string", nullable=false)
      */
-    protected ?string $visibility = null;
+    protected string $visibility = VisibilityEnum::PUBLIC;
 
     /**
      * @ORM\OneToOne(targetEntity="Mush\Status\Entity\StatusTarget", cascade="ALL", inversedBy="owner")
@@ -78,7 +79,7 @@ class Status
         return $this;
     }
 
-    public function getVisibility(): ?string
+    public function getVisibility(): string
     {
         return $this->visibility;
     }
@@ -86,7 +87,7 @@ class Status
     /**
      * @return static
      */
-    public function setVisibility(?string $visibility): Status
+    public function setVisibility(string $visibility): Status
     {
         $this->visibility = $visibility;
 
@@ -105,8 +106,8 @@ class Status
         if ($equipment = $this->owner->getGameEquipment()) {
             return $equipment;
         }
-        if ($room = $this->owner->getRoom()) {
-            return $room;
+        if ($place = $this->owner->getPlace()) {
+            return $place;
         }
 
         throw new \LogicException('There should always be a target on a status target');
@@ -120,8 +121,8 @@ class Status
             $statusOwner->setPlayer($owner);
         } elseif ($owner instanceof GameEquipment) {
             $statusOwner->setGameEquipment($owner);
-        } elseif ($owner instanceof Room) {
-            $statusOwner->setRoom($owner);
+        } elseif ($owner instanceof Place) {
+            $statusOwner->setPlace($owner);
         }
 
         $this->owner = $statusOwner;
@@ -148,8 +149,8 @@ class Status
         if ($equipment = $this->target->getGameEquipment()) {
             return $equipment;
         }
-        if ($room = $this->target->getRoom()) {
-            return $room;
+        if ($place = $this->target->getPlace()) {
+            return $place;
         }
 
         throw new \LogicException('There should always be a target on a status target');
@@ -167,8 +168,8 @@ class Status
             $statusTarget->setPlayer($target);
         } elseif ($target instanceof GameEquipment) {
             $statusTarget->setGameEquipment($target);
-        } elseif ($target instanceof Room) {
-            $statusTarget->setRoom($target);
+        } elseif ($target instanceof Place) {
+            $statusTarget->setPlace($target);
         } else {
             $statusTarget = null;
         }

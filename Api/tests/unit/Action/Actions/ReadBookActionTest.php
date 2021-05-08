@@ -6,21 +6,17 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\ReadBook;
-use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Book;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\SkillEnum;
+use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Room\Entity\Room;
 
 class ReadBookActionTest extends AbstractActionTest
 {
-    /** @var GameEquipmentServiceInterface | Mockery\Mock */
-    private GameEquipmentServiceInterface $gameEquipmentService;
     /** @var PlayerServiceInterface | Mockery\Mock */
     private PlayerServiceInterface $playerService;
 
@@ -33,13 +29,13 @@ class ReadBookActionTest extends AbstractActionTest
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::READ_BOOK, 2);
 
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
 
         $this->action = new ReadBook(
             $this->eventDispatcher,
-            $this->gameEquipmentService,
-            $this->playerService
+            $this->actionService,
+            $this->validator,
+            $this->playerService,
         );
     }
 
@@ -53,7 +49,7 @@ class ReadBookActionTest extends AbstractActionTest
 
     public function testExecute()
     {
-        $room = new Room();
+        $room = new Place();
         $gameItem = new GameItem();
         $item = new ItemConfig();
         $book = new Book();
@@ -61,18 +57,16 @@ class ReadBookActionTest extends AbstractActionTest
         $item->setMechanics(new ArrayCollection([$book]));
         $gameItem
             ->setEquipment($item)
-            ->setRoom($room)
+            ->setPlace($room)
         ;
 
         $this->playerService->shouldReceive('persist');
         $this->eventDispatcher->shouldReceive('dispatch');
 
-        $actionParameter = new ActionParameters();
-        $actionParameter->setItem($gameItem);
-
         $player = $this->createPlayer(new Daedalus(), $room);
 
-        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
+        $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
+        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         $result = $this->action->execute();
 

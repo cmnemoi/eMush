@@ -32,8 +32,10 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
         $readDocument = $this->getReference(ActionsFixtures::READ_DOCUMENT);
         /** @var Action $readBook */
         $readBook = $this->getReference(ActionsFixtures::READ_BOOK);
+        /** @var Action $buildAction */
+        $hideAction = $this->getReference(ActionsFixtures::HIDE_DEFAULT);
 
-        $actions = new ArrayCollection([$takeAction, $dropAction]);
+        $actions = new ArrayCollection([$takeAction, $dropAction, $hideAction]);
 
         //First Mage Books
         $skillsArray = [SkillEnum::ASTROPHYSICIST,
@@ -67,7 +69,6 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
                 ->setName(ItemEnum::APPRENTON . '_' . $skillName)
                 ->setIsHeavy(false)
                 ->setIsStackable(true)
-                ->setIsHideable(true)
                 ->setIsFireDestroyable(true)
                 ->setIsFireBreakable(false)
                 ->setMechanics(new ArrayCollection([$apprentonMechanic]))
@@ -92,7 +93,6 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ItemEnum::DOCUMENT)
             ->setIsHeavy(false)
             ->setIsStackable(true)
-            ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics(new ArrayCollection([$documentMechanic]))
@@ -115,7 +115,6 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ItemEnum::COMMANDERS_MANUAL)
             ->setIsHeavy(false)
             ->setIsStackable(true)
-            ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics(new ArrayCollection([$commandersManualMechanic]))
@@ -138,7 +137,6 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ItemEnum::MUSH_RESEARCH_REVIEW)
             ->setIsHeavy(false)
             ->setIsStackable(true)
-            ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics(new ArrayCollection([$mushResearchMechanic]))
@@ -161,7 +159,6 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ItemEnum::POST_IT)
             ->setIsHeavy(false)
             ->setIsStackable(true)
-            ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics(new ArrayCollection([$postItMechanic]))

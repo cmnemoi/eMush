@@ -4,29 +4,26 @@ namespace Mush\Action\Normalizer;
 
 use Mush\Action\Actions\AttemptAction;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionParameters;
+use Mush\Action\Entity\ActionParameter;
+use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Service\ActionStrategyServiceInterface;
-use Mush\Player\Entity\Player;
-use Mush\User\Entity\User;
-use Symfony\Component\Finder\Exception\AccessDeniedException;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ActionNormalizer implements ContextAwareNormalizerInterface
 {
     private TranslatorInterface $translator;
-    private ActionStrategyServiceInterface $actionService;
-    private TokenStorageInterface $tokenStorage;
+    private ActionStrategyServiceInterface $actionStrategyService;
+    private ActionServiceInterface $actionService;
 
     public function __construct(
         TranslatorInterface $translator,
-        ActionStrategyServiceInterface $actionService,
-        TokenStorageInterface $tokenStorage
+        ActionStrategyServiceInterface $actionStrategyService,
+        ActionServiceInterface $actionService
     ) {
         $this->translator = $translator;
+        $this->actionStrategyService = $actionStrategyService;
         $this->actionService = $actionService;
-        $this->tokenStorage = $tokenStorage;
     }
 
     public function supportsNormalization($data, string $format = null, array $context = []): bool
@@ -39,65 +36,66 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
      */
     public function normalize($object, string $format = null, array $context = []): array
     {
-        $actionClass = $this->actionService->getAction($object->getName());
+        $actionClass = $this->actionStrategyService->getAction($object->getName());
         if (!$actionClass) {
             return [];
         }
 
-        $actionParameter = new ActionParameters();
-        if (array_key_exists('player', $context)) {
-            $actionParameter->setPlayer($context['player']);
-        }
-        if (array_key_exists('door', $context)) {
-            $actionParameter->setDoor($context['door']);
-        }
-        if (array_key_exists('item', $context)) {
-            $actionParameter->setItem($context['item']);
-        }
-        if (array_key_exists('equipment', $context)) {
-            $actionParameter->setEquipment($context['equipment']);
+        if (!($currentPlayer = $context['currentPlayer'] ?? null)) {
+            throw new \LogicException('Current player is missing from context');
         }
 
-        $actionClass->loadParameters($object, $this->getCurrentPlayer(), $actionParameter);
+        $parameter = $this->loadParameters($context);
 
-        if ($actionClass->getActionCost()->canPlayerDoAction($this->getCurrentPlayer()) && $actionClass->canExecute()) {
+        $actionClass->loadParameters($object, $currentPlayer, $parameter);
+
+        if ($actionClass->isVisible()) {
             $actionName = $object->getName();
-            $actionCost = $actionClass->getActionCost();
 
-            $successRate = $object->getSuccessRate();
+            $normalizedAction = [
+                'id' => $object->getId(),
+                'name' => $this->translator->trans("{$actionName}.name", [], 'actions'),
+                'actionPointCost' => $this->actionService->getTotalActionPointCost($currentPlayer, $object),
+                'movementPointCost' => $this->actionService->getTotalMovementPointCost($currentPlayer, $object),
+                'moralPointCost' => $this->actionService->getTotalMoralPointCost($currentPlayer, $object),
+                ];
 
             if ($actionClass instanceof AttemptAction) {
-                $successRate = $actionClass->getSuccessRate();
+                $normalizedAction['successRate'] = $actionClass->getSuccessRate();
+            } else {
+                $normalizedAction['successRate'] = 100;
             }
 
-            return [
-                'id' => $object->getId(),
-                'key' => $actionName,
-                'name' => $this->translator->trans("{$actionName}.name", [], 'actions'),
-                'description' => $this->translator->trans("{$actionName}.description", [], 'actions'),
-                'actionPointCost' => $actionCost->getActionPointCost(),
-                'movementPointCost' => $actionCost->getMovementPointCost(),
-                'moralPointCost' => $actionCost->getMoralPointCost(),
-                'successRate' => $successRate,
-            ];
+            if ($reason = $actionClass->cannotExecuteReason()) {
+                $normalizedAction['description'] = $this->translator->trans("{$reason}.description", [], 'actionsFail');
+                $normalizedAction['canExecute'] = false;
+            } else {
+                $normalizedAction['description'] = $this->translator->trans("{$actionName}.description", [], 'actions');
+                $normalizedAction['canExecute'] = true;
+            }
+
+            return $normalizedAction;
         }
 
         return [];
     }
 
-    private function getCurrentPlayer(): Player
+    private function loadParameters(array $context): ?ActionParameter
     {
-        if (!$token = $this->tokenStorage->getToken()) {
-            throw new AccessDeniedException('User should be logged to access that');
+        $parameter = null;
+        if (array_key_exists('player', $context)) {
+            $parameter = $context['player'];
+        }
+        if (array_key_exists('door', $context)) {
+            $parameter = $context['door'];
+        }
+        if (array_key_exists('item', $context)) {
+            $parameter = $context['item'];
+        }
+        if (array_key_exists('equipment', $context)) {
+            $parameter = $context['equipment'];
         }
 
-        /** @var User $user */
-        $user = $token->getUser();
-
-        if (!$player = $user->getCurrentGame()) {
-            throw new AccessDeniedException('User should be in game to access that');
-        }
-
-        return $player;
+        return $parameter;
     }
 }

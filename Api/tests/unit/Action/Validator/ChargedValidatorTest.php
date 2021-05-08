@@ -1,0 +1,113 @@
+<?php
+
+namespace Mush\Test\Action\Validator;
+
+use Mockery;
+use Mush\Action\Actions\AbstractAction;
+use Mush\Action\Validator\Charged;
+use Mush\Action\Validator\ChargedValidator;
+use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\ItemConfig;
+use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Enum\EquipmentStatusEnum;
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\Validator\Context\ExecutionContext;
+use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
+
+class ChargedValidatorTest extends TestCase
+{
+    private ChargedValidator $validator;
+    private Charged $constraint;
+
+    /**
+     * @before
+     */
+    public function before()
+    {
+        $this->validator = new ChargedValidator();
+        $this->constraint = new Charged();
+    }
+
+    /**
+     * @after
+     */
+    public function after()
+    {
+        Mockery::close();
+    }
+
+    public function testValid()
+    {
+        $itemConfig = new ItemConfig();
+        $itemConfig->setIsBreakable(true);
+
+        $target = new GameItem();
+        $target->setEquipment($itemConfig);
+
+        $chargeStatus = new ChargeStatus($target);
+        $chargeStatus
+            ->setName(EquipmentStatusEnum::CHARGES)
+            ->setCharge(1)
+        ;
+
+        $action = Mockery::mock(AbstractAction::class);
+        $action
+            ->shouldReceive([
+                'getParameter' => $target,
+            ])
+        ;
+
+        $this->initValidator();
+        $this->validator->validate($action, $this->constraint);
+
+        $this->assertTrue(true);
+    }
+
+    public function testNotValid()
+    {
+        $itemConfig = new ItemConfig();
+        $itemConfig->setIsBreakable(false);
+
+        $target = new GameItem();
+        $target->setEquipment($itemConfig);
+
+        $action = Mockery::mock(AbstractAction::class);
+        $action
+            ->shouldReceive([
+                'getParameter' => $target,
+            ])
+        ;
+
+        $this->initValidator($this->constraint->message);
+        $this->validator->validate($action, $this->constraint);
+
+        $chargeStatus = new ChargeStatus($target);
+        $chargeStatus
+            ->setName(EquipmentStatusEnum::CHARGES)
+            ->setCharge(0)
+        ;
+
+        $this->initValidator($this->constraint->message);
+        $this->validator->validate($action, $this->constraint);
+
+        $this->assertTrue(true);
+    }
+
+    protected function initValidator(?string $expectedMessage = null)
+    {
+        $builder = Mockery::mock(ConstraintViolationBuilder::class);
+        $context = Mockery::mock(ExecutionContext::class);
+
+        if ($expectedMessage) {
+            $builder->shouldReceive('addViolation')->andReturn($builder)->once();
+            $context->shouldReceive('buildViolation')->with($expectedMessage)->andReturn($builder)->once();
+        } else {
+            $context->shouldReceive('buildViolation')->never();
+        }
+
+        /* @var ExecutionContext $context */
+        $this->validator->initialize($context);
+
+        return $this->validator;
+    }
+}

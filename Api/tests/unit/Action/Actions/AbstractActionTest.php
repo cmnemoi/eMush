@@ -6,18 +6,28 @@ use Mockery;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionCost;
+use Mush\Action\Service\ActionServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\CharacterConfig;
+use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\Room\Entity\Room;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Validator\ConstraintViolationList;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class AbstractActionTest extends TestCase
 {
     /** @var EventDispatcherInterface | Mockery\Mock */
     protected EventDispatcherInterface $eventDispatcher;
+
+    /** @var ActionServiceInterface | Mockery\Mock */
+    protected ActionServiceInterface $actionService;
+
+    /** @var ValidatorInterface | Mockery\Mock */
+    protected ValidatorInterface $validator;
 
     protected AbstractAction $action;
     protected Action $actionEntity;
@@ -29,6 +39,12 @@ abstract class AbstractActionTest extends TestCase
     {
         $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $this->eventDispatcher->shouldReceive('dispatch');
+
+        $this->actionService = Mockery::mock(ActionServiceInterface::class);
+        $this->actionService->shouldReceive('canPlayerDoAction')->andReturn(true);
+
+        $this->validator = Mockery::mock(ValidatorInterface::class);
+        $this->validator->shouldReceive('validate')->andReturn(new ConstraintViolationList());
     }
 
     /**
@@ -54,10 +70,16 @@ abstract class AbstractActionTest extends TestCase
         return $action;
     }
 
-    protected function createPlayer(Daedalus $daedalus, Room $room, array $skills = []): Player
+    protected function createPlayer(Daedalus $daedalus, Place $room, array $skills = []): Player
     {
+        $gameConfig = new GameConfig();
+        $gameConfig->setMaxHealthPoint(16);
+
         $characterConfig = new CharacterConfig();
-        $characterConfig->setName('character name');
+        $characterConfig
+            ->setName('character name')
+            ->setGameConfig($gameConfig)
+        ;
 
         $player = new Player();
         $player
@@ -65,7 +87,7 @@ abstract class AbstractActionTest extends TestCase
             ->setMovementPoint(10)
             ->setMoralPoint(10)
             ->setDaedalus($daedalus)
-            ->setRoom($room)
+            ->setPlace($room)
             ->setSkills($skills)
             ->setGameStatus(GameStatusEnum::CURRENT)
             ->setCharacterConfig($characterConfig)

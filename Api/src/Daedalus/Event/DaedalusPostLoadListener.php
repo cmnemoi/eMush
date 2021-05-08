@@ -6,6 +6,8 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\CycleServiceInterface;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class DaedalusPostLoadListener
 {
@@ -20,6 +22,10 @@ class DaedalusPostLoadListener
     {
         if ($daedalus->getGameStatus() === GameStatusEnum::FINISHED) {
             return;
+        }
+
+        if ($daedalus->isCycleChange()) {
+            throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
         }
 
         $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);

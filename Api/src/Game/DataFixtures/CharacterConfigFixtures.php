@@ -21,21 +21,24 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
+        $rejuvenateAlphaAction = $this->getReference(ActionsFixtures::REJUVENATE_ALPHA);
+
         $hitAction = $this->getReference(ActionsFixtures::HIT_DEFAULT);
         $hideAction = $this->getReference(ActionsFixtures::HIDE_DEFAULT);
         $searchAction = $this->getReference(ActionsFixtures::SEARCH_DEFAULT);
-        $sabotageAction = $this->getReference(ActionsFixtures::SABOTAGE_DEFAULT);
         $extractSporeAction = $this->getReference(ActionsFixtures::EXTRACT_SPORE);
         $infectAction = $this->getReference(ActionsFixtures::INFECT_PLAYER);
         $getUpAction = $this->getReference(ActionsFixtures::GET_UP);
+        $comfortAction = $this->getReference(ActionsFixtures::COMFORT_DEFAULT);
         $defaultActions = new ArrayCollection([
             $hitAction,
             $hideAction,
             $searchAction,
-            $sabotageAction,
             $infectAction,
             $extractSporeAction,
             $getUpAction,
+            $comfortAction,
+            $rejuvenateAlphaAction,
         ]);
 
         $andie = new CharacterConfig();

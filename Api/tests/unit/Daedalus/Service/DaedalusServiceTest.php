@@ -19,11 +19,11 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Place\Entity\Place;
+use Mush\Place\Entity\PlaceConfig;
+use Mush\Place\Enum\RoomEnum;
+use Mush\Place\Service\PlaceServiceInterface;
 use Mush\Player\Entity\Player;
-use Mush\Room\Entity\Room;
-use Mush\Room\Entity\RoomConfig;
-use Mush\Room\Enum\RoomEnum;
-use Mush\Room\Service\RoomServiceInterface;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use PHPUnit\Framework\TestCase;
@@ -37,14 +37,16 @@ class DaedalusServiceTest extends TestCase
     private EntityManagerInterface $entityManager;
     /** @var DaedalusRepository | Mockery\Mock */
     private DaedalusRepository $repository;
-    /** @var RoomServiceInterface | Mockery\Mock */
-    private RoomServiceInterface $roomService;
+    /** @var PlaceServiceInterface | Mockery\Mock */
+    private PlaceServiceInterface $placeService;
     /** @var CycleServiceInterface | Mockery\Mock */
     private CycleServiceInterface $cycleService;
     /** @var GameEquipmentServiceInterface | Mockery\Mock */
     private GameEquipmentServiceInterface $gameEquipmentService;
     /** @var RandomServiceInterface | Mockery\Mock */
     private RandomServiceInterface $randomService;
+    /** @var RoomLogServiceInterface | Mockery\Mock */
+    private RoomLogServiceInterface $roomLogService;
     private DaedalusService $service;
 
     /**
@@ -55,7 +57,7 @@ class DaedalusServiceTest extends TestCase
         $this->entityManager = Mockery::mock(EntityManagerInterface::class);
         $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $this->repository = Mockery::mock(DaedalusRepository::class);
-        $this->roomService = Mockery::mock(RoomServiceInterface::class);
+        $this->placeService = Mockery::mock(PlaceServiceInterface::class);
         $this->cycleService = Mockery::mock(CycleServiceInterface::class);
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
@@ -65,7 +67,7 @@ class DaedalusServiceTest extends TestCase
             $this->entityManager,
             $this->eventDispatcher,
             $this->repository,
-            $this->roomService,
+            $this->placeService,
             $this->cycleService,
             $this->gameEquipmentService,
             $this->randomService,
@@ -83,7 +85,7 @@ class DaedalusServiceTest extends TestCase
 
     public function testCreateDaedalus()
     {
-        $roomConfig = new RoomConfig();
+        $roomConfig = new PlaceConfig();
 
         $gameConfig = new GameConfig();
         $gameConfig->setCyclePerGameDay(8)->setCycleLength(3 * 60);
@@ -104,7 +106,7 @@ class DaedalusServiceTest extends TestCase
             ->setInitOxygen(3)
             ->setInitHull(4)
             ->setDailySporeNb(4)
-            ->setRoomConfigs(new ArrayCollection([$roomConfig]))
+            ->setPlaceConfigs(new ArrayCollection([$roomConfig]))
             ->setRandomItemPlace($randomItem)
         ;
         $gameConfig
@@ -112,10 +114,10 @@ class DaedalusServiceTest extends TestCase
             ->setEquipmentsConfig(new ArrayCollection([$item]))
         ;
 
-        $room = new Room();
+        $room = new Place();
         $room->setName(RoomEnum::LABORATORY);
-        $this->roomService
-            ->shouldReceive('createRoom')
+        $this->placeService
+            ->shouldReceive('createPlace')
             ->andReturn($room)
             ->once()
         ;
@@ -145,7 +147,7 @@ class DaedalusServiceTest extends TestCase
 
         $this->entityManager
             ->shouldReceive('persist')
-            ->twice()
+            ->times(3)
         ;
         $this->entityManager
             ->shouldReceive('flush')
@@ -171,7 +173,7 @@ class DaedalusServiceTest extends TestCase
         $this->assertEquals($daedalusConfig->getInitShield(), $daedalus->getShield());
         $this->assertEquals(1, $daedalus->getCycle());
         $this->assertEquals(new \DateTime('today midnight'), $daedalus->getCycleStartedAt());
-        $this->assertCount(1, $daedalus->getRooms());
+        $this->assertCount(1, $daedalus->getPlaces());
         $this->assertCount(0, $daedalus->getPlayers());
     }
 
@@ -212,17 +214,17 @@ class DaedalusServiceTest extends TestCase
 
         $daedalus->setGameConfig($gameConfig);
 
-        $room1 = new Room();
-        $room2 = new Room();
-        $room3 = new Room();
+        $room1 = new Place();
+        $room2 = new Place();
+        $room3 = new Place();
 
         $noCapsulePlayer = $this->createPlayer($daedalus, 'noCapsule');
         $twoCapsulePlayer = $this->createPlayer($daedalus, 'twoCapsule');
         $threeCapsulePlayer = $this->createPlayer($daedalus, 'threeCapsule');
 
-        $noCapsulePlayer->setRoom($room1);
-        $twoCapsulePlayer->setRoom($room2);
-        $threeCapsulePlayer->setRoom($room3);
+        $noCapsulePlayer->setPlace($room1);
+        $twoCapsulePlayer->setPlace($room2);
+        $threeCapsulePlayer->setPlace($room3);
 
         $oxCapsuleConfig = new ItemConfig();
         $oxCapsuleConfig->setName(ItemEnum::OXYGEN_CAPSULE);
@@ -264,7 +266,7 @@ class DaedalusServiceTest extends TestCase
             ->andReturn($twoCapsulePlayer)
             ->once()
         ;
-        $this->roomLogService->shouldReceive('createPlayerLog')->once();
+        $this->roomLogService->shouldReceive('createLog')->once();
         $this->randomService->shouldReceive('getRandomPlayer')
             ->andReturn($noCapsulePlayer)
             ->once()

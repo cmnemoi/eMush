@@ -6,7 +6,8 @@ import ApiService from "@/services/api.service";
 const state =  {
     userInfo: TokenService.getUserInfo(),
     accessToken: TokenService.getToken(),
-    refreshTokenPromise: null
+    refreshTokenPromise: null,
+    loading: false
 };
 
 const getters = {
@@ -16,6 +17,10 @@ const getters = {
 
     getUserInfo: (state) => {
         return state.userInfo;
+    },
+
+    isLoading: (state) => {
+        return state.loading;
     }
 };
 
@@ -88,10 +93,12 @@ const actions = {
 
 const mutations = {
     resetUserInfo(state) {
+        state.loading = true;
         state.userInfo = null;
     },
 
     setUserInfo(state, userInfo) {
+        state.loading = false;
         state.userInfo = userInfo;
     },
 

@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Collection\DaedalusCollection;
 use Mush\Daedalus\Entity\Criteria\DaedalusCriteria;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\Neron;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Daedalus\Repository\DaedalusRepository;
 use Mush\Equipment\Entity\EquipmentConfig;
@@ -17,13 +18,13 @@ use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Place\Entity\Place;
+use Mush\Place\Entity\PlaceConfig;
+use Mush\Place\Service\PlaceServiceInterface;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
-use Mush\Room\Entity\Room;
-use Mush\Room\Entity\RoomConfig;
-use Mush\Room\Service\RoomServiceInterface;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
@@ -35,7 +36,7 @@ class DaedalusService implements DaedalusServiceInterface
     private EntityManagerInterface $entityManager;
     private EventDispatcherInterface $eventDispatcher;
     private DaedalusRepository $repository;
-    private RoomServiceInterface $roomService;
+    private PlaceServiceInterface $placesService;
     private CycleServiceInterface $cycleService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private RandomServiceInterface $randomService;
@@ -45,7 +46,7 @@ class DaedalusService implements DaedalusServiceInterface
         EntityManagerInterface $entityManager,
         EventDispatcherInterface $eventDispatcher,
         DaedalusRepository $repository,
-        RoomServiceInterface $roomService,
+        PlaceServiceInterface $placesService,
         CycleServiceInterface $cycleService,
         GameEquipmentServiceInterface $gameEquipmentService,
         RandomServiceInterface $randomService,
@@ -54,7 +55,7 @@ class DaedalusService implements DaedalusServiceInterface
         $this->entityManager = $entityManager;
         $this->eventDispatcher = $eventDispatcher;
         $this->repository = $repository;
-        $this->roomService = $roomService;
+        $this->placesService = $placesService;
         $this->cycleService = $cycleService;
         $this->gameEquipmentService = $gameEquipmentService;
         $this->randomService = $randomService;
@@ -120,12 +121,14 @@ class DaedalusService implements DaedalusServiceInterface
             ->setDailySpores($daedalusConfig->getDailySporeNb())
         ;
 
+        $this->createNeron($daedalus);
+
         $this->persist($daedalus);
 
-        /** @var RoomConfig $roomconfig */
-        foreach ($daedalusConfig->getRoomConfigs() as $roomconfig) {
-            $room = $this->roomService->createRoom($roomconfig, $daedalus);
-            $daedalus->addRoom($room);
+        /** @var PlaceConfig $placeConfig */
+        foreach ($daedalusConfig->getPlaceConfigs() as $placeConfig) {
+            $place = $this->placesService->createPlace($placeConfig, $daedalus);
+            $daedalus->addPlace($place);
         }
 
         $randomItemPlaces = $daedalusConfig->getRandomItemPlace();
@@ -141,8 +144,8 @@ class DaedalusService implements DaedalusServiceInterface
                 $roomName = $randomItemPlaces
                     ->getPlaces()[$this->randomService->random(0, count($randomItemPlaces->getPlaces()) - 1)]
                 ;
-                $room = $daedalus->getRooms()->filter(fn (Room $room) => $roomName === $room->getName())->first();
-                $item->setRoom($room);
+                $room = $daedalus->getRooms()->filter(fn (Place $room) => $roomName === $room->getName())->first();
+                $item->setPlace($room);
                 $this->gameEquipmentService->persist($item);
             }
         }
@@ -204,11 +207,14 @@ class DaedalusService implements DaedalusServiceInterface
             $capsule->removeLocation();
             $this->gameEquipmentService->delete($capsule);
 
-            $this->roomLogService->createPlayerLog(
+            $this->roomLogService->createLog(
                 LogEnum::OXY_LOW_USE_CAPSULE,
-                $player->getRoom(),
-                $player,
+                $player->getPlace(),
                 VisibilityEnum::PRIVATE,
+                'event_log',
+                $player,
+                null,
+                null,
                 $date
             );
         }
@@ -267,7 +273,7 @@ class DaedalusService implements DaedalusServiceInterface
     public function changeFuelLevel(Daedalus $daedalus, int $change): Daedalus
     {
         $maxFuel = $daedalus->getGameConfig()->getDaedalusConfig()->getMaxFuel();
-        if (!($newFuelLevel = $daedalus->getFuel() + $change > $maxFuel) && !($newFuelLevel < 0)) {
+        if (!($newFuelLevel = $daedalus->getFuel() + $change > $maxFuel) && $newFuelLevel >= 0) {
             $daedalus->addFuel($change);
         }
 
@@ -277,7 +283,7 @@ class DaedalusService implements DaedalusServiceInterface
     public function changeHull(Daedalus $daedalus, int $change): Daedalus
     {
         $maxHull = $daedalus->getGameConfig()->getDaedalusConfig()->getMaxHull();
-        if ($newHull = $daedalus->getHull() + $change < 0) {
+        if (($newHull = $daedalus->getHull() + $change) < 0) {
             $daedalus->setHull(0);
 
             $daedalusEvent = new DaedalusEvent($daedalus);
@@ -291,5 +297,14 @@ class DaedalusService implements DaedalusServiceInterface
         $this->persist($daedalus);
 
         return $daedalus;
+    }
+
+    private function createNeron(Daedalus $daedalus): void
+    {
+        $neron = new Neron();
+        $neron->setDaedalus($daedalus);
+        $daedalus->setNeron($neron);
+
+        $this->entityManager->persist($neron);
     }
 }

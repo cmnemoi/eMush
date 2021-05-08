@@ -11,6 +11,8 @@ interface ChannelServiceInterface
 {
     public function getPlayerChannels(Player $player, bool $privateOnly = false): Collection;
 
+    public function getPublicChannel(Daedalus $daedalus): ?Channel;
+
     public function createPublicChannel(Daedalus $daedalus): Channel;
 
     public function createPrivateChannel(Player $player): Channel;

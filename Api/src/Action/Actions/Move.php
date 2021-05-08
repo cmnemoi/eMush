@@ -4,82 +4,94 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionParameters;
+use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\Reach;
+use Mush\Action\Validator\Status;
 use Mush\Equipment\Entity\Door;
-use Mush\Player\Entity\Player;
+use Mush\Equipment\Enum\ReachEnum;
+use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Move extends AbstractAction
 {
     protected string $name = ActionEnum::MOVE;
-
-    private Door $door;
 
     private RoomLogServiceInterface $roomLogService;
     private PlayerServiceInterface $playerService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
+        ActionServiceInterface $actionService,
+        ValidatorInterface $validator,
         PlayerServiceInterface $playerService,
-        RoomLogServiceInterface $roomLogService
+        RoomLogServiceInterface $roomLogService,
     ) {
-        parent::__construct($eventDispatcher);
+        parent::__construct(
+            $eventDispatcher,
+            $actionService,
+            $validator
+        );
 
         $this->roomLogService = $roomLogService;
         $this->playerService = $playerService;
     }
 
-    public function loadParameters(Action $action, Player $player, ActionParameters $actionParameters): void
+    protected function support(?ActionParameter $parameter): bool
     {
-        parent::loadParameters($action, $player, $actionParameters);
-
-        if (!($door = $actionParameters->getDoor())) {
-            throw new \InvalidArgumentException('Invalid door parameter');
-        }
-
-        $this->door = $door;
+        return $parameter instanceof Door;
     }
 
-    public function canExecute(): bool
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        return !$this->door->isBroken()
-            && $this->player->getRoom()->getDoors()->contains($this->door);
+        $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
+        $metadata->addConstraint(new Status(['status' => EquipmentStatusEnum::BROKEN, 'contain' => false, 'groups' => ['visibility']]));
     }
 
     protected function applyEffects(): ActionResult
     {
-        $newRoom = $this->door->getOtherRoom($this->player->getRoom());
-        $this->player->setRoom($newRoom);
+        /** @var Door $parameter */
+        $parameter = $this->parameter;
+
+        $oldRoom = $this->player->getPlace();
+        $newRoom = $parameter->getOtherRoom($this->player->getPlace());
+        $this->player->setPlace($newRoom);
 
         $this->playerService->persist($this->player);
 
-        $this->createLog();
+        $this->createLog($newRoom, $oldRoom);
 
         return new Success();
     }
 
-    protected function createLog(): void
+    protected function createLog(Place $newplace, Place $oldPlace): void
     {
-        $this->roomLogService->createActionLog(
+        $this->roomLogService->createLog(
             ActionLogEnum::ENTER_ROOM,
-            $this->player->getRoom(),
+            $newplace,
+            VisibilityEnum::PUBLIC,
+            'actions_log',
             $this->player,
             null,
-            VisibilityEnum::PUBLIC,
+            null,
             new \DateTime('now')
         );
-        $this->roomLogService->createActionLog(
+        $this->roomLogService->createLog(
             ActionLogEnum::EXIT_ROOM,
-            $this->door->getOtherRoom($this->player->getRoom()),
+            $oldPlace,
+            VisibilityEnum::PUBLIC,
+            'actions_log',
             $this->player,
             null,
-            VisibilityEnum::PUBLIC,
+            null,
             new \DateTime('now')
         );
     }

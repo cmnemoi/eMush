@@ -9,11 +9,12 @@ use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Event\PlayerEvent;
-use Mush\Room\Entity\Room;
+use Mush\Player\Event\PlayerModifierEvent;
 use Mush\Status\CycleHandler\Fire;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\StatusEnum;
@@ -60,7 +61,7 @@ class FireTest extends TestCase
 
     public function testNewCycleFireDamage()
     {
-        $room = new Room();
+        $room = new Place();
 
         $difficultyConfig = new DifficultyConfig();
         $daedalusConfig = new DaedalusConfig();
@@ -85,18 +86,18 @@ class FireTest extends TestCase
         ;
 
         $player = new Player();
+        $player->setGameStatus(GameStatusEnum::CURRENT);
         $room->addPlayer($player);
 
-        $this->randomService->shouldReceive('isSuccessfull')->andReturn(true)->once();
+        $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
         $this->randomService->shouldReceive('getSingleRandomElementFromProbaArray')->andReturn(2)->twice();
         $this->daedalusService->shouldReceive('changeHull')->once();
         $this->daedalusService->shouldReceive('persist')->once();
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (PlayerEvent $playerEvent) => (
-                $playerEvent->getModifier()->getTarget() === ModifierTargetEnum::HEALTH_POINT &&
-                intval($playerEvent->getModifier()->getDelta()) === -2
+            ->withArgs(fn (PlayerEvent $playerEvent, string $eventName) => (
+                intval($playerEvent->getDelta()) === -2 && $eventName === PlayerModifierEvent::HEALTH_POINT_MODIFIER
             ))
             ->once()
         ;

@@ -2,225 +2,64 @@
 
 namespace Mush\Player\Service;
 
-use Mush\Player\Entity\Modifier;
+use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Player\Entity\Player;
-use Mush\Player\Enum\ModifierTargetEnum;
-use Mush\RoomLog\Enum\LogEnum;
-use Mush\RoomLog\Enum\VisibilityEnum;
-use Mush\RoomLog\Service\RoomLogServiceInterface;
-use Mush\Status\Enum\ChargeStrategyTypeEnum;
-use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 
 class ActionModifierService implements ActionModifierServiceInterface
 {
-    const FULL_STOMACH_STATUS_THRESHOLD = 3;
-    const STARVING_STATUS_THRESHOLD = -24;
-
-    private StatusServiceInterface $statusService;
-    private RoomLogServiceInterface $roomLogService;
+    private GearToolServiceInterface $gearToolService;
 
     public function __construct(
-        StatusServiceInterface $statusService,
-        RoomLogServiceInterface $roomLogService
+        GearToolServiceInterface $gearToolService
     ) {
-        $this->statusService = $statusService;
-        $this->roomLogService = $roomLogService;
+        $this->gearToolService = $gearToolService;
     }
 
-    public function handlePlayerModifier(Player $player, Modifier $actionModifier, \DateTime $date = null): Player
+    public function getGearsModifier(Player $player, array $scopes, string $target): array
     {
-        $date = $date ?? new \DateTime('now');
-        $delta = (int) $actionModifier->getDelta();
-        switch ($actionModifier->getTarget()) {
-            case ModifierTargetEnum::ACTION_POINT:
-                $player = $this->handleActionPointModifier($delta, $player, $date);
-                break;
-            case ModifierTargetEnum::MOVEMENT_POINT:
-                $player = $this->handleMovementPointModifier($delta, $player, $date);
-                break;
-            case ModifierTargetEnum::HEALTH_POINT:
-                $player = $this->handleHealthPointModifier($delta, $player, $date);
-                break;
-            case ModifierTargetEnum::MORAL_POINT:
-                $player = $this->handleMoralPointModifier($delta, $player, $date);
-                break;
-            case ModifierTargetEnum::SATIETY:
-                $player = $this->handleSatietyModifier($delta, $player);
-                break;
-        }
+        /** @var int $delta */
+        $additiveDelta = 0;
+        $multiplicativeDelta = 1;
 
-        return $player;
-    }
+        //gear modifiers
+        foreach ($this->gearToolService->getApplicableGears($player, $scopes, $target) as $gear) {
+            $gearMechanic = $gear->getEquipment()->getMechanicByName(EquipmentMechanicEnum::GEAR);
 
-    private function handleActionPointModifier(int $actionModifier, Player $player, \DateTime $date): Player
-    {
-        $gameConfig = $player->getDaedalus()->getGameConfig();
-
-        if ($actionModifier !== 0) {
-            $playerNewActionPoint = $player->getActionPoint() + $actionModifier;
-            $playerNewActionPoint = $this->getValueInInterval($playerNewActionPoint, 0, $gameConfig->getMaxActionPoint());
-            $player->setActionPoint($playerNewActionPoint);
-            $this->roomLogService->createQuantityLog(
-                $actionModifier > 0 ? LogEnum::GAIN_ACTION_POINT : LogEnum::LOSS_ACTION_POINT,
-                $player->getRoom(),
-                $player,
-                VisibilityEnum::PRIVATE,
-                abs($actionModifier),
-                $date
-            );
-        }
-
-        return $player;
-    }
-
-    private function handleMovementPointModifier(int $movementModifier, Player $player, \DateTime $date): Player
-    {
-        $gameConfig = $player->getDaedalus()->getGameConfig();
-
-        if ($movementModifier !== 0) {
-            $playerNewMovementPoint = $player->getMovementPoint() + $movementModifier;
-            $playerNewMovementPoint = $this->getValueInInterval($playerNewMovementPoint, 0, $gameConfig->getMaxMovementPoint());
-            $player->setMovementPoint($playerNewMovementPoint);
-            $this->roomLogService->createQuantityLog(
-                $movementModifier > 0 ? LogEnum::GAIN_MOVEMENT_POINT : LogEnum::LOSS_MOVEMENT_POINT,
-                $player->getRoom(),
-                $player,
-                VisibilityEnum::PRIVATE,
-                abs($movementModifier),
-                $date
-            );
-        }
-
-        return $player;
-    }
-
-    private function handleHealthPointModifier(int $healthModifier, Player $player, \DateTime $date): Player
-    {
-        $gameConfig = $player->getDaedalus()->getGameConfig();
-
-        if ($healthModifier !== 0) {
-            $playerNewHealthPoint = $player->getHealthPoint() + $healthModifier;
-            $playerNewHealthPoint = $this->getValueInInterval($playerNewHealthPoint, 0, $gameConfig->getMaxHealthPoint());
-            $player->setHealthPoint($playerNewHealthPoint);
-            $this->roomLogService->createQuantityLog(
-                $healthModifier > 0 ? LogEnum::GAIN_HEALTH_POINT : LogEnum::LOSS_HEALTH_POINT,
-                $player->getRoom(),
-                $player,
-                VisibilityEnum::PRIVATE,
-                abs($healthModifier),
-                $date
-            );
-        }
-
-        return $player;
-    }
-
-    private function handleMoralPointModifier(int $moralModifier, Player $player, \DateTime $date): Player
-    {
-        $gameConfig = $player->getDaedalus()->getGameConfig();
-
-        if ($moralModifier !== 0) {
-            if (!$player->isMush()) {
-                $playerNewMoralPoint = $player->getMoralPoint() + $moralModifier;
-                $playerNewMoralPoint = $this->getValueInInterval($playerNewMoralPoint, 0, $gameConfig->getMaxMoralPoint());
-                $player->setMoralPoint($playerNewMoralPoint);
-
-                $player = $this->handleMoralStatus($player);
-
-                $this->roomLogService->createQuantityLog(
-                    $moralModifier > 0 ? LogEnum::GAIN_MORAL_POINT : LogEnum::LOSS_MORAL_POINT,
-                    $player->getRoom(),
-                    $player,
-                    VisibilityEnum::PRIVATE,
-                    abs($moralModifier),
-                    $date
-                );
+            if ($gearMechanic) {
+                foreach ($gearMechanic->getModifiers() as $modifier) {
+                    if (in_array($modifier->getScope(), $scopes) &&
+                        ($modifier->getTarget() === $target)
+                    ) {
+                        if ($modifier->isAdditive()) {
+                            $additiveDelta += $modifier->getDelta();
+                        } else {
+                            $multiplicativeDelta *= $modifier->getDelta();
+                        }
+                    }
+                }
             }
         }
 
-        return $player;
+        return ['additive' => $additiveDelta, 'multiplicative' => $multiplicativeDelta];
     }
 
-    private function handleMoralStatus(Player $player): Player
+    public function getModifiedValue(float $initValue, Player $player, array $scopes, string $target): int
     {
-        $demoralizedStatus = $player->getStatusByName(PlayerStatusEnum::DEMORALIZED);
-        $suicidalStatus = $player->getStatusByName(PlayerStatusEnum::SUICIDAL);
+        /** @var int $delta */
+        $additiveDelta = 0;
+        $multiplicativeDelta = 1;
 
-        if ($player->getMoralPoint() <= 1 && !$suicidalStatus) {
-            $this->statusService->createCoreStatus(PlayerStatusEnum::SUICIDAL, $player, null, VisibilityEnum::PRIVATE);
-        } elseif ($suicidalStatus) {
-            $player->removeStatus($suicidalStatus);
-        }
+        //gear modifiers
+        $modifiersDelta = $this->getGearsModifier($player, $scopes, $target);
 
-        if ($player->getMoralPoint() <= 4 && $player->getMoralPoint() > 1 && $demoralizedStatus) {
-            $this->statusService->createCoreStatus(PlayerStatusEnum::DEMORALIZED, $player, null, VisibilityEnum::PRIVATE);
-        } elseif ($demoralizedStatus) {
-            $player->removeStatus($demoralizedStatus);
-        }
+        $additiveDelta += $modifiersDelta['additive'];
+        $multiplicativeDelta *= $modifiersDelta['multiplicative'];
 
-        return $player;
-    }
+        //@TODO Status modifiers
 
-    private function handleSatietyModifier(int $satietyModifier, Player $player): Player
-    {
-        if ($satietyModifier !== 0) {
-            if ($satietyModifier >= 0 &&
-                $player->getSatiety() < 0) {
-                $player->setSatiety($satietyModifier);
-            } else {
-                $player->setSatiety($player->getSatiety() + $satietyModifier);
-            }
+        //@TODO skill modifiers
 
-            $player = $this->handleSatietyStatus($satietyModifier, $player);
-        }
-
-        return $player;
-    }
-
-    private function handleSatietyStatus(int $satietyModifier, Player $player): Player
-    {
-        if (!$player->isMush()) {
-            $player = $this->handleHumanStatus($player);
-        } elseif ($satietyModifier >= 0) {
-            $this->statusService->createChargeStatus(
-                PlayerStatusEnum::FULL_STOMACH,
-                $player,
-                ChargeStrategyTypeEnum::CYCLE_DECREMENT,
-                null,
-                VisibilityEnum::PUBLIC,
-                VisibilityEnum::HIDDEN,
-                2,
-                0,
-                true
-            );
-        }
-
-        return $player;
-    }
-
-    private function handleHumanStatus(Player $player): Player
-    {
-        $starvingStatus = $player->getStatusByName(PlayerStatusEnum::STARVING);
-        $fullStatus = $player->getStatusByName(PlayerStatusEnum::FULL_STOMACH);
-
-        if ($player->getSatiety() < self::STARVING_STATUS_THRESHOLD && !$starvingStatus) {
-            $this->statusService->createCoreStatus(PlayerStatusEnum::STARVING, $player);
-        } elseif ($player->getSatiety() >= self::STARVING_STATUS_THRESHOLD && $starvingStatus) {
-            $player->removeStatus($starvingStatus);
-        }
-
-        if ($player->getSatiety() >= self::FULL_STOMACH_STATUS_THRESHOLD && !$fullStatus) {
-            $this->statusService->createCoreStatus(PlayerStatusEnum::FULL_STOMACH, $player, null, VisibilityEnum::PRIVATE);
-        } elseif ($fullStatus) {
-            $player->removeStatus($fullStatus);
-        }
-
-        return $player;
-    }
-
-    private function getValueInInterval(int $value, int $min, int $max): int
-    {
-        return max($min, min($max, $value));
+        return (int) $initValue * $multiplicativeDelta + $additiveDelta;
     }
 }

@@ -67,9 +67,9 @@ class DaedalusConfig
     private ?RandomItemPlaces $randomItemPlace = null;
 
     /**
-     * @ORM\OneToMany(targetEntity="Mush\Room\Entity\RoomConfig", mappedBy="daedalusConfig")
+     * @ORM\OneToMany(targetEntity="Mush\Place\Entity\PlaceConfig", mappedBy="daedalusConfig")
      */
-    private Collection $roomConfigs;
+    private Collection $placeConfigs;
 
     /**
      * @ORM\Column(type="integer", length=255, nullable=false)
@@ -171,17 +171,17 @@ class DaedalusConfig
         return $this;
     }
 
-    public function getRoomConfigs(): Collection
+    public function getPlaceConfigs(): Collection
     {
-        return $this->roomConfigs;
+        return $this->placeConfigs;
     }
 
     /**
      * @return static
      */
-    public function setRoomConfigs(Collection $roomConfigs): DaedalusConfig
+    public function setPlaceConfigs(Collection $placeConfigs): DaedalusConfig
     {
-        $this->roomConfigs = $roomConfigs;
+        $this->placeConfigs = $placeConfigs;
 
         return $this;
     }

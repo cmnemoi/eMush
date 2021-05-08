@@ -3,10 +3,8 @@
 namespace Mush\Equipment\Event;
 
 use Mush\Equipment\Entity\EquipmentMechanic;
-use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Service\EquipmentCycleHandlerServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Room\Service\RoomServiceInterface;
 use Mush\Status\Entity\Status;
 use Mush\Status\Event\StatusCycleEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -14,18 +12,15 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class EquipmentCycleSubscriber implements EventSubscriberInterface
 {
-    private RoomServiceInterface $roomService;
     private EventDispatcherInterface $eventDispatcher;
     private EquipmentCycleHandlerServiceInterface $equipmentCycleHandler;
     private GameEquipmentServiceInterface $gameEquipmentService;
 
     public function __construct(
-        RoomServiceInterface $roomService,
         GameEquipmentServiceInterface $gameEquipmentService,
         EquipmentCycleHandlerServiceInterface $equipmentCycleHandler,
         EventDispatcherInterface $eventDispatcher
     ) {
-        $this->roomService = $roomService;
         $this->gameEquipmentService = $gameEquipmentService;
         $this->eventDispatcher = $eventDispatcher;
         $this->equipmentCycleHandler = $equipmentCycleHandler;
@@ -42,11 +37,6 @@ class EquipmentCycleSubscriber implements EventSubscriberInterface
     public function onNewCycle(EquipmentCycleEvent $event): void
     {
         $equipment = $event->getGameEquipment();
-
-        //each equipment as a chance to break
-        if (!$equipment instanceof GameItem) {
-            $this->gameEquipmentService->handleBreakCycle($equipment, $event->getTime());
-        }
 
         /** @var Status $status */
         foreach ($equipment->getStatuses() as $status) {

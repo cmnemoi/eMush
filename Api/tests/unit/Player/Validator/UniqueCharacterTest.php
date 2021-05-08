@@ -4,7 +4,7 @@ namespace Mush\Test\Player\Validator;
 
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Player\Entity\Dto\PlayerRequest;
+use Mush\Player\Entity\Dto\PlayerCreateRequest;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Player\Validator\UniqueCharacter;
@@ -39,7 +39,7 @@ class UniqueCharacterTest extends TestCase
     public function testValid()
     {
         $constraint = new UniqueCharacter();
-        $playerRequest = new PlayerRequest();
+        $playerRequest = new PlayerCreateRequest();
         $this->initValidator();
 
         $this->validator->validate($playerRequest, $constraint);
@@ -58,7 +58,7 @@ class UniqueCharacterTest extends TestCase
     public function testNotValid()
     {
         $constraint = new UniqueCharacter();
-        $playerRequest = new PlayerRequest();
+        $playerRequest = new PlayerCreateRequest();
         $this->initValidator('This character already exist in this daedalus');
 
         $playerRequest

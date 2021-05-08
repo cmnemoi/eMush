@@ -29,8 +29,10 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
         $dropAction = $this->getReference(ActionsFixtures::DEFAULT_DROP);
         /** @var Action $buildAction */
         $buildAction = $this->getReference(ActionsFixtures::BUILD_DEFAULT);
+        /** @var Action $buildAction */
+        $hideAction = $this->getReference(ActionsFixtures::HIDE_DEFAULT);
 
-        $actions = new ArrayCollection([$takeAction, $dropAction]);
+        $actions = new ArrayCollection([$takeAction, $dropAction, $hideAction]);
 
         /** @var ItemConfig $echolocator */
         $echolocator = $this->getReference(ItemEnum::ECHOLOCATOR);
@@ -70,7 +72,6 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setName(ItemEnum::ECHOLOCATOR . '_' . ItemEnum::BLUEPRINT)
             ->setIsHeavy(false)
             ->setIsStackable(true)
-            ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics(new ArrayCollection([$blueprintEcholocatorMechanic]))
@@ -92,7 +93,6 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setName(ItemEnum::WHITE_FLAG . '_' . ItemEnum::BLUEPRINT)
             ->setIsHeavy(false)
             ->setIsStackable(true)
-            ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics(new ArrayCollection([$blueprintWhiteFlagMechanic]))
@@ -114,7 +114,6 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setName(ItemEnum::THERMOSENSOR . '_' . ItemEnum::BLUEPRINT)
             ->setIsHeavy(false)
             ->setIsStackable(true)
-            ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics(new ArrayCollection([$blueprintThermosensorMechanic]))
@@ -136,7 +135,6 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setName(ItemEnum::BABEL_MODULE . '_' . ItemEnum::BLUEPRINT)
             ->setIsHeavy(false)
             ->setIsStackable(true)
-            ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics(new ArrayCollection([$blueprintBabelModuleMechanic]))
@@ -158,7 +156,6 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setName(ItemEnum::GRENADE . '_' . ItemEnum::BLUEPRINT)
             ->setIsHeavy(false)
             ->setIsStackable(true)
-            ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics(new ArrayCollection([$blueprintGrenadeMechanic]))
@@ -180,7 +177,6 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setName(ItemEnum::OLD_FAITHFUL . '_' . ItemEnum::BLUEPRINT)
             ->setIsHeavy(false)
             ->setIsStackable(true)
-            ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics(new ArrayCollection([$blueprintOldFaithfulMechanic]))
@@ -202,7 +198,6 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setName(ItemEnum::LIZARO_JUNGLE . '_' . ItemEnum::BLUEPRINT)
             ->setIsHeavy(false)
             ->setIsStackable(true)
-            ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics(new ArrayCollection([$blueprintLizaroJungleMechanic]))
@@ -224,7 +219,6 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setName(ItemEnum::ROCKET_LAUNCHER . '_' . ItemEnum::BLUEPRINT)
             ->setIsHeavy(false)
             ->setIsStackable(true)
-            ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics(new ArrayCollection([$blueprintRocketLauncherMechanic]))
@@ -246,7 +240,6 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setName(ToolItemEnum::EXTINGUISHER . '_' . ItemEnum::BLUEPRINT)
             ->setIsHeavy(false)
             ->setIsStackable(true)
-            ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics(new ArrayCollection([$blueprintExtinguisherMechanic]))
@@ -268,7 +261,6 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setName(GearItemEnum::OSCILLOSCOPE . '_' . ItemEnum::BLUEPRINT)
             ->setIsHeavy(false)
             ->setIsStackable(true)
-            ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics(new ArrayCollection([$blueprintOscilloscopeMechanic]))
@@ -290,7 +282,6 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setName(GearItemEnum::SNIPER_HELMET . '_' . ItemEnum::BLUEPRINT)
             ->setIsHeavy(false)
             ->setIsStackable(true)
-            ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics(new ArrayCollection([$blueprintSniperHelmetMechanic]))

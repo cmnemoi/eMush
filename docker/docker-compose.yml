@@ -4,9 +4,6 @@ services:
   mush_apache:
     build: Api/apache
     container_name: mush_apache
-    ports:
-      - 8080:80
-      - 8443:8443
     volumes:
       - ./Api/config/vhosts:/etc/apache2/sites-enabled
       - ../Api:/www
@@ -35,8 +32,6 @@ services:
     container_name: mush_database
     volumes:
       - ./Database:/docker-entrypoint-initdb.d
-    ports:
-      - "5432:5432"
     networks:
       - mush_network
     environment:
@@ -51,9 +46,6 @@ services:
       dockerfile: Dockerfile
       args:
         - YOUR_APP_WEB_HTTP_PORT=8080
-    ports:
-      - "80:8080"
-      - "8000:8000"  # only needed if using vue-cli UI
     volumes:
       - ../App:/www
     stdin_open: true
@@ -72,8 +64,6 @@ services:
     build:
       context: ./EternalTwin
       dockerfile: Dockerfile
-    ports:
-      - "50320:50320"
     volumes:
       - ../EternalTwin:/www
     networks:

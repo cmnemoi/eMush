@@ -4,87 +4,89 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionParameters;
+use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Service\SuccessRateServiceInterface;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\Reach;
+use Mush\Action\Validator\Status;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\RoomLog\Entity\Target;
 use Mush\RoomLog\Enum\VisibilityEnum;
-use Mush\Status\Service\StatusServiceInterface;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Disassemble extends AttemptAction
 {
     protected string $name = ActionEnum::DISASSEMBLE;
-
-    private GameEquipment $gameEquipment;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
+        ActionServiceInterface $actionService,
+        ValidatorInterface $validator,
         GameEquipmentServiceInterface $gameEquipmentService,
         PlayerServiceInterface $playerService,
         RandomServiceInterface $randomService,
-        SuccessRateServiceInterface $successRateService,
-        StatusServiceInterface $statusService
     ) {
-        parent::__construct($randomService, $successRateService, $eventDispatcher, $statusService);
+        parent::__construct(
+            $eventDispatcher,
+            $actionService,
+            $validator,
+            $randomService,
+        );
 
         $this->gameEquipmentService = $gameEquipmentService;
         $this->playerService = $playerService;
     }
 
-    public function loadParameters(Action $action, Player $player, ActionParameters $actionParameters): void
+    protected function support(?ActionParameter $parameter): bool
     {
-        parent::loadParameters($action, $player, $actionParameters);
-
-        if (!($equipment = $actionParameters->getItem()) &&
-            !($equipment = $actionParameters->getEquipment())) {
-            throw new \InvalidArgumentException('Invalid equipment parameter');
-        }
-
-        $this->gameEquipment = $equipment;
+        return $parameter instanceof GameEquipment;
     }
 
-    public function canExecute(): bool
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        //Check that the item is reachable
-        return $this->gameEquipment->getActions()->contains($this->action) &&
-            $this->player->canReachEquipment($this->gameEquipment)
-            //@TODO uncomment when skill are ready
-            //&&
-            //in_array(SkillEnum::TECHNICIAN, $this->player->getSkills())
-        ;
+        //@TODO add validator on technician skill ?
+        $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
+        $metadata->addConstraint(new Status([
+            'status' => EquipmentStatusEnum::REINFORCED,
+            'contain' => false,
+            'groups' => ['execute'],
+            'message' => ActionImpossibleCauseEnum::DISMANTLE_REINFORCED,
+        ]));
     }
 
     protected function applyEffects(): ActionResult
     {
+        /** @var GameEquipment $parameter */
+        $parameter = $this->parameter;
+
         $response = $this->makeAttempt();
 
         if ($response instanceof Success) {
-            $this->disasemble();
+            $this->disasemble($parameter);
         }
 
         $this->playerService->persist($this->player);
 
-        $target = new Target($this->gameEquipment->getName(), 'items');
-        $response->setTarget($target);
+        $response->setActionParameter($parameter);
 
         return $response;
     }
 
-    private function disasemble(): void
+    private function disasemble(GameEquipment $gameEquipment): void
     {
         // add the item produced by disassembling
-        foreach ($this->gameEquipment->getEquipment()->getDismountedProducts() as $productString => $number) {
+        foreach ($gameEquipment->getEquipment()->getDismountedProducts() as $productString => $number) {
             for ($i = 0; $i < $number; ++$i) {
                 $productEquipment = $this
                     ->gameEquipmentService
@@ -98,13 +100,8 @@ class Disassemble extends AttemptAction
             }
         }
 
-        // remove the dismanteled equipment
-        $equipmentEvent = new EquipmentEvent($this->gameEquipment, VisibilityEnum::HIDDEN);
+        // remove the dismantled equipment
+        $equipmentEvent = new EquipmentEvent($gameEquipment, VisibilityEnum::HIDDEN);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
-    }
-
-    protected function getBaseRate(): int
-    {
-        return $this->action->getSuccessRate();
     }
 }

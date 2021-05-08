@@ -7,6 +7,7 @@ import { Action } from "@/entities/Action";
 export class Player {
     constructor() {
         this.id = null;
+        this.gameStatus = null;
         this.characterKey = null;
         this.characterValue = null;
         this.actionPoint = null;
@@ -24,6 +25,7 @@ export class Player {
     load = function(object) {
         if (typeof object !== "undefined") {
             this.id = object.id;
+            this.gameStatus = object.gameStatus;
             this.characterKey = object.character['key'];
             this.characterValue = object.character['value'];
             this.actionPoint = object.actionPoint;
@@ -32,22 +34,30 @@ export class Player {
             this.moralPoint = object.moralPoint;
             this.triumph = object.triumph;
             this.gameStatus = object.gameStatus;
-            this.daedalus = (new Daedalus()).load(object.daedalus);
-            this.room = (new Room()).load(object.room);
+            if (typeof object.daedalus !== 'undefined') {
+                this.daedalus = (new Daedalus()).load(object.daedalus);
+            }
+            if (typeof object.room !== 'undefined') {
+                this.room = (new Room()).load(object.room);
+            }
             if (typeof object.items !== 'undefined') {
                 object.items.forEach((itemObject) => {
                     let item = (new Item).load(itemObject);
                     this.items.push(item);
                 });
             }
-            object.actions.forEach((actionObject) => {
-                let action = (new Action()).load(actionObject);
-                this.actions.push(action);
-            });
-            object.statuses.forEach((statusObject) => {
-                let status = (new Status()).load(statusObject);
-                this.statuses.push(status);
-            });
+            if (typeof object.actions !== 'undefined') {
+                object.actions.forEach((actionObject) => {
+                    let action = (new Action()).load(actionObject);
+                    this.actions.push(action);
+                });
+            }
+            if (typeof object.statuses !== 'undefined') {
+                object.statuses.forEach((statusObject) => {
+                    let status = (new Status()).load(statusObject);
+                    this.statuses.push(status);
+                });
+            }
         }
         return this;
     }

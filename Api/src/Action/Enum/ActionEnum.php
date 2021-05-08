@@ -6,6 +6,9 @@ class ActionEnum
 {
     // Not yet an exhaustive list
 
+    //alpha actions
+    public const REJUVENATE_ALPHA = 'rejuvenate_alpha';
+
     // Permanent Item actions
     public const MOVE = 'move';
     public const TAKE = 'take';
@@ -27,6 +30,7 @@ class ActionEnum
     public const SHRED = 'shred';
     public const ATTACK = 'attack';
     public const CONSUME = 'consume';
+    public const CONSUME_DRUG = 'consume_drug';
     public const BUILD = 'build';
     public const WATER_PLANT = 'water_plant';
     public const TREAT_PLANT = 'treat_plant';

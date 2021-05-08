@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
+ * @TODO: Move that to Equipment directory
  */
 class Modifier
 {
@@ -35,6 +36,11 @@ class Modifier
      * @ORM\Column(type="string", nullable=false)
      */
     private ?string $reach = null;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private ?bool $isAdditive = null;
 
     public function getId(): int
     {
@@ -85,6 +91,18 @@ class Modifier
     public function setReach(?string $reach): Modifier
     {
         $this->reach = $reach;
+
+        return $this;
+    }
+
+    public function isAdditive(): ?bool
+    {
+        return $this->isAdditive;
+    }
+
+    public function setIsAdditive(?bool $isAdditive): Modifier
+    {
+        $this->isAdditive = $isAdditive;
 
         return $this;
     }

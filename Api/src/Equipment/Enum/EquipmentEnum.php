@@ -47,4 +47,5 @@ class EquipmentEnum
     public const COMMAND_TERMINAL = 'command_terminal';
     public const THALASSO = 'thalasso';
     public const BIOS_TERMINAL = 'bios_terminal';
+    public const AUXILIARY_TERMINAL = 'auxiliary_terminal';
 }

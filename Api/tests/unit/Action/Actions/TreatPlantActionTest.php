@@ -4,18 +4,16 @@ namespace Mush\Test\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
-use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\TreatPlant;
-use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Room\Entity\Room;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -44,8 +42,9 @@ class TreatPlantActionTest extends AbstractActionTest
 
         $this->action = new TreatPlant(
             $this->eventDispatcher,
+            $this->actionService,
+            $this->validator,
             $this->gameEquipmentService,
-            $this->statusService
         );
     }
 
@@ -57,53 +56,19 @@ class TreatPlantActionTest extends AbstractActionTest
         Mockery::close();
     }
 
-    public function testCannotExecute()
-    {
-        $room = new Room();
-
-        $gameItem = new GameItem();
-        $item = new ItemConfig();
-        $gameItem
-            ->setEquipment($item)
-            ->setRoom($room)
-        ;
-
-        $plant = new Plant();
-
-        $diseased = new Status($gameItem);
-        $diseased
-            ->setName(EquipmentStatusEnum::PLANT_DISEASED)
-        ;
-
-        $player = $this->createPlayer(new Daedalus(), $room);
-        $actionParameter = new ActionParameters();
-        $actionParameter->setItem($gameItem);
-        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
-
-        //Not a plant
-        $result = $this->action->execute();
-        $this->assertInstanceOf(Error::class, $result);
-
-        $item->setMechanics(new ArrayCollection([$plant]));
-
-        //Not thirsty
-        $gameItem->removeStatus($diseased);
-        $result = $this->action->execute();
-        $this->assertInstanceOf(Error::class, $result);
-    }
-
     public function testExecute()
     {
-        $room = new Room();
+        $room = new Place();
 
         $gameItem = new GameItem();
         $item = new ItemConfig();
         $gameItem
               ->setEquipment($item)
-              ->setRoom($room)
+              ->setPlace($room)
         ;
 
         $plant = new Plant();
+        $plant->addAction($this->actionEntity);
         $item->setMechanics(new ArrayCollection([$plant]));
 
         $diseased = new Status($gameItem);
@@ -112,10 +77,10 @@ class TreatPlantActionTest extends AbstractActionTest
         ;
 
         $player = $this->createPlayer(new Daedalus(), $room);
-        $actionParameter = new ActionParameters();
-        $actionParameter->setItem($gameItem);
-        $this->action->loadParameters($this->actionEntity, $player, $actionParameter);
 
+        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
+
+        $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gameEquipmentService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
         $this->statusService->shouldReceive('delete');
@@ -126,6 +91,5 @@ class TreatPlantActionTest extends AbstractActionTest
         $this->assertCount(1, $room->getEquipments());
         $this->assertCount(0, $room->getEquipments()->first()->getStatuses());
         $this->assertCount(0, $player->getStatuses());
-        $this->assertEquals(8, $player->getActionPoint());
     }
 }

@@ -7,23 +7,17 @@ use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\MedicalCondition;
 use Mush\Status\Entity\Status;
-use Mush\User\Entity\User;
-use Symfony\Component\Finder\Exception\AccessDeniedException;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class StatusNormalizer implements ContextAwareNormalizerInterface
 {
     private TranslatorInterface $translator;
-    private TokenStorageInterface $tokenStorage;
 
     public function __construct(
-        TranslatorInterface $translator,
-        TokenStorageInterface $tokenStorage
+        TranslatorInterface $translator
     ) {
         $this->translator = $translator;
-        $this->tokenStorage = $tokenStorage;
     }
 
     public function supportsNormalization($data, string $format = null, array $context = []): bool
@@ -39,9 +33,13 @@ class StatusNormalizer implements ContextAwareNormalizerInterface
         $status = $object;
         $statusName = $status->getName();
 
-        if ($this->isVisibilityPublic($status, $context) ||
-            $this->isVisibilityPrivateForUser($status, $context) ||
-            ($status->getVisibility() === VisibilityEnum::MUSH && $this->getUserPlayer()->isMush())
+        if (!($currentPlayer = $context['currentPlayer'] ?? null)) {
+            throw new \LogicException('Current player is missing from context');
+        }
+
+        if ($this->isVisibilityPublic($status) ||
+            $this->isVisibilityPrivateForUser($status, $currentPlayer) ||
+            ($status->getVisibility() === VisibilityEnum::MUSH && $currentPlayer->isMush())
         ) {
             $normedStatus = [
                 'key' => $statusName,
@@ -63,14 +61,14 @@ class StatusNormalizer implements ContextAwareNormalizerInterface
         return [];
     }
 
-    private function isVisibilityPublic(Status $status, array $context): bool
+    private function isVisibilityPublic(Status $status): bool
     {
         $visibility = $status->getVisibility();
 
         return $visibility === VisibilityEnum::PUBLIC;
     }
 
-    private function isVisibilityPrivateForUser(Status $status, array $context): bool
+    private function isVisibilityPrivateForUser(Status $status, Player $currentPlayer): bool
     {
         $visibility = $status->getVisibility();
 
@@ -82,22 +80,6 @@ class StatusNormalizer implements ContextAwareNormalizerInterface
             return false;
         }
 
-        return $visibility === VisibilityEnum::PRIVATE && $player === $this->getUserPlayer();
-    }
-
-    private function getUserPlayer(): Player
-    {
-        if (!$token = $this->tokenStorage->getToken()) {
-            throw new AccessDeniedException('User should be logged to access that');
-        }
-
-        /** @var User $user */
-        $user = $token->getUser();
-
-        if (!$player = $user->getCurrentGame()) {
-            throw new AccessDeniedException('User should be in game to access that');
-        }
-
-        return $player;
+        return $visibility === VisibilityEnum::PRIVATE && $player === $currentPlayer;
     }
 }

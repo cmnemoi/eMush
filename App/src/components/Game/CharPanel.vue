@@ -28,13 +28,21 @@
                 <p v-if="selectedItem" class="item-name">
                     {{ selectedItem.name }}
                     <Statuses :statuses="selectedItem.statuses" type="item" />
+                    <ActionButton
+                        v-for="(action, key) in target.actions"
+                        :key="key"
+                        :action="action"
+                        @click="executeTargetAction(target, action)"
+                    />
                 </p>
-                <ActionButton
-                    v-for="(action, key) in target.actions"
-                    :key="key"
-                    :action="action"
-                    @click="executeTargetAction(target, action)"
-                />
+                <p v-else>
+                  <ActionButton
+                      v-for="(action, key) in target.actions"
+                      :key="key"
+                      :action="action"
+                      @click="executeTargetAction(null, action)"
+                  />
+                </p>
             </div>
         </div>
 

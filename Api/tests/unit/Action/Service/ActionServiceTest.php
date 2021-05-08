@@ -4,30 +4,30 @@ namespace unit\Action\Service;
 
 use Mockery;
 use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionCost;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionService;
 use Mush\Action\Service\ActionServiceInterface;
-use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
-use Mush\Player\Event\PlayerEvent;
-use Mush\Room\Entity\Room;
-use Mush\RoomLog\Service\RoomLogServiceInterface;
-use Mush\Status\Entity\Status;
+use Mush\Player\Enum\ModifierTargetEnum;
+use Mush\Player\Event\PlayerModifierEvent;
+use Mush\Player\Service\ActionModifierServiceInterface;
+use Mush\Status\Entity\Attempt;
+use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ActionServiceTest extends TestCase
 {
     /** @var EventDispatcherInterface | Mockery\Mock */
     private EventDispatcherInterface $eventDispatcher;
-    /** @var RoomLogServiceInterface | Mockery\Mock */
-    private RoomLogServiceInterface $roomLogService;
-    /** @var RandomServiceInterface | Mockery\Mock */
-    private RandomServiceInterface $randomService;
     /** @var StatusServiceInterface | Mockery\Mock */
-    private StatusServiceInterface $statusServiceInterface;
+    private StatusServiceInterface $statusService;
+    /** @var ActionModifierServiceInterface | Mockery\Mock */
+    private ActionModifierServiceInterface $actionModifierService;
 
-    private ActionServiceInterface $actionService;
+    private ActionServiceInterface $service;
 
     /**
      * @before
@@ -35,15 +35,13 @@ class ActionServiceTest extends TestCase
     public function before()
     {
         $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
-        $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
-        $this->randomService = Mockery::mock(RandomServiceInterface::class);
-        $this->statusServiceInterface = Mockery::mock(StatusServiceInterface::class);
+        $this->statusService = Mockery::mock(StatusServiceInterface::class);
+        $this->actionModifierService = Mockery::mock(ActionModifierServiceInterface::class);
 
-        $this->actionService = new ActionService(
+        $this->service = new ActionService(
             $this->eventDispatcher,
-            $this->randomService,
-            $this->statusServiceInterface,
-            $this->roomLogService
+            $this->actionModifierService,
+            $this->statusService
         );
     }
 
@@ -55,67 +53,290 @@ class ActionServiceTest extends TestCase
         Mockery::close();
     }
 
-    public function testHandleActionSideEffectDirty()
+    public function testCanPlayerDoAction()
     {
-        $action = new Action();
-        $room = new Room();
-        $player = new Player();
-        $player->setRoom($room);
+        $player = $this->createPlayer(5, 5, 5);
 
-        $action
-            ->setDirtyRate(0)
-            ->setInjuryRate(0)
+        //action cost
+        $this->actionModifierService->shouldReceive('getModifiedValue')
+            ->with(1, $player, [ActionEnum::TAKE], ModifierTargetEnum::ACTION_POINT)
+            ->andReturn(1)
+            ->once()
         ;
+        $this->assertTrue($this->service->canPlayerDoAction($player, $this->createAction(1, null, null)));
 
-        $this->eventDispatcher->shouldReceive('dispatch')->never();
+        //movement cost
+        $this->actionModifierService->shouldReceive('getModifiedValue')
+            ->with(1, $player, [ActionEnum::TAKE], ModifierTargetEnum::MOVEMENT_POINT)
+            ->andReturn(1)
+            ->once()
+        ;
+        $this->assertTrue($this->service->canPlayerDoAction($player, $this->createAction(null, 1, null)));
 
-        $player = $this->actionService->handleActionSideEffect($action, $player, new \DateTime());
+        //moral cost
+        $this->assertTrue($this->service->canPlayerDoAction($player, $this->createAction(null, null, 1)));
 
-        $this->assertCount(0, $player->getStatuses());
+        //mixed cost
+        $this->actionModifierService->shouldReceive('getModifiedValue')
+            ->with(1, $player, [ActionEnum::TAKE], ModifierTargetEnum::ACTION_POINT)
+            ->andReturn(1)
+            ->once()
+        ;
+        $this->actionModifierService->shouldReceive('getModifiedValue')
+            ->with(1, $player, [ActionEnum::TAKE], ModifierTargetEnum::MOVEMENT_POINT)
+            ->andReturn(1)
+            ->once()
+        ;
+        $this->assertTrue($this->service->canPlayerDoAction($player, $this->createAction(1, 1, 1)));
 
-        $action->setDirtyRate(100);
+        //With pa pm conversion
+        $player = $this->createPlayer(1, 0, 0);
+        $this->actionModifierService->shouldReceive('getModifiedValue')
+            ->with(1, $player, [ActionEnum::TAKE], ModifierTargetEnum::MOVEMENT_POINT)
+            ->andReturn(0)
+            ->once()
+        ;
+        $this->assertTrue($this->service->canPlayerDoAction($player, $this->createAction(null, 1, null)));
 
-        $this->eventDispatcher->shouldReceive('dispatch')->never();
-        $this->roomLogService->shouldReceive('createPlayerLog')->once();
-        $this->randomService->shouldReceive('randomPercent')->andReturn(10)->once();
-        $this->statusServiceInterface->shouldReceive('createCoreStatus')->andReturn(new Status($player))->once();
-        $player = $this->actionService->handleActionSideEffect($action, $player, new \DateTime());
+        $player = $this->createPlayer(0, 0, 0);
+        $this->actionModifierService->shouldReceive('getModifiedValue')
+            ->with(1, $player, [ActionEnum::TAKE], ModifierTargetEnum::ACTION_POINT)
+            ->andReturn(1)
+            ->once()
+        ;
+        $this->assertFalse($this->service->canPlayerDoAction($player, $this->createAction(1, null, null)));
 
-        $this->assertCount(1, $player->getStatuses());
+        $this->actionModifierService->shouldReceive('getModifiedValue')
+            ->with(1, $player, [ActionEnum::TAKE], ModifierTargetEnum::MOVEMENT_POINT)
+            ->andReturn(1)
+            ->once()
+        ;
+        $this->assertFalse($this->service->canPlayerDoAction($player, $this->createAction(null, 1, null)));
+
+        $this->assertFalse($this->service->canPlayerDoAction($player, $this->createAction(null, null, 1)));
+
+        //With modifiers
+        $player = $this->createPlayer(1, 0, 0);
+
+        $this->actionModifierService->shouldReceive('getModifiedValue')
+            ->with(3, $player, [ActionEnum::TAKE], ModifierTargetEnum::ACTION_POINT)
+            ->andReturn(1)
+            ->once()
+        ;
+        $this->assertTrue($this->service->canPlayerDoAction($player, $this->createAction(3, null, null)));
+
+        $this->actionModifierService->shouldReceive('getModifiedValue')
+            ->with(3, $player, [ActionEnum::TAKE], ModifierTargetEnum::ACTION_POINT)
+            ->andReturn(2)
+            ->once()
+        ;
+        $this->assertFalse($this->service->canPlayerDoAction($player, $this->createAction(3, null, null)));
+
+        $this->actionModifierService->shouldReceive('getModifiedValue')
+            ->with(1, $player, [ActionEnum::TAKE], ModifierTargetEnum::ACTION_POINT)
+            ->andReturn(3)
+            ->once()
+        ;
+        $this->assertFalse($this->service->canPlayerDoAction($player, $this->createAction(1, null, null)));
     }
 
-    public function testHandleActionSideEffectInjury()
+    public function testApplyCostToPlayer()
     {
-        $action = new Action();
-        $room = new Room();
-        $player = new Player();
-        $player->setRoom($room);
+        //ActionPoint
+        $player = $this->createPlayer(5, 5, 5);
+        $action = $this->createAction(1, null, null);
 
-        $action
-            ->setDirtyRate(0)
-            ->setInjuryRate(0)
+        $this->actionModifierService
+            ->shouldReceive('getModifiedValue')
+            ->with(1, $player, [ActionEnum::TAKE], ModifierTargetEnum::ACTION_POINT)
+            ->andReturn(1)
+            ->once()
         ;
 
-        $this->eventDispatcher->shouldReceive('dispatch')->never();
+        $eventDispatched = static function (int $delta, string $name) {
+            return fn (PlayerModifierEvent $event, string $eventName) => ($event->getDelta() === $delta && $eventName === $name);
+        };
 
-        $player = $this->actionService->handleActionSideEffect($action, $player, new \DateTime());
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
+            ->withArgs($eventDispatched(-1, PlayerModifierEvent::ACTION_POINT_MODIFIER))
+            ->once()
+        ;
 
-        $this->assertCount(0, $player->getStatuses());
+        $this->service->applyCostToPlayer($player, $action);
 
-        $action->setInjuryRate(100);
+        //movement cost
+        $player = $this->createPlayer(5, 5, 5);
+        $action = $this->createAction(null, 1, null);
+
+        $this->actionModifierService
+            ->shouldReceive('getModifiedValue')
+            ->with(1, $player, [ActionEnum::TAKE], ModifierTargetEnum::MOVEMENT_POINT)
+            ->andReturn(1)
+            ->once()
+        ;
+
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
+            ->withArgs($eventDispatched(-1, PlayerModifierEvent::MOVEMENT_POINT_MODIFIER))
+            ->once()
+        ;
+
+        $this->service->applyCostToPlayer($player, $action);
+
+        //moral cost
+        $player = $this->createPlayer(5, 5, 5);
+        $action = $this->createAction(null, null, 1);
+
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
+            ->withArgs($eventDispatched(-1, PlayerModifierEvent::MORAL_POINT_MODIFIER))
+            ->once()
+        ;
+
+        $this->service->applyCostToPlayer($player, $action);
+
+        //mixed cost
+        $player = $this->createPlayer(5, 5, 5);
+        $action = $this->createAction(1, null, 1);
+
+        $this->actionModifierService->shouldReceive('getModifiedValue')
+            ->with(1, $player, [ActionEnum::TAKE], ModifierTargetEnum::ACTION_POINT)
+            ->andReturn(1)
+            ->once()
+        ;
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->withArgs(
-                fn (PlayerEvent $playerEvent, string $eventName) => ((int) $playerEvent->getModifier()->getDelta() === -2)
+                fn (PlayerModifierEvent $event, string $eventName) => (
+                    $event->getDelta() === -1 &&
+                    in_array($eventName, [PlayerModifierEvent::ACTION_POINT_MODIFIER, PlayerModifierEvent::MORAL_POINT_MODIFIER])
+                )
             )
+            ->twice()
+        ;
+
+        $this->service->applyCostToPlayer($player, $action);
+
+        //ActionPoint with modifiers
+        $player = $this->createPlayer(5, 5, 5);
+        $action = $this->createAction(1, null, null);
+
+        $this->actionModifierService->shouldReceive('getModifiedValue')
+            ->with(1, $player, [ActionEnum::TAKE], ModifierTargetEnum::ACTION_POINT)
+            ->andReturn(3)
             ->once()
         ;
-        $this->roomLogService->shouldReceive('createPlayerLog')->once();
-        $this->randomService->shouldReceive('isSuccessfull')->andReturn(true)->once();
-        $this->statusServiceInterface->shouldReceive('createCorePlayerStatus')->never();
-        $player = $this->actionService->handleActionSideEffect($action, $player, new \DateTime());
 
-        $this->assertCount(0, $player->getStatuses());
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
+            ->withArgs($eventDispatched(-3, PlayerModifierEvent::ACTION_POINT_MODIFIER))
+            ->once()
+        ;
+
+        $player = $this->service->applyCostToPlayer($player, $action);
+    }
+
+    public function testGetSuccessRate()
+    {
+        $player = $this->createPlayer(5, 5, 5);
+
+        $attempt = new Attempt($player);
+        $attempt
+            ->setAction(ActionEnum::TAKE)
+            ->setName(StatusEnum::ATTEMPT)
+            ->setCharge(0)
+        ;
+
+        $action = $this->createAction(null, 1, null);
+
+        $action->setSuccessRate(20);
+
+        $this->actionModifierService->shouldReceive('getModifiedValue')
+            ->with(20, $player, [ActionEnum::TAKE], ModifierTargetEnum::PERCENTAGE)
+            ->andReturn(20)
+            ->once()
+        ;
+        $this->assertEquals(20, $this->service->getSuccessRate($action, $player));
+
+        //With Modifier
+        $this->actionModifierService->shouldReceive('getModifiedValue')
+            ->with(20, $player, [ActionEnum::TAKE], ModifierTargetEnum::PERCENTAGE)
+            ->andReturn(40)
+            ->once()
+        ;
+        $this->assertEquals(40, $this->service->getSuccessRate($action, $player));
+
+        //With already an attempt
+        $attempt->setCharge(1);
+
+        $this->actionModifierService->shouldReceive('getModifiedValue')
+            ->with(25, $player, [ActionEnum::TAKE], ModifierTargetEnum::PERCENTAGE)
+            ->andReturn(25)
+            ->once()
+        ;
+        $this->assertEquals(25, $this->service->getSuccessRate($action, $player));
+
+        //With already an attempt
+        $attempt->setCharge(3);
+
+        $this->actionModifierService->shouldReceive('getModifiedValue')
+            ->with(1.25 ** 3 * 20, $player, [ActionEnum::TAKE], ModifierTargetEnum::PERCENTAGE)
+            ->andReturn(39)
+            ->once()
+        ;
+        $this->assertEquals(39, $this->service->getSuccessRate($action, $player));
+
+        //Attempt + modifier
+        $attempt->setCharge(3);
+
+        $this->actionModifierService->shouldReceive('getModifiedValue')
+            ->with(1.25 ** 3 * 20, $player, [ActionEnum::TAKE], ModifierTargetEnum::PERCENTAGE)
+            ->andReturn(78)
+            ->once()
+        ;
+        $this->assertEquals(78, $this->service->getSuccessRate($action, $player));
+
+        //More than 99%
+        $attempt->setCharge(3);
+
+        $this->actionModifierService->shouldReceive('getModifiedValue')
+            ->with(1.25 ** 3 * 20, $player, [ActionEnum::TAKE], ModifierTargetEnum::PERCENTAGE)
+            ->andReturn(117)
+            ->once()
+        ;
+        $this->assertEquals(99, $this->service->getSuccessRate($action, $player));
+    }
+
+    private function createPlayer(int $actionPoint, int $movementPoint, int $moralPoint): Player
+    {
+        $player = new Player();
+        $player
+            ->setActionPoint($actionPoint)
+            ->setMovementPoint($movementPoint)
+            ->setMoralPoint($moralPoint)
+        ;
+
+        return $player;
+    }
+
+    private function createAction(?int $actionPointCost, ?int $movementPointCost, ?int $moralPointCost): Action
+    {
+        $actionCost = new ActionCost();
+        $actionCost
+            ->setActionPointCost($actionPointCost)
+            ->setMovementPointCost($movementPointCost)
+            ->setMoralPointCost($moralPointCost)
+        ;
+
+        $action = new Action();
+
+        $action
+            ->setName(ActionEnum::TAKE)
+            ->setActionCost($actionCost)
+        ;
+
+        return $action;
     }
 }

@@ -13,6 +13,8 @@ use Mush\Equipment\Entity\GameItem;
 
 class ActionsFixtures extends Fixture implements DependentFixtureInterface
 {
+    public const REJUVENATE_ALPHA = 'rejuvenate.alpha';
+
     public const MOVE_DEFAULT = 'move.default';
     public const SEARCH_DEFAULT = 'search.default';
     public const HIT_DEFAULT = 'hit.default';
@@ -35,6 +37,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
     public const HEAL_DEFAULT = 'heal.default';
     public const HEAL_SELF = 'heal.self';
     public const HEAL_ULTRA = 'heal.ultra';
+    public const COMFORT_DEFAULT = 'confort.default';
     public const WRITE_DEFAULT = 'write.default';
     public const GAG_DEFAULT = 'gag.default';
     public const HYPERFREEZE_DEFAULT = 'hyperfreeze.default';
@@ -46,11 +49,11 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
     public const LIE_DOWN = 'lie.down';
     public const GET_UP = 'get.up';
     public const COFFEE_DEFAULT = 'coffee.default';
+    public const DISPENSE_DRUG = 'dispense.drug';
     public const TRANSPLANT_DEFAULT = 'transplant.default';
     public const TREAT_PLANT = 'treat.plant';
     public const WATER_PLANT = 'water.plant';
 
-    public const SABOTAGE_DEFAULT = 'sabotage.default';
     public const EXTRACT_SPORE = 'extract.spore';
     public const INFECT_PLAYER = 'infect.player';
 
@@ -66,6 +69,15 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $threeActionPointCost = $this->getReference(ActionCostFixture::ACTION_COST_THREE_ACTION);
         /** @var ActionCost $oneMovementPointCost */
         $oneMovementPointCost = $this->getReference(ActionCostFixture::ACTION_COST_ONE_MOVEMENT);
+
+        //@TODO remove this after alpha
+        $rejuvenateAlpha = new Action();
+        $rejuvenateAlpha
+            ->setName(ActionEnum::REJUVENATE_ALPHA)
+            ->setScope(ActionScopeEnum::SELF)
+            ->setActionCost($freeCost)
+        ;
+        $manager->persist($rejuvenateAlpha);
 
         $moveAction = new Action();
         $moveAction
@@ -90,13 +102,14 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setInjuryRate(1)
             ->setActionCost($oneActionPointCost)
+            ->setSuccessRate(60)
         ;
         $manager->persist($hitAction);
 
         $hideAction = new Action();
         $hideAction
             ->setName(ActionEnum::HIDE)
-            ->setScope(ActionScopeEnum::ROOM)
+            ->setScope(ActionScopeEnum::CURRENT)
             ->setTarget(GameItem::class)
             ->setActionCost($oneActionPointCost)
         ;
@@ -135,7 +148,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
 
         $drugConsumeAction = new Action();
         $drugConsumeAction
-            ->setName(ActionEnum::CONSUME)
+            ->setName(ActionEnum::CONSUME_DRUG)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(0)
             ->setDirtyRate(10)
@@ -231,7 +244,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $bandageAction = new Action();
         $bandageAction
             ->setName(ActionEnum::USE_BANDAGE)
-            ->setScope(ActionScopeEnum::SELF)
+            ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost($oneActionPointCost)
         ;
 
@@ -276,11 +289,20 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->persist($healAction);
 
+        $comfortAction = new Action();
+        $comfortAction
+            ->setName(ActionEnum::COMFORT)
+            ->setScope(ActionScopeEnum::OTHER_PLAYER)
+            ->setActionCost($oneActionPointCost)
+        ;
+
+        $manager->persist($comfortAction);
+
         $ultraHealAction = new Action();
         $ultraHealAction
             ->setName(ActionEnum::ULTRAHEAL)
-            ->setScope(ActionScopeEnum::SELF)
-            ->setActionCost($twoActionPointCost)
+            ->setScope(ActionScopeEnum::CURRENT)
+            ->setActionCost($freeCost)
         ;
 
         $manager->persist($ultraHealAction);
@@ -327,8 +349,8 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ActionEnum::INSERT_FUEL)
             ->setScope(ActionScopeEnum::ROOM)
             ->setTarget(GameItem::class)
-            ->setActionCost($freeCost)
-        ;
+            ->setDirtyRate(50)
+            ->setActionCost($freeCost);
 
         $manager->persist($fuelInjectAction);
 
@@ -336,8 +358,9 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $retrieveFuelAction
             ->setName(ActionEnum::RETRIEVE_FUEL)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setActionCost($freeCost)
-        ;
+            ->setDirtyRate(50)
+            ->setInjuryRate(5)
+            ->setActionCost($oneActionPointCost);
 
         $manager->persist($retrieveFuelAction);
 
@@ -388,6 +411,16 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->persist($coffeeAction);
 
+        $dispenseAction = new Action();
+        $dispenseAction
+            ->setName(ActionEnum::DISPENSE)
+            ->setScope(ActionScopeEnum::CURRENT)
+            ->setDirtyRate(50)
+            ->setActionCost($freeCost)
+        ;
+
+        $manager->persist($dispenseAction);
+
         $transplantAction = new Action();
         $transplantAction
             ->setName(ActionEnum::TRANSPLANT)
@@ -417,17 +450,6 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->persist($waterPlantAction);
 
-        $sabotageAction = new Action();
-        $sabotageAction
-            ->setName(ActionEnum::SABOTAGE)
-            ->setScope(ActionScopeEnum::ROOM)
-            ->setDirtyRate(20)
-            ->setInjuryRate(20)
-            ->setActionCost($twoActionPointCost)
-        ;
-
-        $manager->persist($sabotageAction);
-
         $extractSporeAction = new Action();
         $extractSporeAction
             ->setName(ActionEnum::EXTRACT_SPORE)
@@ -448,6 +470,8 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($infectAction);
 
         $manager->flush();
+
+        $this->addReference(self::REJUVENATE_ALPHA, $rejuvenateAlpha);
 
         $this->addReference(self::MOVE_DEFAULT, $moveAction);
         $this->addReference(self::SEARCH_DEFAULT, $searchAction);
@@ -471,6 +495,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::HEAL_DEFAULT, $healAction);
         $this->addReference(self::HEAL_SELF, $selfHealAction);
         $this->addReference(self::HEAL_ULTRA, $ultraHealAction);
+        $this->addReference(self::COMFORT_DEFAULT, $comfortAction);
         $this->addReference(self::WRITE_DEFAULT, $writeAction);
         $this->addReference(self::HYPERFREEZE_DEFAULT, $hyperfreezeAction);
         $this->addReference(self::GAG_DEFAULT, $gagAction);
@@ -482,10 +507,10 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::LIE_DOWN, $lieDownActon);
         $this->addReference(self::GET_UP, $getUpAction);
         $this->addReference(self::COFFEE_DEFAULT, $coffeeAction);
+        $this->addReference(self::DISPENSE_DRUG, $dispenseAction);
         $this->addReference(self::TRANSPLANT_DEFAULT, $transplantAction);
         $this->addReference(self::TREAT_PLANT, $treatPlantAction);
         $this->addReference(self::WATER_PLANT, $waterPlantAction);
-        $this->addReference(self::SABOTAGE_DEFAULT, $sabotageAction);
         $this->addReference(self::EXTRACT_SPORE, $extractSporeAction);
         $this->addReference(self::INFECT_PLAYER, $infectAction);
     }

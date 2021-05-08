@@ -2,6 +2,7 @@
 
 namespace Mush\RoomLog\Event;
 
+use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -32,11 +33,14 @@ class PlayerSubscriber implements EventSubscriberInterface
     {
         $player = $event->getPlayer();
 
-        $this->roomLogService->createPlayerLog(
+        $this->roomLogService->createLog(
             LogEnum::AWAKEN,
-            $player->getRoom(),
-            $player,
+            $player->getPlace(),
             VisibilityEnum::PUBLIC,
+            'event_log',
+            $player,
+            null,
+            null,
             $event->getTime()
         );
     }
@@ -45,38 +49,43 @@ class PlayerSubscriber implements EventSubscriberInterface
     {
         $player = $event->getPlayer();
 
-        $this->roomLogService->createPlayerLog(
-            LogEnum::DEATH,
-            $player->getRoom(),
-            $player,
-            VisibilityEnum::PUBLIC,
-            $event->getTime()
-        );
+        $this->createPublicLog($player, LogEnum::DEATH, $event->getTime());
     }
 
     public function onMetalPlate(PlayerEvent $event): void
     {
         $player = $event->getPlayer();
 
-        $this->roomLogService->createPlayerLog(
-            LogEnum::METAL_PLATE,
-            $player->getRoom(),
-            $player,
-            VisibilityEnum::PUBLIC,
-            $event->getTime()
-        );
+        $this->createPublicLog($player, LogEnum::METAL_PLATE, $event->getTime());
     }
 
     public function onPanicCrisis(PlayerEvent $event): void
     {
         $player = $event->getPlayer();
 
-        $this->roomLogService->createPlayerLog(
+        $this->roomLogService->createLog(
             LogEnum::PANIC_CRISIS,
-            $player->getRoom(),
-            $player,
+            $player->getPlace(),
             VisibilityEnum::PRIVATE,
+            'event_log',
+            $player,
+            null,
+            null,
             $event->getTime()
+        );
+    }
+
+    private function createPublicLog(Player $player, string $logKey, \DateTime $time): void
+    {
+        $this->roomLogService->createLog(
+            $logKey,
+            $player->getPlace(),
+            VisibilityEnum::PUBLIC,
+            'event_log',
+            $player,
+            null,
+            null,
+            $time
         );
     }
 }

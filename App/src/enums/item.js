@@ -1,9 +1,50 @@
 const COFFEE = "coffee";
 const PLASTIC_SCRAP = "plastic_scraps";
 const METAL_SCRAP = "metal_scraps";
-const BACTA = "bacta";
-const CREEPNUT_TREE = "creepnut_tree";
+
+const BACTA = 'bacta';
+const BETAPROPYL = 'betapropyl';
+const EUFURYLATE = 'eufurylate';
+const NEWKE = 'newke';
+const PHUXX = 'phuxx';
+const PINQ = 'pinq';
+const PYMP = 'pymp';
+const ROSEBUD = 'rosebud';
+const SOMA = 'soma';
+const SPYCE = 'spyce';
+const TWINOID = 'twinoid';
+const XENOX = 'xenox';
+
 const CREEPNUT = "creepnut";
+const BANANA = "banana";
+const MEZTINE = 'meztine';
+const GUNTIFLOP = 'guntiflop';
+const PLOSHMINA = 'ploshmina';
+const PRECATI = 'precati';
+const BOTTINE = 'bottine';
+const FRAGILANE = 'fragilane';
+const ANEMOLE = 'anemole';
+const PENICRAFT = 'peniraft';
+const KUBINUS = 'kubinus';
+const CALEBOOT = 'caleboot';
+const FILANDRA = 'filandra';
+const JUNKIN = 'junkin';
+
+const CREEPNUT_TREE = "creepist";
+const BANANA_TREE = "banana_tree";
+const CACTAX = 'cactax';
+const BIFFLON = 'bifflon';
+const PULMMINAGRO = 'pulminagro';
+const PRECATUS = 'recatus';
+const BUTTALIEN = 'buttalien';
+const PLATACIA = 'platacia';
+const TUBILISCUS = 'tubiliscus';
+const GRAAPSHOOT = 'graapshoot';
+const FIBONICCUS = 'Fiboniccus';
+const MYCOPIA = 'mycopia';
+const ASPERAGUNK = 'asperagunk';
+const BUMPJUNKIN = 'bumpjunkin';
+
 const SNIPER_HELMET_BLUEPRINT = "sniper_helmet_blueprint";
 const SNIPER_HELMET = "sniper_helmet";
 const APPRENTON_PILOTE = "apprenton_pilot";
@@ -13,8 +54,6 @@ const MAD_KUBE = "mad_kube";
 const MICROWAVE = "microwave";
 const SUPERFREEZER = "superfreezer";
 const HYDROPOT = "hydropot";
-const BANANA_TREE = "banana_tree";
-const BANANA = "banana";
 const PLASTENITE_ARMOR = "plastenite_armor";
 const CAMERA = "camera";
 const EXTINGUISHER = "extinguisher";
@@ -32,9 +71,21 @@ const KNIFE = "knife";
 const GLOVES = "protective_gloves";
 const SOAP = "soap";
 const TABULATRIX = "tabulatrix";
+const THICK_TUBE = "thick_tube";
+const OXYGEN_CAPSULE = "oxygen_capsule";
+const FUEL_CAPSULE = "fuel_capsule";
+const SPACE_CAPSULE = "space_capsule";
+const JAR_OF_ALIEN_OIL = "jar_of_alien_oil";
+const BANDAGE = "bandage";
 
 
 export const itemEnum = {
+    [BANDAGE]: {
+        'image': require('@/assets/images/items/bandage.jpg')
+    },
+    [JAR_OF_ALIEN_OIL]: {
+        'image': require('@/assets/images/items/alien_oil.jpg')
+    },
     [COFFEE]: {
         'image': require('@/assets/images/items/coffee.jpg')
     },
@@ -46,9 +97,6 @@ export const itemEnum = {
     },
     [APPRENTON_PILOTE]: {
         'image': require('@/assets/images/items/book.jpg')
-    },
-    [BACTA]: {
-        'image': require('@/assets/images/items/drug_8.jpg')
     },
     [SNIPER_HELMET_BLUEPRINT]: {
         'image': require('@/assets/images/items/blueprint.jpg')
@@ -74,6 +122,44 @@ export const itemEnum = {
     [HYDROPOT]: {
         'image': require('@/assets/images/items/tree_pot.jpg')
     },
+
+    [TWINOID]: {
+        'image': require('@/assets/images/items/drug/drug_0.jpg')
+    },
+    [XENOX]: {
+        'image': require('@/assets/images/items/drug/drug_1.jpg')
+    },
+    [PHUXX]: {
+        'image': require('@/assets/images/items/drug/drug_2.jpg')
+    },
+    [EUFURYLATE]: {
+        'image': require('@/assets/images/items/drug/drug_3.jpg')
+    },
+    [SOMA]: {
+        'image': require('@/assets/images/items/drug/drug_4.jpg')
+    },
+    [SPYCE]: {
+        'image': require('@/assets/images/items/drug/drug_5.jpg')
+    },
+    [NEWKE]: {
+        'image': require('@/assets/images/items/drug/drug_6.jpg')
+    },
+    [PINQ]: {
+        'image': require('@/assets/images/items/drug/drug_7.jpg')
+    },
+    [BACTA]: {
+        'image': require('@/assets/images/items/drug/drug_8.jpg')
+    },
+    [BETAPROPYL]: {
+        'image': require('@/assets/images/items/drug/drug_9.jpg')
+    },
+    [PYMP]: {
+        'image': require('@/assets/images/items/drug/drug_10.jpg')
+    },
+    [ROSEBUD]: {
+        'image': require('@/assets/images/items/drug/drug_11.jpg')
+    },
+
     [BANANA_TREE]: {
         'image': require('@/assets/images/items/plant/fruit_tree00.jpg')
     },
@@ -86,6 +172,79 @@ export const itemEnum = {
     [CREEPNUT]: {
         'image': require('@/assets/images/items/fruit/fruit01.jpg')
     },
+    [CACTAX]: {
+        'image': require('@/assets/images/items/plant/fruit_tree02.jpg')
+    },
+    [MEZTINE]: {
+        'image': require('@/assets/images/items/fruit/fruit02.jpg')
+    },
+    [BIFFLON]: {
+        'image': require('@/assets/images/items/plant/fruit_tree03.jpg')
+    },
+    [GUNTIFLOP]: {
+        'image': require('@/assets/images/items/fruit/fruit03.jpg')
+    },
+    [PULMMINAGRO]: {
+        'image': require('@/assets/images/items/plant/fruit_tree04.jpg')
+    },
+    [PLOSHMINA]: {
+        'image': require('@/assets/images/items/fruit/fruit04.jpg')
+    },
+    [PRECATUS]: {
+        'image': require('@/assets/images/items/plant/fruit_tree05.jpg')
+    },
+    [PRECATI]: {
+        'image': require('@/assets/images/items/fruit/fruit05.jpg')
+    },
+    [BUTTALIEN]: {
+        'image': require('@/assets/images/items/plant/fruit_tree06.jpg')
+    },
+    [BOTTINE]: {
+        'image': require('@/assets/images/items/fruit/fruit06.jpg')
+    },
+    [PLATACIA]: {
+        'image': require('@/assets/images/items/plant/fruit_tree07.jpg')
+    },
+    [FRAGILANE]: {
+        'image': require('@/assets/images/items/fruit/fruit07.jpg')
+    },
+    [TUBILISCUS]: {
+        'image': require('@/assets/images/items/plant/fruit_tree08.jpg')
+    },
+    [ANEMOLE]: {
+        'image': require('@/assets/images/items/fruit/fruit08.jpg')
+    },
+    [GRAAPSHOOT]: {
+        'image': require('@/assets/images/items/plant/fruit_tree09.jpg')
+    },
+    [PENICRAFT]: {
+        'image': require('@/assets/images/items/fruit/fruit09.jpg')
+    },
+    [FIBONICCUS]: {
+        'image': require('@/assets/images/items/plant/fruit_tree10.jpg')
+    },
+    [KUBINUS]: {
+        'image': require('@/assets/images/items/fruit/fruit10.jpg')
+    },
+    [MYCOPIA]: {
+        'image': require('@/assets/images/items/plant/fruit_tree11.jpg')
+    },
+    [CALEBOOT]: {
+        'image': require('@/assets/images/items/fruit/fruit11.jpg')
+    },
+    [ASPERAGUNK]: {
+        'image': require('@/assets/images/items/plant/fruit_tree12.jpg')
+    },
+    [FILANDRA]: {
+        'image': require('@/assets/images/items/fruit/fruit12.jpg')
+    },
+    [BUMPJUNKIN]: {
+        'image': require('@/assets/images/items/plant/fruit_tree13.jpg')
+    },
+    [JUNKIN]: {
+        'image': require('@/assets/images/items/fruit/fruit13.jpg')
+    },
+
     [PLASTENITE_ARMOR]: {
         'image': require('@/assets/images/items/plastenite_armor.jpg')
     },
@@ -136,6 +295,18 @@ export const itemEnum = {
     },
     [TABULATRIX]: {
         'image': require('@/assets/images/items/printer.jpg')
-    }
+    },
+    [OXYGEN_CAPSULE]: {
+        'image': require('@/assets/images/items/oxy_capsule.jpg')
+    },
+    [FUEL_CAPSULE]: {
+        'image': require('@/assets/images/items/fuel_capsule.jpg')
+    },
+    [THICK_TUBE]: {
+        'image': require('@/assets/images/items/thick_tube.jpg')
+    },
+    [SPACE_CAPSULE]: {
+        'image': require('@/assets/images/items/space_capsule.jpg')
+    },
 }
 ;

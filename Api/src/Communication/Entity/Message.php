@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Mush\Daedalus\Entity\Neron;
 use Mush\Player\Entity\Player;
 
 /**
@@ -28,6 +29,11 @@ class Message
     private ?Player $author = null;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Mush\Daedalus\Entity\Neron")
+     */
+    private ?Neron $neron = null;
+
+    /**
      * @ORM\OneToMany (targetEntity="Mush\Communication\Entity\Message", mappedBy="parent")
      * @ORM\OrderBy({"createdAt" = "ASC"})
      */
@@ -47,6 +53,11 @@ class Message
      * @ORM\Column(type="text", nullable=false)
      */
     private string $message;
+
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private ?array $translationParameters = null;
 
     public function __construct()
     {
@@ -69,6 +80,18 @@ class Message
     public function setAuthor(?Player $author): Message
     {
         $this->author = $author;
+
+        return $this;
+    }
+
+    public function getNeron(): ?Neron
+    {
+        return $this->neron;
+    }
+
+    public function setNeron(?Neron $neron): Message
+    {
+        $this->neron = $neron;
 
         return $this;
     }
@@ -99,6 +122,21 @@ class Message
     public function setMessage(string $message): Message
     {
         $this->message = $message;
+
+        return $this;
+    }
+
+    public function getTranslationParameters(): ?array
+    {
+        return $this->translationParameters;
+    }
+
+    /**
+     * @return static
+     */
+    public function setTranslationParameters(array $translationParameters): Message
+    {
+        $this->translationParameters = $translationParameters;
 
         return $this;
     }

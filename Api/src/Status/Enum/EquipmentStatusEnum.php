@@ -20,6 +20,7 @@ class EquipmentStatusEnum
     public const PLANT_DRIED_OUT = 'plant_dried_Out';
     public const PLANT_DISEASED = 'plant_diseased';
     public const DOCUMENT_CONTENT = 'document_content';
+    public const REINFORCED = 'reinforced';
 
     public static function splitItemPileStatus(): array
     {

@@ -49,33 +49,14 @@ class DailyDecrementTest extends TestCase
             ->setDaedalus($daedalus)
         ;
 
-        $daedalus->setCycle(2);
-        $this->statusService->shouldReceive('persist')->once();
-
-        $this->strategy->execute($status, $daedalus);
-
-        $this->assertEquals(10, $status->getCharge());
-
-        $this->statusService->shouldReceive('persist')->once();
         $daedalus->setCycle(1);
+        $this->statusService->shouldReceive('updateCharge')->with($status, -1)->once();
 
         $this->strategy->execute($status, $daedalus);
 
-        $this->assertEquals(9, $status->getCharge());
-
-        $this->statusService->shouldReceive('persist')->once();
-        $status->setCharge(0);
+        $daedalus->setCycle(2);
 
         $this->strategy->execute($status, $daedalus);
-
-        $this->assertEquals(0, $status->getCharge());
-
-        $status->setAutoRemove(true);
-        $this->statusService->shouldReceive('delete')->once();
-
-        $result = $this->strategy->execute($status, $daedalus);
-
-        $this->assertNull($result);
     }
 
     private function createStatus(): ChargeStatus

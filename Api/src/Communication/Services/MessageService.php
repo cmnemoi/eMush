@@ -12,10 +12,14 @@ use Mush\Player\Entity\Player;
 
 class MessageService implements MessageServiceInterface
 {
+    private ChannelServiceInterface $channelService;
     private EntityManagerInterface $entityManager;
 
-    public function __construct(EntityManagerInterface $entityManager)
-    {
+    public function __construct(
+        ChannelServiceInterface $channelService,
+        EntityManagerInterface $entityManager,
+    ) {
+        $this->channelService = $channelService;
         $this->entityManager = $entityManager;
     }
 
@@ -50,9 +54,13 @@ class MessageService implements MessageServiceInterface
     {
         return new ArrayCollection($this->entityManager
             ->getRepository(Message::class)
-            ->findBy(['channel' => $channel, 'parent' => null], ['updatedAt' => 'desc']));
+            ->findBy(['channel' => $channel, 'parent' => null], ['updatedAt' => 'desc']))
+            ;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getMessageById(int $messageId): ?Message
     {
         return $this->entityManager->getRepository(Message::class)->find($messageId);

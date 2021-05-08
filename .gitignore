@@ -5,7 +5,7 @@
 
 # Ignore MacOS files
 # Folder view configuration files
-.DS_Store
+*.DS_Store
 Desktop.ini
 *~
 
@@ -16,3 +16,12 @@ dist/
 node_modules
 .env
 !.env.dist
+
+*.pem
+
+#Allow people to change the docker-compose.dev.yml
+docker/docker-compose.dev.yml
+
+.php_cs.cache
+
+.phpunit.result.cache

@@ -2,13 +2,22 @@
 
 namespace Mush\Action\Actions;
 
+use Error;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
+use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\DailySporesLimit;
+use Mush\Action\Validator\MushSpore;
+use Mush\Action\Validator\Status;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ExtractSpore extends AbstractAction
 {
@@ -18,34 +27,42 @@ class ExtractSpore extends AbstractAction
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
-        StatusServiceInterface $statusService
+        ActionServiceInterface $actionService,
+        ValidatorInterface $validator,
+        StatusServiceInterface $statusService,
     ) {
-        parent::__construct($eventDispatcher);
+        parent::__construct(
+            $eventDispatcher,
+            $actionService,
+            $validator
+        );
 
         $this->statusService = $statusService;
     }
 
-    public function canExecute(): bool
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        /** @var ?ChargeStatus $sporeStatus */
-        $sporeStatus = $this->player->getStatusByName(PlayerStatusEnum::SPORES);
+        $metadata->addConstraint(new Status(['status' => PlayerStatusEnum::MUSH, 'target' => Status::PLAYER, 'groups' => ['visibility']]));
+        $metadata->addConstraint(new DailySporesLimit(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::DAILY_SPORE_LIMIT]));
+        $metadata->addConstraint(new MushSpore(['threshold' => 2, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::PERSONAL_SPORE_LIMIT]));
+    }
 
-        return $this->player->isMush() &&
-                (!$sporeStatus ||
-                $sporeStatus->getCharge() < 2) &&
-                $this->player->getDaedalus()->getSpores() > 0;
+    protected function support(?ActionParameter $parameter): bool
+    {
+        return $parameter === null;
     }
 
     protected function applyEffects(): ActionResult
     {
         /** @var ?ChargeStatus $sporeStatus */
         $sporeStatus = $this->player->getStatusByName(PlayerStatusEnum::SPORES);
-        if ($sporeStatus) {
-            $sporeStatus->addCharge(1);
-            $this->statusService->persist($sporeStatus);
-        } else {
-            $this->statusService->createSporeStatus($this->player);
+
+        if ($sporeStatus === null) {
+            throw new Error('Player should have a spore status');
         }
+
+        $sporeStatus->addCharge(1);
+        $this->statusService->persist($sporeStatus);
 
         $this->player->getDaedalus()->setSpores($this->player->getDaedalus()->getSpores() - 1);
 

@@ -4,12 +4,15 @@ namespace functional\Player\Service;
 
 use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
+use Mush\Communication\Entity\Channel;
+use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\Neron;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Enum\CharacterEnum;
+use Mush\Place\Entity\Place;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Service\PlayerService;
-use Mush\Room\Entity\Room;
-use Mush\Room\Enum\RoomEnum;
 use Mush\User\Entity\User;
 
 class CreatePlayerServiceCest
@@ -23,11 +26,22 @@ class CreatePlayerServiceCest
 
     public function createPlayerTest(FunctionalTester $I)
     {
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class);
+        $neron = new Neron();
+        $neron->setIsInhibited(true);
+        $I->haveInRepository($neron);
 
-        /** @var Room $room */
-        $room = $I->have(Room::class, ['name' => RoomEnum::LABORATORY]);
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class, ['neron' => $neron]);
+
+        $channel = new Channel();
+        $channel
+            ->setDaedalus($daedalus)
+            ->setScope(ChannelScopeEnum::PUBLIC)
+        ;
+        $I->haveInRepository($channel);
+
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['name' => RoomEnum::LABORATORY]);
 
         /** @var CharacterConfig $gioeleCharacterConfig */
         $gioeleCharacterConfig = $I->have(CharacterConfig::class);
@@ -35,7 +49,7 @@ class CreatePlayerServiceCest
         /** @var $andieCharacterConfig $characterConfig */
         $andieCharacterConfig = $I->have(CharacterConfig::class, ['name' => CharacterEnum::ANDIE]);
 
-        $daedalus->addRoom($room);
+        $daedalus->addPlace($room);
 
         /** @var User $user */
         $user = $I->have(User::class);

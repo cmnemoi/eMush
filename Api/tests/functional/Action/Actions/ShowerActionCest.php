@@ -7,7 +7,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Shower;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionCost;
-use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
@@ -18,11 +17,12 @@ use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
+use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\ModifierTargetEnum;
-use Mush\Room\Entity\Room;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -44,14 +44,20 @@ class ShowerActionCest
         $gameConfig = $I->have(GameConfig::class);
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
-        /** @var Room $room */
-        $room = $I->have(Room::class, ['daedalus' => $daedalus]);
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+
+        /** @var CharacterConfig $characterConfig */
+        $characterConfig = $I->have(CharacterConfig::class);
 
         /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus,
-                                            'room' => $room,
-                                            'actionPoint' => 2,
-                                            'healthPoint' => 6, ]);
+        $player = $I->have(Player::class, [
+            'daedalus' => $daedalus,
+            'place' => $room,
+            'actionPoint' => 2,
+            'healthPoint' => 6,
+            'characterConfig' => $characterConfig,
+        ]);
 
         $mushStatus = new Status($player);
         $mushStatus
@@ -85,7 +91,7 @@ class ShowerActionCest
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('shower')
-            ->setRoom($room)
+            ->setPlace($room)
         ;
         $I->haveInRepository($gameEquipment);
 
@@ -93,12 +99,10 @@ class ShowerActionCest
 
         $player->addItem($soap);
 
-        $actionParameters = new ActionParameters();
-        $actionParameters->setEquipment($gameEquipment);
+        $this->showerAction->loadParameters($action, $player, $gameEquipment);
 
-        $this->showerAction->loadParameters($action, $player, $actionParameters);
-
-        $I->assertTrue($this->showerAction->canExecute());
+        $I->assertTrue($this->showerAction->isVisible());
+        $I->assertNull($this->showerAction->cannotExecuteReason());
 
         $this->showerAction->execute();
 
@@ -107,7 +111,7 @@ class ShowerActionCest
         $I->assertEquals(1, $player->getActionPoint());
 
         $I->seeInRepository(RoomLog::class, [
-            'room' => $room->getId(),
+            'place' => $room->getId(),
             'player' => $player->getId(),
             'log' => ActionLogEnum::SHOWER_MUSH,
             'visibility' => VisibilityEnum::PRIVATE,
@@ -124,18 +128,18 @@ class ShowerActionCest
             ->setDelta(-1)
             ->setScope(ActionEnum::SHOWER)
             ->setReach(ReachEnum::INVENTORY)
+            ->setIsAdditive(true)
         ;
 
         $soapGear = new Gear();
 
-        $soapGear->setModifier($modifier);
+        $soapGear->setModifier(new arrayCollection([$modifier]));
 
         $soap = new ItemConfig();
         $soap
             ->setName(GearItemEnum::SOAP)
             ->setIsHeavy(false)
             ->setIsStackable(false)
-            ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setMechanics(new ArrayCollection([$soapGear]))

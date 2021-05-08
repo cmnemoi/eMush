@@ -3,10 +3,8 @@
 namespace Mush\Status\CycleHandler;
 
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
-use Mush\Player\Enum\ModifierTargetEnum;
-use Mush\Player\Event\PlayerEvent;
+use Mush\Player\Event\PlayerModifierEvent;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -28,20 +26,9 @@ class Antisocial extends AbstractStatusCycleHandler
             return;
         }
 
-        if ($statusHolder->getRoom()->getPlayers()->count() > 1) {
-            $playerEvent = new PlayerEvent($statusHolder, $dateTime);
-            $moralModifier = new Modifier();
-            $moralModifier
-                ->setDelta(-1)
-                ->setTarget(ModifierTargetEnum::MORAL_POINT)
-            ;
-
-            $playerEvent
-                ->setModifier($moralModifier)
-                ->setReason(PlayerStatusEnum::ANTISOCIAL)
-            ;
-
-            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
+        if ($statusHolder->getPlace()->getPlayers()->getPlayerAlive()->count() > 1) {
+            $playerModifierEvent = new PlayerModifierEvent($statusHolder, -1, $dateTime);
+            $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::MORAL_POINT_MODIFIER);
         }
     }
 

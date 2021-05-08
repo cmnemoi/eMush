@@ -25,8 +25,18 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         $takeAction = $this->getReference(ActionsFixtures::DEFAULT_TAKE);
         /** @var Action $takeAction */
         $dropAction = $this->getReference(ActionsFixtures::DEFAULT_DROP);
+        /** @var Action $buildAction */
+        $hideAction = $this->getReference(ActionsFixtures::HIDE_DEFAULT);
 
-        $actions = new ArrayCollection([$takeAction, $dropAction]);
+        $hideableActions = new ArrayCollection([$takeAction, $dropAction, $hideAction]);
+
+        $repair12 = $this->getReference(TechnicianFixtures::REPAIR_12);
+        $repair25 = $this->getReference(TechnicianFixtures::REPAIR_25);
+
+        $sabotage12 = $this->getReference(TechnicianFixtures::SABOTAGE_12);
+        $sabotage25 = $this->getReference(TechnicianFixtures::SABOTAGE_25);
+
+        $dismantle50 = $this->getReference(TechnicianFixtures::DISMANTLE_3_50);
 
         $camera = new ItemConfig();
         $camera
@@ -34,18 +44,19 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ItemEnum::CAMERA)
             ->setIsHeavy(false)
             ->setIsStackable(false)
-            ->setIsHideable(false)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
-            ->setBreakableRate(25)
-            ->setActions(new ArrayCollection([$takeAction, $this->getReference(TechnicianFixtures::DISMANTLE_3_25)]))
+            ->setIsBreakable(true)
+            ->setActions(new ArrayCollection([$takeAction, $this->getReference(TechnicianFixtures::DISMANTLE_3_25), $repair25, $sabotage25]))
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
         ;
 
         $manager->persist($camera);
 
-        $mycoAlarmeActions = clone $actions;
+        $mycoAlarmeActions = clone $hideableActions;
         $mycoAlarmeActions->add($this->getReference(TechnicianFixtures::DISMANTLE_3_25));
+        $mycoAlarmeActions->add($repair25);
+        $mycoAlarmeActions->add($sabotage25);
 
         $mycoAlarm = new ItemConfig();
         $mycoAlarm
@@ -53,16 +64,15 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ItemEnum::MYCO_ALARM)
             ->setIsHeavy(false)
             ->setIsStackable(true)
-            ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setBreakableRate(25)
+            ->setIsBreakable(true)
             ->setActions($mycoAlarmeActions)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
         ;
         $manager->persist($mycoAlarm);
 
-        $tabulatrixActions = new ArrayCollection([$this->getReference(TechnicianFixtures::DISMANTLE_3_12)]);
+        $tabulatrixActions = new ArrayCollection([$this->getReference(TechnicianFixtures::DISMANTLE_3_12), $repair12, $sabotage12]);
 
         $tabulatrix = new ItemConfig();
         $tabulatrix
@@ -70,10 +80,9 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ItemEnum::TABULATRIX)
             ->setIsHeavy(false)
             ->setIsStackable(false)
-            ->setIsHideable(false)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
-            ->setBreakableRate(12)
+            ->setIsBreakable(true)
             ->setActions($tabulatrixActions)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
         ;
@@ -85,10 +94,9 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ItemEnum::METAL_SCRAPS)
             ->setIsHeavy(false)
             ->setIsStackable(true)
-            ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setActions($actions)
+            ->setActions($hideableActions)
         ;
 
         $manager->persist($metalScraps);
@@ -99,10 +107,9 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ItemEnum::PLASTIC_SCRAPS)
             ->setIsHeavy(false)
             ->setIsStackable(true)
-            ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setActions($actions)
+            ->setActions($hideableActions)
         ;
         $manager->persist($plasticScraps);
 
@@ -112,14 +119,13 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ItemEnum::OLD_T_SHIRT)
             ->setIsHeavy(false)
             ->setIsStackable(true)
-            ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setActions($actions)
+            ->setActions($hideableActions)
         ;
         $manager->persist($oldTShirt);
 
-        $thickTubeActions = clone $actions;
+        $thickTubeActions = clone $hideableActions;
         $thickTubeActions->add($this->getReference(TechnicianFixtures::DISMANTLE_3_50));
 
         $thickTube = new ItemConfig();
@@ -128,7 +134,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ItemEnum::THICK_TUBE)
             ->setIsHeavy(false)
             ->setIsStackable(true)
-            ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setActions($thickTubeActions)
@@ -136,8 +141,10 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($thickTube);
 
-        $mushDiskActions = clone $actions;
-        $mushDiskActions->add($this->getReference(TechnicianFixtures::DISMANTLE_3_50));
+        $mushDiskActions = clone $hideableActions;
+        $mushDiskActions->add($dismantle50);
+        $mushDiskActions->add($repair25);
+        $mushDiskActions->add($sabotage25);
 
         $mushDisk = new ItemConfig();
         $mushDisk
@@ -145,10 +152,9 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ItemEnum::MUSH_GENOME_DISK)
             ->setIsHeavy(false)
             ->setIsStackable(true)
-            ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setBreakableRate(25)
+            ->setIsBreakable(true)
             ->setActions($mushDiskActions)
             ->setDismountedProducts([ItemEnum::PLASTIC_SCRAPS => 1])
         ;
@@ -160,10 +166,9 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ItemEnum::MUSH_SAMPLE)
             ->setIsHeavy(false)
             ->setIsStackable(true)
-            ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setActions($actions)
+            ->setActions($hideableActions)
         ;
         $manager->persist($mushSample);
 
@@ -173,11 +178,10 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ItemEnum::STARMAP_FRAGMENT)
             ->setIsHeavy(false)
             ->setIsStackable(true)
-            ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setIsAlienArtifact(true)
-            ->setActions($actions)
+            ->setActions($hideableActions)
         ;
         $manager->persist($starmapFragment);
 
@@ -187,11 +191,10 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ItemEnum::WATER_STICK)
             ->setIsHeavy(false)
             ->setIsStackable(true)
-            ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setIsAlienArtifact(true)
-            ->setActions($actions)
+            ->setActions($hideableActions)
         ;
         $manager->persist($waterStick);
 
@@ -201,10 +204,9 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ItemEnum::HYDROPOT)
             ->setIsHeavy(false)
             ->setIsStackable(true)
-            ->setIsHideable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setActions($actions)
+            ->setActions($hideableActions)
         ;
         $manager->persist($hydropot);
 
@@ -214,7 +216,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ItemEnum::OXYGEN_CAPSULE)
             ->setIsHeavy(false)
             ->setIsStackable(true)
-            ->setIsHideable(false)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setActions(new ArrayCollection([$takeAction]))
@@ -227,7 +228,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ItemEnum::FUEL_CAPSULE)
             ->setIsHeavy(false)
             ->setIsStackable(true)
-            ->setIsHideable(false)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setActions(new ArrayCollection([$takeAction]))

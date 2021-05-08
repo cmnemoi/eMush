@@ -2,10 +2,9 @@
 
 namespace Mush\Player\Service;
 
-use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
 
 interface ActionModifierServiceInterface
 {
-    public function handlePlayerModifier(Player $player, Modifier $actionModifier, \DateTime $date = null): Player;
+    public function getModifiedValue(float $initValue, Player $player, array $scopes, string $target): int;
 }

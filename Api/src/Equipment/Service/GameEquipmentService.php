@@ -2,29 +2,22 @@
 
 namespace Mush\Equipment\Service;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Charged;
 use Mush\Equipment\Entity\Mechanics\Document;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
-use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Player\Entity\Player;
-use Mush\Room\Enum\DoorEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
-use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\ContentStatus;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -199,48 +192,6 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         return $gameEquipment;
     }
 
-    //Implement accessibility to Equipment (for tool and gear)
-    public function getOperationalEquipmentsByName(string $equipmentName, Player $player, string $reach = ReachEnum::SHELVE_NOT_HIDDEN): Collection
-    {
-        //reach can be set to inventory, shelve, shelve only or any room of the Daedalus
-        return $player->getReachableEquipmentsByName($equipmentName, $reach)
-            ->filter(fn (GameEquipment $gameEquipment) => $this->isOperational($gameEquipment))
-            ;
-    }
-
-    public function isOperational(GameEquipment $gameEquipment): bool
-    {
-        /** @var ?ChargeStatus $chargedStatus */
-        $chargedStatus = $gameEquipment->getStatusByName(EquipmentStatusEnum::CHARGES);
-        if ($chargedStatus) {
-            return !($gameEquipment->getStatusByName(EquipmentStatusEnum::BROKEN)) && $chargedStatus->getCharge() > 0;
-        }
-
-        return !($gameEquipment->getStatusByName(EquipmentStatusEnum::BROKEN));
-    }
-
-    public function handleBreakCycle(GameEquipment $gameEquipment, \DateTime $date): void
-    {
-        if ($gameEquipment->getStatusByName(EquipmentStatusEnum::BROKEN) ||
-            $gameEquipment instanceof GameItem) {
-            return;
-        }
-
-        if (($gameEquipment instanceof Door &&
-            !DoorEnum::isUnbreakable($gameEquipment->getName()) &&
-            $this->randomService->isSuccessfull($this->getGameConfig($gameEquipment)->getDifficultyConfig()->getDoorBreakRate())) ||
-            ($gameEquipment->getEquipment()->getBreakableRate() > 0 &&
-            $this->randomService->isSuccessfull($this->getGameConfig($gameEquipment)->getDifficultyConfig()->getEquipmentBreakRate()))
-            ) {
-            $equipmentEvent = new EquipmentEvent($gameEquipment, VisibilityEnum::HIDDEN, $date);
-            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_BROKEN);
-        }
-
-        $this->persist($gameEquipment);
-
-        return;
-    }
-
     public function handleBreakFire(GameEquipment $gameEquipment, \DateTime $date): void
     {
         if ($gameEquipment instanceof Door) {
@@ -248,7 +199,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         }
 
         if ($gameEquipment->getEquipment()->isFireDestroyable() &&
-            $this->randomService->isSuccessfull($this->getGameConfig($gameEquipment)->getDifficultyConfig()->getEquipmentFireBreakRate())
+            $this->randomService->isSuccessful($this->getGameConfig($gameEquipment)->getDifficultyConfig()->getEquipmentFireBreakRate())
         ) {
             $equipmentEvent = new EquipmentEvent($gameEquipment, VisibilityEnum::PUBLIC, $date);
             $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
@@ -256,7 +207,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
 
         if ($gameEquipment->getEquipment()->isFireBreakable() &&
             !$gameEquipment->getStatusByName(EquipmentStatusEnum::BROKEN) &&
-            $this->randomService->isSuccessfull($this->getGameConfig($gameEquipment)->getDifficultyConfig()->getEquipmentFireBreakRate())
+            $this->randomService->isSuccessful($this->getGameConfig($gameEquipment)->getDifficultyConfig()->getEquipmentFireBreakRate())
         ) {
             $equipmentEvent = new EquipmentEvent($gameEquipment, VisibilityEnum::PUBLIC, $date);
             $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_BROKEN);
@@ -269,21 +220,5 @@ class GameEquipmentService implements GameEquipmentServiceInterface
     private function getGameConfig(GameEquipment $gameEquipment): GameConfig
     {
         return $gameEquipment->getEquipment()->getGameConfig();
-    }
-
-    public function getDoorsByDaedalus(Daedalus $daedalus): Collection
-    {
-        //@FIXME use gameEquipment respository
-        $doors = new ArrayCollection();
-
-        foreach ($daedalus->getRooms() as $room) {
-            foreach ($room->getDoors() as $door) {
-                if (!$doors->contains($door)) {
-                    $doors->add($door);
-                }
-            }
-        }
-
-        return $doors;
     }
 }

@@ -5,61 +5,59 @@ namespace Mush\Action\Actions;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionParameters;
+use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\Reach;
+use Mush\Action\Validator\Status;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Player\Entity\Modifier;
-use Mush\Player\Entity\Player;
+use Mush\Equipment\Enum\ReachEnum;
 use Mush\Player\Enum\EndCauseEnum;
-use Mush\Player\Enum\ModifierTargetEnum;
-use Mush\Player\Event\PlayerEvent;
+use Mush\Player\Event\PlayerModifierEvent;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Shower extends AbstractAction
 {
     protected string $name = ActionEnum::SHOWER;
 
-    private GameEquipment $gameEquipment;
-
-    private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
     private PlayerServiceInterface $playerService;
+
+    const MUSH_SHOWER_DAMAGES = -3;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
-        GameEquipmentServiceInterface $gameEquipmentService,
-        StatusServiceInterface $statusService,
-        PlayerServiceInterface $playerService
+        ActionServiceInterface $actionService,
+        ValidatorInterface $validator,
+        PlayerServiceInterface $playerService,
     ) {
-        parent::__construct($eventDispatcher);
-
-        $this->gameEquipmentService = $gameEquipmentService;
-        $this->statusService = $statusService;
+        parent::__construct(
+            $eventDispatcher,
+            $actionService,
+            $validator
+        );
         $this->playerService = $playerService;
     }
 
-    public function loadParameters(Action $action, Player $player, ActionParameters $actionParameters): void
+    protected function support(?ActionParameter $parameter): bool
     {
-        parent::loadParameters($action, $player, $actionParameters);
-
-        if (!($equipment = $actionParameters->getEquipment())) {
-            throw new \InvalidArgumentException('Invalid equipment parameter');
-        }
-
-        $this->gameEquipment = $equipment;
+        return $parameter instanceof GameEquipment;
     }
 
-    public function canExecute(): bool
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        return $this->player->canReachEquipment($this->gameEquipment) &&
-               $this->gameEquipmentService->isOperational($this->gameEquipment) &&
-               $this->gameEquipment->getEquipment()->hasAction(ActionEnum::SHOWER)
-            ;
+        $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
+        $metadata->addConstraint(new Status([
+            'status' => EquipmentStatusEnum::BROKEN,
+            'contain' => false,
+            'groups' => ['execute'],
+            'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
+        ]));
     }
 
     protected function applyEffects(): ActionResult
@@ -69,15 +67,9 @@ class Shower extends AbstractAction
         }
 
         if ($this->player->isMush()) {
-            $actionModifier = new Modifier();
-            $actionModifier
-                ->setDelta(-3)
-                ->setTarget(ModifierTargetEnum::HEALTH_POINT)
-            ;
-            $playerEvent = new PlayerEvent($this->player);
-            $playerEvent->setReason(EndCauseEnum::CLUMSINESS);
-            $playerEvent->setModifier($actionModifier);
-            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::MODIFIER_PLAYER);
+            $playerModifierEvent = new PlayerModifierEvent($this->player, self::MUSH_SHOWER_DAMAGES);
+            $playerModifierEvent->setReason(EndCauseEnum::CLUMSINESS);
+            $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
         }
 
         $this->playerService->persist($this->player);

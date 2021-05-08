@@ -16,8 +16,8 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\Room\Entity\Room;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
@@ -79,9 +79,9 @@ class PlantCycleHandlerTest extends TestCase
         $plantType = new Plant();
         $plant->setMechanics(new ArrayCollection([$plantType]));
 
-        $this->roomLogService->shouldReceive('createEquipmentLog');
+        $this->roomLogService->shouldReceive('createLog');
         $this->gameEquipmentService->shouldReceive('persist')->twice();
-        $this->randomService->shouldReceive('isSuccessfull')->andReturn(false)->once(); //Plant should not get disease
+        $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->once(); //Plant should not get disease
 
         $difficultyConfig = new DifficultyConfig();
         $difficultyConfig->setPlantDiseaseRate(50);
@@ -125,10 +125,10 @@ class PlantCycleHandlerTest extends TestCase
 
         $gamePlant
             ->setEquipment($plant)
-            ->setRoom(new Room())
+            ->setPlace(new Place())
         ;
 
-        $this->randomService->shouldReceive('isSuccessfull')->andReturn(true)->once();
+        $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
         $this->statusService
             ->shouldReceive('createCoreStatus')
             ->with(EquipmentStatusEnum::PLANT_DISEASED, $gamePlant)
@@ -151,14 +151,14 @@ class PlantCycleHandlerTest extends TestCase
         $daedalus->setOxygen(10);
         $player = new Player();
         $player->setDaedalus($daedalus);
-        $room = new Room();
+        $room = new Place();
         $room->addPlayer($player);
         $room->setDaedalus($daedalus);
 
         $newFruit = new ItemConfig();
         $newFruit->setName('fruit name');
         $this->gameEquipmentService->shouldReceive('persist');
-        $this->roomLogService->shouldReceive('createEquipmentLog');
+        $this->roomLogService->shouldReceive('createLog');
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->andReturn(new GameItem());
         $this->gameEquipmentService->shouldReceive('createGameEquipment')->andReturn(new GameItem());
 
@@ -181,7 +181,7 @@ class PlantCycleHandlerTest extends TestCase
         $gamePlant = new GameItem();
         $gamePlant
             ->setEquipment($plant)
-            ->setRoom($room)
+            ->setPlace($room)
         ;
 
         $status = new Status(new GameItem());

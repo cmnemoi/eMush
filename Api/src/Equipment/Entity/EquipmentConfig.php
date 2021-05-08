@@ -46,9 +46,9 @@ class EquipmentConfig
     private Collection $mechanics;
 
     /**
-     * @ORM\Column(type="integer", nullable=false)
+     * @ORM\Column(type="boolean", nullable=false)
      */
-    private int $breakableRate = 0;
+    private bool $isBreakable = false;
 
     /**
      * @ORM\Column(type="boolean", nullable=false)
@@ -167,21 +167,6 @@ class EquipmentConfig
         return $mechanic;
     }
 
-    public function getBreakableRate(): int
-    {
-        return $this->breakableRate;
-    }
-
-    /**
-     * @return static
-     */
-    public function setBreakableRate(int $breakableRate): EquipmentConfig
-    {
-        $this->breakableRate = $breakableRate;
-
-        return $this;
-    }
-
     public function isFireDestroyable(): bool
     {
         return $this->isFireDestroyable;
@@ -208,6 +193,21 @@ class EquipmentConfig
     public function setIsFireBreakable(bool $isFireBreakable): EquipmentConfig
     {
         $this->isFireBreakable = $isFireBreakable;
+
+        return $this;
+    }
+
+    public function isBreakable(): bool
+    {
+        return $this->isBreakable;
+    }
+
+    /**
+     * @return static
+     */
+    public function setIsBreakable(bool $isBreakable): EquipmentConfig
+    {
+        $this->isBreakable = $isBreakable;
 
         return $this;
     }

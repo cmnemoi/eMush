@@ -1,16 +1,16 @@
 <template>
-    <div v-if="isRoot" class="message main-message" @click="$emit('click')">
+    <div v-if="isRoot"
+         :class="
+        isNeronMessage ? 'message main-message neron' : 'message main-message'"
+         @click="$emit('click')"
+    >
         <div class="character-body">
             <img :src="characterPortrait">
         </div>
         <p class="text">
             <span class="author">{{ message.character.name }} :</span><span v-html="formatMessage(message.message)" />
         </p>
-        <div class="actions">
-            <a href="#"><img src="@/assets/images/comms/reply.png">Répondre</a>
-            <a href="#"><img src="@/assets/images/comms/fav.png">Favori</a>
-            <a href="#"><img src="@/assets/images/comms/alert.png">Plainte</a>
-        </div>
+        <ActionButtons class="actions" :actions="['reply', 'favorite', 'report']" />
         <span class="timestamp">{{ formatDate(message.date, {local: "fr-FR"}) }}</span>
     </div>
     <div v-if="!isRoot" class="message child-message" @click="$emit('click')">
@@ -18,23 +18,24 @@
             <img class="character-head" :src="characterPortrait">
             <span class="author">{{ message.character.name }} :</span><span v-html="formatMessage(message.message)" />
         </p>
-        <div class="actions">
-            <a href="#"><img src="@/assets/images/comms/reply.png">Répondre</a>
-            <a href="#"><img src="@/assets/images/comms/alert.png">Plainte</a>
-        </div>
+        <ActionButtons class="actions" :actions="['reply', 'report']" />
         <span class="timestamp">{{ formatDate(message.date, {local: "fr-FR"}) }}</span>
     </div>
 </template>
 
 <script>
+import ActionButtons from "@/components/Game/Communications/ActionButtons";
 import { formatText } from "@/utils/formatText";
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import { fr } from 'date-fns/locale';
 import { Message } from "@/entities/Message";
-import { characterEnum } from "@/enums/character";
+import { characterEnum, NERON } from "@/enums/character";
 
 export default {
     name: "Message",
+    components: {
+        ActionButtons
+    },
     props: {
         message: Message,
         isRoot: {
@@ -50,6 +51,9 @@ export default {
         characterPortrait: function() {
             const images = characterEnum[this.message.character.key];
             return this.isRoot ? images.body : images.head;
+        },
+        isNeronMessage: function() {
+            return this.message.character.key === NERON;
         }
     },
     methods: {
@@ -62,7 +66,7 @@ export default {
         }
     }
 };
-</script>return
+</script>
 
 <style lang="scss" scoped>
 
@@ -183,10 +187,10 @@ export default {
         border-radius: var(--border-radius);
         clip-path:
             polygon(
-                0 var(--border-radius),
-                calc(100% - var(--border-radius)) var(--border-radius),
-                calc(100% - var(--border-radius)) 100%,
-                0 100%
+                    0 var(--border-radius),
+                    calc(100% - var(--border-radius)) var(--border-radius),
+                    calc(100% - var(--border-radius)) 100%,
+                    0 100%
             );
     }
 
@@ -204,10 +208,10 @@ export default {
         border-radius: var(--border-radius);
         clip-path:
             polygon(
-                0 0,
-                calc(100% - var(--border-radius)) 0,
-                calc(100% - var(--border-radius)) calc(100% - var(--border-radius)),
-                0 calc(100% - var(--border-radius))
+                    0 0,
+                    calc(100% - var(--border-radius)) 0,
+                    calc(100% - var(--border-radius)) calc(100% - var(--border-radius)),
+                    0 calc(100% - var(--border-radius))
             );
     }
 }

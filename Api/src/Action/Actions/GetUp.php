@@ -4,37 +4,43 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionParameters;
+use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Player\Entity\Player;
+use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class GetUp extends AbstractAction
 {
     protected string $name = ActionEnum::GET_UP;
 
-    private StatusServiceInterface $statusService;
-
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
-        StatusServiceInterface $statusService
+        ActionServiceInterface $actionService,
+        ValidatorInterface $validator,
     ) {
-        parent::__construct($eventDispatcher);
-
-        $this->statusService = $statusService;
+        parent::__construct(
+            $eventDispatcher,
+            $actionService,
+            $validator
+        );
     }
 
-    public function loadParameters(Action $action, Player $player, ActionParameters $actionParameters): void
+    protected function support(?ActionParameter $parameter): bool
     {
-        parent::loadParameters($action, $player, $actionParameters);
+        return $parameter === null;
     }
 
-    public function canExecute(): bool
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        return $this->player->getStatusByName(PlayerStatusEnum::LYING_DOWN) !== null;
+        $metadata->addConstraint(new Status([
+            'status' => PlayerStatusEnum::LYING_DOWN,
+            'target' => Status::PLAYER,
+            'groups' => ['visibility'],
+        ]));
     }
 
     protected function applyEffects(): ActionResult

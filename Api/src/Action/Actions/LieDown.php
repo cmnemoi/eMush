@@ -4,61 +4,84 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionParameters;
+use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\Reach;
+use Mush\Action\Validator\Status as StatusValidator;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Player\Entity\Player;
+use Mush\Equipment\Enum\ReachEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Status;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class LieDown extends AbstractAction
 {
     protected string $name = ActionEnum::LIE_DOWN;
 
-    private GameEquipment $gameEquipment;
-
     private StatusServiceInterface $statusService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
-        StatusServiceInterface $statusService
+        ActionServiceInterface $actionService,
+        ValidatorInterface $validator,
+        StatusServiceInterface $statusService,
     ) {
-        parent::__construct($eventDispatcher);
+        parent::__construct(
+            $eventDispatcher,
+            $actionService,
+            $validator
+        );
 
         $this->statusService = $statusService;
     }
 
-    public function loadParameters(Action $action, Player $player, ActionParameters $actionParameters): void
+    protected function support(?ActionParameter $parameter): bool
     {
-        parent::loadParameters($action, $player, $actionParameters);
-
-        if (!($equipment = $actionParameters->getEquipment())) {
-            throw new \InvalidArgumentException('Invalid equipment parameter');
-        }
-
-        $this->gameEquipment = $equipment;
+        return $parameter instanceof GameEquipment;
     }
 
-    public function canExecute(): bool
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        return $this->gameEquipment->getEquipment()->hasAction(ActionEnum::LIE_DOWN) &&
-            !$this->gameEquipment->isbroken() &&
-            $this->gameEquipment->getTargetingStatuses()->filter(fn (Status $status) => ($status->getName() === PlayerStatusEnum::LYING_DOWN))->isEmpty() &&
-            !$this->player->getStatusByName(PlayerStatusEnum::LYING_DOWN) &&
-            $this->player->canReachEquipment($this->gameEquipment);
+        $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
+        $metadata->addConstraint(new StatusValidator([
+            'status' => PlayerStatusEnum::LYING_DOWN,
+            'target' => StatusValidator::PLAYER,
+            'contain' => false,
+            'groups' => ['execute'],
+            'message' => ActionImpossibleCauseEnum::ALREADY_IN_BED,
+        ]));
+        $metadata->addConstraint(new StatusValidator([
+            'status' => EquipmentStatusEnum::BROKEN,
+            'contain' => false,
+            'groups' => ['execute'],
+            'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
+        ]));
+        $metadata->addConstraint(new StatusValidator([
+            'status' => PlayerStatusEnum::LYING_DOWN,
+            'ownerSide' => false,
+            'contain' => false,
+            'groups' => ['execute'],
+            'message' => ActionImpossibleCauseEnum::BED_OCCUPIED,
+        ]));
     }
 
     protected function applyEffects(): ActionResult
     {
+        /** @var GameEquipment $parameter */
+        $parameter = $this->parameter;
+
         $lyingDownStatus = new Status($this->player);
         $lyingDownStatus
             ->setName(PlayerStatusEnum::LYING_DOWN)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setTarget($this->gameEquipment)
+            ->setTarget($parameter)
         ;
 
         $this->statusService->persist($lyingDownStatus);

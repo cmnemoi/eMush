@@ -27,13 +27,13 @@ const actions = {
     async changeChannel({ commit }, { channel }) {
         commit('setCurrentChannel', channel);
     },
-    async loadChannels({ commit }) {
+    async loadChannels({ getters, commit }) {
         commit('setLoadingOfChannels', true);
 
         try {
             const channels = await CommunicationService.loadChannels();
             commit('setChannels', channels);
-            commit('setCurrentChannel', channels.find(({ scope }) => scope === ROOM_LOG));
+            commit('setCurrentChannel', getters.roomChannel);
             commit('setLoadingOfChannels', false);
             return true;
         } catch (e) {
@@ -70,18 +70,29 @@ const actions = {
         }
     },
 
-    async createPrivateChannel({ commit }) {
+    async createPrivateChannel({ state, commit }) {
+        if (state.loadingChannels) { return; }
         commit('setLoadingOfChannels', true);
 
         try {
             const newChannel = await CommunicationService.createPrivateChannel();
             commit('addChannel', newChannel);
+            commit('setCurrentChannel', newChannel);
             commit('setLoadingOfChannels', false);
-
-            return true;
         } catch (e) {
             commit('setLoadingOfChannels', false);
-            return false;
+        }
+    },
+
+    async leavePrivateChannel({ getters, commit }, channel) {
+        commit('setLoadingOfChannels', true);
+        try {
+            await CommunicationService.leaveChannel(channel);
+            commit('removeChannel', channel);
+            commit('setCurrentChannel', getters.roomChannel);
+            commit('setLoadingOfChannels', false);
+        } catch (e) {
+            commit('setLoadingOfChannels', false);
         }
     },
 
@@ -112,6 +123,12 @@ const mutations = {
 
     addChannel(state, channel) {
         state.channels.push(channel);
+    },
+
+    removeChannel(state, channel) {
+        state.channels = state.channels.filter(({ id }) => id !== channel.id);
+        delete state.loadingByChannelId[channel.id];
+        delete state.messagesByChannelId[channel.id];
     },
 
     setChannelMessages(state, { channel, messages }) {

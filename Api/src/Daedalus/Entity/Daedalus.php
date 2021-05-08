@@ -9,9 +9,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
+use Mush\Place\Entity\Place;
+use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
-use Mush\Room\Entity\Room;
 
 /**
  * Class Daedalus.
@@ -40,14 +41,19 @@ class Daedalus
     private GameConfig $gameConfig;
 
     /**
+     * @ORM\OneToOne(targetEntity="Mush\Daedalus\Entity\Neron", inversedBy="daedalus")
+     */
+    private Neron $neron;
+
+    /**
      * @ORM\Column(type="string", nullable=false)
      */
     private string $gameStatus = GameStatusEnum::STARTING;
 
     /**
-     * @ORM\OneToMany(targetEntity="Mush\Room\Entity\Room", mappedBy="daedalus")
+     * @ORM\OneToMany(targetEntity="Mush\Place\Entity\Place", mappedBy="daedalus")
      */
-    private Collection $rooms;
+    private Collection $places;
 
     /**
      * @ORM\Column(type="integer", nullable=false)
@@ -104,10 +110,15 @@ class Daedalus
      */
     private DateTime $cycleStartedAt;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=false)
+     */
+    private bool $isCycleChange = false;
+
     public function __construct()
     {
         $this->players = new ArrayCollection();
-        $this->rooms = new ArrayCollection();
+        $this->places = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -169,6 +180,18 @@ class Daedalus
         return $this;
     }
 
+    public function getNeron(): Neron
+    {
+        return $this->neron;
+    }
+
+    public function setNeron(Neron $neron): Daedalus
+    {
+        $this->neron = $neron;
+
+        return $this;
+    }
+
     public function getGameStatus(): string
     {
         return $this->gameStatus;
@@ -184,24 +207,29 @@ class Daedalus
         return $this;
     }
 
-    public function getRooms(): Collection
+    public function getPlaces(): Collection
     {
-        return $this->rooms;
+        return $this->places;
     }
 
-    public function getRoomByName(string $name): ?Room
+    public function getRooms(): Collection
     {
-        $room = $this->getRooms()->filter(fn (Room $room) => $room->getName() === $name)->first();
+        return $this->getPlaces()->filter(fn (Place $place) => $place->getType() === PlaceTypeEnum::ROOM);
+    }
 
-        return $room === false ? null : $room;
+    public function getPlaceByName(string $name): ?Place
+    {
+        $place = $this->getPlaces()->filter(fn (Place $place) => $place->getName() === $name)->first();
+
+        return $place === false ? null : $place;
     }
 
     /**
      * @return static
      */
-    public function setRooms(Collection $rooms): Daedalus
+    public function setPlaces(Collection $places): Daedalus
     {
-        $this->rooms = $rooms;
+        $this->places = $places;
 
         return $this;
     }
@@ -209,12 +237,12 @@ class Daedalus
     /**
      * @return static
      */
-    public function addRoom(Room $room): Daedalus
+    public function addPlace(Place $place): Daedalus
     {
-        if (!$this->getRooms()->contains($room)) {
-            $this->rooms->add($room);
+        if (!$this->getPlaces()->contains($place)) {
+            $this->places->add($place);
 
-            $room->setDaedalus($this);
+            $place->setDaedalus($this);
         }
 
         return $this;
@@ -223,9 +251,9 @@ class Daedalus
     /**
      * @return static
      */
-    public function removeRoom(Room $room): Daedalus
+    public function removePlace(Place $place): Daedalus
     {
-        $this->rooms->removeElement($room);
+        $this->places->removeElement($place);
 
         return $this;
     }
@@ -412,6 +440,18 @@ class Daedalus
     public function setCycleStartedAt(DateTime $cycleStartedAt): Daedalus
     {
         $this->cycleStartedAt = $cycleStartedAt;
+
+        return $this;
+    }
+
+    public function isCycleChange(): bool
+    {
+        return $this->isCycleChange;
+    }
+
+    public function setIsCycleChange(bool $isCycleChange): Daedalus
+    {
+        $this->isCycleChange = $isCycleChange;
 
         return $this;
     }

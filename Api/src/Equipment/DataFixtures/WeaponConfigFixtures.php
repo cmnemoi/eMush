@@ -28,13 +28,26 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         $takeAction = $this->getReference(ActionsFixtures::DEFAULT_TAKE);
         /** @var Action $takeAction */
         $dropAction = $this->getReference(ActionsFixtures::DEFAULT_DROP);
+        /** @var Action $buildAction */
+        $hideAction = $this->getReference(ActionsFixtures::HIDE_DEFAULT);
         /** @var Action $attackAction */
         $attackAction = $this->getReference(ActionsFixtures::ATTACK_DEFAULT);
 
-        $actions = new ArrayCollection([$takeAction, $dropAction]);
+        $actions = new ArrayCollection([$takeAction, $dropAction, $hideAction]);
 
-        $blasterActions = clone $actions;
-        $blasterActions->add($this->getReference(TechnicianFixtures::DISMANTLE_3_25));
+        $repair12 = $this->getReference(TechnicianFixtures::REPAIR_12);
+        $repair25 = $this->getReference(TechnicianFixtures::REPAIR_25);
+
+        $sabotage12 = $this->getReference(TechnicianFixtures::SABOTAGE_12);
+        $sabotage25 = $this->getReference(TechnicianFixtures::SABOTAGE_25);
+
+        $dismantle12 = $this->getReference(TechnicianFixtures::DISMANTLE_3_12);
+        $dismantle25 = $this->getReference(TechnicianFixtures::DISMANTLE_3_25);
+
+        $actions25 = clone $actions;
+        $actions25->add($dismantle25);
+        $actions25->add($repair25);
+        $actions25->add($sabotage25);
 
         $chargedMechanic = new Charged();
         $chargedMechanic
@@ -60,12 +73,11 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ItemEnum::BLASTER)
             ->setIsHeavy(false)
             ->setIsStackable(true)
-            ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
-            ->setBreakableRate(25)
+            ->setIsBreakable(true)
             ->setMechanics(new ArrayCollection([$blasterMechanic, $chargedMechanic]))
-            ->setActions($blasterActions)
+            ->setActions($actions25)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
         ;
 
@@ -83,21 +95,17 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->addAction($attackAction)
         ;
 
-        $knifeActions = clone $actions;
-        $knifeActions->add($this->getReference(TechnicianFixtures::DISMANTLE_3_25));
-
         $knife = new ItemConfig();
         $knife
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::KNIFE)
             ->setIsHeavy(false)
             ->setIsStackable(true)
-            ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setBreakableRate(25)
+            ->setIsBreakable(true)
             ->setMechanics(new ArrayCollection([$knifeMechanic]))
-            ->setActions($knifeActions)
+            ->setActions($actions25)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
         ;
 
@@ -119,7 +127,6 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ItemEnum::GRENADE)
             ->setIsHeavy(false)
             ->setIsStackable(true)
-            ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setMechanics(new ArrayCollection([$grenadeMechanic]))
@@ -129,8 +136,10 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($grenade);
         $manager->persist($grenadeMechanic);
 
-        $natamyActions = clone $actions;
-        $natamyActions->add($this->getReference(TechnicianFixtures::DISMANTLE_3_12));
+        $actions12 = clone $actions;
+        $actions12->add($dismantle12);
+        $actions12->add($repair12);
+        $actions12->add($sabotage12);
 
         $natamyMechanic = new Weapon();
         $natamyMechanic
@@ -147,12 +156,11 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ItemEnum::NATAMY_RIFLE)
             ->setIsHeavy(false)
             ->setIsStackable(true)
-            ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
-            ->setBreakableRate(12)
+            ->setIsBreakable(true)
             ->setMechanics(new ArrayCollection([$natamyMechanic, $chargedMechanic]))
-            ->setActions($natamyActions)
+            ->setActions($actions12)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
         ;
 
@@ -161,6 +169,8 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $oldFaithfulActions = clone $actions;
         $oldFaithfulActions->add($this->getReference(TechnicianFixtures::DISMANTLE_4_12));
+        $oldFaithfulActions->add($repair12);
+        $oldFaithfulActions->add($sabotage12);
 
         $oldFaithfulMechanic = new Weapon();
         $oldFaithfulMechanic
@@ -185,10 +195,9 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ItemEnum::OLD_FAITHFUL)
             ->setIsHeavy(true)
             ->setIsStackable(true)
-            ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
-            ->setBreakableRate(12)
+            ->setIsBreakable(true)
             ->setMechanics(new ArrayCollection([$oldFaithfulMechanic, $chargedMechanic]))
             ->setActions($oldFaithfulActions)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
@@ -197,9 +206,6 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($oldFaithful);
         $manager->persist($oldFaithfulMechanic);
         $manager->persist($chargedMechanic);
-
-        $lizaroJungleActions = clone $actions;
-        $lizaroJungleActions->add($this->getReference(TechnicianFixtures::DISMANTLE_3_12));
 
         $chargedMechanic = new Charged();
         $chargedMechanic
@@ -224,12 +230,11 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ItemEnum::LIZARO_JUNGLE)
             ->setIsHeavy(false)
             ->setIsStackable(true)
-            ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
-            ->setBreakableRate(12)
+            ->setIsBreakable(true)
             ->setMechanics(new ArrayCollection([$lizaroJungleMechanic, $chargedMechanic]))
-            ->setActions($oldFaithfulActions)
+            ->setActions($actions12)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
         ;
 
@@ -246,20 +251,16 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->addAction($attackAction)
         ;
 
-        $rocketLauncherActions = clone $actions;
-        $rocketLauncherActions->add($this->getReference(TechnicianFixtures::DISMANTLE_3_12));
-
         $rocketLauncher = new ItemConfig();
         $rocketLauncher
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::ROCKET_LAUNCHER)
             ->setIsHeavy(false)
             ->setIsStackable(true)
-            ->setIsHideable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
-            ->setBreakableRate(12)
-            ->setActions($rocketLauncherActions)
+            ->setIsBreakable(true)
+            ->setActions($actions12)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
         ;
 

@@ -5,6 +5,7 @@ namespace functional\Action\Event;
 use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Entity\Action;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Action\Event\ActionSubscriber;
 use Mush\Daedalus\Entity\Daedalus;
@@ -13,12 +14,13 @@ use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
+use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\ModifierScopeEnum;
 use Mush\Player\Enum\ModifierTargetEnum;
-use Mush\Room\Entity\Room;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -40,15 +42,19 @@ class ActionSubscriberCest
         $gameConfig = $I->have(GameConfig::class);
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
-        /** @var Room $room */
-        $room = $I->have(Room::class, ['daedalus' => $daedalus]);
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+
+        /** @var CharacterConfig $characterConfig */
+        $characterConfig = $I->have(CharacterConfig::class);
         /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'room' => $room, 'actionPoint' => 2]);
+        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'actionPoint' => 2, 'characterConfig' => $characterConfig]);
         $action = new Action();
 
         $action
             ->setDirtyRate(0)
             ->setInjuryRate(100)
+            ->setName(ActionEnum::TAKE)
         ;
 
         $actionEvent = new ActionEvent($action, $player);
@@ -59,7 +65,7 @@ class ActionSubscriberCest
         $I->assertEquals(8, $player->getHealthPoint());
         $I->assertCount(0, $player->getStatuses());
         $I->seeInRepository(RoomLog::class, [
-            'room' => $room->getId(),
+            'place' => $room->getId(),
             'player' => $player->getId(),
             'log' => LogEnum::CLUMSINESS,
             'visibility' => VisibilityEnum::PRIVATE,
@@ -77,7 +83,7 @@ class ActionSubscriberCest
         $I->assertCount(1, $player->getStatuses());
         $I->assertEquals(PlayerStatusEnum::DIRTY, $player->getStatuses()->first()->getName());
         $I->seeInRepository(RoomLog::class, [
-            'room' => $room->getId(),
+            'place' => $room->getId(),
             'player' => $player->getId(),
             'log' => LogEnum::SOILED,
             'visibility' => VisibilityEnum::PRIVATE,
@@ -106,7 +112,7 @@ class ActionSubscriberCest
             ->setScope(ModifierScopeEnum::EVENT_DIRTY)
         ;
         $I->haveInRepository($modifier);
-        $gear->setModifier($modifier);
+        $gear->setModifier(new arrayCollection([$modifier]));
         $itemConfig->setMechanics(new ArrayCollection([$gear]));
         $I->haveInRepository($gear);
         $I->haveInRepository($itemConfig);
@@ -125,7 +131,7 @@ class ActionSubscriberCest
         $I->assertEquals(8, $player->getHealthPoint());
         $I->assertCount(0, $player->getStatuses());
         $I->seeInRepository(RoomLog::class, [
-            'room' => $room->getId(),
+            'place' => $room->getId(),
             'player' => $player->getId(),
             'log' => LogEnum::SOIL_PREVENTED,
             'visibility' => VisibilityEnum::PRIVATE,

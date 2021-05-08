@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
+    <file id="alerts.ext">
+        <unit id="broken.doors">
+            <segment id="name">
+                <source>broken.doors.name</source>
+                <target>{quantity, plural, one {# Porte cassée} other {# Portes cassées}}</target>
+            </segment>
+            <segment id="description">
+                <source>broken.doors.description</source>
+                <target>Contactez un technicien ou mettez-vous au boulot !</target>
+            </segment>
+        </unit>
+
+        <unit id="number.fire">
+            <segment id="name">
+                <source>number.fire.name</source>
+                <target>{quantity, plural, one {# Incendie en cours} other {# Incendies en cours}}</target>
+            </segment>
+            <segment id="description">
+                <source>number.fire.description</source>
+                <target>Prévenez une personne responsable ou attrapez un extincteur !</target>
+            </segment>
+        </unit>
+
+        <unit id="broken.equipments">
+            <segment id="name">
+                <source>broken.equipment.name.single</source>
+                <target>{quantity, plural, one {# Equipement hors-service} other {# Equipements hors-service}}</target>
+            </segment>
+            <segment id="description">
+                <source>broken.equipment.description</source>
+                <target>Contactez un technicien ou mettez-vous au boulot !</target>
+            </segment>
+        </unit>
+
+        <unit id="no.gravity">
+            <segment id="name">
+                <source>no.gravity.name</source>
+                <target>Pas de simulateur de gravité</target>
+            </segment>
+            <segment id="description">
+                <source>no.gravity.description</source>
+                <target>Le Simulateur de gravité n'est pas démarré. Chaque gain de Points de mouvement est réduit de 1 ! Réparez-le pour que NERON puisse rétablir la gravité au cycle d'après.</target>
+            </segment>
+        </unit>
+
+        <unit id="low.oxygen">
+            <segment id="name">
+                <source>low.oxygen.name</source>
+                <target>Asphyxie</target>
+            </segment>
+            <segment id="description">
+                <source>low.oxygen.description</source>
+                <target>**Moins de 1 jour** d'Oxygène en réserve !
+                        Si la situation ne change pas rapidement, l'équipage va mourir.</target>
+            </segment>
+        </unit>
+
+        <unit id="outcast.crewmember">
+            <segment id="name">
+                <source>outcast.crewmember.name</source>
+                <target>Paria</target>
+            </segment>
+            <segment id="description">
+                <source>outcast.crewmember.description</source>
+                <target>TODO.outcast.description</target>
+            </segment>
+        </unit>
+
+        <unit id="lost.crewmember">
+            <segment id="name">
+                <source>lost.crewmember.name</source>
+                <target>TODO.lost_crewmember.name</target>
+            </segment>
+            <segment id="description">
+                <source>lost.crewmember.description</source>
+                <target>TODO.lost_crewmember.description</target>
+            </segment>
+        </unit>
+
+        <unit id="low.hull">
+            <segment id="name">
+                <source>low.hull.name</source>
+                <target>{quantity, plural, one { TODO.low_hull.name.singular } other { TODO.low_hull.name.plural }}</target>
+            </segment>
+            <segment id="description">
+                <source>low.hull.description</source>
+                <target>TODO.low_hull.description</target>
+            </segment>
+        </unit>
+
+        <unit id="hunger.general">
+            <segment id="name">
+                <source>hunger.general.name</source>
+                <target>Famine</target>
+            </segment>
+            <segment id="description">
+                <source>hunger.general.description</source>
+                <target>L'équipage est gravement **affamé**. Il vous faut trouver quelque chose à manger.</target>
+            </segment>
+        </unit>
+
+        <unit id="lost.communication">
+            <segment id="name">
+                <source>lost.communication.name</source>
+                <target>Pas de liaison</target>
+            </segment>
+            <segment id="description">
+                <source>lost.communication.description</source>
+                <target>Le Daedalus n'a pas de liaison de communication avec Sol !
+                        Garder un lien avec Sol est important pour le moral du groupe et essentiel pour survivre.</target>
+            </segment>
+        </unit>
+
+        <unit id="hunters.attack">
+            <segment id="name">
+                <source>hunters.attack.name</source>
+                <target>{quantity, plural, one {# Hunter nous attaque !} other {# Hunters nous attaquent !}}</target>
+            </segment>
+            <segment id="description">
+                <source>hunters.attack.description</source>
+                <target>Prévenez la chasse ou prenez la défense en main !</target>
+            </segment>
+        </unit>
+
+        <unit id="no.alert">
+            <segment id="name">
+                <source>no.alert.name</source>
+                <target>Calme</target>
+            </segment>
+            <segment id="description">
+                <source>no.alert.description</source>
+                <target>Pas d'alertes en cours : l'équipage peut être tranquille. </target>
+            </segment>
+        </unit>
+    </file>
+</xliff>

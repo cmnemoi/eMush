@@ -40,25 +40,9 @@ class CycleDecrementTest extends TestCase
     {
         $status = $this->createStatus();
 
-        $this->statusService->shouldReceive('persist')->once();
+        $this->statusService->shouldReceive('updateCharge')->with($status, -1)->once();
 
         $this->strategy->execute($status, new Daedalus());
-
-        $this->assertEquals(9, $status->getCharge());
-
-        $status->setCharge(0);
-        $this->statusService->shouldReceive('persist')->once();
-
-        $this->strategy->execute($status, new Daedalus());
-
-        $this->assertEquals(0, $status->getCharge());
-
-        $status->setAutoRemove(true);
-        $this->statusService->shouldReceive('delete')->once();
-
-        $result = $this->strategy->execute($status, new Daedalus());
-
-        $this->assertNull($result);
     }
 
     private function createStatus(): ChargeStatus

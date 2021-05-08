@@ -3,8 +3,8 @@
 namespace Mush\Test\Status\Entity;
 
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\Room\Entity\Room;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
@@ -54,7 +54,7 @@ class StatusTest extends TestCase
 
     public function testAddRoomStatus()
     {
-        $room = new Room();
+        $room = new Place();
 
         $status = new ChargeStatus($room);
         $status

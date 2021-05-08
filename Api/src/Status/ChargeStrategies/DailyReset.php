@@ -23,12 +23,14 @@ class DailyReset extends AbstractChargeStrategy
         parent::__construct($statusService);
     }
 
-    public function apply(ChargeStatus $status, Daedalus $daedalus): void
+    public function apply(ChargeStatus $status, Daedalus $daedalus): ?ChargeStatus
     {
         //Only applied on cycle 1
         if ($daedalus->getCycle() !== 1 || $status->getCharge() >= $status->getThreshold()) {
-            return;
+            return $status;
         }
         $status->setCharge($status->getThreshold() ?? 0);
+
+        return $status;
     }
 }

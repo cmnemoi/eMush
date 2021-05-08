@@ -7,7 +7,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Shower;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionCost;
-use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
@@ -15,8 +14,8 @@ use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\Room\Entity\Room;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -38,15 +37,15 @@ class AutomaticGetUpCest
         $gameConfig = $I->have(GameConfig::class);
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
-        /** @var Room $room */
-        $room = $I->have(Room::class, ['daedalus' => $daedalus]);
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
         $getUpCost = new ActionCost();
         $getUpAction = new Action();
         $getUpAction
             ->setName(ActionEnum::GET_UP)
             ->setDirtyRate(0)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setScope(ActionScopeEnum::SELF)
             ->setInjuryRate(0)
             ->setActionCost($getUpCost)
         ;
@@ -57,7 +56,7 @@ class AutomaticGetUpCest
         $characterConfig = $I->have(CharacterConfig::class, ['actions' => new ArrayCollection([$getUpAction])]);
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus,
-                                            'room' => $room,
+                                            'place' => $room,
                                             'actionPoint' => 2,
                                             'healthPoint' => 6,
                                             'characterConfig' => $characterConfig,
@@ -90,30 +89,28 @@ class AutomaticGetUpCest
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('shower')
-            ->setRoom($room)
+            ->setPlace($room)
         ;
         $I->haveInRepository($gameEquipment);
 
-        $actionParameters = new ActionParameters();
-        $actionParameters->setEquipment($gameEquipment);
+        $this->showerAction->loadParameters($action, $player, $gameEquipment);
 
-        $this->showerAction->loadParameters($action, $player, $actionParameters);
-
-        $I->assertTrue($this->showerAction->canExecute());
+        $I->assertTrue($this->showerAction->isVisible());
+        $I->assertNull($this->showerAction->cannotExecuteReason());
 
         $this->showerAction->execute();
 
         $I->assertCount(0, $player->getStatuses());
 
         $I->seeInRepository(RoomLog::class, [
-            'room' => $room->getId(),
+            'place' => $room->getId(),
             'player' => $player->getId(),
             'log' => ActionLogEnum::GET_UP,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
 
         $I->seeInRepository(RoomLog::class, [
-            'room' => $room->getId(),
+            'place' => $room->getId(),
             'player' => $player->getId(),
             'log' => ActionLogEnum::SHOWER_HUMAN,
             'visibility' => VisibilityEnum::PRIVATE,

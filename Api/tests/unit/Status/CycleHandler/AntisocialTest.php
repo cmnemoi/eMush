@@ -4,8 +4,9 @@ namespace Mush\Test\Status\CycleHandler;
 
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Game\Enum\GameStatusEnum;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\Room\Entity\Room;
 use Mush\Status\CycleHandler\Antisocial;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -39,11 +40,12 @@ class AntisocialTest extends TestCase
 
     public function testNewCycle()
     {
-        $room = new Room();
+        $room = new Place();
 
         $player = new Player();
         $player
-            ->setRoom($room)
+            ->setPlace($room)
+            ->setGameStatus(GameStatusEnum::CURRENT)
         ;
 
         $status = new Status($player);
@@ -55,12 +57,15 @@ class AntisocialTest extends TestCase
         $this->cycleHandler->handleNewCycle($status, new Daedalus(), $player, new \DateTime());
 
         $otherPlayer = new Player();
-        $otherPlayer->setRoom(new Room());
+        $otherPlayer
+            ->setPlace(new Place())
+            ->setGameStatus(GameStatusEnum::CURRENT)
+        ;
 
         $this->eventDispatcher->shouldReceive('dispatch')->never();
         $this->cycleHandler->handleNewCycle($status, new Daedalus(), $player, new \DateTime());
 
-        $otherPlayer->setRoom($room);
+        $otherPlayer->setPlace($room);
 
         $this->eventDispatcher->shouldReceive('dispatch')->once();
         $this->cycleHandler->handleNewCycle($status, new Daedalus(), $player, new \DateTime());

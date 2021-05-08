@@ -2,7 +2,6 @@
 
 namespace Mush\Player\Event;
 
-use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
 use Symfony\Contracts\EventDispatcher\Event;
 
@@ -10,18 +9,17 @@ class PlayerEvent extends Event
 {
     public const NEW_PLAYER = 'new.player';
     public const DEATH_PLAYER = 'death.player';
-    public const MODIFIER_PLAYER = 'modifier.player';
     public const METAL_PLATE = 'metal.plate';
     public const PANIC_CRISIS = 'panic.crisis';
     public const INFECTION_PLAYER = 'infection.player';
     public const CONVERSION_PLAYER = 'conversion.player';
+    public const END_PLAYER = 'end.player';
 
     private Player $player;
-    private ?Modifier $modifier = null;
     private ?string $reason = null;
     private \DateTime $time;
 
-    public function __construct(Player $player, $time = null)
+    public function __construct(Player $player, ?\DateTime $time = null)
     {
         $this->time = $time ?? new \DateTime();
         $this->player = $player;
@@ -35,18 +33,6 @@ class PlayerEvent extends Event
     public function getTime(): \DateTime
     {
         return $this->time;
-    }
-
-    public function getModifier(): ?Modifier
-    {
-        return $this->modifier;
-    }
-
-    public function setModifier(?Modifier $modifier): PlayerEvent
-    {
-        $this->modifier = $modifier;
-
-        return $this;
     }
 
     public function getReason(): ?string

@@ -4,28 +4,16 @@ namespace Mush\Daedalus\Event;
 
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Game\Enum\GameStatusEnum;
-use Mush\Game\Service\RandomServiceInterface;
-use Mush\Status\Service\StatusServiceInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class DaedalusSubscriber implements EventSubscriberInterface
 {
     private DaedalusServiceInterface $daedalusService;
-    private EventDispatcherInterface $eventDispatcher;
-    private RandomServiceInterface $randomService;
-    private StatusServiceInterface $statusService;
 
     public function __construct(
         DaedalusServiceInterface $daedalusService,
-        EventDispatcherInterface $eventDispatcher,
-        RandomServiceInterface $randomService,
-        StatusServiceInterface $statusService
     ) {
         $this->daedalusService = $daedalusService;
-        $this->eventDispatcher = $eventDispatcher;
-        $this->randomService = $randomService;
-        $this->statusService = $statusService;
     }
 
     public static function getSubscribedEvents(): array
@@ -50,6 +38,13 @@ class DaedalusSubscriber implements EventSubscriberInterface
         // @TODO: create logs
         // @TODO: remove all fire and charged statuses
 
+        $daedalus->getPlaces()->map(static function ($room) {
+            /** @var \Mush\Place\Entity\Place $room */
+            foreach ($room->getStatuses() as $status) {
+                $room->removeStatus($status);
+            }
+        });
+
         $daedalus->setFinishedAt(new \DateTime());
         $daedalus->setGameStatus(GameStatusEnum::FINISHED);
         $this->daedalusService->persist($daedalus);
@@ -58,7 +53,6 @@ class DaedalusSubscriber implements EventSubscriberInterface
     public function onDaedalusFull(DaedalusEvent $event): void
     {
         $daedalus = $event->getDaedalus();
-        //@TODO: create logs
 
         //@TODO give titles
 

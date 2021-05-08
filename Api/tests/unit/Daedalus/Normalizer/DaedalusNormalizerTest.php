@@ -43,12 +43,11 @@ class DaedalusNormalizerTest extends TestCase
     {
         $nextCycle = new \DateTime();
         $this->cycleService->shouldReceive('getDateStartNextCycle')->andReturn($nextCycle);
-        $this->translator->shouldReceive('trans')->andReturn('alert trans')->twice();
         $daedalus = Mockery::mock(Daedalus::class);
         $daedalus->shouldReceive('getId')->andReturn(2);
         $daedalus->makePartial();
         $daedalus->setPlayers(new ArrayCollection());
-        $daedalus->setRooms(new ArrayCollection());
+        $daedalus->setPlaces(new ArrayCollection());
         $daedalus->setGameConfig(new GameConfig());
 
         $daedalus
@@ -64,6 +63,7 @@ class DaedalusNormalizerTest extends TestCase
 
         $expected = [
             'id' => 2,
+            'game_config' => null,
             'cycle' => 4,
             'day' => 4,
             'oxygen' => 24,
@@ -76,8 +76,6 @@ class DaedalusNormalizerTest extends TestCase
             'humanPlayerDead' => 0,
             'mushPlayerAlive' => 0,
             'mushPlayerDead' => 0,
-            'alerts' => ['no.alert' => ['name' => 'alert trans', 'description' => 'alert trans']],
-            'minimap' => [],
         ];
 
         $this->assertIsArray($data);

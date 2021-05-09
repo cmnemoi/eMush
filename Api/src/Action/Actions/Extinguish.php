@@ -34,7 +34,7 @@ class Extinguish extends AttemptAction
         ValidatorInterface $validator,
         PlayerServiceInterface $playerService,
         RandomServiceInterface $randomService,
-        PlaceServiceInterface $placeService,
+        PlaceServiceInterface $placeService
     ) {
         parent::__construct(
             $eventDispatcher,

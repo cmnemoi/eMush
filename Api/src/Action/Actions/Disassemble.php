@@ -35,7 +35,7 @@ class Disassemble extends AttemptAction
         ValidatorInterface $validator,
         GameEquipmentServiceInterface $gameEquipmentService,
         PlayerServiceInterface $playerService,
-        RandomServiceInterface $randomService,
+        RandomServiceInterface $randomService
     ) {
         parent::__construct(
             $eventDispatcher,

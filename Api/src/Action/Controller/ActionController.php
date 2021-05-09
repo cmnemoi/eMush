@@ -24,7 +24,7 @@ class ActionController extends AbstractFOSRestController
     private ActionStrategyServiceInterface $actionService;
 
     public function __construct(
-        ActionStrategyServiceInterface $actionService,
+        ActionStrategyServiceInterface $actionService
     ) {
         $this->actionService = $actionService;
     }

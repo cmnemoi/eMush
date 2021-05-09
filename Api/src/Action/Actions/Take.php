@@ -36,7 +36,7 @@ class Take extends AbstractAction
         ValidatorInterface $validator,
         GameEquipmentServiceInterface $gameEquipmentService,
         PlayerServiceInterface $playerService,
-        StatusServiceInterface $statusService,
+        StatusServiceInterface $statusService
     ) {
         parent::__construct(
             $eventDispatcher,

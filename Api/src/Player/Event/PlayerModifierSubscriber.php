@@ -14,7 +14,7 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
 
     public function __construct(
         PlayerVariableServiceInterface $playerVariableService,
-        EventDispatcherInterface $eventDispatcher,
+        EventDispatcherInterface $eventDispatcher
     ) {
         $this->playerVariableService = $playerVariableService;
         $this->eventDispatcher = $eventDispatcher;

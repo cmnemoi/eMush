@@ -18,7 +18,7 @@ class ActionSubscriber implements EventSubscriberInterface
     public function __construct(
         ActionSideEffectsServiceInterface $actionSideEffectsService,
         GetUp $getUp,
-        GearToolServiceInterface $gearToolService,
+        GearToolServiceInterface $gearToolService
     ) {
         $this->actionSideEffectsService = $actionSideEffectsService;
         $this->getUpAction = $getUp;

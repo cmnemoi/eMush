@@ -15,7 +15,7 @@ class DaedalusSubscriber implements EventSubscriberInterface
 
     public function __construct(
         ChannelServiceInterface $channelService,
-        NeronMessageServiceInterface $neronMessageService,
+        NeronMessageServiceInterface $neronMessageService
     ) {
         $this->channelService = $channelService;
         $this->neronMessageService = $neronMessageService;

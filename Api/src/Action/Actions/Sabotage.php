@@ -34,7 +34,7 @@ class Sabotage extends AttemptAction
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         PlayerServiceInterface $playerService,
-        RandomServiceInterface $randomService,
+        RandomServiceInterface $randomService
     ) {
         parent::__construct(
             $eventDispatcher,

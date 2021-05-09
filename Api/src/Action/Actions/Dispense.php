@@ -36,7 +36,7 @@ class Dispense extends AbstractAction
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         GameEquipmentServiceInterface $gameEquipmentService,
-        RandomServiceInterface $randomService,
+        RandomServiceInterface $randomService
     ) {
         parent::__construct(
             $eventDispatcher,

@@ -35,7 +35,7 @@ class Consume extends AbstractAction
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         PlayerServiceInterface $playerService,
-        EquipmentEffectServiceInterface $equipmentServiceEffect,
+        EquipmentEffectServiceInterface $equipmentServiceEffect
     ) {
         parent::__construct(
             $eventDispatcher,

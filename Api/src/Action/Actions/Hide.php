@@ -37,7 +37,7 @@ class Hide extends AbstractAction
         ValidatorInterface $validator,
         GameEquipmentServiceInterface $gameEquipmentService,
         StatusServiceInterface $statusService,
-        PlayerServiceInterface $playerService,
+        PlayerServiceInterface $playerService
     ) {
         parent::__construct(
             $eventDispatcher,

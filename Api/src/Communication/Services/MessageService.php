@@ -12,14 +12,11 @@ use Mush\Player\Entity\Player;
 
 class MessageService implements MessageServiceInterface
 {
-    private ChannelServiceInterface $channelService;
     private EntityManagerInterface $entityManager;
 
     public function __construct(
-        ChannelServiceInterface $channelService,
-        EntityManagerInterface $entityManager,
+        EntityManagerInterface $entityManager
     ) {
-        $this->channelService = $channelService;
         $this->entityManager = $entityManager;
     }
 

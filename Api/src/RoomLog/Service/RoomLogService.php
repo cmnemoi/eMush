@@ -127,7 +127,7 @@ class RoomLogService implements RoomLogServiceInterface
     private function getMessageParam(
         ?Player $player = null,
         ?LogParameter $target = null,
-        ?int $quantity = null,
+        ?int $quantity = null
     ): array {
         $params = [];
 

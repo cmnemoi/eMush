@@ -5,6 +5,7 @@
         "php": "^8.0",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "ext-intl": "*",
         "composer/package-versions-deprecated": "^1.11",
         "doctrine/doctrine-bundle": "^2.2",
         "doctrine/doctrine-migrations-bundle": "^3.0",

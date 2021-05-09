@@ -99,7 +99,7 @@ export default {
         background: white;
         word-break: break-word;
 
-        /deep/ em {
+        >>> em {
             color: #cf1830; // Makes italic text red
         }
 

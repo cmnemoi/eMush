@@ -180,7 +180,7 @@ export default {
     p {
         margin: 0;
         font-size: 0.95em;
-        /deep/ img { vertical-align: middle; }
+        >>> img { vertical-align: middle; }
     }
 }
 

@@ -29,8 +29,10 @@ class ActionLogEnum
     public const HYBRIDIZE_FAIL = 'transplant_fail';
     public const HYPERFREEZE_SUCCESS = 'hyperfreeze_success';
     public const INFECT_SUCCESS = 'infect_success';
+    public const INSERT_FUEL = 'insert_fuel';
     public const INSERT_OXYGEN = 'insert_oxygen';
     public const RETRIEVE_OXYGEN = 'retrieve_oxygen';
+    public const RETRIEVE_FUEL = 'retrieve_fuel';
     public const LIE_DOWN = 'lie_down';
     public const EXIT_ROOM = 'exit_room';
     public const ENTER_ROOM = 'enter_room';
@@ -231,6 +233,18 @@ class ActionLogEnum
         ActionEnum::RETRIEVE_OXYGEN => [
             self::SUCCESS => [
                 self::VALUE => self::RETRIEVE_OXYGEN,
+                self::VISIBILITY => VisibilityEnum::PRIVATE,
+            ],
+        ],
+        ActionEnum::INSERT_FUEL => [
+            self::SUCCESS => [
+                self::VALUE => self::INSERT_FUEL,
+                self::VISIBILITY => VisibilityEnum::PUBLIC,
+            ],
+        ],
+        ActionEnum::RETRIEVE_FUEL => [
+            self::SUCCESS => [
+                self::VALUE => self::RETRIEVE_FUEL,
                 self::VISIBILITY => VisibilityEnum::PRIVATE,
             ],
         ],

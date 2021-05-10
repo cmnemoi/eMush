@@ -530,13 +530,13 @@
                 <target>TODO: write success.</target>
             </segment>
         </unit>
-        <unit id="insert_oxygen_success">
-            <segment id="insert_oxygen_success">
+        <unit id="insert_oxygen">
+            <segment id="insert_oxygen">
                 <source>insert_oxygen</source>
                 <target>Pscchhhh... Et hop, un peu d'oxygène en plus !</target>
             </segment>
         </unit>
-        <unit id="retrieve_oxygen_success">
+        <unit id="retrieve_oxygen">
             <segment id="retrieve_oxygen">
                 <source>retrieve_oxygen</source>
                 <target>{version, select,
@@ -565,6 +565,18 @@
                     other {"invalid version number"}
                 }
                 </target>
+            </segment>
+        </unit>
+        <unit id="retrieve_fuel">
+            <segment id="retrieve_fuel">
+                <source>retrieve_fuel</source>
+                <target>{player} a extrait une Capsule du Fuel du réservoir.</target>
+            </segment>
+        </unit>
+        <unit id="insert_fuel">
+            <segment id="insert_fuel">
+                <source>insert_fuel</source>
+                <target>{player} a inséré une *Capsule de Fuel* dans le *Réservoir*.</target>
             </segment>
         </unit>
         <unit id="sabotage_success">

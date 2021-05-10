@@ -227,13 +227,13 @@ class ActionLogEnum
         ActionEnum::INSERT_OXYGEN => [
             self::SUCCESS => [
                 self::VALUE => self::INSERT_OXYGEN,
-                self::VISIBILITY => VisibilityEnum::PUBLIC,
+                self::VISIBILITY => VisibilityEnum::PRIVATE,
             ],
         ],
         ActionEnum::RETRIEVE_OXYGEN => [
             self::SUCCESS => [
                 self::VALUE => self::RETRIEVE_OXYGEN,
-                self::VISIBILITY => VisibilityEnum::PRIVATE,
+                self::VISIBILITY => VisibilityEnum::SECRET,
             ],
         ],
         ActionEnum::INSERT_FUEL => [
@@ -245,7 +245,7 @@ class ActionLogEnum
         ActionEnum::RETRIEVE_FUEL => [
             self::SUCCESS => [
                 self::VALUE => self::RETRIEVE_FUEL,
-                self::VISIBILITY => VisibilityEnum::PRIVATE,
+                self::VISIBILITY => VisibilityEnum::SECRET,
             ],
         ],
         ActionEnum::COOK => [

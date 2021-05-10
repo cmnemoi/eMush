@@ -100,7 +100,7 @@ export default {
                 flex-wrap: wrap;
                 font-size: 0.9em;
 
-                /deep/ .status {
+                >>> .status {
                     padding: 1px;
                 }
             }

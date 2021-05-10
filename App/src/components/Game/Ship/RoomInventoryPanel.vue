@@ -76,7 +76,7 @@ export default {
             margin: 0;
             padding: 8px 0;
 
-            /deep/ .status {
+            >>> .status {
                 vertical-align: middle;
                 margin-left: 2px;
             }

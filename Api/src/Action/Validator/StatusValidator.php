@@ -25,7 +25,8 @@ class StatusValidator extends ConstraintValidator
             Status::PARAMETER => $value->getParameter(),
             Status::PLAYER => $value->getPlayer(),
             Status::PLAYER_ROOM => $value->getPlayer()->getPlace(),
-            default => throw new LogicException('unsupported target'), };
+            default => throw new LogicException('unsupported target'),
+        };
 
         if (!$target instanceof StatusHolderInterface) {
             throw new UnexpectedTypeException($target, StatusHolderInterface::class);

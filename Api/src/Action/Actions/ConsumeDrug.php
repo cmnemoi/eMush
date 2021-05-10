@@ -35,7 +35,7 @@ class ConsumeDrug extends Consume
         ValidatorInterface $validator,
         PlayerServiceInterface $playerService,
         EquipmentEffectServiceInterface $equipmentServiceEffect,
-        StatusServiceInterface $statusService,
+        StatusServiceInterface $statusService
     ) {
         parent::__construct(
             $eventDispatcher,

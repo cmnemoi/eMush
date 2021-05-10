@@ -29,7 +29,7 @@ class Heal extends AbstractAction
         EventDispatcherInterface $eventDispatcher,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        PlayerServiceInterface $playerService,
+        PlayerServiceInterface $playerService
     ) {
         parent::__construct(
             $eventDispatcher,

@@ -144,7 +144,7 @@ export default {
     p {
         margin: 0;
         font-size: 0.95em;
-        /deep/ img { vertical-align: middle; }
+        >>> img { vertical-align: middle; }
     }
 }
 
@@ -155,7 +155,7 @@ export default {
         padding: 5px 0;
     }
 
-    /deep/ .chat-input .submit { //change the submit button color
+    >>> .chat-input .submit { //change the submit button color
         $color: #ff3867;
         $hover-color: #fa6480;
 

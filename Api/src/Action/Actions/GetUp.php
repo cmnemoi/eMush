@@ -20,7 +20,7 @@ class GetUp extends AbstractAction
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         ActionServiceInterface $actionService,
-        ValidatorInterface $validator,
+        ValidatorInterface $validator
     ) {
         parent::__construct(
             $eventDispatcher,

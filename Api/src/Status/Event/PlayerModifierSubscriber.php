@@ -13,7 +13,7 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
     private PlayerStatusServiceInterface $playerStatus;
 
     public function __construct(
-        PlayerStatusServiceInterface $playerStatus,
+        PlayerStatusServiceInterface $playerStatus
     ) {
         $this->playerStatus = $playerStatus;
     }

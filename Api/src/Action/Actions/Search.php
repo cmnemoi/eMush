@@ -32,7 +32,7 @@ class Search extends AbstractAction
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         PlayerServiceInterface $playerService,
-        StatusServiceInterface $statusService,
+        StatusServiceInterface $statusService
     ) {
         parent::__construct(
             $eventDispatcher,

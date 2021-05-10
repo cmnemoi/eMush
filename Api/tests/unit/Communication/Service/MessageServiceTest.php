@@ -7,12 +7,9 @@ use Mockery;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\Dto\CreateMessage;
 use Mush\Communication\Entity\Message;
-use Mush\Communication\Repository\MessageRepository;
-use Mush\Communication\Services\ChannelServiceInterface;
 use Mush\Communication\Services\MessageService;
 use Mush\Communication\Services\MessageServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use PHPUnit\Framework\TestCase;
 
@@ -20,12 +17,6 @@ class MessageServiceTest extends TestCase
 {
     /** @var EntityManagerInterface | Mockery\mock */
     private EntityManagerInterface $entityManager;
-    /** @var ChannelServiceInterface | Mockery\Mock */
-    private ChannelServiceInterface $channelService;
-    /** @var RandomServiceInterface | Mockery\Mock */
-    private RandomServiceInterface $randomService;
-    /** @var MessageRepository | Mockery\Mock */
-    private MessageRepository $repository;
 
     private MessageServiceInterface $service;
 
@@ -35,7 +26,6 @@ class MessageServiceTest extends TestCase
     public function before()
     {
         $this->entityManager = Mockery::mock(EntityManagerInterface::class);
-        $this->channelService = Mockery::mock(ChannelServiceInterface::class);
 
         $this->entityManager->shouldReceive([
             'persist' => null,
@@ -43,8 +33,7 @@ class MessageServiceTest extends TestCase
         ]);
 
         $this->service = new MessageService(
-            $this->channelService,
-            $this->entityManager,
+            $this->entityManager
         );
     }
 

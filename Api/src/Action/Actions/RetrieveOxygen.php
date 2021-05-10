@@ -35,7 +35,7 @@ class RetrieveOxygen extends AbstractAction
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         GameEquipmentServiceInterface $gameEquipmentService,
-        DaedalusServiceInterface $daedalusService,
+        DaedalusServiceInterface $daedalusService
     ) {
         parent::__construct(
             $eventDispatcher,

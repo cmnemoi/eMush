@@ -11,7 +11,7 @@ class DaedalusSubscriber implements EventSubscriberInterface
     private DaedalusServiceInterface $daedalusService;
 
     public function __construct(
-        DaedalusServiceInterface $daedalusService,
+        DaedalusServiceInterface $daedalusService
     ) {
         $this->daedalusService = $daedalusService;
     }

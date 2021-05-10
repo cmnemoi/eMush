@@ -619,8 +619,8 @@
             <segment id="ultraheal_success">
                 <source>ultraheal_success</source>
                 <target>{character_gender, select,
-                    male {**{player}** est entouré d'un halo lumineux. d'horrible tentacules bleues iridescents parcourent son corps. La lumière qu'il émet est aveuglante. Ses blessures sont parfaitement guéries !}
-                    female {**{player}** est entourée d'un halo lumineux. D'horribles tentacules bleues iridescents lui courent sur le corps... ses blessures semblent guérir d'elles-même !}
+                    male {**{player}** est entouré d'un halo lumineux. D'horribles tentacules bleus iridescents parcourent son corps. La lumière qu'il émet est aveuglante. Ses blessures sont parfaitement guéries !}
+                    female {**{player}** est entourée d'un halo lumineux. D'horribles tentacules bleus iridescents lui courent sur le corps... ses blessures semblent guérir d'elles-même !}
                     other {invalid gender input}
                 }
                 </target>

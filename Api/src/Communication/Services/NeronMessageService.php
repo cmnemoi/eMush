@@ -152,6 +152,6 @@ class NeronMessageService implements NeronMessageServiceInterface
     {
         $parentMessage = $this->getMessageNeronCycleFailures($daedalus, $time);
 
-        $this->createNeronMessage(NeronMessageEnum::NEW_FIRE, $daedalus, [], $time, $parentMessage);
+        $this->createNeronMessage(NeronMessageEnum::NEW_FIRE, $daedalus, ['quantity' => 1], $time, $parentMessage);
     }
 }

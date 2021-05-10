@@ -124,14 +124,12 @@ class RoomSubscriber implements EventSubscriberInterface
             return;
         }
 
-        if (!$room->hasStatus(StatusEnum::FIRE)) {
-            $this->statusService->createChargeStatus(StatusEnum::FIRE,
-                $event->getRoom(),
-                ChargeStrategyTypeEnum::CYCLE_INCREMENT,
-                null,
-                VisibilityEnum::PUBLIC,
-                VisibilityEnum::HIDDEN
-            );
-        }
+        $this->statusService->createChargeStatus(StatusEnum::FIRE,
+            $event->getRoom(),
+            ChargeStrategyTypeEnum::CYCLE_INCREMENT,
+            null,
+            VisibilityEnum::PUBLIC,
+            VisibilityEnum::HIDDEN
+        );
     }
 }

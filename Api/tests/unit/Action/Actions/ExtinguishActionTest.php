@@ -30,8 +30,6 @@ class ExtinguishActionTest extends AbstractActionTest
     private PlayerServiceInterface $playerService;
     /** @var RandomServiceInterface | Mockery\Mock */
     private RandomServiceInterface $randomService;
-    /** @var StatusServiceInterface | Mockery\Mock */
-    private StatusServiceInterface $statusService;
 
     /**
      * @before
@@ -65,7 +63,7 @@ class ExtinguishActionTest extends AbstractActionTest
         Mockery::close();
     }
 
-    public function testExecute()
+    public function testExecuteFail()
     {
         $room = new Place();
         $fire = new Status($room);
@@ -110,6 +108,41 @@ class ExtinguishActionTest extends AbstractActionTest
         $this->assertCount(0, $room->getEquipments()->first()->getStatuses());
         $this->assertCount(1, $room->getStatuses());
         $this->assertEquals(1, $attempt->getCharge());
+    }
+
+    public function testExecuteSuccess()
+    {
+        $room = new Place();
+        $fire = new Status($room);
+        $fire
+            ->setName(StatusEnum::FIRE)
+        ;
+
+        $gameItem = new GameItem();
+        $item = new ItemConfig();
+        $gameItem->setEquipment($item);
+        $gameItem
+            ->setPlace($room)
+        ;
+
+        $item->setActions(new ArrayCollection([$this->actionEntity]));
+
+        $actionParameter = new ActionParameters();
+        $actionParameter->setItem($gameItem);
+
+        $this->placeService->shouldReceive('persist');
+        $this->playerService->shouldReceive('persist');
+
+        $player = $this->createPlayer(new Daedalus(), $room);
+
+        $attempt = new Attempt(new Player());
+        $attempt
+            ->setName(StatusEnum::ATTEMPT)
+            ->setAction($this->action->getActionName())
+        ;
+        $this->actionService->shouldReceive('getAttempt')->andReturn($attempt);
+
+        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->actionService->shouldReceive('getSuccessRate')->andReturn(10)->once();

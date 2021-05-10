@@ -13,19 +13,13 @@ use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
-use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 
 class WaterPlantActionTest extends AbstractActionTest
 {
     /** @var GameEquipmentServiceInterface | Mockery\Mock */
     private GameEquipmentServiceInterface $gameEquipmentService;
-    /** @var PlayerServiceInterface | Mockery\Mock */
-    private PlayerServiceInterface $playerService;
-    /** @var StatusServiceInterface | Mockery\Mock */
-    private StatusServiceInterface $statusService;
 
     /**
      * @before
@@ -37,16 +31,12 @@ class WaterPlantActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::WATER_PLANT, 1);
 
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
-        $this->playerService = Mockery::mock(PlayerServiceInterface::class);
-        $this->statusService = Mockery::mock(StatusServiceInterface::class);
 
         $this->action = new WaterPlant(
             $this->eventDispatcher,
             $this->actionService,
             $this->validator,
-            $this->gameEquipmentService,
-            $this->playerService,
-            $this->statusService,
+            $this->gameEquipmentService
         );
     }
 
@@ -58,7 +48,7 @@ class WaterPlantActionTest extends AbstractActionTest
         Mockery::close();
     }
 
-    public function testExecute()
+    public function testExecuteThirsty()
     {
         $room = new Place();
 
@@ -84,8 +74,6 @@ class WaterPlantActionTest extends AbstractActionTest
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gameEquipmentService->shouldReceive('persist');
-        $this->playerService->shouldReceive('persist');
-        $this->statusService->shouldReceive('delete');
 
         $result = $this->action->execute();
 
@@ -93,18 +81,34 @@ class WaterPlantActionTest extends AbstractActionTest
         $this->assertCount(1, $room->getEquipments());
         $this->assertCount(0, $room->getEquipments()->first()->getStatuses());
         $this->assertCount(0, $player->getStatuses());
+    }
+
+    public function testExecuteDried()
+    {
+        $room = new Place();
+
+        $gameItem = new GameItem();
+        $item = new ItemConfig();
+        $gameItem
+            ->setEquipment($item)
+            ->setPlace($room)
+        ;
+
+        $plant = new Plant();
+        $plant->addAction($this->actionEntity);
+        $item->setMechanics(new ArrayCollection([$plant]));
+
+        $player = $this->createPlayer(new Daedalus(), $room);
+
+        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         $driedOut = new Status($gameItem);
         $driedOut
             ->setName(EquipmentStatusEnum::PLANT_DRIED_OUT)
         ;
 
-        $gameItem->removeStatus($thirsty);
-
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gameEquipmentService->shouldReceive('persist');
-        $this->playerService->shouldReceive('persist');
-        $this->statusService->shouldReceive('delete');
 
         $result = $this->action->execute();
 

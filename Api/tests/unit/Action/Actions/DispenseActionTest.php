@@ -20,7 +20,6 @@ use Mush\Place\Entity\Place;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class DispenseActionTest extends AbstractActionTest
 {
@@ -101,8 +100,7 @@ class DispenseActionTest extends AbstractActionTest
             ->with(GameDrugEnum::PHUXX, $daedalus)
             ->andReturn($gameCoffee)
             ->once();
-        $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
-        $eventDispatcher->shouldReceive('dispatch');
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
         $this->gameEquipmentService->shouldReceive('persist');
         $this->statusService->shouldReceive('persist');
         $result = $this->action->execute();

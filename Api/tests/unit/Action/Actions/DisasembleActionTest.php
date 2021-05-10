@@ -21,7 +21,6 @@ use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class DisasembleActionTest extends AbstractActionTest
 {
@@ -66,7 +65,7 @@ class DisasembleActionTest extends AbstractActionTest
         Mockery::close();
     }
 
-    public function testExecute()
+    public function testExecuteFail()
     {
         $daedalus = new Daedalus();
         $room = new Place();
@@ -107,7 +106,38 @@ class DisasembleActionTest extends AbstractActionTest
         $this->assertInstanceOf(Fail::class, $result);
         $this->assertCount(1, $room->getEquipments());
         $this->assertEquals(1, $attempt->getCharge());
+    }
 
+    public function testExecuteSuccess()
+    {
+        $daedalus = new Daedalus();
+        $room = new Place();
+        $gameItem = new GameItem();
+        $item = new ItemConfig();
+        $gameItem->setEquipment($item);
+        $gameItem
+            ->setName('some name')
+            ->setPlace($room)
+        ;
+
+        $item
+            ->setActions(new ArrayCollection([$this->actionEntity]))
+            ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
+        ;
+
+        $this->gameEquipmentService->shouldReceive('persist');
+        $this->playerService->shouldReceive('persist');
+
+        $player = $this->createPlayer($daedalus, $room, [SkillEnum::TECHNICIAN]);
+
+        $attempt = new Attempt(new Player());
+        $attempt
+            ->setName(StatusEnum::ATTEMPT)
+            ->setAction($this->action->getActionName())
+        ;
+        $this->actionService->shouldReceive('getAttempt')->andReturn($attempt);
+
+        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->actionService->shouldReceive('getSuccessRate')->andReturn(10)->once();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
@@ -118,8 +148,7 @@ class DisasembleActionTest extends AbstractActionTest
             ->andReturn($scrap)
             ->once()
         ;
-        $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
-        $eventDispatcher->shouldReceive('dispatch');
+        $this->eventDispatcher->shouldReceive('dispatch')->twice();
 
         //Success
         $result = $this->action->execute();

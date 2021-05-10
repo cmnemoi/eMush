@@ -74,6 +74,8 @@ class MoveActionTest extends AbstractActionTest
         $this->assertEquals($player->getPlace(), $roomEnd);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
+
+        $this->eventDispatcher->shouldReceive('dispatch')->times(3);
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);

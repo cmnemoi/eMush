@@ -198,8 +198,8 @@
             <segment id="enter_room">
                 <source>enter_room</source>
                 <target>{character_gender, select,
-                    male {**{player}** est entrée.}
-                    female {**{player}** est entré.}
+                    male {**{player}** est entré.}
+                    female {**{player}** est entrée.}
                     other {invalid gender input}
                 }</target>
             </segment>

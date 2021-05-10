@@ -105,7 +105,7 @@ class Channel
 
     public function removeParticipant(Player $player): Channel
     {
-        if (!$this->getParticipants()->contains($player)) {
+        if ($this->getParticipants()->contains($player)) {
             $this->participants->removeElement($player);
         }
 

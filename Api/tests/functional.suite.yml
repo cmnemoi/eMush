@@ -6,13 +6,14 @@
 # Remove this suite if you don't use frameworks
 
 actor: FunctionalTester
+
 modules:
     enabled:
         - Asserts
         - Symfony:
-            kernel_class: 'Mush\Kernel'
-            app_path: 'src'
-            environment: 'test'
+              kernel_class: 'Mush\Kernel'
+              app_path: 'src'
+              environment: 'test'
         - Doctrine2:
             depends: Symfony
             cleanup: true

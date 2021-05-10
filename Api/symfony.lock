@@ -53,6 +53,9 @@
     "codeception/module-datafactory": {
         "version": "1.0.1"
     },
+    "codeception/module-db": {
+        "version": "1.1.0"
+    },
     "codeception/module-doctrine2": {
         "version": "1.1.1"
     },

@@ -8,6 +8,7 @@ use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Communication\Repository\ChannelRepository;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 
 class ChannelService implements ChannelServiceInterface
@@ -79,6 +80,12 @@ class ChannelService implements ChannelServiceInterface
         return $publicChannel;
     }
 
+    public function getInvitablePlayers(Channel $channel): PlayerCollection
+    {
+
+    }
+
+
     public function invitePlayer(Player $player, Channel $channel): Channel
     {
         $channel->addParticipant($player);
@@ -89,13 +96,17 @@ class ChannelService implements ChannelServiceInterface
         return $channel;
     }
 
-    public function exitChannel(Player $player, Channel $channel): Channel
+    public function exitChannel(Player $player, Channel $channel): bool
     {
         $channel->removeParticipant($player);
-
         $this->entityManager->persist($channel);
+
+        if ($channel->getParticipants()->isEmpty()) {
+            $this->entityManager->remove($channel);
+        }
+
         $this->entityManager->flush();
 
-        return $channel;
+        return true;
     }
 }

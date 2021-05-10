@@ -91,7 +91,7 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
         $player = $playerEvent->getPlayer();
         $delta = $playerEvent->getDelta();
 
-        if ($player->getActionPoint() <= 1) {
+        if ($player->getActionPoint() < 1) {
             throw new \Exception('Trying to convert movement point without action point');
         }
 

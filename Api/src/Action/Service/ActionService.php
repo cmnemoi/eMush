@@ -15,7 +15,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 class ActionService implements ActionServiceInterface
 {
     public const MAX_PERCENT = 99;
-    public const BASE_MOVEMENT_POINT_CONVERSION = 4;
+    public const BASE_MOVEMENT_POINT_CONVERSION = 3;
 
     private EventDispatcherInterface $eventDispatcher;
     private ActionModifierServiceInterface $actionModifierService;

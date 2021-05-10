@@ -209,7 +209,7 @@ class ActionLogEnum
         ActionEnum::HYPERFREEZE => [
             self::SUCCESS => [
                 self::VALUE => self::HYPERFREEZE_SUCCESS,
-                self::VISIBILITY => VisibilityEnum::PUBLIC,
+                self::VISIBILITY => VisibilityEnum::PRIVATE,
             ],
         ],
         ActionEnum::EXPRESS_COOK => [

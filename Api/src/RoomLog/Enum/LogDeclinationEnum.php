@@ -18,7 +18,7 @@ class LogDeclinationEnum
             NeronMessageEnum::ASPHYXIA_DEATH => ['versionPart1' => 3, 'versionPart2' => 9],
             NeronMessageEnum::BROKEN_EQUIPMENT => ['version' => 5],
             NeronMessageEnum::HUNTER_ARRIVAL => ['versionPart1' => 4, 'versionPart2' => 5],
-            NeronMessageEnum::NEW_FIRE => ['versionPart1' => 3, 'versionPart2' => 4],
+            NeronMessageEnum::NEW_FIRE => ['versionPart1' => 3, 'versionPart2' => 3],
             NeronMessageEnum::NEW_PROJECT => ['versionPart2' => 7, 'versionPart1Unhinib' => 7, 'versionPart1Crazy' => 12],
             NeronMessageEnum::PLAYER_DEATH => ['version' => 7],
             NeronMessageEnum::REBEL_SIGNAL => ['version' => 5],

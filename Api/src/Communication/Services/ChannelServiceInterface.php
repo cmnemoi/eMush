@@ -22,7 +22,7 @@ interface ChannelServiceInterface
 
     public function invitePlayer(Player $player, Channel $channel): Channel;
 
-    public function getInvitablePlayers(Channel $channel): PlayerCollection;
+    public function getInvitablePlayersToPrivateChannel(Channel $channel): PlayerCollection;
 
     public function exitChannel(Player $player, Channel $channel): bool;
 }

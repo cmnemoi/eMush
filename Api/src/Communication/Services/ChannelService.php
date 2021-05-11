@@ -80,11 +80,12 @@ class ChannelService implements ChannelServiceInterface
         return $publicChannel;
     }
 
-    public function getInvitablePlayers(Channel $channel): PlayerCollection
+    public function getInvitablePlayersToPrivateChannel(Channel $channel): PlayerCollection
     {
+        $maxPrivateChannel = $channel->getDaedalus()->getGameConfig()->getMaxNumberPrivateChannel();
 
+        return new PlayerCollection($this->channelRepository->findAvailablePlayerForPrivateChannel($channel, $maxPrivateChannel));
     }
-
 
     public function invitePlayer(Player $player, Channel $channel): Channel
     {

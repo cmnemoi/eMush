@@ -5,79 +5,52 @@
             :actions="['refresh', 'invite', 'report', 'leave']"
             @leave="leavePrivateChannel(channel)"
         />
-        <ul class="participants">
-            <li><img src="@/assets/images/char/body/ian.png"></li>
-            <li><img src="@/assets/images/char/body/jin_su.png"></li>
-            <li><img src="@/assets/images/char/body/paola.png"></li>
-            <li><img src="@/assets/images/char/body/chun.png"></li>
+        <ul class="participants" v-for="(participant, key) in channel.participants" :key="key">
+            <li><img :src="characterBody(participant.character.key)"></li>
         </ul>
-        <section class="unit">
-            <div class="message new">
-                <div class="char-portrait">
-                    <img src="@/assets/images/char/body/ian.png">
-                </div>
-                <p><span class="author">Ian :</span><strong><em>Piloting</em></strong></p>
-                <span class="timestamp">~1d</span>
-            </div>
-            <div class="message new">
-                <div class="char-portrait">
-                    <img src="@/assets/images/char/body/jin_su.png">
-                </div>
-                <p><span class="author">Jin Su :</span>So far eight hunters shot total (3 + 5), no scrap collected yet.</p>
-                <span class="timestamp">~3d</span>
-            </div>
-            <div class="message">
-                <div class="char-portrait">
-                    <img src="@/assets/images/char/body/ian.png">
-                </div>
-                <p><span class="author">Ian :</span>Excellent sir, I can see why they have you training the new pilots :P</p>
-                <span class="timestamp">~3d</span>
-            </div>
-            <div class="message">
-                <div class="char-portrait">
-                    <img src="@/assets/images/char/body/jin_su.png">
-                </div>
-                <p><span class="author">Jin Su :</span>Kind of you to say so, yet I sadly can't agree. In fact I find our hull's exellency wanting. It shall be restored once we collected scrap and built the oscilloscope.></p>
-                <span class="timestamp">~5d</span>
-            </div>
-            <div class="message">
-                <div class="char-portrait">
-                    <img src="@/assets/images/char/body/jin_su.png">
-                </div>
-                <p><span class="author">Jin Su :</span>Wololo !</p>
-                <span class="timestamp">~6d</span>
-            </div>
-        </section>
-        <section class="log">
-            <p class="text-log">
-                <strong>Jin Su</strong> a rejoint la discussion.
-            </p>
-            <span class="timestamp">environ 2 heures</span>
+        <section v-for="(message, id) in messages" :key="id" class="unit">
+            <Message :message="message" :is-root="true" />
         </section>
     </TabContainer>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import {mapActions, mapGetters} from "vuex";
 import { Channel } from "@/entities/Channel";
-import ActionButtons from "@/components/Game/Communications/ActionButtons";
 import TabContainer from "@/components/Game/Communications/TabContainer";
-
+import Message from "@/components/Game/Communications/Messages/Message";
+import {characterEnum} from "@/enums/character";
+import ActionButtons from "@/components/Game/Communications/ActionButtons";
 
 export default {
     name: "PrivateTab",
     components: {
         ActionButtons,
+        Message,
         TabContainer
     },
     props: {
         channel: Channel
     },
+    computed: {
+        ...mapGetters('communication', [
+            'messages'
+        ]),
+    },
     methods: {
+        characterBody: function(character) {
+            console.log(character)
+            const images = characterEnum[character];
+            return images.body;
+        },
         ...mapActions('communication', [
-            'leavePrivateChannel'
+            'leavePrivateChannel',
+            'loadMessages'
         ])
-    }
+    },
+    beforeMount() {
+        this.loadMessages({ channel: this.channel });
+    },
 };
 </script>
 

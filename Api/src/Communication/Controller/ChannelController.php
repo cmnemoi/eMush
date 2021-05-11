@@ -135,6 +135,23 @@ class ChannelController extends AbstractFOSRestController
     }
 
     /**
+     * Get invitable player to the channel.
+     *
+     * @OA\Tag(name="Channel")
+     * @Security(name="Bearer")
+     * @Rest\Get(path="/{channel}/invite")
+     */
+    public function getInvitablePlayerAction(Request $request, Channel $channel): View
+    {
+        $this->denyAccessUnlessGranted(ChannelVoter::VIEW, $channel);
+
+        return $this->view(
+            $this->channelService->getInvitablePlayersToPrivateChannel($channel),
+            200
+        );
+    }
+
+    /**
      * exit a channel.
      *
      * @OA\Tag(name="Channel")

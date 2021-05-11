@@ -107,7 +107,7 @@ class Consume extends AbstractAction
         }
         if ($consumableEffect->getMoralPoint() !== 0) {
             $playerModifierEvent = new PlayerModifierEvent($this->player, $consumableEffect->getMoralPoint());
-            $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::ACTION_POINT_MODIFIER);
+            $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::MORAL_POINT_MODIFIER);
         }
         if ($consumableEffect->getSatiety() !== 0) {
             $playerModifierEvent = new PlayerModifierEvent($this->player, $consumableEffect->getSatiety());

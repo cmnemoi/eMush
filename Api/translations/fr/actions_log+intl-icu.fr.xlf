@@ -198,8 +198,8 @@
             <segment id="enter_room">
                 <source>enter_room</source>
                 <target>{character_gender, select,
-                    male {**{player}** est entrée.}
-                    female {**{player}** est entré.}
+                    male {**{player}** est entré.}
+                    female {**{player}** est entrée.}
                     other {invalid gender input}
                 }</target>
             </segment>
@@ -530,13 +530,13 @@
                 <target>TODO: write success.</target>
             </segment>
         </unit>
-        <unit id="insert_oxygen_success">
-            <segment id="insert_oxygen_success">
+        <unit id="insert_oxygen">
+            <segment id="insert_oxygen">
                 <source>insert_oxygen</source>
                 <target>Pscchhhh... Et hop, un peu d'oxygène en plus !</target>
             </segment>
         </unit>
-        <unit id="retrieve_oxygen_success">
+        <unit id="retrieve_oxygen">
             <segment id="retrieve_oxygen">
                 <source>retrieve_oxygen</source>
                 <target>{version, select,
@@ -565,6 +565,18 @@
                     other {"invalid version number"}
                 }
                 </target>
+            </segment>
+        </unit>
+        <unit id="retrieve_fuel">
+            <segment id="retrieve_fuel">
+                <source>retrieve_fuel</source>
+                <target>{player} a extrait une Capsule du Fuel du réservoir.</target>
+            </segment>
+        </unit>
+        <unit id="insert_fuel">
+            <segment id="insert_fuel">
+                <source>insert_fuel</source>
+                <target>{player} a inséré une *Capsule de Fuel* dans le *Réservoir*.</target>
             </segment>
         </unit>
         <unit id="sabotage_success">
@@ -619,8 +631,8 @@
             <segment id="ultraheal_success">
                 <source>ultraheal_success</source>
                 <target>{character_gender, select,
-                    male {**{player}** est entouré d'un halo lumineux. d'horrible tentacules bleues iridescents parcourent son corps. La lumière qu'il émet est aveuglante. Ses blessures sont parfaitement guéries !}
-                    female {**{player}** est entourée d'un halo lumineux. D'horribles tentacules bleues iridescents lui courent sur le corps... ses blessures semblent guérir d'elles-même !}
+                    male {**{player}** est entouré d'un halo lumineux. D'horribles tentacules bleus iridescents parcourent son corps. La lumière qu'il émet est aveuglante. Ses blessures sont parfaitement guéries !}
+                    female {**{player}** est entourée d'un halo lumineux. D'horribles tentacules bleus iridescents lui courent sur le corps... ses blessures semblent guérir d'elles-même !}
                     other {invalid gender input}
                 }
                 </target>

@@ -19,7 +19,6 @@ use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ExpressCookActionTest extends AbstractActionTest
 {
@@ -61,7 +60,7 @@ class ExpressCookActionTest extends AbstractActionTest
         Mockery::close();
     }
 
-    public function testExecute()
+    public function testExecuteFruit()
     {
         //frozen fruit
         $room = new Place();
@@ -113,7 +112,10 @@ class ExpressCookActionTest extends AbstractActionTest
         $this->assertEquals($gameRation->getName(), $player->getItems()->first()->getName());
         $this->assertCount(0, $player->getStatuses());
         $this->assertEquals(10, $player->getActionPoint());
+    }
 
+    public function testExecuteRation()
+    {
         //Standard Ration
         $daedalus = new Daedalus();
         $room = new Place();
@@ -158,8 +160,7 @@ class ExpressCookActionTest extends AbstractActionTest
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->andReturn($gameCookedRation)->once();
-        $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
-        $eventDispatcher->shouldReceive('dispatch');
+        $this->eventDispatcher->shouldReceive('dispatch')->twice();
         $this->gameEquipmentService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
         $result = $this->action->execute();

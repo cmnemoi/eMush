@@ -256,6 +256,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
             ->setScope(ActionScopeEnum::ROOM)
             ->setTarget(GameItem::class)
             ->setActionCost($freeCost)
+            ->setDirtyRate(50)
         ;
 
         $manager->persist($expressCookAction);

@@ -127,10 +127,12 @@ class PlaceNormalizer implements ContextAwareNormalizerInterface, NormalizerAwar
                 } else {
                     //Only normalize the item reference
                     /** @var array $normalizedItem */
-                    $normalizedItem = $this->normalizer->normalize($patron, $format, $context);
                     $statusesPiles = $this->groupByStatus($itemGroup, $currentPlayer);
+
                     foreach ($statusesPiles as $pileName => $statusesPile) {
-                        $currentNormalizedItem = $normalizedItem;
+                        $item = current($statusesPile);
+                        $currentNormalizedItem = $this->normalizer->normalize($item, $format, $context);
+
                         $countItem = count($statusesPile);
                         if ($countItem > 1) {
                             $currentNormalizedItem['number'] = $countItem;

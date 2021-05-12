@@ -125,7 +125,6 @@ class PlaceNormalizer implements ContextAwareNormalizerInterface, NormalizerAwar
                         $piles[] = $this->normalizer->normalize($item, $format, $context);
                     }
                 } else {
-                    //Only normalize the item reference
                     /** @var array $normalizedItem */
                     $statusesPiles = $this->groupByStatus($itemGroup, $currentPlayer);
 

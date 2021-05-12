@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Persistence\ManagerRegistry;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Entity\Player;
 
 class ChannelRepository extends ServiceEntityRepository
@@ -63,6 +64,7 @@ class ChannelRepository extends ServiceEntityRepository
             ->select('player')
             ->from(Player::class, 'player')
             ->where($queryBuilder->expr()->eq('player.daedalus', ':daedalus'))
+            ->andWhere($queryBuilder->expr()->eq('player.gameStatus', ':currentGameStatus'))
             ->andWhere($queryBuilder->expr()->notIn(
                 'player.id',
                 $subQuery->getDQL()
@@ -74,6 +76,7 @@ class ChannelRepository extends ServiceEntityRepository
             ->setParameter('private', ChannelScopeEnum::PRIVATE)
             ->setParameter('currentChannel', $channel)
             ->setParameter('maxChannel', $maxChannel)
+            ->setParameter('currentGameStatus', GameStatusEnum::CURRENT)
             ->setParameter('daedalus', $channel->getDaedalus())
         ;
 

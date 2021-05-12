@@ -3,6 +3,7 @@ import { Channel } from "@/entities/Channel";
 import { Message } from "@/entities/Message";
 import { RoomLog } from "@/entities/RoomLog";
 import { PRIVATE, PUBLIC, ROOM_LOG, TIPS } from '@/enums/communication.enum';
+import {Player} from "@/entities/Player";
 
 const CHANNELS_ENDPOINT = process.env.VUE_APP_API_URL + 'channel';
 const ROOM_LOGS_ENDPOINT = process.env.VUE_APP_API_URL + 'room-log';
@@ -35,13 +36,13 @@ const CommunicationService = {
 
     loadMessages: async (channel) => {
         switch (channel.scope) {
-        case PRIVATE:
-        case PUBLIC:
-            return loadChannelMessages();
-        case ROOM_LOG:
-            return loadRoomLogs();
-        default:
-            return [];
+            case PRIVATE:
+            case PUBLIC:
+                return loadChannelMessages();
+            case ROOM_LOG:
+                return loadRoomLogs();
+            default:
+                return [];
         }
 
         async function loadChannelMessages() {
@@ -79,6 +80,24 @@ const CommunicationService = {
             }
             return logs;
         }
+    },
+
+    loadInvitablePlayers: async (channel) => {
+        const playersData = await ApiService.get(CHANNELS_ENDPOINT + '/' + channel.id + '/invite');
+
+        let players = [];
+        if (playersData.data) {
+            playersData.data.forEach((data) => {
+                players.push((new Player()).load(data));
+            });
+        }
+        return players;
+    },
+
+    invitePlayer: async (player, channel) => {
+        await ApiService.post(CHANNELS_ENDPOINT + '/' + channel.id + '/invite', {
+            player: player.id
+        });
     },
 
     sendMessage: async (channel, text, parent) => {

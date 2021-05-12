@@ -7,6 +7,7 @@ use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Communication\Repository\ChannelRepository;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Entity\Player;
 
 class ChannelRepositoryCest
@@ -33,6 +34,32 @@ class ChannelRepositoryCest
 
         $player2 = $I->have(Player::class, [
             'daedalus' => $daedalus2,
+        ]);
+
+        $channel1 = $this->createPrivateChannel([], $daedalus);
+
+        $players = $this->channelRepository->findAvailablePlayerForPrivateChannel($channel1, 3);
+
+        $I->assertCount(1, $players);
+        $I->assertContains($player, $players);
+    }
+
+    public function testFindAvailablePlayerForPrivateChannelWithDeadPlayer(FunctionalTester $I)
+    {
+        $daedalus = $I->have(Daedalus::class);
+
+        $player = $I->have(Player::class, [
+            'daedalus' => $daedalus,
+        ]);
+
+        $player2 = $I->have(Player::class, [
+            'daedalus' => $daedalus,
+            'gameStatus' => GameStatusEnum::FINISHED,
+        ]);
+
+        $player2 = $I->have(Player::class, [
+            'daedalus' => $daedalus,
+            'gameStatus' => GameStatusEnum::CLOSED,
         ]);
 
         $channel1 = $this->createPrivateChannel([], $daedalus);

@@ -4,9 +4,12 @@
             class="action-buttons"
             :actions="['refresh', 'invite', 'report', 'leave']"
             @leave="leavePrivateChannel(channel)"
+            @invite="getInvitablePlayersToPrivateChannel(channel)"
         />
-        <ul class="participants" v-for="(participant, key) in channel.participants" :key="key">
-            <li><img :src="characterBody(participant.character.key)"></li>
+        <ul class="participants">
+            <li v-for="(participant, key) in channel.participants" :key="key">
+                <img :src="characterBody(participant.character.key)">
+            </li>
         </ul>
         <section v-for="(message, id) in messages" :key="id" class="unit">
             <Message :message="message" :is-root="true" />
@@ -39,13 +42,13 @@ export default {
     },
     methods: {
         characterBody: function(character) {
-            console.log(character)
             const images = characterEnum[character];
             return images.body;
         },
         ...mapActions('communication', [
             'leavePrivateChannel',
-            'loadMessages'
+            'loadMessages',
+            'getInvitablePlayersToPrivateChannel'
         ])
     },
     beforeMount() {

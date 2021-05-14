@@ -1,18 +1,19 @@
 <template>
     <div class="modal-box">
-        <h1 class="header">Popup header</h1>
-        <p>Popup text</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque et arcu sit amet arcu convallis dictum. Nam vehicula gravida pretium. Nunc nec malesuada turpis. Vivamus vitae orci leo. Suspendisse potenti. In eu felis quam. Nullam non urna quis sem molestie blandit sit amet eget tortor. Duis aliquet eros quis tempor ornare. Maecenas eu semper quam. Cras malesuada bibendum leo, vel mollis lectus lacinia eget. Nam et lorem eu diam consectetur tempus. Proin fermentum dolor in ullamcorper fermentum. Sed consequat ex vel odio tempus, vitae scelerisque ante tristique.</p>
-        <button class="modal-close">
+        <h1 class="header">{{ title }}</h1>
+        <slot />
+        <button class="modal-close" @click="$emit('exit', $event)">
             <img src="@/assets/images/comms/close.png" alt="close">
         </button>
     </div>
 </template>
 
 <script>
+
 export default {
     name: "GamePopUp",
     props: {
+        title: String
     }
 };
 </script>

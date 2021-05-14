@@ -5,6 +5,9 @@ import { ROOM_LOG } from '@/enums/communication.enum';
 
 const state =  {
     currentChannel: new Channel(),
+    invitablePlayerMenuOpen: false,
+    invitablePlayers: [],
+    invitationChannel: null,
     channels: [],
     loadingChannels: false,
     loadingByChannelId: {},
@@ -20,6 +23,15 @@ const getters = {
     },
     roomChannel(state) {
         return state.channels.find(channel => channel.scope === ROOM_LOG);
+    },
+    invitablePlayerMenuOpen(state) {
+        return state.invitablePlayerMenuOpen;
+    },
+    invitablePlayers(state) {
+        return state.invitablePlayers;
+    },
+    invitationChannel(state) {
+        return state.invitationChannel;
     }
 };
 
@@ -96,6 +108,25 @@ const actions = {
         }
     },
 
+    async getInvitablePlayersToPrivateChannel({ commit }, channel) {
+        commit('invitablePlayerMenu', {isOpen: true, channel: channel});
+        commit("player/setLoading", true, { root: true });
+        const invitablePlayers = await CommunicationService.loadInvitablePlayers(channel);
+        commit("player/setLoading", false, { root: true });
+        commit('setInvitablePlayers', {invitablePlayers: invitablePlayers});
+    },
+
+    async invitePlayer({ dispatch }, {player, channel}) {
+        await CommunicationService.invitePlayer(player, channel);
+        await dispatch('closeInvitation');
+        await dispatch('loadChannels');
+    },
+
+    async closeInvitation({ commit }) {
+        commit('setInvitablePlayers', {invitablePlayers: []});
+        commit('invitablePlayerMenu', {isOpen: false, channel: null});
+    },
+
     clearRoomLogs({ getters, commit }) {
         commit('setChannelMessages', { channel: getters.roomChannel, messages: [] });
     },
@@ -129,6 +160,15 @@ const mutations = {
         state.channels = state.channels.filter(({ id }) => id !== channel.id);
         delete state.loadingByChannelId[channel.id];
         delete state.messagesByChannelId[channel.id];
+    },
+
+    invitablePlayerMenu(state, { isOpen, channel }) {
+        state.invitablePlayerMenuOpen = isOpen;
+        state.invitationChannel = channel;
+    },
+
+    setInvitablePlayers(state, { invitablePlayers }) {
+        state.invitablePlayers = invitablePlayers;
     },
 
     setChannelMessages(state, { channel, messages }) {

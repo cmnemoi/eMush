@@ -104,9 +104,9 @@ class ChannelController extends AbstractFOSRestController
      *          @OA\Schema(
      *              type="object",
      *              @OA\Property(
-     *                  type="string",
-     *                  property="character",
-     *                  description="The player to invite"
+     *                  type="int",
+     *                  property="player",
+     *                  description="id of the player to invite"
      *              )
      *          )
      *      )
@@ -121,8 +121,12 @@ class ChannelController extends AbstractFOSRestController
 
         $invited = $request->get('player');
 
-        if (!($invitedPlayer = $this->playerService->findOneByCharacter($invited, $channel->getDaedalus()))) {
+        if (!($invitedPlayer = $this->playerService->findById($invited))) {
             return $this->view(['error' => 'player not found'], 404);
+        }
+
+        if ($invitedPlayer->getDaedalus() !== $channel->getDaedalus()) {
+            return $this->view(['error' => 'player is not from this daedalus'], 422);
         }
 
         if (!$this->canCreateChannel->isSatisfied($invitedPlayer)) {
@@ -132,6 +136,23 @@ class ChannelController extends AbstractFOSRestController
         $channel = $this->channelService->invitePlayer($invitedPlayer, $channel);
 
         return $this->view($channel, 200);
+    }
+
+    /**
+     * Get invitable player to the channel.
+     *
+     * @OA\Tag(name="Channel")
+     * @Security(name="Bearer")
+     * @Rest\Get(path="/{channel}/invite")
+     */
+    public function getInvitablePlayerAction(Request $request, Channel $channel): View
+    {
+        $this->denyAccessUnlessGranted(ChannelVoter::VIEW, $channel);
+
+        return $this->view(
+            $this->channelService->getInvitablePlayersToPrivateChannel($channel),
+            200
+        );
     }
 
     /**

@@ -250,13 +250,14 @@ export default {
 }
 
 .actions { //buttons styling
+    position: absolute;
     visibility: hidden;
     opacity: 0;
-    position: absolute;
+    z-index: 5;
     right: 3px;
-    top: -3px;
+    bottom: -2px;
     height: 14px;
-    transition: visibility 0s 0.15s, opacity 0.15s 0s, top 0.15s 0s;
+    transition: visibility 0s 0.15s, opacity 0.15s 0s, bottom 0.15s 0s;
 }
 
 .message:hover,
@@ -266,8 +267,8 @@ export default {
     .actions {
         visibility: visible;
         opacity: 1;
-        top: 5px;
-        transition: visibility 0s 0.5s, opacity 0.15s 0.5s, top 0.15s 0.5s;
+        bottom: 7px;
+        transition: visibility 0s 0.5s, opacity 0.15s 0.5s, bottom 0.15s 0.5s;
     }
 }
 

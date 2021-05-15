@@ -49,6 +49,6 @@ class ChannelVoter extends Voter
 
     private function canView(Channel $channel, Player $player): bool
     {
-        return $channel->isPublic() || $channel->getParticipants()->contains($player);
+        return $channel->isPublic() || $channel->isPlayerParticipant($player);
     }
 }

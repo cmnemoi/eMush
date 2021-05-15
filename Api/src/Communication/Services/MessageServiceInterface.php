@@ -14,5 +14,12 @@ interface MessageServiceInterface
 
     public function createPlayerMessage(Player $player, CreateMessage $createMessage): Message;
 
+    public function createSystemMessage(
+        string $messageKey,
+        Channel $channel,
+        array $parameters,
+        \DateTime $dateTime,
+    ): Message;
+
     public function getChannelMessages(Player $player, Channel $channel): Collection;
 }

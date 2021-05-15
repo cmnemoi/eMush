@@ -4,23 +4,24 @@ namespace functional\Communication\Repository;
 
 use App\Tests\FunctionalTester;
 use Mush\Communication\Entity\Channel;
+use Mush\Communication\Entity\ChannelPlayer;
 use Mush\Communication\Enum\ChannelScopeEnum;
-use Mush\Communication\Repository\ChannelRepository;
+use Mush\Communication\Repository\ChannelPlayerRepository;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Entity\Player;
 
-class ChannelRepositoryCest
+class ChannelPlayerRepositoryCest
 {
     private FunctionalTester $tester;
 
-    private ChannelRepository $channelRepository;
+    private ChannelPlayerRepository $channelRepository;
 
     public function _before(FunctionalTester $I)
     {
         $this->tester = $I;
 
-        $this->channelRepository = $I->grabService(ChannelRepository::class);
+        $this->channelRepository = $I->grabService(ChannelPlayerRepository::class);
     }
 
     public function testFindAvailablePlayerForPrivateChannelDifferentDaedalus(FunctionalTester $I)
@@ -36,7 +37,7 @@ class ChannelRepositoryCest
             'daedalus' => $daedalus2,
         ]);
 
-        $channel1 = $this->createPrivateChannel([], $daedalus);
+        $channel1 = $this->createPrivateChannel([$player2], $daedalus);
 
         $players = $this->channelRepository->findAvailablePlayerForPrivateChannel($channel1, 3);
 
@@ -137,11 +138,16 @@ class ChannelRepositoryCest
         $privateChannel->setDaedalus($daedalus);
         $privateChannel->setScope(ChannelScopeEnum::PRIVATE);
 
-        foreach ($users as $user) {
-            $privateChannel->addParticipant($user);
-        }
-
         $this->tester->haveInRepository($privateChannel);
+
+        foreach ($users as $user) {
+            $participant = new ChannelPlayer();
+            $participant
+                ->setParticipant($user)
+                ->setChannel($privateChannel)
+                ;
+            $this->tester->haveInRepository($participant);
+        }
 
         return $privateChannel;
     }

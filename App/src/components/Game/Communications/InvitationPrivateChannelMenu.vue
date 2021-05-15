@@ -1,10 +1,11 @@
 <template>
     <GamePopUp v-if="invitablePlayerMenuOpen" @exit="closeInvitation" title="Inviter">
-        <ul>
-            <li v-for="(player, key) in invitablePlayers" :key="key">
-                <img :src="characterBody(player.characterKey)" @click="invitePlayer({player: player, channel: invitationChannel})">
-            </li>
-        </ul>
+        <div class="invite-selection">
+            <button v-for="(player, key) in invitablePlayers" :key="key" @click="invitePlayer({player: player, channel: invitationChannel})">
+                <img :src="characterBody(player.characterKey)">
+                <p>name</p>
+            </button>
+        </div>
     </GamePopUp>
 </template>
 
@@ -35,6 +36,26 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+
+.invite-selection {
+    flex-flow: row wrap;
+
+    button {
+
+        margin: 0 .1em;
+        padding: .2em;
+        border-radius: 3px;
+        transition: all 0.15s;
+
+        p {
+            color: white;
+            margin: auto .2em auto .4em;
+        }
+        
+        &:hover, &:focus, &:active { background-color: #17448E; }
+    }
+
+}
 
 </style>

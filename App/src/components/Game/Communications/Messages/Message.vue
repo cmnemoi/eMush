@@ -271,4 +271,23 @@ export default {
     }
 }
 
+
+#private-discussion-tab .unit > .message:nth-of-type(odd) { // alterning left and right style in private channels
+    flex-direction: row-reverse;
+
+    .character-body { transform: scaleX(-1); }
+
+    .timestamp { right: 41px; }
+
+    .actions { right: 39px; }
+
+    p::before {
+        left: initial;
+        right: -8px;
+        transform: rotate(180deg);
+    }
+
+    &.new p::before { border-right-color: white; }
+}
+
 </style>

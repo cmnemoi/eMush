@@ -109,7 +109,7 @@ class ActionService implements ActionServiceInterface
         $baseRate = $action->getSuccessRate();
 
         //Get number of attempt
-        $numberOfAttempt = $this->getAttempt($player, $action->getName())->getCharge();
+        $numberOfAttempt = $this->getNumberOfAttempt($player, $action->getName());
 
         $initialValue = ($baseRate * (1.25) ** $numberOfAttempt);
 
@@ -122,6 +122,18 @@ class ActionService implements ActionServiceInterface
         );
 
         return min($this::MAX_PERCENT, $modifiedValue);
+    }
+
+    private function getNumberOfAttempt(Player $player, string $actionName): int
+    {
+        /** @var Attempt $attempt */
+        $attempt = $player->getStatusByName(StatusEnum::ATTEMPT);
+
+        if ($attempt && $attempt->getAction() === $actionName) {
+            return $attempt->getCharge();
+        }
+
+        return 0;
     }
 
     public function getAttempt(Player $player, string $actionName): Attempt

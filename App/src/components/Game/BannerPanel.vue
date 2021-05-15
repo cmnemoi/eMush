@@ -18,7 +18,8 @@
 
             <div class="daedalus-info">
                 <ul>
-                    <li>{{ daedalus.oxygen }}<img src="@/assets/images/o2.png"></li>
+                    <li><ToolTip></ToolTip></li>
+                    <!--<li>{{ daedalus.oxygen }}<img src="@/assets/images/o2.png"></li>-->
                     <li>{{ daedalus.fuel }}<img src="@/assets/images/fuel.png"></li>
                     <li>{{ daedalus.hull }}<img src="@/assets/images/shield.png"></li>
                     <li>{{ player.triumph }}<img src="@/assets/images/triumph.png"></li>
@@ -64,10 +65,11 @@ import { Daedalus } from "@/entities/Daedalus";
 import { Player } from "@/entities/Player";
 import CountdownTimer from "@/components/Utils/CountdownTimer";
 import Alerts from "@/components/Game/Ship/Alerts";
+import Tooltip from "@/components/Utils/ToolTip"
 
 export default {
     name: "BannerPanel",
-    components: {Alerts, CountdownTimer },
+    components: {Alerts, CountdownTimer, Tooltip },
     props: {
         player: Player,
         daedalus: Daedalus

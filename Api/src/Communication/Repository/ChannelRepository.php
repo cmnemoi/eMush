@@ -28,8 +28,13 @@ class ChannelRepository extends ServiceEntityRepository
 
         if (!$privateOnly) {
             $queryBuilder
-                ->orWhere($queryBuilder->expr()->eq('channel.scope', ':public'))
+                ->orWhere(
+                    $queryBuilder->expr()->andX(
+                        $queryBuilder->expr()->eq('channel.daedalus', ':daedalus'),
+                        $queryBuilder->expr()->eq('channel.scope', ':public')
+                    ))
                 ->setParameter('public', ChannelScopeEnum::PUBLIC)
+                ->setParameter('daedalus', $player->getDaedalus())
             ;
         }
 

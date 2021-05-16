@@ -53,8 +53,6 @@ class MessageVoter extends Voter
 
     private function canView(Channel $channel, Player $player): bool
     {
-        dump($channel->isPlayerParticipant($player));
-
         return $channel->isPublic() || $channel->isPlayerParticipant($player);
     }
 

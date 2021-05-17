@@ -1,28 +1,33 @@
 <template>
     <div class="daedalus-alarms">
         <p v-if="!loading" class="calme">
-            <span v-if="isNoAlert"><img :src="alertIcon(alerts[0])">{{alerts[0].name}}</span>
+            <span v-if="isNoAlert"><img :src="alertIcon(alerts[0])">{{ alerts[0].name }}</span>
             <span v-else>Alertes :</span>
-            <img v-for="(alert, key) in alertsDisplayed" v-bind:key="key" :src="alertIcon(alert)" :alt="alert.name">
+            <img
+                v-for="(alert, key) in alertsDisplayed"
+                :key="key"
+                :src="alertIcon(alert)"
+                :alt="alert.name"
+            >
         </p>
     </div>
 </template>
 
 <script>
-import {Daedalus} from "@/entities/Daedalus";
+import { Daedalus } from "@/entities/Daedalus";
 import DaedalusService from "@/services/daedalus.service";
-import {AlertsIcons, NO_ALERT} from "@/enums/alerts.enum";
+import { AlertsIcons, NO_ALERT } from "@/enums/alerts.enum";
 
 export default {
     name: "Alerts",
+    props: {
+        daedalus: Daedalus
+    },
     data: function () {
         return {
             loading: false,
             alerts: []
-        }
-    },
-    props: {
-        daedalus: Daedalus
+        };
     },
     computed: {
         isNoAlert: function () {
@@ -34,21 +39,21 @@ export default {
             }
 
             return this.alerts;
-        },
-    },
-    methods: {
-        alertIcon: function (alert) {
-            return AlertsIcons[alert.key];
         }
     },
     beforeMount() {
         this.loading = true;
         DaedalusService.loadAlerts(this.daedalus).then((res) => {
-            this.loading = false
-            this.alerts = res
+            this.loading = false;
+            this.alerts = res;
         });
+    },
+    methods: {
+        alertIcon: function (alert) {
+            return AlertsIcons[alert.key];
+        }
     }
-}
+};
 </script>
 
 <style scoped lang="scss">

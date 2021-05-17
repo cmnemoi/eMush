@@ -1,7 +1,8 @@
 <template>
-    <div v-if="isRoot && !isSystemMessage"
-         :class="isNeronMessage ? 'message main-message neron' : 'message main-message'"
-         @click="$emit('click')"
+    <div
+        v-if="isRoot && !isSystemMessage"
+        :class="isNeronMessage ? 'message main-message neron' : 'message main-message'"
+        @click="$emit('click')"
     >
         <div class="character-body">
             <img :src="characterPortrait">
@@ -12,9 +13,10 @@
         <ActionButtons class="actions" :actions="['reply', 'favorite', 'report']" />
         <span class="timestamp">{{ formatDate(message.date, {local: "fr-FR"}) }}</span>
     </div>
-    <div v-if="isRoot && isSystemMessage"
-         class="log"
-         @click="$emit('click')"
+    <div
+        v-if="isRoot && isSystemMessage"
+        class="log"
+        @click="$emit('click')"
     >
         <p class="text">
             <span v-html="formatMessage(message.message)" />

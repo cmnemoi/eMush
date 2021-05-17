@@ -1,6 +1,6 @@
 <template>
-    <div class="spinner_overlay" v-show="loading">
-        <div class="spinner"></div>
+    <div v-show="loading" class="spinner_overlay">
+        <div class="spinner" />
     </div>
 </template>
 
@@ -11,9 +11,9 @@ export default {
         loading: {
             type: Boolean,
             default: true
-        },
-    },
-}
+        }
+    }
+};
 </script>
 
 <style>

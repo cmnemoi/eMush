@@ -38,17 +38,17 @@ remove-all: #Warning, it will remove EVERY container, images, volumes and networ
 
 install-eternal-twin: reset-eternal-twin-database
 	docker start eternal_twin
-	docker exec -i eternal_twin yarn install
+	docker exec -i -unode eternal_twin yarn install
 
 install-api:
 	docker start mush_php mush_database &&\
-	docker exec -i mush_php composer install &&\
-	docker exec -i mush_php ./reset.sh
+	docker exec -i -udev mush_php composer install &&\
+	docker exec -i -udev mush_php ./reset.sh
 
 install-front:
 	docker start mush_front &&\
-	docker exec -i mush_front yarn install &&\
-	docker exec -i mush_front ./reset.sh
+	docker exec -i -unode mush_front yarn install &&\
+	docker exec -i -unode mush_front ./reset.sh
 
 reset-eternal-twin-database:
 	docker start mush_database &&\

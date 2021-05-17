@@ -3,7 +3,7 @@
         <div class="invite-selection">
             <button v-for="(player, key) in invitablePlayers" :key="key" @click="invitePlayer({player: player, channel: invitationChannel})">
                 <img :src="characterBody(player.characterKey)">
-                <p>name</p>
+                <p>{{ player.characterValue }}</p>
             </button>
         </div>
     </GamePopUp>

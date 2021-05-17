@@ -47,6 +47,27 @@ class MessageService implements MessageServiceInterface
         return $message;
     }
 
+    public function createSystemMessage(
+        string $messageKey,
+        Channel $channel,
+        array $parameters,
+        \DateTime $dateTime,
+    ): Message {
+        $message = new Message();
+        $message
+            ->setChannel($channel)
+            ->setMessage($messageKey)
+            ->setTranslationParameters($parameters)
+            ->setCreatedAt($dateTime)
+            ->setUpdatedAt($dateTime)
+        ;
+
+        $this->entityManager->persist($message);
+        $this->entityManager->flush();
+
+        return $message;
+    }
+
     public function getChannelMessages(Player $player, Channel $channel): Collection
     {
         return new ArrayCollection($this->entityManager

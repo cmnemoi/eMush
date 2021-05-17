@@ -1,7 +1,6 @@
 <template>
-    <div v-if="isRoot"
-         :class="
-        isNeronMessage ? 'message main-message neron' : 'message main-message'"
+    <div v-if="isRoot && !isSystemMessage"
+         :class="isNeronMessage ? 'message main-message neron' : 'message main-message'"
          @click="$emit('click')"
     >
         <div class="character-body">
@@ -13,7 +12,16 @@
         <ActionButtons class="actions" :actions="['reply', 'favorite', 'report']" />
         <span class="timestamp">{{ formatDate(message.date, {local: "fr-FR"}) }}</span>
     </div>
-    <div v-if="!isRoot" class="message child-message" @click="$emit('click')">
+    <div v-if="isRoot && isSystemMessage"
+         class="log"
+         @click="$emit('click')"
+    >
+        <p class="text">
+            <span v-html="formatMessage(message.message)" />
+        </p>
+        <span class="timestamp">{{ formatDate(message.date, {local: "fr-FR"}) }}</span>
+    </div>
+    <div v-else-if="!isRoot" class="message child-message" @click="$emit('click')">
         <p class="text">
             <img class="character-head" :src="characterPortrait">
             <span class="author">{{ message.character.name }} :</span><span v-html="formatMessage(message.message)" />
@@ -49,11 +57,17 @@ export default {
     },
     computed: {
         characterPortrait: function() {
-            const images = characterEnum[this.message.character.key];
-            return this.isRoot ? images.body : images.head;
+            if (this.message.character.key !== null) {
+                const images = characterEnum[this.message.character.key];
+                return this.isRoot ? images.body : images.head;
+            }
+            return null;
         },
         isNeronMessage: function() {
             return this.message.character.key === NERON;
+        },
+        isSystemMessage: function() {
+            return this.message.character.key === null;
         }
     },
     methods: {
@@ -69,6 +83,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.log {
+    position: relative;
+    padding: 4px 5px;
+    margin: 1px 0;
+    border-bottom: 1px solid rgb(170, 212, 229);
+
+    p {
+        margin: 0;
+        font-size: .95em;
+        >>> img { vertical-align: middle; }
+    }
+}
 
 .message {
     position: relative;

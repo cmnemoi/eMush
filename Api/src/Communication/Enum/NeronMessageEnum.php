@@ -4,6 +4,9 @@ namespace Mush\Communication\Enum;
 
 class NeronMessageEnum
 {
+    public const PLAYER_ENTER_CHAT = 'player_enter_chat';
+    public const PLAYER_LEAVE_CHAT = 'player_leave_chat';
+
     public const ACTIVATE_DMZ = 'activate_dmz';
     public const AUTOMATIC_SPRINKLERS = 'automatic_sprinklers';
     public const BROKEN_EQUIPMENT = 'broken_equipment';

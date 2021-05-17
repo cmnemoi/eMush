@@ -53,11 +53,11 @@ class MessageVoter extends Voter
 
     private function canView(Channel $channel, Player $player): bool
     {
-        return $channel->isPublic() || $channel->getParticipants()->contains($player);
+        return $channel->isPublic() || $channel->isPlayerParticipant($player);
     }
 
     private function canCreate(Channel $channel, Player $player): bool
     {
-        return $player->isAlive() && ($channel->isPublic() || $channel->getParticipants()->contains($player));
+        return $player->isAlive() && ($channel->isPublic() || $channel->isPlayerParticipant($player));
     }
 }

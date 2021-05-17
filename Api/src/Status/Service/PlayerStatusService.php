@@ -3,7 +3,9 @@
 namespace Mush\Status\Service;
 
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\RoomLog\Service\RoomLogService;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 
@@ -16,15 +18,18 @@ class PlayerStatusService implements PlayerStatusServiceInterface
 
     private StatusServiceInterface $statusService;
 
-    public function __construct(StatusServiceInterface $statusService)
+    private RoomLogService $roomLogService;
+
+    public function __construct(StatusServiceInterface $statusService, RoomLogService $roomLogService)
     {
         $this->statusService = $statusService;
+        $this->roomLogService = $roomLogService;
     }
 
-    public function handleSatietyStatus(int $satietyModifier, Player $player): void
+    public function handleSatietyStatus(int $satietyModifier, Player $player, \DateTime $dateTime): void
     {
         if (!$player->isMush()) {
-            $this->handleHumanSatietyStatus($player);
+            $this->handleHumanSatietyStatus($player, $dateTime);
         } elseif ($satietyModifier >= 0) {
             $this->statusService->createChargeStatus(
                 PlayerStatusEnum::FULL_STOMACH,
@@ -74,13 +79,24 @@ class PlayerStatusService implements PlayerStatusServiceInterface
         return $playerMoralPoint <= self::DEMORALIZED_THRESHOLD && $playerMoralPoint > self::SUICIDAL_THRESHOLD;
     }
 
-    private function handleHumanSatietyStatus(Player $player): void
+    private function handleHumanSatietyStatus(Player $player, \DateTime $dateTime): void
     {
         $starvingStatus = $player->getStatusByName(PlayerStatusEnum::STARVING);
         $fullStatus = $player->getStatusByName(PlayerStatusEnum::FULL_STOMACH);
 
         if ($player->getSatiety() < self::STARVING_STATUS_THRESHOLD && !$starvingStatus) {
             $this->statusService->createCoreStatus(PlayerStatusEnum::STARVING, $player);
+
+            $this->roomLogService->createLog(
+                LogEnum::FORCE_GET_UP,
+                $player->getPlace(),
+                VisibilityEnum::PRIVATE,
+                'event_log',
+                $player,
+                null,
+                null,
+                $dateTime
+            );
         } elseif ($player->getSatiety() >= self::STARVING_STATUS_THRESHOLD && $starvingStatus) {
             $player->removeStatus($starvingStatus);
         }

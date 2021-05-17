@@ -172,6 +172,23 @@
                 }</target>
             </segment>
         </unit>
+        <unit id="plant_death">
+            <segment>
+                <source>plant_death</source>
+                <target>{target_first_letter, select,
+                    vowel {{target_gender, select,
+                        male {L'**{target}** est mort...snif !}
+                        female {L'**{target}** est morte...snif !}
+                        other {invalid gender input}
+                    }}
+                    other {{target_gender, select,
+                        male {Le **{target}** est mort...snif !}
+                        female {La **{target}** est morte...snif !}
+                        other {invalid gender input}
+                    }}
+                }</target>
+            </segment>
+        </unit>
         <unit id="garden_destroyed">
             <segment>
                 <source>garden_destroyed</source>
@@ -182,6 +199,17 @@
             <segment>
                 <source>hunger</source>
                 <target>Vous avez faim. Si vous n'y remédiez pas, votre santé va se détériorer à chaque changement de cycle.</target>
+            </segment>
+        </unit>
+        <unit id="force_get_up">
+            <segment>
+                <source>force_get_up</source>
+                <target>{character_gender, select,
+                    male {**{player}** est violemment tiré de son lit.}
+                    female {**{player}** est violemment tirée de son lit.}
+                    other {invalid gender input}
+                }
+                </target>
             </segment>
         </unit>
     </file>

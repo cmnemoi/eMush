@@ -250,13 +250,14 @@ export default {
 }
 
 .actions { //buttons styling
+    position: absolute;
     visibility: hidden;
     opacity: 0;
-    position: absolute;
+    z-index: 5;
     right: 3px;
-    top: -3px;
+    bottom: -2px;
     height: 14px;
-    transition: visibility 0s 0.15s, opacity 0.15s 0s, top 0.15s 0s;
+    transition: visibility 0s 0.15s, opacity 0.15s 0s, bottom 0.15s 0s;
 }
 
 .message:hover,
@@ -266,9 +267,28 @@ export default {
     .actions {
         visibility: visible;
         opacity: 1;
-        top: 5px;
-        transition: visibility 0s 0.5s, opacity 0.15s 0.5s, top 0.15s 0.5s;
+        bottom: 7px;
+        transition: visibility 0s 0.5s, opacity 0.15s 0.5s, bottom 0.15s 0.5s;
     }
+}
+
+
+#private-discussion-tab .unit > .message:nth-of-type(odd) { // alterning left and right style in private channels
+    flex-direction: row-reverse;
+
+    .character-body { transform: scaleX(-1); }
+
+    .timestamp { right: 41px; }
+
+    .actions { right: 39px; }
+
+    p::before {
+        left: initial;
+        right: -8px;
+        transform: rotate(180deg);
+    }
+
+    &.new p::before { border-right-color: white; }
 }
 
 </style>

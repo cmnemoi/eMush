@@ -1,6 +1,7 @@
 import CommunicationService from "@/services/communication.service";
 import { Channel } from "@/entities/Channel";
 import { ROOM_LOG } from '@/enums/communication.enum';
+import { PRIVATE, PUBLIC, TIPS } from "../enums/communication.enum";
 
 
 const state =  {
@@ -32,20 +33,29 @@ const getters = {
     },
     invitationChannel(state) {
         return state.invitationChannel;
+    },
+    channels(state) {
+        return state.channels;
     }
 };
 
 const actions = {
-    async changeChannel({ commit }, { channel }) {
+    async changeChannel({ commit, dispatch }, { channel }) {
         commit('setCurrentChannel', channel);
+        dispatch('loadMessages', { channel });
     },
-    async loadChannels({ getters, commit }) {
+    async loadChannels({ getters, dispatch, commit, rootState }) {
         commit('setLoadingOfChannels', true);
 
         try {
-            const channels = await CommunicationService.loadChannels();
-            commit('setChannels', channels);
+            let channels = await CommunicationService.loadChannels();
+
+            const currentPlayerKey = rootState.player.player.characterKey;
+            const sortedChannels = sortChannels(channels, currentPlayerKey);
+
+            commit('setChannels', sortedChannels);
             commit('setCurrentChannel', getters.roomChannel);
+            dispatch('loadMessages', { channel: getters.roomChannel });
             commit('setLoadingOfChannels', false);
             return true;
         } catch (e) {
@@ -109,22 +119,22 @@ const actions = {
     },
 
     async getInvitablePlayersToPrivateChannel({ commit }, channel) {
-        commit('invitablePlayerMenu', {isOpen: true, channel: channel});
+        commit('invitablePlayerMenu', { isOpen: true, channel: channel });
         commit("player/setLoading", true, { root: true });
         const invitablePlayers = await CommunicationService.loadInvitablePlayers(channel);
         commit("player/setLoading", false, { root: true });
-        commit('setInvitablePlayers', {invitablePlayers: invitablePlayers});
+        commit('setInvitablePlayers', { invitablePlayers: invitablePlayers });
     },
 
-    async invitePlayer({ dispatch }, {player, channel}) {
+    async invitePlayer({ dispatch }, { player, channel }) {
         await CommunicationService.invitePlayer(player, channel);
         await dispatch('closeInvitation');
         await dispatch('loadChannels');
     },
 
     async closeInvitation({ commit }) {
-        commit('setInvitablePlayers', {invitablePlayers: []});
-        commit('invitablePlayerMenu', {isOpen: false, channel: null});
+        commit('setInvitablePlayers', { invitablePlayers: [] });
+        commit('invitablePlayerMenu', { isOpen: false, channel: null });
     },
 
     clearRoomLogs({ getters, commit }) {
@@ -175,6 +185,28 @@ const mutations = {
         state.messagesByChannelId[channel.id] = messages;
     }
 };
+
+export function sortChannels(channels, currentPlayerKey) {
+    const channelOrderValue = {
+        [TIPS] : 0,
+        [ROOM_LOG] : 1,
+        [PUBLIC] : 2,
+        [PRIVATE] : 3
+    };
+
+    return channels.sort(function (a, b) {
+        const diff = channelOrderValue[a.scope] - channelOrderValue[b.scope];
+
+        if (diff === 0 && a.scope === PRIVATE) {
+            const participantA = a.getParticipant(currentPlayerKey);
+            const participantB = b.getParticipant(currentPlayerKey);
+
+            return (participantA.joinedAt > participantB.joinedAt);
+        }
+
+        return diff;
+    });
+}
 
 export const communication = {
     namespaced: true,

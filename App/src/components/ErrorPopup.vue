@@ -27,7 +27,7 @@ export default {
             'error'
         ]),
         title() {
-            console.log(this.error);
+            console.error(this.error);
             return (! this.error.status || ! this.error.statusText)
                 ? this.error.message
                 : `${this.error.status} ${this.error.statusText}`;

@@ -14,7 +14,7 @@
         </div>
 
         <div class="daedalus-banner">
-            <Alerts :daedalus="daedalus"></Alerts>
+            <Alerts :daedalus="daedalus" />
 
             <div class="daedalus-info">
                 <ul>
@@ -67,7 +67,7 @@ import Alerts from "@/components/Game/Ship/Alerts";
 
 export default {
     name: "BannerPanel",
-    components: {Alerts, CountdownTimer },
+    components: { Alerts, CountdownTimer },
     props: {
         player: Player,
         daedalus: Daedalus
@@ -75,7 +75,7 @@ export default {
     data: function () {
         return {
         };
-    },
+    }
 };
 </script>
 

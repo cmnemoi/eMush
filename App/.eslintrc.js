@@ -24,4 +24,4 @@ module.exports = {
         "object-curly-spacing": ["warn", "always"],
         "semi": ["warn", "always"]
     }
-}
+};

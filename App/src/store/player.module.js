@@ -34,7 +34,7 @@ const actions = {
     async reloadPlayer({ state, dispatch }) {
         return dispatch("loadPlayer", { playerId: state.player.id });
     },
-    setLoading({ commit }, {loading}) {
+    setLoading({ commit }, { loading }) {
         commit('setLoading', loading);
     }
 };

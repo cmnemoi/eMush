@@ -12,17 +12,22 @@
             </li>
         </ul>
         <section class="unit">
-            <Message v-for="(message, id) in messages" :key="id"  :message="message" :is-root="true" />
+            <Message
+                v-for="(message, id) in messages"
+                :key="id"
+                :message="message"
+                :is-root="true"
+            />
         </section>
     </TabContainer>
 </template>
 
 <script>
-import {mapActions, mapGetters} from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import { Channel } from "@/entities/Channel";
 import TabContainer from "@/components/Game/Communications/TabContainer";
 import Message from "@/components/Game/Communications/Messages/Message";
-import {characterEnum} from "@/enums/character";
+import { characterEnum } from "@/enums/character";
 import ActionButtons from "@/components/Game/Communications/ActionButtons";
 
 export default {
@@ -38,7 +43,7 @@ export default {
     computed: {
         ...mapGetters('communication', [
             'messages'
-        ]),
+        ])
     },
     methods: {
         characterBody: function(character) {
@@ -50,10 +55,7 @@ export default {
             'loadMessages',
             'getInvitablePlayersToPrivateChannel'
         ])
-    },
-    beforeMount() {
-        this.loadMessages({ channel: this.channel });
-    },
+    }
 };
 </script>
 

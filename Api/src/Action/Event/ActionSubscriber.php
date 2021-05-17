@@ -2,12 +2,10 @@
 
 namespace Mush\Action\Event;
 
-use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\Actions\GetUp;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionSideEffectsServiceInterface;
 use Mush\Equipment\Service\GearToolServiceInterface;
-use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogService;
@@ -69,13 +67,9 @@ class ActionSubscriber implements EventSubscriberInterface
 
         $this->gearToolService->applyChargeCost($player, $action->getName(), $action->getTypes());
 
-        /** @var ActionResult $actionResult */
-        $actionResult = $event->getActionResult();
-
-        /** @var Player $targetPlayer */
-        $targetPlayer = $actionResult->getTargetPlayer();
-
-        if (in_array($action->getName(), ActionEnum::getForceGetUpActions()) &&
+        if (($actionResult = $event->getActionResult()) &&
+            ($targetPlayer = $actionResult->getTargetPlayer()) &&
+            in_array($action->getName(), ActionEnum::getForceGetUpActions()) &&
             $lyingDownStatus = $targetPlayer->getStatusByName(PlayerStatusEnum::LYING_DOWN)
         ) {
             $targetPlayer->removeStatus($lyingDownStatus);

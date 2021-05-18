@@ -7,7 +7,6 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\Dto\CreateMessage;
-use Mush\Communication\Services\ChannelPlayerServiceInterface;
 use Mush\Communication\Services\ChannelServiceInterface;
 use Mush\Communication\Services\MessageServiceInterface;
 use Mush\Communication\Specification\SpecificationInterface;
@@ -32,7 +31,6 @@ class ChannelController extends AbstractFOSRestController
 {
     private SpecificationInterface $canCreateChannel;
     private ChannelServiceInterface $channelService;
-    private ChannelPlayerServiceInterface $channelPlayerService;
     private MessageServiceInterface $messageService;
     private PlayerServiceInterface $playerService;
     private ValidatorInterface $validator;
@@ -40,14 +38,12 @@ class ChannelController extends AbstractFOSRestController
     public function __construct(
         SpecificationInterface $canCreateChannel,
         ChannelServiceInterface $channelService,
-        ChannelPlayerServiceInterface $channelPlayerService,
         MessageServiceInterface $messageService,
         PlayerServiceInterface $playerService,
         ValidatorInterface $validator
     ) {
         $this->canCreateChannel = $canCreateChannel;
         $this->channelService = $channelService;
-        $this->channelPlayerService = $channelPlayerService;
         $this->messageService = $messageService;
         $this->playerService = $playerService;
         $this->validator = $validator;

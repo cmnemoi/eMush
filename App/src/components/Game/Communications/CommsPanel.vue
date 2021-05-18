@@ -32,7 +32,7 @@ import PrivateTab from "@/components/Game/Communications/PrivateTab";
 import MushTab from "@/components/Game/Communications/MushTab";
 import Tab from "@/components/Game/Communications/Tab";
 import { Room } from "@/entities/Room";
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapState, mapGetters } from "vuex";
 import { PRIVATE, PUBLIC, ROOM_LOG, TIPS } from '@/enums/communication.enum';
 import { Channel } from "@/entities/Channel";
 
@@ -58,8 +58,10 @@ export default {
     },
     computed: {
         ...mapState('communication', [
-            'channels',
             'currentChannel'
+        ]),
+        ...mapGetters('communication', [
+            'channels'
         ]),
         displayNewTab() {
             if (! this.channels || ! this.channels.length) { return false; }

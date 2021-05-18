@@ -1,7 +1,9 @@
 <template>
     <div v-if="isOpen" id="login-modal" class="modal-background">
         <div class="modal-box">
-            <button class="modal-close" @click="close">Close</button>
+            <button class="modal-close" @click="close">
+                Close
+            </button>
             <slot />
         </div>
     </div>

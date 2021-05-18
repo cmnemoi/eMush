@@ -35,9 +35,6 @@ export default {
             return this.messages;
         }
     },
-    beforeMount() {
-        this.loadMessages({ channel: this.channel });
-    },
     methods: {
         ...mapActions('communication', [
             'loadMessages'

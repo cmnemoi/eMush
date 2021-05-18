@@ -17,7 +17,7 @@
 <script>
 export default {
     name: "HistoryLogs"
-}
+};
 </script>
 
 <style lang="scss" scoped>

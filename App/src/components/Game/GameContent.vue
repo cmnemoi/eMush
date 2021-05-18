@@ -1,7 +1,7 @@
 <template>
     <div v-if="player">
         <div v-if="['in_game'].includes(player.gameStatus)" class="main">
-            <InvitationPrivateChannelMenu/>
+            <InvitationPrivateChannelMenu />
             <div class="top-banner">
                 <BannerPanel :player="player" :daedalus="player.daedalus" />
             </div>
@@ -14,10 +14,9 @@
             <div class="bottom-banner" />
         </div>
         <div v-else-if="['finished'].includes(player.gameStatus)" class="main">
-            <Purgatory :player="player"/>
+            <Purgatory :player="player" />
         </div>
     </div>
-
 </template>
 
 <script>

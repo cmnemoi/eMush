@@ -1,6 +1,8 @@
 <template>
     <div class="modal-box">
-        <h1 class="header">{{ title }}</h1>
+        <h1 class="header">
+            {{ title }}
+        </h1>
         <slot />
         <button class="modal-close" @click="$emit('exit', $event)">
             <img src="@/assets/images/comms/close.png" alt="close">

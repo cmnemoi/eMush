@@ -48,55 +48,6 @@ class CycleServiceTest extends TestCase
 
         $gameConfig = new GameConfig();
 
-//        $gameConfig
-//            ->setCyclePerGameDay(8)
-//            ->setCycleLength(3 * 60)
-//            ->setTimeZone($timeZone)
-//        ;
-//
-//        $this->assertEquals(1, $this->service->getInDayCycleFromDate(new \DateTime('2020-10-10 00:30:00.0 Europe/Paris'), $gameConfig));
-//
-//        $this->assertEquals(8, $this->service->getInDayCycleFromDate(new \DateTime('2020-10-10 23:30:00.0 Europe/Paris'), $gameConfig));
-//
-//        $this->assertEquals(1, $this->service->getInDayCycleFromDate(new \DateTime('2020-10-10 00:30:00.0 Europe/London'), $gameConfig));
-//
-//        $this->assertEquals(1, $this->service->getInDayCycleFromDate(new \DateTime('2020-10-10 23:30:00.0 Europe/London'), $gameConfig));
-//
-//        $timeZone = 'Europe/London';
-//        $gameConfig
-//            ->setCyclePerGameDay(8)
-//            ->setCycleLength(3 * 60)
-//            ->setTimeZone($timeZone)
-//        ;
-//
-//        $this->assertEquals(8, $this->service->getInDayCycleFromDate(new \DateTime('2020-10-10 00:30:00.0 Europe/Paris'), $gameConfig));
-//        $this->assertEquals(8, $this->service->getInDayCycleFromDate(new \DateTime('2020-10-10 23:30:00.0 Europe/Paris'), $gameConfig));
-//        $this->assertEquals(1, $this->service->getInDayCycleFromDate(new \DateTime('2020-10-10 00:30:00.0 Europe/London'), $gameConfig));
-//        $this->assertEquals(8, $this->service->getInDayCycleFromDate(new \DateTime('2020-10-10 23:30:00.0 Europe/London'), $gameConfig));
-//
-//        //test different cycle configs
-//        $timeZone = 'Europe/Paris';
-//        $gameConfig = new GameConfig();
-//        $gameConfig
-//            ->setCyclePerGameDay(8)
-//            ->setCycleLength(1 * 60)
-//            ->setTimeZone($timeZone)
-//        ;
-//
-//        $this->assertEquals(7, $this->service->getInDayCycleFromDate(new \DateTime('2020-10-10 22:10:00.0 Europe/Paris'), $gameConfig));
-//        $this->assertEquals(5, $this->service->getInDayCycleFromDate(new \DateTime('2020-10-10 12:10:00.0 Europe/Paris'), $gameConfig));
-//
-//        //longer cycles
-//        $timeZone = 'Europe/Paris';
-//        $gameConfig = new GameConfig();
-//        $gameConfig
-//            ->setCyclePerGameDay(8)
-//            ->setCycleLength(4 * 60)
-//            ->setTimeZone($timeZone)
-//        ;
-//
-//        $this->assertEquals(6, $this->service->getInDayCycleFromDate(new \DateTime('2020-10-10 22:10:00.0 Europe/Paris'), $gameConfig));
-
         //shorter cycles
         $timeZone = 'Europe/Paris';
         $gameConfig = new GameConfig();

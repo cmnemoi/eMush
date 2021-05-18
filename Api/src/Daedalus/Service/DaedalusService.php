@@ -150,7 +150,7 @@ class DaedalusService implements DaedalusServiceInterface
             }
         }
 
-        $daedalusEvent = new DaedalusEvent($daedalus);
+        $daedalusEvent = new DaedalusEvent($daedalus, new \DateTime());
         $this->eventDispatcher->dispatch($daedalusEvent, DaedalusEvent::NEW_DAEDALUS);
 
         return $this->persist($daedalus);
@@ -280,18 +280,18 @@ class DaedalusService implements DaedalusServiceInterface
         return $daedalus;
     }
 
-    public function changeHull(Daedalus $daedalus, int $change): Daedalus
+    public function changeHull(Daedalus $daedalus, int $change, \DateTime $date): Daedalus
     {
         $maxHull = $daedalus->getGameConfig()->getDaedalusConfig()->getMaxHull();
         if (($newHull = $daedalus->getHull() + $change) < 0) {
             $daedalus->setHull(0);
 
-            $daedalusEvent = new DaedalusEvent($daedalus);
+            $daedalusEvent = new DaedalusEvent($daedalus, $date);
             $daedalusEvent->setReason(EndCauseEnum::DAEDALUS_DESTROYED);
 
             $this->eventDispatcher->dispatch($daedalusEvent, DaedalusEvent::END_DAEDALUS);
-        } elseif ($newHull < $maxHull) {
-            $daedalus->addHull($change);
+        } else {
+            $daedalus->setHull(min($newHull, $maxHull));
         }
 
         $this->persist($daedalus);

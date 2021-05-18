@@ -15,7 +15,7 @@ class DaedalusEvent extends Event
     private ?string $reason = null;
     private \DateTime $time;
 
-    public function __construct(Daedalus $daedalus, ?\DateTime $time = null)
+    public function __construct(Daedalus $daedalus, ?\DateTime $time)
     {
         $this->time = $time ?? new \DateTime();
 

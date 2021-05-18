@@ -2,6 +2,8 @@ FROM node:16
 
 # not mandatory if you EXPORT a fixed port. See below.
 ARG YOUR_APP_WEB_HTTP_PORT
+ARG UID=1000
+ARG GID=1000
 
 RUN apt-get -y update \
 	&& apt-get install -y git
@@ -18,6 +20,8 @@ RUN apt-get autoremove -y \
 # Or just use EXPORT 8080
 EXPOSE ${YOUR_APP_WEB_HTTP_PORT}
 # If yout want use vue-cli UI you need to also EXPORT 8000
+
+RUN groupmod -g $GID node && usermod -u $UID -g $GID node
 
 USER node
 

@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\GameStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class CycleService implements CycleServiceInterface
@@ -41,6 +42,11 @@ class CycleService implements CycleServiceInterface
                     $lastUpdateCycle = $dateDaedalusLastCycle->add(new DateInterval('PT' . strval($gameConfig->getCycleLength()) . 'M'));
                     $cycleEvent = new DaedalusCycleEvent($daedalus, $lastUpdateCycle);
                     $this->eventDispatcher->dispatch($cycleEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+
+                    //Do not continue make cycle if Daedalus is finish
+                    if ($daedalus->getGameStatus() === GameStatusEnum::FINISHED) {
+                        break;
+                    }
                 }
             } catch (\Exception $exception) {
             } finally {

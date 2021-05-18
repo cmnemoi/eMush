@@ -7,7 +7,6 @@ use Mush\Daedalus\Service\DaedalusIncidentServiceInterface;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Place\Event\PlaceCycleEvent;
@@ -20,18 +19,15 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
 {
     private DaedalusServiceInterface $daedalusService;
     private DaedalusIncidentServiceInterface $daedalusIncidentService;
-    private GameEquipmentServiceInterface $gameEquipmentService;
     private EventDispatcherInterface $eventDispatcher;
 
     public function __construct(
         DaedalusServiceInterface $daedalusService,
         DaedalusIncidentServiceInterface $daedalusIncidentService,
-        GameEquipmentServiceInterface $gameEquipmentService,
         EventDispatcherInterface $eventDispatcher
     ) {
         $this->daedalusService = $daedalusService;
         $this->daedalusIncidentService = $daedalusIncidentService;
-        $this->gameEquipmentService = $gameEquipmentService;
         $this->eventDispatcher = $eventDispatcher;
     }
 
@@ -49,7 +45,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         $daedalus->setCycle($daedalus->getCycle() + 1);
         $daedalus->setCycleStartedAt($event->getTime());
 
-        if ($this->handleDaedalusEnd($daedalus)) {
+        if ($this->handleDaedalusEnd($daedalus, $event->getTime())) {
             return;
         }
 
@@ -82,12 +78,12 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         $this->daedalusService->persist($daedalus);
     }
 
-    private function handleDaedalusEnd(Daedalus $daedalus): bool
+    private function handleDaedalusEnd(Daedalus $daedalus, \DateTime $time): bool
     {
         if ($daedalus->getPlayers()->getHumanPlayer()->getPlayerAlive()->isEmpty() &&
             !$daedalus->getPlayers()->getMushPlayer()->getPlayerAlive()->isEmpty()
         ) {
-            $endDaedalusEvent = new DaedalusEvent($daedalus);
+            $endDaedalusEvent = new DaedalusEvent($daedalus, $time);
             $endDaedalusEvent->setReason(EnumEndCauseEnum::KILLED_BY_NERON);
             $this->eventDispatcher->dispatch($endDaedalusEvent, DaedalusEvent::END_DAEDALUS);
 

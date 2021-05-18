@@ -80,7 +80,7 @@ class PlantCycleHandlerTest extends TestCase
         $plant->setMechanics(new ArrayCollection([$plantType]));
 
         $this->roomLogService->shouldReceive('createLog');
-        $this->gameEquipmentService->shouldReceive('persist')->twice();
+        $this->gameEquipmentService->shouldReceive('persist')->times(3);
         $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->once(); //Plant should not get disease
 
         $difficultyConfig = new DifficultyConfig();
@@ -121,6 +121,7 @@ class PlantCycleHandlerTest extends TestCase
                 ->isEmpty()
         );
 
+        //Plant get disease and grow
         $chargeStatus->setCharge(10);
 
         $gamePlant
@@ -137,12 +138,17 @@ class PlantCycleHandlerTest extends TestCase
 
         $this->plantCycleHandler->handleNewCycle($gamePlant, $daedalus, new \DateTime());
 
-        $this->assertTrue(
-            $gamePlant
-                ->getStatuses()
-                ->filter(fn (Status $status) => EquipmentStatusEnum::PLANT_YOUNG === $status->getName())
-                ->isEmpty()
-        );
+        $this->assertCount(0, $gamePlant->getStatuses());
+
+        //Plant already diseased can't get disease
+        $diseaseStatus = new Status($gamePlant);
+        $diseaseStatus->setName(EquipmentStatusEnum::PLANT_DISEASED);
+
+        $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
+
+        $this->plantCycleHandler->handleNewCycle($gamePlant, $daedalus, new \DateTime());
+
+        $this->assertCount(1, $gamePlant->getStatuses());
     }
 
     public function testNewDay()

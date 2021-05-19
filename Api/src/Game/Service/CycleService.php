@@ -39,8 +39,8 @@ class CycleService implements CycleServiceInterface
 
             try {
                 for ($i = 0; $i < $cycleElapsed; ++$i) {
-                    $lastUpdateCycle = $dateDaedalusLastCycle->add(new DateInterval('PT' . strval($gameConfig->getCycleLength()) . 'M'));
-                    $cycleEvent = new DaedalusCycleEvent($daedalus, $lastUpdateCycle);
+                    $dateDaedalusLastCycle->add(new DateInterval('PT' . strval($gameConfig->getCycleLength()) . 'M'));
+                    $cycleEvent = new DaedalusCycleEvent($daedalus, $dateDaedalusLastCycle);
                     $this->eventDispatcher->dispatch($cycleEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
                     //Do not continue make cycle if Daedalus is finish
@@ -50,6 +50,7 @@ class CycleService implements CycleServiceInterface
                 }
             } catch (\Exception $exception) {
             } finally {
+                $daedalus->setCycleStartedAt($dateDaedalusLastCycle);
                 $daedalus->setIsCycleChange(false);
                 $this->entityManager->persist($daedalus);
                 $this->entityManager->flush();

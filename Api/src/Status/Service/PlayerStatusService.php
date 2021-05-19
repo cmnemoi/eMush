@@ -11,7 +11,7 @@ use Mush\Status\Enum\PlayerStatusEnum;
 
 class PlayerStatusService implements PlayerStatusServiceInterface
 {
-    const FULL_STOMACH_STATUS_THRESHOLD = 4;
+    const FULL_STOMACH_STATUS_THRESHOLD = 3;
     const STARVING_STATUS_THRESHOLD = -24;
     const SUICIDAL_THRESHOLD = 1;
     const DEMORALIZED_THRESHOLD = 3;
@@ -88,7 +88,7 @@ class PlayerStatusService implements PlayerStatusServiceInterface
             $this->statusService->createCoreStatus(PlayerStatusEnum::STARVING, $player);
 
             $this->roomLogService->createLog(
-                LogEnum::FORCE_GET_UP,
+                LogEnum::HUNGER,
                 $player->getPlace(),
                 VisibilityEnum::PRIVATE,
                 'event_log',

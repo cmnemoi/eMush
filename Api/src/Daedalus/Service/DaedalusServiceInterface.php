@@ -32,5 +32,5 @@ interface DaedalusServiceInterface
 
     public function changeFuelLevel(Daedalus $daedalus, int $change): Daedalus;
 
-    public function changeHull(Daedalus $daedalus, int $change): Daedalus;
+    public function changeHull(Daedalus $daedalus, int $change, \DateTime $date): Daedalus;
 }

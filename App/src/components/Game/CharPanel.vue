@@ -9,7 +9,10 @@
 
             <div class="health-points">
                 <div class="life">
-                    <p><img src="@/assets/images/lp.png" alt="lp">{{ player.healthPoint }}</p>
+                    <ToolTip>
+                        <template v-slot:tooltipname><p><img src="@/assets/images/lp.png" alt="lp">{{ player.healthPoint }}</p></template>
+                        <template v-slot:tooltipcontenth1>{{ player.healthPoint }} points de vie restants</template>
+                    </Tooltip>
                     <ul>
                         <li v-for="n in 14" :key="n" :class="isFull(n, player.healthPoint)" />
                     </ul>
@@ -83,13 +86,15 @@ import Inventory from "@/components/Game/Inventory";
 import ActionButton from "@/components/Utils/ActionButton";
 import Statuses from "@/components/Utils/Statuses";
 import { mapActions, mapState } from "vuex";
+import ToolTip from "@/components/Utils/ToolTip"
 
 export default {
     name: "CharPanel",
     components: {
         ActionButton,
         Inventory,
-        Statuses
+        Statuses,
+        ToolTip
     },
     props: {
         player: Player

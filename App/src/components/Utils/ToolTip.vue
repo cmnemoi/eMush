@@ -26,7 +26,7 @@ export default {
 .tooltip {
   position: relative;
   display: inline-block;
-  border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+  border-bottom: 0px dotted transparent; /* If you want dots under the hoverable text */
 }
 
 /* Tooltip text */

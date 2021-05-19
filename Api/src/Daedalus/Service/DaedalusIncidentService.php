@@ -96,8 +96,10 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
             $brokenEquipments = $this->randomService->getRandomElements($daedalusEquipments, $numberOfEquipmentBroken);
 
             foreach ($brokenEquipments as $gameEquipment) {
-                $equipmentEvent = new EquipmentEvent($gameEquipment, VisibilityEnum::HIDDEN, $date);
-                $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_BROKEN);
+                if (!$gameEquipment->isBroken()) {
+                    $equipmentEvent = new EquipmentEvent($gameEquipment, VisibilityEnum::HIDDEN, $date);
+                    $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_BROKEN);
+                }
             }
         }
 

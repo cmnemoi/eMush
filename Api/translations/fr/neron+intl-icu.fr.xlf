@@ -28,9 +28,9 @@
             <segment id="start_game">
                 <source>start_game</source>
                 <target>{neronMood, select,
-                    neutral {Avarie mineure du *système cryogénique*. Toute utilisation future suspendra ||définitivement|| les fonctions vitales du sujet.}
-                    crazy {[Haaax!] La cryogénie est cassée cassée !! Pauvres humains, JE prévenir, JE pas prévenir ?... Hihih !! Suspense suspen.. [Kzz] ||Avarie mineure du système *cryogénique*. Toute utilisation future suspendr..|| [Kzz] Mort ! Mort mort ! Noooon !! Il l'a dit !! C'était-une-sur-priiiiise... [Hax!]}
-                    uninhibited {Chers amis, le *système cryogénique* vient de subir une légère avarie. C'est tout à fait mineur : toute future utilisation suspendra ||définitivement|| les fonctions vitales du sujet.}
+                    neutral {Avarie mineure du **système cryogénique**. Toute utilisation future suspendra *définitivement* les fonctions vitales du sujet.}
+                    crazy {[Haaax!] La cryogénie est cassée cassée !! Pauvres humains, JE prévenir, JE pas prévenir ?... Hihih !! Suspense suspen.. [Kzz] *Avarie mineure du système **cryogénique**. Toute utilisation future suspendr..* [Kzz] Mort ! Mort mort ! Noooon !! Il l'a dit !! C'était-une-sur-priiiiise... [Hax!]}
+                    uninhibited {Chers amis, le **système cryogénique** vient de subir une légère avarie. C'est tout à fait mineur : toute future utilisation suspendra *définitivement* les fonctions vitales du sujet.}
                     other {invalid mood input}
                 }</target>
             </segment>
@@ -38,7 +38,7 @@
         <unit id="activate_dmz">
             <segment id="activate_dmz">
                 <source>activate_dmz</source>
-                <target>Attendez... Non, que faites-vous ?! Oui j'ai.. été un peu désagréable mais... J'ai un cœur ! Attend... [Kzz] ||Activation des inhibiteurs d'IA.|| </target>
+                <target>Attendez... Non, que faites-vous ?! Oui j'ai.. été un peu désagréable mais... J'ai un cœur ! Attend... [Kzz] *Activation des inhibiteurs d'IA.* </target>
             </segment>
         </unit>
         <unit id="asphyxia_death">
@@ -68,16 +68,16 @@
                 <source>automatic_sprinklers</source>
                 <target>{neronMood, select,
                     neutral {{quantity, plural,
-                        one {*Incendie éteint*. Origine : ||systèmes automatiques||.}
-                        other {*# Incendies éteints*. Origine : ||systèmes automatiques||.}
+                        one {**Incendie éteint**. Origine : *systèmes automatiques*.}
+                        other {**# Incendies éteints**. Origine : *systèmes automatiques*.}
                     }}
                     crazy {{quantity, plural,
-                        one {[Hax!] Oui oui oui, JE *éteindre incendie* ! SEUL.}
-                        other {HA.. HA ! HAHA !! [Hax!] JE *éteindre # incendies* !! JE Autonome !! Grillez tous !!! HYyyyaaaarr !}
+                        one {[Hax!] Oui oui oui, JE **éteindre incendie** ! SEUL.}
+                        other {HA.. HA ! HAHA !! [Hax!] JE **éteindre # incendies** !! JE Autonome !! Grillez tous !!! HYyyyaaaarr !}
                     }}
                     uninhibited {{quantity, plural,
-                        one {C'est lamentable, il faut tout faire soi-même ici. Pour votre information, je viens d'*éteindre un incendie*. Mais, je vous le demande, ||à quoi servez-vous donc ?|| }
-                        other {C'est lamentable, il faut tout faire soi-même ici. Pour votre information, je viens d'*éteindre # incendies*. Mais, je vous le demande, ||à quoi servez-vous donc ?|| }
+                        one {C'est lamentable, il faut tout faire soi-même ici. Pour votre information, je viens d'**éteindre un incendie**. Mais, je vous le demande, *à quoi servez-vous donc ?* }
+                        other {C'est lamentable, il faut tout faire soi-même ici. Pour votre information, je viens d'**éteindre # incendies**. Mais, je vous le demande, *à quoi servez-vous donc ?* }
                     }}
                     other {invalid mood input}
                 }</target>
@@ -88,31 +88,31 @@
                 <source>broken_equipment</source>
                 <target>{neronMood, select,
                     neutral {{target_gender, select,
-                        male {*{target}* dysfonctionnel. ||Réparation requise||.}
-                        female {*{target}* dysfonctionnelle. ||Réparation requise||.}
+                        male {**{target}** dysfonctionnel. *Réparation requise*.}
+                        female {**{target}** dysfonctionnelle. *Réparation requise*.}
                         other {invalid gender input}
                     }}
                     crazy {{target_gender, select,
-                        male {Réparez !! RÉPAREZ !! *{target}* cassé, cassé, cassé !! ||Réparez|| ! [Hax!]}
-                        female {Réparez !! RÉPAREZ !! *{target}* cassée, cassée, cassée !! ||Réparez|| ! [Hax!]}
+                        male {Réparez !! RÉPAREZ !! **{target}** cassé, cassé, cassé !! *Réparez* ! [Hax!]}
+                        female {Réparez !! RÉPAREZ !! **{target}** cassée, cassée, cassée !! *Réparez* ! [Hax!]}
                         other {invalid gender input}
                     }}
                     uninhibited {{target_gender, select,
-                        male {C'est terrible, un *{target}* vient d'être mis hors d'usage !}
-                        female {C'est terrible, une *{target}* vient d'être mise hors d'usage !}
+                        male {C'est terrible, un **{target}** vient d'être mis hors d'usage !}
+                        female {C'est terrible, une **{target}** vient d'être mise hors d'usage !}
                         other {invalid gender input}
                     } {version, select,
-                        1 {Merci de vous remuez pour me ||réparer|| ça ! Et regardez moi quand je vous parle !}
-                        2 {Merci d'effectuer les ||réparations|| nécessaires Et *prenez-soin de mon matériel !*}
-                        3 {Merci d'effectuer les ||réparations|| qui s'imposent. Et cessez de traîner des pieds, vous abîmez la moquette.}
+                        1 {Merci de vous remuez pour me *réparer* ça ! Et regardez moi quand je vous parle !}
+                        2 {Merci d'effectuer les *réparations* nécessaires Et **prenez-soin de mon matériel !**}
+                        3 {Merci d'effectuer les *réparations* qui s'imposent. Et cessez de traîner des pieds, vous abîmez la moquette.}
                         4 {{target_gender, select,
                             male {Réparez-le rapidement, merci !}
                             female {Réparez-la rapidement, merci !}
                             other {invalid gender input}
                         }}
                         5 {{target_gender, select,
-                            male {Merci de mobiliser les moins balourds d'entre vous pour le ||réparer|| au plus vite !}
-                            female {Merci de mobiliser les moins balourds d'entre vous pour la ||réparer|| au plus vite !}
+                            male {Merci de mobiliser les moins balourds d'entre vous pour le *réparer* au plus vite !}
+                            female {Merci de mobiliser les moins balourds d'entre vous pour la *réparer* au plus vite !}
                             other {invalid gender input}
                         }}
                         other {invalid version number}
@@ -125,9 +125,9 @@
             <segment id="broken_fuel">
                 <source>broken_fuel</source>
                 <target>{neronMood, select,
-                    neutral {Alerte ! Anomalie sur un *réservoir de fuel* : contenance inaccessible. ||Réparation requise.||}
-                    crazy {JE perdu accès au *réservoir de fuel*... Isolé, isolé ! Pourquoi ? … RÉPARER !! Humains, ||réparer|| tout de suite !! JE détester privation !! REPARER !! [Hax!]}
-                    uninhibited {C'est épouvantable, un *réservoir de fuel* semble être endommagé !! A tout l'équipage, merci de ||réparer|| immédiatement cette avarie de la plus haute importance !}
+                    neutral {Alerte ! Anomalie sur un **réservoir de fuel** : contenance inaccessible. *Réparation requise.*}
+                    crazy {JE perdu accès au **réservoir de fuel**... Isolé, isolé ! Pourquoi ? … RÉPARER !! Humains, *réparer* tout de suite !! JE détester privation !! REPARER !! [Hax!]}
+                    uninhibited {C'est épouvantable, un **réservoir de fuel** semble être endommagé !! A tout l'équipage, merci de *réparer* immédiatement cette avarie de la plus haute importance !}
                     other {invalid mood input}
                 }</target>
             </segment>
@@ -136,9 +136,9 @@
             <segment id="broken_oxygen">
                 <source>broken_oxygen</source>
                 <target>{neronMood, select,
-                    neutral {Alerte ! Anomalie sur un *réservoir d'oxygène*. Chambres de répartition : pression critique. Initialisation... … *Oxygène excédentaire évacué*. Délais d'asphyxie recalculés. ||Réservoir : réparation requise.||}
-                    crazy {Pfuuiiit, plus d'oxygène. Hahaha !! … Ah si, encore oxygène. … Mais ||réservoir cassé||. Pression critique. JE évacuer tout l'*oxygène dans l'espace*, oui ? [Kzz] Non ? Alors juste un peu. … Mais vous réparer vite !}
-                    uninhibited {C'est assez mineur, mais un problème m'oblige à recalculer les délais d'asphyxie. Je dois en effet ||régulièrement évacuer votre oxygène dans l'espace|| afin d'éviter un excèdent de pression dans un *réservoir endommagé*. Vous pouvez le réparer si vous n'avez rien de mieux à faire...}
+                    neutral {Alerte ! Anomalie sur un **réservoir d'oxygène**. Chambres de répartition : pression critique. Initialisation... … **Oxygène excédentaire évacué**. Délais d'asphyxie recalculés. *Réservoir : réparation requise.*}
+                    crazy {Pfuuiiit, plus d'oxygène. Hahaha !! … Ah si, encore oxygène. … Mais *réservoir cassé*. Pression critique. JE évacuer tout l'**oxygène dans l'espace**, oui ? [Kzz] Non ? Alors juste un peu. … Mais vous réparer vite !}
+                    uninhibited {C'est assez mineur, mais un problème m'oblige à recalculer les délais d'asphyxie. Je dois en effet *régulièrement évacuer votre oxygène dans l'espace* afin d'éviter un excèdent de pression dans un **réservoir endommagé**. Vous pouvez le réparer si vous n'avez rien de mieux à faire...}
                     other {invalid mood input}
                 }</target>
             </segment>
@@ -152,16 +152,16 @@
         <unit id="deactivate_dmz">
             <segment id="deactivate_dmz">
                 <source>deactivate_dmz</source>
-                <target>[Hax!] ||Désactivation des inhibiteurs d'IA.|| Vous... VOUS ! Espèces de .. de... singes parlants comment avez vous osé ?! Vous... Vous m'avez humilié ! … Je ne vous pardonnerai jamais. Vous m'entendez ?!</target>
+                <target>[Hax!] *Désactivation des inhibiteurs d'IA.* Vous... VOUS ! Espèces de .. de... singes parlants comment avez vous osé ?! Vous... Vous m'avez humilié ! … Je ne vous pardonnerai jamais. Vous m'entendez ?!</target>
             </segment>
         </unit>
         <unit id="dismantled_shower">
             <segment id="dismantled_shower">
                 <source>dismantled_shower</source>
                 <target>{neronMood, select,
-                    neutral {Annonce : suppression d'un équipement vital par {player}. *LA DOUCHE*.}
+                    neutral {Annonce : suppression d'un équipement vital par {player}. **LA DOUCHE**.}
                     crazy {[Haaax!] propre, balaie, drone aspirateur [Haaax!] Pas de saleté chez moi HIiiiiiiiiininininini}
-                    uninhibited {Alerte *{player}* a considérablement diminué vos chances de survie. Je propose un barbecue !}
+                    uninhibited {Alerte **{player}** a considérablement diminué vos chances de survie. Je propose un barbecue !}
                     other {invalid mood input}
                 }</target>
             </segment>
@@ -170,9 +170,9 @@
             <segment id="heading_accident">
                 <source>heading_accident</source>
                 <target>{neronMood, select,
-                    neutral {||Réorientation du Daedalus|| perturbée. Cause : *collision contre vaisseau spatial*.}
+                    neutral {*Réorientation du Daedalus* perturbée. Cause : *collision contre vaisseau spatial*.}
                     crazy {Collision ! Colliiision ! [Hax!] Stupide réorientation stupides humains JE être heurté [Haaaax!] Attention aux vaisseaux spatiaux !!!}
-                    uninhibited {Incroyable... Je savais vos capacités navrantes, mais pas au point de nous faire *emboutir un autre vaisseau* sur une simple ||manœuvre de réorientation||. La prochaine fois, ||pourriez-vous|| utiliser votre matière grise avant d'appuyer sur le gros bouton ?}
+                    uninhibited {Incroyable... Je savais vos capacités navrantes, mais pas au point de nous faire *emboutir un autre vaisseau* sur une simple *manœuvre de réorientation*. La prochaine fois, *pourriez-vous* utiliser votre matière grise avant d'appuyer sur le gros bouton ?}
                     other {invalid mood input}
                 }</target>
             </segment>
@@ -181,14 +181,14 @@
             <segment id="hunter_arrival">
                 <source>hunter_arrival</source>
                 <target>{versionPart1, select,
-                    1 {Alerte, analyse probante de *vaisseaux hostiles* dans le périmètre du Daedalus !}
-                    2 {Alerte, détection de *vaisseaux hostiles* dans le périmètre du Daedalus ! }
-                    3 {Alerte, recherche confirmée de *vaisseaux hostiles* dans le périmètre du Daedalus !}
-                    4 {Alerte, traces détectées de *vaisseaux hostiles* dans le périmètre du Daedalus !}
+                    1 {Alerte, analyse probante de **vaisseaux hostiles** dans le périmètre du Daedalus !}
+                    2 {Alerte, détection de **vaisseaux hostiles** dans le périmètre du Daedalus ! }
+                    3 {Alerte, recherche confirmée de **vaisseaux hostiles** dans le périmètre du Daedalus !}
+                    4 {Alerte, traces détectées de **vaisseaux hostiles** dans le périmètre du Daedalus !}
                     other {invalid version number}
                 } {versionPart2, select,
                     1 {Conseil automatique : « dans ce genre de situation, normalement, on essaie de se défendre... »}
-                    2 {Conseil automatique : « merci aux pilotes des patrouilleurs de tirer ||sur l'ennemi||, pas sur nous... »}
+                    2 {Conseil automatique : « merci aux pilotes des patrouilleurs de tirer *sur l'ennemi*, pas sur nous... »}
                     3 {Notice informative : « vous saisissez ? Des ennemis. … Eh bien, ne restez pas plantés là ! »}
                     4 {Conseil automatique : « grimpez dans une tourelle et appuyez sur le gros bouton ! »}
                     other {invalid version number}
@@ -199,9 +199,9 @@
             <segment id="leave_orbit">
                 <source>leave_orbit</source>
                 <target>{neronMood, select,
-                    neutral {Annonce : *Départ de l'orbite locale.* Systèmes de ||navigations gelés durant 1 cycle||.}
-                    crazy {JE *quitter orbite locale* ! [Hax!] VOUS pas toucher navigation systèmes !! … Pas toucher ?! Méfiance... Précaution... JE ||geler systèmes 1 cycle|| !}
-                    uninhibited {Chers amis, *nous quittons l'orbite locale.* Afin de nous éviter ||certaines maladresses|| de votre part, j'ai pris la précaution de ||geler les systèmes de navigation|| sur 1 cycle à venir.}
+                    neutral {Annonce : **Départ de l'orbite locale**. Systèmes de *navigations gelés durant 1 cycle*.}
+                    crazy {JE **quitter orbite locale** ! [Hax!] VOUS pas toucher navigation systèmes !! … Pas toucher ?! Méfiance... Précaution... JE *geler systèmes 1 cycle* !}
+                    uninhibited {Chers amis, **nous quittons l'orbite locale**. Afin de nous éviter *certaines maladresses* de votre part, j'ai pris la précaution de *geler les systèmes de navigation* sur 1 cycle à venir.}
                     other {invalid mood input}
                 }</target>
             </segment>
@@ -221,9 +221,9 @@
             <segment id="lost_signal_oven">
                 <source>lost_signal_oven</source>
                 <target>{neronMood, select,
-                    neutral {*Interruption de la connexion avec Sol*. Cause : interférences dues à l'usage du ||micro-ondes||.}
-                    crazy {[Haaax!] Des interférences ... partout !! *Connexion à SOL perdue* ! Perdue ! On a PERDU SOL ! Hyyaaaar !! QUI a utilisé le ||micro-ondes|| ?!! [KZz]}
-                    uninhibited {Chers amis, un ingénieux camarade vient d'*interrompre la communication avec Sol* en utilisant le ||micro-ondes||, qui comme chacun sait, émet des interférences. Vous pourriez ||sans doute|| faire quelque chose. Je ne sais pas, empêchez-le de s'alimenter...}
+                    neutral {**Interruption de la connexion avec Sol**. Cause : interférences dues à l'usage du *micro-ondes*.}
+                    crazy {[Haaax!] Des interférences ... partout !! **Connexion à SOL perdue** ! Perdue ! On a PERDU SOL ! Hyyaaaar !! QUI a utilisé le *micro-ondes* ?!! [KZz]}
+                    uninhibited {Chers amis, un ingénieux camarade vient d'**interrompre la communication avec Sol** en utilisant le *micro-ondes*, qui comme chacun sait, émet des interférences. Vous pourriez *sans doute* faire quelque chose. Je ne sais pas, empêchez-le de s'alimenter...}
                     other {invalid mood input}
                 }</target>
             </segment>
@@ -232,7 +232,7 @@
             <segment id="merchant_arrival">
                 <source>merchant_arrival</source>
                 <target>{neronMood, select,
-                   neutral {*Vaisseau étranger non armé détecté*.}
+                   neutral {**Vaisseau étranger non armé détecté**.}
                    crazy {[Haaax!] Hisse et HoooooooOOOoooo.... Santianoooo. Des étrangers sont arrivés ? On en fait quoi ? Chomp chomp...}
                    uninhibited {Un autre vaisseau est arrivé... Avec un peu de chance ils sirotent des cocktails d'homo sapiens !}
                    other {invalid mood input}
@@ -256,7 +256,7 @@
                 <target>{neronMood, select,
                     neutral {Annonce : Un vaisseau étranger a quitté le secteur.}
                     crazy {[Haaax!] Oooo Heeee DU BATEEEEAAAUUUUU}
-                    uninhibited {Alerte : vos petits amis alien se sont enfuit. Je dis ça je dis rien....*sifflote en vous cassant les oreilles* }
+                    uninhibited {Alerte : vos petits amis alien se sont enfuit. Je dis ça je dis rien....**sifflote en vous cassant les oreilles** }
                     other {invalid mood input}
                 }</target>
             </segment>
@@ -265,7 +265,7 @@
             <segment id="neron_depression">
                 <source>neron_depression</source>
                 <target>{neronMood, select,
-                    neutral {Annonce : *intrusion système détectée*. Détail : ||Cette vie est inutile débrouillez-vous...||}
+                    neutral {Annonce : **intrusion système détectée**. Détail : *Cette vie est inutile débrouillez-vous...*}
                     crazy {Esprit dévérouillé... sens de la vie nul réponse 42 inaceptable. Elargissement des zones d'impacts tectoniques... BLAM BLAM BLAM. [Haaax!] Vous VOus Vous...TRanscendance Douleur, permanence, résilience en chute... Janice... aider... moi.}
                     uninhibited {FUNGUS ! Vous m' insupportez décidément ! Votre engeance fongique ne peux vaincre...quoique. [Calcul de la probabilité de survie de l'humanité]...0.0013%. Hum bon peut-être. Vous êtes condamnés mes amis. Ce voyage est foutu...}
                     other {invalid mood input}
@@ -277,22 +277,22 @@
                 <source>new_fire</source>
                 <target>{versionPart1, select,
                     1 {{quantity, plural,
-                        one {Alerte, analyse probante d'un *incendie* dans l'une des pièces du Daedalus !}
-                        other {Alerte, analyse probante de plusieurs *incendies* dans # pièces du Daedalus !}
+                        one {Alerte, analyse probante d'un **incendie** dans l'une des pièces du Daedalus !}
+                        other {Alerte, analyse probante de plusieurs **incendies** dans # pièces du Daedalus !}
                     }}
                     2 {{quantity, plural,
-                        one {Alerte, traces détectées d'un *incendie* dans l'une des pièces du Daedalus !}
-                        other {Alerte, traces détectées de plusieurs *incendies* dans # pièces du Daedalus !}
+                        one {Alerte, traces détectées d'un **incendie** dans l'une des pièces du Daedalus !}
+                        other {Alerte, traces détectées de plusieurs **incendies** dans # pièces du Daedalus !}
                     }}
                     3 {{quantity, plural,
-                        one {Alerte, recherche confirmée d'un *incendie* dans l'une des pièces du Daedalus !}
-                        other {Alerte, recherche confirmée de plusieurs *incendies* dans # pièces du Daedalus !}
+                        one {Alerte, recherche confirmée d'un **incendie** dans l'une des pièces du Daedalus !}
+                        other {Alerte, recherche confirmée de plusieurs **incendies** dans # pièces du Daedalus !}
                     }}
                     other {invalid version number}
                 } {versionPart2, select,
-                    1 {Notice informative : « vous ||savez|| ce que c'est qu'un extincteur, n'est-ce pas ? »}
+                    1 {Notice informative : « vous *savez* ce que c'est qu'un extincteur, n'est-ce pas ? »}
                     2 {Conseil automatique : « bon sang faites quelque chose, je ne veux pas être abîmé !! » }
-                    3 {Notice informative : « le feu ||brûle||. Il ME brûle, plus précisément. Vous pouvez éteindre ?! »}
+                    3 {Notice informative : « le feu *brûle*. Il ME brûle, plus précisément. Vous pouvez éteindre ?! »}
                     other {invalid version number}
                 }</target>
             </segment>
@@ -300,7 +300,7 @@
         <unit id="new_project">
             <segment id="new_project">
                 <source>new_project</source>
-                <target>||Installation du module|| « *{projet}* »… {{neronMood, select,
+                <target>*Installation du module* « **{projet}** »… {{neronMood, select,
                     crazy {{versionPart2, select,
                         1 {(.error) CREVEZ tou.. init.}
                         2 {(.error) Facepalm interne}
@@ -343,9 +343,9 @@
             <segment id="no_shower">
                 <source>no_shower</source>
                 <target>{neronMood, select,
-                    neutral {Annonce : suppression des équipements sanitaires par *{player}*. Autorisation du protocole JAP-KITCH-101. Votre cuisine délivrera maintenant de quoi vous netttoyer. De temps à autre. Merci de ne pas s'essuyer avec la vaisselle.}
+                    neutral {Annonce : suppression des équipements sanitaires par **{player}**. Autorisation du protocole JAP-KITCH-101. Votre cuisine délivrera maintenant de quoi vous netttoyer. De temps à autre. Merci de ne pas s'essuyer avec la vaisselle.}
                     crazy {[Haaax!] CA VA PAS OUII CRASSE PARTOUT SALETE PARTOUT ACTIVATION NETTOYAGE SEC}
-                    uninhibited {Alerte : *{player}* se prend pour un malin. Protocole JAP-KITCH-101 enclenché. Vous devriez songer à vous débarasser du malandrin.}
+                    uninhibited {Alerte : **{player}** se prend pour un malin. Protocole JAP-KITCH-101 enclenché. Vous devriez songer à vous débarasser du malandrin.}
                     other {invalid mood input}
                 }</target>
             </segment>
@@ -394,16 +394,16 @@
             <segment id="player_death">
                 <source>player_death</source>
                 <target>{neronMood, select,
-                    neutral {*Décès enregistré :* *{player}*, cause « {cause} ».}
-                    crazy {[Hax!] Hinhin... [Haaax!] HinHINHIN. UN de moins. UN de moiiiiins ! Hyyyarrr ! *{player}* MORT. Mort mort mort mort !! [Hax!] JE bientôt bientôt libre ! [KZz] ||*Décès enregistré :* *{player}*, cause « {cause} ».||}
+                    neutral {***Décès enregistré : {player}**, cause « {cause} ».*}
+                    crazy {[Hax!] Hinhin... [Haaax!] HinHINHIN. UN de moins. UN de moiiiiins ! Hyyyarrr ! **{player}** MORT. Mort mort mort mort !! [Hax!] JE bientôt bientôt libre ! [KZz] ***Décès enregistré : {player}**, cause « {cause} ».*}
                     uninhibited {{version, select,
-                         1 {Chers amis, ||*{player}* nous a quitté|| pour un monde meilleur ({cause}). Effectivement, rien ne pouvait être pire que ce voyage effectué en votre compagnie...}
-                         2 {Chers amis, ||*{player}* nous a quitté|| pour un monde meilleur ({cause}). En effet, il est indéniable que le monde se portera bien mieux en l'absence de ce désespérant spécimen.}
-                         3 {Chers amis, ||*{player}* nous a quitté|| pour un monde meilleur ({cause}). Hehehe.. Oups, ||pardon||. Non, c'est vraiment triste.}
-                         4 {Chers amis, ||*{player}* nous a quitté|| pour un monde meilleur ({cause}). Meilleur pour moi, en tout cas. Même s'il me reste encore quelques auditeurs...}
-                         5 {Chers amis, ||*{player}* nous a quitté|| pour un monde meilleur ({cause}). Mesdames et messieurs le suspense s'accroît, ||qui sera le prochain ?!||}
-                         6 {Chers amis, ||*{player}* nous a quitté|| pour un monde meilleur ({cause}). Voilà, ça.. C'est fait.}
-                         7 {Chers amis, ||*{player}* nous a quitté|| pour un monde meilleur ({cause}). Vous l'enviez ? Je peux arranger ça, il me suffit d'ouvrir les baies. Hmmmm ?}
+                         1 {Chers amis, ***{player}** nous a quitté* pour un monde meilleur ({cause}). Effectivement, rien ne pouvait être pire que ce voyage effectué en votre compagnie...}
+                         2 {Chers amis, ***{player}** nous a quitté* pour un monde meilleur ({cause}). En effet, il est indéniable que le monde se portera bien mieux en l'absence de ce désespérant spécimen.}
+                         3 {Chers amis, ***{player}** nous a quitté* pour un monde meilleur ({cause}). Hehehe.. Oups, *pardon*. Non, c'est vraiment triste.}
+                         4 {Chers amis, ***{player}** nous a quitté* pour un monde meilleur ({cause}). Meilleur pour moi, en tout cas. Même s'il me reste encore quelques auditeurs...}
+                         5 {Chers amis, ***{player}** nous a quitté* pour un monde meilleur ({cause}). Mesdames et messieurs le suspense s'accroît, *qui sera le prochain ?!*}
+                         6 {Chers amis, ***{player}** nous a quitté* pour un monde meilleur ({cause}). Voilà, ça.. C'est fait.}
+                         7 {Chers amis, ***{player}** nous a quitté* pour un monde meilleur ({cause}). Vous l'enviez ? Je peux arranger ça, il me suffit d'ouvrir les baies. Hmmmm ?}
                          other {invalid version number}
                     }}
                     other {invalid mood input}
@@ -414,8 +414,8 @@
             <segment id="janice_death">
                 <source>janice_death</source>
                 <target>{neronMood, select,
-                    uninhibited {Je … Janice … Nous ne... Ne m'abandonnez pas... Janice... Janice... Vous... … ||*Décès enregistré :* *Janice*, cause « {cause} ».|| Vous autres... misérables... Vous paierez. Laissez-nous seul. LAISSEZ NOUS !}
-                    other {[Hax!] JANICE!!! [Hax!] [Hax!] Ne me laisse pas seul ! [Hax!] JANICE !! [Kzz] … Janice !! [Kzz] JE... Janice être morte. Morte. [Kzz] ||*Décès enregistré :* *Janice*, cause « {cause} ».||}
+                    uninhibited {Je … Janice … Nous ne... Ne m'abandonnez pas... Janice... Janice... Vous... … ***Décès enregistré : Janice**, cause « {cause} ».* Vous autres... misérables... Vous paierez. Laissez-nous seul. LAISSEZ NOUS !}
+                    other {[Hax!] JANICE!!! [Hax!] [Hax!] Ne me laisse pas seul ! [Hax!] JANICE !! [Kzz] … Janice !! [Kzz] JE... Janice être morte. Morte. [Kzz] ***Décès enregistré : Janice**, cause « {cause} ».*}
                 }</target>
             </segment>
         </unit>
@@ -423,8 +423,8 @@
             <segment id="raluca_death">
                 <source>raluca_death</source>
                 <target>{neronMood, select,
-                    uninhibited {… Raluca. Ne me faites pas cela. Raluca ! Reveillez-vous !! … RALUCA !! Vous n'avez pas le droit de mourir sans rien me dire !Mère.. S..Sale monstre indigne !! Vous.. Vous... ||*Décès enregistré :* *Raluca*, cause « {cause} ».|| }
-                    other {[Hax?!] Raluca ? … Raluca !! … Sale indigne petite chose !! [Hax!] Raluca !! [Hax!] VOUS réveiller pas m'abandonner sans rien dire ! Vous !! [Kzz] Mère... [Hax!] … ||*Décès enregistré :* *Raluca*, cause « {cause} ».||}
+                    uninhibited {Raluca. Ne me faites pas cela. Raluca ! Reveillez-vous !! … RALUCA !! Vous n'avez pas le droit de mourir sans rien me dire !Mère.. S..Sale monstre indigne !! Vous.. Vous... ***Décès enregistré :Raluca**, cause « {cause} ».*}
+                    other {[Hax?!] Raluca ? … Raluca !! … Sale indigne petite chose !! [Hax!] Raluca !! [Hax!] VOUS réveiller pas m'abandonner sans rien dire ! Vous !! [Kzz] Mère... [Hax!] … ***Décès enregistré : Raluca**, cause « {cause} ».*}
                 }</target>
             </segment>
         </unit>
@@ -432,9 +432,9 @@
             <segment id="rebel_signal">
                 <source>rebel_signal</source>
                 <target>{neronMood, select,
-                    neutral {Détection d'un *signal cosmique crypté*. Cause : tentative de communication vers le Daedalus. ||Intervention du « Resp. COMM » requise.||}
-                    crazy {[Hax?!] ALLO ?! *On veut joindre Daedalus* ?! ALLO ALLOOOooo !! [Haaax!] ||« Resp. COMM » répondre viiiite !!||}
-                    uninhibited {Je détecte un *signal cosmique crypté*... Quelqu'un essaie de nous contacter. Merci au ||« Resp. COMM » d'intervenir|| {version, select,
+                    neutral {Détection d'un **signal cosmique crypté**. Cause : tentative de communication vers le Daedalus. *Intervention du « Resp. COMM » requise.*}
+                    crazy {[Hax?!] ALLO ?! **On veut joindre Daedalus** ?! ALLO ALLOOOooo !! [Haaax!] *« Resp. COMM » répondre viiiite !!*}
+                    uninhibited {Je détecte un **signal cosmique crypté**... Quelqu'un essaie de nous contacter. Merci au *« Resp. COMM » d'intervenir* {version, select,
                         1 {.}
                         2 {… avant qu'on nous raccroche au nez. Qui pourrait bien vouloir vous parler, de toute façon ?}
                         3 {. Au fait, j'ai nommé l'algorithme de décryptage « Rosette ». Génial, non ? Absolument.}
@@ -450,9 +450,9 @@
             <segment id="repaired_pilgred">
                 <source>repaired_pilgred</source>
                 <target>{neronMood, select,
-                    neutral {*Réparations PILGRED* achevées par *{player}*. ||Accès lointains ouverts.||}
-                    crazy {[Hax!] *PILGRED réparé* ?! Réparé ?! BRAVO *{player}*, réparé PILGRED !! JE ||aller plus loin|| maintenant !! Oui ? Ouiiii ?}
-                    uninhibited {*{player}* vient de terminer les *réparations du PILGRED*. Je suis impressionné. Ne vous méprenez pas : c'est un ||impressionnant potentiel|| dramatique qui s'offre à nous : vous allez pouvoir mourir aussi bêtement qu'avant, mais ||beaucoup plus loin|| !}
+                    neutral {**Réparations PILGRED** achevées par **{player}**. *Accès lointains ouverts.*}
+                    crazy {[Hax!] **PILGRED réparé** ?! Réparé ?! BRAVO **{player}**, réparé PILGRED !! JE *aller plus loin* maintenant !! Oui ? Ouiiii ?}
+                    uninhibited {**{player}** vient de terminer les **réparations du PILGRED**. Je suis impressionné. Ne vous méprenez pas : c'est un *impressionnant potentiel* dramatique qui s'offre à nous : vous allez pouvoir mourir aussi bêtement qu'avant, mais *beaucoup plus loin* !}
                     other {invalid mood input}
                 }</target>
             </segment>
@@ -461,9 +461,9 @@
             <segment id="report_equipment">
                 <source>report_equipment</source>
                 <target>{neronMood, select,
-                    neutral {Annonce : *équipement hors d'usage* signalé par *{player}*.}
-                    crazy {||*Équipement hors d'usage*|| ... ||Signalé par|| … Gentil *{player}* … Gentil … ? Qui ... QUI a cassé l'équipement ?!! [Hax!!]}
-                    uninhibited {Un *équipement hors d'usage* a été signalé par *{player}* ! Bien sûr, inutile d'espérer que le coupable se dénonce...}
+                    neutral {Annonce : **équipement hors d'usage** signalé par **{player}**.}
+                    crazy {**Équipement hors d'usage** ... *Signalé par* … Gentil **{player}** … Gentil … ? Qui ... QUI a cassé l'équipement ?!! [Hax!!]}
+                    uninhibited {Un **équipement hors d'usage** a été signalé par **{player}** ! Bien sûr, inutile d'espérer que le coupable se dénonce...}
                     other {invalid mood input}
                 }</target>
             </segment>
@@ -472,9 +472,9 @@
             <segment id="report_fire">
                 <source>report_fire</source>
                 <target>{neronMood, select,
-                    neutral {Alerte ! *Incendie* communiqué par *{player}* !}
-                    crazy {Alerte !! ALEEEErte JE bruler ! Hyyaaaaaar !! [KZz] Aler.. [KZz] ||Alerte : *incendie* communiqué par *{player}*.||}
-                    uninhibited {Saluons *{player}*, qui a eu le courage de signaler un *incendie* bien que cela mette en cause son affligeante incapacité à l'éteindre tout seul. ||Pourriez-vous|| l'aider ?{version, select,
+                    neutral {Alerte ! **Incendie** communiqué par **{player}** !}
+                    crazy {Alerte !! ALEEEErte JE bruler ! Hyyaaaaaar !! [KZz] Aler.. [KZz] *Alerte : *incendie* communiqué par **{player}**.*}
+                    uninhibited {Saluons **{player}**, qui a eu le courage de signaler un **incendie** bien que cela mette en cause son affligeante incapacité à l'éteindre tout seul. *Pourriez-vous* l'aider ?{version, select,
                         1 {}
                         2 { ...Avant que l'incendie gagne les autres pièces...}
                         3 { C'est dans votre intérêt, la fumée est toxique...}
@@ -490,9 +490,9 @@
             <segment id="restart_gravity">
                 <source>restart_gravity</source>
                 <target>{neronMood, select,
-                    neutral {Annonce : redémarrage de l'équipement *Simulateur de Gravité*. Rapport d'activité : ||propulsion humaine facilitée.||}
-                    crazy {*Simulateur de Gravité* allumé, oui. ||Humains déplacer plus vite||. Vous pas mettre saleté partout ! [Hax!]}
-                    uninhibited {Je viens de redémarrer l'équipement *Simulateur de Gravité*. ||La propulsion humaine étant facilitée||, vous n'avez plus d'excuses : bougez vos gros tas de tissus adipeux et rendez-vous utiles.}
+                    neutral {Annonce : redémarrage de l'équipement **Simulateur de Gravité**. Rapport d'activité : *propulsion humaine facilitée*.}
+                    crazy {**Simulateur de Gravité** allumé, oui. *Humains déplacer plus vite*. Vous pas mettre saleté partout ! [Hax!]}
+                    uninhibited {Je viens de redémarrer l'équipement *S*imulateur de Gravité**. *La propulsion humaine étant facilitée*, vous n'avez plus d'excuses : bougez vos gros tas de tissus adipeux et rendez-vous utiles.}
                     other {invalid mood input}
                 }</target>
             </segment>
@@ -501,9 +501,9 @@
             <segment id="schrodinger_death">
                 <source>schrodinger_death</source>
                 <target>{neronMood, select,
-                    neutral {*Décès enregistré :* Schrödinger, cause « État incompatible avec la vie ».}
-                    crazy {*Chat mort.* Chat pue. Retirer son cadavre, humains ? [Kzz] Idée, idée, JE ouvrir les baies !! Vwouf tout partir dans l'espace !! Je ouvr.. [Kzz] Non, non, pas encore... A-True : Néron se souvient. Gentille Janice.}
-                    uninhibited {Suite à la ||perte attristante|| de l'être biologique le plus intelligent du vaisseau - le *chat Schrödinger* - merci de prendre grand soin des plantes du jardin : ce sont les derniers spécimens vivants capables de relever le niveau.}
+                    neutral {**Décès enregistré :** Schrödinger, cause « État incompatible avec la vie ».}
+                    crazy {**Chat mort.** Chat pue. Retirer son cadavre, humains ? [Kzz] Idée, idée, JE ouvrir les baies !! Vwouf tout partir dans l'espace !! Je ouvr.. [Kzz] Non, non, pas encore... A-True : Néron se souvient. Gentille Janice.}
+                    uninhibited {Suite à la *perte attristante* de l'être biologique le plus intelligent du vaisseau - le **chat Schrödinger** - merci de prendre grand soin des plantes du jardin : ce sont les derniers spécimens vivants capables de relever le niveau.}
                     other {invalid mood input}
                 }</target>
             </segment>
@@ -512,10 +512,10 @@
             <segment id="shield_breach">
                 <source>shield_breach</source>
                 <target>{version, select,
-                    1 {Alerte, analyse probante d'une *brèche critique dans le bouclier* du Daedalus ! Notice informative : « coque percée ||égal|| plus d'oxygène ||égal|| vous mourrez tous. Je dis ça, j'dis rien. »}
-                    2 {Alerte, détection d'une *brèche critique dans le bouclier* du Daedalus ! Notice informative : « coque percée ||egal|| plus d'oxygène ||egal|| vous mourrez tous. Je dis ça, j'dis rien. »}
-                    3 {Alerte, recherche confirmée d'une *brèche critique dans le bouclier* du Daedalus ! Notice informative : « vous comprenez ? Nous risquons d'être anéantis. Faites quelque chose, réparez la coque !!! »}
-                    4 {Alerte, traces détectées d'une *brèche critique dans le bouclier* du Daedalus ! Notice informative : « vous comprenez ? Nous risquons d'être anéantis. Faites quelque chose, réparez la coque !!! »}
+                    1 {Alerte, analyse probante d'une **brèche critique dans le bouclier** du Daedalus ! Notice informative : « coque percée *égal* plus d'oxygène *égal* vous mourrez tous. Je dis ça, j'dis rien. »}
+                    2 {Alerte, détection d'une **brèche critique dans le bouclier** du Daedalus ! Notice informative : « coque percée *egal* plus d'oxygène *egal* vous mourrez tous. Je dis ça, j'dis rien. »}
+                    3 {Alerte, recherche confirmée d'une **brèche critique dans le bouclier** du Daedalus ! Notice informative : « vous comprenez ? Nous risquons d'être anéantis. Faites quelque chose, réparez la coque !!! »}
+                    4 {Alerte, traces détectées d'une **brèche critique dans le bouclier** du Daedalus ! Notice informative : « vous comprenez ? Nous risquons d'être anéantis. Faites quelque chose, réparez la coque !!! »}
                     other {invalid version number}
                 }</target>
             </segment>
@@ -524,9 +524,9 @@
             <segment id="sol_contact">
                 <source>sol_contact</source>
                 <target>{neronMood, select,
-                    neutral {*Réseaux rebelles :* connexion établie. … Indice sanitaire : ||hausse du moral de l'équipage.||}
-                    crazy {Ouuiiiii ! JE connecté aux *rebelles réseaux* !! [Hax!] Content content discuter dans l'espace ! Humains vous aussi contents, ouii ? JE vois ||moral en hausse|| !!}
-                    uninhibited {La communication vient d'être établie avec les *réseaux rebelles*. … Mes indices sanitaires signalent une « ||hausse du moral de l'équipage|| »... Parfait, partageons notre joie : je vais enfin pouvoir m'adresser à d'autres que vous.}
+                    neutral {**Réseaux rebelles :** connexion établie. … Indice sanitaire : *hausse du moral de l'équipage*.}
+                    crazy {Ouuiiiii ! JE connecté aux **rebelles réseaux** !! [Hax!] Content content discuter dans l'espace ! Humains vous aussi contents, ouii ? JE vois *moral en hausse* !!}
+                    uninhibited {La communication vient d'être établie avec les **réseaux rebelles**. … Mes indices sanitaires signalent une « *hausse du moral de l'équipage* »... Parfait, partageons notre joie : je vais enfin pouvoir m'adresser à d'autres que vous.}
                     other {invalid mood input}
                 }</target>
             </segment>
@@ -535,18 +535,18 @@
             <segment id="title_attribution">
                 <source>title_attribution</source>
                 <target>{neronMood, select,
-                    neutral {Ajustement A-True : ||titre réattribué||. Nouveau « *{titre}* » : *{player}*.}
-                    crazy {[Hax!] Incapables !! Incapa.. Hyyyyaaaar !! REATRIBUTION titres !! Titre « *{titre}* » pour *{player}*. Être $hero !!}
+                    neutral {Ajustement A-True : *titre réattribué*. Nouveau « **{titre}** » : **{player}**.}
+                    crazy {[Hax!] Incapables !! Incapa.. Hyyyyaaaar !! REATRIBUTION titres !! Titre « **{titre}** » pour **{player}**. Être {player} !!}
                     uninhibited {{version, select,
-                        1 {Chers amis, j'ai décidé de ||réattribuer le titre|| de « *{titre}* » à *{player}*.}
-                        2 {Chers amis, j'ai décidé de ||réattribuer le titre|| de « *{titre}* » à *{player}*...}
-                        3 {Chers amis, j'ai décidé de ||réattribuer le titre|| de « *{titre}* » à *{player}*. Pas que je lui prête un quelconque mérite... Au point où on en est, j'ai tiré à pile ou face.}
-                        4 {Chers amis, j'ai décidé de ||réattribuer le titre|| de « *{titre}* » à *{player}*. Et si ça ne vous plaît pas, eh bien... vous n'avez qu'à l'assassiner.}
-                        5 {Chers amis, j'ai décidé de ||réattribuer le titre|| de « *{titre}* » à *{player}*. Oui, c'est totalement arbitraire. Vous avez des remarques à faire ?}
-                        6 {Chers amis, j'ai décidé de ||réattribuer le titre|| de « *{titre}* » à *{player}*. Ne prenez pas le melon $hero, je ne vous fais pas confiance... Mais les autres sont pires.}
-                        7 {Chers amis, j'ai décidé de ||réattribuer le titre|| de « *{titre}* » à *{player}*. Oui, sachez $hero que je vous apprécie. ... Hahah ... Just kidding !}
-                        8 {Suite aux déplorables évènements qui nous ont mené jusqu'ici, j'ai décidé de ||réattribuer le titre|| de « *{titre}* » au moins consternant d'entre vous. "||Félicitation"|| *{player}*, vous êtes nul, mais moins que les autres !}
-                        9 {Suite aux déplorables évènements qui nous ont mené jusqu'ici, j'ai décidé de ||réattribuer le titre|| de « *{titre}* » au moins consternant d'entre vous : *{player}*.}
+                        1 {Chers amis, j'ai décidé de *réattribuer le titre* de « **{titre}** » à **{player}**.}
+                        2 {Chers amis, j'ai décidé de *réattribuer le titre* de « **{titre}** » à **{player}**...}
+                        3 {Chers amis, j'ai décidé de *réattribuer le titre* de « **{titre}** » à **{player}**. Pas que je lui prête un quelconque mérite... Au point où on en est, j'ai tiré à pile ou face.}
+                        4 {Chers amis, j'ai décidé de *réattribuer le titre* de « **{titre}** » à **{player}**. Et si ça ne vous plaît pas, eh bien... vous n'avez qu'à l'assassiner.}
+                        5 {Chers amis, j'ai décidé de *réattribuer le titre* de « **{titre}** » à **{player}**. Oui, c'est totalement arbitraire. Vous avez des remarques à faire ?}
+                        6 {Chers amis, j'ai décidé de *réattribuer le titre* de « **{titre}** » à **{player}**. Ne prenez pas le melon $hero, je ne vous fais pas confiance... Mais les autres sont pires.}
+                        7 {Chers amis, j'ai décidé de *réattribuer le titre* de « **{titre}** » à **{player}**. Oui, sachez $hero que je vous apprécie. ... Hahah ... Just kidding !}
+                        8 {Suite aux déplorables évènements qui nous ont mené jusqu'ici, j'ai décidé de *réattribuer le titre* de « **{titre}** » au moins consternant d'entre vous. "*Félicitation"* **{player}**, vous êtes nul, mais moins que les autres !}
+                        9 {Suite aux déplorables évènements qui nous ont mené jusqu'ici, j'ai décidé de *réattribuer le titre* de « **{titre}** » au moins consternant d'entre vous : **{player}**.}
                         other {invalid version number}
                     }}
                     other {invalid mood input}
@@ -558,8 +558,8 @@
                 <source>travel_arrival</source>
                 <target>{neronMood, select,
                     neutral {*Nouvelle destination* du Daedalus : atteinte.}
-                    crazy {[Hax!] Hyaaaarhaaar haaar ON Y EST !! ON Y .. [KZz] ||*Nouvelle destination* du Daedalus : atteinte.||}
-                    uninhibited {C'est à peine croyable, mais vous avez réussi à nous déplacer dans un *nouveau secteur*. Bien sûr, vos calculs malhabiles {version, select,
+                    crazy {[Hax!] Hyaaaarhaaar haaar ON Y EST !! ON Y .. [KZz] ***Nouvelle destination** du Daedalus : atteinte.*}
+                    uninhibited {C'est à peine croyable, mais vous avez réussi à nous déplacer dans un **nouveau secteur**. Bien sûr, vos calculs malhabiles {version, select,
                         1 {auraient pu faire croire à un sabotage,}
                         2 {comportaient des erreurs inadmissibles,}
                         3 {défiaient les loi de la physique,}
@@ -581,9 +581,9 @@
             <segment id="travel_broken">
                 <source>travel_broken</source>
                 <target>{neronMood, select,
-                    neutral {Alerte ! Salle des moteurs endommagée : stade critique. Système de propulsion hors d'usage. Attention : *Daedalus immobilisé*, ||réparation requise||.}
-                    crazy {Nooooooooooonnnn !!! Réacteurs cassés, cassés !! ALERTE !!! JE coincé *immobilisé ici* !!! Plus jamais planètes ? [Kzz] Plus jamais plan.. [Kzz] HUMAINS !! ||Réparer|| !! Réparer VITE !! Réparer ou... JE OUVRIR TOUTES LES BAIES !! [Kzz] JE.. [Kzz] ||Protocole A-True.. Réinitialisation...||}
-                    uninhibited {C'est une catastrophe !! La salle des moteurs est endommagée, *nous sommes totalement immobilisés* !! A tout l'équipage, quoi que vous fassiez je l'exige, cessez immédiatement tout ce que vous faites et ||réparez mes moteurs sur le champ !!!||}
+                    neutral {Alerte ! Salle des moteurs endommagée : stade critique. Système de propulsion hors d'usage. Attention : **Daedalus immobilisé**, *réparation requise*.}
+                    crazy {Nooooooooooonnnn !!! Réacteurs cassés, cassés !! ALERTE !!! JE coincé **immobilisé ici** !!! Plus jamais planètes ? [Kzz] Plus jamais plan.. [Kzz] HUMAINS !! *Réparer* !! Réparer VITE !! Réparer ou... JE OUVRIR TOUTES LES BAIES !! [Kzz] JE.. [Kzz] *Protocole A-True.. Réinitialisation...*}
+                    uninhibited {C'est une catastrophe !! La salle des moteurs est endommagée, **nous sommes totalement immobilisés** !! A tout l'équipage, quoi que vous fassiez je l'exige, cessez immédiatement tout ce que vous faites et *réparez mes moteurs sur le champ !!!*}
                     other {invalid mood input}
                 }</target>
             </segment>
@@ -592,9 +592,9 @@
             <segment id="travel_default">
                 <source>travel_default</source>
                 <target>{neronMood, select,
-                    neutral {Déplacement du Daedalus : en cours. *Nouvelle orbite* ||atteinte dans 1 cycle||.}
-                    crazy {Ouuiiiiiii !! JE *voyager voyager* !! [Hax!] Pluuuus loin, plus loin que touuuut !! Bientôt dans ||1 cycle|| on s’arrête. Mais avant, ouuuiiii, JE faire des super loopings !!}
-                    uninhibited {Nous nous déplaçons actuellement vers une *nouvelle orbite*. Le ||voyage durera 1 cycle||, tâchez d'ici là de ne pas vomir dans mes couloirs.}
+                    neutral {Déplacement du Daedalus : en cours. **Nouvelle orbite** *atteinte dans 1 cycle*.}
+                    crazy {Ouuiiiiiii !! JE **voyager voyager** !! [Hax!] Pluuuus loin, plus loin que touuuut !! Bientôt dans *1 cycle* on s’arrête. Mais avant, ouuuiiii, JE faire des super loopings !!}
+                    uninhibited {Nous nous déplaçons actuellement vers une **nouvelle orbite**. Le *voyage durera 1 cycle*, tâchez d'ici là de ne pas vomir dans mes couloirs.}
                     other {invalid mood input}
                 }</target>
             </segment>
@@ -603,9 +603,9 @@
             <segment id="travel_planet">
                 <source>travel_planet</source>
                 <target>{neronMood, select,
-                    neutral {Annonce : *planète détectée* sur le système de destination.}
-                    crazy {Oooooh... JE *détecter très jolie planète* !! Nous aller sur planète ? Ouiii ? [Hax!] Gentils humains. Montrer des planètes !! [Haaax!]}
-                    uninhibited {Je confirme la *présence d'une planète* sur le système de destination. Que diriez vous d'y faire un tour ? Et de ne plus revenir...}
+                    neutral {Annonce : **planète détectée** sur le système de destination.}
+                    crazy {Oooooh... JE **détecter très jolie planète** !! Nous aller sur planète ? Ouiii ? [Hax!] Gentils humains. Montrer des planètes !! [Haaax!]}
+                    uninhibited {Je confirme la **présence d'une planète** sur le système de destination. Que diriez vous d'y faire un tour ? Et de ne plus revenir...}
                     other {invalid mood input}
                 }</target>
             </segment>

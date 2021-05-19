@@ -88,7 +88,7 @@ class PlayerStatusService implements PlayerStatusServiceInterface
             $this->statusService->createCoreStatus(PlayerStatusEnum::STARVING, $player);
 
             $this->roomLogService->createLog(
-                LogEnum::FORCE_GET_UP,
+                LogEnum::HUNGER,
                 $player->getPlace(),
                 VisibilityEnum::PRIVATE,
                 'event_log',

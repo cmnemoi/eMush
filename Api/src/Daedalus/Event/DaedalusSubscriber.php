@@ -33,7 +33,7 @@ class DaedalusSubscriber implements EventSubscriberInterface
             throw new \LogicException('daedalus should end with a reason');
         }
 
-        $this->daedalusService->killRemainingPlayers($daedalus, $reason);
+        $this->daedalusService->killRemainingPlayers($daedalus, $reason, $event->getTime());
 
         // @TODO: create logs
         // @TODO: remove all fire and charged statuses
@@ -57,7 +57,7 @@ class DaedalusSubscriber implements EventSubscriberInterface
         //@TODO give titles
 
         //Chose alpha Mushs
-        $this->daedalusService->selectAlphaMush($daedalus);
+        $this->daedalusService->selectAlphaMush($daedalus, $event->getTime());
 
         $daedalus->setFilledAt(new \DateTime());
         $daedalus->setGameStatus(GameStatusEnum::CURRENT);

@@ -156,7 +156,7 @@ class DaedalusService implements DaedalusServiceInterface
         return $this->persist($daedalus);
     }
 
-    public function selectAlphaMush(Daedalus $daedalus): Daedalus
+    public function selectAlphaMush(Daedalus $daedalus, \DateTime $date): Daedalus
     {
         $gameConfig = $daedalus->getGameConfig();
 
@@ -184,7 +184,7 @@ class DaedalusService implements DaedalusServiceInterface
             ;
 
             if (!$mushPlayers->isEmpty()) {
-                $playerEvent = new PlayerEvent($mushPlayers->first());
+                $playerEvent = new PlayerEvent($mushPlayers->first(), $date);
                 $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::CONVERSION_PLAYER);
             }
         }
@@ -192,12 +192,13 @@ class DaedalusService implements DaedalusServiceInterface
         return $daedalus;
     }
 
-    public function getRandomAsphyxia(Daedalus $daedalus, \DateTime $date = null): Daedalus
+    public function getRandomAsphyxia(Daedalus $daedalus, \DateTime $date): Daedalus
     {
-        $date = $date ?? new \DateTime('now');
-
-        $noCapsule = $daedalus->getPlayers()->getPlayerAlive()->filter(fn (Player $player) => $player->getItems()->filter(fn (GameItem $item) => $item->getName() === ItemEnum::OXYGEN_CAPSULE)->count() === 0
-        );
+        $noCapsule = $daedalus
+            ->getPlayers()
+            ->getPlayerAlive()
+            ->filter(fn (Player $player) => $player->getItems()->filter(fn (GameItem $item) => $item->getName() === ItemEnum::OXYGEN_CAPSULE)->count() === 0)
+        ;
 
         $players = $this->getPlayersWithLessOxygen($daedalus);
 
@@ -222,7 +223,7 @@ class DaedalusService implements DaedalusServiceInterface
         if (!$noCapsule->isEmpty()) {
             $player = $this->randomService->getRandomPlayer($noCapsule);
 
-            $playerEvent = new PlayerEvent($player);
+            $playerEvent = new PlayerEvent($player, $date);
             $playerEvent->setReason(EndCauseEnum::ASPHYXIA);
 
             $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
@@ -245,13 +246,13 @@ class DaedalusService implements DaedalusServiceInterface
         return null;
     }
 
-    public function killRemainingPlayers(Daedalus $daedalus, string $cause): Daedalus
+    public function killRemainingPlayers(Daedalus $daedalus, string $cause, \DateTime $date): Daedalus
     {
         $playerAliveNb = $daedalus->getPlayers()->getPlayerAlive()->count();
         for ($i = 0; $i < $playerAliveNb; ++$i) {
             $player = $this->randomService->getAlivePlayerInDaedalus($daedalus);
 
-            $playerEvent = new PlayerEvent($player);
+            $playerEvent = new PlayerEvent($player, $date);
             $playerEvent->setReason($cause);
             $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
         }

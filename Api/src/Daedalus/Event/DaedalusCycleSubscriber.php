@@ -51,7 +51,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
 
         $this->dispatchCycleChangeEvent($daedalus, $event->getTime());
 
-        $daedalus = $this->handleOxygen($daedalus);
+        $daedalus = $this->handleOxygen($daedalus, $event->getTime());
 
         $this->daedalusService->persist($daedalus);
     }
@@ -93,7 +93,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         return false;
     }
 
-    private function handleOxygen(Daedalus $daedalus): Daedalus
+    private function handleOxygen(Daedalus $daedalus, \DateTime $date): Daedalus
     {
         //Handle oxygen loss
         $oxygenLoss = 1;
@@ -119,7 +119,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         }
 
         if ($daedalus->getOxygen() <= $oxygenLoss) {
-            $this->daedalusService->getRandomAsphyxia($daedalus);
+            $this->daedalusService->getRandomAsphyxia($daedalus, $date);
         }
         $this->daedalusService->changeOxygenLevel($daedalus, -$oxygenLoss);
 

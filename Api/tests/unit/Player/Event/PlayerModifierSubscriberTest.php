@@ -45,7 +45,7 @@ class PlayerModifierSubscriberTest extends TestCase
     {
         $player = new Player();
 
-        $event = new PlayerModifierEvent($player, 1);
+        $event = new PlayerModifierEvent($player, 1, new \DateTime());
 
         $player->setActionPoint(1);
 

@@ -61,7 +61,7 @@ class UseBandage extends AbstractAction
 
         $initialHealth = $this->player->getHealthPoint();
 
-        $playerModifierEvent = new PlayerModifierEvent($this->player, self::BANDAGE_HEAL);
+        $playerModifierEvent = new PlayerModifierEvent($this->player, self::BANDAGE_HEAL, new \DateTime());
         $playerModifierEvent->setIsDisplayedRoomLog(false);
         $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
 

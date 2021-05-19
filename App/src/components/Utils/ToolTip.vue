@@ -1,19 +1,18 @@
 <template>
-<li><div class="tooltip">
-		14<img src="@/assets/images/fuel.png">
-		<div class="tooltiptext">
-			<div class="tiptop">
-				<div class="tipbottom">
-					<div class="tipbg">
-						<div class="tipcontent">
-							<h1>Fuel en réserve [ 14 / 32 ]</h1><p>Le <strong>fuel</strong> est indispensable pour ne pas dériver dans l'espace jusqu'à la fin des temps. Cette ressource peut être trouvée lors de vos <strong>explorations</strong> sur les planètes. Cet indicateur n'affiche pas le fuel dans la <strong>Chambre de Combustion</strong>.</p>
-						</div>
+<div class="tooltip">
+	<slot name='tooltipname'></slot>
+	<div class="tooltiptext">
+		<div class="tiptop">
+			<div class="tipbottom">
+				<div class="tipbg">
+					<div class="tipcontent">
+						<h1><slot name='tooltipcontenth1'></slot></h1><p><slot name='tooltipcontentp'></slot></p>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</li>
+</div>
 </template>
 
 <script>

@@ -275,7 +275,7 @@ class DaedalusServiceTest extends TestCase
         $this->eventDispatcher->shouldReceive('dispatch')->once();
         $this->gameEquipmentService->shouldReceive('delete')->with($oxCapsule1)->once();
 
-        $result = $this->service->getRandomAsphyxia($daedalus);
+        $result = $this->service->getRandomAsphyxia($daedalus, new \DateTime());
 
         $this->assertCount(1, $twoCapsulePlayer->getItems());
         $this->assertCount(3, $threeCapsulePlayer->getItems());
@@ -319,7 +319,7 @@ class DaedalusServiceTest extends TestCase
 
         $this->eventDispatcher->shouldReceive('dispatch')->twice();
 
-        $result = $this->service->selectAlphaMush($daedalus);
+        $result = $this->service->selectAlphaMush($daedalus, new \DateTime());
     }
 
     public function testChangeHull()

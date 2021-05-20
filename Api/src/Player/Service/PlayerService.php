@@ -136,7 +136,7 @@ class PlayerService implements PlayerServiceInterface
         $this->persist($player);
 
         $user->setCurrentGame($player);
-        $playerEvent = new PlayerEvent($player);
+        $playerEvent = new PlayerEvent($player, new \DateTime());
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::NEW_PLAYER);
 
         return $player;

@@ -73,7 +73,7 @@ class Infect extends AbstractAction
         /** @var Player $parameter */
         $parameter = $this->parameter;
 
-        $playerEvent = new PlayerEvent($parameter);
+        $playerEvent = new PlayerEvent($parameter, new \DateTime());
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::INFECTION_PLAYER);
 
         /** @var ChargeStatus $sporeStatus */

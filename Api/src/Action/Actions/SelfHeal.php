@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class SelfHeal extends AbstractAction
 {
-    const BASE_HEAL = 2;
+    public const BASE_HEAL = 2;
 
     protected string $name = ActionEnum::SELF_HEAL;
 

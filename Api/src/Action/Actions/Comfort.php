@@ -18,7 +18,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Comfort extends AbstractAction
 {
-    const BASE_CONFORT = 2;
+    public const BASE_CONFORT = 2;
 
     protected string $name = ActionEnum::COMFORT;
 

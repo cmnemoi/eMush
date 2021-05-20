@@ -22,7 +22,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class UseBandage extends AbstractAction
 {
-    const BANDAGE_HEAL = 2;
+    public const BANDAGE_HEAL = 2;
 
     protected string $name = ActionEnum::USE_BANDAGE;
 

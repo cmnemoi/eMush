@@ -179,7 +179,7 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
         $sabotageAction1 = new Action();
         $sabotageAction1
             ->setName(ActionEnum::SABOTAGE)
-            ->setScope(ActionScopeEnum::ROOM)
+            ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(20)
             ->setInjuryRate(0)
             ->setSuccessRate(1)
@@ -191,7 +191,7 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
         $sabotageAction3 = new Action();
         $sabotageAction3
             ->setName(ActionEnum::SABOTAGE)
-            ->setScope(ActionScopeEnum::ROOM)
+            ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(20)
             ->setInjuryRate(0)
             ->setSuccessRate(3)
@@ -203,7 +203,7 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
         $sabotageAction6 = new Action();
         $sabotageAction6
             ->setName(ActionEnum::SABOTAGE)
-            ->setScope(ActionScopeEnum::ROOM)
+            ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(20)
             ->setInjuryRate(0)
             ->setSuccessRate(6)
@@ -215,7 +215,7 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
         $sabotageAction12 = new Action();
         $sabotageAction12
             ->setName(ActionEnum::SABOTAGE)
-            ->setScope(ActionScopeEnum::ROOM)
+            ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(20)
             ->setInjuryRate(0)
             ->setSuccessRate(12)
@@ -227,7 +227,7 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
         $sabotageAction25 = new Action();
         $sabotageAction25
             ->setName(ActionEnum::SABOTAGE)
-            ->setScope(ActionScopeEnum::ROOM)
+            ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(20)
             ->setInjuryRate(0)
             ->setSuccessRate(25)
@@ -239,7 +239,7 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
         $sabotageAction50 = new Action();
         $sabotageAction50
             ->setName(ActionEnum::SABOTAGE)
-            ->setScope(ActionScopeEnum::ROOM)
+            ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(20)
             ->setInjuryRate(0)
             ->setSuccessRate(50)

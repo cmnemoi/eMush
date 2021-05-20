@@ -1,16 +1,9 @@
 <template>
 <div class="tooltip">
 	<slot name='tooltipname'></slot>
-	<div class="tooltiptext">
-		<div class="tiptop">
-			<div class="tipbottom">
-				<div class="tipbg">
-					<div class="tipcontent">
-						<h1><slot name='tooltipcontenth1'></slot></h1><p><slot name='tooltipcontentp'></slot></p>
-					</div>
-				</div>
-			</div>
-		</div>
+	<div class="tooltip-content">
+		<h1><slot name='tooltipcontenth1'></slot></h1>
+		<p><slot name='tooltipcontentp'></slot></p>
 	</div>
 </div>
 </template>
@@ -22,100 +15,58 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/* Tooltip container */
-.tooltip {
+
+.tooltip { // container to hover to call the tooltip
   position: relative;
   display: inline-block;
-  border-bottom: 0px dotted transparent; /* If you want dots under the hoverable text */
+  border-bottom: 0px dotted transparent; // If you want dots under the hoverable text
+
+	&:hover .tooltip-content, &:hover ~ .tooltip-content {
+		visibility: visible;
+	}
 }
 
-/* Tooltip text */
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 120px;
-  background-color: transparent;
-  color: #fff;
-  text-align: center;
-  padding: 5px 0;
-  border-radius: 6px;
- 
-  /* Position the tooltip text - see examples below! */
-  position: absolute;
-  z-index: 10;
+.tooltip-content {
+	visibility: hidden;
+
+	position: absolute;
+	pointer-events: none;
+	z-index: 10;
+	padding: 1em;
+	max-width: 250px;
+	width: max-content;
+	background-color: rgba(35, 37, 100, .9);
+	color: #fff;
+	font-size : .75em;
+	line-height: 1.5em;
+	box-shadow: inset 0 0 12px 3px #3965fb, inset 0 0 0 2px #3965fb;
+
+	&::after { // Adds the triangles in the corners
+		content: "";
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		margin: 3px;
+		border: 5px solid transparent;
+		border-image: url('~@/assets/images/ToolTip-corners.gif') 50% round;
+	}
+
+	p { margin: 0; }
+
+	b, strong { color: #01c3df !important; }
+
+	h1 {
+		margin: 0 0 .4em;
+		padding-left: 16px;
+		font-size: 1.2em;
+		letter-spacing: .03em;
+		font-variant: small-caps;
+		background: transparent url('~@/assets/images/notes.gif') no-repeat center left;
+	}
 }
 
-/* Show the tooltip text when you mouse over the tooltip container */
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-}
-.tiptop {
-	background-image : url('~@/assets/images/tiptop.png');
-	background-repeat : no-repeat;
-	background-position : left top;
-	padding-top : 16px;
-	padding-bottom : 1px;
-	width : 263px;
-}
-.tiptop .tipbottom {
-	background : transparent url('~@/assets/images/tipbottom.png') no-repeat left bottom;
-	padding-bottom : 16px;
-}
-.tiptop .tipbottom .tipbg {
-	background : transparent url('~@/assets/images/tipbg.png') repeat-y left top;
-	padding : 1px;
-	padding-left : 10px;
-	padding-right : 10px;
-	font-size : 9pt;
-	min-height : 25px;;
-}
-.tiptop .tipbottom .tipbg .tipcontent {
-	margin-top : -10px;
-	margin-bottom : -10px;
-	line-height : 13pt;
-	font-size : 9pt;
-	padding-right : 14px;
-    text-align: left;
-}
-.tiptop .tipbottom .tipbg h1 {
-	padding-bottom : 2px;
-	font-size : 10pt;
-	padding-left : 16px;
-	margin-bottom : 3px;
-	font-variant : small-caps;
-	background : transparent url('~@/assets/images/notes.gif') no-repeat left top;
-}
-.tiptop .tipbottom .tipbg h1 img {
-	vertical-align : -25%;
-}
-.tiptop .tipbottom .tipbg img {
-	vertical-align : middle;
-}
-.tiptop .tipbottom .tipbg p {
-	margin-bottom : 10px;
-}
-.tiptop .tipbottom .tipbg strong {
-	color : #01c3df;
-}
-.tiptop .tipbottom .tipbg em {
-	color : #ff4059;
-}
-.tiptop .tipbottom .tipbg ul {
-	font-style : italic;
-	margin-top : 10px;
-}
-.tiptop .tipbottom .tipbg ul li {
-	margin-left : 10px;
-	margin-bottom : 15px;
-	padding-left : 18px;
-	background : transparent url('~@/assets/images/point.png') no-repeat 5px 6px;
-}
-.tiptop .tipbottom .tipbg ul li li {
-	background-image : url('~@/assets/images/point2.png');
-}
-.tiptop .tipbottom .tipbg .once_skill {
-	float : left;
-	margin-right : 3px;
-}
 </style>
 
 

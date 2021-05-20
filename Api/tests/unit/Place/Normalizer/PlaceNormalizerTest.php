@@ -197,7 +197,7 @@ class PlaceNormalizerTest extends TestCase
         $room->addEquipment($gameItem3);
 
         $normalizer = Mockery::mock(NormalizerInterface::class);
-        $normalizer->shouldReceive('normalize')->andReturn([]);
+        $normalizer->shouldReceive('normalize')->andReturn([])->twice();
 
         $player = new Player();
 

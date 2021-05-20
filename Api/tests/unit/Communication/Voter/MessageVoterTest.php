@@ -3,6 +3,7 @@
 namespace Mush\Test\Communication\Voter;
 
 use Mush\Communication\Entity\Channel;
+use Mush\Communication\Entity\ChannelPlayer;
 use Mush\Communication\Entity\Message;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Communication\Voter\MessageVoter;
@@ -79,7 +80,12 @@ class MessageVoterTest extends TestCase
 
         $this->testVote(MessageVoter::CREATE, $message, $user, Voter::ACCESS_DENIED);
 
-        $channel->addParticipant($player);
+        $channelPlayer = new ChannelPlayer();
+        $channelPlayer
+            ->setChannel($channel)
+            ->setParticipant($player)
+        ;
+        $channel->addParticipant($channelPlayer);
 
         $this->testVote(MessageVoter::CREATE, $message, $user, Voter::ACCESS_GRANTED);
 

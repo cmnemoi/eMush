@@ -12,7 +12,6 @@ use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class InfectActionTest extends AbstractActionTest
 {
@@ -39,7 +38,6 @@ class InfectActionTest extends AbstractActionTest
             $this->actionService,
             $this->validator,
             $this->statusService,
-            $this->playerService,
         );
     }
 
@@ -75,10 +73,8 @@ class InfectActionTest extends AbstractActionTest
 
         $this->action->loadParameters($this->actionEntity, $player, $targetPlayer);
 
-        $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
-
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $eventDispatcher->shouldReceive('dispatch');
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
         $this->statusService->shouldReceive('persist')->once();
         $this->statusService->shouldReceive('persist')->once();
 

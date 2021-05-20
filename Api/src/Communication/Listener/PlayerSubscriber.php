@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Communication\Event;
+namespace Mush\Communication\Listener;
 
 use Mush\Communication\Services\ChannelServiceInterface;
 use Mush\Communication\Services\NeronMessageServiceInterface;
@@ -23,15 +23,8 @@ class PlayerSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            PlayerEvent::NEW_PLAYER => 'onNewPlayer',
             PlayerEvent::DEATH_PLAYER => 'onDeathPlayer',
         ];
-    }
-
-    public function onNewPlayer(PlayerEvent $event): void
-    {
-        $player = $event->getPlayer();
-        $this->channelService->invitePlayerToPublicChannel($player);
     }
 
     public function onDeathPlayer(PlayerEvent $event): void

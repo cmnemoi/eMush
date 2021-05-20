@@ -6,7 +6,7 @@ export class DeadPlayerInfo {
         this.endCauseKey = null;
         this.endCauseValue = null;
         this.endCauseDescription= null;
-        this.players = []
+        this.players = [];
     }
 
     load = function(object) {

@@ -11,6 +11,7 @@ extensions:
         - Codeception\Extension\RunFailed
 params:
     - .env
+    - .env.test
 
 coverage:
     enabled: true

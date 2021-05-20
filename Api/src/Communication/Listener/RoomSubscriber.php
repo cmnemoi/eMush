@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Communication\Event;
+namespace Mush\Communication\Listener;
 
 use Mush\Communication\Services\NeronMessageServiceInterface;
 use Mush\Place\Event\RoomEvent;

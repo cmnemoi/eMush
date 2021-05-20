@@ -26,7 +26,7 @@ class SelfHeal extends AbstractAction
         EventDispatcherInterface $eventDispatcher,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        PlayerServiceInterface $playerService,
+        PlayerServiceInterface $playerService
     ) {
         parent::__construct(
             $eventDispatcher,
@@ -53,7 +53,7 @@ class SelfHeal extends AbstractAction
 
         $initialHealth = $this->player->getHealthPoint();
 
-        $playerModifierEvent = new PlayerModifierEvent($this->player, self::BASE_HEAL);
+        $playerModifierEvent = new PlayerModifierEvent($this->player, self::BASE_HEAL, new \DateTime());
         $playerModifierEvent->setIsDisplayedRoomLog(false);
         $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
 

@@ -14,7 +14,7 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
 
     public function __construct(
         PlayerVariableServiceInterface $playerVariableService,
-        EventDispatcherInterface $eventDispatcher,
+        EventDispatcherInterface $eventDispatcher
     ) {
         $this->playerVariableService = $playerVariableService;
         $this->eventDispatcher = $eventDispatcher;
@@ -91,7 +91,7 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
         $player = $playerEvent->getPlayer();
         $delta = $playerEvent->getDelta();
 
-        if ($player->getActionPoint() <= 1) {
+        if ($player->getActionPoint() < 1) {
             throw new \Exception('Trying to convert movement point without action point');
         }
 

@@ -88,7 +88,9 @@ class PlantCycleHandler extends AbstractCycleHandler
 
         $diseaseRate = $daedalus->getGameConfig()->getDifficultyConfig()->getPlantDiseaseRate();
 
-        if ($this->randomService->isSuccessful($diseaseRate)) {
+        if ($this->randomService->isSuccessful($diseaseRate) &&
+            !$gamePlant->hasStatus(EquipmentStatusEnum::PLANT_DISEASED)
+        ) {
             $this->statusService->createCoreStatus(EquipmentStatusEnum::PLANT_DISEASED, $gamePlant);
         }
 

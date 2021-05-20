@@ -9,11 +9,14 @@ use FOS\RestBundle\View\View;
 use Mush\Action\ActionResult\Error;
 use Mush\Action\Entity\Dto\ActionRequest;
 use Mush\Action\Service\ActionStrategyServiceInterface;
+use Mush\Game\Service\CycleServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\User\Entity\User;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
@@ -22,11 +25,14 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class ActionController extends AbstractFOSRestController
 {
     private ActionStrategyServiceInterface $actionService;
+    private CycleServiceInterface $cycleService;
 
     public function __construct(
         ActionStrategyServiceInterface $actionService,
+        CycleServiceInterface $cycleService
     ) {
         $this->actionService = $actionService;
+        $this->cycleService = $cycleService;
     }
 
     /**
@@ -78,6 +84,12 @@ class ActionController extends AbstractFOSRestController
         if (!($currentPlayer = $user->getCurrentGame())) {
             throw new AccessDeniedException('User must be in game for actions');
         }
+
+        $daedalus = $currentPlayer->getDaedalus();
+        if ($daedalus->isCycleChange()) {
+            throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
+        }
+        $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
 
         try {
             $result = $this->actionService->executeAction(

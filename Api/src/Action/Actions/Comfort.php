@@ -28,7 +28,7 @@ class Comfort extends AbstractAction
         EventDispatcherInterface $eventDispatcher,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        PlayerServiceInterface $playerService,
+        PlayerServiceInterface $playerService
     ) {
         parent::__construct(
             $eventDispatcher,
@@ -55,11 +55,11 @@ class Comfort extends AbstractAction
         /** @var Player $parameter */
         $parameter = $this->parameter;
 
-        $playerModifierEvent = new PlayerModifierEvent($parameter, self::BASE_CONFORT);
+        $playerModifierEvent = new PlayerModifierEvent($parameter, self::BASE_CONFORT, new \DateTime());
         $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::MORAL_POINT_MODIFIER);
 
         $this->playerService->persist($parameter);
 
-        return new Success();
+        return new Success($parameter);
     }
 }

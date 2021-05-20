@@ -6,19 +6,31 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
+use Mush\Communication\Event\ChannelEvent;
+use Mush\Communication\Repository\ChannelPlayerRepository;
 use Mush\Communication\Repository\ChannelRepository;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ChannelService implements ChannelServiceInterface
 {
     private EntityManagerInterface $entityManager;
     private ChannelRepository $channelRepository;
+    private ChannelPlayerRepository $channelPlayerRepository;
+    private EventDispatcherInterface $eventDispatcher;
 
-    public function __construct(EntityManagerInterface $entityManager, ChannelRepository $channelRepository)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        ChannelRepository $channelRepository,
+        ChannelPlayerRepository $channelPlayerRepository,
+        EventDispatcherInterface $eventDispatcher
+    ) {
         $this->entityManager = $entityManager;
         $this->channelRepository = $channelRepository;
+        $this->channelPlayerRepository = $channelPlayerRepository;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     public function getPlayerChannels(Player $player, bool $privateOnly = false): Collection
@@ -54,48 +66,45 @@ class ChannelService implements ChannelServiceInterface
         $channel
             ->setDaedalus($player->getDaedalus())
             ->setScope(ChannelScopeEnum::PRIVATE)
-            ->addParticipant($player)
         ;
 
         $this->entityManager->persist($channel);
         $this->entityManager->flush();
 
+        $event = new ChannelEvent($channel, $player);
+        $this->eventDispatcher->dispatch($event, ChannelEvent::NEW_CHANNEL);
+
         return $channel;
     }
 
-    public function invitePlayerToPublicChannel(Player $player): ?Channel
+    public function getInvitablePlayersToPrivateChannel(Channel $channel): PlayerCollection
     {
-        $publicChannel = $this->getPublicChannel($player->getDaedalus());
+        $maxPrivateChannel = $channel->getDaedalus()->getGameConfig()->getMaxNumberPrivateChannel();
 
-        if ($publicChannel === null) {
-            return null;
-        }
-
-        $publicChannel->addParticipant($player);
-
-        $this->entityManager->persist($publicChannel);
-        $this->entityManager->flush();
-
-        return $publicChannel;
+        return new PlayerCollection($this->channelPlayerRepository->findAvailablePlayerForPrivateChannel($channel, $maxPrivateChannel));
     }
 
     public function invitePlayer(Player $player, Channel $channel): Channel
     {
-        $channel->addParticipant($player);
-
-        $this->entityManager->persist($channel);
-        $this->entityManager->flush();
+        $event = new ChannelEvent($channel, $player);
+        $this->eventDispatcher->dispatch($event, ChannelEvent::JOIN_CHANNEL);
 
         return $channel;
     }
 
-    public function exitChannel(Player $player, Channel $channel): Channel
+    public function exitChannel(Player $player, Channel $channel): bool
     {
-        $channel->removeParticipant($player);
+        $event = new ChannelEvent($channel, $player);
+        $this->eventDispatcher->dispatch($event, ChannelEvent::EXIT_CHANNEL);
 
-        $this->entityManager->persist($channel);
+        return true;
+    }
+
+    public function deleteChannel(Channel $channel): bool
+    {
+        $this->entityManager->remove($channel);
         $this->entityManager->flush();
 
-        return $channel;
+        return true;
     }
 }

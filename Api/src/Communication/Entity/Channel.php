@@ -36,12 +36,12 @@ class Channel
     private Daedalus $daedalus;
 
     /**
-     * @ORM\ManyToMany (targetEntity="Mush\Player\Entity\Player")
+     * @ORM\OneToMany(targetEntity="Mush\Communication\Entity\ChannelPlayer", mappedBy="channel")
      */
     private Collection $participants;
 
     /**
-     * @ORM\OneToMany  (targetEntity="Mush\Communication\Entity\Message", mappedBy="channel")
+     * @ORM\OneToMany  (targetEntity="Mush\Communication\Entity\Message", mappedBy="channel", cascade="remove")
      */
     private Collection $messages;
 
@@ -91,40 +91,21 @@ class Channel
         return ChannelScopeEnum::PUBLIC === $this->getScope();
     }
 
-    /**
-     * @return static
-     */
-    public function addParticipant(Player $player): Channel
-    {
-        if (!$this->getParticipants()->contains($player)) {
-            $this->participants->add($player);
-        }
-
-        return $this;
-    }
-
-    public function removeParticipant(Player $player): Channel
-    {
-        if (!$this->getParticipants()->contains($player)) {
-            $this->participants->removeElement($player);
-        }
-
-        return $this;
-    }
-
     public function getParticipants(): Collection
     {
         return $this->participants;
     }
 
-    /**
-     * @return static
-     */
-    public function setParticipants(Collection $participants): Channel
+    public function addParticipant(ChannelPlayer $channelPlayer): Channel
     {
-        $this->participants = $participants;
+        $this->participants->add($channelPlayer);
 
         return $this;
+    }
+
+    public function isPlayerParticipant(Player $player): bool
+    {
+        return !$this->getParticipants()->filter(fn (ChannelPlayer $channelPlayer) => ($channelPlayer->getParticipant() === $player))->isEmpty();
     }
 
     public function getMessages(): Collection
@@ -132,9 +113,6 @@ class Channel
         return $this->messages;
     }
 
-    /**
-     * @return static
-     */
     public function setMessages(Collection $messages): Channel
     {
         $this->messages = $messages;

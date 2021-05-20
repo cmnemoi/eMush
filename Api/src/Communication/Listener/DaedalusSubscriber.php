@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Communication\Event;
+namespace Mush\Communication\Listener;
 
 use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Communication\Services\ChannelServiceInterface;
@@ -15,7 +15,7 @@ class DaedalusSubscriber implements EventSubscriberInterface
 
     public function __construct(
         ChannelServiceInterface $channelService,
-        NeronMessageServiceInterface $neronMessageService,
+        NeronMessageServiceInterface $neronMessageService
     ) {
         $this->channelService = $channelService;
         $this->neronMessageService = $neronMessageService;

@@ -291,6 +291,26 @@
                 <target>Fantastique, le système d'Oxy Rev vous permet d'enlever de l'Oxygène des Réservoirs. Attention à bien fermer la vanne et à vous laver les mains.</target>
             </segment>
         </unit>
+        <unit id="insert_fuel">
+            <segment id="name">
+                <source>insert_fuel.name</source>
+                <target>Insérer</target>
+            </segment>
+            <segment id="description">
+                <source>insert_fuel.description</source>
+                <target>Injecte le Fuel dans un Réservoir.</target>
+            </segment>
+        </unit>
+        <unit id="retrieve_fuel">
+            <segment id="name">
+                <source>retrieve_fuel.name</source>
+                <target>Récupérer capsule de fuel</target>
+            </segment>
+            <segment id="description">
+                <source>retrieve_fuel.description</source>
+                <target>Permet de récupérer une Capsule du moteur.</target>
+            </segment>
+        </unit>
         <unit id="sabotage">
             <segment id="name">
                 <source>sabotage.name</source>

@@ -36,12 +36,12 @@
                     />
                 </p>
                 <p v-else>
-                  <ActionButton
-                      v-for="(action, key) in target.actions"
-                      :key="key"
-                      :action="action"
-                      @click="executeTargetAction(null, action)"
-                  />
+                    <ActionButton
+                        v-for="(action, key) in target.actions"
+                        :key="key"
+                        :action="action"
+                        @click="executeTargetAction(null, action)"
+                    />
                 </p>
             </div>
         </div>

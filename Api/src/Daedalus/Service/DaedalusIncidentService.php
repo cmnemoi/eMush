@@ -13,6 +13,7 @@ use Mush\Place\Enum\RoomEventEnum;
 use Mush\Place\Event\RoomEvent;
 use Mush\Player\Event\PlayerEvent;
 use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Status\Enum\StatusEnum;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class DaedalusIncidentService implements DaedalusIncidentServiceInterface
@@ -39,9 +40,11 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
 
         /** @var Place $room */
         foreach ($newFireRooms as $room) {
-            $roomEvent = new RoomEvent($room, $date);
-            $roomEvent->setReason(RoomEventEnum::CYCLE_FIRE);
-            $this->eventDispatcher->dispatch($roomEvent, RoomEvent::STARTING_FIRE);
+            if (!$room->hasStatus(StatusEnum::FIRE)) {
+                $roomEvent = new RoomEvent($room, $date);
+                $roomEvent->setReason(RoomEventEnum::CYCLE_FIRE);
+                $this->eventDispatcher->dispatch($roomEvent, RoomEvent::STARTING_FIRE);
+            }
         }
 
         return $numberOfNewFire;
@@ -93,8 +96,10 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
             $brokenEquipments = $this->randomService->getRandomElements($daedalusEquipments, $numberOfEquipmentBroken);
 
             foreach ($brokenEquipments as $gameEquipment) {
-                $equipmentEvent = new EquipmentEvent($gameEquipment, VisibilityEnum::HIDDEN, $date);
-                $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_BROKEN);
+                if (!$gameEquipment->isBroken()) {
+                    $equipmentEvent = new EquipmentEvent($gameEquipment, VisibilityEnum::HIDDEN, $date);
+                    $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_BROKEN);
+                }
             }
         }
 
@@ -171,7 +176,7 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
     //@TODO: to be improved
     private function getNumberOfIncident(Daedalus $daedalus): int
     {
-        $rate = intval($daedalus->getDay() / 2);
+        $rate = intval($daedalus->getDay() / 4);
 
         return $this->randomService->random(0, $rate);
     }

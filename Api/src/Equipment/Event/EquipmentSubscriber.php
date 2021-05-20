@@ -78,7 +78,6 @@ class EquipmentSubscriber implements EventSubscriberInterface
         $equipment = $event->getEquipment();
 
         $this->statusService->createCoreStatus(EquipmentStatusEnum::BROKEN, $equipment);
-
         $this->gameEquipmentService->persist($equipment);
 
         if ($equipment instanceof Door) {

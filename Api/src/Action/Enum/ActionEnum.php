@@ -159,4 +159,11 @@ class ActionEnum
             self::WHISPER,
         ];
     }
+
+    public static function getForceGetUpActions(): array
+    {
+        return [
+            self::HIT,
+        ];
+    }
 }

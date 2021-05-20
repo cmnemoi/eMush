@@ -34,7 +34,7 @@ class Hit extends AttemptAction
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         PlayerServiceInterface $playerService,
-        RandomServiceInterface $randomService,
+        RandomServiceInterface $randomService
     ) {
         parent::__construct(
             $eventDispatcher,
@@ -82,7 +82,7 @@ class Hit extends AttemptAction
             if ($damage <= 0) {
                 // TODO:
             } else {
-                $playerModifierEvent = new PlayerModifierEvent($parameter, -$damage);
+                $playerModifierEvent = new PlayerModifierEvent($parameter, -$damage, new \DateTime());
                 $playerModifierEvent->setReason(EndCauseEnum::ASSASSINATED);
                 $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
 

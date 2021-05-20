@@ -29,7 +29,7 @@ class ExtractSpore extends AbstractAction
         EventDispatcherInterface $eventDispatcher,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        StatusServiceInterface $statusService,
+        StatusServiceInterface $statusService
     ) {
         parent::__construct(
             $eventDispatcher,

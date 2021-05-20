@@ -56,7 +56,7 @@ class SearchActionTest extends AbstractActionTest
         Mockery::close();
     }
 
-    public function testExecute()
+    public function testExecuteNoItem()
     {
         $room = new Place();
 
@@ -68,6 +68,15 @@ class SearchActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $result = $this->action->execute();
         $this->assertInstanceOf(Fail::class, $result);
+    }
+
+    public function testExecuteNoHiddenItem()
+    {
+        $room = new Place();
+
+        $player = $this->createPlayer(new Daedalus(), $room);
+
+        $this->action->loadParameters($this->actionEntity, $player);
 
         //No hidden item in the room
         $gameItem = new GameItem();
@@ -80,7 +89,10 @@ class SearchActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $result = $this->action->execute();
         $this->assertInstanceOf(Fail::class, $result);
+    }
 
+    public function testExecuteSuccess()
+    {
         //Success find
         $room = new Place();
         $gameItem = new GameItem();
@@ -115,7 +127,10 @@ class SearchActionTest extends AbstractActionTest
         $this->assertCount(0, $room->getEquipments()->first()->getStatuses());
         $this->assertCount(0, $player->getStatuses());
         $this->assertCount(0, $hiddenBy->getStatuses());
+    }
 
+    public function testExecuteTwoHiddenItems()
+    {
         //2 hidden items
         $room = new Place();
         $gameItem = new GameItem();

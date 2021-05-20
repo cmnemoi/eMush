@@ -29,7 +29,7 @@ class Heal extends AbstractAction
         EventDispatcherInterface $eventDispatcher,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        PlayerServiceInterface $playerService,
+        PlayerServiceInterface $playerService
     ) {
         parent::__construct(
             $eventDispatcher,
@@ -61,7 +61,7 @@ class Heal extends AbstractAction
         //@TODO add modifiers
         $healedQuantity = self::BASE_HEAL;
 
-        $playerModifierEvent = new PlayerModifierEvent($this->player, $healedQuantity);
+        $playerModifierEvent = new PlayerModifierEvent($this->player, $healedQuantity, new \DateTime());
         $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
 
         $this->playerService->persist($parameter);

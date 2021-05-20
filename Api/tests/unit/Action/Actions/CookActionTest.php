@@ -19,7 +19,6 @@ use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class CookActionTest extends AbstractActionTest
 {
@@ -106,6 +105,11 @@ class CookActionTest extends AbstractActionTest
         $this->assertCount(0, $player->getStatuses());
 
         $room = new Place();
+    }
+
+    public function testExecuteRation()
+    {
+        $room = new Place();
 
         //Standard Ration
         $gameRation = new GameItem();
@@ -141,9 +145,7 @@ class CookActionTest extends AbstractActionTest
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->andReturn($gameCookedRation)->once();
-        $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
-        $eventDispatcher->shouldReceive('dispatch');
-        $eventDispatcher->shouldReceive('dispatch');
+        $this->eventDispatcher->shouldReceive('dispatch')->twice();
         $this->gameEquipmentService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
         $result = $this->action->execute();

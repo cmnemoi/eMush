@@ -17,7 +17,6 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Status\Service\StatusServiceInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class HyperfreezeActionTest extends AbstractActionTest
 {
@@ -59,7 +58,7 @@ class HyperfreezeActionTest extends AbstractActionTest
         Mockery::close();
     }
 
-    public function testExecute()
+    public function testExecuteFruit()
     {
         //fruit
         $room = new Place();
@@ -103,7 +102,10 @@ class HyperfreezeActionTest extends AbstractActionTest
         $this->assertCount(0, $player->getItems());
         $this->assertEquals($gameRation->getName(), $room->getEquipments()->first()->getName());
         $this->assertCount(0, $player->getStatuses());
+    }
 
+    public function testExecuteSteak()
+    {
         //Alien Steak
         $room = new Place();
 
@@ -147,8 +149,7 @@ class HyperfreezeActionTest extends AbstractActionTest
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->andReturn($gameStandardRation)->once();
-        $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
-        $eventDispatcher->shouldReceive('dispatch');
+        $this->eventDispatcher->shouldReceive('dispatch')->twice();
         $this->gameEquipmentService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
         $result = $this->action->execute();

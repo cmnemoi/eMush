@@ -12,14 +12,11 @@ use Mush\Player\Entity\Player;
 
 class MessageService implements MessageServiceInterface
 {
-    private ChannelServiceInterface $channelService;
     private EntityManagerInterface $entityManager;
 
     public function __construct(
-        ChannelServiceInterface $channelService,
-        EntityManagerInterface $entityManager,
+        EntityManagerInterface $entityManager
     ) {
-        $this->channelService = $channelService;
         $this->entityManager = $entityManager;
     }
 
@@ -43,6 +40,27 @@ class MessageService implements MessageServiceInterface
             $root->setUpdatedAt(new \DateTime());
             $this->entityManager->persist($root);
         }
+
+        $this->entityManager->persist($message);
+        $this->entityManager->flush();
+
+        return $message;
+    }
+
+    public function createSystemMessage(
+        string $messageKey,
+        Channel $channel,
+        array $parameters,
+        \DateTime $dateTime,
+    ): Message {
+        $message = new Message();
+        $message
+            ->setChannel($channel)
+            ->setMessage($messageKey)
+            ->setTranslationParameters($parameters)
+            ->setCreatedAt($dateTime)
+            ->setUpdatedAt($dateTime)
+        ;
 
         $this->entityManager->persist($message);
         $this->entityManager->flush();

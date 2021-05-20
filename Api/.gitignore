@@ -12,7 +12,7 @@
 /config/jwt/*.pem
 ###< lexik/jwt-authentication-bundle ###
 ###> squizlabs/php_codesniffer ###
-/.phpcs-cache
+/.php-cs-fixer.cache
 /phpcs.xml
 ###< squizlabs/php_codesniffer ###
 

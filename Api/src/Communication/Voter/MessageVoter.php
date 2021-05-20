@@ -11,8 +11,8 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class MessageVoter extends Voter
 {
-    const VIEW = 'view';
-    const CREATE = 'create';
+    public const VIEW = 'view';
+    public const CREATE = 'create';
 
     protected function supports(string $attribute, $subject)
     {

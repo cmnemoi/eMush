@@ -11,10 +11,10 @@ use Mush\Status\Enum\PlayerStatusEnum;
 
 class PlayerStatusService implements PlayerStatusServiceInterface
 {
-    const FULL_STOMACH_STATUS_THRESHOLD = 3;
-    const STARVING_STATUS_THRESHOLD = -24;
-    const SUICIDAL_THRESHOLD = 1;
-    const DEMORALIZED_THRESHOLD = 3;
+    public const FULL_STOMACH_STATUS_THRESHOLD = 3;
+    public const STARVING_STATUS_THRESHOLD = -24;
+    public const SUICIDAL_THRESHOLD = 1;
+    public const DEMORALIZED_THRESHOLD = 3;
 
     private StatusServiceInterface $statusService;
 

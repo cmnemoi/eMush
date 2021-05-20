@@ -28,7 +28,7 @@ class Shower extends AbstractAction
 
     private PlayerServiceInterface $playerService;
 
-    const MUSH_SHOWER_DAMAGES = -3;
+    public const MUSH_SHOWER_DAMAGES = -3;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,

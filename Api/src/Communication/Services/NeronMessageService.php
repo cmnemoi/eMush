@@ -21,7 +21,7 @@ use Mush\RoomLog\Enum\VisibilityEnum;
 
 class NeronMessageService implements NeronMessageServiceInterface
 {
-    const CRAZY_NERON_CHANCE = 25;
+    public const CRAZY_NERON_CHANCE = 25;
 
     private ChannelServiceInterface $channelService;
     private EntityManagerInterface $entityManager;

@@ -21,6 +21,8 @@ class DaedalusSubscriber implements EventSubscriberInterface
         return [
             DaedalusEvent::END_DAEDALUS => 'onDaedalusEnd',
             DaedalusEvent::FULL_DAEDALUS => 'onDaedalusFull',
+            DaedalusEvent::CHANGE_HULL => 'onChangeHull',
+            DaedalusEvent::CHANGE_OXYGEN => 'onChangeOxygen',
         ];
     }
 
@@ -62,5 +64,42 @@ class DaedalusSubscriber implements EventSubscriberInterface
         $daedalus->setFilledAt(new \DateTime());
         $daedalus->setGameStatus(GameStatusEnum::CURRENT);
         $this->daedalusService->persist($daedalus);
+    }
+
+    public function onChangeHull(DaedalusEvent $event): void
+    {
+        $daedalus = $event->getDaedalus();
+        $date = $event->getTime();
+
+        $change = $event->getQuantity();
+        if ($change === null) {
+            throw new \LogicException('quantity should be provided');
+        }
+
+        $this->daedalusService->changeHull($daedalus, $change, $date);
+    }
+
+    public function onChangeOxygen(DaedalusEvent $event): void
+    {
+        $daedalus = $event->getDaedalus();
+
+        $change = $event->getQuantity();
+        if ($change === null) {
+            throw new \LogicException('quantity should be provided');
+        }
+
+        $this->daedalusService->changeOxygenLevel($daedalus, $change);
+    }
+
+    public function onChangeFuel(DaedalusEvent $event): void
+    {
+        $daedalus = $event->getDaedalus();
+
+        $change = $event->getQuantity();
+        if ($change === null) {
+            throw new \LogicException('quantity should be provided');
+        }
+
+        $this->daedalusService->changeFuelLevel($daedalus, $change);
     }
 }

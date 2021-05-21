@@ -10,7 +10,7 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\Fuel;
 use Mush\Action\Validator\ParameterName;
 use Mush\Action\Validator\Reach;
-use Mush\Daedalus\Service\DaedalusServiceInterface;
+use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
@@ -23,14 +23,12 @@ class InsertFuel extends AbstractAction
 {
     protected string $name = ActionEnum::INSERT_FUEL;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private DaedalusServiceInterface $daedalusService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         GameEquipmentServiceInterface $gameEquipmentService,
-        DaedalusServiceInterface $daedalusService
     ) {
         parent::__construct(
             $eventDispatcher,
@@ -39,7 +37,6 @@ class InsertFuel extends AbstractAction
         );
 
         $this->gameEquipmentService = $gameEquipmentService;
-        $this->daedalusService = $daedalusService;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -63,7 +60,10 @@ class InsertFuel extends AbstractAction
 
         $item->setPlayer(null);
         $this->gameEquipmentService->delete($item);
-        $this->daedalusService->changeFuelLevel($this->getPlayer()->getDaedalus(), 1);
+
+        $daedalusEvent = new DaedalusEvent($this->player->getDaedalus(), new \DateTime());
+        $daedalusEvent->setQuantity(1);
+        $this->eventDispatcher->dispatch($daedalusEvent, DaedalusEvent::CHANGE_FUEL);
 
         return new Success();
     }

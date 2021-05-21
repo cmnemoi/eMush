@@ -9,7 +9,6 @@ use Mush\Action\Actions\RetrieveOxygen;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
-use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
@@ -24,8 +23,6 @@ class RetrieveOxygenTest extends AbstractActionTest
 {
     /** @var GameEquipmentServiceInterface | Mockery\Mock */
     private GameEquipmentServiceInterface $gameEquipmentService;
-    /** @var DaedalusServiceInterface | Mockery\Mock */
-    private DaedalusServiceInterface $daedalusService;
 
     /**
      * @before
@@ -37,14 +34,12 @@ class RetrieveOxygenTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::RETRIEVE_OXYGEN);
 
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
-        $this->daedalusService = Mockery::mock(DaedalusServiceInterface::class);
 
         $this->action = new RetrieveOxygen(
             $this->eventDispatcher,
             $this->actionService,
             $this->validator,
             $this->gameEquipmentService,
-            $this->daedalusService,
         );
     }
 
@@ -96,8 +91,8 @@ class RetrieveOxygenTest extends AbstractActionTest
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gameEquipmentService->shouldReceive('persist');
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->andReturn($gameItem)->once();
-        $this->daedalusService->shouldReceive('changeOxygenLevel')->andReturn($daedalus)->once();
 
         $this->action->loadParameters($this->actionEntity, $player, $gameTank);
 

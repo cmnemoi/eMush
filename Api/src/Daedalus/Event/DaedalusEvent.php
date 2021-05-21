@@ -10,10 +10,14 @@ class DaedalusEvent extends Event
     public const NEW_DAEDALUS = 'new.daedalus';
     public const END_DAEDALUS = 'end.daedalus';
     public const FULL_DAEDALUS = 'full.daedalus';
+    public const CHANGE_HULL = 'change.hull';
+    public const CHANGE_OXYGEN = 'change.oxygen';
+    public const CHANGE_FUEL = 'change.fuel';
 
     private Daedalus $daedalus;
     private ?string $reason = null;
     private \DateTime $time;
+    private ?int $quantity = null;
 
     public function __construct(Daedalus $daedalus, ?\DateTime $time)
     {
@@ -42,5 +46,17 @@ class DaedalusEvent extends Event
     public function getTime(): \DateTime
     {
         return $this->time;
+    }
+
+    public function getQuantity(): ?int
+    {
+        return $this->quantity;
+    }
+
+    public function setQuantity(int $quantity): DaedalusEvent
+    {
+        $this->quantity = $quantity;
+
+        return $this;
     }
 }

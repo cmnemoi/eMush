@@ -12,7 +12,7 @@ use Mush\Action\Validator\InventoryFull;
 use Mush\Action\Validator\Oxygen;
 use Mush\Action\Validator\Reach;
 use Mush\Action\Validator\Status;
-use Mush\Daedalus\Event\DaedalusEvent;
+use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
@@ -74,9 +74,9 @@ class RetrieveOxygen extends AbstractAction
 
         $this->gameEquipmentService->persist($gameItem);
 
-        $daedalusEvent = new DaedalusEvent($this->player->getDaedalus(), new \DateTime());
+        $daedalusEvent = new DaedalusModifierEvent($this->player->getDaedalus(), new \DateTime());
         $daedalusEvent->setQuantity(-1);
-        $this->eventDispatcher->dispatch($daedalusEvent, DaedalusEvent::CHANGE_OXYGEN);
+        $this->eventDispatcher->dispatch($daedalusEvent, DaedalusModifierEvent::CHANGE_OXYGEN);
 
         return new Success();
     }

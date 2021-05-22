@@ -2,7 +2,7 @@
 
 namespace Mush\Equipment\CycleHandler;
 
-use Mush\Daedalus\Event\DaedalusEvent;
+use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Plant;
@@ -241,9 +241,9 @@ class PlantCycleHandler extends AbstractCycleHandler
         $daedalus = $gamePlant->getCurrentPlace()->getDaedalus();
         //Add Oxygen
         if (($oxygen = $plantEffect->getOxygen())) {
-            $daedalusEvent = new DaedalusEvent($daedalus, $date);
+            $daedalusEvent = new DaedalusModifierEvent($daedalus, $date);
             $daedalusEvent->setQuantity($oxygen);
-            $this->eventDispatcher->dispatch($daedalusEvent, DaedalusEvent::CHANGE_OXYGEN);
+            $this->eventDispatcher->dispatch($daedalusEvent, DaedalusModifierEvent::CHANGE_OXYGEN);
         }
     }
 }

@@ -113,7 +113,7 @@ class ActionLogEnum
         ActionEnum::EXTRACT_SPORE => [
             self::SUCCESS => [
                 self::VALUE => self::EXTRACT_SPORE_SUCCESS,
-                self::VISIBILITY => VisibilityEnum::MUSH,
+                self::VISIBILITY => VisibilityEnum::COVERT,
             ],
         ],
         ActionEnum::INFECT => [

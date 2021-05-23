@@ -76,3 +76,9 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Disease/Entity'
                 prefix: 'Mush\Disease\Entity'
                 alias: Disease
+            Situation:
+                is_bundle: false
+                type: annotation
+                dir: '%kernel.project_dir%/src/Situation/Entity'
+                prefix: 'Mush\Situation\Entity'
+                alias: Situation

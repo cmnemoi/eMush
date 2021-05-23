@@ -1,8 +1,8 @@
 <?php
 
-namespace Mush\Situation\Enum;
+namespace Mush\Alert\Enum;
 
-class SituationEnum
+class AlertEnum
 {
     public const LOW_HULL = 'low_hull';
     public const LOW_OXYGEN = 'low_oxygen';

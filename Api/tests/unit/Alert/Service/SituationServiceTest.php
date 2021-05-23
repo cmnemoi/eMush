@@ -1,25 +1,25 @@
 <?php
 
-namespace Mush\Test\Situation\Service;
+namespace Mush\Test\Alert\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mockery;
+use Mush\Alert\Entity\Alert;
+use Mush\Alert\Enum\AlertEnum;
+use Mush\Alert\Repository\AlertRepository;
+use Mush\Alert\Service\AlertService;
+use Mush\Alert\Service\AlertServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Situation\Entity\Situation;
-use Mush\Situation\Enum\SituationEnum;
-use Mush\Situation\Repository\SituationRepository;
-use Mush\Situation\Service\SituationService;
-use Mush\Situation\Service\SituationServiceInterface;
 use PHPUnit\Framework\TestCase;
 
 class SituationServiceTest extends TestCase
 {
-    private SituationServiceInterface $situationService;
+    private AlertServiceInterface $alertService;
 
     /** @var EntityManagerInterface | Mockery\Mock */
     private EntityManagerInterface $entityManager;
-    /** @var SituationRepository | Mockery\Mock */
-    private SituationRepository $repository;
+    /** @var AlertRepository | Mockery\Mock */
+    private AlertRepository $repository;
 
     /**
      * @before
@@ -27,9 +27,9 @@ class SituationServiceTest extends TestCase
     public function before()
     {
         $this->entityManager = Mockery::mock(EntityManagerInterface::class);
-        $this->repository = Mockery::mock(SituationRepository::class);
+        $this->repository = Mockery::mock(AlertRepository::class);
 
-        $this->situationService = new SituationService(
+        $this->alertService = new AlertService(
             $this->entityManager,
             $this->repository,
         );
@@ -54,7 +54,7 @@ class SituationServiceTest extends TestCase
         $this->entityManager->shouldReceive('flush')->never();
         $this->repository->shouldReceive('findOneBy')->once();
 
-        $this->situationService->oxygenSituation($daedalus, -5);
+        $this->alertService->oxygenAlert($daedalus, -5);
     }
 
     public function testOxygenSituation()
@@ -67,7 +67,7 @@ class SituationServiceTest extends TestCase
         $this->entityManager->shouldReceive('flush')->once();
         $this->repository->shouldReceive('findOneBy')->once();
 
-        $this->situationService->oxygenSituation($daedalus, -1);
+        $this->alertService->oxygenAlert($daedalus, -1);
     }
 
     public function testSolveOxygenSituation()
@@ -75,17 +75,18 @@ class SituationServiceTest extends TestCase
         $daedalus = new Daedalus();
         $daedalus->setOxygen(7);
 
-        $situation = new Situation($daedalus, SituationEnum::LOW_OXYGEN, true);
+        $alert = new Alert();
+        $alert->setDaedalus($daedalus)->setName(AlertEnum::LOW_OXYGEN);
 
         $this->repository->shouldReceive('findOneBy')
-            ->andReturn($situation)
+            ->andReturn($alert)
             ->once()
         ;
         $this->entityManager->shouldReceive('persist')->never();
-        $this->entityManager->shouldReceive('remove')->with($situation)->once();
+        $this->entityManager->shouldReceive('remove')->with($alert)->once();
         $this->entityManager->shouldReceive('flush')->once();
 
-        $this->situationService->oxygenSituation($daedalus, 2);
+        $this->alertService->oxygenAlert($daedalus, 2);
     }
 
     public function testNoHullSituation()
@@ -99,7 +100,7 @@ class SituationServiceTest extends TestCase
         $this->entityManager->shouldReceive('flush')->never();
         $this->repository->shouldReceive('findOneBy')->once();
 
-        $this->situationService->hullSituation($daedalus, -5);
+        $this->alertService->hullAlert($daedalus, -5);
     }
 
     public function testHullSituation()
@@ -112,7 +113,7 @@ class SituationServiceTest extends TestCase
         $this->entityManager->shouldReceive('flush')->once();
         $this->repository->shouldReceive('findOneBy')->once();
 
-        $this->situationService->hullSituation($daedalus, -80);
+        $this->alertService->hullAlert($daedalus, -80);
     }
 
     public function testSolveHullSituation()
@@ -120,16 +121,17 @@ class SituationServiceTest extends TestCase
         $daedalus = new Daedalus();
         $daedalus->setHull(10);
 
-        $situation = new Situation($daedalus, SituationEnum::LOW_HULL, true);
+        $alert = new Alert();
+        $alert->setDaedalus($daedalus)->setName(AlertEnum::LOW_HULL);
 
         $this->repository->shouldReceive('findOneBy')
-            ->andReturn($situation)
+            ->andReturn($alert)
             ->once()
         ;
         $this->entityManager->shouldReceive('persist')->never();
-        $this->entityManager->shouldReceive('remove')->with($situation)->once();
+        $this->entityManager->shouldReceive('remove')->with($alert)->once();
         $this->entityManager->shouldReceive('flush')->once();
 
-        $this->situationService->hullSituation($daedalus, 80);
+        $this->alertService->hullAlert($daedalus, 80);
     }
 }

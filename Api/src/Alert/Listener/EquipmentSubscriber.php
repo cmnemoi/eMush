@@ -1,22 +1,22 @@
 <?php
 
-namespace Mush\Situation\Listener;
+namespace Mush\Alert\Listener;
 
+use Mush\Alert\Entity\Alert;
+use Mush\Alert\Enum\AlertEnum;
+use Mush\Alert\Service\AlertServiceInterface;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Event\EquipmentEvent;
-use Mush\Situation\Entity\Situation;
-use Mush\Situation\Enum\SituationEnum;
-use Mush\Situation\Service\SituationServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class EquipmentSubscriber implements EventSubscriberInterface
 {
-    private SituationServiceInterface $situationService;
+    private AlertServiceInterface $alertService;
 
     public function __construct(
-        SituationServiceInterface $situationService
+        AlertServiceInterface $alertService
     ) {
-        $this->situationService = $situationService;
+        $this->alertService = $alertService;
     }
 
     public static function getSubscribedEvents(): array
@@ -32,8 +32,13 @@ class EquipmentSubscriber implements EventSubscriberInterface
         $equipment = $event->getEquipment();
 
         if ($equipment->getName() === EquipmentEnum::GRAVITY_SIMULATOR) {
-            $gravitySituation = new Situation($equipment->getCurrentPlace()->getDaedalus(), SituationEnum::NO_GRAVITY, true);
-            $this->situationService->persist($gravitySituation);
+            $gravityAlert = new Alert();
+            $gravityAlert
+                ->setDaedalus($equipment->getCurrentPlace()->getDaedalus())
+                ->setName(AlertEnum::NO_GRAVITY)
+            ;
+
+            $this->alertService->persist($gravityAlert);
         }
     }
 
@@ -42,13 +47,13 @@ class EquipmentSubscriber implements EventSubscriberInterface
         $equipment = $event->getEquipment();
 
         if ($equipment->getName() === EquipmentEnum::GRAVITY_SIMULATOR) {
-            $gravitySituation = $this->situationService->findByNameAndDaedalus(SituationEnum::NO_GRAVITY, $equipment->getCurrentPlace()->getDaedalus());
+            $gravitySituation = $this->alertService->findByNameAndDaedalus(AlertEnum::NO_GRAVITY, $equipment->getCurrentPlace()->getDaedalus());
 
             if ($gravitySituation === null) {
                 throw new \LogicException('there should be a gravitySituation on this Daedalus');
             }
 
-            $this->situationService->delete($gravitySituation);
+            $this->alertService->delete($gravitySituation);
         }
     }
 }

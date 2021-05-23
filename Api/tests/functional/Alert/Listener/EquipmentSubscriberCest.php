@@ -1,9 +1,12 @@
 <?php
 
-namespace Mush\Tests\Situation\Event;
+namespace Mush\Tests\Alert\Listener;
 
 use App\Tests\FunctionalTester;
 use DateTime;
+use Mush\Alert\Entity\Alert;
+use Mush\Alert\Enum\AlertEnum;
+use Mush\Alert\Listener\EquipmentSubscriber;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
@@ -15,9 +18,6 @@ use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Entity\GameConfig;
 use Mush\Place\Entity\Place;
 use Mush\RoomLog\Enum\VisibilityEnum;
-use Mush\Situation\Entity\Situation;
-use Mush\Situation\Enum\SituationEnum;
-use Mush\Situation\Listener\EquipmentSubscriber;
 
 class EquipmentSubscriberCest
 {
@@ -66,7 +66,7 @@ class EquipmentSubscriberCest
 
         $this->equipmentSubscriber->onEquipmentBroken($equipmentEvent);
 
-        $I->seeInRepository(Situation::class, ['daedalus' => $daedalus, 'name' => SituationEnum::NO_GRAVITY, 'isVisible' => true]);
+        $I->seeInRepository(Alert::class, ['daedalus' => $daedalus, 'name' => AlertEnum::NO_GRAVITY]);
     }
 
     public function testFixGravitySimulator(FunctionalTester $I)
@@ -105,11 +105,13 @@ class EquipmentSubscriberCest
 
         $equipmentEvent = new EquipmentEvent($gravitySimulator, VisibilityEnum::HIDDEN, new DateTime());
 
-        $situation = new Situation($daedalus, SituationEnum::NO_GRAVITY, true);
-        $I->haveInRepository($situation);
+        $alert = new Alert();
+        $alert->setDaedalus($daedalus)->setName(AlertEnum::NO_GRAVITY);
+
+        $I->haveInRepository($alert);
 
         $this->equipmentSubscriber->onEquipmentFixed($equipmentEvent);
 
-        $I->dontSeeInRepository(Situation::class, ['daedalus' => $daedalus, 'name' => SituationEnum::NO_GRAVITY, 'isVisible' => true]);
+        $I->dontSeeInRepository(Alert::class, ['daedalus' => $daedalus, 'name' => AlertEnum::NO_GRAVITY]);
     }
 }

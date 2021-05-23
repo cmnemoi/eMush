@@ -52,7 +52,7 @@ class SituationServiceTest extends TestCase
         $this->entityManager->shouldReceive('persist')->never();
         $this->entityManager->shouldReceive('remove')->never();
         $this->entityManager->shouldReceive('flush')->never();
-        $this->repository->shouldReceive('findByNameAndDaedalus')->once();
+        $this->repository->shouldReceive('findOneBy')->once();
 
         $this->situationService->oxygenSituation($daedalus, -5);
     }
@@ -65,7 +65,7 @@ class SituationServiceTest extends TestCase
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('remove')->never();
         $this->entityManager->shouldReceive('flush')->once();
-        $this->repository->shouldReceive('findByNameAndDaedalus')->once();
+        $this->repository->shouldReceive('findOneBy')->once();
 
         $this->situationService->oxygenSituation($daedalus, -1);
     }
@@ -77,7 +77,7 @@ class SituationServiceTest extends TestCase
 
         $situation = new Situation($daedalus, SituationEnum::LOW_OXYGEN, true);
 
-        $this->repository->shouldReceive('findByNameAndDaedalus')
+        $this->repository->shouldReceive('findOneBy')
             ->andReturn($situation)
             ->once()
         ;
@@ -97,7 +97,7 @@ class SituationServiceTest extends TestCase
         $this->entityManager->shouldReceive('persist')->never();
         $this->entityManager->shouldReceive('remove')->never();
         $this->entityManager->shouldReceive('flush')->never();
-        $this->repository->shouldReceive('findByNameAndDaedalus')->once();
+        $this->repository->shouldReceive('findOneBy')->once();
 
         $this->situationService->hullSituation($daedalus, -5);
     }
@@ -110,7 +110,7 @@ class SituationServiceTest extends TestCase
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('remove')->never();
         $this->entityManager->shouldReceive('flush')->once();
-        $this->repository->shouldReceive('findByNameAndDaedalus')->once();
+        $this->repository->shouldReceive('findOneBy')->once();
 
         $this->situationService->hullSituation($daedalus, -80);
     }
@@ -122,7 +122,7 @@ class SituationServiceTest extends TestCase
 
         $situation = new Situation($daedalus, SituationEnum::LOW_HULL, true);
 
-        $this->repository->shouldReceive('findByNameAndDaedalus')
+        $this->repository->shouldReceive('findOneBy')
             ->andReturn($situation)
             ->once()
         ;

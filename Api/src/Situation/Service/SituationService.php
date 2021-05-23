@@ -40,7 +40,7 @@ class SituationService implements SituationServiceInterface
 
     public function findByNameAndDaedalus(string $name, Daedalus $daedalus): ?Situation
     {
-        return $this->repository->findByNameAndDaedalus($name, $daedalus);
+        return $this->repository->findOneBy(['daedalus' => $daedalus, 'name' => $name]);
     }
 
     public function hullSituation(Daedalus $daedalus, int $change): void

@@ -1,136 +1,136 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
     <file id="alerts.ext">
-        <unit id="broken.doors">
+        <unit id="door_broken">
             <segment id="name">
-                <source>broken.doors.name</source>
+                <source>door_broken.name</source>
                 <target>{quantity, plural, one {# Porte cassée} other {# Portes cassées}}</target>
             </segment>
             <segment id="description">
-                <source>broken.doors.description</source>
+                <source>door_broken.description</source>
                 <target>Contactez un technicien ou mettez-vous au boulot !</target>
             </segment>
         </unit>
 
-        <unit id="number.fire">
+        <unit id="fire">
             <segment id="name">
-                <source>number.fire.name</source>
+                <source>fire.name</source>
                 <target>{quantity, plural, one {# Incendie en cours} other {# Incendies en cours}}</target>
             </segment>
             <segment id="description">
-                <source>number.fire.description</source>
+                <source>fire.description</source>
                 <target>Prévenez une personne responsable ou attrapez un extincteur !</target>
             </segment>
         </unit>
 
-        <unit id="broken.equipments">
+        <unit id="equipment_broken">
             <segment id="name">
-                <source>broken.equipment.name.single</source>
+                <source>equipment_broken.name.single</source>
                 <target>{quantity, plural, one {# Equipement hors-service} other {# Equipements hors-service}}</target>
             </segment>
             <segment id="description">
-                <source>broken.equipment.description</source>
+                <source>equipment_broken.description</source>
                 <target>Contactez un technicien ou mettez-vous au boulot !</target>
             </segment>
         </unit>
 
-        <unit id="no.gravity">
+        <unit id="gravity_broken">
             <segment id="name">
-                <source>no.gravity.name</source>
+                <source>gravity_broken.name</source>
                 <target>Pas de simulateur de gravité</target>
             </segment>
             <segment id="description">
-                <source>no.gravity.description</source>
+                <source>gravity_broken.description</source>
                 <target>Le Simulateur de gravité n'est pas démarré. Chaque gain de Points de mouvement est réduit de 1 ! Réparez-le pour que NERON puisse rétablir la gravité au cycle d'après.</target>
             </segment>
         </unit>
 
-        <unit id="low.oxygen">
+        <unit id="low_oxygen">
             <segment id="name">
-                <source>low.oxygen.name</source>
+                <source>low_oxygen.name</source>
                 <target>Asphyxie</target>
             </segment>
             <segment id="description">
-                <source>low.oxygen.description</source>
+                <source>low_oxygen.description</source>
                 <target>**Moins de 1 jour** d'Oxygène en réserve !
                         Si la situation ne change pas rapidement, l'équipage va mourir.</target>
             </segment>
         </unit>
 
-        <unit id="outcast.crewmember">
+        <unit id="outcast">
             <segment id="name">
-                <source>outcast.crewmember.name</source>
+                <source>outcast.name</source>
                 <target>Paria</target>
             </segment>
             <segment id="description">
-                <source>outcast.crewmember.description</source>
+                <source>outcast.description</source>
                 <target>TODO.outcast.description</target>
             </segment>
         </unit>
 
-        <unit id="lost.crewmember">
+        <unit id="lost_crewmate">
             <segment id="name">
-                <source>lost.crewmember.name</source>
-                <target>TODO.lost_crewmember.name</target>
+                <source>lost_crewmate.name</source>
+                <target>TODO.lost_crewmate</target>
             </segment>
             <segment id="description">
-                <source>lost.crewmember.description</source>
+                <source>lost_crewmate.description</source>
                 <target>TODO.lost_crewmember.description</target>
             </segment>
         </unit>
 
-        <unit id="low.hull">
+        <unit id="low_hull">
             <segment id="name">
-                <source>low.hull.name</source>
+                <source>low_hull.name</source>
                 <target>{quantity, plural, one { TODO.low_hull.name.singular } other { TODO.low_hull.name.plural }}</target>
             </segment>
             <segment id="description">
-                <source>low.hull.description</source>
+                <source>low_hull.description</source>
                 <target>TODO.low_hull.description</target>
             </segment>
         </unit>
 
-        <unit id="hunger.general">
+        <unit id="hunger">
             <segment id="name">
-                <source>hunger.general.name</source>
+                <source>hunger.name</source>
                 <target>Famine</target>
             </segment>
             <segment id="description">
-                <source>hunger.general.description</source>
+                <source>hunger.description</source>
                 <target>L'équipage est gravement **affamé**. Il vous faut trouver quelque chose à manger.</target>
             </segment>
         </unit>
 
-        <unit id="lost.communication">
+        <unit id="communication_down">
             <segment id="name">
-                <source>lost.communication.name</source>
+                <source>communication_down.name</source>
                 <target>Pas de liaison</target>
             </segment>
             <segment id="description">
-                <source>lost.communication.description</source>
+                <source>communication_down.description</source>
                 <target>Le Daedalus n'a pas de liaison de communication avec Sol !
                         Garder un lien avec Sol est important pour le moral du groupe et essentiel pour survivre.</target>
             </segment>
         </unit>
 
-        <unit id="hunters.attack">
+        <unit id="hunter">
             <segment id="name">
-                <source>hunters.attack.name</source>
+                <source>hunter.name</source>
                 <target>{quantity, plural, one {# Hunter nous attaque !} other {# Hunters nous attaquent !}}</target>
             </segment>
             <segment id="description">
-                <source>hunters.attack.description</source>
+                <source>hunter.description</source>
                 <target>Prévenez la chasse ou prenez la défense en main !</target>
             </segment>
         </unit>
 
-        <unit id="no.alert">
+        <unit id="no_alert">
             <segment id="name">
-                <source>no.alert.name</source>
+                <source>no_alert.name</source>
                 <target>Calme</target>
             </segment>
             <segment id="description">
-                <source>no.alert.description</source>
+                <source>no_alert.description</source>
                 <target>Pas d'alertes en cours : l'équipage peut être tranquille. </target>
             </segment>
         </unit>

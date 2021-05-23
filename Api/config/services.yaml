@@ -17,6 +17,7 @@ imports:
     - { resource: ../src/Status/config/services.yaml }
     - { resource: ../src/Communication/config/services.yaml }
     - { resource: ../src/Disease/config/services.yaml }
+    - { resource: ../src/Alert/config/services.yaml }
 
 services:
     # default configuration for services in *this* file

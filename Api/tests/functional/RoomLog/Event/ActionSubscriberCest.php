@@ -14,7 +14,7 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
-use Mush\RoomLog\Event\ActionSubscriber;
+use Mush\RoomLog\Listener\ActionSubscriber;
 
 class ActionSubscriberCest
 {

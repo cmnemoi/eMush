@@ -212,6 +212,12 @@
                 </target>
             </segment>
         </unit>
+        <unit id="antisocial_morale_loss">
+            <segment>
+                <source>antisocial_morale_loss</source>
+                <target>Ces importuns vous importunent au plus haut point, les voir s'affairer à de si inutiles besognes vous rend pessimiste pour l'avenir de l'Humanité...</target>
+            </segment>
+        </unit>
     </file>
 </xliff>
 

@@ -13,7 +13,7 @@ use Mush\Action\Validator\InventoryFull;
 use Mush\Action\Validator\ParameterName;
 use Mush\Action\Validator\Reach;
 use Mush\Action\Validator\Status;
-use Mush\Daedalus\Event\DaedalusEvent;
+use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
@@ -82,9 +82,9 @@ class RetrieveFuel extends AbstractAction
         $item->setPlayer($this->getPlayer());
         $this->gameEquipmentService->persist($item);
 
-        $daedalusEvent = new DaedalusEvent($this->player->getDaedalus(), new \DateTime());
+        $daedalusEvent = new DaedalusModifierEvent($this->player->getDaedalus(), new \DateTime());
         $daedalusEvent->setQuantity(-1);
-        $this->eventDispatcher->dispatch($daedalusEvent, DaedalusEvent::CHANGE_FUEL);
+        $this->eventDispatcher->dispatch($daedalusEvent, DaedalusModifierEvent::CHANGE_FUEL);
 
         return new Success();
     }

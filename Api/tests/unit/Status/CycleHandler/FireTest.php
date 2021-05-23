@@ -5,7 +5,7 @@ namespace Mush\Test\Status\CycleHandler;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
-use Mush\Daedalus\Event\DaedalusEvent;
+use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\DifficultyConfig;
@@ -104,7 +104,7 @@ class FireTest extends TestCase
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (DaedalusEvent $daedalusEvent, string $eventName) => ($eventName === DaedalusEvent::CHANGE_HULL))
+            ->withArgs(fn (DaedalusModifierEvent $daedalusEvent, string $eventName) => ($eventName === DaedalusModifierEvent::CHANGE_HULL))
             ->once()
         ;
 

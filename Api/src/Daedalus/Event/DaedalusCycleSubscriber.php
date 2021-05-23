@@ -121,9 +121,9 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
             $this->daedalusService->getRandomAsphyxia($daedalus, $date);
         }
 
-        $daedalusEvent = new DaedalusEvent($daedalus, $date);
+        $daedalusEvent = new DaedalusModifierEvent($daedalus, $date);
         $daedalusEvent->setQuantity(-$oxygenLoss);
-        $this->eventDispatcher->dispatch($daedalusEvent, DaedalusEvent::CHANGE_OXYGEN);
+        $this->eventDispatcher->dispatch($daedalusEvent, DaedalusModifierEvent::CHANGE_OXYGEN);
 
         return $daedalus;
     }

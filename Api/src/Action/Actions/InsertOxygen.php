@@ -10,7 +10,7 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\Oxygen;
 use Mush\Action\Validator\ParameterName;
 use Mush\Action\Validator\Reach;
-use Mush\Daedalus\Event\DaedalusEvent;
+use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
@@ -61,9 +61,9 @@ class InsertOxygen extends AbstractAction
 
         $this->gameEquipmentService->delete($parameter);
 
-        $daedalusEvent = new DaedalusEvent($this->player->getDaedalus(), new \DateTime());
+        $daedalusEvent = new DaedalusModifierEvent($this->player->getDaedalus(), new \DateTime());
         $daedalusEvent->setQuantity(1);
-        $this->eventDispatcher->dispatch($daedalusEvent, DaedalusEvent::CHANGE_OXYGEN);
+        $this->eventDispatcher->dispatch($daedalusEvent, DaedalusModifierEvent::CHANGE_OXYGEN);
 
         return new Success();
     }

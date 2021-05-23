@@ -10,7 +10,7 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\Fuel;
 use Mush\Action\Validator\ParameterName;
 use Mush\Action\Validator\Reach;
-use Mush\Daedalus\Event\DaedalusEvent;
+use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
@@ -61,9 +61,9 @@ class InsertFuel extends AbstractAction
         $item->setPlayer(null);
         $this->gameEquipmentService->delete($item);
 
-        $daedalusEvent = new DaedalusEvent($this->player->getDaedalus(), new \DateTime());
+        $daedalusEvent = new DaedalusModifierEvent($this->player->getDaedalus(), new \DateTime());
         $daedalusEvent->setQuantity(1);
-        $this->eventDispatcher->dispatch($daedalusEvent, DaedalusEvent::CHANGE_FUEL);
+        $this->eventDispatcher->dispatch($daedalusEvent, DaedalusModifierEvent::CHANGE_FUEL);
 
         return new Success();
     }

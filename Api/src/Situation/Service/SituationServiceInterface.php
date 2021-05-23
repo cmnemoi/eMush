@@ -1,15 +1,19 @@
 <?php
+
 namespace Mush\Situation\Service;
 
-use Mush\Action\ActionResult\ActionResult;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Place\Entity\Place;
-use Mush\Player\Entity\Player;
-use Mush\RoomLog\Entity\LogParameter;
-use Mush\RoomLog\Entity\RoomLog;
 use Mush\Situation\Entity\Situation;
 
 interface SituationServiceInterface
 {
+    public function persist(Situation $situation): Situation;
+
+    public function delete(Situation $situation): void;
+
     public function findByNameAndDaedalus(string $name, Daedalus $daedalus): ?Situation;
+
+    public function hullSituation(Daedalus $daedalus, int $change): void;
+
+    public function oxygenSituation(Daedalus $daedalus, int $change): void;
 }

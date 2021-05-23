@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Mush\Situation\Enum;
-
 
 class SituationEnum
 {
@@ -10,7 +8,7 @@ class SituationEnum
     public const LOW_OXYGEN = 'low_oxygen';
 
     public const COMMUNICATIONS_DOWN = 'communications_down';
-    public const GRAVITY_BROKEN = 'gravity_broken';
+    public const NO_GRAVITY = 'no_gravity';
     public const LOST_CREWMATE = 'lost_crewmate';
     public const OUTCAST = 'outcast';
     public const HUNGER = 'hunger';

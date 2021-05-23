@@ -1,29 +1,12 @@
 <?php
+
 namespace Mush\Situation\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mush\Action\ActionResult\ActionResult;
-use Mush\Action\ActionResult\Fail;
-use Mush\Action\ActionResult\Success;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\Door;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Enum\EquipmentEnum;
-use Mush\Game\Enum\CharacterEnum;
-use Mush\Game\Service\RandomServiceInterface;
-use Mush\Place\Entity\Place;
-use Mush\Player\Entity\Player;
-use Mush\RoomLog\Entity\LogParameter;
-use Mush\RoomLog\Entity\RoomLog;
-use Mush\RoomLog\Enum\ActionLogEnum;
-use Mush\RoomLog\Enum\LogDeclinationEnum;
-use Mush\RoomLog\Enum\VisibilityEnum;
-use Mush\RoomLog\Repository\RoomLogRepository;
 use Mush\Situation\Entity\Situation;
 use Mush\Situation\Enum\SituationEnum;
 use Mush\Situation\Repository\SituationRepository;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class SituationService implements SituationServiceInterface
 {
@@ -55,7 +38,6 @@ class SituationService implements SituationServiceInterface
         $this->entityManager->flush();
     }
 
-
     public function findByNameAndDaedalus(string $name, Daedalus $daedalus): ?Situation
     {
         return $this->repository->findByNameAndDaedalus($name, $daedalus);
@@ -65,14 +47,14 @@ class SituationService implements SituationServiceInterface
     {
         if (
             $daedalus->getHull() + $change > self::HULL_ALERT &&
-            ($hullSituation = $this->findByNameAndDaedalus(SituationEnum::LOW_HULL)) !== null
-        ){
+            ($hullSituation = $this->findByNameAndDaedalus(SituationEnum::LOW_HULL, $daedalus)) !== null
+        ) {
             $this->delete($hullSituation);
-            return;
 
+            return;
         } elseif (
             $daedalus->getHull() + $change <= self::HULL_ALERT &&
-            $this->findByNameAndDaedalus(SituationEnum::LOW_HULL) === null
+            $this->findByNameAndDaedalus(SituationEnum::LOW_HULL, $daedalus) === null
         ) {
             $hullSituation = new Situation($daedalus, SituationEnum::LOW_HULL, true);
             $this->persist($hullSituation);
@@ -81,16 +63,16 @@ class SituationService implements SituationServiceInterface
 
     public function oxygenSituation(Daedalus $daedalus, int $change): void
     {
-        if(
+        if (
             $daedalus->getOxygen() + $change > self::OXYGEN_ALERT &&
-            ($oxygenSituation = $this->findByNameAndDaedalus(SituationEnum::LOW_OXYGEN)) !== null
-        ){
+            ($oxygenSituation = $this->findByNameAndDaedalus(SituationEnum::LOW_OXYGEN, $daedalus)) !== null
+        ) {
             $this->delete($oxygenSituation);
-            return;
 
+            return;
         } elseif (
             $daedalus->getOxygen() + $change <= self::OXYGEN_ALERT &&
-            $this->findByNameAndDaedalus(SituationEnum::LOW_OXYGEN) === null
+            $this->findByNameAndDaedalus(SituationEnum::LOW_OXYGEN, $daedalus) === null
         ) {
             $oxygenSituation = new Situation($daedalus, SituationEnum::LOW_OXYGEN, true);
             $this->persist($oxygenSituation);

@@ -1,21 +1,19 @@
 <?php
 
-
 namespace Mush\Situation\Listener;
 
-use Mush\Daedalus\Service\DaedalusServiceInterface;
+use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Situation\Service\SituationServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class DaedalusModifierSubscriber implements EventSubscriberInterface
 {
-    private SituationServiceInterface $daedalusService;
+    private SituationServiceInterface $situationService;
 
     public function __construct(
-        DaedalusServiceInterface $daedalusService
-    )
-    {
-        $this->daedalusService = $daedalusService;
+        SituationServiceInterface $situationService
+    ) {
+        $this->situationService = $situationService;
     }
 
     public static function getSubscribedEvents(): array
@@ -36,7 +34,7 @@ class DaedalusModifierSubscriber implements EventSubscriberInterface
             throw new \LogicException('quantity should be provided');
         }
 
-        $this->situationService->hullSituation($daedalus, $change, $date);
+        $this->situationService->hullSituation($daedalus, $change);
     }
 
     public function onChangeOxygen(DaedalusModifierEvent $event): void

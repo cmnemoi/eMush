@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Mush\Situation\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -8,7 +7,7 @@ use Mush\Daedalus\Entity\Daedalus;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="disease_config")
+ * @ORM\Table(name="situation")
  */
 class Situation
 {
@@ -34,14 +33,12 @@ class Situation
      */
     private bool $isVisible;
 
-
     public function __construct(Daedalus $daedalus, string $name, bool $isVisible)
     {
         $this->daedalus = $daedalus;
         $this->name = $name;
-        $this->isVisible = $isVisible
+        $this->isVisible = $isVisible;
     }
-
 
     public function getId(): ?int
     {
@@ -69,5 +66,4 @@ class Situation
     {
         return $this->isVisible;
     }
-
 }

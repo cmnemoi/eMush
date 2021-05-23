@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\RoomLog\Event;
+namespace Mush\RoomLog\Listener;
 
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Place\Enum\RoomEnum;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\RoomLog\Event;
+namespace Mush\RoomLog\Listener;
 
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerModifierEvent;

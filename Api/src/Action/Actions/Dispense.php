@@ -71,7 +71,7 @@ class Dispense extends AbstractAction
             ->createGameEquipmentFromName($drugName, $this->player->getDaedalus())
         ;
 
-        $equipmentEvent = new EquipmentEvent($newItem, VisibilityEnum::HIDDEN);
+        $equipmentEvent = new EquipmentEvent($newItem, VisibilityEnum::HIDDEN, new \DateTime());
         $equipmentEvent->setPlayer($this->player);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 

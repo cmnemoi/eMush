@@ -61,7 +61,7 @@ class ReadBook extends AbstractAction
         $bookType = $parameter->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BOOK);
         $this->player->addSkill($bookType->getSkill());
 
-        $equipmentEvent = new EquipmentEvent($parameter, VisibilityEnum::HIDDEN);
+        $equipmentEvent = new EquipmentEvent($parameter, VisibilityEnum::HIDDEN, new \DateTime());
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         $this->playerService->persist($this->player);

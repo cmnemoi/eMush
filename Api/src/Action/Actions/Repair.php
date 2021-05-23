@@ -11,9 +11,11 @@ use Mush\Action\Validator\Reach;
 use Mush\Action\Validator\Status;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ReachEnum;
+use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -64,11 +66,9 @@ class Repair extends AttemptAction
 
         $response = $this->makeAttempt();
 
-        if ($response instanceof Success &&
-            ($brokenStatus = $parameter->getStatusByName(EquipmentStatusEnum::BROKEN))
-        ) {
-            $parameter->removeStatus($brokenStatus);
-            $this->gameEquipmentService->persist($parameter);
+        if ($response instanceof Success) {
+            $equipmentEvent = new EquipmentEvent($parameter, VisibilityEnum::HIDDEN, new \DateTime());
+            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_FIXED);
         }
 
         $this->playerService->persist($this->player);

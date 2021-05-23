@@ -86,10 +86,10 @@ class Transplant extends AbstractAction
             $plantEquipment->setPlace($place);
         }
 
-        $equipmentEvent = new EquipmentEvent($parameter, VisibilityEnum::HIDDEN);
+        $equipmentEvent = new EquipmentEvent($parameter, VisibilityEnum::HIDDEN, new \DateTime());
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
-        $equipmentEvent = new EquipmentEvent($hydropot, VisibilityEnum::HIDDEN);
+        $equipmentEvent = new EquipmentEvent($hydropot, VisibilityEnum::HIDDEN, new \DateTime());
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         $this->gameEquipmentService->persist($plantEquipment);

@@ -12,7 +12,7 @@ use Mush\Alert\Service\AlertServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use PHPUnit\Framework\TestCase;
 
-class SituationServiceTest extends TestCase
+class AlertServiceTest extends TestCase
 {
     private AlertServiceInterface $alertService;
 
@@ -43,7 +43,7 @@ class SituationServiceTest extends TestCase
         Mockery::close();
     }
 
-    public function testNoOxygenSituation()
+    public function testNoOxygenAlert()
     {
         $daedalus = new Daedalus();
         $daedalus->setOxygen(20);
@@ -57,7 +57,7 @@ class SituationServiceTest extends TestCase
         $this->alertService->oxygenAlert($daedalus, -5);
     }
 
-    public function testOxygenSituation()
+    public function testOxygenAlert()
     {
         $daedalus = new Daedalus();
         $daedalus->setOxygen(9);
@@ -70,7 +70,7 @@ class SituationServiceTest extends TestCase
         $this->alertService->oxygenAlert($daedalus, -1);
     }
 
-    public function testSolveOxygenSituation()
+    public function testSolveOxygenAlert()
     {
         $daedalus = new Daedalus();
         $daedalus->setOxygen(7);
@@ -89,7 +89,7 @@ class SituationServiceTest extends TestCase
         $this->alertService->oxygenAlert($daedalus, 2);
     }
 
-    public function testNoHullSituation()
+    public function testNoHullAlert()
     {
         $daedalus = new Daedalus();
         $daedalus->setHull(100);
@@ -103,7 +103,7 @@ class SituationServiceTest extends TestCase
         $this->alertService->hullAlert($daedalus, -5);
     }
 
-    public function testHullSituation()
+    public function testHullAlert()
     {
         $daedalus = new Daedalus();
         $daedalus->setHull(100);
@@ -116,7 +116,7 @@ class SituationServiceTest extends TestCase
         $this->alertService->hullAlert($daedalus, -80);
     }
 
-    public function testSolveHullSituation()
+    public function testSolveHullAlert()
     {
         $daedalus = new Daedalus();
         $daedalus->setHull(10);

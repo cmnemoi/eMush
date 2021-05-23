@@ -39,6 +39,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
     {
         return [
             EquipmentEvent::EQUIPMENT_CREATED => 'onEquipmentCreated',
+            EquipmentEvent::EQUIPMENT_FIXED => 'onEquipmentFixed',
             EquipmentEvent::EQUIPMENT_BROKEN => 'onEquipmentBroken',
             EquipmentEvent::EQUIPMENT_DESTROYED => 'onEquipmentDestroyed',
         ];
@@ -70,6 +71,18 @@ class EquipmentSubscriber implements EventSubscriberInterface
             );
         }
 
+        $this->gameEquipmentService->persist($equipment);
+    }
+
+    public function onEquipmentFixed(EquipmentEvent $event): void
+    {
+        $equipment = $event->getEquipment();
+
+        if (($brokenStatus = $equipment->getStatusByName(EquipmentStatusEnum::BROKEN)) === null) {
+            throw new \LogicException('equipment should be broken to be fixed');
+        }
+
+        $equipment->removeStatus($brokenStatus);
         $this->gameEquipmentService->persist($equipment);
     }
 

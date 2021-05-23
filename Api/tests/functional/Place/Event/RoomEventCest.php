@@ -48,17 +48,11 @@ class RoomEventCest
 
         $roomEvent = new RoomEvent($room, $time);
 
-        $this->roomSubscriber->onStartingFire($roomEvent);
+        $I->expectThrowable(\LogicException::class, function () use ($roomEvent) {$this->roomSubscriber->onStartingFire($roomEvent); });
 
-        $I->assertEquals(0, $room->getStatuses()->count());
+        $I->expectThrowable(\LogicException::class, function () use ($roomEvent) {$this->roomSubscriber->onTremor($roomEvent); });
 
-        $this->roomSubscriber->onTremor($roomEvent);
-
-        $I->assertEquals(10, $player->getHealthPoint());
-
-        $this->roomSubscriber->onElectricArc($roomEvent);
-
-        $I->assertEquals(10, $player->getHealthPoint());
+        $I->expectThrowable(\LogicException::class, function () use ($roomEvent) {$this->roomSubscriber->onElectricArc($roomEvent); });
     }
 
     public function testNewFire(FunctionalTester $I)

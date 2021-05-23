@@ -147,6 +147,7 @@ class ExtinguishActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->actionService->shouldReceive('getSuccessRate')->andReturn(10)->once();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
 
         //Success
         $result = $this->action->execute();
@@ -154,6 +155,5 @@ class ExtinguishActionTest extends AbstractActionTest
         $this->assertInstanceOf(Success::class, $result);
         $this->assertCount(1, $room->getEquipments());
         $this->assertCount(0, $room->getEquipments()->first()->getStatuses());
-        $this->assertCount(0, $room->getStatuses());
     }
 }

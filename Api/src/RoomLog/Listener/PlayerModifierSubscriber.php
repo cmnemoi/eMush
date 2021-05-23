@@ -73,7 +73,7 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
         $player = $playerEvent->getPlayer();
         $delta = $playerEvent->getDelta();
 
-        if (!$playerEvent->isDisplayedRoomLog() || $player->isMush()) {
+        if (!$playerEvent->isDisplayedRoomLog()) {
             return;
         }
 

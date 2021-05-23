@@ -9,6 +9,7 @@ use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
+use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Enum\RoomEventEnum;
 use Mush\Place\Event\RoomEvent;
 use Mush\Player\Event\PlayerEvent;
@@ -36,7 +37,9 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
     {
         $numberOfNewFire = $this->getNumberOfIncident($daedalus);
 
-        $newFireRooms = $this->randomService->getRandomElements($daedalus->getRooms()->toArray(), $numberOfNewFire);
+        $rooms = $daedalus->getRooms()->filter(fn (Place $place) => ($place->getType() === PlaceTypeEnum::ROOM));
+
+        $newFireRooms = $this->randomService->getRandomElements($rooms->toArray(), $numberOfNewFire);
 
         /** @var Place $room */
         foreach ($newFireRooms as $room) {
@@ -54,7 +57,9 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
     {
         $numberOfNewTremor = $this->getNumberOfIncident($daedalus);
 
-        $newTremorRooms = $this->randomService->getRandomElements($daedalus->getRooms()->toArray(), $numberOfNewTremor);
+        $rooms = $daedalus->getRooms()->filter(fn (Place $place) => ($place->getType() === PlaceTypeEnum::ROOM));
+
+        $newTremorRooms = $this->randomService->getRandomElements($rooms->toArray(), $numberOfNewTremor);
 
         /** @var Place $room */
         foreach ($newTremorRooms as $room) {
@@ -70,7 +75,9 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
     {
         $numberOfNewElectricArcs = $this->getNumberOfIncident($daedalus);
 
-        $newElectricArcs = $this->randomService->getRandomElements($daedalus->getRooms()->toArray(), $numberOfNewElectricArcs);
+        $rooms = $daedalus->getRooms()->filter(fn (Place $place) => ($place->getType() === PlaceTypeEnum::ROOM));
+
+        $newElectricArcs = $this->randomService->getRandomElements($rooms->toArray(), $numberOfNewElectricArcs);
 
         /** @var Place $room */
         foreach ($newElectricArcs as $room) {

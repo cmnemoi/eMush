@@ -55,7 +55,7 @@ class EquipmentEventCest
         ;
         $I->haveInRepository($gameEquipment);
 
-        $equipmentEvent = new EquipmentEvent($gameEquipment, VisibilityEnum::PUBLIC);
+        $equipmentEvent = new EquipmentEvent($gameEquipment, VisibilityEnum::PUBLIC, new \DateTime());
         $equipmentEvent->setPlayer($player);
 
         $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
@@ -71,7 +71,7 @@ class EquipmentEventCest
         ;
         $I->haveInRepository($gameEquipment);
 
-        $equipmentEvent = new EquipmentEvent($gameEquipment, VisibilityEnum::PUBLIC);
+        $equipmentEvent = new EquipmentEvent($gameEquipment, VisibilityEnum::PUBLIC, new \DateTime());
         $equipmentEvent->setPlayer($player);
 
         $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
@@ -87,7 +87,7 @@ class EquipmentEventCest
         ;
         $I->haveInRepository($gameEquipment);
 
-        $equipmentEvent = new EquipmentEvent($gameEquipment, VisibilityEnum::PUBLIC);
+        $equipmentEvent = new EquipmentEvent($gameEquipment, VisibilityEnum::PUBLIC, new \DateTime());
         $equipmentEvent->setPlayer($player);
 
         $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
@@ -137,7 +137,7 @@ class EquipmentEventCest
         ;
         $I->haveInRepository($gameEquipment);
 
-        $equipmentEvent = new EquipmentEvent($gameEquipment, VisibilityEnum::PUBLIC);
+        $equipmentEvent = new EquipmentEvent($gameEquipment, VisibilityEnum::PUBLIC, new \DateTime());
 
         $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_BROKEN);
 
@@ -173,7 +173,7 @@ class EquipmentEventCest
         ;
         $I->haveInRepository($gameEquipment);
 
-        $equipmentEvent = new EquipmentEvent($gameEquipment, VisibilityEnum::PUBLIC);
+        $equipmentEvent = new EquipmentEvent($gameEquipment, VisibilityEnum::PUBLIC, new \DateTime());
 
         $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 

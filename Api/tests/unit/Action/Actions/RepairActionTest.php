@@ -149,11 +149,12 @@ class RepairActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('getSuccessRate')->andReturn(10)->once();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
 
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
+
         //Success
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
         $this->assertCount(1, $room->getEquipments());
-        $this->assertCount(0, $room->getEquipments()->first()->getStatuses());
     }
 }

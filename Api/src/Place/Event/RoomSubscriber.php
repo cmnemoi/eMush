@@ -7,6 +7,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Enum\PlaceTypeEnum;
+use Mush\Place\Service\PlaceServiceInterface;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerModifierEvent;
 use Mush\RoomLog\Enum\LogEnum;
@@ -20,17 +21,20 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class RoomSubscriber implements EventSubscriberInterface
 {
+    private PlaceServiceInterface $placeService;
     private StatusServiceInterface $statusService;
     private RandomServiceInterface $randomService;
     private RoomLogServiceInterface $roomLogService;
     private EventDispatcherInterface $eventDispatcher;
 
     public function __construct(
+        PlaceServiceInterface $placeService,
         StatusServiceInterface $statusService,
         RandomServiceInterface $randomService,
         RoomLogServiceInterface $roomLogService,
         EventDispatcherInterface $eventDispatcher
     ) {
+        $this->placeService = $placeService;
         $this->statusService = $statusService;
         $this->randomService = $randomService;
         $this->roomLogService = $roomLogService;
@@ -43,6 +47,7 @@ class RoomSubscriber implements EventSubscriberInterface
             RoomEvent::TREMOR => 'onTremor',
             RoomEvent::ELECTRIC_ARC => 'onElectricArc',
             RoomEvent::STARTING_FIRE => 'onStartingFire',
+            RoomEvent::STOP_FIRE => 'onStopFire',
         ];
     }
 
@@ -51,7 +56,7 @@ class RoomSubscriber implements EventSubscriberInterface
         $room = $event->getRoom();
 
         if ($room->getType() !== PlaceTypeEnum::ROOM) {
-            return;
+            throw new \LogicException('place should be a room');
         }
 
         $difficultyConfig = $room->getDaedalus()->getGameConfig()->getDifficultyConfig();
@@ -81,7 +86,7 @@ class RoomSubscriber implements EventSubscriberInterface
         $room = $event->getRoom();
 
         if ($room->getType() !== PlaceTypeEnum::ROOM) {
-            return;
+            throw new \LogicException('place should be a room');
         }
 
         $difficultyConfig = $room->getDaedalus()->getGameConfig()->getDifficultyConfig();
@@ -121,7 +126,7 @@ class RoomSubscriber implements EventSubscriberInterface
         $room = $event->getRoom();
 
         if ($room->getType() !== PlaceTypeEnum::ROOM) {
-            return;
+            throw new \LogicException('place should be a room');
         }
 
         $this->statusService->createChargeStatus(StatusEnum::FIRE,
@@ -131,5 +136,17 @@ class RoomSubscriber implements EventSubscriberInterface
             VisibilityEnum::PUBLIC,
             VisibilityEnum::HIDDEN
         );
+    }
+
+    public function onStopFire(RoomEvent $event): void
+    {
+        $room = $event->getRoom();
+
+        if (($fireStatus = $room->getStatusByName(StatusEnum::FIRE)) === null) {
+            throw new \LogicException('room should have a fire to stop');
+        }
+
+        $room->removeStatus($fireStatus);
+        $this->placeService->persist($room);
     }
 }

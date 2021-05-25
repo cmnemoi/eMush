@@ -1,10 +1,17 @@
 <template>
     <div class="main">
         <div class="char-selection">
-            <section class="char" v-for="(character, key) in characters" :key="key" @click="selectCharacter(character)">
+            <section
+                v-for="(character, key) in characters"
+                :key="key"
+                class="char"
+                @click="selectCharacter(character)"
+            >
                 <div class="header">
-                    <p class="level"></p>
-                    <h2 class="name">{{ character.name }}</h2>
+                    <p class="level" />
+                    <h2 class="name">
+                        {{ character.name }}
+                    </h2>
                 </div>
                 <div class="portrait">
                     <img :src="characterPortrait(character)">
@@ -33,12 +40,13 @@
                 <p>Brilliant biologist and hardcore rebel markswoman, she is driven by the need to recontact Kivanç Terzi. Her technical and logistical skills are highly prized.</p>
             </div>
             <div class="gamestart">
-                <p class="choice">Vous avez choisi... <strong>Eleesha Williams</strong>.</p>
+                <p class="choice">
+                    Vous avez choisi... <strong>Eleesha Williams</strong>.
+                </p>
                 <a class="start" href="#"><span>Démarrer la partie</span></a>
             </div>
         </div>
     </div>
-
 </template>
 
 <script>

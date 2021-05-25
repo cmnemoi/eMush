@@ -1,5 +1,6 @@
 <template>
     <div class="main-container">
+        <Spinner :loading="userLoading || playerLoading" />
         <Banner />
         <router-view />
         <ErrorPopup />
@@ -10,12 +11,22 @@
 
 import Banner from "@/components/Banner";
 import ErrorPopup from "@/components/ErrorPopup";
+import Spinner from "@/components/Utils/Spinner";
+import { mapGetters } from "vuex";
 
 export default {
     name: 'App',
     components: {
+        Spinner,
         Banner,
         ErrorPopup
+    },
+    computed: {
+        ...mapGetters({
+            userLoading: 'auth/isLoading',
+            playerLoading: 'player/isLoading'
+        }
+        )
     }
 };
 </script>

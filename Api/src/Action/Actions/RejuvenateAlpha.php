@@ -25,7 +25,7 @@ class RejuvenateAlpha extends AbstractAction
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         PlayerServiceInterface $playerService,
-        PlayerVariableServiceInterface $playerVariableService,
+        PlayerVariableServiceInterface $playerVariableService
     ) {
         parent::__construct(
             $eventDispatcher,

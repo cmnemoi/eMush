@@ -49,7 +49,7 @@ class PlayerService implements PlayerServiceInterface
         DeadPlayerInfoRepository $deadPlayerRepository,
         RoomLogServiceInterface $roomLogService,
         StatusServiceInterface $statusService,
-        GameEquipmentServiceInterface $gameEquipmentService,
+        GameEquipmentServiceInterface $gameEquipmentService
     ) {
         $this->entityManager = $entityManager;
         $this->eventDispatcher = $eventDispatcher;
@@ -136,7 +136,7 @@ class PlayerService implements PlayerServiceInterface
         $this->persist($player);
 
         $user->setCurrentGame($player);
-        $playerEvent = new PlayerEvent($player);
+        $playerEvent = new PlayerEvent($player, new \DateTime());
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::NEW_PLAYER);
 
         return $player;
@@ -144,17 +144,12 @@ class PlayerService implements PlayerServiceInterface
 
     public function endPlayer(Player $player, string $message): Player
     {
-        $user = $player->getUser();
-        $user->setCurrentGame(null);
-
         $deadPlayerInfo = $this->findDeadPlayerInfo($player);
         if ($deadPlayerInfo === null) {
             throw new \LogicException('unable to find deadPlayerInfo');
         }
 
-        $deadPlayerInfo
-            ->setMessage($message)
-        ;
+        $deadPlayerInfo->setMessage($message);
 
         $player->setGameStatus(GameStatusEnum::CLOSED);
 
@@ -162,10 +157,7 @@ class PlayerService implements PlayerServiceInterface
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::END_PLAYER);
 
         $this->entityManager->persist($deadPlayerInfo);
-        $this->entityManager->persist($player);
-        $this->entityManager->persist($user);
-
-        $this->entityManager->flush();
+        $this->persist($player);
 
         return $player;
     }
@@ -178,6 +170,7 @@ class PlayerService implements PlayerServiceInterface
 
         if ($player->getMoralPoint() === 0) {
             $playerEvent = new PlayerEvent($player, $date);
+            $playerEvent->setReason(EndCauseEnum::DEPRESSION);
             $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
 
             return $player;
@@ -233,8 +226,10 @@ class PlayerService implements PlayerServiceInterface
         $playerModifierEvent = new PlayerModifierEvent($player, 1, $date);
         $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
 
-        $playerModifierEvent = new PlayerModifierEvent($player, -2, $date);
-        $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::MORAL_POINT_MODIFIER);
+        if (!$player->isMush()) {
+            $playerModifierEvent = new PlayerModifierEvent($player, -2, $date);
+            $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::MORAL_POINT_MODIFIER);
+        }
 
         return $this->persist($player);
     }

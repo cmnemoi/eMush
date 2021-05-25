@@ -40,9 +40,6 @@ export default {
             'messages'
         ])
     },
-    beforeMount() {
-        this.loadMessages({ channel: this.channel });
-    },
     methods: {
         replyTo: function (message) {
             if (this.messageToReply === message) {

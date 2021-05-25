@@ -33,7 +33,7 @@ class Move extends AbstractAction
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         PlayerServiceInterface $playerService,
-        RoomLogServiceInterface $roomLogService,
+        RoomLogServiceInterface $roomLogService
     ) {
         parent::__construct(
             $eventDispatcher,

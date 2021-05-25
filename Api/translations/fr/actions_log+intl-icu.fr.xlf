@@ -17,6 +17,12 @@
                 <target>{player} amorce la machine. Et dans un grand fracas, la mécanique se lance, les rouages crissent et les arômes embaument la pièce. Ça sent les matins chaleureux sur une terrasse de Vénus. Café !</target>
             </segment>
         </unit>
+        <unit id="dispense_success">
+            <segment id="dispense_success">
+                <source>dispense_success</source>
+                <target>{player} enclenche le dispensaire avec une étrange lueur dans les yeux.</target>
+            </segment>
+        </unit>
         <unit id="consume_success">
             <segment id="consume_success">
                 <source>consume_success</source>
@@ -148,6 +154,16 @@
                 }</target>
             </segment>
         </unit>
+        <unit id="hit_fail">
+            <segment id="hit_fail">
+                <source>hit_fail</source>
+                <target>{character_gender, select,
+                     other {{target_gender, select,
+                        other {@TODO hit fail log}
+                     }}
+                }</target>
+            </segment>
+        </unit>
         <unit id="hyperfreeze_success">
             <segment id="hyperfreeze_success">
                 <source>hyperfreeze_success</source>
@@ -182,8 +198,8 @@
             <segment id="enter_room">
                 <source>enter_room</source>
                 <target>{character_gender, select,
-                    male {**{player}** est entrée.}
-                    female {**{player}** est entré.}
+                    male {**{player}** est entré.}
+                    female {**{player}** est entrée.}
                     other {invalid gender input}
                 }</target>
             </segment>
@@ -398,7 +414,7 @@
                         }}
                         other {{target_gender, select,
                             male {**{player}** peut se féliciter. Le **{target}** est réparé.}
-                            female {**{player}** peut se féliciter. Le **{target}** est réparée.}
+                            female {**{player}** peut se féliciter. La **{target}** est réparée.}
                             other {invalid gender input}
                         }}
                     }}
@@ -514,13 +530,13 @@
                 <target>TODO: write success.</target>
             </segment>
         </unit>
-        <unit id="insert_oxygen_success">
-            <segment id="insert_oxygen_success">
+        <unit id="insert_oxygen">
+            <segment id="insert_oxygen">
                 <source>insert_oxygen</source>
                 <target>Pscchhhh... Et hop, un peu d'oxygène en plus !</target>
             </segment>
         </unit>
-        <unit id="retrieve_oxygen_success">
+        <unit id="retrieve_oxygen">
             <segment id="retrieve_oxygen">
                 <source>retrieve_oxygen</source>
                 <target>{version, select,
@@ -551,6 +567,18 @@
                 </target>
             </segment>
         </unit>
+        <unit id="retrieve_fuel">
+            <segment id="retrieve_fuel">
+                <source>retrieve_fuel</source>
+                <target>{player} a extrait une Capsule du Fuel du réservoir.</target>
+            </segment>
+        </unit>
+        <unit id="insert_fuel">
+            <segment id="insert_fuel">
+                <source>insert_fuel</source>
+                <target>{player} a inséré une *Capsule de Fuel* dans le *Réservoir*.</target>
+            </segment>
+        </unit>
         <unit id="sabotage_success">
             <segment id="sabotage_success">
                 <source>sabotage_success</source>
@@ -577,6 +605,37 @@
             <segment id="extinguish_fail">
                 <source>extinguish_fail</source>
                 <target>Vous n'avez pas réussi à éteindre l'incendie...</target>
+            </segment>
+        </unit>
+
+
+        <unit id="comfort_success">
+            <segment id="comfort_success">
+                <source>comfort_success</source>
+                <target>**{player}** réconforte **{target}**, ça ira mieux demain tu verras...</target>
+            </segment>
+        </unit>
+        <unit id="heal_success">
+            <segment id="heal_success">
+                <source>heal_success</source>
+                <target>**{player}** a soigné {quantity} :hp: à **{target}**.</target>
+            </segment>
+        </unit>
+        <unit id="self_heal">
+            <segment id="self_heal">
+                <source>self_heal</source>
+                <target>Vous vous êtes soigné. Vous avez récuperé {quantity} :hp:.</target>
+            </segment>
+        </unit>
+        <unit id="ultraheal_success">
+            <segment id="ultraheal_success">
+                <source>ultraheal_success</source>
+                <target>{character_gender, select,
+                    male {**{player}** est entouré d'un halo lumineux. D'horribles tentacules bleus iridescents parcourent son corps. La lumière qu'il émet est aveuglante. Ses blessures sont parfaitement guéries !}
+                    female {**{player}** est entourée d'un halo lumineux. D'horribles tentacules bleus iridescents lui courent sur le corps... ses blessures semblent guérir d'elles-même !}
+                    other {invalid gender input}
+                }
+                </target>
             </segment>
         </unit>
     </file>

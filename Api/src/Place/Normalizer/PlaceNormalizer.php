@@ -63,11 +63,11 @@ class PlaceNormalizer implements ContextAwareNormalizerInterface, NormalizerAwar
             if (is_array($normedDoor)) {
                 $doors[] = array_merge(
                     $normedDoor,
-                    ['direction' => $door
+                    ['direction' => $this->translator->trans($door
                         ->getRooms()
                         ->filter(fn (Place $doorRoom) => $doorRoom !== $room)
                         ->first()
-                        ->getName(),
+                        ->getName() . '.name', [], 'rooms'),
                     ]
                 );
             }
@@ -125,17 +125,19 @@ class PlaceNormalizer implements ContextAwareNormalizerInterface, NormalizerAwar
                         $piles[] = $this->normalizer->normalize($item, $format, $context);
                     }
                 } else {
-                    //Only normalize the item reference
                     /** @var array $normalizedItem */
-                    $normalizedItem = $this->normalizer->normalize($patron, $format, $context);
                     $statusesPiles = $this->groupByStatus($itemGroup, $currentPlayer);
+
                     foreach ($statusesPiles as $pileName => $statusesPile) {
-                        $currentNormalizedItem = $normalizedItem;
+                        $item = current($statusesPile);
+                        /** @var array $normalizedItem */
+                        $normalizedItem = $this->normalizer->normalize($item, $format, $context);
+
                         $countItem = count($statusesPile);
                         if ($countItem > 1) {
-                            $currentNormalizedItem['number'] = $countItem;
+                            $normalizedItem['number'] = $countItem;
                         }
-                        $piles[] = $currentNormalizedItem;
+                        $piles[] = $normalizedItem;
                     }
                 }
             }

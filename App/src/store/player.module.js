@@ -6,7 +6,14 @@ const state =  {
     player: null
 };
 
-const getters = {};
+const getters = {
+    isLoading: (state) => {
+        return state.loading;
+    },
+    player: (state) => {
+        return state.player;
+    }
+};
 
 const actions = {
     storePlayer({ commit }, { player }) {
@@ -20,14 +27,15 @@ const actions = {
 
             return true;
         } catch (e) {
+            commit('errorUpdatePlayer');
             return false;
         }
     },
     async reloadPlayer({ state, dispatch }) {
         return dispatch("loadPlayer", { playerId: state.player.id });
     },
-    setLoading({ commit }) {
-        commit('setLoading', true);
+    setLoading({ commit }, { loading }) {
+        commit('setLoading', loading);
     }
 };
 
@@ -37,6 +45,9 @@ const mutations = {
     },
     updatePlayer(state, player) {
         state.player = player;
+        state.loading = false;
+    },
+    errorUpdatePlayer(state) {
         state.loading = false;
     }
 };

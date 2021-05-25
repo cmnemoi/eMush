@@ -317,6 +317,11 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         ;
         $distillerMechanic = new Tool();
 
+        /** @var Action $dispenseAction */
+        $dispenseAction = $this->getReference(ActionsFixtures::DISPENSE_DRUG);
+
+        $distillerMechanic->addAction($dispenseAction);
+
         $narcoticDistiller = new EquipmentConfig();
         $narcoticDistiller
             ->setGameConfig($gameConfig)

@@ -16,6 +16,7 @@ const RALUCA = "raluca";
 const ROLAND = "roland";
 const STEPHEN = "stephen";
 const TERRENCE = "terrence";
+export const NERON = "neron";
 
 
 export const characterEnum = {
@@ -108,6 +109,10 @@ export const characterEnum = {
         'head': require('@/assets/images/char/head/terrence.png'),
         'body': require('@/assets/images/char/body/terrence.png'),
         'portrait': require('@/assets/images/char/portrait/Terrence_archer_portrait.jpg')
+    },
+    [NERON]: {
+        'head': require('@/assets/images/comms/neron_chat.png'),
+        'body': require('@/assets/images/comms/neron_chat.png')
     }
 }
 ;

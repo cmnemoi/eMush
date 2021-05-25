@@ -15,7 +15,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 class ActionService implements ActionServiceInterface
 {
     public const MAX_PERCENT = 99;
-    public const BASE_MOVEMENT_POINT_CONVERSION = 4;
+    public const BASE_MOVEMENT_POINT_CONVERSION = 3;
 
     private EventDispatcherInterface $eventDispatcher;
     private ActionModifierServiceInterface $actionModifierService;
@@ -47,7 +47,7 @@ class ActionService implements ActionServiceInterface
 
         if (($movementPointCost = $this->getTotalMovementPointCost($player, $action)) > 0) {
             if ($player->getMovementPoint() === 0) {
-                $playerModifierEvent = new PlayerModifierEvent($player, self::BASE_MOVEMENT_POINT_CONVERSION);
+                $playerModifierEvent = new PlayerModifierEvent($player, self::BASE_MOVEMENT_POINT_CONVERSION, new \DateTime());
                 $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::MOVEMENT_POINT_CONVERSION);
             }
 
@@ -109,7 +109,7 @@ class ActionService implements ActionServiceInterface
         $baseRate = $action->getSuccessRate();
 
         //Get number of attempt
-        $numberOfAttempt = $this->getAttempt($player, $action->getName())->getCharge();
+        $numberOfAttempt = $this->getNumberOfAttempt($player, $action->getName());
 
         $initialValue = ($baseRate * (1.25) ** $numberOfAttempt);
 
@@ -122,6 +122,18 @@ class ActionService implements ActionServiceInterface
         );
 
         return min($this::MAX_PERCENT, $modifiedValue);
+    }
+
+    private function getNumberOfAttempt(Player $player, string $actionName): int
+    {
+        /** @var Attempt $attempt */
+        $attempt = $player->getStatusByName(StatusEnum::ATTEMPT);
+
+        if ($attempt && $attempt->getAction() === $actionName) {
+            return $attempt->getCharge();
+        }
+
+        return 0;
     }
 
     public function getAttempt(Player $player, string $actionName): Attempt
@@ -148,7 +160,7 @@ class ActionService implements ActionServiceInterface
 
     private function triggerPlayerModifierEvent(Player $player, string $eventName, int $delta): void
     {
-        $playerModifierEvent = new PlayerModifierEvent($player, $delta);
+        $playerModifierEvent = new PlayerModifierEvent($player, $delta, new \DateTime());
         $playerModifierEvent->setIsDisplayedRoomLog(false);
         $this->eventDispatcher->dispatch($playerModifierEvent, $eventName);
     }

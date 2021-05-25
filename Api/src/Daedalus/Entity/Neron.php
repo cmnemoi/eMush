@@ -21,6 +21,11 @@ class Neron
      */
     private Daedalus $daedalus;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=false)
+     */
+    private bool $isInhibited = true;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -36,5 +41,17 @@ class Neron
         $this->daedalus = $daedalus;
 
         return $this;
+    }
+
+    public function setIsInhibited(bool $isInhibited): Neron
+    {
+        $this->isInhibited = $isInhibited;
+
+        return $this;
+    }
+
+    public function isInhibited(): bool
+    {
+        return $this->isInhibited;
     }
 }

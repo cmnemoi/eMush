@@ -13,7 +13,7 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
     private PlayerStatusServiceInterface $playerStatus;
 
     public function __construct(
-        PlayerStatusServiceInterface $playerStatus,
+        PlayerStatusServiceInterface $playerStatus
     ) {
         $this->playerStatus = $playerStatus;
     }
@@ -41,7 +41,7 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
         $player = $playerEvent->getPlayer();
         $delta = $playerEvent->getDelta();
 
-        $this->playerStatus->handleSatietyStatus($delta, $player);
+        $this->playerStatus->handleSatietyStatus($delta, $player, $playerEvent->getTime());
     }
 
     public function onMovementPointConversion(PlayerModifierEvent $playerEvent): void

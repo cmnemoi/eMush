@@ -21,6 +21,16 @@
                 <target>Un bon café et ça repart !</target>
             </segment>
         </unit>
+        <unit id="dispense">
+            <segment id="dispense">
+                <source>dispense.name</source>
+                <target>Distiller</target>
+            </segment>
+            <segment id="description">
+                <source>dispense.description</source>
+                <target>Permet de distiller une nouvelle petite gourmandise.</target>
+            </segment>
+        </unit>
         <unit id="consume">
             <segment id="consume">
                 <source>consume.name</source>
@@ -32,15 +42,15 @@
             </segment>
         </unit>
         <unit id="consume_drug">
-                    <segment id="consume_drug">
-                        <source>consume_drug.name</source>
-                        <target>Consommer</target>
-                    </segment>
-                    <segment id="description">
-                        <source>consume_drug.description</source>
-                        <target>Dévorer une délicieuse denrée. En général, manger vous apportera des :pa::pm:. Les //rations cuisinées// n'entameront pas votre moral. Les autres nouritures peuvent réserver des surprises.</target>
-                    </segment>
-                </unit>
+            <segment id="consume_drug">
+                <source>consume_drug.name</source>
+                <target>Consommer</target>
+            </segment>
+            <segment id="description">
+                <source>consume_drug.description</source>
+                <target>Dévorer une délicieuse denrée. En général, manger vous apportera des :pa::pm:. Les //rations cuisinées// n'entameront pas votre moral. Les autres nouritures peuvent réserver des surprises.</target>
+            </segment>
+        </unit>
         <unit id="cook">
             <segment id="cook">
                 <source>cook.name</source>
@@ -281,6 +291,26 @@
                 <target>Fantastique, le système d'Oxy Rev vous permet d'enlever de l'Oxygène des Réservoirs. Attention à bien fermer la vanne et à vous laver les mains.</target>
             </segment>
         </unit>
+        <unit id="insert_fuel">
+            <segment id="name">
+                <source>insert_fuel.name</source>
+                <target>Insérer</target>
+            </segment>
+            <segment id="description">
+                <source>insert_fuel.description</source>
+                <target>Injecte le Fuel dans un Réservoir.</target>
+            </segment>
+        </unit>
+        <unit id="retrieve_fuel">
+            <segment id="name">
+                <source>retrieve_fuel.name</source>
+                <target>Récupérer capsule de fuel</target>
+            </segment>
+            <segment id="description">
+                <source>retrieve_fuel.description</source>
+                <target>Permet de récupérer une Capsule du moteur.</target>
+            </segment>
+        </unit>
         <unit id="sabotage">
             <segment id="name">
                 <source>sabotage.name</source>
@@ -309,6 +339,57 @@
             <segment id="description">
                 <source>extinguish.description</source>
                 <target>Avec un peu d'adresse vous arriverez à vous débarasser du feu. Faites attention à ne pas vous brûler.</target>
+            </segment>
+        </unit>
+
+        <unit id="heal">
+            <segment id="name">
+                <source>heal.name</source>
+                <target>Soigner</target>
+            </segment>
+            <segment id="description">
+                <source>heal.description</source>
+                <target>Rend des Points de Vie (:pv:) à la cible. Si celle ci est malade, enlève un point de maladie à l'une de ses maladies.</target>
+            </segment>
+        </unit>
+        <unit id="self_heal">
+            <segment id="name">
+                <source>self_heal.name</source>
+                <target>Se soigner</target>
+            </segment>
+            <segment id="description">
+                <source>self_heal.description</source>
+                <target>Vous rend des Points de Vie (:pv:). Si vous êtes malade, enlève un point de maladie à l'une de vos maladies.</target>
+            </segment>
+        </unit>
+        <unit id="ultraheal">
+            <segment id="name">
+                <source>ultraheal.name</source>
+                <target>Apliquer</target>
+            </segment>
+            <segment id="description">
+                <source>ultraheal.description</source>
+                <target>Permet de guérir de se toutes ses blessures.</target>
+            </segment>
+        </unit>
+        <unit id="use_bandage">
+            <segment id="name">
+                <source>use_bandage.name</source>
+                <target>Se soigner</target>
+            </segment>
+            <segment id="description">
+                <source>use_bandage.description</source>
+                <target>Permet de soigner vos petits bobos.</target>
+            </segment>
+        </unit>
+        <unit id="comfort">
+            <segment id="name">
+                <source>comfort.name</source>
+                <target>Réconforter</target>
+            </segment>
+            <segment id="description">
+                <source>comfort.description</source>
+                <target>Vous savez écouter votre prochain, ce qui lui remonte le moral.</target>
             </segment>
         </unit>
     </file>

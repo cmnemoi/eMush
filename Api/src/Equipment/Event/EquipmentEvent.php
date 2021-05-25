@@ -9,17 +9,19 @@ use Symfony\Contracts\EventDispatcher\Event;
 class EquipmentEvent extends Event
 {
     public const EQUIPMENT_CREATED = 'equipment.created';
+    public const EQUIPMENT_FIXED = 'equipment.fixed';
     public const EQUIPMENT_BROKEN = 'equipment.broken';
     public const EQUIPMENT_DESTROYED = 'equipment.destroyed';
 
     private GameEquipment $equipment;
     private string $visibility;
     private ?Player $player;
+    private ?string $reason;
     private \DateTime $time;
 
-    public function __construct(GameEquipment $equipment, string $visibility, $time = null)
+    public function __construct(GameEquipment $equipment, string $visibility, \DateTime $time)
     {
-        $this->time = $time ?? new \DateTime();
+        $this->time = $time;
         $this->equipment = $equipment;
         $this->visibility = $visibility;
     }
@@ -42,6 +44,18 @@ class EquipmentEvent extends Event
     public function setPlayer(Player $player): EquipmentEvent
     {
         $this->player = $player;
+
+        return $this;
+    }
+
+    public function getReason(): ?string
+    {
+        return $this->reason;
+    }
+
+    public function setReason(string $reason): EquipmentEvent
+    {
+        $this->reason = $reason;
 
         return $this;
     }

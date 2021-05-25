@@ -7,7 +7,6 @@ use Mush\Daedalus\Service\DaedalusIncidentServiceInterface;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Place\Event\PlaceCycleEvent;
@@ -20,18 +19,15 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
 {
     private DaedalusServiceInterface $daedalusService;
     private DaedalusIncidentServiceInterface $daedalusIncidentService;
-    private GameEquipmentServiceInterface $gameEquipmentService;
     private EventDispatcherInterface $eventDispatcher;
 
     public function __construct(
         DaedalusServiceInterface $daedalusService,
         DaedalusIncidentServiceInterface $daedalusIncidentService,
-        GameEquipmentServiceInterface $gameEquipmentService,
         EventDispatcherInterface $eventDispatcher
     ) {
         $this->daedalusService = $daedalusService;
         $this->daedalusIncidentService = $daedalusIncidentService;
-        $this->gameEquipmentService = $gameEquipmentService;
         $this->eventDispatcher = $eventDispatcher;
     }
 
@@ -47,15 +43,14 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
     {
         $daedalus = $event->getDaedalus();
         $daedalus->setCycle($daedalus->getCycle() + 1);
-        $daedalus->setCycleStartedAt($event->getTime());
 
-        if ($this->handleDaedalusEnd($daedalus)) {
+        if ($this->handleDaedalusEnd($daedalus, $event->getTime())) {
             return;
         }
 
         $this->dispatchCycleChangeEvent($daedalus, $event->getTime());
 
-        $daedalus = $this->handleOxygen($daedalus);
+        $daedalus = $this->handleOxygen($daedalus, $event->getTime());
 
         $this->daedalusService->persist($daedalus);
     }
@@ -82,12 +77,12 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         $this->daedalusService->persist($daedalus);
     }
 
-    private function handleDaedalusEnd(Daedalus $daedalus): bool
+    private function handleDaedalusEnd(Daedalus $daedalus, \DateTime $time): bool
     {
         if ($daedalus->getPlayers()->getHumanPlayer()->getPlayerAlive()->isEmpty() &&
             !$daedalus->getPlayers()->getMushPlayer()->getPlayerAlive()->isEmpty()
         ) {
-            $endDaedalusEvent = new DaedalusEvent($daedalus);
+            $endDaedalusEvent = new DaedalusEvent($daedalus, $time);
             $endDaedalusEvent->setReason(EnumEndCauseEnum::KILLED_BY_NERON);
             $this->eventDispatcher->dispatch($endDaedalusEvent, DaedalusEvent::END_DAEDALUS);
 
@@ -97,7 +92,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         return false;
     }
 
-    private function handleOxygen(Daedalus $daedalus): Daedalus
+    private function handleOxygen(Daedalus $daedalus, \DateTime $date): Daedalus
     {
         //Handle oxygen loss
         $oxygenLoss = 1;
@@ -123,9 +118,12 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         }
 
         if ($daedalus->getOxygen() <= $oxygenLoss) {
-            $this->daedalusService->getRandomAsphyxia($daedalus);
+            $this->daedalusService->getRandomAsphyxia($daedalus, $date);
         }
-        $this->daedalusService->changeOxygenLevel($daedalus, -$oxygenLoss);
+
+        $daedalusEvent = new DaedalusModifierEvent($daedalus, $date);
+        $daedalusEvent->setQuantity(-$oxygenLoss);
+        $this->eventDispatcher->dispatch($daedalusEvent, DaedalusModifierEvent::CHANGE_OXYGEN);
 
         return $daedalus;
     }

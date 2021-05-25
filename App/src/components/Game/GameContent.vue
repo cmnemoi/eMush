@@ -1,32 +1,39 @@
 <template>
-    <div v-if="player" class="main">
-        <GamePopUp style="display: none;" />
-        <div class="top-banner">
-            <BannerPanel :player="player" :daedalus="player.daedalus" />
+    <div v-if="player">
+        <div v-if="['in_game'].includes(player.gameStatus)" class="main">
+            <InvitationPrivateChannelMenu />
+            <div class="top-banner">
+                <BannerPanel :player="player" :daedalus="player.daedalus" />
+            </div>
+            <div class="game-content">
+                <CharPanel :player="player" />
+                <ShipPanel :room="player.room" />
+                <CommsPanel :day="player.daedalus.day" :cycle="player.daedalus.cycle" />
+            </div>
+            <ProjectsPanel />
+            <div class="bottom-banner" />
         </div>
-        <div class="game-content">
-            <CharPanel :player="player" />
-            <ShipPanel :room="player.room" />
-            <CommsPanel :day="player.daedalus.day" :cycle="player.daedalus.cycle" />
+        <div v-else-if="['finished'].includes(player.gameStatus)" class="main">
+            <Purgatory :player="player" />
         </div>
-        <ProjectsPanel />
-        <div class="bottom-banner" />
     </div>
 </template>
 
 <script>
-import GamePopUp from "@/components/Utils/GamePopUp";
 import BannerPanel from "@/components/Game/BannerPanel";
 import CharPanel from "@/components/Game/CharPanel";
 import ShipPanel from "@/components/Game/Ship/ShipPanel";
 import CommsPanel from "@/components/Game/Communications/CommsPanel";
 import ProjectsPanel from "@/components/Game/ProjectsPanel";
 import { mapActions, mapState } from "vuex";
+import Purgatory from "@/components/PurgatoryPage";
+import InvitationPrivateChannelMenu from "@/components/Game/Communications/InvitationPrivateChannelMenu";
 
 export default {
     name: 'GameContent',
     components: {
-        GamePopUp,
+        InvitationPrivateChannelMenu,
+        Purgatory,
         BannerPanel,
         CharPanel,
         ShipPanel,

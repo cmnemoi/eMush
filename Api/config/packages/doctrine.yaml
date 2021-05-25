@@ -70,3 +70,15 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Communication/Entity'
                 prefix: 'Mush\Communication\Entity'
                 alias: Communication
+            Disease:
+                is_bundle: false
+                type: annotation
+                dir: '%kernel.project_dir%/src/Disease/Entity'
+                prefix: 'Mush\Disease\Entity'
+                alias: Disease
+            Alert:
+                is_bundle: false
+                type: annotation
+                dir: '%kernel.project_dir%/src/Alert/Entity'
+                prefix: 'Mush\Alert\Entity'
+                alias: Alert

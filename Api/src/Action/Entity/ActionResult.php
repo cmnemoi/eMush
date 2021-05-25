@@ -10,12 +10,15 @@ abstract class ActionResult
 {
     private ?Player $targetPlayer = null;
     private ?GameEquipment $targetEquipment = null;
+    private ?int $quantity = null;
 
-    public function __construct(ActionParameter $actionParameter = null)
+    public function __construct(ActionParameter $actionParameter = null, $quantity = null)
     {
         if ($actionParameter !== null) {
             $this->setActionParameter($actionParameter);
         }
+
+        $this->quantity = $quantity;
     }
 
     public function setActionParameter(ActionParameter $actionParameter): self
@@ -46,5 +49,10 @@ abstract class ActionResult
     public function getTargetEquipment(): ?GameEquipment
     {
         return $this->targetEquipment;
+    }
+
+    public function getQuantity(): ?int
+    {
+        return $this->quantity;
     }
 }

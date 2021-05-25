@@ -42,44 +42,44 @@ Although, it is possible to run application checked out in Windows and mounted t
 To have a working dev environment, follow the following steps
 
 Clone the project
-```
-git clone git@gitlab.com:eternal-twin/mush/mush.git
+```bash
+$ git clone git@gitlab.com:eternal-twin/mush/mush.git
 ```
 Checkout to develop:
-```
-git checkout develop
+```bash
+$ git checkout develop
 ```
 
 Copy the .env.dist file (and change environment variables if required):
 
-```
-cp ./Api/.env.dist ./Api/.env
-cp ./App/.env.dist ./App/.env
+```bash
+$ cp ./Api/.env.dist ./Api/.env
+$ cp ./App/.env.dist ./App/.env
 ```
 
 Copy the Eternal-Twin config:
-```
-cp ./EternalTwin/etwin.toml.example ./EternalTwin/etwin.toml
+```bash
+$ cp ./EternalTwin/etwin.toml.example ./EternalTwin/etwin.toml
 ```
 
 
 Build the docker containers:
-```
-make install
+```bash
+$ make install
 ```
 
 Start the docker container
-```
-make docker-watch (make docker-start if you don't mind the compilation outputs)
+```bash
+$ make docker-watch (make docker-start if you don't mind the compilation outputs)
 ```
 
 Go in the Api container:
-```
-make bash-api
+```bash
+$ make bash-api
 ```
 
 Create the JWT certificates (https://github.com/lexik/LexikJWTAuthenticationBundle):
-```
+```bash
 $ mkdir -p config/jwt
 $ openssl genpkey -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096
 $ openssl pkey -in config/jwt/private.pem -out config/jwt/public.pem -pubout
@@ -142,6 +142,18 @@ by
 - Change `EternalTwin/etwin.toml`  
 line 82: `callback_uri = "http://localhost:8080/oauth/callback"`  
 by `callback_uri = "http://localhost:new_port/oauth/callback"`
+
+## Permission issues
+
+If for some reason your user id (`id -u`) and group id (`id -g`) aren't 1000 then you can specify them in docker/docker-compose.dev.yml
+
+``` yaml
+mush_php:
+ build:
+  args:
+  - UID=1000
+  - GID=1000
+```
 
 ## Contributing
 

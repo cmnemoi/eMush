@@ -35,7 +35,7 @@ class Disassemble extends AttemptAction
         ValidatorInterface $validator,
         GameEquipmentServiceInterface $gameEquipmentService,
         PlayerServiceInterface $playerService,
-        RandomServiceInterface $randomService,
+        RandomServiceInterface $randomService
     ) {
         parent::__construct(
             $eventDispatcher,
@@ -55,6 +55,7 @@ class Disassemble extends AttemptAction
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
+        //@TODO add validator on technician skill ?
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(new Status([
             'status' => EquipmentStatusEnum::REINFORCED,
@@ -91,7 +92,7 @@ class Disassemble extends AttemptAction
                     ->gameEquipmentService
                     ->createGameEquipmentFromName($productString, $this->player->getDaedalus())
                 ;
-                $equipmentEvent = new EquipmentEvent($productEquipment, VisibilityEnum::HIDDEN);
+                $equipmentEvent = new EquipmentEvent($productEquipment, VisibilityEnum::HIDDEN, new \DateTime());
                 $equipmentEvent->setPlayer($this->player);
                 $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
@@ -100,7 +101,7 @@ class Disassemble extends AttemptAction
         }
 
         // remove the dismantled equipment
-        $equipmentEvent = new EquipmentEvent($gameEquipment, VisibilityEnum::HIDDEN);
+        $equipmentEvent = new EquipmentEvent($gameEquipment, VisibilityEnum::HIDDEN, new \DateTime());
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
     }
 }

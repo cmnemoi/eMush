@@ -1,5 +1,9 @@
 <template>
-    <div v-if="isRoot" class="message main-message" @click="$emit('click')">
+    <div
+        v-if="isRoot && !isSystemMessage"
+        :class="isNeronMessage ? 'message main-message neron' : 'message main-message'"
+        @click="$emit('click')"
+    >
         <div class="character-body">
             <img :src="characterPortrait">
         </div>
@@ -9,7 +13,17 @@
         <ActionButtons class="actions" :actions="['reply', 'favorite', 'report']" />
         <span class="timestamp">{{ formatDate(message.date, {local: "fr-FR"}) }}</span>
     </div>
-    <div v-if="!isRoot" class="message child-message" @click="$emit('click')">
+    <div
+        v-if="isRoot && isSystemMessage"
+        class="log"
+        @click="$emit('click')"
+    >
+        <p class="text">
+            <span v-html="formatMessage(message.message)" />
+        </p>
+        <span class="timestamp">{{ formatDate(message.date, {local: "fr-FR"}) }}</span>
+    </div>
+    <div v-else-if="!isRoot" class="message child-message" @click="$emit('click')">
         <p class="text">
             <img class="character-head" :src="characterPortrait">
             <span class="author">{{ message.character.name }} :</span><span v-html="formatMessage(message.message)" />
@@ -25,7 +39,7 @@ import { formatText } from "@/utils/formatText";
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import { fr } from 'date-fns/locale';
 import { Message } from "@/entities/Message";
-import { characterEnum } from "@/enums/character";
+import { characterEnum, NERON } from "@/enums/character";
 
 export default {
     name: "Message",
@@ -45,8 +59,17 @@ export default {
     },
     computed: {
         characterPortrait: function() {
-            const images = characterEnum[this.message.character.key];
-            return this.isRoot ? images.body : images.head;
+            if (this.message.character.key !== null) {
+                const images = characterEnum[this.message.character.key];
+                return this.isRoot ? images.body : images.head;
+            }
+            return null;
+        },
+        isNeronMessage: function() {
+            return this.message.character.key === NERON;
+        },
+        isSystemMessage: function() {
+            return this.message.character.key === null;
         }
     },
     methods: {
@@ -62,6 +85,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.log {
+    position: relative;
+    padding: 4px 5px;
+    margin: 1px 0;
+    border-bottom: 1px solid rgb(170, 212, 229);
+
+    p {
+        margin: 0;
+        font-size: .95em;
+        >>> img { vertical-align: middle; }
+    }
+}
 
 .message {
     position: relative;
@@ -92,7 +128,7 @@ export default {
         background: white;
         word-break: break-word;
 
-        /deep/ em {
+        >>> em {
             color: #cf1830; // Makes italic text red
         }
 
@@ -180,10 +216,10 @@ export default {
         border-radius: var(--border-radius);
         clip-path:
             polygon(
-                0 var(--border-radius),
-                calc(100% - var(--border-radius)) var(--border-radius),
-                calc(100% - var(--border-radius)) 100%,
-                0 100%
+                    0 var(--border-radius),
+                    calc(100% - var(--border-radius)) var(--border-radius),
+                    calc(100% - var(--border-radius)) 100%,
+                    0 100%
             );
     }
 
@@ -201,10 +237,10 @@ export default {
         border-radius: var(--border-radius);
         clip-path:
             polygon(
-                0 0,
-                calc(100% - var(--border-radius)) 0,
-                calc(100% - var(--border-radius)) calc(100% - var(--border-radius)),
-                0 calc(100% - var(--border-radius))
+                    0 0,
+                    calc(100% - var(--border-radius)) 0,
+                    calc(100% - var(--border-radius)) calc(100% - var(--border-radius)),
+                    0 calc(100% - var(--border-radius))
             );
     }
 }
@@ -243,13 +279,14 @@ export default {
 }
 
 .actions { //buttons styling
+    position: absolute;
     visibility: hidden;
     opacity: 0;
-    position: absolute;
+    z-index: 5;
     right: 3px;
-    top: -3px;
+    bottom: -2px;
     height: 14px;
-    transition: visibility 0s 0.15s, opacity 0.15s 0s, top 0.15s 0s;
+    transition: visibility 0s 0.15s, opacity 0.15s 0s, bottom 0.15s 0s;
 }
 
 .message:hover,
@@ -259,9 +296,28 @@ export default {
     .actions {
         visibility: visible;
         opacity: 1;
-        top: 5px;
-        transition: visibility 0s 0.5s, opacity 0.15s 0.5s, top 0.15s 0.5s;
+        bottom: 7px;
+        transition: visibility 0s 0.5s, opacity 0.15s 0.5s, bottom 0.15s 0.5s;
     }
+}
+
+
+#private-discussion-tab .unit > .message:nth-of-type(odd) { // alterning left and right style in private channels
+    flex-direction: row-reverse;
+
+    .character-body { transform: scaleX(-1); }
+
+    .timestamp { right: 41px; }
+
+    .actions { right: 39px; }
+
+    p::before {
+        left: initial;
+        right: -8px;
+        transform: rotate(180deg);
+    }
+
+    &.new p::before { border-right-color: white; }
 }
 
 </style>

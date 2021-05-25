@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class SelfHeal extends AbstractAction
 {
-    const BASE_HEAL = 2;
+    public const BASE_HEAL = 2;
 
     protected string $name = ActionEnum::SELF_HEAL;
 
@@ -26,7 +26,7 @@ class SelfHeal extends AbstractAction
         EventDispatcherInterface $eventDispatcher,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        PlayerServiceInterface $playerService,
+        PlayerServiceInterface $playerService
     ) {
         parent::__construct(
             $eventDispatcher,
@@ -51,11 +51,16 @@ class SelfHeal extends AbstractAction
     {
         //@TODO remove diseases
 
-        $playerModifierEvent = new PlayerModifierEvent($this->player, self::BASE_HEAL);
+        $initialHealth = $this->player->getHealthPoint();
+
+        $playerModifierEvent = new PlayerModifierEvent($this->player, self::BASE_HEAL, new \DateTime());
+        $playerModifierEvent->setIsDisplayedRoomLog(false);
         $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
 
         $this->playerService->persist($this->player);
 
-        return new Success();
+        $healedQuantity = $this->player->getHealthPoint() - $initialHealth;
+
+        return new Success(null, $healedQuantity);
     }
 }

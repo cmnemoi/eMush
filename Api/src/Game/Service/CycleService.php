@@ -4,18 +4,23 @@ namespace Mush\Game\Service;
 
 use DateInterval;
 use DateTime;
+use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\GameStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class CycleService implements CycleServiceInterface
 {
+    private EntityManagerInterface $entityManager;
     private EventDispatcherInterface $eventDispatcher;
 
     public function __construct(
+        EntityManagerInterface $entityManager,
         EventDispatcherInterface $eventDispatcher
     ) {
+        $this->entityManager = $entityManager;
         $this->eventDispatcher = $eventDispatcher;
     }
 
@@ -27,10 +32,29 @@ class CycleService implements CycleServiceInterface
 
         $cycleElapsed = $this->getNumberOfCycleElapsed($dateDaedalusLastCycle, $dateTime, $gameConfig);
 
-        for ($i = 0; $i < $cycleElapsed; ++$i) {
-            $lastUpdateCycle = $dateDaedalusLastCycle->add(new DateInterval('PT' . strval($gameConfig->getCycleLength()) . 'M'));
-            $cycleEvent = new DaedalusCycleEvent($daedalus, $lastUpdateCycle);
-            $this->eventDispatcher->dispatch($cycleEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+        if ($cycleElapsed > 0) {
+            $daedalus->setIsCycleChange(true);
+            $this->entityManager->persist($daedalus);
+            $this->entityManager->flush();
+
+            try {
+                for ($i = 0; $i < $cycleElapsed; ++$i) {
+                    $dateDaedalusLastCycle->add(new DateInterval('PT' . strval($gameConfig->getCycleLength()) . 'M'));
+                    $cycleEvent = new DaedalusCycleEvent($daedalus, $dateDaedalusLastCycle);
+                    $this->eventDispatcher->dispatch($cycleEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+
+                    //Do not continue make cycle if Daedalus is finish
+                    if ($daedalus->getGameStatus() === GameStatusEnum::FINISHED) {
+                        break;
+                    }
+                }
+            } catch (\Exception $exception) {
+            } finally {
+                $daedalus->setCycleStartedAt($dateDaedalusLastCycle);
+                $daedalus->setIsCycleChange(false);
+                $this->entityManager->persist($daedalus);
+                $this->entityManager->flush();
+            }
         }
 
         return $cycleElapsed;

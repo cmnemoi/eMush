@@ -38,26 +38,32 @@ class OtherPlayerNormalizer implements ContextAwareNormalizerInterface, Normaliz
     {
         /** @var Player $player */
         $player = $object;
-        $statuses = [];
-        foreach ($player->getStatuses() as $status) {
-            $normedStatus = $this->normalizer->normalize($status, $format, array_merge($context, ['player' => $player]));
-            if (is_array($normedStatus) && count($normedStatus) > 0) {
-                $statuses[] = $normedStatus;
-            }
-        }
 
         $character = $player->getCharacterConfig()->getName();
 
-        return [
+        $playerData = [
             'id' => $player->getId(),
             'character' => [
                 'key' => $character,
                 'value' => $this->translator->trans($character . '.name', [], 'characters'),
             ],
-            'statuses' => $statuses,
-            'skills' => $player->getSkills(),
-            'actions' => $this->getActions($player, $format, $context),
         ];
+
+        if (isset($context['currentPlayer'])) {
+            $statuses = [];
+            foreach ($player->getStatuses() as $status) {
+                $normedStatus = $this->normalizer->normalize($status, $format, array_merge($context, ['player' => $player]));
+                if (is_array($normedStatus) && count($normedStatus) > 0) {
+                    $statuses[] = $normedStatus;
+                }
+            }
+
+            $playerData['statuses'] = $statuses;
+            $playerData['skills'] = $player->getSkills();
+            $playerData['actions'] = $this->getActions($player, $format, $context);
+        }
+
+        return $playerData;
     }
 
     private function getActions(Player $player, ?string $format, array $context): array

@@ -6,8 +6,10 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
+use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
@@ -82,6 +84,7 @@ class RoomLogService implements RoomLogServiceInterface
             'actions_log',
             $player,
             $actionResult->getTargetPlayer() ?? $actionResult->getTargetEquipment(),
+            $actionResult->getQuantity()
         );
     }
 
@@ -124,41 +127,26 @@ class RoomLogService implements RoomLogServiceInterface
     private function getMessageParam(
         ?Player $player = null,
         ?LogParameter $target = null,
-        ?int $quantity = null,
+        ?int $quantity = null
     ): array {
         $params = [];
 
         if ($player !== null) {
-            $characterKey = $player->getCharacterConfig()->getName();
-            $characterName = $this->translator->trans($characterKey . '.name', [], 'characters');
-
-            $params['player'] = $characterName;
-            $params['character_gender'] = (CharacterEnum::isMale($characterKey) ? 'male' : 'female');
+            $params['player'] = $player->getCharacterConfig()->getName();
         }
 
         if ($target instanceof GameEquipment) {
             if ($target instanceof GameItem) {
-                $domain = 'items';
+                $params['targetItem'] = $target->getName();
+            } elseif ($target instanceof Door) {
+                $params['targetEquipment'] = EquipmentEnum::DOOR;
             } else {
-                $domain = 'equipments';
+                $params['targetEquipment'] = $target->getName();
             }
-            $targetName = $this->translator->trans($target->getName() . '.short_name', [], $domain);
-            $targetPlural = $this->translator->trans($target->getName() . '.plural_name', [], $domain);
-            $targetGender = $this->translator->trans($target->getName() . '.genre', [], $domain);
-            $targetFirstLetter = $this->translator->trans($target->getName() . '.first_Letter', [], $domain);
-
-            $params['target_first_letter'] = $targetFirstLetter;
-            $params['targetPlural'] = $targetPlural;
-            $params['target'] = $targetName;
-            $params['target_gender'] = $targetGender;
         }
 
         if ($target instanceof Player) {
-            $characterKey = $target->getCharacterConfig()->getName();
-            $characterName = $this->translator->trans($characterKey . '.name', [], 'characters');
-
-            $params['target'] = $characterName;
-            $params['target_gender'] = (CharacterEnum::isMale($characterKey) ? 'male' : 'female');
+            $params['targetPlayer'] = $target->getCharacterConfig()->getName();
         }
 
         if ($quantity !== null) {
@@ -175,10 +163,11 @@ class RoomLogService implements RoomLogServiceInterface
         $logs = [];
         /** @var RoomLog $roomLog */
         foreach ($roomLogs as $roomLog) {
+            $translatedParameters = $this->translateParameters($roomLog->getParameters());
             $logs[$roomLog->getDay()][$roomLog->getCycle()][] = [
                 'log' => $this->translator->trans(
                     $roomLog->getLog(),
-                    $roomLog->getParameters(),
+                    $translatedParameters,
                     $roomLog->getType()
                 ),
                 'visibility' => $roomLog->getVisibility(),
@@ -187,5 +176,45 @@ class RoomLogService implements RoomLogServiceInterface
         }
 
         return $logs;
+    }
+
+    private function translateParameters(array $parameters): array
+    {
+        $params = [];
+        foreach ($parameters as $key => $element) {
+            switch ($key) {
+                case 'player':
+                    $params['player'] = $this->translator->trans($element . '.name', [], 'characters');
+                    $params['character_gender'] = (CharacterEnum::isMale($element) ? 'male' : 'female');
+                    break;
+
+                case 'targetEquipment':
+                    $domain = 'equipments';
+
+                    $params['target'] = $this->translator->trans($element . '.short_name', [], $domain);
+                    $params['target_gender'] = $this->translator->trans($element . '.genre', [], $domain);
+                    $params['target_first_letter'] = $this->translator->trans($element . '.first_Letter', [], $domain);
+                    $params['targetPlural'] = $this->translator->trans($element . '.plural_name', [], $domain);
+                    break;
+
+                case 'targetItem':
+                    $domain = 'items';
+
+                    $params['target'] = $this->translator->trans($element . '.short_name', [], $domain);
+                    $params['target_gender'] = $this->translator->trans($element . '.genre', [], $domain);
+                    $params['target_first_letter'] = $this->translator->trans($element . '.first_Letter', [], $domain);
+                    $params['targetPlural'] = $this->translator->trans($element . '.plural_name', [], $domain);
+                    break;
+
+                case 'targetPlayer':
+                    $params['target'] = $this->translator->trans($element . '.name', [], 'characters');
+                    $params['target_gender'] = (CharacterEnum::isMale($element) ? 'male' : 'female');
+                    break;
+                default:
+                    $params[$key] = $element;
+            }
+        }
+
+        return $params;
     }
 }

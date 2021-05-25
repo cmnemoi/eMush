@@ -38,7 +38,7 @@ abstract class AbstractActionTest extends TestCase
     public function before()
     {
         $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
-        $this->eventDispatcher->shouldReceive('dispatch');
+        $this->eventDispatcher->shouldReceive('dispatch')->times(3);
 
         $this->actionService = Mockery::mock(ActionServiceInterface::class);
         $this->actionService->shouldReceive('canPlayerDoAction')->andReturn(true);

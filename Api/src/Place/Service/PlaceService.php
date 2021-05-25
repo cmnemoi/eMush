@@ -23,7 +23,7 @@ class PlaceService implements PlaceServiceInterface
     public function __construct(
         EntityManagerInterface $entityManager,
         PlaceRepository $repository,
-        GameEquipmentServiceInterface $equipmentService,
+        GameEquipmentServiceInterface $equipmentService
     ) {
         $this->entityManager = $entityManager;
         $this->repository = $repository;

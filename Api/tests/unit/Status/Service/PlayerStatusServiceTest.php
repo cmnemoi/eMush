@@ -4,7 +4,9 @@ namespace unit\Status\Service;
 
 use Codeception\PHPUnit\TestCase;
 use Mockery;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\PlayerStatusService;
@@ -16,6 +18,9 @@ class PlayerStatusServiceTest extends TestCase
     /** @var StatusServiceInterface | Mockery\Mock */
     private StatusServiceInterface $statusService;
 
+    /** @var RoomLogServiceInterface | Mockery\Mock */
+    private RoomLogServiceInterface $roomLogService;
+
     private PlayerStatusServiceInterface $playerStatusService;
 
     /**
@@ -25,7 +30,9 @@ class PlayerStatusServiceTest extends TestCase
     {
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
 
-        $this->playerStatusService = new PlayerStatusService($this->statusService);
+        $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
+
+        $this->playerStatusService = new PlayerStatusService($this->statusService, $this->roomLogService);
     }
 
     /**
@@ -154,14 +161,14 @@ class PlayerStatusServiceTest extends TestCase
         $player = new Player();
         $player->setSatiety(0);
 
-        $this->playerStatusService->handleSatietyStatus(0, $player);
+        $this->playerStatusService->handleSatietyStatus(0, $player, new \DateTime());
 
         $player = new Player();
         $player->setSatiety(0);
         $starvingStatus = new Status($player);
         $starvingStatus->setName(PlayerStatusEnum::STARVING);
 
-        $this->playerStatusService->handleSatietyStatus(0, $player);
+        $this->playerStatusService->handleSatietyStatus(0, $player, new \DateTime());
         $this->assertEmpty($player->getStatuses());
 
         $player = new Player();
@@ -169,21 +176,25 @@ class PlayerStatusServiceTest extends TestCase
         $fullBellyStatus = new Status($player);
         $fullBellyStatus->setName(PlayerStatusEnum::FULL_STOMACH);
 
-        $this->playerStatusService->handleSatietyStatus(0, $player);
+        $this->playerStatusService->handleSatietyStatus(0, $player, new \DateTime());
         $this->assertEmpty($player->getStatuses());
     }
 
     public function testHandleStarvingStatus()
     {
         $player = new Player();
-        $player->setSatiety(-40);
+        $player
+            ->setSatiety(-40)
+            ->setPlace(new Place())
+        ;
 
         $this->statusService
             ->shouldReceive('createCoreStatus')
             ->withArgs(fn (string $name) => ($name === PlayerStatusEnum::STARVING))
             ->once()
         ;
-        $this->playerStatusService->handleSatietyStatus(0, $player);
+        $this->roomLogService->shouldReceive('createLog')->once();
+        $this->playerStatusService->handleSatietyStatus(0, $player, new \DateTime());
 
         $player = new Player();
         $player->setSatiety(-40);
@@ -195,12 +206,14 @@ class PlayerStatusServiceTest extends TestCase
             ->withArgs(fn (string $name) => ($name === PlayerStatusEnum::STARVING))
             ->never()
         ;
-
-        $this->playerStatusService->handleSatietyStatus(0, $player);
+        $this->playerStatusService->handleSatietyStatus(0, $player, new \DateTime());
         $this->assertCount(1, $player->getStatuses());
 
         $player = new Player();
-        $player->setSatiety(-40);
+        $player
+            ->setSatiety(-40)
+            ->setPlace(new Place())
+        ;
         $fullBellyStatus = new Status($player);
         $fullBellyStatus->setName(PlayerStatusEnum::FULL_STOMACH);
 
@@ -209,8 +222,8 @@ class PlayerStatusServiceTest extends TestCase
             ->withArgs(fn (string $name) => ($name === PlayerStatusEnum::STARVING))
             ->once()
         ;
-
-        $this->playerStatusService->handleSatietyStatus(0, $player);
+        $this->roomLogService->shouldReceive('createLog')->once();
+        $this->playerStatusService->handleSatietyStatus(0, $player, new \DateTime());
         $this->assertEmpty($player->getStatuses());
     }
 
@@ -224,7 +237,7 @@ class PlayerStatusServiceTest extends TestCase
             ->withArgs(fn (string $name) => ($name === PlayerStatusEnum::FULL_STOMACH))
             ->once()
         ;
-        $this->playerStatusService->handleSatietyStatus(0, $player);
+        $this->playerStatusService->handleSatietyStatus(0, $player, new \DateTime());
 
         $player = new Player();
         $player->setSatiety(40);
@@ -237,7 +250,7 @@ class PlayerStatusServiceTest extends TestCase
             ->once()
         ;
 
-        $this->playerStatusService->handleSatietyStatus(0, $player);
+        $this->playerStatusService->handleSatietyStatus(0, $player, new \DateTime());
         $this->assertEmpty($player->getStatuses());
 
         $player = new Player();
@@ -251,7 +264,7 @@ class PlayerStatusServiceTest extends TestCase
             ->never()
         ;
 
-        $this->playerStatusService->handleSatietyStatus(0, $player);
+        $this->playerStatusService->handleSatietyStatus(0, $player, new \DateTime());
         $this->assertCount(1, $player->getStatuses());
     }
 
@@ -268,7 +281,7 @@ class PlayerStatusServiceTest extends TestCase
             ->once()
         ;
 
-        $this->playerStatusService->handleSatietyStatus(0, $player);
+        $this->playerStatusService->handleSatietyStatus(0, $player, new \DateTime());
         $this->assertCount(1, $player->getStatuses());
 
         $player = new Player();
@@ -282,7 +295,7 @@ class PlayerStatusServiceTest extends TestCase
             ->never()
         ;
 
-        $this->playerStatusService->handleSatietyStatus(-1, $player);
+        $this->playerStatusService->handleSatietyStatus(-1, $player, new \DateTime());
         $this->assertCount(1, $player->getStatuses());
     }
 }

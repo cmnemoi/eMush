@@ -5,6 +5,7 @@ namespace Mush\Test\Status\CycleHandler;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
+use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\DifficultyConfig;
@@ -91,7 +92,6 @@ class FireTest extends TestCase
 
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
         $this->randomService->shouldReceive('getSingleRandomElementFromProbaArray')->andReturn(2)->twice();
-        $this->daedalusService->shouldReceive('changeHull')->once();
         $this->daedalusService->shouldReceive('persist')->once();
 
         $this->eventDispatcher
@@ -99,6 +99,12 @@ class FireTest extends TestCase
             ->withArgs(fn (PlayerEvent $playerEvent, string $eventName) => (
                 intval($playerEvent->getDelta()) === -2 && $eventName === PlayerModifierEvent::HEALTH_POINT_MODIFIER
             ))
+            ->once()
+        ;
+
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
+            ->withArgs(fn (DaedalusModifierEvent $daedalusEvent, string $eventName) => ($eventName === DaedalusModifierEvent::CHANGE_HULL))
             ->once()
         ;
 

@@ -32,7 +32,7 @@ class Drop extends AbstractAction
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         GameEquipmentServiceInterface $gameEquipmentService,
-        PlayerServiceInterface $playerService,
+        PlayerServiceInterface $playerService
     ) {
         parent::__construct(
             $eventDispatcher,

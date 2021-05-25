@@ -16,7 +16,6 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class PlantActionTest extends AbstractActionTest
 {
@@ -100,8 +99,8 @@ class PlantActionTest extends AbstractActionTest
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->andReturn($gamePlant)->once();
-        $eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
-        $eventDispatcher->shouldReceive('dispatch');
+
+        $this->eventDispatcher->shouldReceive('dispatch')->twice();
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 

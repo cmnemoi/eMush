@@ -82,7 +82,7 @@ class ActionServiceCest
         $this->actionService->applyCostToPlayer($player, $action);
 
         $I->assertEquals(9, $player->getActionPoint());
-        $I->assertEquals(3, $player->getMovementPoint());
+        $I->assertEquals(2, $player->getMovementPoint());
     }
 
     public function testApplyCostToPlayerWithMovementPointConversionAndDisabledStatus(FunctionalTester $I)

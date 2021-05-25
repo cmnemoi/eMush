@@ -32,7 +32,7 @@ class UltraHeal extends AbstractAction
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         PlayerServiceInterface $playerService,
-        PlayerVariableServiceInterface $playerVariableService,
+        PlayerVariableServiceInterface $playerVariableService
     ) {
         parent::__construct(
             $eventDispatcher,
@@ -60,11 +60,11 @@ class UltraHeal extends AbstractAction
         /** @var GameEquipment $parameter */
         $parameter = $this->parameter;
 
-        $this->playerVariableService->setPlayerVariableToMax($this->player, ModifierTargetEnum::MAX_HEALTH_POINT);
+        $this->playerVariableService->setPlayerVariableToMax($this->player, ModifierTargetEnum::HEALTH_POINT);
 
         $this->playerService->persist($this->player);
 
-        $equipmentEvent = new EquipmentEvent($parameter, VisibilityEnum::HIDDEN);
+        $equipmentEvent = new EquipmentEvent($parameter, VisibilityEnum::HIDDEN, new \DateTime());
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         return new Success();

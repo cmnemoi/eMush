@@ -13,6 +13,7 @@ use Mush\Action\Validator\Status;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Place\Event\RoomEvent;
 use Mush\Place\Service\PlaceServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -34,7 +35,7 @@ class Extinguish extends AttemptAction
         ValidatorInterface $validator,
         PlayerServiceInterface $playerService,
         RandomServiceInterface $randomService,
-        PlaceServiceInterface $placeService,
+        PlaceServiceInterface $placeService
     ) {
         parent::__construct(
             $eventDispatcher,
@@ -69,11 +70,11 @@ class Extinguish extends AttemptAction
     {
         $response = $this->makeAttempt();
 
-        if ($response instanceof Success &&
-            ($fireStatus = $this->player->getPlace()->getStatusByName(StatusEnum::FIRE))
-        ) {
-            $this->player->getPlace()->removeStatus($fireStatus);
-            $this->placeService->persist($this->player->getPlace());
+        if ($response instanceof Success) {
+            $roomEvent = new RoomEvent($this->player->getPlace(), new \DateTime());
+            $roomEvent->setReason($this->name);
+
+            $this->eventDispatcher->dispatch($roomEvent, RoomEvent::STOP_FIRE);
         }
 
         $this->playerService->persist($this->player);

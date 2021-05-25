@@ -4,7 +4,10 @@ namespace functional\Player\Service;
 
 use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
+use Mush\Communication\Entity\Channel;
+use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\Neron;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Place\Entity\Place;
@@ -23,8 +26,19 @@ class CreatePlayerServiceCest
 
     public function createPlayerTest(FunctionalTester $I)
     {
+        $neron = new Neron();
+        $neron->setIsInhibited(true);
+        $I->haveInRepository($neron);
+
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class);
+        $daedalus = $I->have(Daedalus::class, ['neron' => $neron]);
+
+        $channel = new Channel();
+        $channel
+            ->setDaedalus($daedalus)
+            ->setScope(ChannelScopeEnum::PUBLIC)
+        ;
+        $I->haveInRepository($channel);
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['name' => RoomEnum::LABORATORY]);

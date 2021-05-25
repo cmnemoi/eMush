@@ -3,6 +3,7 @@
 namespace Mush\Status\CycleHandler;
 
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -64,7 +65,9 @@ class Fire extends AbstractStatusCycleHandler
         foreach ($room->getDoors() as $door) {
             $adjacentRoom = $door->getOtherRoom($room);
 
-            if ($this->randomService->isSuccessful($difficultyConfig->getPropagatingFireRate())) {
+            if (!$adjacentRoom->hasStatus(StatusEnum::FIRE) &&
+                $this->randomService->isSuccessful($difficultyConfig->getPropagatingFireRate())
+            ) {
                 $roomEvent = new RoomEvent($adjacentRoom, $date);
                 $roomEvent->setReason(RoomEventEnum::PROPAGATING_FIRE);
                 $this->eventDispatcher->dispatch($roomEvent, RoomEvent::STARTING_FIRE);
@@ -93,7 +96,11 @@ class Fire extends AbstractStatusCycleHandler
         if ($this->randomService->isSuccessful($difficultyConfig->getHullFireDamageRate())) {
             $damage = intval($this->randomService->getSingleRandomElementFromProbaArray($difficultyConfig->getFireHullDamage()));
 
-            $this->daedalusService->changeHull($room->getDaedalus(), -$damage);
+            $daedalusEvent = new DaedalusModifierEvent($room->getDaedalus(), $date);
+            $daedalusEvent->setQuantity(-$damage);
+
+            $this->eventDispatcher->dispatch($daedalusEvent, DaedalusModifierEvent::CHANGE_HULL);
+
             $this->daedalusService->persist($room->getDaedalus());
         }
 

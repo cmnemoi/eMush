@@ -7,11 +7,9 @@ use Mockery;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\Dto\CreateMessage;
 use Mush\Communication\Entity\Message;
-use Mush\Communication\Services\ChannelServiceInterface;
 use Mush\Communication\Services\MessageService;
 use Mush\Communication\Services\MessageServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Entity\Neron;
 use Mush\Player\Entity\Player;
 use PHPUnit\Framework\TestCase;
 
@@ -19,8 +17,6 @@ class MessageServiceTest extends TestCase
 {
     /** @var EntityManagerInterface | Mockery\mock */
     private EntityManagerInterface $entityManager;
-    /** @var ChannelServiceInterface | Mockery\Mock */
-    private ChannelServiceInterface $channelService;
 
     private MessageServiceInterface $service;
 
@@ -30,7 +26,6 @@ class MessageServiceTest extends TestCase
     public function before()
     {
         $this->entityManager = Mockery::mock(EntityManagerInterface::class);
-        $this->channelService = Mockery::mock(ChannelServiceInterface::class);
 
         $this->entityManager->shouldReceive([
             'persist' => null,
@@ -38,7 +33,6 @@ class MessageServiceTest extends TestCase
         ]);
 
         $this->service = new MessageService(
-            $this->channelService,
             $this->entityManager
         );
     }
@@ -81,24 +75,5 @@ class MessageServiceTest extends TestCase
         $this->assertEquals($message, $messageWithParent->getParent());
         $this->assertEquals($player, $messageWithParent->getAuthor());
         $this->assertEquals($channel, $messageWithParent->getChannel());
-    }
-
-    public function testCreateNeronMessage()
-    {
-        $daedalus = new Daedalus();
-        $channel = new Channel();
-        $neron = new Neron();
-        $daedalus->setNeron($neron);
-
-        $this->channelService->shouldReceive('getPublicChannel')->andReturn($channel)->once();
-
-        $message = $this->service->createNeronMessage('message', $daedalus, new \DateTime());
-
-        $this->assertInstanceOf(Message::class, $message);
-        $this->assertEquals('message', $message->getMessage());
-        $this->assertEquals($neron, $message->getNeron());
-        $this->assertNull($message->getAuthor());
-        $this->assertNull($message->getParent());
-        $this->assertEquals($channel, $message->getChannel());
     }
 }

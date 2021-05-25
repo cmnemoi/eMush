@@ -65,7 +65,7 @@ class UltraHealActionTest extends AbstractActionTest
 
         $this->playerVariableService
             ->shouldReceive('setPlayerVariableToMax')
-            ->with($player, ModifierTargetEnum::MAX_HEALTH_POINT);
+            ->with($player, ModifierTargetEnum::HEALTH_POINT);
         $this->playerService->shouldReceive('persist');
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);

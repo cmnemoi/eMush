@@ -14,15 +14,7 @@
         </div>
 
         <div class="daedalus-banner">
-            <div class="daedalus-alarms">
-                <p class="calme">
-                    <!--  <span>Alertes :</span>  -->
-                    <span><img src="@/assets/images/infoalert.png"> Calme </span>
-                    <!--  <img src="@/assets/images/door.png">  -->
-                    <!--  <img src="@/assets/images/hunter.png">  -->
-                </p>
-            </div>
-
+            <Alerts :daedalus="daedalus" />
 
             <div class="daedalus-info">
                 <ul>
@@ -71,10 +63,11 @@
 import { Daedalus } from "@/entities/Daedalus";
 import { Player } from "@/entities/Player";
 import CountdownTimer from "@/components/Utils/CountdownTimer";
+import Alerts from "@/components/Game/Ship/Alerts";
 
 export default {
     name: "BannerPanel",
-    components: { CountdownTimer },
+    components: { Alerts, CountdownTimer },
     props: {
         player: Player,
         daedalus: Daedalus
@@ -198,37 +191,6 @@ span {
     & > div {
         margin: 0 12px;
         align-items: center;
-    }
-
-    .daedalus-alarms p {
-        display: flex;
-        align-items: center;
-        flex-direction: row;
-        padding: 3px 6px 1px 6px;
-        margin: 0;
-        max-height: 25px;
-        color: white;
-        font-size: 1em;
-        font-weight: 400;
-        border: 1px solid rgba(58, 106, 171, 1);;
-        border-radius: 3px;
-        background: rgba(58, 106, 171, 1);
-        box-shadow: 0 0 5px 1px inset rgba(28, 29, 56, 1);
-        text-shadow: 0 0 2px rgba(0, 0, 0, 1), 0 0 2px rgba(0, 0, 0, 1); /* twice the same shadow */
-
-        *:not(:last-child) {
-            margin-right: 10px;
-        }
-
-        span img {
-            vertical-align: top;
-        }
-
-        &.alarm {
-            color: #ff4e64;
-            font-weight: 700;
-            animation: alarms-border-color 0.85s ease-in-out infinite; /* keyframes at the end of the doc */
-        }
     }
 
     .daedalus-info li {

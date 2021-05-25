@@ -10,7 +10,7 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class ChannelVoter extends Voter
 {
-    const VIEW = 'view';
+    public const VIEW = 'view';
 
     protected function supports(string $attribute, $subject)
     {
@@ -49,6 +49,6 @@ class ChannelVoter extends Voter
 
     private function canView(Channel $channel, Player $player): bool
     {
-        return $channel->isPublic() || $channel->getParticipants()->contains($player);
+        return $channel->isPublic() || $channel->isPlayerParticipant($player);
     }
 }

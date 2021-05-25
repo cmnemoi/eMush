@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
+    <file id="disease.ext">
+        <unit id="acid_reflux">
+            <segment id="name">
+                <source>acid_reflux.name</source>
+                <target>Reflux Gastriques</target>
+            </segment>
+            <segment id="description">
+                <source>acid_reflux.description</source>
+                <target>Vous rendez votre nourriture, c'est irritant et pénible...</target>
+            </segment>
+        </unit>
+        <unit id="food_poisoning">
+            <segment id="name">
+                <source>food_poisoning.name</source>
+                <target>Intoxication Alimentaire</target>
+            </segment>
+            <segment id="description">
+                <source>food_poisoning.description</source>
+                <target>Vous êtes très atteint, vous vomissez, y en a partout. quelle idée de manger ça aussi. Ah bravo...</target>
+            </segment>
+        </unit>
+        <unit id="gastroenteritis">
+            <segment id="name">
+                <source>gastroenteritis.name</source>
+                <target>GastroEntérite</target>
+            </segment>
+            <segment id="description">
+                <source>gastroenteritis.description</source>
+                <target>Y a-t-il vraiment besoin de faire un dessin, de parler de l'odeur ou des spasmes de l'estomac ?</target>
+            </segment>
+        </unit>
+        <unit id="tapeworm">
+            <segment id="name">
+                <source>tapeworm.name</source>
+                <target>Vers Solitaire</target>
+            </segment>
+            <segment id="description">
+                <source>tapeworm.description</source>
+                <target>Vous avez faim, très faim, tout le temps faim... À manger bon sang !</target>
+            </segment>
+        </unit>
+    </file>
+</xliff>

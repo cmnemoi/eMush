@@ -19,9 +19,9 @@ class PlayerEvent extends Event
     private ?string $reason = null;
     private \DateTime $time;
 
-    public function __construct(Player $player, $time = null)
+    public function __construct(Player $player, \DateTime $time)
     {
-        $this->time = $time ?? new \DateTime();
+        $this->time = $time;
         $this->player = $player;
     }
 

@@ -36,12 +36,12 @@
                     />
                 </p>
                 <p v-else>
-                  <ActionButton
-                      v-for="(action, key) in target.actions"
-                      :key="key"
-                      :action="action"
-                      @click="executeTargetAction(null, action)"
-                  />
+                    <ActionButton
+                        v-for="(action, key) in target.actions"
+                        :key="key"
+                        :action="action"
+                        @click="executeTargetAction(null, action)"
+                    />
                 </p>
             </div>
         </div>
@@ -160,7 +160,7 @@ export default {
             align-items: center;
             margin: 2px;
 
-            /deep/ .status {
+            >>> .status {
                 margin-bottom: 3px;
             }
         }
@@ -243,7 +243,7 @@ export default {
                 letter-spacing: 0.03em;
                 font-variant: small-caps;
 
-                /deep/ .status {
+                >>> .status {
                     vertical-align: middle;
                     margin-left: 2px;
                 }

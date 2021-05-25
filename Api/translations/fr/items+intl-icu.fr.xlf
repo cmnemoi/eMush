@@ -1422,7 +1422,7 @@ Unique : Permet de donner +3 :pmo: à chaque téléspectateur.</target>
             </segment>
             <segment id="genre">
                 <source>block_of_post_it.genre</source>
-                <target>female</target>
+                <target>male</target>
             </segment>
             <segment id="first_letter">
                 <source>block_of_post_it.first_letter</source>
@@ -1820,11 +1820,11 @@ Le drone de Soutien permet d'achever l'objectif de maintenance automatique de Ma
         <unit id="jar_of_alien_oil">
             <segment id="name">
                 <source>jar_of_alien_oil.name</source>
-                <target>Drone de Soutien (ou Drone)</target>
+                <target>Lubrifiant Alien</target>
             </segment>
             <segment id="short_name">
                 <source>jar_of_alien_oil.short_name</source>
-                <target>Drone de Soutien (ou Drone)</target>
+                <target>Lubrifiant Alien</target>
             </segment>
             <segment id="genre">
                 <source>jar_of_alien_oil.genre</source>
@@ -2080,12 +2080,12 @@ Vous avez l'impression que cette chose essaie de vous parler. Vous devez sûreme
             <segment id="description">
                 <source>camera.description</source>
                 <target>La caméra est un outils de surveillance bien pratique pour --espionner-- surveiller votre prochain.
-En sa présence, les actions {b}discrètes{\b} et {b}furtives{\b} effectuées sont révélées.</target>
+En sa présence, les actions *discrètes* et *furtives* effectuées sont révélées.</target>
             </segment>
             <segment id="examine">
                 <source>camera.examine</source>
                 <target>La caméra est un outils de surveillance bien pratique pour --espionner-- surveiller votre prochain.
-En sa présence, les actions {b}discrètes{\b} et {b}furtives{\b} effectuées sont révélées.
+En sa présence, les actions *discrètes* et *furtives* effectuées sont révélées.
 Lorsqu'une salle possède une caméra, tous les logs sont sauvegardés dans l'historique et apparaissent publiquement. La caméra repère également les actions discrètes et furtives effectuées. Elle ne fonctionne pas si elle est placée dans votre inventaire personnel.</target>
             </segment>
         </unit>

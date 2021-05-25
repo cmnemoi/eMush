@@ -16,7 +16,7 @@ class PlayerModifierEvent extends PlayerEvent
     private int $delta;
     private bool $isDisplayedRoomLog = true;
 
-    public function __construct(Player $player, int $delta, \DateTime $time = null)
+    public function __construct(Player $player, int $delta, \DateTime $time)
     {
         parent::__construct($player, $time);
         $this->delta = $delta;

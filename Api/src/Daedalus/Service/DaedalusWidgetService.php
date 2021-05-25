@@ -34,18 +34,18 @@ class DaedalusWidgetService implements DaedalusWidgetServiceInterface
         $numberAlert = array_filter($this->countAlert($daedalus), function (int $value) {return $value > 0; });
 
         foreach ($numberAlert as $key => $number) {
-            $alerts[$key] = $this->translateAlert($key, $number);
+            $alerts[] = $this->translateAlert($key, $number);
         }
 
         if ($daedalus->getOxygen() < self::OXYGEN_ALERT) {
-            $alerts[AlertEnum::LOW_OXYGEN] = $this->translateAlert(AlertEnum::LOW_OXYGEN);
+            $alerts[] = $this->translateAlert(AlertEnum::LOW_OXYGEN);
         }
         if ($daedalus->getHull() <= self::HULL_ALERT) {
-            $alerts[AlertEnum::LOW_HULL] = $this->translateAlert(AlertEnum::LOW_HULL, $daedalus->getHull());
+            $alerts[] = $this->translateAlert(AlertEnum::LOW_HULL, $daedalus->getHull());
         }
 
         if (count($alerts) === 0) {
-            $alerts[AlertEnum::NO_ALERT] = $this->translateAlert(AlertEnum::NO_ALERT);
+            $alerts[] = $this->translateAlert(AlertEnum::NO_ALERT);
         }
 
         return $alerts;
@@ -97,17 +97,14 @@ class DaedalusWidgetService implements DaedalusWidgetServiceInterface
     public function translateAlert(string $key, ?int $quantity = null): array
     {
         if ($quantity !== null) {
-            if ($quantity > 1) {
-                $plural = '.plural';
-            } else {
-                $plural = '.single';
-            }
             $alert = [
-                'name' => $this->translator->trans($key . '.name' . $plural, ['quantity' => $quantity], 'alerts'),
+                'key' => $key,
+                'name' => $this->translator->trans($key . '.name', ['quantity' => $quantity], 'alerts'),
                 'description' => $this->translator->trans($key . '.description', [], 'alerts'),
             ];
         } else {
             $alert = [
+                'key' => $key,
                 'name' => $this->translator->trans($key . '.name', [], 'alerts'),
                 'description' => $this->translator->trans($key . '.description', [], 'alerts'),
             ];

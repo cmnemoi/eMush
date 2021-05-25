@@ -5,7 +5,6 @@ namespace Mush\Unit\Equipment\CycleHandler;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\CycleHandler\PlantCycleHandler;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
@@ -24,6 +23,7 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class PlantCycleHandlerTest extends TestCase
 {
@@ -35,8 +35,8 @@ class PlantCycleHandlerTest extends TestCase
     private RoomLogServiceInterface $roomLogService;
     /** @var StatusServiceInterface | Mockery\Mock */
     private StatusServiceInterface $statusService;
-    /** @var DaedalusServiceInterface | Mockery\Mock */
-    private DaedalusServiceInterface $daedalusService;
+    /** @var EventDispatcherInterface | Mockery\Mock */
+    private EventDispatcherInterface $eventDispatcher;
     /** @var EquipmentEffectServiceInterface | Mockery\Mock */
     private EquipmentEffectServiceInterface $equipmentEffectService;
 
@@ -47,19 +47,19 @@ class PlantCycleHandlerTest extends TestCase
      */
     public function before()
     {
+        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
         $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
         $this->equipmentEffectService = Mockery::mock(EquipmentEffectServiceInterface::class);
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
-        $this->daedalusService = Mockery::mock(DaedalusServiceInterface::class);
 
         $this->plantCycleHandler = new PlantCycleHandler(
+            $this->eventDispatcher,
             $this->gameEquipmentService,
             $this->randomService,
             $this->roomLogService,
             $this->statusService,
-            $this->daedalusService,
             $this->equipmentEffectService
         );
     }
@@ -80,7 +80,7 @@ class PlantCycleHandlerTest extends TestCase
         $plant->setMechanics(new ArrayCollection([$plantType]));
 
         $this->roomLogService->shouldReceive('createLog');
-        $this->gameEquipmentService->shouldReceive('persist')->twice();
+        $this->gameEquipmentService->shouldReceive('persist')->times(3);
         $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->once(); //Plant should not get disease
 
         $difficultyConfig = new DifficultyConfig();
@@ -121,6 +121,7 @@ class PlantCycleHandlerTest extends TestCase
                 ->isEmpty()
         );
 
+        //Plant get disease and grow
         $chargeStatus->setCharge(10);
 
         $gamePlant
@@ -137,12 +138,17 @@ class PlantCycleHandlerTest extends TestCase
 
         $this->plantCycleHandler->handleNewCycle($gamePlant, $daedalus, new \DateTime());
 
-        $this->assertTrue(
-            $gamePlant
-                ->getStatuses()
-                ->filter(fn (Status $status) => EquipmentStatusEnum::PLANT_YOUNG === $status->getName())
-                ->isEmpty()
-        );
+        $this->assertCount(0, $gamePlant->getStatuses());
+
+        //Plant already diseased can't get disease
+        $diseaseStatus = new Status($gamePlant);
+        $diseaseStatus->setName(EquipmentStatusEnum::PLANT_DISEASED);
+
+        $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
+
+        $this->plantCycleHandler->handleNewCycle($gamePlant, $daedalus, new \DateTime());
+
+        $this->assertCount(1, $gamePlant->getStatuses());
     }
 
     public function testNewDay()
@@ -192,7 +198,7 @@ class PlantCycleHandlerTest extends TestCase
             ->andReturn($status)
             ->once()
         ;
-        $this->daedalusService->shouldReceive('changeOxygenLevel')->andReturn($daedalus)->once();
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
 
         //Mature Plant, no problem
         $this->plantCycleHandler->handleNewDay($gamePlant, $daedalus, new \DateTime());
@@ -207,7 +213,7 @@ class PlantCycleHandlerTest extends TestCase
             ->once()
         ;
 
-        $this->daedalusService->shouldReceive('changeOxygenLevel')->andReturn($daedalus)->once();
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
         //Thirsty plant
         $this->plantCycleHandler->handleNewDay($gamePlant, $daedalus, new \DateTime());
 

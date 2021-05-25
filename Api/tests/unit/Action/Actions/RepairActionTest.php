@@ -65,7 +65,7 @@ class RepairActionTest extends AbstractActionTest
         Mockery::close();
     }
 
-    public function testExecute()
+    public function testExecuteFail()
     {
         $daedalus = new Daedalus();
         $room = new Place();
@@ -109,16 +109,52 @@ class RepairActionTest extends AbstractActionTest
         $this->assertInstanceOf(Fail::class, $result);
         $this->assertCount(1, $room->getEquipments()->first()->getStatuses());
         $this->assertEquals(1, $attempt->getCharge());
+    }
+
+    public function testExecuteSuccess()
+    {
+        $daedalus = new Daedalus();
+        $room = new Place();
+        $gameItem = new GameItem();
+        $item = new ItemConfig();
+        $item
+            ->setIsBreakable(true)
+        ;
+
+        $broken = new Status($gameItem);
+        $broken
+            ->setName(EquipmentStatusEnum::BROKEN)
+        ;
+
+        $gameItem
+            ->setEquipment($item)
+            ->setPlace($room)
+        ;
+
+        $this->gameEquipmentService->shouldReceive('persist');
+        $this->playerService->shouldReceive('persist');
+
+        $player = $this->createPlayer($daedalus, $room, [SkillEnum::TECHNICIAN]);
+
+        $attempt = new Attempt(new Player());
+        $attempt
+            ->setName(StatusEnum::ATTEMPT)
+            ->setAction($this->action->getActionName())
+        ;
+        $this->actionService->shouldReceive('getAttempt')->andReturn($attempt);
+
+        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->actionService->shouldReceive('getSuccessRate')->andReturn(10)->once();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
+
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
 
         //Success
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
         $this->assertCount(1, $room->getEquipments());
-        $this->assertCount(0, $room->getEquipments()->first()->getStatuses());
     }
 }

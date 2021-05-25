@@ -4,7 +4,10 @@ namespace Mush\Tests\Status\Event;
 
 use App\Tests\FunctionalTester;
 use DateTime;
+use Mush\Communication\Entity\Channel;
+use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\Neron;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Game\Entity\CharacterConfig;
@@ -103,8 +106,19 @@ class CycleEventCest
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, ['difficultyConfig' => $difficultyConfig]);
 
+        $neron = new Neron();
+        $neron->setIsInhibited(true);
+        $I->haveInRepository($neron);
+
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
+        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'neron' => $neron]);
+
+        $channel = new Channel();
+        $channel
+            ->setDaedalus($daedalus)
+            ->setScope(ChannelScopeEnum::PUBLIC)
+        ;
+        $I->haveInRepository($channel);
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
@@ -117,7 +131,7 @@ class CycleEventCest
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig]);
 
-        /** @var EquipmentConfig $equipmentConfig */
+        /** @var EquipmentConfig $doorConfig */
         $doorConfig = $I->have(EquipmentConfig::class, ['isFireBreakable' => false, 'isFireDestroyable' => false, 'gameConfig' => $gameConfig]);
 
         $doorConfig

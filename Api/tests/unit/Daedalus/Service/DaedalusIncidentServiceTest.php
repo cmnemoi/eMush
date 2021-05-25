@@ -19,6 +19,7 @@ use Mush\Place\Event\RoomEvent;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Status\Entity\Status;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
@@ -177,6 +178,38 @@ class DaedalusIncidentServiceTest extends TestCase
             ->shouldReceive('dispatch')
             ->withArgs(fn (EquipmentEvent $event) => $event->getEquipment() === $equipment)
             ->once()
+        ;
+
+        $broken = $this->service->handleEquipmentBreak(new Daedalus(), new \DateTime());
+
+        $this->assertEquals(1, $broken);
+    }
+
+    public function testEquipmentBreakAlreadyBrokenEvent()
+    {
+        $this->randomService->shouldReceive('random')->andReturn(1)->once();
+
+        $equipment = new GameEquipment();
+        $brokenStatus = new Status($equipment);
+        $brokenStatus->setName(EquipmentStatusEnum::BROKEN);
+
+        $this->gameEquipmentRepository
+            ->shouldReceive('findByCriteria')
+            ->withArgs(fn (GameEquipmentCriteria $criteria) => $criteria->getNotInstanceOf() === [Door::class])
+            ->andReturn([$equipment])
+            ->once()
+        ;
+
+        $this->randomService
+            ->shouldReceive('getRandomElements')
+            ->andReturn([$equipment])
+            ->once()
+        ;
+
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
+            ->withArgs(fn (EquipmentEvent $event) => $event->getEquipment() === $equipment)
+            ->never()
         ;
 
         $broken = $this->service->handleEquipmentBreak(new Daedalus(), new \DateTime());

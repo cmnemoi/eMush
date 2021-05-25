@@ -23,6 +23,7 @@
     - cd Api
     # Install all project dependencies
     - composer install
+    - cp .env.gitlab .env.test
     - cp .env.gitlab .env
     - bin/console doctrine:schema:update -f
     - echo y | bin/console doctrine:fixture:load

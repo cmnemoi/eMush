@@ -4,6 +4,7 @@ namespace Mush\Player\Event;
 
 use Error;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
@@ -60,7 +61,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         $damage = (int) $this->randomService->getSingleRandomElementFromProbaArray($difficultyConfig->getMetalPlatePlayerDamage());
 
         $playerModifierEvent = new PlayerModifierEvent($player, -$damage, $event->getTime());
-        $playerModifierEvent->setReason($event->getReason());
+        $playerModifierEvent->setReason(EndCauseEnum::METAL_PLATE);
         $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
     }
 
@@ -100,13 +101,15 @@ class PlayerSubscriber implements EventSubscriberInterface
     {
         $player = $playerEvent->getPlayer();
 
-        $sporeStatus = $player->getStatusByName(PlayerStatusEnum::SPORES);
+        if ($player->isAlive()) {
+            $sporeStatus = $player->getStatusByName(PlayerStatusEnum::SPORES);
 
-        if ($sporeStatus === null || !($sporeStatus instanceof ChargeStatus)) {
-            throw new Error('Player should have a spore status');
+            if ($sporeStatus === null || !($sporeStatus instanceof ChargeStatus)) {
+                throw new Error('Player should have a spore status');
+            }
+
+            $sporeStatus->setCharge(0);
         }
-
-        $sporeStatus->setCharge(0);
 
         $this->statusService->createChargeStatus(
             PlayerStatusEnum::MUSH,

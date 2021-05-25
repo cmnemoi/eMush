@@ -10,21 +10,29 @@ class ActionLogEnum
     public const DISASSEMBLE_FAIL = 'disassemble_fail';
     public const BUILD_SUCCESS = 'build_success';
     public const COFFEE_SUCCESS = 'coffee_success';
+    public const COMFORT_SUCCESS = 'comfort_success';
     public const CONSUME_SUCCESS = 'consume_success';
     public const CONSUME_DRUG = 'consume_drug';
     public const COOK_SUCCESS = 'cook_success';
+    public const DISPENSE_SUCCESS = 'dispense_success';
     public const DROP = 'drop';
     public const EXPRESS_COOK_SUCCESS = 'express_cook_success';
     public const EXTINGUISH_SUCCESS = 'extinguish_success';
     public const EXTINGUISH_FAIL = 'extinguish_fail';
     public const EXTRACT_SPORE_SUCCESS = 'extract_spore_success';
     public const GET_UP = 'get_up';
+    public const HEAL_SUCCESS = 'heal_success';
     public const HIDE_SUCCESS = 'hide_success';
     public const HIT_SUCCESS = 'hit_success';
+    public const HIT_FAIL = 'hit_fail';
+    public const HYBRIDIZE_SUCCESS = 'hybridize_success';
+    public const HYBRIDIZE_FAIL = 'transplant_fail';
     public const HYPERFREEZE_SUCCESS = 'hyperfreeze_success';
     public const INFECT_SUCCESS = 'infect_success';
+    public const INSERT_FUEL = 'insert_fuel';
     public const INSERT_OXYGEN = 'insert_oxygen';
     public const RETRIEVE_OXYGEN = 'retrieve_oxygen';
+    public const RETRIEVE_FUEL = 'retrieve_fuel';
     public const LIE_DOWN = 'lie_down';
     public const EXIT_ROOM = 'exit_room';
     public const ENTER_ROOM = 'enter_room';
@@ -41,9 +49,9 @@ class ActionLogEnum
     public const SHOWER_MUSH = 'shower_mush';
     public const TAKE = 'take';
     public const TRANSPLANT_SUCCESS = 'transplant_success';
-    public const HYBRIDIZE_SUCCESS = 'hybridize_success';
-    public const HYBRIDIZE_FAIL = 'transplant_fail';
     public const TREAT_PLANT_SUCCESS = 'treat_plant_success';
+    public const ULTRAHEAL_SUCCESS = 'ultraheal_success';
+    public const SELF_HEAL = 'self_heal';
     public const WATER_PLANT_SUCCESS = 'water_plant_success';
     public const WRITE_SUCCESS = 'write_success';
 
@@ -105,7 +113,7 @@ class ActionLogEnum
         ActionEnum::EXTRACT_SPORE => [
             self::SUCCESS => [
                 self::VALUE => self::EXTRACT_SPORE_SUCCESS,
-                self::VISIBILITY => VisibilityEnum::MUSH,
+                self::VISIBILITY => VisibilityEnum::COVERT,
             ],
         ],
         ActionEnum::INFECT => [
@@ -201,7 +209,7 @@ class ActionLogEnum
         ActionEnum::HYPERFREEZE => [
             self::SUCCESS => [
                 self::VALUE => self::HYPERFREEZE_SUCCESS,
-                self::VISIBILITY => VisibilityEnum::PUBLIC,
+                self::VISIBILITY => VisibilityEnum::PRIVATE,
             ],
         ],
         ActionEnum::EXPRESS_COOK => [
@@ -219,13 +227,25 @@ class ActionLogEnum
         ActionEnum::INSERT_OXYGEN => [
             self::SUCCESS => [
                 self::VALUE => self::INSERT_OXYGEN,
-                self::VISIBILITY => VisibilityEnum::PUBLIC,
+                self::VISIBILITY => VisibilityEnum::PRIVATE,
             ],
         ],
         ActionEnum::RETRIEVE_OXYGEN => [
             self::SUCCESS => [
                 self::VALUE => self::RETRIEVE_OXYGEN,
-                self::VISIBILITY => VisibilityEnum::PRIVATE,
+                self::VISIBILITY => VisibilityEnum::SECRET,
+            ],
+        ],
+        ActionEnum::INSERT_FUEL => [
+            self::SUCCESS => [
+                self::VALUE => self::INSERT_FUEL,
+                self::VISIBILITY => VisibilityEnum::PUBLIC,
+            ],
+        ],
+        ActionEnum::RETRIEVE_FUEL => [
+            self::SUCCESS => [
+                self::VALUE => self::RETRIEVE_FUEL,
+                self::VISIBILITY => VisibilityEnum::SECRET,
             ],
         ],
         ActionEnum::COOK => [
@@ -237,6 +257,12 @@ class ActionLogEnum
         ActionEnum::COFFEE => [
             self::SUCCESS => [
                 self::VALUE => self::COFFEE_SUCCESS,
+                self::VISIBILITY => VisibilityEnum::PUBLIC,
+            ],
+        ],
+        ActionEnum::DISPENSE => [
+            self::SUCCESS => [
+                self::VALUE => self::DISPENSE_SUCCESS,
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
             ],
         ],
@@ -266,6 +292,40 @@ class ActionLogEnum
             self::SUCCESS => [
                 self::VALUE => self::HIT_SUCCESS,
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
+            ],
+            self::FAIL => [
+                self::VALUE => self::HIT_FAIL,
+                self::VISIBILITY => VisibilityEnum::PUBLIC,
+            ],
+        ],
+        ActionEnum::COMFORT => [
+            self::SUCCESS => [
+                self::VALUE => self::COMFORT_SUCCESS,
+                self::VISIBILITY => VisibilityEnum::PUBLIC,
+            ],
+        ],
+        ActionEnum::HEAL => [
+            self::SUCCESS => [
+                self::VALUE => self::HEAL_SUCCESS,
+                self::VISIBILITY => VisibilityEnum::PUBLIC,
+            ],
+        ],
+        ActionEnum::ULTRAHEAL => [
+            self::SUCCESS => [
+                self::VALUE => self::ULTRAHEAL_SUCCESS,
+                self::VISIBILITY => VisibilityEnum::PUBLIC,
+            ],
+        ],
+        ActionEnum::USE_BANDAGE => [
+            self::SUCCESS => [
+                self::VALUE => self::SELF_HEAL,
+                self::VISIBILITY => VisibilityEnum::PRIVATE,
+            ],
+        ],
+        ActionEnum::SELF_HEAL => [
+            self::SUCCESS => [
+                self::VALUE => self::SELF_HEAL,
+                self::VISIBILITY => VisibilityEnum::PRIVATE,
             ],
         ],
     ];

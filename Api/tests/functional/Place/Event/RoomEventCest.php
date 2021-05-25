@@ -4,7 +4,10 @@ namespace Mush\Tests\Place\Event;
 
 use App\Tests\FunctionalTester;
 use DateTime;
+use Mush\Communication\Entity\Channel;
+use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\Neron;
 use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Entity\CharacterConfig;
@@ -45,24 +48,25 @@ class RoomEventCest
 
         $roomEvent = new RoomEvent($room, $time);
 
-        $this->roomSubscriber->onStartingFire($roomEvent);
+        $I->expectThrowable(\LogicException::class, function () use ($roomEvent) {$this->roomSubscriber->onStartingFire($roomEvent); });
 
-        $I->assertEquals(0, $room->getStatuses()->count());
+        $I->expectThrowable(\LogicException::class, function () use ($roomEvent) {$this->roomSubscriber->onTremor($roomEvent); });
 
-        $this->roomSubscriber->onTremor($roomEvent);
-
-        $I->assertEquals(10, $player->getHealthPoint());
-
-        $this->roomSubscriber->onElectricArc($roomEvent);
-
-        $I->assertEquals(10, $player->getHealthPoint());
+        $I->expectThrowable(\LogicException::class, function () use ($roomEvent) {$this->roomSubscriber->onElectricArc($roomEvent); });
     }
 
     public function testNewFire(FunctionalTester $I)
     {
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class);
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
+
         $time = new DateTime();
         /** @var Place $room */
         $room = $I->have(Place::class);
+
+        $room->setDaedalus($daedalus);
 
         $roomEvent = new RoomEvent($room, $time);
 
@@ -113,8 +117,20 @@ class RoomEventCest
         $difficultyConfig = $I->have(DifficultyConfig::class);
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, ['difficultyConfig' => $difficultyConfig]);
+
+        $neron = new Neron();
+        $neron->setIsInhibited(true);
+        $I->haveInRepository($neron);
+
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
+        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'neron' => $neron]);
+
+        $channel = new Channel();
+        $channel
+            ->setDaedalus($daedalus)
+            ->setScope(ChannelScopeEnum::PUBLIC)
+        ;
+        $I->haveInRepository($channel);
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);

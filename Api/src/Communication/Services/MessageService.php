@@ -8,19 +8,15 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\Dto\CreateMessage;
 use Mush\Communication\Entity\Message;
-use Mush\Daedalus\Entity\Daedalus;
 use Mush\Player\Entity\Player;
 
 class MessageService implements MessageServiceInterface
 {
-    private ChannelServiceInterface $channelService;
     private EntityManagerInterface $entityManager;
 
     public function __construct(
-        ChannelServiceInterface $channelService,
         EntityManagerInterface $entityManager
     ) {
-        $this->channelService = $channelService;
         $this->entityManager = $entityManager;
     }
 
@@ -51,26 +47,17 @@ class MessageService implements MessageServiceInterface
         return $message;
     }
 
-    public function getChannelMessages(Player $player, Channel $channel): Collection
-    {
-        return new ArrayCollection($this->entityManager
-            ->getRepository(Message::class)
-            ->findBy(['channel' => $channel, 'parent' => null], ['updatedAt' => 'desc']))
-            ;
-    }
-
-    public function createNeronMessage(string $messageCode, Daedalus $daedalus, \DateTime $dateTime): Message
-    {
-        $publicChannel = $this->channelService->getPublicChannel($daedalus);
-        if ($publicChannel === null) {
-            throw new \LogicException('Daedalus do not have a public channel');
-        }
-
+    public function createSystemMessage(
+        string $messageKey,
+        Channel $channel,
+        array $parameters,
+        \DateTime $dateTime,
+    ): Message {
         $message = new Message();
         $message
-            ->setNeron($daedalus->getNeron())
-            ->setChannel($publicChannel)
-            ->setMessage($messageCode)
+            ->setChannel($channel)
+            ->setMessage($messageKey)
+            ->setTranslationParameters($parameters)
             ->setCreatedAt($dateTime)
             ->setUpdatedAt($dateTime)
         ;
@@ -79,6 +66,14 @@ class MessageService implements MessageServiceInterface
         $this->entityManager->flush();
 
         return $message;
+    }
+
+    public function getChannelMessages(Player $player, Channel $channel): Collection
+    {
+        return new ArrayCollection($this->entityManager
+            ->getRepository(Message::class)
+            ->findBy(['channel' => $channel, 'parent' => null], ['updatedAt' => 'desc']))
+            ;
     }
 
     /**

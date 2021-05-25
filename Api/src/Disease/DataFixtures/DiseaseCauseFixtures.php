@@ -13,6 +13,7 @@ class DiseaseCauseFixtures extends Fixture
     {
         $spoiledFood = new DiseaseCause();
         $spoiledFood->setName(DiseaseCauseEnum::SPOILED_FOOD);
+        $spoiledFood->setRate(50);
 
         $manager->persist($spoiledFood);
 

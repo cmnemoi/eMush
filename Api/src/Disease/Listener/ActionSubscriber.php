@@ -15,9 +15,10 @@ class ActionSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public static function onPostAction(ActionEvent $event)
+    public function onPostAction(ActionEvent $event)
     {
         if ($event->getAction()->getName() === ActionEnum::CONSUME) {
+            //@TODO
         }
     }
 }

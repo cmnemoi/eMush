@@ -22,6 +22,11 @@ class DiseaseCause
      */
     private string $name;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private int $rate = 0;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -35,6 +40,18 @@ class DiseaseCause
     public function setName(string $name): DiseaseCause
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getRate(): int
+    {
+        return $this->rate;
+    }
+
+    public function setRate(int $rate): DiseaseCause
+    {
+        $this->rate = $rate;
 
         return $this;
     }

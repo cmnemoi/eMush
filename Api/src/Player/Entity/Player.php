@@ -79,6 +79,11 @@ class Player implements StatusHolderInterface, ActionParameter, LogParameter
     private Collection $statuses;
 
     /**
+     * @ORM\OneToMany(targetEntity="Mush\Disease\Entity\PlayerDisease", mappedBy="player")
+     */
+    private Collection $diseases;
+
+    /**
      * @ORM\Column(type="array", nullable=true)
      */
     private array $skills = [];
@@ -117,6 +122,7 @@ class Player implements StatusHolderInterface, ActionParameter, LogParameter
     {
         $this->items = new ArrayCollection();
         $this->statuses = new ArrayCollection();
+        $this->diseases = new ArrayCollection();
     }
 
     public function getId(): int
@@ -295,6 +301,18 @@ class Player implements StatusHolderInterface, ActionParameter, LogParameter
     public function isMush(): bool
     {
         return $this->hasStatus(PlayerStatusEnum::MUSH);
+    }
+
+    public function getDiseases(): Collection
+    {
+        return $this->diseases;
+    }
+
+    public function setDiseases(Collection $diseases): Player
+    {
+        $this->diseases = $diseases;
+
+        return $this;
     }
 
     /**

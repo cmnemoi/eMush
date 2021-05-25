@@ -31,6 +31,12 @@ class DiseaseConfig
     private string $name;
 
     /**
+     * @ORM\Column(type="integer", nullable=false)
+     * Duration is -1 for permanent effects
+     */
+    private int $duration = -1;
+
+    /**
      * @ORM\ManyToMany(targetEntity="Mush\Disease\Entity\DiseaseCause")
      */
     private Collection $causes;
@@ -69,9 +75,28 @@ class DiseaseConfig
         return $this;
     }
 
+    public function getDuration(): int
+    {
+        return $this->duration;
+    }
+
+    public function setDuration(int $duration): DiseaseConfig
+    {
+        $this->duration = $duration;
+
+        return $this;
+    }
+
     public function getCauses(): Collection
     {
         return $this->causes;
+    }
+
+    public function getCauseByName(string $causeName): ?DiseaseCause
+    {
+        $cause = $this->causes->filter(fn (DiseaseCause $cause) => $cause->getName() === $causeName)->first();
+
+        return $cause ?: null;
     }
 
     public function setCauses(Collection $causes): DiseaseConfig

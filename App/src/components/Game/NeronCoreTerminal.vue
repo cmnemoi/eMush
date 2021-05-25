@@ -1,18 +1,18 @@
 <template>
-    <div class="neron-panel">
-        <h1><img src="@/assets/images/spot2.svg"> Neron's Core V4.54</h1>
+    <div class="neron-core-terminal">
+        <h1><img src="@/assets/images/spot2.svg"> Cœur de NERON V4.54</h1>
         <div class="tips">
             <input type="checkbox" name="tips" id="tips">
             <label for="tips">
-                You are in the core of <em class="red">Neron</em>. Here you can run updates and <strong>unblock features</strong> which will benefit the whole crew. These features were originally destined for the <em class="red">Magellan</em> project.
+                Vous êtes dans le Coeur de <em class="red">NERON</em>. Ici vous pouvez le mettre à jour et <strong>débloquer des fonctionnalités</strong> avancées bénéfiques pour toute l'équipage. Ces fonctionnalités font partie du projet original <em class="red">Magellan</em>.
                 <br /><br />
-                Projects will advance more quickly if you have <strong>the appropriate skills</strong>.
+                Les projets avanceront mieux si vous possédez <strong>les compétences adéquates</strong>.
                 <br /><br />
-                A solitary person, even if they have the appropriate skills, will have difficulty successfully completing research. If you advance research more than once in a row, your efficiency will decrease. <strong>Working with a crewmate is the key!</strong>
+                Une seule personne, même si elle possède les compétences conseillées, peut difficilement accomplir un projet toute seule. En effet, si vous avancez un projet plus d'une fois à la suite, l'efficacité de votre action diminuera. <strong>Le travail alterné avec un camarade est la clé !</strong>
                 <br /><br />
-                That's not all: if more than one project is advancing in parallel, the first project completed will wipe out any progress made in the other.
+                Et ce n'est pas tout : si plus d'un projet avance en parallèle, le premier fini annulera les progrès des autres.
             </label>
-            <span class="expand"><label for="tips">Expand/hide</label></span>
+            <span class="expand"><label for="tips">Agrandir/masquer</label></span>
         </div>
         <div class="project-container">
             <div class="project">
@@ -28,8 +28,8 @@
                     </div>
                 </div>
                 <p class="description">Increases your chances of successfully landing on a planet</p>
-                <p class="efficiency">Efficiency : 18% - 18%</p>
-                <button class="action-participate">Participate</button>
+                <p class="efficiency">Efficacité : 18% - 18%</p>
+                <button class="action-participate">Participer</button>
             </div>
 
             <div class="project ongoing">
@@ -44,17 +44,17 @@
                     </div>
                 </div>
                 <p class="description">Takeoff manœuvres cost less :ap: .</p>
-                <p class="efficiency">Efficiency : 3% - 3%</p>
-                <button class="action-participate">Participate</button>
+                <p class="efficiency">Efficacité : 3% - 3%</p>
+                <button class="action-participate">Participer</button>
             </div>
         </div>
-        <button class="exit">Exit</button>
+        <button class="exit">Quitter</button>
     </div>
 </template>
 
 <script>
 export default {
-    name: "NeronPanel",
+    name: "neronCoreTerminal",
     props: {
     }
 };
@@ -62,7 +62,7 @@ export default {
 
 <style  lang="scss" scoped>
 
-.neron-panel {
+.neron-core-terminal {
     position: relative;
     flex-direction: column;
     width: 424px;
@@ -70,6 +70,8 @@ export default {
     color: #090a61;
     background: #c2f3fc;
     font-size: .85em;
+
+    clip-path: polygon(6.5px 0, calc(100% - 6.5px ) 0, 100% 6.5px, 100% calc(100% + 2em), 0 calc(100% + 2em), 0 6.5px);
 
     h1 {
         font-size: 1em;
@@ -133,6 +135,8 @@ export default {
         min-height: 276px;
         overflow: auto;
 
+        scroll-snap-type: x mandatory; // scroll will snap to projects
+
         --scrollbarBG: white;
         --thumbBG: rgba(0, 116, 223, 1);
         --border-radius: 6px;
@@ -160,8 +164,10 @@ export default {
             width: 132px;
             padding-bottom: .4em;
             margin-right: 6px;
-            background: #a6eefb url("http://data.mush.twinoid.com/img/design/neroncore_bg.png") no-repeat right bottom;
+            background: #a6eefb url("~@/assets/images/neroncore_bg.svg") no-repeat right bottom;
             border-left: 2px solid #aad4e5;
+
+            scroll-snap-align: start; // to control scroll snapping
 
             @include corner-bezel(0, 6.5px, 0);
 

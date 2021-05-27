@@ -1,20 +1,24 @@
 <template>
-<div class="tooltip">
-	<slot name='tooltipname'></slot>
-	<div class="tooltip-content">
-		<h1><slot name='tooltipcontenth1'></slot></h1>
-		<p><slot name='tooltipcontentp'></slot></p>
-	</div>
-</div>
+  <tippy>
+    <button>Il rest X fuel</button>
+
+    <template #content>
+      Le fuel sers a bla bla bla
+    </template>
+  </tippy>
 </template>
 
 <script>
-export default {
-    name: "Tooltip"
-};
+  import { Tippy } from 'vue-tippy'
+  
+
+  export default {
+    components: {Tippy},
+	name: "Tooltip",
+  }
 </script>
 
-<style lang="scss" scoped>
+<!--<style lang="scss" scoped>
 
 .tooltip { // container to hover to call the tooltip
   position: relative;
@@ -68,6 +72,4 @@ export default {
 }
 
 </style>
-
-
-
+-->

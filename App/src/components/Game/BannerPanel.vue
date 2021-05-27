@@ -19,9 +19,7 @@
             <div class="daedalus-info">
                 <ul>
                     <li>{{ daedalus.oxygen }}<img src="@/assets/images/o2.png"></li>
-                    <li><ToolTip></ToolTip></li>
-                    <!--<ToolTip><template v-slot:tooltipname>{{ daedalus.fuel }}<img src="@/assets/images/fuel.png"></template><template v-slot:tooltipcontenth1>Fuel en réserve [ {{ daedalus.fuel }} / 32 ]</template><template v-slot:tooltipcontentp>Le <strong>fuel</strong> est indispensable pour ne pas dériver dans l'espace jusqu'à la fin des temps. Cette ressource peut être trouvée lors de vos <strong>explorations</strong> sur les planètes. Cet indicateur n'affiche pas le fuel dans la <strong>Chambre de Combustion</strong>.</template></ToolTip>
-                    <li>{{ daedalus.fuel }}<img src="@/assets/images/fuel.png"></li>-->
+                    <li><Tooltip><template v-slot:tooltipname>{{ daedalus.fuel }}<img src="@/assets/images/fuel.png"></template><template v-slot:tooltipcontenth1>Fuel en réserve [ {{ daedalus.fuel }} / 32 ]</template><template v-slot:tooltipcontentp>Le <strong>fuel</strong> est indispensable pour ne pas dériver dans l'espace jusqu'à la fin des temps. Cette ressource peut être trouvée lors de vos <strong>explorations</strong> sur les planètes. Cet indicateur n'affiche pas le fuel dans la <strong>Chambre de Combustion</strong>.</template></Tooltip></li>
                     <li>{{ daedalus.hull }}<img src="@/assets/images/shield.png"></li>
                     <li>{{ player.triumph }}<img src="@/assets/images/triumph.png"></li>
                 </ul>
@@ -66,11 +64,11 @@ import { Daedalus } from "@/entities/Daedalus";
 import { Player } from "@/entities/Player";
 import CountdownTimer from "@/components/Utils/CountdownTimer";
 import Alerts from "@/components/Game/Ship/Alerts";
-import ToolTip from "@/components/Utils/ToolTip"
+import Tooltip from "@/components/Utils/ToolTip"
 
 export default {
     name: "BannerPanel",
-    components: {Alerts, CountdownTimer, ToolTip},
+    components: {Alerts, CountdownTimer, Tooltip},
     props: {
         player: Player,
         daedalus: Daedalus

@@ -5,6 +5,10 @@ import ApiService from "./services/api.service";
 import { TokenService } from "./services/storage.service";
 import store from './store';
 import router from './router';
+import VueTippy from 'vue-tippy';
+import { setDefaultProps } from 'vue-tippy';
+
+
 
 // Set the base URL of the API
 ApiService.init(process.env.VUE_APP_API_URL);
@@ -17,10 +21,43 @@ if (TokenService.getToken()) {
 // If error, act accordingly (401 refreshes token, others raise error)
 ApiService.mountErrorInterceptor();
 
-
 const app = createApp(App);
 
 app.use(store);
 app.use(router);
-
+app.use(
+    VueTippy,
+    // optional
+    {
+      directive: 'tippy', // => v-tippy
+      component: 'tippy', // => <tippy/>
+      componentSingleton: 'tippy-singleton', // => <tippy-singleton/>
+    }
+  );
+setDefaultProps({
+  theme: 'mush',
+  intertia: true,
+  animateFill: true,
+  followCursor: true,
+  placement: 'auto',
+  popperOptions: {
+    strategy: 'fixed',
+    modifiers: [
+      {
+        name: 'flip',
+        options: {
+          fallbackPlacements: ['bottom', 'left'],
+        },
+      },
+      {
+        name: 'preventOverflow',
+        options: {
+          altAxis: true,
+          tether: false,
+        },
+      },
+    ],
+  }
+})
+  
 app.mount('#app');

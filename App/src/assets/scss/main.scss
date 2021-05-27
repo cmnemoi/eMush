@@ -103,7 +103,7 @@ button {
 }
 
 .tippy-box[data-theme~='mush'] {
-	position: absolute;
+	position: sticky;
 	pointer-events: none;
 	z-index: 10;
 	padding: 1em;

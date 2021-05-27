@@ -39,25 +39,8 @@ setDefaultProps({
   intertia: true,
   animateFill: true,
   followCursor: true,
-  placement: 'auto',
-  popperOptions: {
-    strategy: 'fixed',
-    modifiers: [
-      {
-        name: 'flip',
-        options: {
-          fallbackPlacements: ['bottom', 'left'],
-        },
-      },
-      {
-        name: 'preventOverflow',
-        options: {
-          altAxis: true,
-          tether: false,
-        },
-      },
-    ],
-  }
-})
+  inlinePositioning: true,
+  placement: 'bottom-start',
+  })
   
 app.mount('#app');

@@ -3,6 +3,7 @@
 namespace Mush\Alert\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Alert\Entity\Collection\ReportedAlertCollection;
 use Mush\Daedalus\Entity\Daedalus;
 
 /**
@@ -27,6 +28,11 @@ class Alert
      * @ORM\ManyToOne(targetEntity="Mush\Daedalus\Entity\Daedalus", inversedBy="alerts")
      */
     private Daedalus $daedalus;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Mush\Alert\Entity\ReportedAlert", mappedBy="alert")
+     */
+    private ?ReportedAlertCollection $reportedEvents = null;
 
     public function getId(): ?int
     {
@@ -55,5 +61,27 @@ class Alert
     public function getDaedalus(): Daedalus
     {
         return $this->daedalus;
+    }
+
+    public function setReportedAlert(ReportedAlertCollection $reportedEvents): Alert
+    {
+        $this->reportedEvents = $reportedEvents;
+
+        return $this;
+    }
+
+    public function getReportedEvent(): ?ReportedAlertCollection
+    {
+        return $this->reportedEvents;
+    }
+
+    public function addReportedAlert(ReportedAlert $reportedEvent): Alert
+    {
+        if ($this->reportedEvents === null) {
+            $this->reportedEvents = new ReportedAlertCollection();
+        }
+        $this->reportedEvents->add($reportedEvent);
+
+        return $this;
     }
 }

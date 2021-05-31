@@ -112,7 +112,7 @@ export const characterEnum = {
     },
     [NERON]: {
         'head': require('@/assets/images/comms/neron_chat.png'),
-        'body': require('@/assets/images/comms/neron_chat.png'),
+        'body': require('@/assets/images/comms/neron_chat.png')
     }
 }
 ;

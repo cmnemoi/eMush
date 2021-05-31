@@ -3,7 +3,7 @@
 namespace Mush\Communication\Normalizer;
 
 use Mush\Communication\Entity\Channel;
-use Mush\Player\Entity\Player;
+use Mush\Communication\Entity\ChannelPlayer;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -27,15 +27,17 @@ class ChannelNormalizer implements ContextAwareNormalizerInterface
     public function normalize($object, string $format = null, array $context = []): array
     {
         $participants = [];
-        /** @var Player $participant */
+        /** @var ChannelPlayer $participant */
         foreach ($object->getParticipants() as $participant) {
-            $character = $participant->getCharacterConfig()->getName();
+            $player = $participant->getParticipant();
+            $character = $player->getCharacterConfig()->getName();
             $participants[] = [
-                'id' => $participant->getId(),
+                'id' => $player->getId(),
                 'character' => [
                     'key' => $character,
                     'value' => $this->translator->trans($character . '.name', [], 'characters'),
                 ],
+                'joinedAt' => $participant->getCreatedAt()->format(\DateTime::ATOM),
             ];
         }
 
@@ -43,6 +45,7 @@ class ChannelNormalizer implements ContextAwareNormalizerInterface
             'id' => $object->getId(),
             'scope' => $object->getScope(),
             'participants' => $participants,
+            'createdAt' => $object->getCreatedAt()->format(\DateTime::ATOM),
         ];
     }
 }

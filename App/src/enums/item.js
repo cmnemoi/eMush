@@ -307,6 +307,6 @@ export const itemEnum = {
     },
     [SPACE_CAPSULE]: {
         'image': require('@/assets/images/items/space_capsule.jpg')
-    },
+    }
 }
 ;

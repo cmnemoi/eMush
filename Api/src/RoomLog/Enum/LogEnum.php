@@ -31,4 +31,6 @@ class LogEnum
     public const EQUIPMENT_BROKEN = 'equipment_broken';
     public const GARDEN_DESTROYED = 'garden_destroyed';
     public const HUNGER = 'hunger';
+    public const FORCE_GET_UP = 'force_get_up';
+    public const ANTISOCIAL_MORALE_LOSS = 'antisocial_morale_loss';
 }

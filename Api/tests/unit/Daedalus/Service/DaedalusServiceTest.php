@@ -8,6 +8,7 @@ use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\RandomItemPlaces;
+use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Daedalus\Repository\DaedalusRepository;
 use Mush\Daedalus\Service\DaedalusService;
 use Mush\Equipment\Entity\GameItem;
@@ -274,7 +275,7 @@ class DaedalusServiceTest extends TestCase
         $this->eventDispatcher->shouldReceive('dispatch')->once();
         $this->gameEquipmentService->shouldReceive('delete')->with($oxCapsule1)->once();
 
-        $result = $this->service->getRandomAsphyxia($daedalus);
+        $result = $this->service->getRandomAsphyxia($daedalus, new \DateTime());
 
         $this->assertCount(1, $twoCapsulePlayer->getItems());
         $this->assertCount(3, $threeCapsulePlayer->getItems());
@@ -318,7 +319,36 @@ class DaedalusServiceTest extends TestCase
 
         $this->eventDispatcher->shouldReceive('dispatch')->twice();
 
-        $result = $this->service->selectAlphaMush($daedalus);
+        $result = $this->service->selectAlphaMush($daedalus, new \DateTime());
+    }
+
+    public function testChangeHull()
+    {
+        $daedalusConfig = new DaedalusConfig();
+        $gameConfig = new GameConfig();
+        $gameConfig->setDaedalusConfig($daedalusConfig);
+
+        $daedalus = new Daedalus();
+        $daedalus->setHull(10);
+        $daedalus->setGameConfig($gameConfig);
+
+        $time = new \DateTime('yesterday');
+
+        $this->eventDispatcher->shouldReceive('dispatch')
+            ->withArgs(fn (DaedalusEvent $daedalusEvent, $eventName) => ($daedalusEvent->getTime() === $time && $eventName === DaedalusEvent::END_DAEDALUS))
+            ->once()
+        ;
+
+        $this->entityManager->shouldReceive(['persist' => null, 'flush' => null]);
+
+        $this->service->changeHull($daedalus, -20, $time);
+
+        $this->assertEquals(0, $daedalus->getHull());
+
+        $daedalusConfig->setMaxHull(20);
+        $this->service->changeHull($daedalus, 100, $time);
+
+        $this->assertEquals(20, $daedalus->getHull());
     }
 
     protected function createPlayer(Daedalus $daedalus, string $name): Player

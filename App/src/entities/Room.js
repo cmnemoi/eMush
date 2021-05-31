@@ -2,7 +2,7 @@ import { Item } from "@/entities/Item";
 import { Door } from "@/entities/Door";
 import { Player } from "@/entities/Player";
 import { Equipment } from "@/entities/Equipment";
-import {Status} from "@/entities/Status";
+import { Status } from "@/entities/Status";
 
 export class Room {
     constructor() {

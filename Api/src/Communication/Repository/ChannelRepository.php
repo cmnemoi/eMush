@@ -21,15 +21,20 @@ class ChannelRepository extends ServiceEntityRepository
     {
         $queryBuilder = $this->createQueryBuilder('channel');
         $queryBuilder
-            ->leftJoin('channel.participants', 'player')
-            ->where($queryBuilder->expr()->eq('player', ':player'))
+            ->leftJoin('channel.participants', 'channelPlayer')
+            ->where($queryBuilder->expr()->eq('channelPlayer.participant', ':player'))
             ->setParameter('player', $player->getId())
         ;
 
-        if ($privateOnly) {
+        if (!$privateOnly) {
             $queryBuilder
-                ->andWhere($queryBuilder->expr()->eq('channel.scope', ':private'))
-                ->setParameter('private', ChannelScopeEnum::PRIVATE)
+                ->orWhere(
+                    $queryBuilder->expr()->andX(
+                        $queryBuilder->expr()->eq('channel.daedalus', ':daedalus'),
+                        $queryBuilder->expr()->eq('channel.scope', ':public')
+                    ))
+                ->setParameter('public', ChannelScopeEnum::PUBLIC)
+                ->setParameter('daedalus', $player->getDaedalus())
             ;
         }
 

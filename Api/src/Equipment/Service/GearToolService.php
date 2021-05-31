@@ -183,7 +183,7 @@ class GearToolService implements GearToolServiceInterface
             $chargeStatus = $this->statusService->updateCharge($chargeStatus, -1);
 
             if ($chargeStatus === null) {
-                $equipmentEvent = new EquipmentEvent($equipment, VisibilityEnum::HIDDEN);
+                $equipmentEvent = new EquipmentEvent($equipment, VisibilityEnum::HIDDEN, new \DateTime());
                 $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
             }
         }

@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Heal extends AbstractAction
 {
-    const BASE_HEAL = 2;
+    public const BASE_HEAL = 2;
 
     protected string $name = ActionEnum::HEAL;
 
@@ -61,7 +61,7 @@ class Heal extends AbstractAction
         //@TODO add modifiers
         $healedQuantity = self::BASE_HEAL;
 
-        $playerModifierEvent = new PlayerModifierEvent($this->player, $healedQuantity);
+        $playerModifierEvent = new PlayerModifierEvent($this->player, $healedQuantity, new \DateTime());
         $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
 
         $this->playerService->persist($parameter);

@@ -18,7 +18,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Comfort extends AbstractAction
 {
-    const BASE_CONFORT = 2;
+    public const BASE_CONFORT = 2;
 
     protected string $name = ActionEnum::COMFORT;
 
@@ -55,7 +55,7 @@ class Comfort extends AbstractAction
         /** @var Player $parameter */
         $parameter = $this->parameter;
 
-        $playerModifierEvent = new PlayerModifierEvent($parameter, self::BASE_CONFORT);
+        $playerModifierEvent = new PlayerModifierEvent($parameter, self::BASE_CONFORT, new \DateTime());
         $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::MORAL_POINT_MODIFIER);
 
         $this->playerService->persist($parameter);

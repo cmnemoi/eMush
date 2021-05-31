@@ -68,7 +68,7 @@ class PlayerEventCest
             'characterConfig' => $characterConfig,
         ]);
 
-        $playerEvent = new PlayerEvent($player);
+        $playerEvent = new PlayerEvent($player, new \DateTime());
         $playerEvent->setReason(EndCauseEnum::CLUMSINESS);
 
         $this->eventDispatcherService->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
@@ -106,7 +106,7 @@ class PlayerEventCest
             ->setCharge(0)
         ;
 
-        $playerEvent = new PlayerEvent($player);
+        $playerEvent = new PlayerEvent($player, new \DateTime());
         $playerEvent->setReason(ActionEnum::INFECT);
 
         $this->eventDispatcherService->dispatch($playerEvent, PlayerEvent::INFECTION_PLAYER);

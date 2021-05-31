@@ -1,3 +1,5 @@
+import { ChannelParticipant } from "./ChannelParticipant";
+
 export class Channel {
     constructor() {
         this.id = null;
@@ -9,7 +11,12 @@ export class Channel {
         if (typeof object !== "undefined") {
             this.id = object.id;
             this.scope = object.scope;
-            this.participants = object.participants;
+            if (typeof object.participants !== 'undefined') {
+                object.participants.forEach((itemObject) => {
+                    let participant = (new ChannelParticipant()).load(itemObject);
+                    this.participants.push(participant);
+                });
+            }
         }
         return this;
     }
@@ -25,5 +32,9 @@ export class Channel {
         }
 
         return this;
+    }
+
+    getParticipant = function (key) {
+        return this.participants.find(element => element.character.key === key);
     }
 }

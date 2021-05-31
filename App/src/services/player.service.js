@@ -1,7 +1,7 @@
 import ApiService from "@/services/api.service";
 import { Player } from "@/entities/Player";
 import store from "@/store/index";
-import {DeadPlayerInfo} from "@/entities/DeadPlayerInfo";
+import { DeadPlayerInfo } from "@/entities/DeadPlayerInfo";
 const ACTION_ENDPOINT = process.env.VUE_APP_API_URL+'player';
 
 const PlayerService = {
@@ -21,7 +21,7 @@ const PlayerService = {
     },
 
     loadDeadPlayerInfo: async(playerId) => {
-        store.dispatch('player/setLoading', {loading: true});
+        store.dispatch('player/setLoading', { loading: true });
         const deadPlayerData = await ApiService.get(ACTION_ENDPOINT + '/' + playerId + '/end');
 
         let deadPlayer = null;
@@ -29,7 +29,7 @@ const PlayerService = {
             deadPlayer = (new DeadPlayerInfo()).load(deadPlayerData.data);
         }
 
-        store.dispatch('player/setLoading', {loading: false});
+        store.dispatch('player/setLoading', { loading: false });
 
         return deadPlayer;
     },
@@ -44,7 +44,7 @@ const PlayerService = {
             .then(() => {
                 store.dispatch('auth/userInfo');
             });
-        },
+    },
 
     selectCharacter: (daedalusId, character) => {
         return ApiService.post('player', { 'daedalus' : daedalusId, 'character': character })
@@ -54,7 +54,7 @@ const PlayerService = {
                 store.dispatch('auth/userInfo');
             })
 
-            ;
+        ;
     }
 };
 export default PlayerService;

@@ -414,7 +414,7 @@
                         }}
                         other {{target_gender, select,
                             male {**{player}** peut se féliciter. Le **{target}** est réparé.}
-                            female {**{player}** peut se féliciter. Le **{target}** est réparée.}
+                            female {**{player}** peut se féliciter. La **{target}** est réparée.}
                             other {invalid gender input}
                         }}
                     }}

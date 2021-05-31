@@ -156,8 +156,8 @@
             <segment>
                 <source>plant_new_fruit</source>
                 <target>{target_gender, select,
-                    male {Oh ! Une des plantes a donné : un *{target}*.}
-                    female {Oh ! Une des plantes a donné : une *{target}*.}
+                    male {Oh ! Une des plantes a donné : un **{target}**.}
+                    female {Oh ! Une des plantes a donné : une **{target}**.}
                     other {invalid gender input}
                 }</target>
             </segment>
@@ -166,9 +166,26 @@
             <segment>
                 <source>plant_maturity</source>
                 <target>{target_gender, select,
-                    male {Un *{target}* est arrivé à maturité ! Enfin !}
-                    female {Une *{target}* est arrivé à maturité ! Enfin !}
+                    male {Un **{target}** est arrivé à maturité ! Enfin !}
+                    female {Une **{target}** est arrivée à maturité ! Enfin !}
                     other {invalid gender input}
+                }</target>
+            </segment>
+        </unit>
+        <unit id="plant_death">
+            <segment>
+                <source>plant_death</source>
+                <target>{target_first_letter, select,
+                    vowel {{target_gender, select,
+                        male {L'**{target}** est mort...snif !}
+                        female {L'**{target}** est morte...snif !}
+                        other {invalid gender input}
+                    }}
+                    other {{target_gender, select,
+                        male {Le **{target}** est mort...snif !}
+                        female {La **{target}** est morte...snif !}
+                        other {invalid gender input}
+                    }}
                 }</target>
             </segment>
         </unit>
@@ -182,6 +199,23 @@
             <segment>
                 <source>hunger</source>
                 <target>Vous avez faim. Si vous n'y remédiez pas, votre santé va se détériorer à chaque changement de cycle.</target>
+            </segment>
+        </unit>
+        <unit id="force_get_up">
+            <segment>
+                <source>force_get_up</source>
+                <target>{character_gender, select,
+                    male {**{player}** est violemment tiré de son lit.}
+                    female {**{player}** est violemment tirée de son lit.}
+                    other {invalid gender input}
+                }
+                </target>
+            </segment>
+        </unit>
+        <unit id="antisocial_morale_loss">
+            <segment>
+                <source>antisocial_morale_loss</source>
+                <target>Ces importuns vous importunent au plus haut point, les voir s'affairer à de si inutiles besognes vous rend pessimiste pour l'avenir de l'Humanité...</target>
             </segment>
         </unit>
     </file>

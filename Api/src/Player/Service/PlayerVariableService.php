@@ -125,7 +125,8 @@ class PlayerVariableService implements PlayerVariableServiceInterface
     {
         if ($delta !== 0) {
             if ($delta >= 0 &&
-                $player->getSatiety() < 0) {
+                $player->getSatiety() < 0
+            ) {
                 $player->setSatiety($delta);
             } else {
                 $player->setSatiety($player->getSatiety() + $delta);

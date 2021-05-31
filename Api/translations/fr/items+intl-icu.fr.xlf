@@ -1422,7 +1422,7 @@ Unique : Permet de donner +3 :pmo: à chaque téléspectateur.</target>
             </segment>
             <segment id="genre">
                 <source>block_of_post_it.genre</source>
-                <target>female</target>
+                <target>male</target>
             </segment>
             <segment id="first_letter">
                 <source>block_of_post_it.first_letter</source>

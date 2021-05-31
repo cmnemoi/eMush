@@ -14,7 +14,7 @@
         </div>
 
         <div class="daedalus-banner">
-            <Alerts :daedalus="daedalus"></Alerts>
+            <Alerts :daedalus="daedalus" />
 
             <div class="daedalus-info">
                 <ul>
@@ -76,7 +76,7 @@ export default {
     data: function () {
         return {
         };
-    },
+    }
 };
 </script>
 

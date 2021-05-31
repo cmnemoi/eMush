@@ -4,170 +4,62 @@
             class="action-buttons"
             :actions="['refresh', 'invite', 'report', 'leave']"
             @leave="leavePrivateChannel(channel)"
+            @invite="getInvitablePlayersToPrivateChannel(channel)"
         />
         <ul class="participants">
-            <li><img src="@/assets/images/char/body/ian.png"></li>
-            <li><img src="@/assets/images/char/body/jin_su.png"></li>
-            <li><img src="@/assets/images/char/body/paola.png"></li>
-            <li><img src="@/assets/images/char/body/chun.png"></li>
+            <li v-for="(participant, key) in channel.participants" :key="key">
+                <img :src="characterBody(participant.character.key)">
+            </li>
         </ul>
         <section class="unit">
-            <div class="message new">
-                <div class="char-portrait">
-                    <img src="@/assets/images/char/body/ian.png">
-                </div>
-                <p><span class="author">Ian :</span><strong><em>Piloting</em></strong></p>
-                <span class="timestamp">~1d</span>
-            </div>
-            <div class="message new">
-                <div class="char-portrait">
-                    <img src="@/assets/images/char/body/jin_su.png">
-                </div>
-                <p><span class="author">Jin Su :</span>So far eight hunters shot total (3 + 5), no scrap collected yet.</p>
-                <span class="timestamp">~3d</span>
-            </div>
-            <div class="message">
-                <div class="char-portrait">
-                    <img src="@/assets/images/char/body/ian.png">
-                </div>
-                <p><span class="author">Ian :</span>Excellent sir, I can see why they have you training the new pilots :P</p>
-                <span class="timestamp">~3d</span>
-            </div>
-            <div class="message">
-                <div class="char-portrait">
-                    <img src="@/assets/images/char/body/jin_su.png">
-                </div>
-                <p><span class="author">Jin Su :</span>Kind of you to say so, yet I sadly can't agree. In fact I find our hull's exellency wanting. It shall be restored once we collected scrap and built the oscilloscope.></p>
-                <span class="timestamp">~5d</span>
-            </div>
-            <div class="message">
-                <div class="char-portrait">
-                    <img src="@/assets/images/char/body/jin_su.png">
-                </div>
-                <p><span class="author">Jin Su :</span>Wololo !</p>
-                <span class="timestamp">~6d</span>
-            </div>
-        </section>
-        <section class="log">
-            <p class="text-log">
-                <strong>Jin Su</strong> a rejoint la discussion.
-            </p>
-            <span class="timestamp">environ 2 heures</span>
+            <Message
+                v-for="(message, id) in messages"
+                :key="id"
+                :message="message"
+                :is-root="true"
+            />
         </section>
     </TabContainer>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import { Channel } from "@/entities/Channel";
-import ActionButtons from "@/components/Game/Communications/ActionButtons";
 import TabContainer from "@/components/Game/Communications/TabContainer";
-
+import Message from "@/components/Game/Communications/Messages/Message";
+import { characterEnum } from "@/enums/character";
+import ActionButtons from "@/components/Game/Communications/ActionButtons";
 
 export default {
     name: "PrivateTab",
     components: {
         ActionButtons,
+        Message,
         TabContainer
     },
     props: {
         channel: Channel
     },
+    computed: {
+        ...mapGetters('communication', [
+            'messages'
+        ])
+    },
     methods: {
+        characterBody: function(character) {
+            const images = characterEnum[character];
+            return images.body;
+        },
         ...mapActions('communication', [
-            'leavePrivateChannel'
+            'leavePrivateChannel',
+            'loadMessages',
+            'getInvitablePlayersToPrivateChannel'
         ])
     }
 };
 </script>
 
 <style lang="scss" scoped>
-
-/* --- PROVISIONAL UNTIL LINE 203 --- */
-
-.message {
-    position: relative;
-    align-items: flex-start;
-    flex-direction: row;
-
-    .char-portrait {
-        align-items: flex-start;
-        justify-content: flex-start;
-        min-width: 36px;
-        padding: 2px;
-    }
-
-    p:not(.timestamp) {
-        position: relative;
-        flex: 1;
-        margin: 3px 0;
-        padding: 4px 6px;
-        border-radius: 3px;
-        background: white;
-        word-break: break-word;
-
-        .author {
-            color: #2081e2;
-            font-weight: 700;
-            font-variant: small-caps;
-            padding-right: 0.25em;
-        }
-
-        em { color: #cf1830; }
-    }
-
-    &.new p {
-        border-left: 2px solid #ea9104;
-
-        &::after {
-            content: "";
-            position: absolute;
-            top: 7px;
-            left: -6px;
-            height: 11px;
-            width: 11px;
-            background: transparent url('~@/assets/images/comms/thinklinked.png') center no-repeat;
-        }
-    }
-
-    p { min-height: 52px; }
-
-    p::before { //Bubble triangle*/
-        $size: 8px;
-
-        content: "";
-        position: absolute;
-        top: 4px;
-        left: -$size;
-        width: 0;
-        height: 0;
-        border-top: $size solid transparent;
-        border-bottom: $size solid transparent;
-        border-right: $size solid white;
-    }
-
-    &.new p {
-        &::before { border-right-color: #ea9104; }
-        &::after { top: 22px; }
-    }
-}
-
-/* ----- */
-
-.log {
-    position: relative;
-    padding: 4px 5px;
-    margin: 1px 0;
-    border-bottom: 1px solid rgb(170, 212, 229);
-
-    .text-log {
-        margin: 0;
-        font-size: 0.95em;
-        >>> img { vertical-align: middle; }
-    }
-}
-
-/* --- END OF PROVISIONAL --- */
 
 #private-discussion-tab {
     .unit {
@@ -180,22 +72,6 @@ export default {
 
         li { width: 28px; }
     }
-}
-
-#private-discussion-tab .unit > .message:nth-of-type(odd) {
-    flex-direction: row-reverse;
-
-    .char-portrait { align-items: flex-end; }
-
-    .timestamp { right: 41px; }
-
-    p::before {
-        left: initial;
-        right: -8px;
-        transform: rotate(180deg);
-    }
-
-    &.new p::before { border-right-color: white; }
 }
 
 </style>

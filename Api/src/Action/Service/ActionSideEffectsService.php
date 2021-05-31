@@ -19,7 +19,7 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class ActionSideEffectsService implements ActionSideEffectsServiceInterface
 {
-    const ACTION_INJURY_MODIFIER = -2;
+    public const ACTION_INJURY_MODIFIER = -2;
 
     private EventDispatcherInterface $eventDispatcher;
     private RandomServiceInterface $randomService;
@@ -41,7 +41,7 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
         $this->actionModifierService = $actionModifierService;
     }
 
-    public function handleActionSideEffect(Action $action, Player $player, ?\DateTime $date = null): Player
+    public function handleActionSideEffect(Action $action, Player $player, \DateTime $date): Player
     {
         $this->handleDirty($action, $player, $date);
         $this->handleInjury($action, $player, $date);
@@ -92,7 +92,7 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
         }
     }
 
-    private function handleInjury(Action $action, Player $player, ?\DateTime $date): void
+    private function handleInjury(Action $action, Player $player, \DateTime $date): void
     {
         $baseInjuryRate = $action->getInjuryRate();
         if ($baseInjuryRate > 0) {
@@ -132,7 +132,7 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
         }
     }
 
-    private function dispatchPlayerInjuryEvent(Player $player, ?\DateTime $dateTime = null): void
+    private function dispatchPlayerInjuryEvent(Player $player, \DateTime $dateTime): void
     {
         $playerModifierEvent = new PlayerModifierEvent($player, self::ACTION_INJURY_MODIFIER, $dateTime);
         $playerModifierEvent->setReason(EndCauseEnum::CLUMSINESS);

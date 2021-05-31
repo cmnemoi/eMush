@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Communication\Event;
+namespace Mush\Communication\Listener;
 
 use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Communication\Services\ChannelServiceInterface;

@@ -9,6 +9,9 @@ const state =  {
 const getters = {
     isLoading: (state) => {
         return state.loading;
+    },
+    player: (state) => {
+        return state.player;
     }
 };
 
@@ -31,7 +34,7 @@ const actions = {
     async reloadPlayer({ state, dispatch }) {
         return dispatch("loadPlayer", { playerId: state.player.id });
     },
-    setLoading({ commit }, {loading}) {
+    setLoading({ commit }, { loading }) {
         commit('setLoading', loading);
     }
 };

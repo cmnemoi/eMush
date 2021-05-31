@@ -7,7 +7,7 @@ $finder = PhpCsFixer\Finder::create()
     ->exclude('_generated')
 ;
 
-return PhpCsFixer\Config::create()
+return (new PhpCsFixer\Config())
     ->setRules([
         '@Symfony' => true,
         'yoda_style' => false,

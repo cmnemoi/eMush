@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\RoomLog\Event;
+namespace Mush\RoomLog\Listener;
 
 use Mush\Action\Event\ActionEvent;
 use Mush\RoomLog\Service\RoomLogServiceInterface;

@@ -28,7 +28,7 @@ class Shower extends AbstractAction
 
     private PlayerServiceInterface $playerService;
 
-    const MUSH_SHOWER_DAMAGES = -3;
+    public const MUSH_SHOWER_DAMAGES = -3;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
@@ -67,7 +67,7 @@ class Shower extends AbstractAction
         }
 
         if ($this->player->isMush()) {
-            $playerModifierEvent = new PlayerModifierEvent($this->player, self::MUSH_SHOWER_DAMAGES);
+            $playerModifierEvent = new PlayerModifierEvent($this->player, self::MUSH_SHOWER_DAMAGES, new \DateTime());
             $playerModifierEvent->setReason(EndCauseEnum::CLUMSINESS);
             $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
         }

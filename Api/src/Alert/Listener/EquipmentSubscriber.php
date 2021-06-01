@@ -32,7 +32,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         $this->alertService->handleEquipmentBreak($equipment);
 
         if ($equipment->getName() === EquipmentEnum::GRAVITY_SIMULATOR) {
-            $this->alertService->gravityAlert($equipment->getCurrentPlace()->getDaedalus(), false);
+            $this->alertService->gravityAlert($equipment->getCurrentPlace()->getDaedalus(), true);
         }
     }
 

@@ -9,6 +9,7 @@ use Mush\Player\Entity\Player;
 
 /**
  * @ORM\Entity
+ * @ORM\Table(name="reported_alert")
  */
 class ReportedAlert
 {
@@ -18,6 +19,11 @@ class ReportedAlert
      * @ORM\Column(type="integer", length=255, nullable=false)
      */
     private ?int $id = null;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Mush\Alert\Entity\Alert")
+     */
+    private Alert $alert;
 
     /**
      * @ORM\ManyToOne(targetEntity="Mush\Player\Entity\Player")
@@ -37,6 +43,18 @@ class ReportedAlert
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setAlert(Alert $alert): ReportedAlert
+    {
+        $this->alert = $alert;
+
+        return $this;
+    }
+
+    public function getAlert(): Alert
+    {
+        return $this->alert;
     }
 
     public function setPlayer(Player $player): ReportedAlert

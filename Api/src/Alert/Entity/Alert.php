@@ -2,13 +2,15 @@
 
 namespace Mush\Alert\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Alert\Entity\Collection\ReportedAlertCollection;
 use Mush\Daedalus\Entity\Daedalus;
 
 /**
- * @ORM\Entity
- * @ORM\Table(name="alert")
+ * Class Alert.
+ *
+ * @ORM\Entity(repositoryClass="Mush\Alert\Repository\AlertRepository")
  */
 class Alert
 {
@@ -17,7 +19,7 @@ class Alert
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer", length=255, nullable=false)
      */
-    private ?int $id = null;
+    private int $id;
 
     /**
      * @ORM\Column(type="string")
@@ -32,7 +34,7 @@ class Alert
     /**
      * @ORM\OneToMany(targetEntity="Mush\Alert\Entity\ReportedAlert", mappedBy="alert")
      */
-    private ?ReportedAlertCollection $reportedEvents = null;
+    private ?Collection $reportedEvents = null;
 
     public function getId(): ?int
     {
@@ -63,15 +65,15 @@ class Alert
         return $this->daedalus;
     }
 
-    public function setReportedAlert(ReportedAlertCollection $reportedEvents): Alert
-    {
-        $this->reportedEvents = $reportedEvents;
-
-        return $this;
-    }
-
     public function getReportedEvent(): ?ReportedAlertCollection
     {
+        if (
+            !$this->reportedEvents instanceof ReportedAlertCollection &&
+            $this->reportedEvents !== null
+        ) {
+            $this->reportedEvents = new ReportedAlertCollection($this->reportedEvents->toArray());
+        }
+
         return $this->reportedEvents;
     }
 
@@ -81,6 +83,7 @@ class Alert
             $this->reportedEvents = new ReportedAlertCollection();
         }
         $this->reportedEvents->add($reportedEvent);
+        $reportedEvent->setAlert($this);
 
         return $this;
     }

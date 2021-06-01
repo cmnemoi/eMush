@@ -6,8 +6,6 @@ import { TokenService } from "./services/storage.service";
 import store from './store';
 import router from './router';
 import VueTippy from 'vue-tippy';
-import { setDefaultProps } from 'vue-tippy';
-
 
 
 // Set the base URL of the API
@@ -21,6 +19,7 @@ if (TokenService.getToken()) {
 // If error, act accordingly (401 refreshes token, others raise error)
 ApiService.mountErrorInterceptor();
 
+
 const app = createApp(App);
 
 app.use(store);
@@ -29,18 +28,20 @@ app.use(
     VueTippy,
     // optional
     {
-      directive: 'tippy', // => v-tippy
-      component: 'tippy', // => <tippy/>
-      componentSingleton: 'tippy-singleton', // => <tippy-singleton/>
+        directive: 'tippy', // => v-tippy
+        component: 'tippy', // => <tippy/>
+        componentSingleton: 'tippy-singleton', // => <tippy-singleton/>
+
+        defaultProps: {
+            allowHTML: true,
+            theme: 'mush',
+            maxWidth: 280,
+            followCursor: true,
+            inlinePositioning: true,
+            placement: 'bottom-start',
+            duration: [null, 50],
+        },
     }
-  );
-setDefaultProps({
-  theme: 'mush',
-  intertia: true,
-  animateFill: true,
-  followCursor: true,
-  inlinePositioning: true,
-  placement: 'bottom-start',
-  })
-  
+);
+
 app.mount('#app');

@@ -1,19 +1,15 @@
 <template>
-  <div>
-    <tippy>
-		<button v-tippy="{ theme: 'mush', arrow: true, appendTo :'parent'}">
-			<slot name='tooltipname'></slot>
-		</button>
-		<template #content>
-			<h1><slot name='tooltipcontenth1'></slot></h1>
-			<p><slot name='tooltipcontentp'></slot></p>
-		</template>
-	</tippy>
-  </div>
+    <tippy class="tippy-tooltip">
+      <slot name='tooltip-trigger'></slot>
+
+      <template #content>
+          <slot name='tooltip-content'></slot>
+      </template>
+    </tippy>
 </template>
 
 <script>
-  export default {
-	name: "Tooltip",
-  }
+    export default {
+    name: "Tooltip",
+    }
 </script>

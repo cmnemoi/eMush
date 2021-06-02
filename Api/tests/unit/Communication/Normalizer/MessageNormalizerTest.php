@@ -10,6 +10,7 @@ use Mush\Daedalus\Entity\Neron;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Enum\CharacterEnum;
+use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use PHPUnit\Framework\TestCase;
@@ -19,6 +20,8 @@ class MessageNormalizerTest extends TestCase
 {
     /** @var TranslatorInterface | Mockery\Mock */
     private TranslatorInterface $translator;
+    /** @var TranslationServiceInterface | Mockery\Mock */
+    private TranslationServiceInterface $translationService;
 
     private MessageNormalizer $normalizer;
 
@@ -28,9 +31,11 @@ class MessageNormalizerTest extends TestCase
     public function before()
     {
         $this->translator = Mockery::mock(TranslatorInterface::class);
+        $this->translationService = Mockery::mock(TranslationServiceInterface::class);
 
         $this->normalizer = new MessageNormalizer(
-            $this->translator
+            $this->translator,
+            $this->translationService,
         );
     }
 
@@ -93,28 +98,9 @@ class MessageNormalizerTest extends TestCase
             ])
         ;
 
-        $this->translator
-            ->shouldReceive('trans')
-            ->with(CharacterEnum::ANDIE . '.name', [], 'characters')
-            ->andReturn('Andie')
-        ;
-        $this->translator
-            ->shouldReceive('trans')
-            ->with(EndCauseEnum::ABANDONED . '.name', [], 'end_cause')
-            ->andReturn('abandoné')
-        ;
-        $this->translator
-            ->shouldReceive('trans')
-            ->with(EquipmentEnum::ANTENNA . '.name', [], 'equipments')
-            ->andReturn('antenne')
-        ;
-        $this->translator
-            ->shouldReceive('trans')
-            ->with(EquipmentEnum::ANTENNA . '.genre', [], 'equipments')
-            ->andReturn('female')
-        ;
-
         $parametersArray = ['player' => 'Andie', 'cause' => 'abandoné', 'target' => 'antenne', 'target_gender' => 'female'];
+        $this->translationService->shouldReceive('getTranslateParameters')->andReturn($parametersArray)->once();
+
         $this->translator
             ->shouldReceive('trans')
             ->with('message', $parametersArray, 'neron')

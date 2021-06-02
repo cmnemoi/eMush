@@ -10,8 +10,8 @@ use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
-use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameter;
@@ -28,17 +28,20 @@ class RoomLogService implements RoomLogServiceInterface
     private RandomServiceInterface $randomService;
     private RoomLogRepository $repository;
     private TranslatorInterface $translator;
+    private TranslationServiceInterface $translationService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         RandomServiceInterface $randomService,
         RoomLogRepository $repository,
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        TranslationServiceInterface $translationService,
     ) {
         $this->entityManager = $entityManager;
         $this->randomService = $randomService;
         $this->repository = $repository;
         $this->translator = $translator;
+        $this->translationService = $translationService;
     }
 
     public function persist(RoomLog $roomLog): RoomLog
@@ -163,7 +166,7 @@ class RoomLogService implements RoomLogServiceInterface
         $logs = [];
         /** @var RoomLog $roomLog */
         foreach ($roomLogs as $roomLog) {
-            $translatedParameters = $this->translateParameters($roomLog->getParameters());
+            $translatedParameters = $this->translationService->getTranslateParameters($roomLog->getParameters());
             $logs[$roomLog->getDay()][$roomLog->getCycle()][] = [
                 'log' => $this->translator->trans(
                     $roomLog->getLog(),
@@ -176,45 +179,5 @@ class RoomLogService implements RoomLogServiceInterface
         }
 
         return $logs;
-    }
-
-    private function translateParameters(array $parameters): array
-    {
-        $params = [];
-        foreach ($parameters as $key => $element) {
-            switch ($key) {
-                case 'player':
-                    $params['player'] = $this->translator->trans($element . '.name', [], 'characters');
-                    $params['character_gender'] = (CharacterEnum::isMale($element) ? 'male' : 'female');
-                    break;
-
-                case 'targetEquipment':
-                    $domain = 'equipments';
-
-                    $params['target'] = $this->translator->trans($element . '.short_name', [], $domain);
-                    $params['target_gender'] = $this->translator->trans($element . '.genre', [], $domain);
-                    $params['target_first_letter'] = $this->translator->trans($element . '.first_Letter', [], $domain);
-                    $params['targetPlural'] = $this->translator->trans($element . '.plural_name', [], $domain);
-                    break;
-
-                case 'targetItem':
-                    $domain = 'items';
-
-                    $params['target'] = $this->translator->trans($element . '.short_name', [], $domain);
-                    $params['target_gender'] = $this->translator->trans($element . '.genre', [], $domain);
-                    $params['target_first_letter'] = $this->translator->trans($element . '.first_Letter', [], $domain);
-                    $params['targetPlural'] = $this->translator->trans($element . '.plural_name', [], $domain);
-                    break;
-
-                case 'targetPlayer':
-                    $params['target'] = $this->translator->trans($element . '.name', [], 'characters');
-                    $params['target_gender'] = (CharacterEnum::isMale($element) ? 'male' : 'female');
-                    break;
-                default:
-                    $params[$key] = $element;
-            }
-        }
-
-        return $params;
     }
 }

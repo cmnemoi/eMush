@@ -4,7 +4,7 @@ namespace Mush\Alert\Entity;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Alert\Entity\Collection\ReportedAlertCollection;
+use Mush\Alert\Entity\Collection\AlertElementCollection;
 use Mush\Daedalus\Entity\Daedalus;
 
 /**
@@ -19,7 +19,7 @@ class Alert
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer", length=255, nullable=false)
      */
-    private int $id;
+    private ?int $id = null;
 
     /**
      * @ORM\Column(type="string")
@@ -32,9 +32,14 @@ class Alert
     private Daedalus $daedalus;
 
     /**
-     * @ORM\OneToMany(targetEntity="Mush\Alert\Entity\ReportedAlert", mappedBy="alert")
+     * @ORM\OneToMany(targetEntity="Mush\Alert\Entity\AlertElement", mappedBy="alert")
      */
-    private ?Collection $reportedEvents = null;
+    private Collection $alertElements;
+
+    public function __construct()
+    {
+        $this->alertElements = new AlertElementCollection();
+    }
 
     public function getId(): ?int
     {
@@ -65,25 +70,19 @@ class Alert
         return $this->daedalus;
     }
 
-    public function getReportedEvent(): ?ReportedAlertCollection
+    public function getAlertElements(): AlertElementCollection
     {
-        if (
-            !$this->reportedEvents instanceof ReportedAlertCollection &&
-            $this->reportedEvents !== null
-        ) {
-            $this->reportedEvents = new ReportedAlertCollection($this->reportedEvents->toArray());
+        if (!$this->alertElements instanceof AlertElementCollection) {
+            $this->alertElements = new AlertElementCollection($this->alertElements->toArray());
         }
 
-        return $this->reportedEvents;
+        return $this->alertElements;
     }
 
-    public function addReportedAlert(ReportedAlert $reportedEvent): Alert
+    public function addAlertElement(AlertElement $alertElement): Alert
     {
-        if ($this->reportedEvents === null) {
-            $this->reportedEvents = new ReportedAlertCollection();
-        }
-        $this->reportedEvents->add($reportedEvent);
-        $reportedEvent->setAlert($this);
+        $this->alertElements->add($alertElement);
+        $alertElement->setAlert($this);
 
         return $this;
     }

@@ -9,9 +9,9 @@ use Mush\Player\Entity\Player;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="reported_alert")
+ * @ORM\Table(name="alert_element")
  */
-class ReportedAlert
+class AlertElement
 {
     /**
      * @ORM\Id
@@ -45,7 +45,7 @@ class ReportedAlert
         return $this->id;
     }
 
-    public function setAlert(Alert $alert): ReportedAlert
+    public function setAlert(Alert $alert): AlertElement
     {
         $this->alert = $alert;
 
@@ -57,7 +57,7 @@ class ReportedAlert
         return $this->alert;
     }
 
-    public function setPlayer(Player $player): ReportedAlert
+    public function setPlayer(Player $player): AlertElement
     {
         $this->player = $player;
 
@@ -69,7 +69,7 @@ class ReportedAlert
         return $this->player;
     }
 
-    public function setPlace(Place $place): ReportedAlert
+    public function setPlace(Place $place): AlertElement
     {
         $this->place = $place;
 
@@ -81,7 +81,7 @@ class ReportedAlert
         return $this->place;
     }
 
-    public function setEquipment(GameEquipment $equipment): ReportedAlert
+    public function setEquipment(GameEquipment $equipment): AlertElement
     {
         $this->equipment = $equipment;
 

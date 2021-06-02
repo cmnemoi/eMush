@@ -5,7 +5,7 @@ namespace Mush\Tests\Alert\Listener;
 use App\Tests\FunctionalTester;
 use DateTime;
 use Mush\Alert\Entity\Alert;
-use Mush\Alert\Entity\ReportedAlert;
+use Mush\Alert\Entity\AlertElement;
 use Mush\Alert\Enum\AlertEnum;
 use Mush\Alert\Listener\EquipmentSubscriber;
 use Mush\Communication\Entity\Channel;
@@ -112,7 +112,7 @@ class EquipmentSubscriberCest
 
         $I->haveInRepository($alert);
 
-        $reportedAlert = new ReportedAlert();
+        $reportedAlert = new AlertElement();
         $reportedAlert->setEquipment($gravitySimulator);
         $I->haveInRepository($reportedAlert);
 
@@ -120,7 +120,7 @@ class EquipmentSubscriberCest
         $alertBroken
             ->setDaedalus($daedalus)
             ->setName(AlertEnum::EQUIPMENT_BROKEN)
-            ->addReportedAlert($reportedAlert)
+            ->addAlertElement($reportedAlert)
         ;
 
         $I->haveInRepository($alertBroken);
@@ -171,7 +171,7 @@ class EquipmentSubscriberCest
         $I->dontSeeInRepository(Alert::class, ['daedalus' => $daedalus, 'name' => AlertEnum::NO_GRAVITY]);
         $I->dontSeeInRepository(Alert::class, ['daedalus' => $daedalus, 'name' => AlertEnum::BROKEN_DOORS]);
         $I->seeInRepository(Alert::class, ['daedalus' => $daedalus, 'name' => AlertEnum::EQUIPMENT_BROKEN]);
-        $I->seeInRepository(ReportedAlert::class, ['equipment' => $gameEquipment]);
+        $I->seeInRepository(AlertElement::class, ['equipment' => $gameEquipment]);
     }
 
     public function testBreakDoor(FunctionalTester $I)
@@ -215,7 +215,7 @@ class EquipmentSubscriberCest
         $I->dontSeeInRepository(Alert::class, ['daedalus' => $daedalus, 'name' => AlertEnum::NO_GRAVITY]);
         $I->dontSeeInRepository(Alert::class, ['daedalus' => $daedalus, 'name' => AlertEnum::EQUIPMENT_BROKEN]);
         $I->seeInRepository(Alert::class, ['daedalus' => $daedalus, 'name' => AlertEnum::BROKEN_DOORS]);
-        $I->seeInRepository(ReportedAlert::class, ['equipment' => $gameEquipment]);
+        $I->seeInRepository(AlertElement::class, ['equipment' => $gameEquipment]);
     }
 
     public function testFixEquipment(FunctionalTester $I)
@@ -254,7 +254,7 @@ class EquipmentSubscriberCest
 
         $equipmentEvent = new EquipmentEvent($gravitySimulator, VisibilityEnum::HIDDEN, new DateTime());
 
-        $reportedAlert = new ReportedAlert();
+        $reportedAlert = new AlertElement();
         $reportedAlert->setEquipment($gravitySimulator);
         $I->haveInRepository($reportedAlert);
 
@@ -262,7 +262,7 @@ class EquipmentSubscriberCest
         $alertBroken
             ->setDaedalus($daedalus)
             ->setName(AlertEnum::EQUIPMENT_BROKEN)
-            ->addReportedAlert($reportedAlert)
+            ->addAlertElement($reportedAlert)
         ;
 
         $I->haveInRepository($alertBroken);

@@ -5,7 +5,7 @@ namespace Mush\Tests\Alert\Listener;
 use App\Tests\FunctionalTester;
 use DateTime;
 use Mush\Alert\Entity\Alert;
-use Mush\Alert\Entity\ReportedAlert;
+use Mush\Alert\Entity\AlertElement;
 use Mush\Alert\Enum\AlertEnum;
 use Mush\Alert\Listener\RoomSubscriber;
 use Mush\Communication\Entity\Channel;
@@ -52,7 +52,7 @@ class RoomSubscriberCest
         $this->roomSubscriber->onStartingFire($roomEvent);
 
         $I->seeInRepository(Alert::class, ['daedalus' => $daedalus, 'name' => AlertEnum::FIRE]);
-        $I->seeInRepository(ReportedAlert::class, ['place' => $room]);
+        $I->seeInRepository(AlertElement::class, ['place' => $room]);
     }
 
     public function testStopFire(FunctionalTester $I)
@@ -79,7 +79,7 @@ class RoomSubscriberCest
 
         $roomEvent = new RoomEvent($room, new DateTime());
 
-        $reportedAlert = new ReportedAlert();
+        $reportedAlert = new AlertElement();
         $reportedAlert->setPlace($room);
         $I->haveInRepository($reportedAlert);
 
@@ -87,7 +87,7 @@ class RoomSubscriberCest
         $alertFire
             ->setDaedalus($daedalus)
             ->setName(AlertEnum::FIRE)
-            ->addReportedAlert($reportedAlert)
+            ->addAlertElement($reportedAlert)
         ;
 
         $I->haveInRepository($alertFire);
@@ -95,6 +95,6 @@ class RoomSubscriberCest
         $this->roomSubscriber->onStopFire($roomEvent);
 
         $I->dontSeeInRepository(Alert::class, ['daedalus' => $daedalus, 'name' => AlertEnum::FIRE]);
-        $I->dontSeeInRepository(ReportedAlert::class, ['place' => $room]);
+        $I->dontSeeInRepository(AlertElement::class, ['place' => $room]);
     }
 }

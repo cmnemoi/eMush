@@ -4,7 +4,7 @@ namespace Mush\Alert\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Alert\Entity\Alert;
-use Mush\Alert\Entity\ReportedAlert;
+use Mush\Alert\Entity\AlertElement;
 use Mush\Alert\Enum\AlertEnum;
 use Mush\Alert\Repository\AlertRepository;
 use Mush\Daedalus\Entity\Daedalus;
@@ -19,6 +19,7 @@ class AlertService implements AlertServiceInterface
 
     public const OXYGEN_ALERT = 8;
     public const HULL_ALERT = 33;
+    public const FAMINE_ALERT = -120;
 
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -42,17 +43,17 @@ class AlertService implements AlertServiceInterface
         $this->entityManager->flush();
     }
 
-    public function persistReportedAlert(ReportedAlert $reportedAlert): ReportedAlert
+    public function persistAlertElement(AlertElement $alertElement): AlertElement
     {
-        $this->entityManager->persist($reportedAlert);
+        $this->entityManager->persist($alertElement);
         $this->entityManager->flush();
 
-        return $reportedAlert;
+        return $alertElement;
     }
 
-    public function deleteReportedAlert(ReportedAlert $reportedAlert): void
+    public function deleteAlertElement(AlertElement $alertElement): void
     {
-        $this->entityManager->remove($reportedAlert);
+        $this->entityManager->remove($alertElement);
         $this->entityManager->flush();
     }
 
@@ -129,21 +130,22 @@ class AlertService implements AlertServiceInterface
 
     public function handleEquipmentBreak(GameEquipment $equipment): void
     {
-        $daedalus = $equipment->getCurrentPlace()->getDaedalus();
         if ($equipment instanceof Door) {
+            $daedalus = $equipment->getRooms()->first()->getDaedalus();
             $brokenAlert = $this->getAlert($daedalus, AlertEnum::BROKEN_DOORS);
         } else {
+            $daedalus = $equipment->getCurrentPlace()->getDaedalus();
             $brokenAlert = $this->getAlert($daedalus, AlertEnum::EQUIPMENT_BROKEN);
         }
 
-        $reportedEquipment = new ReportedAlert();
-        $reportedEquipment
+        $equipmentElement = new AlertElement();
+        $equipmentElement
             ->setEquipment($equipment)
         ;
 
-        $this->persistReportedAlert($reportedEquipment);
+        $this->persistAlertElement($equipmentElement);
 
-        $brokenAlert->addReportedAlert($reportedEquipment);
+        $brokenAlert->addAlertElement($equipmentElement);
 
         $this->persist($brokenAlert);
     }
@@ -161,7 +163,25 @@ class AlertService implements AlertServiceInterface
             throw new \LogicException('there should be a broken equipment alert on this Daedalus');
         }
 
-        $this->removeReportedEquipment($brokenAlert, $equipment);
+        $filteredList = $brokenAlert->getAlertElements()->filter(fn (AlertElement $element) => $element->getEquipment() === $equipment);
+
+        if ($filteredList->count() !== 1) {
+            throw new \LogicException('this equipment should be reported exactly one time');
+        }
+
+        $reportedEquipment = $filteredList->first();
+
+        $brokenAlert->getAlertElements()->removeElement($reportedEquipment);
+
+        $this->deleteAlertElement($reportedEquipment);
+
+        if ($brokenAlert->getAlertElements()->count() === 0) {
+            $this->delete($brokenAlert);
+
+            return;
+        }
+
+        $this->persist($brokenAlert);
     }
 
     public function handleFireStart(Place $place): void
@@ -170,12 +190,12 @@ class AlertService implements AlertServiceInterface
 
         $fireAlert = $this->getAlert($daedalus, AlertEnum::FIRE);
 
-        $reportedFire = new ReportedAlert();
+        $reportedFire = new AlertElement();
         $reportedFire->setPlace($place);
 
-        $this->persistReportedAlert($reportedFire);
+        $this->persistAlertElement($reportedFire);
 
-        $fireAlert->addReportedAlert($reportedFire);
+        $fireAlert->addAlertElement($reportedFire);
         $this->persist($fireAlert);
     }
 
@@ -189,7 +209,24 @@ class AlertService implements AlertServiceInterface
             throw new \LogicException('there should be a fire alert on this Daedalus');
         }
 
-        $this->removeReportedFire($fireAlert, $place);
+        $filteredList = $fireAlert->getAlertElements()->filter(fn (AlertElement $element) => $element->getPlace() === $place);
+
+        if ($filteredList->count() !== 1) {
+            throw new \LogicException('this fire should be reported exactly one time');
+        }
+
+        $reportedFire = $filteredList->first();
+        $fireAlert->getAlertElements()->removeElement($reportedFire);
+
+        $this->deleteAlertElement($reportedFire);
+
+        if ($fireAlert->getAlertElements()->count() === 0) {
+            $this->delete($fireAlert);
+
+            return;
+        }
+
+        $this->persist($fireAlert);
     }
 
     private function getAlert(Daedalus $daedalus, string $alertName): Alert
@@ -203,63 +240,6 @@ class AlertService implements AlertServiceInterface
                 ->setName($alertName)
             ;
         }
-
-        return $alert;
-    }
-
-    private function removeReportedEquipment(Alert $alert, GameEquipment $equipment): ?Alert
-    {
-        if (($reportedEquipmentCollection = $alert->getReportedEvent()) === null) {
-            throw new \LogicException('This alert should have a collection of ReportedAlert');
-        }
-
-        $filteredList = $reportedEquipmentCollection->filter(fn (ReportedAlert $alert) => $alert->getEquipment() === $equipment);
-
-        if ($filteredList->count() !== 1) {
-            throw new \LogicException('this equipment should be reported exactly one time');
-        }
-
-        $reportedEquipment = $filteredList->first();
-
-        $reportedEquipmentCollection->removeElement($reportedEquipment);
-
-        $this->deleteReportedAlert($reportedEquipment);
-
-        if ($reportedEquipmentCollection->count() === 0) {
-            $this->delete($alert);
-
-            return null;
-        }
-
-        $this->persist($alert);
-
-        return $alert;
-    }
-
-    private function removeReportedFire(Alert $alert, Place $place): ?Alert
-    {
-        if (($reportedFireCollection = $alert->getReportedEvent()) === null) {
-            throw new \LogicException('This alert should have a collection of ReportedAlert');
-        }
-
-        $filteredList = $reportedFireCollection->filter(fn (ReportedAlert $alert) => $alert->getPlace() === $place);
-
-        if ($filteredList->count() !== 1) {
-            throw new \LogicException('this fire should be reported exactly one time');
-        }
-
-        $reportedFire = $filteredList->first();
-        $reportedFireCollection->removeElement($reportedFire);
-
-        $this->deleteReportedAlert($reportedFire);
-
-        if ($reportedFireCollection->count() === 0) {
-            $this->delete($alert);
-
-            return null;
-        }
-
-        $this->persist($alert);
 
         return $alert;
     }

@@ -19,45 +19,53 @@ class TranslationService implements TranslationServiceInterface
     {
         $params = [];
         foreach ($parameters as $key => $element) {
-            switch ($key) {
-                case 'player':
-                    $params['player'] = $this->translator->trans($element . '.name', [], 'characters');
-                    $params['character_gender'] = (CharacterEnum::isMale($element) ? 'male' : 'female');
-                    break;
-                case 'cause':
-                    $params['cause'] = $this->translator->trans($element . '.name', [], 'end_cause');
-                    break;
-                case 'targetEquipment':
-                    $domain = 'equipments';
+            $params = array_merge($params, $this->getTranslateParameter($key, $element));
+        }
 
-                    $params['target'] = $this->translator->trans($element . '.short_name', [], $domain);
-                    $params['target_gender'] = $this->translator->trans($element . '.genre', [], $domain);
-                    $params['target_first_letter'] = $this->translator->trans($element . '.first_Letter', [], $domain);
-                    $params['target_plural'] = $this->translator->trans($element . '.plural_name', [], $domain);
-                    break;
+        return $params;
+    }
 
-                case 'targetItem':
-                    $domain = 'items';
+    private function getTranslateParameter(string $key, string $element): array
+    {
+        $params = [];
+        switch ($key) {
+            case 'player':
+                $params['player'] = $this->translator->trans($element . '.name', [], 'characters');
+                $params['character_gender'] = (CharacterEnum::isMale($element) ? 'male' : 'female');
+                break;
+            case 'cause':
+                $params['cause'] = $this->translator->trans($element . '.name', [], 'end_cause');
+                break;
+            case 'targetEquipment':
+                $domain = 'equipments';
 
-                    $params['target'] = $this->translator->trans($element . '.short_name', [], $domain);
-                    $params['target_gender'] = $this->translator->trans($element . '.genre', [], $domain);
-                    $params['target_first_letter'] = $this->translator->trans($element . '.first_Letter', [], $domain);
-                    $params['target_plural'] = $this->translator->trans($element . '.plural_name', [], $domain);
-                    break;
+                $params['target'] = $this->translator->trans($element . '.short_name', [], $domain);
+                $params['target_gender'] = $this->translator->trans($element . '.genre', [], $domain);
+                $params['target_first_letter'] = $this->translator->trans($element . '.first_Letter', [], $domain);
+                $params['target_plural'] = $this->translator->trans($element . '.plural_name', [], $domain);
+                break;
 
-                case 'targetPlayer':
-                    $params['target_player'] = $this->translator->trans($element . '.name', [], 'characters');
-                    $params['target_player_gender'] = (CharacterEnum::isMale($element) ? 'male' : 'female');
-                    break;
+            case 'targetItem':
+                $domain = 'items';
 
-                case 'title':
-                    $params['title'] = $this->translator->trans($element . '.name', [], 'status');
-                    break;
+                $params['target'] = $this->translator->trans($element . '.short_name', [], $domain);
+                $params['target_gender'] = $this->translator->trans($element . '.genre', [], $domain);
+                $params['target_first_letter'] = $this->translator->trans($element . '.first_Letter', [], $domain);
+                $params['target_plural'] = $this->translator->trans($element . '.plural_name', [], $domain);
+                break;
 
-                default:
-                    $params[$key] = $element;
-                    break;
-            }
+            case 'targetPlayer':
+                $params['target_player'] = $this->translator->trans($element . '.name', [], 'characters');
+                $params['target_player_gender'] = (CharacterEnum::isMale($element) ? 'male' : 'female');
+                break;
+
+            case 'title':
+                $params['title'] = $this->translator->trans($element . '.name', [], 'status');
+                break;
+
+            default:
+                $params[$key] = $element;
+                break;
         }
 
         return $params;

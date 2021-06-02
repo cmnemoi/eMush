@@ -154,8 +154,10 @@ class AlertService implements AlertServiceInterface
     {
         $daedalus = $equipment->getCurrentPlace()->getDaedalus();
         if ($equipment instanceof Door) {
+            $daedalus = $equipment->getRooms()->first()->getDaedalus();
             $brokenAlert = $this->findByNameAndDaedalus(AlertEnum::BROKEN_DOORS, $daedalus);
         } else {
+            $daedalus = $equipment->getCurrentPlace()->getDaedalus();
             $brokenAlert = $this->findByNameAndDaedalus(AlertEnum::EQUIPMENT_BROKEN, $daedalus);
         }
 

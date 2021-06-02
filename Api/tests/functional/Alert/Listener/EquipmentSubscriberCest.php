@@ -203,7 +203,7 @@ class EquipmentSubscriberCest
         $gameEquipment
             ->setName(EquipmentEnum::BED)
             ->setEquipment($gravitySimulatorConfig)
-            ->setPlace($room)
+            ->addRoom($room)
         ;
 
         $I->haveInRepository($gameEquipment);

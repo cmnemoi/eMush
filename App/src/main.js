@@ -34,6 +34,7 @@ app.use(
 
         defaultProps: {
             allowHTML: true,
+            hideOnClick: false,
             theme: 'mush',
             maxWidth: 280,
             followCursor: true,

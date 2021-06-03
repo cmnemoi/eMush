@@ -58,7 +58,7 @@ class WaterPlant extends AbstractAction
 
         /** @var Status $status */
         $status = ($parameter->getStatusByName(EquipmentStatusEnum::PLANT_THIRSTY)
-            ?? $parameter->getStatusByName(EquipmentStatusEnum::PLANT_DRIED_OUT));
+            ?? $parameter->getStatusByName(EquipmentStatusEnum::PLANT_DRY));
 
         $parameter->removeStatus($status);
 

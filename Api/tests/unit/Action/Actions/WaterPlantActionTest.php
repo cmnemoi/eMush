@@ -104,7 +104,7 @@ class WaterPlantActionTest extends AbstractActionTest
 
         $driedOut = new Status($gameItem);
         $driedOut
-            ->setName(EquipmentStatusEnum::PLANT_DRIED_OUT)
+            ->setName(EquipmentStatusEnum::PLANT_DRY)
         ;
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);

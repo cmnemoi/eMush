@@ -28,7 +28,7 @@ class PlantWaterableValidator extends ConstraintValidator
         }
 
         if ($parameter->getStatusByName(EquipmentStatusEnum::PLANT_THIRSTY) === null &&
-            $parameter->getStatusByName(EquipmentStatusEnum::PLANT_DRIED_OUT) === null
+            $parameter->getStatusByName(EquipmentStatusEnum::PLANT_DRY) === null
         ) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();

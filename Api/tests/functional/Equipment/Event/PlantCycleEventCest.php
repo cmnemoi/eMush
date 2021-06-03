@@ -190,13 +190,13 @@ class PlantCycleEventCest
         $I->assertCount(0, $room->getStatuses());
         $I->assertCount(1, $room->getEquipments());
         $I->assertCount(2, $gameEquipment->getStatuses());
-        $I->assertTrue($gameEquipment->getStatuses()->exists(fn (int $key, Status $value) => $value->getName() === EquipmentStatusEnum::PLANT_DRIED_OUT));
+        $I->assertTrue($gameEquipment->getStatuses()->exists(fn (int $key, Status $value) => $value->getName() === EquipmentStatusEnum::PLANT_DRY));
         $I->assertEquals(10, $daedalus->getOxygen());
 
         //Plant is totally healthy
         $thirstyStatus = $gameEquipment->getStatusByName(EquipmentStatusEnum::PLANT_DISEASED);
         $gameEquipment->removeStatus($thirstyStatus);
-        $thirstyStatus = $gameEquipment->getStatusByName(EquipmentStatusEnum::PLANT_DRIED_OUT);
+        $thirstyStatus = $gameEquipment->getStatusByName(EquipmentStatusEnum::PLANT_DRY);
         $gameEquipment->removeStatus($thirstyStatus);
 
         $time = new DateTime();
@@ -230,7 +230,7 @@ class PlantCycleEventCest
 
         $driedOutStatus = new Status($gameEquipment2);
         $driedOutStatus
-            ->setName(EquipmentStatusEnum::PLANT_DRIED_OUT)
+            ->setName(EquipmentStatusEnum::PLANT_DRY)
             ->setVisibility(VisibilityEnum::PUBLIC)
         ;
 

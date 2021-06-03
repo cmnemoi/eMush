@@ -71,7 +71,7 @@ class PlantWaterableValidatorTest extends TestCase
 
         $status = new Status($target);
         $status
-            ->setName(EquipmentStatusEnum::PLANT_DRIED_OUT)
+            ->setName(EquipmentStatusEnum::PLANT_DRY)
         ;
 
         $this->initValidator();

@@ -121,7 +121,7 @@ class PlantCycleHandler extends AbstractCycleHandler
             fn (Status $status) => in_array(
                 $status->getName(),
                 [
-                    EquipmentStatusEnum::PLANT_DRIED_OUT,
+                    EquipmentStatusEnum::PLANT_DRY,
                     EquipmentStatusEnum::PLANT_DISEASED,
                     EquipmentStatusEnum::PLANT_YOUNG,
                 ]
@@ -149,11 +149,11 @@ class PlantCycleHandler extends AbstractCycleHandler
         if (($thirsty = $gamePlant->getStatusByName(EquipmentStatusEnum::PLANT_THIRSTY)) !== null) {
             $gamePlant->removeStatus($thirsty);
             $driedStatus = $this->statusService
-                ->createCoreStatus(EquipmentStatusEnum::PLANT_DRIED_OUT, $gamePlant)
+                ->createCoreStatus(EquipmentStatusEnum::PLANT_DRY, $gamePlant)
             ;
             $gamePlant->addStatus($driedStatus);
         // If plant was dried, become hydropot
-        } elseif ($gamePlant->getStatusByName(EquipmentStatusEnum::PLANT_DRIED_OUT) !== null) {
+        } elseif ($gamePlant->getStatusByName(EquipmentStatusEnum::PLANT_DRY) !== null) {
             $this->handleDriedPlant($gamePlant, $dateTime);
         // If plant was not thirsty or dried become thirsty
         } else {
@@ -203,7 +203,7 @@ class PlantCycleHandler extends AbstractCycleHandler
                 fn (Status $status) => in_array(
                     $status->getName(),
                     [
-                        EquipmentStatusEnum::PLANT_DRIED_OUT,
+                        EquipmentStatusEnum::PLANT_DRY,
                         EquipmentStatusEnum::PLANT_DISEASED,
                         EquipmentStatusEnum::PLANT_YOUNG,
                         EquipmentStatusEnum::PLANT_THIRSTY,

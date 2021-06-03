@@ -19,7 +19,6 @@
             <div class="daedalus-info">
                 <ul>
                     <li>{{ daedalus.oxygen }}<img src="@/assets/images/o2.png"></li>
-
                     <Tooltip><template v-slot:tooltip-trigger>
                         <li>{{ daedalus.fuel }}<img src="@/assets/images/fuel.png"></li>
                     </template>
@@ -27,9 +26,7 @@
                         <h1>Fuel en réserve [ {{ daedalus.fuel }} / 32 ]</h1>
                         <p>Le <strong>fuel</strong> est indispensable pour ne pas dériver dans l'espace jusqu'à la fin des temps. Cette ressource peut être trouvée lors de vos <strong>explorations</strong> sur les planètes. Cet indicateur n'affiche pas le fuel dans la <strong>Chambre de Combustion</strong>.</p>
                     </template></Tooltip>
-
-                    <li v-tippy="{ content: '<h1>Fuel en réserve [ ' + daedalus.fuel + ' / 32 ]</h1><p>Le <strong>fuel</strong> est indispensable pour ne pas dériver dans l\'espace jusqu\'à la fin des temps. Cette ressource peut être trouvée lors de vos <strong>explorations</strong> sur les planètes. Cet indicateur n\'affiche pas le fuel dans la <strong>Chambre de Combustion</strong>.</p>' }">{{ daedalus.hull }}<img src="@/assets/images/shield.png"></li>
-
+                    <li>{{ daedalus.hull }}<img src="@/assets/images/shield.png"></li>
                     <li>{{ player.triumph }}<img src="@/assets/images/triumph.png"></li>
                 </ul>
             </div>

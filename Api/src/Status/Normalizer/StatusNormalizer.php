@@ -43,8 +43,8 @@ class StatusNormalizer implements ContextAwareNormalizerInterface
         ) {
             $normedStatus = [
                 'key' => $statusName,
-                'name' => $this->translator->trans($statusName . '.name', [], 'statuses'),
-                'description' => $this->translator->trans("{$statusName}.description", [], 'statuses'),
+                'name' => $this->translator->trans($statusName . '.name', [], 'status'),
+                'description' => $this->translator->trans("{$statusName}.description", [], 'status'),
             ];
 
             if ($status instanceof ChargeStatus && $status->getChargeVisibility() !== VisibilityEnum::HIDDEN) {
@@ -52,7 +52,7 @@ class StatusNormalizer implements ContextAwareNormalizerInterface
             }
 
             if ($status instanceof MedicalCondition) {
-                $normedStatus['effect'] = $this->translator->trans("{$statusName}.effect", [], 'statuses');
+                $normedStatus['effect'] = $this->translator->trans("{$statusName}.effect", [], 'status');
             }
 
             return $normedStatus;

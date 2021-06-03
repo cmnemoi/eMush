@@ -174,14 +174,14 @@
             <segment id="infect_success">
                 <source>infect_success</source>
                 <target>{character_gender, select,
-                    male {{target_gender, select,
-                        male {**{player}** s'est rapproché de **{target}** avec un regard de prédateur... et l'a poinçonné discrètement !}
-                        female {**{player}** s'est rapproché de **{target}** avec un regard de prédateur... et l'a poinçonnée discrètement !}
+                    male {{target_player_gender, select,
+                        male {**{player}** s'est rapproché de **{target_player}** avec un regard de prédateur... et l'a poinçonné discrètement !}
+                        female {**{player}** s'est rapproché de **{target_player}** avec un regard de prédateur... et l'a poinçonnée discrètement !}
                         other {invalid gender input}
                     }}
-                    female {{target_gender, select,
-                         male {**{player}** s'est rapprochée de **{target}** avec un regard de prédateur... et l'a poinçonné discrètement !}
-                         female {**{player}** s'est rapprochée de **{target}** avec un regard de prédateur... et l'a poinçonnée discrètement !}
+                    female {{target_player_gender, select,
+                         male {**{player}** s'est rapprochée de **{target_player}** avec un regard de prédateur... et l'a poinçonné discrètement !}
+                         female {**{player}** s'est rapprochée de **{target_player}** avec un regard de prédateur... et l'a poinçonnée discrètement !}
                          other {invalid gender input}
                     }}
                     other {invalid gender input}
@@ -612,13 +612,13 @@
         <unit id="comfort_success">
             <segment id="comfort_success">
                 <source>comfort_success</source>
-                <target>**{player}** réconforte **{target}**, ça ira mieux demain tu verras...</target>
+                <target>**{player}** réconforte **{target_player}**, ça ira mieux demain tu verras...</target>
             </segment>
         </unit>
         <unit id="heal_success">
             <segment id="heal_success">
                 <source>heal_success</source>
-                <target>**{player}** a soigné {quantity} :hp: à **{target}**.</target>
+                <target>**{player}** a soigné {quantity} :hp: à **{target_player}**.</target>
             </segment>
         </unit>
         <unit id="self_heal">

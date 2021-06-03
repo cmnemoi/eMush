@@ -2,11 +2,9 @@
 
 namespace Mush\Tests\unit\Disease\Service;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Disease\Entity\DiseaseCause;
 use Mush\Disease\Entity\DiseaseConfig;
 use Mush\Disease\Repository\DiseaseConfigRepository;
 use Mush\Disease\Service\PlayerDiseaseService;
@@ -57,10 +55,7 @@ class PlayerDiseaseServiceTest extends TestCase
         $player = new Player();
         $player->setDaedalus($daedalus);
 
-        $diseaseCause = new DiseaseCause();
-        $diseaseCause->setName('cause');
         $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig->setCauses(new ArrayCollection([$diseaseCause]));
 
         $this->diseaseConfigRepository
             ->shouldReceive('findByCauses')
@@ -69,22 +64,22 @@ class PlayerDiseaseServiceTest extends TestCase
         ;
 
         $this->randomService
-            ->shouldReceive('isSuccessful')
-            ->andReturn(false)
+            ->shouldReceive('getRandomElements')
+            ->andReturn([])
             ->once()
         ;
 
         $this->playerDiseaseService->handleDiseaseForCause('cause', $player);
 
         $this->randomService
-            ->shouldReceive('isSuccessful')
-            ->andReturn(true)
+            ->shouldReceive('getRandomElements')
+            ->andReturn([$diseaseConfig])
             ->once()
         ;
 
         $this->entityManager->shouldReceive([
             'persist' => null,
-            'flush' => null
+            'flush' => null,
         ])->once();
 
         $this->playerDiseaseService->handleDiseaseForCause('cause', $player);

@@ -10,6 +10,7 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Disease\Entity\PlayerDisease;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
@@ -311,6 +312,13 @@ class Player implements StatusHolderInterface, ActionParameter, LogParameter
     public function setDiseases(Collection $diseases): Player
     {
         $this->diseases = $diseases;
+
+        return $this;
+    }
+
+    public function addDisease(PlayerDisease $playerDisease): Player
+    {
+        $this->diseases->add($playerDisease);
 
         return $this;
     }

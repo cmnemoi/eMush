@@ -3,9 +3,7 @@
 namespace functional\Disease\Repository;
 
 use App\Tests\FunctionalTester;
-use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Disease\Entity\DiseaseCause;
 use Mush\Disease\Entity\DiseaseConfig;
 use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Repository\DiseaseConfigRepository;
@@ -28,15 +26,11 @@ class DiseaseConfigRepositoryCest
             'gameConfig' => $gameConfig,
         ]);
 
-        $cause = new DiseaseCause();
-        $cause->setName(DiseaseCauseEnum::SPOILED_FOOD);
-        $I->haveInRepository($cause);
-
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setName(DiseaseEnum::TAPEWORM)
             ->setGameConfig($gameConfig)
-            ->setCauses(new ArrayCollection([$cause]))
+            ->setCauses([DiseaseCauseEnum::PERISHED_FOOD])
         ;
         $I->haveInRepository($diseaseConfig);
 
@@ -60,15 +54,11 @@ class DiseaseConfigRepositoryCest
             'gameConfig' => $gameConfig,
         ]);
 
-        $cause = new DiseaseCause();
-        $cause->setName(DiseaseCauseEnum::SPOILED_FOOD);
-        $I->haveInRepository($cause);
-
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setName(DiseaseEnum::TAPEWORM)
             ->setGameConfig($gameConfig)
-            ->setCauses(new ArrayCollection([$cause]))
+            ->setCauses([DiseaseCauseEnum::PERISHED_FOOD])
         ;
         $I->haveInRepository($diseaseConfig);
 
@@ -80,7 +70,7 @@ class DiseaseConfigRepositoryCest
 
         $I->haveInRepository($diseaseConfig2);
 
-        $diseases = $this->repository->findByCauses(DiseaseCauseEnum::SPOILED_FOOD, $daedalus);
+        $diseases = $this->repository->findByCauses(DiseaseCauseEnum::PERISHED_FOOD, $daedalus);
 
         $I->assertCount(1, $diseases);
         $I->assertContains($diseaseConfig, $diseases);

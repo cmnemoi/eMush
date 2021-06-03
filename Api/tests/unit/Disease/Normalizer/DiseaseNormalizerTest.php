@@ -2,12 +2,12 @@
 
 namespace Mush\Tests\unit\Disease\Normalizer;
 
+use Mockery;
 use Mush\Disease\Entity\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Normalizer\DiseaseNormalizer;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Mockery;
 
 class DiseaseNormalizerTest extends TestCase
 {
@@ -49,7 +49,7 @@ class DiseaseNormalizerTest extends TestCase
         $this->assertEquals([
             'key' => 'name',
             'name' => 'translated one',
-            'description' => 'translated two'
+            'description' => 'translated two',
         ], $normalized);
     }
 }

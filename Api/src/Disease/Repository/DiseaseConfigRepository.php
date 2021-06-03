@@ -19,11 +19,10 @@ class DiseaseConfigRepository extends ServiceEntityRepository
         $queryBuilder = $this->createQueryBuilder('diseaseConfig');
 
         $queryBuilder
-            ->join('diseaseConfig.causes', 'cause')
             ->where($queryBuilder->expr()->eq('diseaseConfig.gameConfig', ':gameConfig'))
-            ->andWhere($queryBuilder->expr()->eq('cause.name', ':cause'))
+            ->andWhere($queryBuilder->expr()->like('diseaseConfig.causes', ':cause'))
             ->setParameter('gameConfig', $daedalus->getGameConfig())
-            ->setParameter('cause', $cause)
+            ->setParameter('cause', "%{$cause}%")
         ;
 
         return $queryBuilder->getQuery()->getResult();

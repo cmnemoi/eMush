@@ -3,9 +3,7 @@
 namespace Mush\Disease\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mush\Disease\Entity\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
-use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Repository\DiseaseConfigRepository;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
@@ -37,18 +35,23 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
     public function handleDiseaseForCause(string $cause, Player $player): void
     {
         $diseaseConfigs = $this->diseaseConfigRepository->findByCauses($cause, $player->getDaedalus());
-        /** @var DiseaseConfig $diseaseConfig */
-        foreach ($diseaseConfigs as $diseaseConfig) {
-            $cause = $diseaseConfig->getCauseByName($cause);
-            if ($cause !== null && $this->randomService->isSuccessful($cause->getRate())) {
-                $disease = new PlayerDisease();
-                $disease
-                    ->setPlayer($player)
-                    ->setDiseaseConfig($diseaseConfig)
-                    ->setDiseasePoint(10) //@TODO
-                ;
-                $this->persist($disease);
-            }
+
+        if (count($diseaseConfigs) === 0) {
+            return;
+        }
+
+        $diseaseConfig = current($this->randomService->getRandomElements($diseaseConfigs));
+
+        if ($diseaseConfig !== false) {
+            $disease = new PlayerDisease();
+            $disease
+                ->setPlayer($player)
+                ->setDiseaseConfig($diseaseConfig)
+                ->setDiseasePoint(10) //@TODO
+            ;
+            $player->addDisease($disease);
+
+            $this->persist($disease);
         }
     }
 }

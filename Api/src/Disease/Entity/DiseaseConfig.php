@@ -2,8 +2,6 @@
 
 namespace Mush\Disease\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Game\Entity\GameConfig;
 
@@ -37,14 +35,9 @@ class DiseaseConfig
     private int $duration = -1;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Mush\Disease\Entity\DiseaseCause")
+     * @ORM\Column (type="array")
      */
-    private Collection $causes;
-
-    public function __construct()
-    {
-        $this->causes = new ArrayCollection();
-    }
+    private array $causes = [];
 
     public function getId(): ?int
     {
@@ -87,19 +80,12 @@ class DiseaseConfig
         return $this;
     }
 
-    public function getCauses(): Collection
+    public function getCauses(): array
     {
         return $this->causes;
     }
 
-    public function getCauseByName(string $causeName): ?DiseaseCause
-    {
-        $cause = $this->causes->filter(fn (DiseaseCause $cause) => $cause->getName() === $causeName)->first();
-
-        return $cause ?: null;
-    }
-
-    public function setCauses(Collection $causes): DiseaseConfig
+    public function setCauses(array $causes): DiseaseConfig
     {
         $this->causes = $causes;
 

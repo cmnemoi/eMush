@@ -4,27 +4,34 @@ namespace Mush\Disease\Service;
 
 use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
-use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 
 class DiseaseCauseService implements DiseaseCauseServiceInterface
 {
+    private const HAZARDOUS_RATE = 30;
+    private const DECOMPOSING_RATE = 50;
+
     private PlayerDiseaseService $playerDiseaseService;
+    private RandomServiceInterface $randomService;
 
     public function __construct(
         PlayerDiseaseService $playerDiseaseService,
+        RandomServiceInterface $randomService,
     ) {
         $this->playerDiseaseService = $playerDiseaseService;
+        $this->randomService = $randomService;
     }
 
     public function handleSpoiledFood(Player $player, GameEquipment $gameEquipment): void
     {
-        if (!$gameEquipment->getStatuses()->filter(
-            fn (Status $status) => in_array($status->getName(), [EquipmentStatusEnum::DECOMPOSING, EquipmentStatusEnum::HAZARDOUS, EquipmentStatusEnum::UNSTABLE])
-        )->isEmpty()
+        if (($gameEquipment->hasStatus(EquipmentStatusEnum::HAZARDOUS) &&
+                $this->randomService->isSuccessful(self::HAZARDOUS_RATE))
+            || ($gameEquipment->hasStatus(EquipmentStatusEnum::DECOMPOSING) &&
+                $this->randomService->isSuccessful(self::DECOMPOSING_RATE))
         ) {
-            $this->playerDiseaseService->handleDiseaseForCause(DiseaseCauseEnum::SPOILED_FOOD, $player);
+            $this->playerDiseaseService->handleDiseaseForCause(DiseaseCauseEnum::PERISHED_FOOD, $player);
         }
     }
 }

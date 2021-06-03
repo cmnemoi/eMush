@@ -38,9 +38,9 @@ class Ration extends EquipmentMechanic
     private array $healthPoints = [0 => 1];
 
     /**
-     * @ORM\Column(type="integer", nullable=false)
+     * @ORM\Column(type="integer", nullable=true)
      */
-    protected int $satiety = 1;
+    protected ?int $satiety = null;
 
     //Store the chance (value) for the disease to be cured (key)
     /**
@@ -150,7 +150,7 @@ class Ration extends EquipmentMechanic
         return $this;
     }
 
-    public function getSatiety(): int
+    public function getSatiety(): ?int
     {
         return $this->satiety;
     }
@@ -158,7 +158,7 @@ class Ration extends EquipmentMechanic
     /**
      * @return static
      */
-    public function setSatiety(int $satiety): Ration
+    public function setSatiety(?int $satiety): Ration
     {
         $this->satiety = $satiety;
 

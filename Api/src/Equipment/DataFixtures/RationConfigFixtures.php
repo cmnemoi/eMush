@@ -147,7 +147,6 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setMovementPoints([8 => 1])
             ->setHealthPoints([0 => 1])
             ->setMoralPoints([0 => 1])
-            ->setSatiety(0)
             ->setIsPerishable(false)
             ->addAction($consumeRationAction)
         ;

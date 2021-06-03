@@ -16,8 +16,6 @@ class Drug extends Ration
 
     protected bool $isPerishable = false;
 
-    protected int $satiety = 0;
-
     /**
      * @ORM\Column(type="array", nullable=false)
      */

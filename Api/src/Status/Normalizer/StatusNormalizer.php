@@ -49,7 +49,7 @@ class StatusNormalizer implements ContextAwareNormalizerInterface
             if ($status instanceof ChargeStatus && $status->getChargeVisibility() !== VisibilityEnum::HIDDEN) {
                 $normedStatus['charge'] = $status->getCharge();
             }
-            
+
             return $normedStatus;
         }
 

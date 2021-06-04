@@ -34,9 +34,9 @@ class PlayerStatusService implements PlayerStatusServiceInterface
     private function handleFullBellyStatus(Player $player): void
     {
         $fullStatus = $player->getStatusByName(PlayerStatusEnum::FULL_STOMACH);
-        if ($player->getSatiety() >= self::FULL_STOMACH_STATUS_THRESHOLD && !$fullStatus && !$player->isMush()) {
+        if ($player->getSatiety() >= self::FULL_STOMACH_STATUS_THRESHOLD && !$fullStatus) {
             $this->statusService->createCoreStatus(PlayerStatusEnum::FULL_STOMACH, $player, null, VisibilityEnum::PRIVATE);
-        } elseif (($player->getSatiety() < self::FULL_STOMACH_STATUS_THRESHOLD || $player->isMush()) && $fullStatus) {
+        } elseif ($player->getSatiety() < self::FULL_STOMACH_STATUS_THRESHOLD && $fullStatus) {
             $player->removeStatus($fullStatus);
         }
     }
@@ -45,7 +45,7 @@ class PlayerStatusService implements PlayerStatusServiceInterface
     {
         $starvingStatus = $player->getStatusByName(PlayerStatusEnum::STARVING);
 
-        if ($player->getSatiety() < self::STARVING_STATUS_THRESHOLD && !$starvingStatus) {
+        if ($player->getSatiety() < self::STARVING_STATUS_THRESHOLD && !$starvingStatus && !$player->isMush()) {
             $this->statusService->createCoreStatus(PlayerStatusEnum::STARVING, $player);
 
             $this->roomLogService->createLog(
@@ -58,7 +58,7 @@ class PlayerStatusService implements PlayerStatusServiceInterface
                 null,
                 $dateTime
             );
-        } elseif ($player->getSatiety() >= self::STARVING_STATUS_THRESHOLD && $starvingStatus) {
+        } elseif (($player->getSatiety() >= self::STARVING_STATUS_THRESHOLD || $player->isMush()) && $starvingStatus) {
             $player->removeStatus($starvingStatus);
         }
     }

@@ -46,7 +46,12 @@ class PlayerStatusService implements PlayerStatusServiceInterface
         $starvingStatus = $player->getStatusByName(PlayerStatusEnum::STARVING);
 
         if ($player->getSatiety() < self::STARVING_STATUS_THRESHOLD && !$starvingStatus && !$player->isMush()) {
-            $this->statusService->createCoreStatus(PlayerStatusEnum::STARVING, $player);
+            $this->statusService->createCoreStatus(
+                PlayerStatusEnum::STARVING,
+                $player,
+                null,
+                VisibilityEnum::PRIVATE
+            );
 
             $this->roomLogService->createLog(
                 LogEnum::HUNGER,

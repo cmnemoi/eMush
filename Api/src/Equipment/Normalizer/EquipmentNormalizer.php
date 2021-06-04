@@ -9,24 +9,24 @@ use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Service\GearToolServiceInterface;
+use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class EquipmentNormalizer implements ContextAwareNormalizerInterface, NormalizerAwareInterface
 {
     use NormalizerAwareTrait;
 
-    private TranslatorInterface $translator;
+    private TranslationServiceInterface $translationService;
     private GearToolServiceInterface $gearToolService;
 
     public function __construct(
-        TranslatorInterface $translator,
+        TranslationServiceInterface $translationService,
         GearToolServiceInterface $gearToolService
     ) {
-        $this->translator = $translator;
+        $this->translationService = $translationService;
         $this->gearToolService = $gearToolService;
     }
 
@@ -66,8 +66,8 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
         return [
             'id' => $object->getId(),
             'key' => $object->getName(),
-            'name' => $this->translator->trans($object->getName() . '.name', [], $type),
-            'description' => $this->translator->trans("{$object->getName()}.description", [], $type),
+            'name' => $this->translationService->translate($object->getName() . '.name', [], $type),
+            'description' => $this->translationService->translate("{$object->getName()}.description", [], $type),
             'statuses' => $statuses,
             'actions' => $this->getActions($object, $currentPlayer, $format, $context),
         ];

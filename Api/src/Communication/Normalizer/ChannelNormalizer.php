@@ -4,16 +4,16 @@ namespace Mush\Communication\Normalizer;
 
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\ChannelPlayer;
+use Mush\Game\Service\TranslationServiceInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ChannelNormalizer implements ContextAwareNormalizerInterface
 {
-    private TranslatorInterface $translator;
+    private TranslationServiceInterface $translationService;
 
-    public function __construct(TranslatorInterface $translator)
+    public function __construct(TranslationServiceInterface $translationService)
     {
-        $this->translator = $translator;
+        $this->translationService = $translationService;
     }
 
     public function supportsNormalization($data, string $format = null, array $context = []): bool
@@ -35,7 +35,7 @@ class ChannelNormalizer implements ContextAwareNormalizerInterface
                 'id' => $player->getId(),
                 'character' => [
                     'key' => $character,
-                    'value' => $this->translator->trans($character . '.name', [], 'characters'),
+                    'value' => $this->translationService->translate($character . '.name', [], 'characters'),
                 ],
                 'joinedAt' => $participant->getCreatedAt()->format(\DateTime::ATOM),
             ];

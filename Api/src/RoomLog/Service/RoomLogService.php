@@ -20,27 +20,23 @@ use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogDeclinationEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Repository\RoomLogRepository;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RoomLogService implements RoomLogServiceInterface
 {
     private EntityManagerInterface $entityManager;
     private RandomServiceInterface $randomService;
     private RoomLogRepository $repository;
-    private TranslatorInterface $translator;
     private TranslationServiceInterface $translationService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         RandomServiceInterface $randomService,
         RoomLogRepository $repository,
-        TranslatorInterface $translator,
         TranslationServiceInterface $translationService,
     ) {
         $this->entityManager = $entityManager;
         $this->randomService = $randomService;
         $this->repository = $repository;
-        $this->translator = $translator;
         $this->translationService = $translationService;
     }
 
@@ -168,7 +164,7 @@ class RoomLogService implements RoomLogServiceInterface
         foreach ($roomLogs as $roomLog) {
             $translatedParameters = $this->translationService->getTranslateParameters($roomLog->getParameters());
             $logs[$roomLog->getDay()][$roomLog->getCycle()][] = [
-                'log' => $this->translator->trans(
+                'log' => $this->translationService->translate(
                     $roomLog->getLog(),
                     $translatedParameters,
                     $roomLog->getType()

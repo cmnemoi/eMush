@@ -7,21 +7,21 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Service\ActionStrategyServiceInterface;
+use Mush\Game\Service\TranslationServiceInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ActionNormalizer implements ContextAwareNormalizerInterface
 {
-    private TranslatorInterface $translator;
+    private TranslationServiceInterface $translationService;
     private ActionStrategyServiceInterface $actionStrategyService;
     private ActionServiceInterface $actionService;
 
     public function __construct(
-        TranslatorInterface $translator,
+        TranslationServiceInterface $translationService,
         ActionStrategyServiceInterface $actionStrategyService,
         ActionServiceInterface $actionService
     ) {
-        $this->translator = $translator;
+        $this->translationService = $translationService;
         $this->actionStrategyService = $actionStrategyService;
         $this->actionService = $actionService;
     }
@@ -54,7 +54,7 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
 
             $normalizedAction = [
                 'id' => $object->getId(),
-                'name' => $this->translator->trans("{$actionName}.name", [], 'actions'),
+                'name' => $this->translationService->translate("{$actionName}.name", [], 'actions'),
                 'actionPointCost' => $this->actionService->getTotalActionPointCost($currentPlayer, $object),
                 'movementPointCost' => $this->actionService->getTotalMovementPointCost($currentPlayer, $object),
                 'moralPointCost' => $this->actionService->getTotalMoralPointCost($currentPlayer, $object),
@@ -67,10 +67,10 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
             }
 
             if ($reason = $actionClass->cannotExecuteReason()) {
-                $normalizedAction['description'] = $this->translator->trans("{$reason}.description", [], 'actionsFail');
+                $normalizedAction['description'] = $this->translationService->translate("{$reason}.description", [], 'actionsFail');
                 $normalizedAction['canExecute'] = false;
             } else {
-                $normalizedAction['description'] = $this->translator->trans("{$actionName}.description", [], 'actions');
+                $normalizedAction['description'] = $this->translationService->translate("{$actionName}.description", [], 'actions');
                 $normalizedAction['canExecute'] = true;
             }
 

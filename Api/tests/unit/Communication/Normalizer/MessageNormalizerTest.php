@@ -14,12 +14,9 @@ use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use PHPUnit\Framework\TestCase;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class MessageNormalizerTest extends TestCase
 {
-    /** @var TranslatorInterface | Mockery\Mock */
-    private TranslatorInterface $translator;
     /** @var TranslationServiceInterface | Mockery\Mock */
     private TranslationServiceInterface $translationService;
 
@@ -30,11 +27,9 @@ class MessageNormalizerTest extends TestCase
      */
     public function before()
     {
-        $this->translator = Mockery::mock(TranslatorInterface::class);
         $this->translationService = Mockery::mock(TranslationServiceInterface::class);
 
         $this->normalizer = new MessageNormalizer(
-            $this->translator,
             $this->translationService,
         );
     }
@@ -64,7 +59,7 @@ class MessageNormalizerTest extends TestCase
             ->setCreatedAt($createdAt)
         ;
 
-        $this->translator->shouldReceive('trans')->andReturn('translatedName');
+        $this->translationService->shouldReceive('translate')->andReturn('translatedName');
 
         $normalizedData = $this->normalizer->normalize($message);
 
@@ -101,13 +96,13 @@ class MessageNormalizerTest extends TestCase
         $parametersArray = ['player' => 'Andie', 'cause' => 'abandoné', 'target' => 'antenne', 'target_gender' => 'female'];
         $this->translationService->shouldReceive('getTranslateParameters')->andReturn($parametersArray)->once();
 
-        $this->translator
-            ->shouldReceive('trans')
+        $this->translationService
+            ->shouldReceive('translate')
             ->with('message', $parametersArray, 'neron')
             ->andReturn('translatedMessage')
         ;
-        $this->translator
-            ->shouldReceive('trans')
+        $this->translationService
+            ->shouldReceive('translate')
             ->with(CharacterEnum::NERON . '.name', [], 'characters')
             ->andReturn('translatedName')
         ;
@@ -153,20 +148,20 @@ class MessageNormalizerTest extends TestCase
             ->setChild(new ArrayCollection([$playerMessage]))
         ;
 
-        $this->translator
-            ->shouldReceive('trans')
+        $this->translationService
+            ->shouldReceive('translate')
             ->with(CharacterEnum::NERON . '.name', [], 'characters')
             ->andReturn('translatedName')
             ->once()
         ;
-        $this->translator
-            ->shouldReceive('trans')
+        $this->translationService
+            ->shouldReceive('translate')
             ->with('name' . '.name', [], 'characters')
             ->andReturn('translated player name')
             ->once()
         ;
-        $this->translator
-            ->shouldReceive('trans')
+        $this->translationService
+            ->shouldReceive('translate')
             ->with('message parent', [], 'neron')
             ->andReturn('translated message parent')
             ->once()

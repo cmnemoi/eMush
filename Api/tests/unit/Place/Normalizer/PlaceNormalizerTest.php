@@ -6,6 +6,7 @@ use Mockery;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
+use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Place\Normalizer\PlaceNormalizer;
@@ -14,23 +15,22 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class PlaceNormalizerTest extends TestCase
 {
     private PlaceNormalizer $normalizer;
 
-    /** @var TranslatorInterface | Mockery\Mock */
-    private TranslatorInterface $translator;
+    /** @var TranslationServiceInterface | Mockery\Mock */
+    private TranslationServiceInterface $translationService;
 
     /**
      * @before
      */
     public function before()
     {
-        $this->translator = Mockery::mock(TranslatorInterface::class);
+        $this->translationService = Mockery::mock(TranslationServiceInterface::class);
 
-        $this->normalizer = new PlaceNormalizer($this->translator);
+        $this->normalizer = new PlaceNormalizer($this->translationService);
     }
 
     /**
@@ -47,7 +47,7 @@ class PlaceNormalizerTest extends TestCase
 
         $room->setName(RoomEnum::BRIDGE);
 
-        $this->translator->shouldReceive('trans')->andReturn('translated')->once();
+        $this->translationService->shouldReceive('translate')->andReturn('translated')->once();
 
         $data = $this->normalizer->normalize($room, null, ['currentPlayer' => new Player()]);
 
@@ -79,7 +79,7 @@ class PlaceNormalizerTest extends TestCase
 
         $room->setName(RoomEnum::BRIDGE);
 
-        $this->translator->shouldReceive('trans')->andReturn('translated')->twice();
+        $this->translationService->shouldReceive('translate')->andReturn('translated')->twice();
 
         $normalizer = Mockery::mock(NormalizerInterface::class);
         $normalizer->shouldReceive('normalize')->andReturn([]);
@@ -112,7 +112,7 @@ class PlaceNormalizerTest extends TestCase
         $gameItem1 = $this->createGameItem('name');
         $gameItem2 = $this->createGameItem('name2');
 
-        $this->translator->shouldReceive('trans')->andReturn('translated')->once();
+        $this->translationService->shouldReceive('translate')->andReturn('translated')->once();
 
         $room->addEquipment($gameItem1);
         $room->addEquipment($gameItem2);
@@ -148,7 +148,7 @@ class PlaceNormalizerTest extends TestCase
         $gameItem1 = $this->createGameItem('name', true);
         $gameItem2 = $this->createGameItem('name', true);
 
-        $this->translator->shouldReceive('trans')->andReturn('translated')->once();
+        $this->translationService->shouldReceive('translate')->andReturn('translated')->once();
 
         $room->addEquipment($gameItem1);
         $room->addEquipment($gameItem2);
@@ -190,7 +190,7 @@ class PlaceNormalizerTest extends TestCase
         $status = new Status($gameItem3);
         $status->setName(EquipmentStatusEnum::FROZEN);
 
-        $this->translator->shouldReceive('trans')->andReturn('translated')->once();
+        $this->translationService->shouldReceive('translate')->andReturn('translated')->once();
 
         $room->addEquipment($gameItem1);
         $room->addEquipment($gameItem2);

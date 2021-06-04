@@ -6,16 +6,13 @@ use Mush\Communication\Entity\Message;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class MessageNormalizer implements ContextAwareNormalizerInterface
 {
-    private TranslatorInterface $translator;
     private TranslationServiceInterface $translationService;
 
-    public function __construct(TranslatorInterface $translator, TranslationServiceInterface $translationService)
+    public function __construct(TranslationServiceInterface $translationService)
     {
-        $this->translator = $translator;
         $this->translationService = $translationService;
     }
 
@@ -52,7 +49,7 @@ class MessageNormalizer implements ContextAwareNormalizerInterface
                 $translatedParameters = [];
             }
 
-            $message = $this->translator->trans(
+            $message = $this->translationService->translate(
                 $object->getMessage(),
                 $translatedParameters,
                 'neron'
@@ -63,7 +60,7 @@ class MessageNormalizer implements ContextAwareNormalizerInterface
             'id' => $object->getId(),
             'character' => [
                 'key' => $character,
-                'value' => $this->translator->trans($character . '.name', [], 'characters'),
+                'value' => $this->translationService->translate("{$character}.name", [], 'characters'),
             ],
             'message' => $message,
             'createdAt' => $object->getCreatedAt()->format(\DateTime::ATOM),

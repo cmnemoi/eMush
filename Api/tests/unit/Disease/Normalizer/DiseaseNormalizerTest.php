@@ -6,24 +6,24 @@ use Mockery;
 use Mush\Disease\Entity\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Normalizer\DiseaseNormalizer;
+use Mush\Game\Service\TranslationService;
 use PHPUnit\Framework\TestCase;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DiseaseNormalizerTest extends TestCase
 {
     private DiseaseNormalizer $normalizer;
 
-    /** @var TranslatorInterface | Mockery\Mock */
-    private TranslatorInterface $translator;
+    /** @var TranslationService | Mockery\Mock */
+    private TranslationService $translationService;
 
     /**
      * @before
      */
     public function before()
     {
-        $this->translator = Mockery::mock(TranslatorInterface::class);
+        $this->translationService = Mockery::mock(TranslationService::class);
 
-        $this->normalizer = new DiseaseNormalizer($this->translator);
+        $this->normalizer = new DiseaseNormalizer($this->translationService);
     }
 
     /**
@@ -42,7 +42,7 @@ class DiseaseNormalizerTest extends TestCase
         $playerDisease = new PlayerDisease();
         $playerDisease->setDiseaseConfig($diseaseConfig);
 
-        $this->translator->shouldReceive('trans')->andReturn('translated one', 'translated two');
+        $this->translationService->shouldReceive('translate')->andReturn('translated one', 'translated two');
 
         $normalized = $this->normalizer->normalize($playerDisease);
 

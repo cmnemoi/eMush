@@ -8,6 +8,7 @@ use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
+use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -17,18 +18,17 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class PlaceNormalizer implements ContextAwareNormalizerInterface, NormalizerAwareInterface
 {
     use NormalizerAwareTrait;
 
-    private TranslatorInterface $translator;
+    private TranslationServiceInterface $translationService;
 
     public function __construct(
-        TranslatorInterface $translator
+        TranslationServiceInterface $translationService
     ) {
-        $this->translator = $translator;
+        $this->translationService = $translationService;
     }
 
     public function supportsNormalization($data, string $format = null, array $context = []): bool
@@ -63,7 +63,7 @@ class PlaceNormalizer implements ContextAwareNormalizerInterface, NormalizerAwar
             if (is_array($normedDoor)) {
                 $doors[] = array_merge(
                     $normedDoor,
-                    ['direction' => $this->translator->trans($door
+                    ['direction' => $this->translationService->translate($door
                         ->getRooms()
                         ->filter(fn (Place $doorRoom) => $doorRoom !== $room)
                         ->first()
@@ -98,7 +98,7 @@ class PlaceNormalizer implements ContextAwareNormalizerInterface, NormalizerAwar
         return [
             'id' => $room->getId(),
             'key' => $room->getName(),
-            'name' => $this->translator->trans($room->getName() . '.name', [], 'rooms'),
+            'name' => $this->translationService->translate($room->getName() . '.name', [], 'rooms'),
             'statuses' => $statuses,
             'doors' => $doors,
             'players' => $players,
@@ -119,7 +119,7 @@ class PlaceNormalizer implements ContextAwareNormalizerInterface, NormalizerAwar
             $patronConfig = $patron->getEquipment();
 
             if ($patronConfig instanceof ItemConfig) {
-                //If not stackable, normalize each occurence of the item
+                //If not stackable, normalize each occurrence of the item
                 if (!$patronConfig->isStackable()) {
                     foreach ($itemGroup as $item) {
                         $piles[] = $this->normalizer->normalize($item, $format, $context);

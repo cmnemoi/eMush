@@ -206,10 +206,10 @@ class PlantCycleHandlerTest extends TestCase
         $this->assertCount(2, $room->getEquipments());
 
         $dried = new Status(new GameItem());
-        $dried->setName(EquipmentStatusEnum::PLANT_DRIED_OUT);
+        $dried->setName(EquipmentStatusEnum::PLANT_DRY);
         $this->statusService
             ->shouldReceive('createCoreStatus')
-            ->with(EquipmentStatusEnum::PLANT_DRIED_OUT, $gamePlant)->andReturn($dried)
+            ->with(EquipmentStatusEnum::PLANT_DRY, $gamePlant)->andReturn($dried)
             ->once()
         ;
 

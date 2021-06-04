@@ -67,7 +67,7 @@ import Alerts from "@/components/Game/Ship/Alerts";
 
 export default {
     name: "BannerPanel",
-    components: { Alerts, CountdownTimer },
+    components: {Alerts, CountdownTimer},
     props: {
         player: Player,
         daedalus: Daedalus

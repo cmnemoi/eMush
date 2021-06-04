@@ -2,7 +2,7 @@ const HEAVY = "heavy";
 const HIDDEN = "hidden";
 const PLANT_YOUNG = "plant_young";
 const PLANT_THIRSTY= "plant_thirsty";
-const PLANT_DRIED_OUT= "plant_dried_out";
+const PLANT_DRY= "plant_dry";
 const PLANT_DISEASED = "plant_diseased";
 const CHARGE = "charges";
 const BROKEN = "broken";
@@ -22,7 +22,7 @@ export const statusItemEnum = {
     [PLANT_THIRSTY]: {
         'icon': require('@/assets/images/status/plant_thirsty.png')
     },
-    [PLANT_DRIED_OUT]: {
+    [PLANT_DRY]: {
         'icon': require('@/assets/images/status/plant_dry.png')
     },
     [PLANT_DISEASED]: {

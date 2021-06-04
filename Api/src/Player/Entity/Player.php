@@ -10,6 +10,7 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Disease\Entity\PlayerDisease;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
@@ -26,8 +27,6 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
 
 /**
- * Class Player.
- *
  * @ORM\Entity(repositoryClass="Mush\Player\Repository\PlayerRepository")
  */
 class Player implements StatusHolderInterface, ActionParameter, LogParameter
@@ -79,6 +78,11 @@ class Player implements StatusHolderInterface, ActionParameter, LogParameter
     private Collection $statuses;
 
     /**
+     * @ORM\OneToMany(targetEntity="Mush\Disease\Entity\PlayerDisease", mappedBy="player")
+     */
+    private Collection $diseases;
+
+    /**
      * @ORM\Column(type="array", nullable=true)
      */
     private array $skills = [];
@@ -117,6 +121,7 @@ class Player implements StatusHolderInterface, ActionParameter, LogParameter
     {
         $this->items = new ArrayCollection();
         $this->statuses = new ArrayCollection();
+        $this->diseases = new ArrayCollection();
     }
 
     public function getId(): int
@@ -295,6 +300,25 @@ class Player implements StatusHolderInterface, ActionParameter, LogParameter
     public function isMush(): bool
     {
         return $this->hasStatus(PlayerStatusEnum::MUSH);
+    }
+
+    public function getDiseases(): Collection
+    {
+        return $this->diseases;
+    }
+
+    public function setDiseases(Collection $diseases): Player
+    {
+        $this->diseases = $diseases;
+
+        return $this;
+    }
+
+    public function addDisease(PlayerDisease $playerDisease): Player
+    {
+        $this->diseases->add($playerDisease);
+
+        return $this;
     }
 
     /**

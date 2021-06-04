@@ -88,7 +88,7 @@ class Consume extends AbstractAction
         $equipmentEvent = new EquipmentEvent($parameter, VisibilityEnum::HIDDEN, new \DateTime());
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
-        return new Success();
+        return new Success($parameter);
     }
 
     protected function dispatchConsumableEffects(ConsumableEffect $consumableEffect): void

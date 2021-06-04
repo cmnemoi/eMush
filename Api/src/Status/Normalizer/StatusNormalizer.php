@@ -5,7 +5,6 @@ namespace Mush\Status\Normalizer;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
-use Mush\Status\Entity\MedicalCondition;
 use Mush\Status\Entity\Status;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -49,10 +48,6 @@ class StatusNormalizer implements ContextAwareNormalizerInterface
 
             if ($status instanceof ChargeStatus && $status->getChargeVisibility() !== VisibilityEnum::HIDDEN) {
                 $normedStatus['charge'] = $status->getCharge();
-            }
-
-            if ($status instanceof MedicalCondition) {
-                $normedStatus['effect'] = $this->translator->trans("{$statusName}.effect", [], 'status');
             }
 
             return $normedStatus;

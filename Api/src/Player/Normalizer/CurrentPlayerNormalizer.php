@@ -51,14 +51,6 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
             $items[] = $this->normalizer->normalize($item, $format, $context);
         }
 
-        $statuses = [];
-        foreach ($player->getStatuses() as $status) {
-            $normedStatus = $this->normalizer->normalize($status, $format, array_merge($context, ['player' => $player]));
-            if (is_array($normedStatus) && count($normedStatus) > 0) {
-                $statuses[] = $normedStatus;
-            }
-        }
-
         $character = $player->getCharacterConfig()->getName();
 
         $playerData = [
@@ -73,12 +65,29 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
         ];
 
         if ($player->getGameStatus() === GameStatusEnum::CURRENT) {
+            $statuses = [];
+            foreach ($player->getStatuses() as $status) {
+                $normedStatus = $this->normalizer->normalize($status, $format, array_merge($context, ['player' => $player]));
+                if (is_array($normedStatus) && count($normedStatus) > 0) {
+                    $statuses[] = $normedStatus;
+                }
+            }
+
+            $diseases = [];
+            foreach ($player->getDiseases() as $disease) {
+                $normedDisease = $this->normalizer->normalize($disease, $format, array_merge($context, ['player' => $player]));
+                if (is_array($normedDisease) && count($normedDisease) > 0) {
+                    $diseases[] = $normedDisease;
+                }
+            }
+
             $playerData = array_merge($playerData, [
                 'room' => $this->normalizer->normalize($object->getPlace(), $format, $context),
                 'skills' => $player->getSkills(),
                 'actions' => $this->getActions($object, $format, $context),
                 'items' => $items,
                 'statuses' => $statuses,
+                'diseases' => $diseases,
                 'actionPoint' => $player->getActionPoint(),
                 'movementPoint' => $player->getMovementPoint(),
                 'healthPoint' => $player->getHealthPoint(),

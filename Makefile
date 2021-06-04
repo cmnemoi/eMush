@@ -1,9 +1,9 @@
 
 docker-start: docker-stop
-	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml up -d
+	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml up -d --no-recreate
 
 docker-watch:
-	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml up
+	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml up --no-recreate
 
 docker-stop:
 	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml stop

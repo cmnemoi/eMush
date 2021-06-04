@@ -31,6 +31,8 @@ export default {
                 switch (this.type) {
                 case "player":
                     return statusPlayerEnum[status.key]?.icon || null;
+                case "disease":
+                    return require('@/assets/images/status/disease.png');
                 case "item":
                 case "equipment":
                     return statusItemEnum[status.key]?.icon || null;

@@ -5,6 +5,7 @@
 
             <div class="statuses">
                 <Statuses :statuses="player.statuses" type="player" />
+                <Statuses :statuses="player.diseases" type="disease" />
             </div>
 
             <div class="health-points">

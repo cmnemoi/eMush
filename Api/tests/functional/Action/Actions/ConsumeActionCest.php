@@ -200,7 +200,7 @@ class ConsumeActionCest
 
         $this->consumeAction->execute();
 
-        $I->assertEquals(1, $player->getSatiety());
+        $I->assertEquals(4, $player->getSatiety());
         $I->assertCount(2, $player->getStatuses());
 
         $I->assertEquals(0, $room->getEquipments()->count());

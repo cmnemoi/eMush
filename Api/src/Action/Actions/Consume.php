@@ -78,7 +78,11 @@ class Consume extends AbstractAction
         // @TODO add disease, cures and extra effects
         $equipmentEffect = $this->equipmentServiceEffect->getConsumableEffect($rationType, $this->player->getDaedalus());
 
-        $this->dispatchConsumableEffects($equipmentEffect);
+        if (!$this->player->isMush()) {
+            $this->dispatchConsumableEffects($equipmentEffect);
+        } else {
+            $this->dispatchMushEffect();
+        }
 
         $this->playerService->persist($this->player);
 
@@ -91,19 +95,19 @@ class Consume extends AbstractAction
 
     protected function dispatchConsumableEffects(ConsumableEffect $consumableEffect): void
     {
-        if (($delta = $consumableEffect->getActionPoint()) !== null && !$this->player->isMush()) {
+        if (($delta = $consumableEffect->getActionPoint()) !== null) {
             $playerModifierEvent = new PlayerModifierEvent($this->player, $delta, new \DateTime());
             $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::ACTION_POINT_MODIFIER);
         }
-        if (($delta = $consumableEffect->getMovementPoint()) !== null && !$this->player->isMush()) {
+        if (($delta = $consumableEffect->getMovementPoint()) !== null) {
             $playerModifierEvent = new PlayerModifierEvent($this->player, $delta, new \DateTime());
             $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::MOVEMENT_POINT_MODIFIER);
         }
-        if (($delta = $consumableEffect->getHealthPoint()) !== null && !$this->player->isMush()) {
+        if (($delta = $consumableEffect->getHealthPoint()) !== null) {
             $playerModifierEvent = new PlayerModifierEvent($this->player, $delta, new \DateTime());
             $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
         }
-        if (($delta = $consumableEffect->getMoralPoint()) !== null && !$this->player->isMush()) {
+        if (($delta = $consumableEffect->getMoralPoint()) !== null) {
             $playerModifierEvent = new PlayerModifierEvent($this->player, $delta, new \DateTime());
             $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::MORAL_POINT_MODIFIER);
         }
@@ -111,5 +115,11 @@ class Consume extends AbstractAction
             $playerModifierEvent = new PlayerModifierEvent($this->player, $delta, new \DateTime());
             $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::SATIETY_POINT_MODIFIER);
         }
+    }
+
+    protected function dispatchMushEffect(): void
+    {
+        $playerModifierEvent = new PlayerModifierEvent($this->player, 4, new \DateTime());
+        $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::SATIETY_POINT_MODIFIER);
     }
 }

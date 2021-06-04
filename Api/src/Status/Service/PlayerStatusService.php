@@ -6,7 +6,6 @@ use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
-use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 
 class PlayerStatusService implements PlayerStatusServiceInterface
@@ -26,22 +25,44 @@ class PlayerStatusService implements PlayerStatusServiceInterface
         $this->roomLogService = $roomLogService;
     }
 
-    public function handleSatietyStatus(int $satietyModifier, Player $player, \DateTime $dateTime): void
+    public function handleSatietyStatus(Player $player, \DateTime $dateTime): void
     {
+        $this->handleFullBellyStatus($player);
+
         if (!$player->isMush()) {
-            $this->handleHumanSatietyStatus($player, $dateTime);
-        } elseif ($satietyModifier >= 0) {
-            $this->statusService->createChargeStatus(
-                PlayerStatusEnum::FULL_STOMACH,
-                $player,
-                ChargeStrategyTypeEnum::CYCLE_DECREMENT,
-                null,
+            $this->handleHungerStatus($player, $dateTime);
+        }
+    }
+
+    private function handleFullBellyStatus(Player $player): void
+    {
+        $fullStatus = $player->getStatusByName(PlayerStatusEnum::FULL_STOMACH);
+        if ($player->getSatiety() >= self::FULL_STOMACH_STATUS_THRESHOLD && !$fullStatus) {
+            $this->statusService->createCoreStatus(PlayerStatusEnum::FULL_STOMACH, $player, null, VisibilityEnum::PRIVATE);
+        } elseif ($player->getSatiety() < self::FULL_STOMACH_STATUS_THRESHOLD && $fullStatus) {
+            $player->removeStatus($fullStatus);
+        }
+    }
+
+    private function handleHungerStatus(Player $player, \DateTime $dateTime): void
+    {
+        $starvingStatus = $player->getStatusByName(PlayerStatusEnum::STARVING);
+
+        if ($player->getSatiety() < self::STARVING_STATUS_THRESHOLD && !$starvingStatus) {
+            $this->statusService->createCoreStatus(PlayerStatusEnum::STARVING, $player);
+
+            $this->roomLogService->createLog(
+                LogEnum::HUNGER,
+                $player->getPlace(),
                 VisibilityEnum::PRIVATE,
-                VisibilityEnum::HIDDEN,
-                2,
-                0,
-                true
+                'event_log',
+                $player,
+                null,
+                null,
+                $dateTime
             );
+        } elseif ($player->getSatiety() >= self::STARVING_STATUS_THRESHOLD && $starvingStatus) {
+            $player->removeStatus($starvingStatus);
         }
     }
 
@@ -77,34 +98,5 @@ class PlayerStatusService implements PlayerStatusServiceInterface
     private function isPlayerDemoralized(int $playerMoralPoint): bool
     {
         return $playerMoralPoint <= self::DEMORALIZED_THRESHOLD && $playerMoralPoint > self::SUICIDAL_THRESHOLD;
-    }
-
-    private function handleHumanSatietyStatus(Player $player, \DateTime $dateTime): void
-    {
-        $starvingStatus = $player->getStatusByName(PlayerStatusEnum::STARVING);
-        $fullStatus = $player->getStatusByName(PlayerStatusEnum::FULL_STOMACH);
-
-        if ($player->getSatiety() < self::STARVING_STATUS_THRESHOLD && !$starvingStatus) {
-            $this->statusService->createCoreStatus(PlayerStatusEnum::STARVING, $player);
-
-            $this->roomLogService->createLog(
-                LogEnum::HUNGER,
-                $player->getPlace(),
-                VisibilityEnum::PRIVATE,
-                'event_log',
-                $player,
-                null,
-                null,
-                $dateTime
-            );
-        } elseif ($player->getSatiety() >= self::STARVING_STATUS_THRESHOLD && $starvingStatus) {
-            $player->removeStatus($starvingStatus);
-        }
-
-        if ($player->getSatiety() >= self::FULL_STOMACH_STATUS_THRESHOLD && !$fullStatus) {
-            $this->statusService->createCoreStatus(PlayerStatusEnum::FULL_STOMACH, $player, null, VisibilityEnum::PRIVATE);
-        } elseif ($player->getSatiety() < self::FULL_STOMACH_STATUS_THRESHOLD && $fullStatus) {
-            $player->removeStatus($fullStatus);
-        }
     }
 }

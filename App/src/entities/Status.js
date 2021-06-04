@@ -4,6 +4,7 @@ export class Status {
         this.key = null;
         this.name = null;
         this.charge = null;
+        this.description = null;
     }
 
     load = function(object) {
@@ -12,6 +13,7 @@ export class Status {
             this.key = object.key;
             this.name = object.name;
             this.charge = object.charge;
+            this.description = object.description;
         }
         return this;
     }

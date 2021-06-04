@@ -233,7 +233,7 @@ class AlertService implements AlertServiceInterface
 
     private function getAlert(Daedalus $daedalus, string $alertName): Alert
     {
-        $alert = $this->findByNameAndDaedalus(AlertEnum::BROKEN_DOORS, $daedalus);
+        $alert = $this->findByNameAndDaedalus($alertName, $daedalus);
 
         if ($alert === null) {
             $alert = new Alert();

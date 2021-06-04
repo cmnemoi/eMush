@@ -28,18 +28,15 @@ class PlayerStatusService implements PlayerStatusServiceInterface
     public function handleSatietyStatus(Player $player, \DateTime $dateTime): void
     {
         $this->handleFullBellyStatus($player);
-
-        if (!$player->isMush()) {
-            $this->handleHungerStatus($player, $dateTime);
-        }
+        $this->handleHungerStatus($player, $dateTime);
     }
 
     private function handleFullBellyStatus(Player $player): void
     {
         $fullStatus = $player->getStatusByName(PlayerStatusEnum::FULL_STOMACH);
-        if ($player->getSatiety() >= self::FULL_STOMACH_STATUS_THRESHOLD && !$fullStatus) {
+        if ($player->getSatiety() >= self::FULL_STOMACH_STATUS_THRESHOLD && !$fullStatus && !$player->isMush()) {
             $this->statusService->createCoreStatus(PlayerStatusEnum::FULL_STOMACH, $player, null, VisibilityEnum::PRIVATE);
-        } elseif ($player->getSatiety() < self::FULL_STOMACH_STATUS_THRESHOLD && $fullStatus) {
+        } elseif (($player->getSatiety() < self::FULL_STOMACH_STATUS_THRESHOLD || $player->isMush()) && $fullStatus) {
             $player->removeStatus($fullStatus);
         }
     }

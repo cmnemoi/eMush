@@ -39,9 +39,8 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
     public function onSatietyPointModifier(PlayerModifierEvent $playerEvent): void
     {
         $player = $playerEvent->getPlayer();
-        $delta = $playerEvent->getDelta();
 
-        $this->playerStatus->handleSatietyStatus($delta, $player, $playerEvent->getTime());
+        $this->playerStatus->handleSatietyStatus($player, $playerEvent->getTime());
     }
 
     public function onMovementPointConversion(PlayerModifierEvent $playerEvent): void

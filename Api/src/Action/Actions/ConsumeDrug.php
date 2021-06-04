@@ -92,6 +92,8 @@ class ConsumeDrug extends Consume
                     0,
                     true
                 );
+        } else {
+            $this->dispatchMushEffect();
         }
 
         $this->playerService->persist($this->player);

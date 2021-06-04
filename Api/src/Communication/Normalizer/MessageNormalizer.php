@@ -42,16 +42,9 @@ class MessageNormalizer implements ContextAwareNormalizerInterface
                 $character = CharacterEnum::NERON;
             }
 
-            $parameters = $object->getTranslationParameters();
-            if ($parameters) {
-                $translatedParameters = $this->translationService->getTranslateParameters($parameters);
-            } else {
-                $translatedParameters = [];
-            }
-
             $message = $this->translationService->translate(
                 $object->getMessage(),
-                $translatedParameters,
+                $object->getTranslationParameters(),
                 'neron'
             );
         }

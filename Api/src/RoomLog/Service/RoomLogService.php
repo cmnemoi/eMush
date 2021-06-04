@@ -162,11 +162,10 @@ class RoomLogService implements RoomLogServiceInterface
         $logs = [];
         /** @var RoomLog $roomLog */
         foreach ($roomLogs as $roomLog) {
-            $translatedParameters = $this->translationService->getTranslateParameters($roomLog->getParameters());
             $logs[$roomLog->getDay()][$roomLog->getCycle()][] = [
                 'log' => $this->translationService->translate(
                     $roomLog->getLog(),
-                    $translatedParameters,
+                    $roomLog->getParameters(),
                     $roomLog->getType()
                 ),
                 'visibility' => $roomLog->getVisibility(),

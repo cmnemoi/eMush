@@ -93,12 +93,9 @@ class MessageNormalizerTest extends TestCase
             ])
         ;
 
-        $parametersArray = ['player' => 'Andie', 'cause' => 'abandoné', 'target' => 'antenne', 'target_gender' => 'female'];
-        $this->translationService->shouldReceive('getTranslateParameters')->andReturn($parametersArray)->once();
-
         $this->translationService
             ->shouldReceive('translate')
-            ->with('message', $parametersArray, 'neron')
+            ->with('message', $message->getTranslationParameters(), 'neron')
             ->andReturn('translatedMessage')
         ;
         $this->translationService

@@ -17,14 +17,12 @@ class TranslationService implements TranslationServiceInterface
 
     public function translate(string $key, array $parameters, string $domain): string
     {
-        if (!empty($parameters)) {
-            $parameters = $this->getTranslateParameters($parameters);
-        }
+        dump($this->getTranslateParameters($parameters));
 
-        return $this->translator->trans($key, $parameters, $domain);
+        return $this->translator->trans($key, $this->getTranslateParameters($parameters), $domain);
     }
 
-    public function getTranslateParameters(array $parameters): array
+    private function getTranslateParameters(array $parameters): array
     {
         $params = [];
         foreach ($parameters as $key => $element) {

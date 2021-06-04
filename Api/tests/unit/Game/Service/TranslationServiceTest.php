@@ -40,7 +40,12 @@ class TranslationServiceTest extends TestCase
     public function testGetSimpleTranslationParameters()
     {
         //test simple parameter
-        $this->assertEquals(['quantity' => 1], $this->translationService->getTranslateParameters(['quantity' => 1]));
+        $this->translator->shouldReceive('trans')
+            ->with('key', ['quantity' => 1], 'domain')
+            ->andReturn('translated message')
+            ->once()
+        ;
+        $this->translationService->translate('key', ['quantity' => 1], 'domain');
     }
 
     public function testGetCharacterTranslationParameters()
@@ -52,7 +57,12 @@ class TranslationServiceTest extends TestCase
             ->andReturn('Andie')
         ;
 
-        $this->assertEquals(['player' => 'Andie', 'character_gender' => 'female'], $this->translationService->getTranslateParameters(['player' => 'andie']));
+        $this->translator->shouldReceive('trans')
+            ->with('key', ['player' => 'Andie', 'character_gender' => 'female'], 'domain')
+            ->andReturn('translated message')
+            ->once()
+        ;
+        $this->translationService->translate('key', ['player' => CharacterEnum::ANDIE], 'domain');
     }
 
     public function testGetTargetCharacterTranslationParameters()
@@ -64,10 +74,12 @@ class TranslationServiceTest extends TestCase
             ->andReturn('Andie')
         ;
 
-        $this->assertEquals(
-            ['target_player' => 'Andie', 'target_player_gender' => 'female'],
-            $this->translationService->getTranslateParameters(['targetPlayer' => CharacterEnum::ANDIE])
-        );
+        $this->translator->shouldReceive('trans')
+            ->with('key', ['target_player' => 'Andie', 'target_player_gender' => 'female'], 'domain')
+            ->andReturn('translated message')
+            ->once()
+        ;
+        $this->translationService->translate('key', ['targetPlayer' => CharacterEnum::ANDIE], 'domain');
     }
 
     public function testGetTargetEquipmentTranslationParameters()
@@ -94,10 +106,12 @@ class TranslationServiceTest extends TestCase
             ->andReturn('Antennes')
         ;
 
-        $this->assertEquals(
-            ['target' => 'Antenne', 'target_gender' => 'female', 'target_first_letter' => 'vowel', 'target_plural' => 'Antennes'],
-            $this->translationService->getTranslateParameters(['targetEquipment' => EquipmentEnum::ANTENNA])
-        );
+        $this->translator->shouldReceive('trans')
+            ->with('key', ['target' => 'Antenne', 'target_gender' => 'female', 'target_first_letter' => 'vowel', 'target_plural' => 'Antennes'], 'domain')
+            ->andReturn('translated message')
+            ->once()
+        ;
+        $this->translationService->translate('key', ['targetEquipment' => EquipmentEnum::ANTENNA], 'domain');
     }
 
     public function testGetTranslationParameters()
@@ -129,18 +143,24 @@ class TranslationServiceTest extends TestCase
             ->andReturn('Pas infirmerie')
         ;
 
-        $this->assertEquals(
-            [
-                'target' => 'Antenne',
-                'target_gender' => 'female',
-                'target_first_letter' => 'vowel',
-                'target_plural' => 'Antennes',
-                'cause' => 'Pas infirmerie',
-            ],
-            $this->translationService->getTranslateParameters([
-                'targetItem' => EquipmentEnum::ANTENNA,
-                'cause' => EndCauseEnum::NO_INFIRMERY,
-            ])
-        );
+        $translatedParameters = [
+            'target' => 'Antenne',
+            'target_gender' => 'female',
+            'target_first_letter' => 'vowel',
+            'target_plural' => 'Antennes',
+            'cause' => 'Pas infirmerie',
+        ];
+
+        $initialParameters = [
+            'targetItem' => EquipmentEnum::ANTENNA,
+            'cause' => EndCauseEnum::NO_INFIRMERY,
+        ];
+
+        $this->translator->shouldReceive('trans')
+            ->with('key', $translatedParameters, 'domain')
+            ->andReturn('translated message')
+            ->once()
+        ;
+        $this->translationService->translate('key', $initialParameters, 'domain');
     }
 }

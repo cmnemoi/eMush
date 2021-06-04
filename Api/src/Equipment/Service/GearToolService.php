@@ -125,7 +125,9 @@ class GearToolService implements GearToolServiceInterface
     {
         $equipments = $this->getEquipmentsOnReach($player);
 
-        return $equipments->filter(fn (GameEquipment $equipment) => $equipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL) !== null);
+        return $equipments->filter(fn (GameEquipment $equipment) => $equipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL) !== null &&
+            !$equipment->isBroken()
+        );
     }
 
     public function getUsedTool(Player $player, string $actionName): ?GameEquipment

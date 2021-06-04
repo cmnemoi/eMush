@@ -21,7 +21,6 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Service\PlaceServiceInterface;
-use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
@@ -194,16 +193,14 @@ class DaedalusService implements DaedalusServiceInterface
 
     public function getRandomAsphyxia(Daedalus $daedalus, \DateTime $date): Daedalus
     {
-        $noCapsule = $daedalus
-            ->getPlayers()
-            ->getPlayerAlive()
-            ->filter(fn (Player $player) => $player->getItems()->filter(fn (GameItem $item) => $item->getName() === ItemEnum::OXYGEN_CAPSULE)->count() === 0)
-        ;
+        $player = $this->getRandomPlayersWithLessOxygen($daedalus);
 
-        $players = $this->getPlayersWithLessOxygen($daedalus);
+        if ($this->getOxygenCapsuleCount($player) === 0) {
+            $playerEvent = new PlayerEvent($player, $date);
+            $playerEvent->setReason(EndCauseEnum::ASPHYXIA);
 
-        if ($players !== null) {
-            $player = $this->randomService->getRandomPlayer($players);
+            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
+        } else {
             $capsule = $player->getItems()->filter(fn (GameItem $item) => $item->getName() === ItemEnum::OXYGEN_CAPSULE)->first();
             $capsule->removeLocation();
             $this->gameEquipmentService->delete($capsule);
@@ -220,30 +217,25 @@ class DaedalusService implements DaedalusServiceInterface
             );
         }
 
-        if (!$noCapsule->isEmpty()) {
-            $player = $this->randomService->getRandomPlayer($noCapsule);
-
-            $playerEvent = new PlayerEvent($player, $date);
-            $playerEvent->setReason(EndCauseEnum::ASPHYXIA);
-
-            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
-        }
-
         return $daedalus;
     }
 
-    public function getPlayersWithLessOxygen(Daedalus $daedalus): ?PlayerCollection
+    private function getRandomPlayersWithLessOxygen(Daedalus $daedalus): Player
     {
-        for ($i = 1; $i <= $daedalus->getGameConfig()->getMaxItemInInventory(); ++$i) {
-            $players = $daedalus->getPlayers()->getPlayerAlive()
-                ->filter(fn (Player $player) => $player->getItems()
-                ->filter(fn (GameItem $item) => $item->getName() === ItemEnum::OXYGEN_CAPSULE)->count() === $i);
+        $playersAlive = $daedalus->getPlayers()->getPlayerAlive();
+        for ($i = 0; $i <= $daedalus->getGameConfig()->getMaxItemInInventory(); ++$i) {
+            $players = $playersAlive->filter(fn (Player $player) => $this->getOxygenCapsuleCount($player) === $i);
             if ($players && !$players->isEmpty()) {
-                return $players;
+                return $this->randomService->getRandomPlayer($players);
             }
         }
 
-        return null;
+        throw new \LogicException('this Daedalus is already empty');
+    }
+
+    private function getOxygenCapsuleCount(Player $player): int
+    {
+        return $player->getItems()->filter(fn (GameItem $item) => $item->getName() === ItemEnum::OXYGEN_CAPSULE)->count();
     }
 
     public function killRemainingPlayers(Daedalus $daedalus, string $cause, \DateTime $date): Daedalus

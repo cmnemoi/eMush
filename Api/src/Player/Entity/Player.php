@@ -27,8 +27,6 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
 
 /**
- * Class Player.
- *
  * @ORM\Entity(repositoryClass="Mush\Player\Repository\PlayerRepository")
  */
 class Player implements StatusHolderInterface, ActionParameter, LogParameter

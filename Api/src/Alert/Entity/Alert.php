@@ -2,12 +2,15 @@
 
 namespace Mush\Alert\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Alert\Entity\Collection\AlertElementCollection;
 use Mush\Daedalus\Entity\Daedalus;
 
 /**
- * @ORM\Entity
- * @ORM\Table(name="alert")
+ * Class Alert.
+ *
+ * @ORM\Entity(repositoryClass="Mush\Alert\Repository\AlertRepository")
  */
 class Alert
 {
@@ -27,6 +30,16 @@ class Alert
      * @ORM\ManyToOne(targetEntity="Mush\Daedalus\Entity\Daedalus", inversedBy="alerts")
      */
     private Daedalus $daedalus;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Mush\Alert\Entity\AlertElement", mappedBy="alert")
+     */
+    private Collection $alertElements;
+
+    public function __construct()
+    {
+        $this->alertElements = new AlertElementCollection();
+    }
 
     public function getId(): ?int
     {
@@ -55,5 +68,22 @@ class Alert
     public function getDaedalus(): Daedalus
     {
         return $this->daedalus;
+    }
+
+    public function getAlertElements(): AlertElementCollection
+    {
+        if (!$this->alertElements instanceof AlertElementCollection) {
+            $this->alertElements = new AlertElementCollection($this->alertElements->toArray());
+        }
+
+        return $this->alertElements;
+    }
+
+    public function addAlertElement(AlertElement $alertElement): Alert
+    {
+        $this->alertElements->add($alertElement);
+        $alertElement->setAlert($this);
+
+        return $this;
     }
 }

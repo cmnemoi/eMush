@@ -2,8 +2,6 @@
 
 namespace Mush\Alert\Listener;
 
-use Mush\Alert\Entity\Alert;
-use Mush\Alert\Enum\AlertEnum;
 use Mush\Alert\Service\AlertServiceInterface;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Event\EquipmentEvent;
@@ -31,14 +29,10 @@ class EquipmentSubscriber implements EventSubscriberInterface
     {
         $equipment = $event->getEquipment();
 
-        if ($equipment->getName() === EquipmentEnum::GRAVITY_SIMULATOR) {
-            $gravityAlert = new Alert();
-            $gravityAlert
-                ->setDaedalus($equipment->getCurrentPlace()->getDaedalus())
-                ->setName(AlertEnum::NO_GRAVITY)
-            ;
+        $this->alertService->handleEquipmentBreak($equipment);
 
-            $this->alertService->persist($gravityAlert);
+        if ($equipment->getName() === EquipmentEnum::GRAVITY_SIMULATOR) {
+            $this->alertService->gravityAlert($equipment->getCurrentPlace()->getDaedalus(), true);
         }
     }
 
@@ -46,14 +40,10 @@ class EquipmentSubscriber implements EventSubscriberInterface
     {
         $equipment = $event->getEquipment();
 
+        $this->alertService->handleEquipmentRepair($equipment);
+
         if ($equipment->getName() === EquipmentEnum::GRAVITY_SIMULATOR) {
-            $gravitySituation = $this->alertService->findByNameAndDaedalus(AlertEnum::NO_GRAVITY, $equipment->getCurrentPlace()->getDaedalus());
-
-            if ($gravitySituation === null) {
-                throw new \LogicException('there should be a gravitySituation on this Daedalus');
-            }
-
-            $this->alertService->delete($gravitySituation);
+            $this->alertService->gravityAlert($equipment->getCurrentPlace()->getDaedalus(), false);
         }
     }
 }

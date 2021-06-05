@@ -17,8 +17,6 @@ class TranslationService implements TranslationServiceInterface
 
     public function translate(string $key, array $parameters, string $domain): string
     {
-        dump($this->getTranslateParameters($parameters));
-
         return $this->translator->trans($key, $this->getTranslateParameters($parameters), $domain);
     }
 

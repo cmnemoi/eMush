@@ -1,6 +1,6 @@
 <?php
 
-namespace functional\Daedalus\Event;
+namespace functional\Equipment\Listener;
 
 use App\Tests\FunctionalTester;
 use DateTime;
@@ -13,7 +13,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentCycleEvent;
-use Mush\Equipment\Event\EquipmentCycleSubscriber;
+use Mush\Equipment\Listener\EquipmentCycleSubscriber;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Place\Entity\Place;

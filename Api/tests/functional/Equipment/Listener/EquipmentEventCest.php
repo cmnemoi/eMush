@@ -1,6 +1,6 @@
 <?php
 
-namespace functional\Equipment\Event;
+namespace functional\Equipment\Listener;
 
 use App\Tests\FunctionalTester;
 use Mush\Communication\Entity\Channel;

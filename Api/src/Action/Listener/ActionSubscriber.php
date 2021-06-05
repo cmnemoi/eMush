@@ -1,9 +1,10 @@
 <?php
 
-namespace Mush\Action\Event;
+namespace Mush\Action\Listener;
 
 use Mush\Action\Actions\GetUp;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Event\ActionEvent;
 use Mush\Action\Service\ActionSideEffectsServiceInterface;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\RoomLog\Enum\LogEnum;

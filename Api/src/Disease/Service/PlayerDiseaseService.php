@@ -3,6 +3,7 @@
 namespace Mush\Disease\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Mush\Disease\Entity\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Repository\DiseaseConfigRepository;
 use Mush\Game\Service\RandomServiceInterface;
@@ -30,6 +31,28 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         $this->entityManager->flush();
 
         return $playerDisease;
+    }
+
+    public function createDiseaseFromName(string $diseaseName, Player $player): PlayerDisease
+    {
+        /** @var DiseaseConfig $diseaseConfig */
+        $diseaseConfig = $this->diseaseConfigRepository->findOneBy(['name' => $diseaseName, 'gameConfig' => $player->getDaedalus()->getGameConfig()]);
+
+        if ($diseaseConfig === null) {
+            throw new \LogicException("{$diseaseName} do not have any disease config for the daedalus {$player->getDaedalus()->getId()}");
+        }
+
+        $disease = new PlayerDisease();
+        $disease
+            ->setPlayer($player)
+            ->setDiseaseConfig($diseaseConfig)
+            ->setDiseasePoint(10) //@TODO
+        ;
+        $player->addDisease($disease);
+
+        $this->persist($disease);
+
+        return $disease;
     }
 
     public function handleDiseaseForCause(string $cause, Player $player): void

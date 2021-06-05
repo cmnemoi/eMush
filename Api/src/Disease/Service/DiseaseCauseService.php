@@ -2,6 +2,7 @@
 
 namespace Mush\Disease\Service;
 
+use Mush\Disease\Entity\ConsumableDiseaseCharacteristic;
 use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Service\RandomServiceInterface;
@@ -13,15 +14,18 @@ class DiseaseCauseService implements DiseaseCauseServiceInterface
     private const HAZARDOUS_RATE = 30;
     private const DECOMPOSING_RATE = 50;
 
-    private PlayerDiseaseService $playerDiseaseService;
+    private PlayerDiseaseServiceInterface $playerDiseaseService;
     private RandomServiceInterface $randomService;
+    private ConsumableDiseaseServiceInterface $consumableDiseaseService;
 
     public function __construct(
-        PlayerDiseaseService $playerDiseaseService,
+        PlayerDiseaseServiceInterface $playerDiseaseService,
         RandomServiceInterface $randomService,
+        ConsumableDiseaseServiceInterface $consumableDiseaseService,
     ) {
         $this->playerDiseaseService = $playerDiseaseService;
         $this->randomService = $randomService;
+        $this->consumableDiseaseService = $consumableDiseaseService;
     }
 
     public function handleSpoiledFood(Player $player, GameEquipment $gameEquipment): void
@@ -32,6 +36,20 @@ class DiseaseCauseService implements DiseaseCauseServiceInterface
                 $this->randomService->isSuccessful(self::DECOMPOSING_RATE))
         ) {
             $this->playerDiseaseService->handleDiseaseForCause(DiseaseCauseEnum::PERISHED_FOOD, $player);
+        }
+    }
+
+    public function handleAlienFood(Player $player, GameEquipment $gameEquipment): void
+    {
+        $consumableEffect = $this->consumableDiseaseService->findConsumableDiseases($gameEquipment->getName(), $player->getDaedalus());
+
+        if ($consumableEffect !== null) {
+            /** @var ConsumableDiseaseCharacteristic $disease */
+            foreach ($consumableEffect->getDiseases() as $disease) {
+                if ($this->randomService->isSuccessful($disease->getRate())) {
+                    $this->playerDiseaseService->createDiseaseFromName($disease->getDisease(), $player);
+                }
+            }
         }
     }
 }

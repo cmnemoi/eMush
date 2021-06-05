@@ -19,6 +19,7 @@ export class Player {
         this.daedalus = null;
         this.items = [];
         this.statuses = [];
+        this.diseases = [];
         this.actions = [];
         this.room = null;
     }
@@ -56,6 +57,12 @@ export class Player {
                 object.statuses.forEach((statusObject) => {
                     let status = (new Status()).load(statusObject);
                     this.statuses.push(status);
+                });
+            }
+            if (typeof object.diseases !== 'undefined') {
+                object.diseases.forEach((statusObject) => {
+                    let status = (new Status()).load(statusObject);
+                    this.diseases.push(status);
                 });
             }
         }

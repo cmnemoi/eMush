@@ -27,7 +27,7 @@ class PlayerDisease
     private DiseaseConfig $diseaseConfig;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Mush\Player\Entity\Player")
+     * @ORM\ManyToOne(targetEntity="Mush\Player\Entity\Player", inversedBy="diseases")
      */
     private Player $player;
 

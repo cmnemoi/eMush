@@ -8,13 +8,13 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\Entity\Action;
+use Mush\Disease\Enum\DiseaseEnum;
+use Mush\Disease\Enum\DisorderEnum;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Drug;
 use Mush\Equipment\Enum\GameDrugEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
-use Mush\Status\Enum\DiseaseEnum;
-use Mush\Status\Enum\DisorderEnum;
 
 class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
 {

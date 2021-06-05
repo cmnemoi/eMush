@@ -3,7 +3,6 @@
 namespace Mush\Equipment\Entity\Mechanics;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 
@@ -48,24 +47,6 @@ class Ration extends EquipmentMechanic
      */
     private array $cures = [];
 
-    //Store the chance (value) for the disease to appear (key)
-    /**
-     * @ORM\Column(type="array", nullable=false)
-     */
-    private array $diseasesChances = [];
-
-    //Store the min delay (value) for the disease to appear (key)
-    /**
-     * @ORM\Column(type="array", nullable=false)
-     */
-    private array $diseasesDelayMin = [];
-
-    //Store the max delay (value) for the disease to appear (key)
-    /**
-     * @ORM\Column(type="array", nullable=false)
-     */
-    private array $diseasesDelayLength = [];
-
     //Store any extra effect the food has as key with the chance to get it as value
     /**
      * @ORM\Column(type="array", nullable=false)
@@ -76,19 +57,6 @@ class Ration extends EquipmentMechanic
      * @ORM\Column(type="boolean", nullable=false)
      */
     protected bool $isPerishable = true;
-
-//    /**
-//     * @return static
-//     */
-//    public function setActions(array $actions): Ration
-//    {
-//        return $this;
-//    }
-
-//    public function getActions(): array
-//    {
-//        return [ActionEnum::CONSUME];
-//    }
 
     public function getActionPoints(): array
     {
@@ -176,51 +144,6 @@ class Ration extends EquipmentMechanic
     public function setCures(array $cures): Ration
     {
         $this->cures = $cures;
-
-        return $this;
-    }
-
-    public function getDiseasesChances(): array
-    {
-        return $this->diseasesChances;
-    }
-
-    /**
-     * @return static
-     */
-    public function setDiseasesChances(array $diseasesChances): Ration
-    {
-        $this->diseasesChances = $diseasesChances;
-
-        return $this;
-    }
-
-    public function getDiseasesDelayMin(): array
-    {
-        return $this->diseasesDelayMin;
-    }
-
-    /**
-     * @return static
-     */
-    public function setDiseasesDelayMin(array $diseasesDelayMin): Ration
-    {
-        $this->diseasesDelayMin = $diseasesDelayMin;
-
-        return $this;
-    }
-
-    public function getDiseasesDelayLength(): array
-    {
-        return $this->diseasesDelayLength;
-    }
-
-    /**
-     * @return static
-     */
-    public function setDiseasesDelayLength(array $diseasesDelayLength): Ration
-    {
-        $this->diseasesDelayLength = $diseasesDelayLength;
 
         return $this;
     }

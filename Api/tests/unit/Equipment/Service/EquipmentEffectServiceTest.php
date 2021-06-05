@@ -5,8 +5,6 @@ namespace Mush\Test\Equipment\Service;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\ConsumableEffect;
-use Mush\Equipment\Entity\Mechanics\Drug;
-use Mush\Equipment\Entity\Mechanics\Fruit;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Equipment\Entity\PlantEffect;
@@ -62,9 +60,6 @@ class EquipmentEffectServiceTest extends TestCase
             ->setActionPoints([0 => 1, 1 => 0])
             ->setMovementPoints([1 => 1])
             ->setMovementPoints([1 => 1])
-            ->setDiseasesChances(['disease' => 55])
-            ->setDiseasesDelayMin(['disease' => 0])
-            ->setDiseasesDelayLength(['disease' => 0])
             ->setExtraEffects(['break_door' => 55])
         ;
         $consumableEffectFromRepository = new ConsumableEffect();
@@ -103,100 +98,6 @@ class EquipmentEffectServiceTest extends TestCase
         $this->assertEquals(2, $consumableEffect->getMovementPoint());
         $this->assertEquals(2, $consumableEffect->getHealthPoint());
         $this->assertEquals(2, $consumableEffect->getMoralPoint());
-
-        //test fruit
-        $fruit = new Fruit();
-
-        $fruit
-            ->setDiseasesChances([100 => 64, 25 => 1])
-            ->setDiseasesName([
-                        'disease1' => 1,
-                        'disease2' => 6, ])
-            ->setDiseasesDelayMin([0 => 1, 5 => 1])
-            ->setDiseasesDelayLength([7 => 1])
-            ->setFruitEffectsNumber([0 => 35, 1 => 40, 2 => 15])
-            ->setExtraEffects(['extraActionPoint' => 50])
-        ;
-
-        $this->consumableEffectRepository
-            ->shouldReceive('findOneBy')
-            ->andReturn(null)
-            ->once()
-        ;
-        $this->consumableEffectRepository
-            ->shouldReceive('persist')
-            ->once()
-        ;
-        $this->randomService
-            ->shouldReceive('getSingleRandomElementFromProbaArray')
-            ->andReturn(0, 0, 0, 0, 4, 50, 50, 2, 4, 50, 2, 4)
-            ->times(12)
-        ;
-        $this->randomService
-            ->shouldReceive('getRandomElements')
-            ->andReturn([1, 3, 4, 5])
-            ->once()
-        ;
-        $this->randomService
-            ->shouldReceive('getRandomElementsFromProbaArray')
-            ->andReturn(['disease1'], ['disease1', 'disease2'])
-            ->times(2)
-        ;
-        $consumableEffect = $this->service->getConsumableEffect($fruit, $daedalus);
-
-        $this->assertInstanceOf(ConsumableEffect::class, $consumableEffect);
-        $this->assertEquals($daedalus, $consumableEffect->getDaedalus());
-        $this->assertEquals($fruit, $consumableEffect->getRation());
-        $this->assertEquals(0, $consumableEffect->getActionPoint());
-        $this->assertEquals(0, $consumableEffect->getMovementPoint());
-        $this->assertEquals(0, $consumableEffect->getHealthPoint());
-        $this->assertEquals(0, $consumableEffect->getMoralPoint());
-        $this->assertEquals(['disease1' => 50], $consumableEffect->getCures());
-        $this->assertEquals(['disease1' => 50, 'disease2' => 50], $consumableEffect->getDiseasesChance());
-        $this->assertEquals(['disease1' => 2, 'disease2' => 2], $consumableEffect->getDiseasesDelayMin());
-        $this->assertEquals(['disease1' => 4, 'disease2' => 4], $consumableEffect->getDiseasesDelayLength());
-        $this->assertEquals(['extraActionPoint' => 50], $consumableEffect->getExtraEffects());
-
-        //test drugs
-        $drug = new Drug();
-        $drug->setMoralPoints([0 => 97, -2 => 1, 1 => 1])
-            ->setActionPoints([0 => 98, 1 => 1])
-            ->setMovementPoints([0 => 98, 2 => 1])
-            ->setCures([
-                'disease1' => 100,
-                'disease2' => 100,
-                'disease3' => 100, ])
-            ->setDrugEffectsNumber([1 => 60, 2 => 30, 3 => 8])
-        ;
-        $this->consumableEffectRepository
-            ->shouldReceive('findOneBy')
-            ->andReturn(null)
-            ->once()
-        ;
-        $this->consumableEffectRepository
-            ->shouldReceive('persist')
-            ->once()
-        ;
-        $this->randomService
-            ->shouldReceive('getSingleRandomElementFromProbaArray')
-            ->andReturn(0, 0, 0, 0, 2)
-            ->times(5)
-        ;
-        $this->randomService
-            ->shouldReceive('getRandomElements')
-            ->andReturn(['disease1', 'disease2'])
-            ->once()
-        ;
-        $consumableEffect = $this->service->getConsumableEffect($drug, $daedalus);
-
-        $this->assertInstanceOf(ConsumableEffect::class, $consumableEffect);
-        $this->assertEquals($daedalus, $consumableEffect->getDaedalus());
-        $this->assertEquals($drug, $consumableEffect->getRation());
-        $this->assertEquals(0, $consumableEffect->getActionPoint());
-        $this->assertEquals(0, $consumableEffect->getMovementPoint());
-        $this->assertEquals(0, $consumableEffect->getHealthPoint());
-        $this->assertEquals(0, $consumableEffect->getMoralPoint());
-        $this->assertEquals(['disease1' => 100, 'disease2' => 100], $consumableEffect->getCures());
     }
 
     public function testGetPlantEffect()

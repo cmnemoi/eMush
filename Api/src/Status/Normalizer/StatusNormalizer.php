@@ -2,21 +2,21 @@
 
 namespace Mush\Status\Normalizer;
 
+use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class StatusNormalizer implements ContextAwareNormalizerInterface
 {
-    private TranslatorInterface $translator;
+    private TranslationServiceInterface $translationService;
 
     public function __construct(
-        TranslatorInterface $translator
+        TranslationServiceInterface $translationService
     ) {
-        $this->translator = $translator;
+        $this->translationService = $translationService;
     }
 
     public function supportsNormalization($data, string $format = null, array $context = []): bool
@@ -42,8 +42,8 @@ class StatusNormalizer implements ContextAwareNormalizerInterface
         ) {
             $normedStatus = [
                 'key' => $statusName,
-                'name' => $this->translator->trans($statusName . '.name', [], 'status'),
-                'description' => $this->translator->trans("{$statusName}.description", [], 'status'),
+                'name' => $this->translationService->translate($statusName . '.name', [], 'status'),
+                'description' => $this->translationService->translate("{$statusName}.description", [], 'status'),
             ];
 
             if ($status instanceof ChargeStatus && $status->getChargeVisibility() !== VisibilityEnum::HIDDEN) {

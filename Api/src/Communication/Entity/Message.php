@@ -57,7 +57,7 @@ class Message
     /**
      * @ORM\Column(type="array", nullable=true)
      */
-    private ?array $translationParameters = null;
+    private array $translationParameters = [];
 
     public function __construct()
     {
@@ -126,7 +126,7 @@ class Message
         return $this;
     }
 
-    public function getTranslationParameters(): ?array
+    public function getTranslationParameters(): array
     {
         return $this->translationParameters;
     }

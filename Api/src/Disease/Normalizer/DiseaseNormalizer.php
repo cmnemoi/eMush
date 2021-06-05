@@ -3,17 +3,17 @@
 namespace Mush\Disease\Normalizer;
 
 use Mush\Disease\Entity\PlayerDisease;
+use Mush\Game\Service\TranslationServiceInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DiseaseNormalizer implements ContextAwareNormalizerInterface
 {
-    private TranslatorInterface $translator;
+    private TranslationServiceInterface $translationService;
 
     public function __construct(
-        TranslatorInterface $translator
+        TranslationServiceInterface $translationService
     ) {
-        $this->translator = $translator;
+        $this->translationService = $translationService;
     }
 
     public function supportsNormalization($data, string $format = null, array $context = [])
@@ -27,8 +27,8 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
 
         return [
            'key' => $diseaseConfig->getName(),
-           'name' => $this->translator->trans($diseaseConfig->getName() . '.name', [], 'disease'),
-           'description' => $this->translator->trans("{$diseaseConfig->getName()}.description", [], 'disease'),
+           'name' => $this->translationService->translate($diseaseConfig->getName() . '.name', [], 'disease'),
+           'description' => $this->translationService->translate("{$diseaseConfig->getName()}.description", [], 'disease'),
        ];
     }
 }

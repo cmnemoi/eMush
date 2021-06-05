@@ -4,29 +4,29 @@ namespace Mush\Player\Normalizer;
 
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Enum\GameStatusEnum;
+use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\DeadPlayerInfo;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DeadPlayerInfoNormalizer implements ContextAwareNormalizerInterface, NormalizerAwareInterface
 {
     use NormalizerAwareTrait;
 
     private PlayerServiceInterface $playerService;
-    private TranslatorInterface $translator;
+    private TranslationServiceInterface $translationService;
     private GearToolServiceInterface $gearToolService;
 
     public function __construct(
         PlayerServiceInterface $playerService,
-        TranslatorInterface $translator,
+        TranslationServiceInterface $translationService,
         GearToolServiceInterface $gearToolService
     ) {
         $this->playerService = $playerService;
-        $this->translator = $translator;
+        $this->translationService = $translationService;
         $this->gearToolService = $gearToolService;
     }
 
@@ -60,8 +60,8 @@ class DeadPlayerInfoNormalizer implements ContextAwareNormalizerInterface, Norma
                     'id' => $player->getId(),
                     'character' => [
                         'key' => $character,
-                        'value' => $this->translator->trans($character . '.name', [], 'characters'),
-                        'description' => $this->translator->trans($character . '.abstract', [], 'characters'),
+                        'value' => $this->translationService->translate($character . '.name', [], 'characters'),
+                        'description' => $this->translationService->translate($character . '.abstract', [], 'characters'),
                     ],
                 ];
 
@@ -91,8 +91,8 @@ class DeadPlayerInfoNormalizer implements ContextAwareNormalizerInterface, Norma
     {
         return [
             'key' => $endCause,
-            'name' => $this->translator->trans($endCause . '.name', [], 'end_cause'),
-            'description' => $this->translator->trans($endCause . '.description', [], 'end_cause'),
+            'name' => $this->translationService->translate($endCause . '.name', [], 'end_cause'),
+            'description' => $this->translationService->translate($endCause . '.description', [], 'end_cause'),
         ];
     }
 }

@@ -8,28 +8,28 @@ use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Enum\GameStatusEnum;
+use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, NormalizerAwareInterface
 {
     use NormalizerAwareTrait;
 
     private PlayerServiceInterface $playerService;
-    private TranslatorInterface $translator;
+    private TranslationServiceInterface $translationService;
     private GearToolServiceInterface $gearToolService;
 
     public function __construct(
         PlayerServiceInterface $playerService,
-        TranslatorInterface $translator,
+        TranslationServiceInterface $translationService,
         GearToolServiceInterface $gearToolService
     ) {
         $this->playerService = $playerService;
-        $this->translator = $translator;
+        $this->translationService = $translationService;
         $this->gearToolService = $gearToolService;
     }
 
@@ -57,7 +57,7 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
             'id' => $player->getId(),
             'character' => [
                 'key' => $character,
-                'value' => $this->translator->trans($character . '.name', [], 'characters'),
+                'value' => $this->translationService->translate($character . '.name', [], 'characters'),
             ],
             'gameStatus' => $player->getGameStatus(),
             'triumph' => $player->getTriumph(),

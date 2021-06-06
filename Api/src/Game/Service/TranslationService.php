@@ -17,10 +17,11 @@ class TranslationService implements TranslationServiceInterface
 
     public function translate(string $key, array $parameters, string $domain): string
     {
-        return $this->translator->trans($key, $this->getTranslateParameters($parameters), $domain);
+        //@TODO include methods getTranslateParameters for other languages than FR
+        return $this->translator->trans($key, $this->getFrenchTranslateParameters($parameters), $domain);
     }
 
-    private function getTranslateParameters(array $parameters): array
+    private function getFrenchTranslateParameters(array $parameters): array
     {
         $params = [];
         foreach ($parameters as $key => $element) {
@@ -66,6 +67,11 @@ class TranslationService implements TranslationServiceInterface
 
             case 'title':
                 $params['title'] = $this->translator->trans($element . '.name', [], 'status');
+                break;
+
+            case 'place':
+                $params['place'] = $this->translator->trans($element . '.name', [], 'rooms');
+                $params['loc_prep'] = $this->translator->trans($element . '.loc_prep', [], 'rooms');
                 break;
 
             default:

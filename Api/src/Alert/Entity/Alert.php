@@ -27,7 +27,7 @@ class Alert
     private string $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Mush\Daedalus\Entity\Daedalus", inversedBy="alerts")
+     * @ORM\ManyToOne(targetEntity="Mush\Daedalus\Entity\Daedalus")
      */
     private Daedalus $daedalus;
 

@@ -32,7 +32,7 @@ class ConsumableDisease
     private string $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="Mush\Disease\Entity\ConsumableDiseaseAttribute", mappedBy="consumableDisease" , cascade="all")
+     * @ORM\OneToMany(targetEntity="Mush\Disease\Entity\ConsumableDiseaseAttribute", mappedBy="consumableDisease" , cascade={"all"})
      */
     private Collection $diseaseAttributes;
 

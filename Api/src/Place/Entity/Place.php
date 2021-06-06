@@ -65,7 +65,7 @@ class Place implements StatusHolderInterface
     private Collection $equipments;
 
     /**
-     * @ORM\OneToMany (targetEntity="Mush\Status\Entity\StatusTarget", mappedBy="place", cascade="ALL", orphanRemoval=true)
+     * @ORM\OneToMany (targetEntity="Mush\Status\Entity\StatusTarget", mappedBy="place", cascade={"ALL"}, orphanRemoval=true)
      */
     private Collection $statuses;
 

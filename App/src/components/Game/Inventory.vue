@@ -3,6 +3,7 @@
         <li
             v-for="(item) in items"
             :key="item.id"
+            tabindex="0"
             class="slot"
             @click="$emit('select', item)"
         >

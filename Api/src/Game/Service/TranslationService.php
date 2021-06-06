@@ -15,6 +15,16 @@ class TranslationService implements TranslationServiceInterface
         $this->translator = $translator;
     }
 
+    private static array $conversionArray = [
+        'player' => 'character',
+        'targetPlayer' => 'character',
+        'cause' => 'end_cause',
+        'title' => 'status',
+        'targetEquipment' => 'equipments',
+        'targetItem' => 'items',
+        'place' => 'rooms',
+    ];
+
     public function translate(string $key, array $parameters, string $domain): string
     {
         //@TODO include methods getTranslateParameters for other languages than FR
@@ -35,33 +45,12 @@ class TranslationService implements TranslationServiceInterface
     {
         switch ($key) {
             case 'player':
-                return [
-                    'player' => $this->translator->trans($element . '.name', [], 'characters'),
-                    'character_gender' => (CharacterEnum::isMale($element) ? 'male' : 'female'),
-                ];
-
             case 'targetPlayer':
-                return [
-                    'target_player' => $this->translator->trans($element . '.name', [], 'characters'),
-                    'target_player_gender' => (CharacterEnum::isMale($element) ? 'male' : 'female'),
-                ];
-
-            case 'cause':
-                return ['cause' => $this->translator->trans($element . '.name', [], 'end_cause')];
+                return $this->getFrenchCharacterTranslateParameter($key, $element);
 
             case 'targetEquipment':
-                $domain = 'equipments';
-
-                return $this->getFrenchEquipmentTranslateParameter($element, $domain);
-
             case 'targetItem':
-                $domain = 'items';
-
-                return $this->getFrenchEquipmentTranslateParameter($element, $domain);
-
-            case 'title':
-                return ['title' => $this->translator->trans($element . '.name', [], 'status')];
-                break;
+                return $this->getFrenchEquipmentTranslateParameter($element, self::$conversionArray[$key]);
 
             case 'place':
                 return [
@@ -69,8 +58,11 @@ class TranslationService implements TranslationServiceInterface
                     'loc_prep' => $this->translator->trans($element . '.loc_prep', [], 'rooms'),
                 ];
 
-            default:
+            case 'quantity':
                 return [$key => $element];
+
+            default:
+                return [$key => $this->translator->trans($element . '.name', [], self::$conversionArray[$key])];
         }
     }
 
@@ -83,5 +75,13 @@ class TranslationService implements TranslationServiceInterface
         $params['target_plural'] = $this->translator->trans($element . '.plural_name', [], $domain);
 
         return $params;
+    }
+
+    private function getFrenchCharacterTranslateParameter(string $key, string $element): array
+    {
+        return [
+            $key => $this->translator->trans($element . '.name', [], 'characters'),
+            $key . '_gender' => (CharacterEnum::isMale($element) ? 'male' : 'female'),
+        ];
     }
 }

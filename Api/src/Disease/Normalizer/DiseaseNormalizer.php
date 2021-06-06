@@ -28,6 +28,7 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
         return [
            'key' => $diseaseConfig->getName(),
            'name' => $this->translationService->translate($diseaseConfig->getName() . '.name', [], 'disease'),
+           'type' => $diseaseConfig->getType(),
            'description' => $this->translationService->translate("{$diseaseConfig->getName()}.description", [], 'disease'),
        ];
     }

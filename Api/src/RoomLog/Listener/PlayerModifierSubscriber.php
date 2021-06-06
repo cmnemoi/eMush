@@ -34,7 +34,7 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
         $player = $playerEvent->getPlayer();
         $delta = $playerEvent->getDelta();
 
-        if (!$playerEvent->isDisplayedRoomLog()) {
+        if (!$playerEvent->isDisplayedRoomLog() || $delta === 0) {
             return;
         }
 
@@ -47,7 +47,7 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
         $player = $playerEvent->getPlayer();
         $delta = $playerEvent->getDelta();
 
-        if (!$playerEvent->isDisplayedRoomLog()) {
+        if (!$playerEvent->isDisplayedRoomLog() || $delta === 0) {
             return;
         }
 
@@ -60,7 +60,7 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
         $player = $playerEvent->getPlayer();
         $delta = $playerEvent->getDelta();
 
-        if (!$playerEvent->isDisplayedRoomLog()) {
+        if (!$playerEvent->isDisplayedRoomLog() || $delta === 0) {
             return;
         }
 
@@ -73,7 +73,7 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
         $player = $playerEvent->getPlayer();
         $delta = $playerEvent->getDelta();
 
-        if (!$playerEvent->isDisplayedRoomLog()) {
+        if (!$playerEvent->isDisplayedRoomLog() || $delta === 0) {
             return;
         }
 

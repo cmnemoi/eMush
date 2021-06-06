@@ -3,13 +3,16 @@
 namespace Mush\Disease\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Disease\Enum\TypeEnum;
 use Mush\Game\Entity\GameConfig;
+use Mush\RoomLog\Entity\LogParameter;
+use Mush\RoomLog\Enum\LogParameterKeyEnum;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="disease_config")
  */
-class DiseaseConfig
+class DiseaseConfig implements LogParameter
 {
     /**
      * @ORM\Id
@@ -27,6 +30,11 @@ class DiseaseConfig
      * @ORM\Column(type="string")
      */
     private string $name;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private string $type = TypeEnum::DISEASE;
 
     /**
      * @ORM\Column(type="integer", nullable=false)
@@ -68,6 +76,18 @@ class DiseaseConfig
         return $this;
     }
 
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): DiseaseConfig
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
     public function getDuration(): int
     {
         return $this->duration;
@@ -90,5 +110,20 @@ class DiseaseConfig
         $this->causes = $causes;
 
         return $this;
+    }
+
+    public function getClassName(): string
+    {
+        return self::class;
+    }
+
+    public function getLogName(): string
+    {
+        return $this->getName();
+    }
+
+    public function getLogKey(): string
+    {
+        return LogParameterKeyEnum::DISEASE;
     }
 }

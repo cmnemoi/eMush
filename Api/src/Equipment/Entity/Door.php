@@ -5,7 +5,9 @@ namespace Mush\Equipment\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Place\Entity\Place;
+use Mush\RoomLog\Enum\LogParameterKeyEnum;
 
 /**
  * Class Door.
@@ -64,5 +66,15 @@ class Door extends GameEquipment
     public function getOtherRoom($currentRoom): Place
     {
         return $this->getRooms()->filter(fn (Place $room) => $room !== $currentRoom)->first();
+    }
+
+    public function getLogName(): string
+    {
+        return EquipmentEnum::DOOR;
+    }
+
+    public function getLogKey(): string
+    {
+        return LogParameterKeyEnum::EQUIPMENT;
     }
 }

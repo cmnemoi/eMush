@@ -35,11 +35,22 @@ class ConsumableDiseaseConfig
      */
     private array $diseasesName = [];
 
+    /**
+     * @ORM\Column(type="array", nullable=false)
+     */
+    private array $curesName = [];
+
     //Store the chance (value) for the disease to appear (key)
     /**
      * @ORM\Column(type="array", nullable=false)
      */
     private array $diseasesChances = [];
+
+    //Store the chance (value) for the disease to appear (key)
+    /**
+     * @ORM\Column(type="array", nullable=false)
+     */
+    private array $curesChances = [];
 
     //Store the min delay (value) for the disease to appear (key)
     /**
@@ -56,16 +67,16 @@ class ConsumableDiseaseConfig
     /**
      * @ORM\Column(type="array", nullable=false)
      */
-    private array $fruitEffectsNumber = [];
+    private array $effectNumber = [];
 
     /**
-     * @ORM\OneToMany(targetEntity="Mush\Disease\Entity\ConsumableDiseaseCharacteristic", mappedBy="consumableDiseaseConfig", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Mush\Disease\Entity\ConsumableDiseaseAttribute", mappedBy="consumableDiseaseConfig", cascade={"persist"})
      */
-    private Collection $diseases;
+    private Collection $consumableAttributes;
 
     public function __construct()
     {
-        $this->diseases = new ArrayCollection();
+        $this->consumableAttributes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -109,6 +120,18 @@ class ConsumableDiseaseConfig
         return $this;
     }
 
+    public function getCuresName(): array
+    {
+        return $this->curesName;
+    }
+
+    public function setCuresName(array $curesName): ConsumableDiseaseConfig
+    {
+        $this->curesName = $curesName;
+
+        return $this;
+    }
+
     public function getDiseasesChances(): array
     {
         return $this->diseasesChances;
@@ -117,6 +140,18 @@ class ConsumableDiseaseConfig
     public function setDiseasesChances(array $diseasesChances): ConsumableDiseaseConfig
     {
         $this->diseasesChances = $diseasesChances;
+
+        return $this;
+    }
+
+    public function getCuresChances(): array
+    {
+        return $this->curesChances;
+    }
+
+    public function setCuresChances(array $curesChances): ConsumableDiseaseConfig
+    {
+        $this->curesChances = $curesChances;
 
         return $this;
     }
@@ -145,34 +180,34 @@ class ConsumableDiseaseConfig
         return $this;
     }
 
-    public function getFruitEffectsNumber(): array
+    public function getEffectNumber(): array
     {
-        return $this->fruitEffectsNumber;
+        return $this->effectNumber;
     }
 
-    public function setFruitEffectsNumber(array $fruitEffectsNumber): ConsumableDiseaseConfig
+    public function setEffectNumber(array $effectNumber): ConsumableDiseaseConfig
     {
-        $this->fruitEffectsNumber = $fruitEffectsNumber;
+        $this->effectNumber = $effectNumber;
 
         return $this;
     }
 
-    public function getDiseases(): Collection
+    public function getAttributes(): Collection
     {
-        return $this->diseases;
+        return $this->consumableAttributes;
     }
 
-    public function setDiseases(Collection $diseases): ConsumableDiseaseConfig
+    public function setAttributes(Collection $diseases): ConsumableDiseaseConfig
     {
-        $this->diseases = $diseases;
+        $this->consumableAttributes = $diseases;
 
         return $this;
     }
 
-    public function addDisease(ConsumableDiseaseCharacteristic $disease): ConsumableDiseaseConfig
+    public function addDisease(ConsumableDiseaseAttribute $disease): ConsumableDiseaseConfig
     {
-        if (!$this->diseases->contains($disease)) {
-            $this->diseases->add($disease);
+        if (!$this->consumableAttributes->contains($disease)) {
+            $this->consumableAttributes->add($disease);
         }
 
         return $this;

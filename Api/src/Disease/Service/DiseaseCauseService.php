@@ -2,7 +2,7 @@
 
 namespace Mush\Disease\Service;
 
-use Mush\Disease\Entity\ConsumableDiseaseCharacteristic;
+use Mush\Disease\Entity\ConsumableDiseaseAttribute;
 use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Service\RandomServiceInterface;
@@ -44,7 +44,7 @@ class DiseaseCauseService implements DiseaseCauseServiceInterface
         $consumableEffect = $this->consumableDiseaseService->findConsumableDiseases($gameEquipment->getName(), $player->getDaedalus());
 
         if ($consumableEffect !== null) {
-            /** @var ConsumableDiseaseCharacteristic $disease */
+            /** @var ConsumableDiseaseAttribute $disease */
             foreach ($consumableEffect->getDiseases() as $disease) {
                 if ($this->randomService->isSuccessful($disease->getRate())) {
                     $this->playerDiseaseService->createDiseaseFromName($disease->getDisease(), $player);

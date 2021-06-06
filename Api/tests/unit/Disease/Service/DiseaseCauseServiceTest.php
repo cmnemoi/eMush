@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Disease\Entity\ConsumableDisease;
-use Mush\Disease\Entity\ConsumableDiseaseCharacteristic;
+use Mush\Disease\Entity\ConsumableDiseaseAttribute;
 use Mush\Disease\Service\ConsumableDiseaseServiceInterface;
 use Mush\Disease\Service\DiseaseCauseService;
 use Mush\Disease\Service\PlayerDiseaseService;
@@ -154,12 +154,12 @@ class DiseaseCauseServiceTest extends TestCase
 
         $this->diseaseCauseService->handleAlienFood($player, $gameEquipment);
 
-        $disease = new ConsumableDiseaseCharacteristic();
+        $disease = new ConsumableDiseaseAttribute();
         $disease->setDisease('disease name');
 
         $consumableDisease = new ConsumableDisease();
         $consumableDisease
-            ->setDiseases(new ArrayCollection([$disease]))
+            ->setDiseasesAttribute(new ArrayCollection([$disease]))
         ;
 
         $this->consumableDiseaseService

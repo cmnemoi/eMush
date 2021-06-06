@@ -7,7 +7,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Disease\Entity\ConsumableDisease;
-use Mush\Disease\Entity\ConsumableDiseaseCharacteristic;
+use Mush\Disease\Entity\ConsumableDiseaseAttribute;
 use Mush\Disease\Entity\ConsumableDiseaseConfig;
 use Mush\Disease\Repository\ConsumableDiseaseConfigRepository;
 use Mush\Disease\Repository\ConsumableDiseaseRepository;
@@ -64,14 +64,14 @@ class ConsumableDiseaseServiceTest extends TestCase
         $daedalus = new Daedalus();
         $daedalus->setGameConfig($gameConfig);
 
-        $disease1 = new ConsumableDiseaseCharacteristic();
+        $disease1 = new ConsumableDiseaseAttribute();
         $disease1->setDisease('Disease 1');
-        $disease2 = new ConsumableDiseaseCharacteristic();
+        $disease2 = new ConsumableDiseaseAttribute();
         $disease2->setDisease('Disease 2');
 
         $diseaseConfig = new ConsumableDiseaseConfig();
         $diseaseConfig
-            ->setDiseases(new ArrayCollection([$disease1, $disease2]))
+            ->setAttributes(new ArrayCollection([$disease1, $disease2]))
         ;
 
         $this->consumableDiseaseConfigRepository
@@ -103,7 +103,7 @@ class ConsumableDiseaseServiceTest extends TestCase
         $daedalus->setGameConfig($gameConfig);
 
         $diseaseConfig = new ConsumableDiseaseConfig();
-        $diseaseConfig->setFruitEffectsNumber([1 => 1]);
+        $diseaseConfig->setEffectNumber([1 => 1]);
 
         $this->consumableDiseaseConfigRepository
             ->shouldReceive('findOneBy')
@@ -152,7 +152,7 @@ class ConsumableDiseaseServiceTest extends TestCase
         $daedalus->setGameConfig($gameConfig);
 
         $diseaseConfig = new ConsumableDiseaseConfig();
-        $diseaseConfig->setFruitEffectsNumber([1 => 1]);
+        $diseaseConfig->setEffectNumber([1 => 1]);
 
         $this->consumableDiseaseConfigRepository
             ->shouldReceive('findOneBy')
@@ -192,7 +192,7 @@ class ConsumableDiseaseServiceTest extends TestCase
 
         $this->assertInstanceOf(ConsumableDisease::class, $consumableDisease);
         $this->assertCount(1, $consumableDisease->getDiseases());
-        /** @var ConsumableDiseaseCharacteristic $disease */
+        /** @var ConsumableDiseaseAttribute $disease */
         $disease = $consumableDisease->getDiseases()->first();
         $this->assertEquals('diseaseName', $disease->getDisease());
         $this->assertEquals(1, $disease->getDelayMin());
@@ -206,7 +206,7 @@ class ConsumableDiseaseServiceTest extends TestCase
         $daedalus->setGameConfig($gameConfig);
 
         $diseaseConfig = new ConsumableDiseaseConfig();
-        $diseaseConfig->setFruitEffectsNumber([1 => 1]);
+        $diseaseConfig->setEffectNumber([1 => 1]);
 
         $this->consumableDiseaseConfigRepository
             ->shouldReceive('findOneBy')
@@ -246,7 +246,7 @@ class ConsumableDiseaseServiceTest extends TestCase
 
         $this->assertInstanceOf(ConsumableDisease::class, $consumableDisease);
         $this->assertCount(1, $consumableDisease->getDiseases());
-        /** @var ConsumableDiseaseCharacteristic $disease */
+        /** @var ConsumableDiseaseAttribute $disease */
         $disease = $consumableDisease->getDiseases()->first();
         $this->assertEquals('diseaseName', $disease->getDisease());
         $this->assertEquals(100, $disease->getRate());

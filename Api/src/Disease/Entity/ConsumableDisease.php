@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Disease\Enum\TypeEnum;
 
 /**
  * @ORM\Entity
@@ -31,13 +32,13 @@ class ConsumableDisease
     private string $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="Mush\Disease\Entity\ConsumableDiseaseCharacteristic", mappedBy="consumableDisease" , cascade="all")
+     * @ORM\OneToMany(targetEntity="Mush\Disease\Entity\ConsumableDiseaseAttribute", mappedBy="consumableDisease" , cascade="all")
      */
-    private Collection $diseases;
+    private Collection $diseaseAttributes;
 
     public function __construct()
     {
-        $this->diseases = new ArrayCollection();
+        $this->diseaseAttributes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -71,20 +72,20 @@ class ConsumableDisease
 
     public function getDiseases(): Collection
     {
-        return $this->diseases;
+        return $this->diseaseAttributes->filter(fn (ConsumableDiseaseAttribute $attribute) => $attribute->getType() === TypeEnum::DISEASE);
     }
 
-    public function setDiseases(Collection $diseases): ConsumableDisease
+    public function setDiseasesAttribute(Collection $diseaseAttributes): ConsumableDisease
     {
-        $this->diseases = $diseases;
+        $this->diseaseAttributes = $diseaseAttributes;
 
         return $this;
     }
 
-    public function addDisease(ConsumableDiseaseCharacteristic $disease): ConsumableDisease
+    public function addDiseaseAttribute(ConsumableDiseaseAttribute $diseaseAttribute): ConsumableDisease
     {
-        if (!$this->diseases->contains($disease)) {
-            $this->diseases->add($disease);
+        if (!$this->diseaseAttributes->contains($diseaseAttribute)) {
+            $this->diseaseAttributes->add($diseaseAttribute);
         }
 
         return $this;

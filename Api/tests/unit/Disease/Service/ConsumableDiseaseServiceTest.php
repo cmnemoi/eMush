@@ -9,6 +9,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Disease\Entity\ConsumableDisease;
 use Mush\Disease\Entity\ConsumableDiseaseAttribute;
 use Mush\Disease\Entity\ConsumableDiseaseConfig;
+use Mush\Disease\Enum\TypeEnum;
 use Mush\Disease\Repository\ConsumableDiseaseConfigRepository;
 use Mush\Disease\Repository\ConsumableDiseaseRepository;
 use Mush\Disease\Service\ConsumableDiseaseService;
@@ -252,5 +253,61 @@ class ConsumableDiseaseServiceTest extends TestCase
         $this->assertEquals(100, $disease->getRate());
         $this->assertEquals(0, $disease->getDelayMin());
         $this->assertEquals(0, $disease->getDelayLength());
+    }
+
+    public function testCreateConsumableCure()
+    {
+        $gameConfig = new GameConfig();
+        $daedalus = new Daedalus();
+        $daedalus->setGameConfig($gameConfig);
+
+        $diseaseConfig = new ConsumableDiseaseConfig();
+        $diseaseConfig->setEffectNumber([1 => 1]);
+        $diseaseConfig->setCuresName(['cure' => 1]);
+
+        $this->consumableDiseaseConfigRepository
+            ->shouldReceive('findOneBy')
+            ->andReturn($diseaseConfig)
+            ->once()
+        ;
+
+        $this->randomService
+            ->shouldReceive('getSingleRandomElementFromProbaArray')
+            ->andReturn(1, 1, 0)
+            ->times(3)
+        ;
+
+        $this->randomService
+            ->shouldReceive('getRandomElements')
+            ->andReturn([1])
+            ->once()
+        ;
+
+        $this->randomService
+            ->shouldReceive('getRandomElementsFromProbaArray')
+            ->andReturn(['diseaseName'])
+            ->once()
+        ;
+
+        $this->entityManager
+            ->shouldReceive('persist')
+            ->twice()
+        ;
+
+        $this->entityManager
+            ->shouldReceive('flush')
+            ->once()
+        ;
+
+        $consumableDisease = $this->consumableDiseaseService->createConsumableDiseases('name', $daedalus);
+
+        $this->assertInstanceOf(ConsumableDisease::class, $consumableDisease);
+        $this->assertCount(1, $consumableDisease->getCures());
+        /** @var ConsumableDiseaseAttribute $cure */
+        $cure = $consumableDisease->getCures()->first();
+        $this->assertEquals('diseaseName', $cure->getDisease());
+        $this->assertEquals(TypeEnum::CURE, $cure->getType());
+        $this->assertEquals(0, $cure->getDelayMin());
+        $this->assertEquals(0, $cure->getDelayLength());
     }
 }

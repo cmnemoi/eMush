@@ -9,6 +9,7 @@ use Mush\Disease\Entity\ConsumableDisease;
 use Mush\Disease\Entity\ConsumableDiseaseAttribute;
 use Mush\Disease\Entity\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
+use Mush\Disease\Enum\TypeEnum;
 use Mush\Disease\Service\ConsumableDiseaseServiceInterface;
 use Mush\Disease\Service\DiseaseCauseService;
 use Mush\Disease\Service\PlayerDiseaseService;
@@ -144,7 +145,7 @@ class DiseaseCauseServiceTest extends TestCase
         $this->diseaseCauseService->handleSpoiledFood($player, $gameEquipment);
     }
 
-    public function testConsummable()
+    public function testConsumableWithDiseases()
     {
         $daedalus = new Daedalus();
 
@@ -201,6 +202,71 @@ class DiseaseCauseServiceTest extends TestCase
         $this->playerDiseaseService
             ->shouldReceive('createDiseaseFromName')
             ->andReturn($playerDisease)
+            ->once()
+        ;
+
+        $this->diseaseCauseService->handleConsumable($player, $gameEquipment);
+    }
+
+    public function testConsumableWithCures()
+    {
+        $daedalus = new Daedalus();
+
+        $player = new Player();
+        $player->setDaedalus($daedalus);
+
+        $diseaseName = 'someName';
+        $gameEquipment = new GameEquipment();
+        $gameEquipment->setName($diseaseName);
+
+        $this->consumableDiseaseService
+            ->shouldReceive('findConsumableDiseases')
+            ->andReturn(null)
+            ->once()
+        ;
+
+        $this->diseaseCauseService->handleConsumable($player, $gameEquipment);
+
+        $cure = new ConsumableDiseaseAttribute();
+        $cure
+            ->setType(TypeEnum::CURE)
+            ->setDisease($diseaseName)
+        ;
+
+        $consumableDisease = new ConsumableDisease();
+        $consumableDisease
+            ->setDiseasesAttribute(new ArrayCollection([$cure]))
+        ;
+
+        $this->consumableDiseaseService
+            ->shouldReceive('findConsumableDiseases')
+            ->andReturn($consumableDisease)
+            ->twice()
+        ;
+
+        $this->diseaseCauseService->handleConsumable($player, $gameEquipment);
+
+        $this->randomService
+            ->shouldReceive('isSuccessful')
+            ->andReturn(true)
+            ->once()
+        ;
+
+        $diseaseConfig = new DiseaseConfig();
+        $diseaseConfig->setName($diseaseName);
+
+        $playerDisease = new PlayerDisease();
+        $playerDisease
+            ->setPlayer($player)
+            ->setDiseaseConfig($diseaseConfig)
+        ;
+
+        $player->addDisease($playerDisease);
+
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
+
+        $this->playerDiseaseService
+            ->shouldReceive('delete')
             ->once()
         ;
 

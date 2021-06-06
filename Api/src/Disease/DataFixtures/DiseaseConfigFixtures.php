@@ -32,7 +32,7 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
         $acidReflux->setName(DiseaseEnum::ACID_REFLUX);
         $acidReflux->setCauses([]);
 
-        $manager->persist($foodPoisoning);
+        $manager->persist($acidReflux);
 
         $blackBite = new DiseaseConfig();
         $blackBite->setGameConfig($gameConfig);
@@ -67,7 +67,7 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
         $flu->setName(DiseaseEnum::FLU);
         $flu->setCauses([]);
 
-        $manager->persist($foodPoisoning);
+        $manager->persist($flu);
 
         $fungicInfection = new DiseaseConfig();
         $fungicInfection->setGameConfig($gameConfig);
@@ -88,7 +88,7 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
         $junkbumpkinitis->setName(DiseaseEnum::JUNKBUMPKINITIS);
         $junkbumpkinitis->setCauses([]);
 
-        $manager->persist($foodPoisoning);
+        $manager->persist($junkbumpkinitis);
 
         $migraine = new DiseaseConfig();
         $migraine->setGameConfig($gameConfig);

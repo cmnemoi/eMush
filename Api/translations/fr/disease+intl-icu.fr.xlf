@@ -51,7 +51,7 @@
                 <target>Relativement bénin mais persistant, la Morsure Noire est un syndrome récent que personne ne connaît.</target>
             </segment>
         </unit>
-        <unit id="tapeworm">
+        <unit id="cat_allergy">
             <segment id="name">
                 <source>cat_allergy.name</source>
                 <target>Allergie au chat</target>

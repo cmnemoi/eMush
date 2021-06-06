@@ -9,5 +9,5 @@ interface DiseaseCauseServiceInterface
 {
     public function handleSpoiledFood(Player $player, GameEquipment $gameEquipment): void;
 
-    public function handleAlienFood(Player $player, GameEquipment $gameEquipment): void;
+    public function handleConsumable(Player $player, GameEquipment $gameEquipment): void;
 }

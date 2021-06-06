@@ -33,6 +33,14 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         return $playerDisease;
     }
 
+    public function delete(PlayerDisease $playerDisease): bool
+    {
+        $this->entityManager->remove($playerDisease);
+        $this->entityManager->flush();
+
+        return true;
+    }
+
     public function createDiseaseFromName(string $diseaseName, Player $player): PlayerDisease
     {
         /** @var DiseaseConfig $diseaseConfig */

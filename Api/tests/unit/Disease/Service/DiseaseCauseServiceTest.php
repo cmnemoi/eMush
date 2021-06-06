@@ -7,6 +7,8 @@ use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Disease\Entity\ConsumableDisease;
 use Mush\Disease\Entity\ConsumableDiseaseAttribute;
+use Mush\Disease\Entity\DiseaseConfig;
+use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Service\ConsumableDiseaseServiceInterface;
 use Mush\Disease\Service\DiseaseCauseService;
 use Mush\Disease\Service\PlayerDiseaseService;
@@ -16,6 +18,7 @@ use Mush\Player\Entity\Player;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class DiseaseCauseServiceTest extends TestCase
 {
@@ -30,6 +33,9 @@ class DiseaseCauseServiceTest extends TestCase
     /** @var ConsumableDiseaseServiceInterface | Mockery\Mock */
     private ConsumableDiseaseServiceInterface $consumableDiseaseService;
 
+    /** @var EventDispatcherInterface | Mockery\Mock */
+    private EventDispatcherInterface $eventDispatcher;
+
     /**
      * @before
      */
@@ -38,11 +44,13 @@ class DiseaseCauseServiceTest extends TestCase
         $this->playerDiseaseService = Mockery::mock(PlayerDiseaseService::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
         $this->consumableDiseaseService = Mockery::mock(ConsumableDiseaseServiceInterface::class);
+        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
 
         $this->diseaseCauseService = new DiseaseCauseService(
             $this->playerDiseaseService,
             $this->randomService,
-            $this->consumableDiseaseService
+            $this->consumableDiseaseService,
+            $this->eventDispatcher
         );
     }
 
@@ -136,7 +144,7 @@ class DiseaseCauseServiceTest extends TestCase
         $this->diseaseCauseService->handleSpoiledFood($player, $gameEquipment);
     }
 
-    public function testAlienFood()
+    public function testConsummable()
     {
         $daedalus = new Daedalus();
 
@@ -152,7 +160,7 @@ class DiseaseCauseServiceTest extends TestCase
             ->once()
         ;
 
-        $this->diseaseCauseService->handleAlienFood($player, $gameEquipment);
+        $this->diseaseCauseService->handleConsumable($player, $gameEquipment);
 
         $disease = new ConsumableDiseaseAttribute();
         $disease->setDisease('disease name');
@@ -174,7 +182,7 @@ class DiseaseCauseServiceTest extends TestCase
             ->once()
         ;
 
-        $this->diseaseCauseService->handleAlienFood($player, $gameEquipment);
+        $this->diseaseCauseService->handleConsumable($player, $gameEquipment);
 
         $this->randomService
             ->shouldReceive('isSuccessful')
@@ -182,11 +190,20 @@ class DiseaseCauseServiceTest extends TestCase
             ->once()
         ;
 
+        $playerDisease = new PlayerDisease();
+        $playerDisease
+            ->setPlayer($player)
+            ->setDiseaseConfig(new DiseaseConfig())
+        ;
+
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
+
         $this->playerDiseaseService
             ->shouldReceive('createDiseaseFromName')
+            ->andReturn($playerDisease)
             ->once()
         ;
 
-        $this->diseaseCauseService->handleAlienFood($player, $gameEquipment);
+        $this->diseaseCauseService->handleConsumable($player, $gameEquipment);
     }
 }

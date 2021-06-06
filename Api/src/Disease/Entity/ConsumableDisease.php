@@ -75,6 +75,11 @@ class ConsumableDisease
         return $this->diseaseAttributes->filter(fn (ConsumableDiseaseAttribute $attribute) => $attribute->getType() === TypeEnum::DISEASE);
     }
 
+    public function getCures(): Collection
+    {
+        return $this->diseaseAttributes->filter(fn (ConsumableDiseaseAttribute $attribute) => $attribute->getType() === TypeEnum::CURE);
+    }
+
     public function setDiseasesAttribute(Collection $diseaseAttributes): ConsumableDisease
     {
         $this->diseaseAttributes = $diseaseAttributes;

@@ -25,59 +25,62 @@ class TranslationService implements TranslationServiceInterface
     {
         $params = [];
         foreach ($parameters as $key => $element) {
-            $params = array_merge($params, $this->getTranslateParameter($key, $element));
+            $params = array_merge($params, $this->getFrenchTranslateParameter($key, $element));
         }
 
         return $params;
     }
 
-    private function getTranslateParameter(string $key, string $element): array
+    private function getFrenchTranslateParameter(string $key, string $element): array
     {
-        $params = [];
         switch ($key) {
             case 'player':
-                $params['player'] = $this->translator->trans($element . '.name', [], 'characters');
-                $params['character_gender'] = (CharacterEnum::isMale($element) ? 'male' : 'female');
-                break;
+                return [
+                    'player' => $this->translator->trans($element . '.name', [], 'characters'),
+                    'character_gender' => (CharacterEnum::isMale($element) ? 'male' : 'female'),
+                ];
+
+            case 'targetPlayer':
+                return [
+                    'target_player' => $this->translator->trans($element . '.name', [], 'characters'),
+                    'target_player_gender' => (CharacterEnum::isMale($element) ? 'male' : 'female'),
+                ];
+
             case 'cause':
-                $params['cause'] = $this->translator->trans($element . '.name', [], 'end_cause');
-                break;
+                return ['cause' => $this->translator->trans($element . '.name', [], 'end_cause')];
+
             case 'targetEquipment':
                 $domain = 'equipments';
 
-                $params['target'] = $this->translator->trans($element . '.short_name', [], $domain);
-                $params['target_gender'] = $this->translator->trans($element . '.genre', [], $domain);
-                $params['target_first_letter'] = $this->translator->trans($element . '.first_Letter', [], $domain);
-                $params['target_plural'] = $this->translator->trans($element . '.plural_name', [], $domain);
-                break;
+                return $this->getFrenchEquipmentTranslateParameter($element, $domain);
 
             case 'targetItem':
                 $domain = 'items';
 
-                $params['target'] = $this->translator->trans($element . '.short_name', [], $domain);
-                $params['target_gender'] = $this->translator->trans($element . '.genre', [], $domain);
-                $params['target_first_letter'] = $this->translator->trans($element . '.first_Letter', [], $domain);
-                $params['target_plural'] = $this->translator->trans($element . '.plural_name', [], $domain);
-                break;
-
-            case 'targetPlayer':
-                $params['target_player'] = $this->translator->trans($element . '.name', [], 'characters');
-                $params['target_player_gender'] = (CharacterEnum::isMale($element) ? 'male' : 'female');
-                break;
+                return $this->getFrenchEquipmentTranslateParameter($element, $domain);
 
             case 'title':
-                $params['title'] = $this->translator->trans($element . '.name', [], 'status');
+                return ['title' => $this->translator->trans($element . '.name', [], 'status')];
                 break;
 
             case 'place':
-                $params['place'] = $this->translator->trans($element . '.name', [], 'rooms');
-                $params['loc_prep'] = $this->translator->trans($element . '.loc_prep', [], 'rooms');
-                break;
+                return [
+                    'place' => $this->translator->trans($element . '.name', [], 'rooms'),
+                    'loc_prep' => $this->translator->trans($element . '.loc_prep', [], 'rooms'),
+                ];
 
             default:
-                $params[$key] = $element;
-                break;
+                return [$key => $element];
         }
+    }
+
+    private function getFrenchEquipmentTranslateParameter(string $element, string $domain): array
+    {
+        $params = [];
+        $params['target'] = $this->translator->trans($element . '.short_name', [], $domain);
+        $params['target_gender'] = $this->translator->trans($element . '.genre', [], $domain);
+        $params['target_first_letter'] = $this->translator->trans($element . '.first_Letter', [], $domain);
+        $params['target_plural'] = $this->translator->trans($element . '.plural_name', [], $domain);
 
         return $params;
     }

@@ -58,26 +58,6 @@ class ConsumableEffect
     /**
      * @ORM\Column(type="array", nullable=false)
      */
-    private array $cures = [];
-
-    /**
-     * @ORM\Column(type="array", nullable=false)
-     */
-    private array $diseasesChance = [];
-
-    /**
-     * @ORM\Column(type="array", nullable=false)
-     */
-    private array $diseasesDelayMin = [];
-
-    /**
-     * @ORM\Column(type="array", nullable=false)
-     */
-    private array $diseasesDelayLength = [];
-
-    /**
-     * @ORM\Column(type="array", nullable=false)
-     */
     private array $extraEffects = [];
 
     public function getId(): int
@@ -186,66 +166,6 @@ class ConsumableEffect
     public function setSatiety(?int $satiety): ConsumableEffect
     {
         $this->satiety = $satiety;
-
-        return $this;
-    }
-
-    public function getCures(): array
-    {
-        return $this->cures;
-    }
-
-    /**
-     * @return static
-     */
-    public function setCures(array $cures): ConsumableEffect
-    {
-        $this->cures = $cures;
-
-        return $this;
-    }
-
-    public function getDiseasesChance(): array
-    {
-        return $this->diseasesChance;
-    }
-
-    /**
-     * @return static
-     */
-    public function setDiseasesChance(array $diseasesChance): ConsumableEffect
-    {
-        $this->diseasesChance = $diseasesChance;
-
-        return $this;
-    }
-
-    public function getDiseasesDelayMin(): array
-    {
-        return $this->diseasesDelayMin;
-    }
-
-    /**
-     * @return static
-     */
-    public function setDiseasesDelayMin(array $diseasesDelayMin): ConsumableEffect
-    {
-        $this->diseasesDelayMin = $diseasesDelayMin;
-
-        return $this;
-    }
-
-    public function getDiseasesDelayLength(): array
-    {
-        return $this->diseasesDelayLength;
-    }
-
-    /**
-     * @return static
-     */
-    public function setDiseasesDelayLength(array $diseasesDelayLength): ConsumableEffect
-    {
-        $this->diseasesDelayLength = $diseasesDelayLength;
 
         return $this;
     }

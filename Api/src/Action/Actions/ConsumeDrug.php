@@ -7,13 +7,12 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Action\Event\ConsumeEvent;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\Status;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Drug;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
-use Mush\Equipment\Event\EquipmentEvent;
-use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
@@ -34,15 +33,13 @@ class ConsumeDrug extends Consume
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         PlayerServiceInterface $playerService,
-        EquipmentEffectServiceInterface $equipmentServiceEffect,
         StatusServiceInterface $statusService
     ) {
         parent::__construct(
             $eventDispatcher,
             $actionService,
             $validator,
-            $playerService,
-            $equipmentServiceEffect,
+            $playerService
         );
         $this->statusService = $statusService;
     }
@@ -75,11 +72,10 @@ class ConsumeDrug extends Consume
             throw new \Exception('Cannot consume this equipment');
         }
 
-        // @TODO add disease, cures and extra effects
-        $equipmentEffect = $this->equipmentServiceEffect->getConsumableEffect($drugMechanic, $this->player->getDaedalus());
+        $consumeEquipment = new ConsumeEvent($this->player, $parameter);
+        $this->eventDispatcher->dispatch($consumeEquipment, ConsumeEvent::CONSUME);
 
         if (!$this->player->isMush()) {
-            $this->dispatchConsumableEffects($equipmentEffect);
             $this->statusService
                 ->createChargeStatus(
                     PlayerStatusEnum::DRUG_EATEN,
@@ -92,15 +88,9 @@ class ConsumeDrug extends Consume
                     0,
                     true
                 );
-        } else {
-            $this->dispatchMushEffect();
         }
 
         $this->playerService->persist($this->player);
-
-        // if no charges consume equipment
-        $equipmentEvent = new EquipmentEvent($parameter, VisibilityEnum::HIDDEN, new \DateTime());
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         return new Success();
     }

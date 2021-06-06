@@ -1,10 +1,10 @@
 <?php
 
-namespace Mush\Equipment\Event;
+namespace Mush\Equipment\Listener;
 
 use Mush\Equipment\Entity\EquipmentMechanic;
+use Mush\Equipment\Event\EquipmentCycleEvent;
 use Mush\Equipment\Service\EquipmentCycleHandlerServiceInterface;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Status\Entity\Status;
 use Mush\Status\Event\StatusCycleEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -14,14 +14,11 @@ class EquipmentCycleSubscriber implements EventSubscriberInterface
 {
     private EventDispatcherInterface $eventDispatcher;
     private EquipmentCycleHandlerServiceInterface $equipmentCycleHandler;
-    private GameEquipmentServiceInterface $gameEquipmentService;
 
     public function __construct(
-        GameEquipmentServiceInterface $gameEquipmentService,
         EquipmentCycleHandlerServiceInterface $equipmentCycleHandler,
         EventDispatcherInterface $eventDispatcher
     ) {
-        $this->gameEquipmentService = $gameEquipmentService;
         $this->eventDispatcher = $eventDispatcher;
         $this->equipmentCycleHandler = $equipmentCycleHandler;
     }

@@ -9,5 +9,7 @@ interface PlayerDiseaseServiceInterface
 {
     public function persist(PlayerDisease $playerDisease): PlayerDisease;
 
+    public function createDiseaseFromName(string $diseaseName, Player $player): PlayerDisease;
+
     public function handleDiseaseForCause(string $cause, Player $player): void;
 }

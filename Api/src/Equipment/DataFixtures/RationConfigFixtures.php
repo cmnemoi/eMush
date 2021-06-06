@@ -14,7 +14,6 @@ use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
-use Mush\Status\Enum\DiseaseEnum;
 
 class RationConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -91,15 +90,6 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setHealthPoints([0 => 1])
             ->setMoralPoints([-1 => 1])
             ->setSatiety(4)
-            ->setDiseasesChances([
-                DiseaseEnum::ACID_REFLUX => 50,
-                DiseaseEnum::TAPEWORM => 25, ])
-            ->setDiseasesDelayMin([
-                DiseaseEnum::ACID_REFLUX => 4,
-                DiseaseEnum::TAPEWORM => 4, ])
-             ->setDiseasesDelayLength([
-                DiseaseEnum::ACID_REFLUX => 4,
-                DiseaseEnum::TAPEWORM => 4, ])
             ->addAction($consumeRationAction)
         ;
 
@@ -274,9 +264,6 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setHealthPoints([0 => 1])
             ->setMoralPoints([0 => 1])
             ->setSatiety(6)
-            ->setDiseasesChances([DiseaseEnum::SLIGHT_NAUSEA => 55])
-            ->setDiseasesDelayMin([DiseaseEnum::SLIGHT_NAUSEA => 0])
-            ->setDiseasesDelayLength([DiseaseEnum::SLIGHT_NAUSEA => 0])
             ->setIsPerishable(false)
             ->addAction($consumeRationAction)
         ;

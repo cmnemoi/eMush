@@ -1,11 +1,12 @@
 <?php
 
-namespace Mush\Equipment\Event;
+namespace Mush\Equipment\Listener;
 
 use Error;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\RoomLog\Enum\LogEnum;
@@ -13,7 +14,6 @@ use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class EquipmentSubscriber implements EventSubscriberInterface
@@ -21,18 +21,15 @@ class EquipmentSubscriber implements EventSubscriberInterface
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
     private RoomLogServiceInterface $roomLogService;
-    private EventDispatcherInterface $eventDispatcher;
 
     public function __construct(
         GameEquipmentServiceInterface $gameEquipmentService,
         StatusServiceInterface $statusService,
-        RoomLogServiceInterface $roomLogService,
-        EventDispatcherInterface $eventDispatcher
+        RoomLogServiceInterface $roomLogService
     ) {
         $this->gameEquipmentService = $gameEquipmentService;
         $this->statusService = $statusService;
         $this->roomLogService = $roomLogService;
-        $this->eventDispatcher = $eventDispatcher;
     }
 
     public static function getSubscribedEvents(): array

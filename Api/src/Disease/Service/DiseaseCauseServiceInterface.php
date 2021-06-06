@@ -8,4 +8,6 @@ use Mush\Player\Entity\Player;
 interface DiseaseCauseServiceInterface
 {
     public function handleSpoiledFood(Player $player, GameEquipment $gameEquipment): void;
+
+    public function handleAlienFood(Player $player, GameEquipment $gameEquipment): void;
 }

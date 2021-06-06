@@ -6,8 +6,10 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Disease\Entity\DiseaseConfig;
+use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Repository\DiseaseConfigRepository;
 use Mush\Disease\Service\PlayerDiseaseService;
+use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use PHPUnit\Framework\TestCase;
@@ -47,6 +49,31 @@ class PlayerDiseaseServiceTest extends TestCase
     public function after()
     {
         Mockery::close();
+    }
+
+    public function testCreateDiseaseFromName()
+    {
+        $gameConfig = new GameConfig();
+        $daedalus = new Daedalus();
+        $daedalus->setGameConfig($gameConfig);
+        $player = new Player();
+        $player->setDaedalus($daedalus);
+
+        $diseaseConfig = new DiseaseConfig();
+
+        $this->entityManager->shouldReceive(['persist' => null, 'flush' => null]);
+
+        $this->diseaseConfigRepository
+            ->shouldReceive('findOneBy')
+            ->andReturn($diseaseConfig)
+            ->once()
+        ;
+
+        $disease = $this->playerDiseaseService->createDiseaseFromName('name', $player);
+
+        $this->assertInstanceOf(PlayerDisease::class, $disease);
+        $this->assertEquals($diseaseConfig, $disease->getDiseaseConfig());
+        $this->assertEquals($player, $disease->getPlayer());
     }
 
     public function testHandleDiseaseForCause()

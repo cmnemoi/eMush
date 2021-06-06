@@ -12,7 +12,6 @@ use Mush\Equipment\Entity\ConsumableEffect;
 use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Ration;
-use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
 
@@ -20,9 +19,6 @@ class ConsumeActionTest extends AbstractActionTest
 {
     /** @var PlayerServiceInterface | Mockery\Mock */
     private PlayerServiceInterface $playerService;
-
-    /** @var EquipmentEffectServiceInterface | Mockery\Mock */
-    private EquipmentEffectServiceInterface $equipmentEffectService;
 
     /**
      * @before
@@ -32,7 +28,6 @@ class ConsumeActionTest extends AbstractActionTest
         parent::before();
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::HEAL);
-        $this->equipmentEffectService = Mockery::mock(EquipmentEffectServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
 
         $this->action = new Consume(
@@ -40,7 +35,6 @@ class ConsumeActionTest extends AbstractActionTest
             $this->actionService,
             $this->validator,
             $this->playerService,
-            $this->equipmentEffectService
         );
     }
 
@@ -86,14 +80,6 @@ class ConsumeActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $gameEquipment);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-
-        $this->equipmentEffectService->shouldReceive('getConsumableEffect')
-            ->with($ration, $daedalus)
-            ->andReturn($effect)
-            ->once()
-        ;
-
-        $this->eventDispatcher->shouldReceive('dispatch')->times(5);
 
         $result = $this->action->execute();
 

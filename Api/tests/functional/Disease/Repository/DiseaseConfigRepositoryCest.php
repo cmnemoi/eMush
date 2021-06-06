@@ -6,9 +6,9 @@ use App\Tests\FunctionalTester;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Disease\Entity\DiseaseConfig;
 use Mush\Disease\Enum\DiseaseCauseEnum;
+use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Disease\Repository\DiseaseConfigRepository;
 use Mush\Game\Entity\GameConfig;
-use Mush\Status\Enum\DiseaseEnum;
 
 class DiseaseConfigRepositoryCest
 {

@@ -392,5 +392,15 @@
                 <target>Vous savez écouter votre prochain, ce qui lui remonte le moral.</target>
             </segment>
         </unit>
+        <unit id="open">
+            <segment id="name">
+                <source>open.name</source>
+                <target>Ouvrir</target>
+            </segment>
+            <segment id="description">
+                <source>open.description</source>
+                <target>L'ouverture de capsule spatiale est un art délicat et plein de surprise. Pire, dans certains systèmes, l'ouverture délicate de ces précieux oeufs est considéré comme une drogue dure et peu vous faire rejeter au ban de la société.</target>
+            </segment>
+        </unit>
     </file>
 </xliff>

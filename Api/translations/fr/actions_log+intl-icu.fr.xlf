@@ -607,8 +607,6 @@
                 <target>Vous n'avez pas réussi à éteindre l'incendie...</target>
             </segment>
         </unit>
-
-
         <unit id="comfort_success">
             <segment id="comfort_success">
                 <source>comfort_success</source>
@@ -636,6 +634,16 @@
                     other {invalid gender input}
                 }
                 </target>
+            </segment>
+        </unit>
+        <unit id="open_success">
+            <segment id="open_success">
+                <source>open_success</source>
+                <target>{target_gender, select,
+                    male {**{player}** a trouvé un **{target}** dans une Capsule Spatiale.}
+                    female {**{player}** a trouvé une **{target}** dans une Capsule Spatiale.}
+                    other {invalid gender input}
+                }</target>
             </segment>
         </unit>
     </file>

@@ -27,6 +27,6 @@ class ConsumeSubscriber implements EventSubscriberInterface
         $equipment = $event->getGameItem();
 
         $this->diseaseCauseService->handleSpoiledFood($event->getPlayer(), $equipment);
-        $this->diseaseCauseService->handleAlienFood($event->getPlayer(), $equipment);
+        $this->diseaseCauseService->handleConsumable($event->getPlayer(), $equipment);
     }
 }

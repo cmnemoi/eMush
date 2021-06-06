@@ -8,8 +8,6 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\Entity\Action;
-use Mush\Disease\Enum\DiseaseEnum;
-use Mush\Disease\Enum\DisorderEnum;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Drug;
 use Mush\Equipment\Enum\GameDrugEnum;
@@ -39,21 +37,6 @@ class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setMoralPoints([0 => 97, -2 => 1, 1 => 1, 3 => 1])
             ->setActionPoints([0 => 98, 1 => 1, 3 => 1])
             ->setMovementPoints([0 => 98, 2 => 1, 4 => 1])
-            ->setCures([
-                DiseaseEnum::VITAMIN_DEFICIENCY => 100,
-                DiseaseEnum::SYPHILIS => 100,
-                DiseaseEnum::SKIN_INFLAMMATION => 100,
-                DiseaseEnum::GASTROENTERIS => 100,
-                DiseaseEnum::FLU => 100,
-                DiseaseEnum::SEPSIS => 100,
-                DiseaseEnum::COLD => 100,
-                DiseaseEnum::RUBELLA => 100,
-                DiseaseEnum::SINUS_STORM => 100,
-                DiseaseEnum::TAPEWORM => 100,
-                DisorderEnum::PARANOIA => 100,
-                DisorderEnum::DEPRESSION => 100,
-                DisorderEnum::CHRONIC_MIGRAINE => 100, ])
-            ->setDrugEffectsNumber([1 => 60, 2 => 30, 3 => 8, 4 => 1])
             ->addAction($consumeDrugAction)
         ;
 

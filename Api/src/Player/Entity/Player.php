@@ -307,6 +307,13 @@ class Player implements StatusHolderInterface, ActionParameter, LogParameter
         return $this->diseases;
     }
 
+    public function getDiseaseByName(string $diseaseName): ?PlayerDisease
+    {
+        $disease = $this->diseases->filter(fn (PlayerDisease $playerDisease) => ($playerDisease->getDiseaseConfig()->getName() === $diseaseName));
+
+        return $disease->isEmpty() ? null : $disease->first();
+    }
+
     public function setDiseases(Collection $diseases): Player
     {
         $this->diseases = $diseases;

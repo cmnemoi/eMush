@@ -44,12 +44,12 @@ class ConsumableDiseaseAttribute
     private int $delayLength = 0;
 
     /**
-     * @ORM\ManyToOne (targetEntity="Mush\Disease\Entity\Consumabledisease", inversedBy="diseases")
+     * @ORM\ManyToOne (targetEntity="Mush\Disease\Entity\Consumabledisease", inversedBy="diseaseAttributes")
      */
     private ConsumableDisease $consumableDisease;
 
     /**
-     * @ORM\ManyToOne (targetEntity="Mush\Disease\Entity\ConsumableDiseaseConfig", inversedBy="diseases")
+     * @ORM\ManyToOne (targetEntity="Mush\Disease\Entity\ConsumableDiseaseConfig", inversedBy="consumableAttributes")
      */
     private ConsumableDiseaseConfig $consumableDiseaseConfig;
 

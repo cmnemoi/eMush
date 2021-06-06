@@ -45,12 +45,12 @@ class Status
     protected string $visibility = VisibilityEnum::PUBLIC;
 
     /**
-     * @ORM\OneToOne(targetEntity="Mush\Status\Entity\StatusTarget", cascade="ALL", inversedBy="owner")
+     * @ORM\OneToOne(targetEntity="Mush\Status\Entity\StatusTarget", cascade={"ALL"}, inversedBy="owner")
      */
     protected ?StatusTarget $owner;
 
     /**
-     * @ORM\OneToOne(targetEntity="Mush\Status\Entity\StatusTarget", cascade="ALL", inversedBy="target")
+     * @ORM\OneToOne(targetEntity="Mush\Status\Entity\StatusTarget", cascade={"ALL"}, inversedBy="target")
      */
     protected ?StatusTarget $target = null;
 

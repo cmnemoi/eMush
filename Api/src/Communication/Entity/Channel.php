@@ -41,7 +41,7 @@ class Channel
     private Collection $participants;
 
     /**
-     * @ORM\OneToMany  (targetEntity="Mush\Communication\Entity\Message", mappedBy="channel", cascade="remove")
+     * @ORM\OneToMany  (targetEntity="Mush\Communication\Entity\Message", mappedBy="channel", cascade={"remove"})
      */
     private Collection $messages;
 

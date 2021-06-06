@@ -21,7 +21,7 @@ class AlertElement
     private ?int $id = null;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Mush\Alert\Entity\Alert")
+     * @ORM\ManyToOne(targetEntity="Mush\Alert\Entity\Alert", inversedBy="alertElements")
      */
     private Alert $alert;
 

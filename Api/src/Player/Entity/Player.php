@@ -73,7 +73,7 @@ class Player implements StatusHolderInterface, ActionParameter, LogParameter
     private Collection $items;
 
     /**
-     * @ORM\OneToMany (targetEntity="Mush\Status\Entity\StatusTarget", mappedBy="player", cascade="ALL", orphanRemoval=true)
+     * @ORM\OneToMany (targetEntity="Mush\Status\Entity\StatusTarget", mappedBy="player", cascade={"ALL"}, orphanRemoval=true)
      */
     private Collection $statuses;
 

@@ -10,6 +10,10 @@
                 <source>door_broken.description</source>
                 <target>Contactez un technicien ou mettez-vous au boulot !</target>
             </segment>
+            <segment id="report">
+                <source>door_broken.report</source>
+                <target>{character} a reporté une porte bloquée {loc_prep}{place}.</target>
+            </segment>
         </unit>
 
         <unit id="fire">
@@ -21,6 +25,10 @@
                 <source>fire.description</source>
                 <target>Prévenez une personne responsable ou attrapez un extincteur !</target>
             </segment>
+            <segment id="report">
+                <source>door_broken.report</source>
+                <target>{character} a reporté un incendie {loc_prep}{place}.</target>
+            </segment>
         </unit>
 
         <unit id="equipment_broken">
@@ -31,6 +39,10 @@
             <segment id="description">
                 <source>equipment_broken.description</source>
                 <target>Contactez un technicien ou mettez-vous au boulot !</target>
+            </segment>
+            <segment id="report">
+                <source>door_broken.report</source>
+                <target>{character} a reporté un équipement endomagé {loc_prep}{place}.</target>
             </segment>
         </unit>
 
@@ -82,11 +94,11 @@
         <unit id="low_hull">
             <segment id="name">
                 <source>low_hull.name</source>
-                <target>{quantity, plural, one { TODO.low_hull.name.singular } other { TODO.low_hull.name.plural }}</target>
+                <target>{quantity}% d'armure</target>
             </segment>
             <segment id="description">
                 <source>low_hull.description</source>
-                <target>TODO.low_hull.description</target>
+                <target>La structure du vaisseau est mal en point. Contactez un technicien ou mettez vous au boulot !</target>
             </segment>
         </unit>
 

@@ -5,8 +5,8 @@
             <segment>
                 <source>awaken</source>
                 <target>{character_gender, select,
-                    male {**{player}** s'est éveillé de son si doux sommeil.}
-                    female {**{player}** s'est éveillée de son si doux sommeil.}
+                    male {**{character}** s'est éveillé de son si doux sommeil.}
+                    female {**{character}** s'est éveillée de son si doux sommeil.}
                     other {invalid gender input}
                 }</target>
             </segment>
@@ -57,8 +57,8 @@
             <segment>
                 <source>object_felt</source>
                 <target>{target_gender, select,
-                        male {Étrange, **{player}** a fait tomber un **{target}**.}
-                        female {Étrange, **{player}** a fait tomber une **{target}**.}
+                        male {Étrange, **{character}** a fait tomber un **{target}**.}
+                        female {Étrange, **{character}** a fait tomber une **{target}**.}
                         other {invalid gender input}
                 }</target>
             </segment>
@@ -101,8 +101,8 @@
             <segment>
                 <source>metal_plate</source>
                 <target>{character_gender, select,
-                    male {Un tremblement soudain projette une grosse plaque de métal sur **{player}**. Il est grièvement blessé !}
-                    female {Un tremblement soudain projette une grosse plaque de métal sur **{player}**. Elle est grièvement blessée !}
+                    male {Un tremblement soudain projette une grosse plaque de métal sur **{character}**. Il est grièvement blessé !}
+                    female {Un tremblement soudain projette une grosse plaque de métal sur **{character}**. Elle est grièvement blessée !}
                     other {invalid gender input}
                 }</target>
             </segment>
@@ -205,8 +205,8 @@
             <segment>
                 <source>force_get_up</source>
                 <target>{character_gender, select,
-                    male {**{player}** est violemment tiré de son lit.}
-                    female {**{player}** est violemment tirée de son lit.}
+                    male {**{character}** est violemment tiré de son lit.}
+                    female {**{character}** est violemment tirée de son lit.}
                     other {invalid gender input}
                 }
                 </target>

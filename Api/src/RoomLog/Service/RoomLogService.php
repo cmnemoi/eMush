@@ -131,7 +131,7 @@ class RoomLogService implements RoomLogServiceInterface
         $params = [];
 
         if ($player !== null) {
-            $params['player'] = $player->getCharacterConfig()->getName();
+            $params['character'] = $player->getCharacterConfig()->getName();
         }
 
         if ($target instanceof GameEquipment) {
@@ -145,7 +145,7 @@ class RoomLogService implements RoomLogServiceInterface
         }
 
         if ($target instanceof Player) {
-            $params['targetPlayer'] = $target->getCharacterConfig()->getName();
+            $params['target_character'] = $target->getCharacterConfig()->getName();
         }
 
         if ($quantity !== null) {

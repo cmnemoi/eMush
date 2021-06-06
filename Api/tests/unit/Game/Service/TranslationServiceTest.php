@@ -58,11 +58,11 @@ class TranslationServiceTest extends TestCase
         ;
 
         $this->translator->shouldReceive('trans')
-            ->with('key', ['player' => 'Andie', 'character_gender' => 'female'], 'domain')
+            ->with('key', ['character' => 'Andie', 'character_gender' => 'female'], 'domain')
             ->andReturn('translated message')
             ->once()
         ;
-        $this->translationService->translate('key', ['player' => CharacterEnum::ANDIE], 'domain');
+        $this->translationService->translate('key', ['character' => CharacterEnum::ANDIE], 'domain');
     }
 
     public function testGetTargetCharacterTranslationParameters()
@@ -75,11 +75,11 @@ class TranslationServiceTest extends TestCase
         ;
 
         $this->translator->shouldReceive('trans')
-            ->with('key', ['target_player' => 'Andie', 'target_player_gender' => 'female'], 'domain')
+            ->with('key', ['target_character' => 'Andie', 'target_character_gender' => 'female'], 'domain')
             ->andReturn('translated message')
             ->once()
         ;
-        $this->translationService->translate('key', ['targetPlayer' => CharacterEnum::ANDIE], 'domain');
+        $this->translationService->translate('key', ['target_character' => CharacterEnum::ANDIE], 'domain');
     }
 
     public function testGetTargetEquipmentTranslationParameters()

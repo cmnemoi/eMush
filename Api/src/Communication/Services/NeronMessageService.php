@@ -115,7 +115,7 @@ class NeronMessageService implements NeronMessageServiceInterface
                 break;
         }
 
-        $parameters = ['player' => $playerName, 'cause' => $cause];
+        $parameters = ['character' => $playerName, 'cause' => $cause];
         $this->createNeronMessage($message, $player->getDaedalus(), $parameters, $time);
     }
 

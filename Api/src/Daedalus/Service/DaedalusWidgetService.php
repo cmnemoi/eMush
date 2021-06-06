@@ -2,8 +2,8 @@
 
 namespace Mush\Daedalus\Service;
 
+use Mush\Alert\Enum\AlertEnum;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Enum\AlertEnum;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Status\Criteria\StatusCriteria;
@@ -91,7 +91,7 @@ class DaedalusWidgetService implements DaedalusWidgetServiceInterface
             }
         }
 
-        return [AlertEnum::NUMBER_FIRE => $fire, AlertEnum::BROKEN_DOORS => $brokenDoors, AlertEnum::BROKEN_EQUIPMENTS => $brokenEquipments];
+        return [AlertEnum::FIRE => $fire, AlertEnum::BROKEN_DOORS => $brokenDoors, AlertEnum::EQUIPMENT_BROKEN => $brokenEquipments];
     }
 
     public function translateAlert(string $key, ?int $quantity = null): array

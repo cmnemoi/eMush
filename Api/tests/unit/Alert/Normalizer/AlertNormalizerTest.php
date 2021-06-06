@@ -151,7 +151,7 @@ class AlertNormalizerTest extends TestCase
 
         $this->translationService
             ->shouldReceive('translate')
-            ->with('fire.report', ['player' => 'andie', 'place' => 'room1'], 'alerts')
+            ->with('fire.report', ['character' => 'andie', 'place' => 'room1'], 'alerts')
             ->andReturn('translated three')
             ->once()
         ;

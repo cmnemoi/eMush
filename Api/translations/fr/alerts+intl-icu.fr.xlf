@@ -12,7 +12,7 @@
             </segment>
             <segment id="report">
                 <source>door_broken.report</source>
-                <target>{player} a reporté une porte bloquée {loc_prep}{place}.</target>
+                <target>{character} a reporté une porte bloquée {loc_prep}{place}.</target>
             </segment>
         </unit>
 
@@ -27,7 +27,7 @@
             </segment>
             <segment id="report">
                 <source>door_broken.report</source>
-                <target>{player} a reporté un incendie {loc_prep}{place}.</target>
+                <target>{character} a reporté un incendie {loc_prep}{place}.</target>
             </segment>
         </unit>
 
@@ -42,7 +42,7 @@
             </segment>
             <segment id="report">
                 <source>door_broken.report</source>
-                <target>{player} a reporté un équipement endomagé {loc_prep}{place}.</target>
+                <target>{character} a reporté un équipement endomagé {loc_prep}{place}.</target>
             </segment>
         </unit>
 

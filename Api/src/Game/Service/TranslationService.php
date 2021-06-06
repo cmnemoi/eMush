@@ -16,8 +16,8 @@ class TranslationService implements TranslationServiceInterface
     }
 
     private static array $conversionArray = [
-        'player' => 'character',
-        'targetPlayer' => 'character',
+        'character' => 'character',
+        'target_character' => 'character',
         'cause' => 'end_cause',
         'title' => 'status',
         'targetEquipment' => 'equipments',
@@ -44,8 +44,8 @@ class TranslationService implements TranslationServiceInterface
     private function getFrenchTranslateParameter(string $key, string $element): array
     {
         switch ($key) {
-            case 'player':
-            case 'targetPlayer':
+            case 'character':
+            case 'target_character':
                 return $this->getFrenchCharacterTranslateParameter($key, $element);
 
             case 'targetEquipment':

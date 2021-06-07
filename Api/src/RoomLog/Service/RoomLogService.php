@@ -6,10 +6,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
-use Mush\Equipment\Entity\Door;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Place\Entity\Place;
@@ -134,18 +130,8 @@ class RoomLogService implements RoomLogServiceInterface
             $params['character'] = $player->getCharacterConfig()->getName();
         }
 
-        if ($target instanceof GameEquipment) {
-            if ($target instanceof GameItem) {
-                $params['targetItem'] = $target->getName();
-            } elseif ($target instanceof Door) {
-                $params['targetEquipment'] = EquipmentEnum::DOOR;
-            } else {
-                $params['targetEquipment'] = $target->getName();
-            }
-        }
-
-        if ($target instanceof Player) {
-            $params['target_character'] = $target->getCharacterConfig()->getName();
+        if ($target !== null) {
+            $params[$target->getLogKey()] = $target->getLogName();
         }
 
         if ($quantity !== null) {

@@ -4,23 +4,25 @@ namespace Mush\Equipment\Listener;
 
 use Mush\Action\Event\ConsumeEvent;
 use Mush\Equipment\Entity\ConsumableEffect;
-use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerModifierEvent;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ConsumeSubscriber implements EventSubscriberInterface
 {
+    private GameEquipmentServiceInterface $gameEquipmentService;
     private EventDispatcherInterface $eventDispatcher;
     private EquipmentEffectServiceInterface $equipmentServiceEffect;
 
     public function __construct(
+        GameEquipmentServiceInterface $gameEquipmentService,
         EventDispatcherInterface $eventDispatcher,
         EquipmentEffectServiceInterface $equipmentServiceEffect
     ) {
+        $this->gameEquipmentService = $gameEquipmentService;
         $this->eventDispatcher = $eventDispatcher;
         $this->equipmentServiceEffect = $equipmentServiceEffect;
     }
@@ -51,8 +53,7 @@ class ConsumeSubscriber implements EventSubscriberInterface
         }
 
         // if no charges consume equipment
-        $equipmentEvent = new EquipmentEvent($ration, VisibilityEnum::HIDDEN, new \DateTime());
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        $this->gameEquipmentService->delete($ration);
     }
 
     protected function dispatchConsumableEffects(ConsumableEffect $consumableEffect, Player $player): void

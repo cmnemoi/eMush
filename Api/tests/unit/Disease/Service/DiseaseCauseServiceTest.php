@@ -197,7 +197,7 @@ class DiseaseCauseServiceTest extends TestCase
             ->setDiseaseConfig(new DiseaseConfig())
         ;
 
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventDispatcher->shouldReceive('dispatch')->twice();
 
         $this->playerDiseaseService
             ->shouldReceive('createDiseaseFromName')

@@ -22,6 +22,7 @@ class TranslationService implements TranslationServiceInterface
         'title' => 'status',
         'targetEquipment' => 'equipments',
         'targetItem' => 'items',
+        'disease' => 'disease',
         'place' => 'rooms',
     ];
 
@@ -43,27 +44,16 @@ class TranslationService implements TranslationServiceInterface
 
     private function getFrenchTranslateParameter(string $key, string $element): array
     {
-        switch ($key) {
-            case 'character':
-            case 'target_character':
-                return $this->getFrenchCharacterTranslateParameter($key, $element);
-
-            case 'targetEquipment':
-            case 'targetItem':
-                return $this->getFrenchEquipmentTranslateParameter($element, self::$conversionArray[$key]);
-
-            case 'place':
-                return [
-                    'place' => $this->translator->trans($element . '.name', [], 'rooms'),
-                    'loc_prep' => $this->translator->trans($element . '.loc_prep', [], 'rooms'),
-                ];
-
-            case 'quantity':
-                return [$key => $element];
-
-            default:
-                return [$key => $this->translator->trans($element . '.name', [], self::$conversionArray[$key])];
-        }
+        return match ($key) {
+            'character', 'target_character' => $this->getFrenchCharacterTranslateParameter($key, $element),
+            'targetEquipment', 'targetItem' => $this->getFrenchEquipmentTranslateParameter($element, self::$conversionArray[$key]),
+            'place' => [
+                'place' => $this->translator->trans($element . '.name', [], 'rooms'),
+                'loc_prep' => $this->translator->trans($element . '.loc_prep', [], 'rooms'),
+            ],
+            'cause', 'title', 'disease' => [$key => $this->translator->trans($element . '.name', [], self::$conversionArray[$key])],
+            default => [$key => $element],
+        };
     }
 
     private function getFrenchEquipmentTranslateParameter(string $element, string $domain): array

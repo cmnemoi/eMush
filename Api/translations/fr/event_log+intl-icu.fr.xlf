@@ -218,6 +218,24 @@
                 <target>Ces importuns vous importunent au plus haut point, les voir s'affairer à de si inutiles besognes vous rend pessimiste pour l'avenir de l'Humanité...</target>
             </segment>
         </unit>
+        <unit id="disease_appear">
+            <segment>
+                <source>disease_appear</source>
+                <target>Vous ne vous sentez pas très très bien... Chaud... Froid... Chaud... Froid... Vous devriez voir un docteur. Vous avez contracté une maladie physique : {disease}.</target>
+            </segment>
+        </unit>
+        <unit id="disease_cured">
+            <segment>
+                <source>disease_cured</source>
+                <target>Vous vous sentez mieux, votre {disease} a fini par guérir...</target>
+            </segment>
+        </unit>
+        <unit id="disorder_appear">
+            <segment>
+                <source>disorder_appear</source>
+                <target>Vous ne vous sentez pas très très bien... Votre tête tourne, vous vous sentez confus, stressé, angoissé. Vous devriez voir un *Psy*. Vous avz développé une maladie mentale : {disease}..</target>
+            </segment>
+        </unit>
     </file>
 </xliff>
 

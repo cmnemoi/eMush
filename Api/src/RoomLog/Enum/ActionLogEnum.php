@@ -54,6 +54,7 @@ class ActionLogEnum
     public const SELF_HEAL = 'self_heal';
     public const WATER_PLANT_SUCCESS = 'water_plant_success';
     public const WRITE_SUCCESS = 'write_success';
+    public const OPEN_SUCCESS = 'open_success';
 
     public const SUCCESS = 'success';
     public const FAIL = 'fail';
@@ -326,6 +327,12 @@ class ActionLogEnum
             self::SUCCESS => [
                 self::VALUE => self::SELF_HEAL,
                 self::VISIBILITY => VisibilityEnum::PRIVATE,
+            ],
+        ],
+        ActionEnum::OPEN => [
+            self::SUCCESS => [
+                self::VALUE => self::OPEN_SUCCESS,
+                self::VISIBILITY => VisibilityEnum::PUBLIC,
             ],
         ],
     ];

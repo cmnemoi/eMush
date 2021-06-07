@@ -8,8 +8,6 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
-use Mush\RoomLog\Enum\LogEnum;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -55,16 +53,6 @@ class EquipmentSubscriber implements EventSubscriberInterface
             $equipment->setPlayer($player);
         } else {
             $equipment->setPlace($player->getPlace());
-            $this->roomLogService->createLog(
-                LogEnum::OBJECT_FELT,
-                $player->getPlace(),
-                VisibilityEnum::PUBLIC,
-                'event_log',
-                $player,
-                $equipment,
-                null,
-                $event->getTime()
-            );
         }
 
         $this->gameEquipmentService->persist($equipment);

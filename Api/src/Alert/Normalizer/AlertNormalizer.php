@@ -42,7 +42,7 @@ class AlertNormalizer implements ContextAwareNormalizerInterface
         }
 
         if (!$alert->getAlertElements()->isEmpty()) {
-            $normalizedAlert['reported'] = $this->handleAlertReport($alert);
+            $normalizedAlert['reports'] = $this->handleAlertReport($alert);
         }
 
         return $normalizedAlert;

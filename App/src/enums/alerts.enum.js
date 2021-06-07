@@ -1,9 +1,9 @@
-export const NO_ALERT = 'no.alert';
-const LOW_OXYGEN = 'low.oxygen';
-const LOW_HULL = 'low.hull';
+export const NO_ALERT = 'no_alert';
+const LOW_OXYGEN = 'low_oxygen';
+const LOW_HULL = 'low_hull';
 const FIRES = 'fires';
-const BROKEN_DOORS = 'broken.doors';
-const BROKEN_EQUIPMENTS = 'broken.equipments';
+const BROKEN_DOORS = 'broken_doors';
+const BROKEN_EQUIPMENTS = 'broken_equipments';
 
 export const AlertsIcons = {
     [NO_ALERT]: require('@/assets/images/alerts/infoalert.png'),

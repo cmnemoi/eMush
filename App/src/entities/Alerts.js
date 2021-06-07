@@ -3,12 +3,16 @@ export class Alert {
         this.key = null;
         this.name = null;
         this.description = null;
+        this.reports = [];
     }
     load = function(object) {
         if (typeof object !== "undefined") {
             this.key = object.key;
             this.name = object.name;
             this.description = object.description;
+            if (typeof object.reports !== 'undefined') {
+                this.reports = object.reports;
+            }
         }
         return this;
     }

@@ -1,14 +1,27 @@
 <template>
     <div class="daedalus-alarms">
         <p v-if="!loading" class="calme">
-            <span v-if="isNoAlert"><img :src="alertIcon(alerts[0])">{{ alerts[0].name }}</span>
+            <span v-if="isNoAlert">
+                <img :src="alertIcon(alerts[0])">{{ alerts[0].name }}
+            </span>
             <span v-else>Alertes :</span>
-            <img
-                v-for="(alert, key) in alertsDisplayed"
-                :key="key"
-                :src="alertIcon(alert)"
-                :alt="alert.name"
-            >
+            <Tooltip v-for="(alert, key) in alertsDisplayed" :key="key">
+                <template #tooltip-trigger>
+                    <img
+                        :src="alertIcon(alert)"
+                        :alt="alert.name"
+                    >
+                </template>
+                <template #tooltip-content>
+                    <h1>{{ alert.name }}</h1>
+                    <p>{{ alert.description }}</p>
+                    <ul v-if="alert.reports.length > 0">
+                        <li v-for="(report, reportKey) in alert.reports" :key="reportKey">
+                            {{ report }}
+                        </li>
+                    </ul>
+                </template>
+            </Tooltip>
         </p>
     </div>
 </template>
@@ -17,9 +30,11 @@
 import { Daedalus } from "@/entities/Daedalus";
 import DaedalusService from "@/services/daedalus.service";
 import { AlertsIcons, NO_ALERT } from "@/enums/alerts.enum";
+import Tooltip from "../../Utils/ToolTip";
 
 export default {
     name: "Alerts",
+    components: {Tooltip},
     props: {
         daedalus: Daedalus
     },

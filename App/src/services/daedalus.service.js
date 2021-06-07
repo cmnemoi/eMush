@@ -1,7 +1,7 @@
 import ApiService from "@/services/api.service";
 import { Alert } from "@/entities/Alerts";
 
-const DAEDALUS_ALERTS_ENDPOINT = process.env.VUE_APP_API_URL + 'daedalus';
+const DAEDALUS_ALERTS_ENDPOINT = process.env.VUE_APP_API_URL + 'alert';
 
 const DaedalusService = {
     loadAlerts: async (daedalus) => {

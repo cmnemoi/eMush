@@ -2,6 +2,7 @@
 
 namespace Mush\Alert\Service;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Alert\Entity\Alert;
 use Mush\Alert\Entity\AlertElement;
@@ -60,6 +61,11 @@ class AlertService implements AlertServiceInterface
     public function findByNameAndDaedalus(string $name, Daedalus $daedalus): ?Alert
     {
         return $this->repository->findOneBy(['daedalus' => $daedalus, 'name' => $name]);
+    }
+
+    public function findByDaedalus(Daedalus $daedalus): ArrayCollection
+    {
+        return new ArrayCollection($this->repository->findBy(['daedalus' => $daedalus]));
     }
 
     public function hullAlert(Daedalus $daedalus, int $change): void
@@ -135,7 +141,7 @@ class AlertService implements AlertServiceInterface
             $brokenAlert = $this->getAlert($daedalus, AlertEnum::BROKEN_DOORS);
         } else {
             $daedalus = $equipment->getCurrentPlace()->getDaedalus();
-            $brokenAlert = $this->getAlert($daedalus, AlertEnum::EQUIPMENT_BROKEN);
+            $brokenAlert = $this->getAlert($daedalus, AlertEnum::BROKEN_EQUIPMENTS);
         }
 
         $equipmentElement = new AlertElement();
@@ -158,7 +164,7 @@ class AlertService implements AlertServiceInterface
             $brokenAlert = $this->findByNameAndDaedalus(AlertEnum::BROKEN_DOORS, $daedalus);
         } else {
             $daedalus = $equipment->getCurrentPlace()->getDaedalus();
-            $brokenAlert = $this->findByNameAndDaedalus(AlertEnum::EQUIPMENT_BROKEN, $daedalus);
+            $brokenAlert = $this->findByNameAndDaedalus(AlertEnum::BROKEN_EQUIPMENTS, $daedalus);
         }
 
         if ($brokenAlert === null) {
@@ -190,7 +196,7 @@ class AlertService implements AlertServiceInterface
     {
         $daedalus = $place->getDaedalus();
 
-        $fireAlert = $this->getAlert($daedalus, AlertEnum::FIRE);
+        $fireAlert = $this->getAlert($daedalus, AlertEnum::FIRES);
 
         $reportedFire = new AlertElement();
         $reportedFire->setPlace($place);
@@ -205,7 +211,7 @@ class AlertService implements AlertServiceInterface
     {
         $daedalus = $place->getDaedalus();
 
-        $fireAlert = $this->findByNameAndDaedalus(AlertEnum::FIRE, $daedalus);
+        $fireAlert = $this->findByNameAndDaedalus(AlertEnum::FIRES, $daedalus);
 
         if ($fireAlert === null) {
             throw new \LogicException('there should be a fire alert on this Daedalus');
@@ -244,5 +250,22 @@ class AlertService implements AlertServiceInterface
         }
 
         return $alert;
+    }
+
+    public function getAlerts(Daedalus $daedalus): ArrayCollection
+    {
+        $alerts = $this->findByDaedalus($daedalus);
+
+        if ($alerts->isEmpty()) {
+            $alert = new Alert();
+            $alert
+                ->setDaedalus($daedalus)
+                ->setName(AlertEnum::NO_ALERT)
+            ;
+
+            return new ArrayCollection([$alert]);
+        } else {
+            return $alerts;
+        }
     }
 }

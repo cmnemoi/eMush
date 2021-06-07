@@ -5,6 +5,7 @@ namespace Mush\Equipment\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Enum\LogParameterKeyEnum;
 
 /**
  * Class GameItem.
@@ -79,5 +80,15 @@ class GameItem extends GameEquipment
         }
 
         return $room;
+    }
+
+    public function getLogName(): string
+    {
+        return $this->getName();
+    }
+
+    public function getLogKey(): string
+    {
+        return LogParameterKeyEnum::ITEM;
     }
 }

@@ -53,8 +53,10 @@ class DiseaseCauseService implements DiseaseCauseServiceInterface
             foreach ($consumableEffect->getDiseases() as $disease) {
                 if ($this->randomService->isSuccessful($disease->getRate())) {
                     $diseasePlayer = $this->playerDiseaseService->createDiseaseFromName($disease->getDisease(), $player);
-                    $event = new DiseaseEvent($player, $diseasePlayer->getDiseaseConfig());
+                    $event = new DiseaseEvent($player, $diseasePlayer->getDiseaseConfig(), new \DateTime());
                     $this->eventDispatcher->dispatch($event, DiseaseEvent::NEW_DISEASE);
+                    //@TODO: delay disease apparitio, currently creation and appaition happen at the same time
+                    $this->eventDispatcher->dispatch($event, DiseaseEvent::APPEAR_DISEASE);
                 }
             }
 
@@ -63,7 +65,7 @@ class DiseaseCauseService implements DiseaseCauseServiceInterface
                 if (($disease = $player->getDiseaseByName($cure->getDisease())) !== null &&
                     $this->randomService->isSuccessful($cure->getRate())
                 ) {
-                    $event = new DiseaseEvent($player, $disease->getDiseaseConfig());
+                    $event = new DiseaseEvent($player, $disease->getDiseaseConfig(), new \DateTime());
                     $this->eventDispatcher->dispatch($event, DiseaseEvent::CURE_DISEASE);
                     $this->playerDiseaseService->delete($disease);
                 }

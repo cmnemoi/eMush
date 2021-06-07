@@ -3,6 +3,7 @@
 namespace Mush\Disease\Event;
 
 use Mush\Disease\Entity\DiseaseConfig;
+use Mush\Disease\Entity\PlayerDisease;
 use Mush\Player\Entity\Player;
 use Symfony\Contracts\EventDispatcher\Event;
 
@@ -12,25 +13,28 @@ class DiseaseEvent extends Event
     public const APPEAR_DISEASE = 'disaese.appear';
     public const CURE_DISEASE = 'disaese.cure';
 
-    private Player $player;
-    private DiseaseConfig $diseaseConfig;
+    private PlayerDisease $playerDisease;
     private \DateTime $time;
 
-    public function __construct(Player $player, DiseaseConfig $diseaseConfig, \DateTime $time)
+    public function __construct(PlayerDisease $playerDisease, \DateTime $time)
     {
-        $this->player = $player;
-        $this->diseaseConfig = $diseaseConfig;
+        $this->playerDisease = $playerDisease;
         $this->time = $time;
     }
 
     public function getPlayer(): Player
     {
-        return $this->player;
+        return $this->playerDisease->getPlayer();
     }
 
     public function getDiseaseConfig(): DiseaseConfig
     {
-        return $this->diseaseConfig;
+        return $this->playerDisease->getDiseaseConfig();
+    }
+
+    public function getPlayerDisease(): PlayerDisease
+    {
+        return $this->playerDisease;
     }
 
     public function getTime(): \DateTime

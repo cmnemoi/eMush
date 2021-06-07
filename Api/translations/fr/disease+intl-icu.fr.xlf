@@ -241,5 +241,125 @@
                 <target>Des carences en vitamines, minéraux, oligo-éléments et autres, vous n'avez pas trop la pêche...</target>
             </segment>
         </unit>
+        <unit id="agoraphobia">
+            <segment id="name">
+                <source>agoraphobia.name</source>
+                <target>Agoraphobie</target>
+            </segment>
+            <segment id="description">
+                <source>agoraphobia.description</source>
+                <target>Vous êtes effrayé par la foule et les grands espaces, vous avez, en plus, des vertiges incontrôlables... Dans l'espace, ça va pas le faire.</target>
+            </segment>
+        </unit>
+        <unit id="syphilis">
+            <segment id="name">
+                <source>ailurophobia.name</source>
+                <target>Ailurophobie</target>
+            </segment>
+            <segment id="description">
+                <source>ailurophobia.description</source>
+                <target>Vous avez une terrible phobie des chats. Leur simple vue vous met hors d'état d'agir.</target>
+            </segment>
+        </unit>
+        <unit id="syphilis">
+            <segment id="name">
+                <source>chronic_migraine.name</source>
+                <target>Migraine chronique</target>
+            </segment>
+            <segment id="description">
+                <source>chronic_migraine.description</source>
+                <target>Une grosse migraine bien carabinée vous prend de temps à autres... et puis quand elle vous prend c'est le grand déménagement... pas de chance.</target>
+            </segment>
+        </unit>
+        <unit id="chronic_vertigo">
+            <segment id="name">
+                <source>chronic_vertigo.name</source>
+                <target>Vertige chronique</target>
+            </segment>
+            <segment id="description">
+                <source>chronic_vertigo.description</source>
+                <target>Vous avez des vertiges chroniques ce qui vous incapacite grandement.</target>
+            </segment>
+        </unit>
+        <unit id="coprolalia">
+            <segment id="name">
+                <source>coprolalia.name</source>
+                <target>Coprolalie</target>
+            </segment>
+            <segment id="description">
+                <source>coprolalia.description</source>
+                <target>Vous lancez des chapelets d'insultes de façon impromptu. Au début ça choque un peu.</target>
+            </segment>
+        </unit>
+        <unit id="crabism">
+            <segment id="name">
+                <source>crabism.name</source>
+                <target>Crabisme</target>
+            </segment>
+            <segment id="description">
+                <source>crabism.description</source>
+                <target>De temps à autre, vous vous mettez à marcher de côté ou à vous jetez par terre pour ensuite rentrer dans une courte période régressive.</target>
+            </segment>
+        </unit>
+        <unit id="depression">
+            <segment id="name">
+                <source>depression.name</source>
+                <target>Dépression</target>
+            </segment>
+            <segment id="description">
+                <source>depression.description</source>
+                <target>Vous souffrez tout le temps. La vie est devenue longue trop longue et chaque nouvelle épreuve vous fait perdre le goût des choses.</target>
+            </segment>
+        </unit>
+        <unit id="syphilis">
+            <segment id="name">
+                <source>paranoia.name</source>
+                <target>Crise Paranoïaque</target>
+            </segment>
+            <segment id="description">
+                <source>paranoia.description</source>
+                <target>Vous avez peur pour votre vie et éventuellement le faites savoir.</target>
+            </segment>
+        </unit>
+        <unit id="psychotic_episodes">
+            <segment id="name">
+                <source>psychotic_episodes.name</source>
+                <target>Episodes Psychotiques</target>
+            </segment>
+            <segment id="description">
+                <source>psychotic_episodes.description</source>
+                <target>Vous ne vous maitrisez plus et rentrez souvent dans des colères noires. Il est fortement avisé de s'éloigner de toute forme d'armement.</target>
+            </segment>
+        </unit>
+        <unit id="spleen">
+            <segment id="name">
+                <source>spleen.name</source>
+                <target>Spleen</target>
+            </segment>
+            <segment id="description">
+                <source>spleen.description</source>
+                <target>Vous êtes atteint d'une forme très aiguë de dépression qui vous entraîne dans la mort très vite.</target>
+            </segment>
+        </unit>
+        <unit id="vertigo">
+            <segment id="name">
+                <source>vertigo.name</source>
+                <target>Vertige</target>
+            </segment>
+            <segment id="description">
+                <source>vertigo.description</source>
+                <target>Vous avez des vertiges chroniques ce qui vous incapacite grandement.</target>
+            </segment>
+        </unit>
+        <unit id="syphilis">
+            <segment id="name">
+                <source>weapon_phobia.name</source>
+                <target>Phobie des armes</target>
+            </segment>
+            <segment id="description">
+                <source>weapon_phobia.description</source>
+                <target>Vous ne pouvez plus tirer avec une arme, et leur simple vue vous incommode...</target>
+            </segment>
+        </unit>
     </file>
 </xliff>

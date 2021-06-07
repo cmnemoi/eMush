@@ -18,6 +18,7 @@ use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Place\Entity\Place;
 use Mush\RoomLog\Entity\LogParameter;
+use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Entity\StatusTarget;
@@ -522,5 +523,15 @@ class Player implements StatusHolderInterface, ActionParameter, LogParameter
     {
         return $this->characterConfig->getActions()
             ->filter(fn (Action $action) => $action->getScope() === ActionScopeEnum::OTHER_PLAYER);
+    }
+
+    public function getLogName(): string
+    {
+        return $this->getCharacterConfig()->getName();
+    }
+
+    public function getLogKey(): string
+    {
+        return LogParameterKeyEnum::PLAYER;
     }
 }

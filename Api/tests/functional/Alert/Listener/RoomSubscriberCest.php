@@ -51,7 +51,7 @@ class RoomSubscriberCest
 
         $this->roomSubscriber->onStartingFire($roomEvent);
 
-        $I->seeInRepository(Alert::class, ['daedalus' => $daedalus, 'name' => AlertEnum::FIRE]);
+        $I->seeInRepository(Alert::class, ['daedalus' => $daedalus, 'name' => AlertEnum::FIRES]);
         $I->seeInRepository(AlertElement::class, ['place' => $room]);
     }
 
@@ -86,7 +86,7 @@ class RoomSubscriberCest
         $alertFire = new Alert();
         $alertFire
             ->setDaedalus($daedalus)
-            ->setName(AlertEnum::FIRE)
+            ->setName(AlertEnum::FIRES)
             ->addAlertElement($reportedAlert)
         ;
 
@@ -94,7 +94,7 @@ class RoomSubscriberCest
 
         $this->roomSubscriber->onStopFire($roomEvent);
 
-        $I->dontSeeInRepository(Alert::class, ['daedalus' => $daedalus, 'name' => AlertEnum::FIRE]);
+        $I->dontSeeInRepository(Alert::class, ['daedalus' => $daedalus, 'name' => AlertEnum::FIRES]);
         $I->dontSeeInRepository(AlertElement::class, ['place' => $room]);
     }
 }

@@ -13,9 +13,9 @@ class AlertEnum
     public const OUTCAST = 'outcast';
     public const HUNGER = 'hunger';
 
-    public const EQUIPMENT_BROKEN = 'equipment_broken';
-    public const BROKEN_DOORS = 'door_broken';
-    public const FIRE = 'fire';
+    public const BROKEN_EQUIPMENTS = 'broken_equipments';
+    public const BROKEN_DOORS = 'broken_doors';
+    public const FIRES = 'fires';
     public const HUNTER = 'hunter';
 
     public const SHIELD = 'shield';

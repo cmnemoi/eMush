@@ -49,6 +49,7 @@ class DiseaseNormalizerTest extends TestCase
         $this->assertEquals([
             'key' => 'name',
             'name' => 'translated one',
+            'type' => $diseaseConfig->getType(),
             'description' => 'translated two',
         ], $normalized);
     }

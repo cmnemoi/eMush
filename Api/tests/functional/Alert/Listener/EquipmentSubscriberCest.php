@@ -119,7 +119,7 @@ class EquipmentSubscriberCest
         $alertBroken = new Alert();
         $alertBroken
             ->setDaedalus($daedalus)
-            ->setName(AlertEnum::EQUIPMENT_BROKEN)
+            ->setName(AlertEnum::BROKEN_EQUIPMENTS)
             ->addAlertElement($reportedAlert)
         ;
 
@@ -170,7 +170,7 @@ class EquipmentSubscriberCest
 
         $I->dontSeeInRepository(Alert::class, ['daedalus' => $daedalus, 'name' => AlertEnum::NO_GRAVITY]);
         $I->dontSeeInRepository(Alert::class, ['daedalus' => $daedalus, 'name' => AlertEnum::BROKEN_DOORS]);
-        $I->seeInRepository(Alert::class, ['daedalus' => $daedalus, 'name' => AlertEnum::EQUIPMENT_BROKEN]);
+        $I->seeInRepository(Alert::class, ['daedalus' => $daedalus, 'name' => AlertEnum::BROKEN_EQUIPMENTS]);
         $I->seeInRepository(AlertElement::class, ['equipment' => $gameEquipment]);
     }
 
@@ -213,7 +213,7 @@ class EquipmentSubscriberCest
         $this->equipmentSubscriber->onEquipmentBroken($equipmentEvent);
 
         $I->dontSeeInRepository(Alert::class, ['daedalus' => $daedalus, 'name' => AlertEnum::NO_GRAVITY]);
-        $I->dontSeeInRepository(Alert::class, ['daedalus' => $daedalus, 'name' => AlertEnum::EQUIPMENT_BROKEN]);
+        $I->dontSeeInRepository(Alert::class, ['daedalus' => $daedalus, 'name' => AlertEnum::BROKEN_EQUIPMENTS]);
         $I->seeInRepository(Alert::class, ['daedalus' => $daedalus, 'name' => AlertEnum::BROKEN_DOORS]);
         $I->seeInRepository(AlertElement::class, ['equipment' => $gameEquipment]);
     }
@@ -261,7 +261,7 @@ class EquipmentSubscriberCest
         $alertBroken = new Alert();
         $alertBroken
             ->setDaedalus($daedalus)
-            ->setName(AlertEnum::EQUIPMENT_BROKEN)
+            ->setName(AlertEnum::BROKEN_EQUIPMENTS)
             ->addAlertElement($reportedAlert)
         ;
 

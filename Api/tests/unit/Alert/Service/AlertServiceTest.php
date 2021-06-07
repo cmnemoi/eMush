@@ -237,13 +237,13 @@ class AlertServiceTest extends TestCase
         $alert = new Alert();
         $alert
             ->setDaedalus($daedalus)
-            ->setName(AlertEnum::EQUIPMENT_BROKEN)
+            ->setName(AlertEnum::BROKEN_EQUIPMENTS)
             ->addAlertElement($equipmentElement1)
             ->addAlertElement($equipmentElement2)
         ;
 
         $this->repository->shouldReceive('findOneBy')
-            ->with(['daedalus' => $daedalus, 'name' => AlertEnum::EQUIPMENT_BROKEN])
+            ->with(['daedalus' => $daedalus, 'name' => AlertEnum::BROKEN_EQUIPMENTS])
             ->andReturn($alert)
             ->once()
         ;
@@ -271,12 +271,12 @@ class AlertServiceTest extends TestCase
         $alert = new Alert();
         $alert
             ->setDaedalus($daedalus)
-            ->setName(AlertEnum::EQUIPMENT_BROKEN)
+            ->setName(AlertEnum::BROKEN_EQUIPMENTS)
             ->addAlertElement($equipmentElement1)
         ;
 
         $this->repository->shouldReceive('findOneBy')
-            ->with(['daedalus' => $daedalus, 'name' => AlertEnum::EQUIPMENT_BROKEN])
+            ->with(['daedalus' => $daedalus, 'name' => AlertEnum::BROKEN_EQUIPMENTS])
             ->andReturn($alert)
             ->once()
         ;
@@ -321,13 +321,13 @@ class AlertServiceTest extends TestCase
         $alert = new Alert();
         $alert
             ->setDaedalus($daedalus)
-            ->setName(AlertEnum::FIRE)
+            ->setName(AlertEnum::FIRES)
             ->addAlertElement($alertElement1)
             ->addAlertElement($alertElement2)
         ;
 
         $this->repository->shouldReceive('findOneBy')
-            ->with(['daedalus' => $daedalus, 'name' => AlertEnum::FIRE])
+            ->with(['daedalus' => $daedalus, 'name' => AlertEnum::FIRES])
             ->andReturn($alert)
             ->once()
         ;
@@ -353,12 +353,12 @@ class AlertServiceTest extends TestCase
         $alert = new Alert();
         $alert
             ->setDaedalus($daedalus)
-            ->setName(AlertEnum::FIRE)
+            ->setName(AlertEnum::FIRES)
             ->addAlertElement($alertElement1)
         ;
 
         $this->repository->shouldReceive('findOneBy')
-            ->with(['daedalus' => $daedalus, 'name' => AlertEnum::FIRE])
+            ->with(['daedalus' => $daedalus, 'name' => AlertEnum::FIRES])
             ->andReturn($alert)
             ->once()
         ;

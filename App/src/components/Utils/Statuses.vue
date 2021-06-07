@@ -4,12 +4,9 @@
         :key="key"
         class="status"
     >
-        <Tooltip>
+        <Tooltip :title="status.name" :content="status.description">
             <template v-slot:tooltip-trigger><img :src="statusIcon(status)">
             <span v-if="status.charge">{{ status.charge }}</span></template>
-            <template v-slot:tooltip-content><h1>{{ status.name }}</h1>
-            <p>{{ status.description }}</p>
-            </template>
         </Tooltip>
     </span>
 </template>
@@ -23,7 +20,7 @@ export default {
     components: {Tooltip},
     props: {
         statuses: Array,
-        type: String
+        type: Array
     },
     computed: {
         statusIcon() {

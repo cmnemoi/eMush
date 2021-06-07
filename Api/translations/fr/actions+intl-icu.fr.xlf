@@ -211,6 +211,16 @@
                 <target>Permet de retrouver un objet caché à l'endroit où vous vous trouvez.</target>
             </segment>
         </unit>
+        <unit id="rejuvenate_alpha">
+            <segment id="rejuvenate_alpha">
+                <source>rejuvenate_alpha.name</source>
+                <target>Restaurer</target>
+            </segment>
+            <segment id="description">
+                <source>rejuvenate_alpha.description</source>
+                <target>Permet de retrouver tout ses :pa:, :pm:, :hp: et points de moral. Uniquement valable pendant l'alpha. Merci de nous aider !</target>
+            </segment>
+        </unit>
         <unit id="shred">
             <segment id="shred">
                 <source>shred.name</source>

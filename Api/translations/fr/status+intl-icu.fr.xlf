@@ -64,7 +64,7 @@
             </segment>
             <segment id="description">
                 <source>hidden.description</source>
-                <target>Cet objet est //caché// ! Vous seul êtes au courant... avec ceux qui fouilleront la pièce.</target>
+                <target>Cet objet est *caché* ! Vous seul êtes au courant... avec ceux qui fouilleront la pièce.</target>
             </segment>
             <segment id="effect">
                 <source>hidden.examine</source>
@@ -78,7 +78,7 @@
             </segment>
             <segment id="description">
                 <source>broken.description</source>
-                <target>Cet objet est //cassé//. Il faudrait penser à le réparer...</target>
+                <target>Cet objet est *cassé*. Il faudrait penser à le réparer...</target>
             </segment>
             <segment id="effect">
                 <source>broken.examine</source>

@@ -5,24 +5,30 @@ namespace Mush\Disease\Service;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Disease\Entity\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
+use Mush\Disease\Enum\DiseaseStatusEnum;
+use Mush\Disease\Event\DiseaseEvent;
 use Mush\Disease\Repository\DiseaseConfigRepository;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class PlayerDiseaseService implements PlayerDiseaseServiceInterface
 {
     private EntityManagerInterface $entityManager;
     private DiseaseConfigRepository $diseaseConfigRepository;
     private RandomServiceInterface $randomService;
+    private EventDispatcherInterface $eventDispatcher;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         DiseaseConfigRepository $diseaseConfigRepository,
-        RandomServiceInterface $randomService
+        RandomServiceInterface $randomService,
+        EventDispatcherInterface $eventDispatcher
     ) {
         $this->entityManager = $entityManager;
         $this->diseaseConfigRepository = $diseaseConfigRepository;
         $this->randomService = $randomService;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     public function persist(PlayerDisease $playerDisease): PlayerDisease
@@ -33,16 +39,23 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         return $playerDisease;
     }
 
-    public function delete(PlayerDisease $playerDisease): bool
+    public function removePlayerDisease(PlayerDisease $playerDisease, \DateTime $time): bool
     {
+        $event = new DiseaseEvent($playerDisease, $time);
+        $this->eventDispatcher->dispatch($event, DiseaseEvent::CURE_DISEASE);
+
         $this->entityManager->remove($playerDisease);
         $this->entityManager->flush();
 
         return true;
     }
 
-    public function createDiseaseFromName(string $diseaseName, Player $player): PlayerDisease
-    {
+    public function createDiseaseFromName(
+        string $diseaseName,
+        Player $player,
+        int $delayMin = null,
+        int $delayLength = null
+    ): PlayerDisease {
         /** @var DiseaseConfig $diseaseConfig */
         $diseaseConfig = $this->diseaseConfigRepository->findOneBy(['name' => $diseaseName, 'gameConfig' => $player->getDaedalus()->getGameConfig()]);
 
@@ -54,11 +67,28 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         $disease
             ->setPlayer($player)
             ->setDiseaseConfig($diseaseConfig)
-            ->setDiseasePoint(10) //@TODO
         ;
         $player->addDisease($disease);
 
+        $delayMin = $delayMin ?? $diseaseConfig->getDelayMin();
+        $delayLength = $delayLength ?? $diseaseConfig->getDelayLength();
+
+        if ($delayMin !== 0) {
+            $disease->setDiseasePoint($this->randomService->random($delayMin, $delayMin + $delayLength));
+            $disease->setStatus(DiseaseStatusEnum::INCUBATING);
+        } else {
+            $diseaseDurationMin = $diseaseConfig->getDiseasePointMin();
+            $disease->setDiseasePoint($this->randomService->random($diseaseDurationMin, $diseaseDurationMin + $diseaseConfig->getDiseasePointLength()));
+        }
+
         $this->persist($disease);
+
+        $event = new DiseaseEvent($disease, new \DateTime());
+        $this->eventDispatcher->dispatch($event, DiseaseEvent::NEW_DISEASE);
+
+        if ($disease->getStatus() === DiseaseStatusEnum::ACTIVE) {
+            $this->eventDispatcher->dispatch($event, DiseaseEvent::APPEAR_DISEASE);
+        }
 
         return $disease;
     }
@@ -83,6 +113,37 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
             $player->addDisease($disease);
 
             $this->persist($disease);
+        }
+    }
+
+    public function handleNewCycle(PlayerDisease $playerDisease, \DateTime $time): void
+    {
+        $newDiseasePoint = $playerDisease->getDiseasePoint() - 1;
+        $playerDisease->setDiseasePoint($newDiseasePoint);
+
+        if ($newDiseasePoint === 0) {
+            if ($playerDisease->getStatus() === DiseaseStatusEnum::INCUBATING) {
+                $diseaseConfig = $playerDisease->getDiseaseConfig();
+                $diseaseDurationMin = $diseaseConfig->getDiseasePointMin();
+                $playerDisease
+                    ->setStatus(DiseaseStatusEnum::ACTIVE)
+                    ->setDiseasePoint(
+                        $this->randomService->random(
+                            $diseaseDurationMin,
+                            $diseaseDurationMin + $diseaseConfig->getDiseasePointLength()
+                        )
+                    )
+                ;
+
+                $this->persist($playerDisease);
+
+                $event = new DiseaseEvent($playerDisease, $time);
+                $this->eventDispatcher->dispatch($event, DiseaseEvent::APPEAR_DISEASE);
+            } else {
+                $this->removePlayerDisease($playerDisease, $time);
+            }
+        } else {
+            $this->persist($playerDisease);
         }
     }
 }

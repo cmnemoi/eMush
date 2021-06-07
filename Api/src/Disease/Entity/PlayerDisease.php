@@ -4,6 +4,7 @@ namespace Mush\Disease\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Mush\Disease\Enum\DiseaseStatusEnum;
 use Mush\Player\Entity\Player;
 
 /**
@@ -30,6 +31,11 @@ class PlayerDisease
      * @ORM\ManyToOne(targetEntity="Mush\Player\Entity\Player", inversedBy="diseases")
      */
     private Player $player;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private string $status = DiseaseStatusEnum::ACTIVE;
 
     /**
      * @ORM\Column(type="integer")
@@ -61,6 +67,18 @@ class PlayerDisease
     public function setPlayer(Player $player): PlayerDisease
     {
         $this->player = $player;
+
+        return $this;
+    }
+
+    public function getStatus(): string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): PlayerDisease
+    {
+        $this->status = $status;
 
         return $this;
     }

@@ -47,6 +47,26 @@ class DiseaseConfig implements LogParameter
      */
     private array $causes = [];
 
+    /**
+     * @ORM\Column (type="integer")
+     */
+    private int $delayMin = 4;
+
+    /**
+     * @ORM\Column (type="integer")
+     */
+    private int $delayLength = 4;
+
+    /**
+     * @ORM\Column (type="integer")
+     */
+    private int $diseasePointMin = 4;
+
+    /**
+     * @ORM\Column (type="integer")
+     */
+    private int $diseasePointLength = 4;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -125,5 +145,53 @@ class DiseaseConfig implements LogParameter
     public function getLogKey(): string
     {
         return LogParameterKeyEnum::DISEASE;
+    }
+
+    public function getDelayMin(): int
+    {
+        return $this->delayMin;
+    }
+
+    public function setDelayMin(int $delayMin): DiseaseConfig
+    {
+        $this->delayMin = $delayMin;
+
+        return $this;
+    }
+
+    public function getDelayLength(): int
+    {
+        return $this->delayLength;
+    }
+
+    public function setDelayLength(int $delayLength): DiseaseConfig
+    {
+        $this->delayLength = $delayLength;
+
+        return $this;
+    }
+
+    public function getDiseasePointMin(): int
+    {
+        return $this->diseasePointMin;
+    }
+
+    public function setDiseasePointMin(int $diseasePointMin): DiseaseConfig
+    {
+        $this->diseasePointMin = $diseasePointMin;
+
+        return $this;
+    }
+
+    public function getDiseasePointLength(): int
+    {
+        return $this->diseasePointLength;
+    }
+
+    public function setDiseasePointLength(int $diseasePointLength): DiseaseConfig
+    {
+        $this->diseasePointLength = $diseasePointLength;
+
+        return $this;
     }
 }

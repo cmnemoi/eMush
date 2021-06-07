@@ -19,7 +19,6 @@ use Mush\Player\Entity\Player;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class DiseaseCauseServiceTest extends TestCase
 {
@@ -34,9 +33,6 @@ class DiseaseCauseServiceTest extends TestCase
     /** @var ConsumableDiseaseServiceInterface | Mockery\Mock */
     private ConsumableDiseaseServiceInterface $consumableDiseaseService;
 
-    /** @var EventDispatcherInterface | Mockery\Mock */
-    private EventDispatcherInterface $eventDispatcher;
-
     /**
      * @before
      */
@@ -45,13 +41,11 @@ class DiseaseCauseServiceTest extends TestCase
         $this->playerDiseaseService = Mockery::mock(PlayerDiseaseService::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
         $this->consumableDiseaseService = Mockery::mock(ConsumableDiseaseServiceInterface::class);
-        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
 
         $this->diseaseCauseService = new DiseaseCauseService(
             $this->playerDiseaseService,
             $this->randomService,
             $this->consumableDiseaseService,
-            $this->eventDispatcher
         );
     }
 
@@ -197,8 +191,6 @@ class DiseaseCauseServiceTest extends TestCase
             ->setDiseaseConfig(new DiseaseConfig())
         ;
 
-        $this->eventDispatcher->shouldReceive('dispatch')->twice();
-
         $this->playerDiseaseService
             ->shouldReceive('createDiseaseFromName')
             ->andReturn($playerDisease)
@@ -263,10 +255,8 @@ class DiseaseCauseServiceTest extends TestCase
 
         $player->addDisease($playerDisease);
 
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
-
         $this->playerDiseaseService
-            ->shouldReceive('delete')
+            ->shouldReceive('removePlayerDisease')
             ->once()
         ;
 

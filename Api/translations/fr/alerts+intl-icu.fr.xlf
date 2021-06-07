@@ -1,47 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
     <file id="alerts.ext">
-        <unit id="door_broken">
+        <unit id="broken_doors">
             <segment id="name">
-                <source>door_broken.name</source>
+                <source>broken_doors.name</source>
                 <target>{quantity, plural, one {# Porte cassée} other {# Portes cassées}}</target>
             </segment>
             <segment id="description">
-                <source>door_broken.description</source>
+                <source>broken_doors.description</source>
                 <target>Contactez un technicien ou mettez-vous au boulot !</target>
             </segment>
             <segment id="report">
-                <source>door_broken.report</source>
+                <source>broken_doors.report</source>
                 <target>{character} a reporté une porte bloquée {loc_prep}{place}.</target>
             </segment>
         </unit>
 
-        <unit id="fire">
+        <unit id="fires">
             <segment id="name">
-                <source>fire.name</source>
+                <source>fires.name</source>
                 <target>{quantity, plural, one {# Incendie en cours} other {# Incendies en cours}}</target>
             </segment>
             <segment id="description">
-                <source>fire.description</source>
+                <source>fires.description</source>
                 <target>Prévenez une personne responsable ou attrapez un extincteur !</target>
             </segment>
             <segment id="report">
-                <source>door_broken.report</source>
+                <source>fires.report</source>
                 <target>{character} a reporté un incendie {loc_prep}{place}.</target>
             </segment>
         </unit>
 
-        <unit id="equipment_broken">
+        <unit id="broken_equipments">
             <segment id="name">
-                <source>equipment_broken.name.single</source>
+                <source>broken_equipments.name.single</source>
                 <target>{quantity, plural, one {# Equipement hors-service} other {# Equipements hors-service}}</target>
             </segment>
             <segment id="description">
-                <source>equipment_broken.description</source>
+                <source>broken_equipments.description</source>
                 <target>Contactez un technicien ou mettez-vous au boulot !</target>
             </segment>
             <segment id="report">
-                <source>door_broken.report</source>
+                <source>broken_equipments.report</source>
                 <target>{character} a reporté un équipement endomagé {loc_prep}{place}.</target>
             </segment>
         </unit>

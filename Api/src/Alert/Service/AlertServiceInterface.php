@@ -2,6 +2,7 @@
 
 namespace Mush\Alert\Service;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Alert\Entity\Alert;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
@@ -28,4 +29,6 @@ interface AlertServiceInterface
     public function handleFireStart(Place $place): void;
 
     public function handleFireStop(Place $place): void;
+
+    public function getAlerts(Daedalus $daedalus): ArrayCollection;
 }

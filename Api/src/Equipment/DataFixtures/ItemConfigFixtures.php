@@ -30,12 +30,19 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $hideableActions = new ArrayCollection([$takeAction, $dropAction, $hideAction]);
 
+        /** @var Action $reportAction */
+        $reportAction = $this->getReference(ActionsFixtures::REPORT_EQUIPMENT);
+        /** @var Action $repair12 */
         $repair12 = $this->getReference(TechnicianFixtures::REPAIR_12);
+        /** @var Action $repair25 */
         $repair25 = $this->getReference(TechnicianFixtures::REPAIR_25);
 
+        /** @var Action $sabotage12 */
         $sabotage12 = $this->getReference(TechnicianFixtures::SABOTAGE_12);
+        /** @var Action $sabotage25 */
         $sabotage25 = $this->getReference(TechnicianFixtures::SABOTAGE_25);
 
+        /** @var Action $dismantle50 */
         $dismantle50 = $this->getReference(TechnicianFixtures::DISMANTLE_3_50);
 
         $camera = new ItemConfig();
@@ -47,7 +54,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setIsBreakable(true)
-            ->setActions(new ArrayCollection([$takeAction, $this->getReference(TechnicianFixtures::DISMANTLE_3_25), $repair25, $sabotage25]))
+            ->setActions(new ArrayCollection([$takeAction, $this->getReference(TechnicianFixtures::DISMANTLE_3_25), $repair25, $sabotage25, $reportAction]))
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
         ;
 
@@ -72,7 +79,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($mycoAlarm);
 
-        $tabulatrixActions = new ArrayCollection([$this->getReference(TechnicianFixtures::DISMANTLE_3_12), $repair12, $sabotage12]);
+        $tabulatrixActions = new ArrayCollection([$this->getReference(TechnicianFixtures::DISMANTLE_3_12), $repair12, $sabotage12, $reportAction]);
 
         $tabulatrix = new ItemConfig();
         $tabulatrix

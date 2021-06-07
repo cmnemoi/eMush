@@ -43,14 +43,24 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $actions = new ArrayCollection([$takeAction, $dropAction, $hideAction]);
 
+        /** @var Action $reportAction */
+        $reportAction = $this->getReference(ActionsFixtures::REPORT_EQUIPMENT);
+        /** @var Action $repair1 */
         $repair1 = $this->getReference(TechnicianFixtures::REPAIR_1);
+        /** @var Action $repair6 */
         $repair6 = $this->getReference(TechnicianFixtures::REPAIR_6);
+        /** @var Action $repair12 */
         $repair12 = $this->getReference(TechnicianFixtures::REPAIR_12);
+        /** @var Action $repair25 */
         $repair25 = $this->getReference(TechnicianFixtures::REPAIR_25);
 
+        /** @var Action $sabotage1 */
         $sabotage1 = $this->getReference(TechnicianFixtures::SABOTAGE_1);
+        /** @var Action $sabotage6 */
         $sabotage6 = $this->getReference(TechnicianFixtures::SABOTAGE_6);
+        /** @var Action $sabotage12 */
         $sabotage12 = $this->getReference(TechnicianFixtures::SABOTAGE_12);
+        /** @var Action $sabotage25 */
         $sabotage25 = $this->getReference(TechnicianFixtures::SABOTAGE_25);
 
         $dismantle12 = $this->getReference(TechnicianFixtures::DISMANTLE_3_12);
@@ -66,6 +76,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $actions25 = clone $actions;
         $actions25->add($repair25);
         $actions25->add($sabotage25);
+        $actions25->add($reportAction);
 
         $apron = new ItemConfig();
         $apron
@@ -84,6 +95,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $plasteniteActions->add($dismantle12);
         $plasteniteActions->add($repair12);
         $plasteniteActions->add($sabotage12);
+        $plasteniteActions->add($reportAction);
 
         $plasteniteGear = $this->createGear(
             ModifierTargetEnum::HEALTH_POINT,
@@ -175,6 +187,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $sniperHelmetActions->add($dismantle12);
         $sniperHelmetActions->add($repair1); //@FIXME with the right %
         $sniperHelmetActions->add($sabotage1);
+        $sniperHelmetActions->add($reportAction);
 
         $sniperHelmetGear = $this->createGear(
             ModifierTargetEnum::PERCENTAGE,
@@ -225,6 +238,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $antiGravScooterActions->add($this->getReference(TechnicianFixtures::DISMANTLE_3_25));
         $antiGravScooterActions->add($repair6);
         $antiGravScooterActions->add($sabotage6);
+        $antiGravScooterActions->add($reportAction);
 
         $antiGravScooterGear = $this->createGear(
             ModifierTargetEnum::MOVEMENT_POINT,
@@ -274,6 +288,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $actions12 = clone $actions;
         $actions12->add($repair12);
         $actions12->add($sabotage12);
+        $actions12->add($reportAction);
 
         $lensesGear = $this->createGear(
             ModifierTargetEnum::PERCENTAGE,
@@ -321,6 +336,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $spacesuitActions->add($dismantle12);
         $spacesuitActions->add($repair6);
         $spacesuitActions->add($sabotage6);
+        $spacesuitActions->add($reportAction);
 
         $spacesuit = new ItemConfig();
         $spacesuit
@@ -377,6 +393,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $actionsLiquidMap = clone $actions;
         $actionsLiquidMap->add($repair1);
         $actionsLiquidMap->add($sabotage1);
+        $actionsLiquidMap->add($reportAction);
 
         $liquidMap = new ItemConfig();
         $liquidMap

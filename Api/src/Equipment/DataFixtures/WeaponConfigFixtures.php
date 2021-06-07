@@ -35,19 +35,28 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $actions = new ArrayCollection([$takeAction, $dropAction, $hideAction]);
 
+        /** @var Action $reportAction */
+        $reportAction = $this->getReference(ActionsFixtures::REPORT_EQUIPMENT);
+        /** @var Action $repair12 */
         $repair12 = $this->getReference(TechnicianFixtures::REPAIR_12);
+        /** @var Action $repair25 */
         $repair25 = $this->getReference(TechnicianFixtures::REPAIR_25);
 
+        /** @var Action $sabotage12 */
         $sabotage12 = $this->getReference(TechnicianFixtures::SABOTAGE_12);
+        /** @var Action $sabotage25 */
         $sabotage25 = $this->getReference(TechnicianFixtures::SABOTAGE_25);
 
+        /** @var Action $dismantle12 */
         $dismantle12 = $this->getReference(TechnicianFixtures::DISMANTLE_3_12);
+        /** @var Action $dismantle25 */
         $dismantle25 = $this->getReference(TechnicianFixtures::DISMANTLE_3_25);
 
         $actions25 = clone $actions;
         $actions25->add($dismantle25);
         $actions25->add($repair25);
         $actions25->add($sabotage25);
+        $actions25->add($reportAction);
 
         $chargedMechanic = new Charged();
         $chargedMechanic
@@ -140,6 +149,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         $actions12->add($dismantle12);
         $actions12->add($repair12);
         $actions12->add($sabotage12);
+        $actions12->add($reportAction);
 
         $natamyMechanic = new Weapon();
         $natamyMechanic
@@ -171,6 +181,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         $oldFaithfulActions->add($this->getReference(TechnicianFixtures::DISMANTLE_4_12));
         $oldFaithfulActions->add($repair12);
         $oldFaithfulActions->add($sabotage12);
+        $oldFaithfulActions->add($reportAction);
 
         $oldFaithfulMechanic = new Weapon();
         $oldFaithfulMechanic

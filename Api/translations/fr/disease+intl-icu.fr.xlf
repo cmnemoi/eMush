@@ -41,5 +41,205 @@
                 <target>Vous avez faim, très faim, tout le temps faim... À manger bon sang !</target>
             </segment>
         </unit>
+        <unit id="black_bite">
+            <segment id="name">
+                <source>black_bite.name</source>
+                <target>Morsure Noire</target>
+            </segment>
+            <segment id="description">
+                <source>black_bite.description</source>
+                <target>Relativement bénin mais persistant, la Morsure Noire est un syndrome récent que personne ne connaît.</target>
+            </segment>
+        </unit>
+        <unit id="cat_allergy">
+            <segment id="name">
+                <source>cat_allergy.name</source>
+                <target>Allergie au chat</target>
+            </segment>
+            <segment id="description">
+                <source>cat_allergy.description</source>
+                <target>La simple vue d'un chat provoque des éternuements insupportables et des pustules. Son contact pourrait s'avérer mortel...</target>
+            </segment>
+        </unit>
+        <unit id="cold">
+            <segment id="name">
+                <source>cold.name</source>
+                <target>Rhume</target>
+            </segment>
+            <segment id="description">
+                <source>cold.description</source>
+                <target>Ne sortez jamais sans vos mouchoirs !</target>
+            </segment>
+        </unit>
+        <unit id="extreme_tinnitus">
+            <segment id="name">
+                <source>extreme_tinnitus.name</source>
+                <target>Acouphènes Extrême</target>
+            </segment>
+            <segment id="description">
+                <source>extreme_tinnitus.description</source>
+                <target>Vos oreilles sifflent fort en permanence, ce qui peut devenir très fatiguant à la longue.</target>
+            </segment>
+        </unit>
+        <unit id="flu">
+            <segment id="name">
+                <source>flu.name</source>
+                <target>Grippe</target>
+            </segment>
+            <segment id="description">
+                <source>flu.description</source>
+                <target>Variante sévère de la grippe du poney... Irritable, autoritaire, mal de crâne, rhume, courbatures, rien ne vous est épargné. Attention à ne pas trop laisser traîner, on ne sait jamais.</target>
+            </segment>
+        </unit>
+        <unit id="fungic_infection">
+            <segment id="name">
+                <source>fungic_infection.name</source>
+                <target>Infection fongique</target>
+            </segment>
+            <segment id="description">
+                <source>fungic_infection.description</source>
+                <target>Qu'est ce que c'est que ce truc horrible... Vous devriez faire soigner ça rapidement... Ça gratte, ça purule, ça pue...</target>
+            </segment>
+        </unit>
+        <unit id="junkbumpkinitis">
+            <segment id="name">
+                <source>junkbumpkinitis.name</source>
+                <target>Citrouillite</target>
+            </segment>
+            <segment id="description">
+                <source>junkbumpkinitis.description</source>
+                <target>C'est pas que c'était pas frais...</target>
+            </segment>
+        </unit>
+        <unit id="migraine">
+            <segment id="name">
+                <source>migraine.name</source>
+                <target>Migraine</target>
+            </segment>
+            <segment id="description">
+                <source>migraine.description</source>
+                <target>Une grosse migraine bien carabinée harcèle le patient en ce moment, ça va passer...</target>
+            </segment>
+        </unit>
+        <unit id="mush_allergy">
+            <segment id="name">
+                <source>mush_allergy.name</source>
+                <target>Allergie au mush</target>
+            </segment>
+            <segment id="description">
+                <source>mush_allergy.description</source>
+                <target>Le contact au Mush vous donne des pustules horribles et douloureuses.</target>
+            </segment>
+        </unit>
+        <unit id="quincks_oedema">
+            <segment id="name">
+                <source>quincks_oedema.name</source>
+                <target>Oedeme de Quincke</target>
+            </segment>
+            <segment id="description">
+                <source>quincks_oedema.description</source>
+                <target>TODO</target>
+            </segment>
+        </unit>
+        <unit id="rejuvenation">
+            <segment id="name">
+                <source>rejuvenation.name</source>
+                <target>Verdoiement</target>
+            </segment>
+            <segment id="description">
+                <source>rejuvenation.description</source>
+                <target>Votre corps émet des lueurs pulsatiles vertes.ça ne favorise pas vraiment un sommeil reposant...</target>
+            </segment>
+        </unit>
+        <unit id="rubella">
+            <segment id="name">
+                <source>rubella.name</source>
+                <target>Rubéole</target>
+            </segment>
+            <segment id="description">
+                <source>rubella.description</source>
+                <target>Mal au crâne, puis pustules sèches, très très fatiguant. Vous devriez vous en remettre.</target>
+            </segment>
+        </unit>
+        <unit id="sepsis">
+            <segment id="name">
+                <source>sepsis.name</source>
+                <target>Infection aïgue</target>
+            </segment>
+            <segment id="description">
+                <source>sepsis.description</source>
+                <target>Vous êtes très infecté. Pas facile de se remettre sur pied. Vous ne survivrez sans doute pas...</target>
+            </segment>
+        </unit>
+        <unit id="sinus_storm">
+            <segment id="name">
+                <source>sinus_storm.name</source>
+                <target>Tempête sinusale</target>
+            </segment>
+            <segment id="description">
+                <source>sinus_storm.description</source>
+                <target>Vos sinus sont en feu, de glace, puis lui déchirent la tête... C'est lourd et ça ne passe pas...</target>
+            </segment>
+        </unit>
+        <unit id="skin_inflammation">
+            <segment id="name">
+                <source>skin_inflammation.name</source>
+                <target>Éruption cutanée</target>
+            </segment>
+            <segment id="description">
+                <source>skin_inflammation.description</source>
+                <target>Quelqu'en soit la source, vous n'en avez cure, ça démange là et c'est très pénible</target>
+            </segment>
+        </unit>
+        <unit id="slight_nausea">
+            <segment id="name">
+                <source>slight_nausea.name</source>
+                <target>Nausée légère</target>
+            </segment>
+            <segment id="description">
+                <source>slight_nausea.description</source>
+                <target>Vous vous sentez un peu barbouillé... Ça va passer mais vous n'avez plus faim et vous ne devriez pas vous approchez de bluuuuuurrrpppp...</target>
+            </segment>
+        </unit>
+        <unit id="smallpox">
+            <segment id="name">
+                <source>smallpox.name</source>
+                <target>Variole</target>
+            </segment>
+            <segment id="description">
+                <source>smallpox.description</source>
+                <target>Maladie disparue de Sol mais apparemment bien présente ailleurs. Son aspect appétissant devrait vous convaincre de vous soigner...</target>
+            </segment>
+        </unit>
+        <unit id="space_rabies">
+            <segment id="name">
+                <source>space_rabies.name</source>
+                <target>Rage spatiale</target>
+            </segment>
+            <segment id="description">
+                <source>space_rabies.description</source>
+                <target>Vous avez la rage. Vous pouvez devenir violent et cela va sans doute finir par vous tuer.</target>
+            </segment>
+        </unit>
+        <unit id="syphilis">
+            <segment id="name">
+                <source>syphilis.name</source>
+                <target>Syphilis</target>
+            </segment>
+            <segment id="description">
+                <source>syphilis.description</source>
+                <target>Maladie vénérienne par excellence, votre aspect effroyable et les rumeurs qui vous entoureront vous lasserons vite. Quel Dom Juan quand même...</target>
+            </segment>
+        </unit>
+        <unit id="vitamin_deficiency">
+            <segment id="name">
+                <source>vitamin_deficiency.name</source>
+                <target>Carence en vitamines</target>
+            </segment>
+            <segment id="description">
+                <source>vitamin_deficiency.description</source>
+                <target>Des carences en vitamines, minéraux, oligo-éléments et autres, vous n'avez pas trop la pêche...</target>
+            </segment>
+        </unit>
     </file>
 </xliff>

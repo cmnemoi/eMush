@@ -73,7 +73,7 @@ class Player implements StatusHolderInterface, ActionParameter, LogParameter
     private Collection $items;
 
     /**
-     * @ORM\OneToMany (targetEntity="Mush\Status\Entity\StatusTarget", mappedBy="player", cascade="ALL", orphanRemoval=true)
+     * @ORM\OneToMany (targetEntity="Mush\Status\Entity\StatusTarget", mappedBy="player", cascade={"ALL"}, orphanRemoval=true)
      */
     private Collection $statuses;
 
@@ -305,6 +305,13 @@ class Player implements StatusHolderInterface, ActionParameter, LogParameter
     public function getDiseases(): Collection
     {
         return $this->diseases;
+    }
+
+    public function getDiseaseByName(string $diseaseName): ?PlayerDisease
+    {
+        $disease = $this->diseases->filter(fn (PlayerDisease $playerDisease) => ($playerDisease->getDiseaseConfig()->getName() === $diseaseName));
+
+        return $disease->isEmpty() ? null : $disease->first();
     }
 
     public function setDiseases(Collection $diseases): Player

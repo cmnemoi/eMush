@@ -41,7 +41,7 @@ class GameEquipment implements StatusHolderInterface, ActionParameter, LogParame
     private int $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="Mush\Status\Entity\StatusTarget", mappedBy="gameEquipment", cascade="ALL")
+     * @ORM\OneToMany(targetEntity="Mush\Status\Entity\StatusTarget", mappedBy="gameEquipment", cascade={"ALL"})
      */
     private Collection $statuses;
 

@@ -20,12 +20,12 @@ class StatusTarget
     private ?int $id = null;
 
     /**
-     * @ORM\OneToOne(targetEntity="Mush\Status\Entity\Status", mappedBy="owner", cascade="ALL")
+     * @ORM\OneToOne(targetEntity="Mush\Status\Entity\Status", mappedBy="owner", cascade={"ALL"})
      */
     private ?Status $owner = null;
 
     /**
-     * @ORM\OneToOne(targetEntity="Mush\Status\Entity\Status", mappedBy="target", cascade="ALL")
+     * @ORM\OneToOne(targetEntity="Mush\Status\Entity\Status", mappedBy="target", cascade={"ALL"})
      */
     private ?Status $target = null;
 

@@ -3,12 +3,13 @@
 namespace Mush\Disease\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Disease\Enum\TypeEnum;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="disease_consummable_characterisitc")
+ * @ORM\Table(name="disease_consummable_attribute")
  */
-class ConsumableDiseaseCharacteristic
+class ConsumableDiseaseAttribute
 {
     /**
      * @ORM\Id
@@ -21,6 +22,11 @@ class ConsumableDiseaseCharacteristic
      * @ORM\Column(type="string", nullable=false)
      */
     private string $disease;
+
+    /**
+     * @ORM\Column(type="string", nullable=false)
+     */
+    private string $type = TypeEnum::DISEASE;
 
     /**
      * @ORM\Column(type="integer", nullable=false)
@@ -38,12 +44,12 @@ class ConsumableDiseaseCharacteristic
     private int $delayLength = 0;
 
     /**
-     * @ORM\ManyToOne (targetEntity="Mush\Disease\Entity\Consumabledisease", inversedBy="diseases")
+     * @ORM\ManyToOne (targetEntity="Mush\Disease\Entity\Consumabledisease", inversedBy="diseaseAttributes")
      */
     private ConsumableDisease $consumableDisease;
 
     /**
-     * @ORM\ManyToOne (targetEntity="Mush\Disease\Entity\ConsumableDiseaseConfig", inversedBy="diseases")
+     * @ORM\ManyToOne (targetEntity="Mush\Disease\Entity\ConsumableDiseaseConfig", inversedBy="consumableAttributes")
      */
     private ConsumableDiseaseConfig $consumableDiseaseConfig;
 
@@ -57,9 +63,21 @@ class ConsumableDiseaseCharacteristic
         return $this->disease;
     }
 
-    public function setDisease(string $disease): ConsumableDiseaseCharacteristic
+    public function setDisease(string $disease): ConsumableDiseaseAttribute
     {
         $this->disease = $disease;
+
+        return $this;
+    }
+
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): ConsumableDiseaseAttribute
+    {
+        $this->type = $type;
 
         return $this;
     }
@@ -69,7 +87,7 @@ class ConsumableDiseaseCharacteristic
         return $this->rate;
     }
 
-    public function setRate(int $rate): ConsumableDiseaseCharacteristic
+    public function setRate(int $rate): ConsumableDiseaseAttribute
     {
         $this->rate = $rate;
 
@@ -81,7 +99,7 @@ class ConsumableDiseaseCharacteristic
         return $this->delayMin;
     }
 
-    public function setDelayMin(int $delayMin): ConsumableDiseaseCharacteristic
+    public function setDelayMin(int $delayMin): ConsumableDiseaseAttribute
     {
         $this->delayMin = $delayMin;
 
@@ -93,7 +111,7 @@ class ConsumableDiseaseCharacteristic
         return $this->delayLength;
     }
 
-    public function setDelayLength(int $delayLength): ConsumableDiseaseCharacteristic
+    public function setDelayLength(int $delayLength): ConsumableDiseaseAttribute
     {
         $this->delayLength = $delayLength;
 
@@ -105,10 +123,10 @@ class ConsumableDiseaseCharacteristic
         return $this->consumableDisease;
     }
 
-    public function setConsumableDisease(ConsumableDisease $consumableDisease): ConsumableDiseaseCharacteristic
+    public function setConsumableDisease(ConsumableDisease $consumableDisease): ConsumableDiseaseAttribute
     {
         $this->consumableDisease = $consumableDisease;
-        $consumableDisease->addDisease($this);
+        $consumableDisease->addDiseaseAttribute($this);
 
         return $this;
     }
@@ -118,7 +136,7 @@ class ConsumableDiseaseCharacteristic
         return $this->consumableDiseaseConfig;
     }
 
-    public function setConsumableDiseaseConfig(ConsumableDiseaseConfig $consumableDiseaseConfig): ConsumableDiseaseCharacteristic
+    public function setConsumableDiseaseConfig(ConsumableDiseaseConfig $consumableDiseaseConfig): ConsumableDiseaseAttribute
     {
         $this->consumableDiseaseConfig = $consumableDiseaseConfig;
         $consumableDiseaseConfig->addDisease($this);

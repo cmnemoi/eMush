@@ -22,6 +22,12 @@ git checkout -b fix-some-fix
 php vendor/bin/codecept run
 vendor/bin/php-cs-fixer fix
 vendor/bin/psalm
+. linters.sh 
+```
+in case of trouble with test
+```
+vendor/bin/codecept clean
+vendor/bin/psalm -no--cache
 ```
 
 4- Issue a Merge Request describing summarizing what you have done, wait a moment (ideally 24h) or the approval of an other developper before merging

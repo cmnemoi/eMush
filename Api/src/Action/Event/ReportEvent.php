@@ -10,7 +10,6 @@ use Symfony\Contracts\EventDispatcher\Event;
 class ReportEvent extends Event
 {
     public const REPORT_FIRE = 'report.fire';
-    public const REPORT_DOOR = 'report.door';
     public const REPORT_EQUIPMENT = 'report.equipment';
 
     private Player $player;

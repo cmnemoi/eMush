@@ -9,7 +9,6 @@ use Mush\Alert\Enum\AlertEnum;
 use Mush\Alert\Service\AlertServiceInterface;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Place\Entity\Place;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -50,17 +49,12 @@ class IsReportedValidator extends ConstraintValidator
             throw new \LogicException('There should be an alert entity found for this Daedalus');
         }
 
-        if ($alertName === AlertEnum::FIRES && $this->isFireReported($alert, $player->getPlace()) ||
-            ($equipment !== null && $this->isEquipmentReported($alert, $equipment))
+        if (($alertName === AlertEnum::FIRES && $this->alertService->getAlertFireElement($alert, $player->getPlace())->getPlayer() !== null) ||
+            ($equipment !== null && $this->alertService->getAlertEquipmentElement($alert, $equipment)->getPlayer() !== null)
         ) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }
-    }
-
-    private function isFireReported(Alert $alert, Place $place): bool
-    {
-        return $alert->getAlertElements()->filter(fn (AlertElement $element) => $element->getPlace() === $place)->first()->getPlayer() !== null;
     }
 
     private function isEquipmentReported(Alert $alert, GameEquipment $equipment): bool

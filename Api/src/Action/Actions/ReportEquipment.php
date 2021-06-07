@@ -11,7 +11,6 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\IsReported;
 use Mush\Action\Validator\Reach;
 use Mush\Action\Validator\Status;
-use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -55,12 +54,7 @@ class ReportEquipment extends AbstractAction
         $reportEvent = new ReportEvent($this->player);
         $reportEvent->setGameEquipment($parameter);
 
-        if ($parameter instanceof Door) {
-            $eventName = ReportEvent::REPORT_DOOR;
-        } else {
-            $eventName = ReportEvent::REPORT_EQUIPMENT;
-        }
-        $this->eventDispatcher->dispatch($reportEvent, $eventName);
+        $this->eventDispatcher->dispatch($reportEvent, ReportEvent::REPORT_EQUIPMENT);
 
         return new Success();
     }

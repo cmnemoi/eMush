@@ -85,7 +85,7 @@ class NeronMessageService implements NeronMessageServiceInterface
         return $message;
     }
 
-    private function getMessageNeronCycleFailures(Daedalus $daedalus, \DateTime $time): Message
+    public function getMessageNeronCycleFailures(Daedalus $daedalus, \DateTime $time): Message
     {
         $message = $this->messageRepository->findNeronCycleReport($daedalus);
         if (!$message) {

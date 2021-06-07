@@ -171,13 +171,7 @@ class AlertService implements AlertServiceInterface
             throw new \LogicException('there should be a broken equipment alert on this Daedalus');
         }
 
-        $filteredList = $brokenAlert->getAlertElements()->filter(fn (AlertElement $element) => $element->getEquipment() === $equipment);
-
-        if ($filteredList->count() !== 1) {
-            throw new \LogicException('this equipment should be reported exactly one time');
-        }
-
-        $reportedEquipment = $filteredList->first();
+        $reportedEquipment = $this->getAlertEquipmentElement($brokenAlert, $equipment);
 
         $brokenAlert->getAlertElements()->removeElement($reportedEquipment);
 
@@ -190,6 +184,17 @@ class AlertService implements AlertServiceInterface
         }
 
         $this->persist($brokenAlert);
+    }
+
+    public function getAlertEquipmentElement(Alert $alert, GameEquipment $equipment): AlertElement
+    {
+        $filteredList = $alert->getAlertElements()->filter(fn (AlertElement $element) => $element->getEquipment() === $equipment);
+
+        if ($filteredList->count() !== 1) {
+            throw new \LogicException('this equipment should be reported exactly one time');
+        }
+
+        return $filteredList->first();
     }
 
     public function handleFireStart(Place $place): void
@@ -217,13 +222,8 @@ class AlertService implements AlertServiceInterface
             throw new \LogicException('there should be a fire alert on this Daedalus');
         }
 
-        $filteredList = $fireAlert->getAlertElements()->filter(fn (AlertElement $element) => $element->getPlace() === $place);
+        $reportedFire = $this->getAlertFireElement($fireAlert, $place);
 
-        if ($filteredList->count() !== 1) {
-            throw new \LogicException('this fire should be reported exactly one time');
-        }
-
-        $reportedFire = $filteredList->first();
         $fireAlert->getAlertElements()->removeElement($reportedFire);
 
         $this->deleteAlertElement($reportedFire);
@@ -235,6 +235,17 @@ class AlertService implements AlertServiceInterface
         }
 
         $this->persist($fireAlert);
+    }
+
+    public function getAlertFireElement(Alert $alert, Place $place): AlertElement
+    {
+        $filteredList = $alert->getAlertElements()->filter(fn (AlertElement $element) => $element->getPlace() === $place);
+
+        if ($filteredList->count() !== 1) {
+            throw new \LogicException('this fire should be reported exactly one time');
+        }
+
+        return $filteredList->first();
     }
 
     private function getAlert(Daedalus $daedalus, string $alertName): Alert

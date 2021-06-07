@@ -78,6 +78,13 @@ class IsReportedValidatorTest extends TestCase
             ->once()
         ;
 
+        $this->alertService
+            ->shouldReceive('getAlertFireElement')
+            ->with($alert, $room)
+            ->andReturn($alertElement)
+            ->once()
+        ;
+
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
     }
@@ -112,6 +119,13 @@ class IsReportedValidatorTest extends TestCase
             ->shouldReceive('findByNameAndDaedalus')
             ->with(AlertEnum::FIRES, $daedalus)
             ->andReturn($alert)
+            ->once()
+        ;
+
+        $this->alertService
+            ->shouldReceive('getAlertFireElement')
+            ->with($alert, $room)
+            ->andReturn($alertElement)
             ->once()
         ;
 
@@ -156,6 +170,13 @@ class IsReportedValidatorTest extends TestCase
             ->once()
         ;
 
+        $this->alertService
+            ->shouldReceive('getAlertEquipmentElement')
+            ->with($alert, $gameEquipment)
+            ->andReturn($alertElement)
+            ->once()
+        ;
+
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
     }
@@ -192,6 +213,13 @@ class IsReportedValidatorTest extends TestCase
             ->shouldReceive('findByNameAndDaedalus')
             ->with(AlertEnum::BROKEN_EQUIPMENTS, $daedalus)
             ->andReturn($alert)
+            ->once()
+        ;
+
+        $this->alertService
+            ->shouldReceive('getAlertEquipmentElement')
+            ->with($alert, $gameEquipment)
+            ->andReturn($alertElement)
             ->once()
         ;
 

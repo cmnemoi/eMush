@@ -165,10 +165,12 @@ class PlayerDiseaseServiceTest extends TestCase
     public function testHandleDiseaseForCause()
     {
         $daedalus = new Daedalus();
+        $daedalus->setGameConfig(new GameConfig());
         $player = new Player();
         $player->setDaedalus($daedalus);
 
         $diseaseConfig = new DiseaseConfig();
+        $diseaseConfig->setName('name');
 
         $this->diseaseConfigRepository
             ->shouldReceive('findByCauses')
@@ -187,6 +189,19 @@ class PlayerDiseaseServiceTest extends TestCase
         $this->randomService
             ->shouldReceive('getRandomElements')
             ->andReturn([$diseaseConfig])
+            ->once()
+        ;
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
+
+        $this->randomService
+            ->shouldReceive('random')
+            ->andReturn(1)
+            ->once()
+        ;
+
+        $this->diseaseConfigRepository
+            ->shouldReceive('findOneBy')
+            ->andReturn($diseaseConfig)
             ->once()
         ;
 
@@ -270,5 +285,47 @@ class PlayerDiseaseServiceTest extends TestCase
 
         $this->assertEquals(10, $diseasePlayer->getDiseasePoint());
         $this->assertEquals(DiseaseStatusEnum::ACTIVE, $diseasePlayer->getStatus());
+    }
+
+    public function testHealDisease()
+    {
+        $daedalus = new Daedalus();
+        $player = new Player();
+        $player->setDaedalus($daedalus);
+
+        $diseasePlayer = new PlayerDisease();
+        $diseasePlayer
+            ->setPlayer($player)
+            ->setStatus(DiseaseStatusEnum::ACTIVE)
+            ->setResistancePoint(0)
+        ;
+
+        $this->entityManager->shouldReceive('remove')->once();
+        $this->entityManager->shouldReceive('flush')->once();
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
+
+        $this->playerDiseaseService->healDisease($player, $diseasePlayer, new \DateTime());
+    }
+
+    public function testTreatDisease()
+    {
+        $daedalus = new Daedalus();
+        $player = new Player();
+        $player->setDaedalus($daedalus);
+
+        $diseasePlayer = new PlayerDisease();
+        $diseasePlayer
+            ->setPlayer($player)
+            ->setStatus(DiseaseStatusEnum::ACTIVE)
+            ->setResistancePoint(1)
+        ;
+
+        $this->entityManager->shouldReceive('persist')->once();
+        $this->entityManager->shouldReceive('flush')->once();
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
+
+        $this->playerDiseaseService->healDisease($player, $diseasePlayer, new \DateTime());
+
+        $this->assertEquals(0, $diseasePlayer->getResistancePoint());
     }
 }

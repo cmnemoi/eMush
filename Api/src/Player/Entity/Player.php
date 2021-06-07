@@ -10,6 +10,7 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Disease\Entity\Collection\PlayerDiseaseCollection;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
@@ -122,7 +123,7 @@ class Player implements StatusHolderInterface, ActionParameter, LogParameter
     {
         $this->items = new ArrayCollection();
         $this->statuses = new ArrayCollection();
-        $this->diseases = new ArrayCollection();
+        $this->diseases = new PlayerDiseaseCollection();
     }
 
     public function getId(): int
@@ -303,8 +304,12 @@ class Player implements StatusHolderInterface, ActionParameter, LogParameter
         return $this->hasStatus(PlayerStatusEnum::MUSH);
     }
 
-    public function getDiseases(): Collection
+    public function getDiseases(): PlayerDiseaseCollection
     {
+        if (!$this->diseases instanceof PlayerDiseaseCollection) {
+            $this->diseases = new PlayerDiseaseCollection($this->diseases->toArray());
+        }
+
         return $this->diseases;
     }
 

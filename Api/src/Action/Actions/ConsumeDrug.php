@@ -7,7 +7,7 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
-use Mush\Action\Event\ConsumeEvent;
+use Mush\Action\Event\ActionEffectEvent;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\Status;
 use Mush\Equipment\Entity\GameItem;
@@ -72,8 +72,8 @@ class ConsumeDrug extends Consume
             throw new \Exception('Cannot consume this equipment');
         }
 
-        $consumeEquipment = new ConsumeEvent($this->player, $parameter);
-        $this->eventDispatcher->dispatch($consumeEquipment, ConsumeEvent::CONSUME);
+        $consumeEquipment = new ActionEffectEvent($this->player, $parameter);
+        $this->eventDispatcher->dispatch($consumeEquipment, ActionEffectEvent::CONSUME);
 
         if (!$this->player->isMush()) {
             $this->statusService

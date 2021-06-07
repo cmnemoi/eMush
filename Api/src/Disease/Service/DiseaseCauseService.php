@@ -4,6 +4,7 @@ namespace Mush\Disease\Service;
 
 use Mush\Disease\Entity\ConsumableDiseaseAttribute;
 use Mush\Disease\Enum\DiseaseCauseEnum;
+use Mush\Disease\Enum\DiseaseStatusEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
@@ -47,7 +48,7 @@ class DiseaseCauseService implements DiseaseCauseServiceInterface
             /** @var ConsumableDiseaseAttribute $disease */
             foreach ($consumableEffect->getDiseases() as $disease) {
                 if ($this->randomService->isSuccessful($disease->getRate())) {
-                    $this->playerDiseaseService->createDiseaseFromName($disease->getDisease(), $player);
+                    $this->playerDiseaseService->createDiseaseFromName($disease->getDisease(), $player, $disease->getDelayMin(), $disease->getDelayLength());
                 }
             }
 
@@ -56,7 +57,7 @@ class DiseaseCauseService implements DiseaseCauseServiceInterface
                 if (($disease = $player->getDiseaseByName($cure->getDisease())) !== null &&
                     $this->randomService->isSuccessful($cure->getRate())
                 ) {
-                    $this->playerDiseaseService->removePlayerDisease($disease, new \DateTime());
+                    $this->playerDiseaseService->removePlayerDisease($disease, DiseaseStatusEnum::DRUG_HEALED, new \DateTime());
                 }
             }
         }

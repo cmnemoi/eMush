@@ -483,7 +483,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $reportFireAction = new Action();
         $reportFireAction
             ->setName(ActionEnum::REPORT_FIRE)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setScope(ActionScopeEnum::SELF)
             ->setActionCost($freeCost)
         ;
 

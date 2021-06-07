@@ -67,6 +67,7 @@ class ReportSubscriber implements EventSubscriberInterface
         $alertElement = $this->alertService->getAlertEquipmentElement($alert, $equipment);
 
         $alertElement->setPlayer($player)->setPlace($player->getPlace());
+
         $this->alertService->persistAlertElement($alertElement);
     }
 }

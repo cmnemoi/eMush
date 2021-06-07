@@ -44,7 +44,7 @@ class ReportSubscriber implements EventSubscriberInterface
         $this->neronMessageService->createNeronMessage(
             NeronMessageEnum::REPORT_FIRE,
             $player->getDaedalus(),
-            ['player' => $player->getLogName(), 'place' => $place],
+            ['player' => $player->getLogName(), 'place' => $place->getName()],
             new \DateTime(),
             $parentMessage
         );

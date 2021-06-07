@@ -26,6 +26,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $hitAction = $this->getReference(ActionsFixtures::HIT_DEFAULT);
         $hideAction = $this->getReference(ActionsFixtures::HIDE_DEFAULT);
         $searchAction = $this->getReference(ActionsFixtures::SEARCH_DEFAULT);
+        $reportFireAction = $this->getReference(ActionsFixtures::REPORT_FIRE);
         $extractSporeAction = $this->getReference(ActionsFixtures::EXTRACT_SPORE);
         $infectAction = $this->getReference(ActionsFixtures::INFECT_PLAYER);
         $getUpAction = $this->getReference(ActionsFixtures::GET_UP);
@@ -34,6 +35,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             $hitAction,
             $hideAction,
             $searchAction,
+            $reportFireAction,
             $infectAction,
             $extractSporeAction,
             $getUpAction,

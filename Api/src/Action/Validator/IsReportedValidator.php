@@ -3,8 +3,6 @@
 namespace Mush\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
-use Mush\Alert\Entity\Alert;
-use Mush\Alert\Entity\AlertElement;
 use Mush\Alert\Enum\AlertEnum;
 use Mush\Alert\Service\AlertServiceInterface;
 use Mush\Equipment\Entity\Door;
@@ -32,33 +30,50 @@ class IsReportedValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, IsReported::class);
         }
 
-        $player = $value->getPlayer();
-
-        if (($equipment = $value->getParameter()) == null) {
-            $alertName = AlertEnum::FIRES;
-        } elseif ($equipment instanceof Door) {
-            $alertName = AlertEnum::BROKEN_DOORS;
-        } elseif ($equipment instanceof GameEquipment) {
-            $alertName = AlertEnum::BROKEN_EQUIPMENTS;
-        } else {
-            throw new \LogicException('no matching alert for this parameter');
-        }
-
-        $alert = $this->alertService->findByNameAndDaedalus($alertName, $player->getDaedalus());
-        if ($alert === null) {
-            throw new \LogicException('There should be an alert entity found for this Daedalus');
-        }
-
-        if (($alertName === AlertEnum::FIRES && $this->alertService->getAlertFireElement($alert, $player->getPlace())->getPlayer() !== null) ||
-            ($equipment !== null && $this->alertService->getAlertEquipmentElement($alert, $equipment)->getPlayer() !== null)
-        ) {
+        if ($this->isFireAlertReported($value) || $this->isEquipmentAlertReported($value)) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }
     }
 
-    private function isEquipmentReported(Alert $alert, GameEquipment $equipment): bool
+    private function isFireAlertReported(AbstractAction $value): bool
     {
-        return $alert->getAlertElements()->filter(fn (AlertElement $element) => $element->getEquipment() === $equipment)->first()->getPlayer() !== null;
+        $player = $value->getPlayer();
+        $equipment = $value->getParameter();
+
+        if ($equipment !== null) {
+            return false;
+        }
+
+        $alert = $this->alertService->findByNameAndDaedalus(AlertEnum::FIRES, $player->getDaedalus());
+        if ($alert === null) {
+            throw new \LogicException('There should be an alert entity found for this Daedalus');
+        }
+
+        return $this->alertService->getAlertFireElement($alert, $player->getPlace())->getPlayer() !== null;
+    }
+
+    private function isEquipmentAlertReported(AbstractAction $value): bool
+    {
+        $player = $value->getPlayer();
+        $equipment = $value->getParameter();
+
+        if ($equipment === null) {
+            return false;
+        }
+
+        if ($equipment instanceof Door) {
+            $alert = $this->alertService->findByNameAndDaedalus(AlertEnum::BROKEN_DOORS, $player->getDaedalus());
+        } elseif ($equipment instanceof GameEquipment) {
+            $alert = $this->alertService->findByNameAndDaedalus(AlertEnum::BROKEN_EQUIPMENTS, $player->getDaedalus());
+        } else {
+            throw new UnexpectedTypeException($equipment, GameEquipment::class);
+        }
+
+        if ($alert === null) {
+            throw new \LogicException('There should be an alert entity found for this Daedalus');
+        }
+
+        return $this->alertService->getAlertEquipmentElement($alert, $equipment)->getPlayer() !== null;
     }
 }

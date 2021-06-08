@@ -40,4 +40,6 @@ interface AlertServiceInterface
     public function getAlertFireElement(Alert $alert, Place $place): AlertElement;
 
     public function getAlerts(Daedalus $daedalus): ArrayCollection;
+
+    public function handleSatietyAlert(Daedalus $daedalus): void;
 }

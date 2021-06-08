@@ -20,7 +20,7 @@ class AlertService implements AlertServiceInterface
 
     public const OXYGEN_ALERT = 8;
     public const HULL_ALERT = 33;
-    public const FAMINE_ALERT = -120;
+    public const FAMINE_ALERT = -24;
 
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -158,7 +158,6 @@ class AlertService implements AlertServiceInterface
 
     public function handleEquipmentRepair(GameEquipment $equipment): void
     {
-        $daedalus = $equipment->getCurrentPlace()->getDaedalus();
         if ($equipment instanceof Door) {
             $daedalus = $equipment->getRooms()->first()->getDaedalus();
             $brokenAlert = $this->findByNameAndDaedalus(AlertEnum::BROKEN_DOORS, $daedalus);
@@ -277,6 +276,28 @@ class AlertService implements AlertServiceInterface
             return new ArrayCollection([$alert]);
         } else {
             return $alerts;
+        }
+    }
+
+    public function handleSatietyAlert(Daedalus $daedalus): void
+    {
+        $totalSatiety = 0;
+        $playersAlive = $daedalus->getPlayers()->getPlayerAlive();
+        foreach ($playersAlive as $player) {
+            $totalSatiety = $totalSatiety + $player->getSatiety();
+        }
+
+        $alert = $this->findByNameAndDaedalus(AlertEnum::HUNGER, $daedalus);
+
+        if ($totalSatiety <= $playersAlive->count() * self::FAMINE_ALERT && $alert === null) {
+            $alert = new Alert();
+            $alert->setDaedalus($daedalus)->setName(AlertEnum::HUNGER);
+
+            $this->persist($alert);
+
+            return;
+        } elseif ($totalSatiety > $playersAlive->count() * self::FAMINE_ALERT && $alert !== null) {
+            $this->delete($alert);
         }
     }
 }

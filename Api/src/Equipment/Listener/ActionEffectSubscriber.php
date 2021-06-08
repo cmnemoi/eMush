@@ -50,7 +50,7 @@ class ActionEffectSubscriber implements EventSubscriberInterface
             throw new \Exception('Cannot consume this equipment');
         }
 
-        $consumableEffect = $this->equipmentServiceEffect->getConsumableEffect($rationType, $player->getDaedalus());
+        $consumableEffect = $this->equipmentServiceEffect->getConsumableEffect($ration->getName(), $rationType, $player->getDaedalus());
 
         if (!$player->isMush()) {
             $this->dispatchConsumableEffects($consumableEffect, $player);

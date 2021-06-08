@@ -10,7 +10,7 @@ use Mush\Equipment\Entity\PlantEffect;
 
 interface EquipmentEffectServiceInterface
 {
-    public function getConsumableEffect(Ration $ration, Daedalus $daedalus): ConsumableEffect;
+    public function getConsumableEffect(string $name, Ration $ration, Daedalus $daedalus): ConsumableEffect;
 
     public function getPlantEffect(Plant $plant, Daedalus $daedalus): PlantEffect;
 }

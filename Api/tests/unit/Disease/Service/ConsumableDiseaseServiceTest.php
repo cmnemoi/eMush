@@ -6,13 +6,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Disease\Entity\ConsumableDisease;
 use Mush\Disease\Entity\ConsumableDiseaseAttribute;
 use Mush\Disease\Entity\ConsumableDiseaseConfig;
 use Mush\Disease\Enum\TypeEnum;
 use Mush\Disease\Repository\ConsumableDiseaseConfigRepository;
-use Mush\Disease\Repository\ConsumableDiseaseRepository;
 use Mush\Disease\Service\ConsumableDiseaseService;
+use Mush\Equipment\Entity\ConsumableEffect;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\RandomServiceInterface;
 use PHPUnit\Framework\TestCase;
@@ -25,9 +24,6 @@ class ConsumableDiseaseServiceTest extends TestCase
     /** @var EntityManagerInterface | Mockery\Mock */
     private EntityManagerInterface $entityManager;
 
-    /** @var ConsumableDiseaseRepository | Mockery\Mock */
-    private ConsumableDiseaseRepository $consumableDiseaseRepository;
-
     /** @var ConsumableDiseaseConfigRepository | Mockery\Mock */
     private ConsumableDiseaseConfigRepository $consumableDiseaseConfigRepository;
 
@@ -38,13 +34,11 @@ class ConsumableDiseaseServiceTest extends TestCase
      */
     public function before()
     {
-        $this->consumableDiseaseRepository = Mockery::mock(ConsumableDiseaseRepository::class);
         $this->consumableDiseaseConfigRepository = Mockery::mock(ConsumableDiseaseConfigRepository::class);
         $this->entityManager = Mockery::mock(EntityManagerInterface::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
 
         $this->consumableDiseaseService = new ConsumableDiseaseService(
-            $this->consumableDiseaseRepository,
             $this->consumableDiseaseConfigRepository,
             $this->entityManager,
             $this->randomService,
@@ -83,7 +77,7 @@ class ConsumableDiseaseServiceTest extends TestCase
 
         $this->entityManager
             ->shouldReceive('persist')
-            ->times(3)
+            ->times(2)
         ;
 
         $this->entityManager
@@ -91,9 +85,12 @@ class ConsumableDiseaseServiceTest extends TestCase
             ->once()
         ;
 
-        $consumableDisease = $this->consumableDiseaseService->createConsumableDiseases('name', $daedalus);
+        $consumableEffect = new ConsumableEffect();
+        $consumableEffect->setDaedalus($daedalus);
 
-        $this->assertInstanceOf(ConsumableDisease::class, $consumableDisease);
+        $consumableDisease = $this->consumableDiseaseService->createConsumableDiseases('name', $consumableEffect);
+
+        $this->assertInstanceOf(ConsumableEffect::class, $consumableDisease);
         $this->assertCount(2, $consumableDisease->getDiseases());
     }
 
@@ -132,7 +129,7 @@ class ConsumableDiseaseServiceTest extends TestCase
 
         $this->entityManager
             ->shouldReceive('persist')
-            ->times(3)
+            ->times(2)
         ;
 
         $this->entityManager
@@ -140,9 +137,12 @@ class ConsumableDiseaseServiceTest extends TestCase
             ->once()
         ;
 
-        $consumableDisease = $this->consumableDiseaseService->createConsumableDiseases('name', $daedalus);
+        $consumableEffect = new ConsumableEffect();
+        $consumableEffect->setDaedalus($daedalus);
 
-        $this->assertInstanceOf(ConsumableDisease::class, $consumableDisease);
+        $consumableDisease = $this->consumableDiseaseService->createConsumableDiseases('name', $consumableEffect);
+
+        $this->assertInstanceOf(ConsumableEffect::class, $consumableDisease);
         $this->assertCount(2, $consumableDisease->getDiseases());
     }
 
@@ -181,7 +181,7 @@ class ConsumableDiseaseServiceTest extends TestCase
 
         $this->entityManager
             ->shouldReceive('persist')
-            ->twice()
+            ->once()
         ;
 
         $this->entityManager
@@ -189,9 +189,12 @@ class ConsumableDiseaseServiceTest extends TestCase
             ->once()
         ;
 
-        $consumableDisease = $this->consumableDiseaseService->createConsumableDiseases('name', $daedalus);
+        $consumableEffect = new ConsumableEffect();
+        $consumableEffect->setDaedalus($daedalus);
 
-        $this->assertInstanceOf(ConsumableDisease::class, $consumableDisease);
+        $consumableDisease = $this->consumableDiseaseService->createConsumableDiseases('name', $consumableEffect);
+
+        $this->assertInstanceOf(ConsumableEffect::class, $consumableDisease);
         $this->assertCount(1, $consumableDisease->getDiseases());
         /** @var ConsumableDiseaseAttribute $disease */
         $disease = $consumableDisease->getDiseases()->first();
@@ -235,7 +238,7 @@ class ConsumableDiseaseServiceTest extends TestCase
 
         $this->entityManager
             ->shouldReceive('persist')
-            ->twice()
+            ->once()
         ;
 
         $this->entityManager
@@ -243,9 +246,12 @@ class ConsumableDiseaseServiceTest extends TestCase
             ->once()
         ;
 
-        $consumableDisease = $this->consumableDiseaseService->createConsumableDiseases('name', $daedalus);
+        $consumableEffect = new ConsumableEffect();
+        $consumableEffect->setDaedalus($daedalus);
 
-        $this->assertInstanceOf(ConsumableDisease::class, $consumableDisease);
+        $consumableDisease = $this->consumableDiseaseService->createConsumableDiseases('name', $consumableEffect);
+
+        $this->assertInstanceOf(ConsumableEffect::class, $consumableDisease);
         $this->assertCount(1, $consumableDisease->getDiseases());
         /** @var ConsumableDiseaseAttribute $disease */
         $disease = $consumableDisease->getDiseases()->first();
@@ -291,7 +297,7 @@ class ConsumableDiseaseServiceTest extends TestCase
 
         $this->entityManager
             ->shouldReceive('persist')
-            ->twice()
+            ->once()
         ;
 
         $this->entityManager
@@ -299,9 +305,13 @@ class ConsumableDiseaseServiceTest extends TestCase
             ->once()
         ;
 
-        $consumableDisease = $this->consumableDiseaseService->createConsumableDiseases('name', $daedalus);
+        $consumableEffect = new ConsumableEffect();
+        $consumableEffect->setDaedalus($daedalus);
 
-        $this->assertInstanceOf(ConsumableDisease::class, $consumableDisease);
+        $consumableDisease = $this->consumableDiseaseService->createConsumableDiseases('name', $consumableEffect);
+
+        $this->assertInstanceOf(ConsumableEffect::class, $consumableDisease);
+
         $this->assertCount(1, $consumableDisease->getCures());
         /** @var ConsumableDiseaseAttribute $cure */
         $cure = $consumableDisease->getCures()->first();

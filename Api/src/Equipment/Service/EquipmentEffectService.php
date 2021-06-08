@@ -3,8 +3,8 @@
 namespace Mush\Equipment\Service;
 
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Disease\Service\ConsumableDiseaseServiceInterface;
 use Mush\Equipment\Entity\ConsumableEffect;
-use Mush\Equipment\Entity\Mechanics\Drug;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Equipment\Entity\PlantEffect;
@@ -14,29 +14,31 @@ use Mush\Game\Service\RandomServiceInterface;
 
 class EquipmentEffectService implements EquipmentEffectServiceInterface
 {
+    private ConsumableDiseaseServiceInterface $consumableDiseaseService;
     private ConsumableEffectRepository $consumableEffectRepository;
     private PlantEffectRepository $plantEffectRepository;
     private RandomServiceInterface $randomService;
 
     public function __construct(
+        ConsumableDiseaseServiceInterface $consumableDiseaseService,
         ConsumableEffectRepository $consumableEffectRepository,
         PlantEffectRepository $plantEffectRepository,
         RandomServiceInterface $randomService
     ) {
+        $this->consumableDiseaseService = $consumableDiseaseService;
         $this->consumableEffectRepository = $consumableEffectRepository;
         $this->plantEffectRepository = $plantEffectRepository;
         $this->randomService = $randomService;
     }
 
-    public function getConsumableEffect(Ration $ration, Daedalus $daedalus): ConsumableEffect
+    public function getConsumableEffect(string $name, Ration $ration, Daedalus $daedalus): ConsumableEffect
     {
         $consumableEffect = $this->consumableEffectRepository
             ->findOneBy(['ration' => $ration, 'daedalus' => $daedalus])
         ;
 
         if ($consumableEffect === null) {
-            $consumableEffect = $this->createConsumableEffect($daedalus, $ration);
-            $this->consumableEffectRepository->persist($consumableEffect);
+            $consumableEffect = $this->createConsumableEffect($name, $daedalus, $ration);
         }
 
         return $consumableEffect;
@@ -67,7 +69,7 @@ class EquipmentEffectService implements EquipmentEffectServiceInterface
         return $plantEffect;
     }
 
-    private function createConsumableEffect(Daedalus $daedalus, Ration $ration): ConsumableEffect
+    private function createConsumableEffect(string $name, Daedalus $daedalus, Ration $ration): ConsumableEffect
     {
         $consumableEffect = new ConsumableEffect();
 
@@ -89,17 +91,10 @@ class EquipmentEffectService implements EquipmentEffectServiceInterface
             ->setSatiety($ration->getSatiety())
         ;
 
+        $this->consumableEffectRepository->persist($consumableEffect);
+
+        $this->consumableDiseaseService->createConsumableDiseases($name, $consumableEffect);
+
         return $consumableEffect;
     }
-
-//    private function createDrugSpecialEffect(ConsumableEffect $consumableEffect, Drug $drug): ConsumableEffect
-//    {
-//        // if the ration is a drug 1 to 4 diseases are cured with 100% chances
-//        $curesNumber = intval($this->randomService->getSingleRandomElementFromProbaArray($drug->getDrugEffectsNumber()));
-//        $consumableEffect
-//            ->setCures(array_fill_keys($this->randomService->getRandomElements($drug->getCures(), $curesNumber), 100))
-//        ;
-//
-//        return $consumableEffect;
-//    }
 }

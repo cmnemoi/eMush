@@ -2,12 +2,9 @@
 
 namespace Mush\Disease\Service;
 
-use Mush\Daedalus\Entity\Daedalus;
-use Mush\Disease\Entity\ConsumableDisease;
+use Mush\Equipment\Entity\ConsumableEffect;
 
 interface ConsumableDiseaseServiceInterface
 {
-    public function findConsumableDiseases(string $name, Daedalus $daedalus): ?ConsumableDisease;
-
-    public function createConsumableDiseases(string $name, Daedalus $daedalus): ?ConsumableDisease;
+    public function createConsumableDiseases(string $name, ConsumableEffect $consumableEffect): ?ConsumableEffect;
 }

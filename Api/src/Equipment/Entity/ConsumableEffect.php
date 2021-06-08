@@ -2,8 +2,12 @@
 
 namespace Mush\Equipment\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Disease\Entity\ConsumableDiseaseAttribute;
+use Mush\Disease\Enum\TypeEnum;
 use Mush\Equipment\Entity\Mechanics\Ration;
 
 /**
@@ -56,9 +60,22 @@ class ConsumableEffect
     protected ?int $satiety = null;
 
     /**
+     * @ORM\OneToMany (targetEntity="Mush\Disease\Entity\ConsumableDiseaseAttribute", mappedBy="consumableEffect")
+     */
+    private Collection $diseaseAttributes;
+
+    /**
      * @ORM\Column(type="array", nullable=false)
      */
     private array $extraEffects = [];
+
+    /**
+     * ConsumableEffect constructor.
+     */
+    public function __construct()
+    {
+        $this->diseaseAttributes = new ArrayCollection();
+    }
 
     public function getId(): int
     {
@@ -168,6 +185,40 @@ class ConsumableEffect
         $this->satiety = $satiety;
 
         return $this;
+    }
+
+    public function getDiseaseAttributes(): Collection
+    {
+        return $this->diseaseAttributes;
+    }
+
+    public function setDiseaseAttributes(Collection $diseaseAttributes): ConsumableEffect
+    {
+        $this->diseaseAttributes = $diseaseAttributes;
+
+        return $this;
+    }
+
+    public function addDiseaseAttribute(ConsumableDiseaseAttribute $diseaseAttribute): ConsumableEffect
+    {
+        $this->diseaseAttributes->add($diseaseAttribute);
+
+        return $this;
+    }
+
+    public function getDiseases(): Collection
+    {
+        return $this->diseaseAttributes->filter(fn (ConsumableDiseaseAttribute $attribute) => $attribute->getType() === TypeEnum::DISEASE);
+    }
+
+    public function getDisorder(): Collection
+    {
+        return $this->diseaseAttributes->filter(fn (ConsumableDiseaseAttribute $attribute) => $attribute->getType() === TypeEnum::DISORDER);
+    }
+
+    public function getCures(): Collection
+    {
+        return $this->diseaseAttributes->filter(fn (ConsumableDiseaseAttribute $attribute) => $attribute->getType() === TypeEnum::CURE);
     }
 
     public function getExtraEffects(): array

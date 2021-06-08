@@ -4,6 +4,7 @@ namespace Mush\Disease\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Disease\Enum\TypeEnum;
+use Mush\Equipment\Entity\ConsumableEffect;
 
 /**
  * @ORM\Entity
@@ -44,9 +45,9 @@ class ConsumableDiseaseAttribute
     private int $delayLength = 0;
 
     /**
-     * @ORM\ManyToOne (targetEntity="Mush\Disease\Entity\Consumabledisease", inversedBy="diseaseAttributes")
+     * @ORM\ManyToOne (targetEntity="Mush\Equipment\Entity\ConsumableEffect", inversedBy="diseaseAttributes")
      */
-    private ConsumableDisease $consumableDisease;
+    private ConsumableEffect $consumableEffect;
 
     /**
      * @ORM\ManyToOne (targetEntity="Mush\Disease\Entity\ConsumableDiseaseConfig", inversedBy="consumableAttributes")
@@ -118,14 +119,14 @@ class ConsumableDiseaseAttribute
         return $this;
     }
 
-    public function getConsumableDisease(): ConsumableDisease
+    public function getConsumableEffect(): ConsumableEffect
     {
-        return $this->consumableDisease;
+        return $this->consumableEffect;
     }
 
-    public function setConsumableDisease(ConsumableDisease $consumableDisease): ConsumableDiseaseAttribute
+    public function setConsumableEffect(ConsumableEffect $consumableDisease): ConsumableDiseaseAttribute
     {
-        $this->consumableDisease = $consumableDisease;
+        $this->consumableEffect = $consumableDisease;
         $consumableDisease->addDiseaseAttribute($this);
 
         return $this;

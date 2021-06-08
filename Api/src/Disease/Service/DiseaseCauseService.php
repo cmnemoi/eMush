@@ -6,6 +6,7 @@ use Mush\Disease\Entity\ConsumableDiseaseAttribute;
 use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Enum\DiseaseStatusEnum;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -17,16 +18,16 @@ class DiseaseCauseService implements DiseaseCauseServiceInterface
 
     private PlayerDiseaseServiceInterface $playerDiseaseService;
     private RandomServiceInterface $randomService;
-    private ConsumableDiseaseServiceInterface $consumableDiseaseService;
+    private EquipmentEffectServiceInterface $equipmentEffectService;
 
     public function __construct(
         PlayerDiseaseServiceInterface $playerDiseaseService,
         RandomServiceInterface $randomService,
-        ConsumableDiseaseServiceInterface $consumableDiseaseService,
+        EquipmentEffectServiceInterface $equipmentEffectService,
     ) {
         $this->playerDiseaseService = $playerDiseaseService;
         $this->randomService = $randomService;
-        $this->consumableDiseaseService = $consumableDiseaseService;
+        $this->equipmentEffectService = $equipmentEffectService;
     }
 
     public function handleSpoiledFood(Player $player, GameEquipment $gameEquipment): void
@@ -42,23 +43,33 @@ class DiseaseCauseService implements DiseaseCauseServiceInterface
 
     public function handleConsumable(Player $player, GameEquipment $gameEquipment): void
     {
-        $consumableEffect = $this->consumableDiseaseService->findConsumableDiseases($gameEquipment->getName(), $player->getDaedalus());
+        $rationType = $gameEquipment->getEquipment()->getRationsMechanic();
 
-        if ($consumableEffect !== null) {
-            /** @var ConsumableDiseaseAttribute $disease */
-            foreach ($consumableEffect->getDiseases() as $disease) {
-                if ($this->randomService->isSuccessful($disease->getRate())) {
-                    $this->playerDiseaseService->createDiseaseFromName($disease->getDisease(), $player, $disease->getDelayMin(), $disease->getDelayLength());
-                }
+        if (null === $rationType) {
+            throw new \Exception('Cannot consume this equipment');
+        }
+
+        $consumableEffect = $this->equipmentEffectService->getConsumableEffect($gameEquipment->getName(), $rationType, $player->getDaedalus());
+
+        /** @var ConsumableDiseaseAttribute $disease */
+        foreach ($consumableEffect->getDiseases() as $disease) {
+            if ($this->randomService->isSuccessful($disease->getRate())) {
+                $this->playerDiseaseService->createDiseaseFromName($disease->getDisease(), $player);
             }
+        }
 
-            /** @var ConsumableDiseaseAttribute $cure */
-            foreach ($consumableEffect->getCures() as $cure) {
-                if (($disease = $player->getMedicalConditionByName($cure->getDisease())) !== null &&
-                    $this->randomService->isSuccessful($cure->getRate())
-                ) {
-                    $this->playerDiseaseService->removePlayerDisease($disease, DiseaseStatusEnum::DRUG_HEALED, new \DateTime());
-                }
+        foreach ($consumableEffect->getDisorder() as $disease) {
+            if ($this->randomService->isSuccessful($disease->getRate())) {
+                $this->playerDiseaseService->createDiseaseFromName($disease->getDisease(), $player);
+            }
+        }
+
+        /** @var ConsumableDiseaseAttribute $cure */
+        foreach ($consumableEffect->getCures() as $cure) {
+            if (($disease = $player->getDiseaseByName($cure->getDisease())) !== null &&
+                $this->randomService->isSuccessful($cure->getRate())
+            ) {
+                $this->playerDiseaseService->removePlayerDisease($disease, new \DateTime());
             }
         }
     }

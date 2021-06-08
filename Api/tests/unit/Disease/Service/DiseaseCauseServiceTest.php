@@ -5,15 +5,17 @@ namespace Mush\Test\Disease\Service;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Disease\Entity\ConsumableDisease;
 use Mush\Disease\Entity\ConsumableDiseaseAttribute;
 use Mush\Disease\Entity\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\TypeEnum;
-use Mush\Disease\Service\ConsumableDiseaseServiceInterface;
 use Mush\Disease\Service\DiseaseCauseService;
 use Mush\Disease\Service\PlayerDiseaseService;
+use Mush\Equipment\Entity\ConsumableEffect;
+use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Mechanics\Ration;
+use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\Status;
@@ -30,8 +32,8 @@ class DiseaseCauseServiceTest extends TestCase
     /** @var RandomServiceInterface | Mockery\Mock */
     private RandomServiceInterface $randomService;
 
-    /** @var ConsumableDiseaseServiceInterface | Mockery\Mock */
-    private ConsumableDiseaseServiceInterface $consumableDiseaseService;
+    /** @var EquipmentEffectServiceInterface | Mockery\Mock */
+    private EquipmentEffectServiceInterface $equipmentEffectService;
 
     /**
      * @before
@@ -40,12 +42,12 @@ class DiseaseCauseServiceTest extends TestCase
     {
         $this->playerDiseaseService = Mockery::mock(PlayerDiseaseService::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
-        $this->consumableDiseaseService = Mockery::mock(ConsumableDiseaseServiceInterface::class);
+        $this->equipmentEffectService = Mockery::mock(EquipmentEffectServiceInterface::class);
 
         $this->diseaseCauseService = new DiseaseCauseService(
             $this->playerDiseaseService,
             $this->randomService,
-            $this->consumableDiseaseService,
+            $this->equipmentEffectService,
         );
     }
 
@@ -146,12 +148,19 @@ class DiseaseCauseServiceTest extends TestCase
         $player = new Player();
         $player->setDaedalus($daedalus);
 
+        $equipmentConfig = new EquipmentConfig();
+        $equipmentConfig->setName('someName');
+        $equipmentConfig->setMechanics(new ArrayCollection([new Ration()]));
+
         $gameEquipment = new GameEquipment();
+        $gameEquipment->setEquipment($equipmentConfig);
         $gameEquipment->setName('someName');
 
-        $this->consumableDiseaseService
-            ->shouldReceive('findConsumableDiseases')
-            ->andReturn(null)
+        $consumableEffect = new ConsumableEffect();
+
+        $this->equipmentEffectService
+            ->shouldReceive('getConsumableEffect')
+            ->andReturn($consumableEffect)
             ->once()
         ;
 
@@ -160,14 +169,13 @@ class DiseaseCauseServiceTest extends TestCase
         $disease = new ConsumableDiseaseAttribute();
         $disease->setDisease('disease name');
 
-        $consumableDisease = new ConsumableDisease();
-        $consumableDisease
-            ->setDiseasesAttribute(new ArrayCollection([$disease]))
+        $consumableEffect
+            ->setDiseaseAttributes(new ArrayCollection([$disease]))
         ;
 
-        $this->consumableDiseaseService
-            ->shouldReceive('findConsumableDiseases')
-            ->andReturn($consumableDisease)
+        $this->equipmentEffectService
+            ->shouldReceive('getConsumableEffect')
+            ->andReturn($consumableEffect)
             ->twice()
         ;
 
@@ -208,12 +216,20 @@ class DiseaseCauseServiceTest extends TestCase
         $player->setDaedalus($daedalus);
 
         $diseaseName = 'someName';
+
+        $equipmentConfig = new EquipmentConfig();
+        $equipmentConfig->setName('someName');
+        $equipmentConfig->setMechanics(new ArrayCollection([new Ration()]));
+
         $gameEquipment = new GameEquipment();
+        $gameEquipment->setEquipment($equipmentConfig);
         $gameEquipment->setName($diseaseName);
 
-        $this->consumableDiseaseService
-            ->shouldReceive('findConsumableDiseases')
-            ->andReturn(null)
+        $consumableEffect = new ConsumableEffect();
+
+        $this->equipmentEffectService
+            ->shouldReceive('getConsumableEffect')
+            ->andReturn($consumableEffect)
             ->once()
         ;
 
@@ -225,14 +241,12 @@ class DiseaseCauseServiceTest extends TestCase
             ->setDisease($diseaseName)
         ;
 
-        $consumableDisease = new ConsumableDisease();
-        $consumableDisease
-            ->setDiseasesAttribute(new ArrayCollection([$cure]))
-        ;
+        $consumableEffect->setDaedalus($daedalus);
+        $consumableEffect->setDiseaseAttributes(new ArrayCollection([$cure]));
 
-        $this->consumableDiseaseService
-            ->shouldReceive('findConsumableDiseases')
-            ->andReturn($consumableDisease)
+        $this->equipmentEffectService
+            ->shouldReceive('getConsumableEffect')
+            ->andReturn($consumableEffect)
             ->twice()
         ;
 

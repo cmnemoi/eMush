@@ -3,8 +3,9 @@
       <slot name='tooltip-trigger'></slot>
 
       <template #content>
-          <h1 v-html="formatContent(title)" />
-          <p v-html="formatContent(content)"/>
+          <slot name='tooltip-content'>
+
+          </slot>
       </template>
     </tippy>
 </template>

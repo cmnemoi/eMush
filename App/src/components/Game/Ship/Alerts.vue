@@ -2,7 +2,15 @@
     <div class="daedalus-alarms">
         <p v-if="!loading" class="calme">
             <span v-if="isNoAlert">
-                <img :src="alertIcon(alerts[0])">{{ alerts[0].name }}
+                <Tooltip>
+                    <template #tooltip-trigger>
+                        <img :src="alertIcon(alerts[0])">{{ alerts[0].name }}
+                    </template>
+                    <template #tooltip-content>
+                        <h1>{{ alerts[0].name }}</h1>
+                        <p>{{ alerts[0].description }}</p>
+                    </template>
+                </Tooltip>
             </span>
             <span v-else>Alertes :</span>
             <Tooltip v-for="(alert, key) in alertsDisplayed" :key="key">

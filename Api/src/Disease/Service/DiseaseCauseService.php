@@ -54,7 +54,7 @@ class DiseaseCauseService implements DiseaseCauseServiceInterface
 
             /** @var ConsumableDiseaseAttribute $cure */
             foreach ($consumableEffect->getCures() as $cure) {
-                if (($disease = $player->getDiseaseByName($cure->getDisease())) !== null &&
+                if (($disease = $player->getMedicalConditionByName($cure->getDisease())) !== null &&
                     $this->randomService->isSuccessful($cure->getRate())
                 ) {
                     $this->playerDiseaseService->removePlayerDisease($disease, DiseaseStatusEnum::DRUG_HEALED, new \DateTime());

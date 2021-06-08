@@ -72,7 +72,7 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
             ->setPlayer($player)
             ->setDiseaseConfig($diseaseConfig)
         ;
-        $player->addDisease($disease);
+        $player->addMedicalCondition($disease);
 
         $delayMin = $delayMin ?? $diseaseConfig->getDelayMin();
         $delayLength = $delayLength ?? $diseaseConfig->getDelayLength();

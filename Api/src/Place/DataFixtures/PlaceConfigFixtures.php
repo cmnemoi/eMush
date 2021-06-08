@@ -159,7 +159,7 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setEquipments([
                 EquipmentEnum::SURGICAL_PLOT,
                 EquipmentEnum::NARCOTIC_DISTILLER,
-                EquipmentEnum::BED,
+                EquipmentEnum::MEDLAB_BED,
             ])
             ->setItems([
                 ToolItemEnum::BANDAGE,

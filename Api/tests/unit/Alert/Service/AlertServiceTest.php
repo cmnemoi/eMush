@@ -2,6 +2,7 @@
 
 namespace Mush\Test\Alert\Service;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mockery;
 use Mush\Alert\Entity\Alert;
@@ -13,7 +14,9 @@ use Mush\Alert\Service\AlertServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Player;
 use PHPUnit\Framework\TestCase;
 
 class AlertServiceTest extends TestCase
@@ -369,5 +372,139 @@ class AlertServiceTest extends TestCase
         $this->entityManager->shouldReceive('flush')->twice();
 
         $this->alertService->handleFireStop($room);
+    }
+
+    public function testSatietyAlertActivate()
+    {
+        $daedalus = new Daedalus();
+
+        $player1 = new Player();
+        $player1
+            ->setDaedalus($daedalus)
+            ->setSatiety(-24)
+            ->setGameStatus(GameStatusEnum::CURRENT)
+        ;
+        $player2 = new Player();
+        $player2
+            ->setDaedalus($daedalus)
+            ->setSatiety(-24)
+            ->setGameStatus(GameStatusEnum::CURRENT)
+        ;
+
+        $this->repository->shouldReceive('findOneBy')
+            ->with(['daedalus' => $daedalus, 'name' => AlertEnum::HUNGER])
+            ->andReturn(null)
+            ->once()
+        ;
+
+        $this->entityManager->shouldReceive('persist')->once();
+        $this->entityManager->shouldReceive('remove')->never();
+        $this->entityManager->shouldReceive('flush')->once();
+
+        $this->alertService->handleSatietyAlert($daedalus);
+    }
+
+    public function testSatietyAlertAlreadyActive()
+    {
+        $daedalus = new Daedalus();
+
+        $player1 = new Player();
+        $player1
+            ->setDaedalus($daedalus)
+            ->setSatiety(-24)
+            ->setGameStatus(GameStatusEnum::CURRENT)
+        ;
+        $player2 = new Player();
+        $player2
+            ->setDaedalus($daedalus)
+            ->setSatiety(-24)
+            ->setGameStatus(GameStatusEnum::CURRENT)
+        ;
+
+        $alert = new Alert();
+        $alert->setName(AlertEnum::HUNGER)->setDaedalus($daedalus);
+
+        $this->repository->shouldReceive('findOneBy')
+            ->with(['daedalus' => $daedalus, 'name' => AlertEnum::HUNGER])
+            ->andReturn($alert)
+            ->once()
+        ;
+
+        $this->entityManager->shouldReceive('persist')->never();
+        $this->entityManager->shouldReceive('remove')->never();
+        $this->entityManager->shouldReceive('flush')->never();
+
+        $this->alertService->handleSatietyAlert($daedalus);
+    }
+
+    public function testSatietyAlertDeactivate()
+    {
+        $daedalus = new Daedalus();
+
+        $player1 = new Player();
+        $player1
+            ->setDaedalus($daedalus)
+            ->setSatiety(-22)
+            ->setGameStatus(GameStatusEnum::CURRENT)
+        ;
+        $player2 = new Player();
+        $player2
+            ->setDaedalus($daedalus)
+            ->setSatiety(-24)
+            ->setGameStatus(GameStatusEnum::CURRENT)
+        ;
+
+        $alert = new Alert();
+        $alert->setName(AlertEnum::HUNGER)->setDaedalus($daedalus);
+
+        $this->repository->shouldReceive('findOneBy')
+            ->with(['daedalus' => $daedalus, 'name' => AlertEnum::HUNGER])
+            ->andReturn($alert)
+            ->once()
+        ;
+
+        $this->entityManager->shouldReceive('persist')->never();
+        $this->entityManager->shouldReceive('remove')->once();
+        $this->entityManager->shouldReceive('flush')->once();
+
+        $this->alertService->handleSatietyAlert($daedalus);
+    }
+
+    public function getNoAlertTest()
+    {
+        $daedalus = new Daedalus();
+
+        $this->repository->shouldReceive('findBy')
+            ->with(['daedalus' => $daedalus])
+            ->andReturn(null)
+            ->once()
+        ;
+
+        $alerts = $this->alertService->getAlerts($daedalus);
+
+        $noAlert = new Alert();
+        $noAlert->setDaedalus($daedalus)->setName(AlertEnum::NO_ALERT);
+
+        $this->assertEquals(new ArrayCollection([$noAlert]), $alerts);
+    }
+
+    public function getAlertsTest()
+    {
+        $daedalus = new Daedalus();
+
+        $alert = new Alert();
+        $alert->setName(AlertEnum::HUNGER)->setDaedalus($daedalus);
+        $alert2 = new Alert();
+        $alert2->setDaedalus($daedalus)->setName(AlertEnum::NO_GRAVITY);
+
+        $this->repository->shouldReceive('findBy')
+            ->with(['daedalus' => $daedalus])
+            ->andReturn([$alert, $alert2])
+            ->once()
+        ;
+
+        $alerts = $this->alertService->getAlerts($daedalus);
+
+        $this->assertEquals(new ArrayCollection([$alert, $alert2]), $alerts);
     }
 }

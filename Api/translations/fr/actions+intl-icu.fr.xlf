@@ -365,7 +365,7 @@
         <unit id="ultraheal">
             <segment id="name">
                 <source>ultraheal.name</source>
-                <target>Apliquer</target>
+                <target>Appliquer</target>
             </segment>
             <segment id="description">
                 <source>ultraheal.description</source>

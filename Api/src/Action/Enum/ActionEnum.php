@@ -16,6 +16,7 @@ class ActionEnum
     public const DROP = 'drop';
     public const EXAMINE = 'examine';
     public const REPAIR = 'repair';
+    public const REPORT_EQUIPMENT = 'report_equipment';
     public const SEARCH = 'search';
 
     // Mush-only actions
@@ -77,6 +78,7 @@ class ActionEnum
     public const GUARD = 'guard';
     public const HIT = 'hit';
     public const WHISPER = 'whisper';
+    public const REPORT_FIRE = 'report_fire';
 
     // Skill-related actions (Humans)
     public const FIERY_SPEECH = 'fiery_speech';
@@ -137,6 +139,7 @@ class ActionEnum
         return [
             self::EXAMINE,
             self::REPAIR,
+            self::REPORT_EQUIPMENT,
         ];
     }
 
@@ -149,6 +152,7 @@ class ActionEnum
             self::SEARCH,
             self::EXTRACT_SPORE,
             self::GO_BERSERK,
+            self::REPORT_FIRE,
         ];
     }
 

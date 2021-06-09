@@ -406,8 +406,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireBreakable(false)
             ->setMechanics(new ArrayCollection([$bedMechanic, $medlabBedMechanic]))
         ;
-        $manager->persist($bed);
-        $manager->persist($bedMechanic);
+        $manager->persist($medlabBed);
+        $manager->persist($medlabBedMechanic);
 
         /** @var Action $coffeeAction */
         $coffeeAction = $this->getReference(ActionsFixtures::COFFEE_DEFAULT);

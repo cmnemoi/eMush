@@ -440,7 +440,7 @@
             </segment>
             <segment id="description">
                 <source>gravity_simulator.description</source>
-                <target>Le simulateur permet d'obtenir de la gravité. Cela facilite les déplacements de tout l'équipage dans le vaisseau. //Et la lourdeur fut !//</target>
+                <target>Le simulateur permet d'obtenir de la gravité. Cela facilite les déplacements de tout l'équipage dans le vaisseau. *Et la lourdeur fut !*</target>
             </segment>
         </unit>
         <unit id="kitchen">

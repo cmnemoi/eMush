@@ -162,7 +162,7 @@ class AlertNormalizerTest extends TestCase
             'key' => 'fire',
             'name' => 'translated one',
             'description' => 'translated two',
-            'reported' => ['translated three'],
+            'reports' => ['translated three'],
         ], $normalized);
     }
 }

@@ -55,6 +55,9 @@ export default {
     .action-button {
         flex-basis: 48%;
         margin: 0;
+        display: inline-block;
+        padding: 0px 0px;
+        border: none;
     }
 }
 

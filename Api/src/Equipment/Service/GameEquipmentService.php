@@ -2,6 +2,7 @@
 
 namespace Mush\Equipment\Service;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
@@ -69,6 +70,11 @@ class GameEquipmentService implements GameEquipmentServiceInterface
     public function findById(int $id): ?GameEquipment
     {
         return $this->repository->find($id);
+    }
+
+    public function findByNameAndDaedalus(string $name, Daedalus $daedalus): ArrayCollection
+    {
+        return new ArrayCollection($this->repository->findByNameAndDaedalus($name, $daedalus));
     }
 
     public function createGameEquipmentFromName(string $equipmentName, Daedalus $daedalus): GameEquipment

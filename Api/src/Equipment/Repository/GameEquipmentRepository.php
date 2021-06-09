@@ -5,6 +5,7 @@ namespace Mush\Equipment\Repository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Criteria\GameEquipmentCriteria;
 use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
@@ -65,6 +66,30 @@ class GameEquipmentRepository extends ServiceEntityRepository
                 call_user_func_array([$queryBuilder->expr(), 'andX'], $types)
             );
         }
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
+    public function findByNameAndDaedalus(string $name, Daedalus $daedalus): array
+    {
+        $queryBuilder = $this->createQueryBuilder('equipment');
+
+        $queryBuilder
+            ->leftJoin(GameItem::class, 'item', Join::WITH, 'item = equipment')
+            ->leftJoin(Player::class, 'item_player', Join::WITH, 'item.player = item_player')
+            ->leftJoin(Place::class, 'item_place', Join::WITH, 'item.place = item_place')
+            ->leftJoin(Place::class, 'equipment_place', Join::WITH, 'equipment.place = equipment_place')
+            ->where(
+                $queryBuilder->expr()->orX(
+                    $queryBuilder->expr()->eq('item_player.daedalus', ':daedalus'),
+                    $queryBuilder->expr()->eq('item_place.daedalus', ':daedalus'),
+                    $queryBuilder->expr()->eq('equipment_place.daedalus', ':daedalus')
+                )
+            )
+            ->andWhere($queryBuilder->expr()->eq('equipment.name', ':name'))
+            ->setParameter(':daedalus', $daedalus)
+            ->setParameter(':name', $name)
+        ;
 
         return $queryBuilder->getQuery()->getResult();
     }

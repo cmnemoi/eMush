@@ -47,7 +47,7 @@ class IsReportedValidator extends ConstraintValidator
 
         $alert = $this->alertService->findByNameAndDaedalus(AlertEnum::FIRES, $player->getDaedalus());
         if ($alert === null) {
-            throw new \LogicException('There should be an alert entity found for this Daedalus');
+            return false;
         }
 
         return $this->alertService->getAlertFireElement($alert, $player->getPlace())->getPlayer() !== null;
@@ -71,7 +71,7 @@ class IsReportedValidator extends ConstraintValidator
         }
 
         if ($alert === null) {
-            throw new \LogicException('There should be an alert entity found for this Daedalus');
+            return false;
         }
 
         return $this->alertService->getAlertEquipmentElement($alert, $equipment)->getPlayer() !== null;

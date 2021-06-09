@@ -1,12 +1,9 @@
 <template>
     <tippy class="tippy-tooltip">
-      <slot name='tooltip-trigger'></slot>
-
-      <template #content>
-          <slot name='tooltip-content'>
-
-          </slot>
-      </template>
+        <slot name='tooltip-trigger' />
+        <template #content>
+            <slot name='tooltip-content' />
+        </template>
     </tippy>
 </template>
 
@@ -21,15 +18,5 @@ import { formatText } from "@/utils/formatText";
             return formatText(value.toString());
             }
         },
-    props: {
-        title: { 
-            type: String,
-            required: true
-            },
-        content: { 
-            type: Array,
-            required: true
-            }
-        }
     }
 </script>

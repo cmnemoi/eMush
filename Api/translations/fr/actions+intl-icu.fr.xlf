@@ -218,7 +218,7 @@
             </segment>
             <segment id="description">
                 <source>rejuvenate_alpha.description</source>
-                <target>Permet de retrouver tout ses :pa:, :pm:, :hp: et points de moral. Uniquement valable pendant l'alpha. Merci de nous aider !</target>
+                <target>Permet de retrouver tout ses :pa:, :pm:, :hp: et :pmo:. Uniquement valable pendant l'alpha. Merci de nous aider !</target>
             </segment>
         </unit>
         <unit id="shred">

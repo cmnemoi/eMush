@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
+    <file id="daedalus.ext">
+        <unit id="oxygen">
+            <segment id="name">
+                <source>oxygen.name</source>
+                <target>Oxygène du vaisseau [{quantity} /32]</target>
+            </segment>
+            <segment id="description">
+                <source>oxygen.description</source>
+                <target>Quantité d'**Oxygène** disponible dans le vaisseau. Pour refaire le plein, pensez à organiser des **Explorations** ou à vous occuper du **Jardin**, par exemple.</target>
+            </segment>
+        </unit>
+        <unit id="fuel">
+            <segment id="name">
+                <source>fuel.name</source>
+                <target>Fuel en reserve [ /32]</target>
+            </segment>
+            <segment id="description">
+                <source>fuel.description</source>
+                <target>Le **Fuel** est indispensable pour ne pas dériver dans l'espace jusqu'à la fin des temps. Cette ressource peut être trouvée lors de vos **explorations** sur les planètes. Cet indicateur n'affiche pas le fuel dans la **Chambre de Combustion**.</target>
+            </segment>
+        </unit>
+        <unit id="shield">
+            <segment id="name">
+                <source>shield.name</source>
+                <target>Armure</target>
+            </segment>
+            <segment id="description">
+                <source>shield.description</source>
+                <target>Armure : $qty 
+L'état de l'armure vous indique l'état global de la coque du vaisseau. À **0 le vaisseau sera détruit** car la coque ne sera plus qu'un maigre paravent troué...</target>
+            </segment>
+        </unit>
+        <unit id="hull">
+            <segment id="name">
+                <source>hull.name</source>
+                <target>Armure</target>
+            </segment>
+            <segment id="description">
+                <source>hull.description</source>
+                <target>Armure : $qty 
+Le bouclier plasma a été désactivé par l'Administrateur NERON.
+L'état de l'armure vous indique l'état global de la coque du vaisseau. À **0 le vaisseau sera détruit** car la coque ne sera plus qu'un maigre paravent troué...</target>
+            </segment>
+        </unit>
+        <unit id="humanPlayerAlive">
+            <segment id="name">
+                <source>humanPlayerAlive.name</source>
+                <target>Camarades</target>
+            </segment>
+            <segment id="description">
+                <source>humanPlayerAlive.description</source>
+                <target>$qty  membre(s) d'équipage actif(s), dont $qty  Mush.$qty  membre(s) défunts, dont $qty  Mush. $qty  cryogénisé(s).</target>
+            </segment>
+        </unit>
+        <unit id="currentCycle">
+            <segment id="name">
+                <source>currentCycle.name</source>
+                <target>Le temps du jeu</target>
+            </segment>
+            <segment id="description">
+                <source>currentCycle.description</source>
+                <target>Les jours du jeu correspondent aux jours de la vie réelle. Un **cycle dure 3 heures**. À chaque cycle vous cumulez plus de :pa::pm:, indispensables pour pouvoir réaliser des actions !</target>
+            </segment>
+        </unit>
+    </file>
+</xliff>

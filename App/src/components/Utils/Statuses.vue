@@ -21,7 +21,6 @@
 import { statusPlayerEnum } from "@/enums/status.player.enum";
 import { statusItemEnum } from "@/enums/status.item.enum";
 import Tooltip from "@/components/Utils/ToolTip";
-
 import { formatText } from "@/utils/formatText";
 
 export default {

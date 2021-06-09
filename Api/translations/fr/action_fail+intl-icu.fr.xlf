@@ -17,7 +17,7 @@
         <unit id="no_shelving_unit">
             <segment id="description">
                 <source>no_shelving_unit.description</source>
-                <target>Cette piège ne dispose pas d'étagère...</target>
+                <target>Cette pièce ne dispose pas d'étagère...</target>
             </segment>
         </unit>
         <unit id="full_inventory">

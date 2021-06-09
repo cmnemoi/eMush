@@ -26,7 +26,7 @@ class PlayerCycleSubscriber implements EventSubscriberInterface
     {
         $player = $event->getPlayer();
 
-        foreach ($player->getDiseases() as $disease) {
+        foreach ($player->getMedicalConditions() as $disease) {
             $this->playerDiseaseService->handleNewCycle($disease, $event->getTime());
         }
     }

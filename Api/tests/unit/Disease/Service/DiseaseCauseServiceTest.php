@@ -253,7 +253,7 @@ class DiseaseCauseServiceTest extends TestCase
             ->setDiseaseConfig($diseaseConfig)
         ;
 
-        $player->addDisease($playerDisease);
+        $player->addMedicalCondition($playerDisease);
 
         $this->playerDiseaseService
             ->shouldReceive('removePlayerDisease')

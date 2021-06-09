@@ -6,6 +6,7 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Event\ActionEffectEvent;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\FullHealth;
 use Mush\Action\Validator\Reach;
@@ -56,13 +57,13 @@ class Heal extends AbstractAction
         /** @var Player $parameter */
         $parameter = $this->parameter;
 
-        //@TODO remove diseases
-
-        //@TODO add modifiers
         $healedQuantity = self::BASE_HEAL;
 
         $playerModifierEvent = new PlayerModifierEvent($this->player, $healedQuantity, new \DateTime());
         $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
+
+        $healEvent = new ActionEffectEvent($this->player, $parameter);
+        $this->eventDispatcher->dispatch($healEvent, ActionEffectEvent::HEAL);
 
         $this->playerService->persist($parameter);
 

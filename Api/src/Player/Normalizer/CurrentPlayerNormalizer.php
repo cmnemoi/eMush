@@ -74,7 +74,7 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
             }
 
             $diseases = [];
-            foreach ($player->getDiseases() as $disease) {
+            foreach ($player->getMedicalConditions()->getActiveDiseases() as $disease) {
                 $normedDisease = $this->normalizer->normalize($disease, $format, array_merge($context, ['player' => $player]));
                 if (is_array($normedDisease) && count($normedDisease) > 0) {
                     $diseases[] = $normedDisease;

@@ -38,9 +38,8 @@ class DiseaseConfig implements LogParameter
 
     /**
      * @ORM\Column(type="integer", nullable=false)
-     * Duration is -1 for permanent effects
      */
-    private int $duration = -1;
+    private int $resistance = 0;
 
     /**
      * @ORM\Column (type="array")
@@ -108,14 +107,14 @@ class DiseaseConfig implements LogParameter
         return $this;
     }
 
-    public function getDuration(): int
+    public function getResistance(): int
     {
-        return $this->duration;
+        return $this->resistance;
     }
 
-    public function setDuration(int $duration): DiseaseConfig
+    public function setResistance(int $resistance): DiseaseConfig
     {
-        $this->duration = $duration;
+        $this->resistance = $resistance;
 
         return $this;
     }

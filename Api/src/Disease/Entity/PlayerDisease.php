@@ -42,6 +42,11 @@ class PlayerDisease
      */
     private int $diseasePoint = 0;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private int $resistancePoint = 0;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -91,6 +96,18 @@ class PlayerDisease
     public function setDiseasePoint(int $diseasePoint): PlayerDisease
     {
         $this->diseasePoint = $diseasePoint;
+
+        return $this;
+    }
+
+    public function getResistancePoint(): int
+    {
+        return $this->resistancePoint;
+    }
+
+    public function setResistancePoint(int $resistancePoint): PlayerDisease
+    {
+        $this->resistancePoint = $resistancePoint;
 
         return $this;
     }

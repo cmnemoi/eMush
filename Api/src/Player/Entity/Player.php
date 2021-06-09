@@ -10,6 +10,7 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Disease\Entity\Collection\PlayerDiseaseCollection;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
@@ -81,7 +82,7 @@ class Player implements StatusHolderInterface, ActionParameter, LogParameter
     /**
      * @ORM\OneToMany(targetEntity="Mush\Disease\Entity\PlayerDisease", mappedBy="player")
      */
-    private Collection $diseases;
+    private Collection $medicalCondition;
 
     /**
      * @ORM\Column(type="array", nullable=true)
@@ -122,7 +123,7 @@ class Player implements StatusHolderInterface, ActionParameter, LogParameter
     {
         $this->items = new ArrayCollection();
         $this->statuses = new ArrayCollection();
-        $this->diseases = new ArrayCollection();
+        $this->medicalCondition = new PlayerDiseaseCollection();
     }
 
     public function getId(): int
@@ -303,28 +304,32 @@ class Player implements StatusHolderInterface, ActionParameter, LogParameter
         return $this->hasStatus(PlayerStatusEnum::MUSH);
     }
 
-    public function getDiseases(): Collection
+    public function getMedicalConditions(): PlayerDiseaseCollection
     {
-        return $this->diseases;
+        if (!$this->medicalCondition instanceof PlayerDiseaseCollection) {
+            $this->medicalCondition = new PlayerDiseaseCollection($this->medicalCondition->toArray());
+        }
+
+        return $this->medicalCondition;
     }
 
-    public function getDiseaseByName(string $diseaseName): ?PlayerDisease
+    public function getMedicalConditionByName(string $diseaseName): ?PlayerDisease
     {
-        $disease = $this->diseases->filter(fn (PlayerDisease $playerDisease) => ($playerDisease->getDiseaseConfig()->getName() === $diseaseName));
+        $disease = $this->medicalCondition->filter(fn (PlayerDisease $playerDisease) => ($playerDisease->getDiseaseConfig()->getName() === $diseaseName));
 
         return $disease->isEmpty() ? null : $disease->first();
     }
 
-    public function setDiseases(Collection $diseases): Player
+    public function setMedicalCondition(Collection $medicalCondition): Player
     {
-        $this->diseases = $diseases;
+        $this->medicalCondition = $medicalCondition;
 
         return $this;
     }
 
-    public function addDisease(PlayerDisease $playerDisease): Player
+    public function addMedicalCondition(PlayerDisease $playerDisease): Player
     {
-        $this->diseases->add($playerDisease);
+        $this->medicalCondition->add($playerDisease);
 
         return $this;
     }

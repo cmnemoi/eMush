@@ -2,8 +2,9 @@
 
 namespace Mush\Equipment\Listener;
 
-use Mush\Action\Event\ConsumeEvent;
+use Mush\Action\Event\ActionEffectEvent;
 use Mush\Equipment\Entity\ConsumableEffect;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
@@ -11,7 +12,7 @@ use Mush\Player\Event\PlayerModifierEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class ConsumeSubscriber implements EventSubscriberInterface
+class ActionEffectSubscriber implements EventSubscriberInterface
 {
     private GameEquipmentServiceInterface $gameEquipmentService;
     private EventDispatcherInterface $eventDispatcher;
@@ -30,15 +31,20 @@ class ConsumeSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            ConsumeEvent::CONSUME => 'onConsume',
+            ActionEffectEvent::CONSUME => 'onConsume',
         ];
     }
 
-    public function onConsume(ConsumeEvent $consumeEvent)
+    public function onConsume(ActionEffectEvent $consumeEvent)
     {
         $player = $consumeEvent->getPlayer();
-        $ration = $consumeEvent->getGameItem();
-        $rationType = $consumeEvent->getGameItem()->getEquipment()->getRationsMechanic();
+        $ration = $consumeEvent->getParameter();
+
+        if (!$ration instanceof GameItem) {
+            return;
+        }
+
+        $rationType = $ration->getEquipment()->getRationsMechanic();
 
         if (null === $rationType) {
             throw new \Exception('Cannot consume this equipment');

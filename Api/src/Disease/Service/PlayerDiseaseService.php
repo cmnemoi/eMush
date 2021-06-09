@@ -39,9 +39,13 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         return $playerDisease;
     }
 
-    public function removePlayerDisease(PlayerDisease $playerDisease, \DateTime $time): bool
+    public function removePlayerDisease(PlayerDisease $playerDisease, string $cause, \DateTime $time, Player $author = null): bool
     {
+        $playerDisease->setStatus($cause);
+
         $event = new DiseaseEvent($playerDisease, $time);
+        $event->setAuthor($author);
+        $event->setCureReason($cause);
         $this->eventDispatcher->dispatch($event, DiseaseEvent::CURE_DISEASE);
 
         $this->entityManager->remove($playerDisease);
@@ -68,7 +72,7 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
             ->setPlayer($player)
             ->setDiseaseConfig($diseaseConfig)
         ;
-        $player->addDisease($disease);
+        $player->addMedicalCondition($disease);
 
         $delayMin = $delayMin ?? $diseaseConfig->getDelayMin();
         $delayLength = $delayLength ?? $diseaseConfig->getDelayLength();
@@ -104,15 +108,7 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         $diseaseConfig = current($this->randomService->getRandomElements($diseaseConfigs));
 
         if ($diseaseConfig !== false) {
-            $disease = new PlayerDisease();
-            $disease
-                ->setPlayer($player)
-                ->setDiseaseConfig($diseaseConfig)
-                ->setDiseasePoint(10) //@TODO
-            ;
-            $player->addDisease($disease);
-
-            $this->persist($disease);
+            $this->createDiseaseFromName($diseaseConfig->getName(), $player);
         }
     }
 
@@ -127,6 +123,7 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
                 $diseaseDurationMin = $diseaseConfig->getDiseasePointMin();
                 $playerDisease
                     ->setStatus(DiseaseStatusEnum::ACTIVE)
+                    ->setResistancePoint($diseaseConfig->getResistance())
                     ->setDiseasePoint(
                         $this->randomService->random(
                             $diseaseDurationMin,
@@ -140,9 +137,23 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
                 $event = new DiseaseEvent($playerDisease, $time);
                 $this->eventDispatcher->dispatch($event, DiseaseEvent::APPEAR_DISEASE);
             } else {
-                $this->removePlayerDisease($playerDisease, $time);
+                $this->removePlayerDisease($playerDisease, DiseaseStatusEnum::SPONTANEOUS_CURE, $time);
             }
         } else {
+            $this->persist($playerDisease);
+        }
+    }
+
+    public function healDisease(Player $author, PlayerDisease $playerDisease, \DateTime $time): void
+    {
+        if ($playerDisease->getResistancePoint() === 0) {
+            $this->removePlayerDisease($playerDisease, DiseaseStatusEnum::HEALED, $time, $author);
+        } else {
+            $event = new DiseaseEvent($playerDisease, $time);
+            $event->setAuthor($author);
+            $this->eventDispatcher->dispatch($event, DiseaseEvent::TREAT_DISEASE);
+
+            $playerDisease->setResistancePoint($playerDisease->getResistancePoint() - 1);
             $this->persist($playerDisease);
         }
     }

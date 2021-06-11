@@ -4,7 +4,7 @@
         <unit id="oxygen">
             <segment id="name">
                 <source>oxygen.name</source>
-                <target>Oxygène du vaisseau [ {quantity}/32 ]</target>
+                <target>Oxygène du vaisseau [ {quantity}/{maximum} ]</target>
             </segment>
             <segment id="description">
                 <source>oxygen.description</source>
@@ -14,7 +14,7 @@
         <unit id="fuel">
             <segment id="name">
                 <source>fuel.name</source>
-                <target>Fuel en reserve [{quantity}/32]</target>
+                <target>Fuel en reserve [ {quantity}/{maximum} ]</target>
             </segment>
             <segment id="description">
                 <source>fuel.description</source>

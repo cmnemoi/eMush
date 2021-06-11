@@ -5,6 +5,7 @@ namespace Mush\Test\Daedalus\Normalizer;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Normalizer\DaedalusNormalizer;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\CycleServiceInterface;
@@ -53,8 +54,16 @@ class DaedalusNormalizerTest extends TestCase
         $daedalus->makePartial();
         $daedalus->setPlayers(new ArrayCollection());
         $daedalus->setPlaces(new ArrayCollection());
-        $daedalus->setGameConfig(new GameConfig());
+        $gameConfig = new GameConfig();
+        $daedalusConfig = new DaedalusConfig();
+        $gameConfig->setDaedalusConfig($daedalusConfig);
+        $daedalus->setGameConfig($gameConfig);
 
+        $daedalusConfig
+            ->setMaxFuel(100)
+            ->setMaxHull(100)
+            ->setMaxOxygen(100)
+        ;
         $daedalus
             ->setCycle(4)
             ->setDay(4)
@@ -66,7 +75,7 @@ class DaedalusNormalizerTest extends TestCase
 
         $this->translationService
             ->shouldReceive('translate')
-            ->with('oxygen.name', ['quantity' => 24], 'daedalus')
+            ->with('oxygen.name', ['quantity' => 24, 'maximum' => 100], 'daedalus')
             ->andReturn('translated one')
             ->once()
         ;
@@ -78,7 +87,7 @@ class DaedalusNormalizerTest extends TestCase
         ;
         $this->translationService
             ->shouldReceive('translate')
-            ->with('fuel.name', ['quantity' => 24], 'daedalus')
+            ->with('fuel.name', ['quantity' => 24, 'maximum' => 100], 'daedalus')
             ->andReturn('translated one')
             ->once()
         ;
@@ -90,7 +99,7 @@ class DaedalusNormalizerTest extends TestCase
         ;
         $this->translationService
             ->shouldReceive('translate')
-            ->with('hull.name', ['quantity' => 100], 'daedalus')
+            ->with('hull.name', ['quantity' => 100, 'maximum' => 100], 'daedalus')
             ->andReturn('translated one')
             ->once()
         ;

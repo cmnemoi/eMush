@@ -49,7 +49,7 @@
             </segment>
             <segment id="description">
                 <source>crewPlayer.description</source>
-                <target>{humanAlive, plural, one {# membre d'équipage actif} other {# membres d'équipage actifs}}, dont {mushAlive, plural, one {# Mush} other {# Mushs}}. {humanDead, plural, one {# membre défunt} other {# membres défunts}}, dont {mushDead, plural, one {# Mush} other {# Mushs}}. {cryogenizedPlayers, plural, one {# cryogénisé} other {# cryogénisés}}.</target>
+                <target>{playerAlive, plural, one {# membre d'équipage actif} other {# membres d'équipage actifs}}, dont {mushAlive, plural, one {# Mush} other {# Mushs}}. {humanDead, plural, one {# membre défunt} other {# membres défunts}}, dont {mushDead, plural, one {# Mush} other {# Mushs}}. {cryogenizedPlayers, plural, one {# cryogénisé} other {# cryogénisés}}.</target>
             </segment>
         </unit>
         <unit id="currentCycle">

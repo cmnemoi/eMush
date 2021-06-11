@@ -8,6 +8,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Normalizer\DaedalusNormalizer;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\CycleServiceInterface;
+use Mush\Game\Service\TranslationService;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -16,6 +17,9 @@ class DaedalusNormalizerTest extends TestCase
     private DaedalusNormalizer $normalizer;
     /** @var CycleServiceInterface | Mockery\Mock */
     private CycleServiceInterface $cycleService;
+
+    /** @var TranslationService | Mockery\Mock */
+    private TranslationService $translationService;
 
     /** @var TranslatorInterface | Mockery\Mock */
     private TranslatorInterface $translator;
@@ -26,9 +30,10 @@ class DaedalusNormalizerTest extends TestCase
     public function before()
     {
         $this->cycleService = Mockery::mock(CycleServiceInterface::class);
+        $this->translationService = Mockery::mock(TranslationService::class);
         $this->translator = Mockery::mock(TranslatorInterface::class);
 
-        $this->normalizer = new DaedalusNormalizer($this->cycleService, $this->translator);
+        $this->normalizer = new DaedalusNormalizer($this->cycleService, $this->translationService, $this->translator);
     }
 
     /**
@@ -59,6 +64,84 @@ class DaedalusNormalizerTest extends TestCase
             ->setShield(100)
         ;
 
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('oxygen.name', ['quantity' => 24], 'daedalus')
+            ->andReturn('translated one')
+            ->once()
+        ;
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('oxygen.description', [], 'daedalus')
+            ->andReturn('translated two')
+            ->once()
+        ;
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('fuel.name', ['quantity' => 24], 'daedalus')
+            ->andReturn('translated one')
+            ->once()
+        ;
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('fuel.description', [], 'daedalus')
+            ->andReturn('translated two')
+            ->once()
+        ;
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('hull.name', ['quantity' => 100], 'daedalus')
+            ->andReturn('translated one')
+            ->once()
+        ;
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('hull.description', [], 'daedalus')
+            ->andReturn('translated two')
+            ->once()
+        ;
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('shield.name', ['quantity' => 100], 'daedalus')
+            ->andReturn('translated one')
+            ->once()
+        ;
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('shield.description', [], 'daedalus')
+            ->andReturn('translated two')
+            ->once()
+        ;
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('currentCycle.name', [], 'daedalus')
+            ->andReturn('translated one')
+            ->once()
+        ;
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('currentCycle.description', [], 'daedalus')
+            ->andReturn('translated two')
+            ->once()
+        ;
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('crewPlayer.name', [], 'daedalus')
+            ->andReturn('translated one')
+            ->once()
+        ;
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('crewPlayer.description', [
+                'cryogenizedPlayers' => 0,
+                'playerAlive' => 0,
+                'humanDead' => 0,
+                'mushAlive' => 0,
+                'mushDead' => 0, ],
+                'daedalus')
+            ->andReturn('translated two')
+            ->once()
+        ;
         $data = $this->normalizer->normalize($daedalus);
 
         $expected = [
@@ -66,16 +149,34 @@ class DaedalusNormalizerTest extends TestCase
             'game_config' => null,
             'cycle' => 4,
             'day' => 4,
-            'oxygen' => 24,
-            'fuel' => 24,
-            'hull' => 100,
-            'shield' => 100,
+            'oxygen' => [
+                'quantity' => 24,
+                'name' => 'translated one',
+                'description' => 'translated two', ],
+            'fuel' => [
+                'quantity' => 24,
+                'name' => 'translated one',
+                'description' => 'translated two', ],
+            'hull' => [
+                'quantity' => 100,
+                'name' => 'translated one',
+                'description' => 'translated two', ],
+            'shield' => [
+                'quantity' => 100,
+                'name' => 'translated one',
+                'description' => 'translated two', ],
             'nextCycle' => $nextCycle->format(\DateTime::ATOM),
             'cryogenizedPlayers' => 0,
             'humanPlayerAlive' => 0,
             'humanPlayerDead' => 0,
             'mushPlayerAlive' => 0,
             'mushPlayerDead' => 0,
+            'currentCycle' => [
+                'name' => 'translated one',
+                'description' => 'translated two', ],
+            'crewPlayer' => [
+                'name' => 'translated one',
+                'description' => 'translated two', ],
         ];
 
         $this->assertIsArray($data);

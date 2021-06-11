@@ -31,17 +31,6 @@ app.use(
         directive: 'tippy', // => v-tippy
         component: 'tippy', // => <tippy/>
         componentSingleton: 'tippy-singleton', // => <tippy-singleton/>
-
-        defaultProps: {
-            allowHTML: true,
-            hideOnClick: false,
-            theme: 'mush',
-            maxWidth: 280,
-            followCursor: true,
-            inlinePositioning: true,
-            placement: 'bottom-start',
-            duration: [null, 50],
-        },
     }
 );
 

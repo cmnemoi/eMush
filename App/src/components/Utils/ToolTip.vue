@@ -1,9 +1,17 @@
 <template>
-    <tippy class="tippy-tooltip">
-        <slot name='tooltip-trigger' />
-        <template #content>
-            <slot name='tooltip-content' />
-        </template>
+    <tippy theme="mush"
+        hideOnClick=false
+        allowHTML=false
+        maxWidth=280
+        followCursor=true
+        inlinePositioning=true
+        placement=bottom-start
+        duration="[null, 50]"
+        class="tippy-tooltip">
+            <slot name='tooltip-trigger' />
+            <template #content>
+                <slot name='tooltip-content' :formatContent="formatContent"></slot>
+            </template>
     </tippy>
 </template>
 
@@ -14,8 +22,7 @@ import { formatText } from "@/utils/formatText";
     name: "Tooltip",
     methods:{
         formatContent(value) {
-            if (! value) return '';
-            return formatText(value.toString());
+            return !value ? '' : formatText(value.toString());
             }
         },
     }

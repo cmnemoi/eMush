@@ -18,42 +18,94 @@
 
             <div class="daedalus-info">
                 <ul>
-                    <li>{{ daedalus.oxygen }}<img src="@/assets/images/o2.png"></li>
-                    <li>{{ daedalus.fuel }}<img src="@/assets/images/fuel.png"></li>
-                    <li>{{ daedalus.hull }}<img src="@/assets/images/shield.png"></li>
-                    <li>{{ player.triumph }}<img src="@/assets/images/triumph.png"></li>
+                    <Tooltip>
+                        <template #tooltip-trigger>
+                            <li>{{ daedalus.oxygen.quantity }}<img src="@/assets/images/o2.png"></li>
+                        </template>
+                        <template #tooltip-content="{ formatContent }">
+                            <h1 v-html="formatContent(daedalus.oxygen.name)" />
+                            <p v-html="formatContent(daedalus.oxygen.description)" />
+                        </template>
+                    </Tooltip>
+                    <Tooltip>
+                        <template #tooltip-trigger>
+                            <li>{{ daedalus.fuel.quantity }}<img src="@/assets/images/fuel.png"></li>
+                        </template>
+                        <template #tooltip-content="{ formatContent }">
+                            <h1 v-html="formatContent(daedalus.fuel.name)" />
+                            <p v-html="formatContent(daedalus.fuel.description)" />
+                        </template>
+                    </Tooltip>
+                    <Tooltip>
+                        <template #tooltip-trigger>
+                            <li>{{ daedalus.hull.quantity }}<img src="@/assets/images/shield.png"></li>
+                        </template>
+                        <template #tooltip-content="{ formatContent }">
+                            <h1 v-html="formatContent(daedalus.hull.name)" />
+                            <p v-html="formatContent(daedalus.hull.description)" />
+                        </template>
+                    </Tooltip>
+                    <Tooltip>
+                        <template #tooltip-trigger>
+                            <li>{{ player.triumph }}<img src="@/assets/images/triumph.png"></li>
+                        </template>
+                        <template #tooltip-content="{ formatContent }">
+                            <h1 v-html="formatContent(placeholder)" />
+                            <p v-html="formatContent(placeholder)" />
+                        </template>
+                    </Tooltip>
                 </ul>
             </div>
             <div class="daedalus-crew">
-                <ol>
-                    <li v-for="(key) in daedalus.humanPlayerAlive" :key="key">
-                        <img class="alive" src="@/assets/images/p_alive.png" alt="crewmate">
-                    </li>
-                    <li v-for="(key) in daedalus.mushPlayerAlive" :key="key">
-                        <img class="mush" src="@/assets/images/p_mush.png" alt="mush">
-                    </li>
-                    <li v-for="(key) in daedalus.cryogenizedPlayers" :key="key">
-                        <img class="cryo" src="@/assets/images/p_cryo.png" alt="in cryosleep">
-                    </li>
-                    <li v-for="(key) in daedalus.mushPlayerDead" :key="key">
-                        <img class="deadmush" src="@/assets/images/p_deadmush.png" alt="dead mush">
-                    </li>
-                    <li v-for="(key) in daedalus.humanPlayerDead" :key="key">
-                        <img class="dead" src="@/assets/images/p_dead.png" alt="dead crewmate">
-                    </li>
-                </ol>
+                <Tooltip>
+                    <template #tooltip-trigger>
+                        <ol>
+                            <li v-for="(key) in daedalus.humanPlayerAlive" :key="key">
+                                <img class="alive" src="@/assets/images/p_alive.png" alt="crewmate">
+                            </li>
+                            <li v-for="(key) in daedalus.mushPlayerAlive" :key="key">
+                                <img class="mush" src="@/assets/images/p_mush.png" alt="mush">
+                            </li>
+                            <li v-for="(key) in daedalus.cryogenizedPlayers" :key="key">
+                                <img class="cryo" src="@/assets/images/p_cryo.png" alt="in cryosleep">
+                            </li>
+                            <li v-for="(key) in daedalus.mushPlayerDead" :key="key">
+                                <img class="deadmush" src="@/assets/images/p_deadmush.png" alt="dead mush">
+                            </li>
+                            <li v-for="(key) in daedalus.humanPlayerDead" :key="key">
+                                <img class="dead" src="@/assets/images/p_dead.png" alt="dead crewmate">
+                            </li>
+                        </ol>
+                    </template>
+                    <template #tooltip-content="{ formatContent }">
+                        <h1 v-html="formatContent(daedalus.crewPlayer.name)" />
+                        <p v-html="formatContent(daedalus.crewPlayer.description)" />
+                    </template>
+                </Tooltip>
             </div>
             <div class="cycle-time">
-                <img class="casio-img" src="@/assets/images/casio.png">
-                <countdown-timer :end-date="daedalus.nextCycle">
-                    <template #default="slotProps">
-                        <div class="flex-row">
-                            <span v-show="slotProps.hour > 0" class="cycle-time-left">{{ slotProps.hour }}h</span>
-                            <span class="cycle-time-left">{{ slotProps.min }}m</span>
-                            <span class="cycle-time-left">{{ slotProps.sec }}s</span>
-                        </div>
+                <Tooltip>
+                    <template #tooltip-trigger>
+                        <ul>
+                            <li><img class="casio-img" src="@/assets/images/casio.png"></li>
+                            <li>
+                                <countdown-timer :end-date="daedalus.nextCycle">
+                                    <template #default="slotProps">
+                                        <div class="flex-row">
+                                            <span v-show="slotProps.hour > 0" class="cycle-time-left">{{ slotProps.hour }}h</span>
+                                            <span class="cycle-time-left">{{ slotProps.min }}m</span>
+                                            <span class="cycle-time-left">{{ slotProps.sec }}s</span>
+                                        </div>
+                                    </template>
+                                </countdown-timer>
+                            </li>
+                        </ul>
                     </template>
-                </countdown-timer>
+                    <template #tooltip-content="{ formatContent }">
+                        <h1 v-html="formatContent(daedalus.currentCycle.name)" />
+                        <p v-html="formatContent(daedalus.currentCycle.description)" />
+                    </template>
+                </Tooltip>
             </div>
         </div>
     </div>
@@ -64,10 +116,11 @@ import { Daedalus } from "@/entities/Daedalus";
 import { Player } from "@/entities/Player";
 import CountdownTimer from "@/components/Utils/CountdownTimer";
 import Alerts from "@/components/Game/Ship/Alerts";
+import Tooltip from "@/components/Utils/ToolTip";
 
 export default {
     name: "BannerPanel",
-    components: {Alerts, CountdownTimer},
+    components: {Alerts, CountdownTimer, Tooltip},
     props: {
         player: Player,
         daedalus: Daedalus
@@ -100,6 +153,12 @@ span {
     font-variant: small-caps;
 }
 
+
+span.tippy-tooltip {
+    font-size: initial !important;
+    margin-right: 5px;
+    margin-left: 5px;
+}
 .game-banner {
     margin-bottom: 8px;
     flex-direction: row;
@@ -214,6 +273,7 @@ span {
     .cycle-time img {
         margin-right: 0.4em;
     }
+    .cycle-time ul {align-items: center;}
 }
 
 @keyframes alarms-border-color {

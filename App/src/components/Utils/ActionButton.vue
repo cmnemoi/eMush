@@ -9,28 +9,22 @@
                 <span v-if="action.successRate < 100" class="success-rate"> ({{ action.successRate }}%)</span>
             </a>
         </template>
-        <template #tooltip-content>
-            <h1 v-html="formatContent(action.name)" />
-            <p v-html="formatContent(action.description)" />
+        <template #tooltip-content="{ formatContent }">
+            <h1 v-html="formatContent(action.name)"> </h1>
+            <p v-html="formatContent(action.description)"> </p>
+            <!--<p v-else v-html="formatContent(action_fail.description)"> </p>-->
         </template>
         </Tooltip>
 </template>
 
 <script>
 import Tooltip from "@/components/Utils/ToolTip";
-import { formatText } from "@/utils/formatText";
 
 export default {
     props: {
         action: Object
     },
     components: {Tooltip},
-    methods:{
-        formatContent(value) {
-            if (! value) return '';
-            return formatText(value.toString());
-            }
-        },
 };
 </script>
 

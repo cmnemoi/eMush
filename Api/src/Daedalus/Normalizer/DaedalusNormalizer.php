@@ -41,32 +41,38 @@ class DaedalusNormalizer implements ContextAwareNormalizerInterface
                 'day' => $object->getDay(),
                 'oxygen' => [
                     'quantity' => $object ->getOxygen(),
-                    'name' => $this->translationService->translate('oxygen.name', [], 'daedalus'),
+                    'name' => $this->translationService->translate('oxygen.name', ['quantity' => $object ->getOxygen()], 'daedalus'),
                     'description' => $this->translationService->translate('oxygen.description', [], 'daedalus')],
                 'fuel' => [
                     'quantity' => $object->getFuel(),
-                    'name' => $this->translationService->translate('fuel.name', [], 'daedalus'),
+                    'name' => $this->translationService->translate('fuel.name', ['quantity' => $object->getFuel()], 'daedalus'),
                     'description' => $this->translationService->translate('fuel.description', [], 'daedalus')],
                 'hull' => [
                     'quantity' => $object->getHull(),
-                    'name' => $this->translationService->translate('hull.name', [], 'daedalus'),
+                    'name' => $this->translationService->translate('hull.name', ['quantity' => $object->getHull()], 'daedalus'),
                     'description' => $this->translationService->translate('hull.description', [], 'daedalus')],
                 'shield' => [
                     'quantity' => $object->getShield(),
-                    'name' => $this->translationService->translate('shield.name', [], 'daedalus'),
+                    'name' => $this->translationService->translate('shield.name', ['quantity' => $object->getShield()], 'daedalus'),
                     'description' => $this->translationService->translate('shield.description', [], 'daedalus')],
                 'nextCycle' => $this->cycleService->getDateStartNextCycle($object)->format(\DateTime::ATOM),
                 'currentCycle' => [
                     'name' => $this->translationService->translate('currentCycle.name', [], 'daedalus'),
                     'description' => $this->translationService->translate('currentCycle.description', [], 'daedalus')],
                 'cryogenizedPlayers' => $gameConfig->getCharactersConfig()->count() - $daedalus->getPlayers()->count(),
-                'humanPlayerAlive' => [
-                    'quantity' => $daedalus->getPlayers()->getHumanPlayer()->getPlayerAlive()->count(),
-                    'name' => $this->translationService->translate('humanPlayerAlive.name', [], 'daedalus'),
-                    'description' => $this->translationService->translate('humanPlayerAlive.description', [], 'daedalus')],
+                'humanPlayerAlive' => $daedalus->getPlayers()->getHumanPlayer()->getPlayerAlive()->count(),
                 'humanPlayerDead' => $daedalus->getPlayers()->getHumanPlayer()->getPlayerDead()->count(),
                 'mushPlayerAlive' => $daedalus->getPlayers()->getMushPlayer()->getPlayerAlive()->count(),
                 'mushPlayerDead' => $daedalus->getPlayers()->getMushPlayer()->getPlayerDead()->count(),
+                'crewPlayer' => [
+                    'name' => $this->translationService->translate('crewPlayer.name', [], 'daedalus'),
+                    'description' => $this->translationService->translate('crewPlayer.description', 
+                    ['cryogenizedPlayers' => $gameConfig->getCharactersConfig()->count() - $daedalus->getPlayers()->count(),
+                        'humanAlive' => $daedalus->getPlayers()->getHumanPlayer()->getPlayerAlive()->count(),
+                        'humanDead' => $daedalus->getPlayers()->getHumanPlayer()->getPlayerDead()->count(),
+                        'mushAlive' => $daedalus->getPlayers()->getMushPlayer()->getPlayerAlive()->count(),
+                        'mushDead' => $daedalus->getPlayers()->getMushPlayer()->getPlayerDead()->count()
+                    ], 'daedalus')],
             ];
     }
 }

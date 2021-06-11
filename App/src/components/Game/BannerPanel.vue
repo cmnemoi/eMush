@@ -22,7 +22,7 @@
                         <template #tooltip-trigger>
                             <li>{{ daedalus.oxygen.quantity }}<img src="@/assets/images/o2.png"></li>
                         </template>
-                        <template #tooltip-content>
+                        <template #tooltip-content="{ formatContent }">
                             <h1 v-html="formatContent(daedalus.oxygen.name)" />
                             <p v-html="formatContent(daedalus.oxygen.description)" />
                         </template>
@@ -31,7 +31,7 @@
                         <template #tooltip-trigger>
                             <li>{{ daedalus.fuel.quantity }}<img src="@/assets/images/fuel.png"></li>
                         </template>
-                        <template #tooltip-content>
+                        <template #tooltip-content="{ formatContent }">
                             <h1 v-html="formatContent(daedalus.fuel.name)" />
                             <p v-html="formatContent(daedalus.fuel.description)" />
                         </template>
@@ -40,16 +40,16 @@
                         <template #tooltip-trigger>
                             <li>{{ daedalus.hull.quantity }}<img src="@/assets/images/shield.png"></li>
                         </template>
-                        <template #tooltip-content>
-                            <h1 v-html="formatContent(daedalus.shield.name)" />
-                            <p v-html="formatContent(daedalus.shield.description)" />
+                        <template #tooltip-content="{ formatContent }">
+                            <h1 v-html="formatContent(daedalus.hull.name)" />
+                            <p v-html="formatContent(daedalus.hull.description)" />
                         </template>
                     </Tooltip>
                     <Tooltip>
                         <template #tooltip-trigger>
                             <li>{{ player.triumph }}<img src="@/assets/images/triumph.png"></li>
                         </template>
-                        <template #tooltip-content>
+                        <template #tooltip-content="{ formatContent }">
                             <h1 v-html="formatContent(placeholder)" />
                             <p v-html="formatContent(placeholder)" />
                         </template>
@@ -60,7 +60,7 @@
                 <Tooltip>
                     <template #tooltip-trigger>
                         <ol>
-                            <li v-for="(key) in daedalus.humanPlayerAlive.quantity" :key="key">
+                            <li v-for="(key) in daedalus.humanPlayerAlive" :key="key">
                                 <img class="alive" src="@/assets/images/p_alive.png" alt="crewmate">
                             </li>
                             <li v-for="(key) in daedalus.mushPlayerAlive" :key="key">
@@ -77,9 +77,9 @@
                             </li>
                         </ol>
                     </template>
-                    <template #tooltip-content>
-                        <h1 v-html="formatContent(daedalus.humanPlayerAlive.name)" />
-                        <p v-html="formatContent(daedalus.humanPlayerAlive.description)" />
+                    <template #tooltip-content="{ formatContent }">
+                        <h1 v-html="formatContent(daedalus.crewPlayer.name)" />
+                        <p v-html="formatContent(daedalus.crewPlayer.description)" />
                     </template>
                 </Tooltip>
             </div>
@@ -101,7 +101,7 @@
                             </li>
                         </ul>
                     </template>
-                    <template #tooltip-content>
+                    <template #tooltip-content="{ formatContent }">
                         <h1 v-html="formatContent(daedalus.currentCycle.name)" />
                         <p v-html="formatContent(daedalus.currentCycle.description)" />
                     </template>
@@ -117,7 +117,6 @@ import { Player } from "@/entities/Player";
 import CountdownTimer from "@/components/Utils/CountdownTimer";
 import Alerts from "@/components/Game/Ship/Alerts";
 import Tooltip from "@/components/Utils/ToolTip";
-import { formatText } from "@/utils/formatText";
 
 export default {
     name: "BannerPanel",
@@ -126,12 +125,6 @@ export default {
         player: Player,
         daedalus: Daedalus
     },
-    methods:{
-        formatContent(value) {
-            if (! value) return '';
-            return formatText(value.toString());
-            }
-        },
     data: function () {
         return {
         };

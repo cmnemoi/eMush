@@ -83,11 +83,11 @@
         <unit id="lost_crewmate">
             <segment id="name">
                 <source>lost_crewmate.name</source>
-                <target>TODO.lost_crewmate</target>
+                <target>Equipier perdu</target>
             </segment>
             <segment id="description">
                 <source>lost_crewmate.description</source>
-                <target>TODO.lost_crewmember.description</target>
+                <target>Un de vos co-équipier est perdu sur une planète, vous devriez monter une mission pour le rapatrier !</target>
             </segment>
         </unit>
 

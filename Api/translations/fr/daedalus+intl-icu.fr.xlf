@@ -4,17 +4,17 @@
         <unit id="oxygen">
             <segment id="name">
                 <source>oxygen.name</source>
-                <target>Oxygène du vaisseau [{quantity} /32]</target>
+                <target>Oxygène du vaisseau [ {quantity}/32 ]</target>
             </segment>
             <segment id="description">
                 <source>oxygen.description</source>
-                <target>Quantité d'**Oxygène** disponible dans le vaisseau. Pour refaire le plein, pensez à organiser des **Explorations** ou à vous occuper du **Jardin**, par exemple.</target>
+                <target>Quantité d'**Oxygène (o²)** disponible dans le vaisseau. Pour refaire le plein, pensez à organiser des **Explorations** ou à vous occuper du **Jardin**, par exemple.</target>
             </segment>
         </unit>
         <unit id="fuel">
             <segment id="name">
                 <source>fuel.name</source>
-                <target>Fuel en reserve [ /32]</target>
+                <target>Fuel en reserve [{quantity}/32]</target>
             </segment>
             <segment id="description">
                 <source>fuel.description</source>
@@ -24,34 +24,32 @@
         <unit id="shield">
             <segment id="name">
                 <source>shield.name</source>
-                <target>Armure</target>
+                <target>Armure : {quantity}</target>
             </segment>
             <segment id="description">
                 <source>shield.description</source>
-                <target>Armure : $qty 
-L'état de l'armure vous indique l'état global de la coque du vaisseau. À **0 le vaisseau sera détruit** car la coque ne sera plus qu'un maigre paravent troué...</target>
+                <target>Le bouclier plasma a été désactivé par l'Administrateur NERON.
+                L'état de l'armure vous indique l'état global de la coque du vaisseau. À **0 le vaisseau sera détruit** car la coque ne sera plus qu'un maigre paravent troué...</target>
             </segment>
         </unit>
         <unit id="hull">
             <segment id="name">
                 <source>hull.name</source>
-                <target>Armure</target>
+                <target>Armure : {quantity}</target>
             </segment>
             <segment id="description">
                 <source>hull.description</source>
-                <target>Armure : $qty 
-Le bouclier plasma a été désactivé par l'Administrateur NERON.
-L'état de l'armure vous indique l'état global de la coque du vaisseau. À **0 le vaisseau sera détruit** car la coque ne sera plus qu'un maigre paravent troué...</target>
+                <target>L'état de l'armure vous indique l'état global de la coque du vaisseau. À **0 le vaisseau sera détruit** car la coque ne sera plus qu'un maigre paravent troué...</target>
             </segment>
         </unit>
-        <unit id="humanPlayerAlive">
+        <unit id="crewPlayer">
             <segment id="name">
-                <source>humanPlayerAlive.name</source>
+                <source>crewPlayer.name</source>
                 <target>Camarades</target>
             </segment>
             <segment id="description">
-                <source>humanPlayerAlive.description</source>
-                <target>$qty  membre(s) d'équipage actif(s), dont $qty  Mush.$qty  membre(s) défunts, dont $qty  Mush. $qty  cryogénisé(s).</target>
+                <source>crewPlayer.description</source>
+                <target>{humanAlive, plural, one {# membre d'équipage actif} other {# membres d'équipage actifs}}, dont {mushAlive, plural, one {# Mush} other {# Mushs}}. {humanDead, plural, one {# membre défunt} other {# membres défunts}}, dont {mushDead, plural, one {# Mush} other {# Mushs}}. {cryogenizedPlayers, plural, one {# cryogénisé} other {# cryogénisés}}.</target>
             </segment>
         </unit>
         <unit id="currentCycle">
@@ -62,6 +60,28 @@ L'état de l'armure vous indique l'état global de la coque du vaisseau. À **0 
             <segment id="description">
                 <source>currentCycle.description</source>
                 <target>Les jours du jeu correspondent aux jours de la vie réelle. Un **cycle dure 3 heures**. À chaque cycle vous cumulez plus de :pa::pm:, indispensables pour pouvoir réaliser des actions !</target>
+            </segment>
+        </unit>
+        <unit id="triumph">
+            <segment id="name">
+                <source>triumph.name</source>
+                <target>Triomphe personnel</target>
+            </segment>
+            <segment id="description">
+                <source>triumph.description</source>
+                <target>Triomphe accumulé par ce héros pendant ce voyage.
+La valeur sera finalisée après la fin du voyage. Elle déterminera votre classement dans le palmarès du vaisseau.</target>
+            </segment>
+        </unit>
+        <unit id="triumph">
+            <segment id="name">
+                <source>triumph.name</source>
+                <target>Triomphe personnel</target>
+            </segment>
+            <segment id="description">
+                <source>triumph.description</source>
+                <target>Triomphe accumulé par ce héros pendant ce voyage.
+La valeur sera finalisée après la fin du voyage. Elle déterminera votre classement dans le palmarès du vaisseau.</target>
             </segment>
         </unit>
     </file>

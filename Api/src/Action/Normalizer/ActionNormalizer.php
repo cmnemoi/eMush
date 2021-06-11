@@ -67,7 +67,7 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
             }
 
             if ($reason = $actionClass->cannotExecuteReason()) {
-                $normalizedAction['description'] = $this->translationService->translate("{$reason}.description", [], 'actionsFail');
+                $normalizedAction['description'] = $this->translationService->translate("{$reason}.description", [], 'action_fail');
                 $normalizedAction['canExecute'] = false;
             } else {
                 $normalizedAction['description'] = $this->translationService->translate("{$actionName}.description", [], 'actions');

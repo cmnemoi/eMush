@@ -5,7 +5,6 @@ namespace Mush\RoomLog\Service;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\RoomLog\Entity\LogParameter;
 use Mush\RoomLog\Entity\RoomLog;
 
 interface RoomLogServiceInterface
@@ -16,8 +15,7 @@ interface RoomLogServiceInterface
         string $visibility,
         string $type,
         ?Player $player = null,
-        ?LogParameter $target = null,
-        ?int $quantity = null,
+        array $parameters,
         \DateTime $dateTime = null
     ): RoomLog;
 

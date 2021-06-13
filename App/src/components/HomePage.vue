@@ -27,17 +27,13 @@
         <div class="box">
             <img src="@/assets/images/lang_de.png" alt="Deutsch">
             <p>
-                <em>eMush</em> ist im Moment nicht für die Öffentlichkeit zugänglich, da das Spiel noch unfertig und voller <em class="red">Mush</em> ist <em>!!!</em>
+                <em>eMush</em> ist derzeit nicht für die Öffentlichkeit zugänglich, da das Spiel noch nicht ganz fertig ist und von <em class="red">Mush</em> verseucht ist<em>!!!</em>
                 <br><br>
-                Wenn du dich für das Projekt interessierst, kannst du dich gerne auf dem <a href="https://discord.gg/ERc3svy">Eternal-Twin-discord</a> oder im <a href="https://eternal-twin.net/forum">Forum</a> anmelden.
-                Alle Informationen sind auf <a href="https://eternal-twin.net">Eternal-Twin</a> zu finden.
+                Wenn du dich für das Spiel interessierst, kannst du uns gerne auf <a href="https://discord.gg/ERc3svy">Discord</a> und in den <a href="https://eternal-twin.net/forum">Eternal-Twin-Foren</a> besuchen. Alle Informationen sind auf <a href="https://eternal-twin.net">Eternal-Twin</a> verfügbar.
                 <br><br>
-                Was die Alpha-Version betrifft, so wird sie am 3. Januar 2021 starten. Ein Link wird auf der <a href="https://eternal-twin.net">Eternal-Twin-Webseite</a> verfügbar sein und ein Code wird am Tag des Starts zur Verfügung gestellt (nur für Spieler, die am Alpha-Testschiff teilnehmen. Privat oder auf <a href="https://discord.gg/ERc3svy">discord</a>).
-                Um an diesem Alpha-Testschiff teilzunehmen, benötigst du einen Account auf der <a href="https://eternal-twin.net">Eternal-Twin-Webseite</a>. Du musst dich von deinem <a href="https://twinoid.com/">Twinoid-Account</a> verbinden. Hammerfest oder Dino-Parc Account funktionieren auch.
+                Was die eMush-Alpha angeht, werden regelmäßig private Schiffe mit Hilfe von Freiwilligen auf <a href="https://discord.gg/ERc3svy">Discord</a> gestartet. Um an einem Alphaschiff teilzunehmen, musst du dich auf <a href="https://eternal-twin.net">Eternal-Twin</a> registrieren und der Liste der Freiwilligen auf <a href="https://discord.gg/ERc3svy">Discord</a> beitreten.
                 <br><br>
-                Bei <a href="https://twinoid.com/">Twinoid</a> musst du, um dein Konto mit deinem <a href="https://eternal-twin.net">Eternal-Twin-Konto</a> zu verbinden die App von <em>Demurgos</em> akzeptieren, die Zugriff auf alle Daten verlangt, die von Twinoid kommen. Damit kannst du den Fortschritt aller deiner Spiele verfolgen.
-                <br><br>
-                <em>Für diejenigen, die an der Alpha-Phase des Spiels teilnehmen möchten.</em> Keine Sorge! Es wird weitere Testschiffe geben, die später gestartet werden.
+                Wenn du nicht in die engere Auswahl für ein Alphaschiff kommst, mache dir keine Sorgen! Die Auswahlliste rotiert für jedes Schiff, um jedem eine Chance zu geben.
             </p>
         </div>
         <div class="box">

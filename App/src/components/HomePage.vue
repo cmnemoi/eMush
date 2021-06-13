@@ -9,7 +9,7 @@
                 <br><br>
                 Concernant eMush alpha, des vaisseaux privés sont lancés régulièrement avec des volontaires sur <a href="https://discord.gg/ERc3svy">Discord</a>. Pour faire partie d'un vaisseau alpha, vous aurez besoin d'un compte <a href="https://eternal-twin.net/">Eternal-Twin</a> et de rejoindre la liste de volontaires sur <a href="https://discord.gg/ERc3svy">Discord</a>.
                 <br><br>
-                <em class="red">Si vous n'êtes pas sélectionnés pour un vaisseau alpha</em> , pas d'inquiétude ! La liste des personnes sélectionnées change pour chaque vaisseau afin de fournir une chance à tous.
+                <em>Si vous n'êtes pas sélectionnés pour un vaisseau alpha , pas d'inquiétude !</em> La liste des personnes sélectionnées change pour chaque vaisseau afin de fournir une chance à tous.
             </p>
         </div>
         <div class="box">
@@ -21,7 +21,7 @@
                 <br><br>
                 About the eMush alpha, private ships are regularly being launched with the help of volunteers on <a href="https://discord.gg/ERc3svy">Discord</a>. To be part of an alpha ship, you will have to register on <a href="https://eternal-twin.net">Eternal-Twin</a> and join the list of volunteers on <a href="https://discord.gg/ERc3svy">Discord</a>.
                 <br><br>
-                <em class="red">If you are not shortlisted for an alpha ship, don't worry!</em> The selection list rotates for each ship to offer everyone a chance.
+                <em>If you are not shortlisted for an alpha ship, don't worry!</em> The selection list rotates for each ship to offer everyone a chance.
             </p>
         </div>
         <div class="box">
@@ -33,23 +33,19 @@
                 <br><br>
                 Was die eMush-Alpha angeht, werden regelmäßig private Schiffe mit Hilfe von Freiwilligen auf <a href="https://discord.gg/ERc3svy">Discord</a> gestartet. Um an einem Alphaschiff teilzunehmen, musst du dich auf <a href="https://eternal-twin.net">Eternal-Twin</a> registrieren und der Liste der Freiwilligen auf <a href="https://discord.gg/ERc3svy">Discord</a> beitreten.
                 <br><br>
-                Wenn du nicht in die engere Auswahl für ein Alphaschiff kommst, mache dir keine Sorgen! Die Auswahlliste rotiert für jedes Schiff, um jedem eine Chance zu geben.
+                <em>Wenn du nicht in die engere Auswahl für ein Alphaschiff kommst, mache dir keine Sorgen!</em> Die Auswahlliste rotiert für jedes Schiff, um jedem eine Chance zu geben.
             </p>
         </div>
         <div class="box">
             <img src="@/assets/images/lang_es.png" alt="Español">
             <p>
-                <em>eMush</em> no está abierto al público en este momento, ya que el juego aún no está terminado y está lleno de <em class="red">Mush</em> <em>!!!</em>
+                <em>eMush</em> no está abierto al público en este momento ya que el juego no está completamente terminado y está lleno de <em class="red">Mush</em><em>!!!</em>
                 <br><br>
-                Si está interesado en el proyecto, no dude en inscribirse en el <a href="https://discord.gg/ERc3svy">discord</a> de Eternal-Twin o en los <a href="https://eternal-twin.net/forum">Foros</a>. Toda la información se puede encontrar en <a href="https://eternal-twin.net">Eternal-Twin</a>.
+                Si estás interesado en el juego, no dudes en unirte a nosotros en <a href="https://discord.gg/ERc3svy">Discord</a> y a los <a href="https://eternal-twin.net/forum">foros de Eternal-Twin</a>. Toda la información está disponible en <a href="https://eternal-twin.net">Eternal-Twin</a>.
                 <br><br>
-                En cuanto a la versión alfa, se lanzará el 3 de enero de 2021. En la página web de <a href="https://eternal-twin.net/">Eternal-Twin</a> se podrá acceder a un enlace y el día del lanzamiento se pondrá a disposición un código (sólo para los jugadores que participen en la nave de pruebas Alfa. Privado o en <a href="https://discord.gg/ERc3svy">discord</a>).
-                Para participar en esta Nave de Prueba Alfa, necesitarás una cuenta en el sitio web de <a href="https://eternal-twin.net/">Eternal-Twin</a>. Necesitarás conectarte desde tu cuenta de <a href="https://twinoid.com/">Twinoid</a>. La cuenta de Hammerfest o Dino-Parc también funcionará.
+                Acerca del alfa de eMush, las naves privadas se lanzan regularmente con la ayuda de voluntarios en <a href="https://discord.gg/ERc3svy">Discord</a>. Para ser parte de una nave alfa, tendrás que registrarte en <a href="https://eternal-twin.net">Eternal-Twin</a> y unirte a la lista de voluntarios de <a href="https://discord.gg/ERc3svy">Discord</a>.
                 <br><br>
-                En <a href="https://twinoid.com/">Twinoid</a>, para conectar tu cuenta con la de <a href="https://eternal-twin.net/">Eternal-Twin</a>, tendrás que aceptar la aplicación de <em>Demurgos</em>, que requiere el acceso a todos los datos procedentes de <a href="https://twinoid.com/">Twinoid</a>. Esto te permitirá seguir el progreso de todos tus juegos.
-                All the information are on the <a href="https://eternal-twin.net">Eternal-Twin</a> website.
-                <br><br>
-                <em>Para aquellos que quieran participar en la fase alfa del juego.</em> No se preocupe! Habrá más naves de prueba que serán lanzadas más tarde.
+                <em>Si no estás preseleccionado para una nave alfa, ¡no te preocupes!</em> La lista de selección rota para cada barco para ofrecer a todos una oportunidad.
             </p>
         </div>
     </div>
@@ -72,7 +68,7 @@ export default {
 
     .box {
         position: relative;
-        max-width: 462px;
+        max-width: calc(640px - 2em);
         margin: 3em 1em;
         padding: 1em 1.5em;
 
@@ -106,7 +102,7 @@ export default {
 
     em {
         color: #01c3df;
-        font-size: 15pt;
+        font-size: 1.2em;
         font-style: normal;
         font-weight: bold;
 

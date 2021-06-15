@@ -9,7 +9,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Event\ActionEffectEvent;
 use Mush\Action\Service\ActionServiceInterface;
-use Mush\Action\Validator\Status;
+use Mush\Action\Validator\HasStatus;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Drug;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
@@ -51,10 +51,10 @@ class ConsumeDrug extends Consume
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        $metadata->addConstraint(new Status([
+        $metadata->addConstraint(new HasStatus([
             'status' => PlayerStatusEnum::DRUG_EATEN,
             'contain' => false,
-            'target' => Status::PLAYER,
+            'target' => HasStatus::PLAYER,
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::CONSUME_DRUG_TWICE,
         ]));

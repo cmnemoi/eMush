@@ -2,7 +2,7 @@
 
 namespace Mush\Action\Validator;
 
-class Status extends ClassConstraint
+class HasStatus extends ClassConstraint
 {
     public const PLAYER = 'player';
     public const PARAMETER = 'parameter';

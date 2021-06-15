@@ -7,7 +7,7 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
-use Mush\Action\Validator\Status;
+use Mush\Action\Validator\HasStatus;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -36,9 +36,9 @@ class GetUp extends AbstractAction
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        $metadata->addConstraint(new Status([
+        $metadata->addConstraint(new HasStatus([
             'status' => PlayerStatusEnum::LYING_DOWN,
-            'target' => Status::PLAYER,
+            'target' => HasStatus::PLAYER,
             'groups' => ['visibility'],
         ]));
     }

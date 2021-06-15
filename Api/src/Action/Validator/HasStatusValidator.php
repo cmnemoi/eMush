@@ -9,7 +9,7 @@ use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\LogicException;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class StatusValidator extends ConstraintValidator
+class HasStatusValidator extends ConstraintValidator
 {
     public function validate($value, Constraint $constraint): void
     {
@@ -17,14 +17,14 @@ class StatusValidator extends ConstraintValidator
             throw new UnexpectedTypeException($value, AbstractAction::class);
         }
 
-        if (!$constraint instanceof Status) {
-            throw new UnexpectedTypeException($constraint, Status::class);
+        if (!$constraint instanceof HasStatus) {
+            throw new UnexpectedTypeException($constraint, HasStatus::class);
         }
 
         $target = match ($constraint->target) {
-            Status::PARAMETER => $value->getParameter(),
-            Status::PLAYER => $value->getPlayer(),
-            Status::PLAYER_ROOM => $value->getPlayer()->getPlace(),
+            HasStatus::PARAMETER => $value->getParameter(),
+            HasStatus::PLAYER => $value->getPlayer(),
+            HasStatus::PLAYER_ROOM => $value->getPlayer()->getPlace(),
             default => throw new LogicException('unsupported target'),
         };
 

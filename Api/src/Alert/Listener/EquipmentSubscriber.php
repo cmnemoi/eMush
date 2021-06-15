@@ -5,6 +5,7 @@ namespace Mush\Alert\Listener;
 use Mush\Alert\Service\AlertServiceInterface;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class EquipmentSubscriber implements EventSubscriberInterface
@@ -22,7 +23,17 @@ class EquipmentSubscriber implements EventSubscriberInterface
         return [
             EquipmentEvent::EQUIPMENT_FIXED => 'onEquipmentFixed',
             EquipmentEvent::EQUIPMENT_BROKEN => 'onEquipmentBroken',
+            EquipmentEvent::EQUIPMENT_DESTROYED => 'onEquipmentDestroyed',
         ];
+    }
+
+    public function onEquipmentDestroyed(EquipmentEvent $event): void
+    {
+        $equipment = $event->getEquipment();
+
+        if ($equipment->hasStatus(EquipmentStatusEnum::BROKEN)) {
+            $this->alertService->handleEquipmentRepair($equipment);
+        }
     }
 
     public function onEquipmentBroken(EquipmentEvent $event): void

@@ -10,8 +10,8 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\DailySporesLimit;
+use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\MushSpore;
-use Mush\Action\Validator\Status;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -42,7 +42,7 @@ class ExtractSpore extends AbstractAction
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        $metadata->addConstraint(new Status(['status' => PlayerStatusEnum::MUSH, 'target' => Status::PLAYER, 'groups' => ['visibility']]));
+        $metadata->addConstraint(new HasStatus(['status' => PlayerStatusEnum::MUSH, 'target' => HasStatus::PLAYER, 'groups' => ['visibility']]));
         $metadata->addConstraint(new DailySporesLimit(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::DAILY_SPORE_LIMIT]));
         $metadata->addConstraint(new MushSpore(['threshold' => 2, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::PERSONAL_SPORE_LIMIT]));
     }

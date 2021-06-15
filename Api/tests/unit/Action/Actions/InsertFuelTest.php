@@ -14,15 +14,11 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Place\Entity\Place;
 
 class InsertFuelTest extends AbstractActionTest
 {
-    /** @var GameEquipmentServiceInterface | Mockery\Mock */
-    private GameEquipmentServiceInterface $gameEquipmentService;
-
     /**
      * @before
      */
@@ -32,13 +28,10 @@ class InsertFuelTest extends AbstractActionTest
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::INSERT_FUEL);
 
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
-
         $this->action = new InsertFuel(
             $this->eventDispatcher,
             $this->actionService,
             $this->validator,
-            $this->gameEquipmentService,
         );
     }
 
@@ -80,7 +73,7 @@ class InsertFuelTest extends AbstractActionTest
         $gameTank->setEquipment($tank)->setName(EquipmentEnum::FUEL_TANK)->setPlace($room);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->gameEquipmentService->shouldReceive('delete');
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
         $this->eventDispatcher->shouldReceive('dispatch')->once();
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
@@ -88,7 +81,6 @@ class InsertFuelTest extends AbstractActionTest
         $result = $this->action->execute();
 
         self::assertInstanceOf(Success::class, $result);
-        self::assertEmpty($player->getItems());
         self::assertCount(1, $room->getEquipments());
         self::assertEquals(10, $player->getActionPoint());
     }

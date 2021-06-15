@@ -42,7 +42,7 @@ class ActionEnum
     public const GAG = 'gag';
     public const HYPERFREEZE = 'hyperfreeze';
     public const EXPRESS_COOK = 'express_cook';
-    public const STRENGTHEN = 'strengthen';
+    public const STRENGTHEN_HULL = 'strengthen_hull';
     public const WRITE = 'write';
     public const PUBLIC_BROADCAST = 'public_broadcast';
     public const HEAL = 'heal';
@@ -90,8 +90,8 @@ class ActionEnum
     public const PRINT_SECRET_LIST = 'print_secret_list';
     public const SURGERY = 'surgery';
     public const DISASSEMBLE = 'disassemble';
-    public const REINFORCE = 'reinforce'; // /!\ This is preventing disassembly, not reinforcing the hull!
-    public const PREMONOTION = 'premonition';
+    public const REINFORCE_EQUIPMENT = 'reinforce_equipment'; // /!\ This is preventing disassembly, not reinforcing the hull!
+    public const PREMONITION = 'premonition';
     public const HAND_EXTINGUISH = 'hand_extinguish';
     public const CEASE_FIRE = 'cease_fire';
     public const CEASEFIRE = 'ceasefire';

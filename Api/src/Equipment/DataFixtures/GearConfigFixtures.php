@@ -314,7 +314,15 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $oscilloscopeGear = $this->createGear(
             ModifierTargetEnum::PERCENTAGE,
             1.5,
-            ActionEnum::REINFORCE,
+            ActionEnum::STRENGTHEN_HULL,
+            ReachEnum::INVENTORY,
+            false
+        );
+
+        $oscilloscopeGear = $this->createGear(
+            ModifierTargetEnum::QUANTITY,
+            2,
+            ActionEnum::STRENGTHEN_HULL,
             ReachEnum::INVENTORY,
             false
         );

@@ -95,6 +95,11 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($tabulatrix);
 
+        /** @var Action $strengthenAction */
+        $strengthenAction = $this->getReference(ActionsFixtures::STRENGTHEN_HULL);
+        $metalScrapsAction = clone $hideableActions;
+        $metalScrapsAction->add($strengthenAction);
+
         $metalScraps = new ItemConfig();
         $metalScraps
             ->setGameConfig($gameConfig)
@@ -103,7 +108,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setActions($hideableActions)
+            ->setActions($metalScrapsAction)
         ;
 
         $manager->persist($metalScraps);

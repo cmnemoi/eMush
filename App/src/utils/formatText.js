@@ -22,7 +22,7 @@ Object.assign(module.exports, { formatText, helpers });
 function formatText(text) {
     let formattedText = text;
     formattedText = formattedText.replaceAll(/\*\*(.[^*]*)\*\*/g, '<strong>$1</strong>');
-    formattedText = formattedText.replaceAll(/\*(.*)\*/g, '<em>$1</em>');
+    formattedText = formattedText.replaceAll(/\*(.[^*]*)\*/g, '<em>$1</em>');
     formattedText = formattedText.replaceAll(/:pa:/g, helpers.computeImageHtml("pa"));
     formattedText = formattedText.replaceAll(/:pm:/g, helpers.computeImageHtml("pm"));
     formattedText = formattedText.replaceAll(/:pmo:/g, helpers.computeImageHtml("pmo"));

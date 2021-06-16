@@ -88,10 +88,23 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
                 'items' => $items,
                 'statuses' => $statuses,
                 'diseases' => $diseases,
-                'actionPoint' => $player->getActionPoint(),
-                'movementPoint' => $player->getMovementPoint(),
-                'healthPoint' => $player->getHealthPoint(),
-                'moralPoint' => $player->getMoralPoint(),
+                'actionPoint' => [
+                    'quantity' => $player->getActionPoint(),
+                    'name' => $this->translationService->translate('actionPoint.name', [], 'player'),
+                    'description' => $this->translationService->translate('actionPoint.description', [
+                        'quantityaction' => $player->getActionPoint(),
+                        'quantitymovement' => $player->getMovementPoint(),
+                    ], 'player'), ],
+                'movementPoint' => [
+                    'quantity' => $player->getMovementPoint(), ],
+                'healthPoint' => [
+                    'quantity' => $player->getHealthPoint(),
+                    'name' => $this->translationService->translate('healthPoint.name', ['quantity' => $player->getHealthPoint()], 'player'),
+                    'description' => $this->translationService->translate('healthPoint.description', [], 'player'), ],
+                'moralPoint' => [
+                    'quantity' => $player->getMoralPoint(),
+                    'name' => $this->translationService->translate('moralPoint.name', ['quantity' => $player->getMoralPoint()], 'player'),
+                    'description' => $this->translationService->translate('moralPoint.description', [], 'player'), ],
             ]);
         }
 

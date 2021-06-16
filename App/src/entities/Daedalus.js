@@ -7,6 +7,7 @@ export class Daedalus {
         this.fuel = null;
         this.hull = null;
         this.shield = null;
+        this.currentCycle = null;
         this.nextCycle = null;
         this.nextCycle = 0;
         this.cryogenizedPlayers = 0;
@@ -14,6 +15,7 @@ export class Daedalus {
         this.humanPlayerDead = 0;
         this.mushPlayerAlive = 0;
         this.mushPlayerDead = 0;
+        this.crewPlayer = 0;
     }
     load = function(object) {
         if (typeof object !== "undefined") {
@@ -24,12 +26,14 @@ export class Daedalus {
             this.fuel = object.fuel;
             this.hull = object.hull;
             this.shield = object.shield;
+            this.currentCycle = object.currentCycle;
             this.nextCycle = new Date(object.nextCycle);
             this.cryogenizedPlayers = object.cryogenizedPlayers;
             this.humanPlayerAlive = object.humanPlayerAlive;
             this.humanPlayerDead = object.humanPlayerDead;
             this.mushPlayerAlive = object.mushPlayerAlive;
             this.mushPlayerDead = object.mushPlayerDead;
+            this.crewPlayer = object.crewPlayer;
         }
         return this;
     }

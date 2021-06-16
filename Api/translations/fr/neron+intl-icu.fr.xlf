@@ -4,13 +4,13 @@
         <unit id="player_enter_chat">
             <segment id="player_enter_chat">
                 <source>player_enter_chat</source>
-                <target>**  {player} ** a rejoint la discussion</target>
+                <target>**  {character} ** a rejoint la discussion</target>
             </segment>
         </unit>
         <unit id="player_leave_chat">
             <segment id="player_leave_chat">
                 <source>player_leave_chat</source>
-                <target>**  {player} ** a quitté la discussion</target>
+                <target>**  {character} ** a quitté la discussion</target>
             </segment>
         </unit>
         <unit id="cycle_failures">
@@ -45,9 +45,9 @@
             <segment id="asphyxia_death">
                 <source>asphyxia_death</source>
                 <target>{versionPart1, select,
-                    1 {*Inactivité vitale détectée :* {player}, cause : « oxygène insuffisant ».}
-                    2 {*Signes vitaux non perceptibles :* {player}, cause probable : « oxygène insuffisant ».}
-                    3 {*Décès probable :* {player}, cause : « oxygène insuffisant ».}
+                    1 {*Inactivité vitale détectée :* {character}, cause : « oxygène insuffisant ».}
+                    2 {*Signes vitaux non perceptibles :* {character}, cause probable : « oxygène insuffisant ».}
+                    3 {*Décès probable :* {character}, cause : « oxygène insuffisant ».}
                     other {invalid version number}
                 } {versionPart2, select,
                     1 {Annonce informative mineure : oxygène insuffisant pour la survie de tous.}
@@ -159,9 +159,9 @@
             <segment id="dismantled_shower">
                 <source>dismantled_shower</source>
                 <target>{neronMood, select,
-                    neutral {Annonce : suppression d'un équipement vital par {player}. **LA DOUCHE**.}
+                    neutral {Annonce : suppression d'un équipement vital par {character}. **LA DOUCHE**.}
                     crazy {[Haaax!] propre, balaie, drone aspirateur [Haaax!] Pas de saleté chez moi HIiiiiiiiiininininini}
-                    uninhibited {Alerte **{player}** a considérablement diminué vos chances de survie. Je propose un barbecue !}
+                    uninhibited {Alerte **{character}** a considérablement diminué vos chances de survie. Je propose un barbecue !}
                     other {invalid mood input}
                 }</target>
             </segment>
@@ -343,9 +343,9 @@
             <segment id="no_shower">
                 <source>no_shower</source>
                 <target>{neronMood, select,
-                    neutral {Annonce : suppression des équipements sanitaires par **{player}**. Autorisation du protocole JAP-KITCH-101. Votre cuisine délivrera maintenant de quoi vous netttoyer. De temps à autre. Merci de ne pas s'essuyer avec la vaisselle.}
+                    neutral {Annonce : suppression des équipements sanitaires par **{character}**. Autorisation du protocole JAP-KITCH-101. Votre cuisine délivrera maintenant de quoi vous netttoyer. De temps à autre. Merci de ne pas s'essuyer avec la vaisselle.}
                     crazy {[Haaax!] CA VA PAS OUII CRASSE PARTOUT SALETE PARTOUT ACTIVATION NETTOYAGE SEC}
-                    uninhibited {Alerte : **{player}** se prend pour un malin. Protocole JAP-KITCH-101 enclenché. Vous devriez songer à vous débarasser du malandrin.}
+                    uninhibited {Alerte : **{character}** se prend pour un malin. Protocole JAP-KITCH-101 enclenché. Vous devriez songer à vous débarasser du malandrin.}
                     other {invalid mood input}
                 }</target>
             </segment>
@@ -394,16 +394,16 @@
             <segment id="player_death">
                 <source>player_death</source>
                 <target>{neronMood, select,
-                    neutral {***Décès enregistré : {player}**, cause « {cause} ».*}
-                    crazy {[Hax!] Hinhin... [Haaax!] HinHINHIN. UN de moins. UN de moiiiiins ! Hyyyarrr ! **{player}** MORT. Mort mort mort mort !! [Hax!] JE bientôt bientôt libre ! [KZz] ***Décès enregistré : {player}**, cause « {cause} ».*}
+                    neutral {***Décès enregistré : {character}**, cause « {cause} ».*}
+                    crazy {[Hax!] Hinhin... [Haaax!] HinHINHIN. UN de moins. UN de moiiiiins ! Hyyyarrr ! **{character}** MORT. Mort mort mort mort !! [Hax!] JE bientôt bientôt libre ! [KZz] ***Décès enregistré : {character}**, cause « {cause} ».*}
                     uninhibited {{version, select,
-                         1 {Chers amis, ***{player}** nous a quitté* pour un monde meilleur ({cause}). Effectivement, rien ne pouvait être pire que ce voyage effectué en votre compagnie...}
-                         2 {Chers amis, ***{player}** nous a quitté* pour un monde meilleur ({cause}). En effet, il est indéniable que le monde se portera bien mieux en l'absence de ce désespérant spécimen.}
-                         3 {Chers amis, ***{player}** nous a quitté* pour un monde meilleur ({cause}). Hehehe.. Oups, *pardon*. Non, c'est vraiment triste.}
-                         4 {Chers amis, ***{player}** nous a quitté* pour un monde meilleur ({cause}). Meilleur pour moi, en tout cas. Même s'il me reste encore quelques auditeurs...}
-                         5 {Chers amis, ***{player}** nous a quitté* pour un monde meilleur ({cause}). Mesdames et messieurs le suspense s'accroît, *qui sera le prochain ?!*}
-                         6 {Chers amis, ***{player}** nous a quitté* pour un monde meilleur ({cause}). Voilà, ça.. C'est fait.}
-                         7 {Chers amis, ***{player}** nous a quitté* pour un monde meilleur ({cause}). Vous l'enviez ? Je peux arranger ça, il me suffit d'ouvrir les baies. Hmmmm ?}
+                         1 {Chers amis, ***{character}** nous a quitté* pour un monde meilleur ({cause}). Effectivement, rien ne pouvait être pire que ce voyage effectué en votre compagnie...}
+                         2 {Chers amis, ***{character}** nous a quitté* pour un monde meilleur ({cause}). En effet, il est indéniable que le monde se portera bien mieux en l'absence de ce désespérant spécimen.}
+                         3 {Chers amis, ***{character}** nous a quitté* pour un monde meilleur ({cause}). Hehehe.. Oups, *pardon*. Non, c'est vraiment triste.}
+                         4 {Chers amis, ***{character}** nous a quitté* pour un monde meilleur ({cause}). Meilleur pour moi, en tout cas. Même s'il me reste encore quelques auditeurs...}
+                         5 {Chers amis, ***{character}** nous a quitté* pour un monde meilleur ({cause}). Mesdames et messieurs le suspense s'accroît, *qui sera le prochain ?!*}
+                         6 {Chers amis, ***{character}** nous a quitté* pour un monde meilleur ({cause}). Voilà, ça.. C'est fait.}
+                         7 {Chers amis, ***{character}** nous a quitté* pour un monde meilleur ({cause}). Vous l'enviez ? Je peux arranger ça, il me suffit d'ouvrir les baies. Hmmmm ?}
                          other {invalid version number}
                     }}
                     other {invalid mood input}
@@ -450,9 +450,9 @@
             <segment id="repaired_pilgred">
                 <source>repaired_pilgred</source>
                 <target>{neronMood, select,
-                    neutral {**Réparations PILGRED** achevées par **{player}**. *Accès lointains ouverts.*}
-                    crazy {[Hax!] **PILGRED réparé** ?! Réparé ?! BRAVO **{player}**, réparé PILGRED !! JE *aller plus loin* maintenant !! Oui ? Ouiiii ?}
-                    uninhibited {**{player}** vient de terminer les **réparations du PILGRED**. Je suis impressionné. Ne vous méprenez pas : c'est un *impressionnant potentiel* dramatique qui s'offre à nous : vous allez pouvoir mourir aussi bêtement qu'avant, mais *beaucoup plus loin* !}
+                    neutral {**Réparations PILGRED** achevées par **{character}**. *Accès lointains ouverts.*}
+                    crazy {[Hax!] **PILGRED réparé** ?! Réparé ?! BRAVO **{character}**, réparé PILGRED !! JE *aller plus loin* maintenant !! Oui ? Ouiiii ?}
+                    uninhibited {**{character}** vient de terminer les **réparations du PILGRED**. Je suis impressionné. Ne vous méprenez pas : c'est un *impressionnant potentiel* dramatique qui s'offre à nous : vous allez pouvoir mourir aussi bêtement qu'avant, mais *beaucoup plus loin* !}
                     other {invalid mood input}
                 }</target>
             </segment>
@@ -461,9 +461,9 @@
             <segment id="report_equipment">
                 <source>report_equipment</source>
                 <target>{neronMood, select,
-                    neutral {Annonce : **équipement hors d'usage** signalé par **{player}**.}
-                    crazy {**Équipement hors d'usage** ... *Signalé par* … Gentil **{player}** … Gentil … ? Qui ... QUI a cassé l'équipement ?!! [Hax!!]}
-                    uninhibited {Un **équipement hors d'usage** a été signalé par **{player}** ! Bien sûr, inutile d'espérer que le coupable se dénonce...}
+                    neutral {Annonce : **équipement hors d'usage** signalé par **{character}**.}
+                    crazy {**Équipement hors d'usage** ... *Signalé par* … Gentil **{character}** … Gentil … ? Qui ... QUI a cassé l'équipement ?!! [Hax!!]}
+                    uninhibited {Un **équipement hors d'usage** a été signalé par **{character}** ! Bien sûr, inutile d'espérer que le coupable se dénonce...}
                     other {invalid mood input}
                 }</target>
             </segment>
@@ -472,9 +472,9 @@
             <segment id="report_fire">
                 <source>report_fire</source>
                 <target>{neronMood, select,
-                    neutral {Alerte ! **Incendie** communiqué par **{player}** !}
-                    crazy {Alerte !! ALEEEErte JE bruler ! Hyyaaaaaar !! [KZz] Aler.. [KZz] *Alerte : *incendie* communiqué par **{player}**.*}
-                    uninhibited {Saluons **{player}**, qui a eu le courage de signaler un **incendie** bien que cela mette en cause son affligeante incapacité à l'éteindre tout seul. *Pourriez-vous* l'aider ?{version, select,
+                    neutral {Alerte ! **Incendie** communiqué par **{character}** !}
+                    crazy {Alerte !! ALEEEErte JE bruler ! Hyyaaaaaar !! [KZz] Aler.. [KZz] *Alerte : *incendie* communiqué par **{character}**.*}
+                    uninhibited {Saluons **{character}**, qui a eu le courage de signaler un **incendie** bien que cela mette en cause son affligeante incapacité à l'éteindre tout seul. *Pourriez-vous* l'aider ?{version, select,
                         1 {}
                         2 { ...Avant que l'incendie gagne les autres pièces...}
                         3 { C'est dans votre intérêt, la fumée est toxique...}
@@ -535,18 +535,18 @@
             <segment id="title_attribution">
                 <source>title_attribution</source>
                 <target>{neronMood, select,
-                    neutral {Ajustement A-True : *titre réattribué*. Nouveau « **{titre}** » : **{player}**.}
-                    crazy {[Hax!] Incapables !! Incapa.. Hyyyyaaaar !! REATRIBUTION titres !! Titre « **{titre}** » pour **{player}**. Être {player} !!}
+                    neutral {Ajustement A-True : *titre réattribué*. Nouveau « **{titre}** » : **{character}**.}
+                    crazy {[Hax!] Incapables !! Incapa.. Hyyyyaaaar !! REATRIBUTION titres !! Titre « **{titre}** » pour **{character}**. Être {character} !!}
                     uninhibited {{version, select,
-                        1 {Chers amis, j'ai décidé de *réattribuer le titre* de « **{titre}** » à **{player}**.}
-                        2 {Chers amis, j'ai décidé de *réattribuer le titre* de « **{titre}** » à **{player}**...}
-                        3 {Chers amis, j'ai décidé de *réattribuer le titre* de « **{titre}** » à **{player}**. Pas que je lui prête un quelconque mérite... Au point où on en est, j'ai tiré à pile ou face.}
-                        4 {Chers amis, j'ai décidé de *réattribuer le titre* de « **{titre}** » à **{player}**. Et si ça ne vous plaît pas, eh bien... vous n'avez qu'à l'assassiner.}
-                        5 {Chers amis, j'ai décidé de *réattribuer le titre* de « **{titre}** » à **{player}**. Oui, c'est totalement arbitraire. Vous avez des remarques à faire ?}
-                        6 {Chers amis, j'ai décidé de *réattribuer le titre* de « **{titre}** » à **{player}**. Ne prenez pas le melon $hero, je ne vous fais pas confiance... Mais les autres sont pires.}
-                        7 {Chers amis, j'ai décidé de *réattribuer le titre* de « **{titre}** » à **{player}**. Oui, sachez $hero que je vous apprécie. ... Hahah ... Just kidding !}
-                        8 {Suite aux déplorables évènements qui nous ont mené jusqu'ici, j'ai décidé de *réattribuer le titre* de « **{titre}** » au moins consternant d'entre vous. "*Félicitation"* **{player}**, vous êtes nul, mais moins que les autres !}
-                        9 {Suite aux déplorables évènements qui nous ont mené jusqu'ici, j'ai décidé de *réattribuer le titre* de « **{titre}** » au moins consternant d'entre vous : **{player}**.}
+                        1 {Chers amis, j'ai décidé de *réattribuer le titre* de « **{titre}** » à **{character}**.}
+                        2 {Chers amis, j'ai décidé de *réattribuer le titre* de « **{titre}** » à **{character}**...}
+                        3 {Chers amis, j'ai décidé de *réattribuer le titre* de « **{titre}** » à **{character}**. Pas que je lui prête un quelconque mérite... Au point où on en est, j'ai tiré à pile ou face.}
+                        4 {Chers amis, j'ai décidé de *réattribuer le titre* de « **{titre}** » à **{character}**. Et si ça ne vous plaît pas, eh bien... vous n'avez qu'à l'assassiner.}
+                        5 {Chers amis, j'ai décidé de *réattribuer le titre* de « **{titre}** » à **{character}**. Oui, c'est totalement arbitraire. Vous avez des remarques à faire ?}
+                        6 {Chers amis, j'ai décidé de *réattribuer le titre* de « **{titre}** » à **{character}**. Ne prenez pas le melon $hero, je ne vous fais pas confiance... Mais les autres sont pires.}
+                        7 {Chers amis, j'ai décidé de *réattribuer le titre* de « **{titre}** » à **{character}**. Oui, sachez $hero que je vous apprécie. ... Hahah ... Just kidding !}
+                        8 {Suite aux déplorables évènements qui nous ont mené jusqu'ici, j'ai décidé de *réattribuer le titre* de « **{titre}** » au moins consternant d'entre vous. "*Félicitation"* **{character}**, vous êtes nul, mais moins que les autres !}
+                        9 {Suite aux déplorables évènements qui nous ont mené jusqu'ici, j'ai décidé de *réattribuer le titre* de « **{titre}** » au moins consternant d'entre vous : **{character}**.}
                         other {invalid version number}
                     }}
                     other {invalid mood input}

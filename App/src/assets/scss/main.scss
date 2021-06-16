@@ -102,3 +102,54 @@ button {
 .flex-row {
     flex-direction: row;
 }
+
+.tippy-box[data-theme~='mush'] {
+	position: sticky;
+	pointer-events: none;
+	z-index: 10;
+	padding: 1em;
+	max-width: 270px;
+	width: max-content;
+	background-color: rgba(35, 37, 100, .9);
+	color: #fff;
+	box-shadow: inset 0 0 12px 3px #3965fb, inset 0 0 0 2px #3965fb;
+		&::after {
+		content: "";
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		margin: 3px;
+		border: 5px solid transparent;
+		border-image: url('~@/assets/images/ToolTip-corners.gif') 50% round;
+	};
+
+	p {
+        margin: 0;
+        font-size : .75rem;
+        line-height: 1.5em;
+        font-weight: initial;
+        font-variant: initial;
+        letter-spacing: initial;
+    };
+
+	b, strong { color: #01c3df !important; };
+
+	h1 {
+		margin: 0 0 .4em;
+		padding-left: 16px;
+		font-size: .9rem;
+		letter-spacing: .03em;
+		font-variant: small-caps;
+		background: transparent url('~@/assets/images/notes.gif') no-repeat center left;
+	};
+
+    em {
+        color: #cf1830; // Makes italic text red
+    };
+}
+
+span.tippy-tooltip {
+    font-size: initial !important;
+}

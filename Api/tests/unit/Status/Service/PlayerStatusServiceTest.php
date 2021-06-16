@@ -161,14 +161,14 @@ class PlayerStatusServiceTest extends TestCase
         $player = new Player();
         $player->setSatiety(0);
 
-        $this->playerStatusService->handleSatietyStatus(0, $player, new \DateTime());
+        $this->playerStatusService->handleSatietyStatus($player, new \DateTime());
 
         $player = new Player();
         $player->setSatiety(0);
         $starvingStatus = new Status($player);
         $starvingStatus->setName(PlayerStatusEnum::STARVING);
 
-        $this->playerStatusService->handleSatietyStatus(0, $player, new \DateTime());
+        $this->playerStatusService->handleSatietyStatus($player, new \DateTime());
         $this->assertEmpty($player->getStatuses());
 
         $player = new Player();
@@ -176,7 +176,7 @@ class PlayerStatusServiceTest extends TestCase
         $fullBellyStatus = new Status($player);
         $fullBellyStatus->setName(PlayerStatusEnum::FULL_STOMACH);
 
-        $this->playerStatusService->handleSatietyStatus(0, $player, new \DateTime());
+        $this->playerStatusService->handleSatietyStatus($player, new \DateTime());
         $this->assertEmpty($player->getStatuses());
     }
 
@@ -194,7 +194,7 @@ class PlayerStatusServiceTest extends TestCase
             ->once()
         ;
         $this->roomLogService->shouldReceive('createLog')->once();
-        $this->playerStatusService->handleSatietyStatus(0, $player, new \DateTime());
+        $this->playerStatusService->handleSatietyStatus($player, new \DateTime());
 
         $player = new Player();
         $player->setSatiety(-40);
@@ -206,7 +206,7 @@ class PlayerStatusServiceTest extends TestCase
             ->withArgs(fn (string $name) => ($name === PlayerStatusEnum::STARVING))
             ->never()
         ;
-        $this->playerStatusService->handleSatietyStatus(0, $player, new \DateTime());
+        $this->playerStatusService->handleSatietyStatus($player, new \DateTime());
         $this->assertCount(1, $player->getStatuses());
 
         $player = new Player();
@@ -223,7 +223,7 @@ class PlayerStatusServiceTest extends TestCase
             ->once()
         ;
         $this->roomLogService->shouldReceive('createLog')->once();
-        $this->playerStatusService->handleSatietyStatus(0, $player, new \DateTime());
+        $this->playerStatusService->handleSatietyStatus($player, new \DateTime());
         $this->assertEmpty($player->getStatuses());
     }
 
@@ -237,7 +237,7 @@ class PlayerStatusServiceTest extends TestCase
             ->withArgs(fn (string $name) => ($name === PlayerStatusEnum::FULL_STOMACH))
             ->once()
         ;
-        $this->playerStatusService->handleSatietyStatus(0, $player, new \DateTime());
+        $this->playerStatusService->handleSatietyStatus($player, new \DateTime());
 
         $player = new Player();
         $player->setSatiety(40);
@@ -250,7 +250,7 @@ class PlayerStatusServiceTest extends TestCase
             ->once()
         ;
 
-        $this->playerStatusService->handleSatietyStatus(0, $player, new \DateTime());
+        $this->playerStatusService->handleSatietyStatus($player, new \DateTime());
         $this->assertEmpty($player->getStatuses());
 
         $player = new Player();
@@ -264,38 +264,37 @@ class PlayerStatusServiceTest extends TestCase
             ->never()
         ;
 
-        $this->playerStatusService->handleSatietyStatus(0, $player, new \DateTime());
+        $this->playerStatusService->handleSatietyStatus($player, new \DateTime());
         $this->assertCount(1, $player->getStatuses());
     }
 
     public function testHandleSatietyStatusMush()
     {
         $player = new Player();
-        $player->setSatiety(0);
+        $player->setSatiety(4);
         $mushStatus = new Status($player);
         $mushStatus->setName(PlayerStatusEnum::MUSH);
 
         $this->statusService
-            ->shouldReceive('createChargeStatus')
+            ->shouldReceive('createCoreStatus')
             ->withArgs(fn (string $name) => ($name === PlayerStatusEnum::FULL_STOMACH))
             ->once()
         ;
 
-        $this->playerStatusService->handleSatietyStatus(0, $player, new \DateTime());
+        $this->playerStatusService->handleSatietyStatus($player, new \DateTime());
         $this->assertCount(1, $player->getStatuses());
 
         $player = new Player();
-        $player->setSatiety(0);
+        $player->setSatiety(-26);
         $mushStatus = new Status($player);
         $mushStatus->setName(PlayerStatusEnum::MUSH);
 
         $this->statusService
-            ->shouldReceive('createChargeStatus')
-            ->withArgs(fn (string $name) => ($name === PlayerStatusEnum::FULL_STOMACH))
+            ->shouldReceive('createCoreStatus')
             ->never()
         ;
 
-        $this->playerStatusService->handleSatietyStatus(-1, $player, new \DateTime());
+        $this->playerStatusService->handleSatietyStatus($player, new \DateTime());
         $this->assertCount(1, $player->getStatuses());
     }
 }

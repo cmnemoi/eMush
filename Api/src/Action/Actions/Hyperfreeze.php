@@ -7,13 +7,11 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
-use Mush\Action\Validator\Mechanic;
+use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Perishable;
 use Mush\Action\Validator\Reach;
-use Mush\Action\Validator\Status;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
@@ -60,9 +58,8 @@ class Hyperfreeze extends AbstractAction
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
-        $metadata->addConstraint(new Mechanic(['mechanic' => EquipmentMechanicEnum::RATION, 'groups' => ['visibility']]));
         $metadata->addConstraint(new Perishable(['groups' => ['visibility']]));
-        $metadata->addConstraint(new Status(['status' => EquipmentStatusEnum::FROZEN, 'contain' => false, 'groups' => ['visibility']]));
+        $metadata->addConstraint(new HasStatus(['status' => EquipmentStatusEnum::FROZEN, 'contain' => false, 'groups' => ['visibility']]));
     }
 
     protected function applyEffects(): ActionResult
@@ -76,7 +73,7 @@ class Hyperfreeze extends AbstractAction
             $newItem = $this->gameEquipmentService
                 ->createGameEquipmentFromName(GameRationEnum::STANDARD_RATION, $this->player->getDaedalus())
             ;
-            $equipmentEvent = new EquipmentEvent($newItem, VisibilityEnum::HIDDEN);
+            $equipmentEvent = new EquipmentEvent($newItem, VisibilityEnum::HIDDEN, new \DateTime());
             $equipmentEvent->setPlayer($this->player);
             $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
@@ -86,7 +83,7 @@ class Hyperfreeze extends AbstractAction
                 $this->statusService->persist($status);
             }
 
-            $equipmentEvent = new EquipmentEvent($parameter, VisibilityEnum::HIDDEN);
+            $equipmentEvent = new EquipmentEvent($parameter, VisibilityEnum::HIDDEN, new \DateTime());
             $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
             $this->gameEquipmentService->persist($newItem);

@@ -6,5 +6,5 @@ use Mush\Status\ChargeStrategies\AbstractChargeStrategy;
 
 interface ChargeStrategyServiceInterface
 {
-    public function getStrategy(string $actionName): ?AbstractChargeStrategy;
+    public function getStrategy(string $strategyName): ?AbstractChargeStrategy;
 }

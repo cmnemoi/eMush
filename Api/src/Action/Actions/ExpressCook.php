@@ -70,7 +70,7 @@ class ExpressCook extends AbstractAction
         if ($parameter->getEquipment()->getName() === GameRationEnum::STANDARD_RATION) {
             /** @var GameItem $newItem */
             $newItem = $this->gameEquipmentService->createGameEquipmentFromName(GameRationEnum::COOKED_RATION, $this->player->getDaedalus());
-            $equipmentEvent = new EquipmentEvent($newItem, VisibilityEnum::HIDDEN);
+            $equipmentEvent = new EquipmentEvent($newItem, VisibilityEnum::HIDDEN, new \DateTime());
             $equipmentEvent->setPlayer($this->player);
             $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
@@ -80,7 +80,7 @@ class ExpressCook extends AbstractAction
                 $this->statusService->persist($status);
             }
 
-            $equipmentEvent = new EquipmentEvent($parameter, VisibilityEnum::HIDDEN);
+            $equipmentEvent = new EquipmentEvent($parameter, VisibilityEnum::HIDDEN, new \DateTime());
             $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
             $this->gameEquipmentService->persist($newItem);

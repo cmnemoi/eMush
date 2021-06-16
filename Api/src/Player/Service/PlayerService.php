@@ -226,8 +226,10 @@ class PlayerService implements PlayerServiceInterface
         $playerModifierEvent = new PlayerModifierEvent($player, 1, $date);
         $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
 
-        $playerModifierEvent = new PlayerModifierEvent($player, -2, $date);
-        $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::MORAL_POINT_MODIFIER);
+        if (!$player->isMush()) {
+            $playerModifierEvent = new PlayerModifierEvent($player, -2, $date);
+            $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::MORAL_POINT_MODIFIER);
+        }
 
         return $this->persist($player);
     }

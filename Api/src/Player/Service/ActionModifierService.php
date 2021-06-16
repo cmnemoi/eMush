@@ -56,7 +56,7 @@ class ActionModifierService implements ActionModifierServiceInterface
         $additiveDelta += $modifiersDelta['additive'];
         $multiplicativeDelta *= $modifiersDelta['multiplicative'];
 
-        //@TODO Status modifiers
+        //@TODO HasStatus modifiers
 
         //@TODO skill modifiers
 

@@ -44,7 +44,7 @@ Adding the class ".crossed" to the element will strike-through it. */
     align-items: center;
     justify-content: center;
     margin: 1px;
-    padding: 2px 4px;
+    padding: 1px 4px 3px;
     border-radius: 1px;
     color: white;
     font-size: $font-size;
@@ -117,22 +117,24 @@ Inventory slots with .empty class will have no interactive styling. */
         text-shadow: 0 0 3px black, 0 0 3px black;
     }
 
-    &:not(.empty) { // For interactive styling
+    // add a pseudo-element to display a white/green border during focus
+    &:not(.empty) {
         &:hover::before,
         &:focus::before,
         &:active::before {
             content: "";
             position: absolute;
+            pointer-events: none;
             z-index: 5;
             width: 100%;
             height: 100%;
         }
 
-        &:hover::before,
-        &:focus::before {
+        &:hover::before {
             border: 1px solid white;
         }
 
+        &:focus::before,
         &:active::before {
             border: 1px solid $active-color;
             box-shadow: 0 0 0 2px inset $active-color, $box-shadow;

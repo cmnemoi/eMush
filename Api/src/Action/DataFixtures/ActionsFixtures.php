@@ -45,6 +45,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
     public const FUEL_INJECT = 'fuel.inject';
     public const FUEL_RETRIEVE = 'fuel.retrieve';
     public const OXYGEN_INJECT = 'oxygen.inject';
+    public const STRENGTHEN_HULL = 'strength_hull';
     public const OXYGEN_RETRIEVE = 'oxygen.retrieve';
     public const LIE_DOWN = 'lie.down';
     public const GET_UP = 'get.up';
@@ -53,6 +54,8 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
     public const TRANSPLANT_DEFAULT = 'transplant.default';
     public const TREAT_PLANT = 'treat.plant';
     public const WATER_PLANT = 'water.plant';
+    public const REPORT_EQUIPMENT = 'report.equipment';
+    public const REPORT_FIRE = 'report.fire';
 
     public const EXTRACT_SPORE = 'extract.spore';
     public const INFECT_PLAYER = 'infect.player';
@@ -384,6 +387,19 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->persist($retrieveOxygenAction);
 
+        $strengthenHullAction = new Action();
+        $strengthenHullAction
+            ->setName(ActionEnum::STRENGTHEN_HULL)
+            ->setScope(ActionScopeEnum::SELF)
+            ->setTarget(GameItem::class)
+            ->setDirtyRate(50)
+            ->setInjuryRate(25)
+            ->setActionCost($oneActionPointCost)
+            ->setSuccessRate(25)
+        ;
+
+        $manager->persist($strengthenHullAction);
+
         $lieDownActon = new Action();
         $lieDownActon
             ->setName(ActionEnum::LIE_DOWN)
@@ -469,6 +485,24 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->persist($infectAction);
 
+        $reportEquipmentAction = new Action();
+        $reportEquipmentAction
+            ->setName(ActionEnum::REPORT_EQUIPMENT)
+            ->setScope(ActionScopeEnum::CURRENT)
+            ->setActionCost($freeCost)
+        ;
+
+        $manager->persist($reportEquipmentAction);
+
+        $reportFireAction = new Action();
+        $reportFireAction
+            ->setName(ActionEnum::REPORT_FIRE)
+            ->setScope(ActionScopeEnum::SELF)
+            ->setActionCost($freeCost)
+        ;
+
+        $manager->persist($reportFireAction);
+
         $manager->flush();
 
         $this->addReference(self::REJUVENATE_ALPHA, $rejuvenateAlpha);
@@ -504,6 +538,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::FUEL_RETRIEVE, $retrieveFuelAction);
         $this->addReference(self::OXYGEN_INJECT, $oxygenInjectAction);
         $this->addReference(self::OXYGEN_RETRIEVE, $retrieveOxygenAction);
+        $this->addReference(self::STRENGTHEN_HULL, $strengthenHullAction);
         $this->addReference(self::LIE_DOWN, $lieDownActon);
         $this->addReference(self::GET_UP, $getUpAction);
         $this->addReference(self::COFFEE_DEFAULT, $coffeeAction);
@@ -513,6 +548,8 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::WATER_PLANT, $waterPlantAction);
         $this->addReference(self::EXTRACT_SPORE, $extractSporeAction);
         $this->addReference(self::INFECT_PLAYER, $infectAction);
+        $this->addReference(self::REPORT_FIRE, $reportFireAction);
+        $this->addReference(self::REPORT_EQUIPMENT, $reportEquipmentAction);
     }
 
     public function getDependencies(): array

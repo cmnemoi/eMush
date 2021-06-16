@@ -9,6 +9,8 @@ const helpers = {
             return `<img src="${require("@/assets/images/pm.png")}" alt="pm">`;
         case "pmo":
             return `<img src="${require("@/assets/images/moral.png")}" alt="pmo">`;
+        case "triumph":
+            return `<img src="${require("@/assets/images/triumph.png")}" alt="pmo">`;
         default:
             throw Error(`Unexpected key for replaced image: ${key}`);
         }
@@ -20,10 +22,11 @@ Object.assign(module.exports, { formatText, helpers });
 function formatText(text) {
     let formattedText = text;
     formattedText = formattedText.replaceAll(/\*\*(.[^*]*)\*\*/g, '<strong>$1</strong>');
-    formattedText = formattedText.replaceAll(/\*(.*)\*/g, '<em>$1</em>');
+    formattedText = formattedText.replaceAll(/\*(.[^*]*)\*/g, '<em>$1</em>');
     formattedText = formattedText.replaceAll(/:pa:/g, helpers.computeImageHtml("pa"));
     formattedText = formattedText.replaceAll(/:pm:/g, helpers.computeImageHtml("pm"));
     formattedText = formattedText.replaceAll(/:pmo:/g, helpers.computeImageHtml("pmo"));
     formattedText = formattedText.replaceAll(/:hp:/g, helpers.computeImageHtml("hp"));
+    formattedText = formattedText.replaceAll(/:triumph:/g, helpers.computeImageHtml("triumph"));
     return formattedText;
 }

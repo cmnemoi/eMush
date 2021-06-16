@@ -3,11 +3,21 @@
         <li
             v-for="(item) in items"
             :key="item.id"
+            tabindex="0"
             class="slot"
             @click="$emit('select', item)"
         >
-            <img :src="itemImage(item)" :alt="item.name">
-            <span class="qty">{{ item.number }}</span>
+            <Tooltip>
+                <template v-slot:tooltip-trigger>
+                    <img :src="itemImage(item)" :alt="item.name">
+                    <span class="qty">{{ item.number }}</span>
+                </template>
+                <template v-slot:tooltip-content>
+                    <h1>{{ item.name }}</h1>
+                    <p>{{ item.description }}</p>
+                </template>
+            </Tooltip>
+
         </li>
         <li v-for="n in emptySlots" :key="n" class="slot empty" />
     </ul>
@@ -15,9 +25,11 @@
 
 <script>
 import { itemEnum } from "@/enums/item";
+import Tooltip from "../Utils/ToolTip";
 
 export default {
     name: "Inventory",
+    components: {Tooltip},
     props: {
         items: Array,
         minSlot: Number

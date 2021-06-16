@@ -263,16 +263,24 @@ class DaedalusServiceTest extends TestCase
             ->setPlayer($threeCapsulePlayer)
         ;
 
-        $this->randomService->shouldReceive('getRandomPlayer')
-            ->andReturn($twoCapsulePlayer)
-            ->once()
-        ;
-        $this->roomLogService->shouldReceive('createLog')->once();
+        // one player with no capsule
         $this->randomService->shouldReceive('getRandomPlayer')
             ->andReturn($noCapsulePlayer)
             ->once()
         ;
         $this->eventDispatcher->shouldReceive('dispatch')->once();
+
+        $result = $this->service->getRandomAsphyxia($daedalus, new \DateTime());
+
+        $this->assertCount(2, $twoCapsulePlayer->getItems());
+        $this->assertCount(3, $threeCapsulePlayer->getItems());
+
+        // 2 players with capsules
+        $this->roomLogService->shouldReceive('createLog')->once();
+        $this->randomService->shouldReceive('getRandomPlayer')
+            ->andReturn($twoCapsulePlayer)
+            ->once()
+        ;
         $this->gameEquipmentService->shouldReceive('delete')->with($oxCapsule1)->once();
 
         $result = $this->service->getRandomAsphyxia($daedalus, new \DateTime());

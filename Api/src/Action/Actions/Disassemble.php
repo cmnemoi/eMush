@@ -8,8 +8,8 @@ use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
-use Mush\Action\Validator\Status;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
@@ -57,7 +57,7 @@ class Disassemble extends AttemptAction
     {
         //@TODO add validator on technician skill ?
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
-        $metadata->addConstraint(new Status([
+        $metadata->addConstraint(new HasStatus([
             'status' => EquipmentStatusEnum::REINFORCED,
             'contain' => false,
             'groups' => ['execute'],
@@ -92,7 +92,7 @@ class Disassemble extends AttemptAction
                     ->gameEquipmentService
                     ->createGameEquipmentFromName($productString, $this->player->getDaedalus())
                 ;
-                $equipmentEvent = new EquipmentEvent($productEquipment, VisibilityEnum::HIDDEN);
+                $equipmentEvent = new EquipmentEvent($productEquipment, VisibilityEnum::HIDDEN, new \DateTime());
                 $equipmentEvent->setPlayer($this->player);
                 $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
@@ -101,7 +101,8 @@ class Disassemble extends AttemptAction
         }
 
         // remove the dismantled equipment
-        $equipmentEvent = new EquipmentEvent($gameEquipment, VisibilityEnum::HIDDEN);
+        $equipmentEvent = new EquipmentEvent($gameEquipment, VisibilityEnum::HIDDEN, new \DateTime());
+        $equipmentEvent->setPlayer($this->player);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
     }
 }

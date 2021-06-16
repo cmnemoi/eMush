@@ -16,6 +16,7 @@ class ActionEnum
     public const DROP = 'drop';
     public const EXAMINE = 'examine';
     public const REPAIR = 'repair';
+    public const REPORT_EQUIPMENT = 'report_equipment';
     public const SEARCH = 'search';
 
     // Mush-only actions
@@ -41,7 +42,7 @@ class ActionEnum
     public const GAG = 'gag';
     public const HYPERFREEZE = 'hyperfreeze';
     public const EXPRESS_COOK = 'express_cook';
-    public const STRENGTHEN = 'strengthen';
+    public const STRENGTHEN_HULL = 'strengthen_hull';
     public const WRITE = 'write';
     public const PUBLIC_BROADCAST = 'public_broadcast';
     public const HEAL = 'heal';
@@ -77,6 +78,7 @@ class ActionEnum
     public const GUARD = 'guard';
     public const HIT = 'hit';
     public const WHISPER = 'whisper';
+    public const REPORT_FIRE = 'report_fire';
 
     // Skill-related actions (Humans)
     public const FIERY_SPEECH = 'fiery_speech';
@@ -88,8 +90,8 @@ class ActionEnum
     public const PRINT_SECRET_LIST = 'print_secret_list';
     public const SURGERY = 'surgery';
     public const DISASSEMBLE = 'disassemble';
-    public const REINFORCE = 'reinforce'; // /!\ This is preventing disassembly, not reinforcing the hull!
-    public const PREMONOTION = 'premonition';
+    public const REINFORCE_EQUIPMENT = 'reinforce_equipment'; // /!\ This is preventing disassembly, not reinforcing the hull!
+    public const PREMONITION = 'premonition';
     public const HAND_EXTINGUISH = 'hand_extinguish';
     public const CEASE_FIRE = 'cease_fire';
     public const CEASEFIRE = 'ceasefire';
@@ -137,6 +139,7 @@ class ActionEnum
         return [
             self::EXAMINE,
             self::REPAIR,
+            self::REPORT_EQUIPMENT,
         ];
     }
 
@@ -149,6 +152,7 @@ class ActionEnum
             self::SEARCH,
             self::EXTRACT_SPORE,
             self::GO_BERSERK,
+            self::REPORT_FIRE,
         ];
     }
 

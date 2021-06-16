@@ -38,7 +38,7 @@
             </segment>
             <segment id="description">
                 <source>consume.description</source>
-                <target>Dévorer une délicieuse denrée. En général, manger vous apportera des :pa::pm:. Les //rations cuisinées// n'entamerons pas votre moral. Les autres nouritures peuvent réserver des surprises.</target>
+                <target>Dévorer une délicieuse denrée. En général, manger vous apportera des :pa::pm:. Les *rations cuisinées* n'entamerons pas votre moral. Les autres nouritures peuvent réserver des surprises.</target>
             </segment>
         </unit>
         <unit id="consume_drug">
@@ -48,7 +48,7 @@
             </segment>
             <segment id="description">
                 <source>consume_drug.description</source>
-                <target>Dévorer une délicieuse denrée. En général, manger vous apportera des :pa::pm:. Les //rations cuisinées// n'entameront pas votre moral. Les autres nouritures peuvent réserver des surprises.</target>
+                <target>Dévorer une délicieuse denrée. En général, manger vous apportera des :pa::pm:. Les *rations cuisinées* n'entameront pas votre moral. Les autres nouritures peuvent réserver des surprises.</target>
             </segment>
         </unit>
         <unit id="cook">
@@ -211,6 +211,16 @@
                 <target>Permet de retrouver un objet caché à l'endroit où vous vous trouvez.</target>
             </segment>
         </unit>
+        <unit id="rejuvenate_alpha">
+            <segment id="rejuvenate_alpha">
+                <source>rejuvenate_alpha.name</source>
+                <target>Restaurer</target>
+            </segment>
+            <segment id="description">
+                <source>rejuvenate_alpha.description</source>
+                <target>Permet de retrouver tout ses :pa:, :pm:, :hp: et :pmo:. Uniquement valable pendant l'alpha. Merci de nous aider !</target>
+            </segment>
+        </unit>
         <unit id="shred">
             <segment id="shred">
                 <source>shred.name</source>
@@ -365,7 +375,7 @@
         <unit id="ultraheal">
             <segment id="name">
                 <source>ultraheal.name</source>
-                <target>Apliquer</target>
+                <target>Appliquer</target>
             </segment>
             <segment id="description">
                 <source>ultraheal.description</source>
@@ -390,6 +400,26 @@
             <segment id="description">
                 <source>comfort.description</source>
                 <target>Vous savez écouter votre prochain, ce qui lui remonte le moral.</target>
+            </segment>
+        </unit>
+        <unit id="open">
+            <segment id="name">
+                <source>open.name</source>
+                <target>Ouvrir</target>
+            </segment>
+            <segment id="description">
+                <source>open.description</source>
+                <target>L'ouverture de capsule spatiale est un art délicat et plein de surprise. Pire, dans certains systèmes, l'ouverture délicate de ces précieux oeufs est considéré comme une drogue dure et peu vous faire rejeter au ban de la société.</target>
+            </segment>
+        </unit>
+        <unit id="strengthen_hull">
+            <segment id="name">
+                <source>strengthen_hull.name</source>
+                <target>Renforcer</target>
+            </segment>
+            <segment id="description">
+                <source>strengthen_hull.description</source>
+                <target>Permet de faire des réparation sur la coque du Daedalus.</target>
             </segment>
         </unit>
     </file>

@@ -10,7 +10,7 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class ChannelVoter extends Voter
 {
-    const VIEW = 'view';
+    public const VIEW = 'view';
 
     protected function supports(string $attribute, $subject)
     {

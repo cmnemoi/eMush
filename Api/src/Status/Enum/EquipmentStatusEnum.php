@@ -17,7 +17,7 @@ class EquipmentStatusEnum
     public const CONTAMINATED = 'contaminated';
     public const PLANT_YOUNG = 'plant_young';
     public const PLANT_THIRSTY = 'plant_thirsty';
-    public const PLANT_DRIED_OUT = 'plant_dried_Out';
+    public const PLANT_DRY = 'plant_dry';
     public const PLANT_DISEASED = 'plant_diseased';
     public const DOCUMENT_CONTENT = 'document_content';
     public const REINFORCED = 'reinforced';

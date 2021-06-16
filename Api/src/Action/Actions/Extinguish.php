@@ -8,11 +8,12 @@ use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
-use Mush\Action\Validator\Status;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Place\Event\RoomEvent;
 use Mush\Place\Service\PlaceServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -56,8 +57,8 @@ class Extinguish extends AttemptAction
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
-        $metadata->addConstraint(new Status(['status' => StatusEnum::FIRE, 'target' => Status::PLAYER_ROOM, 'groups' => ['visibility']]));
-        $metadata->addConstraint(new Status([
+        $metadata->addConstraint(new HasStatus(['status' => StatusEnum::FIRE, 'target' => HasStatus::PLAYER_ROOM, 'groups' => ['visibility']]));
+        $metadata->addConstraint(new HasStatus([
             'status' => EquipmentStatusEnum::BROKEN,
             'contain' => false,
             'groups' => ['execute'],
@@ -69,11 +70,11 @@ class Extinguish extends AttemptAction
     {
         $response = $this->makeAttempt();
 
-        if ($response instanceof Success &&
-            ($fireStatus = $this->player->getPlace()->getStatusByName(StatusEnum::FIRE))
-        ) {
-            $this->player->getPlace()->removeStatus($fireStatus);
-            $this->placeService->persist($this->player->getPlace());
+        if ($response instanceof Success) {
+            $roomEvent = new RoomEvent($this->player->getPlace(), new \DateTime());
+            $roomEvent->setReason($this->name);
+
+            $this->eventDispatcher->dispatch($roomEvent, RoomEvent::STOP_FIRE);
         }
 
         $this->playerService->persist($this->player);

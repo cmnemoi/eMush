@@ -125,7 +125,9 @@ class GearToolService implements GearToolServiceInterface
     {
         $equipments = $this->getEquipmentsOnReach($player);
 
-        return $equipments->filter(fn (GameEquipment $equipment) => $equipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL) !== null);
+        return $equipments->filter(fn (GameEquipment $equipment) => $equipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL) !== null &&
+            !$equipment->isBroken()
+        );
     }
 
     public function getUsedTool(Player $player, string $actionName): ?GameEquipment
@@ -183,7 +185,7 @@ class GearToolService implements GearToolServiceInterface
             $chargeStatus = $this->statusService->updateCharge($chargeStatus, -1);
 
             if ($chargeStatus === null) {
-                $equipmentEvent = new EquipmentEvent($equipment, VisibilityEnum::HIDDEN);
+                $equipmentEvent = new EquipmentEvent($equipment, VisibilityEnum::HIDDEN, new \DateTime());
                 $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
             }
         }

@@ -8,11 +8,11 @@ use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\InventoryFull;
 use Mush\Action\Validator\Oxygen;
 use Mush\Action\Validator\Reach;
-use Mush\Action\Validator\Status;
-use Mush\Daedalus\Service\DaedalusServiceInterface;
+use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
@@ -28,14 +28,12 @@ class RetrieveOxygen extends AbstractAction
     protected string $name = ActionEnum::RETRIEVE_OXYGEN;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private DaedalusServiceInterface $daedalusService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         GameEquipmentServiceInterface $gameEquipmentService,
-        DaedalusServiceInterface $daedalusService
     ) {
         parent::__construct(
             $eventDispatcher,
@@ -44,7 +42,6 @@ class RetrieveOxygen extends AbstractAction
         );
 
         $this->gameEquipmentService = $gameEquipmentService;
-        $this->daedalusService = $daedalusService;
     }
 
     protected function support(?ActionParameter $parameter): bool
@@ -57,7 +54,7 @@ class RetrieveOxygen extends AbstractAction
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(new Oxygen(['groups' => ['visibility']]));
         $metadata->addConstraint(new InventoryFull(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::FULL_INVENTORY]));
-        $metadata->addConstraint(new Status([
+        $metadata->addConstraint(new HasStatus([
             'status' => EquipmentStatusEnum::BROKEN,
             'contain' => false,
             'groups' => ['execute'],
@@ -77,7 +74,9 @@ class RetrieveOxygen extends AbstractAction
 
         $this->gameEquipmentService->persist($gameItem);
 
-        $this->daedalusService->changeOxygenLevel($this->player->getDaedalus(), -1);
+        $daedalusEvent = new DaedalusModifierEvent($this->player->getDaedalus(), new \DateTime());
+        $daedalusEvent->setQuantity(-1);
+        $this->eventDispatcher->dispatch($daedalusEvent, DaedalusModifierEvent::CHANGE_OXYGEN);
 
         return new Success();
     }

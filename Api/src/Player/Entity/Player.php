@@ -10,6 +10,8 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Disease\Entity\Collection\PlayerDiseaseCollection;
+use Mush\Disease\Entity\PlayerDisease;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
@@ -17,6 +19,7 @@ use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Place\Entity\Place;
 use Mush\RoomLog\Entity\LogParameter;
+use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Entity\StatusTarget;
@@ -26,8 +29,6 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
 
 /**
- * Class Player.
- *
  * @ORM\Entity(repositoryClass="Mush\Player\Repository\PlayerRepository")
  */
 class Player implements StatusHolderInterface, ActionParameter, LogParameter
@@ -74,9 +75,14 @@ class Player implements StatusHolderInterface, ActionParameter, LogParameter
     private Collection $items;
 
     /**
-     * @ORM\OneToMany (targetEntity="Mush\Status\Entity\StatusTarget", mappedBy="player", cascade="ALL", orphanRemoval=true)
+     * @ORM\OneToMany (targetEntity="Mush\Status\Entity\StatusTarget", mappedBy="player", cascade={"ALL"}, orphanRemoval=true)
      */
     private Collection $statuses;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Mush\Disease\Entity\PlayerDisease", mappedBy="player")
+     */
+    private Collection $medicalCondition;
 
     /**
      * @ORM\Column(type="array", nullable=true)
@@ -117,6 +123,7 @@ class Player implements StatusHolderInterface, ActionParameter, LogParameter
     {
         $this->items = new ArrayCollection();
         $this->statuses = new ArrayCollection();
+        $this->medicalCondition = new PlayerDiseaseCollection();
     }
 
     public function getId(): int
@@ -295,6 +302,36 @@ class Player implements StatusHolderInterface, ActionParameter, LogParameter
     public function isMush(): bool
     {
         return $this->hasStatus(PlayerStatusEnum::MUSH);
+    }
+
+    public function getMedicalConditions(): PlayerDiseaseCollection
+    {
+        if (!$this->medicalCondition instanceof PlayerDiseaseCollection) {
+            $this->medicalCondition = new PlayerDiseaseCollection($this->medicalCondition->toArray());
+        }
+
+        return $this->medicalCondition;
+    }
+
+    public function getMedicalConditionByName(string $diseaseName): ?PlayerDisease
+    {
+        $disease = $this->medicalCondition->filter(fn (PlayerDisease $playerDisease) => ($playerDisease->getDiseaseConfig()->getName() === $diseaseName));
+
+        return $disease->isEmpty() ? null : $disease->first();
+    }
+
+    public function setMedicalCondition(Collection $medicalCondition): Player
+    {
+        $this->medicalCondition = $medicalCondition;
+
+        return $this;
+    }
+
+    public function addMedicalCondition(PlayerDisease $playerDisease): Player
+    {
+        $this->medicalCondition->add($playerDisease);
+
+        return $this;
     }
 
     /**
@@ -491,5 +528,15 @@ class Player implements StatusHolderInterface, ActionParameter, LogParameter
     {
         return $this->characterConfig->getActions()
             ->filter(fn (Action $action) => $action->getScope() === ActionScopeEnum::OTHER_PLAYER);
+    }
+
+    public function getLogName(): string
+    {
+        return $this->getCharacterConfig()->getName();
+    }
+
+    public function getLogKey(): string
+    {
+        return LogParameterKeyEnum::PLAYER;
     }
 }

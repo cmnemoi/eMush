@@ -64,7 +64,7 @@
             </segment>
             <segment id="description">
                 <source>hidden.description</source>
-                <target>Cet objet est //caché// ! Vous seul êtes au courant... avec ceux qui fouilleront la pièce.</target>
+                <target>Cet objet est *caché* ! Vous seul êtes au courant... avec ceux qui fouilleront la pièce.</target>
             </segment>
             <segment id="effect">
                 <source>hidden.examine</source>
@@ -78,7 +78,7 @@
             </segment>
             <segment id="description">
                 <source>broken.description</source>
-                <target>Cet objet est //cassé//. Il faudrait penser à le réparer...</target>
+                <target>Cet objet est *cassé*. Il faudrait penser à le réparer...</target>
             </segment>
             <segment id="effect">
                 <source>broken.examine</source>
@@ -211,20 +211,6 @@
                 <target>TODO</target>
             </segment>
         </unit>
-        <unit id="acid_reflux">
-            <segment id="name">
-                <source>acid_reflux.name</source>
-                <target>Reflux Gastriques</target>
-            </segment>
-            <segment id="description">
-                <source>acid_reflux.description</source>
-                <target>Vous rendez votre nourriture, c'est irritant et pénible...</target>
-            </segment>
-            <segment id="effect">
-                <source>acid_reflux.examine</source>
-                <target>TODO</target>
-            </segment>
-        </unit>
         <unit id="black_bite">
             <segment id="name">
                 <source>black_bite.name</source>
@@ -295,20 +281,6 @@
                 <target>TODO</target>
             </segment>
         </unit>
-        <unit id="food_poisoning">
-            <segment id="name">
-                <source>food_poisoning.name</source>
-                <target>Intoxication Alimentaire</target>
-            </segment>
-            <segment id="description">
-                <source>food_poisoning.description</source>
-                <target>Vous êtes très atteint, vous vomissez, y en a partout. quelle idée de manger ça aussi. Ah bravo...</target>
-            </segment>
-            <segment id="effect">
-                <source>food_poisoning.examine</source>
-                <target>TODO</target>
-            </segment>
-        </unit>
         <unit id="fungic_infection">
             <segment id="name">
                 <source>fungic_infection.name</source>
@@ -320,20 +292,6 @@
             </segment>
             <segment id="effect">
                 <source>fungic_infection.examine</source>
-                <target>TODO</target>
-            </segment>
-        </unit>
-        <unit id="gastroenteritis">
-            <segment id="name">
-                <source>gastroenteritis.name</source>
-                <target>GastroEntérite</target>
-            </segment>
-            <segment id="description">
-                <source>gastroenteritis.description</source>
-                <target>Y a-t-il vraiment besoin de faire un dessin, de parler de l'odeur ou des spasmes de l'estomac ?</target>
-            </segment>
-            <segment id="effect">
-                <source>gastroenteritis.examine</source>
                 <target>TODO</target>
             </segment>
         </unit>
@@ -516,20 +474,6 @@
             </segment>
             <segment id="effect">
                 <source>syphilis.examine</source>
-                <target>TODO</target>
-            </segment>
-        </unit>
-        <unit id="tapeworm">
-            <segment id="name">
-                <source>tapeworm.name</source>
-                <target>Vers Solitaire</target>
-            </segment>
-            <segment id="description">
-                <source>tapeworm.description</source>
-                <target>Vous avez faim, très faim, tout le temps faim... À manger bon sang !</target>
-            </segment>
-            <segment id="effect">
-                <source>tapeworm.examine</source>
                 <target>TODO</target>
             </segment>
         </unit>

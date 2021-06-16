@@ -10,11 +10,12 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\Fuel;
 use Mush\Action\Validator\ParameterName;
 use Mush\Action\Validator\Reach;
-use Mush\Daedalus\Service\DaedalusServiceInterface;
+use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Event\EquipmentEvent;
+use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -22,24 +23,17 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class InsertFuel extends AbstractAction
 {
     protected string $name = ActionEnum::INSERT_FUEL;
-    private GameEquipmentServiceInterface $gameEquipmentService;
-    private DaedalusServiceInterface $daedalusService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        GameEquipmentServiceInterface $gameEquipmentService,
-        DaedalusServiceInterface $daedalusService
     ) {
         parent::__construct(
             $eventDispatcher,
             $actionService,
             $validator
         );
-
-        $this->gameEquipmentService = $gameEquipmentService;
-        $this->daedalusService = $daedalusService;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -61,9 +55,15 @@ class InsertFuel extends AbstractAction
         /** @var GameItem $item */
         $item = $this->getParameter();
 
-        $item->setPlayer(null);
-        $this->gameEquipmentService->delete($item);
-        $this->daedalusService->changeFuelLevel($this->getPlayer()->getDaedalus(), 1);
+        //delete the item
+        $equipmentEvent = new EquipmentEvent($item, VisibilityEnum::HIDDEN, new \DateTime());
+        $equipmentEvent->setPlayer($this->player);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+
+        //add Oxygen
+        $daedalusEvent = new DaedalusModifierEvent($this->player->getDaedalus(), new \DateTime());
+        $daedalusEvent->setQuantity(1);
+        $this->eventDispatcher->dispatch($daedalusEvent, DaedalusModifierEvent::CHANGE_FUEL);
 
         return new Success();
     }

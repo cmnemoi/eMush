@@ -9,8 +9,8 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\Charged;
+use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
-use Mush\Action\Validator\Status;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\GameDrugEnum;
@@ -56,7 +56,7 @@ class Dispense extends AbstractAction
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
-        $metadata->addConstraint(new Status([
+        $metadata->addConstraint(new HasStatus([
             'status' => EquipmentStatusEnum::BROKEN, 'contain' => false, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
         ]));
         $metadata->addConstraint(new Charged(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::DAILY_LIMIT]));
@@ -71,7 +71,7 @@ class Dispense extends AbstractAction
             ->createGameEquipmentFromName($drugName, $this->player->getDaedalus())
         ;
 
-        $equipmentEvent = new EquipmentEvent($newItem, VisibilityEnum::HIDDEN);
+        $equipmentEvent = new EquipmentEvent($newItem, VisibilityEnum::HIDDEN, new \DateTime());
         $equipmentEvent->setPlayer($this->player);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 

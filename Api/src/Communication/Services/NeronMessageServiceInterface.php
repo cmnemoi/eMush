@@ -16,4 +16,6 @@ interface NeronMessageServiceInterface
     public function createBrokenEquipmentMessage(GameEquipment $equipment, string $visibility, \DateTime $time): void;
 
     public function createNewFireMessage(Daedalus $daedalus, \DateTime $time): void;
+
+    public function getMessageNeronCycleFailures(Daedalus $daedalus, \DateTime $time): Message;
 }

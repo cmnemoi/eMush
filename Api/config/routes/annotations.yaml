@@ -30,6 +30,10 @@ game:
     resource: ../../src/Game/Controller/
     type: annotation
     prefix: /api/v1
+alert:
+    resource: ../../src/Alert/Controller/
+    type: annotation
+    prefix: /api/v1
 
 api_login_check:
     path: /api/login_check

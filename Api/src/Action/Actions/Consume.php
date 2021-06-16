@@ -7,17 +7,13 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Action\Event\ActionEffectEvent;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
-use Mush\Action\Validator\Status;
-use Mush\Equipment\Entity\ConsumableEffect;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Equipment\Event\EquipmentEvent;
-use Mush\Equipment\Service\EquipmentEffectServiceInterface;
-use Mush\Player\Event\PlayerModifierEvent;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -28,14 +24,12 @@ class Consume extends AbstractAction
     protected string $name = ActionEnum::CONSUME;
 
     protected PlayerServiceInterface $playerService;
-    protected EquipmentEffectServiceInterface $equipmentServiceEffect;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        PlayerServiceInterface $playerService,
-        EquipmentEffectServiceInterface $equipmentServiceEffect
+        PlayerServiceInterface $playerService
     ) {
         parent::__construct(
             $eventDispatcher,
@@ -44,7 +38,6 @@ class Consume extends AbstractAction
         );
 
         $this->playerService = $playerService;
-        $this->equipmentServiceEffect = $equipmentServiceEffect;
     }
 
     protected function support(?ActionParameter $parameter): bool
@@ -55,10 +48,10 @@ class Consume extends AbstractAction
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
-        $metadata->addConstraint(new Status([
+        $metadata->addConstraint(new HasStatus([
             'status' => PlayerStatusEnum::FULL_STOMACH,
             'contain' => false,
-            'target' => Status::PLAYER,
+            'target' => HasStatus::PLAYER,
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::CONSUME_FULL_BELLY,
         ]));
@@ -75,43 +68,11 @@ class Consume extends AbstractAction
             throw new \Exception('Cannot consume this equipment');
         }
 
-        // @TODO add disease, cures and extra effects
-        $equipmentEffect = $this->equipmentServiceEffect->getConsumableEffect($rationType, $this->player->getDaedalus());
-
-        if (!$this->player->isMush()) {
-            $this->dispatchConsumableEffects($equipmentEffect);
-        }
+        $consumeEquipment = new ActionEffectEvent($this->player, $parameter);
+        $this->eventDispatcher->dispatch($consumeEquipment, ActionEffectEvent::CONSUME);
 
         $this->playerService->persist($this->player);
 
-        // if no charges consume equipment
-        $equipmentEvent = new EquipmentEvent($parameter, VisibilityEnum::HIDDEN);
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
-
-        return new Success();
-    }
-
-    protected function dispatchConsumableEffects(ConsumableEffect $consumableEffect): void
-    {
-        if ($consumableEffect->getActionPoint() !== 0) {
-            $playerModifierEvent = new PlayerModifierEvent($this->player, $consumableEffect->getActionPoint(), new \DateTime());
-            $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::ACTION_POINT_MODIFIER);
-        }
-        if ($consumableEffect->getMovementPoint() !== 0) {
-            $playerModifierEvent = new PlayerModifierEvent($this->player, $consumableEffect->getMovementPoint(), new \DateTime());
-            $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::MOVEMENT_POINT_MODIFIER);
-        }
-        if ($consumableEffect->getHealthPoint() !== 0) {
-            $playerModifierEvent = new PlayerModifierEvent($this->player, $consumableEffect->getHealthPoint(), new \DateTime());
-            $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
-        }
-        if ($consumableEffect->getMoralPoint() !== 0) {
-            $playerModifierEvent = new PlayerModifierEvent($this->player, $consumableEffect->getMoralPoint(), new \DateTime());
-            $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::MORAL_POINT_MODIFIER);
-        }
-        if ($consumableEffect->getSatiety() !== 0) {
-            $playerModifierEvent = new PlayerModifierEvent($this->player, $consumableEffect->getSatiety(), new \DateTime());
-            $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::SATIETY_POINT_MODIFIER);
-        }
+        return new Success($parameter);
     }
 }

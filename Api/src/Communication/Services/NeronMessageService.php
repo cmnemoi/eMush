@@ -21,7 +21,7 @@ use Mush\RoomLog\Enum\VisibilityEnum;
 
 class NeronMessageService implements NeronMessageServiceInterface
 {
-    const CRAZY_NERON_CHANCE = 25;
+    public const CRAZY_NERON_CHANCE = 25;
 
     private ChannelServiceInterface $channelService;
     private EntityManagerInterface $entityManager;
@@ -85,7 +85,7 @@ class NeronMessageService implements NeronMessageServiceInterface
         return $message;
     }
 
-    private function getMessageNeronCycleFailures(Daedalus $daedalus, \DateTime $time): Message
+    public function getMessageNeronCycleFailures(Daedalus $daedalus, \DateTime $time): Message
     {
         $message = $this->messageRepository->findNeronCycleReport($daedalus);
         if (!$message) {
@@ -115,7 +115,7 @@ class NeronMessageService implements NeronMessageServiceInterface
                 break;
         }
 
-        $parameters = ['player' => $playerName, 'cause' => $cause];
+        $parameters = ['character' => $playerName, 'cause' => $cause];
         $this->createNeronMessage($message, $player->getDaedalus(), $parameters, $time);
     }
 

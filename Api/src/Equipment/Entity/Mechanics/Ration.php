@@ -3,7 +3,6 @@
 namespace Mush\Equipment\Entity\Mechanics;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 
@@ -38,33 +37,9 @@ class Ration extends EquipmentMechanic
     private array $healthPoints = [0 => 1];
 
     /**
-     * @ORM\Column(type="integer", nullable=false)
+     * @ORM\Column(type="integer", nullable=true)
      */
-    protected int $satiety = 1;
-
-    //Store the chance (value) for the disease to be cured (key)
-    /**
-     * @ORM\Column(type="array", nullable=false)
-     */
-    private array $cures = [];
-
-    //Store the chance (value) for the disease to appear (key)
-    /**
-     * @ORM\Column(type="array", nullable=false)
-     */
-    private array $diseasesChances = [];
-
-    //Store the min delay (value) for the disease to appear (key)
-    /**
-     * @ORM\Column(type="array", nullable=false)
-     */
-    private array $diseasesDelayMin = [];
-
-    //Store the max delay (value) for the disease to appear (key)
-    /**
-     * @ORM\Column(type="array", nullable=false)
-     */
-    private array $diseasesDelayLength = [];
+    protected ?int $satiety = null;
 
     //Store any extra effect the food has as key with the chance to get it as value
     /**
@@ -76,19 +51,6 @@ class Ration extends EquipmentMechanic
      * @ORM\Column(type="boolean", nullable=false)
      */
     protected bool $isPerishable = true;
-
-//    /**
-//     * @return static
-//     */
-//    public function setActions(array $actions): Ration
-//    {
-//        return $this;
-//    }
-
-//    public function getActions(): array
-//    {
-//        return [ActionEnum::CONSUME];
-//    }
 
     public function getActionPoints(): array
     {
@@ -150,7 +112,7 @@ class Ration extends EquipmentMechanic
         return $this;
     }
 
-    public function getSatiety(): int
+    public function getSatiety(): ?int
     {
         return $this->satiety;
     }
@@ -158,69 +120,9 @@ class Ration extends EquipmentMechanic
     /**
      * @return static
      */
-    public function setSatiety(int $satiety): Ration
+    public function setSatiety(?int $satiety): Ration
     {
         $this->satiety = $satiety;
-
-        return $this;
-    }
-
-    public function getCures(): array
-    {
-        return $this->cures;
-    }
-
-    /**
-     * @return static
-     */
-    public function setCures(array $cures): Ration
-    {
-        $this->cures = $cures;
-
-        return $this;
-    }
-
-    public function getDiseasesChances(): array
-    {
-        return $this->diseasesChances;
-    }
-
-    /**
-     * @return static
-     */
-    public function setDiseasesChances(array $diseasesChances): Ration
-    {
-        $this->diseasesChances = $diseasesChances;
-
-        return $this;
-    }
-
-    public function getDiseasesDelayMin(): array
-    {
-        return $this->diseasesDelayMin;
-    }
-
-    /**
-     * @return static
-     */
-    public function setDiseasesDelayMin(array $diseasesDelayMin): Ration
-    {
-        $this->diseasesDelayMin = $diseasesDelayMin;
-
-        return $this;
-    }
-
-    public function getDiseasesDelayLength(): array
-    {
-        return $this->diseasesDelayLength;
-    }
-
-    /**
-     * @return static
-     */
-    public function setDiseasesDelayLength(array $diseasesDelayLength): Ration
-    {
-        $this->diseasesDelayLength = $diseasesDelayLength;
 
         return $this;
     }

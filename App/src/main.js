@@ -5,6 +5,8 @@ import ApiService from "./services/api.service";
 import { TokenService } from "./services/storage.service";
 import store from './store';
 import router from './router';
+import VueTippy from 'vue-tippy';
+
 
 // Set the base URL of the API
 ApiService.init(process.env.VUE_APP_API_URL);
@@ -22,5 +24,14 @@ const app = createApp(App);
 
 app.use(store);
 app.use(router);
+app.use(
+    VueTippy,
+    // optional
+    {
+        directive: 'tippy', // => v-tippy
+        component: 'tippy', // => <tippy/>
+        componentSingleton: 'tippy-singleton', // => <tippy-singleton/>
+    }
+);
 
 app.mount('#app');

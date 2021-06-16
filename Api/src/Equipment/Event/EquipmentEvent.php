@@ -9,6 +9,7 @@ use Symfony\Contracts\EventDispatcher\Event;
 class EquipmentEvent extends Event
 {
     public const EQUIPMENT_CREATED = 'equipment.created';
+    public const EQUIPMENT_FIXED = 'equipment.fixed';
     public const EQUIPMENT_BROKEN = 'equipment.broken';
     public const EQUIPMENT_DESTROYED = 'equipment.destroyed';
 
@@ -18,9 +19,9 @@ class EquipmentEvent extends Event
     private ?string $reason;
     private \DateTime $time;
 
-    public function __construct(GameEquipment $equipment, string $visibility, ?\DateTime $time = null)
+    public function __construct(GameEquipment $equipment, string $visibility, \DateTime $time)
     {
-        $this->time = $time ?? new \DateTime();
+        $this->time = $time;
         $this->equipment = $equipment;
         $this->visibility = $visibility;
     }

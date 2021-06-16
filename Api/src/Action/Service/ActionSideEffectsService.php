@@ -19,7 +19,7 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class ActionSideEffectsService implements ActionSideEffectsServiceInterface
 {
-    const ACTION_INJURY_MODIFIER = -2;
+    public const ACTION_INJURY_MODIFIER = -2;
 
     private EventDispatcherInterface $eventDispatcher;
     private RandomServiceInterface $randomService;

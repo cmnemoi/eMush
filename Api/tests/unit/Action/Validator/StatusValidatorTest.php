@@ -4,8 +4,8 @@ namespace Mush\Test\Action\Validator;
 
 use Mockery;
 use Mush\Action\Actions\AbstractAction;
-use Mush\Action\Validator\Status;
-use Mush\Action\Validator\StatusValidator;
+use Mush\Action\Validator\HasStatus;
+use Mush\Action\Validator\HasStatusValidator;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Place\Entity\Place;
@@ -18,16 +18,16 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
 class StatusValidatorTest extends TestCase
 {
-    private StatusValidator $validator;
-    private Status $constraint;
+    private HasStatusValidator $validator;
+    private HasStatus $constraint;
 
     /**
      * @before
      */
     public function before()
     {
-        $this->validator = new StatusValidator();
-        $this->constraint = new Status();
+        $this->validator = new HasStatusValidator();
+        $this->constraint = new HasStatus();
     }
 
     /**
@@ -40,7 +40,7 @@ class StatusValidatorTest extends TestCase
 
     public function testValidParameter()
     {
-        $this->constraint->target = Status::PARAMETER;
+        $this->constraint->target = HasStatus::PARAMETER;
 
         $target = new GameItem();
 
@@ -69,7 +69,7 @@ class StatusValidatorTest extends TestCase
 
     public function testNotValidParameter()
     {
-        $this->constraint->target = Status::PARAMETER;
+        $this->constraint->target = HasStatus::PARAMETER;
 
         $target = new GameItem();
 
@@ -99,7 +99,7 @@ class StatusValidatorTest extends TestCase
 
     public function testValidForPlayer()
     {
-        $this->constraint->target = Status::PLAYER;
+        $this->constraint->target = HasStatus::PLAYER;
 
         $player = new Player();
 
@@ -128,7 +128,7 @@ class StatusValidatorTest extends TestCase
 
     public function testNotValidForPlayer()
     {
-        $this->constraint->target = Status::PLAYER;
+        $this->constraint->target = HasStatus::PLAYER;
 
         $player = new Player();
 
@@ -158,7 +158,7 @@ class StatusValidatorTest extends TestCase
 
     public function testValidForPlayerRoom()
     {
-        $this->constraint->target = Status::PLAYER_ROOM;
+        $this->constraint->target = HasStatus::PLAYER_ROOM;
 
         $player = new Player();
 
@@ -190,7 +190,7 @@ class StatusValidatorTest extends TestCase
 
     public function testNotValidForPlayerRoom()
     {
-        $this->constraint->target = Status::PLAYER_ROOM;
+        $this->constraint->target = HasStatus::PLAYER_ROOM;
 
         $player = new Player();
 
@@ -223,7 +223,7 @@ class StatusValidatorTest extends TestCase
 
     public function testInverseSide()
     {
-        $this->constraint->target = Status::PLAYER;
+        $this->constraint->target = HasStatus::PLAYER;
 
         $player = new Player();
 

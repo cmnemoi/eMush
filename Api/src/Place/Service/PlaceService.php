@@ -106,6 +106,7 @@ class PlaceService implements PlaceServiceInterface
                 ->getEquipmentsConfig()
                 ->filter(fn (EquipmentConfig $equipment) => $equipment->getName() === $equipmentName)->first()
             ;
+
             $gameEquipment = $this->equipmentService->createGameEquipment($equipment, $daedalus);
             $room->addEquipment($gameEquipment);
         }

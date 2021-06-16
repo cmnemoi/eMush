@@ -18,6 +18,9 @@ use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Status\Entity\Status;
+use Mush\Status\Enum\PlayerStatusEnum;
 
 class ConsumeActionCest
 {
@@ -112,6 +115,93 @@ class ConsumeActionCest
         $I->assertEquals(8, $player->getMovementPoint());
         $I->assertEquals(9, $player->getMoralPoint());
         $I->assertEquals(10, $player->getHealthPoint());
+
+        $I->assertEquals(0, $room->getEquipments()->count());
+    }
+
+    public function testMushConsume(FunctionalTester $I)
+    {
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class);
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+
+        /** @var CharacterConfig $characterConfig */
+        $characterConfig = $I->have(CharacterConfig::class);
+        /** @var Player $player */
+        $player = $I->have(Player::class, ['daedalus' => $daedalus,
+            'place' => $room,
+            'actionPoint' => 5,
+            'healthPoint' => 5,
+            'moralPoint' => 5,
+            'movementPoint' => 5,
+            'satiety' => 0,
+            'characterConfig' => $characterConfig,
+        ]);
+
+        $mushStatus = new Status($player);
+        $mushStatus
+            ->setName(PlayerStatusEnum::MUSH)
+            ->setVisibility(VisibilityEnum::MUSH)
+        ;
+
+        $actionCost = new ActionCost();
+        $I->haveInRepository($actionCost);
+
+        $consumeActionEntity = new Action();
+        $consumeActionEntity
+            ->setName(ActionEnum::CONSUME)
+            ->setDirtyRate(0)
+            ->setScope(ActionScopeEnum::CURRENT)
+            ->setInjuryRate(0)
+            ->setActionCost($actionCost)
+        ;
+        $consumeActionEntity->setActionCost($actionCost);
+
+        $I->haveInRepository($consumeActionEntity);
+
+        $ration = new Ration();
+        $ration->setActions(new ArrayCollection([$consumeActionEntity]));
+        $I->haveInRepository($ration);
+
+        $effect = new ConsumableEffect();
+        $effect
+            ->setSatiety(1)
+            ->setDaedalus($daedalus)
+            ->setRation($ration)
+        ;
+        $I->haveInRepository($effect);
+
+        /** @var EquipmentConfig $equipmentConfig */
+        $equipmentConfig = $I->have(EquipmentConfig::class, [
+            'mechanics' => new ArrayCollection([$ration]),
+            'place' => $room,
+            'name' => 'ration',
+        ]);
+
+        $equipmentConfig
+            ->setMechanics(new ArrayCollection([$ration]))
+            ->setName('ration')
+        ;
+
+        $I->haveInRepository($equipmentConfig);
+
+        $gameItem = new GameItem();
+        $gameItem
+            ->setPlace($room)
+            ->setEquipment($equipmentConfig)
+            ->setName('ration')
+        ;
+        $I->haveInRepository($gameItem);
+
+        $this->consumeAction->loadParameters($consumeActionEntity, $player, $gameItem);
+
+        $this->consumeAction->execute();
+
+        $I->assertEquals(4, $player->getSatiety());
+        $I->assertCount(2, $player->getStatuses());
 
         $I->assertEquals(0, $room->getEquipments()->count());
     }

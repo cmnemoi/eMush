@@ -22,7 +22,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class UseBandage extends AbstractAction
 {
-    const BANDAGE_HEAL = 2;
+    public const BANDAGE_HEAL = 2;
 
     protected string $name = ActionEnum::USE_BANDAGE;
 
@@ -67,7 +67,7 @@ class UseBandage extends AbstractAction
 
         $this->playerService->persist($this->player);
 
-        $equipmentEvent = new EquipmentEvent($parameter, VisibilityEnum::HIDDEN);
+        $equipmentEvent = new EquipmentEvent($parameter, VisibilityEnum::HIDDEN, new \DateTime());
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         $healedQuantity = $this->player->getHealthPoint() - $initialHealth;

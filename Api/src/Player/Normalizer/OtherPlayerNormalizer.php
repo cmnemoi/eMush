@@ -6,24 +6,24 @@ use Doctrine\Common\Collections\Collection;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Equipment\Service\GearToolServiceInterface;
+use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class OtherPlayerNormalizer implements ContextAwareNormalizerInterface, NormalizerAwareInterface
 {
     use NormalizerAwareTrait;
 
-    private TranslatorInterface $translator;
+    private TranslationServiceInterface $translationService;
     private GearToolServiceInterface $gearToolService;
 
     public function __construct(
-        TranslatorInterface $translator,
+        TranslationServiceInterface $translationService,
         GearToolServiceInterface $gearToolService
     ) {
-        $this->translator = $translator;
+        $this->translationService = $translationService;
         $this->gearToolService = $gearToolService;
     }
 
@@ -45,7 +45,7 @@ class OtherPlayerNormalizer implements ContextAwareNormalizerInterface, Normaliz
             'id' => $player->getId(),
             'character' => [
                 'key' => $character,
-                'value' => $this->translator->trans($character . '.name', [], 'characters'),
+                'value' => $this->translationService->translate($character . '.name', [], 'characters'),
             ],
         ];
 

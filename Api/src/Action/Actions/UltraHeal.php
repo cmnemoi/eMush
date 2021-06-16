@@ -6,10 +6,11 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Event\ActionEffectEvent;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\FullHealth;
 use Mush\Action\Validator\Reach;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Player\Enum\ModifierTargetEnum;
@@ -46,7 +47,7 @@ class UltraHeal extends AbstractAction
 
     protected function support(?ActionParameter $parameter): bool
     {
-        return $parameter instanceof GameEquipment;
+        return $parameter instanceof GameItem;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -57,14 +58,17 @@ class UltraHeal extends AbstractAction
 
     protected function applyEffects(): ActionResult
     {
-        /** @var GameEquipment $parameter */
+        /** @var GameItem $parameter */
         $parameter = $this->parameter;
 
         $this->playerVariableService->setPlayerVariableToMax($this->player, ModifierTargetEnum::HEALTH_POINT);
 
         $this->playerService->persist($this->player);
 
-        $equipmentEvent = new EquipmentEvent($parameter, VisibilityEnum::HIDDEN);
+        $healEvent = new ActionEffectEvent($this->player, $this->player);
+        $this->eventDispatcher->dispatch($healEvent, ActionEffectEvent::HEAL);
+
+        $equipmentEvent = new EquipmentEvent($parameter, VisibilityEnum::HIDDEN, new \DateTime());
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         return new Success();

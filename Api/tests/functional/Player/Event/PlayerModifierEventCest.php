@@ -169,15 +169,14 @@ class PlayerModifierEventCest
         $I->assertEquals(-1, $player->getSatiety());
         $I->assertCount(1, $player->getStatuses());
 
-        $playerEvent = new PlayerModifierEvent($player, 1, new \DateTime());
+        $playerEvent = new PlayerModifierEvent($player, 4, new \DateTime());
         $this->eventDispatcherService->dispatch($playerEvent, PlayerModifierEvent::SATIETY_POINT_MODIFIER);
-        $I->assertEquals(1, $player->getSatiety());
+        $I->assertEquals(4, $player->getSatiety());
         $I->assertCount(2, $player->getStatuses());
-        $I->assertEquals(2, $player->getStatusByName(PlayerStatusEnum::FULL_STOMACH)->getCharge());
 
-        $playerEvent = new PlayerModifierEvent($player, -26, new \DateTime());
+        $playerEvent = new PlayerModifierEvent($player, -29, new \DateTime());
         $this->eventDispatcherService->dispatch($playerEvent, PlayerModifierEvent::SATIETY_POINT_MODIFIER);
         $I->assertEquals(-25, $player->getSatiety());
-        $I->assertCount(2, $player->getStatuses());
+        $I->assertCount(1, $player->getStatuses());
     }
 }

@@ -79,11 +79,6 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
         $delta = $playerEvent->getDelta();
 
         $this->playerVariableService->handleSatietyModifier($delta, $player);
-
-        if ($player->getMoralPoint() === 0) {
-            $playerEvent->setReason(EndCauseEnum::DEPRESSION);
-            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
-        }
     }
 
     public function onMovementPointConversion(PlayerModifierEvent $playerEvent): void

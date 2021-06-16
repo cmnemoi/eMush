@@ -73,49 +73,41 @@ class PlayerVariableService implements PlayerVariableServiceInterface
 
     public function handleActionPointModifier(int $delta, Player $player): Player
     {
-        if ($delta !== 0) {
-            $playerNewActionPoint = $player->getActionPoint() + $delta;
-            $playerMaxActionPoint = $this->getMaxPlayerVariable($player, ModifierTargetEnum::MAX_ACTION_POINT);
-            $playerNewActionPoint = $this->getValueInInterval($playerNewActionPoint, 0, $playerMaxActionPoint);
-            $player->setActionPoint($playerNewActionPoint);
-        }
+        $playerNewActionPoint = $player->getActionPoint() + $delta;
+        $playerMaxActionPoint = $this->getMaxPlayerVariable($player, ModifierTargetEnum::MAX_ACTION_POINT);
+        $playerNewActionPoint = $this->getValueInInterval($playerNewActionPoint, 0, $playerMaxActionPoint);
+        $player->setActionPoint($playerNewActionPoint);
 
         return $player;
     }
 
     public function handleMovementPointModifier(int $delta, Player $player): Player
     {
-        if ($delta !== 0) {
-            $playerNewMovementPoint = $player->getMovementPoint() + $delta;
-            $playerMaxMovementPoint = $this->getMaxPlayerVariable($player, ModifierTargetEnum::MAX_MOVEMENT_POINT);
-            $playerNewMovementPoint = $this->getValueInInterval($playerNewMovementPoint, 0, $playerMaxMovementPoint);
-            $player->setMovementPoint($playerNewMovementPoint);
-        }
+        $playerNewMovementPoint = $player->getMovementPoint() + $delta;
+        $playerMaxMovementPoint = $this->getMaxPlayerVariable($player, ModifierTargetEnum::MAX_MOVEMENT_POINT);
+        $playerNewMovementPoint = $this->getValueInInterval($playerNewMovementPoint, 0, $playerMaxMovementPoint);
+        $player->setMovementPoint($playerNewMovementPoint);
 
         return $player;
     }
 
     public function handleHealthPointModifier(int $delta, Player $player): Player
     {
-        if ($delta !== 0) {
-            $playerNewHealthPoint = $player->getHealthPoint() + $delta;
-            $playerMaxHealthPoint = $this->getMaxPlayerVariable($player, ModifierTargetEnum::MAX_HEALTH_POINT);
-            $playerNewHealthPoint = $this->getValueInInterval($playerNewHealthPoint, 0, $playerMaxHealthPoint);
-            $player->setHealthPoint($playerNewHealthPoint);
-        }
+        $playerNewHealthPoint = $player->getHealthPoint() + $delta;
+        $playerMaxHealthPoint = $this->getMaxPlayerVariable($player, ModifierTargetEnum::MAX_HEALTH_POINT);
+        $playerNewHealthPoint = $this->getValueInInterval($playerNewHealthPoint, 0, $playerMaxHealthPoint);
+        $player->setHealthPoint($playerNewHealthPoint);
 
         return $player;
     }
 
     public function handleMoralPointModifier(int $delta, Player $player): Player
     {
-        if ($delta !== 0) {
-            if (!$player->isMush()) {
-                $playerNewMoralPoint = $player->getMoralPoint() + $delta;
-                $playerMaxMoralPoint = $this->getMaxPlayerVariable($player, ModifierTargetEnum::MAX_MORAL_POINT);
-                $playerNewMoralPoint = $this->getValueInInterval($playerNewMoralPoint, 0, $playerMaxMoralPoint);
-                $player->setMoralPoint($playerNewMoralPoint);
-            }
+        if (!$player->isMush()) {
+            $playerNewMoralPoint = $player->getMoralPoint() + $delta;
+            $playerMaxMoralPoint = $this->getMaxPlayerVariable($player, ModifierTargetEnum::MAX_MORAL_POINT);
+            $playerNewMoralPoint = $this->getValueInInterval($playerNewMoralPoint, 0, $playerMaxMoralPoint);
+            $player->setMoralPoint($playerNewMoralPoint);
         }
 
         return $player;
@@ -123,14 +115,12 @@ class PlayerVariableService implements PlayerVariableServiceInterface
 
     public function handleSatietyModifier(int $delta, Player $player): Player
     {
-        if ($delta !== 0) {
-            if ($delta >= 0 &&
-                $player->getSatiety() < 0
-            ) {
-                $player->setSatiety($delta);
-            } else {
-                $player->setSatiety($player->getSatiety() + $delta);
-            }
+        if ($delta >= 0 &&
+            $player->getSatiety() < 0
+        ) {
+            $player->setSatiety($delta);
+        } else {
+            $player->setSatiety($player->getSatiety() + $delta);
         }
 
         return $player;

@@ -72,4 +72,22 @@ class GameFruitEnum
             self::FILANDRA => GamePlantEnum::ASPERAGUNK,
         ];
     }
+
+    public static function getAlienFruits(): array
+    {
+        return [
+            self::CREEPNUT,
+            self::MEZTINE,
+            self::GUNTIFLOP,
+            self::PLOSHMINA,
+            self::PRECATI,
+            self::BOTTINE,
+            self::FRAGILANE,
+            self::ANEMOLE,
+            self::PENICRAFT,
+            self::KUBINUS,
+            self::CALEBOOT,
+            self::FILANDRA,
+        ];
+    }
 }

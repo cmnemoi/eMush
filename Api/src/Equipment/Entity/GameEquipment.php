@@ -9,6 +9,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Action\Entity\ActionParameter;
 use Mush\Place\Entity\Place;
 use Mush\RoomLog\Entity\LogParameter;
+use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
@@ -41,7 +42,7 @@ class GameEquipment implements StatusHolderInterface, ActionParameter, LogParame
     private int $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="Mush\Status\Entity\StatusTarget", mappedBy="gameEquipment", cascade="ALL")
+     * @ORM\OneToMany(targetEntity="Mush\Status\Entity\StatusTarget", mappedBy="gameEquipment", cascade={"ALL"})
      */
     private Collection $statuses;
 
@@ -198,5 +199,15 @@ class GameEquipment implements StatusHolderInterface, ActionParameter, LogParame
     public function isBreakable(): bool
     {
         return $this->getEquipment()->isBreakable();
+    }
+
+    public function getLogName(): string
+    {
+        return $this->getName();
+    }
+
+    public function getLogKey(): string
+    {
+        return LogParameterKeyEnum::EQUIPMENT;
     }
 }

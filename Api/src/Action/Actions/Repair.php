@@ -7,13 +7,15 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
-use Mush\Action\Validator\Status;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ReachEnum;
+use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -54,7 +56,7 @@ class Repair extends AttemptAction
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
-        $metadata->addConstraint(new Status(['status' => EquipmentStatusEnum::BROKEN, 'groups' => ['visibility']]));
+        $metadata->addConstraint(new HasStatus(['status' => EquipmentStatusEnum::BROKEN, 'groups' => ['visibility']]));
     }
 
     protected function applyEffects(): ActionResult
@@ -64,11 +66,9 @@ class Repair extends AttemptAction
 
         $response = $this->makeAttempt();
 
-        if ($response instanceof Success &&
-            ($brokenStatus = $parameter->getStatusByName(EquipmentStatusEnum::BROKEN))
-        ) {
-            $parameter->removeStatus($brokenStatus);
-            $this->gameEquipmentService->persist($parameter);
+        if ($response instanceof Success) {
+            $equipmentEvent = new EquipmentEvent($parameter, VisibilityEnum::HIDDEN, new \DateTime());
+            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_FIXED);
         }
 
         $this->playerService->persist($this->player);

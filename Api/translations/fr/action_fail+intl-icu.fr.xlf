@@ -17,7 +17,7 @@
         <unit id="no_shelving_unit">
             <segment id="description">
                 <source>no_shelving_unit.description</source>
-                <target>Cette piège ne dispose pas d'étagère...</target>
+                <target>Cette pièce ne dispose pas d'étagère...</target>
             </segment>
         </unit>
         <unit id="full_inventory">
@@ -79,7 +79,7 @@
         <unit id="pre_mush_restricted">
             <segment id="description">
                 <source>pre_mush_restricted.description</source>
-                <target>Pas de menace détectée, pourquoi faire ça ? //Cette action est indisponible tant que le vaisseau n'est pas au complet//.</target>
+                <target>Pas de menace détectée, pourquoi faire ça ? *Cette action est indisponible tant que le vaisseau n'est pas au complet*.</target>
             </segment>
         </unit>
 

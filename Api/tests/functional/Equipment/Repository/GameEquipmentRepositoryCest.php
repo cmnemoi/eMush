@@ -301,4 +301,91 @@ class GameEquipmentRepositoryCest
         $I->assertCount(1, $result);
         $I->assertContains($gameEquipment, $result);
     }
+
+    public function testFindByNameAndDaedalus(FunctionalTester $I)
+    {
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class);
+
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+        /** @var Player $player */
+        $player = $I->have(Player::class, ['daedalus' => $daedalus]);
+
+        /** @var Daedalus $daedalus2 */
+        $daedalus2 = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
+        /** @var Place $room2 */
+        $room2 = $I->have(Place::class, ['daedalus' => $daedalus2]);
+
+        /** @var EquipmentConfig $equipmentConfig */
+        $equipmentConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig]);
+
+        $gameEquipment = new GameEquipment();
+        $gameEquipment
+            ->setName('equipment1')
+            ->setPlace($room)
+            ->setEquipment($equipmentConfig)
+        ;
+        $I->haveInRepository($gameEquipment);
+
+        /** @var EquipmentConfig $doorConfig */
+        $doorConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig]);
+
+        $door = new Door();
+        $door
+            ->setName('equipment1')
+            ->setPlace($room)
+            ->setEquipment($doorConfig)
+        ;
+        $I->haveInRepository($door);
+
+        /** @var EquipmentConfig $equipmentConfig2 */
+        $equipmentConfig2 = $I->have(ItemConfig::class, ['gameConfig' => $gameConfig]);
+
+        $gameEquipment2 = new GameItem();
+        $gameEquipment2
+            ->setName('equipment2')
+            ->setPlayer($player)
+            ->setEquipment($equipmentConfig2)
+        ;
+        $I->haveInRepository($gameEquipment2);
+
+        /** @var EquipmentConfig $equipmentConfig3 */
+        $equipmentConfig3 = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig]);
+
+        $gameEquipment3 = new GameEquipment();
+        $gameEquipment3
+            ->setName('equipment1')
+            ->setPlace($room2)
+            ->setEquipment($equipmentConfig3)
+        ;
+        $I->haveInRepository($gameEquipment3);
+
+        // Now test the method
+        $result = $this->repository->findByNameAndDaedalus('equipment1', $daedalus);
+        $I->assertCount(2, $result);
+        $I->assertContains($gameEquipment, $result);
+        $I->assertContains($door, $result);
+        $I->assertNotContains($gameEquipment2, $result);
+        $I->assertNotContains($gameEquipment3, $result);
+
+        $result = $this->repository->findByNameAndDaedalus('equipment2', $daedalus);
+        $I->assertCount(1, $result);
+        $I->assertNotContains($gameEquipment, $result);
+        $I->assertNotContains($door, $result);
+        $I->assertContains($gameEquipment2, $result);
+        $I->assertNotContains($gameEquipment3, $result);
+
+        $result = $this->repository->findByNameAndDaedalus('equipment1', $daedalus2);
+        $I->assertCount(1, $result);
+        $I->assertNotContains($gameEquipment, $result);
+        $I->assertNotContains($door, $result);
+        $I->assertNotContains($gameEquipment2, $result);
+        $I->assertContains($gameEquipment3, $result);
+
+        $result = $this->repository->findByNameAndDaedalus('equipment2', $daedalus2);
+        $I->assertIsEmpty($result);
+    }
 }

@@ -58,7 +58,7 @@ class Shred extends AbstractAction
         /** @var GameItem $parameter */
         $parameter = $this->parameter;
 
-        $equipmentEvent = new EquipmentEvent($parameter, VisibilityEnum::HIDDEN);
+        $equipmentEvent = new EquipmentEvent($parameter, VisibilityEnum::HIDDEN, new \DateTime());
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         $this->playerService->persist($this->player);

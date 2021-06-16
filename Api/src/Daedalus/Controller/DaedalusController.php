@@ -10,12 +10,12 @@ use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Daedalus\Service\DaedalusWidgetServiceInterface;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Service\GameConfigServiceInterface;
+use Mush\Game\Service\TranslationServiceInterface;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class UsersController.
@@ -27,18 +27,18 @@ class DaedalusController extends AbstractFOSRestController
     private DaedalusServiceInterface $daedalusService;
     private DaedalusWidgetServiceInterface $daedalusWidgetService;
     private GameConfigServiceInterface $gameConfigService;
-    private TranslatorInterface $translator;
+    private TranslationServiceInterface $translationService;
 
     public function __construct(
         DaedalusServiceInterface $daedalusService,
         DaedalusWidgetServiceInterface $daedalusWidgetService,
         GameConfigServiceInterface $gameConfigService,
-        TranslatorInterface $translator
+        TranslationServiceInterface $translationService
     ) {
         $this->daedalusService = $daedalusService;
         $this->daedalusWidgetService = $daedalusWidgetService;
         $this->gameConfigService = $gameConfigService;
-        $this->translator = $translator;
+        $this->translationService = $translationService;
     }
 
     /**
@@ -104,25 +104,11 @@ class DaedalusController extends AbstractFOSRestController
         foreach ($availableCharacters as $character) {
             $characters[] = [
                 'key' => $character->getName(),
-                'name' => $this->translator->trans($character->getName() . '.name', [], 'characters'),
+                'name' => $this->translationService->translate($character->getName() . '.name', [], 'characters'),
             ];
         }
 
         return $this->view(['daedalus' => $daedalus->getId(), 'characters' => $characters], 200);
-    }
-
-    /**
-     * Display daedalus alerts.
-     *
-     * @OA\Tag (name="Daedalus")
-     *
-     * @Security (name="Bearer")
-     *
-     * @Rest\Get(path="/{id}/alerts", requirements={"id"="\d+"})
-     */
-    public function getDaedalusAlertsAction(Daedalus $daedalus): View
-    {
-        return $this->view($this->daedalusWidgetService->getAlerts($daedalus), 200);
     }
 
     /**

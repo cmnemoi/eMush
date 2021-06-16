@@ -8,7 +8,7 @@ use Mush\Place\Entity\PlaceConfig;
 
 interface PlaceServiceInterface
 {
-    public function persist(Place $room): Place;
+    public function persist(Place $place): Place;
 
     public function findById(int $id): ?Place;
 

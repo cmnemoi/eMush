@@ -30,10 +30,16 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
 
         $actions = new ArrayCollection([$takeAction, $dropAction, $hideAction]);
 
+        /** @var Action $reportAction */
+        $reportAction = $this->getReference(ActionsFixtures::REPORT_EQUIPMENT);
+        /** @var Action $repair25 */
         $repair25 = $this->getReference(TechnicianFixtures::REPAIR_25);
+        /** @var Action $repair50 */
         $repair50 = $this->getReference(TechnicianFixtures::REPAIR_50);
 
+        /** @var Action $sabotage25 */
         $sabotage25 = $this->getReference(TechnicianFixtures::SABOTAGE_25);
+        /** @var Action $sabotage50 */
         $sabotage50 = $this->getReference(TechnicianFixtures::SABOTAGE_50);
 
         $dismantle50 = $this->getReference(TechnicianFixtures::DISMANTLE_3_50);
@@ -66,6 +72,7 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
         $drillActions->add($dismantle50);
         $drillActions->add($repair50);
         $drillActions->add($sabotage50);
+        $drillActions->add($reportAction);
 
         $drill = new ItemConfig();
         $drill
@@ -110,6 +117,7 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
         $thermosensorActions->add($dismantle50);
         $thermosensorActions->add($repair25);
         $thermosensorActions->add($sabotage25);
+        $thermosensorActions->add($reportAction);
 
         $thermosensor = new ItemConfig();
         $thermosensor

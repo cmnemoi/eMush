@@ -35,14 +35,24 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $actions = new ArrayCollection([$takeAction, $dropAction, $hideAction]);
 
+        /** @var Action $reportAction */
+        $reportAction = $this->getReference(ActionsFixtures::REPORT_EQUIPMENT);
+        /** @var Action $repair3 */
         $repair3 = $this->getReference(TechnicianFixtures::REPAIR_3);
+        /** @var Action $repair6 */
         $repair6 = $this->getReference(TechnicianFixtures::REPAIR_6);
+        /** @var Action $repair25 */
         $repair25 = $this->getReference(TechnicianFixtures::REPAIR_25);
+        /** @var Action $repair50 */
         $repair50 = $this->getReference(TechnicianFixtures::REPAIR_50);
 
+        /** @var Action $sabotage3 */
         $sabotage3 = $this->getReference(TechnicianFixtures::SABOTAGE_3);
+        /** @var Action $sabotage6 */
         $sabotage6 = $this->getReference(TechnicianFixtures::SABOTAGE_6);
+        /** @var Action $sabotage25 */
         $sabotage25 = $this->getReference(TechnicianFixtures::SABOTAGE_25);
+        /** @var Action $sabotage50 */
         $sabotage50 = $this->getReference(TechnicianFixtures::SABOTAGE_50);
 
         //@TODO
@@ -58,7 +68,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireBreakable(true)
             ->setIsBreakable(true)
             ->setMechanics(new ArrayCollection([$hackerKitMechanic]))
-            ->setActions(new ArrayCollection([$takeAction, $dropAction, $hideAction, $repair6, $sabotage6]))
+            ->setActions(new ArrayCollection([$takeAction, $dropAction, $hideAction, $repair6, $sabotage6, $reportAction]))
         ;
         $manager->persist($hackerKit);
         $manager->persist($hackerKitMechanic);
@@ -88,6 +98,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $extinguisherActions->add($this->getReference(TechnicianFixtures::DISMANTLE_3_25));
         $extinguisherActions->add($repair25);
         $extinguisherActions->add($sabotage25);
+        $extinguisherActions->add($reportAction);
 
         /** @var Action $extinguishAction */
         $extinguishAction = $this->getReference(ActionsFixtures::EXTINGUISH_DEFAULT);
@@ -158,6 +169,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $microwaveActions->add($this->getReference(TechnicianFixtures::DISMANTLE_4_25));
         $microwaveActions->add($repair50);
         $microwaveActions->add($sabotage50);
+        $microwaveActions->add($reportAction);
 
         $chargedMechanic = new Charged();
         $chargedMechanic
@@ -201,6 +213,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $superfreezerActions->add($this->getReference(TechnicianFixtures::DISMANTLE_4_25));
         $superfreezerActions->add($repair25);
         $superfreezerActions->add($sabotage25);
+        $superfreezerActions->add($reportAction);
 
         $superFreezer = new ItemConfig();
         $superFreezer
@@ -234,7 +247,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsAlienArtifact(true)
             ->setIsBreakable(true)
             ->setMechanics(new ArrayCollection([$alienHolographicTVMechanic]))
-            ->setActions(new ArrayCollection([$takeAction, $dropAction, $hideAction, $repair3, $sabotage3]))
+            ->setActions(new ArrayCollection([$takeAction, $dropAction, $hideAction, $repair3, $sabotage3, $reportAction]))
         ;
 
         $manager->persist($alienHolographicTV);

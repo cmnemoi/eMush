@@ -9,10 +9,10 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\Fuel;
+use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\InventoryFull;
 use Mush\Action\Validator\ParameterName;
 use Mush\Action\Validator\Reach;
-use Mush\Action\Validator\Status;
 use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
@@ -54,7 +54,7 @@ class RetrieveFuel extends AbstractAction
             new ParameterName(['name' => EquipmentEnum::FUEL_TANK, 'groups' => ['visibility']]),
             new Fuel(['groups' => ['visibility']]),
             new InventoryFull(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::FULL_INVENTORY]),
-            new Status([
+            new HasStatus([
                 'status' => EquipmentStatusEnum::BROKEN,
                 'contain' => false,
                 'groups' => ['execute'],

@@ -3,8 +3,9 @@ import { Door } from "@/entities/Door";
 import { Item } from "@/entities/Item";
 import { Player } from "@/entities/Player";
 import { Equipment } from "@/entities/Equipment";
+import urlJoin from "url-join";
 
-const ACTION_ENDPOINT = process.env.VUE_APP_API_URL+'action';
+const ACTION_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "action");
 
 const ActionService = {
     /**

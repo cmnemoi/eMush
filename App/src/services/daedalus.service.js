@@ -1,11 +1,12 @@
 import ApiService from "@/services/api.service";
 import { Alert } from "@/entities/Alerts";
+import urlJoin from "url-join";
 
-const DAEDALUS_ALERTS_ENDPOINT = process.env.VUE_APP_API_URL + 'alert';
+const DAEDALUS_ALERTS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "alert");
 
 const DaedalusService = {
     loadAlerts: async (daedalus) => {
-        const alertsData = await ApiService.get(DAEDALUS_ALERTS_ENDPOINT + '/' + daedalus.id + '/alerts');
+        const alertsData = await ApiService.get(urlJoin(DAEDALUS_ALERTS_ENDPOINT, daedalus.id, "alerts"));
 
         let alerts = [];
         if (alertsData.data) {

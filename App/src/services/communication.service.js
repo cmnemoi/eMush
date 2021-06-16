@@ -4,9 +4,10 @@ import { Message } from "@/entities/Message";
 import { RoomLog } from "@/entities/RoomLog";
 import { PRIVATE, PUBLIC, ROOM_LOG, TIPS } from '@/enums/communication.enum';
 import { Player } from "@/entities/Player";
+import urlJoin from "url-join";
 
-const CHANNELS_ENDPOINT = process.env.VUE_APP_API_URL + 'channel';
-const ROOM_LOGS_ENDPOINT = process.env.VUE_APP_API_URL + 'room-log';
+const CHANNELS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "channel");
+const ROOM_LOGS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "room-log");
 
 const CommunicationService = {
 
@@ -32,7 +33,7 @@ const CommunicationService = {
     },
 
     leaveChannel: async (channel) => {
-        return ApiService.post(CHANNELS_ENDPOINT + '/' + channel.id + '/exit');
+        return ApiService.post(urlJoin(CHANNELS_ENDPOINT, channel.id, "exit"));
     },
 
     loadMessages: async (channel) => {
@@ -47,7 +48,7 @@ const CommunicationService = {
         }
 
         async function loadChannelMessages() {
-            const messagesData = await ApiService.get(CHANNELS_ENDPOINT + '/' + channel.id + '/message');
+            const messagesData = await ApiService.get(urlJoin(CHANNELS_ENDPOINT, channel.id, "message"));
 
             let messages = [];
             if (messagesData.data) {
@@ -84,7 +85,7 @@ const CommunicationService = {
     },
 
     loadInvitablePlayers: async (channel) => {
-        const playersData = await ApiService.get(CHANNELS_ENDPOINT + '/' + channel.id + '/invite');
+        const playersData = await ApiService.get(urlJoin(CHANNELS_ENDPOINT, channel.id, "invite"));
 
         let players = [];
         if (playersData.data) {
@@ -96,7 +97,7 @@ const CommunicationService = {
     },
 
     invitePlayer: async (player, channel) => {
-        await ApiService.post(CHANNELS_ENDPOINT + '/' + channel.id + '/invite', {
+        await ApiService.post(urlJoin(CHANNELS_ENDPOINT, channel.id, "invite"), {
             player: player.id
         });
     },
@@ -108,7 +109,7 @@ const CommunicationService = {
             parentId = parent.id;
         }
 
-        const messagesData = await ApiService.post(CHANNELS_ENDPOINT + '/' + channel.id + '/message', {
+        const messagesData = await ApiService.post(urlJoin(CHANNELS_ENDPOINT, channel.id, "message"), {
             'message': text,
             'parent': parentId
         });

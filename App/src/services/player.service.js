@@ -2,7 +2,9 @@ import ApiService from "@/services/api.service";
 import { Player } from "@/entities/Player";
 import store from "@/store/index";
 import { DeadPlayerInfo } from "@/entities/DeadPlayerInfo";
-const ACTION_ENDPOINT = process.env.VUE_APP_API_URL+'player';
+import urlJoin from "url-join";
+
+const ACTION_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "player");
 
 const PlayerService = {
     /**
@@ -10,7 +12,7 @@ const PlayerService = {
      * @param playerId
      */
     loadPlayer: async(playerId) => {
-        const playerData = await ApiService.get(ACTION_ENDPOINT + '/' + playerId);
+        const playerData = await ApiService.get(urlJoin(ACTION_ENDPOINT, playerId));
 
         let player = null;
         if (playerData.data) {
@@ -22,7 +24,7 @@ const PlayerService = {
 
     loadDeadPlayerInfo: async(playerId) => {
         store.dispatch('player/setLoading', { loading: true });
-        const deadPlayerData = await ApiService.get(ACTION_ENDPOINT + '/' + playerId + '/end');
+        const deadPlayerData = await ApiService.get(urlJoin(ACTION_ENDPOINT, playerId, "end"));
 
         let deadPlayer = null;
         if (deadPlayerData.data) {
@@ -40,7 +42,7 @@ const PlayerService = {
             likes: likes
         };
 
-        return ApiService.post(ACTION_ENDPOINT + '/' + player.id + '/end', data)
+        return ApiService.post(urlJoin(ACTION_ENDPOINT, player.id, "end"), data)
             .then(() => {
                 store.dispatch('auth/userInfo');
             });

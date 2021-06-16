@@ -1,10 +1,11 @@
 import ApiService from './api.service';
 import { TokenService } from './storage.service';
 import { User } from "@/entities/User";
+import urlJoin from "url-join";
 
-const authorizationUrl = process.env.VUE_APP_OAUTH_URL + '/authorize';
-const tokenUrl = process.env.VUE_APP_OAUTH_URL + '/token';
-const callBackUrl = process.env.VUE_APP_URL + '/token';
+const authorizationUrl = urlJoin(process.env.VUE_APP_OAUTH_URL, "authorize");
+const tokenUrl = urlJoin(process.env.VUE_APP_OAUTH_URL, "token");
+const callBackUrl = urlJoin(process.env.VUE_APP_URL, "token");
 
 class AuthenticationError extends Error {
     constructor(errorCode, message) {
@@ -17,10 +18,10 @@ class AuthenticationError extends Error {
 
 const UserService = {
     redirect: async function(passphrase) {
-        const redirectUri = new URLSearchParams();
-        redirectUri.set('redirect_uri', callBackUrl);
-        redirectUri.set('passphrase', passphrase);
-        global.window.location.replace(decodeURIComponent(authorizationUrl + '?'+ redirectUri.toString()));
+        const targetUri = new URL(authorizationUrl);
+        targetUri.searchParams.set("redirect_uri", callBackUrl);
+        targetUri.searchParams.set("passphrase", passphrase);
+        global.window.location.assign(targetUri.toString());
     },
 
     login: async function(code) {
@@ -78,7 +79,7 @@ const UserService = {
                     'accept' : 'application/json'
                 }
             };
-            const response = await ApiService.get(process.env.VUE_APP_API_URL+'users', params);
+            const response = await ApiService.get(urlJoin(process.env.VUE_APP_API_URL, "users"), params);
             let user = new User();
             TokenService.saveUserInfo(user.load(response.data));
 

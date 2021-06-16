@@ -14,15 +14,11 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Place\Entity\Place;
 
 class InsertOxygenTest extends AbstractActionTest
 {
-    /** @var GameEquipmentServiceInterface | Mockery\Mock */
-    private GameEquipmentServiceInterface $gameEquipmentService;
-
     /**
      * @before
      */
@@ -32,13 +28,10 @@ class InsertOxygenTest extends AbstractActionTest
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::INSERT_OXYGEN);
 
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
-
         $this->action = new InsertOxygen(
             $this->eventDispatcher,
             $this->actionService,
             $this->validator,
-            $this->gameEquipmentService,
         );
     }
 
@@ -88,7 +81,7 @@ class InsertOxygenTest extends AbstractActionTest
         ;
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->gameEquipmentService->shouldReceive('delete');
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
         $this->eventDispatcher->shouldReceive('dispatch')->once();
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
@@ -96,7 +89,6 @@ class InsertOxygenTest extends AbstractActionTest
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
-        $this->assertEmpty($player->getItems());
         $this->assertCount(1, $room->getEquipments());
         $this->assertEquals(10, $player->getActionPoint());
     }

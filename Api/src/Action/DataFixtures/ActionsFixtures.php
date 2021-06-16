@@ -45,6 +45,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
     public const FUEL_INJECT = 'fuel.inject';
     public const FUEL_RETRIEVE = 'fuel.retrieve';
     public const OXYGEN_INJECT = 'oxygen.inject';
+    public const STRENGTHEN_HULL = 'strength_hull';
     public const OXYGEN_RETRIEVE = 'oxygen.retrieve';
     public const LIE_DOWN = 'lie.down';
     public const GET_UP = 'get.up';
@@ -386,6 +387,19 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->persist($retrieveOxygenAction);
 
+        $strengthenHullAction = new Action();
+        $strengthenHullAction
+            ->setName(ActionEnum::STRENGTHEN_HULL)
+            ->setScope(ActionScopeEnum::SELF)
+            ->setTarget(GameItem::class)
+            ->setDirtyRate(50)
+            ->setInjuryRate(25)
+            ->setActionCost($oneActionPointCost)
+            ->setSuccessRate(25)
+        ;
+
+        $manager->persist($strengthenHullAction);
+
         $lieDownActon = new Action();
         $lieDownActon
             ->setName(ActionEnum::LIE_DOWN)
@@ -524,6 +538,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::FUEL_RETRIEVE, $retrieveFuelAction);
         $this->addReference(self::OXYGEN_INJECT, $oxygenInjectAction);
         $this->addReference(self::OXYGEN_RETRIEVE, $retrieveOxygenAction);
+        $this->addReference(self::STRENGTHEN_HULL, $strengthenHullAction);
         $this->addReference(self::LIE_DOWN, $lieDownActon);
         $this->addReference(self::GET_UP, $getUpAction);
         $this->addReference(self::COFFEE_DEFAULT, $coffeeAction);

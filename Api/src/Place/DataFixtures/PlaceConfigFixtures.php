@@ -115,6 +115,10 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
                 EquipmentEnum::JUKEBOX,
             ])
             ->setItems([
+                GearItemEnum::OSCILLOSCOPE . '_' . ItemEnum::BLUEPRINT,
+                ItemEnum::METAL_SCRAPS,
+                ItemEnum::METAL_SCRAPS,
+                ItemEnum::METAL_SCRAPS,
                 ToolItemEnum::SPACE_CAPSULE,
                 ToolItemEnum::SPACE_CAPSULE,
                 ToolItemEnum::SPACE_CAPSULE,

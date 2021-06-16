@@ -16,4 +16,6 @@ class ModifierTargetEnum
     public const MAX_MORAL_POINT = 'max_moral_point';
 
     public const PERCENTAGE = 'percentage';
+
+    public const QUANTITY = 'quantity';
 }

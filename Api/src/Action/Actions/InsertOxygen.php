@@ -14,7 +14,8 @@ use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Event\EquipmentEvent;
+use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -23,21 +24,16 @@ class InsertOxygen extends AbstractAction
 {
     protected string $name = ActionEnum::INSERT_OXYGEN;
 
-    private GameEquipmentServiceInterface $gameEquipmentService;
-
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        GameEquipmentServiceInterface $gameEquipmentService,
     ) {
         parent::__construct(
             $eventDispatcher,
             $actionService,
             $validator
         );
-
-        $this->gameEquipmentService = $gameEquipmentService;
     }
 
     protected function support(?ActionParameter $parameter): bool
@@ -57,10 +53,12 @@ class InsertOxygen extends AbstractAction
         /** @var GameItem $parameter */
         $parameter = $this->parameter;
 
-        $parameter->setPlayer(null);
+        //delete the item
+        $equipmentEvent = new EquipmentEvent($parameter, VisibilityEnum::HIDDEN, new \DateTime());
+        $equipmentEvent->setPlayer($this->player);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
-        $this->gameEquipmentService->delete($parameter);
-
+        //add Oxygen
         $daedalusEvent = new DaedalusModifierEvent($this->player->getDaedalus(), new \DateTime());
         $daedalusEvent->setQuantity(1);
         $this->eventDispatcher->dispatch($daedalusEvent, DaedalusModifierEvent::CHANGE_OXYGEN);

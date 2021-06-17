@@ -11,7 +11,7 @@ use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Event\StatusCycleEvent;
-use Mush\Status\Event\StatusCycleSubscriber;
+use Mush\Status\Listener\StatusCycleSubscriber;
 
 class DayEventCest
 {

@@ -1,8 +1,10 @@
 <?php
 
-namespace Mush\Player\Event;
+namespace Mush\Player\Listener;
 
 use Mush\Player\Enum\EndCauseEnum;
+use Mush\Player\Event\PlayerEvent;
+use Mush\Player\Event\PlayerModifierEvent;
 use Mush\Player\Service\PlayerVariableServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;

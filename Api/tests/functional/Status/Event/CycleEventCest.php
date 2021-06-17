@@ -22,7 +22,7 @@ use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\StatusCycleEvent;
-use Mush\Status\Event\StatusCycleSubscriber;
+use Mush\Status\Listener\StatusCycleSubscriber;
 
 class CycleEventCest
 {

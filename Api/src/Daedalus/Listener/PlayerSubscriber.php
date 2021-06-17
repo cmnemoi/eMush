@@ -1,7 +1,8 @@
 <?php
 
-namespace Mush\Daedalus\Event;
+namespace Mush\Daedalus\Listener;
 
+use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;

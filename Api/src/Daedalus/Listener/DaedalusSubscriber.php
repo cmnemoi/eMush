@@ -1,7 +1,8 @@
 <?php
 
-namespace Mush\Daedalus\Event;
+namespace Mush\Daedalus\Listener;
 
+use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Game\Enum\GameStatusEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;

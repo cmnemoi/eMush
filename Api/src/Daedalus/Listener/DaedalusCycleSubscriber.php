@@ -1,17 +1,17 @@
 <?php
 
-namespace Mush\Daedalus\Event;
+namespace Mush\Daedalus\Listener;
 
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Event\DaedalusCycleEvent;
+use Mush\Daedalus\Event\DaedalusEvent;
+use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Daedalus\Service\DaedalusIncidentServiceInterface;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
-use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
-use Mush\Place\Event\PlaceCycleEvent;
 use Mush\Player\Enum\EndCauseEnum as EnumEndCauseEnum;
-use Mush\Player\Event\PlayerCycleEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -58,18 +58,6 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
     public function onNewDay(DaedalusCycleEvent $event): void
     {
         $daedalus = $event->getDaedalus();
-
-        foreach ($daedalus->getPlayers()->getPlayerAlive() as $player) {
-            $newPlayerDay = new PlayerCycleEvent($player, $event->getTime());
-
-            $this->eventDispatcher->dispatch($newPlayerDay, PlayerCycleEvent::PLAYER_NEW_DAY);
-        }
-
-        /** @var Place $place */
-        foreach ($daedalus->getRooms() as $place) {
-            $newRoomDay = new PlaceCycleEvent($place, $event->getTime());
-            $this->eventDispatcher->dispatch($newRoomDay, PlaceCycleEvent::PLACE_NEW_DAY);
-        }
 
         //reset spore count
         $daedalus->setSpores($daedalus->getDailySpores());
@@ -140,11 +128,6 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
             $daedalus->setDay($daedalus->getDay() + 1);
         }
 
-        foreach ($daedalus->getPlayers()->getPlayerAlive() as $player) {
-            $newPlayerCycle = new PlayerCycleEvent($player, $time);
-            $this->eventDispatcher->dispatch($newPlayerCycle, PlayerCycleEvent::PLAYER_NEW_CYCLE);
-        }
-
         $this->daedalusIncidentService->handleEquipmentBreak($daedalus, $time);
         $this->daedalusIncidentService->handleDoorBreak($daedalus, $time);
         $this->daedalusIncidentService->handlePanicCrisis($daedalus, $time);
@@ -152,11 +135,6 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         $this->daedalusIncidentService->handleTremorEvents($daedalus, $time);
         $this->daedalusIncidentService->handleElectricArcEvents($daedalus, $time);
         $this->daedalusIncidentService->handleFireEvents($daedalus, $time);
-
-        foreach ($daedalus->getRooms() as $place) {
-            $newRoomCycle = new PlaceCycleEvent($place, $time);
-            $this->eventDispatcher->dispatch($newRoomCycle, PlaceCycleEvent::PLACE_NEW_CYCLE);
-        }
 
         if ($newDay) {
             $dayEvent = new DaedalusCycleEvent($daedalus, $time);

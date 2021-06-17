@@ -5,7 +5,7 @@ namespace Mush\Tests\unit\Daedalus\Event;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusEvent;
-use Mush\Daedalus\Event\PlayerSubscriber;
+use Mush\Daedalus\Listener\PlayerSubscriber;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Entity\Player;

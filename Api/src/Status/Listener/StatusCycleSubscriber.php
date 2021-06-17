@@ -1,8 +1,9 @@
 <?php
 
-namespace Mush\Status\Event;
+namespace Mush\Status\Listener;
 
 use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Event\StatusCycleEvent;
 use Mush\Status\Service\ChargeStrategyServiceInterface;
 use Mush\Status\Service\StatusCycleHandlerService;
 use Mush\Status\Service\StatusServiceInterface;

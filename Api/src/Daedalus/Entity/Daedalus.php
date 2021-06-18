@@ -48,7 +48,7 @@ class Daedalus
     /**
      * @ORM\Column(type="string", nullable=false)
      */
-    private string $gameStatus = GameStatusEnum::STARTING;
+    private string $gameStatus = GameStatusEnum::STANDBY;
 
     /**
      * @ORM\OneToMany(targetEntity="Mush\Place\Entity\Place", mappedBy="daedalus")

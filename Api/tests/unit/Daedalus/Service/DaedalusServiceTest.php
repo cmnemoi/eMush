@@ -129,18 +129,6 @@ class DaedalusServiceTest extends TestCase
             ->once()
         ;
 
-        $this->cycleService
-            ->shouldReceive('getInDayCycleFromDate')
-            ->andReturn(1)
-            ->once()
-        ;
-
-        $this->cycleService
-            ->shouldReceive('getDaedalusStartingCycleDate')
-            ->andReturn(new \DateTime('today midnight'))
-            ->once()
-        ;
-
         $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->once()
@@ -172,10 +160,37 @@ class DaedalusServiceTest extends TestCase
         $this->assertEquals($daedalusConfig->getInitOxygen(), $daedalus->getOxygen());
         $this->assertEquals($daedalusConfig->getInitHull(), $daedalus->getHull());
         $this->assertEquals($daedalusConfig->getInitShield(), $daedalus->getShield());
-        $this->assertEquals(1, $daedalus->getCycle());
+        $this->assertEquals(0, $daedalus->getCycle());
+        $this->assertEquals(GameStatusEnum::STANDBY, $daedalus->getGameStatus());
         $this->assertEquals(new \DateTime('today midnight'), $daedalus->getCycleStartedAt());
         $this->assertCount(1, $daedalus->getPlaces());
         $this->assertCount(0, $daedalus->getPlayers());
+    }
+
+    public function testStartDaedalus()
+    {
+        $gameConfig = new GameConfig();
+        $gameConfig->setCyclePerGameDay(8)->setCycleLength(3 * 60);
+        $daedalus = new Daedalus();
+        $daedalus->setGameConfig($gameConfig);
+
+        $this->cycleService
+            ->shouldReceive('getInDayCycleFromDate')
+            ->andReturn(2)
+            ->once()
+        ;
+
+        $this->cycleService
+            ->shouldReceive('getDaedalusStartingCycleDate')
+            ->andReturn(new \DateTime('today midnight'))
+            ->once()
+        ;
+
+        $daedalus = $this->service->startDaedalus($daedalus);
+
+        $this->assertEquals(GameStatusEnum::STARTING, $daedalus->getGameStatus());
+        $this->assertEquals(new \DateTime('today midnight'), $daedalus->getCycleStartedAt());
+        $this->assertEquals(2, $daedalus->getCycle());
     }
 
     public function testFindAvailableCharacterForDaedalus()

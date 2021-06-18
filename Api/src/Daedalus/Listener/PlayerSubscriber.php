@@ -31,9 +31,13 @@ class PlayerSubscriber implements EventSubscriberInterface
     {
         $player = $event->getPlayer();
         $daedalus = $player->getDaedalus();
+
         if ($daedalus->getPlayers()->count() === $daedalus->getGameConfig()->getMaxPlayer()) {
             $fullDaedalusEvent = new DaedalusEvent($daedalus, $event->getTime());
             $this->eventDispatcher->dispatch($fullDaedalusEvent, DaedalusEvent::FULL_DAEDALUS);
+        } elseif ($daedalus->getPlayers()->count() === 1) {
+            $startDaedalusEvent = new DaedalusEvent($daedalus, $event->getTime());
+            $this->eventDispatcher->dispatch($startDaedalusEvent, DaedalusEvent::START_DAEDALUS);
         }
     }
 

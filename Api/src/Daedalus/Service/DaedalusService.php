@@ -16,6 +16,7 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
@@ -110,8 +111,8 @@ class DaedalusService implements DaedalusServiceInterface
 
         $daedalus
             ->setGameConfig($gameConfig)
-            ->setCycle($this->cycleService->getInDayCycleFromDate(new \DateTime(), $gameConfig))
-            ->setCycleStartedAt($this->cycleService->getDaedalusStartingCycleDate($daedalus))
+            ->setCycle(0)
+            ->setCycleStartedAt(new \DateTime('today midnight'))
             ->setOxygen($daedalusConfig->getInitOxygen())
             ->setFuel($daedalusConfig->getInitFuel())
             ->setHull($daedalusConfig->getInitHull())
@@ -153,6 +154,20 @@ class DaedalusService implements DaedalusServiceInterface
         $this->eventDispatcher->dispatch($daedalusEvent, DaedalusEvent::NEW_DAEDALUS);
 
         return $this->persist($daedalus);
+    }
+
+    public function startDaedalus(Daedalus $daedalus): Daedalus
+    {
+        $gameConfig = $daedalus->getGameConfig();
+
+        $daedalus
+            ->setCycle($this->cycleService->getInDayCycleFromDate(new \DateTime(), $gameConfig))
+            ->setCycleStartedAt($this->cycleService->getDaedalusStartingCycleDate($daedalus))
+        ;
+
+        $daedalus->setGameStatus(GameStatusEnum::STARTING);
+
+        return $daedalus;
     }
 
     public function selectAlphaMush(Daedalus $daedalus, \DateTime $date): Daedalus

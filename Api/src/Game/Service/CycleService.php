@@ -28,6 +28,10 @@ class CycleService implements CycleServiceInterface
     {
         $gameConfig = $daedalus->getGameConfig();
 
+        if ($daedalus->getGameStatus() === GameStatusEnum::STANDBY) {
+            return 0;
+        }
+
         $dateDaedalusLastCycle = clone $daedalus->getCycleStartedAt();
 
         $cycleElapsed = $this->getNumberOfCycleElapsed($dateDaedalusLastCycle, $dateTime, $gameConfig);
@@ -83,7 +87,7 @@ class CycleService implements CycleServiceInterface
 
     /**
      * Get Daedalus first cycle date
-     * First actual cycle of the ship (ie 3h cycle in fr, if the ship start C8, then it will be 21h:00).
+     * First actual cycle of the ship (ie: for 3h cycle in fr, if the ship start C8, then it will be 21h:00).
      */
     public function getDaedalusStartingCycleDate(Daedalus $daedalus): DateTime
     {

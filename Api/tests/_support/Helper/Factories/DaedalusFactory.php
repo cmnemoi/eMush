@@ -53,7 +53,7 @@ class DaedalusFactory extends \Codeception\Module
             'nbMush' => 2,
             'cycleLength' => 3,
             'cyclePerGameDay' => 8,
-            'timeZone' => 'Paris/Europe',
+            'timeZone' => 'Europe/Paris',
             'language' => 'fr-FR',
             'maxNumberPrivateChannel' => 3,
             'initHealthPoint' => 12,

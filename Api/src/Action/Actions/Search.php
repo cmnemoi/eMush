@@ -9,7 +9,7 @@ use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
-use Mush\Action\Validator\Room;
+use Mush\Action\Validator\IsRoom;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Player\Entity\Player;
@@ -51,7 +51,7 @@ class Search extends AbstractAction
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        $metadata->addConstraint(new Room(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::NOT_A_ROOM]));
+        $metadata->addConstraint(new IsRoom(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::NOT_A_ROOM]));
     }
 
     protected function applyEffects(): ActionResult

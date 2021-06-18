@@ -658,6 +658,12 @@
                 <target>Votre tentative a échouée.</target>
             </segment>
         </unit>
+        <unit id="spread_fire_success">
+            <segment id="spread_fire_success">
+                <source>spread_fire_success</source>
+                <target>Tiens... ça se réchauffe par ici... **{player}** a mis le feu...</target>
+            </segment>
+        </unit>
     </file>
 </xliff>
 

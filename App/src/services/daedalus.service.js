@@ -6,7 +6,7 @@ const DAEDALUS_ALERTS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "alert");
 
 const DaedalusService = {
     loadAlerts: async (daedalus) => {
-        const alertsData = await ApiService.get(urlJoin(DAEDALUS_ALERTS_ENDPOINT, daedalus.id, "alerts"));
+        const alertsData = await ApiService.get(urlJoin(DAEDALUS_ALERTS_ENDPOINT, daedalus.id.toString(), "alerts"));
 
         let alerts = [];
         if (alertsData.data) {

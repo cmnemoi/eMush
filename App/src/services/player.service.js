@@ -12,7 +12,7 @@ const PlayerService = {
      * @param playerId
      */
     loadPlayer: async(playerId) => {
-        const playerData = await ApiService.get(urlJoin(ACTION_ENDPOINT, playerId));
+        const playerData = await ApiService.get(urlJoin(ACTION_ENDPOINT, playerId.toString()));
 
         let player = null;
         if (playerData.data) {

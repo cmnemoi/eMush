@@ -29,7 +29,7 @@ class RoomLogRepository extends ServiceEntityRepository
                 $queryBuilder->expr()->eq('roomLog.place', ':place'),
                 $queryBuilder->expr()->gte('roomLog.date', ':date'),
                 $queryBuilder->expr()->orX(
-                    $queryBuilder->expr()->eq('roomLog.visibility', ':public'),
+                    $queryBuilder->expr()->in('roomLog.visibility', ':publicArray'),
                     $queryBuilder->expr()->andX(
                         $queryBuilder->expr()->eq('roomLog.player', ':player'),
                         $queryBuilder->expr()->in('roomLog.visibility', ':privateArray'),
@@ -39,8 +39,8 @@ class RoomLogRepository extends ServiceEntityRepository
             ->orderBy('roomLog.date', 'desc')
             ->addOrderBy('roomLog.id', 'desc')
             ->setParameter('place', $player->getPlace())
-            ->setParameter('public', VisibilityEnum::PUBLIC)
-            ->setParameter('privateArray', [VisibilityEnum::PRIVATE, VisibilityEnum::COVERT, VisibilityEnum::SECRET])
+            ->setParameter('publicArray', [VisibilityEnum::PUBLIC, VisibilityEnum::REVEALED])
+            ->setParameter('privateArray', [VisibilityEnum::PRIVATE])
             ->setParameter('player', $player)
             ->setParameter('date', $yesterday)
         ;

@@ -56,6 +56,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
     public const WATER_PLANT = 'water.plant';
     public const REPORT_EQUIPMENT = 'report.equipment';
     public const REPORT_FIRE = 'report.fire';
+    public const SPREAD_FIRE = 'spread.fire';
 
     public const EXTRACT_SPORE = 'extract.spore';
     public const INFECT_PLAYER = 'infect.player';
@@ -70,6 +71,8 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $twoActionPointCost = $this->getReference(ActionCostFixture::ACTION_COST_TWO_ACTION);
         /** @var ActionCost $threeActionPointCost */
         $threeActionPointCost = $this->getReference(ActionCostFixture::ACTION_COST_THREE_ACTION);
+        /** @var ActionCost $fourActionPointCost */
+        $fourActionPointCost = $this->getReference(ActionCostFixture::ACTION_COST_FOUR_ACTION);
         /** @var ActionCost $oneMovementPointCost */
         $oneMovementPointCost = $this->getReference(ActionCostFixture::ACTION_COST_ONE_MOVEMENT);
 
@@ -503,6 +506,15 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->persist($reportFireAction);
 
+        $spreadFireAction = new Action();
+        $spreadFireAction
+            ->setName(ActionEnum::SPREAD_FIRE)
+            ->setScope(ActionScopeEnum::SELF)
+            ->setActionCost($fourActionPointCost)
+        ;
+
+        $manager->persist($spreadFireAction);
+
         $manager->flush();
 
         $this->addReference(self::REJUVENATE_ALPHA, $rejuvenateAlpha);
@@ -550,6 +562,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::INFECT_PLAYER, $infectAction);
         $this->addReference(self::REPORT_FIRE, $reportFireAction);
         $this->addReference(self::REPORT_EQUIPMENT, $reportEquipmentAction);
+        $this->addReference(self::SPREAD_FIRE, $spreadFireAction);
     }
 
     public function getDependencies(): array

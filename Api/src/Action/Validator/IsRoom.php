@@ -2,7 +2,7 @@
 
 namespace Mush\Action\Validator;
 
-class Room extends ClassConstraint
+class IsRoom extends ClassConstraint
 {
     public string $message = 'place is not a room';
 }

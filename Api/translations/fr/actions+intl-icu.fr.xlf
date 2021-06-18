@@ -422,5 +422,15 @@
                 <target>Permet de faire des réparation sur la coque du Daedalus.</target>
             </segment>
         </unit>
+        <unit id="spread_fire">
+            <segment id="name">
+                <source>spread_fire.name</source>
+                <target>Mettre le feu</target>
+            </segment>
+            <segment id="description">
+                <source>spread_fire.description</source>
+                <target>Permet de satisfaire un des besoins de NERON... et vos intérêts.</target>
+            </segment>
+        </unit>
     </file>
 </xliff>

@@ -47,6 +47,7 @@ class ActionLogEnum
     public const SHRED_SUCCESS = 'shred_success';
     public const SHOWER_HUMAN = 'shower_human';
     public const SHOWER_MUSH = 'shower_mush';
+    public const STRENGTHEN_SUCCESS = 'srengthen_success';
     public const TAKE = 'take';
     public const TRANSPLANT_SUCCESS = 'transplant_success';
     public const TREAT_PLANT_SUCCESS = 'treat_plant_success';
@@ -58,6 +59,8 @@ class ActionLogEnum
 
     public const SUCCESS = 'success';
     public const FAIL = 'fail';
+
+    public const DEFAULT_FAIL = 'default_fail';
 
     public const VISIBILITY = 'visibility';
     public const VALUE = 'value';
@@ -333,6 +336,17 @@ class ActionLogEnum
             self::SUCCESS => [
                 self::VALUE => self::OPEN_SUCCESS,
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
+            ],
+        ],
+
+        ActionEnum::STRENGTHEN_HULL => [
+            self::SUCCESS => [
+                self::VALUE => self::STRENGTHEN_SUCCESS,
+                self::VISIBILITY => VisibilityEnum::PUBLIC,
+            ],
+            self::FAIL => [
+                self::VALUE => self::DEFAULT_FAIL,
+                self::VISIBILITY => VisibilityEnum::PRIVATE,
             ],
         ],
     ];

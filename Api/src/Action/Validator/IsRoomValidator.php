@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class RoomValidator extends ConstraintValidator
+class IsRoomValidator extends ConstraintValidator
 {
     public function validate($value, Constraint $constraint): void
     {
@@ -16,8 +16,8 @@ class RoomValidator extends ConstraintValidator
             throw new UnexpectedTypeException($value, AbstractAction::class);
         }
 
-        if (!$constraint instanceof Room) {
-            throw new UnexpectedTypeException($constraint, Room::class);
+        if (!$constraint instanceof IsRoom) {
+            throw new UnexpectedTypeException($constraint, IsRoom::class);
         }
 
         if ($value->getPlayer()->getPlace()->getType() !== PlaceTypeEnum::ROOM) {

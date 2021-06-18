@@ -33,7 +33,7 @@ const CommunicationService = {
     },
 
     leaveChannel: async (channel) => {
-        return ApiService.post(urlJoin(CHANNELS_ENDPOINT, channel.id, "exit"));
+        return ApiService.post(urlJoin(CHANNELS_ENDPOINT, channel.id.toString(), "exit"));
     },
 
     loadMessages: async (channel) => {
@@ -48,7 +48,7 @@ const CommunicationService = {
         }
 
         async function loadChannelMessages() {
-            const messagesData = await ApiService.get(urlJoin(CHANNELS_ENDPOINT, channel.id, "message"));
+            const messagesData = await ApiService.get(urlJoin(CHANNELS_ENDPOINT, channel.id.toString(), "message"));
 
             let messages = [];
             if (messagesData.data) {
@@ -85,7 +85,7 @@ const CommunicationService = {
     },
 
     loadInvitablePlayers: async (channel) => {
-        const playersData = await ApiService.get(urlJoin(CHANNELS_ENDPOINT, channel.id, "invite"));
+        const playersData = await ApiService.get(urlJoin(CHANNELS_ENDPOINT, channel.id.toString(), "invite"));
 
         let players = [];
         if (playersData.data) {
@@ -97,7 +97,7 @@ const CommunicationService = {
     },
 
     invitePlayer: async (player, channel) => {
-        await ApiService.post(urlJoin(CHANNELS_ENDPOINT, channel.id, "invite"), {
+        await ApiService.post(urlJoin(CHANNELS_ENDPOINT, channel.id.toString(), "invite"), {
             player: player.id
         });
     },
@@ -109,7 +109,7 @@ const CommunicationService = {
             parentId = parent.id;
         }
 
-        const messagesData = await ApiService.post(urlJoin(CHANNELS_ENDPOINT, channel.id, "message"), {
+        const messagesData = await ApiService.post(urlJoin(CHANNELS_ENDPOINT, channel.id.toString(), "message"), {
             'message': text,
             'parent': parentId
         });

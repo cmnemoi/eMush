@@ -28,6 +28,7 @@ const actions = {
             return true;
         } catch (e) {
             commit('errorUpdatePlayer');
+            console.error(e);
             return false;
         }
     },

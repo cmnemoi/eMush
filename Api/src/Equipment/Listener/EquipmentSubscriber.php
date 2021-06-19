@@ -2,13 +2,12 @@
 
 namespace Mush\Equipment\Listener;
 
-use Error;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
-use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -17,16 +16,13 @@ class EquipmentSubscriber implements EventSubscriberInterface
 {
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
-    private RoomLogServiceInterface $roomLogService;
 
     public function __construct(
         GameEquipmentServiceInterface $gameEquipmentService,
         StatusServiceInterface $statusService,
-        RoomLogServiceInterface $roomLogService
     ) {
         $this->gameEquipmentService = $gameEquipmentService;
         $this->statusService = $statusService;
-        $this->roomLogService = $roomLogService;
     }
 
     public static function getSubscribedEvents(): array
@@ -36,23 +32,23 @@ class EquipmentSubscriber implements EventSubscriberInterface
             EquipmentEvent::EQUIPMENT_FIXED => 'onEquipmentFixed',
             EquipmentEvent::EQUIPMENT_BROKEN => 'onEquipmentBroken',
             EquipmentEvent::EQUIPMENT_DESTROYED => 'onEquipmentDestroyed',
+            EquipmentEvent::EQUIPMENT_TRANSFORM => 'onEquipmentTransform',
         ];
     }
 
     public function onEquipmentCreated(EquipmentEvent $event): void
     {
-        if (!$player = $event->getPlayer()) {
-            throw new Error('Player should be provided');
-        }
-
+        $player = $event->getPlayer();
         $equipment = $event->getEquipment();
 
-        if (!$equipment instanceof GameItem) {
+        if ($player === null) {
+            throw new \LogicException('Player should be provided');
+        }
+
+        if (!$equipment instanceof GameItem || $player->getItems()->count() >= $this->getGameConfig($equipment)->getMaxItemInInventory()) {
             $equipment->setPlace($player->getPlace());
-        } elseif ($player->getItems()->count() < $this->getGameConfig($equipment)->getMaxItemInInventory()) {
-            $equipment->setPlayer($player);
         } else {
-            $equipment->setPlace($player->getPlace());
+            $equipment->setPlayer($player);
         }
 
         $this->gameEquipmentService->persist($equipment);
@@ -84,6 +80,32 @@ class EquipmentSubscriber implements EventSubscriberInterface
         $equipment->removeLocation();
 
         $this->gameEquipmentService->delete($equipment);
+    }
+
+    public function onEquipmentTransform(EquipmentEvent $event): void
+    {
+        $equipment = $event->getEquipment();
+        $place = $equipment->getCurrentPlace();
+        $player = $event->getPlayer();
+
+        if (($newEquipment = $event->getReplacementEquipment()) === null) {
+            throw new \LogicException('Replacement equipment should be provided');
+        }
+
+        /** @var Status $status */
+        foreach ($equipment->getStatuses() as $status) {
+            $newEquipment->addStatus($status);
+            $this->statusService->persist($status);
+        }
+
+        if ($newEquipment instanceof GameItem && $player !== null && $player->getItems()->count() < $this->getGameConfig($equipment)->getMaxItemInInventory()) {
+            $newEquipment->setPlayer($player);
+        } else {
+            $newEquipment->setPlace($place);
+        }
+
+        $this->gameEquipmentService->delete($equipment);
+        $this->gameEquipmentService->persist($newEquipment);
     }
 
     private function getGameConfig(GameEquipment $gameEquipment): GameConfig

@@ -67,26 +67,18 @@ class Hyperfreeze extends AbstractAction
         /** @var GameEquipment $parameter */
         $parameter = $this->parameter;
 
-        if ($parameter->getEquipment()->getName() === GameRationEnum::COOKED_RATION ||
-            $parameter->getEquipment()->getName() === GameRationEnum::ALIEN_STEAK) {
+        if (
+            $parameter->getEquipment()->getName() === GameRationEnum::COOKED_RATION ||
+            $parameter->getEquipment()->getName() === GameRationEnum::ALIEN_STEAK
+        ) {
             /** @var GameItem $newItem */
             $newItem = $this->gameEquipmentService
                 ->createGameEquipmentFromName(GameRationEnum::STANDARD_RATION, $this->player->getDaedalus())
             ;
-            $equipmentEvent = new EquipmentEvent($newItem, VisibilityEnum::HIDDEN, new \DateTime());
-            $equipmentEvent->setPlayer($this->player);
-            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
-            /** @var \Mush\Status\Entity\Status $status */
-            foreach ($parameter->getStatuses() as $status) {
-                $newItem->addStatus($status);
-                $this->statusService->persist($status);
-            }
-
-            $equipmentEvent = new EquipmentEvent($parameter, VisibilityEnum::HIDDEN, new \DateTime());
-            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
-
-            $this->gameEquipmentService->persist($newItem);
+            $equipmentEvent = new EquipmentEvent($parameter, VisibilityEnum::PUBLIC, new \DateTime());
+            $equipmentEvent->setReplacementEquipment($newItem)->setPlayer($this->player);
+            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_TRANSFORM);
         } else {
             $this->statusService->createCoreStatus(
                 EquipmentStatusEnum::FROZEN,

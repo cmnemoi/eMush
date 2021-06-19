@@ -7,7 +7,6 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
@@ -129,15 +128,18 @@ class RoomLogService implements RoomLogServiceInterface
         $place = $player->getPlace();
         if (
             $visibility === VisibilityEnum::COVERT &&
-            $place->getPlayers()->count() > 1
+            ($place->getPlayers()->count() > 1 ||
+            !$place->getEquipments()
+                ->filter(fn (GameEquipment $gameEquipment) => (
+                    $gameEquipment->getName() === EquipmentEnum::CAMERA_EQUIPMENT
+                ))->isEmpty())
         ) {
             return VisibilityEnum::REVEALED;
         } elseif (
             $visibility === VisibilityEnum::SECRET &&
             !$place->getEquipments()
                 ->filter(fn (GameEquipment $gameEquipment) => (
-                    $gameEquipment->getName() === EquipmentEnum::CAMERA &&
-                    !($gameEquipment instanceof GameItem)
+                    $gameEquipment->getName() === EquipmentEnum::CAMERA_EQUIPMENT
                 ))->isEmpty()
         ) {
             return VisibilityEnum::REVEALED;

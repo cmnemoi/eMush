@@ -10,7 +10,6 @@ use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\DataFixtures\TechnicianFixtures;
 use Mush\Action\Entity\Action;
 use Mush\Equipment\Entity\EquipmentConfig;
-use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Entity\Mechanics\Charged;
 use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -270,7 +269,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         ;
         $manager->persist($pasiphae);
 
-
         /** @var Action $removeCamera */
         $removeCamera = $this->getReference(ActionsFixtures::REMOVE_CAMERA);
 
@@ -290,7 +288,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $manager->persist($camera);
         $manager->persist($cameraMechanic);
-
 
         /** @var Action $fuelInjectAction */
         $fuelInjectAction = $this->getReference(ActionsFixtures::FUEL_INJECT);

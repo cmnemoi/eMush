@@ -40,7 +40,7 @@ class RoomLogRepository extends ServiceEntityRepository
             ->addOrderBy('roomLog.id', 'desc')
             ->setParameter('place', $player->getPlace())
             ->setParameter('publicArray', [VisibilityEnum::PUBLIC, VisibilityEnum::REVEALED])
-            ->setParameter('privateArray', [VisibilityEnum::PRIVATE])
+            ->setParameter('privateArray', [VisibilityEnum::PRIVATE, VisibilityEnum::SECRET, VisibilityEnum::COVERT])
             ->setParameter('player', $player)
             ->setParameter('date', $yesterday)
         ;

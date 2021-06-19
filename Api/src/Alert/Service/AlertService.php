@@ -128,7 +128,7 @@ class AlertService implements AlertServiceInterface
             $gravityAlert = $this->findByNameAndDaedalus(AlertEnum::NO_GRAVITY, $daedalus);
 
             if ($gravityAlert === null) {
-                throw new \LogicException('there should be a gravitySituation on this Daedalus');
+                throw new \LogicException('there should be a gravity alert on this Daedalus');
             }
             $this->delete($gravityAlert);
         }

@@ -9,17 +9,21 @@ use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Charged;
 use Mush\Equipment\Entity\Mechanics\Document;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ContentStatus;
+use Mush\Status\Entity\Status;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -219,8 +223,6 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_BROKEN);
             $this->persist($gameEquipment);
         }
-
-        return;
     }
 
     private function getGameConfig(GameEquipment $gameEquipment): GameConfig

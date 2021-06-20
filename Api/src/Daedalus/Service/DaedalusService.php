@@ -112,7 +112,6 @@ class DaedalusService implements DaedalusServiceInterface
         $daedalus
             ->setGameConfig($gameConfig)
             ->setCycle(0)
-            ->setCycleStartedAt(new \DateTime('today midnight'))
             ->setOxygen($daedalusConfig->getInitOxygen())
             ->setFuel($daedalusConfig->getInitFuel())
             ->setHull($daedalusConfig->getInitHull())

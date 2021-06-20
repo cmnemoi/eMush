@@ -106,9 +106,9 @@ class Daedalus
     private ?DateTime $finishedAt = null;
 
     /**
-     * @ORM\Column(type="datetime", nullable=false)
+     * @ORM\Column(type="datetime", nullable=true)
      */
-    private DateTime $cycleStartedAt;
+    private ?DateTime $cycleStartedAt = null;
 
     /**
      * @ORM\Column(type="boolean", nullable=false)
@@ -432,7 +432,7 @@ class Daedalus
         return $this;
     }
 
-    public function getCycleStartedAt(): DateTime
+    public function getCycleStartedAt(): ?DateTime
     {
         return $this->cycleStartedAt;
     }

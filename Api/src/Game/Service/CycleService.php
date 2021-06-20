@@ -28,11 +28,13 @@ class CycleService implements CycleServiceInterface
     {
         $gameConfig = $daedalus->getGameConfig();
 
-        if ($daedalus->getGameStatus() === GameStatusEnum::STANDBY) {
+        if (!in_array($daedalus->getGameStatus(), [GameStatusEnum::STARTING, GameStatusEnum::CURRENT])) {
             return 0;
         }
 
-        $dateDaedalusLastCycle = clone $daedalus->getCycleStartedAt();
+        if (($dateDaedalusLastCycle = $daedalus->getCycleStartedAt()) === null) {
+            throw new \LogicException('Daedalus should have a CycleStartedAt Value');
+        }
 
         $cycleElapsed = $this->getNumberOfCycleElapsed($dateDaedalusLastCycle, $dateTime, $gameConfig);
 
@@ -67,10 +69,14 @@ class CycleService implements CycleServiceInterface
     public function getDateStartNextCycle(Daedalus $daedalus): DateTime
     {
         $gameConfig = $daedalus->getGameConfig();
-        $nextCycleStartAt = clone $daedalus->getCycleStartedAt();
-        $nextCycleStartAt = $nextCycleStartAt->add(new DateInterval('PT' . strval($gameConfig->getCycleLength()) . 'M'));
 
-        return $nextCycleStartAt;
+        if (($dateDaedalusLastCycle = $daedalus->getCycleStartedAt()) === null) {
+            throw new \LogicException('Daedalus should have a CycleStartedAt Value');
+        }
+
+        $nextCycleStartAt = clone $dateDaedalusLastCycle;
+
+        return $nextCycleStartAt->add(new DateInterval('PT' . strval($gameConfig->getCycleLength()) . 'M'));
     }
 
     //get day cycle from date (value between 1 and $gameConfig->getCyclePerGameDay())

@@ -162,7 +162,7 @@ class DaedalusServiceTest extends TestCase
         $this->assertEquals($daedalusConfig->getInitShield(), $daedalus->getShield());
         $this->assertEquals(0, $daedalus->getCycle());
         $this->assertEquals(GameStatusEnum::STANDBY, $daedalus->getGameStatus());
-        $this->assertEquals(new \DateTime('today midnight'), $daedalus->getCycleStartedAt());
+        $this->assertNull($daedalus->getCycleStartedAt());
         $this->assertCount(1, $daedalus->getPlaces());
         $this->assertCount(0, $daedalus->getPlayers());
     }

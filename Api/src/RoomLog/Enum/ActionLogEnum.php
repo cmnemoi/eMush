@@ -57,6 +57,8 @@ class ActionLogEnum
     public const WATER_PLANT_SUCCESS = 'water_plant_success';
     public const WRITE_SUCCESS = 'write_success';
     public const OPEN_SUCCESS = 'open_success';
+    public const INSTALL_CAMERA = 'install_camera';
+    public const REMOVE_CAMERA = 'remove_camera';
 
     public const SUCCESS = 'success';
     public const FAIL = 'fail';
@@ -342,6 +344,18 @@ class ActionLogEnum
         ActionEnum::SPREAD_FIRE => [
             self::SUCCESS => [
                 self::VALUE => self::SPREAD_FIRE_SUCCESS,
+                self::VISIBILITY => VisibilityEnum::COVERT,
+            ],
+        ],
+        ActionEnum::INSTALL_CAMERA => [
+            self::SUCCESS => [
+                self::VALUE => self::INSTALL_CAMERA,
+                self::VISIBILITY => VisibilityEnum::COVERT,
+            ],
+        ],
+        ActionEnum::REMOVE_CAMERA => [
+            self::SUCCESS => [
+                self::VALUE => self::REMOVE_CAMERA,
                 self::VISIBILITY => VisibilityEnum::COVERT,
             ],
         ],

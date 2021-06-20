@@ -21,8 +21,8 @@ class EquipmentCycleSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            EquipmentCycleEvent::EQUIPMENT_NEW_CYCLE => ['onNewCycle', 11],
-            EquipmentCycleEvent::EQUIPMENT_NEW_DAY => ['onNewDay', 11],
+            EquipmentCycleEvent::EQUIPMENT_NEW_CYCLE => ['onNewCycle', 10],
+            EquipmentCycleEvent::EQUIPMENT_NEW_DAY => ['onNewDay', 10],
         ];
     }
 

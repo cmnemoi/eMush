@@ -3,6 +3,7 @@
 namespace Mush\Equipment\Event;
 
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Symfony\Contracts\EventDispatcher\Event;
 
@@ -17,6 +18,7 @@ class EquipmentEvent extends Event
     private GameEquipment $equipment;
     private string $visibility;
     private ?Player $player = null;
+    private ?Place $place = null;
     private ?string $reason = null;
     private ?GameEquipment $replacementEquipment = null;
     private \DateTime $time;
@@ -46,6 +48,18 @@ class EquipmentEvent extends Event
     public function setPlayer(Player $player): EquipmentEvent
     {
         $this->player = $player;
+
+        return $this;
+    }
+
+    public function getPlace(): ?Place
+    {
+        return $this->place;
+    }
+
+    public function setPlace(Place $place): EquipmentEvent
+    {
+        $this->place = $place;
 
         return $this;
     }

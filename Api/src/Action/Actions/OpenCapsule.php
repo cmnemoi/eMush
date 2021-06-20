@@ -77,7 +77,7 @@ class OpenCapsule extends AbstractAction
             ->createGameEquipmentFromName($contentName, $this->player->getDaedalus())
         ;
         $equipmentEvent = new EquipmentEvent($contentEquipment, VisibilityEnum::HIDDEN, new \DateTime());
-        $equipmentEvent->setPlayer($this->player);
+        $equipmentEvent->setPlayer($this->player)->setPlace($this->player->getPlace());
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
         $this->gameEquipmentService->persist($contentEquipment);

@@ -39,14 +39,18 @@ class EquipmentSubscriber implements EventSubscriberInterface
     public function onEquipmentCreated(EquipmentEvent $event): void
     {
         $player = $event->getPlayer();
+        $place = $event->getPlace();
         $equipment = $event->getEquipment();
 
-        if ($player === null) {
-            throw new \LogicException('Player should be provided');
+        if ($place === null) {
+            throw new \LogicException('Place should be provided');
         }
 
-        if (!$equipment instanceof GameItem || $player->getItems()->count() >= $this->getGameConfig($equipment)->getMaxItemInInventory()) {
-            $equipment->setPlace($player->getPlace());
+        if ($player === null ||
+            !$equipment instanceof GameItem ||
+            $player->getItems()->count() >= $this->getGameConfig($equipment)->getMaxItemInInventory()
+        ) {
+            $equipment->setPlace($place);
         } else {
             $equipment->setPlayer($player);
         }

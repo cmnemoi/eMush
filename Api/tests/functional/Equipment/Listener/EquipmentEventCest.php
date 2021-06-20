@@ -56,7 +56,7 @@ class EquipmentEventCest
         $I->haveInRepository($gameEquipment);
 
         $equipmentEvent = new EquipmentEvent($gameEquipment, VisibilityEnum::PUBLIC, new \DateTime());
-        $equipmentEvent->setPlayer($player);
+        $equipmentEvent->setPlayer($player)->setPlace($room);
 
         $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
@@ -72,7 +72,7 @@ class EquipmentEventCest
         $I->haveInRepository($gameEquipment);
 
         $equipmentEvent = new EquipmentEvent($gameEquipment, VisibilityEnum::PUBLIC, new \DateTime());
-        $equipmentEvent->setPlayer($player);
+        $equipmentEvent->setPlayer($player)->setPlace($room);
 
         $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
@@ -88,7 +88,7 @@ class EquipmentEventCest
         $I->haveInRepository($gameEquipment);
 
         $equipmentEvent = new EquipmentEvent($gameEquipment, VisibilityEnum::PUBLIC, new \DateTime());
-        $equipmentEvent->setPlayer($player);
+        $equipmentEvent->setPlayer($player)->setPlace($room);
 
         $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 

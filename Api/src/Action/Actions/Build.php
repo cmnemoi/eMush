@@ -118,7 +118,7 @@ class Build extends AbstractAction
 
         //create the equipment
         $equipmentEvent = new EquipmentEvent($blueprintEquipment, VisibilityEnum::HIDDEN, new \DateTime());
-        $equipmentEvent->setPlayer($this->player);
+        $equipmentEvent->setPlayer($this->player)->setPlace($this->player->getPlace());
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
         $this->gameEquipmentService->persist($blueprintEquipment);

@@ -93,7 +93,7 @@ class Disassemble extends AttemptAction
                     ->createGameEquipmentFromName($productString, $this->player->getDaedalus())
                 ;
                 $equipmentEvent = new EquipmentEvent($productEquipment, VisibilityEnum::HIDDEN, new \DateTime());
-                $equipmentEvent->setPlayer($this->player);
+                $equipmentEvent->setPlayer($this->player)->setPlace($this->player->getPlace());
                 $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
                 $this->gameEquipmentService->persist($productEquipment);

@@ -2,6 +2,7 @@
 
 namespace Mush\Alert\Listener;
 
+use Mush\Alert\Enum\AlertEnum;
 use Mush\Alert\Service\AlertServiceInterface;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Event\EquipmentEvent;
@@ -24,6 +25,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
             EquipmentEvent::EQUIPMENT_FIXED => 'onEquipmentFixed',
             EquipmentEvent::EQUIPMENT_BROKEN => 'onEquipmentBroken',
             EquipmentEvent::EQUIPMENT_DESTROYED => 'onEquipmentDestroyed',
+            EquipmentEvent::EQUIPMENT_TRANSFORM => 'onEquipmentTransform',
         ];
     }
 
@@ -55,6 +57,27 @@ class EquipmentSubscriber implements EventSubscriberInterface
 
         if ($equipment->getName() === EquipmentEnum::GRAVITY_SIMULATOR) {
             $this->alertService->gravityAlert($equipment->getCurrentPlace()->getDaedalus(), false);
+        }
+    }
+
+    public function onEquipmentTransform(EquipmentEvent $event): void
+    {
+        $equipment = $event->getEquipment();
+
+        if (($newEquipment = $event->getReplacementEquipment()) === null) {
+            throw new \LogicException('Replacement equipment should be provided');
+        }
+
+        if ($equipment->isBroken()) {
+            $alert = $this->alertService->findByNameAndDaedalus(AlertEnum::BROKEN_EQUIPMENTS, $equipment->getCurrentPlace()->getDaedalus());
+
+            if ($alert === null) {
+                throw new \LogicException('there should be a broken alert on this Daedalus');
+            }
+
+            $alertElement = $this->alertService->getAlertEquipmentElement($alert, $equipment);
+
+            $alertElement->setEquipment($newEquipment);
         }
     }
 }

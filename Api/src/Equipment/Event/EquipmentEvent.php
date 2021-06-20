@@ -3,6 +3,7 @@
 namespace Mush\Equipment\Event;
 
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Symfony\Contracts\EventDispatcher\Event;
 
@@ -12,11 +13,14 @@ class EquipmentEvent extends Event
     public const EQUIPMENT_FIXED = 'equipment.fixed';
     public const EQUIPMENT_BROKEN = 'equipment.broken';
     public const EQUIPMENT_DESTROYED = 'equipment.destroyed';
+    public const EQUIPMENT_TRANSFORM = 'equipment.transform';
 
     private GameEquipment $equipment;
     private string $visibility;
-    private ?Player $player;
-    private ?string $reason;
+    private ?Player $player = null;
+    private ?Place $place = null;
+    private ?string $reason = null;
+    private ?GameEquipment $replacementEquipment = null;
     private \DateTime $time;
 
     public function __construct(GameEquipment $equipment, string $visibility, \DateTime $time)
@@ -48,6 +52,18 @@ class EquipmentEvent extends Event
         return $this;
     }
 
+    public function getPlace(): ?Place
+    {
+        return $this->place;
+    }
+
+    public function setPlace(Place $place): EquipmentEvent
+    {
+        $this->place = $place;
+
+        return $this;
+    }
+
     public function getReason(): ?string
     {
         return $this->reason;
@@ -56,6 +72,18 @@ class EquipmentEvent extends Event
     public function setReason(string $reason): EquipmentEvent
     {
         $this->reason = $reason;
+
+        return $this;
+    }
+
+    public function getReplacementEquipment(): ?GameEquipment
+    {
+        return $this->replacementEquipment;
+    }
+
+    public function setReplacementEquipment(GameEquipment $replacement): EquipmentEvent
+    {
+        $this->replacementEquipment = $replacement;
 
         return $this;
     }

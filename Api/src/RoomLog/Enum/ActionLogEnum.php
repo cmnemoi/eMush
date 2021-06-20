@@ -350,13 +350,13 @@ class ActionLogEnum
         ActionEnum::INSTALL_CAMERA => [
             self::SUCCESS => [
                 self::VALUE => self::INSTALL_CAMERA,
-                self::VISIBILITY => VisibilityEnum::COVERT,
+                self::VISIBILITY => VisibilityEnum::PUBLIC,
             ],
         ],
         ActionEnum::REMOVE_CAMERA => [
             self::SUCCESS => [
                 self::VALUE => self::REMOVE_CAMERA,
-                self::VISIBILITY => VisibilityEnum::COVERT,
+                self::VISIBILITY => VisibilityEnum::PUBLIC,
             ],
         ],
 

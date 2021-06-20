@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Status\Event;
+namespace Mush\Status\Listener;
 
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerModifierEvent;

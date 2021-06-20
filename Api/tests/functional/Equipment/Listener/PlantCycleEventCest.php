@@ -13,7 +13,6 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentCycleEvent;
-use Mush\Equipment\Listener\EquipmentCycleSubscriber;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Place\Entity\Place;
@@ -24,14 +23,15 @@ use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class PlantCycleEventCest
 {
-    private EquipmentCycleSubscriber $cycleSubscriber;
+    private EventDispatcherInterface $eventDispatcher;
 
     public function _before(FunctionalTester $I)
     {
-        $this->cycleSubscriber = $I->grabService(EquipmentCycleSubscriber::class);
+        $this->eventDispatcher = $I->grabService(EventDispatcherInterface::class);
     }
 
     public function testPlantGrowing(FunctionalTester $I)
@@ -88,7 +88,7 @@ class PlantCycleEventCest
 
         $cycleEvent = new EquipmentCycleEvent($gameEquipment, $daedalus, $time);
 
-        $this->cycleSubscriber->onNewCycle($cycleEvent);
+        $this->eventDispatcher->dispatch($cycleEvent, EquipmentCycleEvent::EQUIPMENT_NEW_CYCLE);
 
         $I->assertCount(0, $room->getStatuses());
         $I->assertCount(1, $gameEquipment->getStatuses());
@@ -97,7 +97,8 @@ class PlantCycleEventCest
         //growing up
         $time = new DateTime();
         $cycleEvent = new EquipmentCycleEvent($gameEquipment, $daedalus, $time);
-        $this->cycleSubscriber->onNewCycle($cycleEvent);
+
+        $this->eventDispatcher->dispatch($cycleEvent, EquipmentCycleEvent::EQUIPMENT_NEW_CYCLE);
 
         $I->assertCount(0, $room->getStatuses());
         $I->assertCount(0, $room->getEquipments()->first()->getStatuses());
@@ -167,7 +168,7 @@ class PlantCycleEventCest
 
         $cycleEvent = new EquipmentCycleEvent($gameEquipment, $daedalus, $time);
 
-        $this->cycleSubscriber->onNewDay($cycleEvent);
+        $this->eventDispatcher->dispatch($cycleEvent, EquipmentCycleEvent::EQUIPMENT_NEW_DAY);
 
         $I->assertCount(2, $gameEquipment->getStatuses());
         $I->assertCount(1, $room->getEquipments());
@@ -185,7 +186,7 @@ class PlantCycleEventCest
 
         $cycleEvent = new EquipmentCycleEvent($gameEquipment, $daedalus, $time);
 
-        $this->cycleSubscriber->onNewDay($cycleEvent);
+        $this->eventDispatcher->dispatch($cycleEvent, EquipmentCycleEvent::EQUIPMENT_NEW_DAY);
 
         $I->assertCount(0, $room->getStatuses());
         $I->assertCount(1, $room->getEquipments());
@@ -201,7 +202,8 @@ class PlantCycleEventCest
 
         $time = new DateTime();
         $cycleEvent = new EquipmentCycleEvent($gameEquipment, $daedalus, $time);
-        $this->cycleSubscriber->onNewDay($cycleEvent);
+
+        $this->eventDispatcher->dispatch($cycleEvent, EquipmentCycleEvent::EQUIPMENT_NEW_DAY);
 
         $I->assertCount(2, $room->getEquipments());
         $I->assertCount(1, $room->getEquipments()->first()->getStatuses());
@@ -236,7 +238,8 @@ class PlantCycleEventCest
 
         $time = new DateTime();
         $cycleEvent = new EquipmentCycleEvent($gameEquipment2, $daedalus, $time);
-        $this->cycleSubscriber->onNewDay($cycleEvent);
+
+        $this->eventDispatcher->dispatch($cycleEvent, EquipmentCycleEvent::EQUIPMENT_NEW_DAY);
 
         $I->assertCount(0, $room2->getStatuses());
         $I->assertCount(1, $room2->getEquipments());

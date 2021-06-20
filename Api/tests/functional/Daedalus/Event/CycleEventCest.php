@@ -10,7 +10,6 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
-use Mush\Daedalus\Event\DaedalusCycleSubscriber;
 use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Entity\CharacterConfig;
@@ -21,14 +20,15 @@ use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class CycleEventCest
 {
-    private DaedalusCycleSubscriber $cycleSubscriber;
+    private EventDispatcherInterface $eventDispatcher;
 
     public function _before(FunctionalTester $I)
     {
-        $this->cycleSubscriber = $I->grabService(DaedalusCycleSubscriber::class);
+        $this->eventDispatcher = $I->grabService(EventDispatcherInterface::class);
     }
 
     public function testLieDownStatusCycleSubscriber(FunctionalTester $I)
@@ -65,10 +65,6 @@ class CycleEventCest
 
         $I->haveInRepository($gameEquipment);
 
-        $time = new DateTime();
-
-        $cycleEvent = new DaedalusCycleEvent($daedalus, $time);
-
         $status = new Status($player);
 
         $status
@@ -82,7 +78,8 @@ class CycleEventCest
         $I->haveInRepository($status);
         $I->refreshEntities($player, $daedalus, $gameEquipment);
 
-        $this->cycleSubscriber->onNewCycle($cycleEvent);
+        $event = new DaedalusCycleEvent($daedalus, new DateTime());
+        $this->eventDispatcher->dispatch($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
         $I->assertEquals(4, $player->getActionPoint());
     }
@@ -125,11 +122,8 @@ class CycleEventCest
             ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig2, 'healthPoint' => 99]
         );
 
-        $time = new DateTime();
-
-        $cycleEvent = new DaedalusCycleEvent($daedalus, $time);
-
-        $this->cycleSubscriber->onNewCycle($cycleEvent);
+        $event = new DaedalusCycleEvent($daedalus, new DateTime());
+        $this->eventDispatcher->dispatch($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
         $I->assertEquals(0, $daedalus->getOxygen());
         $I->assertCount(1, $daedalus->getPlayers()->getPlayerAlive());

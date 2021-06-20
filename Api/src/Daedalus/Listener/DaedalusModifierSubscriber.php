@@ -1,7 +1,8 @@
 <?php
 
-namespace Mush\Daedalus\Event;
+namespace Mush\Daedalus\Listener;
 
+use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 

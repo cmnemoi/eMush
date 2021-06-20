@@ -5,7 +5,7 @@ namespace Mush\Test\Player\Event;
 use Mockery;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerModifierEvent;
-use Mush\Player\Event\PlayerModifierSubscriber;
+use Mush\Player\Listener\PlayerModifierSubscriber;
 use Mush\Player\Service\PlayerVariableServiceInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;

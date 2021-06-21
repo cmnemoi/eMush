@@ -54,7 +54,7 @@ class ChannelSubscriber implements EventSubscriberInterface
             $this->messageService->createSystemMessage(
                 NeronMessageEnum::PLAYER_ENTER_CHAT,
                 $channel,
-                ['player' => $player->getCharacterConfig()->getName()],
+                ['character' => $player->getCharacterConfig()->getName()],
                 new \DateTime()
             );
         }
@@ -70,7 +70,7 @@ class ChannelSubscriber implements EventSubscriberInterface
             $this->messageService->createSystemMessage(
                 NeronMessageEnum::PLAYER_LEAVE_CHAT,
                 $channel,
-                ['player' => $player->getCharacterConfig()->getName()],
+                ['character' => $player->getCharacterConfig()->getName()],
                 new \DateTime()
             );
         }

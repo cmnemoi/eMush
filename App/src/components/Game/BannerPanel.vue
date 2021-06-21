@@ -50,8 +50,8 @@
                             <li>{{ player.triumph }}<img src="@/assets/images/triumph.png"></li>
                         </template>
                         <template #tooltip-content="{ formatContent }">
-                            <h1 v-html="formatContent(placeholder)" />
-                            <p v-html="formatContent(placeholder)" />
+                            <h1 v-html="formatContent('placeholder')" />
+                            <p v-html="formatContent('placeholder')" />
                         </template>
                     </Tooltip>
                 </ul>
@@ -120,7 +120,7 @@ import Tooltip from "@/components/Utils/ToolTip";
 
 export default {
     name: "BannerPanel",
-    components: {Alerts, CountdownTimer, Tooltip},
+    components: { Alerts, CountdownTimer, Tooltip },
     props: {
         player: Player,
         daedalus: Daedalus

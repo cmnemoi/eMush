@@ -26,7 +26,7 @@ export default {
     components: {Tooltip},
     props: {
         statuses: Array,
-        type: Array
+        type: String
     },
     computed: {
         statusIcon() {

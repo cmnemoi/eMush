@@ -45,24 +45,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         /** @var Action $dismantle50 */
         $dismantle50 = $this->getReference(TechnicianFixtures::DISMANTLE_3_50);
 
-        /** @var Action $installCamera */
-        $installCamera = $this->getReference(ActionsFixtures::INSTALL_CAMERA);
-
-        $camera = new ItemConfig();
-        $camera
-            ->setGameConfig($gameConfig)
-            ->setName(ItemEnum::CAMERA_ITEM)
-            ->setIsHeavy(false)
-            ->setIsStackable(false)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(true)
-            ->setIsBreakable(true)
-            ->setActions(new ArrayCollection([$takeAction, $installCamera, $this->getReference(TechnicianFixtures::DISMANTLE_3_25), $repair25, $sabotage25, $reportAction]))
-            ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
-        ;
-
-        $manager->persist($camera);
-
         $mycoAlarmeActions = clone $hideableActions;
         $mycoAlarmeActions->add($this->getReference(TechnicianFixtures::DISMANTLE_3_25));
         $mycoAlarmeActions->add($repair25);

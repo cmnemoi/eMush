@@ -16,6 +16,7 @@ export class Daedalus {
         this.mushPlayerAlive = 0;
         this.mushPlayerDead = 0;
         this.crewPlayer = 0;
+        this.calendar = null;
     }
     load = function(object) {
         if (typeof object !== "undefined") {
@@ -34,6 +35,7 @@ export class Daedalus {
             this.mushPlayerAlive = object.mushPlayerAlive;
             this.mushPlayerDead = object.mushPlayerDead;
             this.crewPlayer = object.crewPlayer;
+            this.calendar = object.calendar;
         }
         return this;
     }

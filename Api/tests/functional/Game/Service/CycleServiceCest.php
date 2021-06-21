@@ -5,6 +5,7 @@ namespace Mush\Tests\functional\Game\Service;
 use App\Tests\FunctionalTester;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\CycleService;
 
 class CycleServiceCest
@@ -32,6 +33,7 @@ class CycleServiceCest
             'gameConfig' => $gameConfig,
             'createdAt' => $daedalusCreatedAt,
             'cycleStartedAt' => $daedalusCreatedAt,
+            'gameStatus' => GameStatusEnum::STARTING,
         ]);
 
         $this->cycleService->handleCycleChange($daedalusNewCycleAt, $daedalus);

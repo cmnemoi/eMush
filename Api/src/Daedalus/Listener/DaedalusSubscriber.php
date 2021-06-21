@@ -20,8 +20,9 @@ class DaedalusSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            DaedalusEvent::END_DAEDALUS => 'onDaedalusEnd',
+            DaedalusEvent::START_DAEDALUS => 'onDaedalusStart',
             DaedalusEvent::FULL_DAEDALUS => 'onDaedalusFull',
+            DaedalusEvent::END_DAEDALUS => 'onDaedalusEnd',
         ];
     }
 
@@ -62,6 +63,14 @@ class DaedalusSubscriber implements EventSubscriberInterface
 
         $daedalus->setFilledAt(new \DateTime());
         $daedalus->setGameStatus(GameStatusEnum::CURRENT);
+        $this->daedalusService->persist($daedalus);
+    }
+
+    public function onDaedalusStart(DaedalusEvent $event): void
+    {
+        $daedalus = $event->getDaedalus();
+
+        $this->daedalusService->startDaedalus($daedalus);
         $this->daedalusService->persist($daedalus);
     }
 }

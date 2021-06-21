@@ -22,11 +22,11 @@ class DaedalusSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            DaedalusEvent::NEW_DAEDALUS => 'onNewDaedalus',
+            DaedalusEvent::START_DAEDALUS => 'onDaedalusStart',
         ];
     }
 
-    public function onNewDaedalus(DaedalusEvent $event): void
+    public function onDaedalusStart(DaedalusEvent $event): void
     {
         $daedalus = $event->getDaedalus();
 

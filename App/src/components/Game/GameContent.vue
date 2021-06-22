@@ -8,7 +8,7 @@
             <div class="game-content">
                 <CharPanel :player="player" />
                 <ShipPanel :room="player.room" />
-                <CommsPanel :day="player.daedalus.day" :cycle="player.daedalus.cycle" :daedalus="player.daedalus" />
+                <CommsPanel :day="player.daedalus.day" :cycle="player.daedalus.cycle" :calendar="player.daedalus.calendar" />
             </div>
             <ProjectsPanel />
             <div class="bottom-banner" />

@@ -5,6 +5,8 @@
                 v-for="(channel, id) in channels"
                 :key="id"
                 :type="channel.scope"
+                :name="channel.name"
+                :description="channel.description"
                 :selected="currentChannel === channel"
                 @select="changeChannel({ channel })"
             />
@@ -22,8 +24,8 @@
                 </div>
             </template>
             <template #tooltip-content="{ formatContent }">
-                <h1 v-html="formatContent(daedalus.calendar.name)" />
-                <p v-html="formatContent(daedalus.calendar.description)" />
+                <h1 v-html="formatContent(calendar.name)" />
+                <p v-html="formatContent(calendar.description)" />
             </template>
         </Tooltip>
 
@@ -44,7 +46,6 @@ import { mapActions, mapState, mapGetters } from "vuex";
 import { PRIVATE, PUBLIC, ROOM_LOG, TIPS } from '@/enums/communication.enum';
 import { Channel } from "@/entities/Channel";
 import Tooltip from "@/components/Utils/ToolTip";
-import { Daedalus } from "@/entities/Daedalus";
 
 
 const MAX_PRIVATE_TABS_NB = 3;
@@ -66,7 +67,7 @@ export default {
         day: Number,
         cycle: Number,
         room: Room,
-        daedalus: Daedalus,
+        calendar: Object,
     },
     computed: {
         ...mapState('communication', [

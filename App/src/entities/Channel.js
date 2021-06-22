@@ -4,6 +4,8 @@ export class Channel {
     constructor() {
         this.id = null;
         this.scope = null;
+        this.name = null;
+        this.description = null;
         this.participants = [];
     }
 
@@ -11,6 +13,8 @@ export class Channel {
         if (typeof object !== "undefined") {
             this.id = object.id;
             this.scope = object.scope;
+            this.name = object.name;
+            this.description = object.description;
             if (typeof object.participants !== 'undefined') {
                 object.participants.forEach((itemObject) => {
                     let participant = (new ChannelParticipant()).load(itemObject);

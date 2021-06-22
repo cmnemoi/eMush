@@ -1,18 +1,30 @@
 <template>
     <div class="tab" :class="selected ? 'checked' : ''" @click="$emit('select')">
-        <img :src="icon">
-        <span v-if="numberOfNewMessages" class="new-messages-number">{{ numberOfNewMessagesDisplayed }}</span>
+        <Tooltip>
+            <template #tooltip-trigger>
+                <img :src="icon">
+                <span v-if="numberOfNewMessages" class="new-messages-number">{{ numberOfNewMessagesDisplayed }}</span>
+            </template>
+            <template #tooltip-content="{ formatContent }">
+                <h1 v-html="formatContent(type)" />
+                <p v-html="formatContent(description)" />
+            </template>
+        </Tooltip>
     </div>
 </template>
 
 <script>
 import { PRIVATE, PUBLIC, ROOM_LOG, TIPS, MUSH, FAVORITES } from '@/enums/communication.enum';
+import Tooltip from "@/components/Utils/ToolTip";
 
 export default {
+    components: { Tooltip },
     props: {
         type: String,
         selected: Boolean,
-        numberOfNewMessages: Number
+        numberOfNewMessages: Number,
+        name: String,
+        description: String
     },
     emits: [
         'select'

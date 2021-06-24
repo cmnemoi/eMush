@@ -42,7 +42,7 @@ import Tooltip from "../../Utils/ToolTip";
 
 export default {
     name: "Alerts",
-    components: {Tooltip},
+    components: { Tooltip },
     props: {
         daedalus: Daedalus
     },

@@ -1,5 +1,5 @@
 import PlayerService from "@/services/player.service";
-import {ActionTree, GetterTree, MutationTree} from "vuex";
+import { ActionTree, GetterTree, MutationTree } from "vuex";
 
 
 const state =  {

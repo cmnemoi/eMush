@@ -2,14 +2,14 @@
     <div class="neron-core-terminal">
         <h1><img src="@/assets/images/spot2.svg"> Cœur de NERON V4.54</h1>
         <div class="tips">
-            <input type="checkbox" name="tips" id="tips">
+            <input id="tips" type="checkbox" name="tips">
             <label for="tips">
                 Vous êtes dans le Coeur de <em class="red">NERON</em>. Ici vous pouvez le mettre à jour et <strong>débloquer des fonctionnalités</strong> avancées bénéfiques pour toute l'équipage. Ces fonctionnalités font partie du projet original <em class="red">Magellan</em>.
-                <br /><br />
+                <br><br>
                 Les projets avanceront mieux si vous possédez <strong>les compétences adéquates</strong>.
-                <br /><br />
+                <br><br>
                 Une seule personne, même si elle possède les compétences conseillées, peut difficilement accomplir un projet toute seule. En effet, si vous avancez un projet plus d'une fois à la suite, l'efficacité de votre action diminuera. <strong>Le travail alterné avec un camarade est la clé !</strong>
-                <br /><br />
+                <br><br>
                 Et ce n'est pas tout : si plus d'un projet avance en parallèle, le premier fini annulera les progrès des autres.
             </label>
             <span class="expand"><label for="tips">Agrandir/masquer</label></span>
@@ -27,9 +27,15 @@
                         <span class="completion">0%</span>
                     </div>
                 </div>
-                <p class="description">Increases your chances of successfully landing on a planet</p>
-                <p class="efficiency">Efficacité : 18% - 18%</p>
-                <button class="action-participate">Participer</button>
+                <p class="description">
+                    Increases your chances of successfully landing on a planet
+                </p>
+                <p class="efficiency">
+                    Efficacité : 18% - 18%
+                </p>
+                <button class="action-participate">
+                    Participer
+                </button>
             </div>
 
             <div class="project ongoing">
@@ -43,18 +49,26 @@
                         <span class="completion">25%</span>
                     </div>
                 </div>
-                <p class="description">Takeoff manœuvres cost less :ap: .</p>
-                <p class="efficiency">Efficacité : 3% - 3%</p>
-                <button class="action-participate">Participer</button>
+                <p class="description">
+                    Takeoff manœuvres cost less :ap: .
+                </p>
+                <p class="efficiency">
+                    Efficacité : 3% - 3%
+                </p>
+                <button class="action-participate">
+                    Participer
+                </button>
             </div>
         </div>
-        <button class="exit">Quitter</button>
+        <button class="exit">
+            Quitter
+        </button>
     </div>
 </template>
 
 <script>
 export default {
-    name: "neronCoreTerminal",
+    name: "NeronCoreTerminal",
     props: {
     }
 };

@@ -8,16 +8,15 @@
             @click="$emit('select', item)"
         >
             <Tooltip>
-                <template v-slot:tooltip-trigger>
+                <template #tooltip-trigger>
                     <img :src="itemImage(item)" :alt="item.name">
                     <span class="qty">{{ item.number }}</span>
                 </template>
-                <template v-slot:tooltip-content>
+                <template #tooltip-content>
                     <h1>{{ item.name }}</h1>
                     <p>{{ item.description }}</p>
                 </template>
             </Tooltip>
-
         </li>
         <li v-for="n in emptySlots" :key="n" class="slot empty" />
     </ul>
@@ -29,7 +28,7 @@ import Tooltip from "../Utils/ToolTip";
 
 export default {
     name: "Inventory",
-    components: {Tooltip},
+    components: { Tooltip },
     props: {
         items: Array,
         minSlot: Number

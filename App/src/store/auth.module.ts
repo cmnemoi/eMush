@@ -1,8 +1,8 @@
 import { UserService } from '@/services/user.service';
 import { TokenService } from '@/services/storage.service';
 import ApiService from "@/services/api.service";
-import {User} from "@/entities/User";
-import {ActionTree} from "vuex";
+import { User } from "@/entities/User";
+import { ActionTree } from "vuex";
 
 
 export interface AuthState {

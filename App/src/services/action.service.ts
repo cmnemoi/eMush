@@ -3,7 +3,7 @@ import { Door } from "@/entities/Door";
 import { Item } from "@/entities/Item";
 import { Player } from "@/entities/Player";
 import { Equipment } from "@/entities/Equipment";
-import {Action} from "@/entities/Action";
+import { Action } from "@/entities/Action";
 
 const ACTION_ENDPOINT = process.env.VUE_APP_API_URL+'action';
 

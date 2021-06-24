@@ -2,7 +2,7 @@ import CommunicationService from "@/services/communication.service";
 import { Channel } from "@/entities/Channel";
 import { ROOM_LOG } from '@/enums/communication.enum';
 import { PRIVATE, PUBLIC, TIPS } from "@/enums/communication.enum";
-import {ActionTree, GetterTree, MutationTree} from "vuex";
+import { ActionTree, GetterTree, MutationTree } from "vuex";
 
 
 const state =  {

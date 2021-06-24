@@ -1,4 +1,4 @@
-import {ActionTree, MutationTree} from "vuex";
+import { ActionTree, MutationTree } from "vuex";
 
 const state =  {
     error: null

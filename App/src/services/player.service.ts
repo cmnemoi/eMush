@@ -32,7 +32,7 @@ const PlayerService = {
 
     sendEndGameRequest: (player: Player, message: string) => {
         let data = {
-            message: message,
+            message: message
         };
 
         return ApiService.post(ACTION_ENDPOINT + '/' + player.id + '/end', data)

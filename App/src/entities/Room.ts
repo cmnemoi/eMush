@@ -59,7 +59,7 @@ export class Room {
     decode(jsonString:string) {
         if (jsonString) {
             let object = JSON.parse(jsonString);
-            this.load(object)
+            this.load(object);
         }
 
         return this;

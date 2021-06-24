@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "test": "./node_modules/mocha/bin/mocha 'src/**/*.test.js'"
+    "test": "./node_modules/mocha/bin/mocha 'src/**/*.test.ts'"
   },
   "dependencies": {
     "axios": "^0.21.1",

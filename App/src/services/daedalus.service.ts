@@ -1,6 +1,6 @@
 import ApiService from "@/services/api.service";
 import { Alert } from "@/entities/Alerts";
-import {Daedalus} from "@/entities/Daedalus";
+import { Daedalus } from "@/entities/Daedalus";
 
 const DAEDALUS_ALERTS_ENDPOINT = process.env.VUE_APP_API_URL + 'alert';
 

@@ -1,5 +1,5 @@
 import ActionService from "@/services/action.service";
-import {ActionTree} from "vuex";
+import { ActionTree } from "vuex";
 
 const actions: ActionTree<any, any> = {
     async executeAction({ dispatch }, { target, action }) {

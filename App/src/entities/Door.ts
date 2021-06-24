@@ -1,37 +1,35 @@
 import { Action } from "@/entities/Action";
-import { Status } from "@/entities/Status";
 
-export class Equipment {
+export class Door {
+    public id: number|null;
+    public key: string|null;
+    public name: string|null;
+    public actions: Array<Action>;
+    public direction: string|null;
+
     constructor() {
         this.id = null;
         this.key = null;
         this.name = null;
         this.actions = [];
-        this.statuses = [];
-        this.description = null;
+        this.direction = null;
     }
-    load(object) {
+    load(object : any) : Door {
         if (typeof object !== "undefined") {
             this.id = object.id;
             this.key = object.key;
             this.name = object.name;
-            this.description = object.description;
-            this.number = object.number;
-
-            object.actions.forEach((actionObject) => {
+            this.direction = object.direction;
+            object.actions.forEach((actionObject : any) => {
                 this.actions.push((new Action).load(actionObject));
-            });
-            object.statuses.forEach((statusObject) => {
-                let status = (new Status()).load(statusObject);
-                this.statuses.push(status);
             });
         }
         return this;
     }
-    jsonEncode() {
+    jsonEncode(): string {
         return JSON.stringify(this);
     }
-    decode(jsonString) {
+    decode(jsonString : string): Door {
         if (jsonString) {
             let object = JSON.parse(jsonString);
             this.load(object);

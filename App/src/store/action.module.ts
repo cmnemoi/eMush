@@ -1,6 +1,7 @@
 import ActionService from "@/services/action.service";
+import {ActionTree} from "vuex";
 
-const actions = {
+const actions: ActionTree<any, any> = {
     async executeAction({ dispatch }, { target, action }) {
         dispatch("player/setLoading", { loading: true }, { root: true });
         dispatch("communication/clearRoomLogs", null, { root: true });

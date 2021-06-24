@@ -15,7 +15,7 @@ const TokenService = {
         return localStorage.getItem(TOKEN_KEY);
     },
 
-    saveToken(accessToken) {
+    saveToken(accessToken: string) {
         localStorage.setItem(TOKEN_KEY, accessToken);
     },
 
@@ -27,7 +27,7 @@ const TokenService = {
         return localStorage.getItem(REFRESH_TOKEN_KEY);
     },
 
-    saveRefreshToken(refreshToken) {
+    saveRefreshToken(refreshToken: string) {
         localStorage.setItem(REFRESH_TOKEN_KEY, refreshToken);
     },
 
@@ -37,10 +37,14 @@ const TokenService = {
 
     getUserInfo() {
         let user = new User();
-        return user.decode(localStorage.getItem(USER_INFO));
+        const storedUserInfo = localStorage.getItem(USER_INFO);
+        if (storedUserInfo !== null) {
+            return user.decode(storedUserInfo);
+        }
+        return null;
     },
 
-    saveUserInfo(user) {
+    saveUserInfo(user: User) {
         localStorage.setItem(USER_INFO, user.jsonEncode());
     },
 

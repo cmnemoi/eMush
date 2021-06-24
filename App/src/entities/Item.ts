@@ -1,11 +1,13 @@
 import { Equipment } from "@/entities/Equipment";
 
 export class Item extends Equipment {
+    public number: number
+
     constructor() {
         super();
         this.number = 0;
     }
-    load(object) {
+    load(object: any) {
         super.load(object);
         if (typeof object !== "undefined") {
             this.number = object.number;
@@ -15,7 +17,7 @@ export class Item extends Equipment {
     jsonEncode() {
         return JSON.stringify(this);
     }
-    decode(jsonString) {
+    decode(jsonString: string) {
         if (jsonString) {
             let object = JSON.parse(jsonString);
             this.load(object);

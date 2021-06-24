@@ -4,13 +4,12 @@ module.exports = {
         "node": true,
         "mocha": true
     },
+
     "extends": [
         "plugin:vue/vue3-recommended",
         "eslint:recommended"
     ],
-    "parserOptions": {
-        "parser": "babel-eslint"
-    },
+
     "rules": {
         "indent": ["warn", 4],
         "vue/html-indent": ["warn", 4],
@@ -23,5 +22,9 @@ module.exports = {
         "no-var": "warn",
         "object-curly-spacing": ["warn", "always"],
         "semi": ["warn", "always"]
+    },
+
+    parserOptions: {
+      parser: '@typescript-eslint/parser'
     }
 };

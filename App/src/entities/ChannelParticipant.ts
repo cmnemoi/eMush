@@ -1,13 +1,17 @@
 import { Character } from "./Character";
 
 export class ChannelParticipant {
+    public id: number|null;
+    public character: Character|null;
+    public joinedAt: Date;
+
     constructor() {
         this.id = null;
         this.character = null;
-        this.joinedAt = null;
+        this.joinedAt = new Date();
     }
 
-    load = function(object) {
+    load(object : any): ChannelParticipant {
         if (typeof object !== "undefined") {
             this.id = object.id;
             this.character = (new Character()).load(object.character);
@@ -15,10 +19,10 @@ export class ChannelParticipant {
         }
         return this;
     }
-    jsonEncode = function() {
+    jsonEncode(): string {
         return JSON.stringify(this);
     }
-    decode = function(jsonString) {
+    decode(jsonString: string): ChannelParticipant {
         if (jsonString) {
             let object = JSON.parse(jsonString);
             this.load(object);

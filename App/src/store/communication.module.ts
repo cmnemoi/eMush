@@ -1,7 +1,8 @@
 import CommunicationService from "@/services/communication.service";
 import { Channel } from "@/entities/Channel";
 import { ROOM_LOG } from '@/enums/communication.enum';
-import { PRIVATE, PUBLIC, TIPS } from "../enums/communication.enum";
+import { PRIVATE, PUBLIC, TIPS } from "@/enums/communication.enum";
+import {ActionTree, GetterTree, MutationTree} from "vuex";
 
 
 const state =  {
@@ -15,7 +16,7 @@ const state =  {
     messagesByChannelId: {}
 };
 
-const getters = {
+const getters: GetterTree<any, any> = {
     loading(state) {
         return state.loadingByChannelId[state.currentChannel.id] || false;
     },
@@ -23,7 +24,7 @@ const getters = {
         return state.messagesByChannelId[state.currentChannel.id] || [];
     },
     roomChannel(state) {
-        return state.channels.find(channel => channel.scope === ROOM_LOG);
+        return state.channels.find((channel: Channel) => channel.scope === ROOM_LOG);
     },
     invitablePlayerMenuOpen(state) {
         return state.invitablePlayerMenuOpen;
@@ -39,7 +40,7 @@ const getters = {
     }
 };
 
-const actions = {
+const actions: ActionTree<any, any> = {
     async changeChannel({ commit, dispatch }, { channel }) {
         commit('setCurrentChannel', channel);
         dispatch('loadMessages', { channel });
@@ -145,7 +146,7 @@ const actions = {
     }
 };
 
-const mutations = {
+const mutations: MutationTree<any> = {
     setLoadingOfChannels(state, newStatus) {
         state.loadingChannels = newStatus;
     },
@@ -167,7 +168,7 @@ const mutations = {
     },
 
     removeChannel(state, channel) {
-        state.channels = state.channels.filter(({ id }) => id !== channel.id);
+        state.channels = state.channels.filter(({ id }: {id: number}) => id !== channel.id);
         delete state.loadingByChannelId[channel.id];
         delete state.messagesByChannelId[channel.id];
     },
@@ -186,7 +187,7 @@ const mutations = {
     }
 };
 
-export function sortChannels(channels, currentPlayerKey) {
+export function sortChannels(channels: Array<Channel>, currentPlayerKey: string) {
     const channelOrderValue = {
         [TIPS] : 0,
         [ROOM_LOG] : 1,
@@ -194,12 +195,19 @@ export function sortChannels(channels, currentPlayerKey) {
         [PRIVATE] : 3
     };
 
-    return channels.sort(function (a, b) {
+    // @ts-ignore
+    return channels.sort(function (a: Channel, b: Channel) {
+        // @ts-ignore
         const diff = channelOrderValue[a.scope] - channelOrderValue[b.scope];
 
         if (diff === 0 && a.scope === PRIVATE) {
             const participantA = a.getParticipant(currentPlayerKey);
             const participantB = b.getParticipant(currentPlayerKey);
+
+            if (typeof participantA === "undefined" || typeof participantB === "undefined") {
+                console.error(participantA, participantB, 'is undefined');
+                return 0;
+            }
 
             return (participantA.joinedAt > participantB.joinedAt);
         }

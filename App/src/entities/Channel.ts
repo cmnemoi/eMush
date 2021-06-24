@@ -1,18 +1,22 @@
 import { ChannelParticipant } from "./ChannelParticipant";
 
 export class Channel {
+    public id: number|null;
+    public scope: string;
+    public participants: Array<ChannelParticipant>;
+
     constructor() {
         this.id = null;
-        this.scope = null;
+        this.scope = 'default';
         this.participants = [];
     }
 
-    load = function(object) {
+    load(object : any) : Channel {
         if (typeof object !== "undefined") {
             this.id = object.id;
             this.scope = object.scope;
             if (typeof object.participants !== 'undefined') {
-                object.participants.forEach((itemObject) => {
+                object.participants.forEach((itemObject: any) => {
                     let participant = (new ChannelParticipant()).load(itemObject);
                     this.participants.push(participant);
                 });
@@ -20,10 +24,10 @@ export class Channel {
         }
         return this;
     }
-    jsonEncode = function() {
+    jsonEncode() : string {
         return JSON.stringify(this);
     }
-    decode = function(jsonString) {
+    decode(jsonString : string) : Channel {
         if (jsonString) {
             let object = JSON.parse(jsonString);
             this.id = object.id;
@@ -34,7 +38,7 @@ export class Channel {
         return this;
     }
 
-    getParticipant = function (key) {
-        return this.participants.find(element => element.character.key === key);
+    getParticipant(key: string) {
+        return this.participants.find((element: ChannelParticipant) => element.character !== null && element.character.key === key);
     }
 }

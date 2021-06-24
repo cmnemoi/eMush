@@ -1,10 +1,14 @@
 export class User {
+    public id : number|null
+    public username : string|null
+    public currentGame : number|null
+
     constructor() {
         this.id = null;
         this.username = null;
         this.currentGame = null;
     }
-    load = function(object) {
+    load(object: any) {
         if (typeof object !== "undefined") {
             this.id = object.id;
             this.username = object.username;
@@ -12,10 +16,10 @@ export class User {
         }
         return this;
     }
-    jsonEncode = function() {
+    jsonEncode() {
         return JSON.stringify(this);
     }
-    decode = function(jsonString) {
+    decode(jsonString: string) {
         if (jsonString) {
             let object = JSON.parse(jsonString);
             this.id = object.id;

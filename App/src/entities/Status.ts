@@ -1,4 +1,10 @@
 export class Status {
+    public id : number|null
+    public key : string|null
+    public name : string|null
+    public charge : number|null
+    public description : string|null
+
     constructor() {
         this.id = null;
         this.key = null;
@@ -7,7 +13,7 @@ export class Status {
         this.description = null;
     }
 
-    load = function(object) {
+    load(object: any) {
         if (typeof object !== "undefined") {
             this.id = object.id;
             this.key = object.key;
@@ -17,10 +23,10 @@ export class Status {
         }
         return this;
     }
-    jsonEncode = function() {
+    jsonEncode() {
         return JSON.stringify(this);
     }
-    decode = function(jsonString) {
+    decode(jsonString: any) {
         if (jsonString) {
             let object = JSON.parse(jsonString);
             this.load(object);

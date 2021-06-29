@@ -2,7 +2,7 @@
     <Tippy
         theme="mush"
         :hide-on-click="false"
-        :allowHTML="true"
+        :allow-h-t-m-l="true"
         :max-width="280"
         :follow-cursor="true"
         :inline-positioning="true"
@@ -12,7 +12,7 @@
     >
         <slot name="tooltip-trigger" />
         <template #content>
-            <slot name="tooltip-content" :formatContent="formatContent"></slot>
+            <slot name="tooltip-content" :formatContent="formatContent" />
         </template>
     </Tippy>
 </template>

@@ -5,6 +5,22 @@ import { Status } from "@/entities/Status";
 import { Action } from "@/entities/Action";
 
 export class Player {
+    public id: number|null;
+    public gameStatus: string|null;
+    public characterKey: string|null;
+    public characterValue: string|null;
+    public actionPoint: number|null;
+    public movementPoint: number|null;
+    public healthPoint: number|null;
+    public moralPoint: number|null;
+    public triumph: number|null;
+    public daedalus: Daedalus|null;
+    public items: Array<Item>;
+    public diseases: Array<Status>;
+    public statuses: Array<Status>;
+    public actions: Array<Action>;
+    public room: Room|null;
+
     constructor() {
         this.id = null;
         this.gameStatus = null;
@@ -23,7 +39,7 @@ export class Player {
         this.actions = [];
         this.room = null;
     }
-    load = function(object) {
+    load(object: any) {
         if (typeof object !== "undefined") {
             this.id = object.id;
             this.gameStatus = object.gameStatus;
@@ -42,25 +58,25 @@ export class Player {
                 this.room = (new Room()).load(object.room);
             }
             if (typeof object.items !== 'undefined') {
-                object.items.forEach((itemObject) => {
+                object.items.forEach((itemObject: any) => {
                     let item = (new Item).load(itemObject);
                     this.items.push(item);
                 });
             }
             if (typeof object.actions !== 'undefined') {
-                object.actions.forEach((actionObject) => {
+                object.actions.forEach((actionObject: any) => {
                     let action = (new Action()).load(actionObject);
                     this.actions.push(action);
                 });
             }
             if (typeof object.statuses !== 'undefined') {
-                object.statuses.forEach((statusObject) => {
+                object.statuses.forEach((statusObject: any) => {
                     let status = (new Status()).load(statusObject);
                     this.statuses.push(status);
                 });
             }
             if (typeof object.diseases !== 'undefined') {
-                object.diseases.forEach((statusObject) => {
+                object.diseases.forEach((statusObject:any) => {
                     let status = (new Status()).load(statusObject);
                     this.diseases.push(status);
                 });
@@ -68,10 +84,10 @@ export class Player {
         }
         return this;
     }
-    jsonEncode = function() {
+    jsonEncode() {
         return JSON.stringify(this);
     }
-    decode = function(jsonString) {
+    decode(jsonString: string) {
         if (jsonString) {
             let object = JSON.parse(jsonString);
             this.load(object);

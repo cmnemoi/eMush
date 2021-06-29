@@ -1,4 +1,13 @@
 export class DeadPlayerInfo {
+    public id: number|null;
+    public characterKey: string|null;
+    public characterValue: string|null;
+    public endCauseKey: string|null;
+    public endCauseValue: string|null;
+    public endCauseDescription: string|null;
+    public players: Array<DeadPlayerInfo>;
+
+
     constructor() {
         this.id = null;
         this.characterKey = null;
@@ -9,10 +18,9 @@ export class DeadPlayerInfo {
         this.players = [];
     }
 
-    load = function(object) {
+    load(object : any): DeadPlayerInfo {
         if (typeof object !== "undefined") {
             this.id = object.id;
-            this.deathTime = object.deathTime;
 
             if (typeof object.endCause !== "undefined") {
                 this.endCauseKey = object.endCause['key'];
@@ -27,7 +35,7 @@ export class DeadPlayerInfo {
             }
 
             if (typeof object.players !== 'undefined') {
-                object.players.forEach((deadPlayerObject) => {
+                object.players.forEach((deadPlayerObject: any) => {
                     let deadPlayer = (new DeadPlayerInfo()).load(deadPlayerObject);
                     this.players.push(deadPlayer);
                 });
@@ -35,10 +43,10 @@ export class DeadPlayerInfo {
         }
         return this;
     }
-    jsonEncode = function() {
+    jsonEncode(): string {
         return JSON.stringify(this);
     }
-    decode = function(jsonString) {
+    decode(jsonString: string): DeadPlayerInfo {
         if (jsonString) {
             let object = JSON.parse(jsonString);
             this.load(object);

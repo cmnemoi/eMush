@@ -1,4 +1,13 @@
 export class Action {
+    public id: number|null;
+    public key: string|null;
+    public canExecute: boolean|null;
+    public name: string|null;
+    public description: string|null;
+    public actionPointCost: number|null;
+    public movementPointCost: number|null;
+    public successRate: number|null;
+
     constructor() {
         this.id = null;
         this.key = null;
@@ -9,7 +18,7 @@ export class Action {
         this.movementPointCost = null;
         this.successRate = null;
     }
-    load = function(object) {
+    load(object:any) : Action {
         if (typeof object !== "undefined") {
             this.id = object.id;
             this.key = object.key;
@@ -22,17 +31,20 @@ export class Action {
         }
         return this;
     }
-    jsonEncode = function() {
+    jsonEncode() : string {
         return JSON.stringify(this);
     }
-    decode = function(jsonString) {
+    decode(jsonString : string): Action {
         if (jsonString) {
             let object = JSON.parse(jsonString);
             this.id = object.id;
-            this.roomKey = object.roomKey;
-            this.roomName = object.roomName;
-            this.items = object.items;
-            this.doors = object.doors;
+            this.key = object.key;
+            this.canExecute = object.canExecute;
+            this.name = object.name;
+            this.description = object.description;
+            this.actionPointCost = object.actionPointCost;
+            this.movementPointCost = object.movementPointCost;
+            this.successRate = object.successRate;
         }
 
         return this;

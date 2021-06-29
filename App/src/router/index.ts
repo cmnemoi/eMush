@@ -1,6 +1,6 @@
 import { createWebHistory, createRouter } from "vue-router";
-import GamePage from "@/components/GamePage";
-import Token from "@/components/Token";
+import GamePage from "@/components/GamePage.vue";
+import Token from "@/components/Token.vue";
 
 const routes = [
     {

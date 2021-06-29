@@ -1,7 +1,16 @@
-import { UserService } from '../services/user.service';
-import { TokenService } from '../services/storage.service';
+import { UserService } from '@/services/user.service';
+import { TokenService } from '@/services/storage.service';
 import ApiService from "@/services/api.service";
+import { User } from "@/entities/User";
+import { ActionTree } from "vuex";
 
+
+export interface AuthState {
+    userInfo: User | null
+    accessToken: null | string
+    refreshTokenPromise: null | string
+    loading: boolean
+}
 
 const state =  {
     userInfo: TokenService.getUserInfo(),
@@ -11,20 +20,20 @@ const state =  {
 };
 
 const getters = {
-    loggedIn: (state) => {
+    loggedIn: (state : AuthState) => {
         return state.accessToken ? true : false;
     },
 
-    getUserInfo: (state) => {
+    getUserInfo: (state: AuthState) => {
         return state.userInfo;
     },
 
-    isLoading: (state) => {
+    isLoading: (state: AuthState) => {
         return state.loading;
     }
 };
 
-const actions = {
+const actions: ActionTree<any, any> = {
     async setToken({ commit }, { token }) {
         TokenService.saveToken(token);
         ApiService.setHeader();
@@ -51,25 +60,25 @@ const actions = {
         }
     },
 
-    refreshToken({ commit, state }) {
-        // If this is the first time the refreshToken has been called, make a request
-        // otherwise return the same promise to the caller
-        if(! state.refreshTokenPromise) {
-            const promise = UserService.refreshToken();
-            commit('setRefreshTokenPromise', promise);
-            // Wait for the UserService.refreshToken() to resolve. On success set the token and clear promise
-            // Clear the promise on error as well.
-            promise.then(
-                response => {
-                    commit('setRefreshTokenPromise', null);
-                    commit('setToken', response);
-                },
-                () => {
-                    commit('setRefreshTokenPromise', null);
-                }
-            );
-        }
-    },
+    // refreshToken({ commit, state }) {
+    //     // If this is the first time the refreshToken has been called, make a request
+    //     // otherwise return the same promise to the caller
+    //     if(! state.refreshTokenPromise) {
+    //         const promise = UserService.refreshToken();
+    //         commit('setRefreshTokenPromise', promise);
+    //         // Wait for the UserService.refreshToken() to resolve. On success set the token and clear promise
+    //         // Clear the promise on error as well.
+    //         promise.then(
+    //             response => {
+    //                 commit('setRefreshTokenPromise', null);
+    //                 commit('setToken', response);
+    //             },
+    //             () => {
+    //                 commit('setRefreshTokenPromise', null);
+    //             }
+    //         );
+    //     }
+    // },
 
     async userInfo({ commit, state }) {
         if (state.accessToken) {
@@ -92,25 +101,25 @@ const actions = {
 };
 
 const mutations = {
-    resetUserInfo(state) {
+    resetUserInfo(state: AuthState) {
         state.loading = true;
         state.userInfo = null;
     },
 
-    setUserInfo(state, userInfo) {
+    setUserInfo(state: AuthState, userInfo: User) {
         state.loading = false;
         state.userInfo = userInfo;
     },
 
-    setToken(state, accessToken) {
+    setToken(state: AuthState, accessToken: string) {
         state.accessToken = accessToken;
     },
 
-    resetToken(state) {
-        state.accessToken = "";
+    resetToken(state: AuthState) {
+        state.accessToken = null;
     },
 
-    setRefreshTokenPromise(state, promise) {
+    setRefreshTokenPromise(state: AuthState, promise:string) {
         state.refreshTokenPromise = promise;
     }
 };

@@ -1,10 +1,15 @@
+
 export class RoomLog {
+    public message : string|null
+    public visibility : string|null
+    public date : Date|null
+
     constructor() {
         this.message = null;
         this.visibility = null;
         this.date = null;
     }
-    load = function(object) {
+    load(object: any) {
         if (typeof object !== "undefined") {
             this.message = object.log;
             this.visibility = object.visibility;
@@ -12,10 +17,10 @@ export class RoomLog {
         }
         return this;
     }
-    jsonEncode = function() {
+    jsonEncode() {
         return JSON.stringify(this);
     }
-    decode = function(jsonString) {
+    decode(jsonString: string) {
         if (jsonString) {
             let object = JSON.parse(jsonString);
             this.message = object.key;

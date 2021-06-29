@@ -3,12 +3,12 @@
         <div class="spinner-container">
             <span>Loading...</span>
             <div class="spinner">
-                <img src="@/assets/images/floor-tile.gif" />
-                <img src="@/assets/images/floor-tile.gif" />
-                <img src="@/assets/images/floor-tile.gif" />
-                <img src="@/assets/images/floor-tile.gif" />
-                <img src="@/assets/images/floor-tile.gif" />
-                <img class="cat" src="@/assets/images/char/body/cat.png" />
+                <img src="@/assets/images/floor-tile.gif">
+                <img src="@/assets/images/floor-tile.gif">
+                <img src="@/assets/images/floor-tile.gif">
+                <img src="@/assets/images/floor-tile.gif">
+                <img src="@/assets/images/floor-tile.gif">
+                <img class="cat" src="@/assets/images/char/body/cat.png">
             </div>
         </div>
     </div>

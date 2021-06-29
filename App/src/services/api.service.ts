@@ -4,9 +4,9 @@ import store from '../store';
 
 const ApiService = {
 
-    _errorInterceptor: null,
+    _errorInterceptor: 0,
 
-    init(baseURL) {
+    init(baseURL: string) {
         axios.defaults.baseURL = baseURL;
     },
 
@@ -18,19 +18,19 @@ const ApiService = {
         axios.defaults.headers.common = {};
     },
 
-    get(resource, params) {
+    get(resource: string, params?: object) {
         return axios.get(resource, params);
     },
 
-    post(resource, data, options) {
+    post(resource: string, data?: object, options?: object) {
         return axios.post(resource, data, options);
     },
 
-    put(resource, data) {
+    put(resource: string, data?: object) {
         return axios.put(resource, data);
     },
 
-    delete(resource) {
+    delete(resource: string) {
         return axios.delete(resource);
     },
 
@@ -87,7 +87,7 @@ const ApiService = {
      *    - username
      *    - password
      **/
-    customRequest(data) {
+    customRequest(data: object) {
         return axios(data);
     }
 };

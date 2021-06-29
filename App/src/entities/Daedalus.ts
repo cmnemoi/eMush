@@ -1,4 +1,20 @@
 export class Daedalus {
+    public id: number|null;
+    public day: number|null;
+    public cycle: number|null;
+    public oxygen: number|null;
+    public fuel: number|null;
+    public hull: number|null;
+    public shield: number|null;
+    public currentCycle: number|null;
+    public nextCycle: Date|null;
+    public cryogenizedPlayers: number;
+    public humanPlayerAlive: number;
+    public humanPlayerDead: number;
+    public mushPlayerAlive: number;
+    public mushPlayerDead: number;
+    public crewPlayer: number;
+
     constructor() {
         this.id = null;
         this.day = null;
@@ -9,7 +25,6 @@ export class Daedalus {
         this.shield = null;
         this.currentCycle = null;
         this.nextCycle = null;
-        this.nextCycle = 0;
         this.cryogenizedPlayers = 0;
         this.humanPlayerAlive = 0;
         this.humanPlayerDead = 0;
@@ -17,7 +32,7 @@ export class Daedalus {
         this.mushPlayerDead = 0;
         this.crewPlayer = 0;
     }
-    load = function(object) {
+    load(object :any): Daedalus {
         if (typeof object !== "undefined") {
             this.id = object.id;
             this.day = object.day;
@@ -37,10 +52,10 @@ export class Daedalus {
         }
         return this;
     }
-    jsonEncode = function() {
+    jsonEncode(): string {
         return JSON.stringify(this);
     }
-    decode = function(jsonString) {
+    decode(jsonString : string): Daedalus {
         if (jsonString) {
             let object = JSON.parse(jsonString);
             this.id = object.id;

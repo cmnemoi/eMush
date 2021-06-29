@@ -1,8 +1,10 @@
+import { ActionTree, MutationTree } from "vuex";
+
 const state =  {
     error: null
 };
 
-const actions = {
+const actions: ActionTree<any, any> = {
     setError({ commit }, error) {
         commit('setError', error);
     },
@@ -11,7 +13,7 @@ const actions = {
     }
 };
 
-const mutations = {
+const mutations: MutationTree<any> = {
     setError(state, error) {
         state.error = {
             message: error.message,

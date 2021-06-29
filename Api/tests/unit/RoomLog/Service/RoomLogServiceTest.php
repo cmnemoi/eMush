@@ -11,6 +11,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
@@ -279,7 +280,7 @@ class RoomLogServiceTest extends TestCase
         $dateTime = new \DateTime();
 
         $cameraEquipment = new GameEquipment();
-        $cameraEquipment->setName(EquipmentEnum::CAMERA)->setPlace($place);
+        $cameraEquipment->setName(EquipmentEnum::CAMERA_EQUIPMENT)->setPlace($place);
 
         $this->entityManager->shouldReceive('flush')->once();
 
@@ -327,7 +328,7 @@ class RoomLogServiceTest extends TestCase
         $dateTime = new \DateTime();
 
         $cameraEquipment = new GameItem();
-        $cameraEquipment->setName(EquipmentEnum::CAMERA)->setPlace($place);
+        $cameraEquipment->setName(ItemEnum::CAMERA_ITEM)->setPlace($place);
 
         $this->entityManager->shouldReceive('flush')->once();
         $this->entityManager->shouldReceive('persist')->once();

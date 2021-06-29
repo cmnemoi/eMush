@@ -17,7 +17,6 @@ class EquipmentEnum
     public const ICARUS = 'icarus';
     public const ANTENNA = 'antenna';
     public const CALCULATOR = 'calculator';
-    public const CAMERA = 'camera';
     public const COMMUNICATION_CENTER = 'communication_center';
     public const COMBUSTION_CHAMBER = 'combustion_chamber';
     public const NERON_CORE = 'neron_core';
@@ -49,4 +48,5 @@ class EquipmentEnum
     public const THALASSO = 'thalasso';
     public const BIOS_TERMINAL = 'bios_terminal';
     public const AUXILIARY_TERMINAL = 'auxiliary_terminal';
+    public const CAMERA_EQUIPMENT = 'camera_equipment';
 }

@@ -71,6 +71,8 @@ class ActionEnum
     public const DISPENSE = 'dispense';
     public const SHOOT_HUNTER = 'shoot_hunter';
     public const ACCES_TERMINAL = 'acces_terminal';
+    public const INSTALL_CAMERA = 'install_camera';
+    public const REMOVE_CAMERA = 'remove_camera';
 
     // Permanent Player Actions
     public const UNGAG = 'ungag';

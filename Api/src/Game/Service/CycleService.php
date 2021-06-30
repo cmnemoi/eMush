@@ -32,8 +32,11 @@ class CycleService implements CycleServiceInterface
             return 0;
         }
 
-        if (($dateDaedalusLastCycle = $daedalus->getCycleStartedAt()) === null) {
+        $dateDaedalusLastCycle = $daedalus->getCycleStartedAt();
+        if ($dateDaedalusLastCycle === null) {
             throw new \LogicException('Daedalus should have a CycleStartedAt Value');
+        } else {
+            $dateDaedalusLastCycle = clone $dateDaedalusLastCycle;
         }
 
         $cycleElapsed = $this->getNumberOfCycleElapsed($dateDaedalusLastCycle, $dateTime, $gameConfig);

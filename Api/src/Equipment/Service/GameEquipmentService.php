@@ -219,8 +219,6 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_BROKEN);
             $this->persist($gameEquipment);
         }
-
-        return;
     }
 
     private function getGameConfig(GameEquipment $gameEquipment): GameConfig

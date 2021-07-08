@@ -646,6 +646,36 @@
                 }</target>
             </segment>
         </unit>
+        <unit id="strengthen_success">
+            <segment id="strengthen_success">
+                <source>strengthen_success</source>
+                <target>La tentative de **{player}** de réparation de la coque a réussi. Il était temps que quelqu'un s'occupe de ça...</target>
+            </segment>
+        </unit>
+        <unit id="default_fail">
+            <segment id="default_fail">
+                <source>default_fail</source>
+                <target>Votre tentative a échouée.</target>
+            </segment>
+        </unit>
+        <unit id="spread_fire_success">
+            <segment id="spread_fire_success">
+                <source>spread_fire_success</source>
+                <target>Tiens... ça se réchauffe par ici... **{player}** a mis le feu...</target>
+            </segment>
+        </unit>
+        <unit id="install_camera">
+            <segment id="install_camera">
+                <source>install_camera</source>
+                <target>**{player}** installe sa petite **Camera** avec application.</target>
+            </segment>
+        </unit>
+        <unit id="remove_camera">
+            <segment id="remove_camera">
+                <source>remove_camera</source>
+                <target>**{player}** enlève la **Caméra**. Elle était sans doute devenue inutile...</target>
+            </segment>
+        </unit>
     </file>
 </xliff>
 

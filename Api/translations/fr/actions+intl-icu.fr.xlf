@@ -422,5 +422,35 @@
                 <target>Permet de faire des réparation sur la coque du Daedalus.</target>
             </segment>
         </unit>
+        <unit id="spread_fire">
+            <segment id="name">
+                <source>spread_fire.name</source>
+                <target>Mettre le feu</target>
+            </segment>
+            <segment id="description">
+                <source>spread_fire.description</source>
+                <target>Permet de satisfaire un des besoins de NERON... et vos intérêts.</target>
+            </segment>
+        </unit>
+        <unit id="install_camera">
+            <segment id="name">
+                <source>install_camera.name</source>
+                <target>Installer</target>
+            </segment>
+            <segment id="description">
+                <source>install_camera.description</source>
+                <target>Cette action permet d'installer un matériel pour le rendre fonctionnel.</target>
+            </segment>
+        </unit>
+        <unit id="remove_camera">
+            <segment id="name">
+                <source>remove_camera.name</source>
+                <target>Installer</target>
+            </segment>
+            <segment id="description">
+                <source>remove_camera.description</source>
+                <target>Cette action permet d'enlever un matériel pour le rendre inopérant ou le déplacer.</target>
+            </segment>
+        </unit>
     </file>
 </xliff>

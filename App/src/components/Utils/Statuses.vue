@@ -5,13 +5,13 @@
         class="status"
     >
         <Tooltip>
-            <template v-slot:tooltip-trigger>
+            <template #tooltip-trigger>
                 <img :src="statusIcon(status)">
                 <span v-if="status.charge">{{ status.charge }}</span>
             </template>
             <template #tooltip-content="{ formatContent }">
-                <h1 v-html="formatContent(status.name)"></h1>
-                <p v-html="formatContent(status.description)"></p>
+                <h1 v-html="formatContent(status.name)" />
+                <p v-html="formatContent(status.description)" />
             </template>
         </Tooltip>
     </span>
@@ -23,10 +23,10 @@ import { statusItemEnum } from "@/enums/status.item.enum";
 import Tooltip from "@/components/Utils/ToolTip";
 
 export default {
-    components: {Tooltip},
+    components: { Tooltip },
     props: {
         statuses: Array,
-        type: Array
+        type: String
     },
     computed: {
         statusIcon() {

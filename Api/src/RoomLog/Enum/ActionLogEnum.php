@@ -47,6 +47,8 @@ class ActionLogEnum
     public const SHRED_SUCCESS = 'shred_success';
     public const SHOWER_HUMAN = 'shower_human';
     public const SHOWER_MUSH = 'shower_mush';
+    public const STRENGTHEN_SUCCESS = 'srengthen_success';
+    public const SPREAD_FIRE_SUCCESS = 'spread_fire_success';
     public const TAKE = 'take';
     public const TRANSPLANT_SUCCESS = 'transplant_success';
     public const TREAT_PLANT_SUCCESS = 'treat_plant_success';
@@ -55,9 +57,13 @@ class ActionLogEnum
     public const WATER_PLANT_SUCCESS = 'water_plant_success';
     public const WRITE_SUCCESS = 'write_success';
     public const OPEN_SUCCESS = 'open_success';
+    public const INSTALL_CAMERA = 'install_camera';
+    public const REMOVE_CAMERA = 'remove_camera';
 
     public const SUCCESS = 'success';
     public const FAIL = 'fail';
+
+    public const DEFAULT_FAIL = 'default_fail';
 
     public const VISIBILITY = 'visibility';
     public const VALUE = 'value';
@@ -333,6 +339,35 @@ class ActionLogEnum
             self::SUCCESS => [
                 self::VALUE => self::OPEN_SUCCESS,
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
+            ],
+        ],
+        ActionEnum::SPREAD_FIRE => [
+            self::SUCCESS => [
+                self::VALUE => self::SPREAD_FIRE_SUCCESS,
+                self::VISIBILITY => VisibilityEnum::COVERT,
+            ],
+        ],
+        ActionEnum::INSTALL_CAMERA => [
+            self::SUCCESS => [
+                self::VALUE => self::INSTALL_CAMERA,
+                self::VISIBILITY => VisibilityEnum::PUBLIC,
+            ],
+        ],
+        ActionEnum::REMOVE_CAMERA => [
+            self::SUCCESS => [
+                self::VALUE => self::REMOVE_CAMERA,
+                self::VISIBILITY => VisibilityEnum::PUBLIC,
+            ],
+        ],
+
+        ActionEnum::STRENGTHEN_HULL => [
+            self::SUCCESS => [
+                self::VALUE => self::STRENGTHEN_SUCCESS,
+                self::VISIBILITY => VisibilityEnum::PUBLIC,
+            ],
+            self::FAIL => [
+                self::VALUE => self::DEFAULT_FAIL,
+                self::VISIBILITY => VisibilityEnum::PRIVATE,
             ],
         ],
     ];

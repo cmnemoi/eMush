@@ -6,6 +6,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
+use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Place\Entity\Place;
@@ -57,7 +59,6 @@ class RoomLogService implements RoomLogServiceInterface
             return null;
         }
 
-        $logData = null;
         if ($actionResult instanceof Success && isset($logMapping[ActionLogEnum::SUCCESS])) {
             $logData = $logMapping[ActionLogEnum::SUCCESS];
         } elseif ($actionResult instanceof Fail && isset($logMapping[ActionLogEnum::FAIL])) {
@@ -109,14 +110,42 @@ class RoomLogService implements RoomLogServiceInterface
             ->setType($type)
             ->setPlace($place)
             ->setPlayer($player)
-            ->setVisibility($visibility)
+            ->setVisibility($this->getVisibility($player, $visibility))
             ->setDate($dateTime ?? new \DateTime('now'))
             ->setCycle($place->getDaedalus()->getCycle())
             ->setDay($place->getDaedalus()->getDay())
-
         ;
 
         return $this->persist($roomLog);
+    }
+
+    private function getVisibility(?Player $player, string $visibility): string
+    {
+        if ($player === null) {
+            return $visibility;
+        }
+
+        $place = $player->getPlace();
+        if (
+            $visibility === VisibilityEnum::COVERT &&
+            ($place->getPlayers()->count() > 1 ||
+            !$place->getEquipments()
+                ->filter(fn (GameEquipment $gameEquipment) => (
+                    $gameEquipment->getName() === EquipmentEnum::CAMERA_EQUIPMENT
+                ))->isEmpty())
+        ) {
+            return VisibilityEnum::REVEALED;
+        } elseif (
+            $visibility === VisibilityEnum::SECRET &&
+            !$place->getEquipments()
+                ->filter(fn (GameEquipment $gameEquipment) => (
+                    $gameEquipment->getName() === EquipmentEnum::CAMERA_EQUIPMENT
+                ))->isEmpty()
+        ) {
+            return VisibilityEnum::REVEALED;
+        }
+
+        return $visibility;
     }
 
     private function getMessageParam(
@@ -127,7 +156,7 @@ class RoomLogService implements RoomLogServiceInterface
         $params = [];
 
         if ($player !== null) {
-            $params['character'] = $player->getCharacterConfig()->getName();
+            $params['character'] = $player->getLogName();
         }
 
         if ($target !== null) {

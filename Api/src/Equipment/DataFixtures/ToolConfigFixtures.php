@@ -94,6 +94,28 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($blockOfPostIt);
         $manager->persist($blockOfPostItMechanic);
 
+        /** @var Action $installCamera */
+        $installCamera = $this->getReference(ActionsFixtures::INSTALL_CAMERA);
+        $cameraMechanics = new Tool();
+        $cameraMechanics->addAction($installCamera);
+
+        $camera = new ItemConfig();
+        $camera
+            ->setGameConfig($gameConfig)
+            ->setName(ItemEnum::CAMERA_ITEM)
+            ->setIsHeavy(false)
+            ->setIsStackable(false)
+            ->setIsFireDestroyable(false)
+            ->setIsFireBreakable(true)
+            ->setIsBreakable(true)
+            ->setMechanics(new ArrayCollection([$cameraMechanics]))
+            ->setActions(new ArrayCollection([$takeAction, $this->getReference(TechnicianFixtures::DISMANTLE_3_25), $repair25, $sabotage25, $reportAction]))
+            ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
+        ;
+
+        $manager->persist($camera);
+        $manager->persist($cameraMechanics);
+
         $extinguisherActions = clone $actions;
         $extinguisherActions->add($this->getReference(TechnicianFixtures::DISMANTLE_3_25));
         $extinguisherActions->add($repair25);

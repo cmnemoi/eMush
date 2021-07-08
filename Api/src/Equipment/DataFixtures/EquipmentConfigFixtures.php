@@ -269,6 +269,26 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         ;
         $manager->persist($pasiphae);
 
+        /** @var Action $removeCamera */
+        $removeCamera = $this->getReference(ActionsFixtures::REMOVE_CAMERA);
+
+        $cameraMechanic = new Tool();
+        $cameraMechanic->addAction($removeCamera);
+        $camera = new EquipmentConfig();
+        $camera
+            ->setGameConfig($gameConfig)
+            ->setName(EquipmentEnum::CAMERA_EQUIPMENT)
+            ->setIsFireDestroyable(false)
+            ->setIsFireBreakable(true)
+            ->setIsBreakable(true)
+            ->setMechanics(new ArrayCollection([$cameraMechanic]))
+            ->setActions(new ArrayCollection([$this->getReference(TechnicianFixtures::DISMANTLE_3_25), $repair25, $sabotage25, $reportAction]))
+            ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
+        ;
+
+        $manager->persist($camera);
+        $manager->persist($cameraMechanic);
+
         /** @var Action $fuelInjectAction */
         $fuelInjectAction = $this->getReference(ActionsFixtures::FUEL_INJECT);
         /** @var Action $fuelRetrieveAction */

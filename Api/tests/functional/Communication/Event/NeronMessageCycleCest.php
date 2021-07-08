@@ -10,7 +10,6 @@ use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\Neron;
-use Mush\Daedalus\Event\DaedalusCycleSubscriber;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Game\Entity\CharacterConfig;
@@ -22,14 +21,15 @@ use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\StatusCycleEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class NeronMessageCycleCest
 {
-    private DaedalusCycleSubscriber $cycleSubscriber;
+    private EventDispatcherInterface $eventDispatcher;
 
     public function _before(FunctionalTester $I)
     {
-        $this->cycleSubscriber = $I->grabService(DaedalusCycleSubscriber::class);
+        $this->eventDispatcher = $I->grabService(EventDispatcherInterface::class);
     }
 
     public function testNewFire(FunctionalTester $I)
@@ -121,7 +121,7 @@ class NeronMessageCycleCest
         $I->haveInRepository($status);
         $I->refreshEntities($player, $daedalus);
 
-        $this->cycleSubscriber->onNewCycle($cycleEvent);
+        $this->eventDispatcher->dispatch($cycleEvent, StatusCycleEvent::STATUS_NEW_CYCLE);
 
         $message = $I->grabEntityFromRepository(Message::class, ['message' => NeronMessageEnum::CYCLE_FAILURES]);
         $fireMessages = $channel->getMessages()->filter(fn (Message $message) => $message->getMessage() === NeronMessageEnum::NEW_FIRE);

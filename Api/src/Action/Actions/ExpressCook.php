@@ -17,7 +17,6 @@ use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
-use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -69,21 +68,13 @@ class ExpressCook extends AbstractAction
 
         if ($parameter->getEquipment()->getName() === GameRationEnum::STANDARD_RATION) {
             /** @var GameItem $newItem */
-            $newItem = $this->gameEquipmentService->createGameEquipmentFromName(GameRationEnum::COOKED_RATION, $this->player->getDaedalus());
-            $equipmentEvent = new EquipmentEvent($newItem, VisibilityEnum::HIDDEN, new \DateTime());
-            $equipmentEvent->setPlayer($this->player);
-            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
+            $newItem = $this->gameEquipmentService
+                ->createGameEquipmentFromName(GameRationEnum::COOKED_RATION, $this->player->getDaedalus())
+            ;
 
-            /** @var Status $status */
-            foreach ($parameter->getStatuses() as $status) {
-                $newItem->addStatus($status);
-                $this->statusService->persist($status);
-            }
-
-            $equipmentEvent = new EquipmentEvent($parameter, VisibilityEnum::HIDDEN, new \DateTime());
-            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
-
-            $this->gameEquipmentService->persist($newItem);
+            $equipmentEvent = new EquipmentEvent($parameter, VisibilityEnum::PUBLIC, new \DateTime());
+            $equipmentEvent->setReplacementEquipment($newItem)->setPlayer($this->player);
+            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_TRANSFORM);
         } elseif ($frozenStatus = $parameter->getStatusByName(EquipmentStatusEnum::FROZEN)) {
             $parameter->removeStatus($frozenStatus);
             $this->gameEquipmentService->persist($parameter);

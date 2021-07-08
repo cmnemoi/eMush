@@ -4,8 +4,8 @@ namespace Mush\Test\Action\Validator;
 
 use Mockery;
 use Mush\Action\Actions\AbstractAction;
-use Mush\Action\Validator\Room;
-use Mush\Action\Validator\RoomValidator;
+use Mush\Action\Validator\IsRoom;
+use Mush\Action\Validator\IsRoomValidator;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Player\Entity\Player;
@@ -15,16 +15,16 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
 class RoomValidatorTest extends TestCase
 {
-    private RoomValidator $validator;
-    private Room $constraint;
+    private IsRoomValidator $validator;
+    private IsRoom $constraint;
 
     /**
      * @before
      */
     public function before()
     {
-        $this->validator = new RoomValidator();
-        $this->constraint = new Room();
+        $this->validator = new IsRoomValidator();
+        $this->constraint = new IsRoom();
     }
 
     /**

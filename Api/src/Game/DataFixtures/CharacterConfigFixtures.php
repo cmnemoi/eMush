@@ -27,10 +27,14 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $hideAction = $this->getReference(ActionsFixtures::HIDE_DEFAULT);
         $searchAction = $this->getReference(ActionsFixtures::SEARCH_DEFAULT);
         $reportFireAction = $this->getReference(ActionsFixtures::REPORT_FIRE);
-        $extractSporeAction = $this->getReference(ActionsFixtures::EXTRACT_SPORE);
-        $infectAction = $this->getReference(ActionsFixtures::INFECT_PLAYER);
         $getUpAction = $this->getReference(ActionsFixtures::GET_UP);
+
+        $extractSporeAction = $this->getReference(ActionsFixtures::EXTRACT_SPORE);
+        $spreadFireAction = $this->getReference(ActionsFixtures::INFECT_PLAYER);
+        $infectAction = $this->getReference(ActionsFixtures::SPREAD_FIRE);
+
         $comfortAction = $this->getReference(ActionsFixtures::COMFORT_DEFAULT);
+
         $defaultActions = new ArrayCollection([
             $hitAction,
             $hideAction,
@@ -41,6 +45,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             $getUpAction,
             $comfortAction,
             $rejuvenateAlphaAction,
+            $spreadFireAction,
         ]);
 
         $andie = new CharacterConfig();

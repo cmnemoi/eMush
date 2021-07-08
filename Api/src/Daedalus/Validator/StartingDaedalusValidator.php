@@ -20,7 +20,7 @@ class StartingDaedalusValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, __NAMESPACE__ . '\StartingDaedalus');
         }
 
-        if ($value->getGameStatus() !== GameStatusEnum::STARTING) {
+        if (!in_array($value->getGameStatus(), [GameStatusEnum::STARTING, GameStatusEnum::STANDBY])) {
             $this->context
                 ->buildViolation($constraint->message)
                 ->setCode(StartingDaedalus::STARTING_DAEDALUS_ERROR)

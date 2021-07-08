@@ -4,20 +4,16 @@ namespace Mush\Communication\Listener;
 
 use Mush\Action\Event\ReportEvent;
 use Mush\Communication\Enum\NeronMessageEnum;
-use Mush\Communication\Services\ChannelServiceInterface;
 use Mush\Communication\Services\NeronMessageServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ReportSubscriber implements EventSubscriberInterface
 {
-    private ChannelServiceInterface $channelService;
     private NeronMessageServiceInterface $neronMessageService;
 
     public function __construct(
-        ChannelServiceInterface $channelService,
         NeronMessageServiceInterface $neronMessageService
     ) {
-        $this->channelService = $channelService;
         $this->neronMessageService = $neronMessageService;
     }
 
@@ -44,7 +40,7 @@ class ReportSubscriber implements EventSubscriberInterface
         $this->neronMessageService->createNeronMessage(
             NeronMessageEnum::REPORT_FIRE,
             $player->getDaedalus(),
-            ['player' => $player->getLogName(), 'place' => $place->getName()],
+            ['character' => $player->getLogName(), 'place' => $place->getName()],
             new \DateTime(),
             $parentMessage
         );
@@ -65,7 +61,7 @@ class ReportSubscriber implements EventSubscriberInterface
         $this->neronMessageService->createNeronMessage(
             NeronMessageEnum::REPORT_EQUIPMENT,
             $player->getDaedalus(),
-            ['player' => $player->getLogName(), $equipment->getLogKey() => $equipment->getLogName()],
+            ['character' => $player->getLogName(), $equipment->getLogKey() => $equipment->getLogName()],
             new \DateTime(),
             $parentMessage
         );

@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\CycleService;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -82,6 +83,7 @@ class CycleServiceTest extends TestCase
             ->setCreatedAt(new DateTime("2020-10-09 23:30:00.0 {$timeZone}"))
             ->setCycleStartedAt(new DateTime("2020-10-09 21:00:00.0 {$timeZone}"))
             ->setCycle(8)
+            ->setGameStatus(GameStatusEnum::STARTING)
         ;
 
         $this->assertEquals(0, $this->service->handleCycleChange(new DateTime("2020-10-09 23:31:00.0 {$timeZone}"), $daedalus));
@@ -92,6 +94,7 @@ class CycleServiceTest extends TestCase
             ->setCreatedAt(new DateTime("2020-10-09 00:30:00.0 {$timeZone}"))
             ->setCycleStartedAt(new DateTime("2020-10-09 00:00:00.0 {$timeZone}"))
             ->setCycle(1)
+            ->setGameStatus(GameStatusEnum::STARTING)
         ;
 
         $this->assertEquals(2, $this->service->handleCycleChange(new DateTime("2020-10-09 06:30:00.0 {$timeZone}"), $daedalus));
@@ -152,6 +155,7 @@ class CycleServiceTest extends TestCase
             ->setCycleStartedAt(new DateTime("2020-10-09 00:00:00.0 {$timeZone}"))
             ->setDay(2)
             ->setCycle(1)
+            ->setGameStatus(GameStatusEnum::STARTING)
         ;
 
         $this->assertEquals(0, $this->service->handleCycleChange(new DateTime("2020-10-09 00:31:00.0 {$timeZone}"), $daedalus));
@@ -167,6 +171,7 @@ class CycleServiceTest extends TestCase
             ->setCycleStartedAt(new DateTime("2020-10-09 03:00:00.0 {$timeZone}"))
             ->setDay(2)
             ->setCycle(2)
+            ->setGameStatus(GameStatusEnum::STARTING)
         ;
 
         $this->assertEquals(0, $this->service->handleCycleChange(new DateTime("2020-10-09 02:31:00.0 {$timeZone}"), $daedalus));
@@ -180,6 +185,7 @@ class CycleServiceTest extends TestCase
             ->setCycleStartedAt(new DateTime("2021-03-28 00:00:00.0 {$timeZone}"))
             ->setDay(2)
             ->setCycle(1)
+            ->setGameStatus(GameStatusEnum::STARTING)
         ;
 
         $this->assertEquals(0, $this->service->handleCycleChange(new DateTime("2021-03-28 03:31:00.0 {$timeZone}"), $daedalus));
@@ -194,11 +200,39 @@ class CycleServiceTest extends TestCase
             ->setCycleStartedAt(new DateTime("2020-10-25 00:00:00.0 {$timeZone}"))
             ->setDay(2)
             ->setCycle(1)
+            ->setGameStatus(GameStatusEnum::STARTING)
         ;
 
         $this->assertEquals(1, $this->service->handleCycleChange(new DateTime("2020-10-25 03:31:00.0 {$timeZone}"), $daedalus));
 
         $daedalus->setCycleStartedAt(new DateTime("2020-10-25 00:00:00.0 {$timeZone}"));
         $this->assertEquals(2, $this->service->handleCycleChange(new DateTime("2020-10-25 05:31:00.0 {$timeZone}"), $daedalus));
+    }
+
+    public function testStandByDaedalus()
+    {
+        $timeZone = 'Europe/Paris';
+
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
+        ;
+
+        $gameConfig = new GameConfig();
+
+        $gameConfig
+            ->setCyclePerGameDay(8)
+            ->setCycleLength(3 * 60)
+            ->setTimeZone($timeZone)
+        ;
+
+        $daedalus = new Daedalus();
+        $daedalus
+            ->setGameConfig($gameConfig)
+            ->setCreatedAt(new DateTime("2020-10-09 00:30:00.0 {$timeZone}"))
+            ->setCycleStartedAt(new DateTime("2020-09-09 24:00:00.0 {$timeZone}"))
+            ->setCycle(0)
+        ;
+
+        $this->assertEquals(0, $this->service->handleCycleChange(new DateTime("2020-10-09 23:31:00.0 {$timeZone}"), $daedalus));
     }
 }

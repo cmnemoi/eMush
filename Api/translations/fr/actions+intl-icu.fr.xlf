@@ -452,5 +452,15 @@
                 <target>Cette action permet d'enlever un matériel pour le rendre inopérant ou le déplacer.</target>
             </segment>
         </unit>
+        <unit id="examine">
+            <segment id="name">
+                <source>examine.name</source>
+                <target>Examiner</target>
+            </segment>
+            <segment id="description">
+                <source>examine.description</source>
+                <target>Qu'est ce donc que cette petite chose ?</target>
+            </segment>
+        </unit>
     </file>
 </xliff>

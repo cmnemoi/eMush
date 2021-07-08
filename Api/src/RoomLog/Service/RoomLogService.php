@@ -6,7 +6,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
@@ -53,6 +55,23 @@ class RoomLogService implements RoomLogServiceInterface
 
     public function createLogFromActionResult(string $actionName, ActionResult $actionResult, Player $player): ?RoomLog
     {
+        // first lets handle the special case of examine action
+        if ($actionName === ActionEnum::EXAMINE && ($target = $actionResult->getTargetEquipment()) !== null) {
+            if ($target instanceof GameItem) {
+                $type = 'items';
+            } else {
+                $type = 'equipments';
+            }
+
+            return $this->createLog(
+                $target->getLogName() . '.examine',
+                $player->getPlace(),
+                VisibilityEnum::PRIVATE,
+                $type,
+                $player,
+            );
+        }
+
         $logMapping = ActionLogEnum::ACTION_LOGS[$actionName] ?? null;
 
         if (!$logMapping) {

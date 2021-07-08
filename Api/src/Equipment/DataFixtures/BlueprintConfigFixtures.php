@@ -31,8 +31,10 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
         $buildAction = $this->getReference(ActionsFixtures::BUILD_DEFAULT);
         /** @var Action $buildAction */
         $hideAction = $this->getReference(ActionsFixtures::HIDE_DEFAULT);
+        /** @var Action $examineAction */
+        $examineAction = $this->getReference(ActionsFixtures::EXAMINE_EQUIPMENT);
 
-        $actions = new ArrayCollection([$takeAction, $dropAction, $hideAction]);
+        $actions = new ArrayCollection([$takeAction, $dropAction, $hideAction, $examineAction]);
 
         /** @var ItemConfig $echolocator */
         $echolocator = $this->getReference(ItemEnum::ECHOLOCATOR);

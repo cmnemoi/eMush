@@ -28,8 +28,10 @@ class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
         $consumeDrugAction = $this->getReference(ActionsFixtures::DRUG_CONSUME);
         /** @var Action $buildAction */
         $hideAction = $this->getReference(ActionsFixtures::HIDE_DEFAULT);
+        /** @var Action $examineAction */
+        $examineAction = $this->getReference(ActionsFixtures::EXAMINE_EQUIPMENT);
 
-        $actions = new ArrayCollection([$takeAction, $dropAction, $hideAction]);
+        $actions = new ArrayCollection([$takeAction, $dropAction, $hideAction, $examineAction]);
 
         $drugMechanic = new Drug();
         //  possibilities are stored as key, array value represent the probability to get the key value

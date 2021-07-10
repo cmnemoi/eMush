@@ -59,6 +59,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
     public const SPREAD_FIRE = 'spread.fire';
     public const INSTALL_CAMERA = 'install.camera';
     public const REMOVE_CAMERA = 'remove.camera';
+    public const EXAMINE_EQUIPMENT = 'examine.equipment';
 
     public const EXTRACT_SPORE = 'extract.spore';
     public const INFECT_PLAYER = 'infect.player';
@@ -539,6 +540,17 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->persist($removeCameraAction);
 
+        $examineEquipmentAction = new Action();
+        $examineEquipmentAction
+            ->setName(ActionEnum::EXAMINE)
+            ->setScope(ActionScopeEnum::CURRENT)
+            ->setActionCost($freeCost)
+            ->setInjuryRate(0)
+            ->setDirtyRate(0)
+        ;
+
+        $manager->persist($examineEquipmentAction);
+
         $manager->flush();
 
         $this->addReference(self::REJUVENATE_ALPHA, $rejuvenateAlpha);
@@ -589,6 +601,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::SPREAD_FIRE, $spreadFireAction);
         $this->addReference(self::INSTALL_CAMERA, $installCameraAction);
         $this->addReference(self::REMOVE_CAMERA, $removeCameraAction);
+        $this->addReference(self::EXAMINE_EQUIPMENT, $examineEquipmentAction);
     }
 
     public function getDependencies(): array

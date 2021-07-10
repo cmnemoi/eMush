@@ -34,8 +34,10 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
         $readBook = $this->getReference(ActionsFixtures::READ_BOOK);
         /** @var Action $buildAction */
         $hideAction = $this->getReference(ActionsFixtures::HIDE_DEFAULT);
+        /** @var Action $examineAction */
+        $examineAction = $this->getReference(ActionsFixtures::EXAMINE_EQUIPMENT);
 
-        $actions = new ArrayCollection([$takeAction, $dropAction, $hideAction]);
+        $actions = new ArrayCollection([$takeAction, $dropAction, $hideAction, $examineAction]);
 
         //First Mage Books
         $skillsArray = [SkillEnum::ASTROPHYSICIST,

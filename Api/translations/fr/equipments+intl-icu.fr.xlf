@@ -22,8 +22,8 @@
                 <source>antenna.first_letter</source>
                 <target>vowel</target>
             </segment>
-            <segment id="description">
-                <source>antenna.description</source>
+            <segment id="examine">
+                <source>antenna.examine</source>
                 <target>Améliore grandement le rendement du Centre de Communication. Diminue de 1 pa le coût des actions de communication. Le manuel stipule que l'antenne stellaire est le must have en terme de communication, avec sa bande passante de 24 Bauds, il vous permettra de communiquer à l'autre bout de l'univers sans effort.</target>
             </segment>
         </unit>
@@ -48,8 +48,8 @@
                 <source>astro_terminal.first_letter</source>
                 <target>vowel</target>
             </segment>
-            <segment id="description">
-                <source>astro_terminal.description</source>
+            <segment id="examine">
+                <source>astro_terminal.examine</source>
                 <target>Permet de chercher des planètes dans les systèmes proches et de les sonder. Le terminal Astro permet de scanner l'espace proche à la recherche d'une planète à explorer. Les informations qui sont contenues dedans sont strictement réservées aux navigateurs dans le but de préserver le moral de l'équipage.</target>
             </segment>
         </unit>
@@ -74,8 +74,8 @@
                 <source>auxiliary_terminal.first_letter</source>
                 <target>vowel</target>
             </segment>
-            <segment id="description">
-                <source>auxiliary_terminal.description</source>
+            <segment id="examine">
+                <source>auxiliary_terminal.examine</source>
                 <target></target>
             </segment>
         </unit>
@@ -100,8 +100,8 @@
                 <source>bed.first_letter</source>
                 <target>consonant</target>
             </segment>
-            <segment id="description">
-                <source>bed.description</source>
+            <segment id="examine">
+                <source>bed.examine</source>
                 <target>Le lit vous permet de dormir pour régénérer des pa. Faites de beaux rêves !</target>
             </segment>
         </unit>
@@ -126,8 +126,8 @@
                 <source>medlab_bed.first_letter</source>
                 <target>consonant</target>
             </segment>
-            <segment id="description">
-                <source>medlab_bed.description</source>
+            <segment id="examine">
+                <source>medlab_bed.examine</source>
                 <target>Le lit vous permet de dormir pour régénérer des pa. Faites de beaux rêves !</target>
             </segment>
         </unit>
@@ -152,8 +152,8 @@
                 <source>bios_terminal.first_letter</source>
                 <target>consonant</target>
             </segment>
-            <segment id="description">
-                <source>bios_terminal.description</source>
+            <segment id="examine">
+                <source>bios_terminal.examine</source>
                 <target>Permet à l' Admin. NERON de modifier certains comportements de l' IA de bord. Lors de la psychothérapie de NERON, l'interface de celui-ci à été ouverte pour qu'il soit plus malléable. L' interface basique d'entrée-sortie reste donc accessible pour une poignée d'élus.</target>
             </segment>
         </unit>
@@ -178,8 +178,8 @@
                 <source>calculator.first_letter</source>
                 <target>consonant</target>
             </segment>
-            <segment id="description">
-                <source>calculator.description</source>
+            <segment id="examine">
+                <source>calculator.examine</source>
                 <target>Permet de calculer quelque chose... Reste à savoir quoi...</target>
             </segment>
         </unit>
@@ -204,8 +204,8 @@
                 <source>coffee_machine.first_letter</source>
                 <target>consonant</target>
             </segment>
-            <segment id="description">
-                <source>coffee_machine.description</source>
+            <segment id="examine">
+                <source>coffee_machine.examine</source>
                 <target>Cette fantastique machine a café produit un pur Arabica à une vitesse proche de la lumière. Malheureusement elle consomme autant d'énergie qu'une centrale nucléaire, et en l'absence du réacteur PILGRED il vous faudra vous contenter d'un café toutes les 24 heures. La machine a café est la meilleur ami de l'Homme. Après le chat.</target>
             </segment>
         </unit>
@@ -230,8 +230,8 @@
                 <source>combustion_chamber.first_letter</source>
                 <target>consonant</target>
             </segment>
-            <segment id="description">
-                <source>combustion_chamber.description</source>
+            <segment id="examine">
+                <source>combustion_chamber.examine</source>
                 <target>La chambre de combustion se trouve dans la Salle de Moteurs. Elle permet d'alimenter les réacteurs auxiliaires en Fuel pour voyager. Réserve de carburant destinée au moteur diesel. Une technologie sublime et un usage assez particulier. Les canaux de transfert de carburant ne fonctionnant plus, il faut transporter le mélange des buses des réservoirs jusqu'à la pré chambre de combustion. Les concepteurs auraient pu propulser la bête au charbon tant qu'ils y étaient...</target>
             </segment>
         </unit>
@@ -256,8 +256,8 @@
                 <source>command_terminal.first_letter</source>
                 <target>consonant</target>
             </segment>
-            <segment id="description">
-                <source>command_terminal.description</source>
+            <segment id="examine">
+                <source>command_terminal.examine</source>
                 <target>Le module de commandement sert uniquement au Commandant. Accès Interdit. Permet au Commandant d'effectuer ses devoirs. Le module de pilotage possède plein d'outils facilitant la gestion quotidien du Daedalus.</target>
             </segment>
         </unit>
@@ -282,8 +282,8 @@
                 <source>communication_center.first_letter</source>
                 <target>consonant</target>
             </segment>
-            <segment id="description">
-                <source>communication_center.description</source>
+            <segment id="examine">
+                <source>communication_center.examine</source>
                 <target>Le centre de communication permet de joindre les systèmes très éloignés. Le centre de communication ultra-moderne permet de rassembler les résultats d'analyse des senseurs et autres radars. Il permet également d'établir des communications longues distances.</target>
             </segment>
         </unit>
@@ -308,8 +308,8 @@
                 <source>cryo_module.first_letter</source>
                 <target>consonant</target>
             </segment>
-            <segment id="description">
-                <source>cryo_module.description</source>
+            <segment id="examine">
+                <source>cryo_module.examine</source>
                 <target>Le Module Cryo® contient les corps de vos compagnons encore inanimés. Le module de cryogénisation vous contenait pendant votre long sommeil. Charge à vous de ne pas y retourner.</target>
             </segment>
         </unit>
@@ -334,8 +334,8 @@
                 <source>door.first_letter</source>
                 <target>consonant</target>
             </segment>
-            <segment id="description">
-                <source>door.description</source>
+            <segment id="examine">
+                <source>door.examine</source>
                 <target>Les portes du Daedalus sont fragiles et ont la fâcheuse habitude de rester bloquées... En cas de panne, contacter un technicien. Qu'elle que soit son matériaux, sa densité, son état, une porte mène quelque part.</target>
             </segment>
         </unit>
@@ -360,8 +360,8 @@
                 <source>dynarcade.first_letter</source>
                 <target>consonant</target>
             </segment>
-            <segment id="description">
-                <source>dynarcade.description</source>
+            <segment id="examine">
+                <source>dynarcade.examine</source>
                 <target>Une borne de jeu d'arcade monté sur verrin hydraulique, le nec plus ultra de la fracture cranienne. Trop mortel ! La réplique authentique de la borde DYN-X666 qui n'a fait que 63 morts à Shanghai2000 en 2117. Fait tourner Rage Storm Of Fury et Call Of Dirty à 240 FPS !!!! À utiliser avec précaution.</target>
             </segment>
         </unit>
@@ -386,8 +386,8 @@
                 <source>emergency_reactor.first_letter</source>
                 <target>vowel</target>
             </segment>
-            <segment id="description">
-                <source>emergency_reactor.description</source>
+            <segment id="examine">
+                <source>emergency_reactor.examine</source>
                 <target>Il permet de faire avancer Daedalus en cas de défaillance du PILGRED. La fulgurante technologie Diesel a encore de beaux restes. Désormais c'est la seule façon pour Daedalus d'avancer. Chaque réacteur permet de brûler deux unités de fuel par voyage.</target>
             </segment>
         </unit>
@@ -412,8 +412,8 @@
                 <source>fuel_tank.first_letter</source>
                 <target>consonant</target>
             </segment>
-            <segment id="description">
-                <source>fuel_tank.description</source>
+            <segment id="examine">
+                <source>fuel_tank.examine</source>
                 <target>Le réservoir de fuel sert à stocker le précieux carburant et est muni d'un distributeur. Réserve de fuel du Daedalus, manipuler avec précaution. NE PAS FUMER.</target>
             </segment>
         </unit>
@@ -438,8 +438,8 @@
                 <source>gravity_simulator.first_letter</source>
                 <target>consonant</target>
             </segment>
-            <segment id="description">
-                <source>gravity_simulator.description</source>
+            <segment id="examine">
+                <source>gravity_simulator.examine</source>
                 <target>Le simulateur permet d'obtenir de la gravité. Cela facilite les déplacements de tout l'équipage dans le vaisseau. *Et la lourdeur fut !*</target>
             </segment>
         </unit>
@@ -464,8 +464,8 @@
                 <source>kitchen.first_letter</source>
                 <target>consonant</target>
             </segment>
-            <segment id="description">
-                <source>kitchen.description</source>
+            <segment id="examine">
+                <source>kitchen.examine</source>
                 <target>Domaine réservé d'un célèbre moustachu. Sert aussi à faire la popote. Poste de cuisine d'élite inter-galactique, certaines compétences en arts martiaux peuvent être nécessaires.</target>
             </segment>
         </unit>
@@ -490,8 +490,8 @@
                 <source>reactor_lateral.first_letter</source>
                 <target>consonant</target>
             </segment>
-            <segment id="description">
-                <source>reactor_lateral.description</source>
+            <segment id="examine">
+                <source>reactor_lateral.examine</source>
                 <target>Placé dans la Salle de Moteurs, le réacteur latéral permet de faire tourner le Daedalus. Permettent de faire tourner cette bonne vieille carne.</target>
             </segment>
         </unit>
@@ -516,8 +516,8 @@
                 <source>mycoscan.first_letter</source>
                 <target>consonant</target>
             </segment>
-            <segment id="description">
-                <source>mycoscan.description</source>
+            <segment id="examine">
+                <source>mycoscan.examine</source>
                 <target>Permet de trouver les traces de spore Mush dans les organismes. Prototype de détecteur de traces de Mush, originalement élaboré par Finola puis perfectionné dans le cadre du projet Magellan.</target>
             </segment>
         </unit>
@@ -542,8 +542,8 @@
                 <source>narcotic_distiller.first_letter</source>
                 <target>consonant</target>
             </segment>
-            <segment id="description">
-                <source>narcotic_distiller.description</source>
+            <segment id="examine">
+                <source>narcotic_distiller.examine</source>
                 <target>Le distilleur permet de fabriquer des médicaments. Hélas son comportement erratique le rend peu fiable. Distributeur de bonheur agrée par le professeur Albus Haxley.</target>
             </segment>
         </unit>
@@ -568,8 +568,8 @@
                 <source>neron_core.first_letter</source>
                 <target>consonant</target>
             </segment>
-            <segment id="description">
-                <source>neron_core.description</source>
+            <segment id="examine">
+                <source>neron_core.examine</source>
                 <target>Le cœur de NERON donne accès aux projets NERON. Le cœur de NERON permet de modifier ses programmes pour l'améliorer.</target>
             </segment>
         </unit>
@@ -594,8 +594,8 @@
                 <source>oxygen_tank.first_letter</source>
                 <target>consonant</target>
             </segment>
-            <segment id="description">
-                <source>oxygen_tank.description</source>
+            <segment id="examine">
+                <source>oxygen_tank.examine</source>
                 <target>Le réservoir d'oxygène stocke l'oxygène nécessaire à votre respiration. Réserve d'oxygène du Daedalus, manipuler avec précaution. NE PAS VIDER à mauvais escient.</target>
             </segment>
         </unit>
@@ -620,8 +620,8 @@
                 <source>pasiphae.first_letter</source>
                 <target>consonant</target>
             </segment>
-            <segment id="description">
-                <source>pasiphae.description</source>
+            <segment id="examine">
+                <source>pasiphae.examine</source>
                 <target>Patrouilleur Armure de l'appareil : 12. Il n'est plus tout jeune mais il fera l'affaire.</target>
             </segment>
         </unit>
@@ -646,8 +646,8 @@
                 <source>patrol_ship_alpha_2_wallis.first_letter</source>
                 <target>consonant</target>
             </segment>
-            <segment id="description">
-                <source>patrol_ship_alpha_2_wallis.description</source>
+            <segment id="examine">
+                <source>patrol_ship_alpha_2_wallis.examine</source>
                 <target>Patrouilleur Charges de l'appareil : 10. Armure de l'appareil : 10. Il n'est plus tout jeune mais il fera l'affaire.</target>
             </segment>
         </unit>
@@ -672,8 +672,8 @@
                 <source>patrol_ship_alpha_epicure.first_letter</source>
                 <target>consonant</target>
             </segment>
-            <segment id="description">
-                <source>patrol_ship_alpha_epicure.description</source>
+            <segment id="examine">
+                <source>patrol_ship_alpha_epicure.examine</source>
                 <target>Patrouilleur Charges de l'appareil : 10. Armure de l'appareil : 10. Il n'est plus tout jeune mais il fera l'affaire.</target>
             </segment>
         </unit>
@@ -698,8 +698,8 @@
                 <source>patrol_ship_alpha_jujube.first_letter</source>
                 <target>consonant</target>
             </segment>
-            <segment id="description">
-                <source>patrol_ship_alpha_jujube.description</source>
+            <segment id="examine">
+                <source>patrol_ship_alpha_jujube.examine</source>
                 <target>Patrouilleur Charges de l'appareil : 10. Armure de l'appareil : 10. Il n'est plus tout jeune mais il fera l'affaire.</target>
             </segment>
         </unit>
@@ -724,8 +724,8 @@
                 <source>patrol_ship_alpha_longane.first_letter</source>
                 <target>consonant</target>
             </segment>
-            <segment id="description">
-                <source>patrol_ship_alpha_longane.description</source>
+            <segment id="examine">
+                <source>patrol_ship_alpha_longane.examine</source>
                 <target>Patrouilleur Charges de l'appareil : 10. Armure de l'appareil : 10. Il n'est plus tout jeune mais il fera l'affaire.</target>
             </segment>
         </unit>
@@ -750,8 +750,8 @@
                 <source>patrol_ship_alpha_planton.first_letter</source>
                 <target>consonant</target>
             </segment>
-            <segment id="description">
-                <source>patrol_ship_alpha_planton.description</source>
+            <segment id="examine">
+                <source>patrol_ship_alpha_planton.examine</source>
                 <target>Patrouilleur Charges de l'appareil : 10. Armure de l'appareil : 10. Il n'est plus tout jeune mais il fera l'affaire.</target>
             </segment>
         </unit>
@@ -776,8 +776,8 @@
                 <source>patrol_ship_alpha_socrate.first_letter</source>
                 <target>consonant</target>
             </segment>
-            <segment id="description">
-                <source>patrol_ship_alpha_socrate.description</source>
+            <segment id="examine">
+                <source>patrol_ship_alpha_socrate.examine</source>
                 <target>Patrouilleur Charges de l'appareil : 10. Armure de l'appareil : 10. Il n'est plus tout jeune mais il fera l'affaire.</target>
             </segment>
         </unit>
@@ -802,8 +802,8 @@
                 <source>patrol_ship_alpha_tamarin.first_letter</source>
                 <target>consonant</target>
             </segment>
-            <segment id="description">
-                <source>patrol_ship_alpha_tamarin.description</source>
+            <segment id="examine">
+                <source>patrol_ship_alpha_tamarin.examine</source>
                 <target>Patrouilleur Charges de l'appareil : 10. Armure de l'appareil : 10. Il n'est plus tout jeune mais il fera l'affaire.</target>
             </segment>
         </unit>
@@ -828,8 +828,8 @@
                 <source>pilgred.first_letter</source>
                 <target>consonant</target>
             </segment>
-            <segment id="description">
-                <source>pilgred.description</source>
+            <segment id="examine">
+                <source>pilgred.examine</source>
                 <target>Le réacteur PILGRED. La seule façon de voyager plus vite que la lumière connue au moment du départ du Daedalus. Sa remise en état vous permettra peut-être de retourner sur Sol. Déchirez votre espace-temps en toute sécurité.</target>
             </segment>
         </unit>
@@ -854,8 +854,8 @@
                 <source>planet_scanner.first_letter</source>
                 <target>consonant</target>
             </segment>
-            <segment id="description">
-                <source>planet_scanner.description</source>
+            <segment id="examine">
+                <source>planet_scanner.examine</source>
                 <target>Améliore grandement le rendement du Terminal Astro. +30% de chance de trouver une planète. Il émet de la musique quand vous le démarrez. Ces ingénieurs sont décidément excentriques... Qui eût cru que Verdi aurait pu inspirer un tel calculateur...</target>
             </segment>
         </unit>
@@ -880,8 +880,8 @@
                 <source>research_laboratory.first_letter</source>
                 <target>consonant</target>
             </segment>
-            <segment id="description">
-                <source>research_laboratory.description</source>
+            <segment id="examine">
+                <source>research_laboratory.examine</source>
                 <target>Le laboratoire permet de rassembler les recherches les plus pointues sur le Mush. Un laboratoire super ultra moderne avec de vrais ordinateurs à lampe fluo compacte et des cartes perforées haute densité.</target>
             </segment>
         </unit>
@@ -906,8 +906,8 @@
                 <source>shower.first_letter</source>
                 <target>consonant</target>
             </segment>
-            <segment id="description">
-                <source>shower.description</source>
+            <segment id="examine">
+                <source>shower.examine</source>
                 <target>L’hygiène aide à rester sain. Dans l'espace tout peut arriver, parfois pour se laver de toutes les péripéties, une bonne douche et c'est reparti.</target>
             </segment>
         </unit>
@@ -932,8 +932,8 @@
                 <source>swedish_sofa.first_letter</source>
                 <target>consonant</target>
             </segment>
-            <segment id="description">
-                <source>swedish_sofa.description</source>
+            <segment id="examine">
+                <source>swedish_sofa.examine</source>
                 <target>Un superbe sofa en cuir de Nubuk véritable, cousu main. Conçu en Suède mais fabriqué sur Encelade pour pas cher. Qui eu crû que quelques coussins et une structure de contre-plaqué puissent autant détendre...</target>
             </segment>
         </unit>
@@ -958,8 +958,8 @@
                 <source>surgical_plot.first_letter</source>
                 <target>consonant</target>
             </segment>
-            <segment id="description">
-                <source>surgical_plot.description</source>
+            <segment id="examine">
+                <source>surgical_plot.examine</source>
                 <target>Ce plot comprend tous les instruments. Automate nécessaire à des soins efficaces. En cas de coups durs vous devriez toujours savoir où il se trouve.</target>
             </segment>
         </unit>
@@ -984,8 +984,8 @@
                 <source>thalasso.first_letter</source>
                 <target>consonant</target>
             </segment>
-            <segment id="description">
-                <source>thalasso.description</source>
+            <segment id="examine">
+                <source>thalasso.examine</source>
                 <target>L’hygiène aide à rester sain. Dans l'espace tout peut arriver, parfois pour se laver de toutes les péripéties, une bonne douche et c'est reparti.</target>
             </segment>
         </unit>
@@ -1010,8 +1010,8 @@
                 <source>turret_command.first_letter</source>
                 <target>consonant</target>
             </segment>
-            <segment id="description">
-                <source>turret_command.description</source>
+            <segment id="examine">
+                <source>turret_command.examine</source>
                 <target>La défense contre les Hunters est une priorité Camarade. Poste de tir de la tourelle Bidulotron 3000. En pointe de la technologie, ses boucliers de verres et son teslatron en font une arme redoutable contre les Hunters.</target>
             </segment>
         </unit>
@@ -1036,8 +1036,8 @@
                 <source>icarus.first_letter</source>
                 <target>vowel</target>
             </segment>
-            <segment id="description">
-                <source>icarus.description</source>
+            <segment id="examine">
+                <source>icarus.examine</source>
                 <target>Permet de mener l'Icarus vers de nouvelles aventures. L'Icarus était un vaisseau d'exploration d'élite... il y a quelques centaines d'années.</target>
             </segment>
         </unit>
@@ -1062,34 +1062,34 @@
                 <source>jukebox.first_letter</source>
                 <target>consonant</target>
             </segment>
-            <segment id="description">
-                <source>jukebox.description</source>
+            <segment id="examine">
+                <source>jukebox.examine</source>
                 <target>Le jukebox permet de se faire une bonne petite séance de regression de temps à autre. Le jukebox des années folles par excellence. Et en plus chargé avec les tubes préféré de l'équipage !</target>
             </segment>
         </unit>
-        <unit id="camera">
+        <unit id="camera_equipment">
             <segment id="name">
-                <source>camera.name</source>
+                <source>camera_equipment.name</source>
                 <target>Caméra</target>
             </segment>
             <segment id="short_name">
-                <source>camera.short_name</source>
+                <source>camera_equipment.short_name</source>
                 <target>Caméra</target>
             </segment>
             <segment id="plural_name">
-                <source>camera.plural_name</source>
+                <source>camera_equipment.plural_name</source>
                 <target>Caméras</target>
             </segment>
             <segment id="genre">
-                <source>camera.genre</source>
+                <source>camera_equipment.genre</source>
                 <target>female</target>
             </segment>
             <segment id="first_letter">
-                <source>camera.first_letter</source>
+                <source>camera_equipment.first_letter</source>
                 <target>consonant</target>
             </segment>
-            <segment id="description">
-                <source>camera.description</source>
+            <segment id="examine">
+                <source>camera_equipment.examine</source>
                 <target>La caméra est un outils de surveillance bien pratique pour --espionner-- surveiller votre prochain. En sa présence, les actions **discrètes** et **furtives** effectuées sont révélées. Lorsqu'une salle possède une caméra, tous les logs sont sauvegardés dans l'historique et apparaissent publiquement. La caméra repère également les actions discrètes et furtives effectuées. Elle ne fonctionne pas si elle est placée dans votre inventaire personnel.</target>
             </segment>
         </unit>

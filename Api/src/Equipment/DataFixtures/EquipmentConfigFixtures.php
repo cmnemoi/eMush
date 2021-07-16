@@ -519,7 +519,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $surgicalPlot = new EquipmentConfig();
         $surgicalPlot
             ->setGameConfig($gameConfig)
-            ->setName(EquipmentEnum::SURGICAL_PLOT)
+            ->setName(EquipmentEnum::SURGERY_PLOT)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)

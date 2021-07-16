@@ -10,10 +10,11 @@
     </div>
 </template>
 
-<script>
-import ActionButton from "@/components/Utils/ActionButton";
+<script lang="ts">
+import ActionButton from "@/components/Utils/ActionButton.vue";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent ({
     components: {
         ActionButton
     },
@@ -23,7 +24,7 @@ export default {
     emits: [
         "clickOnAction"
     ]
-};
+});
 </script>
 
 <style lang="scss" scoped>

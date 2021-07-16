@@ -20,11 +20,12 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import { mapActions, mapGetters } from "vuex";
-import PopUp from "@/components/Utils/PopUp";
+import PopUp from "@/components/Utils/PopUp.vue";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent ({
     name: 'Login',
     components: {
         PopUp
@@ -46,23 +47,24 @@ export default {
             'redirect',
             'logout'
         ]),
-        submitPassphrase() {
+        submitPassphrase(): void {
             if (this.passphrase !== "") {
                 this.redirect({ passphrase: this.passphrase });
                 this.passphrase = "";
             }
             this.closePopup();
         },
-        async openPopup() {
+        async openPopup(): Promise<void> {
             this.isPassphrasePopupOpen = true;
             await this.$nextTick;
-            this.$refs.passphrase_input.focus();
+            const ref: HTMLElement = this.$refs.passphrase_input as HTMLHtmlElement;
+            ref.focus();
         },
-        closePopup() {
+        closePopup(): void {
             this.isPassphrasePopupOpen = false;
         }
     }
-};
+});
 </script>
 
 <style lang="scss" scoped>

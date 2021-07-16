@@ -1,11 +1,10 @@
 export class Alert {
-    public key: string|null;
+    public key!: string;
     public name: string|null;
     public description: string|null;
     public reports: Array<string>;
 
     constructor() {
-        this.key = null;
         this.name = null;
         this.description = null;
         this.reports = [];
@@ -26,7 +25,7 @@ export class Alert {
     }
     decode(jsonString: string): Alert {
         if (jsonString) {
-            let object = JSON.parse(jsonString);
+            const object = JSON.parse(jsonString);
             this.key = object.key;
             this.name = object.name;
             this.description = object.description;

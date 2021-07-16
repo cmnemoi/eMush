@@ -1,8 +1,7 @@
 import CommunicationService from "@/services/communication.service";
 import { Channel } from "@/entities/Channel";
-import { ROOM_LOG } from '@/enums/communication.enum';
-import { PRIVATE, PUBLIC, TIPS } from "@/enums/communication.enum";
 import { ActionTree, GetterTree, MutationTree } from "vuex";
+import { ChannelType } from "@/enums/communication.enum";
 
 
 const state =  {
@@ -24,7 +23,7 @@ const getters: GetterTree<any, any> = {
         return state.messagesByChannelId[state.currentChannel.id] || [];
     },
     roomChannel(state) {
-        return state.channels.find((channel: Channel) => channel.scope === ROOM_LOG);
+        return state.channels.find((channel: Channel) => channel.scope === ChannelType.ROOM_LOG);
     },
     invitablePlayerMenuOpen(state) {
         return state.invitablePlayerMenuOpen;
@@ -49,7 +48,7 @@ const actions: ActionTree<any, any> = {
         commit('setLoadingOfChannels', true);
 
         try {
-            let channels = await CommunicationService.loadChannels();
+            const channels = await CommunicationService.loadChannels();
 
             const currentPlayerKey = rootState.player.player.characterKey;
             const sortedChannels = sortChannels(channels, currentPlayerKey);
@@ -67,7 +66,6 @@ const actions: ActionTree<any, any> = {
 
     async loadMessages({ commit }, { channel }) {
         commit('setLoadingForChannel', { channel, newStatus: true });
-
         try {
             const messages = await CommunicationService.loadMessages(channel);
             commit('setChannelMessages', { channel, messages });
@@ -147,60 +145,60 @@ const actions: ActionTree<any, any> = {
 };
 
 const mutations: MutationTree<any> = {
-    setLoadingOfChannels(state, newStatus) {
+    setLoadingOfChannels(state: any, newStatus: string): void {
         state.loadingChannels = newStatus;
     },
 
-    setLoadingForChannel(state, { channel, newStatus }) {
+    setLoadingForChannel(state: any, { channel, newStatus }): void {
         state.loadingByChannelId[channel.id] = newStatus;
     },
 
-    setCurrentChannel(state, channel) {
+    setCurrentChannel(state: any, channel: Channel): void {
         state.currentChannel = channel;
     },
 
-    setChannels(state, channels) {
+    setChannels(state: any, channels: Channel[]): void {
         state.channels = channels;
     },
 
-    addChannel(state, channel) {
+    addChannel(state: any, channel: Channel): void {
         state.channels.push(channel);
     },
 
-    removeChannel(state, channel) {
+    removeChannel(state: any, channel: Channel): void {
         state.channels = state.channels.filter(({ id }: {id: number}) => id !== channel.id);
         delete state.loadingByChannelId[channel.id];
         delete state.messagesByChannelId[channel.id];
     },
 
-    invitablePlayerMenu(state, { isOpen, channel }) {
+    invitablePlayerMenu(state: any, { isOpen, channel }): void {
         state.invitablePlayerMenuOpen = isOpen;
         state.invitationChannel = channel;
     },
 
-    setInvitablePlayers(state, { invitablePlayers }) {
+    setInvitablePlayers(state: any, { invitablePlayers }): void {
         state.invitablePlayers = invitablePlayers;
     },
 
-    setChannelMessages(state, { channel, messages }) {
+    setChannelMessages(state: any, { channel, messages }): void {
         state.messagesByChannelId[channel.id] = messages;
     }
 };
 
-export function sortChannels(channels: Array<Channel>, currentPlayerKey: string) {
+export function sortChannels(channels: Channel[], currentPlayerKey: string): Channel[] {
     const channelOrderValue = {
-        [TIPS] : 0,
-        [ROOM_LOG] : 1,
-        [PUBLIC] : 2,
-        [PRIVATE] : 3
+        [ChannelType.TIPS] : 0,
+        [ChannelType.FAVORITES] : 1,
+        [ChannelType.MUSH] : 2,
+        [ChannelType.ROOM_LOG] : 3,
+        [ChannelType.PUBLIC] : 4,
+        [ChannelType.PRIVATE] : 5
     };
 
-    // @ts-ignore
-    return channels.sort(function (a: Channel, b: Channel) {
-        // @ts-ignore
+    return channels.sort(function (a: Channel, b: Channel) : number {
         const diff = channelOrderValue[a.scope] - channelOrderValue[b.scope];
 
-        if (diff === 0 && a.scope === PRIVATE) {
+        if (diff === 0 && a.scope === ChannelType.PRIVATE) {
             const participantA = a.getParticipant(currentPlayerKey);
             const participantB = b.getParticipant(currentPlayerKey);
 
@@ -209,7 +207,7 @@ export function sortChannels(channels: Array<Channel>, currentPlayerKey: string)
                 return 0;
             }
 
-            return (participantA.joinedAt > participantB.joinedAt);
+            return (participantA.joinedAt > participantB.joinedAt) ? 1 : -1;
         }
 
         return diff;

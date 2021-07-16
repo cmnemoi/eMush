@@ -12,13 +12,15 @@
     </TabContainer>
 </template>
 
-<script>
+<script lang="ts">
 import { mapActions, mapGetters } from "vuex";
 import { Channel } from "@/entities/Channel";
-import Log from "@/components/Game/Communications/Messages/Log";
-import TabContainer from "@/components/Game/Communications/TabContainer";
+import Log from "@/components/Game/Communications/Messages/Log.vue";
+import TabContainer from "@/components/Game/Communications/TabContainer.vue";
+import { Message } from "@/entities/Message";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent ({
     name: "RoomEventsTab",
     components: {
         Log,
@@ -31,7 +33,7 @@ export default {
         ...mapGetters('communication', [
             'messages'
         ]),
-        roomLogs() {
+        roomLogs(): Message[] {
             return this.messages;
         }
     },
@@ -40,7 +42,7 @@ export default {
             'loadMessages'
         ])
     }
-};
+});
 </script>
 
 <style lang="scss" scoped>

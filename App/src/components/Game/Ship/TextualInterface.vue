@@ -27,18 +27,19 @@
         <h1>Players</h1>
         <div v-for="(player,key) in room.players" :key="key">
             <p @click="$emit('clickOnTarget', player); $event.stopPropagation()">
-                {{ player.characterValue }}
+                {{ player.character.name }}
             </p>
         </div>
     </div>
 </template>
 
-<script>
-import ActionButton from "@/components/Utils/ActionButton";
-import Statuses from "@/components/Utils/Statuses";
+<script lang="ts">
+import ActionButton from "@/components/Utils/ActionButton.vue";
+import Statuses from "@/components/Utils/Statuses.vue";
 import { Room } from "@/entities/Room";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent ({
     components: {
         ActionButton,
         Statuses
@@ -52,7 +53,7 @@ export default {
         "clickOnTarget",
         "clickOnNothing"
     ]
-};
+});
 </script>
 
 <style lang="scss" scoped>

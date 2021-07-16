@@ -6,7 +6,7 @@
                 <div />
             </div>
             <div class="character-info">
-                <span class="character-name">{{ player.characterValue }}</span>
+                <span class="character-name">{{ player.character.name }}</span>
                 <!--        <div class="titles">-->
                 <!--          <div class="title"><img class="title-img" src="@/assets/images/title_01.png"><span class="title-name">Commandant</span></div>-->
                 <!--        </div>-->
@@ -111,25 +111,22 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import { Daedalus } from "@/entities/Daedalus";
 import { Player } from "@/entities/Player";
-import CountdownTimer from "@/components/Utils/CountdownTimer";
-import Alerts from "@/components/Game/Ship/Alerts";
-import Tooltip from "@/components/Utils/ToolTip";
+import CountdownTimer from "@/components/Utils/CountdownTimer.vue";
+import Alerts from "@/components/Game/Ship/Alerts.vue";
+import Tooltip from "@/components/Utils/ToolTip.vue";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent ({
     name: "BannerPanel",
     components: { Alerts, CountdownTimer, Tooltip },
     props: {
         player: Player,
         daedalus: Daedalus
-    },
-    data: function () {
-        return {
-        };
     }
-};
+});
 </script>
 
 <style  lang="scss" scoped>

@@ -3,14 +3,13 @@ import { Action } from "@/entities/Action";
 export class Door {
     public id: number|null;
     public key: string|null;
-    public name: string|null;
+    public name!: string;
     public actions: Array<Action>;
     public direction: string|null;
 
     constructor() {
         this.id = null;
         this.key = null;
-        this.name = null;
         this.actions = [];
         this.direction = null;
     }
@@ -31,7 +30,7 @@ export class Door {
     }
     decode(jsonString : string): Door {
         if (jsonString) {
-            let object = JSON.parse(jsonString);
+            const object = JSON.parse(jsonString);
             this.load(object);
         }
 

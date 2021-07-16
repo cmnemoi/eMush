@@ -9,7 +9,7 @@ const BROKEN = "broken";
 const FROZEN = "frozen";
 
 
-export const statusItemEnum = {
+export const statusItemEnum: {[index: string]: any} = {
     [HEAVY]: {
         'icon': require('@/assets/images/status/heavy.png')
     },

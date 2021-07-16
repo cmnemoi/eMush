@@ -14,8 +14,10 @@
     </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from "vue";
+
+export default defineComponent ({
     name: 'Spinner',
     props: {
         loading: {
@@ -23,7 +25,7 @@ export default {
             default: true
         }
     }
-};
+});
 </script>
 
 <style  lang="scss" scoped>

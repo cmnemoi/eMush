@@ -113,17 +113,25 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import { Player } from "@/entities/Player";
 import { characterEnum } from '@/enums/character';
-import Inventory from "@/components/Game/Inventory";
-import ActionButton from "@/components/Utils/ActionButton";
-import Statuses from "@/components/Utils/Statuses";
+import Inventory from "@/components/Game/Inventory.vue";
+import ActionButton from "@/components/Utils/ActionButton.vue";
+import Statuses from "@/components/Utils/Statuses.vue";
 import { mapActions, mapState } from "vuex";
-import Tooltip from "@/components/Utils/ToolTip";
+import Tooltip from "@/components/Utils/ToolTip.vue";
+import { Item } from "@/entities/Item";
+import { Equipment } from "@/entities/Equipment";
+import { Action } from "@/entities/Action";
+import { Door } from "@/entities/Door";
+import { defineComponent } from "vue";
 
+interface CharPanelState {
+    selectedItem: Item | Player | null
+}
 
-export default {
+export default defineComponent ({
     name: "CharPanel",
     components: {
         ActionButton,
@@ -132,21 +140,24 @@ export default {
         Tooltip
     },
     props: {
-        player: Player
+        player: {
+            type: Player,
+            required: true
+        }
     },
-    data() {
+    data(): CharPanelState {
         return {
             selectedItem: null
         };
     },
     computed: {
-        characterPortrait: function() {
-            return characterEnum[this.player.characterKey].portrait;
+        characterPortrait(): string {
+            return characterEnum[this.player.character.key].portrait ?? '';
         },
         ...mapState('player', [
             'loading'
         ]),
-        target() {
+        target(): Item | Player | null {
             return this.selectedItem || this.player;
         }
     },
@@ -154,27 +165,27 @@ export default {
         ...mapActions('action', [
             'executeAction'
         ]),
-        isFull (value, threshold) {
+        isFull (value: number, threshold: number): Record<string, boolean> {
             return {
                 "full": value <= threshold,
                 'empty': value > threshold
             };
         },
-        toggleItemSelection(item) {
+        toggleItemSelection(item: Item): void {
             if (this.selectedItem === item) {
                 this.selectedItem = null;
             } else {
                 this.selectedItem = item;
             }
         },
-        async executeTargetAction(target, action) {
+        async executeTargetAction(target: Door | Item | Equipment | Player | null, action: Action): Promise<void> {
             await this.executeAction({ target, action });
-            if (! this.player.items.includes(this.selectedItem)) {
+            if (this.selectedItem instanceof Item && ! this.player.items.includes(this.selectedItem)) {
                 this.selectedItem = null;
             }
         }
     }
-};
+});
 </script>
 
 <style lang="scss" scoped>

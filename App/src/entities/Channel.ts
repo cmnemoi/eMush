@@ -1,13 +1,12 @@
 import { ChannelParticipant } from "./ChannelParticipant";
+import { ChannelType } from "@/enums/communication.enum";
 
 export class Channel {
-    public id: number|null;
-    public scope: string;
+    public id!: number;
+    public scope!: ChannelType;
     public participants: Array<ChannelParticipant>;
 
     constructor() {
-        this.id = null;
-        this.scope = 'default';
         this.participants = [];
     }
 
@@ -17,7 +16,7 @@ export class Channel {
             this.scope = object.scope;
             if (typeof object.participants !== 'undefined') {
                 object.participants.forEach((itemObject: any) => {
-                    let participant = (new ChannelParticipant()).load(itemObject);
+                    const participant = (new ChannelParticipant()).load(itemObject);
                     this.participants.push(participant);
                 });
             }
@@ -29,7 +28,7 @@ export class Channel {
     }
     decode(jsonString : string) : Channel {
         if (jsonString) {
-            let object = JSON.parse(jsonString);
+            const object = JSON.parse(jsonString);
             this.id = object.id;
             this.scope = object.scope;
             this.participants = object.participants;
@@ -38,7 +37,7 @@ export class Channel {
         return this;
     }
 
-    getParticipant(key: string) {
+    getParticipant(key: string): ChannelParticipant | undefined {
         return this.participants.find((element: ChannelParticipant) => element.character !== null && element.character.key === key);
     }
 }

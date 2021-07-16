@@ -8,7 +8,7 @@ import router from './router';
 
 
 // Set the base URL of the API
-ApiService.init(process.env.VUE_APP_API_URL);
+ApiService.init(process.env.VUE_APP_API_URL!);
 
 // If token exists set header
 if (TokenService.getToken()) {

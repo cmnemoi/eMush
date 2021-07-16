@@ -7,22 +7,11 @@ export class Item extends Equipment {
         super();
         this.number = 0;
     }
-    load(object: any) {
+    load(object: any): Item {
         super.load(object);
         if (typeof object !== "undefined") {
             this.number = object.number;
         }
-        return this;
-    }
-    jsonEncode() {
-        return JSON.stringify(this);
-    }
-    decode(jsonString: string) {
-        if (jsonString) {
-            let object = JSON.parse(jsonString);
-            this.load(object);
-        }
-
         return this;
     }
 }

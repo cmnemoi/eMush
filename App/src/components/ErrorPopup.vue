@@ -14,11 +14,12 @@
     </PopUp>
 </template>
 
-<script>
+<script lang="ts">
 import { mapState, mapActions } from "vuex";
-import PopUp from "@/components/Utils/PopUp";
+import PopUp from "@/components/Utils/PopUp.vue";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent ({
     components: {
         PopUp
     },
@@ -26,7 +27,7 @@ export default {
         ...mapState('error', [
             'error'
         ]),
-        title() {
+        title(): string {
             console.error(this.error);
             return (! this.error.status || ! this.error.statusText)
                 ? this.error.message
@@ -38,7 +39,7 @@ export default {
             'clearError'
         ])
     }
-};
+});
 </script>
 
 <style lang="scss" scoped>

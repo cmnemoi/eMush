@@ -34,29 +34,39 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import { Daedalus } from "@/entities/Daedalus";
 import DaedalusService from "@/services/daedalus.service";
 import { AlertsIcons, NO_ALERT } from "@/enums/alerts.enum";
-import Tooltip from "../../Utils/ToolTip";
+import Tooltip from "../../Utils/ToolTip.vue";
+import { defineComponent } from "vue";
+import { Alert } from "@/entities/Alerts";
 
-export default {
+interface AlertsState {
+    loading: boolean,
+    alerts: Alert[]
+}
+
+export default defineComponent ({
     name: "Alerts",
     components: { Tooltip },
     props: {
-        daedalus: Daedalus
+        daedalus: {
+            type: Daedalus,
+            required: true
+        }
     },
-    data: function () {
+    data: function (): AlertsState {
         return {
             loading: false,
             alerts: []
         };
     },
     computed: {
-        isNoAlert: function () {
-            return this.alerts.length === 0 || (this.alerts.length === 1 && this.alerts[0].key === NO_ALERT);
+        isNoAlert: function (): boolean {
+            return this.alerts.length === 0 || (this.alerts.length === 1 && (this.alerts[0].key ?? '') === NO_ALERT);
         },
-        alertsDisplayed: function () {
+        alertsDisplayed: function (): Alert[] {
             if (this.isNoAlert) {
                 return [];
             }
@@ -66,17 +76,17 @@ export default {
     },
     beforeMount() {
         this.loading = true;
-        DaedalusService.loadAlerts(this.daedalus).then((res) => {
+        DaedalusService.loadAlerts(this.daedalus).then((res: Alert[]) => {
             this.loading = false;
             this.alerts = res;
         });
     },
     methods: {
-        alertIcon: function (alert) {
+        alertIcon: function (alert: Alert): string {
             return AlertsIcons[alert.key];
         }
     }
-};
+});
 </script>
 
 <style scoped lang="scss">

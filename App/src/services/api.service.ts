@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosPromise, AxiosResponse } from 'axios';
 import { TokenService } from './storage.service';
 import store from '../store';
 
@@ -6,35 +6,35 @@ const ApiService = {
 
     _errorInterceptor: 0,
 
-    init(baseURL: string) {
+    init(baseURL: string): void {
         axios.defaults.baseURL = baseURL;
     },
 
-    setHeader() {
+    setHeader(): void {
         axios.defaults.headers.common["Authorization"] = `Bearer ${TokenService.getToken()}`;
     },
 
-    removeHeader() {
+    removeHeader(): void {
         axios.defaults.headers.common = {};
     },
 
-    get(resource: string, params?: object) {
+    get(resource: string, params?: Record<string, unknown>): Promise<AxiosResponse> {
         return axios.get(resource, params);
     },
 
-    post(resource: string, data?: object, options?: object) {
+    post(resource: string, data?: Record<string, unknown>, options?: Record<string, unknown>): Promise<AxiosResponse> {
         return axios.post(resource, data, options);
     },
 
-    put(resource: string, data?: object) {
+    put(resource: string, data?: Record<string, unknown>): Promise<AxiosResponse> {
         return axios.put(resource, data);
     },
 
-    delete(resource: string) {
+    delete(resource: string): Promise<AxiosResponse> {
         return axios.delete(resource);
     },
 
-    mountErrorInterceptor() {
+    mountErrorInterceptor(): void {
         this._errorInterceptor = axios.interceptors.response.use(
             (response) => {
                 return response;
@@ -71,7 +71,7 @@ const ApiService = {
         );
     },
 
-    unmountErrorInterceptor() {
+    unmountErrorInterceptor(): void {
         // Eject the interceptor
         axios.interceptors.response.eject(this._errorInterceptor);
     },
@@ -87,7 +87,7 @@ const ApiService = {
      *    - username
      *    - password
      **/
-    customRequest(data: object) {
+    customRequest(data: Record<string, unknown>): AxiosPromise<any> {
         return axios(data);
     }
 };

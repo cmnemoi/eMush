@@ -1,5 +1,6 @@
 import PlayerService from "@/services/player.service";
 import { ActionTree, GetterTree, MutationTree } from "vuex";
+import { Player } from "@/entities/Player";
 
 
 const state =  {
@@ -8,10 +9,10 @@ const state =  {
 };
 
 const getters: GetterTree<any, any> = {
-    isLoading: (state) => {
+    isLoading: (state: any): boolean => {
         return state.loading;
     },
-    player: (state) => {
+    player: (state: any): Player|null => {
         return state.player;
     }
 };
@@ -41,14 +42,14 @@ const actions: ActionTree<any, any> = {
 };
 
 const mutations : MutationTree<any> = {
-    setLoading(state, newValue) {
+    setLoading(state: any, newValue: boolean): void {
         state.loading = newValue;
     },
-    updatePlayer(state, player) {
+    updatePlayer(state: any, player: Player): void {
         state.player = player;
         state.loading = false;
     },
-    errorUpdatePlayer(state) {
+    errorUpdatePlayer(state: any): void {
         state.loading = false;
     }
 };

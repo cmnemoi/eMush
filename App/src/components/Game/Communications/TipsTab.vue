@@ -45,12 +45,13 @@
     </TabContainer>
 </template>
 
-<script>
+<script lang="ts">
 import { Channel } from "@/entities/Channel";
-import TabContainer from "@/components/Game/Communications/TabContainer";
+import TabContainer from "@/components/Game/Communications/TabContainer.vue";
+import { defineComponent } from "vue";
 
 
-export default {
+export default defineComponent ({
     name: "TipsTab",
     components: {
         TabContainer
@@ -58,7 +59,7 @@ export default {
     props: {
         channel: Channel
     }
-};
+});
 </script>
 
 <style lang="scss" scoped>

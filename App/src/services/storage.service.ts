@@ -11,32 +11,32 @@ const USER_INFO = 'user_info';
  * accessed through this instace.
  **/
 const TokenService = {
-    getToken() {
+    getToken(): string | null {
         return localStorage.getItem(TOKEN_KEY);
     },
 
-    saveToken(accessToken: string) {
+    saveToken(accessToken: string) : void{
         localStorage.setItem(TOKEN_KEY, accessToken);
     },
 
-    removeToken() {
+    removeToken(): void {
         localStorage.removeItem(TOKEN_KEY);
     },
 
-    getRefreshToken() {
+    getRefreshToken(): string | null {
         return localStorage.getItem(REFRESH_TOKEN_KEY);
     },
 
-    saveRefreshToken(refreshToken: string) {
+    saveRefreshToken(refreshToken: string): void {
         localStorage.setItem(REFRESH_TOKEN_KEY, refreshToken);
     },
 
-    removeRefreshToken() {
+    removeRefreshToken(): void {
         localStorage.removeItem(REFRESH_TOKEN_KEY);
     },
 
-    getUserInfo() {
-        let user = new User();
+    getUserInfo(): User|null {
+        const user = new User();
         const storedUserInfo = localStorage.getItem(USER_INFO);
         if (storedUserInfo !== null) {
             return user.decode(storedUserInfo);
@@ -44,11 +44,11 @@ const TokenService = {
         return null;
     },
 
-    saveUserInfo(user: User) {
+    saveUserInfo(user: User): void {
         localStorage.setItem(USER_INFO, user.jsonEncode());
     },
 
-    removeUserInfo() {
+    removeUserInfo(): void {
         localStorage.removeItem(USER_INFO);
     }
 

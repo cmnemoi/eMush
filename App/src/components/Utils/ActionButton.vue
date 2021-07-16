@@ -17,15 +17,16 @@
     </Tooltip>
 </template>
 
-<script>
-import Tooltip from "@/components/Utils/ToolTip";
+<script lang="ts">
+import Tooltip from "@/components/Utils/ToolTip.vue";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent ({
     components: { Tooltip },
     props: {
         action: Object
     }
-};
+});
 </script>
 
 <style lang="scss" scoped>

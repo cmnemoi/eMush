@@ -18,15 +18,14 @@ class AuthenticationError extends Error {
 }
 
 const UserService = {
-    redirect: async function(passphrase: string) {
+    redirect: async function(passphrase: string): Promise<void> {
         const redirectUri = new URLSearchParams();
         redirectUri.set('redirect_uri', callBackUrl);
         redirectUri.set('passphrase', passphrase);
-        // @ts-ignore
         global.window.location.replace(decodeURIComponent(authorizationUrl + '?'+ redirectUri.toString()));
     },
 
-    login: async function(code: string) {
+    login: async function(code: string): Promise<string> {
         try {
             const response = await ApiService.post(tokenUrl, {
                 'grant_type': 'authorization_code',
@@ -74,15 +73,15 @@ const UserService = {
     //
     // },
 
-    userInfo: async function() {
+    userInfo: async function(): Promise<User> {
         try {
-            let params = {
+            const params = {
                 header: {
                     'accept' : 'application/json'
                 }
             };
             const response = await ApiService.get(process.env.VUE_APP_API_URL+'users', params);
-            let user = new User();
+            const user = new User();
             TokenService.saveUserInfo(user.load(response.data));
 
             return user;
@@ -97,7 +96,7 @@ const UserService = {
      *
      * Will also remove `Authorization Bearer <token>` header from future requests.
      **/
-    logout() {
+    logout(): void {
         // Remove the token and remove Authorization header from Api Service as well
         TokenService.removeToken();
         TokenService.removeRefreshToken();

@@ -1,19 +1,18 @@
 export class Status {
     public id : number|null
-    public key : string|null
+    public key! : string
     public name : string|null
     public charge : number|null
     public description : string|null
 
     constructor() {
         this.id = null;
-        this.key = null;
         this.name = null;
         this.charge = null;
         this.description = null;
     }
 
-    load(object: any) {
+    load(object: any): Status {
         if (typeof object !== "undefined") {
             this.id = object.id;
             this.key = object.key;
@@ -23,12 +22,12 @@ export class Status {
         }
         return this;
     }
-    jsonEncode() {
+    jsonEncode(): string {
         return JSON.stringify(this);
     }
-    decode(jsonString: any) {
+    decode(jsonString: any): Status {
         if (jsonString) {
-            let object = JSON.parse(jsonString);
+            const object = JSON.parse(jsonString);
             this.load(object);
         }
 

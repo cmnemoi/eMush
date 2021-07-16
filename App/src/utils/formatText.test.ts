@@ -1,6 +1,6 @@
-const { expect } = require('chai');
-const sinon = require('sinon');
-const { formatText, helpers } = require("./formatText.js");
+import { expect } from 'chai';
+import sinon from 'sinon';
+import { formatText, helpers } from './formatText';
 
 describe('formatText', () => {
 
@@ -9,7 +9,7 @@ describe('formatText', () => {
     });
 
     after(() => {
-        helpers.computeImageHtml.restore();
+        (helpers.computeImageHtml as any).restore();
     });
 
     describe('Simple tests', () => {

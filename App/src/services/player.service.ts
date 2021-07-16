@@ -5,7 +5,7 @@ import { DeadPlayerInfo } from "@/entities/DeadPlayerInfo";
 const ACTION_ENDPOINT = process.env.VUE_APP_API_URL+'player';
 
 const PlayerService = {
-    loadPlayer: async(playerId: number) => {
+    loadPlayer: async(playerId: number): Promise<Player | null> => {
         const playerData = await ApiService.get(ACTION_ENDPOINT + '/' + playerId);
 
         let player = null;
@@ -16,7 +16,7 @@ const PlayerService = {
         return player;
     },
 
-    loadDeadPlayerInfo: async(playerId: number) => {
+    loadDeadPlayerInfo: async(playerId: number): Promise<DeadPlayerInfo | null> => {
         store.dispatch('player/setLoading', { loading: true });
         const deadPlayerData = await ApiService.get(ACTION_ENDPOINT + '/' + playerId + '/end');
 
@@ -30,8 +30,8 @@ const PlayerService = {
         return deadPlayer;
     },
 
-    sendEndGameRequest: (player: Player, message: string) => {
-        let data = {
+    sendEndGameRequest: (player: Player, message: string): Promise<void> => {
+        const data = {
             message: message
         };
 
@@ -41,7 +41,7 @@ const PlayerService = {
             });
     },
 
-    selectCharacter: (daedalusId: number, character: string) => {
+    selectCharacter: (daedalusId: number, character: string): Promise<void> => {
         return ApiService.post('player', { 'daedalus' : daedalusId, 'character': character })
             .then((response) => {
                 const player = (new Player()).load(response.data);

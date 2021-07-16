@@ -161,7 +161,7 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
                 DoorEnum::FRONT_CORRIDOR_MEDLAB,
             ])
             ->setEquipments([
-                EquipmentEnum::SURGICAL_PLOT,
+                EquipmentEnum::SURGERY_PLOT,
                 EquipmentEnum::NARCOTIC_DISTILLER,
                 EquipmentEnum::MEDLAB_BED,
             ])

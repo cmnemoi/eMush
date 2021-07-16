@@ -12,13 +12,14 @@
     </div>
 </template>
 
-<script>
-import GameContent from "@/components/Game/GameContent";
-import CharSelection from "@/components/CharSelection";
+<script lang="ts">
+import GameContent from "@/components/Game/GameContent.vue";
+import CharSelection from "@/components/CharSelection.vue";
 import { mapGetters } from "vuex";
-import HomePage from "@/components/HomePage";
+import HomePage from "@/components/HomePage.vue";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent ({
     name: "GamePage",
     components: {
         HomePage,
@@ -31,5 +32,5 @@ export default {
             'getUserInfo'
         ])
     }
-};
+});
 </script>

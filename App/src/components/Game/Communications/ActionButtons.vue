@@ -11,9 +11,11 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 
-const availableActions = {
+import { defineComponent } from "vue";
+
+const availableActions: {[index: string]: any} = {
     favorite: { icon: require('@/assets/images/comms/fav.png'), wording: 'Favori' },
     invite: { icon: require('@/assets/images/comms/invite.png'), wording: 'Inviter' },
     leave: { icon: require('@/assets/images/comms/close.png'), wording: 'Quitter' },
@@ -22,7 +24,7 @@ const availableActions = {
     report: { icon: require('@/assets/images/comms/alert.png'), wording: 'Plainte' }
 };
 
-export default {
+export default defineComponent ({
     props: {
         actions: {
             type: Array,
@@ -31,10 +33,10 @@ export default {
     },
     computed: {
         action() {
-            return actionType => availableActions[actionType] || {};
+            return (actionType: string) => availableActions[actionType] || {};
         }
     }
-};
+});
 </script>
 
 <style lang="scss" scoped>

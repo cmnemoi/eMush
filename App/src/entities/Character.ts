@@ -1,17 +1,15 @@
-export class Character {
-    public key: string|null
-    public name: string|null
+import { CharacterEnum } from "@/enums/character";
 
-    constructor() {
-        this.key = null;
-        this.name = null;
-    }
+export class Character {
+    public key!: CharacterEnum
+    public name!: string
 
     load(object: any): Character {
         if (typeof object !== "undefined") {
             this.key = object.key;
             this.name = object.value;
         }
+
         return this;
     }
     jsonEncode(): string {
@@ -19,7 +17,7 @@ export class Character {
     }
     decode(jsonString: string): Character {
         if (jsonString) {
-            let object = JSON.parse(jsonString);
+            const object = JSON.parse(jsonString);
             this.key = object.key;
             this.name = object.value;
         }

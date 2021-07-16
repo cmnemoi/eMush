@@ -5,27 +5,28 @@
     </section>
 </template>
 
-<script>
+<script lang="ts">
 import { formatText } from "@/utils/formatText";
 import { RoomLog } from "@/entities/RoomLog";
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import { fr } from 'date-fns/locale';
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent ({
     name: "Log",
     props: {
         roomLog: RoomLog
     },
     methods: {
-        formatDate: (date) => {
+        formatDate: (date: Date): string => {
             return formatDistanceToNow(date, { locale : fr });
         },
-        formatLog(value) {
+        formatLog(value: string): string {
             if (! value) return '';
             return formatText(value.toString());
         }
     }
-};
+});
 </script>return
 
 <style lang="scss" scoped>

@@ -34,7 +34,7 @@ class EquipmentEnum
     public const MYCOSCAN = 'mycoscan';
     public const PILGRED = 'pilgred';
     public const TURRET_COMMAND = 'turret_command';
-    public const SURGICAL_PLOT = 'surgical_plot';
+    public const SURGERY_PLOT = 'surgery_plot';
     public const EMERGENCY_REACTOR = 'emergency_reactor';
     public const REACTOR_LATERAL = 'reactor_lateral';
     public const REACTOR_LATERAL_ALPHA = 'reactor_lateral_alpha';

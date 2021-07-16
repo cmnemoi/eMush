@@ -2,20 +2,21 @@ import ApiService from "@/services/api.service";
 import { Channel } from "@/entities/Channel";
 import { Message } from "@/entities/Message";
 import { RoomLog } from "@/entities/RoomLog";
-import { PRIVATE, PUBLIC, ROOM_LOG, TIPS } from '@/enums/communication.enum';
 import { Player } from "@/entities/Player";
+import { ChannelType } from "@/enums/communication.enum";
+import { AxiosPromise, AxiosResponse } from "axios";
 
 const CHANNELS_ENDPOINT = process.env.VUE_APP_API_URL + 'channel';
 const ROOM_LOGS_ENDPOINT = process.env.VUE_APP_API_URL + 'room-log';
 
 const CommunicationService = {
 
-    loadChannels: async() => {
+    loadChannels: async(): Promise<Channel[]> => {
         const channelsData = await ApiService.get(CHANNELS_ENDPOINT);
 
-        let channels = [
-            (new Channel()).load({ scope: TIPS, id: TIPS }),
-            (new Channel()).load({ scope: ROOM_LOG, id: ROOM_LOG })
+        const channels = [
+            (new Channel()).load({ scope: ChannelType.TIPS, id: ChannelType.TIPS }),
+            (new Channel()).load({ scope: ChannelType.ROOM_LOG, id: ChannelType.ROOM_LOG })
         ];
         if (channelsData.data) {
             channelsData.data.forEach((data: any) => {
@@ -26,30 +27,30 @@ const CommunicationService = {
         return channels;
     },
 
-    createPrivateChannel: async () => {
+    createPrivateChannel: async (): Promise<Channel> => {
         const response = await ApiService.post(CHANNELS_ENDPOINT);
         return (new Channel()).load(response.data);
     },
 
-    leaveChannel: async (channel: Channel) => {
+    leaveChannel: async (channel: Channel): Promise<AxiosResponse> => {
         return ApiService.post(CHANNELS_ENDPOINT + '/' + channel.id + '/exit');
     },
 
-    loadMessages: async (channel: Channel) => {
+    loadMessages: async (channel: Channel): Promise<Array<Message|Record<string, unknown>>> => {
         switch (channel.scope) {
-        case PRIVATE:
-        case PUBLIC:
+        case ChannelType.PRIVATE:
+        case ChannelType.PUBLIC:
             return loadChannelMessages();
-        case ROOM_LOG:
+        case ChannelType.ROOM_LOG:
             return loadRoomLogs();
         default:
             return [];
         }
 
-        async function loadChannelMessages() {
+        async function loadChannelMessages(): Promise<Message[]> {
             const messagesData = await ApiService.get(CHANNELS_ENDPOINT + '/' + channel.id + '/message');
 
-            let messages: Message[] = [];
+            const messages: Message[] = [];
             if (messagesData.data) {
                 messagesData.data.forEach((data: any) => {
                     messages.push((new Message()).load(data));
@@ -58,17 +59,17 @@ const CommunicationService = {
             return messages;
         }
 
-        async function loadRoomLogs() {
+        async function loadRoomLogs(): Promise<Record<string, unknown>[]> {
             const result = await ApiService.get(ROOM_LOGS_ENDPOINT);
 
-            const logs: object[] = [];
+            const logs: Record<string, unknown>[] = [];
             if (result.data) {
                 const days = result.data;
                 Object.keys(days).map((day) => {
                     Object.keys(days[day]).map((cycle) => {
-                        let roomLogs: RoomLog[] = [];
+                        const roomLogs: RoomLog[] = [];
                         days[day][cycle].forEach((value: any) => {
-                            let roomLog = (new RoomLog()).load(value);
+                            const roomLog = (new RoomLog()).load(value);
                             roomLogs.push(roomLog);
                         });
                         logs.push({
@@ -83,10 +84,10 @@ const CommunicationService = {
         }
     },
 
-    loadInvitablePlayers: async (channel: Channel) => {
+    loadInvitablePlayers: async (channel: Channel): Promise<Player[]> => {
         const playersData = await ApiService.get(CHANNELS_ENDPOINT + '/' + channel.id + '/invite');
 
-        let players:Player[] = [];
+        const players:Player[] = [];
         if (playersData.data) {
             playersData.data.forEach((data: any) => {
                 players.push((new Player()).load(data));
@@ -95,13 +96,13 @@ const CommunicationService = {
         return players;
     },
 
-    invitePlayer: async (player:Player, channel: Channel) => {
+    invitePlayer: async (player:Player, channel: Channel): Promise<void> => {
         await ApiService.post(CHANNELS_ENDPOINT + '/' + channel.id + '/invite', {
             player: player.id
         });
     },
 
-    sendMessage: async (channel: Channel, text: string, parent?: Message) => {
+    sendMessage: async (channel: Channel, text: string, parent?: Message): Promise<Message[]> => {
 
         let parentId = null;
         if (typeof parent !== "undefined") {
@@ -113,7 +114,7 @@ const CommunicationService = {
             'parent': parentId
         });
 
-        let messages: Message[] = [];
+        const messages: Message[] = [];
         if (messagesData.data) {
             messagesData.data.forEach((data: any) => {
                 messages.push((new Message()).load(data));

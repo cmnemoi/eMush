@@ -17,17 +17,18 @@
     </Tippy>
 </template>
 
-<script>
+<script lang="ts">
 import { formatText } from "@/utils/formatText";
 import { Tippy } from 'vue-tippy';
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent ({
     name: "Tooltip",
     components: { Tippy },
     methods:{
-        formatContent(value) {
+        formatContent(value: string): string {
             return !value ? '' : formatText(value.toString());
         }
     }
-};
+});
 </script>

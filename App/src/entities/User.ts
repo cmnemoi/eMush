@@ -8,7 +8,7 @@ export class User {
         this.username = null;
         this.currentGame = null;
     }
-    load(object: any) {
+    load(object: any): User {
         if (typeof object !== "undefined") {
             this.id = object.id;
             this.username = object.username;
@@ -16,12 +16,12 @@ export class User {
         }
         return this;
     }
-    jsonEncode() {
+    jsonEncode(): string {
         return JSON.stringify(this);
     }
-    decode(jsonString: string) {
+    decode(jsonString: string): User {
         if (jsonString) {
-            let object = JSON.parse(jsonString);
+            const object = JSON.parse(jsonString);
             this.id = object.id;
             this.username = object.username;
             this.currentGame = object.currentGame;

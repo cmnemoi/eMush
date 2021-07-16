@@ -24,7 +24,7 @@ export class ChannelParticipant {
     }
     decode(jsonString: string): ChannelParticipant {
         if (jsonString) {
-            let object = JSON.parse(jsonString);
+            const object = JSON.parse(jsonString);
             this.load(object);
         }
         return this;

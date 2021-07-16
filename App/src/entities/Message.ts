@@ -15,26 +15,26 @@ export class Message {
         this.date = null;
     }
 
-    load(object: any) {
+    load(object: any): Message {
         if (typeof object !== "undefined") {
             this.id = object.id;
             this.message = object.message;
             this.character = this.character.load(object.character);
             this.child = [];
             object.child.forEach((childMessageData: any) => {
-                let childMessage = (new Message()).load(childMessageData);
+                const childMessage = (new Message()).load(childMessageData);
                 this.child.push(childMessage);
             });
             this.date = new Date(object.createdAt);
         }
         return this;
     }
-    jsonEncode() {
+    jsonEncode(): string {
         return JSON.stringify(this);
     }
-    decode(jsonString: string) {
+    decode(jsonString: string): Message {
         if (jsonString) {
-            let object = JSON.parse(jsonString);
+            const object = JSON.parse(jsonString);
             this.load(object);
         }
 

@@ -5,16 +5,16 @@ const state =  {
 };
 
 const actions: ActionTree<any, any> = {
-    setError({ commit }, error) {
+    setError({ commit }, error: any): void {
         commit('setError', error);
     },
-    clearError({ commit }) {
+    clearError({ commit }): void {
         commit('resetError');
     }
 };
 
 const mutations: MutationTree<any> = {
-    setError(state, error) {
+    setError(state:any, error: any): void {
         state.error = {
             message: error.message,
             status: error.request?.status,
@@ -30,7 +30,7 @@ const mutations: MutationTree<any> = {
             }
         };
     },
-    resetError(state) {
+    resetError(state: any): void {
         state.error = null;
     }
 };

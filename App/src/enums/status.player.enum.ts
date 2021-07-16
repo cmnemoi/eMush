@@ -13,7 +13,7 @@ const SPORES = "spores";
 const ANTISOCIAL = "antisocial";
 
 
-export const statusPlayerEnum = {
+export const statusPlayerEnum: {[index: string]: any} = {
     [STARVING]: {
         'icon': require('@/assets/images/status/starving.png')
     },

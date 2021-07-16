@@ -9,7 +9,7 @@ export class RoomLog {
         this.visibility = null;
         this.date = null;
     }
-    load(object: any) {
+    load(object: any): RoomLog {
         if (typeof object !== "undefined") {
             this.message = object.log;
             this.visibility = object.visibility;
@@ -17,12 +17,12 @@ export class RoomLog {
         }
         return this;
     }
-    jsonEncode() {
+    jsonEncode(): string {
         return JSON.stringify(this);
     }
-    decode(jsonString: string) {
+    decode(jsonString: string): RoomLog {
         if (jsonString) {
-            let object = JSON.parse(jsonString);
+            const object = JSON.parse(jsonString);
             this.message = object.key;
             this.visibility = object.visibility;
             this.date = new Date(object.date);

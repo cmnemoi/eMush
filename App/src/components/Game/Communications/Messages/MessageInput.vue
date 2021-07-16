@@ -12,12 +12,13 @@
     </form>
 </template>
 
-<script>
+<script lang="ts">
 import { mapActions } from "vuex";
 import { Channel } from "@/entities/Channel";
 import { Message } from "@/entities/Message";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent ({
     name: "MessageInput",
     props: {
         channel: {
@@ -29,13 +30,13 @@ export default {
             required: false
         }
     },
-    data() {
+    data(): any {
         return {
             text: ""
         };
     },
     methods: {
-        sendNewMessage () {
+        sendNewMessage (): void {
             if (this.text.length > 0) {
                 this.sendMessage({ text: this.text, parent: this.parent, channel: this.channel });
                 this.text = "";
@@ -45,7 +46,7 @@ export default {
             'sendMessage'
         ])
     }
-};
+});
 </script>
 
 <style lang="scss" scoped>

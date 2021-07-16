@@ -1,5 +1,5 @@
 <template>
-    <div class="crewmate-container" :class="target.characterValue">
+    <div class="crewmate-container" :class="target.character.key">
         <div class="mate">
             <div class="card">
                 <div class="avatar">
@@ -7,7 +7,7 @@
                 </div>
                 <div>
                     <p class="name">
-                        {{ target.characterValue }}
+                        {{ target.character.name }}
                     </p>
                     <div class="statuses">
                         <Statuses :statuses="target.statuses" type="player" />
@@ -32,31 +32,35 @@
     </div>
 </template>
 
-<script>
-import ActionButton from "@/components/Utils/ActionButton";
-import Statuses from "@/components/Utils/Statuses";
+<script lang="ts">
+import ActionButton from "@/components/Utils/ActionButton.vue";
+import Statuses from "@/components/Utils/Statuses.vue";
 import { Player } from "@/entities/Player";
 import { characterEnum } from '@/enums/character';
+import { defineComponent } from "vue";
 
 
-export default {
+export default defineComponent ({
     name: "CrewmatePanel",
     components: {
         ActionButton,
         Statuses
     },
     props: {
-        target: Player
+        target: {
+            type: Player,
+            required: true
+        }
     },
     emits: [
         'executeAction'
     ],
     computed: {
-        portrait() {
-            return characterEnum[this.target.characterKey].portrait;
+        portrait(): string {
+            return characterEnum[this.target.character.key].portrait ?? '';
         }
     }
-};
+});
 </script>
 
 <style lang="scss" scoped>

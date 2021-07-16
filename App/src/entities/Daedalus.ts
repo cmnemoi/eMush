@@ -1,19 +1,21 @@
+import { QuantityPoint } from "@/entities/QuantityPoint";
+
 export class Daedalus {
     public id: number|null;
     public day: number|null;
     public cycle: number|null;
-    public oxygen: number|null;
-    public fuel: number|null;
-    public hull: number|null;
-    public shield: number|null;
-    public currentCycle: number|null;
+    public oxygen: QuantityPoint|null;
+    public fuel: QuantityPoint|null;
+    public hull: QuantityPoint|null;
+    public shield: QuantityPoint|null;
+    public currentCycle: QuantityPoint|null;
     public nextCycle: Date|null;
     public cryogenizedPlayers: number;
     public humanPlayerAlive: number;
     public humanPlayerDead: number;
     public mushPlayerAlive: number;
     public mushPlayerDead: number;
-    public crewPlayer: number;
+    public crewPlayer: QuantityPoint | null;
 
     constructor() {
         this.id = null;
@@ -30,25 +32,37 @@ export class Daedalus {
         this.humanPlayerDead = 0;
         this.mushPlayerAlive = 0;
         this.mushPlayerDead = 0;
-        this.crewPlayer = 0;
+        this.crewPlayer = null;
     }
     load(object :any): Daedalus {
         if (typeof object !== "undefined") {
             this.id = object.id;
             this.day = object.day;
             this.cycle = object.cycle;
-            this.oxygen = object.oxygen;
-            this.fuel = object.fuel;
-            this.hull = object.hull;
-            this.shield = object.shield;
-            this.currentCycle = object.currentCycle;
+            if (typeof object.oxygen !== 'undefined') {
+                this.oxygen = (new QuantityPoint()).load(object.oxygen);
+            }
+            if (typeof object.fuel !== 'undefined') {
+                this.fuel = (new QuantityPoint()).load(object.fuel);
+            }
+            if (typeof object.hull !== 'undefined') {
+                this.hull = (new QuantityPoint()).load(object.hull);
+            }
+            if (typeof object.shield !== 'undefined') {
+                this.shield = (new QuantityPoint()).load(object.shield);
+            }
+            if (typeof object.currentCycle !== 'undefined') {
+                this.currentCycle = (new QuantityPoint()).load(object.currentCycle);
+            }
             this.nextCycle = new Date(object.nextCycle);
             this.cryogenizedPlayers = object.cryogenizedPlayers;
             this.humanPlayerAlive = object.humanPlayerAlive;
             this.humanPlayerDead = object.humanPlayerDead;
             this.mushPlayerAlive = object.mushPlayerAlive;
             this.mushPlayerDead = object.mushPlayerDead;
-            this.crewPlayer = object.crewPlayer;
+            if (typeof object.crewPlayer !== 'undefined') {
+                this.crewPlayer = (new QuantityPoint()).load(object.crewPlayer);
+            }
         }
         return this;
     }
@@ -57,7 +71,7 @@ export class Daedalus {
     }
     decode(jsonString : string): Daedalus {
         if (jsonString) {
-            let object = JSON.parse(jsonString);
+            const object = JSON.parse(jsonString);
             this.id = object.id;
             this.day = object.day;
             this.cycle = object.cycle;

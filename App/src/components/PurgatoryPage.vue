@@ -65,22 +65,33 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 
 import { Player } from "@/entities/Player";
 import { characterEnum } from "@/enums/character";
 import { mapGetters } from "vuex";
 import PlayerService from "@/services/player.service";
-import HistoryLogs from "@/components/Game/HistoryLogs";
-import CommsPanel from "@/components/Game/Communications/CommsPanel";
+import HistoryLogs from "@/components/Game/HistoryLogs.vue";
+import CommsPanel from "@/components/Game/Communications/CommsPanel.vue";
+import { defineComponent } from "vue";
+import { DeadPlayerInfo } from "@/entities/DeadPlayerInfo";
 
-export default {
+interface PurgatoryState {
+    deadPlayerInfo: DeadPlayerInfo | null,
+    maxChar: number,
+    epitaph: string
+};
+
+export default defineComponent ({
     name: 'Purgatory',
     components: { CommsPanel, HistoryLogs },
     props: {
-        player: Player
+        player: {
+            type: Player,
+            required: true
+        }
     },
-    data: function () {
+    data: function (): PurgatoryState {
         return {
             deadPlayerInfo: null,
             maxChar: 300,
@@ -88,29 +99,27 @@ export default {
         };
     },
     methods: {
-        characterBody: function(characterKey) {
+        characterBody: function(characterKey: string): string {
             return characterEnum[characterKey].body;
         },
-        endGame: function() {
+        endGame: function(): void {
             PlayerService.sendEndGameRequest(this.player, this.epitaph);
         }
     },
     computed: {
-        characterPortrait: function() {
-            return characterEnum[this.player.characterKey].portrait;
+        characterPortrait: function(): string {
+            return characterEnum[this.player.character.key].portrait ?? "";
         },
         ...mapGetters('auth', [
             'getUserInfo'
         ])
     },
-    beforeMount() {
-        PlayerService.loadDeadPlayerInfo(this.player.id).then((res) => {
+    beforeMount(): void {
+        PlayerService.loadDeadPlayerInfo(this.player.id).then((res: DeadPlayerInfo|null) => {
             this.deadPlayerInfo = res;
-        }
-
-        );
+        });
     }
-};
+});
 </script>
 
 <style lang="scss" scoped>

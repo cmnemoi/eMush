@@ -1,5 +1,5 @@
 export const helpers = {
-    computeImageHtml(key: string) {
+    computeImageHtml(key: string): string {
         switch(key) {
         case "hp":
             return `<img src="${require("@/assets/images/lp.png")}" alt="hp">`;
@@ -17,7 +17,7 @@ export const helpers = {
     }
 };
 
-export function formatText(text: string) {
+export function formatText(text: string): string {
     let formattedText = text;
     formattedText = formattedText.replaceAll(/\*\*(.[^*]*)\*\*/g, '<strong>$1</strong>');
     formattedText = formattedText.replaceAll(/\*(.*)\*/g, '<em>$1</em>');

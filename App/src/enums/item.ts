@@ -79,7 +79,7 @@ const JAR_OF_ALIEN_OIL = "jar_of_alien_oil";
 const BANDAGE = "bandage";
 
 
-export const itemEnum = {
+export const itemEnum: {[index: string]: any} = {
     [BANDAGE]: {
         'image': require('@/assets/images/items/bandage.jpg')
     },

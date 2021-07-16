@@ -10,12 +10,13 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import { mapGetters, mapState } from "vuex";
 import { Channel } from "@/entities/Channel";
-import MessageInput from "@/components/Game/Communications/Messages/MessageInput";
+import MessageInput from "@/components/Game/Communications/Messages/MessageInput.vue";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent ({
     name: "DiscussionTab",
     components: {
         MessageInput
@@ -32,7 +33,7 @@ export default {
             'loadingChannels'
         ])
     }
-};
+});
 </script>
 
 <style lang="scss" scoped>

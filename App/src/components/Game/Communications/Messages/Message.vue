@@ -33,21 +33,25 @@
     </div>
 </template>
 
-<script>
-import ActionButtons from "@/components/Game/Communications/ActionButtons";
+<script lang="ts">
+import ActionButtons from "@/components/Game/Communications/ActionButtons.vue";
 import { formatText } from "@/utils/formatText";
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import { fr } from 'date-fns/locale';
 import { Message } from "@/entities/Message";
-import { characterEnum, NERON } from "@/enums/character";
+import { CharacterEnum, characterEnum } from "@/enums/character";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent ({
     name: "Message",
     components: {
         ActionButtons
     },
     props: {
-        message: Message,
+        message: {
+            type: Message,
+            required: true
+        },
         isRoot: {
             type: Boolean,
             default: false
@@ -58,30 +62,30 @@ export default {
         click: null
     },
     computed: {
-        characterPortrait: function() {
+        characterPortrait: function(): string| null {
             if (this.message.character.key !== null) {
                 const images = characterEnum[this.message.character.key];
                 return this.isRoot ? images.body : images.head;
             }
             return null;
         },
-        isNeronMessage: function() {
-            return this.message.character.key === NERON;
+        isNeronMessage: function(): boolean {
+            return this.message.character.key === CharacterEnum.NERON;
         },
-        isSystemMessage: function() {
+        isSystemMessage: function(): boolean {
             return this.message.character.key === null;
         }
     },
     methods: {
-        formatDate: (date) => {
+        formatDate: (date: Date): string => {
             return formatDistanceToNow(date, { locale : fr });
         },
-        formatMessage(value) {
+        formatMessage(value: string): string {
             if (! value) return '';
             return formatText(value.toString());
         }
     }
-};
+});
 </script>
 
 <style lang="scss" scoped>

@@ -4,10 +4,13 @@ import { Player } from "@/entities/Player";
 import { Equipment } from "@/entities/Equipment";
 import { Status } from "@/entities/Status";
 
+//@Hack: rooms that are handled by phaser and displayed with Phaser
+export const PhaserRooms = ['medlab', 'laboratory'];
+
 export class Room {
     public id: number|null;
-    public key: string|null;
-    public name: string|null;
+    public key?: string;
+    public name?: string;
     public items: Array<Item>;
     public doors: Array<Door>;
     public statuses: Array<Status>;
@@ -17,48 +20,46 @@ export class Room {
     constructor() {
         this.id = null;
         this.items = [];
-        this.key = null;
-        this.name = null;
         this.doors = [];
         this.equipments = [];
         this.players = [];
         this.statuses = [];
     }
-    load(object: any) {
+    load(object: any): Room {
         if (typeof object !== "undefined") {
             this.id = object.id;
             this.key = object.key;
             this.name = object.name;
             object.items.forEach((itemObject: any) => {
-                let item = (new Item).load(itemObject);
+                const item = (new Item).load(itemObject);
                 this.items.push(item);
             });
             object.doors.forEach((doorObject: any) => {
-                let door = (new Door).load(doorObject);
+                const door = (new Door).load(doorObject);
                 this.doors.push(door);
             });
             object.players.forEach((playerObject: any) => {
-                let player = (new Player).load(playerObject);
+                const player = (new Player).load(playerObject);
                 this.players.push(player);
             });
 
             object.equipments.forEach((equipmentObject:any) => {
-                let equipment = (new Equipment()).load(equipmentObject);
+                const equipment = (new Equipment()).load(equipmentObject);
                 this.equipments.push(equipment);
             });
             object.statuses.forEach((statusObject:any) => {
-                let status = (new Status()).load(statusObject);
+                const status = (new Status()).load(statusObject);
                 this.statuses.push(status);
             });
         }
         return this;
     }
-    jsonEncode() {
+    jsonEncode(): string {
         return JSON.stringify(this);
     }
-    decode(jsonString:string) {
+    decode(jsonString:string): Room {
         if (jsonString) {
-            let object = JSON.parse(jsonString);
+            const object = JSON.parse(jsonString);
             this.load(object);
         }
 

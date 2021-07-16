@@ -36,7 +36,7 @@ export class Action {
     }
     decode(jsonString : string): Action {
         if (jsonString) {
-            let object = JSON.parse(jsonString);
+            const object = JSON.parse(jsonString);
             this.id = object.id;
             this.key = object.key;
             this.canExecute = object.canExecute;

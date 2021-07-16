@@ -21,13 +21,20 @@
     </div>
 </template>
 
-<script>
-import Inventory from "@/components/Game/Inventory";
-import ActionPanel from "@/components/Game/Ship/ActionPanel";
-import Statuses from "@/components/Utils/Statuses";
+<script lang="ts">
+import Inventory from "@/components/Game/Inventory.vue";
+import ActionPanel from "@/components/Game/Ship/ActionPanel.vue";
+import Statuses from "@/components/Utils/Statuses.vue";
 import { mapActions } from "vuex";
+import { defineComponent } from "vue";
+import { Action } from "@/entities/Action";
+import { Item } from "@/entities/Item";
 
-export default {
+interface RoomInventoryPanelState {
+    selectedItem: null | Item
+}
+
+export default defineComponent ({
     name: "RoomInventoryPanel",
     components: {
         ActionPanel,
@@ -37,23 +44,23 @@ export default {
     props: {
         items: Array
     },
-    data: () => {
+    data: () : RoomInventoryPanelState => {
         return {
             selectedItem: null
         };
     },
     methods: {
-        selectItem: function(item) {
+        selectItem: function(item: Item) {
             this.selectedItem = item;
         },
-        async executeItemAction(action) {
+        async executeItemAction(action: Action) {
             this.executeAction({ target: this.selectedItem, action });
         },
         ...mapActions('action', [
             'executeAction'
         ])
     }
-};
+});
 </script>
 
 <style lang="scss" scoped>

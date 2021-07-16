@@ -36,7 +36,7 @@ export class DeadPlayerInfo {
 
             if (typeof object.players !== 'undefined') {
                 object.players.forEach((deadPlayerObject: any) => {
-                    let deadPlayer = (new DeadPlayerInfo()).load(deadPlayerObject);
+                    const deadPlayer = (new DeadPlayerInfo()).load(deadPlayerObject);
                     this.players.push(deadPlayer);
                 });
             }
@@ -48,7 +48,7 @@ export class DeadPlayerInfo {
     }
     decode(jsonString: string): DeadPlayerInfo {
         if (jsonString) {
-            let object = JSON.parse(jsonString);
+            const object = JSON.parse(jsonString);
             this.load(object);
         }
 

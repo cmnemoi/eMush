@@ -49,23 +49,25 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import ApiService from "@/services/api.service";
 import { characterEnum } from "@/enums/character";
 import PlayerService from "@/services/player.service";
+import { Character } from "@/entities/Character";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent ({
     name: 'CharSelection',
     props: {
     },
     data: () => {
         return {
             loading: false,
-            daedalusId: null,
+            daedalusId: -1,
             characters: []
         };
     },
-    beforeMount() {
+    beforeMount(): void {
         this.loading = true;
         ApiService.get('daedalus/available-characters')
             .then((response) => {
@@ -75,13 +77,13 @@ export default {
             });
     },
     methods: {
-        characterPortrait: function(character) {
+        characterPortrait: function(character: Character) {
             return characterEnum[character.key] ? characterEnum[character.key].portrait : require('@/assets/images/items/todo.jpg');
         },
-        characterBody: function(character) {
+        characterBody: function(character: Character) {
             return characterEnum[character.key] ? characterEnum[character.key].body : require('@/assets/images/items/todo.jpg');
         },
-        selectCharacter: function(character) {
+        selectCharacter: function(character: Character) {
             PlayerService.selectCharacter(this.daedalusId, character.key)
                 .then(() => {
                     this.loading = false;
@@ -92,7 +94,7 @@ export default {
                 });
         }
     }
-};
+});
 </script>
 
 <style lang="scss" scoped>
@@ -188,7 +190,7 @@ export default {
                 background: rgba(54,76,148,0.3);
 
                 img {
-                      transform: translate(-18px, 8px);
+                    transform: translate(-18px, 8px);
                     z-index: 2;
                 }
 
@@ -220,7 +222,7 @@ export default {
             flex: 1;
             min-width: 260px;
             margin: 12px;
-            }
+        }
 
         .skills {
             flex-flow: row wrap;

@@ -17,15 +17,16 @@
     </div>
 </template>
 
-<script>
-import Login from "@/components/Login";
+<script lang="ts">
+import Login from "@/components/Login.vue";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent ({
     name: 'Banner',
     components: {
         Login
     }
-};
+});
 </script>
 
 <style lang="scss" scoped>

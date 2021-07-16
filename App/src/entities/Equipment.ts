@@ -3,7 +3,7 @@ import { Status } from "@/entities/Status";
 
 export class Equipment {
     public id: number|null;
-    public key: string|null;
+    public key!: string;
     public name: string|null;
     public description: string|null;
     public actions: Array<Action>;
@@ -11,7 +11,6 @@ export class Equipment {
 
     constructor() {
         this.id = null;
-        this.key = null;
         this.name = null;
         this.actions = [];
         this.statuses = [];
@@ -28,18 +27,18 @@ export class Equipment {
                 this.actions.push((new Action).load(actionObject));
             });
             object.statuses.forEach((statusObject : any) => {
-                let status = (new Status()).load(statusObject);
+                const status = (new Status()).load(statusObject);
                 this.statuses.push(status);
             });
         }
         return this;
     }
-    jsonEncode() {
+    jsonEncode(): string {
         return JSON.stringify(this);
     }
-    decode(jsonString: string) {
+    decode(jsonString: string): Equipment {
         if (jsonString) {
-            let object = JSON.parse(jsonString);
+            const object = JSON.parse(jsonString);
             this.load(object);
         }
 

@@ -6,12 +6,12 @@ use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Event\ActionEffectEvent;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Disease\Entity\ConsumableDisease;
 use Mush\Disease\Entity\ConsumableDiseaseAttribute;
 use Mush\Disease\Entity\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\DiseaseStatusEnum;
 use Mush\Disease\Listener\ActionEffectSubscriber;
+use Mush\Equipment\Entity\ConsumableEffect;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Ration;
@@ -54,7 +54,7 @@ class ActionEffectSubscriberCest
         $I->refreshEntities($player);
 
         $gameItem = $this->createRation($I);
-        $diseaseConfig = $this->createDiseaseForRation($daedalus, $gameItem->getName(), 'diseaseName', true);
+        $diseaseConfig = $this->createDiseaseForRation($daedalus, $gameItem->getEquipment()->getRationsMechanic(), 'diseaseName', true);
 
         $event = new ActionEffectEvent($player, $gameItem);
 
@@ -88,7 +88,7 @@ class ActionEffectSubscriberCest
         $I->refreshEntities($player);
 
         $gameItem = $this->createRation($I);
-        $diseaseConfig = $this->createDiseaseForRation($daedalus, $gameItem->getName(), 'diseaseName', false);
+        $diseaseConfig = $this->createDiseaseForRation($daedalus, $gameItem->getEquipment()->getRationsMechanic(), 'diseaseName', false);
 
         $event = new ActionEffectEvent($player, $gameItem);
 
@@ -189,7 +189,7 @@ class ActionEffectSubscriberCest
 
     private function createDiseaseForRation(
         Daedalus $daedalus,
-        string $rationName,
+        Ration $ration,
         string $diseaseName,
         bool $delayed = false
     ): DiseaseConfig {
@@ -201,19 +201,19 @@ class ActionEffectSubscriberCest
 
         $this->tester->haveInRepository($diseaseConfig);
 
-        $consumableDisease = new ConsumableDisease();
-        $consumableDisease
-            ->setName($rationName)
+        $consumableEffect = new ConsumableEffect();
+        $consumableEffect
+            ->setRation($ration)
             ->setDaedalus($daedalus)
         ;
 
-        $this->tester->haveInRepository($consumableDisease);
+        $this->tester->haveInRepository($consumableEffect);
 
         $consumableAttribute = new ConsumableDiseaseAttribute();
         $consumableAttribute
             ->setRate(100)
             ->setDisease($diseaseName)
-            ->setConsumableDisease($consumableDisease)
+            ->setConsumableEffect($consumableEffect)
         ;
 
         if ($delayed) {
@@ -246,6 +246,8 @@ class ActionEffectSubscriberCest
             ->setName('itemName')
             ->setEquipment($itemConfig)
         ;
+
+        $I->haveInRepository($gameItem);
 
         return $gameItem;
     }

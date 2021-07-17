@@ -4,6 +4,7 @@ namespace Mush\Test\Equipment\Service;
 
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Disease\Service\ConsumableDiseaseServiceInterface;
 use Mush\Equipment\Entity\ConsumableEffect;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Entity\Mechanics\Ration;
@@ -16,6 +17,8 @@ use PHPUnit\Framework\TestCase;
 
 class EquipmentEffectServiceTest extends TestCase
 {
+    /** @var ConsumableDiseaseServiceInterface | Mockery\Mock */
+    private ConsumableDiseaseServiceInterface $consumableDiseaseService;
     /** @var ConsumableEffectRepository | Mockery\Mock */
     private ConsumableEffectRepository $consumableEffectRepository;
     /** @var PlantEffectRepository | Mockery\Mock */
@@ -30,11 +33,13 @@ class EquipmentEffectServiceTest extends TestCase
      */
     public function before()
     {
+        $this->consumableDiseaseService = Mockery::mock(ConsumableDiseaseServiceInterface::class);
         $this->consumableEffectRepository = Mockery::mock(ConsumableEffectRepository::class);
         $this->plantEffectRepository = Mockery::mock(PlantEffectRepository::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
 
         $this->service = new EquipmentEffectService(
+            $this->consumableDiseaseService,
             $this->consumableEffectRepository,
             $this->plantEffectRepository,
             $this->randomService
@@ -69,7 +74,7 @@ class EquipmentEffectServiceTest extends TestCase
             ->once()
         ;
 
-        $consumableEffect = $this->service->getConsumableEffect($ration, $daedalus);
+        $consumableEffect = $this->service->getConsumableEffect('equipmentName', $ration, $daedalus);
 
         $this->assertInstanceOf(ConsumableEffect::class, $consumableEffect);
         $this->assertEquals($consumableEffectFromRepository, $consumableEffect);
@@ -83,13 +88,17 @@ class EquipmentEffectServiceTest extends TestCase
             ->shouldReceive('persist')
             ->once()
         ;
+        $this->consumableDiseaseService
+            ->shouldReceive('createConsumableDiseases')
+            ->once()
+        ;
 
         $this->randomService
             ->shouldReceive('getSingleRandomElementFromProbaArray')
             ->andReturn(2)
             ->times(4)
         ;
-        $consumableEffect = $this->service->getConsumableEffect($ration, $daedalus);
+        $consumableEffect = $this->service->getConsumableEffect('equipmentName', $ration, $daedalus);
 
         $this->assertInstanceOf(ConsumableEffect::class, $consumableEffect);
         $this->assertEquals($daedalus, $consumableEffect->getDaedalus());

@@ -27,7 +27,7 @@ class EquipmentEffectServiceCest
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
 
-        $bananaEffect = $this->equipmentEffectService->getConsumableEffect($banana, $daedalus);
+        $bananaEffect = $this->equipmentEffectService->getConsumableEffect('banana', $banana, $daedalus);
 
         $I->assertEquals(1, $bananaEffect->getActionPoint());
         $I->assertEquals(0, $bananaEffect->getMovementPoint());
@@ -49,14 +49,14 @@ class EquipmentEffectServiceCest
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
 
-        $consumableEffect = $this->equipmentEffectService->getConsumableEffect($rationEffect, $daedalus);
+        $consumableEffect = $this->equipmentEffectService->getConsumableEffect('ration', $rationEffect, $daedalus);
 
         $I->assertTrue(in_array($consumableEffect->getActionPoint(), [1, 2, 3]));
         $I->assertEquals(0, $consumableEffect->getMovementPoint());
         $I->assertTrue(in_array($consumableEffect->getHealthPoint(), [1, 3]));
         $I->assertEquals(1000, $consumableEffect->getMoralPoint());
 
-        $existingEffect = $this->equipmentEffectService->getConsumableEffect($rationEffect, $daedalus);
+        $existingEffect = $this->equipmentEffectService->getConsumableEffect('ration', $rationEffect, $daedalus);
 
         $I->assertEquals($consumableEffect, $existingEffect);
     }
@@ -69,9 +69,9 @@ class EquipmentEffectServiceCest
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
 
-        $alienFruitEffect = $this->equipmentEffectService->getConsumableEffect($alienFruit, $daedalus);
+        $alienFruitEffect = $this->equipmentEffectService->getConsumableEffect('fruit', $alienFruit, $daedalus);
 
-        $existingEffect = $this->equipmentEffectService->getConsumableEffect($alienFruit, $daedalus);
+        $existingEffect = $this->equipmentEffectService->getConsumableEffect('fruit', $alienFruit, $daedalus);
 
         $I->assertEquals($alienFruitEffect, $existingEffect);
     }

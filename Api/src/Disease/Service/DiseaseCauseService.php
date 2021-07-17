@@ -54,22 +54,22 @@ class DiseaseCauseService implements DiseaseCauseServiceInterface
         /** @var ConsumableDiseaseAttribute $disease */
         foreach ($consumableEffect->getDiseases() as $disease) {
             if ($this->randomService->isSuccessful($disease->getRate())) {
-                $this->playerDiseaseService->createDiseaseFromName($disease->getDisease(), $player);
+                $this->playerDiseaseService->createDiseaseFromName($disease->getDisease(), $player, $disease->getDelayMin(), $disease->getDelayLength());
             }
         }
 
         foreach ($consumableEffect->getDisorder() as $disease) {
             if ($this->randomService->isSuccessful($disease->getRate())) {
-                $this->playerDiseaseService->createDiseaseFromName($disease->getDisease(), $player);
+                $this->playerDiseaseService->createDiseaseFromName($disease->getDisease(), $player, $disease->getDelayMin(), $disease->getDelayLength());
             }
         }
 
         /** @var ConsumableDiseaseAttribute $cure */
         foreach ($consumableEffect->getCures() as $cure) {
-            if (($disease = $player->getDiseaseByName($cure->getDisease())) !== null &&
+            if (($disease = $player->getMedicalConditionByName($cure->getDisease())) !== null &&
                 $this->randomService->isSuccessful($cure->getRate())
             ) {
-                $this->playerDiseaseService->removePlayerDisease($disease, new \DateTime());
+                $this->playerDiseaseService->removePlayerDisease($disease, DiseaseStatusEnum::DRUG_HEALED, new \DateTime());
             }
         }
     }

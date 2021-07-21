@@ -15,6 +15,35 @@
     src: url('~@/assets/fonts/Pixel_Square.ttf') format('truetype');
 }
 
+// Uncomment this to test the Kanit webfont
+// @font-face {
+//     font-family: 'eKanit';
+//     font-style: normal;
+//     font-weight: 400;
+//     src: url('~@/assets/fonts/eKanit-Light.ttf') format('truetype');
+// }
+
+// @font-face {
+//     font-family: 'eKanit';
+//     font-style: italic;
+//     font-weight: 400;
+//     src: url('~@/assets/fonts/eKanit-LightItalic.ttf') format('truetype');
+// }
+
+// @font-face {
+//     font-family: 'eKanit';
+//     font-style: normal;
+//     font-weight: 700;
+//     src: url('~@/assets/fonts/eKanit-SemiBold.ttf') format('truetype');
+// }
+
+// @font-face {
+//     font-family: 'eKanit';
+//     font-style: italic;
+//     font-weight: 700;
+//     src: url('~@/assets/fonts/eKanit-SemiBoldItalic.ttf') format('truetype');
+// }
+
 html {
     box-sizing: border-box;
 }
@@ -42,7 +71,7 @@ html,
     margin: 0;
     width: 100%;
     height: 100%;
-    font-family: "Segoe UI", "Lucida Grande", "Trebuchet MS", Arial, "lucida sans unicode", sans-serif;
+    font-family: "eKanit", "Segoe UI", "Lucida Grande", "Trebuchet MS", Arial, "lucida sans unicode", sans-serif;
 }
 
 #app {

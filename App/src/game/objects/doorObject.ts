@@ -4,6 +4,7 @@ import DaedalusScene from "@/game/scenes/daedalusScene";
 import { CartesianCoordinates } from "@/game/types";
 import { Door as DoorEntity } from "@/entities/Door";
 import store from "@/store";
+import { Action } from "@/entities/Action";
 
 export default class DoorObject extends Phaser.GameObjects.Sprite {
     private firstFrame : number;
@@ -64,14 +65,24 @@ export default class DoorObject extends Phaser.GameObjects.Sprite {
     {
         if (Phaser.Geom.Polygon.Contains(this.interactBox, pointer.worldX, pointer.worldY)){
 
-            if(String(this.frame.name) === String(this.firstFrame))
+            if(
+                String(this.frame.name) === String(this.firstFrame)  &&
+                !this.door.isBroken
+            )
             {
                 //if player click on the door AND the door is closed
                 this.anims.play('door_open');
-            } else {
+            } else if (!this.door.isBroken) {
                 //if player click on the door AND the door is open
-                const moveAction = this.door.actions.pop();
+                const moveAction = this.getMoveAction();
                 store.dispatch('action/executeAction', { target: this.door, action: moveAction });
+            } else {
+                //If the door is broken propose the repair action
+                const door = this.door;
+                this.on('pointerdown', function (pointer: Phaser.Input.Pointer, localX: number, localY: number, event: any) {
+                    store.dispatch('room/selectTarget', { target: door });
+                    event.stopPropagation(); //Need that one to prevent other effects
+                });
             }
             // @ts-ignore
         } else if (String(this.frame.name) ===  String(this.firstFrame + 10))
@@ -79,6 +90,18 @@ export default class DoorObject extends Phaser.GameObjects.Sprite {
             //if player click outside the door AND the door is open
             this.anims.play('door_close');
         }
+    }
+
+    getMoveAction(): Action
+    {
+        for (let i = 0; i < this.door.actions.length; i++) {
+            const actionObject = this.door.actions[i];
+            if (actionObject.key === 'move') {
+                return actionObject;
+            }
+        };
+
+        throw new Error('door do not have the move action');
     }
 
     setInteractBox() : Phaser.Geom.Polygon

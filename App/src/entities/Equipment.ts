@@ -8,6 +8,7 @@ export class Equipment {
     public description: string|null;
     public actions: Array<Action>;
     public statuses: Array<Status>;
+    public isBroken: boolean;
 
     constructor() {
         this.id = null;
@@ -15,6 +16,7 @@ export class Equipment {
         this.actions = [];
         this.statuses = [];
         this.description = null;
+        this.isBroken = false;
     }
     load(object :any): Equipment {
         if (typeof object !== "undefined") {
@@ -29,6 +31,10 @@ export class Equipment {
             object.statuses.forEach((statusObject : any) => {
                 const status = (new Status()).load(statusObject);
                 this.statuses.push(status);
+
+                if (status.name === 'broken') {
+                    this.isBroken = true;
+                }
             });
         }
         return this;

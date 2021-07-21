@@ -126,7 +126,7 @@ export default class DaedalusScene extends Phaser.Scene
         const tilesets = [
             map.addTilesetImage('ground_tileset', 'ground_tileset'),
             map.addTilesetImage('wall_tileset', 'wall_tileset'),
-            map.addTilesetImage('door_ground_tileset', 'door_ground_tileset'),
+            map.addTilesetImage('door_ground_tileset', 'door_ground_tileset')
         ];
 
         this.cameras.main.setBounds(-275, -125, 500, 500);

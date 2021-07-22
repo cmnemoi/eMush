@@ -1,10 +1,13 @@
 import { createApp } from 'vue';
 import App from './App.vue';
+import Title from './Title.vue';
 import './assets/scss/main.scss';
 import ApiService from "./services/api.service";
 import { TokenService } from "./services/storage.service";
 import store from './store';
 import router from './router';
+import { createI18n } from 'vue-i18n';
+import { messages, defaultLocale } from '@/i18n';
 
 
 // Set the base URL of the API
@@ -18,10 +21,20 @@ if (TokenService.getToken()) {
 // If error, act accordingly (401 refreshes token, others raise error)
 ApiService.mountErrorInterceptor();
 
+// Translation with i18n
+const i18n = createI18n({
+    messages,
+    locale: navigator.language,
+    fallbackLocale: defaultLocale
+});
 
-const app = createApp(App);
+createApp(App)
+    .use(store)
+    .use(router)
+    .use(i18n)
+    .mount('#app');
 
-app.use(store);
-app.use(router);
+createApp(Title)
+    .use(i18n)
+    .mount('#title');
 
-app.mount('#app');

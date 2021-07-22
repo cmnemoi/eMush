@@ -4,6 +4,7 @@
         <Banner />
         <router-view />
         <ErrorPopup />
+        <LocaleChange />
     </div>
 </template>
 
@@ -13,13 +14,15 @@ import Banner from "@/components/Banner";
 import ErrorPopup from "@/components/ErrorPopup";
 import Spinner from "@/components/Utils/Spinner";
 import { mapGetters } from "vuex";
+import LocaleChange from "@/components/Utils/LocaleChange.vue";
 
 export default {
     name: 'App',
     components: {
         Spinner,
         Banner,
-        ErrorPopup
+        ErrorPopup,
+        LocaleChange
     },
     computed: {
         ...mapGetters({

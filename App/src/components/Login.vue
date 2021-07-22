@@ -1,11 +1,10 @@
 <template>
     <div>
-        <a v-if="! loggedIn" class="login-button" @click="openPopup">Login</a>
-        <a v-if="loggedIn" class="logout-button" @click="logout">Logout</a>
+        <a v-if="! loggedIn" class="login-button" @click="openPopup">{{ $t('login') }}</a>
+        <a v-if="loggedIn" class="logout-button" @click="logout">{{ $t('logout') }}</a>
         <PopUp :is-open="isPassphrasePopupOpen" @close="closePopup">
-            <span>Ceci est une alpha reservée aux testeurs</span>
-            <span>This is an alpha for testers only</span>
-            <label for="passphrase" class="passphrase">Passphrase:</label>
+            <span>{{ $t('alpha.description') }}</span>
+            <label for="passphrase" class="passphrase">{{ $t('alpha.passphrase') }}</label>
             <input
                 id="passphrase"
                 ref="passphrase_input"
@@ -14,7 +13,7 @@
                 @keyup.enter="submitPassphrase"
             >
             <button type="submit" @click="submitPassphrase">
-                Submit
+                {{ $t('alpha.valide') }}
             </button>
         </PopUp>
     </div>

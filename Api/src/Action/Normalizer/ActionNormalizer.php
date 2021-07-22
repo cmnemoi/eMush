@@ -54,6 +54,7 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
 
             $normalizedAction = [
                 'id' => $object->getId(),
+                'key' => $object->getName(),
                 'name' => $this->translationService->translate("{$actionName}.name", [], 'actions'),
                 'actionPointCost' => $this->actionService->getTotalActionPointCost($currentPlayer, $object),
                 'movementPointCost' => $this->actionService->getTotalMovementPointCost($currentPlayer, $object),

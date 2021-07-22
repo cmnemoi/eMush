@@ -12,7 +12,7 @@
                     </template>
                 </Tooltip>
             </span>
-            <span v-else>Alertes :</span>
+            <span v-else>{{ $t('alerts') }}</span>
             <Tooltip v-for="(alert, key) in alertsDisplayed" :key="key">
                 <template #tooltip-trigger>
                     <img

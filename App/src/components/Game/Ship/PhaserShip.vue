@@ -1,7 +1,7 @@
 <template>
     <div v-if="downloaded" :id="containerId" />
     <div v-else class="placeholder">
-        Downloading ...
+        {{ $t('downloading') }}
     </div>
 </template>
 

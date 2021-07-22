@@ -1,7 +1,7 @@
 <template>
     <div class="purgatory-container">
         <div v-if="deadPlayerInfo" class="death-summary">
-            <h1>Vous êtes mort !</h1>
+            <h1>{{ $t('deathpage.title') }}</h1>
             <div class="char-sheet">
                 <img class="avatar" :src="characterPortrait" alt="avatar">
                 <div>
@@ -41,10 +41,10 @@
             <table class="crew-summary">
                 <tbody>
                     <tr>
-                        <th>nom</th>
-                        <th>mort</th>
-                        <th>cause</th>
-                        <th>j'aime</th>
+                        <th>{{ $t('deathpage.name') }}</th>
+                        <th>{{ $t('deathpage.death') }}</th>
+                        <th>{{ $t('deathpage.reason') }}</th>
+                        <th>{{ $t('deathpage.like') }}</th>
                     </tr>
                     <tr v-for="(player,key) in deadPlayerInfo.players" :key="key">
                         <td><img :src="characterBody(player.characterKey)" class="char hua"> <span class="charname">{{ player.characterValue }}</span></td>
@@ -58,8 +58,8 @@
                     </tr>
                 </tbody>
             </table>
-            <p><em>Vous serez notifié quand le classement de fin de partie sera publié.</em></p>
-            <a href="#" class="validate" @click="endGame">Valider et continuer</a>
+            <p><em>{{ $t('deathpage.notyet') }}</em></p>
+            <a href="#" class="validate" @click="endGame">{{ $t('deathpage.endgame') }}</a>
         </div>
         <CommsPanel :day="player.daedalus.day" :cycle="player.daedalus.cycle" />
     </div>

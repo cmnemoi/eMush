@@ -28,7 +28,7 @@
             />
         </div>
         <p v-else class="loading">
-            Loading...
+            {{ $t('loading') }}
         </p>
     </div>
 </template>

@@ -1,6 +1,6 @@
 <template>
     <div class="textual" @click="$emit('clickOnNothing')">
-        <h1>Doors</h1>
+        <h1>{{ $t('alpha.doors') }}</h1>
         <div v-for="door in room.doors" :key="door.id" class="door">
             <p>{{ door.direction }} :</p>
             <ActionButton
@@ -12,19 +12,19 @@
             />
         </div>
 
-        <h1>Inventory</h1>
+        <h1>{{ $t('alpha.inventory') }}</h1>
         <p @click="$emit('clickOnInventory'); $event.stopPropagation()">
-            Click here to open the Room Inventory
+            {{ $t('alpha.inventoryDescription') }}
         </p>
 
-        <h1>Equipment</h1>
+        <h1>{{ $t('alpha.equipement') }}</h1>
         <div v-for="(equipment,key) in room.equipments" :key="key">
             <p @click="$emit('clickOnTarget', equipment); $event.stopPropagation()">
                 {{ equipment.name }}
                 <Statuses :statuses="equipment.statuses" type="equipment" />
             </p>
         </div>
-        <h1>Players</h1>
+        <h1>{{ $t('alpha.player') }}</h1>
         <div v-for="(player,key) in room.players" :key="key">
             <p @click="$emit('clickOnTarget', player); $event.stopPropagation()">
                 {{ player.character.name }}

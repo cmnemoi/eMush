@@ -177,7 +177,7 @@ export default defineComponent ({
 
             .score {
                 flex: 1;
-                font-family: Days-One;
+                font-family: $font-days-one;
                 color: #01c3df;
                 text-align: right;
                 font-size: 2.2em;
@@ -337,7 +337,7 @@ export default defineComponent ({
         margin-left: 15px;
         margin-top: 2em;
         color: red;
-        background: #c2f3fc;
+        background: $brightCyan;
     }
 }
 

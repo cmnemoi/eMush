@@ -15,8 +15,9 @@ module.exports = {
             // Note: this option is named as "additionalData" in sass-loader v9
             sass: {
                 additionalData: `
-                  @import "@/assets/scss/_mixins.scss";
-              `
+                    @import "@/assets/scss/_variables.scss";
+                    @import "@/assets/scss/_mixins.scss";
+                `
             }
         }
     }

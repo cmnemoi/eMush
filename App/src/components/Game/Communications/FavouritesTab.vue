@@ -70,10 +70,10 @@ export default defineComponent ({
         background: white;
         word-break: break-word;
 
-        &::v-deep em { color: #cf1830; } //Makes italic text red
+        &::v-deep em { color: $red; } //Makes italic text red
 
         .author {
-            color: #2081e2;
+            color: $blue;
             font-weight: 700;
             font-variant: small-caps;
             padding-right: 0.25em;
@@ -249,7 +249,7 @@ export default defineComponent ({
     &.active,
     &:hover,
     &:focus {
-        background: #a6eefb;
+        background: $lightCyan;
     }
 }
 

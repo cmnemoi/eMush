@@ -83,8 +83,8 @@ export default defineComponent ({
     flex-direction: column;
     width: 424px;
     padding: 5px 8px;
-    color: #090a61;
-    background: #c2f3fc;
+    color: $deepBlue;
+    background: $brightCyan;
     font-size: .85em;
 
     clip-path: polygon(6.5px 0, calc(100% - 6.5px ) 0, 100% 6.5px, 100% calc(100% + 2em), 0 calc(100% + 2em), 0 6.5px);
@@ -100,7 +100,7 @@ export default defineComponent ({
         margin: .35em 0;
         padding: .25em;
         cursor: pointer;
-        background: #a6eefb;
+        background: $lightCyan;
         border: 1px solid #84e100;
         border-radius: 3px;
 
@@ -122,7 +122,7 @@ export default defineComponent ({
 
             em.red {
                 font-style: normal;
-                color: #cf1830;
+                color: $red;
             }
         }
 
@@ -180,7 +180,7 @@ export default defineComponent ({
             width: 132px;
             padding-bottom: .4em;
             margin-right: 6px;
-            background: #a6eefb url("~@/assets/images/neroncore_bg.svg") no-repeat right bottom;
+            background: $lightCyan url("~@/assets/images/neroncore_bg.svg") no-repeat right bottom;
             border-left: 2px solid #aad4e5;
 
             scroll-snap-align: start; // to control scroll snapping
@@ -284,7 +284,7 @@ export default defineComponent ({
         text-shadow: 0 0 4px #15273c, 0 0 4px #15273c;
 
         &:hover, &:focus, &:active {
-            background: #c2f3fc;
+            background: $brightCyan;
         }
     }
 }

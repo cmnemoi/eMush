@@ -953,7 +953,7 @@
         bottom: 0;
         z-index: 5;
         margin: 8px 16px;
-        font-family: 'Pixel-Square';
+        font-family: $font-pixel-square;
         font-size: 10px;
         font-weight: 700;
     }

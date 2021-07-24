@@ -66,7 +66,7 @@ export default defineComponent ({
     h1,
     h2,
     h3 {
-        color: #cf1830;
+        color: $red;
         font-size: 1.5em;
         font-variant: small-caps;
         margin: 12px 0 4px 0;

@@ -117,7 +117,7 @@ export default defineComponent ({
     }
 
     .author {
-        color: #2081e2;
+        color: $blue;
         font-weight: 700;
         font-variant: small-caps;
         padding-right: 0.25em;
@@ -133,7 +133,7 @@ export default defineComponent ({
         word-break: break-word;
 
         &::v-deep em {
-            color: #cf1830; // Makes italic text red
+            color: $red; // Makes italic text red
         }
 
         &.unread { // unread messages styling

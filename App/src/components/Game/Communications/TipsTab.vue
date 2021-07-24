@@ -88,13 +88,13 @@ export default defineComponent ({
         word-break: break-word;
 
         .author {
-            color: #2081e2;
+            color: $blue;
             font-weight: 700;
             font-variant: small-caps;
             padding-right: 0.25em;
         }
 
-        em { color: #cf1830; }
+        em { color: $red; }
     }
 
     &.new p {

@@ -37,7 +37,7 @@ export default defineComponent ({
     margin: 1px 0;
     border-bottom: 1px solid rgb(170, 212, 229);
 
-    &::v-deep p:not(.timestamp) em { color: #cf1830; }
+    &::v-deep p:not(.timestamp) em { color: $red; }
 
     &.new {
         border-left: 2px solid #ea9104;

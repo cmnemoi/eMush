@@ -177,7 +177,7 @@ span.tippy-tooltip {
         border-radius: 4px;
         margin: auto;
         padding-right: 4px;
-        font-family: Days-One;
+        font-family: $font-days-one;
     }
 
     .in-game-level-progress {

@@ -157,7 +157,7 @@ export default defineComponent ({
                     width: 33px;
                     margin: 0;
                     padding-top: .15em;
-                    font-family: "Days-One";
+                    font-family: $font-days-one;
                     font-size: 1.4em;
                     text-align: center;
                     background: rgba(54,76,148,0.3);

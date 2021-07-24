@@ -112,7 +112,7 @@ export default defineComponent ({
             border-radius: 3px;
             text-transform: uppercase;
             letter-spacing: 0.03em;
-            background: #a6eefb;
+            background: $lightCyan;
 
             span {
                 flex: 1;

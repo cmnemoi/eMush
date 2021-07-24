@@ -99,7 +99,7 @@ export default defineComponent ({
     p {
         margin: 0;
         font-size: .95em;
-        >>> img { vertical-align: middle; }
+        &::v-deep img { vertical-align: middle; }
     }
 }
 
@@ -132,7 +132,7 @@ export default defineComponent ({
         background: white;
         word-break: break-word;
 
-        >>> em {
+        &::v-deep em {
             color: #cf1830; // Makes italic text red
         }
 

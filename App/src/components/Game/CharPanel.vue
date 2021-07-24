@@ -211,7 +211,7 @@ export default defineComponent ({
             align-items: center;
             margin: 2px;
 
-            >>> .status {
+            &::v-deep .status {
                 margin-bottom: 3px;
             }
         }
@@ -294,7 +294,7 @@ export default defineComponent ({
                 letter-spacing: 0.03em;
                 font-variant: small-caps;
 
-                >>> .status {
+                &::v-deep .status {
                     vertical-align: middle;
                     margin-left: 2px;
                 }

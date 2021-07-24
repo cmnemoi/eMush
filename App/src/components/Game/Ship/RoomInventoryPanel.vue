@@ -83,7 +83,7 @@ export default defineComponent ({
             margin: 0;
             padding: 8px 0;
 
-            >>> .status {
+            &::v-deep .status {
                 vertical-align: middle;
                 margin-left: 2px;
             }

@@ -104,7 +104,7 @@ export default defineComponent ({
                 flex-wrap: wrap;
                 font-size: 0.9em;
 
-                >>> .status {
+                &::v-deep .status {
                     padding: 1px;
                 }
             }

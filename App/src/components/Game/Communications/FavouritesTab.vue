@@ -243,7 +243,7 @@ export default defineComponent ({
     padding: 4px;
     color: #67b000;
     border-radius: 3px;
-    font-size: 0.8em;
+    font-size: 0.95em;
     text-decoration: underline;
 
     &.active,

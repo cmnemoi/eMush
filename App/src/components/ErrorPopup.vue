@@ -50,7 +50,7 @@ export default defineComponent ({
 
 .details {
     margin-top: 16px;
-    font-size: 65%;
+    font-size: .65em;
 }
 
 </style>

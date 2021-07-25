@@ -79,7 +79,6 @@ export default defineComponent ({
         border-right: 1px dotted #4a5d8f;
         padding: 1px;
         padding-right: 4px;
-        font-size: 0.85em;
 
         .card {
             flex-flow: row wrap;

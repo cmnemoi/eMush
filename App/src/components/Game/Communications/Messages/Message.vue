@@ -99,7 +99,6 @@ export default defineComponent ({
     p {
         margin: 0;
         font-size: .95em;
-        &::v-deep img { vertical-align: middle; }
     }
 }
 

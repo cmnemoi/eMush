@@ -145,17 +145,15 @@ p,
 a,
 li,
 span {
-    font-size: 0.85em;
     letter-spacing: 0.03em;
     font-variant: small-caps;
 }
 
-
 span.tippy-tooltip {
-    font-size: initial !important;
     margin-right: 5px;
     margin-left: 5px;
 }
+
 .game-banner {
     margin-bottom: 8px;
     flex-direction: row;
@@ -219,7 +217,7 @@ span.tippy-tooltip {
 
         .character-name {
             margin-bottom: 1px;
-            font-size: 0.91em;
+            font-size: 1.05em;
             font-weight: 700;
             text-transform: uppercase;
         }
@@ -231,7 +229,7 @@ span.tippy-tooltip {
 
             .title-name {
                 margin-left: 4px;
-                font-size: 0.68em;
+                font-size: 0.8em;
                 font-weight: bold;
                 font-variant: small-caps;
                 white-space: nowrap;
@@ -271,12 +269,6 @@ span.tippy-tooltip {
         margin-right: 0.4em;
     }
     .cycle-time ul {align-items: center;}
-}
-
-@keyframes alarms-border-color {
-    0% { border: 1px solid #ff4e64; }
-    50% { border: 1px solid rgba(58, 106, 171, 1); }
-    100% { border: 1px solid #ff4e64; }
 }
 
 </style>

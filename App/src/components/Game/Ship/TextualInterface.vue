@@ -61,7 +61,6 @@ export default defineComponent ({
 .textual {
     overflow: auto;
     padding: 18px 12px;
-    font-size: 0.83em;
 
     h1,
     h2,

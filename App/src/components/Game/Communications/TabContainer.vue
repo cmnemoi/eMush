@@ -40,7 +40,6 @@ export default defineComponent ({
 
 .tab-content {
     min-width: 100%;
-    font-size: 0.8em;
 
     .chatbox-container {
         display: flex;

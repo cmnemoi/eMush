@@ -39,7 +39,7 @@ export default defineComponent ({
             margin: 1px 0;
             width: 100%;
             text-align: center;
-            font-size: 0.7em;
+            font-size: 0.8em;
             text-shadow: 0 0 2px rgba(27, 28, 85, 1), 0 0 2px rgba(27, 28, 85, 1), 0 0 2px rgba(27, 28, 85, 1);
         }
     }

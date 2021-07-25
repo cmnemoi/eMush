@@ -176,7 +176,7 @@ export default defineComponent ({
         margin: 0 12px;
         min-height: 25px;
         float: right;
-        font-size: 0.7em;
+        font-size: 0.8em;
         font-variant: small-caps;
 
         img { margin-right: 3px; }

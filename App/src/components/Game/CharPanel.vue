@@ -242,7 +242,7 @@ export default defineComponent ({
                     height: 15px;
                     margin: 1px;
                     padding-right: 1px;
-                    font-size: 0.5em;
+                    font-size: 0.6em;
                     letter-spacing: 0.03em;
                     border-right-width: 0;
 
@@ -290,7 +290,6 @@ export default defineComponent ({
 
             .item-name {
                 margin: 0 0 4px 0;
-                font-size: 0.83em;
                 letter-spacing: 0.03em;
                 font-variant: small-caps;
 
@@ -391,7 +390,7 @@ export default defineComponent ({
                 flex-direction: row;
                 align-items: baseline;
                 margin: 2px 0;
-                font-size: 0.65em;
+                font-size: 0.75em;
                 font-weight: 700;
 
                 & img { margin-right: -3px; }

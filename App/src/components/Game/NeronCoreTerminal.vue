@@ -85,7 +85,6 @@ export default defineComponent ({
     padding: 5px 8px;
     color: $deepBlue;
     background: $brightCyan;
-    font-size: .85em;
 
     clip-path: polygon(6.5px 0, calc(100% - 6.5px ) 0, 100% 6.5px, 100% calc(100% + 2em), 0 calc(100% + 2em), 0 6.5px);
 
@@ -138,7 +137,7 @@ export default defineComponent ({
             padding: .2em .5em;
             border-radius: 5px 5px 0 0;
             background: #84e100;
-            font-size: .8em;
+            font-size: .75em;
             text-transform: uppercase;
             letter-spacing: .05em;
         }
@@ -246,7 +245,7 @@ export default defineComponent ({
             }
 
             .action-participate {
-                @include button-style($font-size: 1em);
+                @include button-style;
                 margin: 1px 4px;
             }
 

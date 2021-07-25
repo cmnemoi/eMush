@@ -78,7 +78,6 @@ export default defineComponent ({
 
         .item-name {
             text-align: center;
-            font-size: 0.85em;
             font-variant: small-caps;
             margin: 0;
             padding: 8px 0;

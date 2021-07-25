@@ -33,7 +33,7 @@ Corners values stand clockwise starting from top left. Missing values in @includ
 /* Style an element to make it a button, inlcuding hover effect.
 Editabe values stand for font-size, font-weight, and font-variant. Keep empty for default styles.
 Adding the class ".crossed" to the element will strike-through it. */
-@mixin button-style ($font-size: 0.83em, $font-weight: 700, $font-variant: small-caps) {
+@mixin button-style ($font-size: 1rem, $font-weight: 700, $font-variant: small-caps) {
     $color: rgb(0, 116, 223);
     $hover-color: rgb(0, 160, 233);
     $border-color: rgb(12, 18, 13);
@@ -116,7 +116,7 @@ Inventory slots with .empty class will have no interactive styling. */
         right: 0;
         margin: 2px 5px;
         font-weight: bold;
-        font-size: 1em;
+        font-size: 1.18rem;
         color: white;
         text-shadow: 0 0 3px black, 0 0 3px black;
     }

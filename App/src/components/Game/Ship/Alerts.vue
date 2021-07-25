@@ -98,7 +98,8 @@ export default defineComponent ({
     margin: 0;
     max-height: 25px;
     color: white;
-    font-size: 1em;
+    letter-spacing: 0.03em;
+    font-variant: small-caps;
     font-weight: 400;
     border: 1px solid rgba(58, 106, 171, 1);;
     border-radius: 3px;
@@ -111,14 +112,21 @@ export default defineComponent ({
     }
 
     span img {
-        vertical-align: top;
+            position: relative;
+            top: -0.1em;
     }
 
     &.alarm {
         color: #ff4e64;
         font-weight: 700;
-        animation: alarms-border-color 0.85s ease-in-out infinite; /* keyframes at the end of the doc */
+        animation: alarms-border-color 0.85s ease-in-out infinite;
     }
+}
+
+@keyframes alarms-border-color {
+    0% { border: 1px solid #ff4e64; }
+    50% { border: 1px solid rgba(58, 106, 171, 1); }
+    100% { border: 1px solid #ff4e64; }
 }
 
 </style>

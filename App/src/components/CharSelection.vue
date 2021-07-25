@@ -158,7 +158,7 @@ export default defineComponent ({
                     margin: 0;
                     padding-top: .15em;
                     font-family: $font-days-one;
-                    font-size: 1.4em;
+                    font-size: 1.65em;
                     text-align: center;
                     background: rgba(54,76,148,0.3);
                 }
@@ -166,7 +166,7 @@ export default defineComponent ({
                 .name {
                     margin: auto;
                     margin-left: .5em;
-                    font-size: .9em;
+                    font-size: 1.1em;
                     line-height: 1em;
                     font-weight: 700;
                     letter-spacing: .02em;
@@ -216,7 +216,7 @@ export default defineComponent ({
     .banner {
         flex-flow: row wrap;
         justify-content: flex-start;
-        font-size: .85em;
+        // font-size: .85em;
 
         & > * {
             flex: 1;

@@ -25,7 +25,7 @@ import { defineComponent } from "vue";
 export default defineComponent ({
     name: 'Banner',
     components: {
-        Login,
+        Login
     }
 });
 </script>

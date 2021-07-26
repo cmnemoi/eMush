@@ -6,8 +6,8 @@
                 :key="`Lang${i}`"
                 :value="lang.caption"
                 @click="switchLocale(i)"
-                :src="lang.icon" />    
-        </ol>    
+                :src="lang.icon" />
+        </ol>
     </div>
 </template>
 
@@ -26,7 +26,7 @@ export default defineComponent ({
                 this.$i18n.locale = locale;
             }
         }
-    },
+    }
 });
 </script>
 

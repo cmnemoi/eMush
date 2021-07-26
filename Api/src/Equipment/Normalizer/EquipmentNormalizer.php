@@ -8,11 +8,10 @@ use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Disease\Entity\ConsumableDiseaseAttribute;
 use Mush\Disease\Service\ConsumableDiseaseServiceInterface;
-use Mush\Disease\Service\DiseaseCauseServiceInterface;
+use Mush\Equipment\Entity\ConsumableEffect;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Repository\ConsumableEffectRepository;
 use Mush\Equipment\Service\EquipmentEffectService;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
@@ -82,7 +81,7 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
             'description' => $this->translationService->translate("{$object->getName()}.description", [], $type),
             'statuses' => $statuses,
             'actions' => $this->getActions($object, $currentPlayer, $format, $context),
-            'effects' => $this->getRationsEffect($object, $currentPlayer->getDaedalus())
+            'effects' => $this->getRationsEffect($object, $currentPlayer->getDaedalus()),
         ];
     }
 
@@ -141,77 +140,97 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
         if ($consumableDiseaseEffect !== null) {
             /** @var ConsumableDiseaseAttribute $disease */
             foreach ($consumableDiseaseEffect->getDiseases() as $disease) {
-                $diseaseName = $this->translationService->translate($disease->getDisease() . '.name', [], 'disease');
-
-                if ($disease->getDelayMin() > 0) {
-                    $key = 'delayed_disease_info';
-                    $params = [
-                        'quantity' => $disease->getRate(),
-                        'diseaseName' => $diseaseName,
-                        'start' => $disease->getDelayMin(),
-                        'end' => $disease->getDelayMin() + $disease->getDelayLength()
-                    ];
-                } else {
-                    $key = 'disease_info';
-                    $params = [
-                        'quantity' => $disease->getRate(),
-                        'diseaseName' => $diseaseName,
-                    ];
-                }
-
-                $effects[] = $this->translationService->translate($key, $params, 'misc');
+                $effects[] = $this->createDiseaseLine($disease);
             }
 
             /** @var ConsumableDiseaseAttribute $cure */
             foreach ($consumableDiseaseEffect->getCures() as $cure) {
-                $diseaseName = $this->translationService->translate($cure->getDisease() . '.name', [], 'disease');
-
-                if ($disease->getDelayMin() > 0) {
-                    $key = 'delayed_cure_info';
-                    $params = [
-                        'diseaseName' => $diseaseName,
-                        'start' => $disease->getDelayMin(),
-                        'end' => $disease->getDelayMin() + $disease->getDelayLength()
-                    ];
-                } else {
-                    $key = 'cure_info';
-                    $params = [
-                        'diseaseName' => $diseaseName,
-                    ];
-                }
-                $effects[] = $this->translationService->translate($key, $params, 'misc');
-            }
-        }
-
-        $consumableEffect = $this->equipmentEffectService->getConsumableEffect($ration, $daedalus);
-        if ($consumableEffect !== null) {
-            if ($consumableEffect->getSatiety() > 0) {
-                $effects[] = $this->createEffectLine($consumableEffect->getSatiety(), 'satiety_point');
-            }
-            if ($consumableEffect->getActionPoint() !== 0) {
-                $effects[] = $this->createEffectLine($consumableEffect->getActionPoint(), 'action_point');
-            }
-            if ($consumableEffect->getMovementPoint() !== 0) {
-                $effects[] = $this->createEffectLine($consumableEffect->getMovementPoint(), 'movement_point');
-            }
-            if ($consumableEffect->getHealthPoint() !== 0) {
-                $effects[] = $this->createEffectLine($consumableEffect->getHealthPoint(), 'health_point');
-            }
-            if ($consumableEffect->getMoralPoint() !== 0) {
-                $effects[] = $this->createEffectLine($consumableEffect->getMoralPoint(), 'moral_point');
+                $effects[] = $this->createCureLine($cure);
             }
         }
 
         return [
             'title' => $this->translationService->translate('ration_data', [], 'misc'),
-            'effects' => $effects
+            'effects' => array_merge($effects, $this->createConsummableLines($this->equipmentEffectService->getConsumableEffect($ration, $daedalus))),
         ];
+    }
+
+    private function createConsummableLines(ConsumableEffect $consumableEffect): array
+    {
+        $effects = [];
+
+        $satiety = $consumableEffect->getSatiety();
+        if ($satiety !== null) {
+            $effects[] = $this->createEffectLine($satiety, 'satiety_point');
+        }
+        $actionPoint = $consumableEffect->getActionPoint();
+        if ($actionPoint !== null) {
+            $effects[] = $this->createEffectLine($actionPoint, 'action_point');
+        }
+        $movementPoint = $consumableEffect->getMovementPoint();
+        if ($movementPoint !== null) {
+            $effects[] = $this->createEffectLine($movementPoint, 'movement_point');
+        }
+        $healthPoint = $consumableEffect->getHealthPoint();
+        if ($healthPoint !== null) {
+            $effects[] = $this->createEffectLine($healthPoint, 'health_point');
+        }
+        $moralPoint = $consumableEffect->getMoralPoint();
+        if ($moralPoint !== null) {
+            $effects[] = $this->createEffectLine($moralPoint, 'moral_point');
+        }
+
+        return $effects;
+    }
+
+    private function createDiseaseLine(ConsumableDiseaseAttribute $disease): string
+    {
+        $diseaseName = $this->translationService->translate($disease->getDisease() . '.name', [], 'disease');
+
+        if ($disease->getDelayMin() > 0) {
+            $key = 'delayed_disease_info';
+            $params = [
+                'quantity' => $disease->getRate(),
+                'diseaseName' => $diseaseName,
+                'start' => $disease->getDelayMin(),
+                'end' => $disease->getDelayMin() + $disease->getDelayLength(),
+            ];
+        } else {
+            $key = 'disease_info';
+            $params = [
+                'quantity' => $disease->getRate(),
+                'diseaseName' => $diseaseName,
+            ];
+        }
+
+        return $this->translationService->translate($key, $params, 'misc');
+    }
+
+    private function createCureLine(ConsumableDiseaseAttribute $cure): string
+    {
+        $cureName = $this->translationService->translate($cure->getDisease() . '.name', [], 'disease');
+
+        if ($cure->getDelayMin() > 0) {
+            $key = 'delayed_cure_info';
+            $params = [
+                'diseaseName' => $cureName,
+                'start' => $cure->getDelayMin(),
+                'end' => $cure->getDelayMin() + $cure->getDelayLength(),
+            ];
+        } else {
+            $key = 'cure_info';
+            $params = [
+                'diseaseName' => $cureName,
+            ];
+        }
+
+        return $this->translationService->translate($key, $params, 'misc');
     }
 
     private function createEffectLine(int $quantity, string $key): string
     {
-        $sign = $quantity > 0 ? '+':'-';
-        return"{$sign} {$quantity} {$this->translationService->translate($key,[],'misc')}";
+        $sign = $quantity > 0 ? '+' : '-';
 
+        return "{$sign} {$quantity} {$this->translationService->translate($key, [], 'misc')}";
     }
 }

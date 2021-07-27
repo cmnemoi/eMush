@@ -15,6 +15,12 @@
                 <template #tooltip-content>
                     <h1>{{ item.name }}</h1>
                     <p>{{ item.description }}</p>
+                    <span v-if="item.effectTitle">
+                        {{item.effectTitle}}
+                        <ul class="effect_list">
+                            <li v-for="(effect, key) in item.effects" :key="key" v-html="formatContent(effect)"></li>
+                        </ul>
+                    </span>
                 </template>
             </Tooltip>
         </li>
@@ -27,6 +33,7 @@ import { itemEnum } from "@/enums/item";
 import Tooltip from "@/components/Utils/ToolTip.vue";
 import { Item } from "@/entities/Item";
 import { defineComponent } from "vue";
+import { formatText } from "@/utils/formatText";
 
 export default defineComponent ({
     name: "Inventory",
@@ -53,6 +60,9 @@ export default defineComponent ({
     methods: {
         itemImage: function(item: Item): string {
             return itemEnum[item.key] ? itemEnum[item.key].image : require('@/assets/images/items/todo.jpg');
+        },
+        formatContent(value: any) {
+            return !value ? '' : formatText(value.toString());
         }
     }
 });
@@ -66,5 +76,10 @@ export default defineComponent ({
     .slot {
         @include inventory-slot();
     }
+}
+
+.effect_list {
+    display: flex;
+    flex-direction: column;
 }
 </style>

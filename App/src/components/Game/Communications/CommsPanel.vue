@@ -117,6 +117,7 @@ export default defineComponent ({
             span {
                 flex: 1;
                 text-align: center;
+                font-size: .92em;
             }
 
             .expand {

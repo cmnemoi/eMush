@@ -199,7 +199,7 @@ export default defineComponent ({
         box-shadow: 0 1px 1px 0 rgba(9, 10, 97, 0.15);
 
         &.focus {
-            border: 3px solid #84e100;
+            border: 3px solid $green;
             box-shadow: 0 7px 6px -4px rgba(9, 10, 97, 0.5);
         }
 

@@ -131,7 +131,7 @@ export default defineComponent ({
     margin: 36px auto;
     padding: 12px 12px 42px 12px;
     z-index: 10;
-    font-size: .9rem;
+    font-size: 1.05rem;
 
     .death-summary {
         flex: 1;
@@ -139,7 +139,7 @@ export default defineComponent ({
     }
 
     h1 {
-        font-size: 1.4em;
+        font-size: 1.65em;
         letter-spacing: .04em;
         text-transform: uppercase;
         margin: .6em 1.2em 1.2em;
@@ -169,18 +169,18 @@ export default defineComponent ({
             .char-name, .pseudo, .score { margin: .1em 0; }
 
             .char-name {
-                font-size: 1.6em;
+                font-size: 1.85em;
                 font-weight: 400;
             }
 
-            .pseudo { font-size: 1.05em; }
+            .pseudo { font-size: 1.25em; }
 
             .score {
                 flex: 1;
                 font-family: $font-days-one;
                 color: #01c3df;
                 text-align: right;
-                font-size: 2.2em;
+                font-size: 2.6em;
                 letter-spacing: .05em;
                 text-shadow: 0 0 2px black;
 
@@ -214,8 +214,8 @@ export default defineComponent ({
             #epitaph {
                 padding: 1em .8em;
                 color: white;
-                font-size: 1.2em;
-                line-height: 1.6em;
+                font-size: 1.4em;
+                line-height: 1.15;
                 font-style: italic;
                 border: none;
                 background: none;
@@ -255,7 +255,7 @@ export default defineComponent ({
                 right: 1.2em;
                 margin: 0;
                 padding: .2em .6em;
-                font-size: .8em;
+                font-size: .95em;
                 font-style: italic;
                 font-weight: bold;
                 letter-spacing: .05em;
@@ -295,7 +295,6 @@ export default defineComponent ({
 
         th {
             opacity: .6;
-            font-size: .85em;
             letter-spacing: .05em;
         }
 
@@ -325,7 +324,7 @@ export default defineComponent ({
     }
 
     .validate {
-        @include button-style($font-size: 1em);
+        @include button-style;
         margin: .5em auto;
         padding: .2em 1em .4em;
     }

@@ -231,9 +231,9 @@ export default defineComponent ({
                     display: flex;
                     flex-direction: row;
                     align-items: center;
-                    border: 1px solid #4077b5;
+                    border: 1px solid lighten($greyBlue, 3.2);
                     border-radius: 3px;
-                    background: rgba(58, 106, 171, 1);
+                    background: $greyBlue;
                     box-shadow: 0 0 4px 1px inset rgba(28, 29, 56, 1);
                 }
 

@@ -74,6 +74,7 @@ export default defineComponent ({
     padding: 5px 10px;
     color: white;
     font-size: 1.1em;
+    letter-spacing: .06em;
 
     &:hover,
     &:active {

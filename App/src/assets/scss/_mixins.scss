@@ -50,7 +50,7 @@ Adding the class ".crossed" to the element will strike-through it. */
     font-size: $font-size;
     font-weight: $font-weight;
     font-variant: $font-variant;
-    letter-spacing: 0.03em;
+    letter-spacing: 0.05em;
     text-decoration: none;
     text-align: center;
     text-shadow: 0 0 4px $text-shadow-color, 0 0 4px $text-shadow-color;
@@ -106,7 +106,7 @@ Inventory slots with .empty class will have no interactive styling. */
     margin: 1px;
     border: 1px solid rgb(64, 119, 181);
     border-radius: 3px;
-    background: rgb(58, 106, 171);
+    background: $greyBlue;
     box-shadow: $box-shadow;
 
     span.qty {

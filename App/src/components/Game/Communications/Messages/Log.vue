@@ -116,7 +116,6 @@ export default defineComponent ({
 .text-log {
     margin: 0;
     font-size: 0.95em;
-    &::v-deep img { vertical-align: middle; }
 }
 
 </style>

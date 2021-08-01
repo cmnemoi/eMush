@@ -51,7 +51,7 @@ export default defineComponent ({
     }
 
     &::v-deep a {
-        color: #84e100;
+        color: $green;
         &:hover { color: #e9ebf3; }
     }
 

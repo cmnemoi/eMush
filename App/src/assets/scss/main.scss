@@ -1,5 +1,4 @@
 @import "~@/assets/css/normalize.css";
-@import "background.scss";
 
 $brightCyan: #c2f3fc;
 $lightCyan: #a6eefb;
@@ -116,7 +115,7 @@ button {
 	position: sticky;
 	pointer-events: none;
 	z-index: 10;
-	padding: 1em;
+	padding: .75em;
 	max-width: 270px;
 	width: max-content;
 	background-color: rgba(35, 37, 100, .9);
@@ -144,6 +143,9 @@ button {
         letter-spacing: initial;
     };
 
+    em { color: lighten(#cf1830, 15); } // Makes italic text red
+
+
 	b, strong { color: #01c3df !important; };
 
 	h1 {
@@ -154,10 +156,6 @@ button {
 		font-variant: small-caps;
 		background: transparent url('~@/assets/images/notes.gif') no-repeat center left;
 	};
-
-    em {
-        color: #cf1830; // Makes italic text red
-    };
 }
 
 /* span.tippy-tooltip {

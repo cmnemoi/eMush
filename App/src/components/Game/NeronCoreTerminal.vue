@@ -100,7 +100,7 @@ export default defineComponent ({
         padding: .25em;
         cursor: pointer;
         background: $lightCyan;
-        border: 1px solid #84e100;
+        border: 1px solid $green;
         border-radius: 3px;
 
         & * { cursor: pointer; }
@@ -136,7 +136,7 @@ export default defineComponent ({
             right: .8em;
             padding: .2em .5em;
             border-radius: 5px 5px 0 0;
-            background: #84e100;
+            background: $green;
             font-size: .75em;
             text-transform: uppercase;
             letter-spacing: .05em;
@@ -250,11 +250,11 @@ export default defineComponent ({
             }
 
             &.ongoing {
-                border-color: #84e100;
+                border-color: $green;
 
                 .completion {
                     opacity: 1;
-                    color: darken(#84e100, 5%);
+                    color: darken($green, 5%);
                     text-shadow: 0 0 10px white;
                     }
             }

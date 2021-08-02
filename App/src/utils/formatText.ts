@@ -20,7 +20,7 @@ export const helpers = {
 export function formatText(text: string): string {
     let formattedText = text;
     formattedText = formattedText.replaceAll(/\*\*(.[^*]*)\*\*/g, '<strong>$1</strong>');
-    formattedText = formattedText.replaceAll(/\*(.*)\*/g, '<em>$1</em>');
+    formattedText = formattedText.replaceAll(/\*(.[^*]*)\*/g, '<em>$1</em>');
     formattedText = formattedText.replaceAll(/:pa:/g, helpers.computeImageHtml("pa"));
     formattedText = formattedText.replaceAll(/:pm:/g, helpers.computeImageHtml("pm"));
     formattedText = formattedText.replaceAll(/:pmo:/g, helpers.computeImageHtml("pmo"));

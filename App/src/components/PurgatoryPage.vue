@@ -6,7 +6,7 @@
                 <img class="avatar" :src="characterPortrait" alt="avatar">
                 <div>
                     <div class="char-card">
-                        <img class="body" :src="characterBody(player.characterKey)" alt="">
+                        <img class="body" :src="characterBody(player.character.key)" alt="">
                         <div>
                             <h3 class="char-name">
                                 {{ player.characterValue }}
@@ -47,7 +47,7 @@
                         <th>{{ $t('deathpage.like') }}</th>
                     </tr>
                     <tr v-for="(player,key) in deadPlayerInfo.players" :key="key">
-                        <td><img :src="characterBody(player.characterKey)" class="char hua"> <span class="charname">{{ player.characterValue }}</span></td>
+                        <td><img :src="characterBody(player.character.key)" class="char hua"> <span class="charname">{{ player.characterValue }}</span></td>
                         <td>{{ player.deathTime ? player.deathTime : '-' }}</td>
                         <td>{{ player.endCauseValue ? player.endCauseValue : "Pas Encore" }}</td>
                         <td>

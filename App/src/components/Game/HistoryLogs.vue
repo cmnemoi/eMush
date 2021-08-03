@@ -25,32 +25,32 @@ export default defineComponent ({
 <style lang="scss" scoped>
 .history-logs {
     display: block;
+}
 
-    .tab {
-        display: block;
-        float: left;
-        cursor: pointer;
-        font-size: .86em;
-        opacity: .6;
-        padding: 5px 15px;
-        border-radius: 5px 5px 0 0;
+.tab {
+    display: block;
+    float: left;
+    cursor: pointer;
+    font-size: .86em;
+    opacity: .6;
+    padding: 5px 15px;
+    border-radius: 5px 5px 0 0;
 
-        &:hover, &:focus, &:active, &.active { opacity: 1; }
+    &:hover, &:focus, &:active, &.active { opacity: 1; }
 
-        &.active {
-            background: #222b6b;
-            border-top: 1px solid #3d4dbf;
-        }
-    }
-
-    .logs {
-        width: 100%;
+    &.active {
+        background: #222b6b;
         border-top: 1px solid #3d4dbf;
-        font-size: .8em;
-        letter-spacing: .05em;
-        padding: 1em;
-
-        p { margin: .5em 0; }
     }
+}
+
+.logs {
+    width: 100%;
+    border-top: 1px solid #3d4dbf;
+    font-size: .8em;
+    letter-spacing: .05em;
+    padding: 1em;
+
+    p { margin: .5em 0; }
 }
 </style>

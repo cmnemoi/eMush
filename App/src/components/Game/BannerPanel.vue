@@ -145,17 +145,15 @@ p,
 a,
 li,
 span {
-    font-size: 0.85em;
     letter-spacing: 0.03em;
     font-variant: small-caps;
 }
 
-
 span.tippy-tooltip {
-    font-size: initial !important;
     margin-right: 5px;
     margin-left: 5px;
 }
+
 .game-banner {
     margin-bottom: 8px;
     flex-direction: row;
@@ -166,77 +164,77 @@ span.tippy-tooltip {
 .character-banner {
     display: flex;
     flex-direction: row;
+}
 
-    .in-game-level {
-        @include button-style(1.4em);
-        @include corner-bezel(12px, 0);
+.in-game-level {
+    @include button-style(1.4em);
+    @include corner-bezel(12px, 0);
 
-        width: 52px;
-        height: 35px;
-        border: 1px solid rgba(4, 21, 156, 1);
-        border-radius: 4px;
-        margin: auto;
-        padding-right: 4px;
-        font-family: Days-One;
-    }
+    width: 52px;
+    height: 35px;
+    border: 1px solid rgba(4, 21, 156, 1);
+    border-radius: 4px;
+    margin: auto;
+    padding-right: 4px;
+    font-family: $font-days-one;
+}
 
-    .in-game-level-progress {
+.in-game-level-progress {
+    position: relative;
+    width: 11px;
+    height: 33px;
+    z-index: 2;
+    margin: 1px;
+    margin-left: -10px;
+    border-radius: 4px;
+    border: 1px solid #4077b5;
+    background: #4077b5;
+    box-shadow: 0 0 5px 1px #15273c inset, 0 0 0 1px #234164;
+
+    & > div {
         position: relative;
-        width: 11px;
-        height: 33px;
-        z-index: 2;
-        margin: 1px;
-        margin-left: -10px;
-        border-radius: 4px;
-        border: 1px solid #4077b5;
-        background: #4077b5;
-        box-shadow: 0 0 5px 1px #15273c inset, 0 0 0 1px #234164;
-
-        & > div {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            border-radius: 3px;
-            background: rgb(128, 72, 112);
-            background: linear-gradient(90deg, rgba(255, 137, 204, 1) 0%, rgba(255, 137, 204, 1) 25%, rgba(213, 38, 89, 1) 94%, rgba(128, 18, 47, 1) 100%);
-            box-shadow: 0 0 2px 1px rgba(71, 10, 26, 0.7) inset;
-        }
-
-        &::after {
-            content: "";
-            position: absolute;
-            bottom: 2px;
-            width: 9px;
-            height: 11px;
-            background: transparent url('~@/assets/images/levelup_arrow_ingame.png') no-repeat center;
-        }
+        width: 100%;
+        height: 100%;
+        border-radius: 3px;
+        background: rgb(128, 72, 112);
+        background: linear-gradient(90deg, rgba(255, 137, 204, 1) 0%, rgba(255, 137, 204, 1) 25%, rgba(213, 38, 89, 1) 94%, rgba(128, 18, 47, 1) 100%);
+        box-shadow: 0 0 2px 1px rgba(71, 10, 26, 0.7) inset;
     }
 
-    .character-info {
+    &::after {
+        content: "";
+        position: absolute;
+        bottom: 2px;
+        width: 9px;
+        height: 11px;
+        background: transparent url('~@/assets/images/levelup_arrow_ingame.png') no-repeat center;
+    }
+}
+
+.character-info {
+    display: flex;
+    justify-content: center;
+    margin-left: 6px;
+
+    .character-name {
+        margin-bottom: 1px;
+        font-size: 1.05em;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+    .title {
         display: flex;
-        justify-content: center;
-        margin-left: 6px;
+        flex-direction: row;
+        align-items: center;
 
-        .character-name {
-            margin-bottom: 1px;
-            font-size: 0.91em;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-
-        .title {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-
-            .title-name {
-                margin-left: 4px;
-                font-size: 0.68em;
-                font-weight: bold;
-                font-variant: small-caps;
-                white-space: nowrap;
-                color: rgba(255, 255, 255, 0.75);
-            }
+        .title-name {
+            margin-left: 4px;
+            font-size: 0.8em;
+            font-weight: bold;
+            font-variant: small-caps;
+            white-space: nowrap;
+            color: rgba(255, 255, 255, 0.75);
         }
     }
 }
@@ -271,12 +269,6 @@ span.tippy-tooltip {
         margin-right: 0.4em;
     }
     .cycle-time ul {align-items: center;}
-}
-
-@keyframes alarms-border-color {
-    0% { border: 1px solid #ff4e64; }
-    50% { border: 1px solid rgba(58, 106, 171, 1); }
-    100% { border: 1px solid #ff4e64; }
 }
 
 </style>

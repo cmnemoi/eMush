@@ -88,13 +88,13 @@ export default defineComponent ({
         word-break: break-word;
 
         .author {
-            color: #2081e2;
+            color: $blue;
             font-weight: 700;
             font-variant: small-caps;
             padding-right: 0.25em;
         }
 
-        em { color: #cf1830; }
+        em { color: $red; }
     }
 
     &.new p {
@@ -144,7 +144,7 @@ export default defineComponent ({
     p {
         margin: 0;
         font-size: 0.95em;
-        >>> img { vertical-align: middle; }
+        &::v-deep img { vertical-align: middle; }
     }
 }
 
@@ -155,7 +155,7 @@ export default defineComponent ({
         padding: 5px 0;
     }
 
-    >>> .chat-input .submit { //change the submit button color
+    &::v-deep .chat-input .submit { //change the submit button color
         $color: #ff3867;
         $hover-color: #fa6480;
 

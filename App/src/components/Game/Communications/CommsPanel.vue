@@ -112,11 +112,12 @@ export default defineComponent ({
             border-radius: 3px;
             text-transform: uppercase;
             letter-spacing: 0.03em;
-            background: #a6eefb;
+            background: $lightCyan;
 
             span {
                 flex: 1;
                 text-align: center;
+                font-size: .92em;
             }
 
             .expand {
@@ -167,20 +168,20 @@ export default defineComponent ({
             }
         }
     }
+}
 
-    /* TIMER STYLING */
+/* TIMER STYLING */
 
-    .cycle-time {
-        flex-direction: row;
-        align-items: center;
-        margin: 0 12px;
-        min-height: 25px;
-        float: right;
-        font-size: 0.7em;
-        font-variant: small-caps;
+.cycle-time {
+    flex-direction: row;
+    align-items: center;
+    margin: 0 12px;
+    min-height: 25px;
+    float: right;
+    font-size: 0.8em;
+    font-variant: small-caps;
 
-        img { margin-right: 3px; }
-    }
+    img { margin-right: 3px; }
 }
 
 </style>

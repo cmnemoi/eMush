@@ -817,9 +817,10 @@
 <style lang="scss" scoped>
 
 .map-container {
+    position:absolute;
     align-self: flex-end;
     z-index: 5;
-    bottom: 200px;
+    // bottom: 200px;
     width: 240px;
     height: 200px;
     background: #070724;
@@ -830,134 +831,6 @@
     transform-origin: bottom left;
     transition: transform 0.5s;
 
-    .map {
-        width: 184px;
-        height: 96px;
-        margin: auto;
-        transform: translate(-0.4em, -0.4em) rotate(30deg);
-
-        svg {
-            #rooms {
-                fill: #133951;
-                stroke: #1d5f80;
-                stroke-width: 2px;
-
-                .fire {
-                    fill: #a6181e;
-                }
-
-                & > * {
-                    &:hover, &:focus, :active {
-                        fill: #3981a8;
-                    }
-                }
-            }
-
-            #doors {
-                fill: none;
-                pointer-events: none;
-                stroke: #12d7ff;
-                stroke-width: 2px;
-
-                .broken {
-                    stroke: #f8de05;
-                }
-            }
-
-            #broken-equipment {
-                visibility: hidden;
-                pointer-events: none;
-
-                .floor {
-                    fill: #ff9c00;
-                    fill-opacity: 0.3;
-                    stroke: none;
-                }
-
-                .wall {
-                    fill: none;
-                    stroke: #ff9c00;
-                    stroke-width: 2px;
-                    stroke-linecap: butt;
-                }
-            }
-
-            #broken-cameras {
-                visibility: hidden;
-                pointer-events: none;
-                fill: none;
-                stroke: #ffce80;
-                stroke-width: 1.8px;
-            }
-        }
-
-        .crew-position {
-            position: absolute;
-            pointer-events: none;
-
-            li {
-                position: absolute;
-                width: 4px;
-                height: 4px;
-                background: #f88;
-                box-shadow: 0 0 2px 1px #133951;
-
-                @for $i from 1 through 19 { // randomize crew position, for testing only
-                    &:nth-child(#{$i}) {
-                        left: random(156) + 10px;
-                        top: random(52) + 18px;
-                    }
-                }
-
-                &.self {
-                    z-index: 2;
-                    width: 6px;
-                    height: 6px;
-                    background: #889c28;
-                    animation: self-position-color 1.1s infinite;
-                }
-
-                $actopi-color: //defines the color of each crewmate in the minimap when actopi project is active
-                    "Andie"    rgb(135, 206, 250),
-                    "Chao"     rgb(88 , 99 , 177),
-                    "Chun"     rgb(221, 211, 202),
-                    "Derek"    rgb(255, 69 , 0  ), //rgb(136, 156, 40) ?
-                    "Eleesha"  rgb(208, 133, 0  ),
-                    "Finola"   rgb(78 , 169, 182),
-                    "Frieda"   rgb(32 , 103, 134),
-                    "Gioele"   rgb(221, 112, 42 ),
-                    "Hua"      rgb(128, 84 , 65 ),
-                    "Ian"      rgb(35 , 124, 104),
-                    "Janice"   rgb(180, 71 , 83 ),
-                    "Jin"      rgb(192, 48 , 76 ),
-                    "Kuan"     rgb(243, 155, 1  ),
-                    "Paola"    rgb(255, 154, 250),
-                    "Raluca"   rgb(134, 134, 129),
-                    "Roland"   rgb(255, 163, 109),
-                    "Stephen"  rgb(255, 255, 255),
-                    "Terrence" rgb(211, 40 , 55 ),
-                ;
-
-                @each $crewmate, $color in $actopi-color {
-                    &.#{$crewmate} {
-                        background: $color;
-                    }
-                }
-            }
-        }
-    }
-
-    .room {
-        display: none;
-        position: absolute;
-        bottom: 0;
-        z-index: 5;
-        margin: 8px 16px;
-        font-family: 'Pixel-Square';
-        font-size: 10px;
-        font-weight: 700;
-    }
-
     &:hover, &:focus, &:focus-within, &:active {
         transform: scale(1);
         transition: transform 0.4s 0.2s;
@@ -966,6 +839,134 @@
             display: initial;
         }
     }
+}
+
+.map {
+    width: 184px;
+    height: 96px;
+    margin: auto;
+    transform: translate(-0.4em, -0.4em) rotate(30deg);
+}
+
+svg {
+    #rooms {
+        fill: #133951;
+        stroke: #1d5f80;
+        stroke-width: 2px;
+
+        .fire {
+            fill: #a6181e;
+        }
+
+        & > * {
+            &:hover, &:focus, :active {
+                fill: #3981a8;
+            }
+        }
+    }
+}
+
+#doors {
+    fill: none;
+    pointer-events: none;
+    stroke: #12d7ff;
+    stroke-width: 2px;
+
+    .broken {
+        stroke: #f8de05;
+    }
+}
+
+#broken-equipment {
+    visibility: hidden;
+    pointer-events: none;
+
+    .floor {
+        fill: #ff9c00;
+        fill-opacity: 0.3;
+        stroke: none;
+    }
+
+    .wall {
+        fill: none;
+        stroke: #ff9c00;
+        stroke-width: 2px;
+        stroke-linecap: butt;
+    }
+}
+
+#broken-cameras {
+    visibility: hidden;
+    pointer-events: none;
+    fill: none;
+    stroke: #ffce80;
+    stroke-width: 1.8px;
+}
+
+.crew-position {
+    position: absolute;
+    pointer-events: none;
+
+    li {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: #f88;
+        box-shadow: 0 0 2px 1px #133951;
+
+        @for $i from 1 through 19 { // randomize crew position, for testing only
+            &:nth-child(#{$i}) {
+                left: random(156) + 10px;
+                top: random(52) + 18px;
+            }
+        }
+
+        &.self {
+            z-index: 2;
+            width: 6px;
+            height: 6px;
+            background: #889c28;
+            animation: self-position-color 1.1s infinite;
+        }
+
+        $actopi-color: //defines the color of each crewmate in the minimap when actopi project is active
+            "Andie"    rgb(135, 206, 250),
+            "Chao"     rgb(88 , 99 , 177),
+            "Chun"     rgb(221, 211, 202),
+            "Derek"    rgb(255, 69 , 0  ), //rgb(136, 156, 40) ?
+            "Eleesha"  rgb(208, 133, 0  ),
+            "Finola"   rgb(78 , 169, 182),
+            "Frieda"   rgb(32 , 103, 134),
+            "Gioele"   rgb(221, 112, 42 ),
+            "Hua"      rgb(128, 84 , 65 ),
+            "Ian"      rgb(35 , 124, 104),
+            "Janice"   rgb(180, 71 , 83 ),
+            "Jin"      rgb(192, 48 , 76 ),
+            "Kuan"     rgb(243, 155, 1  ),
+            "Paola"    rgb(255, 154, 250),
+            "Raluca"   rgb(134, 134, 129),
+            "Roland"   rgb(255, 163, 109),
+            "Stephen"  rgb(255, 255, 255),
+            "Terrence" rgb(211, 40 , 55 ),
+        ;
+
+        @each $crewmate, $color in $actopi-color {
+            &.#{$crewmate} {
+                background: $color;
+            }
+        }
+    }
+}
+
+.room {
+    display: none;
+    position: absolute;
+    bottom: 0;
+    z-index: 5;
+    margin: 8px 16px;
+    font-family: $font-pixel-square;
+    font-size: 10px;
+    font-weight: 700;
 }
 
 

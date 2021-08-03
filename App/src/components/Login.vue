@@ -73,6 +73,8 @@ export default defineComponent ({
     margin: 0 20px;
     padding: 5px 10px;
     color: white;
+    font-size: 1.1em;
+    letter-spacing: .06em;
 
     &:hover,
     &:active {
@@ -81,9 +83,12 @@ export default defineComponent ({
     }
 }
 
+.modal-box { font-size: 1em; }
+
 .passphrase {
     margin-top: 15px;
-    font-size: 150%;
+    font-size: 1.4em;
+    font-weight: 700;
     font-variant: small-caps;
 }
 

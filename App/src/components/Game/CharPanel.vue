@@ -12,7 +12,7 @@
                 <div class="life">
                     <Tooltip>
                         <template #tooltip-trigger>
-                            <ol style="align-items: center">
+                            <ol>
                                 <li>
                                     <p><img src="@/assets/images/lp.png" alt="lp">{{ player.healthPoint.quantity }}</p>
                                 </li>
@@ -32,7 +32,7 @@
                 <div class="morale">
                     <Tooltip>
                         <template #tooltip-trigger>
-                            <ol style="align-items: center">
+                            <ol>
                                 <li>
                                     <p><img src="@/assets/images/moral.png" alt="mp">{{ player.moralPoint.quantity }}</p>
                                 </li>
@@ -215,186 +215,257 @@ export default defineComponent ({
                 margin-bottom: 3px;
             }
         }
+    }
+}
 
-        .health-points {
-            flex-direction: row;
-            margin: 3px 0;
 
-            .life,
-            .morale {
-                flex-direction: row;
-                align-items: center;
-                margin-right: 3px;
+.health-points {
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin: -.75em 0 .25em;
 
-                p,
-                ul {
-                    display: flex;
-                    flex-direction: row;
-                    align-items: center;
-                    border: 1px solid lighten($greyBlue, 3.2);
-                    border-radius: 3px;
-                    background: $greyBlue;
-                    box-shadow: 0 0 4px 1px inset rgba(28, 29, 56, 1);
-                }
+    .life,
+    .morale {
+        flex-direction: row;
+        align-items: center;
+        filter: drop-shadow(0 0 5px $deepBlue);
+        
 
-                p {
-                    min-width: 24px;
-                    height: 15px;
-                    margin: 1px;
-                    padding-right: 1px;
-                    font-size: 0.6em;
-                    letter-spacing: 0.03em;
-                    border-right-width: 0;
+        ol {
+            align-items: center;
+            flex-direction: column;
 
-                    img {
-                        width: 11px;
-                        height: 13px;
-                        margin-right: 1px;
-                    }
-                }
-
-                ul {
-                    /* min-width: 59px; */
-                    height: 11px;
-                    border-radius: 2px;
-                    margin-left: -2px;
-                    border-left-width: 0;
-
-                    li {
-                        width: 3px;
-                        height: 5px;
-                        margin-right: 1px;
-                        background: rgba(138, 170, 44, 1);
-                        box-shadow: 1px 1px 0 0 inset rgba(255, 255, 255, 0.7);
-
-                        &.empty {
-                            background: rgba(37, 72, 137, 1);
-                            box-shadow: 1px 1px 0 0 inset rgba(78, 154, 255, 0.7);
-                        }
-                    }
-                }
-            }
+            li:first-child { z-index: 1; }
         }
 
-        .inventory ul {
+        p,
+        ul {
             display: flex;
             flex-direction: row;
+            align-items: center;
+            border: 1px solid lighten($greyBlue, 3.2);
+            border-radius: 3px;
+            background: $greyBlue;
+            box-shadow: 0 0 4px 1px inset rgba(28, 29, 56, 1);
+        }
 
-            li {
-                @include inventory-slot();
+        p {
+            margin: 0 0 -1px 0;
+            padding: .15em .4em .2em;
+            font-size: 0.8em;
+            letter-spacing: 0.03em;
+            border-bottom-width: 0;
+            text-shadow: 0 0 2px black, 0 0 2px black;
+
+            img {
+                width: 11px;
+                height: 13px;
+                margin-right: 1px;
             }
         }
 
-        .interactions {
-            margin-top: 12px;
+        ul {
+            padding: .1em .2em;
+            border-radius: 2px;
 
-            .item-name {
-                margin: 0 0 4px 0;
-                letter-spacing: 0.03em;
-                font-variant: small-caps;
+            li {
+                width: 4px;
+                height: 5px;
+                margin-right: 1px;
+                background: rgba(138, 170, 44, 1);
+                box-shadow: 1px 1px 0 0 inset rgba(255, 255, 255, 0.7);
 
-                &::v-deep .status {
-                    vertical-align: middle;
-                    margin-left: 2px;
+                &.empty {
+                    background: rgba(37, 72, 137, 1);
+                    box-shadow: 1px 1px 0 0 inset rgba(78, 154, 255, 0.7);
                 }
             }
         }
     }
+}
 
-    .column {
-        justify-content: space-between;
 
-        .skills {
+
+// Legacy hp styling
+/* .health-points {
+    flex-direction: row;
+    margin: 3px 0;
+
+    .life,
+    .morale {
+        flex-direction: row;
+        align-items: center;
+        margin-right: 3px;
+
+        p,
+        ul {
             display: flex;
-            flex-direction: column;
-            min-width: 32px;
-            float: right;
+            flex-direction: row;
+            align-items: center;
+            border: 1px solid lighten($greyBlue, 3.2);
+            border-radius: 3px;
+            background: $greyBlue;
+            box-shadow: 0 0 4px 1px inset rgba(28, 29, 56, 1);
+        }
+
+        p {
+            min-width: 24px;
+            height: 15px;
+            margin: 1px;
+            padding-right: 1px;
+            font-size: 0.6em;
+            letter-spacing: 0.03em;
+            border-right-width: 0;
+
+            img {
+                width: 11px;
+                height: 13px;
+                margin-right: 1px;
+            }
+        }
+
+        ul {
+            // min-width: 59px;
+            height: 11px;
+            border-radius: 2px;
+            margin-left: -2px;
+            border-left-width: 0;
 
             li {
-                display: flex;
-                align-items: center;
+                width: 3px;
+                height: 5px;
+                margin-right: 1px;
+                background: rgba(138, 170, 44, 1);
+                box-shadow: 1px 1px 0 0 inset rgba(255, 255, 255, 0.7);
 
-                /* justify-content: center; */
-                width: 30px;
-                height: 34px;
-                padding-right: 3px;
-                margin-bottom: 7px;
-                background: transparent url('~@/assets/images/skills/skillblock_gold.png') center left no-repeat;
-                border-left: 1px solid #191a53;
-
-                &:nth-child(1) {
-                    background: transparent url('~@/assets/images/skills/skillblock.png') center left no-repeat;
+                &.empty {
+                    background: rgba(37, 72, 137, 1);
+                    box-shadow: 1px 1px 0 0 inset rgba(78, 154, 255, 0.7);
                 }
+            }
+        }
+    }
+} */
 
-                &:nth-child(2) {
-                    background: transparent url('~@/assets/images/skills/skillblock_once.png') center left no-repeat;
+
+
+.inventory ul {
+    display: flex;
+    flex-direction: row;
+
+    li {
+        @include inventory-slot();
+    }
+}
+
+.interactions {
+    margin-top: 12px;
+
+    .item-name {
+        margin: 0 0 4px 0;
+        letter-spacing: 0.03em;
+        font-variant: small-caps;
+
+        &::v-deep .status {
+            vertical-align: middle;
+            margin-left: 2px;
+        }
+    }
+}
+
+.column {
+    justify-content: space-between;
+
+    .skills {
+        display: flex;
+        flex-direction: column;
+        min-width: 32px;
+        float: right;
+
+        li {
+            display: flex;
+            align-items: center;
+
+            /* justify-content: center; */
+            width: 30px;
+            height: 34px;
+            padding-right: 3px;
+            margin-bottom: 7px;
+            background: transparent url('~@/assets/images/skills/skillblock_gold.png') center left no-repeat;
+            border-left: 1px solid #191a53;
+
+            &:nth-child(1) {
+                background: transparent url('~@/assets/images/skills/skillblock.png') center left no-repeat;
+            }
+
+            &:nth-child(2) {
+                background: transparent url('~@/assets/images/skills/skillblock_once.png') center left no-repeat;
+            }
+        }
+    }
+
+    .actions-sheet {
+        align-items: center;
+        justify-content: flex-start;
+        width: 28px;
+        min-height: 134px;
+        padding: 5px 5px 5px 0;
+        border-top-right-radius: 4px;
+        background: rgba(54, 76, 148, 0.35);
+
+        & > img { margin: 3px; }
+
+        .action-points {
+            flex-direction: row;
+
+            & > div {
+                ul {
+                    display: block;
+                    flex-direction: column;
+                    align-items: center;
+                    border: 3px solid transparent;
+                    border-image: url('~@/assets/images/actionpoints_bg.svg') 40% stretch;
+
+                    li {
+                        width: 5px;
+                        height: 6px;
+                        border-bottom: 1px solid black;
+                        background: rgba(138, 170, 44, 1);
+                        box-shadow: 0 -1px 0 0 inset rgba(0, 0, 0, 0.4);
+                    }
+                }
+            }
+
+            .movements ul li {
+                background: rgb(0, 255, 228);
+                background: linear-gradient(135deg, rgba(255, 255, 255, 1) 5%, rgba(0, 255, 228, 1) 20%);
+
+                &.empty {
+                    background: rgb(14, 62, 56);
+                    background: linear-gradient(135deg, rgba(18, 85, 106, 1) 5%, rgba(14, 62, 56, 1) 20%);
+                }
+            }
+
+            .actions ul li {
+                background: rgb(255, 85, 153);
+                background: linear-gradient(135deg, rgba(255, 255, 255, 1) 5%, rgba(255, 85, 153, 1) 20%);
+
+                &.empty {
+                    background: rgb(64, 0, 0);
+                    background: linear-gradient(135deg, rgba(77, 17, 32, 1) 5%, rgba(64, 0, 0, 1) 20%);
                 }
             }
         }
 
-        .actions-sheet {
-            align-items: center;
-            justify-content: flex-start;
-            width: 28px;
-            min-height: 134px;
-            padding: 5px 5px 5px 0;
-            border-top-right-radius: 4px;
-            background: rgba(54, 76, 148, 0.35);
+        .specials li {
+            display: flex;
+            flex-direction: row;
+            align-items: baseline;
+            margin: 2px 0;
+            font-size: 0.75em;
+            font-weight: 700;
 
-            & > img { margin: 3px; }
-
-            .action-points {
-                flex-direction: row;
-
-                & > div {
-                    ul {
-                        display: block;
-                        flex-direction: column;
-                        align-items: center;
-                        border: 3px solid transparent;
-                        border-image: url('~@/assets/images/actionpoints_bg.svg') 40% stretch;
-
-                        li {
-                            width: 5px;
-                            height: 6px;
-                            border-bottom: 1px solid black;
-                            background: rgba(138, 170, 44, 1);
-                            box-shadow: 0 -1px 0 0 inset rgba(0, 0, 0, 0.4);
-                        }
-                    }
-                }
-
-                .movements ul li {
-                    background: rgb(0, 255, 228);
-                    background: linear-gradient(135deg, rgba(255, 255, 255, 1) 5%, rgba(0, 255, 228, 1) 20%);
-
-                    &.empty {
-                        background: rgb(14, 62, 56);
-                        background: linear-gradient(135deg, rgba(18, 85, 106, 1) 5%, rgba(14, 62, 56, 1) 20%);
-                    }
-                }
-
-                .actions ul li {
-                    background: rgb(255, 85, 153);
-                    background: linear-gradient(135deg, rgba(255, 255, 255, 1) 5%, rgba(255, 85, 153, 1) 20%);
-
-                    &.empty {
-                        background: rgb(64, 0, 0);
-                        background: linear-gradient(135deg, rgba(77, 17, 32, 1) 5%, rgba(64, 0, 0, 1) 20%);
-                    }
-                }
-            }
-
-            .specials li {
-                display: flex;
-                flex-direction: row;
-                align-items: baseline;
-                margin: 2px 0;
-                font-size: 0.75em;
-                font-weight: 700;
-
-                img { margin-right: -3px; }
-            }
+            img { margin-right: -3px; }
         }
     }
 }

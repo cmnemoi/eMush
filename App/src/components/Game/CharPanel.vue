@@ -271,9 +271,10 @@ export default defineComponent ({
             li {
                 width: 4px;
                 height: 5px;
-                margin-right: 1px;
                 background: rgba(138, 170, 44, 1);
                 box-shadow: 1px 1px 0 0 inset rgba(255, 255, 255, 0.7);
+
+                &:not(:last-child) { margin-right: 1px; }
 
                 &.empty {
                     background: rgba(37, 72, 137, 1);
@@ -375,98 +376,98 @@ export default defineComponent ({
 
 .column {
     justify-content: space-between;
+}
 
-    .skills {
+.skills {
+    display: flex;
+    flex-direction: column;
+    min-width: 32px;
+    float: right;
+
+    li {
         display: flex;
-        flex-direction: column;
-        min-width: 32px;
-        float: right;
+        align-items: center;
 
-        li {
-            display: flex;
-            align-items: center;
+        /* justify-content: center; */
+        width: 30px;
+        height: 34px;
+        padding-right: 3px;
+        margin-bottom: 7px;
+        background: transparent url('~@/assets/images/skills/skillblock_gold.png') center left no-repeat;
+        border-left: 1px solid #191a53;
 
-            /* justify-content: center; */
-            width: 30px;
-            height: 34px;
-            padding-right: 3px;
-            margin-bottom: 7px;
-            background: transparent url('~@/assets/images/skills/skillblock_gold.png') center left no-repeat;
-            border-left: 1px solid #191a53;
+        &:nth-child(1) {
+            background: transparent url('~@/assets/images/skills/skillblock.png') center left no-repeat;
+        }
 
-            &:nth-child(1) {
-                background: transparent url('~@/assets/images/skills/skillblock.png') center left no-repeat;
+        &:nth-child(2) {
+            background: transparent url('~@/assets/images/skills/skillblock_once.png') center left no-repeat;
+        }
+    }
+}
+
+.actions-sheet {
+    align-items: center;
+    justify-content: flex-start;
+    width: 28px;
+    min-height: 134px;
+    padding: 5px 5px 5px 0;
+    border-top-right-radius: 4px;
+    background: rgba(54, 76, 148, 0.35);
+
+    & > img { margin: 3px; }
+
+    .action-points {
+        flex-direction: row;
+
+        & > div {
+            ul {
+                display: block;
+                flex-direction: column;
+                align-items: center;
+                border: 3px solid transparent;
+                border-image: url('~@/assets/images/actionpoints_bg.svg') 40% stretch;
+
+                li {
+                    width: 5px;
+                    height: 6px;
+                    border-bottom: 1px solid black;
+                    background: rgba(138, 170, 44, 1);
+                    box-shadow: 0 -1px 0 0 inset rgba(0, 0, 0, 0.4);
+                }
             }
+        }
 
-            &:nth-child(2) {
-                background: transparent url('~@/assets/images/skills/skillblock_once.png') center left no-repeat;
+        .movements ul li {
+            background: rgb(0, 255, 228);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 1) 5%, rgba(0, 255, 228, 1) 20%);
+
+            &.empty {
+                background: rgb(14, 62, 56);
+                background: linear-gradient(135deg, rgba(18, 85, 106, 1) 5%, rgba(14, 62, 56, 1) 20%);
+            }
+        }
+
+        .actions ul li {
+            background: rgb(255, 85, 153);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 1) 5%, rgba(255, 85, 153, 1) 20%);
+
+            &.empty {
+                background: rgb(64, 0, 0);
+                background: linear-gradient(135deg, rgba(77, 17, 32, 1) 5%, rgba(64, 0, 0, 1) 20%);
             }
         }
     }
 
-    .actions-sheet {
-        align-items: center;
-        justify-content: flex-start;
-        width: 28px;
-        min-height: 134px;
-        padding: 5px 5px 5px 0;
-        border-top-right-radius: 4px;
-        background: rgba(54, 76, 148, 0.35);
+    .specials li {
+        display: flex;
+        flex-direction: row;
+        align-items: baseline;
+        margin: 2px 0;
+        font-size: 0.75em;
+        font-weight: 700;
 
-        & > img { margin: 3px; }
-
-        .action-points {
-            flex-direction: row;
-
-            & > div {
-                ul {
-                    display: block;
-                    flex-direction: column;
-                    align-items: center;
-                    border: 3px solid transparent;
-                    border-image: url('~@/assets/images/actionpoints_bg.svg') 40% stretch;
-
-                    li {
-                        width: 5px;
-                        height: 6px;
-                        border-bottom: 1px solid black;
-                        background: rgba(138, 170, 44, 1);
-                        box-shadow: 0 -1px 0 0 inset rgba(0, 0, 0, 0.4);
-                    }
-                }
-            }
-
-            .movements ul li {
-                background: rgb(0, 255, 228);
-                background: linear-gradient(135deg, rgba(255, 255, 255, 1) 5%, rgba(0, 255, 228, 1) 20%);
-
-                &.empty {
-                    background: rgb(14, 62, 56);
-                    background: linear-gradient(135deg, rgba(18, 85, 106, 1) 5%, rgba(14, 62, 56, 1) 20%);
-                }
-            }
-
-            .actions ul li {
-                background: rgb(255, 85, 153);
-                background: linear-gradient(135deg, rgba(255, 255, 255, 1) 5%, rgba(255, 85, 153, 1) 20%);
-
-                &.empty {
-                    background: rgb(64, 0, 0);
-                    background: linear-gradient(135deg, rgba(77, 17, 32, 1) 5%, rgba(64, 0, 0, 1) 20%);
-                }
-            }
-        }
-
-        .specials li {
-            display: flex;
-            flex-direction: row;
-            align-items: baseline;
-            margin: 2px 0;
-            font-size: 0.75em;
-            font-weight: 700;
-
-            img { margin-right: -3px; }
-        }
+        img { margin-right: -3px; }
     }
 }
 

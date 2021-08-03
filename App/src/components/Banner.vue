@@ -43,17 +43,17 @@ export default defineComponent ({
         font-weight: normal;
         letter-spacing: .06em;
         text-decoration: none;
-    }
 
-    &:hover,
-    &:active {
-        color: #dffaff;
-        text-shadow: 0 0 1px white, 0 0 1px white;
-    }
+        &:hover,
+        &:active {
+            color: #dffaff;
+            text-shadow: 0 0 1px white, 0 0 1px white;
+        }
 
-    .unavailable {
-        text-decoration: line-through;
-        opacity: 0.6;
+        .unavailable {
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
     }
 }
 

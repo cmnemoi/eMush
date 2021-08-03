@@ -106,48 +106,48 @@ export default defineComponent ({
     position: relative;
     align-items: flex-start;
     flex-direction: row;
+}
 
-    .character-body {
-        align-items: flex-start;
-        justify-content: flex-start;
-        min-width: 36px;
-        margin-top: 4px;
-        padding: 6px 2px;
+.character-body {
+    align-items: flex-start;
+    justify-content: flex-start;
+    min-width: 36px;
+    margin-top: 4px;
+    padding: 6px 2px;
+}
+
+.author {
+    color: $blue;
+    font-weight: 700;
+    font-variant: small-caps;
+    padding-right: 0.25em;
+}
+
+.text {
+    position: relative;
+    flex: 1;
+    margin: 3px 0;
+    padding: 4px 6px;
+    border-radius: 3px;
+    background: white;
+    word-break: break-word;
+
+    &::v-deep em {
+        color: $red; // Makes italic text red
     }
 
-    .author {
-        color: $blue;
-        font-weight: 700;
-        font-variant: small-caps;
-        padding-right: 0.25em;
-    }
+    &.unread { // unread messages styling
+        border-left: 2px solid #ea9104;
 
-    .text {
-        position: relative;
-        flex: 1;
-        margin: 3px 0;
-        padding: 4px 6px;
-        border-radius: 3px;
-        background: white;
-        word-break: break-word;
-
-        &::v-deep em {
-            color: $red; // Makes italic text red
-        }
-
-        &.unread { // unread messages styling
-            border-left: 2px solid #ea9104;
-
-            &::after {
-                content: "";
-                position: absolute;
-                top: 0;
-                bottom: 0;
-                left: -6px;
-                min-height: 11px;
-                width: 11px;
-                background: transparent url('~@/assets/images/comms/thinklinked.png') center no-repeat;
-            }
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: -6px;
+            min-height: 11px;
+            width: 11px;
+            background: transparent url('~@/assets/images/comms/thinklinked.png') center no-repeat;
         }
     }
 }

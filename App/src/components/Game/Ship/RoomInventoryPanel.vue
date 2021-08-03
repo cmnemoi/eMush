@@ -88,34 +88,34 @@ export default defineComponent ({
             }
         }
     }
+}
 
-    .inventory {
-        overflow: hidden;
-        overflow-x: scroll;
+.inventory {
+    overflow: hidden;
+    overflow-x: scroll;
 
-        /* SCROLLBAR STYLING */
+    /* SCROLLBAR STYLING */
 
-        --scrollbarBG: rgba(0, 0, 0, 0.4);
-        --thumbBG: rgba(0, 116, 223, 1);
-        --border-radius: 4px;
+    --scrollbarBG: rgba(0, 0, 0, 0.4);
+    --thumbBG: rgba(0, 116, 223, 1);
+    --border-radius: 4px;
 
-        scrollbar-width: thin;
-        scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+    scrollbar-width: thin;
+    scrollbar-color: var(--thumbBG) var(--scrollbarBG);
 
-        &::-webkit-scrollbar {
-            height: 8px;
-            border-radius: var(--border-radius);
-        }
+    &::-webkit-scrollbar {
+        height: 8px;
+        border-radius: var(--border-radius);
+    }
 
-        &::-webkit-scrollbar-track {
-            background: var(--scrollbarBG);
-            border-radius: var(--border-radius);
-        }
+    &::-webkit-scrollbar-track {
+        background: var(--scrollbarBG);
+        border-radius: var(--border-radius);
+    }
 
-        &::-webkit-scrollbar-thumb {
-            background-color: var(--thumbBG);
-            border-radius: var(--border-radius);
-        }
+    &::-webkit-scrollbar-thumb {
+        background-color: var(--thumbBG);
+        border-radius: var(--border-radius);
     }
 }
 </style>

@@ -817,9 +817,10 @@
 <style lang="scss" scoped>
 
 .map-container {
+    position:absolute;
     align-self: flex-end;
     z-index: 5;
-    bottom: 200px;
+    // bottom: 200px;
     width: 240px;
     height: 200px;
     background: #070724;

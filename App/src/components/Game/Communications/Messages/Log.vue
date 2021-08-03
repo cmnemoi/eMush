@@ -115,7 +115,7 @@ export default defineComponent ({
 
 .text-log {
     margin: 0;
-    font-size: 0.95em;
+    font-size: 0.92em;
 }
 
 </style>

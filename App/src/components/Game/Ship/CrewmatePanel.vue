@@ -137,27 +137,6 @@ export default defineComponent ({
     padding-left: 4px;
 }
 
-$face-position: //defines the position of the face in reference to top left
-    "Andie"    56% 37%,
-    "Chao"     63% 28%,
-    "Chun"     52% 24%,
-    "Derek"    39% 24%,
-    "Eleesha"  47% 32%,
-    "Finola"   50% 30%,
-    "Frieda"   46% 35%,
-    "Gioele"   47% 26%,
-    "Hua"      50% 28%,
-    "Ian"      49% 26%,
-    "Janice"   55% 35%,
-    "Jin"      50% 25%,
-    "Kuan"     52% 20%,
-    "Paola"    70% 37%,
-    "Raluca"   40% 22%,
-    "Roland"   43% 28%,
-    "Stephen"  51% 29%,
-    "Terrence" 67% 30%,
-;
-
 @each $crewmate, $face-position-x, $face-position-y in $face-position { // adjust the image position in the crewmate avatar div
     $translate-x : (50% - $face-position-x);
     $translate-y : (50% - $face-position-y);

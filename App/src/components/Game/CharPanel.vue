@@ -193,14 +193,14 @@ export default defineComponent ({
 .char-panel {
     flex-direction: row;
 
-    & .char-sheet {
+    .char-sheet {
         width: 176px;
         min-height: 459px;
         padding: 5px;
         border-top-left-radius: 4px;
         background: rgba(54, 76, 148, 0.35);
 
-        & .avatar {
+        .avatar {
             width: 166px;
             height: auto;
         }
@@ -216,18 +216,18 @@ export default defineComponent ({
             }
         }
 
-        & .health-points {
+        .health-points {
             flex-direction: row;
             margin: 3px 0;
 
-            & .life,
-            & .morale {
+            .life,
+            .morale {
                 flex-direction: row;
                 align-items: center;
                 margin-right: 3px;
 
-                & p,
-                & ul {
+                p,
+                ul {
                     display: flex;
                     flex-direction: row;
                     align-items: center;
@@ -237,7 +237,7 @@ export default defineComponent ({
                     box-shadow: 0 0 4px 1px inset rgba(28, 29, 56, 1);
                 }
 
-                & p {
+                p {
                     min-width: 24px;
                     height: 15px;
                     margin: 1px;
@@ -246,21 +246,21 @@ export default defineComponent ({
                     letter-spacing: 0.03em;
                     border-right-width: 0;
 
-                    & img {
+                    img {
                         width: 11px;
                         height: 13px;
                         margin-right: 1px;
                     }
                 }
 
-                & ul {
+                ul {
                     /* min-width: 59px; */
                     height: 11px;
                     border-radius: 2px;
                     margin-left: -2px;
                     border-left-width: 0;
 
-                    & li {
+                    li {
                         width: 3px;
                         height: 5px;
                         margin-right: 1px;
@@ -276,16 +276,16 @@ export default defineComponent ({
             }
         }
 
-        & .inventory ul {
+        .inventory ul {
             display: flex;
             flex-direction: row;
 
-            & li {
+            li {
                 @include inventory-slot();
             }
         }
 
-        & .interactions {
+        .interactions {
             margin-top: 12px;
 
             .item-name {
@@ -301,16 +301,16 @@ export default defineComponent ({
         }
     }
 
-    & .column {
+    .column {
         justify-content: space-between;
 
-        & .skills {
+        .skills {
             display: flex;
             flex-direction: column;
             min-width: 32px;
             float: right;
 
-            & li {
+            li {
                 display: flex;
                 align-items: center;
 
@@ -332,7 +332,7 @@ export default defineComponent ({
             }
         }
 
-        & .actions-sheet {
+        .actions-sheet {
             align-items: center;
             justify-content: flex-start;
             width: 28px;
@@ -343,18 +343,18 @@ export default defineComponent ({
 
             & > img { margin: 3px; }
 
-            & .action-points {
+            .action-points {
                 flex-direction: row;
 
                 & > div {
-                    & ul {
+                    ul {
                         display: block;
                         flex-direction: column;
                         align-items: center;
                         border: 3px solid transparent;
                         border-image: url('~@/assets/images/actionpoints_bg.svg') 40% stretch;
 
-                        & li {
+                        li {
                             width: 5px;
                             height: 6px;
                             border-bottom: 1px solid black;
@@ -364,7 +364,7 @@ export default defineComponent ({
                     }
                 }
 
-                & .movements ul li {
+                .movements ul li {
                     background: rgb(0, 255, 228);
                     background: linear-gradient(135deg, rgba(255, 255, 255, 1) 5%, rgba(0, 255, 228, 1) 20%);
 
@@ -374,7 +374,7 @@ export default defineComponent ({
                     }
                 }
 
-                & .actions ul li {
+                .actions ul li {
                     background: rgb(255, 85, 153);
                     background: linear-gradient(135deg, rgba(255, 255, 255, 1) 5%, rgba(255, 85, 153, 1) 20%);
 
@@ -385,7 +385,7 @@ export default defineComponent ({
                 }
             }
 
-            & .specials li {
+            .specials li {
                 display: flex;
                 flex-direction: row;
                 align-items: baseline;
@@ -393,7 +393,7 @@ export default defineComponent ({
                 font-size: 0.75em;
                 font-weight: 700;
 
-                & img { margin-right: -3px; }
+                img { margin-right: -3px; }
             }
         }
     }

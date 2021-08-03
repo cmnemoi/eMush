@@ -35,7 +35,7 @@ export default defineComponent ({
     display: flex;
     flex-direction: row;
 
-    & a {
+    a {
         margin: 0 1.4em;
         padding: .3em .6em;
         color: white;

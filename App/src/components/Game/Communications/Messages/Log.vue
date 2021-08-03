@@ -80,7 +80,7 @@ export default defineComponent ({
     &.covert,
     &.secret,
     &.spotted {
-        & .timestamp::before {
+        .timestamp::before {
             content: "";
             display: inline-block;
             margin-right: 4px;

@@ -29,11 +29,11 @@ export default defineComponent ({
     flex-wrap: wrap;
     margin-top: 28px;
 
-    & li {
+    li {
         position: relative;
         margin: 0 4px 4px 0;
 
-        & span {
+        span {
             position: absolute;
             z-index: 5;
             margin: 1px 0;

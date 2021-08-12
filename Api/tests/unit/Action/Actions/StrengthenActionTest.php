@@ -10,20 +10,13 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
-use Mush\Player\Enum\ModifierScopeEnum;
-use Mush\Player\Enum\ModifierTargetEnum;
-use Mush\Player\Service\ActionModifierServiceInterface;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Enum\StatusEnum;
 
-class StrengthActionTest extends AbstractActionTest
+class StrengthenActionTest extends AbstractActionTest
 {
-    /** @var GameEquipmentServiceInterface | Mockery\Mock */
-    private ActionModifierServiceInterface $actionModifierService;
-
     /** @var RandomServiceInterface | Mockery\Mock */
     private RandomServiceInterface $randomService;
 
@@ -36,7 +29,6 @@ class StrengthActionTest extends AbstractActionTest
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::REPAIR, 1);
 
-        $this->actionModifierService = Mockery::mock(ActionModifierServiceInterface::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
 
         $this->action = new StrengthenHull(
@@ -44,7 +36,6 @@ class StrengthActionTest extends AbstractActionTest
             $this->actionService,
             $this->validator,
             $this->randomService,
-            $this->actionModifierService
         );
     }
 
@@ -118,11 +109,6 @@ class StrengthActionTest extends AbstractActionTest
 
         $this->eventDispatcher->shouldReceive('dispatch')->once();
         $this->eventDispatcher->shouldReceive('dispatch')->once();
-        $this->actionModifierService->shouldReceive('getModifiedValue')
-            ->with(5, $player, [ModifierScopeEnum::ACTION_STRENGTHEN], ModifierTargetEnum::QUANTITY)
-            ->andReturn(5)
-            ->once()
-        ;
 
         //Success
         $result = $this->action->execute();

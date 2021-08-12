@@ -8,8 +8,8 @@ use Mush\Action\Validator\FullHealth;
 use Mush\Action\Validator\FullHealthValidator;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\GameConfig;
+use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Player\Entity\Player;
-use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Service\PlayerVariableServiceInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
@@ -62,7 +62,7 @@ class FullHealthValidatorTest extends TestCase
         ;
 
         $this->playerVariableService->shouldReceive('getMaxPlayerVariable')
-            ->with($player, ModifierTargetEnum::MAX_HEALTH_POINT)
+            ->with($player, ModifierTargetEnum::HEALTH_POINT)
             ->andReturn(12)
         ;
 
@@ -91,7 +91,7 @@ class FullHealthValidatorTest extends TestCase
             ]);
 
         $this->playerVariableService->shouldReceive('getMaxPlayerVariable')
-            ->with($player, ModifierTargetEnum::MAX_HEALTH_POINT)
+            ->with($player, ModifierTargetEnum::HEALTH_POINT)
             ->andReturn(12)
         ;
 

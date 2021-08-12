@@ -2,8 +2,8 @@
 
 namespace Mush\Modifier\Service;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
-use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameter;
 use Mush\Equipment\Entity\GameEquipment;
@@ -86,7 +86,7 @@ class ModifierService implements ModifierServiceInterface
         return $modifiers;
     }
 
-    public function getActionModifiedValue(Action $action, Player $player, string $target, ?ActionParameter $parameter, ?int $attemptNumber): int
+    public function getActionModifiedValue(Action $action, Player $player, string $target, ?ActionParameter $parameter, ?int $attemptNumber = null): int
     {
         $modifiers = $this->getActionModifiers($action, $player, $parameter);
 
@@ -110,9 +110,9 @@ class ModifierService implements ModifierServiceInterface
         throw new \LogicException('This target is not handled');
     }
 
-    public function consumeActionCharges(AbstractAction $action): void
+    public function consumeActionCharges(Action $action, Player $player, ?ActionParameter $parameter): void
     {
-        $modifiers = $this->getActionModifiers($action->getAction(), $action->getPlayer(), $action->getParameter());
+        $modifiers = $this->getActionModifiers($action, $player, $parameter);
 
         foreach ($modifiers as $modifier) {
             if (($charge = $modifier->getCharge()) !== null) {
@@ -130,18 +130,13 @@ class ModifierService implements ModifierServiceInterface
             ->addModifiers($player->getDaedalus()->getModifiers()->getScopedModifiers($scopes)->getTargetedModifiers($target))
         ;
 
+        $this->consumeEventCharges($modifiers);
+
         return $this->getModifiedValue($modifiers, $initValue);
     }
 
-    public function consumeEventCharges(Player $player, array $scopes, int $initValue): void
+    private function consumeEventCharges(Collection $modifiers): void
     {
-        $modifiers = new ModifierCollection();
-        $modifiers
-            ->addModifiers($player->getModifiers()->getScopedModifiers($scopes))
-            ->addModifiers($player->getPlace()->getModifiers()->getScopedModifiers($scopes))
-            ->addModifiers($player->getDaedalus()->getModifiers()->getScopedModifiers($scopes))
-        ;
-
         foreach ($modifiers as $modifier) {
             if (($charge = $modifier->getCharge()) !== null) {
                 $charge->addCharge(-1);

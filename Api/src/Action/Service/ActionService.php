@@ -2,7 +2,6 @@
 
 namespace Mush\Action\Service;
 
-use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameter;
 use Mush\Modifier\Enum\ModifierTargetEnum;
@@ -33,27 +32,13 @@ class ActionService implements ActionServiceInterface
         $this->statusService = $statusService;
     }
 
-    public function canPlayerDoAction(AbstractAction $action): bool
+    public function applyCostToPlayer(Player $player, Action $action, ?ActionParameter $parameter): Player
     {
-        $player = $action->getPlayer();
-        $parameter = $action->getParameter();
-
-        return $this->getTotalActionPointCost($player, $action->getAction(), $parameter) <= $player->getActionPoint() &&
-            ($this->getTotalMovementPointCost($player, $action->getAction(), $parameter) <= $player->getMovementPoint() || $player->getActionPoint() > 0) &&
-            $this->getTotalMoralPointCost($player, $action->getAction(), $parameter) <= $player->getMoralPoint()
-            ;
-    }
-
-    public function applyCostToPlayer(AbstractAction $action): Player
-    {
-        $player = $action->getPlayer();
-        $parameter = $action->getParameter();
-
-        if (($actionPointCost = $this->getTotalActionPointCost($player, $action->getAction(), $parameter)) > 0) {
+        if (($actionPointCost = $this->getTotalActionPointCost($player, $action, $parameter)) > 0) {
             $this->triggerPlayerModifierEvent($player, PlayerModifierEvent::ACTION_POINT_MODIFIER, -$actionPointCost);
         }
 
-        if (($movementPointCost = $this->getTotalMovementPointCost($player, $action->getAction(), $parameter)) > 0) {
+        if (($movementPointCost = $this->getTotalMovementPointCost($player, $action, $parameter)) > 0) {
             if ($player->getMovementPoint() === 0) {
                 $playerModifierEvent = new PlayerModifierEvent($player, self::BASE_MOVEMENT_POINT_CONVERSION, new \DateTime());
                 $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::MOVEMENT_POINT_CONVERSION);
@@ -62,7 +47,7 @@ class ActionService implements ActionServiceInterface
             $this->triggerPlayerModifierEvent($player, PlayerModifierEvent::MOVEMENT_POINT_MODIFIER, -$movementPointCost);
         }
 
-        if (($moralPointCost = $this->getTotalMoralPointCost($player, $action->getAction(), $parameter)) > 0) {
+        if (($moralPointCost = $this->getTotalMoralPointCost($player, $action, $parameter)) > 0) {
             $this->triggerPlayerModifierEvent($player, PlayerModifierEvent::MORAL_POINT_MODIFIER, -$moralPointCost);
         }
 
@@ -76,7 +61,6 @@ class ActionService implements ActionServiceInterface
             $player,
             ModifierTargetEnum::ACTION_POINT,
             $parameter,
-            null
         );
     }
 
@@ -87,7 +71,6 @@ class ActionService implements ActionServiceInterface
             $player,
             ModifierTargetEnum::MOVEMENT_POINT,
             $parameter,
-            null
         );
     }
 
@@ -98,7 +81,6 @@ class ActionService implements ActionServiceInterface
             $player,
             ModifierTargetEnum::MORAL_POINT,
             $parameter,
-            null
         );
     }
 
@@ -107,8 +89,6 @@ class ActionService implements ActionServiceInterface
         Player $player,
         ?ActionParameter $parameter
     ): int {
-        $baseRate = $action->getSuccessRate();
-
         //Get number of attempt
         $numberOfAttempt = $this->getNumberOfAttempt($player, $action->getName());
 

@@ -12,13 +12,13 @@ use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Enum\ModifierScopeEnum;
+use Mush\Modifier\Enum\ModifierTargetEnum;
+use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Place\Entity\Place;
-use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
-use Mush\Player\Enum\ModifierScopeEnum;
-use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Event\PlayerModifierEvent;
-use Mush\Player\Service\ActionModifierServiceInterface;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\Status;
 use Mush\Status\Service\StatusServiceInterface;
@@ -35,8 +35,8 @@ class ActionSideEffectsServiceTest extends TestCase
     private RandomServiceInterface $randomService;
     /** @var StatusServiceInterface | Mockery\Mock */
     private StatusServiceInterface $statusService;
-    /** @var ActionModifierServiceInterface | Mockery\Mock */
-    private ActionModifierServiceInterface $actionModifierService;
+    /** @var ModifierServiceInterface | Mockery\Mock */
+    private ModifierServiceInterface $modifierService;
 
     private ActionSideEffectsServiceInterface $actionService;
 
@@ -49,14 +49,14 @@ class ActionSideEffectsServiceTest extends TestCase
         $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
-        $this->actionModifierService = Mockery::mock(ActionModifierServiceInterface::class);
+        $this->modifierService = Mockery::mock(ModifierServiceInterface::class);
 
         $this->actionService = new ActionSideEffectsService(
             $this->eventDispatcher,
             $this->randomService,
             $this->statusService,
             $this->roomLogService,
-            $this->actionModifierService
+            $this->modifierService
         );
     }
 
@@ -88,9 +88,9 @@ class ActionSideEffectsServiceTest extends TestCase
 
         $action->setDirtyRate(10);
 
-        $this->actionModifierService
-            ->shouldReceive('getModifiedValue')
-            ->with(10, $player, [ModifierScopeEnum::EVENT_DIRTY], ModifierTargetEnum::PERCENTAGE)
+        $this->modifierService
+            ->shouldReceive('getEventModifiedValue')
+            ->with($player, [ModifierScopeEnum::EVENT_DIRTY], ModifierTargetEnum::PERCENTAGE, 10)
             ->andReturn(100)
         ;
         $this->eventDispatcher->shouldReceive('dispatch')->never();
@@ -130,9 +130,9 @@ class ActionSideEffectsServiceTest extends TestCase
 
         $player->addItem($gameItem);
 
-        $this->actionModifierService
-            ->shouldReceive('getModifiedValue')
-            ->with(100, $player, [ModifierScopeEnum::EVENT_DIRTY], ModifierTargetEnum::PERCENTAGE)
+        $this->modifierService
+            ->shouldReceive('getEventModifiedValue')
+            ->with($player, [ModifierScopeEnum::EVENT_DIRTY], ModifierTargetEnum::PERCENTAGE, 100)
             ->andReturn(0);
         $this->eventDispatcher->shouldReceive('dispatch')->never();
         $this->roomLogService->shouldReceive('createLog')->once();
@@ -169,9 +169,9 @@ class ActionSideEffectsServiceTest extends TestCase
             ->once()
         ;
 
-        $this->actionModifierService
-            ->shouldReceive('getModifiedValue')
-            ->with(100, $player, [ModifierScopeEnum::EVENT_CLUMSINESS], ModifierTargetEnum::PERCENTAGE)
+        $this->modifierService
+            ->shouldReceive('getEventModifiedValue')
+            ->with($player, [ModifierScopeEnum::EVENT_CLUMSINESS], ModifierTargetEnum::PERCENTAGE, 100)
             ->andReturn(100);
         $this->roomLogService->shouldReceive('createLog')->once();
         $this->randomService->shouldReceive('randomPercent')->andReturn(10)->once();
@@ -208,9 +208,9 @@ class ActionSideEffectsServiceTest extends TestCase
 
         $player->addItem($gameItem);
 
-        $this->actionModifierService
-            ->shouldReceive('getModifiedValue')
-            ->with(100, $player, [ModifierScopeEnum::EVENT_CLUMSINESS], ModifierTargetEnum::PERCENTAGE)
+        $this->modifierService
+            ->shouldReceive('getEventModifiedValue')
+            ->with($player, [ModifierScopeEnum::EVENT_CLUMSINESS], ModifierTargetEnum::PERCENTAGE, 100)
             ->andReturn(0)
         ;
         $this->eventDispatcher->shouldReceive('dispatch')->never();
@@ -223,7 +223,7 @@ class ActionSideEffectsServiceTest extends TestCase
 
     private function createGear(string $target, float $delta, string $scope, string $reach): Gear
     {
-        $modifier = new Modifier();
+        $modifier = new ModifierConfig();
         $modifier
             ->setTarget($target)
             ->setDelta($delta)

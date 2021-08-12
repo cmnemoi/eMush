@@ -95,7 +95,7 @@ abstract class AbstractAction
         $preActionEvent = new ActionEvent($this->action, $this->player);
         $this->eventDispatcher->dispatch($preActionEvent, ActionEvent::PRE_ACTION);
 
-        $this->actionService->applyCostToPlayer($this);
+        $this->actionService->applyCostToPlayer($this->player, $this->action, $this->parameter);
 
         $result = $this->applyEffects();
 

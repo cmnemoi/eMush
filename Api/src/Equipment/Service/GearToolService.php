@@ -7,8 +7,6 @@ use Doctrine\Common\Collections\Collection;
 use Error;
 use Mush\Action\Entity\Action;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ReachEnum;
@@ -31,33 +29,6 @@ class GearToolService implements GearToolServiceInterface
     ) {
         $this->eventDispatcher = $eventDispatcher;
         $this->statusService = $statusService;
-    }
-
-    public function getApplicableGears(Player $player, array $scopes, ?string $target = null): Collection
-    {
-        /** @var Collection $gears */
-        $gears = new ArrayCollection();
-
-        /** @var GameItem $item */
-        foreach ($player->getItems() as $item) {
-            /** @var Gear $gear */
-            $gear = $item->getEquipment()->getMechanicByName(EquipmentMechanicEnum::GEAR);
-
-            if ($gear) {
-                foreach ($gear->getModifierConfigs() as $modifier) {
-                    if (in_array($modifier->getScope(), $scopes) &&
-                        ($target === null || $modifier->getTarget() === $target) &&
-                        in_array($modifier->getReach(), [ReachEnum::INVENTORY]) &&
-                        $item->isOperational()
-                    ) {
-                        $gears->add($item);
-                        break;
-                    }
-                }
-            }
-        }
-
-        return $gears;
     }
 
     public function getEquipmentsOnReach(Player $player, string $reach = ReachEnum::SHELVE_NOT_HIDDEN): Collection
@@ -160,15 +131,6 @@ class GearToolService implements GearToolServiceInterface
 
     public function applyChargeCost(Player $player, string $actionName, array $types = []): void
     {
-        $gears = $this->getApplicableGears(
-            $player,
-            array_merge([$actionName], $types)
-        );
-
-        foreach ($gears as $gear) {
-            $this->removeCharge($gear);
-        }
-
         $tool = $this->getUsedTool($player, $actionName);
         if ($tool) {
             $this->removeCharge($tool);

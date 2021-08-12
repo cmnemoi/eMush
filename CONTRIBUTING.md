@@ -24,7 +24,7 @@ vendor/bin/php-cs-fixer fix
 vendor/bin/psalm
 . linters.sh 
 ```
-in case of trouble with test
+in case of trouble when running tests
 ```
 vendor/bin/codecept clean
 vendor/bin/psalm -no--cache

@@ -6,12 +6,11 @@ use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
+use Mush\Modifier\Enum\ModifierScopeEnum;
+use Mush\Modifier\Enum\ModifierTargetEnum;
+use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Place\Entity\Place;
-use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
-use Mush\Player\Enum\ModifierScopeEnum;
-use Mush\Player\Enum\ModifierTargetEnum;
-use Mush\Player\Service\ActionModifierServiceInterface;
 use Mush\Player\Service\PlayerVariableService;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -19,8 +18,8 @@ use PHPUnit\Framework\TestCase;
 
 class PlayerVariableServiceTest extends TestCase
 {
-    /** @var ActionModifierServiceInterface | Mockery\Mock */
-    private ActionModifierServiceInterface $actionModifierService;
+    /** @var ModifierServiceInterface | Mockery\Mock */
+    private ModifierServiceInterface $modifierService;
 
     private PlayerVariableService $service;
 
@@ -29,10 +28,10 @@ class PlayerVariableServiceTest extends TestCase
      */
     public function before()
     {
-        $this->actionModifierService = Mockery::mock(ActionModifierServiceInterface::class);
+        $this->modifierService = Mockery::mock(ModifierServiceInterface::class);
 
         $this->service = new PlayerVariableService(
-            $this->actionModifierService
+            $this->modifierService
         );
     }
 
@@ -70,13 +69,7 @@ class PlayerVariableServiceTest extends TestCase
         $mushStatus = new Status($player);
         $mushStatus->setName(PlayerStatusEnum::MUSH);
 
-        $modifier = new Modifier();
-        $modifier->setTarget(ModifierTargetEnum::SATIETY);
-        $modifier->setDelta(-1);
-
         $this->service->handleSatietyModifier(-1, $player);
-
-        $modifier->setDelta(1);
 
         $this->service->handleSatietyModifier(1, $player);
 
@@ -107,8 +100,8 @@ class PlayerVariableServiceTest extends TestCase
         ;
 
         //go below 4 moral
-        $this->actionModifierService->shouldReceive('getModifiedValue')
-            ->with(16, $player, [ModifierScopeEnum::PERMANENT], ModifierTargetEnum::MAX_MORAL_POINT)
+        $this->modifierService->shouldReceive('getEventModifiedValue')
+            ->with($player, [ModifierScopeEnum::MAX_POINT], ModifierTargetEnum::MORAL_POINT, 16)
             ->andReturn(16)
             ->once();
 
@@ -120,8 +113,8 @@ class PlayerVariableServiceTest extends TestCase
         $status->setName(PlayerStatusEnum::DEMORALIZED);
 
         //go below 1 moral
-        $this->actionModifierService->shouldReceive('getModifiedValue')
-            ->with(16, $player, [ModifierScopeEnum::PERMANENT], ModifierTargetEnum::MAX_MORAL_POINT)
+        $this->modifierService->shouldReceive('getEventModifiedValue')
+            ->with($player, [ModifierScopeEnum::MAX_POINT], ModifierTargetEnum::MORAL_POINT, 16)
             ->andReturn(16)
             ->once();
 
@@ -133,8 +126,8 @@ class PlayerVariableServiceTest extends TestCase
         $status->setName(PlayerStatusEnum::SUICIDAL);
 
         //regain more moral than suicidal threshold
-        $this->actionModifierService->shouldReceive('getModifiedValue')
-            ->with(16, $player, [ModifierScopeEnum::PERMANENT], ModifierTargetEnum::MAX_MORAL_POINT)
+        $this->modifierService->shouldReceive('getEventModifiedValue')
+            ->with($player, [ModifierScopeEnum::MAX_POINT], ModifierTargetEnum::MORAL_POINT, 16)
             ->andReturn(16)
             ->once();
 
@@ -146,8 +139,8 @@ class PlayerVariableServiceTest extends TestCase
         $status->setName(PlayerStatusEnum::DEMORALIZED);
 
         //gain more than morale threshold
-        $this->actionModifierService->shouldReceive('getModifiedValue')
-            ->with(16, $player, [ModifierScopeEnum::PERMANENT], ModifierTargetEnum::MAX_MORAL_POINT)
+        $this->modifierService->shouldReceive('getEventModifiedValue')
+            ->with($player, [ModifierScopeEnum::MAX_POINT], ModifierTargetEnum::MORAL_POINT, 16)
             ->andReturn(16)
             ->once();
 
@@ -173,12 +166,8 @@ class PlayerVariableServiceTest extends TestCase
             ->setCharacterConfig($characterConfig)
         ;
 
-        $modifier = new Modifier();
-        $modifier->setTarget(ModifierTargetEnum::ACTION_POINT);
-        $modifier->setDelta(-2);
-
-        $this->actionModifierService->shouldReceive('getModifiedValue')
-            ->with(16, $player, [ModifierScopeEnum::PERMANENT], ModifierTargetEnum::MAX_ACTION_POINT)
+        $this->modifierService->shouldReceive('getEventModifiedValue')
+            ->with($player, [ModifierScopeEnum::MAX_POINT], ModifierTargetEnum::ACTION_POINT, 16)
             ->andReturn(16)
             ->once();
 
@@ -187,8 +176,8 @@ class PlayerVariableServiceTest extends TestCase
         $this->assertEquals(3, $player->getActionPoint());
 
         //less than 0
-        $this->actionModifierService->shouldReceive('getModifiedValue')
-            ->with(16, $player, [ModifierScopeEnum::PERMANENT], ModifierTargetEnum::MAX_ACTION_POINT)
+        $this->modifierService->shouldReceive('getEventModifiedValue')
+            ->with($player, [ModifierScopeEnum::MAX_POINT], ModifierTargetEnum::ACTION_POINT, 16)
             ->andReturn(16)
             ->once();
 
@@ -197,8 +186,8 @@ class PlayerVariableServiceTest extends TestCase
         $this->assertEquals(0, $player->getActionPoint());
 
         //more than threshold
-        $this->actionModifierService->shouldReceive('getModifiedValue')
-            ->with(16, $player, [ModifierScopeEnum::PERMANENT], ModifierTargetEnum::MAX_ACTION_POINT)
+        $this->modifierService->shouldReceive('getEventModifiedValue')
+            ->with($player, [ModifierScopeEnum::MAX_POINT], ModifierTargetEnum::ACTION_POINT, 16)
             ->andReturn(16)
             ->once();
 
@@ -224,8 +213,8 @@ class PlayerVariableServiceTest extends TestCase
             ->setCharacterConfig($characterConfig)
         ;
 
-        $this->actionModifierService->shouldReceive('getModifiedValue')
-            ->with(16, $player, [ModifierScopeEnum::PERMANENT], ModifierTargetEnum::MAX_HEALTH_POINT)
+        $this->modifierService->shouldReceive('getEventModifiedValue')
+            ->with($player, [ModifierScopeEnum::MAX_POINT], ModifierTargetEnum::HEALTH_POINT, 16)
             ->andReturn(16)
             ->once();
 

@@ -2,7 +2,6 @@
 
 namespace Mush\Modifier\Service;
 
-use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameter;
 use Mush\Modifier\Entity\Modifier;
@@ -14,11 +13,9 @@ interface ModifierServiceInterface
 
     public function delete(Modifier $modifier): void;
 
-    public function getActionModifiedValue(Action $action, Player $player, string $target, ?ActionParameter $parameter, ?int $attemptNumber): int;
+    public function getActionModifiedValue(Action $action, Player $player, string $target, ?ActionParameter $parameter, ?int $attemptNumber = null): int;
 
-    public function consumeActionCharges(AbstractAction $action): void;
+    public function consumeActionCharges(Action $action, Player $player, ?ActionParameter $parameter): void;
 
     public function getEventModifiedValue(Player $player, array $scopes, string $target, int $initValue): int;
-
-    public function consumeEventCharges(Player $player, array $scopes, int $initValue): void;
 }

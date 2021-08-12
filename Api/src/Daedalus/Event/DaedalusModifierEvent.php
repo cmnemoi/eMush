@@ -3,6 +3,7 @@
 namespace Mush\Daedalus\Event;
 
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Player\Entity\Player;
 use Symfony\Contracts\EventDispatcher\Event;
 
 class DaedalusModifierEvent extends Event
@@ -12,6 +13,7 @@ class DaedalusModifierEvent extends Event
     public const CHANGE_FUEL = 'change.fuel';
 
     private Daedalus $daedalus;
+    private ?Player $player;
     private ?string $reason = null;
     private \DateTime $time;
     private ?int $quantity = null;
@@ -26,6 +28,18 @@ class DaedalusModifierEvent extends Event
     public function getDaedalus(): Daedalus
     {
         return $this->daedalus;
+    }
+
+    public function getPlayer(): ?Player
+    {
+        return $this->player;
+    }
+
+    public function setPlayer(Player $player): DaedalusModifierEvent
+    {
+        $this->player = $player;
+
+        return $this;
     }
 
     public function getReason(): ?string

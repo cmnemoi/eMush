@@ -9,6 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
+use Mush\Modifier\Entity\Collection\ModifierCollection;
+use Mush\Modifier\Entity\Modifier;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
@@ -54,6 +56,11 @@ class Daedalus
      * @ORM\OneToMany(targetEntity="Mush\Place\Entity\Place", mappedBy="daedalus")
      */
     private Collection $places;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Mush\Modifier\Entity\DaedalusModifier", mappedBy="daedalus")
+     */
+    private Collection $modifiers;
 
     /**
      * @ORM\Column(type="integer", nullable=false)
@@ -119,6 +126,7 @@ class Daedalus
     {
         $this->players = new ArrayCollection();
         $this->places = new ArrayCollection();
+        $this->modifiers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -254,6 +262,21 @@ class Daedalus
     public function removePlace(Place $place): Daedalus
     {
         $this->places->removeElement($place);
+
+        return $this;
+    }
+
+    public function getModifiers(): ModifierCollection
+    {
+        return new ModifierCollection($this->modifiers->toArray());
+    }
+
+    /**
+     * @return static
+     */
+    public function addModifier(Modifier $modifier): Daedalus
+    {
+        $this->modifiers->add($modifier);
 
         return $this;
     }

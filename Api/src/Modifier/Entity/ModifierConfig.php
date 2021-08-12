@@ -1,14 +1,11 @@
 <?php
 
-namespace Mush\Player\Entity;
-
-use Doctrine\ORM\Mapping as ORM;
+namespace Mush\Modifier\Entity;
 
 /**
  * @ORM\Entity
- * @TODO: Move that to Equipment directory
  */
-class Modifier
+class ModifierConfig
 {
     /**
      * @ORM\Id
@@ -30,7 +27,7 @@ class Modifier
     /**
      * @ORM\Column(type="string", nullable=false)
      */
-    private ?string $scope = null;
+    private string $scope;
 
     /**
      * @ORM\Column(type="string", nullable=false)
@@ -38,9 +35,9 @@ class Modifier
     private ?string $reach = null;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="boolean", nullable=false)
      */
-    private ?bool $isAdditive = null;
+    private bool $isAdditive = true;
 
     public function getId(): int
     {
@@ -52,9 +49,21 @@ class Modifier
         return $this->delta;
     }
 
-    public function setDelta(float $delta): Modifier
+    public function setDelta(float $delta): ModifierConfig
     {
         $this->delta = $delta;
+
+        return $this;
+    }
+
+    public function getScope(): string
+    {
+        return $this->scope;
+    }
+
+    public function setScope(string $scope): ModifierConfig
+    {
+        $this->scope = $scope;
 
         return $this;
     }
@@ -64,21 +73,9 @@ class Modifier
         return $this->target;
     }
 
-    public function setTarget(string $target): Modifier
+    public function setTarget(string $target): ModifierConfig
     {
         $this->target = $target;
-
-        return $this;
-    }
-
-    public function getScope(): ?string
-    {
-        return $this->scope;
-    }
-
-    public function setScope(?string $scope): Modifier
-    {
-        $this->scope = $scope;
 
         return $this;
     }
@@ -88,19 +85,19 @@ class Modifier
         return $this->reach;
     }
 
-    public function setReach(?string $reach): Modifier
+    public function setReach(string $reach): ModifierConfig
     {
         $this->reach = $reach;
 
         return $this;
     }
 
-    public function isAdditive(): ?bool
+    public function isAdditive(): bool
     {
         return $this->isAdditive;
     }
 
-    public function setIsAdditive(?bool $isAdditive): Modifier
+    public function setIsAdditive(bool $isAdditive): ModifierConfig
     {
         $this->isAdditive = $isAdditive;
 

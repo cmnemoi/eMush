@@ -4,12 +4,12 @@ namespace Mush\Action\Service;
 
 use Mush\Action\Entity\Action;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
-use Mush\Player\Enum\ModifierScopeEnum;
-use Mush\Player\Enum\ModifierTargetEnum;
+use Mush\Modifier\Enum\ModifierScopeEnum;
+use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Player\Event\PlayerModifierEvent;
-use Mush\Player\Service\ActionModifierServiceInterface;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
@@ -25,20 +25,20 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
     private RandomServiceInterface $randomService;
     private StatusServiceInterface $statusService;
     private RoomLogServiceInterface $roomLogService;
-    private ActionModifierServiceInterface $actionModifierService;
+    private ModifierServiceInterface $modifierService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         RandomServiceInterface $randomService,
         StatusServiceInterface $statusService,
         RoomLogServiceInterface $roomLogService,
-        ActionModifierServiceInterface $actionModifierService
+        ModifierServiceInterface $modifierService
     ) {
         $this->eventDispatcher = $eventDispatcher;
         $this->randomService = $randomService;
         $this->statusService = $statusService;
         $this->roomLogService = $roomLogService;
-        $this->actionModifierService = $actionModifierService;
+        $this->modifierService = $modifierService;
     }
 
     public function handleActionSideEffect(Action $action, Player $player, \DateTime $date): Player
@@ -55,11 +55,11 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
         $isSuperDirty = $baseDirtyRate > 100;
         if (!$player->hasStatus(PlayerStatusEnum::DIRTY) &&
             $baseDirtyRate > 0) {
-            $dirtyRate = $this->actionModifierService->getModifiedValue(
-                $baseDirtyRate,
+            $dirtyRate = $this->modifierService->getEventModifiedValue(
                 $player,
                 [ModifierScopeEnum::EVENT_DIRTY],
-                ModifierTargetEnum::PERCENTAGE
+                ModifierTargetEnum::PERCENTAGE,
+                $baseDirtyRate
             );
 
             $percent = $this->randomService->randomPercent();
@@ -96,11 +96,11 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
     {
         $baseInjuryRate = $action->getInjuryRate();
         if ($baseInjuryRate > 0) {
-            $injuryRate = $this->actionModifierService->getModifiedValue(
-                $baseInjuryRate,
+            $injuryRate = $this->modifierService->getEventModifiedValue(
                 $player,
                 [ModifierScopeEnum::EVENT_CLUMSINESS],
-                ModifierTargetEnum::PERCENTAGE
+                ModifierTargetEnum::PERCENTAGE,
+                $baseInjuryRate
             );
 
             $percent = $this->randomService->randomPercent();

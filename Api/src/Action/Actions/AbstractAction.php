@@ -95,7 +95,7 @@ abstract class AbstractAction
         $preActionEvent = new ActionEvent($this->action, $this->player);
         $this->eventDispatcher->dispatch($preActionEvent, ActionEvent::PRE_ACTION);
 
-        $this->actionService->applyCostToPlayer($this->player, $this->action);
+        $this->actionService->applyCostToPlayer($this);
 
         $result = $this->applyEffects();
 
@@ -117,17 +117,17 @@ abstract class AbstractAction
 
     public function getActionPointCost(): int
     {
-        return $this->actionService->getTotalActionPointCost($this->player, $this->action);
+        return $this->actionService->getTotalActionPointCost($this->player, $this->action, $this->parameter);
     }
 
     public function getMovementPointCost(): int
     {
-        return $this->actionService->getTotalMovementPointCost($this->player, $this->action);
+        return $this->actionService->getTotalMovementPointCost($this->player, $this->action, $this->parameter);
     }
 
     public function getMoralPointCost(): int
     {
-        return $this->actionService->getTotalMoralPointCost($this->player, $this->action);
+        return $this->actionService->getTotalMoralPointCost($this->player, $this->action, $this->parameter);
     }
 
     public function getPlayer(): Player

@@ -3,18 +3,19 @@
 namespace Mush\Player\Service;
 
 use Error;
+use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Player\Entity\Player;
-use Mush\Player\Enum\ModifierScopeEnum;
-use Mush\Player\Enum\ModifierTargetEnum;
+use Mush\Modifier\Enum\ModifierScopeEnum;
+use Mush\Modifier\Enum\ModifierTargetEnum;
 
 class PlayerVariableService implements PlayerVariableServiceInterface
 {
-    private ActionModifierServiceInterface $actionModifierService;
+    private ModifierServiceInterface $modifierService;
 
     public function __construct(
-        ActionModifierServiceInterface $actionModifierService
+        ModifierServiceInterface $modifierService
     ) {
-        $this->actionModifierService = $actionModifierService;
+        $this->modifierService = $modifierService;
     }
 
     public function getMaxPlayerVariable(Player $player, string $target): int
@@ -22,45 +23,45 @@ class PlayerVariableService implements PlayerVariableServiceInterface
         $gameConfig = $player->getDaedalus()->getGameConfig();
 
         switch ($target) {
-            case ModifierTargetEnum::MAX_ACTION_POINT:
+            case ModifierTargetEnum::ACTION_POINT:
                 $maxValue = $gameConfig->getMaxActionPoint();
                 break;
-            case ModifierTargetEnum::MAX_MOVEMENT_POINT:
+            case ModifierTargetEnum::MOVEMENT_POINT:
                 $maxValue = $gameConfig->getMaxMovementPoint();
                 break;
-            case ModifierTargetEnum::MAX_HEALTH_POINT:
+            case ModifierTargetEnum::HEALTH_POINT:
                 $maxValue = $gameConfig->getMaxHealthPoint();
                 break;
-            case ModifierTargetEnum::MAX_MORAL_POINT:
+            case ModifierTargetEnum::MORAL_POINT:
                 $maxValue = $gameConfig->getMaxMoralPoint();
                 break;
             default:
                 throw new Error('getMaxPlayerVariable : invalid target string');
         }
 
-        return $this->actionModifierService->getModifiedValue($maxValue, $player, [ModifierScopeEnum::PERMANENT], $target);
+        return $this->modifierService->getEventModifiedValue($player, [ModifierScopeEnum::MAX_POINT], $target, $maxValue);
     }
 
     public function setPlayerVariableToMax(Player $player, string $target, \DateTime $date = null): Player
     {
         switch ($target) {
             case ModifierTargetEnum::ACTION_POINT:
-                $maxPoint = $this->getMaxPlayerVariable($player, ModifierTargetEnum::MAX_ACTION_POINT);
+                $maxPoint = $this->getMaxPlayerVariable($player, ModifierTargetEnum::ACTION_POINT);
                 $delta = $maxPoint - $player->getActionPoint();
                 $player = $this->handleActionPointModifier($delta, $player);
                 break;
             case ModifierTargetEnum::MOVEMENT_POINT:
-                $maxPoint = $this->getMaxPlayerVariable($player, ModifierTargetEnum::MAX_MOVEMENT_POINT);
+                $maxPoint = $this->getMaxPlayerVariable($player, ModifierTargetEnum::MOVEMENT_POINT);
                 $delta = $maxPoint - $player->getMovementPoint();
                 $player = $this->handleMovementPointModifier($delta, $player);
                 break;
             case ModifierTargetEnum::HEALTH_POINT:
-                $maxPoint = $this->getMaxPlayerVariable($player, ModifierTargetEnum::MAX_HEALTH_POINT);
+                $maxPoint = $this->getMaxPlayerVariable($player, ModifierTargetEnum::HEALTH_POINT);
                 $delta = $maxPoint - $player->getHealthPoint();
                 $player = $this->handleHealthPointModifier($delta, $player);
                 break;
             case ModifierTargetEnum::MORAL_POINT:
-                $maxPoint = $this->getMaxPlayerVariable($player, ModifierTargetEnum::MAX_MORAL_POINT);
+                $maxPoint = $this->getMaxPlayerVariable($player, ModifierTargetEnum::MORAL_POINT);
                 $delta = $maxPoint - $player->getMoralPoint();
                 $player = $this->handleMoralPointModifier($delta, $player);
                 break;
@@ -74,7 +75,7 @@ class PlayerVariableService implements PlayerVariableServiceInterface
     public function handleActionPointModifier(int $delta, Player $player): Player
     {
         $playerNewActionPoint = $player->getActionPoint() + $delta;
-        $playerMaxActionPoint = $this->getMaxPlayerVariable($player, ModifierTargetEnum::MAX_ACTION_POINT);
+        $playerMaxActionPoint = $this->getMaxPlayerVariable($player, ModifierTargetEnum::ACTION_POINT);
         $playerNewActionPoint = $this->getValueInInterval($playerNewActionPoint, 0, $playerMaxActionPoint);
         $player->setActionPoint($playerNewActionPoint);
 
@@ -84,7 +85,7 @@ class PlayerVariableService implements PlayerVariableServiceInterface
     public function handleMovementPointModifier(int $delta, Player $player): Player
     {
         $playerNewMovementPoint = $player->getMovementPoint() + $delta;
-        $playerMaxMovementPoint = $this->getMaxPlayerVariable($player, ModifierTargetEnum::MAX_MOVEMENT_POINT);
+        $playerMaxMovementPoint = $this->getMaxPlayerVariable($player, ModifierTargetEnum::MOVEMENT_POINT);
         $playerNewMovementPoint = $this->getValueInInterval($playerNewMovementPoint, 0, $playerMaxMovementPoint);
         $player->setMovementPoint($playerNewMovementPoint);
 
@@ -94,7 +95,7 @@ class PlayerVariableService implements PlayerVariableServiceInterface
     public function handleHealthPointModifier(int $delta, Player $player): Player
     {
         $playerNewHealthPoint = $player->getHealthPoint() + $delta;
-        $playerMaxHealthPoint = $this->getMaxPlayerVariable($player, ModifierTargetEnum::MAX_HEALTH_POINT);
+        $playerMaxHealthPoint = $this->getMaxPlayerVariable($player, ModifierTargetEnum::HEALTH_POINT);
         $playerNewHealthPoint = $this->getValueInInterval($playerNewHealthPoint, 0, $playerMaxHealthPoint);
         $player->setHealthPoint($playerNewHealthPoint);
 
@@ -105,7 +106,7 @@ class PlayerVariableService implements PlayerVariableServiceInterface
     {
         if (!$player->isMush()) {
             $playerNewMoralPoint = $player->getMoralPoint() + $delta;
-            $playerMaxMoralPoint = $this->getMaxPlayerVariable($player, ModifierTargetEnum::MAX_MORAL_POINT);
+            $playerMaxMoralPoint = $this->getMaxPlayerVariable($player, ModifierTargetEnum::MORAL_POINT);
             $playerNewMoralPoint = $this->getValueInInterval($playerNewMoralPoint, 0, $playerMaxMoralPoint);
             $player->setMoralPoint($playerNewMoralPoint);
         }

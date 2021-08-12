@@ -4,7 +4,7 @@ namespace Mush\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
 use Mush\Player\Entity\Player;
-use Mush\Player\Enum\ModifierTargetEnum;
+use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Player\Service\PlayerVariableServiceInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -37,7 +37,7 @@ class FullHealthValidator extends ConstraintValidator
         if (!$player instanceof Player) {
             throw new UnexpectedTypeException($player, Player::class);
         }
-        $maxHealthPoint = $this->playerVariableService->getMaxPlayerVariable($player, ModifierTargetEnum::MAX_HEALTH_POINT);
+        $maxHealthPoint = $this->playerVariableService->getMaxPlayerVariable($player, ModifierTargetEnum::HEALTH_POINT);
 
         if ($player->getHealthPoint() === $maxHealthPoint) {
             $this->context->buildViolation($constraint->message)

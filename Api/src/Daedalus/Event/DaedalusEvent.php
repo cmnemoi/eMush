@@ -3,6 +3,7 @@
 namespace Mush\Daedalus\Event;
 
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Player\Entity\Player;
 use Symfony\Contracts\EventDispatcher\Event;
 
 class DaedalusEvent extends Event
@@ -33,7 +34,7 @@ class DaedalusEvent extends Event
         return $this->reason;
     }
 
-    public function setReason(?string $reason): DaedalusEvent
+    public function setReason(string $reason): DaedalusEvent
     {
         $this->reason = $reason;
 

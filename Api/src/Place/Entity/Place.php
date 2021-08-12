@@ -9,6 +9,8 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Modifier\Entity\Collection\ModifierCollection;
+use Mush\Modifier\Entity\Modifier;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
@@ -68,6 +70,11 @@ class Place implements StatusHolderInterface
      * @ORM\OneToMany (targetEntity="Mush\Status\Entity\StatusTarget", mappedBy="place", cascade={"ALL"}, orphanRemoval=true)
      */
     private Collection $statuses;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Mush\Modifier\Entity\PlaceModifier", mappedBy="place")
+     */
+    private Collection $modifiers;
 
     public function __construct()
     {
@@ -255,6 +262,21 @@ class Place implements StatusHolderInterface
             $statusTarget->setPlace($this);
             $this->statuses->add($statusTarget);
         }
+
+        return $this;
+    }
+
+    public function getModifiers(): ModifierCollection
+    {
+        return new ModifierCollection($this->modifiers->toArray());
+    }
+
+    /**
+     * @return static
+     */
+    public function addModifier(Modifier $modifier): Place
+    {
+        $this->modifiers->add($modifier);
 
         return $this;
     }

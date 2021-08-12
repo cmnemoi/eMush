@@ -9,6 +9,7 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Player\Enum\ModifierScopeEnum;
 
 class TechnicianFixtures extends Fixture implements DependentFixtureInterface
@@ -47,7 +48,7 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
         $repair1 = new Action();
         $repair1
             ->setName(ActionEnum::REPAIR)
-            ->setTypes([ModifierScopeEnum::ACTION_TECHNICIAN])
+            ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(25)
             ->setInjuryRate(10)
@@ -59,7 +60,7 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
         $repair3 = new Action();
         $repair3
             ->setName(ActionEnum::REPAIR)
-            ->setTypes([ModifierScopeEnum::ACTION_TECHNICIAN])
+            ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(25)
             ->setInjuryRate(10)
@@ -71,7 +72,7 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
         $repair6 = new Action();
         $repair6
             ->setName(ActionEnum::REPAIR)
-            ->setTypes([ModifierScopeEnum::ACTION_TECHNICIAN])
+            ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(25)
             ->setInjuryRate(10)
@@ -83,7 +84,7 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
         $repair12 = new Action();
         $repair12
             ->setName(ActionEnum::REPAIR)
-            ->setTypes([ModifierScopeEnum::ACTION_TECHNICIAN])
+            ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(25)
             ->setInjuryRate(10)
@@ -95,7 +96,7 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
         $repair25 = new Action();
         $repair25
             ->setName(ActionEnum::REPAIR)
-            ->setTypes([ModifierScopeEnum::ACTION_TECHNICIAN])
+            ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(25)
             ->setInjuryRate(10)
@@ -107,7 +108,7 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
         $repair50 = new Action();
         $repair50
             ->setName(ActionEnum::REPAIR)
-            ->setTypes([ModifierScopeEnum::ACTION_TECHNICIAN])
+            ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(25)
             ->setInjuryRate(10)
@@ -119,7 +120,7 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
         $dismantle312 = new Action();
         $dismantle312
             ->setName(ActionEnum::DISASSEMBLE)
-            ->setTypes([ModifierScopeEnum::ACTION_TECHNICIAN])
+            ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(25)
             ->setInjuryRate(10)
@@ -131,7 +132,7 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
         $dismantle325 = new Action();
         $dismantle325
             ->setName(ActionEnum::DISASSEMBLE)
-            ->setTypes([ModifierScopeEnum::ACTION_TECHNICIAN])
+            ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(25)
             ->setInjuryRate(10)
@@ -143,7 +144,7 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
         $dismantle350 = new Action();
         $dismantle350
             ->setName(ActionEnum::DISASSEMBLE)
-            ->setTypes([ModifierScopeEnum::ACTION_TECHNICIAN])
+            ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(25)
             ->setInjuryRate(10)
@@ -155,7 +156,7 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
         $dismantle412 = new Action();
         $dismantle412
             ->setName(ActionEnum::DISASSEMBLE)
-            ->setTypes([ModifierScopeEnum::ACTION_TECHNICIAN])
+            ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(25)
             ->setInjuryRate(10)
@@ -167,7 +168,7 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
         $dismantle425 = new Action();
         $dismantle425
             ->setName(ActionEnum::DISASSEMBLE)
-            ->setTypes([ModifierScopeEnum::ACTION_TECHNICIAN])
+            ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(25)
             ->setInjuryRate(10)

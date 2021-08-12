@@ -17,6 +17,8 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Enum\GameStatusEnum;
+use Mush\Modifier\Entity\Collection\ModifierCollection;
+use Mush\Modifier\Entity\Modifier;
 use Mush\Place\Entity\Place;
 use Mush\RoomLog\Entity\LogParameter;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
@@ -83,6 +85,11 @@ class Player implements StatusHolderInterface, ActionParameter, LogParameter
      * @ORM\OneToMany(targetEntity="Mush\Disease\Entity\PlayerDisease", mappedBy="player")
      */
     private Collection $medicalCondition;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Mush\Modifier\Entity\PlayerModifier", mappedBy="player")
+     */
+    private Collection $modifiers;
 
     /**
      * @ORM\Column(type="array", nullable=true)
@@ -330,6 +337,21 @@ class Player implements StatusHolderInterface, ActionParameter, LogParameter
     public function addMedicalCondition(PlayerDisease $playerDisease): Player
     {
         $this->medicalCondition->add($playerDisease);
+
+        return $this;
+    }
+
+    public function getModifiers(): ModifierCollection
+    {
+        return new ModifierCollection($this->modifiers->toArray());
+    }
+
+    /**
+     * @return static
+     */
+    public function addModifier(Modifier $modifier): Player
+    {
+        $this->modifiers->add($modifier);
 
         return $this;
     }

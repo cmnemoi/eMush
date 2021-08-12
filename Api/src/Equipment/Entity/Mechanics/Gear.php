@@ -17,7 +17,7 @@ class Gear extends EquipmentMechanic
     protected string $mechanic = EquipmentMechanicEnum::GEAR;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Mush\Player\Entity\Modifier")
+     * @ORM\ManyToMany(targetEntity="Mush\Modifier\Entity\Modifier")
      */
     private Collection $modifiers;
 

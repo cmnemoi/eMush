@@ -44,7 +44,7 @@ class GearToolService implements GearToolServiceInterface
             $gear = $item->getEquipment()->getMechanicByName(EquipmentMechanicEnum::GEAR);
 
             if ($gear) {
-                foreach ($gear->getModifiers() as $modifier) {
+                foreach ($gear->getModifierConfigs() as $modifier) {
                     if (in_array($modifier->getScope(), $scopes) &&
                         ($target === null || $modifier->getTarget() === $target) &&
                         in_array($modifier->getReach(), [ReachEnum::INVENTORY]) &&

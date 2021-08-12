@@ -612,7 +612,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             $modifierConfigs[] = $this->getReference($modifierConfigName);
         }
 
-        $gear->setModifier(new ArrayCollection($modifierConfigs));
+        $gear->setModifierConfigs(new ArrayCollection($modifierConfigs));
 
         return $gear;
     }

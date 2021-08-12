@@ -2,10 +2,11 @@
 
 namespace Mush\Modifier\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Entity\GameEquipment;
 
 /**
- * Class Modifier.
+ * Class EquipmentModifier.
  *
  * @ORM\Entity
  */

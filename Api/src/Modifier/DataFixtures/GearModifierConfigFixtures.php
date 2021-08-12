@@ -98,6 +98,7 @@ class GearModifierConfigFixtures extends Fixture
             ->setReach(ModifierReachEnum::PLAYER)
             ->setIsAdditive(true)
         ;
+        $manager->persist($antiGravScooterModifier);
 
         $oscilloscopeSuccessModifier = new ModifierConfig();
         $oscilloscopeSuccessModifier
@@ -148,6 +149,8 @@ class GearModifierConfigFixtures extends Fixture
             ->setIsAdditive(true)
         ;
         $manager->persist($gravityCycleModifier);
+
+        $manager->flush();
 
         $this->addReference(self::APRON_MODIFIER, $apronModifier);
         $this->addReference(self::ARMOR_MODIFIER, $armorModifier);

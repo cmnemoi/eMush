@@ -112,7 +112,7 @@ class ActionSubscriberCest
             ->setScope(ModifierScopeEnum::EVENT_DIRTY)
         ;
         $I->haveInRepository($modifier);
-        $gear->setModifier(new arrayCollection([$modifier]));
+        $gear->setModifierConfigs(new arrayCollection([$modifier]));
         $itemConfig->setMechanics(new ArrayCollection([$gear]));
         $I->haveInRepository($gear);
         $I->haveInRepository($itemConfig);

@@ -17,21 +17,21 @@ class Gear extends EquipmentMechanic
     protected string $mechanic = EquipmentMechanicEnum::GEAR;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Mush\Modifier\Entity\Modifier")
+     * @ORM\ManyToMany(targetEntity="Mush\Modifier\Entity\ModifierConfig")
      */
-    private Collection $modifiers;
+    private Collection $modifierConfigs;
 
-    public function getModifiers(): Collection
+    public function getModifierConfigs(): Collection
     {
-        return $this->modifiers;
+        return $this->modifierConfigs;
     }
 
     /**
      * @return static
      */
-    public function setModifier(Collection $modifiers): Gear
+    public function setModifierConfigs(Collection $modifierConfigs): Gear
     {
-        $this->modifiers = $modifiers;
+        $this->modifierConfigs = $modifierConfigs;
 
         return $this;
     }

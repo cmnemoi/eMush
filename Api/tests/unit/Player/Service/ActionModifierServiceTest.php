@@ -77,7 +77,7 @@ class ActionModifierServiceTest extends TestCase
         ;
 
         $gear = new Gear();
-        $gear->setModifier(new arrayCollection([$modifier1]));
+        $gear->setModifierConfigs(new arrayCollection([$modifier1]));
         $item = new ItemConfig();
         $item
             ->setName(ItemEnum::METAL_SCRAPS)
@@ -112,7 +112,7 @@ class ActionModifierServiceTest extends TestCase
             ->setReach(ReachEnum::INVENTORY)
             ->setIsAdditive(false)
         ;
-        $gear->setModifier(new arrayCollection([$modifier1, $modifier2]));
+        $gear->setModifierConfigs(new arrayCollection([$modifier1, $modifier2]));
 
         $this->gearToolService->shouldReceive('GetApplicableGears')
             ->with($player, [ActionEnum::TAKE], ModifierTargetEnum::PERCENTAGE)
@@ -137,7 +137,7 @@ class ActionModifierServiceTest extends TestCase
             ->setIsAdditive(false)
         ;
         $gear2 = new Gear();
-        $gear2->setModifier(new arrayCollection([$modifier3]));
+        $gear2->setModifierConfigs(new arrayCollection([$modifier3]));
         $item2 = new ItemConfig();
         $item2
             ->setName(ItemEnum::METAL_SCRAPS)

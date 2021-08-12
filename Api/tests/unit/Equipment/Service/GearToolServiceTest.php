@@ -71,7 +71,7 @@ class GearToolServiceTest extends TestCase
         ;
 
         $gear = new Gear();
-        $gear->setModifier(new arrayCollection([$modifier]));
+        $gear->setModifierConfigs(new arrayCollection([$modifier]));
 
         $item = new ItemConfig();
         $item
@@ -112,7 +112,7 @@ class GearToolServiceTest extends TestCase
         ;
 
         $gear2 = new Gear();
-        $gear2->setModifier(new arrayCollection([$modifier, $modifier2]));
+        $gear2->setModifierConfigs(new arrayCollection([$modifier, $modifier2]));
 
         $item2 = new ItemConfig();
         $item2
@@ -406,7 +406,7 @@ class GearToolServiceTest extends TestCase
             ->setReach(ReachEnum::INVENTORY)
         ;
         $gear1 = new Gear();
-        $gear1->setModifier(new arrayCollection([$modifier1]));
+        $gear1->setModifierConfigs(new arrayCollection([$modifier1]));
         $gearConfig1 = new ItemConfig();
         $gearConfig1
             ->setName('gear1')
@@ -426,7 +426,7 @@ class GearToolServiceTest extends TestCase
             ->setReach(ReachEnum::INVENTORY)
         ;
         $gear2 = new Gear();
-        $gear2->setModifier(new arrayCollection([$modifier2]));
+        $gear2->setModifierConfigs(new arrayCollection([$modifier2]));
         $gearConfig2 = new ItemConfig();
         $gearConfig2
             ->setName('gear2')
@@ -451,7 +451,7 @@ class GearToolServiceTest extends TestCase
             ->setReach(ReachEnum::INVENTORY)
         ;
         $gear3 = new Gear();
-        $gear3->setModifier(new arrayCollection([$modifier3]));
+        $gear3->setModifierConfigs(new arrayCollection([$modifier3]));
         $gearConfig3 = new ItemConfig();
         $gearConfig3
             ->setName('gear3')

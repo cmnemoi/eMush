@@ -82,3 +82,9 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Alert/Entity'
                 prefix: 'Mush\Alert\Entity'
                 alias: Alert
+            Modifier:
+                is_bundle: false
+                type: annotation
+                dir: '%kernel.project_dir%/src/Modifier/Entity'
+                prefix: 'Mush\Modifier\Entity'
+                alias: Modifier

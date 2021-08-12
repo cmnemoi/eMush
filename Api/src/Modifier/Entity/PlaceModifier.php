@@ -2,10 +2,11 @@
 
 namespace Mush\Modifier\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 use Mush\Place\Entity\Place;
 
 /**
- * Class Modifier.
+ * Class PlaceModifier.
  *
  * @ORM\Entity
  */

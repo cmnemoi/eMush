@@ -232,7 +232,7 @@ class ActionSideEffectsServiceTest extends TestCase
         ;
 
         $gear = new Gear();
-        $gear->setModifier(new ArrayCollection([$modifier]));
+        $gear->setModifierConfigs(new ArrayCollection([$modifier]));
 
         return $gear;
     }

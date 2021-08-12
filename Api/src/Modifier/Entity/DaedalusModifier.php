@@ -2,10 +2,11 @@
 
 namespace Mush\Modifier\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 use Mush\Daedalus\Entity\Daedalus;
 
 /**
- * Class Modifier.
+ * Class DaedalusModifier.
  *
  * @ORM\Entity
  */

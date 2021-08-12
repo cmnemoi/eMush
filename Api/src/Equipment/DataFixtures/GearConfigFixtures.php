@@ -22,8 +22,12 @@ use Mush\Status\Enum\ChargeStrategyTypeEnum;
 
 class GearConfigFixtures extends Fixture implements DependentFixtureInterface
 {
+    private ObjectManager $objectManager;
+
     public function load(ObjectManager $manager): void
     {
+        $this->objectManager = $manager;
+
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
@@ -370,7 +374,9 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             $modifierConfigs[] = $this->getReference($modifierConfigName);
         }
 
-        $gear->setModifier(new ArrayCollection($modifierConfigs));
+        $gear->setModifierConfigs(new ArrayCollection($modifierConfigs));
+
+        $this->objectManager->persist($gear);
 
         return $gear;
     }

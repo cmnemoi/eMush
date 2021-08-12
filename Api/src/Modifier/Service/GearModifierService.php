@@ -42,7 +42,7 @@ class GearModifierService implements GearModifierServiceInterface
 
             $place = $gameEquipment->getCurrentPlace();
 
-            foreach ($gearMechanic->getModifiers() as $modifierConfig) {
+            foreach ($gearMechanic->getModifierConfigs() as $modifierConfig) {
                 $this->createModifier($modifierConfig, $gameEquipment, $place, $player);
             }
         }
@@ -62,7 +62,7 @@ class GearModifierService implements GearModifierServiceInterface
             }
             $place = $gameEquipment->getCurrentPlace();
 
-            foreach ($gearMechanic->getModifiers() as $modifierConfig) {
+            foreach ($gearMechanic->getModifierConfigs() as $modifierConfig) {
                 $this->deleteModifier($modifierConfig, $place, $player);
             }
         }
@@ -75,7 +75,7 @@ class GearModifierService implements GearModifierServiceInterface
                 throw new UnexpectedTypeException($gearMechanic, Gear::class);
             }
 
-            foreach ($gearMechanic->getModifiers() as $modifierConfig) {
+            foreach ($gearMechanic->getModifierConfigs() as $modifierConfig) {
                 if ($modifierConfig->getReach() === ModifierReachEnum::PLAYER || $modifierConfig->getReach() === ModifierReachEnum::TARGET_PLAYER) {
                     $modifier = new PlayerModifier();
                     $modifier
@@ -104,7 +104,7 @@ class GearModifierService implements GearModifierServiceInterface
                 throw new UnexpectedTypeException($gearMechanic, Gear::class);
             }
 
-            foreach ($gearMechanic->getModifiers() as $modifierConfig) {
+            foreach ($gearMechanic->getModifierConfigs() as $modifierConfig) {
                 if ($modifierConfig->getReach() === ModifierReachEnum::PLAYER || $modifierConfig->getReach() === ModifierReachEnum::TARGET_PLAYER) {
                     $gearModifier = $player->getModifiers()->getModifierFromConfig($modifierConfig);
 

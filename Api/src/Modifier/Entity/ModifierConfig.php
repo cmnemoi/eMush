@@ -2,7 +2,11 @@
 
 namespace Mush\Modifier\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
+ * Class ModifierConfig.
+ *
  * @ORM\Entity
  */
 class ModifierConfig

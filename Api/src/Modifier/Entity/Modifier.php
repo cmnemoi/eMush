@@ -2,9 +2,12 @@
 
 namespace Mush\Modifier\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 use Mush\Status\Entity\ChargeStatus;
 
 /**
+ * Class Modifier.
+ *
  * @ORM\Entity
  */
 class Modifier

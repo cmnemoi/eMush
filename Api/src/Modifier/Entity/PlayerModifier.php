@@ -2,10 +2,11 @@
 
 namespace Mush\Modifier\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 use Mush\Player\Entity\Player;
 
 /**
- * Class Modifier.
+ * Class PlayerModifier.
  *
  * @ORM\Entity
  */

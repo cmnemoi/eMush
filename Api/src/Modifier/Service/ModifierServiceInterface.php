@@ -2,7 +2,6 @@
 
 namespace Mush\Modifier\Service;
 
-use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameter;

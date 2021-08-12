@@ -3,10 +3,10 @@
 namespace Mush\Player\Service;
 
 use Error;
-use Mush\Modifier\Service\ModifierServiceInterface;
-use Mush\Player\Entity\Player;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
+use Mush\Modifier\Service\ModifierServiceInterface;
+use Mush\Player\Entity\Player;
 
 class PlayerVariableService implements PlayerVariableServiceInterface
 {

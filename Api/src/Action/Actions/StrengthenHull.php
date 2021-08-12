@@ -14,9 +14,6 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Modifier\Enum\ModifierScopeEnum;
-use Mush\Modifier\Enum\ModifierTargetEnum;
-use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -26,7 +23,6 @@ class StrengthenHull extends AttemptAction
 {
     protected string $name = ActionEnum::STRENGTHEN_HULL;
 
-    private ModifierServiceInterface $modifierService;
     private const BASE_REPAIR = 5;
 
     public function __construct(
@@ -34,7 +30,6 @@ class StrengthenHull extends AttemptAction
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         RandomServiceInterface $randomService,
-        ModifierServiceInterface $modifierService,
     ) {
         parent::__construct(
             $eventDispatcher,
@@ -42,8 +37,6 @@ class StrengthenHull extends AttemptAction
             $validator,
             $randomService,
         );
-
-        $this->modifierService = $modifierService;
     }
 
     protected function support(?ActionParameter $parameter): bool

@@ -15,7 +15,6 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Symfony\Component\Config\Definition\Exception\InvalidTypeException;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class GearModifierService implements GearModifierServiceInterface
@@ -129,6 +128,7 @@ class GearModifierService implements GearModifierServiceInterface
                     ->setModifierConfig($modifierConfig)
                 ;
 
+                // no break
             case ModifierReachEnum::DAEDALUS:
                 $modifier = new DaedalusModifier();
                 $modifier

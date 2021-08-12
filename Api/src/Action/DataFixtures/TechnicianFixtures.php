@@ -10,7 +10,6 @@ use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Action\Enum\ActionTypeEnum;
-use Mush\Player\Enum\ModifierScopeEnum;
 
 class TechnicianFixtures extends Fixture implements DependentFixtureInterface
 {

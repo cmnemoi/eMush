@@ -39,8 +39,7 @@ class ActionSubscriber implements EventSubscriberInterface
 
         $actionName = $event->getAction()->getName();
 
-
-        # handle gear modifiers
+        // handle gear modifiers
         $gameEquipment = $actionResult->getTargetEquipment();
         if ($actionName === ActionEnum::TAKE) {
             if ($gameEquipment === null) {

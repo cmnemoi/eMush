@@ -3,19 +3,12 @@
 namespace Mush\Modifier\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mush\Action\ActionResult\ActionResult;
-use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\AbstractAction;
-use Mush\Action\Actions\AttemptAction;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameter;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\Modifier;
-use Mush\Modifier\Entity\ModifierConfig;
-use Mush\Modifier\Entity\PlayerModifier;
-use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Player\Entity\Player;
 use Symfony\Component\Config\Definition\Exception\InvalidTypeException;
@@ -47,7 +40,9 @@ class ModifierService implements ModifierServiceInterface
 
     private function getModifiedValue(ModifierCollection $modifierCollection, ?float $initValue): int
     {
-        if ($initValue === null) {return 0;}
+        if ($initValue === null) {
+            return 0;
+        }
 
         $multiplicativeDelta = 1;
         $additiveDelta = 0;
@@ -76,13 +71,11 @@ class ModifierService implements ModifierServiceInterface
 
         $scopes = array_merge([$action->getName()], $action->getTypes());
 
-
         $modifiers
             ->addModifiers($player->getModifiers()->getScopedModifiers($scopes))
             ->addModifiers($player->getPlace()->getModifiers()->getScopedModifiers($scopes))
             ->addModifiers($player->getDaedalus()->getModifiers()->getScopedModifiers($scopes))
         ;
-
 
         if ($parameter instanceof Player) {
             $modifiers->addModifiers($parameter->getModifiers()->getScopedModifiers($scopes));
@@ -105,12 +98,12 @@ class ModifierService implements ModifierServiceInterface
             case ModifierTargetEnum::MORAL_POINT:
                 return $this->getModifiedValue($modifiers->getTargetedModifiers($target), $action->getActionCost()->getMoralPointCost());
             case ModifierTargetEnum::PERCENTAGE:
-                if ($attemptNumber === null)
-                {
+                if ($attemptNumber === null) {
                     throw new InvalidTypeException('number of attempt should be provided');
                 }
 
                 $initialValue = $action->getSuccessRate() * (self::ATTEMPT_INCREASE) ** $attemptNumber;
+
                 return $this->getModifiedValue($modifiers->getTargetedModifiers($target), $initialValue);
         }
 

@@ -3,7 +3,6 @@
 namespace Mush\Daedalus\Event;
 
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Player\Entity\Player;
 use Symfony\Contracts\EventDispatcher\Event;
 
 class DaedalusEvent extends Event

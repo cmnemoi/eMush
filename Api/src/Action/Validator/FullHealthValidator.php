@@ -3,8 +3,8 @@
 namespace Mush\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
-use Mush\Player\Entity\Player;
 use Mush\Modifier\Enum\ModifierTargetEnum;
+use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerVariableServiceInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;

@@ -6,8 +6,7 @@ class ModifierScopeEnum
 {
     public const MAX_POINT = 'max_point';
 
-    public const ALL_ACTIONS = 'all_actions';
-    public const ACTION_STRENGTHEN = 'action_strengthen';
+    public const ACTIONS = 'actions';
     public const INJURY = 'injury';
 
     public const EVENT_CLUMSINESS = 'event_clumsiness';

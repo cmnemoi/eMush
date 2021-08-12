@@ -4,7 +4,6 @@ namespace Mush\Daedalus\Listener;
 
 use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
-use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Modifier\Service\ModifierServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -41,7 +40,7 @@ class DaedalusModifierSubscriber implements EventSubscriberInterface
             throw new \LogicException('quantity should be provided');
         }
 
-        if ($change > 0 && ($player = $event->getPlayer())){
+        if ($change > 0 && ($player = $event->getPlayer())) {
             $change = $this->modifierService->getEventModifiedValue($player, [DaedalusModifierEvent::CHANGE_HULL], ModifierTargetEnum::HULL, $change);
         }
 

@@ -131,6 +131,7 @@ class Player implements StatusHolderInterface, ActionParameter, LogParameter
         $this->items = new ArrayCollection();
         $this->statuses = new ArrayCollection();
         $this->medicalCondition = new PlayerDiseaseCollection();
+        $this->modifiers = new ModifierCollection();
     }
 
     public function getId(): int

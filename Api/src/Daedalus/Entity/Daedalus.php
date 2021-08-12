@@ -126,7 +126,7 @@ class Daedalus
     {
         $this->players = new ArrayCollection();
         $this->places = new ArrayCollection();
-        $this->modifiers = new ArrayCollection();
+        $this->modifiers = new ModifierCollection();
     }
 
     public function getId(): ?int

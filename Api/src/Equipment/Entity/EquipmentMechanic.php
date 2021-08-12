@@ -14,7 +14,7 @@ use Mush\Action\Entity\Action;
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="type", type="string")
  * @ORM\DiscriminatorMap({
- *     "blue_print" = "Mush\Equipment\Entity\Mechanics\Blueprint",
+ *     "blueprint" = "Mush\Equipment\Entity\Mechanics\Blueprint",
  *     "book" = "Mush\Equipment\Entity\Mechanics\Book",
  *     "document" = "Mush\Equipment\Entity\Mechanics\Document",
  *     "drug" = "Mush\Equipment\Entity\Mechanics\Drug",

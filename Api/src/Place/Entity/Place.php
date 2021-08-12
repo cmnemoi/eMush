@@ -82,6 +82,7 @@ class Place implements StatusHolderInterface
         $this->equipments = new ArrayCollection();
         $this->doors = new ArrayCollection();
         $this->statuses = new ArrayCollection();
+        $this->modifiers = new ModifierCollection();
     }
 
     public function getId(): ?int

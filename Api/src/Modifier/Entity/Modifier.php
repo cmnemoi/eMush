@@ -9,8 +9,16 @@ use Mush\Status\Entity\ChargeStatus;
  * Class Modifier.
  *
  * @ORM\Entity
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorColumn(name="type", type="string")
+ * @ORM\DiscriminatorMap({
+ *     "player_modifier" = "Mush\Modifier\Entity\PlayerModifier",
+ *     "daedalus_modifier" = "Mush\Modifier\Entity\DaedalusModifier",
+ *     "place_modifier" = "Mush\Modifier\Entity\PlaceModifier",
+ *     "equipment_modifier" = "Mush\Modifier\Entity\EquipmentModifier",
+ * })
  */
-class Modifier
+abstract class Modifier
 {
     /**
      * @ORM\Id
@@ -25,7 +33,7 @@ class Modifier
     private ModifierConfig $modifierConfig;
 
     /**
-     * @ORM\ManyToOne (targetEntity="Mush\Status\Entity\ChargeStatus")
+     * @ORM\OneToOne (targetEntity="Mush\Status\Entity\ChargeStatus")
      */
     private ?ChargeStatus $charge = null;
 

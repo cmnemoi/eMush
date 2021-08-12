@@ -5,9 +5,8 @@ namespace Mush\Modifier\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class ModifierConfig.
- *
  * @ORM\Entity
+ * @ORM\Table(name="modifier_config")
  */
 class ModifierConfig
 {

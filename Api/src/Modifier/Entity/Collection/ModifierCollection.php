@@ -15,7 +15,7 @@ class ModifierCollection extends ArrayCollection
 
     public function getTargetedModifiers(string $target): ModifierCollection
     {
-        return $this->filter(fn (Modifier $modifier) => $modifier->getModifierConfig()->getScope() === $target);
+        return $this->filter(fn (Modifier $modifier) => $modifier->getModifierConfig()->getTarget() === $target);
     }
 
     public function getScopedModifiers(array $scopes): ModifierCollection

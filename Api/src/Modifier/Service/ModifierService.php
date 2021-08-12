@@ -71,16 +71,16 @@ class ModifierService implements ModifierServiceInterface
 
         $scopes = array_merge([$action->getName()], $action->getTypes());
 
-        $modifiers
+        $modifiers = $modifiers
             ->addModifiers($player->getModifiers()->getScopedModifiers($scopes))
             ->addModifiers($player->getPlace()->getModifiers()->getScopedModifiers($scopes))
             ->addModifiers($player->getDaedalus()->getModifiers()->getScopedModifiers($scopes))
         ;
 
         if ($parameter instanceof Player) {
-            $modifiers->addModifiers($parameter->getModifiers()->getScopedModifiers($scopes));
+            $modifiers = $modifiers->addModifiers($parameter->getModifiers()->getScopedModifiers($scopes));
         } elseif ($parameter instanceof GameEquipment) {
-            $modifiers->addModifiers($parameter->getModifiers()->getScopedModifiers($scopes));
+            $modifiers = $modifiers->addModifiers($parameter->getModifiers()->getScopedModifiers($scopes));
         }
 
         return $modifiers;
@@ -124,7 +124,7 @@ class ModifierService implements ModifierServiceInterface
     public function getEventModifiedValue(Player $player, array $scopes, string $target, int $initValue): int
     {
         $modifiers = new ModifierCollection();
-        $modifiers
+        $modifiers = $modifiers
             ->addModifiers($player->getModifiers()->getScopedModifiers($scopes)->getTargetedModifiers($target))
             ->addModifiers($player->getPlace()->getModifiers()->getScopedModifiers($scopes)->getTargetedModifiers($target))
             ->addModifiers($player->getDaedalus()->getModifiers()->getScopedModifiers($scopes)->getTargetedModifiers($target))

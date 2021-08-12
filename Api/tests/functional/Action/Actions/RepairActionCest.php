@@ -6,20 +6,20 @@ use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Repair;
 use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\ItemConfig;
-use Mush\Equipment\Entity\Mechanics\Gear;
-use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Entity\GameConfig;
+use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Entity\PlayerModifier;
+use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Place\Entity\Place;
-use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
-use Mush\Player\Enum\ModifierScopeEnum;
-use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -43,15 +43,27 @@ class RepairActionCest
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'actionPoint' => 2]);
-        $action = new Action();
 
+        $actionCost = new ActionCost();
+        $actionCost
+            ->setActionPointCost(1)
+            ->setMovementPointCost(0)
+            ->setMoralPointCost(0)
+        ;
+
+        $action = new Action();
         $action
             ->setName(ActionEnum::REPAIR)
             ->setDirtyRate(0)
             ->setInjuryRate(0)
             ->setSuccessRate(25)
-            ->setTypes([ModifierScopeEnum::ACTION_TECHNICIAN])
+            ->setActionCost($actionCost)
+            ->setScope(ActionScopeEnum::CURRENT)
+            ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
         ;
+
+        $I->haveInRepository($actionCost);
+        $I->haveInRepository($action);
 
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, ['isBreakable' => true]);
@@ -65,6 +77,7 @@ class RepairActionCest
             ->setName('some name')
             ->setPlace($room)
         ;
+        $I->haveInRepository($gameEquipment);
 
         $this->repairAction->loadParameters($action, $player, $gameEquipment);
 
@@ -76,44 +89,28 @@ class RepairActionCest
             ->setVisibility(VisibilityEnum::PUBLIC)
         ;
 
+        $I->haveInRepository($status);
+
         $I->assertEquals(25, $this->repairAction->getSuccessRate());
 
         $I->assertTrue($this->repairAction->isVisible());
 
-        $wrench = $this->createWrenchItem();
-        $player->addItem($wrench);
-
-        $I->assertEquals(37, $this->repairAction->getSuccessRate());
-    }
-
-    private function createWrenchItem(): GameItem
-    {
-        $modifier = new Modifier();
-        $modifier
+        $modifierConfig = new ModifierConfig();
+        $modifierConfig
             ->setTarget(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(1.5)
-            ->setScope(ModifierScopeEnum::ACTION_TECHNICIAN)
+            ->setScope(ActionTypeEnum::ACTION_TECHNICIAN)
             ->setReach(ReachEnum::INVENTORY)
             ->setIsAdditive(false)
         ;
 
-        $wrenchGear = new Gear();
+        $I->haveInRepository($modifierConfig);
 
-        $wrenchGear->setModifierConfigs(new arrayCollection([$modifier]));
+        $modifier = new PlayerModifier();
+        $modifier->setModifierConfig($modifierConfig)->setPlayer($player);
+        $I->haveInRepository($modifier);
+        $I->refreshEntities($player);
 
-        $wrench = new ItemConfig();
-        $wrench
-            ->setName(GearItemEnum::ADJUSTABLE_WRENCH)
-            ->setIsHeavy(false)
-            ->setIsStackable(false)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$wrenchGear]))
-        ;
-
-        $gameWrench = new GameItem();
-        $gameWrench->setEquipment($wrench);
-
-        return $gameWrench;
+        $I->assertEquals(37, $this->repairAction->getSuccessRate());
     }
 }

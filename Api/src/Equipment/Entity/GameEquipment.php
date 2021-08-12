@@ -74,6 +74,7 @@ class GameEquipment implements StatusHolderInterface, ActionParameter, LogParame
     public function __construct()
     {
         $this->statuses = new ArrayCollection();
+        $this->modifiers = new ModifierCollection();
     }
 
     public function getId(): int

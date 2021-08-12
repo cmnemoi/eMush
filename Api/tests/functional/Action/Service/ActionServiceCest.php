@@ -46,7 +46,7 @@ class ActionServiceCest
         $action->setName('some name');
         $action->setActionCost($actionCost);
 
-        $this->actionService->applyCostToPlayer($player, $action);
+        $this->actionService->applyCostToPlayer($player, $action, null);
 
         $I->assertEquals(5, $player->getActionPoint());
 
@@ -79,7 +79,7 @@ class ActionServiceCest
         $action->setName('some name');
         $action->setActionCost($actionCost);
 
-        $this->actionService->applyCostToPlayer($player, $action);
+        $this->actionService->applyCostToPlayer($player, $action, null);
 
         $I->assertEquals(9, $player->getActionPoint());
         $I->assertEquals(2, $player->getMovementPoint());
@@ -111,7 +111,7 @@ class ActionServiceCest
         $action->setName('some name');
         $action->setActionCost($actionCost);
 
-        $this->actionService->applyCostToPlayer($player, $action);
+        $this->actionService->applyCostToPlayer($player, $action, null);
 
         $I->assertEquals(9, $player->getActionPoint());
         $I->assertEquals(0, $player->getMovementPoint());

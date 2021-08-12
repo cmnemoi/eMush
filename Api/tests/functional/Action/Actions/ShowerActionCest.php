@@ -12,17 +12,14 @@ use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\ItemConfig;
-use Mush\Equipment\Entity\Mechanics\Gear;
-use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
+use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Entity\PlayerModifier;
+use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Place\Entity\Place;
-use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
-use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -95,9 +92,21 @@ class ShowerActionCest
         ;
         $I->haveInRepository($gameEquipment);
 
-        $soap = $this->createSoapItem($I);
+        $modifierConfig = new ModifierConfig();
+        $modifierConfig
+            ->setTarget(ModifierTargetEnum::ACTION_POINT)
+            ->setDelta(-1)
+            ->setScope(ActionEnum::SHOWER)
+            ->setReach(ReachEnum::INVENTORY)
+            ->setIsAdditive(true)
+        ;
 
-        $player->addItem($soap);
+        $modifier = new PlayerModifier();
+        $modifier->setPlayer($player)->setModifierConfig($modifierConfig);
+
+        $I->haveInRepository($modifierConfig);
+        $I->haveInRepository($modifier);
+        $I->refreshEntities($player);
 
         $this->showerAction->loadParameters($action, $player, $gameEquipment);
 
@@ -118,44 +127,5 @@ class ShowerActionCest
         ]);
 
         //@TODO test skill water resistance
-    }
-
-    private function createSoapItem(FunctionalTester $I): GameItem
-    {
-        $modifier = new Modifier();
-        $modifier
-            ->setTarget(ModifierTargetEnum::ACTION_POINT)
-            ->setDelta(-1)
-            ->setScope(ActionEnum::SHOWER)
-            ->setReach(ReachEnum::INVENTORY)
-            ->setIsAdditive(true)
-        ;
-
-        $soapGear = new Gear();
-
-        $soapGear->setModifierConfigs(new arrayCollection([$modifier]));
-
-        $soap = new ItemConfig();
-        $soap
-            ->setName(GearItemEnum::SOAP)
-            ->setIsHeavy(false)
-            ->setIsStackable(false)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$soapGear]))
-        ;
-
-        $gameSoap = new GameItem();
-        $gameSoap
-            ->setName(GearItemEnum::SOAP)
-            ->setEquipment($soap)
-        ;
-
-        $I->haveInRepository($modifier);
-        $I->haveInRepository($soapGear);
-        $I->haveInRepository($soap);
-        $I->haveInRepository($gameSoap);
-
-        return $gameSoap;
     }
 }

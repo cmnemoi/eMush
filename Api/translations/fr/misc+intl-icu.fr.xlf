@@ -20,7 +20,7 @@
             </segment>
             <segment id="moral_point">
                 <source>moral_point</source>
-                <target>:mp:</target>
+                <target>:pmo:</target>
             </segment>
             <segment id="ration_data">
                 <source>ration_data</source>
@@ -35,11 +35,11 @@
                 <target>{ quantity } %  de chances de provoquer la maladie {diseaseName}</target>
             </segment>
             <segment id="delayed_cure_info">
-                <source>delayed_disease_info</source>
+                <source>delayed_cure_info</source>
                 <target>Guérie la maladie {diseaseName} dans un délai de {start} à {end} cycles</target>
             </segment>
             <segment id="cure_info">
-                <source>disease_info</source>
+                <source>cure_info</source>
                 <target>Guérie la maladie {diseaseName}</target>
             </segment>
         </unit>

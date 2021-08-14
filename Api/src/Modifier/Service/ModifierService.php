@@ -11,17 +11,22 @@ use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Player\Entity\Player;
+use Mush\Status\Entity\Status;
+use Mush\Status\Service\StatusService;
 use Symfony\Component\Config\Definition\Exception\InvalidTypeException;
 
 class ModifierService implements ModifierServiceInterface
 {
     private const ATTEMPT_INCREASE = 1.25;
     private EntityManagerInterface $entityManager;
+    private StatusService $statusService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
+        StatusService $statusService
     ) {
         $this->entityManager = $entityManager;
+        $this->statusService =$statusService;
     }
 
     public function persist(Modifier $modifier): Modifier
@@ -116,7 +121,7 @@ class ModifierService implements ModifierServiceInterface
 
         foreach ($modifiers as $modifier) {
             if (($charge = $modifier->getCharge()) !== null) {
-                $charge->addCharge(-1);
+                $this->statusService->updateCharge($charge, -1);
             }
         }
     }
@@ -139,7 +144,7 @@ class ModifierService implements ModifierServiceInterface
     {
         foreach ($modifiers as $modifier) {
             if (($charge = $modifier->getCharge()) !== null) {
-                $charge->addCharge(-1);
+                $this->statusService->updateCharge($charge, -1);
             }
         }
     }

@@ -11,7 +11,6 @@ use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Player\Entity\Player;
-use Mush\Status\Entity\Status;
 use Mush\Status\Service\StatusService;
 use Symfony\Component\Config\Definition\Exception\InvalidTypeException;
 
@@ -26,7 +25,7 @@ class ModifierService implements ModifierServiceInterface
         StatusService $statusService
     ) {
         $this->entityManager = $entityManager;
-        $this->statusService =$statusService;
+        $this->statusService = $statusService;
     }
 
     public function persist(Modifier $modifier): Modifier

@@ -61,50 +61,28 @@ class ModifierService implements ModifierServiceInterface
     ): void {
         switch ($modifierConfig->getReach()) {
             case ModifierReachEnum::DAEDALUS:
-                $modifier = new DaedalusModifier();
-                $modifier
-                    ->setDaedalus($daedalus)
-                    ->setModifierConfig($modifierConfig)
-                ;
+                $modifier = $this->createDaedalusModifier($modifierConfig, $daedalus);
                 break;
 
             case ModifierReachEnum::PLACE:
-                if ($place === null) {
-                    return;
-                }
-
-                $modifier = new PlaceModifier();
-                $modifier
-                    ->setPlace($place)
-                    ->setModifierConfig($modifierConfig)
-                ;
+                $modifier = $this->createPlaceModifier($modifierConfig, $place);
                 break;
 
             case ModifierReachEnum::PLAYER:
             case ModifierReachEnum::TARGET_PLAYER:
-                if ($player === null) {
-                    return;
-                }
-                $modifier = new PlayerModifier();
-                $modifier
-                    ->setPlayer($player)
-                    ->setModifierConfig($modifierConfig)
-                ;
+                $modifier = $this->createPlayerModifier($modifierConfig, $player);
+                break;
 
-                // no break
             case ModifierReachEnum::EQUIPMENT:
-                if ($gameEquipment === null) {
-                    return;
-                }
-                $modifier = new EquipmentModifier();
-                $modifier
-                    ->setEquipment($gameEquipment)
-                    ->setModifierConfig($modifierConfig)
-                ;
+                $modifier = $this->createEquipmentModifier($modifierConfig, $gameEquipment);
+                break;
 
-                // no break
             default:
                 throw new \LogicException('this reach is not handled');
+        }
+
+        if ($modifier === null) {
+            return;
         }
 
         if ($chargeStatus) {
@@ -112,6 +90,60 @@ class ModifierService implements ModifierServiceInterface
         }
 
         $this->persist($modifier);
+    }
+
+    private function createDaedalusModifier(ModifierConfig $modifierConfig, Daedalus $daedalus): DaedalusModifier
+    {
+        $modifier = new DaedalusModifier();
+        $modifier
+            ->setDaedalus($daedalus)
+            ->setModifierConfig($modifierConfig)
+        ;
+
+        return $modifier;
+    }
+
+    private function createPlaceModifier(ModifierConfig $modifierConfig, ?Place $place): ?PlaceModifier
+    {
+        if ($place === null) {
+            return null;
+        }
+
+        $modifier = new PlaceModifier();
+        $modifier
+            ->setPlace($place)
+            ->setModifierConfig($modifierConfig)
+        ;
+
+        return $modifier;
+    }
+
+    private function createPlayerModifier(ModifierConfig $modifierConfig, ?Player $player): ?PlayerModifier
+    {
+        if ($player === null) {
+            return null;
+        }
+        $modifier = new PlayerModifier();
+        $modifier
+            ->setPlayer($player)
+            ->setModifierConfig($modifierConfig)
+        ;
+
+        return $modifier;
+    }
+
+    private function createEquipmentModifier(ModifierConfig $modifierConfig, ?GameEquipment $equipment): ?EquipmentModifier
+    {
+        if ($equipment === null) {
+            return null;
+        }
+        $modifier = new EquipmentModifier();
+        $modifier
+            ->setEquipment($equipment)
+            ->setModifierConfig($modifierConfig)
+        ;
+
+        return $modifier;
     }
 
     private function getModifiedValue(ModifierCollection $modifierCollection, ?float $initValue): int

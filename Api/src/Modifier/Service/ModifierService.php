@@ -6,11 +6,20 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameter;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
+use Mush\Modifier\Entity\DaedalusModifier;
+use Mush\Modifier\Entity\EquipmentModifier;
 use Mush\Modifier\Entity\Modifier;
+use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Entity\PlaceModifier;
+use Mush\Modifier\Entity\PlayerModifier;
+use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Service\StatusService;
 use Symfony\Component\Config\Definition\Exception\InvalidTypeException;
 
@@ -40,6 +49,69 @@ class ModifierService implements ModifierServiceInterface
     {
         $this->entityManager->remove($modifier);
         $this->entityManager->flush();
+    }
+
+    public function createModifier(
+        ModifierConfig $modifierConfig,
+        Daedalus $daedalus,
+        ?Place $place,
+        ?Player $player,
+        ?GameEquipment $gameEquipment,
+        ?ChargeStatus $chargeStatus
+    ): void {
+        switch ($modifierConfig->getReach()) {
+            case ModifierReachEnum::DAEDALUS:
+                $modifier = new DaedalusModifier();
+                $modifier
+                    ->setDaedalus($daedalus)
+                    ->setModifierConfig($modifierConfig)
+                ;
+                break;
+
+            case ModifierReachEnum::PLACE:
+                if ($place === null) {
+                    return;
+                }
+
+                $modifier = new PlaceModifier();
+                $modifier
+                    ->setPlace($place)
+                    ->setModifierConfig($modifierConfig)
+                ;
+                break;
+
+            case ModifierReachEnum::PLAYER:
+            case ModifierReachEnum::TARGET_PLAYER:
+                if ($player === null) {
+                    return;
+                }
+                $modifier = new PlayerModifier();
+                $modifier
+                    ->setPlayer($player)
+                    ->setModifierConfig($modifierConfig)
+                ;
+
+                // no break
+            case ModifierReachEnum::EQUIPMENT:
+                if ($gameEquipment === null) {
+                    return;
+                }
+                $modifier = new EquipmentModifier();
+                $modifier
+                    ->setEquipment($gameEquipment)
+                    ->setModifierConfig($modifierConfig)
+                ;
+
+                // no break
+            default:
+                throw new \LogicException('this reach is not handled');
+        }
+
+        if ($chargeStatus) {
+            $modifier->setCharge($chargeStatus);
+        }
+
+        $this->persist($modifier);
     }
 
     private function getModifiedValue(ModifierCollection $modifierCollection, ?float $initValue): int

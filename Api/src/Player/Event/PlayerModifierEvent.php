@@ -11,7 +11,6 @@ class PlayerModifierEvent extends PlayerEvent
     public const HEALTH_POINT_MODIFIER = 'health.point.modifier';
     public const MORAL_POINT_MODIFIER = 'moral.point.modifier';
     public const SATIETY_POINT_MODIFIER = 'satiety.point.modifier';
-    public const MOVEMENT_POINT_CONVERSION = 'movement.point.conversion';
 
     private int $delta;
     private bool $isDisplayedRoomLog = true;

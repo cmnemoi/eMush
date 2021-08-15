@@ -146,7 +146,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         return $gameEquipment;
     }
 
-    private function initCharged(GameEquipment $gameEquipment, $charged): GameEquipment
+    private function initCharged(GameEquipment $gameEquipment, EquipmentMechanic $charged): GameEquipment
     {
         if (!$charged instanceof Charged) {
             throw new \LogicException('Parameter is not a charged mechanic');
@@ -172,7 +172,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         return $gameEquipment;
     }
 
-    private function initDocument(GameEquipment $gameEquipment, $document): GameEquipment
+    private function initDocument(GameEquipment $gameEquipment, EquipmentMechanic $document): GameEquipment
     {
         if (!$document instanceof Document) {
             throw new \LogicException('Parameter is not a document');

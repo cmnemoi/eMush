@@ -6,9 +6,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
-use Mush\Modifier\Entity\DaedalusModifier;
 use Mush\Modifier\Entity\ModifierConfig;
-use Mush\Modifier\Entity\PlaceModifier;
 use Mush\Modifier\Entity\PlayerModifier;
 use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Place\Entity\Place;
@@ -116,48 +114,12 @@ class GearModifierService implements GearModifierServiceInterface
 
     private function createModifier(ModifierConfig $modifierConfig, GameEquipment $gameEquipment, Place $place, ?Player $player): void
     {
-        switch ($modifierConfig->getReach()) {
-            case ModifierReachEnum::PLAYER:
-            case ModifierReachEnum::TARGET_PLAYER:
-                if ($player === null) {
-                    return;
-                }
-                $modifier = new PlayerModifier();
-                $modifier
-                    ->setPlayer($player)
-                    ->setModifierConfig($modifierConfig)
-                ;
-
-                // no break
-            case ModifierReachEnum::DAEDALUS:
-                $modifier = new DaedalusModifier();
-                $modifier
-                    ->setDaedalus($place->getDaedalus())
-                    ->setModifierConfig($modifierConfig)
-                ;
-                break;
-
-            case ModifierReachEnum::PLACE:
-                $modifier = new PlaceModifier();
-                $modifier
-                    ->setPlace($place)
-                    ->setModifierConfig($modifierConfig)
-                ;
-                break;
-
-            default:
-                throw new \LogicException('this reach is not handled');
+        $charge = $gameEquipment->getStatusByName(EquipmentStatusEnum::CHARGES);
+        if (!$charge instanceof ChargeStatus) {
+            throw new UnexpectedTypeException($charge, ChargeStatus::class);
         }
 
-        if (($charge = $gameEquipment->getStatusByName(EquipmentStatusEnum::CHARGES))) {
-            if (!$charge instanceof ChargeStatus) {
-                throw new UnexpectedTypeException($charge, ChargeStatus::class);
-            }
-
-            $modifier->setCharge($charge);
-        }
-
-        $this->modifierService->persist($modifier);
+        $this->modifierService->createModifier($modifierConfig, $place->getDaedalus(), $place, $player, null, $charge);
     }
 
     private function deleteModifier(ModifierConfig $modifierConfig, Place $place, ?Player $player): void

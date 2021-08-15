@@ -8,12 +8,16 @@ use Mush\Action\Entity\ActionCost;
 use Mush\Action\Service\ActionService;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Game\Entity\CharacterConfig;
+use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Entity\PlayerModifier;
+use Mush\Modifier\Enum\ModifierReachEnum;
+use Mush\Modifier\Enum\ModifierScopeEnum;
+use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
-use Mush\Status\Entity\Status;
-use Mush\Status\Enum\PlayerStatusEnum;
 
 class ActionServiceCest
 {
@@ -64,12 +68,15 @@ class ActionServiceCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['name' => RoomEnum::LABORATORY, 'daedalus' => $daedalus]);
 
+        /** @var CharacterConfig $characterConfig */
+        $characterConfig = $I->have(CharacterConfig::class);
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'place' => $room,
             'daedalus' => $daedalus,
             'actionPoint' => 10,
             'movementPoint' => 0,
+            'characterConfig' => $characterConfig,
         ]);
 
         $actionCost = new ActionCost();
@@ -85,7 +92,7 @@ class ActionServiceCest
         $I->assertEquals(2, $player->getMovementPoint());
     }
 
-    public function testApplyCostToPlayerWithMovementPointConversionAndDisabledStatus(FunctionalTester $I)
+    public function testApplyCostToPlayerWithMovementPointConversionAndModifier(FunctionalTester $I)
     {
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
@@ -93,16 +100,32 @@ class ActionServiceCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['name' => RoomEnum::LABORATORY, 'daedalus' => $daedalus]);
 
+        /** @var CharacterConfig $characterConfig */
+        $characterConfig = $I->have(CharacterConfig::class);
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'place' => $room,
             'daedalus' => $daedalus,
             'actionPoint' => 10,
             'movementPoint' => 0,
+            'characterConfig' => $characterConfig,
         ]);
 
-        $disabled = new Status($player);
-        $disabled->setName(PlayerStatusEnum::DISABLED);
+        $modifierConfig = new ModifierConfig();
+        $modifierConfig
+            ->setTarget(ModifierTargetEnum::MOVEMENT_POINT)
+            ->setDelta(-1)
+            ->setScope(ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION)
+            ->setReach(ModifierReachEnum::PLAYER)
+            ->setIsAdditive(true)
+        ;
+
+        $I->haveInRepository($modifierConfig);
+
+        $disabledModifier = new PlayerModifier();
+        $disabledModifier->setPlayer($player)->setModifierConfig($modifierConfig);
+
+        $I->haveInRepository($disabledModifier);
 
         $actionCost = new ActionCost();
         $actionCost->setMovementPointCost(1);
@@ -114,6 +137,6 @@ class ActionServiceCest
         $this->actionService->applyCostToPlayer($player, $action, null);
 
         $I->assertEquals(9, $player->getActionPoint());
-        $I->assertEquals(0, $player->getMovementPoint());
+        $I->assertEquals(2, $player->getMovementPoint());
     }
 }

@@ -4,6 +4,7 @@ namespace Mush\Action\Service;
 
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameter;
+use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Player\Entity\Player;
@@ -16,7 +17,8 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 class ActionService implements ActionServiceInterface
 {
     public const MAX_PERCENT = 99;
-    public const BASE_MOVEMENT_POINT_CONVERSION = 3;
+    public const BASE_MOVEMENT_POINT_CONVERSION_GAIN = 3;
+    public const BASE_MOVEMENT_POINT_CONVERSION_COST = 1;
 
     private EventDispatcherInterface $eventDispatcher;
     private ModifierServiceInterface $modifierService;
@@ -39,9 +41,13 @@ class ActionService implements ActionServiceInterface
         }
 
         if (($movementPointCost = $this->getTotalMovementPointCost($player, $action, $parameter)) > 0) {
-            if ($player->getMovementPoint() === 0) {
-                $playerModifierEvent = new PlayerModifierEvent($player, self::BASE_MOVEMENT_POINT_CONVERSION, new \DateTime());
-                $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::MOVEMENT_POINT_CONVERSION);
+            $missingMovementPoints = $action->getActionCost()->getMovementPointCost() - $player->getMovementPoint();
+            if ($missingMovementPoints > 0) {
+                $numberOfConversions = (int) ceil($missingMovementPoints / $this->getMovementPointConversionGain($player));
+                $conversionGain = $numberOfConversions * $this->getMovementPointConversionGain($player);
+
+                $playerModifierEvent = new PlayerModifierEvent($player, $conversionGain, new \DateTime());
+                $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::MOVEMENT_POINT_MODIFIER);
             }
 
             $this->triggerPlayerModifierEvent($player, PlayerModifierEvent::MOVEMENT_POINT_MODIFIER, -$movementPointCost);
@@ -54,14 +60,42 @@ class ActionService implements ActionServiceInterface
         return $player;
     }
 
+    private function getMovementPointConversionCost(Player $player): int
+    {
+        return $this->modifierService->getEventModifiedValue(
+            $player,
+            [ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION],
+            ModifierTargetEnum::ACTION_POINT,
+            self::BASE_MOVEMENT_POINT_CONVERSION_COST
+        );
+    }
+
+    private function getMovementPointConversionGain(Player $player): int
+    {
+        return $this->modifierService->getEventModifiedValue(
+            $player,
+            [ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION],
+            ModifierTargetEnum::MOVEMENT_POINT,
+            self::BASE_MOVEMENT_POINT_CONVERSION_GAIN
+        );
+    }
+
     public function getTotalActionPointCost(Player $player, Action $action, ?ActionParameter $parameter): int
     {
+        $conversionCost = 0;
+        $missingMovementPoints = $action->getActionCost()->getMovementPointCost() - $player->getMovementPoint();
+        if ($missingMovementPoints > 0) {
+            $numberOfConversions = (int) ceil($missingMovementPoints / $this->getMovementPointConversionGain($player));
+
+            $conversionCost = $numberOfConversions * $this->getMovementPointConversionCost($player);
+        }
+
         return $this->modifierService->getActionModifiedValue(
             $action,
             $player,
             ModifierTargetEnum::ACTION_POINT,
             $parameter,
-        );
+        ) + $conversionCost;
     }
 
     public function getTotalMovementPointCost(Player $player, Action $action, ?ActionParameter $parameter): int

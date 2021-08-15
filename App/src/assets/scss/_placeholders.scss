@@ -13,6 +13,9 @@
 
     input {
         position: absolute;
+        z-index: 2;
+        right: .8em;
+        top: .5em;
         opacity: 0;
     }
 
@@ -29,14 +32,27 @@
             font-style: normal;
             color: $red;
         }
+
+        &::before {
+            content: "";
+            float: right;
+            width: 21px;
+            height: 21px;
+            background: url("~@/assets/images/comms/more.png") no-repeat center;
+        }
     }
 
     input:checked ~ label {
         opacity: 1;
         height: auto;
+
+        &::before {
+            background-image: url("~@/assets/images/comms/less.png");
+        }
     }
 
     .expand {
+        display: none;
         position: absolute;
         top: -1.5em;
         right: .8em;

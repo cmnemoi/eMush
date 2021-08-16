@@ -10,7 +10,6 @@
                 <br><br>
                 Si le contact échoue, au moins ça <strong>améliorera la qualité du signal</strong> et augmentera les chances de contact lors du prochain essai.
             </label>
-            <span class="expand"><label for="tips-comm">Agrandir/masquer</label></span>
         </div>
         <p><strong>Des marchands extra-terrestres sont en orbite autour du Daedalus, NERON vous traduit le message transmis.</strong></p>
         <div class="tips">
@@ -24,7 +23,6 @@
                 <br><br>
                 Si vous ouvrez le feu sur un son vaisseau, le marchand déguerpira.
             </label>
-            <span class="expand"><label for="tips-trading">Agrandir/masquer</label></span>
         </div>
         <div class="tips trading-objects">
             <input id="trading-objects" type="checkbox" name="tips">
@@ -33,7 +31,6 @@
                 <br><br>
                 bla bli bla.
             </label>
-            <span class="expand"><label for="trading-objects">Agrandir/masquer</label></span>
         </div>
 
         <hr>

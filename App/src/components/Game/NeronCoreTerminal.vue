@@ -12,7 +12,6 @@
                 <br><br>
                 Et ce n'est pas tout : si plus d'un projet avance en parallèle, le premier fini annulera les progrès des autres.
             </label>
-            <span class="expand"><label for="tips">Agrandir/masquer</label></span>
         </div>
         <div class="project-container">
             <div class="project">
@@ -95,54 +94,7 @@ export default defineComponent ({
     }
 }
 
-.tips {
-    position: relative;
-    margin: .35em 0;
-    padding: .25em;
-    cursor: pointer;
-    background: $lightCyan;
-    border: 1px solid $green;
-    border-radius: 3px;
-
-    & * { cursor: pointer; }
-
-    input {
-        position: absolute;
-        opacity: 0;
-    }
-
-    & > label {
-        display: block;
-        overflow: hidden;
-        opacity: .5;
-        height: 1.55em;
-        padding-bottom: .5em;
-        line-height: 1.35em;
-        font-style: italic;
-
-        em.red {
-            font-style: normal;
-            color: $red;
-        }
-    }
-
-    input:checked ~ label {
-        opacity: 1;
-        height: auto;
-    }
-
-    .expand {
-        position: absolute;
-        top: -1.5em;
-        right: .8em;
-        padding: .2em .5em;
-        border-radius: 5px 5px 0 0;
-        background: $green;
-        font-size: .75em;
-        text-transform: uppercase;
-        letter-spacing: .05em;
-    }
-}
+.tips { @extend %retracted-tips; }
 
 .project-container {
     flex-direction: row;

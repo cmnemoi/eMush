@@ -7,7 +7,7 @@
             </div>
             <div class="game-content">
                 <CharPanel :player="player" />
-                <TradingTerminal />
+                <ShipPanel :room="player.room" :player="player" />
                 <CommsPanel :day="player.daedalus.day" :cycle="player.daedalus.cycle" />
             </div>
             <ProjectsPanel />
@@ -22,7 +22,7 @@
 <script lang="ts">
 import BannerPanel from "@/components/Game/BannerPanel.vue";
 import CharPanel from "@/components/Game/CharPanel.vue";
-import TradingTerminal from "@/components/Game/TradingTerminal.vue";
+import ShipPanel from "@/components/Game/Ship/ShipPanel.vue";
 import CommsPanel from "@/components/Game/Communications/CommsPanel.vue";
 import ProjectsPanel from "@/components/Game/ProjectsPanel.vue";
 import { mapActions, mapState } from "vuex";
@@ -37,7 +37,7 @@ export default defineComponent ({
         Purgatory,
         BannerPanel,
         CharPanel,
-        TradingTerminal,
+        ShipPanel,
         CommsPanel,
         ProjectsPanel
     },

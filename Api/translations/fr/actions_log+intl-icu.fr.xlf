@@ -128,6 +128,16 @@
                 <target>**{character}** s'extirpe un spore. C'est vraiment répugnant. Et l'odeur...</target>
             </segment>
         </unit>
+        <unit id="flirt_success">
+            <segment id="flirt_success">
+                <source>flirt_success</source>
+                <target>{character_gender, select,
+                    male {**{character}** semble intéressé par **{target_character}**. Ce regard qu'il lui lance ne trompera personne sur ses intentions.}
+                    female {**{character}** a l'air intéressée par **{target_character}**, ce papillonnement de sourcil est tout à fait révélateur de ses pensées secrètes.}
+                    other {invalid gender input}
+                }</target>
+            </segment>
+        </unit>
         <unit id="get_up">
             <segment id="get_up">
                 <source>get_up</source>

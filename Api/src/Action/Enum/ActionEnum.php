@@ -76,6 +76,7 @@ class ActionEnum
 
     // Permanent Player Actions
     public const UNGAG = 'ungag';
+    public const FLIRT = 'flirt';
     public const GET_UP = 'get_up';
     public const GUARD = 'guard';
     public const HIT = 'hit';

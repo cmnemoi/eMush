@@ -59,4 +59,12 @@ class CharacterEnum
             self::STEPHEN,
         ]);
     }
+
+    public static function isFromRinaldoFamily(string $character): bool
+    {
+        return in_array($character, [
+            self::PAOLA,
+            self::GIOELE,
+        ]);
+    }
 }

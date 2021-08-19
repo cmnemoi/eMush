@@ -42,6 +42,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
     public const GAG_DEFAULT = 'gag.default';
     public const HYPERFREEZE_DEFAULT = 'hyperfreeze.default';
     public const SHOWER_DEFAULT = 'shower.default';
+    public const FLIRT_DEFAULT = 'flirt.default';
     public const FUEL_INJECT = 'fuel.inject';
     public const FUEL_RETRIEVE = 'fuel.retrieve';
     public const OXYGEN_INJECT = 'oxygen.inject';
@@ -551,6 +552,15 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->persist($examineEquipmentAction);
 
+        $flirtAction = new Action();
+        $flirtAction
+            ->setName(ActionEnum::FLIRT)
+            ->setScope(ActionScopeEnum::OTHER_PLAYER)
+            ->setActionCost($oneActionPointCost)
+        ;
+
+        $manager->persist($flirtAction);
+
         $manager->flush();
 
         $this->addReference(self::REJUVENATE_ALPHA, $rejuvenateAlpha);
@@ -602,6 +612,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::INSTALL_CAMERA, $installCameraAction);
         $this->addReference(self::REMOVE_CAMERA, $removeCameraAction);
         $this->addReference(self::EXAMINE_EQUIPMENT, $examineEquipmentAction);
+        $this->addReference(self::FLIRT_DEFAULT, $flirtAction);
     }
 
     public function getDependencies(): array

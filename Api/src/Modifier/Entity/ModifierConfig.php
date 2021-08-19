@@ -3,6 +3,7 @@
 namespace Mush\Modifier\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Modifier\Enum\ModifierModeEnum;
 
 /**
  * @ORM\Entity
@@ -38,9 +39,9 @@ class ModifierConfig
     private ?string $reach = null;
 
     /**
-     * @ORM\Column(type="boolean", nullable=false)
+     * @ORM\Column(type="string", nullable=false)
      */
-    private bool $isAdditive = true;
+    private string $mode = ModifierModeEnum::ADDITIVE;
 
     public function getId(): int
     {
@@ -95,14 +96,14 @@ class ModifierConfig
         return $this;
     }
 
-    public function isAdditive(): bool
+    public function getMode(): string
     {
-        return $this->isAdditive;
+        return $this->mode;
     }
 
-    public function setIsAdditive(bool $isAdditive): ModifierConfig
+    public function setMode(string $mode): ModifierConfig
     {
-        $this->isAdditive = $isAdditive;
+        $this->mode = $mode;
 
         return $this;
     }

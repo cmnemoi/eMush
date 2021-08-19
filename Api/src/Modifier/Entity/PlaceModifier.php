@@ -26,6 +26,8 @@ class PlaceModifier extends Modifier
     {
         $this->place = $place;
 
+        $place->addModifier($this);
+
         return $this;
     }
 }

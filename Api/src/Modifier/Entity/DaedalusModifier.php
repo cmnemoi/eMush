@@ -26,6 +26,8 @@ class DaedalusModifier extends Modifier
     {
         $this->daedalus = $daedalus;
 
+        $daedalus->addModifier($this);
+
         return $this;
     }
 }

@@ -26,6 +26,8 @@ class EquipmentModifier extends Modifier
     {
         $this->gameEquipment = $gameEquipment;
 
+        $gameEquipment->addModifier($this);
+
         return $this;
     }
 }

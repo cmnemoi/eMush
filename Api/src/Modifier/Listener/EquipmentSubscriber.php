@@ -2,9 +2,7 @@
 
 namespace Mush\Modifier\Listener;
 
-use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Event\EquipmentEvent;
-use Mush\Game\Entity\GameConfig;
 use Mush\Modifier\Service\GearModifierServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -67,10 +65,5 @@ class EquipmentSubscriber implements EventSubscriberInterface
 
         $this->gearModifierService->gearCreated($newEquipment);
         $this->gearModifierService->gearDestroyed($equipment);
-    }
-
-    private function getGameConfig(GameEquipment $gameEquipment): GameConfig
-    {
-        return $gameEquipment->getEquipment()->getGameConfig();
     }
 }

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Action\Entity\ActionParameter;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
-use Mush\Modifier\Entity\Modifier;
+use Mush\Modifier\Entity\EquipmentModifier;
 use Mush\Place\Entity\Place;
 use Mush\RoomLog\Entity\LogParameter;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
@@ -193,9 +193,13 @@ class GameEquipment implements StatusHolderInterface, ActionParameter, LogParame
     /**
      * @return static
      */
-    public function addModifier(Modifier $modifier): GameEquipment
+    public function addModifier(EquipmentModifier $modifier): GameEquipment
     {
-        $this->modifiers->add($modifier);
+        if (!$this->getModifiers()->contains($modifier)) {
+            $this->modifiers->add($modifier);
+
+            $modifier->setEquipment($this);
+        }
 
         return $this;
     }

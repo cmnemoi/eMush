@@ -18,7 +18,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
-use Mush\Modifier\Entity\Modifier;
+use Mush\Modifier\Entity\PlayerModifier;
 use Mush\Place\Entity\Place;
 use Mush\RoomLog\Entity\LogParameter;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
@@ -350,9 +350,13 @@ class Player implements StatusHolderInterface, ActionParameter, LogParameter
     /**
      * @return static
      */
-    public function addModifier(Modifier $modifier): Player
+    public function addModifier(PlayerModifier $modifier): Player
     {
-        $this->modifiers->add($modifier);
+        if (!$this->getModifiers()->contains($modifier)) {
+            $this->modifiers->add($modifier);
+
+            $modifier->setPlayer($this);
+        }
 
         return $this;
     }

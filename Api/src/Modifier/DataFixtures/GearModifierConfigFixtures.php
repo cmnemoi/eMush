@@ -8,6 +8,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
@@ -36,7 +37,7 @@ class GearModifierConfigFixtures extends Fixture
             ->setTarget(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(-100)
             ->setReach(ModifierReachEnum::PLAYER)
-            ->setIsAdditive(true)
+            ->setMode(ModifierModeEnum::ADDITIVE)
         ;
         $manager->persist($apronModifier);
 
@@ -46,7 +47,7 @@ class GearModifierConfigFixtures extends Fixture
             ->setTarget(ModifierTargetEnum::HEALTH_POINT)
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::TARGET_PLAYER)
-            ->setIsAdditive(true)
+            ->setMode(ModifierModeEnum::ADDITIVE)
         ;
         $manager->persist($armorModifier);
 
@@ -56,7 +57,7 @@ class GearModifierConfigFixtures extends Fixture
             ->setTarget(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(1.5)
             ->setReach(ModifierReachEnum::PLAYER)
-            ->setIsAdditive(false)
+            ->setMode(ModifierModeEnum::ADDITIVE)
         ;
         $manager->persist($wrenchModifier);
 
@@ -66,7 +67,7 @@ class GearModifierConfigFixtures extends Fixture
             ->setTarget(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(-100)
             ->setReach(ModifierReachEnum::PLAYER)
-            ->setIsAdditive(true)
+            ->setMode(ModifierModeEnum::ADDITIVE)
         ;
         $manager->persist($glovesModifier);
 
@@ -76,7 +77,7 @@ class GearModifierConfigFixtures extends Fixture
             ->setTarget(ModifierTargetEnum::ACTION_POINT)
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::PLAYER)
-            ->setIsAdditive(true)
+            ->setMode(ModifierModeEnum::ADDITIVE)
         ;
         $manager->persist($soapModifier);
 
@@ -86,7 +87,7 @@ class GearModifierConfigFixtures extends Fixture
             ->setTarget(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(1.1)
             ->setReach(ModifierReachEnum::PLAYER)
-            ->setIsAdditive(true)
+            ->setMode(ModifierModeEnum::ADDITIVE)
         ;
         $manager->persist($aimModifier);
 
@@ -96,7 +97,7 @@ class GearModifierConfigFixtures extends Fixture
             ->setTarget(ModifierTargetEnum::MOVEMENT_POINT)
             ->setDelta(2)
             ->setReach(ModifierReachEnum::PLAYER)
-            ->setIsAdditive(true)
+            ->setMode(ModifierModeEnum::ADDITIVE)
         ;
         $manager->persist($antiGravScooterModifier);
 
@@ -106,7 +107,7 @@ class GearModifierConfigFixtures extends Fixture
             ->setTarget(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(1.5)
             ->setReach(ModifierReachEnum::PLAYER)
-            ->setIsAdditive(false)
+            ->setMode(ModifierModeEnum::MULTIPLICATIVE)
         ;
         $manager->persist($oscilloscopeSuccessModifier);
 
@@ -116,7 +117,7 @@ class GearModifierConfigFixtures extends Fixture
             ->setTarget(ModifierTargetEnum::HULL)
             ->setDelta(2)
             ->setReach(ModifierReachEnum::PLAYER)
-            ->setIsAdditive(false)
+            ->setMode(ModifierModeEnum::MULTIPLICATIVE)
         ;
         $manager->persist($oscilloscopeRepairModifier);
 
@@ -126,7 +127,7 @@ class GearModifierConfigFixtures extends Fixture
             ->setTarget(ModifierTargetEnum::ACTION_POINT)
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::DAEDALUS)
-            ->setIsAdditive(true)
+            ->setMode(ModifierModeEnum::ADDITIVE)
         ;
         $manager->persist($antennaModifier);
 
@@ -136,7 +137,7 @@ class GearModifierConfigFixtures extends Fixture
             ->setTarget(ModifierTargetEnum::MOVEMENT_POINT)
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::DAEDALUS)
-            ->setIsAdditive(true)
+            ->setMode(ModifierModeEnum::ADDITIVE)
         ;
         $manager->persist($gravityConversionModifier);
 
@@ -146,7 +147,7 @@ class GearModifierConfigFixtures extends Fixture
             ->setTarget(ModifierTargetEnum::MOVEMENT_POINT)
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::DAEDALUS)
-            ->setIsAdditive(true)
+            ->setMode(ModifierModeEnum::ADDITIVE)
         ;
         $manager->persist($gravityCycleModifier);
 

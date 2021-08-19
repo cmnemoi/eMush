@@ -17,6 +17,7 @@ use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Entity\PlayerModifier;
+use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
@@ -98,14 +99,14 @@ class ShowerActionCest
             ->setDelta(-1)
             ->setScope(ActionEnum::SHOWER)
             ->setReach(ReachEnum::INVENTORY)
-            ->setIsAdditive(true)
+            ->setMode(ModifierModeEnum::ADDITIVE)
         ;
+        $I->haveInRepository($modifierConfig);
 
         $modifier = new PlayerModifier();
         $modifier->setPlayer($player)->setModifierConfig($modifierConfig);
-
-        $I->haveInRepository($modifierConfig);
         $I->haveInRepository($modifier);
+
         $I->refreshEntities($player);
 
         $this->showerAction->loadParameters($action, $player, $gameEquipment);

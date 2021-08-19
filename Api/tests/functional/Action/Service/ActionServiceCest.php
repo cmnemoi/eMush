@@ -11,6 +11,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Entity\PlayerModifier;
+use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
@@ -117,7 +118,7 @@ class ActionServiceCest
             ->setDelta(-1)
             ->setScope(ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION)
             ->setReach(ModifierReachEnum::PLAYER)
-            ->setIsAdditive(true)
+            ->setMode(ModifierModeEnum::ADDITIVE)
         ;
 
         $I->haveInRepository($modifierConfig);
@@ -137,6 +138,6 @@ class ActionServiceCest
         $this->actionService->applyCostToPlayer($player, $action, null);
 
         $I->assertEquals(9, $player->getActionPoint());
-        $I->assertEquals(2, $player->getMovementPoint());
+        $I->assertEquals(1, $player->getMovementPoint());
     }
 }

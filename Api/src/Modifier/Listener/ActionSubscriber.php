@@ -58,5 +58,8 @@ class ActionSubscriber implements EventSubscriberInterface
 
             $this->gearModifierService->dropGear($target, $player);
         }
+
+        // handle movement of a player
+        $this->gearModifierService->handleDisplacement($player);
     }
 }

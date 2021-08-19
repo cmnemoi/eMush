@@ -26,6 +26,8 @@ class PlayerModifier extends Modifier
     {
         $this->player = $player;
 
+        $player->addModifier($this);
+
         return $this;
     }
 }

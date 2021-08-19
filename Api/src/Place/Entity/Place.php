@@ -10,7 +10,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
-use Mush\Modifier\Entity\Modifier;
+use Mush\Modifier\Entity\PlaceModifier;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
@@ -275,9 +275,13 @@ class Place implements StatusHolderInterface
     /**
      * @return static
      */
-    public function addModifier(Modifier $modifier): Place
+    public function addModifier(PlaceModifier $modifier): Place
     {
-        $this->modifiers->add($modifier);
+        if (!$this->getModifiers()->contains($modifier)) {
+            $this->modifiers->add($modifier);
+
+            $modifier->setPlace($this);
+        }
 
         return $this;
     }

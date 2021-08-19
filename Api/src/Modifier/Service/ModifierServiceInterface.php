@@ -27,6 +27,14 @@ interface ModifierServiceInterface
         ?ChargeStatus $chargeStatus
     ): void;
 
+    public function deleteModifier(
+        ModifierConfig $modifierConfig,
+        Daedalus $daedalus,
+        ?Place $place,
+        ?Player $player,
+        ?GameEquipment $gameEquipment
+    ): void;
+
     public function getActionModifiedValue(Action $action, Player $player, string $target, ?ActionParameter $parameter, ?int $attemptNumber = null): int;
 
     public function consumeActionCharges(Action $action, Player $player, ?ActionParameter $parameter): void;

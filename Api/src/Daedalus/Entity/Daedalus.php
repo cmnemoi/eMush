@@ -10,7 +10,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
-use Mush\Modifier\Entity\Modifier;
+use Mush\Modifier\Entity\DaedalusModifier;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
@@ -274,9 +274,13 @@ class Daedalus
     /**
      * @return static
      */
-    public function addModifier(Modifier $modifier): Daedalus
+    public function addModifier(DaedalusModifier $modifier): Daedalus
     {
-        $this->modifiers->add($modifier);
+        if (!$this->getModifiers()->contains($modifier)) {
+            $this->modifiers->add($modifier);
+
+            $modifier->setDaedalus($this);
+        }
 
         return $this;
     }

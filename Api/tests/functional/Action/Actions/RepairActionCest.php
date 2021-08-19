@@ -17,6 +17,7 @@ use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Entity\PlayerModifier;
+use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
@@ -101,7 +102,7 @@ class RepairActionCest
             ->setDelta(1.5)
             ->setScope(ActionTypeEnum::ACTION_TECHNICIAN)
             ->setReach(ReachEnum::INVENTORY)
-            ->setIsAdditive(false)
+            ->setMode(ModifierModeEnum::MULTIPLICATIVE)
         ;
 
         $I->haveInRepository($modifierConfig);

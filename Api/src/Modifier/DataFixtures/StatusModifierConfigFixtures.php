@@ -7,6 +7,7 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
@@ -26,7 +27,7 @@ class StatusModifierConfigFixtures extends Fixture
             ->setTarget(ModifierTargetEnum::ACTION_POINT)
             ->setDelta(1)
             ->setReach(ModifierReachEnum::EQUIPMENT)
-            ->setIsAdditive(true)
+            ->setMode(ModifierModeEnum::ADDITIVE)
         ;
         $manager->persist($frozenModifier);
 
@@ -36,7 +37,7 @@ class StatusModifierConfigFixtures extends Fixture
             ->setTarget(ModifierTargetEnum::MOVEMENT_POINT)
             ->setDelta(-2)
             ->setReach(ModifierReachEnum::PLAYER)
-            ->setIsAdditive(true)
+            ->setMode(ModifierModeEnum::ADDITIVE)
         ;
         $manager->persist($disabledModifier);
 
@@ -46,7 +47,7 @@ class StatusModifierConfigFixtures extends Fixture
             ->setTarget(ModifierTargetEnum::ACTION_POINT)
             ->setDelta(2)
             ->setReach(ModifierReachEnum::PLACE)
-            ->setIsAdditive(true)
+            ->setMode(ModifierModeEnum::ADDITIVE)
         ;
         $manager->persist($pacifistModifier);
 

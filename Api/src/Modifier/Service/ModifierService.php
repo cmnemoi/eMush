@@ -15,23 +15,24 @@ use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Entity\PlaceModifier;
 use Mush\Modifier\Entity\PlayerModifier;
+use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
-use Mush\Status\Service\StatusService;
+use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\Config\Definition\Exception\InvalidTypeException;
 
 class ModifierService implements ModifierServiceInterface
 {
     private const ATTEMPT_INCREASE = 1.25;
     private EntityManagerInterface $entityManager;
-    private StatusService $statusService;
+    private StatusServiceInterface $statusService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        StatusService $statusService
+        StatusServiceInterface $statusService
     ) {
         $this->entityManager = $entityManager;
         $this->statusService = $statusService;
@@ -90,6 +91,46 @@ class ModifierService implements ModifierServiceInterface
         }
 
         $this->persist($modifier);
+    }
+
+    public function deleteModifier(
+        ModifierConfig $modifierConfig,
+        Daedalus $daedalus,
+        ?Place $place,
+        ?Player $player,
+        ?GameEquipment $gameEquipment
+    ): void {
+        switch ($modifierConfig->getReach()) {
+            case ModifierReachEnum::DAEDALUS:
+                $modifier = $daedalus->getModifiers()->getModifierFromConfig($modifierConfig);
+                $this->delete($modifier);
+
+                return;
+
+            case ModifierReachEnum::PLACE:
+                if ($place !== null) {
+                    $modifier = $place->getModifiers()->getModifierFromConfig($modifierConfig);
+                    $this->delete($modifier);
+                }
+
+                return;
+
+            case ModifierReachEnum::PLAYER:
+            case ModifierReachEnum::TARGET_PLAYER:
+                if ($player !== null) {
+                    $modifier = $player->getModifiers()->getModifierFromConfig($modifierConfig);
+                    $this->delete($modifier);
+                }
+
+                return;
+            case ModifierReachEnum::EQUIPMENT:
+                if ($gameEquipment !== null) {
+                    $modifier = $gameEquipment->getModifiers()->getModifierFromConfig($modifierConfig);
+                    $this->delete($modifier);
+                }
+
+                return;
+        }
     }
 
     private function createDaedalusModifier(ModifierConfig $modifierConfig, Daedalus $daedalus): DaedalusModifier
@@ -162,10 +203,14 @@ class ModifierService implements ModifierServiceInterface
                 $chargeStatus === null ||
                 $chargeStatus->getCharge() !== 0
             ) {
-                if ($modifier->getModifierConfig()->isAdditive()) {
+                if ($modifier->getModifierConfig()->getMode() === ModifierModeEnum::SET_VALUE) {
+                    return intval($modifier->getModifierConfig()->getDelta());
+                } elseif ($modifier->getModifierConfig()->getMode() === ModifierModeEnum::ADDITIVE) {
                     $additiveDelta += $modifier->getModifierConfig()->getDelta();
-                } else {
+                } elseif ($modifier->getModifierConfig()->getMode() === ModifierModeEnum::MULTIPLICATIVE) {
                     $multiplicativeDelta *= $modifier->getModifierConfig()->getDelta();
+                } else {
+                    throw new \LogicException('this modifier mode is not handled');
                 }
             }
         }

@@ -14,4 +14,6 @@ interface GearModifierServiceInterface
     public function takeGear(GameEquipment $gameEquipment, Player $player): void;
 
     public function dropGear(GameEquipment $gameEquipment, Player $player): void;
+
+    public function handleDisplacement(Player $player): void;
 }

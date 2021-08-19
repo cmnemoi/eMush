@@ -116,6 +116,7 @@ export default defineComponent ({
         height: 8px;
         border-radius: var(--border-radius);
     }
+}
 
     &::-webkit-scrollbar-track {
         background: var(--scrollbarBG);

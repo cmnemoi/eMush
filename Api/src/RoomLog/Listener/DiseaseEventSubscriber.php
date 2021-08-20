@@ -6,6 +6,7 @@ use Mush\Disease\Enum\TypeEnum;
 use Mush\Disease\Event\DiseaseEvent;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\RoomLog\Service\ParametersComposite;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -13,10 +14,14 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
 {
     private RoomLogServiceInterface $roomLogService;
 
+    private ParametersComposite $parametersComposite;
+
     public function __construct(
-        RoomLogServiceInterface $roomLogService
+        RoomLogServiceInterface $roomLogService,
+        ParametersComposite $parametersComposite
     ) {
         $this->roomLogService = $roomLogService;
+        $this->parametersComposite = $parametersComposite;
     }
 
     public static function getSubscribedEvents(): array
@@ -30,15 +35,14 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
     public function onDiseaseCure(DiseaseEvent $event)
     {
         $player = $event->getPlayer();
-        $diseaseConfig = $event->getDiseaseConfig();
+        $parameters = $this->parametersComposite->execute($event);
         $this->roomLogService->createLog(
             LogEnum::DISEASE_CURED,
             $player->getPlace(),
             VisibilityEnum::PRIVATE,
             'event_log',
             $player,
-            $diseaseConfig,
-            null,
+            $parameters,
             $event->getTime()
         );
     }

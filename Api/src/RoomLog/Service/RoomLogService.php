@@ -15,7 +15,6 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\RoomLog\Entity\LogParameter;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogDeclinationEnum;
@@ -98,7 +97,6 @@ class RoomLogService implements RoomLogServiceInterface
             );
         }
 
-
         return $this->createLog(
             $logData[ActionLogEnum::VALUE],
             $player->getPlace(),
@@ -116,23 +114,20 @@ class RoomLogService implements RoomLogServiceInterface
         string $visibility,
         string $type,
         ?Player $player = null,
-        ?LogParameter $target = null,
-        ?int $quantity = null,
+        array $parameters,
         \DateTime $dateTime = null
     ): RoomLog {
-        $params = $this->getMessageParam($player, $target, $quantity);
-
         //if there is several version of the log
         if (array_key_exists($logKey, $declinations = LogDeclinationEnum::getVersionNumber())) {
             foreach ($declinations[$logKey] as $keyVersion => $versionNb) {
-                $params[$keyVersion] = $this->randomService->random(1, $versionNb);
+                $parameters[$keyVersion] = $this->randomService->random(1, $versionNb);
             }
         }
 
         $roomLog = new RoomLog();
         $roomLog
             ->setLog($logKey)
-            ->setParameters($params)
+            ->setParameters($parameters)
             ->setType($type)
             ->setPlace($place)
             ->setPlayer($player)
@@ -140,6 +135,7 @@ class RoomLogService implements RoomLogServiceInterface
             ->setDate($dateTime ?? new \DateTime('now'))
             ->setCycle($place->getDaedalus()->getCycle())
             ->setDay($place->getDaedalus()->getDay())
+
         ;
 
         return $this->persist($roomLog);

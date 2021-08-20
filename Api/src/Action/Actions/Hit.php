@@ -90,8 +90,6 @@ class Hit extends AttemptAction
             }
         }
 
-        $result->setActionParameter($parameter);
-
         return $result;
     }
 }

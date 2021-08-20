@@ -3,6 +3,7 @@
 namespace Mush\RoomLog\Service;
 
 use Mush\Action\ActionResult\ActionResult;
+use Mush\Action\Entity\ActionParameter;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameter;
@@ -21,7 +22,12 @@ interface RoomLogServiceInterface
         \DateTime $dateTime = null
     ): RoomLog;
 
-    public function createLogFromActionResult(string $actionName, ActionResult $actionResult, Player $player): ?RoomLog;
+    public function createLogFromActionResult(
+        string $actionName,
+        ActionResult $actionResult,
+        Player $player,
+        ActionParameter $actionParameter,
+    ): ?RoomLog;
 
     public function persist(RoomLog $roomLog): RoomLog;
 

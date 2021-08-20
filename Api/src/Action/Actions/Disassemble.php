@@ -73,17 +73,15 @@ class Disassemble extends AttemptAction
         $response = $this->makeAttempt();
 
         if ($response instanceof Success) {
-            $this->disasemble($parameter);
+            $this->disassemble($parameter);
         }
 
         $this->playerService->persist($this->player);
 
-        $response->setActionParameter($parameter);
-
         return $response;
     }
 
-    private function disasemble(GameEquipment $gameEquipment): void
+    private function disassemble(GameEquipment $gameEquipment): void
     {
         // add the item produced by disassembling
         foreach ($gameEquipment->getEquipment()->getDismountedProducts() as $productString => $number) {

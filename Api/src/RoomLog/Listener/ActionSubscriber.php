@@ -2,8 +2,13 @@
 
 namespace Mush\RoomLog\Listener;
 
+use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
+use Mush\Player\Entity\Player;
+use Mush\RoomLog\Enum\LogEnum;
+use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ActionSubscriber implements EventSubscriberInterface
@@ -20,6 +25,7 @@ class ActionSubscriber implements EventSubscriberInterface
     {
         return [
             ActionEvent::RESULT_ACTION => 'onResultAction',
+            ActionEvent::POST_ACTION => 'onPostAction',
         ];
     }
 
@@ -27,13 +33,38 @@ class ActionSubscriber implements EventSubscriberInterface
     {
         $actionResult = $event->getActionResult();
         $player = $event->getPlayer();
+        $actionParameter = $event->getActionParameter();
 
         if ($actionResult === null) {
-            return;
+            throw new \LogicException('$actionResult should not be null');
         }
 
         $actionName = $event->getAction()->getName();
 
-        $this->roomLogService->createLogFromActionResult($actionName, $actionResult, $player);
+        $this->roomLogService->createLogFromActionResult($actionName, $actionResult, $player, $actionParameter);
+    }
+
+    public function onPostAction(ActionEvent $event){
+        $action = $event->getAction();
+        $actionParameter = $event->getActionParameter();
+
+
+        if ($actionParameter instanceof Player &&
+            in_array($action->getName(), ActionEnum::getForceGetUpActions()) &&
+            $lyingDownStatus = $actionParameter->getStatusByName(PlayerStatusEnum::LYING_DOWN)
+        ) {
+            $actionParameter->removeStatus($lyingDownStatus);
+
+            $this->roomLogService->createLog(
+                LogEnum::FORCE_GET_UP,
+                $actionParameter->getPlace(),
+                VisibilityEnum::PUBLIC,
+                'event_log',
+                $actionParameter,
+                null,
+                null,
+                new \DateTime()
+            );
+        }
     }
 }

@@ -60,6 +60,6 @@ class Comfort extends AbstractAction
 
         $this->playerService->persist($parameter);
 
-        return new Success($parameter);
+        return new Success();
     }
 }

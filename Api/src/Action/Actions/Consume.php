@@ -73,6 +73,6 @@ class Consume extends AbstractAction
 
         $this->playerService->persist($this->player);
 
-        return new Success($parameter);
+        return new Success();
     }
 }

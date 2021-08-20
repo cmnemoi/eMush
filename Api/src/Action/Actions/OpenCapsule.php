@@ -82,6 +82,8 @@ class OpenCapsule extends AbstractAction
 
         $this->gameEquipmentService->persist($contentEquipment);
 
-        return new Success($contentEquipment);
+        $success = new Success();
+        $success->setEquipment($contentEquipment);
+        return $success;
     }
 }

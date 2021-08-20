@@ -84,6 +84,6 @@ class Take extends AbstractAction
         $this->gameEquipmentService->persist($parameter);
         $this->playerService->persist($this->player);
 
-        return new Success($this->parameter);
+        return new Success();
     }
 }

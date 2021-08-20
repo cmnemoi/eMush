@@ -67,6 +67,7 @@ class Heal extends AbstractAction
 
         $this->playerService->persist($parameter);
 
-        return new Success($parameter, $healedQuantity);
+        $success = new Success();
+        return $success->setQuantity($healedQuantity);
     }
 }

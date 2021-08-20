@@ -4,6 +4,7 @@ namespace Mush\Action\Event;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionParameter;
 use Mush\Player\Entity\Player;
 use Symfony\Contracts\EventDispatcher\Event;
 
@@ -16,6 +17,7 @@ class ActionEvent extends Event
     private Player $player;
     private Action $action;
     private ?ActionResult $actionResult = null;
+    private ?ActionParameter $actionParameter = null;
 
     public function __construct(Action $action, Player $player)
     {
@@ -41,6 +43,18 @@ class ActionEvent extends Event
     public function setActionResult(?ActionResult $actionResult): ActionEvent
     {
         $this->actionResult = $actionResult;
+
+        return $this;
+    }
+
+    public function getActionParameter(): ?ActionParameter
+    {
+        return $this->actionParameter;
+    }
+
+    public function setActionParameter(?ActionParameter $actionParameter): ActionEvent
+    {
+        $this->actionResult = $actionParameter;
 
         return $this;
     }

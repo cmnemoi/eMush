@@ -78,6 +78,6 @@ class Drop extends AbstractAction
         $this->gameEquipmentService->persist($parameter);
         $this->playerService->persist($this->player);
 
-        return new Success($parameter);
+        return new Success();
     }
 }

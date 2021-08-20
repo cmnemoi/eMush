@@ -100,7 +100,7 @@ abstract class AbstractAction
         $result = $this->applyEffects();
 
         $postActionEvent = new ActionEvent($this->action, $this->player);
-        $postActionEvent->setActionResult($result);
+        $postActionEvent->setActionResult($result)->setActionParameter($this->getParameter());
         $this->eventDispatcher->dispatch($postActionEvent, ActionEvent::RESULT_ACTION);
 
         $postActionEvent = new ActionEvent($this->action, $this->player);

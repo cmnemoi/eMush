@@ -86,6 +86,6 @@ class Infect extends AbstractAction
         $mushStatus->addCharge(-1);
         $this->statusService->persist($mushStatus);
 
-        return new Success($this->parameter);
+        return new Success();
     }
 }

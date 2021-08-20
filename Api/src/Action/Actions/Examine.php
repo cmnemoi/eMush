@@ -42,9 +42,6 @@ class Examine extends AbstractAction
 
     protected function applyEffects(): ActionResult
     {
-        /** @var GameEquipment $parameter */
-        $parameter = $this->parameter;
-
-        return new Success($parameter);
+        return new Success();
     }
 }

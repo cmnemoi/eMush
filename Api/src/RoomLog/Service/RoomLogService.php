@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
+use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
@@ -53,18 +54,23 @@ class RoomLogService implements RoomLogServiceInterface
         return $this->repository->find($id);
     }
 
-    public function createLogFromActionResult(string $actionName, ActionResult $actionResult, Player $player): ?RoomLog
+    public function createLogFromActionResult(
+        string $actionName,
+        ActionResult $actionResult,
+        Player $player,
+        ActionParameter $actionParameter,
+    ): ?RoomLog
     {
         // first lets handle the special case of examine action
-        if ($actionName === ActionEnum::EXAMINE && ($target = $actionResult->getTargetEquipment()) !== null) {
-            if ($target instanceof GameItem) {
+        if ($actionName === ActionEnum::EXAMINE && $actionParameter !== null) {
+            if ($actionParameter instanceof GameItem) {
                 $type = 'items';
             } else {
                 $type = 'equipments';
             }
 
             return $this->createLog(
-                $target->getLogName() . '.examine',
+                $actionParameter->getLogName() . '.examine',
                 $player->getPlace(),
                 VisibilityEnum::PRIVATE,
                 $type,
@@ -91,6 +97,7 @@ class RoomLogService implements RoomLogServiceInterface
                 $player,
             );
         }
+
 
         return $this->createLog(
             $logData[ActionLogEnum::VALUE],

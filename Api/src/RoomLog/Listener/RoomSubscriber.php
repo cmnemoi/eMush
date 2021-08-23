@@ -35,15 +35,19 @@ class RoomSubscriber implements EventSubscriberInterface
             throw new \LogicException('place should be a room');
         }
 
-        //@TODO add the log in case gravity is broken
+        if ($event->isGravity()) {
+            $logKey = LogEnum::TREMOR_GRAVITY;
+        } else {
+            $logKey = LogEnum::TREMOR_NO_GRAVITY;
+        }
+
         $this->roomLogService->createLog(
-            LogEnum::TREMOR_GRAVITY,
+            $logKey,
             $room,
             VisibilityEnum::PUBLIC,
             'event_log',
             null,
-            null,
-            null,
+            [],
             $event->getTime()
         );
     }
@@ -62,8 +66,7 @@ class RoomSubscriber implements EventSubscriberInterface
             VisibilityEnum::PUBLIC,
             'event_log',
             null,
-            null,
-            null,
+            [],
             $event->getTime()
         );
     }

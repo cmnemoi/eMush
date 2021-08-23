@@ -39,8 +39,7 @@ class PlayerSubscriber implements EventSubscriberInterface
             VisibilityEnum::PUBLIC,
             'event_log',
             $player,
-            null,
-            null,
+            [],
             $event->getTime()
         );
     }
@@ -69,8 +68,7 @@ class PlayerSubscriber implements EventSubscriberInterface
             VisibilityEnum::PRIVATE,
             'event_log',
             $player,
-            null,
-            null,
+            [],
             $event->getTime()
         );
     }
@@ -83,8 +81,7 @@ class PlayerSubscriber implements EventSubscriberInterface
             VisibilityEnum::PUBLIC,
             'event_log',
             $player,
-            null,
-            null,
+            [],
             $time
         );
     }

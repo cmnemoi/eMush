@@ -16,10 +16,10 @@ class ActionEvent extends Event
 
     private Player $player;
     private Action $action;
+    private ?ActionParameter $actionParameter;
     private ?ActionResult $actionResult = null;
-    private ?ActionParameter $actionParameter = null;
 
-    public function __construct(Action $action, Player $player)
+    public function __construct(Action $action, Player $player, ?ActionParameter $actionParameter)
     {
         $this->action = $action;
         $this->player = $player;
@@ -35,6 +35,11 @@ class ActionEvent extends Event
         return $this->action;
     }
 
+    public function getActionParameter(): ?ActionParameter
+    {
+        return $this->actionParameter;
+    }
+
     public function getActionResult(): ?ActionResult
     {
         return $this->actionResult;
@@ -43,18 +48,6 @@ class ActionEvent extends Event
     public function setActionResult(?ActionResult $actionResult): ActionEvent
     {
         $this->actionResult = $actionResult;
-
-        return $this;
-    }
-
-    public function getActionParameter(): ?ActionParameter
-    {
-        return $this->actionParameter;
-    }
-
-    public function setActionParameter(?ActionParameter $actionParameter): ActionEvent
-    {
-        $this->actionResult = $actionParameter;
 
         return $this;
     }

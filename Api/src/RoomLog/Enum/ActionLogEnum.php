@@ -378,5 +378,12 @@ class ActionLogEnum
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
             ],
         ],
+
+        ActionEnum::MOVE => [
+            self::SUCCESS => [
+                self::VALUE => self::ENTER_ROOM,
+                self::VISIBILITY => VisibilityEnum::PUBLIC,
+            ],
+        ],
     ];
 }

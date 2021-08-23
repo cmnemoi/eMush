@@ -92,18 +92,19 @@ abstract class AbstractAction
             return new Error('Cannot execute action');
         }
 
-        $preActionEvent = new ActionEvent($this->action, $this->player);
+        $parameter = $this->getParameter();
+
+        $preActionEvent = new ActionEvent($this->action, $this->player, $parameter);
         $this->eventDispatcher->dispatch($preActionEvent, ActionEvent::PRE_ACTION);
 
         $this->actionService->applyCostToPlayer($this->player, $this->action);
 
         $result = $this->applyEffects();
 
-        $postActionEvent = new ActionEvent($this->action, $this->player);
-        $postActionEvent->setActionResult($result)->setActionParameter($this->getParameter());
+        $postActionEvent = new ActionEvent($this->action, $this->player, $parameter);
         $this->eventDispatcher->dispatch($postActionEvent, ActionEvent::RESULT_ACTION);
 
-        $postActionEvent = new ActionEvent($this->action, $this->player);
+        $postActionEvent = new ActionEvent($this->action, $this->player, $parameter);
         $postActionEvent->setActionResult($result);
         $this->eventDispatcher->dispatch($postActionEvent, ActionEvent::POST_ACTION);
 

@@ -15,11 +15,13 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Entity\LogParameter;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogDeclinationEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Repository\RoomLogRepository;
+use Symfony\Component\Config\Definition\Exception\InvalidTypeException;
 
 class RoomLogService implements RoomLogServiceInterface
 {
@@ -97,14 +99,29 @@ class RoomLogService implements RoomLogServiceInterface
             );
         }
 
+        $parameters = [];
+        if (($quantity = $actionResult->getQuantity()) !== null) {
+            $parameters['quantity'] = $quantity;
+        }
+        if ($actionParameter !== null){
+            if (!$actionParameter instanceof LogParameter){
+                throw new InvalidTypeException($actionParameter, LogParameter::class);
+            }
+
+            $key = 'target_'.$actionParameter->getLogKey();
+            $parameters[$key] = $actionParameter->getLogName();
+        }
+        if (($equipment = $actionResult->getEquipment()) !== null){
+            $parameters[$equipment->getLogKey()] = $equipment->getLogName();
+        }
+
         return $this->createLog(
             $logData[ActionLogEnum::VALUE],
             $player->getPlace(),
             $logData[ActionLogEnum::VISIBILITY],
             'actions_log',
             $player,
-            $actionResult->getTargetPlayer() ?? $actionResult->getTargetEquipment(),
-            $actionResult->getQuantity()
+            $parameters,
         );
     }
 
@@ -114,7 +131,7 @@ class RoomLogService implements RoomLogServiceInterface
         string $visibility,
         string $type,
         ?Player $player = null,
-        array $parameters,
+        array $parameters = [],
         \DateTime $dateTime = null
     ): RoomLog {
         //if there is several version of the log
@@ -122,6 +139,9 @@ class RoomLogService implements RoomLogServiceInterface
             foreach ($declinations[$logKey] as $keyVersion => $versionNb) {
                 $parameters[$keyVersion] = $this->randomService->random(1, $versionNb);
             }
+        }
+        if ($player !== null){
+            $parameters[$player->getLogKey()] = $player->getLogName();
         }
 
         $roomLog = new RoomLog();
@@ -170,27 +190,6 @@ class RoomLogService implements RoomLogServiceInterface
         return $visibility;
     }
 
-    private function getMessageParam(
-        ?Player $player = null,
-        ?LogParameter $target = null,
-        ?int $quantity = null
-    ): array {
-        $params = [];
-
-        if ($player !== null) {
-            $params['character'] = $player->getLogName();
-        }
-
-        if ($target !== null) {
-            $params[$target->getLogKey()] = $target->getLogName();
-        }
-
-        if ($quantity !== null) {
-            $params['quantity'] = $quantity;
-        }
-
-        return $params;
-    }
 
     public function getRoomLog(Player $player): array
     {

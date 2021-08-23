@@ -14,6 +14,7 @@ class RoomEvent extends Event
 
     private Place $room;
     private ?string $reason = null;
+    private bool $isGravity = true;
     private \DateTime $time;
 
     public function __construct(Place $room, $time)
@@ -42,5 +43,15 @@ class RoomEvent extends Event
         $this->reason = $reason;
 
         return $this;
+    }
+
+    public function isGravity(): bool{
+        return $this->isGravity();
+    }
+
+    public function setIsGravity(bool $isGravity): RoomEvent
+    {
+        $this->isGravity = $isGravity;
+        return  $this;
     }
 }

@@ -25,7 +25,6 @@ class Move extends AbstractAction
 {
     protected string $name = ActionEnum::MOVE;
 
-    private RoomLogServiceInterface $roomLogService;
     private PlayerServiceInterface $playerService;
 
     public function __construct(
@@ -41,7 +40,6 @@ class Move extends AbstractAction
             $validator
         );
 
-        $this->roomLogService = $roomLogService;
         $this->playerService = $playerService;
     }
 
@@ -61,38 +59,11 @@ class Move extends AbstractAction
         /** @var Door $parameter */
         $parameter = $this->parameter;
 
-        $oldRoom = $this->player->getPlace();
         $newRoom = $parameter->getOtherRoom($this->player->getPlace());
         $this->player->setPlace($newRoom);
 
         $this->playerService->persist($this->player);
 
-        $this->createLog($newRoom, $oldRoom);
-
         return new Success();
-    }
-
-    protected function createLog(Place $newplace, Place $oldPlace): void
-    {
-        $this->roomLogService->createLog(
-            ActionLogEnum::ENTER_ROOM,
-            $newplace,
-            VisibilityEnum::PUBLIC,
-            'actions_log',
-            $this->player,
-            null,
-            null,
-            new \DateTime('now')
-        );
-        $this->roomLogService->createLog(
-            ActionLogEnum::EXIT_ROOM,
-            $oldPlace,
-            VisibilityEnum::PUBLIC,
-            'actions_log',
-            $this->player,
-            null,
-            null,
-            new \DateTime('now')
-        );
     }
 }

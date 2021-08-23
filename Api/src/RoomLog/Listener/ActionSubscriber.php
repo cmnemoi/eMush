@@ -5,6 +5,7 @@ namespace Mush\RoomLog\Listener;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
@@ -24,9 +25,28 @@ class ActionSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
+            ActionEvent::PRE_ACTION => 'onPreAction',
             ActionEvent::RESULT_ACTION => 'onResultAction',
             ActionEvent::POST_ACTION => 'onPostAction',
         ];
+    }
+
+    public function onPreAction(ActionEvent $event): void
+    {
+        $player = $event->getPlayer();
+        $action = $event->getAction();
+
+        if ($action->getName() === ActionEnum::MOVE) {
+            $this->roomLogService->createLog(
+                ActionLogEnum::ENTER_ROOM,
+                $player->getPlace(),
+                VisibilityEnum::PUBLIC,
+                'actions_log',
+                $player,
+                [],
+                new \DateTime('now')
+            );
+        }
     }
 
     public function onResultAction(ActionEvent $event): void

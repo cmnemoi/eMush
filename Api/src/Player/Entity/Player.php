@@ -573,6 +573,6 @@ class Player implements StatusHolderInterface, ActionParameter, LogParameter
 
     public function getLogKey(): string
     {
-        return LogParameterKeyEnum::PLAYER;
+        return LogParameterKeyEnum::CHARACTER;
     }
 }

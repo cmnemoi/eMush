@@ -71,8 +71,7 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
                     VisibilityEnum::PRIVATE,
                     'event_log',
                     $player,
-                    null,
-                    null,
+                    [],
                     $date
                 );
             } elseif ($percent <= $dirtyRate) {
@@ -84,8 +83,7 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
                     VisibilityEnum::PRIVATE,
                     'event_log',
                     $player,
-                    null,
-                    null,
+                    [],
                     $date
                 );
             }
@@ -112,8 +110,7 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
                     VisibilityEnum::PRIVATE,
                     'event_log',
                     $player,
-                    null,
-                    null,
+                    [],
                     $date
                 );
             } elseif ($percent <= $injuryRate) {
@@ -123,8 +120,7 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
                     VisibilityEnum::PRIVATE,
                     'event_log',
                     $player,
-                    null,
-                    null,
+                    [],
                     $date
                 );
                 $this->dispatchPlayerInjuryEvent($player, $date);

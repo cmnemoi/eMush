@@ -12,6 +12,7 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\CycleHandler\AbstractCycleHandler;
+use Mush\Game\Enum\EventEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\RoomLog\Enum\PlantLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -241,8 +242,12 @@ class PlantCycleHandler extends AbstractCycleHandler
         $daedalus = $gamePlant->getCurrentPlace()->getDaedalus();
         //Add Oxygen
         if (($oxygen = $plantEffect->getOxygen())) {
-            $daedalusEvent = new DaedalusModifierEvent($daedalus, $date);
-            $daedalusEvent->setQuantity($oxygen);
+            $daedalusEvent = new DaedalusModifierEvent(
+                $daedalus,
+                $oxygen,
+                EventEnum::PLANT_PRODUCTION,
+                $date
+            );
             $this->eventDispatcher->dispatch($daedalusEvent, DaedalusModifierEvent::CHANGE_OXYGEN);
         }
     }

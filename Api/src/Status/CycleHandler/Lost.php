@@ -26,8 +26,12 @@ class Lost extends AbstractStatusCycleHandler
             return;
         }
 
-        $playerModifierEvent = new PlayerModifierEvent($statusHolder, -1, $dateTime);
-        $playerModifierEvent->setReason(PlayerStatusEnum::LOST); //FIXME: useful?
+        $playerModifierEvent = new PlayerModifierEvent(
+            $statusHolder,
+            -1,
+            PlayerStatusEnum::LOST,
+            $dateTime
+        );
         $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::SATIETY_POINT_MODIFIER);
     }
 

@@ -32,7 +32,12 @@ class Antisocial extends AbstractStatusCycleHandler
         }
 
         if ($statusHolder->getPlace()->getPlayers()->getPlayerAlive()->count() > 1) {
-            $playerModifierEvent = new PlayerModifierEvent($statusHolder, -1, $dateTime);
+            $playerModifierEvent = new PlayerModifierEvent(
+                $statusHolder,
+                -1,
+                PlayerStatusEnum::ANTISOCIAL,
+                $dateTime
+            );
             $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::MORAL_POINT_MODIFIER);
 
             $this->roomLogService->createLog(

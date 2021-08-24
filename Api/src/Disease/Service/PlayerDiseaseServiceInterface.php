@@ -14,6 +14,7 @@ interface PlayerDiseaseServiceInterface
     public function createDiseaseFromName(
         string $diseaseName,
         Player $player,
+        string $cause,
         int $delayMin = null,
         int $delayLength = null
     ): PlayerDisease;

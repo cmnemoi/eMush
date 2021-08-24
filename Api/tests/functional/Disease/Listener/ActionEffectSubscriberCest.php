@@ -4,7 +4,7 @@ namespace Mush\Tests\functional\Disease\Listener;
 
 use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
-use Mush\Action\Event\ActionEffectEvent;
+use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Disease\Entity\ConsumableDisease;
 use Mush\Disease\Entity\ConsumableDiseaseAttribute;
@@ -56,7 +56,7 @@ class ActionEffectSubscriberCest
         $gameItem = $this->createRation($I);
         $diseaseConfig = $this->createDiseaseForRation($daedalus, $gameItem->getName(), 'diseaseName', true);
 
-        $event = new ActionEffectEvent($player, $gameItem);
+        $event = new ApplyEffectEvent($player, $gameItem);
 
         $this->subscriber->onConsume($event);
 
@@ -90,7 +90,7 @@ class ActionEffectSubscriberCest
         $gameItem = $this->createRation($I);
         $diseaseConfig = $this->createDiseaseForRation($daedalus, $gameItem->getName(), 'diseaseName', false);
 
-        $event = new ActionEffectEvent($player, $gameItem);
+        $event = new ApplyEffectEvent($player, $gameItem);
 
         $this->subscriber->onConsume($event);
 
@@ -132,7 +132,7 @@ class ActionEffectSubscriberCest
         ;
         $I->haveInRepository($diseasePlayer);
 
-        $event = new ActionEffectEvent($player, $player);
+        $event = new ApplyEffectEvent($player, $player);
 
         $this->subscriber->onHeal($event);
 
@@ -175,7 +175,7 @@ class ActionEffectSubscriberCest
         ;
         $I->haveInRepository($diseasePlayer);
 
-        $event = new ActionEffectEvent($player, $player);
+        $event = new ApplyEffectEvent($player, $player);
 
         $this->subscriber->onHeal($event);
 

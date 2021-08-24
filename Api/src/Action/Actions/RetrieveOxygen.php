@@ -74,8 +74,12 @@ class RetrieveOxygen extends AbstractAction
 
         $this->gameEquipmentService->persist($gameItem);
 
-        $daedalusEvent = new DaedalusModifierEvent($this->player->getDaedalus(), new \DateTime());
-        $daedalusEvent->setQuantity(-1);
+        $daedalusEvent = new DaedalusModifierEvent(
+            $this->player->getDaedalus(),
+            -1,
+            $this->getActionName(),
+            new \DateTime()
+        );
         $this->eventDispatcher->dispatch($daedalusEvent, DaedalusModifierEvent::CHANGE_OXYGEN);
 
         return new Success();

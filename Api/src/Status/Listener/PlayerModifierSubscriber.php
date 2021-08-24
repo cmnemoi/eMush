@@ -4,7 +4,6 @@ namespace Mush\Status\Listener;
 
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerModifierEvent;
-use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\PlayerStatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -45,10 +44,6 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
 
     public function onMovementPointConversion(PlayerModifierEvent $playerEvent): void
     {
-        $player = $playerEvent->getPlayer();
-
-        if ($player->hasStatus(PlayerStatusEnum::DISABLED)) {
-            $playerEvent->setDelta(1);
-        }
+        //@TODO incoming in modifier merge
     }
 }

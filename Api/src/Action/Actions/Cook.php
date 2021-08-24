@@ -30,7 +30,6 @@ class Cook extends AbstractAction
 
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
-    private StatusServiceInterface $statusService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
@@ -48,7 +47,6 @@ class Cook extends AbstractAction
 
         $this->gameEquipmentService = $gameEquipmentService;
         $this->playerService = $playerService;
-        $this->statusService = $statusService;
     }
 
     protected function support(?ActionParameter $parameter): bool
@@ -73,7 +71,13 @@ class Cook extends AbstractAction
                 ->createGameEquipmentFromName(GameRationEnum::COOKED_RATION, $this->player->getDaedalus())
             ;
 
-            $equipmentEvent = new EquipmentEvent($parameter, VisibilityEnum::PUBLIC, new \DateTime());
+            $equipmentEvent = new EquipmentEvent(
+                $parameter,
+                $this->player->getPlace(),
+                VisibilityEnum::PUBLIC,
+                $this->getActionName(),
+                new \DateTime()
+            );
             $equipmentEvent->setReplacementEquipment($newItem)->setPlayer($this->player);
             $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_TRANSFORM);
         } elseif ($frozenStatus = $parameter->getStatusByName(EquipmentStatusEnum::FROZEN)) {

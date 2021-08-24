@@ -54,13 +54,23 @@ class InsertOxygen extends AbstractAction
         $parameter = $this->parameter;
 
         //delete the item
-        $equipmentEvent = new EquipmentEvent($parameter, VisibilityEnum::HIDDEN, new \DateTime());
+        $equipmentEvent = new EquipmentEvent(
+            $parameter,
+            $this->player->getPlace(),
+            VisibilityEnum::HIDDEN,
+            $this->getActionName(),
+            new \DateTime()
+        );
         $equipmentEvent->setPlayer($this->player);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         //add Oxygen
-        $daedalusEvent = new DaedalusModifierEvent($this->player->getDaedalus(), new \DateTime());
-        $daedalusEvent->setQuantity(1);
+        $daedalusEvent = new DaedalusModifierEvent(
+            $this->player->getDaedalus(),
+            1,
+            $this->getActionName(),
+            new \DateTime()
+        );
         $this->eventDispatcher->dispatch($daedalusEvent, DaedalusModifierEvent::CHANGE_OXYGEN);
 
         return new Success();

@@ -13,7 +13,6 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
 {
     private RoomLogServiceInterface $roomLogService;
 
-
     public function __construct(
         RoomLogServiceInterface $roomLogService,
     ) {
@@ -34,14 +33,13 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
         $diseaseConfig = $event->getDiseaseConfig();
         $player = $event->getAuthor();
 
-
         $parameters = [];
         $parameters[$diseaseConfig->getLogKey()] = $diseaseConfig->getLogName();
-        $parameters['target_'.$targetPlayer->getLogKey()] = $targetPlayer->getLogName();
+        $parameters['target_' . $targetPlayer->getLogKey()] = $targetPlayer->getLogName();
 
         $this->roomLogService->createLog(
             LogEnum::DISEASE_CURED,
-            $player->getPlace(),
+            $event->getPlace(),
             VisibilityEnum::PRIVATE,
             'event_log',
             $player,
@@ -62,7 +60,7 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
 
         $this->roomLogService->createLog(
             $log,
-            $player->getPlace(),
+            $event->getPlace(),
             VisibilityEnum::PRIVATE,
             'event_log',
             $player,

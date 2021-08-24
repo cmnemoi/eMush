@@ -110,6 +110,7 @@ class Transplant extends AbstractAction
         $this->playerService->persist($this->player);
 
         $success = new Success();
+
         return $success->setEquipment($plantEquipment);
     }
 }

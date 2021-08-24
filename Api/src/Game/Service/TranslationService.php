@@ -23,7 +23,7 @@ class TranslationService implements TranslationServiceInterface
         'target_equipment' => 'equipments',
         'equipment' => 'equipments',
         'target_item' => 'items',
-        'item' =>'items',
+        'item' => 'items',
         'disease' => 'disease',
         'place' => 'rooms',
     ];
@@ -62,14 +62,17 @@ class TranslationService implements TranslationServiceInterface
     {
         $domain = self::$conversionArray[$key];
 
-        if ($key === 'target_item'){ $key = 'target_equipment';}
-        else if ($key === 'item'){ $key = 'equipment';}
+        if ($key === 'target_item') {
+            $key = 'target_equipment';
+        } elseif ($key === 'item') {
+            $key = 'equipment';
+        }
 
         $params = [];
         $params[$key] = $this->translator->trans($element . '.short_name', [], $domain);
-        $params[$key.'_gender'] = $this->translator->trans($element . '.genre', [], $domain);
-        $params[$key.'_first_letter'] = $this->translator->trans($element . '.first_Letter', [], $domain);
-        $params[$key.'_plural'] = $this->translator->trans($element . '.plural_name', [], $domain);
+        $params[$key . '_gender'] = $this->translator->trans($element . '.genre', [], $domain);
+        $params[$key . '_first_letter'] = $this->translator->trans($element . '.first_Letter', [], $domain);
+        $params[$key . '_plural'] = $this->translator->trans($element . '.plural_name', [], $domain);
 
         return $params;
     }

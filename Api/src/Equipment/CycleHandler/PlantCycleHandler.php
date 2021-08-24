@@ -174,13 +174,26 @@ class PlantCycleHandler extends AbstractCycleHandler
         /** @var GameItem $hydropot */
         $hydropot = $this->gameEquipmentService->createGameEquipmentFromName(ItemEnum::HYDROPOT, $place->getDaedalus());
 
-
-        $equipmentEvent = new EquipmentEvent($gamePlant, VisibilityEnum::PUBLIC, new \DateTime());
-        $equipmentEvent->setPlace($place)->setReason(PlantLogEnum::PLANT_DEATH);
+        $equipmentEvent = new EquipmentEvent(
+            $gamePlant,
+            $place,
+            VisibilityEnum::PUBLIC,
+            PlantLogEnum::PLANT_DEATH,
+            new \DateTime()
+        );
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
-        $equipmentEvent = new EquipmentEvent($hydropot, VisibilityEnum::PUBLIC, new \DateTime());
-        $equipmentEvent->setPlace($place)->setPlayer($player);
+        $equipmentEvent = new EquipmentEvent(
+            $hydropot,
+            $place,
+            VisibilityEnum::HIDDEN,
+            PlantLogEnum::PLANT_DEATH,
+            new \DateTime()
+        );
+        if ($player !== null) {
+            $equipmentEvent->setPlayer($player);
+        }
+
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
     }
 
@@ -209,12 +222,15 @@ class PlantCycleHandler extends AbstractCycleHandler
         /** @var GameItem $gameFruit */
         $gameFruit = $this->gameEquipmentService->createGameEquipment($plantType->getFruit(), $place->getDaedalus());
 
-
-        $equipmentEvent = new EquipmentEvent($gameFruit, VisibilityEnum::PUBLIC, new \DateTime());
-        $equipmentEvent->setPlace($place)->setReason(PlantLogEnum::PLANT_NEW_FRUIT);
+        $equipmentEvent = new EquipmentEvent(
+            $gameFruit,
+            $place,
+            VisibilityEnum::PUBLIC,
+            EventEnum::PLANT_PRODUCTION,
+            new \DateTime()
+        );
 
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
-
     }
 
     private function addOxygen(GameItem $gamePlant, PlantEffect $plantEffect, \DateTime $date): void

@@ -78,6 +78,7 @@ class SelfHeal extends AbstractAction
         $healedQuantity = $this->player->getHealthPoint() - $initialHealth;
 
         $success = new Success();
+
         return $success->setQuantity($healedQuantity);
     }
 }

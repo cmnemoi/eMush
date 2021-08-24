@@ -7,7 +7,9 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\EventEnum;
 use Mush\RoomLog\Enum\LogEnum;
+use Mush\RoomLog\Enum\PlantLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -35,10 +37,10 @@ class EquipmentSubscriber implements EventSubscriberInterface
     {
         $equipment = $event->getEquipment();
 
-        if ($event->getReason() === PlantLogEnum::PLANT_NEW_FRUIT) {
+        if ($event->getReason() === EventEnum::PLANT_PRODUCTION) {
             $this->roomLogService->createLog(
                 PlantLogEnum::PLANT_NEW_FRUIT,
-                $event->getEquipment()->getPlace(),
+                $event->getPlace(),
                 VisibilityEnum::PUBLIC,
                 'event_log',
                 null,
@@ -48,14 +50,6 @@ class EquipmentSubscriber implements EventSubscriberInterface
 
             return;
         }
-
-
-        if (!$player = $event->getPlayer()) {
-            throw new \Error('Player should be provided');
-        }
-
-        if ($equipment instanceof GameItem && $player->getItems()->count() >= $this->getGameConfig($equipment)->getMaxItemInInventory()) {
-        $equipment = $event->getEquipment();
 
         if ($equipment instanceof GameItem &&
             ($player = $event->getPlayer()) !== null &&
@@ -67,8 +61,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
                 VisibilityEnum::PUBLIC,
                 'event_log',
                 $player,
-                $equipment,
-                null,
+                [$equipment->getLogKey() => $equipment->getLogName()],
                 $event->getTime()
             );
         }

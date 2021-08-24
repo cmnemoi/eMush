@@ -4,9 +4,9 @@ namespace Mush\Action\Event;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionParameter;
 use Mush\Game\Event\AbstractMushEvent;
 use Mush\Player\Entity\Player;
-use Symfony\Contracts\EventDispatcher\Event;
 
 class ActionEvent extends AbstractMushEvent
 {
@@ -23,6 +23,7 @@ class ActionEvent extends AbstractMushEvent
     {
         $this->action = $action;
         $this->player = $player;
+        $this->actionParameter = $actionParameter;
 
         parent::__construct($action->getName(), new \DateTime());
     }

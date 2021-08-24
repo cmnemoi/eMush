@@ -100,6 +100,7 @@ class OpenCapsule extends AbstractAction
 
         $success = new Success();
         $success->setEquipment($contentEquipment);
+
         return $success;
     }
 }

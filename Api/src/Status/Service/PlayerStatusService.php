@@ -59,8 +59,7 @@ class PlayerStatusService implements PlayerStatusServiceInterface
                 VisibilityEnum::PRIVATE,
                 'event_log',
                 $player,
-                null,
-                null,
+                [],
                 $dateTime
             );
         } elseif (($player->getSatiety() >= self::STARVING_STATUS_THRESHOLD || $player->isMush()) && $starvingStatus) {

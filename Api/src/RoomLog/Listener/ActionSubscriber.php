@@ -64,10 +64,10 @@ class ActionSubscriber implements EventSubscriberInterface
         $this->roomLogService->createLogFromActionResult($actionName, $actionResult, $player, $actionParameter);
     }
 
-    public function onPostAction(ActionEvent $event){
+    public function onPostAction(ActionEvent $event)
+    {
         $action = $event->getAction();
         $actionParameter = $event->getActionParameter();
-
 
         if ($actionParameter instanceof Player &&
             in_array($action->getName(), ActionEnum::getForceGetUpActions()) &&
@@ -81,8 +81,7 @@ class ActionSubscriber implements EventSubscriberInterface
                 VisibilityEnum::PUBLIC,
                 'event_log',
                 $actionParameter,
-                null,
-                null,
+                [],
                 new \DateTime()
             );
         }

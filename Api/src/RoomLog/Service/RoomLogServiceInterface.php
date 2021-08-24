@@ -24,7 +24,7 @@ interface RoomLogServiceInterface
         string $actionName,
         ActionResult $actionResult,
         Player $player,
-        ActionParameter $actionParameter,
+        ?ActionParameter $actionParameter,
     ): ?RoomLog;
 
     public function persist(RoomLog $roomLog): RoomLog;

@@ -29,7 +29,7 @@ class RoomSubscriber implements EventSubscriberInterface
 
     public function onTremor(RoomEvent $event): void
     {
-        $room = $event->getRoom();
+        $room = $event->getPlace();
 
         if ($room->getType() !== PlaceTypeEnum::ROOM) {
             throw new \LogicException('place should be a room');
@@ -54,7 +54,7 @@ class RoomSubscriber implements EventSubscriberInterface
 
     public function onElectricArc(RoomEvent $event): void
     {
-        $room = $event->getRoom();
+        $room = $event->getPlace();
 
         if ($room->getType() !== PlaceTypeEnum::ROOM) {
             throw new \LogicException('place should be a room');

@@ -2,9 +2,7 @@
 
 namespace Mush\Action\ActionResult;
 
-use Mush\Action\Entity\ActionParameter;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Player\Entity\Player;
 
 abstract class ActionResult
 {
@@ -14,6 +12,7 @@ abstract class ActionResult
     public function setEquipment(GameEquipment $equipment): self
     {
         $this->equipment = $equipment;
+
         return $this;
     }
 
@@ -25,6 +24,7 @@ abstract class ActionResult
     public function setQuantity(int $quantity): self
     {
         $this->quantity = $quantity;
+
         return $this;
     }
 

@@ -21,7 +21,7 @@ use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogDeclinationEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Repository\RoomLogRepository;
-use Symfony\Component\Config\Definition\Exception\InvalidTypeException;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class RoomLogService implements RoomLogServiceInterface
 {
@@ -59,24 +59,29 @@ class RoomLogService implements RoomLogServiceInterface
         string $actionName,
         ActionResult $actionResult,
         Player $player,
-        ActionParameter $actionParameter,
-    ): ?RoomLog
-    {
+        ?ActionParameter $actionParameter,
+    ): ?RoomLog {
         // first lets handle the special case of examine action
-        if ($actionName === ActionEnum::EXAMINE && $actionParameter !== null) {
+        if ($actionName === ActionEnum::EXAMINE) {
             if ($actionParameter instanceof GameItem) {
-                $type = 'items';
+                return $this->createLog(
+                    $actionParameter->getLogName() . '.examine',
+                    $player->getPlace(),
+                    VisibilityEnum::PRIVATE,
+                    'items',
+                    $player,
+                );
+            } elseif ($actionParameter instanceof GameEquipment) {
+                return $this->createLog(
+                    $actionParameter->getLogName() . '.examine',
+                    $player->getPlace(),
+                    VisibilityEnum::PRIVATE,
+                    'equipments',
+                    $player,
+                );
             } else {
-                $type = 'equipments';
+                throw new \LogicException('examine action is not implemented for this type of entity');
             }
-
-            return $this->createLog(
-                $actionParameter->getLogName() . '.examine',
-                $player->getPlace(),
-                VisibilityEnum::PRIVATE,
-                $type,
-                $player,
-            );
         }
 
         $logMapping = ActionLogEnum::ACTION_LOGS[$actionName] ?? null;
@@ -103,15 +108,15 @@ class RoomLogService implements RoomLogServiceInterface
         if (($quantity = $actionResult->getQuantity()) !== null) {
             $parameters['quantity'] = $quantity;
         }
-        if ($actionParameter !== null){
-            if (!$actionParameter instanceof LogParameter){
-                throw new InvalidTypeException($actionParameter, LogParameter::class);
+        if ($actionParameter !== null) {
+            if (!$actionParameter instanceof LogParameter) {
+                throw new UnexpectedTypeException($actionParameter, LogParameter::class);
             }
 
-            $key = 'target_'.$actionParameter->getLogKey();
+            $key = 'target_' . $actionParameter->getLogKey();
             $parameters[$key] = $actionParameter->getLogName();
         }
-        if (($equipment = $actionResult->getEquipment()) !== null){
+        if (($equipment = $actionResult->getEquipment()) !== null) {
             $parameters[$equipment->getLogKey()] = $equipment->getLogName();
         }
 
@@ -140,7 +145,7 @@ class RoomLogService implements RoomLogServiceInterface
                 $parameters[$keyVersion] = $this->randomService->random(1, $versionNb);
             }
         }
-        if ($player !== null){
+        if ($player !== null) {
             $parameters[$player->getLogKey()] = $player->getLogName();
         }
 
@@ -189,7 +194,6 @@ class RoomLogService implements RoomLogServiceInterface
 
         return $visibility;
     }
-
 
     public function getRoomLog(Player $player): array
     {

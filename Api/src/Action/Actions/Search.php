@@ -85,6 +85,7 @@ class Search extends AbstractAction
             $this->playerService->persist($hiddenBy);
 
             $success = new Success();
+
             return $success->setEquipment($itemFound);
         } else {
             return new Fail();

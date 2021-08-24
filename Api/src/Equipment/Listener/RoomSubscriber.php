@@ -30,7 +30,7 @@ class RoomSubscriber implements EventSubscriberInterface
 
     public function onElectricArc(RoomEvent $event): void
     {
-        $room = $event->getRoom();
+        $room = $event->getPlace();
 
         if ($room->getType() !== PlaceTypeEnum::ROOM) {
             throw new \LogicException('place should be a room');
@@ -44,7 +44,7 @@ class RoomSubscriber implements EventSubscriberInterface
                 $equipment->isBreakable()) {
                 $equipmentEvent = new EquipmentEvent(
                     $equipment,
-                    $event->getRoom(),
+                    $event->getPlace(),
                     VisibilityEnum::PUBLIC,
                     RoomEvent::ELECTRIC_ARC,
                     $event->getTime()

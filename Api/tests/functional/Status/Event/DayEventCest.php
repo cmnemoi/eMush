@@ -5,6 +5,7 @@ namespace Mush\Tests\Status\Event;
 use App\Tests\FunctionalTester;
 use DateTime;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Game\Enum\EventEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -52,7 +53,7 @@ class DayEventCest
 
         $I->haveInRepository($status);
 
-        $dayEvent = new StatusCycleEvent($status, new Player(), $daedalus, $time);
+        $dayEvent = new StatusCycleEvent($status, new Player(), $daedalus, EventEnum::NEW_DAY, $time);
 
         $this->cycleSubscriber->onNewCycle($dayEvent);
 
@@ -72,7 +73,7 @@ class DayEventCest
 
         $I->haveInRepository($status);
 
-        $dayEvent = new StatusCycleEvent($status, new Player(), $daedalus, $time);
+        $dayEvent = new StatusCycleEvent($status, new Player(), $daedalus, EventEnum::NEW_DAY, $time);
 
         $this->cycleSubscriber->onNewCycle($dayEvent);
 
@@ -93,7 +94,7 @@ class DayEventCest
 
         $I->haveInRepository($status);
 
-        $dayEvent = new StatusCycleEvent($status, new Player(), $daedalus, $time);
+        $dayEvent = new StatusCycleEvent($status, new Player(), $daedalus, EventEnum::NEW_DAY, $time);
 
         $this->cycleSubscriber->onNewCycle($dayEvent);
 

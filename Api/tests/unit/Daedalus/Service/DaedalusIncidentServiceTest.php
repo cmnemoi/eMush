@@ -16,7 +16,6 @@ use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
-use Mush\Place\Enum\RoomEventEnum;
 use Mush\Place\Event\RoomEvent;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;

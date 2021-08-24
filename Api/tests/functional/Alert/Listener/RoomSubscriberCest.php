@@ -4,6 +4,7 @@ namespace Mush\Tests\Alert\Listener;
 
 use App\Tests\FunctionalTester;
 use DateTime;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Alert\Entity\Alert;
 use Mush\Alert\Entity\AlertElement;
 use Mush\Alert\Enum\AlertEnum;
@@ -13,6 +14,7 @@ use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\EventEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Event\RoomEvent;
 
@@ -47,7 +49,11 @@ class RoomSubscriberCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
-        $roomEvent = new RoomEvent($room, new DateTime());
+        $roomEvent = new RoomEvent(
+            $room,
+            EventEnum::NEW_CYCLE,
+            new DateTime()
+        );
 
         $this->roomSubscriber->onStartingFire($roomEvent);
 
@@ -77,7 +83,11 @@ class RoomSubscriberCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
-        $roomEvent = new RoomEvent($room, new DateTime());
+        $roomEvent = new RoomEvent(
+            $room,
+            ActionEnum::EXTINGUISH,
+            new DateTime()
+        );
 
         $reportedAlert = new AlertElement();
         $reportedAlert->setPlace($room);

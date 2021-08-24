@@ -10,7 +10,6 @@ use Mush\Daedalus\Listener\DaedalusCycleSubscriber;
 use Mush\Daedalus\Service\DaedalusIncidentServiceInterface;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Game\Entity\GameConfig;
-use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\Status;

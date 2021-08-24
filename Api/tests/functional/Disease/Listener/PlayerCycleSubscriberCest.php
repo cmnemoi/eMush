@@ -9,6 +9,7 @@ use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\DiseaseStatusEnum;
 use Mush\Disease\Listener\PlayerCycleSubscriber;
 use Mush\Game\Entity\CharacterConfig;
+use Mush\Game\Enum\EventEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerCycleEvent;
@@ -57,7 +58,11 @@ class PlayerCycleSubscriberCest
 
         $I->refreshEntities($player);
 
-        $event = new PlayerCycleEvent($player, new \DateTime());
+        $event = new PlayerCycleEvent(
+            $player,
+            EventEnum::NEW_CYCLE,
+            new \DateTime()
+        );
 
         $this->subscriber->onPlayerNewCycle($event);
 
@@ -101,7 +106,7 @@ class PlayerCycleSubscriberCest
 
         $I->refreshEntities($player);
 
-        $event = new PlayerCycleEvent($player, new \DateTime());
+        $event = new PlayerCycleEvent($player, EventEnum::NEW_CYCLE, new \DateTime());
 
         $this->subscriber->onPlayerNewCycle($event);
 
@@ -151,7 +156,7 @@ class PlayerCycleSubscriberCest
 
         $I->refreshEntities($player);
 
-        $event = new PlayerCycleEvent($player, new \DateTime());
+        $event = new PlayerCycleEvent($player, EventEnum::NEW_CYCLE, new \DateTime());
 
         $this->subscriber->onPlayerNewCycle($event);
 

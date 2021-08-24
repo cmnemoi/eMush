@@ -96,8 +96,8 @@ class FireTest extends TestCase
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (PlayerEvent $playerEvent, string $eventName) => (
-                intval($playerEvent->getDelta()) === -2 && $eventName === PlayerModifierEvent::HEALTH_POINT_MODIFIER
+            ->withArgs(fn (PlayerModifierEvent $playerEvent, string $eventName) => (
+                intval($playerEvent->getQuantity()) === -2 && $eventName === PlayerModifierEvent::HEALTH_POINT_MODIFIER
             ))
             ->once()
         ;

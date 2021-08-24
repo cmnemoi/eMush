@@ -2,6 +2,7 @@
 
 namespace unit\Daedalus\Service;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Service\DaedalusIncidentService;
@@ -11,6 +12,7 @@ use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Repository\GameEquipmentRepository;
+use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
@@ -80,7 +82,7 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (RoomEvent $event) => $event->getRoom() === $room1 && $event->getReason() === RoomEventEnum::CYCLE_FIRE)
+            ->withArgs(fn (RoomEvent $event) => $event->getRoom() === $room1 && $event->getReason() === EventEnum::NEW_CYCLE)
             ->once()
         ;
 
@@ -110,7 +112,7 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (RoomEvent $event) => $event->getRoom() === $room1 && $event->getReason() === RoomEventEnum::TREMOR)
+            ->withArgs(fn (RoomEvent $event) => $event->getRoom() === $room1 && $event->getReason() === EventEnum::NEW_CYCLE)
             ->once()
         ;
 
@@ -140,7 +142,7 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (RoomEvent $event) => $event->getRoom() === $room1 && $event->getReason() === RoomEventEnum::ELECTRIC_ARC)
+            ->withArgs(fn (RoomEvent $event) => $event->getRoom() === $room1 && $event->getReason() === EventEnum::NEW_CYCLE)
             ->once()
         ;
 
@@ -160,6 +162,7 @@ class DaedalusIncidentServiceTest extends TestCase
         $this->randomService->shouldReceive('random')->andReturn(1)->once();
 
         $equipment = new GameEquipment();
+        $equipment->setPlace(new Place());
 
         $this->gameEquipmentRepository
             ->shouldReceive('findByCriteria')
@@ -228,6 +231,7 @@ class DaedalusIncidentServiceTest extends TestCase
         $this->randomService->shouldReceive('random')->andReturn(1)->once();
 
         $door = new Door();
+        $door->setRooms(new ArrayCollection([new Place(), new Place()]));
 
         $this->gameEquipmentRepository
             ->shouldReceive('findByCriteria')

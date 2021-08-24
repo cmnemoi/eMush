@@ -10,6 +10,7 @@ use Mush\Daedalus\Listener\DaedalusCycleSubscriber;
 use Mush\Daedalus\Service\DaedalusIncidentServiceInterface;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\Status;
@@ -69,7 +70,7 @@ class DaedalusCycleEventTest extends TestCase
 
         $date = new \DateTime('tomorrow');
 
-        $event = new DaedalusCycleEvent($daedalus, $date);
+        $event = new DaedalusCycleEvent($daedalus, DaedalusEvent::END_DAEDALUS, $date);
 
         $this->eventDispatcher->shouldReceive('dispatch')
             ->withArgs(fn (DaedalusEvent $endDaedalusEvent, string $eventName) => ($endDaedalusEvent->getTime() === $date && $eventName === DaedalusEvent::END_DAEDALUS))

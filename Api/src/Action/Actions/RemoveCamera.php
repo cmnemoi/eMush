@@ -64,7 +64,7 @@ class RemoveCamera extends AbstractAction
         ;
 
         $equipmentEvent = new EquipmentEvent(
-            $itemCamera,
+            $equipmentCamera,
             $this->player->getPlace(),
             VisibilityEnum::HIDDEN,
             $this->getActionName(),

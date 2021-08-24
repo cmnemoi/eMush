@@ -70,7 +70,7 @@ class RemoveCamera extends AbstractAction
             $this->getActionName(),
             new \DateTime()
         );
-        $equipmentEvent->setReplacementEquipment($equipmentCamera)->setPlayer($this->player);
+        $equipmentEvent->setReplacementEquipment($itemCamera)->setPlayer($this->player);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_TRANSFORM);
 
         return new Success();

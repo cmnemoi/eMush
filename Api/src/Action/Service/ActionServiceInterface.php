@@ -4,7 +4,6 @@ namespace Mush\Action\Service;
 
 use Mush\Action\Entity\Action;
 use Mush\Player\Entity\Player;
-use Mush\Status\Entity\Attempt;
 
 interface ActionServiceInterface
 {
@@ -22,6 +21,4 @@ interface ActionServiceInterface
         Action $action,
         Player $player
     ): int;
-
-    public function getAttempt(Player $player, string $actionName): Attempt;
 }

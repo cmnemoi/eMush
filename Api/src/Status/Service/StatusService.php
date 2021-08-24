@@ -6,6 +6,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Error;
+use Mush\Action\ActionResult\ActionResult;
+use Mush\Action\ActionResult\Success;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -14,6 +16,7 @@ use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
+use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Repository\StatusRepository;
 
 class StatusService implements StatusServiceInterface
@@ -80,6 +83,32 @@ class StatusService implements StatusServiceInterface
         ;
 
         return $status;
+    }
+
+    public function handleAttempt(Player $player, string $actionName, ActionResult $result): void
+    {
+        /** @var Attempt $attempt */
+        $attempt = $player->getStatusByName(StatusEnum::ATTEMPT);
+
+        if ($result instanceof Success) {
+            $this->delete($attempt);
+        } else {
+            if ($attempt && $attempt->getAction() !== $actionName) {
+                // Re-initialize attempts with new action
+                $attempt
+                    ->setAction($actionName)
+                    ->setCharge(0)
+                ;
+            } elseif ($attempt === null) { //Create Attempt
+                $attempt = $this->createAttemptStatus(
+                    StatusEnum::ATTEMPT,
+                    $actionName,
+                    $player
+                );
+            }
+
+            $attempt->addCharge(1);
+        }
     }
 
     public function persist(Status $status): Status

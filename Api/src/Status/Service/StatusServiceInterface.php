@@ -3,6 +3,7 @@
 namespace Mush\Status\Service;
 
 use Doctrine\Common\Collections\Collection;
+use Mush\Action\ActionResult\ActionResult;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -29,6 +30,8 @@ interface StatusServiceInterface
     ): ChargeStatus;
 
     public function createAttemptStatus(string $statusName, string $action, Player $player): Attempt;
+
+    public function handleAttempt(Player $player, string $actionName, ActionResult $result): void;
 
     public function persist(Status $status): Status;
 

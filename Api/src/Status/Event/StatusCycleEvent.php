@@ -16,9 +16,14 @@ class StatusCycleEvent extends DaedalusCycleEvent
 
     private StatusHolderInterface $holder;
 
-    public function __construct(Status $status, StatusHolderInterface $holder, Daedalus $daedalus, \DateTime $time)
-    {
-        parent::__construct($daedalus, $time);
+    public function __construct(
+        Status $status,
+        StatusHolderInterface $holder,
+        Daedalus $daedalus,
+        string $reason,
+        \DateTime $time
+    ) {
+        parent::__construct($daedalus, $reason, $time);
 
         $this->status = $status;
         $this->holder = $holder;

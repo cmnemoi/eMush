@@ -164,7 +164,7 @@ class ActionSideEffectsServiceTest extends TestCase
         $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->withArgs(
-                fn (PlayerModifierEvent $playerEvent, string $eventName) => ($playerEvent->getDelta() === -2 && $eventName === PlayerModifierEvent::HEALTH_POINT_MODIFIER)
+                fn (PlayerModifierEvent $playerEvent, string $eventName) => ($playerEvent->getQuantity() === -2 && $eventName === PlayerModifierEvent::HEALTH_POINT_MODIFIER)
             )
             ->once()
         ;

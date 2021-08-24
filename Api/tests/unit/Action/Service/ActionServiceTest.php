@@ -154,7 +154,7 @@ class ActionServiceTest extends TestCase
         ;
 
         $eventDispatched = static function (int $delta, string $name) {
-            return fn (PlayerModifierEvent $event, string $eventName) => ($event->getDelta() === $delta && $eventName === $name);
+            return fn (PlayerModifierEvent $event, string $eventName) => ($event->getQuantity() === $delta && $eventName === $name);
         };
 
         $this->eventDispatcher
@@ -210,7 +210,7 @@ class ActionServiceTest extends TestCase
             ->shouldReceive('dispatch')
             ->withArgs(
                 fn (PlayerModifierEvent $event, string $eventName) => (
-                    $event->getDelta() === -1 &&
+                    $event->getQuantity() === -1 &&
                     in_array($eventName, [PlayerModifierEvent::ACTION_POINT_MODIFIER, PlayerModifierEvent::MORAL_POINT_MODIFIER])
                 )
             )

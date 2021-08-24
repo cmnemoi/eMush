@@ -13,6 +13,7 @@ use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Game\Enum\EventEnum;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
@@ -185,7 +186,13 @@ class GearToolService implements GearToolServiceInterface
             $chargeStatus = $this->statusService->updateCharge($chargeStatus, -1);
 
             if ($chargeStatus === null) {
-                $equipmentEvent = new EquipmentEvent($equipment, VisibilityEnum::HIDDEN, new \DateTime());
+                $equipmentEvent = new EquipmentEvent(
+                    $equipment,
+                    $equipment->getCurrentPlace(),
+                    VisibilityEnum::HIDDEN,
+                    EventEnum::OUT_OF_CHARGE,
+                    new \DateTime()
+                );
                 $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
             }
         }

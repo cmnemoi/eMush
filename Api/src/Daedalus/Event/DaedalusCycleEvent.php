@@ -3,18 +3,18 @@
 namespace Mush\Daedalus\Event;
 
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Game\Event\AbstractCycleEvent;
+use Mush\Game\Event\AbstractMushEvent;
 
-class DaedalusCycleEvent extends AbstractCycleEvent
+class DaedalusCycleEvent extends AbstractMushEvent
 {
     public const DAEDALUS_NEW_CYCLE = 'daedalus.new.cycle';
     public const DAEDALUS_NEW_DAY = 'daedalus.new.day';
 
-    private Daedalus $daedalus;
+    protected Daedalus $daedalus;
 
-    public function __construct(Daedalus $daedalus, \DateTime $time)
+    public function __construct(Daedalus $daedalus, string $reason, \DateTime $time)
     {
-        parent::__construct($time);
+        parent::__construct($reason, $time);
 
         $this->daedalus = $daedalus;
     }

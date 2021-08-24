@@ -33,10 +33,18 @@ class PlayerSubscriber implements EventSubscriberInterface
         $daedalus = $player->getDaedalus();
 
         if ($daedalus->getPlayers()->count() === $daedalus->getGameConfig()->getMaxPlayer()) {
-            $fullDaedalusEvent = new DaedalusEvent($daedalus, $event->getTime());
+            $fullDaedalusEvent = new DaedalusEvent(
+                $daedalus,
+                $event->getReason(),
+                $event->getTime()
+            );
             $this->eventDispatcher->dispatch($fullDaedalusEvent, DaedalusEvent::FULL_DAEDALUS);
         } elseif ($daedalus->getPlayers()->count() === 1) {
-            $startDaedalusEvent = new DaedalusEvent($daedalus, $event->getTime());
+            $startDaedalusEvent = new DaedalusEvent(
+                $daedalus,
+                $event->getReason(),
+                $event->getTime()
+            );
             $this->eventDispatcher->dispatch($startDaedalusEvent, DaedalusEvent::START_DAEDALUS);
         }
     }
@@ -50,9 +58,11 @@ class PlayerSubscriber implements EventSubscriberInterface
             !in_array($reason, [EndCauseEnum::SOL_RETURN, EndCauseEnum::EDEN, EndCauseEnum::SUPER_NOVA, EndCauseEnum::KILLED_BY_NERON]) &&
             $player->getDaedalus()->getGameStatus() !== GameStatusEnum::STARTING
         ) {
-            $endDaedalusEvent = new DaedalusEvent($player->getDaedalus(), $event->getTime());
-
-            $endDaedalusEvent->setReason(EndCauseEnum::DAEDALUS_DESTROYED);
+            $endDaedalusEvent = new DaedalusEvent(
+                $player->getDaedalus(),
+                EndCauseEnum::DAEDALUS_DESTROYED,
+                $event->getTime()
+            );
 
             $this->eventDispatcher->dispatch($endDaedalusEvent, DaedalusEvent::END_DAEDALUS);
         }

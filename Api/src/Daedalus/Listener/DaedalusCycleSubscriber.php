@@ -10,6 +10,7 @@ use Mush\Daedalus\Service\DaedalusIncidentServiceInterface;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Game\Enum\EventEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Enum\EndCauseEnum as EnumEndCauseEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -70,8 +71,11 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         if ($daedalus->getPlayers()->getHumanPlayer()->getPlayerAlive()->isEmpty() &&
             !$daedalus->getPlayers()->getMushPlayer()->getPlayerAlive()->isEmpty()
         ) {
-            $endDaedalusEvent = new DaedalusEvent($daedalus, $time);
-            $endDaedalusEvent->setReason(EnumEndCauseEnum::KILLED_BY_NERON);
+            $endDaedalusEvent = new DaedalusEvent(
+                $daedalus,
+                EnumEndCauseEnum::KILLED_BY_NERON,
+                $time
+            );
             $this->eventDispatcher->dispatch($endDaedalusEvent, DaedalusEvent::END_DAEDALUS);
 
             return true;
@@ -109,8 +113,12 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
             $this->daedalusService->getRandomAsphyxia($daedalus, $date);
         }
 
-        $daedalusEvent = new DaedalusModifierEvent($daedalus, $date);
-        $daedalusEvent->setQuantity(-$oxygenLoss);
+        $daedalusEvent = new DaedalusModifierEvent(
+            $daedalus,
+            -$oxygenLoss,
+            EventEnum::NEW_CYCLE,
+            $date
+        );
         $this->eventDispatcher->dispatch($daedalusEvent, DaedalusModifierEvent::CHANGE_OXYGEN);
 
         return $daedalus;
@@ -137,7 +145,11 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         $this->daedalusIncidentService->handleFireEvents($daedalus, $time);
 
         if ($newDay) {
-            $dayEvent = new DaedalusCycleEvent($daedalus, $time);
+            $dayEvent = new DaedalusCycleEvent(
+                $daedalus,
+                EventEnum::NEW_DAY,
+                $time
+            );
             $this->eventDispatcher->dispatch($dayEvent, DaedalusCycleEvent::DAEDALUS_NEW_DAY);
         }
     }

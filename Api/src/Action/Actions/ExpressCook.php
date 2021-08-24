@@ -72,7 +72,13 @@ class ExpressCook extends AbstractAction
                 ->createGameEquipmentFromName(GameRationEnum::COOKED_RATION, $this->player->getDaedalus())
             ;
 
-            $equipmentEvent = new EquipmentEvent($parameter, VisibilityEnum::PUBLIC, new \DateTime());
+            $equipmentEvent = new EquipmentEvent(
+                $parameter,
+                $this->player->getPlace(),
+                VisibilityEnum::PUBLIC,
+                $this->getActionName(),
+                new \DateTime()
+            );
             $equipmentEvent->setReplacementEquipment($newItem)->setPlayer($this->player);
             $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_TRANSFORM);
         } elseif ($frozenStatus = $parameter->getStatusByName(EquipmentStatusEnum::FROZEN)) {

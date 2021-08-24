@@ -47,7 +47,11 @@ class SpreadFire extends AbstractAction
 
     protected function applyEffects(): ActionResult
     {
-        $roomEvent = new RoomEvent($this->player->getPlace(), new \DateTime());
+        $roomEvent = new RoomEvent(
+            $this->player->getPlace(),
+            $this->getActionName(),
+            new \DateTime()
+        );
         $this->eventDispatcher->dispatch($roomEvent, RoomEvent::STARTING_FIRE);
 
         return new Success();

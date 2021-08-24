@@ -27,8 +27,12 @@ class Starving extends AbstractStatusCycleHandler
             return;
         }
 
-        $playerModifierEvent = new PlayerModifierEvent($statusHolder, -1, $dateTime);
-        $playerModifierEvent->setReason(PlayerStatusEnum::STARVING);
+        $playerModifierEvent = new PlayerModifierEvent(
+            $statusHolder,
+            -1,
+            PlayerStatusEnum::STARVING,
+            $dateTime
+        );
         $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
     }
 

@@ -16,6 +16,7 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
@@ -149,7 +150,11 @@ class DaedalusService implements DaedalusServiceInterface
             }
         }
 
-        $daedalusEvent = new DaedalusEvent($daedalus, new \DateTime());
+        $daedalusEvent = new DaedalusEvent(
+            $daedalus,
+            EventEnum::CREATE_DAEDALUS,
+            new \DateTime()
+        );
         $this->eventDispatcher->dispatch($daedalusEvent, DaedalusEvent::NEW_DAEDALUS);
 
         return $this->persist($daedalus);
@@ -197,7 +202,11 @@ class DaedalusService implements DaedalusServiceInterface
             ;
 
             if (!$mushPlayers->isEmpty()) {
-                $playerEvent = new PlayerEvent($mushPlayers->first(), $date);
+                $playerEvent = new PlayerEvent(
+                    $mushPlayers->first(),
+                    DaedalusEvent::FULL_DAEDALUS,
+                    $date
+                );
                 $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::CONVERSION_PLAYER);
             }
         }
@@ -210,8 +219,11 @@ class DaedalusService implements DaedalusServiceInterface
         $player = $this->getRandomPlayersWithLessOxygen($daedalus);
 
         if ($this->getOxygenCapsuleCount($player) === 0) {
-            $playerEvent = new PlayerEvent($player, $date);
-            $playerEvent->setReason(EndCauseEnum::ASPHYXIA);
+            $playerEvent = new PlayerEvent(
+                $player,
+                EndCauseEnum::ASPHYXIA,
+                $date
+            );
 
             $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
         } else {
@@ -257,8 +269,11 @@ class DaedalusService implements DaedalusServiceInterface
         for ($i = 0; $i < $playerAliveNb; ++$i) {
             $player = $this->randomService->getAlivePlayerInDaedalus($daedalus);
 
-            $playerEvent = new PlayerEvent($player, $date);
-            $playerEvent->setReason($cause);
+            $playerEvent = new PlayerEvent(
+                $player,
+                $cause,
+                $date
+            );
             $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
         }
 
@@ -292,8 +307,11 @@ class DaedalusService implements DaedalusServiceInterface
         if (($newHull = $daedalus->getHull() + $change) < 0) {
             $daedalus->setHull(0);
 
-            $daedalusEvent = new DaedalusEvent($daedalus, $date);
-            $daedalusEvent->setReason(EndCauseEnum::DAEDALUS_DESTROYED);
+            $daedalusEvent = new DaedalusEvent(
+                $daedalus,
+                EndCauseEnum::DAEDALUS_DESTROYED,
+                $date
+            );
 
             $this->eventDispatcher->dispatch($daedalusEvent, DaedalusEvent::END_DAEDALUS);
         } else {

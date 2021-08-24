@@ -27,12 +27,7 @@ class DaedalusModifierSubscriber implements EventSubscriberInterface
     public function onChangeHull(DaedalusModifierEvent $event): void
     {
         $daedalus = $event->getDaedalus();
-        $date = $event->getTime();
-
         $change = $event->getQuantity();
-        if ($change === null) {
-            throw new \LogicException('quantity should be provided');
-        }
 
         $this->alertService->hullAlert($daedalus, $change);
     }
@@ -40,11 +35,7 @@ class DaedalusModifierSubscriber implements EventSubscriberInterface
     public function onChangeOxygen(DaedalusModifierEvent $event): void
     {
         $daedalus = $event->getDaedalus();
-
         $change = $event->getQuantity();
-        if ($change === null) {
-            throw new \LogicException('quantity should be provided');
-        }
 
         $this->alertService->oxygenAlert($daedalus, $change);
     }

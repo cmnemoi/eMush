@@ -32,7 +32,12 @@ class EquipmentCycleSubscriber implements EventSubscriberInterface
 
         /** @var Status $status */
         foreach ($equipment->getStatuses() as $status) {
-            $statusNewCycle = new StatusCycleEvent($status, $equipment, $event->getDaedalus(), $event->getTime());
+            $statusNewCycle = new StatusCycleEvent(
+                $status, $equipment,
+                $event->getDaedalus(),
+                $event->getReason(),
+                $event->getTime()
+            );
             $this->eventDispatcher->dispatch($statusNewCycle, StatusCycleEvent::STATUS_NEW_CYCLE);
         }
     }
@@ -43,7 +48,13 @@ class EquipmentCycleSubscriber implements EventSubscriberInterface
 
         /** @var Status $status */
         foreach ($equipment->getStatuses() as $status) {
-            $statusNewDay = new StatusCycleEvent($status, $equipment, $event->getDaedalus(), $event->getTime());
+            $statusNewDay = new StatusCycleEvent(
+                $status,
+                $equipment,
+                $event->getDaedalus(),
+                $event->getReason(),
+                $event->getTime()
+            );
             $this->eventDispatcher->dispatch($statusNewDay, StatusCycleEvent::STATUS_NEW_DAY);
         }
     }

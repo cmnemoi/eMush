@@ -13,6 +13,7 @@ use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\EventEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -55,7 +56,7 @@ class CycleEventCest
         $I->haveInRepository($status);
         $id = $status->getId();
 
-        $cycleEvent = new StatusCycleEvent($status, new Player(), $daedalus, $time);
+        $cycleEvent = new StatusCycleEvent($status, new Player(), $daedalus, EventEnum::NEW_CYCLE, $time);
 
         $this->cycleSubscriber->onNewCycle($cycleEvent);
 
@@ -86,7 +87,7 @@ class CycleEventCest
 
         $player->addStatus($status);
 
-        $cycleEvent = new StatusCycleEvent($status, $player, $daedalus, $time);
+        $cycleEvent = new StatusCycleEvent($status, $player, $daedalus, EventEnum::NEW_CYCLE, $time);
 
         $I->haveInRepository($status);
         $I->refreshEntities($player, $daedalus);
@@ -164,7 +165,7 @@ class CycleEventCest
 
         $room->addStatus($status);
 
-        $cycleEvent = new StatusCycleEvent($status, $room, $daedalus, $time);
+        $cycleEvent = new StatusCycleEvent($status, $room, $daedalus, EventEnum::NEW_CYCLE, $time);
 
         $I->haveInRepository($status);
         $I->refreshEntities($player, $daedalus);

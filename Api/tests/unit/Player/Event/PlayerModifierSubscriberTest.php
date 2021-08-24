@@ -45,7 +45,7 @@ class PlayerModifierSubscriberTest extends TestCase
     {
         $player = new Player();
 
-        $event = new PlayerModifierEvent($player, 1, new \DateTime());
+        $event = new PlayerModifierEvent($player, 1, 'movement point conversion', new \DateTime());
 
         $player->setActionPoint(1);
 

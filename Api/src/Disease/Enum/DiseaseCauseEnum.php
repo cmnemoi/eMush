@@ -11,6 +11,8 @@ class DiseaseCauseEnum
     public const PSY_TRAUMA = 'psy_trauma';
     public const ALIEN_FIGHT = 'alien_fight';
     public const PERISHED_FOOD = 'perished_food';
+    public const CONSUMABLE_EFFECT = 'consumable_effect';
+    public const INCUBATING_END = 'incubating_end';
     public const ALIEN_STEACK = 'alien_steack';
     public const ALIEN_FRUIT = 'alien_fruit';
 }

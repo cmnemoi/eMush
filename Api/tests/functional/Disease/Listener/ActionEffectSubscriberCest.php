@@ -4,7 +4,8 @@ namespace Mush\Tests\functional\Disease\Listener;
 
 use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
-use Mush\Action\Event\ActionEffectEvent;
+use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Disease\Entity\ConsumableDisease;
 use Mush\Disease\Entity\ConsumableDiseaseAttribute;
@@ -19,6 +20,7 @@ use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Enum\VisibilityEnum;
 
 class ActionEffectSubscriberCest
 {
@@ -56,7 +58,13 @@ class ActionEffectSubscriberCest
         $gameItem = $this->createRation($I);
         $diseaseConfig = $this->createDiseaseForRation($daedalus, $gameItem->getName(), 'diseaseName', true);
 
-        $event = new ActionEffectEvent($player, $gameItem);
+        $event = new ApplyEffectEvent(
+            $player,
+            $gameItem,
+            VisibilityEnum::HIDDEN,
+            ActionEnum::CONSUME,
+            new \DateTime()
+        );
 
         $this->subscriber->onConsume($event);
 
@@ -90,7 +98,13 @@ class ActionEffectSubscriberCest
         $gameItem = $this->createRation($I);
         $diseaseConfig = $this->createDiseaseForRation($daedalus, $gameItem->getName(), 'diseaseName', false);
 
-        $event = new ActionEffectEvent($player, $gameItem);
+        $event = new ApplyEffectEvent(
+            $player,
+            $gameItem,
+            VisibilityEnum::HIDDEN,
+            ActionEnum::CONSUME,
+            new \DateTime()
+        );
 
         $this->subscriber->onConsume($event);
 
@@ -132,7 +146,13 @@ class ActionEffectSubscriberCest
         ;
         $I->haveInRepository($diseasePlayer);
 
-        $event = new ActionEffectEvent($player, $player);
+        $event = new ApplyEffectEvent(
+            $player,
+            $player,
+            VisibilityEnum::HIDDEN,
+            ActionEnum::HEAL,
+            new \DateTime()
+        );
 
         $this->subscriber->onHeal($event);
 
@@ -175,7 +195,13 @@ class ActionEffectSubscriberCest
         ;
         $I->haveInRepository($diseasePlayer);
 
-        $event = new ActionEffectEvent($player, $player);
+        $event = new ApplyEffectEvent(
+            $player,
+            $player,
+            VisibilityEnum::HIDDEN,
+            ActionEnum::HEAL,
+            new \DateTime()
+        );
 
         $this->subscriber->onHeal($event);
 

@@ -2,10 +2,8 @@
 
 namespace Mush\RoomLog\Listener;
 
-use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerModifierEvent;
 use Mush\RoomLog\Enum\LogEnum;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -31,63 +29,87 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
 
     public function onActionPointModifier(PlayerModifierEvent $playerEvent): void
     {
-        $player = $playerEvent->getPlayer();
-        $delta = $playerEvent->getDelta();
+        $delta = $playerEvent->getQuantity();
 
-        if (!$playerEvent->isDisplayedRoomLog() || $delta === 0) {
+        if ($delta === 0) {
             return;
         }
 
         $logKey = $delta > 0 ? LogEnum::GAIN_ACTION_POINT : LogEnum::LOSS_ACTION_POINT;
-        $this->createPrivateLog($player, $logKey, $playerEvent->getTime(), abs($delta));
+
+        $this->roomLogService->createLog(
+            $logKey,
+            $playerEvent->getPlace(),
+            $playerEvent->getVisibility(),
+            'event_log',
+            $playerEvent->getPlayer(),
+            null,
+            $delta,
+            $playerEvent->getTime()
+        );
     }
 
     public function onMovementPointModifier(PlayerModifierEvent $playerEvent): void
     {
-        $player = $playerEvent->getPlayer();
-        $delta = $playerEvent->getDelta();
+        $delta = $playerEvent->getQuantity();
 
-        if (!$playerEvent->isDisplayedRoomLog() || $delta === 0) {
+        if ($delta === 0) {
             return;
         }
 
         $logKey = $delta > 0 ? LogEnum::GAIN_MOVEMENT_POINT : LogEnum::LOSS_MOVEMENT_POINT;
-        $this->createPrivateLog($player, $logKey, $playerEvent->getTime(), abs($delta));
+
+        $this->roomLogService->createLog(
+            $logKey,
+            $playerEvent->getPlace(),
+            $playerEvent->getVisibility(),
+            'event_log',
+            $playerEvent->getPlayer(),
+            null,
+            $delta,
+            $playerEvent->getTime()
+        );
     }
 
     public function onHealthPointModifier(PlayerModifierEvent $playerEvent): void
     {
-        $player = $playerEvent->getPlayer();
-        $delta = $playerEvent->getDelta();
+        $delta = $playerEvent->getQuantity();
 
-        if (!$playerEvent->isDisplayedRoomLog() || $delta === 0) {
+        if ($delta === 0) {
             return;
         }
 
         $logKey = $delta > 0 ? LogEnum::GAIN_HEALTH_POINT : LogEnum::LOSS_HEALTH_POINT;
-        $this->createPrivateLog($player, $logKey, $playerEvent->getTime(), abs($delta));
+        $this->roomLogService->createLog(
+            $logKey,
+            $playerEvent->getPlace(),
+            $playerEvent->getVisibility(),
+            'event_log',
+            $playerEvent->getPlayer(),
+            null,
+            $delta,
+            $playerEvent->getTime()
+        );
     }
 
     public function onMoralPointModifier(PlayerModifierEvent $playerEvent): void
     {
-        $player = $playerEvent->getPlayer();
-        $delta = $playerEvent->getDelta();
+        $delta = $playerEvent->getQuantity();
 
-        if (!$playerEvent->isDisplayedRoomLog() || $delta === 0) {
+        if ($delta === 0) {
             return;
         }
 
         $logKey = $delta > 0 ? LogEnum::GAIN_MORAL_POINT : LogEnum::LOSS_MORAL_POINT;
-        $this->createPrivateLog($player, $logKey, $playerEvent->getTime(), abs($delta));
-    }
-
-    private function createPrivateLog(Player $player, string $logKey, \DateTime $time, ?int $quantity = null): void
-    {
         $this->roomLogService->createLog(
             $logKey,
-            $player->getPlace(),
-            VisibilityEnum::PRIVATE,
+            $playerEvent->getPlace(),
+            $playerEvent->getVisibility(),
             'event_log',
+            $playerEvent->getPlayer(),
+            null,
+            $delta,
+            $playerEvent->getTime()
             $player,
             ['quantity' => $quantity],
             $time

@@ -72,7 +72,7 @@ class Build extends AbstractAction
         /** @var Blueprint $blueprintMechanic */
         $blueprintMechanic = $parameter->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT);
 
-        //Check the availlability of the ingredients
+        //Check the availability of the ingredients
         foreach ($blueprintMechanic->getIngredients() as $name => $number) {
             if ($this->gearToolService->getEquipmentsOnReachByName($this->player, $name)->count() < $number) {
                 return ActionImpossibleCauseEnum::BUILD_LACK_RESSOURCES;
@@ -94,6 +94,7 @@ class Build extends AbstractAction
             $blueprintMechanic->getEquipment(),
             $this->player->getDaedalus()
         );
+        $place = $this->player->getPlace();
 
         // remove the used ingredients starting from the player inventory
         foreach ($blueprintMechanic->getIngredients() as $name => $number) {
@@ -108,17 +109,36 @@ class Build extends AbstractAction
                         ->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $name)->first();
                 }
 
-                $equipmentEvent = new EquipmentEvent($ingredient, VisibilityEnum::HIDDEN, new \DateTime());
+                $equipmentEvent = new EquipmentEvent(
+                    $ingredient,
+                    $place,
+                    VisibilityEnum::HIDDEN,
+                    $this->getActionName(),
+                    new \DateTime()
+                );
                 $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
             }
         }
 
-        $equipmentEvent = new EquipmentEvent($parameter, VisibilityEnum::HIDDEN, new \DateTime());
+        $equipmentEvent = new EquipmentEvent(
+            $parameter,
+            $place,
+            VisibilityEnum::HIDDEN,
+            $this->getActionName(),
+            new \DateTime()
+        );
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         //create the equipment
-        $equipmentEvent = new EquipmentEvent($blueprintEquipment, VisibilityEnum::HIDDEN, new \DateTime());
-        $equipmentEvent->setPlayer($this->player)->setPlace($this->player->getPlace());
+        $equipmentEvent = new EquipmentEvent(
+            $blueprintEquipment,
+            $place,
+            VisibilityEnum::HIDDEN,
+            $this->getActionName(),
+            new \DateTime()
+        );
+
+        $equipmentEvent->setPlayer($this->player);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
         $this->gameEquipmentService->persist($blueprintEquipment);

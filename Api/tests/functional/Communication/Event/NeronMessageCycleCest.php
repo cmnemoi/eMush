@@ -15,6 +15,7 @@ use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\EventEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -116,7 +117,7 @@ class NeronMessageCycleCest
 
         $room->addStatus($status);
 
-        $cycleEvent = new StatusCycleEvent($status, $room, $daedalus, $time);
+        $cycleEvent = new StatusCycleEvent($status, $room, $daedalus, EventEnum::NEW_CYCLE, $time);
 
         $I->haveInRepository($status);
         $I->refreshEntities($player, $daedalus);

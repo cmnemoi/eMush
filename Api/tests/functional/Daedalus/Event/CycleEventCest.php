@@ -15,6 +15,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\CharacterEnum;
+use Mush\Game\Enum\EventEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -78,7 +79,7 @@ class CycleEventCest
         $I->haveInRepository($status);
         $I->refreshEntities($player, $daedalus, $gameEquipment);
 
-        $event = new DaedalusCycleEvent($daedalus, new DateTime());
+        $event = new DaedalusCycleEvent($daedalus, EventEnum::NEW_CYCLE, new DateTime());
         $this->eventDispatcher->dispatch($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
         $I->assertEquals(4, $player->getActionPoint());
@@ -122,7 +123,7 @@ class CycleEventCest
             ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig2, 'healthPoint' => 99]
         );
 
-        $event = new DaedalusCycleEvent($daedalus, new DateTime());
+        $event = new DaedalusCycleEvent($daedalus, EventEnum::NEW_CYCLE, new DateTime());
         $this->eventDispatcher->dispatch($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
         $I->assertEquals(0, $daedalus->getOxygen());

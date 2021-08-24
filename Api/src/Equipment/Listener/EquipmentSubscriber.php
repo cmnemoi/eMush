@@ -42,10 +42,6 @@ class EquipmentSubscriber implements EventSubscriberInterface
         $place = $event->getPlace();
         $equipment = $event->getEquipment();
 
-        if ($place === null) {
-            throw new \LogicException('Place should be provided');
-        }
-
         if ($player === null ||
             !$equipment instanceof GameItem ||
             $player->getItems()->count() >= $this->getGameConfig($equipment)->getMaxItemInInventory()

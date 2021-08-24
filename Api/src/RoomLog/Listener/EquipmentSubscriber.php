@@ -8,7 +8,6 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Entity\GameConfig;
 use Mush\RoomLog\Enum\LogEnum;
-use Mush\RoomLog\Enum\PlantLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -56,13 +55,20 @@ class EquipmentSubscriber implements EventSubscriberInterface
         }
 
         if ($equipment instanceof GameItem && $player->getItems()->count() >= $this->getGameConfig($equipment)->getMaxItemInInventory()) {
+        $equipment = $event->getEquipment();
+
+        if ($equipment instanceof GameItem &&
+            ($player = $event->getPlayer()) !== null &&
+            $player->getItems()->count() >= $this->getGameConfig($equipment)->getMaxItemInInventory()
+        ) {
             $this->roomLogService->createLog(
                 LogEnum::OBJECT_FELT,
-                $player->getPlace(),
+                $event->getPlace(),
                 VisibilityEnum::PUBLIC,
                 'event_log',
                 $player,
-                [$equipment->getLogKey() => $equipment->getLogName()],
+                $equipment,
+                null,
                 $event->getTime()
             );
         }

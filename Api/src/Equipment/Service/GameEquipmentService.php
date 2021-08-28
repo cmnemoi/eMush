@@ -10,7 +10,6 @@ use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\ItemConfig;
-use Mush\Equipment\Entity\Mechanics\Charged;
 use Mush\Equipment\Entity\Mechanics\Document;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
@@ -20,11 +19,12 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
-use Mush\Status\Entity\ContentStatus;
-use Mush\Status\Enum\ChargeStrategyTypeEnum;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Event\StatusEvent;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class GameEquipmentService implements GameEquipmentServiceInterface
 {
@@ -93,12 +93,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             $gameEquipment = $equipment->createGameEquipment();
         }
 
-        if ($equipment->isAlienArtifact()) {
-            $this->initStatus($gameEquipment, EquipmentStatusEnum::ALIEN_ARTEFACT);
-        }
-        if ($equipment instanceof ItemConfig && $equipment->isHeavy()) {
-            $this->initStatus($gameEquipment, EquipmentStatusEnum::HEAVY);
-        }
+        $this->initStatus($gameEquipment, $daedalus);
 
         $gameEquipment = $this->initMechanics($gameEquipment, $daedalus);
 
@@ -112,9 +107,6 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             switch ($mechanic->getMechanic()) {
                 case EquipmentMechanicEnum::PLANT:
                     $this->initPlant($gameEquipment, $mechanic, $daedalus);
-                    break;
-                case EquipmentMechanicEnum::CHARGED:
-                    $this->initCharged($gameEquipment, $mechanic);
                     break;
                 case EquipmentMechanicEnum::DOCUMENT:
                     if ($mechanic instanceof Document && $mechanic->getContent()) {
@@ -133,42 +125,9 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             throw new \LogicException('Parameter is not a plant');
         }
 
-        $this->statusService->createChargeStatus(
-            EquipmentStatusEnum::PLANT_YOUNG,
-            $gameEquipment,
-            ChargeStrategyTypeEnum::GROWING_PLANT,
-            null,
-            VisibilityEnum::PUBLIC,
-            VisibilityEnum::HIDDEN,
-            0,
-            $this->equipmentEffectService->getPlantEffect($plant, $daedalus)->getMaturationTime()
-        );
+        $statusEvent = new StatusEvent(EquipmentStatusEnum::PLANT_YOUNG, $gameEquipment, EquipmentEvent::EQUIPMENT_CREATED, new \DateTime());
 
-        return $gameEquipment;
-    }
-
-    private function initCharged(GameEquipment $gameEquipment, $charged): GameEquipment
-    {
-        if (!$charged instanceof Charged) {
-            throw new \LogicException('Parameter is not a charged mechanic');
-        }
-
-        $chargeStatus = $this->statusService->createChargeStatus(
-            EquipmentStatusEnum::CHARGES,
-            $gameEquipment,
-            $charged->getChargeStrategy(),
-            null,
-            VisibilityEnum::PUBLIC,
-            VisibilityEnum::PUBLIC,
-            $charged->getStartCharge(),
-            $charged->getMaxCharge()
-        );
-
-        if (!$charged->isVisible()) {
-            $chargeStatus
-                ->setVisibility(VisibilityEnum::HIDDEN)
-                ->setChargeVisibility(VisibilityEnum::HIDDEN);
-        }
+        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
 
         return $gameEquipment;
     }
@@ -179,22 +138,26 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             throw new \LogicException('Parameter is not a document');
         }
 
-        $contentStatus = new ContentStatus($gameEquipment);
-        $contentStatus
-            ->setName(EquipmentStatusEnum::DOCUMENT_CONTENT)
-            ->setVisibility(VisibilityEnum::HIDDEN)
-            ->setContent($document->getContent())
-        ;
+        // @TODO rework when better handling Daedalus creation
+        $statusEvent = new StatusEvent(EquipmentStatusEnum::DOCUMENT_CONTENT, $gameEquipment, EquipmentEvent::EQUIPMENT_CREATED, new \DateTime());
+        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
 
         return $gameEquipment;
     }
 
-    private function initStatus(GameEquipment $gameEquipment, string $statusName): GameEquipment
+    private function initStatus(GameEquipment $gameEquipment, Daedalus $daedalus): GameEquipment
     {
-        $this->statusService->createCoreStatus(
-            $statusName,
-            $gameEquipment
-        );
+        $statuses = $this->statusService->getStatusConfigByEquipmentAndDaedalus($gameEquipment->getName(), $daedalus);
+
+        // @TODO rework when better handling Daedalus creation
+        foreach ($statuses as $statusConfig) {
+            if (!$statusConfig instanceof StatusConfig) {
+                throw new UnexpectedTypeException($statusConfig, StatusConfig::class);
+            }
+            $statusEvent = new StatusEvent($statusConfig->getName(), $gameEquipment, EquipmentEvent::EQUIPMENT_CREATED, new \DateTime());
+
+            $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+        }
 
         return $gameEquipment;
     }

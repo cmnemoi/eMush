@@ -42,7 +42,9 @@ class EquipmentSubscriber implements EventSubscriberInterface
     {
         $equipment = $event->getEquipment();
 
-        $brokenStatus = $this->statusService->createCoreStatus(EquipmentStatusEnum::BROKEN, $equipment);
+        $brokenStatusConfig = $this->statusService->getStatusConfigByNameAndDaedalus(EquipmentStatusEnum::BROKEN, $event->getPlace()->getDaedalus());
+        $brokenStatus = $this->statusService->createStatusFromConfig($brokenStatusConfig, $equipment);
+
         $this->statusService->persist($brokenStatus);
     }
 

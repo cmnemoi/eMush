@@ -28,7 +28,8 @@ class ChargedValidator extends ConstraintValidator
         }
 
         /** @var ChargeStatus $chargeStatus */
-        $chargeStatus = $parameter->getStatusByName(EquipmentStatusEnum::CHARGES);
+        $chargeStatus = $parameter->getStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES);
+        //@TODO handle other type of charges
 
         if (!$chargeStatus || $chargeStatus->getCharge() <= 0) {
             $this->context->buildViolation($constraint->message)

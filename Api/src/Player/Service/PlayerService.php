@@ -21,8 +21,8 @@ use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\Status;
-use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Event\StatusEvent;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\User\Entity\User;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -120,18 +120,15 @@ class PlayerService implements PlayerServiceInterface
         ;
 
         foreach ($characterConfig->getStatuses() as $statusName) {
-            $this->statusService->createCoreStatus($statusName, $player);
+            $statusEvent = new StatusEvent($statusName, $player, PlayerEvent::NEW_PLAYER, new \DateTime());
+
+            $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
         }
 
         if (!(in_array(PlayerStatusEnum::IMMUNIZED, $characterConfig->getStatuses()))) {
-            $this->statusService->createChargeStatus(
-                PlayerStatusEnum::SPORES,
-                $player,
-                ChargeStrategyTypeEnum::NONE,
-                null,
-                VisibilityEnum::MUSH,
-                VisibilityEnum::MUSH,
-            );
+            $statusEvent = new StatusEvent(PlayerStatusEnum::SPORES, $player, PlayerEvent::NEW_PLAYER, new \DateTime());
+
+            $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
         }
 
         $this->persist($player);

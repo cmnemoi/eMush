@@ -11,10 +11,10 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\IsRoom;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -66,10 +66,7 @@ class Drop extends AbstractAction
         // Remove BURDENED status if no other heavy item in the inventory
         if (($burdened = $this->player->getStatusByName(PlayerStatusEnum::BURDENED)) &&
             $this->player->getItems()->filter(function (GameItem $item) {
-                /** @var ItemConfig $itemConfig */
-                $itemConfig = $item->getEquipment();
-
-                return $itemConfig->isHeavy();
+                return $item->hasStatus(EquipmentStatusEnum::HEAVY);
             })->isEmpty()
         ) {
             $this->player->removeStatus($burdened);

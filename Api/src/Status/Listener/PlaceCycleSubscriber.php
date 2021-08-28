@@ -32,7 +32,6 @@ class PlaceCycleSubscriber implements EventSubscriberInterface
             $statusNewCycle = new StatusCycleEvent(
                 $status,
                 $place,
-                $place->getDaedalus(),
                 $event->getReason(),
                 $event->getTime()
             );
@@ -48,7 +47,6 @@ class PlaceCycleSubscriber implements EventSubscriberInterface
             $statusNewDay = new StatusCycleEvent(
                 $status,
                 $room,
-                $room->getDaedalus(),
                 $event->getReason(),
                 $event->getTime()
             );

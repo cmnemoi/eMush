@@ -50,7 +50,6 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
         $compass
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::QUADRIMETRIC_COMPASS)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
@@ -62,7 +61,6 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
         $rope
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::ROPE)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
@@ -80,7 +78,6 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
         $drill
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::DRILL)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
@@ -95,7 +92,6 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
         $babelModule
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::BABEL_MODULE)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
@@ -107,7 +103,6 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
         $echolocator
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::ECHOLOCATOR)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
@@ -125,7 +120,6 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
         $thermosensor
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::THERMOSENSOR)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
@@ -139,7 +133,6 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
         $whiteFlag
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::WHITE_FLAG)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)

@@ -72,7 +72,6 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
         $blueprintEcholocator
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::ECHOLOCATOR . '_' . ItemEnum::BLUEPRINT)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
@@ -93,7 +92,6 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
         $blueprintWhiteFlag
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::WHITE_FLAG . '_' . ItemEnum::BLUEPRINT)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
@@ -114,7 +112,6 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
         $blueprintThermosensor
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::THERMOSENSOR . '_' . ItemEnum::BLUEPRINT)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
@@ -135,7 +132,6 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
         $blueprintBabelModule
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::BABEL_MODULE . '_' . ItemEnum::BLUEPRINT)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
@@ -156,7 +152,6 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
         $blueprintGrenade
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::GRENADE . '_' . ItemEnum::BLUEPRINT)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
@@ -177,7 +172,6 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
         $blueprintOldFaithful
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::OLD_FAITHFUL . '_' . ItemEnum::BLUEPRINT)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
@@ -198,7 +192,6 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
         $blueprintLizaroJungle
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::LIZARO_JUNGLE . '_' . ItemEnum::BLUEPRINT)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
@@ -219,7 +212,6 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
         $blueprintRocketLauncher
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::ROCKET_LAUNCHER . '_' . ItemEnum::BLUEPRINT)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
@@ -240,7 +232,6 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
         $blueprintExtinguisher
             ->setGameConfig($gameConfig)
             ->setName(ToolItemEnum::EXTINGUISHER . '_' . ItemEnum::BLUEPRINT)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
@@ -261,7 +252,6 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
         $blueprintOscilloscope
             ->setGameConfig($gameConfig)
             ->setName(GearItemEnum::OSCILLOSCOPE . '_' . ItemEnum::BLUEPRINT)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
@@ -282,7 +272,6 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
         $blueprintSniperHelmet
             ->setGameConfig($gameConfig)
             ->setName(GearItemEnum::SNIPER_HELMET . '_' . ItemEnum::BLUEPRINT)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)

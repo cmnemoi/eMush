@@ -18,11 +18,6 @@ use Mush\Status\Service\StatusServiceInterface;
 
 class LieDownActionTest extends AbstractActionTest
 {
-    /** @var GameEquipmentServiceInterface | Mockery\Mock */
-    private GameEquipmentServiceInterface $gameEquipmentService;
-    /** @var StatusServiceInterface | Mockery\Mock */
-    private StatusServiceInterface $statusService;
-
     /**
      * @before
      */
@@ -32,14 +27,10 @@ class LieDownActionTest extends AbstractActionTest
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::LIE_DOWN);
 
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
-        $this->statusService = Mockery::mock(StatusServiceInterface::class);
-
         $this->action = new LieDown(
             $this->eventDispatcher,
             $this->actionService,
             $this->validator,
-            $this->statusService,
         );
     }
 
@@ -76,7 +67,6 @@ class LieDownActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->action->loadParameters($this->actionEntity, $player, $gameEquipment);
 
-        $this->statusService->shouldReceive('persist');
 
         $result = $this->action->execute();
 

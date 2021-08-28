@@ -4,9 +4,7 @@ namespace Mush\Status\Listener;
 
 use Error;
 use Mush\Player\Event\PlayerEvent;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
-use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -28,7 +26,7 @@ class PlayerSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            PlayerEvent::INFECTION_PLAYER => 'onInfectionPlayer',
+            PlayerEvent::INFECTION_PLAYER => ['onInfectionPlayer' => 100], //do this before checking the number of spores
             PlayerEvent::CONVERSION_PLAYER => 'onConversionPlayer',
         ];
     }
@@ -69,15 +67,8 @@ class PlayerSubscriber implements EventSubscriberInterface
             $this->statusService->persist($sporeStatus);
         }
 
-        $this->statusService->createChargeStatus(
-            PlayerStatusEnum::MUSH,
-            $player,
-            ChargeStrategyTypeEnum::DAILY_RESET,
-            null,
-            VisibilityEnum::MUSH,
-            VisibilityEnum::HIDDEN,
-            1,
-            1
-        );
+        $mushStatusConfig = $this->statusService->getStatusConfigByNameAndDaedalus(PlayerStatusEnum::MUSH, $player->getDaedalus());
+        $mushStatus = $this->statusService->createStatusFromConfig($mushStatusConfig, $player);
+        $this->statusService->persist($mushStatus);
     }
 }

@@ -3,6 +3,7 @@
 namespace Mush\Action\Service;
 
 use Mush\Action\Entity\Action;
+use Mush\Game\Enum\EventEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
@@ -14,6 +15,7 @@ use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Event\StatusEvent;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
@@ -76,18 +78,8 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
                     $date
                 );
             } elseif ($percent <= $dirtyRate) {
-                $this->statusService->createCoreStatus(PlayerStatusEnum::DIRTY, $player);
-
-                $this->roomLogService->createLog(
-                    LogEnum::SOILED,
-                    $player->getPlace(),
-                    VisibilityEnum::PRIVATE,
-                    'event_log',
-                    $player,
-                    null,
-                    null,
-                    $date
-                );
+                $statusEvent = new StatusEvent(PlayerStatusEnum::DIRTY, $player, EventEnum::NEW_DAY, new \DateTime());
+                $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
             }
         }
     }

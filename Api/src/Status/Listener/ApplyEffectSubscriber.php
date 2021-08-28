@@ -6,8 +6,6 @@ use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\Mechanics\Drug;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
-use Mush\RoomLog\Enum\VisibilityEnum;
-use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -43,18 +41,10 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
         $drugMechanic = $drug->getEquipment()->getMechanicByName(EquipmentMechanicEnum::DRUG);
 
         if ($drugMechanic !== null && !$player->isMush()) {
-            $this->statusService
-                ->createChargeStatus(
-                    PlayerStatusEnum::DRUG_EATEN,
-                    $player,
-                    ChargeStrategyTypeEnum::CYCLE_DECREMENT,
-                    null,
-                    VisibilityEnum::HIDDEN,
-                    VisibilityEnum::HIDDEN,
-                    1,
-                    0,
-                    true
-                );
+            $statusConfig = $this->statusService->getStatusConfigByNameAndDaedalus(PlayerStatusEnum::DRUG_EATEN, $player->getDaedalus());
+            $status = $this->statusService->createStatusFromConfig($statusConfig, $player);
+
+            $this->statusService->persist($status);
         }
     }
 }

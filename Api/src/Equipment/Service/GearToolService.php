@@ -143,7 +143,7 @@ class GearToolService implements GearToolServiceInterface
             if ($toolMechanic &&
                 !$toolMechanic->getActions()->filter(fn (Action $action) => $action->getName() === $actionName)->isEmpty()
             ) {
-                $chargeStatus = $tool->getStatusByName(EquipmentStatusEnum::CHARGES);
+                $chargeStatus = $tool->getStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES);
                 if ($chargeStatus === null || !($chargeStatus instanceof ChargeStatus)) {
                     return $tool;
                 } elseif ($chargeStatus->getCharge() > 0) {
@@ -178,7 +178,7 @@ class GearToolService implements GearToolServiceInterface
 
     private function removeCharge(GameEquipment $equipment): void
     {
-        $chargeStatus = $equipment->getStatusByName(EquipmentStatusEnum::CHARGES);
+        $chargeStatus = $equipment->getStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES);
 
         if ($chargeStatus &&
             $chargeStatus instanceof ChargeStatus

@@ -2,33 +2,64 @@
 
 namespace Mush\Status\Event;
 
-use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Event\AbstractLoggedEvent;
+use Mush\Game\Event\AbstractMushEvent;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\Status\Entity\Status;
+use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\StatusHolderInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class StatusEvent extends StatusCycleEvent implements AbstractLoggedEvent
+class StatusEvent extends AbstractMushEvent implements AbstractLoggedEvent
 {
     public const STATUS_APPLIED = 'status.applied';
     public const STATUS_REMOVED = 'status.removed';
 
-    private string $visibility;
+    private string $statusName;
+    private StatusHolderInterface $holder;
+    private ?StatusHolderInterface $target;
+
+    private string $visibility = VisibilityEnum::HIDDEN;
 
     public function __construct(
-        Status $status,
+        string $statusName,
         StatusHolderInterface $holder,
-        string $visibility,
-        Daedalus $daedalus,
         string $reason,
         \DateTime $time
     ) {
+        $this->statusName = $statusName;
+        $this->holder = $holder;
+        parent::__construct($reason, $time);
+    }
+
+    public function getStatusName(): string
+    {
+        return $this->statusName;
+    }
+
+    public function getStatusHolder(): StatusHolderInterface
+    {
+        return $this->holder;
+    }
+
+    public function getStatusTarget(): ?StatusHolderInterface
+    {
+        return $this->target;
+    }
+
+    public function setStatusTarget(StatusHolderInterface $target): StatusEvent
+    {
+        $this->target = $target;
+
+        return $this;
+    }
+
+    public function setVisibility(string $visibility): StatusEvent
+    {
         $this->visibility = $visibility;
 
-        parent::__construct($status, $holder, $daedalus, $reason, $time);
+        return $this;
     }
 
     public function getVisibility(): string

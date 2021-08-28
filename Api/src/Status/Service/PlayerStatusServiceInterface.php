@@ -8,5 +8,5 @@ interface PlayerStatusServiceInterface
 {
     public function handleSatietyStatus(Player $player, \DateTime $dateTime): void;
 
-    public function handleMoralStatus(Player $player): void;
+    public function handleMoralStatus(Player $player, \DateTime $dateTime): void;
 }

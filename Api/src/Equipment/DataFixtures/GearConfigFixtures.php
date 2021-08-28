@@ -11,7 +11,6 @@ use Mush\Action\DataFixtures\TechnicianFixtures;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\ItemConfig;
-use Mush\Equipment\Entity\Mechanics\Charged;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
@@ -21,7 +20,6 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Player\Entity\Modifier;
 use Mush\Player\Enum\ModifierScopeEnum;
 use Mush\Player\Enum\ModifierTargetEnum;
-use Mush\Status\Enum\ChargeStrategyTypeEnum;
 
 class GearConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -84,7 +82,6 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $apron
             ->setGameConfig($gameConfig)
             ->setName(GearItemEnum::STAINPROOF_APRON)
-            ->setIsHeavy(false)
             ->setIsStackable(false)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
@@ -111,7 +108,6 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $plasteniteArmor
             ->setGameConfig($gameConfig)
             ->setName(GearItemEnum::PLASTENITE_ARMOR)
-            ->setIsHeavy(false)
             ->setIsStackable(false)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
@@ -133,7 +129,6 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $wrench
             ->setGameConfig($gameConfig)
             ->setName(GearItemEnum::ADJUSTABLE_WRENCH)
-            ->setIsHeavy(false)
             ->setIsStackable(false)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
@@ -154,7 +149,6 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $gloves
             ->setGameConfig($gameConfig)
             ->setName(GearItemEnum::PROTECTIVE_GLOVES)
-            ->setIsHeavy(false)
             ->setIsStackable(false)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
@@ -176,7 +170,6 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $soap
             ->setGameConfig($gameConfig)
             ->setName(GearItemEnum::SOAP)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
@@ -203,7 +196,6 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $sniperHelmet
             ->setGameConfig($gameConfig)
             ->setName(GearItemEnum::SNIPER_HELMET)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
@@ -226,11 +218,9 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $alienBottleOpener
             ->setGameConfig($gameConfig)
             ->setName(GearItemEnum::ALIEN_BOTTLE_OPENER)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setIsAlienArtifact(true)
             ->setMechanics(new ArrayCollection([$alienBottleOpenerGear]))
             ->setActions($actions)
         ;
@@ -250,39 +240,27 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             true
         );
 
-        $chargedMechanic = new Charged();
-        $chargedMechanic
-            ->setMaxCharge(8)
-            ->setStartCharge(2)
-            ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
-            ->setIsVisible(true)
-        ;
-
         $antiGravScooter = new ItemConfig();
         $antiGravScooter
             ->setGameConfig($gameConfig)
             ->setName(GearItemEnum::ANTI_GRAV_SCOOTER)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setIsBreakable(true)
-            ->setMechanics(new ArrayCollection([$chargedMechanic, $antiGravScooterGear]))
+            ->setMechanics(new ArrayCollection([$antiGravScooterGear]))
             ->setActions($antiGravScooterActions)
             ->setDismountedProducts([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::METAL_SCRAPS => 2])
         ;
         $manager->persist($antiGravScooter);
-        $manager->persist($chargedMechanic);
 
         $rollingBoulder = new ItemConfig();
         $rollingBoulder
             ->setGameConfig($gameConfig)
             ->setName(GearItemEnum::ROLLING_BOULDER)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setIsAlienArtifact(true)
             ->setActions($actions)
         ;
         $manager->persist($rollingBoulder);
@@ -303,7 +281,6 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $lenses
             ->setGameConfig($gameConfig)
             ->setName(GearItemEnum::NCC_LENS)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
@@ -333,7 +310,6 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $oscilloscope
             ->setGameConfig($gameConfig)
             ->setName(GearItemEnum::OSCILLOSCOPE)
-            ->setIsHeavy(true)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
@@ -352,7 +328,6 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $spacesuit
             ->setGameConfig($gameConfig)
             ->setName(GearItemEnum::SPACESUIT)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
@@ -366,7 +341,6 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $superSoaper
             ->setGameConfig($gameConfig)
             ->setName(GearItemEnum::SUPER_SOAPER)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
@@ -378,11 +352,9 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $printedCircuitJelly
             ->setGameConfig($gameConfig)
             ->setName(GearItemEnum::PRINTED_CIRCUIT_JELLY)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setIsAlienArtifact(true)
             ->setActions($actions)
         ;
         $manager->persist($printedCircuitJelly);
@@ -391,11 +363,9 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $invertebrateShell
             ->setGameConfig($gameConfig)
             ->setName(GearItemEnum::INVERTEBRATE_SHELL)
-            ->setIsHeavy(true)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setIsAlienArtifact(true)
             ->setActions($actions)
         ;
         $manager->persist($invertebrateShell);
@@ -409,11 +379,9 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $liquidMap
             ->setGameConfig($gameConfig)
             ->setName(GearItemEnum::MAGELLAN_LIQUID_MAP)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
-            ->setIsAlienArtifact(true)
             ->setIsBreakable(true)
             ->setActions($actionsLiquidMap)
         ;

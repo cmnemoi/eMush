@@ -52,6 +52,7 @@ class ActionEnum
     public const USE_BANDAGE = 'use_bandage';
     public const TRY_THE_KUBE = 'try_the_kube';
     public const OPEN = 'open';
+    public const SHOOT = 'shoot';
 
     // Item-enabled actions
     public const INSERT_FUEL = 'insert_fuel';

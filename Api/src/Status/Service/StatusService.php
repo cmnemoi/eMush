@@ -8,29 +8,93 @@ use Doctrine\ORM\EntityManagerInterface;
 use Error;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Criteria\StatusCriteria;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Enum\StatusEnum;
+use Mush\Status\Repository\StatusConfigRepository;
 use Mush\Status\Repository\StatusRepository;
 
 class StatusService implements StatusServiceInterface
 {
     private EntityManagerInterface $entityManager;
     private StatusRepository $statusRepository;
+    private StatusConfigRepository $statusConfigRepository;
 
-    public function __construct(EntityManagerInterface $entityManager, StatusRepository $statusRepository)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        StatusRepository $statusRepository,
+        StatusConfigRepository $statusConfigRepository,
+    ) {
         $this->entityManager = $entityManager;
         $this->statusRepository = $statusRepository;
+        $this->statusConfigRepository = $statusConfigRepository;
     }
 
-    public function createCoreStatus(
+    public function persist(Status $status): Status
+    {
+        $this->entityManager->persist($status);
+        $this->entityManager->flush();
+
+        return $status;
+    }
+
+    public function delete(Status $status): bool
+    {
+        $status->getOwner()->removeStatus($status);
+
+        $this->entityManager->remove($status);
+        $this->entityManager->flush();
+
+        return true;
+    }
+
+    public function getStatusConfigByNameAndDaedalus(string $name, Daedalus $daedalus): StatusConfig
+    {
+        return $this->statusConfigRepository->findByNameAndDaedalus($name, $daedalus);
+    }
+
+    public function getStatusConfigByEquipmentAndDaedalus(string $equipmentName, Daedalus $daedalus): ArrayCollection
+    {
+        return $this->statusConfigRepository->findByEquipmentAndDaedalus($equipmentName, $daedalus);
+    }
+
+    public function createStatusFromConfig(
+        StatusConfig $statusConfig,
+        StatusHolderInterface $holder,
+        ?StatusHolderInterface $target = null
+    ): Status {
+        if ($statusConfig instanceof ChargeStatusConfig) {
+            return $this->createChargeStatus(
+                $statusConfig->getName(),
+                $holder,
+                $statusConfig->getChargeStrategy(),
+                $target,
+                $statusConfig->getVisibility(),
+                $statusConfig->getChargeVisibility(),
+                $statusConfig->getStartingCharge(),
+                $statusConfig->getThreshold(),
+                $statusConfig->isAutoRemove()
+            );
+        } else {
+            return $this->createCoreStatus(
+                $statusConfig->getName(),
+                $holder,
+                $target,
+                $statusConfig->getVisibility()
+            );
+        }
+    }
+
+    private function createCoreStatus(
         string $statusName,
         StatusHolderInterface $owner,
         ?StatusHolderInterface $target = null,
@@ -46,7 +110,7 @@ class StatusService implements StatusServiceInterface
         return $status;
     }
 
-    public function createChargeStatus(
+    private function createChargeStatus(
         string $statusName,
         StatusHolderInterface $owner,
         string $strategy,
@@ -109,24 +173,6 @@ class StatusService implements StatusServiceInterface
 
             $attempt->addCharge(1);
         }
-    }
-
-    public function persist(Status $status): Status
-    {
-        $this->entityManager->persist($status);
-        $this->entityManager->flush();
-
-        return $status;
-    }
-
-    public function delete(Status $status): bool
-    {
-        $status->getOwner()->removeStatus($status);
-
-        $this->entityManager->remove($status);
-        $this->entityManager->flush();
-
-        return true;
     }
 
     public function getMostRecent(string $statusName, Collection $equipments): gameEquipment

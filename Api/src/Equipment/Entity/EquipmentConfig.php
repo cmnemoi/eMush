@@ -212,21 +212,6 @@ class EquipmentConfig
         return $this;
     }
 
-    public function isAlienArtifact(): bool
-    {
-        return $this->isAlienArtifact;
-    }
-
-    /**
-     * @return static
-     */
-    public function setIsAlienArtifact(bool $isAlienArtifact): EquipmentConfig
-    {
-        $this->isAlienArtifact = $isAlienArtifact;
-
-        return $this;
-    }
-
     /**
      * @return static
      */

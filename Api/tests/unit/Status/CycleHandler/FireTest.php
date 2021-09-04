@@ -107,7 +107,7 @@ class FireTest extends TestCase
             ->once()
         ;
 
-        $this->cycleHandler->handleNewCycle($status, $daedalus, $room, new \DateTime());
+        $this->cycleHandler->handleNewCycle($status, $room, new \DateTime());
 
         $this->assertEquals($daedalusHull, $daedalus->getHull());
     }

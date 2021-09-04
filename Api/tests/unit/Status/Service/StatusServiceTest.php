@@ -11,6 +11,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Place\Entity\Place;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
+use Mush\Status\Repository\StatusConfigRepository;
 use Mush\Status\Repository\StatusRepository;
 use Mush\Status\Service\StatusService;
 use PHPUnit\Framework\TestCase;
@@ -23,6 +24,9 @@ class StatusServiceTest extends TestCase
     /** @var StatusRepository | Mockery\Mock */
     private StatusRepository $repository;
 
+    /** @var StatusConfigRepository | Mockery\Mock */
+    private StatusConfigRepository $configRepository;
+
     private StatusService $service;
 
     /**
@@ -32,10 +36,12 @@ class StatusServiceTest extends TestCase
     {
         $this->entityManager = Mockery::mock(EntityManagerInterface::class);
         $this->repository = Mockery::mock(StatusRepository::class);
+        $this->configRepository = Mockery::mock(StatusConfigRepository::class);
 
         $this->service = new StatusService(
             $this->entityManager,
-            $this->repository
+            $this->repository,
+            $this->configRepository
         );
     }
 

@@ -6,7 +6,7 @@ use Mush\Game\Enum\EventEnum;
 use Mush\Player\Entity\Player;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class PlayerStatusService implements PlayerStatusServiceInterface
 {

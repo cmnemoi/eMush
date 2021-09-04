@@ -26,8 +26,7 @@ class ExpressCookActionTest extends AbstractActionTest
     private GameEquipmentServiceInterface $gameEquipmentService;
     /** @var PlayerServiceInterface | Mockery\Mock */
     private PlayerServiceInterface $playerService;
-    /** @var StatusServiceInterface | Mockery\Mock */
-    private StatusServiceInterface $statusService;
+
 
     /**
      * @before
@@ -38,7 +37,6 @@ class ExpressCookActionTest extends AbstractActionTest
 
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
-        $this->statusService = Mockery::mock(StatusServiceInterface::class);
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::EXPRESS_COOK);
 
@@ -48,7 +46,6 @@ class ExpressCookActionTest extends AbstractActionTest
             $this->validator,
             $this->gameEquipmentService,
             $this->playerService,
-            $this->statusService,
         );
     }
 
@@ -92,7 +89,7 @@ class ExpressCookActionTest extends AbstractActionTest
 
         $chargeStatus = new ChargeStatus($gameMicrowave);
         $chargeStatus
-            ->setName(EquipmentStatusEnum::CHARGES)
+            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
             ->setCharge(3)
         ;
 
@@ -140,7 +137,7 @@ class ExpressCookActionTest extends AbstractActionTest
 
         $chargeStatus = new ChargeStatus($gameMicrowave);
         $chargeStatus
-            ->setName(EquipmentStatusEnum::CHARGES)
+            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
             ->setCharge(3)
         ;
 

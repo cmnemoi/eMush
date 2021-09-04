@@ -23,7 +23,6 @@ use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\User\Entity\User;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -39,8 +38,6 @@ class PlayerService implements PlayerServiceInterface
 
     private RoomLogServiceInterface $roomLogService;
 
-    private StatusServiceInterface $statusService;
-
     private GameEquipmentServiceInterface $gameEquipmentService;
 
     public function __construct(
@@ -49,7 +46,6 @@ class PlayerService implements PlayerServiceInterface
         PlayerRepository $repository,
         DeadPlayerInfoRepository $deadPlayerRepository,
         RoomLogServiceInterface $roomLogService,
-        StatusServiceInterface $statusService,
         GameEquipmentServiceInterface $gameEquipmentService
     ) {
         $this->entityManager = $entityManager;
@@ -57,7 +53,6 @@ class PlayerService implements PlayerServiceInterface
         $this->repository = $repository;
         $this->deadPlayerRepository = $deadPlayerRepository;
         $this->roomLogService = $roomLogService;
-        $this->statusService = $statusService;
         $this->gameEquipmentService = $gameEquipmentService;
     }
 

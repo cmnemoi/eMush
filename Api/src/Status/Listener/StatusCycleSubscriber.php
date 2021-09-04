@@ -13,16 +13,13 @@ class StatusCycleSubscriber implements EventSubscriberInterface
 {
     private ChargeStrategyServiceInterface $chargeStrategyService;
     private StatusCycleHandlerService $cycleHandlerService;
-    private StatusServiceInterface $statusService;
 
     public function __construct(
         ChargeStrategyServiceInterface $chargeStrategy,
         StatusCycleHandlerService $cycleHandlerService,
-        StatusServiceInterface $statusService
     ) {
         $this->chargeStrategyService = $chargeStrategy;
         $this->cycleHandlerService = $cycleHandlerService;
-        $this->statusService = $statusService;
     }
 
     public static function getSubscribedEvents(): array

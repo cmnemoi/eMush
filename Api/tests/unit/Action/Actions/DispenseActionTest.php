@@ -76,7 +76,7 @@ class DispenseActionTest extends AbstractActionTest
 
         $chargeStatus = new ChargeStatus($gameDistillerMachine);
         $chargeStatus
-            ->setName(EquipmentStatusEnum::CHARGES)
+            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
             ->setCharge(1);
 
         $daedalus = new Daedalus();

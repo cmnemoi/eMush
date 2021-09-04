@@ -25,20 +25,17 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
 
     private EventDispatcherInterface $eventDispatcher;
     private RandomServiceInterface $randomService;
-    private StatusServiceInterface $statusService;
     private RoomLogServiceInterface $roomLogService;
     private ActionModifierServiceInterface $actionModifierService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         RandomServiceInterface $randomService,
-        StatusServiceInterface $statusService,
         RoomLogServiceInterface $roomLogService,
         ActionModifierServiceInterface $actionModifierService
     ) {
         $this->eventDispatcher = $eventDispatcher;
         $this->randomService = $randomService;
-        $this->statusService = $statusService;
         $this->roomLogService = $roomLogService;
         $this->actionModifierService = $actionModifierService;
     }

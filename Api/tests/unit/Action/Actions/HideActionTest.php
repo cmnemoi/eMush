@@ -12,18 +12,18 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\GameStatusEnum;
+use Mush\Game\Event\AbstractMushEvent;
 use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Event\StatusEvent;
 use Mush\Status\Service\StatusServiceInterface;
 
 class HideActionTest extends AbstractActionTest
 {
     /** @var GameEquipmentServiceInterface | Mockery\Mock */
     private GameEquipmentServiceInterface $gameEquipmentService;
-    /** @var PlayerServiceInterface | Mockery\Mock */
-    private PlayerServiceInterface $playerService;
-    /** @var StatusServiceInterface | Mockery\Mock */
-    private StatusServiceInterface $statusService;
 
     /**
      * @before
@@ -35,16 +35,12 @@ class HideActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::HIDE, 1);
 
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
-        $this->playerService = Mockery::mock(PlayerServiceInterface::class);
-        $this->statusService = Mockery::mock(StatusServiceInterface::class);
 
         $this->action = new Hide(
             $this->eventDispatcher,
             $this->actionService,
             $this->validator,
             $this->gameEquipmentService,
-            $this->statusService,
-            $this->playerService,
         );
     }
 
@@ -81,8 +77,17 @@ class HideActionTest extends AbstractActionTest
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gameEquipmentService->shouldReceive('persist');
-        $this->playerService->shouldReceive('persist');
-        $this->statusService->shouldReceive('createCoreStatus')->once();
+
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
+            ->withArgs(fn (AbstractMushEvent $event) =>
+                $event instanceof StatusEvent  &&
+                $event->getStatusName() === EquipmentStatusEnum::HIDDEN &&
+                $event->getStatusHolder() === $gameItem &&
+                $event->getStatusTarget() === $player
+            )
+            ->once()
+        ;
 
         $result = $this->action->execute();
 

@@ -11,14 +11,11 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class RoomSubscriber implements EventSubscriberInterface
 {
-    private PlaceServiceInterface $placeService;
     private StatusServiceInterface $statusService;
 
     public function __construct(
-        PlaceServiceInterface $placeService,
         StatusServiceInterface $statusService,
     ) {
-        $this->placeService = $placeService;
         $this->statusService = $statusService;
     }
 
@@ -52,7 +49,6 @@ class RoomSubscriber implements EventSubscriberInterface
             throw new \LogicException('room should have a fire to stop');
         }
 
-        $room->removeStatus($fireStatus);
-        $this->placeService->persist($room);
+        $this->statusService->delete($fireStatus);
     }
 }

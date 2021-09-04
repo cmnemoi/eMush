@@ -6,11 +6,13 @@ use Mockery;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionCost;
+use Mush\Action\Event\ActionEvent;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
+use Mush\Game\Event\AbstractMushEvent;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use PHPUnit\Framework\TestCase;
@@ -38,7 +40,14 @@ abstract class AbstractActionTest extends TestCase
     public function before()
     {
         $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
-        $this->eventDispatcher->shouldReceive('dispatch')->times(3);
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
+            ->withArgs(fn (AbstractMushEvent $event) =>
+                $event instanceof ActionEvent &&
+                $event->getAction() === $this->actionEntity
+            )
+            ->times(3)
+        ;
 
         $this->actionService = Mockery::mock(ActionServiceInterface::class);
         $this->actionService->shouldReceive('canPlayerDoAction')->andReturn(true);

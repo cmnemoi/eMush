@@ -13,7 +13,7 @@ use Mush\RoomLog\Enum\VisibilityEnum;
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="type", type="string")
  * @ORM\DiscriminatorMap({
- *     "status_config" = "Mush\Status\Entity\Config\ChargeConfig",
+ *     "status_config" = "Mush\Status\Entity\Config\StatusConfig",
  *     "charge_status_config" = "Mush\Status\Entity\Config\ChargeStatusConfig",
  * })
  */

@@ -21,7 +21,8 @@ use Mush\Player\Repository\DeadPlayerInfoRepository;
 use Mush\Player\Repository\PlayerRepository;
 use Mush\Player\Service\PlayerService;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
-use Mush\Status\Service\StatusServiceInterface;
+use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Event\StatusEvent;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -38,12 +39,10 @@ class PlayerServiceTest extends TestCase
     private DeadPlayerInfoRepository $deadPlayerInfoRepository;
     /** @var RoomLogServiceInterface | Mockery\Mock */
     private RoomLogServiceInterface $roomLogService;
-    /** @var StatusServiceInterface | Mockery\Mock */
-    private StatusServiceInterface $statusService;
     /** @var RandomServiceInterface | Mockery\Mock */
     private GameEquipmentServiceInterface $gameEquipmentService;
 
-    private CharacterConfigCollection $charactersConfig;
+    private CharacterConfigCollection $charactersConfigs;
     private PlayerService $service;
 
     /**
@@ -55,12 +54,10 @@ class PlayerServiceTest extends TestCase
         $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $this->repository = Mockery::mock(PlayerRepository::class);
         $this->deadPlayerInfoRepository = Mockery::mock(DeadPlayerInfoRepository::class);
-        $this->statusService = Mockery::mock(StatusServiceInterface::class);
         $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
-        $this->statusService = Mockery::mock(StatusServiceInterface::class);
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
 
-        $this->charactersConfig = new CharacterConfigCollection();
+        $this->charactersConfigs = new CharacterConfigCollection();
 
         $this->service = new PlayerService(
             $this->entityManager,
@@ -68,7 +65,6 @@ class PlayerServiceTest extends TestCase
             $this->repository,
             $this->deadPlayerInfoRepository,
             $this->roomLogService,
-            $this->statusService,
             $this->gameEquipmentService,
         );
     }
@@ -83,6 +79,7 @@ class PlayerServiceTest extends TestCase
 
     public function testCreatePlayer()
     {
+        $user = new User();
         $gameConfig = new GameConfig();
         $gameConfig
             ->setInitMovementPoint(0)
@@ -90,22 +87,6 @@ class PlayerServiceTest extends TestCase
             ->setInitSatiety(2)
             ->setInitMoralPoint(3)
             ->setInitHealthPoint(4)
-        ;
-
-        $this->eventDispatcher
-            ->shouldReceive('dispatch')
-            ->once()
-        ;
-
-        $user = new User();
-
-        $this->entityManager
-            ->shouldReceive('persist')
-            ->once()
-        ;
-        $this->entityManager
-            ->shouldReceive('flush')
-            ->once()
         ;
 
         $daedalus = new Daedalus();
@@ -120,21 +101,32 @@ class PlayerServiceTest extends TestCase
             ->setStatuses(['some status'])
             ->setSkills(['some skills'])
         ;
-        $this->charactersConfig->add($characterConfig);
-        $this->charactersConfig->add($characterConfig);
-        $this->charactersConfig->add($characterConfig);
+        $this->charactersConfigs->add($characterConfig);
 
         $gameConfig
-            ->setCharactersConfig($this->charactersConfig)
+            ->setCharactersConfig($this->charactersConfigs)
         ;
 
-        $this->statusService
-            ->shouldReceive('createCoreStatus')
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
+            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === 'some status')
             ->once()
         ;
-
-        $this->statusService
-            ->shouldReceive('createChargeStatus')
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
+            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::SPORES)
+            ->once()
+        ;
+        $this->entityManager
+            ->shouldReceive('persist')
+            ->once()
+        ;
+        $this->entityManager
+            ->shouldReceive('flush')
+            ->once()
+        ;
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
             ->once()
         ;
 

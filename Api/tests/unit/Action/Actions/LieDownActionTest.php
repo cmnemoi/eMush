@@ -12,9 +12,10 @@ use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\EquipmentEnum;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Event\AbstractMushEvent;
 use Mush\Place\Entity\Place;
-use Mush\Status\Service\StatusServiceInterface;
+use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Event\StatusEvent;
 
 class LieDownActionTest extends AbstractActionTest
 {
@@ -65,15 +66,24 @@ class LieDownActionTest extends AbstractActionTest
         ;
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
+            ->withArgs(fn (AbstractMushEvent $event) =>
+                $event instanceof StatusEvent &&
+                $event->getStatusName() === PlayerStatusEnum::LYING_DOWN &&
+                $event->getStatusHolder() === $player &&
+                $event->getStatusTarget() === $gameEquipment
+            )
+            ->once()
+        ;
         $this->action->loadParameters($this->actionEntity, $player, $gameEquipment);
-
 
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
         $this->assertCount(1, $room->getEquipments());
-        $this->assertCount(1, $player->getStatuses());
-        $this->assertCount(1, $gameEquipment->getTargetingStatuses());
+        $this->assertCount(0, $player->getStatuses());
+        $this->assertCount(0, $gameEquipment->getTargetingStatuses());
         $this->assertEquals(10, $player->getActionPoint());
     }
 }

@@ -20,10 +20,10 @@ use Mush\Place\Entity\Place;
 
 class OpenCapsuleActionTest extends AbstractActionTest
 {
-    /** @var GameEquipmentServiceInterface | Mockery\Mock */
+    /** @var GameEquipmentServiceInterface|Mockery\Mock */
     private GameEquipmentServiceInterface $gameEquipmentService;
 
-    /** @var RandomServiceInterface | Mockery\Mock */
+    /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;
 
     /**

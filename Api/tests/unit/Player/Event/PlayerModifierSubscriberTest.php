@@ -12,9 +12,9 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class PlayerModifierSubscriberTest extends TestCase
 {
-    /** @var PlayerVariableServiceInterface | Mockery\Mock */
+    /** @var PlayerVariableServiceInterface|Mockery\Mock */
     private PlayerVariableServiceInterface $playerVariableService;
-    /** @var EventDispatcherInterface | Mockery\Mock */
+    /** @var EventDispatcherInterface|Mockery\Mock */
     private EventDispatcherInterface $eventDispatcher;
 
     private PlayerModifierSubscriber $playerModifierSubscriber;

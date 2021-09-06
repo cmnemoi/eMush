@@ -14,9 +14,9 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class CycleServiceTest extends TestCase
 {
-    /** @var EventDispatcherInterface | Mockery\Mock */
+    /** @var EventDispatcherInterface|Mockery\Mock */
     private EventDispatcherInterface $eventDispatcher;
-    /** @var EntityManagerInterface | Mockery\Mock */
+    /** @var EntityManagerInterface|Mockery\Mock */
     private EntityManagerInterface $entityManager;
 
     private CycleService $service;

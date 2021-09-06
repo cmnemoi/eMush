@@ -18,9 +18,9 @@ use Mush\Status\Service\StatusServiceInterface;
 
 class LieDownActionTest extends AbstractActionTest
 {
-    /** @var GameEquipmentServiceInterface | Mockery\Mock */
+    /** @var GameEquipmentServiceInterface|Mockery\Mock */
     private GameEquipmentServiceInterface $gameEquipmentService;
-    /** @var StatusServiceInterface | Mockery\Mock */
+    /** @var StatusServiceInterface|Mockery\Mock */
     private StatusServiceInterface $statusService;
 
     /**

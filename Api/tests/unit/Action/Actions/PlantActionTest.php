@@ -19,11 +19,11 @@ use Mush\Player\Service\PlayerServiceInterface;
 
 class PlantActionTest extends AbstractActionTest
 {
-    /** @var GameEquipmentServiceInterface | Mockery\Mock */
+    /** @var GameEquipmentServiceInterface|Mockery\Mock */
     private GameEquipmentServiceInterface $gameEquipmentService;
-    /** @var PlayerServiceInterface | Mockery\Mock */
+    /** @var PlayerServiceInterface|Mockery\Mock */
     private PlayerServiceInterface $playerService;
-    /** @var GearToolServiceInterface | Mockery\Mock */
+    /** @var GearToolServiceInterface|Mockery\Mock */
     private GearToolServiceInterface $gearToolService;
 
     /**

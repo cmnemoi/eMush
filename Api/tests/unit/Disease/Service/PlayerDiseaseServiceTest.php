@@ -20,16 +20,16 @@ class PlayerDiseaseServiceTest extends TestCase
 {
     private PlayerDiseaseService $playerDiseaseService;
 
-    /** @var EntityManagerInterface | Mockery\Mock */
+    /** @var EntityManagerInterface|Mockery\Mock */
     private EntityManagerInterface $entityManager;
 
-    /** @var DiseaseConfigRepository | Mockery\Mock */
+    /** @var DiseaseConfigRepository|Mockery\Mock */
     private DiseaseConfigRepository $diseaseConfigRepository;
 
-    /** @var RandomServiceInterface | Mockery\Mock */
+    /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;
 
-    /** @var EventDispatcherInterface | Mockery\Mock */
+    /** @var EventDispatcherInterface|Mockery\Mock */
     private EventDispatcherInterface $eventDispatcher;
 
     /**

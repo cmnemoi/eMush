@@ -14,7 +14,7 @@ use Mush\Status\Service\StatusServiceInterface;
 
 class ExtractSporeActionTest extends AbstractActionTest
 {
-    /** @var StatusServiceInterface | Mockery\Mock */
+    /** @var StatusServiceInterface|Mockery\Mock */
     private StatusServiceInterface $statusService;
 
     /**

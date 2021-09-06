@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 
 class MessageServiceTest extends TestCase
 {
-    /** @var EntityManagerInterface | Mockery\mock */
+    /** @var EntityManagerInterface|Mockery\mock */
     private EntityManagerInterface $entityManager;
 
     private MessageServiceInterface $service;

@@ -15,7 +15,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class PlayerSuscriberTest extends TestCase
 {
-    /** @var EventDispatcherInterface | Mockery\Mock */
+    /** @var EventDispatcherInterface|Mockery\Mock */
     private EventDispatcherInterface $eventDispatcher;
 
     private PlayerSubscriber $playerSubscriber;

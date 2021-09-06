@@ -28,19 +28,19 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class GameEquipmentServiceTest extends TestCase
 {
-    /** @var EventDispatcherInterface | Mockery\Mock */
+    /** @var EventDispatcherInterface|Mockery\Mock */
     private EventDispatcherInterface $eventDispatcher;
-    /** @var EntityManagerInterface | Mockery\Mock */
+    /** @var EntityManagerInterface|Mockery\Mock */
     private EntityManagerInterface $entityManager;
-    /** @var GameEquipmentRepository | Mockery\Mock */
+    /** @var GameEquipmentRepository|Mockery\Mock */
     private GameEquipmentRepository $repository;
-    /** @var RandomServiceInterface | Mockery\Mock */
+    /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;
-    /** @var EquipmentServiceInterface | Mockery\Mock */
+    /** @var EquipmentServiceInterface|Mockery\Mock */
     private EquipmentServiceInterface $equipmentService;
-    /** @var EquipmentEffectServiceInterface | Mockery\Mock */
+    /** @var EquipmentEffectServiceInterface|Mockery\Mock */
     private EquipmentEffectServiceInterface $equipmentEffectService;
-    /** @var StatusServiceInterface | Mockery\Mock */
+    /** @var StatusServiceInterface|Mockery\Mock */
     private StatusServiceInterface $statusService;
 
     private GameEquipmentService $service;

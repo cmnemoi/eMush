@@ -17,7 +17,7 @@ use PHPUnit\Framework\TestCase;
 
 class MessageNormalizerTest extends TestCase
 {
-    /** @var TranslationServiceInterface | Mockery\Mock */
+    /** @var TranslationServiceInterface|Mockery\Mock */
     private TranslationServiceInterface $translationService;
 
     private MessageNormalizer $normalizer;

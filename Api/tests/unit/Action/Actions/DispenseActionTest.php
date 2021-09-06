@@ -23,11 +23,11 @@ use Mush\Status\Service\StatusServiceInterface;
 
 class DispenseActionTest extends AbstractActionTest
 {
-    /** @var GameEquipmentServiceInterface | Mockery\Mock */
+    /** @var GameEquipmentServiceInterface|Mockery\Mock */
     private GameEquipmentServiceInterface $gameEquipmentService;
-    /** @var RandomServiceInterface | Mockery\Mock */
+    /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;
-    /** @var StatusServiceInterface | Mockery\Mock */
+    /** @var StatusServiceInterface|Mockery\Mock */
     private StatusServiceInterface $statusService;
 
     /**

@@ -18,16 +18,16 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ChannelServiceTest extends TestCase
 {
-    /** @var EntityManagerInterface | Mockery\mock */
+    /** @var EntityManagerInterface|Mockery\mock */
     private EntityManagerInterface $entityManager;
 
-    /** @var ChannelRepository | Mockery\mock */
+    /** @var ChannelRepository|Mockery\mock */
     private ChannelRepository $channelRepository;
 
-    /** @var ChannelPlayerRepository | Mockery\mock */
+    /** @var ChannelPlayerRepository|Mockery\mock */
     private ChannelPlayerRepository $channelPlayerRepository;
 
-    /** @var EventDispatcherInterface | Mockery\mock */
+    /** @var EventDispatcherInterface|Mockery\mock */
     private EventDispatcherInterface $eventDispatcher;
 
     private ChannelServiceInterface $service;

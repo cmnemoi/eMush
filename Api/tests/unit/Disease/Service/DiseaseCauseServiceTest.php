@@ -24,13 +24,13 @@ class DiseaseCauseServiceTest extends TestCase
 {
     private DiseaseCauseService $diseaseCauseService;
 
-    /** @var PlayerDiseaseService | Mockery\Mock */
+    /** @var PlayerDiseaseService|Mockery\Mock */
     private PlayerDiseaseService $playerDiseaseService;
 
-    /** @var RandomServiceInterface | Mockery\Mock */
+    /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;
 
-    /** @var ConsumableDiseaseServiceInterface | Mockery\Mock */
+    /** @var ConsumableDiseaseServiceInterface|Mockery\Mock */
     private ConsumableDiseaseServiceInterface $consumableDiseaseService;
 
     /**

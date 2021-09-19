@@ -23,7 +23,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         return [
             EquipmentEvent::EQUIPMENT_FIXED => 'onEquipmentFixed',
             EquipmentEvent::EQUIPMENT_BROKEN => 'onEquipmentBroken',
-            EquipmentEvent::EQUIPMENT_TRANSFORM => ['onEquipmentTransform' => 1000], // change the status before original equipment is destroyed
+            EquipmentEvent::EQUIPMENT_TRANSFORM => ['onEquipmentTransform', 1000], // change the status before original equipment is destroyed
         ];
     }
 

@@ -16,17 +16,13 @@ use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Event\AbstractMushEvent;
 use Mush\Place\Entity\Place;
-use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
-use Mush\Status\Service\StatusServiceInterface;
 
 class HyperfreezeActionTest extends AbstractActionTest
 {
     /** @var GameEquipmentServiceInterface | Mockery\Mock */
     private GameEquipmentServiceInterface $gameEquipmentService;
-
 
     /**
      * @before
@@ -92,8 +88,7 @@ class HyperfreezeActionTest extends AbstractActionTest
         $this->gameEquipmentService->shouldReceive('persist');
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (AbstractMushEvent $event) =>
-                $event instanceof StatusEvent &&
+            ->withArgs(fn (AbstractMushEvent $event) => $event instanceof StatusEvent &&
                 $event->getStatusName() === EquipmentStatusEnum::FROZEN &&
                 $event->getStatusHolder() === $gameRation)
             ->once()

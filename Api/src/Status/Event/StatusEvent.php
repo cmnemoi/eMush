@@ -18,9 +18,12 @@ class StatusEvent extends AbstractMushEvent implements AbstractLoggedEvent
 
     private string $statusName;
     private StatusHolderInterface $holder;
-    private ?StatusHolderInterface $target;
+    private ?StatusHolderInterface $target = null;
 
     private string $visibility = VisibilityEnum::HIDDEN;
+
+    private ?int $threshold = null;
+    private ?int $startCharge = null;
 
     public function __construct(
         string $statusName,
@@ -65,6 +68,30 @@ class StatusEvent extends AbstractMushEvent implements AbstractLoggedEvent
     public function getVisibility(): string
     {
         return $this->visibility;
+    }
+
+    public function setThreshold(int $threshold): StatusEvent
+    {
+        $this->threshold = $threshold;
+
+        return $this;
+    }
+
+    public function getThreshold(): int
+    {
+        return $this->threshold;
+    }
+
+    public function setInitCharge(int $startCharge): StatusEvent
+    {
+        $this->startCharge = $startCharge;
+
+        return $this;
+    }
+
+    public function getInitCharge(): int
+    {
+        return $this->startCharge;
     }
 
     public function getPlace(): Place

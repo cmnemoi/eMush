@@ -16,7 +16,6 @@ use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
-use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class ActionSideEffectsService implements ActionSideEffectsServiceInterface

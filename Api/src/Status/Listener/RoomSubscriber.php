@@ -4,7 +4,6 @@ namespace Mush\Status\Listener;
 
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Event\RoomEvent;
-use Mush\Place\Service\PlaceServiceInterface;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;

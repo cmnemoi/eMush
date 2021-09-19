@@ -59,12 +59,22 @@ class StatusService implements StatusServiceInterface
 
     public function getStatusConfigByNameAndDaedalus(string $name, Daedalus $daedalus): StatusConfig
     {
-        return $this->statusConfigRepository->findByNameAndDaedalus($name, $daedalus);
+        $statusConfig = $this->statusConfigRepository->findByNameAndDaedalus($name, $daedalus);
+
+        if ($statusConfig === null){
+            throw new \LogicException('No status config found');
+        }
+        return $statusConfig;
     }
 
     public function getStatusConfigByEquipmentAndDaedalus(string $equipmentName, Daedalus $daedalus): ArrayCollection
     {
-        return $this->statusConfigRepository->findByEquipmentAndDaedalus($equipmentName, $daedalus);
+        $statusConfig = $this->statusConfigRepository->findByEquipmentAndDaedalus($equipmentName, $daedalus);
+
+        if ($statusConfig === null){
+            throw new \LogicException('No status config found');
+        }
+        return $statusConfig;
     }
 
     public function createStatusFromConfig(

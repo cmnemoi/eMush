@@ -19,7 +19,6 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
-use Mush\Status\Service\StatusServiceInterface;
 
 class TakeActionTest extends AbstractActionTest
 {
@@ -27,7 +26,6 @@ class TakeActionTest extends AbstractActionTest
     private GameEquipmentServiceInterface $gameEquipmentService;
     /** @var PlayerServiceInterface | Mockery\Mock */
     private PlayerServiceInterface $playerService;
-
 
     /**
      * @before
@@ -72,7 +70,6 @@ class TakeActionTest extends AbstractActionTest
             ->setPlace($room)
         ;
 
-
         $gameConfig = new GameConfig();
         $gameConfig->setMaxItemInInventory(3);
 
@@ -111,7 +108,6 @@ class TakeActionTest extends AbstractActionTest
         $heavy = new Status($gameItem);
         $heavy->setName(EquipmentStatusEnum::HEAVY);
 
-
         $gameConfig = new GameConfig();
         $gameConfig->setMaxItemInInventory(3);
 
@@ -126,8 +122,7 @@ class TakeActionTest extends AbstractActionTest
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (AbstractMushEvent $event) =>
-                $event instanceof StatusEvent &&
+            ->withArgs(fn (AbstractMushEvent $event) => $event instanceof StatusEvent &&
                 $event->getStatusName() === PlayerStatusEnum::BURDENED &&
                 $event->getStatusHolder() === $player)
             ->once()

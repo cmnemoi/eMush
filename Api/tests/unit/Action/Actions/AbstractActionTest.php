@@ -42,8 +42,7 @@ abstract class AbstractActionTest extends TestCase
         $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (AbstractMushEvent $event) =>
-                $event instanceof ActionEvent &&
+            ->withArgs(fn (AbstractMushEvent $event) => $event instanceof ActionEvent &&
                 $event->getAction() === $this->actionEntity
             )
             ->times(3)

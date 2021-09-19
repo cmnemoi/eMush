@@ -10,7 +10,6 @@ use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
-use Mush\Equipment\Entity\Mechanics\Charged;
 use Mush\Equipment\Entity\Mechanics\Document;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Entity\PlantEffect;
@@ -20,11 +19,8 @@ use Mush\Equipment\Service\EquipmentServiceInterface;
 use Mush\Equipment\Service\GameEquipmentService;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
-use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\StatusConfig;
-use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
 use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
@@ -170,7 +166,6 @@ class GameEquipmentServiceTest extends TestCase
             ->once()
         ;
 
-
         $gameItem = $this->service->createGameEquipment($itemConfig, $daedalus);
 
         $this->assertInstanceOf(GameItem::class, $gameItem);
@@ -221,7 +216,6 @@ class GameEquipmentServiceTest extends TestCase
             ->setMechanics(new ArrayCollection([$plantMechanic]))
         ;
 
-
         $plantEffect = new PlantEffect();
         $plantEffect->setMaturationTime(8);
 
@@ -255,13 +249,11 @@ class GameEquipmentServiceTest extends TestCase
         $documentMechanic = new Document();
         $documentMechanic->setContent('Hello world');
 
-
         $itemConfig = new ItemConfig();
         $itemConfig
             ->setName('some document')
             ->setMechanics(new ArrayCollection([$documentMechanic]))
         ;
-
 
         $this->statusService
             ->shouldReceive('getStatusConfigByEquipmentAndDaedalus')

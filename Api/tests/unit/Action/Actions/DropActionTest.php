@@ -13,7 +13,6 @@ use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Status\Service\StatusServiceInterface;
 
 class DropActionTest extends AbstractActionTest
 {

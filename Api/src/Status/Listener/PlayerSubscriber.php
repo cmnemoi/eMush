@@ -26,7 +26,7 @@ class PlayerSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            PlayerEvent::INFECTION_PLAYER => ['onInfectionPlayer' => 100], //do this before checking the number of spores
+            PlayerEvent::INFECTION_PLAYER => ['onInfectionPlayer', 100], //do this before checking the number of spores
             PlayerEvent::CONVERSION_PLAYER => 'onConversionPlayer',
         ];
     }

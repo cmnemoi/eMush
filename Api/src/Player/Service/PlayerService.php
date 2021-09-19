@@ -120,13 +120,13 @@ class PlayerService implements PlayerServiceInterface
             $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
         }
 
+        $this->persist($player);
+
         if (!(in_array(PlayerStatusEnum::IMMUNIZED, $characterConfig->getStatuses()))) {
             $statusEvent = new StatusEvent(PlayerStatusEnum::SPORES, $player, PlayerEvent::NEW_PLAYER, new \DateTime());
 
             $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
         }
-
-        $this->persist($player);
 
         $user->setCurrentGame($player);
         $playerEvent = new PlayerEvent(

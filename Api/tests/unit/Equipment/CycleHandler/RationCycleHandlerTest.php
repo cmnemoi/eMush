@@ -10,11 +10,9 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Fruit;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\StatusEvent;
-use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 

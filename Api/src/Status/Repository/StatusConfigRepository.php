@@ -15,10 +15,10 @@ class StatusConfigRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Status::class);
+        parent::__construct($registry, StatusConfig::class);
     }
 
-    public function findByNameAndDaedalus(string $name, Daedalus $daedalus): StatusConfig
+    public function findByNameAndDaedalus(string $name, Daedalus $daedalus): ?StatusConfig
     {
         $queryBuilder = $this->createQueryBuilder('statusConfig');
 
@@ -40,7 +40,7 @@ class StatusConfigRepository extends ServiceEntityRepository
         return $queryBuilder->getQuery()->getOneOrNullResult();
     }
 
-    public function findByEquipmentAndDaedalus(string $equipmentName, Daedalus $daedalus): ArrayCollection
+    public function findByDaedalus(Daedalus $daedalus): ArrayCollection
     {
         $queryBuilder = $this->createQueryBuilder('statusConfig');
 
@@ -53,9 +53,8 @@ class StatusConfigRepository extends ServiceEntityRepository
                 'daedalus.gameConfig = gameConfig.id'
             )
             ->where($queryBuilder->expr()->eq('daedalus', ':daedalus'))
-            ->andWhere($queryBuilder->expr()->in(':equipmentName', 'statusConfig.applyToEquipment'))
+            ->andWhere($queryBuilder->expr()->in(':equipmentName', 'statusConfig.applyToEquipments'))
             ->setParameter(':daedalus', $daedalus)
-            ->setParameter(':equipmentName', $equipmentName)
             ->setMaxResults(1)
         ;
 

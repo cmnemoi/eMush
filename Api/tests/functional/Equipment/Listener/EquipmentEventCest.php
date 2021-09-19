@@ -21,6 +21,8 @@ use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Status\Entity\Config\StatusConfig;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class EquipmentEventCest
@@ -129,6 +131,13 @@ class EquipmentEventCest
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, ['maxItemInInventory' => 1]);
 
+        $statusConfig = new StatusConfig();
+        $statusConfig
+            ->setName(EquipmentStatusEnum::BROKEN)
+            ->setGameConfig($gameConfig)
+        ;
+        $I->haveInRepository($statusConfig);
+        
         $neron = new Neron();
         $neron->setIsInhibited(true);
         $I->haveInRepository($neron);

@@ -95,7 +95,7 @@ class StatusConfig
 
     public function getApplyToEquipments(): array
     {
-        return $this->getApplyToEquipments();
+        return $this->applyToEquipments;
     }
 
     /**

@@ -18,7 +18,6 @@ use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 
 class ExpressCookActionTest extends AbstractActionTest
 {
@@ -26,7 +25,6 @@ class ExpressCookActionTest extends AbstractActionTest
     private GameEquipmentServiceInterface $gameEquipmentService;
     /** @var PlayerServiceInterface | Mockery\Mock */
     private PlayerServiceInterface $playerService;
-
 
     /**
      * @before

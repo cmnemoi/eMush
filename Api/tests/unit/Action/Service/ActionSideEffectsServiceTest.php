@@ -20,10 +20,8 @@ use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Event\PlayerModifierEvent;
 use Mush\Player\Service\ActionModifierServiceInterface;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
-use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
-use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 

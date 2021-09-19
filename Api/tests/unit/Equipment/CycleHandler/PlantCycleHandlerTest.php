@@ -24,7 +24,6 @@ use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\StatusEvent;
-use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -187,26 +186,23 @@ class PlantCycleHandlerTest extends TestCase
             ->setEquipment($plant)
             ->setPlace($room);
 
-
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn(AbstractMushEvent $event) => $event instanceof StatusEvent &&
+            ->withArgs(fn (AbstractMushEvent $event) => $event instanceof StatusEvent &&
                 $event->getStatusName() === EquipmentStatusEnum::PLANT_THIRSTY &&
                 $event->getStatusHolder() === $gamePlant)
             ->once();
 
         $this->eventDispatcher->shouldReceive('dispatch')
-            ->withArgs(fn(AbstractMushEvent $event) => $event instanceof DaedalusModifierEvent &&
+            ->withArgs(fn (AbstractMushEvent $event) => $event instanceof DaedalusModifierEvent &&
                 $event->getDaedalus() === $daedalus &&
                 $event->getQuantity() === 10
             )->once();
-
 
         //Mature Plant, no problem
         $this->plantCycleHandler->handleNewDay($gamePlant, $daedalus, new \DateTime());
 
         $this->assertCount(2, $room->getEquipments());
-
     }
 
     public function testNewDayPlantThirsty()
@@ -250,13 +246,13 @@ class PlantCycleHandlerTest extends TestCase
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn(AbstractMushEvent $event) => $event instanceof StatusEvent &&
+            ->withArgs(fn (AbstractMushEvent $event) => $event instanceof StatusEvent &&
                 $event->getStatusName() === EquipmentStatusEnum::PLANT_DRY &&
                 $event->getStatusHolder() === $gamePlant)
             ->once();
 
         $this->eventDispatcher->shouldReceive('dispatch')
-            ->withArgs(fn(AbstractMushEvent $event) => $event instanceof DaedalusModifierEvent &&
+            ->withArgs(fn (AbstractMushEvent $event) => $event instanceof DaedalusModifierEvent &&
                 $event->getDaedalus() === $daedalus &&
                 $event->getQuantity() === 10)
             ->once();
@@ -268,7 +264,6 @@ class PlantCycleHandlerTest extends TestCase
 
         $this->gameEquipmentService->shouldReceive('createEquipment')->andReturn(new GameItem());
     }
-
 
     public function testNewDayPlantDry()
     {
@@ -311,7 +306,6 @@ class PlantCycleHandlerTest extends TestCase
 
         $status = new Status($gamePlant);
         $status->setName(EquipmentStatusEnum::PLANT_DRY);
-
 
         $this->gameEquipmentService->shouldReceive('delete');
 

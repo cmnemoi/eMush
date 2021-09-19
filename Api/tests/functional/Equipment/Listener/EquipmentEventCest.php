@@ -3,6 +3,7 @@
 namespace functional\Equipment\Listener;
 
 use App\Tests\FunctionalTester;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
@@ -13,7 +14,9 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\EventEnum;
 use Mush\Place\Entity\Place;
+use Mush\Place\Enum\RoomEventEnum;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
@@ -55,8 +58,14 @@ class EquipmentEventCest
         ;
         $I->haveInRepository($gameEquipment);
 
-        $equipmentEvent = new EquipmentEvent($gameEquipment, VisibilityEnum::PUBLIC, new \DateTime());
-        $equipmentEvent->setPlayer($player)->setPlace($room);
+        $equipmentEvent = new EquipmentEvent(
+            $gameEquipment,
+            $room,
+            VisibilityEnum::PUBLIC,
+            ActionEnum::COFFEE,
+            new \DateTime()
+        );
+        $equipmentEvent->setPlayer($player);
 
         $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
@@ -71,8 +80,14 @@ class EquipmentEventCest
         ;
         $I->haveInRepository($gameEquipment);
 
-        $equipmentEvent = new EquipmentEvent($gameEquipment, VisibilityEnum::PUBLIC, new \DateTime());
-        $equipmentEvent->setPlayer($player)->setPlace($room);
+        $equipmentEvent = new EquipmentEvent(
+            $gameEquipment,
+            $room,
+            VisibilityEnum::PUBLIC,
+            ActionEnum::COFFEE,
+            new \DateTime()
+        );
+        $equipmentEvent->setPlayer($player);
 
         $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
@@ -87,8 +102,14 @@ class EquipmentEventCest
         ;
         $I->haveInRepository($gameEquipment);
 
-        $equipmentEvent = new EquipmentEvent($gameEquipment, VisibilityEnum::PUBLIC, new \DateTime());
-        $equipmentEvent->setPlayer($player)->setPlace($room);
+        $equipmentEvent = new EquipmentEvent(
+            $gameEquipment,
+            $room,
+            VisibilityEnum::PUBLIC,
+            ActionEnum::DISASSEMBLE,
+            new \DateTime()
+        );
+        $equipmentEvent->setPlayer($player);
 
         $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
@@ -137,7 +158,12 @@ class EquipmentEventCest
         ;
         $I->haveInRepository($gameEquipment);
 
-        $equipmentEvent = new EquipmentEvent($gameEquipment, VisibilityEnum::PUBLIC, new \DateTime());
+        $equipmentEvent = new EquipmentEvent(
+            $gameEquipment,
+            $room,
+            VisibilityEnum::PUBLIC,
+            EventEnum::NEW_CYCLE,
+            new \DateTime());
 
         $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_BROKEN);
 
@@ -173,7 +199,13 @@ class EquipmentEventCest
         ;
         $I->haveInRepository($gameEquipment);
 
-        $equipmentEvent = new EquipmentEvent($gameEquipment, VisibilityEnum::PUBLIC, new \DateTime());
+        $equipmentEvent = new EquipmentEvent(
+            $gameEquipment,
+            $room,
+            VisibilityEnum::PUBLIC,
+            RoomEventEnum::CYCLE_FIRE,
+            new \DateTime()
+        );
 
         $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 

@@ -56,13 +56,23 @@ class InsertFuel extends AbstractAction
         $item = $this->getParameter();
 
         //delete the item
-        $equipmentEvent = new EquipmentEvent($item, VisibilityEnum::HIDDEN, new \DateTime());
+        $equipmentEvent = new EquipmentEvent(
+            $item,
+            $this->player->getPlace(),
+            VisibilityEnum::HIDDEN,
+            $this->getActionName(),
+            new \DateTime()
+        );
         $equipmentEvent->setPlayer($this->player);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         //add Oxygen
-        $daedalusEvent = new DaedalusModifierEvent($this->player->getDaedalus(), new \DateTime());
-        $daedalusEvent->setQuantity(1);
+        $daedalusEvent = new DaedalusModifierEvent(
+            $this->player->getDaedalus(),
+            1,
+            $this->getActionName(),
+            new \DateTime()
+        );
         $this->eventDispatcher->dispatch($daedalusEvent, DaedalusModifierEvent::CHANGE_FUEL);
 
         return new Success();

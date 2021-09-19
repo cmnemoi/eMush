@@ -7,6 +7,7 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Event\PlayerModifierEvent;
 use Mush\Player\Service\ActionModifierServiceInterface;
+use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -47,7 +48,12 @@ class ActionService implements ActionServiceInterface
 
         if (($movementPointCost = $this->getTotalMovementPointCost($player, $action)) > 0) {
             if ($player->getMovementPoint() === 0) {
-                $playerModifierEvent = new PlayerModifierEvent($player, self::BASE_MOVEMENT_POINT_CONVERSION, new \DateTime());
+                $playerModifierEvent = new PlayerModifierEvent(
+                    $player,
+                    self::BASE_MOVEMENT_POINT_CONVERSION,
+                    'movement point conversion', //@TODO incoming with modifier merge request
+                    new \DateTime()
+                );
                 $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::MOVEMENT_POINT_CONVERSION);
             }
 
@@ -160,8 +166,13 @@ class ActionService implements ActionServiceInterface
 
     private function triggerPlayerModifierEvent(Player $player, string $eventName, int $delta): void
     {
-        $playerModifierEvent = new PlayerModifierEvent($player, $delta, new \DateTime());
-        $playerModifierEvent->setIsDisplayedRoomLog(false);
+        $playerModifierEvent = new PlayerModifierEvent(
+            $player,
+            $delta,
+            'action_cost', //@TODO fix that
+            new \DateTime()
+        );
+        $playerModifierEvent->setVisibility(VisibilityEnum::HIDDEN);
         $this->eventDispatcher->dispatch($playerModifierEvent, $eventName);
     }
 }

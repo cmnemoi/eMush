@@ -26,8 +26,12 @@ class LyingDown extends AbstractStatusCycleHandler
             return;
         }
 
-        $playerModifierEvent = new PlayerModifierEvent($statusHolder, 1, $dateTime);
-        $playerModifierEvent->setReason(PlayerStatusEnum::LYING_DOWN);
+        $playerModifierEvent = new PlayerModifierEvent(
+            $statusHolder,
+            1,
+            PlayerStatusEnum::LYING_DOWN,
+            $dateTime
+        );
         $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::ACTION_POINT_MODIFIER);
     }
 

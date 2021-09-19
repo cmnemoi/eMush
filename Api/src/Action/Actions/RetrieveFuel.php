@@ -82,8 +82,12 @@ class RetrieveFuel extends AbstractAction
         $item->setPlayer($this->getPlayer());
         $this->gameEquipmentService->persist($item);
 
-        $daedalusEvent = new DaedalusModifierEvent($this->player->getDaedalus(), new \DateTime());
-        $daedalusEvent->setQuantity(-1);
+        $daedalusEvent = new DaedalusModifierEvent(
+            $this->player->getDaedalus(),
+            -1,
+            $this->getActionName(),
+            new \DateTime()
+        );
         $this->eventDispatcher->dispatch($daedalusEvent, DaedalusModifierEvent::CHANGE_FUEL);
 
         return new Success();

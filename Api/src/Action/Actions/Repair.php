@@ -67,7 +67,13 @@ class Repair extends AttemptAction
         $response = $this->makeAttempt();
 
         if ($response instanceof Success) {
-            $equipmentEvent = new EquipmentEvent($parameter, VisibilityEnum::HIDDEN, new \DateTime());
+            $equipmentEvent = new EquipmentEvent(
+                $parameter,
+                $this->player->getPlace(),
+                VisibilityEnum::HIDDEN,
+                $this->getActionName(),
+                new \DateTime()
+            );
             $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_FIXED);
         }
 

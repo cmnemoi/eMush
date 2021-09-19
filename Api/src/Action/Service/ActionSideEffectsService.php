@@ -134,8 +134,12 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
 
     private function dispatchPlayerInjuryEvent(Player $player, \DateTime $dateTime): void
     {
-        $playerModifierEvent = new PlayerModifierEvent($player, self::ACTION_INJURY_MODIFIER, $dateTime);
-        $playerModifierEvent->setReason(EndCauseEnum::CLUMSINESS);
+        $playerModifierEvent = new PlayerModifierEvent(
+            $player,
+            self::ACTION_INJURY_MODIFIER,
+            EndCauseEnum::CLUMSINESS,
+            $dateTime
+        );
         $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
     }
 }

@@ -76,7 +76,13 @@ class Hyperfreeze extends AbstractAction
                 ->createGameEquipmentFromName(GameRationEnum::STANDARD_RATION, $this->player->getDaedalus())
             ;
 
-            $equipmentEvent = new EquipmentEvent($parameter, VisibilityEnum::PUBLIC, new \DateTime());
+            $equipmentEvent = new EquipmentEvent(
+                $parameter,
+                $this->player->getPlace(),
+                VisibilityEnum::PUBLIC,
+                $this->getActionName(),
+                new \DateTime()
+            );
             $equipmentEvent->setReplacementEquipment($newItem)->setPlayer($this->player);
             $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_TRANSFORM);
         } else {

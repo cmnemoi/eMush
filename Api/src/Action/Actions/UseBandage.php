@@ -61,13 +61,24 @@ class UseBandage extends AbstractAction
 
         $initialHealth = $this->player->getHealthPoint();
 
-        $playerModifierEvent = new PlayerModifierEvent($this->player, self::BANDAGE_HEAL, new \DateTime());
-        $playerModifierEvent->setIsDisplayedRoomLog(false);
+        $playerModifierEvent = new PlayerModifierEvent(
+            $this->player,
+            self::BANDAGE_HEAL,
+            $this->getActionName(),
+            new \DateTime()
+        );
+        $playerModifierEvent->setVisibility(VisibilityEnum::PRIVATE);
         $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
 
         $this->playerService->persist($this->player);
 
-        $equipmentEvent = new EquipmentEvent($parameter, VisibilityEnum::HIDDEN, new \DateTime());
+        $equipmentEvent = new EquipmentEvent(
+            $parameter,
+            $this->player->getPlace(),
+            VisibilityEnum::HIDDEN,
+            $this->getActionName(),
+            new \DateTime()
+        );
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         $healedQuantity = $this->player->getHealthPoint() - $initialHealth;

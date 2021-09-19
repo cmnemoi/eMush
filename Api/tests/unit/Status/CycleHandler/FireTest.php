@@ -14,7 +14,6 @@ use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerModifierEvent;
 use Mush\Status\CycleHandler\Fire;
 use Mush\Status\Entity\ChargeStatus;
@@ -96,8 +95,8 @@ class FireTest extends TestCase
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (PlayerEvent $playerEvent, string $eventName) => (
-                intval($playerEvent->getDelta()) === -2 && $eventName === PlayerModifierEvent::HEALTH_POINT_MODIFIER
+            ->withArgs(fn (PlayerModifierEvent $playerEvent, string $eventName) => (
+                intval($playerEvent->getQuantity()) === -2 && $eventName === PlayerModifierEvent::HEALTH_POINT_MODIFIER
             ))
             ->once()
         ;

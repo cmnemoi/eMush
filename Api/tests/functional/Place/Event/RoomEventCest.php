@@ -13,6 +13,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\EventEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Event\RoomEvent;
@@ -46,7 +47,7 @@ class RoomEventCest
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'healthPoint' => 10]);
 
-        $roomEvent = new RoomEvent($room, $time);
+        $roomEvent = new RoomEvent($room, RoomEvent::ELECTRIC_ARC, $time);
 
         $I->expectThrowable(\LogicException::class, function () use ($roomEvent) {
             $this->eventDispatcher->dispatch($roomEvent, RoomEvent::STARTING_FIRE);
@@ -88,7 +89,7 @@ class RoomEventCest
 
         $room->setDaedalus($daedalus);
 
-        $roomEvent = new RoomEvent($room, $time);
+        $roomEvent = new RoomEvent($room, EventEnum::NEW_CYCLE, $time);
 
         $this->eventDispatcher->dispatch($roomEvent, RoomEvent::STARTING_FIRE);
 
@@ -119,7 +120,7 @@ class RoomEventCest
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'healthPoint' => 10, 'characterConfig' => $characterConfig]);
 
-        $roomEvent = new RoomEvent($room, $time);
+        $roomEvent = new RoomEvent($room, EventEnum::NEW_CYCLE, $time);
 
         $this->eventDispatcher->dispatch($roomEvent, RoomEvent::TREMOR);
 
@@ -172,7 +173,7 @@ class RoomEventCest
         ;
         $I->haveInRepository($gameEquipment);
 
-        $roomEvent = new RoomEvent($room, $time);
+        $roomEvent = new RoomEvent($room, EventEnum::NEW_CYCLE, $time);
         $this->eventDispatcher->dispatch($roomEvent, RoomEvent::ELECTRIC_ARC);
 
         $I->assertEquals(7, $player->getHealthPoint());

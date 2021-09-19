@@ -4,6 +4,7 @@ namespace Mush\Tests\Alert\Listener;
 
 use App\Tests\FunctionalTester;
 use DateTime;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Alert\Entity\Alert;
 use Mush\Alert\Entity\AlertElement;
 use Mush\Alert\Enum\AlertEnum;
@@ -18,7 +19,9 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\EventEnum;
 use Mush\Place\Entity\Place;
+use Mush\Place\Enum\RoomEventEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -66,7 +69,13 @@ class EquipmentSubscriberCest
 
         $I->haveInRepository($gravitySimulator);
 
-        $equipmentEvent = new EquipmentEvent($gravitySimulator, VisibilityEnum::HIDDEN, new DateTime());
+        $equipmentEvent = new EquipmentEvent(
+            $gravitySimulator,
+            $room,
+            VisibilityEnum::HIDDEN,
+            ActionEnum::SABOTAGE,
+            new DateTime()
+        );
 
         $this->equipmentSubscriber->onEquipmentBroken($equipmentEvent);
 
@@ -107,7 +116,13 @@ class EquipmentSubscriberCest
 
         $I->haveInRepository($gravitySimulator);
 
-        $equipmentEvent = new EquipmentEvent($gravitySimulator, VisibilityEnum::HIDDEN, new DateTime());
+        $equipmentEvent = new EquipmentEvent(
+            $gravitySimulator,
+            $room,
+            VisibilityEnum::HIDDEN,
+            ActionEnum::REPAIR,
+            new DateTime()
+        );
 
         $alert = new Alert();
         $alert->setDaedalus($daedalus)->setName(AlertEnum::NO_GRAVITY);
@@ -166,7 +181,13 @@ class EquipmentSubscriberCest
 
         $I->haveInRepository($gameEquipment);
 
-        $equipmentEvent = new EquipmentEvent($gameEquipment, VisibilityEnum::HIDDEN, new DateTime());
+        $equipmentEvent = new EquipmentEvent(
+            $gameEquipment,
+            $room,
+            VisibilityEnum::HIDDEN,
+            RoomEventEnum::CYCLE_FIRE,
+            new DateTime()
+        );
 
         $this->equipmentSubscriber->onEquipmentBroken($equipmentEvent);
 
@@ -210,7 +231,13 @@ class EquipmentSubscriberCest
 
         $I->haveInRepository($gameEquipment);
 
-        $equipmentEvent = new EquipmentEvent($gameEquipment, VisibilityEnum::HIDDEN, new DateTime());
+        $equipmentEvent = new EquipmentEvent(
+            $gameEquipment,
+            $room,
+            VisibilityEnum::HIDDEN,
+            EventEnum::NEW_CYCLE,
+            new DateTime()
+        );
 
         $this->equipmentSubscriber->onEquipmentBroken($equipmentEvent);
 
@@ -254,7 +281,13 @@ class EquipmentSubscriberCest
 
         $I->haveInRepository($gravitySimulator);
 
-        $equipmentEvent = new EquipmentEvent($gravitySimulator, VisibilityEnum::HIDDEN, new DateTime());
+        $equipmentEvent = new EquipmentEvent(
+            $gravitySimulator,
+            $room,
+            VisibilityEnum::HIDDEN,
+            ActionEnum::REPAIR,
+            new DateTime())
+        ;
 
         $reportedAlert = new AlertElement();
         $reportedAlert->setEquipment($gravitySimulator);
@@ -311,7 +344,13 @@ class EquipmentSubscriberCest
         $broken = new Status($gravitySimulator);
         $broken->setName(EquipmentStatusEnum::BROKEN);
 
-        $equipmentEvent = new EquipmentEvent($gravitySimulator, VisibilityEnum::HIDDEN, new DateTime());
+        $equipmentEvent = new EquipmentEvent(
+            $gravitySimulator,
+            $room,
+            VisibilityEnum::HIDDEN,
+            ActionEnum::DISASSEMBLE,
+            new DateTime()
+        );
 
         $reportedAlert = new AlertElement();
         $reportedAlert->setEquipment($gravitySimulator);

@@ -14,6 +14,7 @@ use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Place\Entity\Place;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -65,8 +66,17 @@ class OpenCapsule extends AbstractAction
         /** @var GameEquipment $parameter */
         $parameter = $this->parameter;
 
+        /** @var Place $place */
+        $place = $this->player->getPlace();
+
         //remove the space capsule
-        $equipmentEvent = new EquipmentEvent($parameter, VisibilityEnum::HIDDEN, new \DateTime());
+        $equipmentEvent = new EquipmentEvent(
+            $parameter,
+            $place,
+            VisibilityEnum::HIDDEN,
+            $this->getActionName(),
+            new \DateTime()
+        );
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         //Get the content
@@ -76,8 +86,14 @@ class OpenCapsule extends AbstractAction
             ->gameEquipmentService
             ->createGameEquipmentFromName($contentName, $this->player->getDaedalus())
         ;
-        $equipmentEvent = new EquipmentEvent($contentEquipment, VisibilityEnum::HIDDEN, new \DateTime());
-        $equipmentEvent->setPlayer($this->player)->setPlace($this->player->getPlace());
+        $equipmentEvent = new EquipmentEvent(
+            $contentEquipment,
+            $place,
+            VisibilityEnum::HIDDEN,
+            $this->getActionName(),
+            new \DateTime()
+        );
+        $equipmentEvent->setPlayer($this->player);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
         $this->gameEquipmentService->persist($contentEquipment);

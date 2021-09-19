@@ -17,6 +17,7 @@ use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\EventEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ContentStatus;
@@ -207,7 +208,13 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         if ($gameEquipment->getEquipment()->isFireDestroyable() &&
             $this->randomService->isSuccessful($this->getGameConfig($gameEquipment)->getDifficultyConfig()->getEquipmentFireBreakRate())
         ) {
-            $equipmentEvent = new EquipmentEvent($gameEquipment, VisibilityEnum::PUBLIC, $date);
+            $equipmentEvent = new EquipmentEvent(
+                $gameEquipment,
+                $gameEquipment->getCurrentPlace(),
+                VisibilityEnum::PUBLIC,
+                EventEnum::FIRE,
+                $date
+            );
             $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
         }
 
@@ -215,7 +222,13 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             !$gameEquipment->getStatusByName(EquipmentStatusEnum::BROKEN) &&
             $this->randomService->isSuccessful($this->getGameConfig($gameEquipment)->getDifficultyConfig()->getEquipmentFireBreakRate())
         ) {
-            $equipmentEvent = new EquipmentEvent($gameEquipment, VisibilityEnum::PUBLIC, $date);
+            $equipmentEvent = new EquipmentEvent(
+                $gameEquipment,
+                $gameEquipment->getCurrentPlace(),
+                VisibilityEnum::PUBLIC,
+                EventEnum::FIRE,
+                $date
+            );
             $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_BROKEN);
             $this->persist($gameEquipment);
         }

@@ -15,6 +15,7 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentCycleEvent;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\EventEnum;
 use Mush\Place\Entity\Place;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\PlantLogEnum;
@@ -86,7 +87,7 @@ class PlantCycleEventCest
 
         $time = new DateTime();
 
-        $cycleEvent = new EquipmentCycleEvent($gameEquipment, $daedalus, $time);
+        $cycleEvent = new EquipmentCycleEvent($gameEquipment, $daedalus, EventEnum::NEW_CYCLE, $time);
 
         $this->eventDispatcher->dispatch($cycleEvent, EquipmentCycleEvent::EQUIPMENT_NEW_CYCLE);
 
@@ -96,7 +97,7 @@ class PlantCycleEventCest
 
         //growing up
         $time = new DateTime();
-        $cycleEvent = new EquipmentCycleEvent($gameEquipment, $daedalus, $time);
+        $cycleEvent = new EquipmentCycleEvent($gameEquipment, $daedalus, EventEnum::NEW_CYCLE, $time);
 
         $this->eventDispatcher->dispatch($cycleEvent, EquipmentCycleEvent::EQUIPMENT_NEW_CYCLE);
 
@@ -166,7 +167,7 @@ class PlantCycleEventCest
         //Plant is young : no fruit or oxygen
         $time = new DateTime();
 
-        $cycleEvent = new EquipmentCycleEvent($gameEquipment, $daedalus, $time);
+        $cycleEvent = new EquipmentCycleEvent($gameEquipment, $daedalus, EventEnum::PLANT_PRODUCTION, $time);
 
         $this->eventDispatcher->dispatch($cycleEvent, EquipmentCycleEvent::EQUIPMENT_NEW_DAY);
 
@@ -184,7 +185,7 @@ class PlantCycleEventCest
 
         $gameEquipment->removeStatus($youngStatus);
 
-        $cycleEvent = new EquipmentCycleEvent($gameEquipment, $daedalus, $time);
+        $cycleEvent = new EquipmentCycleEvent($gameEquipment, $daedalus, EventEnum::PLANT_PRODUCTION, $time);
 
         $this->eventDispatcher->dispatch($cycleEvent, EquipmentCycleEvent::EQUIPMENT_NEW_DAY);
 
@@ -201,7 +202,7 @@ class PlantCycleEventCest
         $gameEquipment->removeStatus($thirstyStatus);
 
         $time = new DateTime();
-        $cycleEvent = new EquipmentCycleEvent($gameEquipment, $daedalus, $time);
+        $cycleEvent = new EquipmentCycleEvent($gameEquipment, $daedalus, EventEnum::PLANT_PRODUCTION, $time);
 
         $this->eventDispatcher->dispatch($cycleEvent, EquipmentCycleEvent::EQUIPMENT_NEW_DAY);
 
@@ -237,7 +238,7 @@ class PlantCycleEventCest
         ;
 
         $time = new DateTime();
-        $cycleEvent = new EquipmentCycleEvent($gameEquipment2, $daedalus, $time);
+        $cycleEvent = new EquipmentCycleEvent($gameEquipment2, $daedalus, EventEnum::PLANT_PRODUCTION, $time);
 
         $this->eventDispatcher->dispatch($cycleEvent, EquipmentCycleEvent::EQUIPMENT_NEW_DAY);
 

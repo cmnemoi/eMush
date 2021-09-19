@@ -4,10 +4,13 @@ namespace Mush\Disease\Event;
 
 use Mush\Disease\Entity\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
+use Mush\Game\Event\AbstractGameEvent;
+use Mush\Game\Event\AbstractLoggedEvent;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Symfony\Contracts\EventDispatcher\Event;
+use Mush\RoomLog\Enum\VisibilityEnum;
 
-class DiseaseEvent extends Event
+class DiseaseEvent extends AbstractGameEvent implements AbstractLoggedEvent
 {
     public const NEW_DISEASE = 'disease.new';
     public const APPEAR_DISEASE = 'disease.appear';
@@ -16,13 +19,16 @@ class DiseaseEvent extends Event
 
     private ?Player $author;
     private PlayerDisease $playerDisease;
-    private \DateTime $time;
-    private string $cureReason;
+    private string $visibility = VisibilityEnum::PUBLIC;
 
-    public function __construct(PlayerDisease $playerDisease, \DateTime $time)
-    {
+    public function __construct(
+        PlayerDisease $playerDisease,
+        string $cureReason,
+        \DateTime $time
+    ) {
         $this->playerDisease = $playerDisease;
-        $this->time = $time;
+
+        parent::__construct($cureReason, $time);
     }
 
     public function getAuthor(): ?Player
@@ -42,6 +48,11 @@ class DiseaseEvent extends Event
         return $this->playerDisease->getPlayer();
     }
 
+    public function getPlace(): Place
+    {
+        return $this->playerDisease->getPlayer()->getPlace();
+    }
+
     public function getDiseaseConfig(): DiseaseConfig
     {
         return $this->playerDisease->getDiseaseConfig();
@@ -52,20 +63,8 @@ class DiseaseEvent extends Event
         return $this->playerDisease;
     }
 
-    public function getTime(): \DateTime
+    public function getVisibility(): string
     {
-        return $this->time;
-    }
-
-    public function getCureReason(): string
-    {
-        return $this->cureReason;
-    }
-
-    public function setCureReason(string $cureReason): DiseaseEvent
-    {
-        $this->cureReason = $cureReason;
-
-        return $this;
+        return $this->visibility;
     }
 }

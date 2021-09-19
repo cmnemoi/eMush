@@ -62,8 +62,12 @@ class PlayerSubscriber implements EventSubscriberInterface
 
         $damage = (int) $this->randomService->getSingleRandomElementFromProbaArray($difficultyConfig->getMetalPlatePlayerDamage());
 
-        $playerModifierEvent = new PlayerModifierEvent($player, -$damage, $event->getTime());
-        $playerModifierEvent->setReason(EndCauseEnum::METAL_PLATE);
+        $playerModifierEvent = new PlayerModifierEvent(
+            $player,
+            -$damage,
+            EndCauseEnum::METAL_PLATE,
+            $event->getTime()
+        );
         $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
     }
 
@@ -75,8 +79,12 @@ class PlayerSubscriber implements EventSubscriberInterface
 
         $damage = (int) $this->randomService->getSingleRandomElementFromProbaArray($difficultyConfig->getPanicCrisisPlayerDamage());
 
-        $playerModifierEvent = new PlayerModifierEvent($player, -$damage, $event->getTime());
-        $playerModifierEvent->setReason($event->getReason());
+        $playerModifierEvent = new PlayerModifierEvent(
+            $player,
+            -$damage,
+            $event->getReason(),
+            $event->getTime()
+        );
         $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::MORAL_POINT_MODIFIER);
     }
 

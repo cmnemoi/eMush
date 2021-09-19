@@ -17,6 +17,7 @@ use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Equipment\Service\GearToolServiceInterface;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -74,6 +75,7 @@ class Transplant extends AbstractAction
         /** @var GameItem $hydropot */
         $hydropot = $this->gearToolService->getEquipmentsOnReachByName($this->player, ItemEnum::HYDROPOT)->first();
 
+        /** @var Place $place */
         $place = $hydropot->getPlace() ?? $hydropot->getPlayer();
 
         /** @var GameItem $plantEquipment */
@@ -86,10 +88,21 @@ class Transplant extends AbstractAction
             $plantEquipment->setPlace($place);
         }
 
-        $equipmentEvent = new EquipmentEvent($parameter, VisibilityEnum::HIDDEN, new \DateTime());
+        $equipmentEvent = new EquipmentEvent(
+            $parameter,
+            $place,
+            VisibilityEnum::HIDDEN,
+            $this->getActionName(),
+            new \DateTime());
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
-        $equipmentEvent = new EquipmentEvent($hydropot, VisibilityEnum::HIDDEN, new \DateTime());
+        $equipmentEvent = new EquipmentEvent(
+            $hydropot,
+            $place,
+            VisibilityEnum::HIDDEN,
+            $this->getActionName(),
+            new \DateTime()
+        );
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         $this->gameEquipmentService->persist($plantEquipment);

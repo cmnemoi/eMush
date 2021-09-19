@@ -4,7 +4,7 @@ namespace Mush\Game\Event;
 
 use Symfony\Contracts\EventDispatcher\Event;
 
-class AbstractMushEvent extends Event
+class AbstractGameEvent extends Event
 {
     protected \DateTime $time;
     protected string $reason;

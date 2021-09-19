@@ -3,9 +3,9 @@
 namespace Mush\Daedalus\Event;
 
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Game\Event\AbstractMushEvent;
+use Mush\Game\Event\AbstractGameEvent;
 
-class DaedalusCycleEvent extends AbstractMushEvent
+class DaedalusCycleEvent extends AbstractGameEvent
 {
     public const DAEDALUS_NEW_CYCLE = 'daedalus.new.cycle';
     public const DAEDALUS_NEW_DAY = 'daedalus.new.day';

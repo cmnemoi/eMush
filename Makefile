@@ -52,5 +52,5 @@ install-front:
 
 reset-eternal-twin-database:
 	docker start mush_database &&\
-	cat docker/EternalTwin/drop.sql | docker exec -i mush_database psql --username mysql eternal_twin &&\
-	cat docker/EternalTwin/dump_12-01-2021_20_33_41.sql | docker exec -i mush_database psql --username mysql eternal_twin
+	cat docker/EternalTwin/drop.sql | docker exec -i mush_database psql --username mysql etwin.dev &&\
+	cat docker/EternalTwin/dump_12-01-2021_20_33_41.sql | docker exec -i mush_database psql --username mysql etwin.dev

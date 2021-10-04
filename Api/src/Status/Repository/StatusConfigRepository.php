@@ -9,7 +9,6 @@ use Doctrine\Persistence\ManagerRegistry;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\GameConfig;
 use Mush\Status\Entity\Config\StatusConfig;
-use Mush\Status\Entity\Status;
 
 class StatusConfigRepository extends ServiceEntityRepository
 {

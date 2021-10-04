@@ -22,13 +22,13 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class AbstractActionTest extends TestCase
 {
-    /** @var EventDispatcherInterface | Mockery\Mock */
+    /** @var EventDispatcherInterface|Mockery\Mock */
     protected EventDispatcherInterface $eventDispatcher;
 
-    /** @var ActionServiceInterface | Mockery\Mock */
+    /** @var ActionServiceInterface|Mockery\Mock */
     protected ActionServiceInterface $actionService;
 
-    /** @var ValidatorInterface | Mockery\Mock */
+    /** @var ValidatorInterface|Mockery\Mock */
     protected ValidatorInterface $validator;
 
     protected AbstractAction $action;

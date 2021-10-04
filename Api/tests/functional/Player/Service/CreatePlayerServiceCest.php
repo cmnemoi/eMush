@@ -16,7 +16,6 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Service\PlayerService;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Enum\StatusEnum;
 use Mush\User\Entity\User;
 
 class CreatePlayerServiceCest
@@ -68,7 +67,6 @@ class CreatePlayerServiceCest
         $I->haveInRepository($mushStatusConfig);
         $I->haveInRepository($sporeStatusConfig);
 
-
         $daedalus->addPlace($room);
 
         /** @var User $user */
@@ -83,11 +81,9 @@ class CreatePlayerServiceCest
 
         $I->refreshEntities($daedalus);
 
-
         $I->expectThrowable(\LogicException::class, fn () => (
             $this->playerService->createPlayer($daedalus, $user, 'non_existent_player')
         ));
-
 
         $playerGioele = $this->playerService->createPlayer($daedalus, $user, CharacterEnum::GIOELE);
 

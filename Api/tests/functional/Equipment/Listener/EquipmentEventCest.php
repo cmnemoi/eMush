@@ -137,7 +137,7 @@ class EquipmentEventCest
             ->setGameConfig($gameConfig)
         ;
         $I->haveInRepository($statusConfig);
-        
+
         $neron = new Neron();
         $neron->setIsInhibited(true);
         $I->haveInRepository($neron);

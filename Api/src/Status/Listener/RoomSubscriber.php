@@ -4,6 +4,7 @@ namespace Mush\Status\Listener;
 
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Event\RoomEvent;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -34,8 +35,9 @@ class RoomSubscriber implements EventSubscriberInterface
             throw new \LogicException('place should be a room');
         }
 
+        /** @var ChargeStatusConfig $fireStatusConfig */
         $fireStatusConfig = $this->statusService->getStatusConfigByNameAndDaedalus(StatusEnum::FIRE, $event->getPlace()->getDaedalus());
-        $fireStatus = $this->statusService->createStatusFromConfig($fireStatusConfig, $room);
+        $fireStatus = $this->statusService->createChargeStatusFromConfig($fireStatusConfig, $room, 0, 0);
 
         $this->statusService->persist($fireStatus);
     }

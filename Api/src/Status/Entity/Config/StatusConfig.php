@@ -41,11 +41,6 @@ class StatusConfig
      */
     protected string $visibility = VisibilityEnum::PUBLIC;
 
-    /**
-     * @ORM\Column(type="array", nullable=true)
-     */
-    private array $applyToEquipments = [];
-
     public function getId(): int
     {
         return $this->id;
@@ -89,21 +84,6 @@ class StatusConfig
     public function setVisibility(string $visibility): StatusConfig
     {
         $this->visibility = $visibility;
-
-        return $this;
-    }
-
-    public function getApplyToEquipments(): array
-    {
-        return $this->applyToEquipments;
-    }
-
-    /**
-     * @return static
-     */
-    public function setApplyToEquipments(array $applyToEquipments): StatusConfig
-    {
-        $this->applyToEquipments = $applyToEquipments;
 
         return $this;
     }

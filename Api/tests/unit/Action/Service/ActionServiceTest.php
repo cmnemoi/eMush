@@ -20,11 +20,11 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ActionServiceTest extends TestCase
 {
-    /** @var EventDispatcherInterface | Mockery\Mock */
+    /** @var EventDispatcherInterface|Mockery\Mock */
     private EventDispatcherInterface $eventDispatcher;
-    /** @var StatusServiceInterface | Mockery\Mock */
+    /** @var StatusServiceInterface|Mockery\Mock */
     private StatusServiceInterface $statusService;
-    /** @var ActionModifierServiceInterface | Mockery\Mock */
+    /** @var ActionModifierServiceInterface|Mockery\Mock */
     private ActionModifierServiceInterface $actionModifierService;
 
     private ActionServiceInterface $service;

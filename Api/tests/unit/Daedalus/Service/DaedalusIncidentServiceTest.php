@@ -27,11 +27,11 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class DaedalusIncidentServiceTest extends TestCase
 {
-    /** @var RandomServiceInterface | Mockery\Mock */
+    /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;
-    /** @var EventDispatcherInterface | Mockery\Mock */
+    /** @var EventDispatcherInterface|Mockery\Mock */
     private EventDispatcherInterface $eventDispatcher;
-    /** @var GameEquipmentRepository | Mockery\Mock */
+    /** @var GameEquipmentRepository|Mockery\Mock */
     private GameEquipmentRepository $gameEquipmentRepository;
 
     private DaedalusIncidentServiceInterface $service;

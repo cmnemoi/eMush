@@ -5,9 +5,6 @@ namespace Mush\Status\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use Mush\Equipment\Enum\GearItemEnum;
-use Mush\Equipment\Enum\ItemEnum;
-use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -67,16 +64,6 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->setName(EquipmentStatusEnum::ALIEN_ARTEFACT)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setGameConfig($gameConfig)
-            ->setApplyToEquipments([
-                GearItemEnum::ALIEN_BOTTLE_OPENER,
-                GearItemEnum::ROLLING_BOULDER,
-                GearItemEnum::PRINTED_CIRCUIT_JELLY,
-                GearItemEnum::INVERTEBRATE_SHELL,
-                GearItemEnum::MAGELLAN_LIQUID_MAP,
-                ToolItemEnum::JAR_OF_ALIEN_OIL,
-                ToolItemEnum::ALIEN_HOLOGRAPHIC_TV,
-                ItemEnum::WATER_STICK,
-            ])
         ;
         $manager->persist($alienArtefact);
 
@@ -85,13 +72,6 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->setName(EquipmentStatusEnum::HEAVY)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setGameConfig($gameConfig)
-            ->setApplyToEquipments([
-                GearItemEnum::OSCILLOSCOPE,
-                GearItemEnum::INVERTEBRATE_SHELL,
-                ToolItemEnum::SUPERFREEZER,
-                ToolItemEnum::MICROWAVE,
-                ItemEnum::OLD_FAITHFUL,
-                ])
         ;
         $manager->persist($heavy);
 

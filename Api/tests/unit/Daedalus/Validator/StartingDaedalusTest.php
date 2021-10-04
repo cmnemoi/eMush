@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 class StartingDaedalusTest extends TestCase
 {
     private StartingDaedalusValidator $validator;
-    /** @var GameConfigService | Mockery\Mock */
+    /** @var GameConfigService|Mockery\Mock */
     private GameConfigService $gameConfigService;
 
     /**

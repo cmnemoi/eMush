@@ -22,7 +22,7 @@ class ParameterHasActionValidatorTest extends TestCase
     private HasActionValidator $validator;
     private HasAction $constraint;
 
-    /** @var GearToolServiceInterface | Mockery\Mock */
+    /** @var GearToolServiceInterface|Mockery\Mock */
     private GearToolServiceInterface $gearToolService;
 
     /**

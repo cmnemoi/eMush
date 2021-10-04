@@ -29,17 +29,17 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class PlayerServiceTest extends TestCase
 {
-    /** @var EventDispatcherInterface | Mockery\Mock */
+    /** @var EventDispatcherInterface|Mockery\Mock */
     private EventDispatcherInterface $eventDispatcher;
-    /** @var EntityManagerInterface | Mockery\Mock */
+    /** @var EntityManagerInterface|Mockery\Mock */
     private EntityManagerInterface $entityManager;
-    /** @var PlayerRepository | Mockery\Mock */
+    /** @var PlayerRepository|Mockery\Mock */
     private PlayerRepository $repository;
-    /** @var DeadPlayerInfoRepository | Mockery\Mock */
+    /** @var DeadPlayerInfoRepository|Mockery\Mock */
     private DeadPlayerInfoRepository $deadPlayerInfoRepository;
-    /** @var RoomLogServiceInterface | Mockery\Mock */
+    /** @var RoomLogServiceInterface|Mockery\Mock */
     private RoomLogServiceInterface $roomLogService;
-    /** @var RandomServiceInterface | Mockery\Mock */
+    /** @var RandomServiceInterface|Mockery\Mock */
     private GameEquipmentServiceInterface $gameEquipmentService;
 
     private CharacterConfigCollection $charactersConfigs;

@@ -13,6 +13,9 @@ use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
+use Mush\Status\DataFixtures\ChargeStatusFixtures;
+use Mush\Status\DataFixtures\StatusFixtures;
+use Mush\Status\Entity\Config\StatusConfig;
 
 class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -173,6 +176,9 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($starmapFragment);
 
+        /** @var StatusConfig $alienArtifactStatus */
+        $alienArtifactStatus = $this->getReference(StatusFixtures::ALIEN_ARTEFACT_STATUS);
+
         $waterStick = new ItemConfig();
         $waterStick
             ->setGameConfig($gameConfig)
@@ -181,6 +187,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setActions($hideableActions)
+            ->setInitStatus(new ArrayCollection([$alienArtifactStatus]))
         ;
         $manager->persist($waterStick);
 
@@ -227,6 +234,8 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ActionsFixtures::class,
             TechnicianFixtures::class,
             GameConfigFixtures::class,
+            ChargeStatusFixtures::class,
+            StatusFixtures::class,
         ];
     }
 }

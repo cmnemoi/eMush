@@ -106,7 +106,6 @@ class PlayerEventCest
         ;
         $I->haveInRepository($mushStatusConfig);
 
-
         $mushStatus = new ChargeStatus($player);
         $mushStatus
             ->setName(PlayerStatusEnum::SPORES)

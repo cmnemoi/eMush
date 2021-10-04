@@ -13,7 +13,6 @@ use Mush\Player\Event\PlayerModifierEvent;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
-use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -67,7 +66,6 @@ class PlayerModifierEventCest
         ;
         $I->haveInRepository($suicidalStatusConfig);
         $I->haveInRepository($demoralizedStatusConfig);
-
 
         $playerEvent = new PlayerModifierEvent(
             $player,

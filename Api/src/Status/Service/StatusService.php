@@ -61,19 +61,10 @@ class StatusService implements StatusServiceInterface
     {
         $statusConfig = $this->statusConfigRepository->findByNameAndDaedalus($name, $daedalus);
 
-        if ($statusConfig === null){
+        if ($statusConfig === null) {
             throw new \LogicException('No status config found');
         }
-        return $statusConfig;
-    }
 
-    public function getStatusConfigByEquipmentAndDaedalus(string $equipmentName, Daedalus $daedalus): ArrayCollection
-    {
-        $statusConfig = $this->statusConfigRepository->findByEquipmentAndDaedalus($equipmentName, $daedalus);
-
-        if ($statusConfig === null){
-            throw new \LogicException('No status config found');
-        }
         return $statusConfig;
     }
 
@@ -82,26 +73,32 @@ class StatusService implements StatusServiceInterface
         StatusHolderInterface $holder,
         ?StatusHolderInterface $target = null
     ): Status {
-        if ($statusConfig instanceof ChargeStatusConfig) {
-            return $this->createChargeStatus(
-                $statusConfig->getName(),
-                $holder,
-                $statusConfig->getChargeStrategy(),
-                $target,
-                $statusConfig->getVisibility(),
-                $statusConfig->getChargeVisibility(),
-                $statusConfig->getStartingCharge(),
-                $statusConfig->getThreshold(),
-                $statusConfig->isAutoRemove()
-            );
-        } else {
-            return $this->createCoreStatus(
-                $statusConfig->getName(),
-                $holder,
-                $target,
-                $statusConfig->getVisibility()
-            );
-        }
+        return $this->createCoreStatus(
+            $statusConfig->getName(),
+            $holder,
+            $target,
+            $statusConfig->getVisibility()
+        );
+    }
+
+    public function createChargeStatusFromConfig(
+        ChargeStatusConfig $statusConfig,
+        StatusHolderInterface $holder,
+        int $charge,
+        int $threshold,
+        ?StatusHolderInterface $target = null,
+    ): ChargeStatus {
+        return $this->createChargeStatus(
+            $statusConfig->getName(),
+            $holder,
+            $statusConfig->getChargeStrategy(),
+            $target,
+            $statusConfig->getVisibility(),
+            $statusConfig->getChargeVisibility(),
+            $charge,
+            $threshold,
+            $statusConfig->isAutoRemove()
+        );
     }
 
     private function createCoreStatus(

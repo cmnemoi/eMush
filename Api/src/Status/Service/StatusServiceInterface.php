@@ -2,7 +2,6 @@
 
 namespace Mush\Status\Service;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Daedalus\Entity\Daedalus;
@@ -11,6 +10,7 @@ use Mush\Player\Entity\Player;
 use Mush\Status\Criteria\StatusCriteria;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
@@ -23,13 +23,19 @@ interface StatusServiceInterface
 
     public function getStatusConfigByNameAndDaedalus(string $name, Daedalus $daedalus): StatusConfig;
 
-    public function getStatusConfigByEquipmentAndDaedalus(string $equipmentName, Daedalus $daedalus): ArrayCollection;
-
     public function createStatusFromConfig(
         StatusConfig $statusConfig,
         StatusHolderInterface $holder,
         ?StatusHolderInterface $target = null
     ): Status;
+
+    public function createChargeStatusFromConfig(
+        ChargeStatusConfig $statusConfig,
+        StatusHolderInterface $holder,
+        int $charge,
+        int $threshold,
+        ?StatusHolderInterface $target = null,
+    ): ChargeStatus;
 
     public function createAttemptStatus(string $statusName, string $action, Player $player): Attempt;
 

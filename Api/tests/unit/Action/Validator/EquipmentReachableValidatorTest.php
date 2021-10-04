@@ -19,7 +19,7 @@ class EquipmentReachableValidatorTest extends TestCase
     private EquipmentReachableValidator $validator;
     private EquipmentReachable $constraint;
 
-    /** @var GearToolServiceInterface | Mockery\Mock */
+    /** @var GearToolServiceInterface|Mockery\Mock */
     private GearToolServiceInterface $gearToolService;
 
     /**

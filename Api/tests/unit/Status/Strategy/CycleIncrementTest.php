@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 class CycleIncrementTest extends TestCase
 {
-    /** @var StatusServiceInterface | Mockery\Mock */
+    /** @var StatusServiceInterface|Mockery\Mock */
     private StatusServiceInterface $statusService;
     private AbstractChargeStrategy $strategy;
 

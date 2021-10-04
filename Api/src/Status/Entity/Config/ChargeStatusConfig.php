@@ -26,11 +26,6 @@ class ChargeStatusConfig extends StatusConfig
     /**
      * @ORM\Column(type="integer", length=255, nullable=false)
      */
-    protected int $startingCharge = 0;
-
-    /**
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
     protected ?int $threshold = null;
 
     /**
@@ -64,36 +59,6 @@ class ChargeStatusConfig extends StatusConfig
     public function setChargeStrategy(string $chargeStrategy): ChargeStatusConfig
     {
         $this->chargeStrategy = $chargeStrategy;
-
-        return $this;
-    }
-
-    public function getStartingCharge(): int
-    {
-        return $this->startingCharge;
-    }
-
-    /**
-     * @return static
-     */
-    public function setStartingCharge(int $startingCharge): ChargeStatusConfig
-    {
-        $this->startingCharge = $startingCharge;
-
-        return $this;
-    }
-
-    public function getThreshold(): ?int
-    {
-        return $this->threshold;
-    }
-
-    /**
-     * @return static
-     */
-    public function setThreshold(int $threshold): ChargeStatusConfig
-    {
-        $this->threshold = $threshold;
 
         return $this;
     }

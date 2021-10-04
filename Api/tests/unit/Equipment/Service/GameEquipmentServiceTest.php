@@ -28,19 +28,19 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class GameEquipmentServiceTest extends TestCase
 {
-    /** @var EventDispatcherInterface | Mockery\Mock */
+    /** @var EventDispatcherInterface|Mockery\Mock */
     private EventDispatcherInterface $eventDispatcher;
-    /** @var EntityManagerInterface | Mockery\Mock */
+    /** @var EntityManagerInterface|Mockery\Mock */
     private EntityManagerInterface $entityManager;
-    /** @var GameEquipmentRepository | Mockery\Mock */
+    /** @var GameEquipmentRepository|Mockery\Mock */
     private GameEquipmentRepository $repository;
-    /** @var RandomServiceInterface | Mockery\Mock */
+    /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;
-    /** @var EquipmentServiceInterface | Mockery\Mock */
+    /** @var EquipmentServiceInterface|Mockery\Mock */
     private EquipmentServiceInterface $equipmentService;
-    /** @var EquipmentEffectServiceInterface | Mockery\Mock */
+    /** @var EquipmentEffectServiceInterface|Mockery\Mock */
     private EquipmentEffectServiceInterface $equipmentEffectService;
-    /** @var StatusServiceInterface | Mockery\Mock */
+    /** @var StatusServiceInterface|Mockery\Mock */
     private StatusServiceInterface $statusService;
 
     private GameEquipmentService $service;
@@ -97,12 +97,6 @@ class GameEquipmentServiceTest extends TestCase
             ->shouldReceive('flush')
             ->once()
         ;
-        $this->statusService
-            ->shouldReceive('getStatusConfigByEquipmentAndDaedalus')
-            ->with($itemConfig->getName(), $daedalus)
-            ->andReturn(new ArrayCollection([]))
-            ->once()
-        ;
 
         $gameItem = $this->service->createGameEquipment($itemConfig, $daedalus);
 
@@ -124,12 +118,6 @@ class GameEquipmentServiceTest extends TestCase
             ->shouldReceive('flush')
             ->once()
         ;
-        $this->statusService
-            ->shouldReceive('getStatusConfigByEquipmentAndDaedalus')
-            ->with($equipmentConfig->getName(), $daedalus)
-            ->andReturn(new ArrayCollection([]))
-            ->once()
-        ;
 
         $gameEquipment = $this->service->createGameEquipment($equipmentConfig, $daedalus);
 
@@ -145,13 +133,8 @@ class GameEquipmentServiceTest extends TestCase
 
         $statusConfig = new StatusConfig();
         $statusConfig->setName(EquipmentStatusEnum::ALIEN_ARTEFACT);
+        $itemConfig->setInitStatus(new ArrayCollection([$statusConfig]));
 
-        $this->statusService
-            ->shouldReceive('getStatusConfigByEquipmentAndDaedalus')
-            ->with($itemConfig->getName(), $daedalus)
-            ->andReturn(new ArrayCollection([$statusConfig]))
-            ->once()
-        ;
         $this->entityManager
             ->shouldReceive('persist')
             ->once()
@@ -180,13 +163,7 @@ class GameEquipmentServiceTest extends TestCase
 
         $statusConfig = new StatusConfig();
         $statusConfig->setName(EquipmentStatusEnum::HEAVY);
-
-        $this->statusService
-            ->shouldReceive('getStatusConfigByEquipmentAndDaedalus')
-            ->with($itemConfig->getName(), $daedalus)
-            ->andReturn(new ArrayCollection([$statusConfig]))
-            ->once()
-        ;
+        $itemConfig->setInitStatus(new ArrayCollection([$statusConfig]));
 
         $this->entityManager
             ->shouldReceive('persist')
@@ -219,10 +196,10 @@ class GameEquipmentServiceTest extends TestCase
         $plantEffect = new PlantEffect();
         $plantEffect->setMaturationTime(8);
 
-        $this->statusService
-            ->shouldReceive('getStatusConfigByEquipmentAndDaedalus')
-            ->with($itemConfig->getName(), $daedalus)
-            ->andReturn(new ArrayCollection([]))
+        $this->equipmentEffectService
+            ->shouldReceive('getPlantEffect')
+            ->with($plantMechanic, $daedalus)
+            ->andReturn($plantEffect)
             ->once()
         ;
         $this->entityManager
@@ -255,12 +232,6 @@ class GameEquipmentServiceTest extends TestCase
             ->setMechanics(new ArrayCollection([$documentMechanic]))
         ;
 
-        $this->statusService
-            ->shouldReceive('getStatusConfigByEquipmentAndDaedalus')
-            ->with($itemConfig->getName(), $daedalus)
-            ->andReturn(new ArrayCollection([]))
-            ->once()
-        ;
         $this->entityManager
             ->shouldReceive('persist')
             ->once()

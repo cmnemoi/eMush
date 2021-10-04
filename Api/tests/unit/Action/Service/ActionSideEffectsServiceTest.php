@@ -27,13 +27,13 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class ActionSideEffectsServiceTest extends TestCase
 {
-    /** @var EventDispatcherInterface | Mockery\Mock */
+    /** @var EventDispatcherInterface|Mockery\Mock */
     private EventDispatcherInterface $eventDispatcher;
-    /** @var RoomLogServiceInterface | Mockery\Mock */
+    /** @var RoomLogServiceInterface|Mockery\Mock */
     private RoomLogServiceInterface $roomLogService;
-    /** @var RandomServiceInterface | Mockery\Mock */
+    /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;
-    /** @var ActionModifierServiceInterface | Mockery\Mock */
+    /** @var ActionModifierServiceInterface|Mockery\Mock */
     private ActionModifierServiceInterface $actionModifierService;
 
     private ActionSideEffectsServiceInterface $actionService;

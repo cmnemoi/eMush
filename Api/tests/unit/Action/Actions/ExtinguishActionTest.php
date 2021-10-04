@@ -23,11 +23,11 @@ use Mush\Status\Enum\StatusEnum;
 
 class ExtinguishActionTest extends AbstractActionTest
 {
-    /** @var PlaceServiceInterface | Mockery\Mock */
+    /** @var PlaceServiceInterface|Mockery\Mock */
     private PlaceServiceInterface $placeService;
-    /** @var PlayerServiceInterface | Mockery\Mock */
+    /** @var PlayerServiceInterface|Mockery\Mock */
     private PlayerServiceInterface $playerService;
-    /** @var RandomServiceInterface | Mockery\Mock */
+    /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;
 
     /**

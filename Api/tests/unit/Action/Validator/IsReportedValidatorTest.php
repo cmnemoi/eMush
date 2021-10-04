@@ -23,7 +23,7 @@ class IsReportedValidatorTest extends TestCase
     private IsReportedValidator $validator;
     private IsReported $constraint;
 
-    /** @var AlertServiceInterface | Mockery\Mock */
+    /** @var AlertServiceInterface|Mockery\Mock */
     private AlertServiceInterface $alertService;
 
     /**

@@ -11,11 +11,16 @@ use Mush\Action\DataFixtures\TechnicianFixtures;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\ItemConfig;
+use Mush\Equipment\Entity\Mechanics\Charged;
 use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
+use Mush\Status\DataFixtures\ChargeStatusFixtures;
+use Mush\Status\DataFixtures\StatusFixtures;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
+use Mush\Status\Entity\Config\StatusConfig;
 
 class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -54,6 +59,11 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $sabotage25 = $this->getReference(TechnicianFixtures::SABOTAGE_25);
         /** @var Action $sabotage50 */
         $sabotage50 = $this->getReference(TechnicianFixtures::SABOTAGE_50);
+
+        /** @var StatusConfig $alienArtifactStatus */
+        $alienArtifactStatus = $this->getReference(StatusFixtures::ALIEN_ARTEFACT_STATUS);
+        /** @var StatusConfig $heavyStatus */
+        $heavyStatus = $this->getReference(StatusFixtures::HEAVY_STATUS);
 
         //@TODO
         $hackerKitMechanic = new Tool();
@@ -193,6 +203,16 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $microwaveMechanic = new Tool();
         $microwaveMechanic->addAction($expressCookAction);
 
+        /** @var ChargeStatusConfig $electricCharge */
+        $electricCharge = $this->getReference(ChargeStatusFixtures::CYCLE_ELECTRIC_CHARGE);
+
+        $microwaveChargedMechanic = new Charged();
+        $microwaveChargedMechanic
+            ->setMaxCharge(4)
+            ->setStartCharge(0)
+            ->setChargeStatusConfig($electricCharge)
+        ;
+
         $microwave = new ItemConfig();
         $microwave
             ->setGameConfig($gameConfig)
@@ -201,13 +221,15 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setIsBreakable(true)
-            ->setMechanics(new ArrayCollection([$microwaveMechanic]))
+            ->setMechanics(new ArrayCollection([$microwaveMechanic, $microwaveChargedMechanic]))
             ->setActions($microwaveActions)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 2])
+            ->setInitStatus(new ArrayCollection([$heavyStatus]))
         ;
 
         $manager->persist($microwave);
         $manager->persist($microwaveMechanic);
+        $manager->persist($microwaveChargedMechanic);
 
         /** @var Action $hyperfreezeAction */
         $hyperfreezeAction = $this->getReference(ActionsFixtures::HYPERFREEZE_DEFAULT);
@@ -232,6 +254,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setMechanics(new ArrayCollection([$superFreezerMechanic]))
             ->setActions($superfreezerActions)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 2])
+            ->setInitStatus(new ArrayCollection([$heavyStatus]))
         ;
 
         $manager->persist($superFreezer);
@@ -251,6 +274,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsBreakable(true)
             ->setMechanics(new ArrayCollection([$alienHolographicTVMechanic]))
             ->setActions(new ArrayCollection([$takeAction, $dropAction, $hideAction, $repair3, $sabotage3, $reportAction]))
+            ->setInitStatus(new ArrayCollection([$alienArtifactStatus]))
         ;
 
         $manager->persist($alienHolographicTV);
@@ -312,6 +336,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireBreakable(true)
             ->setMechanics(new ArrayCollection([$jarOfAlienOilMechanic]))
             ->setActions($actions)
+            ->setInitStatus(new ArrayCollection([$alienArtifactStatus]))
         ;
 
         $manager->persist($jarOfAlienOil);
@@ -385,6 +410,8 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ActionsFixtures::class,
             TechnicianFixtures::class,
             GameConfigFixtures::class,
+            ChargeStatusFixtures::class,
+            StatusFixtures::class,
         ];
     }
 }

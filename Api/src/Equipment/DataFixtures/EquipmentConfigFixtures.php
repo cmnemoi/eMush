@@ -10,11 +10,15 @@ use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\DataFixtures\TechnicianFixtures;
 use Mush\Action\Entity\Action;
 use Mush\Equipment\Entity\EquipmentConfig;
+use Mush\Equipment\Entity\Mechanics\Charged;
 use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
+use Mush\Status\DataFixtures\ChargeStatusFixtures;
+use Mush\Status\DataFixtures\StatusFixtures;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
 
 class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -45,6 +49,12 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $sabotage12 = $this->getReference(TechnicianFixtures::SABOTAGE_12);
         /** @var Action $sabotage25 */
         $sabotage25 = $this->getReference(TechnicianFixtures::SABOTAGE_25);
+
+        /** @var ChargeStatusConfig $electricCharge */
+        $electricCharge = $this->getReference(ChargeStatusFixtures::CYCLE_ELECTRIC_CHARGE);
+
+        /** @var ChargeStatusConfig $dailyElectricCharge */
+        $dailyElectricCharge = $this->getReference(ChargeStatusFixtures::DAILY_ELECTRIC_CHARGE);
 
         //@TODO terminals
         $icarus = new EquipmentConfig();
@@ -295,6 +305,16 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $combustionChamberMechanic->addAction($fuelInjectAction);
         $combustionChamberMechanic->addAction($fuelRetrieveAction);
 
+        /** @var ChargeStatusConfig $combustionChargeStatus */
+        $combustionChargeStatus = $this->getReference(ChargeStatusFixtures::COMBUSTION_CHAMBER);
+
+        $combustionChargedMechanic = new Charged();
+        $combustionChargedMechanic
+            ->setMaxCharge(9)
+            ->setStartCharge(0)
+            ->setChargeStatusConfig($combustionChargeStatus)
+        ;
+
         $combustionChamber = new EquipmentConfig();
         $combustionChamber
             ->setGameConfig($gameConfig)
@@ -302,11 +322,12 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
-            ->setMechanics(new ArrayCollection([$combustionChamberMechanic]))
+            ->setMechanics(new ArrayCollection([$combustionChamberMechanic, $combustionChargedMechanic]))
             ->setActions(new ArrayCollection([$repair12, $sabotage12, $reportAction, $examineAction]))
         ;
         $manager->persist($combustionChamber);
         $manager->persist($combustionChamberMechanic);
+        $manager->persist($combustionChargedMechanic);
 
         /** @var Action $cookAction */
         $cookAction = $this->getReference(ActionsFixtures::COOK_DEFAULT);
@@ -332,19 +353,27 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $dispenseAction = $this->getReference(ActionsFixtures::DISPENSE_DRUG);
         $distillerMechanic->addAction($dispenseAction);
 
+        $dailyChargeMechanic = new Charged();
+        $dailyChargeMechanic
+            ->setMaxCharge(1)
+            ->setStartCharge(1)
+            ->setChargeStatusConfig($dailyElectricCharge)
+        ;
+
         $narcoticDistiller = new EquipmentConfig();
         $narcoticDistiller
             ->setGameConfig($gameConfig)
             ->setName(EquipmentEnum::NARCOTIC_DISTILLER)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$distillerMechanic]))
+            ->setMechanics(new ArrayCollection([$distillerMechanic, $dailyChargeMechanic]))
             ->setActions(new ArrayCollection([$this->getReference(TechnicianFixtures::DISMANTLE_3_25), $examineAction]))
             ->setDismountedProducts([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::METAL_SCRAPS => 2])
         ;
 
         $manager->persist($narcoticDistiller);
         $manager->persist($distillerMechanic);
+        $manager->persist($dailyChargeMechanic);
 
         $shower = new EquipmentConfig();
         $shower
@@ -423,7 +452,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
-            ->setMechanics(new ArrayCollection([$coffeMachineMechanic]))
+            ->setMechanics(new ArrayCollection([$coffeMachineMechanic, $dailyChargeMechanic]))
             ->setActions(new ArrayCollection([$repair12, $sabotage12, $reportAction, $examineAction]))
         ;
         $manager->persist($coffeMachine);
@@ -458,6 +487,13 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($mycoscan);
         $manager->persist($mycoscanMechanic);
 
+        $turretChargeMechanic = new Charged();
+        $turretChargeMechanic
+            ->setMaxCharge(4)
+            ->setStartCharge(4)
+            ->setChargeStatusConfig($electricCharge)
+        ;
+
         $turretCommandMechanic = new Tool();
 //        $turretCommandMechanic->setActions([ActionEnum::SHOOT_HUNTER]);
         $turretCommand = new EquipmentConfig();
@@ -467,11 +503,12 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
-            ->setMechanics(new ArrayCollection([$turretCommandMechanic]))
+            ->setMechanics(new ArrayCollection([$turretCommandMechanic, $turretChargeMechanic]))
             ->setActions(new ArrayCollection([$repair12, $sabotage12, $reportAction, $examineAction]))
         ;
         $manager->persist($turretCommand);
         $manager->persist($turretCommandMechanic);
+        $manager->persist($turretChargeMechanic);
 
         $surgicalPlotMechanic = new Tool();
 //        $surgicalPlotMechanic->setGrantActions([ActionEnum::SELF_SURGERY, ActionEnum::SURGERY]);
@@ -542,6 +579,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             GameConfigFixtures::class,
             ActionsFixtures::class,
             TechnicianFixtures::class,
+            ChargeStatusFixtures::class,
+            StatusFixtures::class,
         ];
     }
 }

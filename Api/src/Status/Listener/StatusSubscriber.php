@@ -2,9 +2,12 @@
 
 namespace Mush\Status\Listener;
 
+use Mush\Status\Entity\Config\ChargeStatusConfig;
+use Mush\Status\Event\ChargeStatusEvent;
 use Mush\Status\Event\StatusEvent;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class StatusSubscriber implements EventSubscriberInterface
 {
@@ -26,9 +29,30 @@ class StatusSubscriber implements EventSubscriberInterface
 
     public function onStatusApplied(StatusEvent $event): void
     {
-        $statusConfig = $this->statusService->getStatusConfigByNameAndDaedalus($event->getStatusName(), $event->getPlace()->getDaedalus());
+        $statusConfig = $this->statusService->getStatusConfigByNameAndDaedalus(
+            $event->getStatusName(),
+            $event->getPlace()->getDaedalus()
+        );
 
-        $status = $this->statusService->createStatusFromConfig($statusConfig, $event->getStatusHolder(), $event->getStatusTarget());
+        if ($event instanceof ChargeStatusEvent) {
+            if (!$statusConfig instanceof ChargeStatusConfig) {
+                throw new UnexpectedTypeException($statusConfig, ChargeStatusConfig::class);
+            }
+
+            $status = $this->statusService->createChargeStatusFromConfig(
+                $statusConfig,
+                $event->getStatusHolder(),
+                $event->getInitCharge(),
+                $event->getThreshold(),
+                $event->getStatusTarget()
+            );
+        } else {
+            $status = $this->statusService->createStatusFromConfig(
+                $statusConfig,
+                $event->getStatusHolder(),
+                $event->getStatusTarget()
+            );
+        }
 
         $this->statusService->persist($status);
     }

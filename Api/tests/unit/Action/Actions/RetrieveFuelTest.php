@@ -21,7 +21,7 @@ use Mush\Place\Entity\Place;
 
 class RetrieveFuelTest extends AbstractActionTest
 {
-    /** @var GameEquipmentServiceInterface | Mockery\Mock */
+    /** @var GameEquipmentServiceInterface|Mockery\Mock */
     private GameEquipmentServiceInterface | Mockery\Mock $gameEquipmentService;
 
     /**

@@ -15,9 +15,9 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class AntisocialTest extends TestCase
 {
-    /** @var EventDispatcherInterface | Mockery\Mock */
+    /** @var EventDispatcherInterface|Mockery\Mock */
     private EventDispatcherInterface $eventDispatcher;
-    /** @var RoomLogServiceInterface | Mockery\Mock */
+    /** @var RoomLogServiceInterface|Mockery\Mock */
     private RoomLogServiceInterface $roomLogService;
 
     private Antisocial $cycleHandler;

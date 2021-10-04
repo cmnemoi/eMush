@@ -17,10 +17,10 @@ use PHPUnit\Framework\TestCase;
 
 class StatusServiceTest extends TestCase
 {
-    /** @var EntityManagerInterface | Mockery\Mock */
+    /** @var EntityManagerInterface|Mockery\Mock */
     private EntityManagerInterface $entityManager;
 
-    /** @var StatusRepository | Mockery\Mock */
+    /** @var StatusRepository|Mockery\Mock */
     private StatusRepository $repository;
 
     private StatusService $service;

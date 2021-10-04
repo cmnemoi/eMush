@@ -18,9 +18,9 @@ use PHPUnit\Framework\TestCase;
 
 class RationCycleHandlerTest extends TestCase
 {
-    /** @var GameEquipmentServiceInterface | Mockery\Mock */
+    /** @var GameEquipmentServiceInterface|Mockery\Mock */
     private GameEquipmentServiceInterface $gameEquipmentService;
-    /** @var StatusServiceInterface | Mockery\Mock */
+    /** @var StatusServiceInterface|Mockery\Mock */
     private StatusServiceInterface $statusService;
 
     private RationCycleHandler $rationCycleHandler;

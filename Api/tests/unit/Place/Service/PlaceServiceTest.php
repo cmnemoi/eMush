@@ -26,11 +26,11 @@ class PlaceServiceTest extends TestCase
 {
     private PlaceServiceInterface $placeService;
 
-    /** @var EntityManagerInterface | Mockery\Mock */
+    /** @var EntityManagerInterface|Mockery\Mock */
     private EntityManagerInterface $entityManager;
-    /** @var gameEquipmentServiceInterface | Mockery\Mock */
+    /** @var gameEquipmentServiceInterface|Mockery\Mock */
     private gameEquipmentServiceInterface $equipmentService;
-    /** @var PlaceRepository | Mockery\Mock */
+    /** @var PlaceRepository|Mockery\Mock */
     private PlaceRepository $repository;
 
     /**

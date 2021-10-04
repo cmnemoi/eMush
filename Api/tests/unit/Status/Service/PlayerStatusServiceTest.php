@@ -15,10 +15,10 @@ use Mush\Status\Service\StatusServiceInterface;
 
 class PlayerStatusServiceTest extends TestCase
 {
-    /** @var StatusServiceInterface | Mockery\Mock */
+    /** @var StatusServiceInterface|Mockery\Mock */
     private StatusServiceInterface $statusService;
 
-    /** @var RoomLogServiceInterface | Mockery\Mock */
+    /** @var RoomLogServiceInterface|Mockery\Mock */
     private RoomLogServiceInterface $roomLogService;
 
     private PlayerStatusServiceInterface $playerStatusService;

@@ -13,7 +13,7 @@ use Mush\Player\Service\PlayerServiceInterface;
 
 class HealActionTest extends AbstractActionTest
 {
-    /** @var PlayerServiceInterface | Mockery\Mock */
+    /** @var PlayerServiceInterface|Mockery\Mock */
     private PlayerServiceInterface $playerService;
 
     /**

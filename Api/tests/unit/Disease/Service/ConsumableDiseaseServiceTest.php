@@ -19,16 +19,16 @@ use PHPUnit\Framework\TestCase;
 
 class ConsumableDiseaseServiceTest extends TestCase
 {
-    /** @var RandomServiceInterface | Mockery\Mock */
+    /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;
 
-    /** @var EntityManagerInterface | Mockery\Mock */
+    /** @var EntityManagerInterface|Mockery\Mock */
     private EntityManagerInterface $entityManager;
 
-    /** @var ConsumableDiseaseRepository | Mockery\Mock */
+    /** @var ConsumableDiseaseRepository|Mockery\Mock */
     private ConsumableDiseaseRepository $consumableDiseaseRepository;
 
-    /** @var ConsumableDiseaseConfigRepository | Mockery\Mock */
+    /** @var ConsumableDiseaseConfigRepository|Mockery\Mock */
     private ConsumableDiseaseConfigRepository $consumableDiseaseConfigRepository;
 
     private ConsumableDiseaseService $consumableDiseaseService;

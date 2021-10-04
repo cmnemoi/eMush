@@ -26,13 +26,13 @@ use PHPUnit\Framework\TestCase;
 
 class RoomLogServiceTest extends TestCase
 {
-    /** @var EntityManagerInterface | Mockery\Mock */
+    /** @var EntityManagerInterface|Mockery\Mock */
     private EntityManagerInterface $entityManager;
-    /** @var RandomServiceInterface | Mockery\Mock */
+    /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;
-    /** @var RoomLogRepository | Mockery\Mock */
+    /** @var RoomLogRepository|Mockery\Mock */
     private RoomLogRepository $repository;
-    /** @var TranslationServiceInterface | Mockery\Mock */
+    /** @var TranslationServiceInterface|Mockery\Mock */
     private TranslationServiceInterface $translationService;
 
     private RoomLogService $service;

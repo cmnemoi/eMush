@@ -18,7 +18,7 @@ class AlertNormalizerTest extends TestCase
 {
     private AlertNormalizer $normalizer;
 
-    /** @var TranslationService | Mockery\Mock */
+    /** @var TranslationService|Mockery\Mock */
     private TranslationService $translationService;
 
     /**

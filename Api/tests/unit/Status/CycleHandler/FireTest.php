@@ -23,13 +23,13 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class FireTest extends TestCase
 {
-    /** @var RandomServiceInterface | Mockery\Mock */
+    /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;
-    /** @var EventDispatcherInterface | Mockery\Mock */
+    /** @var EventDispatcherInterface|Mockery\Mock */
     private EventDispatcherInterface $eventDispatcher;
-    /** @var GameEquipmentServiceInterface | Mockery\Mock */
+    /** @var GameEquipmentServiceInterface|Mockery\Mock */
     private GameEquipmentServiceInterface $gameEquipmentService;
-    /** @var DaedalusServiceInterface | Mockery\Mock */
+    /** @var DaedalusServiceInterface|Mockery\Mock */
     private DaedalusServiceInterface $daedalusService;
     private Fire $cycleHandler;
 

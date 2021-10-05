@@ -2,11 +2,11 @@
 
 namespace Mush\Status\Event;
 
-use Mush\Game\Event\AbstractMushEvent;
+use Mush\Game\Event\AbstractGameEvent;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 
-class StatusCycleEvent extends AbstractMushEvent
+class StatusCycleEvent extends AbstractGameEvent
 {
     public const STATUS_NEW_CYCLE = 'status.new.cycle';
     public const STATUS_NEW_DAY = 'status.new.day';

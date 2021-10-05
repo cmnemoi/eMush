@@ -15,7 +15,7 @@ use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
-use Mush\Game\Event\AbstractMushEvent;
+use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
@@ -188,13 +188,13 @@ class PlantCycleHandlerTest extends TestCase
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (AbstractMushEvent $event) => $event instanceof StatusEvent &&
+            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof StatusEvent &&
                 $event->getStatusName() === EquipmentStatusEnum::PLANT_THIRSTY &&
                 $event->getStatusHolder() === $gamePlant)
             ->once();
 
         $this->eventDispatcher->shouldReceive('dispatch')
-            ->withArgs(fn (AbstractMushEvent $event) => $event instanceof DaedalusModifierEvent &&
+            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof DaedalusModifierEvent &&
                 $event->getDaedalus() === $daedalus &&
                 $event->getQuantity() === 10
             )->once();
@@ -246,13 +246,13 @@ class PlantCycleHandlerTest extends TestCase
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (AbstractMushEvent $event) => $event instanceof StatusEvent &&
+            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof StatusEvent &&
                 $event->getStatusName() === EquipmentStatusEnum::PLANT_DRY &&
                 $event->getStatusHolder() === $gamePlant)
             ->once();
 
         $this->eventDispatcher->shouldReceive('dispatch')
-            ->withArgs(fn (AbstractMushEvent $event) => $event instanceof DaedalusModifierEvent &&
+            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof DaedalusModifierEvent &&
                 $event->getDaedalus() === $daedalus &&
                 $event->getQuantity() === 10)
             ->once();

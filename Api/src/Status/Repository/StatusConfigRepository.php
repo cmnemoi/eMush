@@ -3,7 +3,6 @@
 namespace Mush\Status\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 use Mush\Daedalus\Entity\Daedalus;
@@ -37,26 +36,5 @@ class StatusConfigRepository extends ServiceEntityRepository
         ;
 
         return $queryBuilder->getQuery()->getOneOrNullResult();
-    }
-
-    public function findByDaedalus(Daedalus $daedalus): ArrayCollection
-    {
-        $queryBuilder = $this->createQueryBuilder('statusConfig');
-
-        $queryBuilder
-            ->leftJoin(GameConfig::class, 'gameConfig', Join::WITH, 'gameConfig = statusConfig.gameConfig')
-            ->leftJoin(
-                Daedalus::class,
-                'daedalus',
-                Join::WITH,
-                'daedalus.gameConfig = gameConfig.id'
-            )
-            ->where($queryBuilder->expr()->eq('daedalus', ':daedalus'))
-            ->andWhere($queryBuilder->expr()->in(':equipmentName', 'statusConfig.applyToEquipments'))
-            ->setParameter(':daedalus', $daedalus)
-            ->setMaxResults(1)
-        ;
-
-        return new ArrayCollection($queryBuilder->getQuery()->getResult());
     }
 }

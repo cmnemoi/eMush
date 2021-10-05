@@ -143,11 +143,11 @@ class StatusService implements StatusServiceInterface
         return $status;
     }
 
-    public function createAttemptStatus(string $statusName, string $action, Player $player): Attempt
+    private function createAttemptStatus(string $action, Player $player): Attempt
     {
         $status = new Attempt($player);
         $status
-            ->setName($statusName)
+            ->setName(StatusEnum::ATTEMPT)
             ->setVisibility(VisibilityEnum::HIDDEN)
             ->setAction($action)
             ->setCharge(0)
@@ -161,7 +161,7 @@ class StatusService implements StatusServiceInterface
         /** @var Attempt $attempt */
         $attempt = $player->getStatusByName(StatusEnum::ATTEMPT);
 
-        if ($result instanceof Success) {
+        if ($result instanceof Success && $attempt !== null) {
             $this->delete($attempt);
         } else {
             if ($attempt && $attempt->getAction() !== $actionName) {
@@ -172,7 +172,6 @@ class StatusService implements StatusServiceInterface
                 ;
             } elseif ($attempt === null) { //Create Attempt
                 $attempt = $this->createAttemptStatus(
-                    StatusEnum::ATTEMPT,
                     $actionName,
                     $player
                 );

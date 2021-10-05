@@ -8,7 +8,6 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
 use Mush\Status\Criteria\StatusCriteria;
-use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -36,8 +35,6 @@ interface StatusServiceInterface
         int $threshold,
         ?StatusHolderInterface $target = null,
     ): ChargeStatus;
-
-    public function createAttemptStatus(string $statusName, string $action, Player $player): Attempt;
 
     public function handleAttempt(Player $player, string $actionName, ActionResult $result): void;
 

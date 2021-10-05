@@ -25,7 +25,11 @@ host = "mush_database"
 # Database service port
 port = 5432
 # Database name
-name = "eternal_twin"
+name = "etwin.dev"
+# Database user (role) for schema management.
+admin_user = "mysql"
+# Password for the database admin user.
+admin_password = "password"
 # Database user (role). In development, it is recommended to be a superuser to manage extensions.
 user = "mysql"
 # Password for the database user.

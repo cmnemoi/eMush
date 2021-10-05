@@ -21,7 +21,7 @@ use Mush\Place\Entity\Place;
 
 class RetrieveOxygenTest extends AbstractActionTest
 {
-    /** @var GameEquipmentServiceInterface | Mockery\Mock */
+    /** @var GameEquipmentServiceInterface|Mockery\Mock */
     private GameEquipmentServiceInterface $gameEquipmentService;
 
     /**
@@ -61,7 +61,6 @@ class RetrieveOxygenTest extends AbstractActionTest
 
         $item
             ->setName(ItemEnum::OXYGEN_CAPSULE)
-            ->setIsHeavy(false)
         ;
 
         $player = $this->createPlayer($daedalus, $room);

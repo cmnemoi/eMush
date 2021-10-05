@@ -46,7 +46,7 @@ class ChargedValidatorTest extends TestCase
 
         $chargeStatus = new ChargeStatus($target);
         $chargeStatus
-            ->setName(EquipmentStatusEnum::CHARGES)
+            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
             ->setCharge(1)
         ;
 
@@ -83,7 +83,7 @@ class ChargedValidatorTest extends TestCase
 
         $chargeStatus = new ChargeStatus($target);
         $chargeStatus
-            ->setName(EquipmentStatusEnum::CHARGES)
+            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
             ->setCharge(0)
         ;
 

@@ -19,6 +19,7 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 
@@ -173,6 +174,13 @@ class ConsumeActionCest
             ->setRation($ration)
         ;
         $I->haveInRepository($effect);
+
+        $statusDirty = new StatusConfig();
+        $statusDirty
+            ->setName(PlayerStatusEnum::FULL_STOMACH)
+            ->setGameConfig($gameConfig)
+        ;
+        $I->haveInRepository($statusDirty);
 
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, [

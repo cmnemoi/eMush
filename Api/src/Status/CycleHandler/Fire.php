@@ -2,7 +2,6 @@
 
 namespace Mush\Status\CycleHandler;
 
-use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Entity\Door;
@@ -40,7 +39,7 @@ class Fire extends AbstractStatusCycleHandler
         $this->daedalusService = $daedalusService;
     }
 
-    public function handleNewCycle(Status $status, Daedalus $daedalus, StatusHolderInterface $statusHolder, \DateTime $dateTime, array $context = []): void
+    public function handleNewCycle(Status $status, StatusHolderInterface $statusHolder, \DateTime $dateTime, array $context = []): void
     {
         if (!$status instanceof ChargeStatus || $status->getName() !== StatusEnum::FIRE) {
             return;
@@ -118,7 +117,7 @@ class Fire extends AbstractStatusCycleHandler
         return $room;
     }
 
-    public function handleNewDay(Status $status, Daedalus $daedalus, StatusHolderInterface $statusHolder, \DateTime $dateTime): void
+    public function handleNewDay(Status $status, StatusHolderInterface $statusHolder, \DateTime $dateTime): void
     {
         return;
     }

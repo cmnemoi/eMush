@@ -3,12 +3,12 @@
 namespace Mush\Equipment\Event;
 
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Event\AbstractLoggedEvent;
-use Mush\Game\Event\AbstractMushEvent;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 
-class EquipmentEvent extends AbstractMushEvent implements AbstractLoggedEvent
+class EquipmentEvent extends AbstractGameEvent implements AbstractLoggedEvent
 {
     public const EQUIPMENT_CREATED = 'equipment.created';
     public const EQUIPMENT_FIXED = 'equipment.fixed';

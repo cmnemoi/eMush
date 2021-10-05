@@ -88,7 +88,7 @@ class CookableValidatorTest extends TestCase
 
         $chargeStatus = new ChargeStatus($target);
         $chargeStatus
-            ->setName(EquipmentStatusEnum::CHARGES)
+            ->setName(EquipmentStatusEnum::HAZARDOUS)
             ->setCharge(0)
         ;
 

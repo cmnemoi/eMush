@@ -20,7 +20,7 @@ class FullHealthValidatorTest extends TestCase
     private FullHealthValidator $validator;
     private FullHealth $constraint;
 
-    /** @var PlayerVariableServiceInterface | Mockery\Mock */
+    /** @var PlayerVariableServiceInterface|Mockery\Mock */
     private PlayerVariableServiceInterface $gearToolService;
 
     /**

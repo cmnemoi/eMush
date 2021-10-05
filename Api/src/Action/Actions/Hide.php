@@ -15,10 +15,8 @@ use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Player\Service\PlayerServiceInterface;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
+use Mush\Status\Event\StatusEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -28,16 +26,12 @@ class Hide extends AbstractAction
     protected string $name = ActionEnum::HIDE;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private PlayerServiceInterface $playerService;
-    private StatusServiceInterface $statusService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         GameEquipmentServiceInterface $gameEquipmentService,
-        StatusServiceInterface $statusService,
-        PlayerServiceInterface $playerService
     ) {
         parent::__construct(
             $eventDispatcher,
@@ -46,8 +40,6 @@ class Hide extends AbstractAction
         );
 
         $this->gameEquipmentService = $gameEquipmentService;
-        $this->statusService = $statusService;
-        $this->playerService = $playerService;
     }
 
     protected function support(?ActionParameter $parameter): bool
@@ -68,12 +60,10 @@ class Hide extends AbstractAction
         /** @var GameItem $parameter */
         $parameter = $this->parameter;
 
-        $this->statusService->createCoreStatus(
-            EquipmentStatusEnum::HIDDEN,
-            $parameter,
-            $this->player,
-            VisibilityEnum::PRIVATE,
-        );
+        $statusEvent = new StatusEvent(EquipmentStatusEnum::HIDDEN, $parameter, $this->getActionName(), new \DateTime());
+        $statusEvent->setStatusTarget($this->player);
+
+        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
 
         if ($parameter->getPlayer()) {
             $parameter->setPlayer(null);
@@ -81,7 +71,6 @@ class Hide extends AbstractAction
         }
 
         $this->gameEquipmentService->persist($parameter);
-        $this->playerService->persist($this->player);
 
         return new Success();
     }

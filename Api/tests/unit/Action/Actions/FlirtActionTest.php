@@ -12,7 +12,7 @@ use Mush\Player\Service\PlayerServiceInterface;
 
 class FlirtActionTest extends AbstractActionTest
 {
-    /** @var PlayerServiceInterface | Mockery\Mock */
+    /** @var PlayerServiceInterface|Mockery\Mock */
     private PlayerServiceInterface $playerService;
 
     /**

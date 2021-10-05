@@ -61,11 +61,6 @@ class EquipmentConfig
     private bool $isFireBreakable = false;
 
     /**
-     * @ORM\Column(type="boolean", nullable=false)
-     */
-    private bool $isAlienArtifact = false;
-
-    /**
      * @ORM\Column(type="array", nullable=false)
      */
     private array $dismountedProducts = [];
@@ -75,10 +70,16 @@ class EquipmentConfig
      */
     private Collection $actions;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Mush\Status\Entity\Config\StatusConfig")
+     */
+    private Collection $initStatus;
+
     public function __construct()
     {
         $this->mechanics = new ArrayCollection();
         $this->actions = new ArrayCollection();
+        $this->initStatus = new ArrayCollection();
     }
 
     public function createGameEquipment(): GameEquipment
@@ -212,21 +213,6 @@ class EquipmentConfig
         return $this;
     }
 
-    public function isAlienArtifact(): bool
-    {
-        return $this->isAlienArtifact;
-    }
-
-    /**
-     * @return static
-     */
-    public function setIsAlienArtifact(bool $isAlienArtifact): EquipmentConfig
-    {
-        $this->isAlienArtifact = $isAlienArtifact;
-
-        return $this;
-    }
-
     /**
      * @return static
      */
@@ -247,6 +233,21 @@ class EquipmentConfig
         }
 
         return new ArrayCollection($actions);
+    }
+
+    /**
+     * @return static
+     */
+    public function setInitStatus(Collection $initStatus): self
+    {
+        $this->initStatus = $initStatus;
+
+        return $this;
+    }
+
+    public function getInitStatus(): Collection
+    {
+        return $this->initStatus;
     }
 
     public function hasAction(string $actionName): bool

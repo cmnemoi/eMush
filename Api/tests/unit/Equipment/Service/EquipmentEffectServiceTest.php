@@ -16,11 +16,11 @@ use PHPUnit\Framework\TestCase;
 
 class EquipmentEffectServiceTest extends TestCase
 {
-    /** @var ConsumableEffectRepository | Mockery\Mock */
+    /** @var ConsumableEffectRepository|Mockery\Mock */
     private ConsumableEffectRepository $consumableEffectRepository;
-    /** @var PlantEffectRepository | Mockery\Mock */
+    /** @var PlantEffectRepository|Mockery\Mock */
     private PlantEffectRepository $plantEffectRepository;
-    /** @var RandomServiceInterface | Mockery\Mock */
+    /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;
 
     private EquipmentEffectService $service;

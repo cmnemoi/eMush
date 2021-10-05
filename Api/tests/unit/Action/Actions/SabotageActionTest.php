@@ -21,9 +21,9 @@ use Mush\Status\Enum\StatusEnum;
 
 class SabotageActionTest extends AbstractActionTest
 {
-    /** @var PlayerServiceInterface | Mockery\Mock */
+    /** @var PlayerServiceInterface|Mockery\Mock */
     private PlayerServiceInterface $playerService;
-    /** @var RandomServiceInterface | Mockery\Mock */
+    /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;
 
     /**
@@ -97,7 +97,7 @@ class SabotageActionTest extends AbstractActionTest
         $this->assertInstanceOf(Fail::class, $result);
         $this->assertCount(0, $room->getEquipments()->first()->getStatuses());
         $this->assertCount(1, $player->getStatuses());
-        $this->assertEquals(1, $attempt->getCharge());
+        $this->assertEquals(0, $attempt->getCharge());
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->actionService->shouldReceive('getSuccessRate')->andReturn(10)->once();

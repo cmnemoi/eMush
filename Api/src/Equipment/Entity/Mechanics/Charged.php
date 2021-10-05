@@ -5,6 +5,7 @@ namespace Mush\Equipment\Entity\Mechanics;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
 
 /**
  * Class Equipment.
@@ -26,14 +27,9 @@ class Charged extends EquipmentMechanic
     private int $startCharge = 0;
 
     /**
-     * @ORM\Column(type="string", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Mush\Status\Entity\Config\ChargeStatusConfig")
      */
-    private string $chargeStrategy;
-
-    /**
-     * @ORM\Column(type="boolean", nullable=false)
-     */
-    private bool $isVisible = true;
+    private ChargeStatusConfig $chargeStatusConfig;
 
     public function getMaxCharge(): int
     {
@@ -65,32 +61,17 @@ class Charged extends EquipmentMechanic
         return $this;
     }
 
-    public function getChargeStrategy(): string
+    public function getChargeStatusConfig(): ChargeStatusConfig
     {
-        return $this->chargeStrategy;
+        return $this->chargeStatusConfig;
     }
 
     /**
      * @return static
      */
-    public function setChargeStrategy(string $chargeStrategy): Charged
+    public function setChargeStatusConfig(ChargeStatusConfig $chargeStatusConfig): Charged
     {
-        $this->chargeStrategy = $chargeStrategy;
-
-        return $this;
-    }
-
-    public function isVisible(): bool
-    {
-        return $this->isVisible;
-    }
-
-    /**
-     * @return static
-     */
-    public function setIsVisible(bool $isVisible): Charged
-    {
-        $this->isVisible = $isVisible;
+        $this->chargeStatusConfig = $chargeStatusConfig;
 
         return $this;
     }

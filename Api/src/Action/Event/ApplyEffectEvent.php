@@ -3,12 +3,12 @@
 namespace Mush\Action\Event;
 
 use Mush\Action\Entity\ActionParameter;
+use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Event\AbstractLoggedEvent;
-use Mush\Game\Event\AbstractMushEvent;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 
-class ApplyEffectEvent extends AbstractMushEvent implements AbstractLoggedEvent
+class ApplyEffectEvent extends AbstractGameEvent implements AbstractLoggedEvent
 {
     public const CONSUME = 'action.consume';
     public const HEAL = 'action.heal';

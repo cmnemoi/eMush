@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 class UniqueCharacterTest extends TestCase
 {
     private UniqueCharacterValidator $validator;
-    /** @var PlayerServiceInterface | Mockery\Mock */
+    /** @var PlayerServiceInterface|Mockery\Mock */
     private PlayerServiceInterface $playerService;
 
     /**

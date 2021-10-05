@@ -4,23 +4,18 @@ namespace Mush\Status\Listener;
 
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Event\RoomEvent;
-use Mush\Place\Service\PlaceServiceInterface;
-use Mush\RoomLog\Enum\VisibilityEnum;
-use Mush\Status\Enum\ChargeStrategyTypeEnum;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class RoomSubscriber implements EventSubscriberInterface
 {
-    private PlaceServiceInterface $placeService;
     private StatusServiceInterface $statusService;
 
     public function __construct(
-        PlaceServiceInterface $placeService,
         StatusServiceInterface $statusService,
     ) {
-        $this->placeService = $placeService;
         $this->statusService = $statusService;
     }
 
@@ -40,13 +35,11 @@ class RoomSubscriber implements EventSubscriberInterface
             throw new \LogicException('place should be a room');
         }
 
-        $this->statusService->createChargeStatus(StatusEnum::FIRE,
-            $event->getPlace(),
-            ChargeStrategyTypeEnum::CYCLE_INCREMENT,
-            null,
-            VisibilityEnum::PUBLIC,
-            VisibilityEnum::HIDDEN
-        );
+        /** @var ChargeStatusConfig $fireStatusConfig */
+        $fireStatusConfig = $this->statusService->getStatusConfigByNameAndDaedalus(StatusEnum::FIRE, $event->getPlace()->getDaedalus());
+        $fireStatus = $this->statusService->createChargeStatusFromConfig($fireStatusConfig, $room, 0, 0);
+
+        $this->statusService->persist($fireStatus);
     }
 
     public function onStopFire(RoomEvent $event): void
@@ -57,7 +50,6 @@ class RoomSubscriber implements EventSubscriberInterface
             throw new \LogicException('room should have a fire to stop');
         }
 
-        $room->removeStatus($fireStatus);
-        $this->placeService->persist($room);
+        $this->statusService->delete($fireStatus);
     }
 }

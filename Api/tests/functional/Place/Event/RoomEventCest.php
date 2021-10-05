@@ -21,7 +21,10 @@ use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -76,6 +79,13 @@ class RoomEventCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'neron' => $neron]);
+
+        $statusConfig = new ChargeStatusConfig();
+        $statusConfig
+            ->setName(StatusEnum::FIRE)
+            ->setGameConfig($gameConfig)
+        ;
+        $I->haveInRepository($statusConfig);
 
         $channel = new Channel();
         $channel
@@ -139,6 +149,13 @@ class RoomEventCest
         $difficultyConfig = $I->have(DifficultyConfig::class);
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, ['difficultyConfig' => $difficultyConfig]);
+
+        $statusConfig = new StatusConfig();
+        $statusConfig
+            ->setName(EquipmentStatusEnum::BROKEN)
+            ->setGameConfig($gameConfig)
+        ;
+        $I->haveInRepository($statusConfig);
 
         $neron = new Neron();
         $neron->setIsInhibited(true);

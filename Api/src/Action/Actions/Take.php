@@ -11,13 +11,13 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\InventoryFull;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum as EnumEquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
+use Mush\Status\Event\StatusEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -28,7 +28,6 @@ class Take extends AbstractAction
 
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
-    private StatusServiceInterface $statusService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
@@ -36,7 +35,6 @@ class Take extends AbstractAction
         ValidatorInterface $validator,
         GameEquipmentServiceInterface $gameEquipmentService,
         PlayerServiceInterface $playerService,
-        StatusServiceInterface $statusService
     ) {
         parent::__construct(
             $eventDispatcher,
@@ -46,7 +44,6 @@ class Take extends AbstractAction
 
         $this->gameEquipmentService = $gameEquipmentService;
         $this->playerService = $playerService;
-        $this->statusService = $statusService;
     }
 
     protected function support(?ActionParameter $parameter): bool
@@ -65,15 +62,16 @@ class Take extends AbstractAction
         /** @var GameItem $parameter */
         $parameter = $this->parameter;
 
-        /** @var ItemConfig $item */
-        $item = $parameter->getEquipment();
-
         $parameter->setPlace(null);
         $parameter->setPlayer($this->player);
 
         // add BURDENED status if item is heavy
-        if ($item->isHeavy()) {
-            $this->statusService->createCoreStatus(PlayerStatusEnum::BURDENED, $this->player);
+        if ($parameter->hasStatus(EquipmentStatusEnum::HEAVY) &&
+            !$this->player->hasStatus(PlayerStatusEnum::BURDENED)
+        ) {
+            $statusEvent = new StatusEvent(PlayerStatusEnum::BURDENED, $this->player, $this->getActionName(), new \DateTime());
+
+            $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
         }
 
         if ($hiddenStatus = $parameter->getStatusByName(EnumEquipmentStatusEnum::HIDDEN)) {

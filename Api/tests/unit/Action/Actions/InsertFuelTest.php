@@ -51,7 +51,7 @@ class InsertFuelTest extends AbstractActionTest
         $item = new ItemConfig();
         $gameItem->setEquipment($item);
 
-        $item->setName(ItemEnum::FUEL_CAPSULE)->setIsHeavy(false);
+        $item->setName(ItemEnum::FUEL_CAPSULE);
 
         $player = $this->createPlayer($daedalus, $room);
         $gameItem->setName(ItemEnum::FUEL_CAPSULE)->setPlayer($player);

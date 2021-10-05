@@ -3,6 +3,7 @@
 namespace Mush\Action\Service;
 
 use Mush\Action\Entity\Action;
+use Mush\Game\Enum\EventEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
@@ -14,7 +15,7 @@ use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
+use Mush\Status\Event\StatusEvent;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class ActionSideEffectsService implements ActionSideEffectsServiceInterface
@@ -23,20 +24,17 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
 
     private EventDispatcherInterface $eventDispatcher;
     private RandomServiceInterface $randomService;
-    private StatusServiceInterface $statusService;
     private RoomLogServiceInterface $roomLogService;
     private ActionModifierServiceInterface $actionModifierService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         RandomServiceInterface $randomService,
-        StatusServiceInterface $statusService,
         RoomLogServiceInterface $roomLogService,
         ActionModifierServiceInterface $actionModifierService
     ) {
         $this->eventDispatcher = $eventDispatcher;
         $this->randomService = $randomService;
-        $this->statusService = $statusService;
         $this->roomLogService = $roomLogService;
         $this->actionModifierService = $actionModifierService;
     }
@@ -75,17 +73,8 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
                     $date
                 );
             } elseif ($percent <= $dirtyRate) {
-                $this->statusService->createCoreStatus(PlayerStatusEnum::DIRTY, $player);
-
-                $this->roomLogService->createLog(
-                    LogEnum::SOILED,
-                    $player->getPlace(),
-                    VisibilityEnum::PRIVATE,
-                    'event_log',
-                    $player,
-                    [],
-                    $date
-                );
+                $statusEvent = new StatusEvent(PlayerStatusEnum::DIRTY, $player, EventEnum::NEW_DAY, new \DateTime());
+                $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
             }
         }
     }

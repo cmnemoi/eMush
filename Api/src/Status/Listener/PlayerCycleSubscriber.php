@@ -32,7 +32,6 @@ class PlayerCycleSubscriber implements EventSubscriberInterface
             $statusNewCycle = new StatusCycleEvent(
                 $status,
                 $player,
-                $player->getDaedalus(),
                 $event->getReason(),
                 $event->getTime()
             );
@@ -48,7 +47,6 @@ class PlayerCycleSubscriber implements EventSubscriberInterface
             $statusNewCycle = new StatusCycleEvent(
                 $status,
                 $player,
-                $player->getDaedalus(),
                 $event->getReason(),
                 $event->getTime()
             );

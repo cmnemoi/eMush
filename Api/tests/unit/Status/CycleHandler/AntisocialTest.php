@@ -3,7 +3,6 @@
 namespace Mush\Test\Status\CycleHandler;
 
 use Mockery;
-use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
@@ -16,9 +15,9 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class AntisocialTest extends TestCase
 {
-    /** @var EventDispatcherInterface | Mockery\Mock */
+    /** @var EventDispatcherInterface|Mockery\Mock */
     private EventDispatcherInterface $eventDispatcher;
-    /** @var RoomLogServiceInterface | Mockery\Mock */
+    /** @var RoomLogServiceInterface|Mockery\Mock */
     private RoomLogServiceInterface $roomLogService;
 
     private Antisocial $cycleHandler;
@@ -58,7 +57,7 @@ class AntisocialTest extends TestCase
         ;
 
         $this->eventDispatcher->shouldReceive('dispatch')->never();
-        $this->cycleHandler->handleNewCycle($status, new Daedalus(), $player, new \DateTime());
+        $this->cycleHandler->handleNewCycle($status, $player, new \DateTime());
 
         $otherPlayer = new Player();
         $otherPlayer
@@ -67,13 +66,13 @@ class AntisocialTest extends TestCase
         ;
 
         $this->eventDispatcher->shouldReceive('dispatch')->never();
-        $this->cycleHandler->handleNewCycle($status, new Daedalus(), $player, new \DateTime());
+        $this->cycleHandler->handleNewCycle($status, $player, new \DateTime());
 
         $otherPlayer->setPlace($room);
 
         $this->eventDispatcher->shouldReceive('dispatch')->once();
         $this->roomLogService->shouldReceive('createLog')->once();
-        $this->cycleHandler->handleNewCycle($status, new Daedalus(), $player, new \DateTime());
+        $this->cycleHandler->handleNewCycle($status, $player, new \DateTime());
 
         $this->assertTrue(true);
     }

@@ -16,10 +16,9 @@ use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
+use Mush\Status\Event\StatusEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -29,16 +28,12 @@ class Hyperfreeze extends AbstractAction
     protected string $name = ActionEnum::HYPERFREEZE;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private PlayerServiceInterface $playerService;
-    private StatusServiceInterface $statusService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         GameEquipmentServiceInterface $gameEquipmentService,
-        PlayerServiceInterface $playerService,
-        StatusServiceInterface $statusService
     ) {
         parent::__construct(
             $eventDispatcher,
@@ -46,8 +41,6 @@ class Hyperfreeze extends AbstractAction
             $validator
         );
         $this->gameEquipmentService = $gameEquipmentService;
-        $this->playerService = $playerService;
-        $this->statusService = $statusService;
     }
 
     protected function support(?ActionParameter $parameter): bool
@@ -86,15 +79,9 @@ class Hyperfreeze extends AbstractAction
             $equipmentEvent->setReplacementEquipment($newItem)->setPlayer($this->player);
             $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_TRANSFORM);
         } else {
-            $this->statusService->createCoreStatus(
-                EquipmentStatusEnum::FROZEN,
-                $parameter
-            );
-
-            $this->gameEquipmentService->persist($parameter);
+            $statusEvent = new StatusEvent(EquipmentStatusEnum::FROZEN, $parameter, $this->getActionName(), new \DateTime());
+            $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
         }
-
-        $this->playerService->persist($this->player);
 
         return new Success();
     }

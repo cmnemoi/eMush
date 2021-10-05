@@ -21,8 +21,8 @@ use Mush\Place\Entity\Place;
 
 class RetrieveFuelTest extends AbstractActionTest
 {
-    /** @var GameEquipmentServiceInterface | Mockery\Mock */
-    private GameEquipmentServiceInterface | Mockery\Mock $gameEquipmentService;
+    /** @var GameEquipmentServiceInterface|Mockery\Mock */
+    private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 
     /**
      * @before
@@ -61,7 +61,7 @@ class RetrieveFuelTest extends AbstractActionTest
         $gameItem->setEquipment($item);
         $gameItem->setName(ItemEnum::FUEL_CAPSULE);
 
-        $item->setName(ItemEnum::FUEL_CAPSULE)->setIsHeavy(false);
+        $item->setName(ItemEnum::FUEL_CAPSULE);
 
         $player = $this->createPlayer($daedalus, $room);
 

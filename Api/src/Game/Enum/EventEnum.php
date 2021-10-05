@@ -11,4 +11,5 @@ class EventEnum
     public const OUT_OF_CHARGE = 'out_of_charge';
     public const FIRE = 'fire';
     public const PLANT_PRODUCTION = 'plant_production';
+    public const NEW_STATUS = 'new_status';
 }

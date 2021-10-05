@@ -21,10 +21,10 @@ use Mush\Status\Enum\StatusEnum;
 
 class StrengthActionTest extends AbstractActionTest
 {
-    /** @var GameEquipmentServiceInterface | Mockery\Mock */
+    /** @var GameEquipmentServiceInterface|Mockery\Mock */
     private ActionModifierServiceInterface $actionModifierService;
 
-    /** @var RandomServiceInterface | Mockery\Mock */
+    /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;
 
     /**

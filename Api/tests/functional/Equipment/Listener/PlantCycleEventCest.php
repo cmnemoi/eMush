@@ -21,6 +21,7 @@ use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\PlantLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -124,6 +125,25 @@ class PlantCycleEventCest
         $gameConfig = $I->have(GameConfig::class, ['daedalusConfig' => $daedalusConfig]);
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'cycle' => 8, 'oxygen' => 10]);
+
+        $thirstyStatusConfig = new StatusConfig();
+        $thirstyStatusConfig
+            ->setName(EquipmentStatusEnum::PLANT_THIRSTY)
+            ->setGameConfig($gameConfig)
+        ;
+        $I->haveInRepository($thirstyStatusConfig);
+        $dryStatusConfig = new StatusConfig();
+        $dryStatusConfig
+            ->setName(EquipmentStatusEnum::PLANT_DRY)
+            ->setGameConfig($gameConfig)
+        ;
+        $I->haveInRepository($dryStatusConfig);
+        $diseasedStatusConfig = new StatusConfig();
+        $diseasedStatusConfig
+            ->setName(EquipmentStatusEnum::PLANT_DISEASED)
+            ->setGameConfig($gameConfig)
+        ;
+        $I->haveInRepository($diseasedStatusConfig);
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);

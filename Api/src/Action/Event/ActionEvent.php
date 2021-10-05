@@ -4,11 +4,10 @@ namespace Mush\Action\Event;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionParameter;
 use Mush\Game\Event\AbstractMushEvent;
 use Mush\Player\Entity\Player;
 
-class ActionEvent extends AbstractMushEvent
+class ActionEvent extends AbstractGameEvent
 {
     public const PRE_ACTION = 'pre.action';
     public const POST_ACTION = 'post.action';

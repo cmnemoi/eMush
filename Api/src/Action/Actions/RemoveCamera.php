@@ -64,13 +64,13 @@ class RemoveCamera extends AbstractAction
         ;
 
         $equipmentEvent = new EquipmentEvent(
-            $itemCamera,
+            $equipmentCamera,
             $this->player->getPlace(),
             VisibilityEnum::HIDDEN,
             $this->getActionName(),
             new \DateTime()
         );
-        $equipmentEvent->setReplacementEquipment($equipmentCamera)->setPlayer($this->player);
+        $equipmentEvent->setReplacementEquipment($itemCamera)->setPlayer($this->player);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_TRANSFORM);
 
         return new Success();

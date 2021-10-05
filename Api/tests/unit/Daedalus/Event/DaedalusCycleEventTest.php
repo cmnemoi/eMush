@@ -19,11 +19,11 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class DaedalusCycleEventTest extends TestCase
 {
-    /** @var DaedalusServiceInterface | Mockery\Mock */
+    /** @var DaedalusServiceInterface|Mockery\Mock */
     private DaedalusServiceInterface $daedalusService;
-    /** @var DaedalusIncidentServiceInterface | Mockery\Mock */
+    /** @var DaedalusIncidentServiceInterface|Mockery\Mock */
     private DaedalusIncidentServiceInterface $daedalusIncidentService;
-    /** @var EventDispatcherInterface | Mockery\Mock */
+    /** @var EventDispatcherInterface|Mockery\Mock */
     private EventDispatcherInterface $eventDispatcher;
 
     private DaedalusCycleSubscriber $daedalusCycleSubscriber;

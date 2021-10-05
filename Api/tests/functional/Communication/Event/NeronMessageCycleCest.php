@@ -20,6 +20,7 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\StatusCycleEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -76,6 +77,13 @@ class NeronMessageCycleCest
             'healthPoint' => 99,
         ]);
 
+        $statusConfig = new ChargeStatusConfig();
+        $statusConfig
+            ->setName(StatusEnum::FIRE)
+            ->setGameConfig($gameConfig)
+        ;
+        $I->haveInRepository($statusConfig);
+
         /** @var EquipmentConfig $equipmentConfig */
         $doorConfig = $I->have(EquipmentConfig::class, ['isFireBreakable' => false, 'isFireDestroyable' => false, 'gameConfig' => $gameConfig]);
 
@@ -117,7 +125,7 @@ class NeronMessageCycleCest
 
         $room->addStatus($status);
 
-        $cycleEvent = new StatusCycleEvent($status, $room, $daedalus, EventEnum::NEW_CYCLE, $time);
+        $cycleEvent = new StatusCycleEvent($status, $room, EventEnum::NEW_CYCLE, $time);
 
         $I->haveInRepository($status);
         $I->refreshEntities($player, $daedalus);

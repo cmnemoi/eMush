@@ -14,9 +14,9 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DaedalusWidgetServiceTest extends TestCase
 {
-    /** @var TranslatorInterface | Mockery\Mock */
+    /** @var TranslatorInterface|Mockery\Mock */
     private TranslatorInterface $translator;
-    /** @var StatusServiceInterface | Mockery\Mock */
+    /** @var StatusServiceInterface|Mockery\Mock */
     private StatusServiceInterface $statusService;
 
     private DaedalusWidgetService $service;

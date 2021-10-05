@@ -22,9 +22,9 @@ use Mush\Status\Service\StatusServiceInterface;
 
 class CoffeeActionTest extends AbstractActionTest
 {
-    /** @var GameEquipmentServiceInterface | Mockery\Mock */
+    /** @var GameEquipmentServiceInterface|Mockery\Mock */
     private GameEquipmentServiceInterface $gameEquipmentService;
-    /** @var StatusServiceInterface | Mockery\Mock */
+    /** @var StatusServiceInterface|Mockery\Mock */
     private StatusServiceInterface $statusService;
 
     /**
@@ -72,7 +72,7 @@ class CoffeeActionTest extends AbstractActionTest
 
         $chargeStatus = new ChargeStatus($gameCoffeeMachine);
         $chargeStatus
-            ->setName(EquipmentStatusEnum::CHARGES)
+            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
             ->setCharge(1)
         ;
 

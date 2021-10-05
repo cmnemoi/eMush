@@ -28,9 +28,9 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class GearToolServiceTest extends TestCase
 {
-    /** @var EventDispatcherInterface | Mockery\Mock */
+    /** @var EventDispatcherInterface|Mockery\Mock */
     private EventDispatcherInterface $eventDispatcher;
-    /** @var StatusServiceInterface | Mockery\Mock */
+    /** @var StatusServiceInterface|Mockery\Mock */
     private StatusServiceInterface $statusService;
 
     private GearToolService $service;
@@ -350,7 +350,7 @@ class GearToolServiceTest extends TestCase
         //Two tool with the same action but 1 with charges
         $chargeStatus = new ChargeStatus($gameItem);
         $chargeStatus
-            ->setName(EquipmentStatusEnum::CHARGES)
+            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
             ->setCharge(3)
         ;
 
@@ -362,7 +362,7 @@ class GearToolServiceTest extends TestCase
         //Two tool with the same action but 1 is charged and the other have no charge left
         $chargeStatus2 = new ChargeStatus($gameItem2);
         $chargeStatus2
-            ->setName(EquipmentStatusEnum::CHARGES)
+            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
             ->setCharge(0)
         ;
 
@@ -394,7 +394,7 @@ class GearToolServiceTest extends TestCase
         ;
         $chargeStatus1 = new ChargeStatus($gameTool);
         $chargeStatus1
-            ->setName(EquipmentStatusEnum::CHARGES)
+            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
             ->setCharge(1)
         ;
 
@@ -439,7 +439,7 @@ class GearToolServiceTest extends TestCase
         ;
         $chargeStatus2 = new ChargeStatus($gameGear2);
         $chargeStatus2
-            ->setName(EquipmentStatusEnum::CHARGES)
+            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
             ->setCharge(1)
         ;
 
@@ -464,7 +464,7 @@ class GearToolServiceTest extends TestCase
         ;
         $chargeStatus3 = new ChargeStatus($gameGear3);
         $chargeStatus3
-            ->setName(EquipmentStatusEnum::CHARGES)
+            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
             ->setCharge(0)
         ;
 

@@ -6,6 +6,7 @@ use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerModifierEvent;
 use Mush\Player\Service\PlayerVariableServiceInterface;
+use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -58,6 +59,7 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
         $this->playerVariableService->handleHealthPointModifier($delta, $player);
 
         if ($player->getHealthPoint() === 0) {
+            $playerEvent->setVisibility(VisibilityEnum::PUBLIC);
             $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
         }
     }

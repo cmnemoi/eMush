@@ -92,8 +92,7 @@ class RoomLogServiceTest extends TestCase
         $visibility = VisibilityEnum::PUBLIC;
         $type = 'log';
         $player = null;
-        $target = null;
-        $quantity = null;
+        $parameters = [];
         $dateTime = new \DateTime();
 
         $this->entityManager->shouldReceive('flush')->once();
@@ -105,8 +104,7 @@ class RoomLogServiceTest extends TestCase
             $visibility,
             $type,
             $player,
-            $target,
-            $quantity,
+            $parameters,
             $dateTime
         );
 
@@ -138,9 +136,8 @@ class RoomLogServiceTest extends TestCase
         $type = 'log';
         $player = new Player();
         $player->setCharacterConfig($characterConfig1)->setPlace($place);
-        $target = new Player();
-        $target->setCharacterConfig($characterConfig2);
-        $quantity = 5;
+
+        $parameters = ['character' => 'andie', 'quantity' => 5, 'target_character' => 'gioele'];
         $dateTime = new \DateTime();
 
         $this->entityManager->shouldReceive('flush')->once();
@@ -152,13 +149,12 @@ class RoomLogServiceTest extends TestCase
             $visibility,
             $type,
             $player,
-            $target,
-            $quantity,
+            $parameters,
             $dateTime
         );
 
         $this->assertEquals($logKey, $test->getLog());
-        $this->assertEquals(['character' => 'andie', 'quantity' => 5, 'target_character' => 'gioele'], $test->getParameters());
+        $this->assertEquals($parameters, $test->getParameters());
         $this->assertEquals('log', $test->getType());
         $this->assertEquals($place, $test->getPlace());
         $this->assertEquals($player, $test->getPlayer());
@@ -183,8 +179,7 @@ class RoomLogServiceTest extends TestCase
         $type = 'log';
         $player = new Player();
         $player->setCharacterConfig($characterConfig1)->setPlace($place);
-        $target = null;
-        $quantity = null;
+        $parameters = ['character' => 'andie'];
         $dateTime = new \DateTime();
 
         $this->entityManager->shouldReceive('flush')->once();
@@ -196,13 +191,12 @@ class RoomLogServiceTest extends TestCase
             $visibility,
             $type,
             $player,
-            $target,
-            $quantity,
+            $parameters,
             $dateTime
         );
 
         $this->assertEquals($logKey, $test->getLog());
-        $this->assertEquals(['character' => 'andie'], $test->getParameters());
+        $this->assertEquals($parameters, $test->getParameters());
         $this->assertEquals('log', $test->getType());
         $this->assertEquals($place, $test->getPlace());
         $this->assertEquals($player, $test->getPlayer());
@@ -227,8 +221,7 @@ class RoomLogServiceTest extends TestCase
         $type = 'log';
         $player = new Player();
         $player->setCharacterConfig($characterConfig1)->setPlace($place);
-        $target = null;
-        $quantity = null;
+        $parameters = ['character' => 'andie'];
         $dateTime = new \DateTime();
 
         $player2 = new Player();
@@ -244,13 +237,12 @@ class RoomLogServiceTest extends TestCase
             $visibility,
             $type,
             $player,
-            $target,
-            $quantity,
+            $parameters,
             $dateTime
         );
 
         $this->assertEquals($logKey, $test->getLog());
-        $this->assertEquals(['character' => 'andie'], $test->getParameters());
+        $this->assertEquals($parameters, $test->getParameters());
         $this->assertEquals('log', $test->getType());
         $this->assertEquals($place, $test->getPlace());
         $this->assertEquals($player, $test->getPlayer());
@@ -275,8 +267,7 @@ class RoomLogServiceTest extends TestCase
         $type = 'log';
         $player = new Player();
         $player->setCharacterConfig($characterConfig1)->setPlace($place);
-        $target = null;
-        $quantity = null;
+        $parameters = ['character' => 'andie'];
         $dateTime = new \DateTime();
 
         $cameraEquipment = new GameEquipment();
@@ -292,13 +283,12 @@ class RoomLogServiceTest extends TestCase
             $visibility,
             $type,
             $player,
-            $target,
-            $quantity,
+            $parameters,
             $dateTime
         );
 
         $this->assertEquals($logKey, $test->getLog());
-        $this->assertEquals(['character' => 'andie'], $test->getParameters());
+        $this->assertEquals($parameters, $test->getParameters());
         $this->assertEquals('log', $test->getType());
         $this->assertEquals($place, $test->getPlace());
         $this->assertEquals($player, $test->getPlayer());
@@ -323,8 +313,7 @@ class RoomLogServiceTest extends TestCase
         $type = 'log';
         $player = new Player();
         $player->setCharacterConfig($characterConfig1)->setPlace($place);
-        $target = null;
-        $quantity = null;
+        $parameters = ['character' => 'andie'];
         $dateTime = new \DateTime();
 
         $cameraEquipment = new GameItem();
@@ -339,13 +328,12 @@ class RoomLogServiceTest extends TestCase
             $visibility,
             $type,
             $player,
-            $target,
-            $quantity,
+            $parameters,
             $dateTime
         );
 
         $this->assertEquals($logKey, $test->getLog());
-        $this->assertEquals(['character' => 'andie'], $test->getParameters());
+        $this->assertEquals($parameters, $test->getParameters());
         $this->assertEquals('log', $test->getType());
         $this->assertEquals($place, $test->getPlace());
         $this->assertEquals($player, $test->getPlayer());
@@ -373,7 +361,7 @@ class RoomLogServiceTest extends TestCase
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
 
-        $test = $this->service->createLogFromActionResult(ActionEnum::STRENGTHEN_HULL, $actionResult, $player);
+        $test = $this->service->createLogFromActionResult(ActionEnum::STRENGTHEN_HULL, $actionResult, $player, null);
 
         $this->assertEquals(ActionLogEnum::STRENGTHEN_SUCCESS, $test->getLog());
         $this->assertEquals(['character' => 'andie'], $test->getParameters());
@@ -404,7 +392,7 @@ class RoomLogServiceTest extends TestCase
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
 
-        $test = $this->service->createLogFromActionResult(ActionEnum::STRENGTHEN_HULL, $actionResult, $player);
+        $test = $this->service->createLogFromActionResult(ActionEnum::STRENGTHEN_HULL, $actionResult, $player, null);
 
         $this->assertEquals(ActionLogEnum::DEFAULT_FAIL, $test->getLog());
         $this->assertEquals(['character' => 'andie'], $test->getParameters());
@@ -438,10 +426,10 @@ class RoomLogServiceTest extends TestCase
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
 
-        $test = $this->service->createLogFromActionResult(ActionEnum::STRENGTHEN_HULL, $actionResult, $player);
+        $test = $this->service->createLogFromActionResult(ActionEnum::STRENGTHEN_HULL, $actionResult, $player, $gameEquipment);
 
         $this->assertEquals(ActionLogEnum::DEFAULT_FAIL, $test->getLog());
-        $this->assertEquals(['character' => 'andie', 'targetEquipment' => 'equipment'], $test->getParameters());
+        $this->assertEquals(['character' => 'andie', 'target_equipment' => 'equipment'], $test->getParameters());
         $this->assertEquals('actions_log', $test->getType());
         $this->assertEquals($place, $test->getPlace());
         $this->assertEquals($player, $test->getPlayer());

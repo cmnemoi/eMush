@@ -17,7 +17,7 @@ class DiseaseEvent extends AbstractGameEvent implements AbstractLoggedEvent
     public const TREAT_DISEASE = 'disease.treat';
     public const CURE_DISEASE = 'disease.cure';
 
-    private ?Player $author;
+    private ?Player $author = null;
     private PlayerDisease $playerDisease;
     private string $visibility = VisibilityEnum::PUBLIC;
 

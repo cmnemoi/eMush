@@ -105,6 +105,8 @@ class RoomLogService implements RoomLogServiceInterface
         }
 
         $parameters = [];
+        $parameters[$player->getLogKey()] = $player->getLogName();
+
         if (($quantity = $actionResult->getQuantity()) !== null) {
             $parameters['quantity'] = $quantity;
         }

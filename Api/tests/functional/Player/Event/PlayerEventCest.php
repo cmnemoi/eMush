@@ -70,6 +70,7 @@ class PlayerEventCest
         ]);
 
         $playerEvent = new PlayerEvent($player, EndCauseEnum::CLUMSINESS, new \DateTime());
+        $playerEvent->setVisibility(VisibilityEnum::PUBLIC);
 
         $this->eventDispatcherService->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
 

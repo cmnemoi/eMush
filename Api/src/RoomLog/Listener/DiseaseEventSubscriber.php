@@ -29,7 +29,7 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
 
     public function onDiseaseCure(DiseaseEvent $event)
     {
-        $player = $event->getAuthor();
+        $player = $event->getPlayerDisease()->getPlayer();
 
         $this->roomLogService->createLog(
             LogEnum::DISEASE_CURED,

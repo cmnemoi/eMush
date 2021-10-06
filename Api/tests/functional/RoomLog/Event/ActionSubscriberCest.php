@@ -41,7 +41,7 @@ class ActionSubscriberCest
         $action = new Action();
         $action->setName(ActionEnum::GET_UP);
 
-        $actionEvent = new ActionEvent($action, $player);
+        $actionEvent = new ActionEvent($action, $player, null);
 
         $actionResult = new Fail();
         $actionEvent->setActionResult($actionResult);

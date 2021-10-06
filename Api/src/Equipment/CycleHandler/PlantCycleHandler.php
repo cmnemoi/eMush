@@ -17,7 +17,6 @@ use Mush\Game\Enum\EventEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\RoomLog\Enum\PlantLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
-use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -31,20 +30,17 @@ class PlantCycleHandler extends AbstractCycleHandler
     private EventDispatcherInterface $eventDispatcher;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private RandomServiceInterface $randomService;
-    private RoomLogServiceInterface $roomLogService;
     private EquipmentEffectServiceInterface $equipmentEffectService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         GameEquipmentServiceInterface $gameEquipmentService,
         RandomServiceInterface $randomService,
-        RoomLogServiceInterface $roomLogService,
         EquipmentEffectServiceInterface $equipmentEffectService
     ) {
         $this->eventDispatcher = $eventDispatcher;
         $this->gameEquipmentService = $gameEquipmentService;
         $this->randomService = $randomService;
-        $this->roomLogService = $roomLogService;
         $this->equipmentEffectService = $equipmentEffectService;
     }
 
@@ -70,18 +66,15 @@ class PlantCycleHandler extends AbstractCycleHandler
         if ($youngStatus &&
             $youngStatus->getCharge() >= $plantEffect->getMaturationTime()
         ) {
-            $place = $gamePlant->getCurrentPlace();
-
-            $gamePlant->removeStatus($youngStatus);
-            $this->roomLogService->createLog(
-                PlantLogEnum::PLANT_MATURITY,
-                $place,
-                VisibilityEnum::PUBLIC,
-                'event_log',
-                null,
-                [$gamePlant->getLogKey() => $gamePlant->getLogName()],
+            $statusEvent = new StatusEvent(
+                EquipmentStatusEnum::PLANT_YOUNG,
+                $gamePlant,
+                EventEnum::NEW_CYCLE,
                 $dateTime
             );
+            $statusEvent->setVisibility(VisibilityEnum::PUBLIC);
+
+            $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_REMOVED);
         }
 
         $diseaseRate = $daedalus->getGameConfig()->getDifficultyConfig()->getPlantDiseaseRate();

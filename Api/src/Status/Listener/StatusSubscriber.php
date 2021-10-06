@@ -56,4 +56,16 @@ class StatusSubscriber implements EventSubscriberInterface
 
         $this->statusService->persist($status);
     }
+
+    public function onStatusRemoved(StatusEvent $event): void
+    {
+        $holder = $event->getStatusHolder();
+        $status = $holder->getStatusByName($event->getStatusName());
+
+        if ($status === null) {
+            return;
+        }
+
+        $this->statusService->delete($status);
+    }
 }

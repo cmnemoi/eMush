@@ -12,7 +12,6 @@ use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -29,7 +28,6 @@ class Move extends AbstractAction
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         PlayerServiceInterface $playerService,
-        RoomLogServiceInterface $roomLogService
     ) {
         parent::__construct(
             $eventDispatcher,

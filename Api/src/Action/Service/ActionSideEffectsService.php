@@ -74,6 +74,7 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
                 );
             } elseif ($percent <= $dirtyRate) {
                 $statusEvent = new StatusEvent(PlayerStatusEnum::DIRTY, $player, EventEnum::NEW_DAY, new \DateTime());
+                $statusEvent->setVisibility(VisibilityEnum::PRIVATE);
                 $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
             }
         }

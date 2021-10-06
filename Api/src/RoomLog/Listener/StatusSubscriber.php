@@ -4,7 +4,9 @@ namespace Mush\RoomLog\Listener;
 
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\LogEnum;
+use Mush\RoomLog\Enum\PlantLogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -24,6 +26,7 @@ class StatusSubscriber implements EventSubscriberInterface
     {
         return [
             StatusEvent::STATUS_APPLIED => 'onStatusApplied',
+            StatusEvent::STATUS_REMOVED => 'onStatusRemoved',
         ];
     }
 
@@ -37,7 +40,7 @@ class StatusSubscriber implements EventSubscriberInterface
 
             $this->roomLogService->createLog(
                 LogEnum::HUNGER,
-                $holder->getPlace(),
+                $event->getPlace(),
                 $event->getVisibility(),
                 'event_log',
                 $holder,
@@ -52,10 +55,25 @@ class StatusSubscriber implements EventSubscriberInterface
 
             $this->roomLogService->createLog(
                 LogEnum::SOILED,
-                $holder->getPlace(),
+                $event->getPlace(),
                 $event->getVisibility(),
                 'event_log',
                 $holder,
+                $event->getLogParameters(),
+                $event->getTime(),
+            );
+        }
+    }
+
+    public function onStatusRemoved(StatusEvent $event): void
+    {
+        if ($event->getStatusName() === EquipmentStatusEnum::PLANT_YOUNG) {
+            $this->roomLogService->createLog(
+                PlantLogEnum::PLANT_MATURITY,
+                $event->getPlace(),
+                $event->getVisibility(),
+                'event_log',
+                null,
                 $event->getLogParameters(),
                 $event->getTime(),
             );

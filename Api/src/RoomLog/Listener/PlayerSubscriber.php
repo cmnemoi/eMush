@@ -34,6 +34,7 @@ class PlayerSubscriber implements EventSubscriberInterface
 
     public function onDeathPlayer(PlayerEvent $event): void
     {
+        dump($event->getVisibility());
         $this->createEventLog(LogEnum::DEATH, $event);
     }
 

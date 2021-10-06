@@ -4,7 +4,6 @@ namespace Mush\RoomLog\Listener;
 
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\LogEnum;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
@@ -39,12 +38,11 @@ class StatusSubscriber implements EventSubscriberInterface
             $this->roomLogService->createLog(
                 LogEnum::HUNGER,
                 $holder->getPlace(),
-                VisibilityEnum::PRIVATE,
+                $event->getVisibility(),
                 'event_log',
                 $holder,
-                null,
-                null,
-                $event->getTime()
+                $event->getLogParameters(),
+                $event->getTime(),
             );
         } elseif ($event->getStatusName() === PlayerStatusEnum::DIRTY) {
             $holder = $event->getStatusHolder();
@@ -55,12 +53,11 @@ class StatusSubscriber implements EventSubscriberInterface
             $this->roomLogService->createLog(
                 LogEnum::SOILED,
                 $holder->getPlace(),
-                VisibilityEnum::PRIVATE,
+                $event->getVisibility(),
                 'event_log',
                 $holder,
-                null,
-                null,
-                $event->getTime()
+                $event->getLogParameters(),
+                $event->getTime(),
             );
         }
     }

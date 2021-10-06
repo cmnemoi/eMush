@@ -5,7 +5,6 @@ namespace Mush\RoomLog\Listener;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Event\RoomEvent;
 use Mush\RoomLog\Enum\LogEnum;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -44,10 +43,10 @@ class RoomSubscriber implements EventSubscriberInterface
         $this->roomLogService->createLog(
             $logKey,
             $room,
-            VisibilityEnum::PUBLIC,
+            $event->getVisibility(),
             'event_log',
             null,
-            [],
+            $event->getLogParameters(),
             $event->getTime()
         );
     }
@@ -63,10 +62,10 @@ class RoomSubscriber implements EventSubscriberInterface
         $this->roomLogService->createLog(
             LogEnum::ELECTRIC_ARC,
             $room,
-            VisibilityEnum::PUBLIC,
+            $event->getVisibility(),
             'event_log',
             null,
-            [],
+            $event->getLogParameters(),
             $event->getTime()
         );
     }

@@ -52,4 +52,18 @@ class ApplyEffectEvent extends AbstractGameEvent implements AbstractLoggedEvent
     {
         return $this->parameter;
     }
+
+    public function getLogParameters(): array
+    {
+        $logParameters = [
+            'character' => $this->player->getLogName(),
+            'place' => $this->player->getPlace()->getName(),
+        ];
+
+        if (($actionParameter = $this->getParameter()) !== null) {
+            'target_' . $logParameters[$actionParameter->getLogKey()] = $actionParameter->getLogName();
+        }
+
+        return $logParameters;
+    }
 }

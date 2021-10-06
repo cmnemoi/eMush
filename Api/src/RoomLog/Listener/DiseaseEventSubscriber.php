@@ -29,13 +29,7 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
 
     public function onDiseaseCure(DiseaseEvent $event)
     {
-        $targetPlayer = $event->getPlayer();
-        $diseaseConfig = $event->getDiseaseConfig();
         $player = $event->getAuthor();
-
-        $parameters = [];
-        $parameters[$diseaseConfig->getLogKey()] = $diseaseConfig->getLogName();
-        $parameters['target_' . $targetPlayer->getLogKey()] = $targetPlayer->getLogName();
 
         $this->roomLogService->createLog(
             LogEnum::DISEASE_CURED,
@@ -43,7 +37,7 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
             VisibilityEnum::PRIVATE,
             'event_log',
             $player,
-            $parameters,
+            $event->getLogParameters(),
             $event->getTime()
         );
     }
@@ -64,7 +58,7 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
             VisibilityEnum::PRIVATE,
             'event_log',
             $player,
-            [$diseaseConfig->getLogKey() => $diseaseConfig->getLogName()],
+            $event->getLogParameters(),
             $event->getTime()
         );
     }

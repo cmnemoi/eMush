@@ -29,7 +29,7 @@ class RoomEvent extends PlaceCycleEvent implements AbstractLoggedEvent
 
     public function isGravity(): bool
     {
-        return $this->isGravity();
+        return $this->isGravity;
     }
 
     public function setIsGravity(bool $isGravity): RoomEvent
@@ -37,5 +37,10 @@ class RoomEvent extends PlaceCycleEvent implements AbstractLoggedEvent
         $this->isGravity = $isGravity;
 
         return $this;
+    }
+
+    public function getLogParameters(): array
+    {
+        return [];
     }
 }

@@ -43,7 +43,7 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
             $playerEvent->getVisibility(),
             'event_log',
             $playerEvent->getPlayer(),
-            ['quantity' => $delta],
+            $playerEvent->getLogParameters(),
         );
     }
 
@@ -63,7 +63,7 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
             $playerEvent->getVisibility(),
             'event_log',
             $playerEvent->getPlayer(),
-            ['quantity' => $delta],
+            $playerEvent->getLogParameters(),
         );
     }
 
@@ -82,7 +82,7 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
             $playerEvent->getVisibility(),
             'event_log',
             $playerEvent->getPlayer(),
-            ['quantity' => $delta],
+            $playerEvent->getLogParameters(),
         );
     }
 
@@ -101,7 +101,7 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
             $playerEvent->getVisibility(),
             'event_log',
             $playerEvent->getPlayer(),
-            ['quantity' => $delta],
+            $playerEvent->getLogParameters(),
         );
     }
 }

@@ -74,4 +74,17 @@ class EquipmentEvent extends AbstractGameEvent implements AbstractLoggedEvent
     {
         return $this->visibility;
     }
+
+    public function getLogParameters(): array
+    {
+        $logParameters = [
+           $this->equipment->getLogKey() => $this->equipment->getLogName(),
+        ];
+
+        if ($this->player !== null) {
+            $logParameters[$this->player->getLogKey()] = $this->player->getLogName();
+        }
+
+        return $logParameters;
+    }
 }

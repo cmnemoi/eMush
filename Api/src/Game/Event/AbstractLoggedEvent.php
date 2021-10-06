@@ -10,5 +10,7 @@ interface AbstractLoggedEvent
 
     public function getVisibility(): string;
 
+    public function getLogParameters(): array;
+
     public function getTime(): \DateTime;
 }

@@ -79,4 +79,9 @@ class StatusEvent extends AbstractGameEvent implements AbstractLoggedEvent
             throw new UnexpectedTypeException($this->holder, StatusHolderInterface::class);
         }
     }
+
+    public function getLogParameters(): array
+    {
+        return [];
+    }
 }

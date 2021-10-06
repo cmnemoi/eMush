@@ -67,4 +67,18 @@ class DiseaseEvent extends AbstractGameEvent implements AbstractLoggedEvent
     {
         return $this->visibility;
     }
+
+    public function getLogParameters(): array
+    {
+        $logParameters = [
+            $this->getPlayerDisease()->getDiseaseConfig()->getLogKey() => $this->getPlayerDisease()->getDiseaseConfig()->getLogName(),
+            'target_' . $this->playerDisease->getPlayer()->getLogKey() => $this->playerDisease->getPlayer()->getLogName(),
+        ];
+
+        if (($author = $this->author) !== null) {
+            $logParameters[$author->getLogKey()] = $author->getLogName();
+        }
+
+        return $logParameters;
+    }
 }

@@ -145,9 +145,6 @@ class RoomLogService implements RoomLogServiceInterface
                 $parameters[$keyVersion] = $this->randomService->random(1, $versionNb);
             }
         }
-        if ($player !== null) {
-            $parameters[$player->getLogKey()] = $player->getLogName();
-        }
 
         $roomLog = new RoomLog();
         $roomLog

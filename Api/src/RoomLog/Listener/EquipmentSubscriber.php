@@ -44,7 +44,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
                 VisibilityEnum::PUBLIC,
                 'event_log',
                 null,
-                [$equipment->getLogKey() => $equipment->getLogName()],
+                $event->getLogParameters(),
                 $event->getTime()
             );
 
@@ -61,7 +61,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
                 VisibilityEnum::PUBLIC,
                 'event_log',
                 $player,
-                [$equipment->getLogKey() => $equipment->getLogName()],
+                $event->getLogParameters(),
                 $event->getTime()
             );
         }
@@ -71,6 +71,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
     {
         if ($event->getVisibility() !== VisibilityEnum::HIDDEN) {
             $equipment = $event->getEquipment();
+
             if ($equipment instanceof Door) {
                 $rooms = $equipment->getRooms()->toArray();
             } else {
@@ -84,7 +85,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
                     $event->getVisibility(),
                     'event_log',
                     null,
-                    [$equipment->getLogKey() => $equipment->getLogName()],
+                    $event->getLogParameters(),
                     $event->getTime()
                 );
             }
@@ -103,7 +104,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
                 $event->getVisibility(),
                 'event_log',
                 null,
-                [$equipment->getLogKey() => $equipment->getLogName()],
+                $event->getLogParameters(),
                 $event->getTime()
             );
         }
@@ -127,7 +128,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
                 VisibilityEnum::PUBLIC,
                 'event_log',
                 $player,
-                [$newEquipment->getLogKey() => $newEquipment->getLogName()],
+                $event->getLogParameters(),
                 $event->getTime()
             );
         }

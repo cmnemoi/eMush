@@ -63,25 +63,7 @@ class RoomLogService implements RoomLogServiceInterface
     ): ?RoomLog {
         // first lets handle the special case of examine action
         if ($actionName === ActionEnum::EXAMINE) {
-            if ($actionParameter instanceof GameItem) {
-                return $this->createLog(
-                    $actionParameter->getLogName() . '.examine',
-                    $player->getPlace(),
-                    VisibilityEnum::PRIVATE,
-                    'items',
-                    $player,
-                );
-            } elseif ($actionParameter instanceof GameEquipment) {
-                return $this->createLog(
-                    $actionParameter->getLogName() . '.examine',
-                    $player->getPlace(),
-                    VisibilityEnum::PRIVATE,
-                    'equipments',
-                    $player,
-                );
-            } else {
-                throw new \LogicException('examine action is not implemented for this type of entity');
-            }
+            return $this->createExamineLog($player, $actionParameter);
         }
 
         $logMapping = ActionLogEnum::ACTION_LOGS[$actionName] ?? null;
@@ -104,6 +86,23 @@ class RoomLogService implements RoomLogServiceInterface
             );
         }
 
+        $parameters = $this->getActionLogParameters($actionResult, $player, $actionParameter);
+
+        return $this->createLog(
+            $logData[ActionLogEnum::VALUE],
+            $player->getPlace(),
+            $logData[ActionLogEnum::VISIBILITY],
+            'actions_log',
+            $player,
+            $parameters,
+        );
+    }
+
+    private function getActionLogParameters(
+        ActionResult $actionResult,
+        Player $player,
+        ?ActionParameter $actionParameter
+    ): array {
         $parameters = [];
         $parameters[$player->getLogKey()] = $player->getLogName();
 
@@ -122,14 +121,32 @@ class RoomLogService implements RoomLogServiceInterface
             $parameters[$equipment->getLogKey()] = $equipment->getLogName();
         }
 
-        return $this->createLog(
-            $logData[ActionLogEnum::VALUE],
-            $player->getPlace(),
-            $logData[ActionLogEnum::VISIBILITY],
-            'actions_log',
-            $player,
-            $parameters,
-        );
+        return $parameters;
+    }
+
+    private function createExamineLog(
+        Player $player,
+        ?ActionParameter $actionParameter,
+    ): RoomLog {
+        if ($actionParameter instanceof GameItem) {
+            return $this->createLog(
+                $actionParameter->getLogName() . '.examine',
+                $player->getPlace(),
+                VisibilityEnum::PRIVATE,
+                'items',
+                $player,
+            );
+        } elseif ($actionParameter instanceof GameEquipment) {
+            return $this->createLog(
+                $actionParameter->getLogName() . '.examine',
+                $player->getPlace(),
+                VisibilityEnum::PRIVATE,
+                'equipments',
+                $player,
+            );
+        } else {
+            throw new \LogicException('examine action is not implemented for this type of entity');
+        }
     }
 
     public function createLog(

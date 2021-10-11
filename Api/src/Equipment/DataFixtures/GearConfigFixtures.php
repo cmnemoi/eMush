@@ -18,10 +18,8 @@ use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Modifier\DataFixtures\GearModifierConfigFixtures;
 use Mush\Modifier\Entity\ModifierConfig;
-use Mush\Status\Enum\ChargeStrategyTypeEnum;
-use Mush\Player\Entity\Modifier;
-use Mush\Player\Enum\ModifierScopeEnum;
-use Mush\Player\Enum\ModifierTargetEnum;
+use Mush\Modifier\Enum\ModifierScopeEnum;
+use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Status\DataFixtures\ChargeStatusFixtures;
 use Mush\Status\DataFixtures\StatusFixtures;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
@@ -76,13 +74,6 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         /** @var StatusConfig $heavyStatus */
         $heavyStatus = $this->getReference(StatusFixtures::HEAVY_STATUS);
 
-        $apronGear = $this->createGear(
-            ModifierTargetEnum::PERCENTAGE,
-            -100,
-            ModifierScopeEnum::EVENT_DIRTY,
-            ReachEnum::INVENTORY,
-            true
-        );
 
         $actions25 = clone $actions;
         $actions25->add($repair25);
@@ -94,7 +85,6 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $apron
             ->setGameConfig($gameConfig)
             ->setName(GearItemEnum::STAINPROOF_APRON)
-            ->setIsHeavy(false)
             ->setIsStackable(false)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)

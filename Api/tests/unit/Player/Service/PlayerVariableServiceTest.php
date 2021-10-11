@@ -18,7 +18,7 @@ use PHPUnit\Framework\TestCase;
 
 class PlayerVariableServiceTest extends TestCase
 {
-    /** @var ModifierServiceInterface | Mockery\Mock */
+    /** @var ModifierServiceInterface|Mockery\Mock */
     private ModifierServiceInterface $modifierService;
     /** @var ActionModifierServiceInterface|Mockery\Mock */
     private ActionModifierServiceInterface $actionModifierService;

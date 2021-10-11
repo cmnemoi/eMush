@@ -26,9 +26,9 @@ use PHPUnit\Framework\TestCase;
 
 class ModifierServiceTest extends TestCase
 {
-    /** @var EntityManagerInterface | Mockery\Mock */
+    /** @var EntityManagerInterface|Mockery\Mock */
     private EntityManagerInterface $entityManager;
-    /** @var StatusServiceInterface | Mockery\Mock */
+    /** @var StatusServiceInterface|Mockery\Mock */
     private StatusServiceInterface $statusService;
 
     private ModifierService $service;

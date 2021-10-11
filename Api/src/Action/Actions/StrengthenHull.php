@@ -62,11 +62,6 @@ class StrengthenHull extends AttemptAction
         if ($response instanceof Success) {
             $quantity = self::BASE_REPAIR;
 
-            $daedalusEvent = new DaedalusModifierEvent($this->player->getDaedalus(), new \DateTime());
-            $daedalusEvent
-                ->setQuantity($quantity)
-                ->setPlayer($this->player)
-            ;
             $daedalusEvent = new DaedalusModifierEvent(
                 $this->player->getDaedalus(),
                 $quantity,

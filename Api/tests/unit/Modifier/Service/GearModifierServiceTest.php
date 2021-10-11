@@ -23,7 +23,7 @@ use PHPUnit\Framework\TestCase;
 
 class GearModifierServiceTest extends TestCase
 {
-    /** @var ModifierServiceInterface | Mockery\Mock */
+    /** @var ModifierServiceInterface|Mockery\Mock */
     private ModifierServiceInterface $modifierService;
 
     private GearModifierService $service;

@@ -4,16 +4,15 @@ namespace Mush\Action\Service;
 
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionParameter;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Player\Entity\Player;
-use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Event\PlayerModifierEvent;
-use Mush\Player\Service\ActionModifierServiceInterface;
+use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Enum\StatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ActionService implements ActionServiceInterface
@@ -24,19 +23,13 @@ class ActionService implements ActionServiceInterface
 
     private EventDispatcherInterface $eventDispatcher;
     private ModifierServiceInterface $modifierService;
-    private StatusServiceInterface $statusService;
-    private ActionModifierServiceInterface $actionModifierService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
-        ActionModifierServiceInterface $actionModifierService,
         ModifierServiceInterface $modifierService,
-        StatusServiceInterface $statusService
     ) {
         $this->eventDispatcher = $eventDispatcher;
-        $this->actionModifierService = $actionModifierService;
         $this->modifierService = $modifierService;
-        $this->statusService = $statusService;
     }
 
     public function applyCostToPlayer(Player $player, Action $action, ?ActionParameter $parameter): Player
@@ -51,7 +44,12 @@ class ActionService implements ActionServiceInterface
                 $numberOfConversions = (int) ceil($missingMovementPoints / $this->getMovementPointConversionGain($player));
                 $conversionGain = $numberOfConversions * $this->getMovementPointConversionGain($player);
 
-                $playerModifierEvent = new PlayerModifierEvent($player, $conversionGain, new \DateTime());
+                $playerModifierEvent = new PlayerModifierEvent(
+                    $player,
+                    $conversionGain,
+                    ActionEnum::MOVE,
+                    new \DateTime()
+                );
                 $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::MOVEMENT_POINT_MODIFIER);
             }
 

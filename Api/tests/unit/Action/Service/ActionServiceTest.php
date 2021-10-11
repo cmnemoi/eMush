@@ -25,11 +25,11 @@ class ActionServiceTest extends TestCase
     private EventDispatcherInterface $eventDispatcher;
     /** @var StatusServiceInterface|Mockery\Mock */
     private StatusServiceInterface $statusService;
-    /** @var ModifierServiceInterface | Mockery\Mock */
+    /** @var ModifierServiceInterface|Mockery\Mock */
     private ModifierServiceInterface $modifierService;
-    /** @var ActionServiceInterface | Mockery\Mock */
+    /** @var ActionServiceInterface|Mockery\Mock */
     protected ActionServiceInterface $actionService;
-    /** @var ValidatorInterface | Mockery\Mock */
+    /** @var ValidatorInterface|Mockery\Mock */
     protected ValidatorInterface $validator;
     /** @var ActionModifierServiceInterface|Mockery\Mock */
     private ActionModifierServiceInterface $actionModifierService;

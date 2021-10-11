@@ -80,7 +80,7 @@ class GearModifierService implements GearModifierServiceInterface
                         ->setPlayer($player)
                         ->setModifierConfig($modifierConfig)
                     ;
-                    if (($charge = $gameEquipment->getStatusByName(EquipmentStatusEnum::CHARGES))) {
+                    if (($charge = $gameEquipment->getStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES))) {
                         if (!$charge instanceof ChargeStatus) {
                             throw new UnexpectedTypeException($charge, ChargeStatus::class);
                         }
@@ -129,7 +129,7 @@ class GearModifierService implements GearModifierServiceInterface
 
     private function createModifier(ModifierConfig $modifierConfig, GameEquipment $gameEquipment, Place $place, ?Player $player): void
     {
-        $charge = $gameEquipment->getStatusByName(EquipmentStatusEnum::CHARGES);
+        $charge = $gameEquipment->getStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES);
         if ($charge !== null && !$charge instanceof ChargeStatus) {
             throw new UnexpectedTypeException($charge, ChargeStatus::class);
         }

@@ -33,9 +33,9 @@ class ActionSideEffectsServiceTest extends TestCase
     private RoomLogServiceInterface $roomLogService;
     /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;
-    /** @var StatusServiceInterface | Mockery\Mock */
+    /** @var StatusServiceInterface|Mockery\Mock */
     private StatusServiceInterface $statusService;
-    /** @var ModifierServiceInterface | Mockery\Mock */
+    /** @var ModifierServiceInterface|Mockery\Mock */
     private ModifierServiceInterface $modifierService;
     /** @var ActionModifierServiceInterface|Mockery\Mock */
     private ActionModifierServiceInterface $actionModifierService;

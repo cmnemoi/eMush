@@ -17,7 +17,7 @@ use Mush\Status\Enum\StatusEnum;
 
 class StrengthenActionTest extends AbstractActionTest
 {
-    /** @var RandomServiceInterface | Mockery\Mock */
+    /** @var RandomServiceInterface|Mockery\Mock */
     /** @var GameEquipmentServiceInterface|Mockery\Mock */
     private ActionModifierServiceInterface $actionModifierService;
 

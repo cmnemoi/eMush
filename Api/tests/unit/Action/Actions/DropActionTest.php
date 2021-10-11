@@ -13,7 +13,6 @@ use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Status\Service\StatusServiceInterface;
 
 class DropActionTest extends AbstractActionTest
 {
@@ -21,8 +20,6 @@ class DropActionTest extends AbstractActionTest
     private GameEquipmentServiceInterface $gameEquipmentService;
     /** @var PlayerServiceInterface|Mockery\Mock */
     private PlayerServiceInterface $playerService;
-    /** @var StatusServiceInterface|Mockery\Mock */
-    private StatusServiceInterface $statusService;
 
     /**
      * @before
@@ -33,7 +30,6 @@ class DropActionTest extends AbstractActionTest
 
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
-        $this->statusService = Mockery::mock(StatusServiceInterface::class);
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::DROP);
 
@@ -43,7 +39,6 @@ class DropActionTest extends AbstractActionTest
             $this->validator,
             $this->gameEquipmentService,
             $this->playerService,
-            $this->statusService,
         );
     }
 
@@ -67,7 +62,6 @@ class DropActionTest extends AbstractActionTest
 
         $item
             ->setName('itemName')
-            ->setIsHeavy(false)
         ;
 
         $this->gameEquipmentService->shouldReceive('persist');

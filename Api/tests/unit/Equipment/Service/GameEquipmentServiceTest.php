@@ -10,7 +10,6 @@ use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
-use Mush\Equipment\Entity\Mechanics\Charged;
 use Mush\Equipment\Entity\Mechanics\Document;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Entity\PlantEffect;
@@ -20,8 +19,9 @@ use Mush\Equipment\Service\EquipmentServiceInterface;
 use Mush\Equipment\Service\GameEquipmentService;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
-use Mush\Status\Entity\ChargeStatus;
-use Mush\Status\Entity\Status;
+use Mush\Status\Entity\Config\StatusConfig;
+use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Event\StatusEvent;
 use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -86,8 +86,6 @@ class GameEquipmentServiceTest extends TestCase
         $itemConfig = new ItemConfig();
         $itemConfig
             ->setName('some Name')
-            ->setIsAlienArtifact(false)
-            ->setIsHeavy(false)
             ->setMechanics(new ArrayCollection([]))
         ;
 
@@ -109,7 +107,6 @@ class GameEquipmentServiceTest extends TestCase
         $equipmentConfig = new EquipmentConfig();
         $equipmentConfig
             ->setName('equipment Name')
-            ->setIsAlienArtifact(false)
             ->setMechanics(new ArrayCollection([]))
         ;
 
@@ -131,10 +128,12 @@ class GameEquipmentServiceTest extends TestCase
         $itemConfig = new ItemConfig();
         $itemConfig
             ->setName('alien Artifact')
-            ->setIsAlienArtifact(true)
-            ->setIsHeavy(false)
             ->setMechanics(new ArrayCollection([]))
         ;
+
+        $statusConfig = new StatusConfig();
+        $statusConfig->setName(EquipmentStatusEnum::ALIEN_ARTEFACT);
+        $itemConfig->setInitStatus(new ArrayCollection([$statusConfig]));
 
         $this->entityManager
             ->shouldReceive('persist')
@@ -144,9 +143,9 @@ class GameEquipmentServiceTest extends TestCase
             ->shouldReceive('flush')
             ->once()
         ;
-        $this->statusService
-            ->shouldReceive('createCoreStatus')
-            ->andReturn(new Status($gameItem))
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
+            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === EquipmentStatusEnum::ALIEN_ARTEFACT)
             ->once()
         ;
 
@@ -159,10 +158,12 @@ class GameEquipmentServiceTest extends TestCase
         $itemConfig = new ItemConfig();
         $itemConfig
             ->setName('heavy item')
-            ->setIsAlienArtifact(false)
-            ->setIsHeavy(true)
             ->setMechanics(new ArrayCollection([]))
         ;
+
+        $statusConfig = new StatusConfig();
+        $statusConfig->setName(EquipmentStatusEnum::HEAVY);
+        $itemConfig->setInitStatus(new ArrayCollection([$statusConfig]));
 
         $this->entityManager
             ->shouldReceive('persist')
@@ -173,9 +174,9 @@ class GameEquipmentServiceTest extends TestCase
             ->once()
         ;
 
-        $this->statusService
-            ->shouldReceive('createCoreStatus')
-            ->andReturn(new Status($gameItem))
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
+            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === EquipmentStatusEnum::HEAVY)
             ->once()
         ;
 
@@ -189,8 +190,6 @@ class GameEquipmentServiceTest extends TestCase
         $itemConfig = new ItemConfig();
         $itemConfig
             ->setName('some plant')
-            ->setIsAlienArtifact(false)
-            ->setIsHeavy(false)
             ->setMechanics(new ArrayCollection([$plantMechanic]))
         ;
 
@@ -199,6 +198,7 @@ class GameEquipmentServiceTest extends TestCase
 
         $this->equipmentEffectService
             ->shouldReceive('getPlantEffect')
+            ->with($plantMechanic, $daedalus)
             ->andReturn($plantEffect)
             ->once()
         ;
@@ -211,9 +211,9 @@ class GameEquipmentServiceTest extends TestCase
             ->once()
         ;
 
-        $this->statusService
-            ->shouldReceive('createChargeStatus')
-            ->andReturn(new ChargeStatus($gameItem))
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
+            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === EquipmentStatusEnum::PLANT_YOUNG)
             ->once()
         ;
 
@@ -229,8 +229,6 @@ class GameEquipmentServiceTest extends TestCase
         $itemConfig = new ItemConfig();
         $itemConfig
             ->setName('some document')
-            ->setIsAlienArtifact(false)
-            ->setIsHeavy(false)
             ->setMechanics(new ArrayCollection([$documentMechanic]))
         ;
 
@@ -243,48 +241,15 @@ class GameEquipmentServiceTest extends TestCase
             ->once()
         ;
 
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
+            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === EquipmentStatusEnum::DOCUMENT_CONTENT)
+            ->once()
+        ;
+
         $gameItem = $this->service->createGameEquipment($itemConfig, $daedalus);
 
         $this->assertInstanceOf(GameItem::class, $gameItem);
-        $this->assertCount(1, $gameItem->getStatuses());
         $this->assertEquals('some document', $gameItem->getName());
-        $this->assertEquals('Hello world', $gameItem->getStatuses()->first()->getContent());
-
-        //Charged
-        $chargedMechanic = new Charged();
-        $chargedMechanic
-            ->setMaxCharge(4)
-            ->setStartCharge(2)
-            ->setIsVisible(true)
-            ->setChargeStrategy('charge startegy')
-        ;
-
-        $itemConfig = new ItemConfig();
-        $itemConfig
-            ->setName('some charged')
-            ->setIsAlienArtifact(false)
-            ->setIsHeavy(false)
-            ->setMechanics(new ArrayCollection([$chargedMechanic]))
-        ;
-
-        $this->entityManager
-            ->shouldReceive('persist')
-            ->once()
-        ;
-        $this->entityManager
-            ->shouldReceive('flush')
-            ->once()
-        ;
-
-        $this->statusService
-            ->shouldReceive('createChargeStatus')
-            ->andReturn(new ChargeStatus($gameItem))
-            ->once()
-        ;
-
-        $gameItem = $this->service->createGameEquipment($itemConfig, $daedalus);
-
-        $this->assertInstanceOf(GameItem::class, $gameItem);
-        $this->assertEquals('some charged', $gameItem->getName());
     }
 }

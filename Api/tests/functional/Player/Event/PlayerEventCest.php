@@ -19,6 +19,7 @@ use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
@@ -97,6 +98,13 @@ class PlayerEventCest
 
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'user' => $user]);
+
+        $mushStatusConfig = new ChargeStatusConfig();
+        $mushStatusConfig
+            ->setName(PlayerStatusEnum::MUSH)
+            ->setGameConfig($gameConfig)
+        ;
+        $I->haveInRepository($mushStatusConfig);
 
         $mushStatus = new ChargeStatus($player);
         $mushStatus

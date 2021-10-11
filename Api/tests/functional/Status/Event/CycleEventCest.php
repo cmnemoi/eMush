@@ -18,6 +18,7 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -56,7 +57,7 @@ class CycleEventCest
         $I->haveInRepository($status);
         $id = $status->getId();
 
-        $cycleEvent = new StatusCycleEvent($status, new Player(), $daedalus, EventEnum::NEW_CYCLE, $time);
+        $cycleEvent = new StatusCycleEvent($status, new Player(), EventEnum::NEW_CYCLE, $time);
 
         $this->cycleSubscriber->onNewCycle($cycleEvent);
 
@@ -87,7 +88,7 @@ class CycleEventCest
 
         $player->addStatus($status);
 
-        $cycleEvent = new StatusCycleEvent($status, $player, $daedalus, EventEnum::NEW_CYCLE, $time);
+        $cycleEvent = new StatusCycleEvent($status, $player, EventEnum::NEW_CYCLE, $time);
 
         $I->haveInRepository($status);
         $I->refreshEntities($player, $daedalus);
@@ -135,6 +136,14 @@ class CycleEventCest
         /** @var EquipmentConfig $doorConfig */
         $doorConfig = $I->have(EquipmentConfig::class, ['isFireBreakable' => false, 'isFireDestroyable' => false, 'gameConfig' => $gameConfig]);
 
+        $statusConfig = new ChargeStatusConfig();
+        $statusConfig
+            ->setName(StatusEnum::FIRE)
+            ->setGameConfig($gameConfig)
+        ;
+
+        $I->haveInRepository($statusConfig);
+
         $doorConfig
             ->setGameConfig($daedalus->getGameConfig())
             ->setIsFireBreakable(false)
@@ -165,7 +174,7 @@ class CycleEventCest
 
         $room->addStatus($status);
 
-        $cycleEvent = new StatusCycleEvent($status, $room, $daedalus, EventEnum::NEW_CYCLE, $time);
+        $cycleEvent = new StatusCycleEvent($status, $room, EventEnum::NEW_CYCLE, $time);
 
         $I->haveInRepository($status);
         $I->refreshEntities($player, $daedalus);

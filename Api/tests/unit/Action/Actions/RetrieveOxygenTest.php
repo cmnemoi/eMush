@@ -61,7 +61,6 @@ class RetrieveOxygenTest extends AbstractActionTest
 
         $item
             ->setName(ItemEnum::OXYGEN_CAPSULE)
-            ->setIsHeavy(false)
         ;
 
         $player = $this->createPlayer($daedalus, $room);

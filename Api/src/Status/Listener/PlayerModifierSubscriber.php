@@ -31,7 +31,7 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
         $player = $playerEvent->getPlayer();
 
         if (!$player->isMush()) {
-            $this->playerStatus->handleMoralStatus($player);
+            $this->playerStatus->handleMoralStatus($player, $playerEvent->getTime());
         }
     }
 

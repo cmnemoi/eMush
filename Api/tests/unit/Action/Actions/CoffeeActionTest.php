@@ -72,7 +72,7 @@ class CoffeeActionTest extends AbstractActionTest
 
         $chargeStatus = new ChargeStatus($gameCoffeeMachine);
         $chargeStatus
-            ->setName(EquipmentStatusEnum::CHARGES)
+            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
             ->setCharge(1)
         ;
 

@@ -69,7 +69,6 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
             $apprenton
                 ->setGameConfig($gameConfig)
                 ->setName(ItemEnum::APPRENTON . '_' . $skillName)
-                ->setIsHeavy(false)
                 ->setIsStackable(true)
                 ->setIsFireDestroyable(true)
                 ->setIsFireBreakable(false)
@@ -93,7 +92,6 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
         $document
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::DOCUMENT)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
@@ -115,7 +113,6 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
         $commandersManual
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::COMMANDERS_MANUAL)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
@@ -137,7 +134,6 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
         $mushResearch
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::MUSH_RESEARCH_REVIEW)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
@@ -159,7 +155,6 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
         $postIt
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::POST_IT)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)

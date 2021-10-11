@@ -21,9 +21,9 @@ use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\Status;
-use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
+use Mush\Status\Event\ChargeStatusEvent;
+use Mush\Status\Event\StatusEvent;
 use Mush\User\Entity\User;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -39,8 +39,6 @@ class PlayerService implements PlayerServiceInterface
 
     private RoomLogServiceInterface $roomLogService;
 
-    private StatusServiceInterface $statusService;
-
     private GameEquipmentServiceInterface $gameEquipmentService;
 
     public function __construct(
@@ -49,7 +47,6 @@ class PlayerService implements PlayerServiceInterface
         PlayerRepository $repository,
         DeadPlayerInfoRepository $deadPlayerRepository,
         RoomLogServiceInterface $roomLogService,
-        StatusServiceInterface $statusService,
         GameEquipmentServiceInterface $gameEquipmentService
     ) {
         $this->entityManager = $entityManager;
@@ -57,7 +54,6 @@ class PlayerService implements PlayerServiceInterface
         $this->repository = $repository;
         $this->deadPlayerRepository = $deadPlayerRepository;
         $this->roomLogService = $roomLogService;
-        $this->statusService = $statusService;
         $this->gameEquipmentService = $gameEquipmentService;
     }
 
@@ -120,21 +116,18 @@ class PlayerService implements PlayerServiceInterface
         ;
 
         foreach ($characterConfig->getStatuses() as $statusName) {
-            $this->statusService->createCoreStatus($statusName, $player);
-        }
+            $statusEvent = new StatusEvent($statusName, $player, PlayerEvent::NEW_PLAYER, new \DateTime());
 
-        if (!(in_array(PlayerStatusEnum::IMMUNIZED, $characterConfig->getStatuses()))) {
-            $this->statusService->createChargeStatus(
-                PlayerStatusEnum::SPORES,
-                $player,
-                ChargeStrategyTypeEnum::NONE,
-                null,
-                VisibilityEnum::MUSH,
-                VisibilityEnum::MUSH,
-            );
+            $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
         }
 
         $this->persist($player);
+
+        if (!(in_array(PlayerStatusEnum::IMMUNIZED, $characterConfig->getStatuses()))) {
+            $statusEvent = new ChargeStatusEvent(PlayerStatusEnum::SPORES, $player, PlayerEvent::NEW_PLAYER, new \DateTime());
+
+            $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+        }
 
         $user->setCurrentGame($player);
         $playerEvent = new PlayerEvent(

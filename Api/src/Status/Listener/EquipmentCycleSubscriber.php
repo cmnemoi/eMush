@@ -34,7 +34,6 @@ class EquipmentCycleSubscriber implements EventSubscriberInterface
         foreach ($equipment->getStatuses() as $status) {
             $statusNewCycle = new StatusCycleEvent(
                 $status, $equipment,
-                $event->getDaedalus(),
                 $event->getReason(),
                 $event->getTime()
             );
@@ -51,7 +50,6 @@ class EquipmentCycleSubscriber implements EventSubscriberInterface
             $statusNewDay = new StatusCycleEvent(
                 $status,
                 $equipment,
-                $event->getDaedalus(),
                 $event->getReason(),
                 $event->getTime()
             );

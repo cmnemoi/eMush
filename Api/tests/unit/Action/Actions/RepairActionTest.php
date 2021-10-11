@@ -20,7 +20,6 @@ use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 
 class RepairActionTest extends AbstractActionTest
 {
@@ -30,8 +29,6 @@ class RepairActionTest extends AbstractActionTest
     private PlayerServiceInterface $playerService;
     /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;
-    /** @var StatusServiceInterface|Mockery\Mock */
-    private StatusServiceInterface $statusService;
 
     /**
      * @before
@@ -45,7 +42,6 @@ class RepairActionTest extends AbstractActionTest
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
-        $this->statusService = Mockery::mock(StatusServiceInterface::class);
 
         $this->action = new Repair(
             $this->eventDispatcher,
@@ -108,7 +104,7 @@ class RepairActionTest extends AbstractActionTest
 
         $this->assertInstanceOf(Fail::class, $result);
         $this->assertCount(1, $room->getEquipments()->first()->getStatuses());
-        $this->assertEquals(1, $attempt->getCharge());
+        $this->assertEquals(0, $attempt->getCharge());
     }
 
     public function testExecuteSuccess()

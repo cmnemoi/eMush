@@ -187,7 +187,8 @@ class GameEquipment implements StatusHolderInterface, ActionParameter, LogParame
 
     public function isOperational(): bool
     {
-        $chargeStatus = $this->getStatusByName(EquipmentStatusEnum::CHARGES);
+        //@TODO handle other charges
+        $chargeStatus = $this->getStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES);
 
         if ($chargeStatus === null || !($chargeStatus instanceof ChargeStatus)) {
             return !$this->isBroken();

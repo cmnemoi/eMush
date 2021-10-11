@@ -8,24 +8,25 @@ use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\CycleHandler\AbstractCycleHandler;
-use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Game\Enum\EventEnum;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
+use Mush\Status\Event\StatusEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class RationCycleHandler extends AbstractCycleHandler
 {
     protected string $name = EquipmentMechanicEnum::RATION;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
+    private EventDispatcherInterface $eventDispatcher;
 
     public function __construct(
         GameEquipmentServiceInterface $gameEquipmentService,
-        StatusServiceInterface $statusService
+        EventDispatcherInterface $eventDispatcher,
     ) {
         $this->gameEquipmentService = $gameEquipmentService;
-        $this->statusService = $statusService;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     public function handleNewCycle($object, Daedalus $daedalus, \DateTime $dateTime): void
@@ -74,6 +75,7 @@ class RationCycleHandler extends AbstractCycleHandler
             $nextStatus = EquipmentStatusEnum::UNSTABLE;
         }
 
-        $this->statusService->createCoreStatus($nextStatus, $gameRation, null, VisibilityEnum::HIDDEN);
+        $statusEvent = new StatusEvent($nextStatus, $gameRation, EventEnum::NEW_DAY, new \DateTime());
+        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
     }
 }

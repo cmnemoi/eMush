@@ -13,6 +13,7 @@ use Mush\Player\Event\PlayerModifierEvent;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
@@ -52,6 +53,19 @@ class PlayerModifierEventCest
             'characterConfig' => $characterConfig,
             'moralPoint' => 5,
         ]);
+
+        $suicidalStatusConfig = new StatusConfig();
+        $suicidalStatusConfig
+            ->setName(PlayerStatusEnum::SUICIDAL)
+            ->setGameConfig($gameConfig)
+        ;
+        $demoralizedStatusConfig = new StatusConfig();
+        $demoralizedStatusConfig
+            ->setName(PlayerStatusEnum::DEMORALIZED)
+            ->setGameConfig($gameConfig)
+        ;
+        $I->haveInRepository($suicidalStatusConfig);
+        $I->haveInRepository($demoralizedStatusConfig);
 
         $playerEvent = new PlayerModifierEvent(
             $player,
@@ -109,6 +123,19 @@ class PlayerModifierEventCest
             'characterConfig' => $characterConfig,
             'satiety' => 0,
         ]);
+
+        $fullStatusConfig = new StatusConfig();
+        $fullStatusConfig
+            ->setName(PlayerStatusEnum::FULL_STOMACH)
+            ->setGameConfig($gameConfig)
+        ;
+        $starvingStatusConfig = new StatusConfig();
+        $starvingStatusConfig
+            ->setName(PlayerStatusEnum::STARVING)
+            ->setGameConfig($gameConfig)
+        ;
+        $I->haveInRepository($fullStatusConfig);
+        $I->haveInRepository($starvingStatusConfig);
 
         $playerEvent = new PlayerModifierEvent($player, -1, EventEnum::NEW_CYCLE, new \DateTime());
         $this->eventDispatcherService->dispatch($playerEvent, PlayerModifierEvent::SATIETY_POINT_MODIFIER);
@@ -168,6 +195,13 @@ class PlayerModifierEventCest
             'characterConfig' => $characterConfig,
             'satiety' => 0,
         ]);
+
+        $fullStatusConfig = new StatusConfig();
+        $fullStatusConfig
+            ->setName(PlayerStatusEnum::FULL_STOMACH)
+            ->setGameConfig($gameConfig)
+        ;
+        $I->haveInRepository($fullStatusConfig);
 
         $mushStatus = new Status($player);
         $mushStatus

@@ -10,7 +10,6 @@ use Mush\Player\Service\ActionModifierServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Enum\StatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ActionService implements ActionServiceInterface
@@ -20,16 +19,13 @@ class ActionService implements ActionServiceInterface
 
     private EventDispatcherInterface $eventDispatcher;
     private ActionModifierServiceInterface $actionModifierService;
-    private StatusServiceInterface $statusService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         ActionModifierServiceInterface $actionModifierService,
-        StatusServiceInterface $statusService
     ) {
         $this->eventDispatcher = $eventDispatcher;
         $this->actionModifierService = $actionModifierService;
-        $this->statusService = $statusService;
     }
 
     public function canPlayerDoAction(Player $player, Action $action): bool
@@ -140,28 +136,6 @@ class ActionService implements ActionServiceInterface
         }
 
         return 0;
-    }
-
-    public function getAttempt(Player $player, string $actionName): Attempt
-    {
-        /** @var Attempt $attempt */
-        $attempt = $player->getStatusByName(StatusEnum::ATTEMPT);
-
-        if ($attempt && $attempt->getAction() !== $actionName) {
-            // Re-initialize attempts with new action
-            $attempt
-                ->setAction($actionName)
-                ->setCharge(0)
-            ;
-        } elseif ($attempt === null) { //Create Attempt
-            $attempt = $this->statusService->createAttemptStatus(
-                StatusEnum::ATTEMPT,
-                $actionName,
-                $player
-            );
-        }
-
-        return $attempt;
     }
 
     private function triggerPlayerModifierEvent(Player $player, string $eventName, int $delta): void

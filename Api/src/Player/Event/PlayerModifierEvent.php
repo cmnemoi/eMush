@@ -2,9 +2,13 @@
 
 namespace Mush\Player\Event;
 
+use Mush\Game\Event\AbstractLoggedEvent;
+use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Enum\VisibilityEnum;
 
-class PlayerModifierEvent extends PlayerEvent
+class PlayerModifierEvent extends PlayerEvent implements AbstractLoggedEvent, AbstractQuantityEvent
 {
     public const ACTION_POINT_MODIFIER = 'action.point.modifier';
     public const MOVEMENT_POINT_MODIFIER = 'movement.point.modifier';
@@ -12,36 +16,39 @@ class PlayerModifierEvent extends PlayerEvent
     public const MORAL_POINT_MODIFIER = 'moral.point.modifier';
     public const SATIETY_POINT_MODIFIER = 'satiety.point.modifier';
 
-    private int $delta;
-    private bool $isDisplayedRoomLog = true;
+    private int $quantity;
+    private string $visibility = VisibilityEnum::PRIVATE;
 
-    public function __construct(Player $player, int $delta, \DateTime $time)
-    {
-        parent::__construct($player, $time);
-        $this->delta = $delta;
+    public function __construct(
+        Player $player,
+        int $quantity,
+        string $reason,
+        \DateTime $time
+    ) {
+        $this->quantity = $quantity;
+
+        parent::__construct($player, $reason, $time);
     }
 
-    public function getDelta(): int
+    public function getQuantity(): int
     {
-        return $this->delta;
+        return $this->quantity;
     }
 
-    public function setDelta(int $delta): PlayerModifierEvent
+    public function getVisibility(): string
     {
-        $this->delta = $delta;
+        return $this->visibility;
+    }
+
+    public function setVisibility(string $visibility): PlayerModifierEvent
+    {
+        $this->visibility = $visibility;
 
         return $this;
     }
 
-    public function isDisplayedRoomLog(): bool
+    public function getPlace(): Place
     {
-        return $this->isDisplayedRoomLog;
-    }
-
-    public function setIsDisplayedRoomLog(bool $isDisplayedRoomLog): PlayerModifierEvent
-    {
-        $this->isDisplayedRoomLog = $isDisplayedRoomLog;
-
-        return $this;
+        return $this->player->getPlace();
     }
 }

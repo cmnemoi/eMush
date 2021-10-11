@@ -33,7 +33,7 @@ Corners values stand clockwise starting from top left. Missing values in @includ
 /* Style an element to make it a button, inlcuding hover effect.
 Editabe values stand for font-size, font-weight, and font-variant. Keep empty for default styles.
 Adding the class ".crossed" to the element will strike-through it. */
-@mixin button-style ($font-size: 0.83em, $font-weight: 700, $font-variant: small-caps) {
+@mixin button-style ($font-size: 1rem, $font-weight: 700, $font-variant: small-caps) {
     $color: rgb(0, 116, 223);
     $hover-color: rgb(0, 160, 233);
     $border-color: rgb(12, 18, 13);
@@ -50,7 +50,7 @@ Adding the class ".crossed" to the element will strike-through it. */
     font-size: $font-size;
     font-weight: $font-weight;
     font-variant: $font-variant;
-    letter-spacing: 0.03em;
+    letter-spacing: 0.05em;
     text-decoration: none;
     text-align: center;
     text-shadow: 0 0 4px $text-shadow-color, 0 0 4px $text-shadow-color;
@@ -81,7 +81,11 @@ Adding the class ".crossed" to the element will strike-through it. */
                 lighten(desaturate($hover-color, 18.1), 13.14) 96%
             );
     }
-    & img { padding: 0 0.3em; }
+    img {
+        position: relative;
+        top: -.1em;
+        padding: 0 0.3em;
+    }
     &.crossed { opacity: 0.5; text-decoration: line-through; }
 }
 
@@ -102,7 +106,7 @@ Inventory slots with .empty class will have no interactive styling. */
     margin: 1px;
     border: 1px solid rgb(64, 119, 181);
     border-radius: 3px;
-    background: rgb(58, 106, 171);
+    background: $greyBlue;
     box-shadow: $box-shadow;
 
     span.qty {
@@ -112,7 +116,7 @@ Inventory slots with .empty class will have no interactive styling. */
         right: 0;
         margin: 2px 5px;
         font-weight: bold;
-        font-size: 1em;
+        font-size: 1.18rem;
         color: white;
         text-shadow: 0 0 3px black, 0 0 3px black;
     }

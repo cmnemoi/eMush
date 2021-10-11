@@ -13,6 +13,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\EventEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Event\RoomEvent;
@@ -20,7 +21,10 @@ use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -46,7 +50,7 @@ class RoomEventCest
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'healthPoint' => 10]);
 
-        $roomEvent = new RoomEvent($room, $time);
+        $roomEvent = new RoomEvent($room, RoomEvent::ELECTRIC_ARC, $time);
 
         $I->expectThrowable(\LogicException::class, function () use ($roomEvent) {
             $this->eventDispatcher->dispatch($roomEvent, RoomEvent::STARTING_FIRE);
@@ -76,6 +80,13 @@ class RoomEventCest
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'neron' => $neron]);
 
+        $statusConfig = new ChargeStatusConfig();
+        $statusConfig
+            ->setName(StatusEnum::FIRE)
+            ->setGameConfig($gameConfig)
+        ;
+        $I->haveInRepository($statusConfig);
+
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalus)
@@ -88,7 +99,7 @@ class RoomEventCest
 
         $room->setDaedalus($daedalus);
 
-        $roomEvent = new RoomEvent($room, $time);
+        $roomEvent = new RoomEvent($room, EventEnum::NEW_CYCLE, $time);
 
         $this->eventDispatcher->dispatch($roomEvent, RoomEvent::STARTING_FIRE);
 
@@ -119,7 +130,7 @@ class RoomEventCest
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'healthPoint' => 10, 'characterConfig' => $characterConfig]);
 
-        $roomEvent = new RoomEvent($room, $time);
+        $roomEvent = new RoomEvent($room, EventEnum::NEW_CYCLE, $time);
 
         $this->eventDispatcher->dispatch($roomEvent, RoomEvent::TREMOR);
 
@@ -138,6 +149,13 @@ class RoomEventCest
         $difficultyConfig = $I->have(DifficultyConfig::class);
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, ['difficultyConfig' => $difficultyConfig]);
+
+        $statusConfig = new StatusConfig();
+        $statusConfig
+            ->setName(EquipmentStatusEnum::BROKEN)
+            ->setGameConfig($gameConfig)
+        ;
+        $I->haveInRepository($statusConfig);
 
         $neron = new Neron();
         $neron->setIsInhibited(true);
@@ -172,7 +190,7 @@ class RoomEventCest
         ;
         $I->haveInRepository($gameEquipment);
 
-        $roomEvent = new RoomEvent($room, $time);
+        $roomEvent = new RoomEvent($room, EventEnum::NEW_CYCLE, $time);
         $this->eventDispatcher->dispatch($roomEvent, RoomEvent::ELECTRIC_ARC);
 
         $I->assertEquals(7, $player->getHealthPoint());

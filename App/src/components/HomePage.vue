@@ -37,8 +37,8 @@ export default defineComponent ({
 
     p {
         text-align: justify;
-        font-size: 15px;
-        line-height: 1.4em;
+        font-size: 1.1em;
+        line-height: 1.4;
     }
 
     img {
@@ -50,20 +50,17 @@ export default defineComponent ({
         background-color: rgba(15, 15, 67, .5);
     }
 
-    a {
-        color: #84e100;
-
+    &::v-deep a {
+        color: $green;
         &:hover { color: #e9ebf3; }
-        &:visited { color: #84e100; }
     }
 
-    em {
+    &::v-deep em {
         color: #01c3df;
         font-size: 1.2em;
         font-style: normal;
         font-weight: bold;
 
-    //    &.red { color: #ff4e64; }
         &.red {
             color: inherit;
             text-decoration: underline;

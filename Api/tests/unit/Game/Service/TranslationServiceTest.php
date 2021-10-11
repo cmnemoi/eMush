@@ -12,7 +12,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class TranslationServiceTest extends TestCase
 {
-    /** @var TranslatorInterface | Mockery\Mock */
+    /** @var TranslatorInterface|Mockery\Mock */
     private TranslatorInterface $translator;
 
     private TranslationService $translationService;

@@ -16,7 +16,7 @@ use Mush\Player\Service\PlayerServiceInterface;
 
 class ShredActionTest extends AbstractActionTest
 {
-    /** @var PlayerServiceInterface | Mockery\Mock */
+    /** @var PlayerServiceInterface|Mockery\Mock */
     private PlayerServiceInterface $playerService;
 
     /**

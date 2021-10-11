@@ -40,7 +40,6 @@ export default defineComponent ({
 
 .tab-content {
     min-width: 100%;
-    font-size: 0.8em;
 
     .chatbox-container {
         display: flex;
@@ -48,7 +47,7 @@ export default defineComponent ({
         z-index: 2;
         height: 436px;
         margin-top: -1px;
-        color: #090a61;
+        color: $deepBlue;
         line-height: initial;
         background: rgba(194, 243, 252, 1);
 
@@ -58,14 +57,14 @@ export default defineComponent ({
     .chatbox {
         overflow: auto;
         padding: 7px;
-        color: #090a61;
+        color: $deepBlue;
     }
 
     /* SCROLLBAR STYLING */
     .chatbox,
     .chatbox-container {
         --scrollbarBG: white;
-        --thumbBG: #090a61;
+        --thumbBG: $deepBlue;
 
         scrollbar-width: thin;
         scrollbar-color: var(--thumbBG) var(--scrollbarBG);
@@ -76,7 +75,7 @@ export default defineComponent ({
 
     .loading {
         padding: 7px;
-        color: #090a61;
+        color: $deepBlue;
         font-style: italic;
         text-align: right;
         margin-top: auto;

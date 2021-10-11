@@ -3,7 +3,6 @@
 namespace Mush\Test\Status\CycleHandler;
 
 use Mockery;
-use Mush\Daedalus\Entity\Daedalus;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Status\CycleHandler\LyingDown;
@@ -14,7 +13,7 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class LyingDownTest extends TestCase
 {
-    /** @var EventDispatcherInterface | Mockery\Mock */
+    /** @var EventDispatcherInterface|Mockery\Mock */
     private EventDispatcherInterface $eventDispatcher;
 
     private LyingDown $cycleHandler;
@@ -52,7 +51,7 @@ class LyingDownTest extends TestCase
         ;
 
         $this->eventDispatcher->shouldReceive('dispatch')->once();
-        $this->cycleHandler->handleNewCycle($status, new Daedalus(), $player, new \DateTime());
+        $this->cycleHandler->handleNewCycle($status, $player, new \DateTime());
 
         $this->assertTrue(true);
     }

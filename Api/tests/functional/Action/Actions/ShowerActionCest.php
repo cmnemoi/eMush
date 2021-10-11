@@ -129,4 +129,42 @@ class ShowerActionCest
 
         //@TODO test skill water resistance
     }
+
+    private function createSoapItem(FunctionalTester $I): GameItem
+    {
+        $modifier = new Modifier();
+        $modifier
+            ->setTarget(ModifierTargetEnum::ACTION_POINT)
+            ->setDelta(-1)
+            ->setScope(ActionEnum::SHOWER)
+            ->setReach(ReachEnum::INVENTORY)
+            ->setIsAdditive(true)
+        ;
+
+        $soapGear = new Gear();
+
+        $soapGear->setModifier(new arrayCollection([$modifier]));
+
+        $soap = new ItemConfig();
+        $soap
+            ->setName(GearItemEnum::SOAP)
+            ->setIsStackable(false)
+            ->setIsFireDestroyable(false)
+            ->setIsFireBreakable(false)
+            ->setMechanics(new ArrayCollection([$soapGear]))
+        ;
+
+        $gameSoap = new GameItem();
+        $gameSoap
+            ->setName(GearItemEnum::SOAP)
+            ->setEquipment($soap)
+        ;
+
+        $I->haveInRepository($modifier);
+        $I->haveInRepository($soapGear);
+        $I->haveInRepository($soap);
+        $I->haveInRepository($gameSoap);
+
+        return $gameSoap;
+    }
 }

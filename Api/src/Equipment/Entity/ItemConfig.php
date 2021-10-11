@@ -35,21 +35,6 @@ class ItemConfig extends EquipmentConfig
         return $gameItem;
     }
 
-    public function isHeavy(): bool
-    {
-        return $this->isHeavy;
-    }
-
-    /**
-     * @return static
-     */
-    public function setIsHeavy(bool $isHeavy): ItemConfig
-    {
-        $this->isHeavy = $isHeavy;
-
-        return $this;
-    }
-
     public function isStackable(): bool
     {
         return $this->isStackable;

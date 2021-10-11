@@ -2,13 +2,15 @@
 
 namespace Mush\Alert\Listener;
 
-use Mush\Action\Event\ReportEvent;
+use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Alert\Enum\AlertEnum;
 use Mush\Alert\Service\AlertServiceInterface;
 use Mush\Equipment\Entity\Door;
+use Mush\Equipment\Entity\GameEquipment;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class ReportSubscriber implements EventSubscriberInterface
+class ApplyEffectSubscriber implements EventSubscriberInterface
 {
     private AlertServiceInterface $alertService;
 
@@ -21,18 +23,15 @@ class ReportSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            ReportEvent::REPORT_FIRE => 'onReportFire',
-            ReportEvent::REPORT_EQUIPMENT => 'onReportEquipment',
+            ApplyEffectEvent::REPORT_FIRE => 'onReportFire',
+            ApplyEffectEvent::REPORT_EQUIPMENT => 'onReportEquipment',
         ];
     }
 
-    public function onReportFire(ReportEvent $event): void
+    public function onReportFire(ApplyEffectEvent $event): void
     {
         $player = $event->getPlayer();
         $place = $event->getPlace();
-        if ($place === null) {
-            throw new \LogicException('place should not be null');
-        }
 
         $alert = $this->alertService->findByNameAndDaedalus(AlertEnum::FIRES, $player->getDaedalus());
         if ($alert === null) {
@@ -45,12 +44,12 @@ class ReportSubscriber implements EventSubscriberInterface
         $this->alertService->persistAlertElement($alertElement);
     }
 
-    public function onReportEquipment(ReportEvent $event): void
+    public function onReportEquipment(ApplyEffectEvent $event): void
     {
         $player = $event->getPlayer();
-        $equipment = $event->getGameEquipment();
-        if ($equipment === null) {
-            throw new \LogicException('equipment should not be null');
+        $equipment = $event->getParameter();
+        if (!$equipment instanceof GameEquipment) {
+            throw new UnexpectedTypeException($equipment, GameEquipment::class);
         }
 
         if ($equipment instanceof Door) {

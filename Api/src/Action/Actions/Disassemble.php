@@ -92,8 +92,14 @@ class Disassemble extends AttemptAction
                     ->gameEquipmentService
                     ->createGameEquipmentFromName($productString, $this->player->getDaedalus())
                 ;
-                $equipmentEvent = new EquipmentEvent($productEquipment, VisibilityEnum::HIDDEN, new \DateTime());
-                $equipmentEvent->setPlayer($this->player)->setPlace($this->player->getPlace());
+                $equipmentEvent = new EquipmentEvent(
+                    $productEquipment,
+                    $this->player->getPlace(),
+                    VisibilityEnum::HIDDEN,
+                    $this->getActionName(),
+                    new \DateTime()
+                );
+                $equipmentEvent->setPlayer($this->player);
                 $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
                 $this->gameEquipmentService->persist($productEquipment);
@@ -101,7 +107,13 @@ class Disassemble extends AttemptAction
         }
 
         // remove the dismantled equipment
-        $equipmentEvent = new EquipmentEvent($gameEquipment, VisibilityEnum::HIDDEN, new \DateTime());
+        $equipmentEvent = new EquipmentEvent(
+            $gameEquipment,
+            $this->player->getPlace(),
+            VisibilityEnum::HIDDEN,
+            $this->getActionName(),
+            new \DateTime()
+        );
         $equipmentEvent->setPlayer($this->player);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
     }

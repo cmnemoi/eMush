@@ -2,7 +2,6 @@
 
 namespace Mush\Status\CycleHandler;
 
-use Mush\Daedalus\Entity\Daedalus;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerModifierEvent;
 use Mush\Status\Entity\Status;
@@ -20,18 +19,22 @@ class Lost extends AbstractStatusCycleHandler
         $this->eventDispatcher = $eventDispatcher;
     }
 
-    public function handleNewCycle(Status $status, Daedalus $daedalus, StatusHolderInterface $statusHolder, \DateTime $dateTime, array $context = []): void
+    public function handleNewCycle(Status $status, StatusHolderInterface $statusHolder, \DateTime $dateTime, array $context = []): void
     {
         if ($status->getName() !== PlayerStatusEnum::LOST || !$statusHolder instanceof Player) {
             return;
         }
 
-        $playerModifierEvent = new PlayerModifierEvent($statusHolder, -1, $dateTime);
-        $playerModifierEvent->setReason(PlayerStatusEnum::LOST); //FIXME: useful?
+        $playerModifierEvent = new PlayerModifierEvent(
+            $statusHolder,
+            -1,
+            PlayerStatusEnum::LOST,
+            $dateTime
+        );
         $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::SATIETY_POINT_MODIFIER);
     }
 
-    public function handleNewDay(Status $status, Daedalus $daedalus, StatusHolderInterface $statusHolder, \DateTime $dateTime): void
+    public function handleNewDay(Status $status, StatusHolderInterface $statusHolder, \DateTime $dateTime): void
     {
     }
 }

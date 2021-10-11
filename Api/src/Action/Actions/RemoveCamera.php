@@ -63,8 +63,14 @@ class RemoveCamera extends AbstractAction
             ->createGameEquipmentFromName(ItemEnum::CAMERA_ITEM, $this->player->getDaedalus())
         ;
 
-        $equipmentEvent = new EquipmentEvent($itemCamera, VisibilityEnum::HIDDEN, new \DateTime());
-        $equipmentEvent->setReplacementEquipment($equipmentCamera)->setPlayer($this->player);
+        $equipmentEvent = new EquipmentEvent(
+            $equipmentCamera,
+            $this->player->getPlace(),
+            VisibilityEnum::HIDDEN,
+            $this->getActionName(),
+            new \DateTime()
+        );
+        $equipmentEvent->setReplacementEquipment($itemCamera)->setPlayer($this->player);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_TRANSFORM);
 
         return new Success();

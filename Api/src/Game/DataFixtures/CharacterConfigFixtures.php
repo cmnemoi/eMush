@@ -35,6 +35,8 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $comfortAction = $this->getReference(ActionsFixtures::COMFORT_DEFAULT);
 
+        $flirtAction = $this->getReference(ActionsFixtures::FLIRT_DEFAULT);
+
         $defaultActions = new ArrayCollection([
             $hitAction,
             $hideAction,
@@ -46,6 +48,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             $comfortAction,
             $rejuvenateAlphaAction,
             $spreadFireAction,
+            $flirtAction,
         ]);
 
         $andie = new CharacterConfig();

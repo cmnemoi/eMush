@@ -29,7 +29,12 @@ class PlaceCycleSubscriber implements EventSubscriberInterface
         $place = $event->getPlace();
 
         foreach ($place->getEquipments() as $equipment) {
-            $itemNewCycle = new EquipmentCycleEvent($equipment, $place->getDaedalus(), $event->getTime());
+            $itemNewCycle = new EquipmentCycleEvent(
+                $equipment,
+                $place->getDaedalus(),
+                $event->getReason(),
+                $event->getTime()
+            );
             $this->eventDispatcher->dispatch($itemNewCycle, EquipmentCycleEvent::EQUIPMENT_NEW_CYCLE);
         }
     }
@@ -39,7 +44,12 @@ class PlaceCycleSubscriber implements EventSubscriberInterface
         $room = $event->getPlace();
 
         foreach ($room->getEquipments() as $equipment) {
-            $equipmentNewDay = new EquipmentCycleEvent($equipment, $room->getDaedalus(), $event->getTime());
+            $equipmentNewDay = new EquipmentCycleEvent(
+                $equipment,
+                $room->getDaedalus(),
+                $event->getReason(),
+                $event->getTime()
+            );
 
             $this->eventDispatcher->dispatch($equipmentNewDay, EquipmentCycleEvent::EQUIPMENT_NEW_DAY);
         }

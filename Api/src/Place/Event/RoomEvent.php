@@ -2,45 +2,31 @@
 
 namespace Mush\Place\Event;
 
+use Mush\Game\Event\AbstractLoggedEvent;
 use Mush\Place\Entity\Place;
-use Symfony\Contracts\EventDispatcher\Event;
+use Mush\RoomLog\Enum\VisibilityEnum;
 
-class RoomEvent extends Event
+class RoomEvent extends PlaceCycleEvent implements AbstractLoggedEvent
 {
     public const TREMOR = 'tremor';
     public const ELECTRIC_ARC = 'electric.arc';
     public const STARTING_FIRE = 'starting.fire';
     public const STOP_FIRE = 'stop.fire';
 
-    private Place $room;
-    private ?string $reason = null;
-    private \DateTime $time;
-
-    public function __construct(Place $room, $time)
-    {
-        $this->time = $time;
-        $this->room = $room;
-    }
+    private string $visibility = VisibilityEnum::PUBLIC;
 
     public function getRoom(): Place
     {
-        return $this->room;
+        return $this->place;
     }
 
-    public function getTime(): \DateTime
+    public function getVisibility(): string
     {
-        return $this->time;
+        return $this->visibility;
     }
 
-    public function getReason(): ?string
+    public function getReason(): string
     {
         return $this->reason;
-    }
-
-    public function setReason(?string $reason): RoomEvent
-    {
-        $this->reason = $reason;
-
-        return $this;
     }
 }

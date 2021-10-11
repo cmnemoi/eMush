@@ -20,6 +20,7 @@ use Mush\Game\Enum\GameStatusEnum;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\PlayerModifier;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\RoomLog\Entity\LogParameter;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\Status\Entity\Status;
@@ -87,6 +88,12 @@ class Player implements StatusHolderInterface, ActionParameter, LogParameter
     private Collection $medicalCondition;
 
     /**
+     * @ORM\ManyToMany (targetEntity="Mush\Player\Entity\Player", cascade={"ALL"}, orphanRemoval=true)
+     * @ORM\JoinTable(name="player_player_flirts")
+     */
+    private Collection $flirts;
+
+    /**
      * @ORM\OneToMany(targetEntity="Mush\Modifier\Entity\PlayerModifier", mappedBy="player")
      */
     private Collection $modifiers;
@@ -131,6 +138,7 @@ class Player implements StatusHolderInterface, ActionParameter, LogParameter
         $this->items = new ArrayCollection();
         $this->statuses = new ArrayCollection();
         $this->medicalCondition = new PlayerDiseaseCollection();
+        $this->flirts = new PlayerCollection();
         $this->modifiers = new ModifierCollection();
     }
 
@@ -359,6 +367,34 @@ class Player implements StatusHolderInterface, ActionParameter, LogParameter
         }
 
         return $this;
+    }
+
+    public function getFlirts(): PlayerCollection
+    {
+        if (!$this->flirts instanceof PlayerCollection) {
+            $this->flirts = new PlayerCollection($this->flirts->toArray());
+        }
+
+        return $this->flirts;
+    }
+
+    public function setFlirts(Collection $flirts): Player
+    {
+        $this->flirts = $flirts;
+
+        return $this;
+    }
+
+    public function addFlirt(Player $playerFlirt): Player
+    {
+        $this->flirts->add($playerFlirt);
+
+        return $this;
+    }
+
+    public function HasFlirtedWith(Player $playerTarget): bool
+    {
+        return $this->getFlirts()->exists(fn (int $id, Player $player) => $player === $playerTarget);
     }
 
     /**

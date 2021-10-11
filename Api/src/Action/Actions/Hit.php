@@ -16,7 +16,6 @@ use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\SkillMushEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
-use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerModifierEvent;
 use Mush\Player\Service\PlayerServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -82,8 +81,13 @@ class Hit extends AttemptAction
             if ($damage <= 0) {
                 // TODO:
             } else {
-                $playerModifierEvent = new PlayerModifierEvent($parameter, -$damage, new \DateTime());
-                $playerModifierEvent->setReason(EndCauseEnum::ASSASSINATED);
+                $playerModifierEvent = new PlayerModifierEvent(
+                    $parameter,
+                    -$damage,
+                    $this->getActionName(),
+                    new \DateTime()
+                );
+
                 $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
 
                 $this->playerService->persist($parameter);

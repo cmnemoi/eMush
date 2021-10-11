@@ -17,7 +17,7 @@ use Mush\Status\Service\StatusServiceInterface;
 
 class GetUpActionTest extends AbstractActionTest
 {
-    /** @var StatusServiceInterface | Mockery\Mock */
+    /** @var StatusServiceInterface|Mockery\Mock */
     private StatusServiceInterface $statusService;
 
     /**

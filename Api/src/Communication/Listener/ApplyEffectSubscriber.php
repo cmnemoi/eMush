@@ -2,12 +2,13 @@
 
 namespace Mush\Communication\Listener;
 
-use Mush\Action\Event\ReportEvent;
+use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Communication\Services\NeronMessageServiceInterface;
+use Mush\Equipment\Entity\GameEquipment;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class ReportSubscriber implements EventSubscriberInterface
+class ApplyEffectSubscriber implements EventSubscriberInterface
 {
     private NeronMessageServiceInterface $neronMessageService;
 
@@ -20,20 +21,16 @@ class ReportSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            ReportEvent::REPORT_FIRE => 'onReportFire',
-            ReportEvent::REPORT_EQUIPMENT => 'onReportEquipment',
+            ApplyEffectEvent::REPORT_FIRE => 'onReportFire',
+            ApplyEffectEvent::REPORT_EQUIPMENT => 'onReportEquipment',
         ];
     }
 
-    public function onReportFire(ReportEvent $event): void
+    public function onReportFire(ApplyEffectEvent $event): void
     {
         $player = $event->getPlayer();
         $daedalus = $player->getDaedalus();
         $place = $event->getPlace();
-
-        if ($place === null) {
-            throw new \LogicException('place should not be null');
-        }
 
         $parentMessage = $this->neronMessageService->getMessageNeronCycleFailures($daedalus, new \DateTime());
 
@@ -46,13 +43,13 @@ class ReportSubscriber implements EventSubscriberInterface
         );
     }
 
-    public function onReportEquipment(ReportEvent $event): void
+    public function onReportEquipment(ApplyEffectEvent $event): void
     {
         $player = $event->getPlayer();
         $daedalus = $player->getDaedalus();
-        $equipment = $event->getGameEquipment();
+        $equipment = $event->getParameter();
 
-        if ($equipment === null) {
+        if (!$equipment instanceof GameEquipment) {
             throw new \LogicException('equipment should not be null');
         }
 

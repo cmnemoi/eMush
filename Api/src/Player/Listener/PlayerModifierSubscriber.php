@@ -36,7 +36,7 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
     public function onActionPointModifier(PlayerModifierEvent $playerEvent): void
     {
         $player = $playerEvent->getPlayer();
-        $delta = $playerEvent->getDelta();
+        $delta = $playerEvent->getQuantity();
 
         $this->playerVariableService->handleActionPointModifier($delta, $player);
     }
@@ -44,7 +44,7 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
     public function onMovementPointModifier(PlayerModifierEvent $playerEvent): void
     {
         $player = $playerEvent->getPlayer();
-        $delta = $playerEvent->getDelta();
+        $delta = $playerEvent->getQuantity();
 
         $this->playerVariableService->handleMovementPointModifier($delta, $player);
     }
@@ -52,7 +52,7 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
     public function onHealthPointModifier(PlayerModifierEvent $playerEvent): void
     {
         $player = $playerEvent->getPlayer();
-        $delta = $playerEvent->getDelta();
+        $delta = $playerEvent->getQuantity();
 
         $this->playerVariableService->handleHealthPointModifier($delta, $player);
 
@@ -64,21 +64,39 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
     public function onMoralPointModifier(PlayerModifierEvent $playerEvent): void
     {
         $player = $playerEvent->getPlayer();
-        $delta = $playerEvent->getDelta();
+        $delta = $playerEvent->getQuantity();
 
         $this->playerVariableService->handleMoralPointModifier($delta, $player);
 
         if ($player->getMoralPoint() === 0) {
-            $playerEvent->setReason(EndCauseEnum::DEPRESSION);
-            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
+            $depressionEvent = new PlayerEvent(
+                $player,
+                EndCauseEnum::DEPRESSION,
+                $playerEvent->getTime()
+            );
+
+            $this->eventDispatcher->dispatch($depressionEvent, PlayerEvent::DEATH_PLAYER);
         }
     }
 
     public function onSatietyPointModifier(PlayerModifierEvent $playerEvent): void
     {
         $player = $playerEvent->getPlayer();
-        $delta = $playerEvent->getDelta();
+        $delta = $playerEvent->getQuantity();
 
         $this->playerVariableService->handleSatietyModifier($delta, $player);
+    }
+
+    public function onMovementPointConversion(PlayerModifierEvent $playerEvent): void
+    {
+        $player = $playerEvent->getPlayer();
+        $delta = $playerEvent->getQuantity();
+
+        if ($player->getActionPoint() < 1) {
+            throw new \Exception('Trying to convert movement point without action point');
+        }
+
+        $this->playerVariableService->handleActionPointModifier(-1, $player);
+        $this->playerVariableService->handleMovementPointModifier($delta, $player);
     }
 }

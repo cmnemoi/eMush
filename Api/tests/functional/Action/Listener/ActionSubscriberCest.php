@@ -25,6 +25,7 @@ use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 
@@ -57,6 +58,13 @@ class ActionSubscriberCest
             ->setInjuryRate(100)
             ->setName(ActionEnum::TAKE)
         ;
+
+        $statusDirty = new StatusConfig();
+        $statusDirty
+            ->setName(PlayerStatusEnum::DIRTY)
+            ->setGameConfig($gameConfig)
+        ;
+        $I->haveInRepository($statusDirty);
 
         $actionEvent = new ActionEvent($action, $player);
 

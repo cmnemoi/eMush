@@ -20,23 +20,25 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerModifierEvent;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
-use Mush\Status\Entity\Status;
-use Mush\Status\Service\StatusServiceInterface;
+use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Event\StatusEvent;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class ActionSideEffectsServiceTest extends TestCase
 {
-    /** @var EventDispatcherInterface | Mockery\Mock */
+    /** @var EventDispatcherInterface|Mockery\Mock */
     private EventDispatcherInterface $eventDispatcher;
-    /** @var RoomLogServiceInterface | Mockery\Mock */
+    /** @var RoomLogServiceInterface|Mockery\Mock */
     private RoomLogServiceInterface $roomLogService;
-    /** @var RandomServiceInterface | Mockery\Mock */
+    /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;
     /** @var StatusServiceInterface | Mockery\Mock */
     private StatusServiceInterface $statusService;
     /** @var ModifierServiceInterface | Mockery\Mock */
     private ModifierServiceInterface $modifierService;
+    /** @var ActionModifierServiceInterface|Mockery\Mock */
+    private ActionModifierServiceInterface $actionModifierService;
 
     private ActionSideEffectsServiceInterface $actionService;
 
@@ -50,11 +52,11 @@ class ActionSideEffectsServiceTest extends TestCase
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
         $this->modifierService = Mockery::mock(ModifierServiceInterface::class);
+        $this->actionModifierService = Mockery::mock(ActionModifierServiceInterface::class);
 
         $this->actionService = new ActionSideEffectsService(
             $this->eventDispatcher,
             $this->randomService,
-            $this->statusService,
             $this->roomLogService,
             $this->modifierService
         );
@@ -94,13 +96,15 @@ class ActionSideEffectsServiceTest extends TestCase
             ->andReturn(100)
         ;
         $this->eventDispatcher->shouldReceive('dispatch')->never();
-        $this->roomLogService->shouldReceive('createLog')->once();
         $this->randomService->shouldReceive('randomPercent')->andReturn(10)->once();
-        $this->statusService->shouldReceive('createCoreStatus')->andReturn(new Status($player))->once();
 
-        $player = $this->actionService->handleActionSideEffect($action, $player, new \DateTime());
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
+            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::DIRTY && $event->getStatusHolder() === $player)
+            ->once()
+        ;
 
-        $this->assertCount(1, $player->getStatuses());
+        $this->actionService->handleActionSideEffect($action, $player, new \DateTime());
     }
 
     public function testHandleActionSideEffectDirtyWithApron()
@@ -164,18 +168,21 @@ class ActionSideEffectsServiceTest extends TestCase
         $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->withArgs(
-                fn (PlayerModifierEvent $playerEvent, string $eventName) => ($playerEvent->getDelta() === -2 && $eventName === PlayerModifierEvent::HEALTH_POINT_MODIFIER)
+                fn (PlayerModifierEvent $playerEvent, string $eventName) => ($playerEvent->getQuantity() === -2 && $eventName === PlayerModifierEvent::HEALTH_POINT_MODIFIER)
             )
             ->once()
         ;
 
-        $this->modifierService
-            ->shouldReceive('getEventModifiedValue')
-            ->with($player, [ModifierScopeEnum::EVENT_CLUMSINESS], ModifierTargetEnum::PERCENTAGE, 100)
+        $this->actionModifierService
+            ->shouldReceive('getModifiedValue')
+            ->with(100, $player, [ModifierScopeEnum::EVENT_CLUMSINESS], ModifierTargetEnum::PERCENTAGE)
             ->andReturn(100);
         $this->roomLogService->shouldReceive('createLog')->once();
         $this->randomService->shouldReceive('randomPercent')->andReturn(10)->once();
-        $this->statusService->shouldReceive('createCorePlayerStatus')->never();
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
+            ->never()
+        ;
         $player = $this->actionService->handleActionSideEffect($action, $player, new \DateTime());
 
         $this->assertCount(0, $player->getStatuses());

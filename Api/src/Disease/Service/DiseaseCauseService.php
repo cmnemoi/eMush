@@ -48,7 +48,13 @@ class DiseaseCauseService implements DiseaseCauseServiceInterface
             /** @var ConsumableDiseaseAttribute $disease */
             foreach ($consumableEffect->getDiseases() as $disease) {
                 if ($this->randomService->isSuccessful($disease->getRate())) {
-                    $this->playerDiseaseService->createDiseaseFromName($disease->getDisease(), $player, $disease->getDelayMin(), $disease->getDelayLength());
+                    $this->playerDiseaseService->createDiseaseFromName(
+                        $disease->getDisease(),
+                        $player,
+                        DiseaseCauseEnum::CONSUMABLE_EFFECT,
+                        $disease->getDelayMin(),
+                        $disease->getDelayLength()
+                    );
                 }
             }
 

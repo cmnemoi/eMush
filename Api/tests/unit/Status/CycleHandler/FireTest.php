@@ -14,7 +14,6 @@ use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerModifierEvent;
 use Mush\Status\CycleHandler\Fire;
 use Mush\Status\Entity\ChargeStatus;
@@ -24,13 +23,13 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class FireTest extends TestCase
 {
-    /** @var RandomServiceInterface | Mockery\Mock */
+    /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;
-    /** @var EventDispatcherInterface | Mockery\Mock */
+    /** @var EventDispatcherInterface|Mockery\Mock */
     private EventDispatcherInterface $eventDispatcher;
-    /** @var GameEquipmentServiceInterface | Mockery\Mock */
+    /** @var GameEquipmentServiceInterface|Mockery\Mock */
     private GameEquipmentServiceInterface $gameEquipmentService;
-    /** @var DaedalusServiceInterface | Mockery\Mock */
+    /** @var DaedalusServiceInterface|Mockery\Mock */
     private DaedalusServiceInterface $daedalusService;
     private Fire $cycleHandler;
 
@@ -96,8 +95,8 @@ class FireTest extends TestCase
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (PlayerEvent $playerEvent, string $eventName) => (
-                intval($playerEvent->getDelta()) === -2 && $eventName === PlayerModifierEvent::HEALTH_POINT_MODIFIER
+            ->withArgs(fn (PlayerModifierEvent $playerEvent, string $eventName) => (
+                intval($playerEvent->getQuantity()) === -2 && $eventName === PlayerModifierEvent::HEALTH_POINT_MODIFIER
             ))
             ->once()
         ;
@@ -108,7 +107,7 @@ class FireTest extends TestCase
             ->once()
         ;
 
-        $this->cycleHandler->handleNewCycle($status, $daedalus, $room, new \DateTime());
+        $this->cycleHandler->handleNewCycle($status, $room, new \DateTime());
 
         $this->assertEquals($daedalusHull, $daedalus->getHull());
     }

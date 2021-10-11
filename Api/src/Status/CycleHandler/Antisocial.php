@@ -2,7 +2,6 @@
 
 namespace Mush\Status\CycleHandler;
 
-use Mush\Daedalus\Entity\Daedalus;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerModifierEvent;
 use Mush\RoomLog\Enum\LogEnum;
@@ -25,14 +24,19 @@ class Antisocial extends AbstractStatusCycleHandler
         $this->roomLogService = $roomLogService;
     }
 
-    public function handleNewCycle(Status $status, Daedalus $daedalus, StatusHolderInterface $statusHolder, \DateTime $dateTime): void
+    public function handleNewCycle(Status $status, StatusHolderInterface $statusHolder, \DateTime $dateTime): void
     {
         if ($status->getName() !== PlayerStatusEnum::ANTISOCIAL || !$statusHolder instanceof Player) {
             return;
         }
 
         if ($statusHolder->getPlace()->getPlayers()->getPlayerAlive()->count() > 1) {
-            $playerModifierEvent = new PlayerModifierEvent($statusHolder, -1, $dateTime);
+            $playerModifierEvent = new PlayerModifierEvent(
+                $statusHolder,
+                -1,
+                PlayerStatusEnum::ANTISOCIAL,
+                $dateTime
+            );
             $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::MORAL_POINT_MODIFIER);
 
             $this->roomLogService->createLog(
@@ -45,7 +49,7 @@ class Antisocial extends AbstractStatusCycleHandler
         }
     }
 
-    public function handleNewDay(Status $status, Daedalus $daedalus, StatusHolderInterface $statusHolder, \DateTime $dateTime): void
+    public function handleNewDay(Status $status, StatusHolderInterface $statusHolder, \DateTime $dateTime): void
     {
     }
 }

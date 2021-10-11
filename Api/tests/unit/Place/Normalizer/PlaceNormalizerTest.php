@@ -20,7 +20,7 @@ class PlaceNormalizerTest extends TestCase
 {
     private PlaceNormalizer $normalizer;
 
-    /** @var TranslationServiceInterface | Mockery\Mock */
+    /** @var TranslationServiceInterface|Mockery\Mock */
     private TranslationServiceInterface $translationService;
 
     /**

@@ -109,22 +109,22 @@ export default defineComponent ({
     background: #09092d url("~@/assets/images/shipview/background.png") center repeat;
 
     .ship-panel-content {
+        width: 100%;
         flex-direction: row;
     }
 
-    & .ship-view {
-        position: absolute;
+    .ship-view {
         width: 100%;
         height: 100%;
 
         @include corner-bezel(6.5px, 6.5px, 0);
     }
 
-    & .room {
+    .room {
         position: absolute;
         z-index: 5;
         margin: 8px 16px;
-        font-family: 'Pixel-Square';
+        font-family: $font-pixel-square;
         font-size: 10px;
         font-weight: 700;
     }

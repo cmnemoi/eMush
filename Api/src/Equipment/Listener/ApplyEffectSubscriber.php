@@ -2,7 +2,8 @@
 
 namespace Mush\Equipment\Listener;
 
-use Mush\Action\Event\ActionEffectEvent;
+use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Equipment\Entity\ConsumableEffect;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
@@ -12,7 +13,7 @@ use Mush\Player\Event\PlayerModifierEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class ActionEffectSubscriber implements EventSubscriberInterface
+class ApplyEffectSubscriber implements EventSubscriberInterface
 {
     private GameEquipmentServiceInterface $gameEquipmentService;
     private EventDispatcherInterface $eventDispatcher;
@@ -31,11 +32,11 @@ class ActionEffectSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            ActionEffectEvent::CONSUME => 'onConsume',
+            ApplyEffectEvent::CONSUME => 'onConsume',
         ];
     }
 
-    public function onConsume(ActionEffectEvent $consumeEvent)
+    public function onConsume(ApplyEffectEvent $consumeEvent)
     {
         $player = $consumeEvent->getPlayer();
         $ration = $consumeEvent->getParameter();
@@ -65,30 +66,60 @@ class ActionEffectSubscriber implements EventSubscriberInterface
     protected function dispatchConsumableEffects(ConsumableEffect $consumableEffect, Player $player): void
     {
         if (($delta = $consumableEffect->getActionPoint()) !== null) {
-            $playerModifierEvent = new PlayerModifierEvent($player, $delta, new \DateTime());
+            $playerModifierEvent = new PlayerModifierEvent(
+                $player,
+                $delta,
+                ActionEnum::CONSUME,
+                new \DateTime()
+            );
             $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::ACTION_POINT_MODIFIER);
         }
         if (($delta = $consumableEffect->getMovementPoint()) !== null) {
-            $playerModifierEvent = new PlayerModifierEvent($player, $delta, new \DateTime());
+            $playerModifierEvent = new PlayerModifierEvent(
+                $player,
+                $delta,
+                ActionEnum::CONSUME,
+                new \DateTime()
+            );
             $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::MOVEMENT_POINT_MODIFIER);
         }
         if (($delta = $consumableEffect->getHealthPoint()) !== null) {
-            $playerModifierEvent = new PlayerModifierEvent($player, $delta, new \DateTime());
+            $playerModifierEvent = new PlayerModifierEvent(
+                $player,
+                $delta,
+                ActionEnum::CONSUME,
+                new \DateTime()
+            );
             $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
         }
         if (($delta = $consumableEffect->getMoralPoint()) !== null) {
-            $playerModifierEvent = new PlayerModifierEvent($player, $delta, new \DateTime());
+            $playerModifierEvent = new PlayerModifierEvent(
+                $player,
+                $delta,
+                ActionEnum::CONSUME,
+                new \DateTime()
+            );
             $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::MORAL_POINT_MODIFIER);
         }
         if (($delta = $consumableEffect->getSatiety()) !== null) {
-            $playerModifierEvent = new PlayerModifierEvent($player, $delta, new \DateTime());
+            $playerModifierEvent = new PlayerModifierEvent(
+                $player,
+                $delta,
+                ActionEnum::CONSUME,
+                new \DateTime()
+            );
             $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::SATIETY_POINT_MODIFIER);
         }
     }
 
     protected function dispatchMushEffect(Player $player): void
     {
-        $playerModifierEvent = new PlayerModifierEvent($player, 4, new \DateTime());
+        $playerModifierEvent = new PlayerModifierEvent(
+            $player,
+            4,
+            ActionEnum::CONSUME,
+            new \DateTime()
+        );
         $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::SATIETY_POINT_MODIFIER);
     }
 }

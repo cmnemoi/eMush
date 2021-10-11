@@ -11,6 +11,7 @@ use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Game\Enum\EventEnum;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
@@ -113,7 +114,7 @@ class GearToolService implements GearToolServiceInterface
             if ($toolMechanic &&
                 !$toolMechanic->getActions()->filter(fn (Action $action) => $action->getName() === $actionName)->isEmpty()
             ) {
-                $chargeStatus = $tool->getStatusByName(EquipmentStatusEnum::CHARGES);
+                $chargeStatus = $tool->getStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES);
                 if ($chargeStatus === null || !($chargeStatus instanceof ChargeStatus)) {
                     return $tool;
                 } elseif ($chargeStatus->getCharge() > 0) {
@@ -139,7 +140,7 @@ class GearToolService implements GearToolServiceInterface
 
     private function removeCharge(GameEquipment $equipment): void
     {
-        $chargeStatus = $equipment->getStatusByName(EquipmentStatusEnum::CHARGES);
+        $chargeStatus = $equipment->getStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES);
 
         if ($chargeStatus &&
             $chargeStatus instanceof ChargeStatus
@@ -147,7 +148,13 @@ class GearToolService implements GearToolServiceInterface
             $chargeStatus = $this->statusService->updateCharge($chargeStatus, -1);
 
             if ($chargeStatus === null) {
-                $equipmentEvent = new EquipmentEvent($equipment, VisibilityEnum::HIDDEN, new \DateTime());
+                $equipmentEvent = new EquipmentEvent(
+                    $equipment,
+                    $equipment->getCurrentPlace(),
+                    VisibilityEnum::HIDDEN,
+                    EventEnum::OUT_OF_CHARGE,
+                    new \DateTime()
+                );
                 $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
             }
         }

@@ -30,7 +30,7 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
         $player = $playerEvent->getPlayer();
 
         if (!$player->isMush()) {
-            $this->playerStatus->handleMoralStatus($player);
+            $this->playerStatus->handleMoralStatus($player, $playerEvent->getTime());
         }
     }
 
@@ -39,5 +39,10 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
         $player = $playerEvent->getPlayer();
 
         $this->playerStatus->handleSatietyStatus($player, $playerEvent->getTime());
+    }
+
+    public function onMovementPointConversion(PlayerModifierEvent $playerEvent): void
+    {
+        //@TODO incoming in modifier merge
     }
 }

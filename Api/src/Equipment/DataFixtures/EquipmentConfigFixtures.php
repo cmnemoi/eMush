@@ -20,6 +20,9 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Modifier\DataFixtures\GearModifierConfigFixtures;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
+use Mush\Status\DataFixtures\ChargeStatusFixtures;
+use Mush\Status\DataFixtures\StatusFixtures;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
 
 class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -50,6 +53,12 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $sabotage12 = $this->getReference(TechnicianFixtures::SABOTAGE_12);
         /** @var Action $sabotage25 */
         $sabotage25 = $this->getReference(TechnicianFixtures::SABOTAGE_25);
+
+        /** @var ChargeStatusConfig $electricCharge */
+        $electricCharge = $this->getReference(ChargeStatusFixtures::CYCLE_ELECTRIC_CHARGE);
+
+        /** @var ChargeStatusConfig $dailyElectricCharge */
+        $dailyElectricCharge = $this->getReference(ChargeStatusFixtures::DAILY_ELECTRIC_CHARGE);
 
         //@TODO terminals
         $icarus = new EquipmentConfig();
@@ -254,25 +263,15 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($showerMechanic);
 
         //@TODO ships
-        $patrolShipChargeMechanic = new Charged();
-        $patrolShipChargeMechanic
-            ->setMaxCharge(10)
-            ->setStartCharge(10)
-            ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
-            ->setIsVisible(true)
-            ->setActions(new ArrayCollection([$examineAction]))
-        ;
         $patrolShip = new EquipmentConfig();
         $patrolShip
             ->setGameConfig($gameConfig)
             ->setName(EquipmentEnum::PATROL_SHIP)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$patrolShipChargeMechanic]))
             ->setActions(new ArrayCollection([$examineAction]))
         ;
         $manager->persist($patrolShip);
-        $manager->persist($patrolShipChargeMechanic);
 
         $pasiphae = new EquipmentConfig();
         $pasiphae
@@ -313,13 +312,17 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $combustionChamberMechanic = new Tool();
         $combustionChamberMechanic->addAction($fuelInjectAction);
         $combustionChamberMechanic->addAction($fuelRetrieveAction);
-        $chargedMechanic = new Charged();
-        $chargedMechanic
+
+        /** @var ChargeStatusConfig $combustionChargeStatus */
+        $combustionChargeStatus = $this->getReference(ChargeStatusFixtures::COMBUSTION_CHAMBER);
+
+        $combustionChargedMechanic = new Charged();
+        $combustionChargedMechanic
             ->setMaxCharge(9)
             ->setStartCharge(0)
-            ->setChargeStrategy(ChargeStrategyTypeEnum::NONE)
-            ->setIsVisible(false)
+            ->setChargeStatusConfig($combustionChargeStatus)
         ;
+
         $combustionChamber = new EquipmentConfig();
         $combustionChamber
             ->setGameConfig($gameConfig)
@@ -327,12 +330,12 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
-            ->setMechanics(new ArrayCollection([$combustionChamberMechanic, $chargedMechanic]))
+            ->setMechanics(new ArrayCollection([$combustionChamberMechanic, $combustionChargedMechanic]))
             ->setActions(new ArrayCollection([$repair12, $sabotage12, $reportAction, $examineAction]))
         ;
         $manager->persist($combustionChamber);
         $manager->persist($combustionChamberMechanic);
-        $manager->persist($chargedMechanic);
+        $manager->persist($combustionChargedMechanic);
 
         /** @var Action $cookAction */
         $cookAction = $this->getReference(ActionsFixtures::COOK_DEFAULT);
@@ -353,19 +356,17 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($kitchen);
         $manager->persist($kitchenMechanic);
 
+        $distillerMechanic = new Tool();
+        /** @var Action $dispenseAction */
+        $dispenseAction = $this->getReference(ActionsFixtures::DISPENSE_DRUG);
+        $distillerMechanic->addAction($dispenseAction);
+
         $dailyChargeMechanic = new Charged();
         $dailyChargeMechanic
             ->setMaxCharge(1)
             ->setStartCharge(1)
-            ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_INCREMENT)
-            ->setIsVisible(false)
+            ->setChargeStatusConfig($dailyElectricCharge)
         ;
-        $distillerMechanic = new Tool();
-
-        /** @var Action $dispenseAction */
-        $dispenseAction = $this->getReference(ActionsFixtures::DISPENSE_DRUG);
-
-        $distillerMechanic->addAction($dispenseAction);
 
         $narcoticDistiller = new EquipmentConfig();
         $narcoticDistiller
@@ -498,9 +499,9 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $turretChargeMechanic
             ->setMaxCharge(4)
             ->setStartCharge(4)
-            ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
-            ->setIsVisible(true)
+            ->setChargeStatusConfig($electricCharge)
         ;
+
         $turretCommandMechanic = new Tool();
 //        $turretCommandMechanic->setActions([ActionEnum::SHOOT_HUNTER]);
         $turretCommand = new EquipmentConfig();
@@ -599,6 +600,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             GameConfigFixtures::class,
             ActionsFixtures::class,
             TechnicianFixtures::class,
+            ChargeStatusFixtures::class,
+            StatusFixtures::class,
         ];
     }
 

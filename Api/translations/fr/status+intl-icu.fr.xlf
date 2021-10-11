@@ -15,17 +15,17 @@
                 <target>TODO</target>
             </segment>
         </unit>
-        <unit id="charges">
+        <unit id="electric_charges">
             <segment id="name">
-                <source>charges.name</source>
+                <source>electric_charges.name</source>
                 <target>Charge</target>
             </segment>
             <segment id="description">
-                <source>charges.description</source>
+                <source>electric_charges.description</source>
                 <target>Les charges sont le nombre d'utilisation que vous pouvez faire de cet objet. Les objets chargés regagnent une charge par cycle.</target>
             </segment>
             <segment id="effect">
-                <source>charges.examine</source>
+                <source>electric_charges.examine</source>
                 <target>TODO</target>
             </segment>
         </unit>

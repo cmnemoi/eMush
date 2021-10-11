@@ -111,6 +111,14 @@ class RepairActionCest
         $modifier->setModifierConfig($modifierConfig)->setPlayer($player);
         $I->haveInRepository($modifier);
         $I->refreshEntities($player);
+        $wrench = new ItemConfig();
+        $wrench
+            ->setName(GearItemEnum::ADJUSTABLE_WRENCH)
+            ->setIsStackable(false)
+            ->setIsFireDestroyable(false)
+            ->setIsFireBreakable(false)
+            ->setMechanics(new ArrayCollection([$wrenchGear]))
+        ;
 
         $I->assertEquals(37, $this->repairAction->getSuccessRate());
     }

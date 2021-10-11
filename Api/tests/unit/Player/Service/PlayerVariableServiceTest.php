@@ -20,6 +20,8 @@ class PlayerVariableServiceTest extends TestCase
 {
     /** @var ModifierServiceInterface | Mockery\Mock */
     private ModifierServiceInterface $modifierService;
+    /** @var ActionModifierServiceInterface|Mockery\Mock */
+    private ActionModifierServiceInterface $actionModifierService;
 
     private PlayerVariableService $service;
 

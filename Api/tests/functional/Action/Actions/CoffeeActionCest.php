@@ -114,9 +114,9 @@ class CoffeeActionCest
 
         $I->assertEquals(ActionImpossibleCauseEnum::DAILY_LIMIT, $this->coffeeAction->cannotExecuteReason());
 
-        $brokenStatus = new ChargeStatus($gameEquipment);
-        $brokenStatus
-            ->setName(EquipmentStatusEnum::CHARGES)
+        $chargeStatus = new ChargeStatus($gameEquipment);
+        $chargeStatus
+            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
         ;
 
         $I->assertEquals(ActionImpossibleCauseEnum::DAILY_LIMIT, $this->coffeeAction->cannotExecuteReason());

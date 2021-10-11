@@ -19,7 +19,6 @@ use Mush\RoomLog\Enum\VisibilityEnum;
  *     "status" = "Mush\Status\Entity\Status",
  *     "charge_status" = "Mush\Status\Entity\ChargeStatus",
  *     "attempt" = "Mush\Status\Entity\Attempt",
- *     "medical_condition" = "Mush\Status\Entity\MedicalCondition",
  *     "content_status" = "Mush\Status\Entity\ContentStatus",
  * })
  */

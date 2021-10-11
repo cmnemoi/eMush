@@ -36,13 +36,19 @@ class RoomSubscriber implements EventSubscriberInterface
             throw new \LogicException('place should be a room');
         }
 
-        //@FIXME does electric arc break everythings?
+        //@FIXME does electric arc break everything?
         foreach ($room->getEquipments() as $equipment) {
             if (!$equipment->isBroken() &&
                 !($equipment instanceof Door) &&
                 !($equipment instanceof GameItem) &&
                 $equipment->isBreakable()) {
-                $equipmentEvent = new EquipmentEvent($equipment, VisibilityEnum::PUBLIC, $event->getTime());
+                $equipmentEvent = new EquipmentEvent(
+                    $equipment,
+                    $event->getRoom(),
+                    VisibilityEnum::PUBLIC,
+                    RoomEvent::ELECTRIC_ARC,
+                    $event->getTime()
+                );
                 $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_BROKEN);
             }
         }

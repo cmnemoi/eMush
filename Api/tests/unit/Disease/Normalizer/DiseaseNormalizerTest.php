@@ -13,7 +13,7 @@ class DiseaseNormalizerTest extends TestCase
 {
     private DiseaseNormalizer $normalizer;
 
-    /** @var TranslationService | Mockery\Mock */
+    /** @var TranslationService|Mockery\Mock */
     private TranslationService $translationService;
 
     /**

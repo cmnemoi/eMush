@@ -16,13 +16,13 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class DaedalusNormalizerTest extends TestCase
 {
     private DaedalusNormalizer $normalizer;
-    /** @var CycleServiceInterface | Mockery\Mock */
+    /** @var CycleServiceInterface|Mockery\Mock */
     private CycleServiceInterface $cycleService;
 
-    /** @var TranslationService | Mockery\Mock */
+    /** @var TranslationService|Mockery\Mock */
     private TranslationService $translationService;
 
-    /** @var TranslatorInterface | Mockery\Mock */
+    /** @var TranslatorInterface|Mockery\Mock */
     private TranslatorInterface $translator;
 
     /**

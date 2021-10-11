@@ -19,6 +19,7 @@ use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
@@ -68,8 +69,7 @@ class PlayerEventCest
             'characterConfig' => $characterConfig,
         ]);
 
-        $playerEvent = new PlayerEvent($player, new \DateTime());
-        $playerEvent->setReason(EndCauseEnum::CLUMSINESS);
+        $playerEvent = new PlayerEvent($player, EndCauseEnum::CLUMSINESS, new \DateTime());
 
         $this->eventDispatcherService->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
 
@@ -99,6 +99,13 @@ class PlayerEventCest
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'user' => $user]);
 
+        $mushStatusConfig = new ChargeStatusConfig();
+        $mushStatusConfig
+            ->setName(PlayerStatusEnum::MUSH)
+            ->setGameConfig($gameConfig)
+        ;
+        $I->haveInRepository($mushStatusConfig);
+
         $mushStatus = new ChargeStatus($player);
         $mushStatus
             ->setName(PlayerStatusEnum::SPORES)
@@ -106,8 +113,7 @@ class PlayerEventCest
             ->setCharge(0)
         ;
 
-        $playerEvent = new PlayerEvent($player, new \DateTime());
-        $playerEvent->setReason(ActionEnum::INFECT);
+        $playerEvent = new PlayerEvent($player, ActionEnum::INFECT, new \DateTime());
 
         $this->eventDispatcherService->dispatch($playerEvent, PlayerEvent::INFECTION_PLAYER);
 

@@ -51,7 +51,8 @@ export default defineComponent ({
         font-variant: small-caps;
         text-shadow: 0 0 4px black, 0 0 4px black;
         background: #2d2f89;
-        & img { padding-right: 4px; }
+        
+        img { padding-right: 4px; }
 
         @include corner-bezel(0, 0, 22px, 22px );
     }

@@ -49,6 +49,7 @@ export default defineComponent ({
     span {
         text-align: center;
         margin-bottom: .4em;
+        font-size: 1.2em;
         font-variant: small-caps;
         font-weight: bold;
         letter-spacing: .02em;

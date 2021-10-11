@@ -101,6 +101,16 @@
                 <target>Extirpez-vous un spore pour ensuite contaminer un coéquipier (avant de contaminer repérez les caméras).</target>
             </segment>
         </unit>
+        <unit id="flirt">
+            <segment id="name">
+                <source>flirt.name</source>
+                <target>Fleureter</target>
+            </segment>
+            <segment id="description">
+                <source>flirt.description</source>
+                <target>Permet de fleureter avec quelqu'un, cela lui permettra de le faire avec vous. Cette action est **irrémédiable**.</target>
+            </segment>
+        </unit>
         <unit id="get_up">
             <segment id="extract_spore">
                 <source>get_up.name</source>

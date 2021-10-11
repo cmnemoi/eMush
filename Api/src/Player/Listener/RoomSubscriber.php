@@ -43,8 +43,12 @@ class RoomSubscriber implements EventSubscriberInterface
         foreach ($room->getPlayers()->getPlayerAlive() as $player) {
             $damage = (int) $this->randomService->getSingleRandomElementFromProbaArray($difficultyConfig->getTremorPlayerDamage());
 
-            $playerModifierEvent = new PlayerModifierEvent($player, -$damage, $event->getTime());
-            $playerModifierEvent->setReason(EndCauseEnum::INJURY);
+            $playerModifierEvent = new PlayerModifierEvent(
+                $player,
+                -$damage,
+                EndCauseEnum::INJURY,
+                $event->getTime()
+            );
             $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
         }
     }
@@ -61,8 +65,12 @@ class RoomSubscriber implements EventSubscriberInterface
         foreach ($room->getPlayers()->getPlayerAlive() as $player) {
             $damage = (int) $this->randomService->getSingleRandomElementFromProbaArray($difficultyConfig->getElectricArcPlayerDamage());
 
-            $playerModifierEvent = new PlayerModifierEvent($player, -$damage, $event->getTime());
-            $playerModifierEvent->setReason(EndCauseEnum::ELECTROCUTED);
+            $playerModifierEvent = new PlayerModifierEvent(
+                $player,
+                -$damage,
+                EndCauseEnum::ELECTROCUTED,
+                $event->getTime()
+            );
             $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
         }
     }

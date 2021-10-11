@@ -89,7 +89,7 @@ export default defineComponent ({
         position: absolute;
         top: -6px;
         right: 3px;
-        font-size: 0.82em;
+        font-size: 0.93em;
         font-weight: 600;
         text-shadow: 0 0 3px black, 0 0 3px black, 0 0 3px black;
     }

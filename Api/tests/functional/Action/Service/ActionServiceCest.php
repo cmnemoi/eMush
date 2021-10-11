@@ -9,6 +9,7 @@ use Mush\Action\Service\ActionService;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\CharacterConfig;
+use Mush\Game\Entity\CharacterConfig;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Entity\PlayerModifier;
 use Mush\Modifier\Enum\ModifierModeEnum;
@@ -19,6 +20,9 @@ use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Status\Entity\Status;
+use Mush\Status\Enum\PlayerStatusEnum;
 
 class ActionServiceCest
 {
@@ -37,11 +41,14 @@ class ActionServiceCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['name' => RoomEnum::LABORATORY, 'daedalus' => $daedalus]);
 
+        /** @var CharacterConfig $characterConfig */
+        $characterConfig = $I->have(CharacterConfig::class);
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'place' => $room,
             'daedalus' => $daedalus,
             'actionPoint' => 10,
+            'characterConfig' => $characterConfig,
         ]);
 
         $actionCost = new ActionCost();
@@ -55,9 +62,10 @@ class ActionServiceCest
 
         $I->assertEquals(5, $player->getActionPoint());
 
-        $I->dontSeeInRepository(RoomLog::class, [
+        $I->seeInRepository(RoomLog::class, [
             'place' => $player->getPlace(),
             'player' => $player,
+            'visibility' => VisibilityEnum::HIDDEN,
         ]);
     }
 

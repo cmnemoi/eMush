@@ -24,9 +24,9 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class GearToolServiceTest extends TestCase
 {
-    /** @var EventDispatcherInterface | Mockery\Mock */
+    /** @var EventDispatcherInterface|Mockery\Mock */
     private EventDispatcherInterface $eventDispatcher;
-    /** @var StatusServiceInterface | Mockery\Mock */
+    /** @var StatusServiceInterface|Mockery\Mock */
     private StatusServiceInterface $statusService;
 
     private GearToolService $service;
@@ -263,7 +263,7 @@ class GearToolServiceTest extends TestCase
         //Two tool with the same action but 1 with charges
         $chargeStatus = new ChargeStatus($gameItem);
         $chargeStatus
-            ->setName(EquipmentStatusEnum::CHARGES)
+            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
             ->setCharge(3)
         ;
 
@@ -275,7 +275,7 @@ class GearToolServiceTest extends TestCase
         //Two tool with the same action but 1 is charged and the other have no charge left
         $chargeStatus2 = new ChargeStatus($gameItem2);
         $chargeStatus2
-            ->setName(EquipmentStatusEnum::CHARGES)
+            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
             ->setCharge(0)
         ;
 
@@ -307,8 +307,78 @@ class GearToolServiceTest extends TestCase
         ;
         $chargeStatus1 = new ChargeStatus($gameTool);
         $chargeStatus1
-            ->setName(EquipmentStatusEnum::CHARGES)
+            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
             ->setCharge(1)
+        ;
+
+        $modifier1 = new Modifier();
+        $modifier1
+            ->setTarget(ModifierTargetEnum::PERCENTAGE)
+            ->setDelta(1.5)
+            ->setScope(ActionEnum::REPAIR)
+            ->setReach(ReachEnum::INVENTORY)
+        ;
+        $gear1 = new Gear();
+        $gear1->setModifier(new arrayCollection([$modifier1]));
+        $gearConfig1 = new ItemConfig();
+        $gearConfig1
+            ->setName('gear1')
+            ->setMechanics(new arrayCollection([$gear1]))
+        ;
+        $gameGear1 = new GameItem();
+        $gameGear1
+            ->setName('gear1')
+            ->setEquipment($gearConfig1)
+        ;
+
+        $modifier2 = new Modifier();
+        $modifier2
+            ->setTarget(ModifierTargetEnum::PERCENTAGE)
+            ->setDelta(1.5)
+            ->setScope(ActionEnum::REPAIR)
+            ->setReach(ReachEnum::INVENTORY)
+        ;
+        $gear2 = new Gear();
+        $gear2->setModifier(new arrayCollection([$modifier2]));
+        $gearConfig2 = new ItemConfig();
+        $gearConfig2
+            ->setName('gear2')
+            ->setMechanics(new arrayCollection([$gear2]))
+        ;
+        $gameGear2 = new GameItem();
+        $gameGear2
+            ->setName('gear2')
+            ->setEquipment($gearConfig2)
+        ;
+        $chargeStatus2 = new ChargeStatus($gameGear2);
+        $chargeStatus2
+            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
+            ->setCharge(1)
+        ;
+
+        $modifier3 = new Modifier();
+        $modifier3
+            ->setTarget(ModifierTargetEnum::ACTION_POINT)
+            ->setDelta(1)
+            ->setScope(ActionEnum::REPAIR)
+            ->setReach(ReachEnum::INVENTORY)
+        ;
+        $gear3 = new Gear();
+        $gear3->setModifier(new arrayCollection([$modifier3]));
+        $gearConfig3 = new ItemConfig();
+        $gearConfig3
+            ->setName('gear3')
+            ->setMechanics(new arrayCollection([$gear3]))
+        ;
+        $gameGear3 = new GameItem();
+        $gameGear3
+            ->setName('gear3')
+            ->setEquipment($gearConfig1)
+        ;
+        $chargeStatus3 = new ChargeStatus($gameGear3);
+        $chargeStatus3
+            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
+            ->setCharge(0)
         ;
 
         $room->addPlayer($player)->addEquipment($gameTool);

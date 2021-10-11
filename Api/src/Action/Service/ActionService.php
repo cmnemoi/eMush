@@ -8,7 +8,9 @@ use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Event\PlayerModifierEvent;
+use Mush\Player\Service\ActionModifierServiceInterface;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -23,13 +25,16 @@ class ActionService implements ActionServiceInterface
     private EventDispatcherInterface $eventDispatcher;
     private ModifierServiceInterface $modifierService;
     private StatusServiceInterface $statusService;
+    private ActionModifierServiceInterface $actionModifierService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
+        ActionModifierServiceInterface $actionModifierService,
         ModifierServiceInterface $modifierService,
         StatusServiceInterface $statusService
     ) {
         $this->eventDispatcher = $eventDispatcher;
+        $this->actionModifierService = $actionModifierService;
         $this->modifierService = $modifierService;
         $this->statusService = $statusService;
     }
@@ -150,32 +155,15 @@ class ActionService implements ActionServiceInterface
         return 0;
     }
 
-    public function getAttempt(Player $player, string $actionName): Attempt
-    {
-        /** @var Attempt $attempt */
-        $attempt = $player->getStatusByName(StatusEnum::ATTEMPT);
-
-        if ($attempt && $attempt->getAction() !== $actionName) {
-            // Re-initialize attempts with new action
-            $attempt
-                ->setAction($actionName)
-                ->setCharge(0)
-            ;
-        } elseif ($attempt === null) { //Create Attempt
-            $attempt = $this->statusService->createAttemptStatus(
-                StatusEnum::ATTEMPT,
-                $actionName,
-                $player
-            );
-        }
-
-        return $attempt;
-    }
-
     private function triggerPlayerModifierEvent(Player $player, string $eventName, int $delta): void
     {
-        $playerModifierEvent = new PlayerModifierEvent($player, $delta, new \DateTime());
-        $playerModifierEvent->setIsDisplayedRoomLog(false);
+        $playerModifierEvent = new PlayerModifierEvent(
+            $player,
+            $delta,
+            'action_cost', //@TODO fix that
+            new \DateTime()
+        );
+        $playerModifierEvent->setVisibility(VisibilityEnum::HIDDEN);
         $this->eventDispatcher->dispatch($playerModifierEvent, $eventName);
     }
 }

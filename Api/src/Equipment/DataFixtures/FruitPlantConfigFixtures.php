@@ -59,7 +59,6 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
         $banana
             ->setGameConfig($gameConfig)
             ->setName(GameFruitEnum::BANANA)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
@@ -82,7 +81,6 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
         $bananaTree
             ->setGameConfig($gameConfig)
             ->setName(GamePlantEnum::BANANA_TREE)
-            ->setIsHeavy(false)
             ->setIsStackable(false)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
@@ -122,7 +120,6 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
             $alienFruit
                 ->setGameConfig($gameConfig)
                 ->setName($fruitName)
-                ->setIsHeavy(false)
                 ->setIsStackable(true)
                 ->setIsFireDestroyable(true)
                 ->setIsFireBreakable(false)
@@ -143,7 +140,6 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
             $alienPlant
                 ->setGameConfig($gameConfig)
                 ->setName($plantName)
-                ->setIsHeavy(false)
                 ->setIsStackable(false)
                 ->setIsFireDestroyable(true)
                 ->setIsFireBreakable(false)
@@ -168,7 +164,6 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
         $junkin
             ->setGameConfig($gameConfig)
             ->setName(GameFruitEnum::JUNKIN)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
@@ -190,7 +185,6 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
         $bumpjunkin
             ->setGameConfig($gameConfig)
             ->setName(GamePlantEnum::BUMPJUNKIN)
-            ->setIsHeavy(false)
             ->setIsStackable(false)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)

@@ -37,7 +37,7 @@ services:
     environment:
       POSTGRES_PASSWORD: password
       POSTGRES_USER: mysql
-      POSTGRES_MULTIPLE_DATABASES: mush,eternal_twin
+      POSTGRES_MULTIPLE_DATABASES: mush,etwin.dev
 
   mush_front:
     container_name: mush_front

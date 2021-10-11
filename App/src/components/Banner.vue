@@ -1,6 +1,5 @@
 <template>
     <div class="banner">
-        <div class="tid_shadow" />
         <div class="logo">
             <a href="/" class="logo"><img src="@/assets/images/logo_new.png" alt=""></a>
         </div>
@@ -32,21 +31,41 @@ export default defineComponent ({
 
 <style lang="scss" scoped>
 
-.mainmenu > a {
-    margin: 0 20px;
-    padding: 5px 10px;
-    color: white;
+.mainmenu {
+    display: flex;
+    flex-direction: row;
 
-    &:hover,
-    &:active {
-        color: #dffaff;
-        text-shadow: 0 0 1px rgb(255, 255, 255), 0 0 1px rgb(255, 255, 255);
+    a {
+        margin: 0 1.4em;
+        padding: .3em .6em;
+        color: white;
+        font-size: 1.1rem;
+        font-weight: normal;
+        letter-spacing: .06em;
+        text-decoration: none;
+
+        &:hover,
+        &:active {
+            color: #dffaff;
+            text-shadow: 0 0 1px white, 0 0 1px white;
+        }
+
+        .unavailable {
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
     }
 }
 
-.unavailable {
-    text-decoration: line-through;
-    opacity: 0.6;
+.banner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logo {
+    height: 100%;
+    margin: -0.05em 5em 0.1em 5em;
 }
 
 </style>

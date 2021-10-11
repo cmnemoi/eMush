@@ -13,7 +13,6 @@ use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerModifierEvent;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -67,8 +66,12 @@ class Shower extends AbstractAction
         }
 
         if ($this->player->isMush()) {
-            $playerModifierEvent = new PlayerModifierEvent($this->player, self::MUSH_SHOWER_DAMAGES, new \DateTime());
-            $playerModifierEvent->setReason(EndCauseEnum::CLUMSINESS);
+            $playerModifierEvent = new PlayerModifierEvent(
+                $this->player,
+                self::MUSH_SHOWER_DAMAGES,
+                $this->getActionName(),
+                new \DateTime()
+            );
             $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
         }
 

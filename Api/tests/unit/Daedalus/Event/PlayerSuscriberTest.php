@@ -15,7 +15,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class PlayerSuscriberTest extends TestCase
 {
-    /** @var EventDispatcherInterface | Mockery\Mock */
+    /** @var EventDispatcherInterface|Mockery\Mock */
     private EventDispatcherInterface $eventDispatcher;
 
     private PlayerSubscriber $playerSubscriber;
@@ -55,7 +55,11 @@ class PlayerSuscriberTest extends TestCase
 
         $date = new \DateTime('tomorrow');
 
-        $event = new PlayerEvent($player, $date);
+        $event = new PlayerEvent(
+            $player,
+            DaedalusEvent::END_DAEDALUS,
+            $date
+        );
 
         $this->eventDispatcher->shouldReceive('dispatch')
             ->withArgs(fn (DaedalusEvent $endDaedalusEvent, string $eventName) => ($endDaedalusEvent->getTime() === $date && $eventName === DaedalusEvent::END_DAEDALUS))

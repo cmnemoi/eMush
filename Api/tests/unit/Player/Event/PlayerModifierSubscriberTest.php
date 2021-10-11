@@ -12,9 +12,9 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class PlayerModifierSubscriberTest extends TestCase
 {
-    /** @var PlayerVariableServiceInterface | Mockery\Mock */
+    /** @var PlayerVariableServiceInterface|Mockery\Mock */
     private PlayerVariableServiceInterface $playerVariableService;
-    /** @var EventDispatcherInterface | Mockery\Mock */
+    /** @var EventDispatcherInterface|Mockery\Mock */
     private EventDispatcherInterface $eventDispatcher;
 
     private PlayerModifierSubscriber $playerModifierSubscriber;
@@ -60,7 +60,7 @@ class PlayerModifierSubscriberTest extends TestCase
     {
         $player = new Player();
 
-        $event = new PlayerModifierEvent($player, 1, new \DateTime());
+        $event = new PlayerModifierEvent($player, 1, 'movement point conversion', new \DateTime());
 
         $this->playerVariableService
             ->shouldReceive('handleActionPointModifier')

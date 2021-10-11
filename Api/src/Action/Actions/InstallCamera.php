@@ -71,7 +71,13 @@ class InstallCamera extends AbstractAction
             ->createGameEquipmentFromName(EquipmentEnum::CAMERA_EQUIPMENT, $this->player->getDaedalus())
         ;
 
-        $equipmentEvent = new EquipmentEvent($itemCamera, VisibilityEnum::PUBLIC, new \DateTime());
+        $equipmentEvent = new EquipmentEvent(
+            $itemCamera,
+            $this->player->getPlace(),
+            VisibilityEnum::PUBLIC,
+            $this->getActionName(),
+            new \DateTime()
+        );
         $equipmentEvent->setReplacementEquipment($equipmentCamera)->setPlayer($this->player);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_TRANSFORM);
 

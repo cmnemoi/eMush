@@ -20,6 +20,7 @@ class ActionLogEnum
     public const EXTINGUISH_SUCCESS = 'extinguish_success';
     public const EXTINGUISH_FAIL = 'extinguish_fail';
     public const EXTRACT_SPORE_SUCCESS = 'extract_spore_success';
+    public const FLIRT_SUCCESS = 'flirt_success';
     public const GET_UP = 'get_up';
     public const HEAL_SUCCESS = 'heal_success';
     public const HIDE_SUCCESS = 'hide_success';
@@ -368,6 +369,13 @@ class ActionLogEnum
             self::FAIL => [
                 self::VALUE => self::DEFAULT_FAIL,
                 self::VISIBILITY => VisibilityEnum::PRIVATE,
+            ],
+        ],
+
+        ActionEnum::FLIRT => [
+            self::SUCCESS => [
+                self::VALUE => self::FLIRT_SUCCESS,
+                self::VISIBILITY => VisibilityEnum::PUBLIC,
             ],
         ],
     ];

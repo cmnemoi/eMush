@@ -18,7 +18,7 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 
 class WaterPlantActionTest extends AbstractActionTest
 {
-    /** @var GameEquipmentServiceInterface | Mockery\Mock */
+    /** @var GameEquipmentServiceInterface|Mockery\Mock */
     private GameEquipmentServiceInterface $gameEquipmentService;
 
     /**

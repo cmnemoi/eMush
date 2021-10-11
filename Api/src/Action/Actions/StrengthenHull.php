@@ -67,9 +67,21 @@ class StrengthenHull extends AttemptAction
                 ->setQuantity($quantity)
                 ->setPlayer($this->player)
             ;
+            $daedalusEvent = new DaedalusModifierEvent(
+                $this->player->getDaedalus(),
+                $quantity,
+                $this->getActionName(),
+                new \DateTime()
+            );
             $this->eventDispatcher->dispatch($daedalusEvent, DaedalusModifierEvent::CHANGE_HULL);
 
-            $equipmentEvent = new EquipmentEvent($parameter, VisibilityEnum::HIDDEN, new \DateTime());
+            $equipmentEvent = new EquipmentEvent(
+                $parameter,
+                $this->player->getPlace(),
+                VisibilityEnum::HIDDEN,
+                $this->getActionName(),
+                new \DateTime()
+            );
             $equipmentEvent->setPlayer($this->player);
             $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
         }

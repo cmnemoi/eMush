@@ -20,15 +20,14 @@ use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\StatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 
 class ExtinguishActionTest extends AbstractActionTest
 {
-    /** @var PlaceServiceInterface | Mockery\Mock */
+    /** @var PlaceServiceInterface|Mockery\Mock */
     private PlaceServiceInterface $placeService;
-    /** @var PlayerServiceInterface | Mockery\Mock */
+    /** @var PlayerServiceInterface|Mockery\Mock */
     private PlayerServiceInterface $playerService;
-    /** @var RandomServiceInterface | Mockery\Mock */
+    /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;
 
     /**
@@ -43,7 +42,6 @@ class ExtinguishActionTest extends AbstractActionTest
         $this->placeService = Mockery::mock(PlaceServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
-        $this->statusService = Mockery::mock(StatusServiceInterface::class);
 
         $this->action = new Extinguish(
             $this->eventDispatcher,
@@ -51,7 +49,6 @@ class ExtinguishActionTest extends AbstractActionTest
             $this->validator,
             $this->playerService,
             $this->randomService,
-            $this->placeService,
         );
     }
 
@@ -107,7 +104,7 @@ class ExtinguishActionTest extends AbstractActionTest
         $this->assertInstanceOf(Fail::class, $result);
         $this->assertCount(0, $room->getEquipments()->first()->getStatuses());
         $this->assertCount(1, $room->getStatuses());
-        $this->assertEquals(1, $attempt->getCharge());
+        $this->assertEquals(0, $attempt->getCharge());
     }
 
     public function testExecuteSuccess()

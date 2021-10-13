@@ -9,9 +9,8 @@ use Mush\Action\Service\ActionService;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\CharacterConfig;
-use Mush\Game\Entity\CharacterConfig;
+use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierConfig;
-use Mush\Modifier\Entity\PlayerModifier;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Modifier\Enum\ModifierScopeEnum;
@@ -129,8 +128,7 @@ class ActionServiceCest
 
         $I->haveInRepository($modifierConfig);
 
-        $disabledModifier = new PlayerModifier();
-        $disabledModifier->setPlayer($player)->setModifierConfig($modifierConfig);
+        $disabledModifier = new Modifier($player, $modifierConfig);
 
         $I->haveInRepository($disabledModifier);
 

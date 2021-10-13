@@ -8,7 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Action\Entity\ActionParameter;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
-use Mush\Modifier\Entity\EquipmentModifier;
+use Mush\Modifier\Entity\Modifier;
+use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Place\Entity\Place;
 use Mush\RoomLog\Entity\LogParameter;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
@@ -31,7 +32,7 @@ use Mush\Status\Enum\EquipmentStatusEnum;
  *     "game_item" = "Mush\Equipment\Entity\GameItem"
  * })
  */
-class GameEquipment implements StatusHolderInterface, ActionParameter, LogParameter
+class GameEquipment implements StatusHolderInterface, ActionParameter, LogParameter, ModifierHolder
 {
     use TimestampableEntity;
     use TargetStatusTrait;
@@ -64,7 +65,7 @@ class GameEquipment implements StatusHolderInterface, ActionParameter, LogParame
     private string $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="Mush\Modifier\Entity\EquipmentModifier", mappedBy="gameEquipment")
+     * @ORM\OneToMany(targetEntity="Mush\Modifier\Entity\Modifier", mappedBy="gameEquipment")
      */
     private Collection $modifiers;
 
@@ -193,13 +194,9 @@ class GameEquipment implements StatusHolderInterface, ActionParameter, LogParame
     /**
      * @return static
      */
-    public function addModifier(EquipmentModifier $modifier): GameEquipment
+    public function addModifier(Modifier $modifier): GameEquipment
     {
-        if (!$this->getModifiers()->contains($modifier)) {
-            $this->modifiers->add($modifier);
-
-            $modifier->setEquipment($this);
-        }
+        $this->modifiers->add($modifier);
 
         return $this;
     }

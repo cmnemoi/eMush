@@ -3,8 +3,8 @@
 namespace Mush\Daedalus\Event;
 
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Player\Entity\Player;
 use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Player\Entity\Player;
 
 class DaedalusModifierEvent extends DaedalusEvent implements AbstractQuantityEvent
 {

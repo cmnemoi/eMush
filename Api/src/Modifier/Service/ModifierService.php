@@ -9,12 +9,8 @@ use Mush\Action\Entity\ActionParameter;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
-use Mush\Modifier\Entity\DaedalusModifier;
-use Mush\Modifier\Entity\EquipmentModifier;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierConfig;
-use Mush\Modifier\Entity\PlaceModifier;
-use Mush\Modifier\Entity\PlayerModifier;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
@@ -62,29 +58,31 @@ class ModifierService implements ModifierServiceInterface
     ): void {
         switch ($modifierConfig->getReach()) {
             case ModifierReachEnum::DAEDALUS:
-                $modifier = $this->createDaedalusModifier($modifierConfig, $daedalus);
+                $holder = $daedalus;
                 break;
 
             case ModifierReachEnum::PLACE:
-                $modifier = $this->createPlaceModifier($modifierConfig, $place);
+                $holder = $place;
                 break;
 
             case ModifierReachEnum::PLAYER:
             case ModifierReachEnum::TARGET_PLAYER:
-                $modifier = $this->createPlayerModifier($modifierConfig, $player);
+                $holder = $player;
                 break;
 
             case ModifierReachEnum::EQUIPMENT:
-                $modifier = $this->createEquipmentModifier($modifierConfig, $gameEquipment);
+                $holder = $gameEquipment;
                 break;
 
             default:
                 throw new \LogicException('this reach is not handled');
         }
 
-        if ($modifier === null) {
+        if ($holder === null) {
             return;
         }
+
+        $modifier = new Modifier($holder, $modifierConfig);
 
         if ($chargeStatus) {
             $modifier->setCharge($chargeStatus);
@@ -131,60 +129,6 @@ class ModifierService implements ModifierServiceInterface
 
                 return;
         }
-    }
-
-    private function createDaedalusModifier(ModifierConfig $modifierConfig, Daedalus $daedalus): DaedalusModifier
-    {
-        $modifier = new DaedalusModifier();
-        $modifier
-            ->setDaedalus($daedalus)
-            ->setModifierConfig($modifierConfig)
-        ;
-
-        return $modifier;
-    }
-
-    private function createPlaceModifier(ModifierConfig $modifierConfig, ?Place $place): ?PlaceModifier
-    {
-        if ($place === null) {
-            return null;
-        }
-
-        $modifier = new PlaceModifier();
-        $modifier
-            ->setPlace($place)
-            ->setModifierConfig($modifierConfig)
-        ;
-
-        return $modifier;
-    }
-
-    private function createPlayerModifier(ModifierConfig $modifierConfig, ?Player $player): ?PlayerModifier
-    {
-        if ($player === null) {
-            return null;
-        }
-        $modifier = new PlayerModifier();
-        $modifier
-            ->setPlayer($player)
-            ->setModifierConfig($modifierConfig)
-        ;
-
-        return $modifier;
-    }
-
-    private function createEquipmentModifier(ModifierConfig $modifierConfig, ?GameEquipment $equipment): ?EquipmentModifier
-    {
-        if ($equipment === null) {
-            return null;
-        }
-        $modifier = new EquipmentModifier();
-        $modifier
-            ->setEquipment($equipment)
-            ->setModifierConfig($modifierConfig)
-        ;
-
-        return $modifier;
     }
 
     private function getModifiedValue(ModifierCollection $modifierCollection, ?float $initValue): int

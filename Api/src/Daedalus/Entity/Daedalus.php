@@ -10,7 +10,8 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
-use Mush\Modifier\Entity\DaedalusModifier;
+use Mush\Modifier\Entity\Modifier;
+use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
@@ -21,7 +22,7 @@ use Mush\Player\Entity\Player;
  *
  * @ORM\Entity(repositoryClass="Mush\Daedalus\Repository\DaedalusRepository")
  */
-class Daedalus
+class Daedalus implements ModifierHolder
 {
     use TimestampableEntity;
 
@@ -58,7 +59,7 @@ class Daedalus
     private Collection $places;
 
     /**
-     * @ORM\OneToMany(targetEntity="Mush\Modifier\Entity\DaedalusModifier", mappedBy="daedalus")
+     * @ORM\OneToMany(targetEntity="Mush\Modifier\Entity\Modifier", mappedBy="daedalus")
      */
     private Collection $modifiers;
 
@@ -274,13 +275,9 @@ class Daedalus
     /**
      * @return static
      */
-    public function addModifier(DaedalusModifier $modifier): Daedalus
+    public function addModifier(Modifier $modifier): Daedalus
     {
-        if (!$this->getModifiers()->contains($modifier)) {
-            $this->modifiers->add($modifier);
-
-            $modifier->setDaedalus($this);
-        }
+        $this->modifiers->add($modifier);
 
         return $this;
     }
@@ -481,5 +478,10 @@ class Daedalus
         $this->isCycleChange = $isCycleChange;
 
         return $this;
+    }
+
+    public function getClassName(): string
+    {
+        return get_class($this);
     }
 }

@@ -18,7 +18,8 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
-use Mush\Modifier\Entity\PlayerModifier;
+use Mush\Modifier\Entity\Modifier;
+use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\RoomLog\Entity\LogParameter;
@@ -34,7 +35,7 @@ use Mush\User\Entity\User;
 /**
  * @ORM\Entity(repositoryClass="Mush\Player\Repository\PlayerRepository")
  */
-class Player implements StatusHolderInterface, ActionParameter, LogParameter
+class Player implements StatusHolderInterface, ActionParameter, LogParameter, ModifierHolder
 {
     use TimestampableEntity;
     use TargetStatusTrait;
@@ -94,7 +95,7 @@ class Player implements StatusHolderInterface, ActionParameter, LogParameter
     private Collection $flirts;
 
     /**
-     * @ORM\OneToMany(targetEntity="Mush\Modifier\Entity\PlayerModifier", mappedBy="player")
+     * @ORM\OneToMany(targetEntity="Mush\Modifier\Entity\Modifier", mappedBy="player")
      */
     private Collection $modifiers;
 
@@ -358,13 +359,9 @@ class Player implements StatusHolderInterface, ActionParameter, LogParameter
     /**
      * @return static
      */
-    public function addModifier(PlayerModifier $modifier): Player
+    public function addModifier(Modifier $modifier): Player
     {
-        if (!$this->getModifiers()->contains($modifier)) {
-            $this->modifiers->add($modifier);
-
-            $modifier->setPlayer($this);
-        }
+        $this->modifiers->add($modifier);
 
         return $this;
     }

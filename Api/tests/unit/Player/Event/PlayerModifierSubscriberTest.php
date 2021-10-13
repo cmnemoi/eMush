@@ -45,7 +45,12 @@ class PlayerModifierSubscriberTest extends TestCase
     {
         $player = new Player();
 
-        $event = new PlayerModifierEvent($player, 3, new \DateTime());
+        $event = new PlayerModifierEvent(
+            $player,
+            3,
+            PlayerModifierEvent::MOVEMENT_POINT_MODIFIER,
+            new \DateTime()
+        );
 
         $this->playerVariableService
             ->shouldReceive('handleMovementPointModifier')
@@ -77,7 +82,12 @@ class PlayerModifierSubscriberTest extends TestCase
 
         $player->setMoralPoint(1);
 
-        $event = new PlayerModifierEvent($player, -1, new \DateTime());
+        $event = new PlayerModifierEvent(
+            $player,
+            -1,
+            PlayerModifierEvent::MOVEMENT_POINT_MODIFIER,
+            new \DateTime()
+        );
 
         $this->playerVariableService
             ->shouldReceive('handleMoralPointModifier')
@@ -106,7 +116,12 @@ class PlayerModifierSubscriberTest extends TestCase
         $player = new Player();
 
         $player->setHealthPoint(1);
-        $event = new PlayerModifierEvent($player, 1, new \DateTime());
+        $event = new PlayerModifierEvent(
+            $player,
+            1,
+            PlayerModifierEvent::MOVEMENT_POINT_MODIFIER,
+            new \DateTime()
+        );
 
         $this->playerVariableService
             ->shouldReceive('handleHealthPointModifier')
@@ -134,7 +149,12 @@ class PlayerModifierSubscriberTest extends TestCase
     {
         $player = new Player();
 
-        $event = new PlayerModifierEvent($player, 1, new \DateTime());
+        $event = new PlayerModifierEvent(
+            $player,
+            1,
+            PlayerModifierEvent::MOVEMENT_POINT_MODIFIER,
+            new \DateTime()
+        );
 
         $this->playerVariableService
             ->shouldReceive('handleSatietyModifier')

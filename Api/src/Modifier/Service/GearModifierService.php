@@ -6,13 +6,15 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierConfig;
-use Mush\Modifier\Entity\PlayerModifier;
 use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
-use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Entity\Status;
+use Mush\Status\Entity\StatusHolderInterface;
+use Symfony\Component\Validator\Exception\LogicException;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class GearModifierService implements GearModifierServiceInterface
@@ -73,17 +75,14 @@ class GearModifierService implements GearModifierServiceInterface
                 throw new UnexpectedTypeException($gearMechanic, Gear::class);
             }
 
+            /** @var ModifierConfig $modifierConfig */
             foreach ($gearMechanic->getModifierConfigs() as $modifierConfig) {
                 if (in_array($modifierConfig->getReach(), [ModifierReachEnum::PLAYER, ModifierReachEnum::TARGET_PLAYER])) {
-                    $modifier = new PlayerModifier();
-                    $modifier
-                        ->setPlayer($player)
-                        ->setModifierConfig($modifierConfig)
-                    ;
-                    if (($charge = $gameEquipment->getStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES))) {
-                        if (!$charge instanceof ChargeStatus) {
-                            throw new UnexpectedTypeException($charge, ChargeStatus::class);
-                        }
+                    $modifier = new Modifier($player, $modifierConfig);
+
+                    $charge = $this->getChargeStatus($modifierConfig, $gameEquipment);
+
+                    if ($charge) {
                         $modifier->setCharge($charge);
                     }
 
@@ -129,11 +128,24 @@ class GearModifierService implements GearModifierServiceInterface
 
     private function createModifier(ModifierConfig $modifierConfig, GameEquipment $gameEquipment, Place $place, ?Player $player): void
     {
-        $charge = $gameEquipment->getStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES);
-        if ($charge !== null && !$charge instanceof ChargeStatus) {
-            throw new UnexpectedTypeException($charge, ChargeStatus::class);
-        }
+        $charge = $this->getChargeStatus($modifierConfig, $gameEquipment);
 
         $this->modifierService->createModifier($modifierConfig, $place->getDaedalus(), $place, $player, null, $charge);
+    }
+
+    private function getChargeStatus(ModifierConfig $modifierConfig, StatusHolderInterface $statusHolder): ?ChargeStatus
+    {
+        $charges = $statusHolder->getStatuses()->filter(function (Status $status) use ($modifierConfig) {
+            return $status instanceof ChargeStatus &&
+                $status->getDischargeStrategy() === $modifierConfig->getScope();
+        });
+
+        if ($charges->count() > 0) {
+            return $charges->first();
+        } elseif ($charges->count() === 0) {
+            return null;
+        } else {
+            throw new LogicException('there should be maximum 1 chargeStatus with this dischargeStrategy on this statusHolder');
+        }
     }
 }

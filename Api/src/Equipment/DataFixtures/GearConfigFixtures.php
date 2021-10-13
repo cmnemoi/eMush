@@ -19,7 +19,6 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Modifier\DataFixtures\GearModifierConfigFixtures;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierScopeEnum;
-use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Status\DataFixtures\ChargeStatusFixtures;
 use Mush\Status\DataFixtures\StatusFixtures;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
@@ -73,7 +72,6 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $alienArtifactStatus = $this->getReference(StatusFixtures::ALIEN_ARTEFACT_STATUS);
         /** @var StatusConfig $heavyStatus */
         $heavyStatus = $this->getReference(StatusFixtures::HEAVY_STATUS);
-
 
         $actions25 = clone $actions;
         $actions25->add($repair25);
@@ -206,6 +204,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setMaxCharge(8)
             ->setStartCharge(2)
             ->setChargeStatusConfig($electricCharge)
+            ->setDischargeStrategy(ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION)
         ;
 
         $antiGravScooter = new ItemConfig();

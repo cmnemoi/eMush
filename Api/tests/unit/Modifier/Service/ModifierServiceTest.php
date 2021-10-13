@@ -8,11 +8,8 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionCost;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Modifier\Entity\DaedalusModifier;
-use Mush\Modifier\Entity\EquipmentModifier;
+use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierConfig;
-use Mush\Modifier\Entity\PlaceModifier;
-use Mush\Modifier\Entity\PlayerModifier;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Modifier\Enum\ModifierScopeEnum;
@@ -57,7 +54,7 @@ class ModifierServiceTest extends TestCase
 
     public function testPersist()
     {
-        $playerModifier = new PlayerModifier();
+        $playerModifier = new Modifier(new Player(), new ModifierConfig());
 
         $this->entityManager->shouldReceive('persist')->with($playerModifier)->once();
         $this->entityManager->shouldReceive('flush')->once();
@@ -67,7 +64,7 @@ class ModifierServiceTest extends TestCase
 
     public function testDelete()
     {
-        $playerModifier = new PlayerModifier();
+        $playerModifier = new Modifier(new Player(), new ModifierConfig());
 
         $this->entityManager->shouldReceive('remove')->with($playerModifier)->once();
         $this->entityManager->shouldReceive('flush')->once();
@@ -85,7 +82,7 @@ class ModifierServiceTest extends TestCase
 
         $this->entityManager
             ->shouldReceive('persist')
-            ->with(DaedalusModifier::class)
+            ->withArgs(fn (Modifier $modifier) => $modifier->getModifierHolder() instanceof Daedalus)
             ->once();
         $this->entityManager->shouldReceive('flush')->once();
 
@@ -98,8 +95,9 @@ class ModifierServiceTest extends TestCase
 
         $this->entityManager
             ->shouldReceive('persist')
-            ->with(PlaceModifier::class)
-            ->once();
+            ->withArgs(fn (Modifier $modifier) => $modifier->getModifierHolder() instanceof Place)
+            ->once()
+        ;
         $this->entityManager->shouldReceive('flush')->once();
 
         $this->service->createModifier($modifierConfig, $daedalus, $room, null, null, null);
@@ -111,8 +109,9 @@ class ModifierServiceTest extends TestCase
 
         $this->entityManager
             ->shouldReceive('persist')
-            ->with(PlayerModifier::class)
-            ->once();
+            ->withArgs(fn (Modifier $modifier) => $modifier->getModifierHolder() instanceof Player)
+            ->once()
+        ;
         $this->entityManager->shouldReceive('flush')->once();
 
         $this->service->createModifier($modifierConfig, $daedalus, null, $player, null, null);
@@ -126,8 +125,8 @@ class ModifierServiceTest extends TestCase
 
         $this->entityManager
             ->shouldReceive('persist')
-            ->withArgs(fn (PlayerModifier $modifier) => (
-                $modifier->getPlayer() === $player &&
+            ->withArgs(fn (Modifier $modifier) => (
+                $modifier->getModifierHolder() === $player &&
                 $modifier->getModifierConfig() === $modifierConfig &&
                 $modifier->getCharge() === $charge
             ))
@@ -144,7 +143,7 @@ class ModifierServiceTest extends TestCase
 
         $this->entityManager
             ->shouldReceive('persist')
-            ->with(EquipmentModifier::class)
+            ->withArgs(fn (Modifier $modifier) => $modifier->getModifierHolder() instanceof GameEquipment)
             ->once();
         $this->entityManager->shouldReceive('flush')->once();
 
@@ -182,8 +181,7 @@ class ModifierServiceTest extends TestCase
             ->setDelta(1)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
-        $modifier1 = new DaedalusModifier();
-        $modifier1->setDaedalus($daedalus)->setModifierConfig($modifierConfig1);
+        $modifier1 = new Modifier($daedalus, $modifierConfig1);
 
         $modifierConfig2 = new ModifierConfig();
         $modifierConfig2
@@ -193,8 +191,7 @@ class ModifierServiceTest extends TestCase
             ->setDelta(1)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
-        $modifier2 = new DaedalusModifier();
-        $modifier2->setDaedalus($daedalus)->setModifierConfig($modifierConfig2);
+        $modifier2 = new Modifier($daedalus, $modifierConfig2);
 
         $modifiedCost = $this->service->getActionModifiedValue($action, $player, ModifierTargetEnum::ACTION_POINT, null);
 
@@ -209,8 +206,7 @@ class ModifierServiceTest extends TestCase
             ->setDelta(1)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
-        $modifier3 = new DaedalusModifier();
-        $modifier3->setDaedalus($daedalus)->setModifierConfig($modifierConfig3);
+        $modifier3 = new Modifier($daedalus, $modifierConfig3);
 
         $modifiedCost = $this->service->getActionModifiedValue($action, $player, ModifierTargetEnum::ACTION_POINT, null);
 
@@ -225,8 +221,7 @@ class ModifierServiceTest extends TestCase
             ->setDelta(2)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
-        $modifier4 = new DaedalusModifier();
-        $modifier4->setDaedalus($daedalus)->setModifierConfig($modifierConfig4);
+        $modifier4 = new Modifier($daedalus, $modifierConfig4);
 
         $modifiedCost = $this->service->getActionModifiedValue($action, $player, ModifierTargetEnum::ACTION_POINT, null);
 
@@ -260,8 +255,7 @@ class ModifierServiceTest extends TestCase
             ->setDelta(2)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
-        $modifier1 = new DaedalusModifier();
-        $modifier1->setDaedalus($daedalus)->setModifierConfig($modifierConfig1);
+        $modifier1 = new Modifier($daedalus, $modifierConfig1);
 
         //Place Modifier
         $modifierConfig2 = new ModifierConfig();
@@ -272,8 +266,7 @@ class ModifierServiceTest extends TestCase
             ->setDelta(3)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
-        $modifier2 = new PlaceModifier();
-        $modifier2->setPlace($room)->setModifierConfig($modifierConfig2);
+        $modifier2 = new Modifier($room, $modifierConfig2);
 
         //Player Modifier
         $modifierConfig3 = new ModifierConfig();
@@ -284,8 +277,7 @@ class ModifierServiceTest extends TestCase
             ->setDelta(5)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
-        $modifier3 = new PlayerModifier();
-        $modifier3->setPlayer($player)->setModifierConfig($modifierConfig3);
+        $modifier3 = new Modifier($player, $modifierConfig3);
 
         //Equipment Modifier
         $modifierConfig4 = new ModifierConfig();
@@ -296,8 +288,7 @@ class ModifierServiceTest extends TestCase
             ->setDelta(7)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
-        $modifier4 = new EquipmentModifier();
-        $modifier4->setEquipment($gameEquipment)->setModifierConfig($modifierConfig4);
+        $modifier4 = new Modifier($gameEquipment, $modifierConfig4);
 
         $modifiedCost = $this->service->getActionModifiedValue($action, $player, ModifierTargetEnum::ACTION_POINT, $gameEquipment);
 
@@ -330,8 +321,7 @@ class ModifierServiceTest extends TestCase
             ->setDelta(-1)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
-        $modifier1 = new DaedalusModifier();
-        $modifier1->setDaedalus($daedalus)->setModifierConfig($modifierConfig1);
+        $modifier1 = new Modifier($daedalus, $modifierConfig1);
 
         $modifiedCost = $this->service->getActionModifiedValue($action, $player, ModifierTargetEnum::MOVEMENT_POINT, null);
 
@@ -353,8 +343,7 @@ class ModifierServiceTest extends TestCase
             ->setDelta(-1)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
-        $modifier1 = new DaedalusModifier();
-        $modifier1->setDaedalus($daedalus)->setModifierConfig($modifierConfig1);
+        $modifier1 = new Modifier($daedalus, $modifierConfig1);
 
         $modifiedCost = $this->service->getActionModifiedValue($action, $player, ModifierTargetEnum::MORAL_POINT, null);
 
@@ -378,8 +367,7 @@ class ModifierServiceTest extends TestCase
             ->setDelta(-10)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
-        $modifier1 = new DaedalusModifier();
-        $modifier1->setDaedalus($daedalus)->setModifierConfig($modifierConfig1);
+        $modifier1 = new Modifier($daedalus, $modifierConfig1);
 
         $modifiedCost = $this->service->getActionModifiedValue($action, $player, ModifierTargetEnum::PERCENTAGE, null, 0);
 
@@ -413,8 +401,7 @@ class ModifierServiceTest extends TestCase
             ->setDelta(1.5)
             ->setMode(ModifierModeEnum::MULTIPLICATIVE)
         ;
-        $modifier1 = new DaedalusModifier();
-        $modifier1->setDaedalus($daedalus)->setModifierConfig($modifierConfig1);
+        $modifier1 = new Modifier($daedalus, $modifierConfig1);
 
         $modifiedCost = $this->service->getActionModifiedValue($action, $player, ModifierTargetEnum::PERCENTAGE, null, 0);
 
@@ -429,8 +416,7 @@ class ModifierServiceTest extends TestCase
             ->setDelta(10)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
-        $modifier2 = new DaedalusModifier();
-        $modifier2->setDaedalus($daedalus)->setModifierConfig($modifierConfig2);
+        $modifier2 = new Modifier($daedalus, $modifierConfig2);
 
         $modifiedCost = $this->service->getActionModifiedValue($action, $player, ModifierTargetEnum::PERCENTAGE, null, 0);
 
@@ -470,8 +456,7 @@ class ModifierServiceTest extends TestCase
             ->setDelta(5)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
-        $modifier1 = new DaedalusModifier();
-        $modifier1->setDaedalus($daedalus)->setModifierConfig($modifierConfig1);
+        $modifier1 = new Modifier($daedalus, $modifierConfig1);
 
         $modifiedCost = $this->service->getActionModifiedValue($action, $player, ModifierTargetEnum::ACTION_POINT, null, null);
 
@@ -507,8 +492,8 @@ class ModifierServiceTest extends TestCase
             ->setDelta(-1)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
-        $modifier1 = new PlayerModifier();
-        $modifier1->setPlayer($player)->setModifierConfig($modifierConfig1)->setCharge($status);
+        $modifier1 = new Modifier($player, $modifierConfig1);
+        $modifier1->setCharge($status);
 
         $this->statusService->shouldReceive('updateCharge')->with($status, -1)->once();
 
@@ -534,8 +519,7 @@ class ModifierServiceTest extends TestCase
             ->setDelta(-6)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
-        $modifier1 = new DaedalusModifier();
-        $modifier1->setDaedalus($daedalus)->setModifierConfig($modifierConfig1);
+        $modifier1 = new Modifier($daedalus, $modifierConfig1);
 
         $modifiedValue = $this->service->getEventModifiedValue($player, [ModifierScopeEnum::MAX_POINT], ModifierTargetEnum::MOVEMENT_POINT, 12);
         $this->assertEquals(6, $modifiedValue);
@@ -552,8 +536,8 @@ class ModifierServiceTest extends TestCase
             ->setDelta(2)
             ->setMode(ModifierModeEnum::MULTIPLICATIVE)
         ;
-        $modifier2 = new PlayerModifier();
-        $modifier2->setPlayer($player)->setModifierConfig($modifierConfig2)->setCharge($status);
+        $modifier2 = new Modifier($player, $modifierConfig2);
+        $modifier2->setCharge($status);
 
         $this->statusService->shouldReceive('updateCharge')->with($status, -1)->once();
 

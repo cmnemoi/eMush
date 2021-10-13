@@ -9,10 +9,13 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
+use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Service\GearToolService;
+use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
@@ -311,7 +314,7 @@ class GearToolServiceTest extends TestCase
             ->setCharge(1)
         ;
 
-        $modifier1 = new Modifier();
+        $modifier1 = new ModifierConfig();
         $modifier1
             ->setTarget(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(1.5)
@@ -319,7 +322,7 @@ class GearToolServiceTest extends TestCase
             ->setReach(ReachEnum::INVENTORY)
         ;
         $gear1 = new Gear();
-        $gear1->setModifier(new arrayCollection([$modifier1]));
+        $gear1->setModifierConfigs(new arrayCollection([$modifier1]));
         $gearConfig1 = new ItemConfig();
         $gearConfig1
             ->setName('gear1')
@@ -331,7 +334,7 @@ class GearToolServiceTest extends TestCase
             ->setEquipment($gearConfig1)
         ;
 
-        $modifier2 = new Modifier();
+        $modifier2 = new ModifierConfig();
         $modifier2
             ->setTarget(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(1.5)
@@ -339,7 +342,7 @@ class GearToolServiceTest extends TestCase
             ->setReach(ReachEnum::INVENTORY)
         ;
         $gear2 = new Gear();
-        $gear2->setModifier(new arrayCollection([$modifier2]));
+        $gear2->setModifierConfigs(new arrayCollection([$modifier2]));
         $gearConfig2 = new ItemConfig();
         $gearConfig2
             ->setName('gear2')
@@ -356,7 +359,7 @@ class GearToolServiceTest extends TestCase
             ->setCharge(1)
         ;
 
-        $modifier3 = new Modifier();
+        $modifier3 = new ModifierConfig();
         $modifier3
             ->setTarget(ModifierTargetEnum::ACTION_POINT)
             ->setDelta(1)
@@ -364,7 +367,7 @@ class GearToolServiceTest extends TestCase
             ->setReach(ReachEnum::INVENTORY)
         ;
         $gear3 = new Gear();
-        $gear3->setModifier(new arrayCollection([$modifier3]));
+        $gear3->setModifierConfigs(new arrayCollection([$modifier3]));
         $gearConfig3 = new ItemConfig();
         $gearConfig3
             ->setName('gear3')

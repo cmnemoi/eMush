@@ -8,8 +8,8 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Gear;
+use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierConfig;
-use Mush\Modifier\Entity\PlayerModifier;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
@@ -18,7 +18,6 @@ use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
-use Mush\Status\Enum\EquipmentStatusEnum;
 use PHPUnit\Framework\TestCase;
 
 class GearModifierServiceTest extends TestCase
@@ -96,7 +95,7 @@ class GearModifierServiceTest extends TestCase
 
         //with a charge
         $charge = new ChargeStatus($gameEquipment);
-        $charge->setName(EquipmentStatusEnum::CHARGES);
+        $charge->setDischargeStrategy('action');
 
         $this->modifierService
             ->shouldReceive('createModifier')
@@ -239,8 +238,8 @@ class GearModifierServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('persist')
-            ->withArgs(fn (PlayerModifier $modifier) => (
-                $modifier->getPlayer() === $player &&
+            ->withArgs(fn (Modifier $modifier) => (
+                $modifier->getModifierHolder() === $player &&
                 $modifier->getModifierConfig() === $modifierConfig1
             ))
             ->once()
@@ -249,12 +248,12 @@ class GearModifierServiceTest extends TestCase
 
         //Modifier with a charge
         $charge = new ChargeStatus($gameEquipment);
-        $charge->setName(EquipmentStatusEnum::CHARGES);
+        $charge->setDischargeStrategy('action');
 
         $this->modifierService
             ->shouldReceive('persist')
-            ->withArgs(fn (PlayerModifier $modifier) => (
-                $modifier->getPlayer() === $player &&
+            ->withArgs(fn (Modifier $modifier) => (
+                $modifier->getModifierHolder() === $player &&
                 $modifier->getModifierConfig() === $modifierConfig1 &&
                 $modifier->getCharge() === $charge
             ))
@@ -304,8 +303,7 @@ class GearModifierServiceTest extends TestCase
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
 
-        $modifier = new PlayerModifier();
-        $modifier->setPlayer($player)->setModifierConfig($modifierConfig1);
+        $modifier = new Modifier($player, $modifierConfig1);
 
         $gear = new Gear();
         $gear->setModifierConfigs(new ArrayCollection([$modifierConfig1]));
@@ -320,8 +318,8 @@ class GearModifierServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('delete')
-            ->withArgs(fn (PlayerModifier $modifier) => (
-                $modifier->getPlayer() === $player &&
+            ->withArgs(fn (Modifier $modifier) => (
+                $modifier->getModifierHolder() === $player &&
                 $modifier->getModifierConfig() === $modifierConfig1
             ))
             ->once()

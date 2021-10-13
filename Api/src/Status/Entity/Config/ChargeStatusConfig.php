@@ -16,22 +16,22 @@ class ChargeStatusConfig extends StatusConfig
     /**
      * @ORM\Column(type="string", nullable=false)
      */
-    protected string $chargeVisibility = VisibilityEnum::PUBLIC;
+    private string $chargeVisibility = VisibilityEnum::PUBLIC;
 
     /**
      * @ORM\Column(type="string", nullable=false)
      */
-    protected string $chargeStrategy = ChargeStrategyTypeEnum::NONE;
+    private string $chargeStrategy = ChargeStrategyTypeEnum::NONE;
 
     /**
      * @ORM\Column(type="integer", length=255, nullable=false)
      */
-    protected ?int $threshold = null;
+    private ?int $threshold = null;
 
     /**
      * @ORM\Column(type="boolean", nullable=false)
      */
-    protected bool $autoRemove = false;
+    private bool $autoRemove = false;
 
     public function getChargeVisibility(): string
     {

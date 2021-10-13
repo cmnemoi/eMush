@@ -9,6 +9,7 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\DataFixtures\TechnicianFixtures;
 use Mush\Action\Entity\Action;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\Mechanics\Charged;
 use Mush\Equipment\Entity\Mechanics\Gear;
@@ -365,6 +366,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setMaxCharge(1)
             ->setStartCharge(1)
             ->setChargeStatusConfig($dailyElectricCharge)
+            ->setDischargeStrategy(ActionEnum::DISPENSE)
         ;
 
         $narcoticDistiller = new EquipmentConfig();
@@ -499,6 +501,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setMaxCharge(4)
             ->setStartCharge(4)
             ->setChargeStatusConfig($electricCharge)
+            ->setDischargeStrategy(ActionEnum::SHOOT_HUNTER)
         ;
 
         $turretCommandMechanic = new Tool();

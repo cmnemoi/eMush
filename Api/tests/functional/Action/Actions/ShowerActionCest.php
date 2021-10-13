@@ -12,11 +12,15 @@ use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\ItemConfig;
+use Mush\Equipment\Entity\Mechanics\Gear;
+use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
+use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierConfig;
-use Mush\Modifier\Entity\PlayerModifier;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Place\Entity\Place;
@@ -103,8 +107,7 @@ class ShowerActionCest
         ;
         $I->haveInRepository($modifierConfig);
 
-        $modifier = new PlayerModifier();
-        $modifier->setPlayer($player)->setModifierConfig($modifierConfig);
+        $modifier = new Modifier($player, $modifierConfig);
         $I->haveInRepository($modifier);
 
         $I->refreshEntities($player);
@@ -132,18 +135,17 @@ class ShowerActionCest
 
     private function createSoapItem(FunctionalTester $I): GameItem
     {
-        $modifier = new Modifier();
+        $modifier = new ModifierConfig();
         $modifier
             ->setTarget(ModifierTargetEnum::ACTION_POINT)
             ->setDelta(-1)
             ->setScope(ActionEnum::SHOWER)
             ->setReach(ReachEnum::INVENTORY)
-            ->setIsAdditive(true)
+            ->setMode(ModifierModeEnum::ADDITIVE)
         ;
 
         $soapGear = new Gear();
-
-        $soapGear->setModifier(new arrayCollection([$modifier]));
+        $soapGear->setModifierConfigs(new arrayCollection([$modifier]));
 
         $soap = new ItemConfig();
         $soap

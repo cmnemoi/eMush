@@ -3,20 +3,18 @@
 namespace functional\Action\Listener;
 
 use App\Tests\FunctionalTester;
-use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Action\Listener\ActionSubscriber;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
+use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierConfig;
-use Mush\Modifier\Entity\PlayerModifier;
 use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
@@ -121,26 +119,10 @@ class ActionSubscriberCest
             ->setScope(ModifierScopeEnum::EVENT_DIRTY)
         ;
         $I->haveInRepository($modifierConfig);
-//        $gear->setModifierConfigs(new arrayCollection([$modifierConfig]));
-//        $itemConfig->setMechanics(new ArrayCollection([$gear]));
-//        $I->haveInRepository($gear);
-//        $I->haveInRepository($itemConfig);
 
-        $modifier = new PlayerModifier();
-        $modifier
-            ->setPlayer($player)
-            ->setModifierConfig($modifierConfig)
-        ;
+        $modifier = new Modifier($player, $modifierConfig);
         $I->refreshEntities($player);
         $I->haveInRepository($modifier);
-
-//        $gameItem = new GameItem();
-//        $gameItem
-//            ->setName($itemConfig->getName())
-//            ->setPlayer($player)
-//            ->setEquipment($itemConfig)
-//        ;
-//        $I->haveInRepository($gameItem);
 
         //Test dirty with apron
         $this->cycleSubscriber->onPostAction($actionEvent);

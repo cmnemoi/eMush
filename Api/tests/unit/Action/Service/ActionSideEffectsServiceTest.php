@@ -33,12 +33,8 @@ class ActionSideEffectsServiceTest extends TestCase
     private RoomLogServiceInterface $roomLogService;
     /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;
-    /** @var StatusServiceInterface|Mockery\Mock */
-    private StatusServiceInterface $statusService;
     /** @var ModifierServiceInterface|Mockery\Mock */
     private ModifierServiceInterface $modifierService;
-    /** @var ActionModifierServiceInterface|Mockery\Mock */
-    private ActionModifierServiceInterface $actionModifierService;
 
     private ActionSideEffectsServiceInterface $actionService;
 
@@ -50,9 +46,7 @@ class ActionSideEffectsServiceTest extends TestCase
         $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
-        $this->statusService = Mockery::mock(StatusServiceInterface::class);
         $this->modifierService = Mockery::mock(ModifierServiceInterface::class);
-        $this->actionModifierService = Mockery::mock(ActionModifierServiceInterface::class);
 
         $this->actionService = new ActionSideEffectsService(
             $this->eventDispatcher,
@@ -173,10 +167,12 @@ class ActionSideEffectsServiceTest extends TestCase
             ->once()
         ;
 
-        $this->actionModifierService
-            ->shouldReceive('getModifiedValue')
-            ->with(100, $player, [ModifierScopeEnum::EVENT_CLUMSINESS], ModifierTargetEnum::PERCENTAGE)
-            ->andReturn(100);
+        $this->modifierService
+            ->shouldReceive('getEventModifiedValue')
+            ->with($player, [ModifierScopeEnum::EVENT_CLUMSINESS], ModifierTargetEnum::PERCENTAGE, 100)
+            ->andReturn(100)
+        ;
+
         $this->roomLogService->shouldReceive('createLog')->once();
         $this->randomService->shouldReceive('randomPercent')->andReturn(10)->once();
         $this->eventDispatcher

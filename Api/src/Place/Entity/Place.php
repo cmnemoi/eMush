@@ -10,7 +10,8 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
-use Mush\Modifier\Entity\PlaceModifier;
+use Mush\Modifier\Entity\Modifier;
+use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
@@ -24,7 +25,7 @@ use Mush\Status\Entity\TargetStatusTrait;
  *
  * @ORM\Entity(repositoryClass="Mush\Place\Repository\PlaceRepository")
  */
-class Place implements StatusHolderInterface
+class Place implements StatusHolderInterface, ModifierHolder
 {
     use TimestampableEntity;
     use TargetStatusTrait;
@@ -72,7 +73,7 @@ class Place implements StatusHolderInterface
     private Collection $statuses;
 
     /**
-     * @ORM\OneToMany(targetEntity="Mush\Modifier\Entity\PlaceModifier", mappedBy="place")
+     * @ORM\OneToMany(targetEntity="Mush\Modifier\Entity\Modifier", mappedBy="place")
      */
     private Collection $modifiers;
 
@@ -275,13 +276,9 @@ class Place implements StatusHolderInterface
     /**
      * @return static
      */
-    public function addModifier(PlaceModifier $modifier): Place
+    public function addModifier(Modifier $modifier): Place
     {
-        if (!$this->getModifiers()->contains($modifier)) {
-            $this->modifiers->add($modifier);
-
-            $modifier->setPlace($this);
-        }
+        $this->modifiers->add($modifier);
 
         return $this;
     }

@@ -211,6 +211,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setMaxCharge(4)
             ->setStartCharge(0)
             ->setChargeStatusConfig($electricCharge)
+            ->setDischargeStrategy(ActionEnum::EXPRESS_COOK)
         ;
 
         $microwave = new ItemConfig();

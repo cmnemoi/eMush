@@ -19,12 +19,17 @@ class ChargeStatus extends Status
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
-    protected int $charge = 0;
+    private int $charge = 0;
 
     /**
      * @ORM\Column(type="string", nullable=true)
      */
     private ?string $strategy = null;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private ?string $dischargeStrategy = null;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -87,6 +92,21 @@ class ChargeStatus extends Status
     public function setStrategy(?string $strategy): ChargeStatus
     {
         $this->strategy = $strategy;
+
+        return $this;
+    }
+
+    public function getDischargeStrategy(): ?string
+    {
+        return $this->dischargeStrategy;
+    }
+
+    /**
+     * @return static
+     */
+    public function setDischargeStrategy(?string $dischargeStrategy): ChargeStatus
+    {
+        $this->dischargeStrategy = $dischargeStrategy;
 
         return $this;
     }

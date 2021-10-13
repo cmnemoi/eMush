@@ -80,7 +80,7 @@ class GearModifierService implements GearModifierServiceInterface
                 if (in_array($modifierConfig->getReach(), [ModifierReachEnum::PLAYER, ModifierReachEnum::TARGET_PLAYER])) {
                     $modifier = new Modifier($player, $modifierConfig);
 
-                    $charge = $this->getChargeStatus($modifierConfig, $gameEquipment);
+                    $charge = $this->getChargeStatus($modifierConfig->getScope(), $gameEquipment);
 
                     if ($charge) {
                         $modifier->setCharge($charge);
@@ -128,16 +128,16 @@ class GearModifierService implements GearModifierServiceInterface
 
     private function createModifier(ModifierConfig $modifierConfig, GameEquipment $gameEquipment, Place $place, ?Player $player): void
     {
-        $charge = $this->getChargeStatus($modifierConfig, $gameEquipment);
+        $charge = $this->getChargeStatus($modifierConfig->getScope(), $gameEquipment);
 
         $this->modifierService->createModifier($modifierConfig, $place->getDaedalus(), $place, $player, null, $charge);
     }
 
-    private function getChargeStatus(ModifierConfig $modifierConfig, StatusHolderInterface $statusHolder): ?ChargeStatus
+    private function getChargeStatus(string $eventName, StatusHolderInterface $statusHolder): ?ChargeStatus
     {
-        $charges = $statusHolder->getStatuses()->filter(function (Status $status) use ($modifierConfig) {
+        $charges = $statusHolder->getStatuses()->filter(function (Status $status) use ($eventName) {
             return $status instanceof ChargeStatus &&
-                $status->getDischargeStrategy() === $modifierConfig->getScope();
+                $status->getDischargeStrategy() === $eventName;
         });
 
         if ($charges->count() > 0) {

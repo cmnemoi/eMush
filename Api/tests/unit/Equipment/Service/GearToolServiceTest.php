@@ -266,8 +266,8 @@ class GearToolServiceTest extends TestCase
         //Two tool with the same action but 1 with charges
         $chargeStatus = new ChargeStatus($gameItem);
         $chargeStatus
-            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
             ->setCharge(3)
+            ->setDischargeStrategy(ActionEnum::REPAIR)
         ;
 
         $action->setName(ActionEnum::REPAIR);
@@ -278,8 +278,9 @@ class GearToolServiceTest extends TestCase
         //Two tool with the same action but 1 is charged and the other have no charge left
         $chargeStatus2 = new ChargeStatus($gameItem2);
         $chargeStatus2
-            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
             ->setCharge(0)
+            ->setDischargeStrategy(ActionEnum::REPAIR)
+
         ;
 
         $usedTool = $this->service->getUsedTool($player, ActionEnum::REPAIR);
@@ -310,8 +311,8 @@ class GearToolServiceTest extends TestCase
         ;
         $chargeStatus1 = new ChargeStatus($gameTool);
         $chargeStatus1
-            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
             ->setCharge(1)
+            ->setDischargeStrategy(ActionEnum::REPAIR)
         ;
 
         $modifier1 = new ModifierConfig();
@@ -355,8 +356,8 @@ class GearToolServiceTest extends TestCase
         ;
         $chargeStatus2 = new ChargeStatus($gameGear2);
         $chargeStatus2
-            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
             ->setCharge(1)
+            ->setDischargeStrategy(ActionEnum::REPAIR)
         ;
 
         $modifier3 = new ModifierConfig();
@@ -380,8 +381,8 @@ class GearToolServiceTest extends TestCase
         ;
         $chargeStatus3 = new ChargeStatus($gameGear3);
         $chargeStatus3
-            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
             ->setCharge(0)
+            ->setDischargeStrategy(ActionEnum::REPAIR)
         ;
 
         $room->addPlayer($player)->addEquipment($gameTool);

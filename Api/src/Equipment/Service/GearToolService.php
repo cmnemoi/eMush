@@ -15,9 +15,11 @@ use Mush\Game\Enum\EventEnum;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Validator\Exception\LogicException;
 
 class GearToolService implements GearToolServiceInterface
 {
@@ -114,8 +116,9 @@ class GearToolService implements GearToolServiceInterface
             if ($toolMechanic &&
                 !$toolMechanic->getActions()->filter(fn (Action $action) => $action->getName() === $actionName)->isEmpty()
             ) {
-                $chargeStatus = $tool->getStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES);
-                if ($chargeStatus === null || !($chargeStatus instanceof ChargeStatus)) {
+                $chargeStatus = $this->getChargeStatus($actionName, $tool);
+                // if one tool provide this action for free prioritize it
+                if ($chargeStatus === null) {
                     return $tool;
                 } elseif ($chargeStatus->getCharge() > 0) {
                     $tools->add($tool);
@@ -134,17 +137,15 @@ class GearToolService implements GearToolServiceInterface
     {
         $tool = $this->getUsedTool($player, $actionName);
         if ($tool) {
-            $this->removeCharge($tool);
+            $this->removeCharge($tool, $actionName);
         }
     }
 
-    private function removeCharge(GameEquipment $equipment): void
+    private function removeCharge(GameEquipment $equipment, string $actionName): void
     {
-        $chargeStatus = $equipment->getStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES);
+        $chargeStatus = $this->getChargeStatus($actionName, $equipment);
 
-        if ($chargeStatus &&
-            $chargeStatus instanceof ChargeStatus
-        ) {
+        if ($chargeStatus !== null) {
             $chargeStatus = $this->statusService->updateCharge($chargeStatus, -1);
 
             if ($chargeStatus === null) {
@@ -157,6 +158,22 @@ class GearToolService implements GearToolServiceInterface
                 );
                 $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
             }
+        }
+    }
+
+    private function getChargeStatus(string $actionName, GameEquipment $equipment): ?ChargeStatus
+    {
+        $charges = $equipment->getStatuses()->filter(function (Status $status) use ($actionName) {
+            return $status instanceof ChargeStatus &&
+                $status->getDischargeStrategy() === $actionName;
+        });
+
+        if ($charges->count() > 0) {
+            return $charges->first();
+        } elseif ($charges->count() === 0) {
+            return null;
+        } else {
+            throw new LogicException('there should be maximum 1 chargeStatus with this dischargeStrategy on this statusHolder');
         }
     }
 }

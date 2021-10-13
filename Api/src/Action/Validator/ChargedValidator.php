@@ -5,9 +5,11 @@ namespace Mush\Action\Validator;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Status\Entity\ChargeStatus;
-use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Entity\Status;
+use Mush\Status\Entity\StatusHolderInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
+use Symfony\Component\Validator\Exception\LogicException;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class ChargedValidator extends ConstraintValidator
@@ -28,12 +30,27 @@ class ChargedValidator extends ConstraintValidator
         }
 
         /** @var ChargeStatus $chargeStatus */
-        $chargeStatus = $parameter->getStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES);
-        //@TODO handle other type of charges
+        $chargeStatus = $this->getChargeStatus($value->getActionName(), $parameter);
 
-        if (!$chargeStatus || $chargeStatus->getCharge() <= 0) {
+        if ($chargeStatus !== null && $chargeStatus->getCharge() <= 0) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
+        }
+    }
+
+    private function getChargeStatus(string $actionName, StatusHolderInterface $holder): ?ChargeStatus
+    {
+        $charges = $holder->getStatuses()->filter(function (Status $status) use ($actionName) {
+            return $status instanceof ChargeStatus &&
+                $status->getDischargeStrategy() === $actionName;
+        });
+
+        if ($charges->count() > 0) {
+            return $charges->first();
+        } elseif ($charges->count() === 0) {
+            return null;
+        } else {
+            throw new LogicException('there should be maximum 1 chargeStatus with this dischargeStrategy on this statusHolder');
         }
     }
 }

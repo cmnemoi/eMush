@@ -4,12 +4,12 @@ namespace Mush\Test\Action\Validator;
 
 use Mockery;
 use Mush\Action\Actions\AbstractAction;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Validator\Charged;
 use Mush\Action\Validator\ChargedValidator;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Status\Entity\ChargeStatus;
-use Mush\Status\Enum\EquipmentStatusEnum;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
@@ -46,14 +46,19 @@ class ChargedValidatorTest extends TestCase
 
         $chargeStatus = new ChargeStatus($target);
         $chargeStatus
-            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
             ->setCharge(1)
+            ->setDischargeStrategy(ActionEnum::EXPRESS_COOK)
         ;
 
         $action = Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getParameter' => $target,
+            ])
+        ;
+        $action
+            ->shouldReceive([
+                'getActionName' => ActionEnum::EXPRESS_COOK,
             ])
         ;
 
@@ -77,14 +82,16 @@ class ChargedValidatorTest extends TestCase
                 'getParameter' => $target,
             ])
         ;
-
-        $this->initValidator($this->constraint->message);
-        $this->validator->validate($action, $this->constraint);
+        $action
+            ->shouldReceive([
+                'getActionName' => ActionEnum::EXPRESS_COOK,
+            ])
+        ;
 
         $chargeStatus = new ChargeStatus($target);
         $chargeStatus
-            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
             ->setCharge(0)
+            ->setDischargeStrategy(ActionEnum::EXPRESS_COOK)
         ;
 
         $this->initValidator($this->constraint->message);

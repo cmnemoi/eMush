@@ -23,7 +23,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
             EquipmentEvent::EQUIPMENT_FIXED => 'onEquipmentFixed',
             EquipmentEvent::EQUIPMENT_BROKEN => 'onEquipmentBroken',
             EquipmentEvent::EQUIPMENT_DESTROYED => ['onEquipmentDestroyed', 10], //change in modifier must be applied before the item is totally removed
-            EquipmentEvent::EQUIPMENT_TRANSFORM => ['onEquipmentTransform', 10],
+            EquipmentEvent::EQUIPMENT_TRANSFORM => [['onEquipmentTransformDestroy', 10], ['onEquipmentTransformCreate', -10]],
         ];
     }
 
@@ -55,15 +55,19 @@ class EquipmentSubscriber implements EventSubscriberInterface
         $this->gearModifierService->gearDestroyed($equipment);
     }
 
-    public function onEquipmentTransform(EquipmentEvent $event): void
+    public function onEquipmentTransformDestroy(EquipmentEvent $event): void
     {
         $equipment = $event->getEquipment();
 
+        $this->gearModifierService->gearDestroyed($equipment);
+    }
+
+    public function onEquipmentTransformCreate(EquipmentEvent $event): void
+    {
         if (($newEquipment = $event->getReplacementEquipment()) === null) {
             throw new \LogicException('Replacement equipment should be provided');
         }
 
         $this->gearModifierService->gearCreated($newEquipment);
-        $this->gearModifierService->gearDestroyed($equipment);
     }
 }

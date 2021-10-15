@@ -4,7 +4,6 @@ namespace functional\Modifier\Listener;
 
 use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
-use Mush\Action\Actions\Drop;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
@@ -13,6 +12,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Gear;
+use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Modifier\Entity\Modifier;
@@ -22,20 +22,19 @@ use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\Status\Entity\Config\StatusConfig;
-use Mush\Status\Entity\Status;
-use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\RoomLog\Enum\VisibilityEnum;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
-class DropSubscriberCest
+class CreateDestroyEquipmentSubscriberCest
 {
-    private Drop $dropAction;
+    private EventDispatcherInterface $eventDispatcherService;
 
     public function _before(FunctionalTester $I)
     {
-        $this->dropAction = $I->grabService(Drop::class);
+        $this->eventDispatcherService = $I->grabService(EventDispatcherInterface::class);
     }
 
-    public function testDropGearWithPlayerReach(FunctionalTester $I)
+    public function testCreateGearPlayerScope(FunctionalTester $I)
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, ['maxItemInInventory' => 1]);
@@ -50,19 +49,6 @@ class DropSubscriberCest
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig]);
 
-        $actionCost = new ActionCost();
-        $I->haveInRepository($actionCost);
-
-        $takeActionEntity = new Action();
-        $takeActionEntity
-            ->setName(ActionEnum::DROP)
-            ->setDirtyRate(0)
-            ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
-        ;
-        $I->haveInRepository($takeActionEntity);
-
         $modifierConfig = new ModifierConfig();
         $modifierConfig
             ->setScope(ActionEnum::SHOWER)
@@ -70,48 +56,46 @@ class DropSubscriberCest
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
-            ->setGameConfig($gameConfig)
         ;
         $I->haveInRepository($modifierConfig);
-
-        $modifier = new Modifier($player, $modifierConfig);
-        $I->haveInRepository($modifier);
 
         $gear = new Gear();
         $gear->setModifierConfigs(new ArrayCollection([$modifierConfig]));
         $I->haveInRepository($gear);
 
         /** @var EquipmentConfig $equipmentConfig */
-        $equipmentConfig = $I->have(EquipmentConfig::class, [
-            'gameConfig' => $gameConfig,
-            'mechanics' => new ArrayCollection([$gear]),
-            'actions' => new ArrayCollection([$takeActionEntity]),
-        ]);
+        $equipmentConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'mechanics' => new ArrayCollection([$gear])]);
 
         //Case of a game Equipment
         $gameEquipment = new GameItem();
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('some name')
-            ->setPlayer($player)
         ;
         $I->haveInRepository($gameEquipment);
 
-        $player->addItem($gameEquipment);
+        $equipmentEvent = new EquipmentEvent(
+            $gameEquipment,
+            $room,
+            VisibilityEnum::PUBLIC,
+            ActionEnum::COFFEE,
+            new \DateTime()
+        );
+        $equipmentEvent->setPlayer($player);
 
-        $this->dropAction->loadParameters($takeActionEntity, $player, $gameEquipment);
-        $this->dropAction->execute();
+        $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
-        $I->assertEquals($room->getEquipments()->count(), 1);
-        $I->assertEquals($player->getItems()->count(), 0);
-        $I->assertEquals($player->getModifiers()->count(), 0);
+        $I->assertEquals($room->getEquipments()->count(), 0);
+        $I->assertEquals($player->getItems()->count(), 1);
+        $I->assertEquals($player->getModifiers()->count(), 1);
         $I->assertEquals($room->getModifiers()->count(), 0);
+        $I->assertEquals($player->getModifiers()->first()->getModifierConfig(), $modifierConfig);
     }
 
-    public function testDropGearBroken(FunctionalTester $I)
+    public function testCreateGearPlayerScopeInventoryFull(FunctionalTester $I)
     {
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, ['maxItemInInventory' => 1]);
+        $gameConfig = $I->have(GameConfig::class, ['maxItemInInventory' => 0]);
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
@@ -122,19 +106,6 @@ class DropSubscriberCest
         $characterConfig = $I->have(CharacterConfig::class);
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig]);
-
-        $actionCost = new ActionCost();
-        $I->haveInRepository($actionCost);
-
-        $takeActionEntity = new Action();
-        $takeActionEntity
-            ->setName(ActionEnum::DROP)
-            ->setDirtyRate(0)
-            ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
-        ;
-        $I->haveInRepository($takeActionEntity);
 
         $modifierConfig = new ModifierConfig();
         $modifierConfig
@@ -143,7 +114,6 @@ class DropSubscriberCest
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
-            ->setGameConfig($gameConfig)
         ;
         $I->haveInRepository($modifierConfig);
 
@@ -152,30 +122,26 @@ class DropSubscriberCest
         $I->haveInRepository($gear);
 
         /** @var EquipmentConfig $equipmentConfig */
-        $equipmentConfig = $I->have(EquipmentConfig::class, [
-            'gameConfig' => $gameConfig,
-            'mechanics' => new ArrayCollection([$gear]),
-            'actions' => new ArrayCollection([$takeActionEntity]),
-        ]);
+        $equipmentConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'mechanics' => new ArrayCollection([$gear])]);
 
+        //Case of a game Equipment
         $gameEquipment = new GameItem();
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('some name')
-            ->setPlace($room)
         ;
         $I->haveInRepository($gameEquipment);
 
-        $statusConfig = new StatusConfig();
-        $statusConfig->setName(EquipmentStatusEnum::BROKEN);
-        $I->haveInRepository($statusConfig);
+        $equipmentEvent = new EquipmentEvent(
+            $gameEquipment,
+            $room,
+            VisibilityEnum::PUBLIC,
+            ActionEnum::COFFEE,
+            new \DateTime()
+        );
+        $equipmentEvent->setPlayer($player);
 
-        $status = new Status($gameEquipment);
-        $status->setName(EquipmentStatusEnum::BROKEN);
-        $I->haveInRepository($status);
-
-        $this->dropAction->loadParameters($takeActionEntity, $player, $gameEquipment);
-        $this->dropAction->execute();
+        $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
         $I->assertEquals($room->getEquipments()->count(), 1);
         $I->assertEquals($player->getItems()->count(), 0);
@@ -183,7 +149,7 @@ class DropSubscriberCest
         $I->assertEquals($room->getModifiers()->count(), 0);
     }
 
-    public function testDropGearRoomReach(FunctionalTester $I)
+    public function testCreateGearPlaceReach(FunctionalTester $I)
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, ['maxItemInInventory' => 1]);
@@ -197,19 +163,6 @@ class DropSubscriberCest
         $characterConfig = $I->have(CharacterConfig::class);
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig]);
-
-        $actionCost = new ActionCost();
-        $I->haveInRepository($actionCost);
-
-        $takeActionEntity = new Action();
-        $takeActionEntity
-            ->setName(ActionEnum::DROP)
-            ->setDirtyRate(0)
-            ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
-        ;
-        $I->haveInRepository($takeActionEntity);
 
         $modifierConfig = new ModifierConfig();
         $modifierConfig
@@ -218,51 +171,43 @@ class DropSubscriberCest
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::PLACE)
             ->setMode(ModifierModeEnum::ADDITIVE)
-            ->setGameConfig($gameConfig)
         ;
         $I->haveInRepository($modifierConfig);
-
-        $modifier = new Modifier($room, $modifierConfig);
-        $I->haveInRepository($modifier);
 
         $gear = new Gear();
         $gear->setModifierConfigs(new ArrayCollection([$modifierConfig]));
         $I->haveInRepository($gear);
 
         /** @var EquipmentConfig $equipmentConfig */
-        $equipmentConfig = $I->have(EquipmentConfig::class, [
-            'gameConfig' => $gameConfig,
-            'mechanics' => new ArrayCollection([$gear]),
-            'actions' => new ArrayCollection([$takeActionEntity]),
-        ]);
+        $equipmentConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'mechanics' => new ArrayCollection([$gear])]);
 
         //Case of a game Equipment
         $gameEquipment = new GameItem();
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('some name')
-            ->setPlace($room)
         ;
         $I->haveInRepository($gameEquipment);
 
-        $statusConfig = new StatusConfig();
-        $statusConfig->setName(EquipmentStatusEnum::BROKEN);
-        $I->haveInRepository($statusConfig);
+        $equipmentEvent = new EquipmentEvent(
+            $gameEquipment,
+            $room,
+            VisibilityEnum::PUBLIC,
+            ActionEnum::COFFEE,
+            new \DateTime()
+        );
+        $equipmentEvent->setPlayer($player);
 
-        $status = new Status($gameEquipment);
-        $status->setName(EquipmentStatusEnum::BROKEN);
-        $I->haveInRepository($status);
+        $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
-        $this->dropAction->loadParameters($takeActionEntity, $player, $gameEquipment);
-        $this->dropAction->execute();
-
-        $I->assertEquals($room->getEquipments()->count(), 1);
-        $I->assertEquals($player->getItems()->count(), 0);
+        $I->assertEquals($room->getEquipments()->count(), 0);
+        $I->assertEquals($player->getItems()->count(), 1);
         $I->assertEquals($player->getModifiers()->count(), 0);
         $I->assertEquals($room->getModifiers()->count(), 1);
+        $I->assertEquals($room->getModifiers()->first()->getModifierConfig(), $modifierConfig);
     }
 
-    public function testDropGearWithOtherGear(FunctionalTester $I)
+    public function testDestroyGear(FunctionalTester $I)
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, ['maxItemInInventory' => 1]);
@@ -301,43 +246,17 @@ class DropSubscriberCest
         ;
         $I->haveInRepository($modifierConfig);
 
-        $modifierConfig2 = new ModifierConfig();
-        $modifierConfig2
-            ->setScope(ActionEnum::SHOWER)
-            ->setTarget(ModifierTargetEnum::ACTION_POINT)
-            ->setDelta(1)
-            ->setReach(ModifierReachEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
-            ->setGameConfig($gameConfig)
-        ;
-        $I->haveInRepository($modifierConfig2);
-
         $modifier = new Modifier($player, $modifierConfig);
         $I->haveInRepository($modifier);
-
-        $modifier2 = new Modifier($player, $modifierConfig2);
-        $I->haveInRepository($modifier2);
 
         $gear = new Gear();
         $gear->setModifierConfigs(new ArrayCollection([$modifierConfig]));
         $I->haveInRepository($gear);
 
-        $gear2 = new Gear();
-        $gear2->setModifierConfigs(new ArrayCollection([$modifierConfig2]));
-        $I->haveInRepository($gear2);
-
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, [
             'gameConfig' => $gameConfig,
             'mechanics' => new ArrayCollection([$gear]),
-            'actions' => new ArrayCollection([$takeActionEntity]),
-        ]);
-
-        /** @var EquipmentConfig $equipmentConfig */
-        $equipmentConfig2 = $I->have(EquipmentConfig::class, [
-            'gameConfig' => $gameConfig,
-            'mechanics' => new ArrayCollection([$gear2]),
-            'actions' => new ArrayCollection([$takeActionEntity]),
         ]);
 
         //Case of a game Equipment
@@ -349,28 +268,24 @@ class DropSubscriberCest
         ;
         $I->haveInRepository($gameEquipment);
 
-        //Case of a game Equipment
-        $gameEquipment2 = new GameItem();
-        $gameEquipment2
-            ->setEquipment($equipmentConfig2)
-            ->setName('some name')
-            ->setPlayer($player)
-        ;
-        $I->haveInRepository($gameEquipment2);
+        $equipmentEvent = new EquipmentEvent(
+            $gameEquipment,
+            $room,
+            VisibilityEnum::PUBLIC,
+            ActionEnum::COFFEE,
+            new \DateTime()
+        );
+        $equipmentEvent->setPlayer($player);
 
-        $player->addItem($gameEquipment)->addItem($gameEquipment2);
+        $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
-        $this->dropAction->loadParameters($takeActionEntity, $player, $gameEquipment);
-        $this->dropAction->execute();
-
-        $I->assertEquals($room->getEquipments()->count(), 1);
-        $I->assertEquals($player->getItems()->count(), 1);
-        $I->assertEquals($player->getModifiers()->count(), 1);
-        $I->assertEquals($player->getModifiers()->first(), $modifier2);
+        $I->assertEquals($room->getEquipments()->count(), 0);
+        $I->assertEquals($player->getItems()->count(), 0);
+        $I->assertEquals($player->getModifiers()->count(), 0);
         $I->assertEquals($room->getModifiers()->count(), 0);
     }
 
-    public function testDropOneOfTwoSameGear(FunctionalTester $I)
+    public function testDestroyOneOfTwoGear(FunctionalTester $I)
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, ['maxItemInInventory' => 1]);
@@ -422,7 +337,6 @@ class DropSubscriberCest
         $equipmentConfig = $I->have(EquipmentConfig::class, [
             'gameConfig' => $gameConfig,
             'mechanics' => new ArrayCollection([$gear]),
-            'actions' => new ArrayCollection([$takeActionEntity]),
         ]);
 
         //Case of a game Equipment
@@ -434,7 +348,6 @@ class DropSubscriberCest
         ;
         $I->haveInRepository($gameEquipment);
 
-        //Case of a game Equipment
         $gameEquipment2 = new GameItem();
         $gameEquipment2
             ->setEquipment($equipmentConfig)
@@ -443,12 +356,126 @@ class DropSubscriberCest
         ;
         $I->haveInRepository($gameEquipment2);
 
-        $this->dropAction->loadParameters($takeActionEntity, $player, $gameEquipment);
-        $this->dropAction->execute();
+        $equipmentEvent = new EquipmentEvent(
+            $gameEquipment,
+            $room,
+            VisibilityEnum::PUBLIC,
+            ActionEnum::COFFEE,
+            new \DateTime()
+        );
+        $equipmentEvent->setPlayer($player);
 
-        $I->assertEquals($room->getEquipments()->count(), 1);
+        $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+
+        $I->assertEquals($room->getEquipments()->count(), 0);
         $I->assertEquals($player->getItems()->count(), 1);
         $I->assertEquals($player->getModifiers()->count(), 1);
         $I->assertEquals($room->getModifiers()->count(), 0);
+    }
+
+    public function testTransformGear(FunctionalTester $I)
+    {
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class, ['maxItemInInventory' => 1]);
+
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+
+        /** @var CharacterConfig $characterConfig */
+        $characterConfig = $I->have(CharacterConfig::class);
+        /** @var Player $player */
+        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig]);
+
+        $actionCost = new ActionCost();
+        $I->haveInRepository($actionCost);
+
+        $takeActionEntity = new Action();
+        $takeActionEntity
+            ->setName(ActionEnum::DROP)
+            ->setDirtyRate(0)
+            ->setScope(ActionScopeEnum::CURRENT)
+            ->setInjuryRate(0)
+            ->setActionCost($actionCost)
+        ;
+        $I->haveInRepository($takeActionEntity);
+
+        $modifierConfig = new ModifierConfig();
+        $modifierConfig
+            ->setScope(ActionEnum::SHOWER)
+            ->setTarget(ModifierTargetEnum::ACTION_POINT)
+            ->setDelta(-1)
+            ->setReach(ModifierReachEnum::PLAYER)
+            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setGameConfig($gameConfig)
+        ;
+        $I->haveInRepository($modifierConfig);
+
+        $modifierConfig2 = new ModifierConfig();
+        $modifierConfig2
+            ->setScope(ActionEnum::SHOWER)
+            ->setTarget(ModifierTargetEnum::ACTION_POINT)
+            ->setDelta(-1)
+            ->setReach(ModifierReachEnum::DAEDALUS)
+            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setGameConfig($gameConfig)
+        ;
+        $I->haveInRepository($modifierConfig2);
+
+        $modifier = new Modifier($player, $modifierConfig);
+        $I->haveInRepository($modifier);
+
+        $gear = new Gear();
+        $gear->setModifierConfigs(new ArrayCollection([$modifierConfig]));
+        $I->haveInRepository($gear);
+        $gear2 = new Gear();
+        $gear2->setModifierConfigs(new ArrayCollection([$modifierConfig2]));
+        $I->haveInRepository($gear2);
+
+        /** @var EquipmentConfig $equipmentConfig */
+        $equipmentConfig = $I->have(EquipmentConfig::class, [
+            'gameConfig' => $gameConfig,
+            'mechanics' => new ArrayCollection([$gear]),
+        ]);
+        /** @var EquipmentConfig $equipmentConfig */
+        $equipmentConfig2 = $I->have(EquipmentConfig::class, [
+            'gameConfig' => $gameConfig,
+            'mechanics' => new ArrayCollection([$gear2]),
+        ]);
+
+        //Case of a game Equipment
+        $gameEquipment = new GameItem();
+        $gameEquipment
+            ->setEquipment($equipmentConfig)
+            ->setName('some name')
+            ->setPlayer($player)
+        ;
+        $I->haveInRepository($gameEquipment);
+
+        $gameEquipment2 = new GameItem();
+        $gameEquipment2
+            ->setEquipment($equipmentConfig2)
+            ->setName('some name')
+        ;
+        $I->haveInRepository($gameEquipment2);
+
+        $equipmentEvent = new EquipmentEvent(
+            $gameEquipment,
+            $room,
+            VisibilityEnum::PUBLIC,
+            ActionEnum::COFFEE,
+            new \DateTime()
+        );
+        $equipmentEvent->setPlayer($player)->setReplacementEquipment($gameEquipment2);
+
+        $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_TRANSFORM);
+
+        $I->assertEquals($room->getEquipments()->count(), 0);
+        $I->assertEquals($player->getItems()->count(), 1);
+        $I->assertEquals($player->getModifiers()->count(), 0);
+        $I->assertEquals($room->getModifiers()->count(), 0);
+        $I->assertEquals($daedalus->getModifiers()->count(), 1);
+        $I->assertEquals($daedalus->getModifiers()->first()->getModifierConfig(), $modifierConfig2);
     }
 }

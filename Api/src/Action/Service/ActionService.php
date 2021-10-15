@@ -3,10 +3,13 @@
 namespace Mush\Action\Service;
 
 use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionParameter;
+use Mush\Action\Enum\ActionEnum;
+use Mush\Modifier\Enum\ModifierScopeEnum;
+use Mush\Modifier\Enum\ModifierTargetEnum;
+use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Player\Entity\Player;
-use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Event\PlayerModifierEvent;
-use Mush\Player\Service\ActionModifierServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Enum\StatusEnum;
@@ -15,112 +18,124 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 class ActionService implements ActionServiceInterface
 {
     public const MAX_PERCENT = 99;
-    public const BASE_MOVEMENT_POINT_CONVERSION = 3;
+    public const BASE_MOVEMENT_POINT_CONVERSION_GAIN = 3;
+    public const BASE_MOVEMENT_POINT_CONVERSION_COST = 1;
 
     private EventDispatcherInterface $eventDispatcher;
-    private ActionModifierServiceInterface $actionModifierService;
+    private ModifierServiceInterface $modifierService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
-        ActionModifierServiceInterface $actionModifierService,
+        ModifierServiceInterface $modifierService,
     ) {
         $this->eventDispatcher = $eventDispatcher;
-        $this->actionModifierService = $actionModifierService;
+        $this->modifierService = $modifierService;
     }
 
-    public function canPlayerDoAction(Player $player, Action $action): bool
+    public function applyCostToPlayer(Player $player, Action $action, ?ActionParameter $parameter): Player
     {
-        return $this->getTotalActionPointCost($player, $action) <= $player->getActionPoint() &&
-            ($this->getTotalMovementPointCost($player, $action) <= $player->getMovementPoint() || $player->getActionPoint() > 0) &&
-            $this->getTotalMoralPointCost($player, $action) <= $player->getMoralPoint()
-            ;
-    }
-
-    public function applyCostToPlayer(Player $player, Action $action): Player
-    {
-        if (($actionPointCost = $this->getTotalActionPointCost($player, $action)) > 0) {
+        if (($actionPointCost = $this->getTotalActionPointCost($player, $action, $parameter)) > 0) {
             $this->triggerPlayerModifierEvent($player, PlayerModifierEvent::ACTION_POINT_MODIFIER, -$actionPointCost);
         }
 
-        if (($movementPointCost = $this->getTotalMovementPointCost($player, $action)) > 0) {
-            if ($player->getMovementPoint() === 0) {
+        if (($movementPointCost = $this->getTotalMovementPointCost($player, $action, $parameter)) > 0) {
+            $missingMovementPoints = $action->getActionCost()->getMovementPointCost() - $player->getMovementPoint();
+            if ($missingMovementPoints > 0) {
+                $numberOfConversions = (int) ceil($missingMovementPoints / $this->getMovementPointConversionGain($player));
+                $conversionGain = $numberOfConversions * $this->getMovementPointConversionGain($player);
+
                 $playerModifierEvent = new PlayerModifierEvent(
                     $player,
-                    self::BASE_MOVEMENT_POINT_CONVERSION,
-                    'movement point conversion', //@TODO incoming with modifier merge request
+                    $conversionGain,
+                    ActionEnum::MOVE,
                     new \DateTime()
                 );
-                $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::MOVEMENT_POINT_CONVERSION);
+                $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::MOVEMENT_POINT_MODIFIER);
             }
 
             $this->triggerPlayerModifierEvent($player, PlayerModifierEvent::MOVEMENT_POINT_MODIFIER, -$movementPointCost);
         }
 
-        if (($moralPointCost = $this->getTotalMoralPointCost($player, $action)) > 0) {
+        if (($moralPointCost = $this->getTotalMoralPointCost($player, $action, $parameter)) > 0) {
             $this->triggerPlayerModifierEvent($player, PlayerModifierEvent::MORAL_POINT_MODIFIER, -$moralPointCost);
         }
 
         return $player;
     }
 
-    public function getTotalActionPointCost(Player $player, Action $action): int
+    private function getMovementPointConversionCost(Player $player): int
     {
-        $initCost = $action->getActionCost()->getActionPointCost();
-
-        if ($initCost !== null) {
-            $actionCost = $this->actionModifierService->getModifiedValue(
-                $initCost,
-                $player,
-                array_merge([$action->getName()], $action->getTypes()),
-                ModifierTargetEnum::ACTION_POINT
-            );
-
-            return max($actionCost, 0);
-        }
-
-        return 0;
+        return $this->modifierService->getEventModifiedValue(
+            $player,
+            [ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION],
+            ModifierTargetEnum::ACTION_POINT,
+            self::BASE_MOVEMENT_POINT_CONVERSION_COST
+        );
     }
 
-    public function getTotalMovementPointCost(Player $player, Action $action): int
+    private function getMovementPointConversionGain(Player $player): int
     {
-        $initCost = $action->getActionCost()->getMovementPointCost();
-
-        if ($initCost !== null) {
-            $actionCost = $this->actionModifierService->getModifiedValue(
-                $initCost,
-                $player,
-                array_merge([$action->getName()], $action->getTypes()),
-                ModifierTargetEnum::MOVEMENT_POINT
-            );
-
-            return max($actionCost, 0);
-        }
-
-        return 0;
+        return $this->modifierService->getEventModifiedValue(
+            $player,
+            [ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION],
+            ModifierTargetEnum::MOVEMENT_POINT,
+            self::BASE_MOVEMENT_POINT_CONVERSION_GAIN
+        );
     }
 
-    public function getTotalMoralPointCost(Player $player, Action $action): int
+    public function getTotalActionPointCost(Player $player, Action $action, ?ActionParameter $parameter): int
     {
-        return $action->getActionCost()->getMoralPointCost() ?? 0;
+        $conversionCost = 0;
+        $missingMovementPoints = $action->getActionCost()->getMovementPointCost() - $player->getMovementPoint();
+        if ($missingMovementPoints > 0) {
+            $numberOfConversions = (int) ceil($missingMovementPoints / $this->getMovementPointConversionGain($player));
+
+            $conversionCost = $numberOfConversions * $this->getMovementPointConversionCost($player);
+        }
+
+        return $this->modifierService->getActionModifiedValue(
+            $action,
+            $player,
+            ModifierTargetEnum::ACTION_POINT,
+            $parameter,
+        ) + $conversionCost;
+    }
+
+    public function getTotalMovementPointCost(Player $player, Action $action, ?ActionParameter $parameter): int
+    {
+        return $this->modifierService->getActionModifiedValue(
+            $action,
+            $player,
+            ModifierTargetEnum::MOVEMENT_POINT,
+            $parameter,
+        );
+    }
+
+    public function getTotalMoralPointCost(Player $player, Action $action, ?ActionParameter $parameter): int
+    {
+        return $this->modifierService->getActionModifiedValue(
+            $action,
+            $player,
+            ModifierTargetEnum::MORAL_POINT,
+            $parameter,
+        );
     }
 
     public function getSuccessRate(
         Action $action,
-        Player $player
+        Player $player,
+        ?ActionParameter $parameter
     ): int {
-        $baseRate = $action->getSuccessRate();
-
         //Get number of attempt
         $numberOfAttempt = $this->getNumberOfAttempt($player, $action->getName());
 
-        $initialValue = ($baseRate * (1.25) ** $numberOfAttempt);
-
         //Get modifiers
-        $modifiedValue = $this->actionModifierService->getModifiedValue(
-            $initialValue,
+        $modifiedValue = $this->modifierService->getActionModifiedValue(
+            $action,
             $player,
-            array_merge([$action->getName()], $action->getTypes()),
-            ModifierTargetEnum::PERCENTAGE
+            ModifierTargetEnum::PERCENTAGE,
+            $parameter,
+            $numberOfAttempt
         );
 
         return min($this::MAX_PERCENT, $modifiedValue);

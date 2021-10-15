@@ -43,6 +43,6 @@ abstract class AttemptAction extends AbstractAction
 
     public function getSuccessRate(): int
     {
-        return $this->actionService->getSuccessRate($this->action, $this->player);
+        return $this->actionService->getSuccessRate($this->action, $this->player, $this->parameter);
     }
 }

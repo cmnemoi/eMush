@@ -15,7 +15,6 @@ class PlayerModifierEvent extends PlayerEvent implements AbstractLoggedEvent, Ab
     public const HEALTH_POINT_MODIFIER = 'health.point.modifier';
     public const MORAL_POINT_MODIFIER = 'moral.point.modifier';
     public const SATIETY_POINT_MODIFIER = 'satiety.point.modifier';
-    public const MOVEMENT_POINT_CONVERSION = 'movement.point.conversion';
 
     private int $quantity;
     private string $visibility = VisibilityEnum::PRIVATE;

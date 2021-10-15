@@ -7,7 +7,7 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
-use Mush\Player\Enum\ModifierTargetEnum;
+use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Player\Service\PlayerVariableServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -44,10 +44,10 @@ class RejuvenateAlpha extends AbstractAction
 
     protected function applyEffects(): ActionResult
     {
-        $maxActionPoint = $this->playerVariableService->getMaxPlayerVariable($this->player, ModifierTargetEnum::MAX_ACTION_POINT);
-        $maxMovementPoint = $this->playerVariableService->getMaxPlayerVariable($this->player, ModifierTargetEnum::MAX_MOVEMENT_POINT);
-        $maxMoralePoint = $this->playerVariableService->getMaxPlayerVariable($this->player, ModifierTargetEnum::MAX_MORAL_POINT);
-        $maxHealthPoint = $this->playerVariableService->getMaxPlayerVariable($this->player, ModifierTargetEnum::MAX_HEALTH_POINT);
+        $maxActionPoint = $this->playerVariableService->getMaxPlayerVariable($this->player, ModifierTargetEnum::ACTION_POINT);
+        $maxMovementPoint = $this->playerVariableService->getMaxPlayerVariable($this->player, ModifierTargetEnum::MOVEMENT_POINT);
+        $maxMoralePoint = $this->playerVariableService->getMaxPlayerVariable($this->player, ModifierTargetEnum::MORAL_POINT);
+        $maxHealthPoint = $this->playerVariableService->getMaxPlayerVariable($this->player, ModifierTargetEnum::HEALTH_POINT);
 
         $this->player
             ->setActionPoint($maxActionPoint)

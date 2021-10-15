@@ -4,6 +4,7 @@ namespace Mush\Daedalus\Event;
 
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Player\Entity\Player;
 
 class DaedalusModifierEvent extends DaedalusEvent implements AbstractQuantityEvent
 {
@@ -12,6 +13,7 @@ class DaedalusModifierEvent extends DaedalusEvent implements AbstractQuantityEve
     public const CHANGE_FUEL = 'change.fuel';
 
     private int $quantity;
+    private ?Player $player;
 
     public function __construct(
         Daedalus $daedalus,
@@ -27,5 +29,17 @@ class DaedalusModifierEvent extends DaedalusEvent implements AbstractQuantityEve
     public function getQuantity(): int
     {
         return $this->quantity;
+    }
+
+    public function getPlayer(): ?Player
+    {
+        return $this->player;
+    }
+
+    public function setPlayer(Player $player): DaedalusModifierEvent
+    {
+        $this->player = $player;
+
+        return $this;
     }
 }

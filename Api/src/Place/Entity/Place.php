@@ -9,6 +9,9 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Modifier\Entity\Collection\ModifierCollection;
+use Mush\Modifier\Entity\Modifier;
+use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
@@ -22,7 +25,7 @@ use Mush\Status\Entity\TargetStatusTrait;
  *
  * @ORM\Entity(repositoryClass="Mush\Place\Repository\PlaceRepository")
  */
-class Place implements StatusHolderInterface
+class Place implements StatusHolderInterface, ModifierHolder
 {
     use TimestampableEntity;
     use TargetStatusTrait;
@@ -69,12 +72,18 @@ class Place implements StatusHolderInterface
      */
     private Collection $statuses;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Mush\Modifier\Entity\Modifier", mappedBy="place")
+     */
+    private Collection $modifiers;
+
     public function __construct()
     {
         $this->players = new PlayerCollection();
         $this->equipments = new ArrayCollection();
         $this->doors = new ArrayCollection();
         $this->statuses = new ArrayCollection();
+        $this->modifiers = new ModifierCollection();
     }
 
     public function getId(): ?int
@@ -255,6 +264,21 @@ class Place implements StatusHolderInterface
             $statusTarget->setPlace($this);
             $this->statuses->add($statusTarget);
         }
+
+        return $this;
+    }
+
+    public function getModifiers(): ModifierCollection
+    {
+        return new ModifierCollection($this->modifiers->toArray());
+    }
+
+    /**
+     * @return static
+     */
+    public function addModifier(Modifier $modifier): Place
+    {
+        $this->modifiers->add($modifier);
 
         return $this;
     }

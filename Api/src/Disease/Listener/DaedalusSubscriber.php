@@ -8,7 +8,7 @@ use Mush\Equipment\Enum\GameFruitEnum;
 use Mush\Equipment\Enum\GameRationEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class DeadlusSuscriber implements EventSubscriberInterface
+class DaedalusSubscriber implements EventSubscriberInterface
 {
     private ConsumableDiseaseService $consumableDiseaseService;
 

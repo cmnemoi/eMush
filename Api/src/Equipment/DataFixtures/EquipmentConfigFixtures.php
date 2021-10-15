@@ -9,13 +9,17 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\DataFixtures\TechnicianFixtures;
 use Mush\Action\Entity\Action;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\Mechanics\Charged;
+use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
+use Mush\Modifier\DataFixtures\GearModifierConfigFixtures;
+use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Status\DataFixtures\ChargeStatusFixtures;
 use Mush\Status\DataFixtures\StatusFixtures;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
@@ -213,6 +217,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         ;
         $manager->persist($reactorLateral);
 
+        $antennaGear = $this->createGear([GearModifierConfigFixtures::ANTENNA_MODIFIER]);
+
         $antenna = new EquipmentConfig();
         $antenna
             ->setGameConfig($gameConfig)
@@ -221,8 +227,10 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
             ->setActions(new ArrayCollection([$repair12, $sabotage12, $reportAction, $examineAction]))
+            ->setMechanics(new ArrayCollection([$antennaGear]))
         ;
         $manager->persist($antenna);
+        $manager->persist($antennaGear);
 
         $gravitySimulator = new EquipmentConfig();
         $gravitySimulator
@@ -358,6 +366,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setMaxCharge(1)
             ->setStartCharge(1)
             ->setChargeStatusConfig($dailyElectricCharge)
+            ->setDischargeStrategy(ActionEnum::DISPENSE)
         ;
 
         $narcoticDistiller = new EquipmentConfig();
@@ -492,6 +501,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setMaxCharge(4)
             ->setStartCharge(4)
             ->setChargeStatusConfig($electricCharge)
+            ->setDischargeStrategy(ActionEnum::SHOOT_HUNTER)
         ;
 
         $turretCommandMechanic = new Tool();
@@ -570,6 +580,19 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($oxygenTank);
         $manager->persist($oxygenTankMechanic);
 
+        $gravityGear = $this->createGear([GearModifierConfigFixtures::GRAVITY_CYCLE_MODIFIER, GearModifierConfigFixtures::GRAVITY_CONVERSION_MODIFIER]);
+
+        $gravitySimulator = new EquipmentConfig();
+        $gravitySimulator
+            ->setGameConfig($gameConfig)
+            ->setName(EquipmentEnum::GRAVITY_SIMULATOR)
+            ->setIsFireDestroyable(false)
+            ->setIsFireBreakable(true)
+            ->setIsBreakable(true)
+            ->setActions(new ArrayCollection([$repair6, $sabotage6, $reportAction, $examineAction]))
+            ->setMechanics(new ArrayCollection([$gravityGear]))
+        ;
+
         $manager->flush();
     }
 
@@ -581,6 +604,22 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             TechnicianFixtures::class,
             ChargeStatusFixtures::class,
             StatusFixtures::class,
+            GearModifierConfigFixtures::class,
         ];
+    }
+
+    private function createGear(array $modifierConfigNames): Gear
+    {
+        $gear = new Gear();
+
+        $modifierConfigs = [];
+        foreach ($modifierConfigNames as $modifierConfigName) {
+            /* @var ModifierConfig $modifierConfig */
+            $modifierConfigs[] = $this->getReference($modifierConfigName);
+        }
+
+        $gear->setModifierConfigs(new ArrayCollection($modifierConfigs));
+
+        return $gear;
     }
 }

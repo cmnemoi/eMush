@@ -9,6 +9,7 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\DataFixtures\TechnicianFixtures;
 use Mush\Action\Entity\Action;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Charged;
 use Mush\Equipment\Entity\Mechanics\Weapon;
@@ -83,6 +84,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setMaxCharge(3)
             ->setStartCharge(1)
             ->setChargeStatusConfig($electricCharge)
+            ->setDischargeStrategy(ActionEnum::SHOOT)
         ;
 
         $blaster = new ItemConfig();
@@ -202,6 +204,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setMaxCharge(12)
             ->setStartCharge(12)
             ->setChargeStatusConfig($electricCharge)
+            ->setDischargeStrategy(ActionEnum::SHOOT)
         ;
 
         $oldFaithful = new ItemConfig();
@@ -227,6 +230,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setMaxCharge(1)
             ->setStartCharge(1)
             ->setChargeStatusConfig($electricCharge)
+            ->setDischargeStrategy(ActionEnum::SHOOT)
         ;
 
         $lizaroJungleMechanic = new Weapon();

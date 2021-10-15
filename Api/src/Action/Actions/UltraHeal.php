@@ -13,7 +13,7 @@ use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
-use Mush\Player\Enum\ModifierTargetEnum;
+use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Player\Service\PlayerVariableServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;

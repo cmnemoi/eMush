@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Tests\Action\Actions;
+namespace functional\Action\Actions;
 
 use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;

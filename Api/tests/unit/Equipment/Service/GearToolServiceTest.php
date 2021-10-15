@@ -14,11 +14,10 @@ use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Service\GearToolService;
+use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Place\Entity\Place;
-use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
-use Mush\Player\Enum\ModifierScopeEnum;
-use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -55,89 +54,6 @@ class GearToolServiceTest extends TestCase
     public function after()
     {
         Mockery::close();
-    }
-
-    public function testGetApplicableGear()
-    {
-        $room = new Place();
-        $player = new Player();
-
-        $modifier = new Modifier();
-        $modifier
-            ->setTarget(ModifierTargetEnum::PERCENTAGE)
-            ->setDelta(1.5)
-            ->setScope(ModifierScopeEnum::ACTION_TECHNICIAN)
-            ->setReach(ReachEnum::INVENTORY)
-        ;
-
-        $gear = new Gear();
-        $gear->setModifier(new arrayCollection([$modifier]));
-
-        $item = new ItemConfig();
-        $item
-            ->setName(ItemEnum::METAL_SCRAPS)
-            ->setMechanics(new arrayCollection([$gear]))
-        ;
-
-        $gameItem = new GameItem();
-        $gameItem
-            ->setName(ItemEnum::METAL_SCRAPS)
-            ->setEquipment($item)
-        ;
-
-        $room
-            ->addPlayer($player)
-        ;
-
-        $player->addItem($gameItem);
-
-        $gears = $this->service->getApplicableGears($player, [ActionEnum::TAKE], ModifierTargetEnum::PERCENTAGE);
-        $this->assertEmpty($gears);
-
-        $gears = $this->service->getApplicableGears($player, [ModifierScopeEnum::ACTION_TECHNICIAN], ModifierTargetEnum::ACTION_POINT);
-        $this->assertEmpty($gears);
-
-        $gears = $this->service->getApplicableGears($player, [ActionEnum::TAKE, ModifierScopeEnum::ACTION_TECHNICIAN], ModifierTargetEnum::PERCENTAGE);
-        $this->assertNotEmpty($gears);
-
-        $gears = $this->service->getApplicableGears($player, [ActionEnum::TAKE, ModifierScopeEnum::ACTION_TECHNICIAN]);
-        $this->assertNotEmpty($gears);
-
-        $modifier2 = new Modifier();
-        $modifier2
-            ->setTarget(ModifierTargetEnum::ACTION_POINT)
-            ->setDelta(1)
-            ->setScope(ActionEnum::TAKE)
-            ->setReach(ReachEnum::INVENTORY)
-        ;
-
-        $gear2 = new Gear();
-        $gear2->setModifier(new arrayCollection([$modifier, $modifier2]));
-
-        $item2 = new ItemConfig();
-        $item2
-            ->setName(ItemEnum::PLASTIC_SCRAPS)
-            ->setMechanics(new arrayCollection([$gear2]))
-        ;
-
-        $gameItem2 = new GameItem();
-        $gameItem2
-            ->setName(ItemEnum::METAL_SCRAPS)
-            ->setEquipment($item2)
-        ;
-        $player->addItem($gameItem2);
-
-        $gears = $this->service->getApplicableGears($player, [ActionEnum::TAKE, ModifierScopeEnum::ACTION_TECHNICIAN]);
-        $this->assertCount(2, $gears);
-
-        $gears = $this->service->getApplicableGears($player, [ActionEnum::TAKE]);
-        $this->assertCount(1, $gears);
-
-        $broken = new Status($gameItem2);
-        $broken->setName(EquipmentStatusEnum::BROKEN);
-
-        $gears = $this->service->getApplicableGears($player, [ActionEnum::TAKE]);
-        $this->assertEmpty($gears);
     }
 
     public function testGetEquipmentOnReach()
@@ -350,8 +266,8 @@ class GearToolServiceTest extends TestCase
         //Two tool with the same action but 1 with charges
         $chargeStatus = new ChargeStatus($gameItem);
         $chargeStatus
-            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
             ->setCharge(3)
+            ->setDischargeStrategy(ActionEnum::REPAIR)
         ;
 
         $action->setName(ActionEnum::REPAIR);
@@ -362,8 +278,9 @@ class GearToolServiceTest extends TestCase
         //Two tool with the same action but 1 is charged and the other have no charge left
         $chargeStatus2 = new ChargeStatus($gameItem2);
         $chargeStatus2
-            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
             ->setCharge(0)
+            ->setDischargeStrategy(ActionEnum::REPAIR)
+
         ;
 
         $usedTool = $this->service->getUsedTool($player, ActionEnum::REPAIR);
@@ -394,11 +311,11 @@ class GearToolServiceTest extends TestCase
         ;
         $chargeStatus1 = new ChargeStatus($gameTool);
         $chargeStatus1
-            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
             ->setCharge(1)
+            ->setDischargeStrategy(ActionEnum::REPAIR)
         ;
 
-        $modifier1 = new Modifier();
+        $modifier1 = new ModifierConfig();
         $modifier1
             ->setTarget(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(1.5)
@@ -406,7 +323,7 @@ class GearToolServiceTest extends TestCase
             ->setReach(ReachEnum::INVENTORY)
         ;
         $gear1 = new Gear();
-        $gear1->setModifier(new arrayCollection([$modifier1]));
+        $gear1->setModifierConfigs(new arrayCollection([$modifier1]));
         $gearConfig1 = new ItemConfig();
         $gearConfig1
             ->setName('gear1')
@@ -418,7 +335,7 @@ class GearToolServiceTest extends TestCase
             ->setEquipment($gearConfig1)
         ;
 
-        $modifier2 = new Modifier();
+        $modifier2 = new ModifierConfig();
         $modifier2
             ->setTarget(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(1.5)
@@ -426,7 +343,7 @@ class GearToolServiceTest extends TestCase
             ->setReach(ReachEnum::INVENTORY)
         ;
         $gear2 = new Gear();
-        $gear2->setModifier(new arrayCollection([$modifier2]));
+        $gear2->setModifierConfigs(new arrayCollection([$modifier2]));
         $gearConfig2 = new ItemConfig();
         $gearConfig2
             ->setName('gear2')
@@ -439,11 +356,11 @@ class GearToolServiceTest extends TestCase
         ;
         $chargeStatus2 = new ChargeStatus($gameGear2);
         $chargeStatus2
-            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
             ->setCharge(1)
+            ->setDischargeStrategy(ActionEnum::REPAIR)
         ;
 
-        $modifier3 = new Modifier();
+        $modifier3 = new ModifierConfig();
         $modifier3
             ->setTarget(ModifierTargetEnum::ACTION_POINT)
             ->setDelta(1)
@@ -451,7 +368,7 @@ class GearToolServiceTest extends TestCase
             ->setReach(ReachEnum::INVENTORY)
         ;
         $gear3 = new Gear();
-        $gear3->setModifier(new arrayCollection([$modifier3]));
+        $gear3->setModifierConfigs(new arrayCollection([$modifier3]));
         $gearConfig3 = new ItemConfig();
         $gearConfig3
             ->setName('gear3')
@@ -464,18 +381,12 @@ class GearToolServiceTest extends TestCase
         ;
         $chargeStatus3 = new ChargeStatus($gameGear3);
         $chargeStatus3
-            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
             ->setCharge(0)
+            ->setDischargeStrategy(ActionEnum::REPAIR)
         ;
 
         $room->addPlayer($player)->addEquipment($gameTool);
-        $player->addItem($gameGear1)->addItem($gameGear2)->addItem($gameGear3);
 
-        $this->statusService->shouldReceive('updateCharge')
-            ->with($chargeStatus2, -1)
-            ->andReturn($chargeStatus2)
-            ->once()
-        ;
         $this->statusService->shouldReceive('updateCharge')
             ->with($chargeStatus1, -1)
             ->andReturn($chargeStatus1)
@@ -483,19 +394,6 @@ class GearToolServiceTest extends TestCase
         ;
         $this->service->applyChargeCost($player, ActionEnum::REPAIR);
 
-        $chargeStatus3->setAutoRemove(true)->setCharge(1);
-
-        $this->statusService->shouldReceive('updateCharge')
-            ->with($chargeStatus2, -1)
-            ->andReturn($chargeStatus2)
-            ->once()
-        ;
-        $this->statusService->shouldReceive('updateCharge')
-            ->with($chargeStatus3, -1)
-            ->andReturn(null)
-            ->once()
-        ;
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
         $this->statusService->shouldReceive('updateCharge')
             ->with($chargeStatus1, -1)
             ->andReturn($chargeStatus1)

@@ -13,6 +13,7 @@ use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
+use Mush\Status\Enum\ChargeStrategyTypeEnum;
 
 interface StatusServiceInterface
 {
@@ -33,6 +34,7 @@ interface StatusServiceInterface
         StatusHolderInterface $holder,
         int $charge,
         int $threshold,
+        string $dischargeStrategy = ChargeStrategyTypeEnum::NONE,
         ?StatusHolderInterface $target = null,
     ): ChargeStatus;
 

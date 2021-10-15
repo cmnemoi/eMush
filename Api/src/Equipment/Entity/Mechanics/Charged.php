@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
+use Mush\Status\Enum\ChargeStrategyTypeEnum;
 
 /**
  * Class Equipment.
@@ -30,6 +31,11 @@ class Charged extends EquipmentMechanic
      * @ORM\ManyToOne(targetEntity="Mush\Status\Entity\Config\ChargeStatusConfig")
      */
     private ChargeStatusConfig $chargeStatusConfig;
+
+    /**
+     * @ORM\Column(type="string", nullable=false)
+     */
+    private string $dischargeStrategy = ChargeStrategyTypeEnum::NONE;
 
     public function getMaxCharge(): int
     {
@@ -74,5 +80,20 @@ class Charged extends EquipmentMechanic
         $this->chargeStatusConfig = $chargeStatusConfig;
 
         return $this;
+    }
+
+    /**
+     * @return static
+     */
+    public function setDischargeStrategy(string $dischargeStrategy): Charged
+    {
+        $this->dischargeStrategy = $dischargeStrategy;
+
+        return $this;
+    }
+
+    public function getDischargeStrategy(): string
+    {
+        return $this->dischargeStrategy;
     }
 }

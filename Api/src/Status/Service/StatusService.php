@@ -19,6 +19,7 @@ use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
+use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Repository\StatusConfigRepository;
 use Mush\Status\Repository\StatusRepository;
@@ -86,6 +87,7 @@ class StatusService implements StatusServiceInterface
         StatusHolderInterface $holder,
         int $charge,
         int $threshold,
+        string $dischargeStrategy = ChargeStrategyTypeEnum::NONE,
         ?StatusHolderInterface $target = null,
     ): ChargeStatus {
         return $this->createChargeStatus(
@@ -95,6 +97,7 @@ class StatusService implements StatusServiceInterface
             $target,
             $statusConfig->getVisibility(),
             $statusConfig->getChargeVisibility(),
+            $dischargeStrategy,
             $charge,
             $threshold,
             $statusConfig->isAutoRemove()
@@ -122,8 +125,9 @@ class StatusService implements StatusServiceInterface
         StatusHolderInterface $owner,
         string $strategy,
         ?StatusHolderInterface $target = null,
-        string $visibilty = VisibilityEnum::PUBLIC,
-        string $chargeVisibilty = VisibilityEnum::PUBLIC,
+        string $visibility = VisibilityEnum::PUBLIC,
+        string $chargeVisibility = VisibilityEnum::PUBLIC,
+        string $dischargeStrategy = ChargeStrategyTypeEnum::NONE,
         int $charge = 0,
         int $threshold = null,
         bool $autoRemove = false
@@ -133,11 +137,12 @@ class StatusService implements StatusServiceInterface
             ->setName($statusName)
             ->setTarget($target)
             ->setStrategy($strategy)
-            ->setVisibility($visibilty)
-            ->setChargeVisibility($chargeVisibilty)
+            ->setVisibility($visibility)
+            ->setChargeVisibility($chargeVisibility)
             ->setCharge($charge)
             ->setThreshold($threshold)
             ->setAutoRemove($autoRemove)
+            ->setDischargeStrategy($dischargeStrategy)
         ;
 
         return $status;

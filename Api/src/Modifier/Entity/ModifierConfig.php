@@ -3,6 +3,7 @@
 namespace Mush\Modifier\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Game\Entity\GameConfig;
 use Mush\Modifier\Enum\ModifierModeEnum;
 
 /**
@@ -17,6 +18,11 @@ class ModifierConfig
      * @ORM\Column(type="integer", length=255, nullable=false)
      */
     private int $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Mush\Game\Entity\GameConfig")
+     */
+    private GameConfig $gameConfig;
 
     /**
      * @ORM\Column(type="float", nullable=false)
@@ -48,12 +54,24 @@ class ModifierConfig
         return $this->id;
     }
 
+    public function getGameConfig(): GameConfig
+    {
+        return $this->gameConfig;
+    }
+
+    public function setGameConfig(GameConfig $gameConfig): self
+    {
+        $this->gameConfig = $gameConfig;
+
+        return $this;
+    }
+
     public function getDelta(): float
     {
         return $this->delta;
     }
 
-    public function setDelta(float $delta): ModifierConfig
+    public function setDelta(float $delta): self
     {
         $this->delta = $delta;
 
@@ -65,7 +83,7 @@ class ModifierConfig
         return $this->scope;
     }
 
-    public function setScope(string $scope): ModifierConfig
+    public function setScope(string $scope): self
     {
         $this->scope = $scope;
 
@@ -77,7 +95,7 @@ class ModifierConfig
         return $this->target;
     }
 
-    public function setTarget(string $target): ModifierConfig
+    public function setTarget(string $target): self
     {
         $this->target = $target;
 
@@ -89,7 +107,7 @@ class ModifierConfig
         return $this->reach;
     }
 
-    public function setReach(string $reach): ModifierConfig
+    public function setReach(string $reach): self
     {
         $this->reach = $reach;
 
@@ -101,7 +119,7 @@ class ModifierConfig
         return $this->mode;
     }
 
-    public function setMode(string $mode): ModifierConfig
+    public function setMode(string $mode): self
     {
         $this->mode = $mode;
 

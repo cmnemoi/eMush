@@ -360,6 +360,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             GameConfigFixtures::class,
             ChargeStatusFixtures::class,
             StatusFixtures::class,
+            GearModifierConfigFixtures::class,
         ];
     }
 

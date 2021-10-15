@@ -3,17 +3,20 @@
 namespace Mush\Modifier\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Daedalus\Event\DaedalusModifierEvent;
+use Mush\Game\DataFixtures\GameConfigFixtures;
+use Mush\Game\Entity\GameConfig;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 
-class GearModifierConfigFixtures extends Fixture
+class GearModifierConfigFixtures extends Fixture implements DependentFixtureInterface
 {
     public const APRON_MODIFIER = 'apron_modifier';
     public const ARMOR_MODIFIER = 'armor_modifier';
@@ -30,6 +33,9 @@ class GearModifierConfigFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
+
         $apronModifier = new ModifierConfig();
 
         $apronModifier
@@ -38,6 +44,7 @@ class GearModifierConfigFixtures extends Fixture
             ->setDelta(-100)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setGameConfig($gameConfig)
         ;
         $manager->persist($apronModifier);
 
@@ -48,6 +55,7 @@ class GearModifierConfigFixtures extends Fixture
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::TARGET_PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setGameConfig($gameConfig)
         ;
         $manager->persist($armorModifier);
 
@@ -58,6 +66,7 @@ class GearModifierConfigFixtures extends Fixture
             ->setDelta(1.5)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setGameConfig($gameConfig)
         ;
         $manager->persist($wrenchModifier);
 
@@ -68,6 +77,7 @@ class GearModifierConfigFixtures extends Fixture
             ->setDelta(-100)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setGameConfig($gameConfig)
         ;
         $manager->persist($glovesModifier);
 
@@ -78,6 +88,7 @@ class GearModifierConfigFixtures extends Fixture
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setGameConfig($gameConfig)
         ;
         $manager->persist($soapModifier);
 
@@ -88,6 +99,7 @@ class GearModifierConfigFixtures extends Fixture
             ->setDelta(1.1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setGameConfig($gameConfig)
         ;
         $manager->persist($aimModifier);
 
@@ -98,6 +110,7 @@ class GearModifierConfigFixtures extends Fixture
             ->setDelta(2)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setGameConfig($gameConfig)
         ;
         $manager->persist($antiGravScooterModifier);
 
@@ -108,6 +121,7 @@ class GearModifierConfigFixtures extends Fixture
             ->setDelta(1.5)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::MULTIPLICATIVE)
+            ->setGameConfig($gameConfig)
         ;
         $manager->persist($oscilloscopeSuccessModifier);
 
@@ -118,6 +132,7 @@ class GearModifierConfigFixtures extends Fixture
             ->setDelta(2)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::MULTIPLICATIVE)
+            ->setGameConfig($gameConfig)
         ;
         $manager->persist($oscilloscopeRepairModifier);
 
@@ -128,6 +143,7 @@ class GearModifierConfigFixtures extends Fixture
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::DAEDALUS)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setGameConfig($gameConfig)
         ;
         $manager->persist($antennaModifier);
 
@@ -138,6 +154,7 @@ class GearModifierConfigFixtures extends Fixture
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::DAEDALUS)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setGameConfig($gameConfig)
         ;
         $manager->persist($gravityConversionModifier);
 
@@ -148,6 +165,7 @@ class GearModifierConfigFixtures extends Fixture
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::DAEDALUS)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setGameConfig($gameConfig)
         ;
         $manager->persist($gravityCycleModifier);
 
@@ -165,5 +183,12 @@ class GearModifierConfigFixtures extends Fixture
         $this->addReference(self::ANTENNA_MODIFIER, $antennaModifier);
         $this->addReference(self::GRAVITY_CONVERSION_MODIFIER, $gravityConversionModifier);
         $this->addReference(self::GRAVITY_CYCLE_MODIFIER, $gravityCycleModifier);
+    }
+
+    public function getDependencies(): array
+    {
+        return [
+            GameConfigFixtures::class,
+        ];
     }
 }

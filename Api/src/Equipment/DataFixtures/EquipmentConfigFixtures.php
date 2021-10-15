@@ -604,6 +604,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             TechnicianFixtures::class,
             ChargeStatusFixtures::class,
             StatusFixtures::class,
+            GearModifierConfigFixtures::class,
         ];
     }
 

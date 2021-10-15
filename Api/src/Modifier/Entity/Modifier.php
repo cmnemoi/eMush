@@ -31,27 +31,27 @@ class Modifier
     private ModifierConfig $modifierConfig;
 
     /**
-     * @ORM\OneToOne (targetEntity="Mush\Player\Entity\Player")
+     * @ORM\ManyToOne (targetEntity="Mush\Player\Entity\Player")
      */
     private ?Player $player = null;
 
     /**
-     * @ORM\OneToOne (targetEntity="Mush\Place\Entity\Place")
+     * @ORM\ManyToOne (targetEntity="Mush\Place\Entity\Place")
      */
     private ?Place $place = null;
 
     /**
-     * @ORM\OneToOne (targetEntity="Mush\Equipment\Entity\GameEquipment")
+     * @ORM\ManyToOne (targetEntity="Mush\Equipment\Entity\GameEquipment")
      */
     private ?GameEquipment $gameEquipment = null;
 
     /**
-     * @ORM\OneToOne (targetEntity="Mush\Daedalus\Entity\Daedalus")
+     * @ORM\ManyToOne (targetEntity="Mush\Daedalus\Entity\Daedalus")
      */
     private ?Daedalus $daedalus = null;
 
     /**
-     * @ORM\OneToOne (targetEntity="Mush\Status\Entity\ChargeStatus")
+     * @ORM\ManyToOne (targetEntity="Mush\Status\Entity\ChargeStatus")
      */
     private ?ChargeStatus $charge = null;
 

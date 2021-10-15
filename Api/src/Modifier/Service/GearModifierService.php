@@ -70,6 +70,10 @@ class GearModifierService implements GearModifierServiceInterface
 
     public function takeGear(GameEquipment $gameEquipment, Player $player): void
     {
+        if ($gameEquipment->isBroken()) {
+            return;
+        }
+
         if ($gearMechanic = $gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::GEAR)) {
             if (!$gearMechanic instanceof Gear) {
                 throw new UnexpectedTypeException($gearMechanic, Gear::class);
@@ -94,6 +98,10 @@ class GearModifierService implements GearModifierServiceInterface
 
     public function dropGear(GameEquipment $gameEquipment, Player $player): void
     {
+        if ($gameEquipment->isBroken()) {
+            return;
+        }
+
         if ($gearMechanic = $gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::GEAR)) {
             if (!$gearMechanic instanceof Gear) {
                 throw new UnexpectedTypeException($gearMechanic, Gear::class);

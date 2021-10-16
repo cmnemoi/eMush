@@ -27,7 +27,7 @@ class Book extends Tool
     /**
      * @return static
      */
-    public function setSkill(string $skill): Book
+    public function setSkill(string $skill): self
     {
         $this->skill = $skill;
 

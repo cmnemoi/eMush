@@ -54,7 +54,7 @@ class StatusTarget
         return $this->owner;
     }
 
-    public function setOwner(Status $owner): StatusTarget
+    public function setOwner(Status $owner): self
     {
         $this->owner = $owner;
         $owner->setTargetOwner($this);
@@ -67,7 +67,7 @@ class StatusTarget
         return $this->target;
     }
 
-    public function setTarget(Status $target): StatusTarget
+    public function setTarget(Status $target): self
     {
         $this->target = $target;
         $target->setStatusTargetTarget($this);
@@ -80,7 +80,7 @@ class StatusTarget
         return $this->player;
     }
 
-    public function setPlayer(?Player $player): StatusTarget
+    public function setPlayer(?Player $player): self
     {
         $this->player = $player;
 
@@ -96,7 +96,7 @@ class StatusTarget
         return $this->gameEquipment;
     }
 
-    public function setGameEquipment(?GameEquipment $gameEquipment): StatusTarget
+    public function setGameEquipment(?GameEquipment $gameEquipment): self
     {
         $this->gameEquipment = $gameEquipment;
 
@@ -112,7 +112,7 @@ class StatusTarget
         return $this->place;
     }
 
-    public function setPlace(?Place $place): StatusTarget
+    public function setPlace(?Place $place): self
     {
         $this->place = $place;
 

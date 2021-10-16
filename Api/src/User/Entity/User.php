@@ -61,7 +61,7 @@ class User implements UserInterface
         return $this->userId;
     }
 
-    public function setUserId(string $userId): User
+    public function setUserId(string $userId): self
     {
         $this->userId = $userId;
 
@@ -73,7 +73,7 @@ class User implements UserInterface
         return $this->username;
     }
 
-    public function setUsername(string $username): User
+    public function setUsername(string $username): self
     {
         $this->username = $username;
 
@@ -105,7 +105,7 @@ class User implements UserInterface
         return $this->currentGame;
     }
 
-    public function setCurrentGame(?Player $currentGame): User
+    public function setCurrentGame(?Player $currentGame): self
     {
         $this->currentGame = $currentGame;
 
@@ -117,7 +117,7 @@ class User implements UserInterface
         return $this->nonceCode;
     }
 
-    public function setNonceCode(?string $nonceCode): User
+    public function setNonceCode(?string $nonceCode): self
     {
         $this->nonceCode = $nonceCode;
 
@@ -129,7 +129,7 @@ class User implements UserInterface
         return $this->nonceExpiryDate;
     }
 
-    public function setNonceExpiryDate(?DateTime $nonceExpiryDate): User
+    public function setNonceExpiryDate(?DateTime $nonceExpiryDate): self
     {
         $this->nonceExpiryDate = $nonceExpiryDate;
 

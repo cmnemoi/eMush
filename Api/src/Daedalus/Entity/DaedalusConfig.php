@@ -89,7 +89,7 @@ class DaedalusConfig
     /**
      * @return static
      */
-    public function setGameConfig(GameConfig $gameConfig): DaedalusConfig
+    public function setGameConfig(GameConfig $gameConfig): self
     {
         $this->gameConfig = $gameConfig;
 
@@ -104,7 +104,7 @@ class DaedalusConfig
     /**
      * @return static
      */
-    public function setInitOxygen(int $initOxygen): DaedalusConfig
+    public function setInitOxygen(int $initOxygen): self
     {
         $this->initOxygen = $initOxygen;
 
@@ -119,7 +119,7 @@ class DaedalusConfig
     /**
      * @return static
      */
-    public function setInitFuel(int $initFuel): DaedalusConfig
+    public function setInitFuel(int $initFuel): self
     {
         $this->initFuel = $initFuel;
 
@@ -134,7 +134,7 @@ class DaedalusConfig
     /**
      * @return static
      */
-    public function setInitHull(int $initHull): DaedalusConfig
+    public function setInitHull(int $initHull): self
     {
         $this->initHull = $initHull;
 
@@ -149,7 +149,7 @@ class DaedalusConfig
     /**
      * @return static
      */
-    public function setInitShield(int $initShield): DaedalusConfig
+    public function setInitShield(int $initShield): self
     {
         $this->initShield = $initShield;
 
@@ -164,7 +164,7 @@ class DaedalusConfig
     /**
      * @return static
      */
-    public function setRandomItemPlace(RandomItemPlaces $randomItemPlace): DaedalusConfig
+    public function setRandomItemPlace(RandomItemPlaces $randomItemPlace): self
     {
         $this->randomItemPlace = $randomItemPlace;
 
@@ -179,7 +179,7 @@ class DaedalusConfig
     /**
      * @return static
      */
-    public function setPlaceConfigs(Collection $placeConfigs): DaedalusConfig
+    public function setPlaceConfigs(Collection $placeConfigs): self
     {
         $this->placeConfigs = $placeConfigs;
 
@@ -194,7 +194,7 @@ class DaedalusConfig
     /**
      * @return static
      */
-    public function setDailySporeNb(int $dailySporeNb): DaedalusConfig
+    public function setDailySporeNb(int $dailySporeNb): self
     {
         $this->dailySporeNb = $dailySporeNb;
 
@@ -209,7 +209,7 @@ class DaedalusConfig
     /**
      * @return static
      */
-    public function setMaxOxygen(int $maxOxygen): DaedalusConfig
+    public function setMaxOxygen(int $maxOxygen): self
     {
         $this->maxOxygen = $maxOxygen;
 
@@ -224,7 +224,7 @@ class DaedalusConfig
     /**
      * @return static
      */
-    public function setMaxFuel(int $maxFuel): DaedalusConfig
+    public function setMaxFuel(int $maxFuel): self
     {
         $this->maxFuel = $maxFuel;
 
@@ -239,7 +239,7 @@ class DaedalusConfig
     /**
      * @return static
      */
-    public function setMaxHull(int $maxHull): DaedalusConfig
+    public function setMaxHull(int $maxHull): self
     {
         $this->maxHull = $maxHull;
 

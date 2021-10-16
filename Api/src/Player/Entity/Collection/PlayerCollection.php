@@ -7,22 +7,22 @@ use Mush\Player\Entity\Player;
 
 class PlayerCollection extends ArrayCollection
 {
-    public function getPlayerAlive(): PlayerCollection
+    public function getPlayerAlive(): self
     {
         return $this->filter(fn (Player $player) => $player->isAlive());
     }
 
-    public function getPlayerDead(): PlayerCollection
+    public function getPlayerDead(): self
     {
         return $this->filter(fn (Player $player) => !$player->isAlive());
     }
 
-    public function getMushPlayer(): PlayerCollection
+    public function getMushPlayer(): self
     {
         return $this->filter(fn (Player $player) => $player->isMush());
     }
 
-    public function getHumanPlayer(): PlayerCollection
+    public function getHumanPlayer(): self
     {
         return $this->filter(fn (Player $player) => !$player->isMush());
     }

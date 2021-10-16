@@ -24,7 +24,7 @@ class Attempt extends ChargeStatus
     /**
      * @return static
      */
-    public function setAction(?string $action): Attempt
+    public function setAction(?string $action): self
     {
         $this->action = $action;
 

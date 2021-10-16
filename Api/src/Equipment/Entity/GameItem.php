@@ -27,7 +27,7 @@ class GameItem extends GameEquipment
     /**
      * @return static
      */
-    public function setPlayer(?Player $player): GameItem
+    public function setPlayer(?Player $player): self
     {
         if ($player !== $this->getPlayer()) {
             $oldPlayer = $this->getPlayer();
@@ -59,7 +59,7 @@ class GameItem extends GameEquipment
     /**
      * @return static
      */
-    public function removeLocation(): GameItem
+    public function removeLocation(): self
     {
         $this->setPlace(null);
         $this->setPlayer(null);

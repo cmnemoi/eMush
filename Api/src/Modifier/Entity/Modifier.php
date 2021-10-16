@@ -102,7 +102,7 @@ class Modifier
         return $this->charge;
     }
 
-    public function setCharge(ChargeStatus $charge): Modifier
+    public function setCharge(ChargeStatus $charge): self
     {
         $this->charge = $charge;
 

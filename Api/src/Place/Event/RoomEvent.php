@@ -20,7 +20,7 @@ class RoomEvent extends PlaceCycleEvent implements LoggableEventInterface
         return $this->visibility;
     }
 
-    public function setVisibility(string $visibility): RoomEvent
+    public function setVisibility(string $visibility): self
     {
         $this->visibility = $visibility;
 
@@ -32,7 +32,7 @@ class RoomEvent extends PlaceCycleEvent implements LoggableEventInterface
         return $this->isGravity;
     }
 
-    public function setIsGravity(bool $isGravity): RoomEvent
+    public function setIsGravity(bool $isGravity): self
     {
         $this->isGravity = $isGravity;
 

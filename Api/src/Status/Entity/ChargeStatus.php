@@ -49,7 +49,7 @@ class ChargeStatus extends Status
     /**
      * @return static
      */
-    public function setChargeVisibility(string $chargeVisibility): ChargeStatus
+    public function setChargeVisibility(string $chargeVisibility): self
     {
         $this->chargeVisibility = $chargeVisibility;
 
@@ -64,7 +64,7 @@ class ChargeStatus extends Status
     /**
      * @return static
      */
-    public function addCharge(int $charge): ChargeStatus
+    public function addCharge(int $charge): self
     {
         $this->charge += $charge;
 
@@ -74,7 +74,7 @@ class ChargeStatus extends Status
     /**
      * @return static
      */
-    public function setCharge(int $charge): ChargeStatus
+    public function setCharge(int $charge): self
     {
         $this->charge = $charge;
 
@@ -89,7 +89,7 @@ class ChargeStatus extends Status
     /**
      * @return static
      */
-    public function setStrategy(?string $strategy): ChargeStatus
+    public function setStrategy(?string $strategy): self
     {
         $this->strategy = $strategy;
 
@@ -104,7 +104,7 @@ class ChargeStatus extends Status
     /**
      * @return static
      */
-    public function setDischargeStrategy(?string $dischargeStrategy): ChargeStatus
+    public function setDischargeStrategy(?string $dischargeStrategy): self
     {
         $this->dischargeStrategy = $dischargeStrategy;
 
@@ -119,7 +119,7 @@ class ChargeStatus extends Status
     /**
      * @return static
      */
-    public function setThreshold(?int $threshold): ChargeStatus
+    public function setThreshold(?int $threshold): self
     {
         $this->threshold = $threshold;
 
@@ -134,7 +134,7 @@ class ChargeStatus extends Status
     /**
      * @return static
      */
-    public function setAutoRemove(bool $autoRemove): ChargeStatus
+    public function setAutoRemove(bool $autoRemove): self
     {
         $this->autoRemove = $autoRemove;
 

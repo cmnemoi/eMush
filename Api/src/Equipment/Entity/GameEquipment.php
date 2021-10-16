@@ -117,7 +117,7 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
     /**
      * @return static
      */
-    public function setPlace(?Place $place): GameEquipment
+    public function setPlace(?Place $place): self
     {
         if ($place !== $this->place) {
             $oldPlace = $this->getPlace();
@@ -148,7 +148,7 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
     /**
      * @return static
      */
-    public function removeLocation(): GameEquipment
+    public function removeLocation(): self
     {
         $this->setPlace(null);
 
@@ -163,7 +163,7 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
     /**
      * @return static
      */
-    public function setName(string $name): GameEquipment
+    public function setName(string $name): self
     {
         $this->name = $name;
 
@@ -178,7 +178,7 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
     /**
      * @return static
      */
-    public function setEquipment(EquipmentConfig $equipment): GameEquipment
+    public function setEquipment(EquipmentConfig $equipment): self
     {
         $this->equipment = $equipment;
 
@@ -193,7 +193,7 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
     /**
      * @return static
      */
-    public function addModifier(Modifier $modifier): GameEquipment
+    public function addModifier(Modifier $modifier): self
     {
         $this->modifiers->add($modifier);
 

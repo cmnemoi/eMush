@@ -48,7 +48,7 @@ class ActionEvent extends AbstractGameEvent
         return $this->actionResult;
     }
 
-    public function setActionResult(?ActionResult $actionResult): ActionEvent
+    public function setActionResult(?ActionResult $actionResult): self
     {
         $this->actionResult = $actionResult;
 

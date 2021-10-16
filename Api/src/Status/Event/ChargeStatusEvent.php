@@ -10,7 +10,7 @@ class ChargeStatusEvent extends StatusEvent
     private int $startCharge = 0;
     private string $dischargeStrategy = ChargeStrategyTypeEnum::NONE;
 
-    public function setThreshold(int $threshold): ChargeStatusEvent
+    public function setThreshold(int $threshold): self
     {
         $this->threshold = $threshold;
 
@@ -22,7 +22,7 @@ class ChargeStatusEvent extends StatusEvent
         return $this->threshold;
     }
 
-    public function setInitCharge(int $startCharge): ChargeStatusEvent
+    public function setInitCharge(int $startCharge): self
     {
         $this->startCharge = $startCharge;
 
@@ -34,7 +34,7 @@ class ChargeStatusEvent extends StatusEvent
         return $this->startCharge;
     }
 
-    public function setDischargeStrategy(string $dischargeStrategy): ChargeStatusEvent
+    public function setDischargeStrategy(string $dischargeStrategy): self
     {
         $this->dischargeStrategy = $dischargeStrategy;
 

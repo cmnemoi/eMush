@@ -36,7 +36,7 @@ class Door extends GameEquipment
     /**
      * @return static
      */
-    public function setRooms(Collection $rooms): Door
+    public function setRooms(Collection $rooms): self
     {
         $this->rooms = $rooms;
 
@@ -52,7 +52,7 @@ class Door extends GameEquipment
     /**
      * @return static
      */
-    public function addRoom(Place $room): Door
+    public function addRoom(Place $room): self
     {
         $this->rooms->add($room);
 

@@ -60,7 +60,7 @@ class Ration extends EquipmentMechanic
     /**
      * @return static
      */
-    public function setActionPoints(array $actionPoints): Ration
+    public function setActionPoints(array $actionPoints): self
     {
         $this->actionPoints = $actionPoints;
 
@@ -75,7 +75,7 @@ class Ration extends EquipmentMechanic
     /**
      * @return static
      */
-    public function setMovementPoints(array $movementPoints): Ration
+    public function setMovementPoints(array $movementPoints): self
     {
         $this->movementPoints = $movementPoints;
 
@@ -90,7 +90,7 @@ class Ration extends EquipmentMechanic
     /**
      * @return static
      */
-    public function setHealthPoints(array $healthPoints): Ration
+    public function setHealthPoints(array $healthPoints): self
     {
         $this->healthPoints = $healthPoints;
 
@@ -105,7 +105,7 @@ class Ration extends EquipmentMechanic
     /**
      * @return static
      */
-    public function setMoralPoints(array $moralPoints): Ration
+    public function setMoralPoints(array $moralPoints): self
     {
         $this->moralPoints = $moralPoints;
 
@@ -120,7 +120,7 @@ class Ration extends EquipmentMechanic
     /**
      * @return static
      */
-    public function setSatiety(?int $satiety): Ration
+    public function setSatiety(?int $satiety): self
     {
         $this->satiety = $satiety;
 
@@ -135,7 +135,7 @@ class Ration extends EquipmentMechanic
     /**
      * @return static
      */
-    public function setExtraEffects(array $extraEffects): Ration
+    public function setExtraEffects(array $extraEffects): self
     {
         $this->extraEffects = $extraEffects;
 
@@ -150,7 +150,7 @@ class Ration extends EquipmentMechanic
     /**
      * @return static
      */
-    public function setIsPerishable(bool $isPerishable): Ration
+    public function setIsPerishable(bool $isPerishable): self
     {
         $this->isPerishable = $isPerishable;
 

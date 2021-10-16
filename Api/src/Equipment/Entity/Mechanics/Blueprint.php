@@ -35,7 +35,7 @@ class Blueprint extends Tool
     /**
      * @return static
      */
-    public function setEquipment(EquipmentConfig $equipment): Blueprint
+    public function setEquipment(EquipmentConfig $equipment): self
     {
         $this->equipment = $equipment;
 
@@ -50,7 +50,7 @@ class Blueprint extends Tool
     /**
      * @return static
      */
-    public function setIngredients(array $ingredients): Blueprint
+    public function setIngredients(array $ingredients): self
     {
         $this->ingredients = $ingredients;
 

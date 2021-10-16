@@ -33,7 +33,7 @@ class CreateMessage
         return $this->parent;
     }
 
-    public function setParent(?Message $parent): CreateMessage
+    public function setParent(?Message $parent): self
     {
         $this->parent = $parent;
 
@@ -45,7 +45,7 @@ class CreateMessage
         return $this->channel;
     }
 
-    public function setChannel(Channel $channel): CreateMessage
+    public function setChannel(Channel $channel): self
     {
         $this->channel = $channel;
 
@@ -57,7 +57,7 @@ class CreateMessage
         return $this->message;
     }
 
-    public function setMessage(string $message): CreateMessage
+    public function setMessage(string $message): self
     {
         $this->message = $message;
 

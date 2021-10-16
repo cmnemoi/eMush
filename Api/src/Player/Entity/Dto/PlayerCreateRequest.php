@@ -31,7 +31,7 @@ class PlayerCreateRequest
         return $this->character;
     }
 
-    public function setCharacter(?string $character): PlayerCreateRequest
+    public function setCharacter(?string $character): self
     {
         $this->character = $character;
 
@@ -43,7 +43,7 @@ class PlayerCreateRequest
         return $this->daedalus;
     }
 
-    public function setDaedalus(?Daedalus $daedalus): PlayerCreateRequest
+    public function setDaedalus(?Daedalus $daedalus): self
     {
         $this->daedalus = $daedalus;
 

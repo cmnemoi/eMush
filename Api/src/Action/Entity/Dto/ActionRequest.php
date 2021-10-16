@@ -19,7 +19,7 @@ class ActionRequest
         return $this->action;
     }
 
-    public function setAction(int $action): ActionRequest
+    public function setAction(int $action): self
     {
         $this->action = $action;
 
@@ -31,7 +31,7 @@ class ActionRequest
         return $this->params;
     }
 
-    public function setParams(?array $params): ActionRequest
+    public function setParams(?array $params): self
     {
         $this->params = $params;
 

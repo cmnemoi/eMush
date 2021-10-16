@@ -39,7 +39,7 @@ class ActionSubscriber implements EventSubscriberInterface
         }
         $actionName = $event->getAction()->getName();
 
-        $target = $actionResult->getTargetEquipment() ?: $actionResult->getTargetPlayer();
+        $target = $event->getActionParameter();
 
         // handle modifiers with charges
         $this->modifierService->consumeActionCharges($event->getAction(), $player, $target);

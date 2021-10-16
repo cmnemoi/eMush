@@ -3,13 +3,13 @@
 namespace Mush\Modifier\Service;
 
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionParameter;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Entity\ChargeStatus;
 
 interface ModifierServiceInterface
@@ -35,9 +35,9 @@ interface ModifierServiceInterface
         ?GameEquipment $gameEquipment
     ): void;
 
-    public function getActionModifiedValue(Action $action, Player $player, string $target, ?ActionParameter $parameter, ?int $attemptNumber = null): int;
+    public function getActionModifiedValue(Action $action, Player $player, string $target, ?LogParameterInterface $parameter, ?int $attemptNumber = null): int;
 
-    public function consumeActionCharges(Action $action, Player $player, ?ActionParameter $parameter): void;
+    public function consumeActionCharges(Action $action, Player $player, ?LogParameterInterface $parameter): void;
 
     public function getEventModifiedValue(Player $player, array $scopes, string $target, int $initValue): int;
 }

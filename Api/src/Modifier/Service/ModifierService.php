@@ -5,7 +5,6 @@ namespace Mush\Modifier\Service;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionParameter;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
@@ -16,6 +15,7 @@ use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\Config\Definition\Exception\InvalidTypeException;
@@ -162,7 +162,7 @@ class ModifierService implements ModifierServiceInterface
         return intval($initValue * $multiplicativeDelta + $additiveDelta);
     }
 
-    private function getActionModifiers(Action $action, Player $player, ?ActionParameter $parameter): ModifierCollection
+    private function getActionModifiers(Action $action, Player $player, ?LogParameterInterface $parameter): ModifierCollection
     {
         $modifiers = new ModifierCollection();
 
@@ -183,7 +183,7 @@ class ModifierService implements ModifierServiceInterface
         return $modifiers;
     }
 
-    public function getActionModifiedValue(Action $action, Player $player, string $target, ?ActionParameter $parameter, ?int $attemptNumber = null): int
+    public function getActionModifiedValue(Action $action, Player $player, string $target, ?LogParameterInterface $parameter, ?int $attemptNumber = null): int
     {
         $modifiers = $this->getActionModifiers($action, $player, $parameter);
 
@@ -207,7 +207,7 @@ class ModifierService implements ModifierServiceInterface
         throw new \LogicException('This target is not handled');
     }
 
-    public function consumeActionCharges(Action $action, Player $player, ?ActionParameter $parameter): void
+    public function consumeActionCharges(Action $action, Player $player, ?LogParameterInterface $parameter): void
     {
         $modifiers = $this->getActionModifiers($action, $player, $parameter);
 

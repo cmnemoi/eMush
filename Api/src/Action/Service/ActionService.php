@@ -3,13 +3,13 @@
 namespace Mush\Action\Service;
 
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerModifierEvent;
+use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Enum\StatusEnum;
@@ -32,7 +32,7 @@ class ActionService implements ActionServiceInterface
         $this->modifierService = $modifierService;
     }
 
-    public function applyCostToPlayer(Player $player, Action $action, ?ActionParameter $parameter): Player
+    public function applyCostToPlayer(Player $player, Action $action, ?LogParameterInterface $parameter): Player
     {
         if (($actionPointCost = $this->getTotalActionPointCost($player, $action, $parameter)) > 0) {
             $this->triggerPlayerModifierEvent($player, PlayerModifierEvent::ACTION_POINT_MODIFIER, -$actionPointCost);
@@ -83,7 +83,7 @@ class ActionService implements ActionServiceInterface
         );
     }
 
-    public function getTotalActionPointCost(Player $player, Action $action, ?ActionParameter $parameter): int
+    public function getTotalActionPointCost(Player $player, Action $action, ?LogParameterInterface $parameter): int
     {
         $conversionCost = 0;
         $missingMovementPoints = $action->getActionCost()->getMovementPointCost() - $player->getMovementPoint();
@@ -101,7 +101,7 @@ class ActionService implements ActionServiceInterface
         ) + $conversionCost;
     }
 
-    public function getTotalMovementPointCost(Player $player, Action $action, ?ActionParameter $parameter): int
+    public function getTotalMovementPointCost(Player $player, Action $action, ?LogParameterInterface $parameter): int
     {
         return $this->modifierService->getActionModifiedValue(
             $action,
@@ -111,7 +111,7 @@ class ActionService implements ActionServiceInterface
         );
     }
 
-    public function getTotalMoralPointCost(Player $player, Action $action, ?ActionParameter $parameter): int
+    public function getTotalMoralPointCost(Player $player, Action $action, ?LogParameterInterface $parameter): int
     {
         return $this->modifierService->getActionModifiedValue(
             $action,
@@ -124,7 +124,7 @@ class ActionService implements ActionServiceInterface
     public function getSuccessRate(
         Action $action,
         Player $player,
-        ?ActionParameter $parameter
+        ?LogParameterInterface $parameter
     ): int {
         //Get number of attempt
         $numberOfAttempt = $this->getNumberOfAttempt($player, $action->getName());

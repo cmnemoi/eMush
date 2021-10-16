@@ -4,7 +4,7 @@ namespace Mush\Communication\Listener;
 
 use Mush\Communication\Services\ChannelServiceInterface;
 use Mush\Communication\Services\NeronMessageServiceInterface;
-use Mush\Player\Event\PlayerEventInterface;
+use Mush\Player\Event\PlayerEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class PlayerSubscriber implements EventSubscriberInterface
@@ -23,11 +23,11 @@ class PlayerSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            PlayerEventInterface::DEATH_PLAYER => 'onDeathPlayer',
+            PlayerEvent::DEATH_PLAYER => 'onDeathPlayer',
         ];
     }
 
-    public function onDeathPlayer(PlayerEventInterface $event): void
+    public function onDeathPlayer(PlayerEvent $event): void
     {
         if (!($reason = $event->getReason())) {
             throw new \LogicException('Player should die with a reason');

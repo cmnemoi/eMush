@@ -17,7 +17,7 @@ use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum as EnumEquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Event\StatusEventInterface;
+use Mush\Status\Event\StatusEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -69,9 +69,9 @@ class Take extends AbstractAction
         if ($parameter->hasStatus(EquipmentStatusEnum::HEAVY) &&
             !$this->player->hasStatus(PlayerStatusEnum::BURDENED)
         ) {
-            $statusEvent = new StatusEventInterface(PlayerStatusEnum::BURDENED, $this->player, $this->getActionName(), new \DateTime());
+            $statusEvent = new StatusEvent(PlayerStatusEnum::BURDENED, $this->player, $this->getActionName(), new \DateTime());
 
-            $this->eventDispatcher->dispatch($statusEvent, StatusEventInterface::STATUS_APPLIED);
+            $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
         }
 
         if ($hiddenStatus = $parameter->getStatusByName(EnumEquipmentStatusEnum::HIDDEN)) {

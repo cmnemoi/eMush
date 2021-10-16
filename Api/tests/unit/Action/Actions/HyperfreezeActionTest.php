@@ -17,7 +17,7 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Place\Entity\Place;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Event\StatusEventInterface;
+use Mush\Status\Event\StatusEvent;
 
 class HyperfreezeActionTest extends AbstractActionTest
 {
@@ -88,7 +88,7 @@ class HyperfreezeActionTest extends AbstractActionTest
         $this->gameEquipmentService->shouldReceive('persist');
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof StatusEventInterface &&
+            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof StatusEvent &&
                 $event->getStatusName() === EquipmentStatusEnum::FROZEN &&
                 $event->getStatusHolder() === $gameRation)
             ->once()

@@ -2,7 +2,7 @@
 
 namespace Mush\Disease\Listener;
 
-use Mush\Action\Event\ApplyEffectEventInterface;
+use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Disease\Enum\TypeEnum;
 use Mush\Disease\Service\DiseaseCauseServiceInterface;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
@@ -26,12 +26,12 @@ class ActionEffectSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            ApplyEffectEventInterface::CONSUME => 'onConsume',
-            ApplyEffectEventInterface::HEAL => 'onHeal',
+            ApplyEffectEvent::CONSUME => 'onConsume',
+            ApplyEffectEvent::HEAL => 'onHeal',
         ];
     }
 
-    public function onConsume(ApplyEffectEventInterface $event)
+    public function onConsume(ApplyEffectEvent $event)
     {
         $equipment = $event->getParameter();
 
@@ -43,7 +43,7 @@ class ActionEffectSubscriber implements EventSubscriberInterface
         $this->diseaseCauseService->handleConsumable($event->getPlayer(), $equipment);
     }
 
-    public function onHeal(ApplyEffectEventInterface $event)
+    public function onHeal(ApplyEffectEvent $event)
     {
         $player = $event->getParameter();
 

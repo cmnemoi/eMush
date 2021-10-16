@@ -15,7 +15,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Blueprint;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Equipment\Event\EquipmentEventInterface;
+use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
@@ -109,28 +109,28 @@ class Build extends AbstractAction
                         ->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $name)->first();
                 }
 
-                $equipmentEvent = new EquipmentEventInterface(
+                $equipmentEvent = new EquipmentEvent(
                     $ingredient,
                     $place,
                     VisibilityEnum::HIDDEN,
                     $this->getActionName(),
                     new \DateTime()
                 );
-                $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEventInterface::EQUIPMENT_DESTROYED);
+                $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
             }
         }
 
-        $equipmentEvent = new EquipmentEventInterface(
+        $equipmentEvent = new EquipmentEvent(
             $parameter,
             $place,
             VisibilityEnum::HIDDEN,
             $this->getActionName(),
             new \DateTime()
         );
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEventInterface::EQUIPMENT_DESTROYED);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         //create the equipment
-        $equipmentEvent = new EquipmentEventInterface(
+        $equipmentEvent = new EquipmentEvent(
             $blueprintEquipment,
             $place,
             VisibilityEnum::HIDDEN,
@@ -139,7 +139,7 @@ class Build extends AbstractAction
         );
 
         $equipmentEvent->setPlayer($this->player);
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEventInterface::EQUIPMENT_CREATED);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
         $this->gameEquipmentService->persist($blueprintEquipment);
 

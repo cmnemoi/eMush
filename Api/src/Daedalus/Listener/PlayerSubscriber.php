@@ -5,7 +5,7 @@ namespace Mush\Daedalus\Listener;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Enum\EndCauseEnum;
-use Mush\Player\Event\PlayerEventInterface;
+use Mush\Player\Event\PlayerEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -22,12 +22,12 @@ class PlayerSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            PlayerEventInterface::NEW_PLAYER => 'onNewPlayer',
-            PlayerEventInterface::DEATH_PLAYER => 'onDeathPlayer',
+            PlayerEvent::NEW_PLAYER => 'onNewPlayer',
+            PlayerEvent::DEATH_PLAYER => 'onDeathPlayer',
         ];
     }
 
-    public function onNewPlayer(PlayerEventInterface $event): void
+    public function onNewPlayer(PlayerEvent $event): void
     {
         $player = $event->getPlayer();
         $daedalus = $player->getDaedalus();
@@ -49,7 +49,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         }
     }
 
-    public function onDeathPlayer(PlayerEventInterface $event): void
+    public function onDeathPlayer(PlayerEvent $event): void
     {
         $player = $event->getPlayer();
         $reason = $event->getReason();

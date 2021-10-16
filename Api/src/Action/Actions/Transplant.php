@@ -13,7 +13,7 @@ use Mush\Equipment\Entity\Mechanics\Fruit;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Equipment\Event\EquipmentEventInterface;
+use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Place\Entity\Place;
@@ -88,22 +88,22 @@ class Transplant extends AbstractAction
             $plantEquipment->setPlace($place);
         }
 
-        $equipmentEvent = new EquipmentEventInterface(
+        $equipmentEvent = new EquipmentEvent(
             $parameter,
             $place,
             VisibilityEnum::HIDDEN,
             $this->getActionName(),
             new \DateTime());
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEventInterface::EQUIPMENT_DESTROYED);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
-        $equipmentEvent = new EquipmentEventInterface(
+        $equipmentEvent = new EquipmentEvent(
             $hydropot,
             $place,
             VisibilityEnum::HIDDEN,
             $this->getActionName(),
             new \DateTime()
         );
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEventInterface::EQUIPMENT_DESTROYED);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         $this->gameEquipmentService->persist($plantEquipment);
 

@@ -2,7 +2,7 @@
 
 namespace Mush\Status\Listener;
 
-use Mush\Action\Event\ApplyEffectEventInterface;
+use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\Mechanics\Drug;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
@@ -24,11 +24,11 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            ApplyEffectEventInterface::CONSUME => 'onConsume',
+            ApplyEffectEvent::CONSUME => 'onConsume',
         ];
     }
 
-    public function onConsume(ApplyEffectEventInterface $event)
+    public function onConsume(ApplyEffectEvent $event)
     {
         $drug = $event->getParameter();
         $player = $event->getPlayer();

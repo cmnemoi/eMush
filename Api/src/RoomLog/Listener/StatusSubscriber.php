@@ -8,7 +8,7 @@ use Mush\RoomLog\Enum\PlantLogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Event\StatusEventInterface;
+use Mush\Status\Event\StatusEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
@@ -25,12 +25,12 @@ class StatusSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            StatusEventInterface::STATUS_APPLIED => 'onStatusApplied',
-            StatusEventInterface::STATUS_REMOVED => 'onStatusRemoved',
+            StatusEvent::STATUS_APPLIED => 'onStatusApplied',
+            StatusEvent::STATUS_REMOVED => 'onStatusRemoved',
         ];
     }
 
-    public function onStatusApplied(StatusEventInterface $event): void
+    public function onStatusApplied(StatusEvent $event): void
     {
         if ($event->getStatusName() === PlayerStatusEnum::STARVING) {
             $holder = $event->getStatusHolder();
@@ -65,7 +65,7 @@ class StatusSubscriber implements EventSubscriberInterface
         }
     }
 
-    public function onStatusRemoved(StatusEventInterface $event): void
+    public function onStatusRemoved(StatusEvent $event): void
     {
         if ($event->getStatusName() === EquipmentStatusEnum::PLANT_YOUNG) {
             $this->roomLogService->createLog(

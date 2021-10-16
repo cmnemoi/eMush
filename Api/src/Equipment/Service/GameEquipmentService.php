@@ -14,7 +14,7 @@ use Mush\Equipment\Entity\Mechanics\Charged;
 use Mush\Equipment\Entity\Mechanics\Document;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
-use Mush\Equipment\Event\EquipmentEventInterface;
+use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
@@ -23,7 +23,7 @@ use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\ChargeStatusEvent;
-use Mush\Status\Event\StatusEventInterface;
+use Mush\Status\Event\StatusEvent;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -132,11 +132,11 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             throw new \LogicException('Parameter is not a plant');
         }
 
-        $statusEvent = new ChargeStatusEvent(EquipmentStatusEnum::PLANT_YOUNG, $gameEquipment, EquipmentEventInterface::EQUIPMENT_CREATED, new \DateTime());
+        $statusEvent = new ChargeStatusEvent(EquipmentStatusEnum::PLANT_YOUNG, $gameEquipment, EquipmentEvent::EQUIPMENT_CREATED, new \DateTime());
         $statusEvent->setInitCharge(1);
         $statusEvent->setThreshold($this->equipmentEffectService->getPlantEffect($plant, $daedalus)->getMaturationTime());
 
-        $this->eventDispatcher->dispatch($statusEvent, StatusEventInterface::STATUS_APPLIED);
+        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
 
         return $gameEquipment;
     }
@@ -149,13 +149,13 @@ class GameEquipmentService implements GameEquipmentServiceInterface
 
         $statusEvent = new ChargeStatusEvent(
             $chargeMechanic->getChargeStatusConfig()->getName(),
-            $gameEquipment, EquipmentEventInterface::EQUIPMENT_CREATED,
+            $gameEquipment, EquipmentEvent::EQUIPMENT_CREATED,
             new \DateTime()
         );
         $statusEvent->setInitCharge($chargeMechanic->getStartCharge());
         $statusEvent->setThreshold($chargeMechanic->getMaxCharge());
 
-        $this->eventDispatcher->dispatch($statusEvent, StatusEventInterface::STATUS_APPLIED);
+        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
 
         return $gameEquipment;
     }
@@ -167,8 +167,8 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         }
 
         // @TODO rework when better handling Daedalus creation
-        $statusEvent = new StatusEventInterface(EquipmentStatusEnum::DOCUMENT_CONTENT, $gameEquipment, EquipmentEventInterface::EQUIPMENT_CREATED, new \DateTime());
-        $this->eventDispatcher->dispatch($statusEvent, StatusEventInterface::STATUS_APPLIED);
+        $statusEvent = new StatusEvent(EquipmentStatusEnum::DOCUMENT_CONTENT, $gameEquipment, EquipmentEvent::EQUIPMENT_CREATED, new \DateTime());
+        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
 
         return $gameEquipment;
     }
@@ -180,9 +180,9 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             if (!$statusConfig instanceof StatusConfig) {
                 throw new UnexpectedTypeException($statusConfig, StatusConfig::class);
             }
-            $statusEvent = new StatusEventInterface($statusConfig->getName(), $gameEquipment, EquipmentEventInterface::EQUIPMENT_CREATED, new \DateTime());
+            $statusEvent = new StatusEvent($statusConfig->getName(), $gameEquipment, EquipmentEvent::EQUIPMENT_CREATED, new \DateTime());
 
-            $this->eventDispatcher->dispatch($statusEvent, StatusEventInterface::STATUS_APPLIED);
+            $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
         }
 
         return $gameEquipment;
@@ -197,28 +197,28 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         if ($gameEquipment->getEquipment()->isFireDestroyable() &&
             $this->randomService->isSuccessful($this->getGameConfig($gameEquipment)->getDifficultyConfig()->getEquipmentFireBreakRate())
         ) {
-            $equipmentEvent = new EquipmentEventInterface(
+            $equipmentEvent = new EquipmentEvent(
                 $gameEquipment,
                 $gameEquipment->getCurrentPlace(),
                 VisibilityEnum::PUBLIC,
                 EventEnum::FIRE,
                 $date
             );
-            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEventInterface::EQUIPMENT_DESTROYED);
+            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
         }
 
         if ($gameEquipment->getEquipment()->isFireBreakable() &&
             !$gameEquipment->getStatusByName(EquipmentStatusEnum::BROKEN) &&
             $this->randomService->isSuccessful($this->getGameConfig($gameEquipment)->getDifficultyConfig()->getEquipmentFireBreakRate())
         ) {
-            $equipmentEvent = new EquipmentEventInterface(
+            $equipmentEvent = new EquipmentEvent(
                 $gameEquipment,
                 $gameEquipment->getCurrentPlace(),
                 VisibilityEnum::PUBLIC,
                 EventEnum::FIRE,
                 $date
             );
-            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEventInterface::EQUIPMENT_BROKEN);
+            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_BROKEN);
             $this->persist($gameEquipment);
         }
     }

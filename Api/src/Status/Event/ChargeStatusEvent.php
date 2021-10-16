@@ -2,12 +2,12 @@
 
 namespace Mush\Status\Event;
 
-class ChargeStatusEvent extends StatusEventInterface
+class ChargeStatusEvent extends StatusEvent
 {
     private int $threshold = 0;
     private int $startCharge = 0;
 
-    public function setThreshold(int $threshold): StatusEventInterface
+    public function setThreshold(int $threshold): StatusEvent
     {
         $this->threshold = $threshold;
 
@@ -19,7 +19,7 @@ class ChargeStatusEvent extends StatusEventInterface
         return $this->threshold;
     }
 
-    public function setInitCharge(int $startCharge): StatusEventInterface
+    public function setInitCharge(int $startCharge): StatusEvent
     {
         $this->startCharge = $startCharge;
 

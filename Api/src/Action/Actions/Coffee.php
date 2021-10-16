@@ -14,7 +14,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Equipment\Event\EquipmentEventInterface;
+use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -65,7 +65,7 @@ class Coffee extends AbstractAction
             ->createGameEquipmentFromName(GameRationEnum::COFFEE, $this->player->getDaedalus())
         ;
 
-        $equipmentEvent = new EquipmentEventInterface(
+        $equipmentEvent = new EquipmentEvent(
             $newItem,
             $this->player->getPlace(),
             VisibilityEnum::HIDDEN,
@@ -73,7 +73,7 @@ class Coffee extends AbstractAction
             new \DateTime()
         );
         $equipmentEvent->setPlayer($this->player);
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEventInterface::EQUIPMENT_CREATED);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
         $this->gameEquipmentService->persist($newItem);
 

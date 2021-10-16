@@ -4,7 +4,7 @@ namespace Mush\Test\Player\Event;
 
 use Mockery;
 use Mush\Player\Entity\Player;
-use Mush\Player\Event\PlayerModifierEventInterface;
+use Mush\Player\Event\PlayerModifierEvent;
 use Mush\Player\Listener\PlayerModifierSubscriber;
 use Mush\Player\Service\PlayerVariableServiceInterface;
 use PHPUnit\Framework\TestCase;
@@ -45,7 +45,7 @@ class PlayerModifierSubscriberTest extends TestCase
     {
         $player = new Player();
 
-        $event = new PlayerModifierEventInterface($player, 1, 'movement point conversion', new \DateTime());
+        $event = new PlayerModifierEvent($player, 1, 'movement point conversion', new \DateTime());
 
         $player->setActionPoint(1);
 

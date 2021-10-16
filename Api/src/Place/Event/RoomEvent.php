@@ -5,7 +5,7 @@ namespace Mush\Place\Event;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Event\LoggableEventInterface;
 
-class RoomEventInterface extends PlaceCycleEvent implements LoggableEventInterface
+class RoomEvent extends PlaceCycleEvent implements LoggableEventInterface
 {
     public const TREMOR = 'tremor';
     public const ELECTRIC_ARC = 'electric.arc';
@@ -20,7 +20,7 @@ class RoomEventInterface extends PlaceCycleEvent implements LoggableEventInterfa
         return $this->visibility;
     }
 
-    public function setVisibility(string $visibility): RoomEventInterface
+    public function setVisibility(string $visibility): RoomEvent
     {
         $this->visibility = $visibility;
 
@@ -32,7 +32,7 @@ class RoomEventInterface extends PlaceCycleEvent implements LoggableEventInterfa
         return $this->isGravity;
     }
 
-    public function setIsGravity(bool $isGravity): RoomEventInterface
+    public function setIsGravity(bool $isGravity): RoomEvent
     {
         $this->isGravity = $isGravity;
 

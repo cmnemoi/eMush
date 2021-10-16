@@ -16,7 +16,7 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
-use Mush\Place\Event\RoomEventInterface;
+use Mush\Place\Event\RoomEvent;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
@@ -50,20 +50,20 @@ class RoomEventCest
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'healthPoint' => 10]);
 
-        $roomEvent = new RoomEventInterface($room, RoomEventInterface::ELECTRIC_ARC, $time);
+        $roomEvent = new RoomEvent($room, RoomEvent::ELECTRIC_ARC, $time);
 
         $I->expectThrowable(\LogicException::class, function () use ($roomEvent) {
-            $this->eventDispatcher->dispatch($roomEvent, RoomEventInterface::STARTING_FIRE);
+            $this->eventDispatcher->dispatch($roomEvent, RoomEvent::STARTING_FIRE);
         }
         );
 
         $I->expectThrowable(\LogicException::class, function () use ($roomEvent) {
-            $this->eventDispatcher->dispatch($roomEvent, RoomEventInterface::TREMOR);
+            $this->eventDispatcher->dispatch($roomEvent, RoomEvent::TREMOR);
         }
         );
 
         $I->expectThrowable(\LogicException::class, function () use ($roomEvent) {
-            $this->eventDispatcher->dispatch($roomEvent, RoomEventInterface::ELECTRIC_ARC);
+            $this->eventDispatcher->dispatch($roomEvent, RoomEvent::ELECTRIC_ARC);
         }
         );
     }
@@ -99,9 +99,9 @@ class RoomEventCest
 
         $room->setDaedalus($daedalus);
 
-        $roomEvent = new RoomEventInterface($room, EventEnum::NEW_CYCLE, $time);
+        $roomEvent = new RoomEvent($room, EventEnum::NEW_CYCLE, $time);
 
-        $this->eventDispatcher->dispatch($roomEvent, RoomEventInterface::STARTING_FIRE);
+        $this->eventDispatcher->dispatch($roomEvent, RoomEvent::STARTING_FIRE);
 
         $I->assertEquals(1, $room->getStatuses()->count());
 
@@ -130,9 +130,9 @@ class RoomEventCest
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'healthPoint' => 10, 'characterConfig' => $characterConfig]);
 
-        $roomEvent = new RoomEventInterface($room, EventEnum::NEW_CYCLE, $time);
+        $roomEvent = new RoomEvent($room, EventEnum::NEW_CYCLE, $time);
 
-        $this->eventDispatcher->dispatch($roomEvent, RoomEventInterface::TREMOR);
+        $this->eventDispatcher->dispatch($roomEvent, RoomEvent::TREMOR);
 
         $I->assertEquals(8, $player->getHealthPoint());
         $I->seeInRepository(RoomLog::class, [
@@ -190,8 +190,8 @@ class RoomEventCest
         ;
         $I->haveInRepository($gameEquipment);
 
-        $roomEvent = new RoomEventInterface($room, EventEnum::NEW_CYCLE, $time);
-        $this->eventDispatcher->dispatch($roomEvent, RoomEventInterface::ELECTRIC_ARC);
+        $roomEvent = new RoomEvent($room, EventEnum::NEW_CYCLE, $time);
+        $this->eventDispatcher->dispatch($roomEvent, RoomEvent::ELECTRIC_ARC);
 
         $I->assertEquals(7, $player->getHealthPoint());
         $I->assertTrue($gameEquipment->isBroken());

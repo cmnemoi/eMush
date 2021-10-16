@@ -8,7 +8,7 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Event\LoggableEventInterface;
 
-class EquipmentEventInterface extends AbstractGameEvent implements LoggableEventInterface
+class EquipmentEvent extends AbstractGameEvent implements LoggableEventInterface
 {
     public const EQUIPMENT_CREATED = 'equipment.created';
     public const EQUIPMENT_FIXED = 'equipment.fixed';
@@ -51,7 +51,7 @@ class EquipmentEventInterface extends AbstractGameEvent implements LoggableEvent
         return $this->player;
     }
 
-    public function setPlayer(Player $player): EquipmentEventInterface
+    public function setPlayer(Player $player): EquipmentEvent
     {
         $this->player = $player;
 
@@ -63,7 +63,7 @@ class EquipmentEventInterface extends AbstractGameEvent implements LoggableEvent
         return $this->replacementEquipment;
     }
 
-    public function setReplacementEquipment(GameEquipment $replacement): EquipmentEventInterface
+    public function setReplacementEquipment(GameEquipment $replacement): EquipmentEvent
     {
         $this->replacementEquipment = $replacement;
 

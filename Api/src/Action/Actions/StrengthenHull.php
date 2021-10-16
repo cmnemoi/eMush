@@ -11,7 +11,7 @@ use Mush\Action\Validator\Reach;
 use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Equipment\Event\EquipmentEventInterface;
+use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Enum\ModifierScopeEnum;
 use Mush\Player\Enum\ModifierTargetEnum;
@@ -82,7 +82,7 @@ class StrengthenHull extends AttemptAction
             );
             $this->eventDispatcher->dispatch($daedalusEvent, DaedalusModifierEvent::CHANGE_HULL);
 
-            $equipmentEvent = new EquipmentEventInterface(
+            $equipmentEvent = new EquipmentEvent(
                 $parameter,
                 $this->player->getPlace(),
                 VisibilityEnum::HIDDEN,
@@ -90,7 +90,7 @@ class StrengthenHull extends AttemptAction
                 new \DateTime()
             );
             $equipmentEvent->setPlayer($this->player);
-            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEventInterface::EQUIPMENT_DESTROYED);
+            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
         }
 
         return $response;

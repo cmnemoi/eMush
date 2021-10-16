@@ -9,7 +9,7 @@ use Mush\Daedalus\Listener\PlayerSubscriber;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Entity\Player;
-use Mush\Player\Event\PlayerEventInterface;
+use Mush\Player\Event\PlayerEvent;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -55,7 +55,7 @@ class PlayerSuscriberTest extends TestCase
 
         $date = new \DateTime('tomorrow');
 
-        $event = new PlayerEventInterface(
+        $event = new PlayerEvent(
             $player,
             DaedalusEvent::END_DAEDALUS,
             $date

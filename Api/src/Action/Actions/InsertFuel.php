@@ -13,7 +13,7 @@ use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Equipment\Event\EquipmentEventInterface;
+use Mush\Equipment\Event\EquipmentEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -56,7 +56,7 @@ class InsertFuel extends AbstractAction
         $item = $this->getParameter();
 
         //delete the item
-        $equipmentEvent = new EquipmentEventInterface(
+        $equipmentEvent = new EquipmentEvent(
             $item,
             $this->player->getPlace(),
             VisibilityEnum::HIDDEN,
@@ -64,7 +64,7 @@ class InsertFuel extends AbstractAction
             new \DateTime()
         );
         $equipmentEvent->setPlayer($this->player);
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEventInterface::EQUIPMENT_DESTROYED);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         //add Oxygen
         $daedalusEvent = new DaedalusModifierEvent(

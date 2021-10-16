@@ -11,7 +11,7 @@ use Mush\RoomLog\Event\LoggableEventInterface;
 use Mush\Status\Entity\StatusHolderInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class StatusEventInterface extends AbstractGameEvent implements LoggableEventInterface
+class StatusEvent extends AbstractGameEvent implements LoggableEventInterface
 {
     public const STATUS_APPLIED = 'status.applied';
     public const STATUS_REMOVED = 'status.removed';
@@ -48,14 +48,14 @@ class StatusEventInterface extends AbstractGameEvent implements LoggableEventInt
         return $this->target;
     }
 
-    public function setStatusTarget(StatusHolderInterface $target): StatusEventInterface
+    public function setStatusTarget(StatusHolderInterface $target): StatusEvent
     {
         $this->target = $target;
 
         return $this;
     }
 
-    public function setVisibility(string $visibility): StatusEventInterface
+    public function setVisibility(string $visibility): StatusEvent
     {
         $this->visibility = $visibility;
 

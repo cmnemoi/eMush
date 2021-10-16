@@ -5,7 +5,7 @@ namespace Mush\Communication\Listener;
 use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Communication\Services\NeronMessageServiceInterface;
 use Mush\Equipment\Enum\EquipmentEnum;
-use Mush\Equipment\Event\EquipmentEventInterface;
+use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -25,17 +25,17 @@ class EquipmentSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            EquipmentEventInterface::EQUIPMENT_BROKEN => 'onBrokenEquipment',
-            EquipmentEventInterface::EQUIPMENT_DESTROYED => 'onDestroyedEquipment',
+            EquipmentEvent::EQUIPMENT_BROKEN => 'onBrokenEquipment',
+            EquipmentEvent::EQUIPMENT_DESTROYED => 'onDestroyedEquipment',
         ];
     }
 
-    public function onBrokenEquipment(EquipmentEventInterface $event): void
+    public function onBrokenEquipment(EquipmentEvent $event): void
     {
         $this->neronMessageService->createBrokenEquipmentMessage($event->getEquipment(), $event->getVisibility(), $event->getTime());
     }
 
-    public function onDestroyedEquipment(EquipmentEventInterface $event): void
+    public function onDestroyedEquipment(EquipmentEvent $event): void
     {
         $equipment = $event->getEquipment();
 

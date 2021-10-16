@@ -4,9 +4,9 @@ namespace Mush\Equipment\Listener;
 
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Event\EquipmentEventInterface;
+use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Place\Enum\PlaceTypeEnum;
-use Mush\Place\Event\RoomEventInterface;
+use Mush\Place\Event\RoomEvent;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -24,11 +24,11 @@ class RoomSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            RoomEventInterface::ELECTRIC_ARC => 'onElectricArc',
+            RoomEvent::ELECTRIC_ARC => 'onElectricArc',
         ];
     }
 
-    public function onElectricArc(RoomEventInterface $event): void
+    public function onElectricArc(RoomEvent $event): void
     {
         $room = $event->getPlace();
 
@@ -42,14 +42,14 @@ class RoomSubscriber implements EventSubscriberInterface
                 !($equipment instanceof Door) &&
                 !($equipment instanceof GameItem) &&
                 $equipment->isBreakable()) {
-                $equipmentEvent = new EquipmentEventInterface(
+                $equipmentEvent = new EquipmentEvent(
                     $equipment,
                     $event->getPlace(),
                     VisibilityEnum::PUBLIC,
-                    RoomEventInterface::ELECTRIC_ARC,
+                    RoomEvent::ELECTRIC_ARC,
                     $event->getTime()
                 );
-                $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEventInterface::EQUIPMENT_BROKEN);
+                $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_BROKEN);
             }
         }
     }

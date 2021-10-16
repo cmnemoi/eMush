@@ -2,7 +2,7 @@
 
 namespace Mush\Status\Listener;
 
-use Mush\Equipment\Event\EquipmentEventInterface;
+use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -21,13 +21,13 @@ class EquipmentSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            EquipmentEventInterface::EQUIPMENT_FIXED => 'onEquipmentFixed',
-            EquipmentEventInterface::EQUIPMENT_BROKEN => 'onEquipmentBroken',
-            EquipmentEventInterface::EQUIPMENT_TRANSFORM => ['onEquipmentTransform', 1000], // change the status before original equipment is destroyed
+            EquipmentEvent::EQUIPMENT_FIXED => 'onEquipmentFixed',
+            EquipmentEvent::EQUIPMENT_BROKEN => 'onEquipmentBroken',
+            EquipmentEvent::EQUIPMENT_TRANSFORM => ['onEquipmentTransform', 1000], // change the status before original equipment is destroyed
         ];
     }
 
-    public function onEquipmentFixed(EquipmentEventInterface $event): void
+    public function onEquipmentFixed(EquipmentEvent $event): void
     {
         $equipment = $event->getEquipment();
 
@@ -38,7 +38,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         $this->statusService->delete($brokenStatus);
     }
 
-    public function onEquipmentBroken(EquipmentEventInterface $event): void
+    public function onEquipmentBroken(EquipmentEvent $event): void
     {
         $equipment = $event->getEquipment();
 
@@ -48,7 +48,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         $this->statusService->persist($brokenStatus);
     }
 
-    public function onEquipmentTransform(EquipmentEventInterface $event): void
+    public function onEquipmentTransform(EquipmentEvent $event): void
     {
         $equipment = $event->getEquipment();
 

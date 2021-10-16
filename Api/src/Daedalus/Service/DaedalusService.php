@@ -25,7 +25,7 @@ use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Service\PlaceServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
-use Mush\Player\Event\PlayerEventInterface;
+use Mush\Player\Event\PlayerEvent;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
@@ -202,12 +202,12 @@ class DaedalusService implements DaedalusServiceInterface
             ;
 
             if (!$mushPlayers->isEmpty()) {
-                $playerEvent = new PlayerEventInterface(
+                $playerEvent = new PlayerEvent(
                     $mushPlayers->first(),
                     DaedalusEvent::FULL_DAEDALUS,
                     $date
                 );
-                $this->eventDispatcher->dispatch($playerEvent, PlayerEventInterface::CONVERSION_PLAYER);
+                $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::CONVERSION_PLAYER);
             }
         }
 
@@ -219,13 +219,13 @@ class DaedalusService implements DaedalusServiceInterface
         $player = $this->getRandomPlayersWithLessOxygen($daedalus);
 
         if ($this->getOxygenCapsuleCount($player) === 0) {
-            $playerEvent = new PlayerEventInterface(
+            $playerEvent = new PlayerEvent(
                 $player,
                 EndCauseEnum::ASPHYXIA,
                 $date
             );
 
-            $this->eventDispatcher->dispatch($playerEvent, PlayerEventInterface::DEATH_PLAYER);
+            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
         } else {
             $capsule = $player->getItems()->filter(fn (GameItem $item) => $item->getName() === ItemEnum::OXYGEN_CAPSULE)->first();
             $capsule->removeLocation();
@@ -269,12 +269,12 @@ class DaedalusService implements DaedalusServiceInterface
         for ($i = 0; $i < $playerAliveNb; ++$i) {
             $player = $this->randomService->getAlivePlayerInDaedalus($daedalus);
 
-            $playerEvent = new PlayerEventInterface(
+            $playerEvent = new PlayerEvent(
                 $player,
                 $cause,
                 $date
             );
-            $this->eventDispatcher->dispatch($playerEvent, PlayerEventInterface::DEATH_PLAYER);
+            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
         }
 
         return $daedalus;

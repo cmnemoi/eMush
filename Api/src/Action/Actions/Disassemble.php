@@ -11,7 +11,7 @@ use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Equipment\Event\EquipmentEventInterface;
+use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
@@ -90,7 +90,7 @@ class Disassemble extends AttemptAction
                     ->gameEquipmentService
                     ->createGameEquipmentFromName($productString, $this->player->getDaedalus())
                 ;
-                $equipmentEvent = new EquipmentEventInterface(
+                $equipmentEvent = new EquipmentEvent(
                     $productEquipment,
                     $this->player->getPlace(),
                     VisibilityEnum::HIDDEN,
@@ -98,14 +98,14 @@ class Disassemble extends AttemptAction
                     new \DateTime()
                 );
                 $equipmentEvent->setPlayer($this->player);
-                $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEventInterface::EQUIPMENT_CREATED);
+                $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
                 $this->gameEquipmentService->persist($productEquipment);
             }
         }
 
         // remove the dismantled equipment
-        $equipmentEvent = new EquipmentEventInterface(
+        $equipmentEvent = new EquipmentEvent(
             $gameEquipment,
             $this->player->getPlace(),
             VisibilityEnum::HIDDEN,
@@ -113,6 +113,6 @@ class Disassemble extends AttemptAction
             new \DateTime()
         );
         $equipmentEvent->setPlayer($this->player);
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEventInterface::EQUIPMENT_DESTROYED);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
     }
 }

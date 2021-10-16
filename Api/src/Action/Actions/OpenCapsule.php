@@ -10,7 +10,7 @@ use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Equipment\Event\EquipmentEventInterface;
+use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
@@ -70,14 +70,14 @@ class OpenCapsule extends AbstractAction
         $place = $this->player->getPlace();
 
         //remove the space capsule
-        $equipmentEvent = new EquipmentEventInterface(
+        $equipmentEvent = new EquipmentEvent(
             $parameter,
             $place,
             VisibilityEnum::HIDDEN,
             $this->getActionName(),
             new \DateTime()
         );
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEventInterface::EQUIPMENT_DESTROYED);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         //Get the content
         $contentName = $this->randomService->getSingleRandomElementFromProbaArray(self::$capsuleContent);
@@ -86,7 +86,7 @@ class OpenCapsule extends AbstractAction
             ->gameEquipmentService
             ->createGameEquipmentFromName($contentName, $this->player->getDaedalus())
         ;
-        $equipmentEvent = new EquipmentEventInterface(
+        $equipmentEvent = new EquipmentEvent(
             $contentEquipment,
             $place,
             VisibilityEnum::HIDDEN,
@@ -94,7 +94,7 @@ class OpenCapsule extends AbstractAction
             new \DateTime()
         );
         $equipmentEvent->setPlayer($this->player);
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEventInterface::EQUIPMENT_CREATED);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
         $this->gameEquipmentService->persist($contentEquipment);
 

@@ -13,7 +13,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Equipment\Event\EquipmentEventInterface;
+use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -63,7 +63,7 @@ class RemoveCamera extends AbstractAction
             ->createGameEquipmentFromName(ItemEnum::CAMERA_ITEM, $this->player->getDaedalus())
         ;
 
-        $equipmentEvent = new EquipmentEventInterface(
+        $equipmentEvent = new EquipmentEvent(
             $equipmentCamera,
             $this->player->getPlace(),
             VisibilityEnum::HIDDEN,
@@ -71,7 +71,7 @@ class RemoveCamera extends AbstractAction
             new \DateTime()
         );
         $equipmentEvent->setReplacementEquipment($itemCamera)->setPlayer($this->player);
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEventInterface::EQUIPMENT_TRANSFORM);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_TRANSFORM);
 
         return new Success();
     }

@@ -13,7 +13,7 @@ use Mush\Equipment\Enum\ReachEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Event\StatusEventInterface;
+use Mush\Status\Event\StatusEvent;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class LieDown extends AbstractAction
@@ -55,10 +55,10 @@ class LieDown extends AbstractAction
         /** @var GameEquipment $parameter */
         $parameter = $this->parameter;
 
-        $statusEvent = new StatusEventInterface(PlayerStatusEnum::LYING_DOWN, $this->player, $this->getActionName(), new \DateTime());
+        $statusEvent = new StatusEvent(PlayerStatusEnum::LYING_DOWN, $this->player, $this->getActionName(), new \DateTime());
         $statusEvent->setStatusTarget($parameter);
 
-        $this->eventDispatcher->dispatch($statusEvent, StatusEventInterface::STATUS_APPLIED);
+        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
 
         return new Success();
     }

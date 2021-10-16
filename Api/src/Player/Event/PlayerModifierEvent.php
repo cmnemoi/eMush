@@ -7,7 +7,7 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Event\LoggableEventInterface;
 
-class PlayerModifierEventInterface extends PlayerEventInterface implements LoggableEventInterface, AbstractQuantityEvent
+class PlayerModifierEvent extends PlayerEvent implements LoggableEventInterface, AbstractQuantityEvent
 {
     public const ACTION_POINT_MODIFIER = 'action.point.modifier';
     public const MOVEMENT_POINT_MODIFIER = 'movement.point.modifier';

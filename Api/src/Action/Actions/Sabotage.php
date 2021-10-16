@@ -12,7 +12,7 @@ use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Equipment\Event\EquipmentEventInterface;
+use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -74,13 +74,13 @@ class Sabotage extends AttemptAction
         $response = $this->makeAttempt();
 
         if ($response instanceof Success) {
-            $equipmentEvent = new EquipmentEventInterface(
+            $equipmentEvent = new EquipmentEvent(
                 $parameter,
                 $this->player->getPlace(),
                 VisibilityEnum::HIDDEN,
                 $this->getActionName(),
                 new \DateTime());
-            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEventInterface::EQUIPMENT_BROKEN);
+            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_BROKEN);
         }
 
         $this->playerService->persist($this->player);

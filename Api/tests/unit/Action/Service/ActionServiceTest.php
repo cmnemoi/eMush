@@ -10,7 +10,7 @@ use Mush\Action\Service\ActionService;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\ModifierTargetEnum;
-use Mush\Player\Event\PlayerModifierEventInterface;
+use Mush\Player\Event\PlayerModifierEvent;
 use Mush\Player\Service\ActionModifierServiceInterface;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Enum\StatusEnum;
@@ -154,12 +154,12 @@ class ActionServiceTest extends TestCase
         ;
 
         $eventDispatched = static function (int $delta, string $name) {
-            return fn (PlayerModifierEventInterface $event, string $eventName) => ($event->getQuantity() === $delta && $eventName === $name);
+            return fn (PlayerModifierEvent $event, string $eventName) => ($event->getQuantity() === $delta && $eventName === $name);
         };
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs($eventDispatched(-1, PlayerModifierEventInterface::ACTION_POINT_MODIFIER))
+            ->withArgs($eventDispatched(-1, PlayerModifierEvent::ACTION_POINT_MODIFIER))
             ->once()
         ;
 
@@ -178,7 +178,7 @@ class ActionServiceTest extends TestCase
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs($eventDispatched(-1, PlayerModifierEventInterface::MOVEMENT_POINT_MODIFIER))
+            ->withArgs($eventDispatched(-1, PlayerModifierEvent::MOVEMENT_POINT_MODIFIER))
             ->once()
         ;
 
@@ -190,7 +190,7 @@ class ActionServiceTest extends TestCase
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs($eventDispatched(-1, PlayerModifierEventInterface::MORAL_POINT_MODIFIER))
+            ->withArgs($eventDispatched(-1, PlayerModifierEvent::MORAL_POINT_MODIFIER))
             ->once()
         ;
 
@@ -209,9 +209,9 @@ class ActionServiceTest extends TestCase
         $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->withArgs(
-                fn (PlayerModifierEventInterface $event, string $eventName) => (
+                fn (PlayerModifierEvent $event, string $eventName) => (
                     $event->getQuantity() === -1 &&
-                    in_array($eventName, [PlayerModifierEventInterface::ACTION_POINT_MODIFIER, PlayerModifierEventInterface::MORAL_POINT_MODIFIER])
+                    in_array($eventName, [PlayerModifierEvent::ACTION_POINT_MODIFIER, PlayerModifierEvent::MORAL_POINT_MODIFIER])
                 )
             )
             ->twice()
@@ -231,7 +231,7 @@ class ActionServiceTest extends TestCase
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs($eventDispatched(-3, PlayerModifierEventInterface::ACTION_POINT_MODIFIER))
+            ->withArgs($eventDispatched(-3, PlayerModifierEvent::ACTION_POINT_MODIFIER))
             ->once()
         ;
 

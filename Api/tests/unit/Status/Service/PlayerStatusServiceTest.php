@@ -8,7 +8,7 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Event\StatusEventInterface;
+use Mush\Status\Event\StatusEvent;
 use Mush\Status\Service\PlayerStatusService;
 use Mush\Status\Service\PlayerStatusServiceInterface;
 use Mush\Status\Service\StatusServiceInterface;
@@ -77,7 +77,7 @@ class PlayerStatusServiceTest extends TestCase
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (StatusEventInterface $event) => $event->getStatusName() === PlayerStatusEnum::DEMORALIZED && $event->getStatusHolder() === $player)
+            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::DEMORALIZED && $event->getStatusHolder() === $player)
             ->once()
         ;
 
@@ -104,7 +104,7 @@ class PlayerStatusServiceTest extends TestCase
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (StatusEventInterface $event) => $event->getStatusName() === PlayerStatusEnum::DEMORALIZED && $event->getStatusHolder() === $player)
+            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::DEMORALIZED && $event->getStatusHolder() === $player)
             ->once()
         ;
         $this->statusService->shouldReceive('delete')->with($suicidalStatus)->once();
@@ -119,7 +119,7 @@ class PlayerStatusServiceTest extends TestCase
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (StatusEventInterface $event) => $event->getStatusName() === PlayerStatusEnum::SUICIDAL && $event->getStatusHolder() === $player)
+            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::SUICIDAL && $event->getStatusHolder() === $player)
             ->once()
         ;
 
@@ -145,7 +145,7 @@ class PlayerStatusServiceTest extends TestCase
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (StatusEventInterface $event) => $event->getStatusName() === PlayerStatusEnum::SUICIDAL && $event->getStatusHolder() === $player)
+            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::SUICIDAL && $event->getStatusHolder() === $player)
             ->once()
         ;
         $this->statusService->shouldReceive('delete')->with($suicidalStatus)->once();
@@ -187,7 +187,7 @@ class PlayerStatusServiceTest extends TestCase
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (StatusEventInterface $event) => $event->getStatusName() === PlayerStatusEnum::STARVING && $event->getStatusHolder() === $player)
+            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::STARVING && $event->getStatusHolder() === $player)
             ->once()
         ;
         $this->playerStatusService->handleSatietyStatus($player, new \DateTime());
@@ -218,7 +218,7 @@ class PlayerStatusServiceTest extends TestCase
         ;
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (StatusEventInterface $event) => $event->getStatusName() === PlayerStatusEnum::STARVING && $event->getStatusHolder() === $player)
+            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::STARVING && $event->getStatusHolder() === $player)
             ->once()
         ;
         $this->playerStatusService->handleSatietyStatus($player, new \DateTime());
@@ -231,7 +231,7 @@ class PlayerStatusServiceTest extends TestCase
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (StatusEventInterface $event) => $event->getStatusName() === PlayerStatusEnum::FULL_STOMACH && $event->getStatusHolder() === $player)
+            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::FULL_STOMACH && $event->getStatusHolder() === $player)
             ->once()
         ;
         $this->playerStatusService->handleSatietyStatus($player, new \DateTime());
@@ -243,7 +243,7 @@ class PlayerStatusServiceTest extends TestCase
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (StatusEventInterface $event) => $event->getStatusName() === PlayerStatusEnum::FULL_STOMACH && $event->getStatusHolder() === $player)
+            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::FULL_STOMACH && $event->getStatusHolder() === $player)
             ->once()
         ;
         $this->statusService->shouldReceive('delete')->with($starvingStatus)->once();
@@ -273,7 +273,7 @@ class PlayerStatusServiceTest extends TestCase
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (StatusEventInterface $event) => $event->getStatusName() === PlayerStatusEnum::FULL_STOMACH && $event->getStatusHolder() === $player)
+            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::FULL_STOMACH && $event->getStatusHolder() === $player)
             ->once()
         ;
 

@@ -6,7 +6,7 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
-use Mush\Action\Event\ApplyEffectEventInterface;
+use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
@@ -69,14 +69,14 @@ class Consume extends AbstractAction
             throw new \Exception('Cannot consume this equipment');
         }
 
-        $consumeEquipment = new ApplyEffectEventInterface(
+        $consumeEquipment = new ApplyEffectEvent(
             $this->player,
             $parameter,
             VisibilityEnum::PRIVATE,
             $this->getActionName(),
             new \DateTime()
         );
-        $this->eventDispatcher->dispatch($consumeEquipment, ApplyEffectEventInterface::CONSUME);
+        $this->eventDispatcher->dispatch($consumeEquipment, ApplyEffectEvent::CONSUME);
 
         $this->playerService->persist($this->player);
 

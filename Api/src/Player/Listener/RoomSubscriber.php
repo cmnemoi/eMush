@@ -4,9 +4,9 @@ namespace Mush\Player\Listener;
 
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Enum\PlaceTypeEnum;
-use Mush\Place\Event\RoomEventInterface;
+use Mush\Place\Event\RoomEvent;
 use Mush\Player\Enum\EndCauseEnum;
-use Mush\Player\Event\PlayerModifierEventInterface;
+use Mush\Player\Event\PlayerModifierEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -26,12 +26,12 @@ class RoomSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            RoomEventInterface::TREMOR => 'onTremor',
-            RoomEventInterface::ELECTRIC_ARC => 'onElectricArc',
+            RoomEvent::TREMOR => 'onTremor',
+            RoomEvent::ELECTRIC_ARC => 'onElectricArc',
         ];
     }
 
-    public function onTremor(RoomEventInterface $event): void
+    public function onTremor(RoomEvent $event): void
     {
         $room = $event->getPlace();
 
@@ -43,17 +43,17 @@ class RoomSubscriber implements EventSubscriberInterface
         foreach ($room->getPlayers()->getPlayerAlive() as $player) {
             $damage = (int) $this->randomService->getSingleRandomElementFromProbaArray($difficultyConfig->getTremorPlayerDamage());
 
-            $playerModifierEvent = new PlayerModifierEventInterface(
+            $playerModifierEvent = new PlayerModifierEvent(
                 $player,
                 -$damage,
                 EndCauseEnum::INJURY,
                 $event->getTime()
             );
-            $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEventInterface::HEALTH_POINT_MODIFIER);
+            $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
         }
     }
 
-    public function onElectricArc(RoomEventInterface $event): void
+    public function onElectricArc(RoomEvent $event): void
     {
         $room = $event->getPlace();
 
@@ -65,13 +65,13 @@ class RoomSubscriber implements EventSubscriberInterface
         foreach ($room->getPlayers()->getPlayerAlive() as $player) {
             $damage = (int) $this->randomService->getSingleRandomElementFromProbaArray($difficultyConfig->getElectricArcPlayerDamage());
 
-            $playerModifierEvent = new PlayerModifierEventInterface(
+            $playerModifierEvent = new PlayerModifierEvent(
                 $player,
                 -$damage,
                 EndCauseEnum::ELECTROCUTED,
                 $event->getTime()
             );
-            $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEventInterface::HEALTH_POINT_MODIFIER);
+            $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
         }
     }
 }

@@ -16,7 +16,7 @@ use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Event\StatusEventInterface;
+use Mush\Status\Event\StatusEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -60,10 +60,10 @@ class Hide extends AbstractAction
         /** @var GameItem $parameter */
         $parameter = $this->parameter;
 
-        $statusEvent = new StatusEventInterface(EquipmentStatusEnum::HIDDEN, $parameter, $this->getActionName(), new \DateTime());
+        $statusEvent = new StatusEvent(EquipmentStatusEnum::HIDDEN, $parameter, $this->getActionName(), new \DateTime());
         $statusEvent->setStatusTarget($this->player);
 
-        $this->eventDispatcher->dispatch($statusEvent, StatusEventInterface::STATUS_APPLIED);
+        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
 
         if ($parameter->getPlayer()) {
             $parameter->setPlayer(null);

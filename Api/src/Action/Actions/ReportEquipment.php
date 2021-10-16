@@ -5,7 +5,7 @@ namespace Mush\Action\Actions;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Event\ApplyEffectEventInterface;
+use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\IsReported;
@@ -52,7 +52,7 @@ class ReportEquipment extends AbstractAction
         /** @var GameEquipment $parameter */
         $parameter = $this->parameter;
 
-        $reportEvent = new ApplyEffectEventInterface(
+        $reportEvent = new ApplyEffectEvent(
             $this->player,
             $parameter,
             VisibilityEnum::PRIVATE,
@@ -60,7 +60,7 @@ class ReportEquipment extends AbstractAction
             new \DateTime()
         );
 
-        $this->eventDispatcher->dispatch($reportEvent, ApplyEffectEventInterface::REPORT_EQUIPMENT);
+        $this->eventDispatcher->dispatch($reportEvent, ApplyEffectEvent::REPORT_EQUIPMENT);
 
         return new Success();
     }

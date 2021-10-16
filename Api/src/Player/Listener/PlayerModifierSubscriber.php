@@ -3,8 +3,8 @@
 namespace Mush\Player\Listener;
 
 use Mush\Player\Enum\EndCauseEnum;
-use Mush\Player\Event\PlayerEventInterface;
-use Mush\Player\Event\PlayerModifierEventInterface;
+use Mush\Player\Event\PlayerEvent;
+use Mush\Player\Event\PlayerModifierEvent;
 use Mush\Player\Service\PlayerVariableServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -26,16 +26,16 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            PlayerModifierEventInterface::ACTION_POINT_MODIFIER => 'onActionPointModifier',
-            PlayerModifierEventInterface::MOVEMENT_POINT_MODIFIER => 'onMovementPointModifier',
-            PlayerModifierEventInterface::HEALTH_POINT_MODIFIER => 'onHealthPointModifier',
-            PlayerModifierEventInterface::MORAL_POINT_MODIFIER => 'onMoralPointModifier',
-            PlayerModifierEventInterface::SATIETY_POINT_MODIFIER => 'onSatietyPointModifier',
-            PlayerModifierEventInterface::MOVEMENT_POINT_CONVERSION => 'onMovementPointConversion',
+            PlayerModifierEvent::ACTION_POINT_MODIFIER => 'onActionPointModifier',
+            PlayerModifierEvent::MOVEMENT_POINT_MODIFIER => 'onMovementPointModifier',
+            PlayerModifierEvent::HEALTH_POINT_MODIFIER => 'onHealthPointModifier',
+            PlayerModifierEvent::MORAL_POINT_MODIFIER => 'onMoralPointModifier',
+            PlayerModifierEvent::SATIETY_POINT_MODIFIER => 'onSatietyPointModifier',
+            PlayerModifierEvent::MOVEMENT_POINT_CONVERSION => 'onMovementPointConversion',
         ];
     }
 
-    public function onActionPointModifier(PlayerModifierEventInterface $playerEvent): void
+    public function onActionPointModifier(PlayerModifierEvent $playerEvent): void
     {
         $player = $playerEvent->getPlayer();
         $delta = $playerEvent->getQuantity();
@@ -43,7 +43,7 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
         $this->playerVariableService->handleActionPointModifier($delta, $player);
     }
 
-    public function onMovementPointModifier(PlayerModifierEventInterface $playerEvent): void
+    public function onMovementPointModifier(PlayerModifierEvent $playerEvent): void
     {
         $player = $playerEvent->getPlayer();
         $delta = $playerEvent->getQuantity();
@@ -51,7 +51,7 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
         $this->playerVariableService->handleMovementPointModifier($delta, $player);
     }
 
-    public function onHealthPointModifier(PlayerModifierEventInterface $playerEvent): void
+    public function onHealthPointModifier(PlayerModifierEvent $playerEvent): void
     {
         $player = $playerEvent->getPlayer();
         $delta = $playerEvent->getQuantity();
@@ -60,11 +60,11 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
 
         if ($player->getHealthPoint() === 0) {
             $playerEvent->setVisibility(VisibilityEnum::PUBLIC);
-            $this->eventDispatcher->dispatch($playerEvent, PlayerEventInterface::DEATH_PLAYER);
+            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
         }
     }
 
-    public function onMoralPointModifier(PlayerModifierEventInterface $playerEvent): void
+    public function onMoralPointModifier(PlayerModifierEvent $playerEvent): void
     {
         $player = $playerEvent->getPlayer();
         $delta = $playerEvent->getQuantity();
@@ -72,17 +72,17 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
         $this->playerVariableService->handleMoralPointModifier($delta, $player);
 
         if ($player->getMoralPoint() === 0) {
-            $depressionEvent = new PlayerEventInterface(
+            $depressionEvent = new PlayerEvent(
                 $player,
                 EndCauseEnum::DEPRESSION,
                 $playerEvent->getTime()
             );
 
-            $this->eventDispatcher->dispatch($depressionEvent, PlayerEventInterface::DEATH_PLAYER);
+            $this->eventDispatcher->dispatch($depressionEvent, PlayerEvent::DEATH_PLAYER);
         }
     }
 
-    public function onSatietyPointModifier(PlayerModifierEventInterface $playerEvent): void
+    public function onSatietyPointModifier(PlayerModifierEvent $playerEvent): void
     {
         $player = $playerEvent->getPlayer();
         $delta = $playerEvent->getQuantity();
@@ -90,7 +90,7 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
         $this->playerVariableService->handleSatietyModifier($delta, $player);
     }
 
-    public function onMovementPointConversion(PlayerModifierEventInterface $playerEvent): void
+    public function onMovementPointConversion(PlayerModifierEvent $playerEvent): void
     {
         $player = $playerEvent->getPlayer();
         $delta = $playerEvent->getQuantity();

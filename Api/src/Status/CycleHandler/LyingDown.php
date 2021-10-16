@@ -3,7 +3,7 @@
 namespace Mush\Status\CycleHandler;
 
 use Mush\Player\Entity\Player;
-use Mush\Player\Event\PlayerModifierEventInterface;
+use Mush\Player\Event\PlayerModifierEvent;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -25,13 +25,13 @@ class LyingDown extends AbstractStatusCycleHandler
             return;
         }
 
-        $playerModifierEvent = new PlayerModifierEventInterface(
+        $playerModifierEvent = new PlayerModifierEvent(
             $statusHolder,
             1,
             PlayerStatusEnum::LYING_DOWN,
             $dateTime
         );
-        $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEventInterface::ACTION_POINT_MODIFIER);
+        $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::ACTION_POINT_MODIFIER);
     }
 
     public function handleNewDay(Status $status, StatusHolderInterface $statusHolder, \DateTime $dateTime): void

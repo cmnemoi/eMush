@@ -13,7 +13,7 @@ use Mush\Action\Validator\MushSpore;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Player\Entity\Player;
-use Mush\Player\Event\PlayerEventInterface;
+use Mush\Player\Event\PlayerEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -73,8 +73,8 @@ class Infect extends AbstractAction
         /** @var Player $parameter */
         $parameter = $this->parameter;
 
-        $playerEvent = new PlayerEventInterface($parameter, $this->getActionName(), new \DateTime());
-        $this->eventDispatcher->dispatch($playerEvent, PlayerEventInterface::INFECTION_PLAYER);
+        $playerEvent = new PlayerEvent($parameter, $this->getActionName(), new \DateTime());
+        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::INFECTION_PLAYER);
 
         /** @var ChargeStatus $sporeStatus */
         $sporeStatus = $this->player->getStatusByName(PlayerStatusEnum::SPORES);

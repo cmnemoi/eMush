@@ -16,7 +16,7 @@ use Mush\Daedalus\Entity\Neron;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Place\Entity\Place;
-use Mush\Place\Event\RoomEventInterface;
+use Mush\Place\Event\RoomEvent;
 
 class RoomSubscriberCest
 {
@@ -49,7 +49,7 @@ class RoomSubscriberCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
-        $roomEvent = new RoomEventInterface(
+        $roomEvent = new RoomEvent(
             $room,
             EventEnum::NEW_CYCLE,
             new DateTime()
@@ -83,7 +83,7 @@ class RoomSubscriberCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
-        $roomEvent = new RoomEventInterface(
+        $roomEvent = new RoomEvent(
             $room,
             ActionEnum::EXTINGUISH,
             new DateTime()

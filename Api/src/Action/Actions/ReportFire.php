@@ -5,7 +5,7 @@ namespace Mush\Action\Actions;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Event\ApplyEffectEventInterface;
+use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\IsReported;
@@ -45,7 +45,7 @@ class ReportFire extends AbstractAction
 
     protected function applyEffects(): ActionResult
     {
-        $reportEvent = new ApplyEffectEventInterface(
+        $reportEvent = new ApplyEffectEvent(
             $this->player,
             $this->parameter,
             VisibilityEnum::PRIVATE,
@@ -53,7 +53,7 @@ class ReportFire extends AbstractAction
             new \DateTime()
         );
 
-        $this->eventDispatcher->dispatch($reportEvent, ApplyEffectEventInterface::REPORT_FIRE);
+        $this->eventDispatcher->dispatch($reportEvent, ApplyEffectEvent::REPORT_FIRE);
 
         return new Success();
     }

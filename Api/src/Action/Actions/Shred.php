@@ -12,7 +12,7 @@ use Mush\Action\Validator\Shredable;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Equipment\Event\EquipmentEventInterface;
+use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -58,13 +58,13 @@ class Shred extends AbstractAction
         /** @var GameItem $parameter */
         $parameter = $this->parameter;
 
-        $equipmentEvent = new EquipmentEventInterface(
+        $equipmentEvent = new EquipmentEvent(
             $parameter,
             $this->player->getPlace(),
             VisibilityEnum::HIDDEN,
             $this->getActionName(),
             new \DateTime());
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEventInterface::EQUIPMENT_DESTROYED);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         $this->playerService->persist($this->player);
 

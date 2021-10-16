@@ -10,7 +10,7 @@ use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Event\LoggableEventInterface;
 
-class DiseaseEventInterface extends AbstractGameEvent implements LoggableEventInterface
+class DiseaseEvent extends AbstractGameEvent implements LoggableEventInterface
 {
     public const NEW_DISEASE = 'disease.new';
     public const APPEAR_DISEASE = 'disease.appear';
@@ -36,7 +36,7 @@ class DiseaseEventInterface extends AbstractGameEvent implements LoggableEventIn
         return $this->author;
     }
 
-    public function setAuthor(?Player $author): DiseaseEventInterface
+    public function setAuthor(?Player $author): DiseaseEvent
     {
         $this->author = $author;
 

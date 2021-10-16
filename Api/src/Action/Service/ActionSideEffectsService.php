@@ -9,13 +9,13 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\ModifierScopeEnum;
 use Mush\Player\Enum\ModifierTargetEnum;
-use Mush\Player\Event\PlayerModifierEventInterface;
+use Mush\Player\Event\PlayerModifierEvent;
 use Mush\Player\Service\ActionModifierServiceInterface;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Event\StatusEventInterface;
+use Mush\Status\Event\StatusEvent;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class ActionSideEffectsService implements ActionSideEffectsServiceInterface
@@ -73,9 +73,9 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
                     $date
                 );
             } elseif ($percent <= $dirtyRate) {
-                $statusEvent = new StatusEventInterface(PlayerStatusEnum::DIRTY, $player, EventEnum::NEW_DAY, new \DateTime());
+                $statusEvent = new StatusEvent(PlayerStatusEnum::DIRTY, $player, EventEnum::NEW_DAY, new \DateTime());
                 $statusEvent->setVisibility(VisibilityEnum::PRIVATE);
-                $this->eventDispatcher->dispatch($statusEvent, StatusEventInterface::STATUS_APPLIED);
+                $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
             }
         }
     }
@@ -120,12 +120,12 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
 
     private function dispatchPlayerInjuryEvent(Player $player, \DateTime $dateTime): void
     {
-        $playerModifierEvent = new PlayerModifierEventInterface(
+        $playerModifierEvent = new PlayerModifierEvent(
             $player,
             self::ACTION_INJURY_MODIFIER,
             EndCauseEnum::CLUMSINESS,
             $dateTime
         );
-        $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEventInterface::HEALTH_POINT_MODIFIER);
+        $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
     }
 }

@@ -17,7 +17,7 @@ use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
-use Mush\Equipment\Event\EquipmentEventInterface;
+use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Place\Entity\Place;
@@ -69,7 +69,7 @@ class EquipmentSubscriberCest
 
         $I->haveInRepository($gravitySimulator);
 
-        $equipmentEvent = new EquipmentEventInterface(
+        $equipmentEvent = new EquipmentEvent(
             $gravitySimulator,
             $room,
             VisibilityEnum::HIDDEN,
@@ -116,7 +116,7 @@ class EquipmentSubscriberCest
 
         $I->haveInRepository($gravitySimulator);
 
-        $equipmentEvent = new EquipmentEventInterface(
+        $equipmentEvent = new EquipmentEvent(
             $gravitySimulator,
             $room,
             VisibilityEnum::HIDDEN,
@@ -181,7 +181,7 @@ class EquipmentSubscriberCest
 
         $I->haveInRepository($gameEquipment);
 
-        $equipmentEvent = new EquipmentEventInterface(
+        $equipmentEvent = new EquipmentEvent(
             $gameEquipment,
             $room,
             VisibilityEnum::HIDDEN,
@@ -231,7 +231,7 @@ class EquipmentSubscriberCest
 
         $I->haveInRepository($gameEquipment);
 
-        $equipmentEvent = new EquipmentEventInterface(
+        $equipmentEvent = new EquipmentEvent(
             $gameEquipment,
             $room,
             VisibilityEnum::HIDDEN,
@@ -281,7 +281,7 @@ class EquipmentSubscriberCest
 
         $I->haveInRepository($gravitySimulator);
 
-        $equipmentEvent = new EquipmentEventInterface(
+        $equipmentEvent = new EquipmentEvent(
             $gravitySimulator,
             $room,
             VisibilityEnum::HIDDEN,
@@ -344,7 +344,7 @@ class EquipmentSubscriberCest
         $broken = new Status($gravitySimulator);
         $broken->setName(EquipmentStatusEnum::BROKEN);
 
-        $equipmentEvent = new EquipmentEventInterface(
+        $equipmentEvent = new EquipmentEvent(
             $gravitySimulator,
             $room,
             VisibilityEnum::HIDDEN,

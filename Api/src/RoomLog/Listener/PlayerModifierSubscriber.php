@@ -2,7 +2,7 @@
 
 namespace Mush\RoomLog\Listener;
 
-use Mush\Player\Event\PlayerModifierEventInterface;
+use Mush\Player\Event\PlayerModifierEvent;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -20,14 +20,14 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            PlayerModifierEventInterface::ACTION_POINT_MODIFIER => 'onActionPointModifier',
-            PlayerModifierEventInterface::MOVEMENT_POINT_MODIFIER => 'onMovementPointModifier',
-            PlayerModifierEventInterface::HEALTH_POINT_MODIFIER => 'onHealthPointModifier',
-            PlayerModifierEventInterface::MORAL_POINT_MODIFIER => 'onMoralPointModifier',
+            PlayerModifierEvent::ACTION_POINT_MODIFIER => 'onActionPointModifier',
+            PlayerModifierEvent::MOVEMENT_POINT_MODIFIER => 'onMovementPointModifier',
+            PlayerModifierEvent::HEALTH_POINT_MODIFIER => 'onHealthPointModifier',
+            PlayerModifierEvent::MORAL_POINT_MODIFIER => 'onMoralPointModifier',
         ];
     }
 
-    public function onActionPointModifier(PlayerModifierEventInterface $playerEvent): void
+    public function onActionPointModifier(PlayerModifierEvent $playerEvent): void
     {
         $delta = $playerEvent->getQuantity();
 
@@ -47,7 +47,7 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
         );
     }
 
-    public function onMovementPointModifier(PlayerModifierEventInterface $playerEvent): void
+    public function onMovementPointModifier(PlayerModifierEvent $playerEvent): void
     {
         $delta = $playerEvent->getQuantity();
 
@@ -67,7 +67,7 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
         );
     }
 
-    public function onHealthPointModifier(PlayerModifierEventInterface $playerEvent): void
+    public function onHealthPointModifier(PlayerModifierEvent $playerEvent): void
     {
         $delta = $playerEvent->getQuantity();
 
@@ -86,7 +86,7 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
         );
     }
 
-    public function onMoralPointModifier(PlayerModifierEventInterface $playerEvent): void
+    public function onMoralPointModifier(PlayerModifierEvent $playerEvent): void
     {
         $delta = $playerEvent->getQuantity();
 

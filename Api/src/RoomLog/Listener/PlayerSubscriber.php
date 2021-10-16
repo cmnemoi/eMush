@@ -2,7 +2,7 @@
 
 namespace Mush\RoomLog\Listener;
 
-use Mush\Player\Event\PlayerEventInterface;
+use Mush\Player\Event\PlayerEvent;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -20,35 +20,35 @@ class PlayerSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            PlayerEventInterface::NEW_PLAYER => 'onNewPlayer',
-            PlayerEventInterface::DEATH_PLAYER => ['onDeathPlayer', 10],
-            PlayerEventInterface::METAL_PLATE => 'onMetalPlate',
-            PlayerEventInterface::PANIC_CRISIS => 'onPanicCrisis',
+            PlayerEvent::NEW_PLAYER => 'onNewPlayer',
+            PlayerEvent::DEATH_PLAYER => ['onDeathPlayer', 10],
+            PlayerEvent::METAL_PLATE => 'onMetalPlate',
+            PlayerEvent::PANIC_CRISIS => 'onPanicCrisis',
         ];
     }
 
-    public function onNewPlayer(PlayerEventInterface $event): void
+    public function onNewPlayer(PlayerEvent $event): void
     {
         $this->createEventLog(LogEnum::AWAKEN, $event);
     }
 
-    public function onDeathPlayer(PlayerEventInterface $event): void
+    public function onDeathPlayer(PlayerEvent $event): void
     {
         dump($event->getVisibility());
         $this->createEventLog(LogEnum::DEATH, $event);
     }
 
-    public function onMetalPlate(PlayerEventInterface $event): void
+    public function onMetalPlate(PlayerEvent $event): void
     {
         $this->createEventLog(LogEnum::METAL_PLATE, $event);
     }
 
-    public function onPanicCrisis(PlayerEventInterface $event): void
+    public function onPanicCrisis(PlayerEvent $event): void
     {
         $this->createEventLog(LogEnum::PANIC_CRISIS, $event);
     }
 
-    private function createEventLog(string $logKey, PlayerEventInterface $event): void
+    private function createEventLog(string $logKey, PlayerEvent $event): void
     {
         $player = $event->getPlayer();
 

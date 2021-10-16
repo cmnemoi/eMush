@@ -21,7 +21,7 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Event\StatusEventInterface;
+use Mush\Status\Event\StatusEvent;
 use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -145,7 +145,7 @@ class GameEquipmentServiceTest extends TestCase
         ;
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (StatusEventInterface $event) => $event->getStatusName() === EquipmentStatusEnum::ALIEN_ARTEFACT)
+            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === EquipmentStatusEnum::ALIEN_ARTEFACT)
             ->once()
         ;
 
@@ -176,7 +176,7 @@ class GameEquipmentServiceTest extends TestCase
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (StatusEventInterface $event) => $event->getStatusName() === EquipmentStatusEnum::HEAVY)
+            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === EquipmentStatusEnum::HEAVY)
             ->once()
         ;
 
@@ -213,7 +213,7 @@ class GameEquipmentServiceTest extends TestCase
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (StatusEventInterface $event) => $event->getStatusName() === EquipmentStatusEnum::PLANT_YOUNG)
+            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === EquipmentStatusEnum::PLANT_YOUNG)
             ->once()
         ;
 
@@ -243,7 +243,7 @@ class GameEquipmentServiceTest extends TestCase
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (StatusEventInterface $event) => $event->getStatusName() === EquipmentStatusEnum::DOCUMENT_CONTENT)
+            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === EquipmentStatusEnum::DOCUMENT_CONTENT)
             ->once()
         ;
 

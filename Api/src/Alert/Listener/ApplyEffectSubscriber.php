@@ -2,7 +2,7 @@
 
 namespace Mush\Alert\Listener;
 
-use Mush\Action\Event\ApplyEffectEventInterface;
+use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Alert\Enum\AlertEnum;
 use Mush\Alert\Service\AlertServiceInterface;
 use Mush\Equipment\Entity\Door;
@@ -23,12 +23,12 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            ApplyEffectEventInterface::REPORT_FIRE => 'onReportFire',
-            ApplyEffectEventInterface::REPORT_EQUIPMENT => 'onReportEquipment',
+            ApplyEffectEvent::REPORT_FIRE => 'onReportFire',
+            ApplyEffectEvent::REPORT_EQUIPMENT => 'onReportEquipment',
         ];
     }
 
-    public function onReportFire(ApplyEffectEventInterface $event): void
+    public function onReportFire(ApplyEffectEvent $event): void
     {
         $player = $event->getPlayer();
         $place = $event->getPlace();
@@ -44,7 +44,7 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
         $this->alertService->persistAlertElement($alertElement);
     }
 
-    public function onReportEquipment(ApplyEffectEventInterface $event): void
+    public function onReportEquipment(ApplyEffectEvent $event): void
     {
         $player = $event->getPlayer();
         $equipment = $event->getParameter();

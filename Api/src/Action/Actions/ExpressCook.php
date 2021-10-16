@@ -12,7 +12,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Equipment\Event\EquipmentEventInterface;
+use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -68,7 +68,7 @@ class ExpressCook extends AbstractAction
                 ->createGameEquipmentFromName(GameRationEnum::COOKED_RATION, $this->player->getDaedalus())
             ;
 
-            $equipmentEvent = new EquipmentEventInterface(
+            $equipmentEvent = new EquipmentEvent(
                 $parameter,
                 $this->player->getPlace(),
                 VisibilityEnum::PUBLIC,
@@ -76,7 +76,7 @@ class ExpressCook extends AbstractAction
                 new \DateTime()
             );
             $equipmentEvent->setReplacementEquipment($newItem)->setPlayer($this->player);
-            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEventInterface::EQUIPMENT_TRANSFORM);
+            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_TRANSFORM);
         } elseif ($frozenStatus = $parameter->getStatusByName(EquipmentStatusEnum::FROZEN)) {
             $parameter->removeStatus($frozenStatus);
             $this->gameEquipmentService->persist($parameter);

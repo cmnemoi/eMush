@@ -22,7 +22,7 @@ use Mush\Player\Repository\PlayerRepository;
 use Mush\Player\Service\PlayerService;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Event\StatusEventInterface;
+use Mush\Status\Event\StatusEvent;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -109,12 +109,12 @@ class PlayerServiceTest extends TestCase
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (StatusEventInterface $event) => $event->getStatusName() === 'some status')
+            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === 'some status')
             ->once()
         ;
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (StatusEventInterface $event) => $event->getStatusName() === PlayerStatusEnum::SPORES)
+            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::SPORES)
             ->once()
         ;
         $this->entityManager

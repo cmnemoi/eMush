@@ -14,7 +14,7 @@ use Mush\Game\Enum\GameStatusEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
-use Mush\Player\Event\PlayerEventInterface;
+use Mush\Player\Event\PlayerEvent;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -69,10 +69,10 @@ class PlayerEventCest
             'characterConfig' => $characterConfig,
         ]);
 
-        $playerEvent = new PlayerEventInterface($player, EndCauseEnum::CLUMSINESS, new \DateTime());
+        $playerEvent = new PlayerEvent($player, EndCauseEnum::CLUMSINESS, new \DateTime());
         $playerEvent->setVisibility(VisibilityEnum::PUBLIC);
 
-        $this->eventDispatcherService->dispatch($playerEvent, PlayerEventInterface::DEATH_PLAYER);
+        $this->eventDispatcherService->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
 
         $I->assertEquals(GameStatusEnum::FINISHED, $player->getGameStatus());
 
@@ -114,21 +114,21 @@ class PlayerEventCest
             ->setCharge(0)
         ;
 
-        $playerEvent = new PlayerEventInterface($player, ActionEnum::INFECT, new \DateTime());
+        $playerEvent = new PlayerEvent($player, ActionEnum::INFECT, new \DateTime());
 
-        $this->eventDispatcherService->dispatch($playerEvent, PlayerEventInterface::INFECTION_PLAYER);
+        $this->eventDispatcherService->dispatch($playerEvent, PlayerEvent::INFECTION_PLAYER);
 
         $I->assertCount(1, $player->getStatuses());
         $I->assertEquals(1, $player->getStatuses()->first()->getCharge());
         $I->assertEquals($room, $player->getPlace());
 
-        $this->eventDispatcherService->dispatch($playerEvent, PlayerEventInterface::INFECTION_PLAYER);
+        $this->eventDispatcherService->dispatch($playerEvent, PlayerEvent::INFECTION_PLAYER);
 
         $I->assertCount(1, $player->getStatuses());
         $I->assertEquals(2, $player->getStatuses()->first()->getCharge());
         $I->assertEquals($room, $player->getPlace());
 
-        $this->eventDispatcherService->dispatch($playerEvent, PlayerEventInterface::INFECTION_PLAYER);
+        $this->eventDispatcherService->dispatch($playerEvent, PlayerEvent::INFECTION_PLAYER);
 
         $I->assertCount(2, $player->getStatuses());
         $I->assertEquals($room, $player->getPlace());

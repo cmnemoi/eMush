@@ -3,7 +3,7 @@
 namespace Mush\Status\Listener;
 
 use Mush\Place\Enum\PlaceTypeEnum;
-use Mush\Place\Event\RoomEventInterface;
+use Mush\Place\Event\RoomEvent;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -22,12 +22,12 @@ class RoomSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            RoomEventInterface::STARTING_FIRE => 'onStartingFire',
-            RoomEventInterface::STOP_FIRE => 'onStopFire',
+            RoomEvent::STARTING_FIRE => 'onStartingFire',
+            RoomEvent::STOP_FIRE => 'onStopFire',
         ];
     }
 
-    public function onStartingFire(RoomEventInterface $event): void
+    public function onStartingFire(RoomEvent $event): void
     {
         $room = $event->getPlace();
 
@@ -42,7 +42,7 @@ class RoomSubscriber implements EventSubscriberInterface
         $this->statusService->persist($fireStatus);
     }
 
-    public function onStopFire(RoomEventInterface $event): void
+    public function onStopFire(RoomEvent $event): void
     {
         $room = $event->getPlace();
 

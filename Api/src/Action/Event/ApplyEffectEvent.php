@@ -8,7 +8,7 @@ use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Event\LoggableEventInterface;
 
-class ApplyEffectEventInterface extends AbstractGameEvent implements LoggableEventInterface
+class ApplyEffectEvent extends AbstractGameEvent implements LoggableEventInterface
 {
     public const CONSUME = 'action.consume';
     public const HEAL = 'action.heal';

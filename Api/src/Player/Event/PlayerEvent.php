@@ -7,7 +7,7 @@ use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Event\LoggableEventInterface;
 
-class PlayerEventInterface extends PlayerCycleEvent implements LoggableEventInterface
+class PlayerEvent extends PlayerCycleEvent implements LoggableEventInterface
 {
     public const NEW_PLAYER = 'new.player';
     public const DEATH_PLAYER = 'death.player';
@@ -29,7 +29,7 @@ class PlayerEventInterface extends PlayerCycleEvent implements LoggableEventInte
         return $this->visibility;
     }
 
-    public function setVisibility(string $visibility): PlayerEventInterface
+    public function setVisibility(string $visibility): PlayerEvent
     {
         $this->visibility = $visibility;
 

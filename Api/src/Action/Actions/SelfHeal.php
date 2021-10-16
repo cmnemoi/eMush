@@ -5,10 +5,10 @@ namespace Mush\Action\Actions;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Event\ApplyEffectEventInterface;
+use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\FullHealth;
-use Mush\Player\Event\PlayerModifierEventInterface;
+use Mush\Player\Event\PlayerModifierEvent;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -55,23 +55,23 @@ class SelfHeal extends AbstractAction
 
         $initialHealth = $this->player->getHealthPoint();
 
-        $playerModifierEvent = new PlayerModifierEventInterface(
+        $playerModifierEvent = new PlayerModifierEvent(
             $this->player,
             self::BASE_HEAL,
             $this->getActionName(),
             new \DateTime()
         );
         $playerModifierEvent->setVisibility(VisibilityEnum::HIDDEN);
-        $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEventInterface::HEALTH_POINT_MODIFIER);
+        $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
 
-        $healEvent = new ApplyEffectEventInterface(
+        $healEvent = new ApplyEffectEvent(
             $this->player,
             $this->player,
             VisibilityEnum::HIDDEN,
             $this->getActionName(),
             new \DateTime()
         );
-        $this->eventDispatcher->dispatch($healEvent, ApplyEffectEventInterface::HEAL);
+        $this->eventDispatcher->dispatch($healEvent, ApplyEffectEvent::HEAL);
 
         $this->playerService->persist($this->player);
 

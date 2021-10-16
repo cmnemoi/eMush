@@ -2,13 +2,12 @@
 
 namespace Mush\Player\Event;
 
-use Mush\Game\Event\AbstractLoggedEvent;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\RoomLog\Event\LoggableEventInterface;
 
-class PlayerModifierEvent extends PlayerEvent implements AbstractLoggedEvent, AbstractQuantityEvent
+class PlayerModifierEvent extends PlayerEvent implements LoggableEventInterface, AbstractQuantityEvent
 {
     public const ACTION_POINT_MODIFIER = 'action.point.modifier';
     public const MOVEMENT_POINT_MODIFIER = 'movement.point.modifier';
@@ -17,7 +16,6 @@ class PlayerModifierEvent extends PlayerEvent implements AbstractLoggedEvent, Ab
     public const SATIETY_POINT_MODIFIER = 'satiety.point.modifier';
 
     private int $quantity;
-    private string $visibility = VisibilityEnum::PRIVATE;
 
     public function __construct(
         Player $player,
@@ -35,20 +33,16 @@ class PlayerModifierEvent extends PlayerEvent implements AbstractLoggedEvent, Ab
         return $this->quantity;
     }
 
-    public function getVisibility(): string
-    {
-        return $this->visibility;
-    }
-
-    public function setVisibility(string $visibility): PlayerModifierEvent
-    {
-        $this->visibility = $visibility;
-
-        return $this;
-    }
-
     public function getPlace(): Place
     {
         return $this->player->getPlace();
+    }
+
+    public function getLogParameters(): array
+    {
+        return [
+            $this->player->getLogKey() => $this->player->getLogName(),
+            'quantity' => $this->quantity,
+        ];
     }
 }

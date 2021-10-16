@@ -14,7 +14,7 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
     private RoomLogServiceInterface $roomLogService;
 
     public function __construct(
-        RoomLogServiceInterface $roomLogService
+        RoomLogServiceInterface $roomLogService,
     ) {
         $this->roomLogService = $roomLogService;
     }
@@ -29,16 +29,15 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
 
     public function onDiseaseCure(DiseaseEvent $event)
     {
-        $player = $event->getPlayer();
-        $diseaseConfig = $event->getDiseaseConfig();
+        $player = $event->getPlayerDisease()->getPlayer();
+
         $this->roomLogService->createLog(
             LogEnum::DISEASE_CURED,
-            $player->getPlace(),
+            $event->getPlace(),
             VisibilityEnum::PRIVATE,
             'event_log',
             $player,
-            $diseaseConfig,
-            null,
+            $event->getLogParameters(),
             $event->getTime()
         );
     }
@@ -55,12 +54,11 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
 
         $this->roomLogService->createLog(
             $log,
-            $player->getPlace(),
+            $event->getPlace(),
             VisibilityEnum::PRIVATE,
             'event_log',
             $player,
-            $diseaseConfig,
-            null,
+            $event->getLogParameters(),
             $event->getTime()
         );
     }

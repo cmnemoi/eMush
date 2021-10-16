@@ -36,7 +36,7 @@ class ActionSubscriberCest
         $this->cycleSubscriber = $I->grabService(ActionSubscriber::class);
     }
 
-    public function testOnPostActionSubscriber(FunctionalTester $I)
+    public function testOnPostActionSubscriberInjury(FunctionalTester $I)
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
@@ -54,17 +54,9 @@ class ActionSubscriberCest
         $action
             ->setDirtyRate(0)
             ->setInjuryRate(100)
-            ->setName(ActionEnum::TAKE)
-        ;
+            ->setName(ActionEnum::TAKE);
 
-        $statusDirty = new StatusConfig();
-        $statusDirty
-            ->setName(PlayerStatusEnum::DIRTY)
-            ->setGameConfig($gameConfig)
-        ;
-        $I->haveInRepository($statusDirty);
-
-        $actionEvent = new ActionEvent($action, $player);
+        $actionEvent = new ActionEvent($action, $player, null);
 
         //Test injury
         $this->cycleSubscriber->onPostAction($actionEvent);
@@ -77,16 +69,41 @@ class ActionSubscriberCest
             'log' => LogEnum::CLUMSINESS,
             'visibility' => VisibilityEnum::PRIVATE,
         ]);
+    }
+
+    public function testOnPostActionSubscriberDirty(FunctionalTester $I)
+    {
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class);
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+
+        /** @var CharacterConfig $characterConfig */
+        $characterConfig = $I->have(CharacterConfig::class);
+        /** @var Player $player */
+        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'actionPoint' => 2, 'characterConfig' => $characterConfig]);
+        $action = new Action();
 
         $action
             ->setDirtyRate(100)
             ->setInjuryRate(0)
+            ->setName(ActionEnum::TAKE)
         ;
+
+        $statusDirty = new StatusConfig();
+        $statusDirty
+            ->setName(PlayerStatusEnum::DIRTY)
+            ->setGameConfig($gameConfig);
+        $I->haveInRepository($statusDirty);
+
+        $actionEvent = new ActionEvent($action, $player, null);
 
         //Test dirty
         $this->cycleSubscriber->onPostAction($actionEvent);
 
-        $I->assertEquals(8, $player->getHealthPoint());
+        $I->assertEquals(10, $player->getHealthPoint());
         $I->assertCount(1, $player->getStatuses());
         $I->assertEquals(PlayerStatusEnum::DIRTY, $player->getStatuses()->first()->getName());
         $I->seeInRepository(RoomLog::class, [
@@ -95,17 +112,64 @@ class ActionSubscriberCest
             'log' => LogEnum::SOILED,
             'visibility' => VisibilityEnum::PRIVATE,
         ]);
+    }
+
+    public function testOnPostActionSubscriberAlreadyDirty(FunctionalTester $I)
+    {
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class);
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+
+        /** @var CharacterConfig $characterConfig */
+        $characterConfig = $I->have(CharacterConfig::class);
+        /** @var Player $player */
+        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'actionPoint' => 2, 'characterConfig' => $characterConfig]);
+        $action = new Action();
+
+        $action
+            ->setDirtyRate(100)
+            ->setInjuryRate(0)
+            ->setName(ActionEnum::TAKE)
+        ;
+
+        $dirty = new Status($player);
+        $dirty->setName(PlayerStatusEnum::DIRTY);
+        $I->haveInRepository($dirty);
+
+        $actionEvent = new ActionEvent($action, $player, null);
 
         //Test already dirty
         $this->cycleSubscriber->onPostAction($actionEvent);
 
-        $I->assertEquals(8, $player->getHealthPoint());
+        $I->assertEquals(10, $player->getHealthPoint());
         $I->assertCount(1, $player->getStatuses());
         $I->assertEquals(PlayerStatusEnum::DIRTY, $player->getStatuses()->first()->getName());
+    }
 
-        //Remove player status
-        $player->removeStatus($player->getStatuses()->first());
-        $I->haveInRepository($player);
+    public function testOnPostActionSubscriberDirtyApron(FunctionalTester $I)
+    {
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class);
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+
+        /** @var CharacterConfig $characterConfig */
+        $characterConfig = $I->have(CharacterConfig::class);
+        /** @var Player $player */
+        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'actionPoint' => 2, 'characterConfig' => $characterConfig]);
+        $action = new Action();
+
+        $action
+            ->setDirtyRate(100)
+            ->setInjuryRate(0)
+            ->setName(ActionEnum::TAKE);
+
+        $actionEvent = new ActionEvent($action, $player, null);
 
         /** @var ItemConfig $itemConfig */
         $itemConfig = $I->have(ItemConfig::class, ['name' => GearItemEnum::STAINPROOF_APRON]);
@@ -127,7 +191,7 @@ class ActionSubscriberCest
         //Test dirty with apron
         $this->cycleSubscriber->onPostAction($actionEvent);
 
-        $I->assertEquals(8, $player->getHealthPoint());
+        $I->assertEquals(10, $player->getHealthPoint());
         $I->assertCount(0, $player->getStatuses());
         $I->seeInRepository(RoomLog::class, [
             'place' => $room->getId(),

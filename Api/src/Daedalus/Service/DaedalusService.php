@@ -237,8 +237,7 @@ class DaedalusService implements DaedalusServiceInterface
                 VisibilityEnum::PRIVATE,
                 'event_log',
                 $player,
-                null,
-                null,
+                [],
                 $date
             );
         }

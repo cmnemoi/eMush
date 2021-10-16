@@ -116,8 +116,8 @@ class PlayerCycleSubscriberCest
         ]);
 
         $I->seeInRepository(RoomLog::class, [
-            'player' => $player,
-            'place' => $place,
+            'player' => $player->getId(),
+            'place' => $place->getId(),
             'log' => LogEnum::DISEASE_CURED,
         ]);
     }

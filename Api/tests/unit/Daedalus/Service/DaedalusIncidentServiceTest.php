@@ -81,7 +81,7 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (RoomEvent $event) => $event->getRoom() === $room1 && $event->getReason() === EventEnum::NEW_CYCLE)
+            ->withArgs(fn (RoomEvent $event) => $event->getPlace() === $room1 && $event->getReason() === EventEnum::NEW_CYCLE)
             ->once()
         ;
 
@@ -111,7 +111,7 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (RoomEvent $event) => $event->getRoom() === $room1 && $event->getReason() === EventEnum::NEW_CYCLE)
+            ->withArgs(fn (RoomEvent $event) => $event->getPlace() === $room1 && $event->getReason() === EventEnum::NEW_CYCLE)
             ->once()
         ;
 
@@ -141,7 +141,7 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (RoomEvent $event) => $event->getRoom() === $room1 && $event->getReason() === EventEnum::NEW_CYCLE)
+            ->withArgs(fn (RoomEvent $event) => $event->getPlace() === $room1 && $event->getReason() === EventEnum::NEW_CYCLE)
             ->once()
         ;
 

@@ -4,11 +4,11 @@ namespace Mush\Equipment\Event;
 
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Event\AbstractGameEvent;
-use Mush\Game\Event\AbstractLoggedEvent;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Event\LoggableEventInterface;
 
-class EquipmentEvent extends AbstractGameEvent implements AbstractLoggedEvent
+class EquipmentEvent extends AbstractGameEvent implements LoggableEventInterface
 {
     public const EQUIPMENT_CREATED = 'equipment.created';
     public const EQUIPMENT_FIXED = 'equipment.fixed';
@@ -73,5 +73,18 @@ class EquipmentEvent extends AbstractGameEvent implements AbstractLoggedEvent
     public function getVisibility(): string
     {
         return $this->visibility;
+    }
+
+    public function getLogParameters(): array
+    {
+        $logParameters = [
+           $this->equipment->getLogKey() => $this->equipment->getLogName(),
+        ];
+
+        if ($this->player !== null) {
+            $logParameters[$this->player->getLogKey()] = $this->player->getLogName();
+        }
+
+        return $logParameters;
     }
 }

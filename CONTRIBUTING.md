@@ -27,7 +27,7 @@ vendor/bin/psalm
 in case of trouble when running tests
 ```
 vendor/bin/codecept clean
-vendor/bin/psalm -no--cache
+vendor/bin/psalm --no-cache
 ```
 
 4- Issue a Merge Request describing summarizing what you have done, wait a moment (ideally 24h) or the approval of an other developper before merging

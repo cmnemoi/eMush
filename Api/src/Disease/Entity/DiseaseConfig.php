@@ -5,14 +5,14 @@ namespace Mush\Disease\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Disease\Enum\TypeEnum;
 use Mush\Game\Entity\GameConfig;
-use Mush\RoomLog\Entity\LogParameter;
+use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="disease_config")
  */
-class DiseaseConfig implements LogParameter
+class DiseaseConfig implements LogParameterInterface
 {
     /**
      * @ORM\Id

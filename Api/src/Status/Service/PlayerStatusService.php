@@ -4,6 +4,7 @@ namespace Mush\Status\Service;
 
 use Mush\Game\Enum\EventEnum;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
@@ -49,6 +50,8 @@ class PlayerStatusService implements PlayerStatusServiceInterface
 
         if ($player->getSatiety() < self::STARVING_STATUS_THRESHOLD && !$starvingStatus && !$player->isMush()) {
             $event = new StatusEvent(PlayerStatusEnum::STARVING, $player, EventEnum::NEW_CYCLE, $dateTime);
+            $event->setVisibility(VisibilityEnum::PRIVATE);
+
             $this->eventDispatcher->dispatch($event, StatusEvent::STATUS_APPLIED);
         } elseif (($player->getSatiety() >= self::STARVING_STATUS_THRESHOLD || $player->isMush()) && $starvingStatus) {
             $this->statusService->delete($starvingStatus);

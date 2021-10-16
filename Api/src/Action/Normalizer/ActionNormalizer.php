@@ -4,10 +4,10 @@ namespace Mush\Action\Normalizer;
 
 use Mush\Action\Actions\AttemptAction;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Service\ActionStrategyServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\RoomLog\Entity\LogParameterInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 
 class ActionNormalizer implements ContextAwareNormalizerInterface
@@ -81,7 +81,7 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
         return [];
     }
 
-    private function loadParameters(array $context): ?ActionParameter
+    private function loadParameters(array $context): ?LogParameterInterface
     {
         $parameter = null;
         if (array_key_exists('player', $context)) {

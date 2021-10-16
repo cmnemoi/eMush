@@ -25,7 +25,7 @@ class RoomSubscriber implements EventSubscriberInterface
 
     public function onStartingFire(RoomEvent $event): void
     {
-        $daedalus = $event->getRoom()->getDaedalus();
+        $daedalus = $event->getPlace()->getDaedalus();
 
         $this->neronMessageService->createNewFireMessage($daedalus, $event->getTime());
     }

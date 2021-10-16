@@ -228,8 +228,7 @@ class PlayerService implements PlayerServiceInterface
             VisibilityEnum::PRIVATE,
             'event_log',
             $player,
-            null,
-            $triumphChange,
+            ['quantity' => $triumphChange],
             $date
         );
 

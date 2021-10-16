@@ -5,7 +5,6 @@ namespace Mush\Action\Actions;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Error;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Action\Service\ActionServiceInterface;
@@ -13,6 +12,7 @@ use Mush\Action\Validator\ActionPoint;
 use Mush\Action\Validator\HasAction;
 use Mush\Action\Validator\PlayerAlive;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Entity\LogParameterInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -23,7 +23,7 @@ abstract class AbstractAction
     protected Action $action;
     protected Player $player;
 
-    protected ?ActionParameter $parameter = null;
+    protected ?LogParameterInterface $parameter = null;
 
     protected string $name;
 
@@ -41,9 +41,9 @@ abstract class AbstractAction
         $this->validator = $validator;
     }
 
-    abstract protected function support(?ActionParameter $parameter): bool;
+    abstract protected function support(?LogParameterInterface $parameter): bool;
 
-    public function loadParameters(Action $action, Player $player, ?ActionParameter $parameter = null): void
+    public function loadParameters(Action $action, Player $player, ?LogParameterInterface $parameter = null): void
     {
         if (!$this->support($parameter)) {
             $className = isset($parameter) ? $parameter->getClassName() : '$parameter is null';
@@ -92,18 +92,20 @@ abstract class AbstractAction
             return new Error('Cannot execute action');
         }
 
-        $preActionEvent = new ActionEvent($this->action, $this->player);
+        $parameter = $this->getParameter();
+
+        $preActionEvent = new ActionEvent($this->action, $this->player, $parameter);
         $this->eventDispatcher->dispatch($preActionEvent, ActionEvent::PRE_ACTION);
 
         $this->actionService->applyCostToPlayer($this->player, $this->action, $this->parameter);
 
         $result = $this->applyEffects();
 
-        $postActionEvent = new ActionEvent($this->action, $this->player);
-        $postActionEvent->setActionResult($result);
-        $this->eventDispatcher->dispatch($postActionEvent, ActionEvent::RESULT_ACTION);
+        $resultActionEvent = new ActionEvent($this->action, $this->player, $parameter);
+        $resultActionEvent->setActionResult($result);
+        $this->eventDispatcher->dispatch($resultActionEvent, ActionEvent::RESULT_ACTION);
 
-        $postActionEvent = new ActionEvent($this->action, $this->player);
+        $postActionEvent = new ActionEvent($this->action, $this->player, $parameter);
         $postActionEvent->setActionResult($result);
         $this->eventDispatcher->dispatch($postActionEvent, ActionEvent::POST_ACTION);
 
@@ -135,7 +137,7 @@ abstract class AbstractAction
         return $this->player;
     }
 
-    public function getParameter(): ?ActionParameter
+    public function getParameter(): ?LogParameterInterface
     {
         return $this->parameter;
     }

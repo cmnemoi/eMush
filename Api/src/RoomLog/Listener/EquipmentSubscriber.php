@@ -7,7 +7,9 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\EventEnum;
 use Mush\RoomLog\Enum\LogEnum;
+use Mush\RoomLog\Enum\PlantLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -35,6 +37,20 @@ class EquipmentSubscriber implements EventSubscriberInterface
     {
         $equipment = $event->getEquipment();
 
+        if ($event->getReason() === EventEnum::PLANT_PRODUCTION) {
+            $this->roomLogService->createLog(
+                PlantLogEnum::PLANT_NEW_FRUIT,
+                $event->getPlace(),
+                VisibilityEnum::PUBLIC,
+                'event_log',
+                null,
+                $event->getLogParameters(),
+                $event->getTime()
+            );
+
+            return;
+        }
+
         if ($equipment instanceof GameItem &&
             ($player = $event->getPlayer()) !== null &&
             $player->getItems()->count() >= $this->getGameConfig($equipment)->getMaxItemInInventory()
@@ -45,8 +61,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
                 VisibilityEnum::PUBLIC,
                 'event_log',
                 $player,
-                $equipment,
-                null,
+                $event->getLogParameters(),
                 $event->getTime()
             );
         }
@@ -56,6 +71,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
     {
         if ($event->getVisibility() !== VisibilityEnum::HIDDEN) {
             $equipment = $event->getEquipment();
+
             if ($equipment instanceof Door) {
                 $rooms = $equipment->getRooms()->toArray();
             } else {
@@ -69,8 +85,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
                     $event->getVisibility(),
                     'event_log',
                     null,
-                    $equipment,
-                    null,
+                    $event->getLogParameters(),
                     $event->getTime()
                 );
             }
@@ -89,8 +104,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
                 $event->getVisibility(),
                 'event_log',
                 null,
-                $equipment,
-                null,
+                $event->getLogParameters(),
                 $event->getTime()
             );
         }
@@ -114,8 +128,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
                 VisibilityEnum::PUBLIC,
                 'event_log',
                 $player,
-                $newEquipment,
-                null,
+                $event->getLogParameters(),
                 $event->getTime()
             );
         }

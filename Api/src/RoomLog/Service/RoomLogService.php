@@ -14,7 +14,7 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\RoomLog\Entity\LogParameter;
+use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogDeclinationEnum;
@@ -53,23 +53,15 @@ class RoomLogService implements RoomLogServiceInterface
         return $this->repository->find($id);
     }
 
-    public function createLogFromActionResult(string $actionName, ActionResult $actionResult, Player $player): ?RoomLog
-    {
+    public function createLogFromActionResult(
+        string $actionName,
+        ActionResult $actionResult,
+        Player $player,
+        ?LogParameterInterface $actionParameter,
+    ): ?RoomLog {
         // first lets handle the special case of examine action
-        if ($actionName === ActionEnum::EXAMINE && ($target = $actionResult->getTargetEquipment()) !== null) {
-            if ($target instanceof GameItem) {
-                $type = 'items';
-            } else {
-                $type = 'equipments';
-            }
-
-            return $this->createLog(
-                $target->getLogName() . '.examine',
-                $player->getPlace(),
-                VisibilityEnum::PRIVATE,
-                $type,
-                $player,
-            );
+        if ($actionName === ActionEnum::EXAMINE) {
+            return $this->createExamineLog($player, $actionParameter);
         }
 
         $logMapping = ActionLogEnum::ACTION_LOGS[$actionName] ?? null;
@@ -92,15 +84,63 @@ class RoomLogService implements RoomLogServiceInterface
             );
         }
 
+        $parameters = $this->getActionLogParameters($actionResult, $player, $actionParameter);
+
         return $this->createLog(
             $logData[ActionLogEnum::VALUE],
             $player->getPlace(),
             $logData[ActionLogEnum::VISIBILITY],
             'actions_log',
             $player,
-            $actionResult->getTargetPlayer() ?? $actionResult->getTargetEquipment(),
-            $actionResult->getQuantity()
+            $parameters,
         );
+    }
+
+    private function getActionLogParameters(
+        ActionResult $actionResult,
+        Player $player,
+        ?LogParameterInterface $actionParameter
+    ): array {
+        $parameters = [];
+        $parameters[$player->getLogKey()] = $player->getLogName();
+
+        if (($quantity = $actionResult->getQuantity()) !== null) {
+            $parameters['quantity'] = $quantity;
+        }
+        if ($actionParameter !== null) {
+            $key = 'target_' . $actionParameter->getLogKey();
+            $parameters[$key] = $actionParameter->getLogName();
+        }
+        if (($equipment = $actionResult->getEquipment()) !== null) {
+            $parameters[$equipment->getLogKey()] = $equipment->getLogName();
+        }
+
+        return $parameters;
+    }
+
+    private function createExamineLog(
+        Player $player,
+        ?LogParameterInterface $actionParameter,
+    ): RoomLog {
+        if ($actionParameter instanceof GameItem) {
+            return $this->createLog(
+                $actionParameter->getLogName() . '.examine',
+                $player->getPlace(),
+                VisibilityEnum::PRIVATE,
+                'items',
+                $player,
+            );
+        } elseif ($actionParameter instanceof GameEquipment) {
+            return $this->createLog(
+                $actionParameter->getLogName() . '.examine',
+                $player->getPlace(),
+                VisibilityEnum::PRIVATE,
+                'equipments',
+                $player,
+            );
+        } else {
+            throw new \LogicException('examine action is not implemented for this type of entity');
+        }
     }
 
     public function createLog(
@@ -109,23 +149,20 @@ class RoomLogService implements RoomLogServiceInterface
         string $visibility,
         string $type,
         ?Player $player = null,
-        ?LogParameter $target = null,
-        ?int $quantity = null,
+        array $parameters = [],
         \DateTime $dateTime = null
     ): RoomLog {
-        $params = $this->getMessageParam($player, $target, $quantity);
-
         //if there is several version of the log
         if (array_key_exists($logKey, $declinations = LogDeclinationEnum::getVersionNumber())) {
             foreach ($declinations[$logKey] as $keyVersion => $versionNb) {
-                $params[$keyVersion] = $this->randomService->random(1, $versionNb);
+                $parameters[$keyVersion] = $this->randomService->random(1, $versionNb);
             }
         }
 
         $roomLog = new RoomLog();
         $roomLog
             ->setLog($logKey)
-            ->setParameters($params)
+            ->setParameters($parameters)
             ->setType($type)
             ->setPlace($place)
             ->setPlayer($player)
@@ -133,6 +170,7 @@ class RoomLogService implements RoomLogServiceInterface
             ->setDate($dateTime ?? new \DateTime('now'))
             ->setCycle($place->getDaedalus()->getCycle())
             ->setDay($place->getDaedalus()->getDay())
+
         ;
 
         return $this->persist($roomLog);
@@ -165,28 +203,6 @@ class RoomLogService implements RoomLogServiceInterface
         }
 
         return $visibility;
-    }
-
-    private function getMessageParam(
-        ?Player $player = null,
-        ?LogParameter $target = null,
-        ?int $quantity = null
-    ): array {
-        $params = [];
-
-        if ($player !== null) {
-            $params['character'] = $player->getLogName();
-        }
-
-        if ($target !== null) {
-            $params[$target->getLogKey()] = $target->getLogName();
-        }
-
-        if ($quantity !== null) {
-            $params['quantity'] = $quantity;
-        }
-
-        return $params;
     }
 
     public function getRoomLog(Player $player): array

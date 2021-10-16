@@ -29,7 +29,7 @@ class RoomSubscriber implements EventSubscriberInterface
 
     public function onStartingFire(RoomEvent $event): void
     {
-        $room = $event->getRoom();
+        $room = $event->getPlace();
 
         if ($room->getType() !== PlaceTypeEnum::ROOM) {
             throw new \LogicException('place should be a room');
@@ -44,7 +44,7 @@ class RoomSubscriber implements EventSubscriberInterface
 
     public function onStopFire(RoomEvent $event): void
     {
-        $room = $event->getRoom();
+        $room = $event->getPlace();
 
         if (($fireStatus = $room->getStatusByName(StatusEnum::FIRE)) === null) {
             throw new \LogicException('room should have a fire to stop');

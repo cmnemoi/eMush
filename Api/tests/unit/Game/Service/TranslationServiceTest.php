@@ -107,11 +107,11 @@ class TranslationServiceTest extends TestCase
         ;
 
         $this->translator->shouldReceive('trans')
-            ->with('key', ['target' => 'Antenne', 'target_gender' => 'female', 'target_first_letter' => 'vowel', 'target_plural' => 'Antennes'], 'domain')
+            ->with('key', ['target_equipment' => 'Antenne', 'target_equipment_gender' => 'female', 'target_equipment_first_letter' => 'vowel', 'target_equipment_plural' => 'Antennes'], 'domain')
             ->andReturn('translated message')
             ->once()
         ;
-        $this->translationService->translate('key', ['targetEquipment' => EquipmentEnum::ANTENNA], 'domain');
+        $this->translationService->translate('key', ['target_equipment' => EquipmentEnum::ANTENNA], 'domain');
     }
 
     public function testGetTranslationParameters()
@@ -144,15 +144,15 @@ class TranslationServiceTest extends TestCase
         ;
 
         $translatedParameters = [
-            'target' => 'Antenne',
-            'target_gender' => 'female',
-            'target_first_letter' => 'vowel',
-            'target_plural' => 'Antennes',
+            'target_equipment' => 'Antenne',
+            'target_equipment_gender' => 'female',
+            'target_equipment_first_letter' => 'vowel',
+            'target_equipment_plural' => 'Antennes',
             'cause' => 'Pas infirmerie',
         ];
 
         $initialParameters = [
-            'targetItem' => EquipmentEnum::ANTENNA,
+            'target_item' => EquipmentEnum::ANTENNA,
             'cause' => EndCauseEnum::NO_INFIRMERY,
         ];
 

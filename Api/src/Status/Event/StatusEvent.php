@@ -4,14 +4,14 @@ namespace Mush\Status\Event;
 
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Event\AbstractGameEvent;
-use Mush\Game\Event\AbstractLoggedEvent;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\RoomLog\Event\LoggableEventInterface;
 use Mush\Status\Entity\StatusHolderInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class StatusEvent extends AbstractGameEvent implements AbstractLoggedEvent
+class StatusEvent extends AbstractGameEvent implements LoggableEventInterface
 {
     public const STATUS_APPLIED = 'status.applied';
     public const STATUS_REMOVED = 'status.removed';
@@ -78,5 +78,10 @@ class StatusEvent extends AbstractGameEvent implements AbstractLoggedEvent
         } else {
             throw new UnexpectedTypeException($this->holder, StatusHolderInterface::class);
         }
+    }
+
+    public function getLogParameters(): array
+    {
+        return [];
     }
 }

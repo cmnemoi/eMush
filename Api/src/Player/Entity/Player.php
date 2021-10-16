@@ -7,7 +7,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Disease\Entity\Collection\PlayerDiseaseCollection;
@@ -19,7 +18,7 @@ use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Collection\PlayerCollection;
-use Mush\RoomLog\Entity\LogParameter;
+use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
@@ -32,7 +31,7 @@ use Mush\User\Entity\User;
 /**
  * @ORM\Entity(repositoryClass="Mush\Player\Repository\PlayerRepository")
  */
-class Player implements StatusHolderInterface, ActionParameter, LogParameter
+class Player implements StatusHolderInterface, LogParameterInterface
 {
     use TimestampableEntity;
     use TargetStatusTrait;

@@ -4,7 +4,6 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
@@ -14,8 +13,9 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Event\EquipmentEventInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -48,7 +48,7 @@ class RemoveCamera extends AbstractAction
         $metadata->addConstraint(new InventoryFull(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::FULL_INVENTORY]));
     }
 
-    protected function support(?ActionParameter $parameter): bool
+    protected function support(?LogParameterInterface $parameter): bool
     {
         return $parameter instanceof GameEquipment;
     }
@@ -63,7 +63,7 @@ class RemoveCamera extends AbstractAction
             ->createGameEquipmentFromName(ItemEnum::CAMERA_ITEM, $this->player->getDaedalus())
         ;
 
-        $equipmentEvent = new EquipmentEvent(
+        $equipmentEvent = new EquipmentEventInterface(
             $equipmentCamera,
             $this->player->getPlace(),
             VisibilityEnum::HIDDEN,
@@ -71,7 +71,7 @@ class RemoveCamera extends AbstractAction
             new \DateTime()
         );
         $equipmentEvent->setReplacementEquipment($itemCamera)->setPlayer($this->player);
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_TRANSFORM);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEventInterface::EQUIPMENT_TRANSFORM);
 
         return new Success();
     }

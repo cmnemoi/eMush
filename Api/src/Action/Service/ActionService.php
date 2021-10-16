@@ -5,7 +5,7 @@ namespace Mush\Action\Service;
 use Mush\Action\Entity\Action;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\ModifierTargetEnum;
-use Mush\Player\Event\PlayerModifierEvent;
+use Mush\Player\Event\PlayerModifierEventInterface;
 use Mush\Player\Service\ActionModifierServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Attempt;
@@ -39,25 +39,25 @@ class ActionService implements ActionServiceInterface
     public function applyCostToPlayer(Player $player, Action $action): Player
     {
         if (($actionPointCost = $this->getTotalActionPointCost($player, $action)) > 0) {
-            $this->triggerPlayerModifierEvent($player, PlayerModifierEvent::ACTION_POINT_MODIFIER, -$actionPointCost);
+            $this->triggerPlayerModifierEvent($player, PlayerModifierEventInterface::ACTION_POINT_MODIFIER, -$actionPointCost);
         }
 
         if (($movementPointCost = $this->getTotalMovementPointCost($player, $action)) > 0) {
             if ($player->getMovementPoint() === 0) {
-                $playerModifierEvent = new PlayerModifierEvent(
+                $playerModifierEvent = new PlayerModifierEventInterface(
                     $player,
                     self::BASE_MOVEMENT_POINT_CONVERSION,
                     'movement point conversion', //@TODO incoming with modifier merge request
                     new \DateTime()
                 );
-                $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::MOVEMENT_POINT_CONVERSION);
+                $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEventInterface::MOVEMENT_POINT_CONVERSION);
             }
 
-            $this->triggerPlayerModifierEvent($player, PlayerModifierEvent::MOVEMENT_POINT_MODIFIER, -$movementPointCost);
+            $this->triggerPlayerModifierEvent($player, PlayerModifierEventInterface::MOVEMENT_POINT_MODIFIER, -$movementPointCost);
         }
 
         if (($moralPointCost = $this->getTotalMoralPointCost($player, $action)) > 0) {
-            $this->triggerPlayerModifierEvent($player, PlayerModifierEvent::MORAL_POINT_MODIFIER, -$moralPointCost);
+            $this->triggerPlayerModifierEvent($player, PlayerModifierEventInterface::MORAL_POINT_MODIFIER, -$moralPointCost);
         }
 
         return $player;
@@ -140,7 +140,7 @@ class ActionService implements ActionServiceInterface
 
     private function triggerPlayerModifierEvent(Player $player, string $eventName, int $delta): void
     {
-        $playerModifierEvent = new PlayerModifierEvent(
+        $playerModifierEvent = new PlayerModifierEventInterface(
             $player,
             $delta,
             'action_cost', //@TODO fix that

@@ -5,7 +5,7 @@ namespace Mush\Alert\Listener;
 use Mush\Alert\Enum\AlertEnum;
 use Mush\Alert\Service\AlertServiceInterface;
 use Mush\Equipment\Enum\EquipmentEnum;
-use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Event\EquipmentEventInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -22,14 +22,14 @@ class EquipmentSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            EquipmentEvent::EQUIPMENT_FIXED => 'onEquipmentFixed',
-            EquipmentEvent::EQUIPMENT_BROKEN => 'onEquipmentBroken',
-            EquipmentEvent::EQUIPMENT_DESTROYED => 'onEquipmentDestroyed',
-            EquipmentEvent::EQUIPMENT_TRANSFORM => 'onEquipmentTransform',
+            EquipmentEventInterface::EQUIPMENT_FIXED => 'onEquipmentFixed',
+            EquipmentEventInterface::EQUIPMENT_BROKEN => 'onEquipmentBroken',
+            EquipmentEventInterface::EQUIPMENT_DESTROYED => 'onEquipmentDestroyed',
+            EquipmentEventInterface::EQUIPMENT_TRANSFORM => 'onEquipmentTransform',
         ];
     }
 
-    public function onEquipmentDestroyed(EquipmentEvent $event): void
+    public function onEquipmentDestroyed(EquipmentEventInterface $event): void
     {
         $equipment = $event->getEquipment();
 
@@ -38,7 +38,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         }
     }
 
-    public function onEquipmentBroken(EquipmentEvent $event): void
+    public function onEquipmentBroken(EquipmentEventInterface $event): void
     {
         $equipment = $event->getEquipment();
 
@@ -49,7 +49,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         }
     }
 
-    public function onEquipmentFixed(EquipmentEvent $event): void
+    public function onEquipmentFixed(EquipmentEventInterface $event): void
     {
         $equipment = $event->getEquipment();
 
@@ -60,7 +60,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         }
     }
 
-    public function onEquipmentTransform(EquipmentEvent $event): void
+    public function onEquipmentTransform(EquipmentEventInterface $event): void
     {
         $equipment = $event->getEquipment();
 

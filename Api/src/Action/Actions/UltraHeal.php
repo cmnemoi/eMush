@@ -4,18 +4,18 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Event\ApplyEffectEvent;
+use Mush\Action\Event\ApplyEffectEventInterface;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\FullHealth;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Event\EquipmentEventInterface;
 use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Player\Service\PlayerVariableServiceInterface;
+use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -45,7 +45,7 @@ class UltraHeal extends AbstractAction
         $this->playerVariableService = $playerVariableService;
     }
 
-    protected function support(?ActionParameter $parameter): bool
+    protected function support(?LogParameterInterface $parameter): bool
     {
         return $parameter instanceof GameItem;
     }
@@ -65,23 +65,23 @@ class UltraHeal extends AbstractAction
 
         $this->playerService->persist($this->player);
 
-        $healEvent = new ApplyEffectEvent(
+        $healEvent = new ApplyEffectEventInterface(
             $this->player,
             $this->player,
             VisibilityEnum::HIDDEN,
             $this->getActionName(),
             new \DateTime()
         );
-        $this->eventDispatcher->dispatch($healEvent, ApplyEffectEvent::HEAL);
+        $this->eventDispatcher->dispatch($healEvent, ApplyEffectEventInterface::HEAL);
 
-        $equipmentEvent = new EquipmentEvent(
+        $equipmentEvent = new EquipmentEventInterface(
             $parameter,
             $this->player->getPlace(),
             VisibilityEnum::HIDDEN,
             $this->getActionName(),
             new \DateTime()
         );
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEventInterface::EQUIPMENT_DESTROYED);
 
         return new Success();
     }

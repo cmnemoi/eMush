@@ -4,7 +4,6 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasStatus;
@@ -14,11 +13,12 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Event\EquipmentEventInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Event\StatusEvent;
+use Mush\Status\Event\StatusEventInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -43,7 +43,7 @@ class Hyperfreeze extends AbstractAction
         $this->gameEquipmentService = $gameEquipmentService;
     }
 
-    protected function support(?ActionParameter $parameter): bool
+    protected function support(?LogParameterInterface $parameter): bool
     {
         return $parameter instanceof GameEquipment;
     }
@@ -69,7 +69,7 @@ class Hyperfreeze extends AbstractAction
                 ->createGameEquipmentFromName(GameRationEnum::STANDARD_RATION, $this->player->getDaedalus())
             ;
 
-            $equipmentEvent = new EquipmentEvent(
+            $equipmentEvent = new EquipmentEventInterface(
                 $parameter,
                 $this->player->getPlace(),
                 VisibilityEnum::PUBLIC,
@@ -77,10 +77,10 @@ class Hyperfreeze extends AbstractAction
                 new \DateTime()
             );
             $equipmentEvent->setReplacementEquipment($newItem)->setPlayer($this->player);
-            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_TRANSFORM);
+            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEventInterface::EQUIPMENT_TRANSFORM);
         } else {
-            $statusEvent = new StatusEvent(EquipmentStatusEnum::FROZEN, $parameter, $this->getActionName(), new \DateTime());
-            $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+            $statusEvent = new StatusEventInterface(EquipmentStatusEnum::FROZEN, $parameter, $this->getActionName(), new \DateTime());
+            $this->eventDispatcher->dispatch($statusEvent, StatusEventInterface::STATUS_APPLIED);
         }
 
         return new Success();

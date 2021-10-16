@@ -4,7 +4,6 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\FullHull;
@@ -12,11 +11,12 @@ use Mush\Action\Validator\Reach;
 use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Event\EquipmentEventInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Enum\ModifierScopeEnum;
 use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\Player\Service\ActionModifierServiceInterface;
+use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -46,7 +46,7 @@ class StrengthenHull extends AttemptAction
         $this->actionModifierService = $actionModifierService;
     }
 
-    protected function support(?ActionParameter $parameter): bool
+    protected function support(?LogParameterInterface $parameter): bool
     {
         return $parameter instanceof GameItem;
     }
@@ -82,7 +82,7 @@ class StrengthenHull extends AttemptAction
             );
             $this->eventDispatcher->dispatch($daedalusEvent, DaedalusModifierEvent::CHANGE_HULL);
 
-            $equipmentEvent = new EquipmentEvent(
+            $equipmentEvent = new EquipmentEventInterface(
                 $parameter,
                 $this->player->getPlace(),
                 VisibilityEnum::HIDDEN,
@@ -90,7 +90,7 @@ class StrengthenHull extends AttemptAction
                 new \DateTime()
             );
             $equipmentEvent->setPlayer($this->player);
-            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEventInterface::EQUIPMENT_DESTROYED);
         }
 
         return $response;

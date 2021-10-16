@@ -3,7 +3,7 @@
 namespace Mush\RoomLog\Listener;
 
 use Mush\Disease\Enum\TypeEnum;
-use Mush\Disease\Event\DiseaseEvent;
+use Mush\Disease\Event\DiseaseEventInterface;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
@@ -22,12 +22,12 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            DiseaseEvent::CURE_DISEASE => 'onDiseaseCure',
-            DiseaseEvent::APPEAR_DISEASE => 'onDiseaseAppear',
+            DiseaseEventInterface::CURE_DISEASE => 'onDiseaseCure',
+            DiseaseEventInterface::APPEAR_DISEASE => 'onDiseaseAppear',
         ];
     }
 
-    public function onDiseaseCure(DiseaseEvent $event)
+    public function onDiseaseCure(DiseaseEventInterface $event)
     {
         $player = $event->getPlayerDisease()->getPlayer();
 
@@ -42,7 +42,7 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
         );
     }
 
-    public function onDiseaseAppear(DiseaseEvent $event)
+    public function onDiseaseAppear(DiseaseEventInterface $event)
     {
         $player = $event->getPlayer();
         $diseaseConfig = $event->getDiseaseConfig();

@@ -5,12 +5,12 @@ namespace Mush\Disease\Event;
 use Mush\Disease\Entity\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Game\Event\AbstractGameEvent;
-use Mush\Game\Event\AbstractLoggedEvent;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\RoomLog\Event\LoggableEventInterface;
 
-class DiseaseEvent extends AbstractGameEvent implements AbstractLoggedEvent
+class DiseaseEventInterface extends AbstractGameEvent implements LoggableEventInterface
 {
     public const NEW_DISEASE = 'disease.new';
     public const APPEAR_DISEASE = 'disease.appear';
@@ -36,7 +36,7 @@ class DiseaseEvent extends AbstractGameEvent implements AbstractLoggedEvent
         return $this->author;
     }
 
-    public function setAuthor(?Player $author): DiseaseEvent
+    public function setAuthor(?Player $author): DiseaseEventInterface
     {
         $this->author = $author;
 

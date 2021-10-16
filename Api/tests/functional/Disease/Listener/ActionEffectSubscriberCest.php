@@ -5,7 +5,7 @@ namespace Mush\Tests\functional\Disease\Listener;
 use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Event\ApplyEffectEvent;
+use Mush\Action\Event\ApplyEffectEventInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Disease\Entity\ConsumableDisease;
 use Mush\Disease\Entity\ConsumableDiseaseAttribute;
@@ -58,7 +58,7 @@ class ActionEffectSubscriberCest
         $gameItem = $this->createRation($I);
         $diseaseConfig = $this->createDiseaseForRation($daedalus, $gameItem->getName(), 'diseaseName', true);
 
-        $event = new ApplyEffectEvent(
+        $event = new ApplyEffectEventInterface(
             $player,
             $gameItem,
             VisibilityEnum::HIDDEN,
@@ -98,7 +98,7 @@ class ActionEffectSubscriberCest
         $gameItem = $this->createRation($I);
         $diseaseConfig = $this->createDiseaseForRation($daedalus, $gameItem->getName(), 'diseaseName', false);
 
-        $event = new ApplyEffectEvent(
+        $event = new ApplyEffectEventInterface(
             $player,
             $gameItem,
             VisibilityEnum::HIDDEN,
@@ -146,7 +146,7 @@ class ActionEffectSubscriberCest
         ;
         $I->haveInRepository($diseasePlayer);
 
-        $event = new ApplyEffectEvent(
+        $event = new ApplyEffectEventInterface(
             $player,
             $player,
             VisibilityEnum::HIDDEN,
@@ -195,7 +195,7 @@ class ActionEffectSubscriberCest
         ;
         $I->haveInRepository($diseasePlayer);
 
-        $event = new ApplyEffectEvent(
+        $event = new ApplyEffectEventInterface(
             $player,
             $player,
             VisibilityEnum::HIDDEN,

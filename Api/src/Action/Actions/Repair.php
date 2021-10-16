@@ -4,17 +4,17 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Event\EquipmentEventInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -48,7 +48,7 @@ class Repair extends AttemptAction
         $this->randomService = $randomService;
     }
 
-    protected function support(?ActionParameter $parameter): bool
+    protected function support(?LogParameterInterface $parameter): bool
     {
         return $parameter instanceof GameEquipment;
     }
@@ -67,14 +67,14 @@ class Repair extends AttemptAction
         $response = $this->makeAttempt();
 
         if ($response instanceof Success) {
-            $equipmentEvent = new EquipmentEvent(
+            $equipmentEvent = new EquipmentEventInterface(
                 $parameter,
                 $this->player->getPlace(),
                 VisibilityEnum::HIDDEN,
                 $this->getActionName(),
                 new \DateTime()
             );
-            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_FIXED);
+            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEventInterface::EQUIPMENT_FIXED);
         }
 
         $this->playerService->persist($this->player);

@@ -5,7 +5,7 @@ namespace Mush\RoomLog\Listener;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Event\EquipmentEventInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\RoomLog\Enum\LogEnum;
@@ -26,14 +26,14 @@ class EquipmentSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            EquipmentEvent::EQUIPMENT_CREATED => ['onEquipmentCreated', -100],
-            EquipmentEvent::EQUIPMENT_BROKEN => ['onEquipmentBroken', 10],
-            EquipmentEvent::EQUIPMENT_DESTROYED => ['onEquipmentDestroyed', 10],
-            EquipmentEvent::EQUIPMENT_TRANSFORM => ['onEquipmentTransform', -100],
+            EquipmentEventInterface::EQUIPMENT_CREATED => ['onEquipmentCreated', -100],
+            EquipmentEventInterface::EQUIPMENT_BROKEN => ['onEquipmentBroken', 10],
+            EquipmentEventInterface::EQUIPMENT_DESTROYED => ['onEquipmentDestroyed', 10],
+            EquipmentEventInterface::EQUIPMENT_TRANSFORM => ['onEquipmentTransform', -100],
         ];
     }
 
-    public function onEquipmentCreated(EquipmentEvent $event): void
+    public function onEquipmentCreated(EquipmentEventInterface $event): void
     {
         $equipment = $event->getEquipment();
 
@@ -67,7 +67,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         }
     }
 
-    public function onEquipmentBroken(EquipmentEvent $event): void
+    public function onEquipmentBroken(EquipmentEventInterface $event): void
     {
         if ($event->getVisibility() !== VisibilityEnum::HIDDEN) {
             $equipment = $event->getEquipment();
@@ -92,7 +92,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         }
     }
 
-    public function onEquipmentDestroyed(EquipmentEvent $event): void
+    public function onEquipmentDestroyed(EquipmentEventInterface $event): void
     {
         if ($event->getVisibility() !== VisibilityEnum::HIDDEN) {
             $equipment = $event->getEquipment();
@@ -110,7 +110,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         }
     }
 
-    public function onEquipmentTransform(EquipmentEvent $event): void
+    public function onEquipmentTransform(EquipmentEventInterface $event): void
     {
         $player = $event->getPlayer();
 

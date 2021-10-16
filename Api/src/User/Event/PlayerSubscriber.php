@@ -2,7 +2,7 @@
 
 namespace Mush\User\Event;
 
-use Mush\Player\Event\PlayerEvent;
+use Mush\Player\Event\PlayerEventInterface;
 use Mush\User\Service\UserServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -18,11 +18,11 @@ class PlayerSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            PlayerEvent::END_PLAYER => 'onEndPlayer',
+            PlayerEventInterface::END_PLAYER => 'onEndPlayer',
         ];
     }
 
-    public function onEndPlayer(PlayerEvent $event): void
+    public function onEndPlayer(PlayerEventInterface $event): void
     {
         $user = $event->getPlayer()->getUser();
         $user->setCurrentGame(null);

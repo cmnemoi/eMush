@@ -4,7 +4,6 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
@@ -14,8 +13,9 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Event\EquipmentEventInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -56,7 +56,7 @@ class InstallCamera extends AbstractAction
         ]);
     }
 
-    protected function support(?ActionParameter $parameter): bool
+    protected function support(?LogParameterInterface $parameter): bool
     {
         return $parameter instanceof GameItem;
     }
@@ -71,7 +71,7 @@ class InstallCamera extends AbstractAction
             ->createGameEquipmentFromName(EquipmentEnum::CAMERA_EQUIPMENT, $this->player->getDaedalus())
         ;
 
-        $equipmentEvent = new EquipmentEvent(
+        $equipmentEvent = new EquipmentEventInterface(
             $itemCamera,
             $this->player->getPlace(),
             VisibilityEnum::PUBLIC,
@@ -79,7 +79,7 @@ class InstallCamera extends AbstractAction
             new \DateTime()
         );
         $equipmentEvent->setReplacementEquipment($equipmentCamera)->setPlayer($this->player);
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_TRANSFORM);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEventInterface::EQUIPMENT_TRANSFORM);
 
         return new Success();
     }

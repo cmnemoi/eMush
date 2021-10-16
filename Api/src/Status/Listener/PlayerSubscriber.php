@@ -3,7 +3,7 @@
 namespace Mush\Status\Listener;
 
 use Error;
-use Mush\Player\Event\PlayerEvent;
+use Mush\Player\Event\PlayerEventInterface;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -26,12 +26,12 @@ class PlayerSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            PlayerEvent::INFECTION_PLAYER => ['onInfectionPlayer', 100], //do this before checking the number of spores
-            PlayerEvent::CONVERSION_PLAYER => 'onConversionPlayer',
+            PlayerEventInterface::INFECTION_PLAYER => ['onInfectionPlayer', 100], //do this before checking the number of spores
+            PlayerEventInterface::CONVERSION_PLAYER => 'onConversionPlayer',
         ];
     }
 
-    public function onInfectionPlayer(PlayerEvent $playerEvent): void
+    public function onInfectionPlayer(PlayerEventInterface $playerEvent): void
     {
         $player = $playerEvent->getPlayer();
 
@@ -48,11 +48,11 @@ class PlayerSubscriber implements EventSubscriberInterface
 
         //@TODO implement research modifiers
         if ($playerSpores->getCharge() >= 3) {
-            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::CONVERSION_PLAYER);
+            $this->eventDispatcher->dispatch($playerEvent, PlayerEventInterface::CONVERSION_PLAYER);
         }
     }
 
-    public function onConversionPlayer(PlayerEvent $playerEvent): void
+    public function onConversionPlayer(PlayerEventInterface $playerEvent): void
     {
         $player = $playerEvent->getPlayer();
 

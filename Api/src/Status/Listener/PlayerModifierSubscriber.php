@@ -3,7 +3,7 @@
 namespace Mush\Status\Listener;
 
 use Mush\Player\Entity\Player;
-use Mush\Player\Event\PlayerModifierEvent;
+use Mush\Player\Event\PlayerModifierEventInterface;
 use Mush\Status\Service\PlayerStatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -20,13 +20,13 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            PlayerModifierEvent::MORAL_POINT_MODIFIER => ['onMoralPointModifier', -10], //Applied after player modification
-            PlayerModifierEvent::SATIETY_POINT_MODIFIER => ['onSatietyPointModifier', -10], //Applied after player modification
-            PlayerModifierEvent::MOVEMENT_POINT_CONVERSION => ['onMovementPointConversion', 1000], //Applied before any other listener
+            PlayerModifierEventInterface::MORAL_POINT_MODIFIER => ['onMoralPointModifier', -10], //Applied after player modification
+            PlayerModifierEventInterface::SATIETY_POINT_MODIFIER => ['onSatietyPointModifier', -10], //Applied after player modification
+            PlayerModifierEventInterface::MOVEMENT_POINT_CONVERSION => ['onMovementPointConversion', 1000], //Applied before any other listener
         ];
     }
 
-    public function onMoralPointModifier(PlayerModifierEvent $playerEvent): void
+    public function onMoralPointModifier(PlayerModifierEventInterface $playerEvent): void
     {
         $player = $playerEvent->getPlayer();
 
@@ -35,14 +35,14 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
         }
     }
 
-    public function onSatietyPointModifier(PlayerModifierEvent $playerEvent): void
+    public function onSatietyPointModifier(PlayerModifierEventInterface $playerEvent): void
     {
         $player = $playerEvent->getPlayer();
 
         $this->playerStatus->handleSatietyStatus($player, $playerEvent->getTime());
     }
 
-    public function onMovementPointConversion(PlayerModifierEvent $playerEvent): void
+    public function onMovementPointConversion(PlayerModifierEventInterface $playerEvent): void
     {
         //@TODO incoming in modifier merge
     }

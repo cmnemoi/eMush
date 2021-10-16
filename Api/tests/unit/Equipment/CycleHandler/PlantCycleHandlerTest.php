@@ -12,7 +12,7 @@ use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Entity\PlantEffect;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Event\EquipmentEventInterface;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\DifficultyConfig;
@@ -24,7 +24,7 @@ use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Event\StatusEvent;
+use Mush\Status\Event\StatusEventInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -154,12 +154,12 @@ class PlantCycleHandlerTest extends TestCase
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
         $this->eventDispatcher
                 ->shouldReceive('dispatch')
-                ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === EquipmentStatusEnum::PLANT_DISEASED && $event->getStatusHolder() === $gamePlant)
+                ->withArgs(fn (StatusEventInterface $event) => $event->getStatusName() === EquipmentStatusEnum::PLANT_DISEASED && $event->getStatusHolder() === $gamePlant)
                 ->once();
 
         $this->eventDispatcher
                 ->shouldReceive('dispatch')
-                ->withArgs(fn (AbstractGameEvent $event) => $event instanceof StatusEvent &&
+                ->withArgs(fn (AbstractGameEvent $event) => $event instanceof StatusEventInterface &&
                     $event->getStatusName() === EquipmentStatusEnum::PLANT_YOUNG &&
                     $event->getStatusHolder() === $gamePlant)
                 ->once();
@@ -250,7 +250,7 @@ class PlantCycleHandlerTest extends TestCase
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof StatusEvent &&
+            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof StatusEventInterface &&
                 $event->getStatusName() === EquipmentStatusEnum::PLANT_THIRSTY &&
                 $event->getStatusHolder() === $gamePlant)
             ->once()
@@ -263,7 +263,7 @@ class PlantCycleHandlerTest extends TestCase
             )->once();
 
         $this->eventDispatcher->shouldReceive('dispatch')
-            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof EquipmentEvent &&
+            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof EquipmentEventInterface &&
                 $event->getEquipment()->getEquipment() === $newFruit
             )->once()
         ;
@@ -313,7 +313,7 @@ class PlantCycleHandlerTest extends TestCase
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof StatusEvent &&
+            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof StatusEventInterface &&
                 $event->getStatusName() === EquipmentStatusEnum::PLANT_DRY &&
                 $event->getStatusHolder() === $gamePlant)
             ->once();
@@ -379,12 +379,12 @@ class PlantCycleHandlerTest extends TestCase
         ;
         $this->gameEquipmentService->shouldReceive('delete');
         $this->eventDispatcher->shouldReceive('dispatch')
-            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof EquipmentEvent &&
+            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof EquipmentEventInterface &&
                 $event->getEquipment() === $gamePlant
             )->once()
         ;
         $this->eventDispatcher->shouldReceive('dispatch')
-            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof EquipmentEvent &&
+            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof EquipmentEventInterface &&
                 $event->getEquipment() === $hydropot
             )->once()
         ;

@@ -4,11 +4,11 @@ namespace Mush\Equipment\Event;
 
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Event\AbstractGameEvent;
-use Mush\Game\Event\AbstractLoggedEvent;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Event\LoggableEventInterface;
 
-class EquipmentEvent extends AbstractGameEvent implements AbstractLoggedEvent
+class EquipmentEventInterface extends AbstractGameEvent implements LoggableEventInterface
 {
     public const EQUIPMENT_CREATED = 'equipment.created';
     public const EQUIPMENT_FIXED = 'equipment.fixed';
@@ -51,7 +51,7 @@ class EquipmentEvent extends AbstractGameEvent implements AbstractLoggedEvent
         return $this->player;
     }
 
-    public function setPlayer(Player $player): EquipmentEvent
+    public function setPlayer(Player $player): EquipmentEventInterface
     {
         $this->player = $player;
 
@@ -63,7 +63,7 @@ class EquipmentEvent extends AbstractGameEvent implements AbstractLoggedEvent
         return $this->replacementEquipment;
     }
 
-    public function setReplacementEquipment(GameEquipment $replacement): EquipmentEvent
+    public function setReplacementEquipment(GameEquipment $replacement): EquipmentEventInterface
     {
         $this->replacementEquipment = $replacement;
 

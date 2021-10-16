@@ -3,7 +3,7 @@
 namespace Mush\Alert\Listener;
 
 use Mush\Alert\Service\AlertServiceInterface;
-use Mush\Player\Event\PlayerModifierEvent;
+use Mush\Player\Event\PlayerModifierEventInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class PlayerModifierSubscriber implements EventSubscriberInterface
@@ -19,11 +19,11 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            PlayerModifierEvent::SATIETY_POINT_MODIFIER => 'onSatietyPointModifier',
+            PlayerModifierEventInterface::SATIETY_POINT_MODIFIER => 'onSatietyPointModifier',
         ];
     }
 
-    public function onSatietyPointModifier(PlayerModifierEvent $playerEvent): void
+    public function onSatietyPointModifier(PlayerModifierEventInterface $playerEvent): void
     {
         $this->alertService->handleSatietyAlert($playerEvent->getPlayer()->getDaedalus());
     }

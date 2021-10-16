@@ -4,12 +4,12 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Event\ApplyEffectEvent;
+use Mush\Action\Event\ApplyEffectEventInterface;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\IsReported;
+use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Enum\StatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -32,7 +32,7 @@ class ReportFire extends AbstractAction
         );
     }
 
-    protected function support(?ActionParameter $parameter): bool
+    protected function support(?LogParameterInterface $parameter): bool
     {
         return $parameter === null;
     }
@@ -45,7 +45,7 @@ class ReportFire extends AbstractAction
 
     protected function applyEffects(): ActionResult
     {
-        $reportEvent = new ApplyEffectEvent(
+        $reportEvent = new ApplyEffectEventInterface(
             $this->player,
             $this->parameter,
             VisibilityEnum::PRIVATE,
@@ -53,7 +53,7 @@ class ReportFire extends AbstractAction
             new \DateTime()
         );
 
-        $this->eventDispatcher->dispatch($reportEvent, ApplyEffectEvent::REPORT_FIRE);
+        $this->eventDispatcher->dispatch($reportEvent, ApplyEffectEventInterface::REPORT_FIRE);
 
         return new Success();
     }

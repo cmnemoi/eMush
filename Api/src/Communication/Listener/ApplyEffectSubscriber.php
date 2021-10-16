@@ -2,7 +2,7 @@
 
 namespace Mush\Communication\Listener;
 
-use Mush\Action\Event\ApplyEffectEvent;
+use Mush\Action\Event\ApplyEffectEventInterface;
 use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Communication\Services\NeronMessageServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
@@ -21,12 +21,12 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            ApplyEffectEvent::REPORT_FIRE => 'onReportFire',
-            ApplyEffectEvent::REPORT_EQUIPMENT => 'onReportEquipment',
+            ApplyEffectEventInterface::REPORT_FIRE => 'onReportFire',
+            ApplyEffectEventInterface::REPORT_EQUIPMENT => 'onReportEquipment',
         ];
     }
 
-    public function onReportFire(ApplyEffectEvent $event): void
+    public function onReportFire(ApplyEffectEventInterface $event): void
     {
         $player = $event->getPlayer();
         $daedalus = $player->getDaedalus();
@@ -43,7 +43,7 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
         );
     }
 
-    public function onReportEquipment(ApplyEffectEvent $event): void
+    public function onReportEquipment(ApplyEffectEventInterface $event): void
     {
         $player = $event->getPlayer();
         $daedalus = $player->getDaedalus();

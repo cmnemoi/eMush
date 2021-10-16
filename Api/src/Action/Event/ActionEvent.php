@@ -4,9 +4,9 @@ namespace Mush\Action\Event;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionParameter;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Entity\LogParameterInterface;
 
 class ActionEvent extends AbstractGameEvent
 {
@@ -16,10 +16,10 @@ class ActionEvent extends AbstractGameEvent
 
     private Player $player;
     private Action $action;
-    private ?ActionParameter $actionParameter;
+    private ?LogParameterInterface $actionParameter;
     private ?ActionResult $actionResult = null;
 
-    public function __construct(Action $action, Player $player, ?ActionParameter $actionParameter)
+    public function __construct(Action $action, Player $player, ?LogParameterInterface $actionParameter)
     {
         $this->action = $action;
         $this->player = $player;
@@ -38,7 +38,7 @@ class ActionEvent extends AbstractGameEvent
         return $this->action;
     }
 
-    public function getActionParameter(): ?ActionParameter
+    public function getActionParameter(): ?LogParameterInterface
     {
         return $this->actionParameter;
     }

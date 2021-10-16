@@ -4,7 +4,6 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
@@ -12,9 +11,10 @@ use Mush\Action\Validator\FullHealth;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Equipment\Event\EquipmentEvent;
-use Mush\Player\Event\PlayerModifierEvent;
+use Mush\Equipment\Event\EquipmentEventInterface;
+use Mush\Player\Event\PlayerModifierEventInterface;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -43,7 +43,7 @@ class UseBandage extends AbstractAction
         $this->playerService = $playerService;
     }
 
-    protected function support(?ActionParameter $parameter): bool
+    protected function support(?LogParameterInterface $parameter): bool
     {
         return $parameter instanceof GameEquipment;
     }
@@ -61,25 +61,25 @@ class UseBandage extends AbstractAction
 
         $initialHealth = $this->player->getHealthPoint();
 
-        $playerModifierEvent = new PlayerModifierEvent(
+        $playerModifierEvent = new PlayerModifierEventInterface(
             $this->player,
             self::BANDAGE_HEAL,
             $this->getActionName(),
             new \DateTime()
         );
         $playerModifierEvent->setVisibility(VisibilityEnum::PRIVATE);
-        $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
+        $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEventInterface::HEALTH_POINT_MODIFIER);
 
         $this->playerService->persist($this->player);
 
-        $equipmentEvent = new EquipmentEvent(
+        $equipmentEvent = new EquipmentEventInterface(
             $parameter,
             $this->player->getPlace(),
             VisibilityEnum::HIDDEN,
             $this->getActionName(),
             new \DateTime()
         );
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEventInterface::EQUIPMENT_DESTROYED);
 
         $healedQuantity = $this->player->getHealthPoint() - $initialHealth;
 

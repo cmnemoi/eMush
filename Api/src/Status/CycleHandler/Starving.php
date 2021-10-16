@@ -3,7 +3,7 @@
 namespace Mush\Status\CycleHandler;
 
 use Mush\Player\Entity\Player;
-use Mush\Player\Event\PlayerModifierEvent;
+use Mush\Player\Event\PlayerModifierEventInterface;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -26,13 +26,13 @@ class Starving extends AbstractStatusCycleHandler
             return;
         }
 
-        $playerModifierEvent = new PlayerModifierEvent(
+        $playerModifierEvent = new PlayerModifierEventInterface(
             $statusHolder,
             -1,
             PlayerStatusEnum::STARVING,
             $dateTime
         );
-        $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
+        $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEventInterface::HEALTH_POINT_MODIFIER);
     }
 
     public function handleNewDay(Status $status, StatusHolderInterface $statusHolder, \DateTime $dateTime): void

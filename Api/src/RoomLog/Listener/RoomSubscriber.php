@@ -3,7 +3,7 @@
 namespace Mush\RoomLog\Listener;
 
 use Mush\Place\Enum\PlaceTypeEnum;
-use Mush\Place\Event\RoomEvent;
+use Mush\Place\Event\RoomEventInterface;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -21,12 +21,12 @@ class RoomSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            RoomEvent::TREMOR => 'onTremor',
-            RoomEvent::ELECTRIC_ARC => 'onElectricArc',
+            RoomEventInterface::TREMOR => 'onTremor',
+            RoomEventInterface::ELECTRIC_ARC => 'onElectricArc',
         ];
     }
 
-    public function onTremor(RoomEvent $event): void
+    public function onTremor(RoomEventInterface $event): void
     {
         $room = $event->getPlace();
 
@@ -51,7 +51,7 @@ class RoomSubscriber implements EventSubscriberInterface
         );
     }
 
-    public function onElectricArc(RoomEvent $event): void
+    public function onElectricArc(RoomEventInterface $event): void
     {
         $room = $event->getPlace();
 

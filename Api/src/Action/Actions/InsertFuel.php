@@ -4,7 +4,6 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\Fuel;
@@ -14,7 +13,8 @@ use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Event\EquipmentEventInterface;
+use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -45,7 +45,7 @@ class InsertFuel extends AbstractAction
         ]);
     }
 
-    protected function support(?ActionParameter $parameter): bool
+    protected function support(?LogParameterInterface $parameter): bool
     {
         return $parameter instanceof GameItem;
     }
@@ -56,7 +56,7 @@ class InsertFuel extends AbstractAction
         $item = $this->getParameter();
 
         //delete the item
-        $equipmentEvent = new EquipmentEvent(
+        $equipmentEvent = new EquipmentEventInterface(
             $item,
             $this->player->getPlace(),
             VisibilityEnum::HIDDEN,
@@ -64,7 +64,7 @@ class InsertFuel extends AbstractAction
             new \DateTime()
         );
         $equipmentEvent->setPlayer($this->player);
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEventInterface::EQUIPMENT_DESTROYED);
 
         //add Oxygen
         $daedalusEvent = new DaedalusModifierEvent(

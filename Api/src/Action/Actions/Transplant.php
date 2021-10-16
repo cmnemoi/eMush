@@ -4,7 +4,6 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\EquipmentReachable;
@@ -14,12 +13,13 @@ use Mush\Equipment\Entity\Mechanics\Fruit;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Event\EquipmentEventInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -52,7 +52,7 @@ class Transplant extends AbstractAction
         $this->gearToolService = $gearToolService;
     }
 
-    protected function support(?ActionParameter $parameter): bool
+    protected function support(?LogParameterInterface $parameter): bool
     {
         return $parameter instanceof GameItem;
     }
@@ -88,22 +88,22 @@ class Transplant extends AbstractAction
             $plantEquipment->setPlace($place);
         }
 
-        $equipmentEvent = new EquipmentEvent(
+        $equipmentEvent = new EquipmentEventInterface(
             $parameter,
             $place,
             VisibilityEnum::HIDDEN,
             $this->getActionName(),
             new \DateTime());
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEventInterface::EQUIPMENT_DESTROYED);
 
-        $equipmentEvent = new EquipmentEvent(
+        $equipmentEvent = new EquipmentEventInterface(
             $hydropot,
             $place,
             VisibilityEnum::HIDDEN,
             $this->getActionName(),
             new \DateTime()
         );
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEventInterface::EQUIPMENT_DESTROYED);
 
         $this->gameEquipmentService->persist($plantEquipment);
 

@@ -17,11 +17,11 @@ use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\ModifierScopeEnum;
 use Mush\Player\Enum\ModifierTargetEnum;
-use Mush\Player\Event\PlayerModifierEvent;
+use Mush\Player\Event\PlayerModifierEventInterface;
 use Mush\Player\Service\ActionModifierServiceInterface;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Event\StatusEvent;
+use Mush\Status\Event\StatusEventInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
@@ -94,7 +94,7 @@ class ActionSideEffectsServiceTest extends TestCase
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::DIRTY && $event->getStatusHolder() === $player)
+            ->withArgs(fn (StatusEventInterface $event) => $event->getStatusName() === PlayerStatusEnum::DIRTY && $event->getStatusHolder() === $player)
             ->once()
         ;
 
@@ -162,7 +162,7 @@ class ActionSideEffectsServiceTest extends TestCase
         $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->withArgs(
-                fn (PlayerModifierEvent $playerEvent, string $eventName) => ($playerEvent->getQuantity() === -2 && $eventName === PlayerModifierEvent::HEALTH_POINT_MODIFIER)
+                fn (PlayerModifierEventInterface $playerEvent, string $eventName) => ($playerEvent->getQuantity() === -2 && $eventName === PlayerModifierEventInterface::HEALTH_POINT_MODIFIER)
             )
             ->once()
         ;

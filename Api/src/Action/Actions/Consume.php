@@ -4,16 +4,16 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
-use Mush\Action\Event\ApplyEffectEvent;
+use Mush\Action\Event\ApplyEffectEventInterface;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -41,7 +41,7 @@ class Consume extends AbstractAction
         $this->playerService = $playerService;
     }
 
-    protected function support(?ActionParameter $parameter): bool
+    protected function support(?LogParameterInterface $parameter): bool
     {
         return $parameter instanceof GameItem;
     }
@@ -69,14 +69,14 @@ class Consume extends AbstractAction
             throw new \Exception('Cannot consume this equipment');
         }
 
-        $consumeEquipment = new ApplyEffectEvent(
+        $consumeEquipment = new ApplyEffectEventInterface(
             $this->player,
             $parameter,
             VisibilityEnum::PRIVATE,
             $this->getActionName(),
             new \DateTime()
         );
-        $this->eventDispatcher->dispatch($consumeEquipment, ApplyEffectEvent::CONSUME);
+        $this->eventDispatcher->dispatch($consumeEquipment, ApplyEffectEventInterface::CONSUME);
 
         $this->playerService->persist($this->player);
 

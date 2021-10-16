@@ -18,7 +18,7 @@ use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Event\StatusEvent;
+use Mush\Status\Event\StatusEventInterface;
 
 class TakeActionTest extends AbstractActionTest
 {
@@ -122,7 +122,7 @@ class TakeActionTest extends AbstractActionTest
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof StatusEvent &&
+            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof StatusEventInterface &&
                 $event->getStatusName() === PlayerStatusEnum::BURDENED &&
                 $event->getStatusHolder() === $player)
             ->once()

@@ -2,12 +2,12 @@
 
 namespace Mush\Player\Event;
 
-use Mush\Game\Event\AbstractLoggedEvent;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Event\LoggableEventInterface;
 
-class PlayerModifierEvent extends PlayerEvent implements AbstractLoggedEvent, AbstractQuantityEvent
+class PlayerModifierEventInterface extends PlayerEventInterface implements LoggableEventInterface, AbstractQuantityEvent
 {
     public const ACTION_POINT_MODIFIER = 'action.point.modifier';
     public const MOVEMENT_POINT_MODIFIER = 'movement.point.modifier';

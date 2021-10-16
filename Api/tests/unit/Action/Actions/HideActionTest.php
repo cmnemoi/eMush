@@ -15,7 +15,7 @@ use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Place\Entity\Place;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Event\StatusEvent;
+use Mush\Status\Event\StatusEventInterface;
 
 class HideActionTest extends AbstractActionTest
 {
@@ -77,7 +77,7 @@ class HideActionTest extends AbstractActionTest
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof StatusEvent &&
+            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof StatusEventInterface &&
                 $event->getStatusName() === EquipmentStatusEnum::HIDDEN &&
                 $event->getStatusHolder() === $gameItem &&
                 $event->getStatusTarget() === $player

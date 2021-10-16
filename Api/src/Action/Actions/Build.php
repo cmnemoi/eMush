@@ -4,7 +4,6 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
@@ -16,10 +15,11 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Blueprint;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Event\EquipmentEventInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -52,7 +52,7 @@ class Build extends AbstractAction
         $this->gearToolService = $gearToolService;
     }
 
-    protected function support(?ActionParameter $parameter): bool
+    protected function support(?LogParameterInterface $parameter): bool
     {
         return $parameter instanceof GameEquipment && !$parameter instanceof Door;
     }
@@ -109,28 +109,28 @@ class Build extends AbstractAction
                         ->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $name)->first();
                 }
 
-                $equipmentEvent = new EquipmentEvent(
+                $equipmentEvent = new EquipmentEventInterface(
                     $ingredient,
                     $place,
                     VisibilityEnum::HIDDEN,
                     $this->getActionName(),
                     new \DateTime()
                 );
-                $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+                $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEventInterface::EQUIPMENT_DESTROYED);
             }
         }
 
-        $equipmentEvent = new EquipmentEvent(
+        $equipmentEvent = new EquipmentEventInterface(
             $parameter,
             $place,
             VisibilityEnum::HIDDEN,
             $this->getActionName(),
             new \DateTime()
         );
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEventInterface::EQUIPMENT_DESTROYED);
 
         //create the equipment
-        $equipmentEvent = new EquipmentEvent(
+        $equipmentEvent = new EquipmentEventInterface(
             $blueprintEquipment,
             $place,
             VisibilityEnum::HIDDEN,
@@ -139,7 +139,7 @@ class Build extends AbstractAction
         );
 
         $equipmentEvent->setPlayer($this->player);
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEventInterface::EQUIPMENT_CREATED);
 
         $this->gameEquipmentService->persist($blueprintEquipment);
 

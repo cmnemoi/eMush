@@ -4,7 +4,6 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
@@ -14,10 +13,11 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum as EnumEquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Event\StatusEvent;
+use Mush\Status\Event\StatusEventInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -46,7 +46,7 @@ class Take extends AbstractAction
         $this->playerService = $playerService;
     }
 
-    protected function support(?ActionParameter $parameter): bool
+    protected function support(?LogParameterInterface $parameter): bool
     {
         return $parameter instanceof GameItem;
     }
@@ -69,9 +69,9 @@ class Take extends AbstractAction
         if ($parameter->hasStatus(EquipmentStatusEnum::HEAVY) &&
             !$this->player->hasStatus(PlayerStatusEnum::BURDENED)
         ) {
-            $statusEvent = new StatusEvent(PlayerStatusEnum::BURDENED, $this->player, $this->getActionName(), new \DateTime());
+            $statusEvent = new StatusEventInterface(PlayerStatusEnum::BURDENED, $this->player, $this->getActionName(), new \DateTime());
 
-            $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+            $this->eventDispatcher->dispatch($statusEvent, StatusEventInterface::STATUS_APPLIED);
         }
 
         if ($hiddenStatus = $parameter->getStatusByName(EnumEquipmentStatusEnum::HIDDEN)) {

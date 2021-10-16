@@ -4,7 +4,7 @@ namespace Mush\Equipment\Listener;
 
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Event\EquipmentEventInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -22,13 +22,13 @@ class EquipmentSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            EquipmentEvent::EQUIPMENT_CREATED => 'onEquipmentCreated',
-            EquipmentEvent::EQUIPMENT_DESTROYED => 'onEquipmentDestroyed',
-            EquipmentEvent::EQUIPMENT_TRANSFORM => 'onEquipmentTransform',
+            EquipmentEventInterface::EQUIPMENT_CREATED => 'onEquipmentCreated',
+            EquipmentEventInterface::EQUIPMENT_DESTROYED => 'onEquipmentDestroyed',
+            EquipmentEventInterface::EQUIPMENT_TRANSFORM => 'onEquipmentTransform',
         ];
     }
 
-    public function onEquipmentCreated(EquipmentEvent $event): void
+    public function onEquipmentCreated(EquipmentEventInterface $event): void
     {
         $player = $event->getPlayer();
         $place = $event->getPlace();
@@ -46,7 +46,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         $this->gameEquipmentService->persist($equipment);
     }
 
-    public function onEquipmentDestroyed(EquipmentEvent $event): void
+    public function onEquipmentDestroyed(EquipmentEventInterface $event): void
     {
         $equipment = $event->getEquipment();
         $equipment->removeLocation();
@@ -54,7 +54,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         $this->gameEquipmentService->delete($equipment);
     }
 
-    public function onEquipmentTransform(EquipmentEvent $event): void
+    public function onEquipmentTransform(EquipmentEventInterface $event): void
     {
         $equipment = $event->getEquipment();
         $place = $equipment->getCurrentPlace();

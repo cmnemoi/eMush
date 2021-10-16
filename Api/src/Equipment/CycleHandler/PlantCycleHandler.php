@@ -9,7 +9,7 @@ use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Entity\PlantEffect;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Event\EquipmentEventInterface;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\CycleHandler\AbstractCycleHandler;
@@ -20,7 +20,7 @@ use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Event\StatusEvent;
+use Mush\Status\Event\StatusEventInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class PlantCycleHandler extends AbstractCycleHandler
@@ -66,7 +66,7 @@ class PlantCycleHandler extends AbstractCycleHandler
         if ($youngStatus &&
             $youngStatus->getCharge() >= $plantEffect->getMaturationTime()
         ) {
-            $statusEvent = new StatusEvent(
+            $statusEvent = new StatusEventInterface(
                 EquipmentStatusEnum::PLANT_YOUNG,
                 $gamePlant,
                 EventEnum::NEW_CYCLE,
@@ -74,7 +74,7 @@ class PlantCycleHandler extends AbstractCycleHandler
             );
             $statusEvent->setVisibility(VisibilityEnum::PUBLIC);
 
-            $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_REMOVED);
+            $this->eventDispatcher->dispatch($statusEvent, StatusEventInterface::STATUS_REMOVED);
         }
 
         $diseaseRate = $daedalus->getGameConfig()->getDifficultyConfig()->getPlantDiseaseRate();
@@ -82,9 +82,9 @@ class PlantCycleHandler extends AbstractCycleHandler
         if ($this->randomService->isSuccessful($diseaseRate) &&
             !$gamePlant->hasStatus(EquipmentStatusEnum::PLANT_DISEASED)
         ) {
-            $statusEvent = new StatusEvent(EquipmentStatusEnum::PLANT_DISEASED, $gamePlant, EventEnum::NEW_CYCLE, new \DateTime());
+            $statusEvent = new StatusEventInterface(EquipmentStatusEnum::PLANT_DISEASED, $gamePlant, EventEnum::NEW_CYCLE, new \DateTime());
 
-            $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+            $this->eventDispatcher->dispatch($statusEvent, StatusEventInterface::STATUS_APPLIED);
         }
 
         $this->gameEquipmentService->persist($gamePlant);
@@ -141,17 +141,17 @@ class PlantCycleHandler extends AbstractCycleHandler
         // If plant was thirsty, become dried
         if (($thirsty = $gamePlant->getStatusByName(EquipmentStatusEnum::PLANT_THIRSTY)) !== null) {
             $gamePlant->removeStatus($thirsty);
-            $statusEvent = new StatusEvent(EquipmentStatusEnum::PLANT_DRY, $gamePlant, EventEnum::NEW_CYCLE, new \DateTime());
+            $statusEvent = new StatusEventInterface(EquipmentStatusEnum::PLANT_DRY, $gamePlant, EventEnum::NEW_CYCLE, new \DateTime());
 
-            $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+            $this->eventDispatcher->dispatch($statusEvent, StatusEventInterface::STATUS_APPLIED);
         // If plant was dried, become hydropot
         } elseif ($gamePlant->getStatusByName(EquipmentStatusEnum::PLANT_DRY) !== null) {
             $this->handleDriedPlant($gamePlant, $dateTime);
         // If plant was not thirsty or dried become thirsty
         } else {
-            $statusEvent = new StatusEvent(EquipmentStatusEnum::PLANT_THIRSTY, $gamePlant, EventEnum::NEW_CYCLE, new \DateTime());
+            $statusEvent = new StatusEventInterface(EquipmentStatusEnum::PLANT_THIRSTY, $gamePlant, EventEnum::NEW_CYCLE, new \DateTime());
 
-            $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+            $this->eventDispatcher->dispatch($statusEvent, StatusEventInterface::STATUS_APPLIED);
         }
     }
 
@@ -164,16 +164,16 @@ class PlantCycleHandler extends AbstractCycleHandler
         /** @var GameItem $hydropot */
         $hydropot = $this->gameEquipmentService->createGameEquipmentFromName(ItemEnum::HYDROPOT, $place->getDaedalus());
 
-        $equipmentEvent = new EquipmentEvent(
+        $equipmentEvent = new EquipmentEventInterface(
             $gamePlant,
             $place,
             VisibilityEnum::PUBLIC,
             PlantLogEnum::PLANT_DEATH,
             new \DateTime()
         );
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEventInterface::EQUIPMENT_DESTROYED);
 
-        $equipmentEvent = new EquipmentEvent(
+        $equipmentEvent = new EquipmentEventInterface(
             $hydropot,
             $place,
             VisibilityEnum::HIDDEN,
@@ -184,7 +184,7 @@ class PlantCycleHandler extends AbstractCycleHandler
             $equipmentEvent->setPlayer($player);
         }
 
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEventInterface::EQUIPMENT_CREATED);
     }
 
     private function addFruit(GameItem $gamePlant, Plant $plantType, \DateTime $dateTime): void
@@ -212,7 +212,7 @@ class PlantCycleHandler extends AbstractCycleHandler
         /** @var GameItem $gameFruit */
         $gameFruit = $this->gameEquipmentService->createGameEquipment($plantType->getFruit(), $place->getDaedalus());
 
-        $equipmentEvent = new EquipmentEvent(
+        $equipmentEvent = new EquipmentEventInterface(
             $gameFruit,
             $place,
             VisibilityEnum::PUBLIC,
@@ -220,7 +220,7 @@ class PlantCycleHandler extends AbstractCycleHandler
             new \DateTime()
         );
 
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEventInterface::EQUIPMENT_CREATED);
     }
 
     private function addOxygen(GameItem $gamePlant, PlantEffect $plantEffect, \DateTime $date): void

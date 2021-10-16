@@ -3,9 +3,9 @@
 namespace Mush\RoomLog\Service;
 
 use Mush\Action\ActionResult\ActionResult;
-use Mush\Action\Entity\ActionParameter;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Entity\RoomLog;
 
 interface RoomLogServiceInterface
@@ -24,7 +24,7 @@ interface RoomLogServiceInterface
         string $actionName,
         ActionResult $actionResult,
         Player $player,
-        ?ActionParameter $actionParameter,
+        ?LogParameterInterface $actionParameter,
     ): ?RoomLog;
 
     public function persist(RoomLog $roomLog): RoomLog;

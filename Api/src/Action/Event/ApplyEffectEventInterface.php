@@ -2,13 +2,13 @@
 
 namespace Mush\Action\Event;
 
-use Mush\Action\Entity\ActionParameter;
 use Mush\Game\Event\AbstractGameEvent;
-use Mush\Game\Event\AbstractLoggedEvent;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\RoomLog\Event\LoggableEventInterface;
 
-class ApplyEffectEvent extends AbstractGameEvent implements AbstractLoggedEvent
+class ApplyEffectEventInterface extends AbstractGameEvent implements LoggableEventInterface
 {
     public const CONSUME = 'action.consume';
     public const HEAL = 'action.heal';
@@ -17,11 +17,11 @@ class ApplyEffectEvent extends AbstractGameEvent implements AbstractLoggedEvent
 
     private Player $player;
     private string $visibility;
-    private ?ActionParameter $parameter;
+    private ?LogParameterInterface $parameter;
 
     public function __construct(
         Player $player,
-        ?ActionParameter $parameter,
+        ?LogParameterInterface $parameter,
         string $visibility,
         string $reason,
         \DateTime $time
@@ -48,7 +48,7 @@ class ApplyEffectEvent extends AbstractGameEvent implements AbstractLoggedEvent
         return $this->visibility;
     }
 
-    public function getParameter(): ?ActionParameter
+    public function getParameter(): ?LogParameterInterface
     {
         return $this->parameter;
     }

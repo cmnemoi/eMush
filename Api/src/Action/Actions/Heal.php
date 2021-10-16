@@ -4,16 +4,16 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Event\ApplyEffectEvent;
+use Mush\Action\Event\ApplyEffectEventInterface;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\FullHealth;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Player\Entity\Player;
-use Mush\Player\Event\PlayerModifierEvent;
+use Mush\Player\Event\PlayerModifierEventInterface;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -42,7 +42,7 @@ class Heal extends AbstractAction
         $this->playerService = $playerService;
     }
 
-    protected function support(?ActionParameter $parameter): bool
+    protected function support(?LogParameterInterface $parameter): bool
     {
         return $parameter instanceof Player;
     }
@@ -60,22 +60,22 @@ class Heal extends AbstractAction
 
         $healedQuantity = self::BASE_HEAL;
 
-        $playerModifierEvent = new PlayerModifierEvent(
+        $playerModifierEvent = new PlayerModifierEventInterface(
             $this->player,
             $healedQuantity,
             $this->getActionName(),
             new \DateTime()
         );
-        $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
+        $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEventInterface::HEALTH_POINT_MODIFIER);
 
-        $healEvent = new ApplyEffectEvent(
+        $healEvent = new ApplyEffectEventInterface(
             $this->player,
             $parameter,
             VisibilityEnum::PUBLIC,
             $this->getActionName(),
             new \DateTime()
         );
-        $this->eventDispatcher->dispatch($healEvent, ApplyEffectEvent::HEAL);
+        $this->eventDispatcher->dispatch($healEvent, ApplyEffectEventInterface::HEAL);
 
         $this->playerService->persist($parameter);
 

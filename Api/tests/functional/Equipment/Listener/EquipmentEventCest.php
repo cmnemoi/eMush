@@ -11,7 +11,7 @@ use Mush\Daedalus\Entity\Neron;
 use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Event\EquipmentEventInterface;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
@@ -60,7 +60,7 @@ class EquipmentEventCest
         ;
         $I->haveInRepository($gameEquipment);
 
-        $equipmentEvent = new EquipmentEvent(
+        $equipmentEvent = new EquipmentEventInterface(
             $gameEquipment,
             $room,
             VisibilityEnum::PUBLIC,
@@ -69,7 +69,7 @@ class EquipmentEventCest
         );
         $equipmentEvent->setPlayer($player);
 
-        $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
+        $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEventInterface::EQUIPMENT_CREATED);
 
         $I->assertCount(1, $room->getEquipments());
         $I->assertCount(0, $player->getItems());
@@ -82,7 +82,7 @@ class EquipmentEventCest
         ;
         $I->haveInRepository($gameEquipment);
 
-        $equipmentEvent = new EquipmentEvent(
+        $equipmentEvent = new EquipmentEventInterface(
             $gameEquipment,
             $room,
             VisibilityEnum::PUBLIC,
@@ -91,7 +91,7 @@ class EquipmentEventCest
         );
         $equipmentEvent->setPlayer($player);
 
-        $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
+        $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEventInterface::EQUIPMENT_CREATED);
 
         $I->assertCount(1, $room->getEquipments());
         $I->assertCount(1, $player->getItems());
@@ -104,7 +104,7 @@ class EquipmentEventCest
         ;
         $I->haveInRepository($gameEquipment);
 
-        $equipmentEvent = new EquipmentEvent(
+        $equipmentEvent = new EquipmentEventInterface(
             $gameEquipment,
             $room,
             VisibilityEnum::PUBLIC,
@@ -113,7 +113,7 @@ class EquipmentEventCest
         );
         $equipmentEvent->setPlayer($player);
 
-        $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
+        $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEventInterface::EQUIPMENT_CREATED);
 
         $I->assertCount(2, $room->getEquipments());
         $I->assertCount(1, $player->getItems());
@@ -167,14 +167,14 @@ class EquipmentEventCest
         ;
         $I->haveInRepository($gameEquipment);
 
-        $equipmentEvent = new EquipmentEvent(
+        $equipmentEvent = new EquipmentEventInterface(
             $gameEquipment,
             $room,
             VisibilityEnum::PUBLIC,
             EventEnum::NEW_CYCLE,
             new \DateTime());
 
-        $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_BROKEN);
+        $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEventInterface::EQUIPMENT_BROKEN);
 
         $I->assertCount(1, $room->getEquipments());
         $I->assertCount(1, $room->getEquipments()->first()->getStatuses());
@@ -208,7 +208,7 @@ class EquipmentEventCest
         ;
         $I->haveInRepository($gameEquipment);
 
-        $equipmentEvent = new EquipmentEvent(
+        $equipmentEvent = new EquipmentEventInterface(
             $gameEquipment,
             $room,
             VisibilityEnum::PUBLIC,
@@ -216,7 +216,7 @@ class EquipmentEventCest
             new \DateTime()
         );
 
-        $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEventInterface::EQUIPMENT_DESTROYED);
 
         $I->assertCount(0, $room->getEquipments());
         $I->seeInRepository(RoomLog::class, [

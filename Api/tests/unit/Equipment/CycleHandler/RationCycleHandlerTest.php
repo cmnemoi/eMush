@@ -12,7 +12,7 @@ use Mush\Equipment\Entity\Mechanics\Fruit;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Event\StatusEvent;
+use Mush\Status\Event\StatusEventInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -82,7 +82,7 @@ class RationCycleHandlerTest extends TestCase
         $this->gameEquipmentService->shouldReceive('persist')->once();
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === EquipmentStatusEnum::UNSTABLE && $event->getStatusHolder() === $gameFruit)
+            ->withArgs(fn (StatusEventInterface $event) => $event->getStatusName() === EquipmentStatusEnum::UNSTABLE && $event->getStatusHolder() === $gameFruit)
             ->once()
         ;
 
@@ -95,7 +95,7 @@ class RationCycleHandlerTest extends TestCase
         $this->gameEquipmentService->shouldReceive('persist')->once();
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === EquipmentStatusEnum::HAZARDOUS && $event->getStatusHolder() === $gameFruit)
+            ->withArgs(fn (StatusEventInterface $event) => $event->getStatusName() === EquipmentStatusEnum::HAZARDOUS && $event->getStatusHolder() === $gameFruit)
             ->once()
         ;
 
@@ -109,7 +109,7 @@ class RationCycleHandlerTest extends TestCase
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === EquipmentStatusEnum::DECOMPOSING && $event->getStatusHolder() === $gameFruit)
+            ->withArgs(fn (StatusEventInterface $event) => $event->getStatusName() === EquipmentStatusEnum::DECOMPOSING && $event->getStatusHolder() === $gameFruit)
             ->once()
         ;
 

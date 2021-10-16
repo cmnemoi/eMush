@@ -1,8 +1,8 @@
 <?php
 
-namespace Mush\Action\Entity;
+namespace Mush\RoomLog\Entity;
 
-interface ActionParameter
+interface LogParameterInterface
 {
     public function getClassName(): string;
 

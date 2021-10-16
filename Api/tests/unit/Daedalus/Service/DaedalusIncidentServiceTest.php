@@ -10,15 +10,15 @@ use Mush\Daedalus\Service\DaedalusIncidentServiceInterface;
 use Mush\Equipment\Criteria\GameEquipmentCriteria;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Event\EquipmentEventInterface;
 use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
-use Mush\Place\Event\RoomEvent;
+use Mush\Place\Event\RoomEventInterface;
 use Mush\Player\Entity\Player;
-use Mush\Player\Event\PlayerEvent;
+use Mush\Player\Event\PlayerEventInterface;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -81,7 +81,7 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (RoomEvent $event) => $event->getPlace() === $room1 && $event->getReason() === EventEnum::NEW_CYCLE)
+            ->withArgs(fn (RoomEventInterface $event) => $event->getPlace() === $room1 && $event->getReason() === EventEnum::NEW_CYCLE)
             ->once()
         ;
 
@@ -111,7 +111,7 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (RoomEvent $event) => $event->getPlace() === $room1 && $event->getReason() === EventEnum::NEW_CYCLE)
+            ->withArgs(fn (RoomEventInterface $event) => $event->getPlace() === $room1 && $event->getReason() === EventEnum::NEW_CYCLE)
             ->once()
         ;
 
@@ -141,7 +141,7 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (RoomEvent $event) => $event->getPlace() === $room1 && $event->getReason() === EventEnum::NEW_CYCLE)
+            ->withArgs(fn (RoomEventInterface $event) => $event->getPlace() === $room1 && $event->getReason() === EventEnum::NEW_CYCLE)
             ->once()
         ;
 
@@ -178,7 +178,7 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (EquipmentEvent $event) => $event->getEquipment() === $equipment)
+            ->withArgs(fn (EquipmentEventInterface $event) => $event->getEquipment() === $equipment)
             ->once()
         ;
 
@@ -210,7 +210,7 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (EquipmentEvent $event) => $event->getEquipment() === $equipment)
+            ->withArgs(fn (EquipmentEventInterface $event) => $event->getEquipment() === $equipment)
             ->never()
         ;
 
@@ -247,7 +247,7 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (EquipmentEvent $event) => $event->getEquipment() === $door)
+            ->withArgs(fn (EquipmentEventInterface $event) => $event->getEquipment() === $door)
             ->once()
         ;
 
@@ -272,7 +272,7 @@ class DaedalusIncidentServiceTest extends TestCase
         $daedalus->addPlayer($player);
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (PlayerEvent $event) => $event->getPlayer() === $player)
+            ->withArgs(fn (PlayerEventInterface $event) => $event->getPlayer() === $player)
             ->once()
         ;
 
@@ -303,7 +303,7 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (PlayerEvent $event) => $event->getPlayer() === $player)
+            ->withArgs(fn (PlayerEventInterface $event) => $event->getPlayer() === $player)
             ->once()
         ;
 
@@ -333,7 +333,7 @@ class DaedalusIncidentServiceTest extends TestCase
         $daedalus->addPlayer($player);
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (PlayerEvent $event) => $event->getPlayer() === $player)
+            ->withArgs(fn (PlayerEventInterface $event) => $event->getPlayer() === $player)
             ->once()
         ;
 

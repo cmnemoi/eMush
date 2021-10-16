@@ -11,7 +11,7 @@ use Mush\Game\CycleHandler\AbstractCycleHandler;
 use Mush\Game\Enum\EventEnum;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Event\StatusEvent;
+use Mush\Status\Event\StatusEventInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class RationCycleHandler extends AbstractCycleHandler
@@ -75,7 +75,7 @@ class RationCycleHandler extends AbstractCycleHandler
             $nextStatus = EquipmentStatusEnum::UNSTABLE;
         }
 
-        $statusEvent = new StatusEvent($nextStatus, $gameRation, EventEnum::NEW_DAY, new \DateTime());
-        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+        $statusEvent = new StatusEventInterface($nextStatus, $gameRation, EventEnum::NEW_DAY, new \DateTime());
+        $this->eventDispatcher->dispatch($statusEvent, StatusEventInterface::STATUS_APPLIED);
     }
 }

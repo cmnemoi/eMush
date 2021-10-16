@@ -38,7 +38,7 @@ class ActionSubscriber implements EventSubscriberInterface
 
         if ($action->getName() === ActionEnum::MOVE) {
             $this->roomLogService->createLog(
-                ActionLogEnum::ENTER_ROOM,
+                ActionLogEnum::EXIT_ROOM,
                 $player->getPlace(),
                 VisibilityEnum::PUBLIC,
                 'actions_log',

@@ -3,7 +3,7 @@
 namespace Mush\Communication\Listener;
 
 use Mush\Communication\Services\NeronMessageServiceInterface;
-use Mush\Place\Event\RoomEvent;
+use Mush\Place\Event\RoomEventInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class RoomSubscriber implements EventSubscriberInterface
@@ -19,11 +19,11 @@ class RoomSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            RoomEvent::STARTING_FIRE => 'onStartingFire',
+            RoomEventInterface::STARTING_FIRE => 'onStartingFire',
         ];
     }
 
-    public function onStartingFire(RoomEvent $event): void
+    public function onStartingFire(RoomEventInterface $event): void
     {
         $daedalus = $event->getPlace()->getDaedalus();
 

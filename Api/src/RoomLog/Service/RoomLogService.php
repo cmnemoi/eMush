@@ -6,7 +6,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
@@ -15,13 +14,12 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\RoomLog\Entity\LogParameter;
+use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogDeclinationEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Repository\RoomLogRepository;
-use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class RoomLogService implements RoomLogServiceInterface
 {
@@ -59,7 +57,7 @@ class RoomLogService implements RoomLogServiceInterface
         string $actionName,
         ActionResult $actionResult,
         Player $player,
-        ?ActionParameter $actionParameter,
+        ?LogParameterInterface $actionParameter,
     ): ?RoomLog {
         // first lets handle the special case of examine action
         if ($actionName === ActionEnum::EXAMINE) {
@@ -101,7 +99,7 @@ class RoomLogService implements RoomLogServiceInterface
     private function getActionLogParameters(
         ActionResult $actionResult,
         Player $player,
-        ?ActionParameter $actionParameter
+        ?LogParameterInterface $actionParameter
     ): array {
         $parameters = [];
         $parameters[$player->getLogKey()] = $player->getLogName();
@@ -110,10 +108,6 @@ class RoomLogService implements RoomLogServiceInterface
             $parameters['quantity'] = $quantity;
         }
         if ($actionParameter !== null) {
-            if (!$actionParameter instanceof LogParameter) {
-                throw new UnexpectedTypeException($actionParameter, LogParameter::class);
-            }
-
             $key = 'target_' . $actionParameter->getLogKey();
             $parameters[$key] = $actionParameter->getLogName();
         }
@@ -126,7 +120,7 @@ class RoomLogService implements RoomLogServiceInterface
 
     private function createExamineLog(
         Player $player,
-        ?ActionParameter $actionParameter,
+        ?LogParameterInterface $actionParameter,
     ): RoomLog {
         if ($actionParameter instanceof GameItem) {
             return $this->createLog(

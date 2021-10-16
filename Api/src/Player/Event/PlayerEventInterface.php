@@ -2,12 +2,12 @@
 
 namespace Mush\Player\Event;
 
-use Mush\Game\Event\AbstractLoggedEvent;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\RoomLog\Event\LoggableEventInterface;
 
-class PlayerEvent extends PlayerCycleEvent implements AbstractLoggedEvent
+class PlayerEventInterface extends PlayerCycleEvent implements LoggableEventInterface
 {
     public const NEW_PLAYER = 'new.player';
     public const DEATH_PLAYER = 'death.player';
@@ -29,7 +29,7 @@ class PlayerEvent extends PlayerCycleEvent implements AbstractLoggedEvent
         return $this->visibility;
     }
 
-    public function setVisibility(string $visibility): PlayerEvent
+    public function setVisibility(string $visibility): PlayerEventInterface
     {
         $this->visibility = $visibility;
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace Mush\Game\Event;
+namespace Mush\RoomLog\Event;
 
 use Mush\Place\Entity\Place;
 
-interface AbstractLoggedEvent
+interface LoggableEventInterface
 {
     public function getPlace(): Place;
 

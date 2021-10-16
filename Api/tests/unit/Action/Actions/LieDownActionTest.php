@@ -15,7 +15,7 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Place\Entity\Place;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Event\StatusEvent;
+use Mush\Status\Event\StatusEventInterface;
 
 class LieDownActionTest extends AbstractActionTest
 {
@@ -68,7 +68,7 @@ class LieDownActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof StatusEvent &&
+            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof StatusEventInterface &&
                 $event->getStatusName() === PlayerStatusEnum::LYING_DOWN &&
                 $event->getStatusHolder() === $player &&
                 $event->getStatusTarget() === $gameEquipment

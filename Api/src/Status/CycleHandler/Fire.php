@@ -9,9 +9,9 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEventEnum;
-use Mush\Place\Event\RoomEvent;
+use Mush\Place\Event\RoomEventInterface;
 use Mush\Player\Enum\EndCauseEnum;
-use Mush\Player\Event\PlayerModifierEvent;
+use Mush\Player\Event\PlayerModifierEventInterface;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
@@ -67,12 +67,12 @@ class Fire extends AbstractStatusCycleHandler
             if (!$adjacentRoom->hasStatus(StatusEnum::FIRE) &&
                 $this->randomService->isSuccessful($difficultyConfig->getPropagatingFireRate())
             ) {
-                $roomEvent = new RoomEvent(
+                $roomEvent = new RoomEventInterface(
                     $adjacentRoom,
                     RoomEventEnum::PROPAGATING_FIRE,
                     $date
                 );
-                $this->eventDispatcher->dispatch($roomEvent, RoomEvent::STARTING_FIRE);
+                $this->eventDispatcher->dispatch($roomEvent, RoomEventInterface::STARTING_FIRE);
             }
         }
 
@@ -86,13 +86,13 @@ class Fire extends AbstractStatusCycleHandler
         foreach ($room->getPlayers()->getPlayerAlive() as $player) {
             $damage = (int) $this->randomService->getSingleRandomElementFromProbaArray($difficultyConfig->getFirePlayerDamage());
 
-            $playerModifierEvent = new PlayerModifierEvent(
+            $playerModifierEvent = new PlayerModifierEventInterface(
                 $player,
                 -$damage,
                 EndCauseEnum::BURNT,
                 $date
             );
-            $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
+            $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEventInterface::HEALTH_POINT_MODIFIER);
         }
 
         foreach ($room->getEquipments() as $equipment) {

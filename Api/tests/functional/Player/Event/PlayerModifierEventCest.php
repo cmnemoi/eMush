@@ -9,7 +9,7 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\Player\Event\PlayerModifierEvent;
+use Mush\Player\Event\PlayerModifierEventInterface;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -67,33 +67,33 @@ class PlayerModifierEventCest
         $I->haveInRepository($suicidalStatusConfig);
         $I->haveInRepository($demoralizedStatusConfig);
 
-        $playerEvent = new PlayerModifierEvent(
+        $playerEvent = new PlayerModifierEventInterface(
             $player,
             -1,
             EventEnum::PLAYER_DEATH,
             new \DateTime()
         );
 
-        $this->eventDispatcherService->dispatch($playerEvent, PlayerModifierEvent::MORAL_POINT_MODIFIER);
+        $this->eventDispatcherService->dispatch($playerEvent, PlayerModifierEventInterface::MORAL_POINT_MODIFIER);
         $I->assertEquals(4, $player->getMoralPoint());
         $I->assertCount(0, $player->getStatuses());
 
-        $this->eventDispatcherService->dispatch($playerEvent, PlayerModifierEvent::MORAL_POINT_MODIFIER);
+        $this->eventDispatcherService->dispatch($playerEvent, PlayerModifierEventInterface::MORAL_POINT_MODIFIER);
         $I->assertEquals(3, $player->getMoralPoint());
         $I->assertCount(1, $player->getStatuses());
 
-        $playerEvent = new PlayerModifierEvent(
+        $playerEvent = new PlayerModifierEventInterface(
             $player,
             -2,
             EventEnum::NEW_CYCLE,
             new \DateTime()
         );
-        $this->eventDispatcherService->dispatch($playerEvent, PlayerModifierEvent::MORAL_POINT_MODIFIER);
+        $this->eventDispatcherService->dispatch($playerEvent, PlayerModifierEventInterface::MORAL_POINT_MODIFIER);
         $I->assertEquals(1, $player->getMoralPoint());
         $I->assertCount(1, $player->getStatuses());
 
-        $playerEvent = new PlayerModifierEvent($player, 6, EventEnum::NEW_CYCLE, new \DateTime());
-        $this->eventDispatcherService->dispatch($playerEvent, PlayerModifierEvent::MORAL_POINT_MODIFIER);
+        $playerEvent = new PlayerModifierEventInterface($player, 6, EventEnum::NEW_CYCLE, new \DateTime());
+        $this->eventDispatcherService->dispatch($playerEvent, PlayerModifierEventInterface::MORAL_POINT_MODIFIER);
         $I->assertEquals(7, $player->getMoralPoint());
         $I->assertCount(0, $player->getStatuses());
     }
@@ -137,28 +137,28 @@ class PlayerModifierEventCest
         $I->haveInRepository($fullStatusConfig);
         $I->haveInRepository($starvingStatusConfig);
 
-        $playerEvent = new PlayerModifierEvent($player, -1, EventEnum::NEW_CYCLE, new \DateTime());
-        $this->eventDispatcherService->dispatch($playerEvent, PlayerModifierEvent::SATIETY_POINT_MODIFIER);
+        $playerEvent = new PlayerModifierEventInterface($player, -1, EventEnum::NEW_CYCLE, new \DateTime());
+        $this->eventDispatcherService->dispatch($playerEvent, PlayerModifierEventInterface::SATIETY_POINT_MODIFIER);
         $I->assertEquals(-1, $player->getSatiety());
         $I->assertCount(0, $player->getStatuses());
 
-        $playerEvent = new PlayerModifierEvent($player, 2, EventEnum::NEW_CYCLE, new \DateTime());
-        $this->eventDispatcherService->dispatch($playerEvent, PlayerModifierEvent::SATIETY_POINT_MODIFIER);
+        $playerEvent = new PlayerModifierEventInterface($player, 2, EventEnum::NEW_CYCLE, new \DateTime());
+        $this->eventDispatcherService->dispatch($playerEvent, PlayerModifierEventInterface::SATIETY_POINT_MODIFIER);
         $I->assertEquals(2, $player->getSatiety());
         $I->assertCount(0, $player->getStatuses());
 
-        $playerEvent = new PlayerModifierEvent($player, 1, EventEnum::NEW_CYCLE, new \DateTime());
-        $this->eventDispatcherService->dispatch($playerEvent, PlayerModifierEvent::SATIETY_POINT_MODIFIER);
+        $playerEvent = new PlayerModifierEventInterface($player, 1, EventEnum::NEW_CYCLE, new \DateTime());
+        $this->eventDispatcherService->dispatch($playerEvent, PlayerModifierEventInterface::SATIETY_POINT_MODIFIER);
         $I->assertEquals(3, $player->getSatiety());
         $I->assertCount(1, $player->getStatuses());
 
-        $playerEvent = new PlayerModifierEvent($player, -1, EventEnum::NEW_CYCLE, new \DateTime());
-        $this->eventDispatcherService->dispatch($playerEvent, PlayerModifierEvent::SATIETY_POINT_MODIFIER);
+        $playerEvent = new PlayerModifierEventInterface($player, -1, EventEnum::NEW_CYCLE, new \DateTime());
+        $this->eventDispatcherService->dispatch($playerEvent, PlayerModifierEventInterface::SATIETY_POINT_MODIFIER);
         $I->assertEquals(2, $player->getSatiety());
         $I->assertCount(0, $player->getStatuses());
 
-        $playerEvent = new PlayerModifierEvent($player, -27, EventEnum::NEW_CYCLE, new \DateTime());
-        $this->eventDispatcherService->dispatch($playerEvent, PlayerModifierEvent::SATIETY_POINT_MODIFIER);
+        $playerEvent = new PlayerModifierEventInterface($player, -27, EventEnum::NEW_CYCLE, new \DateTime());
+        $this->eventDispatcherService->dispatch($playerEvent, PlayerModifierEventInterface::SATIETY_POINT_MODIFIER);
         $I->assertEquals(-25, $player->getSatiety());
         $I->assertCount(1, $player->getStatuses());
 
@@ -209,18 +209,18 @@ class PlayerModifierEventCest
             ->setVisibility(VisibilityEnum::MUSH)
         ;
 
-        $playerEvent = new PlayerModifierEvent($player, -1, EventEnum::NEW_CYCLE, new \DateTime());
-        $this->eventDispatcherService->dispatch($playerEvent, PlayerModifierEvent::SATIETY_POINT_MODIFIER);
+        $playerEvent = new PlayerModifierEventInterface($player, -1, EventEnum::NEW_CYCLE, new \DateTime());
+        $this->eventDispatcherService->dispatch($playerEvent, PlayerModifierEventInterface::SATIETY_POINT_MODIFIER);
         $I->assertEquals(-1, $player->getSatiety());
         $I->assertCount(1, $player->getStatuses());
 
-        $playerEvent = new PlayerModifierEvent($player, 4, EventEnum::NEW_CYCLE, new \DateTime());
-        $this->eventDispatcherService->dispatch($playerEvent, PlayerModifierEvent::SATIETY_POINT_MODIFIER);
+        $playerEvent = new PlayerModifierEventInterface($player, 4, EventEnum::NEW_CYCLE, new \DateTime());
+        $this->eventDispatcherService->dispatch($playerEvent, PlayerModifierEventInterface::SATIETY_POINT_MODIFIER);
         $I->assertEquals(4, $player->getSatiety());
         $I->assertCount(2, $player->getStatuses());
 
-        $playerEvent = new PlayerModifierEvent($player, -29, EventEnum::NEW_CYCLE, new \DateTime());
-        $this->eventDispatcherService->dispatch($playerEvent, PlayerModifierEvent::SATIETY_POINT_MODIFIER);
+        $playerEvent = new PlayerModifierEventInterface($player, -29, EventEnum::NEW_CYCLE, new \DateTime());
+        $this->eventDispatcherService->dispatch($playerEvent, PlayerModifierEventInterface::SATIETY_POINT_MODIFIER);
         $I->assertEquals(-25, $player->getSatiety());
         $I->assertCount(1, $player->getStatuses());
     }

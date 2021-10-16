@@ -4,8 +4,8 @@ namespace Mush\Player\Listener;
 
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Enum\EndCauseEnum;
-use Mush\Player\Event\PlayerEvent;
-use Mush\Player\Event\PlayerModifierEvent;
+use Mush\Player\Event\PlayerEventInterface;
+use Mush\Player\Event\PlayerModifierEventInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -31,14 +31,14 @@ class PlayerSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            PlayerEvent::DEATH_PLAYER => 'onDeathPlayer',
-            PlayerEvent::METAL_PLATE => 'onMetalPlate',
-            PlayerEvent::PANIC_CRISIS => 'onPanicCrisis',
-            PlayerEvent::INFECTION_PLAYER => 'onInfectionPlayer',
+            PlayerEventInterface::DEATH_PLAYER => 'onDeathPlayer',
+            PlayerEventInterface::METAL_PLATE => 'onMetalPlate',
+            PlayerEventInterface::PANIC_CRISIS => 'onPanicCrisis',
+            PlayerEventInterface::INFECTION_PLAYER => 'onInfectionPlayer',
         ];
     }
 
-    public function onDeathPlayer(PlayerEvent $event): void
+    public function onDeathPlayer(PlayerEventInterface $event): void
     {
         $player = $event->getPlayer();
         $reason = $event->getReason();
@@ -46,7 +46,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         $this->playerService->playerDeath($player, $reason, $event->getTime());
     }
 
-    public function onMetalPlate(PlayerEvent $event): void
+    public function onMetalPlate(PlayerEventInterface $event): void
     {
         $player = $event->getPlayer();
 
@@ -54,16 +54,16 @@ class PlayerSubscriber implements EventSubscriberInterface
 
         $damage = (int) $this->randomService->getSingleRandomElementFromProbaArray($difficultyConfig->getMetalPlatePlayerDamage());
 
-        $playerModifierEvent = new PlayerModifierEvent(
+        $playerModifierEvent = new PlayerModifierEventInterface(
             $player,
             -$damage,
             EndCauseEnum::METAL_PLATE,
             $event->getTime()
         );
-        $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
+        $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEventInterface::HEALTH_POINT_MODIFIER);
     }
 
-    public function onPanicCrisis(PlayerEvent $event): void
+    public function onPanicCrisis(PlayerEventInterface $event): void
     {
         $player = $event->getPlayer();
 
@@ -71,16 +71,16 @@ class PlayerSubscriber implements EventSubscriberInterface
 
         $damage = (int) $this->randomService->getSingleRandomElementFromProbaArray($difficultyConfig->getPanicCrisisPlayerDamage());
 
-        $playerModifierEvent = new PlayerModifierEvent(
+        $playerModifierEvent = new PlayerModifierEventInterface(
             $player,
             -$damage,
             $event->getReason(),
             $event->getTime()
         );
-        $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::MORAL_POINT_MODIFIER);
+        $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEventInterface::MORAL_POINT_MODIFIER);
     }
 
-    public function onInfectionPlayer(PlayerEvent $playerEvent): void
+    public function onInfectionPlayer(PlayerEventInterface $playerEvent): void
     {
         $player = $playerEvent->getPlayer();
 
@@ -89,7 +89,7 @@ class PlayerSubscriber implements EventSubscriberInterface
 
         //@TODO implement research modifiers
         if ($playerSpores->getCharge() >= 3) {
-            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::CONVERSION_PLAYER);
+            $this->eventDispatcher->dispatch($playerEvent, PlayerEventInterface::CONVERSION_PLAYER);
         }
     }
 }

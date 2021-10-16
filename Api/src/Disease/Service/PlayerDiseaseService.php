@@ -7,7 +7,7 @@ use Mush\Disease\Entity\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Enum\DiseaseStatusEnum;
-use Mush\Disease\Event\DiseaseEvent;
+use Mush\Disease\Event\DiseaseEventInterface;
 use Mush\Disease\Repository\DiseaseConfigRepository;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
@@ -44,13 +44,13 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
     {
         $playerDisease->setStatus($cause);
 
-        $event = new DiseaseEvent(
+        $event = new DiseaseEventInterface(
             $playerDisease,
             $cause,
             $time
         );
         $event->setAuthor($author);
-        $this->eventDispatcher->dispatch($event, DiseaseEvent::CURE_DISEASE);
+        $this->eventDispatcher->dispatch($event, DiseaseEventInterface::CURE_DISEASE);
 
         $this->entityManager->remove($playerDisease);
         $this->entityManager->flush();
@@ -92,15 +92,15 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
 
         $this->persist($disease);
 
-        $event = new DiseaseEvent(
+        $event = new DiseaseEventInterface(
             $disease,
             $cause,
             new \DateTime()
         );
-        $this->eventDispatcher->dispatch($event, DiseaseEvent::NEW_DISEASE);
+        $this->eventDispatcher->dispatch($event, DiseaseEventInterface::NEW_DISEASE);
 
         if ($disease->getStatus() === DiseaseStatusEnum::ACTIVE) {
-            $this->eventDispatcher->dispatch($event, DiseaseEvent::APPEAR_DISEASE);
+            $this->eventDispatcher->dispatch($event, DiseaseEventInterface::APPEAR_DISEASE);
         }
 
         return $disease;
@@ -143,12 +143,12 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
 
                 $this->persist($playerDisease);
 
-                $event = new DiseaseEvent(
+                $event = new DiseaseEventInterface(
                     $playerDisease,
                     DiseaseCauseEnum::INCUBATING_END,
                     $time
                 );
-                $this->eventDispatcher->dispatch($event, DiseaseEvent::APPEAR_DISEASE);
+                $this->eventDispatcher->dispatch($event, DiseaseEventInterface::APPEAR_DISEASE);
             } else {
                 $this->removePlayerDisease($playerDisease, DiseaseStatusEnum::SPONTANEOUS_CURE, $time);
             }
@@ -162,13 +162,13 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         if ($playerDisease->getResistancePoint() === 0) {
             $this->removePlayerDisease($playerDisease, DiseaseStatusEnum::HEALED, $time, $author);
         } else {
-            $event = new DiseaseEvent(
+            $event = new DiseaseEventInterface(
                 $playerDisease,
                 DiseaseStatusEnum::HEALED,
                 $time
             );
             $event->setAuthor($author);
-            $this->eventDispatcher->dispatch($event, DiseaseEvent::TREAT_DISEASE);
+            $this->eventDispatcher->dispatch($event, DiseaseEventInterface::TREAT_DISEASE);
 
             $playerDisease->setResistancePoint($playerDisease->getResistancePoint() - 1);
             $this->persist($playerDisease);

@@ -4,7 +4,6 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
@@ -13,8 +12,9 @@ use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Place\Event\RoomEvent;
+use Mush\Place\Event\RoomEventInterface;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -45,7 +45,7 @@ class Extinguish extends AttemptAction
         $this->randomService = $randomService;
     }
 
-    protected function support(?ActionParameter $parameter): bool
+    protected function support(?LogParameterInterface $parameter): bool
     {
         return $parameter instanceof GameEquipment;
     }
@@ -67,13 +67,13 @@ class Extinguish extends AttemptAction
         $response = $this->makeAttempt();
 
         if ($response instanceof Success) {
-            $roomEvent = new RoomEvent(
+            $roomEvent = new RoomEventInterface(
                 $this->player->getPlace(),
                 $this->getActionName(),
                 new \DateTime()
             );
 
-            $this->eventDispatcher->dispatch($roomEvent, RoomEvent::STOP_FIRE);
+            $this->eventDispatcher->dispatch($roomEvent, RoomEventInterface::STOP_FIRE);
         }
 
         $this->playerService->persist($this->player);

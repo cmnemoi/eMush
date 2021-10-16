@@ -112,11 +112,11 @@ class CoffeeActionCest
 
         $gameEquipment->getEquipment()->setActions(new ArrayCollection([$coffeeActionEntity]));
 
-        $I->assertEquals(ActionImpossibleCauseEnum::DAILY_LIMIT, $this->coffeeAction->cannotExecuteReason());
-
         $chargeStatus = new ChargeStatus($gameEquipment);
         $chargeStatus
             ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
+            ->setDischargeStrategy(ActionEnum::COFFEE)
+            ->setCharge(0)
         ;
 
         $I->assertEquals(ActionImpossibleCauseEnum::DAILY_LIMIT, $this->coffeeAction->cannotExecuteReason());

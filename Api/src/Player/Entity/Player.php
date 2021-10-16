@@ -16,6 +16,9 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Enum\GameStatusEnum;
+use Mush\Modifier\Entity\Collection\ModifierCollection;
+use Mush\Modifier\Entity\Modifier;
+use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -31,7 +34,7 @@ use Mush\User\Entity\User;
 /**
  * @ORM\Entity(repositoryClass="Mush\Player\Repository\PlayerRepository")
  */
-class Player implements StatusHolderInterface, LogParameterInterface
+class Player implements StatusHolderInterface, LogParameterInterface, ModifierHolder
 {
     use TimestampableEntity;
     use TargetStatusTrait;
@@ -91,6 +94,11 @@ class Player implements StatusHolderInterface, LogParameterInterface
     private Collection $flirts;
 
     /**
+     * @ORM\OneToMany(targetEntity="Mush\Modifier\Entity\Modifier", mappedBy="player")
+     */
+    private Collection $modifiers;
+
+    /**
      * @ORM\Column(type="array", nullable=true)
      */
     private array $skills = [];
@@ -131,6 +139,7 @@ class Player implements StatusHolderInterface, LogParameterInterface
         $this->statuses = new ArrayCollection();
         $this->medicalCondition = new PlayerDiseaseCollection();
         $this->flirts = new PlayerCollection();
+        $this->modifiers = new ModifierCollection();
     }
 
     public function getId(): int
@@ -337,6 +346,21 @@ class Player implements StatusHolderInterface, LogParameterInterface
     public function addMedicalCondition(PlayerDisease $playerDisease): Player
     {
         $this->medicalCondition->add($playerDisease);
+
+        return $this;
+    }
+
+    public function getModifiers(): ModifierCollection
+    {
+        return new ModifierCollection($this->modifiers->toArray());
+    }
+
+    /**
+     * @return static
+     */
+    public function addModifier(Modifier $modifier): Player
+    {
+        $this->modifiers->add($modifier);
 
         return $this;
     }

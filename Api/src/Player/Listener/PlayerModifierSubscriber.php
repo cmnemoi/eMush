@@ -31,7 +31,6 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
             PlayerModifierEvent::HEALTH_POINT_MODIFIER => 'onHealthPointModifier',
             PlayerModifierEvent::MORAL_POINT_MODIFIER => 'onMoralPointModifier',
             PlayerModifierEvent::SATIETY_POINT_MODIFIER => 'onSatietyPointModifier',
-            PlayerModifierEvent::MOVEMENT_POINT_CONVERSION => 'onMovementPointConversion',
         ];
     }
 

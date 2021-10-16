@@ -9,18 +9,16 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\DataFixtures\TechnicianFixtures;
 use Mush\Action\Entity\Action;
-use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Charged;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
-use Mush\Player\Entity\Modifier;
-use Mush\Player\Enum\ModifierScopeEnum;
-use Mush\Player\Enum\ModifierTargetEnum;
+use Mush\Modifier\DataFixtures\GearModifierConfigFixtures;
+use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Status\DataFixtures\ChargeStatusFixtures;
 use Mush\Status\DataFixtures\StatusFixtures;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
@@ -75,19 +73,12 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         /** @var StatusConfig $heavyStatus */
         $heavyStatus = $this->getReference(StatusFixtures::HEAVY_STATUS);
 
-        $apronGear = $this->createGear(
-            ModifierTargetEnum::PERCENTAGE,
-            -100,
-            ModifierScopeEnum::EVENT_DIRTY,
-            ReachEnum::INVENTORY,
-            true
-        );
-
         $actions25 = clone $actions;
         $actions25->add($repair25);
         $actions25->add($sabotage25);
         $actions25->add($reportAction);
 
+        $apronGear = $this->createGear([GearModifierConfigFixtures::APRON_MODIFIER]);
         $apron = new ItemConfig();
         $apron
             ->setGameConfig($gameConfig)
@@ -106,13 +97,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $plasteniteActions->add($sabotage12);
         $plasteniteActions->add($reportAction);
 
-        $plasteniteGear = $this->createGear(
-            ModifierTargetEnum::HEALTH_POINT,
-            -1,
-            ModifierScopeEnum::ACTION_ATTACK,
-            ReachEnum::INVENTORY,
-            true
-        );
+        $plasteniteGear = $this->createGear([GearModifierConfigFixtures::ARMOR_MODIFIER]);
 
         $plasteniteArmor = new ItemConfig();
         $plasteniteArmor
@@ -128,13 +113,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($plasteniteArmor);
 
-        $wrenchGear = $this->createGear(
-            ModifierTargetEnum::PERCENTAGE,
-            1.5,
-            ModifierScopeEnum::ACTION_TECHNICIAN,
-            ReachEnum::INVENTORY,
-            false
-        );
+        $wrenchGear = $this->createGear([GearModifierConfigFixtures::WRENCH_MODIFIER]);
         $wrench = new ItemConfig();
         $wrench
             ->setGameConfig($gameConfig)
@@ -147,14 +126,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($wrench);
 
-        $glovesGear = $this->createGear(
-            ModifierTargetEnum::PERCENTAGE,
-            -100,
-            ModifierScopeEnum::EVENT_CLUMSINESS,
-            ReachEnum::INVENTORY,
-            true
-        );
-
+        $glovesGear = $this->createGear([GearModifierConfigFixtures::GLOVES_MODIFIER]);
         $gloves = new ItemConfig();
         $gloves
             ->setGameConfig($gameConfig)
@@ -168,14 +140,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($gloves);
 
-        $soapGear = $this->createGear(
-            ModifierTargetEnum::ACTION_POINT,
-            -1,
-            ActionEnum::SHOWER,
-            ReachEnum::INVENTORY,
-            true
-        );
-
+        $soapGear = $this->createGear([GearModifierConfigFixtures::SOAP_MODIFIER]);
         $soap = new ItemConfig();
         $soap
             ->setGameConfig($gameConfig)
@@ -194,14 +159,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $sniperHelmetActions->add($sabotage1);
         $sniperHelmetActions->add($reportAction);
 
-        $sniperHelmetGear = $this->createGear(
-            ModifierTargetEnum::PERCENTAGE,
-            1.1,
-            ModifierScopeEnum::ACTION_SHOOT,
-            ReachEnum::INVENTORY,
-            true
-        );
-
+        $sniperHelmetGear = $this->createGear([GearModifierConfigFixtures::AIM_MODIFIER]);
         $sniperHelmet = new ItemConfig();
         $sniperHelmet
             ->setGameConfig($gameConfig)
@@ -216,14 +174,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($sniperHelmet);
 
-        $alienBottleOpenerGear = $this->createGear(
-            ModifierTargetEnum::PERCENTAGE,
-            1.5,
-            ModifierScopeEnum::ACTION_TECHNICIAN,
-            ReachEnum::INVENTORY,
-            false
-        );
-
+        $alienBottleOpenerGear = $this->createGear([GearModifierConfigFixtures::WRENCH_MODIFIER]);
         $alienBottleOpener = new ItemConfig();
         $alienBottleOpener
             ->setGameConfig($gameConfig)
@@ -243,13 +194,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $antiGravScooterActions->add($sabotage6);
         $antiGravScooterActions->add($reportAction);
 
-        $antiGravScooterGear = $this->createGear(
-            ModifierTargetEnum::MOVEMENT_POINT,
-            2,
-            ModifierScopeEnum::EVENT_ACTION_POINT_CONVERSION,
-            ReachEnum::INVENTORY,
-            true
-        );
+        $antiGravScooterGear = $this->createGear([GearModifierConfigFixtures::SCOOTER_MODIFIER]);
 
         /** @var ChargeStatusConfig $electricCharge */
         $electricCharge = $this->getReference(ChargeStatusFixtures::CYCLE_ELECTRIC_CHARGE);
@@ -259,6 +204,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setMaxCharge(8)
             ->setStartCharge(2)
             ->setChargeStatusConfig($electricCharge)
+            ->setDischargeStrategy(ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION)
         ;
 
         $antiGravScooter = new ItemConfig();
@@ -293,13 +239,8 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $actions12->add($sabotage12);
         $actions12->add($reportAction);
 
-        $lensesGear = $this->createGear(
-            ModifierTargetEnum::PERCENTAGE,
-            1.1,
-            ModifierScopeEnum::ACTION_SHOOT,
-            ReachEnum::INVENTORY,
-            false
-        );
+        $lensesGear = $this->createGear([GearModifierConfigFixtures::AIM_MODIFIER]);
+
         $lenses = new ItemConfig();
         $lenses
             ->setGameConfig($gameConfig)
@@ -314,19 +255,10 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($lenses);
 
         $oscilloscopeGear = $this->createGear(
-            ModifierTargetEnum::PERCENTAGE,
-            1.5,
-            ActionEnum::STRENGTHEN_HULL,
-            ReachEnum::INVENTORY,
-            false
-        );
-
-        $oscilloscopeGear = $this->createGear(
-            ModifierTargetEnum::QUANTITY,
-            2,
-            ActionEnum::STRENGTHEN_HULL,
-            ReachEnum::INVENTORY,
-            false
+            [
+            GearModifierConfigFixtures::OSCILLOSCOPE_REPAIR_MODIFIER,
+            GearModifierConfigFixtures::OSCILLOSCOPE_SUCCESS_MODIFIER,
+            ]
         );
 
         $oscilloscope = new ItemConfig();
@@ -420,27 +352,6 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->flush();
     }
 
-    private function createGear(string $target, float $delta, string $scope, string $reach, bool $isAdditive): Gear
-    {
-        $modifier = new Modifier();
-        $modifier
-            ->setTarget($target)
-            ->setDelta($delta)
-            ->setScope($scope)
-            ->setReach($reach)
-            ->setIsAdditive($isAdditive)
-        ;
-
-        $this->objectManager->persist($modifier);
-
-        $gear = new Gear();
-        $gear->setModifier(new ArrayCollection([$modifier]));
-
-        $this->objectManager->persist($gear);
-
-        return $gear;
-    }
-
     public function getDependencies(): array
     {
         return [
@@ -449,6 +360,24 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             GameConfigFixtures::class,
             ChargeStatusFixtures::class,
             StatusFixtures::class,
+            GearModifierConfigFixtures::class,
         ];
+    }
+
+    private function createGear(array $modifierConfigNames): Gear
+    {
+        $gear = new Gear();
+
+        $modifierConfigs = [];
+        foreach ($modifierConfigNames as $modifierConfigName) {
+            /* @var ModifierConfig $modifierConfig */
+            $modifierConfigs[] = $this->getReference($modifierConfigName);
+        }
+
+        $gear->setModifierConfigs(new ArrayCollection($modifierConfigs));
+
+        $this->objectManager->persist($gear);
+
+        return $gear;
     }
 }

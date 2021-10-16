@@ -41,23 +41,127 @@ class PlayerModifierSubscriberTest extends TestCase
         Mockery::close();
     }
 
-    public function testOnMovementPointConversion()
+    public function testOnMovementPointModifier()
+    {
+        $player = new Player();
+
+        $event = new PlayerModifierEvent(
+            $player,
+            3,
+            PlayerModifierEvent::MOVEMENT_POINT_MODIFIER,
+            new \DateTime()
+        );
+
+        $this->playerVariableService
+            ->shouldReceive('handleMovementPointModifier')
+            ->with(3, $player)
+            ->once()
+        ;
+
+        $this->playerModifierSubscriber->onMovementPointModifier($event);
+    }
+
+    public function testOnActionPointModifier()
     {
         $player = new Player();
 
         $event = new PlayerModifierEvent($player, 1, 'movement point conversion', new \DateTime());
 
-        $player->setActionPoint(1);
+        $this->playerVariableService
+            ->shouldReceive('handleActionPointModifier')
+            ->with(1, $player)
+            ->once()
+        ;
 
-        $this->playerVariableService->shouldReceive('handleActionPointModifier')->once();
-        $this->playerVariableService->shouldReceive('handleMovementPointModifier')->once();
+        $this->playerModifierSubscriber->onActionPointModifier($event);
+    }
 
-        $this->playerModifierSubscriber->onMovementPointConversion($event);
+    public function testOnMoralPointModifier()
+    {
+        $player = new Player();
 
-        $player->setActionPoint(0);
+        $player->setMoralPoint(1);
 
-        $this->expectException(\Exception::class);
+        $event = new PlayerModifierEvent(
+            $player,
+            -1,
+            PlayerModifierEvent::MOVEMENT_POINT_MODIFIER,
+            new \DateTime()
+        );
 
-        $this->playerModifierSubscriber->onMovementPointConversion($event);
+        $this->playerVariableService
+            ->shouldReceive('handleMoralPointModifier')
+            ->with(-1, $player)
+            ->once()
+        ;
+
+        $this->playerModifierSubscriber->onMoralPointModifier($event);
+
+        // 0 moral point left
+        $player->setMoralPoint(0);
+
+        $this->playerVariableService
+            ->shouldReceive('handleMoralPointModifier')
+            ->with(-1, $player)
+            ->once()
+        ;
+
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
+
+        $this->playerModifierSubscriber->onMoralPointModifier($event);
+    }
+
+    public function testOnHealthPointModifier()
+    {
+        $player = new Player();
+
+        $player->setHealthPoint(1);
+        $event = new PlayerModifierEvent(
+            $player,
+            1,
+            PlayerModifierEvent::MOVEMENT_POINT_MODIFIER,
+            new \DateTime()
+        );
+
+        $this->playerVariableService
+            ->shouldReceive('handleHealthPointModifier')
+            ->with(1, $player)
+            ->once()
+        ;
+
+        $this->playerModifierSubscriber->onHealthPointModifier($event);
+
+        // 0 health point left
+        $player->setHealthPoint(0);
+
+        $this->playerVariableService
+            ->shouldReceive('handleHealthPointModifier')
+            ->with(1, $player)
+            ->once()
+        ;
+
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
+
+        $this->playerModifierSubscriber->onHealthPointModifier($event);
+    }
+
+    public function testOnSatietyPointModifier()
+    {
+        $player = new Player();
+
+        $event = new PlayerModifierEvent(
+            $player,
+            1,
+            PlayerModifierEvent::MOVEMENT_POINT_MODIFIER,
+            new \DateTime()
+        );
+
+        $this->playerVariableService
+            ->shouldReceive('handleSatietyModifier')
+            ->with(1, $player)
+            ->once()
+        ;
+
+        $this->playerModifierSubscriber->onSatietyPointModifier($event);
     }
 }

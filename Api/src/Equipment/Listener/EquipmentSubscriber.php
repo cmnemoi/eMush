@@ -64,7 +64,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
             throw new \LogicException('Replacement equipment should be provided');
         }
 
-        if ($newEquipment instanceof GameItem && $player !== null && $player->getItems()->count() < $this->getGameConfig($equipment)->getMaxItemInInventory()) {
+        if ($newEquipment instanceof GameItem && $player !== null && $player->getItems()->count() - 1 < $this->getGameConfig($equipment)->getMaxItemInInventory()) {
             $newEquipment->setPlayer($player);
         } else {
             $newEquipment->setPlace($place);

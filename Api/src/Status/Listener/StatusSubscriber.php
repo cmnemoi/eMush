@@ -44,6 +44,7 @@ class StatusSubscriber implements EventSubscriberInterface
                 $event->getStatusHolder(),
                 $event->getInitCharge(),
                 $event->getThreshold(),
+                $event->getDischargeStrategy(),
                 $event->getStatusTarget()
             );
         } else {

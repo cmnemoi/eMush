@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Player\Enum;
+namespace Mush\Modifier\Enum;
 
 class ModifierTargetEnum
 {
@@ -10,12 +10,8 @@ class ModifierTargetEnum
     public const MORAL_POINT = 'moral_point';
     public const SATIETY = 'satiety';
 
-    public const MAX_ACTION_POINT = 'max_action_point';
-    public const MAX_MOVEMENT_POINT = 'max_movement_point';
-    public const MAX_HEALTH_POINT = 'max_health_point';
-    public const MAX_MORAL_POINT = 'max_moral_point';
-
     public const PERCENTAGE = 'percentage';
+    public const ATTEMPT = 'attempt';
 
-    public const QUANTITY = 'quantity';
+    public const HULL = 'hull';
 }

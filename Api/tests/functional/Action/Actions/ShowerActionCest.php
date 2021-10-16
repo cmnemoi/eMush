@@ -19,10 +19,12 @@ use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
+use Mush\Modifier\Entity\Modifier;
+use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Enum\ModifierModeEnum;
+use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Place\Entity\Place;
-use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
-use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -95,9 +97,20 @@ class ShowerActionCest
         ;
         $I->haveInRepository($gameEquipment);
 
-        $soap = $this->createSoapItem($I);
+        $modifierConfig = new ModifierConfig();
+        $modifierConfig
+            ->setTarget(ModifierTargetEnum::ACTION_POINT)
+            ->setDelta(-1)
+            ->setScope(ActionEnum::SHOWER)
+            ->setReach(ReachEnum::INVENTORY)
+            ->setMode(ModifierModeEnum::ADDITIVE)
+        ;
+        $I->haveInRepository($modifierConfig);
 
-        $player->addItem($soap);
+        $modifier = new Modifier($player, $modifierConfig);
+        $I->haveInRepository($modifier);
+
+        $I->refreshEntities($player);
 
         $this->showerAction->loadParameters($action, $player, $gameEquipment);
 
@@ -122,18 +135,17 @@ class ShowerActionCest
 
     private function createSoapItem(FunctionalTester $I): GameItem
     {
-        $modifier = new Modifier();
+        $modifier = new ModifierConfig();
         $modifier
             ->setTarget(ModifierTargetEnum::ACTION_POINT)
             ->setDelta(-1)
             ->setScope(ActionEnum::SHOWER)
             ->setReach(ReachEnum::INVENTORY)
-            ->setIsAdditive(true)
+            ->setMode(ModifierModeEnum::ADDITIVE)
         ;
 
         $soapGear = new Gear();
-
-        $soapGear->setModifier(new arrayCollection([$modifier]));
+        $soapGear->setModifierConfigs(new arrayCollection([$modifier]));
 
         $soap = new ItemConfig();
         $soap

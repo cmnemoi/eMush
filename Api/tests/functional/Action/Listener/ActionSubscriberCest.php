@@ -3,24 +3,23 @@
 namespace functional\Action\Listener;
 
 use App\Tests\FunctionalTester;
-use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Action\Listener\ActionSubscriber;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\GearItemEnum;
-use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
+use Mush\Modifier\Entity\Modifier;
+use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Enum\ModifierReachEnum;
+use Mush\Modifier\Enum\ModifierScopeEnum;
+use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Place\Entity\Place;
-use Mush\Player\Entity\Modifier;
 use Mush\Player\Entity\Player;
-use Mush\Player\Enum\ModifierScopeEnum;
-use Mush\Player\Enum\ModifierTargetEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -175,27 +174,19 @@ class ActionSubscriberCest
         /** @var ItemConfig $itemConfig */
         $itemConfig = $I->have(ItemConfig::class, ['name' => GearItemEnum::STAINPROOF_APRON]);
 
-        $gear = new Gear();
-        $modifier = new Modifier();
-        $modifier
-            ->setReach(ReachEnum::INVENTORY)
+        //       $gear = new Gear();
+        $modifierConfig = new ModifierConfig();
+        $modifierConfig
+            ->setReach(ModifierReachEnum::PLAYER)
             ->setDelta(-100)
             ->setTarget(ModifierTargetEnum::PERCENTAGE)
             ->setScope(ModifierScopeEnum::EVENT_DIRTY)
         ;
-        $I->haveInRepository($modifier);
-        $gear->setModifier(new arrayCollection([$modifier]));
-        $itemConfig->setMechanics(new ArrayCollection([$gear]));
-        $I->haveInRepository($gear);
-        $I->haveInRepository($itemConfig);
+        $I->haveInRepository($modifierConfig);
 
-        $gameItem = new GameItem();
-        $gameItem
-            ->setName($itemConfig->getName())
-            ->setPlayer($player)
-            ->setEquipment($itemConfig)
-        ;
-        $I->haveInRepository($gameItem);
+        $modifier = new Modifier($player, $modifierConfig);
+        $I->refreshEntities($player);
+        $I->haveInRepository($modifier);
 
         //Test dirty with apron
         $this->cycleSubscriber->onPostAction($actionEvent);

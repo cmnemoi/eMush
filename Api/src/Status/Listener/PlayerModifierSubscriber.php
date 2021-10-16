@@ -22,7 +22,6 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
         return [
             PlayerModifierEvent::MORAL_POINT_MODIFIER => ['onMoralPointModifier', -10], //Applied after player modification
             PlayerModifierEvent::SATIETY_POINT_MODIFIER => ['onSatietyPointModifier', -10], //Applied after player modification
-            PlayerModifierEvent::MOVEMENT_POINT_CONVERSION => ['onMovementPointConversion', 1000], //Applied before any other listener
         ];
     }
 

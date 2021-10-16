@@ -56,9 +56,9 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
                 'id' => $object->getId(),
                 'key' => $object->getName(),
                 'name' => $this->translationService->translate("{$actionName}.name", [], 'actions'),
-                'actionPointCost' => $this->actionService->getTotalActionPointCost($currentPlayer, $object),
-                'movementPointCost' => $this->actionService->getTotalMovementPointCost($currentPlayer, $object),
-                'moralPointCost' => $this->actionService->getTotalMoralPointCost($currentPlayer, $object),
+                'actionPointCost' => $this->actionService->getTotalActionPointCost($currentPlayer, $object, $parameter),
+                'movementPointCost' => $this->actionService->getTotalMovementPointCost($currentPlayer, $object, $parameter),
+                'moralPointCost' => $this->actionService->getTotalMoralPointCost($currentPlayer, $object, $parameter),
                 ];
 
             if ($actionClass instanceof AttemptAction) {

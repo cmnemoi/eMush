@@ -78,7 +78,7 @@ class RepairActionTest extends AbstractActionTest
 
         $gameItem
             ->setEquipment($item)
-            ->setPlace($room)
+            ->setHolder($room)
         ;
 
         $this->gameEquipmentService->shouldReceive('persist');
@@ -124,7 +124,7 @@ class RepairActionTest extends AbstractActionTest
 
         $gameItem
             ->setEquipment($item)
-            ->setPlace($room)
+            ->setHolder($room)
         ;
 
         $this->gameEquipmentService->shouldReceive('persist');

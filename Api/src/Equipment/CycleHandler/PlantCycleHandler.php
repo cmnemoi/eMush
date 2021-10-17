@@ -15,6 +15,7 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\CycleHandler\AbstractCycleHandler;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\PlantLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
@@ -157,8 +158,8 @@ class PlantCycleHandler extends AbstractCycleHandler
 
     private function handleDriedPlant(GameItem $gamePlant, \DateTime $dateTime): void
     {
-        $place = $gamePlant->getCurrentPlace();
-        $player = $gamePlant->getPlayer();
+        $place = $gamePlant->getPlace();
+        $player = $gamePlant->getHolder();
 
         // Create a new hydropot
         /** @var GameItem $hydropot */
@@ -180,7 +181,7 @@ class PlantCycleHandler extends AbstractCycleHandler
             PlantLogEnum::PLANT_DEATH,
             new \DateTime()
         );
-        if ($player !== null) {
+        if ($player instanceof Player) {
             $equipmentEvent->setPlayer($player);
         }
 
@@ -207,7 +208,7 @@ class PlantCycleHandler extends AbstractCycleHandler
             return;
         }
         // If plant is not in a room, it is in player inventory
-        $place = $gamePlant->getCurrentPlace();
+        $place = $gamePlant->getPlace();
 
         /** @var GameItem $gameFruit */
         $gameFruit = $this->gameEquipmentService->createGameEquipment($plantType->getFruit(), $place->getDaedalus());
@@ -225,7 +226,7 @@ class PlantCycleHandler extends AbstractCycleHandler
 
     private function addOxygen(GameItem $gamePlant, PlantEffect $plantEffect, \DateTime $date): void
     {
-        $daedalus = $gamePlant->getCurrentPlace()->getDaedalus();
+        $daedalus = $gamePlant->getPlace()->getDaedalus();
         //Add Oxygen
         if (($oxygen = $plantEffect->getOxygen())) {
             $daedalusEvent = new DaedalusModifierEvent(

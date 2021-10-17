@@ -271,7 +271,7 @@ class RoomLogServiceTest extends TestCase
         $dateTime = new \DateTime();
 
         $cameraEquipment = new GameEquipment();
-        $cameraEquipment->setName(EquipmentEnum::CAMERA_EQUIPMENT)->setPlace($place);
+        $cameraEquipment->setName(EquipmentEnum::CAMERA_EQUIPMENT)->setHolder($place);
 
         $this->entityManager->shouldReceive('flush')->once();
 
@@ -317,7 +317,7 @@ class RoomLogServiceTest extends TestCase
         $dateTime = new \DateTime();
 
         $cameraEquipment = new GameItem();
-        $cameraEquipment->setName(ItemEnum::CAMERA_ITEM)->setPlace($place);
+        $cameraEquipment->setName(ItemEnum::CAMERA_ITEM)->setHolder($place);
 
         $this->entityManager->shouldReceive('flush')->once();
         $this->entityManager->shouldReceive('persist')->once();

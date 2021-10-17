@@ -47,7 +47,7 @@ class BuildActionCest
 
         $I->assertFalse($this->buildAction->isVisible());
 
-        $gameEquipment->setPlace($room1);
+        $gameEquipment->setHolder($room1);
 
         $I->assertTrue($this->buildAction->isVisible());
     }
@@ -100,7 +100,7 @@ class BuildActionCest
         $equipment->setName($name);
         $gameEquipment
             ->setEquipment($equipment)
-            ->setPlace($place)
+            ->setHolder($place)
             ->setName($name)
         ;
 

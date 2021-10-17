@@ -52,7 +52,7 @@ class UseBandageActionTest extends AbstractActionTest
         $item = new ItemConfig();
         $gameItem
             ->setEquipment($item)
-            ->setPlace($room);
+            ->setHolder($room);
 
         $this->playerService->shouldReceive('persist');
         $this->eventDispatcher->shouldReceive('dispatch');

@@ -139,7 +139,7 @@ class PlayerServiceTest extends TestCase
         $this->assertEquals($gameConfig->getInitHealthPoint(), $player->getHealthPoint());
         $this->assertEquals($gameConfig->getInitMoralPoint(), $player->getMoralPoint());
         $this->assertEquals($gameConfig->getInitSatiety(), $player->getSatiety());
-        $this->assertCount(0, $player->getItems());
+        $this->assertCount(0, $player->getEquipments());
         $this->assertCount(0, $player->getSkills());
     }
 
@@ -160,7 +160,7 @@ class PlayerServiceTest extends TestCase
         $player = new Player();
         $player
             ->setDaedalus($daedalus)
-            ->addItem($gameItem)
+            ->addEquipment($gameItem)
             ->setPlace($room)
             ->setGameStatus(GameStatusEnum::CURRENT)
         ;
@@ -184,7 +184,7 @@ class PlayerServiceTest extends TestCase
         $player = $this->service->playerDeath($player, $reason, new \DateTime());
 
         $this->assertEquals(GameStatusEnum::FINISHED, $player->getGameStatus());
-        $this->assertCount(0, $player->getItems());
+        $this->assertCount(0, $player->getEquipments());
         $this->assertCount(1, $room->getEquipments());
         $this->assertCount(1, $room->getPlayers());
     }

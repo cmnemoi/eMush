@@ -66,7 +66,7 @@ class OpenCapsuleActionTest extends AbstractActionTest
         $gameSpaceCapsule
             ->setEquipment($spaceCapsule)
             ->setName(EquipmentEnum::COFFEE_MACHINE)
-            ->setPlace($room)
+            ->setHolder($room)
         ;
 
         $spaceCapsule->setActions(new ArrayCollection([$this->actionEntity]));

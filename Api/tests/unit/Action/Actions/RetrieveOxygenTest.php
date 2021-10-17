@@ -85,7 +85,7 @@ class RetrieveOxygenTest extends AbstractActionTest
         $gameTank
             ->setEquipment($tank)
             ->setName(EquipmentEnum::OXYGEN_TANK)
-            ->setPlace($room)
+            ->setHolder($room)
         ;
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
@@ -98,7 +98,7 @@ class RetrieveOxygenTest extends AbstractActionTest
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(1, $player->getItems());
+        $this->assertCount(1, $player->getEquipments());
         $this->assertCount(1, $room->getEquipments());
         $this->assertEquals(10, $player->getActionPoint());
     }

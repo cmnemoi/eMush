@@ -64,7 +64,7 @@ class PlantActionTest extends AbstractActionTest
         $item = new ItemConfig();
         $gameItem
                     ->setEquipment($item)
-                    ->setPlace($room)
+                    ->setHolder($room)
                     ->setName('toto')
         ;
 
@@ -87,7 +87,7 @@ class PlantActionTest extends AbstractActionTest
         $hydropot->setName(ItemEnum::HYDROPOT);
         $gameHydropot
                     ->setEquipment($hydropot)
-                    ->setPlace($room)
+                    ->setHolder($room)
                     ->setName(ItemEnum::HYDROPOT)
         ;
 
@@ -107,7 +107,7 @@ class PlantActionTest extends AbstractActionTest
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
-        $this->assertEmpty($player->getItems());
+        $this->assertEmpty($player->getEquipments());
         $this->assertContains($gamePlant, $player->getPlace()->getEquipments());
     }
 }

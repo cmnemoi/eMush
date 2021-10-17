@@ -70,7 +70,7 @@ class DisasembleActionTest extends AbstractActionTest
         $gameItem->setEquipment($item);
         $gameItem
             ->setName('some name')
-            ->setPlace($room)
+            ->setHolder($room)
         ;
 
         $item
@@ -113,7 +113,7 @@ class DisasembleActionTest extends AbstractActionTest
         $gameItem->setEquipment($item);
         $gameItem
             ->setName('some name')
-            ->setPlace($room)
+            ->setHolder($room)
         ;
 
         $item

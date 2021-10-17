@@ -180,7 +180,7 @@ class AlertServiceTest extends TestCase
         $room = new Place();
         $room->setDaedalus($daedalus);
         $gameEquipment = new GameEquipment();
-        $gameEquipment->setPlace($room);
+        $gameEquipment->setHolder($room);
 
         $this->repository->shouldReceive('findOneBy')
             ->andReturn(null)
@@ -231,7 +231,7 @@ class AlertServiceTest extends TestCase
         $room = new Place();
         $room->setDaedalus($daedalus);
         $gameEquipment = new GameEquipment();
-        $gameEquipment->setPlace($room);
+        $gameEquipment->setHolder($room);
 
         $equipmentElement1 = new AlertElement();
         $equipmentElement1->setEquipment($gameEquipment);
@@ -266,7 +266,7 @@ class AlertServiceTest extends TestCase
         $room = new Place();
         $room->setDaedalus($daedalus);
         $gameEquipment = new GameEquipment();
-        $gameEquipment->setPlace($room);
+        $gameEquipment->setHolder($room);
 
         $equipmentElement1 = new AlertElement();
         $equipmentElement1->setEquipment($gameEquipment);

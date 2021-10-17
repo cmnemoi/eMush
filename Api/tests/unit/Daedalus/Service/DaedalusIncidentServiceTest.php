@@ -161,7 +161,7 @@ class DaedalusIncidentServiceTest extends TestCase
         $this->randomService->shouldReceive('random')->andReturn(1)->once();
 
         $equipment = new GameEquipment();
-        $equipment->setPlace(new Place());
+        $equipment->setHolder(new Place());
 
         $this->gameEquipmentRepository
             ->shouldReceive('findByCriteria')

@@ -56,7 +56,7 @@ class WaterPlantActionTest extends AbstractActionTest
         $item = new ItemConfig();
         $gameItem
               ->setEquipment($item)
-              ->setPlace($room)
+              ->setHolder($room)
         ;
 
         $plant = new Plant();
@@ -91,7 +91,7 @@ class WaterPlantActionTest extends AbstractActionTest
         $item = new ItemConfig();
         $gameItem
             ->setEquipment($item)
-            ->setPlace($room)
+            ->setHolder($room)
         ;
 
         $plant = new Plant();

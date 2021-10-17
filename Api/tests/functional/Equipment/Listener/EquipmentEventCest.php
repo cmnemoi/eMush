@@ -72,7 +72,7 @@ class EquipmentEventCest
         $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
         $I->assertCount(1, $room->getEquipments());
-        $I->assertCount(0, $player->getItems());
+        $I->assertCount(0, $player->getEquipments());
 
         //Case of a game Item
         $gameEquipment = new GameItem();
@@ -94,7 +94,7 @@ class EquipmentEventCest
         $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
         $I->assertCount(1, $room->getEquipments());
-        $I->assertCount(1, $player->getItems());
+        $I->assertCount(1, $player->getEquipments());
 
         //Case of a game Item full inventory
         $gameEquipment = new GameItem();
@@ -116,7 +116,7 @@ class EquipmentEventCest
         $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
         $I->assertCount(2, $room->getEquipments());
-        $I->assertCount(1, $player->getItems());
+        $I->assertCount(1, $player->getEquipments());
 
         $I->seeInRepository(RoomLog::class, [
             'place' => $room->getId(),
@@ -163,7 +163,7 @@ class EquipmentEventCest
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('some name')
-            ->setPlace($room)
+            ->setHolder($room)
         ;
         $I->haveInRepository($gameEquipment);
 
@@ -204,7 +204,7 @@ class EquipmentEventCest
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('some name')
-            ->setPlace($room)
+            ->setHolder($room)
         ;
         $I->haveInRepository($gameEquipment);
 

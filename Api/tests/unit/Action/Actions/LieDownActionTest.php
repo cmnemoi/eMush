@@ -61,7 +61,7 @@ class LieDownActionTest extends AbstractActionTest
 
         $gameEquipment
             ->setEquipment($item)
-            ->setPlace($room)
+            ->setHolder($room)
             ->setName(EquipmentEnum::BED)
         ;
 

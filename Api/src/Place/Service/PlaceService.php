@@ -89,7 +89,7 @@ class PlaceService implements PlaceServiceInterface
                 $door = new Door();
                 $door
                     ->setName($doorName)
-                    ->setPlace($room)
+                    ->setHolder($room)
                     ->setEquipment($doorConfig)
                 ;
             }

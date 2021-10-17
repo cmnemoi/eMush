@@ -34,13 +34,12 @@ class GearModifierService implements GearModifierServiceInterface
                 throw new UnexpectedTypeException($gearMechanic, Gear::class);
             }
 
-            if ($gameEquipment instanceof GameItem) {
-                $player = $gameEquipment->getPlayer();
-            } else {
+            $player = $gameEquipment->getHolder();
+            if (!$player instanceof Player) {
                 $player = null;
             }
 
-            $place = $gameEquipment->getCurrentPlace();
+            $place = $gameEquipment->getPlace();
 
             foreach ($gearMechanic->getModifierConfigs() as $modifierConfig) {
                 $this->createModifier($modifierConfig, $gameEquipment, $place, $player);
@@ -55,12 +54,12 @@ class GearModifierService implements GearModifierServiceInterface
                 throw new UnexpectedTypeException($gearMechanic, Gear::class);
             }
 
-            if ($gameEquipment instanceof GameItem) {
-                $player = $gameEquipment->getPlayer();
-            } else {
+            $player = $gameEquipment->getHolder();
+            if (!$player instanceof Player) {
                 $player = null;
             }
-            $place = $gameEquipment->getCurrentPlace();
+
+            $place = $gameEquipment->getPlace();
 
             foreach ($gearMechanic->getModifierConfigs() as $modifierConfig) {
                 $this->modifierService->deleteModifier($modifierConfig, $place->getDaedalus(), $place, $player, null);
@@ -119,7 +118,7 @@ class GearModifierService implements GearModifierServiceInterface
 
     public function handleDisplacement(Player $player): void
     {
-        foreach ($player->getItems() as $gameItem) {
+        foreach ($player->getEquipments() as $gameItem) {
             if ($gearMechanic = $gameItem->getEquipment()->getMechanicByName(EquipmentMechanicEnum::GEAR)) {
                 if (!$gearMechanic instanceof Gear) {
                     throw new UnexpectedTypeException($gearMechanic, Gear::class);

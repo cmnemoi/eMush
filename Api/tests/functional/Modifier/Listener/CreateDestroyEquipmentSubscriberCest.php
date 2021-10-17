@@ -86,7 +86,7 @@ class CreateDestroyEquipmentSubscriberCest
         $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
         $I->assertEquals($room->getEquipments()->count(), 0);
-        $I->assertEquals($player->getItems()->count(), 1);
+        $I->assertEquals($player->getEquipments()->count(), 1);
         $I->assertEquals($player->getModifiers()->count(), 1);
         $I->assertEquals($room->getModifiers()->count(), 0);
         $I->assertEquals($player->getModifiers()->first()->getModifierConfig(), $modifierConfig);
@@ -144,7 +144,7 @@ class CreateDestroyEquipmentSubscriberCest
         $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
         $I->assertEquals($room->getEquipments()->count(), 1);
-        $I->assertEquals($player->getItems()->count(), 0);
+        $I->assertEquals($player->getEquipments()->count(), 0);
         $I->assertEquals($player->getModifiers()->count(), 0);
         $I->assertEquals($room->getModifiers()->count(), 0);
     }
@@ -201,7 +201,7 @@ class CreateDestroyEquipmentSubscriberCest
         $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
         $I->assertEquals($room->getEquipments()->count(), 0);
-        $I->assertEquals($player->getItems()->count(), 1);
+        $I->assertEquals($player->getEquipments()->count(), 1);
         $I->assertEquals($player->getModifiers()->count(), 0);
         $I->assertEquals($room->getModifiers()->count(), 1);
         $I->assertEquals($room->getModifiers()->first()->getModifierConfig(), $modifierConfig);
@@ -264,7 +264,7 @@ class CreateDestroyEquipmentSubscriberCest
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('some name')
-            ->setPlayer($player)
+            ->setHolder($player)
         ;
         $I->haveInRepository($gameEquipment);
 
@@ -280,7 +280,7 @@ class CreateDestroyEquipmentSubscriberCest
         $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         $I->assertEquals($room->getEquipments()->count(), 0);
-        $I->assertEquals($player->getItems()->count(), 0);
+        $I->assertEquals($player->getEquipments()->count(), 0);
         $I->assertEquals($player->getModifiers()->count(), 0);
         $I->assertEquals($room->getModifiers()->count(), 0);
     }
@@ -344,7 +344,7 @@ class CreateDestroyEquipmentSubscriberCest
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('some name')
-            ->setPlayer($player)
+            ->setHolder($player)
         ;
         $I->haveInRepository($gameEquipment);
 
@@ -352,7 +352,7 @@ class CreateDestroyEquipmentSubscriberCest
         $gameEquipment2
             ->setEquipment($equipmentConfig)
             ->setName('some name')
-            ->setPlayer($player)
+            ->setHolder($player)
         ;
         $I->haveInRepository($gameEquipment2);
 
@@ -368,7 +368,7 @@ class CreateDestroyEquipmentSubscriberCest
         $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         $I->assertEquals($room->getEquipments()->count(), 0);
-        $I->assertEquals($player->getItems()->count(), 1);
+        $I->assertEquals($player->getEquipments()->count(), 1);
         $I->assertEquals($player->getModifiers()->count(), 1);
         $I->assertEquals($room->getModifiers()->count(), 0);
     }
@@ -449,7 +449,7 @@ class CreateDestroyEquipmentSubscriberCest
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('some name')
-            ->setPlayer($player)
+            ->setHolder($player)
         ;
         $I->haveInRepository($gameEquipment);
 
@@ -472,7 +472,7 @@ class CreateDestroyEquipmentSubscriberCest
         $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_TRANSFORM);
 
         $I->assertEquals($room->getEquipments()->count(), 0);
-        $I->assertEquals($player->getItems()->count(), 1);
+        $I->assertEquals($player->getEquipments()->count(), 1);
         $I->assertEquals($player->getModifiers()->count(), 0);
         $I->assertEquals($room->getModifiers()->count(), 0);
         $I->assertEquals($daedalus->getModifiers()->count(), 1);

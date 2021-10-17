@@ -65,7 +65,7 @@ class ReachValidator extends ConstraintValidator
                     throw new UnexpectedTypeException($parameter, GameItem::class);
                 }
 
-                if (!$player->getItems()->contains($parameter)) {
+                if (!$player->getEquipments()->contains($parameter)) {
                     return false;
                 }
                 break;

@@ -47,7 +47,7 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
 
         $items = [];
         /** @var GameItem $item */
-        foreach ($player->getItems() as $item) {
+        foreach ($player->getEquipments() as $item) {
             $items[] = $this->normalizer->normalize($item, $format, $context);
         }
 

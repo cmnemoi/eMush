@@ -64,7 +64,7 @@ class TreatPlantActionTest extends AbstractActionTest
         $item = new ItemConfig();
         $gameItem
               ->setEquipment($item)
-              ->setPlace($room)
+              ->setHolder($room)
         ;
 
         $plant = new Plant();

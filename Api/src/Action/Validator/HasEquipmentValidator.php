@@ -35,14 +35,14 @@ class HasEquipmentValidator extends ConstraintValidator
     {
         switch ($reach) {
             case ReachEnum::INVENTORY:
-                return !$player->getItems()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $equipmentName)->isEmpty();
+                return !$player->getEquipments()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $equipmentName)->isEmpty();
 
             case ReachEnum::SHELVE:
                 return !$player->getPlace()->getEquipments()->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $equipmentName)->isEmpty();
 
             case ReachEnum::ROOM:
                 return !($player->getPlace()->getEquipments()->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $equipmentName)->isEmpty() &&
-                    $player->getItems()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $equipmentName)->isEmpty());
+                    $player->getEquipments()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $equipmentName)->isEmpty());
         }
 
         return true;

@@ -38,7 +38,7 @@ class StatusRepositoryCest
         $door
             ->setName('door')
             ->setEquipment($equipmentConfig)
-            ->setPlace($room)
+            ->setHolder($room)
         ;
 
         $I->haveInRepository($door);
@@ -48,7 +48,7 @@ class StatusRepositoryCest
         $equipment
             ->setName('equipment')
             ->setEquipment($equipmentConfig)
-            ->setPlace($room)
+            ->setHolder($room)
         ;
 
         $I->haveInRepository($equipment);
@@ -58,7 +58,7 @@ class StatusRepositoryCest
         $item
             ->setName('item')
             ->setEquipment($itemConfig)
-            ->setPlayer($player)
+            ->setHolder($player)
         ;
 
         $I->haveInRepository($item);

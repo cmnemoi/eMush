@@ -60,7 +60,7 @@ class GetUpActionTest extends AbstractActionTest
         ;
         $gameItem
             ->setEquipment($item)
-            ->setPlace($room)
+            ->setHolder($room)
             ->setName(EquipmentEnum::BED)
         ;
 

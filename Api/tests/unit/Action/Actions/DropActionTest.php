@@ -71,7 +71,7 @@ class DropActionTest extends AbstractActionTest
 
         $gameItem
             ->setName('itemName')
-            ->setPlayer($player)
+            ->setHolder($player)
         ;
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
@@ -79,7 +79,7 @@ class DropActionTest extends AbstractActionTest
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
-        $this->assertEmpty($player->getItems());
+        $this->assertEmpty($player->getEquipments());
         $this->assertCount(1, $room->getEquipments());
     }
 }

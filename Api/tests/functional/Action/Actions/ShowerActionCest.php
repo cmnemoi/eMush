@@ -93,7 +93,7 @@ class ShowerActionCest
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('shower')
-            ->setPlace($room)
+            ->setHolder($room)
         ;
         $I->haveInRepository($gameEquipment);
 

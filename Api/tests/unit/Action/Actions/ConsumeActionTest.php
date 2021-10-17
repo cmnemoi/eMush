@@ -69,7 +69,7 @@ class ConsumeActionTest extends AbstractActionTest
         $gameEquipment = new GameItem();
         $gameEquipment
             ->setEquipment($equipment)
-            ->setPlace($room)
+            ->setHolder($room)
         ;
 
         $this->playerService->shouldReceive('persist');

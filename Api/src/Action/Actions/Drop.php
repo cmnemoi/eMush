@@ -60,12 +60,11 @@ class Drop extends AbstractAction
         /** @var GameItem $parameter */
         $parameter = $this->parameter;
 
-        $parameter->setPlace($this->player->getPlace());
-        $parameter->setPlayer(null);
+        $parameter->setHolder($this->player->getPlace());
 
         // Remove BURDENED status if no other heavy item in the inventory
         if (($burdened = $this->player->getStatusByName(PlayerStatusEnum::BURDENED)) &&
-            $this->player->getItems()->filter(function (GameItem $item) {
+            $this->player->getEquipments()->filter(function (GameItem $item) {
                 return $item->hasStatus(EquipmentStatusEnum::HEAVY);
             })->isEmpty()
         ) {

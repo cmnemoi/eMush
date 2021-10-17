@@ -64,7 +64,7 @@ class EquipmentSubscriberCest
         $gravitySimulator
             ->setName(EquipmentEnum::GRAVITY_SIMULATOR)
             ->setEquipment($gravitySimulatorConfig)
-            ->setPlace($room)
+            ->setHolder($room)
         ;
 
         $I->haveInRepository($gravitySimulator);
@@ -111,7 +111,7 @@ class EquipmentSubscriberCest
         $gravitySimulator
             ->setName(EquipmentEnum::GRAVITY_SIMULATOR)
             ->setEquipment($gravitySimulatorConfig)
-            ->setPlace($room)
+            ->setHolder($room)
         ;
 
         $I->haveInRepository($gravitySimulator);
@@ -176,7 +176,7 @@ class EquipmentSubscriberCest
         $gameEquipment
             ->setName(EquipmentEnum::BED)
             ->setEquipment($gravitySimulatorConfig)
-            ->setPlace($room)
+            ->setHolder($room)
         ;
 
         $I->haveInRepository($gameEquipment);
@@ -276,7 +276,7 @@ class EquipmentSubscriberCest
         $gravitySimulator
             ->setName(EquipmentEnum::BED)
             ->setEquipment($gravitySimulatorConfig)
-            ->setPlace($room)
+            ->setHolder($room)
         ;
 
         $I->haveInRepository($gravitySimulator);
@@ -336,7 +336,7 @@ class EquipmentSubscriberCest
         $gravitySimulator
             ->setName(EquipmentEnum::BED)
             ->setEquipment($gravitySimulatorConfig)
-            ->setPlace($room)
+            ->setHolder($room)
         ;
 
         $I->haveInRepository($gravitySimulator);

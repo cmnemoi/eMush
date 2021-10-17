@@ -143,7 +143,7 @@ class PlantCycleHandlerTest extends TestCase
 
         $gamePlant
                 ->setEquipment($plant)
-                ->setPlace(new Place());
+                ->setHolder(new Place());
 
         $plantEffect = new PlantEffect();
         $plantEffect
@@ -246,7 +246,7 @@ class PlantCycleHandlerTest extends TestCase
         $gamePlant = new GameItem();
         $gamePlant
             ->setEquipment($plant)
-            ->setPlace($room);
+            ->setHolder($room);
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
@@ -306,7 +306,7 @@ class PlantCycleHandlerTest extends TestCase
         $gamePlant = new GameItem();
         $gamePlant
             ->setEquipment($plant)
-            ->setPlace($room);
+            ->setHolder($room);
 
         $status = new Status($gamePlant);
         $status->setName(EquipmentStatusEnum::PLANT_THIRSTY);
@@ -363,7 +363,7 @@ class PlantCycleHandlerTest extends TestCase
         $gamePlant = new GameItem();
         $gamePlant
             ->setEquipment($plant)
-            ->setPlace($room)
+            ->setHolder($room)
         ;
 
         $status = new Status($gamePlant);

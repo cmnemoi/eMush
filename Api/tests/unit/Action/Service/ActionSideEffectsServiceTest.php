@@ -126,7 +126,7 @@ class ActionSideEffectsServiceTest extends TestCase
         $gameItem = new GameItem();
         $gameItem->setEquipment($itemConfig);
 
-        $player->addItem($gameItem);
+        $player->addEquipment($gameItem);
 
         $this->modifierService
             ->shouldReceive('getEventModifiedValue')
@@ -209,7 +209,7 @@ class ActionSideEffectsServiceTest extends TestCase
         $gameItem = new GameItem();
         $gameItem->setEquipment($itemConfig);
 
-        $player->addItem($gameItem);
+        $player->addEquipment($gameItem);
 
         $this->modifierService
             ->shouldReceive('getEventModifiedValue')

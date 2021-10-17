@@ -79,7 +79,7 @@ class RetrieveFuelTest extends AbstractActionTest
         $tank->setActions(new ArrayCollection([$this->actionEntity]));
 
         $gameTank = new GameEquipment();
-        $gameTank->setEquipment($tank)->setName(EquipmentEnum::FUEL_TANK)->setPlace($room);
+        $gameTank->setEquipment($tank)->setName(EquipmentEnum::FUEL_TANK)->setHolder($room);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gameEquipmentService->shouldReceive('persist');
@@ -91,7 +91,7 @@ class RetrieveFuelTest extends AbstractActionTest
         $result = $this->action->execute();
 
         self::assertInstanceOf(Success::class, $result);
-        self::assertCount(1, $player->getItems());
+        self::assertCount(1, $player->getEquipments());
         self::assertCount(1, $room->getEquipments());
         self::assertEquals(10, $player->getActionPoint());
     }

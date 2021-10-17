@@ -83,7 +83,7 @@ class GearToolServiceTest extends TestCase
             ->addEquipment($gameItem)
             ->addPlayer($player)
         ;
-        $player->addItem($gameItem2);
+        $player->addEquipment($gameItem2);
 
         $items = $this->service->getEquipmentsOnReach($player, ReachEnum::SHELVE);
         $this->assertCount(2, $items);
@@ -142,7 +142,7 @@ class GearToolServiceTest extends TestCase
             ->setName(ItemEnum::METAL_SCRAPS)
             ->setEquipment($item)
         ;
-        $player->addItem($gameItem2);
+        $player->addEquipment($gameItem2);
 
         $items = $this->service->getEquipmentsOnReachByName($player, ItemEnum::METAL_SCRAPS, ReachEnum::INVENTORY);
         $this->assertCount(1, $items);

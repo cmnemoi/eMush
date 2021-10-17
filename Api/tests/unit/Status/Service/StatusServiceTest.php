@@ -90,11 +90,11 @@ class StatusServiceTest extends TestCase
         $room = new Place();
 
         $item1 = new GameItem();
-        $item1->setPlace($room)->setName('item 1');
+        $item1->setHolder($room)->setName('item 1');
         $item2 = new GameItem();
-        $item2->setPlace($room)->setName('item 2');
+        $item2->setHolder($room)->setName('item 2');
         $item3 = new GameItem();
-        $item3->setPlace($room)->setName('item 3');
+        $item3->setHolder($room)->setName('item 3');
 
         $hidden1 = new Status($item1);
         $hidden1

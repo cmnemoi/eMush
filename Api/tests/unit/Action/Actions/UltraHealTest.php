@@ -59,7 +59,7 @@ class UltraHealActionTest extends AbstractActionTest
         $item = new ItemConfig();
         $gameItem
             ->setEquipment($item)
-            ->setPlace($room);
+            ->setHolder($room);
 
         $player = $this->createPlayer(new Daedalus(), $room);
 

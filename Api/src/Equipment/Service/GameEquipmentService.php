@@ -199,7 +199,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         ) {
             $equipmentEvent = new EquipmentEvent(
                 $gameEquipment,
-                $gameEquipment->getCurrentPlace(),
+                $gameEquipment->getPlace(),
                 VisibilityEnum::PUBLIC,
                 EventEnum::FIRE,
                 $date
@@ -213,7 +213,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         ) {
             $equipmentEvent = new EquipmentEvent(
                 $gameEquipment,
-                $gameEquipment->getCurrentPlace(),
+                $gameEquipment->getPlace(),
                 VisibilityEnum::PUBLIC,
                 EventEnum::FIRE,
                 $date

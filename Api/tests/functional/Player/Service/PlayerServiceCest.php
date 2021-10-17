@@ -135,14 +135,14 @@ class PlayerServiceCest
         $gameItem
             ->setName('item')
             ->setEquipment($item)
-            ->setPlayer($player)
+            ->setHolder($player)
         ;
 
         $deadPlayer = $this->playerService->playerDeath($player, EndCauseEnum::INJURY, new \DateTime());
 
         $I->assertCount(1, $room->getPlayers());
         $I->assertCount(0, $room->getPlayers()->getPlayerAlive());
-        $I->assertCount(0, $player->getItems());
+        $I->assertCount(0, $player->getEquipments());
         $I->assertCount(1, $room->getEquipments());
     }
 }

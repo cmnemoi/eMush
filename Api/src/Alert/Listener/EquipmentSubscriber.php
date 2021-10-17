@@ -45,7 +45,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         $this->alertService->handleEquipmentBreak($equipment);
 
         if ($equipment->getName() === EquipmentEnum::GRAVITY_SIMULATOR) {
-            $this->alertService->gravityAlert($equipment->getCurrentPlace()->getDaedalus(), true);
+            $this->alertService->gravityAlert($equipment->getPlace()->getDaedalus(), true);
         }
     }
 
@@ -56,7 +56,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         $this->alertService->handleEquipmentRepair($equipment);
 
         if ($equipment->getName() === EquipmentEnum::GRAVITY_SIMULATOR) {
-            $this->alertService->gravityAlert($equipment->getCurrentPlace()->getDaedalus(), false);
+            $this->alertService->gravityAlert($equipment->getPlace()->getDaedalus(), false);
         }
     }
 
@@ -69,7 +69,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         }
 
         if ($equipment->isBroken()) {
-            $alert = $this->alertService->findByNameAndDaedalus(AlertEnum::BROKEN_EQUIPMENTS, $equipment->getCurrentPlace()->getDaedalus());
+            $alert = $this->alertService->findByNameAndDaedalus(AlertEnum::BROKEN_EQUIPMENTS, $equipment->getPlace()->getDaedalus());
 
             if ($alert === null) {
                 throw new \LogicException('there should be a broken alert on this Daedalus');

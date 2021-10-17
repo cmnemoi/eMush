@@ -93,17 +93,17 @@ class DropSubscriberCest
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('some name')
-            ->setPlayer($player)
+            ->setHolder($player)
         ;
         $I->haveInRepository($gameEquipment);
 
-        $player->addItem($gameEquipment);
+        $player->addEquipment($gameEquipment);
 
         $this->dropAction->loadParameters($takeActionEntity, $player, $gameEquipment);
         $this->dropAction->execute();
 
         $I->assertEquals($room->getEquipments()->count(), 1);
-        $I->assertEquals($player->getItems()->count(), 0);
+        $I->assertEquals($player->getEquipments()->count(), 0);
         $I->assertEquals($player->getModifiers()->count(), 0);
         $I->assertEquals($room->getModifiers()->count(), 0);
     }
@@ -162,7 +162,7 @@ class DropSubscriberCest
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('some name')
-            ->setPlace($room)
+            ->setHolder($room)
         ;
         $I->haveInRepository($gameEquipment);
 
@@ -178,7 +178,7 @@ class DropSubscriberCest
         $this->dropAction->execute();
 
         $I->assertEquals($room->getEquipments()->count(), 1);
-        $I->assertEquals($player->getItems()->count(), 0);
+        $I->assertEquals($player->getEquipments()->count(), 0);
         $I->assertEquals($player->getModifiers()->count(), 0);
         $I->assertEquals($room->getModifiers()->count(), 0);
     }
@@ -241,7 +241,7 @@ class DropSubscriberCest
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('some name')
-            ->setPlace($room)
+            ->setHolder($room)
         ;
         $I->haveInRepository($gameEquipment);
 
@@ -257,7 +257,7 @@ class DropSubscriberCest
         $this->dropAction->execute();
 
         $I->assertEquals($room->getEquipments()->count(), 1);
-        $I->assertEquals($player->getItems()->count(), 0);
+        $I->assertEquals($player->getEquipments()->count(), 0);
         $I->assertEquals($player->getModifiers()->count(), 0);
         $I->assertEquals($room->getModifiers()->count(), 1);
     }
@@ -345,7 +345,7 @@ class DropSubscriberCest
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('some name')
-            ->setPlayer($player)
+            ->setHolder($player)
         ;
         $I->haveInRepository($gameEquipment);
 
@@ -354,17 +354,17 @@ class DropSubscriberCest
         $gameEquipment2
             ->setEquipment($equipmentConfig2)
             ->setName('some name')
-            ->setPlayer($player)
+            ->setHolder($player)
         ;
         $I->haveInRepository($gameEquipment2);
 
-        $player->addItem($gameEquipment)->addItem($gameEquipment2);
+        $player->addEquipment($gameEquipment)->addEquipment($gameEquipment2);
 
         $this->dropAction->loadParameters($takeActionEntity, $player, $gameEquipment);
         $this->dropAction->execute();
 
         $I->assertEquals($room->getEquipments()->count(), 1);
-        $I->assertEquals($player->getItems()->count(), 1);
+        $I->assertEquals($player->getEquipments()->count(), 1);
         $I->assertEquals($player->getModifiers()->count(), 1);
         $I->assertEquals($player->getModifiers()->first(), $modifier2);
         $I->assertEquals($room->getModifiers()->count(), 0);
@@ -430,7 +430,7 @@ class DropSubscriberCest
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('some name')
-            ->setPlayer($player)
+            ->setHolder($player)
         ;
         $I->haveInRepository($gameEquipment);
 
@@ -439,7 +439,7 @@ class DropSubscriberCest
         $gameEquipment2
             ->setEquipment($equipmentConfig)
             ->setName('some name')
-            ->setPlayer($player)
+            ->setHolder($player)
         ;
         $I->haveInRepository($gameEquipment2);
 
@@ -447,7 +447,7 @@ class DropSubscriberCest
         $this->dropAction->execute();
 
         $I->assertEquals($room->getEquipments()->count(), 1);
-        $I->assertEquals($player->getItems()->count(), 1);
+        $I->assertEquals($player->getEquipments()->count(), 1);
         $I->assertEquals($player->getModifiers()->count(), 1);
         $I->assertEquals($room->getModifiers()->count(), 0);
     }

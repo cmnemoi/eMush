@@ -124,7 +124,7 @@ class NeronMessageService implements NeronMessageServiceInterface
         if ($visibility === VisibilityEnum::PUBLIC) {
             $equipmentName = $equipment->getName();
 
-            $daedalus = $equipment->getCurrentPlace()->getDaedalus();
+            $daedalus = $equipment->getPlace()->getDaedalus();
 
             switch ($equipmentName) {
                 case EquipmentEnum::OXYGEN_TANK:

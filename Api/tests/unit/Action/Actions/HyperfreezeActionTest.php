@@ -69,7 +69,7 @@ class HyperfreezeActionTest extends AbstractActionTest
          ;
         $gameRation
             ->setEquipment($ration)
-            ->setPlace($room)
+            ->setHolder($room)
             ->setName('fruit')
         ;
 
@@ -79,7 +79,7 @@ class HyperfreezeActionTest extends AbstractActionTest
         $gameSuperfreezer
             ->setEquipment($superfreezer)
             ->setName(ToolItemEnum::SUPERFREEZER)
-            ->setPlace($room)
+            ->setHolder($room)
         ;
 
         $this->action->loadParameters($this->actionEntity, $player, $gameRation);
@@ -98,7 +98,7 @@ class HyperfreezeActionTest extends AbstractActionTest
 
         $this->assertInstanceOf(Success::class, $result);
         $this->assertCount(2, $room->getEquipments());
-        $this->assertCount(0, $player->getItems());
+        $this->assertCount(0, $player->getEquipments());
         $this->assertEquals($gameRation->getName(), $room->getEquipments()->first()->getName());
         $this->assertCount(0, $player->getStatuses());
     }
@@ -121,7 +121,7 @@ class HyperfreezeActionTest extends AbstractActionTest
          ;
         $gameRation
             ->setEquipment($ration)
-            ->setPlace($room)
+            ->setHolder($room)
             ->setName(GameRationEnum::ALIEN_STEAK)
         ;
 
@@ -131,7 +131,7 @@ class HyperfreezeActionTest extends AbstractActionTest
         $gameSuperfreezer
             ->setEquipment($superfreezer)
             ->setName(ToolItemEnum::SUPERFREEZER)
-            ->setPlace($room)
+            ->setHolder($room)
         ;
 
         $this->action->loadParameters($this->actionEntity, $player, $gameRation);

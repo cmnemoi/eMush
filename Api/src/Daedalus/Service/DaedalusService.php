@@ -145,7 +145,7 @@ class DaedalusService implements DaedalusServiceInterface
                     ->getPlaces()[$this->randomService->random(0, count($randomItemPlaces->getPlaces()) - 1)]
                 ;
                 $room = $daedalus->getRooms()->filter(fn (Place $room) => $roomName === $room->getName())->first();
-                $item->setPlace($room);
+                $item->setHolder($room);
                 $this->gameEquipmentService->persist($item);
             }
         }
@@ -227,8 +227,8 @@ class DaedalusService implements DaedalusServiceInterface
 
             $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
         } else {
-            $capsule = $player->getItems()->filter(fn (GameItem $item) => $item->getName() === ItemEnum::OXYGEN_CAPSULE)->first();
-            $capsule->removeLocation();
+            $capsule = $player->getEquipments()->filter(fn (GameItem $item) => $item->getName() === ItemEnum::OXYGEN_CAPSULE)->first();
+
             $this->gameEquipmentService->delete($capsule);
 
             $this->roomLogService->createLog(
@@ -260,7 +260,7 @@ class DaedalusService implements DaedalusServiceInterface
 
     private function getOxygenCapsuleCount(Player $player): int
     {
-        return $player->getItems()->filter(fn (GameItem $item) => $item->getName() === ItemEnum::OXYGEN_CAPSULE)->count();
+        return $player->getEquipments()->filter(fn (GameItem $item) => $item->getName() === ItemEnum::OXYGEN_CAPSULE)->count();
     }
 
     public function killRemainingPlayers(Daedalus $daedalus, string $cause, \DateTime $date): Daedalus

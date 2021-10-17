@@ -101,7 +101,7 @@ class ConsumeActionCest
 
         $gameItem = new GameItem();
         $gameItem
-            ->setPlace($room)
+            ->setHolder($room)
             ->setEquipment($equipmentConfig)
             ->setName('ration')
         ;
@@ -198,7 +198,7 @@ class ConsumeActionCest
 
         $gameItem = new GameItem();
         $gameItem
-            ->setPlace($room)
+            ->setHolder($room)
             ->setEquipment($equipmentConfig)
             ->setName('ration')
         ;

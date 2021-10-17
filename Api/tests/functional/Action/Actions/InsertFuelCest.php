@@ -77,7 +77,7 @@ class InsertFuelCest
         $gameEquipment
             ->setEquipment($tankConfig)
             ->setName('some name')
-            ->setPlace($room)
+            ->setHolder($room)
         ;
         $I->haveInRepository($gameEquipment);
 
@@ -88,7 +88,7 @@ class InsertFuelCest
         $gameCapsule
             ->setEquipment($capsuleConfig)
             ->setName(ItemEnum::FUEL_CAPSULE)
-            ->setPlayer($player)
+            ->setHolder($player)
         ;
         $I->haveInRepository($gameCapsule);
 
@@ -97,7 +97,7 @@ class InsertFuelCest
         $this->insertFuelAction->execute();
 
         $I->assertEquals(6, $daedalus->getFuel());
-        $I->assertEmpty($player->getItems());
+        $I->assertEmpty($player->getEquipments());
         $I->assertCount(1, $room->getEquipments());
     }
 
@@ -147,7 +147,7 @@ class InsertFuelCest
         $gameEquipment
             ->setEquipment($tankConfig)
             ->setName('some name')
-            ->setPlace($room)
+            ->setHolder($room)
         ;
         $I->haveInRepository($gameEquipment);
 
@@ -158,7 +158,7 @@ class InsertFuelCest
         $gameCapsule
             ->setEquipment($capsuleConfig)
             ->setName(ItemEnum::FUEL_CAPSULE)
-            ->setPlayer($player)
+            ->setHolder($player)
         ;
         $I->haveInRepository($gameCapsule);
 

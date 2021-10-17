@@ -79,7 +79,7 @@ class RetrieveFuel extends AbstractAction
             throw new \LogicException('invalid GameItem: [' . $item::class . '].');
         }
 
-        $item->setPlayer($this->getPlayer());
+        $item->setHolder($this->getPlayer());
         $this->gameEquipmentService->persist($item);
 
         $daedalusEvent = new DaedalusModifierEvent(

@@ -39,11 +39,11 @@ class GearToolService implements GearToolServiceInterface
         //reach can be set to inventory, shelve, shelve only or any room of the Daedalus
         switch ($reach) {
             case ReachEnum::INVENTORY:
-                return $player->getItems();
+                return $player->getEquipments();
 
             case ReachEnum::SHELVE_NOT_HIDDEN:
                 return new ArrayCollection(array_merge(
-                    $player->getItems()->toArray(),
+                    $player->getEquipments()->toArray(),
                     array_filter($player->getPlace()->getEquipments()->toArray(),
                         function (GameEquipment $gameEquipment) use ($player) {
                             return ($hiddenStatus = $gameEquipment->getStatusByName(EquipmentStatusEnum::HIDDEN)) === null ||
@@ -54,7 +54,7 @@ class GearToolService implements GearToolServiceInterface
 
             case $reach === ReachEnum::SHELVE:
                 return new ArrayCollection(array_merge(
-                    $player->getItems()->toArray(),
+                    $player->getEquipments()->toArray(),
                     $player->getPlace()->getEquipments()->toArray()));
             default:
                 $room = $player->getDaedalus()->getPlaceByName($reach);
@@ -151,7 +151,7 @@ class GearToolService implements GearToolServiceInterface
             if ($chargeStatus === null) {
                 $equipmentEvent = new EquipmentEvent(
                     $equipment,
-                    $equipment->getCurrentPlace(),
+                    $equipment->getPlace(),
                     VisibilityEnum::HIDDEN,
                     EventEnum::OUT_OF_CHARGE,
                     new \DateTime()

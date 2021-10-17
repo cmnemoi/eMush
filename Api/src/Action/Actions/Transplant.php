@@ -16,8 +16,6 @@ use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Equipment\Service\GearToolServiceInterface;
-use Mush\Place\Entity\Place;
-use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -75,18 +73,14 @@ class Transplant extends AbstractAction
         /** @var GameItem $hydropot */
         $hydropot = $this->gearToolService->getEquipmentsOnReachByName($this->player, ItemEnum::HYDROPOT)->first();
 
-        /** @var Place $place */
-        $place = $hydropot->getPlace() ?? $hydropot->getPlayer();
+        $holder = $hydropot->getHolder();
+        $place = $hydropot->getPlace();
 
         /** @var GameItem $plantEquipment */
         $plantEquipment = $this->gameEquipmentService
                     ->createGameEquipmentFromName($fruitType->getPlantName(), $this->player->getDaedalus());
 
-        if ($place instanceof Player) {
-            $plantEquipment->setPlayer($place);
-        } else {
-            $plantEquipment->setPlace($place);
-        }
+        $plantEquipment->setHolder($holder);
 
         $equipmentEvent = new EquipmentEvent(
             $parameter,

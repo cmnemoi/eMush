@@ -67,7 +67,7 @@ class ExpressCookActionTest extends AbstractActionTest
         $ration->setName('ration');
         $gameRation
             ->setEquipment($ration)
-            ->setPlayer($player)
+            ->setHolder($player)
             ->setName('ration')
         ;
 
@@ -82,7 +82,7 @@ class ExpressCookActionTest extends AbstractActionTest
         $gameMicrowave
             ->setEquipment($microwave)
             ->setName(ToolItemEnum::MICROWAVE)
-            ->setPlace($room)
+            ->setHolder($room)
         ;
 
         $chargeStatus = new ChargeStatus($gameMicrowave);
@@ -101,10 +101,10 @@ class ExpressCookActionTest extends AbstractActionTest
 
         $this->assertInstanceOf(Success::class, $result);
         $this->assertCount(1, $room->getEquipments());
-        $this->assertCount(1, $player->getItems());
+        $this->assertCount(1, $player->getEquipments());
         $this->assertCount(1, $room->getEquipments()->first()->getStatuses());
-        $this->assertCount(0, $player->getItems()->first()->getStatuses());
-        $this->assertEquals($gameRation->getName(), $player->getItems()->first()->getName());
+        $this->assertCount(0, $player->getEquipments()->first()->getStatuses());
+        $this->assertEquals($gameRation->getName(), $player->getEquipments()->first()->getName());
         $this->assertCount(0, $player->getStatuses());
         $this->assertEquals(10, $player->getActionPoint());
     }
@@ -120,7 +120,7 @@ class ExpressCookActionTest extends AbstractActionTest
         $ration->setName(GameRationEnum::STANDARD_RATION);
         $gameRation
             ->setEquipment($ration)
-            ->setPlace($room)
+            ->setHolder($room)
             ->setName(GameRationEnum::STANDARD_RATION)
         ;
 
@@ -130,7 +130,7 @@ class ExpressCookActionTest extends AbstractActionTest
         $gameMicrowave
             ->setEquipment($microwave)
             ->setName(ToolItemEnum::MICROWAVE)
-            ->setPlace($room)
+            ->setHolder($room)
         ;
 
         $chargeStatus = new ChargeStatus($gameMicrowave);

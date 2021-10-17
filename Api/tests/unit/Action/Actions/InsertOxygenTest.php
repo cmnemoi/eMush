@@ -58,7 +58,7 @@ class InsertOxygenTest extends AbstractActionTest
         $player = $this->createPlayer($daedalus, $room);
         $gameItem
             ->setName(ItemEnum::OXYGEN_CAPSULE)
-            ->setPlayer($player)
+            ->setHolder($player)
         ;
 
         $daedalus->setOxygen(10);
@@ -76,7 +76,7 @@ class InsertOxygenTest extends AbstractActionTest
         $gameTank
             ->setEquipment($tank)
             ->setName(EquipmentEnum::OXYGEN_TANK)
-            ->setPlace($room)
+            ->setHolder($room)
         ;
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);

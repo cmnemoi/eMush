@@ -55,7 +55,7 @@ class StrengthenHull extends AttemptAction
         /** @var GameItem $parameter */
         $parameter = $this->parameter;
 
-        $parameter->setPlayer(null);
+        $parameter->setHolder(null);
 
         $response = $this->makeAttempt();
 

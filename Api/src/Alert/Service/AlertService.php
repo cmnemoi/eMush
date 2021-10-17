@@ -140,7 +140,7 @@ class AlertService implements AlertServiceInterface
             $daedalus = $equipment->getRooms()->first()->getDaedalus();
             $brokenAlert = $this->getAlert($daedalus, AlertEnum::BROKEN_DOORS);
         } else {
-            $daedalus = $equipment->getCurrentPlace()->getDaedalus();
+            $daedalus = $equipment->getPlace()->getDaedalus();
             $brokenAlert = $this->getAlert($daedalus, AlertEnum::BROKEN_EQUIPMENTS);
         }
 
@@ -162,7 +162,7 @@ class AlertService implements AlertServiceInterface
             $daedalus = $equipment->getRooms()->first()->getDaedalus();
             $brokenAlert = $this->findByNameAndDaedalus(AlertEnum::BROKEN_DOORS, $daedalus);
         } else {
-            $daedalus = $equipment->getCurrentPlace()->getDaedalus();
+            $daedalus = $equipment->getPlace()->getDaedalus();
             $brokenAlert = $this->findByNameAndDaedalus(AlertEnum::BROKEN_EQUIPMENTS, $daedalus);
         }
 

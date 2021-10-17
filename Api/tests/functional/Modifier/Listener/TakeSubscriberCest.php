@@ -90,7 +90,7 @@ class TakeSubscriberCest
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('some name')
-            ->setPlace($room)
+            ->setHolder($room)
         ;
         $I->haveInRepository($gameEquipment);
 
@@ -98,7 +98,7 @@ class TakeSubscriberCest
         $this->takeAction->execute();
 
         $I->assertEquals($room->getEquipments()->count(), 0);
-        $I->assertEquals($player->getItems()->count(), 1);
+        $I->assertEquals($player->getEquipments()->count(), 1);
         $I->assertEquals($player->getModifiers()->count(), 1);
         $I->assertEquals($room->getModifiers()->count(), 0);
         $I->assertEquals($player->getModifiers()->first()->getModifierConfig(), $modifierConfig);
@@ -158,7 +158,7 @@ class TakeSubscriberCest
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('some name')
-            ->setPlace($room)
+            ->setHolder($room)
         ;
         $I->haveInRepository($gameEquipment);
 
@@ -174,7 +174,7 @@ class TakeSubscriberCest
         $this->takeAction->execute();
 
         $I->assertEquals($room->getEquipments()->count(), 0);
-        $I->assertEquals($player->getItems()->count(), 1);
+        $I->assertEquals($player->getEquipments()->count(), 1);
         $I->assertEquals($player->getModifiers()->count(), 1);
         $I->assertEquals($room->getModifiers()->count(), 0);
         $I->assertEquals($player->getModifiers()->first()->getModifierConfig(), $modifierConfig);
@@ -235,7 +235,7 @@ class TakeSubscriberCest
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('some name')
-            ->setPlace($room)
+            ->setHolder($room)
         ;
         $I->haveInRepository($gameEquipment);
 
@@ -251,7 +251,7 @@ class TakeSubscriberCest
         $this->takeAction->execute();
 
         $I->assertEquals($room->getEquipments()->count(), 0);
-        $I->assertEquals($player->getItems()->count(), 1);
+        $I->assertEquals($player->getEquipments()->count(), 1);
         $I->assertEquals($player->getModifiers()->count(), 1);
         $I->assertEquals($room->getModifiers()->count(), 0);
         $I->assertEquals($player->getModifiers()->first()->getModifierConfig(), $modifierConfig);
@@ -312,7 +312,7 @@ class TakeSubscriberCest
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('some name')
-            ->setPlace($room)
+            ->setHolder($room)
         ;
         $I->haveInRepository($gameEquipment);
 
@@ -328,7 +328,7 @@ class TakeSubscriberCest
         $this->takeAction->execute();
 
         $I->assertEquals($room->getEquipments()->count(), 0);
-        $I->assertEquals($player->getItems()->count(), 1);
+        $I->assertEquals($player->getEquipments()->count(), 1);
         $I->assertEquals($player->getModifiers()->count(), 0);
         $I->assertEquals($room->getModifiers()->count(), 0);
     }
@@ -387,7 +387,7 @@ class TakeSubscriberCest
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('some name')
-            ->setPlace($room)
+            ->setHolder($room)
         ;
         $I->haveInRepository($gameEquipment);
 
@@ -403,7 +403,7 @@ class TakeSubscriberCest
         $this->takeAction->execute();
 
         $I->assertEquals($room->getEquipments()->count(), 0);
-        $I->assertEquals($player->getItems()->count(), 1);
+        $I->assertEquals($player->getEquipments()->count(), 1);
         $I->assertEquals($player->getModifiers()->count(), 0);
         $I->assertEquals($room->getModifiers()->count(), 0);
     }

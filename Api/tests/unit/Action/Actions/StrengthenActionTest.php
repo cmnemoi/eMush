@@ -60,7 +60,7 @@ class StrengthenActionTest extends AbstractActionTest
 
         $gameItem
             ->setEquipment($item)
-            ->setPlace($room)
+            ->setHolder($room)
         ;
 
         $player = $this->createPlayer($daedalus, $room);
@@ -93,7 +93,7 @@ class StrengthenActionTest extends AbstractActionTest
 
         $gameItem
             ->setEquipment($item)
-            ->setPlace($room)
+            ->setHolder($room)
         ;
 
         $player = $this->createPlayer($daedalus, $room);

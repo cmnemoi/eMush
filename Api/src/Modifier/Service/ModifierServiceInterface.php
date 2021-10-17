@@ -4,7 +4,7 @@ namespace Mush\Modifier\Service;
 
 use Mush\Action\Entity\Action;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Config\GameEquipment;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Place\Entity\Place;

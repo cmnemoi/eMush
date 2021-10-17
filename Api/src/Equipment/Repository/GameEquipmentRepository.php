@@ -7,9 +7,9 @@ use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Criteria\GameEquipmentCriteria;
-use Mush\Equipment\Entity\EquipmentConfig;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Equipment\Entity\Config\GameEquipment;
+use Mush\Equipment\Entity\Config\GameItem;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 

@@ -2,8 +2,8 @@
 
 namespace Mush\Equipment\Listener;
 
-use Mush\Equipment\Entity\Door;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Config\Door;
+use Mush\Equipment\Entity\Config\GameItem;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Event\RoomEvent;

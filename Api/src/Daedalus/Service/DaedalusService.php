@@ -9,9 +9,10 @@ use Mush\Daedalus\Entity\Criteria\DaedalusCriteria;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Daedalus\Event\DaedalusEvent;
+use Mush\Daedalus\Event\DaedalusInitEvent;
 use Mush\Daedalus\Repository\DaedalusRepository;
-use Mush\Equipment\Entity\EquipmentConfig;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Equipment\Entity\Config\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\CharacterConfig;
@@ -125,11 +126,16 @@ class DaedalusService implements DaedalusServiceInterface
 
         $this->persist($daedalus);
 
-        /** @var PlaceConfig $placeConfig */
-        foreach ($daedalusConfig->getPlaceConfigs() as $placeConfig) {
-            $place = $this->placesService->createPlace($placeConfig, $daedalus);
-            $daedalus->addPlace($place);
-        }
+        $daedalusEvent = new DaedalusInitEvent(
+            $daedalus,
+            $daedalusConfig,
+            EventEnum::CREATE_DAEDALUS,
+            new \DateTime()
+        );
+        $this->eventDispatcher->dispatch($daedalusEvent, DaedalusInitEvent::NEW_DAEDALUS);
+
+
+
 
         $randomItemPlaces = $daedalusConfig->getRandomItemPlace();
         if (null !== $randomItemPlaces) {
@@ -150,12 +156,6 @@ class DaedalusService implements DaedalusServiceInterface
             }
         }
 
-        $daedalusEvent = new DaedalusEvent(
-            $daedalus,
-            EventEnum::CREATE_DAEDALUS,
-            new \DateTime()
-        );
-        $this->eventDispatcher->dispatch($daedalusEvent, DaedalusEvent::NEW_DAEDALUS);
 
         return $this->persist($daedalus);
     }

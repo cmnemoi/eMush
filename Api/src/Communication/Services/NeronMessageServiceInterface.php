@@ -4,7 +4,7 @@ namespace Mush\Communication\Services;
 
 use Mush\Communication\Entity\Message;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Config\GameEquipment;
 use Mush\Player\Entity\Player;
 
 interface NeronMessageServiceInterface

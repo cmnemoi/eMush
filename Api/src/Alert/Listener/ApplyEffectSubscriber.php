@@ -5,8 +5,8 @@ namespace Mush\Alert\Listener;
 use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Alert\Enum\AlertEnum;
 use Mush\Alert\Service\AlertServiceInterface;
-use Mush\Equipment\Entity\Door;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Config\Door;
+use Mush\Equipment\Entity\Config\GameEquipment;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 

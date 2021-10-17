@@ -3,7 +3,7 @@
 namespace Mush\Status\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Config\GameEquipment;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 

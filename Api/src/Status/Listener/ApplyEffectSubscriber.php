@@ -3,8 +3,8 @@
 namespace Mush\Status\Listener;
 
 use Mush\Action\Event\ApplyEffectEvent;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\Mechanics\Drug;
+use Mush\Equipment\Entity\Config\GameEquipment;
+use Mush\Equipment\Entity\Config\Mechanics\Drug;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;

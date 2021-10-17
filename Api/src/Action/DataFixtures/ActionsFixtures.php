@@ -9,7 +9,7 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Config\GameItem;
 
 class ActionsFixtures extends Fixture implements DependentFixtureInterface
 {

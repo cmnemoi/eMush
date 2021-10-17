@@ -3,10 +3,10 @@
 namespace Mush\Equipment\CycleHandler;
 
 use Mush\Daedalus\Event\DaedalusModifierEvent;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\Mechanics\Plant;
-use Mush\Equipment\Entity\PlantEffect;
+use Mush\Equipment\Entity\Config\GameEquipment;
+use Mush\Equipment\Entity\Config\GameItem;
+use Mush\Equipment\Entity\Config\Mechanics\Plant;
+use Mush\Equipment\Entity\Config\PlantEffect;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;

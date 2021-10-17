@@ -4,28 +4,33 @@ namespace Mush\Place\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\Door;
-use Mush\Equipment\Entity\EquipmentConfig;
+use Mush\Equipment\Entity\Config\Door;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Entity\PlaceConfig;
+use Mush\Place\Event\PlaceInitEvent;
 use Mush\Place\Repository\PlaceRepository;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class PlaceService implements PlaceServiceInterface
 {
     private EntityManagerInterface $entityManager;
+    private EventDispatcherInterface $eventDispatcher;
     private PlaceRepository $repository;
     private GameEquipmentServiceInterface $equipmentService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
+        EventDispatcherInterface $eventDispatcher,
         PlaceRepository $repository,
         GameEquipmentServiceInterface $equipmentService
     ) {
         $this->entityManager = $entityManager;
+        $this->eventDispatcher = $eventDispatcher;
         $this->repository = $repository;
         $this->equipmentService = $equipmentService;
     }
@@ -43,13 +48,22 @@ class PlaceService implements PlaceServiceInterface
         return $this->repository->find($id);
     }
 
-    public function createPlace(PlaceConfig $roomConfig, Daedalus $daedalus): Place
-    {
+    public function createPlace(
+        PlaceConfig $roomConfig,
+        Daedalus $daedalus,
+        string $reason,
+        \DateTime $time
+    ): Place {
         $room = new Place();
         $room->setName($roomConfig->getName());
         $room->setType($roomConfig->getType());
 
+        $room->setDaedalus($daedalus);
+
         $this->persist($room);
+
+        $placeEvent = new PlaceInitEvent($room, $roomConfig, $reason, $time);
+        $this->eventDispatcher->dispatch($placeEvent, PlaceInitEvent::NEW_PLACE);
 
         $doorConfig = $daedalus
             ->getGameConfig()

@@ -2,9 +2,9 @@
 
 namespace Mush\Modifier\Service;
 
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\Mechanics\Gear;
+use Mush\Equipment\Entity\Config\GameEquipment;
+use Mush\Equipment\Entity\Config\GameItem;
+use Mush\Equipment\Entity\Config\Mechanics\Gear;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierConfig;

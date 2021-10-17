@@ -2,7 +2,7 @@
 
 namespace Mush\Action\ActionResult;
 
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Config\GameEquipment;
 
 abstract class ActionResult
 {

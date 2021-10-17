@@ -8,9 +8,9 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Shred;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\ItemConfig;
-use Mush\Equipment\Entity\Mechanics\Document;
+use Mush\Equipment\Entity\Config\GameItem;
+use Mush\Equipment\Entity\Config\ItemConfig;
+use Mush\Equipment\Entity\Config\Mechanics\Document;
 use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
 

@@ -8,7 +8,7 @@ use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Daedalus\Service\DaedalusIncidentServiceInterface;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Config\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Place\Enum\RoomEnum;

@@ -1,13 +1,14 @@
 <?php
 
-namespace Mush\Equipment\Entity;
+namespace Mush\Equipment\Entity\Config;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Entity\Action;
-use Mush\Equipment\Entity\Mechanics\Ration;
+use Mush\Equipment\Entity\Config\Mechanics\Ration;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Game\Entity\ConfigInterface;
 use Mush\Game\Entity\GameConfig;
 
 /**
@@ -21,7 +22,7 @@ use Mush\Game\Entity\GameConfig;
  *     "item_config" = "Mush\Equipment\Entity\ItemConfig"
  * })
  */
-class EquipmentConfig
+class EquipmentConfig implements ConfigInterface
 {
     /**
      * @ORM\Id

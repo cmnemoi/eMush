@@ -10,7 +10,7 @@ use Mush\Action\Validator\Oxygen;
 use Mush\Action\Validator\ParameterName;
 use Mush\Action\Validator\Reach;
 use Mush\Daedalus\Event\DaedalusModifierEvent;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Config\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;

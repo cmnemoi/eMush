@@ -12,7 +12,7 @@ use Mush\Action\Entity\Action;
  * @ORM\Entity()
  * @ORM\Table(name="character_config")
  */
-class CharacterConfig
+class CharacterConfig implements ConfigInterface
 {
     /**
      * @ORM\Id

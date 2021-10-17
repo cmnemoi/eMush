@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Equipment\Entity;
+namespace Mush\Equipment\Entity\Config;
 
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Place\Entity\Place;

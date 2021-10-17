@@ -7,7 +7,7 @@ use Mockery;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Validator\EquipmentReachable;
 use Mush\Action\Validator\EquipmentReachableValidator;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Config\GameEquipment;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Player\Entity\Player;
 use PHPUnit\Framework\TestCase;

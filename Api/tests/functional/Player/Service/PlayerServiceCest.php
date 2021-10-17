@@ -4,8 +4,8 @@ namespace functional\Player\Service;
 
 use App\Tests\FunctionalTester;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\ItemConfig;
+use Mush\Equipment\Entity\Config\GameItem;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Place\Entity\Place;

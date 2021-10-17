@@ -2,9 +2,9 @@
 
 namespace Mush\RoomLog\Listener;
 
-use Mush\Equipment\Entity\Door;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Config\Door;
+use Mush\Equipment\Entity\Config\GameEquipment;
+use Mush\Equipment\Entity\Config\GameItem;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;

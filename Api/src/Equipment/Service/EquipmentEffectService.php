@@ -3,11 +3,11 @@
 namespace Mush\Equipment\Service;
 
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\ConsumableEffect;
-use Mush\Equipment\Entity\Mechanics\Drug;
-use Mush\Equipment\Entity\Mechanics\Plant;
-use Mush\Equipment\Entity\Mechanics\Ration;
-use Mush\Equipment\Entity\PlantEffect;
+use Mush\Equipment\Entity\Config\ConsumableEffect;
+use Mush\Equipment\Entity\Config\Mechanics\Drug;
+use Mush\Equipment\Entity\Config\Mechanics\Plant;
+use Mush\Equipment\Entity\Config\Mechanics\Ration;
+use Mush\Equipment\Entity\Config\PlantEffect;
 use Mush\Equipment\Repository\ConsumableEffectRepository;
 use Mush\Equipment\Repository\PlantEffectRepository;
 use Mush\Game\Service\RandomServiceInterface;

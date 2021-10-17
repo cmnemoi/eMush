@@ -11,7 +11,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
  * @ORM\Entity()
  * @ORM\Table(name="config_difficulty")
  */
-class DifficultyConfig
+class DifficultyConfig implements ConfigInterface
 {
     use TimestampableEntity;
 

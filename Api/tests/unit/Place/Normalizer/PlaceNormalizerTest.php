@@ -3,9 +3,9 @@
 namespace Mush\Test\Place\Normalizer;
 
 use Mockery;
-use Mush\Equipment\Entity\Door;
-use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\ItemConfig;
+use Mush\Equipment\Entity\Config\Door;
+use Mush\Equipment\Entity\Config\GameItem;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;

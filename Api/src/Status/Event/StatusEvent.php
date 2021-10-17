@@ -2,7 +2,7 @@
 
 namespace Mush\Status\Event;
 
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Config\GameEquipment;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;

@@ -5,8 +5,8 @@ namespace functional\Equipment\Service;
 use App\Tests\FunctionalTester;
 use Mush\Action\Enum\ExtraEffectEnum;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\Mechanics\Fruit;
-use Mush\Equipment\Entity\Mechanics\Ration;
+use Mush\Equipment\Entity\Config\Mechanics\Fruit;
+use Mush\Equipment\Entity\Config\Mechanics\Ration;
 use Mush\Equipment\Enum\GamePlantEnum;
 use Mush\Equipment\Service\EquipmentEffectService;
 

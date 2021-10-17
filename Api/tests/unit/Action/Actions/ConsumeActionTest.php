@@ -8,10 +8,10 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Consume;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\ConsumableEffect;
-use Mush\Equipment\Entity\EquipmentConfig;
-use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\Mechanics\Ration;
+use Mush\Equipment\Entity\Config\ConsumableEffect;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Equipment\Entity\Config\GameItem;
+use Mush\Equipment\Entity\Config\Mechanics\Ration;
 use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
 

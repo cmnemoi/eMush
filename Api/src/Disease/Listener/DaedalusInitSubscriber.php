@@ -3,12 +3,13 @@
 namespace Mush\Disease\Listener;
 
 use Mush\Daedalus\Event\DaedalusEvent;
+use Mush\Daedalus\Event\DaedalusInitEvent;
 use Mush\Disease\Service\ConsumableDiseaseService;
 use Mush\Equipment\Enum\GameFruitEnum;
 use Mush\Equipment\Enum\GameRationEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class DaedalusSubscriber implements EventSubscriberInterface
+class DaedalusInitSubscriber implements EventSubscriberInterface
 {
     private ConsumableDiseaseService $consumableDiseaseService;
 
@@ -20,7 +21,7 @@ class DaedalusSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            DaedalusEvent::NEW_DAEDALUS => 'onNewDaedalus',
+            DaedalusInitEvent::NEW_DAEDALUS => 'onNewDaedalus',
         ];
     }
 

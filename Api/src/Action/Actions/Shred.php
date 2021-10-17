@@ -9,7 +9,7 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\Mechanic;
 use Mush\Action\Validator\Reach;
 use Mush\Action\Validator\Shredable;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Config\GameItem;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;

@@ -1,10 +1,10 @@
 <?php
 
-namespace Mush\Equipment\Entity;
+namespace Mush\Equipment\Entity\Config;
 
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\Mechanics\Plant;
+use Mush\Equipment\Entity\Config\Mechanics\Plant;
 
 /**
  * Class PlantEffect.

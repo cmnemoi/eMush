@@ -9,8 +9,8 @@ use Mush\Alert\Entity\AlertElement;
 use Mush\Alert\Enum\AlertEnum;
 use Mush\Alert\Repository\AlertRepository;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\Door;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Config\Door;
+use Mush\Equipment\Entity\Config\GameEquipment;
 use Mush\Place\Entity\Place;
 
 class AlertService implements AlertServiceInterface

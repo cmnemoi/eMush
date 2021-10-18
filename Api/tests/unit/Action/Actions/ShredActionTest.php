@@ -56,7 +56,7 @@ class ShredActionTest extends AbstractActionTest
         $item->setMechanics(new ArrayCollection([$document]));
         $gameItem
             ->setEquipment($item)
-            ->setPlace($room)
+            ->setHolder($room)
         ;
 
         $this->playerService->shouldReceive('persist');
@@ -70,6 +70,6 @@ class ShredActionTest extends AbstractActionTest
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
-        $this->assertEmpty($player->getItems());
+        $this->assertEmpty($player->getEquipments());
     }
 }

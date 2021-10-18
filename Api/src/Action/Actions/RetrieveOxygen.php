@@ -70,7 +70,7 @@ class RetrieveOxygen extends AbstractAction
             throw new \LogicException('invalid GameItem');
         }
 
-        $gameItem->setPlayer($this->player);
+        $gameItem->setHolder($this->player);
 
         $this->gameEquipmentService->persist($gameItem);
 

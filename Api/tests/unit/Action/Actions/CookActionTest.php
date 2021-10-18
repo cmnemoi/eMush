@@ -18,7 +18,6 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 
 class CookActionTest extends AbstractActionTest
 {
@@ -26,8 +25,6 @@ class CookActionTest extends AbstractActionTest
     private GameEquipmentServiceInterface $gameEquipmentService;
     /** @var PlayerServiceInterface|Mockery\Mock */
     private PlayerServiceInterface $playerService;
-    /** @var StatusServiceInterface|Mockery\Mock */
-    private StatusServiceInterface $statusService;
 
     /**
      * @before
@@ -38,7 +35,6 @@ class CookActionTest extends AbstractActionTest
 
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
-        $this->statusService = Mockery::mock(StatusServiceInterface::class);
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::COOK, 1);
 
@@ -48,7 +44,6 @@ class CookActionTest extends AbstractActionTest
             $this->validator,
             $this->gameEquipmentService,
             $this->playerService,
-            $this->statusService,
         );
     }
 
@@ -72,7 +67,7 @@ class CookActionTest extends AbstractActionTest
         $ration->setName('ration');
         $gameRation
             ->setEquipment($ration)
-            ->setPlayer($player)
+            ->setHolder($player)
             ->setName('ration')
         ;
 
@@ -87,7 +82,7 @@ class CookActionTest extends AbstractActionTest
         $gameKitchen
             ->setEquipment($kitchen)
             ->setName(EquipmentEnum::KITCHEN)
-            ->setPlace($room)
+            ->setHolder($room)
         ;
 
         $this->action->loadParameters($this->actionEntity, $player, $gameRation);
@@ -99,9 +94,9 @@ class CookActionTest extends AbstractActionTest
 
         $this->assertInstanceOf(Success::class, $result);
         $this->assertCount(1, $room->getEquipments());
-        $this->assertCount(1, $player->getItems());
-        $this->assertCount(0, $player->getItems()->first()->getStatuses());
-        $this->assertEquals($gameRation->getName(), $player->getItems()->first()->getName());
+        $this->assertCount(1, $player->getEquipments());
+        $this->assertCount(0, $player->getEquipments()->first()->getStatuses());
+        $this->assertEquals($gameRation->getName(), $player->getEquipments()->first()->getName());
         $this->assertCount(0, $player->getStatuses());
 
         $room = new Place();
@@ -117,7 +112,7 @@ class CookActionTest extends AbstractActionTest
         $ration->setName(GameRationEnum::STANDARD_RATION);
         $gameRation
             ->setEquipment($ration)
-            ->setPlace($room)
+            ->setHolder($room)
             ->setName(GameRationEnum::STANDARD_RATION)
         ;
 
@@ -127,7 +122,7 @@ class CookActionTest extends AbstractActionTest
         $gameKitchen
             ->setEquipment($kitchen)
             ->setName(EquipmentEnum::KITCHEN)
-            ->setPlace($room)
+            ->setHolder($room)
         ;
         $player = $this->createPlayer(new Daedalus(), $room);
 

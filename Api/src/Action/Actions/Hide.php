@@ -65,10 +65,7 @@ class Hide extends AbstractAction
 
         $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
 
-        if ($parameter->getPlayer()) {
-            $parameter->setPlayer(null);
-            $parameter->setPlace($this->player->getPlace());
-        }
+        $parameter->setHolder($this->player->getPlace());
 
         $this->gameEquipmentService->persist($parameter);
 

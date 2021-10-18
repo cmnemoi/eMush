@@ -67,7 +67,7 @@ class TakeActionTest extends AbstractActionTest
         $gameItem->setEquipment($item);
         $gameItem
             ->setName('itemName')
-            ->setPlace($room)
+            ->setHolder($room)
         ;
 
         $gameConfig = new GameConfig();
@@ -88,7 +88,7 @@ class TakeActionTest extends AbstractActionTest
 
         $this->assertInstanceOf(Success::class, $result);
         $this->assertEmpty($room->getEquipments());
-        $this->assertCount(1, $player->getItems());
+        $this->assertCount(1, $player->getEquipments());
     }
 
     public function testTakeHeavyObject()
@@ -102,7 +102,7 @@ class TakeActionTest extends AbstractActionTest
         $gameItem->setEquipment($item);
         $gameItem
             ->setName('itemName')
-            ->setPlace($room)
+            ->setHolder($room)
         ;
 
         $heavy = new Status($gameItem);
@@ -134,6 +134,6 @@ class TakeActionTest extends AbstractActionTest
 
         $this->assertInstanceOf(Success::class, $result);
         $this->assertEmpty($room->getEquipments());
-        $this->assertCount(1, $player->getItems());
+        $this->assertCount(1, $player->getEquipments());
     }
 }

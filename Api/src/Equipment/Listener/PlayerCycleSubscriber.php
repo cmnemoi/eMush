@@ -29,7 +29,7 @@ class PlayerCycleSubscriber implements EventSubscriberInterface
     {
         $player = $event->getPlayer();
 
-        foreach ($player->getItems() as $item) {
+        foreach ($player->getEquipments() as $item) {
             $itemNewCycle = new EquipmentCycleEvent(
                 $item,
                 $player->getDaedalus(),
@@ -44,7 +44,7 @@ class PlayerCycleSubscriber implements EventSubscriberInterface
     {
         $player = $event->getPlayer();
 
-        foreach ($player->getItems() as $item) {
+        foreach ($player->getEquipments() as $item) {
             $itemNewDay = new EquipmentCycleEvent(
                 $item,
                 $player->getDaedalus(),

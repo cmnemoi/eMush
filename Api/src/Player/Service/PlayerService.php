@@ -294,9 +294,8 @@ class PlayerService implements PlayerServiceInterface
         }
 
         $currentRoom = $player->getPlace();
-        foreach ($player->getItems() as $item) {
-            $item->setPlayer(null);
-            $item->setPlace($currentRoom);
+        foreach ($player->getEquipments() as $item) {
+            $item->setHolder($currentRoom);
             $this->gameEquipmentService->persist($item);
         }
 

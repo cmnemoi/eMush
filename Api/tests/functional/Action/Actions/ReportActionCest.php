@@ -98,7 +98,7 @@ class EquipmentSubscriberCest
         $gameEquipment
             ->setName(EquipmentEnum::NARCOTIC_DISTILLER)
             ->setEquipment($equipmentConfig)
-            ->setPlace($room)
+            ->setHolder($room)
         ;
         $I->haveInRepository($gameEquipment);
 

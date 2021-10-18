@@ -70,7 +70,7 @@ class DispenseActionTest extends AbstractActionTest
         $gameDistillerMachine
             ->setEquipment($distillerMachine)
             ->setName(EquipmentEnum::COFFEE_MACHINE)
-            ->setPlace($room);
+            ->setHolder($room);
 
         $distillerMachine->setActions(new ArrayCollection([$this->actionEntity]));
 

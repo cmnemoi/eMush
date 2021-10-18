@@ -47,7 +47,7 @@ class CoffeeActionCest
 
         $I->assertFalse($this->coffeeAction->isVisible());
 
-        $gameEquipment->setPlace($room1);
+        $gameEquipment->setHolder($room1);
 
         $I->assertTrue($this->coffeeAction->isVisible());
     }
@@ -148,7 +148,7 @@ class CoffeeActionCest
         $equipment->setName($name);
         $gameEquipment
             ->setEquipment($equipment)
-            ->setPlace($place)
+            ->setHolder($place)
             ->setName($name)
         ;
 

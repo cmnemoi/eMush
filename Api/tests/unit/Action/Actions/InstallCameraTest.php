@@ -59,7 +59,7 @@ class InstallCameraActionTest extends AbstractActionTest
         $cameraItem
             ->setEquipment($cameraItemConfig)
             ->setName(ItemEnum::CAMERA_ITEM)
-            ->setPlace($room)
+            ->setHolder($room)
         ;
 
         $cameraItemConfig->setActions(new ArrayCollection([$this->actionEntity]));

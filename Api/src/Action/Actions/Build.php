@@ -25,7 +25,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class  Build extends AbstractAction
+class Build extends AbstractAction
 {
     protected string $name = ActionEnum::BUILD;
 
@@ -94,7 +94,7 @@ class  Build extends AbstractAction
             $blueprintMechanic->getEquipment(),
             $this->player,
             $this->getActionName(),
-            new \DateTime
+            new \DateTime()
         );
         $place = $this->player->getPlace();
 

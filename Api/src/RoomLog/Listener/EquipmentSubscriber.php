@@ -2,7 +2,6 @@
 
 namespace Mush\RoomLog\Listener;
 
-use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Event\EquipmentEvent;
@@ -27,7 +26,6 @@ class EquipmentSubscriber implements EventSubscriberInterface
     {
         return [
             EquipmentEvent::EQUIPMENT_CREATED => ['onEquipmentCreated', -100],
-            EquipmentEvent::EQUIPMENT_BROKEN => ['onEquipmentBroken', 10],
             EquipmentEvent::EQUIPMENT_DESTROYED => ['onEquipmentDestroyed', 10],
             EquipmentEvent::EQUIPMENT_TRANSFORM => ['onEquipmentTransform', -100],
         ];
@@ -64,31 +62,6 @@ class EquipmentSubscriber implements EventSubscriberInterface
                 $event->getLogParameters(),
                 $event->getTime()
             );
-        }
-    }
-
-    public function onEquipmentBroken(EquipmentEvent $event): void
-    {
-        if ($event->getVisibility() !== VisibilityEnum::HIDDEN) {
-            $equipment = $event->getEquipment();
-
-            if ($equipment instanceof Door) {
-                $rooms = $equipment->getRooms()->toArray();
-            } else {
-                $rooms = [$equipment->getPlace()];
-            }
-
-            foreach ($rooms as $room) {
-                $this->roomLogService->createLog(
-                    LogEnum::EQUIPMENT_BROKEN,
-                    $room,
-                    $event->getVisibility(),
-                    'event_log',
-                    null,
-                    $event->getLogParameters(),
-                    $event->getTime()
-                );
-            }
         }
     }
 

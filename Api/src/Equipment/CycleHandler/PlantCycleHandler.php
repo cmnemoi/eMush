@@ -162,7 +162,7 @@ class PlantCycleHandler extends AbstractCycleHandler
         $place = $gamePlant->getPlace();
         $holder = $gamePlant->getHolder();
 
-        if ($holder === null){
+        if ($holder === null) {
             throw new LogicException('Equipment holder is empty');
         }
 

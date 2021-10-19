@@ -66,7 +66,7 @@ class Coffee extends AbstractAction
                 GameRationEnum::COFFEE,
                 $this->player,
                 $this->getActionName(),
-                new \DateTime
+                new \DateTime()
             )
         ;
 

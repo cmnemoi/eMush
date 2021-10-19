@@ -4,7 +4,6 @@ namespace Mush\Status\Listener;
 
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Status\Entity\Status;
-use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -21,31 +20,8 @@ class EquipmentSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            EquipmentEvent::EQUIPMENT_FIXED => 'onEquipmentFixed',
-            EquipmentEvent::EQUIPMENT_BROKEN => 'onEquipmentBroken',
             EquipmentEvent::EQUIPMENT_TRANSFORM => ['onEquipmentTransform', 1000], // change the status before original equipment is destroyed
         ];
-    }
-
-    public function onEquipmentFixed(EquipmentEvent $event): void
-    {
-        $equipment = $event->getEquipment();
-
-        if (($brokenStatus = $equipment->getStatusByName(EquipmentStatusEnum::BROKEN)) === null) {
-            throw new \LogicException('equipment should be broken to be fixed');
-        }
-
-        $this->statusService->delete($brokenStatus);
-    }
-
-    public function onEquipmentBroken(EquipmentEvent $event): void
-    {
-        $equipment = $event->getEquipment();
-
-        $brokenStatusConfig = $this->statusService->getStatusConfigByNameAndDaedalus(EquipmentStatusEnum::BROKEN, $event->getPlace()->getDaedalus());
-        $brokenStatus = $this->statusService->createStatusFromConfig($brokenStatusConfig, $equipment);
-
-        $this->statusService->persist($brokenStatus);
     }
 
     public function onEquipmentTransform(EquipmentEvent $event): void

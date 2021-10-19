@@ -92,7 +92,7 @@ class Disassemble extends AttemptAction
                         $productString,
                         $this->player,
                         $this->getActionName(),
-                        new \DateTime)
+                        new \DateTime())
                 ;
 
                 $equipmentEvent = new EquipmentEvent(

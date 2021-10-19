@@ -4,16 +4,11 @@ namespace Mush\Place\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\Config\EquipmentConfig;
-use Mush\Equipment\Entity\Door;
-use Mush\Equipment\Enum\EquipmentEnum;
-use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Event\PlaceInitEvent;
 use Mush\Place\Repository\PlaceRepository;
-use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class PlaceService implements PlaceServiceInterface

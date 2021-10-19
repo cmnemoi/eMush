@@ -7,8 +7,6 @@ use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
-use Mush\Place\Entity\PlaceConfig;
-use Mush\Place\Service\PlaceServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class DaedalusInitEventSubscriber implements EventSubscriberInterface
@@ -19,8 +17,7 @@ class DaedalusInitEventSubscriber implements EventSubscriberInterface
     public function __construct(
         GameEquipmentServiceInterface $gameEquipmentService,
         RandomServiceInterface $randomService,
-    )
-    {
+    ) {
         $this->gameEquipmentService = $gameEquipmentService;
         $this->randomService = $randomService;
     }

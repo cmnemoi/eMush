@@ -68,7 +68,7 @@ class RetrieveOxygen extends AbstractAction
             ItemEnum::OXYGEN_CAPSULE,
             $this->player,
             $this->getActionName(),
-            new \DateTime
+            new \DateTime()
         );
 
         if (!$gameItem instanceof GameItem) {

@@ -72,7 +72,7 @@ class InstallCamera extends AbstractAction
                 EquipmentEnum::CAMERA_EQUIPMENT,
                 $this->player->getPlace(),
                 $this->getActionName(),
-                new \DateTime)
+                new \DateTime())
         ;
 
         $equipmentEvent = new EquipmentEvent(

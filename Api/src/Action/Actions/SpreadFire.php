@@ -9,10 +9,10 @@ use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\IsRoom;
-use Mush\Place\Event\RoomEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
+use Mush\Status\Event\StatusEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -47,12 +47,13 @@ class SpreadFire extends AbstractAction
 
     protected function applyEffects(): ActionResult
     {
-        $roomEvent = new RoomEvent(
+        $statusEvent = new StatusEvent(
+            StatusEnum::FIRE,
             $this->player->getPlace(),
             $this->getActionName(),
             new \DateTime()
         );
-        $this->eventDispatcher->dispatch($roomEvent, RoomEvent::STARTING_FIRE);
+        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
 
         return new Success();
     }

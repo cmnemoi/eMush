@@ -74,7 +74,7 @@ class RetrieveFuel extends AbstractAction
             ItemEnum::FUEL_CAPSULE,
             $this->getPlayer(),
             $this->getActionName(),
-            new \DateTime
+            new \DateTime()
         );
 
         if (!$item instanceof GameItem) {

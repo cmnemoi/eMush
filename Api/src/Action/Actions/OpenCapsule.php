@@ -88,7 +88,7 @@ class OpenCapsule extends AbstractAction
                 $contentName,
                 $this->player,
                 $this->getActionName(),
-                new \DateTime
+                new \DateTime()
             )
         ;
         $equipmentEvent = new EquipmentEvent(

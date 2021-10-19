@@ -5,14 +5,9 @@ namespace Mush\Equipment\Listener;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Enum\EquipmentEnum;
-use Mush\Equipment\Enum\EquipmentMechanicEnum;
-use Mush\Equipment\Event\EquipmentCycleEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
-use Mush\Place\Event\PlaceCycleEvent;
 use Mush\Place\Event\PlaceInitEvent;
-use Mush\Status\Enum\EquipmentStatusEnum;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class PlaceInitSubscriber implements EventSubscriberInterface
@@ -58,7 +53,6 @@ class PlaceInitSubscriber implements EventSubscriberInterface
             $gameEquipment = $this->gameEquipmentService->createGameEquipment($equipment, $place, $reason, $time);
         }
 
-
         //initialize doors
         $doorConfig = $daedalus
             ->getGameConfig()
@@ -93,6 +87,5 @@ class PlaceInitSubscriber implements EventSubscriberInterface
 
             $this->gameEquipmentService->persist($door);
         }
-
     }
 }

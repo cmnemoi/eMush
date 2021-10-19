@@ -9,13 +9,13 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEventEnum;
-use Mush\Place\Event\RoomEvent;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerModifierEvent;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Enum\StatusEnum;
+use Mush\Status\Event\StatusEvent;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class Fire extends AbstractStatusCycleHandler
@@ -67,12 +67,13 @@ class Fire extends AbstractStatusCycleHandler
             if (!$adjacentRoom->hasStatus(StatusEnum::FIRE) &&
                 $this->randomService->isSuccessful($difficultyConfig->getPropagatingFireRate())
             ) {
-                $roomEvent = new RoomEvent(
+                $statusEvent = new StatusEvent(
+                    StatusEnum::FIRE,
                     $adjacentRoom,
                     RoomEventEnum::PROPAGATING_FIRE,
                     $date
                 );
-                $this->eventDispatcher->dispatch($roomEvent, RoomEvent::STARTING_FIRE);
+                $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
             }
         }
 

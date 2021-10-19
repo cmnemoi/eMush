@@ -10,7 +10,7 @@ use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\DataFixtures\TechnicianFixtures;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Equipment\Entity\EquipmentConfig;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -309,13 +309,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var ChargeStatusConfig $combustionChargeStatus */
         $combustionChargeStatus = $this->getReference(ChargeStatusFixtures::COMBUSTION_CHAMBER);
 
-        $combustionChargedMechanic = new Charged();
-        $combustionChargedMechanic
-            ->setMaxCharge(9)
-            ->setStartCharge(0)
-            ->setChargeStatusConfig($combustionChargeStatus)
-        ;
-
         $combustionChamber = new EquipmentConfig();
         $combustionChamber
             ->setGameConfig($gameConfig)
@@ -323,12 +316,12 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
-            ->setMechanics(new ArrayCollection([$combustionChamberMechanic, $combustionChargedMechanic]))
+            ->setMechanics(new ArrayCollection([$combustionChamberMechanic]))
+            ->setInitStatus(new ArrayCollection([$combustionChargeStatus]))
             ->setActions(new ArrayCollection([$repair12, $sabotage12, $reportAction, $examineAction]))
         ;
         $manager->persist($combustionChamber);
         $manager->persist($combustionChamberMechanic);
-        $manager->persist($combustionChargedMechanic);
 
         /** @var Action $cookAction */
         $cookAction = $this->getReference(ActionsFixtures::COOK_DEFAULT);
@@ -354,13 +347,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $dispenseAction = $this->getReference(ActionsFixtures::DISPENSE_DRUG);
         $distillerMechanic->addAction($dispenseAction);
 
-        $dailyChargeMechanic = new Charged();
-        $dailyChargeMechanic
-            ->setMaxCharge(1)
-            ->setStartCharge(1)
-            ->setChargeStatusConfig($dailyElectricCharge)
-            ->setDischargeStrategy(ActionEnum::DISPENSE)
-        ;
+        /** @var ChargeStatusConfig $dispenserCharge */
+        $dispenserCharge = $this->getReference(ChargeStatusFixtures::DISPENSER_CHARGE);
 
         $narcoticDistiller = new EquipmentConfig();
         $narcoticDistiller
@@ -368,14 +356,14 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setName(EquipmentEnum::NARCOTIC_DISTILLER)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$distillerMechanic, $dailyChargeMechanic]))
+            ->setMechanics(new ArrayCollection([$distillerMechanic]))
+            ->setInitStatus(new ArrayCollection([$dispenserCharge]))
             ->setActions(new ArrayCollection([$this->getReference(TechnicianFixtures::DISMANTLE_3_25), $examineAction]))
             ->setDismountedProducts([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::METAL_SCRAPS => 2])
         ;
 
         $manager->persist($narcoticDistiller);
         $manager->persist($distillerMechanic);
-        $manager->persist($dailyChargeMechanic);
 
         $shower = new EquipmentConfig();
         $shower
@@ -447,6 +435,9 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $coffeMachineMechanic = new Tool();
         $coffeMachineMechanic->addAction($coffeeAction);
 
+        /** @var ChargeStatusConfig $coffeeCharge */
+        $coffeeCharge = $this->getReference(ChargeStatusFixtures::COFFEE_CHARGE);
+
         $coffeMachine = new EquipmentConfig();
         $coffeMachine
             ->setGameConfig($gameConfig)
@@ -454,7 +445,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
-            ->setMechanics(new ArrayCollection([$coffeMachineMechanic, $dailyChargeMechanic]))
+            ->setMechanics(new ArrayCollection([$coffeMachineMechanic]))
+            ->setInitStatus(new ArrayCollection([$coffeeCharge]))
             ->setActions(new ArrayCollection([$repair12, $sabotage12, $reportAction, $examineAction]))
         ;
         $manager->persist($coffeMachine);
@@ -489,13 +481,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($mycoscan);
         $manager->persist($mycoscanMechanic);
 
-        $turretChargeMechanic = new Charged();
-        $turretChargeMechanic
-            ->setMaxCharge(4)
-            ->setStartCharge(4)
-            ->setChargeStatusConfig($electricCharge)
-            ->setDischargeStrategy(ActionEnum::SHOOT_HUNTER)
-        ;
+        /** @var ChargeStatusConfig $turretCharge */
+        $turretCharge = $this->getReference(ChargeStatusFixtures::TURRET_CHARGE);
 
         $turretCommandMechanic = new Tool();
 //        $turretCommandMechanic->setActions([ActionEnum::SHOOT_HUNTER]);
@@ -506,12 +493,12 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
-            ->setMechanics(new ArrayCollection([$turretCommandMechanic, $turretChargeMechanic]))
+            ->setMechanics(new ArrayCollection([$turretCommandMechanic]))
+            ->setInitStatus(new ArrayCollection([$turretCharge]))
             ->setActions(new ArrayCollection([$repair12, $sabotage12, $reportAction, $examineAction]))
         ;
         $manager->persist($turretCommand);
         $manager->persist($turretCommandMechanic);
-        $manager->persist($turretChargeMechanic);
 
         $surgicalPlotMechanic = new Tool();
 //        $surgicalPlotMechanic->setGrantActions([ActionEnum::SELF_SURGERY, ActionEnum::SURGERY]);

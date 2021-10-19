@@ -70,7 +70,7 @@ class Cook extends AbstractAction
                     GameRationEnum::COOKED_RATION,
                     $this->player,
                     $this->getActionName(),
-                    new \DateTime)
+                    new \DateTime())
             ;
 
             $equipmentEvent = new EquipmentEvent(

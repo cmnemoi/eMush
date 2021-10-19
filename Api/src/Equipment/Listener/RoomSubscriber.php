@@ -4,10 +4,11 @@ namespace Mush\Equipment\Listener;
 
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Event\RoomEvent;
 use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Event\StatusEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -42,14 +43,14 @@ class RoomSubscriber implements EventSubscriberInterface
                 !($equipment instanceof Door) &&
                 !($equipment instanceof GameItem) &&
                 $equipment->isBreakable()) {
-                $equipmentEvent = new EquipmentEvent(
+                $statusEvent = new StatusEvent(
+                    EquipmentStatusEnum::BROKEN,
                     $equipment,
-                    $event->getPlace(),
-                    VisibilityEnum::PUBLIC,
                     RoomEvent::ELECTRIC_ARC,
                     $event->getTime()
                 );
-                $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_BROKEN);
+                $statusEvent->setVisibility(VisibilityEnum::PUBLIC);
+                $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
             }
         }
     }

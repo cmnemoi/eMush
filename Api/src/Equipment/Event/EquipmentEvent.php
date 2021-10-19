@@ -11,8 +11,6 @@ use Mush\RoomLog\Event\LoggableEventInterface;
 class EquipmentEvent extends AbstractGameEvent implements LoggableEventInterface
 {
     public const EQUIPMENT_CREATED = 'equipment.created';
-    public const EQUIPMENT_FIXED = 'equipment.fixed';
-    public const EQUIPMENT_BROKEN = 'equipment.broken';
     public const EQUIPMENT_DESTROYED = 'equipment.destroyed';
     public const EQUIPMENT_TRANSFORM = 'equipment.transform';
 

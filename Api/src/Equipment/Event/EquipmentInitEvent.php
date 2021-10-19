@@ -3,7 +3,6 @@
 namespace Mush\Equipment\Event;
 
 use Mush\Equipment\Entity\Config\EquipmentConfig;
-use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Event\AbstractGameEvent;
 

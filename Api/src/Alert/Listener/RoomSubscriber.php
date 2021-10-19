@@ -20,20 +20,8 @@ class RoomSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            RoomEvent::STARTING_FIRE => 'onStartingFire',
-            RoomEvent::STOP_FIRE => 'onStopFire',
             RoomEvent::TREMOR => ['onTremor', 1000],
         ];
-    }
-
-    public function onStartingFire(RoomEvent $event): void
-    {
-        $this->alertService->handleFireStart($event->getPlace());
-    }
-
-    public function onStopFire(RoomEvent $event): void
-    {
-        $this->alertService->handleFireStop($event->getPlace());
     }
 
     public function onTremor(RoomEvent $event): void

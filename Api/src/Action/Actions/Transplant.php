@@ -82,7 +82,7 @@ class Transplant extends AbstractAction
                         $fruitType->getPlantName(),
                         $this->player,
                         $this->getActionName(),
-                        new \DateTime
+                        new \DateTime()
                     );
 
         $plantEquipment->setHolder($holder);

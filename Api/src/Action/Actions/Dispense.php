@@ -72,7 +72,7 @@ class Dispense extends AbstractAction
                 $drugName,
                 $this->player,
                 $this->getActionName(),
-                new \DateTime)
+                new \DateTime())
         ;
 
         $equipmentEvent = new EquipmentEvent(

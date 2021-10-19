@@ -70,7 +70,7 @@ class Hyperfreeze extends AbstractAction
                     GameRationEnum::STANDARD_RATION,
                     $this->player,
                     $this->getActionName(),
-                    new \DateTime)
+                    new \DateTime())
             ;
 
             $equipmentEvent = new EquipmentEvent(

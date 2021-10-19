@@ -11,7 +11,6 @@ use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Document;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
@@ -22,13 +21,10 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
-use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\ChargeStatusEvent;
 use Mush\Status\Event\StatusEvent;
-use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class GameEquipmentService implements GameEquipmentServiceInterface
 {
@@ -84,8 +80,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         EquipmentHolderInterface $equipmentHolder,
         string $reason,
         \DateTime $time
-    ): GameEquipment
-    {
+    ): GameEquipment {
         $equipment = $this->equipmentService->findByNameAndDaedalus($equipmentName, $equipmentHolder->getPlace()->getDaedalus());
 
         return $this->createGameEquipment($equipment, $equipmentHolder, $reason, $time);
@@ -96,8 +91,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         EquipmentHolderInterface $holder,
         string $reason,
         \DateTime $time
-    ): GameEquipment
-    {
+    ): GameEquipment {
         if ($equipment instanceof ItemConfig) {
             $gameEquipment = $equipment->createGameItem();
         } else {
@@ -108,7 +102,6 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         $this->persist($gameEquipment);
 
         $gameEquipment = $this->initMechanics($gameEquipment, $holder->getPlace()->getDaedalus());
-
 
         $equipmentEvent = new EquipmentInitEvent($gameEquipment, $equipment, $reason, $time);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentInitEvent::NEW_EQUIPMENT);
@@ -163,7 +156,6 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         return $gameEquipment;
     }
 
-
     public function handleBreakFire(GameEquipment $gameEquipment, \DateTime $date): void
     {
         if ($gameEquipment instanceof Door) {
@@ -187,14 +179,15 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             !$gameEquipment->getStatusByName(EquipmentStatusEnum::BROKEN) &&
             $this->randomService->isSuccessful($this->getGameConfig($gameEquipment)->getDifficultyConfig()->getEquipmentFireBreakRate())
         ) {
-            $equipmentEvent = new EquipmentEvent(
+            $statusEvent = new StatusEvent(
+                EquipmentStatusEnum::BROKEN,
                 $gameEquipment,
-                $gameEquipment->getPlace(),
-                VisibilityEnum::PUBLIC,
                 EventEnum::FIRE,
                 $date
             );
-            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_BROKEN);
+            $statusEvent->setVisibility(VisibilityEnum::PUBLIC);
+            $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+
             $this->persist($gameEquipment);
         }
     }

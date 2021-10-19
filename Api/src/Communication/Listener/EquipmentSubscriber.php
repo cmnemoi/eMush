@@ -25,14 +25,8 @@ class EquipmentSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            EquipmentEvent::EQUIPMENT_BROKEN => 'onBrokenEquipment',
             EquipmentEvent::EQUIPMENT_DESTROYED => 'onDestroyedEquipment',
         ];
-    }
-
-    public function onBrokenEquipment(EquipmentEvent $event): void
-    {
-        $this->neronMessageService->createBrokenEquipmentMessage($event->getEquipment(), $event->getVisibility(), $event->getTime());
     }
 
     public function onDestroyedEquipment(EquipmentEvent $event): void

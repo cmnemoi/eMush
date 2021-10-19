@@ -2,16 +2,11 @@
 
 namespace Mush\Status\Listener;
 
-use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\EquipmentInitEvent;
-use Mush\Modifier\Service\GearModifierServiceInterface;
-use Mush\Status\Entity\Config\StatusConfig;
-use Mush\Status\Event\StatusEvent;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class EquipmentInitEventSubscriber implements EventSubscriberInterface
+class EquipmentInitSubscriber implements EventSubscriberInterface
 {
     private StatusServiceInterface $statusService;
 
@@ -24,7 +19,7 @@ class EquipmentInitEventSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            EquipmentInitEvent::NEW_EQUIPMENT => 'onNewEquipment'
+            EquipmentInitEvent::NEW_EQUIPMENT => 'onNewEquipment',
         ];
     }
 

@@ -71,7 +71,7 @@ class Status
     /**
      * @return static
      */
-    public function setName(?string $name): Status
+    public function setName(?string $name): self
     {
         $this->name = $name;
 
@@ -86,7 +86,7 @@ class Status
     /**
      * @return static
      */
-    public function setVisibility(string $visibility): Status
+    public function setVisibility(string $visibility): self
     {
         $this->visibility = $visibility;
 
@@ -112,7 +112,7 @@ class Status
         throw new \LogicException('There should always be a target on a status target');
     }
 
-    private function setOwner(StatusHolderInterface $owner): Status
+    private function setOwner(StatusHolderInterface $owner): self
     {
         $statusOwner = new StatusTarget();
         $statusOwner->setOwner($this);
@@ -129,7 +129,7 @@ class Status
         return $this;
     }
 
-    public function setTargetOwner(StatusTarget $owner): Status
+    public function setTargetOwner(StatusTarget $owner): self
     {
         $this->owner = $owner;
 
@@ -158,7 +158,7 @@ class Status
     /**
      * @return static
      */
-    public function setTarget(?StatusHolderInterface $target): Status
+    public function setTarget(?StatusHolderInterface $target): self
     {
         $statusTarget = new StatusTarget();
         $statusTarget->setTarget($this);
@@ -178,7 +178,7 @@ class Status
         return $this;
     }
 
-    public function setStatusTargetOwner(StatusTarget $statusTarget): Status
+    public function setStatusTargetOwner(StatusTarget $statusTarget): self
     {
         $this->owner = $statusTarget;
 
@@ -194,7 +194,7 @@ class Status
         return $this->owner;
     }
 
-    public function setStatusTargetTarget(StatusTarget $statusTarget): Status
+    public function setStatusTargetTarget(StatusTarget $statusTarget): self
     {
         $this->target = $statusTarget;
 

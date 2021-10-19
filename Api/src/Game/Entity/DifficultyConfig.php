@@ -125,7 +125,7 @@ class DifficultyConfig
     /**
      * @return static
      */
-    public function setGameConfig(GameConfig $gameConfig): DifficultyConfig
+    public function setGameConfig(GameConfig $gameConfig): self
     {
         $this->gameConfig = $gameConfig;
 
@@ -140,7 +140,7 @@ class DifficultyConfig
     /**
      * @return static
      */
-    public function setEquipmentBreakRate(int $equipmentBreakRate): DifficultyConfig
+    public function setEquipmentBreakRate(int $equipmentBreakRate): self
     {
         $this->equipmentBreakRate = $equipmentBreakRate;
 
@@ -155,7 +155,7 @@ class DifficultyConfig
     /**
      * @return static
      */
-    public function setDoorBreakRate(int $doorBreakRate): DifficultyConfig
+    public function setDoorBreakRate(int $doorBreakRate): self
     {
         $this->doorBreakRate = $doorBreakRate;
 
@@ -170,7 +170,7 @@ class DifficultyConfig
     /**
      * @return static
      */
-    public function setEquipmentFireBreakRate(int $equipmentFireBreakRate): DifficultyConfig
+    public function setEquipmentFireBreakRate(int $equipmentFireBreakRate): self
     {
         $this->equipmentFireBreakRate = $equipmentFireBreakRate;
 
@@ -185,7 +185,7 @@ class DifficultyConfig
     /**
      * @return static
      */
-    public function setStartingFireRate(int $startingFireRate): DifficultyConfig
+    public function setStartingFireRate(int $startingFireRate): self
     {
         $this->startingFireRate = $startingFireRate;
 
@@ -200,7 +200,7 @@ class DifficultyConfig
     /**
      * @return static
      */
-    public function setPropagatingFireRate(int $propagatingFireRate): DifficultyConfig
+    public function setPropagatingFireRate(int $propagatingFireRate): self
     {
         $this->propagatingFireRate = $propagatingFireRate;
 
@@ -215,7 +215,7 @@ class DifficultyConfig
     /**
      * @return static
      */
-    public function setHullFireDamageRate(int $hullFireDamageRate): DifficultyConfig
+    public function setHullFireDamageRate(int $hullFireDamageRate): self
     {
         $this->hullFireDamageRate = $hullFireDamageRate;
 
@@ -230,7 +230,7 @@ class DifficultyConfig
     /**
      * @return static
      */
-    public function setTremorRate(int $tremorRate): DifficultyConfig
+    public function setTremorRate(int $tremorRate): self
     {
         $this->tremorRate = $tremorRate;
 
@@ -245,7 +245,7 @@ class DifficultyConfig
     /**
      * @return static
      */
-    public function setElectricArcRate(int $electricArcRate): DifficultyConfig
+    public function setElectricArcRate(int $electricArcRate): self
     {
         $this->electricArcRate = $electricArcRate;
 
@@ -260,7 +260,7 @@ class DifficultyConfig
     /**
      * @return static
      */
-    public function setMetalPlateRate(int $metalPlateRate): DifficultyConfig
+    public function setMetalPlateRate(int $metalPlateRate): self
     {
         $this->metalPlateRate = $metalPlateRate;
 
@@ -275,7 +275,7 @@ class DifficultyConfig
     /**
      * @return static
      */
-    public function setPanicCrisisRate(int $panicCrisisRate): DifficultyConfig
+    public function setPanicCrisisRate(int $panicCrisisRate): self
     {
         $this->panicCrisisRate = $panicCrisisRate;
 
@@ -290,7 +290,7 @@ class DifficultyConfig
     /**
      * @return static
      */
-    public function setFirePlayerDamage(array $firePlayerDamage): DifficultyConfig
+    public function setFirePlayerDamage(array $firePlayerDamage): self
     {
         $this->firePlayerDamage = $firePlayerDamage;
 
@@ -305,7 +305,7 @@ class DifficultyConfig
     /**
      * @return static
      */
-    public function setFireHullDamage(array $fireHullDamage): DifficultyConfig
+    public function setFireHullDamage(array $fireHullDamage): self
     {
         $this->fireHullDamage = $fireHullDamage;
 
@@ -320,7 +320,7 @@ class DifficultyConfig
     /**
      * @return static
      */
-    public function setElectricArcPlayerDamage(array $electricArcPlayerDamage): DifficultyConfig
+    public function setElectricArcPlayerDamage(array $electricArcPlayerDamage): self
     {
         $this->electricArcPlayerDamage = $electricArcPlayerDamage;
 
@@ -335,7 +335,7 @@ class DifficultyConfig
     /**
      * @return static
      */
-    public function setTremorPlayerDamage(array $tremorPlayerDamage): DifficultyConfig
+    public function setTremorPlayerDamage(array $tremorPlayerDamage): self
     {
         $this->tremorPlayerDamage = $tremorPlayerDamage;
 
@@ -350,7 +350,7 @@ class DifficultyConfig
     /**
      * @return static
      */
-    public function setMetalPlatePlayerDamage(array $metalPlatePlayerDamage): DifficultyConfig
+    public function setMetalPlatePlayerDamage(array $metalPlatePlayerDamage): self
     {
         $this->metalPlatePlayerDamage = $metalPlatePlayerDamage;
 
@@ -365,7 +365,7 @@ class DifficultyConfig
     /**
      * @return static
      */
-    public function setPanicCrisisPlayerDamage(array $panicCrisisPlayerDamage): DifficultyConfig
+    public function setPanicCrisisPlayerDamage(array $panicCrisisPlayerDamage): self
     {
         $this->panicCrisisPlayerDamage = $panicCrisisPlayerDamage;
 
@@ -380,7 +380,7 @@ class DifficultyConfig
     /**
      * @return static
      */
-    public function setPlantDiseaseRate(int $plantDiseaseRate): DifficultyConfig
+    public function setPlantDiseaseRate(int $plantDiseaseRate): self
     {
         $this->plantDiseaseRate = $plantDiseaseRate;
 

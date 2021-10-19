@@ -64,7 +64,7 @@ class Channel
     /**
      * @return static
      */
-    public function setDaedalus(Daedalus $daedalus): Channel
+    public function setDaedalus(Daedalus $daedalus): self
     {
         $this->daedalus = $daedalus;
 
@@ -79,7 +79,7 @@ class Channel
     /**
      * @return static
      */
-    public function setScope(string $scope): Channel
+    public function setScope(string $scope): self
     {
         $this->scope = $scope;
 
@@ -96,7 +96,7 @@ class Channel
         return $this->participants;
     }
 
-    public function addParticipant(ChannelPlayer $channelPlayer): Channel
+    public function addParticipant(ChannelPlayer $channelPlayer): self
     {
         $this->participants->add($channelPlayer);
 
@@ -113,7 +113,7 @@ class Channel
         return $this->messages;
     }
 
-    public function setMessages(Collection $messages): Channel
+    public function setMessages(Collection $messages): self
     {
         $this->messages = $messages;
 

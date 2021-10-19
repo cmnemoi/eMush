@@ -29,7 +29,7 @@ class PlayerEvent extends PlayerCycleEvent implements LoggableEventInterface
         return $this->visibility;
     }
 
-    public function setVisibility(string $visibility): PlayerEvent
+    public function setVisibility(string $visibility): self
     {
         $this->visibility = $visibility;
 

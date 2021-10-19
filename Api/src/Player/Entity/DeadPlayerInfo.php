@@ -63,7 +63,7 @@ class DeadPlayerInfo
     /**
      * @return static
      */
-    public function setPlayer(Player $player): DeadPlayerInfo
+    public function setPlayer(Player $player): self
     {
         $this->player = $player;
 
@@ -75,7 +75,7 @@ class DeadPlayerInfo
         return $this->message;
     }
 
-    public function setMessage(string $message): DeadPlayerInfo
+    public function setMessage(string $message): self
     {
         $this->message = $message;
 
@@ -90,7 +90,7 @@ class DeadPlayerInfo
     /**
      * @return static
      */
-    public function setDayDeath(int $dayDeath): DeadPlayerInfo
+    public function setDayDeath(int $dayDeath): self
     {
         $this->dayDeath = $dayDeath;
 
@@ -105,7 +105,7 @@ class DeadPlayerInfo
     /**
      * @return static
      */
-    public function setCycleDeath(int $cycleDeath): DeadPlayerInfo
+    public function setCycleDeath(int $cycleDeath): self
     {
         $this->cycleDeath = $cycleDeath;
 
@@ -120,7 +120,7 @@ class DeadPlayerInfo
     /**
      * @return static
      */
-    public function setLikes(array $likes): DeadPlayerInfo
+    public function setLikes(array $likes): self
     {
         $this->likes = $likes;
 
@@ -135,7 +135,7 @@ class DeadPlayerInfo
     /**
      * @return static
      */
-    public function setEndStatus(string $endStatus): DeadPlayerInfo
+    public function setEndStatus(string $endStatus): self
     {
         $this->endStatus = $endStatus;
 

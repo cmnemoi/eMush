@@ -36,7 +36,7 @@ class DaedalusModifierEvent extends DaedalusEvent implements AbstractQuantityEve
         return $this->player;
     }
 
-    public function setPlayer(Player $player): DaedalusModifierEvent
+    public function setPlayer(Player $player): self
     {
         $this->player = $player;
 

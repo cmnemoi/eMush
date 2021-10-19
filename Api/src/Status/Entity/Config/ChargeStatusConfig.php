@@ -41,7 +41,7 @@ class ChargeStatusConfig extends StatusConfig
     /**
      * @return static
      */
-    public function setChargeVisibility(string $chargeVisibility): ChargeStatusConfig
+    public function setChargeVisibility(string $chargeVisibility): self
     {
         $this->chargeVisibility = $chargeVisibility;
 
@@ -56,7 +56,7 @@ class ChargeStatusConfig extends StatusConfig
     /**
      * @return static
      */
-    public function setChargeStrategy(string $chargeStrategy): ChargeStatusConfig
+    public function setChargeStrategy(string $chargeStrategy): self
     {
         $this->chargeStrategy = $chargeStrategy;
 
@@ -71,7 +71,7 @@ class ChargeStatusConfig extends StatusConfig
     /**
      * @return static
      */
-    public function setAutoRemove(bool $autoRemove): ChargeStatusConfig
+    public function setAutoRemove(bool $autoRemove): self
     {
         $this->autoRemove = $autoRemove;
 

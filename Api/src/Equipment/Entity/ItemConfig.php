@@ -17,11 +17,6 @@ class ItemConfig extends EquipmentConfig
     /**
      * @ORM\Column(type="boolean", nullable=false)
      */
-    private bool $isHeavy;
-
-    /**
-     * @ORM\Column(type="boolean", nullable=false)
-     */
     private bool $isStackable;
 
     public function createGameItem(): GameItem
@@ -43,7 +38,7 @@ class ItemConfig extends EquipmentConfig
     /**
      * @return static
      */
-    public function setIsStackable(bool $isStackable): ItemConfig
+    public function setIsStackable(bool $isStackable): self
     {
         $this->isStackable = $isStackable;
 

@@ -22,7 +22,7 @@ class ActionParameters
         return $this->place;
     }
 
-    public function setPlace(?Place $place): ActionParameters
+    public function setPlace(?Place $place): self
     {
         $this->place = $place;
 
@@ -37,7 +37,7 @@ class ActionParameters
     /**
      * @return static
      */
-    public function setPlayer(?Player $player): ActionParameters
+    public function setPlayer(?Player $player): self
     {
         $this->player = $player;
 
@@ -52,7 +52,7 @@ class ActionParameters
     /**
      * @return static
      */
-    public function setEquipment(?GameEquipment $equipment): ActionParameters
+    public function setEquipment(?GameEquipment $equipment): self
     {
         $this->equipment = $equipment;
 
@@ -67,7 +67,7 @@ class ActionParameters
     /**
      * @return static
      */
-    public function setItem(?GameItem $item): ActionParameters
+    public function setItem(?GameItem $item): self
     {
         $this->item = $item;
 
@@ -82,7 +82,7 @@ class ActionParameters
     /**
      * @return static
      */
-    public function setDoor(?Door $door): ActionParameters
+    public function setDoor(?Door $door): self
     {
         $this->door = $door;
 
@@ -97,7 +97,7 @@ class ActionParameters
     /**
      * @return static
      */
-    public function setMessage(string $message): ActionParameters
+    public function setMessage(string $message): self
     {
         $this->message = $message;
 

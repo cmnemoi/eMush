@@ -45,7 +45,7 @@ class AlertElement
         return $this->id;
     }
 
-    public function setAlert(Alert $alert): AlertElement
+    public function setAlert(Alert $alert): self
     {
         $this->alert = $alert;
 
@@ -57,7 +57,7 @@ class AlertElement
         return $this->alert;
     }
 
-    public function setPlayer(Player $player): AlertElement
+    public function setPlayer(Player $player): self
     {
         $this->player = $player;
 
@@ -69,7 +69,7 @@ class AlertElement
         return $this->player;
     }
 
-    public function setPlace(Place $place): AlertElement
+    public function setPlace(Place $place): self
     {
         $this->place = $place;
 
@@ -81,7 +81,7 @@ class AlertElement
         return $this->place;
     }
 
-    public function setEquipment(GameEquipment $equipment): AlertElement
+    public function setEquipment(GameEquipment $equipment): self
     {
         $this->equipment = $equipment;
 

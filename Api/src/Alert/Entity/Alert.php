@@ -51,14 +51,14 @@ class Alert
         return $this->name;
     }
 
-    public function setName(string $name): Alert
+    public function setName(string $name): self
     {
         $this->name = $name;
 
         return $this;
     }
 
-    public function setDaedalus(Daedalus $daedalus): Alert
+    public function setDaedalus(Daedalus $daedalus): self
     {
         $this->daedalus = $daedalus;
 
@@ -79,7 +79,7 @@ class Alert
         return $this->alertElements;
     }
 
-    public function addAlertElement(AlertElement $alertElement): Alert
+    public function addAlertElement(AlertElement $alertElement): self
     {
         $this->alertElements->add($alertElement);
         $alertElement->setAlert($this);

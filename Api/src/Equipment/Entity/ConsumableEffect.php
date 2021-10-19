@@ -73,7 +73,7 @@ class ConsumableEffect
     /**
      * @return static
      */
-    public function setDaedalus(Daedalus $daedalus): ConsumableEffect
+    public function setDaedalus(Daedalus $daedalus): self
     {
         $this->daedalus = $daedalus;
 
@@ -88,7 +88,7 @@ class ConsumableEffect
     /**
      * @return static
      */
-    public function setRation(Ration $ration): ConsumableEffect
+    public function setRation(Ration $ration): self
     {
         $this->ration = $ration;
 
@@ -103,7 +103,7 @@ class ConsumableEffect
     /**
      * @return static
      */
-    public function setActionPoint(?int $actionPoint): ConsumableEffect
+    public function setActionPoint(?int $actionPoint): self
     {
         $this->actionPoint = $actionPoint;
 
@@ -118,7 +118,7 @@ class ConsumableEffect
     /**
      * @return static
      */
-    public function setMovementPoint(?int $movementPoint): ConsumableEffect
+    public function setMovementPoint(?int $movementPoint): self
     {
         $this->movementPoint = $movementPoint;
 
@@ -133,7 +133,7 @@ class ConsumableEffect
     /**
      * @return static
      */
-    public function setHealthPoint(?int $healthPoint): ConsumableEffect
+    public function setHealthPoint(?int $healthPoint): self
     {
         $this->healthPoint = $healthPoint;
 
@@ -148,7 +148,7 @@ class ConsumableEffect
     /**
      * @return static
      */
-    public function setMoralPoint(?int $moralPoint): ConsumableEffect
+    public function setMoralPoint(?int $moralPoint): self
     {
         $this->moralPoint = $moralPoint;
 
@@ -163,7 +163,7 @@ class ConsumableEffect
     /**
      * @return static
      */
-    public function setSatiety(?int $satiety): ConsumableEffect
+    public function setSatiety(?int $satiety): self
     {
         $this->satiety = $satiety;
 
@@ -178,7 +178,7 @@ class ConsumableEffect
     /**
      * @return static
      */
-    public function setExtraEffects(array $extraEffects): ConsumableEffect
+    public function setExtraEffects(array $extraEffects): self
     {
         $this->extraEffects = $extraEffects;
 

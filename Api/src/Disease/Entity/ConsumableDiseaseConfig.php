@@ -89,7 +89,7 @@ class ConsumableDiseaseConfig
         return $this->gameConfig;
     }
 
-    public function setGameConfig(GameConfig $gameConfig): ConsumableDiseaseConfig
+    public function setGameConfig(GameConfig $gameConfig): self
     {
         $this->gameConfig = $gameConfig;
 
@@ -101,7 +101,7 @@ class ConsumableDiseaseConfig
         return $this->name;
     }
 
-    public function setName(string $name): ConsumableDiseaseConfig
+    public function setName(string $name): self
     {
         $this->name = $name;
 
@@ -113,7 +113,7 @@ class ConsumableDiseaseConfig
         return $this->diseasesName;
     }
 
-    public function setDiseasesName(array $diseasesName): ConsumableDiseaseConfig
+    public function setDiseasesName(array $diseasesName): self
     {
         $this->diseasesName = $diseasesName;
 
@@ -125,7 +125,7 @@ class ConsumableDiseaseConfig
         return $this->curesName;
     }
 
-    public function setCuresName(array $curesName): ConsumableDiseaseConfig
+    public function setCuresName(array $curesName): self
     {
         $this->curesName = $curesName;
 
@@ -137,7 +137,7 @@ class ConsumableDiseaseConfig
         return $this->diseasesChances;
     }
 
-    public function setDiseasesChances(array $diseasesChances): ConsumableDiseaseConfig
+    public function setDiseasesChances(array $diseasesChances): self
     {
         $this->diseasesChances = $diseasesChances;
 
@@ -149,7 +149,7 @@ class ConsumableDiseaseConfig
         return $this->curesChances;
     }
 
-    public function setCuresChances(array $curesChances): ConsumableDiseaseConfig
+    public function setCuresChances(array $curesChances): self
     {
         $this->curesChances = $curesChances;
 
@@ -161,7 +161,7 @@ class ConsumableDiseaseConfig
         return $this->diseasesDelayMin;
     }
 
-    public function setDiseasesDelayMin(array $diseasesDelayMin): ConsumableDiseaseConfig
+    public function setDiseasesDelayMin(array $diseasesDelayMin): self
     {
         $this->diseasesDelayMin = $diseasesDelayMin;
 
@@ -173,7 +173,7 @@ class ConsumableDiseaseConfig
         return $this->diseasesDelayLength;
     }
 
-    public function setDiseasesDelayLength(array $diseasesDelayLength): ConsumableDiseaseConfig
+    public function setDiseasesDelayLength(array $diseasesDelayLength): self
     {
         $this->diseasesDelayLength = $diseasesDelayLength;
 
@@ -185,7 +185,7 @@ class ConsumableDiseaseConfig
         return $this->effectNumber;
     }
 
-    public function setEffectNumber(array $effectNumber): ConsumableDiseaseConfig
+    public function setEffectNumber(array $effectNumber): self
     {
         $this->effectNumber = $effectNumber;
 
@@ -197,14 +197,14 @@ class ConsumableDiseaseConfig
         return $this->consumableAttributes;
     }
 
-    public function setAttributes(Collection $diseases): ConsumableDiseaseConfig
+    public function setAttributes(Collection $diseases): self
     {
         $this->consumableAttributes = $diseases;
 
         return $this;
     }
 
-    public function addDisease(ConsumableDiseaseAttribute $disease): ConsumableDiseaseConfig
+    public function addDisease(ConsumableDiseaseAttribute $disease): self
     {
         if (!$this->consumableAttributes->contains($disease)) {
             $this->consumableAttributes->add($disease);

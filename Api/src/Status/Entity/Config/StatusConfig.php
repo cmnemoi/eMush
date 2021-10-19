@@ -51,7 +51,7 @@ class StatusConfig
         return $this->gameConfig;
     }
 
-    public function setGameConfig(GameConfig $gameConfig): StatusConfig
+    public function setGameConfig(GameConfig $gameConfig): self
     {
         $this->gameConfig = $gameConfig;
 
@@ -66,7 +66,7 @@ class StatusConfig
     /**
      * @return static
      */
-    public function setName(string $name): StatusConfig
+    public function setName(string $name): self
     {
         $this->name = $name;
 
@@ -81,7 +81,7 @@ class StatusConfig
     /**
      * @return static
      */
-    public function setVisibility(string $visibility): StatusConfig
+    public function setVisibility(string $visibility): self
     {
         $this->visibility = $visibility;
 

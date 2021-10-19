@@ -106,7 +106,7 @@ class EquipmentConfig
     /**
      * @return static
      */
-    public function setGameConfig(GameConfig $gameConfig): EquipmentConfig
+    public function setGameConfig(GameConfig $gameConfig): self
     {
         $this->gameConfig = $gameConfig;
 
@@ -121,7 +121,7 @@ class EquipmentConfig
     /**
      * @return static
      */
-    public function setName(string $name): EquipmentConfig
+    public function setName(string $name): self
     {
         $this->name = $name;
 
@@ -136,7 +136,7 @@ class EquipmentConfig
     /**
      * @return static
      */
-    public function setMechanics(Collection $mechanics): EquipmentConfig
+    public function setMechanics(Collection $mechanics): self
     {
         $this->mechanics = $mechanics;
 
@@ -176,7 +176,7 @@ class EquipmentConfig
     /**
      * @return static
      */
-    public function setIsFireDestroyable(bool $isFireDestroyable): EquipmentConfig
+    public function setIsFireDestroyable(bool $isFireDestroyable): self
     {
         $this->isFireDestroyable = $isFireDestroyable;
 
@@ -191,7 +191,7 @@ class EquipmentConfig
     /**
      * @return static
      */
-    public function setIsFireBreakable(bool $isFireBreakable): EquipmentConfig
+    public function setIsFireBreakable(bool $isFireBreakable): self
     {
         $this->isFireBreakable = $isFireBreakable;
 
@@ -206,7 +206,7 @@ class EquipmentConfig
     /**
      * @return static
      */
-    public function setIsBreakable(bool $isBreakable): EquipmentConfig
+    public function setIsBreakable(bool $isBreakable): self
     {
         $this->isBreakable = $isBreakable;
 
@@ -263,7 +263,7 @@ class EquipmentConfig
     /**
      * @return static
      */
-    public function setDismountedProducts(array $dismountedProducts): EquipmentConfig
+    public function setDismountedProducts(array $dismountedProducts): self
     {
         $this->dismountedProducts = $dismountedProducts;
 

@@ -45,7 +45,7 @@ class Charged extends EquipmentMechanic
     /**
      * @return static
      */
-    public function setMaxCharge(int $maxCharge): Charged
+    public function setMaxCharge(int $maxCharge): self
     {
         $this->maxCharge = $maxCharge;
 
@@ -60,7 +60,7 @@ class Charged extends EquipmentMechanic
     /**
      * @return static
      */
-    public function setStartCharge(int $startCharge): Charged
+    public function setStartCharge(int $startCharge): self
     {
         $this->startCharge = $startCharge;
 
@@ -75,7 +75,7 @@ class Charged extends EquipmentMechanic
     /**
      * @return static
      */
-    public function setChargeStatusConfig(ChargeStatusConfig $chargeStatusConfig): Charged
+    public function setChargeStatusConfig(ChargeStatusConfig $chargeStatusConfig): self
     {
         $this->chargeStatusConfig = $chargeStatusConfig;
 
@@ -85,7 +85,7 @@ class Charged extends EquipmentMechanic
     /**
      * @return static
      */
-    public function setDischargeStrategy(string $dischargeStrategy): Charged
+    public function setDischargeStrategy(string $dischargeStrategy): self
     {
         $this->dischargeStrategy = $dischargeStrategy;
 

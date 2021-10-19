@@ -61,7 +61,7 @@ class CharacterConfig
     /**
      * @return static
      */
-    public function setGameConfig(GameConfig $gameConfig): CharacterConfig
+    public function setGameConfig(GameConfig $gameConfig): self
     {
         $this->gameConfig = $gameConfig;
 
@@ -76,7 +76,7 @@ class CharacterConfig
     /**
      * @return static
      */
-    public function setName(string $name): CharacterConfig
+    public function setName(string $name): self
     {
         $this->name = $name;
 
@@ -91,7 +91,7 @@ class CharacterConfig
     /**
      * @return static
      */
-    public function setStatuses(array $statuses): CharacterConfig
+    public function setStatuses(array $statuses): self
     {
         $this->statuses = $statuses;
 
@@ -110,7 +110,7 @@ class CharacterConfig
         return $actions->isEmpty() ? null : $actions->first();
     }
 
-    public function setActions(Collection $actions): CharacterConfig
+    public function setActions(Collection $actions): self
     {
         $this->actions = $actions;
 
@@ -125,7 +125,7 @@ class CharacterConfig
     /**
      * @return static
      */
-    public function setSkills(array $skills): CharacterConfig
+    public function setSkills(array $skills): self
     {
         $this->skills = $skills;
 

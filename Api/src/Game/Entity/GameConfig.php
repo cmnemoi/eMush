@@ -157,7 +157,7 @@ class GameConfig
     /**
      * @return static
      */
-    public function setDaedalusConfig(DaedalusConfig $daedalusConfig): GameConfig
+    public function setDaedalusConfig(DaedalusConfig $daedalusConfig): self
     {
         $this->daedalusConfig = $daedalusConfig;
 
@@ -172,7 +172,7 @@ class GameConfig
     /**
      * @return static
      */
-    public function setCharactersConfig(Collection $charactersConfig): GameConfig
+    public function setCharactersConfig(Collection $charactersConfig): self
     {
         $this->charactersConfig = $charactersConfig;
 
@@ -184,7 +184,7 @@ class GameConfig
         return new TriumphConfigCollection($this->triumphConfig->toArray());
     }
 
-    public function setTriumphConfig(Collection $triumphConfig): GameConfig
+    public function setTriumphConfig(Collection $triumphConfig): self
     {
         $this->triumphConfig = $triumphConfig;
 
@@ -199,7 +199,7 @@ class GameConfig
     /**
      * @return static
      */
-    public function setEquipmentsConfig(Collection $equipmentsConfig): GameConfig
+    public function setEquipmentsConfig(Collection $equipmentsConfig): self
     {
         $this->equipmentsConfig = $equipmentsConfig;
 
@@ -214,7 +214,7 @@ class GameConfig
     /**
      * @return static
      */
-    public function setDifficultyConfig(DifficultyConfig $difficultyConfig): GameConfig
+    public function setDifficultyConfig(DifficultyConfig $difficultyConfig): self
     {
         $this->difficultyConfig = $difficultyConfig;
 
@@ -229,7 +229,7 @@ class GameConfig
     /**
      * @return static
      */
-    public function setName(string $name): GameConfig
+    public function setName(string $name): self
     {
         $this->name = $name;
 
@@ -249,7 +249,7 @@ class GameConfig
     /**
      * @return static
      */
-    public function setNbMush(int $nbMush): GameConfig
+    public function setNbMush(int $nbMush): self
     {
         $this->nbMush = $nbMush;
 
@@ -264,7 +264,7 @@ class GameConfig
     /**
      * @return static
      */
-    public function setCyclePerGameDay(int $cyclePerGameDay): GameConfig
+    public function setCyclePerGameDay(int $cyclePerGameDay): self
     {
         $this->cyclePerGameDay = $cyclePerGameDay;
 
@@ -279,7 +279,7 @@ class GameConfig
     /**
      * @return static
      */
-    public function setCycleLength(int $cycleLength): GameConfig
+    public function setCycleLength(int $cycleLength): self
     {
         $this->cycleLength = $cycleLength;
 
@@ -294,7 +294,7 @@ class GameConfig
     /**
      * @return static
      */
-    public function setTimeZone(string $timeZone): GameConfig
+    public function setTimeZone(string $timeZone): self
     {
         $this->timeZone = $timeZone;
 
@@ -309,7 +309,7 @@ class GameConfig
     /**
      * @return static
      */
-    public function setMaxNumberPrivateChannel(int $maxNumberPrivateChannel): GameConfig
+    public function setMaxNumberPrivateChannel(int $maxNumberPrivateChannel): self
     {
         $this->maxNumberPrivateChannel = $maxNumberPrivateChannel;
 
@@ -324,7 +324,7 @@ class GameConfig
     /**
      * @return static
      */
-    public function setLanguage(string $language): GameConfig
+    public function setLanguage(string $language): self
     {
         $this->language = $language;
 
@@ -339,7 +339,7 @@ class GameConfig
     /**
      * @return static
      */
-    public function setInitHealthPoint(int $initHealthPoint): GameConfig
+    public function setInitHealthPoint(int $initHealthPoint): self
     {
         $this->initHealthPoint = $initHealthPoint;
 
@@ -354,7 +354,7 @@ class GameConfig
     /**
      * @return static
      */
-    public function setMaxHealthPoint(int $maxHealthPoint): GameConfig
+    public function setMaxHealthPoint(int $maxHealthPoint): self
     {
         $this->maxHealthPoint = $maxHealthPoint;
 
@@ -369,7 +369,7 @@ class GameConfig
     /**
      * @return static
      */
-    public function setInitMoralPoint(int $initMoralPoint): GameConfig
+    public function setInitMoralPoint(int $initMoralPoint): self
     {
         $this->initMoralPoint = $initMoralPoint;
 
@@ -384,7 +384,7 @@ class GameConfig
     /**
      * @return static
      */
-    public function setMaxMoralPoint(int $maxMoralPoint): GameConfig
+    public function setMaxMoralPoint(int $maxMoralPoint): self
     {
         $this->maxMoralPoint = $maxMoralPoint;
 
@@ -399,7 +399,7 @@ class GameConfig
     /**
      * @return static
      */
-    public function setInitSatiety(int $initSatiety): GameConfig
+    public function setInitSatiety(int $initSatiety): self
     {
         $this->initSatiety = $initSatiety;
 
@@ -414,7 +414,7 @@ class GameConfig
     /**
      * @return static
      */
-    public function setInitActionPoint(int $initActionPoint): GameConfig
+    public function setInitActionPoint(int $initActionPoint): self
     {
         $this->initActionPoint = $initActionPoint;
 
@@ -429,7 +429,7 @@ class GameConfig
     /**
      * @return static
      */
-    public function setMaxActionPoint(int $maxActionPoint): GameConfig
+    public function setMaxActionPoint(int $maxActionPoint): self
     {
         $this->maxActionPoint = $maxActionPoint;
 
@@ -444,7 +444,7 @@ class GameConfig
     /**
      * @return static
      */
-    public function setInitMovementPoint(int $initMovementPoint): GameConfig
+    public function setInitMovementPoint(int $initMovementPoint): self
     {
         $this->initMovementPoint = $initMovementPoint;
 
@@ -459,7 +459,7 @@ class GameConfig
     /**
      * @return static
      */
-    public function setMaxMovementPoint(int $maxMovementPoint): GameConfig
+    public function setMaxMovementPoint(int $maxMovementPoint): self
     {
         $this->maxMovementPoint = $maxMovementPoint;
 
@@ -474,7 +474,7 @@ class GameConfig
     /**
      * @return static
      */
-    public function setMaxItemInInventory(int $maxItemInInventory): GameConfig
+    public function setMaxItemInInventory(int $maxItemInInventory): self
     {
         $this->maxItemInInventory = $maxItemInInventory;
 

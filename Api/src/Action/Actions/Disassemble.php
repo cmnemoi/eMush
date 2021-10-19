@@ -9,7 +9,7 @@ use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
-use Mush\Equipment\Entity\Config\GameEquipment;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -88,8 +88,13 @@ class Disassemble extends AttemptAction
             for ($i = 0; $i < $number; ++$i) {
                 $productEquipment = $this
                     ->gameEquipmentService
-                    ->createGameEquipmentFromName($productString, $this->player->getDaedalus())
+                    ->createGameEquipmentFromName(
+                        $productString,
+                        $this->player,
+                        $this->getActionName(),
+                        new \DateTime)
                 ;
+
                 $equipmentEvent = new EquipmentEvent(
                     $productEquipment,
                     $this->player->getPlace(),

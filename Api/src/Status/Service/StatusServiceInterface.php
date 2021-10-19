@@ -5,7 +5,7 @@ namespace Mush\Status\Service;
 use Doctrine\Common\Collections\Collection;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\Config\GameEquipment;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
 use Mush\Status\Criteria\StatusCriteria;
 use Mush\Status\Entity\ChargeStatus;

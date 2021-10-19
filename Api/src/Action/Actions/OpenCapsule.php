@@ -7,7 +7,7 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\Reach;
-use Mush\Equipment\Entity\Config\GameEquipment;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
@@ -84,7 +84,12 @@ class OpenCapsule extends AbstractAction
 
         $contentEquipment = $this
             ->gameEquipmentService
-            ->createGameEquipmentFromName($contentName, $this->player->getDaedalus())
+            ->createGameEquipmentFromName(
+                $contentName,
+                $this->player,
+                $this->getActionName(),
+                new \DateTime
+            )
         ;
         $equipmentEvent = new EquipmentEvent(
             $contentEquipment,

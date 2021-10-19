@@ -38,7 +38,7 @@ class GameConfig
     private Collection $charactersConfig;
 
     /**
-     * @ORM\OneToMany(targetEntity="Mush\Equipment\Entity\EquipmentConfig", mappedBy="gameConfig")
+     * @ORM\OneToMany(targetEntity="Mush\Equipment\Entity\Config\EquipmentConfig", mappedBy="gameConfig")
      */
     private Collection $equipmentsConfig;
 

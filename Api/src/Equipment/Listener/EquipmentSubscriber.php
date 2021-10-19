@@ -2,8 +2,8 @@
 
 namespace Mush\Equipment\Listener;
 
-use Mush\Equipment\Entity\Config\GameEquipment;
-use Mush\Equipment\Entity\Config\GameItem;
+use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;

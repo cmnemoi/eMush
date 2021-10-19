@@ -3,7 +3,7 @@
 namespace Mush\Equipment\Service;
 
 use Doctrine\Common\Collections\Collection;
-use Mush\Equipment\Entity\Config\GameEquipment;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Player\Entity\Player;
 

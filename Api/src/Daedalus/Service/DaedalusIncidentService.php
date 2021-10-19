@@ -4,7 +4,7 @@ namespace Mush\Daedalus\Service;
 
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Criteria\GameEquipmentCriteria;
-use Mush\Equipment\Entity\Config\Door;
+use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Game\Enum\EventEnum;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Equipment\Entity\Config\Mechanics;
+namespace Mush\Equipment\Entity\Mechanics;
 
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
@@ -16,7 +16,7 @@ class Blueprint extends Tool
     protected string $mechanic = EquipmentMechanicEnum::BLUEPRINT;
 
     /**
-     * @ORM\OneToOne(targetEntity="Mush\Equipment\Entity\EquipmentConfig")
+     * @ORM\OneToOne(targetEntity="Mush\Equipment\Entity\Config\EquipmentConfig")
      */
     private EquipmentConfig $equipment;
 

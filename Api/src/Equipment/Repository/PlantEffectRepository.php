@@ -4,7 +4,7 @@ namespace Mush\Equipment\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Mush\Equipment\Entity\Config\PlantEffect;
+use Mush\Equipment\Entity\PlantEffect;
 
 class PlantEffectRepository extends ServiceEntityRepository
 {

@@ -3,8 +3,8 @@
 namespace Mush\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
-use Mush\Equipment\Entity\Config\GameEquipment;
-use Mush\Equipment\Entity\Config\Mechanics\Document;
+use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Mechanics\Document;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;

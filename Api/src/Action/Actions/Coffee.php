@@ -10,8 +10,8 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\Charged;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
-use Mush\Equipment\Entity\Config\GameEquipment;
-use Mush\Equipment\Entity\Config\GameItem;
+use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
@@ -62,7 +62,12 @@ class Coffee extends AbstractAction
     {
         /** @var GameItem $newItem */
         $newItem = $this->gameEquipmentService
-            ->createGameEquipmentFromName(GameRationEnum::COFFEE, $this->player->getDaedalus())
+            ->createGameEquipmentFromName(
+                GameRationEnum::COFFEE,
+                $this->player,
+                $this->getActionName(),
+                new \DateTime
+            )
         ;
 
         $equipmentEvent = new EquipmentEvent(

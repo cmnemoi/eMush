@@ -10,8 +10,8 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\Charged;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
-use Mush\Equipment\Entity\Config\GameEquipment;
-use Mush\Equipment\Entity\Config\GameItem;
+use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\GameDrugEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
@@ -68,7 +68,11 @@ class Dispense extends AbstractAction
 
         /** @var GameItem $newItem */
         $newItem = $this->gameEquipmentService
-            ->createGameEquipmentFromName($drugName, $this->player->getDaedalus())
+            ->createGameEquipmentFromName(
+                $drugName,
+                $this->player,
+                $this->getActionName(),
+                new \DateTime)
         ;
 
         $equipmentEvent = new EquipmentEvent(

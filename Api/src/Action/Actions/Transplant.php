@@ -8,8 +8,8 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\EquipmentReachable;
 use Mush\Action\Validator\Reach;
-use Mush\Equipment\Entity\Config\GameItem;
-use Mush\Equipment\Entity\Config\Mechanics\Fruit;
+use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Mechanics\Fruit;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
@@ -78,7 +78,12 @@ class Transplant extends AbstractAction
 
         /** @var GameItem $plantEquipment */
         $plantEquipment = $this->gameEquipmentService
-                    ->createGameEquipmentFromName($fruitType->getPlantName(), $this->player->getDaedalus());
+                    ->createGameEquipmentFromName(
+                        $fruitType->getPlantName(),
+                        $this->player,
+                        $this->getActionName(),
+                        new \DateTime
+                    );
 
         $plantEquipment->setHolder($holder);
 

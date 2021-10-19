@@ -2,9 +2,9 @@
 
 namespace Mush\Action\Entity;
 
-use Mush\Equipment\Entity\Config\Door;
-use Mush\Equipment\Entity\Config\GameEquipment;
-use Mush\Equipment\Entity\Config\GameItem;
+use Mush\Equipment\Entity\Door;
+use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 

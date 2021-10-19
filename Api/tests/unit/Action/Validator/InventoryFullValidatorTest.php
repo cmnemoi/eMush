@@ -7,7 +7,7 @@ use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Validator\InventoryFull;
 use Mush\Action\Validator\InventoryFullValidator;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\Config\GameItem;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Game\Entity\GameConfig;
 use Mush\Player\Entity\Player;
 use PHPUnit\Framework\TestCase;

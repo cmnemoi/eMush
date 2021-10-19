@@ -5,7 +5,8 @@ namespace Mush\Equipment\Service;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
-use Mush\Equipment\Entity\Config\GameEquipment;
+use Mush\Equipment\Entity\EquipmentHolderInterface;
+use Mush\Equipment\Entity\GameEquipment;
 
 interface GameEquipmentServiceInterface
 {
@@ -17,9 +18,19 @@ interface GameEquipmentServiceInterface
 
     public function findById(int $id): ?GameEquipment;
 
-    public function createGameEquipmentFromName(string $equipmentName, Daedalus $daedalus): GameEquipment;
+    public function createGameEquipmentFromName(
+        string $equipmentName,
+        EquipmentHolderInterface $equipmentHolder,
+        string $reason,
+        \DateTime $time
+    ): GameEquipment;
 
-    public function createGameEquipment(EquipmentConfig $equipment, Daedalus $daedalus): GameEquipment;
+    public function createGameEquipment(
+        EquipmentConfig $equipment,
+        EquipmentHolderInterface $holder,
+        string $reason,
+        \DateTime $time
+    ): GameEquipment;
 
     public function handleBreakFire(GameEquipment $gameEquipment, \DateTime $date): void;
 }

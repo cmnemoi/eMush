@@ -4,8 +4,8 @@ namespace Mush\Equipment\Listener;
 
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ApplyEffectEvent;
-use Mush\Equipment\Entity\Config\ConsumableEffect;
-use Mush\Equipment\Entity\Config\GameItem;
+use Mush\Equipment\Entity\ConsumableEffect;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;

@@ -3,10 +3,10 @@
 namespace Mush\Equipment\CycleHandler;
 
 use Mush\Daedalus\Event\DaedalusModifierEvent;
-use Mush\Equipment\Entity\Config\GameEquipment;
-use Mush\Equipment\Entity\Config\GameItem;
-use Mush\Equipment\Entity\Config\Mechanics\Plant;
-use Mush\Equipment\Entity\Config\PlantEffect;
+use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Mechanics\Plant;
+use Mush\Equipment\Entity\PlantEffect;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
@@ -23,6 +23,7 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\StatusEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Validator\Exception\LogicException;
 
 class PlantCycleHandler extends AbstractCycleHandler
 {
@@ -159,11 +160,20 @@ class PlantCycleHandler extends AbstractCycleHandler
     private function handleDriedPlant(GameItem $gamePlant, \DateTime $dateTime): void
     {
         $place = $gamePlant->getPlace();
-        $player = $gamePlant->getHolder();
+        $holder = $gamePlant->getHolder();
+
+        if ($holder === null){
+            throw new LogicException('Equipment holder is empty');
+        }
 
         // Create a new hydropot
         /** @var GameItem $hydropot */
-        $hydropot = $this->gameEquipmentService->createGameEquipmentFromName(ItemEnum::HYDROPOT, $place->getDaedalus());
+        $hydropot = $this->gameEquipmentService->createGameEquipmentFromName(
+            ItemEnum::HYDROPOT,
+            $holder,
+            PlantLogEnum::PLANT_DEATH,
+            $dateTime
+        );
 
         $equipmentEvent = new EquipmentEvent(
             $gamePlant,
@@ -181,8 +191,8 @@ class PlantCycleHandler extends AbstractCycleHandler
             PlantLogEnum::PLANT_DEATH,
             new \DateTime()
         );
-        if ($player instanceof Player) {
-            $equipmentEvent->setPlayer($player);
+        if ($holder instanceof Player) {
+            $equipmentEvent->setPlayer($holder);
         }
 
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
@@ -211,7 +221,12 @@ class PlantCycleHandler extends AbstractCycleHandler
         $place = $gamePlant->getPlace();
 
         /** @var GameItem $gameFruit */
-        $gameFruit = $this->gameEquipmentService->createGameEquipment($plantType->getFruit(), $place->getDaedalus());
+        $gameFruit = $this->gameEquipmentService->createGameEquipment(
+            $plantType->getFruit(),
+            $place,
+            EventEnum::PLANT_PRODUCTION,
+            new \DateTime()
+        );
 
         $equipmentEvent = new EquipmentEvent(
             $gameFruit,

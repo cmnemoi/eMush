@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Alert\Entity\Alert;
 use Mush\Alert\Entity\AlertElement;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\Config\GameEquipment;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Place\Entity\Place;
 
 interface AlertServiceInterface

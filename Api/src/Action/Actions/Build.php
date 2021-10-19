@@ -9,10 +9,10 @@ use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\Mechanic;
 use Mush\Action\Validator\Reach;
-use Mush\Equipment\Entity\Config\Door;
-use Mush\Equipment\Entity\Config\GameEquipment;
-use Mush\Equipment\Entity\Config\GameItem;
-use Mush\Equipment\Entity\Config\Mechanics\Blueprint;
+use Mush\Equipment\Entity\Door;
+use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Mechanics\Blueprint;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
@@ -25,7 +25,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class Build extends AbstractAction
+class  Build extends AbstractAction
 {
     protected string $name = ActionEnum::BUILD;
 
@@ -92,7 +92,9 @@ class Build extends AbstractAction
 
         $blueprintEquipment = $this->gameEquipmentService->createGameEquipment(
             $blueprintMechanic->getEquipment(),
-            $this->player->getDaedalus()
+            $this->player,
+            $this->getActionName(),
+            new \DateTime
         );
         $place = $this->player->getPlace();
 

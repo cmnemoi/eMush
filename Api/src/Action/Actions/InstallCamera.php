@@ -9,8 +9,8 @@ use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasEquipment;
 use Mush\Action\Validator\Reach;
-use Mush\Equipment\Entity\Config\GameEquipment;
-use Mush\Equipment\Entity\Config\GameItem;
+use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
@@ -68,7 +68,11 @@ class InstallCamera extends AbstractAction
 
         /** @var GameEquipment $newItem */
         $equipmentCamera = $this->gameEquipmentService
-            ->createGameEquipmentFromName(EquipmentEnum::CAMERA_EQUIPMENT, $this->player->getDaedalus())
+            ->createGameEquipmentFromName(
+                EquipmentEnum::CAMERA_EQUIPMENT,
+                $this->player->getPlace(),
+                $this->getActionName(),
+                new \DateTime)
         ;
 
         $equipmentEvent = new EquipmentEvent(

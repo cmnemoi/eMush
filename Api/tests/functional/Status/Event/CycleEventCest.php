@@ -8,7 +8,7 @@ use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\Neron;
-use Mush\Equipment\Entity\Config\Door;
+use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\DifficultyConfig;

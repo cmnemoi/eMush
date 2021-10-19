@@ -8,8 +8,8 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\Cookable;
 use Mush\Action\Validator\Reach;
-use Mush\Equipment\Entity\Config\GameEquipment;
-use Mush\Equipment\Entity\Config\GameItem;
+use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
@@ -65,7 +65,11 @@ class ExpressCook extends AbstractAction
         if ($parameter->getEquipment()->getName() === GameRationEnum::STANDARD_RATION) {
             /** @var GameItem $newItem */
             $newItem = $this->gameEquipmentService
-                ->createGameEquipmentFromName(GameRationEnum::COOKED_RATION, $this->player->getDaedalus())
+                ->createGameEquipmentFromName(
+                    GameRationEnum::COOKED_RATION,
+                    $this->player,
+                    $this->getActionName(),
+                    new \DateTime)
             ;
 
             $equipmentEvent = new EquipmentEvent(

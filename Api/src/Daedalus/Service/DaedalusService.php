@@ -12,7 +12,7 @@ use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Daedalus\Event\DaedalusInitEvent;
 use Mush\Daedalus\Repository\DaedalusRepository;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
-use Mush\Equipment\Entity\Config\GameItem;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\CharacterConfig;
@@ -22,7 +22,6 @@ use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
-use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Service\PlaceServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
@@ -133,29 +132,6 @@ class DaedalusService implements DaedalusServiceInterface
             new \DateTime()
         );
         $this->eventDispatcher->dispatch($daedalusEvent, DaedalusInitEvent::NEW_DAEDALUS);
-
-
-
-
-        $randomItemPlaces = $daedalusConfig->getRandomItemPlace();
-        if (null !== $randomItemPlaces) {
-            foreach ($randomItemPlaces->getItems() as $itemName) {
-                $item = $daedalus
-                    ->getGameConfig()
-                    ->getEquipmentsConfig()
-                    ->filter(fn (EquipmentConfig $item) => $item->getName() === $itemName)
-                    ->first()
-                ;
-                $item = $this->gameEquipmentService->createGameEquipment($item, $daedalus);
-                $roomName = $randomItemPlaces
-                    ->getPlaces()[$this->randomService->random(0, count($randomItemPlaces->getPlaces()) - 1)]
-                ;
-                $room = $daedalus->getRooms()->filter(fn (Place $room) => $roomName === $room->getName())->first();
-                $item->setHolder($room);
-                $this->gameEquipmentService->persist($item);
-            }
-        }
-
 
         return $this->persist($daedalus);
     }

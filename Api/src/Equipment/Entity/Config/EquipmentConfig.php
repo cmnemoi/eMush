@@ -6,7 +6,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Entity\Action;
-use Mush\Equipment\Entity\Config\Mechanics\Ration;
+use Mush\Equipment\Entity\EquipmentMechanic;
+use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Game\Entity\ConfigInterface;
 use Mush\Game\Entity\GameConfig;
@@ -18,8 +20,8 @@ use Mush\Game\Entity\GameConfig;
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="type", type="string")
  * @ORM\DiscriminatorMap({
- *     "equipment_config" = "Mush\Equipment\Entity\EquipmentConfig",
- *     "item_config" = "Mush\Equipment\Entity\ItemConfig"
+ *     "equipment_config" = "Mush\Equipment\Entity\Config\EquipmentConfig",
+ *     "item_config" = "Mush\Equipment\Entity\Config\ItemConfig"
  * })
  */
 class EquipmentConfig implements ConfigInterface

@@ -2,7 +2,7 @@
 
 namespace Mush\Equipment\Listener;
 
-use Mush\Equipment\Entity\Config\EquipmentMechanic;
+use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Event\EquipmentCycleEvent;
 use Mush\Equipment\Service\EquipmentCycleHandlerServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;

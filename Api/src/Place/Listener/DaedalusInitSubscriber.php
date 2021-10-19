@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Daedalus\Listener;
+namespace Mush\Place\Listener;
 
 use Mush\Daedalus\Event\DaedalusInitEvent;
 use Mush\Place\Entity\PlaceConfig;

@@ -1,10 +1,10 @@
 <?php
 
-namespace Mush\Equipment\Entity\Config;
+namespace Mush\Equipment\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\Config\Mechanics\Ration;
+use Mush\Equipment\Entity\Mechanics\Ration;
 
 /**
  * Class ConsumableEffect.

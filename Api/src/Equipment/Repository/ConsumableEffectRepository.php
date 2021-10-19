@@ -4,7 +4,7 @@ namespace Mush\Equipment\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Mush\Equipment\Entity\Config\ConsumableEffect;
+use Mush\Equipment\Entity\ConsumableEffect;
 
 class ConsumableEffectRepository extends ServiceEntityRepository
 {

@@ -34,28 +34,11 @@ class StatusSubscriber implements EventSubscriberInterface
             $event->getPlace()->getDaedalus()
         );
 
-        if ($event instanceof ChargeStatusEvent) {
-            if (!$statusConfig instanceof ChargeStatusConfig) {
-                throw new UnexpectedTypeException($statusConfig, ChargeStatusConfig::class);
-            }
-
-            $status = $this->statusService->createChargeStatusFromConfig(
-                $statusConfig,
-                $event->getStatusHolder(),
-                $event->getInitCharge(),
-                $event->getThreshold(),
-                $event->getDischargeStrategy(),
-                $event->getStatusTarget()
-            );
-        } else {
-            $status = $this->statusService->createStatusFromConfig(
-                $statusConfig,
-                $event->getStatusHolder(),
-                $event->getStatusTarget()
-            );
-        }
-
-        $this->statusService->persist($status);
+        $this->statusService->createStatusFromConfig(
+            $statusConfig,
+            $event->getStatusHolder(),
+            $event->getStatusTarget()
+        );
     }
 
     public function onStatusRemoved(StatusEvent $event): void

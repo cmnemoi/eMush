@@ -2,7 +2,7 @@
 
 namespace Mush\Disease\Service;
 
-use Mush\Equipment\Entity\Config\GameEquipment;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
 
 interface DiseaseCauseServiceInterface

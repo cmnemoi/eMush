@@ -12,8 +12,8 @@ use Mush\Action\Validator\InventoryFull;
 use Mush\Action\Validator\Oxygen;
 use Mush\Action\Validator\Reach;
 use Mush\Daedalus\Event\DaedalusModifierEvent;
-use Mush\Equipment\Entity\Config\GameEquipment;
-use Mush\Equipment\Entity\Config\GameItem;
+use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -64,7 +64,12 @@ class RetrieveOxygen extends AbstractAction
 
     protected function applyEffects(): ActionResult
     {
-        $gameItem = $this->gameEquipmentService->createGameEquipmentFromName(ItemEnum::OXYGEN_CAPSULE, $this->player->getDaedalus());
+        $gameItem = $this->gameEquipmentService->createGameEquipmentFromName(
+            ItemEnum::OXYGEN_CAPSULE,
+            $this->player,
+            $this->getActionName(),
+            new \DateTime
+        );
 
         if (!$gameItem instanceof GameItem) {
             throw new \LogicException('invalid GameItem');

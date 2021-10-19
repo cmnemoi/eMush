@@ -3,29 +3,36 @@
 namespace Mush\Equipment\Event;
 
 use Mush\Equipment\Entity\Config\EquipmentConfig;
-use Mush\Equipment\Entity\Config\GameEquipment;
+use Mush\Equipment\Entity\EquipmentHolderInterface;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Event\AbstractGameEvent;
-use Mush\Place\Entity\Place;
-use Mush\Place\Entity\PlaceConfig;
 
 class EquipmentInitEvent extends AbstractGameEvent
 {
     public const NEW_EQUIPMENT = 'new.equipment';
 
-    private PlaceConfig $placeConfig;
+    private EquipmentConfig $equipmentConfig;
+    private GameEquipment $gameEquipment;
 
     public function __construct(
+        GameEquipment $gameEquipment,
         EquipmentConfig $equipmentConfig,
         string $reason,
         \DateTime $time
     ) {
-        parent::__construct($equipment, $reason, $time);
+        parent::__construct($reason, $time);
 
         $this->equipmentConfig = $equipmentConfig;
+        $this->gameEquipment = $gameEquipment;
     }
 
-    public function getPlaceConfig(): PlaceConfig
+    public function getEquipmentConfig(): EquipmentConfig
     {
-        return $this->placeConfig;
+        return $this->equipmentConfig;
+    }
+
+    public function getGameEquipment(): GameEquipment
+    {
+        return $this->gameEquipment;
     }
 }

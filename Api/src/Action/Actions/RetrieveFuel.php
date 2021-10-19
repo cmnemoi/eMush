@@ -13,9 +13,9 @@ use Mush\Action\Validator\InventoryFull;
 use Mush\Action\Validator\ParameterName;
 use Mush\Action\Validator\Reach;
 use Mush\Daedalus\Event\DaedalusModifierEvent;
-use Mush\Equipment\Entity\Config\Door;
-use Mush\Equipment\Entity\Config\GameEquipment;
-use Mush\Equipment\Entity\Config\GameItem;
+use Mush\Equipment\Entity\Door;
+use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
@@ -72,7 +72,9 @@ class RetrieveFuel extends AbstractAction
     {
         $item = $this->gameEquipmentService->createGameEquipmentFromName(
             ItemEnum::FUEL_CAPSULE,
-            $this->getPlayer()->getDaedalus()
+            $this->getPlayer(),
+            $this->getActionName(),
+            new \DateTime
         );
 
         if (!$item instanceof GameItem) {

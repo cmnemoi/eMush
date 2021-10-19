@@ -6,7 +6,7 @@ use Mockery;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Validator\HasEquipment;
 use Mush\Action\Validator\HasEquipmentValidator;
-use Mush\Equipment\Entity\Config\GameItem;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;

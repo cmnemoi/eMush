@@ -1,10 +1,10 @@
 <?php
 
-namespace Mush\Equipment\Entity\Config\Collection;
+namespace Mush\Equipment\Entity\Collection;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Mush\Equipment\Entity\Config\GameItem;
+use Mush\Equipment\Entity\GameItem;
 
 class ItemCollection extends ArrayCollection
 {

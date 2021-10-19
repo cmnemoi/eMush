@@ -9,7 +9,7 @@ use Mush\Action\Event\ActionEvent;
 use Mush\Action\Listener\ActionSubscriber;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\Config\Mechanics\Gear;
+use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;

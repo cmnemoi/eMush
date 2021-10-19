@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Equipment\Entity\Config\Mechanics;
+namespace Mush\Equipment\Entity\Mechanics;
 
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;

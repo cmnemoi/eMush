@@ -4,7 +4,7 @@ namespace Mush\Alert\Entity\Collection;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Alert\Entity\AlertElement;
-use Mush\Equipment\Entity\Config\Door;
+use Mush\Equipment\Entity\Door;
 
 class AlertElementCollection extends ArrayCollection
 {

@@ -4,7 +4,7 @@ namespace Mush\Modifier\Listener;
 
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
-use Mush\Equipment\Entity\Config\GameEquipment;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Modifier\Service\GearModifierServiceInterface;
 use Mush\Modifier\Service\ModifierService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;

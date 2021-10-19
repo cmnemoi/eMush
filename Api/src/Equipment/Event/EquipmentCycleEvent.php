@@ -4,7 +4,7 @@ namespace Mush\Equipment\Event;
 
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
-use Mush\Equipment\Entity\Config\GameEquipment;
+use Mush\Equipment\Entity\GameEquipment;
 
 class EquipmentCycleEvent extends DaedalusCycleEvent
 {

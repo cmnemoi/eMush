@@ -2,12 +2,9 @@
 
 namespace Mush\Status\Listener;
 
-use Mush\Status\Entity\Config\ChargeStatusConfig;
-use Mush\Status\Event\ChargeStatusEvent;
 use Mush\Status\Event\StatusEvent;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class StatusSubscriber implements EventSubscriberInterface
 {
@@ -34,7 +31,7 @@ class StatusSubscriber implements EventSubscriberInterface
             $event->getPlace()->getDaedalus()
         );
 
-        $this->statusService->createStatusFromConfig(
+        $status = $this->statusService->createStatusFromConfig(
             $statusConfig,
             $event->getStatusHolder(),
             $event->getStatusTarget()

@@ -57,7 +57,7 @@ class PlayerDisease
         return $this->diseaseConfig;
     }
 
-    public function setDiseaseConfig(DiseaseConfig $diseaseConfig): PlayerDisease
+    public function setDiseaseConfig(DiseaseConfig $diseaseConfig): self
     {
         $this->diseaseConfig = $diseaseConfig;
 
@@ -69,7 +69,7 @@ class PlayerDisease
         return $this->player;
     }
 
-    public function setPlayer(Player $player): PlayerDisease
+    public function setPlayer(Player $player): self
     {
         $this->player = $player;
 
@@ -81,7 +81,7 @@ class PlayerDisease
         return $this->status;
     }
 
-    public function setStatus(string $status): PlayerDisease
+    public function setStatus(string $status): self
     {
         $this->status = $status;
 
@@ -93,7 +93,7 @@ class PlayerDisease
         return $this->diseasePoint;
     }
 
-    public function setDiseasePoint(int $diseasePoint): PlayerDisease
+    public function setDiseasePoint(int $diseasePoint): self
     {
         $this->diseasePoint = $diseasePoint;
 
@@ -105,7 +105,7 @@ class PlayerDisease
         return $this->resistancePoint;
     }
 
-    public function setResistancePoint(int $resistancePoint): PlayerDisease
+    public function setResistancePoint(int $resistancePoint): self
     {
         $this->resistancePoint = $resistancePoint;
 

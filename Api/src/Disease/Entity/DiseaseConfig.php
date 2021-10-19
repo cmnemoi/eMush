@@ -76,7 +76,7 @@ class DiseaseConfig implements LogParameterInterface
         return $this->gameConfig;
     }
 
-    public function setGameConfig(GameConfig $gameConfig): DiseaseConfig
+    public function setGameConfig(GameConfig $gameConfig): self
     {
         $this->gameConfig = $gameConfig;
 
@@ -88,7 +88,7 @@ class DiseaseConfig implements LogParameterInterface
         return $this->name;
     }
 
-    public function setName(string $name): DiseaseConfig
+    public function setName(string $name): self
     {
         $this->name = $name;
 
@@ -100,7 +100,7 @@ class DiseaseConfig implements LogParameterInterface
         return $this->type;
     }
 
-    public function setType(string $type): DiseaseConfig
+    public function setType(string $type): self
     {
         $this->type = $type;
 
@@ -112,7 +112,7 @@ class DiseaseConfig implements LogParameterInterface
         return $this->resistance;
     }
 
-    public function setResistance(int $resistance): DiseaseConfig
+    public function setResistance(int $resistance): self
     {
         $this->resistance = $resistance;
 
@@ -124,7 +124,7 @@ class DiseaseConfig implements LogParameterInterface
         return $this->causes;
     }
 
-    public function setCauses(array $causes): DiseaseConfig
+    public function setCauses(array $causes): self
     {
         $this->causes = $causes;
 
@@ -151,7 +151,7 @@ class DiseaseConfig implements LogParameterInterface
         return $this->delayMin;
     }
 
-    public function setDelayMin(int $delayMin): DiseaseConfig
+    public function setDelayMin(int $delayMin): self
     {
         $this->delayMin = $delayMin;
 
@@ -163,7 +163,7 @@ class DiseaseConfig implements LogParameterInterface
         return $this->delayLength;
     }
 
-    public function setDelayLength(int $delayLength): DiseaseConfig
+    public function setDelayLength(int $delayLength): self
     {
         $this->delayLength = $delayLength;
 
@@ -175,7 +175,7 @@ class DiseaseConfig implements LogParameterInterface
         return $this->diseasePointMin;
     }
 
-    public function setDiseasePointMin(int $diseasePointMin): DiseaseConfig
+    public function setDiseasePointMin(int $diseasePointMin): self
     {
         $this->diseasePointMin = $diseasePointMin;
 
@@ -187,7 +187,7 @@ class DiseaseConfig implements LogParameterInterface
         return $this->diseasePointLength;
     }
 
-    public function setDiseasePointLength(int $diseasePointLength): DiseaseConfig
+    public function setDiseasePointLength(int $diseasePointLength): self
     {
         $this->diseasePointLength = $diseasePointLength;
 

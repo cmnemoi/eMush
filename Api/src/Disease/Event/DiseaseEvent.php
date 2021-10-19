@@ -36,7 +36,7 @@ class DiseaseEvent extends AbstractGameEvent implements LoggableEventInterface
         return $this->author;
     }
 
-    public function setAuthor(?Player $author): DiseaseEvent
+    public function setAuthor(?Player $author): self
     {
         $this->author = $author;
 

@@ -29,7 +29,7 @@ class Gear extends EquipmentMechanic
     /**
      * @return static
      */
-    public function setModifierConfigs(Collection $modifierConfigs): Gear
+    public function setModifierConfigs(Collection $modifierConfigs): self
     {
         $this->modifierConfigs = $modifierConfigs;
 

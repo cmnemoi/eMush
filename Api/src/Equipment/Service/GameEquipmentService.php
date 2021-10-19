@@ -11,7 +11,7 @@ use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\Mechanics\Charged;
+use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Document;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
@@ -129,11 +129,6 @@ class GameEquipmentService implements GameEquipmentServiceInterface
                         $this->initDocument($gameEquipment, $mechanic);
                     }
                     break;
-                case EquipmentMechanicEnum::CHARGED:
-                    if ($mechanic instanceof Charged) {
-                        $this->initCharge($gameEquipment, $mechanic);
-                    }
-                    break;
             }
         }
 
@@ -149,25 +144,6 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         $statusEvent = new ChargeStatusEvent(EquipmentStatusEnum::PLANT_YOUNG, $gameEquipment, EquipmentEvent::EQUIPMENT_CREATED, new \DateTime());
         $statusEvent->setInitCharge(1);
         $statusEvent->setThreshold($this->equipmentEffectService->getPlantEffect($plant, $daedalus)->getMaturationTime());
-
-        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
-
-        return $gameEquipment;
-    }
-
-    private function initCharge(GameEquipment $gameEquipment, EquipmentMechanic $chargeMechanic): GameEquipment
-    {
-        if (!$chargeMechanic instanceof Charged) {
-            throw new UnexpectedTypeException($chargeMechanic, Charged::class);
-        }
-
-        $statusEvent = new ChargeStatusEvent(
-            $chargeMechanic->getChargeStatusConfig()->getName(),
-            $gameEquipment, EquipmentEvent::EQUIPMENT_CREATED,
-            new \DateTime()
-        );
-        $statusEvent->setInitCharge($chargeMechanic->getStartCharge());
-        $statusEvent->setThreshold($chargeMechanic->getMaxCharge());
 
         $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
 

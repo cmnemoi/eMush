@@ -51,7 +51,7 @@ class EquipmentEvent extends AbstractGameEvent implements LoggableEventInterface
         return $this->player;
     }
 
-    public function setPlayer(Player $player): EquipmentEvent
+    public function setPlayer(Player $player): self
     {
         $this->player = $player;
 
@@ -63,7 +63,7 @@ class EquipmentEvent extends AbstractGameEvent implements LoggableEventInterface
         return $this->replacementEquipment;
     }
 
-    public function setReplacementEquipment(GameEquipment $replacement): EquipmentEvent
+    public function setReplacementEquipment(GameEquipment $replacement): self
     {
         $this->replacementEquipment = $replacement;
 

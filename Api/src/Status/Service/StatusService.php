@@ -74,34 +74,31 @@ class StatusService implements StatusServiceInterface
         StatusHolderInterface $holder,
         ?StatusHolderInterface $target = null
     ): Status {
-        return $this->createCoreStatus(
-            $statusConfig->getName(),
-            $holder,
-            $target,
-            $statusConfig->getVisibility()
-        );
-    }
+        if ($statusConfig instanceof ChargeStatusConfig) {
+            $status = $this->createChargeStatus(
+                $statusConfig->getName(),
+                $holder,
+                $statusConfig->getChargeStrategy(),
+                $target,
+                $statusConfig->getVisibility(),
+                $statusConfig->getChargeVisibility(),
+                $statusConfig->getDischargeStrategy(),
+                $statusConfig->getStartCharge(),
+                $statusConfig->getMaxCharge(),
+                $statusConfig->isAutoRemove()
+            );
+        } else {
+            $status = $this->createCoreStatus(
+                $statusConfig->getName(),
+                $holder,
+                $target,
+                $statusConfig->getVisibility()
+            );
+        }
 
-    public function createChargeStatusFromConfig(
-        ChargeStatusConfig $statusConfig,
-        StatusHolderInterface $holder,
-        int $charge,
-        int $threshold,
-        string $dischargeStrategy = ChargeStrategyTypeEnum::NONE,
-        ?StatusHolderInterface $target = null,
-    ): ChargeStatus {
-        return $this->createChargeStatus(
-            $statusConfig->getName(),
-            $holder,
-            $statusConfig->getChargeStrategy(),
-            $target,
-            $statusConfig->getVisibility(),
-            $statusConfig->getChargeVisibility(),
-            $dischargeStrategy,
-            $charge,
-            $threshold,
-            $statusConfig->isAutoRemove()
-        );
+        $this->persist($status);
+
+        return $status;
     }
 
     private function createCoreStatus(

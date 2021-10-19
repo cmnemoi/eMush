@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\User\Event;
+namespace Mush\User\Listener;
 
 use Mush\Player\Event\PlayerEvent;
 use Mush\User\Service\UserServiceInterface;

@@ -10,7 +10,6 @@ use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\DataFixtures\TechnicianFixtures;
 use Mush\Action\Entity\Action;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\Mechanics\Charged;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
@@ -18,7 +17,6 @@ use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Modifier\DataFixtures\GearModifierConfigFixtures;
 use Mush\Modifier\Entity\ModifierConfig;
-use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Status\DataFixtures\ChargeStatusFixtures;
 use Mush\Status\DataFixtures\StatusFixtures;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
@@ -196,16 +194,8 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $antiGravScooterGear = $this->createGear([GearModifierConfigFixtures::SCOOTER_MODIFIER]);
 
-        /** @var ChargeStatusConfig $electricCharge */
-        $electricCharge = $this->getReference(ChargeStatusFixtures::CYCLE_ELECTRIC_CHARGE);
-
-        $chargedMechanic = new Charged();
-        $chargedMechanic
-            ->setMaxCharge(8)
-            ->setStartCharge(2)
-            ->setChargeStatusConfig($electricCharge)
-            ->setDischargeStrategy(ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION)
-        ;
+        /** @var ChargeStatusConfig $scooterCharge */
+        $scooterCharge = $this->getReference(ChargeStatusFixtures::SCOOTER_CHARGE);
 
         $antiGravScooter = new ItemConfig();
         $antiGravScooter
@@ -215,12 +205,12 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setIsBreakable(true)
-            ->setMechanics(new ArrayCollection([$antiGravScooterGear, $chargedMechanic]))
+            ->setMechanics(new ArrayCollection([$antiGravScooterGear]))
+            ->setInitStatus(new ArrayCollection([$scooterCharge]))
             ->setActions($antiGravScooterActions)
             ->setDismountedProducts([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::METAL_SCRAPS => 2])
         ;
         $manager->persist($antiGravScooter);
-        $manager->persist($chargedMechanic);
 
         $rollingBoulder = new ItemConfig();
         $rollingBoulder

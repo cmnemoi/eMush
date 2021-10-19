@@ -68,7 +68,7 @@ class PlaceConfig implements ConfigInterface
     /**
      * @return static
      */
-    public function setDaedalusConfig(DaedalusConfig $daedalusConfig): PlaceConfig
+    public function setDaedalusConfig(DaedalusConfig $daedalusConfig): self
     {
         $this->daedalusConfig = $daedalusConfig;
 
@@ -83,7 +83,7 @@ class PlaceConfig implements ConfigInterface
     /**
      * @return static
      */
-    public function setName(string $name): PlaceConfig
+    public function setName(string $name): self
     {
         $this->name = $name;
 
@@ -95,7 +95,7 @@ class PlaceConfig implements ConfigInterface
         return $this->type;
     }
 
-    public function setType(string $type): PlaceConfig
+    public function setType(string $type): self
     {
         $this->type = $type;
 
@@ -110,7 +110,7 @@ class PlaceConfig implements ConfigInterface
     /**
      * @return static
      */
-    public function setDoors(array $doors): PlaceConfig
+    public function setDoors(array $doors): self
     {
         $this->doors = $doors;
 
@@ -125,7 +125,7 @@ class PlaceConfig implements ConfigInterface
     /**
      * @return static
      */
-    public function setItems(array $items): PlaceConfig
+    public function setItems(array $items): self
     {
         $this->items = $items;
 
@@ -140,7 +140,7 @@ class PlaceConfig implements ConfigInterface
     /**
      * @return static
      */
-    public function setEquipments(array $equipments): PlaceConfig
+    public function setEquipments(array $equipments): self
     {
         $this->equipments = $equipments;
 

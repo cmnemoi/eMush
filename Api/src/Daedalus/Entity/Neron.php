@@ -36,14 +36,14 @@ class Neron
         return $this->daedalus;
     }
 
-    public function setDaedalus(Daedalus $daedalus): Neron
+    public function setDaedalus(Daedalus $daedalus): self
     {
         $this->daedalus = $daedalus;
 
         return $this;
     }
 
-    public function setIsInhibited(bool $isInhibited): Neron
+    public function setIsInhibited(bool $isInhibited): self
     {
         $this->isInhibited = $isInhibited;
 

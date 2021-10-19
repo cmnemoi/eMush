@@ -27,7 +27,6 @@ use Mush\Action\Entity\Action;
  *     "ration" = "Mush\Equipment\Entity\Mechanics\Ration",
  *     "tool" = "Mush\Equipment\Entity\Mechanics\Tool",
  *     "weapon" = "Mush\Equipment\Entity\Mechanics\Weapon",
- *     "charged" = "Mush\Equipment\Entity\Mechanics\Charged"
  * })
  */
 abstract class EquipmentMechanic

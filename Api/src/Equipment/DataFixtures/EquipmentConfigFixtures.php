@@ -10,8 +10,7 @@ use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\DataFixtures\TechnicianFixtures;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Equipment\Entity\Config\EquipmentConfig;
-use Mush\Equipment\Entity\Mechanics\Charged;
+use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -53,12 +52,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $sabotage12 = $this->getReference(TechnicianFixtures::SABOTAGE_12);
         /** @var Action $sabotage25 */
         $sabotage25 = $this->getReference(TechnicianFixtures::SABOTAGE_25);
-
-        /** @var ChargeStatusConfig $electricCharge */
-        $electricCharge = $this->getReference(ChargeStatusFixtures::CYCLE_ELECTRIC_CHARGE);
-
-        /** @var ChargeStatusConfig $dailyElectricCharge */
-        $dailyElectricCharge = $this->getReference(ChargeStatusFixtures::DAILY_ELECTRIC_CHARGE);
 
         //@TODO terminals
         $icarus = new EquipmentConfig();

@@ -100,7 +100,7 @@ class Place implements StatusHolderInterface, ModifierHolder, EquipmentHolderInt
     /**
      * @return static
      */
-    public function setName(string $name): Place
+    public function setName(string $name): self
     {
         $this->name = $name;
 
@@ -112,7 +112,7 @@ class Place implements StatusHolderInterface, ModifierHolder, EquipmentHolderInt
         return $this->type;
     }
 
-    public function setType(string $type): Place
+    public function setType(string $type): self
     {
         $this->type = $type;
 
@@ -127,7 +127,7 @@ class Place implements StatusHolderInterface, ModifierHolder, EquipmentHolderInt
     /**
      * @return static
      */
-    public function setDaedalus(Daedalus $daedalus): Place
+    public function setDaedalus(Daedalus $daedalus): self
     {
         $this->daedalus = $daedalus;
 
@@ -148,7 +148,7 @@ class Place implements StatusHolderInterface, ModifierHolder, EquipmentHolderInt
     /**
      * @return static
      */
-    public function setPlayers(ArrayCollection $players): Place
+    public function setPlayers(ArrayCollection $players): self
     {
         $this->players = $players;
 
@@ -158,7 +158,7 @@ class Place implements StatusHolderInterface, ModifierHolder, EquipmentHolderInt
     /**
      * @return static
      */
-    public function addPlayer(Player $player): Place
+    public function addPlayer(Player $player): self
     {
         if (!$this->getPlayers()->contains($player)) {
             $this->players->add($player);
@@ -171,7 +171,7 @@ class Place implements StatusHolderInterface, ModifierHolder, EquipmentHolderInt
     /**
      * @return static
      */
-    public function removePlayer(Player $player): Place
+    public function removePlayer(Player $player): self
     {
         $this->players->removeElement($player);
 
@@ -227,7 +227,7 @@ class Place implements StatusHolderInterface, ModifierHolder, EquipmentHolderInt
     /**
      * @return static
      */
-    public function setDoors(ArrayCollection $doors): Place
+    public function setDoors(ArrayCollection $doors): self
     {
         $this->doors = $doors;
         foreach ($doors as $door) {
@@ -242,7 +242,7 @@ class Place implements StatusHolderInterface, ModifierHolder, EquipmentHolderInt
     /**
      * @return static
      */
-    public function addDoor(Door $door): Place
+    public function addDoor(Door $door): self
     {
         $this->doors->add($door);
         if (!$door->getRooms()->contains($this)) {
@@ -277,7 +277,7 @@ class Place implements StatusHolderInterface, ModifierHolder, EquipmentHolderInt
     /**
      * @return static
      */
-    public function addModifier(Modifier $modifier): Place
+    public function addModifier(Modifier $modifier): self
     {
         $this->modifiers->add($modifier);
 

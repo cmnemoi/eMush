@@ -157,7 +157,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     /**
      * @return static
      */
-    public function setUser(User $user): Player
+    public function setUser(User $user): self
     {
         $this->user = $user;
 
@@ -172,7 +172,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     /**
      * @return static
      */
-    public function setGameStatus(string $gameStatus): Player
+    public function setGameStatus(string $gameStatus): self
     {
         $this->gameStatus = $gameStatus;
 
@@ -192,7 +192,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     /**
      * @return static
      */
-    public function setCharacterConfig(CharacterConfig $characterConfig): Player
+    public function setCharacterConfig(CharacterConfig $characterConfig): self
     {
         $this->characterConfig = $characterConfig;
 
@@ -207,7 +207,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     /**
      * @return static
      */
-    public function setDaedalus(Daedalus $daedalus): Player
+    public function setDaedalus(Daedalus $daedalus): self
     {
         $this->daedalus = $daedalus;
 
@@ -224,7 +224,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     /**
      * @return static
      */
-    public function setPlace(Place $place): Player
+    public function setPlace(Place $place): self
     {
         $this->place = $place;
 
@@ -284,7 +284,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     /**
      * @return static
      */
-    public function removeEquipment(GameEquipment $gameEquipment): Player
+    public function removeEquipment(GameEquipment $gameEquipment): self
     {
         if ($this->items->contains($gameEquipment)) {
             $this->items->removeElement($gameEquipment);
@@ -337,14 +337,14 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $disease->isEmpty() ? null : $disease->first();
     }
 
-    public function setMedicalCondition(Collection $medicalCondition): Player
+    public function setMedicalCondition(Collection $medicalCondition): self
     {
         $this->medicalCondition = $medicalCondition;
 
         return $this;
     }
 
-    public function addMedicalCondition(PlayerDisease $playerDisease): Player
+    public function addMedicalCondition(PlayerDisease $playerDisease): self
     {
         $this->medicalCondition->add($playerDisease);
 
@@ -359,7 +359,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     /**
      * @return static
      */
-    public function addModifier(Modifier $modifier): Player
+    public function addModifier(Modifier $modifier): self
     {
         $this->modifiers->add($modifier);
 
@@ -375,14 +375,14 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->flirts;
     }
 
-    public function setFlirts(Collection $flirts): Player
+    public function setFlirts(Collection $flirts): self
     {
         $this->flirts = $flirts;
 
         return $this;
     }
 
-    public function addFlirt(Player $playerFlirt): Player
+    public function addFlirt(Player $playerFlirt): self
     {
         $this->flirts->add($playerFlirt);
 
@@ -397,7 +397,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     /**
      * @return static
      */
-    public function addSkill(string $skill): Player
+    public function addSkill(string $skill): self
     {
         $this->skills[] = $skill;
 
@@ -412,7 +412,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     /**
      * @return static
      */
-    public function setSkills(array $skills): Player
+    public function setSkills(array $skills): self
     {
         $this->skills = $skills;
 
@@ -427,7 +427,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     /**
      * @return static
      */
-    public function setHealthPoint(int $healthPoint): Player
+    public function setHealthPoint(int $healthPoint): self
     {
         $this->healthPoint = $healthPoint;
 
@@ -437,7 +437,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     /**
      * @return static
      */
-    public function addHealthPoint(int $healthPoint): Player
+    public function addHealthPoint(int $healthPoint): self
     {
         $this->healthPoint += $healthPoint;
 
@@ -452,7 +452,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     /**
      * @return static
      */
-    public function setMoralPoint(int $moralPoint): Player
+    public function setMoralPoint(int $moralPoint): self
     {
         $this->moralPoint = $moralPoint;
 
@@ -462,7 +462,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     /**
      * @return static
      */
-    public function addMoralPoint(int $moralPoint): Player
+    public function addMoralPoint(int $moralPoint): self
     {
         $this->moralPoint += $moralPoint;
 
@@ -477,7 +477,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     /**
      * @return static
      */
-    public function setActionPoint(int $actionPoint): Player
+    public function setActionPoint(int $actionPoint): self
     {
         $this->actionPoint = $actionPoint;
 
@@ -487,7 +487,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     /**
      * @return static
      */
-    public function addActionPoint(int $actionPoint): Player
+    public function addActionPoint(int $actionPoint): self
     {
         $this->actionPoint += $actionPoint;
 
@@ -502,7 +502,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     /**
      * @return static
      */
-    public function setMovementPoint(int $movementPoint): Player
+    public function setMovementPoint(int $movementPoint): self
     {
         $this->movementPoint = $movementPoint;
 
@@ -512,13 +512,9 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     /**
      * @return static
      */
-    public function addMovementPoint(int $movementPoint): Player
+    public function addMovementPoint(int $movementPoint): self
     {
         $this->movementPoint += $movementPoint;
-        if ($this->getMovementPoint() < 0) {
-            $this->addActionPoint(-1);
-            $this->addMovementPoint(3); //TODO improve conversion with disabled and scooter
-        }
 
         return $this;
     }
@@ -531,7 +527,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     /**
      * @return static
      */
-    public function setTriumph(int $triumph): Player
+    public function setTriumph(int $triumph): self
     {
         $this->triumph = $triumph;
 
@@ -541,7 +537,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     /**
      * @return static
      */
-    public function addTriumph(int $triumph): Player
+    public function addTriumph(int $triumph): self
     {
         $this->triumph += $triumph;
 
@@ -556,7 +552,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     /**
      * @return static
      */
-    public function setSatiety(int $satiety): Player
+    public function setSatiety(int $satiety): self
     {
         $this->satiety = $satiety;
 
@@ -566,7 +562,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     /**
      * @return static
      */
-    public function addSatiety(int $satiety): Player
+    public function addSatiety(int $satiety): self
     {
         $this->satiety += $satiety;
 

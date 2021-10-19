@@ -63,7 +63,7 @@ class ConsumableDiseaseAttribute
         return $this->disease;
     }
 
-    public function setDisease(string $disease): ConsumableDiseaseAttribute
+    public function setDisease(string $disease): self
     {
         $this->disease = $disease;
 
@@ -75,7 +75,7 @@ class ConsumableDiseaseAttribute
         return $this->type;
     }
 
-    public function setType(string $type): ConsumableDiseaseAttribute
+    public function setType(string $type): self
     {
         $this->type = $type;
 
@@ -87,7 +87,7 @@ class ConsumableDiseaseAttribute
         return $this->rate;
     }
 
-    public function setRate(int $rate): ConsumableDiseaseAttribute
+    public function setRate(int $rate): self
     {
         $this->rate = $rate;
 
@@ -99,7 +99,7 @@ class ConsumableDiseaseAttribute
         return $this->delayMin;
     }
 
-    public function setDelayMin(int $delayMin): ConsumableDiseaseAttribute
+    public function setDelayMin(int $delayMin): self
     {
         $this->delayMin = $delayMin;
 
@@ -111,7 +111,7 @@ class ConsumableDiseaseAttribute
         return $this->delayLength;
     }
 
-    public function setDelayLength(int $delayLength): ConsumableDiseaseAttribute
+    public function setDelayLength(int $delayLength): self
     {
         $this->delayLength = $delayLength;
 
@@ -123,7 +123,7 @@ class ConsumableDiseaseAttribute
         return $this->consumableDisease;
     }
 
-    public function setConsumableDisease(ConsumableDisease $consumableDisease): ConsumableDiseaseAttribute
+    public function setConsumableDisease(ConsumableDisease $consumableDisease): self
     {
         $this->consumableDisease = $consumableDisease;
         $consumableDisease->addDiseaseAttribute($this);
@@ -136,7 +136,7 @@ class ConsumableDiseaseAttribute
         return $this->consumableDiseaseConfig;
     }
 
-    public function setConsumableDiseaseConfig(ConsumableDiseaseConfig $consumableDiseaseConfig): ConsumableDiseaseAttribute
+    public function setConsumableDiseaseConfig(ConsumableDiseaseConfig $consumableDiseaseConfig): self
     {
         $this->consumableDiseaseConfig = $consumableDiseaseConfig;
         $consumableDiseaseConfig->addDisease($this);

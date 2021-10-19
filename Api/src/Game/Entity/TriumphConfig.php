@@ -54,7 +54,7 @@ class TriumphConfig implements ConfigInterface
         return $this->gameConfig;
     }
 
-    public function setGameConfig(GameConfig $gameConfig): TriumphConfig
+    public function setGameConfig(GameConfig $gameConfig): self
     {
         $this->gameConfig = $gameConfig;
 
@@ -66,7 +66,7 @@ class TriumphConfig implements ConfigInterface
         return $this->name;
     }
 
-    public function setName(string $name): TriumphConfig
+    public function setName(string $name): self
     {
         $this->name = $name;
 
@@ -78,7 +78,7 @@ class TriumphConfig implements ConfigInterface
         return $this->triumph;
     }
 
-    public function setTriumph(int $triumph): TriumphConfig
+    public function setTriumph(int $triumph): self
     {
         $this->triumph = $triumph;
 
@@ -90,7 +90,7 @@ class TriumphConfig implements ConfigInterface
         return $this->isAllCrew;
     }
 
-    public function setIsAllCrew(bool $isAllCrew): TriumphConfig
+    public function setIsAllCrew(bool $isAllCrew): self
     {
         $this->isAllCrew = $isAllCrew;
 
@@ -102,7 +102,7 @@ class TriumphConfig implements ConfigInterface
         return $this->team;
     }
 
-    public function setTeam(string $team): TriumphConfig
+    public function setTeam(string $team): self
     {
         $this->team = $team;
 

@@ -53,7 +53,7 @@ class PlantEffect
     /**
      * @return static
      */
-    public function setDaedalus(Daedalus $daedalus): PlantEffect
+    public function setDaedalus(Daedalus $daedalus): self
     {
         $this->daedalus = $daedalus;
 
@@ -68,7 +68,7 @@ class PlantEffect
     /**
      * @return static
      */
-    public function setPlant(Plant $plant): PlantEffect
+    public function setPlant(Plant $plant): self
     {
         $this->plant = $plant;
 
@@ -83,7 +83,7 @@ class PlantEffect
     /**
      * @return static
      */
-    public function setMaturationTime(int $maturationTime): PlantEffect
+    public function setMaturationTime(int $maturationTime): self
     {
         $this->maturationTime = $maturationTime;
 
@@ -98,7 +98,7 @@ class PlantEffect
     /**
      * @return static
      */
-    public function setOxygen(int $oxygen): PlantEffect
+    public function setOxygen(int $oxygen): self
     {
         $this->oxygen = $oxygen;
 

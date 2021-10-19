@@ -22,7 +22,6 @@ use Mush\Game\Enum\EventEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Event\ChargeStatusEvent;
 use Mush\Status\Event\StatusEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -134,9 +133,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             throw new \LogicException('Parameter is not a plant');
         }
 
-        $statusEvent = new ChargeStatusEvent(EquipmentStatusEnum::PLANT_YOUNG, $gameEquipment, EquipmentEvent::EQUIPMENT_CREATED, new \DateTime());
-        $statusEvent->setInitCharge(1);
-        $statusEvent->setThreshold($this->equipmentEffectService->getPlantEffect($plant, $daedalus)->getMaturationTime());
+        $statusEvent = new StatusEvent(EquipmentStatusEnum::PLANT_YOUNG, $gameEquipment, EquipmentEvent::EQUIPMENT_CREATED, new \DateTime());
 
         $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
 

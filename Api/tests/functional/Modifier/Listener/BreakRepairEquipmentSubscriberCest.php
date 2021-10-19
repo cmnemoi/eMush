@@ -12,7 +12,6 @@ use Mush\Daedalus\Entity\Neron;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Gear;
-use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Modifier\Entity\Modifier;
@@ -25,6 +24,7 @@ use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Event\StatusEvent;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class BreakRepairEquipmentSubscriberCest
@@ -95,16 +95,15 @@ class BreakRepairEquipmentSubscriberCest
         $statusConfig->setName(EquipmentStatusEnum::BROKEN)->setGameConfig($gameConfig);
         $I->haveInRepository($statusConfig);
 
-        $equipmentEvent = new EquipmentEvent(
+        $statusEvent = new StatusEvent(
+            EquipmentStatusEnum::BROKEN,
             $gameEquipment,
-            $room,
-            VisibilityEnum::PUBLIC,
             ActionEnum::COFFEE,
             new \DateTime()
         );
-        $equipmentEvent->setPlayer($player);
+        $statusEvent->setVisibility(VisibilityEnum::PUBLIC);
 
-        $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_BROKEN);
+        $this->eventDispatcherService->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
 
         $I->assertEquals($room->getEquipments()->count(), 0);
         $I->assertEquals($player->getEquipments()->count(), 1);
@@ -113,16 +112,15 @@ class BreakRepairEquipmentSubscriberCest
         $I->assertEquals($daedalus->getModifiers()->count(), 0);
 
         // now fix the equipment
-        $equipmentEvent = new EquipmentEvent(
+        $statusEvent = new StatusEvent(
+            EquipmentStatusEnum::BROKEN,
             $gameEquipment,
-            $room,
-            VisibilityEnum::PUBLIC,
             ActionEnum::COFFEE,
             new \DateTime()
         );
-        $equipmentEvent->setPlayer($player);
+        $statusEvent->setVisibility(VisibilityEnum::PUBLIC);
 
-        $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_FIXED);
+        $this->eventDispatcherService->dispatch($statusEvent, StatusEvent::STATUS_REMOVED);
 
         $I->assertEquals($room->getEquipments()->count(), 0);
         $I->assertEquals($player->getEquipments()->count(), 1);

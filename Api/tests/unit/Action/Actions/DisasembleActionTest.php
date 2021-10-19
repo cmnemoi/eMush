@@ -140,7 +140,12 @@ class DisasembleActionTest extends AbstractActionTest
         $scrap = new GameItem();
         $this->gameEquipmentService
             ->shouldReceive('createGameEquipmentFromName')
-            ->with(ItemEnum::METAL_SCRAPS, $daedalus)
+            ->withArgs([
+                ItemEnum::METAL_SCRAPS,
+                $player,
+                ActionEnum::DISASSEMBLE,
+                \DateTime::class,
+            ])
             ->andReturn($scrap)
             ->once()
         ;

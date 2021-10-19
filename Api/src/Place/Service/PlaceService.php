@@ -4,7 +4,6 @@ namespace Mush\Place\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Event\PlaceInitEvent;
@@ -16,18 +15,15 @@ class PlaceService implements PlaceServiceInterface
     private EntityManagerInterface $entityManager;
     private EventDispatcherInterface $eventDispatcher;
     private PlaceRepository $repository;
-    private GameEquipmentServiceInterface $equipmentService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         EventDispatcherInterface $eventDispatcher,
         PlaceRepository $repository,
-        GameEquipmentServiceInterface $equipmentService
     ) {
         $this->entityManager = $entityManager;
         $this->eventDispatcher = $eventDispatcher;
         $this->repository = $repository;
-        $this->equipmentService = $equipmentService;
     }
 
     public function persist(Place $place): Place

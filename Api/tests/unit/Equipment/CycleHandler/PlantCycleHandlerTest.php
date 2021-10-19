@@ -17,10 +17,12 @@ use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Enum\PlantLogEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -216,18 +218,13 @@ class PlantCycleHandlerTest extends TestCase
         $room->addPlayer($player);
         $room->setDaedalus($daedalus);
 
+        $time = new \DateTime();
+
         $newFruit = new ItemConfig();
         $newFruit->setName('fruit name');
 
         $gameFruit = new GameItem();
         $gameFruit->setEquipment($newFruit);
-        $this->gameEquipmentService->shouldReceive('persist');
-
-        $this->gameEquipmentService->shouldReceive('createGameEquipment')
-            ->with($newFruit, $daedalus)
-            ->andReturn($gameFruit)
-            ->once()
-        ;
 
         $plant = new ItemConfig();
         $plant
@@ -241,13 +238,19 @@ class PlantCycleHandlerTest extends TestCase
         $plantEffect
             ->setMaturationTime(10)
             ->setOxygen(10);
-        $this->equipmentEffectService->shouldReceive('getPlantEffect')->andReturn($plantEffect);
 
         $gamePlant = new GameItem();
         $gamePlant
             ->setEquipment($plant)
             ->setHolder($room);
 
+        $this->equipmentEffectService->shouldReceive('getPlantEffect')->andReturn($plantEffect);
+        $this->gameEquipmentService->shouldReceive('persist');
+        $this->gameEquipmentService->shouldReceive('createGameEquipment')
+            ->with($newFruit, $room, EventEnum::PLANT_PRODUCTION, $time)
+            ->andReturn($gameFruit)
+            ->once()
+        ;
         $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $event) => $event instanceof StatusEvent &&
@@ -261,7 +264,6 @@ class PlantCycleHandlerTest extends TestCase
                 $event->getDaedalus() === $daedalus &&
                 $event->getQuantity() === 10
             )->once();
-
         $this->eventDispatcher->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $event) => $event instanceof EquipmentEvent &&
                 $event->getEquipment()->getEquipment() === $newFruit
@@ -269,7 +271,7 @@ class PlantCycleHandlerTest extends TestCase
         ;
 
         //Mature Plant, no problem
-        $this->plantCycleHandler->handleNewDay($gamePlant, $daedalus, new \DateTime());
+        $this->plantCycleHandler->handleNewDay($gamePlant, $daedalus, $time);
 
         $this->assertCount(1, $room->getEquipments());
     }
@@ -342,6 +344,8 @@ class PlantCycleHandlerTest extends TestCase
         $room->addPlayer($player);
         $room->setDaedalus($daedalus);
 
+        $time = new \DateTime();
+
         $newFruit = new ItemConfig();
         $newFruit->setName('fruit name');
 
@@ -374,7 +378,7 @@ class PlantCycleHandlerTest extends TestCase
         $this->equipmentEffectService->shouldReceive('getPlantEffect')->andReturn($plantEffect);
         $this->gameEquipmentService->shouldReceive('persist');
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')
-            ->with(ItemEnum::HYDROPOT, $daedalus)
+            ->with(ItemEnum::HYDROPOT, $room, PlantLogEnum::PLANT_DEATH, $time)
             ->andReturn($hydropot)
         ;
         $this->gameEquipmentService->shouldReceive('delete');
@@ -390,7 +394,7 @@ class PlantCycleHandlerTest extends TestCase
         ;
 
         //Dried out plant
-        $this->plantCycleHandler->handleNewDay($gamePlant, $daedalus, new \DateTime());
+        $this->plantCycleHandler->handleNewDay($gamePlant, $daedalus, $time);
 
         $this->assertCount(1, $room->getEquipments());
         $this->assertNotContains($plant, $room->getEquipments());

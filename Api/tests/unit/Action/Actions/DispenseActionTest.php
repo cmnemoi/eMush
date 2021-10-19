@@ -85,21 +85,27 @@ class DispenseActionTest extends AbstractActionTest
 
         $this->action->loadParameters($this->actionEntity, $player, $gameDistillerMachine);
 
-        $gameCoffee = new GameItem();
-        $coffee = new ItemConfig();
-        $coffee
+        $gameDrug = new GameItem();
+        $drug = new ItemConfig();
+        $drug
             ->setName(GameDrugEnum::PHUXX);
-        $gameCoffee
-            ->setEquipment($coffee)
+        $gameDrug
+            ->setEquipment($drug)
             ->setName(GameDrugEnum::PHUXX);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->randomService->shouldReceive('getRandomElements')->andReturn([GameDrugEnum::PHUXX])->once();
         $this->gameEquipmentService
             ->shouldReceive('createGameEquipmentFromName')
-            ->with(GameDrugEnum::PHUXX, $daedalus)
-            ->andReturn($gameCoffee)
-            ->once();
+            ->withArgs(
+                [GameDrugEnum::PHUXX,
+                    $player,
+                    ActionEnum::DISPENSE,
+                    \DateTime::class, ]
+            )
+            ->andReturn($gameDrug)
+            ->once()
+        ;
         $this->eventDispatcher->shouldReceive('dispatch')->once();
         $this->gameEquipmentService->shouldReceive('persist');
         $this->statusService->shouldReceive('persist');

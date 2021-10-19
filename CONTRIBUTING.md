@@ -17,7 +17,7 @@ git checkout -b fix-some-fix
 ```
 2- Verify coding style before creating the merge request
 
-3- Merge go through a pipeline that check unit test and syntax. Be sure to run folloing commands before merging:
+3- Merge go through a pipeline that check unit test and syntax. Be sure to run following commands before merging:
 ```
 php vendor/bin/codecept run
 vendor/bin/php-cs-fixer fix

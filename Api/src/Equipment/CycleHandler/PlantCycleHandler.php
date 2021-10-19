@@ -225,7 +225,7 @@ class PlantCycleHandler extends AbstractCycleHandler
             $plantType->getFruit(),
             $place,
             EventEnum::PLANT_PRODUCTION,
-            new \DateTime()
+            $dateTime
         );
 
         $equipmentEvent = new EquipmentEvent(
@@ -233,7 +233,7 @@ class PlantCycleHandler extends AbstractCycleHandler
             $place,
             VisibilityEnum::PUBLIC,
             EventEnum::PLANT_PRODUCTION,
-            new \DateTime()
+            $dateTime
         );
 
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);

@@ -20,7 +20,6 @@ use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Place\Service\PlaceServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
@@ -35,7 +34,6 @@ class DaedalusService implements DaedalusServiceInterface
     private EntityManagerInterface $entityManager;
     private EventDispatcherInterface $eventDispatcher;
     private DaedalusRepository $repository;
-    private PlaceServiceInterface $placesService;
     private CycleServiceInterface $cycleService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private RandomServiceInterface $randomService;
@@ -45,7 +43,6 @@ class DaedalusService implements DaedalusServiceInterface
         EntityManagerInterface $entityManager,
         EventDispatcherInterface $eventDispatcher,
         DaedalusRepository $repository,
-        PlaceServiceInterface $placesService,
         CycleServiceInterface $cycleService,
         GameEquipmentServiceInterface $gameEquipmentService,
         RandomServiceInterface $randomService,
@@ -54,7 +51,6 @@ class DaedalusService implements DaedalusServiceInterface
         $this->entityManager = $entityManager;
         $this->eventDispatcher = $eventDispatcher;
         $this->repository = $repository;
-        $this->placesService = $placesService;
         $this->cycleService = $cycleService;
         $this->gameEquipmentService = $gameEquipmentService;
         $this->randomService = $randomService;
@@ -131,7 +127,7 @@ class DaedalusService implements DaedalusServiceInterface
         );
         $this->eventDispatcher->dispatch($daedalusEvent, DaedalusInitEvent::NEW_DAEDALUS);
 
-        return $this->persist($daedalus);
+        return $daedalus;
     }
 
     public function startDaedalus(Daedalus $daedalus): Daedalus

@@ -94,7 +94,12 @@ class OpenCapsuleActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gameEquipmentService
             ->shouldReceive('createGameEquipmentFromName')
-            ->with(ItemEnum::METAL_SCRAPS, $daedalus)
+            ->withArgs(
+                [ItemEnum::METAL_SCRAPS,
+                $player,
+                ActionEnum::OPEN,
+                \DateTime::class, ]
+            )
             ->andReturn($gameMetalScrap)
             ->once()
         ;

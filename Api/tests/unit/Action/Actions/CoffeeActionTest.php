@@ -91,7 +91,17 @@ class CoffeeActionTest extends AbstractActionTest
         ;
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->andReturn($gameCoffee)->once();
+        $this->gameEquipmentService
+            ->shouldReceive('createGameEquipmentFromName')
+            ->withArgs(
+                [GameRationEnum::COFFEE,
+                    $player,
+                    ActionEnum::COFFEE,
+                    \DateTime::class, ]
+            )
+            ->andReturn($gameCoffee)
+            ->once()
+        ;
         $this->eventDispatcher->shouldReceive('dispatch')->once();
         $this->gameEquipmentService->shouldReceive('persist');
         $this->statusService->shouldReceive('persist');

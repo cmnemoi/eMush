@@ -65,7 +65,7 @@ class CoffeeActionTest extends AbstractActionTest
         $gameCoffeeMachine
             ->setEquipment($coffeeMachine)
             ->setName(EquipmentEnum::COFFEE_MACHINE)
-            ->setPlace($room)
+            ->setHolder($room)
         ;
 
         $coffeeMachine->setActions(new ArrayCollection([$this->actionEntity]));

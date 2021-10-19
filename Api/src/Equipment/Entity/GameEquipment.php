@@ -18,6 +18,7 @@ use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Entity\StatusTarget;
 use Mush\Status\Entity\TargetStatusTrait;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 /**
  * Class GameEquipment.
@@ -51,7 +52,7 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
     /**
      * @ORM\ManyToOne (targetEntity="Mush\Place\Entity\Place", inversedBy="equipments")
      */
-    private ?Place $place = null;
+    protected ?Place $place = null;
 
     /**
      * @ORM\ManyToOne(targetEntity="EquipmentConfig")
@@ -109,7 +110,16 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         return $this;
     }
 
-    public function getPlace(): ?Place
+    public function getPlace(): Place
+    {
+        if (($holder = $this->getHolder()) === null) {
+            throw new \LogicException('Cannot find place of the GameEquipment');
+        }
+
+        return $holder->getPlace();
+    }
+
+    public function getHolder(): ?EquipmentHolderInterface
     {
         return $this->place;
     }
@@ -117,40 +127,26 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
     /**
      * @return static
      */
-    public function setPlace(?Place $place): self
+    public function setHolder(?EquipmentHolderInterface $holder): self
     {
-        if ($place !== $this->place) {
-            $oldPlace = $this->getPlace();
-            $this->place = $place;
+        if ($holder === null) {
+            $this->place = null;
 
+            return $this;
+        }
+
+        if (!$holder instanceof Place) {
+            throw new UnexpectedTypeException($holder, Place::class);
+        }
+        if ($holder !== ($oldPlace = $this->getHolder())) {
             if ($oldPlace !== null) {
                 $oldPlace->removeEquipment($this);
-                $this->place = $place;
             }
 
-            if ($place !== null) {
-                $place->addEquipment($this);
-            }
+            $this->place = $holder;
+
+            $holder->addEquipment($this);
         }
-
-        return $this;
-    }
-
-    public function getCurrentPlace(): Place
-    {
-        if ($this->place === null) {
-            throw new \LogicException('Cannot find room of game equipment');
-        }
-
-        return $this->place;
-    }
-
-    /**
-     * @return static
-     */
-    public function removeLocation(): self
-    {
-        $this->setPlace(null);
 
         return $this;
     }

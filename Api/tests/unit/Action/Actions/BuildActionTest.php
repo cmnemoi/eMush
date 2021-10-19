@@ -67,7 +67,7 @@ class BuildActionTest extends AbstractActionTest
         $item->setName('blueprint');
         $gameItem
             ->setEquipment($item)
-            ->setPlace($room)
+            ->setHolder($room)
             ->setName('blueprint')
         ;
 
@@ -89,7 +89,7 @@ class BuildActionTest extends AbstractActionTest
         $ingredient->setName('metal_scraps');
         $gameIngredient
             ->setEquipment($ingredient)
-            ->setPlace($room)
+            ->setHolder($room)
             ->setName('metal_scraps')
         ;
 

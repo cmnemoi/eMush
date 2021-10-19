@@ -51,10 +51,10 @@ class HasEquipmentValidatorTest extends TestCase
         $player = new Player();
         $player->setPlace($room);
         $target = new GameItem();
-        $target->setPlace($room);
+        $target->setHolder($room);
 
         $gameEquipment = new GameItem();
-        $gameEquipment->setName(EquipmentEnum::CAMERA_EQUIPMENT)->setPlace($room);
+        $gameEquipment->setName(EquipmentEnum::CAMERA_EQUIPMENT)->setHolder($room);
 
         $action = Mockery::mock(AbstractAction::class);
         $action
@@ -65,7 +65,7 @@ class HasEquipmentValidatorTest extends TestCase
 
         $this->validator->validate($action, $this->constraint);
 
-        $gameEquipment->setPlace(null);
+        $gameEquipment->setHolder(null);
         $gameEquipment->setPlayer($player);
 
         $this->validator->validate($action, $this->constraint);
@@ -86,10 +86,10 @@ class HasEquipmentValidatorTest extends TestCase
         $player = new Player();
         $player->setPlace($room);
         $target = new GameItem();
-        $target->setPlace($room);
+        $target->setHolder($room);
 
         $gameEquipment = new GameItem();
-        $gameEquipment->setName(ItemEnum::CAMERA_ITEM)->setPlace($room);
+        $gameEquipment->setName(ItemEnum::CAMERA_ITEM)->setHolder($room);
 
         $action = Mockery::mock(AbstractAction::class);
         $action

@@ -12,6 +12,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Disease\Entity\Collection\PlayerDiseaseCollection;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Equipment\Entity\Door;
+use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Game\Entity\CharacterConfig;
@@ -30,11 +31,12 @@ use Mush\Status\Entity\TargetStatusTrait;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 /**
  * @ORM\Entity(repositoryClass="Mush\Player\Repository\PlayerRepository")
  */
-class Player implements StatusHolderInterface, LogParameterInterface, ModifierHolder
+class Player implements StatusHolderInterface, LogParameterInterface, ModifierHolder, EquipmentHolderInterface
 {
     use TimestampableEntity;
     use TargetStatusTrait;
@@ -248,7 +250,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         }
     }
 
-    public function getItems(): Collection
+    public function getEquipments(): Collection
     {
         return $this->items;
     }
@@ -256,9 +258,9 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     /**
      * @return static
      */
-    public function setItems(Collection $items): self
+    public function setEquipments(ArrayCollection $equipments): self
     {
-        $this->items = $items;
+        $this->items = $equipments;
 
         return $this;
     }
@@ -266,15 +268,14 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     /**
      * @return static
      */
-    public function addItem(GameItem $item): self
+    public function addEquipment(GameEquipment $gameEquipment): self
     {
-        if (!$this->getItems()->contains($item)) {
-            if ($item->getPlayer() !== $this) {
-                $item->setPlayer(null);
-            }
-
-            $this->getItems()->add($item);
-            $item->setPlayer($this);
+        if (!$gameEquipment instanceof GameItem) {
+            throw new UnexpectedTypeException($gameEquipment, GameItem::class);
+        }
+        if (!$this->getEquipments()->contains($gameEquipment)) {
+            $this->getEquipments()->add($gameEquipment);
+            $gameEquipment->setHolder($this);
         }
 
         return $this;
@@ -283,11 +284,11 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     /**
      * @return static
      */
-    public function removeItem(GameItem $item): self
+    public function removeEquipment(GameEquipment $gameEquipment): self
     {
-        if ($this->items->contains($item)) {
-            $this->items->removeElement($item);
-            $item->setPlayer(null);
+        if ($this->items->contains($gameEquipment)) {
+            $this->items->removeElement($gameEquipment);
+            $gameEquipment->setHolder(null);
         }
 
         return $this;
@@ -295,7 +296,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     public function hasItemByName(string $name): bool
     {
-        return !$this->getItems()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $name)->isEmpty();
+        return !$this->getEquipments()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $name)->isEmpty();
     }
 
     /**

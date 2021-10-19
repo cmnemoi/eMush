@@ -72,7 +72,7 @@ class PlantCycleEventCest
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('plant name')
-            ->setPlace($room)
+            ->setHolder($room)
         ;
 
         $I->haveInRepository($gameEquipment);
@@ -170,7 +170,7 @@ class PlantCycleEventCest
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('plant name')
-            ->setPlace($room)
+            ->setHolder($room)
         ;
 
         $I->haveInRepository($gameEquipment);
@@ -244,7 +244,7 @@ class PlantCycleEventCest
         $gameEquipment2
             ->setEquipment($equipmentConfig)
             ->setName('plant name')
-            ->setPlace($room2)
+            ->setHolder($room2)
         ;
 
         $I->haveInRepository($gameEquipment2);

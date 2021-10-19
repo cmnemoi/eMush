@@ -46,7 +46,7 @@ class InventoryFullValidatorTest extends TestCase
 
         $player = new Player();
         $player->setDaedalus($daedalus);
-        $player->addItem(new GameItem());
+        $player->addEquipment(new GameItem());
 
         $action = Mockery::mock(AbstractAction::class);
         $action
@@ -71,7 +71,7 @@ class InventoryFullValidatorTest extends TestCase
 
         $player = new Player();
         $player->setDaedalus($daedalus);
-        $player->addItem(new GameItem());
+        $player->addEquipment(new GameItem());
 
         $action = Mockery::mock(AbstractAction::class);
         $action

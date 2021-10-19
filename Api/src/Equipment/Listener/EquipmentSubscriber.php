@@ -36,11 +36,11 @@ class EquipmentSubscriber implements EventSubscriberInterface
 
         if ($player === null ||
             !$equipment instanceof GameItem ||
-            $player->getItems()->count() >= $this->getGameConfig($equipment)->getMaxItemInInventory()
+            $player->getEquipments()->count() >= $this->getGameConfig($equipment)->getMaxItemInInventory()
         ) {
-            $equipment->setPlace($place);
+            $equipment->setHolder($place);
         } else {
-            $equipment->setPlayer($player);
+            $equipment->setHolder($player);
         }
 
         $this->gameEquipmentService->persist($equipment);
@@ -49,7 +49,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
     public function onEquipmentDestroyed(EquipmentEvent $event): void
     {
         $equipment = $event->getEquipment();
-        $equipment->removeLocation();
+        $equipment->setHolder(null);
 
         $this->gameEquipmentService->delete($equipment);
     }
@@ -57,17 +57,17 @@ class EquipmentSubscriber implements EventSubscriberInterface
     public function onEquipmentTransform(EquipmentEvent $event): void
     {
         $equipment = $event->getEquipment();
-        $place = $equipment->getCurrentPlace();
+        $place = $equipment->getPlace();
         $player = $event->getPlayer();
 
         if (($newEquipment = $event->getReplacementEquipment()) === null) {
             throw new \LogicException('Replacement equipment should be provided');
         }
 
-        if ($newEquipment instanceof GameItem && $player !== null && $player->getItems()->count() - 1 < $this->getGameConfig($equipment)->getMaxItemInInventory()) {
-            $newEquipment->setPlayer($player);
+        if ($newEquipment instanceof GameItem && $player !== null && $player->getEquipments()->count() - 1 < $this->getGameConfig($equipment)->getMaxItemInInventory()) {
+            $newEquipment->setHolder($player);
         } else {
-            $newEquipment->setPlace($place);
+            $newEquipment->setHolder($place);
         }
 
         $this->gameEquipmentService->delete($equipment);

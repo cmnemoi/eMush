@@ -254,28 +254,28 @@ class DaedalusServiceTest extends TestCase
         $oxCapsule1
             ->setEquipment($oxCapsuleConfig)
             ->setName(ItemEnum::OXYGEN_CAPSULE)
-            ->setPlayer($twoCapsulePlayer)
+            ->setHolder($twoCapsulePlayer)
         ;
         $oxCapsule2
             ->setEquipment($oxCapsuleConfig)
             ->setName(ItemEnum::OXYGEN_CAPSULE)
-            ->setPlayer($twoCapsulePlayer)
+            ->setHolder($twoCapsulePlayer)
         ;
 
         $oxCapsule3
             ->setEquipment($oxCapsuleConfig)
             ->setName(ItemEnum::OXYGEN_CAPSULE)
-            ->setPlayer($threeCapsulePlayer)
+            ->setHolder($threeCapsulePlayer)
         ;
         $oxCapsule4
             ->setEquipment($oxCapsuleConfig)
             ->setName(ItemEnum::OXYGEN_CAPSULE)
-            ->setPlayer($threeCapsulePlayer)
+            ->setHolder($threeCapsulePlayer)
         ;
         $oxCapsule5
             ->setEquipment($oxCapsuleConfig)
             ->setName(ItemEnum::OXYGEN_CAPSULE)
-            ->setPlayer($threeCapsulePlayer)
+            ->setHolder($threeCapsulePlayer)
         ;
 
         // one player with no capsule
@@ -287,8 +287,8 @@ class DaedalusServiceTest extends TestCase
 
         $result = $this->service->getRandomAsphyxia($daedalus, new \DateTime());
 
-        $this->assertCount(2, $twoCapsulePlayer->getItems());
-        $this->assertCount(3, $threeCapsulePlayer->getItems());
+        $this->assertCount(2, $twoCapsulePlayer->getEquipments());
+        $this->assertCount(3, $threeCapsulePlayer->getEquipments());
 
         // 2 players with capsules
         $this->roomLogService->shouldReceive('createLog')->once();
@@ -300,8 +300,8 @@ class DaedalusServiceTest extends TestCase
 
         $result = $this->service->getRandomAsphyxia($daedalus, new \DateTime());
 
-        $this->assertCount(1, $twoCapsulePlayer->getItems());
-        $this->assertCount(3, $threeCapsulePlayer->getItems());
+        $this->assertCount(2, $twoCapsulePlayer->getEquipments());
+        $this->assertCount(3, $threeCapsulePlayer->getEquipments());
     }
 
     public function testSelectAlphaMush()

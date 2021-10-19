@@ -62,8 +62,7 @@ class Take extends AbstractAction
         /** @var GameItem $parameter */
         $parameter = $this->parameter;
 
-        $parameter->setPlace(null);
-        $parameter->setPlayer($this->player);
+        $parameter->setHolder($this->player);
 
         // add BURDENED status if item is heavy
         if ($parameter->hasStatus(EquipmentStatusEnum::HEAVY) &&

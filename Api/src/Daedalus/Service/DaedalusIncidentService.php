@@ -115,7 +115,7 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
                 if (!$gameEquipment->isBroken()) {
                     $equipmentEvent = new EquipmentEvent(
                         $gameEquipment,
-                        $gameEquipment->getCurrentPlace(),
+                        $gameEquipment->getPlace(),
                         VisibilityEnum::HIDDEN,
                         EventEnum::NEW_CYCLE,
                         $date

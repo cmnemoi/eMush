@@ -20,7 +20,7 @@ class InventoryFullValidator extends ConstraintValidator
         }
 
         $player = $value->getPlayer();
-        if ($player->getItems()->count() >= $player->getDaedalus()->getGameConfig()->getMaxItemInInventory()) {
+        if ($player->getEquipments()->count() >= $player->getDaedalus()->getGameConfig()->getMaxItemInInventory()) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }

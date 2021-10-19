@@ -78,7 +78,7 @@ class ReachValidatorTest extends TestCase
         $player = new Player();
         $player->setPlace($room);
         $target = new GameItem();
-        $target->setPlace($room);
+        $target->setHolder($room);
 
         $action = Mockery::mock(AbstractAction::class);
         $action
@@ -90,8 +90,7 @@ class ReachValidatorTest extends TestCase
 
         $this->validator->validate($action, $this->constraint);
 
-        $target->setPlace(null);
-        $target->setPlayer($player);
+        $target->setHolder($player);
 
         $this->validator->validate($action, $this->constraint);
 
@@ -133,7 +132,7 @@ class ReachValidatorTest extends TestCase
         $player = new Player();
         $player->setPlace(new Place());
         $target = new GameItem();
-        $target->setPlace(new Place());
+        $target->setHolder(new Place());
 
         $action = Mockery::mock(AbstractAction::class);
         $action
@@ -146,8 +145,7 @@ class ReachValidatorTest extends TestCase
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);
 
-        $target->setPlace(null);
-        $target->setPlayer(new Player());
+        $target->setHolder(new Player());
 
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);
@@ -162,7 +160,7 @@ class ReachValidatorTest extends TestCase
         $gameItem = new GameItem();
 
         $player = new Player();
-        $player->addItem($gameItem);
+        $player->addEquipment($gameItem);
 
         $action = Mockery::mock(AbstractAction::class);
         $action
@@ -210,7 +208,7 @@ class ReachValidatorTest extends TestCase
         $player->setPlace($room);
 
         $gameItem = new GameItem();
-        $gameItem->setPlace($room);
+        $gameItem->setHolder($room);
 
         $action = Mockery::mock(AbstractAction::class);
         $action
@@ -236,7 +234,7 @@ class ReachValidatorTest extends TestCase
         $player->setPlace($room);
 
         $gameItem = new GameItem();
-        $gameItem->setPlace(new Place());
+        $gameItem->setHolder(new Place());
 
         $action = Mockery::mock(AbstractAction::class);
         $action

@@ -72,7 +72,7 @@ class ExtinguishActionTest extends AbstractActionTest
         $item = new ItemConfig();
         $gameItem->setEquipment($item);
         $gameItem
-            ->setPlace($room)
+            ->setHolder($room)
         ;
 
         $item->setActions(new ArrayCollection([$this->actionEntity]));
@@ -119,7 +119,7 @@ class ExtinguishActionTest extends AbstractActionTest
         $item = new ItemConfig();
         $gameItem->setEquipment($item);
         $gameItem
-            ->setPlace($room)
+            ->setHolder($room)
         ;
 
         $item->setActions(new ArrayCollection([$this->actionEntity]));

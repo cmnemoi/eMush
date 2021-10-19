@@ -84,7 +84,7 @@ class SearchActionTest extends AbstractActionTest
         $gameItem
             ->setName('itemName')
             ->setEquipment($item)
-            ->setPlace($room)
+            ->setHolder($room)
         ;
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $result = $this->action->execute();
@@ -100,7 +100,7 @@ class SearchActionTest extends AbstractActionTest
         $gameItem
             ->setName('itemName')
             ->setEquipment($item)
-            ->setPlace($room)
+            ->setHolder($room)
         ;
 
         $hidden = new Status($gameItem);
@@ -138,7 +138,7 @@ class SearchActionTest extends AbstractActionTest
         $gameItem
             ->setName('itemName')
             ->setEquipment($item)
-            ->setPlace($room)
+            ->setHolder($room)
         ;
 
         $hiddenBy = $this->createPlayer(new Daedalus(), new Place());
@@ -151,7 +151,7 @@ class SearchActionTest extends AbstractActionTest
         $gameItem2 = new GameItem();
         $gameItem2
             ->setEquipment($item)
-            ->setPlace($room)
+            ->setHolder($room)
         ;
 
         $hidden2 = new Status($gameItem2);

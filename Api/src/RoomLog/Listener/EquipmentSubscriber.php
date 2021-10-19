@@ -53,7 +53,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
 
         if ($equipment instanceof GameItem &&
             ($player = $event->getPlayer()) !== null &&
-            $player->getItems()->count() >= $this->getGameConfig($equipment)->getMaxItemInInventory()
+            $player->getEquipments()->count() >= $this->getGameConfig($equipment)->getMaxItemInInventory()
         ) {
             $this->roomLogService->createLog(
                 LogEnum::OBJECT_FELT,
@@ -75,7 +75,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
             if ($equipment instanceof Door) {
                 $rooms = $equipment->getRooms()->toArray();
             } else {
-                $rooms = [$equipment->getCurrentPlace()];
+                $rooms = [$equipment->getPlace()];
             }
 
             foreach ($rooms as $room) {
@@ -96,7 +96,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
     {
         if ($event->getVisibility() !== VisibilityEnum::HIDDEN) {
             $equipment = $event->getEquipment();
-            $place = $equipment->getCurrentPlace();
+            $place = $equipment->getPlace();
 
             $this->roomLogService->createLog(
                 LogEnum::EQUIPMENT_DESTROYED,
@@ -120,7 +120,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
 
         if (
             $newEquipment instanceof GameItem && $player !== null &&
-            $newEquipment->getPlayer() === null
+            $newEquipment->getHolder() === null
         ) {
             $this->roomLogService->createLog(
                 LogEnum::OBJECT_FELT,

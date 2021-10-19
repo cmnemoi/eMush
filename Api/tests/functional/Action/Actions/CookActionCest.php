@@ -49,7 +49,7 @@ class CookActionCest
 
         $I->assertFalse($this->cookAction->isVisible());
 
-        $gameEquipment->setPlace($room1);
+        $gameEquipment->setHolder($room1);
 
         $I->assertTrue($this->cookAction->isVisible());
     }
@@ -130,7 +130,7 @@ class CookActionCest
         $equipment->setName($name);
         $gameEquipment
             ->setEquipment($equipment)
-            ->setPlace($place)
+            ->setHolder($place)
             ->setName($name)
         ;
 

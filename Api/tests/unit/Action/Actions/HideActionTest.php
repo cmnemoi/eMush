@@ -67,7 +67,7 @@ class HideActionTest extends AbstractActionTest
         $gameItem
             ->setName('itemName')
             ->setEquipment($item)
-            ->setPlayer($player)
+            ->setHolder($player)
         ;
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
@@ -89,6 +89,6 @@ class HideActionTest extends AbstractActionTest
 
         $this->assertInstanceOf(Success::class, $result);
         $this->assertCount(1, $room->getEquipments());
-        $this->assertCount(0, $player->getItems());
+        $this->assertCount(0, $player->getEquipments());
     }
 }

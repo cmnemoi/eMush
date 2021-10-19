@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
+use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\Modifier;
@@ -25,7 +26,7 @@ use Mush\Status\Entity\TargetStatusTrait;
  *
  * @ORM\Entity(repositoryClass="Mush\Place\Repository\PlaceRepository")
  */
-class Place implements StatusHolderInterface, ModifierHolder
+class Place implements StatusHolderInterface, ModifierHolder, EquipmentHolderInterface
 {
     use TimestampableEntity;
     use TargetStatusTrait;
@@ -195,11 +196,11 @@ class Place implements StatusHolderInterface, ModifierHolder
     /**
      * @return static
      */
-    public function addEquipment(GameEquipment $equipment): self
+    public function addEquipment(GameEquipment $gameEquipment): self
     {
-        if (!$this->equipments->contains($equipment)) {
-            $this->equipments->add($equipment);
-            $equipment->setPlace($this);
+        if (!$this->equipments->contains($gameEquipment)) {
+            $this->equipments->add($gameEquipment);
+            $gameEquipment->setHolder($this);
         }
 
         return $this;
@@ -208,11 +209,11 @@ class Place implements StatusHolderInterface, ModifierHolder
     /**
      * @return static
      */
-    public function removeEquipment(GameEquipment $equipment): self
+    public function removeEquipment(GameEquipment $gameEquipment): self
     {
-        if ($this->equipments->contains($equipment)) {
-            $this->equipments->removeElement($equipment);
-            $equipment->setPlace(null);
+        if ($this->equipments->contains($gameEquipment)) {
+            $this->equipments->removeElement($gameEquipment);
+            $gameEquipment->setHolder(null);
         }
 
         return $this;
@@ -286,5 +287,10 @@ class Place implements StatusHolderInterface, ModifierHolder
     public function getClassName(): string
     {
         return get_class($this);
+    }
+
+    public function getPlace(): self
+    {
+        return $this;
     }
 }

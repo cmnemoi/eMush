@@ -25,7 +25,7 @@ class DaedalusInitEventSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            DaedalusInitEvent::NEW_DAEDALUS => 'onNewDaedalus',
+            DaedalusInitEvent::NEW_DAEDALUS => ['onNewDaedalus', -100], //this can only be done once room have been created
         ];
     }
 

@@ -37,7 +37,7 @@ class RoomSubscriber implements EventSubscriberInterface
 
         /** @var ChargeStatusConfig $fireStatusConfig */
         $fireStatusConfig = $this->statusService->getStatusConfigByNameAndDaedalus(StatusEnum::FIRE, $event->getPlace()->getDaedalus());
-        $fireStatus = $this->statusService->createChargeStatusFromConfig($fireStatusConfig, $room, 0, 0);
+        $fireStatus = $this->statusService->createStatusFromConfig($fireStatusConfig, $room);
 
         $this->statusService->persist($fireStatus);
     }

@@ -64,8 +64,7 @@ class DaedalusCycleEventTest extends TestCase
         $player->setGameStatus(GameStatusEnum::CURRENT);
         $player->setDaedalus($daedalus);
 
-        $mush = new Status($player);
-        $mush->setName(PlayerStatusEnum::MUSH);
+        $mush = new Status($player, PlayerStatusEnum::MUSH);
 
         $date = new \DateTime('tomorrow');
 

@@ -8,7 +8,6 @@ use Mush\Action\Actions\Infect;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Place\Entity\Place;
-use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -17,9 +16,6 @@ class InfectActionTest extends AbstractActionTest
 {
     /** @var StatusServiceInterface|Mockery\Mock */
     private StatusServiceInterface $statusService;
-
-    /** @var PlayerServiceInterface|Mockery\Mock */
-    private PlayerServiceInterface $playerService;
 
     /**
      * @before
@@ -31,7 +27,6 @@ class InfectActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::INFECT, 1);
 
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
-        $this->playerService = Mockery::mock(PlayerServiceInterface::class);
 
         $this->action = new Infect(
             $this->eventDispatcher,
@@ -59,16 +54,14 @@ class InfectActionTest extends AbstractActionTest
 
         $targetPlayer = $this->createPlayer($daedalus, $room);
 
-        $mushStatus = new ChargeStatus($player);
+        $mushStatus = new ChargeStatus($player, PlayerStatusEnum::MUSH);
         $mushStatus
             ->setCharge(1)
-            ->setName(PlayerStatusEnum::MUSH)
         ;
 
-        $sporeStatus = new ChargeStatus($player);
+        $sporeStatus = new ChargeStatus($player, PlayerStatusEnum::SPORES);
         $sporeStatus
             ->setCharge(1)
-            ->setName(PlayerStatusEnum::SPORES)
         ;
 
         $this->action->loadParameters($this->actionEntity, $player, $targetPlayer);

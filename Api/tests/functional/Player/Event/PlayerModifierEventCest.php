@@ -203,9 +203,8 @@ class PlayerModifierEventCest
         ;
         $I->haveInRepository($fullStatusConfig);
 
-        $mushStatus = new Status($player);
+        $mushStatus = new Status($player, PlayerStatusEnum::MUSH);
         $mushStatus
-            ->setName(PlayerStatusEnum::MUSH)
             ->setVisibility(VisibilityEnum::MUSH)
         ;
 

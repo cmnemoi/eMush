@@ -117,9 +117,8 @@ class NeronMessageCycleCest
         $room4->addDoor($door3);
 
         $time = new DateTime();
-        $status = new ChargeStatus($room);
+        $status = new ChargeStatus($room, StatusEnum::FIRE);
         $status
-            ->setName(StatusEnum::FIRE)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setCharge(1);
 

@@ -73,8 +73,7 @@ class DiseaseCauseServiceTest extends TestCase
 
         $this->diseaseCauseService->handleSpoiledFood($player, $gameEquipment);
 
-        $hazardous = new Status($gameEquipment);
-        $hazardous->setName(EquipmentStatusEnum::HAZARDOUS);
+        $hazardous = new Status($gameEquipment, EquipmentStatusEnum::HAZARDOUS);
 
         $this->randomService
             ->shouldReceive('isSuccessful')
@@ -114,8 +113,7 @@ class DiseaseCauseServiceTest extends TestCase
 
         $this->diseaseCauseService->handleSpoiledFood($player, $gameEquipment);
 
-        $hazardous = new Status($gameEquipment);
-        $hazardous->setName(EquipmentStatusEnum::DECOMPOSING);
+        $hazardous = new Status($gameEquipment, EquipmentStatusEnum::DECOMPOSING);
 
         $this->randomService
             ->shouldReceive('isSuccessful')

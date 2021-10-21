@@ -107,9 +107,8 @@ class PlayerEventCest
         ;
         $I->haveInRepository($mushStatusConfig);
 
-        $mushStatus = new ChargeStatus($player);
+        $mushStatus = new ChargeStatus($player, PlayerStatusEnum::SPORES);
         $mushStatus
-            ->setName(PlayerStatusEnum::SPORES)
             ->setVisibility(VisibilityEnum::MUSH)
             ->setCharge(0)
         ;

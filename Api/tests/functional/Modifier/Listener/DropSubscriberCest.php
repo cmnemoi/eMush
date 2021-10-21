@@ -170,8 +170,7 @@ class DropSubscriberCest
         $statusConfig->setName(EquipmentStatusEnum::BROKEN);
         $I->haveInRepository($statusConfig);
 
-        $status = new Status($gameEquipment);
-        $status->setName(EquipmentStatusEnum::BROKEN);
+        $status = new Status($gameEquipment, EquipmentStatusEnum::BROKEN);
         $I->haveInRepository($status);
 
         $this->dropAction->loadParameters($takeActionEntity, $player, $gameEquipment);
@@ -249,8 +248,7 @@ class DropSubscriberCest
         $statusConfig->setName(EquipmentStatusEnum::BROKEN);
         $I->haveInRepository($statusConfig);
 
-        $status = new Status($gameEquipment);
-        $status->setName(EquipmentStatusEnum::BROKEN);
+        $status = new Status($gameEquipment, EquipmentStatusEnum::BROKEN);
         $I->haveInRepository($status);
 
         $this->dropAction->loadParameters($takeActionEntity, $player, $gameEquipment);

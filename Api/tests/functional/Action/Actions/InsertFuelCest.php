@@ -162,9 +162,8 @@ class InsertFuelCest
         ;
         $I->haveInRepository($gameCapsule);
 
-        $status = new Status($gameEquipment);
+        $status = new Status($gameEquipment, EquipmentStatusEnum::BROKEN);
         $status
-            ->setName(EquipmentStatusEnum::BROKEN)
             ->setVisibility(VisibilityEnum::PUBLIC)
         ;
 

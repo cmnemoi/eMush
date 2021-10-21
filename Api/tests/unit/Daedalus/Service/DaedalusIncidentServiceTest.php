@@ -199,8 +199,7 @@ class DaedalusIncidentServiceTest extends TestCase
         $this->randomService->shouldReceive('random')->andReturn(1)->once();
 
         $equipment = new GameEquipment();
-        $brokenStatus = new Status($equipment);
-        $brokenStatus->setName(EquipmentStatusEnum::BROKEN);
+        $brokenStatus = new Status($equipment, EquipmentStatusEnum::BROKEN);
 
         $this->gameEquipmentRepository
             ->shouldReceive('findByCriteria')
@@ -307,8 +306,7 @@ class DaedalusIncidentServiceTest extends TestCase
         $player->setGameStatus(GameStatusEnum::CURRENT);
         $mushPlayer = new Player();
         $mushPlayer->setGameStatus(GameStatusEnum::CURRENT);
-        $mush = new Status($mushPlayer);
-        $mush->setName(PlayerStatusEnum::MUSH);
+        $mush = new Status($mushPlayer, PlayerStatusEnum::MUSH);
         $daedalus->addPlayer($mushPlayer);
         $daedalus->addPlayer($player);
 

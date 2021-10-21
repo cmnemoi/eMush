@@ -36,7 +36,7 @@ class Status
     /**
      * @ORM\Column(type="string", nullable=false)
      */
-    protected ?string $name = null;
+    protected string $name;
 
     /**
      * @ORM\Column(type="string", nullable=false)
@@ -53,9 +53,10 @@ class Status
      */
     protected ?StatusTarget $target = null;
 
-    public function __construct(StatusHolderInterface $statusHolder)
+    public function __construct(StatusHolderInterface $statusHolder, string $name)
     {
         $this->setOwner($statusHolder);
+        $this->name = $name;
     }
 
     public function getId(): ?int
@@ -63,19 +64,9 @@ class Status
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
-    }
-
-    /**
-     * @return static
-     */
-    public function setName(?string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
     }
 
     public function getVisibility(): string

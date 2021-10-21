@@ -6,8 +6,8 @@ use App\Tests\FunctionalTester;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
@@ -44,69 +44,44 @@ class EquipmentEventCest
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig]);
 
         /** @var EquipmentConfig $equipmentConfig */
-        $equipmentConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig]);
-
-        //Case of a game Equipment
-        $gameEquipment = new GameEquipment();
-        $gameEquipment
-            ->setEquipment($equipmentConfig)
-            ->setName('some name')
-        ;
-        $I->haveInRepository($gameEquipment);
+        $equipmentConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'name' => 'equipment_name']);
 
         $equipmentEvent = new EquipmentEvent(
-            $gameEquipment,
-            $room,
+            'equipment_name',
+            $player,
             VisibilityEnum::PUBLIC,
             ActionEnum::COFFEE,
             new \DateTime()
         );
-        $equipmentEvent->setPlayer($player);
-
         $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
         $I->assertCount(1, $room->getEquipments());
         $I->assertCount(0, $player->getEquipments());
 
         //Case of a game Item
-        $gameEquipment = new GameItem();
-        $gameEquipment
-            ->setEquipment($equipmentConfig)
-            ->setName('some name')
-        ;
-        $I->haveInRepository($gameEquipment);
+        /** @var EquipmentConfig $equipmentConfig */
+        $equipmentConfig = $I->have(ItemConfig::class, ['gameConfig' => $gameConfig, 'name' => 'item_name']);
 
         $equipmentEvent = new EquipmentEvent(
-            $gameEquipment,
-            $room,
+            'item_name',
+            $player,
             VisibilityEnum::PUBLIC,
             ActionEnum::COFFEE,
             new \DateTime()
         );
-        $equipmentEvent->setPlayer($player);
-
         $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
         $I->assertCount(1, $room->getEquipments());
         $I->assertCount(1, $player->getEquipments());
 
         //Case of a game Item full inventory
-        $gameEquipment = new GameItem();
-        $gameEquipment
-            ->setEquipment($equipmentConfig)
-            ->setName('some name')
-        ;
-        $I->haveInRepository($gameEquipment);
-
         $equipmentEvent = new EquipmentEvent(
-            $gameEquipment,
-            $room,
+            'item_name',
+            $player,
             VisibilityEnum::PUBLIC,
             ActionEnum::DISASSEMBLE,
             new \DateTime()
         );
-        $equipmentEvent->setPlayer($player);
-
         $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
         $I->assertCount(2, $room->getEquipments());
@@ -143,13 +118,13 @@ class EquipmentEventCest
         $I->haveInRepository($gameEquipment);
 
         $equipmentEvent = new EquipmentEvent(
-            $gameEquipment,
+            $gameEquipment->getName(),
             $room,
             VisibilityEnum::PUBLIC,
             RoomEventEnum::CYCLE_FIRE,
             new \DateTime()
         );
-
+        $equipmentEvent->setExistingEquipment($gameEquipment);
         $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         $I->assertCount(0, $room->getEquipments());

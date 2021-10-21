@@ -105,8 +105,7 @@ class TakeActionTest extends AbstractActionTest
             ->setHolder($room)
         ;
 
-        $heavy = new Status($gameItem);
-        $heavy->setName(EquipmentStatusEnum::HEAVY);
+        $heavy = new Status($gameItem, EquipmentStatusEnum::HEAVY);
 
         $gameConfig = new GameConfig();
         $gameConfig->setMaxItemInInventory(3);

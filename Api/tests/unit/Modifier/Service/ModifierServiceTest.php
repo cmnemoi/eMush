@@ -18,6 +18,7 @@ use Mush\Modifier\Service\ModifierService;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -118,7 +119,7 @@ class ModifierServiceTest extends TestCase
 
         // create a player Modifier with charge
         $player = new Player();
-        $charge = new ChargeStatus($player);
+        $charge = new ChargeStatus($player, EquipmentStatusEnum::UNSTABLE);
 
         $modifierConfig = new ModifierConfig();
         $modifierConfig->setReach(ModifierReachEnum::TARGET_PLAYER);
@@ -471,7 +472,7 @@ class ModifierServiceTest extends TestCase
         $player = new Player();
         $player->setDaedalus($daedalus)->setPlace($room);
 
-        $status = new ChargeStatus($player);
+        $status = new ChargeStatus($player, EquipmentStatusEnum::UNSTABLE);
         $status->setCharge(5);
 
         $actionCost = new ActionCost();
@@ -525,7 +526,7 @@ class ModifierServiceTest extends TestCase
         $this->assertEquals(6, $modifiedValue);
 
         //add a modifier with a charge
-        $status = new ChargeStatus($player);
+        $status = new ChargeStatus($player, EquipmentStatusEnum::UNSTABLE);
         $status->setCharge(5);
 
         $modifierConfig2 = new ModifierConfig();

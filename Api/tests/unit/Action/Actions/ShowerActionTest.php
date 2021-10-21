@@ -10,7 +10,6 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Status\Entity\Status;
@@ -19,8 +18,6 @@ use Mush\Status\Service\StatusServiceInterface;
 
 class ShowerActionTest extends AbstractActionTest
 {
-    /** @var GameEquipmentServiceInterface|Mockery\Mock */
-    private GameEquipmentServiceInterface $gameEquipmentService;
     /** @var PlayerServiceInterface|Mockery\Mock */
     private PlayerServiceInterface $playerService;
     /** @var StatusServiceInterface|Mockery\Mock */
@@ -32,7 +29,6 @@ class ShowerActionTest extends AbstractActionTest
     public function before()
     {
         parent::before();
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
@@ -70,10 +66,7 @@ class ShowerActionTest extends AbstractActionTest
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
-        $dirty = new Status($player);
-        $dirty
-            ->setName(PlayerStatusEnum::DIRTY)
-        ;
+        $dirty = new Status($player, PlayerStatusEnum::DIRTY);
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 

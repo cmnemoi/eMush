@@ -87,9 +87,8 @@ class RepairActionCest
 
         $I->assertFalse($this->repairAction->isVisible());
 
-        $status = new Status($gameEquipment);
+        $status = new Status($gameEquipment, EquipmentStatusEnum::BROKEN);
         $status
-            ->setName(EquipmentStatusEnum::BROKEN)
             ->setVisibility(VisibilityEnum::PUBLIC)
         ;
 

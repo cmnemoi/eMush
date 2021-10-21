@@ -8,7 +8,6 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Alert\Entity\Alert;
 use Mush\Alert\Entity\AlertElement;
 use Mush\Alert\Enum\AlertEnum;
-use Mush\Alert\Listener\EquipmentSubscriber;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
@@ -22,14 +21,15 @@ use Mush\Place\Entity\Place;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class EquipmentSubscriberCest
 {
-    private EquipmentSubscriber $equipmentSubscriber;
+    private EventDispatcherInterface $eventDispatcher;
 
     public function _before(FunctionalTester $I)
     {
-        $this->equipmentSubscriber = $I->grabService(EquipmentSubscriber::class);
+        $this->eventDispatcher = $I->grabService(EventDispatcherInterface::class);
     }
 
     public function testDestroyBrokenEquipment(FunctionalTester $I)
@@ -66,16 +66,7 @@ class EquipmentSubscriberCest
 
         $I->haveInRepository($gravitySimulator);
 
-        $broken = new Status($gravitySimulator);
-        $broken->setName(EquipmentStatusEnum::BROKEN);
-
-        $equipmentEvent = new EquipmentEvent(
-            $gravitySimulator,
-            $room,
-            VisibilityEnum::HIDDEN,
-            ActionEnum::DISASSEMBLE,
-            new DateTime()
-        );
+        $broken = new Status($gravitySimulator, EquipmentStatusEnum::BROKEN);
 
         $reportedAlert = new AlertElement();
         $reportedAlert->setEquipment($gravitySimulator);
@@ -90,7 +81,15 @@ class EquipmentSubscriberCest
 
         $I->haveInRepository($alertBroken);
 
-        $this->equipmentSubscriber->onEquipmentDestroyed($equipmentEvent);
+        $equipmentEvent = new EquipmentEvent(
+            $gravitySimulator->getClassName(),
+            $room,
+            VisibilityEnum::HIDDEN,
+            ActionEnum::DISASSEMBLE,
+            new DateTime()
+        );
+        $equipmentEvent->setExistingEquipment($gravitySimulator);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         $I->dontSeeInRepository(Alert::class, ['daedalus' => $daedalus, 'name' => AlertEnum::NO_GRAVITY]);
     }

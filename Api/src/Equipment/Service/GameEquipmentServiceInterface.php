@@ -26,7 +26,7 @@ interface GameEquipmentServiceInterface
     ): GameEquipment;
 
     public function createGameEquipment(
-        EquipmentConfig $equipment,
+        EquipmentConfig $equipmentConfig,
         EquipmentHolderInterface $holder,
         string $reason,
         \DateTime $time

@@ -88,8 +88,6 @@ class PlantCycleHandler extends AbstractCycleHandler
 
             $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
         }
-
-        $this->gameEquipmentService->persist($gamePlant);
     }
 
     public function handleNewDay($object, $daedalus, \DateTime $dateTime, array $context = []): void
@@ -134,8 +132,6 @@ class PlantCycleHandler extends AbstractCycleHandler
         }
 
         $this->handleStatus($gamePlant, $dateTime);
-
-        $this->gameEquipmentService->persist($gamePlant);
     }
 
     private function handleStatus(GameItem $gamePlant, \DateTime $dateTime): void
@@ -167,34 +163,23 @@ class PlantCycleHandler extends AbstractCycleHandler
         }
 
         // Create a new hydropot
-        /** @var GameItem $hydropot */
-        $hydropot = $this->gameEquipmentService->createGameEquipmentFromName(
-            ItemEnum::HYDROPOT,
-            $holder,
-            PlantLogEnum::PLANT_DEATH,
-            $dateTime
-        );
-
         $equipmentEvent = new EquipmentEvent(
-            $gamePlant,
+            $gamePlant->getName(),
             $place,
             VisibilityEnum::PUBLIC,
             PlantLogEnum::PLANT_DEATH,
             new \DateTime()
         );
+        $equipmentEvent->setExistingEquipment($gamePlant);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         $equipmentEvent = new EquipmentEvent(
-            $hydropot,
-            $place,
+            ItemEnum::HYDROPOT,
+            $holder,
             VisibilityEnum::HIDDEN,
             PlantLogEnum::PLANT_DEATH,
             new \DateTime()
         );
-        if ($holder instanceof Player) {
-            $equipmentEvent->setPlayer($holder);
-        }
-
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
     }
 
@@ -220,22 +205,13 @@ class PlantCycleHandler extends AbstractCycleHandler
         // If plant is not in a room, it is in player inventory
         $place = $gamePlant->getPlace();
 
-        /** @var GameItem $gameFruit */
-        $gameFruit = $this->gameEquipmentService->createGameEquipment(
-            $plantType->getFruit(),
-            $place,
-            EventEnum::PLANT_PRODUCTION,
-            $dateTime
-        );
-
         $equipmentEvent = new EquipmentEvent(
-            $gameFruit,
+            $plantType->getFruit()->getName(),
             $place,
             VisibilityEnum::PUBLIC,
             EventEnum::PLANT_PRODUCTION,
             $dateTime
         );
-
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
     }
 

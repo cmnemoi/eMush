@@ -43,8 +43,8 @@ class OpenCapsuleActionTest extends AbstractActionTest
             $this->eventDispatcher,
             $this->actionService,
             $this->validator,
+            $this->randomService,
             $this->gameEquipmentService,
-            $this->randomService
         );
     }
 
@@ -103,8 +103,7 @@ class OpenCapsuleActionTest extends AbstractActionTest
             ->andReturn($gameMetalScrap)
             ->once()
         ;
-        $this->eventDispatcher->shouldReceive('dispatch')->twice();
-        $this->gameEquipmentService->shouldReceive('persist');
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
 
         $result = $this->action->execute();
 

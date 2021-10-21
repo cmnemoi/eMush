@@ -12,21 +12,15 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Enum\StatusEnum;
 
 class DisasembleActionTest extends AbstractActionTest
 {
-    /** @var GameEquipmentServiceInterface|Mockery\Mock */
-    private GameEquipmentServiceInterface $gameEquipmentService;
-    /** @var PlayerServiceInterface|Mockery\Mock */
-    private PlayerServiceInterface $playerService;
     /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;
 
@@ -37,8 +31,6 @@ class DisasembleActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
-        $this->playerService = Mockery::mock(PlayerServiceInterface::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::DISASSEMBLE, 3);
@@ -47,8 +39,6 @@ class DisasembleActionTest extends AbstractActionTest
             $this->eventDispatcher,
             $this->actionService,
             $this->validator,
-            $this->gameEquipmentService,
-            $this->playerService,
             $this->randomService,
         );
     }
@@ -78,14 +68,10 @@ class DisasembleActionTest extends AbstractActionTest
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
         ;
 
-        $this->gameEquipmentService->shouldReceive('persist');
-        $this->playerService->shouldReceive('persist');
-
         $player = $this->createPlayer($daedalus, $room, [SkillEnum::TECHNICIAN]);
 
-        $attempt = new Attempt(new Player());
+        $attempt = new Attempt(new Player(), StatusEnum::ATTEMPT);
         $attempt
-            ->setName(StatusEnum::ATTEMPT)
             ->setAction($this->action->getActionName())
         ;
         $this->actionService->shouldReceive('getAttempt')->andReturn($attempt);
@@ -121,14 +107,10 @@ class DisasembleActionTest extends AbstractActionTest
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
         ;
 
-        $this->gameEquipmentService->shouldReceive('persist');
-        $this->playerService->shouldReceive('persist');
-
         $player = $this->createPlayer($daedalus, $room, [SkillEnum::TECHNICIAN]);
 
-        $attempt = new Attempt(new Player());
+        $attempt = new Attempt(new Player(), StatusEnum::ATTEMPT);
         $attempt
-            ->setName(StatusEnum::ATTEMPT)
             ->setAction($this->action->getActionName())
         ;
         $this->actionService->shouldReceive('getAttempt')->andReturn($attempt);
@@ -138,17 +120,7 @@ class DisasembleActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('getSuccessRate')->andReturn(10)->once();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
         $scrap = new GameItem();
-        $this->gameEquipmentService
-            ->shouldReceive('createGameEquipmentFromName')
-            ->withArgs([
-                ItemEnum::METAL_SCRAPS,
-                $player,
-                ActionEnum::DISASSEMBLE,
-                \DateTime::class,
-            ])
-            ->andReturn($scrap)
-            ->once()
-        ;
+
         $this->eventDispatcher->shouldReceive('dispatch')->twice();
 
         //Success

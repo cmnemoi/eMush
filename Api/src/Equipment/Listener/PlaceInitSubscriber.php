@@ -53,7 +53,6 @@ class PlaceInitSubscriber implements EventSubscriberInterface
             $gameEquipment = $this->gameEquipmentService->createGameEquipment($equipment, $place, $reason, $time);
         }
 
-
         //initialize doors
         $doorConfig = $daedalus
             ->getGameConfig()

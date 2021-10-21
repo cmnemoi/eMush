@@ -38,8 +38,7 @@ class PlayerServiceCest
         /** @var Player $player */
         $player = $I->have(Player::class, ['place' => $room, 'daedalus' => $daedalus]);
 
-        $status = new Status($player);
-        $status->setName(PlayerStatusEnum::FULL_STOMACH);
+        $status = new Status($player, PlayerStatusEnum::FULL_STOMACH);
 
         $deadPlayer = $this->playerService->playerDeath($player, EndCauseEnum::INJURY, new \DateTime());
 
@@ -67,11 +66,8 @@ class PlayerServiceCest
         /** @var Player $player */
         $player = $I->have(Player::class, ['place' => $room, 'daedalus' => $daedalus]);
 
-        $status = new ChargeStatus($player);
-        $status->setName(PlayerStatusEnum::MUSH);
-
-        $status = new Status($player);
-        $status->setName(PlayerStatusEnum::FULL_STOMACH);
+        new ChargeStatus($player, PlayerStatusEnum::MUSH);
+        new Status($player, PlayerStatusEnum::FULL_STOMACH);
 
         $deadPlayer = $this->playerService->playerDeath($player, EndCauseEnum::INJURY, new \DateTime());
 
@@ -106,8 +102,7 @@ class PlayerServiceCest
 
         /** @var Player $mushPlayer */
         $mushPlayer = $I->have(Player::class, ['place' => $room, 'daedalus' => $daedalus, 'characterConfig' => $characterConfig]);
-        $status = new ChargeStatus($mushPlayer);
-        $status->setName(PlayerStatusEnum::MUSH);
+        $status = new ChargeStatus($mushPlayer, PlayerStatusEnum::MUSH);
 
         $deadPlayer = $this->playerService->playerDeath($player, EndCauseEnum::INJURY, new \DateTime());
 

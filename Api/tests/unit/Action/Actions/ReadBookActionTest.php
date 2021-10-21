@@ -17,9 +17,6 @@ use Mush\Player\Service\PlayerServiceInterface;
 
 class ReadBookActionTest extends AbstractActionTest
 {
-    /** @var PlayerServiceInterface|Mockery\Mock */
-    private PlayerServiceInterface $playerService;
-
     /**
      * @before
      */
@@ -35,7 +32,6 @@ class ReadBookActionTest extends AbstractActionTest
             $this->eventDispatcher,
             $this->actionService,
             $this->validator,
-            $this->playerService,
         );
     }
 
@@ -58,9 +54,9 @@ class ReadBookActionTest extends AbstractActionTest
         $gameItem
             ->setEquipment($item)
             ->setHolder($room)
+            ->setName('name')
         ;
 
-        $this->playerService->shouldReceive('persist');
         $this->eventDispatcher->shouldReceive('dispatch');
 
         $player = $this->createPlayer(new Daedalus(), $room);

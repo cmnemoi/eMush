@@ -40,10 +40,9 @@ class DayEventCest
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
 
-        $status = new ChargeStatus($player);
+        $status = new ChargeStatus($player, 'charged');
 
         $status
-            ->setName('charged')
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setThreshold(1)
             ->setCharge(0)
@@ -60,10 +59,9 @@ class DayEventCest
         $I->assertEquals(1, $status->getCharge());
 
         //Day decrement
-        $status = new ChargeStatus($player);
+        $status = new ChargeStatus($player, 'charged');
 
         $status
-            ->setName('charged')
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setThreshold(0)
             ->setCharge(1)
@@ -81,10 +79,9 @@ class DayEventCest
 
         //Day reset
 
-        $status = new ChargeStatus($player);
+        $status = new ChargeStatus($player, 'charged');
 
         $status
-            ->setName('charged')
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setThreshold(5)
             ->setCharge(1)

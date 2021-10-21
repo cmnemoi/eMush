@@ -71,10 +71,7 @@ class RepairActionTest extends AbstractActionTest
             ->setIsBreakable(true)
         ;
 
-        $broken = new Status($gameItem);
-        $broken
-            ->setName(EquipmentStatusEnum::BROKEN)
-        ;
+        $broken = new Status($gameItem, EquipmentStatusEnum::BROKEN);
 
         $gameItem
             ->setEquipment($item)
@@ -86,9 +83,8 @@ class RepairActionTest extends AbstractActionTest
 
         $player = $this->createPlayer($daedalus, $room, [SkillEnum::TECHNICIAN]);
 
-        $attempt = new Attempt(new Player());
+        $attempt = new Attempt(new Player(), StatusEnum::ATTEMPT);
         $attempt
-            ->setName(StatusEnum::ATTEMPT)
             ->setAction($this->action->getActionName())
         ;
         $this->actionService->shouldReceive('getAttempt')->andReturn($attempt);
@@ -117,10 +113,7 @@ class RepairActionTest extends AbstractActionTest
             ->setIsBreakable(true)
         ;
 
-        $broken = new Status($gameItem);
-        $broken
-            ->setName(EquipmentStatusEnum::BROKEN)
-        ;
+        $broken = new Status($gameItem, EquipmentStatusEnum::BROKEN);
 
         $gameItem
             ->setEquipment($item)
@@ -132,11 +125,7 @@ class RepairActionTest extends AbstractActionTest
 
         $player = $this->createPlayer($daedalus, $room, [SkillEnum::TECHNICIAN]);
 
-        $attempt = new Attempt(new Player());
-        $attempt
-            ->setName(StatusEnum::ATTEMPT)
-            ->setAction($this->action->getActionName())
-        ;
+        $attempt = new Attempt(new Player(), StatusEnum::ATTEMPT);
         $this->actionService->shouldReceive('getAttempt')->andReturn($attempt);
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);

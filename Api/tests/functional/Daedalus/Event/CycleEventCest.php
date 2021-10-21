@@ -66,10 +66,9 @@ class CycleEventCest
 
         $I->haveInRepository($gameEquipment);
 
-        $status = new Status($player);
+        $status = new Status($player, PlayerStatusEnum::LYING_DOWN);
 
         $status
-            ->setName(PlayerStatusEnum::LYING_DOWN)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setTarget($gameEquipment)
         ;

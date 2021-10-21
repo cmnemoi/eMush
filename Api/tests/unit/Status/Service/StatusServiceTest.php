@@ -20,17 +20,22 @@ use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Repository\StatusConfigRepository;
 use Mush\Status\Repository\StatusRepository;
 use Mush\Status\Service\StatusService;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class StatusServiceTest extends TestCase
 {
     /** @var EntityManagerInterface|Mockery\Mock */
     private EntityManagerInterface $entityManager;
+
+    /** @var EventDispatcherInterface|Mockery\Mock */
+    protected EventDispatcherInterface $eventDispatcher;
 
     /** @var StatusRepository|Mockery\Mock */
     private StatusRepository $repository;
@@ -46,11 +51,13 @@ class StatusServiceTest extends TestCase
     public function before()
     {
         $this->entityManager = Mockery::mock(EntityManagerInterface::class);
+        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $this->repository = Mockery::mock(StatusRepository::class);
         $this->configRepository = Mockery::mock(StatusConfigRepository::class);
 
         $this->service = new StatusService(
             $this->entityManager,
+            $this->eventDispatcher,
             $this->repository,
             $this->configRepository
         );
@@ -67,7 +74,7 @@ class StatusServiceTest extends TestCase
     public function testPersist()
     {
         $gameEquipment = new GameItem();
-        $status = new Status($gameEquipment);
+        $status = new Status($gameEquipment, EquipmentStatusEnum::ELECTRIC_CHARGES);
 
         $this->entityManager->shouldReceive('persist')->with($status)->once();
         $this->entityManager->shouldReceive('flush')->once();
@@ -77,7 +84,7 @@ class StatusServiceTest extends TestCase
     public function testRemove()
     {
         $gameEquipment = new GameItem();
-        $status = new Status($gameEquipment);
+        $status = new Status($gameEquipment, EquipmentStatusEnum::ELECTRIC_CHARGES);
 
         $this->entityManager->shouldReceive('remove')->with($status)->once();
         $this->entityManager->shouldReceive('flush')->once();
@@ -96,19 +103,16 @@ class StatusServiceTest extends TestCase
         $item3 = new GameItem();
         $item3->setHolder($room)->setName('item 3');
 
-        $hidden1 = new Status($item1);
+        $hidden1 = new Status($item1, EquipmentStatusEnum::HIDDEN);
         $hidden1
-            ->setName('hidden')
             ->setCreatedAt(new DateTime());
 
-        $hidden2 = new Status($item3);
+        $hidden2 = new Status($item3, EquipmentStatusEnum::HIDDEN);
         $hidden2
-            ->setName('hidden')
             ->setCreatedAt(new DateTime());
 
-        $hidden3 = new Status($item2);
+        $hidden3 = new Status($item2, EquipmentStatusEnum::HIDDEN);
         $hidden3
-            ->setName('hidden')
             ->setCreatedAt(new DateTime());
 
         $mostRecent = $this->service->getMostRecent('hidden', new ArrayCollection([$item1, $item2, $item3]));
@@ -119,7 +123,7 @@ class StatusServiceTest extends TestCase
     public function testChangeCharge()
     {
         $gameEquipment = new GameItem();
-        $chargeStatus = new ChargeStatus($gameEquipment);
+        $chargeStatus = new ChargeStatus($gameEquipment, EquipmentStatusEnum::HIDDEN);
 
         $chargeStatus
             ->setCharge(4)
@@ -164,8 +168,9 @@ class StatusServiceTest extends TestCase
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
 
-        $result = $this->service->createStatusFromConfig($statusConfig, $gameEquipment);
+        $result = $this->service->createStatusFromConfig($statusConfig, $gameEquipment, 'reason', new \DateTime());
 
         $this->assertEquals($result->getOwner(), $gameEquipment);
         $this->assertEquals($result->getName(), PlayerStatusEnum::EUREKA_MOMENT);
@@ -188,8 +193,9 @@ class StatusServiceTest extends TestCase
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
 
-        $result = $this->service->createStatusFromConfig($statusConfig, $gameEquipment);
+        $result = $this->service->createStatusFromConfig($statusConfig, $gameEquipment, 'reason', new \DateTime());
 
         $this->assertEquals($result->getOwner(), $gameEquipment);
         $this->assertEquals($result->getName(), PlayerStatusEnum::GUARDIAN);
@@ -218,9 +224,8 @@ class StatusServiceTest extends TestCase
     {
         $player = new Player();
         $actionResult = new Fail();
-        $attempt = new Attempt($player);
+        $attempt = new Attempt($player, StatusEnum::ATTEMPT);
         $attempt
-            ->setName(StatusEnum::ATTEMPT)
             ->setAction(ActionEnum::DISASSEMBLE)
             ->setCharge(3)
         ;
@@ -237,9 +242,8 @@ class StatusServiceTest extends TestCase
     {
         $player = new Player();
         $actionResult = new Fail();
-        $attempt = new Attempt($player);
+        $attempt = new Attempt($player, StatusEnum::ATTEMPT);
         $attempt
-            ->setName(StatusEnum::ATTEMPT)
             ->setAction(ActionEnum::DISASSEMBLE)
             ->setCharge(3)
         ;
@@ -256,9 +260,8 @@ class StatusServiceTest extends TestCase
     {
         $player = new Player();
         $actionResult = new Success();
-        $attempt = new Attempt($player);
+        $attempt = new Attempt($player, StatusEnum::ATTEMPT);
         $attempt
-            ->setName(StatusEnum::ATTEMPT)
             ->setAction(ActionEnum::DISASSEMBLE)
             ->setCharge(3)
         ;

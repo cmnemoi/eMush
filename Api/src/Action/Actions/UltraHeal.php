@@ -75,12 +75,13 @@ class UltraHeal extends AbstractAction
         $this->eventDispatcher->dispatch($healEvent, ApplyEffectEvent::HEAL);
 
         $equipmentEvent = new EquipmentEvent(
-            $parameter,
-            $this->player->getPlace(),
+            $parameter->getName(),
+            $this->player,
             VisibilityEnum::HIDDEN,
             $this->getActionName(),
             new \DateTime()
         );
+        $equipmentEvent->setExistingEquipment($parameter);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         return new Success();

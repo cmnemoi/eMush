@@ -166,8 +166,8 @@ class TakeSubscriberCest
         $statusConfig->setName(EquipmentStatusEnum::HAZARDOUS);
         $I->haveInRepository($statusConfig);
 
-        $status = new ChargeStatus($gameEquipment);
-        $status->setDischargeStrategy(ActionEnum::SHOWER)->setName(EquipmentStatusEnum::HAZARDOUS);
+        $status = new ChargeStatus($gameEquipment, EquipmentStatusEnum::HAZARDOUS);
+        $status->setDischargeStrategy(ActionEnum::SHOWER);
         $I->haveInRepository($status);
 
         $this->takeAction->loadParameters($takeActionEntity, $player, $gameEquipment);
@@ -243,8 +243,8 @@ class TakeSubscriberCest
         $statusConfig->setName(EquipmentStatusEnum::HAZARDOUS);
         $I->haveInRepository($statusConfig);
 
-        $status = new ChargeStatus($gameEquipment);
-        $status->setDischargeStrategy(ActionEnum::REPAIR)->setName(EquipmentStatusEnum::HAZARDOUS);
+        $status = new ChargeStatus($gameEquipment, EquipmentStatusEnum::HAZARDOUS);
+        $status->setDischargeStrategy(ActionEnum::REPAIR);
         $I->haveInRepository($status);
 
         $this->takeAction->loadParameters($takeActionEntity, $player, $gameEquipment);
@@ -320,8 +320,7 @@ class TakeSubscriberCest
         $statusConfig->setName(EquipmentStatusEnum::BROKEN);
         $I->haveInRepository($statusConfig);
 
-        $status = new Status($gameEquipment);
-        $status->setName(EquipmentStatusEnum::BROKEN);
+        $status = new Status($gameEquipment, EquipmentStatusEnum::BROKEN);
         $I->haveInRepository($status);
 
         $this->takeAction->loadParameters($takeActionEntity, $player, $gameEquipment);
@@ -395,8 +394,7 @@ class TakeSubscriberCest
         $statusConfig->setName(EquipmentStatusEnum::BROKEN);
         $I->haveInRepository($statusConfig);
 
-        $status = new Status($gameEquipment);
-        $status->setName(EquipmentStatusEnum::BROKEN);
+        $status = new Status($gameEquipment, EquipmentStatusEnum::BROKEN);
         $I->haveInRepository($status);
 
         $this->takeAction->loadParameters($takeActionEntity, $player, $gameEquipment);

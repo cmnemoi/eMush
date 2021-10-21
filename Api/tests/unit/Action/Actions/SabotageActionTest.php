@@ -68,19 +68,17 @@ class SabotageActionTest extends AbstractActionTest
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
-        $mushStatus = new ChargeStatus($player);
+        $mushStatus = new ChargeStatus($player, PlayerStatusEnum::MUSH);
         $mushStatus
             ->setCharge(0)
-            ->setName(PlayerStatusEnum::MUSH)
         ;
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         $this->playerService->shouldReceive('persist');
 
-        $attempt = new Attempt(new Player());
+        $attempt = new Attempt(new Player(), StatusEnum::ATTEMPT);
         $attempt
-            ->setName(StatusEnum::ATTEMPT)
             ->setAction($this->action->getActionName())
         ;
         $this->actionService->shouldReceive('getAttempt')->andReturn($attempt);

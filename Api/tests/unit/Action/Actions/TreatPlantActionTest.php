@@ -71,10 +71,7 @@ class TreatPlantActionTest extends AbstractActionTest
         $plant->addAction($this->actionEntity);
         $item->setMechanics(new ArrayCollection([$plant]));
 
-        $diseased = new Status($gameItem);
-        $diseased
-            ->setName(EquipmentStatusEnum::PLANT_DISEASED)
-        ;
+        $diseased = new Status($gameItem, EquipmentStatusEnum::PLANT_DISEASED);
 
         $player = $this->createPlayer(new Daedalus(), $room);
 

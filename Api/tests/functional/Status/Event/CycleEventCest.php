@@ -43,10 +43,9 @@ class CycleEventCest
         $time = new DateTime();
         $player = $I->have(Player::class);
 
-        $status = new ChargeStatus($player);
+        $status = new ChargeStatus($player, 'charged');
 
         $status
-            ->setName('charged')
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setThreshold(1)
             ->setCharge(0)
@@ -79,10 +78,9 @@ class CycleEventCest
 
         $time = new DateTime();
 
-        $status = new Status($player);
+        $status = new Status($player, PlayerStatusEnum::LYING_DOWN);
 
         $status
-            ->setName(PlayerStatusEnum::LYING_DOWN)
             ->setVisibility(VisibilityEnum::PUBLIC)
         ;
 
@@ -164,10 +162,9 @@ class CycleEventCest
 
         $time = new DateTime();
 
-        $status = new ChargeStatus($room);
+        $status = new ChargeStatus($room, StatusEnum::FIRE);
 
         $status
-            ->setName(StatusEnum::FIRE)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setCharge(1)
         ;

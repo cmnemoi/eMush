@@ -17,12 +17,10 @@ use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
-use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\RoomLog\Enum\PlantLogEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -76,7 +74,6 @@ class PlantCycleHandlerTest extends TestCase
         $plantType = new Plant();
         $plant->setMechanics(new ArrayCollection([$plantType]));
 
-        $this->gameEquipmentService->shouldReceive('persist')->once();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->once(); //Plant should not get disease
 
         $difficultyConfig = new DifficultyConfig();
@@ -90,8 +87,7 @@ class PlantCycleHandlerTest extends TestCase
         $gamePlant
             ->setEquipment($plant);
 
-        $chargeStatus = new ChargeStatus($gamePlant);
-        $chargeStatus->setName(EquipmentStatusEnum::PLANT_YOUNG);
+        $chargeStatus = new ChargeStatus($gamePlant, EquipmentStatusEnum::PLANT_YOUNG);
         $chargeStatus->setCharge(1);
 
         $plantEffect = new PlantEffect();
@@ -123,8 +119,6 @@ class PlantCycleHandlerTest extends TestCase
         $plantType = new Plant();
         $plant->setMechanics(new ArrayCollection([$plantType]));
 
-        $this->gameEquipmentService->shouldReceive('persist')->once();
-
         $difficultyConfig = new DifficultyConfig();
         $difficultyConfig->setPlantDiseaseRate(50);
         $gameConfig = new GameConfig();
@@ -136,8 +130,7 @@ class PlantCycleHandlerTest extends TestCase
         $gamePlant
                 ->setEquipment($plant);
 
-        $chargeStatus = new ChargeStatus($gamePlant);
-        $chargeStatus->setName(EquipmentStatusEnum::PLANT_YOUNG);
+        $chargeStatus = new ChargeStatus($gamePlant, EquipmentStatusEnum::PLANT_YOUNG);
         $chargeStatus->setCharge(1);
 
         //Plant get disease and grow
@@ -178,8 +171,6 @@ class PlantCycleHandlerTest extends TestCase
         $plantType = new Plant();
         $plant->setMechanics(new ArrayCollection([$plantType]));
 
-        $this->gameEquipmentService->shouldReceive('persist')->once();
-
         $difficultyConfig = new DifficultyConfig();
         $difficultyConfig->setPlantDiseaseRate(50);
         $gameConfig = new GameConfig();
@@ -192,8 +183,7 @@ class PlantCycleHandlerTest extends TestCase
             ->setEquipment($plant);
 
         //Plant already diseased can't get disease
-        $diseaseStatus = new Status($gamePlant);
-        $diseaseStatus->setName(EquipmentStatusEnum::PLANT_DISEASED);
+        $diseaseStatus = new Status($gamePlant, EquipmentStatusEnum::PLANT_DISEASED);
 
         $plantEffect = new PlantEffect();
         $plantEffect
@@ -241,16 +231,12 @@ class PlantCycleHandlerTest extends TestCase
 
         $gamePlant = new GameItem();
         $gamePlant
+            ->setName('plant name')
             ->setEquipment($plant)
             ->setHolder($room);
 
         $this->equipmentEffectService->shouldReceive('getPlantEffect')->andReturn($plantEffect);
         $this->gameEquipmentService->shouldReceive('persist');
-        $this->gameEquipmentService->shouldReceive('createGameEquipment')
-            ->with($newFruit, $room, EventEnum::PLANT_PRODUCTION, $time)
-            ->andReturn($gameFruit)
-            ->once()
-        ;
         $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $event) => $event instanceof StatusEvent &&
@@ -266,7 +252,7 @@ class PlantCycleHandlerTest extends TestCase
             )->once();
         $this->eventDispatcher->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $event) => $event instanceof EquipmentEvent &&
-                $event->getEquipment()->getEquipment() === $newFruit
+                $event->getEquipmentName() === $newFruit->getName()
             )->once()
         ;
 
@@ -307,11 +293,11 @@ class PlantCycleHandlerTest extends TestCase
 
         $gamePlant = new GameItem();
         $gamePlant
+            ->setName('plant name')
             ->setEquipment($plant)
             ->setHolder($room);
 
-        $status = new Status($gamePlant);
-        $status->setName(EquipmentStatusEnum::PLANT_THIRSTY);
+        $status = new Status($gamePlant, EquipmentStatusEnum::PLANT_THIRSTY);
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
@@ -366,30 +352,23 @@ class PlantCycleHandlerTest extends TestCase
 
         $gamePlant = new GameItem();
         $gamePlant
+            ->setName('plant name')
             ->setEquipment($plant)
             ->setHolder($room)
         ;
 
-        $status = new Status($gamePlant);
-        $status->setName(EquipmentStatusEnum::PLANT_DRY);
-
-        $hydropot = new GameItem();
+        $status = new Status($gamePlant, EquipmentStatusEnum::PLANT_DRY);
 
         $this->equipmentEffectService->shouldReceive('getPlantEffect')->andReturn($plantEffect);
-        $this->gameEquipmentService->shouldReceive('persist');
-        $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')
-            ->with(ItemEnum::HYDROPOT, $room, PlantLogEnum::PLANT_DEATH, $time)
-            ->andReturn($hydropot)
-        ;
-        $this->gameEquipmentService->shouldReceive('delete');
+
         $this->eventDispatcher->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $event) => $event instanceof EquipmentEvent &&
-                $event->getEquipment() === $gamePlant
+                $event->getExistingEquipment() === $gamePlant
             )->once()
         ;
         $this->eventDispatcher->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $event) => $event instanceof EquipmentEvent &&
-                $event->getEquipment() === $hydropot
+                $event->getEquipmentName() === ItemEnum::HYDROPOT
             )->once()
         ;
 

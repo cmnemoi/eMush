@@ -2,7 +2,6 @@
 
 namespace Mush\Disease\Listener;
 
-use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Daedalus\Event\DaedalusInitEvent;
 use Mush\Disease\Service\ConsumableDiseaseService;
 use Mush\Equipment\Enum\GameFruitEnum;

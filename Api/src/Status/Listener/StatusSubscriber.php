@@ -26,16 +26,16 @@ class StatusSubscriber implements EventSubscriberInterface
 
     public function onStatusApplied(StatusEvent $event): void
     {
-        $statusConfig = $this->statusService->getStatusConfigByNameAndDaedalus(
-            $event->getStatusName(),
-            $event->getPlace()->getDaedalus()
-        );
-
-        $status = $this->statusService->createStatusFromConfig(
-            $statusConfig,
-            $event->getStatusHolder(),
-            $event->getStatusTarget()
-        );
+        if ($event->getStatusConfig() === null) {
+            $this->statusService->createStatusFromName(
+                $event->getStatusName(),
+                $event->getPlace()->getDaedalus(),
+                $event->getStatusHolder(),
+                $event->getReason(),
+                $event->getTime(),
+                $event->getStatusTarget()
+            );
+        }
     }
 
     public function onStatusRemoved(StatusEvent $event): void

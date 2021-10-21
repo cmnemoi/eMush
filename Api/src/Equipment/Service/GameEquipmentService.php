@@ -86,23 +86,24 @@ class GameEquipmentService implements GameEquipmentServiceInterface
     }
 
     public function createGameEquipment(
-        EquipmentConfig $equipment,
+        EquipmentConfig $equipmentConfig,
         EquipmentHolderInterface $holder,
         string $reason,
         \DateTime $time
     ): GameEquipment {
-        if ($equipment instanceof ItemConfig) {
-            $gameEquipment = $equipment->createGameItem();
+        if ($equipmentConfig instanceof ItemConfig) {
+            $gameEquipment = $equipmentConfig->createGameItem();
+            $gameEquipment->setHolder($holder);
         } else {
-            $gameEquipment = $equipment->createGameEquipment();
+            $gameEquipment = $equipmentConfig->createGameEquipment();
+            $gameEquipment->setHolder($holder->getPlace());
         }
 
-        $gameEquipment->setHolder($holder);
         $this->persist($gameEquipment);
 
         $gameEquipment = $this->initMechanics($gameEquipment, $holder->getPlace()->getDaedalus());
 
-        $equipmentEvent = new EquipmentInitEvent($gameEquipment, $equipment, $reason, $time);
+        $equipmentEvent = new EquipmentInitEvent($gameEquipment, $equipmentConfig, $reason, $time);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentInitEvent::NEW_EQUIPMENT);
 
         return $gameEquipment;
@@ -163,12 +164,13 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             $this->randomService->isSuccessful($this->getGameConfig($gameEquipment)->getDifficultyConfig()->getEquipmentFireBreakRate())
         ) {
             $equipmentEvent = new EquipmentEvent(
-                $gameEquipment,
+                $gameEquipment->getName(),
                 $gameEquipment->getPlace(),
                 VisibilityEnum::PUBLIC,
                 EventEnum::FIRE,
                 $date
             );
+            $equipmentEvent->setExistingEquipment($gameEquipment);
             $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
         }
 

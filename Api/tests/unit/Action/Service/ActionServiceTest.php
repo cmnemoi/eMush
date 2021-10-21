@@ -14,7 +14,6 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerModifierEvent;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Enum\StatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -23,16 +22,14 @@ class ActionServiceTest extends TestCase
 {
     /** @var EventDispatcherInterface|Mockery\Mock */
     private EventDispatcherInterface $eventDispatcher;
-    /** @var StatusServiceInterface|Mockery\Mock */
-    private StatusServiceInterface $statusService;
     /** @var ModifierServiceInterface|Mockery\Mock */
     private ModifierServiceInterface $modifierService;
-    /** @var ActionServiceInterface|Mockery\Mock */
-    protected ActionServiceInterface $actionService;
+
     /** @var ValidatorInterface|Mockery\Mock */
     protected ValidatorInterface $validator;
-    /** @var ActionModifierServiceInterface|Mockery\Mock */
-    private ActionModifierServiceInterface $actionModifierService;
+
+    /** @var ActionServiceInterface|Mockery\Mock */
+    protected ActionServiceInterface $actionService;
 
     private ActionServiceInterface $service;
 
@@ -42,7 +39,6 @@ class ActionServiceTest extends TestCase
     public function before()
     {
         $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
-        $this->statusService = Mockery::mock(StatusServiceInterface::class);
         $this->modifierService = Mockery::mock(ModifierServiceInterface::class);
 
         $this->actionService = Mockery::mock(ActionServiceInterface::class);
@@ -51,7 +47,6 @@ class ActionServiceTest extends TestCase
         $this->service = new ActionService(
             $this->eventDispatcher,
             $this->modifierService,
-            $this->statusService
         );
     }
 
@@ -234,10 +229,9 @@ class ActionServiceTest extends TestCase
     {
         $player = $this->createPlayer(5, 5, 5);
 
-        $attempt = new Attempt($player);
+        $attempt = new Attempt($player, StatusEnum::ATTEMPT);
         $attempt
             ->setAction(ActionEnum::TAKE)
-            ->setName(StatusEnum::ATTEMPT)
             ->setCharge(0)
         ;
 

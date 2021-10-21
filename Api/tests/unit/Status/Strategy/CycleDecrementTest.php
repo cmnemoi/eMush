@@ -9,6 +9,7 @@ use Mush\Status\ChargeStrategies\AbstractChargeStrategy;
 use Mush\Status\ChargeStrategies\CycleDecrement;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -47,7 +48,7 @@ class CycleDecrementTest extends TestCase
 
     private function createStatus(): ChargeStatus
     {
-        $status = new ChargeStatus(new Player());
+        $status = new ChargeStatus(new Player(), EquipmentStatusEnum::PLANT_YOUNG);
         $status
             ->setCharge(10)
             ->setThreshold(0)

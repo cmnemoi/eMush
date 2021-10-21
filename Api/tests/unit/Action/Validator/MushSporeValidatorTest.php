@@ -43,9 +43,8 @@ class MushSporeValidatorTest extends TestCase
 
         $player = new Player();
 
-        $chargeStatus = new ChargeStatus($player);
+        $chargeStatus = new ChargeStatus($player, PlayerStatusEnum::SPORES);
         $chargeStatus
-            ->setName(PlayerStatusEnum::SPORES)
             ->setCharge(1)
         ;
 
@@ -76,9 +75,8 @@ class MushSporeValidatorTest extends TestCase
             ])
         ;
 
-        $chargeStatus = new ChargeStatus($player);
+        $chargeStatus = new ChargeStatus($player, PlayerStatusEnum::SPORES);
         $chargeStatus
-            ->setName(PlayerStatusEnum::SPORES)
             ->setCharge(0)
         ;
 

@@ -125,9 +125,8 @@ class GearToolServiceTest extends TestCase
 
         $this->assertNotEmpty($items);
 
-        $hidden = new Status($gameItem);
+        $hidden = new Status($gameItem, EquipmentStatusEnum::HIDDEN);
         $hidden
-            ->setName(EquipmentStatusEnum::HIDDEN)
             ->setTarget(new Player())
         ;
 
@@ -264,7 +263,7 @@ class GearToolServiceTest extends TestCase
         $this->assertEquals($gameItem2, $usedTool);
 
         //Two tool with the same action but 1 with charges
-        $chargeStatus = new ChargeStatus($gameItem);
+        $chargeStatus = new ChargeStatus($gameItem, EquipmentStatusEnum::FUEL_CHARGE);
         $chargeStatus
             ->setCharge(3)
             ->setDischargeStrategy(ActionEnum::REPAIR)
@@ -276,7 +275,7 @@ class GearToolServiceTest extends TestCase
         $this->assertEquals($gameItem2, $usedTool);
 
         //Two tool with the same action but 1 is charged and the other have no charge left
-        $chargeStatus2 = new ChargeStatus($gameItem2);
+        $chargeStatus2 = new ChargeStatus($gameItem2, EquipmentStatusEnum::FUEL_CHARGE);
         $chargeStatus2
             ->setCharge(0)
             ->setDischargeStrategy(ActionEnum::REPAIR)
@@ -309,7 +308,7 @@ class GearToolServiceTest extends TestCase
             ->setName('tool')
             ->setEquipment($toolConfig)
         ;
-        $chargeStatus1 = new ChargeStatus($gameTool);
+        $chargeStatus1 = new ChargeStatus($gameTool, EquipmentStatusEnum::FUEL_CHARGE);
         $chargeStatus1
             ->setCharge(1)
             ->setDischargeStrategy(ActionEnum::REPAIR)
@@ -354,7 +353,7 @@ class GearToolServiceTest extends TestCase
             ->setName('gear2')
             ->setEquipment($gearConfig2)
         ;
-        $chargeStatus2 = new ChargeStatus($gameGear2);
+        $chargeStatus2 = new ChargeStatus($gameGear2, EquipmentStatusEnum::FUEL_CHARGE);
         $chargeStatus2
             ->setCharge(1)
             ->setDischargeStrategy(ActionEnum::REPAIR)
@@ -379,7 +378,7 @@ class GearToolServiceTest extends TestCase
             ->setName('gear3')
             ->setEquipment($gearConfig1)
         ;
-        $chargeStatus3 = new ChargeStatus($gameGear3);
+        $chargeStatus3 = new ChargeStatus($gameGear3, EquipmentStatusEnum::FUEL_CHARGE);
         $chargeStatus3
             ->setCharge(0)
             ->setDischargeStrategy(ActionEnum::REPAIR)

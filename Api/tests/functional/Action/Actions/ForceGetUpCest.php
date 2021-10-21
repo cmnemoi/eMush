@@ -71,9 +71,8 @@ class ForceGetUpCest
             'characterConfig' => $characterConfig,
         ]);
 
-        $lyingDownStatus = new Status($player);
+        $lyingDownStatus = new Status($player, PlayerStatusEnum::LYING_DOWN);
         $lyingDownStatus
-            ->setName(PlayerStatusEnum::LYING_DOWN)
             ->setVisibility(VisibilityEnum::PUBLIC);
 
         $this->hitAction->loadParameters($action, $player2, $player);

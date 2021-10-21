@@ -14,7 +14,6 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GameRationEnum;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -22,8 +21,6 @@ use Mush\Status\Service\StatusServiceInterface;
 
 class CoffeeActionTest extends AbstractActionTest
 {
-    /** @var GameEquipmentServiceInterface|Mockery\Mock */
-    private GameEquipmentServiceInterface $gameEquipmentService;
     /** @var StatusServiceInterface|Mockery\Mock */
     private StatusServiceInterface $statusService;
 
@@ -34,7 +31,6 @@ class CoffeeActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::BUILD);
@@ -43,7 +39,6 @@ class CoffeeActionTest extends AbstractActionTest
             $this->eventDispatcher,
             $this->actionService,
             $this->validator,
-            $this->gameEquipmentService,
         );
     }
 
@@ -70,9 +65,8 @@ class CoffeeActionTest extends AbstractActionTest
 
         $coffeeMachine->setActions(new ArrayCollection([$this->actionEntity]));
 
-        $chargeStatus = new ChargeStatus($gameCoffeeMachine);
+        $chargeStatus = new ChargeStatus($gameCoffeeMachine, EquipmentStatusEnum::ELECTRIC_CHARGES);
         $chargeStatus
-            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
             ->setCharge(1)
         ;
 
@@ -91,20 +85,8 @@ class CoffeeActionTest extends AbstractActionTest
         ;
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->gameEquipmentService
-            ->shouldReceive('createGameEquipmentFromName')
-            ->withArgs(
-                [GameRationEnum::COFFEE,
-                    $player,
-                    ActionEnum::COFFEE,
-                    \DateTime::class, ]
-            )
-            ->andReturn($gameCoffee)
-            ->once()
-        ;
         $this->eventDispatcher->shouldReceive('dispatch')->once();
-        $this->gameEquipmentService->shouldReceive('persist');
-        $this->statusService->shouldReceive('persist');
+
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);

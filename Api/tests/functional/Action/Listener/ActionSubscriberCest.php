@@ -135,8 +135,7 @@ class ActionSubscriberCest
             ->setName(ActionEnum::TAKE)
         ;
 
-        $dirty = new Status($player);
-        $dirty->setName(PlayerStatusEnum::DIRTY);
+        $dirty = new Status($player, PlayerStatusEnum::DIRTY);
         $I->haveInRepository($dirty);
 
         $actionEvent = new ActionEvent($action, $player, null);

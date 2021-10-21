@@ -11,11 +11,14 @@ use Mush\Player\Entity\Player;
 class PlayerVariableService implements PlayerVariableServiceInterface
 {
     private ModifierServiceInterface $modifierService;
+    private PlayerServiceInterface $playerService;
 
     public function __construct(
-        ModifierServiceInterface $modifierService
+        ModifierServiceInterface $modifierService,
+        PlayerServiceInterface $playerService,
     ) {
         $this->modifierService = $modifierService;
+        $this->playerService = $playerService;
     }
 
     public function getMaxPlayerVariable(Player $player, string $target): int
@@ -69,7 +72,7 @@ class PlayerVariableService implements PlayerVariableServiceInterface
                 throw new Error('getMaxPlayerVariable : invalid target string');
         }
 
-        return $player;
+        return $this->playerService->persist($player);
     }
 
     public function handleActionPointModifier(int $delta, Player $player): Player
@@ -79,7 +82,7 @@ class PlayerVariableService implements PlayerVariableServiceInterface
         $playerNewActionPoint = $this->getValueInInterval($playerNewActionPoint, 0, $playerMaxActionPoint);
         $player->setActionPoint($playerNewActionPoint);
 
-        return $player;
+        return $this->playerService->persist($player);
     }
 
     public function handleMovementPointModifier(int $delta, Player $player): Player
@@ -99,7 +102,7 @@ class PlayerVariableService implements PlayerVariableServiceInterface
         $playerNewHealthPoint = $this->getValueInInterval($playerNewHealthPoint, 0, $playerMaxHealthPoint);
         $player->setHealthPoint($playerNewHealthPoint);
 
-        return $player;
+        return $this->playerService->persist($player);
     }
 
     public function handleMoralPointModifier(int $delta, Player $player): Player
@@ -111,7 +114,7 @@ class PlayerVariableService implements PlayerVariableServiceInterface
             $player->setMoralPoint($playerNewMoralPoint);
         }
 
-        return $player;
+        return $this->playerService->persist($player);
     }
 
     public function handleSatietyModifier(int $delta, Player $player): Player
@@ -124,7 +127,7 @@ class PlayerVariableService implements PlayerVariableServiceInterface
             $player->setSatiety($player->getSatiety() + $delta);
         }
 
-        return $player;
+        return $this->playerService->persist($player);
     }
 
     private function getValueInInterval(int $value, int $min, int $max): int

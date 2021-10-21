@@ -88,10 +88,7 @@ class CoffeeActionCest
 
         $gameEquipment->getEquipment()->setActions(new ArrayCollection([$coffeeActionEntity]));
 
-        $brokenStatus = new Status($gameEquipment);
-        $brokenStatus
-            ->setName(EquipmentStatusEnum::BROKEN)
-        ;
+        $brokenStatus = new Status($gameEquipment, EquipmentStatusEnum::BROKEN);
 
         $I->assertEquals(ActionImpossibleCauseEnum::BROKEN_EQUIPMENT, $this->coffeeAction->cannotExecuteReason());
     }
@@ -112,9 +109,8 @@ class CoffeeActionCest
 
         $gameEquipment->getEquipment()->setActions(new ArrayCollection([$coffeeActionEntity]));
 
-        $chargeStatus = new ChargeStatus($gameEquipment);
+        $chargeStatus = new ChargeStatus($gameEquipment, EquipmentStatusEnum::ELECTRIC_CHARGES);
         $chargeStatus
-            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
             ->setDischargeStrategy(ActionEnum::COFFEE)
             ->setCharge(0)
         ;

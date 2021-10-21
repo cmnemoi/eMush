@@ -57,10 +57,7 @@ class CookableValidatorTest extends TestCase
         $this->validator->validate($action, $this->constraint);
 
         $itemConfig->setName('toto');
-        $chargeStatus = new Status($target);
-        $chargeStatus
-            ->setName(EquipmentStatusEnum::FROZEN)
-        ;
+        $chargeStatus = new Status($target, EquipmentStatusEnum::FROZEN);
 
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
@@ -86,9 +83,8 @@ class CookableValidatorTest extends TestCase
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);
 
-        $chargeStatus = new ChargeStatus($target);
+        $chargeStatus = new ChargeStatus($target, EquipmentStatusEnum::HAZARDOUS);
         $chargeStatus
-            ->setName(EquipmentStatusEnum::HAZARDOUS)
             ->setCharge(0)
         ;
 

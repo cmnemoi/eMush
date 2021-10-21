@@ -5,42 +5,27 @@ namespace functional\Daedalus\Service;
 use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Communication\Entity\Channel;
-use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
-use Mush\Daedalus\Entity\Neron;
 use Mush\Daedalus\Entity\RandomItemPlaces;
 use Mush\Daedalus\Service\DaedalusService;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\EquipmentEnum;
-use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Equipment\Enum\ToolItemEnum;
-use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
-use Mush\Game\Enum\CharacterEnum;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
-use Mush\Place\Entity\Place;
 use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Enum\DoorEnum;
 use Mush\Place\Enum\RoomEnum;
-use Mush\Player\Event\PlayerEvent;
-use Mush\Player\Event\PlayerModifierEvent;
-use Mush\Player\Service\PlayerService;
 use Mush\RoomLog\Enum\VisibilityEnum;
-use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\User\Entity\User;
 
 class CreateDaedalusCest
 {
@@ -59,7 +44,6 @@ class CreateDaedalusCest
 
         $daedalusConfig = $this->createDaedalusConfig($gameConfig);
         $I->haveInRepository($daedalusConfig);
-
 
         //roomConfigs
         $placeConfig1 = new PlaceConfig();
@@ -85,7 +69,6 @@ class CreateDaedalusCest
         $I->haveInRepository($placeConfig1);
         $I->haveInRepository($placeConfig2);
         $I->haveInRepository($placeConfig3);
-
 
         //status config
         $alienArtifact = new StatusConfig();
@@ -133,10 +116,7 @@ class CreateDaedalusCest
         ;
         $I->haveInRepository($door);
 
-
-
         $daedalus = $this->daedalusService->createDaedalus($gameConfig);
-
 
         $I->assertCount(3, $daedalus->getPlaces());
         $I->assertCount(1, $daedalus->getModifiers());
@@ -150,24 +130,21 @@ class CreateDaedalusCest
         $I->assertCount(2, $room2->getDoors());
         $I->assertCount(1, $room3->getDoors());
 
-        $I->assertNotNull($gameGravitySimulator = $room3->getEquipments()->filter( fn (GameEquipment $gameEquipment) =>
-            $gameEquipment->getName() === EquipmentEnum::GRAVITY_SIMULATOR)->first()
+        $I->assertNotNull($gameGravitySimulator = $room3->getEquipments()->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === EquipmentEnum::GRAVITY_SIMULATOR)->first()
         );
 
-        $I->assertNotNull($gameHydropot = $room2->getEquipments()->filter( fn (GameEquipment $gameEquipment) =>
-            $gameEquipment->getName() === ItemEnum::HYDROPOT)->first()
+        $I->assertNotNull($gameHydropot = $room2->getEquipments()->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === ItemEnum::HYDROPOT)->first()
         );
 
-        $equipmentCollection = new ArrayCollection( array_merge($room1->getEquipments()->toArray(), $room2->getEquipments()->toArray()));
-        $I->assertNotNull($gameWaterStick = $room2->getEquipments()->filter( fn (GameEquipment $gameEquipment) =>
-            $gameEquipment->getName() === ItemEnum::WATER_STICK)->first()
+        $equipmentCollection = new ArrayCollection(array_merge($room1->getEquipments()->toArray(), $room2->getEquipments()->toArray()));
+
+        $I->assertNotNull($gameWaterStick = $equipmentCollection
+            ->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === ItemEnum::WATER_STICK)->first()
         );
+
         $I->assertInstanceOf(GameItem::class, $gameWaterStick);
         $I->assertCount(1, $gameWaterStick->getStatuses());
-
-
     }
-
 
     private function createDaedalusConfig(GameConfig $gameConfig): DaedalusConfig
     {
@@ -225,5 +202,4 @@ class CreateDaedalusCest
 
         return $gameConfig;
     }
-
 }

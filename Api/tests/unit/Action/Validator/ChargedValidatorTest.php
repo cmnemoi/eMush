@@ -10,6 +10,7 @@ use Mush\Action\Validator\ChargedValidator;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Enum\PlayerStatusEnum;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
@@ -44,7 +45,7 @@ class ChargedValidatorTest extends TestCase
         $target = new GameItem();
         $target->setEquipment($itemConfig);
 
-        $chargeStatus = new ChargeStatus($target);
+        $chargeStatus = new ChargeStatus($target, PlayerStatusEnum::EUREKA_MOMENT);
         $chargeStatus
             ->setCharge(1)
             ->setDischargeStrategy(ActionEnum::EXPRESS_COOK)
@@ -88,7 +89,7 @@ class ChargedValidatorTest extends TestCase
             ])
         ;
 
-        $chargeStatus = new ChargeStatus($target);
+        $chargeStatus = new ChargeStatus($target, PlayerStatusEnum::EUREKA_MOMENT);
         $chargeStatus
             ->setCharge(0)
             ->setDischargeStrategy(ActionEnum::EXPRESS_COOK)

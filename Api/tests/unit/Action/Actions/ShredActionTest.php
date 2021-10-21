@@ -12,13 +12,9 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Document;
 use Mush\Place\Entity\Place;
-use Mush\Player\Service\PlayerServiceInterface;
 
 class ShredActionTest extends AbstractActionTest
 {
-    /** @var PlayerServiceInterface|Mockery\Mock */
-    private PlayerServiceInterface $playerService;
-
     /**
      * @before
      */
@@ -28,13 +24,10 @@ class ShredActionTest extends AbstractActionTest
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::SHRED);
 
-        $this->playerService = Mockery::mock(PlayerServiceInterface::class);
-
         $this->action = new Shred(
             $this->eventDispatcher,
             $this->actionService,
             $this->validator,
-            $this->playerService,
         );
     }
 
@@ -55,11 +48,11 @@ class ShredActionTest extends AbstractActionTest
         $document->setCanShred(true);
         $item->setMechanics(new ArrayCollection([$document]));
         $gameItem
+            ->setName('item')
             ->setEquipment($item)
             ->setHolder($room)
         ;
 
-        $this->playerService->shouldReceive('persist');
         $this->eventDispatcher->shouldReceive('dispatch');
 
         $player = $this->createPlayer(new Daedalus(), $room);

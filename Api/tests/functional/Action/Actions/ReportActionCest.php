@@ -31,7 +31,7 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 
-class EquipmentSubscriberCest
+class ReportActionCest
 {
     private ReportFire $reportFire;
     private ReportEquipment $reportEquipment;
@@ -102,9 +102,8 @@ class EquipmentSubscriberCest
         ;
         $I->haveInRepository($gameEquipment);
 
-        $status = new Status($gameEquipment);
+        $status = new Status($gameEquipment, EquipmentStatusEnum::BROKEN);
         $status
-            ->setName(EquipmentStatusEnum::BROKEN)
             ->setVisibility(VisibilityEnum::PUBLIC)
         ;
 
@@ -183,9 +182,8 @@ class EquipmentSubscriberCest
             'characterConfig' => $characterConfig,
         ]);
 
-        $status = new Status($room);
+        $status = new Status($room, StatusEnum::FIRE);
         $status
-            ->setName(StatusEnum::FIRE)
             ->setVisibility(VisibilityEnum::PUBLIC)
         ;
 

@@ -162,6 +162,9 @@ class StatusServiceTest extends TestCase
             ->setVisibility(VisibilityEnum::MUSH)
         ;
 
+        $this->entityManager->shouldReceive('persist')->once();
+        $this->entityManager->shouldReceive('flush')->once();
+
         $result = $this->service->createStatusFromConfig($statusConfig, $gameEquipment);
 
         $this->assertEquals($result->getOwner(), $gameEquipment);
@@ -179,9 +182,14 @@ class StatusServiceTest extends TestCase
             ->setAutoRemove(true)
             ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
             ->setChargeVisibility(VisibilityEnum::PUBLIC)
+            ->setStartCharge(3)
+            ->setMaxCharge(4)
         ;
 
-        $result = $this->service->createChargeStatusFromConfig($statusConfig, $gameEquipment, 3, 4);
+        $this->entityManager->shouldReceive('persist')->once();
+        $this->entityManager->shouldReceive('flush')->once();
+
+        $result = $this->service->createStatusFromConfig($statusConfig, $gameEquipment);
 
         $this->assertEquals($result->getOwner(), $gameEquipment);
         $this->assertEquals($result->getName(), PlayerStatusEnum::GUARDIAN);

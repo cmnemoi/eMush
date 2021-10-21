@@ -9,11 +9,9 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
 use Mush\Status\Criteria\StatusCriteria;
 use Mush\Status\Entity\ChargeStatus;
-use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
-use Mush\Status\Enum\ChargeStrategyTypeEnum;
 
 interface StatusServiceInterface
 {
@@ -28,15 +26,6 @@ interface StatusServiceInterface
         StatusHolderInterface $holder,
         ?StatusHolderInterface $target = null
     ): Status;
-
-    public function createChargeStatusFromConfig(
-        ChargeStatusConfig $statusConfig,
-        StatusHolderInterface $holder,
-        int $charge,
-        int $threshold,
-        string $dischargeStrategy = ChargeStrategyTypeEnum::NONE,
-        ?StatusHolderInterface $target = null,
-    ): ChargeStatus;
 
     public function handleAttempt(Player $player, string $actionName, ActionResult $result): void;
 

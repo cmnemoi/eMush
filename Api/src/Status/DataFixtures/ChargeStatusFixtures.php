@@ -5,8 +5,10 @@ namespace Mush\Status\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
+use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
@@ -16,11 +18,17 @@ use Mush\Status\Enum\StatusEnum;
 
 class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
 {
-    public const FIRE_STATUS = 'fire_status';
+    public const SCOOTER_CHARGE = 'scooter_charge';
+    public const MICROWAVE_CHARGE = 'microwave_charge';
+    public const BLASTER_CHARGE = 'blaster_charge';
+    public const OLDFAITHFUL_CHARGE = 'oldFaithful_charge';
+    public const BIG_WEAPON_CHARGE = 'big_weapon_charge';
+    public const COFFEE_CHARGE = 'coffee_machine_charge';
+    public const DISPENSER_CHARGE = 'dispenser_charge';
     public const TURRET_CHARGE = 'turret_charge';
     public const PATROLLER_CHARGE = 'patroller_charge';
-    public const DAILY_ELECTRIC_CHARGE = 'daily_electric_charge';
-    public const CYCLE_ELECTRIC_CHARGE = 'cycle_electric_charge';
+
+    public const FIRE_STATUS = 'fire_status';
     public const PLANT_YOUNG = 'plant_young';
     public const EUREKA_MOMENT = 'eureka_moment';
     public const FIRST_TIME = 'first_time';
@@ -35,6 +43,110 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
+        $microwaveCharge = new ChargeStatusConfig();
+        $microwaveCharge
+            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setChargeVisibility(VisibilityEnum::PUBLIC)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
+            ->setMaxCharge(0)
+            ->setStartCharge(4)
+            ->setDischargeStrategy(ActionEnum::EXPRESS_COOK)
+            ->setGameConfig($gameConfig)
+        ;
+        $manager->persist($microwaveCharge);
+
+        $scooterCharge = new ChargeStatusConfig();
+        $scooterCharge
+            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setChargeVisibility(VisibilityEnum::PUBLIC)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
+            ->setMaxCharge(8)
+            ->setStartCharge(2)
+            ->setDischargeStrategy(ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION)
+            ->setGameConfig($gameConfig)
+        ;
+        $manager->persist($scooterCharge);
+
+        $blasterCharge = new ChargeStatusConfig();
+        $blasterCharge
+            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setChargeVisibility(VisibilityEnum::PUBLIC)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
+            ->setMaxCharge(3)
+            ->setStartCharge(1)
+            ->setDischargeStrategy(ActionEnum::SHOOT)
+            ->setGameConfig($gameConfig)
+        ;
+        $manager->persist($blasterCharge);
+
+        $oldFaithfulCharge = new ChargeStatusConfig();
+        $oldFaithfulCharge
+            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setChargeVisibility(VisibilityEnum::PUBLIC)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
+            ->setMaxCharge(12)
+            ->setStartCharge(12)
+            ->setDischargeStrategy(ActionEnum::SHOOT)
+            ->setGameConfig($gameConfig)
+        ;
+        $manager->persist($oldFaithfulCharge);
+
+        $bigWeaponCharge = new ChargeStatusConfig();
+        $bigWeaponCharge
+            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setChargeVisibility(VisibilityEnum::PUBLIC)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
+            ->setMaxCharge(1)
+            ->setStartCharge(1)
+            ->setDischargeStrategy(ActionEnum::SHOOT)
+            ->setGameConfig($gameConfig)
+        ;
+        $manager->persist($bigWeaponCharge);
+
+        $dispenserCharge = new ChargeStatusConfig();
+        $dispenserCharge
+            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setChargeVisibility(VisibilityEnum::PRIVATE)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_INCREMENT)
+            ->setMaxCharge(1)
+            ->setStartCharge(1)
+            ->setDischargeStrategy(ActionEnum::DISPENSE)
+            ->setGameConfig($gameConfig)
+        ;
+        $manager->persist($dispenserCharge);
+
+        $coffeeCharge = new ChargeStatusConfig();
+        $coffeeCharge
+            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setChargeVisibility(VisibilityEnum::PRIVATE)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_INCREMENT)
+            ->setMaxCharge(1)
+            ->setStartCharge(1)
+            ->setDischargeStrategy(ActionEnum::COFFEE)
+            ->setGameConfig($gameConfig)
+        ;
+        $manager->persist($coffeeCharge);
+
+        $turretCharge = new ChargeStatusConfig();
+        $turretCharge
+            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setChargeVisibility(VisibilityEnum::PUBLIC)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
+            ->setMaxCharge(4)
+            ->setStartCharge(4)
+            ->setDischargeStrategy(ActionEnum::SHOOT_HUNTER)
+            ->setGameConfig($gameConfig)
+        ;
+        $manager->persist($turretCharge);
+
         $fireStatus = new ChargeStatusConfig();
         $fireStatus
             ->setName(StatusEnum::FIRE)
@@ -44,26 +156,6 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         ;
 
         $manager->persist($fireStatus);
-
-        $electricCharge = new ChargeStatusConfig();
-        $electricCharge
-            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
-            ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setChargeVisibility(VisibilityEnum::PUBLIC)
-            ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
-            ->setGameConfig($gameConfig)
-        ;
-        $manager->persist($electricCharge);
-
-        $dailyElectricCharge = new ChargeStatusConfig();
-        $dailyElectricCharge
-            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
-            ->setVisibility(VisibilityEnum::HIDDEN)
-            ->setChargeVisibility(VisibilityEnum::HIDDEN)
-            ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_INCREMENT)
-            ->setGameConfig($gameConfig)
-        ;
-        $manager->persist($dailyElectricCharge);
 
         $plantYoung = new ChargeStatusConfig();
         $plantYoung
@@ -144,10 +236,16 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->flush();
 
+        $this->addReference(self::SCOOTER_CHARGE, $scooterCharge);
+        $this->addReference(self::OLDFAITHFUL_CHARGE, $oldFaithfulCharge);
+        $this->addReference(self::BIG_WEAPON_CHARGE, $bigWeaponCharge);
+        $this->addReference(self::TURRET_CHARGE, $turretCharge);
+        $this->addReference(self::MICROWAVE_CHARGE, $microwaveCharge);
+        $this->addReference(self::COFFEE_CHARGE, $coffeeCharge);
+        $this->addReference(self::DISPENSER_CHARGE, $dispenserCharge);
+        $this->addReference(self::BLASTER_CHARGE, $blasterCharge);
+
         $this->addReference(self::FIRE_STATUS, $fireStatus);
-        $this->addReference(self::TURRET_CHARGE, $electricCharge);
-        $this->addReference(self::DAILY_ELECTRIC_CHARGE, $dailyElectricCharge);
-        $this->addReference(self::CYCLE_ELECTRIC_CHARGE, $electricCharge);
         $this->addReference(self::PLANT_YOUNG, $plantYoung);
         $this->addReference(self::EUREKA_MOMENT, $eurekaMoment);
         $this->addReference(self::FIRST_TIME, $firstTime);

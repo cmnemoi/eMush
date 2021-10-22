@@ -26,6 +26,7 @@ use Mush\Player\Event\PlayerEvent;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -156,7 +157,9 @@ class DaedalusService implements DaedalusServiceInterface
             //@TODO (maybe add a "I want to be mush" setting to increase this proba)
 
             $mushChance = 1;
-            if (in_array(PlayerStatusEnum::IMMUNIZED, $characterConfig->getStatuses())) {
+            if (!$characterConfig->getInitStatuses()
+                ->filter(fn (StatusConfig $statusConfig) => $statusConfig->getName() === PlayerStatusEnum::IMMUNIZED)->isEmpty()
+            ) {
                 $mushChance = 0;
             }
             $chancesArray[$characterConfig->getName()] = $mushChance;

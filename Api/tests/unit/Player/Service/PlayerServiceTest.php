@@ -2,6 +2,7 @@
 
 namespace Mush\Test\Player\Service;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
@@ -21,6 +22,7 @@ use Mush\Player\Repository\DeadPlayerInfoRepository;
 use Mush\Player\Repository\PlayerRepository;
 use Mush\Player\Service\PlayerService;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
 use Mush\User\Entity\User;
@@ -95,10 +97,13 @@ class PlayerServiceTest extends TestCase
         $laboratory->setName(RoomEnum::LABORATORY); // @FIXME: should we move the starting room in the config
         $daedalus->addPlace($laboratory);
 
+        $statusConfig = new StatusConfig();
+        $statusConfig->setName('some status');
+
         $characterConfig = new CharacterConfig();
         $characterConfig
             ->setName('character')
-            ->setStatuses(['some status'])
+            ->setInitStatuses(new ArrayCollection([$statusConfig]))
             ->setSkills(['some skills'])
         ;
         $this->charactersConfigs->add($characterConfig);

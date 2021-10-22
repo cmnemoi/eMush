@@ -35,8 +35,10 @@ class CreatePlayerServiceCest
 
         /** @var CharacterConfig $gioeleCharacterConfig */
         $gioeleCharacterConfig = $I->have(CharacterConfig::class);
+        $gioeleCharacterConfig->setInitStatuses(new ArrayCollection([]));
         /** @var $andieCharacterConfig $characterConfig */
         $andieCharacterConfig = $I->have(CharacterConfig::class, ['name' => CharacterEnum::ANDIE]);
+        $andieCharacterConfig->setInitStatuses(new ArrayCollection([]));
 
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);

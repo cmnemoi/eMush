@@ -26,6 +26,7 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -302,9 +303,13 @@ class DaedalusServiceTest extends TestCase
         $characterConfig3 = $player3->getCharacterConfig();
         $characterConfigCollection->add($characterConfig3);
 
+
         $imunizedPlayer = $this->createPlayer($daedalus, 'imunizedPlayer');
+
+        $statusConfig = new StatusConfig();
+        $statusConfig->setName(PlayerStatusEnum::IMMUNIZED);
         $characterConfigImunized = $imunizedPlayer->getCharacterConfig();
-        $characterConfigImunized->setStatuses([PlayerStatusEnum::IMMUNIZED]);
+        $characterConfigImunized->setInitStatuses(new ArrayCollection([$statusConfig]));
         $characterConfigCollection->add($characterConfigImunized);
 
         $this->randomService->shouldReceive('getRandomElementsFromProbaArray')
@@ -350,7 +355,7 @@ class DaedalusServiceTest extends TestCase
     protected function createPlayer(Daedalus $daedalus, string $name): Player
     {
         $characterConfig = new CharacterConfig();
-        $characterConfig->setName($name);
+        $characterConfig->setName($name)->setInitStatuses(new ArrayCollection([]));
 
         $player = new Player();
         $player

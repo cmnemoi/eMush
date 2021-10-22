@@ -34,11 +34,9 @@ class CharacterConfig implements ConfigInterface
     private string $name;
 
     /**
-     * @ORM\Column(type="array", nullable=false)
-     *
-     * @var array<int, string>
+     * @ORM\ManyToMany(targetEntity="Mush\Status\Entity\Config\StatusConfig")
      */
-    private array $statuses = [];
+    private Collection $initStatuses;
 
     /**
      * @ORM\ManyToMany(targetEntity="Mush\Action\Entity\Action")
@@ -85,17 +83,17 @@ class CharacterConfig implements ConfigInterface
         return $this;
     }
 
-    public function getStatuses(): array
+    public function getInitStatuses(): Collection
     {
-        return $this->statuses;
+        return $this->initStatuses;
     }
 
     /**
      * @return static
      */
-    public function setStatuses(array $statuses): self
+    public function setInitStatuses(Collection $initStatuses): self
     {
-        $this->statuses = $statuses;
+        $this->initStatuses = $initStatuses;
 
         return $this;
     }

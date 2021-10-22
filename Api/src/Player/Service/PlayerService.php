@@ -20,6 +20,7 @@ use Mush\Player\Repository\PlayerRepository;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
@@ -114,15 +115,17 @@ class PlayerService implements PlayerServiceInterface
             ->setSatiety($gameConfig->getInitSatiety())
         ;
 
-        foreach ($characterConfig->getStatuses() as $statusName) {
-            $statusEvent = new StatusEvent($statusName, $player, PlayerEvent::NEW_PLAYER, new \DateTime());
+        foreach ($characterConfig->getInitStatuses() as $statusConfig) {
+            $statusEvent = new StatusEvent($statusConfig->getName(), $player, PlayerEvent::NEW_PLAYER, new \DateTime());
 
             $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
         }
 
         $this->persist($player);
 
-        if (!(in_array(PlayerStatusEnum::IMMUNIZED, $characterConfig->getStatuses()))) {
+        if ($characterConfig->getInitStatuses()
+            ->filter(fn (StatusConfig $statusConfig) => $statusConfig->getName() === PlayerStatusEnum::IMMUNIZED)->isEmpty()
+            ) {
             $statusEvent = new StatusEvent(PlayerStatusEnum::SPORES, $player, PlayerEvent::NEW_PLAYER, new \DateTime());
 
             $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);

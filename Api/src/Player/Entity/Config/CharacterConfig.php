@@ -1,10 +1,12 @@
 <?php
 
-namespace Mush\Game\Entity;
+namespace Mush\Player\Entity\Config;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Entity\Action;
+use Mush\Game\Entity\ConfigInterface;
+use Mush\Game\Entity\GameConfig;
 
 /**
  * Class CharacterConfig.

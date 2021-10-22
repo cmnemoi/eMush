@@ -4,10 +4,10 @@ namespace functional\Player\Event;
 
 use App\Tests\FunctionalTester;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerModifierEvent;
 use Mush\RoomLog\Entity\RoomLog;

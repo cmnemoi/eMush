@@ -12,9 +12,9 @@ use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\GameRationEnum;
-use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 
 class CookActionCest

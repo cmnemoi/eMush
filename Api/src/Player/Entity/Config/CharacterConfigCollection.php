@@ -1,9 +1,8 @@
 <?php
 
-namespace Mush\Game\Entity\Collection;
+namespace Mush\Player\Entity\Config;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mush\Game\Entity\CharacterConfig;
 
 class CharacterConfigCollection extends ArrayCollection
 {

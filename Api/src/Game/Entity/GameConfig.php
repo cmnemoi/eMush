@@ -7,8 +7,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Entity\DaedalusConfig;
-use Mush\Game\Entity\Collection\CharacterConfigCollection;
 use Mush\Game\Entity\Collection\TriumphConfigCollection;
+use Mush\Player\Entity\Config\CharacterConfigCollection;
 
 /**
  * Class GameConfig.
@@ -33,7 +33,7 @@ class GameConfig
     private DaedalusConfig $daedalusConfig;
 
     /**
-     * @ORM\OneToMany(targetEntity="Mush\Game\Entity\CharacterConfig", mappedBy="gameConfig")
+     * @ORM\OneToMany(targetEntity="Mush\Player\Entity\Config\CharacterConfig", mappedBy="gameConfig")
      */
     private Collection $charactersConfig;
 

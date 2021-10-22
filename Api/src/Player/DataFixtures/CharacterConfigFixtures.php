@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Game\DataFixtures;
+namespace Mush\Player\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -8,10 +8,11 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Daedalus\DataFixtures\DaedalusConfigFixtures;
-use Mush\Game\Entity\CharacterConfig;
+use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\SkillEnum;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
 
 class CharacterConfigFixtures extends Fixture implements DependentFixtureInterface

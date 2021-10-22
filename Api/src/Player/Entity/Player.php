@@ -15,13 +15,13 @@ use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Collection\PlayerCollection;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\Status\Entity\Status;
@@ -60,7 +60,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     private string $gameStatus;
 
     /**
-     * @ORM\ManyToOne (targetEntity="Mush\Game\Entity\CharacterConfig")
+     * @ORM\ManyToOne (targetEntity="Mush\Player\Entity\Config\CharacterConfig")
      */
     private CharacterConfig $characterConfig;
 

@@ -11,7 +11,7 @@ use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Communication\Event\ChannelEvent;
 use Mush\Communication\Listener\ChannelSubscriber;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Game\Entity\CharacterConfig;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 
 class ChannelSubscriberCest

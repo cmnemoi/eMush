@@ -12,7 +12,7 @@
     "etwin": "etwin"
   },
   "devDependencies": {
-    "@eternal-twin/cli": "^0.8"
+    "@eternal-twin/cli": "^0.9"
   },
   "workspaces": {
     "packages": [

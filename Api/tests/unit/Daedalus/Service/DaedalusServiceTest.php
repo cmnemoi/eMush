@@ -303,7 +303,6 @@ class DaedalusServiceTest extends TestCase
         $characterConfig3 = $player3->getCharacterConfig();
         $characterConfigCollection->add($characterConfig3);
 
-
         $imunizedPlayer = $this->createPlayer($daedalus, 'imunizedPlayer');
 
         $statusConfig = new StatusConfig();

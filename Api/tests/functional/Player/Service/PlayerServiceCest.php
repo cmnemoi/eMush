@@ -49,7 +49,6 @@ class PlayerServiceCest
         ]);
 
         $I->assertEquals(GameStatusEnum::FINISHED, $deadPlayer->getGameStatus());
-        $I->assertCount(0, $deadPlayer->getStatuses());
         $I->assertCount(1, $daedalus->getPlayers()->getPlayerDead());
         $I->assertCount(1, $daedalus->getPlayers()->getHumanPlayer());
         $I->assertCount(0, $daedalus->getPlayers()->getMushPlayer());
@@ -72,7 +71,6 @@ class PlayerServiceCest
         $deadPlayer = $this->playerService->playerDeath($player, EndCauseEnum::INJURY, new \DateTime());
 
         $I->assertEquals(GameStatusEnum::FINISHED, $deadPlayer->getGameStatus());
-        $I->assertCount(1, $deadPlayer->getStatuses());
         $I->assertEquals(PlayerStatusEnum::MUSH, $deadPlayer->getStatuses()->first()->getName());
         $I->assertCount(1, $daedalus->getPlayers()->getPlayerDead());
         $I->assertCount(1, $daedalus->getPlayers()->getMushPlayer());
@@ -108,7 +106,6 @@ class PlayerServiceCest
 
         $I->assertEquals(9, $player2->getMoralPoint());
         $I->assertEquals(10, $mushPlayer->getMoralPoint());
-        $I->assertCount(0, $deadPlayer->getStatuses());
         $I->assertCount(1, $daedalus->getPlayers()->getPlayerDead());
         $I->assertCount(1, $daedalus->getPlayers()->getMushPlayer());
         $I->assertCount(2, $daedalus->getPlayers()->getHumanPlayer());

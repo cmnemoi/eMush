@@ -20,10 +20,6 @@ use Mush\Player\Repository\PlayerRepository;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
-use Mush\Status\Entity\Config\StatusConfig;
-use Mush\Status\Entity\Status;
-use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Event\StatusEvent;
 use Mush\User\Entity\User;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -115,28 +111,16 @@ class PlayerService implements PlayerServiceInterface
             ->setSatiety($gameConfig->getInitSatiety())
         ;
 
-        foreach ($characterConfig->getInitStatuses() as $statusConfig) {
-            $statusEvent = new StatusEvent($statusConfig->getName(), $player, PlayerEvent::NEW_PLAYER, new \DateTime());
-
-            $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
-        }
+        $user->setCurrentGame($player);
 
         $this->persist($player);
 
-        if ($characterConfig->getInitStatuses()
-            ->filter(fn (StatusConfig $statusConfig) => $statusConfig->getName() === PlayerStatusEnum::IMMUNIZED)->isEmpty()
-            ) {
-            $statusEvent = new StatusEvent(PlayerStatusEnum::SPORES, $player, PlayerEvent::NEW_PLAYER, new \DateTime());
-
-            $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
-        }
-
-        $user->setCurrentGame($player);
         $playerEvent = new PlayerEvent(
             $player,
             EventEnum::CREATE_DAEDALUS,
             new \DateTime()
         );
+        $playerEvent->setCharacterConfig($characterConfig);
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::NEW_PLAYER);
 
         return $player;
@@ -299,13 +283,6 @@ class PlayerService implements PlayerServiceInterface
         foreach ($player->getEquipments() as $item) {
             $item->setHolder($currentRoom);
             $this->gameEquipmentService->persist($item);
-        }
-
-        /** @var Status $status */
-        foreach ($player->getStatuses() as $status) {
-            if ($status->getName() !== PlayerStatusEnum::MUSH) {
-                $player->removeStatus($status);
-            }
         }
 
         //@TODO in case of assassination chance of disorder for roommates

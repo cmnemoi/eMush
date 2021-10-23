@@ -33,28 +33,8 @@ class CreatePlayerServiceCest
         $neron->setIsInhibited(true);
         $I->haveInRepository($neron);
 
-        /** @var CharacterConfig $gioeleCharacterConfig */
-        $gioeleCharacterConfig = $I->have(CharacterConfig::class);
-        $gioeleCharacterConfig->setInitStatuses(new ArrayCollection([]));
-        /** @var $andieCharacterConfig $characterConfig */
-        $andieCharacterConfig = $I->have(CharacterConfig::class, ['name' => CharacterEnum::ANDIE]);
-        $andieCharacterConfig->setInitStatuses(new ArrayCollection([]));
-
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
-
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['neron' => $neron, 'gameConfig' => $gameConfig]);
-
-        $channel = new Channel();
-        $channel
-            ->setDaedalus($daedalus)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
-        $I->haveInRepository($channel);
-
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['name' => RoomEnum::LABORATORY, 'daedalus' => $daedalus]);
 
         $mushStatusConfig = new ChargeStatusConfig();
         $mushStatusConfig
@@ -68,6 +48,26 @@ class CreatePlayerServiceCest
         ;
         $I->haveInRepository($mushStatusConfig);
         $I->haveInRepository($sporeStatusConfig);
+
+        /** @var CharacterConfig $gioeleCharacterConfig */
+        $gioeleCharacterConfig = $I->have(CharacterConfig::class);
+        $gioeleCharacterConfig->setInitStatuses(new ArrayCollection([$sporeStatusConfig]));
+        /** @var $andieCharacterConfig $characterConfig */
+        $andieCharacterConfig = $I->have(CharacterConfig::class, ['name' => CharacterEnum::ANDIE]);
+        $andieCharacterConfig->setInitStatuses(new ArrayCollection([$sporeStatusConfig]));
+
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class, ['neron' => $neron, 'gameConfig' => $gameConfig]);
+
+        $channel = new Channel();
+        $channel
+            ->setDaedalus($daedalus)
+            ->setScope(ChannelScopeEnum::PUBLIC)
+        ;
+        $I->haveInRepository($channel);
+
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['name' => RoomEnum::LABORATORY, 'daedalus' => $daedalus]);
 
         $daedalus->addPlace($room);
 

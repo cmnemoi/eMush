@@ -101,7 +101,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
 
         $this->persist($gameEquipment);
 
-        $gameEquipment = $this->initMechanics($gameEquipment, $holder->getPlace()->getDaedalus());
+        $gameEquipment = $this->initMechanics($gameEquipment, $holder->getPlace()->getDaedalus(), $reason);
 
         $equipmentEvent = new EquipmentInitEvent($gameEquipment, $equipmentConfig, $reason, $time);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentInitEvent::NEW_EQUIPMENT);
@@ -109,13 +109,15 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         return $gameEquipment;
     }
 
-    private function initMechanics(GameEquipment $gameEquipment, Daedalus $daedalus): GameEquipment
+    private function initMechanics(GameEquipment $gameEquipment, Daedalus $daedalus, string $reason): GameEquipment
     {
         /** @var EquipmentMechanic $mechanic */
         foreach ($gameEquipment->getEquipment()->getMechanics() as $mechanic) {
             switch ($mechanic->getMechanic()) {
                 case EquipmentMechanicEnum::PLANT:
-                    $this->initPlant($gameEquipment, $mechanic, $daedalus);
+                    if ($reason !== EventEnum::CREATE_DAEDALUS) {
+                        $this->initPlant($gameEquipment, $mechanic, $daedalus);
+                    }
                     break;
                 case EquipmentMechanicEnum::DOCUMENT:
                     if ($mechanic instanceof Document && $mechanic->getContent()) {
@@ -147,7 +149,6 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             throw new \LogicException('Parameter is not a document');
         }
 
-        // @TODO rework when better handling Daedalus creation
         $statusEvent = new StatusEvent(EquipmentStatusEnum::DOCUMENT_CONTENT, $gameEquipment, EquipmentEvent::EQUIPMENT_CREATED, new \DateTime());
         $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
 

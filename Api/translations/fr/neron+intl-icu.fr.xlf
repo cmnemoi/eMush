@@ -4,13 +4,13 @@
         <unit id="player_enter_chat">
             <segment id="player_enter_chat">
                 <source>player_enter_chat</source>
-                <target>**  {character} ** a rejoint la discussion</target>
+                <target>**{character}** a rejoint la discussion</target>
             </segment>
         </unit>
         <unit id="player_leave_chat">
             <segment id="player_leave_chat">
                 <source>player_leave_chat</source>
-                <target>**  {character} ** a quitté la discussion</target>
+                <target>**{character}** a quitté la discussion</target>
             </segment>
         </unit>
         <unit id="cycle_failures">

@@ -80,7 +80,7 @@ class Transplant extends AbstractAction
 
         $gamePlant = $this->gameEquipmentService->createGameEquipmentFromName(
             $fruitType->getPlantName(),
-            $this->player,
+            $hydropot->getPlace(),
             $this->getActionName(),
             new \DateTime()
         );

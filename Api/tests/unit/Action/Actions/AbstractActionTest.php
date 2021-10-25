@@ -81,7 +81,10 @@ abstract class AbstractActionTest extends TestCase
     protected function createPlayer(Daedalus $daedalus, Place $room, array $skills = []): Player
     {
         $gameConfig = new GameConfig();
-        $gameConfig->setMaxHealthPoint(16);
+        $gameConfig
+            ->setMaxHealthPoint(16)
+            ->setMaxItemInInventory(3)
+        ;
 
         $characterConfig = new CharacterConfig();
         $characterConfig

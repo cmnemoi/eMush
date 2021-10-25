@@ -443,9 +443,9 @@
         <unit id="search_success">
             <segment id="search_success">
                 <source>search_success</source>
-                <target>{target_gender, select,
-                        male {**{character}** a découvert un **{equipement}** caché.}
-                        female {**{character}** a découvert une **{equipement}** cachée.}
+                <target>{target_equipment_gender, select,
+                        male {**{character}** a découvert un **{target_equipment}** caché.}
+                        female {**{character}** a découvert une **{target_equipment}** cachée.}
                         other {invalid gender input}
                 }</target>
             </segment>
@@ -488,9 +488,9 @@
         <unit id="take">
             <segment id="take">
                 <source>take</source>
-                <target>{target_equipement_gender, select,
-                        male {**{character}** a pris un **{target_equipement}**.}
-                        female {**{character}** a pris une **{target_equipement}**.}
+                <target>{target_equipment_gender, select,
+                        male {**{character}** a pris un **{target_equipment}**.}
+                        female {**{character}** a pris une **{target_equipment}**.}
                         other {invalid gender input}
                 }</target>
             </segment>
@@ -498,27 +498,27 @@
         <unit id="transplant_success">
             <segment id="transplant_success">
                 <source>transplant_success</source>
-                <target>{target_equipement_first_letter, select,
-                    vowel {**{character}** entreprend de reproduire un plant d'**{target_equipement}**. Félicitation ! Le jeune plant est en parfaite santé.}
-                    other {**{character}** entreprend de reproduire un plant de **{target_equipement}**. Félicitation ! Le jeune plant est en parfaite santé.}
+                <target>{target_equipment_first_letter, select,
+                    vowel {**{character}** entreprend de reproduire un plant d'**{target_equipment}**. Félicitation ! Le jeune plant est en parfaite santé.}
+                    other {**{character}** entreprend de reproduire un plant de **{target_equipment}**. Félicitation ! Le jeune plant est en parfaite santé.}
                 }</target>
             </segment>
         </unit>
         <unit id="hybridize_success">
             <segment id="hybridize_success">
                 <source>hybridize_success</source>
-                <target>{target_equipement_first_letter, select,
-                    vowel {Quel soulagement, **{character}** a réussi sa grèffe d'**{target_equipement}**. Le petite plante se porte bien !}
-                    other {Quel soulagement, **{character}** a réussi sa grèffe de **{target_equipement}**. Le petite plante se porte bien !}
+                <target>{target_equipment_first_letter, select,
+                    vowel {Quel soulagement, **{character}** a réussi sa grèffe d'**{target_equipment}**. Le petite plante se porte bien !}
+                    other {Quel soulagement, **{character}** a réussi sa grèffe de **{target_equipment}**. Le petite plante se porte bien !}
                 }</target>
             </segment>
         </unit>
         <unit id="hybridize_fail">
             <segment id="hybridize_fail">
                 <source>hybridize_fail</source>
-                <target>{target_equipement_first_letter, select,
-                    vowel {Quel soulagement... oh mais... **{character}** n'a pas réussi sa greffe d'**{target_equipement}**. La petite plante reste chétive et meurt... Quelque chose a du contaminer l'opération.}
-                    other {Quel soulagement... oh mais... **{character}** n'a pas réussi sa greffe de **{target_equipement}**. La petite plante reste chétive et meurt... Quelque chose a du contaminer l'opération.}
+                <target>{target_equipment_first_letter, select,
+                    vowel {Quel soulagement... oh mais... **{character}** n'a pas réussi sa greffe d'**{target_equipment}**. La petite plante reste chétive et meurt... Quelque chose a du contaminer l'opération.}
+                    other {Quel soulagement... oh mais... **{character}** n'a pas réussi sa greffe de **{target_equipment}**. La petite plante reste chétive et meurt... Quelque chose a du contaminer l'opération.}
                 }</target>
             </segment>
         </unit>
@@ -592,9 +592,9 @@
         <unit id="sabotage_success">
             <segment id="sabotage_success">
                 <source>sabotage_success</source>
-                <target>{target_equipement_gender, select,
-                        male {Étrange, **{character}** s'affaire sur un **{target_equipement}** qui émet une petite fumée...}
-                        female {Étrange, **{character}** s'affaire sur une **{target_equipement}** qui émet une petite fumée...}
+                <target>{target_equipment_gender, select,
+                        male {Étrange, **{character}** s'affaire sur un **{target_equipment}** qui émet une petite fumée...}
+                        female {Étrange, **{character}** s'affaire sur une **{target_equipment}** qui émet une petite fumée...}
                         other {invalid gender input}
                 }</target>
             </segment>

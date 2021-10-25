@@ -26,7 +26,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            EquipmentEvent::EQUIPMENT_CREATED => [['onEquipmentCreated', -100], ['onInventoryOverflow']],
+            EquipmentEvent::EQUIPMENT_CREATED => [['onEquipmentCreated', -1], ['onInventoryOverflow']],
             EquipmentEvent::EQUIPMENT_DESTROYED => 'onEquipmentDestroyed',
             EquipmentEvent::EQUIPMENT_TRANSFORM => 'onInventoryOverflow',
         ];
@@ -35,7 +35,6 @@ class EquipmentSubscriber implements EventSubscriberInterface
     public function onEquipmentCreated(EquipmentEvent $event): void
     {
         $newEquipment = $event->getNewEquipment();
-        $holder = $event->getHolder();
 
         if ($newEquipment === null) {
             throw new \LogicException('Replacement equipment should be provided');

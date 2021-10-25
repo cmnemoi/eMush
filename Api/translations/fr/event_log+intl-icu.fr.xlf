@@ -57,8 +57,8 @@
             <segment>
                 <source>object_felt</source>
                 <target>{target_gender, select,
-                        male {Étrange, **{character}** a fait tomber un **{equipement}**.}
-                        female {Étrange, **{character}** a fait tomber une **{equipement}**.}
+                        male {Étrange, **{character}** a fait tomber un **{equipment}**.}
+                        female {Étrange, **{character}** a fait tomber une **{equipment}**.}
                         other {invalid gender input}
                 }</target>
             </segment>
@@ -129,8 +129,8 @@
             <segment>
                 <source>equipment_broken</source>
                 <target>{target_gender, select,
-                    male {Un **{equipement}** a été cassé !}
-                    female {Une **{equipement}** a été cassée !}
+                    male {Un **{equipment}** a été cassé !}
+                    female {Une **{equipment}** a été cassée !}
                     other {invalid gender input}
                 }</target>
             </segment>
@@ -139,8 +139,8 @@
             <segment>
                 <source>equipment_destroyed</source>
                 <target>{target_gender, select,
-                    male {Un **{equipement}** a été détruit !}
-                    female {Une **{equipement}** a été détruite !}
+                    male {Un **{equipment}** a été détruit !}
+                    female {Une **{equipment}** a été détruite !}
                     other {invalid gender input}
                 }</target>
             </segment>
@@ -155,9 +155,9 @@
         <unit id="plant_new_fruit">
             <segment>
                 <source>plant_new_fruit</source>
-                <target>{equipement_gender, select,
-                    male {Oh ! Une des plantes a donné : un **{equipement}**.}
-                    female {Oh ! Une des plantes a donné : une **{equipement}**.}
+                <target>{equipment_gender, select,
+                    male {Oh ! Une des plantes a donné : un **{equipment}**.}
+                    female {Oh ! Une des plantes a donné : une **{equipment}**.}
                     other {invalid gender input}
                 }</target>
             </segment>
@@ -165,9 +165,9 @@
         <unit id="plant_maturity">
             <segment>
                 <source>plant_maturity</source>
-                <target>{equipement_gender, select,
-                    male {Un **{equipement}** est arrivé à maturité ! Enfin !}
-                    female {Une **{equipement}** est arrivée à maturité ! Enfin !}
+                <target>{equipment_gender, select,
+                    male {Un **{equipment}** est arrivé à maturité ! Enfin !}
+                    female {Une **{equipment}** est arrivée à maturité ! Enfin !}
                     other {invalid gender input}
                 }</target>
             </segment>
@@ -176,14 +176,14 @@
             <segment>
                 <source>plant_death</source>
                 <target>{target_first_letter, select,
-                    vowel {{equipement_gender, select,
-                        male {L'**{equipement}** est mort...snif !}
-                        female {L'**{equipement}** est morte...snif !}
+                    vowel {{equipment_gender, select,
+                        male {L'**{equipment}** est mort...snif !}
+                        female {L'**{equipment}** est morte...snif !}
                         other {invalid gender input}
                     }}
                     other {{target_gender, select,
-                        male {Le **{equipement}** est mort...snif !}
-                        female {La **{equipement}** est morte...snif !}
+                        male {Le **{equipment}** est mort...snif !}
+                        female {La **{equipment}** est morte...snif !}
                         other {invalid gender input}
                     }}
                 }</target>

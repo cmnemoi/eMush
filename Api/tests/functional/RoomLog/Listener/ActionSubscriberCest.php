@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Tests\RoomLog\Event;
+namespace Mush\Tests\RoomLog\Listener;
 
 use App\Tests\FunctionalTester;
 use Mush\Action\ActionResult\Fail;

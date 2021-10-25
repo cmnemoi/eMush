@@ -77,8 +77,8 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $threeActionPointCost = $this->getReference(ActionCostFixture::ACTION_COST_THREE_ACTION);
         /** @var ActionCost $fourActionPointCost */
         $fourActionPointCost = $this->getReference(ActionCostFixture::ACTION_COST_FOUR_ACTION);
-        /** @var ActionCost $twoMovementPointCost */
-        $twoMovementPointCost = $this->getReference(ActionCostFixture::ACTION_COST_TWO_MOVEMENT);
+        /** @var ActionCost $oneMovementPointCost */
+        $oneMovementPointCost = $this->getReference(ActionCostFixture::ACTION_COST_ONE_MOVEMENT);
 
         //@TODO remove this after alpha
         $rejuvenateAlpha = new Action();
@@ -93,7 +93,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $moveAction
             ->setName(ActionEnum::MOVE)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setActionCost($twoMovementPointCost)
+            ->setActionCost($oneMovementPointCost)
         ;
         $manager->persist($moveAction);
 

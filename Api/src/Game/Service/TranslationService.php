@@ -3,6 +3,7 @@
 namespace Mush\Game\Service;
 
 use Mush\Game\Enum\CharacterEnum;
+use Mush\RoomLog\Enum\ActionLogEnum;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class TranslationService implements TranslationServiceInterface
@@ -31,6 +32,12 @@ class TranslationService implements TranslationServiceInterface
     public function translate(string $key, array $parameters, string $domain): string
     {
         //@TODO include methods getTranslateParameters for other languages than FR
+        if ($key === ActionLogEnum::DROP || $key === ActionLogEnum::TAKE){
+            dump($key);
+            dump($parameters);
+            dump($this->getFrenchTranslateParameters($parameters));
+        }
+
         return $this->translator->trans($key, $this->getFrenchTranslateParameters($parameters), $domain);
     }
 

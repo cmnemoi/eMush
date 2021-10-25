@@ -43,7 +43,7 @@ class ActionSubscriber implements EventSubscriberInterface
                 VisibilityEnum::PUBLIC,
                 'actions_log',
                 $player,
-                [],
+                [$player->getLogKey() => $player->getLogName()],
                 new \DateTime('now')
             );
         }

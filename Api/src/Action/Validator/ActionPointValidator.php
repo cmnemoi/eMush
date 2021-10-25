@@ -20,32 +20,12 @@ class ActionPointValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, ActionPoint::class);
         }
 
-        if (!$this->canPerformWithActionPoint($value, $value->getPlayer()) ||
-            !$this->canPerformWithMovementPoint($value, $value->getPlayer()) ||
-            !$this->canPerformWithMoralPoint($value, $value->getPlayer())
+
+        if ($value->getPlayer()->getActionPoint() < $value->getActionPointCost() ||
+            $value->getPlayer()->getMoralPoint() < $value->getMoralPointCost()
         ) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }
-    }
-
-    private function canPerformWithActionPoint(AbstractAction $action, Player $player): bool
-    {
-        return $player->getActionPoint() >= $action->getActionPointCost();
-    }
-
-    private function canPerformWithMovementPoint(AbstractAction $action, Player $player): bool
-    {
-        //@TODO: improve movement point calculation (i.e no gravity)
-        if ($player->getMovementPoint() === 0 && $player->getActionPoint() > 0) {
-            return true;
-        }
-
-        return $player->getMovementPoint() >= $action->getMovementPointCost();
-    }
-
-    private function canPerformWithMoralPoint(AbstractAction $action, Player $player): bool
-    {
-        return $player->getMoralPoint() >= $action->getMoralPointCost();
     }
 }

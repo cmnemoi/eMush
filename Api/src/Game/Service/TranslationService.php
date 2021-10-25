@@ -32,12 +32,6 @@ class TranslationService implements TranslationServiceInterface
     public function translate(string $key, array $parameters, string $domain): string
     {
         //@TODO include methods getTranslateParameters for other languages than FR
-        if ($key === ActionLogEnum::DROP || $key === ActionLogEnum::TAKE){
-            dump($key);
-            dump($parameters);
-            dump($this->getFrenchTranslateParameters($parameters));
-        }
-
         return $this->translator->trans($key, $this->getFrenchTranslateParameters($parameters), $domain);
     }
 

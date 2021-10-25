@@ -3,7 +3,6 @@
 namespace Mush\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
-use Mush\Player\Entity\Player;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -19,7 +18,6 @@ class ActionPointValidator extends ConstraintValidator
         if (!$constraint instanceof ActionPoint) {
             throw new UnexpectedTypeException($constraint, ActionPoint::class);
         }
-
 
         if ($value->getPlayer()->getActionPoint() < $value->getActionPointCost() ||
             $value->getPlayer()->getMoralPoint() < $value->getMoralPointCost()

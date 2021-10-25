@@ -3,7 +3,6 @@
 namespace Mush\Equipment\Listener;
 
 use Mush\Daedalus\Event\DaedalusInitEvent;
-use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
@@ -40,19 +39,12 @@ class DaedalusInitEventSubscriber implements EventSubscriberInterface
 
         if (null !== $randomItemPlaces) {
             foreach ($randomItemPlaces->getItems() as $itemName) {
-                $item = $daedalus
-                    ->getGameConfig()
-                    ->getEquipmentsConfig()
-                    ->filter(fn (EquipmentConfig $item) => $item->getName() === $itemName)
-                    ->first()
-                ;
-
                 $roomName = $randomItemPlaces
                     ->getPlaces()[$this->randomService->random(0, count($randomItemPlaces->getPlaces()) - 1)]
                 ;
                 $room = $daedalus->getRooms()->filter(fn (Place $room) => $roomName === $room->getName())->first();
 
-                $item = $this->gameEquipmentService->createGameEquipment($item, $room, $reason, $time);
+                $this->gameEquipmentService->createGameEquipmentFromName($itemName, $room, $reason, $time);
             }
         }
     }

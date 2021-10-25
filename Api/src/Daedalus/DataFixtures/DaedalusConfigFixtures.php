@@ -68,6 +68,7 @@ class DaedalusConfigFixtures extends Fixture implements DependentFixtureInterfac
                 ToolItemEnum::DUCT_TAPE,
                 GearItemEnum::SOAP,
                 GearItemEnum::STAINPROOF_APRON,
+                GearItemEnum::ANTI_GRAV_SCOOTER,
             ])
             ->setPlaces([
                 RoomEnum::FRONT_STORAGE,

@@ -69,6 +69,8 @@ class Transplant extends AbstractAction
         /** @var GameItem $hydropot */
         $hydropot = $this->gearToolService->getEquipmentsOnReachByName($this->player, ItemEnum::HYDROPOT)->first();
 
+        $newHolder = $hydropot->getPlace();
+
         $equipmentEvent = new EquipmentEvent(
             ItemEnum::HYDROPOT,
             $this->player,
@@ -80,7 +82,7 @@ class Transplant extends AbstractAction
 
         $gamePlant = $this->gameEquipmentService->createGameEquipmentFromName(
             $fruitType->getPlantName(),
-            $hydropot->getPlace(),
+            $newHolder,
             $this->getActionName(),
             new \DateTime()
         );

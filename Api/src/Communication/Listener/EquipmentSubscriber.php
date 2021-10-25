@@ -7,7 +7,9 @@ use Mush\Communication\Services\NeronMessageServiceInterface;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Player\Entity\Player;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class EquipmentSubscriber implements EventSubscriberInterface
 {
@@ -25,27 +27,21 @@ class EquipmentSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            EquipmentEvent::EQUIPMENT_BROKEN => 'onBrokenEquipment',
             EquipmentEvent::EQUIPMENT_DESTROYED => 'onDestroyedEquipment',
         ];
     }
 
-    public function onBrokenEquipment(EquipmentEvent $event): void
-    {
-        $this->neronMessageService->createBrokenEquipmentMessage($event->getEquipment(), $event->getVisibility(), $event->getTime());
-    }
-
     public function onDestroyedEquipment(EquipmentEvent $event): void
     {
-        $equipment = $event->getEquipment();
+        $equipmentName = $event->getEquipmentName();
 
-        if (in_array($equipment->getName(), [EquipmentEnum::SHOWER, EquipmentEnum::THALASSO])) {
-            $player = $event->getPlayer();
+        if (in_array($equipmentName, [EquipmentEnum::SHOWER, EquipmentEnum::THALASSO])) {
+            $holder = $event->getHolder();
 
-            if ($player === null) {
-                throw new \LogicException('there should be a player in this event');
+            if ($holder instanceof Player) {
+                throw new UnexpectedTypeException($holder, Player::class);
             }
-            $daedalus = $player->getDaedalus();
+            $daedalus = $holder->getPlace()->getDaedalus();
 
             $numberShowerLeft = ($this->gameEquipmentService->findByNameAndDaedalus(EquipmentEnum::THALASSO, $daedalus)->count() +
                 $this->gameEquipmentService->findByNameAndDaedalus(EquipmentEnum::SHOWER, $daedalus)->count());
@@ -54,14 +50,14 @@ class EquipmentSubscriber implements EventSubscriberInterface
                 $this->neronMessageService->createNeronMessage(
                     NeronMessageEnum::NO_SHOWER,
                     $daedalus,
-                    ['character' => $player->getLogName()],
+                    $event->getLogParameters(),
                     $event->getTime(),
                 );
             } else {
                 $this->neronMessageService->createNeronMessage(
                     NeronMessageEnum::DISMANTLED_SHOWER,
                     $daedalus,
-                    ['character' => $player->getLogName()],
+                    $event->getLogParameters(),
                     $event->getTime(),
                 );
             }

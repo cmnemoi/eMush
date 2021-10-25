@@ -7,9 +7,8 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\UltraHeal;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\ItemConfig;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
@@ -31,7 +30,6 @@ class UltraHealActionTest extends AbstractActionTest
         parent::before();
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::SELF_HEAL);
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
         $this->playerVariableService = Mockery::mock(PlayerVariableServiceInterface::class);
 
@@ -58,6 +56,7 @@ class UltraHealActionTest extends AbstractActionTest
         $gameItem = new GameItem();
         $item = new ItemConfig();
         $gameItem
+            ->setName('item')
             ->setEquipment($item)
             ->setHolder($room);
 

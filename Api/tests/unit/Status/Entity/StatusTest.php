@@ -17,7 +17,7 @@ class StatusTest extends TestCase
     {
         $player = new Player();
 
-        $status = new Status($player);
+        $status = new Status($player, 'status');
 
         $this->assertEquals($player, $status->getOwner());
         $this->assertEquals(1, $player->getStatuses()->count());
@@ -36,7 +36,7 @@ class StatusTest extends TestCase
     {
         $equipment = new GameEquipment();
 
-        $status = new Status($equipment);
+        $status = new Status($equipment, 'status');
         $player = new Player();
 
         $status->setTarget($player);
@@ -56,9 +56,8 @@ class StatusTest extends TestCase
     {
         $room = new Place();
 
-        $status = new ChargeStatus($room);
+        $status = new ChargeStatus($room, 'status name');
         $status
-            ->setName('status name')
             ->setStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setChargeVisibility(VisibilityEnum::PUBLIC)

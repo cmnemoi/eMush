@@ -10,13 +10,13 @@ use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\EquipmentConfig;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Status;
@@ -162,9 +162,8 @@ class InsertFuelCest
         ;
         $I->haveInRepository($gameCapsule);
 
-        $status = new Status($gameEquipment);
+        $status = new Status($gameEquipment, EquipmentStatusEnum::BROKEN);
         $status
-            ->setName(EquipmentStatusEnum::BROKEN)
             ->setVisibility(VisibilityEnum::PUBLIC)
         ;
 

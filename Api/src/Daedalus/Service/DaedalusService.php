@@ -9,26 +9,24 @@ use Mush\Daedalus\Entity\Criteria\DaedalusCriteria;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Daedalus\Event\DaedalusEvent;
+use Mush\Daedalus\Event\DaedalusInitEvent;
 use Mush\Daedalus\Repository\DaedalusRepository;
-use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Place\Entity\Place;
-use Mush\Place\Entity\PlaceConfig;
-use Mush\Place\Service\PlaceServiceInterface;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -37,7 +35,6 @@ class DaedalusService implements DaedalusServiceInterface
     private EntityManagerInterface $entityManager;
     private EventDispatcherInterface $eventDispatcher;
     private DaedalusRepository $repository;
-    private PlaceServiceInterface $placesService;
     private CycleServiceInterface $cycleService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private RandomServiceInterface $randomService;
@@ -47,7 +44,6 @@ class DaedalusService implements DaedalusServiceInterface
         EntityManagerInterface $entityManager,
         EventDispatcherInterface $eventDispatcher,
         DaedalusRepository $repository,
-        PlaceServiceInterface $placesService,
         CycleServiceInterface $cycleService,
         GameEquipmentServiceInterface $gameEquipmentService,
         RandomServiceInterface $randomService,
@@ -56,7 +52,6 @@ class DaedalusService implements DaedalusServiceInterface
         $this->entityManager = $entityManager;
         $this->eventDispatcher = $eventDispatcher;
         $this->repository = $repository;
-        $this->placesService = $placesService;
         $this->cycleService = $cycleService;
         $this->gameEquipmentService = $gameEquipmentService;
         $this->randomService = $randomService;
@@ -125,39 +120,15 @@ class DaedalusService implements DaedalusServiceInterface
 
         $this->persist($daedalus);
 
-        /** @var PlaceConfig $placeConfig */
-        foreach ($daedalusConfig->getPlaceConfigs() as $placeConfig) {
-            $place = $this->placesService->createPlace($placeConfig, $daedalus);
-            $daedalus->addPlace($place);
-        }
-
-        $randomItemPlaces = $daedalusConfig->getRandomItemPlace();
-        if (null !== $randomItemPlaces) {
-            foreach ($randomItemPlaces->getItems() as $itemName) {
-                $item = $daedalus
-                    ->getGameConfig()
-                    ->getEquipmentsConfig()
-                    ->filter(fn (EquipmentConfig $item) => $item->getName() === $itemName)
-                    ->first()
-                ;
-                $item = $this->gameEquipmentService->createGameEquipment($item, $daedalus);
-                $roomName = $randomItemPlaces
-                    ->getPlaces()[$this->randomService->random(0, count($randomItemPlaces->getPlaces()) - 1)]
-                ;
-                $room = $daedalus->getRooms()->filter(fn (Place $room) => $roomName === $room->getName())->first();
-                $item->setHolder($room);
-                $this->gameEquipmentService->persist($item);
-            }
-        }
-
-        $daedalusEvent = new DaedalusEvent(
+        $daedalusEvent = new DaedalusInitEvent(
             $daedalus,
+            $daedalusConfig,
             EventEnum::CREATE_DAEDALUS,
             new \DateTime()
         );
-        $this->eventDispatcher->dispatch($daedalusEvent, DaedalusEvent::NEW_DAEDALUS);
+        $this->eventDispatcher->dispatch($daedalusEvent, DaedalusInitEvent::NEW_DAEDALUS);
 
-        return $this->persist($daedalus);
+        return $daedalus;
     }
 
     public function startDaedalus(Daedalus $daedalus): Daedalus
@@ -186,7 +157,9 @@ class DaedalusService implements DaedalusServiceInterface
             //@TODO (maybe add a "I want to be mush" setting to increase this proba)
 
             $mushChance = 1;
-            if (in_array(PlayerStatusEnum::IMMUNIZED, $characterConfig->getStatuses())) {
+            if (!$characterConfig->getInitStatuses()
+                ->filter(fn (StatusConfig $statusConfig) => $statusConfig->getName() === PlayerStatusEnum::IMMUNIZED)->isEmpty()
+            ) {
                 $mushChance = 0;
             }
             $chancesArray[$characterConfig->getName()] = $mushChance;

@@ -8,7 +8,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Alert\Entity\Alert;
 use Mush\Alert\Entity\AlertElement;
 use Mush\Alert\Enum\AlertEnum;
-use Mush\Alert\Listener\RoomSubscriber;
+use Mush\Alert\Listener\StatusSubscriber;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
@@ -16,15 +16,16 @@ use Mush\Daedalus\Entity\Neron;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Place\Entity\Place;
-use Mush\Place\Event\RoomEvent;
+use Mush\Status\Enum\StatusEnum;
+use Mush\Status\Event\StatusEvent;
 
-class RoomSubscriberCest
+class FireStatusSubscriberCest
 {
-    private RoomSubscriber $roomSubscriber;
+    private StatusSubscriber $statusSubscriber;
 
     public function _before(FunctionalTester $I)
     {
-        $this->roomSubscriber = $I->grabService(RoomSubscriber::class);
+        $this->statusSubscriber = $I->grabService(StatusSubscriber::class);
     }
 
     public function testStartFire(FunctionalTester $I)
@@ -49,13 +50,13 @@ class RoomSubscriberCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
-        $roomEvent = new RoomEvent(
+        $statusEvent = new StatusEvent(
+            StatusEnum::FIRE,
             $room,
             EventEnum::NEW_CYCLE,
             new DateTime()
         );
-
-        $this->roomSubscriber->onStartingFire($roomEvent);
+        $this->statusSubscriber->onStatusApplied($statusEvent);
 
         $I->seeInRepository(Alert::class, ['daedalus' => $daedalus, 'name' => AlertEnum::FIRES]);
         $I->seeInRepository(AlertElement::class, ['place' => $room]);
@@ -83,12 +84,6 @@ class RoomSubscriberCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
-        $roomEvent = new RoomEvent(
-            $room,
-            ActionEnum::EXTINGUISH,
-            new DateTime()
-        );
-
         $reportedAlert = new AlertElement();
         $reportedAlert->setPlace($room);
         $I->haveInRepository($reportedAlert);
@@ -102,7 +97,13 @@ class RoomSubscriberCest
 
         $I->haveInRepository($alertFire);
 
-        $this->roomSubscriber->onStopFire($roomEvent);
+        $statusEvent = new StatusEvent(
+            StatusEnum::FIRE,
+            $room,
+            ActionEnum::EXTINGUISH,
+            new DateTime()
+        );
+        $this->statusSubscriber->onStatusRemoved($statusEvent);
 
         $I->dontSeeInRepository(Alert::class, ['daedalus' => $daedalus, 'name' => AlertEnum::FIRES]);
         $I->dontSeeInRepository(AlertElement::class, ['place' => $room]);

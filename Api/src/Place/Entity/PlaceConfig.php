@@ -4,12 +4,14 @@ namespace Mush\Place\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Daedalus\Entity\DaedalusConfig;
+use Mush\Game\Entity\ConfigInterface;
+use Mush\Game\Entity\GameConfig;
 use Mush\Place\Enum\PlaceTypeEnum;
 
 /**
  * @ORM\Entity()
  */
-class PlaceConfig
+class PlaceConfig implements ConfigInterface
 {
     /**
      * @ORM\Id
@@ -56,6 +58,11 @@ class PlaceConfig
     public function getDaedalusConfig(): DaedalusConfig
     {
         return $this->daedalusConfig;
+    }
+
+    public function getGameConfig(): GameConfig
+    {
+        return $this->daedalusConfig->getGameConfig();
     }
 
     /**

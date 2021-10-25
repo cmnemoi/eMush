@@ -3,7 +3,7 @@
 namespace Mush\Player\Event;
 
 use Mush\Place\Entity\Place;
-use Mush\Player\Entity\Player;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Event\LoggableEventInterface;
 
@@ -18,11 +18,7 @@ class PlayerEvent extends PlayerCycleEvent implements LoggableEventInterface
     public const END_PLAYER = 'end.player';
 
     protected string $visibility = VisibilityEnum::PRIVATE;
-
-    public function getPlayer(): Player
-    {
-        return $this->player;
-    }
+    protected ?CharacterConfig $characterConfig = null;
 
     public function getVisibility(): string
     {
@@ -46,5 +42,17 @@ class PlayerEvent extends PlayerCycleEvent implements LoggableEventInterface
         return [
             $this->player->getLogKey() => $this->player->getLogName(),
         ];
+    }
+
+    public function setCharacterConfig(CharacterConfig $characterConfig): self
+    {
+        $this->characterConfig = $characterConfig;
+
+        return $this;
+    }
+
+    public function getCharacterConfig(): ?CharacterConfig
+    {
+        return $this->characterConfig;
     }
 }

@@ -1,10 +1,12 @@
 <?php
 
-namespace Mush\Game\Entity;
+namespace Mush\Player\Entity\Config;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Entity\Action;
+use Mush\Game\Entity\ConfigInterface;
+use Mush\Game\Entity\GameConfig;
 
 /**
  * Class CharacterConfig.
@@ -12,7 +14,7 @@ use Mush\Action\Entity\Action;
  * @ORM\Entity()
  * @ORM\Table(name="character_config")
  */
-class CharacterConfig
+class CharacterConfig implements ConfigInterface
 {
     /**
      * @ORM\Id
@@ -32,11 +34,9 @@ class CharacterConfig
     private string $name;
 
     /**
-     * @ORM\Column(type="array", nullable=false)
-     *
-     * @var array<int, string>
+     * @ORM\ManyToMany(targetEntity="Mush\Status\Entity\Config\StatusConfig")
      */
-    private array $statuses = [];
+    private Collection $initStatuses;
 
     /**
      * @ORM\ManyToMany(targetEntity="Mush\Action\Entity\Action")
@@ -83,17 +83,17 @@ class CharacterConfig
         return $this;
     }
 
-    public function getStatuses(): array
+    public function getInitStatuses(): Collection
     {
-        return $this->statuses;
+        return $this->initStatuses;
     }
 
     /**
      * @return static
      */
-    public function setStatuses(array $statuses): self
+    public function setInitStatuses(Collection $initStatuses): self
     {
-        $this->statuses = $statuses;
+        $this->initStatuses = $initStatuses;
 
         return $this;
     }

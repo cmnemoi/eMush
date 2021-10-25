@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierHolder;
@@ -55,7 +56,7 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
     protected ?Place $place = null;
 
     /**
-     * @ORM\ManyToOne(targetEntity="EquipmentConfig")
+     * @ORM\ManyToOne(targetEntity="Mush\Equipment\Entity\Config\EquipmentConfig")
      */
     protected EquipmentConfig $equipment;
 

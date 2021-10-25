@@ -5,39 +5,21 @@ namespace Mush\Action\Actions;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\FullHull;
 use Mush\Action\Validator\Reach;
 use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
-use Mush\Game\Service\RandomServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class StrengthenHull extends AttemptAction
 {
     protected string $name = ActionEnum::STRENGTHEN_HULL;
 
     private const BASE_REPAIR = 5;
-
-    public function __construct(
-        EventDispatcherInterface $eventDispatcher,
-        ActionServiceInterface $actionService,
-        ValidatorInterface $validator,
-        RandomServiceInterface $randomService,
-    ) {
-        parent::__construct(
-            $eventDispatcher,
-            $actionService,
-            $validator,
-            $randomService,
-        );
-    }
 
     protected function support(?LogParameterInterface $parameter): bool
     {
@@ -71,13 +53,13 @@ class StrengthenHull extends AttemptAction
             $this->eventDispatcher->dispatch($daedalusEvent, DaedalusModifierEvent::CHANGE_HULL);
 
             $equipmentEvent = new EquipmentEvent(
-                $parameter,
-                $this->player->getPlace(),
+                $parameter->getName(),
+                $this->player,
                 VisibilityEnum::HIDDEN,
                 $this->getActionName(),
                 new \DateTime()
             );
-            $equipmentEvent->setPlayer($this->player);
+            $equipmentEvent->setExistingEquipment($parameter);
             $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
         }
 

@@ -10,13 +10,13 @@ use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\Neron;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Door;
-use Mush\Equipment\Entity\EquipmentConfig;
-use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
@@ -117,9 +117,8 @@ class NeronMessageCycleCest
         $room4->addDoor($door3);
 
         $time = new DateTime();
-        $status = new ChargeStatus($room);
+        $status = new ChargeStatus($room, StatusEnum::FIRE);
         $status
-            ->setName(StatusEnum::FIRE)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setCharge(1);
 

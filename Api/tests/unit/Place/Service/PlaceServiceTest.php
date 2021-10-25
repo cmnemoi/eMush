@@ -7,20 +7,19 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
-use Mush\Equipment\Entity\EquipmentConfig;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Equipment\Service\gameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Place\Entity\Place;
 use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Enum\DoorEnum;
+use Mush\Place\Event\PlaceInitEvent;
 use Mush\Place\Repository\PlaceRepository;
 use Mush\Place\Service\PlaceService;
 use Mush\Place\Service\PlaceServiceInterface;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class PlaceServiceTest extends TestCase
 {
@@ -28,8 +27,8 @@ class PlaceServiceTest extends TestCase
 
     /** @var EntityManagerInterface|Mockery\Mock */
     private EntityManagerInterface $entityManager;
-    /** @var gameEquipmentServiceInterface|Mockery\Mock */
-    private gameEquipmentServiceInterface $equipmentService;
+    /** @var EventDispatcherInterface|Mockery\Mock */
+    private EventDispatcherInterface $eventDispatcher;
     /** @var PlaceRepository|Mockery\Mock */
     private PlaceRepository $repository;
 
@@ -39,13 +38,13 @@ class PlaceServiceTest extends TestCase
     public function before()
     {
         $this->entityManager = Mockery::mock(EntityManagerInterface::class);
+        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $this->repository = Mockery::mock(PlaceRepository::class);
-        $this->equipmentService = Mockery::mock(gameEquipmentServiceInterface::class);
 
         $this->placeService = new PlaceService(
             $this->entityManager,
+            $this->eventDispatcher,
             $this->repository,
-            $this->equipmentService
         );
     }
 
@@ -75,61 +74,28 @@ class PlaceServiceTest extends TestCase
 
         $roomConfig = $this->createRoomConfig('bridge', $daedalusConfig);
 
-        $this->equipmentService
-            ->shouldReceive('createGameEquipment')
-            ->andReturn(new GameEquipment())
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
+            ->withArgs(fn (PlaceInitEvent $event) => (
+                $event->getPlaceConfig() === $roomConfig)
+            )
             ->once()
         ;
-        $this->equipmentService
-            ->shouldReceive('createGameEquipment')
-            ->andReturn(new GameItem())
-            ->once()
-        ;
+
         $this->entityManager
             ->shouldReceive('persist')
-            ->twice()
+            ->once()
         ;
         $this->entityManager
             ->shouldReceive('flush')
-            ->twice()
+            ->once()
         ;
 
-        $result = $this->placeService->createPlace($roomConfig, $daedalus);
+        $result = $this->placeService->createPlace($roomConfig, $daedalus, 'daedalus_start', new \DateTime());
 
         $this->assertInstanceOf(Place::class, $result);
-        $this->assertCount(3, $result->getDoors());
-        $this->assertCount(5, $result->getEquipments());
-
-        //create the room on the other side of the doors
-        $daedalus->addPlace($result);
-        $roomConfig = $this->createRoomConfig('bridge2', $daedalusConfig);
-
-        $this->equipmentService
-            ->shouldReceive('createGameEquipment')
-            ->andReturn(new GameEquipment())
-            ->once()
-        ;
-        $this->equipmentService
-            ->shouldReceive('createGameEquipment')
-            ->andReturn(new GameItem())
-            ->once()
-        ;
-        $this->entityManager
-            ->shouldReceive('persist')
-            ->twice()
-        ;
-        $this->entityManager
-            ->shouldReceive('flush')
-            ->twice()
-        ;
-
-        $return = $this->placeService->createPlace($roomConfig, $daedalus);
-
-        $this->assertInstanceOf(Place::class, $return);
-        $this->assertCount(3, $return->getDoors());
-        $this->assertCount(2, $return->getEquipments());
-        $this->assertCount(2, $return->getDoors()->first()->getRooms());
-        $this->assertEquals($daedalus->getRooms()->first(), $return->getDoors()->first()->getRooms()->first());
+        $this->assertCount(0, $result->getDoors());
+        $this->assertCount(0, $result->getEquipments());
     }
 
     private function createRoomConfig(string $name, DaedalusConfig $daedalusConfig): PlaceConfig

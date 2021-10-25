@@ -5,7 +5,6 @@ namespace Mush\Action\Actions;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\Fuel;
 use Mush\Action\Validator\ParameterName;
 use Mush\Action\Validator\Reach;
@@ -16,25 +15,11 @@ use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class InsertFuel extends AbstractAction
 {
     protected string $name = ActionEnum::INSERT_FUEL;
-
-    public function __construct(
-        EventDispatcherInterface $eventDispatcher,
-        ActionServiceInterface $actionService,
-        ValidatorInterface $validator,
-    ) {
-        parent::__construct(
-            $eventDispatcher,
-            $actionService,
-            $validator
-        );
-    }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
@@ -57,16 +42,16 @@ class InsertFuel extends AbstractAction
 
         //delete the item
         $equipmentEvent = new EquipmentEvent(
-            $item,
-            $this->player->getPlace(),
+            $item->getName(),
+            $this->player,
             VisibilityEnum::HIDDEN,
             $this->getActionName(),
             new \DateTime()
         );
-        $equipmentEvent->setPlayer($this->player);
+        $equipmentEvent->setExistingEquipment($item);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
-        //add Oxygen
+        //add Fuel
         $daedalusEvent = new DaedalusModifierEvent(
             $this->player->getDaedalus(),
             1,

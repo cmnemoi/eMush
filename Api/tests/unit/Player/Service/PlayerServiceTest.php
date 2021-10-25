@@ -2,27 +2,27 @@
 
 namespace Mush\Test\Player\Service;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Entity\CharacterConfig;
-use Mush\Game\Entity\Collection\CharacterConfigCollection;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Enum\RoomEnum;
+use Mush\Player\Entity\Config\CharacterConfig;
+use Mush\Player\Entity\Config\CharacterConfigCollection;
 use Mush\Player\Entity\DeadPlayerInfo;
 use Mush\Player\Entity\Player;
 use Mush\Player\Repository\DeadPlayerInfoRepository;
 use Mush\Player\Repository\PlayerRepository;
 use Mush\Player\Service\PlayerService;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
-use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Event\StatusEvent;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -95,10 +95,13 @@ class PlayerServiceTest extends TestCase
         $laboratory->setName(RoomEnum::LABORATORY); // @FIXME: should we move the starting room in the config
         $daedalus->addPlace($laboratory);
 
+        $statusConfig = new StatusConfig();
+        $statusConfig->setName('some status');
+
         $characterConfig = new CharacterConfig();
         $characterConfig
             ->setName('character')
-            ->setStatuses(['some status'])
+            ->setInitStatuses(new ArrayCollection([$statusConfig]))
             ->setSkills(['some skills'])
         ;
         $this->charactersConfigs->add($characterConfig);
@@ -107,16 +110,6 @@ class PlayerServiceTest extends TestCase
             ->setCharactersConfig($this->charactersConfigs)
         ;
 
-        $this->eventDispatcher
-            ->shouldReceive('dispatch')
-            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === 'some status')
-            ->once()
-        ;
-        $this->eventDispatcher
-            ->shouldReceive('dispatch')
-            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::SPORES)
-            ->once()
-        ;
         $this->entityManager
             ->shouldReceive('persist')
             ->once()

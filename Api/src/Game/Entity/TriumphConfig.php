@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity()
  * @ORM\Table(name="triumph_config")
  */
-class TriumphConfig
+class TriumphConfig implements ConfigInterface
 {
     /**
      * @ORM\Id

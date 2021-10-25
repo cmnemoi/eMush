@@ -10,7 +10,6 @@ use Mush\Daedalus\Service\DaedalusIncidentServiceInterface;
 use Mush\Equipment\Criteria\GameEquipmentCriteria;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
@@ -22,6 +21,8 @@ use Mush\Player\Event\PlayerEvent;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Enum\StatusEnum;
+use Mush\Status\Event\StatusEvent;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
@@ -81,7 +82,11 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (RoomEvent $event) => $event->getPlace() === $room1 && $event->getReason() === EventEnum::NEW_CYCLE)
+            ->withArgs(fn (StatusEvent $event) => (
+                $event->getStatusHolder() === $room1 &&
+                $event->getReason() === EventEnum::NEW_CYCLE &&
+                $event->getStatusName() === StatusEnum::FIRE
+            ))
             ->once()
         ;
 
@@ -178,7 +183,9 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (EquipmentEvent $event) => $event->getEquipment() === $equipment)
+            ->withArgs(fn (StatusEvent $event) => (
+                $event->getStatusHolder() === $equipment &&
+                $event->getStatusName() === EquipmentStatusEnum::BROKEN))
             ->once()
         ;
 
@@ -192,8 +199,7 @@ class DaedalusIncidentServiceTest extends TestCase
         $this->randomService->shouldReceive('random')->andReturn(1)->once();
 
         $equipment = new GameEquipment();
-        $brokenStatus = new Status($equipment);
-        $brokenStatus->setName(EquipmentStatusEnum::BROKEN);
+        $brokenStatus = new Status($equipment, EquipmentStatusEnum::BROKEN);
 
         $this->gameEquipmentRepository
             ->shouldReceive('findByCriteria')
@@ -210,7 +216,9 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (EquipmentEvent $event) => $event->getEquipment() === $equipment)
+            ->withArgs(fn (StatusEvent $event) => (
+                $event->getStatusHolder() === $equipment &&
+                $event->getStatusName() === EquipmentStatusEnum::BROKEN))
             ->never()
         ;
 
@@ -247,7 +255,9 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (EquipmentEvent $event) => $event->getEquipment() === $door)
+            ->withArgs(fn (StatusEvent $event) => (
+                $event->getStatusHolder() === $door &&
+                $event->getStatusName() === EquipmentStatusEnum::BROKEN))
             ->once()
         ;
 
@@ -296,8 +306,7 @@ class DaedalusIncidentServiceTest extends TestCase
         $player->setGameStatus(GameStatusEnum::CURRENT);
         $mushPlayer = new Player();
         $mushPlayer->setGameStatus(GameStatusEnum::CURRENT);
-        $mush = new Status($mushPlayer);
-        $mush->setName(PlayerStatusEnum::MUSH);
+        $mush = new Status($mushPlayer, PlayerStatusEnum::MUSH);
         $daedalus->addPlayer($mushPlayer);
         $daedalus->addPlayer($player);
 

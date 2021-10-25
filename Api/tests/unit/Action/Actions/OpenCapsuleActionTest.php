@@ -8,10 +8,10 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\OpenCapsule;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\EquipmentConfig;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -43,8 +43,8 @@ class OpenCapsuleActionTest extends AbstractActionTest
             $this->eventDispatcher,
             $this->actionService,
             $this->validator,
+            $this->randomService,
             $this->gameEquipmentService,
-            $this->randomService
         );
     }
 
@@ -94,12 +94,16 @@ class OpenCapsuleActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gameEquipmentService
             ->shouldReceive('createGameEquipmentFromName')
-            ->with(ItemEnum::METAL_SCRAPS, $daedalus)
+            ->withArgs(
+                [ItemEnum::METAL_SCRAPS,
+                $player,
+                ActionEnum::OPEN,
+                \DateTime::class, ]
+            )
             ->andReturn($gameMetalScrap)
             ->once()
         ;
-        $this->eventDispatcher->shouldReceive('dispatch')->twice();
-        $this->gameEquipmentService->shouldReceive('persist');
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
 
         $result = $this->action->execute();
 

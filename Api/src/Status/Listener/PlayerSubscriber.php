@@ -28,6 +28,8 @@ class PlayerSubscriber implements EventSubscriberInterface
         return [
             PlayerEvent::INFECTION_PLAYER => ['onInfectionPlayer', 100], //do this before checking the number of spores
             PlayerEvent::CONVERSION_PLAYER => 'onConversionPlayer',
+            PlayerEvent::NEW_PLAYER => ['onNewPlayer', 100],
+            PlayerEvent::DEATH_PLAYER => 'onPlayerDeath',
         ];
     }
 
@@ -68,7 +70,34 @@ class PlayerSubscriber implements EventSubscriberInterface
         }
 
         $mushStatusConfig = $this->statusService->getStatusConfigByNameAndDaedalus(PlayerStatusEnum::MUSH, $player->getDaedalus());
-        $mushStatus = $this->statusService->createStatusFromConfig($mushStatusConfig, $player);
+        $mushStatus = $this->statusService->createStatusFromConfig($mushStatusConfig, $player, $playerEvent->getReason(), $playerEvent->getTime());
         $this->statusService->persist($mushStatus);
+    }
+
+    public function onNewPlayer(PlayerEvent $playerEvent): void
+    {
+        $player = $playerEvent->getPlayer();
+        $characterConfig = $playerEvent->getCharacterConfig();
+        $reason = $playerEvent->getReason();
+        $time = $playerEvent->getTime();
+
+        if ($characterConfig === null) {
+            throw new \LogicException('playerConfig should be provided');
+        }
+        $initStatuses = $characterConfig->getInitStatuses();
+
+        foreach ($initStatuses as $statusConfig) {
+            $this->statusService->createStatusFromConfig(
+                $statusConfig,
+                $player,
+                $reason,
+                $time
+            );
+        }
+    }
+
+    public function onPlayerDeath(PlayerEvent $playerEvent): void
+    {
+        $this->statusService->removeAllStatus($playerEvent->getPlayer(), $playerEvent->getReason(), $playerEvent->getTime());
     }
 }

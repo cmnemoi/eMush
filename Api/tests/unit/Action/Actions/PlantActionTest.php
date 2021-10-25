@@ -8,8 +8,8 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Transplant;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Fruit;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -43,9 +43,8 @@ class PlantActionTest extends AbstractActionTest
             $this->eventDispatcher,
             $this->actionService,
             $this->validator,
+            $this->gearToolService,
             $this->gameEquipmentService,
-            $this->playerService,
-            $this->gearToolService
         );
     }
 
@@ -94,13 +93,11 @@ class PlantActionTest extends AbstractActionTest
         $player = $this->createPlayer(new Daedalus(), $room);
 
         $this->gearToolService->shouldReceive('getEquipmentsOnReachByName')->andReturn(new ArrayCollection([$gameHydropot]));
-        $this->gameEquipmentService->shouldReceive('persist');
-        $this->playerService->shouldReceive('persist');
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->andReturn($gamePlant)->once();
 
-        $this->eventDispatcher->shouldReceive('dispatch')->twice();
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
@@ -108,6 +105,5 @@ class PlantActionTest extends AbstractActionTest
 
         $this->assertInstanceOf(Success::class, $result);
         $this->assertEmpty($player->getEquipments());
-        $this->assertContains($gamePlant, $player->getPlace()->getEquipments());
     }
 }

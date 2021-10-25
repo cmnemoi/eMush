@@ -8,10 +8,10 @@ use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\Neron;
-use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
@@ -107,9 +107,8 @@ class PlayerEventCest
         ;
         $I->haveInRepository($mushStatusConfig);
 
-        $mushStatus = new ChargeStatus($player);
+        $mushStatus = new ChargeStatus($player, PlayerStatusEnum::SPORES);
         $mushStatus
-            ->setName(PlayerStatusEnum::SPORES)
             ->setVisibility(VisibilityEnum::MUSH)
             ->setCharge(0)
         ;

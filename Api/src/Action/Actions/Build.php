@@ -92,7 +92,9 @@ class Build extends AbstractAction
 
         $blueprintEquipment = $this->gameEquipmentService->createGameEquipment(
             $blueprintMechanic->getEquipment(),
-            $this->player->getDaedalus()
+            $this->player,
+            $this->getActionName(),
+            new \DateTime()
         );
         $place = $this->player->getPlace();
 
@@ -110,40 +112,36 @@ class Build extends AbstractAction
                 }
 
                 $equipmentEvent = new EquipmentEvent(
-                    $ingredient,
-                    $place,
+                    $ingredient->getName(),
+                    $this->player,
                     VisibilityEnum::HIDDEN,
                     $this->getActionName(),
                     new \DateTime()
                 );
+                $equipmentEvent->setExistingEquipment($ingredient);
                 $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
             }
         }
 
         $equipmentEvent = new EquipmentEvent(
-            $parameter,
+            $parameter->getName(),
             $place,
             VisibilityEnum::HIDDEN,
             $this->getActionName(),
             new \DateTime()
         );
+        $equipmentEvent->setExistingEquipment($parameter);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         //create the equipment
         $equipmentEvent = new EquipmentEvent(
-            $blueprintEquipment,
-            $place,
+            $blueprintMechanic->getEquipment()->getName(),
+            $this->player,
             VisibilityEnum::HIDDEN,
             $this->getActionName(),
             new \DateTime()
         );
-
-        $equipmentEvent->setPlayer($this->player);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
-
-        $this->gameEquipmentService->persist($blueprintEquipment);
-
-        $this->playerService->persist($this->player);
 
         $result = new Success();
         $result->setEquipment($blueprintEquipment);

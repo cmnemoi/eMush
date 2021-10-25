@@ -7,19 +7,15 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\GetUp;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\EquipmentConfig;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Place\Entity\Place;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 
 class GetUpActionTest extends AbstractActionTest
 {
-    /** @var StatusServiceInterface|Mockery\Mock */
-    private StatusServiceInterface $statusService;
-
     /**
      * @before
      */
@@ -29,13 +25,10 @@ class GetUpActionTest extends AbstractActionTest
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::GET_UP);
 
-        $this->statusService = Mockery::mock(StatusServiceInterface::class);
-
         $this->action = new GetUp(
             $this->eventDispatcher,
             $this->actionService,
             $this->validator,
-            $this->statusService,
         );
     }
 
@@ -64,16 +57,14 @@ class GetUpActionTest extends AbstractActionTest
             ->setName(EquipmentEnum::BED)
         ;
 
-        $status = new Status($player);
+        $status = new Status($player, PlayerStatusEnum::LYING_DOWN);
         $status
-            ->setName(PlayerStatusEnum::LYING_DOWN)
             ->setTarget($gameItem)
         ;
 
         $this->action->loadParameters($this->actionEntity, $player);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->statusService->shouldReceive('delete');
 
         $result = $this->action->execute();
 

@@ -8,6 +8,7 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Event\LoggableEventInterface;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\StatusHolderInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
@@ -17,6 +18,7 @@ class StatusEvent extends AbstractGameEvent implements LoggableEventInterface
     public const STATUS_REMOVED = 'status.removed';
 
     protected string $statusName;
+    protected ?StatusConfig $statusConfig = null;
     protected StatusHolderInterface $holder;
     protected ?StatusHolderInterface $target = null;
 
@@ -41,6 +43,18 @@ class StatusEvent extends AbstractGameEvent implements LoggableEventInterface
     public function getStatusHolder(): StatusHolderInterface
     {
         return $this->holder;
+    }
+
+    public function getStatusConfig(): ?StatusConfig
+    {
+        return $this->statusConfig;
+    }
+
+    public function setStatusConfig(StatusConfig $statusConfig): self
+    {
+        $this->statusConfig = $statusConfig;
+
+        return $this;
     }
 
     public function getStatusTarget(): ?StatusHolderInterface

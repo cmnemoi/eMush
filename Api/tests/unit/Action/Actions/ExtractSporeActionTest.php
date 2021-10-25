@@ -53,15 +53,13 @@ class ExtractSporeActionTest extends AbstractActionTest
 
         $player = $this->createPlayer($daedalus, $room);
 
-        $mushStatus = new ChargeStatus($player);
+        $mushStatus = new ChargeStatus($player, PlayerStatusEnum::MUSH);
         $mushStatus
             ->setCharge(0)
-            ->setName(PlayerStatusEnum::MUSH)
         ;
-        $sporeStatus = new ChargeStatus($player);
+        $sporeStatus = new ChargeStatus($player, PlayerStatusEnum::SPORES);
         $sporeStatus
             ->setCharge(1)
-            ->setName(PlayerStatusEnum::SPORES)
         ;
 
         $this->action->loadParameters($this->actionEntity, $player);

@@ -10,10 +10,9 @@ use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\EquipmentConfig;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Gear;
-use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierConfig;
@@ -21,6 +20,7 @@ use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
@@ -170,8 +170,7 @@ class DropSubscriberCest
         $statusConfig->setName(EquipmentStatusEnum::BROKEN);
         $I->haveInRepository($statusConfig);
 
-        $status = new Status($gameEquipment);
-        $status->setName(EquipmentStatusEnum::BROKEN);
+        $status = new Status($gameEquipment, EquipmentStatusEnum::BROKEN);
         $I->haveInRepository($status);
 
         $this->dropAction->loadParameters($takeActionEntity, $player, $gameEquipment);
@@ -249,8 +248,7 @@ class DropSubscriberCest
         $statusConfig->setName(EquipmentStatusEnum::BROKEN);
         $I->haveInRepository($statusConfig);
 
-        $status = new Status($gameEquipment);
-        $status->setName(EquipmentStatusEnum::BROKEN);
+        $status = new Status($gameEquipment, EquipmentStatusEnum::BROKEN);
         $I->haveInRepository($status);
 
         $this->dropAction->loadParameters($takeActionEntity, $player, $gameEquipment);

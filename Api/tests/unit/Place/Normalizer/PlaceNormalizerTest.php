@@ -3,9 +3,9 @@
 namespace Mush\Test\Place\Normalizer;
 
 use Mockery;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\ItemConfig;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
@@ -187,8 +187,7 @@ class PlaceNormalizerTest extends TestCase
         $gameItem2 = $this->createGameItem('name', true);
         $gameItem3 = $this->createGameItem('name', true);
 
-        $status = new Status($gameItem3);
-        $status->setName(EquipmentStatusEnum::FROZEN);
+        $status = new Status($gameItem3, EquipmentStatusEnum::FROZEN);
 
         $this->translationService->shouldReceive('translate')->andReturn('translated')->once();
 

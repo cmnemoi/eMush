@@ -8,13 +8,13 @@ use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\Neron;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Door;
-use Mush\Equipment\Entity\EquipmentConfig;
-use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
@@ -43,10 +43,9 @@ class CycleEventCest
         $time = new DateTime();
         $player = $I->have(Player::class);
 
-        $status = new ChargeStatus($player);
+        $status = new ChargeStatus($player, 'charged');
 
         $status
-            ->setName('charged')
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setThreshold(1)
             ->setCharge(0)
@@ -79,10 +78,9 @@ class CycleEventCest
 
         $time = new DateTime();
 
-        $status = new Status($player);
+        $status = new Status($player, PlayerStatusEnum::LYING_DOWN);
 
         $status
-            ->setName(PlayerStatusEnum::LYING_DOWN)
             ->setVisibility(VisibilityEnum::PUBLIC)
         ;
 
@@ -164,10 +162,9 @@ class CycleEventCest
 
         $time = new DateTime();
 
-        $status = new ChargeStatus($room);
+        $status = new ChargeStatus($room, StatusEnum::FIRE);
 
         $status
-            ->setName(StatusEnum::FIRE)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setCharge(1)
         ;

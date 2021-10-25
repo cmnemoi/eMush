@@ -6,8 +6,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\CycleHandler\RationCycleHandler;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Fruit;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Status\Entity\Status;
@@ -60,15 +60,11 @@ class RationCycleHandlerTest extends TestCase
             ->setEquipment($fruit)
         ;
 
-        $frozen = new Status($gameFruit);
-        $frozen->setName(EquipmentStatusEnum::FROZEN);
+        $frozen = new Status($gameFruit, EquipmentStatusEnum::FROZEN);
 
-        $unstable = new Status(new GameItem());
-        $unstable->setName(EquipmentStatusEnum::UNSTABLE);
-        $hazardous = new Status(new GameItem());
-        $hazardous->setName(EquipmentStatusEnum::HAZARDOUS);
-        $decomposing = new Status(new GameItem());
-        $decomposing->setName(EquipmentStatusEnum::DECOMPOSING);
+        $unstable = new Status(new GameItem(), EquipmentStatusEnum::UNSTABLE);
+        $hazardous = new Status(new GameItem(), EquipmentStatusEnum::HAZARDOUS);
+        $decomposing = new Status(new GameItem(), EquipmentStatusEnum::DECOMPOSING);
 
         //frozen
         $this->gameEquipmentService->shouldReceive('persist')->once();

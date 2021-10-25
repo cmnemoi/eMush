@@ -5,8 +5,8 @@ namespace App\Tests\Helper\Factories;
 // here you can define custom actions
 // all public methods declared in helper class will be available in $I
 
-use Mush\Equipment\Entity\EquipmentConfig;
-use Mush\Equipment\Entity\ItemConfig;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 

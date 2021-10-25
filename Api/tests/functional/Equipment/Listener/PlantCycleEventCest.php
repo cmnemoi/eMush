@@ -7,7 +7,7 @@ use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
-use Mush\Equipment\Entity\EquipmentConfig;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Plant;
@@ -77,9 +77,8 @@ class PlantCycleEventCest
 
         $I->haveInRepository($gameEquipment);
 
-        $youngStatus = new ChargeStatus($gameEquipment);
+        $youngStatus = new ChargeStatus($gameEquipment, EquipmentStatusEnum::PLANT_YOUNG);
         $youngStatus
-            ->setName(EquipmentStatusEnum::PLANT_YOUNG)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setCharge(6)
             ->setStrategy(ChargeStrategyTypeEnum::GROWING_PLANT)
@@ -175,9 +174,8 @@ class PlantCycleEventCest
 
         $I->haveInRepository($gameEquipment);
 
-        $youngStatus = new ChargeStatus($gameEquipment);
+        $youngStatus = new ChargeStatus($gameEquipment, EquipmentStatusEnum::PLANT_YOUNG);
         $youngStatus
-            ->setName(EquipmentStatusEnum::PLANT_YOUNG)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setCharge(6)
             ->setStrategy(ChargeStrategyTypeEnum::GROWING_PLANT)
@@ -197,9 +195,8 @@ class PlantCycleEventCest
         $I->assertEquals(10, $daedalus->getOxygen());
 
         //Plant is diseased
-        $diseasedStatus = new Status($gameEquipment);
+        $diseasedStatus = new Status($gameEquipment, EquipmentStatusEnum::PLANT_DISEASED);
         $diseasedStatus
-            ->setName(EquipmentStatusEnum::PLANT_DISEASED)
             ->setVisibility(VisibilityEnum::PUBLIC)
         ;
 
@@ -251,9 +248,8 @@ class PlantCycleEventCest
 
         $daedalus->setCycle(8);
 
-        $driedOutStatus = new Status($gameEquipment2);
+        $driedOutStatus = new Status($gameEquipment2, EquipmentStatusEnum::PLANT_DRY);
         $driedOutStatus
-            ->setName(EquipmentStatusEnum::PLANT_DRY)
             ->setVisibility(VisibilityEnum::PUBLIC)
         ;
 

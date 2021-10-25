@@ -20,22 +20,28 @@ use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
+use Mush\Status\Event\StatusEvent;
 use Mush\Status\Repository\StatusConfigRepository;
 use Mush\Status\Repository\StatusRepository;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class StatusService implements StatusServiceInterface
 {
     private EntityManagerInterface $entityManager;
     private StatusRepository $statusRepository;
     private StatusConfigRepository $statusConfigRepository;
+    private EventDispatcherInterface $eventDispatcher;
 
     public function __construct(
         EntityManagerInterface $entityManager,
+        EventDispatcherInterface $eventDispatcher,
         StatusRepository $statusRepository,
         StatusConfigRepository $statusConfigRepository,
     ) {
         $this->entityManager = $entityManager;
+        $this->eventDispatcher = $eventDispatcher;
         $this->statusRepository = $statusRepository;
         $this->statusConfigRepository = $statusConfigRepository;
     }
@@ -58,6 +64,21 @@ class StatusService implements StatusServiceInterface
         return true;
     }
 
+    public function removeAllStatus(StatusHolderInterface $holder, string $reason, \DateTime $time): void
+    {
+        foreach ($holder->getStatuses() as $status) {
+            if (($statusName = $status->getName()) !== PlayerStatusEnum::MUSH) {
+                $statusEvent = new StatusEvent(
+                    $statusName,
+                    $holder,
+                    $reason,
+                    $time
+                );
+                $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_REMOVED);
+            }
+        }
+    }
+
     public function getStatusConfigByNameAndDaedalus(string $name, Daedalus $daedalus): StatusConfig
     {
         $statusConfig = $this->statusConfigRepository->findByNameAndDaedalus($name, $daedalus);
@@ -72,6 +93,8 @@ class StatusService implements StatusServiceInterface
     public function createStatusFromConfig(
         StatusConfig $statusConfig,
         StatusHolderInterface $holder,
+        string $reason,
+        \DateTime $time,
         ?StatusHolderInterface $target = null
     ): Status {
         if ($statusConfig instanceof ChargeStatusConfig) {
@@ -98,7 +121,51 @@ class StatusService implements StatusServiceInterface
 
         $this->persist($status);
 
+        $statusEvent = new StatusEvent(
+            $statusConfig->getName(),
+            $holder,
+            $reason,
+            $time
+        );
+        $statusEvent->setStatusConfig($statusConfig);
+        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+
         return $status;
+    }
+
+    public function createStatusFromName(
+        string $statusName,
+        Daedalus $daedalus,
+        StatusHolderInterface $holder,
+        string $reason,
+        \DateTime $time,
+        ?StatusHolderInterface $target = null
+    ): Status {
+        $statusConfig = $this->getStatusConfigByNameAndDaedalus($statusName, $daedalus);
+
+        if ($statusConfig instanceof ChargeStatusConfig) {
+            $status = $this->createChargeStatus(
+                $statusConfig->getName(),
+                $holder,
+                $statusConfig->getChargeStrategy(),
+                $target,
+                $statusConfig->getVisibility(),
+                $statusConfig->getChargeVisibility(),
+                $statusConfig->getDischargeStrategy(),
+                $statusConfig->getStartCharge(),
+                $statusConfig->getMaxCharge(),
+                $statusConfig->isAutoRemove()
+            );
+        } else {
+            $status = $this->createCoreStatus(
+                $statusConfig->getName(),
+                $holder,
+                $target,
+                $statusConfig->getVisibility()
+            );
+        }
+
+        return $this->persist($status);
     }
 
     private function createCoreStatus(
@@ -107,9 +174,8 @@ class StatusService implements StatusServiceInterface
         ?StatusHolderInterface $target = null,
         string $visibility = VisibilityEnum::PUBLIC
     ): Status {
-        $status = new Status($owner);
+        $status = new Status($owner, $statusName);
         $status
-            ->setName($statusName)
             ->setTarget($target)
             ->setVisibility($visibility)
         ;
@@ -129,9 +195,8 @@ class StatusService implements StatusServiceInterface
         int $threshold = null,
         bool $autoRemove = false
     ): ChargeStatus {
-        $status = new ChargeStatus($owner);
+        $status = new ChargeStatus($owner, $statusName);
         $status
-            ->setName($statusName)
             ->setTarget($target)
             ->setStrategy($strategy)
             ->setVisibility($visibility)
@@ -147,9 +212,8 @@ class StatusService implements StatusServiceInterface
 
     private function createAttemptStatus(string $action, Player $player): Attempt
     {
-        $status = new Attempt($player);
+        $status = new Attempt($player, StatusEnum::ATTEMPT);
         $status
-            ->setName(StatusEnum::ATTEMPT)
             ->setVisibility(VisibilityEnum::HIDDEN)
             ->setAction($action)
             ->setCharge(0)

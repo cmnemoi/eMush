@@ -10,7 +10,7 @@ use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\DataFixtures\TechnicianFixtures;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Equipment\Entity\EquipmentConfig;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -317,8 +317,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
             ->setMechanics(new ArrayCollection([$combustionChamberMechanic]))
-            ->setActions(new ArrayCollection([$repair12, $sabotage12, $reportAction, $examineAction]))
             ->setInitStatus(new ArrayCollection([$combustionChargeStatus]))
+            ->setActions(new ArrayCollection([$repair12, $sabotage12, $reportAction, $examineAction]))
         ;
         $manager->persist($combustionChamber);
         $manager->persist($combustionChamberMechanic);
@@ -432,25 +432,25 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var Action $coffeeAction */
         $coffeeAction = $this->getReference(ActionsFixtures::COFFEE_DEFAULT);
 
+        $coffeMachineMechanic = new Tool();
+        $coffeMachineMechanic->addAction($coffeeAction);
+
         /** @var ChargeStatusConfig $coffeeCharge */
         $coffeeCharge = $this->getReference(ChargeStatusFixtures::COFFEE_CHARGE);
 
-        $coffeeMachineMechanic = new Tool();
-        $coffeeMachineMechanic->addAction($coffeeAction);
-
-        $coffeeMachine = new EquipmentConfig();
-        $coffeeMachine
+        $coffeMachine = new EquipmentConfig();
+        $coffeMachine
             ->setGameConfig($gameConfig)
             ->setName(EquipmentEnum::COFFEE_MACHINE)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
-            ->setMechanics(new ArrayCollection([$coffeeMachineMechanic]))
+            ->setMechanics(new ArrayCollection([$coffeMachineMechanic]))
             ->setInitStatus(new ArrayCollection([$coffeeCharge]))
             ->setActions(new ArrayCollection([$repair12, $sabotage12, $reportAction, $examineAction]))
         ;
-        $manager->persist($coffeeMachine);
-        $manager->persist($coffeeMachineMechanic);
+        $manager->persist($coffeMachine);
+        $manager->persist($coffeMachineMechanic);
 
         $cryoModuleMechanic = new Tool();
 //        $cryoModuleMechanic->setActions([ActionEnum::CHECK_ROSTER]);

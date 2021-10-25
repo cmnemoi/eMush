@@ -2,6 +2,7 @@
 
 namespace Mush\Equipment\Event;
 
+use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Place\Entity\Place;
@@ -11,63 +12,66 @@ use Mush\RoomLog\Event\LoggableEventInterface;
 class EquipmentEvent extends AbstractGameEvent implements LoggableEventInterface
 {
     public const EQUIPMENT_CREATED = 'equipment.created';
-    public const EQUIPMENT_FIXED = 'equipment.fixed';
-    public const EQUIPMENT_BROKEN = 'equipment.broken';
     public const EQUIPMENT_DESTROYED = 'equipment.destroyed';
     public const EQUIPMENT_TRANSFORM = 'equipment.transform';
 
-    private GameEquipment $equipment;
+    private ?GameEquipment $newEquipment = null;
+    private ?GameEquipment $existingEquipment = null;
+    private string $equipmentName;
     private string $visibility;
-    private Place $place;
-    private ?Player $player = null;
-    private ?GameEquipment $replacementEquipment = null;
+    private EquipmentHolderInterface $holder;
 
     public function __construct(
-        GameEquipment $equipment,
-        Place $place,
+        string $equipmentName,
+        EquipmentHolderInterface $holder,
         string $visibility,
         string $reason,
         \DateTime $time
     ) {
-        $this->equipment = $equipment;
+        $this->equipmentName = $equipmentName;
         $this->visibility = $visibility;
-        $this->place = $place;
+        $this->holder = $holder;
 
         parent::__construct($reason, $time);
     }
 
-    public function getEquipment(): GameEquipment
+    public function getEquipmentName(): string
     {
-        return $this->equipment;
+        return $this->equipmentName;
+    }
+
+    public function getNewEquipment(): ?GameEquipment
+    {
+        return $this->newEquipment;
+    }
+
+    public function setNewEquipment(GameEquipment $newEquipment): self
+    {
+        $this->newEquipment = $newEquipment;
+
+        return $this;
+    }
+
+    public function getExistingEquipment(): ?GameEquipment
+    {
+        return $this->existingEquipment;
+    }
+
+    public function setExistingEquipment(GameEquipment $existingEquipment): self
+    {
+        $this->existingEquipment = $existingEquipment;
+
+        return $this;
     }
 
     public function getPlace(): Place
     {
-        return $this->place;
+        return $this->holder->getPlace();
     }
 
-    public function getPlayer(): ?Player
+    public function getHolder(): EquipmentHolderInterface
     {
-        return $this->player;
-    }
-
-    public function setPlayer(Player $player): self
-    {
-        $this->player = $player;
-
-        return $this;
-    }
-
-    public function getReplacementEquipment(): ?GameEquipment
-    {
-        return $this->replacementEquipment;
-    }
-
-    public function setReplacementEquipment(GameEquipment $replacement): self
-    {
-        $this->replacementEquipment = $replacement;
-
-        return $this;
+        return $this->holder;
     }
 
     public function getVisibility(): string
@@ -77,12 +81,18 @@ class EquipmentEvent extends AbstractGameEvent implements LoggableEventInterface
 
     public function getLogParameters(): array
     {
-        $logParameters = [
-           $this->equipment->getLogKey() => $this->equipment->getLogName(),
-        ];
+        $logParameters = [];
 
-        if ($this->player !== null) {
-            $logParameters[$this->player->getLogKey()] = $this->player->getLogName();
+        if ($this->newEquipment !== null) {
+            $logParameters[$this->newEquipment->getLogKey()] = $this->newEquipment->getLogName();
+        }
+
+        if ($this->existingEquipment !== null) {
+            $logParameters[$this->existingEquipment->getLogKey()] = $this->existingEquipment->getLogName();
+        }
+
+        if ($this->holder instanceof Player) {
+            $logParameters[$this->holder->getLogKey()] = $this->holder->getLogName();
         }
 
         return $logParameters;

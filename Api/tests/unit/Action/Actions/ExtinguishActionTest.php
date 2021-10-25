@@ -10,8 +10,8 @@ use Mush\Action\Actions\Extinguish;
 use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\ItemConfig;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Service\PlaceServiceInterface;
@@ -63,10 +63,7 @@ class ExtinguishActionTest extends AbstractActionTest
     public function testExecuteFail()
     {
         $room = new Place();
-        $fire = new Status($room);
-        $fire
-            ->setName(StatusEnum::FIRE)
-        ;
+        $fire = new Status($room, StatusEnum::FIRE);
 
         $gameItem = new GameItem();
         $item = new ItemConfig();
@@ -85,9 +82,8 @@ class ExtinguishActionTest extends AbstractActionTest
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
-        $attempt = new Attempt(new Player());
+        $attempt = new Attempt(new Player(), StatusEnum::ATTEMPT);
         $attempt
-            ->setName(StatusEnum::ATTEMPT)
             ->setAction($this->action->getActionName())
         ;
         $this->actionService->shouldReceive('getAttempt')->andReturn($attempt);
@@ -110,10 +106,7 @@ class ExtinguishActionTest extends AbstractActionTest
     public function testExecuteSuccess()
     {
         $room = new Place();
-        $fire = new Status($room);
-        $fire
-            ->setName(StatusEnum::FIRE)
-        ;
+        $fire = new Status($room, StatusEnum::FIRE);
 
         $gameItem = new GameItem();
         $item = new ItemConfig();
@@ -132,9 +125,8 @@ class ExtinguishActionTest extends AbstractActionTest
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
-        $attempt = new Attempt(new Player());
+        $attempt = new Attempt(new Player(), StatusEnum::ATTEMPT);
         $attempt
-            ->setName(StatusEnum::ATTEMPT)
             ->setAction($this->action->getActionName())
         ;
         $this->actionService->shouldReceive('getAttempt')->andReturn($attempt);

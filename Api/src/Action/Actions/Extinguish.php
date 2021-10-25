@@ -12,11 +12,11 @@ use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Place\Event\RoomEvent;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
+use Mush\Status\Event\StatusEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -67,13 +67,13 @@ class Extinguish extends AttemptAction
         $response = $this->makeAttempt();
 
         if ($response instanceof Success) {
-            $roomEvent = new RoomEvent(
+            $statusEvent = new StatusEvent(
+                StatusEnum::FIRE,
                 $this->player->getPlace(),
                 $this->getActionName(),
                 new \DateTime()
             );
-
-            $this->eventDispatcher->dispatch($roomEvent, RoomEvent::STOP_FIRE);
+            $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_REMOVED);
         }
 
         $this->playerService->persist($this->player);

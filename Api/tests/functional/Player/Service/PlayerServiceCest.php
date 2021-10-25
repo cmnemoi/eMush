@@ -4,12 +4,12 @@ namespace functional\Player\Service;
 
 use App\Tests\FunctionalTester;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\ItemConfig;
-use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\DeadPlayerInfo;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
@@ -38,8 +38,7 @@ class PlayerServiceCest
         /** @var Player $player */
         $player = $I->have(Player::class, ['place' => $room, 'daedalus' => $daedalus]);
 
-        $status = new Status($player);
-        $status->setName(PlayerStatusEnum::FULL_STOMACH);
+        $status = new Status($player, PlayerStatusEnum::FULL_STOMACH);
 
         $deadPlayer = $this->playerService->playerDeath($player, EndCauseEnum::INJURY, new \DateTime());
 
@@ -50,7 +49,6 @@ class PlayerServiceCest
         ]);
 
         $I->assertEquals(GameStatusEnum::FINISHED, $deadPlayer->getGameStatus());
-        $I->assertCount(0, $deadPlayer->getStatuses());
         $I->assertCount(1, $daedalus->getPlayers()->getPlayerDead());
         $I->assertCount(1, $daedalus->getPlayers()->getHumanPlayer());
         $I->assertCount(0, $daedalus->getPlayers()->getMushPlayer());
@@ -67,16 +65,12 @@ class PlayerServiceCest
         /** @var Player $player */
         $player = $I->have(Player::class, ['place' => $room, 'daedalus' => $daedalus]);
 
-        $status = new ChargeStatus($player);
-        $status->setName(PlayerStatusEnum::MUSH);
-
-        $status = new Status($player);
-        $status->setName(PlayerStatusEnum::FULL_STOMACH);
+        new ChargeStatus($player, PlayerStatusEnum::MUSH);
+        new Status($player, PlayerStatusEnum::FULL_STOMACH);
 
         $deadPlayer = $this->playerService->playerDeath($player, EndCauseEnum::INJURY, new \DateTime());
 
         $I->assertEquals(GameStatusEnum::FINISHED, $deadPlayer->getGameStatus());
-        $I->assertCount(1, $deadPlayer->getStatuses());
         $I->assertEquals(PlayerStatusEnum::MUSH, $deadPlayer->getStatuses()->first()->getName());
         $I->assertCount(1, $daedalus->getPlayers()->getPlayerDead());
         $I->assertCount(1, $daedalus->getPlayers()->getMushPlayer());
@@ -106,14 +100,12 @@ class PlayerServiceCest
 
         /** @var Player $mushPlayer */
         $mushPlayer = $I->have(Player::class, ['place' => $room, 'daedalus' => $daedalus, 'characterConfig' => $characterConfig]);
-        $status = new ChargeStatus($mushPlayer);
-        $status->setName(PlayerStatusEnum::MUSH);
+        $status = new ChargeStatus($mushPlayer, PlayerStatusEnum::MUSH);
 
         $deadPlayer = $this->playerService->playerDeath($player, EndCauseEnum::INJURY, new \DateTime());
 
         $I->assertEquals(9, $player2->getMoralPoint());
         $I->assertEquals(10, $mushPlayer->getMoralPoint());
-        $I->assertCount(0, $deadPlayer->getStatuses());
         $I->assertCount(1, $daedalus->getPlayers()->getPlayerDead());
         $I->assertCount(1, $daedalus->getPlayers()->getMushPlayer());
         $I->assertCount(2, $daedalus->getPlayers()->getHumanPlayer());

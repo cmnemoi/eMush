@@ -9,7 +9,7 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ExtraEffectEnum;
-use Mush\Equipment\Entity\ItemConfig;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Fruit;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Enum\GameFruitEnum;

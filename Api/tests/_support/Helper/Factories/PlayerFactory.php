@@ -5,9 +5,9 @@ namespace App\Tests\Helper\Factories;
 // here you can define custom actions
 // all public methods declared in helper class will be available in $I
 
-use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\GameStatusEnum;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\User\Entity\User;
 

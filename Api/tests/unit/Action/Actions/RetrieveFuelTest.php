@@ -9,21 +9,19 @@ use Mush\Action\Actions\RetrieveFuel;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
-use Mush\Equipment\Entity\EquipmentConfig;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Entity\GameConfig;
 use Mush\Place\Entity\Place;
+use Symfony\Contracts\EventDispatcher\Event;
 
 class RetrieveFuelTest extends AbstractActionTest
 {
-    /** @var GameEquipmentServiceInterface|Mockery\Mock */
-    private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
-
     /**
      * @before
      */
@@ -33,13 +31,10 @@ class RetrieveFuelTest extends AbstractActionTest
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::RETRIEVE_FUEL, -1);
 
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
-
         $this->action = new RetrieveFuel(
             $this->eventDispatcher,
             $this->actionService,
             $this->validator,
-            $this->gameEquipmentService,
         );
     }
 
@@ -82,8 +77,13 @@ class RetrieveFuelTest extends AbstractActionTest
         $gameTank->setEquipment($tank)->setName(EquipmentEnum::FUEL_TANK)->setHolder($room);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->gameEquipmentService->shouldReceive('persist');
-        $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->andReturn($gameItem)->once();
+        $this->eventDispatcher->shouldReceive('dispatch')
+            ->withArgs(fn (Event $event) => (
+                $event instanceof EquipmentEvent &&
+                $event->getEquipmentName() === ItemEnum::FUEL_CAPSULE &&
+                $event->getHolder() === $player)
+            )
+            ->once();
         $this->eventDispatcher->shouldReceive('dispatch')->once();
 
         $this->action->loadParameters($this->actionEntity, $player, $gameTank);
@@ -91,7 +91,6 @@ class RetrieveFuelTest extends AbstractActionTest
         $result = $this->action->execute();
 
         self::assertInstanceOf(Success::class, $result);
-        self::assertCount(1, $player->getEquipments());
         self::assertCount(1, $room->getEquipments());
         self::assertEquals(10, $player->getActionPoint());
     }

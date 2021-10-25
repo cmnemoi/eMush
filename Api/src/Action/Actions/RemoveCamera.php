@@ -6,41 +6,19 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
-use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\InventoryFull;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class RemoveCamera extends AbstractAction
 {
     protected string $name = ActionEnum::REMOVE_CAMERA;
-
-    private GameEquipmentServiceInterface $gameEquipmentService;
-
-    public function __construct(
-        EventDispatcherInterface $eventDispatcher,
-        ActionServiceInterface $actionService,
-        ValidatorInterface $validator,
-        GameEquipmentServiceInterface $gameEquipmentService,
-    ) {
-        parent::__construct(
-            $eventDispatcher,
-            $actionService,
-            $validator
-        );
-
-        $this->gameEquipmentService = $gameEquipmentService;
-    }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
@@ -58,19 +36,14 @@ class RemoveCamera extends AbstractAction
         /** @var GameEquipment $equipmentCamera */
         $equipmentCamera = $this->getParameter();
 
-        /** @var GameItem $itemCamera */
-        $itemCamera = $this->gameEquipmentService
-            ->createGameEquipmentFromName(ItemEnum::CAMERA_ITEM, $this->player->getDaedalus())
-        ;
-
         $equipmentEvent = new EquipmentEvent(
-            $equipmentCamera,
-            $this->player->getPlace(),
+            ItemEnum::CAMERA_ITEM,
+            $this->player,
             VisibilityEnum::HIDDEN,
             $this->getActionName(),
             new \DateTime()
         );
-        $equipmentEvent->setReplacementEquipment($itemCamera)->setPlayer($this->player);
+        $equipmentEvent->setExistingEquipment($equipmentCamera);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_TRANSFORM);
 
         return new Success();

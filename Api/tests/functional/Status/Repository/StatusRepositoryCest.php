@@ -4,11 +4,11 @@ namespace Mush\Tests\Status\Repository;
 
 use App\Tests\FunctionalTester;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Door;
-use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\ItemConfig;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Status\Criteria\StatusCriteria;
@@ -70,30 +70,11 @@ class StatusRepositoryCest
 
         $I->assertCount(0, $result);
 
-        $status = new Status($room);
-        $status
-            ->setName('name_room')
-        ;
-
-        $status2 = new Status($player);
-        $status2
-            ->setName('name_player')
-        ;
-
-        $status3 = new Status($equipment);
-        $status3
-            ->setName('name_equipment')
-        ;
-
-        $status4 = new Status($item);
-        $status4
-            ->setName('name_item')
-        ;
-
-        $status5 = new Status($door);
-        $status5
-            ->setName('door_item')
-        ;
+        $status = new Status($room, 'name_room');
+        $status2 = new Status($player, 'name_player');
+        $status3 = new Status($equipment, 'name_equipment');
+        $status4 = new Status($item, 'name_item');
+        $status5 = new Status($door, 'door_item');
 
         $I->haveInRepository($status);
         $I->haveInRepository($status2);
@@ -118,25 +99,11 @@ class StatusRepositoryCest
 
         $criteria = new StatusCriteria($daedalus);
 
-        $status = new Status($room);
-        $status
-            ->setName('name_room')
-        ;
+        $status = new Status($room, 'name_room');
+        $status2 = new Status($room, 'name_player');
+        $status3 = new Status($room, 'name_equipment');
+        $status4 = new Status($room, 'name_item');
 
-        $status2 = new Status($room);
-        $status2
-            ->setName('name_player')
-        ;
-
-        $status3 = new Status($room);
-        $status3
-            ->setName('name_equipment')
-        ;
-
-        $status4 = new Status($room);
-        $status4
-            ->setName('name_item')
-        ;
         $I->haveInRepository($status);
         $I->haveInRepository($status2);
         $I->haveInRepository($status3);

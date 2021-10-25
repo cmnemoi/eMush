@@ -8,8 +8,8 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Search;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
@@ -103,10 +103,9 @@ class SearchActionTest extends AbstractActionTest
             ->setHolder($room)
         ;
 
-        $hidden = new Status($gameItem);
+        $hidden = new Status($gameItem, EquipmentStatusEnum::HIDDEN);
         $hiddenBy = $this->createPlayer(new Daedalus(), new Place());
         $hidden
-            ->setName(EquipmentStatusEnum::HIDDEN)
             ->setTarget($hiddenBy)
         ;
 
@@ -142,9 +141,8 @@ class SearchActionTest extends AbstractActionTest
         ;
 
         $hiddenBy = $this->createPlayer(new Daedalus(), new Place());
-        $hidden = new Status($gameItem);
+        $hidden = new Status($gameItem, EquipmentStatusEnum::HIDDEN);
         $hidden
-            ->setName(EquipmentStatusEnum::HIDDEN)
             ->setTarget($hiddenBy)
         ;
 
@@ -154,9 +152,8 @@ class SearchActionTest extends AbstractActionTest
             ->setHolder($room)
         ;
 
-        $hidden2 = new Status($gameItem2);
+        $hidden2 = new Status($gameItem2, EquipmentStatusEnum::HIDDEN);
         $hidden2
-            ->setName(EquipmentStatusEnum::HIDDEN)
             ->setTarget($hiddenBy)
         ;
 

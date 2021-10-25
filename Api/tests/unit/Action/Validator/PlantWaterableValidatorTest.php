@@ -6,10 +6,11 @@ use Mockery;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Validator\PlantWaterable;
 use Mush\Action\Validator\PlantWaterableValidator;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\ItemConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
@@ -51,10 +52,7 @@ class PlantWaterableValidatorTest extends TestCase
             ])
         ;
 
-        $status = new Status($target);
-        $status
-            ->setName(EquipmentStatusEnum::PLANT_THIRSTY)
-        ;
+        $status = new Status($target, EquipmentStatusEnum::PLANT_THIRSTY);
 
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
@@ -69,10 +67,7 @@ class PlantWaterableValidatorTest extends TestCase
             ])
         ;
 
-        $status = new Status($target);
-        $status
-            ->setName(EquipmentStatusEnum::PLANT_DRY)
-        ;
+        $status = new Status($target, EquipmentStatusEnum::PLANT_DRY);
 
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
@@ -94,10 +89,7 @@ class PlantWaterableValidatorTest extends TestCase
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);
 
-        $status = new Status($target);
-        $status
-            ->setName('non_related_status')
-        ;
+        $status = new Status($target, PlayerStatusEnum::GUARDIAN);
 
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);

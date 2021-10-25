@@ -45,10 +45,7 @@ class LostTest extends TestCase
             ->setPlace($room)
         ;
 
-        $status = new Status($player);
-        $status
-            ->setName(PlayerStatusEnum::LOST)
-        ;
+        $status = new Status($player, PlayerStatusEnum::LOST);
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')

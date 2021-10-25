@@ -6,7 +6,7 @@ use Mockery;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Validator\MushSpore;
 use Mush\Action\Validator\MushSporeValidator;
-use Mush\Equipment\Entity\ItemConfig;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -43,9 +43,8 @@ class MushSporeValidatorTest extends TestCase
 
         $player = new Player();
 
-        $chargeStatus = new ChargeStatus($player);
+        $chargeStatus = new ChargeStatus($player, PlayerStatusEnum::SPORES);
         $chargeStatus
-            ->setName(PlayerStatusEnum::SPORES)
             ->setCharge(1)
         ;
 
@@ -76,9 +75,8 @@ class MushSporeValidatorTest extends TestCase
             ])
         ;
 
-        $chargeStatus = new ChargeStatus($player);
+        $chargeStatus = new ChargeStatus($player, PlayerStatusEnum::SPORES);
         $chargeStatus
-            ->setName(PlayerStatusEnum::SPORES)
             ->setCharge(0)
         ;
 

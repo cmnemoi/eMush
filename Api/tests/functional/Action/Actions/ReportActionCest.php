@@ -19,19 +19,19 @@ use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\Neron;
-use Mush\Equipment\Entity\EquipmentConfig;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
-use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 
-class EquipmentSubscriberCest
+class ReportActionCest
 {
     private ReportFire $reportFire;
     private ReportEquipment $reportEquipment;
@@ -102,9 +102,8 @@ class EquipmentSubscriberCest
         ;
         $I->haveInRepository($gameEquipment);
 
-        $status = new Status($gameEquipment);
+        $status = new Status($gameEquipment, EquipmentStatusEnum::BROKEN);
         $status
-            ->setName(EquipmentStatusEnum::BROKEN)
             ->setVisibility(VisibilityEnum::PUBLIC)
         ;
 
@@ -183,9 +182,8 @@ class EquipmentSubscriberCest
             'characterConfig' => $characterConfig,
         ]);
 
-        $status = new Status($room);
+        $status = new Status($room, StatusEnum::FIRE);
         $status
-            ->setName(StatusEnum::FIRE)
             ->setVisibility(VisibilityEnum::PUBLIC)
         ;
 

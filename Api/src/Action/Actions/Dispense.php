@@ -11,11 +11,9 @@ use Mush\Action\Validator\Charged;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\GameDrugEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -28,14 +26,12 @@ class Dispense extends AbstractAction
 {
     protected string $name = ActionEnum::DISPENSE;
 
-    private GameEquipmentServiceInterface $gameEquipmentService;
     private RandomServiceInterface $randomService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        GameEquipmentServiceInterface $gameEquipmentService,
         RandomServiceInterface $randomService
     ) {
         parent::__construct(
@@ -44,7 +40,6 @@ class Dispense extends AbstractAction
             $validator
         );
 
-        $this->gameEquipmentService = $gameEquipmentService;
         $this->randomService = $randomService;
     }
 
@@ -66,22 +61,14 @@ class Dispense extends AbstractAction
     {
         $drugName = current($this->randomService->getRandomElements(GameDrugEnum::getAll()));
 
-        /** @var GameItem $newItem */
-        $newItem = $this->gameEquipmentService
-            ->createGameEquipmentFromName($drugName, $this->player->getDaedalus())
-        ;
-
         $equipmentEvent = new EquipmentEvent(
-            $newItem,
-            $this->player->getPlace(),
+            $drugName,
+            $this->player,
             VisibilityEnum::HIDDEN,
             $this->getActionName(),
             new \DateTime()
         );
-        $equipmentEvent->setPlayer($this->player);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
-
-        $this->gameEquipmentService->persist($newItem);
 
         return new Success();
     }

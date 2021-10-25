@@ -10,11 +10,11 @@ use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\EquipmentConfig;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
@@ -88,10 +88,7 @@ class CoffeeActionCest
 
         $gameEquipment->getEquipment()->setActions(new ArrayCollection([$coffeeActionEntity]));
 
-        $brokenStatus = new Status($gameEquipment);
-        $brokenStatus
-            ->setName(EquipmentStatusEnum::BROKEN)
-        ;
+        $brokenStatus = new Status($gameEquipment, EquipmentStatusEnum::BROKEN);
 
         $I->assertEquals(ActionImpossibleCauseEnum::BROKEN_EQUIPMENT, $this->coffeeAction->cannotExecuteReason());
     }
@@ -112,9 +109,8 @@ class CoffeeActionCest
 
         $gameEquipment->getEquipment()->setActions(new ArrayCollection([$coffeeActionEntity]));
 
-        $chargeStatus = new ChargeStatus($gameEquipment);
+        $chargeStatus = new ChargeStatus($gameEquipment, EquipmentStatusEnum::ELECTRIC_CHARGES);
         $chargeStatus
-            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
             ->setDischargeStrategy(ActionEnum::COFFEE)
             ->setCharge(0)
         ;

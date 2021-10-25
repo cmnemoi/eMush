@@ -11,9 +11,9 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\EquipmentConfig;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
@@ -87,9 +87,8 @@ class RepairActionCest
 
         $I->assertFalse($this->repairAction->isVisible());
 
-        $status = new Status($gameEquipment);
+        $status = new Status($gameEquipment, EquipmentStatusEnum::BROKEN);
         $status
-            ->setName(EquipmentStatusEnum::BROKEN)
             ->setVisibility(VisibilityEnum::PUBLIC)
         ;
 

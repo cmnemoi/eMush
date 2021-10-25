@@ -8,11 +8,11 @@ use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\Neron;
-use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Service\PlayerService;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -33,26 +33,8 @@ class CreatePlayerServiceCest
         $neron->setIsInhibited(true);
         $I->haveInRepository($neron);
 
-        /** @var CharacterConfig $gioeleCharacterConfig */
-        $gioeleCharacterConfig = $I->have(CharacterConfig::class);
-        /** @var $andieCharacterConfig $characterConfig */
-        $andieCharacterConfig = $I->have(CharacterConfig::class, ['name' => CharacterEnum::ANDIE]);
-
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
-
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['neron' => $neron, 'gameConfig' => $gameConfig]);
-
-        $channel = new Channel();
-        $channel
-            ->setDaedalus($daedalus)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
-        $I->haveInRepository($channel);
-
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['name' => RoomEnum::LABORATORY, 'daedalus' => $daedalus]);
 
         $mushStatusConfig = new ChargeStatusConfig();
         $mushStatusConfig
@@ -66,6 +48,26 @@ class CreatePlayerServiceCest
         ;
         $I->haveInRepository($mushStatusConfig);
         $I->haveInRepository($sporeStatusConfig);
+
+        /** @var CharacterConfig $gioeleCharacterConfig */
+        $gioeleCharacterConfig = $I->have(CharacterConfig::class);
+        $gioeleCharacterConfig->setInitStatuses(new ArrayCollection([$sporeStatusConfig]));
+        /** @var $andieCharacterConfig $characterConfig */
+        $andieCharacterConfig = $I->have(CharacterConfig::class, ['name' => CharacterEnum::ANDIE]);
+        $andieCharacterConfig->setInitStatuses(new ArrayCollection([$sporeStatusConfig]));
+
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class, ['neron' => $neron, 'gameConfig' => $gameConfig]);
+
+        $channel = new Channel();
+        $channel
+            ->setDaedalus($daedalus)
+            ->setScope(ChannelScopeEnum::PUBLIC)
+        ;
+        $I->haveInRepository($channel);
+
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['name' => RoomEnum::LABORATORY, 'daedalus' => $daedalus]);
 
         $daedalus->addPlace($room);
 

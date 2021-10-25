@@ -51,10 +51,7 @@ class AntisocialTest extends TestCase
             ->setGameStatus(GameStatusEnum::CURRENT)
         ;
 
-        $status = new Status($player);
-        $status
-            ->setName(PlayerStatusEnum::ANTISOCIAL)
-        ;
+        $status = new Status($player, PlayerStatusEnum::ANTISOCIAL);
 
         $this->eventDispatcher->shouldReceive('dispatch')->never();
         $this->cycleHandler->handleNewCycle($status, $player, new \DateTime());

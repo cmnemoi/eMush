@@ -8,8 +8,8 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Take;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Event\AbstractGameEvent;
@@ -105,8 +105,7 @@ class TakeActionTest extends AbstractActionTest
             ->setHolder($room)
         ;
 
-        $heavy = new Status($gameItem);
-        $heavy->setName(EquipmentStatusEnum::HEAVY);
+        $heavy = new Status($gameItem, EquipmentStatusEnum::HEAVY);
 
         $gameConfig = new GameConfig();
         $gameConfig->setMaxItemInInventory(3);

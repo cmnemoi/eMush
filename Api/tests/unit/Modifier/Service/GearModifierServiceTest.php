@@ -5,8 +5,8 @@ namespace Mush\Test\Modifier\Service;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierConfig;
@@ -18,6 +18,7 @@ use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use PHPUnit\Framework\TestCase;
 
 class GearModifierServiceTest extends TestCase
@@ -94,7 +95,7 @@ class GearModifierServiceTest extends TestCase
         $this->service->gearCreated($gameEquipment);
 
         //with a charge
-        $charge = new ChargeStatus($gameEquipment);
+        $charge = new ChargeStatus($gameEquipment, EquipmentStatusEnum::ALIEN_ARTEFACT);
         $charge->setDischargeStrategy('action');
 
         $this->modifierService
@@ -247,7 +248,7 @@ class GearModifierServiceTest extends TestCase
         $this->service->takeGear($gameEquipment, $player);
 
         //Modifier with a charge
-        $charge = new ChargeStatus($gameEquipment);
+        $charge = new ChargeStatus($gameEquipment, EquipmentStatusEnum::UNSTABLE);
         $charge->setDischargeStrategy('action');
 
         $this->modifierService

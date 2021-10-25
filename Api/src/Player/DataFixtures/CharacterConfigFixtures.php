@@ -1,17 +1,22 @@
 <?php
 
-namespace Mush\Game\DataFixtures;
+namespace Mush\Player\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
+use Mush\Action\Entity\Action;
 use Mush\Daedalus\DataFixtures\DaedalusConfigFixtures;
-use Mush\Game\Entity\CharacterConfig;
+use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\SkillEnum;
+use Mush\Player\Entity\Config\CharacterConfig;
+use Mush\Status\DataFixtures\ChargeStatusFixtures;
+use Mush\Status\DataFixtures\StatusFixtures;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
 
 class CharacterConfigFixtures extends Fixture implements DependentFixtureInterface
@@ -21,21 +26,30 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
+        /** @var Action $rejuvenateAlphaAction */
         $rejuvenateAlphaAction = $this->getReference(ActionsFixtures::REJUVENATE_ALPHA);
-
-        $hitAction = $this->getReference(ActionsFixtures::HIT_DEFAULT);
-        $hideAction = $this->getReference(ActionsFixtures::HIDE_DEFAULT);
-        $searchAction = $this->getReference(ActionsFixtures::SEARCH_DEFAULT);
-        $reportFireAction = $this->getReference(ActionsFixtures::REPORT_FIRE);
-        $getUpAction = $this->getReference(ActionsFixtures::GET_UP);
-
-        $extractSporeAction = $this->getReference(ActionsFixtures::EXTRACT_SPORE);
-        $spreadFireAction = $this->getReference(ActionsFixtures::INFECT_PLAYER);
-        $infectAction = $this->getReference(ActionsFixtures::SPREAD_FIRE);
-
+        /** @var Action $comfortAction */
         $comfortAction = $this->getReference(ActionsFixtures::COMFORT_DEFAULT);
 
+        /** @var Action $hitAction */
+        $hitAction = $this->getReference(ActionsFixtures::HIT_DEFAULT);
+        /** @var Action $hideAction */
+        $hideAction = $this->getReference(ActionsFixtures::HIDE_DEFAULT);
+        /** @var Action $searchAction */
+        $searchAction = $this->getReference(ActionsFixtures::SEARCH_DEFAULT);
+        /** @var Action $reportFireAction */
+        $reportFireAction = $this->getReference(ActionsFixtures::REPORT_FIRE);
+        /** @var Action $getUpAction */
+        $getUpAction = $this->getReference(ActionsFixtures::GET_UP);
+        /** @var Action $flirtAction */
         $flirtAction = $this->getReference(ActionsFixtures::FLIRT_DEFAULT);
+
+        /** @var Action $extractSporeAction */
+        $extractSporeAction = $this->getReference(ActionsFixtures::EXTRACT_SPORE);
+        /** @var Action $spreadFireAction */
+        $spreadFireAction = $this->getReference(ActionsFixtures::INFECT_PLAYER);
+        /** @var Action $infectAction */
+        $infectAction = $this->getReference(ActionsFixtures::SPREAD_FIRE);
 
         $defaultActions = new ArrayCollection([
             $hitAction,
@@ -51,11 +65,14 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             $flirtAction,
         ]);
 
+        /** @var StatusConfig $sporeStatus */
+        $sporeStatus = $this->getReference(ChargeStatusFixtures::SPORES);
+
         $andie = new CharacterConfig();
         $andie
             ->setGameConfig($gameConfig)
             ->setName(CharacterEnum::ANDIE)
-            ->setStatuses([])
+            ->setInitStatuses(new ArrayCollection([$sporeStatus]))
             ->setActions($defaultActions)
             ->setSkills([
                 SkillEnum::CONFIDENT,
@@ -83,11 +100,14 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
 //        ;
 //        $manager->persist($chao);
 
+        /** @var StatusConfig $immunizedStatus */
+        $immunizedStatus = $this->getReference(StatusFixtures::IMMUNIZED_STATUS);
+
         $chun = new CharacterConfig();
         $chun
             ->setGameConfig($gameConfig)
             ->setName(CharacterEnum::CHUN)
-            ->setStatuses([PlayerStatusEnum::IMMUNIZED])
+            ->setInitStatuses(new ArrayCollection([$immunizedStatus]))
             ->setActions($defaultActions)
             ->setSkills([
                 SkillEnum::LETHARGY,
@@ -99,12 +119,15 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         ;
         $manager->persist($chun);
 
+        /** @var StatusConfig $firstTimeStatus */
+        $firstTimeStatus = $this->getReference(ChargeStatusFixtures::FIRST_TIME);
+
         $derek = new CharacterConfig();
         $derek
             ->setGameConfig($gameConfig)
             ->setName(CharacterEnum::DEREK)
             ->setActions($defaultActions)
-            ->setStatuses([])
+            ->setInitStatuses(new ArrayCollection([$firstTimeStatus, $sporeStatus]))
             ->setSkills([
                 SkillEnum::FIREFIGHTER,
                 SkillEnum::MOTIVATOR,
@@ -120,7 +143,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setGameConfig($gameConfig)
             ->setName(CharacterEnum::ELEESHA)
             ->setActions($defaultActions)
-            ->setStatuses([])
+            ->setInitStatuses(new ArrayCollection([$sporeStatus]))
             ->setSkills([
                 SkillEnum::DETERMINED,
                 SkillEnum::IT_EXPERT,
@@ -152,7 +175,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setGameConfig($gameConfig)
             ->setName(CharacterEnum::FRIEDA)
             ->setActions($defaultActions)
-            ->setStatuses([])
+            ->setInitStatuses(new ArrayCollection([$sporeStatus]))
             ->setSkills([
                 SkillEnum::ANTIQUE_PERFUME,
                 SkillEnum::ASTROPHYSICIST,
@@ -169,7 +192,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setGameConfig($gameConfig)
             ->setName(CharacterEnum::GIOELE)
             ->setActions($defaultActions)
-            ->setStatuses([])
+            ->setInitStatuses(new ArrayCollection([$sporeStatus]))
             ->setSkills([
                 SkillEnum::ASTROPHYSICIST,
                 SkillEnum::CAFFEINE_JUNKIE,
@@ -186,7 +209,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setGameConfig($gameConfig)
             ->setName(CharacterEnum::HUA)
             ->setActions($defaultActions)
-            ->setStatuses([])
+            ->setInitStatuses(new ArrayCollection([$sporeStatus]))
             ->setSkills([
                 SkillEnum::BOTANIST,
                 SkillEnum::DETERMINED,
@@ -198,12 +221,15 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         ;
         $manager->persist($hua);
 
+        /** @var StatusConfig $pacifistStatus */
+        $pacifistStatus = $this->getReference(StatusFixtures::PACIFIST_STATUS
+        );
         $ian = new CharacterConfig();
         $ian
             ->setGameConfig($gameConfig)
             ->setName(CharacterEnum::IAN)
             ->setActions($defaultActions)
-            ->setStatuses([PlayerStatusEnum::PACIFIST])
+            ->setInitStatuses(new ArrayCollection([$pacifistStatus, $sporeStatus]))
             ->setSkills([
                 SkillEnum::BIOLOGIST,
                 SkillEnum::BOTANIST,
@@ -220,7 +246,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setGameConfig($gameConfig)
             ->setName(CharacterEnum::JANICE)
             ->setActions($defaultActions)
-            ->setStatuses([])
+            ->setInitStatuses(new ArrayCollection([$sporeStatus]))
             ->setSkills([
                 SkillEnum::DIPLOMAT,
                 SkillEnum::IT_EXPERT,
@@ -237,7 +263,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setGameConfig($gameConfig)
             ->setName(CharacterEnum::KIM_JIN_SU)
             ->setActions($defaultActions)
-            ->setStatuses([])
+            ->setInitStatuses(new ArrayCollection([$sporeStatus]))
             ->setSkills([
                 SkillEnum::COLD_BLOODED,
                 SkillEnum::LEADER,
@@ -254,7 +280,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setGameConfig($gameConfig)
             ->setName(CharacterEnum::KUAN_TI)
             ->setActions($defaultActions)
-            ->setStatuses([])
+            ->setInitStatuses(new ArrayCollection([$sporeStatus]))
             ->setSkills([
                 SkillEnum::ASTROPHYSICIST,
                 SkillEnum::DESIGNER,
@@ -271,7 +297,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setGameConfig($gameConfig)
             ->setName(CharacterEnum::PAOLA)
             ->setActions($defaultActions)
-            ->setStatuses([])
+            ->setInitStatuses(new ArrayCollection([$sporeStatus]))
             ->setSkills([
                 SkillEnum::BIOLOGIST,
                 SkillEnum::GUNNER,
@@ -283,12 +309,14 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         ;
         $manager->persist($paola);
 
+        /** @var StatusConfig $antisocialStatus */
+        $antisocialStatus = $this->getReference(StatusFixtures::ANTISOCIAL_STATUS);
         $raluca = new CharacterConfig();
         $raluca
             ->setGameConfig($gameConfig)
             ->setName(CharacterEnum::RALUCA)
             ->setActions($defaultActions)
-            ->setStatuses([PlayerStatusEnum::ANTISOCIAL])
+            ->setInitStatuses(new ArrayCollection([$antisocialStatus, $sporeStatus]))
             ->setSkills([
                 SkillEnum::DESIGNER,
                 SkillEnum::DETACHED_CREWMEMBER,
@@ -304,7 +332,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setGameConfig($gameConfig)
             ->setName(CharacterEnum::ROLAND)
             ->setActions($defaultActions)
-            ->setStatuses([])
+            ->setInitStatuses(new ArrayCollection([$sporeStatus]))
             ->setSkills([
                 SkillEnum::CREATIVE,
                 SkillEnum::FIREFIGHTER,
@@ -321,7 +349,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setGameConfig($gameConfig)
             ->setName(CharacterEnum::STEPHEN)
             ->setActions($defaultActions)
-            ->setStatuses([])
+            ->setInitStatuses(new ArrayCollection([$sporeStatus]))
             ->setSkills([
                 SkillEnum::APPRENTICE,
                 SkillEnum::CHEF,
@@ -333,12 +361,15 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         ;
         $manager->persist($stephen);
 
+        /** @var StatusConfig $disabledStatus */
+        $disabledStatus = $this->getReference(StatusFixtures::DISABLED_STATUS);
+
         $terrence = new CharacterConfig();
         $terrence
             ->setGameConfig($gameConfig)
             ->setName(CharacterEnum::TERRENCE)
             ->setActions($defaultActions)
-            ->setStatuses([PlayerStatusEnum::DISABLED])
+            ->setInitStatuses(new ArrayCollection([$disabledStatus, $sporeStatus]))
             ->setSkills([
                 SkillEnum::IT_EXPERT,
                 SkillEnum::METALWORKER,
@@ -358,6 +389,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         return [
             DaedalusConfigFixtures::class,
             ActionsFixtures::class,
+            StatusFixtures::class,
         ];
     }
 }

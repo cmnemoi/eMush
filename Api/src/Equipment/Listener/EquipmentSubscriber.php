@@ -3,10 +3,10 @@
 namespace Mush\Equipment\Listener;
 
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
+use Mush\Player\Entity\Player;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class EquipmentSubscriber implements EventSubscriberInterface
@@ -22,56 +22,55 @@ class EquipmentSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            EquipmentEvent::EQUIPMENT_CREATED => 'onEquipmentCreated',
-            EquipmentEvent::EQUIPMENT_DESTROYED => 'onEquipmentDestroyed',
-            EquipmentEvent::EQUIPMENT_TRANSFORM => 'onEquipmentTransform',
+            EquipmentEvent::EQUIPMENT_CREATED => [
+                ['onEquipmentCreated', 1000], //this is done before everything else as the newGameEquipment is created here
+                ['onOverflowingInventory', -1000],
+            ],
+            EquipmentEvent::EQUIPMENT_DESTROYED => ['onEquipmentDestroyed', -1000], //the equipment is deleted after every other effect has been applied
+            EquipmentEvent::EQUIPMENT_TRANSFORM => [
+                ['onEquipmentCreated', 1000], //this is done before everything else as the newGameEquipment is created here
+                ['onEquipmentDestroyed', -1000], //the equipment is deleted after every other effect has been applied
+                ['onOverflowingInventory', -1001],
+            ],
         ];
     }
 
     public function onEquipmentCreated(EquipmentEvent $event): void
     {
-        $player = $event->getPlayer();
-        $place = $event->getPlace();
-        $equipment = $event->getEquipment();
+        $holder = $event->getHolder();
+        $equipmentName = $event->getEquipmentName();
 
-        if ($player === null ||
-            !$equipment instanceof GameItem ||
-            $player->getEquipments()->count() >= $this->getGameConfig($equipment)->getMaxItemInInventory()
-        ) {
-            $equipment->setHolder($place);
-        } else {
-            $equipment->setHolder($player);
-        }
-
-        $this->gameEquipmentService->persist($equipment);
+        $newEquipment = $this->gameEquipmentService->createGameEquipmentFromName($equipmentName, $holder, $event->getReason(), $event->getTime());
+        $event->setNewEquipment($newEquipment);
     }
 
     public function onEquipmentDestroyed(EquipmentEvent $event): void
     {
-        $equipment = $event->getEquipment();
-        $equipment->setHolder(null);
+        $equipment = $event->getExistingEquipment();
 
+        if ($equipment === null) {
+            throw new \LogicException('ExistingEquipment should be provided for this event');
+        }
+
+        $equipment->setHolder(null);
         $this->gameEquipmentService->delete($equipment);
     }
 
-    public function onEquipmentTransform(EquipmentEvent $event): void
+    public function onOverflowingInventory(EquipmentEvent $event): void
     {
-        $equipment = $event->getEquipment();
-        $place = $equipment->getPlace();
-        $player = $event->getPlayer();
+        $holder = $event->getHolder();
+        $newEquipment = $event->getNewEquipment();
 
-        if (($newEquipment = $event->getReplacementEquipment()) === null) {
-            throw new \LogicException('Replacement equipment should be provided');
+        if ($newEquipment === null) {
+            throw new \LogicException('ExistingEquipment should be provided for this event');
         }
 
-        if ($newEquipment instanceof GameItem && $player !== null && $player->getEquipments()->count() - 1 < $this->getGameConfig($equipment)->getMaxItemInInventory()) {
-            $newEquipment->setHolder($player);
-        } else {
-            $newEquipment->setHolder($place);
+        if ($holder instanceof Player &&
+            $holder->getEquipments()->count() > $this->getGameConfig($newEquipment)->getMaxItemInInventory()
+        ) {
+            $newEquipment->setHolder($holder->getPlace());
+            $this->gameEquipmentService->persist($newEquipment);
         }
-
-        $this->gameEquipmentService->delete($equipment);
-        $this->gameEquipmentService->persist($newEquipment);
     }
 
     private function getGameConfig(GameEquipment $gameEquipment): GameConfig

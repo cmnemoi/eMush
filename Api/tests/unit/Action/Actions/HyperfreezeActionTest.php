@@ -8,12 +8,11 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Hyperfreeze;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Place\Entity\Place;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -21,9 +20,6 @@ use Mush\Status\Event\StatusEvent;
 
 class HyperfreezeActionTest extends AbstractActionTest
 {
-    /** @var GameEquipmentServiceInterface|Mockery\Mock */
-    private GameEquipmentServiceInterface $gameEquipmentService;
-
     /**
      * @before
      */
@@ -33,13 +29,10 @@ class HyperfreezeActionTest extends AbstractActionTest
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::HYPERFREEZE, 1);
 
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
-
         $this->action = new Hyperfreeze(
             $this->eventDispatcher,
             $this->actionService,
             $this->validator,
-            $this->gameEquipmentService,
         );
     }
 
@@ -85,7 +78,6 @@ class HyperfreezeActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $gameRation);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->gameEquipmentService->shouldReceive('persist');
         $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $event) => $event instanceof StatusEvent &&
@@ -147,9 +139,7 @@ class HyperfreezeActionTest extends AbstractActionTest
         ;
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->andReturn($gameStandardRation)->once();
         $this->eventDispatcher->shouldReceive('dispatch')->once();
-        $this->gameEquipmentService->shouldReceive('persist');
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);

@@ -8,8 +8,8 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\TreatPlant;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
@@ -71,10 +71,7 @@ class TreatPlantActionTest extends AbstractActionTest
         $plant->addAction($this->actionEntity);
         $item->setMechanics(new ArrayCollection([$plant]));
 
-        $diseased = new Status($gameItem);
-        $diseased
-            ->setName(EquipmentStatusEnum::PLANT_DISEASED)
-        ;
+        $diseased = new Status($gameItem, EquipmentStatusEnum::PLANT_DISEASED);
 
         $player = $this->createPlayer(new Daedalus(), $room);
 

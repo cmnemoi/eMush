@@ -57,8 +57,7 @@ class StatusValidatorTest extends TestCase
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
 
-        $status = new StatusEntity($target);
-        $status->setName(EquipmentStatusEnum::BROKEN);
+        $status = new StatusEntity($target, EquipmentStatusEnum::BROKEN);
         $this->constraint->contain = true;
 
         $this->initValidator();
@@ -86,8 +85,7 @@ class StatusValidatorTest extends TestCase
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);
 
-        $status = new StatusEntity($target);
-        $status->setName(EquipmentStatusEnum::BROKEN);
+        $status = new StatusEntity($target, EquipmentStatusEnum::BROKEN);
         $this->constraint->contain = true;
         $this->constraint->status = EquipmentStatusEnum::FROZEN;
 
@@ -116,8 +114,7 @@ class StatusValidatorTest extends TestCase
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
 
-        $status = new StatusEntity($player);
-        $status->setName(EquipmentStatusEnum::BROKEN);
+        $status = new StatusEntity($player, EquipmentStatusEnum::BROKEN);
         $this->constraint->contain = true;
 
         $this->initValidator();
@@ -145,8 +142,7 @@ class StatusValidatorTest extends TestCase
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);
 
-        $status = new StatusEntity($player);
-        $status->setName(EquipmentStatusEnum::BROKEN);
+        $status = new StatusEntity($player, EquipmentStatusEnum::BROKEN);
         $this->constraint->contain = true;
         $this->constraint->status = EquipmentStatusEnum::FROZEN;
 
@@ -178,8 +174,7 @@ class StatusValidatorTest extends TestCase
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
 
-        $status = new StatusEntity($room);
-        $status->setName(EquipmentStatusEnum::BROKEN);
+        $status = new StatusEntity($room, EquipmentStatusEnum::BROKEN);
         $this->constraint->contain = true;
 
         $this->initValidator();
@@ -210,8 +205,7 @@ class StatusValidatorTest extends TestCase
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);
 
-        $status = new StatusEntity($room);
-        $status->setName(EquipmentStatusEnum::BROKEN);
+        $status = new StatusEntity($room, EquipmentStatusEnum::BROKEN);
         $this->constraint->contain = true;
         $this->constraint->status = EquipmentStatusEnum::FROZEN;
 
@@ -237,9 +231,8 @@ class StatusValidatorTest extends TestCase
             ])
         ;
 
-        $status = new StatusEntity($target);
+        $status = new StatusEntity($target, EquipmentStatusEnum::BROKEN);
         $status->setTarget($player);
-        $status->setName(EquipmentStatusEnum::BROKEN);
         $this->constraint->contain = true;
         $this->constraint->status = EquipmentStatusEnum::BROKEN;
         $this->constraint->ownerSide = false;

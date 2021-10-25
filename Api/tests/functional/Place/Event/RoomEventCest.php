@@ -8,15 +8,15 @@ use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\Neron;
-use Mush\Equipment\Entity\EquipmentConfig;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Event\RoomEvent;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
@@ -26,6 +26,7 @@ use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
+use Mush\Status\Event\StatusEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class RoomEventCest
@@ -51,11 +52,6 @@ class RoomEventCest
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'healthPoint' => 10]);
 
         $roomEvent = new RoomEvent($room, RoomEvent::ELECTRIC_ARC, $time);
-
-        $I->expectThrowable(\LogicException::class, function () use ($roomEvent) {
-            $this->eventDispatcher->dispatch($roomEvent, RoomEvent::STARTING_FIRE);
-        }
-        );
 
         $I->expectThrowable(\LogicException::class, function () use ($roomEvent) {
             $this->eventDispatcher->dispatch($roomEvent, RoomEvent::TREMOR);
@@ -99,9 +95,8 @@ class RoomEventCest
 
         $room->setDaedalus($daedalus);
 
-        $roomEvent = new RoomEvent($room, EventEnum::NEW_CYCLE, $time);
-
-        $this->eventDispatcher->dispatch($roomEvent, RoomEvent::STARTING_FIRE);
+        $statusEvent = new StatusEvent(StatusEnum::FIRE, $room, EventEnum::NEW_CYCLE, $time);
+        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
 
         $I->assertEquals(1, $room->getStatuses()->count());
 

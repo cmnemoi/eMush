@@ -2,12 +2,12 @@
 
 namespace Mush\RoomLog\Listener;
 
-use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
+use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\PlantLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -26,16 +26,20 @@ class EquipmentSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            EquipmentEvent::EQUIPMENT_CREATED => ['onEquipmentCreated', -100],
-            EquipmentEvent::EQUIPMENT_BROKEN => ['onEquipmentBroken', 10],
-            EquipmentEvent::EQUIPMENT_DESTROYED => ['onEquipmentDestroyed', 10],
-            EquipmentEvent::EQUIPMENT_TRANSFORM => ['onEquipmentTransform', -100],
+            EquipmentEvent::EQUIPMENT_CREATED => [['onEquipmentCreated', -100], ['onInventoryOverflow']],
+            EquipmentEvent::EQUIPMENT_DESTROYED => 'onEquipmentDestroyed',
+            EquipmentEvent::EQUIPMENT_TRANSFORM => 'onInventoryOverflow',
         ];
     }
 
     public function onEquipmentCreated(EquipmentEvent $event): void
     {
-        $equipment = $event->getEquipment();
+        $newEquipment = $event->getNewEquipment();
+        $holder = $event->getHolder();
+
+        if ($newEquipment === null) {
+            throw new \LogicException('Replacement equipment should be provided');
+        }
 
         if ($event->getReason() === EventEnum::PLANT_PRODUCTION) {
             $this->roomLogService->createLog(
@@ -47,60 +51,15 @@ class EquipmentSubscriber implements EventSubscriberInterface
                 $event->getLogParameters(),
                 $event->getTime()
             );
-
-            return;
-        }
-
-        if ($equipment instanceof GameItem &&
-            ($player = $event->getPlayer()) !== null &&
-            $player->getEquipments()->count() >= $this->getGameConfig($equipment)->getMaxItemInInventory()
-        ) {
-            $this->roomLogService->createLog(
-                LogEnum::OBJECT_FELT,
-                $event->getPlace(),
-                VisibilityEnum::PUBLIC,
-                'event_log',
-                $player,
-                $event->getLogParameters(),
-                $event->getTime()
-            );
-        }
-    }
-
-    public function onEquipmentBroken(EquipmentEvent $event): void
-    {
-        if ($event->getVisibility() !== VisibilityEnum::HIDDEN) {
-            $equipment = $event->getEquipment();
-
-            if ($equipment instanceof Door) {
-                $rooms = $equipment->getRooms()->toArray();
-            } else {
-                $rooms = [$equipment->getPlace()];
-            }
-
-            foreach ($rooms as $room) {
-                $this->roomLogService->createLog(
-                    LogEnum::EQUIPMENT_BROKEN,
-                    $room,
-                    $event->getVisibility(),
-                    'event_log',
-                    null,
-                    $event->getLogParameters(),
-                    $event->getTime()
-                );
-            }
         }
     }
 
     public function onEquipmentDestroyed(EquipmentEvent $event): void
     {
         if ($event->getVisibility() !== VisibilityEnum::HIDDEN) {
-            $equipment = $event->getEquipment();
-            $place = $equipment->getPlace();
-
             $this->roomLogService->createLog(
                 LogEnum::EQUIPMENT_DESTROYED,
-                $place,
+                $event->getPlace(),
                 $event->getVisibility(),
                 'event_log',
                 null,
@@ -110,24 +69,25 @@ class EquipmentSubscriber implements EventSubscriberInterface
         }
     }
 
-    public function onEquipmentTransform(EquipmentEvent $event): void
+    public function onInventoryOverflow(EquipmentEvent $event): void
     {
-        $player = $event->getPlayer();
+        $holder = $event->getHolder();
 
-        if (($newEquipment = $event->getReplacementEquipment()) === null) {
+        if (($newEquipment = $event->getNewEquipment()) === null) {
             throw new \LogicException('Replacement equipment should be provided');
         }
 
         if (
-            $newEquipment instanceof GameItem && $player !== null &&
-            $newEquipment->getHolder() === null
+            $newEquipment instanceof GameItem &&
+            $holder instanceof Player &&
+            $holder->getEquipments()->count() > $this->getGameConfig($newEquipment)->getMaxItemInInventory()
         ) {
             $this->roomLogService->createLog(
                 LogEnum::OBJECT_FELT,
-                $player->getPlace(),
+                $event->getPlace(),
                 VisibilityEnum::PUBLIC,
                 'event_log',
-                $player,
+                $holder,
                 $event->getLogParameters(),
                 $event->getTime()
             );

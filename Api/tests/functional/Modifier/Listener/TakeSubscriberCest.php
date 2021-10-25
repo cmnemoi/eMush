@@ -10,16 +10,16 @@ use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\EquipmentConfig;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Gear;
-use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
@@ -166,8 +166,8 @@ class TakeSubscriberCest
         $statusConfig->setName(EquipmentStatusEnum::HAZARDOUS);
         $I->haveInRepository($statusConfig);
 
-        $status = new ChargeStatus($gameEquipment);
-        $status->setDischargeStrategy(ActionEnum::SHOWER)->setName(EquipmentStatusEnum::HAZARDOUS);
+        $status = new ChargeStatus($gameEquipment, EquipmentStatusEnum::HAZARDOUS);
+        $status->setDischargeStrategy(ActionEnum::SHOWER);
         $I->haveInRepository($status);
 
         $this->takeAction->loadParameters($takeActionEntity, $player, $gameEquipment);
@@ -243,8 +243,8 @@ class TakeSubscriberCest
         $statusConfig->setName(EquipmentStatusEnum::HAZARDOUS);
         $I->haveInRepository($statusConfig);
 
-        $status = new ChargeStatus($gameEquipment);
-        $status->setDischargeStrategy(ActionEnum::REPAIR)->setName(EquipmentStatusEnum::HAZARDOUS);
+        $status = new ChargeStatus($gameEquipment, EquipmentStatusEnum::HAZARDOUS);
+        $status->setDischargeStrategy(ActionEnum::REPAIR);
         $I->haveInRepository($status);
 
         $this->takeAction->loadParameters($takeActionEntity, $player, $gameEquipment);
@@ -320,8 +320,7 @@ class TakeSubscriberCest
         $statusConfig->setName(EquipmentStatusEnum::BROKEN);
         $I->haveInRepository($statusConfig);
 
-        $status = new Status($gameEquipment);
-        $status->setName(EquipmentStatusEnum::BROKEN);
+        $status = new Status($gameEquipment, EquipmentStatusEnum::BROKEN);
         $I->haveInRepository($status);
 
         $this->takeAction->loadParameters($takeActionEntity, $player, $gameEquipment);
@@ -395,8 +394,7 @@ class TakeSubscriberCest
         $statusConfig->setName(EquipmentStatusEnum::BROKEN);
         $I->haveInRepository($statusConfig);
 
-        $status = new Status($gameEquipment);
-        $status->setName(EquipmentStatusEnum::BROKEN);
+        $status = new Status($gameEquipment, EquipmentStatusEnum::BROKEN);
         $I->haveInRepository($status);
 
         $this->takeAction->loadParameters($takeActionEntity, $player, $gameEquipment);

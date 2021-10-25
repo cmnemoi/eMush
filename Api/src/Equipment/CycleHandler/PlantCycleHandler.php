@@ -23,6 +23,7 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\StatusEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Validator\Exception\LogicException;
 
 class PlantCycleHandler extends AbstractCycleHandler
 {
@@ -87,8 +88,6 @@ class PlantCycleHandler extends AbstractCycleHandler
 
             $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
         }
-
-        $this->gameEquipmentService->persist($gamePlant);
     }
 
     public function handleNewDay($object, $daedalus, \DateTime $dateTime, array $context = []): void
@@ -133,8 +132,6 @@ class PlantCycleHandler extends AbstractCycleHandler
         }
 
         $this->handleStatus($gamePlant, $dateTime);
-
-        $this->gameEquipmentService->persist($gamePlant);
     }
 
     private function handleStatus(GameItem $gamePlant, \DateTime $dateTime): void
@@ -159,32 +156,30 @@ class PlantCycleHandler extends AbstractCycleHandler
     private function handleDriedPlant(GameItem $gamePlant, \DateTime $dateTime): void
     {
         $place = $gamePlant->getPlace();
-        $player = $gamePlant->getHolder();
+        $holder = $gamePlant->getHolder();
+
+        if ($holder === null) {
+            throw new LogicException('Equipment holder is empty');
+        }
 
         // Create a new hydropot
-        /** @var GameItem $hydropot */
-        $hydropot = $this->gameEquipmentService->createGameEquipmentFromName(ItemEnum::HYDROPOT, $place->getDaedalus());
-
         $equipmentEvent = new EquipmentEvent(
-            $gamePlant,
+            $gamePlant->getName(),
             $place,
             VisibilityEnum::PUBLIC,
             PlantLogEnum::PLANT_DEATH,
             new \DateTime()
         );
+        $equipmentEvent->setExistingEquipment($gamePlant);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         $equipmentEvent = new EquipmentEvent(
-            $hydropot,
-            $place,
+            ItemEnum::HYDROPOT,
+            $holder,
             VisibilityEnum::HIDDEN,
             PlantLogEnum::PLANT_DEATH,
             new \DateTime()
         );
-        if ($player instanceof Player) {
-            $equipmentEvent->setPlayer($player);
-        }
-
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
     }
 
@@ -210,17 +205,13 @@ class PlantCycleHandler extends AbstractCycleHandler
         // If plant is not in a room, it is in player inventory
         $place = $gamePlant->getPlace();
 
-        /** @var GameItem $gameFruit */
-        $gameFruit = $this->gameEquipmentService->createGameEquipment($plantType->getFruit(), $place->getDaedalus());
-
         $equipmentEvent = new EquipmentEvent(
-            $gameFruit,
+            $plantType->getFruit()->getName(),
             $place,
             VisibilityEnum::PUBLIC,
             EventEnum::PLANT_PRODUCTION,
-            new \DateTime()
+            $dateTime
         );
-
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
     }
 

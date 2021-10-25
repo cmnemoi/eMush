@@ -8,8 +8,8 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\WaterPlant;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
@@ -63,10 +63,7 @@ class WaterPlantActionTest extends AbstractActionTest
         $plant->addAction($this->actionEntity);
         $item->setMechanics(new ArrayCollection([$plant]));
 
-        $thirsty = new Status($gameItem);
-        $thirsty
-            ->setName(EquipmentStatusEnum::PLANT_THIRSTY)
-        ;
+        $thirsty = new Status($gameItem, EquipmentStatusEnum::PLANT_THIRSTY);
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
@@ -102,10 +99,7 @@ class WaterPlantActionTest extends AbstractActionTest
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
-        $driedOut = new Status($gameItem);
-        $driedOut
-            ->setName(EquipmentStatusEnum::PLANT_DRY)
-        ;
+        $driedOut = new Status($gameItem, EquipmentStatusEnum::PLANT_DRY);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gameEquipmentService->shouldReceive('persist');

@@ -21,9 +21,22 @@ interface StatusServiceInterface
 
     public function getStatusConfigByNameAndDaedalus(string $name, Daedalus $daedalus): StatusConfig;
 
+    public function removeAllStatus(StatusHolderInterface $holder, string $reason, \DateTime $time): void;
+
     public function createStatusFromConfig(
         StatusConfig $statusConfig,
         StatusHolderInterface $holder,
+        string $reason,
+        \DateTime $time,
+        ?StatusHolderInterface $target = null
+    ): Status;
+
+    public function createStatusFromName(
+        string $statusName,
+        Daedalus $daedalus,
+        StatusHolderInterface $holder,
+        string $reason,
+        \DateTime $time,
         ?StatusHolderInterface $target = null
     ): Status;
 

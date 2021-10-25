@@ -8,20 +8,16 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\RemoveCamera;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
 
 class RemoveCameraActionTest extends AbstractActionTest
 {
-    /** @var GameEquipmentServiceInterface|Mockery\Mock */
-    private GameEquipmentServiceInterface $gameEquipmentService;
-
     /**
      * @before
      */
@@ -29,15 +25,12 @@ class RemoveCameraActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
-
         $this->actionEntity = $this->createActionEntity(ActionEnum::REMOVE_CAMERA);
 
         $this->action = new RemoveCamera(
             $this->eventDispatcher,
             $this->actionService,
             $this->validator,
-            $this->gameEquipmentService,
         );
     }
 
@@ -79,10 +72,6 @@ class RemoveCameraActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $cameraEquipment);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->gameEquipmentService
-            ->shouldReceive('createGameEquipmentFromName')
-            ->andReturn($cameraItem)
-            ->once();
         $this->eventDispatcher->shouldReceive('dispatch')->once();
 
         $result = $this->action->execute();

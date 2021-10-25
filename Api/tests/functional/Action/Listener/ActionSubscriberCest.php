@@ -8,10 +8,9 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Action\Listener\ActionSubscriber;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\ItemConfig;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\GearItemEnum;
-use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierConfig;
@@ -19,6 +18,7 @@ use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
@@ -135,8 +135,7 @@ class ActionSubscriberCest
             ->setName(ActionEnum::TAKE)
         ;
 
-        $dirty = new Status($player);
-        $dirty->setName(PlayerStatusEnum::DIRTY);
+        $dirty = new Status($player, PlayerStatusEnum::DIRTY);
         $I->haveInRepository($dirty);
 
         $actionEvent = new ActionEvent($action, $player, null);

@@ -6,7 +6,6 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
-use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\Fuel;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\InventoryFull;
@@ -15,37 +14,18 @@ use Mush\Action\Validator\Reach;
 use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Event\EquipmentEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class RetrieveFuel extends AbstractAction
 {
     protected string $name = ActionEnum::RETRIEVE_FUEL;
-
-    private GameEquipmentServiceInterface $gameEquipmentService;
-
-    public function __construct(
-        EventDispatcherInterface $eventDispatcher,
-        ActionServiceInterface $actionService,
-        ValidatorInterface $validator,
-        GameEquipmentServiceInterface $gameEquipmentService,
-    ) {
-        parent::__construct(
-            $eventDispatcher,
-            $actionService,
-            $validator
-        );
-
-        $this->gameEquipmentService = $gameEquipmentService;
-    }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
@@ -70,17 +50,14 @@ class RetrieveFuel extends AbstractAction
 
     protected function applyEffects(): ActionResult
     {
-        $item = $this->gameEquipmentService->createGameEquipmentFromName(
+        $equipmentEvent = new EquipmentEvent(
             ItemEnum::FUEL_CAPSULE,
-            $this->getPlayer()->getDaedalus()
+            $this->player,
+            VisibilityEnum::HIDDEN,
+            $this->getActionName(),
+            new \DateTime()
         );
-
-        if (!$item instanceof GameItem) {
-            throw new \LogicException('invalid GameItem: [' . $item::class . '].');
-        }
-
-        $item->setHolder($this->getPlayer());
-        $this->gameEquipmentService->persist($item);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
         $daedalusEvent = new DaedalusModifierEvent(
             $this->player->getDaedalus(),

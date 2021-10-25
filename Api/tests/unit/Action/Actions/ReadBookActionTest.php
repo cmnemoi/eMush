@@ -8,8 +8,8 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\ReadBook;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Book;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Place\Entity\Place;
@@ -17,9 +17,6 @@ use Mush\Player\Service\PlayerServiceInterface;
 
 class ReadBookActionTest extends AbstractActionTest
 {
-    /** @var PlayerServiceInterface|Mockery\Mock */
-    private PlayerServiceInterface $playerService;
-
     /**
      * @before
      */
@@ -35,7 +32,6 @@ class ReadBookActionTest extends AbstractActionTest
             $this->eventDispatcher,
             $this->actionService,
             $this->validator,
-            $this->playerService,
         );
     }
 
@@ -58,9 +54,9 @@ class ReadBookActionTest extends AbstractActionTest
         $gameItem
             ->setEquipment($item)
             ->setHolder($room)
+            ->setName('name')
         ;
 
-        $this->playerService->shouldReceive('persist');
         $this->eventDispatcher->shouldReceive('dispatch');
 
         $player = $this->createPlayer(new Daedalus(), $room);

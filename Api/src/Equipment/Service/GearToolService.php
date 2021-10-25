@@ -117,6 +117,7 @@ class GearToolService implements GearToolServiceInterface
                 !$toolMechanic->getActions()->filter(fn (Action $action) => $action->getName() === $actionName)->isEmpty()
             ) {
                 $chargeStatus = $this->getChargeStatus($actionName, $tool);
+
                 // if one tool provide this action for free prioritize it
                 if ($chargeStatus === null) {
                     return $tool;
@@ -150,7 +151,7 @@ class GearToolService implements GearToolServiceInterface
 
             if ($chargeStatus === null) {
                 $equipmentEvent = new EquipmentEvent(
-                    $equipment,
+                    $equipment->getName(),
                     $equipment->getPlace(),
                     VisibilityEnum::HIDDEN,
                     EventEnum::OUT_OF_CHARGE,

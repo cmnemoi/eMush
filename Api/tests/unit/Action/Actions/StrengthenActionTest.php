@@ -8,8 +8,8 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\StrengthenHull;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\ItemConfig;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Status\Entity\Attempt;
@@ -18,8 +18,6 @@ use Mush\Status\Enum\StatusEnum;
 class StrengthenActionTest extends AbstractActionTest
 {
     /** @var RandomServiceInterface|Mockery\Mock */
-    /** @var GameEquipmentServiceInterface|Mockery\Mock */
-    private ActionModifierServiceInterface $actionModifierService;
 
     /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;
@@ -65,9 +63,8 @@ class StrengthenActionTest extends AbstractActionTest
 
         $player = $this->createPlayer($daedalus, $room);
 
-        $attempt = new Attempt($player);
+        $attempt = new Attempt($player, StatusEnum::ATTEMPT);
         $attempt
-            ->setName(StatusEnum::ATTEMPT)
             ->setAction($this->action->getActionName())
         ;
         $this->actionService->shouldReceive('getAttempt')->andReturn($attempt);
@@ -92,15 +89,15 @@ class StrengthenActionTest extends AbstractActionTest
         $item = new ItemConfig();
 
         $gameItem
+            ->setName('item')
             ->setEquipment($item)
             ->setHolder($room)
         ;
 
         $player = $this->createPlayer($daedalus, $room);
 
-        $attempt = new Attempt($player);
+        $attempt = new Attempt($player, StatusEnum::ATTEMPT);
         $attempt
-            ->setName(StatusEnum::ATTEMPT)
             ->setAction($this->action->getActionName())
         ;
         $this->actionService->shouldReceive('getAttempt')->andReturn($attempt);

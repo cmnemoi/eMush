@@ -16,6 +16,7 @@ use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -62,12 +63,25 @@ class Hide extends AbstractAction
 
         $statusEvent = new StatusEvent(EquipmentStatusEnum::HIDDEN, $parameter, $this->getActionName(), new \DateTime());
         $statusEvent->setStatusTarget($this->player);
-
         $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
 
         $parameter->setHolder($this->player->getPlace());
-
         $this->gameEquipmentService->persist($parameter);
+
+        // Remove BURDENED status if no other heavy item in the inventory
+        if ($this->player->hasStatus(PlayerStatusEnum::BURDENED) &&
+            $this->player->getEquipments()->filter(function (GameItem $item) {
+                return $item->hasStatus(EquipmentStatusEnum::HEAVY);
+            })->isEmpty()
+        ) {
+            $statusEvent = new StatusEvent(
+                PlayerStatusEnum::BURDENED,
+                $parameter,
+                $this->getActionName(),
+                new \DateTime()
+            );
+            $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_REMOVED);
+        }
 
         return new Success();
     }

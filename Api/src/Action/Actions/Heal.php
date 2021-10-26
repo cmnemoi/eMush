@@ -6,41 +6,20 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ApplyEffectEvent;
-use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\FullHealth;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerModifierEvent;
-use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Heal extends AbstractAction
 {
     public const BASE_HEAL = 2;
 
     protected string $name = ActionEnum::HEAL;
-
-    private PlayerServiceInterface $playerService;
-
-    public function __construct(
-        EventDispatcherInterface $eventDispatcher,
-        ActionServiceInterface $actionService,
-        ValidatorInterface $validator,
-        PlayerServiceInterface $playerService
-    ) {
-        parent::__construct(
-            $eventDispatcher,
-            $actionService,
-            $validator
-        );
-
-        $this->playerService = $playerService;
-    }
 
     protected function support(?LogParameterInterface $parameter): bool
     {
@@ -76,8 +55,6 @@ class Heal extends AbstractAction
             new \DateTime()
         );
         $this->eventDispatcher->dispatch($healEvent, ApplyEffectEvent::HEAL);
-
-        $this->playerService->persist($parameter);
 
         $success = new Success();
 

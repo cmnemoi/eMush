@@ -13,7 +13,6 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -21,8 +20,6 @@ use Mush\Status\Enum\StatusEnum;
 
 class SabotageActionTest extends AbstractActionTest
 {
-    /** @var PlayerServiceInterface|Mockery\Mock */
-    private PlayerServiceInterface $playerService;
     /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;
 
@@ -33,7 +30,6 @@ class SabotageActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->playerService = Mockery::mock(PlayerServiceInterface::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::SABOTAGE, 2);
@@ -42,7 +38,6 @@ class SabotageActionTest extends AbstractActionTest
             $this->eventDispatcher,
             $this->actionService,
             $this->validator,
-            $this->playerService,
             $this->randomService,
         );
     }
@@ -74,8 +69,6 @@ class SabotageActionTest extends AbstractActionTest
         ;
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
-
-        $this->playerService->shouldReceive('persist');
 
         $attempt = new Attempt(new Player(), StatusEnum::ATTEMPT);
         $attempt

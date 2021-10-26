@@ -62,7 +62,7 @@ class StatusEvent extends AbstractGameEvent implements LoggableEventInterface
         return $this->target;
     }
 
-    public function setStatusTarget(StatusHolderInterface $target): self
+    public function setStatusTarget(?StatusHolderInterface $target): self
     {
         $this->target = $target;
 

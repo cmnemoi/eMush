@@ -14,19 +14,13 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
-use Mush\Place\Service\PlaceServiceInterface;
 use Mush\Player\Entity\Player;
-use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\StatusEnum;
 
 class ExtinguishActionTest extends AbstractActionTest
 {
-    /** @var PlaceServiceInterface|Mockery\Mock */
-    private PlaceServiceInterface $placeService;
-    /** @var PlayerServiceInterface|Mockery\Mock */
-    private PlayerServiceInterface $playerService;
     /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;
 
@@ -39,15 +33,12 @@ class ExtinguishActionTest extends AbstractActionTest
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::REPAIR, 1);
 
-        $this->placeService = Mockery::mock(PlaceServiceInterface::class);
-        $this->playerService = Mockery::mock(PlayerServiceInterface::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
 
         $this->action = new Extinguish(
             $this->eventDispatcher,
             $this->actionService,
             $this->validator,
-            $this->playerService,
             $this->randomService,
         );
     }
@@ -76,9 +67,6 @@ class ExtinguishActionTest extends AbstractActionTest
 
         $actionParameter = new ActionParameters();
         $actionParameter->setItem($gameItem);
-
-        $this->placeService->shouldReceive('persist');
-        $this->playerService->shouldReceive('persist');
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
@@ -119,9 +107,6 @@ class ExtinguishActionTest extends AbstractActionTest
 
         $actionParameter = new ActionParameters();
         $actionParameter->setItem($gameItem);
-
-        $this->placeService->shouldReceive('persist');
-        $this->playerService->shouldReceive('persist');
 
         $player = $this->createPlayer(new Daedalus(), $room);
 

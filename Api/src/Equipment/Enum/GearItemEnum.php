@@ -6,7 +6,7 @@ class GearItemEnum
 {
     public const ADJUSTABLE_WRENCH = 'adjustable_wrench';
     public const ALIEN_BOTTLE_OPENER = 'alien_bottle_opener';
-    public const ANTI_GRAV_SCOOTER = 'anti_grav_scooter';
+    public const ANTIGRAV_SCOOTER = 'antigrav_scooter';
     public const ROLLING_BOULDER = 'rolling_boulder';
     public const NCC_LENS = 'ncc_lenses';
     public const OSCILLOSCOPE = 'oscilloscope';

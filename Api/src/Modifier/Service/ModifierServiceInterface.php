@@ -39,5 +39,11 @@ interface ModifierServiceInterface
 
     public function consumeActionCharges(Action $action, Player $player, ?LogParameterInterface $parameter): void;
 
-    public function getEventModifiedValue(Player $player, array $scopes, string $target, int $initValue): int;
+    public function getEventModifiedValue(
+        Player $player,
+        array $scopes,
+        string $target,
+        int $initValue,
+        bool $consumeCharge = true
+    ): int;
 }

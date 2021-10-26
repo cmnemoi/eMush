@@ -65,7 +65,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setTarget(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(1.5)
             ->setReach(ModifierReachEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(ModifierModeEnum::MULTIPLICATIVE)
             ->setGameConfig($gameConfig)
         ;
         $manager->persist($wrenchModifier);
@@ -74,9 +74,9 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
         $glovesModifier
             ->setScope(ModifierScopeEnum::EVENT_CLUMSINESS)
             ->setTarget(ModifierTargetEnum::PERCENTAGE)
-            ->setDelta(-100)
+            ->setDelta(0)
             ->setReach(ModifierReachEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(ModifierModeEnum::SET_VALUE)
             ->setGameConfig($gameConfig)
         ;
         $manager->persist($glovesModifier);
@@ -151,7 +151,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
         $gravityConversionModifier
             ->setScope(ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION)
             ->setTarget(ModifierTargetEnum::MOVEMENT_POINT)
-            ->setDelta(-1)
+            ->setDelta(1)
             ->setReach(ModifierReachEnum::DAEDALUS)
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->setGameConfig($gameConfig)
@@ -162,7 +162,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
         $gravityCycleModifier
             ->setScope(ModifierScopeEnum::CYCLE_CHANGE)
             ->setTarget(ModifierTargetEnum::MOVEMENT_POINT)
-            ->setDelta(-1)
+            ->setDelta(1)
             ->setReach(ModifierReachEnum::DAEDALUS)
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->setGameConfig($gameConfig)

@@ -1,6 +1,7 @@
 const COFFEE = "coffee";
 const PLASTIC_SCRAP = "plastic_scraps";
 const METAL_SCRAP = "metal_scraps";
+const ANTIGRAV_SCOOTER = "antigrav_scooter";
 
 const BACTA = 'bacta';
 const BETAPROPYL = 'betapropyl';
@@ -55,7 +56,7 @@ const MICROWAVE = "microwave";
 const SUPERFREEZER = "superfreezer";
 const HYDROPOT = "hydropot";
 const PLASTENITE_ARMOR = "plastenite_armor";
-const CAMERA = "camera";
+const CAMERA_ITEM = "camera_item";
 const EXTINGUISHER = "extinguisher";
 const DUCT_TAPE = "duct_tape";
 const BLASTER = "blaster";
@@ -82,6 +83,9 @@ const BANDAGE = "bandage";
 export const itemEnum: {[index: string]: any} = {
     [BANDAGE]: {
         'image': require('@/assets/images/items/bandage.jpg')
+    },
+    [ANTIGRAV_SCOOTER]: {
+        'image': require('@/assets/images/items/antigrav_scooter.jpg')
     },
     [JAR_OF_ALIEN_OIL]: {
         'image': require('@/assets/images/items/alien_oil.jpg')
@@ -248,7 +252,7 @@ export const itemEnum: {[index: string]: any} = {
     [PLASTENITE_ARMOR]: {
         'image': require('@/assets/images/items/plastenite_armor.jpg')
     },
-    [CAMERA]: {
+    [CAMERA_ITEM]: {
         'image': require('@/assets/images/items/camera.jpg')
     },
     [EXTINGUISHER]: {

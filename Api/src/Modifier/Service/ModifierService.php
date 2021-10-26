@@ -218,8 +218,13 @@ class ModifierService implements ModifierServiceInterface
         }
     }
 
-    public function getEventModifiedValue(Player $player, array $scopes, string $target, int $initValue): int
-    {
+    public function getEventModifiedValue(
+        Player $player,
+        array $scopes,
+        string $target,
+        int $initValue,
+        bool $consumeCharge = true
+    ): int {
         $modifiers = new ModifierCollection();
         $modifiers = $modifiers
             ->addModifiers($player->getModifiers()->getScopedModifiers($scopes)->getTargetedModifiers($target))
@@ -227,9 +232,13 @@ class ModifierService implements ModifierServiceInterface
             ->addModifiers($player->getDaedalus()->getModifiers()->getScopedModifiers($scopes)->getTargetedModifiers($target))
         ;
 
-        $this->consumeEventCharges($modifiers);
+        $modifiedValue = $this->getModifiedValue($modifiers, $initValue);
 
-        return $this->getModifiedValue($modifiers, $initValue);
+        if ($consumeCharge) {
+            $this->consumeEventCharges($modifiers);
+        }
+
+        return $modifiedValue;
     }
 
     private function consumeEventCharges(Collection $modifiers): void

@@ -4,7 +4,7 @@ const PLANT_YOUNG = "plant_young";
 const PLANT_THIRSTY= "plant_thirsty";
 const PLANT_DRY= "plant_dry";
 const PLANT_DISEASED = "plant_diseased";
-const CHARGE = "charges";
+const ELECTRIC_CHARGE = "electric_charges";
 const BROKEN = "broken";
 const FROZEN = "frozen";
 
@@ -28,7 +28,7 @@ export const statusItemEnum: {[index: string]: any} = {
     [PLANT_DISEASED]: {
         'icon': require('@/assets/images/status/plant_diseased.png')
     },
-    [CHARGE]: {
+    [ELECTRIC_CHARGE]: {
         'icon': require('@/assets/images/status/charge.png')
     },
     [BROKEN]: {

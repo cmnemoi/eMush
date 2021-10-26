@@ -293,7 +293,7 @@
                     }}
                     8 {{target_equipment_first_letter, select,
                         vowel {Malgré votre ténacité, vos tentatives de réparation de l'**{target_equipment}** restent infructueuses.}
-                        other {{target_gender, select,
+                        other {{target_equipment_gender, select,
                             male {Malgré votre ténacité, vos tentatives de réparation du **{target_equipment}** restent infructueuses.}
                             female {Malgré votre ténacité, vos tentatives de réparation de la **{target_equipment}** restent infructueuses.}
                             other {invalid gender input}
@@ -304,7 +304,7 @@
                             vowel {Qui aurait cru que cet **{target_equipment}** soit en fait une telle énigme.}
                             other {Qui aurait cru que ce **{target_equipment}** soit en fait une telle énigme.}
                         }}
-                        female {Qui aurait cru que cette **{target}** soit en fait une telle énigme.}
+                        female {Qui aurait cru que cette **{target_equipment}** soit en fait une telle énigme.}
                         other {invalid gender input}
                     }}
                     10 {{target_equipment_first_letter, select,
@@ -385,7 +385,7 @@
                     }}
                     2 {{target_equipment_first_letter, select,
                         vowel {Félicitation **{character}**. L'**{target_equipment}** fonctionne à nouveau.}
-                        other {{target_gender, select,
+                        other {{target_equipment_gender, select,
                             male {Félicitation **{character}**. Le **{target_equipment}** fonctionne à nouveau.}
                             female {Félicitation **{character}**. La **{target_equipment}** fonctionne à nouveau.}
                             other {invalid gender input}
@@ -649,7 +649,7 @@
         <unit id="open_success">
             <segment id="open_success">
                 <source>open_success</source>
-                <target>{quipment_gender, select,
+                <target>{equipment_gender, select,
                     male {**{character}** a trouvé un **{equipment}** dans une Capsule Spatiale.}
                     female {**{character}** a trouvé une **{equipment}** dans une Capsule Spatiale.}
                     other {invalid gender input}

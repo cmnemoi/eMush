@@ -6,6 +6,8 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Equipment\Entity\ConsumableEffect;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Mechanics\Ration;
+use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
@@ -45,7 +47,8 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $rationType = $ration->getEquipment()->getRationsMechanic();
+        /** @var Ration $rationType */
+        $rationType = $ration->getEquipment()->getMechanicByName(EquipmentMechanicEnum::RATION);
 
         if (null === $rationType) {
             throw new \Exception('Cannot consume this equipment');

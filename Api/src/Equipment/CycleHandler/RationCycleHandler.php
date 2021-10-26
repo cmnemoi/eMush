@@ -41,7 +41,8 @@ class RationCycleHandler extends AbstractCycleHandler
             return;
         }
 
-        $rationType = $gameRation->getEquipment()->getRationsMechanic();
+        /** @var Ration $rationType */
+        $rationType = $gameRation->getEquipment()->getMechanicByName(EquipmentMechanicEnum::RATION);
 
         if (null === $rationType) {
             return;

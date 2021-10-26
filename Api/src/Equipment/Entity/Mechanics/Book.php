@@ -12,12 +12,19 @@ use Mush\Equipment\Enum\EquipmentMechanicEnum;
  */
 class Book extends Tool
 {
-    protected string $mechanic = EquipmentMechanicEnum::BOOK;
-
     /**
      * @ORM\Column(type="string", nullable=false)
      */
     private string $skill;
+
+    /**
+     * Book constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->mechanics[] = EquipmentMechanicEnum::BOOK;
+    }
 
     public function getSkill(): string
     {

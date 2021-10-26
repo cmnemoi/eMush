@@ -14,12 +14,19 @@ use Mush\Equipment\Enum\EquipmentMechanicEnum;
  */
 class Gear extends EquipmentMechanic
 {
-    protected string $mechanic = EquipmentMechanicEnum::GEAR;
-
     /**
      * @ORM\ManyToMany(targetEntity="Mush\Modifier\Entity\ModifierConfig")
      */
     private Collection $modifierConfigs;
+
+    /**
+     * Gear constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->mechanics[] = EquipmentMechanicEnum::GEAR;
+    }
 
     public function getModifierConfigs(): Collection
     {

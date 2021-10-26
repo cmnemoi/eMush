@@ -12,7 +12,14 @@ use Mush\Equipment\Enum\EquipmentMechanicEnum;
  */
 class Drug extends Ration
 {
-    protected string $mechanic = EquipmentMechanicEnum::DRUG;
-
     protected bool $isPerishable = false;
+
+    /**
+     * Drug constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->mechanics[] = EquipmentMechanicEnum::DRUG;
+    }
 }

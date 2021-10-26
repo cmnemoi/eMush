@@ -27,13 +27,12 @@ class Document extends Tool
      */
     private bool $canShred = false;
 
-    /**
-     * Document constructor.
-     */
-    public function __construct()
+    public function getMechanics(): array
     {
-        parent::__construct();
-        $this->mechanics[] = EquipmentMechanicEnum::DOCUMENT;
+        $mechanics = parent::getMechanics();
+        $mechanics[] = EquipmentMechanicEnum::DOCUMENT;
+
+        return $mechanics;
     }
 
     public function getContent(): string

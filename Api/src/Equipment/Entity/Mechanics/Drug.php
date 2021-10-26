@@ -14,12 +14,11 @@ class Drug extends Ration
 {
     protected bool $isPerishable = false;
 
-    /**
-     * Drug constructor.
-     */
-    public function __construct()
+    public function getMechanics(): array
     {
-        parent::__construct();
-        $this->mechanics[] = EquipmentMechanicEnum::DRUG;
+        $mechanics = parent::getMechanics();
+        $mechanics[] = EquipmentMechanicEnum::DRUG;
+
+        return $mechanics;
     }
 }

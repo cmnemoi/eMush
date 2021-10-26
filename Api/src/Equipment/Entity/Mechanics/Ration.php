@@ -50,13 +50,12 @@ class Ration extends EquipmentMechanic
      */
     protected bool $isPerishable = true;
 
-    /**
-     * Ration constructor.
-     */
-    public function __construct()
+    public function getMechanics(): array
     {
-        parent::__construct();
-        $this->mechanics[] = EquipmentMechanicEnum::RATION;
+        $mechanics = parent::getMechanics();
+        $mechanics[] = EquipmentMechanicEnum::RATION;
+
+        return $mechanics;
     }
 
     public function getActionPoints(): array

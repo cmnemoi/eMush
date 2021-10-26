@@ -19,13 +19,12 @@ class Gear extends EquipmentMechanic
      */
     private Collection $modifierConfigs;
 
-    /**
-     * Gear constructor.
-     */
-    public function __construct()
+    public function getMechanics(): array
     {
-        parent::__construct();
-        $this->mechanics[] = EquipmentMechanicEnum::GEAR;
+        $mechanics = parent::getMechanics();
+        $mechanics[] = EquipmentMechanicEnum::GEAR;
+
+        return $mechanics;
     }
 
     public function getModifierConfigs(): Collection

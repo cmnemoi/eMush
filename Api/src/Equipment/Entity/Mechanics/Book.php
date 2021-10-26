@@ -17,13 +17,12 @@ class Book extends Tool
      */
     private string $skill;
 
-    /**
-     * Book constructor.
-     */
-    public function __construct()
+    public function getMechanics(): array
     {
-        parent::__construct();
-        $this->mechanics[] = EquipmentMechanicEnum::BOOK;
+        $mechanics = parent::getMechanics();
+        $mechanics[] = EquipmentMechanicEnum::BOOK;
+
+        return $mechanics;
     }
 
     public function getSkill(): string

@@ -25,13 +25,12 @@ class Blueprint extends Tool
      */
     private array $ingredients = [];
 
-    /**
-     * BluePrint constructor.
-     */
-    public function __construct()
+    public function getMechanics(): array
     {
-        parent::__construct();
-        $this->mechanics[] = EquipmentMechanicEnum::BLUEPRINT;
+        $mechanics = parent::getMechanics();
+        $mechanics[] = EquipmentMechanicEnum::BLUEPRINT;
+
+        return $mechanics;
     }
 
     public function getEquipment(): EquipmentConfig

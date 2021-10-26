@@ -17,13 +17,12 @@ class Fruit extends Ration
      */
     private string $plantName;
 
-    /**
-     * Fruit constructor.
-     */
-    public function __construct()
+    public function getMechanics(): array
     {
-        parent::__construct();
-        $this->mechanics[] = EquipmentMechanicEnum::FRUIT;
+        $mechanics = parent::getMechanics();
+        $mechanics[] = EquipmentMechanicEnum::FRUIT;
+
+        return $mechanics;
     }
 
     public function getPlantName(): string

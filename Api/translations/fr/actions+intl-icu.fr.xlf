@@ -472,5 +472,25 @@
                 <target>Qu'est ce donc que cette petite chose ?</target>
             </segment>
         </unit>
+        <unit id="report_equipment">
+            <segment id="name">
+                <source>report_equipment.name</source>
+                <target>Signaler</target>
+            </segment>
+            <segment id="description">
+                <source>report_equipment.description</source>
+                <target>Permet de faire remonter l'information et ainsi vous faire remarquer au passage.</target>
+            </segment>
+        </unit>
+        <unit id="report_fire">
+            <segment id="name">
+                <source>report_fire.name</source>
+                <target>Signaler : Incendie</target>
+            </segment>
+            <segment id="description">
+                <source>report_fire.description</source>
+                <target>Oui, faire part à vos colègues de cet incendie est une bonne idée.</target>
+            </segment>
+        </unit>
     </file>
 </xliff>

@@ -12,8 +12,8 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 
 class DiseaseCauseService implements DiseaseCauseServiceInterface
 {
-    private const HAZARDOUS_RATE = 30;
-    private const DECOMPOSING_RATE = 50;
+    private const HAZARDOUS_RATE = 100;
+    private const DECOMPOSING_RATE = 100;
 
     private PlayerDiseaseServiceInterface $playerDiseaseService;
     private RandomServiceInterface $randomService;

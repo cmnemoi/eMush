@@ -304,7 +304,7 @@
                             vowel {Qui aurait cru que cet **{target_equipment}** soit en fait une telle énigme.}
                             other {Qui aurait cru que ce **{target_equipment}** soit en fait une telle énigme.}
                         }}
-                        female {Qui aurait cru que cette **{target}** soit en fait une telle énigme.}
+                        female {Qui aurait cru que cette **{target_equipment}** soit en fait une telle énigme.}
                         other {invalid gender input}
                     }}
                     10 {{target_equipment_first_letter, select,

@@ -8,8 +8,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Entity\Action;
 use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\Mechanics\Ration;
-use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Game\Entity\ConfigInterface;
 use Mush\Game\Entity\GameConfig;
 
@@ -148,27 +146,9 @@ class EquipmentConfig implements ConfigInterface
 
     public function getMechanicByName(string $mechanic): ?EquipmentMechanic
     {
-        $equipmentMechanics = $this->mechanics->filter(fn (EquipmentMechanic $equipmentMechanic) => ($equipmentMechanic->getMechanic() === $mechanic));
+        $equipmentMechanics = $this->mechanics->filter(fn (EquipmentMechanic $equipmentMechanic) => in_array($mechanic, $equipmentMechanic->getMechanics()));
 
         return $equipmentMechanics->count() > 0 ? $equipmentMechanics->first() : null;
-    }
-
-    public function getMechanicByMechanics(array $mechanics): ?EquipmentMechanic
-    {
-        $equipmentMechanics = $this->mechanics->filter(fn (EquipmentMechanic $equipmentMechanic) => (in_array($equipmentMechanic->getMechanic(), $mechanics)));
-
-        return $equipmentMechanics->count() > 0 ? $equipmentMechanics->first() : null;
-    }
-
-    public function getRationsMechanic(): ?Ration
-    {
-        $mechanic = $this->getMechanicByMechanics([EquipmentMechanicEnum::RATION, EquipmentMechanicEnum::FRUIT, EquipmentMechanicEnum::DRUG]);
-
-        if ($mechanic !== null && !$mechanic instanceof Ration) {
-            throw new \LogicException('This should be a ration');
-        }
-
-        return $mechanic;
     }
 
     public function isFireDestroyable(): bool

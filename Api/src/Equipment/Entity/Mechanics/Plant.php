@@ -14,7 +14,13 @@ use Mush\Equipment\Enum\EquipmentMechanicEnum;
  */
 class Plant extends EquipmentMechanic
 {
-    protected string $mechanic = EquipmentMechanicEnum::PLANT;
+    public function getMechanics(): array
+    {
+        $mechanics = parent::getMechanics();
+        $mechanics[] = EquipmentMechanicEnum::PLANT;
+
+        return $mechanics;
+    }
 
     /**
      * @ORM\OneToOne(targetEntity="Mush\Equipment\Entity\Config\EquipmentConfig", inversedBy=")

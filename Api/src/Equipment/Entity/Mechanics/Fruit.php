@@ -12,12 +12,18 @@ use Mush\Equipment\Enum\EquipmentMechanicEnum;
  */
 class Fruit extends Ration
 {
-    protected string $mechanic = EquipmentMechanicEnum::FRUIT;
-
     /**
      * @ORM\Column(type="string", nullable=false)
      */
     private string $plantName;
+
+    public function getMechanics(): array
+    {
+        $mechanics = parent::getMechanics();
+        $mechanics[] = EquipmentMechanicEnum::FRUIT;
+
+        return $mechanics;
+    }
 
     public function getPlantName(): string
     {

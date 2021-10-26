@@ -12,8 +12,6 @@ use Mush\Equipment\Enum\EquipmentMechanicEnum;
  */
 class Weapon extends Tool
 {
-    protected string $mechanic = EquipmentMechanicEnum::WEAPON;
-
     /**
      * @ORM\Column(type="integer", length=255, nullable=false)
      */
@@ -43,6 +41,15 @@ class Weapon extends Tool
      * @ORM\Column(type="array", nullable=false)
      */
     private array $criticalFailEvents = [];
+
+    /**
+     * Weapon constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->mechanics[] = EquipmentMechanicEnum::WEAPON;
+    }
 
     public function getBaseAccuracy(): int
     {

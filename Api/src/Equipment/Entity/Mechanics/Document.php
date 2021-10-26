@@ -12,8 +12,6 @@ use Mush\Equipment\Enum\EquipmentMechanicEnum;
  */
 class Document extends Tool
 {
-    protected string $mechanic = EquipmentMechanicEnum::DOCUMENT;
-
     /**
      * @ORM\Column(type="string", nullable=false)
      */
@@ -28,6 +26,14 @@ class Document extends Tool
      * @ORM\Column(type="boolean", nullable=false)
      */
     private bool $canShred = false;
+
+    public function getMechanics(): array
+    {
+        $mechanics = parent::getMechanics();
+        $mechanics[] = EquipmentMechanicEnum::DOCUMENT;
+
+        return $mechanics;
+    }
 
     public function getContent(): string
     {

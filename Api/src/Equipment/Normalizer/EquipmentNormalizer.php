@@ -12,6 +12,8 @@ use Mush\Equipment\Entity\ConsumableEffect;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Mechanics\Ration;
+use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Service\EquipmentEffectService;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
@@ -130,7 +132,9 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
 
     private function getRationsEffect(GameEquipment $gameEquipment, Daedalus $daedalus): array
     {
-        if (($ration = $gameEquipment->getEquipment()->getRationsMechanic()) === null) {
+        /** @var Ration $ration */
+        $ration = $gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::RATION);
+        if ($ration === null) {
             return [];
         }
 

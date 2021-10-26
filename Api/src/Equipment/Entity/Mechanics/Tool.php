@@ -13,5 +13,11 @@ use Mush\Equipment\Enum\EquipmentMechanicEnum;
  */
 class Tool extends EquipmentMechanic
 {
-    protected string $mechanic = EquipmentMechanicEnum::TOOL;
+    public function getMechanics(): array
+    {
+        $mechanics = parent::getMechanics();
+        $mechanics[] = EquipmentMechanicEnum::TOOL;
+
+        return $mechanics;
+    }
 }

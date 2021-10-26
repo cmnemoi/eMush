@@ -58,16 +58,14 @@ class IsReportedValidator extends ConstraintValidator
         $player = $value->getPlayer();
         $equipment = $value->getParameter();
 
-        if ($equipment === null) {
+        if (!$equipment instanceof GameEquipment || !$equipment->isBroken()) {
             return false;
         }
 
         if ($equipment instanceof Door) {
             $alert = $this->alertService->findByNameAndDaedalus(AlertEnum::BROKEN_DOORS, $player->getDaedalus());
-        } elseif ($equipment instanceof GameEquipment) {
-            $alert = $this->alertService->findByNameAndDaedalus(AlertEnum::BROKEN_EQUIPMENTS, $player->getDaedalus());
         } else {
-            throw new UnexpectedTypeException($equipment, GameEquipment::class);
+            $alert = $this->alertService->findByNameAndDaedalus(AlertEnum::BROKEN_EQUIPMENTS, $player->getDaedalus());
         }
 
         if ($alert === null) {

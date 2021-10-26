@@ -49,12 +49,12 @@ class DiseaseConfig implements LogParameterInterface
     /**
      * @ORM\Column (type="integer")
      */
-    private int $delayMin = 4;
+    private int $delayMin = 0;
 
     /**
      * @ORM\Column (type="integer")
      */
-    private int $delayLength = 4;
+    private int $delayLength = 0;
 
     /**
      * @ORM\Column (type="integer")

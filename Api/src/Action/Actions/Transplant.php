@@ -80,6 +80,15 @@ class Transplant extends AbstractAction
         $equipmentEvent->setExistingEquipment($hydropot);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
+        $equipmentEvent = new EquipmentEvent(
+            $parameter->getName(),
+            $this->player,
+            VisibilityEnum::HIDDEN,
+            $this->getActionName(),
+            new \DateTime());
+        $equipmentEvent->setExistingEquipment($parameter);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+
         $gamePlant = $this->gameEquipmentService->createGameEquipmentFromName(
             $fruitType->getPlantName(),
             $newHolder,

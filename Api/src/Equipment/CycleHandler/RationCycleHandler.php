@@ -48,7 +48,7 @@ class RationCycleHandler extends AbstractCycleHandler
             return;
         }
 
-        //@TODO destroy perishable item accroding to NERON BIOS
+        //@TODO destroy perishable item according to NERON BIOS
         $this->handleStatus($gameRation, $rationType);
 
         $this->gameEquipmentService->persist($gameRation);

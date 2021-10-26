@@ -68,6 +68,7 @@ class PlayerDiseaseServiceTest extends TestCase
         $player->setDaedalus($daedalus);
 
         $diseaseConfig = new DiseaseConfig();
+        $diseaseConfig->setDelayMin(4)->setDelayLength(4);
 
         $this->entityManager->shouldReceive(['persist' => null, 'flush' => null]);
 
@@ -154,7 +155,7 @@ class PlayerDiseaseServiceTest extends TestCase
             ->once();
         $this->eventDispatcher->shouldReceive('dispatch')->twice();
 
-        $disease = $this->playerDiseaseService->createDiseaseFromName('name', $player, 0, 0);
+        $disease = $this->playerDiseaseService->createDiseaseFromName('name', $player, 'reason');
 
         $this->assertInstanceOf(PlayerDisease::class, $disease);
         $this->assertEquals($diseaseConfig, $disease->getDiseaseConfig());
@@ -171,7 +172,11 @@ class PlayerDiseaseServiceTest extends TestCase
         $player->setDaedalus($daedalus);
 
         $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig->setName('name');
+        $diseaseConfig
+            ->setName('name')
+            ->setDelayMin(4)
+            ->setDelayLength(4)
+        ;
 
         $this->diseaseConfigRepository
             ->shouldReceive('findByCauses')

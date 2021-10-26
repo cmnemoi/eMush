@@ -41,8 +41,10 @@ class ActionService implements ActionServiceInterface
         if (($movementPointCost = $this->getTotalMovementPointCost($player, $action, $parameter)) > 0) {
             $missingMovementPoints = $action->getActionCost()->getMovementPointCost() - $player->getMovementPoint();
             if ($missingMovementPoints > 0) {
-                $numberOfConversions = (int) ceil($missingMovementPoints / $this->getMovementPointConversionGain($player));
-                $conversionGain = $numberOfConversions * $this->getMovementPointConversionGain($player);
+                $movementPointGain = $this->getMovementPointConversionGain($player, true);
+                $numberOfConversions = (int) ceil($missingMovementPoints / $movementPointGain);
+
+                $conversionGain = $numberOfConversions * $movementPointGain;
 
                 $playerModifierEvent = new PlayerModifierEvent(
                     $player,
@@ -63,34 +65,40 @@ class ActionService implements ActionServiceInterface
         return $player;
     }
 
-    private function getMovementPointConversionCost(Player $player): int
+    private function getMovementPointConversionCost(Player $player, bool $consumeCharge = false): int
     {
         return $this->modifierService->getEventModifiedValue(
             $player,
             [ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION],
             ModifierTargetEnum::ACTION_POINT,
-            self::BASE_MOVEMENT_POINT_CONVERSION_COST
+            self::BASE_MOVEMENT_POINT_CONVERSION_COST,
+            $consumeCharge
         );
     }
 
-    private function getMovementPointConversionGain(Player $player): int
+    private function getMovementPointConversionGain(Player $player, bool $consumeCharge = false): int
     {
         return $this->modifierService->getEventModifiedValue(
             $player,
             [ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION],
             ModifierTargetEnum::MOVEMENT_POINT,
-            self::BASE_MOVEMENT_POINT_CONVERSION_GAIN
+            self::BASE_MOVEMENT_POINT_CONVERSION_GAIN,
+            $consumeCharge
         );
     }
 
-    public function getTotalActionPointCost(Player $player, Action $action, ?LogParameterInterface $parameter): int
-    {
+    public function getTotalActionPointCost(
+        Player $player,
+        Action $action,
+        ?LogParameterInterface $parameter,
+        bool $consumeCharge = false
+    ): int {
         $conversionCost = 0;
         $missingMovementPoints = $action->getActionCost()->getMovementPointCost() - $player->getMovementPoint();
         if ($missingMovementPoints > 0) {
             $numberOfConversions = (int) ceil($missingMovementPoints / $this->getMovementPointConversionGain($player));
 
-            $conversionCost = $numberOfConversions * $this->getMovementPointConversionCost($player);
+            $conversionCost = $numberOfConversions * $this->getMovementPointConversionCost($player, $consumeCharge);
         }
 
         return $this->modifierService->getActionModifiedValue(
@@ -101,8 +109,11 @@ class ActionService implements ActionServiceInterface
         ) + $conversionCost;
     }
 
-    public function getTotalMovementPointCost(Player $player, Action $action, ?LogParameterInterface $parameter): int
-    {
+    public function getTotalMovementPointCost(
+        Player $player,
+        Action $action,
+        ?LogParameterInterface $parameter,
+    ): int {
         return $this->modifierService->getActionModifiedValue(
             $action,
             $player,
@@ -111,8 +122,11 @@ class ActionService implements ActionServiceInterface
         );
     }
 
-    public function getTotalMoralPointCost(Player $player, Action $action, ?LogParameterInterface $parameter): int
-    {
+    public function getTotalMoralPointCost(
+        Player $player,
+        Action $action,
+        ?LogParameterInterface $parameter,
+    ): int {
         return $this->modifierService->getActionModifiedValue(
             $action,
             $player,

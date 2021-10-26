@@ -56,7 +56,7 @@
         <unit id="object_felt">
             <segment>
                 <source>object_felt</source>
-                <target>{target_gender, select,
+                <target>{equipment_gender, select,
                         male {Étrange, **{character}** a fait tomber un **{equipment}**.}
                         female {Étrange, **{character}** a fait tomber une **{equipment}**.}
                         other {invalid gender input}
@@ -128,7 +128,7 @@
         <unit id="equipment_broken">
             <segment>
                 <source>equipment_broken</source>
-                <target>{target_gender, select,
+                <target>{equipment_gender, select,
                     male {Un **{equipment}** a été cassé !}
                     female {Une **{equipment}** a été cassée !}
                     other {invalid gender input}
@@ -138,7 +138,7 @@
         <unit id="equipment_destroyed">
             <segment>
                 <source>equipment_destroyed</source>
-                <target>{target_gender, select,
+                <target>{equipment_gender, select,
                     male {Un **{equipment}** a été détruit !}
                     female {Une **{equipment}** a été détruite !}
                     other {invalid gender input}
@@ -175,13 +175,13 @@
         <unit id="plant_death">
             <segment>
                 <source>plant_death</source>
-                <target>{target_first_letter, select,
+                <target>{equipment_first_letter, select,
                     vowel {{equipment_gender, select,
                         male {L'**{equipment}** est mort...snif !}
                         female {L'**{equipment}** est morte...snif !}
                         other {invalid gender input}
                     }}
-                    other {{target_gender, select,
+                    other {{equipment_gender, select,
                         male {Le **{equipment}** est mort...snif !}
                         female {La **{equipment}** est morte...snif !}
                         other {invalid gender input}

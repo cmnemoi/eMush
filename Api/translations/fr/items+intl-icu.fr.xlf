@@ -816,34 +816,34 @@ Augmente les chances de réparation de 50%</target>
 Augmente les chances de réparation de 50%</target>
             </segment>
         </unit>
-        <unit id="anti_grav_scooter">
+        <unit id="antigrav_scooter">
             <segment id="name">
-                <source>anti_grav_scooter.name</source>
+                <source>antigrav_scooter.name</source>
                 <target>Trottinette anti-gravité</target>
             </segment>
             <segment id="short_name">
-                <source>anti_grav_scooter.short_name</source>
+                <source>antigrav_scooter.short_name</source>
                 <target>Trottinette anti-gravité</target>
             </segment>
             <segment id="plural_name">
-                <source>anti_grav_scooter.plural_name</source>
+                <source>antigrav_scooter.plural_name</source>
                 <target>Trottinettes anti-gravité</target>
             </segment>
             <segment id="genre">
-                <source>anti_grav_scooter.genre</source>
+                <source>antigrav_scooter.genre</source>
                 <target>female</target>
             </segment>
             <segment id="first_letter">
-                <source>anti_grav_scooter..first_letter</source>
+                <source>antigrav_scooter..first_letter</source>
                 <target>consonant</target>
             </segment>
             <segment id="description">
-                <source>anti_grav_scooter.description</source>
+                <source>antigrav_scooter.description</source>
                 <target>La trottinette anti-gravité permet de se déplacer plus fréquemment.
 Ajoute 2 Points de Mouvement lors des transferts pa-pm (sauf si vous avez déjà la compétence Sprinter).</target>
             </segment>
             <segment id="examine">
-                <source>anti_grav_scooter.examine</source>
+                <source>antigrav_scooter.examine</source>
                 <target>La trottinette anti-gravité permet de se déplacer plus fréquemment.
 Ajoute 2 Points de Mouvement lors des transferts pa-pm (sauf si vous avez déjà la compétence Sprinter).</target>
             </segment>

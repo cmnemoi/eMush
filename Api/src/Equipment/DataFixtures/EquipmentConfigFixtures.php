@@ -225,16 +225,19 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($antenna);
         $manager->persist($antennaGear);
 
+        $gravitySimulatorGear = $this->createGear([GearModifierConfigFixtures::GRAVITY_CONVERSION_MODIFIER, GearModifierConfigFixtures::GRAVITY_CYCLE_MODIFIER]);
         $gravitySimulator = new EquipmentConfig();
         $gravitySimulator
             ->setGameConfig($gameConfig)
             ->setName(EquipmentEnum::GRAVITY_SIMULATOR)
+            ->setMechanics(new ArrayCollection([$gravitySimulatorGear]))
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
             ->setActions(new ArrayCollection([$repair6, $sabotage6, $reportAction, $examineAction]))
         ;
         $manager->persist($gravitySimulator);
+        $manager->persist($gravitySimulatorGear);
 
         /** @var Action $showerAction */
         $showerAction = $this->getReference(ActionsFixtures::SHOWER_DEFAULT);

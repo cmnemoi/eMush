@@ -10,7 +10,12 @@ interface ActionServiceInterface
 {
     public function applyCostToPlayer(Player $player, Action $action, ?LogParameterInterface $parameter): Player;
 
-    public function getTotalActionPointCost(Player $player, Action $action, ?LogParameterInterface $parameter): int;
+    public function getTotalActionPointCost(
+        Player $player,
+        Action $action,
+        ?LogParameterInterface $parameter,
+        bool $consumeCharge = false
+    ): int;
 
     public function getTotalMovementPointCost(Player $player, Action $action, ?LogParameterInterface $parameter): int;
 

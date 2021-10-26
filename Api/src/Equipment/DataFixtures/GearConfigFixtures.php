@@ -200,7 +200,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $antiGravScooter = new ItemConfig();
         $antiGravScooter
             ->setGameConfig($gameConfig)
-            ->setName(GearItemEnum::ANTI_GRAV_SCOOTER)
+            ->setName(GearItemEnum::ANTIGRAV_SCOOTER)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)

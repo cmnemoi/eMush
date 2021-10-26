@@ -22,7 +22,6 @@ use Mush\Action\Entity\Action;
  *     "exploration" = "Mush\Equipment\Entity\Mechanics\Exploration",
  *     "fruit" = "Mush\Equipment\Entity\Mechanics\Fruit",
  *     "gear" = "Mush\Equipment\Entity\Mechanics\Gear",
- *     "instrument" = "Mush\Equipment\Entity\Mechanics\Instrument",
  *     "plant" = "Mush\Equipment\Entity\Mechanics\Plant",
  *     "ration" = "Mush\Equipment\Entity\Mechanics\Ration",
  *     "tool" = "Mush\Equipment\Entity\Mechanics\Tool",
@@ -38,7 +37,7 @@ abstract class EquipmentMechanic
      */
     private int $id;
 
-    protected string $mechanic;
+    protected array $mechanics = [];
 
     /**
      * @ORM\ManyToMany(targetEntity="Mush\Action\Entity\Action")
@@ -60,9 +59,9 @@ abstract class EquipmentMechanic
         return $this->id;
     }
 
-    public function getMechanic(): string
+    public function getMechanics(): array
     {
-        return $this->mechanic;
+        return $this->mechanics;
     }
 
     public function getActions(): Collection

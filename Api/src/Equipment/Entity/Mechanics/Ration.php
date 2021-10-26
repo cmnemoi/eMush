@@ -13,8 +13,6 @@ use Mush\Equipment\Enum\EquipmentMechanicEnum;
  */
 class Ration extends EquipmentMechanic
 {
-    protected string $mechanic = EquipmentMechanicEnum::RATION;
-
     /**
      * @ORM\Column(type="array", nullable=false)
      */
@@ -51,6 +49,14 @@ class Ration extends EquipmentMechanic
      * @ORM\Column(type="boolean", nullable=false)
      */
     protected bool $isPerishable = true;
+
+    public function getMechanics(): array
+    {
+        $mechanics = parent::getMechanics();
+        $mechanics[] = EquipmentMechanicEnum::RATION;
+
+        return $mechanics;
+    }
 
     public function getActionPoints(): array
     {

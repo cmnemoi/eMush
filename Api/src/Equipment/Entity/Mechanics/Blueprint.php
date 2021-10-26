@@ -13,8 +13,6 @@ use Mush\Equipment\Enum\EquipmentMechanicEnum;
  */
 class Blueprint extends Tool
 {
-    protected string $mechanic = EquipmentMechanicEnum::BLUEPRINT;
-
     /**
      * @ORM\OneToOne(targetEntity="Mush\Equipment\Entity\Config\EquipmentConfig")
      */
@@ -26,6 +24,14 @@ class Blueprint extends Tool
      * @var array<string, int>
      */
     private array $ingredients = [];
+
+    public function getMechanics(): array
+    {
+        $mechanics = parent::getMechanics();
+        $mechanics[] = EquipmentMechanicEnum::BLUEPRINT;
+
+        return $mechanics;
+    }
 
     public function getEquipment(): EquipmentConfig
     {

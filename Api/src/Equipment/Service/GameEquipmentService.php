@@ -13,7 +13,6 @@ use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\Mechanics\Document;
 use Mush\Equipment\Entity\Mechanics\Plant;
-use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\EquipmentInitEvent;
 use Mush\Equipment\Repository\GameEquipmentRepository;
@@ -113,17 +112,12 @@ class GameEquipmentService implements GameEquipmentServiceInterface
     {
         /** @var EquipmentMechanic $mechanic */
         foreach ($gameEquipment->getEquipment()->getMechanics() as $mechanic) {
-            switch ($mechanic->getMechanic()) {
-                case EquipmentMechanicEnum::PLANT:
-                    if ($reason !== EventEnum::CREATE_DAEDALUS) {
-                        $this->initPlant($gameEquipment, $mechanic, $daedalus);
-                    }
-                    break;
-                case EquipmentMechanicEnum::DOCUMENT:
-                    if ($mechanic instanceof Document && $mechanic->getContent()) {
-                        $this->initDocument($gameEquipment, $mechanic);
-                    }
-                    break;
+            if ($mechanic instanceof Plant) {
+                if ($reason !== EventEnum::CREATE_DAEDALUS) {
+                    $this->initPlant($gameEquipment, $mechanic, $daedalus);
+                }
+            } elseif ($mechanic instanceof Document && $mechanic->getContent()) {
+                $this->initDocument($gameEquipment, $mechanic);
             }
         }
 

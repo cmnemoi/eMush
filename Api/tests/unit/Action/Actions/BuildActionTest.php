@@ -15,14 +15,11 @@ use Mush\Equipment\Entity\Mechanics\Blueprint;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Place\Entity\Place;
-use Mush\Player\Service\PlayerServiceInterface;
 
 class BuildActionTest extends AbstractActionTest
 {
     /** @var GameEquipmentServiceInterface|Mockery\Mock */
     private GameEquipmentServiceInterface $gameEquipmentService;
-    /** @var PlayerServiceInterface|Mockery\Mock */
-    private PlayerServiceInterface $playerService;
     /** @var GearToolServiceInterface|Mockery\Mock */
     private GearToolServiceInterface $gearToolService;
 
@@ -36,7 +33,6 @@ class BuildActionTest extends AbstractActionTest
         parent::before();
 
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
-        $this->playerService = Mockery::mock(PlayerServiceInterface::class);
         $this->gearToolService = Mockery::mock(GearToolServiceInterface::class);
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::BUILD);
@@ -46,7 +42,6 @@ class BuildActionTest extends AbstractActionTest
             $this->actionService,
             $this->validator,
             $this->gameEquipmentService,
-            $this->playerService,
             $this->gearToolService
         );
     }
@@ -98,13 +93,12 @@ class BuildActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         $this->gameEquipmentService->shouldReceive('persist');
-        $this->playerService->shouldReceive('persist');
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gearToolService->shouldReceive('getEquipmentsOnReachByName')->andReturn(new ArrayCollection([$gameIngredient]))->once();
         $this->gameEquipmentService->shouldReceive('createGameEquipment')->andReturn($gameProduct)->once();
 
-        $this->eventDispatcher->shouldReceive('dispatch')->times(3);
+        $this->eventDispatcher->shouldReceive('dispatch')->times(2);
 
         $result = $this->action->execute();
 

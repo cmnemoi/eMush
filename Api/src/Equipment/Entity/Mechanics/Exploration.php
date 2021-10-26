@@ -12,5 +12,11 @@ use Mush\Equipment\Enum\EquipmentMechanicEnum;
  */
 class Exploration extends Gear
 {
-    protected string $mechanic = EquipmentMechanicEnum::EXPLORATION;
+    public function getMechanics(): array
+    {
+        $mechanics = parent::getMechanics();
+        $mechanics[] = EquipmentMechanicEnum::EXPLORATION;
+
+        return $mechanics;
+    }
 }

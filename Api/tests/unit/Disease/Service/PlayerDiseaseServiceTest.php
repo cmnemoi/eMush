@@ -305,7 +305,7 @@ class PlayerDiseaseServiceTest extends TestCase
         $this->entityManager->shouldReceive('flush')->once();
         $this->eventDispatcher->shouldReceive('dispatch')->once();
 
-        $this->playerDiseaseService->healDisease($player, $diseasePlayer, new \DateTime());
+        $this->playerDiseaseService->healDisease($player, $diseasePlayer, 'reason', new \DateTime());
     }
 
     public function testTreatDisease()
@@ -325,7 +325,7 @@ class PlayerDiseaseServiceTest extends TestCase
         $this->entityManager->shouldReceive('flush')->once();
         $this->eventDispatcher->shouldReceive('dispatch')->once();
 
-        $this->playerDiseaseService->healDisease($player, $diseasePlayer, new \DateTime());
+        $this->playerDiseaseService->healDisease($player, $diseasePlayer, 'reason', new \DateTime());
 
         $this->assertEquals(0, $diseasePlayer->getResistancePoint());
     }

@@ -53,7 +53,7 @@ class PlayerSubscriber implements EventSubscriberInterface
 
         $this->roomLogService->createLog(
             $logKey,
-            $player->getPlace(),
+            $event->getPlace(),
             $event->getVisibility(),
             'event_log',
             $player,

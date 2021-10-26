@@ -170,7 +170,6 @@ class RoomLogService implements RoomLogServiceInterface
             ->setDate($dateTime ?? new \DateTime('now'))
             ->setCycle($place->getDaedalus()->getCycle())
             ->setDay($place->getDaedalus()->getDay())
-
         ;
 
         return $this->persist($roomLog);

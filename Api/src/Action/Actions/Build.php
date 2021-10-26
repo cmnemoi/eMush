@@ -16,7 +16,6 @@ use Mush\Equipment\Entity\Mechanics\Blueprint;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -28,14 +27,12 @@ class Build extends AbstractAction
 {
     protected string $name = ActionEnum::BUILD;
 
-    private GameEquipmentServiceInterface $gameEquipmentService;
     private GearToolServiceInterface $gearToolService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        GameEquipmentServiceInterface $gameEquipmentService,
         GearToolServiceInterface $gearToolService
     ) {
         parent::__construct(
@@ -44,7 +41,6 @@ class Build extends AbstractAction
             $validator
         );
 
-        $this->gameEquipmentService = $gameEquipmentService;
         $this->gearToolService = $gearToolService;
     }
 
@@ -86,13 +82,6 @@ class Build extends AbstractAction
         /** @var Blueprint $blueprintMechanic */
         $blueprintMechanic = $parameter->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT);
 
-        $blueprintEquipment = $this->gameEquipmentService->createGameEquipment(
-            $blueprintMechanic->getEquipment(),
-            $this->player,
-            $this->getActionName(),
-            new \DateTime()
-        );
-
         $place = $this->player->getPlace();
 
         // remove the used ingredients starting from the player inventory
@@ -130,19 +119,16 @@ class Build extends AbstractAction
         $equipmentEvent->setExistingEquipment($parameter);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
-//        //create the equipment
-//        $equipmentEvent = new EquipmentEvent(
-//            $blueprintMechanic->getEquipment()->getName(),
-//            $this->player,
-//            VisibilityEnum::HIDDEN,
-//            $this->getActionName(),
-//            new \DateTime()
-//        );
-//        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
+        //create the equipment
+        $equipmentEvent = new EquipmentEvent(
+            $blueprintMechanic->getEquipment()->getName(),
+            $this->player,
+            VisibilityEnum::PRIVATE,
+            $this->getActionName(),
+            new \DateTime()
+        );
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
-        $result = new Success();
-        $result->setEquipment($blueprintEquipment);
-
-        return $result;
+        return new Success();
     }
 }

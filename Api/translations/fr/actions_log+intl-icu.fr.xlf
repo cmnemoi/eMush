@@ -1,16 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
     <file id="actions_log.ext">
-        <unit id="build_success">
-            <segment id="build_success">
-                <source>build_success</source>
-                <target>{equipment_gender, select,
-                        male {Vous avez assemblé un {equipment}.}
-                        female {Vous avez assemblé une {equipment}.}
-                        other {invalid gender input}
-                }</target>
-            </segment>
-        </unit>
         <unit id="coffee_success">
             <segment id="coffee_success">
                 <source>coffee_success</source>
@@ -495,15 +485,6 @@
                 }</target>
             </segment>
         </unit>
-        <unit id="transplant_success">
-            <segment id="transplant_success">
-                <source>transplant_success</source>
-                <target>{target_equipment_first_letter, select,
-                    vowel {**{character}** entreprend de reproduire un plant d'**{target_equipment}**. Félicitation ! Le jeune plant est en parfaite santé.}
-                    other {**{character}** entreprend de reproduire un plant de **{target_equipment}**. Félicitation ! Le jeune plant est en parfaite santé.}
-                }</target>
-            </segment>
-        </unit>
         <unit id="hybridize_success">
             <segment id="hybridize_success">
                 <source>hybridize_success</source>
@@ -644,16 +625,6 @@
                     other {invalid gender input}
                 }
                 </target>
-            </segment>
-        </unit>
-        <unit id="open_success">
-            <segment id="open_success">
-                <source>open_success</source>
-                <target>{equipment_gender, select,
-                    male {**{character}** a trouvé un **{equipment}** dans une Capsule Spatiale.}
-                    female {**{character}** a trouvé une **{equipment}** dans une Capsule Spatiale.}
-                    other {invalid gender input}
-                }</target>
             </segment>
         </unit>
         <unit id="strengthen_success">

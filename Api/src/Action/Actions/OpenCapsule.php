@@ -11,7 +11,6 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -31,14 +30,12 @@ class OpenCapsule extends AbstractAction
     protected string $name = ActionEnum::OPEN;
 
     private RandomServiceInterface $randomService;
-    private GameEquipmentServiceInterface $gameEquipmentService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         RandomServiceInterface $randomService,
-        GameEquipmentServiceInterface $gameEquipmentService,
     ) {
         parent::__construct(
             $eventDispatcher,
@@ -47,7 +44,6 @@ class OpenCapsule extends AbstractAction
         );
 
         $this->randomService = $randomService;
-        $this->gameEquipmentService = $gameEquipmentService;
     }
 
     protected function support(?LogParameterInterface $parameter): bool
@@ -79,20 +75,15 @@ class OpenCapsule extends AbstractAction
         //Get the content
         $contentName = $this->randomService->getSingleRandomElementFromProbaArray(self::$capsuleContent);
 
-        if ($this->player->getEquipments()->count() < $this->player->getCharacterConfig()->getGameConfig()->getMaxItemInInventory()) {
-            $newHolder = $this->player;
-        } else {
-            $newHolder = $this->player->getPlace();
-        }
-        $capsuleContent = $this->gameEquipmentService->createGameEquipmentFromName(
+        $equipmentEvent = new EquipmentEvent(
             $contentName,
-            $newHolder,
+            $this->player,
+            VisibilityEnum::PUBLIC,
             $this->getActionName(),
             new \DateTime()
         );
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
-        $success = new Success();
-
-        return $success->setEquipment($capsuleContent);
+        return new Success();
     }
 }

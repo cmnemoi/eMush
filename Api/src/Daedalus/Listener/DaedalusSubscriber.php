@@ -71,6 +71,5 @@ class DaedalusSubscriber implements EventSubscriberInterface
         $daedalus = $event->getDaedalus();
 
         $this->daedalusService->startDaedalus($daedalus);
-        $this->daedalusService->persist($daedalus);
     }
 }

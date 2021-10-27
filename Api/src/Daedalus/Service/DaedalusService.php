@@ -135,12 +135,14 @@ class DaedalusService implements DaedalusServiceInterface
     {
         $gameConfig = $daedalus->getGameConfig();
 
-        $daedalus
-            ->setCycle($this->cycleService->getInDayCycleFromDate(new \DateTime(), $gameConfig))
-            ->setCycleStartedAt($this->cycleService->getDaedalusStartingCycleDate($daedalus))
-        ;
+        $time = new \DateTime();
+        $daedalus->setCreatedAt($time);
+        $daedalus->setCycle($this->cycleService->getInDayCycleFromDate($time, $gameConfig));
+        $daedalus->setCycleStartedAt($this->cycleService->getDaedalusStartingCycleDate($daedalus));
 
         $daedalus->setGameStatus(GameStatusEnum::STARTING);
+
+        $this->persist($daedalus);
 
         return $daedalus;
     }

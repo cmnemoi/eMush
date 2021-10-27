@@ -25,7 +25,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         $reduceMax1ActionPoint = new ModifierConfig();
         $reduceMax1ActionPoint
             ->setScope(ModifierScopeEnum::MAX_POINT)
-            ->setTarget(PlayerVariableEnum::ACTION_POINT)
+            ->setTarget(PlayerVariableEnum::HEALTH_POINT)
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)

@@ -10,23 +10,13 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
-use Mush\Game\Event\AbstractGameEvent;
 use Mush\Place\Entity\Place;
-use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Event\StatusEvent;
 
 class TakeActionTest extends AbstractActionTest
 {
-    /** @var GameEquipmentServiceInterface|Mockery\Mock */
-    private GameEquipmentServiceInterface $gameEquipmentService;
-    /** @var PlayerServiceInterface|Mockery\Mock */
-    private PlayerServiceInterface $playerService;
-
     /**
      * @before
      */
@@ -36,15 +26,10 @@ class TakeActionTest extends AbstractActionTest
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::TRANSPLANT);
 
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
-        $this->playerService = Mockery::mock(PlayerServiceInterface::class);
-
         $this->action = new Take(
             $this->eventDispatcher,
             $this->actionService,
             $this->validator,
-            $this->gameEquipmentService,
-            $this->playerService,
         );
     }
 
@@ -76,19 +61,16 @@ class TakeActionTest extends AbstractActionTest
         $daedalus = new Daedalus();
         $daedalus->setGameConfig($gameConfig);
 
-        $this->gameEquipmentService->shouldReceive('persist');
-        $this->playerService->shouldReceive('persist');
-
         $player = $this->createPlayer($daedalus, $room);
+
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
-        $this->assertEmpty($room->getEquipments());
-        $this->assertCount(1, $player->getEquipments());
     }
 
     public function testTakeHeavyObject()
@@ -113,26 +95,15 @@ class TakeActionTest extends AbstractActionTest
         $daedalus = new Daedalus();
         $daedalus->setGameConfig($gameConfig);
 
-        $this->gameEquipmentService->shouldReceive('persist');
-        $this->playerService->shouldReceive('persist');
-
         $player = $this->createPlayer($daedalus, $room);
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
 
-        $this->eventDispatcher
-            ->shouldReceive('dispatch')
-            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof StatusEvent &&
-                $event->getStatusName() === PlayerStatusEnum::BURDENED &&
-                $event->getStatusHolder() === $player)
-            ->once()
-        ;
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
-        $this->assertEmpty($room->getEquipments());
-        $this->assertCount(1, $player->getEquipments());
     }
 }

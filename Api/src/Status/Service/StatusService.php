@@ -64,19 +64,24 @@ class StatusService implements StatusServiceInterface
         return true;
     }
 
-    public function removeAllStatus(StatusHolderInterface $holder, string $reason, \DateTime $time): void
+    public function removeAllStatuses(StatusHolderInterface $holder, string $reason, \DateTime $time): void
     {
         foreach ($holder->getStatuses() as $status) {
             if (($statusName = $status->getName()) !== PlayerStatusEnum::MUSH) {
-                $statusEvent = new StatusEvent(
-                    $statusName,
-                    $holder,
-                    $reason,
-                    $time
-                );
-                $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_REMOVED);
+                $this->removeStatus($statusName, $holder, $reason, $time);
             }
         }
+    }
+
+    public function removeStatus(string $statusName, StatusHolderInterface $holder, string $reason, \DateTime $time): void
+    {
+        $statusEvent = new StatusEvent(
+            $statusName,
+            $holder,
+            $reason,
+            $time
+        );
+        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_REMOVED);
     }
 
     public function getStatusConfigByNameAndDaedalus(string $name, Daedalus $daedalus): StatusConfig

@@ -32,6 +32,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
                 ['onEquipmentDestroyed', -1000], //the equipment is deleted after every other effect has been applied
                 ['onOverflowingInventory', -1001],
             ],
+            EquipmentEvent::CHANGE_HOLDER => ['onChangeHolder', -1000], //the equipment is deleted after every other effect has been applied
         ];
     }
 
@@ -62,7 +63,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         $newEquipment = $event->getNewEquipment();
 
         if ($newEquipment === null) {
-            throw new \LogicException('ExistingEquipment should be provided for this event');
+            throw new \LogicException('New Equipment should be provided for this event');
         }
 
         if ($holder instanceof Player &&
@@ -71,6 +72,20 @@ class EquipmentSubscriber implements EventSubscriberInterface
             $newEquipment->setHolder($holder->getPlace());
             $this->gameEquipmentService->persist($newEquipment);
         }
+    }
+
+    public function onChangeHolder(EquipmentEvent $event): void
+    {
+        $holder = $event->getHolder();
+        $existingEquipment = $event->getExistingEquipment();
+
+        if ($existingEquipment === null) {
+            throw new \LogicException('ExistingEquipment should be provided for this event');
+        }
+
+        $existingEquipment->setHolder($holder);
+
+        $this->gameEquipmentService->persist($existingEquipment);
     }
 
     private function getGameConfig(GameEquipment $gameEquipment): GameConfig

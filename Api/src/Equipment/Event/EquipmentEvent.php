@@ -14,6 +14,7 @@ class EquipmentEvent extends AbstractGameEvent implements LoggableEventInterface
     public const EQUIPMENT_CREATED = 'equipment.created';
     public const EQUIPMENT_DESTROYED = 'equipment.destroyed';
     public const EQUIPMENT_TRANSFORM = 'equipment.transform';
+    public const CHANGE_HOLDER = 'change.holder';
 
     private ?GameEquipment $newEquipment = null;
     private ?GameEquipment $existingEquipment = null;

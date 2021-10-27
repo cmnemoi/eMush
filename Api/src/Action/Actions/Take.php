@@ -6,40 +6,18 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
-use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\InventoryFull;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Event\EquipmentEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Event\StatusEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Take extends AbstractAction
 {
     protected string $name = ActionEnum::TAKE;
-
-    private GameEquipmentServiceInterface $gameEquipmentService;
-
-    public function __construct(
-        EventDispatcherInterface $eventDispatcher,
-        ActionServiceInterface $actionService,
-        ValidatorInterface $validator,
-        GameEquipmentServiceInterface $gameEquipmentService,
-    ) {
-        parent::__construct(
-            $eventDispatcher,
-            $actionService,
-            $validator
-        );
-
-        $this->gameEquipmentService = $gameEquipmentService;
-    }
 
     protected function support(?LogParameterInterface $parameter): bool
     {
@@ -57,33 +35,15 @@ class Take extends AbstractAction
         /** @var GameItem $parameter */
         $parameter = $this->parameter;
 
-        $parameter->setHolder($this->player);
-
-        $this->gameEquipmentService->persist($parameter);
-
-        // add BURDENED status if item is heavy
-        if ($parameter->hasStatus(EquipmentStatusEnum::HEAVY) &&
-            !$this->player->hasStatus(PlayerStatusEnum::BURDENED)
-        ) {
-            $statusEvent = new StatusEvent(
-                PlayerStatusEnum::BURDENED,
-                $this->player,
-                $this->getActionName(),
-                new \DateTime()
-            );
-            $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
-        }
-
-        if ($parameter->getStatusByName(EquipmentStatusEnum::HIDDEN)) {
-            $statusEvent = new StatusEvent(
-                EquipmentStatusEnum::HIDDEN,
-                $parameter,
-                $this->getActionName(),
-                new \DateTime()
-            );
-            $statusEvent->setStatusTarget($this->player);
-            $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_REMOVED);
-        }
+        $equipmentEvent = new EquipmentEvent(
+            $parameter->getName(),
+            $this->player,
+            VisibilityEnum::HIDDEN,
+            $this->getActionName(),
+            new \DateTime()
+        );
+        $equipmentEvent->setExistingEquipment($parameter);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::CHANGE_HOLDER);
 
         return new Success();
     }

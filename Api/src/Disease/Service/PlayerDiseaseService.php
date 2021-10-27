@@ -157,14 +157,14 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         }
     }
 
-    public function healDisease(Player $author, PlayerDisease $playerDisease, \DateTime $time): void
+    public function healDisease(Player $author, PlayerDisease $playerDisease, string $reason, \DateTime $time): void
     {
         if ($playerDisease->getResistancePoint() === 0) {
-            $this->removePlayerDisease($playerDisease, DiseaseStatusEnum::HEALED, $time, $author);
+            $this->removePlayerDisease($playerDisease, $reason, $time, $author);
         } else {
             $event = new DiseaseEvent(
                 $playerDisease,
-                DiseaseStatusEnum::HEALED,
+                $reason,
                 $time
             );
             $event->setAuthor($author);

@@ -170,12 +170,6 @@ class ActionLogEnum
                 self::VISIBILITY => VisibilityEnum::COVERT,
             ],
         ],
-        ActionEnum::BUILD => [
-            self::SUCCESS => [
-                self::VALUE => self::BUILD_SUCCESS,
-                self::VISIBILITY => VisibilityEnum::PRIVATE,
-            ],
-        ],
         ActionEnum::WATER_PLANT => [
             self::SUCCESS => [
                 self::VALUE => self::WATER_PLANT_SUCCESS,
@@ -185,12 +179,6 @@ class ActionLogEnum
         ActionEnum::TREAT_PLANT => [
             self::SUCCESS => [
                 self::VALUE => self::TREAT_PLANT_SUCCESS,
-                self::VISIBILITY => VisibilityEnum::PRIVATE,
-            ],
-        ],
-        ActionEnum::TRANSPLANT => [
-            self::SUCCESS => [
-                self::VALUE => self::TRANSPLANT_SUCCESS,
                 self::VISIBILITY => VisibilityEnum::PRIVATE,
             ],
         ],
@@ -334,12 +322,6 @@ class ActionLogEnum
             self::SUCCESS => [
                 self::VALUE => self::SELF_HEAL,
                 self::VISIBILITY => VisibilityEnum::PRIVATE,
-            ],
-        ],
-        ActionEnum::OPEN => [
-            self::SUCCESS => [
-                self::VALUE => self::OPEN_SUCCESS,
-                self::VISIBILITY => VisibilityEnum::PUBLIC,
             ],
         ],
         ActionEnum::SPREAD_FIRE => [

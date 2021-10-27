@@ -14,15 +14,11 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 
 class OpenCapsuleActionTest extends AbstractActionTest
 {
-    /** @var GameEquipmentServiceInterface|Mockery\Mock */
-    private GameEquipmentServiceInterface $gameEquipmentService;
-
     /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;
 
@@ -33,8 +29,6 @@ class OpenCapsuleActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
-
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::BUILD);
@@ -44,7 +38,6 @@ class OpenCapsuleActionTest extends AbstractActionTest
             $this->actionService,
             $this->validator,
             $this->randomService,
-            $this->gameEquipmentService,
         );
     }
 
@@ -92,18 +85,8 @@ class OpenCapsuleActionTest extends AbstractActionTest
             ->once()
         ;
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->gameEquipmentService
-            ->shouldReceive('createGameEquipmentFromName')
-            ->withArgs(
-                [ItemEnum::METAL_SCRAPS,
-                $player,
-                ActionEnum::OPEN,
-                \DateTime::class, ]
-            )
-            ->andReturn($gameMetalScrap)
-            ->once()
-        ;
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+
+        $this->eventDispatcher->shouldReceive('dispatch')->twice();
 
         $result = $this->action->execute();
 

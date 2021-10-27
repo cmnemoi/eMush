@@ -14,7 +14,6 @@ use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -27,14 +26,12 @@ class Transplant extends AbstractAction
     protected string $name = ActionEnum::TRANSPLANT;
 
     private GearToolServiceInterface $gearToolService;
-    private GameEquipmentServiceInterface $gameEquipmentService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         GearToolServiceInterface $gearToolService,
-        GameEquipmentServiceInterface $gameEquipmentService
     ) {
         parent::__construct(
             $eventDispatcher,
@@ -43,7 +40,6 @@ class Transplant extends AbstractAction
         );
 
         $this->gearToolService = $gearToolService;
-        $this->gameEquipmentService = $gameEquipmentService;
     }
 
     protected function support(?LogParameterInterface $parameter): bool
@@ -89,15 +85,15 @@ class Transplant extends AbstractAction
         $equipmentEvent->setExistingEquipment($parameter);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
-        $gamePlant = $this->gameEquipmentService->createGameEquipmentFromName(
+        $equipmentEvent = new EquipmentEvent(
             $fruitType->getPlantName(),
-            $newHolder,
+            $this->player,
+            VisibilityEnum::PUBLIC,
             $this->getActionName(),
             new \DateTime()
         );
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
-        $success = new Success();
-
-        return $success->setEquipment($gamePlant);
+        return new Success();
     }
 }

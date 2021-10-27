@@ -96,6 +96,15 @@ class StatusEvent extends AbstractGameEvent implements LoggableEventInterface
 
     public function getLogParameters(): array
     {
-        return [];
+        $parameters = [];
+        if ($this->holder instanceof Player || $this->holder instanceof GameEquipment) {
+            $parameters[$this->holder->getLogKey()] = $this->holder->getLogName();
+        }
+
+        if ($this->target instanceof Player || $this->target instanceof GameEquipment) {
+            $parameters['target_' . $this->target->getLogKey()] = $this->target->getLogName();
+        }
+
+        return $parameters;
     }
 }

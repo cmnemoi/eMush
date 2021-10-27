@@ -2,15 +2,16 @@
 
 namespace Mush\RoomLog\Listener;
 
+use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\PlantLogEnum;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -40,32 +41,32 @@ class EquipmentSubscriber implements EventSubscriberInterface
             throw new \LogicException('Replacement equipment should be provided');
         }
 
-        if ($event->getReason() === EventEnum::PLANT_PRODUCTION) {
-            $this->roomLogService->createLog(
-                PlantLogEnum::PLANT_NEW_FRUIT,
-                $event->getPlace(),
-                VisibilityEnum::PUBLIC,
-                'event_log',
-                null,
-                $event->getLogParameters(),
-                $event->getTime()
-            );
+        switch ($event->getReason()) {
+            case EventEnum::PLANT_PRODUCTION:
+                $logKey = PlantLogEnum::PLANT_NEW_FRUIT;
+                break;
+
+            case ActionEnum::BUILD:
+                $logKey = ActionLogEnum::BUILD_SUCCESS;
+                break;
+
+            case ActionEnum::TRANSPLANT:
+                $logKey = ActionLogEnum::TRANSPLANT_SUCCESS;
+                break;
+
+            case ActionEnum::OPEN:
+                $logKey = ActionLogEnum::OPEN_SUCCESS;
+                break;
+            default:
+                return;
         }
+
+        $this->createEventLog($logKey, $event);
     }
 
     public function onEquipmentDestroyed(EquipmentEvent $event): void
     {
-        if ($event->getVisibility() !== VisibilityEnum::HIDDEN) {
-            $this->roomLogService->createLog(
-                LogEnum::EQUIPMENT_DESTROYED,
-                $event->getPlace(),
-                $event->getVisibility(),
-                'event_log',
-                null,
-                $event->getLogParameters(),
-                $event->getTime()
-            );
-        }
+        $this->createEventLog(LogEnum::EQUIPMENT_DESTROYED, $event);
     }
 
     public function onInventoryOverflow(EquipmentEvent $event): void
@@ -81,20 +82,30 @@ class EquipmentSubscriber implements EventSubscriberInterface
             $holder instanceof Player &&
             $holder->getEquipments()->count() > $this->getGameConfig($newEquipment)->getMaxItemInInventory()
         ) {
-            $this->roomLogService->createLog(
-                LogEnum::OBJECT_FELT,
-                $event->getPlace(),
-                VisibilityEnum::PUBLIC,
-                'event_log',
-                $holder,
-                $event->getLogParameters(),
-                $event->getTime()
-            );
+            $this->createEventLog(LogEnum::OBJECT_FELT, $event);
         }
     }
 
     private function getGameConfig(GameEquipment $gameEquipment): GameConfig
     {
         return $gameEquipment->getEquipment()->getGameConfig();
+    }
+
+    private function createEventLog(string $logKey, EquipmentEvent $event): void
+    {
+        $player = $event->getHolder();
+        if (!$player instanceof Player) {
+            $player = null;
+        }
+
+        $this->roomLogService->createLog(
+            $logKey,
+            $event->getPlace(),
+            $event->getVisibility(),
+            'event_log',
+            $player,
+            $event->getLogParameters(),
+            $event->getTime()
+        );
     }
 }

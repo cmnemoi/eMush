@@ -153,12 +153,13 @@ class DaedalusServiceTest extends TestCase
             ->andReturn(2)
             ->once()
         ;
-
         $this->cycleService
             ->shouldReceive('getDaedalusStartingCycleDate')
             ->andReturn(new \DateTime('today midnight'))
             ->once()
         ;
+        $this->entityManager->shouldReceive('persist')->once();
+        $this->entityManager->shouldReceive('flush')->once();
 
         $daedalus = $this->service->startDaedalus($daedalus);
 

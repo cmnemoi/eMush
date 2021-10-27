@@ -142,6 +142,8 @@ class DaedalusService implements DaedalusServiceInterface
 
         $daedalus->setGameStatus(GameStatusEnum::STARTING);
 
+        $this->persist($daedalus);
+
         return $daedalus;
     }
 

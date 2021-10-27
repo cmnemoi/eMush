@@ -10,17 +10,10 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
-use Mush\Player\Service\PlayerServiceInterface;
 
 class DropActionTest extends AbstractActionTest
 {
-    /** @var GameEquipmentServiceInterface|Mockery\Mock */
-    private GameEquipmentServiceInterface $gameEquipmentService;
-    /** @var PlayerServiceInterface|Mockery\Mock */
-    private PlayerServiceInterface $playerService;
-
     /**
      * @before
      */
@@ -28,17 +21,12 @@ class DropActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
-        $this->playerService = Mockery::mock(PlayerServiceInterface::class);
-
         $this->actionEntity = $this->createActionEntity(ActionEnum::DROP);
 
         $this->action = new Drop(
             $this->eventDispatcher,
             $this->actionService,
             $this->validator,
-            $this->gameEquipmentService,
-            $this->playerService,
         );
     }
 
@@ -64,9 +52,6 @@ class DropActionTest extends AbstractActionTest
             ->setName('itemName')
         ;
 
-        $this->gameEquipmentService->shouldReceive('persist');
-        $this->playerService->shouldReceive('persist');
-
         $player = $this->createPlayer(new Daedalus(), $room);
 
         $gameItem
@@ -75,11 +60,10 @@ class DropActionTest extends AbstractActionTest
         ;
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
-        $this->assertEmpty($player->getEquipments());
-        $this->assertCount(1, $room->getEquipments());
     }
 }

@@ -98,6 +98,6 @@ class PlayerSubscriber implements EventSubscriberInterface
 
     public function onPlayerDeath(PlayerEvent $playerEvent): void
     {
-        $this->statusService->removeAllStatus($playerEvent->getPlayer(), $playerEvent->getReason(), $playerEvent->getTime());
+        $this->statusService->removeAllStatuses($playerEvent->getPlayer(), $playerEvent->getReason(), $playerEvent->getTime());
     }
 }

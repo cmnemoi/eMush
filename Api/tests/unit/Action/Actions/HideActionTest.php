@@ -10,6 +10,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Event\AbstractGameEvent;
@@ -84,11 +85,19 @@ class HideActionTest extends AbstractActionTest
             )
             ->once()
         ;
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
+            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof EquipmentEvent &&
+                $event->getEquipmentName() === 'itemName' &&
+                $event->getHolder() === $room &&
+                $event->getExistingEquipment() === $gameItem &&
+                $event->getReason() === ActionEnum::HIDE
+            )
+            ->once()
+        ;
 
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(1, $room->getEquipments());
-        $this->assertCount(0, $player->getEquipments());
     }
 }

@@ -232,7 +232,7 @@
                 <target>{versionPart1, select,
                     1 {**{target_equipment}** ou pas **{target_equipment}**… Telle est la question...}
                     2 {{target_equipment_gender, select,
-                        male {{target_first_letter, select,
+                        male {{target_equipment_first_letter, select,
                             vowel {Cet **{target_equipment}** n'est toujours pas réparé.}
                             other {Ce **{target_equipment}** n'est toujours pas réparé.}
                         }}

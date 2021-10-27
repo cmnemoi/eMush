@@ -249,6 +249,7 @@ class StatusService implements StatusServiceInterface
             }
 
             $attempt->addCharge(1);
+            $this->persist($attempt);
         }
     }
 

@@ -148,7 +148,7 @@
             <segment id="hit_success">
                 <source>hit_success</source>
                 <target>{character_gender, select,
-                     other {{target_gender, select,
+                     other {{target_character_gender, select,
                         other {@TODO hit log}
                      }}
                 }</target>
@@ -158,7 +158,7 @@
             <segment id="hit_fail">
                 <source>hit_fail</source>
                 <target>{character_gender, select,
-                     other {{target_gender, select,
+                     other {{target_character_gender, select,
                         other {@TODO hit fail log}
                      }}
                 }</target>

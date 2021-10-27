@@ -2,6 +2,8 @@ const COFFEE = "coffee";
 const PLASTIC_SCRAP = "plastic_scraps";
 const METAL_SCRAP = "metal_scraps";
 const ANTIGRAV_SCOOTER = "antigrav_scooter";
+const MEDIKIT = "medikit";
+const OSCILLOSCOPE = 'oscilloscope';
 
 const BACTA = 'bacta';
 const BETAPROPYL = 'betapropyl';
@@ -81,6 +83,12 @@ const BANDAGE = "bandage";
 
 
 export const itemEnum: {[index: string]: any} = {
+    [OSCILLOSCOPE]: {
+        'image': require('@/assets/images/items/wavoscope.jpg')
+    },
+    [MEDIKIT]: {
+        'image': require('@/assets/images/items/medikit.jpg')
+    },
     [BANDAGE]: {
         'image': require('@/assets/images/items/bandage.jpg')
     },

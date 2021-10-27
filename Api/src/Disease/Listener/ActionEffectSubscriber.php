@@ -55,7 +55,7 @@ class ActionEffectSubscriber implements EventSubscriberInterface
         $diseases = $player->getMedicalConditions()->getActiveDiseases()->getByDiseaseType(TypeEnum::DISEASE);
 
         foreach ($diseases as $disease) {
-            $this->playerDiseaseService->healDisease($event->getPlayer(), $disease, ActionTypeEnum::ACTION_HEAL, $event->getTime());
+            $this->playerDiseaseService->healDisease($event->getPlayer(), $disease, $event->getReason(), $event->getTime());
         }
     }
 }

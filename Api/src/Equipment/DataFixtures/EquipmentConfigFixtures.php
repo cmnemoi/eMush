@@ -417,8 +417,10 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $selfHealAction = $this->getReference(ActionsFixtures::HEAL_SELF);
 
         $medlabBedMechanic = new Tool();
-        $medlabBedMechanic->addAction($healAction);
-        $medlabBedMechanic->addAction($selfHealAction);
+        $medlabBedMechanic
+            ->addAction($healAction)
+            ->addAction($selfHealAction)
+        ;
 
         $medlabBed = new EquipmentConfig();
         $medlabBed

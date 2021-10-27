@@ -3,6 +3,7 @@
 namespace Mush\Game\Service;
 
 use Mush\Game\Enum\CharacterEnum;
+use Mush\RoomLog\Enum\LogEnum;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class TranslationService implements TranslationServiceInterface

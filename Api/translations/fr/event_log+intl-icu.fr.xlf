@@ -267,22 +267,22 @@
         </unit>
         <unit id="disease_curred_player">
             <segment>
-                <source>disease_curred_player</source>
-                <target>*{character}* a réussi a soigner *{target_character}* de sa maladie ({disease}).</target>
+                <source>disease_cured_player</source>
+                <target>**{character}** a réussi a soigner **{target_character}** de sa maladie ({disease}).</target>
             </segment>
         </unit>
         <unit id="disease_healed_player">
             <segment>
                 <source>disease_healed_player</source>
-                <target>*{character}* a progressé sur les soins de la maladie de *{target_character}* mais il faudra continuer le traitement.</target>
+                <target>**{character}** a progressé sur les soins de la maladie de *{target_character}* mais il faudra continuer le traitement.</target>
             </segment>
         </unit>
         <unit id="disease_curred_drug">
             <segment>
                 <source>disease_curred_drug</source>
                 <target>{character_gender, select,
-                    male {*{character}* est soulagé. Il a réussi à se guérir de sa maladie ({disease}).}
-                    female {*{character}* est soulagée. Elle a réussi à se guérir de sa maladie ({disease}).}
+                    male {**{character}** est soulagé. Il a réussi à se guérir de sa maladie ({disease}).}
+                    female {**{character}** est soulagée. Elle a réussi à se guérir de sa maladie ({disease}).}
                     other {invalid gender input}
                 }</target>
             </segment>
@@ -291,18 +291,18 @@
             <segment>
                 <source>disease_treated_drug</source>
                 <target>{character_gender, select,
-                    male {*{character}* se sent soulagé mais le traitement est insuffisant. Il faudra recommencer.}
-                    female {*{character}* se sent soulagée mais le traitement est insuffisant. Il faudra recommencer.}
+                    male {**{character}** se sent soulagé mais le traitement est insuffisant. Il faudra recommencer.}
+                    female {**{character}** se sent soulagée mais le traitement est insuffisant. Il faudra recommencer.}
                     other {invalid gender input}
                 }</target>
             </segment>
         </unit>
         <unit id="disorder_curred_player">
             <segment>
-                <source>disorder_curred_player</source>
+                <source>disorder_cured_player</source>
                 <target>{character_gender, select,
-                    male {*{character}* est satisfait. La séance de *{target_character}* s'est bien passée, mais il en faudra d'autres.}
-                    female {*{character}* est satisfaite. La séance de *{target_character}* s'est bien passée, mais il en faudra d'autres.}
+                    male {**{character}** est satisfait. La séance de *{target_character}* s'est bien passée, mais il en faudra d'autres.}
+                    female {**{character}** est satisfaite. La séance de *{target_character}* s'est bien passée, mais il en faudra d'autres.}
                     other {invalid gender input}
                 }</target>
             </segment>

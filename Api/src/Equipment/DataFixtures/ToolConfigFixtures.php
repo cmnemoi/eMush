@@ -288,7 +288,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setIsBreakable(true)
+            ->setIsBreakable(false)
             ->setMechanics(new ArrayCollection([$medikitMechanic]))
             ->setActions($actions)
         ;

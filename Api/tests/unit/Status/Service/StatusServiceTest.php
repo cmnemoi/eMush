@@ -212,6 +212,8 @@ class StatusServiceTest extends TestCase
         $player = new Player();
         $actionResult = new Fail();
 
+        $this->entityManager->shouldReceive('persist')->once();
+        $this->entityManager->shouldReceive('flush')->once();
         $this->service->handleAttempt($player, ActionEnum::DISASSEMBLE, $actionResult);
 
         $this->assertCount(1, $player->getStatuses());
@@ -230,6 +232,9 @@ class StatusServiceTest extends TestCase
             ->setCharge(3)
         ;
 
+        $this->entityManager->shouldReceive('persist')->once();
+        $this->entityManager->shouldReceive('flush')->once();
+
         $this->service->handleAttempt($player, ActionEnum::DISASSEMBLE, $actionResult);
 
         $this->assertCount(1, $player->getStatuses());
@@ -247,6 +252,9 @@ class StatusServiceTest extends TestCase
             ->setAction(ActionEnum::DISASSEMBLE)
             ->setCharge(3)
         ;
+
+        $this->entityManager->shouldReceive('persist')->once();
+        $this->entityManager->shouldReceive('flush')->once();
 
         $this->service->handleAttempt($player, ActionEnum::INSTALL_CAMERA, $actionResult);
 

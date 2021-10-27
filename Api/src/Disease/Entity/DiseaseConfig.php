@@ -2,6 +2,8 @@
 
 namespace Mush\Disease\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Disease\Enum\TypeEnum;
 use Mush\Game\Entity\GameConfig;
@@ -37,6 +39,11 @@ class DiseaseConfig implements LogParameterInterface
     private string $type = TypeEnum::DISEASE;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Mush\Modifier\Entity\ModifierConfig")
+     */
+    private Collection $modifierConfigs;
+
+    /**
      * @ORM\Column(type="integer", nullable=false)
      */
     private int $resistance = 0;
@@ -65,6 +72,11 @@ class DiseaseConfig implements LogParameterInterface
      * @ORM\Column (type="integer")
      */
     private int $diseasePointLength = 4;
+
+    public function __construct()
+    {
+        $this->modifierConfigs = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -103,6 +115,21 @@ class DiseaseConfig implements LogParameterInterface
     public function setType(string $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getModifierConfigs(): Collection
+    {
+        return $this->modifierConfigs;
+    }
+
+    /**
+     * @return static
+     */
+    public function setModifierConfigs(Collection $modifierConfigs): self
+    {
+        $this->modifierConfigs = $modifierConfigs;
 
         return $this;
     }

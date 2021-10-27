@@ -11,6 +11,7 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerModifierEvent;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Enum\StatusEnum;
@@ -66,19 +67,19 @@ class ActionServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('getActionModifiedValue')
-            ->with($action, $player, ModifierTargetEnum::ACTION_POINT, null)
+            ->with($action, $player, PlayerVariableEnum::ACTION_POINT, null)
             ->andReturn(1)
             ->once()
         ;
         $this->modifierService
             ->shouldReceive('getActionModifiedValue')
-            ->with($action, $player, ModifierTargetEnum::MOVEMENT_POINT, null)
+            ->with($action, $player, PlayerVariableEnum::MOVEMENT_POINT, null)
             ->andReturn(0)
             ->once()
         ;
         $this->modifierService
             ->shouldReceive('getActionModifiedValue')
-            ->with($action, $player, ModifierTargetEnum::MORAL_POINT, null)
+            ->with($action, $player, PlayerVariableEnum::MORAL_POINT, null)
             ->andReturn(0)
             ->once()
         ;
@@ -101,19 +102,19 @@ class ActionServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('getActionModifiedValue')
-            ->with($action, $player, ModifierTargetEnum::ACTION_POINT, null)
+            ->with($action, $player, PlayerVariableEnum::ACTION_POINT, null)
             ->andReturn(0)
             ->once()
         ;
         $this->modifierService
             ->shouldReceive('getActionModifiedValue')
-            ->with($action, $player, ModifierTargetEnum::MOVEMENT_POINT, null)
+            ->with($action, $player, PlayerVariableEnum::MOVEMENT_POINT, null)
             ->andReturn(1)
             ->once()
         ;
         $this->modifierService
             ->shouldReceive('getActionModifiedValue')
-            ->with($action, $player, ModifierTargetEnum::MORAL_POINT, null)
+            ->with($action, $player, PlayerVariableEnum::MORAL_POINT, null)
             ->andReturn(0)
             ->once()
         ;
@@ -132,19 +133,19 @@ class ActionServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('getActionModifiedValue')
-            ->with($action, $player, ModifierTargetEnum::ACTION_POINT, null)
+            ->with($action, $player, PlayerVariableEnum::ACTION_POINT, null)
             ->andReturn(0)
             ->once()
         ;
         $this->modifierService
             ->shouldReceive('getActionModifiedValue')
-            ->with($action, $player, ModifierTargetEnum::MOVEMENT_POINT, null)
+            ->with($action, $player, PlayerVariableEnum::MOVEMENT_POINT, null)
             ->andReturn(0)
             ->once()
         ;
         $this->modifierService
             ->shouldReceive('getActionModifiedValue')
-            ->with($action, $player, ModifierTargetEnum::MORAL_POINT, null)
+            ->with($action, $player, PlayerVariableEnum::MORAL_POINT, null)
             ->andReturn(1)
             ->once()
         ;
@@ -163,19 +164,19 @@ class ActionServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('getActionModifiedValue')
-            ->with($action, $player, ModifierTargetEnum::ACTION_POINT, null)
+            ->with($action, $player, PlayerVariableEnum::ACTION_POINT, null)
             ->andReturn(1)
             ->once()
         ;
         $this->modifierService
             ->shouldReceive('getActionModifiedValue')
-            ->with($action, $player, ModifierTargetEnum::MOVEMENT_POINT, null)
+            ->with($action, $player, PlayerVariableEnum::MOVEMENT_POINT, null)
             ->andReturn(0)
             ->once()
         ;
         $this->modifierService
             ->shouldReceive('getActionModifiedValue')
-            ->with($action, $player, ModifierTargetEnum::MORAL_POINT, null)
+            ->with($action, $player, PlayerVariableEnum::MORAL_POINT, null)
             ->andReturn(1)
             ->once()
         ;
@@ -199,19 +200,19 @@ class ActionServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('getActionModifiedValue')
-            ->with($action, $player, ModifierTargetEnum::ACTION_POINT, null)
+            ->with($action, $player, PlayerVariableEnum::ACTION_POINT, null)
             ->andReturn(3)
             ->once()
         ;
         $this->modifierService
             ->shouldReceive('getActionModifiedValue')
-            ->with($action, $player, ModifierTargetEnum::MOVEMENT_POINT, null)
+            ->with($action, $player, PlayerVariableEnum::MOVEMENT_POINT, null)
             ->andReturn(0)
             ->once()
         ;
         $this->modifierService
             ->shouldReceive('getActionModifiedValue')
-            ->with($action, $player, ModifierTargetEnum::MORAL_POINT, null)
+            ->with($action, $player, PlayerVariableEnum::MORAL_POINT, null)
             ->andReturn(0)
             ->once()
         ;

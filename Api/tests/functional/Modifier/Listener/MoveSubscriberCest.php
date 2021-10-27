@@ -19,7 +19,6 @@ use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;
-use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;

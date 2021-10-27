@@ -12,11 +12,11 @@ use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;
-use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Modifier\Service\GearModifierService;
 use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use PHPUnit\Framework\TestCase;
@@ -59,7 +59,7 @@ class GearModifierServiceTest extends TestCase
         $modifierConfig1
             ->setReach(ModifierReachEnum::DAEDALUS)
             ->setScope('action')
-            ->setTarget(ModifierTargetEnum::MOVEMENT_POINT)
+            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
@@ -110,7 +110,7 @@ class GearModifierServiceTest extends TestCase
         $modifierConfig2
             ->setReach(ModifierReachEnum::DAEDALUS)
             ->setScope('action')
-            ->setTarget(ModifierTargetEnum::ACTION_POINT)
+            ->setTarget(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(1)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
@@ -149,7 +149,7 @@ class GearModifierServiceTest extends TestCase
         $modifierConfig1
             ->setReach(ModifierReachEnum::DAEDALUS)
             ->setScope('action')
-            ->setTarget(ModifierTargetEnum::MOVEMENT_POINT)
+            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
@@ -198,7 +198,7 @@ class GearModifierServiceTest extends TestCase
         $modifierConfig1
             ->setReach(ModifierReachEnum::DAEDALUS)
             ->setScope('action')
-            ->setTarget(ModifierTargetEnum::MOVEMENT_POINT)
+            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
@@ -221,7 +221,7 @@ class GearModifierServiceTest extends TestCase
         $modifierConfig1
             ->setReach(ModifierReachEnum::TARGET_PLAYER)
             ->setScope('action')
-            ->setTarget(ModifierTargetEnum::MOVEMENT_POINT)
+            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
@@ -276,7 +276,7 @@ class GearModifierServiceTest extends TestCase
         $modifierConfig1
             ->setReach(ModifierReachEnum::DAEDALUS)
             ->setScope('action')
-            ->setTarget(ModifierTargetEnum::MOVEMENT_POINT)
+            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
@@ -299,7 +299,7 @@ class GearModifierServiceTest extends TestCase
         $modifierConfig1
             ->setReach(ModifierReachEnum::TARGET_PLAYER)
             ->setScope('action')
-            ->setTarget(ModifierTargetEnum::MOVEMENT_POINT)
+            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;

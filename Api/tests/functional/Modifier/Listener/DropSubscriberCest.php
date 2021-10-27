@@ -18,10 +18,10 @@ use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;
-use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -66,7 +66,7 @@ class DropSubscriberCest
         $modifierConfig = new ModifierConfig();
         $modifierConfig
             ->setScope(ActionEnum::SHOWER)
-            ->setTarget(ModifierTargetEnum::ACTION_POINT)
+            ->setTarget(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
@@ -139,7 +139,7 @@ class DropSubscriberCest
         $modifierConfig = new ModifierConfig();
         $modifierConfig
             ->setScope(ActionEnum::SHOWER)
-            ->setTarget(ModifierTargetEnum::ACTION_POINT)
+            ->setTarget(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
@@ -213,7 +213,7 @@ class DropSubscriberCest
         $modifierConfig = new ModifierConfig();
         $modifierConfig
             ->setScope(ActionEnum::SHOWER)
-            ->setTarget(ModifierTargetEnum::ACTION_POINT)
+            ->setTarget(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::PLACE)
             ->setMode(ModifierModeEnum::ADDITIVE)
@@ -291,7 +291,7 @@ class DropSubscriberCest
         $modifierConfig = new ModifierConfig();
         $modifierConfig
             ->setScope(ActionEnum::SHOWER)
-            ->setTarget(ModifierTargetEnum::ACTION_POINT)
+            ->setTarget(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
@@ -302,7 +302,7 @@ class DropSubscriberCest
         $modifierConfig2 = new ModifierConfig();
         $modifierConfig2
             ->setScope(ActionEnum::SHOWER)
-            ->setTarget(ModifierTargetEnum::ACTION_POINT)
+            ->setTarget(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
@@ -399,7 +399,7 @@ class DropSubscriberCest
         $modifierConfig = new ModifierConfig();
         $modifierConfig
             ->setScope(ActionEnum::SHOWER)
-            ->setTarget(ModifierTargetEnum::ACTION_POINT)
+            ->setTarget(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)

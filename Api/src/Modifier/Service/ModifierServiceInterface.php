@@ -24,7 +24,7 @@ interface ModifierServiceInterface
         ?Place $place,
         ?Player $player,
         ?GameEquipment $gameEquipment,
-        ?ChargeStatus $chargeStatus
+        ?ChargeStatus $chargeStatus = null
     ): void;
 
     public function deleteModifier(
